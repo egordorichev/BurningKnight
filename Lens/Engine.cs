@@ -1,4 +1,6 @@
-﻿using Lens.State;
+﻿using System;
+using Lens.State;
+using Lens.Util;
 using Microsoft.Xna.Framework;
 
 namespace Lens {
@@ -32,6 +34,7 @@ namespace Lens {
 		}
 
 		protected override void UnloadContent() {
+			
 		}
 
 		protected override void Update(GameTime gameTime) {
@@ -42,8 +45,11 @@ namespace Lens {
 				state = newState;
 				state?.Init();
 			}
+
+			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
 			
-			state?.Update((float) gameTime.ElapsedGameTime.TotalSeconds);
+			Tween.Update(dt);
+			state?.Update(dt);
 		}
 
 		protected override void Draw(GameTime gameTime) {

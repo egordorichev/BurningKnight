@@ -1,47 +1,67 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lens.Util {
 	public class TweenTask {
-		private Action onStart;
-		private Action onEnd;
-		private Action onUpdate;
-		private Func<float, float> ease = Ease.QuadOut;
+		public Action OnStart;
+		public Action OnEnd;
+		public Action OnUpdate;
+		public Func<float, float> EaseFn;
 
-		private float timer;
-		private float speed;
-		private float target;
-		private float delay;
-		private bool started;
-		private bool ended;
+		public float Timer;
+		public float Duration;
+		public List<float> Start = new List<float>();
+		public List<float> Range = new List<float>();
+		public List<TweenValue> Vars = new List<TweenValue>();
+		public float Delay;
+		public bool Started;
+		public bool Ended;
 		
 		public void Update(float dt) {
-			if (delay >= 0) {
-				delay -= dt;
+			if (Delay >= 0) {
+				Delay -= dt;
 
-				if (delay <= 0) {
-					timer = -delay;
-					started = true;
-					onStart?.Invoke();
+				if (Delay <= 0) {
+					Timer = -Delay;
+				} else {
+					return;
 				}
 			}
 			
-			if (!started) {
-				started = true;
-				onStart?.Invoke();
+			if (!Started) {
+				Started = true;
+				OnStart?.Invoke();
 			}
 			
-			timer += speed * dt;
+			Timer += dt;
+			float t = Timer / Duration;
+			bool callEnd = false;
+			
+			if (Timer >= Duration) {
+				Timer = Duration;
+				t = 1f;
+				callEnd = true;
+			}
 
-			if (timer >= 1f) {
-				timer = 1f;
-				ended = true;
-				// TODO: set value
-
-				onEnd?.Invoke();
-				return;
+			if (EaseFn != null) {
+				t = EaseFn(t);
 			}
 			
-			// TODO: set value
+			Interpolate(t);
+			OnUpdate?.Invoke();
+
+			if (callEnd && !Ended) {
+				Ended = true;
+				OnEnd?.Invoke();
+			}
+		}
+		
+		protected void Interpolate(float t) {
+			int i = Vars.Count;
+			
+			while (i-- > 0) {
+				Vars[i].Value = Start[i] + Range[i] * t;
+			}
 		}
 	}
 }

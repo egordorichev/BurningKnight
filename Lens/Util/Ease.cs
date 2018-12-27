@@ -11,6 +11,10 @@ namespace Lens.Util {
 		private const float B5 = 2.25f / 2.75f;
 		private const float B6 = 2.625f / 2.75f;
 		
+		public static float Linear(float t) {
+			return t;
+		}
+		
 		public static float ElasticIn(float t) {
 			return (float) (Math.Sin(13 * Pi2 * t) * Math.Pow(2, 10 * (t - 1)));
 		}

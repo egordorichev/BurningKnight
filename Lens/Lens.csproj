@@ -100,6 +100,7 @@
     <Compile Include="Util\Ease.cs" />
     <Compile Include="Util\Tween.cs" />
     <Compile Include="Util\TweenTask.cs" />
+    <Compile Include="Util\TweenValue.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
