@@ -17,6 +17,18 @@ namespace Lens.Entity {
 			entities = new EntityList(this);
 		}
 
+		public void Destroy() {
+			foreach (var entity in entities.Entities) {
+				entity.Destroy();
+			}
+			
+			foreach (var list in Tags.Lists) {
+				list.Clear();
+			}
+			
+			entities.Entities.Clear();
+		}
+
 		public void Add(Entity entity) {
 			entities.Add(entity);
 			Tags.Add(entity);

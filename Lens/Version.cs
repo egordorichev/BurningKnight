@@ -13,5 +13,9 @@
 			Patch = patch;
 			Debug = debug;
 		}
+
+		public override string ToString() {
+			return Major + "." + Minor + "." + Update + "." + Patch + (Debug ? " debug" : "");
+		}
 	}
 }

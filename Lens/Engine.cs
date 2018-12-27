@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lens.State;
+using Microsoft.Xna.Framework;
 
 namespace Lens {
 	public class Engine : Game {
@@ -10,22 +11,20 @@ namespace Lens {
 			get { return Window.Title; }
 			set { Window.Title = value; }
 		}
-		
 
+		private GameState state;
+		private GameState newState;
+		
 		public Engine(string title, int width, int height, bool fullscreen) {
 			Instance = this;
 			
-			Window.Title = title;
+			Window.Title = "Lens " + Version + ": " + title;
 
 			Graphics = new GraphicsDeviceManager(this) {
 				PreferredBackBufferWidth = width,
 				PreferredBackBufferHeight = height,
 				IsFullScreen = fullscreen
 			};
-		}
-
-		protected override void Initialize() {
-			base.Initialize();
 		}
 
 		protected override void LoadContent() {
@@ -37,11 +36,23 @@ namespace Lens {
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
+
+			if (newState != null) {
+				state?.Destroy();
+				state = newState;
+				state?.Init();
+			}
+			
+			state?.Update((float) gameTime.ElapsedGameTime.TotalSeconds);
 		}
 
 		protected override void Draw(GameTime gameTime) {
-			GraphicsDevice.Clear(Color.Black);
+			state?.Render();
 			base.Draw(gameTime);
+		}
+
+		public void setState(GameState state) {
+			newState = state;
 		}
 	}
 }
