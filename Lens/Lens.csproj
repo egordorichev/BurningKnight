@@ -60,6 +60,9 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="State\GameState.cs" />
+    <Compile Include="Util\Ease.cs" />
+    <Compile Include="Util\Tween.cs" />
+    <Compile Include="Util\TweenTask.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
