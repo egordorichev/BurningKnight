@@ -1,0 +1,13 @@
+/home/egor/Lens/Lens/bin/Debug/MonoGame.Framework.dll.config
+/home/egor/Lens/Lens/bin/Debug/Lens.exe
+/home/egor/Lens/Lens/bin/Debug/Lens.pdb
+/home/egor/Lens/Lens/bin/Debug/MonoGame.Framework.dll
+/home/egor/Lens/Lens/bin/Debug/Newtonsoft.Json.dll
+/home/egor/Lens/Lens/bin/Debug/TiledSharp.dll
+/home/egor/Lens/Lens/bin/Debug/MonoGame.Framework.xml
+/home/egor/Lens/Lens/bin/Debug/Newtonsoft.Json.xml
+/home/egor/Lens/Lens/obj/Debug/Lens.csprojAssemblyReference.cache
+/home/egor/Lens/Lens/obj/Debug/Lens.csproj.CoreCompileInputs.cache
+/home/egor/Lens/Lens/obj/Debug/Lens.csproj.CopyComplete
+/home/egor/Lens/Lens/obj/Debug/Lens.exe
+/home/egor/Lens/Lens/obj/Debug/Lens.pdb
