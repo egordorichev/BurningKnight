@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lens.Entity {
+namespace Lens.Entities {
 	public class TagLists {
 		public List<Entity>[] Lists;
 		public List<Entity> this[int index] => Lists[index];

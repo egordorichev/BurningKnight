@@ -1,4 +1,4 @@
-﻿namespace Lens.Entity.Components {
+﻿namespace Lens.Entities.Components {
 	public class Component {
 		public Entity Entity;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lens.Entity {
+namespace Lens.Entities {
 	public class EntityList {
 		public List<Entity> Entities = new List<Entity>();
 		public List<Entity> ToAdd = new List<Entity>();

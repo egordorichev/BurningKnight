@@ -3,7 +3,7 @@ using Lens.Asset;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Lens.Entity.Components.Graphics {
+namespace Lens.Entities.Components.Graphics {
 	public class ImageComponent : GraphicsComponent {
 		private Texture2D texture;
 		
@@ -14,9 +14,7 @@ namespace Lens.Entity.Components.Graphics {
 		}
 		
 		public override void Render() {
-			Renderer.Batch.Begin();
 			Renderer.Batch.Draw(texture, Entity.Position, Color.White);
-			Renderer.Batch.End();
 		}
 
 		public override void Destroy() {

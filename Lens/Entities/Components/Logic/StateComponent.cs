@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lens.Entity.Components.Logic {
+namespace Lens.Entities.Components.Logic {
 	public class StateComponent<T> : Component where T: Entity {
 		private EntityState<T> state;
 		private Type newState;

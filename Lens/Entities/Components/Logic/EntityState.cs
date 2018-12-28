@@ -1,4 +1,4 @@
-﻿namespace Lens.Entity.Components.Logic {
+﻿namespace Lens.Entities.Components.Logic {
 	public class EntityState<T> where T: Entity {
 		public T Self;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lens.Entity {
+namespace Lens.Entities {
 	public class BitTag {
 		public BitTag[] Tags = new BitTag[32];
 		public static byte Total;

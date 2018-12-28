@@ -1,4 +1,4 @@
-﻿using Lens.Entity;
+﻿using Lens.Entities;
 using Microsoft.Xna.Framework;
 
 namespace Lens.State {

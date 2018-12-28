@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lens.Entity {
+namespace Lens.Entities {
 	public class Area {
 		public TagLists Tags;
 

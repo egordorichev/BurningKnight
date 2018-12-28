@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lens.Entity.Components;
-using Lens.Entity.Components.Graphics;
+using Lens.Entities.Components;
+using Lens.Entities.Components.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Lens.Entity {
+namespace Lens.Entities {
 	public class Entity {
 		public Area Area;
 		
@@ -24,6 +24,7 @@ namespace Lens.Entity {
 
 		public float X => Position.X;
 		public float Y => Position.Y;
+		public Vector2 Center => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
 		public float CenterX => Position.X + Width / 2;
 		public float CenterY => Position.Y + Height / 2;
 		public float Right => Position.X + Width;

@@ -37,29 +37,6 @@
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct2D1.4.0.1\lib\net45\SharpDX.Direct2D1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct3D11.4.0.1\lib\net45\SharpDX.Direct3D11.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D9, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.Direct3D9.4.0.1\lib\net45\SharpDX.Direct3D9.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.DXGI.4.0.1\lib\net45\SharpDX.DXGI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpDX.Mathematics, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
       <HintPath>..\packages\SharpDX.Mathematics.4.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
       <Private>True</Private>
@@ -72,32 +49,25 @@
       <HintPath>..\packages\SharpDX.XAudio2.4.0.1\lib\net45\SharpDX.XAudio2.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpDX.XInput, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
-      <HintPath>..\packages\SharpDX.XInput.4.0.1\lib\net45\SharpDX.XInput.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TiledSharp, Version=0.15.5889.20321, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\TiledSharp.0.15\lib\TiledSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asset\Assets.cs" />
     <Compile Include="Asset\Renderer.cs" />
     <Compile Include="Display.cs" />
-    <Compile Include="Entity\Area.cs" />
-    <Compile Include="Entity\BitTag.cs" />
-    <Compile Include="Entity\Components\Component.cs" />
-    <Compile Include="Entity\Components\Graphics\GraphicsComponent.cs" />
-    <Compile Include="Entity\Components\Graphics\ImageComponent.cs" />
-    <Compile Include="Entity\Components\Logic\EntityState.cs" />
-    <Compile Include="Entity\Components\Logic\StateComponent.cs" />
-    <Compile Include="Entity\Entity.cs" />
-    <Compile Include="Entity\EntityList.cs" />
-    <Compile Include="Entity\TagLists.cs" />
+    <Compile Include="Entities\Area.cs" />
+    <Compile Include="Entities\BitTag.cs" />
+    <Compile Include="Entities\Components\Component.cs" />
+    <Compile Include="Entities\Components\Graphics\GraphicsComponent.cs" />
+    <Compile Include="Entities\Components\Graphics\ImageComponent.cs" />
+    <Compile Include="Entities\Components\Logic\EntityState.cs" />
+    <Compile Include="Entities\Components\Logic\StateComponent.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityList.cs" />
+    <Compile Include="Entities\TagLists.cs" />
     <Compile Include="Inputs\GamepadData.cs" />
     <Compile Include="Inputs\Input.cs" />
     <Compile Include="Inputs\InputButton.cs" />
@@ -106,6 +76,9 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="State\GameState.cs" />
+    <Compile Include="Util\Camera\Camera.cs" />
+    <Compile Include="Util\Camera\CameraDriver.cs" />
+    <Compile Include="Util\Camera\FollowingDriver.cs" />
     <Compile Include="Util\File\FileHandle.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\Math\Calc.cs" />
@@ -116,6 +89,7 @@
     <Compile Include="Util\Tween\Tween.cs" />
     <Compile Include="Util\Tween\TweenTask.cs" />
     <Compile Include="Util\Tween\TweenValue.cs" />
+    <Compile Include="Util\VectorExtension.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
