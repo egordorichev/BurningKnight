@@ -15,19 +15,31 @@ namespace Lens {
 			set { Window.Title = value; }
 		}
 
+		// Window.Title works only in Init, sadly
+		private string tmpTitle;
+
 		private GameState state;
 		private GameState newState;
 		
 		public Engine(string title, int width, int height, bool fullscreen) {
 			Instance = this;
+			tmpTitle = $"Lens {Version}: {title}";
 			
-			Window.Title = "Lens " + Version + ": " + title;
-
 			Graphics = new GraphicsDeviceManager(this) {
 				PreferredBackBufferWidth = width,
 				PreferredBackBufferHeight = height,
 				IsFullScreen = fullscreen
-			};
+			};			
+		}
+
+		protected override void Initialize() {
+			base.Initialize();
+
+			Window.Title = tmpTitle;
+			
+			Log.Open();
+			Log.Info(tmpTitle);
+			Log.Info(DateTime.Now.ToString("MM/dd/yyyy h:mm tt"));
 		}
 
 		protected override void LoadContent() {
@@ -35,7 +47,7 @@ namespace Lens {
 		}
 
 		protected override void UnloadContent() {
-			
+			Log.Close();
 		}
 
 		protected override void Update(GameTime gameTime) {
