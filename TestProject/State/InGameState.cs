@@ -13,7 +13,7 @@ namespace TestProject.State {
 			area.Add(new Player());
 			
 			Input.Bind("exit", Keys.Escape, Keys.Space);
-			Input.Bind("exit", Buttons.A);
+			Input.Bind("exit", Buttons.LeftThumbstickDown);
 		}
 
 		public override void Render() {
@@ -24,7 +24,7 @@ namespace TestProject.State {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Input.WasReleased("exit")) {
+			if (Input.WasPressed("exit")) {
 				Engine.Instance.Quit();
 			}
 		}

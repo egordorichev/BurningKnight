@@ -81,7 +81,7 @@ namespace Lens.Inputs {
 					}
 				}
 			}
-
+			
 			if (button.Buttons != null) {
 				foreach (var b in button.Buttons) {
 					if (Gamepads[(int) GamepadIndex].Check(b, type)) {
