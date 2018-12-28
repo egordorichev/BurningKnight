@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Lens.Util {
+namespace Lens.Util.Tween {
 	public static class Tween {
 		private static List<TweenTask> tasks = new List<TweenTask>();
 		

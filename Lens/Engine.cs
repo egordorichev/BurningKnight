@@ -1,6 +1,7 @@
 ﻿using System;
 using Lens.State;
 using Lens.Util;
+using Lens.Util.Tween;
 using Microsoft.Xna.Framework;
 
 namespace Lens {

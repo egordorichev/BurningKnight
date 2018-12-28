@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Lens.Util {
+namespace Lens.Util.Tween {
 	public class TweenTask {
 		public Action OnStart;
 		public Action OnEnd;

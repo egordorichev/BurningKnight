@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lens.Util {
+﻿namespace Lens.Util.Tween {
 	public static class Ease {
 		private const float Pi = 3.14159f;
 		private const float Pi2 = Pi / 2;
@@ -10,25 +8,25 @@ namespace Lens.Util {
 		private const float B4 = 2.5f / 2.75f;
 		private const float B5 = 2.25f / 2.75f;
 		private const float B6 = 2.625f / 2.75f;
-		
+
 		public static float Linear(float t) {
 			return t;
 		}
-		
+
 		public static float ElasticIn(float t) {
-			return (float) (Math.Sin(13 * Pi2 * t) * Math.Pow(2, 10 * (t - 1)));
+			return (float) (System.Math.Sin(13 * Pi2 * t) * System.Math.Pow(2, 10 * (t - 1)));
 		}
 
 		public static float ElasticOut(float t) {
-			return (float) (Math.Sin(-13 * Pi2 * (t + 1)) * Math.Pow(2, -10 * t) + 1);
+			return (float) (System.Math.Sin(-13 * Pi2 * (t + 1)) * System.Math.Pow(2, -10 * t) + 1);
 		}
 
 		public static float ElasticInOut(float t) {
 			if (t < 0.5) {
-				return (float) (0.5 * Math.Sin(13 * Pi2 * (2 * t)) * Math.Pow(2, 10 * ((2 * t) - 1)));
+				return (float) (0.5 * System.Math.Sin(13 * Pi2 * (2 * t)) * System.Math.Pow(2, 10 * ((2 * t) - 1)));
 			}
 
-			return (float) (0.5 * (Math.Sin(-13 * Pi2 * ((2 * t - 1) + 1)) * Math.Pow(2, -10 * (2 * t - 1)) + 2));
+			return (float) (0.5 * (System.Math.Sin(-13 * Pi2 * ((2 * t - 1) + 1)) * System.Math.Pow(2, -10 * (2 * t - 1)) + 2));
 		}
 
 		public static float QuadIn(float t) {
@@ -80,15 +78,15 @@ namespace Lens.Util {
 		}
 
 		public static float SineIn(float t) {
-			return (float) (-Math.Cos(Pi2 * t) + 1);
+			return (float) (-System.Math.Cos(Pi2 * t) + 1);
 		}
 
 		public static float SineOut(float t) {
-			return (float) (Math.Sin(Pi2 * t));
+			return (float) (System.Math.Sin(Pi2 * t));
 		}
 
 		public static float SineInOut(float t) {
-			return (float) (-Math.Cos(Pi * t) / 2 + .5);
+			return (float) (-System.Math.Cos(Pi * t) / 2 + .5);
 		}
 
 		public static float BounceIn(float t) {
@@ -123,29 +121,29 @@ namespace Lens.Util {
 		}
 
 		public static float CircIn(float t) {
-			return (float) (-(Math.Sqrt(1 - t * t) - 1));
+			return (float) (-(System.Math.Sqrt(1 - t * t) - 1));
 		}
 
 		public static float CircOut(float t) {
-			return (float) (Math.Sqrt(1 - (t - 1) * (t - 1)));
+			return (float) (System.Math.Sqrt(1 - (t - 1) * (t - 1)));
 		}
 
 		public static float CircInOut(float t) {
 			return (float) (t <= .5
-				? (Math.Sqrt(1 - t * t * 4) - 1) / -2
-				: (Math.Sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2);
+				? (System.Math.Sqrt(1 - t * t * 4) - 1) / -2
+				: (System.Math.Sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2);
 		}
 
 		public static float ExpoIn(float t) {
-			return (float) (Math.Pow(2, 10 * (t - 1)));
+			return (float) (System.Math.Pow(2, 10 * (t - 1)));
 		}
 
 		public static float ExpoOut(float t) {
-			return (float) (-Math.Pow(2, -10 * t) + 1);
+			return (float) (-System.Math.Pow(2, -10 * t) + 1);
 		}
 
 		public static float ExpoInOut(float t) {
-			return (float) (t < .5 ? Math.Pow(2, 10 * (t * 2 - 1)) / 2 : (-Math.Pow(2, -10 * (t * 2 - 1)) + 2) / 2);
+			return (float) (t < .5 ? System.Math.Pow(2, 10 * (t * 2 - 1)) / 2 : (-System.Math.Pow(2, -10 * (t * 2 - 1)) + 2) / 2);
 		}
 
 		public static float BackIn(float t) {
@@ -158,7 +156,11 @@ namespace Lens.Util {
 
 		public static float BackInOut(float t) {
 			t *= 2;
-			if (t < 1) return (float) (t * t * (2.70158 * t - 1.70158) / 2);
+			
+			if (t < 1) {
+				return (float) (t * t * (2.70158 * t - 1.70158) / 2);
+			}
+			
 			t--;
 			return (float) ((1 - (--t) * (t) * (-2.70158 * t - 1.70158)) / 2 + .5);
 		}

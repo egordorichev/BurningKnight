@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Lens.Util {
+namespace Lens.Util.Tween {
 	public class TweenValue {
 		static TweenValue() {
 			NumericTypes = new[] {
@@ -61,8 +61,7 @@ namespace Lens.Util {
 
 			if (IsType(target)) {
 				targetType = (Type) target;
-			}
-			else {
+			}	else {
 				targetType = target.GetType();
 			}
 
