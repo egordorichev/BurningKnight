@@ -24,7 +24,6 @@ namespace TestProject.State {
 		}
 
 		public override void Render() {
-			Renderer.Clear(Color.Black);
 			base.Render();
 		}
 

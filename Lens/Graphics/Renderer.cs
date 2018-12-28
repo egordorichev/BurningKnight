@@ -14,7 +14,7 @@ namespace Lens.Graphics {
 		}
 
 		public static void Clear(Color color) {
-			Engine.GraphicsDev.Clear(color);
+			Engine.GraphicsDev.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, color, 1, 0);
 		}
 	}
 }

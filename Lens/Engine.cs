@@ -135,16 +135,10 @@ namespace Lens {
 		#endregion
 		
 		#region Screen management
-		
-		public static Viewport Viewport { get; private set; }
-		public static Matrix ScreenMatrix  { get; private set; }
-		private static bool resizing;
-		private float width;
-		private float height;
 
-		public Matrix GetCombinedMatrix() {
-			return Camera.Instance == null ? ScreenMatrix : Camera.Instance.Matrix * ScreenMatrix;
-		}
+		public static Vector2 Viewport = new Vector2();
+		public float Upscale;
+		private static bool resizing;
 
 #if !CONSOLE
 		protected virtual void OnClientSizeChanged(object sender, EventArgs e) {
@@ -185,7 +179,7 @@ namespace Lens {
 			resizing = false;
 #endif
 		}
-
+		
 		private void UpdateView() {
 			float screenWidth = Math.Max(Display.Width, GraphicsDevice.PresentationParameters.BackBufferWidth);
 			float screenHeight = Math.Max(Display.Height, GraphicsDevice.PresentationParameters.BackBufferHeight);
@@ -194,24 +188,10 @@ namespace Lens {
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;
 			Graphics.ApplyChanges();
 
-			if (screenWidth / Display.Width > screenHeight / Display.Height) {
-				width = (int) (screenHeight / Display.Height * Display.Width);
-				height = (int) screenHeight;
-			}	else {
-				width = (int) screenWidth;
-				height = (int) (screenWidth / Display.Width * Display.Height);
-			}
+			Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
 
-			ScreenMatrix = Matrix.CreateScale(width / Display.Width);
-
-			Viewport = new Viewport {
-				X = (int) (screenWidth / 2 - width / 2),
-				Y = (int) (screenHeight / 2 - height / 2),
-				Width = (int) width,
-				Height = (int) height,
-				MinDepth = 0,
-				MaxDepth = 1
-			};
+			Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
+			Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;
 		}
 
 		#endregion
