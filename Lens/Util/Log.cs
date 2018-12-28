@@ -19,7 +19,7 @@ namespace Lens.Util {
 				return;
 			}
 
-			File.AppendAllText("log.txt", builder.ToString());
+			System.IO.File.AppendAllText("log.txt", builder.ToString());
 			builder = null;
 		}
 		
