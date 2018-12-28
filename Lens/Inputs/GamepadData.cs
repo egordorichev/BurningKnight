@@ -33,6 +33,7 @@ namespace Lens.Inputs {
 		public void Rumble(float strength, float time) {
 			if (rumbleTime <= 0 || strength > rumbleStrength ||
 			    (Math.Abs(strength - rumbleStrength) < 0.1f && time > rumbleTime)) {
+				
 				GamePad.SetVibration(PlayerIndex, strength, strength);
 				rumbleStrength = strength;
 				rumbleTime = time;
@@ -46,6 +47,16 @@ namespace Lens.Inputs {
 
 		#region Gamepad butttons	
 
+		public bool Check(Buttons button, Input.CheckType type) {
+			switch (type) {
+				case Input.CheckType.PRESSED: return WasPressed(button);
+				case Input.CheckType.RELEASED: return WasReleased(button);
+				case Input.CheckType.DOWN: return IsDown(button);
+			}
+
+			return false;
+		}
+		
 		public bool IsDown(Buttons button) {
 			return CurrentState.IsButtonDown(button);
 		}

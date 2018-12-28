@@ -14,6 +14,16 @@ namespace Lens.Inputs {
 			State = Keyboard.GetState();
 		}
 
+		public bool Check(Keys key, Input.CheckType type) {
+			switch (type) {
+				case Input.CheckType.PRESSED: return WasPressed(key);
+				case Input.CheckType.RELEASED: return WasReleased(key);
+				case Input.CheckType.DOWN: return IsDown(key);
+			}
+
+			return false;
+		}
+
 		public bool IsDown(Keys key) {
 			return State.IsKeyDown(key);
 		}

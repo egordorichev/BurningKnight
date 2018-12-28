@@ -24,7 +24,7 @@ namespace TestProject.State {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Input.WasPressed("exit")) {
+			if (Input.WasReleased("exit")) {
 				Engine.Instance.Quit();
 			}
 		}

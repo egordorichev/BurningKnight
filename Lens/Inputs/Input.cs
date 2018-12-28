@@ -4,6 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Lens.Inputs {
 	public static class Input {
+		public enum CheckType {
+			PRESSED,
+			RELEASED,
+			DOWN
+		}
+		
 		public static KeyboardData Keyboard;
 		public static GamepadData[] Gamepads;
 		public static PlayerIndex GamepadIndex = PlayerIndex.One;
@@ -61,7 +67,7 @@ namespace Lens.Inputs {
 			Buttons[id] = button;
 		}
 
-		public static bool WasPressed(string id) {
+		private static bool Check(string id, CheckType type) {
 			InputButton button;
 
 			if (!Buttons.TryGetValue(id, out button)) {
@@ -70,7 +76,7 @@ namespace Lens.Inputs {
 
 			if (button.Keys != null) {
 				foreach (var key in button.Keys) {
-					if (Keyboard.WasPressed(key)) {
+					if (Keyboard.Check(key, type)) {
 						return true;
 					}
 				}
@@ -78,13 +84,25 @@ namespace Lens.Inputs {
 
 			if (button.Buttons != null) {
 				foreach (var b in button.Buttons) {
-					if (Gamepads[(int) GamepadIndex].WasPressed(b)) {
+					if (Gamepads[(int) GamepadIndex].Check(b, type)) {
 						return true;
 					}
 				}
 			}
 
 			return false;
+		}
+
+		public static bool WasPressed(string id) {
+			return Check(id, CheckType.PRESSED);
+		}
+
+		public static bool WasReleased(string id) {
+			return Check(id, CheckType.RELEASED);
+		}
+
+		public static bool IsDown(string id) {
+			return Check(id, CheckType.DOWN);
 		}
 	}
 }
