@@ -1,6 +1,7 @@
 ﻿using System;
 using Lens.State;
 using Lens.Util;
+using Lens.Util.Timer;
 using Lens.Util.Tween;
 using Microsoft.Xna.Framework;
 
@@ -60,7 +61,8 @@ namespace Lens {
 			}
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
-			
+
+			Timer.Update(dt);
 			Tween.Update(dt);
 			state?.Update(dt);
 		}

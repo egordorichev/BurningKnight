@@ -44,7 +44,7 @@ namespace Lens.Util.Tween {
 				task.Update(dt);
 
 				if (task.Ended) {
-					tasks.Remove(task);
+					tasks.RemoveAt(i);
 				}
 			}
 		}

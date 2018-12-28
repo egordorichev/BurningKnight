@@ -100,6 +100,8 @@
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\Math\Calc.cs" />
     <Compile Include="Util\Math\Rng.cs" />
+    <Compile Include="Util\Timer\Timer.cs" />
+    <Compile Include="Util\Timer\TimerTask.cs" />
     <Compile Include="Util\Tween\Ease.cs" />
     <Compile Include="Util\Tween\Tween.cs" />
     <Compile Include="Util\Tween\TweenTask.cs" />
