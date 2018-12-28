@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Lens.Asset {
+namespace Lens.Graphics {
 	public static class Renderer {
 		public static SpriteBatch Batch;
 		
 		public static void Init() {
-			Batch = new SpriteBatch(Engine.Graphics.GraphicsDevice);
+			Batch = new SpriteBatch(Engine.GraphicsDev);
 		}
 
 		public static void Destroy() {
@@ -14,7 +14,7 @@ namespace Lens.Asset {
 		}
 
 		public static void Clear(Color color) {
-			Engine.Graphics.GraphicsDevice.Clear(color);
+			Engine.GraphicsDev.Clear(color);
 		}
 	}
 }

@@ -94,7 +94,7 @@ namespace Lens.Util.Camera {
 		private Vector2 position;
 		private Vector2 origin;
 		private float angle;
-		private float zoom;
+		private float zoom = 1f;
 		private bool changed;
 
 		public Matrix Matrix => matrix;

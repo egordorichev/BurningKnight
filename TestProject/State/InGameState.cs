@@ -1,5 +1,6 @@
 ﻿using Lens;
 using Lens.Asset;
+using Lens.Graphics;
 using Lens.Inputs;
 using Lens.State;
 using Lens.Util.Camera;
@@ -20,7 +21,6 @@ namespace TestProject.State {
 			area.Add(player);
 			
 			Input.Bind("exit", Keys.Escape, Keys.Space);
-			Input.Bind("exit", Buttons.LeftThumbstickDown);
 		}
 
 		public override void Render() {

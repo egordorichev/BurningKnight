@@ -1,5 +1,6 @@
 ﻿using System;
 using Lens.Asset;
+using Lens.Graphics.GameRenderer;
 using Lens.Inputs;
 using Lens.State;
 using Lens.Util;
@@ -14,8 +15,12 @@ namespace Lens {
 		public static Version Version = new Version(0, 0, 0, 1, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
+		public static GraphicsDevice GraphicsDev;
 		public static float DeltaTime;
+		public static GameTime GameTime;
 
+		#region Game init
+		
 		public string Title {
 			get { return Window.Title; }
 			set { Window.Title = value; }
@@ -24,7 +29,7 @@ namespace Lens {
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;
 
-		private GameState state;
+		public GameState State { get; private set; }
 		private GameState newState;
 
 		public Engine(GameState state, string title, int width, int height, bool fullscreen) {
@@ -57,11 +62,15 @@ namespace Lens {
 			Assets.Content = Content;
 			setState(state);
 		}
-
+		
 		protected override void Initialize() {
 			base.Initialize();
 
 			Window.Title = tmpTitle;
+			GraphicsDev = GraphicsDevice;
+			StateRenderer = new PixelPerfectGameRenderer();
+			
+			UpdateView();
 
 			Log.Open();
 			Log.Info(tmpTitle);
@@ -71,10 +80,14 @@ namespace Lens {
 		}
 
 		protected override void LoadContent() {
+			GraphicsDev = GraphicsDevice;
 			Assets.Load();
 		}
+		
+		#endregion
 
 		protected override void UnloadContent() {
+			StateRenderer?.Destroy();
 			Assets.Destroy();
 			Input.Destroy();
 			Log.Close();
@@ -84,37 +97,22 @@ namespace Lens {
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
+			GameTime = gameTime;
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
 			DeltaTime = dt;
 
 			if (newState != null) {
-				state?.Destroy();
-				state = newState;
-				state?.Init();
+				State?.Destroy();
+				State = newState;
+				State?.Init();
 				newState = null;
 			}
 
 			Input.Update();
 			Timer.Update(dt);
 			Tween.Update(dt);
-			state?.Update(dt);
-		}
-
-		protected override void Draw(GameTime gameTime) {
-			var matrix = ScreenMatrix;
-
-			if (Camera.Instance != null) {
-				//  matrix *= Camera.Instance.Matrix;
-			}
-			
-			Renderer.Batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp,
-				DepthStencilState.None, RasterizerState.CullNone, null, matrix);
-
-			state?.Render();
-			Renderer.Batch.End();
-
-			base.Draw(gameTime);
+			State?.Update(dt);
 		}
 
 		public void setState(GameState state) {
@@ -124,15 +122,29 @@ namespace Lens {
 		public void Quit() {
 			Exit();
 		}
+		
+		#region Rendering game
 
+		public GameRenderer StateRenderer { get; private set; }
+
+		protected override void Draw(GameTime gameTime) {
+			StateRenderer?.Render();
+			base.Draw(gameTime);
+		}
+
+		#endregion
+		
 		#region Screen management
-
+		
 		public static Viewport Viewport { get; private set; }
-		public static Matrix ScreenMatrix;
+		public static Matrix ScreenMatrix  { get; private set; }
 		private static bool resizing;
-		private float padding;
 		private float width;
 		private float height;
+
+		public Matrix GetCombinedMatrix() {
+			return Camera.Instance == null ? ScreenMatrix : Camera.Instance.Matrix * ScreenMatrix;
+		}
 
 #if !CONSOLE
 		protected virtual void OnClientSizeChanged(object sender, EventArgs e) {
@@ -156,7 +168,7 @@ namespace Lens {
 				Graphics.PreferredBackBufferHeight = height;
 				Graphics.IsFullScreen = false;
 				Graphics.ApplyChanges();
-				Console.WriteLine("WINDOW-" + width + "x" + height);
+				Log.Info("Going windowed " + width + ":" + height);
 				resizing = false;
 			}
 #endif
@@ -169,14 +181,18 @@ namespace Lens {
 			Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			Graphics.IsFullScreen = true;
 			Graphics.ApplyChanges();
-			Console.WriteLine("FULLSCREEN");
+			Log.Info("Going to fullscreen");
 			resizing = false;
 #endif
 		}
 
 		private void UpdateView() {
-			float screenWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
-			float screenHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
+			float screenWidth = Math.Max(Display.Width, GraphicsDevice.PresentationParameters.BackBufferWidth);
+			float screenHeight = Math.Max(Display.Height, GraphicsDevice.PresentationParameters.BackBufferHeight);
+
+			Graphics.PreferredBackBufferWidth = (int) screenWidth;
+			Graphics.PreferredBackBufferHeight = (int) screenHeight;
+			Graphics.ApplyChanges();
 
 			if (screenWidth / Display.Width > screenHeight / Display.Height) {
 				width = (int) (screenHeight / Display.Height * Display.Width);
@@ -185,10 +201,6 @@ namespace Lens {
 				width = (int) screenWidth;
 				height = (int) (screenWidth / Display.Width * Display.Height);
 			}
-
-			var aspect = height / width;
-			width -= padding * 2;
-			height -= (int) (aspect * padding * 2);
 
 			ScreenMatrix = Matrix.CreateScale(width / Display.Width);
 

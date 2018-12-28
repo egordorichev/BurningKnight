@@ -18,7 +18,7 @@ namespace Lens.State {
 		}
 
 		public virtual void Render() {
-			Engine.Graphics.GraphicsDevice.Clear(Color.Black);
+			Engine.GraphicsDev.Clear(Color.Black);
 			area.Render();
 
 			if (Engine.Version.Debug) {

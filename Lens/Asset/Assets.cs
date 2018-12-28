@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Lens.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Lens.Asset {
 	public static class Assets {
