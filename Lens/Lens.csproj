@@ -98,6 +98,10 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityList.cs" />
     <Compile Include="Entity\TagLists.cs" />
+    <Compile Include="Inputs\GamepadData.cs" />
+    <Compile Include="Inputs\Input.cs" />
+    <Compile Include="Inputs\InputButton.cs" />
+    <Compile Include="Inputs\KeyboardData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Launcher.cs" />

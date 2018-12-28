@@ -75,7 +75,7 @@ namespace Lens.Entity {
 		
 		#region Entity logic
 
-		protected GraphicsComponent GraphicsComponent;
+		private GraphicsComponent graphicsComponent;
 		private Dictionary<Type, Component> components = new Dictionary<Type, Component>();
 		
 		public virtual void Init() {
@@ -97,11 +97,11 @@ namespace Lens.Entity {
 				component.Update(dt);
 			}
 			
-			GraphicsComponent?.Update(dt);
+			graphicsComponent?.Update(dt);
 		}
 
 		public virtual void Render() {
-			GraphicsComponent?.Render();
+			graphicsComponent?.Render();
 		}
 
 		public virtual void RenderDebug() {
@@ -120,6 +120,12 @@ namespace Lens.Entity {
 
 			component.Entity = this;
 			component.Init();
+		}
+
+		public void SetGraphicsComponent(GraphicsComponent component) {
+			graphicsComponent = component;
+			graphicsComponent.Entity = this;
+			graphicsComponent.Init();
 		}
 				
 		public T GetComponent<T>() where T : Component {

@@ -7,7 +7,7 @@ namespace TestProject.Entities {
 		protected override void AddComponents() {
 			base.AddComponents();
 			
-			GraphicsComponent = new ImageComponent("player.png");
+			SetGraphicsComponent(new ImageComponent("player.png"));
 			AddComponent(new StateComponent<Player>());
 		}
 	}

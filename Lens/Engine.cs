@@ -1,5 +1,6 @@
 ﻿using System;
 using Lens.Asset;
+using Lens.Inputs;
 using Lens.State;
 using Lens.Util;
 using Lens.Util.Timer;
@@ -11,6 +12,7 @@ namespace Lens {
 		public static Version Version = new Version(0, 0, 0, 1, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
+		public static float DeltaTime;
 
 		public string Title {
 			get { return Window.Title; }
@@ -47,6 +49,8 @@ namespace Lens {
 			Log.Open();
 			Log.Info(tmpTitle);
 			Log.Info(DateTime.Now.ToString("MM/dd/yyyy h:mm tt"));
+			
+			Input.Init();
 		}
 
 		protected override void LoadContent() {
@@ -55,11 +59,15 @@ namespace Lens {
 
 		protected override void UnloadContent() {
 			Assets.Destroy();
+			Input.Destroy();
 			Log.Close();
 		}
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
+			
+			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			DeltaTime = dt;
 
 			if (newState != null) {
 				state?.Destroy();
@@ -68,8 +76,7 @@ namespace Lens {
 				newState = null;
 			}
 
-			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
-
+			Input.Update();
 			Timer.Update(dt);
 			Tween.Update(dt);
 			state?.Update(dt);
@@ -82,6 +89,10 @@ namespace Lens {
 
 		public void setState(GameState state) {
 			newState = state;
+		}
+
+		public void Quit() {
+			Exit();
 		}
 	}
 }
