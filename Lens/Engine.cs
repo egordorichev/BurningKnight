@@ -1,4 +1,5 @@
 ﻿using System;
+using Lens.Asset;
 using Lens.State;
 using Lens.Util;
 using Lens.Util.Timer;
@@ -22,15 +23,20 @@ namespace Lens {
 		private GameState state;
 		private GameState newState;
 		
-		public Engine(string title, int width, int height, bool fullscreen) {
+		public Engine(GameState state, string title, int width, int height, bool fullscreen) {
 			Instance = this;
 			tmpTitle = $"Lens {Version}: {title}";
-			
+
 			Graphics = new GraphicsDeviceManager(this) {
 				PreferredBackBufferWidth = width,
 				PreferredBackBufferHeight = height,
 				IsFullScreen = fullscreen
-			};			
+			};
+
+			Window.AllowUserResizing = true;
+			Assets.Content = Content;
+			
+			setState(state);
 		}
 
 		protected override void Initialize() {
@@ -44,10 +50,11 @@ namespace Lens {
 		}
 
 		protected override void LoadContent() {
-			
+			Assets.Load();
 		}
 
 		protected override void UnloadContent() {
+			Assets.Destroy();
 			Log.Close();
 		}
 
@@ -58,6 +65,7 @@ namespace Lens {
 				state?.Destroy();
 				state = newState;
 				state?.Init();
+				newState = null;
 			}
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;

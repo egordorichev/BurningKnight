@@ -40,9 +40,9 @@ namespace Lens.Util {
 		}
 
 		private static void Print(object message, ConsoleColor color) {
-			var stackTrace = new StackTrace();
+			var stackTrace = new StackTrace(true);
 			var frame = stackTrace.GetFrame(2);
-			var text = String.Format("{0:h:mm:ss} {1}():{2} {3}", DateTime.Now, frame.GetMethod().Name,
+			var text = String.Format("{0:h:mm:ss} {1} {2}():{3} {4}", DateTime.Now, Path.GetFileName(frame.GetFileName()), frame.GetMethod().Name,
 				frame.GetFileLineNumber(), message);
 
 			builder?.AppendLine(text);

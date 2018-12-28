@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lens", "Lens\Lens.csproj", "{3B26AA2E-0BA2-42DC-AD62-E6C8617F9E4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{6D5736D4-AB93-4A85-A583-915C785EA244}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{3B26AA2E-0BA2-42DC-AD62-E6C8617F9E4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B26AA2E-0BA2-42DC-AD62-E6C8617F9E4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B26AA2E-0BA2-42DC-AD62-E6C8617F9E4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5736D4-AB93-4A85-A583-915C785EA244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5736D4-AB93-4A85-A583-915C785EA244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5736D4-AB93-4A85-A583-915C785EA244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5736D4-AB93-4A85-A583-915C785EA244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

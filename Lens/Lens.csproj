@@ -86,11 +86,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asset\Assets.cs" />
+    <Compile Include="Asset\Renderer.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Entity\Area.cs" />
     <Compile Include="Entity\BitTag.cs" />
     <Compile Include="Entity\Components\Component.cs" />
     <Compile Include="Entity\Components\Graphics\GraphicsComponent.cs" />
+    <Compile Include="Entity\Components\Graphics\ImageComponent.cs" />
+    <Compile Include="Entity\Components\Logic\EntityState.cs" />
+    <Compile Include="Entity\Components\Logic\StateComponent.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityList.cs" />
     <Compile Include="Entity\TagLists.cs" />
@@ -115,9 +119,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entity\Components\Logic" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />

@@ -1,6 +1,6 @@
 *.dll
 *.idea/*
 .git
-bin
-obj/*
+*/bin/*
+*/obj/*
 packages/*

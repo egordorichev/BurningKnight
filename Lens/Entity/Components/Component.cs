@@ -2,15 +2,15 @@
 	public class Component {
 		public Entity Entity;
 
-		public void Init() {
+		public virtual void Init() {
 			
 		}
 
-		public void Destroy() {
+		public virtual void Destroy() {
 			
 		}
 		
-		public void Update(float dt) {
+		public virtual void Update(float dt) {
 			
 		}
 	}
