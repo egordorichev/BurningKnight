@@ -16,5 +16,9 @@ namespace Lens.Graphics {
 		public static void Clear(Color color) {
 			Engine.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, color, 1, 0);
 		}
+
+		public static void Render(TextureRegion region, Vector2 position) {
+			Batch.Draw(region.Texture, position, region.Source, Color.White);
+		}
 	}
 }

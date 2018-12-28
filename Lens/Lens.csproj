@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asset\Assets.cs" />
+    <Compile Include="Asset\Textures.cs" />
     <Compile Include="Core\ConsoleCore.cs" />
     <Compile Include="Core\Core.cs" />
     <Compile Include="Core\DesktopCore.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Graphics\GameRenderer\GameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\PixelPerfectGameRenderer.cs" />
     <Compile Include="Graphics\Renderer.cs" />
+    <Compile Include="Graphics\TextureRegion.cs" />
     <Compile Include="Inputs\GamepadData.cs" />
     <Compile Include="Inputs\Input.cs" />
     <Compile Include="Inputs\InputButton.cs" />

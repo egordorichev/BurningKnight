@@ -15,7 +15,7 @@ namespace Lens {
 		public static Version Version = new Version(0, 0, 0, 1, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
-		public static GraphicsDevice GraphicsDevice;
+		public new static GraphicsDevice GraphicsDevice;
 		public static float DeltaTime;
 		public static GameTime GameTime;
 		
@@ -53,6 +53,7 @@ namespace Lens {
 		
 		protected override void UnloadContent() {
 			StateRenderer?.Destroy();
+			
 			Assets.Destroy();
 			Input.Destroy();
 			Log.Close();
@@ -62,9 +63,11 @@ namespace Lens {
 		
 		protected override void Initialize() {
 			base.Initialize();
-
 			Window.Title = tmpTitle;
-			StateRenderer = new PixelPerfectGameRenderer();
+
+			if (StateRenderer == null) {
+				StateRenderer = new PixelPerfectGameRenderer();
+			}
 			
 			UpdateView();
 
@@ -77,21 +80,24 @@ namespace Lens {
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
-			GameTime = gameTime;
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+
+			GameTime = gameTime;
 			DeltaTime = dt;
 
 			if (newState != null) {
 				State?.Destroy();
 				State = newState;
 				State?.Init();
+			
 				newState = null;
 			}
 
 			Input.Update();
 			Timer.Update(dt);
 			Tween.Update(dt);
+			
 			State?.Update(dt);
 		}
 
@@ -104,7 +110,7 @@ namespace Lens {
 		}
 		
 		protected override void Draw(GameTime gameTime) {
-			StateRenderer?.Render();
+			StateRenderer.Render();
 			base.Draw(gameTime);
 		}
 
