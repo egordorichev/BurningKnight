@@ -97,6 +97,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="State\GameState.cs" />
+    <Compile Include="Util\Log.cs" />
     <Compile Include="Util\Math\Calc.cs" />
     <Compile Include="Util\Math\Rng.cs" />
     <Compile Include="Util\Tween\Ease.cs" />
