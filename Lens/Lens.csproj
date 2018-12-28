@@ -56,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asset\Assets.cs" />
+    <Compile Include="Core\ConsoleCore.cs" />
+    <Compile Include="Core\Core.cs" />
+    <Compile Include="Core\DesktopCore.cs" />
+    <Compile Include="Core\PS4Core.cs" />
+    <Compile Include="Core\SwitchCore.cs" />
+    <Compile Include="Core\XBoxCore.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Entities\Area.cs" />
     <Compile Include="Entities\BitTag.cs" />

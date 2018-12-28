@@ -6,7 +6,7 @@ namespace Lens.Graphics {
 		public static SpriteBatch Batch;
 		
 		public static void Init() {
-			Batch = new SpriteBatch(Engine.GraphicsDev);
+			Batch = new SpriteBatch(Engine.GraphicsDevice);
 		}
 
 		public static void Destroy() {
@@ -14,7 +14,7 @@ namespace Lens.Graphics {
 		}
 
 		public static void Clear(Color color) {
-			Engine.GraphicsDev.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, color, 1, 0);
+			Engine.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, color, 1, 0);
 		}
 	}
 }

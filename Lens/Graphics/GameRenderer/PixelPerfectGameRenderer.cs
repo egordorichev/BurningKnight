@@ -8,20 +8,20 @@ namespace Lens.Graphics.GameRenderer {
 
 		public PixelPerfectGameRenderer() {
 			RenderTarget = new RenderTarget2D(
-				Engine.GraphicsDev, Display.Width, Display.Height, false,
+				Engine.GraphicsDevice, Display.Width, Display.Height, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 			);
 		}
 		
 		public override void Render() {
-			Engine.GraphicsDev.SetRenderTarget(RenderTarget);
+			Engine.GraphicsDevice.SetRenderTarget(RenderTarget);
 		
 			Renderer.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.Instance?.Matrix);
 			Renderer.Clear(Color.Black);
 			Engine.Instance.State.Render();
 			Renderer.Batch.End();
 			
-			Engine.GraphicsDev.SetRenderTarget(null);
+			Engine.GraphicsDevice.SetRenderTarget(null);
 			
 			Renderer.Batch.Begin(SpriteSortMode, BlendState, SamplerState.PointClamp, DepthStencilState, RasterizerState, Effect, null);
 			Renderer.Batch.Draw(RenderTarget, Engine.Viewport, new Rectangle(0, 0, Display.Width, Display.Height), Color.White, 0, new Vector2(0, 0), Engine.Instance.Upscale, SpriteEffects.None, 0f);
