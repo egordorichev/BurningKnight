@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asset\Assets.cs" />
+    <Compile Include="Asset\Audio.cs" />
     <Compile Include="Asset\Textures.cs" />
     <Compile Include="Core\ConsoleCore.cs" />
     <Compile Include="Core\Core.cs" />
@@ -83,6 +84,10 @@
     <Compile Include="Inputs\Input.cs" />
     <Compile Include="Inputs\InputButton.cs" />
     <Compile Include="Inputs\KeyboardData.cs" />
+    <Compile Include="Pattern\Observer\ObserverEvent.cs" />
+    <Compile Include="Pattern\Observer\Observer.cs" />
+    <Compile Include="Pattern\Observer\Subject.cs" />
+    <Compile Include="Pattern\Observer\Subjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Launcher.cs" />

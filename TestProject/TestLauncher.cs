@@ -8,7 +8,7 @@ namespace TestProject {
 		public static void Main() {
 			int scale = 2;
 			
-			using (var game = new Engine(new InGameState(), "I'm just testing", Display.Width * scale, Display.Height * scale, false)) {
+			using (var game = new TestProject(new InGameState(), "I'm just testing", Display.Width * scale, Display.Height * scale, false)) {				
 				game.Run();
 			}
 		}

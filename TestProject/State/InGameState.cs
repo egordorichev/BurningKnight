@@ -1,10 +1,8 @@
 ﻿using Lens;
-using Lens.Asset;
-using Lens.Graphics;
 using Lens.Inputs;
 using Lens.State;
+using Lens.Util;
 using Lens.Util.Camera;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TestProject.Entities;
 
@@ -15,10 +13,10 @@ namespace TestProject.State {
 
 			area.Add(new Camera());
 
-			var player = new Player();
-			Camera.Instance.Target = player;
-			
+			var player = new Player();			
 			area.Add(player);
+			
+			Camera.Instance.Target = player;
 			
 			Input.Bind("exit", Keys.Escape, Keys.Space);
 		}

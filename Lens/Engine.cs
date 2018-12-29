@@ -2,6 +2,7 @@
 using Lens.Asset;
 using Lens.Graphics.GameRenderer;
 using Lens.Inputs;
+using Lens.Pattern.Observer;
 using Lens.State;
 using Lens.Util;
 using Lens.Util.Camera;
@@ -43,7 +44,7 @@ namespace Lens {
 			core.Init(width, height, fullscreen);
 			Assets.Content = Content;
 			
-			setState(state);
+			SetState(state);
 		}
 
 		protected override void LoadContent() {
@@ -57,6 +58,7 @@ namespace Lens {
 			Assets.Destroy();
 			Input.Destroy();
 			Log.Close();
+			Subjects.Destroy();
 
 			Instance = null;
 		}
@@ -70,6 +72,7 @@ namespace Lens {
 			}
 			
 			UpdateView();
+			Subjects.Init();
 
 			Log.Open();
 			Log.Info(tmpTitle);
@@ -99,9 +102,10 @@ namespace Lens {
 			Tween.Update(dt);
 			
 			State?.Update(dt);
+			Subjects.Update();
 		}
 
-		public void setState(GameState state) {
+		public void SetState(GameState state) {
 			newState = state;
 		}
 
