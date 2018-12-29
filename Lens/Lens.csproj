@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asset\Animations.cs" />
     <Compile Include="Asset\Assets.cs" />
     <Compile Include="Asset\Audio.cs" />
     <Compile Include="Asset\Textures.cs" />
@@ -70,11 +71,13 @@
     <Compile Include="Entities\Components\Component.cs" />
     <Compile Include="Entities\Components\Graphics\GraphicsComponent.cs" />
     <Compile Include="Entities\Components\Graphics\ImageComponent.cs" />
+    <Compile Include="Entities\Components\Graphics\SpriteComponent.cs" />
     <Compile Include="Entities\Components\Logic\EntityState.cs" />
     <Compile Include="Entities\Components\Logic\StateComponent.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityList.cs" />
     <Compile Include="Entities\TagLists.cs" />
+    <Compile Include="Graphics\Animation\Animation.cs" />
     <Compile Include="Graphics\GameRenderer\DefaultGameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\GameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\PixelPerfectGameRenderer.cs" />

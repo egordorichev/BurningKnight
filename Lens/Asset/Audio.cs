@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Lens.Util.File;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
@@ -8,39 +9,40 @@ namespace Lens.Asset {
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 		private static Dictionary<string, Song> music = new Dictionary<string, Song>();
 		
-		public static void Load() {
-			/*FileHandle sfxDir = FileHandle.FromRoot("Sfx/");
+		internal static void Load() {
+			var sfxDir = FileHandle.FromRoot("Sfx/");
 
 			if (sfxDir.Exists()) {
 				foreach (var sfx in sfxDir.ListFiles()) {
-					LoadSfx(sfx);
+					LoadSfx(Path.GetFileNameWithoutExtension(sfx));
 				} 	
 			}
 			
-			FileHandle musicDir = FileHandle.FromRoot("Music/");
+			var musicDir = FileHandle.FromRoot("Music/");
 			
 			if (musicDir.Exists()) {
 				foreach (var name in musicDir.ListFiles()) {
-					LoadMusic(name);
+					LoadMusic(Path.GetFileNameWithoutExtension(name));
 				} 	
-			}*/
-
-			// Assets.Content.Load<Song>("bin/Music/shop");
+			}
 		}
 
 		private static void LoadSfx(string sfx) {
-			var fileStream = new FileStream(sfx, FileMode.Open);			
-			sounds[Path.GetFileNameWithoutExtension(sfx)] = SoundEffect.FromStream(fileStream);
-			fileStream.Dispose();
+			sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Music/{sfx}");
 		}
 
 		private static void LoadMusic(string name) {
-			name = Path.GetFileNameWithoutExtension(name);
-			music[name] = Assets.Content.Load<Song>("bin/Music/tech");
+			music[name] = Assets.Content.Load<Song>($"bin/Music/{name}");
 		}
 		
-		public static void Destroy() {
+		internal static void Destroy() {
+			foreach (var sound in sounds.Values) {
+				sound.Dispose();
+			}
 			
+			foreach (var m in music.Values) {
+				m.Dispose();
+			}
 		}
 		
 		public static void PlaySfx(string id) {

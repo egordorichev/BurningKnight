@@ -12,12 +12,14 @@ namespace Lens.Asset {
 			
 			Renderer.Init();
 			Textures.Load();
+			Animations.Load();
 			Audio.Load();
 		}
 
 		public static void Destroy() {
 			Renderer.Destroy();
 			Textures.Destroy();
+			Animations.Destroy();
 			Audio.Destroy();
 		}
 	}

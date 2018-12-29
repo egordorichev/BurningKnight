@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Lens.Graphics;
+using Lens.Util;
+using Lens.Util.File;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,7 +11,23 @@ namespace Lens.Asset {
 		private static Dictionary<string, TextureRegion> textures = new Dictionary<string, TextureRegion>();
 		
 		internal static void Load() {
+			var textureDir = FileHandle.FromRoot("Textures/");
+
+			if (textureDir.Exists()) {
+				foreach (var id in textureDir.ListFiles()) {
+					LoadTexture(Path.GetFileNameWithoutExtension(id));
+				} 	
+			}
+		}
+
+		private static void LoadTexture(string id) {
+			var region = new TextureRegion();
 			
+			// Can be loaded without content: Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+			region.Texture = Assets.Content.Load<Texture2D>("bin/Textures/" + id);
+			region.Source = new Rectangle(0, 0, region.Texture.Width, region.Texture.Height);
+			
+			textures[id] = region;
 		}
 
 		internal static void Destroy() {
@@ -27,16 +45,8 @@ namespace Lens.Asset {
 				return region;
 			}
 			
-			// var fileStream = new FileStream($"{Assets.Root}Textures/{id}.png", FileMode.Open);
-			
-			region = new TextureRegion();
-			region.Texture = Assets.Content.Load<Texture2D>("bin/Textures/" + id); // Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
-			region.Source = new Rectangle(0, 0, region.Texture.Width, region.Texture.Height);
-			
-			textures[id] = region;
-			// fileStream.Dispose();		
-			
-			return region;
+			Log.Error($"Texture {id} was not found!");
+			return null; // TODO: missing texture placeholder
 		}
 	}
 }
