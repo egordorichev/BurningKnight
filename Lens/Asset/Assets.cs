@@ -10,14 +10,14 @@ namespace Lens.Asset {
 		public static void Load() {
 			Content.RootDirectory = "Content/";
 			
-			Renderer.Init();
+			Gr.Init();
 			Textures.Load();
 			Animations.Load();
 			Audio.Load();
 		}
 
 		public static void Destroy() {
-			Renderer.Destroy();
+			Gr.Destroy();
 			Textures.Destroy();
 			Animations.Destroy();
 			Audio.Destroy();

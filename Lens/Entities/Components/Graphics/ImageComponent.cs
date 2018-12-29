@@ -10,7 +10,7 @@ namespace Lens.Entities.Components.Graphics {
 		}
 		
 		public override void Render() {
-			Renderer.Render(texture, Entity.Position);
+			Gr.Render(texture, Entity.Position);
 		}
 	}
 }

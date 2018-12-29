@@ -30,7 +30,6 @@ namespace TestProject.State {
 			if (Input.WasPressed("exit")) {
 				// Engine.Instance.Quit();
 				Audio.PlayMusic("shop");
-				Audio.Repeat = true;
 			}
 		}
 	}

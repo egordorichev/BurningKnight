@@ -81,7 +81,7 @@
     <Compile Include="Graphics\GameRenderer\DefaultGameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\GameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\PixelPerfectGameRenderer.cs" />
-    <Compile Include="Graphics\Renderer.cs" />
+    <Compile Include="Graphics\Gr.cs" />
     <Compile Include="Graphics\TextureRegion.cs" />
     <Compile Include="Inputs\GamepadData.cs" />
     <Compile Include="Inputs\Input.cs" />
