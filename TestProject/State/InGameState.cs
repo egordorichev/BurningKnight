@@ -19,6 +19,7 @@ namespace TestProject.State {
 			Camera.Instance.Target = player;
 			
 			Input.Bind("exit", Keys.Escape, Keys.Space);
+			Input.Bind("exit", MouseButtons.Left);
 		}
 
 		public override void Render() {

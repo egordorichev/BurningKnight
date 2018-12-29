@@ -11,6 +11,7 @@ namespace Lens.Inputs {
 		}
 		
 		public static KeyboardData Keyboard;
+		public static MouseData Mouse;
 		public static GamepadData[] Gamepads;
 		public static PlayerIndex GamepadIndex = PlayerIndex.One;
 		
@@ -18,6 +19,7 @@ namespace Lens.Inputs {
 		
 		public static void Init() {
 			Keyboard = new KeyboardData();
+			Mouse = new MouseData();
 			Gamepads = new GamepadData[4];
 
 			for (int i = 0; i < Gamepads.Length; i++) {
@@ -33,6 +35,7 @@ namespace Lens.Inputs {
 
 		public static void Update() {
 			Keyboard.Update();
+			Mouse.Update();
 
 			foreach (var gamepad in Gamepads) {
 				gamepad.Update();
@@ -66,6 +69,20 @@ namespace Lens.Inputs {
 			
 			Buttons[id] = button;
 		}
+		
+		public static void Bind(string id, params MouseButtons[] values) {
+			var button = Buttons.ContainsKey(id) ? Buttons[id] : new InputButton();
+
+			if (button.MouseButtons == null) {
+				button.MouseButtons = new List<MouseButtons>();
+			}
+			
+			foreach (var b in values) {
+				button.MouseButtons.Add(b);
+			}
+			
+			Buttons[id] = button;
+		}
 
 		private static bool Check(string id, CheckType type) {
 			InputButton button;
@@ -85,6 +102,14 @@ namespace Lens.Inputs {
 			if (button.Buttons != null) {
 				foreach (var b in button.Buttons) {
 					if (Gamepads[(int) GamepadIndex].Check(b, type)) {
+						return true;
+					}
+				}
+			}
+			
+			if (button.MouseButtons != null) {
+				foreach (var b in button.MouseButtons) {
+					if (Mouse.Check(b, type)) {
 						return true;
 					}
 				}

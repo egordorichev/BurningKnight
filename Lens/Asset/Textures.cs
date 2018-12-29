@@ -27,14 +27,14 @@ namespace Lens.Asset {
 				return region;
 			}
 			
-			var fileStream = new FileStream($"{Assets.Root}{id}.png", FileMode.Open);
+			// var fileStream = new FileStream($"{Assets.Root}Textures/{id}.png", FileMode.Open);
 			
-			region = new TextureRegion();			
-			region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+			region = new TextureRegion();
+			region.Texture = Assets.Content.Load<Texture2D>("bin/Textures/" + id); // Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
 			region.Source = new Rectangle(0, 0, region.Texture.Width, region.Texture.Height);
 			
 			textures[id] = region;
-			fileStream.Dispose();		
+			// fileStream.Dispose();		
 			
 			return region;
 		}

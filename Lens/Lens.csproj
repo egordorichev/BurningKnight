@@ -84,6 +84,8 @@
     <Compile Include="Inputs\Input.cs" />
     <Compile Include="Inputs\InputButton.cs" />
     <Compile Include="Inputs\KeyboardData.cs" />
+    <Compile Include="Inputs\MouseButtons.cs" />
+    <Compile Include="Inputs\MouseData.cs" />
     <Compile Include="Pattern\Observer\ObserverEvent.cs" />
     <Compile Include="Pattern\Observer\Observer.cs" />
     <Compile Include="Pattern\Observer\Subject.cs" />

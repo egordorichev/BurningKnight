@@ -43,8 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="Pattern\Observers\Sfx\SfxEvent.cs" />
-    <Compile Include="Pattern\Observers\Sfx\SfxObserver.cs" />
     <Compile Include="State\InGameState.cs" />
     <Compile Include="TestLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,10 +58,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content" />
+    <Folder Include="Content\Music" />
+    <Folder Include="Content\Sfx" />
+    <Folder Include="Pattern\Observers" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content/**/*">
+    <Content Include="Content/bin/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/obj/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content/Content.mgcb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

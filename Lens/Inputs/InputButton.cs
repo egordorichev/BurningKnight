@@ -5,5 +5,6 @@ namespace Lens.Inputs {
 	public struct InputButton {
 		public List<Keys> Keys;
 		public List<Buttons> Buttons;
+		public List<MouseButtons> MouseButtons;
 	}
 }

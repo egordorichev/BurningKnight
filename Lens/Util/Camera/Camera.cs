@@ -62,7 +62,7 @@ namespace Lens.Util.Camera {
 		}
 
 		public Vector2 ScreenToCamera(Vector2 position) {
-			return Vector2.Transform(position, inverse);
+			return Vector2.Transform(position, Matrix.Invert(Engine.ScreenMatrix) * inverse);
 		}
 
 		public Vector2 CameraToScreen(Vector2 position) {

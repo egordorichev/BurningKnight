@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Lens.Asset;
 
 namespace Lens.Util.File {
@@ -95,7 +96,11 @@ namespace Lens.Util.File {
 		}
 
 		public bool IsDirectory() {
-			return System.IO.File.GetAttributes(path).HasFlag(FileAttributes.Directory);
+			try {
+				return System.IO.File.GetAttributes(path).HasFlag(FileAttributes.Directory);
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 }

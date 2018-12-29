@@ -19,6 +19,7 @@ namespace Lens {
 		public new static GraphicsDevice GraphicsDevice;
 		public static float DeltaTime;
 		public static GameTime GameTime;
+		public static Matrix ScreenMatrix;
 		
 		public GameRenderer StateRenderer { get; private set; }
 		public GameState State { get; private set; }
@@ -61,6 +62,7 @@ namespace Lens {
 			Subjects.Destroy();
 
 			Instance = null;
+			Log.Info("Bye");
 		}
 		
 		protected override void Initialize() {
@@ -90,6 +92,8 @@ namespace Lens {
 			DeltaTime = dt;
 
 			if (newState != null) {
+				Log.Info("Setting state to " + newState.GetType().Name);
+				
 				State?.Destroy();
 				State = newState;
 				State?.Init();
@@ -138,6 +142,16 @@ namespace Lens {
 
 			Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
 			Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;
+
+			float viewWidth;
+			
+			if (screenWidth / Display.Width > screenHeight / Display.Height) {
+				viewWidth = screenHeight / Display.Height * Display.Width;
+			} else {
+				viewWidth = screenWidth;
+			}
+			
+			ScreenMatrix = Matrix.CreateScale(viewWidth / Display.Width) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
 		}
 	}
 }
