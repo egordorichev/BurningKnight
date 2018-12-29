@@ -104,6 +104,8 @@
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\Math\Calc.cs" />
     <Compile Include="Util\Math\Rng.cs" />
+    <Compile Include="Util\Pool\DisposablePool.cs" />
+    <Compile Include="Util\Pool\Pool.cs" />
     <Compile Include="Util\Timer\Timer.cs" />
     <Compile Include="Util\Timer\TimerTask.cs" />
     <Compile Include="Util\Tween\Ease.cs" />

@@ -1,7 +1,6 @@
-﻿using Lens;
+﻿using Lens.Asset;
 using Lens.Inputs;
 using Lens.State;
-using Lens.Util;
 using Lens.Util.Camera;
 using Microsoft.Xna.Framework.Input;
 using TestProject.Entities;
@@ -29,7 +28,9 @@ namespace TestProject.State {
 			base.Update(dt);
 
 			if (Input.WasPressed("exit")) {
-				Engine.Instance.Quit();
+				// Engine.Instance.Quit();
+				Audio.PlayMusic("shop");
+				Audio.Repeat = true;
 			}
 		}
 	}

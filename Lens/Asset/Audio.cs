@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Lens.Util;
 using Lens.Util.File;
+using Lens.Util.Tween;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
@@ -45,8 +47,60 @@ namespace Lens.Asset {
 			}
 		}
 		
-		public static void PlaySfx(string id) {
+		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
+			PlaySfx(GetSfx(id), volume, pitch, pan);
+		}
+
+		public static SoundEffect GetSfx(string id) {
+			SoundEffect effect;
+
+			if (sounds.TryGetValue(id, out effect)) {
+				return effect;
+			}
+
+			Log.Error($"Sound effect {id} was not found!");
+			return null;
+		}
+
+		public static void PlaySfx(SoundEffect sfx, float volume = 1, float pitch = 0, float pan = 0) {
+			sfx.Play(volume, pitch, pan);
+		}
+
+		public static void PlayMusic(string music, float volume = 1) {
+			PlayMusic(GetMusic(music), volume);
+		}
+		
+		public static Song GetMusic(string id) {
+			Song m;
+
+			if (music.TryGetValue(id, out m)) {
+				return m;
+			}
+
+			Log.Error($"Music {id} was not found!");
+			return null;
+		}
+
+		public static bool Repeat {
+			get { return MediaPlayer.IsRepeating; }
+			set { MediaPlayer.IsRepeating = value; }
+		}
+
+		private static Song currentPlaying;
+
+		public static void PlayMusic(Song music, float volume = 1) {
+			if (currentPlaying == music && MediaPlayer.State != MediaState.Stopped) {
+				return;
+			}
+
+			if (MediaPlayer.State != MediaState.Stopped) {
+				// TODO: tween music volumes some how
+				// Tweening currently doesnt support static classes
+			}
 			
+			MediaPlayer.Play(music);
+			MediaPlayer.Volume = volume;
+			currentPlaying = music;
 		}
 	}
 }
