@@ -53,7 +53,6 @@ namespace Aseprite {
 		}
 
 		public AsepriteFile(string filename) : this(filename, null) {
-			
 			int framesCount = Frames.Count;
 			int layersCount = Layers.Count;
 				

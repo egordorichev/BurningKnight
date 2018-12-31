@@ -101,6 +101,7 @@ namespace Lens {
 				newState = null;
 			}
 
+			Assets.Update(dt);
 			Input.Update();
 			Timer.Update(dt);
 			Tween.Update(dt);

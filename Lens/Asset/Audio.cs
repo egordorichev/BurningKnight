@@ -19,18 +19,30 @@ namespace Lens.Asset {
 					LoadSfx(Path.GetFileNameWithoutExtension(sfx));
 				} 	
 			}
+
+			if (Assets.LoadOriginalFiles) {
+				// Can't load Song without content pipeline
+				return;
+			}
 			
 			var musicDir = FileHandle.FromRoot("Music/");
 			
 			if (musicDir.Exists()) {
 				foreach (var name in musicDir.ListFiles()) {
-					LoadMusic(Path.GetFileNameWithoutExtension(name));
+					LoadMusic(name);
 				} 	
 			}
 		}
 
 		private static void LoadSfx(string sfx) {
-			sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Music/{sfx}");
+			if (Assets.LoadOriginalFiles) {
+				var fileStream = new FileStream($"Content/Sfx/{Path.GetFileName(sfx)}", FileMode.Open);
+				sounds[Path.GetFileNameWithoutExtension(sfx)] = SoundEffect.FromStream(fileStream);
+				fileStream.Dispose();
+			} else {
+				sfx = Path.GetFileNameWithoutExtension(sfx);
+				sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Music/{sfx}");				
+			}
 		}
 
 		private static void LoadMusic(string name) {

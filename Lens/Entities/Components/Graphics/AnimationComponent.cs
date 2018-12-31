@@ -4,8 +4,14 @@ using Lens.Graphics.Animation;
 namespace Lens.Entities.Components.Graphics {
 	public class AnimationComponent : GraphicsComponent {
 		public Animation Animation;
+		private string name;
 		
-		public AnimationComponent(string name, string layer = null) {
+		public AnimationComponent(string animationName, string layer = null) {
+			name = animationName;
+			ReloadAnimation(layer);
+		}
+
+		private void ReloadAnimation(string layer = null) {
 			var data = Animations.Get(name);
 
 			if (data != null) {
@@ -19,6 +25,11 @@ namespace Lens.Entities.Components.Graphics {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Animations.Reload) {
+				ReloadAnimation();
+			}
+			
 			Animation?.Update(dt);
 		}
 

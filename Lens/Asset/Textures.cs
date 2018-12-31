@@ -16,7 +16,7 @@ namespace Lens.Asset {
 
 			if (textureDir.Exists()) {
 				foreach (var id in textureDir.ListFiles()) {
-					LoadTexture(Path.GetFileNameWithoutExtension(id));
+					LoadTexture(id);
 				} 	
 			}
 
@@ -25,10 +25,19 @@ namespace Lens.Asset {
 
 		private static void LoadTexture(string id) {
 			var region = new TextureRegion();
+
+			if (Assets.LoadOriginalFiles) {
+				var fileStream = new FileStream($"Content/Textures/{Path.GetFileName(id)}", FileMode.Open);
+				region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+				fileStream.Dispose();
+				
+				id = Path.GetFileNameWithoutExtension(id);
+			} else {
+				id = Path.GetFileNameWithoutExtension(id);
+				region.Texture = Assets.Content.Load<Texture2D>($"bin/Textures/{id}");				
+			}
 			
-			// Can be loaded without content: Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
-			region.Texture = Assets.Content.Load<Texture2D>("bin/Textures/" + id);
-			region.Source = new Rectangle(0, 0, region.Texture.Width, region.Texture.Height);
+			region.Source = region.Texture.Bounds;
 			
 			textures[id] = region;
 		}

@@ -6,10 +6,10 @@ using Lens.Graphics.Animation;
 using Lens.Util;
 using Lens.Util.File;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.Asset {
 	public struct Animations {
+		public static bool Reload;
 		private static Dictionary<string, AnimationData> animations = new Dictionary<string, AnimationData>();
 		
 		internal static void Load() {
