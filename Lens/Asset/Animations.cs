@@ -3,6 +3,7 @@ using Aseprite;
 using Lens.Graphics;
 using Lens.Graphics.Animation;
 using Lens.Util;
+using Microsoft.Xna.Framework;
 
 namespace Lens.Asset {
 	public struct Animations {
@@ -12,16 +13,16 @@ namespace Lens.Asset {
 			var file = Assets.Content.Load<AsepriteFile>("bin/test");
 			var animation = new AnimationData();
 						
-			foreach (var layer in file.Layers) {
+			for (var i = 0; i < file.Layers.Count; i++) {
+				var layer = file.Layers[i];
 				var list = new List<AnimationFrame>();
 				
-				Log.Error("'" + layer.Name + "'");
-				
-				foreach (var frame in file.Frames) {
+				for (var j = 0; j < file.Frames.Count; j++) {
+					var frame = file.Frames[j];
 					var newFrame = new AnimationFrame();
 					
 					newFrame.Duration = frame.Duration;
-					newFrame.Texture = new TextureRegion(file.Texture);
+					newFrame.Texture = new TextureRegion(file.Texture, new Rectangle(j * file.Width, i * file.Height, file.Width, file.Height));
 					
 					list.Add(newFrame);
 				}

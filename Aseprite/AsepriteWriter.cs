@@ -39,7 +39,6 @@ namespace Aseprite {
 					int size = cel.Width * cel.Height;
 					
 					for (int p = 0; p < size; p++) {
-						value.Log.LogMessage("writing pixel" + cel.Pixels[p].R);
 						output.Write(cel.Pixels[p]);
 					}
 				}

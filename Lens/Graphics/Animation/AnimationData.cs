@@ -23,7 +23,7 @@ namespace Lens.Graphics.Animation {
 			var animation = new Animation(this);
 
 			animation.StartFrame = 0;
-			animation.EndFrame = 1;
+			animation.EndFrame = 5;
 			animation.Direction = AnimationDirection.Forward;
 			
 			return animation;

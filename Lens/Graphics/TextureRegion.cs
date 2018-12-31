@@ -14,5 +14,10 @@ namespace Lens.Graphics {
 			Texture = texture;
 			Source = texture.Bounds;
 		}
+
+		public TextureRegion(Texture2D texture, Rectangle source) {
+			Texture = texture;
+			Source = source;
+		}
 	}
 }

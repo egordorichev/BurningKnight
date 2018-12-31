@@ -84,7 +84,6 @@ namespace Aseprite {
 							Color pixel = input.ReadColor();
 							//           | x                  | y
 							pixelIndex = (f * width) + celX + ((layerIndex * height) + celY) * textureWidth;
-							Console.WriteLine(pixel);
 							pixelData[pixelIndex] = pixel;
 						}
 					}

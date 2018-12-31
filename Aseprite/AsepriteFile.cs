@@ -211,14 +211,10 @@ namespace Aseprite {
 
 								if (celType == CelTypes.RawCel) {
 									reader.Read(colorBuffer, 0, byteCount);
-									
-									logger.LogMessage("Read color buffer");
 								} else {
 									SEEK(2);
 									var deflate = new DeflateStream(reader.BaseStream, CompressionMode.Decompress);
 									deflate.Read(colorBuffer, 0, byteCount);
-									
-									logger.LogMessage("Read color buffer deflate");
 								}
 
 								cel.Pixels = new Color[cel.Width * cel.Height];
@@ -339,7 +335,7 @@ namespace Aseprite {
 				logger.LogMessage($"\t{layer.Name}");
 			}
 
-			/*logger.LogMessage("Animations:");
+			logger.LogMessage("Animations:");
 			
 			foreach (var animation in Tags) {
 				if (animation.To == animation.From) {
@@ -347,35 +343,27 @@ namespace Aseprite {
 				} else {
 					logger.LogMessage($"\t{animation.Name} => {animation.From + 1} - {animation.To + 1}");
 				}
-			}*/
+			}
 		}
 
 		private void ConvertBytesToPixels(byte[] bytes, Color[] pixels, Color[] palette, ContentBuildLogger logger) {
 			int length = pixels.Length;
 
-			logger.LogMessage("Total " + length);
-			
 			if (Mode == Modes.RGBA) {
 				for (int pixel = 0, b = 0; pixel < length; pixel++, b += 4) {
 					pixels[pixel].R = (byte) (bytes[b + 0] * bytes[b + 3] / 255);
 					pixels[pixel].G = (byte) (bytes[b + 1] * bytes[b + 3] / 255);
 					pixels[pixel].B = (byte) (bytes[b + 2] * bytes[b + 3] / 255);
 					pixels[pixel].A = bytes[b + 3];
-					
-					logger.LogMessage("Color " + pixels[pixel].R);
 				}
 			} else if (Mode == Modes.Grayscale) {
 				for (int pixel = 0, b = 0; pixel < length; pixel++, b += 2) {
 					pixels[pixel].R = pixels[pixel].G = pixels[pixel].B = (byte) (bytes[b + 0] * bytes[b + 1] / 255);
 					pixels[pixel].A = bytes[b + 1];
-					
-					logger.LogMessage("Color " + pixels[pixel].R);
 				}
 			} else if (Mode == Modes.Indexed) {
 				for (int pixel = 0, paletteIndex = 0; pixel < length; pixel++, paletteIndex += 1) {
 					pixels[pixel] = palette[paletteIndex];
-					
-					logger.LogMessage("Color " + pixels[pixel].R);
 				}
 			} else {
 				logger.LogMessage("unknown mode " + Mode);

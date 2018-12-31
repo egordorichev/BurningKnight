@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace Lens.Graphics.Animation {
 	public class Animation {
 		public AnimationData Data;
-		public string layer = "Layer 1";
+		public string layer = "black";
 		
 		private AnimationFrame frame;
 		private uint currentFrame;
@@ -48,8 +48,6 @@ namespace Lens.Graphics.Animation {
 		}
 
 		public void Render(Vector2 position) {
-			frame.Texture.Source = new Rectangle(0, 0, 32, 16);
-			frame.Bounds = frame.Texture.Source;
 			Gr.Render(frame.Texture, position);
 		}
 		
