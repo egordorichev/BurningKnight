@@ -8,7 +8,7 @@ namespace TestProject.Entities {
 		protected override void AddComponents() {
 			base.AddComponents();
 			
-			SetGraphicsComponent(new ImageComponent("player"));
+			SetGraphicsComponent(new AnimationComponent("test"));
 			
 			AddComponent(new StateComponent<Player>());
 			AddComponent(new PlayerInputComponent());

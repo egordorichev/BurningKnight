@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Aseprite;
 using Lens.Graphics;
@@ -7,6 +6,7 @@ using Lens.Graphics.Animation;
 using Lens.Util;
 using Lens.Util.File;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.Asset {
 	public struct Animations {
@@ -17,15 +17,22 @@ namespace Lens.Asset {
 
 			if (animationDir.Exists()) {
 				foreach (var animation in animationDir.ListFiles()) {
-					LoadAnimation(Path.GetFileNameWithoutExtension(animation));
+					LoadAnimation(Path.GetFileNameWithoutExtension(animation), animation);
 				}
 			}
 		}
 
-		private static void LoadAnimation(string name) {
-			var file = Assets.Content.Load<AsepriteFile>($"bin/Animations/{name}");
+		private static void LoadAnimation(string name, string fullPath) {
+			AsepriteFile file;
+
+			if (Assets.LoadOriginalFiles) {
+				file = new AsepriteFile(fullPath);
+			} else {
+				file = Assets.Content.Load<AsepriteFile>($"bin/Animations/{name}");
+			}
+			
 			var animation = new AnimationData();
-						
+			
 			for (var i = 0; i < file.Layers.Count; i++) {
 				var layer = file.Layers[i];
 				var list = new List<AnimationFrame>();
@@ -50,16 +57,27 @@ namespace Lens.Asset {
 				newTag.StartFrame = (uint) tag.FirstFrame;
 				newTag.EndFrame = (uint) tag.LastFrame;
 				
-				Log.Error("Loaded tag " + newTag.StartFrame + " " + newTag.EndFrame + " " + tag.Name + " " + tag.Directions);
+				animation.Tags[tag.Name] = newTag;
+			}
+			
+			foreach (var tag in file.Tags) {
+				var newTag = new AnimationTag();
+			
+				newTag.Direction = (AnimationDirection) tag.LoopDirection;
+				newTag.StartFrame = (uint) tag.From;
+				newTag.EndFrame = (uint) tag.To;
 				
 				animation.Tags[tag.Name] = newTag;
 			}
 
+			animation.Texture = file.Texture;
 			animations[name] = animation;
 		}
 		
 		internal static void Destroy() {
-			
+			foreach (var animation in animations.Values) {
+				animation.Texture.Dispose();
+			}
 		}
 
 		public static AnimationData Get(string id) {

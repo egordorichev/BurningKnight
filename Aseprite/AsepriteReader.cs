@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -58,7 +57,7 @@ namespace Aseprite {
 			Color[] pixelData = new Color[textureWidth * textureHeight];
 
 			for (int f = 0; f < framesCount; f++) {
-				frame = new AsepriteFrame() {
+				frame = new AsepriteFrame {
 					Duration = input.ReadSingle()
 				};
 
@@ -67,6 +66,7 @@ namespace Aseprite {
 
 				for (int i = 0; i < celsCount; i++) {
 					int layerIndex = input.ReadInt32();
+					
 					cel = new AsepriteCel {
 						Layer = layersByIndex[layerIndex],
 						// ClipRect = new Rectangle(f * width, layerIndex * height, width, height)
@@ -79,6 +79,7 @@ namespace Aseprite {
 					celOriginY = input.ReadInt32();
 					celWidth = input.ReadInt32();
 					celHeight = input.ReadInt32();
+					
 					for (int celY = celOriginY; celY < celOriginY + celHeight; celY++) {
 						for (int celX = celOriginX; celX < celOriginX + celWidth; celX++) {
 							Color pixel = input.ReadColor();
@@ -97,7 +98,6 @@ namespace Aseprite {
 			aseprite.Texture.SetData(pixelData);
 
 			// Animations
-			aseprite.Animations = new Dictionary<string, AsepriteAnimation>();
 			
 			int animationsCount = input.ReadInt32();
 			AsepriteAnimation animation;

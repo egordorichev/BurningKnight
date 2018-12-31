@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lens.Entities.Components;
 using Lens.Entities.Components.Graphics;
+using Lens.Util;
 using Microsoft.Xna.Framework;
 
 namespace Lens.Entities {
@@ -97,8 +98,6 @@ namespace Lens.Entities {
 			foreach (var component in components.Values) {
 				component.Update(dt);
 			}
-			
-			graphicsComponent?.Update(dt);
 		}
 
 		public virtual void Render() {
@@ -125,8 +124,7 @@ namespace Lens.Entities {
 
 		public void SetGraphicsComponent(GraphicsComponent component) {
 			graphicsComponent = component;
-			graphicsComponent.Entity = this;
-			graphicsComponent.Init();
+			AddComponent(component);
 		}
 				
 		public T GetComponent<T>() where T : Component {

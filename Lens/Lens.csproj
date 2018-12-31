@@ -59,7 +59,7 @@
     <Compile Include="Entities\Components\Component.cs" />
     <Compile Include="Entities\Components\Graphics\GraphicsComponent.cs" />
     <Compile Include="Entities\Components\Graphics\ImageComponent.cs" />
-    <Compile Include="Entities\Components\Graphics\SpriteComponent.cs" />
+    <Compile Include="Entities\Components\Graphics\AnimationComponent.cs" />
     <Compile Include="Entities\Components\Logic\EntityState.cs" />
     <Compile Include="Entities\Components\Logic\StateComponent.cs" />
     <Compile Include="Entities\Entity.cs" />

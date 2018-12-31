@@ -24,7 +24,7 @@ namespace Aseprite {
 		public List<AsepriteLayer> Layers = new List<AsepriteLayer>();
 		public List<AsepriteTag> Tags = new List<AsepriteTag>();
 		public List<AsepriteSlice> Slices = new List<AsepriteSlice>();
-		public Dictionary<string, AsepriteAnimation> Animations;
+		public Dictionary<string, AsepriteAnimation> Animations = new Dictionary<string, AsepriteAnimation>();
 
 		public Texture2D Texture;
 
@@ -52,7 +52,48 @@ namespace Aseprite {
 			
 		}
 
-		public AsepriteFile(string filename, ContentBuildLogger logger) {
+		public AsepriteFile(string filename) : this(filename, null) {
+			
+			int framesCount = Frames.Count;
+			int layersCount = Layers.Count;
+				
+			int textureWidth = framesCount * Width;
+			int textureHeight = layersCount * Height;
+			int width = Width;
+			int height = Height;
+				
+			var pixelData = new Color[textureWidth * textureHeight];
+
+			for (int l = 0; l < layersCount; l++) {
+				for (int f = 0; f < framesCount; f++) {
+					var frame = Frames[f];
+
+					for (int i = 0; i < frame.Cels.Count; i++) {
+						var cel = frame.Cels[i];
+
+						var celOriginX = cel.X;
+						var celOriginY = cel.Y;
+						var celWidth = cel.Width;
+						var celHeight = cel.Height;
+
+						for (int celY = celOriginY; celY < celOriginY + celHeight; celY++) {
+							for (int celX = celOriginX; celX < celOriginX + celWidth; celX++) {
+								int ind = (celX - cel.X) + (celY - cel.Y) * cel.Width;
+
+								var pixel = cel.Pixels[ind];
+								var pixelIndex = (f * width) + celX + ((l * height) + celY) * textureWidth;
+								pixelData[pixelIndex] = pixel;
+							}
+						}
+					}
+				}
+			}
+
+			Texture = new Texture2D(AsepriteReader.GraphicsDevice, textureWidth, textureHeight);
+			Texture.SetData(pixelData);
+		}
+
+		public AsepriteFile(string filename, ContentBuildLogger logger) {			
 			using (var stream = File.OpenRead(filename)) {
 				var reader = new BinaryReader(stream);
 
@@ -116,7 +157,7 @@ namespace Aseprite {
 
 					Mode = (Modes) (WORD() / 8);
 
-					logger.LogMessage($"Cels are {Width}x{Height}, mode is {Mode}");
+					logger?.LogMessage($"Cels are {Width}x{Height}, mode is {Mode}");
 
 					// Ignore a bunch of stuff
 					DWORD(); // Flags
@@ -218,13 +259,13 @@ namespace Aseprite {
 								}
 
 								cel.Pixels = new Color[cel.Width * cel.Height];
-								ConvertBytesToPixels(colorBuffer, cel.Pixels, palette, logger);
-							}
-							else if (celType == CelTypes.LinkedCel) {
+								ConvertBytesToPixels(colorBuffer, cel.Pixels, palette);
+							} else if (celType == CelTypes.LinkedCel) {
 								var targetFrame = WORD(); // Frame position to link with
 
 								// Grab the cel from a previous frame
 								var targetCel = Frames[targetFrame].Cels.Where(c => c.Layer == Layers[layerIndex]).First();
+								
 								cel.Width = targetCel.Width;
 								cel.Height = targetCel.Height;
 								cel.Pixels = targetCel.Pixels;
@@ -232,8 +273,7 @@ namespace Aseprite {
 
 							lastUserData = cel;
 							frame.Cels.Add(cel);
-						}
-						else if (chunkType == Chunks.Palette) {
+						} else if (chunkType == Chunks.Palette) {
 							// Palette
 
 							var size = DWORD();
@@ -249,8 +289,7 @@ namespace Aseprite {
 									STRING(); // Color name
 								}
 							}
-						}
-						else if (chunkType == Chunks.UserData) {
+						} else if (chunkType == Chunks.UserData) {
 							// User data
 
 							if (lastUserData != null) {
@@ -282,8 +321,7 @@ namespace Aseprite {
 
 								Tags.Add(tag);
 							}
-						}
-						else if (chunkType == Chunks.Slice) {
+						} else if (chunkType == Chunks.Slice) {
 							// Slice
 
 							var slicesCount = DWORD();
@@ -306,8 +344,7 @@ namespace Aseprite {
 									LONG(); // Center Y position
 									DWORD(); // Center width
 									DWORD(); // Center height
-								}
-								else if (Calc.IsBitSet(flags, 1)) {
+								}	else if (Calc.IsBitSet(flags, 1)) {
 									// Pivot
 
 									slice.Pivot = new Point((int) DWORD(), (int) DWORD());
@@ -327,6 +364,10 @@ namespace Aseprite {
 				#endregion
 			}
 
+			if (logger == null) {
+				return;
+			}
+			
 			// Log out what we found
 			logger.LogMessage("Layers:");
 			
@@ -345,7 +386,7 @@ namespace Aseprite {
 			}
 		}
 
-		private void ConvertBytesToPixels(byte[] bytes, Color[] pixels, Color[] palette, ContentBuildLogger logger) {
+		private void ConvertBytesToPixels(byte[] bytes, Color[] pixels, Color[] palette) {
 			int length = pixels.Length;
 
 			if (Mode == Modes.RGBA) {
@@ -364,8 +405,6 @@ namespace Aseprite {
 				for (int pixel = 0, paletteIndex = 0; pixel < length; pixel++, paletteIndex += 1) {
 					pixels[pixel] = palette[paletteIndex];
 				}
-			} else {
-				logger.LogMessage("unknown mode " + Mode);
 			}
 		}
 	}
@@ -377,8 +416,7 @@ namespace Aseprite {
 		Color UserDataColor { get; set; }
 	}
 
-	// A layer stores just the meta info for a row
-	// of cels
+	// A layer stores just the meta info for a row of cels
 	public class AsepriteLayer : IUserData {
 		[Flags]
 		public enum Flags {

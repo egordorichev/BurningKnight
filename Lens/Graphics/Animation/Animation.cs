@@ -8,6 +8,9 @@ namespace Lens.Graphics.Animation {
 		private uint currentFrame;
 		public uint StartFrame { get; private set; }
 		public uint EndFrame { get; private set; }
+		
+		public float SpeedModifier = 1f;
+		public bool Paused;
 
 		public uint Frame {
 			get { return currentFrame; }
@@ -24,6 +27,10 @@ namespace Lens.Graphics.Animation {
 			get { return layer; }
 			
 			set {
+				if (layer == value) {
+					return;
+				}
+				
 				layer = value;
 				ReadFrame();
 			}
@@ -33,6 +40,10 @@ namespace Lens.Graphics.Animation {
 			get { return tag; }
 			
 			set {
+				if (tag == value) {
+					return;
+				}
+				
 				tag = value;
 				ReadFrame();
 			}
@@ -69,7 +80,9 @@ namespace Lens.Graphics.Animation {
 		}
 
 		public void Update(float dt) {
-			Timer += dt;
+			if (!Paused) {
+				Timer += dt * SpeedModifier;
+			}
 		}
 
 		public void Render(Vector2 position) {
