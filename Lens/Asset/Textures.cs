@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Aseprite;
 using Lens.Graphics;
 using Lens.Util;
 using Lens.Util.File;
@@ -18,6 +19,9 @@ namespace Lens.Asset {
 					LoadTexture(Path.GetFileNameWithoutExtension(id));
 				} 	
 			}
+
+			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
+			Assets.Content.Load<AsepriteFile>("bin/test");
 		}
 
 		private static void LoadTexture(string id) {

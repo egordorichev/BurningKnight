@@ -26,11 +26,11 @@ namespace Lens.Entities.Components.Graphics {
 				return;
 			}
 
-			current = animation;
+			current = new Animation(animation);
 			currentName = animationName;
 
 			if (reset) {
-				animation.Reset();
+				current.Reset();
 			}
 		}
 	}

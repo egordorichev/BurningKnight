@@ -4,7 +4,13 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/egor/Lens/TestProject/Content/Textures/player.png</File>
     <File>/home/egor/Lens/TestProject/Content/Music/shop.wav</File>
+    <File>/home/egor/Lens/TestProject/Content/test.ase</File>
+    <File>/home/egor/Lens/TestProject/Content/Textures/player.png</File>
   </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
 </SourceFileCollection>
