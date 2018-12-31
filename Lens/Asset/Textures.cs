@@ -27,7 +27,7 @@ namespace Lens.Asset {
 			var region = new TextureRegion();
 
 			if (Assets.LoadOriginalFiles) {
-				var fileStream = new FileStream($"Content/Textures/{Path.GetFileName(id)}", FileMode.Open);
+				var fileStream = new FileStream($"../../Content/Textures/{Path.GetFileName(id)}", FileMode.Open);
 				region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
 				fileStream.Dispose();
 				

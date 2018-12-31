@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Lens.Graphics;
 using Lens.Util;
 using Microsoft.Xna.Framework.Content;
@@ -8,10 +9,10 @@ namespace Lens.Asset {
 		public static ContentManager Content;
 		// If true, Assets.Content wont be used, the original files will be loaded
 		public static bool LoadOriginalFiles = true;
-		public static string Root => LoadOriginalFiles ? $"{Directory.GetCurrentDirectory()}/Content/" : $"{Directory.GetCurrentDirectory()}/Content/bin/";
+		public static string Root => LoadOriginalFiles ? Path.Combine(Directory.GetCurrentDirectory(), "../../Content/") : $"{Directory.GetCurrentDirectory()}/Content/bin/";
 		
-		private static long[] lastChanged;
 		private static string[] folders;
+		private static List<FileSystemEventArgs> changed = new List<FileSystemEventArgs>();
 		private static float lastUpdate;
 		
 		public static void Load() {
@@ -26,13 +27,25 @@ namespace Lens.Asset {
 					"Animations/",
 					"Sfx/"
 				};
-				
-				lastChanged = new long[folders.Length];
 
 				for (int i = 0; i < folders.Length; i++) {
-					lastChanged[i] = File.GetLastWriteTime(folders[i]).ToFileTime();
+					var watcher = new FileSystemWatcher();
+					
+					watcher.Path = Path.GetFullPath(Root + folders[i]);
+					watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+					                                                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+
+					watcher.Changed += OnChanged;
+					watcher.Created += OnChanged;
+					watcher.Deleted += OnChanged;
+
+					watcher.EnableRaisingEvents = true;
 				}
 			}
+		}
+
+		private static void OnChanged(object source, FileSystemEventArgs e) {
+			changed.Add(e);
 		}
 
 		private static void LoadAssets() {
@@ -54,6 +67,7 @@ namespace Lens.Asset {
 
 		public static void Update(float dt) {
 			Animations.Reload = false;
+
 			lastUpdate += dt;
 
 			if (lastUpdate >= 0.3f) {
@@ -63,41 +77,59 @@ namespace Lens.Asset {
 		}
 
 		private static void CheckForUpdates() {
-			for (int i = 0; i < folders.Length; i++) {
-				long changed = File.GetLastWriteTime(Path.GetFullPath(Root + folders[i])).ToFileTime();
+			if (changed.Count == 0) {
+				return;
+			}
+			
+			var reloadedTextures = false;
+			var reloadedSfx = false;
+			var reloadedAnimations = false;
 
-				if (changed != lastChanged[i]) {
-					Log.Debug("Asset directory was changed " + folders[i]);
-					lastChanged[i] = changed;
-					
-					switch (folders[i]) {
-						case "Textures/": {
+			var changedClone = changed.ToArray();
+			
+			foreach (var e in changedClone) {
+				Log.Debug("File " + e.Name + " was changed");
+
+				switch (new DirectoryInfo(Path.GetDirectoryName(e.FullPath)).Name) {
+					case "Textures": {
+						if (!reloadedTextures) {
 							Log.Debug("Reloading textures...");
-							
-							break;
+							reloadedTextures = true;
 						}
 
-						case "Sfx/": {
+						break;
+					}
+
+					case "Sfx": {
+						if (!reloadedSfx) {
 							Log.Debug("Reloading sfx...");
-							
+
 							Audio.Destroy();
 							Audio.Load();
 							
-							break;
+							reloadedSfx = true;
 						}
 
-						case "Animations/": {
+						break;
+					}
+
+					case "Animations": {
+						if (!reloadedAnimations) {
 							Log.Debug("Reloading animations...");
-							
+
 							Animations.Destroy();
 							Animations.Load();
 							Animations.Reload = true;
-							
-							break;
+
+							reloadedAnimations = true;
 						}
+
+						break;
 					}
 				}
 			}
+			
+			changed.Clear();
 		}
 	}
 }
