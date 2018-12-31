@@ -3,4 +3,6 @@
 .git
 */bin/*
 */obj/*
+*TestProject/Content/bin/*
+*TestProject/Content/obj/*
 packages/*
