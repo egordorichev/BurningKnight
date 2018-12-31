@@ -21,7 +21,6 @@ namespace Lens.Asset {
 			}
 
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
-			Assets.Content.Load<AsepriteFile>("bin/test");
 		}
 
 		private static void LoadTexture(string id) {

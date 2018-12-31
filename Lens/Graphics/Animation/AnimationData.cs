@@ -1,14 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Lens.Graphics.Animation {
 	public class AnimationData {
 		public Dictionary<string, List<AnimationFrame>> Layers = new Dictionary<string, List<AnimationFrame>>();
-		public TextureRegion Texture;
-				
-		public AnimationFrame? GetFrame(string layer, uint id) {			
+		public Dictionary<string, AnimationTag> Tags = new Dictionary<string, AnimationTag>();
+
+		public AnimationTag? GetTag(string tagName) {
+			AnimationTag tag;
+
+			if (tagName == null) {
+				tag = Tags.FirstOrDefault().Value;
+			} else if (!Tags.TryGetValue(tagName, out tag)) {
+				return null;
+			}
+
+			return tag;
+		}
+		
+		public AnimationFrame? GetFrame(string layer, uint id) {
 			List<AnimationFrame> frames;
 
-			if (!Layers.TryGetValue(layer, out frames)) {
+			if (layer == null) {
+				frames = Layers.FirstOrDefault().Value;
+			} else if (!Layers.TryGetValue(layer, out frames)) {
 				return null;
 			}
 
@@ -22,8 +37,6 @@ namespace Lens.Graphics.Animation {
 		public Animation CreateAnimation() {
 			var animation = new Animation(this);
 
-			animation.StartFrame = 0;
-			animation.EndFrame = 5;
 			animation.Direction = AnimationDirection.Forward;
 			
 			return animation;

@@ -3,7 +3,7 @@
   <SourceFile>/home/egor/Lens/TestProject/Content/Music/shop.wav</SourceFile>
   <SourceTime>2018-12-29T13:17:11.658988+03:00</SourceTime>
   <DestFile>/home/egor/Lens/TestProject/Content/bin/Music/shop.xnb</DestFile>
-  <DestTime>2018-12-29T19:40:55.024955+03:00</DestTime>
+  <DestTime>2018-12-31T06:22:08.827532+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-12-29T18:57:46.548335+03:00</ImporterTime>
   <Processor>SongProcessor</Processor>

@@ -18,6 +18,8 @@ namespace TestProject.State {
 			area.Add(new Player());
 
 			animation = Animations.Get("test").CreateAnimation();
+			animation.Tag = "run";
+			animation.Layer = "black";
 		}
 
 		public override void Render() {

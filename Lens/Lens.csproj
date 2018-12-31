@@ -69,6 +69,7 @@
     <Compile Include="Graphics\Animation\AnimationData.cs" />
     <Compile Include="Graphics\Animation\AnimationDirection.cs" />
     <Compile Include="Graphics\Animation\AnimationFrame.cs" />
+    <Compile Include="Graphics\Animation\AnimationTag.cs" />
     <Compile Include="Graphics\GameRenderer\DefaultGameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\GameRenderer.cs" />
     <Compile Include="Graphics\GameRenderer\PixelPerfectGameRenderer.cs" />

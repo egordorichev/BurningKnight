@@ -14,16 +14,21 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Animations/otest.ase
+/importer:AsepriteImporter
+/processor:AsepriteProcessor
+/build:Animations/otest.ase
+
+#begin Animations/test.ase
+/importer:AsepriteImporter
+/processor:AsepriteProcessor
+/build:Animations/test.ase
+
 #begin Music/shop.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/shop.wav
-
-#begin test.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:test.ase
 
 #begin Textures/player.png
 /importer:TextureImporter

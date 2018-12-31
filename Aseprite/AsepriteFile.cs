@@ -263,13 +263,12 @@ namespace Aseprite {
 									lastUserData.UserDataColor = Color.FromNonPremultiplied(BYTE(), BYTE(), BYTE(), BYTE());
 								}
 							}
-						}
-						else if (chunkType == Chunks.FrameTags) {
+						} else if (chunkType == Chunks.FrameTags) {
 							// Tag (animation reference)
 
 							var tagsCount = WORD();
 							SEEK(8);
-
+							
 							for (int t = 0; t < tagsCount; t++) {
 								var tag = new AsepriteTag();
 

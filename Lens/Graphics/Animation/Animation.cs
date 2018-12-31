@@ -4,19 +4,38 @@ using Microsoft.Xna.Framework;
 namespace Lens.Graphics.Animation {
 	public class Animation {
 		public AnimationData Data;
-		public string layer = "black";
 		
 		private AnimationFrame frame;
 		private uint currentFrame;
-		public uint StartFrame;
-		public uint EndFrame;
+		public uint StartFrame { get; private set; }
+		public uint EndFrame { get; private set; }
 
-		
 		public uint Frame {
 			get { return currentFrame; }
 
 			set {
 				currentFrame = value % (EndFrame - StartFrame + 1);
+			}
+		}
+		
+		private string layer;
+		private string tag;
+
+		public string Layer {
+			get { return layer; }
+			
+			set {
+				layer = value;
+				ReadFrame();
+			}
+		}
+		
+		public string Tag {
+			get { return tag; }
+			
+			set {
+				tag = value;
+				ReadFrame();
 			}
 		}
 		
@@ -56,6 +75,17 @@ namespace Lens.Graphics.Animation {
 		}
 
 		private void ReadFrame() {
+			var nullableTag = Data.GetTag(this.tag);
+
+			if (nullableTag == null) {
+				return;
+			}
+
+			var tag = nullableTag.Value;
+
+			StartFrame = tag.StartFrame;
+			EndFrame = tag.EndFrame;
+			
 			var frame = Data.GetFrame(layer, Direction.GetFrameId(this));
 
 			if (frame != null) {
