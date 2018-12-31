@@ -106,7 +106,8 @@ namespace Aseprite {
 				animation = new AsepriteAnimation {
 					Name = input.ReadString(),
 					FirstFrame = input.ReadInt32(),
-					LastFrame = input.ReadInt32()
+					LastFrame = input.ReadInt32(),
+					Directions = (AsepriteTag.LoopDirections) input.ReadByte()
 				};
 				
 				aseprite.Animations.Add(animation.Name, animation);

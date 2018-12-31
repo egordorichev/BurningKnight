@@ -35,11 +35,7 @@ namespace Lens.Graphics.Animation {
 		}
 
 		public Animation CreateAnimation() {
-			var animation = new Animation(this);
-
-			animation.Direction = AnimationDirection.Forward;
-			
-			return animation;
+			return new Animation(this);			
 		}
 	}
 }

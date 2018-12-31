@@ -51,6 +51,7 @@ namespace Aseprite {
 				output.Write(animation.Name);
 				output.Write(animation.From);
 				output.Write(animation.To);
+				output.Write((byte) animation.LoopDirection);
 			}
 		}
 

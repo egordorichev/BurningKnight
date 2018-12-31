@@ -10,7 +10,27 @@
 			switch (direction) {
 				case AnimationDirection.Forward: return animation.StartFrame + animation.Frame;
 				case AnimationDirection.Backwards: return animation.EndFrame - animation.Frame;
-				default: return 0; // FIXME: TODO
+				default: {
+					uint frame;
+					
+					if (animation.PingGoingForward) {
+						frame = animation.StartFrame + animation.Frame;
+
+						if (frame == animation.EndFrame) {
+							animation.PingGoingForward = false;
+							animation.SkipNextFrame = true;
+						}
+					} else {
+						frame = animation.EndFrame - animation.Frame;
+						
+						if (frame == animation.StartFrame) {
+							animation.PingGoingForward = true;
+							animation.SkipNextFrame = true;
+						}
+					}
+
+					return frame;
+				}
 			}
 		}
 	}

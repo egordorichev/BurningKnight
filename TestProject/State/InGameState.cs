@@ -19,7 +19,6 @@ namespace TestProject.State {
 
 			animation = Animations.Get("test").CreateAnimation();
 			animation.Tag = "run";
-			animation.Layer = "black";
 		}
 
 		public override void Render() {

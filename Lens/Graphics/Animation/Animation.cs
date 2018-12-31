@@ -1,5 +1,4 @@
-﻿using Lens.Util;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Lens.Graphics.Animation {
 	public class Animation {
@@ -50,12 +49,19 @@ namespace Lens.Graphics.Animation {
 				if (timer >= frame.Duration) {
 					timer = 0;
 					Frame++;
+
+					if (SkipNextFrame) {
+						SkipNextFrame = false;
+						Frame++;
+					}
+					
 					ReadFrame();
 				}
 			}
 		}
 
-		public AnimationDirection Direction;
+		public bool PingGoingForward;
+		public bool SkipNextFrame;
 		
 		public Animation(AnimationData data) {
 			Data = data;
@@ -86,7 +92,7 @@ namespace Lens.Graphics.Animation {
 			StartFrame = tag.StartFrame;
 			EndFrame = tag.EndFrame;
 			
-			var frame = Data.GetFrame(layer, Direction.GetFrameId(this));
+			var frame = Data.GetFrame(layer, tag.Direction.GetFrameId(this));
 
 			if (frame != null) {
 				this.frame = (AnimationFrame) frame;

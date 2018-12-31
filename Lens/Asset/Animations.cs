@@ -46,11 +46,11 @@ namespace Lens.Asset {
 			foreach (var tag in file.Animations.Values) {
 				var newTag = new AnimationTag();
 			
-				// newTag.Direction = (AnimationDirection) tag.;
+				newTag.Direction = (AnimationDirection) tag.Directions;
 				newTag.StartFrame = (uint) tag.FirstFrame;
 				newTag.EndFrame = (uint) tag.LastFrame;
 				
-				Log.Error("Loaded tag " + newTag.StartFrame + " " + newTag.EndFrame + " " + tag.Name);
+				Log.Error("Loaded tag " + newTag.StartFrame + " " + newTag.EndFrame + " " + tag.Name + " " + tag.Directions);
 				
 				animation.Tags[tag.Name] = newTag;
 			}
