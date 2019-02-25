@@ -2,6 +2,5 @@
 
 namespace BurningKnight.state {
 	public class InGameState : GameState {
-		
 	}
 }

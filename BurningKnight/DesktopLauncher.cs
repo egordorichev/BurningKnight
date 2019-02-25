@@ -1,14 +1,13 @@
 using System;
-using BurningKnight;
 using BurningKnight.state;
 using Lens;
 
-namespace burningknight {
+namespace BurningKnight {
 	public class DesktopLauncher {
 		internal class TestLauncher {
 			[STAThread]
 			public static void Main() {
-				int scale = 2;
+				var scale = 2;
 
 				using (var game = new BK(new InGameState(), $"Burning Knight {Engine.Version}: Burn, baby, burn!", Display.Width * scale, Display.Height * scale, false)) {
 					game.Run();

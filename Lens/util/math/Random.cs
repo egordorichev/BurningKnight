@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Lens.util.math {
-	public static class Rng {
-		private static Random random = new Random();
+﻿namespace Lens.util.math {
+	public static class Random {
+		private static System.Random random = new System.Random();
 
 		public static int Int() {
 			return random.Next();
@@ -34,6 +32,6 @@ namespace Lens.util.math {
 
 		public static bool Chance(float chance) {
 			return random.NextDouble() * 100 >= chance;
-		}
+		}		
 	}
 }
