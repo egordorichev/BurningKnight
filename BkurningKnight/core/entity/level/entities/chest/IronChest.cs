@@ -1,0 +1,31 @@
+using BurningKnight.core.entity.item;
+using BurningKnight.core.util;
+
+namespace BurningKnight.core.entity.level.entities.chest {
+	public class IronChest : Chest {
+		public static Animation Animation = Animation.Make("chest", "-iron");
+		private static AnimationData Closed = Animation.Get("idle");
+		private static AnimationData Open = Animation.Get("opening");
+		private static AnimationData Openend = Animation.Get("open");
+
+		protected override Animation GetAnim() {
+			return Animation;
+		}
+
+		public override Item Generate() {
+			return Chest.Generate(ItemRegistry.Quality.IRON, Weapon);
+		}
+
+		protected override AnimationData GetClosedAnim() {
+			return Closed;
+		}
+
+		protected override AnimationData GetOpenAnim() {
+			return Open;
+		}
+
+		protected override AnimationData GetOpenedAnim() {
+			return Openend;
+		}
+	}
+}

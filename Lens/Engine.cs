@@ -1,13 +1,11 @@
 ﻿using System;
-using Lens.Asset;
-using Lens.Graphics.GameRenderer;
-using Lens.Inputs;
-using Lens.Pattern.Observer;
-using Lens.State;
-using Lens.Util;
-using Lens.Util.Camera;
-using Lens.Util.Timer;
-using Lens.Util.Tween;
+using Lens.assets;
+using Lens.game;
+using Lens.graphics.gamerenderer;
+using Lens.input;
+using Lens.util;
+using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -38,7 +36,7 @@ namespace Lens {
 
 		public Engine(GameState state, string title, int width, int height, bool fullscreen) {
 			Instance = this;
-			tmpTitle = $"Lens {Version}: {title}";
+			tmpTitle = title;
 
 			Graphics = new GraphicsDeviceManager(this);
 			core = Core.Core.SelectCore(Window, Graphics);
@@ -59,7 +57,6 @@ namespace Lens {
 			Assets.Destroy();
 			Input.Destroy();
 			Log.Close();
-			Subjects.Destroy();
 
 			Instance = null;
 			Log.Info("Bye");
@@ -74,7 +71,6 @@ namespace Lens {
 			}
 			
 			UpdateView();
-			Subjects.Init();
 
 			Log.Open();
 			Log.Info(tmpTitle);
@@ -107,7 +103,6 @@ namespace Lens {
 			Tween.Update(dt);
 			
 			State?.Update(dt);
-			Subjects.Update();
 		}
 
 		public void SetState(GameState state) {
