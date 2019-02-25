@@ -22,13 +22,13 @@ namespace BurningKnight.ui {
 			Graphics.Layout.SetText(Graphics.Medium, Placeholder);
 			Pw = (int) Graphics.Layout.Width;
 			W = Pw;
-			this.X = (Display.GAME_WIDTH - Pw) / 2;
+			this.X = (Display.Width - Pw) / 2;
 		}
 
 		private void CalcW() {
 			Graphics.Layout.SetText(Graphics.Medium, Input);
 			W = (int) Graphics.Layout.Width;
-			this.X = (Display.GAME_WIDTH - W) / 2;
+			this.X = (Display.Width - W) / 2;
 		}
 
 		public void SetPlaceholder(string Placeholder) {

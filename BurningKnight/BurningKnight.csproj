@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Box2DX, Version=2.0.2.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -58,12 +62,9 @@
     <Compile Include="DesktopLauncher.cs" />
     <Compile Include="Dungeon.cs" />
     <Compile Include="entity\Camera.cs" />
-    <Compile Include="entity\creature\buff\Buff.cs" />
-    <Compile Include="entity\creature\buff\Buffs.cs" />
-    <Compile Include="entity\creature\buff\BurningBuff.cs" />
-    <Compile Include="entity\creature\buff\FrozenBuff.cs" />
-    <Compile Include="entity\creature\buff\fx\FlameFx.cs" />
-    <Compile Include="entity\creature\buff\PoisonedBuff.cs" />
+    <Compile Include="entity\component\BodyComponent.cs" />
+    <Compile Include="entity\component\HealthComponent.cs" />
+    <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\fx\BloodFx.cs" />
     <Compile Include="entity\creature\fx\ChargeFx.cs" />
@@ -78,58 +79,7 @@
     <Compile Include="entity\creature\fx\Zzz.cs" />
     <Compile Include="entity\creature\inventory\Inventory.cs" />
     <Compile Include="entity\creature\inventory\UiInventory.cs" />
-    <Compile Include="entity\creature\Mine.cs" />
-    <Compile Include="entity\creature\mob\Bare.cs" />
-    <Compile Include="entity\creature\mob\blood\BigZombie.cs" />
-    <Compile Include="entity\creature\mob\blood\Mother.cs" />
-    <Compile Include="entity\creature\mob\blood\Zombie.cs" />
-    <Compile Include="entity\creature\mob\boss\Boss.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPattern.cs" />
-    <Compile Include="entity\creature\mob\boss\BurningKnight.cs" />
-    <Compile Include="entity\creature\mob\boss\DesertPattern.cs" />
-    <Compile Include="entity\creature\mob\boss\ForestBossPattern.cs" />
-    <Compile Include="entity\creature\mob\boss\IcePattern.cs" />
-    <Compile Include="entity\creature\mob\boss\LibraryPattern.cs" />
-    <Compile Include="entity\creature\mob\common\BombMan.cs" />
-    <Compile Include="entity\creature\mob\common\BurningMan.cs" />
-    <Compile Include="entity\creature\mob\common\CoinMan.cs" />
-    <Compile Include="entity\creature\mob\common\DiagonalFly.cs" />
-    <Compile Include="entity\creature\mob\common\Fly.cs" />
-    <Compile Include="entity\creature\mob\common\MovingFly.cs" />
-    <Compile Include="entity\creature\mob\common\SupplyMan.cs" />
-    <Compile Include="entity\creature\mob\desert\Archeologist.cs" />
-    <Compile Include="entity\creature\mob\desert\Mummy.cs" />
-    <Compile Include="entity\creature\mob\desert\Skeleton.cs" />
-    <Compile Include="entity\creature\mob\DiagonalShotFly.cs" />
-    <Compile Include="entity\creature\mob\forest\Hedgehog.cs" />
-    <Compile Include="entity\creature\mob\forest\Treeman.cs" />
-    <Compile Include="entity\creature\mob\forest\Wombat.cs" />
-    <Compile Include="entity\creature\mob\hall\Clown.cs" />
-    <Compile Include="entity\creature\mob\hall\Knight.cs" />
-    <Compile Include="entity\creature\mob\hall\RangedKnight.cs" />
-    <Compile Include="entity\creature\mob\hall\Thief.cs" />
-    <Compile Include="entity\creature\mob\ice\Gift.cs" />
-    <Compile Include="entity\creature\mob\ice\IceElemental.cs" />
-    <Compile Include="entity\creature\mob\ice\Roller.cs" />
-    <Compile Include="entity\creature\mob\ice\Snowball.cs" />
-    <Compile Include="entity\creature\mob\ice\SnowballFly.cs" />
-    <Compile Include="entity\creature\mob\ice\Snowflake.cs" />
-    <Compile Include="entity\creature\mob\library\Cuok.cs" />
-    <Compile Include="entity\creature\mob\library\DiagonalCuok.cs" />
-    <Compile Include="entity\creature\mob\library\FourSideCrossCuok.cs" />
-    <Compile Include="entity\creature\mob\library\FourSideCuok.cs" />
-    <Compile Include="entity\creature\mob\library\Grandma.cs" />
-    <Compile Include="entity\creature\mob\library\Mage.cs" />
-    <Compile Include="entity\creature\mob\library\SpinningCuok.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
-    <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
-    <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
-    <Compile Include="entity\creature\mob\tech\Batterfly.cs" />
-    <Compile Include="entity\creature\mob\tech\Bot.cs" />
-    <Compile Include="entity\creature\mob\tech\Factory.cs" />
-    <Compile Include="entity\creature\mob\tech\Repair.cs" />
-    <Compile Include="entity\creature\mob\tech\Tank.cs" />
-    <Compile Include="entity\creature\mob\tech\Vacuum.cs" />
     <Compile Include="entity\creature\npc\BlueShopkeeper.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\NpcDialog.cs" />
@@ -144,7 +94,6 @@
     <Compile Include="entity\creature\player\label\Label.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\Spawn.cs" />
-    <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\fx\BallProjectile.cs" />
     <Compile Include="entity\fx\BKSFx.cs" />
     <Compile Include="entity\fx\BloodDropFx.cs" />
@@ -469,21 +418,17 @@
     <Compile Include="entity\pool\room\ShopRoomPool.cs" />
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
-    <Compile Include="entity\StatefulEntity.cs" />
     <Compile Include="entity\trap\FourSideRotatingTurret.cs" />
     <Compile Include="entity\trap\FourSideTurret.cs" />
     <Compile Include="entity\trap\RollingSpike.cs" />
     <Compile Include="entity\trap\RotatingTurret.cs" />
     <Compile Include="entity\trap\Turret.cs" />
     <Compile Include="game\Achievements.cs" />
-    <Compile Include="game\Area.cs" />
     <Compile Include="game\fx\BackgroundFlameFx.cs" />
     <Compile Include="game\fx\BackgroundFx.cs" />
     <Compile Include="game\fx\PixelFx.cs" />
     <Compile Include="game\fx\SnowFx.cs" />
     <Compile Include="game\fx\WindFx.cs" />
-    <Compile Include="game\Game.cs" />
-    <Compile Include="game\Healthbar.cs" />
     <Compile Include="game\input\Input.cs" />
     <Compile Include="game\state\AlphaWarningState.cs" />
     <Compile Include="game\state\AssetLoadState.cs" />
@@ -491,11 +436,9 @@
     <Compile Include="game\state\ItemSelectState.cs" />
     <Compile Include="game\state\LoadState.cs" />
     <Compile Include="game\state\MainMenuState.cs" />
-    <Compile Include="game\state\State.cs" />
     <Compile Include="game\state\WonState.cs" />
-    <Compile Include="game\Ui.cs" />
     <Compile Include="Noise.cs" />
-    <Compile Include="physics\World.cs" />
+    <Compile Include="Physics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\InGameState.cs" />
@@ -531,6 +474,9 @@
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

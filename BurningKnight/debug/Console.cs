@@ -1,22 +1,22 @@
+using System.Collections.Generic;
 using BurningKnight.game;
 using BurningKnight.game.state;
 using BurningKnight.ui;
+using Lens.graphics;
 
 namespace BurningKnight.debug {
-	public class Console : InputProcessor {
-		public static Console Instance;
-		private List<ConsoleCommand> Commands = new List<>();
-		private List<string> History = new List<>();
+	public class Console {
+		private List<ConsoleCommand> Commands = new List<ConsoleCommand>();
+		private List<string> History = new List<string>();
 		private int HistoryIndex;
 
 		private string Input = "";
-		public List<Line> Lines = new List<>();
+		public List<Line> Lines = new List<Line>();
 		private bool Open;
 		private string SavedString;
 
 		public Console() {
-			Instance = this;
-			Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.AddProcessor(this);
+			// Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.AddProcessor(this);
 			Commands.Add(new GiveCommand());
 			Commands.Add(new HealCommand());
 			Commands.Add(new GodModeCommand());
@@ -31,34 +31,33 @@ namespace BurningKnight.debug {
 		}
 
 		public void Destroy() {
-			Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.RemoveProcessor(this);
+			// Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.RemoveProcessor(this);
 		}
 
 		public void Update(float Dt) {
-			for (var I = Lines.Size() - 1; I >= 0; I--) {
-				Line Line = Lines.Get(I);
+			for (var I = Lines.Count - 1; I >= 0; I--) {
+				Line Line = Lines[I];
 				Line.Time += Dt;
 
-				if (Line.Time >= 5f) Lines.Remove(I);
+				if (Line.Time >= 5f) Lines.RemoveAt(I);
 			}
 		}
 
 		public void Print(string Str) {
-			var Line = new Line();
-			Line.Text = Str;
-			Lines.Add(0, Line);
+			Lines.Insert(0, new Line {Text = Str});
 		}
 
 		public void Render() {
 			if (!Ui.HideUi)
-				for (var I = 0; I < Lines.Size(); I++) {
-					Line Line = Lines.Get(I);
+				for (var I = 0; I < Lines.Count; I++) {
+					Line Line = Lines[I];
 					Graphics.Print(Line.Text, Graphics.Small, 2, 2 + (I + (Open ? 1 : 0)) * 10);
 				}
 
 			if (Open) Graphics.Print(Input + "|", Graphics.Small, 2, 2);
 		}
 
+		/*
 		public override bool KeyDown(int Keycode) {
 			if (Keycode == Input.Keys.UP) {
 				if (HistoryIndex == 0) SavedString = Input;
@@ -98,19 +97,23 @@ namespace BurningKnight.debug {
 			}
 
 			return false;
-		}
+		}*/
 
 		public void RunCommand(string Input) {
 			if (!Input.StartsWith("/")) Input = "/" + Input;
 
 			History.Add(0, Input);
-			var Parts = Input.Split("\\s+");
+			var Parts = Input.Split(null);
 			var Name = Parts[0];
 
 			foreach (ConsoleCommand Command in Commands)
 				if (Command.Name.Equals(Name) || Command.ShortName.Equals(Name)) {
 					var Args = new string[Parts.Length - 1];
-					System.Arraycopy(Parts, 1, Args, 0, Args.Length);
+
+					for (int i = 0; i < Args.Length; i++) {
+						Args[i] = Args[i + 1];
+					}
+					
 					Command.Run(this, Args);
 
 					return;
@@ -119,39 +122,7 @@ namespace BurningKnight.debug {
 			Print("[red]Unknown command");
 		}
 
-		public override bool KeyUp(int Keycode) {
-			return false;
-		}
-
-		public override bool KeyTyped(char Character) {
-			if (Open && UiInput.IsPrintableChar(Character)) Input += Character;
-
-			return false;
-		}
-
-		public override bool TouchDown(int ScreenX, int ScreenY, int Pointer, int Button) {
-			return false;
-		}
-
-		public override bool TouchUp(int ScreenX, int ScreenY, int Pointer, int Button) {
-			return false;
-		}
-
-		public override bool TouchDragged(int ScreenX, int ScreenY, int Pointer) {
-			return false;
-		}
-
-		public override bool MouseMoved(int ScreenX, int ScreenY) {
-			return false;
-		}
-
-		public override bool Scrolled(int Amount) {
-			return false;
-		}
-
-		public List GetCommands<ConsoleCommand>() {
-			return Commands;
-		}
+		// 			if (Open && UiInput.IsPrintableChar(Character)) Input += Character;
 
 		public class Line {
 			public string Text;

@@ -130,7 +130,7 @@ Y = Y + H / 4 + this.Owner.Z;
 float Xx = X + GetAimX(0, 0);
 float Yy = Y + GetAimY(0, 0);
 if (!Back && (this.ShowRedLine || (this.Owner is Player && ((Player) this.Owner).HasRedLine))) {
-float D = Display.GAME_WIDTH * 2;
+float D = Display.Width * 2;
 ClosestFraction = 1f;
 Last.X = -1;
 float X2 = Xx + (float) Math.Cos(An) * D;

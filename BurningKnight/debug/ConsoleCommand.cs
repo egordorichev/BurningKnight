@@ -3,6 +3,6 @@ namespace BurningKnight.debug {
 		public string Name;
 		public string ShortName;
 
-		public abstract void Run(Console Console, string Args);
+		public abstract void Run(Console Console, string[] Args);
 	}
 }

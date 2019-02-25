@@ -13,7 +13,7 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override void Run(Console Console, string Args) {
+		public override void Run(Console Console, string[] Args) {
 			Player.Instance.SetUnhittable(!Player.Instance.IsUnhittable());
 			Console.Print(Player.Instance.IsUnhittable() ? "[green]God mode on" : "[red]God mode off");
 		}

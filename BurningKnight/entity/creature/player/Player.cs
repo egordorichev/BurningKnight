@@ -190,8 +190,8 @@ namespace BurningKnight.entity.creature.player {
 				D -= 32;
 				float Cx = Camera.Game.Position.X;
 				float Cy = Camera.Game.Position.Y;
-				var X = MathUtils.Clamp(Cx - Display.GAME_WIDTH / 2 + 16, Cx + Display.GAME_WIDTH / 2 - 16, (float) Math.Cos(A) * D + this.X + W / 2);
-				var Y = MathUtils.Clamp(Cy - Display.GAME_HEIGHT / 2 + 16, Cy + Display.GAME_HEIGHT / 2 - 16, (float) Math.Sin(A) * D + this.Y + H / 2);
+				var X = MathUtils.Clamp(Cx - Display.Width / 2 + 16, Cx + Display.Width / 2 - 16, (float) Math.Cos(A) * D + this.X + W / 2);
+				var Y = MathUtils.Clamp(Cy - Display.Height / 2 + 16, Cy + Display.Height / 2 - 16, (float) Math.Sin(A) * D + this.Y + H / 2);
 				Graphics.StartAlphaShape();
 				Graphics.Shape.SetProjectionMatrix(Camera.Game.Combined);
 				Graphics.Shape.SetColor(1, 0.1f, 0.1f, 0.8f);
@@ -445,7 +445,7 @@ Log.Error("Null lader!");
 }
 Vector3 Vec = Camera.Game.Project(new Vector3(Player.Instance.X + Player.Instance.W / 2, Player.Instance.Y + Player.Instance.H / 2, 0));
 Vec = Camera.Ui.Unproject(Vec);
-Vec.Y = Display.GAME_HEIGHT - Vec.Y / Display.UI_SCALE;
+Vec.Y = Display.Height - Vec.Y / Display.UI_SCALE;
 Dungeon.DarkX = Vec.X / Display.UI_SCALE;
 Dungeon.DarkY = Vec.Y;
 }

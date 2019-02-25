@@ -22,10 +22,10 @@ namespace BurningKnight {
 		public static long LongTime;
 		public static Entrance.LoadType LoadType = Entrance.LoadType.LOADING;
 		public static Type Type = Type.REGULAR;
-		public static float MAX_R = Math.Sqrt(Display.GAME_WIDTH * Display.GAME_WIDTH + Display.GAME_HEIGHT * Display.GAME_HEIGHT) / 2;
+		public static float MAX_R = Math.Sqrt(Display.Width * Display.Width + Display.Height * Display.Height) / 2;
 		public static float DarkR = MAX_R;
-		public static float DarkX = Display.GAME_WIDTH / 2;
-		public static float DarkY = Display.GAME_HEIGHT / 2;
+		public static float DarkX = Display.Width / 2;
+		public static float DarkY = Display.Height / 2;
 		public static string[] Arg;
 		public static float Speed = 1f;
 		public static Color ORANGE = Color.ValueOf("#df7126");
@@ -350,7 +350,7 @@ UpdateMouse(Dt);
 }
 }
 private void RenderGame() {
-float Upscale = Math.Min(((float) Gdx.Graphics.GetWidth()) / Display.GAME_WIDTH, ((float) Gdx.Graphics.GetHeight()) / Display.GAME_HEIGHT) * Ui.Upscale;
+float Upscale = Math.Min(((float) Gdx.Graphics.GetWidth()) / Display.Width, ((float) Gdx.Graphics.GetHeight()) / Display.Height) * Ui.Upscale;
 Camera.ApplyShake();
 float SceneX = Camera.Game.Position.X;
 float SceneY = Camera.Game.Position.Y;
@@ -401,7 +401,7 @@ Texture Texture = Graphics.Surface.GetColorBufferTexture();
 Texture.SetFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 Graphics.Batch.Begin();
 Graphics.Batch.SetShader(Shader);
-Shader.SetUniformf("u_textureSizes", Display.GAME_WIDTH, Display.GAME_HEIGHT, Upscale, 0.0f);
+Shader.SetUniformf("u_textureSizes", Display.Width, Display.Height, Upscale, 0.0f);
 Shader.SetUniformf("u_sampleProperties", SubpixelX, SubpixelY, UpscaleOffsetX, UpscaleOffsetY);
 Shader.SetUniformf("shockTime", ShockTime);
 Shader.SetUniformf("glitchT", GlitchTime);
@@ -417,11 +417,11 @@ Shader.SetUniformf("heat", 0);
 Shader.SetUniformf("time", Dungeon.Time);
 Shader.SetUniformf("transR", DarkR / MAX_R);
 Shader.SetUniformf("dark", Dark);
-Shader.SetUniformf("transPos", new Vector2(DarkX / Display.GAME_WIDTH, DarkY / Display.GAME_HEIGHT));
+Shader.SetUniformf("transPos", new Vector2(DarkX / Display.Width, DarkY / Display.Height));
 Shader.SetUniformf("cam", new Vector2(Camera.Game.Position.X / 1024f, Camera.Game.Position.Y / 1024f));
 Graphics.Batch.SetColor(1, 1, 1, 1);
 Graphics.Batch.SetProjectionMatrix(Graphics.Batch.GetProjectionMatrix().Rotate(0, 0, 1, Camera.Ma));
-Graphics.Batch.Draw(Texture, -Display.GAME_WIDTH * Upscale / 2, -Flip * Display.GAME_HEIGHT * Upscale / 2, Display.GAME_WIDTH * Upscale, Flip * Display.GAME_HEIGHT * Upscale);
+Graphics.Batch.Draw(Texture, -Display.Width * Upscale / 2, -Flip * Display.Height * Upscale / 2, Display.Width * Upscale, Flip * Display.Height * Upscale);
 Graphics.Batch.SetProjectionMatrix(Graphics.Batch.GetProjectionMatrix().Rotate(0, 0, 1, -Camera.Ma));
 Graphics.Batch.End();
 Graphics.Batch.SetShader(null);
@@ -499,7 +499,7 @@ return;
 }
 InputVel.X -= InputVel.X * Dt * 10;
 InputVel.Y -= InputVel.Y * Dt * 10;
-float S = ((float) Gdx.Graphics.GetWidth()) / Display.GAME_WIDTH;
+float S = ((float) Gdx.Graphics.GetWidth()) / Display.Width;
 Vector2 Move = Input.Instance.GetAxis("cursor");
 bool Big = Move.Len2() > 0.2;
 if (Player.Instance != null) {

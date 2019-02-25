@@ -147,7 +147,7 @@ namespace BurningKnight.entity.level.entities {
 				Vector3 Vec = Camera.Game.Project(new Vector3(Player.Instance.X, Player.Instance.Y + 8, 0));
 				Camera.NoMove = true;
 				Vec = Camera.Ui.Unproject(Vec);
-				Vec.Y = Display.GAME_HEIGHT - Vec.Y / Display.UI_SCALE;
+				Vec.Y = Display.Height - Vec.Y / Display.UI_SCALE;
 				Dungeon.DarkX = Vec.X / Display.UI_SCALE;
 				Dungeon.DarkY = Vec.Y;
 				NoSpawn = true;

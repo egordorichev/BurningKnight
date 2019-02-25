@@ -64,7 +64,7 @@ namespace BurningKnight.game.state {
 
 		public override void Render() {
 			base.Render();
-			Graphics.Render(Logo, (Display.GAME_WIDTH - 128) / 2, (Display.GAME_HEIGHT - 160) / 2);
+			Graphics.Render(Logo, (Display.Width - 128) / 2, (Display.Height - 160) / 2);
 
 			if (!QUICK) Gdx.Graphics.SetTitle(Dungeon.Title + " " + Math.Floor(Assets.Manager.GetProgress() * 100) + "%");
 		}

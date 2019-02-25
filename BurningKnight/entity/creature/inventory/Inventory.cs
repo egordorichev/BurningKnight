@@ -146,7 +146,7 @@ namespace BurningKnight.entity.creature.inventory {
 	Fx.X = Holder.X + Holder.W / 2;
 	Fx.Y = Holder.Y + Holder.H / 2;
 	Fx.Region = Item.GetSprite();
-	Fx.Target = new Point(Camera.Game.Position.X - Display.GAME_WIDTH / 2 * Camera.Game.Zoom, Camera.Game.Position.Y - Display.GAME_HEIGHT / 2 * Camera.Game.Zoom);
+	Fx.Target = new Point(Camera.Game.Position.X - Display.Width / 2 * Camera.Game.Zoom, Camera.Game.Position.Y - Display.Height / 2 * Camera.Game.Zoom);
 	Dungeon.Area.Add(Fx);
 }
 

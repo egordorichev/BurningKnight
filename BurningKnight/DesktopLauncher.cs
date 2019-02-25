@@ -38,8 +38,8 @@ namespace BurningKnight {
 		LwjglApplicationConfiguration Config = new LwjglApplicationConfiguration();
 		Dungeon.Title = "Burning Knight: " + GenerateTitle();
 		Config.Title = Dungeon.Title;
-		Config.Width = Display.GAME_WIDTH * SCALE;
-		Config.Height = Display.GAME_HEIGHT * SCALE;
+		Config.Width = Display.Width * SCALE;
+		Config.Height = Display.Height * SCALE;
 		Config.AddIcon("icon.png", Files.FileType.Internal);
 		Config.AddIcon("icon32x32.png", Files.FileType.Internal);
 		Config.AddIcon("icon128x128.png", Files.FileType.Internal);

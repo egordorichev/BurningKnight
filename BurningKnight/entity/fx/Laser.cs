@@ -90,7 +90,7 @@ return;
 World.RemoveBody(Body);
 float Xx = X;
 float Yy = Y;
-float D = Display.GAME_WIDTH * 2;
+float D = Display.Width * 2;
 ClosestFraction = 1f;
 Last.X = -1;
 float An = (float) Math.ToRadians(A);

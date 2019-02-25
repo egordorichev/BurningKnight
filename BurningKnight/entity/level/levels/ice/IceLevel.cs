@@ -29,7 +29,7 @@ namespace BurningKnight.entity.level.levels.ice {
 		protected override void DoEffects() {
 			base.DoEffects();
 			var Fx = new SnowFx();
-			Fx.Tar = Player.Instance.Y + Random.NewFloat(-Display.GAME_HEIGHT / 2 + 20, Display.GAME_HEIGHT / 2);
+			Fx.Tar = Player.Instance.Y + Random.NewFloat(-Display.Height / 2 + 20, Display.Height / 2);
 			Dungeon.Area.Add(Fx);
 		}
 	}

@@ -70,8 +70,8 @@ namespace BurningKnight.entity.fx {
 			OrthographicCamera Camera = Camera.Game;
 			float Zoom = Camera.Zoom;
 
-			return this.X + W * 1.5f >= Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom && this.Y + H * 1.5f >= Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom && this.X - W <= Camera.Position.X + Display.GAME_WIDTH / 2 * Zoom &&
-			       this.Y - H <= Camera.Position.Y + H + Display.GAME_HEIGHT / 2 * Zoom;
+			return this.X + W * 1.5f >= Camera.Position.X - Display.Width / 2 * Zoom && this.Y + H * 1.5f >= Camera.Position.Y - Display.Height / 2 * Zoom && this.X - W <= Camera.Position.X + Display.Width / 2 * Zoom &&
+			       this.Y - H <= Camera.Position.Y + H + Display.Height / 2 * Zoom;
 		}
 
 		public override void Update(float Dt) {

@@ -13,7 +13,7 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override void Run(Console Console, string Args) {
+		public override void Run(Console Console, string[] Args) {
 			Player.Instance.ModifyHp(-1, null, true);
 		}
 	}

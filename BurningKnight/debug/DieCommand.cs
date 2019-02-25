@@ -13,7 +13,7 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override void Run(Console Console, string Args) {
+		public override void Run(Console Console, string[] Args) {
 			if (Player.Instance != null) Player.Instance.Die();
 		}
 	}

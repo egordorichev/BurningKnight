@@ -18,9 +18,9 @@ namespace BurningKnight.game.input {
 		private Dictionary<string, List<String>> Bindings = new Dictionary<>();
 		public bool Blocked = false;
 		private Dictionary<string, State> Keys = new Dictionary<>();
-		public Vector2 Mouse = new Vector2(Display.GAME_WIDTH / 2, Display.GAME_HEIGHT / 2);
+		public Vector2 Mouse = new Vector2(Display.Width / 2, Display.Height / 2);
 		private SDL2ControllerManager SdlManager;
-		public Vector2 Target = new Vector2(Display.GAME_WIDTH / 2, Display.GAME_HEIGHT / 2);
+		public Vector2 Target = new Vector2(Display.Width / 2, Display.Height / 2);
 		private bool Tried;
 		public Point UiMouse = new Point();
 		public Point WorldMouse = new Point();

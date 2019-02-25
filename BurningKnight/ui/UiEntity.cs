@@ -43,8 +43,8 @@ namespace BurningKnight.ui {
 			OrthographicCamera Camera = Camera.Ui;
 			float Zoom = Camera.Zoom;
 
-			return this.X + W * 2 >= Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom + State.SettingsX && this.Y + H * 2 >= Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom &&
-			       this.X <= Camera.Position.X + Display.GAME_WIDTH / 2 * Zoom + State.SettingsX && this.Y <= Camera.Position.Y + H + Display.GAME_HEIGHT / 2 * Zoom;
+			return this.X + W * 2 >= Camera.Position.X - Display.Width / 2 * Zoom + State.SettingsX && this.Y + H * 2 >= Camera.Position.Y - Display.Height / 2 * Zoom &&
+			       this.X <= Camera.Position.X + Display.Width / 2 * Zoom + State.SettingsX && this.Y <= Camera.Position.Y + H + Display.Height / 2 * Zoom;
 		}
 	}
 }

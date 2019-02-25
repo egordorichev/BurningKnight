@@ -69,15 +69,15 @@ internal _Init();
 }
 
 Instance = this;
-internal int W = Display.GAME_WIDTH;
-internal int H = Display.GAME_HEIGHT;
+internal int W = Display.Width;
+internal int H = Display.Height;
 Ui =
 internal new OrthographicCamera(Display.UI_WIDTH, Display.UI_HEIGHT);
 Ui.Position.Set(Display.UI_WIDTH / 2, Display.UI_HEIGHT / 2, 0);
 Ui.Update();
 Nil =
 internal new OrthographicCamera(W, H);
-Nil.Position.Set(Display.GAME_WIDTH / 2, Display.GAME_HEIGHT / 2, 0);
+Nil.Position.Set(Display.Width / 2, Display.Height / 2, 0);
 Nil.Update();
 AlwaysActive = true;
 Game =
@@ -87,7 +87,7 @@ Game.Update();
 CamPosition =
 internal new Vector2(Game.Position.X, Game.Position.Y);
 ViewportCamera =
-internal new OrthographicCamera(Display.GAME_WIDTH, Display.GAME_HEIGHT);
+internal new OrthographicCamera(Display.Width, Display.Height);
 ViewportCamera.Update();
 Viewport =
 internal new ScreenViewport(ViewportCamera);
@@ -178,8 +178,8 @@ Room = LastRoom;
 LastRoom = Room;
 }
 if (Room != null) {
-Game.Position.X = MathUtils.Clamp(Spawn.Instance.Room.Left * 16 + 16 + Display.GAME_WIDTH / 2, Spawn.Instance.Room.Right * 16 - Display.GAME_WIDTH / 2, CamPosition.X);
-Game.Position.Y = MathUtils.Clamp(Spawn.Instance.Room.Top * 16 + 16 + Display.GAME_HEIGHT / 2 + 16, Spawn.Instance.Room.Bottom * 16 - Display.GAME_HEIGHT / 2 - 16, CamPosition.Y);
+Game.Position.X = MathUtils.Clamp(Spawn.Instance.Room.Left * 16 + 16 + Display.Width / 2, Spawn.Instance.Room.Right * 16 - Display.Width / 2, CamPosition.X);
+Game.Position.Y = MathUtils.Clamp(Spawn.Instance.Room.Top * 16 + 16 + Display.Height / 2 + 16, Spawn.Instance.Room.Bottom * 16 - Display.Height / 2 - 16, CamPosition.Y);
 }
 } else {
 Game.Position.X = CamPosition.X + Offset.X;

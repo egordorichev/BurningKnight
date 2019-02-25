@@ -13,7 +13,7 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override void Run(Console Console, string Args) {
+		public override void Run(Console Console, string[] Args) {
 			Level.RENDER_PASSABLE = !Level.RENDER_PASSABLE;
 		}
 	}

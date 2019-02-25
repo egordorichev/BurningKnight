@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 
@@ -14,10 +15,10 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override void Run(Console Console, string Args) {
+		public override void Run(Console Console, string[] Args) {
 			var Count = 1;
 
-			if (Args.Length == 2) Count = Integer.ValueOf(Args[1]);
+			if (Args.Length == 2) Count = Int32.Parse(Args[1]);
 
 			if (Args.Length > 0 && Args.Length < 3) {
 				string Name = Args[0];
@@ -43,7 +44,6 @@ namespace BurningKnight.debug {
 				}
 				catch (Exception) {
 					Console.Print("[red]Failed to create item");
-					E.PrintStackTrace();
 				}
 			}
 		}

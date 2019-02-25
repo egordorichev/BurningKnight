@@ -64,12 +64,12 @@ namespace BurningKnight.entity.fx {
 			}
 
 			if (Up) {
-				if (this.Y >= StartY + Display.GAME_HEIGHT + 16) {
+				if (this.Y >= StartY + Display.Height + 16) {
 					Up = false;
 					Velocity.Y = -160;
 					Target = new Point(Player.Instance.X + 8, Player.Instance.Y);
 					this.X = Target.X;
-					this.Y = Target.Y + Display.GAME_HEIGHT + 16;
+					this.Y = Target.Y + Display.Height + 16;
 				}
 			}
 			else {

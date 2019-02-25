@@ -29,7 +29,7 @@ namespace BurningKnight.game.fx {
 		public override void Init() {
 			Speed = Random.NewFloat(0.7f, 2f);
 			Y = -32 - Random.NewFloat(32f);
-			X = Random.NewFloat(0, Display.GAME_WIDTH);
+			X = Random.NewFloat(0, Display.Width);
 			G = Random.NewFloat(1);
 			Oy = Y;
 			Ox = X;

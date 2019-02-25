@@ -1,7 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.accessory.equippable;
 using BurningKnight.entity.level.save;
 using BurningKnight.ui;
 using BurningKnight.util;
+using Lens.assets;
+using Lens.graphics;
 
 namespace BurningKnight.game {
 	public class Achievements {
@@ -52,111 +58,77 @@ namespace BurningKnight.game {
 		public const string UNLOCK_STAR = "UNLOCK_STAR";
 		public const string UNLOCK_KOTLING_GUN = "UNLOCK_KOTLING_GUN";
 		public const string SECRET_TRADER = "SECRET_TRADER";
-		private static List<UiAchievement> ToShow = new List<>();
+		private static List<UiAchievement> ToShow = new List<UiAchievement>();
 		private static Area Top = new Area(true);
 		public static UiAchievement LastActive;
-		private static SteamUserStats Stats;
 
 		public static bool Unlocked(string Id) {
 			return Id == null || GlobalSave.IsTrue(Id);
 		}
 
+		private static void Save() {
+			SaveManager.Save(SaveManager.Type.GLOBAL, false);
+		}
+		
 		public static void Unlock(string Id) {
 			if (Dungeon.Depth == -3) return;
 
 			if (!Unlocked(Id)) {
 				Log.Info(Id + " was unlocked!");
-				GlobalSave.Put(Id, true);
-				OnUnlock(Id);
-				Thread Thread = new Thread {
-
-		public override void Run() {
-			base.Run();
-			SaveManager.Save(SaveManager.Type.GLOBAL, false);
+				GlobalSave[Id] = true;
+				Thread thread = new Thread(Save);
+				thread.Start();
+				
+				UiAchievement Achievement = new UiAchievement();
+				
+				if (Id.Contains("CLASS")) {
+					Achievement.Text = Id.ToLower();
+					Achievement.Extra = Id.ToLower() + "_desc";
+					Achievement.Icon = Id.Equals("CLASS_MELEE")? Graphics.GetTexture("item-sword_a") : Graphics.GetTexture("item-gun_a");
+					Achievement.Unlock = true;
+				} else if (Id.Contains("ACHIEVEMENT")) {
+					Achievement.Text = Id.ToLower();
+					Achievement.Extra = Id.ToLower() + "_desc";
+					Achievement.Icon = Graphics.GetTexture("achievement-" + (Id.ToLower().Replace("_achievement", "")));
+				} else {
+					string Reg = Id.Replace("UNLOCK_", "").Replace("SHOP_", "").ToLower();
+					try {
+						var Pair = ItemRegistry.Items.Get(Reg);
+						
+						if (Pair == null) {
+							Log.Error("Failed to unlock item " + Reg);
+							return;
+						}
+							
+						var Item = (Item) Pair.Type.NewInstance();
+						
+						Achievement.Text = Item.GetName();
+						Achievement.Icon = Item.GetSprite();
+						Achievement.Unlock = true;
+					} catch (Exception) {
+						return;
+					}
+					
+					ToShow.Add(Achievement);
+				}
+			}
+		}
+						
+		public static void Clear() {
+			Top.Destroy();
+		}
+			
+		public static void Update(float Dt) {
+			if ((LastActive == null || LastActive.Done) && ToShow.Count > 0) {
+				LastActive = ToShow[0];
+				ToShow.RemoveAt(0);
+				Top.Add(LastActive);
+			}
+	
+			Top.Update(Dt);
+		}
+		public static void Render() {
+			Top.Render();
 		}
 	}
-
-	Thread.SetPriority(1);
-	Thread.Run();
-	UiAchievement Achievement = new UiAchievement();
-	if (Id.Contains("CLASS")) {
-	Achievement.Text = Locale.Get(Id.ToLowerCase());
-	Achievement.Extra = Locale.Get(Id.ToLowerCase() + "_desc");
-	Achievement.Icon = Id.Equals("CLASS_MELEE")? Graphics.GetTexture("item-sword_a") : Graphics.GetTexture("item-gun_a");
-	Achievement.Unlock = true;
-	} else if (Id.Contains("ACHIEVEMENT")) {
-	Achievement.Text = Locale.Get(Id.ToLowerCase());
-	Achievement.Extra = Locale.Get(Id.ToLowerCase() + "_desc");
-	Achievement.Icon = Graphics.GetTexture("achievement-" + (Id.ToLowerCase().
-	internal Replace("_achievement", "")));
-	} else {
-	internal string Reg = Id.Replace("UNLOCK_", "").Replace("SHOP_", "").ToLowerCase();
-		try {
-		ItemRegistry.Pair Pair = ItemRegistry.Items.Get(Reg);
-
-		if (Pair == null) {
-			Log.Error("Failed to unlock item " + Reg);
-
-			return;
-		}
-
-		var Item = (Item) Pair.Type.NewInstance();
-		Achievement.Text = Item.GetName() + " " + Locale.Get("was_unlocked");
-		Achievement.Icon = Item.GetSprite();
-		Achievement.Unlock = true;
-	} catch (Exception) {
-	E.PrintStackTrace();
-	return;
-	}
-}
-
-
-ToShow.Add(Achievement);
-
-}
-}
-public static void Clear() {
-Top.Destroy();
-}
-public static void Update(float Dt) {
-if ((LastActive == null || LastActive.Done) && ToShow.Size() > 0) {
-LastActive = ToShow.Get(0);
-ToShow.Remove(0);
-Top.Add(LastActive);
-}
-Top.Update(Dt);
-}
-public static void Render() {
-Top.Render();
-}
-private static void OnUnlock(string Id) {
-if (Stats != null) {
-Stats.SetAchievement(Id);
-}
-}
-public static void Init() {
-if (Dungeon.Steam) {
-Stats = new SteamUserStats(new SteamUserStatsCallback() {
-public override void OnUserStatsReceived(long GameId, SteamID SteamIDUser, SteamResult Result) {
-}
-public override void OnUserStatsStored(long GameId, SteamResult Result) {
-}
-public override void OnUserStatsUnloaded(SteamID SteamIDUser) {
-}
-public override void OnUserAchievementStored(long GameId, bool IsGroupAchievement, string AchievementName, int CurProgress, int MaxProgress) {
-}
-public override void OnLeaderboardFindResult(SteamLeaderboardHandle Leaderboard, bool Found) {
-}
-public override void OnLeaderboardScoresDownloaded(SteamLeaderboardHandle Leaderboard, SteamLeaderboardEntriesHandle Entries, int NumEntries) {
-}
-public override void OnLeaderboardScoreUploaded(bool Success, SteamLeaderboardHandle Leaderboard, int Score, bool ScoreChanged, int GlobalRankNew, int GlobalRankPrevious) {
-}
-public override void OnGlobalStatsReceived(long GameId, SteamResult Result) {
-}
-});
-}
-}
-public static void Dispose() {
-}
-}
 }

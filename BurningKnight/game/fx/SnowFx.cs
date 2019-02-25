@@ -29,8 +29,8 @@ namespace BurningKnight.game.fx {
 
 		public override void Init() {
 			base.Init();
-			X = Random.NewFloat(-Display.GAME_WIDTH, Display.GAME_WIDTH / 2) + Camera.Game.Position.X;
-			Y = Camera.Game.Position.Y + Display.GAME_HEIGHT / 2;
+			X = Random.NewFloat(-Display.Width, Display.Width / 2) + Camera.Game.Position.X;
+			Y = Camera.Game.Position.Y + Display.Height / 2;
 			Scale = Random.NewFloat(0.2f, 0.8f);
 			Al = Random.NewFloat(0.3f, 0.8f);
 			Vl = Random.NewFloat(0.5f, 1f);

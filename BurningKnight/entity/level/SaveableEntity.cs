@@ -1,16 +1,17 @@
 using BurningKnight.entity.level.save;
+using Lens.entity;
 using Lens.util.file;
 
 namespace BurningKnight.entity.level {
-	public class SaveableEntity : StatefulEntity {
+	public class SaveableEntity : Entity {
 		public void Save(FileWriter Writer) {
-			Writer.WriteInt32((int) this.X);
-			Writer.WriteInt32((int) this.Y);
+			Writer.WriteInt32((int) X);
+			Writer.WriteInt32((int) Y);
 		}
 
 		public void Load(FileReader Reader) {
-			this.X = Reader.ReadInt32();
-			this.Y = Reader.ReadInt32();
+			X = Reader.ReadInt32();
+			Y = Reader.ReadInt32();
 		}
 
 		public SaveableEntity Add() {

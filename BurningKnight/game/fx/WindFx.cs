@@ -27,7 +27,7 @@ namespace BurningKnight.game.fx {
 		public override void Init() {
 			base.Init();
 			Recreate();
-			X = Random.NewFloat(-Display.GAME_WIDTH, Display.GAME_WIDTH / 2) + Camera.Game.Position.X;
+			X = Random.NewFloat(-Display.Width, Display.Width / 2) + Camera.Game.Position.X;
 		}
 
 		private void Recreate() {
@@ -38,7 +38,7 @@ namespace BurningKnight.game.fx {
 			Mod = Random.NewFloat(0.5f, 1f);
 			Fl = Random.NewFloat(0.5f, 1f);
 			Rot = Random.NewFloat(-1, 1);
-			X = Camera.Game.Position.X - Random.NewFloat(Display.GAME_WIDTH / 2, Display.GAME_WIDTH) - 3;
+			X = Camera.Game.Position.X - Random.NewFloat(Display.Width / 2, Display.Width) - 3;
 			Y = Random.NewFloat(-Display.UI_HEIGHT / 2, Display.UI_HEIGHT / 2) + Camera.Game.Position.Y;
 		}
 
@@ -48,7 +48,7 @@ namespace BurningKnight.game.fx {
 			this.X += Scale * Dt * 60;
 			this.Y += Math.Cos(T * Fl) * Mod;
 
-			if (this.X >= Camera.Game.Position.X + Display.GAME_WIDTH / 2 || this.X < Camera.Game.Position.X - Display.GAME_WIDTH - 10) Recreate();
+			if (this.X >= Camera.Game.Position.X + Display.Width / 2 || this.X < Camera.Game.Position.X - Display.Width - 10) Recreate();
 		}
 
 		public override void Render() {

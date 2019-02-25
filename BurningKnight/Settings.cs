@@ -59,7 +59,7 @@ namespace BurningKnight {
 			if (Fullscreen)
 				Gdx.Graphics.SetFullscreenMode(Gdx.Graphics.GetDisplayMode());
 			else
-				Gdx.Graphics.SetWindowedMode(Display.GAME_WIDTH * 3, Display.GAME_HEIGHT * 3);
+				Gdx.Graphics.SetWindowedMode(Display.Width * 3, Display.Height * 3);
 
 
 			if (Borderless) Gdx.Graphics.SetUndecorated(Borderless);

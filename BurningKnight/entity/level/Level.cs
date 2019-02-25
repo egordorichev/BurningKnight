@@ -432,12 +432,12 @@ Gdx.Gl.GlEnable(GL20.GL_BLEND);
 Gdx.Gl.GlBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 Graphics.Shape.Begin(ShapeRenderer.ShapeType.Filled);
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 float Dt = Gdx.Graphics.GetDeltaTime() * Dungeon.Speed;
 Color Color = Colors[Dungeon.Level.Uid];
 float Sp = Dt * 0.3f;
@@ -475,7 +475,7 @@ int Dst = Graphics.Batch.GetBlendDstFunc();
 Graphics.Batch.SetBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
 Graphics.Batch.Begin();
 Texture Texture = World.Lights.GetLightMapTexture();
-Graphics.Batch.Draw(Texture, Camera.Game.Position.X - Display.GAME_WIDTH / 2, Camera.Game.Position.Y + Display.GAME_HEIGHT / 2, Display.GAME_WIDTH, -Display.GAME_HEIGHT);
+Graphics.Batch.Draw(Texture, Camera.Game.Position.X - Display.Width / 2, Camera.Game.Position.Y + Display.Height / 2, Display.Width, -Display.Height);
 Graphics.Batch.Flush();
 Graphics.Batch.End();
 Graphics.Batch.Begin();
@@ -771,12 +771,12 @@ protected void DoEffects() {
 if (this.LastFlame == 0) {
 OrthographicCamera Camera = Camera.Game;
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fxx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fxx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 for (int Y = Math.Min(Fy, GetHeight()) - 1; Y >= Math.Max(0, Sy); Y--) {
 for (int X = Math.Max(0, Sx); X < Math.Min(Fxx, GetWidth()); X++) {
 int I = X + Y * GetWidth();
@@ -892,12 +892,12 @@ Room.NumEnemies = 0;
 }
 OrthographicCamera Camera = Camera.Game;
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 for (int Y = Math.Min(Fy, GetHeight()) - 1; Y >= Math.Max(0, Sy); Y--) {
 for (int X = Math.Max(0, Sx); X < Math.Min(Fx, GetWidth()); X++) {
 int I = X + Y * GetWidth();
@@ -1040,12 +1040,12 @@ Graphics.Render(Terrain.Variants[Tile][Variant], X * 16, Y * 16 - 8);
 public void RenderLiquids() {
 OrthographicCamera Camera = Camera.Game;
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 Graphics.Batch.End();
 Graphics.Batch.SetShader(MaskShader);
 Graphics.Batch.Begin();
@@ -1272,7 +1272,7 @@ Graphics.Batch.SetProjectionMatrix(Camera.Game.Combined);
 Graphics.Batch.SetColor(0, 0, 0, 0.5f);
 Texture Texture = Graphics.Shadows.GetColorBufferTexture();
 Texture.SetFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-Graphics.Batch.Draw(Texture, Camera.Game.Position.X - Display.GAME_WIDTH / 2 * Zoom, Camera.Game.Position.Y - Display.GAME_HEIGHT / 2 * Zoom, Display.GAME_WIDTH * Zoom, Display.GAME_HEIGHT * Zoom, 0, 0, Texture.GetWidth(), Texture.GetHeight
+Graphics.Batch.Draw(Texture, Camera.Game.Position.X - Display.Width / 2 * Zoom, Camera.Game.Position.Y - Display.Height / 2 * Zoom, Display.Width * Zoom, Display.Height * Zoom, 0, 0, Texture.GetWidth(), Texture.GetHeight
 (), false, true);
 Graphics.Batch.SetColor(1, 1, 1, 1f);
 }
@@ -1280,12 +1280,12 @@ Graphics.Batch.SetColor(1, 1, 1, 1f);
 public void RenderSides() {
 OrthographicCamera Camera = Camera.Game;
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 for (int Y = Math.Min(Fy, GetHeight()) - 1; Y >= Math.Max(0, Sy); Y--) {
 for (int X = Math.Max(0, Sx); X < Math.Min(Fx, GetWidth()); X++) {
 int I = X + Y * GetWidth();
@@ -1367,12 +1367,12 @@ return;
 }
 OrthographicCamera Camera = Camera.Game;
 float Zoom = Camera.Zoom;
-float Cx = Camera.Position.X - Display.GAME_WIDTH / 2 * Zoom;
-float Cy = Camera.Position.Y - Display.GAME_HEIGHT / 2 * Zoom;
+float Cx = Camera.Position.X - Display.Width / 2 * Zoom;
+float Cy = Camera.Position.Y - Display.Height / 2 * Zoom;
 int Sx = (int) (Math.Floor(Cx / 16) - 1);
 int Sy = (int) (Math.Floor(Cy / 16) - 1);
-int Fx = (int) (Math.Ceil((Cx + Display.GAME_WIDTH * Zoom) / 16) + 1);
-int Fy = (int) (Math.Ceil((Cy + Display.GAME_HEIGHT * Zoom) / 16) + 1);
+int Fx = (int) (Math.Ceil((Cx + Display.Width * Zoom) / 16) + 1);
+int Fy = (int) (Math.Ceil((Cy + Display.Height * Zoom) / 16) + 1);
 RenderFloor(Sx, Sy, Fx, Fy);
 Graphics.Batch.End();
 Graphics.Batch.SetShader(MaskShader);

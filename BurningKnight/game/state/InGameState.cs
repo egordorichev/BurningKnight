@@ -415,7 +415,7 @@ Player.Instance.SetUnhittable(true);
 Camera.Follow(null);
 Vector3 Vec = Camera.Game.Project(new Vector3(Player.Instance.X + Player.Instance.W / 2, Player.Instance.Y + Player.Instance.H / 2, 0));
 Vec = Camera.Ui.Unproject(Vec);
-Vec.Y = Display.GAME_HEIGHT - Vec.Y / Display.UI_SCALE;
+Vec.Y = Display.Height - Vec.Y / Display.UI_SCALE;
 Dungeon.DarkX = Vec.X / Display.UI_SCALE;
 Dungeon.DarkY = Vec.Y;
 Tween.To(new Tween.Task(0, 0.3f, Tween.Type.QUAD_OUT) {
@@ -596,7 +596,7 @@ Shader.SetUniformf("cx", Camera.Game.Position.X / 512);
 Shader.SetUniformf("cy", -Camera.Game.Position.Y / 512);
 Shader.End();
 Graphics.Batch.Begin();
-Graphics.Render(Noise, Camera.Game.Position.X - Display.GAME_WIDTH / 2, Camera.Game.Position.Y - Display.GAME_HEIGHT / 2, 0, 0, 0, false, false);
+Graphics.Render(Noise, Camera.Game.Position.X - Display.Width / 2, Camera.Game.Position.Y - Display.Height / 2, 0, 0, 0, false, false);
 Graphics.Batch.End();
 Graphics.Batch.SetShader(null);
 Graphics.Batch.Begin();
