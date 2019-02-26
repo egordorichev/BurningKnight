@@ -9,7 +9,7 @@ namespace Lens.util.file {
 		public string NameWithoutExtension => Path.GetFileNameWithoutExtension(path);
 		public string Name => Path.GetFileName(path);
 		public string Extension => Path.GetExtension(path);
-		public long LastModified => System.IO.File.GetLastWriteTime(FullPath).ToFileTime();
+		public long LastModified => File.GetLastWriteTime(FullPath).ToFileTime();
 
 		public FileHandle(string path) {
 			this.path = path;
@@ -93,13 +93,13 @@ namespace Lens.util.file {
 		}
 
 		public bool Exists() {
-			return IsDirectory() ? Directory.Exists(path) : System.IO.File.Exists(path);
+			return IsDirectory() ? Directory.Exists(path) : File.Exists(path);
 		}
 
 		public bool IsDirectory() {
 			try {
-				return System.IO.File.GetAttributes(path).HasFlag(FileAttributes.Directory);
-			} catch (Exception e) {
+				return File.GetAttributes(path).HasFlag(FileAttributes.Directory);
+			} catch (Exception) {
 				return false;
 			}
 		}

@@ -1,32 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Lens.util.file;
+using Newtonsoft.Json;
 
 namespace Lens.assets {
 	public class Locale {
-		private static Dictionary<string, string> Map = new Dictionary<string, string>();
-		private static Dictionary<string, string> Fallback = new Dictionary<string, string>();
+		private static Dictionary<string, string> map = new Dictionary<string, string>();
+		private static Dictionary<string, string> fallback = new Dictionary<string, string>();
+		private static bool loadedFallback;
+		
 		public static string Current;
 
-		private static void LoadRaw(string json, bool fallback = false) {
-			
+		private static void LoadRaw(string path, bool fallback = false) {
+			var file = new FileHandle(path);
+			var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(file.ReadAll());
+
+			foreach (string name in deserialized.Values) {
+				Console.WriteLine(name);
+			}
 		}
 
 		public static void Load(string locale) {
 			Current = locale;
-			Map.Clear();
+			map.Clear();
 
-			LoadRaw(Gdx.Files.Internal($"locales/{locale}.json")).ReadString(), false);
+			LoadRaw($"Locales/{locale}.json");
 
-			if (!Locale.Equals("en")) {
-				LoadRaw(Gdx.Files.Internal("locales/en.json").ReadString(), true);
+			if (!loadedFallback && locale != "en") {
+				LoadRaw("Locales/en.json", true);
+				loadedFallback = true;
 			} 
 		}
 
-		public static boolean Has(string Name) {
-			return Map.ContainsKey(Name) || Fallback.ContainsKey(Name);
-		}
-
-		public static string Get(string Name) {
-			return Map.ContainsKey(Name) ? Map.Get(Name) : Fallback.GetOrDefault(Name, Name);
-		}
+		public string this[string key] => map.ContainsKey(key) ? map[key] : fallback[key];
 	}
 }
