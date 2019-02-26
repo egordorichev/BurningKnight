@@ -30,10 +30,6 @@ namespace Lens.entity {
 
 			Total++;
 		}
-
-		public static void Define(string name) {
-			new BitTag(name);
-		}
 		
 		public static implicit operator int(BitTag tag) {
 			return tag.Value;

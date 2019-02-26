@@ -1,34 +1,25 @@
+using System;
+using System.Collections.Generic;
 using BurningKnight.util;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.pool {
 	public class Pool<T> {
-		protected List<Float> Chances = new List<>();
-		protected List<Class> Classes = new List<>();
+		protected List<float> Chances = new List<float>();
+		protected List<Type> Classes = new List<Type>();
 
-		public T Generate() {
-			var I = Random.Chances(Chances.ToArray(new Float[0]));
+		public virtual T Generate() {
+			var I = Random.Chances(Chances);
 
 			if (I == -1) {
 				Log.Error("-1 as pool result!");
-
-				return null;
+				return default(T);
 			}
 
-			Class Type = Classes.Get(I);
-
-			try {
-				return (T) Type.NewInstance();
-			}
-			catch (InstantiationException |
-
-			IllegalAccessException) {
-				E.PrintStackTrace();
-			}
-
-			return null;
+			return (T) Activator.CreateInstance(Classes[I]);
 		}
 
-		public void Add(Class Type, float Chance) {
+		public void Add(Type Type, float Chance) {
 			Classes.Add(Type);
 			Chances.Add(Chance);
 		}
@@ -38,9 +29,9 @@ namespace BurningKnight.entity.pool {
 			Chances.Clear();
 		}
 
-		public void AddFrom(Pool Pool) {
-			Classes.AddAll(Pool.Classes);
-			Chances.AddAll(Pool.Chances);
+		public void AddFrom(Pool<T> Pool) {
+			Classes.AddRange(Pool.Classes);
+			Chances.AddRange(Pool.Chances);
 		}
 	}
 }

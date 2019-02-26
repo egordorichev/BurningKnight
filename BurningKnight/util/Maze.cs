@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.util.geometry;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.util {
 	public class Maze {
@@ -47,8 +48,8 @@ namespace BurningKnight.util {
 
 			while (Fails < 2500) {
 				do {
-					X = Random.NewInt(Maze.Length);
-					Y = Random.NewInt(Maze[0].Length);
+					X = Random.Int(Maze.Length);
+					Y = Random.Int(Maze[0].Length);
 				} while (!Maze[X][Y]);
 
 				Mov = DecideDirection(Maze, X, Y);
@@ -65,7 +66,7 @@ namespace BurningKnight.util {
 						Y += Mov[1];
 						Maze[X][Y] = FILLED;
 						Moves++;
-					} while (Random.NewInt(Moves) == 0 && CheckValidMove(Maze, X, Y, Mov));
+					} while (Random.Int(Moves) == 0 && CheckValidMove(Maze, X, Y, Mov));
 				}
 			}
 
@@ -73,15 +74,15 @@ namespace BurningKnight.util {
 		}
 
 		private static int[] DecideDirection(bool[][] Maze, int X, int Y) {
-			if (Random.NewInt(4) == 0 && CheckValidMove(Maze, X, Y, new[] { 0, -1 })) {
+			if (Random.Int(4) == 0 && CheckValidMove(Maze, X, Y, new[] { 0, -1 })) {
 				return new[] { 0, -1 };
 			}
 
-			if (Random.NewInt(3) == 0 && CheckValidMove(Maze, X, Y, new[] { 1, 0 })) {
+			if (Random.Int(3) == 0 && CheckValidMove(Maze, X, Y, new[] { 1, 0 })) {
 				return new[] { 1, 0 };
 			}
 
-			if (Random.NewInt(2) == 0 && CheckValidMove(Maze, X, Y, new[] {
+			if (Random.Int(2) == 0 && CheckValidMove(Maze, X, Y, new[] {
 				0, 1
 			})) {
 				return new[] {

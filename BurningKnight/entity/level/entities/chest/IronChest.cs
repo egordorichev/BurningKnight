@@ -13,7 +13,7 @@ namespace BurningKnight.entity.level.entities.chest {
 		}
 
 		public override Item Generate() {
-			return Generate(ItemRegistry.Quality.IRON, Weapon);
+			return Generate(ItemRegistry.Quality.Iron, Weapon);
 		}
 
 		protected override AnimationData GetClosedAnim() {

@@ -67,6 +67,7 @@
     <Compile Include="entity\component\graphics\AnimationComponent.cs" />
     <Compile Include="entity\component\logic\EntityState.cs" />
     <Compile Include="entity\component\logic\StateComponent.cs" />
+    <Compile Include="entity\component\SaveableComponent.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\EntityList.cs" />
     <Compile Include="entity\TagLists.cs" />

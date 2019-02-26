@@ -67,7 +67,7 @@ namespace BurningKnight.game {
 		}
 
 		private static void Save() {
-			SaveManager.Save(SaveManager.Type.GLOBAL, false);
+			SaveManager.Save(SaveManager.Type.Global, false);
 		}
 		
 		public static void Unlock(string Id) {

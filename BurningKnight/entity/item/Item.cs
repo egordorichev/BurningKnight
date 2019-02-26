@@ -1,12 +1,11 @@
 using System;
 using System.Text;
+using Lens.assets;
 using Lens.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity {
-		public static TextureRegion Missing = Graphics.GetTexture("item-missing");
-
 		private int count = 1;
 
 		public int Count {
@@ -23,6 +22,15 @@ namespace BurningKnight.entity.item {
 		public bool Stackable = false;
 		public bool Usable = true;
 
+		public string Id { get; private set; }
+		public string Name => Locale.Get(Id);
+		public string Description => Locale.Get($"{Id}_desc");
+
+		public Item() {
+			Id = GetType().Name;
+			// TODO: id to pascal_case
+		}
+
 		public override void Save(FileWriter stream) {
 			stream.WriteInt32(Count);
 		}
@@ -32,15 +40,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		public StringBuilder BuildInfo() {
-			var builer = new StringBuilder();
-			builer.Append();
-
-			if (!Description.IsEmpty()) {
-				builer.Append('\n');
-				builer.Append(GetDescription());
-			}
-
-			return builer;
+			var builder = new StringBuilder();
+			builder.Append(Name).Append('\n').Append(Description);
+			
+			return builder;
 		}
 	}
 }

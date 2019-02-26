@@ -1,34 +1,30 @@
-using BurningKnight.util;
+using System;
+using System.Collections.Generic;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.pool {
 	public class ClosingPool<T> : Pool<T> {
-		protected List<Float> NewChances = new List<>();
-		protected List<Class> NewClasses = new List<>();
+		protected List<float> NewChances = new List<float>();
+		protected List<Type> NewClasses = new List<Type>();
 
 		public void Reset() {
-			NewClasses = new List<>();
-			NewClasses.AddAll(Classes);
-			NewChances = new List<>();
-			NewChances.AddAll(Chances);
+			NewClasses = new List<Type>();
+			NewClasses.AddRange(Classes);
+			NewChances = new List<float>();
+			NewChances.AddRange(Chances);
 		}
 
 		public override T Generate() {
-			if (NewChances.Size() == 0) Reset();
+			if (NewChances.Count == 0) {
+				Reset();
+			}
 
-			Class Type = NewClasses.Get(Random.Chances(NewChances.ToArray(new Float[0])));
+			var Type = NewClasses[Random.Chances(NewChances)];
+			
 			NewChances.Remove(NewClasses.IndexOf(Type));
 			NewClasses.Remove(Type);
 
-			try {
-				return (T) Type.NewInstance();
-			}
-			catch (InstantiationException |
-
-			IllegalAccessException) {
-				E.PrintStackTrace();
-			}
-
-			return null;
+			return (T) Activator.CreateInstance(Type);
 		}
 	}
 }

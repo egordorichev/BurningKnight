@@ -1,46 +1,41 @@
-using BurningKnight.entity.creature.npc;
-using BurningKnight.entity.item.accessory.equippable;
-using BurningKnight.entity.item.weapon.gun;
-using BurningKnight.entity.item.weapon.magic;
-using BurningKnight.entity.item.weapon.spear;
-using BurningKnight.entity.item.weapon.sword;
+using System;
+using System.Collections.Generic;
 using BurningKnight.game;
 
 namespace BurningKnight.entity.item {
-	public class ItemRegistry {
-		public static Pair[] Pairs = {
-			new Pair("test", TestAccessory.GetType(), 0.5f, 1f, 0.3f, 0.1f, Quality.GOLDEN), new Pair("guitar", Guitar.GetType(), 0.5f, 1f, 0.3f, 0.1f, Quality.GOLDEN), new Pair("spear", Spear.GetType(), 1f, 1f, 0.1f, 0.3f, Quality.WOODEN),
-			new Pair("missile_wand", MagicMissileWand.GetType(), 1f, 0.3f, 1f, 0.3f, Quality.WOODEN), new Pair("gun", Revolver.GetType(), 1f, 0.3f, 0.1f, 1f, Quality.WOODEN)
-		};
-
-		public static Dictionary<string, Pair> Items = new Dictionary<>();
+	public static class ItemRegistry {
+		public static Dictionary<string, Pair> Items = new Dictionary<string, Pair>();
 
 		static ItemRegistry() {
-			foreach (var Pair in Pairs) Items.Put(Pair.Id, Pair);
+			foreach (var pair in Pairs) {
+				Items[pair.Id] = pair;
+			}
 		}
 
-		public static bool Check(Quality A, Quality Q) {
-			if (Q == Quality.ANY || A == Quality.ANY) return true;
+		public static bool Check(Quality a, Quality q) {
+			if (q == Quality.Any || a == Quality.Any) {
+				return true;
+			}
 
-			switch (Q) {
-				case WOODEN: {
-					return A == Quality.WOODEN || A == Quality.WOODEN_PLUS;
+			switch (q) {
+				case Quality.Wooden: {
+					return a == Quality.Wooden || a == Quality.WoodenPlus;
 				}
 
-				case IRON: {
-					return A == Quality.IRON || A == Quality.IRON_PLUS || A == Quality.WOODEN_PLUS;
+				case Quality.Iron: {
+					return a == Quality.Iron || a == Quality.IronPlus || a == Quality.WoodenPlus;
 				}
 
-				case GOLDEN: {
-					return A == Quality.GOLDEN || A == Quality.WOODEN_PLUS || A == Quality.IRON_PLUS;
+				case Quality.Golden: {
+					return a == Quality.Golden || a == Quality.WoodenPlus || a == Quality.IronPlus;
 				}
 
-				case WOODEN_PLUS: {
+				case Quality.WoodenPlus: {
 					return true;
 				}
 
-				case IRON_PLUS: {
-					return A == Quality.IRON || A == Quality.IRON_PLUS || A == Quality.GOLDEN;
+				case Quality.IronPlus: {
+					return a == Quality.Iron || a == Quality.IronPlus || a == Quality.Golden;
 				}
 
 				default: {
@@ -49,25 +44,24 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public static class Pair {
+		public class Pair {
 			public bool Busy;
 			public float Chance;
 			public int Cost;
 			public string Id;
 			public float Mage;
-			public Upgrade.Type Pool = Upgrade.Type.NONE;
 			public Quality Quality;
 			public float Ranged;
 			public bool Shown;
-			public Class Type;
+			public Type Type;
 			public string Unlock;
 			public float Warrior;
 
-			public Pair(string Id, Class Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality) {
-				this(Id, Type, Chance, Warrior, Mage, Ranged, Quality, Upgrade.Type.NONE, 0, null);
+			public Pair(string Id, Type Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality) 
+				: this(Id, Type, Chance, Warrior, Mage, Ranged, Quality, 0, null) {
 			}
 
-			public Pair(string Id, Class Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality, Upgrade.Type Pool, int Cost, string Unlock) {
+			public Pair(string Id, Type Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality, int Cost, string Unlock) {
 				this.Id = Id;
 				this.Type = Type;
 				this.Chance = Chance;
@@ -77,25 +71,28 @@ namespace BurningKnight.entity.item {
 				this.Quality = Quality;
 				this.Unlock = Unlock;
 				this.Cost = Cost;
-				this.Pool = Pool;
 			}
 
 			public bool Unlocked(string Key) {
-				if (Unlock != null)
+				if (Unlock != null) {
 					return Achievements.Unlocked(Unlock);
-				if (Pool != Org.Rexcellentgames.Burningknight.Entity.Creature.Npc.Upgrade.Type.NONE) return Achievements.Unlocked("SHOP_" + Key.ToUpperCase());
-
+				}
+				
 				return true;
 			}
 		}
 
-		private enum Quality {
-			WOODEN,
-			IRON,
-			GOLDEN,
-			WOODEN_PLUS,
-			IRON_PLUS,
-			ANY
+		public enum Quality {
+			Wooden,
+			Iron,
+			Golden,
+			WoodenPlus,
+			IronPlus,
+			Any
 		}
+		
+		public static Pair[] Pairs = new [] {
+			new Pair("test", typeof(Item), 0, 0, 0, 0, Quality.Any)
+		};
 	}
 }

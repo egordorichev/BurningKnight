@@ -1,5 +1,3 @@
-using BurningKnight.physics;
-
 namespace BurningKnight.debug {
 	public class DebugCommand : ConsoleCommand {
 		public DebugCommand() {
@@ -14,7 +12,7 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			World.DRAW_DEBUG = !World.DRAW_DEBUG;
+			Physics.RenderDebug = !Physics.RenderDebug;
 		}
 	}
 }

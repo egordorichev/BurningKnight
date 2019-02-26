@@ -14,9 +14,5 @@ namespace BurningKnight.entity.creature {
 		public void Kill() {
 			GetComponent<HealthComponent>().Dead = true;
 		}
-
-		internal void OnDeath() {
-			Done = true;
-		}
 	}
 }

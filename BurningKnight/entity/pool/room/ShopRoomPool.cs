@@ -6,9 +6,9 @@ namespace BurningKnight.entity.pool.room {
 		public static ShopRoomPool Instance = new ShopRoomPool();
 
 		public ShopRoomPool() {
-			Add(ClassicShopRoom.GetType(), 1);
-			Add(QuadShopRoom.GetType(), 1);
-			Add(GoldShopRoom.GetType(), 1);
+			Add(typeof(ClassicShopRoom), 1);
+			Add(typeof(QuadShopRoom), 1);
+			Add(typeof(GoldShopRoom), 1);
 		}
 	}
 }

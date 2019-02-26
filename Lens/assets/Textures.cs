@@ -48,11 +48,9 @@ namespace Lens.assets {
 			
 			textures.Clear();
 		}
-
+		
 		public static TextureRegion Get(string id) {
-			TextureRegion region;
-
-			if (textures.TryGetValue(id, out region)) {
+			if (textures.TryGetValue(id, out var region)) {
 				return region;
 			}
 			

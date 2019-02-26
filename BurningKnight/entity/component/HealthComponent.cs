@@ -37,8 +37,8 @@ namespace BurningKnight.entity.component {
 					dead = value;
 					health = dead ? 0 : MaxHealth;
 
-					if (dead && Entity is Creature creature) {
-						creature.OnDeath();
+					if (dead) {
+						Entity.Done = true;
 					}
 				}
 			}		

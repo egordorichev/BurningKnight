@@ -141,7 +141,7 @@ namespace BurningKnight.entity.level.rooms.shop {
 
 		private void PaintWeapon(int C) {
 			List<Item> Items = new List<>();
-			Pool<Item> Pool = Chest.MakePool(ItemRegistry.Quality.ANY, false, false);
+			Pool<Item> Pool = Chest.MakePool(ItemRegistry.Quality.Any, false, false);
 
 			if (Random.Chance(50)) {
 				var Bomb = new Bomb();
@@ -162,7 +162,7 @@ namespace BurningKnight.entity.level.rooms.shop {
 
 		private void PaintAccessory(int C) {
 			List<Item> Items = new List<>();
-			var Pool = Chest.MakePool(ItemRegistry.Quality.ANY, false, false);
+			var Pool = Chest.MakePool(ItemRegistry.Quality.Any, false, false);
 
 			if (Random.Chance(50)) {
 				var Bomb = new Bomb();
@@ -183,8 +183,8 @@ namespace BurningKnight.entity.level.rooms.shop {
 
 		private void PaintMixed(int C) {
 			List<Item> Items = new List<>();
-			var Weapon = Chest.MakePool(ItemRegistry.Quality.ANY, true, false);
-			var Accessory = Chest.MakePool(ItemRegistry.Quality.ANY, false, false);
+			var Weapon = Chest.MakePool(ItemRegistry.Quality.Any, true, false);
+			var Accessory = Chest.MakePool(ItemRegistry.Quality.Any, false, false);
 
 			if (Random.Chance(50)) {
 				var Bomb = new Bomb();

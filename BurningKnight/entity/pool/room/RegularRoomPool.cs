@@ -6,37 +6,37 @@ namespace BurningKnight.entity.pool.room {
 		public static RegularRoomPool Instance = new RegularRoomPool();
 
 		public RegularRoomPool() {
-			Add(CircleRoom.GetType(), 3);
-			Add(GardenRoom.GetType(), 1f);
-			Add(MazeFloorRoom.GetType(), 0.3f);
-			Add(CaveRoom.GetType(), 1f);
-			Add(RectFloorRoom.GetType(), 0.3f);
-			Add(CollumnRoom.GetType(), 1f);
-			Add(CollumnsRoom.GetType(), 1);
-			Add(LavaLakeRoom.GetType(), 1);
-			Add(CavyChasmRoom.GetType(), 2f);
-			Add(SideChasmsRoom.GetType(), 1f);
-			Add(HalfRoomChasm.GetType(), 1f);
-			Add(CrossRoom.GetType(), 2f);
-			Add(CenterWallRoom.GetType(), 1f);
-			Add(SmallAdditionRoom.GetType(), 1f);
-			Add(PrisonRoom.GetType(), 1f);
-			Add(PadRoom.GetType(), 2f);
-			Add(RombRoom.GetType(), 2f);
-			Add(FilledRombRoom.GetType(), 3f);
-			Add(CornerRoom.GetType(), 1f);
-			Add(MissingCornerRoom.GetType(), 3f);
-			Add(DoubleCornerRoom.GetType(), 3f);
-			Add(StatueRoom.GetType(), 2);
+			Add(typeof(CircleRoom), 3);
+			Add(typeof(GardenRoom), 1f);
+			Add(typeof(MazeFloorRoom), 0.3f);
+			Add(typeof(CaveRoom), 1f);
+			Add(typeof(RectFloorRoom), 0.3f);
+			Add(typeof(CollumnRoom), 1f);
+			Add(typeof(CollumnsRoom), 1);
+			Add(typeof(LavaLakeRoom), 1);
+			Add(typeof(CavyChasmRoom), 2f);
+			Add(typeof(SideChasmsRoom), 1f);
+			Add(typeof(HalfRoomChasm), 1f);
+			Add(typeof(CrossRoom), 2f);
+			Add(typeof(CenterWallRoom), 1f);
+			Add(typeof(SmallAdditionRoom), 1f);
+			Add(typeof(PrisonRoom), 1f);
+			Add(typeof(PadRoom), 2f);
+			Add(typeof(RombRoom), 2f);
+			Add(typeof(FilledRombRoom), 3f);
+			Add(typeof(CornerRoom), 1f);
+			Add(typeof(MissingCornerRoom), 3f);
+			Add(typeof(DoubleCornerRoom), 3f);
+			Add(typeof(StatueRoom), 2);
 
 			if (GameSave.RunId != 0) {
-				Add(RollingSpikeRoom.GetType(), 3);
-				Add(TurretRoom.GetType(), 1);
-				Add(FourSideTurretRoom.GetType(), 1);
-				Add(RotatingTurretRoom.GetType(), 1);
-				Add(CenterStructRoom.GetType(), 2);
-				Add(BigHoleRoom.GetType(), 2f);
-				Add(CRoom.GetType(), 2f);
+				Add(typeof(RollingSpikeRoom), 3);
+				Add(typeof(TurretRoom), 1);
+				Add(typeof(FourSideTurretRoom), 1);
+				Add(typeof(RotatingTurretRoom), 1);
+				Add(typeof(CenterStructRoom), 2);
+				Add(typeof(BigHoleRoom), 2f);
+				Add(typeof(CRoom), 2f);
 			}
 		}
 	}

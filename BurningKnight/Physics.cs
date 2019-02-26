@@ -5,6 +5,7 @@ using Box2DX.Dynamics;
 namespace BurningKnight {
 	public class Physics {
 		public static World World;
+		public static bool RenderDebug;
 
 		public void Init() {
 			World = new World(new AABB(), Vec2.Zero, true);

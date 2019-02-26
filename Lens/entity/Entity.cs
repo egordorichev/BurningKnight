@@ -145,6 +145,15 @@ namespace Lens.entity {
 			component.Init();
 		}
 
+		public void RemoveComponent<T>() {
+			var type = typeof(T);
+			
+			if (components.TryGetValue(type, out var component)) {
+				component.Destroy();
+				components.Remove(type);
+			}
+		}
+
 		public void SetGraphicsComponent(GraphicsComponent component) {
 			graphicsComponent = component;
 			AddComponent(component);

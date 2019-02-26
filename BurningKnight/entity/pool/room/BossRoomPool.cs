@@ -6,9 +6,9 @@ namespace BurningKnight.entity.pool.room {
 		public static BossRoomPool Instance = new BossRoomPool();
 
 		public BossRoomPool() {
-			Add(SimpleBossRoom.GetType(), 1f);
-			Add(CollumnsBossRoom.GetType(), 1f);
-			Add(CircleBossRoom.GetType(), 1f);
+			Add(typeof(SimpleBossRoom), 1f);
+			Add(typeof(CollumnsBossRoom), 1f);
+			Add(typeof(CircleBossRoom), 1f);
 		}
 	}
 }

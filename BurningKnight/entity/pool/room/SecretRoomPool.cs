@@ -5,11 +5,11 @@ namespace BurningKnight.entity.pool.room {
 		public static SecretRoomPool Instance = new SecretRoomPool();
 
 		public SecretRoomPool() {
-			Add(BombRoom.GetType(), 1f);
-			Add(ChestRoom.GetType(), 1f);
-			Add(GoldSecretRoom.GetType(), 1f);
-			Add(HeartRoom.GetType(), 1f);
-			Add(MixedSecretRoom.GetType(), 1f);
+			Add(typeof(BombRoom), 1f);
+			Add(typeof(ChestRoom), 1f);
+			Add(typeof(GoldSecretRoom), 1f);
+			Add(typeof(HeartRoom), 1f);
+			Add(typeof(MixedSecretRoom), 1f);
 		}
 	}
 }

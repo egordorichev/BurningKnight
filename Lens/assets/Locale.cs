@@ -18,6 +18,8 @@ namespace Lens.assets {
 			foreach (string name in deserialized.Values) {
 				Console.WriteLine(name);
 			}
+			
+			// todo
 		}
 		
 		public static void Load(string locale) {
@@ -32,6 +34,8 @@ namespace Lens.assets {
 			} 
 		}
 
-		public string this[string key] => map.ContainsKey(key) ? map[key] : fallback[key];
+		public static string Get(string key) {
+			return map.ContainsKey(key) ? map[key] : fallback[key];
+		}
 	}
 }

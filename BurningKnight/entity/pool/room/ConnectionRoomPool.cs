@@ -5,13 +5,13 @@ namespace BurningKnight.entity.pool.room {
 		public static ConnectionRoomPool Instance = new ConnectionRoomPool();
 
 		public ConnectionRoomPool() {
-			this.Add(TunnelRoom.GetType(), 5);
-			this.Add(ChasmTunnelRoom.GetType(), 3);
-			this.Add(RingConnectionRoom.GetType(), 3);
-			this.Add(SpikedTunnelRoom.GetType(), 2);
-			this.Add(BigRingConnectionRoom.GetType(), 2);
-			this.Add(EmptyConnectionRoom.GetType(), 3);
-			this.Add(ChasmConnectionRoom.GetType(), 2);
+			Add(typeof(TunnelRoom), 5);
+			Add(typeof(ChasmTunnelRoom), 3);
+			Add(typeof(RingConnectionRoom), 3);
+			Add(typeof(SpikedTunnelRoom), 2);
+			Add(typeof(BigRingConnectionRoom), 2);
+			Add(typeof(EmptyConnectionRoom), 3);
+			Add(typeof(ChasmConnectionRoom), 2);
 		}
 	}
 }

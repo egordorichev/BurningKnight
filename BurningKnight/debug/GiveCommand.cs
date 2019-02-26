@@ -18,9 +18,11 @@ namespace BurningKnight.debug {
 		public override void Run(Console Console, string[] Args) {
 			var Count = 1;
 
-			if (Args.Length == 2) Count = Int32.Parse(Args[1]);
+			if (Args.Length == 2) {
+				Count = Int32.Parse(Args[1]);
+			}
 
-			if (Args.Length > 0 && Args.Length < 3) {
+			/*if (Args.Length > 0 && Args.Length < 3) {
 				string Name = Args[0];
 				Item Item;
 
@@ -45,7 +47,7 @@ namespace BurningKnight.debug {
 				catch (Exception) {
 					Console.Print("[red]Failed to create item");
 				}
-			}
+			}*/ // todo
 		}
 	}
 }

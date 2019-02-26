@@ -14,7 +14,7 @@ namespace BurningKnight.entity.level.entities.chest {
 		}
 
 		public override Item Generate() {
-			return Generate(ItemRegistry.Quality.GOLDEN, Weapon);
+			return Generate(ItemRegistry.Quality.Golden, Weapon);
 		}
 
 		protected override AnimationData GetClosedAnim() {

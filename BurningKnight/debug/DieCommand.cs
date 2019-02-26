@@ -1,4 +1,4 @@
-using BurningKnight.entity.creature.player;
+using Lens.entity;
 
 namespace BurningKnight.debug {
 	public class DieCommand : ConsoleCommand {
@@ -14,7 +14,7 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			if (Player.Instance != null) Player.Instance.Die();
+			// if (Player.Instance != null) Player.Instance.Die();
 		}
 	}
 }

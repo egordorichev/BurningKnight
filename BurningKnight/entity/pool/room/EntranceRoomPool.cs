@@ -5,10 +5,10 @@ namespace BurningKnight.entity.pool.room {
 		public static EntranceRoomPool Instance = new EntranceRoomPool();
 
 		public EntranceRoomPool() {
-			Add(EntranceRoom.GetType(), 1f);
-			Add(CircleEntranceRoom.GetType(), 1f);
-			Add(LineEntranceRoom.GetType(), 1f);
-			Add(LineCircleRoom.GetType(), 1f);
+			Add(typeof(EntranceRoom), 1f);
+			Add(typeof(CircleEntranceRoom), 1f);
+			Add(typeof(LineEntranceRoom), 1f);
+			Add(typeof(LineCircleRoom), 1f);
 		}
 	}
 }
