@@ -13,7 +13,8 @@ namespace Lens.entity {
 		public bool AlwaysActive;
 		public bool AlwaysVisible;
 		public bool OnScreen;
-
+		public bool Done;
+		
 		public byte Depth;
 		
 		#region Bounds and position
@@ -22,11 +23,34 @@ namespace Lens.entity {
 		public float Width;
 		public float Height;
 
-		public float X => Position.X;
-		public float Y => Position.Y;
-		public Vector2 Center => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
-		public float CenterX => Position.X + Width / 2;
-		public float CenterY => Position.Y + Height / 2;
+		public float X {
+			get => Position.X;
+			set => Position.X = value;
+		}
+		
+		public float Y {
+			get => Position.Y;
+			set => Position.Y = value;
+		}
+		
+		public Vector2 Center {
+			get => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
+			set {
+				Position.X = value.X - Width / 2;
+				Position.Y = value.Y - Height / 2;
+			}
+		}
+		
+		public float CenterX {
+			get => Position.X + Width / 2;
+			set => Position.X = value - Width / 2;
+		}
+		
+		public float CenterY {
+			get => Position.Y + Height / 2;
+			set => Position.Y = value - Height / 2;
+		}
+		
 		public float Right => Position.X + Width;
 		public float Bottom => Position.Y + Height;
 
@@ -37,8 +61,8 @@ namespace Lens.entity {
 		private int tag;
 		
 		public int Tag {
-			get { return tag; }
-			
+			get => tag;
+
 			set {
 				if (tag != value && Area != null) {
 					for (int i = 0; i < BitTag.Total; i++) {

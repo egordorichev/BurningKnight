@@ -1,14 +1,13 @@
 using System;
-using BurningKnight;
 using BurningKnight.state;
 using Lens;
 
-namespace burningknight {
+namespace BurningKnight {
 	public class DesktopLauncher {
 		internal class TestLauncher {
 			[STAThread]
 			public static void Main() {
-				int scale = 2;
+				var scale = 2;
 
 				using (var game = new BK(new InGameState(), $"Burning Knight {Engine.Version}: Burn, baby, burn!", Display.Width * scale, Display.Height * scale, false)) {
 					game.Run();
@@ -39,8 +38,8 @@ namespace burningknight {
 		LwjglApplicationConfiguration Config = new LwjglApplicationConfiguration();
 		Dungeon.Title = "Burning Knight: " + GenerateTitle();
 		Config.Title = Dungeon.Title;
-		Config.Width = Display.GAME_WIDTH * SCALE;
-		Config.Height = Display.GAME_HEIGHT * SCALE;
+		Config.Width = Display.Width * SCALE;
+		Config.Height = Display.Height * SCALE;
 		Config.AddIcon("icon.png", Files.FileType.Internal);
 		Config.AddIcon("icon32x32.png", Files.FileType.Internal);
 		Config.AddIcon("icon128x128.png", Files.FileType.Internal);

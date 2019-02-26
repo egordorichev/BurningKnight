@@ -1,0 +1,37 @@
+using BurningKnight.entity.item;
+
+namespace BurningKnight.entity.level.entities {
+	public class Slab : SolidProp {
+		private bool S;
+
+		public Slab() {
+			_Init();
+		}
+
+		protected void _Init() {
+			{
+				Sprite = "props-slab_a";
+				Collider = new Rectangle(3, 10, 8, 1);
+			}
+		}
+
+		public override void Update(float Dt) {
+			base.Update(Dt);
+
+			if (!S) {
+				S = true;
+				Dungeon.Level.SetPassable(this.X / 16, (this.Y + 8) / 16, false);
+			}
+		}
+
+		public override bool ShouldCollide(Object Entity, Contact Contact, Fixture Fixture) {
+			if (Entity is ItemHolder) {
+				((ItemHolder) Entity).Depth = 1;
+
+				return false;
+			}
+
+			return base.ShouldCollide(Entity, Contact, Fixture);
+		}
+	}
+}

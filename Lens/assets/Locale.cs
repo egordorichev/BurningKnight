@@ -19,7 +19,7 @@ namespace Lens.assets {
 				Console.WriteLine(name);
 			}
 		}
-
+		
 		public static void Load(string locale) {
 			Current = locale;
 			map.Clear();

@@ -94,9 +94,11 @@
     <Compile Include="util\camera\CameraDriver.cs" />
     <Compile Include="util\camera\FollowingDriver.cs" />
     <Compile Include="util\file\FileHandle.cs" />
+    <Compile Include="util\file\FileReader.cs" />
+    <Compile Include="util\file\FileWriter.cs" />
     <Compile Include="util\Log.cs" />
     <Compile Include="util\math\Calc.cs" />
-    <Compile Include="util\math\Rng.cs" />
+    <Compile Include="util\math\Random.cs" />
     <Compile Include="util\pool\DisposablePool.cs" />
     <Compile Include="util\pool\Pool.cs" />
     <Compile Include="util\timer\Timer.cs" />

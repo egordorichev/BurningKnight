@@ -6,8 +6,8 @@ namespace Lens.entity.component.logic {
 		private Type newState;
 		
 		public Type State {
-			get { return state.GetType(); }
-			set { newState = value; }
+			get => state.GetType();
+			set => newState = value;
 		}
 
 		public override void Update(float dt) {
