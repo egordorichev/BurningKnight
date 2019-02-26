@@ -61,9 +61,12 @@
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="DesktopLauncher.cs" />
     <Compile Include="Dungeon.cs" />
+    <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\Camera.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
+    <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
+    <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\fx\BloodFx.cs" />
@@ -387,7 +390,6 @@
     <Compile Include="entity\level\rooms\treasure\MazeTreasureRoom.cs" />
     <Compile Include="entity\level\rooms\treasure\TreasureRoom.cs" />
     <Compile Include="entity\level\rooms\TutorialChasmRoom.cs" />
-    <Compile Include="entity\level\SaveableEntity.cs" />
     <Compile Include="entity\level\save\GameSave.cs" />
     <Compile Include="entity\level\save\GlobalSave.cs" />
     <Compile Include="entity\level\save\LevelSave.cs" />
@@ -418,6 +420,7 @@
     <Compile Include="entity\pool\room\ShopRoomPool.cs" />
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
+    <Compile Include="entity\SaveableEntity.cs" />
     <Compile Include="entity\trap\FourSideRotatingTurret.cs" />
     <Compile Include="entity\trap\FourSideTurret.cs" />
     <Compile Include="entity\trap\RollingSpike.cs" />
