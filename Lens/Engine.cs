@@ -15,8 +15,6 @@ namespace Lens {
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;
-		public static float DeltaTime;
-		public static GameTime GameTime;
 		public static Matrix ScreenMatrix;
 		
 		public GameRenderer StateRenderer { get; private set; }
@@ -25,13 +23,14 @@ namespace Lens {
 		public float Upscale;
 
 		private static Core.Core core;
+		private const float FixedUpdateTime = 1 / 55f;
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;
 		private GameState newState;
 		
 		public string Title {
-			get { return Window.Title; }
-			set { Window.Title = value; }
+			get => Window.Title;
+			set => Window.Title = value;
 		}
 
 		public Engine(GameState state, string title, int width, int height, bool fullscreen) {
@@ -83,26 +82,28 @@ namespace Lens {
 			base.Update(gameTime);
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			float time = dt;
 
-			GameTime = gameTime;
-			DeltaTime = dt;
-
-			if (newState != null) {
-				Log.Info("Setting state to " + newState.GetType().Name);
+			while (time >= FixedUpdateTime) {
+				time -= FixedUpdateTime;
 				
-				State?.Destroy();
-				State = newState;
-				State?.Init();
-			
-				newState = null;
-			}
+				if (newState != null) {
+					Log.Info("Setting state to " + newState.GetType().Name);
 
-			Assets.Update(dt);
-			Input.Update();
-			Timer.Update(dt);
-			Tween.Update(dt);
-			
-			State?.Update(dt);
+					State?.Destroy();
+					State = newState;
+					State?.Init();
+
+					newState = null;
+				}
+
+				Assets.Update(FixedUpdateTime);
+				Input.Update(FixedUpdateTime);
+				Timer.Update(FixedUpdateTime);
+				Tween.Update(FixedUpdateTime);
+
+				State?.Update(FixedUpdateTime);
+			}
 		}
 
 		public void SetState(GameState state) {

@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using Lens.assets;
-using Lens.graphics;
+using Lens.entity.component.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.entity.item {
@@ -29,6 +29,12 @@ namespace BurningKnight.entity.item {
 		public Item() {
 			Id = GetType().Name;
 			// TODO: id to pascal_case
+		}
+
+		protected override void AddComponents() {
+			base.AddComponents();
+			
+			AddComponent(new ImageComponent(Id));
 		}
 
 		public override void Save(FileWriter stream) {

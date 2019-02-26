@@ -9,6 +9,9 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new PlayerInputComponent());
 			
 			AddTag(Tags.Player);
+			AddTag(Tags.PlayerSave);
+			
+			RemoveTag(Tags.LevelSave);
 		}
 	}
 }

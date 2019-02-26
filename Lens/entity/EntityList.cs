@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lens.util.camera;
 
 namespace Lens.entity {
 	public class EntityList {
@@ -29,7 +30,11 @@ namespace Lens.entity {
 		}
 		
 		private bool CheckOnScreen(Entity entity) {
-			return true; // FIXME: check camera collision
+			if (Camera.Instance == null) {
+				return true;
+			}
+
+			return Camera.Instance.Overlaps(entity);
 		}
 
 		public void Update(float dt) {

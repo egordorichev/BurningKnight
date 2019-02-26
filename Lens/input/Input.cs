@@ -33,12 +33,12 @@ namespace Lens.input {
 			}
 		}
 
-		public static void Update() {
+		public static void Update(float dt) {
 			Keyboard.Update();
 			Mouse.Update();
 
 			foreach (var gamepad in Gamepads) {
-				gamepad.Update();
+				gamepad.Update(dt);
 			}
 		}
 		

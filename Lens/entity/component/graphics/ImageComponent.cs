@@ -3,14 +3,14 @@ using Lens.graphics;
 
 namespace Lens.entity.component.graphics {
 	public class ImageComponent : GraphicsComponent {
-		private TextureRegion texture;
+		public TextureRegion Sprite;
 		
 		public ImageComponent(string image) {
-			texture = Textures.Get(image);
+			Sprite = Textures.Get(image);
 		}
 		
 		public override void Render() {
-			Graphics.Render(texture, Entity.Position);
+			Graphics.Render(Sprite, Entity.Position);
 		}
 	}
 }

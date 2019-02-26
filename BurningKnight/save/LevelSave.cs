@@ -1,85 +1,39 @@
-using BurningKnight.game.state;
+using System;
+using BurningKnight.entity;
+using Lens.entity;
 using Lens.util.file;
 
-namespace BurningKnight.entity.level.save {
+namespace BurningKnight.save {
 	public class LevelSave {
-		public static List<SaveableEntity> All = new List<>();
 		private static int I;
 
-		public static void Remove(SaveableEntity Entity) {
-			All.Remove(Entity);
-		}
+		public static void Save(Area area, FileWriter Writer) {
+			var all = area.Tags[Tags.PlayerSave];
+			Writer.WriteInt32(all.Count);
 
-		public static void Add(SaveableEntity Entity) {
-			All.Add(Entity);
-		}
-
-		public static void Save(FileWriter Writer) {
-			try {
-				Dungeon.Level.Save(Writer);
-				Writer.WriteInt32(All.Size());
-
-				foreach (SaveableEntity Entity in All) {
-					Writer.WriteString(Entity.GetClass().GetName().Replace("org.rexcellentgames.burningknight.", ""));
-					Entity.Save(Writer);
-				}
-			}
-			catch (Exception) {
-				E.PrintStackTrace();
+			foreach (SaveableEntity Entity in all) {
+				Writer.WriteString(Entity.GetType().FullName.Replace("BurningKnight.", ""));
+				Entity.Save(Writer);
 			}
 		}
 
-		public static void Load(FileReader Reader) {
-			All.Clear();
-			Dungeon.Level = Level.ForDepth(Dungeon.Depth);
-			Dungeon.Area.Add(Dungeon.Level);
-			Dungeon.Level.Load(Reader);
+		public static void Load(Area area, FileReader Reader) {
 			var Count = Reader.ReadInt32();
 
 			for (var I = 0; I < Count; I++) {
-				var T = Reader.ReadString();
-				Class Clazz = null;
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.ReflectionOnlyGetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
-				try {
-					Clazz = Class.ForName("org.rexcellentgames.burningknight." + T);
-				}
-				catch (ClassNotFoundException) {
-					E.PrintStackTrace();
-				}
-
-				SaveableEntity Entity;
-
-				try {
-					Entity = (SaveableEntity) Clazz.NewInstance();
-				}
-				catch (InstantiationException) {
-					E.PrintStackTrace();
-
-					continue;
-				}
-				catch (IllegalAccessException) {
-					E.PrintStackTrace();
-
-					continue;
-				}
-
-				Dungeon.Area.Add(Entity);
-				All.Add(Entity);
-				Entity.Load(Reader);
+				area.Add(entity);
+				entity.Load(Reader);
 			}
 		}
 
-		public static void Generate() {
+		public static void Generate(Area area) {
 			try {
-				LoadState.Generating = true;
-				Dungeon.Level = Level.ForDepth(Dungeon.Depth);
-				Dungeon.Area.Add(Dungeon.Level);
-				Dungeon.Level.Generate(I);
+				// todo: generate level
 				I = 0;
-			}
-			catch (RuntimeException) {
-				E.PrintStackTrace();
-				Generate();
+			} catch (Exception) {
+				Generate(area);
 				I++;
 			}
 		}

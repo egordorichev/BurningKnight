@@ -10,6 +10,18 @@ namespace BurningKnight.entity.component {
 		public uint Health {
 			get => health;
 			set {
+				if (Unhittable) {
+					return;
+				}
+
+				if (value < Health) {
+					if (InvincibilityTimer > 0) {
+						return;
+					}
+					
+					InvincibilityTimer = InvincibilityTimerMax;
+				}
+				
 				health = (uint) MathUtils.Clamp(health, 0, maxHealth);
 
 				if (health == 0) {
@@ -30,6 +42,9 @@ namespace BurningKnight.entity.component {
 		}
 
 		private bool dead;
+		public bool Unhittable;
+		public float InvincibilityTimer;
+		public float InvincibilityTimerMax = 0.5f;
 
 		public bool Dead {
 			set {
@@ -47,6 +62,12 @@ namespace BurningKnight.entity.component {
 		public HealthComponent() {
 			MaxHealth = 1;
 			Health = MaxHealth;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			InvincibilityTimer = Math.Max(0, InvincibilityTimer - dt);
 		}
 	}
 }

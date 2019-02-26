@@ -50,6 +50,8 @@
     <Compile Include="assets\Animations.cs" />
     <Compile Include="assets\Assets.cs" />
     <Compile Include="assets\Audio.cs" />
+    <Compile Include="assets\BitmapFont.cs" />
+    <Compile Include="assets\Fonts.cs" />
     <Compile Include="assets\Locale.cs" />
     <Compile Include="assets\Textures.cs" />
     <Compile Include="core\ConsoleCore.cs" />
@@ -89,7 +91,6 @@
     <Compile Include="input\MouseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Launcher.cs" />
     <Compile Include="game\GameState.cs" />
     <Compile Include="util\camera\Camera.cs" />
     <Compile Include="util\camera\CameraDriver.cs" />

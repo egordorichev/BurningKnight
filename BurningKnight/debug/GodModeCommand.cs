@@ -1,4 +1,4 @@
-using BurningKnight.entity.creature.player;
+using BurningKnight.entity.component;
 
 namespace BurningKnight.debug {
 	public class GodModeCommand : ConsoleCommand {
@@ -14,8 +14,12 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			Player.Instance.SetUnhittable(!Player.Instance.IsUnhittable());
-			Console.Print(Player.Instance.IsUnhittable() ? "[green]God mode on" : "[red]God mode off");
+			foreach (var player in Console.Area.Tags[Tags.Player]) {
+				var health = player.GetComponent<HealthComponent>();
+				health.Unhittable = !health.Unhittable;
+				
+				Console.Print(health.Unhittable ? "God mode is on" : "God mode is off");
+			}			
 		}
 	}
 }

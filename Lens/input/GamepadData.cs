@@ -16,13 +16,13 @@ namespace Lens.input {
 			PlayerIndex = playerIndex;
 		}
 
-		public void Update() {
+		public void Update(float dt) {
 			PreviousState = CurrentState;
 			CurrentState = GamePad.GetState(PlayerIndex);
 			Attached = CurrentState.IsConnected;
 
 			if (rumbleTime > 0) {
-				rumbleTime -= Engine.DeltaTime;
+				rumbleTime -= dt;
 
 				if (rumbleTime <= 0) {
 					GamePad.SetVibration(PlayerIndex, 0, 0);

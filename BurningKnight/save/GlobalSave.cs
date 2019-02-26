@@ -1,74 +1,79 @@
+using System;
+using System.Collections.Generic;
+using Lens.entity;
 using Lens.util.file;
 
-namespace BurningKnight.entity.level.save {
+namespace BurningKnight.save {
 	public class GlobalSave {
-		public static Dictionary<string, string> Values = new Dictionary<>();
+		public static Dictionary<string, string> Values = new Dictionary<string, string>();
 
 		public static bool IsTrue(string Key) {
 			return IsTrue(Key, false);
 		}
 
-		public static bool IsTrue(string Key, bool Def) {
-			string Value = Values.Get(Key);
-
-			if (Value == null) return Def;
-
-			return Value.Equals("true");
+		public static bool IsTrue(string Key, bool Def = false) {
+			if (Values.TryGetValue(Key, out var Value)) {
+				return Value == "true";
+			}
+			
+			return Def;
 		}
 
 		public static bool IsFalse(string Key) {
 			return !IsTrue(Key);
 		}
 
-		public static void Put(string Key, Object Val) {
-			Values.Put(Key, Val.ToString());
+		public static void Put(string Key, object Val) {
+			Values[Key] = Val.ToString();
 		}
 
-		public static string GetString(string Key, string Def) {
-			string Value = Values.Get(Key);
-
-			if (Value == null) return Def;
-
-			return Value;
+		public static void Put(string Key, int Val) {
+			Values[Key] = Val.ToString();
 		}
 
-		public static int GetInt(string Key) {
-			string Value = Values.Get(Key);
-
-			if (Value == null) return 0;
-
-			return Integer.ValueOf(Value);
+		public static void Put(string Key, float Val) {
+			Values[Key] = Val.ToString();
 		}
 
-		public static float GetFloat(string Key) {
-			string Value = Values.Get(Key);
-
-			if (Value == null) return 0;
-
-			return Float.ValueOf(Value);
+		public static void Put(string Key, bool Val) {
+			Values[Key] = Val.ToString();
 		}
 
-		public static void Generate() {
+		public static string GetString(string Key, string Def = null) {
+			return Values.TryGetValue(Key, out var Value) ? Value : Def;
+		}
+
+		public static int GetInt(string Key, int Def = 0) {
+			return Values.TryGetValue(Key, out var Value) ? Int32.Parse(Value) : Def;
+
+		}
+
+		public static float GetFloat(string Key, float Def = 0) {
+			return Values.TryGetValue(Key, out var Value) ? Single.Parse(Value) : Def;
+		}
+
+		public static void Generate(Area area) {
 			Settings.Generate();
 		}
 
-		public static void Load(FileReader Reader) {
+		public static void Load(Area area, FileReader Reader) {
 			Values.Clear();
 			var Count = Reader.ReadInt32();
 
 			for (var I = 0; I < Count; I++) {
 				var Key = Reader.ReadString();
 				var Val = Reader.ReadString();
-				Values.Put(Key, Val);
+				
+				Values[Key] = Val;
 			}
 		}
 
-		public static void Save(FileWriter Writer) {
-			Writer.WriteInt32(Values.Size());
+		public static void Save(Area area, FileWriter Writer) {
+			Writer.WriteInt32(Values.Count);
 
-			foreach (Map.Entry<string, string> Pair in Values.EntrySet()) {
-				Writer.WriteString(Pair.GetKey());
-				Writer.WriteString(Pair.GetValue());
+			foreach (var Pair in Values) {
+				Writer.WriteString(Pair.Key);
+				Writer.WriteString(Pair.Value);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-using BurningKnight.entity.creature.player;
+using BurningKnight.entity.component;
 
 namespace BurningKnight.debug {
 	public class HealCommand : ConsoleCommand {
@@ -14,7 +14,10 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			Player.Instance.ModifyHp(Player.Instance.GetHpMax() - Player.Instance.GetHp(), null);
+			foreach (var player in Console.Area.Tags[Tags.Player]) {
+				var component = player.GetComponent<HealthComponent>();
+				component.Health = component.MaxHealth;
+			}		
 		}
 	}
 }

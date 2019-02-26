@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\Fonts.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="debug\Console.cs" />
     <Compile Include="debug\ConsoleCommand.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
-    <Compile Include="debug\LightCommand.cs" />
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\RoomDebugCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
@@ -232,11 +232,6 @@
     <Compile Include="entity\level\rooms\treasure\TreasureRoom.cs" />
     <Compile Include="entity\level\rooms\TutorialChasmRoom.cs" />
     <Compile Include="entity\level\Terrain.cs" />
-    <Compile Include="entity\pattern\BulletPattern.cs" />
-    <Compile Include="entity\pattern\CircleBulletPattern.cs" />
-    <Compile Include="entity\pattern\NanoPattern.cs" />
-    <Compile Include="entity\pattern\RectBulletPattern.cs" />
-    <Compile Include="entity\pattern\WeirdPattern.cs" />
     <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\MobHub.cs" />
     <Compile Include="entity\pool\MobPool.cs" />
@@ -250,7 +245,6 @@
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
     <Compile Include="entity\SaveableEntity.cs" />
-    <Compile Include="game\Achievements.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="save\GameSave.cs" />
@@ -260,6 +254,7 @@
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\InGameState.cs" />
+    <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\UiAchievement.cs" />
     <Compile Include="ui\UiBanner.cs" />

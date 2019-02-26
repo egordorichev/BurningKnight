@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BurningKnight.game;
 
 namespace BurningKnight.entity.item {
 	public static class ItemRegistry {
@@ -74,10 +73,6 @@ namespace BurningKnight.entity.item {
 			}
 
 			public bool Unlocked(string Key) {
-				if (Unlock != null) {
-					return Achievements.Unlocked(Unlock);
-				}
-				
 				return true;
 			}
 		}

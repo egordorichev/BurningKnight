@@ -1,4 +1,4 @@
-using BurningKnight.entity.creature.player;
+using BurningKnight.entity.component;
 
 namespace BurningKnight.debug {
 	public class HurtCommand : ConsoleCommand {
@@ -14,7 +14,9 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			Player.Instance.ModifyHp(-1, null, true);
+			foreach (var player in Console.Area.Tags[Tags.Player]) {
+				player.GetComponent<HealthComponent>().Health -= 1;
+			}
 		}
 	}
 }

@@ -1,9 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Lens.util.math {
 	public static class Random {
 		private static System.Random random = new System.Random();
+		private static string seed;
+		
+		public static string Seed {
+			get => seed;
+
+			set {
+				seed = value;
+				random = new System.Random(ParseSeed(seed));
+			}
+		}
+
+		private static string seedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		
+		static Random() {
+			Seed = GenerateSeed();
+		}
+		
+		public static int ParseSeed(string seed) {
+			int value = 0;
+
+			foreach (var c in seed) {
+				value += seedChars.IndexOf(c);
+			}
+
+			return value;
+		}
+
+		public static string GenerateSeed(int len = 8) {
+			var builder = new StringBuilder();
+
+			for (int i = 0; i < len; i++) {
+				builder.Append(seedChars[Int(seedChars.Length)]);
+			}
+			
+			return builder.ToString();
+		}
 
 		public static int Int() {
 			return random.Next();

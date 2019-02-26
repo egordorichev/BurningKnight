@@ -1,5 +1,5 @@
 using BurningKnight.entity.level.rooms.regular;
-using BurningKnight.entity.level.save;
+using BurningKnight.state;
 
 namespace BurningKnight.entity.pool.room {
 	public class RegularRoomPool : Pool<RegularRoom> {
@@ -29,7 +29,7 @@ namespace BurningKnight.entity.pool.room {
 			Add(typeof(DoubleCornerRoom), 3f);
 			Add(typeof(StatueRoom), 2);
 
-			if (GameSave.RunId != 0) {
+			if (Run.Id != 0) {
 				Add(typeof(RollingSpikeRoom), 3);
 				Add(typeof(TurretRoom), 1);
 				Add(typeof(FourSideTurretRoom), 1);

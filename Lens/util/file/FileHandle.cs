@@ -24,19 +24,18 @@ namespace Lens.util.file {
 		}
 
 		public void MakeFile() {
-			System.IO.File.Create(path);
+			File.Create(path);
 		}
 
 		public string ReadAll() {
-			return System.IO.File.ReadAllText(path);
+			return File.ReadAllText(path);
 		}
 
 		public void Delete() {
 			if (IsDirectory()) {
 				Directory.Delete(path);
-			}
-			else {
-				System.IO.File.Delete(path);
+			} else {
+				File.Delete(path);
 			}
 		}
 

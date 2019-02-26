@@ -1,27 +1,21 @@
 using System.Collections.Generic;
-using BurningKnight.game;
-using BurningKnight.game.state;
-using BurningKnight.ui;
+using Lens.entity;
 using Lens.graphics;
 
 namespace BurningKnight.debug {
-	public class Console {
+	public class Console : Entity {
 		private List<ConsoleCommand> Commands = new List<ConsoleCommand>();
 		private List<string> History = new List<string>();
-		private int HistoryIndex;
 
 		private string Input = "";
 		public List<Line> Lines = new List<Line>();
 		private bool Open;
-		private string SavedString;
 
 		public Console() {
-			// Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.AddProcessor(this);
 			Commands.Add(new GiveCommand());
 			Commands.Add(new HealCommand());
 			Commands.Add(new GodModeCommand());
 			Commands.Add(new LevelCommand());
-			Commands.Add(new LightCommand());
 			Commands.Add(new DebugCommand());
 			Commands.Add(new DieCommand());
 			Commands.Add(new PassableCommand());
@@ -30,16 +24,16 @@ namespace BurningKnight.debug {
 			Commands.Add(new HurtCommand());
 		}
 
-		public void Destroy() {
-			// Org.Rexcellentgames.Burningknight.Game.Input.Input.Multiplexer.RemoveProcessor(this);
-		}
-
-		public void Update(float Dt) {
+		public override void Update(float Dt) {
+			// todo: implement input
+			
 			for (var I = Lines.Count - 1; I >= 0; I--) {
 				Line Line = Lines[I];
 				Line.Time += Dt;
 
-				if (Line.Time >= 5f) Lines.RemoveAt(I);
+				if (Line.Time >= 5f) {
+					Lines.RemoveAt(I);
+				}
 			}
 		}
 
@@ -47,14 +41,15 @@ namespace BurningKnight.debug {
 			Lines.Insert(0, new Line {Text = Str});
 		}
 
-		public void Render() {
-			if (!Ui.HideUi)
-				for (var I = 0; I < Lines.Count; I++) {
-					Line Line = Lines[I];
-					Graphics.Print(Line.Text, Graphics.Small, 2, 2 + (I + (Open ? 1 : 0)) * 10);
-				}
+		public override void Render() {
+			for (var I = 0; I < Lines.Count; I++) {
+				var Line = Lines[I];
+				Graphics.Print(Line.Text, assets.Fonts.Small, 2, 2 + (I + (Open ? 1 : 0)) * 10);
+			}
 
-			if (Open) Graphics.Print(Input + "|", Graphics.Small, 2, 2);
+			if (Open) {
+				Graphics.Print(Input + "|", assets.Fonts.Small, 2, 2);
+			}
 		}
 
 		/*
@@ -100,24 +95,26 @@ namespace BurningKnight.debug {
 		}*/
 
 		public void RunCommand(string Input) {
-			if (!Input.StartsWith("/")) Input = "/" + Input;
+			if (!Input.StartsWith("/")) {
+				Input = "/" + Input;
+			}
 
-			History.Add(0, Input);
 			var Parts = Input.Split(null);
 			var Name = Parts[0];
 
-			foreach (ConsoleCommand Command in Commands)
+			foreach (ConsoleCommand Command in Commands) {
 				if (Command.Name.Equals(Name) || Command.ShortName.Equals(Name)) {
 					var Args = new string[Parts.Length - 1];
 
 					for (int i = 0; i < Args.Length; i++) {
 						Args[i] = Args[i + 1];
 					}
-					
+
 					Command.Run(this, Args);
 
 					return;
 				}
+			}
 
 			Print("[red]Unknown command");
 		}

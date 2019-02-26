@@ -19,11 +19,7 @@ namespace BurningKnight.debug {
 
 		public override void Run(Console Console, string[] Args) {
 			if (Args.Length == 1) {
-				Player.Instance.SetUnhittable(true);
-				Camera.Follow(null);
-				Dungeon.LoadType = Entrance.LoadType.GO_DOWN;
-				Dungeon.GoToLevel(Int32.Parse(Args[0]));
-				Dungeon.SetBackground2(new Color(0f, 0f, 0f, 1f));
+				state.Run.Depth = Int32.Parse(Args[0]);
 			}
 		}
 	}
