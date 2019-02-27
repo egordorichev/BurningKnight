@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using BurningKnight.entity.level.rooms;
 using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class CastleBuilder : RegularBuilder {
-		public override List<Room> Build<Room>(List<Room> Init) {
+		public override List<RoomDef> Build(List<RoomDef> Init) {
 			SetupRooms(Init);
 
 			if (Entrance == null) {
 				return null;
 			}
 
-			var Branchable = new List<Room>();
+			var Branchable = new List<RoomDef>();
 			Entrance.SetSize();
 			Entrance.SetPos(0, 0);
 			
 			Branchable.Add(Entrance);
-			var RoomsToBranch = new List<Room>(MultiConnection);
+			var RoomsToBranch = new List<RoomDef>(MultiConnection);
 
 			if (Exit != null) {
 				RoomsToBranch.Add(Exit);
@@ -29,9 +30,9 @@ namespace BurningKnight.entity.level.builders {
 
 			FindNeighbours(Init);
 
-			foreach (Room R in Init) {
-				foreach (Room N in R.Neighbours) {
-					if (!N.Connected().ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+			foreach (RoomDef R in Init) {
+				foreach (RoomDef N in R.Neighbours) {
+					if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
 						R.ConnectWithRoom(N);
 					}
 				}

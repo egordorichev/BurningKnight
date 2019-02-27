@@ -54,14 +54,16 @@ namespace BurningKnight.entity.level.builders {
 		protected void WeightRooms(List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
 				if (Room is RegularRoomDef room) {
-					for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
+					/*for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
 						Rooms.Add(room);
-					}
+					}*/
+					
+					Rooms.Add(room);
 				}
 			}
 		}
 
-		public override List<Room> Build<Room>(List<Room> Init) {
+		public override List<RoomDef> Build(List<RoomDef> Init) {
 			return Init;
 		}
 
@@ -183,9 +185,11 @@ namespace BurningKnight.entity.level.builders {
 
 				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Random.Int(3) == 0) {
 					if (R is RegularRoomDef room) {
-						for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
+						/*for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
 							Branchable.Add(room);
-						}
+						}*/
+						
+						Branchable.Add(room);
 					} else {
 						Branchable.Add(R);
 					}

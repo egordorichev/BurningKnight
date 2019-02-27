@@ -18,7 +18,6 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public Dictionary<RoomDef, DoorPlaceholder> Connected = new Dictionary<RoomDef, DoorPlaceholder>();
-		public bool Hidden;
 		public int Id;
 
 		public List<RoomDef> Neighbours = new List<RoomDef>();
@@ -45,7 +44,7 @@ namespace BurningKnight.entity.level.rooms {
 
 		public void Paint(Level Level) {
 			Painter.Fill(Level, this, Tile.Wall);
-			Painter.Fill(Level, this, 1, Terrain.RandomFloor());
+			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
 
 			foreach (var Door in Connected.Values) {
 				Door.Type = DoorPlaceholder.Variant.Regular;
@@ -360,11 +359,7 @@ namespace BurningKnight.entity.level.rooms {
 			return C;
 		}
 
-		protected void PaintTunnel(Level Level, byte Floor) {
-			PaintTunnel(Level, Floor, false);
-		}
-
-		protected void PaintTunnel(Level Level, byte Floor, bool Bold) {
+		protected void PaintTunnel(Level Level, Tile Floor, bool Bold = false) {
 			if (Connected.Count == 0) {
 				Log.Error("Invalid connection room");
 

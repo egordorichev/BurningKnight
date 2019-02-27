@@ -149,9 +149,6 @@
     <Compile Include="entity\level\rooms\regular\AnticrossRoom.cs" />
     <Compile Include="entity\level\rooms\regular\BigHoleRoom.cs" />
     <Compile Include="entity\level\rooms\regular\BigHoleWithRectRoom.cs" />
-    <Compile Include="entity\level\rooms\regular\boss\DesertBossRoom.cs" />
-    <Compile Include="entity\level\rooms\regular\boss\HallBossRoom.cs" />
-    <Compile Include="entity\level\rooms\regular\boss\LibraryBossRoom.cs" />
     <Compile Include="entity\level\rooms\regular\BrokeLineRoom.cs" />
     <Compile Include="entity\level\rooms\regular\CaveRoom.cs" />
     <Compile Include="entity\level\rooms\regular\CavyChasmRoom.cs" />

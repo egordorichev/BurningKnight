@@ -1,9 +1,14 @@
+using System;
+using System.Collections.Generic;
+using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
+using BurningKnight.state;
 using BurningKnight.util;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.builders {
 	public class LineBuilder : RegularBuilder {
-		private float Direction = Random.NewFloat(0, 360);
+		private float Direction = Random.Angle();
 
 		public LineBuilder SetAngle(float Angle) {
 			Direction = Angle % 360f;
@@ -11,7 +16,7 @@ namespace BurningKnight.entity.level.builders {
 			return this;
 		}
 
-		public override List Build<Room>(List Init) {
+		public override List<RoomDef> Build(List<RoomDef> Init) {
 			SetupRooms(Init);
 
 			if (Entrance == null) {
@@ -20,21 +25,22 @@ namespace BurningKnight.entity.level.builders {
 				return null;
 			}
 
-			List<Room> Branchable = new List<>();
+			var Branchable = new List<RoomDef>();
+			
 			Entrance.SetSize();
 			Entrance.SetPos(0, 0);
 			Branchable.Add(Entrance);
 
-			if (MultiConnection.Size() == 0) {
-				PlaceRoom(Init, Entrance, Boss, Random.NewFloat(360));
+			if (MultiConnection.Count == 0) {
+				PlaceRoom(Init, Entrance, this.Boss, Random.Angle());
 
 				return Init;
 			}
 
-			var RoomsOnPath = (int) (MultiConnection.Size() * PathLength) + Random.Chances(PathLenJitterChances);
-			RoomsOnPath = Math.Min(RoomsOnPath, MultiConnection.Size());
-			Room Curr = Entrance;
-			float[] PathTunnels = PathTunnelChances.Clone();
+			var RoomsOnPath = (int) (MultiConnection.Count * PathLength) + Random.Chances(PathLenJitterChances);
+			RoomsOnPath = Math.Min(RoomsOnPath, MultiConnection.Count);
+			RoomDef Curr = Entrance;
+			var PathTunnels = PathTunnelChances; // fixme: clone?
 			var Boss = Preboss != null;
 
 			for (var I = 0; I <= RoomsOnPath + (Boss ? 1 : 0); I++) {
@@ -43,50 +49,58 @@ namespace BurningKnight.entity.level.builders {
 				var Tunnels = Random.Chances(PathTunnels);
 
 				if (Tunnels == -1) {
-					PathTunnels = PathTunnelChances.Clone();
+					PathTunnels = PathTunnelChances; // fixme: clone?
 					Tunnels = Random.Chances(PathTunnels);
 				}
 
 				PathTunnels[Tunnels]--;
 
-				if (I != 0 && (!Boss || I < RoomsOnPath - 1) && Dungeon.Depth != 0)
+				if (I != 0 && (!Boss || I < RoomsOnPath - 1) && Run.Depth != 0)
 					for (var J = 0; J < Tunnels; J++) {
 						var T = ConnectionRoomDef.Create();
 
-						if (PlaceRoom(Init, Curr, T, Direction + Random.NewFloat(-PathVariance, PathVariance)) == -1) return null;
+						if (PlaceRoom(Init, Curr, T, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
+							return null;
+						}
 
 						Branchable.Add(T);
 						Init.Add(T);
 						Curr = T;
 					}
 
-				Room R;
+				RoomDef R;
 
 				if (Boss)
-					R = I > RoomsOnPath ? Exit : (I == RoomsOnPath ? Preboss : MultiConnection.Get(I));
+					R = I > RoomsOnPath ? Exit : (I == RoomsOnPath ? Preboss : MultiConnection[I]);
 				else
-					R = I == RoomsOnPath ? Exit : MultiConnection.Get(I);
+					R = I == RoomsOnPath ? Exit : MultiConnection[I];
 
 
-				if (PlaceRoom(Init, Curr, R, Direction + Random.NewFloat(-PathVariance, PathVariance)) == -1) return null;
+				if (PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) return null;
 
 				Branchable.Add(R);
 				Curr = R;
 			}
 
-			List<Room> RoomsToBranch = new List<>();
+			var RoomsToBranch = new List<RoomDef>();
 
-			for (var I = RoomsOnPath; I < MultiConnection.Size(); I++) RoomsToBranch.Add(MultiConnection.Get(I));
+			for (var I = RoomsOnPath; I < MultiConnection.Count; I++) {
+				RoomsToBranch.Add(MultiConnection[I]);
+			}
 
-			RoomsToBranch.AddAll(SingleConnection);
+			RoomsToBranch.AddRange(SingleConnection);
+			
 			WeightRooms(Branchable);
 			CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances);
 			FindNeighbours(Init);
 
-			foreach (Room R in Init)
-			foreach (Room N in R.GetNeighbours())
-				if (!N.GetConnected().ContainsKey(R) && Random.NewFloat() < ExtraConnectionChance)
-					R.ConnectWithRoom(N);
+			foreach (var R in Init) {
+				foreach (var N in R.Neighbours) {
+					if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+						R.ConnectWithRoom(N);
+					}
+				}
+			}
 
 			return Init;
 		}

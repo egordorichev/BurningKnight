@@ -73,12 +73,6 @@ return { 1, 0, 0 };
 public Size GetSize() {
 return this.Size;
 }
-public static RegularRoom Create() {
-if (Dungeon.Depth < 1) {
-return new RegularRoom();
-}
-return RegularRoomPool.Instance.Generate();
-}
 public override int GetMaxConnections(Connection Side) {
 if (Side == Connection.ALL) {
 return 16;
