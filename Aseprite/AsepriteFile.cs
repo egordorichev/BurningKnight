@@ -71,8 +71,8 @@ namespace Aseprite {
 
 					var celWidth = cel.Width;
 					var celHeight = cel.Height;
-					var addX = (Width - cel.Width) / 2;
-					var addY = Height - cel.Height;
+					var addX = cel.X;
+					var addY = cel.Y;
 					
 					for (int celY = 0; celY < celHeight; celY++) {
 						for (int celX = 0; celX < celWidth; celX++) {

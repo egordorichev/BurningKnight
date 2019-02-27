@@ -14,31 +14,34 @@ namespace Lens.assets {
 			var textureDir = FileHandle.FromRoot("Textures/");
 			
 			if (textureDir.Exists()) {
-				// fixme: subdirs
-				foreach (var id in textureDir.ListFiles()) {
-					LoadTexture(id);
-				} 	
+				LoadTextures(textureDir);
 			}
 
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 		}
 
-		private static void LoadTexture(string id) {
-			var region = new TextureRegion();
+		private static void LoadTextures(FileHandle handle) {
+			foreach (var h in handle.ListFileHandles()) {
+				LoadTexture(h);
+			}
 
-			if (Assets.LoadOriginalFiles) {
-				var fileStream = new FileStream($"../../Content/Textures/{Path.GetFileName(id)}", FileMode.Open);
-				Log.Error($"../../Content/Textures/{Path.GetFileName(id)}");
-				region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
-				fileStream.Dispose();
-				
-				id = Path.GetFileNameWithoutExtension(id);
-			} else {
-				id = Path.GetFileNameWithoutExtension(id);
-				region.Texture = Assets.Content.Load<Texture2D>($"bin/Textures/{id}");				
+			foreach (var h in handle.ListDirectoryHandles()) {
+				LoadTextures(h);
+			}
+		}
+
+		private static void LoadTexture(FileHandle handle) {
+			var region = new TextureRegion();
+			string id = handle.NameWithoutExtension;
+
+			if (handle.Extension != ".png") {
+				return;
 			}
 			
+			var fileStream = new FileStream(handle.FullPath, FileMode.Open);
+			region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
 			region.Source = region.Texture.Bounds;
+			fileStream.Dispose();
 			
 			textures[id] = region;
 		}

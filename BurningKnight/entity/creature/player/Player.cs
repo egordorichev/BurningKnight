@@ -7,7 +7,7 @@ namespace BurningKnight.entity.creature.player {
 		protected override void AddComponents() {
 			base.AddComponents();
 			
-			SetGraphicsComponent(new AnimationComponent("gobbo", "body"));
+			SetGraphicsComponent(new AnimationComponent("gobbo", "gobbo"));
 			AddComponent(new InventoryComponent());
 			
 			AddTag(Tags.Player);
