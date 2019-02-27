@@ -1,7 +1,7 @@
 using BurningKnight.entity.level.rooms.special;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class ShopRoomDef : LockedRoom {
+	public class ShopRoom : LockedRoom {
 
 	}
 }

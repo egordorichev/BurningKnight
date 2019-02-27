@@ -3,7 +3,7 @@ using BurningKnight.entity.level.rooms.connection;
 using BurningKnight.entity.pool.room;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class SecretRoomDef : RoomDef {
+	public class SecretRoom : RoomDef {
 		public override void Paint(Level Level) {
 			Painter.Fill(Level, this, Tile.Wall);
 			Painter.Fill(Level, this, 1, Tile.FloorD);
@@ -37,10 +37,6 @@ namespace BurningKnight.entity.level.rooms.secret {
 			if (Side == Connection.All) return 1;
 
 			return 0;
-		}
-
-		public static SecretRoomDef Create() {
-			return SecretRoomPool.Instance.Generate();
 		}
 
 		public override bool CanConnect(RoomDef R) {

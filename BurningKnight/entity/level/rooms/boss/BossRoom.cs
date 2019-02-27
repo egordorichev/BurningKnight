@@ -1,7 +1,7 @@
 using BurningKnight.entity.level.rooms.entrance;
 
 namespace BurningKnight.entity.level.rooms.boss {
-	public class BossRoomDef : EntranceRoomDef {
+	public class BossRoom : EntranceRoom {
 		public override int GetMinWidth() {
 			return 18 + 5;
 		}

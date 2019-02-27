@@ -4,11 +4,11 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class EntranceRoomDef : RoomDef {
+	public class EntranceRoom : RoomDef {
 		public bool Exit;
 
 		public override bool CanConnect(RoomDef R) {
-			return base.CanConnect(R) && !(R is EntranceRoomDef);
+			return base.CanConnect(R) && !(R is EntranceRoom);
 		}
 		
 		public override int GetMinConnections(Connection Side) {

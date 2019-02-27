@@ -2,7 +2,7 @@ using BurningKnight.entity.level.rooms.special;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class TreasureRoomDef : SpecialRoom {
+	public class TreasureRoom : SpecialRoom {
 		protected void PlaceChest(Level level, Vector2 Center) {
 			/*if (Random.Chance(30)) {
 				var Chest = new Mimic();

@@ -1,7 +1,7 @@
 using BurningKnight.entity.level.painters;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RegularRoomDef : RoomDef {
+	public class RegularRoom : RoomDef {
 		public override void Paint(Level Level) {
 			Painter.Fill(Level, this, Tile.Wall);
 			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
