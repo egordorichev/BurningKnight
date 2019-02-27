@@ -1,9 +1,12 @@
 using BurningKnight.entity.pool.room;
+using BurningKnight.state;
 
 namespace BurningKnight.entity.level.rooms.connection {
 	public class ConnectionRoomDef : RoomDef {
 		public static ConnectionRoomDef Create() {
-			if (Dungeon.Depth == -1 || Dungeon.Depth == 4) return new TunnelRoomDef();
+			if (Run.Depth == -1 || Run.Depth == 4) {
+				return new TunnelRoomDef();
+			}
 
 			return ConnectionRoomPool.Instance.Generate();
 		}

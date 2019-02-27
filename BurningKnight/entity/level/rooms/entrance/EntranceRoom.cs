@@ -1,48 +1,56 @@
 using BurningKnight.entity.level.entities;
-using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.painters;
-using BurningKnight.entity.level.save;
-using BurningKnight.util;
-using BurningKnight.util.geometry;
+using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class EntranceRoomDef : LadderRoomDef {
+	public class EntranceRoomDef : RoomDef {
 		public bool Exit;
 
 		public override bool CanConnect(RoomDef R) {
 			return base.CanConnect(R) && !(R is EntranceRoomDef);
+		}
+		
+		public override int GetMinConnections(Connection Side) {
+			if (Side == Connection.All) return 1;
+
+			return 0;
+		}
+
+		public override int GetMaxConnections(Connection Side) {
+			if (Side == Connection.All) return 16;
+
+			return 4;
 		}
 
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 
 			if (Random.Chance(50))
-				Painter.Fill(Level, this, 2, Terrain.RandomFloor());
+				Painter.Fill(Level, this, 2, Tiles.RandomFloor());
 			else
-				Painter.FillEllipse(Level, this, 2, Terrain.RandomFloor());
+				Painter.FillEllipse(Level, this, 2, Tiles.RandomFloor());
 
 
 			Place(Level, GetCenter());
 		}
 
-		protected void Place(Level Level, Point Point) {
+		protected void Place(Level Level, Vector2 Point) {
 			if (this.Exit) {
 				var Exit = new Portal();
 				Exit.X = Point.X * 16;
 				Exit.Y = Point.Y * 16;
-				LevelSave.Add(Exit);
-				Dungeon.Area.Add(Exit);
-			}
-			else {
+				Level.Area.Add(Exit);
+			}	else {
 				var Entrance = new Entrance();
 				Entrance.X = Point.X * 16 + 1;
 				Entrance.Y = Point.Y * 16 - 6;
-				LevelSave.Add(Entrance);
-				Dungeon.Area.Add(Entrance);
+				Level.Area.Add(Entrance);
 			}
 
-
-			foreach (LDoor Door in Connected.Values()) Door.SetType(LDoor.Type.ENEMY);
+			foreach (var Door in Connected.Values) {
+				Door.Type = DoorPlaceholder.Variant.Enemy;
+			}
 		}
 	}
 }

@@ -1,15 +1,10 @@
-using BurningKnight.entity.level.entities.chest;
 using BurningKnight.entity.level.rooms.special;
-using BurningKnight.entity.level.save;
-using BurningKnight.util;
-using BurningKnight.util.geometry;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class TreasureRoomDef : SpecialRoomDef {
-		public bool Weapon;
-
-		protected void PlaceChest(Point Center) {
-			if (Random.Chance(Mimic.Chance)) {
+	public class TreasureRoomDef : SpecialRoom {
+		protected void PlaceChest(Level level, Vector2 Center) {
+			/*if (Random.Chance(30)) {
 				var Chest = new Mimic();
 				Chest.X = Center.X * 16;
 				Chest.Y = Center.Y * 16;
@@ -17,15 +12,14 @@ namespace BurningKnight.entity.level.rooms.treasure {
 				Dungeon.Area.Add(Chest);
 				LevelSave.Add(Chest);
 			}
-			else {
-				Chest Chest = Chest.Random();
+			else {*/
+				/*Chest Chest = Chest.Random();
 				Chest.X = Center.X * 16;
 				Chest.Y = Center.Y * 16;
 				Chest.Weapon = Weapon;
 				Chest.SetItem(Chest.Generate());
-				Dungeon.Area.Add(Chest);
-				LevelSave.Add(Chest);
-			}
+				Level.Area.Add(Chest);*/
+			// }
 		}
 
 		protected override int ValidateWidth(int W) {

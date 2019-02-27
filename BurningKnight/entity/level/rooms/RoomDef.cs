@@ -22,19 +22,19 @@ namespace BurningKnight.entity.level.rooms {
 
 		public List<RoomDef> Neighbours = new List<RoomDef>();
 
-		public int GetMinWidth() {
+		public virtual int GetMinWidth() {
 			return 10;
 		}
 
-		public int GetMinHeight() {
+		public virtual int GetMinHeight() {
 			return 10;
 		}
 
-		public int GetMaxWidth() {
+		public virtual int GetMaxWidth() {
 			return 16;
 		}
 
-		public int GetMaxHeight() {
+		public virtual int GetMaxHeight() {
 			return 16;
 		}
 
@@ -42,7 +42,7 @@ namespace BurningKnight.entity.level.rooms {
 
 		public abstract int GetMinConnections(Connection Side);
 
-		public void Paint(Level Level) {
+		public virtual void Paint(Level Level) {
 			Painter.Fill(Level, this, Tile.Wall);
 			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
 
@@ -93,7 +93,7 @@ namespace BurningKnight.entity.level.rooms {
 			return Cnt > 0;
 		}
 
-		public bool CanConnect(RoomDef R) {
+		public virtual bool CanConnect(RoomDef R) {
 			var I = Intersect(R);
 			var FoundPoint = false;
 
@@ -215,11 +215,11 @@ namespace BurningKnight.entity.level.rooms {
 			return SetSize(GetMinWidth(), GetMaxWidth(), GetMinHeight(), GetMaxHeight());
 		}
 
-		protected int ValidateWidth(int W) {
+		protected virtual int ValidateWidth(int W) {
 			return W;
 		}
 
-		protected int ValidateHeight(int H) {
+		protected virtual int ValidateHeight(int H) {
 			return H;
 		}
 
@@ -324,8 +324,8 @@ namespace BurningKnight.entity.level.rooms {
 			return base.GetHeight() + 1;
 		}
 
-		public Point GetCenter() {
-			return new Point(Left + GetWidth() / 2, Top + GetHeight() / 2);
+		public Vector2 GetCenter() {
+			return new Vector2(Left + GetWidth() / 2, Top + GetHeight() / 2);
 		}
 
 		protected Rect GetConnectionSpace() {

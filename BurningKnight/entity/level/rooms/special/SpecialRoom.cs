@@ -1,12 +1,12 @@
 using BurningKnight.entity.pool.room;
 
 namespace BurningKnight.entity.level.rooms.special {
-	public class SpecialRoomDef : RoomDef {
+	public class SpecialRoom : RoomDef {
 		public override int GetMinWidth() {
 			return 8;
 		}
 
-		public int GetMaxWidth() {
+		public override int GetMaxWidth() {
 			return 14;
 		}
 
@@ -14,7 +14,7 @@ namespace BurningKnight.entity.level.rooms.special {
 			return 8;
 		}
 
-		public int GetMaxHeight() {
+		public override int GetMaxHeight() {
 			return 14;
 		}
 
@@ -32,7 +32,7 @@ namespace BurningKnight.entity.level.rooms.special {
 			SpecialRoomPool.Instance.Reset();
 		}
 
-		public static SpecialRoomDef Create() {
+		public static SpecialRoom Create() {
 			return SpecialRoomPool.Instance.Generate();
 		}
 	}
