@@ -1,9 +1,9 @@
 using BurningKnight.entity.pool.room;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class ConnectionRoom : Room {
-		public static ConnectionRoom Create() {
-			if (Dungeon.Depth == -1 || Dungeon.Depth == 4) return new TunnelRoom();
+	public class ConnectionRoomDef : RoomDef {
+		public static ConnectionRoomDef Create() {
+			if (Dungeon.Depth == -1 || Dungeon.Depth == 4) return new TunnelRoomDef();
 
 			return ConnectionRoomPool.Instance.Generate();
 		}
@@ -25,13 +25,13 @@ namespace BurningKnight.entity.level.rooms.connection {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.ALL) return 16;
+			if (Side == Connection.All) return 16;
 
 			return 4;
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 2;
+			if (Side == Connection.All) return 2;
 
 			return 0;
 		}

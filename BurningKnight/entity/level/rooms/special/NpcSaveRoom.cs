@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.special {
-	public class NpcSaveRoom : SpecialRoom {
+	public class NpcSaveRoomDef : SpecialRoomDef {
 		public const string[] SaveOrder = {
 			"b", "d", "a", "c", "e", "g", "h"
 		};

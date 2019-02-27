@@ -4,7 +4,7 @@ using BurningKnight.entity.trap;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RotatingTurretRoom : TrapRoom {
+	public class RotatingTurretRoomDef : TrapRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, 1, Random.Chance(50) ? Terrain.FLOOR_A : Terrain.FLOOR_B);

@@ -9,7 +9,7 @@ namespace BurningKnight.util {
 		public const bool EMPTY = false;
 		public const bool FILLED = true;
 
-		public static bool[][] Generate(Room R) {
+		public static bool[][] Generate(RoomDef R) {
 			var Maze = new bool[R.GetWidth()][];
 
 			for (var X = 0; X < Maze.Length; X++) {

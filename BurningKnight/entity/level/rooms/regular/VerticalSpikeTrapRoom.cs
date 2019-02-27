@@ -6,7 +6,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class VerticalSpikeTrapRoom : TrapRoom {
+	public class VerticalSpikeTrapRoomDef : TrapRoomDef {
 		public override void Paint(Level Level) {
 			var F = Terrain.RandomFloor();
 			Painter.Fill(Level, this, Terrain.WALL);

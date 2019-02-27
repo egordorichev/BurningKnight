@@ -1,3 +1,4 @@
+using BurningKnight.save;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.entities.fx {

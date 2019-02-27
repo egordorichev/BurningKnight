@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class QuadShopRoom : ShopRoom {
+	public class QuadShopRoomDef : ShopRoomDef {
 		protected Rect Quad;
 
 		public override void Paint(Level Level) {

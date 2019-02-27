@@ -2,7 +2,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.painters;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class MazeFloorRoom : RegularRoom {
+	public class MazeFloorRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			bool[][] Maze = Maze.Generate(this);
 			Painter.Fill(Level, this, Terrain.WALL);

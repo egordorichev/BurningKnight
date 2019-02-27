@@ -6,11 +6,11 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class EntranceRoom : LadderRoom {
+	public class EntranceRoomDef : LadderRoomDef {
 		public bool Exit;
 
-		public override bool CanConnect(Room R) {
-			return base.CanConnect(R) && !(R is EntranceRoom);
+		public override bool CanConnect(RoomDef R) {
+			return base.CanConnect(R) && !(R is EntranceRoomDef);
 		}
 
 		public override void Paint(Level Level) {

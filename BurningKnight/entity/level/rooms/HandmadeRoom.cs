@@ -11,7 +11,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms {
-	public class HandmadeRoom : RegularRoom {
+	public class HandmadeRoomDef : RegularRoomDef {
 		public static TiledMap Map;
 		public static MapLayer Rooms;
 		public static MapLayer Objects;
@@ -22,7 +22,7 @@ namespace BurningKnight.entity.level.rooms {
 		public RoomData Data;
 		private string Id;
 
-		public HandmadeRoom(string Id) {
+		public HandmadeRoomDef(string Id) {
 			Data = Datas.Get(Id);
 
 			if (Data == null) throw new RuntimeException("Handmade " + Id + " does not exist!");
@@ -30,7 +30,7 @@ namespace BurningKnight.entity.level.rooms {
 			this.Id = Id;
 		}
 
-		public HandmadeRoom() {
+		public HandmadeRoomDef() {
 			this("grid_room");
 		}
 
@@ -115,7 +115,7 @@ namespace BurningKnight.entity.level.rooms {
 			Log.Error("Adding sub rooms " + Data.Sub.Size());
 
 			foreach (Rect Sub in Data.Sub) {
-				var Room = new SubRoom();
+				var Room = new SubRoomDef();
 				Room.Left = Sub.Left + 1;
 				Room.Top = Sub.Top + 1;
 				Room.Resize(Sub.GetWidth() - 1, Sub.GetHeight() - 1);
@@ -426,13 +426,13 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.ALL) return 16;
+			if (Side == Connection.All) return 16;
 
 			return 4;
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 1;
+			if (Side == Connection.All) return 1;
 
 			return 0;
 		}

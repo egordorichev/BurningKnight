@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class BrokeLineTreasureRoom : TreasureRoom {
+	public class BrokeLineTreasureRoomDef : TreasureRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var F = Random.Chance(50) ? Terrain.FLOOR_B : Terrain.FLOOR_D;

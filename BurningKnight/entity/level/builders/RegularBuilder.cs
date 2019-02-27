@@ -8,20 +8,20 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class RegularBuilder : Builder {
-		protected BossRoom Boss;
+		protected BossRoomDef Boss;
 		protected float[] BranchTunnelChances = {2, 2, 1};
-		protected EntranceRoom Entrance;
-		protected EntranceRoom Exit;
+		protected EntranceRoomDef Entrance;
+		protected EntranceRoomDef Exit;
 		protected float ExtraConnectionChance = 0.2f;
-		protected List<Room> MultiConnection = new List<Room>();
+		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
 		protected float[] PathLenJitterChances = {0, 1, 0};
 		protected float[] PathTunnelChances = {1, 3, 1};
 		protected float PathVariance = 45f;
-		protected PrebossRoom Preboss;
-		protected List<Room> SingleConnection = new List<Room>();
+		protected PrebossRoomDef Preboss;
+		protected List<RoomDef> SingleConnection = new List<RoomDef>();
 
-		public void SetupRooms(List<Room> Rooms) {
+		public void SetupRooms(List<RoomDef> Rooms) {
 			Entrance = null;
 			Exit = null;
 			MultiConnection.Clear();
@@ -32,28 +32,28 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			foreach (var Room in Rooms) {
-				if (Room is BossRoom room) {
+				if (Room is BossRoomDef room) {
 					Exit = room;
-				} else if (Room is EntranceRoom entranceRoom && entranceRoom.Exit) {
+				} else if (Room is EntranceRoomDef entranceRoom && entranceRoom.Exit) {
 					Exit = entranceRoom;
-				} else if (Room is EntranceRoom room1) {
+				} else if (Room is EntranceRoomDef room1) {
 					Entrance = room1;
-				} else if (Room is PrebossRoom prebossRoom) {
+				} else if (Room is PrebossRoomDef prebossRoom) {
 					Preboss = prebossRoom;
-				} else if (Room.GetMaxConnections(Room.Connection.ALL) == 1) {
+				} else if (Room.GetMaxConnections(RoomDef.Connection.All) == 1) {
 					SingleConnection.Add(Room);
-				} else if (Room.GetMaxConnections(Room.Connection.ALL) > 1) {
+				} else if (Room.GetMaxConnections(RoomDef.Connection.All) > 1) {
 					MultiConnection.Add(Room);
 				}
 			}
 
 			WeightRooms(MultiConnection);
-			MultiConnection = new List<Room>(MultiConnection);
+			MultiConnection = new List<RoomDef>(MultiConnection);
 		}
 
-		protected void WeightRooms(List<Room> Rooms) {
+		protected void WeightRooms(List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				if (Room is RegularRoom room) {
+				if (Room is RegularRoomDef room) {
 					for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
 						Rooms.Add(room);
 					}
@@ -90,14 +90,14 @@ namespace BurningKnight.entity.level.builders {
 			return this;
 		}
 
-		protected bool CreateBranches(List<Room> Rooms, List<Room> Branchable, List<Room> RoomsToBranch, float[] ConnChances) {
+		protected bool CreateBranches(List<RoomDef> Rooms, List<RoomDef> Branchable, List<RoomDef> RoomsToBranch, float[] ConnChances) {
 			var I = 0;
 			var N = 0;
 			float Angle;
 			int Tries;
-			Room Curr;
+			RoomDef Curr;
 			
-			var ConnectingRoomsThisBranch = new List<Room>();
+			var ConnectingRoomsThisBranch = new List<RoomDef>();
 			var ConnectionChances = ConnChances; // fixme: clone
 
 			while (I < RoomsToBranch.Count) {
@@ -107,7 +107,7 @@ namespace BurningKnight.entity.level.builders {
 
 				do {
 					Curr = Branchable[Random.Int(Branchable.Count)];
-				} while (Curr is ConnectionRoom);
+				} while (Curr is ConnectionRoomDef);
 
 				var ConnectingRooms = Random.Chances(ConnectionChances);
 
@@ -119,7 +119,7 @@ namespace BurningKnight.entity.level.builders {
 				ConnectionChances[ConnectingRooms]--;
 
 				for (var J = 0; J < ConnectingRooms; J++) {
-					var T = ConnectionRoom.Create();
+					var T = ConnectionRoomDef.Create();
 					Tries = 3;
 
 					do {
@@ -181,8 +181,8 @@ namespace BurningKnight.entity.level.builders {
 					}
 				}
 
-				if (R.GetMaxConnections(Room.Connection.ALL) > 1 && Random.Int(3) == 0) {
-					if (R is RegularRoom room) {
+				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Random.Int(3) == 0) {
+					if (R is RegularRoomDef room) {
 						for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
 							Branchable.Add(room);
 						}
@@ -197,7 +197,7 @@ namespace BurningKnight.entity.level.builders {
 			return true;
 		}
 
-		protected float RandomBranchAngle(Room R) {
+		protected float RandomBranchAngle(RoomDef R) {
 			return Random.Angle();
 		}
 	}

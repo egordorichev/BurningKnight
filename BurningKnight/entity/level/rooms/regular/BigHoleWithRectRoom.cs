@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class BigHoleWithRectRoom : RegularRoom {
+	public class BigHoleWithRectRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, 2, Random.Chance(50) ? Terrain.CHASM : Terrain.LAVA);

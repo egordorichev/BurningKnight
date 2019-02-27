@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class SmileRoom : RegularRoom {
+	public class SmileRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var Fill = Random.Chance(50) ? Terrain.CHASM : Terrain.LAVA;

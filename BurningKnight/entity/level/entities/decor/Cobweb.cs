@@ -1,3 +1,4 @@
+using BurningKnight.save;
 using Lens.util.file;
 
 namespace BurningKnight.entity.level.entities.decor {

@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class TreasureRoom : SpecialRoom {
+	public class TreasureRoomDef : SpecialRoomDef {
 		public bool Weapon;
 
 		protected void PlaceChest(Point Center) {

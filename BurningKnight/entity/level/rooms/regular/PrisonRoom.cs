@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class PrisonRoom : RegularRoom {
+	public class PrisonRoomDef : RegularRoomDef {
 		public override int GetMinWidth() {
 			return 14;
 		}

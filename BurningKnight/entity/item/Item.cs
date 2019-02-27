@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using BurningKnight.save;
 using Lens.assets;
 using Lens.entity.component.graphics;
 using Lens.util.file;

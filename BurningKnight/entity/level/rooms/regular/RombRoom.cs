@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RombRoom : RegularRoom {
+	public class RombRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			double H = GetHeight();

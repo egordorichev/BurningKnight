@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class MazeRoom : RegularRoom {
+	public class MazeRoomDef : RegularRoomDef {
 		private static byte[] Types = {Terrain.WALL, Terrain.CHASM};
 		private static float[] Chanches = {1, 1f};
 

@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class GoldShopRoom : ShopRoom {
+	public class GoldShopRoomDef : ShopRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var El = Random.Chance(50);

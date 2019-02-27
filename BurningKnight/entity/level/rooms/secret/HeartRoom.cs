@@ -4,7 +4,7 @@ using BurningKnight.entity.level.save;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class HeartRoom : SecretRoom {
+	public class HeartRoomDef : SecretRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

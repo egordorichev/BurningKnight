@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CollumnRoom : RegularRoom {
+	public class CollumnRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var M = Random.NewInt(4, 8);

@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CollumnsRoom : RegularRoom {
+	public class CollumnsRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			int MinDim = Math.Min(GetWidth(), GetHeight());

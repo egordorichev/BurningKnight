@@ -1,27 +1,27 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.level.painters;
+using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.rooms {
-	public abstract class Room : Rect {
+	public abstract class RoomDef : Rect {
 		public enum Connection {
-			ALL,
-			LEFT,
-			RIGHT,
-			TOP,
-			BOTTOM
+			All,
+			Left,
+			Right,
+			Top,
+			Bottom
 		}
 
-		public Dictionary<Room, DoorPlaceholder> Connected = new Dictionary<Room, DoorPlaceholder>();
-		private int Distance = 0;
+		public Dictionary<RoomDef, DoorPlaceholder> Connected = new Dictionary<RoomDef, DoorPlaceholder>();
 		public bool Hidden;
 		public int Id;
 
-		public List<Room> Neighbours = new List<Room>();
+		public List<RoomDef> Neighbours = new List<RoomDef>();
 
 		public int GetMinWidth() {
 			return 10;
@@ -44,7 +44,7 @@ namespace BurningKnight.entity.level.rooms {
 		public abstract int GetMinConnections(Connection Side);
 
 		public void Paint(Level Level) {
-			Painter.Fill(Level, this, Terrain.WALL);
+			Painter.Fill(Level, this, Tile.Wall);
 			Painter.Fill(Level, this, 1, Terrain.RandomFloor());
 
 			foreach (var Door in Connected.Values) {
@@ -53,7 +53,7 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public int GetCurrentConnections(Connection Direction) {
-			if (Direction == Connection.ALL) {
+			if (Direction == Connection.All) {
 				return Connected.Count;
 			}
 
@@ -62,13 +62,13 @@ namespace BurningKnight.entity.level.rooms {
 			foreach (var R in Connected.Keys) {
 				var I = Intersect(R);
 
-				if (Direction == Connection.LEFT && I.GetWidth() == 0 && I.Left == Left) {
+				if (Direction == Connection.Left && I.GetWidth() == 0 && I.Left == Left) {
 					Total++;
-				} else if (Direction == Connection.TOP && I.GetHeight() == 0 && I.Top == Top) {
+				} else if (Direction == Connection.Top && I.GetHeight() == 0 && I.Top == Top) {
 					Total++;
-				} else if (Direction == Connection.RIGHT && I.GetWidth() == 0 && I.Right == Right) {
+				} else if (Direction == Connection.Right && I.GetWidth() == 0 && I.Right == Right) {
 					Total++;
-				} else if (Direction == Connection.BOTTOM && I.GetHeight() == 0 && I.Bottom == Bottom) {
+				} else if (Direction == Connection.Bottom && I.GetHeight() == 0 && I.Bottom == Bottom) {
 					Total++;
 				}
 			}
@@ -77,7 +77,7 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public int GetLastConnections(Connection Direction) {
-			if (GetCurrentConnections(Connection.ALL) >= GetMaxConnections(Connection.ALL)) {
+			if (GetCurrentConnections(Connection.All) >= GetMaxConnections(Connection.All)) {
 				return 0;
 			}
 
@@ -94,7 +94,7 @@ namespace BurningKnight.entity.level.rooms {
 			return Cnt > 0;
 		}
 
-		public bool CanConnect(Room R) {
+		public bool CanConnect(RoomDef R) {
 			var I = Intersect(R);
 			var FoundPoint = false;
 
@@ -111,25 +111,25 @@ namespace BurningKnight.entity.level.rooms {
 			}
 
 			if (I.GetWidth() == 0 && I.Left == Left) {
-				return CanConnect(Connection.LEFT) && R.CanConnect(Connection.LEFT);
+				return CanConnect(Connection.Left) && R.CanConnect(Connection.Left);
 			}
 
 			if (I.GetHeight() == 0 && I.Top == Top) {
-				return CanConnect(Connection.TOP) && R.CanConnect(Connection.TOP);
+				return CanConnect(Connection.Top) && R.CanConnect(Connection.Top);
 			}
 
 			if (I.GetWidth() == 0 && I.Right == Right) {
-				return CanConnect(Connection.RIGHT) && R.CanConnect(Connection.RIGHT);
+				return CanConnect(Connection.Right) && R.CanConnect(Connection.Right);
 			}
 
 			if (I.GetHeight() == 0 && I.Bottom == Bottom) {
-				return CanConnect(Connection.BOTTOM) && R.CanConnect(Connection.BOTTOM);
+				return CanConnect(Connection.Bottom) && R.CanConnect(Connection.Bottom);
 			}
 
 			return false;
 		}
 
-		public bool ConnectTo(Room Other) {
+		public bool ConnectTo(RoomDef Other) {
 			if (Neighbours.Contains(Other)) {
 				return true;
 			}
@@ -148,10 +148,10 @@ namespace BurningKnight.entity.level.rooms {
 			return false;
 		}
 
-		public bool ConnectWithRoom(Room Room) {
-			if ((Neighbours.Contains(Room) || ConnectTo(Room)) && !Connected.ContainsKey(Room) && CanConnect(Room)) {
-				Connected[Room] = null;
-				Room.Connected[this] = null;
+		public bool ConnectWithRoom(RoomDef roomDef) {
+			if ((Neighbours.Contains(roomDef) || ConnectTo(roomDef)) && !Connected.ContainsKey(roomDef) && CanConnect(roomDef)) {
+				Connected[roomDef] = null;
+				roomDef.Connected[this] = null;
 
 				return true;
 			}
@@ -159,15 +159,12 @@ namespace BurningKnight.entity.level.rooms {
 			return false;
 		}
 
-		public Point GetRandomCell() {
-			var X = Random.Int(Left + 1, Right);
-			var Y = Random.Int(Top + 1, Bottom);
-
-			return new Point(X, Y);
+		public Vector2 GetRandomCell() {
+			return new Vector2(Random.Int(Left + 1, Right), Random.Int(Top + 1, Bottom));
 		}
 
-		public Point? GetRandomFreeCell() {
-			Point Point;
+		public Vector2? GetRandomFreeCell() {
+			Vector2 Point;
 			var At = 0;
 
 			do {
@@ -178,19 +175,18 @@ namespace BurningKnight.entity.level.rooms {
 				}
 
 				Point = GetRandomCell();
-			} while (!Dungeon.Level.CheckFor(Point.X, Point.Y, Terrain.PASSABLE));
+			} while (!Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable));
 
 			return Point;
 		}
 
-		public Vector2 GetRandomDoorFreeCell() {
+		public Vector2? GetRandomDoorFreeCell() {
 			Vector2 Point;
 			var At = 0;
 
 			while (true) {
 				if (At++ > 200) {
 					Log.Error("To many attempts");
-
 					return null;
 				}
 
@@ -205,14 +201,14 @@ namespace BurningKnight.entity.level.rooms {
 					var Dy = (int) (Door.Y - Point.Y);
 					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-					if (D > 3 && Dungeon.Level.CheckFor((int) Point.X, (int) Point.Y, Terrain.PASSABLE)) {
+					if (D > 3 && Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable)) {
 						return Point;
 					}
 				}
 			}
 		}
 
-		public Room GetRandomNeighbour() {
+		public RoomDef GetRandomNeighbour() {
 			return Neighbours[Random.Int(Neighbours.Count)];
 		}
 

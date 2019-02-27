@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CenterStructRoom : RegularRoom {
+	public class CenterStructRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			foreach (LDoor Door in Connected.Values()) Door.SetType(LDoor.Type.REGULAR);
 

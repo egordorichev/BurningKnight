@@ -1,7 +1,7 @@
 using BurningKnight.entity.level.features;
 
 namespace BurningKnight.entity.level.rooms.special {
-	public class LockedRoom : SpecialRoom {
+	public class LockedRoomDef : SpecialRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

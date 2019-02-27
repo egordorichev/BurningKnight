@@ -1,3 +1,5 @@
+using BurningKnight.save;
+
 namespace BurningKnight.entity.level.entities {
 	public class Prop : SaveableEntity {
 		protected TextureRegion Region;

@@ -6,7 +6,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.item {
-	public class ItemRoom : RegularRoom {
+	public class ItemRoomDef : RegularRoomDef {
 		protected void PlaceItem(Point Point) {
 			Item Item = null;
 

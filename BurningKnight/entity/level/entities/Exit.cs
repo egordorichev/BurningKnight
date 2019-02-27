@@ -1,6 +1,7 @@
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.level.entities.fx;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util.file;
 

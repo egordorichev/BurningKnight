@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CenterWallRoom : RegularRoom {
+	public class CenterWallRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var F = Random.Chance(40) ? Terrain.CHASM : Terrain.WALL;

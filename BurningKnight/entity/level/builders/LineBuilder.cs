@@ -51,7 +51,7 @@ namespace BurningKnight.entity.level.builders {
 
 				if (I != 0 && (!Boss || I < RoomsOnPath - 1) && Dungeon.Depth != 0)
 					for (var J = 0; J < Tunnels; J++) {
-						var T = ConnectionRoom.Create();
+						var T = ConnectionRoomDef.Create();
 
 						if (PlaceRoom(Init, Curr, T, Direction + Random.NewFloat(-PathVariance, PathVariance)) == -1) return null;
 

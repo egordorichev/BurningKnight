@@ -4,7 +4,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.save;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class FightRoom : RegularRoom {
+	public class FightRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

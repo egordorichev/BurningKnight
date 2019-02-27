@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class CollumnTreasureRoom : TreasureRoom {
+	public class CollumnTreasureRoomDef : TreasureRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class ChasmConnectionRoom : ConnectionRoom {
+	public class ChasmConnectionRoomDef : ConnectionRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, Terrain.WALL);

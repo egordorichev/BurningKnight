@@ -3,10 +3,10 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class DoubleCornerRoom : RegularRoom {
+	public class DoubleCornerRoomDef : RegularRoomDef {
 		private Type Type;
 
-		public DoubleCornerRoom() {
+		public DoubleCornerRoomDef() {
 			this.Type = Type.Values()[Random.NewInt(2)];
 		}
 

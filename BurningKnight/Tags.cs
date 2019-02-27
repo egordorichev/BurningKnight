@@ -6,5 +6,7 @@ namespace BurningKnight {
 		public static int Mob = new BitTag("mob");
 		public static int PlayerSave = new BitTag("player_save");
 		public static int LevelSave = new BitTag("level_save");
+		
+		public static int Room = new BitTag("room");
 	}
 }

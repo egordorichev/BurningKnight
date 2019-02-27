@@ -22,15 +22,6 @@ using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level {
 	public abstract class RegularLevel : Level {
-		public static Entrance Ladder;
-		protected bool IsBoss;
-
-		public RegularLevel SetBoss(bool Boss) {
-			IsBoss = Boss;
-
-			return this;
-		}
-
 		public override void Generate(int Attempt) {
 			Random.Random.SetSeed(ItemSelectState.StringToSeed(Random.GetSeed()) + Dungeon.Depth * 128 + Attempt);
 			Player.All.Clear();
@@ -73,8 +64,8 @@ namespace BurningKnight.entity.level {
 				MobPool.Instance.InitForFloor();
 				Log.Info("Spawn modifier is x" + Player.MobSpawnModifier);
 
-				foreach (Room Room in this.Rooms)
-					if (Room is RegularRoom && !(Room is PrebossRoom) || Room is TreasureRoom && Random.Chance(20)) {
+				foreach (RoomDef Room in this.Rooms)
+					if (Room is RegularRoomDef && !(Room is PrebossRoomDef) || Room is TreasureRoomDef && Random.Chance(20)) {
 						var Weight = (Random.NewFloat(1f, 3f) + Room.GetWidth() * Room.GetHeight() / 150) * Player.MobSpawnModifier;
 						MobPool.Instance.InitForRoom();
 
@@ -98,7 +89,7 @@ namespace BurningKnight.entity.level {
 			foreach (Item Item in this.ItemsToSpawn) {
 				Point Point = null;
 
-				while (Point == null) Point = this.GetRandomFreePoint(RegularRoom.GetType());
+				while (Point == null) Point = this.GetRandomFreePoint(RegularRoomDef.GetType());
 
 				var Holder = new ItemHolder(Item);
 				Holder.GetItem().Generate();
@@ -111,16 +102,16 @@ namespace BurningKnight.entity.level {
 			this.ItemsToSpawn.Clear();
 		}
 
-		private float SpawnMob(Mob Mob, Room Room, float Weight) {
+		private float SpawnMob(Mob Mob, RoomDef roomDef, float Weight) {
 			Weight -= Mob.GetWeight();
 			Point Point;
 			var I = 0;
 
 			do {
-				Point = Room.GetRandomDoorFreeCell();
+				Point = roomDef.GetRandomDoorFreeCell();
 
 				if (I++ > 40) {
-					Log.Error("Failed to place " + Mob.GetClass() + " in room " + Room.GetClass());
+					Log.Error("Failed to place " + Mob.GetClass() + " in room " + roomDef.GetClass());
 
 					break;
 				}
@@ -158,15 +149,15 @@ namespace BurningKnight.entity.level {
 
 
 			for (var I = this.Rooms.Size() - 1; I >= 0; I--) {
-				Room Room = this.Rooms.Get(I);
+				RoomDef roomDef = this.Rooms.Get(I);
 
-				if (Room is HandmadeRoom && ((HandmadeRoom) Room).Data.Sub.Size() > 0) this.Rooms.Remove(I);
+				if (roomDef is HandmadeRoomDef && ((HandmadeRoomDef) roomDef).Data.Sub.Size() > 0) this.Rooms.Remove(I);
 			}
 		}
 
 		protected void Build() {
 			var Builder = GetBuilder();
-			List<Room> Rooms = this.CreateRooms();
+			List<RoomDef> Rooms = this.CreateRooms();
 
 			if (Dungeon.Depth > -2 && (GameSave.RunId != 0 || Dungeon.Depth != 1)) Collections.Shuffle(Rooms, new Java.Util.Random(ItemSelectState.StringToSeed(Random.GetSeed())));
 
@@ -175,12 +166,12 @@ namespace BurningKnight.entity.level {
 			do {
 				Log.Info("Generating (attempt " + Attempt + ")...");
 
-				foreach (Room Room in Rooms) {
+				foreach (RoomDef Room in Rooms) {
 					Room.GetConnected().Clear();
 					Room.GetNeighbours().Clear();
 				}
 
-				List<Room> Rm = new List<>();
+				List<RoomDef> Rm = new List<>();
 				Rm.AddAll(Rooms);
 				this.Rooms = Builder.Build(Rm);
 
@@ -208,39 +199,39 @@ namespace BurningKnight.entity.level {
 			List<Room> Rooms = new List<>();
 
 			if (this is CreepLevel) {
-				Rooms.Add(new FloatingRoom());
+				Rooms.Add(new FloatingRoomDef());
 
 				return Rooms;
 			}
 
 			if (GameSave.RunId == 0 && Dungeon.Depth == 1) {
-				Rooms.Add(new TutorialChasmRoom());
+				Rooms.Add(new TutorialChasmRoomDef());
 				Log.Info("Added tutorial chasm room");
 			}
 
 			if (Dungeon.Depth > -1) {
 				Entrance = EntranceRoomPool.Instance.Generate();
 				Exit = this is BossLevel ? BossRoomPool.Instance.Generate() : EntranceRoomPool.Instance.Generate();
-				((EntranceRoom) Exit).Exit = true;
+				((EntranceRoomDef) Exit).Exit = true;
 				Rooms.Add(Entrance);
 				Rooms.Add(Exit);
 			}
 
 			if (Dungeon.Depth == 0)
-				Rooms.Add(new LampRoom());
+				Rooms.Add(new LampRoomDef());
 			else if (Dungeon.Depth == -3)
-				Rooms.Add(new HandmadeRoom("tutorial"));
+				Rooms.Add(new HandmadeRoomDef("tutorial"));
 			else if (Dungeon.Depth == -2)
-				Rooms.Add(new HandmadeRoom("shops"));
-			else if (Dungeon.Depth == -1) Rooms.Add(new HandmadeRoom("hub"));
+				Rooms.Add(new HandmadeRoomDef("shops"));
+			else if (Dungeon.Depth == -1) Rooms.Add(new HandmadeRoomDef("hub"));
 
 			if (Dungeon.Depth > 0)
 				if (GlobalSave.IsFalse("all_npcs_saved") && (Random.Chance(25) || Version.Debug))
-					Rooms.Add(new NpcSaveRoom());
+					Rooms.Add(new NpcSaveRoomDef());
 
 			var Bk = Random.GetSeed().Equals("BK");
 
-			if (this is BossLevel) Rooms.Add(new PrebossRoom());
+			if (this is BossLevel) Rooms.Add(new PrebossRoomDef());
 
 			var Regular = Bk ? 0 : GetNumRegularRooms();
 			var Special = Bk ? 0 : GetNumSpecialRooms();
@@ -249,20 +240,20 @@ namespace BurningKnight.entity.level {
 			Log.Info("Creating r" + Regular + " sp" + Special + " c" + Connection + " sc" + Secret + " rooms");
 
 			for (var I = 0; I < Regular; I++) {
-				RegularRoom Room;
+				RegularRoomDef roomDef;
 
 				do {
-					Room = RegularRoom.Create();
-				} while (!Room.SetSize(0, Regular - I));
+					roomDef = RegularRoomDef.Create();
+				} while (!roomDef.SetSize(0, Regular - I));
 
-				I += Room.GetSize().RoomValue - 1;
-				Rooms.Add(Room);
+				I += roomDef.GetSize().RoomValue - 1;
+				Rooms.Add(roomDef);
 			}
 
-			SpecialRoom.Init();
+			SpecialRoomDef.Init();
 
 			for (var I = 0; I < Special; I++) {
-				var Room = SpecialRoom.Create();
+				var Room = SpecialRoomDef.Create();
 
 				if (Room != null) Rooms.Add(Room);
 			}
@@ -278,17 +269,17 @@ namespace BurningKnight.entity.level {
 				}
 			}
 
-			for (var I = 0; I < Connection; I++) Rooms.Add(ConnectionRoom.Create());
+			for (var I = 0; I < Connection; I++) Rooms.Add(ConnectionRoomDef.Create());
 
 			for (var I = 0; I < Secret; I++) Rooms.Add(SecretRoomPool.Instance.Generate());
 
-			List<HandmadeRoom> HandmadeRooms = new List<>();
+			List<HandmadeRoomDef> HandmadeRooms = new List<>();
 
 			foreach (Room Room in Rooms)
-				if (Room is HandmadeRoom && ((HandmadeRoom) Room).Data.Sub.Size() > 0)
-					HandmadeRooms.Add((HandmadeRoom) Room);
+				if (Room is HandmadeRoomDef && ((HandmadeRoomDef) Room).Data.Sub.Size() > 0)
+					HandmadeRooms.Add((HandmadeRoomDef) Room);
 
-			foreach (HandmadeRoom Room in HandmadeRooms) Room.AddSubRooms(Rooms);
+			foreach (HandmadeRoomDef Room in HandmadeRooms) Room.AddSubRooms(Rooms);
 
 			return Rooms;
 		}

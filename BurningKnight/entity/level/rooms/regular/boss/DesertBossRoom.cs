@@ -1,5 +1,5 @@
 namespace BurningKnight.entity.level.rooms.regular.boss {
-	public class DesertBossRoom : RegularRoom {
+	public class DesertBossRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			bool[] Patch = Patch.Generate(GetWidth(), GetHeight(), 0.4f, 4);

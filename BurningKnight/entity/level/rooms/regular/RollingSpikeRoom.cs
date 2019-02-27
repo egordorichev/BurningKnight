@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RollingSpikeRoom : TrapRoom {
+	public class RollingSpikeRoomDef : TrapRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var I = 0;

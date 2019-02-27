@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class SmallAdditionRoom : RegularRoom {
+	public class SmallAdditionRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.DrawLine(Level, new Point(Left + GetWidth() / 2 - 2, Top + 1), new Point(Left + GetWidth() / 2 - 2, Bottom - 1), Terrain.WALL);

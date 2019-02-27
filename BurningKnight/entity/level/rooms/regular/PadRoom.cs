@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class PadRoom : RegularRoom {
+	public class PadRoomDef : RegularRoomDef {
 		private int BottomLeftH;
 		private int BottomLeftW;
 		private int BottomRightH;

@@ -1,7 +1,7 @@
 using BurningKnight.entity.level.painters;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RectFloorRoom : RegularRoom {
+	public class RectFloorRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var F1 = Terrain.RandomFloor();

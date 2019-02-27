@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RectMazeRoom : RegularRoom {
+	public class RectMazeRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var Max = Math.Min(GetWidth(), GetHeight()) / 2 + 1;

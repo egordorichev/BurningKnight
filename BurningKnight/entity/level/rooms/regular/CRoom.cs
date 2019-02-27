@@ -3,10 +3,10 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CRoom : RegularRoom {
+	public class CRoomDef : RegularRoomDef {
 		private Type Type;
 
-		public CRoom() {
+		public CRoomDef() {
 			Type = Type.Values()[Random.NewInt(4)];
 		}
 

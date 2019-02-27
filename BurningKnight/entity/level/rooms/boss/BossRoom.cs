@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.boss {
-	public class BossRoom : EntranceRoom {
+	public class BossRoomDef : EntranceRoomDef {
 		protected bool AlwaysElipse;
 
 		public override void Paint(Level Level) {
@@ -120,7 +120,7 @@ namespace BurningKnight.entity.level.rooms.boss {
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 1;
+			if (Side == Connection.All) return 1;
 
 			return 0;
 		}

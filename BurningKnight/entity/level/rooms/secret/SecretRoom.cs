@@ -10,7 +10,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class SecretRoom : Room {
+	public class SecretRoomDef : RoomDef {
 		public override void Paint(Level Level) {
 			Hidden = true;
 			Painter.Fill(Level, this, Terrain.WALL);
@@ -19,16 +19,16 @@ namespace BurningKnight.entity.level.rooms.secret {
 			foreach (LDoor Door in Connected.Values()) Door.SetType(LDoor.Type.SECRET);
 		}
 
-		private float SpawnMob(Mob Mob, Room Room, float Weight) {
+		private float SpawnMob(Mob Mob, RoomDef roomDef, float Weight) {
 			Weight -= Mob.GetWeight();
 			Point Point;
 			var I = 0;
 
 			do {
-				Point = Room.GetRandomCell();
+				Point = roomDef.GetRandomCell();
 
 				if (I++ > 40) {
-					Log.Error("Failed to place " + Mob.GetClass() + " in room " + Room.GetClass());
+					Log.Error("Failed to place " + Mob.GetClass() + " in room " + roomDef.GetClass());
 
 					break;
 				}
@@ -88,17 +88,17 @@ namespace BurningKnight.entity.level.rooms.secret {
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 1;
+			if (Side == Connection.All) return 1;
 
 			return 0;
 		}
 
-		public static SecretRoom Create() {
+		public static SecretRoomDef Create() {
 			return SecretRoomPool.Instance.Generate();
 		}
 
-		public override bool CanConnect(Room R) {
-			return !(R is ConnectionRoom) && base.CanConnect(R);
+		public override bool CanConnect(RoomDef R) {
+			return !(R is ConnectionRoomDef) && base.CanConnect(R);
 		}
 	}
 }

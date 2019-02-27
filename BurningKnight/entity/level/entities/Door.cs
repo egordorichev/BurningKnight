@@ -17,6 +17,7 @@ using BurningKnight.game;
 using BurningKnight.game.input;
 using BurningKnight.game.state;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util.file;
 
@@ -156,8 +157,8 @@ namespace BurningKnight.entity.level.entities {
 			if (Lock) Vt = Math.Max(0, Vt - Dt);
 
 			if (Dungeon.Depth == -2) {
-				Room A = Dungeon.Level.FindRoomFor(this.X + (Vertical ? 16 : 0), this.Y + (Vertical ? 0 : 16));
-				Room B = Dungeon.Level.FindRoomFor(this.X - (Vertical ? 16 : 0), this.Y - (Vertical ? 0 : 16));
+				RoomDef A = Dungeon.Level.FindRoomFor(this.X + (Vertical ? 16 : 0), this.Y + (Vertical ? 0 : 16));
+				RoomDef B = Dungeon.Level.FindRoomFor(this.X - (Vertical ? 16 : 0), this.Y - (Vertical ? 0 : 16));
 				var Found = false;
 
 				foreach (Trader Trader in Trader.All)
@@ -212,8 +213,8 @@ namespace BurningKnight.entity.level.entities {
 					LockAnim = Unlock;
 
 					if (Key == KeyC.GetType()) {
-						Room A = Dungeon.Level.FindRoomFor(this.X + (Vertical ? 16 : 0), this.Y + (Vertical ? 0 : 16));
-						Room B = Dungeon.Level.FindRoomFor(this.X - (Vertical ? 16 : 0), this.Y - (Vertical ? 0 : 16));
+						RoomDef A = Dungeon.Level.FindRoomFor(this.X + (Vertical ? 16 : 0), this.Y + (Vertical ? 0 : 16));
+						RoomDef B = Dungeon.Level.FindRoomFor(this.X - (Vertical ? 16 : 0), this.Y - (Vertical ? 0 : 16));
 
 						foreach (Trader Trader in Trader.All)
 							if (Trader.Room == A || Trader.Room == B) {
@@ -221,7 +222,7 @@ namespace BurningKnight.entity.level.entities {
 								GlobalSave.Put("npc_" + Trader.Id + "_saved", true);
 								Trader.Become("thanks");
 
-								if (Trader.Id != null && Trader.Id.Equals(NpcSaveRoom.SaveOrder[NpcSaveRoom.SaveOrder.Length - 1])) {
+								if (Trader.Id != null && Trader.Id.Equals(NpcSaveRoomDef.SaveOrder[NpcSaveRoomDef.SaveOrder.Length - 1])) {
 									Achievements.Unlock(Achievements.SAVE_ALL);
 									GlobalSave.Put("all_npcs_saved", true);
 								}
@@ -326,15 +327,15 @@ namespace BurningKnight.entity.level.entities {
 
 				if (Damage >= 1f) {
 					if (Key == KeyA.GetType()) {
-						Room Room = Dungeon.Level.FindRoomFor(this.X, this.Y);
+						RoomDef roomDef = Dungeon.Level.FindRoomFor(this.X, this.Y);
 
 						foreach (Trader Trader in Trader.All)
-							if (Trader.Room == Room) {
+							if (Trader.Room == roomDef) {
 								Trader.Saved = true;
 								GlobalSave.Put("npc_" + Trader.Id + "_saved", true);
 								Trader.Become("thanks");
 
-								if (Trader.Id.Equals(NpcSaveRoom.SaveOrder[NpcSaveRoom.SaveOrder.Length - 1])) {
+								if (Trader.Id.Equals(NpcSaveRoomDef.SaveOrder[NpcSaveRoomDef.SaveOrder.Length - 1])) {
 									Achievements.Unlock(Achievements.SAVE_ALL);
 									GlobalSave.Put("all_npcs_saved", true);
 								}

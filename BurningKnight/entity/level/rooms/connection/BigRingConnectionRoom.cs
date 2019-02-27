@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class BigRingConnectionRoom : TunnelRoom {
+	public class BigRingConnectionRoomDef : TunnelRoomDef {
 		private Rect ConnSpace;
 
 		public override int GetMinWidth() {

@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RectCornerRoom : RegularRoom {
+	public class RectCornerRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			var F = Terrain.RandomFloor();
 			Painter.Fill(Level, this, Terrain.WALL);

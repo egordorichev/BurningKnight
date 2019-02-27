@@ -1,8 +1,8 @@
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.boss {
-	public class CircleBossRoom : BossRoom {
-		public CircleBossRoom() {
+	public class CircleBossRoomDef : BossRoomDef {
+		public CircleBossRoomDef() {
 			_Init();
 		}
 

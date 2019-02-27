@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CircleRoom : RegularRoom {
+	public class CircleRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			var F = Terrain.RandomFloor();
 			Painter.Fill(Level, this, Terrain.WALL);

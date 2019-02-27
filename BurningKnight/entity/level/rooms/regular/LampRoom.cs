@@ -2,7 +2,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.entity.pool.room;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class LampRoom : RegularRoom {
+	public class LampRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			var Room = LampRoomPool.Instance.Generate();
 			Room.Size = this.Size;
@@ -26,7 +26,7 @@ namespace BurningKnight.entity.level.rooms.regular {
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 2;
+			if (Side == Connection.All) return 2;
 
 			return 1;
 		}

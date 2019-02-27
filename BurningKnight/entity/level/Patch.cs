@@ -1,16 +1,17 @@
-using BurningKnight.util;
+using BurningKnight.state;
+using Lens.util.math;
 
 namespace BurningKnight.entity.level {
 	public class Patch {
-		public static bool Generate(float Seed, int Octaves) {
-			return Generate(Level.GetWidth(), Level.GetHeight(), Seed, Octaves);
+		public static bool[] Generate(float Seed, int Octaves) {
+			return Generate(Run.Level.Width, Run.Level.Height, Seed, Octaves);
 		}
 
-		public static bool Generate(int W, int H, float Seed, int Octaves) {
+		public static bool[] Generate(int W, int H, float Seed, int Octaves) {
 			var Cur = new bool[W * H];
 			var Off = new bool[W * H];
 
-			for (var I = 0; I < W * H; I++) Off[I] = Random.NewFloat() < Seed;
+			for (var I = 0; I < W * H; I++) Off[I] = Random.Float() < Seed;
 
 			for (var I = 0; I < Octaves; I++) {
 				for (var Y = 1; Y < H - 1; Y++)

@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class IslandTreasureRoom : TreasureRoom {
+	public class IslandTreasureRoomDef : TreasureRoomDef {
 		private Rect ConnSpace;
 
 		public override void Paint(Level Level) {

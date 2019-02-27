@@ -1,4 +1,6 @@
-﻿namespace BurningKnight.state {
+﻿using BurningKnight.entity.level;
+
+namespace BurningKnight.state {
 	public static class Run {
 		private static int depth;
 		public static int NextDepth { get; private set; }
@@ -17,5 +19,7 @@
 			LastDepth = depth;
 			depth = NextDepth;
 		}
+
+		public static Level Level;
 	}
 }

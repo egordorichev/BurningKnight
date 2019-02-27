@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class DoubleShop : ShopRoom {
+	public class DoubleShop : ShopRoomDef {
 		private bool Vertical;
 
 		public DoubleShop() {

@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class RegularRoom : Room {
+	public class RegularRoomDef : RoomDef {
 		public static class Size {
 			public const Size NORMAL = new Size(8, 12, 1);
 			public const Size LARGE = new Size(12, 14, 2);
@@ -16,7 +16,7 @@ namespace BurningKnight.entity.level.rooms.regular {
 		public const int MaxDim;
 		public const int RoomValue;
 
-		public Size(int Min, int Max, int Val) {
+		public RegularRoomDef(int Min, int Max, int Val) {
 			this.MinDim = Min;
 			this.MaxDim = Max;
 			this.RoomValue = Val;

@@ -14,11 +14,11 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class ShopRoom : LockedRoom {
+	public class ShopRoomDef : LockedRoomDef {
 		private bool DoublePrice;
 		private bool Hd;
 
-		public ShopRoom() {
+		public ShopRoomDef() {
 			Hd = Random.Chance(30);
 		}
 
@@ -101,8 +101,8 @@ namespace BurningKnight.entity.level.rooms.shop {
 			}
 		}
 
-		public override bool CanConnect(Room R) {
-			if (Hd && R is ConnectionRoom) return false;
+		public override bool CanConnect(RoomDef R) {
+			if (Hd && R is ConnectionRoomDef) return false;
 
 			return base.CanConnect(R);
 		}

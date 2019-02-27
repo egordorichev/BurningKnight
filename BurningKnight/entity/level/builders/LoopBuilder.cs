@@ -58,7 +58,7 @@ namespace BurningKnight.entity.level.builders {
 
 				PathTunnels[Tunnels]--;
 
-				for (var J = 0; J < Tunnels; J++) Loop.Add(ConnectionRoom.Create());
+				for (var J = 0; J < Tunnels; J++) Loop.Add(ConnectionRoomDef.Create());
 			}
 
 			if (Exit != null) Loop.Add((Loop.Size() + 1) / 2, Exit);
@@ -81,7 +81,7 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			while (!Prev.ConnectTo(Entrance)) {
-				RegularRoom C = RegularRoom.Create();
+				RegularRoomDef C = RegularRoomDef.Create();
 
 				if (PlaceRoom(Loop, Prev, C, AngleBetweenRooms(Prev, Entrance)) == -1) return null;
 

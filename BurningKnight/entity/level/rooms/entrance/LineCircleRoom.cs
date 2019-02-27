@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class LineCircleRoom : EntranceRoom {
+	public class LineCircleRoomDef : EntranceRoomDef {
 		public override void Paint(Level Level) {
 			var Floor = Terrain.RandomFloor();
 			var Fl = Random.Chance(30) ? Terrain.WALL : (Random.Chance(50) ? Terrain.CHASM : Terrain.LAVA);

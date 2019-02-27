@@ -2,13 +2,13 @@ using BurningKnight.entity.level.features;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class TunnelRoom : ConnectionRoom {
+	public class TunnelRoomDef : ConnectionRoomDef {
 		protected void Fill(Level Level) {
 		}
 
 		public override void Paint(Level Level) {
 			Fill(Level);
-			var Fl = this is SpikedTunnelRoom ? Terrain.DIRT : (Random.Chance(25) ? (Random.Chance(33) ? Terrain.CHASM : (Random.Chance(50) ? Terrain.WALL : Terrain.LAVA)) : Terrain.RandomFloor());
+			var Fl = this is SpikedTunnelRoomDef ? Terrain.DIRT : (Random.Chance(25) ? (Random.Chance(33) ? Terrain.CHASM : (Random.Chance(50) ? Terrain.WALL : Terrain.LAVA)) : Terrain.RandomFloor());
 
 			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance(50)) PaintTunnel(Level, Fl, true);
 

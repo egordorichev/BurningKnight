@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.boss {
-	public class CollumnsBossRoom : BossRoom {
+	public class CollumnsBossRoomDef : BossRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			int MinDim = Math.Min(GetWidth(), GetHeight());

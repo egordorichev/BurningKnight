@@ -2,7 +2,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.painters;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class ChasmTunnelRoom : TunnelRoom {
+	public class ChasmTunnelRoomDef : TunnelRoomDef {
 		protected override void Fill(Level Level) {
 			Painter.Fill(Level, this, Terrain.WALL);
 			Painter.Fill(Level, this, 1, Terrain.CHASM);

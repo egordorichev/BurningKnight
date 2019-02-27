@@ -3,6 +3,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.level.entities.fx;
 using BurningKnight.game.state;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util.file;
 

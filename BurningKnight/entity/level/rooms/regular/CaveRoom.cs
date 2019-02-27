@@ -2,7 +2,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.painters;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CaveRoom : PatchRoom {
+	public class CaveRoomDef : PatchRoomDef {
 		protected override float GetSizeChance() {
 			return {
 				1, 3, 6

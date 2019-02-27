@@ -4,7 +4,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class MazeEntranceRoom : EntranceRoom {
+	public class MazeEntranceRoomDef : EntranceRoomDef {
 		public override void Paint(Level Level) {
 			var Wall = Random.Chance(50) ? Terrain.CHASM : Terrain.WALL;
 			bool[][] Maze = Maze.Generate(this);

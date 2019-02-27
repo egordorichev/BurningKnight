@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.item {
-	public class BrokeLineItemRoom : ItemRoom {
+	public class BrokeLineItemRoomDef : ItemRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var F = Terrain.RandomFloor();

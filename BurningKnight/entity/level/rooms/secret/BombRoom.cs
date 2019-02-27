@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class BombRoom : SecretRoom {
+	public class BombRoomDef : SecretRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

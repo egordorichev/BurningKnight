@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class LavaLakeRoom : PatchRoom {
+	public class LavaLakeRoomDef : PatchRoomDef {
 		protected override float GetSizeChance() {
 			return {
 				1, 3, 6

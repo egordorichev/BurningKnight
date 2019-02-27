@@ -7,7 +7,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class BossEntranceRoom : RegularRoom {
+	public class BossEntranceRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 
@@ -39,8 +39,8 @@ namespace BurningKnight.entity.level.rooms.entrance {
 			return 6;
 		}
 
-		public override bool CanConnect(Room R) {
-			return R is EntranceRoom && base.CanConnect(R);
+		public override bool CanConnect(RoomDef R) {
+			return R is EntranceRoomDef && base.CanConnect(R);
 		}
 
 		protected override Point GetDoorCenter() {

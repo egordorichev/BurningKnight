@@ -6,7 +6,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms {
-	public class FloatingRoom : RegularRoom {
+	public class FloatingRoomDef : RegularRoomDef {
 		private static Vector2[] Dirs = {new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0)};
 		private float Chance2 = 30;
 		private float Chance3 = 10;

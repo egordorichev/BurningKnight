@@ -2,13 +2,13 @@ using BurningKnight.entity.level.rooms.boss;
 using BurningKnight.entity.level.rooms.entrance;
 
 namespace BurningKnight.entity.pool.room {
-	public class BossRoomPool : Pool<EntranceRoom> {
+	public class BossRoomPool : Pool<EntranceRoomDef> {
 		public static BossRoomPool Instance = new BossRoomPool();
 
 		public BossRoomPool() {
-			Add(typeof(SimpleBossRoom), 1f);
-			Add(typeof(CollumnsBossRoom), 1f);
-			Add(typeof(CircleBossRoom), 1f);
+			Add(typeof(SimpleBossRoomDef), 1f);
+			Add(typeof(CollumnsBossRoomDef), 1f);
+			Add(typeof(CircleBossRoomDef), 1f);
 		}
 	}
 }

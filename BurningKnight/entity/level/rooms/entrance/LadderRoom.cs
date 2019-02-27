@@ -1,13 +1,13 @@
 namespace BurningKnight.entity.level.rooms.entrance {
-	public class LadderRoom : Room {
+	public class LadderRoomDef : RoomDef {
 		public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.ALL) return 16;
+			if (Side == Connection.All) return 16;
 
 			return 4;
 		}
 
 		public override int GetMinConnections(Connection Side) {
-			if (Side == Connection.ALL) return 1;
+			if (Side == Connection.All) return 1;
 
 			return 0;
 		}

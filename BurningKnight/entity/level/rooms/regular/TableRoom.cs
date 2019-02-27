@@ -3,7 +3,7 @@ using BurningKnight.entity.level.save;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class TableRoom : RegularRoom {
+	public class TableRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var Table = new Table();

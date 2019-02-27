@@ -2,7 +2,7 @@ using BurningKnight.entity.level.features;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class PatchRoom : RegularRoom {
+	public class PatchRoomDef : RegularRoomDef {
 		protected bool[] Patch;
 
 		protected void SetupPatch(Level Level, float Fill, int Clustering, bool EnsurePath) {

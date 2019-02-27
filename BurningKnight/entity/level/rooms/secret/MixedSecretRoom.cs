@@ -6,7 +6,7 @@ using BurningKnight.entity.level.save;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class MixedSecretRoom : SecretRoom {
+	public class MixedSecretRoomDef : SecretRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, 1, Terrain.FLOOR_D);

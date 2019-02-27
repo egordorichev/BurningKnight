@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class EmptyConnectionRoom : TunnelRoom {
+	public class EmptyConnectionRoomDef : TunnelRoomDef {
 		public override void Paint(Level Level) {
 			Painter.Fill(Level, this, Terrain.WALL);
 			Painter.Fill(Level, this, 1, Terrain.RandomFloor());

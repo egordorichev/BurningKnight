@@ -3,10 +3,10 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class MissingCornerRoom : RegularRoom {
+	public class MissingCornerRoomDef : RegularRoomDef {
 		private Type Type;
 
-		public MissingCornerRoom() {
+		public MissingCornerRoomDef() {
 			this.Type = Type.Values()[Random.NewInt(4)];
 		}
 

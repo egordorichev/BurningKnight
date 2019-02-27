@@ -3,7 +3,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.treasure {
-	public class CornerlessTreasureRoom : TreasureRoom {
+	public class CornerlessTreasureRoomDef : TreasureRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, 1, Terrain.FLOOR_D);

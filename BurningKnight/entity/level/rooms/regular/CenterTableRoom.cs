@@ -2,7 +2,7 @@ using BurningKnight.entity.level.entities;
 using BurningKnight.entity.level.save;
 
 namespace BurningKnight.entity.level.rooms.regular {
-	public class CenterTableRoom : RegularRoom {
+	public class CenterTableRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var Center = GetCenter();

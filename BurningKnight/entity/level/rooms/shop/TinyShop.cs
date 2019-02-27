@@ -2,7 +2,7 @@ using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.rooms.shop {
-	public class TinyShop : ShopRoom {
+	public class TinyShop : ShopRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 

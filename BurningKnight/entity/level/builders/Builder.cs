@@ -13,7 +13,7 @@ namespace BurningKnight.entity.level.builders {
 	public class Builder {
 		private const double A = 180 / Math.PI;
 
-		protected static void FindNeighbours(List<Room> Rooms) {
+		protected static void FindNeighbours(List<RoomDef> Rooms) {
 			for (var I = 0; I < Rooms.Count - 1; I++) {
 				for (var J = I + 1; J < Rooms.Count; J++) {
 					Rooms[I].ConnectTo(Rooms[J]);
@@ -21,9 +21,9 @@ namespace BurningKnight.entity.level.builders {
 			}
 		}
 
-		protected static Rect FindFreeSpace(Vector2 Start, List<Room> Collision, int MaxSize) {
+		protected static Rect FindFreeSpace(Vector2 Start, List<RoomDef> Collision, int MaxSize) {
 			var Space = new Rect((int) (Start.X - MaxSize), (int) (Start.Y - MaxSize), (int) (Start.X + MaxSize), (int) (Start.Y + MaxSize));
-			var Colliding = new List<Room>(Collision);
+			var Colliding = new List<RoomDef>(Collision);
 
 			do {
 				for (var I = Colliding.Count - 1; I >= 0; I--) {
@@ -34,7 +34,7 @@ namespace BurningKnight.entity.level.builders {
 					}
 				}
 
-				Room ClosestRoom = null;
+				RoomDef closestRoomDef = null;
 				var ClosestDiff = int.MaxValue;
 				var Inside = true;
 				var CurDiff = 0;
@@ -63,52 +63,52 @@ namespace BurningKnight.entity.level.builders {
 
 					if (CurDiff < ClosestDiff) {
 						ClosestDiff = CurDiff;
-						ClosestRoom = CurRoom;
+						closestRoomDef = CurRoom;
 					}
 				}
 
 				int WDiff;
 				int HDiff;
 
-				if (ClosestRoom != null) {
+				if (closestRoomDef != null) {
 					WDiff = Int32.MaxValue;
 
-					if (ClosestRoom.Left >= Start.X) {
-						WDiff = (Space.Right - ClosestRoom.Left) * (Space.GetHeight() + 1);
-					} else if (ClosestRoom.Right <= Start.X) {
-						WDiff = (ClosestRoom.Right - Space.Left) * (Space.GetHeight() + 1);
+					if (closestRoomDef.Left >= Start.X) {
+						WDiff = (Space.Right - closestRoomDef.Left) * (Space.GetHeight() + 1);
+					} else if (closestRoomDef.Right <= Start.X) {
+						WDiff = (closestRoomDef.Right - Space.Left) * (Space.GetHeight() + 1);
 					}
 
 					HDiff = Int32.MaxValue;
 
-					if (ClosestRoom.Top >= Start.Y) {
-						HDiff = (Space.Bottom - ClosestRoom.Top) * (Space.GetWidth() + 1);
-					} else if (ClosestRoom.Bottom <= Start.Y) {
-						HDiff = (ClosestRoom.Bottom - Space.Top) * (Space.GetWidth() + 1);
+					if (closestRoomDef.Top >= Start.Y) {
+						HDiff = (Space.Bottom - closestRoomDef.Top) * (Space.GetWidth() + 1);
+					} else if (closestRoomDef.Bottom <= Start.Y) {
+						HDiff = (closestRoomDef.Bottom - Space.Top) * (Space.GetWidth() + 1);
 					}
 
 					if (WDiff < HDiff || WDiff == HDiff && Random.Int(2) == 0) {
-						if (ClosestRoom.Left >= Start.X && ClosestRoom.Left < Space.Right) {
-							Space.Right = ClosestRoom.Left;
+						if (closestRoomDef.Left >= Start.X && closestRoomDef.Left < Space.Right) {
+							Space.Right = closestRoomDef.Left;
 						}
 
 
-						if (ClosestRoom.Right <= Start.X && ClosestRoom.Right > Space.Left) {
-							Space.Left = ClosestRoom.Right;
+						if (closestRoomDef.Right <= Start.X && closestRoomDef.Right > Space.Left) {
+							Space.Left = closestRoomDef.Right;
 						}
 					} else {
-						if (ClosestRoom.Top >= Start.Y && ClosestRoom.Top < Space.Bottom) {
-							Space.Bottom = ClosestRoom.Top;
+						if (closestRoomDef.Top >= Start.Y && closestRoomDef.Top < Space.Bottom) {
+							Space.Bottom = closestRoomDef.Top;
 						}
 
 
-						if (ClosestRoom.Bottom <= Start.Y && ClosestRoom.Bottom > Space.Top) {
-							Space.Top = ClosestRoom.Bottom;
+						if (closestRoomDef.Bottom <= Start.Y && closestRoomDef.Bottom > Space.Top) {
+							Space.Top = closestRoomDef.Bottom;
 						}
 					}
 
 
-					Colliding.Remove(ClosestRoom);
+					Colliding.Remove(closestRoomDef);
 				} else {
 					Colliding.Clear();
 				}
@@ -117,7 +117,7 @@ namespace BurningKnight.entity.level.builders {
 			return Space;
 		}
 
-		protected static float AngleBetweenRooms(Room From, Room To) {
+		protected static float AngleBetweenRooms(RoomDef From, RoomDef To) {
 			var FromCenter = new Vector2((From.Left + From.Right) / 2f, (From.Top + From.Bottom) / 2f);
 			var ToCenter = new Vector2((To.Left + To.Right) / 2f, (To.Top + To.Bottom) / 2f);
 
@@ -135,7 +135,7 @@ namespace BurningKnight.entity.level.builders {
 			return Angle;
 		}
 
-		protected static float PlaceRoom(List<Room> Collision, Room Prev, Room Next, float Angle) {
+		protected static float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
 			Angle %= 360f;
 
 			if (Angle < 0) {
@@ -146,27 +146,27 @@ namespace BurningKnight.entity.level.builders {
 			var M = Math.Tan(Angle / A + Math.PI / 2.0);
 			var B = PrevCenter.Y - M * PrevCenter.X;
 			Vector2 Start;
-			Room.Connection Direction;
+			RoomDef.Connection Direction;
 
 			if (Math.Abs(M) >= 1) {
 				if (Angle < 90 || Angle > 270) {
-					Direction = Room.Connection.TOP;
+					Direction = RoomDef.Connection.Top;
 					Start = new Vector2((int) Math.Round((Prev.Top - B) / M), Prev.Top);
 				} else {
-					Direction = Room.Connection.BOTTOM;
+					Direction = RoomDef.Connection.Bottom;
 					Start = new Vector2((int) Math.Round((Prev.Bottom - B) / M), Prev.Bottom);
 				}
 			} else {
 				if (Angle < 180) {
-					Direction = Room.Connection.RIGHT;
+					Direction = RoomDef.Connection.Right;
 					Start = new Vector2(Prev.Right, (int) Math.Round(M * Prev.Right + B));
 				} else {
-					Direction = Room.Connection.LEFT;
+					Direction = RoomDef.Connection.Left;
 					Start = new Vector2(Prev.Left, (int) Math.Round(M * Prev.Left + B));
 				}
 			}
 
-			if (Direction == Room.Connection.TOP || Direction == Room.Connection.BOTTOM) {
+			if (Direction == RoomDef.Connection.Top || Direction == RoomDef.Connection.Bottom) {
 				Start.X = (int) MathUtils.Clamp(Prev.Left + 1, Prev.Right - 1, Start.X);
 			} else {
 				Start.Y = (int) MathUtils.Clamp(Prev.Top + 1, Prev.Bottom - 1, Start.Y);
@@ -180,25 +180,25 @@ namespace BurningKnight.entity.level.builders {
 
 			var TargetCenter = new Point();
 
-			if (Direction == Room.Connection.TOP) {
+			if (Direction == RoomDef.Connection.Top) {
 				TargetCenter.Y = (int) (Prev.Top - (Next.GetHeight() - 1) / 2f);
 				TargetCenter.X = (int) ((TargetCenter.Y - B) / M);
 				Next.SetPos((int) Math.Round(TargetCenter.X - (Next.GetWidth() - 1) / 2f), Prev.Top - (Next.GetHeight() - 1));
-			} else if (Direction == Room.Connection.BOTTOM) {
+			} else if (Direction == RoomDef.Connection.Bottom) {
 				TargetCenter.Y = (int) (Prev.Bottom + (Next.GetHeight() - 1) / 2f);
 				TargetCenter.X = (int) ((TargetCenter.Y - B) / M);
 				Next.SetPos((int) Math.Round(TargetCenter.X - (Next.GetWidth() - 1) / 2f), Prev.Bottom);
-			} else if (Direction == Room.Connection.RIGHT) {
+			} else if (Direction == RoomDef.Connection.Right) {
 				TargetCenter.X = (int) (Prev.Right + (Next.GetWidth() - 1) / 2f);
 				TargetCenter.Y = (int) (M * TargetCenter.X + B);
 				Next.SetPos(Prev.Right, (int) Math.Round(TargetCenter.Y - (Next.GetHeight() - 1) / 2f));
-			} else if (Direction == Room.Connection.LEFT) {
+			} else if (Direction == RoomDef.Connection.Left) {
 				TargetCenter.X = (int) (Prev.Left - (Next.GetWidth() - 1) / 2f);
 				TargetCenter.Y = (int) (M * TargetCenter.X + B);
 				Next.SetPos(Prev.Left - (Next.GetWidth() - 1), (int) Math.Round(TargetCenter.Y - (Next.GetHeight() - 1) / 2f));
 			}
 
-			if (Direction == Room.Connection.TOP || Direction == Room.Connection.BOTTOM) {
+			if (Direction == RoomDef.Connection.Top || Direction == RoomDef.Connection.Bottom) {
 				if (Next.Right < Prev.Left + 2) {
 					Next.Shift(Prev.Left + 2 - Next.Right, 0);
 				} else if (Next.Left > Prev.Right - 2) {
@@ -225,7 +225,7 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			if (Next.ConnectWithRoom(Prev)) {
-				if (Next is ConnectionRoom || Next is BossRoom || Next is ShopRoom) {
+				if (Next is ConnectionRoomDef || Next is BossRoomDef || Next is ShopRoomDef) {
 					Next.Id = Prev.Id;
 				} else {
 					Next.Id = Prev.Id + 1;

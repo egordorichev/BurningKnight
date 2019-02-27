@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms {
-	public class PrebossRoom : RegularRoom {
+	public class PrebossRoomDef : RegularRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			Painter.Fill(Level, this, 1, Terrain.FLOOR_D);

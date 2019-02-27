@@ -6,6 +6,7 @@ using BurningKnight.entity.item.key;
 using BurningKnight.entity.item.weapon;
 using BurningKnight.entity.pool;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.util;
 
 namespace BurningKnight.entity.level.entities.chest {

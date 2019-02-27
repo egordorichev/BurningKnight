@@ -5,7 +5,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.entity.level.rooms.secret {
-	public class ChestRoom : SecretRoom {
+	public class ChestRoomDef : SecretRoomDef {
 		public override void Paint(Level Level) {
 			base.Paint(Level);
 			var F = Terrain.RandomFloor();
