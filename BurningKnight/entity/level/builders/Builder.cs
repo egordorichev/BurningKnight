@@ -238,7 +238,7 @@ namespace BurningKnight.entity.level.builders {
 			return -1;
 		}
 
-		public List<Room> Build<Room>(List<Room> Init) {
+		public virtual List<Room> Build<Room>(List<Room> Init) {
 			return null;
 		}
 	}

@@ -1,19 +1,14 @@
-using BurningKnight.entity.creature.fx;
-using BurningKnight.entity.item.key;
-using BurningKnight.entity.level.entities;
+using System;
+using System.Collections.Generic;
 using BurningKnight.entity.level.entities.decor;
-using BurningKnight.entity.level.features;
-using BurningKnight.entity.level.levels.creep;
-using BurningKnight.entity.level.levels.forest;
-using BurningKnight.entity.level.levels.hall;
-using BurningKnight.entity.level.levels.ice;
-using BurningKnight.entity.level.levels.tech;
 using BurningKnight.entity.level.rooms;
-using BurningKnight.entity.level.rooms.entrance;
-using BurningKnight.entity.level.save;
+using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
+using Microsoft.Xna.Framework;
 using Door = BurningKnight.entity.level.entities.Door;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.painters {
 	public class Painter {
@@ -46,17 +41,22 @@ namespace BurningKnight.entity.level.painters {
 			return this;
 		}
 
-		public void Paint(Level Level, List Rooms) {
-			if (Rooms == null) return;
+		public void Paint(Level Level, List<Room> Rooms) {
+			if (Rooms == null) {
+				return;
+			}
 
-			int LeftMost = Integer.MAX_VALUE;
-			int TopMost = Integer.MAX_VALUE;
+			int LeftMost = Int32.MaxValue;
+			int TopMost = Int32.MaxValue;
 
-			foreach (Room R in Rooms) {
-				if (R.Left < LeftMost) LeftMost = R.Left;
+			foreach (var R in Rooms) {
+				if (R.Left < LeftMost) {
+					LeftMost = R.Left;
+				}
 
-
-				if (R.Top < TopMost) TopMost = R.Top;
+				if (R.Top < TopMost) {
+					TopMost = R.Top;
+				}
 			}
 
 			LeftMost--;
@@ -67,13 +67,16 @@ namespace BurningKnight.entity.level.painters {
 			var RightMost = 0;
 			var BottomMost = 0;
 
-			foreach (Room R in Rooms) {
+			foreach (var R in Rooms) {
 				R.Shift(-LeftMost, -TopMost);
 
-				if (R.Right > RightMost) RightMost = R.Right;
+				if (R.Right > RightMost) {
+					RightMost = R.Right;
+				}
 
-
-				if (R.Bottom > BottomMost) BottomMost = R.Bottom;
+				if (R.Bottom > BottomMost) {
+					BottomMost = R.Bottom;
+				}
 			}
 
 			RightMost++;
@@ -85,11 +88,11 @@ namespace BurningKnight.entity.level.painters {
 			Level.GenerateDecor();
 			Level.Fill();
 
-			foreach (Room Room in Rooms) {
+			foreach (var Room in Rooms) {
 				PlaceDoors(Room);
 				Room.Paint(Level);
 
-				if ((Level is HallLevel || Level is IceLevel) && Dungeon.Depth > -1)
+				if (Run.Depth == 1) { // or ice
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++)
 					for (var X = Room.Left; X <= Room.Right; X++) {
 						int I = Level.ToIndex(X, Y);
@@ -99,8 +102,9 @@ namespace BurningKnight.entity.level.painters {
 							Level.Set(I, Terrain.CHASM);
 						}
 					}
+				}
 
-				if (Level is IceLevel)
+				/*if (Level is IceLevel)
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++)
 					for (var X = Room.Left; X <= Room.Right; X++) {
 						int I = Level.ToIndex(X, Y);
@@ -109,9 +113,9 @@ namespace BurningKnight.entity.level.painters {
 							Level.LiquidData[I] = 0;
 							Level.Set(I, Terrain.ICE);
 						}
-					}
+					}*/
 
-				if (!(Room is BossEntranceRoom) && Level is ForestLevel && Random.Chance(70))
+				/*if (!(Room is BossEntranceRoom) && Level is ForestLevel && Random.Chance(70))
 					for (var I = 0; I < Random.NewInt(1, 4); I++) {
 						var Point = Room.GetRandomFreeCell();
 
@@ -121,78 +125,104 @@ namespace BurningKnight.entity.level.painters {
 							Bush.Y = Point.Y * 16 + Random.NewFloat(-4, 4);
 							Dungeon.Area.Add(Bush.Add());
 						}
-					}
+					}*/
 
-				if (Room.Hidden)
-					for (var Y = Room.Top; Y <= Room.Bottom; Y++)
-					for (var X = Room.Left; X <= Room.Right; X++)
-						Level.Hide(X, Y);
+
+				if (Room.Hidden) {
+					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+						for (var X = Room.Left; X <= Room.Right; X++) {
+							Level.Hide(X, Y);
+						}
+					}
+				}
 			}
 
-			if (PathFinder.NEIGHBOURS8 == null) PathFinder.SetMapSize(Level.GetWidth(), Level.GetHeight());
+			if (PathFinder.NEIGHBOURS8 == null) {
+				PathFinder.SetMapSize(Level.GetWidth(), Level.GetHeight());
+			}
 
-			if (Dungeon.Depth > -1) {
-				if (Dirt > 0) PaintDirt(Level, Rooms);
+			if (Run.Depth > -1) {
+				if (Dirt > 0) {
+					PaintDirt(Level, Rooms);
+				}
 
-				if (Grass > 0) PaintGrass(Level, Rooms);
+				if (Grass > 0) {
+					PaintGrass(Level, Rooms);
+				}
 
-				if (Cobweb > 0) PaintCobweb(Level, Rooms);
+				if (Cobweb > 0) {
+					PaintCobweb(Level, Rooms);
+				}
 
-				if (Water > 0) PaintWater(Level, Rooms);
+				if (Water > 0) {
+					PaintWater(Level, Rooms);
+				}
 			}
 
 			Decorate(Level, Rooms);
 			PaintDoors(Level, Rooms);
 		}
 
-		private void PaintWater(Level Level, List Rooms) {
+		private void PaintWater(Level Level, List<Room> Rooms) {
 			bool[] Lake = Patch.Generate(Water, 5);
 			var Ice = Level is IceLevel;
 
-			foreach (Room R in Rooms)
-			foreach (Point P in R.WaterPlaceablePoints()) {
-				int I = Level.ToIndex((int) P.X, (int) P.Y);
-				byte T = Level.Data[I];
+			foreach (var R in Rooms) {
+				foreach (var P in R.WaterPlaceablePoints()) {
+					int I = Level.ToIndex((int) P.X, (int) P.Y);
+					byte T = Level.Data[I];
 
-				if (Lake[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) Level.Set(I, Ice ? Terrain.ICE : Terrain.WATER);
+					if (Lake[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) {
+						Level.Set(I, Ice ? Terrain.ICE : Terrain.WATER);
+					}
+				}
 			}
 		}
 
-		private void PaintCobweb(Level Level, List Rooms) {
+		private void PaintCobweb(Level Level, List<Room> Rooms) {
 			bool[] Lake = Patch.Generate(Water, 5);
 
-			foreach (Room R in Rooms)
-			foreach (Point P in R.WaterPlaceablePoints()) {
-				int I = Level.ToIndex((int) P.X, (int) P.Y);
-				byte T = Level.Data[I];
+			foreach (var R in Rooms) {
+				foreach (var P in R.WaterPlaceablePoints()) {
+					int I = Level.ToIndex((int) P.X, (int) P.Y);
+					byte T = Level.Data[I];
 
-				if (Lake[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) Level.Set(I, Terrain.COBWEB);
+					if (Lake[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) {
+						Level.Set(I, Terrain.COBWEB);
+					}
+				}
 			}
 		}
 
-		private void PaintDirt(Level Level, List Rooms) {
+		private void PaintDirt(Level Level, List<Room> Rooms) {
 			bool[] Grass = Patch.Generate(Dirt, 5);
 
-			foreach (Room R in Rooms)
-			foreach (Point P in R.GrassPlaceablePoints()) {
-				int I = Level.ToIndex((int) P.X, (int) P.Y);
-				byte T = Level.Data[I];
+			foreach (var R in Rooms) {
+				foreach (var P in R.GrassPlaceablePoints()) {
+					int I = Level.ToIndex((int) P.X, (int) P.Y);
+					byte T = Level.Data[I];
 
-				if (Grass[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) Level.Set(I, Terrain.DIRT);
+					if (Grass[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) {
+						Level.Set(I, Terrain.DIRT);
+					}
+				}
 			}
 		}
 
-		private void PaintGrass(Level Level, List Rooms) {
+		private void PaintGrass(Level Level, List<Room> Rooms) {
 			bool[] Grass = Patch.Generate(this.Grass, 5);
 			bool[] Dry = Patch.Generate(this.Grass, 5);
-			List<Integer> Cells = new List<>();
+			List<int> Cells = new List<int>();
 
-			foreach (Room R in Rooms)
-			foreach (Point P in R.GrassPlaceablePoints()) {
-				int I = Level.ToIndex((int) P.X, (int) P.Y);
-				byte T = Level.Data[I];
+			foreach (var R in Rooms) {
+				foreach (var P in R.GrassPlaceablePoints()) {
+					int I = Level.ToIndex((int) P.X, (int) P.Y);
+					byte T = Level.Data[I];
 
-				if (Grass[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) Cells.Add(I);
+					if (Grass[I] && (T == Terrain.FLOOR_A || T == Terrain.FLOOR_B || T == Terrain.FLOOR_C) && Level.LiquidData[I] == 0) {
+						Cells.Add(I);
+					}
+				}
 			}
 
 			foreach (int I in Cells) {
@@ -201,30 +231,30 @@ namespace BurningKnight.entity.level.painters {
 				foreach (var N in PathFinder.NEIGHBOURS8) {
 					var K = I + N;
 
-					if (Level.IsValid(K) && Grass[K]) Count++;
+					if (Level.IsValid(K) && Grass[K]) {
+						Count++;
+					}
 				}
 
-				var High = Random.NewFloat() < Count / 12f;
-				Level.Set(I, false ? (High ? Terrain.HIGH_DRY_GRASS : Terrain.DRY_GRASS) : (High ? Terrain.HIGH_GRASS : Terrain.GRASS));
+				var High = Random.Float() < Count / 12f;
+				Level.Set(I, High ? Terrain.HIGH_GRASS : Terrain.GRASS);
 			}
 		}
 
-		protected void Decorate(Level Level, List Rooms) {
-			foreach (Room Room in Rooms) {
-				if (Random.Chance(60))
-					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.NewInt(3, 6)); I++) {
+		protected void Decorate(Level Level, List<Room> Rooms) {
+			foreach (var Room in Rooms) {
+				/*
+				if (Random.Chance(60)) {
+					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.Int(3, 6)); I++) {
 						var Fly = new Firefly();
-						Fly.X = (Room.Left + 2) * 16 + Random.NewFloat((Room.GetWidth() - 4) * 16);
-						Fly.Y = (Room.Top + 2) * 16 + Random.NewFloat((Room.GetHeight() - 4) * 16);
+						Fly.X = (Room.Left + 2) * 16 + Random.Float((Room.GetWidth() - 4) * 16);
+						Fly.Y = (Room.Top + 2) * 16 + Random.Float((Room.GetHeight() - 4) * 16);
 						Dungeon.Area.Add(Fly.Add());
 					}
+				}*/
 
-				for (var Y = Room.Top; Y <= Room.Bottom; Y++)
-				for (var X = Room.Left; X <= Room.Right; X++) {
-					if (Dungeon.Depth > -2 && Level.Get(X, Y) == Terrain.WALL)
-						if (Random.Chance(30))
-							Level.SetDecor(X, Y, (byte) (Random.NewInt(Terrain.Decor.Length) + 1));
-
+				/*for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+					
 					if (Dungeon.Depth > -1 && Level.Get(X, Y) == Terrain.WALL && !(Level is IceLevel || Level is TechLevel)) {
 						if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1) == Terrain.WALL && Level.Get(X, Y - 1) != Terrain.WALL && Random.Chance(20)) {
 							var Web = new Cobweb();
@@ -233,24 +263,21 @@ namespace BurningKnight.entity.level.painters {
 							Web.Side = 0;
 							Dungeon.Area.Add(Web);
 							LevelSave.Add(Web);
-						}
-						else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1) == Terrain.WALL && Level.Get(X, Y - 1) != Terrain.WALL && Random.Chance(20)) {
+						} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1) == Terrain.WALL && Level.Get(X, Y - 1) != Terrain.WALL && Random.Chance(20)) {
 							var Web = new Cobweb();
 							Web.X = X * 16;
 							Web.Y = Y * 16 - 16;
 							Web.Side = 1;
 							Dungeon.Area.Add(Web);
 							LevelSave.Add(Web);
-						}
-						else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
+						} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
 							var Web = new Cobweb();
 							Web.X = X * 16;
 							Web.Y = Y * 16 + 16;
 							Web.Side = 2;
 							Dungeon.Area.Add(Web);
 							LevelSave.Add(Web);
-						}
-						else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
+						} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
 							var Web = new Cobweb();
 							Web.X = X * 16;
 							Web.Y = Y * 16 + 16;
@@ -259,59 +286,59 @@ namespace BurningKnight.entity.level.painters {
 							LevelSave.Add(Web);
 						}
 					}
-				}
+				}*/
 			}
 		}
 
-		private void PaintDoors(Level Level, List Rooms) {
-			foreach (Room R in Rooms)
-			foreach (Room N in R.GetConnected().KeySet()) {
-				LDoor D = R.GetConnected().Get(N);
-				Level.SetDecor((int) D.X, (int) D.Y + 1, (byte) 0);
+		private void PaintDoors(Level Level, List<Room> Rooms) {
+			foreach (var R in Rooms) {
+				foreach (var N in R.GetConnected().KeySet()) {
+					LDoor D = R.GetConnected().Get(N);
+					Level.SetDecor((int) D.X, (int) D.Y + 1, (byte) 0);
 
-				if (!(Level is CreepLevel)) {
-					byte T = Level.Get((int) D.X, (int) D.Y);
-					var Gt = D.GetType() != LDoor.Type.EMPTY && D.GetType() != LDoor.Type.MAZE && D.GetType() != LDoor.Type.TUNNEL && D.GetType() != LDoor.Type.SECRET;
+					if (!(Level is CreepLevel)) {
+						byte T = Level.Get((int) D.X, (int) D.Y);
+						var Gt = D.GetType() != LDoor.Type.EMPTY && D.GetType() != LDoor.Type.MAZE && D.GetType() != LDoor.Type.TUNNEL && D.GetType() != LDoor.Type.SECRET;
 
-					if (T != Terrain.FLOOR_A && T != Terrain.FLOOR_B && T != Terrain.FLOOR_C && T != Terrain.FLOOR_D && T != Terrain.CRACK && Gt) {
-						var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor((int) D.X + 1, (int) D.Y, Terrain.SOLID));
+						if (T != Terrain.FLOOR_A && T != Terrain.FLOOR_B && T != Terrain.FLOOR_C && T != Terrain.FLOOR_D && T != Terrain.CRACK && Gt) {
+							var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor((int) D.X + 1, (int) D.Y, Terrain.SOLID));
 
-						if (D.GetType() == LDoor.Type.REGULAR) D.SetType(LDoor.Type.ENEMY);
+							if (D.GetType() == LDoor.Type.REGULAR) D.SetType(LDoor.Type.ENEMY);
 
-						Door.AutoLock = D.GetType() == LDoor.Type.ENEMY || D.GetType() == LDoor.Type.BOSS;
-						Door.Lock = D.GetType() == LDoor.Type.LEVEL_LOCKED || D.GetType() == LDoor.Type.LOCKED;
+							Door.AutoLock = D.GetType() == LDoor.Type.ENEMY || D.GetType() == LDoor.Type.BOSS;
+							Door.Lock = D.GetType() == LDoor.Type.LEVEL_LOCKED || D.GetType() == LDoor.Type.LOCKED;
 
-						if (D.GetType() == LDoor.Type.LEVEL_LOCKED)
-							Door.Key = BurningKey.GetType();
-						else if (D.GetType() == LDoor.Type.LOCKED)
-							Door.Key = KeyC.GetType();
-						else if (D.GetType() == LDoor.Type.BOSS) Door.BkDoor = true;
+							if (D.GetType() == LDoor.Type.LEVEL_LOCKED)
+								Door.Key = BurningKey.GetType();
+							else if (D.GetType() == LDoor.Type.LOCKED)
+								Door.Key = KeyC.GetType();
+							else if (D.GetType() == LDoor.Type.BOSS) Door.BkDoor = true;
 
-						Door.Lockable = Door.Lock;
-						Door.Add();
-						Dungeon.Area.Add(Door);
-					}
-				}
-
-				if (D.GetType() == LDoor.Type.SECRET) {
-					Level.Set((int) D.X, (int) D.Y, Terrain.CRACK);
-				}
-				else {
-					var F = Terrain.RandomFloor();
-
-					for (var Yy = -1; Yy <= 1; Yy++)
-					for (var Xx = -1; Xx <= 1; Xx++)
-						if (Math.Abs(Xx) + Math.Abs(Yy) == 1) {
-							byte Tl = Level.Get((int) D.X + Xx, (int) D.Y + Yy);
-
-							if (Tl != Terrain.WALL && Tl != Terrain.CRACK && Tl != Terrain.CHASM) {
-								F = Tl;
-
-								break;
-							}
+							Door.Lockable = Door.Lock;
+							Door.Add();
+							Dungeon.Area.Add(Door);
 						}
+					}
 
-					Level.Set((int) D.X, (int) D.Y, F);
+					if (D.GetType() == LDoor.Type.SECRET) {
+						Level.Set((int) D.X, (int) D.Y, Terrain.CRACK);
+					} else {
+						var F = Terrain.RandomFloor();
+
+						for (var Yy = -1; Yy <= 1; Yy++)
+						for (var Xx = -1; Xx <= 1; Xx++)
+							if (Math.Abs(Xx) + Math.Abs(Yy) == 1) {
+								byte Tl = Level.Get((int) D.X + Xx, (int) D.Y + Yy);
+
+								if (Tl != Terrain.WALL && Tl != Terrain.CRACK && Tl != Terrain.CHASM) {
+									F = Tl;
+
+									break;
+								}
+							}
+
+						Level.Set((int) D.X, (int) D.Y, F);
+					}
 				}
 			}
 		}

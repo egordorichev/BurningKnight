@@ -90,6 +90,28 @@ namespace Lens.util.math {
 			return Float((float) (Math.PI * 2));
 		}
 
+		public static int Chances(float[] chances) {
+			var length = chances.Length;
+			float sum = 0;
+
+			foreach (var chance in chances) {
+				sum += chance;
+			}
+
+			float value = Float(sum);
+			sum = 0;
+
+			for (int i = 0; i < length; i++) {
+				sum += chances[i];
+
+				if (value < sum) {
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
 		public static int Chances(List<float> chances) {
 			var length = chances.Count;
 			float sum = 0;

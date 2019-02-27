@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.boss;
 using BurningKnight.entity.level.rooms.connection;
 using BurningKnight.entity.level.rooms.entrance;
 using BurningKnight.entity.level.rooms.regular;
-using BurningKnight.entity.level.save;
-using BurningKnight.util;
+using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class RegularBuilder : Builder {
@@ -13,66 +13,55 @@ namespace BurningKnight.entity.level.builders {
 		protected EntranceRoom Entrance;
 		protected EntranceRoom Exit;
 		protected float ExtraConnectionChance = 0.2f;
-		protected LampRoom Lamp;
-		protected List<Room> MultiConnection = new List<>();
+		protected List<Room> MultiConnection = new List<Room>();
 		protected float PathLength = 0.5f;
 		protected float[] PathLenJitterChances = {0, 1, 0};
 		protected float[] PathTunnelChances = {1, 3, 1};
 		protected float PathVariance = 45f;
 		protected PrebossRoom Preboss;
-		protected List<Room> SingleConnection = new List<>();
+		protected List<Room> SingleConnection = new List<Room>();
 
-		public void SetupRooms(List Rooms) {
+		public void SetupRooms(List<Room> Rooms) {
 			Entrance = null;
 			Exit = null;
-			Lamp = null;
 			MultiConnection.Clear();
 			SingleConnection.Clear();
 
-			foreach (Room Room in Rooms) Room.SetEmpty();
+			foreach (var Room in Rooms) {
+				Room.SetEmpty();
+			}
 
-			foreach (Room Room in Rooms) {
-				if (Room is BossRoom) {
-					Boss = (BossRoom) Room;
-					Exit = (EntranceRoom) Room;
-				}
-				else if (Room is EntranceRoom && ((EntranceRoom) Room).Exit) {
-					Exit = (EntranceRoom) Room;
-				}
-				else if (Room is EntranceRoom) {
-					Entrance = (EntranceRoom) Room;
-				}
-				else if (Room is PrebossRoom) {
-					Preboss = (PrebossRoom) Room;
-				}
-				else if (Room.GetMaxConnections(Room.Connection.ALL) == 1) {
+			foreach (var Room in Rooms) {
+				if (Room is BossRoom room) {
+					Exit = room;
+				} else if (Room is EntranceRoom entranceRoom && entranceRoom.Exit) {
+					Exit = entranceRoom;
+				} else if (Room is EntranceRoom room1) {
+					Entrance = room1;
+				} else if (Room is PrebossRoom prebossRoom) {
+					Preboss = prebossRoom;
+				} else if (Room.GetMaxConnections(Room.Connection.ALL) == 1) {
 					SingleConnection.Add(Room);
-				}
-				else if (Room.GetMaxConnections(Room.Connection.ALL) > 1) {
+				} else if (Room.GetMaxConnections(Room.Connection.ALL) > 1) {
 					MultiConnection.Add(Room);
 				}
-
-				if (Room is LampRoom) Lamp = (LampRoom) Room;
 			}
 
-			if (Dungeon.Type != Dungeon.Type.INTRO) {
-				WeightRooms(MultiConnection);
+			WeightRooms(MultiConnection);
+			MultiConnection = new List<Room>(MultiConnection);
+		}
 
-				if (GameSave.RunId != 0 || Dungeon.Depth != 1) {
+		protected void WeightRooms(List<Room> Rooms) {
+			foreach (var Room in Rooms) {
+				if (Room is RegularRoom room) {
+					for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
+						Rooms.Add(room);
+					}
 				}
-
-				MultiConnection = new List<>(new LinkedHashSet<>(MultiConnection));
 			}
 		}
 
-		protected void WeightRooms(List Rooms) {
-			foreach (Room Room in Rooms.ToArray(new Room[0]))
-				if (Room is RegularRoom)
-					for (var I = 1; I < ((RegularRoom) Room).GetSize().GetConnectionWeight(); I++)
-						Rooms.Add(Room);
-		}
-
-		public override List Build<Room>(List Init) {
+		public override List<Room> Build<Room>(List<Room> Init) {
 			return Init;
 		}
 
@@ -82,14 +71,14 @@ namespace BurningKnight.entity.level.builders {
 			return this;
 		}
 
-		public RegularBuilder SetPathLength(float Len, float Jitter) {
+		public RegularBuilder SetPathLength(float Len, float[] Jitter) {
 			PathLength = Len;
 			PathLenJitterChances = Jitter;
 
 			return this;
 		}
 
-		public RegularBuilder SetTunnelLength(float Path, float Branch) {
+		public RegularBuilder SetTunnelLength(float[] Path, float[] Branch) {
 			PathTunnelChances = Path;
 			BranchTunnelChances = Branch;
 
@@ -98,32 +87,32 @@ namespace BurningKnight.entity.level.builders {
 
 		public RegularBuilder SetExtraConnectionChance(float Chance) {
 			ExtraConnectionChance = Chance;
-
 			return this;
 		}
 
-		protected bool CreateBranches(List Rooms, List Branchable, List RoomsToBranch, float ConnChances) {
+		protected bool CreateBranches(List<Room> Rooms, List<Room> Branchable, List<Room> RoomsToBranch, float[] ConnChances) {
 			var I = 0;
 			var N = 0;
 			float Angle;
 			int Tries;
 			Room Curr;
-			List<Room> ConnectingRoomsThisBranch = new List<>();
-			float[] ConnectionChances = ConnChances.Clone();
+			
+			var ConnectingRoomsThisBranch = new List<Room>();
+			var ConnectionChances = ConnChances; // fixme: clone
 
-			while (I < RoomsToBranch.Size()) {
-				Room R = RoomsToBranch.Get(I);
+			while (I < RoomsToBranch.Count) {
+				var R = RoomsToBranch[I];
 				N++;
 				ConnectingRoomsThisBranch.Clear();
 
 				do {
-					Curr = Branchable.Get(Random.NewInt(Branchable.Size()));
-				} while (Curr is Org.Rexcellentgames.Burningknight.Entity.Level.Rooms.Connection.ConnectionRoom);
+					Curr = Branchable[Random.Int(Branchable.Count)];
+				} while (Curr is ConnectionRoom);
 
 				var ConnectingRooms = Random.Chances(ConnectionChances);
 
 				if (ConnectingRooms == -1) {
-					ConnectionChances = ConnChances.Clone();
+					ConnectionChances = ConnChances; // fixme: clone?
 					ConnectingRooms = Random.Chances(ConnectionChances);
 				}
 
@@ -139,7 +128,7 @@ namespace BurningKnight.entity.level.builders {
 					} while (Angle == -1 && Tries > 0);
 
 					if (Angle == -1) {
-						foreach (Room C in ConnectingRoomsThisBranch) {
+						foreach (var C in ConnectingRoomsThisBranch) {
 							C.ClearConnections();
 							Rooms.Remove(C);
 						}
@@ -156,8 +145,10 @@ namespace BurningKnight.entity.level.builders {
 					Curr = T;
 				}
 
-				if (ConnectingRoomsThisBranch.Size() != ConnectingRooms) {
-					if (N > 30) return false;
+				if (ConnectingRoomsThisBranch.Count != ConnectingRooms) {
+					if (N > 30) {
+						return false;
+					}
 
 					continue;
 				}
@@ -170,28 +161,34 @@ namespace BurningKnight.entity.level.builders {
 				} while (Angle == -1 && Tries > 0);
 
 				if (Angle == -1) {
-					foreach (Room T in ConnectingRoomsThisBranch) {
+					foreach (var T in ConnectingRoomsThisBranch) {
 						T.ClearConnections();
 						Rooms.Remove(T);
 					}
 
 					ConnectingRoomsThisBranch.Clear();
 
-					if (N > 30) return false;
+					if (N > 30) {
+						return false;
+					}
 
 					continue;
 				}
 
-				foreach (Room AConnectingRoomsThisBranch in ConnectingRoomsThisBranch)
-					if (Random.NewInt(3) <= 1)
+				foreach (var AConnectingRoomsThisBranch in ConnectingRoomsThisBranch) {
+					if (Random.Int(3) <= 1) {
 						Branchable.Add(AConnectingRoomsThisBranch);
+					}
+				}
 
-				if (R.GetMaxConnections(Room.Connection.ALL) > 1 && Random.NewInt(3) == 0) {
-					if (R is RegularRoom)
-						for (var J = 0; J < ((RegularRoom) R).GetSize().GetConnectionWeight(); J++)
-							Branchable.Add(R);
-					else
+				if (R.GetMaxConnections(Room.Connection.ALL) > 1 && Random.Int(3) == 0) {
+					if (R is RegularRoom room) {
+						for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
+							Branchable.Add(room);
+						}
+					} else {
 						Branchable.Add(R);
+					}
 				}
 
 				I++;
@@ -201,7 +198,7 @@ namespace BurningKnight.entity.level.builders {
 		}
 
 		protected float RandomBranchAngle(Room R) {
-			return Random.NewFloat(360f);
+			return Random.Angle();
 		}
 	}
 }

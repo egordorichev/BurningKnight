@@ -1,20 +1,13 @@
 using System;
 using System.Collections.Generic;
-using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.painters;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
-using Random = BurningKnight.util.Random;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.rooms {
 	public abstract class Room : Rect {
-		public Dictionary<Room, LDoor> Connected = new Dictionary<Room, LDoor>();
-		private int Distance = 0;
-		public bool Hidden;
-		public int Id;
-		public int LastNumEnemies;
-
 		public enum Connection {
 			ALL,
 			LEFT,
@@ -23,8 +16,12 @@ namespace BurningKnight.entity.level.rooms {
 			BOTTOM
 		}
 
+		public Dictionary<Room, DoorPlaceholder> Connected = new Dictionary<Room, DoorPlaceholder>();
+		private int Distance = 0;
+		public bool Hidden;
+		public int Id;
+
 		public List<Room> Neighbours = new List<Room>();
-		public int NumEnemies;
 
 		public int GetMinWidth() {
 			return 10;
@@ -50,37 +47,45 @@ namespace BurningKnight.entity.level.rooms {
 			Painter.Fill(Level, this, Terrain.WALL);
 			Painter.Fill(Level, this, 1, Terrain.RandomFloor());
 
-			foreach (LDoor Door in Connected.Values) Door.SetType(LDoor.Type.REGULAR);
+			foreach (var Door in Connected.Values) {
+				Door.Type = DoorPlaceholder.Variant.Regular;
+			}
 		}
 
 		public int GetCurrentConnections(Connection Direction) {
-			if (Direction == Connection.ALL) return Connected.Count;
+			if (Direction == Connection.ALL) {
+				return Connected.Count;
+			}
 
 			var Total = 0;
 
-			foreach (Room R in Connected.Keys) {
+			foreach (var R in Connected.Keys) {
 				var I = Intersect(R);
 
-				if (Direction == Connection.LEFT && I.GetWidth() == 0 && I.Left == Left)
+				if (Direction == Connection.LEFT && I.GetWidth() == 0 && I.Left == Left) {
 					Total++;
-				else if (Direction == Connection.TOP && I.GetHeight() == 0 && I.Top == Top)
+				} else if (Direction == Connection.TOP && I.GetHeight() == 0 && I.Top == Top) {
 					Total++;
-				else if (Direction == Connection.RIGHT && I.GetWidth() == 0 && I.Right == Right)
+				} else if (Direction == Connection.RIGHT && I.GetWidth() == 0 && I.Right == Right) {
 					Total++;
-				else if (Direction == Connection.BOTTOM && I.GetHeight() == 0 && I.Bottom == Bottom) Total++;
+				} else if (Direction == Connection.BOTTOM && I.GetHeight() == 0 && I.Bottom == Bottom) {
+					Total++;
+				}
 			}
 
 			return Total;
 		}
 
 		public int GetLastConnections(Connection Direction) {
-			if (GetCurrentConnections(Connection.ALL) >= GetMaxConnections(Connection.ALL))
+			if (GetCurrentConnections(Connection.ALL) >= GetMaxConnections(Connection.ALL)) {
 				return 0;
+			}
+
 			return GetMaxConnections(Direction) - GetCurrentConnections(Direction);
 		}
 
-		public bool CanConnect(Point P) {
-			return (P.X == Left || P.X == Right) != (P.Y == Top || P.Y == Bottom);
+		public bool CanConnect(Vector2 P) {
+			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
 		}
 
 		public bool CanConnect(Connection Direction) {
@@ -93,28 +98,41 @@ namespace BurningKnight.entity.level.rooms {
 			var I = Intersect(R);
 			var FoundPoint = false;
 
-			foreach (Vector2 P in I.GetPoints())
+			foreach (var P in I.GetPoints()) {
 				if (CanConnect(P) && R.CanConnect(P)) {
 					FoundPoint = true;
 
 					break;
 				}
+			}
 
-			if (!FoundPoint) return false;
+			if (!FoundPoint) {
+				return false;
+			}
 
-			if (I.GetWidth() == 0 && I.Left == Left)
+			if (I.GetWidth() == 0 && I.Left == Left) {
 				return CanConnect(Connection.LEFT) && R.CanConnect(Connection.LEFT);
-			if (I.GetHeight() == 0 && I.Top == Top)
+			}
+
+			if (I.GetHeight() == 0 && I.Top == Top) {
 				return CanConnect(Connection.TOP) && R.CanConnect(Connection.TOP);
-			if (I.GetWidth() == 0 && I.Right == Right)
+			}
+
+			if (I.GetWidth() == 0 && I.Right == Right) {
 				return CanConnect(Connection.RIGHT) && R.CanConnect(Connection.RIGHT);
-			if (I.GetHeight() == 0 && I.Bottom == Bottom)
+			}
+
+			if (I.GetHeight() == 0 && I.Bottom == Bottom) {
 				return CanConnect(Connection.BOTTOM) && R.CanConnect(Connection.BOTTOM);
+			}
+
 			return false;
 		}
 
 		public bool ConnectTo(Room Other) {
-			if (Neighbours.Contains(Other)) return true;
+			if (Neighbours.Contains(Other)) {
+				return true;
+			}
 
 			var I = Intersect(Other);
 			var W = I.GetWidth();
@@ -142,8 +160,8 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public Point GetRandomCell() {
-			var X = Random.NewInt(Left + 1, Right);
-			var Y = Random.NewInt(Top + 1, Bottom);
+			var X = Random.Int(Left + 1, Right);
+			var Y = Random.Int(Top + 1, Bottom);
 
 			return new Point(X, Y);
 		}
@@ -160,7 +178,7 @@ namespace BurningKnight.entity.level.rooms {
 				}
 
 				Point = GetRandomCell();
-			} while (!Dungeon.Level.CheckFor((int) Point.X, (int) Point.Y, Terrain.PASSABLE));
+			} while (!Dungeon.Level.CheckFor(Point.X, Point.Y, Terrain.PASSABLE));
 
 			return Point;
 		}
@@ -178,28 +196,24 @@ namespace BurningKnight.entity.level.rooms {
 
 				Point = GetRandomCell();
 
-				if (Connected.Count == 0) return Point;
+				if (Connected.Count == 0) {
+					return Point;
+				}
 
-				foreach (LDoor Door in Connected.Values) {
+				foreach (var Door in Connected.Values) {
 					var Dx = (int) (Door.X - Point.X);
 					var Dy = (int) (Door.Y - Point.Y);
 					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-					if (D > 3 && Dungeon.Level.CheckFor((int) Point.X, (int) Point.Y, Terrain.PASSABLE)) return Point;
+					if (D > 3 && Dungeon.Level.CheckFor((int) Point.X, (int) Point.Y, Terrain.PASSABLE)) {
+						return Point;
+					}
 				}
 			}
 		}
 
 		public Room GetRandomNeighbour() {
-			return Neighbours[Random.NewInt(Neighbours.Count)];
-		}
-
-		public Dictionary<Room, LDoor> GetConnected() {
-			return Connected;
-		}
-
-		public List<Room> GetNeighbours() {
-			return Neighbours;
+			return Neighbours[Random.Int(Neighbours.Count)];
 		}
 
 		public bool SetSize() {
@@ -215,14 +229,15 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		protected bool SetSize(int MinW, int MaxW, int MinH, int MaxH) {
-			if (MinW < GetMinWidth() || MaxW > GetMaxWidth() || MinH < GetMinHeight() || MaxH > GetMaxHeight() || MinW > MaxW || MinH > MaxH) return false;
+			if (MinW < GetMinWidth() || MaxW > GetMaxWidth() || MinH < GetMinHeight() || MaxH > GetMaxHeight() || MinW > MaxW || MinH > MaxH) {
+				return false;
+			}
 
 			if (Quad()) {
-				int V = Math.Min(ValidateWidth(Random.NewInt(MinW, MaxW) - 1), ValidateHeight(Random.NewInt(MinH, MaxH) - 1));
+				var V = Math.Min(ValidateWidth(Random.Int(MinW, MaxW) - 1), ValidateHeight(Random.Int(MinH, MaxH) - 1));
 				Resize(V, V);
-			}
-			else {
-				Resize(ValidateWidth(Random.NewInt(MinW, MaxW) - 1), ValidateHeight(Random.NewInt(MinH, MaxH) - 1));
+			} else {
+				Resize(ValidateWidth(Random.Int(MinW, MaxW) - 1), ValidateHeight(Random.Int(MinH, MaxH) - 1));
 			}
 
 
@@ -234,7 +249,9 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public bool SetSizeWithLimit(int W, int H) {
-			if (W < GetMinWidth() || H < GetMinHeight()) return false;
+			if (W < GetMinWidth() || H < GetMinHeight()) {
+				return false;
+			}
 
 			SetSize();
 
@@ -242,7 +259,9 @@ namespace BurningKnight.entity.level.rooms {
 				var Ww = ValidateWidth(Math.Min(GetWidth(), W) - 1);
 				var Hh = ValidateHeight(Math.Min(GetHeight(), H) - 1);
 
-				if (Ww >= W || Hh >= H) return false;
+				if (Ww >= W || Hh >= H) {
+					return false;
+				}
 
 				Resize(Ww, Hh);
 			}
@@ -251,11 +270,15 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public void ClearConnections() {
-			foreach (Room R in Neighbours) R.Neighbours.Remove(this);
+			foreach (var R in Neighbours) {
+				R.Neighbours.Remove(this);
+			}
 
 			Neighbours.Clear();
 
-			foreach (Room R in Connected.Keys) R.Connected.Remove(this);
+			foreach (var R in Connected.Keys) {
+				R.Connected.Remove(this);
+			}
 
 			Connected.Clear();
 		}
@@ -263,15 +286,17 @@ namespace BurningKnight.entity.level.rooms {
 		public bool CanPlaceWater(Vector2 P) {
 			return Inside(P);
 		}
-		
+
 		public List<Vector2> WaterPlaceablePoints() {
-			List<Vector2> Points = new List<Vector2>();
+			var Points = new List<Vector2>();
 
 			for (var I = Left + 1; I <= Right - 1; I++)
 			for (var J = Top + 1; J <= Bottom - 1; J++) {
 				var P = new Vector2(I, J);
 
-				if (CanPlaceWater(P)) Points.Add(P);
+				if (CanPlaceWater(P)) {
+					Points.Add(P);
+				}
 			}
 
 			return Points;
@@ -280,15 +305,17 @@ namespace BurningKnight.entity.level.rooms {
 		public bool CanPlaceGrass(Vector2 P) {
 			return Inside(P);
 		}
-		
+
 		public List<Vector2> GrassPlaceablePoints() {
-			List<Vector2> Points = new List<Vector2>();
+			var Points = new List<Vector2>();
 
 			for (var I = Left + 1; I <= Right - 1; I++)
 			for (var J = Top + 1; J <= Bottom - 1; J++) {
 				var P = new Vector2(I, J);
 
-				if (CanPlaceGrass(P)) Points.Add(P);
+				if (CanPlaceGrass(P)) {
+					Points.Add(P);
+				}
 			}
 
 			return Points;
@@ -309,25 +336,27 @@ namespace BurningKnight.entity.level.rooms {
 		protected Rect GetConnectionSpace() {
 			var C = GetDoorCenter();
 
-			return new Rect((int) C.X, (int) C.Y, (int) C.X, (int) C.Y);
+			return new Rect(C.X, C.Y, C.X, C.Y);
 		}
 
 		protected Point GetDoorCenter() {
 			var DoorCenter = new Point(0, 0);
 
-			foreach (LDoor Door in Connected.Values) {
+			foreach (var Door in Connected.Values) {
 				DoorCenter.X += Door.X;
 				DoorCenter.Y += Door.Y;
 			}
 
-			int N = Connected.Count;
+			var N = Connected.Count;
 			var C = new Point(DoorCenter.X / N, DoorCenter.Y / N);
 
-			if (Random.NewFloat() < DoorCenter.X % 1) C.X++;
+			if (Random.Float() < DoorCenter.X % 1) {
+				C.X++;
+			}
 
-
-			if (Random.NewFloat() < DoorCenter.Y % 1) C.Y++;
-
+			if (Random.Float() < DoorCenter.Y % 1) {
+				C.Y++;
+			}
 
 			C.X = (int) MathUtils.Clamp(Left + 1, Right - 1, C.X);
 			C.Y = (int) MathUtils.Clamp(Top + 1, Bottom - 1, C.Y);
@@ -348,39 +377,47 @@ namespace BurningKnight.entity.level.rooms {
 
 			var C = GetConnectionSpace();
 
-			foreach (LDoor Door in GetConnected().Values) {
-				Vector2 Start = new Vector2(Door.X, Door.Y);
+			foreach (var Door in Connected.Values) {
+				var Start = new Vector2(Door.X, Door.Y);
 				Vector2 Mid;
 				Vector2 End;
 
-				if (Start.X == Left) Start.X++;
-				else if (Start.Y == Top) Start.Y++;
-				else if (Start.X == Right) Start.X--;
-				else if (Start.Y == Bottom) Start.Y--;
-
+				if ((int) Start.X == Left) {
+					Start.X++;
+				} else if ((int) Start.Y == Top) {
+					Start.Y++;
+				} else if ((int) Start.X == Right) {
+					Start.X--;
+				} else if ((int) Start.Y == Bottom) {
+					Start.Y--;
+				}
 
 				int RightShift;
 				int DownShift;
 
-				if (Start.X < C.Left) RightShift = (int) (C.Left - Start.X);
-				else if (Start.X > C.Right) RightShift = (int) (C.Right - Start.X);
-				else RightShift = 0;
+				if (Start.X < C.Left) {
+					RightShift = (int) (C.Left - Start.X);
+				} else if (Start.X > C.Right) {
+					RightShift = (int) (C.Right - Start.X);
+				} else {
+					RightShift = 0;
+				}
 
-
-				if (Start.Y < C.Top) DownShift = (int) (C.Top - Start.Y);
-				else if (Start.Y > C.Bottom) DownShift = (int) (C.Bottom - Start.Y);
-				else DownShift = 0;
-
+				if (Start.Y < C.Top) {
+					DownShift = (int) (C.Top - Start.Y);
+				} else if (Start.Y > C.Bottom) {
+					DownShift = (int) (C.Bottom - Start.Y);
+				} else {
+					DownShift = 0;
+				}
 
 				if (Door.X == Left || Door.X == Right) {
 					Mid = new Vector2(Start.X + RightShift, Start.Y);
 					End = new Vector2(Mid.X, Mid.Y + DownShift);
-				}
-				else {
+				} else {
 					Mid = new Vector2(Start.X, Start.Y + DownShift);
 					End = new Vector2(Mid.X + RightShift, Mid.Y);
 				}
-
 
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
 				Painter.DrawLine(Level, Mid, End, Floor, Bold);

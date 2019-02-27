@@ -1,30 +1,41 @@
-using BurningKnight.util;
+using System.Collections.Generic;
+using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class CastleBuilder : RegularBuilder {
-		public override List Build<Room>(List Init) {
+		public override List<Room> Build<Room>(List<Room> Init) {
 			SetupRooms(Init);
 
-			if (Entrance == null) return null;
+			if (Entrance == null) {
+				return null;
+			}
 
-			List<Room> Branchable = new List<>();
+			var Branchable = new List<Room>();
 			Entrance.SetSize();
 			Entrance.SetPos(0, 0);
+			
 			Branchable.Add(Entrance);
-			List<Room> RoomsToBranch = new List<>(MultiConnection);
+			var RoomsToBranch = new List<Room>(MultiConnection);
 
-			if (Exit != null) RoomsToBranch.Add(Exit);
+			if (Exit != null) {
+				RoomsToBranch.Add(Exit);
+			}
 
-			RoomsToBranch.AddAll(SingleConnection);
+			RoomsToBranch.AddRange(SingleConnection);
 
-			if (!this.CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) return null;
+			if (!this.CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
+				return null;
+			}
 
 			FindNeighbours(Init);
 
-			foreach (Room R in Init)
-			foreach (Room N in R.GetNeighbours())
-				if (!N.GetConnected().ContainsKey(R) && Random.NewFloat() < ExtraConnectionChance)
-					R.ConnectWithRoom(N);
+			foreach (Room R in Init) {
+				foreach (Room N in R.Neighbours) {
+					if (!N.Connected().ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+						R.ConnectWithRoom(N);
+					}
+				}
+			}
 
 			return Init;
 		}

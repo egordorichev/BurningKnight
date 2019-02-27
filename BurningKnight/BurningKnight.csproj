@@ -116,8 +116,7 @@
     <Compile Include="entity\level\entities\Table.cs" />
     <Compile Include="entity\level\entities\Tree.cs" />
     <Compile Include="entity\level\entities\UsableProp.cs" />
-    <Compile Include="entity\level\features\Door.cs" />
-    <Compile Include="entity\level\features\LDoor.cs" />
+    <Compile Include="entity\level\DoorPlaceholder.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\painters\Painter.cs" />
     <Compile Include="entity\level\Patch.cs" />
@@ -305,6 +304,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="entity\level\features" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
