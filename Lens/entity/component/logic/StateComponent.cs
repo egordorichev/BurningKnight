@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Lens.entity.component.logic {
-	public class StateComponent<T> : Component where T: Entity {
-		private EntityState<T> state;
+	public class StateComponent : Component {
+		private EntityState state;
 		private Type newState;
 		
 		public Type State {
@@ -14,10 +14,15 @@ namespace Lens.entity.component.logic {
 			base.Update(dt);
 
 			if (newState != null) {
+				if (state != null && newState == state.GetType()) {
+					newState = null;
+					return;
+				}
+				
 				state?.Destroy();
 				
-				state = (EntityState<T>) Activator.CreateInstance(newState);
-				state.Self = (T) Entity;
+				state = (EntityState) Activator.CreateInstance(newState);
+				state.Self = Entity;
 				state.Init();
 				
 				newState = null;

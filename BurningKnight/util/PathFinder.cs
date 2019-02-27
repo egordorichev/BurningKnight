@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.level;
+using BurningKnight.state;
 
 namespace BurningKnight.util {
 	public class PathFinder {
@@ -87,9 +88,9 @@ namespace BurningKnight.util {
 		}
 
 		public static int StepCost(int I) {
-			byte T = Dungeon.Level.LiquidData[I];
-
-			if (T == Terrain.COBWEB) return 9;
+			if ((Tile) Run.Level.Liquid[I] == Tile.Cobweb) {
+				return 9;
+			}
 
 			return 0;
 		}

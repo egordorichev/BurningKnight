@@ -89,6 +89,7 @@
     <Compile Include="input\KeyboardData.cs" />
     <Compile Include="input\MouseButtons.cs" />
     <Compile Include="input\MouseData.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="game\GameState.cs" />

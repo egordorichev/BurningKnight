@@ -9,7 +9,7 @@ namespace BurningKnight.entity.creature {
 			base.AddComponents();
 			
 			AddComponent(new HealthComponent());
-			AddComponent(new StateComponent<Creature>());
+			AddComponent(new StateComponent());
 		}
 		
 		public void Kill() {

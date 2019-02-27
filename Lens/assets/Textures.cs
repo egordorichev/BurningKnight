@@ -12,8 +12,9 @@ namespace Lens.assets {
 		
 		internal static void Load() {
 			var textureDir = FileHandle.FromRoot("Textures/");
-
+			
 			if (textureDir.Exists()) {
+				// fixme: subdirs
 				foreach (var id in textureDir.ListFiles()) {
 					LoadTexture(id);
 				} 	
@@ -27,6 +28,7 @@ namespace Lens.assets {
 
 			if (Assets.LoadOriginalFiles) {
 				var fileStream = new FileStream($"../../Content/Textures/{Path.GetFileName(id)}", FileMode.Open);
+				Log.Error($"../../Content/Textures/{Path.GetFileName(id)}");
 				region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
 				fileStream.Dispose();
 				

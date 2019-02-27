@@ -15,7 +15,7 @@ namespace Lens.entity {
 		public bool OnScreen;
 		public bool Done;
 		
-		public byte Depth;
+		public int Depth;
 		
 		#region Bounds and position
 		

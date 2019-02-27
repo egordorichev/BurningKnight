@@ -16,14 +16,15 @@ namespace Lens {
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;
 		public static Matrix ScreenMatrix;
-		
-		public GameRenderer StateRenderer { get; private set; }
+
+		public GameRenderer StateRenderer;
 		public GameState State { get; private set; }
 		public static Vector2 Viewport;
 		public float Upscale;
 
 		private static Core.Core core;
-		private const float FixedUpdateTime = 1 / 55f;
+		private const float FixedUpdateTime = 0.015f;
+		private float time;
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;
 		private GameState newState;
@@ -82,11 +83,11 @@ namespace Lens {
 			base.Update(gameTime);
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
-			float time = dt;
-
+			time += dt;
+			
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;
-				
+	
 				if (newState != null) {
 					Log.Info("Setting state to " + newState.GetType().Name);
 
@@ -107,7 +108,12 @@ namespace Lens {
 		}
 
 		public void SetState(GameState state) {
-			newState = state;
+			if (State == null) {
+				State = state;
+				State.Init();
+			} else {
+				newState = state;				
+			}
 		}
 
 		public void Quit() {

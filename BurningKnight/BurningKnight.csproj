@@ -60,10 +60,7 @@
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
-    <Compile Include="debug\PassableCommand.cs" />
-    <Compile Include="debug\RoomDebugCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
-    <Compile Include="DesktopLauncher.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
@@ -73,6 +70,7 @@
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
+    <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\item\Item.cs" />
@@ -121,6 +119,7 @@
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
     <Compile Include="Physics.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="save\GameSave.cs" />
     <Compile Include="save\GlobalSave.cs" />
@@ -132,18 +131,6 @@
     <Compile Include="state\InGameState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
-    <Compile Include="ui\UiAchievement.cs" />
-    <Compile Include="ui\UiBanner.cs" />
-    <Compile Include="ui\UiButton.cs" />
-    <Compile Include="ui\UiCheckbox.cs" />
-    <Compile Include="ui\UiChoice.cs" />
-    <Compile Include="ui\UiEntity.cs" />
-    <Compile Include="ui\UiImageButton.cs" />
-    <Compile Include="ui\UiInput.cs" />
-    <Compile Include="ui\UiKey.cs" />
-    <Compile Include="ui\UiMap.cs" />
-    <Compile Include="ui\UiSlider.cs" />
-    <Compile Include="ui\UiTextInput.cs" />
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />

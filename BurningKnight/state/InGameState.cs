@@ -1,4 +1,5 @@
-﻿using Lens.game;
+﻿using BurningKnight.entity.creature.player;
+using Lens.game;
 using Lens.util.camera;
 
 namespace BurningKnight.state {
@@ -6,7 +7,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
-			area.Add(new Camera());
+			//area.Add(new Camera());
+			area.Add(new LocalPlayer());
 		}
 	}
 }

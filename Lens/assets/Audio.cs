@@ -13,7 +13,7 @@ namespace Lens.assets {
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
 				foreach (var sfx in file.ListFiles()) {
-					LoadSfx(Path.GetFileNameWithoutExtension(sfx));
+					LoadSfx(sfx);
 				}
 
 				foreach (var dir in file.ListDirectoryHandles()) {
@@ -41,12 +41,13 @@ namespace Lens.assets {
 
 		private static void LoadSfx(string sfx) {
 			if (Assets.LoadOriginalFiles) {
-				var fileStream = new FileStream($"Content/Sfx/{Path.GetFileName(sfx)}", FileMode.Open);
+				Log.Debug($"Content/Sfx/{Path.GetFileName(sfx)} {sfx}");
+				var fileStream = new FileStream(sfx, FileMode.Open);
 				sounds[Path.GetFileNameWithoutExtension(sfx)] = SoundEffect.FromStream(fileStream);
 				fileStream.Dispose();
 			} else {
 				sfx = Path.GetFileNameWithoutExtension(sfx);
-				sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Music/{sfx}");				
+				sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{sfx}");				
 			}
 		}
 
@@ -99,8 +100,8 @@ namespace Lens.assets {
 		}
 
 		public static bool Repeat {
-			get { return MediaPlayer.IsRepeating; }
-			set { MediaPlayer.IsRepeating = value; }
+			get => MediaPlayer.IsRepeating;
+			set => MediaPlayer.IsRepeating = value;
 		}
 
 		private static Song currentPlaying;

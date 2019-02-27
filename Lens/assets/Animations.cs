@@ -43,6 +43,7 @@ namespace Lens.assets {
 					
 					newFrame.Duration = frame.Duration;
 					newFrame.Texture = new TextureRegion(file.Texture, new Rectangle(j * file.Width, i * file.Height, file.Width, file.Height));
+					newFrame.Bounds = newFrame.Texture.Source;
 					
 					list.Add(newFrame);
 				}

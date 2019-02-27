@@ -32,7 +32,7 @@ namespace BurningKnight.entity.level.builders {
 			Branchable.Add(Entrance);
 
 			if (MultiConnection.Count == 0) {
-				PlaceRoom(Init, Entrance, this.Boss, Random.Angle());
+				PlaceRoom(Init, Entrance, Boss, Random.Angle());
 
 				return Init;
 			}
@@ -41,9 +41,8 @@ namespace BurningKnight.entity.level.builders {
 			RoomsOnPath = Math.Min(RoomsOnPath, MultiConnection.Count);
 			RoomDef Curr = Entrance;
 			var PathTunnels = PathTunnelChances; // fixme: clone?
-			var Boss = Preboss != null;
 
-			for (var I = 0; I <= RoomsOnPath + (Boss ? 1 : 0); I++) {
+			for (var I = 0; I <= RoomsOnPath; I++) {
 				if (I == RoomsOnPath && Exit == null) continue;
 
 				var Tunnels = Random.Chances(PathTunnels);
@@ -55,7 +54,7 @@ namespace BurningKnight.entity.level.builders {
 
 				PathTunnels[Tunnels]--;
 
-				if (I != 0 && (!Boss || I < RoomsOnPath - 1) && Run.Depth != 0)
+				if (I != 0 && Run.Depth != 0)
 					for (var J = 0; J < Tunnels; J++) {
 						var T = ConnectionRoomDef.Create();
 
@@ -68,12 +67,7 @@ namespace BurningKnight.entity.level.builders {
 						Curr = T;
 					}
 
-				RoomDef R;
-
-				if (Boss)
-					R = I > RoomsOnPath ? Exit : (I == RoomsOnPath ? Preboss : MultiConnection[I]);
-				else
-					R = I == RoomsOnPath ? Exit : MultiConnection[I];
+				var R = I == RoomsOnPath ? Exit : MultiConnection[I];
 
 
 				if (PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) return null;

@@ -18,8 +18,6 @@ namespace BurningKnight.debug {
 			Commands.Add(new LevelCommand());
 			Commands.Add(new DebugCommand());
 			Commands.Add(new DieCommand());
-			Commands.Add(new PassableCommand());
-			Commands.Add(new RoomDebugCommand());
 			Commands.Add(new ZoomCommand());
 			Commands.Add(new HurtCommand());
 		}

@@ -1,15 +1,8 @@
-using BurningKnight.entity.creature.player;
-using BurningKnight.entity.item;
-using BurningKnight.entity.level.entities.fx;
-using BurningKnight.game.state;
-using BurningKnight.physics;
 using BurningKnight.save;
-using BurningKnight.util;
-using Lens.util.file;
 
 namespace BurningKnight.entity.level.entities {
 	public class Portal : SaveableEntity {
-		private static TextureRegion Region;
+		/*private static TextureRegion Region;
 		public static LadderFx ExitFx;
 		public static float Al;
 
@@ -197,6 +190,6 @@ namespace BurningKnight.entity.level.entities {
 				X = Sx + 8 + Math.Cos(A) * D;
 				Y = Sy + 8 + Math.Sin(A) * D;
 			}
-		}
+		}*/
 	}
 }

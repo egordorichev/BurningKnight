@@ -8,17 +8,16 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class RegularBuilder : Builder {
-		protected BossRoomDef Boss;
+		protected BossRoom Boss;
 		protected float[] BranchTunnelChances = {2, 2, 1};
-		protected EntranceRoomDef Entrance;
-		protected EntranceRoomDef Exit;
+		protected EntranceRoom Entrance;
+		protected EntranceRoom Exit;
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
 		protected float[] PathLenJitterChances = {0, 1, 0};
 		protected float[] PathTunnelChances = {1, 3, 1};
 		protected float PathVariance = 45f;
-		protected PrebossRoomDef Preboss;
 		protected List<RoomDef> SingleConnection = new List<RoomDef>();
 
 		public void SetupRooms(List<RoomDef> Rooms) {
@@ -32,14 +31,12 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			foreach (var Room in Rooms) {
-				if (Room is BossRoomDef room) {
+				if (Room is BossRoom room) {
 					Exit = room;
-				} else if (Room is EntranceRoomDef entranceRoom && entranceRoom.Exit) {
+				} else if (Room is EntranceRoom entranceRoom && entranceRoom.Exit) {
 					Exit = entranceRoom;
-				} else if (Room is EntranceRoomDef room1) {
+				} else if (Room is EntranceRoom room1) {
 					Entrance = room1;
-				} else if (Room is PrebossRoomDef prebossRoom) {
-					Preboss = prebossRoom;
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) == 1) {
 					SingleConnection.Add(Room);
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) > 1) {
@@ -53,7 +50,7 @@ namespace BurningKnight.entity.level.builders {
 
 		protected void WeightRooms(List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				if (Room is RegularRoomDef room) {
+				if (Room is RegularRoom room) {
 					/*for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
 						Rooms.Add(room);
 					}*/
@@ -184,7 +181,7 @@ namespace BurningKnight.entity.level.builders {
 				}
 
 				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Random.Int(3) == 0) {
-					if (R is RegularRoomDef room) {
+					if (R is RegularRoom room) {
 						/*for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
 							Branchable.Add(room);
 						}*/

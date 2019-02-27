@@ -1,27 +1,16 @@
 using BurningKnight.save;
+using Lens.entity.component.graphics;
 
 namespace BurningKnight.entity.level.entities {
 	public class Prop : SaveableEntity {
-		protected TextureRegion Region;
 		public string Sprite;
 
-		public override void Init() {
-			base.Init();
+		protected override void AddComponents() {
+			base.AddComponents();
 
-			if (Sprite != null) Region = Graphics.GetTexture(Sprite);
-
-			if (Region != null) {
-				W = Region.GetRegionWidth();
-				H = Region.GetRegionHeight();
+			if (Sprite != null) {
+				AddComponent(new ImageComponent(Sprite));
 			}
-		}
-
-		public override void Render() {
-			Graphics.Render(Region, this.X, this.Y);
-		}
-
-		public override void RenderShadow() {
-			Graphics.Shadow(this.X, this.Y, W, H);
 		}
 	}
 }

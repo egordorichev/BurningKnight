@@ -1,5 +1,4 @@
 using System;
-using BurningKnight.entity.level.features;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.util.geometry;
 using Random = Lens.util.math.Random;
@@ -10,23 +9,25 @@ namespace BurningKnight.util {
 		public const bool FILLED = true;
 
 		public static bool[][] Generate(RoomDef R) {
-			var Maze = new bool[R.GetWidth()][];
+			var Maze = new bool[R.Width][];
 
 			for (var X = 0; X < Maze.Length; X++) {
-				Maze[X] = new bool[R.GetHeight()];
+				Maze[X] = new bool[R.Height];
 				
 				for (var Y = 0; Y < Maze[0].Length; Y++)
 					if (X == 0 || X == Maze.Length - 1 || Y == 0 || Y == Maze[0].Length - 1)
 						Maze[X][Y] = FILLED;
 			}
 
-			foreach (LDoor D in R.GetConnected().Values) Maze[D.X - R.Left][D.Y - R.Top] = EMPTY;
+			foreach (var D in R.Connected.Values) {
+				Maze[D.X - R.Left][D.Y - R.Top] = EMPTY;
+			}
 
 			return Generate(Maze);
 		}
 
 		public static bool[][] Generate(Rect R) {
-			return Generate(R.GetWidth() + 1, R.GetHeight() + 1);
+			return Generate(R.Width + 1, R.Height + 1);
 		}
 
 		public static bool[][] Generate(int Width, int Height) {

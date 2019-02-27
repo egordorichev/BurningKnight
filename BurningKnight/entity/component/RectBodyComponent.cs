@@ -4,7 +4,7 @@ using Box2DX.Dynamics;
 
 namespace BurningKnight.entity.component {
 	public class RectBodyComponent : BodyComponent {
-		public RectBodyComponent(float x, float y, float w, float h, bool center = false) {
+		public RectBodyComponent(float x, float y, float w, float h, bool sensor = false, bool center = false) {
 			if (center) {
 				x -= w / 2;
 				y -= h / 2;
@@ -27,6 +27,7 @@ namespace BurningKnight.entity.component {
 
 			ModPoly(polyDef);
 			Body.CreateShape(polyDef);
+			polyDef.IsSensor = sensor;
 		}
 
 		public virtual void ModDef(BodyDef def) {

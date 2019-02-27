@@ -1,6 +1,6 @@
 ﻿namespace Lens.entity.component.logic {
-	public class EntityState<T> where T: Entity {
-		public T Self;
+	public class EntityState {
+		public Entity Self;
 
 		public virtual void Init() {
 			

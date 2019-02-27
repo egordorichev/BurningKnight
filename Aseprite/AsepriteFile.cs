@@ -60,35 +60,33 @@ namespace Aseprite {
 			int textureHeight = layersCount * Height;
 			int width = Width;
 			int height = Height;
-				
-			var pixelData = new Color[textureWidth * textureHeight];
 
-			for (int l = 0; l < layersCount; l++) {
-				for (int f = 0; f < framesCount; f++) {
-					var frame = Frames[f];
+			var pixelData = new Color[textureWidth * (textureHeight + 1)];
 
-					for (int i = 0; i < frame.Cels.Count; i++) {
-						var cel = frame.Cels[i];
+			for (int f = 0; f < framesCount; f++) {
+				var frame = Frames[f];
 
-						var celOriginX = cel.X;
-						var celOriginY = cel.Y;
-						var celWidth = cel.Width;
-						var celHeight = cel.Height;
+				for (int i = 0; i < frame.Cels.Count; i++) {
+					var cel = frame.Cels[i];
 
-						for (int celY = celOriginY; celY < celOriginY + celHeight; celY++) {
-							for (int celX = celOriginX; celX < celOriginX + celWidth; celX++) {
-								int ind = (celX - cel.X) + (celY - cel.Y) * cel.Width;
+					var celWidth = cel.Width;
+					var celHeight = cel.Height;
+					var addX = (Width - cel.Width) / 2;
+					var addY = Height - cel.Height;
+					
+					for (int celY = 0; celY < celHeight; celY++) {
+						for (int celX = 0; celX < celWidth; celX++) {
+							int ind = celX + celY * cel.Width;
 
-								var pixel = cel.Pixels[ind];
-								var pixelIndex = (f * width) + celX + ((l * height) + celY) * textureWidth;
-								pixelData[pixelIndex] = pixel;
-							}
+							var pixel = cel.Pixels[ind];
+							var pixelIndex = (f * width) + celX + addX + ((i * height) + celY + addY) * textureWidth;
+							pixelData[pixelIndex] = pixel;
 						}
 					}
 				}
 			}
 
-			Texture = new Texture2D(AsepriteReader.GraphicsDevice, textureWidth, textureHeight);
+			Texture = new Texture2D(AsepriteReader.GraphicsDevice, textureWidth, textureHeight + 1);
 			Texture.SetData(pixelData);
 		}
 
@@ -401,8 +399,12 @@ namespace Aseprite {
 					pixels[pixel].A = bytes[b + 1];
 				}
 			} else if (Mode == Modes.Indexed) {
-				for (int pixel = 0, paletteIndex = 0; pixel < length; pixel++, paletteIndex += 1) {
-					pixels[pixel] = palette[paletteIndex];
+				for (int pixel = 0; pixel < length; pixel++) {
+					int index = bytes[pixel];
+
+					if (index > 0) {
+						pixels[pixel] = palette[index];						
+					}
 				}
 			}
 		}

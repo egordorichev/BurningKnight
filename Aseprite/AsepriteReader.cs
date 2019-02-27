@@ -68,7 +68,7 @@ namespace Aseprite {
 					int layerIndex = input.ReadInt32();
 					
 					cel = new AsepriteCel {
-						Layer = layersByIndex[layerIndex],
+						Layer = layersByIndex[layerIndex]
 						// ClipRect = new Rectangle(f * width, layerIndex * height, width, height)
 					};
 
@@ -82,7 +82,7 @@ namespace Aseprite {
 					
 					for (int celY = celOriginY; celY < celOriginY + celHeight; celY++) {
 						for (int celX = celOriginX; celX < celOriginX + celWidth; celX++) {
-							Color pixel = input.ReadColor();
+							var pixel = input.ReadColor();
 							//           | x                  | y
 							pixelIndex = (f * width) + celX + ((layerIndex * height) + celY) * textureWidth;
 							pixelData[pixelIndex] = pixel;

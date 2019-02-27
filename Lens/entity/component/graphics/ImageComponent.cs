@@ -7,6 +7,9 @@ namespace Lens.entity.component.graphics {
 		
 		public ImageComponent(string image) {
 			Sprite = Textures.Get(image);
+
+			Entity.Width = Sprite.Source.Width;
+			Entity.Height = Sprite.Source.Height;
 		}
 		
 		public override void Render() {

@@ -1,4 +1,10 @@
-﻿$HEADER$namespace $NAMESPACE$
-{
-  public class $CLASS$ {$END$}
+﻿using System;
+
+namespace Lens {
+	public class Program {
+		[STAThread]
+		public static void Main() {
+			
+		}
+	}
 }

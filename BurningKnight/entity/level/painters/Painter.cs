@@ -289,22 +289,22 @@ namespace BurningKnight.entity.level.painters {
 					         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
 					if (Gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-						var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor(D.X + 1, D.Y, TileFlags.Solid));
+						/*var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor(D.X + 1, D.Y, TileFlags.Solid));
 
 						if (type == DoorPlaceholder.Variant.Regular) {
 							D.Type = type = DoorPlaceholder.Variant.Enemy;
 						}
 
-						Door.AutoLock = type == DoorPlaceholder.Variant.Enemy || type == DoorPlaceholder.Variant.Boss;
-						Door.Lock = type == DoorPlaceholder.Variant.Locked;
+						//Door.AutoLock = type == DoorPlaceholder.Variant.Enemy || type == DoorPlaceholder.Variant.Boss;
+						//Door.Lock = type == DoorPlaceholder.Variant.Locked;
 
 						if (type == DoorPlaceholder.Variant.Locked) {
 							// Door.Key = KeyC.GetType();
 						} else if (type == DoorPlaceholder.Variant.Boss) {
-							Door.BkDoor = true;
+						//	Door.BkDoor = true;
 						}
 
-						Door.Lockable = Door.Lock;
+						//Door.Lockable = Door.Lock;
 						Level.Area.Add(Door);
 					}
 
@@ -325,9 +325,9 @@ namespace BurningKnight.entity.level.painters {
 									}
 								}
 							}
-						}
+						}*/
 
-						Level.Set(D.X, D.Y, F);
+						Level.Set(D.X, D.Y, /*F*/ Tiles.RandomFloor());
 					}
 				}
 			}
@@ -412,15 +412,15 @@ namespace BurningKnight.entity.level.painters {
 		}
 
 		public static void Fill(Level Level, Rect Rect, Tile Value) {
-			Fill(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
+			Fill(Level, Rect.Left, Rect.Top, Rect.Width, Rect.Height, Value);
 		}
 
 		public static void Fill(Level Level, Rect Rect, int M, Tile Value) {
-			Fill(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
+			Fill(Level, Rect.Left + M, Rect.Top + M, Rect.Width - M * 2, Rect.Height - M * 2, Value);
 		}
 
 		public static void Fill(Level Level, Rect Rect, int L, int T, int R, int B, Tile Value) {
-			Fill(Level, Rect.Left + L, Rect.Top + T, Rect.GetWidth() - (L + R), Rect.GetHeight() - (T + B), Value);
+			Fill(Level, Rect.Left + L, Rect.Top + T, Rect.Width - (L + R), Rect.Height - (T + B), Value);
 		}
 
 		public static void DrawLine(Level Level, Vector2 From, Vector2 To, Tile Value, bool Bold = false) {
@@ -457,11 +457,11 @@ namespace BurningKnight.entity.level.painters {
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, Tile Value) {
-			FillEllipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
+			FillEllipse(Level, Rect.Left, Rect.Top, Rect.Width, Rect.Height, Value);
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, int M, Tile Value) {
-			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
+			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.Width - M * 2, Rect.Height - M * 2, Value);
 		}
 
 		public static void FillEllipse(Level Level, int X, int Y, int W, int H, Tile Value) {

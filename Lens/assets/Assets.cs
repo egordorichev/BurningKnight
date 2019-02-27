@@ -52,7 +52,7 @@ namespace Lens.assets {
 			// Locale.Load("en");
 			Textures.Load();
 			Animations.Load();
-			Audio.Load();
+			// Audio.Load();
 		}
 
 		public static void Destroy() {

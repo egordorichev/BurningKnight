@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lens.util;
+using Microsoft.Xna.Framework;
 
 namespace Lens.graphics.animation {
 	public class Animation {
@@ -13,19 +14,16 @@ namespace Lens.graphics.animation {
 		public bool Paused;
 
 		public uint Frame {
-			get { return currentFrame; }
-
-			set {
-				currentFrame = value % (EndFrame - StartFrame + 1);
-			}
+			get => currentFrame;
+			set => currentFrame = value % (EndFrame - StartFrame + 1);
 		}
 		
 		private string layer;
 		private string tag;
 
 		public string Layer {
-			get { return layer; }
-			
+			get => layer;
+
 			set {
 				if (layer == value) {
 					return;
@@ -37,8 +35,8 @@ namespace Lens.graphics.animation {
 		}
 		
 		public string Tag {
-			get { return tag; }
-			
+			get => tag;
+
 			set {
 				if (tag == value) {
 					return;
@@ -52,7 +50,7 @@ namespace Lens.graphics.animation {
 		private float timer;
 
 		public float Timer {
-			get { return timer; }
+			get => timer;
 
 			set {
 				timer = value;

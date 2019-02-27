@@ -6,7 +6,7 @@ namespace Lens.entity {
 		public List<Entity> this[int index] => Lists[index];
 
 		public TagLists() {
-			Lists = new List<Entity>[BitTag.Total];
+			Lists = new List<Entity>[32];
 
 			for (var i = 0; i < Lists.Length; i++) {
 				Lists[i] = new List<Entity>();
