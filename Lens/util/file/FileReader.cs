@@ -6,7 +6,7 @@ namespace Lens.util.file {
 		private BinaryReader stream;
 
 		public FileReader(string path) {
-			stream = new BinaryReader(File.Open(path, FileMode.Create));
+			stream = new BinaryReader(File.Open(path, FileMode.Open));
 		}
 
 		public byte ReadByte() {

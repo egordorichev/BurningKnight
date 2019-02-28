@@ -41,6 +41,8 @@ namespace Lens {
 			Graphics = new GraphicsDeviceManager(this);
 			core = Core.Core.SelectCore(Window, Graphics);
 			core.Init(width, height, fullscreen);
+
+			Content.RootDirectory = "Content/";
 			Assets.Content = Content;
 			
 			SetState(state);

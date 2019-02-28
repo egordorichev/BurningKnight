@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using BurningKnight.assets;
 using Lens.entity;
 using Lens.graphics;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.debug {
 	public class Console : Entity {
@@ -42,11 +44,11 @@ namespace BurningKnight.debug {
 		public override void Render() {
 			for (var I = 0; I < Lines.Count; I++) {
 				var Line = Lines[I];
-				Graphics.Print(Line.Text, assets.Fonts.Small, 2, 2 + (I + (Open ? 1 : 0)) * 10);
+				Graphics.Print(Line.Text, Font.Small, new Vector2(2, 2 + (I + (Open ? 1 : 0)) * 10));
 			}
 
 			if (Open) {
-				Graphics.Print(Input + "|", assets.Fonts.Small, 2, 2);
+				Graphics.Print(Input + "|", Font.Small, new Vector2(2, 2));
 			}
 		}
 

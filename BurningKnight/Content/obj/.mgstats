@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/home/egor/Lens/BurningKnight/Content/Fonts/large.png","/home/egor/Lens/BurningKnight/Content/bin/Fonts/large.xnb","TextureProcessor","Texture2DContent",6078,1048661,0.496288
+"/home/egor/Lens/BurningKnight/Content/Fonts/large_font.fnt","/home/egor/Lens/BurningKnight/Content/bin/Fonts/large_font.xnb","BitmapFontProcessor","BitmapFontProcessorResult",27291,8529,0.196811
+"/home/egor/Lens/BurningKnight/Content/Fonts/small.png","/home/egor/Lens/BurningKnight/Content/bin/Fonts/small.xnb","TextureProcessor","Texture2DContent",4094,1048661,0.116393
+"/home/egor/Lens/BurningKnight/Content/Fonts/small_font.fnt","/home/egor/Lens/BurningKnight/Content/bin/Fonts/small_font.xnb","BitmapFontProcessor","BitmapFontProcessorResult",27024,8529,0.172375

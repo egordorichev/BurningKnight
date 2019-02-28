@@ -36,6 +36,10 @@
       <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -43,13 +47,16 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpFNT, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\SharpFNT.1.1.0\lib\netstandard1.3\SharpFNT.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="assets\Fonts.cs" />
+    <Compile Include="assets\Font.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="debug\Console.cs" />
     <Compile Include="debug\ConsoleCommand.cs" />
@@ -159,6 +166,9 @@
     <None Include="Content/Animations/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content/Fonts/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">
@@ -168,6 +178,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Fonts\large.fnt" />
+    <Content Include="Content\Fonts\large.png" />
+    <Content Include="Content\Fonts\small.fnt" />
+    <Content Include="Content\Fonts\small.png" />
+    <Content Include="Content\Locales\en.json" />
+    <Content Include="Content\Maps\main.tmx" />
+    <Content Include="Content\Maps\tiles.png" />
+    <Content Include="Content\Maps\tiles.tsx" />
+    <Content Include="Content\Sfx\menu\change_parameter.mp3" />
+    <Content Include="Content\Sfx\menu\exit.mp3" />
+    <Content Include="Content\Sfx\menu\goback.mp3" />
+    <Content Include="Content\Sfx\menu\moving.mp3" />
+    <Content Include="Content\Sfx\menu\select.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

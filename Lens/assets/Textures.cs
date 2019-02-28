@@ -33,10 +33,6 @@ namespace Lens.assets {
 		private static void LoadTexture(FileHandle handle) {
 			var region = new TextureRegion();
 			string id = handle.NameWithoutExtension;
-
-			if (handle.Extension != ".png") {
-				return;
-			}
 			
 			var fileStream = new FileStream(handle.FullPath, FileMode.Open);
 			region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);

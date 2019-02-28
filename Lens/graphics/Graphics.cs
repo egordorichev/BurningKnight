@@ -1,6 +1,6 @@
-﻿using Lens.assets;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.BitmapFonts;
 
 namespace Lens.graphics {
 	public static class Graphics {
@@ -42,9 +42,13 @@ namespace Lens.graphics {
 		public static void Render(Texture2D texture, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip) {
 			Batch.Draw(texture, position, texture.Bounds, Color, a, origin, scale, flip, 0);
 		}
+		
+		public static void Print(string str, BitmapFont font, int x, int y) {
+			Batch.DrawString(font, str, new Vector2(x + 1, y - 3), Color);
+		}
 
-		public static void Print(string str, BitmapFont font, float x, float y) {
-			// todo: implement
+		public static void Print(string str, BitmapFont font, Vector2 position) {
+			Batch.DrawString(font, str, new Vector2(position.X + 1, position.Y - 2), Color);
 		}
 	}
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>/home/egor/Lens/BurningKnight/Content/Fonts/large.png</File>
+    <File>/home/egor/Lens/BurningKnight/Content/Fonts/large_font.fnt</File>
+    <File>/home/egor/Lens/BurningKnight/Content/Fonts/small.png</File>
+    <File>/home/egor/Lens/BurningKnight/Content/Fonts/small_font.fnt</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
