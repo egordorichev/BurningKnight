@@ -1,3 +1,5 @@
+using BurningKnight.physics;
+
 namespace BurningKnight.debug {
 	public class DebugCommand : ConsoleCommand {
 		public DebugCommand() {

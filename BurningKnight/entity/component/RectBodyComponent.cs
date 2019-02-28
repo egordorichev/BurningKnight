@@ -1,6 +1,7 @@
 ﻿using Box2DX.Collision;
 using Box2DX.Common;
 using Box2DX.Dynamics;
+using BurningKnight.physics;
 
 namespace BurningKnight.entity.component {
 	public class RectBodyComponent : BodyComponent {

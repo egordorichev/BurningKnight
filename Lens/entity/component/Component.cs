@@ -23,5 +23,9 @@ namespace Lens.entity.component {
 		public virtual void Load(FileReader reader) {
 			
 		}
+
+		public T GetComponent<T>() where T : Component {
+			return Entity.GetComponent<T>();
+		}
 	}
 }

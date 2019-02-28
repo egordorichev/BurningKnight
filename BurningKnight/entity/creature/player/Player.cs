@@ -1,14 +1,18 @@
 using BurningKnight.entity.component;
+using BurningKnight.physics;
+using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature.player {
-	public class Player : Creature {
+	public class Player : Creature, CollisionFilterEntity {
 		protected override void AddComponents() {
 			base.AddComponents();
 			
 			SetGraphicsComponent(new AnimationComponent("gobbo", "gobbo"));
+			
 			AddComponent(new InventoryComponent());
+			AddComponent(new RectBodyComponent(0, 0, 16, 16));
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);
@@ -20,6 +24,10 @@ namespace BurningKnight.entity.creature.player {
 
 		protected class IdleState : EntityState {
 			
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Player);
 		}
 	}
 }

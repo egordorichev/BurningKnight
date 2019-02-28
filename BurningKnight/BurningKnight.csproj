@@ -125,7 +125,11 @@
     <Compile Include="entity\pool\room\ShopRoomPool.cs" />
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
-    <Compile Include="Physics.cs" />
+    <Compile Include="physics\CollisionFilterEntity.cs" />
+    <Compile Include="physics\CollisionListenerEntity.cs" />
+    <Compile Include="physics\EntityContactFilter.cs" />
+    <Compile Include="physics\EntityContactListener.cs" />
+    <Compile Include="physics\Physics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="save\GameSave.cs" />
