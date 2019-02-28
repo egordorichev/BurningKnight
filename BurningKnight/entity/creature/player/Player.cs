@@ -20,11 +20,16 @@ namespace BurningKnight.entity.creature.player {
 			RemoveTag(Tags.LevelSave);
 
 			GetComponent<StateComponent>().State = typeof(IdleState);
-		}
 
+			AlwaysActive = true;
+			AlwaysVisible = true;
+		}
+		
+		#region Player States
 		protected class IdleState : EntityState {
 			
 		}
+		#endregion
 
 		public bool ShouldCollide(Entity entity) {
 			return !(entity is Player);

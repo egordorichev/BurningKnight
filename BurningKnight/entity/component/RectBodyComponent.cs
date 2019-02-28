@@ -1,42 +1,32 @@
-﻿using Box2DX.Collision;
-using Box2DX.Common;
-using Box2DX.Dynamics;
-using BurningKnight.physics;
+﻿using BurningKnight.physics;
+using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
+using VelcroPhysics.Factories;
+using VelcroPhysics.Shared;
 
 namespace BurningKnight.entity.component {
 	public class RectBodyComponent : BodyComponent {
-		public RectBodyComponent(float x, float y, float w, float h, bool sensor = false, bool center = false) {
+		public RectBodyComponent(float x, float y, float w, float h, BodyType type = BodyType.Dynamic, bool sensor = false, bool center = false) {
 			if (center) {
 				x -= w / 2;
 				y -= h / 2;
 			}
-			
-			var def = new BodyDef();
-			ModDef(def);
-			
-			Body = Physics.World.CreateBody(def);
-		
-			var polyDef = new PolygonDef {
-				VertexCount = 4,
-				Vertices = new[] {
-					new Vec2(x, y),
-					new Vec2(x + w, y),
-					new Vec2(x + w, y + h),
-					new Vec2(x, y + h)
-				}
-			};
 
-			ModPoly(polyDef);
-			Body.CreateShape(polyDef);
-			polyDef.IsSensor = sensor;
+			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);
+
+			var vertices = new Vertices(4);
+			
+			vertices.Add(new Vector2(x, y));
+			vertices.Add(new Vector2(x + w, y));
+			vertices.Add(new Vector2(x + w, y + h));
+			vertices.Add(new Vector2(x, y + h));
+			
+			FixtureFactory.AttachPolygon(vertices, 1f, Body);
 		}
 
-		public virtual void ModDef(BodyDef def) {
-			
-		}
-
-		public virtual void ModPoly(PolygonDef def) {
-			
+		public override void Init() {
+			base.Init();
+			Body.UserData = Entity;
 		}
 	}
 }

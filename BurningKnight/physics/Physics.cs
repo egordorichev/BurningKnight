@@ -1,27 +1,29 @@
-﻿using Box2DX.Collision;
-using Box2DX.Common;
-using Box2DX.Dynamics;
+﻿using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.physics {
 	public class Physics {
 		public static World World;
-		public static bool RenderDebug;
-
-		private const int VelocityIterations = 4;
-		private const int PositionIterations = 4;
+		public static PhysicsDebugRenderer Debug;
+		public static bool RenderDebug = true;
 		
 		public static void Init() {
-			World = new World(new AABB(), Vec2.Zero, true);
-			World.SetContactFilter(new EntityContactFilter());
-			World.SetContactListener(new EntityContactListener());
+			World = new World(Vector2.Zero);
+			Debug = new PhysicsDebugRenderer(World);
+			// World.SetContactFilter(new EntityContactFilter());
+			//World.SetContactListener(new EntityContactListener());
+			// World.SetDebugDraw(new PhysicsDebugRenderer());			
 		}
 
 		public static void Update(float dt) {
-			World.Step(dt, VelocityIterations, PositionIterations);
+			World.Step(dt);
+		}
+
+		public static void Render() {
+			Debug.DrawDebugData();
 		}
 
 		public static void Destroy() {
-			World.Dispose();
 			World = null;
 		}
 	}

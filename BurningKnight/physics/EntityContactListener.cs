@@ -1,9 +1,8 @@
-﻿using Box2DX.Dynamics;
-using BurningKnight.entity.component;
+﻿using BurningKnight.entity.component;
 
 namespace BurningKnight.physics {
-	public class EntityContactListener : ContactListener {
-		public override void Add(ContactPoint point) {
+	public class EntityContactListener {
+		/*public override void Add(ContactPoint point) {
 			base.Add(point);
 			
 			var a = point.Shape1.UserData;
@@ -25,6 +24,6 @@ namespace BurningKnight.physics {
 				ac.OnCollisionEnd(bc.Entity);
 				bc.OnCollisionEnd(ac.Entity);
 			}
-		}
+		}*/
 	}
 }

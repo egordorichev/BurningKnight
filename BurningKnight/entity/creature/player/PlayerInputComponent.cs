@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using Lens.entity.component;
 using Lens.input;
+using Lens.util;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.creature.player {
@@ -33,6 +34,9 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			var body = GetComponent<RectBodyComponent>();
+
+			body.Acceleration.X = 0;
+			body.Acceleration.Y = 0;
 
 			if (Input.IsDown(Up)) {
 				body.Acceleration.Y -= Speed;
