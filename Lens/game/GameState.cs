@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.game {
 	public class GameState {
-		protected Area area;
+		protected Area area = new Area();
 
 		public virtual void Init() {
-			area = new Area();
+			
 		}
 
 		public virtual void Destroy() {

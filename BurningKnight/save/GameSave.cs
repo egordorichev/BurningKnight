@@ -1,7 +1,8 @@
+using System;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util.file;
-using Lens.util.math;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.save {
 	public class GameSave {
@@ -25,6 +26,7 @@ namespace BurningKnight.save {
 		public static void Generate(Area area) {
 			Run.KillCount = 0;
 			Run.Time = 0;
+			Run.Id = Math.Max(Run.Id, 0);
 		}
 	}
 }

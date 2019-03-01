@@ -135,6 +135,7 @@
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\InGameState.cs" />
+    <Compile Include="state\LoadState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="util\BArray.cs" />

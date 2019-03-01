@@ -13,7 +13,7 @@ namespace BurningKnight.state {
 				
 		public static int KillCount;
 		public static float Time;
-		public static int Id;
+		public static int Id = -1;
 
 		public static void UpdateLevel() {
 			LastDepth = depth;

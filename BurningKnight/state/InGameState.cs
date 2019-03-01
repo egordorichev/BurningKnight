@@ -13,7 +13,6 @@ namespace BurningKnight.state {
 			Physics.Init();
 			
 			area.Add(new Camera());
-			area.Add(new LocalPlayer());
 		}
 
 		public override void Destroy() {

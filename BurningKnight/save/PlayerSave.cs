@@ -28,7 +28,7 @@ namespace BurningKnight.save {
 		}
 
 		public static void Generate(Area area) {
-			area.Add(new Player());
+			area.Add(new LocalPlayer());
 		}
 	}
 }

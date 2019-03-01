@@ -15,6 +15,14 @@ namespace Lens.entity.component.logic {
 				}				
 			}
 		}
+		
+		public void Become<T>() {
+			var type = typeof(T);
+
+			if (state == null || state.GetType() != type) {
+				newState = type;
+			} 
+		}
 
 		public override void Update(float dt) {
 			base.Update(dt);

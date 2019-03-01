@@ -1,5 +1,6 @@
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util;
 using Lens.util.file;
 
 namespace BurningKnight.entity.level {
@@ -114,6 +115,8 @@ namespace BurningKnight.entity.level {
 			Liquid = new byte[Size];
 			Variants = new byte[Size];
 			Light = new byte[Size];
+			
+			PathFinder.SetMapSize(Width, Height);
 		}
 	}
 }
