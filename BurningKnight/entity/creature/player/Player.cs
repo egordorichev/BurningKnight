@@ -13,16 +13,13 @@ namespace BurningKnight.entity.creature.player {
 			
 			AddComponent(new InventoryComponent());
 			AddComponent(new RectBodyComponent(0, 0, 16, 16));
+			GetComponent<StateComponent>().State = typeof(IdleState);
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);
-					
 			RemoveTag(Tags.LevelSave);
 
-			GetComponent<StateComponent>().State = typeof(IdleState);
-
 			AlwaysActive = true;
-			AlwaysVisible = true;
 		}
 		
 		#region Player States

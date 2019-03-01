@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Lens.entity.component;
 using Lens.entity.component.graphics;
+using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace Lens.entity {
 	public class Entity {
@@ -21,8 +23,8 @@ namespace Lens.entity {
 		#region Bounds and position
 		
 		public Vector2 Position = new Vector2();
-		public float Width;
-		public float Height;
+		public float Width = 16;
+		public float Height = 16;
 
 		public float X {
 			get => Position.X;
@@ -114,6 +116,10 @@ namespace Lens.entity {
 			components = new Dictionary<Type, Component>();
 		}
 
+		public virtual void PostInit() {
+			
+		}
+		
 		public virtual void Destroy() {
 			foreach (var component in components.Values) {
 				component.Destroy();
@@ -131,7 +137,7 @@ namespace Lens.entity {
 		}
 
 		public virtual void RenderDebug() {
-			
+			Graphics.Batch.DrawRectangle(new RectangleF(X + 1, Y + 1, Right - X - 2, Bottom - Y - 2), Color.Wheat);
 		}
 
 		public void RemoveSelf() {
@@ -204,19 +210,19 @@ namespace Lens.entity {
 		
 		#region Simple collision
 
-		public bool Overlaps(Entity entity) {
+		public virtual bool Overlaps(Entity entity) {
 			return !(entity.X > Right ||
 			         entity.Right < X ||
 			         entity.Y > Bottom ||
 			         entity.Bottom < Y);
 		}
 
-		public bool Contains(Entity entity) {
+		public virtual bool Contains(Entity entity) {
 			return entity.X >= X && entity.Right <= Right
 			                     && entity.Y >= Y && entity.Bottom <= Bottom;
 		}
 
-		public bool Contains(Vector2 point) {
+		public virtual bool Contains(Vector2 point) {
 			return point.X >= X && point.X <= Right
 													&& point.Y >= Y && point.Y <= Bottom;
 		}

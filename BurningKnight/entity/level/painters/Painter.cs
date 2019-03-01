@@ -216,7 +216,7 @@ namespace BurningKnight.entity.level.painters {
 			foreach (var I in Cells) {
 				var Count = 1;
 
-				foreach (var N in PathFinder.NEIGHBOURS8) {
+				foreach (var N in PathFinder.Neighbours8) {
 					var K = I + N;
 
 					if (Level.IsInside(K) && Grass[K]) {

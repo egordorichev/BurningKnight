@@ -8,6 +8,11 @@ namespace Lens.util.camera {
 	public class Camera : Entity {
 		public static Camera Instance;
 
+		public new float X => position.X - Width / 2;
+		public new float Y => position.Y - Height / 2;
+		public new float Right => position.X + Width / 2;
+		public new float Bottom => position.Y + Height / 2;
+		
 		#region Camera logic
 
 		public Entity Target;
@@ -29,11 +34,13 @@ namespace Lens.util.camera {
 			Instance = this;
 			Driver = new FollowingDriver();
 
+			Width = Display.Width;
+			Height = Display.Height;
+
 			Viewport = new Viewport();
 			Viewport.Width = Display.Width;
 			Viewport.Height = Display.Height;
 
-			position = new Vector2();
 			origin = new Vector2(Display.Width / 2f, Display.Height / 2f);
 
 			UpdateMatrices();
@@ -137,7 +144,7 @@ namespace Lens.util.camera {
 			}
 		}
 
-		private void UpdateMatrices() {
+		private void UpdateMatrices() {			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
 				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
@@ -156,6 +163,8 @@ namespace Lens.util.camera {
 
 		public override void RenderDebug() {			
 			// Graphics.Batch.DrawRectangle(new RectangleF(position.X - Display.Width / 2f, position.Y - Display.Height / 2f, Display.Width, Display.Height), Color.Wheat);
+			Graphics.Batch.DrawRectangle(new RectangleF(X, Y, Right - X, Bottom - Y), DebugColor);
+
 			Graphics.Batch.DrawRectangle(new RectangleF(position.X - 4, position.Y - 4, 8, 8), DebugColor);
 
 			for (int x = 1; x < 3; x++) {
@@ -167,6 +176,23 @@ namespace Lens.util.camera {
 				float yy = y * Display.Height / 3f + position.Y - Display.Height / 2f;
 				Graphics.Batch.DrawLine(new Vector2(position.X - Display.Width / 2f, yy), new Vector2(position.X + Display.Width / 2f, yy), DebugColor);
 			}
+		}
+		
+		public override bool Overlaps(Entity entity) {
+			return !(entity.X > Right ||
+			         entity.Right < X ||
+			         entity.Y > Bottom ||
+			         entity.Bottom < Y);
+		}
+
+		public override bool Contains(Entity entity) {
+			return entity.X >= X && entity.Right <= Right
+			                     && entity.Y >= Y && entity.Bottom <= Bottom;
+		}
+
+		public override bool Contains(Vector2 point) {
+			return point.X >= X && point.X <= Right
+			                    && point.Y >= Y && point.Y <= Bottom;
 		}
 	}
 }

@@ -46,6 +46,10 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (Body == null) {
+				return;
+			}
+
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;
 			velocity.Y += Acceleration.Y;
@@ -56,8 +60,7 @@ namespace BurningKnight.entity.component {
 
 		public override void Load(FileReader reader) {
 			base.Load(reader);
-			Log.Debug(Entity.Position);
-			Body.SetTransform(Entity.Position, 0);
+			Body?.SetTransform(Entity.Position, 0);
 		}
 	}
 }

@@ -22,9 +22,10 @@ namespace BurningKnight.save {
 			for (var I = 0; I < Count; I++) {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
-				area.Add(entity);
+				area.Add(entity, false);
 				entity.AddComponents();
 				entity.Load(Reader);
+				entity.PostInit();
 			}
 		}
 

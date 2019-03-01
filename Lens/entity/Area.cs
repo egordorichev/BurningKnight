@@ -29,10 +29,16 @@ namespace Lens.entity {
 			entities.Entities.Clear();
 		}
 
-		public void Add(Entity entity) {
+		public void Add(Entity entity, bool postInit = true) {
 			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
+
+			entity.Init();
+
+			if (postInit) {
+				entity.PostInit();
+			}
 		}
 
 		public void Remove(Entity entity) {

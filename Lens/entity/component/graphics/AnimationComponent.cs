@@ -1,5 +1,6 @@
 ﻿using Lens.assets;
 using Lens.graphics.animation;
+using Lens.util;
 
 namespace Lens.entity.component.graphics {
 	public class AnimationComponent : GraphicsComponent {
@@ -20,7 +21,7 @@ namespace Lens.entity.component.graphics {
 				if (layer != null) {
 					Animation.Layer = layer;
 				}
-			}
+			}	
 		}
 
 		public override void Update(float dt) {
@@ -34,6 +35,7 @@ namespace Lens.entity.component.graphics {
 		}
 
 		public override void Render() {
+			Log.Debug("Render");
 			Animation?.Render(Entity.Position);
 		}
 	}

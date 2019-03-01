@@ -36,6 +36,25 @@ namespace BurningKnight.entity.level {
 			Run.Level = this;
 		}
 
+		public override void AddComponents() {
+			base.AddComponents();
+			AddComponent(new LevelBodyComponent());
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			CreateBody();
+			TileUp();
+		}
+
+		public void CreateBody() {
+			GetComponent<LevelBodyComponent>().CreateBody();
+		}
+
+		public void TileUp() {
+			LevelTiler.TileUp(this);
+		}
+
 		public void Set(int x, int y, Tile value, bool liquid = false) {
 			if (liquid) {
 				Liquid[ToIndex(x, y)] = (byte) value;
