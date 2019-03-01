@@ -163,6 +163,17 @@ namespace Lens.entity {
 			return (T) components[typeof(T)];
 		}
 
+		public bool TryGetCompoenent<T>(out T t) where T : Component {
+			if (components.TryGetValue(typeof(T), out var tmp)) {
+				t = (T) tmp;
+				return true;
+			}
+
+
+			t = default(T);
+			return false;
+		}
+
 		#endregion
 		
 		#region Distance and angle

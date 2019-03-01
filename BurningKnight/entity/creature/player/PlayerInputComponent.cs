@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using Lens.entity.component;
+using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework.Input;
@@ -52,6 +53,10 @@ namespace BurningKnight.entity.creature.player {
 			
 			if (Input.IsDown(Right)) {
 				body.Acceleration.X += Speed;
+			}
+
+			if (body.Acceleration.Length() > 0.1f) {
+				Entity.GetComponent<StateComponent>().State = Player.RunState;
 			}
 		}
 	}

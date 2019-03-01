@@ -9,7 +9,7 @@ namespace BurningKnight.entity.creature.player {
 		protected override void AddComponents() {
 			base.AddComponents();
 			
-			SetGraphicsComponent(new AnimationComponent("gobbo", "gobbo"));
+			SetGraphicsComponent(new AnimationComponent("gobbo", "body"));
 			
 			AddComponent(new InventoryComponent());
 			AddComponent(new RectBodyComponent(0, 0, 16, 16));
@@ -26,7 +26,15 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		#region Player States
-		protected class IdleState : EntityState {
+		public class IdleState : EntityState {
+			
+		}
+		
+		public class RunState : EntityState {
+			
+		}
+		
+		public class RollState : EntityState {
 			
 		}
 		#endregion

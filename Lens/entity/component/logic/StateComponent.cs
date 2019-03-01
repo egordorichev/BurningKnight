@@ -1,4 +1,5 @@
 ﻿using System;
+using Lens.entity.component.graphics;
 
 namespace Lens.entity.component.logic {
 	public class StateComponent : Component {
@@ -7,23 +8,27 @@ namespace Lens.entity.component.logic {
 		
 		public Type State {
 			get => state.GetType();
-			set => newState = value;
+			
+			set {
+				if (state == null || state.GetType() != value) {
+					newState = value;
+				}				
+			}
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (newState != null) {
-				if (state != null && newState == state.GetType()) {
-					newState = null;
-					return;
-				}
-				
 				state?.Destroy();
 				
 				state = (EntityState) Activator.CreateInstance(newState);
 				state.Self = Entity;
 				state.Init();
+
+				if (Entity.TryGetCompoenent(out AnimationComponent anim)) {
+					anim.Animation.Tag = state.GetType().Name.ToLower().Replace("state", "");
+				}
 				
 				newState = null;
 			}
