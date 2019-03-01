@@ -15,12 +15,17 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.math;
 
 namespace BurningKnight.entity.level {
 	public abstract class RegularLevel : Level {
 		private List<RoomDef> rooms;
+
+		public RegularLevel(string tileset) {
+			var animation = Animations.Get(tileset);
+		}
 		
 		public void Generate(Area area, int Attempt) {
 			rooms = null;

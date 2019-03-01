@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity;
+using BurningKnight.entity.creature.player;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
@@ -19,7 +20,7 @@ namespace BurningKnight.state {
 			var cursor = new Cursor();
 			Ui.Add(cursor);
 			
-			//Camera.Instance.Targets.Add(LocalPlayer.Locate(Area));
+			Camera.Instance.Targets.Add(LocalPlayer.Locate(Area));
 			Camera.Instance.Targets.Add(cursor);
 		}
 

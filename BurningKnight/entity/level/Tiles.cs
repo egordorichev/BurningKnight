@@ -12,6 +12,10 @@ namespace BurningKnight.entity.level {
 			return lastFloor = Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
 		}
 
+		public static Tile RandomWall() {
+			return Random.Chance(50) ? Tile.WallA : Tile.WallB;
+		}
+
 		public static Tile RandomNewFloor() {
 			var tiles = new Tile[2];
 

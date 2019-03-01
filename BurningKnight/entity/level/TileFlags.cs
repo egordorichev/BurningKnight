@@ -15,7 +15,8 @@ namespace BurningKnight.entity.level {
 			flags[(int) Tile.Dirt] = Passable | LiquidLayer;
 			flags[(int) Tile.Grass] = Passable | Burns | LiquidLayer;
 			flags[(int) Tile.FloorA] = Passable;
-			flags[(int) Tile.Wall] = Solid | High | BreaksView;
+			flags[(int) Tile.WallA] = Solid | High | BreaksView;
+			flags[(int) Tile.WallB] = Solid | High | BreaksView;
 			flags[(int) Tile.Crack] = Solid | High | BreaksView;
 			flags[(int) Tile.Water] = Passable | LiquidLayer;
 			flags[(int) Tile.Venom] = LiquidLayer;

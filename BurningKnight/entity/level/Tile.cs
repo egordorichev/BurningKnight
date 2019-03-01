@@ -1,6 +1,7 @@
 namespace BurningKnight.entity.level {
 	public enum Tile {
-		Wall = 1,
+		WallA = 1,
+		WallB,
 		Crack,
 		Dirt,
 		FloorA,

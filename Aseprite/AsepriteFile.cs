@@ -60,9 +60,10 @@ namespace Aseprite {
 			int textureHeight = layersCount * Height;
 			int width = Width;
 			int height = Height;
+			int size = textureWidth * (textureHeight + 1);
 
-			var pixelData = new Color[textureWidth * (textureHeight + 1)];
-
+			var pixelData = new Color[size];
+			
 			for (int f = 0; f < framesCount; f++) {
 				var frame = Frames[f];
 
@@ -80,7 +81,8 @@ namespace Aseprite {
 
 							var pixel = cel.Pixels[ind];
 							var pixelIndex = (f * width) + celX + addX + ((i * height) + celY + addY) * textureWidth;
-							pixelData[pixelIndex] = pixel;
+
+							pixelData[pixelIndex] = pixel;								
 						}
 					}
 				}
@@ -176,6 +178,7 @@ namespace Aseprite {
 				// Some temporary holders
 				var colorBuffer = new byte[Width * Height * (int) Mode];
 				var palette = new Color[256];
+				Console.WriteLine($"{colorBuffer.Length} {Width} {Height} {(int) Mode}");
 
 				IUserData lastUserData = null;
 
@@ -227,8 +230,7 @@ namespace Aseprite {
 
 							lastUserData = layer;
 							Layers.Add(layer);
-						}
-						else if (chunkType == Chunks.Cel) {
+						}	else if (chunkType == Chunks.Cel) {
 							// Cell
 							var cel = new AsepriteCel();
 
@@ -245,13 +247,17 @@ namespace Aseprite {
 								cel.Width = WORD();
 								cel.Height = WORD();
 
-								var byteCount = cel.Width * cel.Height * (int) Mode;
 
+								Console.WriteLine($"{cel.Width} {cel.Height}");
+								
+								var byteCount = cel.Width * cel.Height * (int) Mode;
+								
 								if (celType == CelTypes.RawCel) {
 									reader.Read(colorBuffer, 0, byteCount);
 								} else {
 									SEEK(2);
 									var deflate = new DeflateStream(reader.BaseStream, CompressionMode.Decompress);
+									Console.WriteLine($"{colorBuffer.Length} {byteCount}");
 									deflate.Read(colorBuffer, 0, byteCount);
 								}
 

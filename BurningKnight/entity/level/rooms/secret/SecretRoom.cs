@@ -5,7 +5,7 @@ using BurningKnight.entity.pool.room;
 namespace BurningKnight.entity.level.rooms.secret {
 	public class SecretRoom : RoomDef {
 		public override void Paint(Level Level) {
-			Painter.Fill(Level, this, Tile.Wall);
+			Painter.Fill(Level, this, Tiles.RandomWall());
 			Painter.Fill(Level, this, 1, Tile.FloorD);
 
 			foreach (var Door in Connected.Values) {

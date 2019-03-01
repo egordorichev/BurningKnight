@@ -3,7 +3,7 @@ using BurningKnight.entity.level.painters;
 namespace BurningKnight.entity.level.rooms.regular {
 	public class RegularRoom : RoomDef {
 		public override void Paint(Level Level) {
-			Painter.Fill(Level, this, Tile.Wall);
+			Painter.Fill(Level, this, Tiles.RandomWall());
 			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
 
 			foreach (var Door in Connected.Values) {

@@ -151,11 +151,11 @@ namespace Lens.util.camera {
 		private void UpdateMatrices() {			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
+				 -new Vector2((int) System.Math.Round(position.X), (int) System.Math.Round(position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
 				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
 				Matrix.CreateTranslation(
-				 new Vector3(new Vector2((int) System.Math.Floor(origin.X), (int) System.Math.Floor(origin.Y)), 0));
+				 new Vector3(new Vector2((int) System.Math.Round(origin.X), (int) System.Math.Round(origin.Y)), 0));
 
 			inverse = Matrix.Invert(matrix);
 			changed = false;

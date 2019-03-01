@@ -93,6 +93,7 @@
     <Compile Include="entity\level\DoorPlaceholder.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
+    <Compile Include="entity\level\levels\CastleLevel.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />
     <Compile Include="entity\level\painters\Painter.cs" />
     <Compile Include="entity\level\Patch.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="entity\level\TileFlags.cs" />
     <Compile Include="entity\level\Tile.cs" />
     <Compile Include="entity\level\Tiles.cs" />
+    <Compile Include="entity\level\Tileset.cs" />
+    <Compile Include="entity\level\Tilesets.cs" />
     <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\MobHub.cs" />
     <Compile Include="entity\pool\MobPool.cs" />

@@ -9,7 +9,7 @@ namespace BurningKnight.entity.level.rooms.connection {
 		public override void Paint(Level Level) {
 			Fill(Level);
 			var Fl = Random.Chance(25) ? Random.Chance(33) ? Tile.Chasm 
-				: Random.Chance(50) ? Tile.Wall : Tile.Lava : Tiles.RandomFloor();
+				: Random.Chance(50) ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloor();
 
 			if (Width > 4 && Height > 4 && Random.Chance(50)) {
 				PaintTunnel(Level, Fl, true);
