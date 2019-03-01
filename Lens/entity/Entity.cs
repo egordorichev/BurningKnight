@@ -107,6 +107,10 @@ namespace Lens.entity {
 			AddComponents();
 		}
 
+		public virtual void PostInit() {
+			
+		}
+
 		protected virtual void AddComponents() {
 			
 		}

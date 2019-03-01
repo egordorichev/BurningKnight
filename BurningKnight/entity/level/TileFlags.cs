@@ -34,6 +34,10 @@ namespace BurningKnight.entity.level {
 		public static bool Matches(this Tile tile, int flag) {
 			return (flags[(int) tile] & flag) == flag;
 		}
+		
+		public static bool Matches(byte tile, int flag) {
+			return (flags[tile] & flag) == flag;
+		}
 	
 		public static bool Matches(this Tile tile, params Tile[] tiles) {
 			foreach (var type in tiles) {

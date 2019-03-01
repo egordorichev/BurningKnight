@@ -45,6 +45,10 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (Body == null) {
+				return;
+			}
+
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;
 			velocity.Y += Acceleration.Y;

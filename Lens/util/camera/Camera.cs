@@ -8,6 +8,11 @@ namespace Lens.util.camera {
 	public class Camera : Entity {
 		public static Camera Instance;
 
+		public new float X => position.X - Width / 2;
+		public new float Y => position.Y - Height / 2;
+		public new float Right => position.X + Width / 2;
+		public new float Bottom => position.Y + Height / 2;
+		
 		#region Camera logic
 
 		public Entity Target;
@@ -29,11 +34,13 @@ namespace Lens.util.camera {
 			Instance = this;
 			Driver = new FollowingDriver();
 
+			Width = Display.Width;
+			Height = Display.Height;
+
 			Viewport = new Viewport();
 			Viewport.Width = Display.Width;
 			Viewport.Height = Display.Height;
 
-			position = new Vector2();
 			origin = new Vector2(Display.Width / 2f, Display.Height / 2f);
 
 			UpdateMatrices();
@@ -137,7 +144,7 @@ namespace Lens.util.camera {
 			}
 		}
 
-		private void UpdateMatrices() {
+		private void UpdateMatrices() {			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
 				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *

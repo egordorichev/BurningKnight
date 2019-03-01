@@ -23,8 +23,9 @@ namespace BurningKnight.save {
 			for (var I = 0; I < Count; I++) {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.ReflectionOnlyGetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
-				area.Add(entity);
+				area.Add(entity, false);
 				entity.Load(Reader);
+				entity.PostInit();
 			}
 		}
 
