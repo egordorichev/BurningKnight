@@ -20,10 +20,10 @@ namespace BurningKnight.save {
 			var Count = Reader.ReadInt32();
 
 			for (var I = 0; I < Count; I++) {
-				var name = $"BurningKnight.{Reader.ReadString()}";
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.ReflectionOnlyGetType(name, true, false));
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
 				area.Add(entity);
+				entity.AddComponents();
 				entity.Load(Reader);
 			}
 		}

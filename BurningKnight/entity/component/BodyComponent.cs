@@ -2,11 +2,12 @@
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.component {
-	public class BodyComponent : Component {
+	public class BodyComponent : SaveableComponent {
 		public Body Body;
 		public Vector2 Acceleration = new Vector2();
 		
@@ -50,8 +51,13 @@ namespace BurningKnight.entity.component {
 			velocity.Y += Acceleration.Y;
 			
 			Body.LinearVelocity = velocity;
-
 			Entity.Position = Body.Position;
+		}
+
+		public override void Load(FileReader reader) {
+			base.Load(reader);
+			Log.Debug(Entity.Position);
+			Body.SetTransform(Entity.Position, 0);
 		}
 	}
 }

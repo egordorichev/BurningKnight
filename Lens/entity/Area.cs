@@ -30,6 +30,7 @@ namespace Lens.entity {
 		}
 
 		public void Add(Entity entity) {
+			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
 		}

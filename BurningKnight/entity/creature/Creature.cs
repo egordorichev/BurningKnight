@@ -5,7 +5,7 @@ using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity {
-		protected override void AddComponents() {
+		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddComponent(new HealthComponent());

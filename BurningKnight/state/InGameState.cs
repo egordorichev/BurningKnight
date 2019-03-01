@@ -12,7 +12,6 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-			Physics.Init();
 			
 			Area.Add(new Camera());
 		}

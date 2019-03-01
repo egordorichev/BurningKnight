@@ -8,7 +8,7 @@ namespace BurningKnight.entity.level {
 		public int MapW;
 		public int MapH;
 		
-		protected override void AddComponents() {
+		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddTag(Tags.Room);

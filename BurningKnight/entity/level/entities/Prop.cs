@@ -5,7 +5,7 @@ namespace BurningKnight.entity.level.entities {
 	public class Prop : SaveableEntity {
 		public string Sprite;
 
-		protected override void AddComponents() {
+		public override void AddComponents() {
 			base.AddComponents();
 
 			if (Sprite != null) {

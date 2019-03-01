@@ -44,8 +44,8 @@ namespace Lens {
 
 			Content.RootDirectory = "Content/";
 			Assets.Content = Content;
-			
-			SetState(state);
+
+			newState = state;
 		}
 
 		protected override void LoadContent() {

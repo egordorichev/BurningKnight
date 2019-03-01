@@ -32,7 +32,7 @@ namespace BurningKnight.entity.item {
 			// TODO: id to pascal_case
 		}
 
-		protected override void AddComponents() {
+		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddComponent(new ImageComponent(Id));

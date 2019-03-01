@@ -1,10 +1,11 @@
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
 	public class SaveableEntity : Entity {
-		protected override void AddComponents() {
+		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddTag(Tags.LevelSave);

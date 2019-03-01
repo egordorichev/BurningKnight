@@ -1,4 +1,5 @@
 using System.Threading;
+using BurningKnight.physics;
 using BurningKnight.save;
 using Lens;
 using Lens.entity;
@@ -11,6 +12,7 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Physics.Init();
 			gameArea = new Area();
 			
 			var thread = new Thread(() => {

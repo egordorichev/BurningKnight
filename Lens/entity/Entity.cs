@@ -102,14 +102,16 @@ namespace Lens.entity {
 		#region Entity logic
 
 		private GraphicsComponent graphicsComponent;
-		protected Dictionary<Type, Component> components = new Dictionary<Type, Component>();
+		protected Dictionary<Type, Component> components;
 		
 		public virtual void Init() {
-			AddComponents();
+			if (components == null) {
+				AddComponents();
+			}
 		}
 
-		protected virtual void AddComponents() {
-			
+		public virtual void AddComponents() {
+			components = new Dictionary<Type, Component>();
 		}
 
 		public virtual void Destroy() {

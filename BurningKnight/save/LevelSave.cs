@@ -8,7 +8,7 @@ namespace BurningKnight.save {
 		private static int I;
 
 		public static void Save(Area area, FileWriter Writer) {
-			var all = area.Tags[Tags.PlayerSave];
+			var all = area.Tags[Tags.LevelSave];
 			Writer.WriteInt32(all.Count);
 
 			foreach (SaveableEntity Entity in all) {
@@ -21,9 +21,10 @@ namespace BurningKnight.save {
 			var Count = Reader.ReadInt32();
 
 			for (var I = 0; I < Count; I++) {
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.ReflectionOnlyGetType($"BurningKnight.{Reader.ReadString()}", true, false));
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
 				area.Add(entity);
+				entity.AddComponents();
 				entity.Load(Reader);
 			}
 		}
