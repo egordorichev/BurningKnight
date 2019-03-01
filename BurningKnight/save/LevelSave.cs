@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity;
+using BurningKnight.entity.level.levels;
 using Lens.entity;
 using Lens.util.file;
 
@@ -32,9 +33,15 @@ namespace BurningKnight.save {
 
 		public static void Generate(Area area) {
 			try {
+				var level = new CastleLevel();
+				area.Add(level);
+				
+				level.Generate(area, I);
+				
 				// todo: generate level
 				I = 0;
-			} catch (Exception) {
+			} catch (Exception e) {
+				Console.WriteLine(e);
 				Generate(area);
 				I++;
 			}

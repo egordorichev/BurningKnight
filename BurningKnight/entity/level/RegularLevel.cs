@@ -29,9 +29,6 @@ namespace BurningKnight.entity.level {
 		
 		public void Generate(Area area, int Attempt) {
 			rooms = null;
-			
-			Area.Destroy();
-			Area.Add(Run.Level);
 
 			Build();
 			Paint();
@@ -52,7 +49,7 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected void Build() {
-			var Builder = GetBuilder();
+			var Builder = new LineBuilder(); // GetBuilder();
 			var Rooms = CreateRooms();
 
 			// if (Dungeon.Depth > -2 && (GameSave.RunId != 0 || Dungeon.Depth != 1)) Collections.Shuffle(Rooms, new Java.Util.Random(ItemSelectState.StringToSeed(Random.GetSeed())));
@@ -92,24 +89,21 @@ namespace BurningKnight.entity.level {
 		protected List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
 
-			if (Run.Depth > -1) {
-				/*Entrance = EntranceRoomPool.Instance.Generate();
-				Exit = EntranceRoomPool.Instance.Generate();
-				((EntranceRoomDef) Exit).Exit = true;
-				Rooms.Add(Entrance);
-				Rooms.Add(Exit);*/
-			}
+			var Entrance = EntranceRoomPool.Instance.Generate();
+			var Exit = EntranceRoomPool.Instance.Generate();
+			
+			Exit.Exit = true;
+			Rooms.Add(Entrance);
+			Rooms.Add(Exit);
 
 			/*if (Dungeon.Depth > 0)
 				if (GlobalSave.IsFalse("all_npcs_saved") && (Random.Chance(25) || Engine.Version.Debug))
 					Rooms.Add(new NpcSaveRoomDef());*/
 
-			var Bk = false; // Random.GetSeed().Equals("BK");
-
-			var Regular = Bk ? 0 : GetNumRegularRooms();
-			var Special = Bk ? 0 : GetNumSpecialRooms();
+			var Regular = GetNumRegularRooms();
+			var Special = GetNumSpecialRooms();
 			var Connection = GetNumConnectionRooms();
-			var Secret = Bk ? 0 : GetNumSecretRooms();
+			var Secret = GetNumSecretRooms();
 			Log.Info("Creating r" + Regular + " sp" + Special + " c" + Connection + " sc" + Secret + " rooms");
 
 			for (var I = 0; I < Regular; I++) {
@@ -123,7 +117,7 @@ namespace BurningKnight.entity.level {
 				if (Room != null) Rooms.Add(Room);
 			}
 
-			if (Run.Depth > 0 && !Bk) {
+			if (Run.Depth > 0) {
 				var Room = TreasureRoomPool.Instance.Generate();
 				Rooms.Add(Room);
 
@@ -171,7 +165,7 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected int GetNumRegularRooms() {
-			return Run.Depth <= 0 ? 0 : Random.Int(3, 6);
+			return Random.Int(3, 6);
 		}
 
 		protected int GetNumSpecialRooms() {

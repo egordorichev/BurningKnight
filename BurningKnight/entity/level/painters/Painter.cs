@@ -87,7 +87,8 @@ namespace BurningKnight.entity.level.painters {
 			
 			Level.Setup();
 
-			foreach (var Room in Rooms) {
+			for (int i = Rooms.Count - 1; i >= 0; i--) {
+				var Room = Rooms[i];
 				PlaceDoors(Room);
 				Room.Paint(Level);
 
@@ -371,18 +372,19 @@ namespace BurningKnight.entity.level.painters {
 		}
 
 		public static void SetBold(Level Level, int X, int Y, Tile Value) {
-			for (var Yy = Y - 1; Yy < Y + 2; Yy++)
-			for (var Xx = X - 1; Xx < X + 2; Xx++) {
-				Tile T = Level.Get(X, Y);
+			for (var Yy = Y - 1; Yy < Y + 2; Yy++) {
+				for (var Xx = X - 1; Xx < X + 2; Xx++) {
+					var T = Level.Get(X, Y);
 
-				if (T != Value) {
-					if (Xx != X || Yy != Y) {
-						if (T == Tile.Wall) {
-							continue;
+					if (T != Value) {
+						if (Xx != X || Yy != Y) {
+							if (T == Tile.WallA || T == Tile.WallB) {
+								continue;
+							}
 						}
-					}
 
-					Set(Level, Xx, Yy, Value);
+						Set(Level, Xx, Yy, Value);
+					}
 				}
 			}
 		}

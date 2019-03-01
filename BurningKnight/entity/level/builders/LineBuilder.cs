@@ -21,7 +21,6 @@ namespace BurningKnight.entity.level.builders {
 
 			if (Entrance == null) {
 				Log.Error("No entrance!");
-
 				return null;
 			}
 
@@ -58,7 +57,7 @@ namespace BurningKnight.entity.level.builders {
 					for (var J = 0; J < Tunnels; J++) {
 						var T = ConnectionRoomDef.Create();
 
-						if (PlaceRoom(Init, Curr, T, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
+						if ((int) PlaceRoom(Init, Curr, T, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
 							return null;
 						}
 
@@ -70,7 +69,9 @@ namespace BurningKnight.entity.level.builders {
 				var R = I == RoomsOnPath ? Exit : MultiConnection[I];
 
 
-				if (PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) return null;
+				if ((int) PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
+					return null;
+				}
 
 				Branchable.Add(R);
 				Curr = R;

@@ -178,7 +178,6 @@ namespace Aseprite {
 				// Some temporary holders
 				var colorBuffer = new byte[Width * Height * (int) Mode];
 				var palette = new Color[256];
-				Console.WriteLine($"{colorBuffer.Length} {Width} {Height} {(int) Mode}");
 
 				IUserData lastUserData = null;
 
@@ -246,9 +245,6 @@ namespace Aseprite {
 							if (celType == CelTypes.RawCel || celType == CelTypes.CompressedImage) {
 								cel.Width = WORD();
 								cel.Height = WORD();
-
-
-								Console.WriteLine($"{cel.Width} {cel.Height}");
 								
 								var byteCount = cel.Width * cel.Height * (int) Mode;
 								
@@ -257,7 +253,6 @@ namespace Aseprite {
 								} else {
 									SEEK(2);
 									var deflate = new DeflateStream(reader.BaseStream, CompressionMode.Decompress);
-									Console.WriteLine($"{colorBuffer.Length} {byteCount}");
 									deflate.Read(colorBuffer, 0, byteCount);
 								}
 

@@ -49,15 +49,15 @@ namespace BurningKnight.entity.level.builders {
 		}
 
 		protected void WeightRooms(List<RoomDef> Rooms) {
-			foreach (var Room in Rooms) {
+			/*foreach (var Room in Rooms) {
 				if (Room is RegularRoom room) {
-					/*for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
+					for (var I = 1; I < room.GetSize().GetConnectionWeight(); I++) {
 						Rooms.Add(room);
-					}*/
+					}
 					
 					Rooms.Add(room);
 				}
-			}
+			}*/
 		}
 
 		public override List<RoomDef> Build(List<RoomDef> Init) {
