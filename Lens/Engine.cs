@@ -54,6 +54,7 @@ namespace Lens {
 		}
 		
 		protected override void UnloadContent() {
+			State?.Destroy();
 			StateRenderer?.Destroy();
 			
 			Assets.Destroy();

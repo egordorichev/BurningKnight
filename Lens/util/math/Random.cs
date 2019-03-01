@@ -20,9 +20,14 @@ namespace Lens.util.math {
 		
 		static Random() {
 			Seed = GenerateSeed();
+			Log.Debug($"Random seed is {seed}");
 		}
 		
 		public static int ParseSeed(string seed) {
+			if (seed == null) {
+				return 0;
+			}
+			
 			int value = 0;
 
 			foreach (var c in seed) {

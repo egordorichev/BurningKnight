@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lens.entity {
 	public class BitTag {
-		public BitTag[] Tags = new BitTag[32];
+		public static BitTag[] Tags = new BitTag[32];
 		public static byte Total;
 		
 		private static Dictionary<string, BitTag> byName = new Dictionary<string, BitTag>(StringComparer.OrdinalIgnoreCase);
@@ -32,7 +32,7 @@ namespace Lens.entity {
 		}
 		
 		public static implicit operator int(BitTag tag) {
-			return tag.Value;
+			return tag.ID;
 		}
 	}
 }

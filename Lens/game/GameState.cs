@@ -1,27 +1,26 @@
 ﻿using Lens.entity;
-using Microsoft.Xna.Framework;
 
 namespace Lens.game {
 	public class GameState {
-		protected Area area = new Area();
+		public Area Area = new Area();
 
 		public virtual void Init() {
 			
 		}
 
 		public virtual void Destroy() {
-			area.Destroy();
+			Area?.Destroy();
 		}
 
 		public virtual void Update(float dt) {
-			area.Update(dt);
+			Area?.Update(dt);
 		}
 
 		public virtual void Render() {
-			area.Render();
+			Area?.Render();
 
 			if (Engine.Version.Debug) {
-				area.RenderDebug();
+				Area?.RenderDebug();
 			}
 		}
 	}

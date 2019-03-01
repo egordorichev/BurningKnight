@@ -1,23 +1,29 @@
-﻿using BurningKnight.entity.creature.player;
-using BurningKnight.physics;
+﻿using BurningKnight.physics;
+using BurningKnight.save;
+using Lens.entity;
 using Lens.game;
-using Lens.graphics;
 using Lens.util.camera;
-using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState {
+		public InGameState(Area area) {
+			Area = area;
+		}
+		
 		public override void Init() {
 			base.Init();
 			Physics.Init();
 			
-			area.Add(new Camera());
+			Area.Add(new Camera());
 		}
 
 		public override void Destroy() {
-			base.Destroy();
 			Physics.Destroy();
+			SaveManager.SaveAll(Area);
+			Area = null;
+
+			// Clears the area, but we don't want that, cause we are still saving
+			base.Destroy();
 		}
 
 		public override void Update(float dt) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lens.entity.component;
 using Lens.entity.component.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
@@ -85,15 +86,15 @@ namespace Lens.entity {
 		}
 
 		public bool HasTag(int tag) {
-			return (this.tag & tag) != 0;
+			return (this.tag & 1 << tag) != 0;
 		}
 
 		public void AddTag(int tag) {
-			Tag |= tag;
+			Tag |= 1 << tag;
 		}
 
 		public void RemoveTag(int tag) {
-			Tag &= ~tag;
+			Tag &= ~(1 << tag);
 		}
 		
 		#endregion

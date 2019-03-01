@@ -2,6 +2,7 @@ using System.Threading;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
+using Lens.game;
 using Lens.util.file;
 
 namespace BurningKnight.save {
@@ -41,6 +42,19 @@ namespace BurningKnight.save {
 			var thread = new Thread(() => {
 				Save(area, Type.Game, false);
 				Save(area, Type.Global, false);
+			});
+			
+			thread.Start();
+		}
+		
+		public static void SaveAll(Area area) {
+			var thread = new Thread(() => {
+				Save(area, Type.Level, false);
+				Save(area, Type.Player, false);
+				Save(area, Type.Game, false);
+				Save(area, Type.Global, false);
+
+				area.Destroy();
 			});
 			
 			thread.Start();
@@ -93,7 +107,10 @@ namespace BurningKnight.save {
 		public static void Save(Area area, Type Type, bool Old) {
 			Log.Info("Saving " + Type + " " + (Old ? Run.LastDepth : Run.Depth));
 
-			var Stream = new FileWriter(GetFileHandle(GetSavePath(Type, Old)).FullPath);
+			var file = new System.IO.FileInfo(GetSavePath(Type, Old));
+			file.Directory.Create();
+			
+			var Stream = new FileWriter(file.FullName);
 
 			switch (Type) {
 				case Type.Level: {
@@ -126,11 +143,11 @@ namespace BurningKnight.save {
 			if (!save.Exists()) {
 				if (AutoGen) {
 					Generate(area, Type);
-					Save(area, Type, false);
+					/**Save(area, Type, false);
 
 					if (Type == Type.Level) {
 						Save(area, Type.Game, false);
-					}
+					}*/
 				} else {
 					return false;
 				}

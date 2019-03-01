@@ -21,7 +21,7 @@ namespace BurningKnight.state {
 				SaveManager.Load(gameArea, SaveManager.Type.Level);
 				SaveManager.Load(gameArea, SaveManager.Type.Player);
 				
-				Engine.Instance.SetState(new InGameState());
+				Engine.Instance.SetState(new InGameState(gameArea));
 			});
 
 			thread.Priority = ThreadPriority.Lowest;
