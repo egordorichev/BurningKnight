@@ -1,4 +1,5 @@
-﻿using Lens.entity;
+﻿using System.Collections.Generic;
+using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,7 @@ namespace Lens.util.camera {
 		
 		#region Camera logic
 
-		public Entity Target;
+		public List<Entity> Targets = new List<Entity>();
 		public bool Detached;
 		private CameraDriver driver;
 
@@ -43,6 +44,9 @@ namespace Lens.util.camera {
 
 			origin = new Vector2(Display.Width / 2f, Display.Height / 2f);
 
+			AlwaysActive = true;
+			AlwaysVisible = true;
+			
 			UpdateMatrices();
 		}
 
@@ -163,8 +167,6 @@ namespace Lens.util.camera {
 
 		public override void RenderDebug() {			
 			// Graphics.Batch.DrawRectangle(new RectangleF(position.X - Display.Width / 2f, position.Y - Display.Height / 2f, Display.Width, Display.Height), Color.Wheat);
-			Graphics.Batch.DrawRectangle(new RectangleF(X, Y, Right - X, Bottom - Y), DebugColor);
-
 			Graphics.Batch.DrawRectangle(new RectangleF(position.X - 4, position.Y - 4, 8, 8), DebugColor);
 
 			for (int x = 1; x < 3; x++) {

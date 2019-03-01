@@ -2,12 +2,10 @@
 	public class FollowingDriver : CameraDriver {
 		public override void Update(float dt) {
 			base.Update(dt);
-			
-			if (Camera.Target == null) {
-				return;
+
+			foreach (var target in Camera.Targets) {
+				Camera.Approach(target.Center, dt);				
 			}
-			
-			Camera.Approach(Camera.Target.Center, dt * 10);
 		}
 	}
 }

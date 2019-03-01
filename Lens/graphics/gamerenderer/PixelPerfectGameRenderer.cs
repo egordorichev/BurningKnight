@@ -15,9 +15,14 @@ namespace Lens.graphics.gamerenderer {
 		
 		public override void Render() {
 			Engine.GraphicsDevice.SetRenderTarget(RenderTarget);
+			// Render game
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.Black);
 			Engine.Instance.State.Render();
+			Graphics.Batch.End();
+			// Render ui
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix.Identity);
+			Engine.Instance.State.RenderUi();
 			Graphics.Batch.End();
 			
 			Engine.GraphicsDevice.SetRenderTarget(null);

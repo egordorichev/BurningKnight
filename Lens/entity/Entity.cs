@@ -137,7 +137,7 @@ namespace Lens.entity {
 		}
 
 		public virtual void RenderDebug() {
-			Graphics.Batch.DrawRectangle(new RectangleF(X + 1, Y + 1, Right - X - 2, Bottom - Y - 2), Color.Wheat);
+			
 		}
 
 		public void RemoveSelf() {

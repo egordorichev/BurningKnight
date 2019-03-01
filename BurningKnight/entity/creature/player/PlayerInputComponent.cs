@@ -57,6 +57,8 @@ namespace BurningKnight.entity.creature.player {
 
 			if (body.Acceleration.Length() > 0.1f) {
 				Entity.GetComponent<StateComponent>().Become<Player.RunState>();
+			} else {
+				Entity.GetComponent<StateComponent>().Become<Player.IdleState>();
 			}
 		}
 	}

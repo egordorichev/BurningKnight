@@ -1,11 +1,12 @@
-﻿using BurningKnight.physics;
+﻿using BurningKnight.entity;
+using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.game;
 using Lens.util.camera;
 
 namespace BurningKnight.state {
-	public class InGameState : GameState {
+	public class InGameState : GameState {		
 		public InGameState(Area area) {
 			Area = area;
 		}
@@ -14,6 +15,12 @@ namespace BurningKnight.state {
 			base.Init();
 			
 			Area.Add(new Camera());
+			
+			var cursor = new Cursor();
+			Ui.Add(cursor);
+			
+			//Camera.Instance.Targets.Add(LocalPlayer.Locate(Area));
+			Camera.Instance.Targets.Add(cursor);
 		}
 
 		public override void Destroy() {
