@@ -123,8 +123,6 @@
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\CollisionListenerEntity.cs" />
-    <Compile Include="physics\EntityContactFilter.cs" />
-    <Compile Include="physics\EntityContactListener.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
     <Compile Include="Program.cs" />

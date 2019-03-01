@@ -13,20 +13,12 @@ namespace BurningKnight.entity.component {
 			}
 
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);
+			Body.FixedRotation = true;
+			Body.UserData = this;
 
-			var vertices = new Vertices(4);
-			
-			vertices.Add(new Vector2(x, y));
-			vertices.Add(new Vector2(x + w, y));
-			vertices.Add(new Vector2(x + w, y + h));
-			vertices.Add(new Vector2(x, y + h));
-			
-			FixtureFactory.AttachPolygon(vertices, 1f, Body);
-		}
-
-		public override void Init() {
-			base.Init();
-			Body.UserData = Entity;
+			FixtureFactory.AttachPolygon(new Vertices(4) {
+				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)
+			}, 1f, Body);
 		}
 	}
 }

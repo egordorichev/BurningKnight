@@ -28,7 +28,6 @@ namespace BurningKnight.state {
 
 		public override void Render() {
 			base.Render();
-			Graphics.Batch.DrawLine(Vector2.One, new Vector2(32, 32), Color.Wheat);
 			Physics.Render();
 		}
 	}

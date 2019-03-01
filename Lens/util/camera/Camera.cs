@@ -1,6 +1,8 @@
 ﻿using Lens.entity;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 namespace Lens.util.camera {
 	public class Camera : Entity {
@@ -13,7 +15,7 @@ namespace Lens.util.camera {
 		private CameraDriver driver;
 
 		public CameraDriver Driver {
-			get { return driver; }
+			get => driver;
 
 			set {
 				driver?.Destroy();
@@ -100,7 +102,7 @@ namespace Lens.util.camera {
 		public Matrix Matrix => matrix;
 		
 		public new Vector2 Position {
-			get { return position; }
+			get => position;
 
 			set {
 				position = value;
@@ -109,7 +111,7 @@ namespace Lens.util.camera {
 		}
 
 		public Vector2 Origin {
-			get { return origin; }
+			get => origin;
 
 			set {
 				origin = value;
@@ -118,7 +120,7 @@ namespace Lens.util.camera {
 		}
 
 		public float Angle {
-			get { return angle; }
+			get => angle;
 
 			set {
 				angle = value;
@@ -127,7 +129,7 @@ namespace Lens.util.camera {
 		}
 
 		public float Zoom {
-			get { return zoom; }
+			get => zoom;
 
 			set {
 				zoom = value;
@@ -137,17 +139,34 @@ namespace Lens.util.camera {
 
 		private void UpdateMatrices() {
 			matrix = Matrix.Identity *
-			         Matrix.CreateTranslation(new Vector3(
-				         -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
-			         Matrix.CreateRotationZ(angle) *
-			         Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
-			         Matrix.CreateTranslation(
-				         new Vector3(new Vector2((int) System.Math.Floor(origin.X), (int) System.Math.Floor(origin.Y)), 0));
+				Matrix.CreateTranslation(new Vector3(
+				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
+				Matrix.CreateRotationZ(angle) *
+				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
+				Matrix.CreateTranslation(
+				 new Vector3(new Vector2((int) System.Math.Floor(origin.X), (int) System.Math.Floor(origin.Y)), 0));
 
 			inverse = Matrix.Invert(matrix);
 			changed = false;
 		}
 
 		#endregion
+		
+		private static Color DebugColor = new Color(1, 1, 1, 0.5f);
+
+		public override void RenderDebug() {			
+			// Graphics.Batch.DrawRectangle(new RectangleF(position.X - Display.Width / 2f, position.Y - Display.Height / 2f, Display.Width, Display.Height), Color.Wheat);
+			Graphics.Batch.DrawRectangle(new RectangleF(position.X - 4, position.Y - 4, 8, 8), DebugColor);
+
+			for (int x = 1; x < 3; x++) {
+				float xx = x * Display.Width / 3f + position.X - Display.Width / 2f;
+				Graphics.Batch.DrawLine(new Vector2(xx, position.Y - Display.Height / 2f), new Vector2(xx, position.Y + Display.Height / 2f), DebugColor);
+			}
+			
+			for (int y = 1; y < 3; y++) {
+				float yy = y * Display.Height / 3f + position.Y - Display.Height / 2f;
+				Graphics.Batch.DrawLine(new Vector2(position.X - Display.Width / 2f, yy), new Vector2(position.X + Display.Width / 2f, yy), DebugColor);
+			}
+		}
 	}
 }
