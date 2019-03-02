@@ -21,7 +21,7 @@ namespace BurningKnight.state {
 			Ui.Add(cursor);
 			
 			Camera.Instance.Targets.Add(LocalPlayer.Locate(Area));
-			Camera.Instance.Targets.Add(cursor);
+			// Camera.Instance.Targets.Add(cursor);
 		}
 
 		public override void Destroy() {

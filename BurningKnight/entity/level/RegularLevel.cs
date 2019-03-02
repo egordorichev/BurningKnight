@@ -9,6 +9,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.entity.level {

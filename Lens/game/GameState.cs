@@ -5,6 +5,8 @@ namespace Lens.game {
 		public Area Area = new Area();
 		public Area Ui = new Area();
 
+		public static bool RenderDebug = false;
+		
 		public virtual void Init() {
 			
 		}
@@ -22,7 +24,7 @@ namespace Lens.game {
 		public virtual void Render() {
 			Area?.Render();
 
-			if (Engine.Version.Debug) {
+			if (RenderDebug) {
 				Area?.RenderDebug();
 			}
 		}
@@ -30,7 +32,7 @@ namespace Lens.game {
 		public virtual void RenderUi() {
 			Ui.Render();
 
-			if (Engine.Version.Debug) {
+			if (RenderDebug) {
 				Ui.RenderDebug();
 			}
 		}

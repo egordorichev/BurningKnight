@@ -20,13 +20,13 @@ namespace BurningKnight.entity.level {
 			var t = (Tile) tile;
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
-				var v = Random.Int(10);
+				var v = Random.Int(11);
 
-				if (v == 8 || v == 9) {
+				if (v == 9 || v == 10) {
 					if (level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
 					    && level.Variants[index + 1] == 0 && level.Variants[index + level.Width] == 0 && level.Variants[index + 1 + level.Width] == 0) {
-						
-						var st = v == 8 ? 1 : 10; 
+
+						var st = v == 9 ? 8 : 10; 
 						
 						level.Variants[index] = (byte) st;
 						level.Variants[index + 1] = (byte) (st + 1);
@@ -35,6 +35,8 @@ namespace BurningKnight.entity.level {
 		
 						return;
 					}
+
+					v = Random.Int(9);
 				}
 
 				level.Variants[index] = (byte) v;					
@@ -44,13 +46,25 @@ namespace BurningKnight.entity.level {
 			byte mask = 0;
 			
 			for (int i = 0; i < 4; i++) {
-				var n = index + PathFinder.Circle4[i];
+				var m = PathFinder.Circle4[i];
+				var n = index + m;
 				
-				if (level.IsInside(n) && ShouldTile(tile, level.Tiles[n])) {
-					mask += (byte) (1 << i);
+				if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n])) {
+					mask |= (byte) (1 << i);
 				}
 			}
 
+			if (t.Matches(Tile.WallA, Tile.WallB)) {
+				for (int i = 0; i < 4; i++) {
+					var m = PathFinder.Corner[i];
+					var n = index + m;
+				
+					if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n])) {
+						mask |= (byte) (1 << (4 + i));
+					}
+				}
+			}
+			
 			level.Variants[index] = mask;
 		}
 

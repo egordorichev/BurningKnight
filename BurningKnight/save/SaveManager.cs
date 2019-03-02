@@ -3,6 +3,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.game;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
@@ -240,7 +241,6 @@ namespace BurningKnight.save {
 
 		public static void Generate(Area area, Type Type) {
 			Log.Info($"Generating {Type} {Run.Depth}");
-
 			Run.LastDepth = Run.Depth;
 
 			switch (Type) {

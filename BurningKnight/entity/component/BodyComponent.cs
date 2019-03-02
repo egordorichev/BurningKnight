@@ -50,6 +50,11 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 
+			if (Entity.PositionChanged) {
+				Entity.PositionChanged = false;
+				Body.Position = Entity.Position;
+			}
+
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;
 			velocity.Y += Acceleration.Y;

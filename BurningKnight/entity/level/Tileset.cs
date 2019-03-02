@@ -21,19 +21,14 @@ namespace BurningKnight.entity.level {
 		public TextureRegion[] FloorD = new TextureRegion[16];
 		
 		public TextureRegion[][] Tiles = new TextureRegion[(int) Tile.Total][];
-		
+
+		public static int[] wallMap = { -1, -1, -1, 9, -1, -1, 0, 5, -1, 11, -1, 10, 2, 6, 1, -1 };
+		public static int[] wallMapExtra = { -1, 7, 3, -1, 4, -1, -1, -1, 8, -1, -1, -1, -1, -1, -1, -1 };
+
 		public void Load(string id) {
 			var anim = Animations.Get(id);
 			
 			for (int w = 0; w < 2; w++) {
-				for (int i = 0; i < 12; i++) {
-					if (w == 0) {
-						WallA[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 24, 16, 16));
-					} else {
-						WallB[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 64, 16, 16));
-					}
-				}
-
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 12; j++) {
 						var n = j > 5 ? j + 1 : j;
@@ -45,12 +40,20 @@ namespace BurningKnight.entity.level {
 						}
 					}
 				}
+				
+				for (int i = 0; i < 12; i++) {
+					if (w == 0) {
+						WallA[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 24, 16, 16));
+					} else {
+						WallB[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 64, 16, 16));
+					}
+				}
 
 				for (int i = 0; i < 3; i++) {
 					if (w == 0) {
-						WallTopsA[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i * 16, 80, 16, 16));
+						WallSidesA[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i * 16, 80, 16, 16));
 					} else {
-						WallTopsB[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i * 16, 96, 16, 16));
+						WallSidesB[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i * 16, 96, 16, 16));
 					}
 				}
 			}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.util;
+using Lens.util;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.pool {

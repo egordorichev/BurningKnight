@@ -21,7 +21,16 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 		}
-		
+
+		public override void PostInit() {
+			base.PostInit();
+
+			var room = Area.Tags[Tags.Room][0];
+			
+			CenterX = room.CenterX;
+			CenterY = room.CenterY;
+		}
+
 		#region Player States
 		public class IdleState : EntityState {
 			

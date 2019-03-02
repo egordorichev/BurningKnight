@@ -19,7 +19,7 @@ namespace Lens.util {
 				return;
 			}
 
-			System.IO.File.AppendAllText("log.txt", builder.ToString());
+			File.AppendAllText("log.txt", builder.ToString());
 			builder = null;
 		}
 		
@@ -42,12 +42,14 @@ namespace Lens.util {
 		private static void Print(object message, ConsoleColor color) {
 			var stackTrace = new StackTrace(true);
 			var frame = stackTrace.GetFrame(2);
-			var text = String.Format("{0:h:mm:ss} {1} {2}():{3} {4}", DateTime.Now, Path.GetFileName(frame.GetFileName()), frame.GetMethod().Name,
-				frame.GetFileLineNumber(), message);
+			var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())} {frame.GetMethod().Name}():{frame.GetFileLineNumber()} ";
 
-			builder?.AppendLine(text);
+			builder?.Append(text);
+			builder?.AppendLine((string) message);
 			
 			Console.ForegroundColor = color;
+			Console.Write(message);
+			Console.ForegroundColor = ConsoleColor.Gray;
 			Console.WriteLine(text);
 		}
 	}

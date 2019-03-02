@@ -8,6 +8,7 @@ namespace BurningKnight.util {
 		public static int[] Neighbours8;
 		public static int[] Neighbours9;
 		public static int[] Circle4;
+		public static int[] Corner;
 		public static int[] Circle8;
 		private static int[] MaxVal;
 		private static bool[] Goals;
@@ -60,6 +61,11 @@ namespace BurningKnight.util {
 				}
 				;
 
+			Corner = new[] {
+					-Width + 1, +Width +1, +Width - 1, -1 - Width
+				}
+				;
+			
 			Circle8 = new[] {
 					-Width - 1, -Width, -Width + 1, +1, +Width + 1, +Width, +Width - 1, -1
 				}

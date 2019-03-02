@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.physics;
+using BurningKnight.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
@@ -19,8 +20,22 @@ namespace BurningKnight.entity.level {
 					var tile = level.Tiles[index];
 
 					if (TileFlags.Matches(tile, TileFlags.Solid)) {
+						var sum = 0;
+
+						foreach (var dir in PathFinder.Neighbours8) {
+							var n = dir + index;
+							
+							if (!level.IsInside(n) || TileFlags.Matches(level.Tiles[n], TileFlags.Solid)) {
+								sum++;
+							}
+						}
+
+						if (sum == 8) {
+							continue;
+						}
+						
 						var xx = x * 16;
-						var yy = y * 16;
+						var yy = y * 16 - 8;
 						
 						FixtureFactory.AttachPolygon(new Vertices(4) {
 							new Vector2(xx, yy), new Vector2(xx + 16, yy), 

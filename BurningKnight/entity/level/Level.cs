@@ -240,8 +240,77 @@ namespace BurningKnight.entity.level {
 					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
 						Graphics.Render(Tileset.Tiles[tile][0], new Vector2(x * 16, y * 16 - 8));
 
-						if (!((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
-							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
+						if (t.Matches(Tile.WallA, Tile.WallB)) {
+							byte v = Variants[index];
+							
+							for (int xx = 0; xx < 2; xx++) {
+								for (int yy = 0; yy < 2; yy++) {
+									int lv = 0;
+
+									if (yy > 0 || BitHelper.IsBitSet(v, 0)) {
+										lv += 1;
+									}
+
+									if (xx == 0 || BitHelper.IsBitSet(v, 1)) {
+										lv += 2;
+									}
+
+									if (yy == 0 || BitHelper.IsBitSet(v, 2)) {
+										lv += 4;
+									}
+
+									if (xx > 0 || BitHelper.IsBitSet(v, 3)) {
+										lv += 8;
+									}
+
+									if (lv == 15) {
+										lv = 0;
+
+										if (xx == 1 && yy == 0 && !BitHelper.IsBitSet(v, 4)) {
+											lv += 1;
+										}
+
+										if (xx == 1 && yy == 1 && !BitHelper.IsBitSet(v, 5)) {
+											lv += 2;
+										}
+
+										if (xx == 0 && yy == 1 && !BitHelper.IsBitSet(v, 6)) {
+											lv += 4;
+										}
+
+										if (xx == 0 && yy == 0 && !BitHelper.IsBitSet(v, 7)) {
+											lv += 8;
+										}
+
+										var vl = Tileset.wallMapExtra[lv];
+
+										if (vl != -1) {
+											Graphics.Render(Tileset.WallTopsA[vl], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+										}
+									} else {
+										var vl = Tileset.wallMap[lv];
+										
+										if (vl != -1) {
+											Graphics.Render(Tileset.WallTopsA[vl], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+										}
+										
+										/*int vl = Terrain.wallMap[lv];
+
+										if (vl != -1) {
+											/*float a = getLight(x + (xx == 0 ? -1 : 1), y + yy);
+
+											if (a > 0.05f) {
+												Graphics.batch.setColor(1, 1, 1, a);
+												Graphics.render(Terrain.wallTop[this.wallDecor[i]][vl], x * 16 + xx * 8, y * 16 + yy * 8);
+											}
+										}*/
+									}
+								}
+							}
+							
+							if (!((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
+								Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
+							}	
 						}
 					}
 				}

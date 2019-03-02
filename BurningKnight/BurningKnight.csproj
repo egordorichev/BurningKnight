@@ -153,7 +153,6 @@
     <Compile Include="util\ColorUtils.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
-    <Compile Include="util\Log.cs" />
     <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\Noise.cs" />

@@ -4,6 +4,7 @@ using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.util;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.builders {

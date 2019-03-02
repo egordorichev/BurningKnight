@@ -23,37 +23,51 @@ namespace Lens.entity {
 		#region Bounds and position
 		
 		public Vector2 Position = new Vector2();
+		public bool PositionChanged;
 		public float Width = 16;
 		public float Height = 16;
-
+		
 		public float X {
 			get => Position.X;
-			set => Position.X = value;
+			set {
+				Position.X = value;
+				PositionChanged = true;
+			}
 		}
-		
+
 		public float Y {
 			get => Position.Y;
-			set => Position.Y = value;
+			set {
+				Position.Y = value;
+				PositionChanged = true;
+			}
 		}
-		
+
 		public Vector2 Center {
 			get => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
 			set {
 				Position.X = value.X - Width / 2;
 				Position.Y = value.Y - Height / 2;
+				PositionChanged = true;
 			}
 		}
 		
 		public float CenterX {
 			get => Position.X + Width / 2;
-			set => Position.X = value - Width / 2;
+			set {
+				Position.X = value - Width / 2;
+				PositionChanged = true;
+			}
 		}
-		
+
 		public float CenterY {
 			get => Position.Y + Height / 2;
-			set => Position.Y = value - Height / 2;
+			set {
+				Position.Y = value - Height / 2;
+				PositionChanged = true;
+			}
 		}
-		
+
 		public float Right => Position.X + Width;
 		public float Bottom => Position.Y + Height;
 

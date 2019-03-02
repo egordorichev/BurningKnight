@@ -5,6 +5,7 @@ using BurningKnight.entity.level.rooms;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -86,6 +87,10 @@ namespace BurningKnight.entity.level.painters {
 			Level.Height = BottomMost + 1;
 			
 			Level.Setup();
+
+			for (int i = 0; i < Level.Size; i++) {
+				Level.Tiles[i] = (byte) Tile.WallA;
+			}
 
 			for (int i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
