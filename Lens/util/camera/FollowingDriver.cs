@@ -4,7 +4,7 @@
 			base.Update(dt);
 
 			foreach (var target in Camera.Targets) {
-				Camera.Approach(target.Center, dt * 3);				
+				Camera.Approach(target.Entity.Center, dt * 5 * target.Priority);				
 			}
 		}
 	}

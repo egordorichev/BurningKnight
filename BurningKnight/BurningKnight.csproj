@@ -75,6 +75,7 @@
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
+    <Compile Include="entity\creature\player\PlayerHatComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\item\Item.cs" />

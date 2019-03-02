@@ -4,6 +4,7 @@ using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework.Input;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
@@ -16,7 +17,7 @@ namespace BurningKnight.entity.creature.player {
 		public const string Use = "use";
 		public const string Roll = "roll";
 
-		private const float Speed = 1f;
+		private const float Speed = 25f;
 		
 		public PlayerInputComponent() {
 			Input.Bind(Up, Keys.W);
@@ -54,6 +55,8 @@ namespace BurningKnight.entity.creature.player {
 			if (Input.IsDown(Right)) {
 				body.Acceleration.X += Speed;
 			}
+
+			body.Velocity -= body.Velocity * dt * 10;
 
 			if (body.Acceleration.Length() > 0.1f) {
 				Entity.GetComponent<StateComponent>().Become<Player.RunState>();

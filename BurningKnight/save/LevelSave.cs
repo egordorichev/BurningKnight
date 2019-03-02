@@ -25,7 +25,6 @@ namespace BurningKnight.save {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
 
 				area.Add(entity, false);
-				entity.AddComponents();
 				entity.Load(Reader);
 				entity.PostInit();
 			}
@@ -35,10 +34,8 @@ namespace BurningKnight.save {
 			try {
 				var level = new CastleLevel();
 				area.Add(level);
-				
 				level.Generate(area, I);
 				
-				// todo: generate level
 				I = 0;
 			} catch (Exception e) {
 				Console.WriteLine(e);

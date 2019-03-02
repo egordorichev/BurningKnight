@@ -69,6 +69,13 @@ namespace BurningKnight.entity.level {
 		}
 
 		public static bool ShouldTile(byte tile, byte to) {
+			var t = (Tile) tile;
+			var tt = (Tile) to;
+
+			if (t == Tile.WallA || t == Tile.WallB) {
+				return tt == Tile.WallA || tt == Tile.WallB;
+			}
+			
 			return tile == to; // Gets much more complex, but later
 		}
 	}

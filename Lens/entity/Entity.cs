@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using Lens.entity.component;
 using Lens.entity.component.graphics;
-using Lens.graphics;
-using Lens.util;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 namespace Lens.entity {
 	public class Entity {
@@ -117,7 +114,7 @@ namespace Lens.entity {
 		
 		#region Entity logic
 
-		private GraphicsComponent graphicsComponent;
+		private List<GraphicsComponent> graphicsComponents = new List<GraphicsComponent>();
 		protected Dictionary<Type, Component> components;
 		
 		public virtual void Init() {
@@ -147,7 +144,9 @@ namespace Lens.entity {
 		}
 
 		public virtual void Render() {
-			graphicsComponent?.Render();
+			foreach (var component in graphicsComponents) {
+				component.Render();				
+			}
 		}
 
 		public virtual void RenderDebug() {
@@ -168,6 +167,11 @@ namespace Lens.entity {
 			component.Init();
 		}
 
+		public void AddGraphicsComponent(GraphicsComponent component) {
+			AddComponent(component);			
+			graphicsComponents.Add(component);
+		}
+
 		public void RemoveComponent<T>() {
 			var type = typeof(T);
 			
@@ -175,11 +179,6 @@ namespace Lens.entity {
 				component.Destroy();
 				components.Remove(type);
 			}
-		}
-
-		public void SetGraphicsComponent(GraphicsComponent component) {
-			graphicsComponent = component;
-			AddComponent(component);
 		}
 				
 		public T GetComponent<T>() where T : Component {

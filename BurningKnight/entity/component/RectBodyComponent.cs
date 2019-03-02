@@ -15,6 +15,7 @@ namespace BurningKnight.entity.component {
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);
 			Body.FixedRotation = true;
 			Body.UserData = this;
+			Body.LinearDamping = 0;
 
 			FixtureFactory.AttachPolygon(new Vertices(4) {
 				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)

@@ -16,9 +16,23 @@ namespace Lens.util.camera {
 		
 		#region Camera logic
 
-		public List<Entity> Targets = new List<Entity>();
+		public class Target {
+			public float Priority;
+			public Entity Entity;
+
+			public Target(Entity entity, float priority) {
+				Entity = entity;
+				Priority = priority;
+			}
+		}
+		
+		public List<Target> Targets = new List<Target>();
 		public bool Detached;
 		private CameraDriver driver;
+
+		public void Follow(Entity entity, float priority) {
+			Targets.Add(new Target(entity, priority));
+		}
 
 		public CameraDriver Driver {
 			get => driver;

@@ -11,7 +11,11 @@ namespace BurningKnight.entity.component {
 		public Body Body;
 		public Vector2 Acceleration = new Vector2();
 		
-		public Vector2 Velocity => Body.LinearVelocity;
+		public Vector2 Velocity {
+			get => Body.LinearVelocity;
+
+			set => Body.LinearVelocity = value;
+		}
 
 		public Vector2 Position {
 			get => Body.Position;

@@ -1,5 +1,4 @@
-﻿using Lens.util;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Lens.graphics.animation {
 	public class Animation {
