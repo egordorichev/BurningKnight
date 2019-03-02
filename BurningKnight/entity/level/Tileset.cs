@@ -34,9 +34,9 @@ namespace BurningKnight.entity.level {
 						var n = j > 5 ? j + 1 : j;
 
 						if (w == 0) {
-							WallTopsA[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8, n / 5 * 8, 8, 8));
+							WallTopsA[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40, n / 5 * 8, 8, 8));
 						} else {
-							WallTopsB[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8, 40 + n / 5 * 8, 8, 8));
+							WallTopsB[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40, 40 + n / 5 * 8, 8, 8));
 						}
 					}
 				}

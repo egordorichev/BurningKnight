@@ -285,13 +285,13 @@ namespace BurningKnight.entity.level {
 										var vl = Tileset.wallMapExtra[lv];
 
 										if (vl != -1) {
-											Graphics.Render(Tileset.WallTopsA[vl], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											Graphics.Render(Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 										}
 									} else {
 										var vl = Tileset.wallMap[lv];
 										
 										if (vl != -1) {
-											Graphics.Render(Tileset.WallTopsA[vl], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											Graphics.Render(Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 										}
 										
 										/*int vl = Terrain.wallMap[lv];
@@ -320,7 +320,11 @@ namespace BurningKnight.entity.level {
 		}
 
 		private byte CalcWallIndex(int x, int y) {
-			return (byte) ((int) Math.Round(x * 3.5f + y * 2.74f) % 12);
+			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 12);
+		}
+
+		private byte CalcWallTopIndex(int x, int y) {
+			return (byte) (((int) Math.Round(x * 4.21f + y * 5.12f)) % 3);
 		}
 	}
 }
