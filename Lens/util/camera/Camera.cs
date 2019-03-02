@@ -165,18 +165,21 @@ namespace Lens.util.camera {
 		
 		private static Color DebugColor = new Color(1, 1, 1, 0.5f);
 
-		public override void RenderDebug() {			
+		public override void RenderDebug() {
+			if (true) {
+				return;
+			}
 			// Graphics.Batch.DrawRectangle(new RectangleF(position.X - Display.Width / 2f, position.Y - Display.Height / 2f, Display.Width, Display.Height), Color.Wheat);
-			Graphics.Batch.DrawRectangle(new RectangleF(position.X - 4, position.Y - 4, 8, 8), DebugColor);
+			Graphics.Batch.DrawRectangle(new RectangleF(Display.Width / 2 - 4, Display.Height / 2 - 4, 8, 8), DebugColor);
 
 			for (int x = 1; x < 3; x++) {
-				float xx = x * Display.Width / 3f + position.X - Display.Width / 2f;
-				Graphics.Batch.DrawLine(new Vector2(xx, position.Y - Display.Height / 2f), new Vector2(xx, position.Y + Display.Height / 2f), DebugColor);
+				float xx = x * Display.Width / 3f;
+				Graphics.Batch.DrawLine(new Vector2(xx, 0), new Vector2(xx, Display.Height), DebugColor);
 			}
 			
 			for (int y = 1; y < 3; y++) {
-				float yy = y * Display.Height / 3f + position.Y - Display.Height / 2f;
-				Graphics.Batch.DrawLine(new Vector2(position.X - Display.Width / 2f, yy), new Vector2(position.X + Display.Width / 2f, yy), DebugColor);
+				float yy = y * Display.Height / 3f;
+				Graphics.Batch.DrawLine(new Vector2(0, yy), new Vector2(Display.Width, yy), DebugColor);
 			}
 		}
 		

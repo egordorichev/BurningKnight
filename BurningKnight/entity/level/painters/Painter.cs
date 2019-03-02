@@ -10,10 +10,10 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.painters {
 	public class Painter {
-		private float Cobweb;
-		private float Dirt;
-		private float Grass;
-		private float Water;
+		private float Cobweb = 0.1f;
+		private float Dirt = 0.3f;
+		private float Grass = 0.3f;
+		private float Water = 0.3f;
 
 		public Painter SetWater(float V) {
 			Water = V;
@@ -151,6 +151,42 @@ namespace BurningKnight.entity.level.painters {
 
 			Decorate(Level, Rooms);
 			PaintDoors(Level, Rooms);
+		}
+		
+		
+		private void PlaceDoors(RoomDef R) {
+			var connected = new Dictionary<RoomDef, DoorPlaceholder>();
+
+			foreach (var pair in R.Connected) {
+				connected[pair.Key] = pair.Value;
+			}
+			
+			foreach (var N in connected.Keys) {
+				var Door = connected[N];
+
+				if (Door == null) {
+					var I = R.Intersect(N);
+					var DoorSpots = new List<Vector2>();
+
+					foreach (var P in I.GetPoints()) {
+						if (R.CanConnect(P) && N.CanConnect(P)) {
+							DoorSpots.Add(P);
+						}
+					}
+
+					if (DoorSpots.Count > 0) {
+						var Point = DoorSpots[Random.Int(DoorSpots.Count)];
+						Door = new DoorPlaceholder(Point);
+						R.Connected[N] = Door;
+						N.Connected[R] = Door;
+					} else {
+						R.Connected.Remove(N);
+						N.Connected.Remove(R);
+
+						throw new Exception($"Failed to connect rooms {R.GetType().Name} and {N.GetType().Name}");
+					}
+				}
+			}
 		}
 
 		private void PaintWater(Level Level, List<RoomDef> Rooms) {
@@ -334,37 +370,8 @@ namespace BurningKnight.entity.level.painters {
 			}
 		}
 
-		private void PlaceDoors(RoomDef R) {
-			foreach (var N in R.Connected.Keys) {
-				var Door = R.Connected[N];
-
-				if (Door == null) {
-					var I = R.Intersect(N);
-					var DoorSpots = new List<Vector2>();
-
-					foreach (var P in I.GetPoints()) {
-						if (R.CanConnect(P) && N.CanConnect(P)) {
-							DoorSpots.Add(P);
-						}
-					}
-
-					if (DoorSpots.Count > 0) {
-						var Point = DoorSpots[Random.Int(DoorSpots.Count)];
-						Door = new DoorPlaceholder(Point);
-						R.Connected[N] = Door;
-						N.Connected[R] = Door;
-					} else {
-						R.Connected.Remove(N);
-						N.Connected.Remove(R);
-
-						throw new Exception($"Failed to connect rooms {R.GetType().Name} and {N.GetType().Name}");
-					}
-				}
-			}
-		}
-
-		public static void Set(Level Level, int Cell, Tile Value) {
-			Level.Tiles[Cell] = (byte) Value;
+		public static void Set(Level Level, int cell, Tile Value) {
+			Level.Set(cell, Value);
 		}
 
 		public static void Set(Level Level, int X, int Y, Tile Value) {

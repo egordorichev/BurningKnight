@@ -1,4 +1,5 @@
 using System.Threading;
+using BurningKnight.entity.level;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens;
@@ -16,6 +17,8 @@ namespace BurningKnight.state {
 			gameArea = new Area();
 			
 			var thread = new Thread(() => {
+				Tilesets.Load();
+				
 				if (Run.Id == -1) {
 					SaveManager.Load(gameArea, SaveManager.Type.Game);
 				}

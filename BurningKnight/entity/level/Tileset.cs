@@ -20,9 +20,11 @@ namespace BurningKnight.entity.level {
 		public TextureRegion[] FloorC = new TextureRegion[16];
 		public TextureRegion[] FloorD = new TextureRegion[16];
 		
+		public TextureRegion[][] Tiles = new TextureRegion[(int) Tile.Total][];
+		
 		public void Load(string id) {
 			var anim = Animations.Get(id);
-
+			
 			for (int w = 0; w < 2; w++) {
 				for (int i = 0; i < 12; i++) {
 					if (w == 0) {
@@ -52,11 +54,20 @@ namespace BurningKnight.entity.level {
 					}
 				}
 			}
+
+			Tiles[(int) Tile.WallA] = new[] {
+				WallTopA = new TextureRegion(anim.Texture, new Rectangle(160, 8, 16, 16))
+			};
 			
-			WallTopA = new TextureRegion(anim.Texture, new Rectangle(160, 8, 16, 16));
-			WallCrackA = new TextureRegion(anim.Texture, new Rectangle(176, 8, 16, 16));
-			WallTopB = new TextureRegion(anim.Texture, new Rectangle(160, 8, 48, 16));
-			WallCrackB = new TextureRegion(anim.Texture, new Rectangle(176, 8, 48, 16));
+			Tiles[(int) Tile.WallB] = new[] {
+				WallTopB = new TextureRegion(anim.Texture, new Rectangle(160, 48, 16, 16))
+			};
+			
+			Tiles[(int) Tile.Crack] = new[] {
+				WallCrackA = new TextureRegion(anim.Texture, new Rectangle(176, 8, 16, 16))
+			};
+			
+			WallCrackB = new TextureRegion(anim.Texture, new Rectangle(176, 48, 16, 16));
 			
 			for (int f = 0; f < 4; f++) {
 				for (int i = 0; i < 16; i++) {
@@ -65,10 +76,20 @@ namespace BurningKnight.entity.level {
 					} else if (f == 1) {
 						FloorB[i] = new TextureRegion(anim.Texture, new Rectangle(64 + i % 4 * 16, 80 + i / 4 * 16, 16, 16));
 					} else if (f == 2) {
-						FloorA[i] = new TextureRegion(anim.Texture, new Rectangle(i % 4 * 16, 144 + i / 4 * 16, 16, 16));
+						FloorC[i] = new TextureRegion(anim.Texture, new Rectangle(i % 4 * 16, 144 + i / 4 * 16, 16, 16));
 					} else if (f == 3) {
-						FloorB[i] = new TextureRegion(anim.Texture, new Rectangle(64 + i % 4 * 16, 144 + i / 4 * 16, 16, 16));
+						FloorD[i] = new TextureRegion(anim.Texture, new Rectangle(64 + i % 4 * 16, 144 + i / 4 * 16, 16, 16));
 					}
+				}
+
+				if (f == 0) {
+					Tiles[(int) Tile.FloorA] = FloorA;
+				} else if (f == 1) {
+					Tiles[(int) Tile.FloorB] = FloorB;
+				} else if (f == 2) {
+					Tiles[(int) Tile.FloorC] = FloorC;
+				} else if (f == 3) {
+					Tiles[(int) Tile.FloorD] = FloorD;
 				}
 			}
 		}		

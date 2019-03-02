@@ -1,10 +1,17 @@
+using System;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.graphics;
+using Lens.util.camera;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.level {
 	public abstract class Level : SaveableEntity {
+		public Tileset Tileset;
+
 		private int width;
 		private int height;
 
@@ -36,17 +43,23 @@ namespace BurningKnight.entity.level {
 			Run.Level = this;
 		}
 
+		public override void Init() {
+			base.Init();
+
+			Depth = Layers.Floor;
+			
+			Area.Add(new RenderTrigger(RenderLiquids, Layers.Liquid));
+			Area.Add(new RenderTrigger(RenderWalls, Layers.Wall));
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			AddComponent(new LevelBodyComponent());
-		}
 
-		public override void PostInit() {
-			base.PostInit();
-			CreateBody();
-			TileUp();
+			AlwaysActive = true;
+			AlwaysVisible = true;
 		}
-
+		
 		public void CreateBody() {
 			GetComponent<LevelBodyComponent>().CreateBody();
 		}
@@ -54,9 +67,17 @@ namespace BurningKnight.entity.level {
 		public void TileUp() {
 			LevelTiler.TileUp(this);
 		}
-
-		public void Set(int x, int y, Tile value, bool liquid = false) {
-			if (liquid) {
+		
+		public void Set(int i, Tile value) {
+			if (value.Matches(TileFlags.LiquidLayer)) {
+				Liquid[i] = (byte) value;
+			} else {
+				Tiles[i] = (byte) value;
+			}
+		}
+		
+		public void Set(int x, int y, Tile value) {
+			if (value.Matches(TileFlags.LiquidLayer)) {
 				Liquid[ToIndex(x, y)] = (byte) value;
 			} else {
 				Tiles[ToIndex(x, y)] = (byte) value;
@@ -65,14 +86,6 @@ namespace BurningKnight.entity.level {
 		
 		public Tile Get(int x, int y, bool liquid = false) {
 			return (Tile) (liquid ? Liquid[ToIndex(x, y)] : Tiles[ToIndex(x, y)]);
-		}
-		
-		public void Set(int i, Tile value, bool liquid = false) {
-			if (liquid) {
-				Liquid[i] = (byte) value;
-			} else {
-				Tiles[i] = (byte) value;
-			}
 		}
 		
 		public Tile Get(int i, bool liquid = false) {
@@ -127,6 +140,9 @@ namespace BurningKnight.entity.level {
 				Tiles[i] = stream.ReadByte();
 				Liquid[i] = stream.ReadByte();
 			}
+			
+			CreateBody();
+			TileUp();
 		}
 
 		public void Setup() {
@@ -136,6 +152,106 @@ namespace BurningKnight.entity.level {
 			Light = new byte[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
+		}
+
+		public override void RenderDebug() {
+			Graphics.Batch.DrawRectangle(new RectangleF(0, 0, Width * 16, Height * 16), Color.Green);
+		}
+		
+		protected int GetRenderLeft(Camera camera) {
+			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Floor(camera.X / 16 - 1f));
+		}
+
+		protected int GetRenderTop(Camera camera) {
+			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Floor(camera.Y / 16 - 1f));
+		}
+
+		protected int GetRenderRight(Camera camera) {
+			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Ceiling(camera.Right / 16 + 1f));
+		}
+
+		protected int GetRenderBottom(Camera cameral) {
+			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Ceiling(cameral.Bottom / 16 + 1f));
+		}
+
+		// Renders floor layer
+		public override void Render() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+					var tile = Tiles[index];
+					var t = (Tile) tile;
+
+					if (tile > 0 && t.Matches(TileFlags.FloorLayer)) {
+						Graphics.Render(t == Tile.Chasm ? Tilesets.Biome.ChasmPattern : Tileset.Tiles[tile][Variants[index]], new Vector2(x * 16, y * 16));
+					}
+				}
+			}
+		}
+
+		public bool RenderLiquids() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+
+			var region = new TextureRegion();
+			
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+					var tile = Liquid[index];
+
+					if (tile > 0) {
+						region.Set(Tilesets.Biome.Patterns[tile]);
+						region.Source.X += x % 4 * 16;
+						region.Source.Y += y % 4 * 16;
+						region.Source.Width = 16;
+						region.Source.Height = 16;
+
+						Graphics.Render(region, new Vector2(x * 16, y * 16));
+					}
+				}
+			}
+
+			return true;
+		}
+		
+		public bool RenderWalls() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+					var tile = Tiles[index];
+					var t = (Tile) tile;
+
+					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
+						Graphics.Render(Tileset.Tiles[tile][0], new Vector2(x * 16, y * 16 - 8));
+
+						if (!((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
+							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		private byte CalcWallIndex(int x, int y) {
+			return (byte) ((int) Math.Round(x * 3.5f + y * 2.74f) % 12);
 		}
 	}
 }

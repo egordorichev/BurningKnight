@@ -1,20 +1,12 @@
 using System.Collections.Generic;
-using BurningKnight.entity.creature.mob;
-using BurningKnight.entity.creature.player;
-using BurningKnight.entity.item;
 using BurningKnight.entity.level.builders;
-using BurningKnight.entity.level.entities;
 using BurningKnight.entity.level.painters;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
-using BurningKnight.entity.level.rooms.regular;
 using BurningKnight.entity.level.rooms.special;
-using BurningKnight.entity.pool;
 using BurningKnight.entity.pool.room;
-using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
-using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.math;
@@ -24,7 +16,7 @@ namespace BurningKnight.entity.level {
 		private List<RoomDef> rooms;
 
 		public RegularLevel(string tileset) {
-			var animation = Animations.Get(tileset);
+			Tileset = Tilesets.Get(tileset);
 		}
 		
 		public void Generate(Area area, int Attempt) {
@@ -38,6 +30,8 @@ namespace BurningKnight.entity.level {
 				return;
 			}
 
+			TileUp();
+			CreateBody();
 			Log.Info("Done!");
 		}
 
@@ -45,7 +39,18 @@ namespace BurningKnight.entity.level {
 			Log.Info("Painting...");
 
 			var Painter = GetPainter();
-			Painter.Paint(this, rooms);				
+			Painter.Paint(this, rooms);
+			
+			foreach (var def in rooms) {
+				var room = new Room();
+
+				room.MapX = def.Left;
+				room.MapY = def.Top;
+				room.MapW = def.Width - 1;
+				room.MapH = def.Height - 1;
+				
+				Area.Add(room);
+			}
 		}
 
 		protected void Build() {

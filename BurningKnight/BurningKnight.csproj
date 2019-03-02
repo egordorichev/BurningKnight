@@ -79,6 +79,8 @@
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
+    <Compile Include="entity\Layers.cs" />
+    <Compile Include="entity\level\BiomeAssets.cs" />
     <Compile Include="entity\level\builders\Builder.cs" />
     <Compile Include="entity\level\builders\CastleBuilder.cs" />
     <Compile Include="entity\level\builders\LineBuilder.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="entity\pool\room\ShopRoomPool.cs" />
     <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
     <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
+    <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\CollisionListenerEntity.cs" />
     <Compile Include="physics\Physics.cs" />

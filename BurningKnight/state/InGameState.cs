@@ -15,7 +15,7 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 			
-			Area.Add(new Camera());
+			Ui.Add(new Camera());
 			
 			var cursor = new Cursor();
 			Ui.Add(cursor);

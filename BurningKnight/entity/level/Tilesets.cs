@@ -3,7 +3,14 @@
 namespace BurningKnight.entity.level {
 	public class Tilesets {
 		public static Dictionary<string, Tileset> Loaded = new Dictionary<string, Tileset>();
+		public static BiomeAssets Biome;
 
+		public static void Load() {
+			if (Biome == null) {
+				Biome = new BiomeAssets();
+			}
+		}
+		
 		public static Tileset Get(string id) {
 			Tileset tileset;
 			

@@ -11,7 +11,20 @@ namespace Lens.entity {
 		private Area Area;
 		private bool unsorted;
 		
-		private static Comparison<Entity> CompareByDepth = (a, b) => Math.Sign(b.Depth - a.Depth);
+		private static Comparison<Entity> CompareByDepth = (a, b) => {
+			var ad = a.Depth;
+			var bd = b.Depth;
+
+			if (ad > bd) {
+				return 1;
+			}
+
+			if (bd > ad) {
+				return -1;
+			}
+			
+			return 0;
+		};
 
 		public EntityList(Area area) {
 			Area = area;
@@ -48,7 +61,8 @@ namespace Lens.entity {
 			}
 
 			if (ToAdd.Count > 0) {
-				foreach (var entity in ToAdd) {
+				for (int i = 0; i < ToAdd.Count; i++) {
+					var entity = ToAdd[i];
 					Entities.Add(entity);
 					
 					entity.Area = Area;

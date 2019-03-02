@@ -63,26 +63,6 @@ namespace BurningKnight.entity.level {
 		protected int GetRenderBottom(Camera camera, Level level) {
 			return (int) MathUtils.Clamp(0, level.Height - 1, Math.Min((int) Math.Ceiling(camera.Bottom / 16 + 1f), MapY + MapH));
 		}
-		
-		public override void Render() {
-			var camera = Camera.Instance;
-			var level = Run.Level;
-
-			// Cache the condition
-			var toX = GetRenderRight(camera, level);
-			var toY = GetRenderBottom(camera, level);
-
-			for (int y = GetRenderTop(camera, level); y < toY; y++) {
-				for (int x = GetRenderLeft(camera, level); x < toX; x++) {
-					var index = level.ToIndex(x, y);
-					var tile = level.Tiles[index];
-
-					if (tile > 0) {
-						// todo: render it
-					}
-				}
-			}
-		}
 
 		public override void RenderDebug() {
 			Graphics.Batch.DrawRectangle(new RectangleF(X, Y, Width, Height), Color.Red);

@@ -19,5 +19,14 @@ namespace Lens.graphics {
 			Texture = texture;
 			Source = source;
 		}
+
+		public void Set(TextureRegion region) {
+			if (region == null) {
+				return;
+			}
+			
+			Texture = region.Texture;
+			Source = new Rectangle(region.Source.X, region.Source.Y, region.Source.Width, region.Source.Height);
+		}
 	}
 }

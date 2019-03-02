@@ -12,18 +12,41 @@ namespace BurningKnight.entity.level {
 		}
 
 		public static void TileUp(Level level, int index) {
+			if (level.Variants[index] != 0) {
+				return;
+			}
+			
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
-				level.Variants[index] = (byte) Random.Int(12); // todo: big chunks
+				var v = Random.Int(10);
+
+				if (v == 8 || v == 9) {
+					if (level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
+					    && level.Variants[index + 1] == 0 && level.Variants[index + level.Width] == 0 && level.Variants[index + 1 + level.Width] == 0) {
+						
+						var st = v == 8 ? 1 : 10; 
+						
+						level.Variants[index] = (byte) st;
+						level.Variants[index + 1] = (byte) (st + 1);
+						level.Variants[index + level.Width] = (byte) (st + 4);
+						level.Variants[index + 1 + level.Width] = (byte) (st + 5);
+		
+						return;
+					}
+				}
+
+				level.Variants[index] = (byte) v;					
 				return;
 			}
 
 			byte mask = 0;
 			
 			for (int i = 0; i < 4; i++) {
-				if (ShouldTile(tile, level.Tiles[index + PathFinder.Circle4[i]])) {
+				var n = index + PathFinder.Circle4[i];
+				
+				if (level.IsInside(n) && ShouldTile(tile, level.Tiles[n])) {
 					mask += (byte) (1 << i);
 				}
 			}
