@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurningKnight", "BurningKni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysics.MonoGame", "VelcroPhysics\VelcroPhysics.MonoGame.csproj", "{4650BD15-4B03-4A7E-98D4-9F8697ED2EB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMod", "TestMod\TestMod.csproj", "{9692B960-C67C-430D-AB9F-BC0F5CA74265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{4650BD15-4B03-4A7E-98D4-9F8697ED2EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4650BD15-4B03-4A7E-98D4-9F8697ED2EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4650BD15-4B03-4A7E-98D4-9F8697ED2EB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

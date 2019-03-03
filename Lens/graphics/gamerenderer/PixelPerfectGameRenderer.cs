@@ -17,7 +17,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(RenderTarget);
 			// Render game
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.Instance?.Matrix);
-			Graphics.Clear(Color.Black);
+			Graphics.Clear(Bg);
 			Engine.Instance.State.Render();
 			Graphics.Batch.End();
 			// Render ui

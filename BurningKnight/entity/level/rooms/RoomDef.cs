@@ -62,13 +62,13 @@ namespace BurningKnight.entity.level.rooms {
 			foreach (var R in Connected.Keys) {
 				var I = Intersect(R);
 
-				if (Direction == Connection.Left && I.Width == 0 && I.Left == Left) {
+				if (Direction == Connection.Left && I.GetWidth() == 0 && I.Left == Left) {
 					Total++;
-				} else if (Direction == Connection.Top && I.Height == 0 && I.Top == Top) {
+				} else if (Direction == Connection.Top && I.GetHeight() == 0 && I.Top == Top) {
 					Total++;
-				} else if (Direction == Connection.Right && I.Width == 0 && I.Right == Right) {
+				} else if (Direction == Connection.Right && I.GetWidth() == 0 && I.Right == Right) {
 					Total++;
-				} else if (Direction == Connection.Bottom && I.Height == 0 && I.Bottom == Bottom) {
+				} else if (Direction == Connection.Bottom && I.GetHeight() == 0 && I.Bottom == Bottom) {
 					Total++;
 				}
 			}
@@ -110,19 +110,19 @@ namespace BurningKnight.entity.level.rooms {
 				return false;
 			}
 
-			if (I.Width == 0 && I.Left == Left) {
+			if (I.GetWidth() == 0 && I.Left == Left) {
 				return CanConnect(Connection.Left) && R.CanConnect(Connection.Left);
 			}
 
-			if (I.Height == 0 && I.Top == Top) {
+			if (I.GetHeight() == 0 && I.Top == Top) {
 				return CanConnect(Connection.Top) && R.CanConnect(Connection.Top);
 			}
 
-			if (I.Width == 0 && I.Right == Right) {
+			if (I.GetWidth() == 0 && I.Right == Right) {
 				return CanConnect(Connection.Right) && R.CanConnect(Connection.Right);
 			}
 
-			if (I.Height == 0 && I.Bottom == Bottom) {
+			if (I.GetHeight() == 0 && I.Bottom == Bottom) {
 				return CanConnect(Connection.Bottom) && R.CanConnect(Connection.Bottom);
 			}
 
@@ -135,8 +135,8 @@ namespace BurningKnight.entity.level.rooms {
 			}
 
 			var I = Intersect(Other);
-			var W = I.Width;
-			var H = I.Height;
+			var W = I.GetWidth();
+			var H = I.GetHeight();
 
 			if (W == 0 && H >= 2 || H == 0 && W >= 2) {
 				Neighbours.Add(Other);
@@ -251,9 +251,9 @@ namespace BurningKnight.entity.level.rooms {
 
 			SetSize();
 
-			if (Width > W || Height > H) {
-				var Ww = ValidateWidth(Math.Min(Width, W) - 1);
-				var Hh = ValidateHeight(Math.Min(Height, H) - 1);
+			if (GetWidth() > W || GetHeight() > H) {
+				var Ww = ValidateWidth(Math.Min(GetWidth(), W) - 1);
+				var Hh = ValidateHeight(Math.Min(GetHeight(), H) - 1);
 
 				if (Ww >= W || Hh >= H) {
 					return false;
@@ -316,12 +316,17 @@ namespace BurningKnight.entity.level.rooms {
 
 			return Points;
 		}
-		
-		public new int Width => Right - Left + 1;
-		public new int Height => Bottom - Top + 1;
+
+		public override int GetWidth() {
+			return base.GetWidth() + 1;
+		}
+
+		public override int GetHeight() {
+			return base.GetHeight() + 1;
+		}
 
 		public Vector2 GetCenter() {
-			return new Vector2(Left + Width / 2, Top + Height / 2);
+			return new Vector2(Left + GetWidth() / 2, Top + GetHeight() / 2);
 		}
 
 		protected Rect GetConnectionSpace() {

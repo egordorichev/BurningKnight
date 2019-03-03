@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.level;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.creature.player {
 			AddGraphicsComponent(new PlayerHatComponent());
 			
 			AddComponent(new InventoryComponent());
-			AddComponent(new RectBodyComponent(0, 0, 16, 16));
+			AddComponent(new NoCornerBodyComponent(2, 0, 12, 12));
 			GetComponent<StateComponent>().State = typeof(IdleState);
 			
 			AddTag(Tags.Player);

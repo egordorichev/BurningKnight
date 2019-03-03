@@ -10,7 +10,9 @@ namespace BurningKnight {
 
 		protected override void Initialize() {
 			base.Initialize();
+			
 			Font.Load();
+			Mods.Load();
 		}
 	}
 }

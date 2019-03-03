@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\Mods.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="debug\Console.cs" />
     <Compile Include="debug\ConsoleCommand.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
+    <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
@@ -178,6 +180,9 @@
     <None Include="Content/Fonts/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content/Mods/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">
@@ -206,6 +211,9 @@
     <Content Include="Content\Sfx\menu\goback.mp3" />
     <Content Include="Content\Sfx\menu\moving.mp3" />
     <Content Include="Content\Sfx\menu\select.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Mods" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

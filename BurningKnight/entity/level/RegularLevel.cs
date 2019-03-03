@@ -47,8 +47,8 @@ namespace BurningKnight.entity.level {
 
 				room.MapX = def.Left;
 				room.MapY = def.Top;
-				room.MapW = def.Width - 1;
-				room.MapH = def.Height - 1;
+				room.MapW = def.GetWidth() - 1;
+				room.MapH = def.GetHeight() - 1;
 				
 				Area.Add(room);
 			}

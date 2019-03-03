@@ -21,7 +21,7 @@ namespace BurningKnight.state {
 			Ui.Add(cursor);
 			
 			Camera.Instance.Follow(LocalPlayer.Locate(Area), 1f);
-			Camera.Instance.Follow(cursor, 0.5f);
+			// Camera.Instance.Follow(cursor, 0.5f);
 		}
 
 		public override void Destroy() {
@@ -34,8 +34,8 @@ namespace BurningKnight.state {
 		}
 
 		public override void Update(float dt) {
-			base.Update(dt);
 			Physics.Update(dt);
+			base.Update(dt);
 		}
 
 		public override void Render() {

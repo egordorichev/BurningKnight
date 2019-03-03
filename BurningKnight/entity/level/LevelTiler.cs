@@ -20,13 +20,13 @@ namespace BurningKnight.entity.level {
 			var t = (Tile) tile;
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
-				var v = Random.Int(11);
+				var v = Random.Int(9);
 
-				if (v == 9 || v == 10) {
+				if (v == 8 || v == 9) {
 					if (level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
 					    && level.Variants[index + 1] == 0 && level.Variants[index + level.Width] == 0 && level.Variants[index + 1 + level.Width] == 0) {
 
-						var st = v == 9 ? 8 : 10; 
+						var st = v == 8 ? 8 : 10; 
 						
 						level.Variants[index] = (byte) st;
 						level.Variants[index + 1] = (byte) (st + 1);
@@ -36,7 +36,7 @@ namespace BurningKnight.entity.level {
 						return;
 					}
 
-					v = Random.Int(9);
+					v = Random.Int(8);
 				}
 
 				level.Variants[index] = (byte) v;					

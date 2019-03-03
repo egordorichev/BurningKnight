@@ -36,8 +36,13 @@ namespace BurningKnight.util.geometry {
 			return Rect;
 		}
 
-		public int Width => Right - Left;
-		public int Height => Bottom - Top;
+		public virtual int GetWidth() {
+			return Right - Left;
+		}
+		
+		public virtual int GetHeight() {
+			return Bottom - Top;
+		}
 
 		public Rect Set(int Left, int Top, int Right, int Bottom) {
 			this.Left = Left;

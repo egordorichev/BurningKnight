@@ -9,10 +9,10 @@ namespace BurningKnight.util {
 		public const bool FILLED = true;
 
 		public static bool[][] Generate(RoomDef R) {
-			var Maze = new bool[R.Width][];
+			var Maze = new bool[R.GetWidth()][];
 
 			for (var X = 0; X < Maze.Length; X++) {
-				Maze[X] = new bool[R.Height];
+				Maze[X] = new bool[R.GetHeight()];
 				
 				for (var Y = 0; Y < Maze[0].Length; Y++)
 					if (X == 0 || X == Maze.Length - 1 || Y == 0 || Y == Maze[0].Length - 1)
@@ -27,7 +27,7 @@ namespace BurningKnight.util {
 		}
 
 		public static bool[][] Generate(Rect R) {
-			return Generate(R.Width + 1, R.Height + 1);
+			return Generate(R.GetWidth() + 1, R.GetHeight() + 1);
 		}
 
 		public static bool[][] Generate(int Width, int Height) {

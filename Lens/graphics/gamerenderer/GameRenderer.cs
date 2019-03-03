@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.gamerenderer {
 	public class GameRenderer {
@@ -8,6 +9,7 @@ namespace Lens.graphics.gamerenderer {
 		public DepthStencilState DepthStencilState = DepthStencilState.None;
 		public RasterizerState RasterizerState = RasterizerState.CullNone;
 		public Effect Effect;
+		public Color Bg = Color.Black;
 		
 		public virtual void Render() {
 			

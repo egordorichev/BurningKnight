@@ -426,15 +426,15 @@ namespace BurningKnight.entity.level.painters {
 		}
 
 		public static void Fill(Level Level, Rect Rect, Tile Value) {
-			Fill(Level, Rect.Left, Rect.Top, Rect.Width, Rect.Height, Value);
+			Fill(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
 		}
 
 		public static void Fill(Level Level, Rect Rect, int M, Tile Value) {
-			Fill(Level, Rect.Left + M, Rect.Top + M, Rect.Width - M * 2, Rect.Height - M * 2, Value);
+			Fill(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
 		}
 
 		public static void Fill(Level Level, Rect Rect, int L, int T, int R, int B, Tile Value) {
-			Fill(Level, Rect.Left + L, Rect.Top + T, Rect.Width - (L + R), Rect.Height - (T + B), Value);
+			Fill(Level, Rect.Left + L, Rect.Top + T, Rect.GetWidth() - (L + R), Rect.GetHeight() - (T + B), Value);
 		}
 
 		public static void DrawLine(Level Level, Vector2 From, Vector2 To, Tile Value, bool Bold = false) {
@@ -471,17 +471,16 @@ namespace BurningKnight.entity.level.painters {
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, Tile Value) {
-			FillEllipse(Level, Rect.Left, Rect.Top, Rect.Width, Rect.Height, Value);
+			FillEllipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, int M, Tile Value) {
-			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.Width - M * 2, Rect.Height - M * 2, Value);
+			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
 		}
 
 		public static void FillEllipse(Level Level, int X, int Y, int W, int H, Tile Value) {
 			double RadH = H / 2f;
 			double RadW = W / 2f;
-			bool Liquid = Value.Matches(TileFlags.LiquidLayer);
 
 			for (var I = 0; I < H; I++) {
 				var RowY = -RadH + 0.5 + I;

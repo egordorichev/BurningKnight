@@ -180,16 +180,20 @@ namespace BurningKnight.entity.level {
 
 			// Cache the condition
 			var toX = GetRenderRight(camera);
-			var toY = GetRenderBottom(camera);
+			var toY = GetRenderTop(camera);
 
-			for (int y = GetRenderTop(camera); y < toY; y++) {
+			for (int y = GetRenderBottom(camera) - 1; y >= toY; y--) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
 					var index = ToIndex(x, y);
 					var tile = Tiles[index];
 					var t = (Tile) tile;
 
-					if (tile > 0 && t.Matches(TileFlags.FloorLayer)) {
-						Graphics.Render(t == Tile.Chasm ? Tilesets.Biome.ChasmPattern : Tileset.Tiles[tile][Variants[index]], new Vector2(x * 16, y * 16));
+					if (tile > 0) {
+						if (t.Matches(TileFlags.FloorLayer)) {
+							Graphics.Render(t == Tile.Chasm ? Tilesets.Biome.ChasmPattern : Tileset.Tiles[tile][Variants[index]], new Vector2(x * 16, y * 16));
+						} else if (t.Matches(TileFlags.WallLayer) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
+							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
+						}
 					}
 				}
 			}
@@ -307,10 +311,6 @@ namespace BurningKnight.entity.level {
 									}
 								}
 							}
-							
-							if (!((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
-								Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
-							}	
 						}
 					}
 				}

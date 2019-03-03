@@ -7,7 +7,7 @@ namespace BurningKnight.physics {
 	public class Physics {
 		public static World World;
 		public static PhysicsDebugRenderer Debug;
-		public static bool RenderDebug = false;
+		public static bool RenderDebug = true;
 
 		public static void Init() {
 			World = new World(Vector2.Zero);

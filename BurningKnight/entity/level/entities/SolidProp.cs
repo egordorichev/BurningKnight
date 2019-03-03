@@ -7,7 +7,7 @@ namespace BurningKnight.entity.level.entities {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-			AddComponent(new RectBodyComponent(collider.Left, collider.Right, collider.Width, collider.Height));
+			AddComponent(new RectBodyComponent(collider.Left, collider.Right, collider.GetWidth(), collider.GetHeight()));
 		}
 	}
 }
