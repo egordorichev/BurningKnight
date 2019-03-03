@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.item.use;
+using BurningKnight.entity.item.useCheck;
 using BurningKnight.save;
 using Lens.assets;
 using Lens.entity.component.graphics;
@@ -19,22 +23,33 @@ namespace BurningKnight.entity.item {
 				}
 			}
 		}
-		
-		public bool Stackable = false;
-		public bool Usable = true;
 
 		public string Id { get; private set; }
 		public string Name => Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");
+		public float UseTime = 0.3f;
+		public float Delay { get; protected set; }
 
-		public Item() {
-			Id = GetType().Name;
-			// TODO: id to pascal_case
+		public ItemUse[] Uses;
+		public ItemUseCheck UseCheck = ItemUseChecks.Default;
+		
+		public Item(params ItemUse[] uses) {
+			Id = GetType().Name; // TODO: id to pascal_case
+			Uses = uses;
+		}
+
+		public void Use(Player player) {
+			if (!UseCheck.CanUse(player, this)) {
+				return;
+			}
+
+			foreach (var use in Uses) {
+				use.Use(player, this);
+			}
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
-			
 			AddComponent(new ImageComponent(Id));
 		}
 

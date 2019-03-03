@@ -110,6 +110,10 @@ namespace Lens {
 			}
 		}
 
+		public virtual void RenderUi() {
+			
+		}
+
 		public void SetState(GameState state) {
 			if (State == null) {
 				State = state;

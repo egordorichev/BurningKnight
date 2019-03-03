@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\Mod.cs" />
     <Compile Include="assets\Mods.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="debug\Console.cs" />
@@ -77,11 +78,20 @@
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
-    <Compile Include="entity\creature\player\PlayerHatComponent.cs" />
+    <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\Cursor.cs" />
+    <Compile Include="entity\item\ActiveItem.cs" />
+    <Compile Include="entity\item\Artifact.cs" />
+    <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
+    <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
+    <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
+    <Compile Include="entity\item\use\ItemUse.cs" />
+    <Compile Include="entity\item\use\ModifyHpUse.cs" />
+    <Compile Include="entity\item\use\RandomUse.cs" />
+    <Compile Include="entity\item\Weapon.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\level\BiomeAssets.cs" />
     <Compile Include="entity\level\builders\Builder.cs" />

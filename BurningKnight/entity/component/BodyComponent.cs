@@ -62,6 +62,10 @@ namespace BurningKnight.entity.component {
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;
 			velocity.Y += Acceleration.Y;
+
+			if (velocity.Length() > 0.1f) {
+				Entity.GraphicsComponent.Flipped = velocity.X < 0;
+			}
 			
 			Body.LinearVelocity = velocity;
 			Entity.Position = Body.Position;

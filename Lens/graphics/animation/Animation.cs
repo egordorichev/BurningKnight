@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.animation {
 	public class Animation {
@@ -71,9 +72,14 @@ namespace Lens.graphics.animation {
 		public bool PingGoingForward;
 		public bool SkipNextFrame;
 		
-		public Animation(AnimationData data) {
+		public Animation(AnimationData data, string layer = null) {
 			Data = data;
-			ReadFrame();
+
+			if (layer != null) {
+				Layer = layer;
+			} else {
+				ReadFrame();				
+			}
 		}
 
 		public void Update(float dt) {
@@ -82,8 +88,9 @@ namespace Lens.graphics.animation {
 			}
 		}
 
-		public void Render(Vector2 position) {
-			Graphics.Render(frame.Texture, position);
+		// 		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip) {
+		public void Render(Vector2 position, bool flipped = false) {
+			Graphics.Render(frame.Texture, position, 0, Vector2.Zero /* fixme */, Vector2.One, flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 		}
 		
 		public void Reset() {

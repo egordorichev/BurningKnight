@@ -5,9 +5,9 @@ using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
 	public class HealthComponent : Component {
-		private uint health;
+		private int health;
 		
-		public uint Health {
+		public int Health {
 			get => health;
 			set {
 				if (Unhittable) {
@@ -22,7 +22,7 @@ namespace BurningKnight.entity.component {
 					InvincibilityTimer = InvincibilityTimerMax;
 				}
 				
-				health = (uint) MathUtils.Clamp(health, 0, maxHealth);
+				health = (int) MathUtils.Clamp(health, 0, maxHealth);
 
 				if (health == 0) {
 					dead = true;
@@ -30,9 +30,9 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		private uint maxHealth;
+		private int maxHealth;
 		
-		public uint MaxHealth {
+		public int MaxHealth {
 			get => maxHealth;
 
 			set {

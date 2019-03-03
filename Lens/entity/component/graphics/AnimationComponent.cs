@@ -16,11 +16,7 @@ namespace Lens.entity.component.graphics {
 			var data = Animations.Get(name);
 
 			if (data != null) {
-				Animation = data.CreateAnimation();
-
-				if (layer != null) {
-					Animation.Layer = layer;
-				}
+				Animation = data.CreateAnimation(layer);
 			}
 		}
 
@@ -35,7 +31,7 @@ namespace Lens.entity.component.graphics {
 		}
 
 		public override void Render() {
-			Animation?.Render(Entity.Position);
+			Animation?.Render(Entity.Position + Offset, Flipped);
 		}
 	}
 }

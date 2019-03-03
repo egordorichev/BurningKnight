@@ -82,14 +82,16 @@ namespace Lens.assets {
 		}
 
 		public static AnimationData Get(string id) {
-			AnimationData animation;
-
-			if (animations.TryGetValue(id, out animation)) {
+			if (animations.TryGetValue(id, out var animation)) {
 				return animation;
 			}
 			
 			Log.Error($"Animation {id} was not found!");
 			return null;
+		}
+
+		public static Animation Create(string id, string layer = null) {
+			return new Animation(Get(id), layer);
 		}
 	}
 }

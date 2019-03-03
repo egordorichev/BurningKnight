@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.item.use;
 
 namespace BurningKnight.entity.item {
 	public static class ItemRegistry {
@@ -11,65 +12,16 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public static bool Check(Quality a, Quality q) {
-			if (q == Quality.Any || a == Quality.Any) {
-				return true;
-			}
-
-			switch (q) {
-				case Quality.Wooden: {
-					return a == Quality.Wooden || a == Quality.WoodenPlus;
-				}
-
-				case Quality.Iron: {
-					return a == Quality.Iron || a == Quality.IronPlus || a == Quality.WoodenPlus;
-				}
-
-				case Quality.Golden: {
-					return a == Quality.Golden || a == Quality.WoodenPlus || a == Quality.IronPlus;
-				}
-
-				case Quality.WoodenPlus: {
-					return true;
-				}
-
-				case Quality.IronPlus: {
-					return a == Quality.Iron || a == Quality.IronPlus || a == Quality.Golden;
-				}
-
-				default: {
-					return false;
-				}
-			}
-		}
-
 		public class Pair {
-			public bool Busy;
-			public float Chance;
-			public int Cost;
+			public Chance Chance;
 			public string Id;
-			public float Mage;
-			public Quality Quality;
-			public float Ranged;
-			public bool Shown;
-			public Type Type;
-			public string Unlock;
+			public Func<Item> Create;
 			public float Warrior;
 
-			public Pair(string Id, Type Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality) 
-				: this(Id, Type, Chance, Warrior, Mage, Ranged, Quality, 0, null) {
-			}
-
-			public Pair(string Id, Type Type, float Chance, float Warrior, float Mage, float Ranged, Quality Quality, int Cost, string Unlock) {
-				this.Id = Id;
-				this.Type = Type;
-				this.Chance = Chance;
-				this.Warrior = Warrior;
-				this.Mage = Mage;
-				this.Ranged = Ranged;
-				this.Quality = Quality;
-				this.Unlock = Unlock;
-				this.Cost = Cost;
+			public Pair(string id, Func<Item> create, Chance chance) {
+				Id = id;
+				Create = create;
+				Chance = chance;
 			}
 
 			public bool Unlocked(string Key) {
@@ -86,8 +38,12 @@ namespace BurningKnight.entity.item {
 			Any
 		}
 		
-		public static Pair[] Pairs = new [] {
-			new Pair("test", typeof(Item), 0, 0, 0, 0, Quality.Any)
+		public static Pair[] Pairs = {
+			new Pair("health_potion", () => new Item(new ModifyHpUse(30)), new Chance.All(1)),
+			
+			new Pair("random_potion", () => new Item(new RandomUse(
+				new ModifyHpUse(30), new ModifyHpUse(-30)
+			)), new Chance.All(1))
 		};
 	}
 }

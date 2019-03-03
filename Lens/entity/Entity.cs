@@ -114,7 +114,7 @@ namespace Lens.entity {
 		
 		#region Entity logic
 
-		private List<GraphicsComponent> graphicsComponents = new List<GraphicsComponent>();
+		public GraphicsComponent GraphicsComponent;
 		protected Dictionary<Type, Component> components;
 		
 		public virtual void Init() {
@@ -130,6 +130,11 @@ namespace Lens.entity {
 		public virtual void PostInit() {
 			
 		}
+
+		public void SetGraphicsComponent(GraphicsComponent component) {
+			GraphicsComponent = component;
+			AddComponent(component);
+		}
 		
 		public virtual void Destroy() {
 			foreach (var component in components.Values) {
@@ -144,9 +149,7 @@ namespace Lens.entity {
 		}
 
 		public virtual void Render() {
-			foreach (var component in graphicsComponents) {
-				component.Render();				
-			}
+			GraphicsComponent?.Render();
 		}
 
 		public virtual void RenderDebug() {
@@ -166,12 +169,7 @@ namespace Lens.entity {
 			component.Entity = this;
 			component.Init();
 		}
-
-		public void AddGraphicsComponent(GraphicsComponent component) {
-			AddComponent(component);			
-			graphicsComponents.Add(component);
-		}
-
+		
 		public void RemoveComponent<T>() {
 			var type = typeof(T);
 			

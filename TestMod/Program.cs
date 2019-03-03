@@ -1,12 +1,21 @@
-﻿using System;
+﻿using BurningKnight.assets;
 
 namespace TestMod {
-	public class Program {
+	public class Program : Mod {
 		public void Init() {
-			Console.WriteLine("HELLO WORLD!!!");
-			Console.WriteLine("HELLO WORLD!!!");
-			Console.WriteLine("HELLO WORLD!!!");
-			Console.WriteLine("HELLO WORLD!!!");
+			
+		}
+
+		public void Destroy() {
+			
+		}
+
+		public void Update(float dt) {
+			
+		}
+
+		public void Render() {
+			
 		}
 	}
 }

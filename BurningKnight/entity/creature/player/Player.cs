@@ -1,17 +1,17 @@
 using BurningKnight.entity.component;
-using BurningKnight.entity.level;
 using BurningKnight.physics;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, CollisionFilterEntity {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddGraphicsComponent(new AnimationComponent("gobbo", "body"));
-			AddGraphicsComponent(new PlayerHatComponent());
+			SetGraphicsComponent(new PlayerGraphicsComponent {
+				Offset = new Vector2(0, -4)
+			});
 			
 			AddComponent(new InventoryComponent());
 			AddComponent(new NoCornerBodyComponent(2, 0, 12, 12));

@@ -5,7 +5,7 @@ namespace Lens.graphics {
 	public class TextureRegion {
 		public Texture2D Texture;
 		public Rectangle Source;
-
+		
 		public TextureRegion() {
 			
 		}

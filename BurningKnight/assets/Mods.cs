@@ -36,6 +36,24 @@ namespace BurningKnight.assets {
 			}
 		}
 
+		public static void Update(float dt) {
+			foreach (var mod in Loaded) {
+				TryInvoke(mod, "Update", dt);
+			}
+		}
+
+		public static void Render() {
+			foreach (var mod in Loaded) {
+				TryInvoke(mod, "Render");
+			}
+		}
+
+		public static void Destroy() {
+			foreach (var mod in Loaded) {
+				TryInvoke(mod, "Destroy");
+			}
+		}
+
 		public static bool TryInvoke(object on, string method, params object[] args) {
 			try {
 				on.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, on, args);

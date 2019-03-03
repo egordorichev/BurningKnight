@@ -35,6 +35,8 @@ namespace Lens.game {
 			if (RenderDebug) {
 				Ui.RenderDebug();
 			}
+
+			Engine.Instance.RenderUi();
 		}
 	}
 }

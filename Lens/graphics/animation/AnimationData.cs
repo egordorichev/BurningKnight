@@ -36,8 +36,8 @@ namespace Lens.graphics.animation {
 			return frames[(int) id];
 		}
 
-		public Animation CreateAnimation() {
-			return new Animation(this);			
+		public Animation CreateAnimation(string layer = null) {
+			return new Animation(this, layer);
 		}
 	}
 }
