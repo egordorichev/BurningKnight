@@ -1,7 +1,9 @@
 using System;
+using BurningKnight.entity.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.file;
@@ -11,6 +13,7 @@ using MonoGame.Extended;
 namespace BurningKnight.entity.level {
 	public abstract class Level : SaveableEntity {
 		public Tileset Tileset;
+		public Biome Biome;
 
 		private int width;
 		private int height;
@@ -39,7 +42,10 @@ namespace BurningKnight.entity.level {
 		public byte[] Variants;
 		public byte[] Light;
 
-		public Level() {
+		public Level(BiomeInfo biome) {
+			Biome = (Biome) Activator.CreateInstance(biome.Type);
+			Tileset = Tilesets.Get(Biome.Tileset);
+			
 			Run.Level = this;
 		}
 
@@ -119,6 +125,7 @@ namespace BurningKnight.entity.level {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
+			stream.WriteString(Biome.Id);
 			stream.WriteInt32(width);
 			stream.WriteInt32(height);
 
@@ -130,6 +137,8 @@ namespace BurningKnight.entity.level {
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
+
+			Biome = (Biome) Activator.CreateInstance(BiomeRegistry.All[stream.ReadString()].Type);
 
 			Width = stream.ReadInt32();
 			Height = stream.ReadInt32();

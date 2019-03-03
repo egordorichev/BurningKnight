@@ -75,7 +75,11 @@
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
+    <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
+    <Compile Include="entity\creature\mob\MobInfo.cs" />
+    <Compile Include="entity\creature\mob\MobRegistry.cs" />
+    <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="entity\item\Artifact.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
+    <Compile Include="entity\item\ItemInfo.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
@@ -93,6 +98,10 @@
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\Weapon.cs" />
     <Compile Include="entity\Layers.cs" />
+    <Compile Include="entity\level\BiomeInfo.cs" />
+    <Compile Include="entity\level\BiomeRegistry.cs" />
+    <Compile Include="entity\level\biome\Biome.cs" />
+    <Compile Include="entity\level\biome\CastleBiome.cs" />
     <Compile Include="entity\level\BiomeAssets.cs" />
     <Compile Include="entity\level\builders\Builder.cs" />
     <Compile Include="entity\level\builders\CastleBuilder.cs" />
@@ -108,7 +117,6 @@
     <Compile Include="entity\level\DoorPlaceholder.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
-    <Compile Include="entity\level\levels\CastleLevel.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />
     <Compile Include="entity\level\painters\Painter.cs" />
     <Compile Include="entity\level\Patch.cs" />

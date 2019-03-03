@@ -13,11 +13,11 @@ using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.entity.level {
-	public abstract class RegularLevel : Level {
+	public class RegularLevel : Level {
 		private List<RoomDef> rooms;
 
-		public RegularLevel(string tileset) {
-			Tileset = Tilesets.Get(tileset);
+		public RegularLevel(BiomeInfo biome) : base(biome) {
+			
 		}
 		
 		public void Generate(Area area, int Attempt) {
