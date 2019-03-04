@@ -1,4 +1,6 @@
-﻿namespace BurningKnight.entity.item {
+﻿using BurningKnight.entity.creature.player;
+
+namespace BurningKnight.entity.item {
 	public class Chance {
 		public const float OtherClasses = 0.1f;
 		
@@ -12,6 +14,15 @@
 			Melee = warrior;
 			Magic = mage;
 			Range = ranged;
+		}
+
+		public float Calculate(PlayerClass c) {
+			switch (c) {
+				case PlayerClass.Warrior: return Melee * Any;
+				case PlayerClass.Mage: return Magic * Any;
+				case PlayerClass.Ranger: return Range * Any;
+				default: return Any;		
+			}			
 		}
 
 		public static Chance All(float all = 1) {

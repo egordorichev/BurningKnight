@@ -83,6 +83,7 @@
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
+    <Compile Include="entity\creature\player\PlayerClass.cs" />
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\Cursor.cs" />

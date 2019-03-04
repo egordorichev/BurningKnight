@@ -31,6 +31,11 @@ namespace BurningKnight.entity.level.rooms {
 			}
 		}
 
+		public static void Remove(RoomInfo info) {
+			All.Remove(info);
+			ByType[info.Type].Remove(info);
+		}
+
 		public static RoomDef Generate(RoomType type) {
 			if (!ByType.TryGetValue(type, out var types)) {
 				return null;
