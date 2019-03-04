@@ -58,8 +58,8 @@ namespace BurningKnight.entity.level {
 			Patterns[(int) Tile.Obsidian] = ObsidianPattern = new TextureRegion(anim.Texture, new Rectangle(0, 128, 64, 64));
 			Edges[(int) Tile.Obsidian] = Obsidian = GetEdge(anim, 64, 128);
 			
-			Patterns[(int) Tile.Grass] = GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));
-			Edges[(int) Tile.Grass] = Grass = GetEdge(anim, 192, 0);
+			Patterns[(int) Tile.HighGrass] = Patterns[(int) Tile.Grass] = GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));
+			Edges[(int) Tile.HighGrass] = Edges[(int) Tile.Grass] = Grass = GetEdge(anim, 192, 0);
 			
 			Patterns[(int) Tile.Cobweb] = CobwebPattern = new TextureRegion(anim.Texture, new Rectangle(128, 192, 64, 64));
 			Edges[(int) Tile.Cobweb] = Cobweb = GetEdge(anim, 192, 192);

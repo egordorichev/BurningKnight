@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.level.rooms.boss;
+using BurningKnight.entity.level.rooms.entrance;
 using BurningKnight.entity.level.rooms.regular;
+using BurningKnight.entity.level.rooms.secret;
+using BurningKnight.entity.level.rooms.shop;
+using BurningKnight.entity.level.rooms.treasure;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.rooms {
@@ -10,7 +15,12 @@ namespace BurningKnight.entity.level.rooms {
 		
 		static RoomRegistry() {
 			RoomInfo[] infos = {
-				RoomInfo.New<RegularRoom>(1f, RoomType.Regular)
+				RoomInfo.New<RegularRoom>(1f),
+				RoomInfo.New<EntranceRoom>(1f, RoomType.Entrance),
+				RoomInfo.New<BossRoom>(1f, RoomType.Boss),
+				RoomInfo.New<SecretRoom>(1f, RoomType.Secret),
+				RoomInfo.New<TreasureRoom>(1f, RoomType.Treasure),
+				RoomInfo.New<ShopRoom>(1f, RoomType.Shop)
 			};
 
 			foreach (var info in infos) {

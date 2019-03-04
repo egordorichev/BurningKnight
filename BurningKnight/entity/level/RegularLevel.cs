@@ -17,6 +17,10 @@ namespace BurningKnight.entity.level {
 		public RegularLevel(BiomeInfo biome) : base(biome) {
 			
 		}
+
+		public RegularLevel() : base(null) {
+			
+		}
 		
 		public void Generate(Area area, int Attempt) {
 			rooms = null;

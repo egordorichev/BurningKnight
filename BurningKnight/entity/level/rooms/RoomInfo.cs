@@ -11,6 +11,7 @@ namespace BurningKnight.entity.level.rooms {
 			return new RoomInfo {
 				Chance = chance,
 				Type = type,
+				Room = typeof(T),
 				Biomes = biomes
 			};
 		}

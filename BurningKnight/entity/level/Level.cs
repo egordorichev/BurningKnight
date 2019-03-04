@@ -43,10 +43,16 @@ namespace BurningKnight.entity.level {
 		public byte[] Light;
 
 		public Level(BiomeInfo biome) {
-			Biome = (Biome) Activator.CreateInstance(biome.Type);
-			Tileset = Tilesets.Get(Biome.Tileset);
+			SetBiome(biome);
 			
 			Run.Level = this;
+		}
+
+		protected void SetBiome(BiomeInfo biome) {
+			if (biome != null) {
+				Biome = (Biome) Activator.CreateInstance(biome.Type);
+				Tileset = Tilesets.Get(Biome.Tileset);
+			}
 		}
 
 		public override void Init() {
@@ -138,7 +144,7 @@ namespace BurningKnight.entity.level {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
-			Biome = (Biome) Activator.CreateInstance(BiomeRegistry.Defined[stream.ReadString()].Type);
+			SetBiome(BiomeRegistry.Defined[stream.ReadString()]);
 
 			Width = stream.ReadInt32();
 			Height = stream.ReadInt32();
