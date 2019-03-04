@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.entity.buff;
+using BurningKnight.entity.events;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
@@ -22,7 +23,12 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 
-			Buffs[type] = (Buff) Activator.CreateInstance(type);
+			var buff = (Buff) Activator.CreateInstance(type);
+			Buffs[type] = buff;
+			
+			Send(new BuffAddedEvent {
+				Buff = buff
+			});
 		}
 
 		public bool Has<T>() {
@@ -33,6 +39,10 @@ namespace BurningKnight.entity.component {
 			var type = typeof(T);
 
 			if (Buffs.TryGetValue(type, out var buff)) {
+				Send(new BuffRemovedEvent {
+					Buff = buff
+				});
+				
 				buff.Destroy();
 				Buffs.Remove(type);
 			}

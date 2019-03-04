@@ -3,6 +3,7 @@
 namespace Lens.entity {
 	public class Area {
 		public TagLists Tags;
+		public EventListener EventListener;
 
 		private static bool initedTags;
 		private EntityList entities;
@@ -13,6 +14,7 @@ namespace Lens.entity {
 				InitTags();
 			}
 			
+			EventListener = new EventListener();
 			Tags = new TagLists();
 			entities = new EntityList(this);
 		}

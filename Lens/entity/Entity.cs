@@ -5,7 +5,7 @@ using Lens.entity.component.graphics;
 using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
-	public class Entity {
+	public class Entity : Subscriber {
 		public Area Area;
 		
 		public bool Active = true;
@@ -147,6 +147,12 @@ namespace Lens.entity {
 				component.Update(dt);
 			}
 		}
+		
+		public void HandleEvent(Event e) {
+			foreach (var component in components.Values) {
+				component.HandleEvent(e);
+			}
+		}
 
 		public virtual void Render() {
 			GraphicsComponent?.Render();
@@ -177,6 +183,10 @@ namespace Lens.entity {
 				component.Destroy();
 				components.Remove(type);
 			}
+		}
+
+		public void Subscribe<T>() where T : Event {
+			Area.EventListener.Subscribe<T>(this);
 		}
 				
 		public T GetComponent<T>() where T : Component {

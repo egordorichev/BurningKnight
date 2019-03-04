@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.level;
 using BurningKnight.save;
+using Lens.entity;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature {
@@ -12,8 +13,8 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new StateComponent());
 		}
 		
-		public void Kill() {
-			GetComponent<HealthComponent>().Dead = true;
+		public void Kill(Entity w) {
+			GetComponent<HealthComponent>().Kill(w);
 		}
 	}
 }

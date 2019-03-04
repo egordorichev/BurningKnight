@@ -16,7 +16,7 @@ namespace BurningKnight.debug {
 		public override void Run(Console Console, string[] Args) {
 			foreach (var player in Console.Area.Tags[Tags.Player]) {
 				var component = player.GetComponent<HealthComponent>();
-				component.Health = component.MaxHealth;
+				component.SetHealth(component.MaxHealth, null);
 			}		
 		}
 	}

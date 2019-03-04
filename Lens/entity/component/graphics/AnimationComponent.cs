@@ -1,4 +1,5 @@
 ﻿using Lens.assets;
+using Lens.entity.component.logic;
 using Lens.graphics.animation;
 using Lens.util;
 
@@ -32,6 +33,14 @@ namespace Lens.entity.component.graphics {
 
 		public override void Render() {
 			Animation?.Render(Entity.Position + Offset, Flipped);
+		}
+
+		public override void HandleEvent(Event e) {
+			base.HandleEvent(e);
+
+			if (e is StateChangedEvent ev && Animation != null) {
+				Animation.Tag = ev.NewState.Name.ToLower().Replace("state", "");
+			}
 		}
 	}
 }

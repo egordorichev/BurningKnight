@@ -1,5 +1,7 @@
 ﻿using Lens.assets;
+using Lens.entity;
 using Lens.entity.component.graphics;
+using Lens.entity.component.logic;
 using Lens.graphics.animation;
 
 namespace BurningKnight.entity.creature.player {
@@ -26,6 +28,15 @@ namespace BurningKnight.entity.creature.player {
 			
 			Head.Render(Entity.Position + Offset, Flipped);
 			Body.Render(Entity.Position + Offset, Flipped);
+		}
+
+		public override void HandleEvent(Event e) {
+			base.HandleEvent(e);
+
+			if (e is StateChangedEvent ev) {
+				Head.Tag = ev.NewState.Name.ToLower().Replace("state", "");
+				Body.Tag = Head.Tag;
+			}
 		}
 	}
 }

@@ -34,9 +34,9 @@ namespace Lens.entity.component.logic {
 				state.Self = Entity;
 				state.Init();
 
-				if (Entity.TryGetCompoenent(out AnimationComponent anim) && anim.Animation != null) {
-					anim.Animation.Tag = state.GetType().Name.ToLower().Replace("state", "");
-				}
+				Send(new StateChangedEvent {
+					NewState = newState
+				});
 				
 				newState = null;
 			}

@@ -24,6 +24,14 @@ namespace Lens.entity.component {
 			
 		}
 
+		public virtual void HandleEvent(Event e) {
+			
+		}
+
+		public void Send(Event e) {
+			Entity.HandleEvent(e);
+		}
+
 		public T GetComponent<T>() where T : Component {
 			return Entity.GetComponent<T>();
 		}

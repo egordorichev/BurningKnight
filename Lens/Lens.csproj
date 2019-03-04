@@ -183,10 +183,14 @@
     <Compile Include="entity\component\graphics\ImageComponent.cs" />
     <Compile Include="entity\component\graphics\AnimationComponent.cs" />
     <Compile Include="entity\component\logic\EntityState.cs" />
+    <Compile Include="entity\component\logic\StateChangedEvent.cs" />
     <Compile Include="entity\component\logic\StateComponent.cs" />
     <Compile Include="entity\component\SaveableComponent.cs" />
     <Compile Include="entity\Entity.cs" />
     <Compile Include="entity\EntityList.cs" />
+    <Compile Include="entity\Event.cs" />
+    <Compile Include="entity\EventListener.cs" />
+    <Compile Include="entity\Subscriber.cs" />
     <Compile Include="entity\TagLists.cs" />
     <Compile Include="graphics\animation\Animation.cs" />
     <Compile Include="graphics\animation\AnimationData.cs" />

@@ -10,7 +10,7 @@ namespace BurningKnight.entity.item.use {
 		}
 		
 		public void Use(Player player, Item item) {
-			player.GetComponent<HealthComponent>().Health += Amount;
+			player.GetComponent<HealthComponent>().ModifyHealth(Amount, player);
 		}
 	}
 }
