@@ -3,17 +3,17 @@ using BurningKnight.entity.item.use;
 
 namespace BurningKnight.entity.item {
 	public static class ItemRegistry {
-		private static ItemInfo[] infos = {
-			new ItemInfo("health_potion", () => new Item(new ModifyHpUse(30)), new Chance.All(1)),
-			
-			new ItemInfo("random_potion", () => new Item(new RandomUse(
-				new ModifyHpUse(30), new ModifyHpUse(-30)
-			)), new Chance.All(1))
-		};
-		
 		public static Dictionary<string, ItemInfo> Items = new Dictionary<string, ItemInfo>();
 
 		static ItemRegistry() {
+			ItemInfo[] infos = {
+				new ItemInfo("health_potion", () => new Item(new ModifyHpUse(30)), new Chance.All(1)),
+			
+				new ItemInfo("random_potion", () => new Item(new RandomUse(
+					new ModifyHpUse(30), new ModifyHpUse(-30)
+				)), new Chance.All(1))
+			};
+
 			foreach (var pair in infos) {
 				Items[pair.Id] = pair;
 			}

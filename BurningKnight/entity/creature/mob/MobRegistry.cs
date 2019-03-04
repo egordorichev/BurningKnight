@@ -3,13 +3,13 @@ using BurningKnight.entity.creature.mob.castle;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
-		private static MobInfo[] infos = {
-			MobInfo.New<Knight>(new SpawnChance(1f, "castle", "library"), new SpawnChance(0.1f, "secret_area"))
-		};
-		
 		public static List<MobInfo> All = new List<MobInfo>();
 
 		static MobRegistry() {
+			MobInfo[] infos = {
+				MobInfo.New<Knight>(new SpawnChance(1f, "castle", "library"), new SpawnChance(0.1f, "secret_area"))
+			};
+			
 			All.AddRange(infos);
 		}
 

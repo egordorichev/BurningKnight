@@ -9,9 +9,13 @@ namespace BurningKnight.entity.level.rooms {
 		public static Dictionary<RoomType, List<RoomInfo>> ByType = new Dictionary<RoomType, List<RoomInfo>>();
 		
 		static RoomRegistry() {
-			Add(RoomInfo.New<RegularRoom>(1f, RoomType.Secret));
-			Add(RoomInfo.New<RegularRoom>(1f, RoomType.Regular));
-			Add(RoomInfo.New<RegularRoom>(1f, RoomType.Regular, "castle", "swamp"));
+			RoomInfo[] infos = {
+				RoomInfo.New<RegularRoom>(1f, RoomType.Regular)
+			};
+
+			foreach (var info in infos) {
+				Add(info);
+			}
 		}
 
 		public static void Add(RoomInfo info) {

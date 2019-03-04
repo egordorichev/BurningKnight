@@ -3,13 +3,13 @@ using BurningKnight.entity.level.biome;
 
 namespace BurningKnight.entity.level {
 	public static class BiomeRegistry {
-		private static BiomeInfo[] infos = {
-			BiomeInfo.New<CastleBiome>(Biome.Castle)
-		};
-		
 		public static Dictionary<string, BiomeInfo> Defined = new Dictionary<string, BiomeInfo>();
 
 		static BiomeRegistry() {
+			BiomeInfo[]  infos = {
+				BiomeInfo.New<CastleBiome>(Biome.Castle)
+			};
+			
 			foreach (var info in infos) {
 				Add(info);
 			}
