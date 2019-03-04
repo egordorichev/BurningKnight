@@ -1,4 +1,5 @@
-﻿using BurningKnight.physics;
+﻿using BurningKnight.entity.events;
+using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
@@ -36,15 +37,15 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public virtual void OnCollision(Entity entity) {
-			if (Entity is CollisionListenerEntity listener) {
-				listener.OnCollision(entity);
-			}
+			Entity.HandleEvent(new CollisionStartedEvent {
+				Entity = entity
+			});
 		}
 
 		public virtual void OnCollisionEnd(Entity entity) {
-			if (Entity is CollisionListenerEntity listener) {
-				listener.OnCollisionEnd(entity);
-			}
+			Entity.HandleEvent(new CollisionEndedEvent {
+				Entity = entity
+			});
 		}
 
 		public override void Update(float dt) {

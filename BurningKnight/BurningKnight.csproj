@@ -87,6 +87,8 @@
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
+    <Compile Include="entity\events\CollisionEndedEvent.cs" />
+    <Compile Include="entity\events\CollisionStartedEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
@@ -151,7 +153,6 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
-    <Compile Include="physics\CollisionListenerEntity.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
     <Compile Include="Program.cs" />
