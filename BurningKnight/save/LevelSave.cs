@@ -32,7 +32,7 @@ namespace BurningKnight.save {
 
 		public static void Generate(Area area) {
 			try {
-				var level = new RegularLevel(BiomeRegistry.All[Biome.Castle]);
+				var level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]);
 				area.Add(level);
 				level.Generate(area, I);
 				

@@ -11,7 +11,7 @@ namespace BurningKnight.save {
 		public const string SaveDir = "burning_knight/";
 		public static int Slot = 0;
 
-		public enum Type {
+		public enum SaveType {
 			Player,
 			Game,
 			Level,
@@ -32,8 +32,8 @@ namespace BurningKnight.save {
 
 		public static void SaveGame(Area area) {
 			var thread = new Thread(() => {
-				Save(area, Type.Level, false);
-				Save(area, Type.Player, false);
+				Save(area, SaveType.Level, false);
+				Save(area, SaveType.Player, false);
 			});
 			
 			thread.Start();
@@ -41,8 +41,8 @@ namespace BurningKnight.save {
 		
 		public static void SaveGames(Area area) {
 			var thread = new Thread(() => {
-				Save(area, Type.Game, false);
-				Save(area, Type.Global, false);
+				Save(area, SaveType.Game, false);
+				Save(area, SaveType.Global, false);
 			});
 			
 			thread.Start();
@@ -50,10 +50,10 @@ namespace BurningKnight.save {
 		
 		public static void SaveAll(Area area) {
 			var thread = new Thread(() => {
-				Save(area, Type.Level, false);
-				Save(area, Type.Player, false);
-				Save(area, Type.Game, false);
-				Save(area, Type.Global, false);
+				Save(area, SaveType.Level, false);
+				Save(area, SaveType.Player, false);
+				Save(area, SaveType.Game, false);
+				Save(area, SaveType.Global, false);
 
 				area.Destroy();
 			});
@@ -61,17 +61,17 @@ namespace BurningKnight.save {
 			thread.Start();
 		}
 
-		public static string GetSavePath(Type Type, bool Old = false) {
-			switch (Type) {
-				case Type.Level: {
+		public static string GetSavePath(SaveType saveType, bool Old = false) {
+			switch (saveType) {
+				case SaveType.Level: {
 					return $"{((Old ? Run.LastDepth : Run.Depth) <= -1 ? SaveDir : GetDir())}level{(Old ? Run.LastDepth : Run.Depth)}.sv";
 				}
 				
-				case Type.Player: {
+				case SaveType.Player: {
 					return GetDir() + "player.sv";
 				}
 				
-				case Type.Global: {
+				case SaveType.Global: {
 					return SaveDir + "global.sv";
 				}
 				
@@ -81,17 +81,17 @@ namespace BurningKnight.save {
 			}
 		}
 
-		public static string GetSavePath(Type Type, int Slot) {
-			switch (Type) {
-				case Type.Level: {
+		public static string GetSavePath(SaveType saveType, int Slot) {
+			switch (saveType) {
+				case SaveType.Level: {
 					return $"{(Run.Depth <= -1 ? SaveDir : GetDir(Slot))}level{Run.Depth}.sv";
 				}
 				
-				case Type.Player: {
+				case SaveType.Player: {
 					return GetDir(Slot) + "player.sv";
 				}
 				
-				case Type.Global: {
+				case SaveType.Global: {
 					return SaveDir + "global.sv";
 				}
 
@@ -105,31 +105,31 @@ namespace BurningKnight.save {
 			return new FileHandle(Path);
 		}
 
-		public static void Save(Area area, Type Type, bool Old) {
-			Log.Info("Saving " + Type + " " + (Old ? Run.LastDepth : Run.Depth));
+		public static void Save(Area area, SaveType saveType, bool Old) {
+			Log.Info("Saving " + saveType + " " + (Old ? Run.LastDepth : Run.Depth));
 
-			var file = new System.IO.FileInfo(GetSavePath(Type, Old));
+			var file = new System.IO.FileInfo(GetSavePath(saveType, Old));
 			file.Directory.Create();
 			
 			var Stream = new FileWriter(file.FullName);
 
-			switch (Type) {
-				case Type.Level: {
+			switch (saveType) {
+				case SaveType.Level: {
 					LevelSave.Save(area, Stream);
 					break;
 				}
 				
-				case Type.Player: {
+				case SaveType.Player: {
 					PlayerSave.Save(area, Stream);
 					break;
 				}
 				
-				case Type.Game: {
+				case SaveType.Game: {
 					GameSave.Save(area, Stream, Old);
 					break;
 				}
 				
-				case Type.Global: {
+				case SaveType.Global: {
 					GlobalSave.Save(area, Stream);
 					break;
 				}
@@ -138,12 +138,12 @@ namespace BurningKnight.save {
 			Stream.Close();
 		}
 
-		public static bool Load(Area area, Type Type, bool AutoGen = true) {
-			var save = GetFileHandle(GetSavePath(Type));
+		public static bool Load(Area area, SaveType saveType, bool AutoGen = true) {
+			var save = GetFileHandle(GetSavePath(saveType));
 
 			if (!save.Exists()) {
 				if (AutoGen) {
-					Generate(area, Type);
+					Generate(area, saveType);
 					/**Save(area, Type, false);
 
 					if (Type == Type.Level) {
@@ -153,26 +153,26 @@ namespace BurningKnight.save {
 					return false;
 				}
 			} else {
-				Log.Info($"Loading {Type} {Run.Depth}");
+				Log.Info($"Loading {saveType} {Run.Depth}");
 				var Stream = new FileReader(save.FullPath);
 
-				switch (Type) {
-					case Type.Level: {
+				switch (saveType) {
+					case SaveType.Level: {
 						LevelSave.Load(area, Stream);
 						break;
 					}
 					
-					case Type.Player: {
+					case SaveType.Player: {
 						PlayerSave.Load(area, Stream);
 						break;
 					}
 					
-					case Type.Game: {
+					case SaveType.Game: {
 						GameSave.Load(area, Stream);
 						break;
 					}
 					
-					case Type.Global: {
+					case SaveType.Global: {
 						GlobalSave.Load(area, Stream);
 						break;
 					}
@@ -186,7 +186,7 @@ namespace BurningKnight.save {
 
 		public static void DeletePlayer() {
 			Log.Info("Deleting player save!");
-			FileHandle Handle = GetFileHandle(GetSavePath(Type.Player, Slot));
+			FileHandle Handle = GetFileHandle(GetSavePath(SaveType.Player, Slot));
 
 			if (Handle.Exists()) {
 				Handle.Delete();
@@ -218,7 +218,7 @@ namespace BurningKnight.save {
 			File.Delete();
 
 			if (Run.Depth < 0) {
-				var Handle = GetFileHandle(GetSavePath(Type.Level));
+				var Handle = GetFileHandle(GetSavePath(SaveType.Level));
 
 				if (Handle.Exists()) {
 					Handle.Delete();
@@ -239,27 +239,27 @@ namespace BurningKnight.save {
 			GlobalSave.Generate(area);
 		}
 
-		public static void Generate(Area area, Type Type) {
-			Log.Info($"Generating {Type} {Run.Depth}");
+		public static void Generate(Area area, SaveType saveType) {
+			Log.Info($"Generating {saveType} {Run.Depth}");
 			Run.LastDepth = Run.Depth;
 
-			switch (Type) {
-				case Type.Level: {
+			switch (saveType) {
+				case SaveType.Level: {
 					LevelSave.Generate(area);
 					break;
 				}
 				
-				case Type.Player: {
+				case SaveType.Player: {
 					PlayerSave.Generate(area);
 					break;
 				}
 				
-				case Type.Game: {
+				case SaveType.Game: {
 					GameSave.Generate(area);
 					break;
 				}
 				
-				case Type.Global: {
+				case SaveType.Global: {
 					GlobalSave.Generate(area);
 					break;
 				}

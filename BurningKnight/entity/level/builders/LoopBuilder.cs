@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
-using BurningKnight.entity.level.rooms.regular;
-using BurningKnight.entity.pool.room;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -66,7 +64,7 @@ namespace BurningKnight.entity.level.builders {
 				PathTunnels[Tunnels]--;
 
 				for (var J = 0; J < Tunnels; J++) {
-					Loop.Add(ConnectionRoomDef.Create());
+					Loop.Add(RoomRegistry.Generate(RoomType.Connection));
 				}
 			}
 
@@ -81,7 +79,7 @@ namespace BurningKnight.entity.level.builders {
 				var R = Loop[I];
 				TargetAngle = StartAngle + this.TargetAngle(I / (float) Loop.Count);
 
-				if (PlaceRoom(Init, Prev, R, TargetAngle) != -1) {
+				if ((int) PlaceRoom(Init, Prev, R, TargetAngle) != -1) {
 					Prev = R;
 
 					if (!Init.Contains(Prev)) {
@@ -93,9 +91,9 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			while (!Prev.ConnectTo(Entrance)) {
-				var C = RegularRoomPool.Instance.Generate();
+				var C = RoomRegistry.Generate(RoomType.Regular);
 
-				if (PlaceRoom(Loop, Prev, C, AngleBetweenRooms(Prev, Entrance)) == -1) {
+				if ((int) PlaceRoom(Loop, Prev, C, AngleBetweenRooms(Prev, Entrance)) == -1) {
 					return null;
 				}
 

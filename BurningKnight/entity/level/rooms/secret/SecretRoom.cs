@@ -1,6 +1,5 @@
 using BurningKnight.entity.level.painters;
 using BurningKnight.entity.level.rooms.connection;
-using BurningKnight.entity.pool.room;
 
 namespace BurningKnight.entity.level.rooms.secret {
 	public class SecretRoom : RoomDef {

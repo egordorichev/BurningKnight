@@ -152,6 +152,8 @@ namespace Lens.entity {
 			foreach (var component in components.Values) {
 				component.HandleEvent(e);
 			}
+			
+			Area.EventListener.Handle(e);
 		}
 
 		public virtual void Render() {
@@ -188,10 +190,19 @@ namespace Lens.entity {
 		public void Subscribe<T>() where T : Event {
 			Area.EventListener.Subscribe<T>(this);
 		}
+
+		public void Unsubscribe<T>() where T : Event {
+			Area.EventListener.Unsubscribe<T>(this);
+		}
 				
 		public T GetComponent<T>() where T : Component {
 			return (T) components[typeof(T)];
 		}
+
+		public bool HasComponent(Type type) {
+			return components.ContainsKey(type);
+		}
+
 
 		public bool TryGetCompoenent<T>(out T t) where T : Component {
 			if (components.TryGetValue(typeof(T), out var tmp)) {
@@ -208,19 +219,42 @@ namespace Lens.entity {
 		
 		#region Distance and angle
 
-		public float DxTo(Entity enity) {
-			return enity.CenterX - CenterX;
+		public float DxTo(Entity entity) {
+			return entity.CenterX - CenterX;
 		}
 		
-		public float DyTo(Entity enity) {
-			return enity.CenterY - CenterY;
+		public float DyTo(Entity entity) {
+			return entity.CenterY - CenterY;
 		}
 
 		public float DistanceTo(Entity entity) {
 			float dx = DxTo(entity);
 			float dy = DyTo(entity);
 			
-			return (float) Math.Sqrt(dx * dx + dy * dy);
+			return dx * dx + dy * dy;
+		}
+
+		public float DxTo(Vector2 entity) {
+			return entity.X - CenterX;
+		}
+		
+		public float DyTo(Vector2 entity) {
+			return entity.Y - CenterY;
+		}
+
+		public float DistanceTo(Vector2 entity) {
+			float dx = DxTo(entity);
+			float dy = DyTo(entity);
+			
+			return dx * dx + dy * dy;
+		}
+
+		public float DistanceSquaredTo(Vector2 entity) {
+			return (float) Math.Sqrt(DistanceTo(entity));
+		}
+
+		public float DistanceSquaredTo(Entity entity) {
+			return (float) Math.Sqrt(DistanceTo(entity));
 		}
 		
 		public float AngleTo(Entity entity) {

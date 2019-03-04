@@ -25,5 +25,11 @@ namespace Lens.entity {
 				subscribers[type] = subs;
 			}
 		}
+
+		public void Unsubscribe<T>(Subscriber s) where T : Event {
+			if (subscribers.TryGetValue(typeof(T), out var subs)) {
+				subs.Remove(s);
+			}
+		}
 	}
 }

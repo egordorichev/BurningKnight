@@ -3,11 +3,9 @@ using BurningKnight.entity.level.builders;
 using BurningKnight.entity.level.painters;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
+using BurningKnight.entity.level.rooms.entrance;
 using BurningKnight.entity.level.rooms.special;
-using BurningKnight.entity.pool.room;
 using BurningKnight.state;
-using BurningKnight.util;
-using Lens.assets;
 using Lens.entity;
 using Lens.util;
 using Lens.util.math;
@@ -95,8 +93,8 @@ namespace BurningKnight.entity.level {
 		protected List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
 
-			var Entrance = EntranceRoomPool.Instance.Generate();
-			var Exit = EntranceRoomPool.Instance.Generate();
+			var Entrance = RoomRegistry.Generate(RoomType.Entrance);
+			var Exit = (EntranceRoom) RoomRegistry.Generate(RoomType.Boss);
 			
 			Exit.Exit = true;
 			Rooms.Add(Entrance);
@@ -113,29 +111,30 @@ namespace BurningKnight.entity.level {
 			Log.Info("Creating r" + Regular + " sp" + Special + " c" + Connection + " sc" + Secret + " rooms");
 
 			for (var I = 0; I < Regular; I++) {
-				Rooms.Add(RegularRoomPool.Instance.Generate());
+				Rooms.Add(RoomRegistry.Generate(RoomType.Regular));
 			}
 
-			SpecialRoom.Init();
-
 			for (var I = 0; I < Special; I++) {
-				var Room = SpecialRoom.Create();
+				var Room = RoomRegistry.Generate(RoomType.Special);
 				if (Room != null) Rooms.Add(Room);
 			}
 
 			if (Run.Depth > 0) {
-				var Room = TreasureRoomPool.Instance.Generate();
-				Rooms.Add(Room);
+				Rooms.Add(RoomRegistry.Generate(RoomType.Treasure));
 
 				if ((Run.Id == 1 || Random.Chance(50)) && (Run.Id != 0 || Run.Depth != 1)) {
 					Log.Info("Adding shop");
-					Rooms.Add(ShopRoomPool.Instance.Generate());
+					Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
 				}
 			}
 
-			for (var I = 0; I < Connection; I++) Rooms.Add(ConnectionRoomDef.Create());
+			for (var I = 0; I < Connection; I++) {
+				Rooms.Add(RoomRegistry.Generate(RoomType.Connection));
+			}
 
-			for (var I = 0; I < Secret; I++) Rooms.Add(SecretRoomPool.Instance.Generate());
+			for (var I = 0; I < Secret; I++) {
+				Rooms.Add(RoomRegistry.Generate(RoomType.Secret));
+			}
 
 			return Rooms;
 		}

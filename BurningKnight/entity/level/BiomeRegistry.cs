@@ -7,7 +7,7 @@ namespace BurningKnight.entity.level {
 			BiomeInfo.New<CastleBiome>(Biome.Castle)
 		};
 		
-		public static Dictionary<string, BiomeInfo> All = new Dictionary<string, BiomeInfo>();
+		public static Dictionary<string, BiomeInfo> Defined = new Dictionary<string, BiomeInfo>();
 
 		static BiomeRegistry() {
 			foreach (var info in infos) {
@@ -16,11 +16,11 @@ namespace BurningKnight.entity.level {
 		}
 		
 		public static void Add(BiomeInfo info) {
-			All[info.Id] = info;
+			Defined[info.Id] = info;
 		}
 
 		public static void Remove(string id) {
-			All.Remove(id);
+			Defined.Remove(id);
 		}
 	}
 }

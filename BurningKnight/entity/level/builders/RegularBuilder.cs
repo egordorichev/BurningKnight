@@ -118,7 +118,7 @@ namespace BurningKnight.entity.level.builders {
 				ConnectionChances[ConnectingRooms]--;
 
 				for (var J = 0; J < ConnectingRooms; J++) {
-					var T = ConnectionRoomDef.Create();
+					var T = RoomRegistry.Generate(RoomType.Connection);
 					Tries = 3;
 
 					do {

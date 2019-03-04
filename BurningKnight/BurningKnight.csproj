@@ -134,6 +134,9 @@
     <Compile Include="entity\level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="entity\level\rooms\regular\RegularRoom.cs" />
     <Compile Include="entity\level\rooms\RoomDef.cs" />
+    <Compile Include="entity\level\rooms\RoomInfo.cs" />
+    <Compile Include="entity\level\rooms\RoomRegistry.cs" />
+    <Compile Include="entity\level\rooms\RoomType.cs" />
     <Compile Include="entity\level\rooms\secret\SecretRoom.cs" />
     <Compile Include="entity\level\rooms\shop\ShopRoom.cs" />
     <Compile Include="entity\level\rooms\special\LockedRoom.cs" />
@@ -145,17 +148,7 @@
     <Compile Include="entity\level\Tileset.cs" />
     <Compile Include="entity\level\Tilesets.cs" />
     <Compile Include="entity\pool\ClosingPool.cs" />
-    <Compile Include="entity\pool\MobHub.cs" />
-    <Compile Include="entity\pool\MobPool.cs" />
     <Compile Include="entity\pool\Pool.cs" />
-    <Compile Include="entity\pool\room\BossRoomPool.cs" />
-    <Compile Include="entity\pool\room\ConnectionRoomPool.cs" />
-    <Compile Include="entity\pool\room\EntranceRoomPool.cs" />
-    <Compile Include="entity\pool\room\RegularRoomPool.cs" />
-    <Compile Include="entity\pool\room\SecretRoomPool.cs" />
-    <Compile Include="entity\pool\room\ShopRoomPool.cs" />
-    <Compile Include="entity\pool\room\SpecialRoomPool.cs" />
-    <Compile Include="entity\pool\room\TreasureRoomPool.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\CollisionListenerEntity.cs" />

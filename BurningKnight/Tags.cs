@@ -8,5 +8,6 @@ namespace BurningKnight {
 		public static int LevelSave = new BitTag("level_save");
 		
 		public static int Room = new BitTag("room");
+		public static int Intractable = new BitTag("intractable");
 	}
 }

@@ -1,5 +1,3 @@
-using BurningKnight.entity.pool.room;
-
 namespace BurningKnight.entity.level.rooms.special {
 	public class SpecialRoom : RoomDef {
 		public override int GetMinWidth() {
@@ -26,14 +24,6 @@ namespace BurningKnight.entity.level.rooms.special {
 			if (Side == Connection.All) return 1;
 
 			return 0;
-		}
-
-		public static void Init() {
-			SpecialRoomPool.Instance.Reset();
-		}
-
-		public static SpecialRoom Create() {
-			return SpecialRoomPool.Instance.Generate();
 		}
 	}
 }

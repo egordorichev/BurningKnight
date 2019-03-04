@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
 	public class Area {
@@ -64,9 +66,25 @@ namespace Lens.entity {
 			return entities.Entities;
 		}
 
+		public List<Entity> GetEntitesInRadius(Vector2 from, float radius, Type component = null) {
+			var list = new List<Entity>();
+			var d = radius * radius;
+
+			foreach (var entity in entities.Entities) {
+				if (component != null && !entity.HasComponent(component)) {
+					continue;
+				}
+
+				if (entity.DistanceTo(from) <= d) {
+					list.Add(entity);
+				}
+			}
+			
+			return list;
+		}
+
 		private void InitTags() {
-			// Define all the tags needed
-			// BitTag.Define("Interactable");
+			
 		}
 	}
 }
