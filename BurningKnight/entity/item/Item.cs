@@ -7,6 +7,7 @@ using BurningKnight.entity.item.useCheck;
 using BurningKnight.save;
 using Lens.assets;
 using Lens.entity.component.graphics;
+using Lens.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.entity.item {
@@ -24,17 +25,16 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public string Id { get; private set; }
+		public string Id;
 		public string Name => Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
 		public float Delay { get; protected set; }
-
+		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		
 		public Item(params ItemUse[] uses) {
-			Id = GetType().Name; // TODO: id to pascal_case
 			Uses = uses;
 		}
 

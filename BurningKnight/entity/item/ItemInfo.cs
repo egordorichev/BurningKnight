@@ -6,11 +6,13 @@ namespace BurningKnight.entity.item {
 		public string Id;
 		public Func<Item> Create;
 		public float Warrior;
+		public ItemType Type;
 
-		public ItemInfo(string id, Func<Item> create, Chance chance) {
+		public ItemInfo(string id, Func<Item> create, ItemType type = ItemType.Normal, Chance chance = null) {
 			Id = id;
 			Create = create;
-			Chance = chance;
+			Chance = chance ?? Chance.All();
+			Type = type;
 		}
 
 		public bool Unlocked(string Key) {
