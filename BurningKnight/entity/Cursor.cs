@@ -33,7 +33,7 @@ namespace BurningKnight.entity {
 			Position.Y -= Display.UiHeight / 2f;
 
 			if (Input.Mouse.WasPressedLeftButton) {
-				Tween.To(this, new { a = 2.3f }, 1.1f).OnEnd = () => Tween.To(this, new { a = 1 }, 0.2f);
+				Tween.To(this, new { a = 1.3f }, 0.05f).OnEnd = () => Tween.To(this, new { a = 1 }, 0.15f);
 			}
 		}
 
