@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using Lens.input;
@@ -39,34 +40,30 @@ namespace BurningKnight.debug {
 
 			if (Args.Length == 2) {
 				Count = Int32.Parse(Args[1]);
+
+				if (Count == 0) {
+					return;
+				}
 			}
 
-			/*if (Args.Length > 0 && Args.Length < 3) {
-				string Name = Args[0];
-				Item Item;
+			if (Args.Length > 0 && Args.Length < 3) {
+				var item = ItemRegistry.Create(Args[0]);
 
-				try {
-					ItemRegistry.Pair Clazz = ItemRegistry.Items.Get(Name);
-
-					if (Clazz == null) {
-						Console.Print("[red]Unknown item $name");
-
-						return;
-					}
-
-					Item = (Item) Clazz.Type.NewInstance();
-
-					if (Item.IsStackable()) Item.SetCount(Count);
-
-					var ItemHolder = new ItemHolder();
-					ItemHolder.SetItem(Item);
-					Player.Instance.TryToPickup(ItemHolder);
-					Console.Print("[green]Gave " + Name + " (" + Count + ")");
+				if (item == null) {
+					Console.Print($"Unknown item {Args[0]}");
+					return;
 				}
-				catch (Exception) {
-					Console.Print("[red]Failed to create item");
+				
+				item.Count = Count;
+				Console.GameArea.Add(item);
+				
+				var player = LocalPlayer.Locate(Console.GameArea);
+
+				if (player != null) {
+					player.GetComponent<InventoryComponent>().Add(item);
+					Console.Print($"Gave {Args[0]} ({Count})");
 				}
-			}*/ // todo
+			}
 		}
 	}
 }
