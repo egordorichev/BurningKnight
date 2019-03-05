@@ -66,7 +66,6 @@ namespace BurningKnight.debug {
 
 			if (Input.Keyboard.WasPressed(Keys.Back) && input.Length > 0) {
 				input = input.Length == 1 ? "" : input.Substring(0, input.Length - 2);
-				Log.Error(input);
 			}
 			
 			for (var I = Lines.Count - 1; I >= 0; I--) {

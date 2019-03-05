@@ -4,23 +4,24 @@ using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.events;
 using Lens.entity.component;
+using Lens.util.file;
 
 namespace BurningKnight.entity.component {
-	public class BuffsComponent : Component {
+	public class BuffsComponent : SaveableComponent {
 		public Dictionary<Type, Buff> Buffs = new Dictionary<Type, Buff>();
 		public List<Type> Immune = new List<Type>();
 
 		public void Add<T>() {
 			var type = typeof(T);
 			
+			if (Buffs.ContainsKey(type)) {
+				return;
+			}
+			
 			foreach (var t in Immune) {
 				if (t == type) {
 					return;
 				}
-			}
-			
-			if (Buffs.ContainsKey(type)) {
-				return;
 			}
 
 			var buff = (Buff) Activator.CreateInstance(type);
@@ -29,6 +30,34 @@ namespace BurningKnight.entity.component {
 			Send(new BuffAddedEvent {
 				Buff = buff
 			});
+		}
+
+		public void Add(Buff buff) {
+			if (buff == null) {
+				return;
+			}
+			
+			var type = buff.GetType();
+			
+			if (Buffs.ContainsKey(type)) {
+				return;
+			}
+			
+			foreach (var t in Immune) {
+				if (t == type) {
+					return;
+				}
+			}
+
+			Buffs[type] = buff;
+			
+			Send(new BuffAddedEvent {
+				Buff = buff
+			});
+		}
+
+		public void Add(string id) {
+			Add(BuffRegistry.Create(id));
 		}
 
 		public bool Has<T>() {
@@ -62,6 +91,24 @@ namespace BurningKnight.entity.component {
 					buff.Destroy();
 					Buffs.Remove(key);
 				}
+			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteByte((byte) Buffs.Count);
+			
+			foreach (var buff in Buffs) {
+				stream.WriteString(buff.Value.Id);
+			}
+		}
+
+		public override void Load(FileReader reader) {
+			base.Load(reader);
+			var count = reader.ReadByte();
+
+			for (int i = 0; i < count; i++) {
+				Add(reader.ReadString());
 			}
 		}
 	}
