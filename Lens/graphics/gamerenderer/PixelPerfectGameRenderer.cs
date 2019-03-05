@@ -12,35 +12,45 @@ namespace Lens.graphics.gamerenderer {
 		public PixelPerfectGameRenderer() {
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width, Display.Height, false,
-				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 			);
 			
 			UiTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.UiWidth, Display.UiHeight, false,
-				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 			);
 			
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
 		}
-		
-		public override void Render() {
-			Batcher2D.Begin();
+
+		private void RenderGame() {
 			Engine.GraphicsDevice.SetRenderTarget(GameTarget);
-			// Render game
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.Instance?.Matrix);
 			Graphics.Clear(Bg);
 			Engine.Instance.State.Render();
 			Graphics.Batch.End();
-			
-			Engine.GraphicsDevice.SetRenderTarget(null);
-			RasterizerState.ScissorTestEnable = true;
-			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, Display.Width, Display.Height);
+		}
+
+		private void RenderUi() {
+			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix.Identity);
-			Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(0, 0), new Vector2(Engine.Instance.Upscale), SpriteEffects.None);
-			// Render ui
-			Engine.Instance.State.RenderUi();			
+			Graphics.Clear(Color.Transparent);
+			Engine.Instance.State.RenderUi();
 			Graphics.Batch.End();
-			RasterizerState.ScissorTestEnable = false;
+		}
+		
+		public override void Render() {
+			Batcher2D.Begin();
+			RenderGame();
+			RenderUi();
+
+			Engine.GraphicsDevice.SetRenderTarget(null);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix.Identity);
+
+			Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(0, 0), new Vector2(Engine.Instance.Upscale), SpriteEffects.None);
+			Graphics.Render(UiTarget, Engine.Viewport, 0, new Vector2(0, 0), new Vector2(Engine.Instance.UiUpscale), SpriteEffects.None);
+			
+			Graphics.Batch.End();
 			Batcher2D.End();
 		}
 
