@@ -5,5 +5,7 @@
 		public const int Liquid = -1;
 		public const int Creature = 0;
 		public const int Wall = 1;
+
+		public const int Ui = 10;
 	}
 }

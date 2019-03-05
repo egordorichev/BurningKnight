@@ -1,0 +1,68 @@
+using BurningKnight.entity.events;
+using BurningKnight.entity.item;
+using Lens.entity;
+using Lens.entity.component;
+using Lens.util.file;
+
+namespace BurningKnight.entity.component {
+	public class ItemComponent : SaveableComponent {
+		public Item Item { get; private set; }
+
+		public virtual void Set(Item item) {
+			if (Item != null) {
+				Drop();
+			}
+
+			Item = item;
+			Entity.Area.Remove(item);
+
+			item.AddComponent(new OwnerComponent(Entity));
+
+			var e = new ItemAddedEvent {
+				Item = item
+			};
+			
+			Send(e);
+			item.HandleEvent(e);
+		}
+		
+		public void Drop() {
+			var e = new ItemRemovedEvent {
+				Item = Item
+			};
+			
+			Send(e);
+			Item.HandleEvent(e);
+
+			Item.Center = Entity.Center;
+			Entity.Area.Add(Item);
+			Item.RemoveComponent<OwnerComponent>();
+			Item = null;
+		}
+
+		protected virtual bool ShouldReplace(Item item) {
+			return Item == null;
+		}
+
+		public override void HandleEvent(Event e) {
+			base.HandleEvent(e);
+
+			if (e is ItemCheckEvent ev && ev.Item != null && ShouldReplace(ev.Item)) {
+				if (Item != null) {
+					Drop();
+				}
+				
+				Set(ev.Item);
+				ev.Item = null;
+			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream); // todo
+		}
+
+		public override void Load(FileReader reader) {
+			base.Load(reader); // todo
+		}
+	}
+}

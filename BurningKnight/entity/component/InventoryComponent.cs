@@ -7,6 +7,21 @@ using Lens.util.file;
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
 		public List<Item> Items = new List<Item>();
+
+		public void Pickup(Item item) {
+			var e = new ItemCheckEvent {
+				Item = item
+			};
+			
+			Send(e);
+
+			if (e.Item == null) {
+				// Some other item component picked it up
+				return;
+			}
+			
+			Add(item);
+		}
 		
 		public void Add(Item item) {
 			Items.Add(item);
@@ -32,7 +47,8 @@ namespace BurningKnight.entity.component {
 			Send(e);
 			item.HandleEvent(e);
 			
-			Entity.Area.Remove(item);
+			item.Center = Entity.Center;
+			Entity.Area.Add(item);
 			item.RemoveComponent<OwnerComponent>();
 		}
 

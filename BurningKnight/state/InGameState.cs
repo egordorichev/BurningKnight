@@ -1,5 +1,6 @@
 ﻿using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.ui;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.util;
@@ -17,19 +18,7 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-			
-			Ui.Add(new Camera(new FollowingDriver()));
-			
-			var cursor = new Cursor();
-			Ui.Add(cursor);
-			
-			Camera.Instance.Follow(LocalPlayer.Locate(Area), 1f);
-			Camera.Instance.Follow(cursor, 1f);
-			Camera.Instance.Jump();
-
-			if (Engine.Version.Debug) {
-				Ui.Add(new Console(Area));
-			}
+			SetupUi();
 		}
 
 		public override void Destroy() {
@@ -49,6 +38,25 @@ namespace BurningKnight.state {
 		public override void Render() {
 			base.Render();
 			Physics.Render();
+		}
+
+		private void SetupUi() {
+			Ui.Add(new Camera(new FollowingDriver()));
+			
+			var cursor = new Cursor();
+			Ui.Add(cursor);
+
+			var player = LocalPlayer.Locate(Area);
+			
+			Camera.Instance.Follow(player, 1f);
+			Camera.Instance.Follow(cursor, 1f);
+			Camera.Instance.Jump();
+
+			if (Engine.Version.Debug) {
+				Ui.Add(new Console(Area));
+			}
+			
+			Ui.Add(new UiInventory(player));
 		}
 	}
 }

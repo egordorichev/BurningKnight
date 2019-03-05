@@ -25,6 +25,7 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		public ItemType Type;
 		public string Id;
 		public string Name => Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");

@@ -16,7 +16,9 @@ namespace BurningKnight.entity.item {
 					new ModifyHpUse(30), new ModifyHpUse(-30)
 				)), ItemType.Active),
 				
-				new ItemInfo("bomb", () => new Item(new SpawnBombUse()), ItemType.Bomb)
+				new ItemInfo("bomb", () => new Item(), ItemType.Bomb),
+				new ItemInfo("penny", () => new Item(), ItemType.Coin),
+				new ItemInfo("key", () => new Item(), ItemType.Key)
 			};
 
 			foreach (var pair in infos) {
@@ -56,8 +58,10 @@ namespace BurningKnight.entity.item {
 
 		public static Item CreateFrom(ItemInfo info) {
 			var item = info.Create();
+			
 			item.Id = info.Id;
-
+			item.Type = info.Type;
+			
 			return item;
 		}
 

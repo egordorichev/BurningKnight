@@ -75,6 +75,7 @@
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
+    <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
@@ -84,11 +85,15 @@
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
+    <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
+    <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
+    <Compile Include="entity\creature\player\ConsumablesComponent.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\PlayerClass.cs" />
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
+    <Compile Include="entity\creature\player\WeaponComponent.cs" />
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="entity\events\DiedEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
+    <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
@@ -158,6 +164,8 @@
     <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
+    <Compile Include="entity\ui\UiEntity.cs" />
+    <Compile Include="entity\ui\UiInventory.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />

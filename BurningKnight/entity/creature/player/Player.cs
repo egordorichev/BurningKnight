@@ -13,7 +13,14 @@ namespace BurningKnight.entity.creature.player {
 				Offset = new Vector2(0, -4)
 			});
 			
+			// Inventory
 			AddComponent(new InventoryComponent());
+			AddComponent(new ActiveItemComponent());
+			AddComponent(new WeaponComponent());
+			AddComponent(new ActiveWeaponComponent());
+			AddComponent(new ConsumablesComponent());
+			
+			// Other
 			AddComponent(new NoCornerBodyComponent(2, 0, 12, 12));
 			GetComponent<StateComponent>().State = typeof(IdleState);
 			
