@@ -1,4 +1,4 @@
-using Lens.entity;
+using BurningKnight.entity.component;
 
 namespace BurningKnight.debug {
 	public class DieCommand : ConsoleCommand {
@@ -8,13 +8,15 @@ namespace BurningKnight.debug {
 
 		protected void _Init() {
 			{
-				Name = "/kill";
-				ShortName = "/k";
+				Name = "kill";
+				ShortName = "k";
 			}
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			// if (Player.Instance != null) Player.Instance.Die();
+			foreach (var player in Console.GameArea.Tags[Tags.Player]) {
+				player.GetComponent<HealthComponent>().Kill(Console);
+			}
 		}
 	}
 }

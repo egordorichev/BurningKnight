@@ -9,8 +9,8 @@ namespace BurningKnight.debug {
 
 		protected void _Init() {
 			{
-				Name = "/zoom";
-				ShortName = "/z";
+				Name = "zoom";
+				ShortName = "z";
 			}
 		}
 

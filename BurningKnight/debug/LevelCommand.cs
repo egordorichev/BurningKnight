@@ -12,8 +12,8 @@ namespace BurningKnight.debug {
 
 		protected void _Init() {
 			{
-				Name = "/lvl";
-				ShortName = "/l";
+				Name = "lvl";
+				ShortName = "l";
 			}
 		}
 

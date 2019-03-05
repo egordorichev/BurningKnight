@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
+using Lens.input;
 
 namespace BurningKnight.debug {
 	public class GiveCommand : ConsoleCommand {
@@ -10,9 +11,27 @@ namespace BurningKnight.debug {
 
 		protected void _Init() {
 			{
-				ShortName = "/gv";
-				Name = "/give";
+				ShortName = "gv";
+				Name = "give";
 			}
+		}
+
+		public override string AutoComplete(string input) {
+			var parts = input.Split(null);
+
+			if (parts.Length != 2) {
+				return input;
+			}
+
+			var name = parts[1];
+
+			foreach (var item in ItemRegistry.Items) {
+				if (item.Key.StartsWith(name)) {
+					return $"{input}{item.Key.Substring(name.Length, item.Key.Length - name.Length)} ";
+				}
+			}
+			
+			return input;
 		}
 
 		public override void Run(Console Console, string[] Args) {

@@ -8,8 +8,8 @@ namespace BurningKnight.debug {
 
 		protected void _Init() {
 			{
-				Name = "/debug";
-				ShortName = "/d";
+				Name = "debug";
+				ShortName = "d";
 			}
 		}
 

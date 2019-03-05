@@ -4,5 +4,9 @@ namespace BurningKnight.debug {
 		public string ShortName;
 
 		public abstract void Run(Console Console, string[] Args);
+
+		public virtual string AutoComplete(string input) {
+			return "";
+		}
 	}
 }

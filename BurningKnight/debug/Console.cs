@@ -16,6 +16,8 @@ namespace BurningKnight.debug {
 		private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
 		private string input = "";
+		private string guess = "";
+		private string realGuess = "";
 		private bool open;
 
 		public Console(Area area) {
@@ -43,8 +45,41 @@ namespace BurningKnight.debug {
 		}
 
 		private void TextEntered(object sender, TextInputEventArgs e) {
-			if (open && e.Character != '\r') {
+			if (open && e.Character != '\r' && e.Character != '\t') {
 				input += e.Character;
+				UpdateGuess();
+			}
+		}
+
+		private void UpdateGuess() {
+			guess = "";
+
+			if (input.Length == 0) {
+				return;
+			}
+			
+			foreach (var command in commands) {
+				if (input.StartsWith(command.Name)) {
+					guess = command.AutoComplete(input == command.Name ? input + " " : input);
+					break;
+				} else if (input.StartsWith(command.ShortName)) {
+					guess = command.AutoComplete(input == command.Name ? input + " " : input);
+					break;
+				} else if (command.Name.StartsWith(input)) {
+					guess = command.Name + " ";
+					break;
+				} else if (command.ShortName.StartsWith(input)) {
+					guess = command.ShortName + " ";
+					break;
+				}
+			}
+
+			realGuess = guess;
+			
+			if (guess.Length > input.Length) {
+				guess = guess.Insert(input.Length, "|");				
+			} else if (guess.Length == input.Length) {
+				guess += "|";
 			}
 		}
 
@@ -52,6 +87,7 @@ namespace BurningKnight.debug {
 			if (input.Length > 0 && Input.Keyboard.WasPressed(Keys.Enter)) {
 				var str = input;
 				input = "";
+				guess = "";
 				open = false;
 				Input.Blocked = false;
 					
@@ -64,8 +100,14 @@ namespace BurningKnight.debug {
 				Input.Blocked = open;
 			}
 
+			if (Input.Keyboard.WasPressed(Keys.Tab) && realGuess.Length > 0) {
+				input = realGuess;
+				UpdateGuess();
+			}
+			
 			if (Input.Keyboard.WasPressed(Keys.Back) && input.Length > 0) {
 				input = input.Length == 1 ? "" : input.Substring(0, input.Length - 2);
+				UpdateGuess();
 			}
 			
 			for (var I = Lines.Count - 1; I >= 0; I--) {
@@ -89,15 +131,19 @@ namespace BurningKnight.debug {
 			}
 
 			if (open) {
-				Graphics.Print(input + "|", Font.Small, new Vector2(2, Display.UiHeight - 12));
+				if (guess.Length > 0) {
+					Graphics.Color = Color.Gray;
+					Graphics.Print("> " + guess, Font.Small, new Vector2(2, Display.UiHeight - 12));
+					Graphics.Color = Color.White;
+				}
+				
+				Graphics.Print($"> {input}|", Font.Small, new Vector2(2, Display.UiHeight - 12));
 			}
 		}
 
 		public void RunCommand(string Input) {
-			if (!Input.StartsWith("/")) {
-				Input = "/" + Input;
-			}
-
+			Input = Input.TrimEnd();	
+			
 			var Parts = Input.Split(null);
 			var Name = Parts[0];
 
