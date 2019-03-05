@@ -14,7 +14,9 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			foreach (var player in Console.Area.Tags[Tags.Player]) {
+			var all = Console.GameArea.Tags[Tags.Player];
+			
+			foreach (var player in all) {
 				var health = player.GetComponent<HealthComponent>();
 				health.Unhittable = !health.Unhittable;
 				

@@ -16,6 +16,7 @@ namespace Lens {
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;
 		public static Matrix ScreenMatrix;
+		public static Matrix UiMatrix;
 
 		public GameRenderer StateRenderer;
 		public GameState State { get; private set; }
@@ -164,6 +165,7 @@ namespace Lens {
 			}
 			
 			ScreenMatrix = Matrix.CreateScale(viewWidth / Display.Width) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+			UiMatrix = Matrix.CreateScale(viewWidth / Display.UiWidth) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
 		}
 	}
 }

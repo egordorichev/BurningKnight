@@ -11,13 +11,16 @@ using Microsoft.Xna.Framework.Input;
 namespace BurningKnight.debug {
 	public class Console : Entity {
 		public List<Line> Lines = new List<Line>();
+		public Area GameArea;
 
 		private List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
 		private string input = "";
 		private bool open;
 
-		public Console() {
+		public Console(Area area) {
+			GameArea = area;
+			
 			commands.Add(new GiveCommand());
 			commands.Add(new HealCommand());
 			commands.Add(new GodModeCommand());
@@ -40,13 +43,13 @@ namespace BurningKnight.debug {
 		}
 
 		private void TextEntered(object sender, TextInputEventArgs e) {
-			if (open) {
+			if (open && e.Character != '\r') {
 				input += e.Character;
 			}
 		}
 
 		public override void Update(float Dt) {
-			if (Input.Keyboard.WasPressed(Keys.Enter)) {
+			if (input.Length > 0 && Input.Keyboard.WasPressed(Keys.Enter)) {
 				var str = input;
 				input = "";
 				open = false;
@@ -61,8 +64,9 @@ namespace BurningKnight.debug {
 				Input.Blocked = open;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.Delete) && input.Length > 0) {
-				input = input.Substring(0, input.Length - 1);
+			if (Input.Keyboard.WasPressed(Keys.Back) && input.Length > 0) {
+				input = input.Length == 1 ? "" : input.Substring(0, input.Length - 2);
+				Log.Error(input);
 			}
 			
 			for (var I = Lines.Count - 1; I >= 0; I--) {
@@ -82,11 +86,11 @@ namespace BurningKnight.debug {
 		public override void Render() {
 			for (var I = 0; I < Lines.Count; I++) {
 				var Line = Lines[I];
-				Graphics.Print(Line.Text, Font.Small, new Vector2(2, 2 + Display.Height - (I + (open ? 2 : 1)) * 10));
+				Graphics.Print(Line.Text, Font.Small, new Vector2(2, 2 + Display.UiHeight - (I + (open ? 2 : 1)) * 10 - 4));
 			}
 
 			if (open) {
-				Graphics.Print(input + "|", Font.Small, new Vector2(2, Display.Height - 12));
+				Graphics.Print(input + "|", Font.Small, new Vector2(2, Display.UiHeight - 12));
 			}
 		}
 

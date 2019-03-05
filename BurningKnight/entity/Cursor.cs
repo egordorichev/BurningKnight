@@ -1,7 +1,6 @@
 ﻿using Lens.entity;
 using Lens.graphics;
 using Lens.input;
-using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
@@ -18,7 +17,7 @@ namespace BurningKnight.entity {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			Position = (Input.Mouse.Position);
+			Position = Input.Mouse.UiPosition;
 		}
 
 		public override void Render() {

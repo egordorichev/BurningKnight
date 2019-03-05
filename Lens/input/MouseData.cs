@@ -103,6 +103,15 @@ namespace Lens.input {
 				Mouse.SetPosition((int) Math.Round(vector.X), (int) Math.Round(vector.Y));
 			}
 		}
+		
+		public Vector2 UiPosition {
+			get { return Vector2.Transform(new Vector2(CurrentState.X, CurrentState.Y), Matrix.Invert(Engine.UiMatrix)); }
+
+			set {
+				var vector = Vector2.Transform(value, Engine.UiMatrix);
+				Mouse.SetPosition((int) Math.Round(vector.X), (int) Math.Round(vector.Y));
+			}
+		}
 
 		#endregion
 	}

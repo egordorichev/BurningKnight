@@ -26,7 +26,7 @@ namespace BurningKnight.state {
 			// Camera.Instance.Follow(cursor, 0.5f);
 
 			if (Engine.Version.Debug) {
-				Ui.Add(new Console());
+				Ui.Add(new Console(Area));
 			}
 		}
 
