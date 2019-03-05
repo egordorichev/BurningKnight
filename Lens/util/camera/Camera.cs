@@ -7,6 +7,7 @@ using MonoGame.Extended;
 
 namespace Lens.util.camera {
 	public class Camera : Entity {
+		public static bool Debug = true;
 		public static Camera Instance;
 
 		public new float X => position.X - Width / 2;
@@ -19,6 +20,7 @@ namespace Lens.util.camera {
 		public class Target {
 			public float Priority;
 			public Entity Entity;
+			public bool Inside;
 
 			public Target(Entity entity, float priority) {
 				Entity = entity;
@@ -45,9 +47,9 @@ namespace Lens.util.camera {
 			}
 		}
 
-		public Camera() {
+		public Camera(CameraDriver driver) {
 			Instance = this;
-			Driver = new FollowingDriver();
+			Driver = driver;
 
 			Width = Display.Width;
 			Height = Display.Height;
@@ -104,7 +106,7 @@ namespace Lens.util.camera {
 			var move = (position - Position) * ease;
 			
 			if (move.Length() > maxDistance) {
-				Position += Vector2.Normalize(move) * maxDistance;
+				Position = Vector2.Normalize(move) * maxDistance;
 			} else {
 				Position += move;
 			}
@@ -165,11 +167,11 @@ namespace Lens.util.camera {
 		private void UpdateMatrices() {			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) System.Math.Round(position.X), (int) System.Math.Round(position.Y)), 0)) *
+				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
 				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
 				Matrix.CreateTranslation(
-				 new Vector3(new Vector2((int) System.Math.Round(origin.X), (int) System.Math.Round(origin.Y)), 0));
+				 new Vector3(new Vector2((int) System.Math.Floor(origin.X), (int) System.Math.Floor(origin.Y)), 0));
 
 			inverse = Matrix.Invert(matrix);
 			changed = false;
@@ -179,21 +181,34 @@ namespace Lens.util.camera {
 		
 		private static Color DebugColor = new Color(1, 1, 1, 0.5f);
 
+		public void Jump() {
+			position.X = 0;
+			position.Y = 0;
+
+			foreach (var follow in Targets) {
+				position.X += follow.Priority * follow.Entity.CenterX;
+				position.Y += follow.Priority * follow.Entity.CenterY;
+			}
+
+			changed = true;
+		}
+		
 		public override void RenderDebug() {
-			if (true) {
+			if (!Debug) {
 				return;
 			}
+			
 			// Graphics.Batch.DrawRectangle(new RectangleF(position.X - Display.Width / 2f, position.Y - Display.Height / 2f, Display.Width, Display.Height), Color.Wheat);
-			Graphics.Batch.DrawRectangle(new RectangleF(Display.Width / 2 - 4, Display.Height / 2 - 4, 8, 8), DebugColor);
+			Graphics.Batch.DrawRectangle(new RectangleF(Display.UiWidth / 2 - 4, Display.UiHeight / 2 - 4, 8, 8), DebugColor);
 
 			for (int x = 1; x < 3; x++) {
-				float xx = x * Display.Width / 3f;
-				Graphics.Batch.DrawLine(new Vector2(xx, 0), new Vector2(xx, Display.Height), DebugColor);
+				float xx = x * Display.UiWidth / 3f;
+				Graphics.Batch.DrawLine(new Vector2(xx, 0), new Vector2(xx, Display.UiHeight), DebugColor);
 			}
 			
 			for (int y = 1; y < 3; y++) {
-				float yy = y * Display.Height / 3f;
-				Graphics.Batch.DrawLine(new Vector2(0, yy), new Vector2(Display.Width, yy), DebugColor);
+				float yy = y * Display.UiHeight / 3f;
+				Graphics.Batch.DrawLine(new Vector2(0, yy), new Vector2(Display.UiWidth, yy), DebugColor);
 			}
 		}
 		

@@ -11,7 +11,7 @@ namespace Lens.graphics.gamerenderer {
 		
 		public PixelPerfectGameRenderer() {
 			GameTarget = new RenderTarget2D(
-				Engine.GraphicsDevice, Display.Width, Display.Height, false,
+				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 			);
 			
@@ -47,8 +47,11 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix.Identity);
 
-			Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(0, 0), new Vector2(Engine.Instance.Upscale), SpriteEffects.None);
-			Graphics.Render(UiTarget, Engine.Viewport, 0, new Vector2(0, 0), new Vector2(Engine.Instance.UiUpscale), SpriteEffects.None);
+			if (Camera.Instance != null) {
+				Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1), new Vector2(Engine.Instance.Upscale), SpriteEffects.None);	
+			}
+
+			Graphics.Render(UiTarget, Engine.Viewport, 0, Vector2.Zero, new Vector2(Engine.Instance.UiUpscale), SpriteEffects.None);
 			
 			Graphics.Batch.End();
 			Batcher2D.End();

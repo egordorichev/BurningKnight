@@ -2,6 +2,7 @@
 using BurningKnight.entity.creature.player;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.game;
@@ -17,13 +18,14 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 			
-			Ui.Add(new Camera());
+			Ui.Add(new Camera(new FollowingDriver()));
 			
 			var cursor = new Cursor();
 			Ui.Add(cursor);
 			
 			Camera.Instance.Follow(LocalPlayer.Locate(Area), 1f);
-			// Camera.Instance.Follow(cursor, 0.5f);
+			Camera.Instance.Follow(cursor, 1f);
+			Camera.Instance.Jump();
 
 			if (Engine.Version.Debug) {
 				Ui.Add(new Console(Area));

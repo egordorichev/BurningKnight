@@ -160,7 +160,7 @@ namespace BurningKnight.debug {
 				}
 			}
 
-			Print("[red]Unknown command");
+			Print("Unknown command");
 		}
 
 		public class Line {

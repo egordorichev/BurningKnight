@@ -178,6 +178,7 @@
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
     <Compile Include="util\ColorUtils.cs" />
+    <Compile Include="util\FollowingDriver.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\MathUtils.cs" />

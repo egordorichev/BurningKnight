@@ -1,4 +1,5 @@
-﻿using Lens.entity;
+﻿using Lens;
+using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Microsoft.Xna.Framework;
@@ -18,10 +19,13 @@ namespace BurningKnight.entity {
 			base.Update(dt);
 
 			Position = Input.Mouse.UiPosition;
+			Position.X -= Display.UiWidth / 2f;
+			Position.Y -= Display.UiHeight / 2f;
 		}
 
 		public override void Render() {
-			Graphics.Batch.FillRectangle(new RectangleF(X - 1, Y - 1, 2, 2), Color.Red);
+			var pos = Input.Mouse.UiPosition;
+			Graphics.Batch.FillRectangle(new RectangleF(pos.X - 1, pos.Y - 1, 2, 2), Color.Red);
 		}
 	}
 }
