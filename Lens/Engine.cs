@@ -21,6 +21,7 @@ namespace Lens {
 		public GameState State { get; private set; }
 		public static Vector2 Viewport;
 		public float Upscale;
+		public float UiUpscale;
 
 		private static Core.Core core;
 		private const float FixedUpdateTime = 0.015f;
@@ -149,6 +150,7 @@ namespace Lens {
 			Graphics.ApplyChanges();
 
 			Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
+			UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
 
 			Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
 			Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;

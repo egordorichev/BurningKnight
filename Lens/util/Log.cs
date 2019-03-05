@@ -45,7 +45,7 @@ namespace Lens.util {
 			var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())} {frame.GetMethod().Name}():{frame.GetFileLineNumber()} ";
 
 			builder?.Append(text);
-			builder?.AppendLine((string) message);
+			builder?.AppendLine(message == null ? "null" : message.ToString());
 			
 			Console.ForegroundColor = color;
 			Console.Write(message);

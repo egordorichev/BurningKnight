@@ -55,10 +55,14 @@ namespace BurningKnight.entity.item {
 
 		public override void Save(FileWriter stream) {
 			stream.WriteInt32(Count);
+			stream.WriteString(Id);
 		}
 
 		public override void Load(FileReader stream) {
 			Count = stream.ReadInt32();
+			Id = stream.ReadString();
+			
+			
 		}
 
 		public StringBuilder BuildInfo() {

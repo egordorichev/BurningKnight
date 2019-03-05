@@ -2,9 +2,10 @@
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using Lens.entity.component;
+using Lens.util.file;
 
 namespace BurningKnight.entity.component {
-	public class InventoryComponent : Component {
+	public class InventoryComponent : SaveableComponent {
 		public List<Item> Items = new List<Item>();
 		
 		public void Add(Item item) {
@@ -45,6 +46,16 @@ namespace BurningKnight.entity.component {
 					Remove(item);
 				}
 			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			// todo: save
+		}
+
+		public override void Load(FileReader reader) {
+			base.Load(reader);
+			// todo: load
 		}
 	}
 }

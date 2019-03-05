@@ -14,6 +14,7 @@ namespace Lens.input {
 		public static MouseData Mouse;
 		public static GamepadData[] Gamepads;
 		public static PlayerIndex GamepadIndex = PlayerIndex.One;
+		public static bool Blocked;
 		
 		private static Dictionary<string, InputButton> Buttons = new Dictionary<string, InputButton>();
 		
@@ -85,6 +86,10 @@ namespace Lens.input {
 		}
 
 		private static bool Check(string id, CheckType type) {
+			if (Blocked) {
+				return false;
+			}
+			
 			InputButton button;
 
 			if (!Buttons.TryGetValue(id, out button)) {

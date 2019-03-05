@@ -2,9 +2,11 @@
 using BurningKnight.entity.creature.player;
 using BurningKnight.physics;
 using BurningKnight.save;
+using Lens;
 using Lens.entity;
 using Lens.game;
 using Lens.util.camera;
+using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState {		
@@ -22,6 +24,10 @@ namespace BurningKnight.state {
 			
 			Camera.Instance.Follow(LocalPlayer.Locate(Area), 1f);
 			// Camera.Instance.Follow(cursor, 0.5f);
+
+			if (Engine.Version.Debug) {
+				Ui.Add(new Console());
+			}
 		}
 
 		public override void Destroy() {

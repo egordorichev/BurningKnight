@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item.use;
-using Lens.entity.component.graphics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
@@ -58,10 +56,7 @@ namespace BurningKnight.entity.item {
 
 		public static Item CreateFrom(ItemInfo info) {
 			var item = info.Create();
-			
 			item.Id = info.Id;
-			// todo: custom item render component
-			item.AddComponent(new ImageComponent(item.Id));
 
 			return item;
 		}
