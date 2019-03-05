@@ -27,7 +27,7 @@ namespace Lens.graphics {
 			Batch.Draw(region.Texture, position, region.Source, Color, a, origin, Vector2.One, SpriteEffects.None, 0);
 		}
 
-		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip) {
+		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip = SpriteEffects.None) {
 			Batch.Draw(region.Texture, position, region.Source, Color, a, origin, scale, flip, 0);
 		}
 
@@ -39,7 +39,7 @@ namespace Lens.graphics {
 			Batch.Draw(texture, position, texture.Bounds, Color, a, origin, Vector2.One, SpriteEffects.None, 0);
 		}
 		
-		public static void Render(Texture2D texture, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip) {
+		public static void Render(Texture2D texture, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip = SpriteEffects.None) {
 			Batch.Draw(texture, position, texture.Bounds, Color, a, origin, scale, flip, 0);
 		}
 		

@@ -6,6 +6,7 @@ namespace Lens.graphics.animation {
 	public class AnimationData {
 		public Dictionary<string, List<AnimationFrame>> Layers = new Dictionary<string, List<AnimationFrame>>();
 		public Dictionary<string, AnimationTag> Tags = new Dictionary<string, AnimationTag>();
+		public Dictionary<string, TextureRegion> Slices = new Dictionary<string, TextureRegion>();
 		public Texture2D Texture;
 		
 		public AnimationTag? GetTag(string tagName) {
@@ -18,6 +19,14 @@ namespace Lens.graphics.animation {
 			}
 
 			return tag;
+		}
+
+		public TextureRegion GetSlice(string name) {
+			if (Slices.TryGetValue(name, out var region)) {
+				return region;
+			}
+
+			return null;
 		}
 		
 		public AnimationFrame? GetFrame(string layer, uint id) {

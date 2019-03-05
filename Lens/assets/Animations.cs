@@ -50,6 +50,11 @@ namespace Lens.assets {
 				
 				animation.Layers[layer.Name] = list;
 			}
+
+			for (var i = 0; i < file.Slices.Count; i++) {
+				var slice = file.Slices[i];
+				animation.Slices[slice.Name] = new TextureRegion(file.Texture, new Rectangle(slice.OriginX, slice.OriginY, slice.Width, slice.Height));
+			}
 			
 			foreach (var tag in file.Animations.Values) {
 				var newTag = new AnimationTag();

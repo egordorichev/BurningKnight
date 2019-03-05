@@ -39,7 +39,7 @@ namespace BurningKnight.entity.level {
 		
 		public BiomeAssets() {
 			var anim = Animations.Get("biome_assets");
-			
+						
 			Patterns[(int) Tile.Dirt] = DirtPattern = new TextureRegion(anim.Texture, new Rectangle(0, 0, 64, 64));
 			Edges[(int) Tile.Dirt] = Dirt = GetEdge(anim, 64, 0);
 			
