@@ -7,5 +7,6 @@
 		public const int Wall = 1;
 
 		public const int Ui = 10;
+		public const int Cursor = 11;
 	}
 }

@@ -41,9 +41,9 @@ namespace BurningKnight {
 			Vegan = GlobalSave.IsTrue("settings_v", false);
 
 			if (Fullscreen) {
-				Engine.SetFullscreen();
+				Engine.Instance.SetFullscreen();
 			} else {
-				Engine.SetWindowed(Display.Width * 3, Display.Height * 3);
+				Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 			}
 
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;

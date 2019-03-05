@@ -18,7 +18,7 @@ namespace BurningKnight.entity {
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
-			Depth = 32;
+			Depth = Layers.Cursor;
 
 			var anim = Animations.Get("ui");
 			region = anim.GetSlice("cursor_j");

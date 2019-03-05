@@ -8,6 +8,7 @@ using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Lens {
 	public class Engine : Game {
@@ -87,6 +88,14 @@ namespace Lens {
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
 
+			if (Input.Keyboard.WasPressed(Keys.F11)) {
+				if (Graphics.IsFullScreen) {
+					SetWindowed(Display.Width * 3, Display.Height * 3);
+				} else {
+					SetFullscreen();
+				}
+			}
+
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
 			time += dt;
 			
@@ -134,17 +143,24 @@ namespace Lens {
 			base.Draw(gameTime);
 		}
 
-		public static void SetWindowed(int width, int height) {
+		public void SetWindowed(int width, int height) {
 			core.SetWindowed(width, height);
+			UpdateView();
 		}
 
-		public static void SetFullscreen() {
+		public void SetFullscreen() {
 			core.SetFullscreen();
+			UpdateView();
 		}
 		
 		public void UpdateView() {
 			float screenWidth = Math.Max(Display.Width, base.GraphicsDevice.PresentationParameters.BackBufferWidth);
 			float screenHeight = Math.Max(Display.Height, base.GraphicsDevice.PresentationParameters.BackBufferHeight);
+			
+			if (Graphics.IsFullScreen) {
+				screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+				screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
 
 			Graphics.PreferredBackBufferWidth = (int) screenWidth;
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;

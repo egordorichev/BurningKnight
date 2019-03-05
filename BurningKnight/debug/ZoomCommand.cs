@@ -15,10 +15,12 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Run(Console Console, string[] Args) {
-			if (Args.Length == 0) return;
+			if (Args.Length == 0) {
+				return;
+			}
 
 			float Zoom = Math.Max(0, Single.Parse(Args[0]));
-			Engine.SetWindowed((int) (Display.Width * Zoom), (int) (Display.Height * Zoom));
+			Engine.Instance.SetWindowed((int) (Display.Width * Zoom), (int) (Display.Height * Zoom));
 		}
 	}
 }
