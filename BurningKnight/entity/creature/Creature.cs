@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
-				if (HasNoHealth()) {
+				if (HasNoHealth(ev)) {
 					Kill(ev.From);
 				}
 			} else if (e is DiedEvent) {
@@ -30,8 +30,8 @@ namespace BurningKnight.entity.creature {
 			return base.HandleEvent(e);
 		}
 
-		protected virtual bool HasNoHealth() {
-			return GetComponent<HealthComponent>().Health == 0;
+		protected virtual bool HasNoHealth(HealthModifiedEvent e) {
+			return GetComponent<HealthComponent>().Health == -e.Amount;
 		}
 	}
 }

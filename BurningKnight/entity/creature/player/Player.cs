@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.physics;
 using Lens.entity;
@@ -78,8 +79,8 @@ namespace BurningKnight.entity.creature.player {
 			return !(entity is Player);
 		}
 
-		protected override bool HasNoHealth() {
-			return base.HasNoHealth() && GetComponent<HeartsComponent>().Total == 0;
+		protected override bool HasNoHealth(HealthModifiedEvent e) {
+			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e.Default ? 0 : -e.Amount);
 		}
 	}
 }

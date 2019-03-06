@@ -19,7 +19,8 @@ namespace BurningKnight.entity.creature.player {
 		public void Hurt(int amount, Entity setter) {
 			if (!Send(new HealthModifiedEvent {
 				Amount = amount,
-				From = setter
+				From = setter,
+				Default = false
 			})) {
 				byte golden = (byte) Math.Min(amount, goldenHalfs);
 				goldenHalfs -= golden;

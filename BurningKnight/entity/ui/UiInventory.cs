@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens;
 using Lens.assets;
+using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
@@ -59,7 +60,11 @@ namespace BurningKnight.entity.ui {
 			Graphics.Render(itemSlot, new Vector2(2, Display.UiHeight - itemSlot.Source.Height - 2));
 			
 			if (component.Item != null) {
-				// todo: render the item				
+				var region = component.Item.GetComponent<SliceComponent>().Sprite;
+				Graphics.Render(region, new Vector2(
+					2 + (itemSlot.Source.Width - region.Source.Width) / 2, 
+					Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2)
+				);
 			}
 		}
 
