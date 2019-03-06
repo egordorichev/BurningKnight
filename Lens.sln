@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysics.MonoGame", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMod", "TestMod\TestMod.csproj", "{9692B960-C67C-430D-AB9F-BC0F5CA74265}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopLinux", "DesktopLinux\DesktopLinux.csproj", "{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9692B960-C67C-430D-AB9F-BC0F5CA74265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
