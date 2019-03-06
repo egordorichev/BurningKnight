@@ -1,4 +1,5 @@
-﻿using Lens.util.camera;
+﻿using Lens;
+using Lens.util.camera;
 
 namespace BurningKnight.util {
 	public class FollowingDriver : CameraDriver {
@@ -7,7 +8,8 @@ namespace BurningKnight.util {
 
 			foreach (var target in Camera.Targets) {
 				if (target.Entity.Area == Camera.Area) {
-					Camera.Position += target.Entity.Center * dt * target.Priority;
+					Camera.PositionX += target.Entity.CenterX * dt * target.Priority;
+					Camera.PositionY += target.Entity.CenterY * dt * target.Priority * Display.Viewport * 2;
 				} else {
 					Camera.Approach(target.Entity.Center, dt * 5 * target.Priority);
 				}

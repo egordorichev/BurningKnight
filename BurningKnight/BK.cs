@@ -12,6 +12,7 @@ namespace BurningKnight {
 		protected override void Initialize() {
 			base.Initialize();
 			
+			Controls.Bind();
 			Font.Load();
 			Mods.Load();
 		}

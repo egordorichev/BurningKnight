@@ -53,7 +53,7 @@ namespace BurningKnight.entity.item {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			AddComponent(new ImageComponent(Id));
+			AddComponent(new SliceComponent("items", Id));
 		}
 
 		private void InteractionStart(Entity entity) {

@@ -6,7 +6,7 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.component {
 	public class ItemComponent : SaveableComponent {
-		public Item Item { get; private set; }
+		public Item Item { get; protected internal set; }
 
 		public virtual void Set(Item item) {
 			if (Item != null) {

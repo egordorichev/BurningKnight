@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
@@ -86,6 +87,15 @@ namespace BurningKnight.entity.component {
 		public HealthComponent() {
 			maxHealth = 2;
 			health = MaxHealth;
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
+				// todo: heal
+				return true;
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public override void Update(float dt) {

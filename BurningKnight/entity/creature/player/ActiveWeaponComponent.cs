@@ -6,7 +6,16 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (Item != null && Input.WasPressed(Controls.Use)) {
-				
+				Item.Use((Player) Entity);
+			}
+
+			if (Input.WasPressed(Controls.Swap)) {
+				var component = Entity.GetComponent<WeaponComponent>();
+
+				// Swap the items
+				var tmp = component.Item;
+				component.Item = Item;
+				Item = tmp;
 			}
 		}
 	}

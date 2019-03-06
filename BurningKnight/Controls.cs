@@ -16,7 +16,7 @@ namespace BurningKnight {
 
 		public const string Roll = "roll";
 		
-		static Controls() {
+		public static void Bind() {
 			Input.Bind(Up, Keys.W);
 			Input.Bind(Left, Keys.A);
 			Input.Bind(Down, Keys.S);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item.use;
+using Lens.entity;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
@@ -19,7 +20,11 @@ namespace BurningKnight.entity.item {
 				new ItemInfo("bomb", () => new Item(), ItemType.Bomb),
 				new ItemInfo("penny", () => new Item(), ItemType.Coin),
 				new ItemInfo("key", () => new Item(), ItemType.Key),
-				new ItemInfo("heart", () => new Item(), ItemType.Heart)
+				new ItemInfo("heart", () => new Item(), ItemType.Heart),
+				
+				new ItemInfo("sword", () => new Item()),
+				
+				new ItemInfo("halo", () => new Item(), ItemType.Artifact)
 			};
 
 			foreach (var pair in infos) {
@@ -49,14 +54,17 @@ namespace BurningKnight.entity.item {
 			ByType[item.Type].Remove(item);
 		}
 
-		public static Item Create(string id) {
+		public static Item Create(string id, Area area = null) {
 			if (!Items.TryGetValue(id, out var info)) {
 				return null;
 			}
 
-			return CreateFrom(info);
-		}
+			var item = CreateFrom(info);
+			area?.Add(item);
 
+			return item;
+		}
+		
 		public static Item CreateFrom(ItemInfo info) {
 			var item = info.Create();
 			

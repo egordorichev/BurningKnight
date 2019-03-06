@@ -2,11 +2,11 @@
 using Lens.graphics;
 
 namespace Lens.entity.component.graphics {
-	public class ImageComponent : GraphicsComponent {
+	public class SliceComponent : GraphicsComponent {
 		public TextureRegion Sprite;
 		
-		public ImageComponent(string image) {
-			Sprite = Textures.Get(image);
+		public SliceComponent(string image, string slice) {
+			Sprite = Animations.Get(image).GetSlice(slice);
 		}
 
 		public override void Render() {

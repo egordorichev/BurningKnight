@@ -142,6 +142,24 @@ namespace Lens.util.camera {
 				changed = true;
 			}
 		}
+		
+		public float PositionX {
+			get => position.X;
+
+			set {
+				position.X = value;
+				changed = true;
+			}
+		}
+		
+		public float PositionY {
+			get => position.Y;
+
+			set {
+				position.Y = value;
+				changed = true;
+			}
+		}
 
 		public Vector2 Origin {
 			get => origin;

@@ -89,10 +89,8 @@ namespace Lens.input {
 			if (Blocked) {
 				return false;
 			}
-			
-			InputButton button;
 
-			if (!Buttons.TryGetValue(id, out button)) {
+			if (!Buttons.TryGetValue(id, out var button)) {
 				return false;
 			}
 

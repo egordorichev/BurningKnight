@@ -9,8 +9,8 @@ namespace BurningKnight.entity.creature.player {
 	public class HeartsComponent : SaveableComponent {
 		public static int Cap = 40;
 		
-		private byte ironHalfs = 3;
-		private byte goldenHalfs = 3;
+		private byte ironHalfs;
+		private byte goldenHalfs;
 
 		public int IronHalfs => ironHalfs;
 		public int GoldenHalfs => goldenHalfs;

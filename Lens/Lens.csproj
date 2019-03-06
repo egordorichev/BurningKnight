@@ -186,6 +186,7 @@
     <Compile Include="entity\component\graphics\GraphicsComponent.cs" />
     <Compile Include="entity\component\graphics\ImageComponent.cs" />
     <Compile Include="entity\component\graphics\AnimationComponent.cs" />
+    <Compile Include="entity\component\graphics\SliceComponent.cs" />
     <Compile Include="entity\component\logic\EntityState.cs" />
     <Compile Include="entity\component\logic\StateChangedEvent.cs" />
     <Compile Include="entity\component\logic\StateComponent.cs" />
