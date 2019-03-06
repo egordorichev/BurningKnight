@@ -23,9 +23,11 @@ namespace BurningKnight {
 			Input.Bind(Right, Keys.D);
 			
 			Input.Bind(Active, Keys.Space);
-			Input.Bind(Swap, Keys.LeftShift);
-			
 			Input.Bind(Use, MouseButtons.Left);
+			Input.Bind(Bomb, Keys.Q);
+			Input.Bind(Interact, Keys.E);
+			Input.Bind(Swap, Keys.LeftShift);
+
 			Input.Bind(Roll, MouseButtons.Right);
 		}
 	}

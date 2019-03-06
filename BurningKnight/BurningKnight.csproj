@@ -112,6 +112,7 @@
     <Compile Include="entity\events\ItemAddedEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
+    <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\Noise.cs" />
     <Compile Include="util\PathFinder.cs" />
+    <Compile Include="util\Vector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">

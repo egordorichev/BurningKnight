@@ -64,7 +64,7 @@ namespace BurningKnight.entity.component {
 			velocity.X += Acceleration.X;
 			velocity.Y += Acceleration.Y;
 
-			if (velocity.Length() > 0.1f) {
+			if (Entity.GraphicsComponent != null && !Entity.GraphicsComponent.CustomFlip && velocity.Length() > 0.1f) {
 				Entity.GraphicsComponent.Flipped = velocity.X < 0;
 			}
 			

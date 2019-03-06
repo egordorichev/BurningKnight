@@ -180,7 +180,7 @@ namespace Lens {
 				viewWidth = screenWidth;
 			}
 			
-			ScreenMatrix = Matrix.CreateScale(viewWidth / Display.Width) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+			ScreenMatrix = Matrix.CreateScale(Upscale) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
 			UiMatrix = Matrix.CreateScale(viewWidth / Display.UiWidth) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using Lens;
+﻿using BurningKnight.util;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
@@ -10,8 +11,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity {
 	public class Cursor : Entity {
 		private TextureRegion region;
-		private Vector2 scale = new Vector2(2f, 1);
-		private float a = 1;
+		private Vector scale = new Vector(1);
 		
 		public override void Init() {
 			base.Init();
@@ -32,14 +32,14 @@ namespace BurningKnight.entity {
 			Position.X -= Display.UiWidth / 2f;
 			Position.Y -= Display.UiHeight / 2f;
 
-			if (Input.Mouse.WasPressedLeftButton) {
-				Tween.To(this, new { a = 1.3f }, 0.05f).OnEnd = () => Tween.To(this, new { a = 1 }, 0.15f);
+			if (Input.WasPressed(Controls.Use)) {
+				Tween.To(scale, new { X = 1.3f, Y = 1.3f }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);
 			}
 		}
 
 		public override void Render() {
 			var pos = Input.Mouse.UiPosition;
-			Graphics.Render(region, pos, 0, region.Center, new Vector2(a));
+			Graphics.Render(region, pos, 0, region.Center, scale);
 		}
 	}
 }

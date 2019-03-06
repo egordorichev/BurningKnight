@@ -1,15 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.save;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
-using Lens.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.entity.item {
@@ -51,6 +50,11 @@ namespace BurningKnight.entity.item {
 			}
 
 			Delay = UseTime;
+
+			HandleEvent(new ItemUsedEvent {
+				Item = this,
+				Who = player
+			});
 		}
 
 		public override void AddComponents() {

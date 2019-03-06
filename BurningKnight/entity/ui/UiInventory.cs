@@ -2,10 +2,15 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
+using BurningKnight.util;
 using Lens;
 using Lens.assets;
+using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.input;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.ui {
@@ -28,6 +33,9 @@ namespace BurningKnight.entity.ui {
 		private TextureRegion halfGolden;
 		
 		private Player player;
+
+		private Vector activeScale = new Vector(1);
+		private Vector itemScale = new Vector(1);
 		
 		public UiInventory(Player player) {
 			this.player = player;
@@ -54,35 +62,44 @@ namespace BurningKnight.entity.ui {
 			halfGolden = anim.GetSlice("half_gold_heart");
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Input.WasPressed(Controls.Active)) {
+				Tween.To(activeScale, new {X = 0.6f, Y = 1.5f}, 0.1f).OnEnd = () => Tween.To(activeScale, new {X = 1.5f, Y = 0.6f}, 0.1f, Ease.QuadOut).OnEnd = () => Tween.To(activeScale, new {X = 1f, Y = 1f}, 0.2f, Ease.QuadOut);
+				Tween.To(itemScale, new {X = 0.3f, Y = 2f}, 0.1f).OnEnd = () => Tween.To(itemScale, new {X = 1f, Y = 1f}, 0.2f);
+			}
+		}
+
 		public override void Render() {
 			RenderActiveItem();
 			RenderHealthBar();
 			RenderConsumables();
 		}
-
+		
 		private void RenderActiveItem() {
 			var component = player.GetComponent<ActiveItemComponent>();
 			var item = component.Item;
 			
-			Graphics.Render(itemSlot, new Vector2(2, Display.UiHeight - itemSlot.Source.Height - 2));
-			
+			Graphics.Render(itemSlot, new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2), 0, itemSlot.Center, activeScale);
+
 			if (item != null) {
 				if (item.Delay > 0) {
 					float progress = item.Delay / item.UseTime;
 
 					useSlot.Source.Width = (int) Math.Ceiling(itemSlot.Source.Width * progress);
 
-					Graphics.Color = Color.Black;
-					Graphics.Render(useSlot, new Vector2(2, Display.UiHeight - itemSlot.Source.Height - 2));
+					Graphics.Color = new Color(0.5f, 0.5f, 0.5f, 1);
+					Graphics.Render(useSlot, new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2), 0, useSlot.Center, activeScale);
 					Graphics.Color = Color.White;
 				}
 				
 				var region = item.GetComponent<SliceComponent>().Sprite;
 				
 				Graphics.Render(region, new Vector2(
-					2 + (itemSlot.Source.Width - region.Source.Width) / 2f, 
-					Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f)
-				);
+					region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f, 
+					region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f
+				), 0, region.Center, itemScale);
 			}
 		}
 
@@ -126,12 +143,12 @@ namespace BurningKnight.entity.ui {
 
 		private void RenderConsumables() {
 			var component = player.GetComponent<ConsumablesComponent>();
-			var bottomY = Display.UiHeight - itemSlot.Source.Height - 4 - coin.Source.Height;
+			var bottomY = Display.UiHeight - itemSlot.Source.Height - 14;
 
-			Graphics.Render(coin, new Vector2(2, bottomY));
+			Graphics.Render(coin, new Vector2(4, bottomY + 1));
 			Graphics.Print($"{component.Coins}", Font.Small, new Vector2(14, bottomY - 1));
 			
-			bottomY -= key.Source.Height + 2;
+			bottomY -= 12;
 			Graphics.Render(key, new Vector2(2, bottomY));			
 			Graphics.Print($"{component.Keys}", Font.Small, new Vector2(14, bottomY - 1));
 

@@ -23,16 +23,20 @@ namespace Lens.util.tween {
 				return task;
 			}
 			
-			foreach (PropertyInfo property in values.GetType().GetTypeInfo().DeclaredProperties) {
-				var info = new TweenValue(target, property.Name);
-				var to = Convert.ToSingle(new TweenValue(values, property.Name, false).Value);
+			foreach (var property in values.GetType().GetTypeInfo().DeclaredProperties) {
+				try {
+					var info = new TweenValue(target, property.Name);
+					var to = Convert.ToSingle(new TweenValue(values, property.Name, false).Value);
 
-				float s = Convert.ToSingle(info.Value);
-				float r = to - s;
+					float s = Convert.ToSingle(info.Value);
+					float r = to - s;
 
-				task.Vars.Add(info);
-				task.Start.Add(s);
-				task.Range.Add(r);
+					task.Vars.Add(info);
+					task.Start.Add(s);
+					task.Range.Add(r);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		
 			return task;
