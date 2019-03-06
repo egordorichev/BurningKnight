@@ -198,29 +198,6 @@
     <Compile Include="util\PathFinder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Textures/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Music/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Sfx/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Animations/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Fonts/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content/Mods/*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>
@@ -247,6 +224,11 @@
     <Content Include="Content\Sfx\menu\goback.mp3" />
     <Content Include="Content\Sfx\menu\moving.mp3" />
     <Content Include="Content\Sfx\menu\select.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+	<None Include="./Content/**">
+	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Mods" />
