@@ -4,9 +4,11 @@ using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
 	public class InteractableComponent : Component {
-		public Action<Entity> Interact;
+		public Func<Entity, bool> Interact;
+		public Action<Entity> OnStart;
+		public Action<Entity> OnEnd;
 
-		public InteractableComponent(Action<Entity> interact) {
+		public InteractableComponent(Func<Entity, bool> interact) {
 			Interact = interact;
 		}
 	}

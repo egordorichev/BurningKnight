@@ -1,11 +1,9 @@
-using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
-using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.ui {

@@ -56,12 +56,25 @@ namespace BurningKnight.entity.item {
 			AddComponent(new ImageComponent(Id));
 		}
 
-		private void Interact(Entity entity) {
+		private void InteractionStart(Entity entity) {
 			// todo
 		}
 
+		private void InteractionEnd(Entity entity) {
+			// todo
+		}
+
+		private bool Interact(Entity entity) {
+			// todo
+
+			return true;
+		}
+
 		public virtual void AddDroppedComponents() {
-			AddComponent(new InteractableComponent(Interact));
+			AddComponent(new InteractableComponent(Interact) {
+				OnStart = InteractionStart,
+				OnEnd = InteractionEnd
+			});
 		}
 
 		public virtual void RemoveDroppedComponents() {

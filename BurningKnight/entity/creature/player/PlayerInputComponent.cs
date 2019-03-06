@@ -8,29 +8,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
-		public const string Up = "up";
-		public const string Left = "left";
-		public const string Down = "down";
-		public const string Right = "right";
-		public const string Active = "active";
-		public const string Swap = "swap";
-		public const string Use = "use";
-		public const string Roll = "roll";
-
 		private const float Speed = 25f;
-		
-		public PlayerInputComponent() {
-			Input.Bind(Up, Keys.W);
-			Input.Bind(Left, Keys.A);
-			Input.Bind(Down, Keys.S);
-			Input.Bind(Right, Keys.D);
-			
-			Input.Bind(Active, Keys.Space);
-			Input.Bind(Swap, Keys.LeftShift);
-			
-			Input.Bind(Use, MouseButtons.Left);
-			Input.Bind(Roll, MouseButtons.Right);
-		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -40,19 +18,19 @@ namespace BurningKnight.entity.creature.player {
 			body.Acceleration.X = 0;
 			body.Acceleration.Y = 0;
 
-			if (Input.IsDown(Up)) {
+			if (Input.IsDown(Controls.Up)) {
 				body.Acceleration.Y -= Speed;
 			}
 			
-			if (Input.IsDown(Down)) {
+			if (Input.IsDown(Controls.Down)) {
 				body.Acceleration.Y += Speed;
 			}
 			
-			if (Input.IsDown(Left)) {
+			if (Input.IsDown(Controls.Left)) {
 				body.Acceleration.X -= Speed;
 			}
 			
-			if (Input.IsDown(Right)) {
+			if (Input.IsDown(Controls.Right)) {
 				body.Acceleration.X += Speed;
 			}
 

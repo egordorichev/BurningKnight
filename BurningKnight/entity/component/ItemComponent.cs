@@ -42,6 +42,14 @@ namespace BurningKnight.entity.component {
 			Item = null;
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Item != null && Item.Done) {
+				Item = null;
+			}
+		}
+
 		protected virtual bool ShouldReplace(Item item) {
 			return Item == null;
 		}
