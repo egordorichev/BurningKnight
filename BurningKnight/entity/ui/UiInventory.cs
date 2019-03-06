@@ -144,6 +144,7 @@ namespace BurningKnight.entity.ui {
 			RenderActiveItem();
 			RenderHealthBar();
 			RenderConsumables();
+			
 		}
 		
 		private void RenderActiveItem() {
