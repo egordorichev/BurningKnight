@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.save;
 using Lens.assets;
+using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util.file;
@@ -54,6 +56,18 @@ namespace BurningKnight.entity.item {
 			AddComponent(new ImageComponent(Id));
 		}
 
+		private void Interact(Entity entity) {
+			// todo
+		}
+
+		public virtual void AddDroppedComponents() {
+			AddComponent(new InteractableComponent(Interact));
+		}
+
+		public virtual void RemoveDroppedComponents() {
+			RemoveComponent<InteractableComponent>();
+		}
+
 		public override void Save(FileWriter stream) {
 			stream.WriteInt32(Count);
 			stream.WriteString(Id);
@@ -62,8 +76,6 @@ namespace BurningKnight.entity.item {
 		public override void Load(FileReader stream) {
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
-			
-			
 		}
 
 		public StringBuilder BuildInfo() {

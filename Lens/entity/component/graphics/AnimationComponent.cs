@@ -36,13 +36,11 @@ namespace Lens.entity.component.graphics {
 		}
 
 		public override bool HandleEvent(Event e) {
-			base.HandleEvent(e);
-
 			if (e is StateChangedEvent ev && Animation != null) {
 				Animation.Tag = ev.NewState.Name.ToLower().Replace("state", "");
 			}
 
-			return false;
+			return base.HandleEvent(e);
 		}
 	}
 }

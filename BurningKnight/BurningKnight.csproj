@@ -74,6 +74,7 @@
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
+    <Compile Include="entity\component\InteractableComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
     <Compile Include="entity\creature\player\ConsumablesComponent.cs" />
     <Compile Include="entity\creature\player\HeartsComponent.cs" />
+    <Compile Include="entity\creature\player\InteractorComponent.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\PlayerClass.cs" />

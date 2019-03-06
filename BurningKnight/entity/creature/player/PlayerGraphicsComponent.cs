@@ -31,14 +31,12 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override bool HandleEvent(Event e) {
-			base.HandleEvent(e);
-
 			if (e is StateChangedEvent ev) {
 				Head.Tag = ev.NewState.Name.ToLower().Replace("state", "");
 				Body.Tag = Head.Tag;
 			}
 
-			return false;
+			return base.HandleEvent(e);
 		}
 	}
 }

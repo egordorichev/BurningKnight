@@ -27,6 +27,7 @@ namespace BurningKnight.entity.component {
 			Items.Add(item);
 			Entity.Area.Remove(item);
 
+			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
 
 			var e = new ItemAddedEvent {
@@ -49,6 +50,7 @@ namespace BurningKnight.entity.component {
 			
 			item.Center = Entity.Center;
 			Entity.Area.Add(item);
+			item.AddDroppedComponents();
 			item.RemoveComponent<OwnerComponent>();
 		}
 

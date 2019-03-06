@@ -23,8 +23,10 @@ namespace BurningKnight.entity.creature.player {
 			// Stats
 			AddComponent(new HeartsComponent());
 			
-			// Other
+			// Collisions
 			AddComponent(new RectBodyComponent(2, 0, 12, 12));
+			AddComponent(new InteractorComponent());
+			
 			GetComponent<StateComponent>().State = typeof(IdleState);
 			
 			AddTag(Tags.Player);

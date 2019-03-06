@@ -16,6 +16,7 @@ namespace BurningKnight.entity.component {
 			Item = item;
 			Entity.Area.Remove(item);
 
+			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
 
 			var e = new ItemAddedEvent {
@@ -37,6 +38,7 @@ namespace BurningKnight.entity.component {
 			Item.Center = Entity.Center;
 			Entity.Area.Add(Item);
 			Item.RemoveComponent<OwnerComponent>();
+			Item.AddDroppedComponents();
 			Item = null;
 		}
 
@@ -45,14 +47,12 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override bool HandleEvent(Event e) {
-			base.HandleEvent(e);
-
 			if (e is ItemCheckEvent ev && ShouldReplace(ev.Item)) {
 				Set(ev.Item);
 				return true;
 			}
 
-			return false;
+			return base.HandleEvent(e);
 		}
 
 		public override void Save(FileWriter stream) {
