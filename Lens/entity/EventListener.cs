@@ -5,12 +5,16 @@ namespace Lens.entity {
 	public class EventListener {
 		private Dictionary<Type, List<Subscriber>> subscribers = new Dictionary<Type, List<Subscriber>>();
 		
-		public void Handle(Event e) {
+		public bool Handle(Event e) {
 			if (subscribers.TryGetValue(e.GetType(), out var subs)) {
 				foreach (var sub in subs) {
-					sub.HandleEvent(e);
+					if (sub.HandleEvent(e)) {
+						return true;
+					}
 				}
 			}
+
+			return false;
 		}
 
 		public void Subscribe<T>(Subscriber s) where T : Event {

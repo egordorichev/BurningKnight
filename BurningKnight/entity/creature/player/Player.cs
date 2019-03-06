@@ -20,8 +20,11 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new ActiveWeaponComponent());
 			AddComponent(new ConsumablesComponent());
 			
+			// Stats
+			AddComponent(new HeartsComponent());
+			
 			// Other
-			AddComponent(new NoCornerBodyComponent(2, 0, 12, 12));
+			AddComponent(new RectBodyComponent(2, 0, 12, 12));
 			GetComponent<StateComponent>().State = typeof(IdleState);
 			
 			AddTag(Tags.Player);
@@ -34,6 +37,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void PostInit() {
 			base.PostInit();
 
+			// todo: pick the exit one
 			var room = Area.Tags[Tags.Room][0];
 			
 			CenterX = room.CenterX;
@@ -56,6 +60,10 @@ namespace BurningKnight.entity.creature.player {
 
 		public bool ShouldCollide(Entity entity) {
 			return !(entity is Player);
+		}
+
+		protected override bool HasNoHealth() {
+			return base.HasNoHealth() && GetComponent<HeartsComponent>().Total == 0;
 		}
 	}
 }

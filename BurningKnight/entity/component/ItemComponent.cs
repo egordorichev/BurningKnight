@@ -44,17 +44,15 @@ namespace BurningKnight.entity.component {
 			return Item == null;
 		}
 
-		public override void HandleEvent(Event e) {
+		public override bool HandleEvent(Event e) {
 			base.HandleEvent(e);
 
-			if (e is ItemCheckEvent ev && ev.Item != null && ShouldReplace(ev.Item)) {
-				if (Item != null) {
-					Drop();
-				}
-				
+			if (e is ItemCheckEvent ev && ShouldReplace(ev.Item)) {
 				Set(ev.Item);
-				ev.Item = null;
+				return true;
 			}
+
+			return false;
 		}
 
 		public override void Save(FileWriter stream) {

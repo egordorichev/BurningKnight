@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lens.util;
 using Lens.util.camera;
 
 namespace Lens.entity {
@@ -52,33 +53,50 @@ namespace Lens.entity {
 
 		public void Update(float dt) {
 			if (ToRemove.Count > 0) {
-				foreach (var entity in ToRemove) {
-					entity.Destroy();
-				}
+				try {
+					foreach (var entity in ToRemove) {
+						entity.Destroy();
+						Entities.Remove(entity);
+					}
 
-				unsorted = true;
-				ToRemove.Clear();
+					unsorted = true;
+					ToRemove.Clear();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 
 			if (ToAdd.Count > 0) {
-				for (int i = 0; i < ToAdd.Count; i++) {
-					var entity = ToAdd[i];
-					Entities.Add(entity);
-					
-					entity.Area = Area;
-					entity.Init();
-				}
+				try {
+					for (int i = 0; i < ToAdd.Count; i++) {
+						var entity = ToAdd[i];
+						Entities.Add(entity);
 
-				unsorted = true;
-				ToAdd.Clear();
+						entity.Area = Area;
+						entity.Init();
+					}
+
+					unsorted = true;
+					ToAdd.Clear();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 
-			foreach (var entity in Entities) {
-				entity.OnScreen = CheckOnScreen(entity);
-				
-				if ((entity.OnScreen || entity.AlwaysActive) && entity.Active) {
-					entity.Update(dt);
+			try {
+				foreach (var entity in Entities) {
+					entity.OnScreen = CheckOnScreen(entity);
+
+					if ((entity.OnScreen || entity.AlwaysActive) && entity.Active) {
+						entity.Update(dt);
+					}
+
+					if (entity.Done) {
+						ToRemove.Add(entity);
+					}
 				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 
 			if (unsorted) {

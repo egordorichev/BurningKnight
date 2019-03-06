@@ -148,12 +148,14 @@ namespace Lens.entity {
 			}
 		}
 		
-		public void HandleEvent(Event e) {
+		public virtual bool HandleEvent(Event e) {
 			foreach (var component in components.Values) {
-				component.HandleEvent(e);
+				if (component.HandleEvent(e)) {
+					return true;
+				}
 			}
 			
-			Area.EventListener.Handle(e);
+			return Area.EventListener.Handle(e);
 		}
 
 		public virtual void Render() {

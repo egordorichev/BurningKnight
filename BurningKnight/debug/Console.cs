@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -36,6 +38,8 @@ namespace BurningKnight.debug {
 			AlwaysVisible = true;
 
 			Engine.Instance.Window.TextInput += TextEntered;
+
+			Depth = Layers.Console;
 		}
 
 		public override void Destroy() {
@@ -155,7 +159,12 @@ namespace BurningKnight.debug {
 						Args[i] = Parts[i + 1];
 					}
 
-					Command.Run(this, Args);
+					try {
+						Command.Run(this, Args);
+					} catch (Exception e) {
+						Log.Error(e);	
+					}
+					
 					return;
 				}
 			}

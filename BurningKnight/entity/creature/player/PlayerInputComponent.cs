@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			var body = GetComponent<NoCornerBodyComponent>();
+			var body = GetComponent<RectBodyComponent>();
 
 			body.Acceleration.X = 0;
 			body.Acceleration.Y = 0;

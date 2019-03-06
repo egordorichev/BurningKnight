@@ -88,6 +88,7 @@
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
     <Compile Include="entity\creature\player\ConsumablesComponent.cs" />
+    <Compile Include="entity\creature\player\HeartsComponent.cs" />
     <Compile Include="entity\creature\player\LocalPlayer.cs" />
     <Compile Include="entity\creature\player\Player.cs" />
     <Compile Include="entity\creature\player\PlayerClass.cs" />

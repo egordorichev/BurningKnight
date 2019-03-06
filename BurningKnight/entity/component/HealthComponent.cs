@@ -1,17 +1,18 @@
 ﻿using System;
-using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util.file;
 
 namespace BurningKnight.entity.component {
-	public class HealthComponent : Component {
+	public class HealthComponent : SaveableComponent {
 		private int health;
 		
 		public int Health => health;
 
-		public void SetHealth(int hp, Entity setter) {
+		public void SetHealth(int hp, Entity setter) {			
 			if (hp < health) {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;
@@ -19,26 +20,39 @@ namespace BurningKnight.entity.component {
 				
 				InvincibilityTimer = InvincibilityTimerMax;
 			}
-
-			var old = health;
-			health = (int) MathUtils.Clamp(health + hp, 0, maxHealth);
-
-			Send(new HealthModifiedEvent {
-				Amount = health - old,
-				From = setter
-			});
 			
-			if (health == 0) {
-				dead = true;
+			var old = health;
+			var h = (int) MathUtils.Clamp(0, maxHealth, hp);
+
+			if (!Send(new HealthModifiedEvent {
+				Amount = h - old,
+				From = setter
+			})) {
+				health = h;				
 			}
 		}
 
 		public void ModifyHealth(int amount, Entity setter) {
+			if (amount < 0) {
+				if (Entity.TryGetCompoenent<HeartsComponent>(out var hearts)) {
+					if (hearts.Total > 0) {
+						if (Unhittable || InvincibilityTimer > 0) {
+							return;
+						}
+				
+						InvincibilityTimer = InvincibilityTimerMax;
+						
+						hearts.Hurt(-amount, setter);
+						return;
+					}
+				}	
+			}
+			
 			SetHealth(health + amount, setter);
 		}
 
 		private int maxHealth;
-		
+
 		public int MaxHealth {
 			get => maxHealth;
 
@@ -60,24 +74,33 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 
-			dead = true;
-			health = 0;
-			
-			HandleEvent(new DiedEvent {
+			if (!Send(new DiedEvent {
 				From = from
-			});
-
-			Entity.Done = true;
+			})) {
+				dead = true;
+				health = 0;
+				Entity.Done = true;	
+			}
 		}
 
 		public HealthComponent() {
-			maxHealth = 1;
+			maxHealth = 2;
 			health = MaxHealth;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 			InvincibilityTimer = Math.Max(0, InvincibilityTimer - dt);
+		}
+		
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteInt32(health);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			health = stream.ReadInt32();
 		}
 	}
 }

@@ -30,13 +30,15 @@ namespace BurningKnight.entity.creature.player {
 			Body.Render(Entity.Position + Offset, Flipped);
 		}
 
-		public override void HandleEvent(Event e) {
+		public override bool HandleEvent(Event e) {
 			base.HandleEvent(e);
 
 			if (e is StateChangedEvent ev) {
 				Head.Tag = ev.NewState.Name.ToLower().Replace("state", "");
 				Body.Tag = Head.Tag;
 			}
+
+			return false;
 		}
 	}
 }

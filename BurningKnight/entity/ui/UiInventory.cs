@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.ui {
@@ -18,6 +19,12 @@ namespace BurningKnight.entity.ui {
 		private TextureRegion halfHeart;
 		private TextureRegion heartBackground;
 		private TextureRegion changedHeartBackground;
+		
+		private TextureRegion iron;
+		private TextureRegion halfIron;
+		
+		private TextureRegion golden;
+		private TextureRegion halfGolden;
 		
 		private Player player;
 		
@@ -35,6 +42,12 @@ namespace BurningKnight.entity.ui {
 			halfHeart = anim.GetSlice("half_heart");
 			heartBackground = anim.GetSlice("heart_bg");
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
+			
+			iron = anim.GetSlice("iron_heart");
+			halfIron = anim.GetSlice("half_iron_heart");
+			
+			golden = anim.GetSlice("gold_heart");
+			halfGolden = anim.GetSlice("half_gold_heart");
 		}
 
 		public override void Render() {
@@ -53,9 +66,41 @@ namespace BurningKnight.entity.ui {
 		}
 
 		private void RenderHealthBar() {
-			var component = player.GetComponent<HealthComponent>();
+			var red = player.GetComponent<HealthComponent>();
+			var totalRed = red.Health;
+			var maxRed = red.MaxHealth;
 			
+			var other = player.GetComponent<HeartsComponent>();
+			var totalIron = other.IronHalfs;			
+			var totalGolden = other.GoldenHalfs;
 			
+			var hurt = red.InvincibilityTimer > 0;
+
+			int i = 0;
+			
+			for (; i < maxRed; i += 2) {
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
+
+				if (i < totalRed) {
+					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+				}
+			}
+
+			var ironI = totalIron + maxRed;
+			var maxIron = ironI + totalIron % 2;
+			
+			for (; i < maxIron; i += 2) {
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
+				Graphics.Render(i == ironI - 1 ? halfIron : iron, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+			}
+
+			var goldenI = totalGolden + maxIron + maxRed - 2;
+			var maxGold = goldenI + totalGolden % 2;
+			
+			for (; i < maxGold; i += 2) {
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
+				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+			}
 		}
 
 		private void RenderConsumables() {

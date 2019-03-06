@@ -16,20 +16,12 @@ namespace Lens.entity.component {
 			
 		}
 
-		public virtual void Save(FileWriter stream) {
-			
+		public virtual bool HandleEvent(Event e) {
+			return false;
 		}
 
-		public virtual void Load(FileReader reader) {
-			
-		}
-
-		public virtual void HandleEvent(Event e) {
-			
-		}
-
-		public void Send(Event e) {
-			Entity.HandleEvent(e);
+		public bool Send(Event e) {
+			return Entity.HandleEvent(e);
 		}
 
 		public T GetComponent<T>() where T : Component {

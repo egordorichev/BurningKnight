@@ -69,6 +69,12 @@ namespace Lens.util.camera {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			for (int i = Targets.Count - 1; i >= 0; i--) {
+				if (Targets[i].Entity.Done) {
+					Targets.RemoveAt(i);
+				}
+			}
+
 			if (!Detached) {
 				driver?.Update(dt);
 			}

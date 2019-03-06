@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.level;
 using BurningKnight.save;
 using Lens.entity;
@@ -15,6 +16,24 @@ namespace BurningKnight.entity.creature {
 		
 		public void Kill(Entity w) {
 			GetComponent<HealthComponent>().Kill(w);
+		}
+
+		public override bool HandleEvent(Event e) {
+			base.HandleEvent(e);
+
+			if (e is HealthModifiedEvent ev) {
+				if (HasNoHealth()) {
+					Kill(ev.From);
+				}
+			} else if (e is DiedEvent) {
+				Done = true;
+			}
+
+			return false;
+		}
+
+		protected virtual bool HasNoHealth() {
+			return GetComponent<HealthComponent>().Health == 0;
 		}
 	}
 }
