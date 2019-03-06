@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -10,6 +11,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.ui {
 	public class UiInventory : UiEntity {
 		private TextureRegion itemSlot;
+		private TextureRegion useSlot;
 		private TextureRegion bomb;
 		private TextureRegion key;
 		private TextureRegion coin;
@@ -33,6 +35,9 @@ namespace BurningKnight.entity.ui {
 			var anim = Animations.Get("ui");
 
 			itemSlot = anim.GetSlice("item_slot");
+			useSlot = new TextureRegion();
+			useSlot.Set(itemSlot);
+			
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
@@ -57,13 +62,26 @@ namespace BurningKnight.entity.ui {
 
 		private void RenderActiveItem() {
 			var component = player.GetComponent<ActiveItemComponent>();
+			var item = component.Item;
+			
 			Graphics.Render(itemSlot, new Vector2(2, Display.UiHeight - itemSlot.Source.Height - 2));
 			
-			if (component.Item != null) {
-				var region = component.Item.GetComponent<SliceComponent>().Sprite;
+			if (item != null) {
+				if (item.Delay > 0) {
+					float progress = item.Delay / item.UseTime;
+
+					useSlot.Source.Width = (int) Math.Ceiling(itemSlot.Source.Width * progress);
+
+					Graphics.Color = Color.Black;
+					Graphics.Render(useSlot, new Vector2(2, Display.UiHeight - itemSlot.Source.Height - 2));
+					Graphics.Color = Color.White;
+				}
+				
+				var region = item.GetComponent<SliceComponent>().Sprite;
+				
 				Graphics.Render(region, new Vector2(
-					2 + (itemSlot.Source.Width - region.Source.Width) / 2, 
-					Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2)
+					2 + (itemSlot.Source.Width - region.Source.Width) / 2f, 
+					Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f)
 				);
 			}
 		}

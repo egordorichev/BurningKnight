@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.util;
+using Lens.input;
 using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {
@@ -23,7 +24,16 @@ namespace BurningKnight.entity.creature.player {
 			set => coins = (byte) MathUtils.Clamp(0, 99, value);
 			get => coins;
 		}
-		
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (bombs > 0 && Input.WasPressed(Controls.Bomb)) {
+				Bombs--;
+				// fixme: spawn a bomb
+			}
+		}
+
 		public override void Set(Item item) {
 			if (item.Type == ItemType.Bomb) {
 				Bombs += item.Count;

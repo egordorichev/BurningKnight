@@ -45,8 +45,12 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Item != null && Item.Done) {
-				Item = null;
+			if (Item != null) {
+				if (Item.Done) {
+					Item = null;
+				} else {
+					Item.Update(dt);
+				}
 			}
 		}
 

@@ -23,7 +23,8 @@ namespace BurningKnight.state {
 
 		public override void Destroy() {
 			Physics.Destroy();
-			SaveManager.SaveAll(Area);
+			// Fixme: enable
+			// SaveManager.SaveAll(Area);
 			Area = null;
 
 			// Clears the area, but we don't want that, cause we are still saving

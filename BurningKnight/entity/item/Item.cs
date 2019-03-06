@@ -49,6 +49,8 @@ namespace BurningKnight.entity.item {
 			foreach (var use in Uses) {
 				use.Use(player, this);
 			}
+
+			Delay = UseTime;
 		}
 
 		public override void AddComponents() {
@@ -96,6 +98,11 @@ namespace BurningKnight.entity.item {
 			builder.Append(Name).Append('\n').Append(Description);
 			
 			return builder;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			Delay = Math.Max(0, Delay - dt);
 		}
 	}
 }
