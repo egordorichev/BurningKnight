@@ -9,18 +9,11 @@ namespace BurningKnight.entity.component {
 		public List<Item> Items = new List<Item>();
 
 		public void Pickup(Item item) {
-			var e = new ItemCheckEvent {
+			if (!Send(new ItemCheckEvent {
 				Item = item
-			};
-			
-			Send(e);
-
-			if (e.Item == null) {
-				// Some other item component picked it up
-				return;
+			})) {
+				Add(item);
 			}
-			
-			Add(item);
 		}
 		
 		public void Add(Item item) {

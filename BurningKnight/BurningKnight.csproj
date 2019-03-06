@@ -107,6 +107,8 @@
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
+    <Compile Include="entity\events\ConsumableAddedEvent.cs" />
+    <Compile Include="entity\events\ConsumableRemovedEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />

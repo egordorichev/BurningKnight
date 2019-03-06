@@ -1,11 +1,9 @@
-﻿using System;
-using Lens.assets;
+﻿using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics.animation;
 using Lens.input;
-using Lens.util;
 using Lens.util.camera;
 
 namespace BurningKnight.entity.creature.player {

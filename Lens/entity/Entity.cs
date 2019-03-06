@@ -189,12 +189,12 @@ namespace Lens.entity {
 			}
 		}
 
-		public void Subscribe<T>() where T : Event {
-			Area.EventListener.Subscribe<T>(this);
+		public void Subscribe<T>(Area area = null) where T : Event {
+			(area ?? Area).EventListener.Subscribe<T>(this);
 		}
 
-		public void Unsubscribe<T>() where T : Event {
-			Area.EventListener.Unsubscribe<T>(this);
+		public void Unsubscribe<T>(Area area = null) where T : Event {
+			(area ?? Area).EventListener.Unsubscribe<T>(this);
 		}
 				
 		public T GetComponent<T>() where T : Component {

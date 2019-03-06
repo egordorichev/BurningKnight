@@ -60,7 +60,7 @@ namespace BurningKnight.debug {
 				var player = LocalPlayer.Locate(Console.GameArea);
 
 				if (player != null) {
-					player.GetComponent<InventoryComponent>().Add(item);
+					player.GetComponent<InventoryComponent>().Pickup(item);
 					Console.Print($"Gave {Args[0]} ({Count})");
 				}
 			}
