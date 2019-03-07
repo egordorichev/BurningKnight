@@ -206,7 +206,7 @@ namespace Lens.entity {
 		}
 
 
-		public bool TryGetCompoenent<T>(out T t) where T : Component {
+		public bool TryGetComponent<T>(out T t) where T : Component {
 			if (components.TryGetValue(typeof(T), out var tmp)) {
 				t = (T) tmp;
 				return true;

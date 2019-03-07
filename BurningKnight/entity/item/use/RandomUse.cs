@@ -1,4 +1,4 @@
-﻿using BurningKnight.entity.creature.player;
+﻿using Lens.entity;
 using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
@@ -9,8 +9,8 @@ namespace BurningKnight.entity.item.use {
 			Uses = uses;
 		}
 		
-		public void Use(Player player, Item item) {
-			Uses[Random.Int(Uses.Length)].Use(player, item);
+		public void Use(Entity entity, Item item) {
+			Uses[Random.Int(Uses.Length)].Use(entity, item);
 		}
 	}
 }

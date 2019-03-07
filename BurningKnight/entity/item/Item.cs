@@ -40,20 +40,20 @@ namespace BurningKnight.entity.item {
 			Uses = uses;
 		}
 
-		public void Use(Player player) {
-			if (!UseCheck.CanUse(player, this)) {
+		public void Use(Entity entity) {
+			if (!UseCheck.CanUse(entity, this)) {
 				return;
 			}
 
 			foreach (var use in Uses) {
-				use.Use(player, this);
+				use.Use(entity, this);
 			}
 
 			Delay = UseTime;
 
 			HandleEvent(new ItemUsedEvent {
 				Item = this,
-				Who = player
+				Who = entity
 			});
 		}
 

@@ -165,11 +165,13 @@ namespace BurningKnight.entity.ui {
 				}
 				
 				var region = item.GetComponent<SliceComponent>().Sprite;
-				
-				Graphics.Render(region, new Vector2(
-					region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f, 
-					region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f
-				), 0, region.Center, itemScale);
+
+				if (region != null) {
+					Graphics.Render(region, new Vector2(
+						region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f,
+						region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f
+					), 0, region.Center, itemScale);
+				}
 			}
 		}
 
@@ -187,10 +189,13 @@ namespace BurningKnight.entity.ui {
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
 
 				if (i < totalRed) {
-					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+					// fixme: rows
+					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+						Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
 				}
 			}
 
@@ -198,16 +203,20 @@ namespace BurningKnight.entity.ui {
 			var maxIron = ironI + totalIron % 2;
 			
 			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
+				Graphics.Render(i == ironI - 1 ? halfIron : iron, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+					Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
 			}
 
-			var goldenI = totalGolden + maxIron + maxRed - 2;
+			var goldenI = totalGolden + maxIron;
 			var maxGold = goldenI + totalGolden % 2;
 			
 			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 11));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, new Vector2(5 + itemSlot.Source.Width + (int) (i * 5.5f), Display.UiHeight - 10));					
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
+				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
+					Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
 			}
 		}
 

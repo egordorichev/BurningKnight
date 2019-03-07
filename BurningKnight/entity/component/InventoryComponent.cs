@@ -12,6 +12,7 @@ namespace BurningKnight.entity.component {
 			if (!Send(new ItemCheckEvent {
 				Item = item
 			})) {
+				item.Use(Entity);
 				Add(item);
 			}
 		}

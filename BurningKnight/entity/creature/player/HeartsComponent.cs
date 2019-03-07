@@ -7,15 +7,42 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {
 	public class HeartsComponent : SaveableComponent {
-		public static int Cap = 40;
+		public const int Cap = 32;
+		public const int PerRow = Cap / 2;
 		
 		private byte ironHalfs;
 		private byte goldenHalfs;
 
 		public int IronHalfs => ironHalfs;
 		public int GoldenHalfs => goldenHalfs;
-		public int Total => IronHalfs + GoldenHalfs;
+		public int Total => ironHalfs + goldenHalfs;
 
+		public void ModifyIronHearts(int amount, Entity setter) {
+			var component = GetComponent<HealthComponent>();
+			amount = amount < 0 ? Math.Max(IronHalfs, amount) : Math.Min(Cap - component.Health - Total, amount);
+
+			if (amount != 0 && !Send(new HealthModifiedEvent {
+				Amount = amount,
+				From = setter,
+				Default = false
+			})) {
+				ironHalfs = (byte) Math.Max(0, ironHalfs + amount);
+			}
+		}
+		
+		public void ModifyGoldHearts(int amount, Entity setter) {
+			var component = GetComponent<HealthComponent>();
+			amount = amount < 0 ? Math.Max(GoldenHalfs, amount) : Math.Min(Cap - component.Health - Total, amount);
+
+			if (amount != 0 && !Send(new HealthModifiedEvent {
+				Amount = amount,
+				From = setter,
+				Default = false
+			})) {
+				goldenHalfs = (byte) Math.Max(0, goldenHalfs + amount);
+			}
+		}
+		
 		public void Hurt(int amount, Entity setter) {
 			if (!Send(new HealthModifiedEvent {
 				Amount = amount,
@@ -34,17 +61,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public bool CanHaveMore {
-			get {
-				var count = ironHalfs + goldenHalfs;
-
-				if (Entity.TryGetCompoenent<HealthComponent>(out var health)) {
-					count += health.Health;
-				}
-
-				return count < Cap;
-			}
-		}
+		public bool CanHaveMore => Total + GetComponent<HealthComponent>().Health < Cap;
 				
 		public override void Save(FileWriter stream) {
 			base.Save(stream);

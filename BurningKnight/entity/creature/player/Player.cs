@@ -41,11 +41,7 @@ namespace BurningKnight.entity.creature.player {
 
 			var inventory = GetComponent<InventoryComponent>();
 			
-			inventory.Pickup(ItemRegistry.Create("bomb", Area));
-			inventory.Pickup(ItemRegistry.Create("key", Area));
-			inventory.Pickup(ItemRegistry.Create("penny", Area));
-			// inventory.Pickup(ItemRegistry.Create("heart", Area));
-			inventory.Pickup(ItemRegistry.Create("health_potion", Area));
+			inventory.Pickup(ItemRegistry.Create("iron_heart", Area));
 			inventory.Pickup(ItemRegistry.Create("sword", Area));
 			inventory.Pickup(ItemRegistry.Create("sword", Area));
 			inventory.Pickup(ItemRegistry.Create("halo", Area));

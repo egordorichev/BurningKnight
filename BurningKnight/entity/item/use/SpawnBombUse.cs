@@ -4,13 +4,11 @@ using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
 	public class SpawnBombUse : ConsumeUse {
-		public override void Use(Player player, Item item) {
-			base.Use(player, item);
-			
+		public override void Use(Entity entity, Item item) {
 			var bomb = new Entity();
 			bomb.AddComponent(new ExplodeComponent(3));
 						
-			player.Area.Add(bomb);
+			entity.Area.Add(bomb);
 		}
 	}
 }

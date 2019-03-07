@@ -1,5 +1,5 @@
 ﻿using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
+using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyHpUse : ItemUse {
@@ -9,8 +9,8 @@ namespace BurningKnight.entity.item.use {
 			Amount = amount;
 		}
 		
-		public void Use(Player player, Item item) {
-			player.GetComponent<HealthComponent>().ModifyHealth(Amount, player);
+		public void Use(Entity entity, Item item) {
+			entity.GetComponent<HealthComponent>().ModifyHealth(Amount, entity);
 		}
 	}
 }

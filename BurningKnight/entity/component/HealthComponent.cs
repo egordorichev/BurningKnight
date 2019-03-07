@@ -35,7 +35,7 @@ namespace BurningKnight.entity.component {
 
 		public void ModifyHealth(int amount, Entity setter) {
 			if (amount < 0) {
-				if (Entity.TryGetCompoenent<HeartsComponent>(out var hearts)) {
+				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {
 						if (Unhittable || InvincibilityTimer > 0) {
 							return;
@@ -91,7 +91,7 @@ namespace BurningKnight.entity.component {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
-				// todo: heal
+				ev.Item.Use(Entity);
 				return true;
 			}
 			

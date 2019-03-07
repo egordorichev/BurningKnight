@@ -20,11 +20,16 @@ namespace BurningKnight.entity.item {
 				new ItemInfo("bomb", () => new Item(), ItemType.Bomb),
 				new ItemInfo("penny", () => new Item(), ItemType.Coin),
 				new ItemInfo("key", () => new Item(), ItemType.Key),
-				new ItemInfo("heart", () => new Item(), ItemType.Heart),
+				
+				new ItemInfo("heart", () => new Item(new ModifyHpUse(2)), ItemType.Heart),
+				new ItemInfo("half_heart", () => new Item(new ModifyHpUse(1)), ItemType.Heart),
+				
+				new ItemInfo("iron_heart", () => new Item(new ModifyIronHeartsUse(1)), ItemType.Heart),
+				new ItemInfo("gold_heart", () => new Item(new ModifyGoldHeartsUse(1)), ItemType.Heart),
 				
 				new ItemInfo("sword", () => new Item()),
 				
-				new ItemInfo("halo", () => new Item(), ItemType.Artifact)
+				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)
 			};
 
 			foreach (var pair in infos) {
