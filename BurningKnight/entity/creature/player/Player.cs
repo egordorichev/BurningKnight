@@ -1,9 +1,13 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.input;
+using Lens.util;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
@@ -50,7 +54,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void PostInit() {
 			base.PostInit();
 
-			// todo: pick the exit one
+			// todo: pick the entrance one
 			var room = Area.Tags[Tags.Room][0];
 			
 			CenterX = room.CenterX;
@@ -67,21 +71,41 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class RollState : EntityState {
-			private const float RollTime = 1f;
-			public float Timer;
-
+			private const float RollTime = 0.5f;
+			private const float RollForce = 20000f;
+			
+			private Vector2 direction;
+			
 			public override void Init() {
 				base.Init();
-				Timer = RollTime;
+				
+				Self.GetComponent<HealthComponent>().Unhittable = true;
+
+				var body = Self.GetComponent<RectBodyComponent>();
+				var angle = body.Acceleration.LengthSquared() > 0.1f 
+					?	body.Acceleration.ToAngle() 
+					: (Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition) - Self.Center).ToAngle();
+
+				direction = new Vector2((float) Math.Cos(angle) * RollForce, (float) Math.Sin(angle) * RollForce);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				
+				Self.GetComponent<HealthComponent>().Unhittable = false;
+				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
-				Timer -= dt;
 
-				if (Timer <= 0) {
-					
+				if (T >= RollTime) {
+					Become<IdleState>();
+					return;
 				}
+				
+				var body = Self.GetComponent<RectBodyComponent>();
+				body.Velocity = direction;
 			}
 		}
 		#endregion

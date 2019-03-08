@@ -16,6 +16,8 @@ namespace BurningKnight.entity.creature.player {
 
 			Head = Animations.Create("gobbo", "gobbo");
 			Body = Animations.Create("gobbo", "body");
+
+			CustomFlip = true;
 		}
 
 		public override void Update(float dt) {
@@ -30,8 +32,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void Render() {
 			base.Render();
 
-			var weapon = Entity.GetComponent<WeaponComponent>();
-			var activeWeapon = Entity.GetComponent<ActiveWeaponComponent>();
+			var weapon = GetComponent<WeaponComponent>();
+			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 
 			weapon.Render();
 			

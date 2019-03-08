@@ -23,18 +23,18 @@ namespace Lens.input {
 			switch (type) {
 				case Input.CheckType.PRESSED: {
 					switch (button) {
-						case MouseButtons.Left: return WasReleasedLeftButton;
-						case MouseButtons.Right: return WasReleasedRightButton;
-						case MouseButtons.Middle: return WasReleasedMiddleButton;
+						case MouseButtons.Left: return WasPressedLeftButton;
+						case MouseButtons.Right: return WasPressedRightButton;
+						case MouseButtons.Middle: return WasPressedMiddleButton;
 					}
 					
 					return false;
 				}
 				case Input.CheckType.RELEASED: {
 					switch (button) {
-						case MouseButtons.Left: return WasPressedLeftButton;
-						case MouseButtons.Right: return WasPressedRightButton;
-						case MouseButtons.Middle: return WasPressedMiddleButton;
+						case MouseButtons.Left: return WasReleasedLeftButton;
+						case MouseButtons.Right: return WasReleasedRightButton;
+						case MouseButtons.Middle: return WasReleasedMiddleButton;
 					}
 					
 					return false;

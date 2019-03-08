@@ -80,7 +80,7 @@ namespace Lens {
 
 			Log.Open();
 			Log.Info(tmpTitle);
-			Log.Info(DateTime.Now.ToString("MM/dd/yyyy h:mm tt"));
+			Log.Info(DateTime.Now.ToString("dd.MM.yyyy h:mm tt"));
 
 			Input.Init();
 		}

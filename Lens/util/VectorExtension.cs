@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace Lens.util {
 	public static class VectorExtension {
@@ -7,6 +8,10 @@ namespace Lens.util {
 			self.Y += (target.Y - self.Y) * speed;
 
 			return self;
+		}
+
+		public static float ToAngle(this Vector2 self) {
+			return (float) Math.Atan2(self.Y, self.X);
 		}
 	}
 }

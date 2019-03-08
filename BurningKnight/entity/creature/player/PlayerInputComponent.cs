@@ -1,16 +1,11 @@
-using System;
 using BurningKnight.entity.component;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
-using Lens.util.camera;
-using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 25f;
-		private const float RollForce = 400f;
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -21,9 +16,7 @@ namespace BurningKnight.entity.creature.player {
 			body.Acceleration.X = 0;
 			body.Acceleration.Y = 0;
 
-			if (state.StateInstance is Player.RollState) {
-				
-			} else {
+			if (!(state.StateInstance is Player.RollState)) {
 				if (Input.IsDown(Controls.Up)) {
 					body.Acceleration.Y -= Speed;
 				}
@@ -42,12 +35,6 @@ namespace BurningKnight.entity.creature.player {
 
 				if (Input.WasPressed(Controls.Roll)) {
 					state.Become<Player.RollState>();
-					float angle = body.Acceleration.LengthSquared() > 0.1f 
-						?	body.Acceleration.ToAngle() 
-						: (Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition) - Entity.Center).ToAngle();
-
-					body.Acceleration.X += (float) Math.Cos(angle) * RollForce;
-					body.Acceleration.Y += (float) Math.Sin(angle) * RollForce;
 				} else {
 					if (body.Acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();
@@ -55,9 +42,9 @@ namespace BurningKnight.entity.creature.player {
 						state.Become<Player.IdleState>();
 					}
 				}
-			}
 
-			body.Velocity -= body.Velocity * dt * 10;
+				body.Velocity -= body.Velocity * dt * 10;
+			}
 		}
 	}
 }

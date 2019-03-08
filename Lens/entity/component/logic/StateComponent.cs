@@ -16,14 +16,10 @@ namespace Lens.entity.component.logic {
 			}
 		}
 
-		public EntityState StateInstance;
+		public EntityState StateInstance => state;
 		
 		public void Become<T>() {
-			var type = typeof(T);
-
-			if (state == null || state.GetType() != type) {
-				newState = type;
-			} 
+			State = typeof(T);
 		}
 
 		public override void Update(float dt) {
