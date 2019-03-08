@@ -15,6 +15,8 @@ namespace Lens.entity.component.logic {
 				}				
 			}
 		}
+
+		public EntityState StateInstance;
 		
 		public void Become<T>() {
 			var type = typeof(T);

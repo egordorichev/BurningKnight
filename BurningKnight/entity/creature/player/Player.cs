@@ -67,7 +67,22 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class RollState : EntityState {
-			
+			private const float RollTime = 1f;
+			public float Timer;
+
+			public override void Init() {
+				base.Init();
+				Timer = RollTime;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				Timer -= dt;
+
+				if (Timer <= 0) {
+					
+				}
+			}
 		}
 		#endregion
 
