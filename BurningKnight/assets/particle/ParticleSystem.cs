@@ -35,20 +35,16 @@ namespace BurningKnight.assets.particle {
 					Particles.RemoveAt(i);
 				}
 			}
+
+			if (Particles.Count == 0) {
+				Done = true;
+			}
 		}
 
 		public override void Render() {
-			if (Particles.Count == 0) {
-				return;
-			}
-			
-			Particles[0].Renderer.Begin();
-			
 			foreach (var particle in Particles) {
 				particle.Renderer.Render(particle);
 			}
-			
-			Particles[0].Renderer.End();
 		}
 	}
 }

@@ -64,6 +64,7 @@
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\Particle.cs" />
+    <Compile Include="assets\particle\ParticleEmitter.cs" />
     <Compile Include="assets\particle\ParticleEntity.cs" />
     <Compile Include="assets\particle\Particles.cs" />
     <Compile Include="assets\particle\ParticleSystem.cs" />

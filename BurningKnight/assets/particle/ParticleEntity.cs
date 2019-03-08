@@ -27,10 +27,7 @@ namespace BurningKnight.assets.particle {
 
 		public override void Render() {
 			base.Render();
-			
-			Particle.Renderer.Begin();
 			Particle.Renderer.Render(Particle);
-			Particle.Renderer.End();
 		}
 	}
 }

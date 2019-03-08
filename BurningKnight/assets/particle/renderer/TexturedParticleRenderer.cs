@@ -9,16 +9,9 @@ namespace BurningKnight.assets.particle.renderer {
 		public TexturedParticleRenderer(string slice) {
 			Region = Animations.Get("particles").GetSlice(slice);
 		}
-
-		public override void Begin() {
-			// todo: set the alpha
-		}
-
-		public override void End() {
-			// todo: rmeove the lapha
-		}
-
+		
 		public override void Render(Particle particle) {
+			// todo: set alpha
 			Graphics.Render(Region, particle.Position, particle.Alpha, Region.Center, new Vector2(particle.Scale));
 		}
 	}
