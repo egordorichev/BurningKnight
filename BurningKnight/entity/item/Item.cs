@@ -10,6 +10,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.util.file;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity {
@@ -59,7 +60,7 @@ namespace BurningKnight.entity.item {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			AddComponent(new SliceComponent("items", Id));
+			SetGraphicsComponent(new SliceComponent("items", Id));
 		}
 
 		private void InteractionStart(Entity entity) {
@@ -71,9 +72,12 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool Interact(Entity entity) {
-			// todo
+			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+				inventory.Pickup(this);
+				return true;
+			}
 
-			return true;
+			return false;
 		}
 
 		public virtual void AddDroppedComponents() {
@@ -81,10 +85,15 @@ namespace BurningKnight.entity.item {
 				OnStart = InteractionStart,
 				OnEnd = InteractionEnd
 			});
+
+			var slice = GetComponent<SliceComponent>().Sprite;
+			
+			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, true));
 		}
 
 		public virtual void RemoveDroppedComponents() {
 			RemoveComponent<InteractableComponent>();
+			RemoveComponent<RectBodyComponent>();
 		}
 
 		public override void Save(FileWriter stream) {

@@ -42,12 +42,12 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 			
 			// Simple inventory simulation
-			var inventory = GetComponent<InventoryComponent>();
+			/*var inventory = GetComponent<InventoryComponent>();
 			
 			inventory.Pickup(ItemRegistry.Create("iron_heart", Area));
 			inventory.Pickup(ItemRegistry.Create("sword", Area));
 			inventory.Pickup(ItemRegistry.Create("sword", Area));
-			inventory.Pickup(ItemRegistry.Create("halo", Area));
+			inventory.Pickup(ItemRegistry.Create("halo", Area));*/
 		}
 
 		public override void PostInit() {
@@ -58,6 +58,15 @@ namespace BurningKnight.entity.creature.player {
 			
 			CenterX = room.CenterX;
 			CenterY = room.CenterY;
+
+			item = ItemRegistry.Create("halo", Area);
+			item.Center = Center;
+		}
+
+		private Item item;
+
+		public override void Update(float dt) {
+			base.Update(dt);
 		}
 
 		#region Player States

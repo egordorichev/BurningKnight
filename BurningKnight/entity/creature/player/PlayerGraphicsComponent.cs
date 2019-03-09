@@ -37,8 +37,8 @@ namespace BurningKnight.entity.creature.player {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 
-			var shader = Shaders.Creature;
-			Shaders.Begin(shader);
+			//var shader = Shaders.Creature;
+			//Shaders.Begin(shader);
 			
 			weapon.Render();
 			
@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			GetComponent<RoomComponent>().Room?.RenderDebug();
 			
-			Shaders.End();
+			//Shaders.End();
 		}
 
 		public override bool HandleEvent(Event e) {

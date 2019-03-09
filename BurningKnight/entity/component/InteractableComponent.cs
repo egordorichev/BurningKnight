@@ -7,6 +7,7 @@ namespace BurningKnight.entity.component {
 		public Func<Entity, bool> Interact;
 		public Action<Entity> OnStart;
 		public Action<Entity> OnEnd;
+		public Entity CurrentlyInteracting;
 
 		public InteractableComponent(Func<Entity, bool> interact) {
 			Interact = interact;

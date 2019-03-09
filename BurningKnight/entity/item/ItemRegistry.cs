@@ -65,7 +65,11 @@ namespace BurningKnight.entity.item {
 			}
 
 			var item = CreateFrom(info);
-			area?.Add(item);
+
+			if (area != null) {
+				area.Add(item);
+				item.AddDroppedComponents();
+			}
 
 			return item;
 		}

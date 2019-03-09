@@ -21,15 +21,25 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private void EndInteraction() {
-			CurrentlyInteracting.GetComponent<InteractableComponent>().OnEnd(Entity);
-			
+			if (CurrentlyInteracting.TryGetComponent<InteractableComponent>(out var component)) {
+				component.OnEnd?.Invoke(Entity);
+				component.CurrentlyInteracting = null;
+			}
+
 			if (InteractionCandidates.Count == 0) {
 				CurrentlyInteracting = null;
 			} else {
 				CurrentlyInteracting = InteractionCandidates[0];
 				InteractionCandidates.RemoveAt(0);
-				CurrentlyInteracting.GetComponent<InteractableComponent>().OnStart(Entity);
+				OnStart();
 			}
+		}
+
+		private void OnStart() {
+			var component = CurrentlyInteracting.GetComponent<InteractableComponent>();
+
+			component.CurrentlyInteracting = Entity;
+			component.OnStart?.Invoke(Entity);
 		}
 		
 		public override bool HandleEvent(Event e) {
@@ -39,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 						InteractionCandidates.Add(start.Entity);
 					} else {
 						CurrentlyInteracting = start.Entity;
-						CurrentlyInteracting.GetComponent<InteractableComponent>().OnStart(Entity);
+						OnStart();
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
