@@ -165,15 +165,15 @@
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />
-    <Compile Include="entity\level\painters\Painter.cs" />
+    <Compile Include="entity\level\Painter.cs" />
     <Compile Include="entity\level\Patch.cs" />
     <Compile Include="entity\level\RegularLevel.cs" />
-    <Compile Include="entity\level\Room.cs" />
     <Compile Include="entity\level\rooms\boss\BossRoom.cs" />
     <Compile Include="entity\level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="entity\level\rooms\connection\TunnelRoom.cs" />
     <Compile Include="entity\level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="entity\level\rooms\regular\RegularRoom.cs" />
+    <Compile Include="entity\level\rooms\Room.cs" />
     <Compile Include="entity\level\rooms\RoomDef.cs" />
     <Compile Include="entity\level\rooms\RoomInfo.cs" />
     <Compile Include="entity\level\rooms\RoomRegistry.cs" />

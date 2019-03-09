@@ -95,6 +95,7 @@ namespace BurningKnight.entity.level.painters {
 			for (int i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 				PlaceDoors(Room);
+				Room.PaintFloor(Level);
 				Room.Paint(Level);
 
 				if (Run.Depth == 1) {

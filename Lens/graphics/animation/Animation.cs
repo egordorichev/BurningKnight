@@ -88,7 +88,6 @@ namespace Lens.graphics.animation {
 			}
 		}
 
-		// 		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip) {
 		public void Render(Vector2 position, bool flipped = false) {
 			Graphics.Render(frame.Texture, position, 0, Vector2.Zero /* fixme */, Vector2.One, flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 		}

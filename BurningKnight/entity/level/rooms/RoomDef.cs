@@ -43,12 +43,14 @@ namespace BurningKnight.entity.level.rooms {
 
 		public abstract int GetMinConnections(Connection Side);
 
-		public virtual void Paint(Level Level) {
-			Painter.Fill(Level, this, Tiles.RandomWall());
-			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
-
-			foreach (var Door in Connected.Values) {
-				Door.Type = DoorPlaceholder.Variant.Regular;
+		public virtual void PaintFloor(Level level) {
+			Painter.Fill(level, this, Tiles.RandomWall());
+			Painter.Fill(level, this, 1, Tiles.RandomFloor());	
+		}
+		
+		public virtual void Paint(Level level) {
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Regular;
 			}
 		}
 

@@ -10,6 +10,7 @@
 			switch (direction) {
 				case AnimationDirection.Forward: return animation.StartFrame + animation.Frame;
 				case AnimationDirection.Backwards: return animation.EndFrame - animation.Frame;
+				
 				default: {
 					uint frame;
 					
