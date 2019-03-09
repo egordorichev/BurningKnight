@@ -18,8 +18,18 @@ namespace Lens.entity {
 		public int Depth;
 		
 		#region Bounds and position
-		
-		public Vector2 Position = new Vector2();
+
+		private Vector2 position;
+		public Vector2 Position {
+			get => position;
+			set {
+				if (value != position) {
+					position = value;
+					PositionChanged = true;
+				}
+			}
+		}
+
 		public bool PositionChanged;
 		public float Width = 16;
 		public float Height = 16;
@@ -27,7 +37,7 @@ namespace Lens.entity {
 		public float X {
 			get => Position.X;
 			set {
-				Position.X = value;
+				position.X = value;
 				PositionChanged = true;
 			}
 		}
@@ -35,7 +45,7 @@ namespace Lens.entity {
 		public float Y {
 			get => Position.Y;
 			set {
-				Position.Y = value;
+				position.Y = value;
 				PositionChanged = true;
 			}
 		}
@@ -43,8 +53,8 @@ namespace Lens.entity {
 		public Vector2 Center {
 			get => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
 			set {
-				Position.X = value.X - Width / 2;
-				Position.Y = value.Y - Height / 2;
+				position.X = value.X - Width / 2;
+				position.Y = value.Y - Height / 2;
 				PositionChanged = true;
 			}
 		}
@@ -52,7 +62,7 @@ namespace Lens.entity {
 		public float CenterX {
 			get => Position.X + Width / 2;
 			set {
-				Position.X = value - Width / 2;
+				position.X = value - Width / 2;
 				PositionChanged = true;
 			}
 		}
@@ -60,7 +70,7 @@ namespace Lens.entity {
 		public float CenterY {
 			get => Position.Y + Height / 2;
 			set {
-				Position.Y = value - Height / 2;
+				position.Y = value - Height / 2;
 				PositionChanged = true;
 			}
 		}

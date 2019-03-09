@@ -1,4 +1,5 @@
-﻿using Lens.assets;
+﻿using BurningKnight.entity.component;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
@@ -41,6 +42,8 @@ namespace BurningKnight.entity.creature.player {
 			Body.Render(Entity.Position + Offset, Flipped);
 
 			activeWeapon.Render();
+			
+			GetComponent<RoomComponent>().Room.RenderDebug();
 		}
 
 		public override bool HandleEvent(Event e) {

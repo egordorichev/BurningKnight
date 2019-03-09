@@ -54,11 +54,10 @@ namespace BurningKnight.entity.component {
 			if (Body == null) {
 				return;
 			}
-
-			if (Entity.PositionChanged) {
-				Entity.PositionChanged = false;
-				Body.Position = Entity.Position;
-			}
+			
+			/*
+			 * Fixme: link body position with entity position
+			 */
 
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;

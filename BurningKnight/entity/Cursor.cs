@@ -27,10 +27,8 @@ namespace BurningKnight.entity {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-
 			Position = Input.Mouse.UiPosition;
-			Position.X -= Display.UiWidth / 2f;
-			Position.Y -= Display.UiHeight / 2f;
+			Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
 
 			if (Input.WasPressed(Controls.Use)) {
 				Tween.To(scale, new { X = 1.3f, Y = 1.3f }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);

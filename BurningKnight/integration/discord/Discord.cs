@@ -1,13 +1,11 @@
 ﻿using DiscordRPC;
-using DiscordRPC.Logging;
-using Lens.util;
 
 namespace BurningKnight.integration.discord {
 	public static class Discord {
 		private static DiscordRpcClient client;
 		
 		public static void Init() {
-			/*client = new DiscordRpcClient("459603244256198657");
+			/*client = new DiscordRpcClient("459603244256198657", "", false, -1, new UnityNamedPipe());
 			client.Logger = new ConsoleLogger {
 				Level = LogLevel.Info
 			};
@@ -27,11 +25,11 @@ namespace BurningKnight.integration.discord {
 					LargeImageText = "DISCORD RPC IS WOOORKIGN",
 					SmallImageKey = "hero_mercy"
 				}
-			});*/	
+			});*/
 		}
 
 		public static void Destroy() {
-			// client.Dispose();			
+			client?.Dispose();			
 		}
 	}
 }
