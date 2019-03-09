@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
+using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.assets;
 using Lens.entity;
@@ -13,7 +14,7 @@ using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
-	public class Item : SaveableEntity {
+	public class Item : SaveableEntity, CollisionFilterEntity {
 		private int count = 1;
 
 		public int Count {
@@ -63,14 +64,6 @@ namespace BurningKnight.entity.item {
 			SetGraphicsComponent(new SliceComponent("items", Id));
 		}
 
-		private void InteractionStart(Entity entity) {
-			// todo
-		}
-
-		private void InteractionEnd(Entity entity) {
-			// todo
-		}
-
 		private bool Interact(Entity entity) {
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				inventory.Pickup(this);
@@ -81,14 +74,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		public virtual void AddDroppedComponents() {
-			AddComponent(new InteractableComponent(Interact) {
-				OnStart = InteractionStart,
-				OnEnd = InteractionEnd
-			});
-
-			var slice = GetComponent<SliceComponent>().Sprite;
-			
+			var slice = GetComponent<SliceComponent>().Sprite;			
+	
 			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, true));
+			AddComponent(new InteractableComponent(Interact));
 		}
 
 		public virtual void RemoveDroppedComponents() {
@@ -116,6 +105,10 @@ namespace BurningKnight.entity.item {
 		public override void Update(float dt) {
 			base.Update(dt);
 			Delay = Math.Max(0, Delay - dt);
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Player);
 		}
 	}
 }

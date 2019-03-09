@@ -1,6 +1,7 @@
 ﻿using BurningKnight.entity.component;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Collision.ContactSystem;
+using VelcroPhysics.Collision.Narrowphase;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.physics {
@@ -13,27 +14,21 @@ namespace BurningKnight.physics {
 			World = new World(Vector2.Zero);
 			Debug = new PhysicsDebugRenderer(World);
 			
-			World.ContactManager.ContactFilter += ShouldCollide;
+			World.ContactManager.PreSolve += PreSolve;
 			
 			World.ContactManager.BeginContact += BeginContact;
 			World.ContactManager.EndContact += EndContact;
 		}
 		
-		public static bool ShouldCollide(Fixture fixtureA, Fixture fixtureB) {
-			var a = fixtureA.Body.UserData;
-			var b = fixtureB.Body.UserData;
+		public static void PreSolve(Contact contact, ref Manifold oldManifold) {
+			var a = contact.FixtureA.Body.UserData;
+			var b = contact.FixtureB.Body.UserData;
 
 			if (a is BodyComponent ac && b is BodyComponent bc) {
-				if (!ac.ShouldCollide(bc.Entity)) {
-					return false;
-				}
-				
-				if (!bc.ShouldCollide(ac.Entity)) {
-					return false;
+				if (!ac.ShouldCollide(bc.Entity) || !bc.ShouldCollide(ac.Entity)) {
+					contact.Enabled = false;
 				}
 			}
-
-			return true;
 		}
 		
 		public static bool BeginContact(Contact contact) {
