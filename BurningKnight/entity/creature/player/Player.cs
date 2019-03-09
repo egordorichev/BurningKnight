@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new RectBodyComponent(2, 0, 12, 12));
 			AddComponent(new InteractorComponent());
 			
-			GetComponent<StateComponent>().State = typeof(IdleState);
+			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);

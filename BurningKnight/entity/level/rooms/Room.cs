@@ -1,6 +1,5 @@
 using System;
 using BurningKnight.save;
-using BurningKnight.state;
 using BurningKnight.util;
 using Lens.graphics;
 using Lens.util.camera;
@@ -8,7 +7,7 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.rooms {
 	public class Room : SaveableEntity {
 		public int MapX;
 		public int MapY;
