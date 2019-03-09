@@ -8,7 +8,7 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
-		private byte bombs;
+		private byte bombs = 32; // fixme
 		private byte keys;
 		private byte coins;
 
@@ -92,7 +92,12 @@ namespace BurningKnight.entity.creature.player {
 
 			if (bombs > 0 && Input.WasPressed(Controls.Bomb)) {
 				Bombs--;
-				// fixme: spawn a bomb
+				
+				var bomb = new Bomb();
+				bomb.Position = Entity.Center;
+				// todo: vel to mouse
+				
+				Entity.Area.Add(bomb);
 			}
 		}
 

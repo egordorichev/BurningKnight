@@ -37,6 +37,14 @@ namespace BurningKnight.entity.component {
 			};
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Body != null) {
+				Physics.World.RemoveBody(Body);
+			}
+		}
+
 		public virtual bool ShouldCollide(Entity entity) {
 			if (Entity is CollisionFilterEntity filter) {
 				return filter.ShouldCollide(entity);

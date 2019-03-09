@@ -8,17 +8,21 @@ namespace Lens.entity.component.graphics {
 		public Animation Animation;
 		private string name;
 		
-		public AnimationComponent(string animationName, string layer = null) {
+		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
-			ReloadAnimation(layer);
+			ReloadAnimation(layer, tag);
 		}
 
-		private void ReloadAnimation(string layer = null) {
+		private void ReloadAnimation(string layer = null, string tag = null) {
 			var data = Animations.Get(name);
 
 			if (data != null) {
 				Animation = data.CreateAnimation(layer);
-			}
+
+				if (tag != null) {
+					Animation.Tag = tag;
+				}
+			}			
 		}
 
 		public override void Update(float dt) {

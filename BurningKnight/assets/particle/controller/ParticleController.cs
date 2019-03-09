@@ -8,6 +8,9 @@ namespace BurningKnight.assets.particle.controller {
 		
 		public virtual bool Update(Particle particle, float dt) {
 			particle.T += dt;
+			particle.Angle += particle.AngleVelocity * dt;
+			particle.Position += particle.Velocity * dt;
+			
 			return false;
 		}
 	}

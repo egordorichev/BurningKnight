@@ -30,7 +30,7 @@ namespace BurningKnight.entity {
 			Position = Input.Mouse.UiPosition;
 			Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
 
-			if (Input.WasPressed(Controls.Use)) {
+			if (Input.Mouse.WasPressedLeftButton || Input.Mouse.WasPressedRightButton) {
 				Tween.To(scale, new { X = 1.3f, Y = 1.3f }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);
 			}
 		}

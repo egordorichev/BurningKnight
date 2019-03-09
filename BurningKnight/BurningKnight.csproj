@@ -60,6 +60,7 @@
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\Mod.cs" />
     <Compile Include="assets\Mods.cs" />
+    <Compile Include="assets\particle\AnimatedParticle.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="assets\particle\ParticleEntity.cs" />
     <Compile Include="assets\particle\Particles.cs" />
     <Compile Include="assets\particle\ParticleSystem.cs" />
+    <Compile Include="assets\particle\renderer\AnimatedParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />
     <Compile Include="assets\Shaders.cs" />
@@ -83,11 +85,13 @@
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
+    <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
+    <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
@@ -131,6 +135,7 @@
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
+    <Compile Include="entity\item\ItemGraphicsComponent.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\ItemType.cs" />

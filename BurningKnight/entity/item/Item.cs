@@ -61,7 +61,7 @@ namespace BurningKnight.entity.item {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			SetGraphicsComponent(new SliceComponent("items", Id));
+			SetGraphicsComponent(new ItemGraphicsComponent("items", Id));
 		}
 
 		private bool Interact(Entity entity) {
@@ -74,7 +74,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public virtual void AddDroppedComponents() {
-			var slice = GetComponent<SliceComponent>().Sprite;			
+			var slice = GetComponent<ItemGraphicsComponent>().Sprite;			
 	
 			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, true));
 			AddComponent(new InteractableComponent(Interact));
