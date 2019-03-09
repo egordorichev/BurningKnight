@@ -14,8 +14,9 @@ namespace BurningKnight {
 			base.Initialize();
 			
 			Discord.Init();
-			
 			Controls.Bind();
+			
+			Shaders.Load();
 			Font.Load();
 			Mods.Load();
 		}

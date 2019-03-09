@@ -70,6 +70,7 @@
     <Compile Include="assets\particle\ParticleSystem.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />
+    <Compile Include="assets\Shaders.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="debug\Console.cs" />

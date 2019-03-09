@@ -1,8 +1,9 @@
-using System;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
+using Lens.entity.component.graphics;
+using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -12,8 +13,30 @@ namespace BurningKnight.entity.creature.mob {
 			base.AddComponents();
 			
 			AddTag(Tags.Mob);
+			SetStats();
 		}
 
+		protected virtual void SetStats() {
+			
+		}
+
+		protected void AddAnimation(string name, string layer = null) {
+			AddComponent(new AnimationComponent(name, layer));
+		}
+		
+		protected void SetMaxHp(int hp) {
+			var health = GetComponent<HealthComponent>();
+			health.InitMaxHealth = hp;
+		}
+
+		protected void Become<T>() {
+			GetComponent<StateComponent>().Become<T>();
+		}
+
+		protected virtual void OnTargetChange(Entity target) {
+			
+		}
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -33,7 +56,7 @@ namespace BurningKnight.entity.creature.mob {
 
 		protected void FindTarget() {
 			var targets = Area.Tags[GetComponent<BuffsComponent>().Has<CharmedBuff>() ? Tags.Mob : Tags.Player];
-			var closestDistance = Single.MaxValue;
+			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			
 			foreach (var target in targets) {
@@ -56,6 +79,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			// Might be null, thats ok
 			Target = closest;
+			OnTargetChange(closest);
 		}
 	}
 }

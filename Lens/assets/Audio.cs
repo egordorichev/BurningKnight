@@ -35,7 +35,7 @@ namespace Lens.assets {
 			if (musicDir.Exists()) {
 				foreach (var name in musicDir.ListFiles()) {
 					LoadMusic(name);
-				} 	
+				}
 			}
 		}
 

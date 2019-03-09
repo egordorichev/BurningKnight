@@ -171,6 +171,7 @@
     <Compile Include="assets\Animations.cs" />
     <Compile Include="assets\Assets.cs" />
     <Compile Include="assets\Audio.cs" />
+    <Compile Include="assets\Effects.cs" />
     <Compile Include="assets\Locale.cs" />
     <Compile Include="assets\Textures.cs" />
     <Compile Include="core\ConsoleCore.cs" />

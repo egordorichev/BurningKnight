@@ -23,12 +23,20 @@ namespace Lens.graphics.gamerenderer {
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
 		}
 
+		public override void Begin() {
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, Effect, Camera.Instance?.Matrix);
+		}
+
+		public override void End() {
+			Graphics.Batch.End();
+		}
+
 		private void RenderGame() {
 			Engine.GraphicsDevice.SetRenderTarget(GameTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, Effect, Camera.Instance?.Matrix);
+			Begin();
 			Graphics.Clear(Bg);
 			Engine.Instance.State.Render();
-			Graphics.Batch.End();
+			End();
 		}
 
 		private void RenderUi() {

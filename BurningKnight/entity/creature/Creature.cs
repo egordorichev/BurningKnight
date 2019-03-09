@@ -13,6 +13,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new HealthComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new RoomComponent());
+			AddComponent(new BuffsComponent());
 		}
 		
 		public void Kill(Entity w) {

@@ -42,7 +42,6 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 			
 			// Simple inventory simulation
-
 			var inventory = GetComponent<InventoryComponent>();
 			
 			inventory.Pickup(ItemRegistry.Create("iron_heart", Area));

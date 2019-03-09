@@ -50,6 +50,7 @@ namespace Lens.assets {
 
 		private static void LoadAssets() {
 			// Locale.Load("en");
+			Effects.Load();
 			Textures.Load();
 			Animations.Load();
 			// Audio.Load();
@@ -61,6 +62,7 @@ namespace Lens.assets {
 		}
 
 		private static void DestroyAssets() {
+			Effects.Destroy();
 			Textures.Destroy();
 			Animations.Destroy();
 			Audio.Destroy();

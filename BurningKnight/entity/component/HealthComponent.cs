@@ -63,6 +63,13 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
+		public int InitMaxHealth {
+			set {
+				maxHealth = Math.Max(1, value);
+				health = maxHealth;
+			}
+		}
+
 		private bool dead;
 		public bool Unhittable;
 		public float InvincibilityTimer;

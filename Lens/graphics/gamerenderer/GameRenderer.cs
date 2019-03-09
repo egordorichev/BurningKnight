@@ -14,6 +14,14 @@ namespace Lens.graphics.gamerenderer {
 		
 		public Effect Effect;
 		public Color Bg = Color.Black;
+
+		public virtual void Begin() {
+			
+		}
+
+		public virtual void End() {
+			
+		}
 		
 		public virtual void Render() {
 			

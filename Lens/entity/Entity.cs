@@ -5,6 +5,8 @@ using Lens.entity.component.graphics;
 using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
+	public delegate void PositionChanged();
+	
 	public class Entity : Subscriber {
 		public Area Area;
 		
@@ -25,12 +27,16 @@ namespace Lens.entity {
 			set {
 				if (value != position) {
 					position = value;
-					PositionChanged = true;
+					PositionChanged?.Invoke();
 				}
 			}
 		}
 
-		public bool PositionChanged;
+		public Vector2 PositionWithoutTrigger {
+			set => position = value;
+		}
+		
+		public event PositionChanged PositionChanged;
 		public float Width = 16;
 		public float Height = 16;
 		
@@ -38,7 +44,7 @@ namespace Lens.entity {
 			get => Position.X;
 			set {
 				position.X = value;
-				PositionChanged = true;
+				PositionChanged?.Invoke();
 			}
 		}
 
@@ -46,7 +52,7 @@ namespace Lens.entity {
 			get => Position.Y;
 			set {
 				position.Y = value;
-				PositionChanged = true;
+				PositionChanged?.Invoke();
 			}
 		}
 
@@ -55,7 +61,7 @@ namespace Lens.entity {
 			set {
 				position.X = value.X - Width / 2;
 				position.Y = value.Y - Height / 2;
-				PositionChanged = true;
+				PositionChanged?.Invoke();
 			}
 		}
 		
@@ -63,7 +69,7 @@ namespace Lens.entity {
 			get => Position.X + Width / 2;
 			set {
 				position.X = value - Width / 2;
-				PositionChanged = true;
+				PositionChanged?.Invoke();
 			}
 		}
 
@@ -71,7 +77,7 @@ namespace Lens.entity {
 			get => Position.Y + Height / 2;
 			set {
 				position.Y = value - Height / 2;
-				PositionChanged = true;
+				PositionChanged?.Invoke();
 			}
 		}
 

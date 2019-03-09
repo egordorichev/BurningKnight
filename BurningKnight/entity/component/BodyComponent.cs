@@ -14,7 +14,6 @@ namespace BurningKnight.entity.component {
 		
 		public Vector2 Velocity {
 			get => Body.LinearVelocity;
-
 			set => Body.LinearVelocity = value;
 		}
 
@@ -26,6 +25,16 @@ namespace BurningKnight.entity.component {
 		public float Angle {
 			get => Body.Rotation;
 			set => Body.Rotation = value;
+		}
+
+		public override void Init() {
+			base.Init();
+
+			Entity.PositionChanged += () => {
+				if (Body != null) {
+					Body.Position = Entity.Position;
+				}
+			};
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
@@ -54,10 +63,6 @@ namespace BurningKnight.entity.component {
 			if (Body == null) {
 				return;
 			}
-			
-			/*
-			 * Fixme: link body position with entity position
-			 */
 
 			var velocity = Body.LinearVelocity;
 			velocity.X += Acceleration.X;

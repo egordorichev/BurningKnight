@@ -1,4 +1,4 @@
-﻿using BurningKnight.entity.level;
+﻿using BurningKnight.entity.level.rooms;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
@@ -8,12 +8,14 @@ namespace BurningKnight.entity.component {
 		public override void Init() {
 			base.Init();
 			FindRoom();
+
+			Entity.PositionChanged += FindRoom;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Room == null || Entity.PositionChanged) {
+			if (Room == null) {
 				FindRoom();
 			}
 		}

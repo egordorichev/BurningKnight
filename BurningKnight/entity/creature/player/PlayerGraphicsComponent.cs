@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.component;
+﻿using BurningKnight.assets;
+using BurningKnight.entity.component;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -36,6 +37,9 @@ namespace BurningKnight.entity.creature.player {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 
+			var shader = Shaders.Creature;
+			Shaders.Begin(shader);
+			
 			weapon.Render();
 			
 			Head.Render(Entity.Position + Offset, Flipped);
@@ -43,7 +47,9 @@ namespace BurningKnight.entity.creature.player {
 
 			activeWeapon.Render();
 			
-			GetComponent<RoomComponent>().Room.RenderDebug();
+			GetComponent<RoomComponent>().Room?.RenderDebug();
+			
+			Shaders.End();
 		}
 
 		public override bool HandleEvent(Event e) {
