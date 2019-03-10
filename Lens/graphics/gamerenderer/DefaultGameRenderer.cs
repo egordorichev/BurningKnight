@@ -3,7 +3,7 @@
 namespace Lens.graphics.gamerenderer {
 	public class DefaultGameRenderer : GameRenderer {
 		public override void Render() {
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, Effect, 
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, GameEffect, 
 				Camera.Instance == null ? Engine.ScreenMatrix : Camera.Instance.Matrix * Engine.ScreenMatrix);
 			
 			Engine.Instance.State.Render();

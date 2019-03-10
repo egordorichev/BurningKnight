@@ -6,17 +6,21 @@ namespace BurningKnight.assets {
 	public class Shaders {
 		public static Effect Entity;
 		public static Effect Terrain;
+		public static Effect Screen;
 		
 		public static void Load() {
 			Entity = Effects.Get("entity");
 			Terrain = Effects.Get("terrain");
+			Screen = Effects.Get("screen");
+
+			Engine.Instance.StateRenderer.GameEffect = Screen;
 		}
 
 		public static void Begin(Effect effect) {
 			var state = Engine.Instance.StateRenderer;
 			
 			state.End();
-			state.Effect = effect;
+			state.SurfaceEffect = effect;
 			effect.CurrentTechnique.Passes[0].Apply();
 			state.Begin();
 		}
@@ -25,7 +29,7 @@ namespace BurningKnight.assets {
 			var state = Engine.Instance.StateRenderer;
 			
 			state.End();
-			state.Effect = null;
+			state.SurfaceEffect = null;
 			state.Begin();
 		}
 	}

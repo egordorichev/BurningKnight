@@ -12,7 +12,9 @@ namespace Lens.graphics.gamerenderer {
 			ScissorTestEnable = true
 		};
 		
-		public Effect Effect;
+		public Effect GameEffect;
+		public Effect UiEffect;
+		public Effect SurfaceEffect;
 		public Color Bg = Color.Black;
 
 		public virtual void Begin() {

@@ -24,7 +24,7 @@ namespace Lens.graphics.gamerenderer {
 		}
 
 		public override void Begin() {
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, Effect, Camera.Instance?.Matrix);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix);
 		}
 
 		public override void End() {
@@ -41,7 +41,7 @@ namespace Lens.graphics.gamerenderer {
 
 		private void RenderUi() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, Effect, Matrix.Identity);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Matrix.Identity);
 			Graphics.Clear(Color.Transparent);
 			Engine.Instance.State.RenderUi();
 			Graphics.Batch.End();
@@ -54,12 +54,19 @@ namespace Lens.graphics.gamerenderer {
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, Effect, Matrix.Identity);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
 
+			if (GameEffect != null) {
+				GameEffect.Parameters["resolution"]?.SetValue(new Vector2(Display.Width, Display.Height));
+			}
+			
 			if (Camera.Instance != null) {
 				Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1), new Vector2(Engine.Instance.Upscale));	
 			}
 
+			Graphics.Batch.End();
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
+			
 			Graphics.Render(UiTarget, Engine.Viewport, 0, Vector2.Zero, new Vector2(Engine.Instance.UiUpscale));
 			
 			Graphics.Batch.End();

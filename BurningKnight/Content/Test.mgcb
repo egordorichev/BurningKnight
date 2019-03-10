@@ -19,6 +19,12 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/entity.fx
 
+#begin Shaders/screen.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/screen.fx
+
 #begin Shaders/terrain.fx
 /importer:EffectImporter
 /processor:EffectProcessor
