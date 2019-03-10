@@ -20,14 +20,17 @@ namespace BurningKnight.assets.particle {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Particle.Controller.Update(Particle, dt)) {
+			if (Particle.Controller.Update(Particle, dt) || Particle.Done) {
 				Done = true;
 			}
 		}
 
 		public override void Render() {
 			base.Render();
-			Particle.Renderer.Render(Particle);
+			
+			if (!Particle.Done) {
+				Particle.Renderer.Render(Particle);				
+			}
 		}
 	}
 }

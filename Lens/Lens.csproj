@@ -226,6 +226,7 @@
     <Compile Include="util\Log.cs" />
     <Compile Include="util\math\Calc.cs" />
     <Compile Include="util\math\Random.cs" />
+    <Compile Include="util\NumberExtensions.cs" />
     <Compile Include="util\pool\DisposablePool.cs" />
     <Compile Include="util\pool\Pool.cs" />
     <Compile Include="util\timer\Timer.cs" />

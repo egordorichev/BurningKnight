@@ -10,6 +10,7 @@ namespace BurningKnight.assets.particle.controller {
 			particle.T += dt;
 			particle.Angle += particle.AngleVelocity * dt;
 			particle.Position += particle.Velocity * dt;
+			particle.Update(dt);
 			
 			return false;
 		}

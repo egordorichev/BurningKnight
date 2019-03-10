@@ -31,7 +31,7 @@ namespace BurningKnight.assets.particle {
 			for (int i = Particles.Count - 1; i >= 0; i--) {
 				var particle = Particles[i];
 
-				if (particle.Controller.Update(particle, dt)) {
+				if (particle.Controller.Update(particle, dt) || particle.Done) {
 					Particles.RemoveAt(i);
 				}
 			}
@@ -43,7 +43,9 @@ namespace BurningKnight.assets.particle {
 
 		public override void Render() {
 			foreach (var particle in Particles) {
-				particle.Renderer.Render(particle);
+				if (!particle.Done) {
+					particle.Renderer.Render(particle);
+				}
 			}
 		}
 	}

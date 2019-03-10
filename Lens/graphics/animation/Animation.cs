@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.animation {
+	public delegate void AnimationCallback();
+	
 	public class Animation {
 		public AnimationData Data;
+		public AnimationCallback OnEnd;
 		
 		private AnimationFrame frame;
 		private uint currentFrame;
@@ -84,12 +87,22 @@ namespace Lens.graphics.animation {
 
 		public void Update(float dt) {
 			if (!Paused) {
+				var frame = currentFrame;
 				Timer += dt * SpeedModifier;
+				var newFrame = currentFrame;
+
+				if (frame != newFrame && newFrame == 0) {
+					OnEnd?.Invoke();	
+				}
 			}
 		}
 
 		public void Render(Vector2 position, bool flipped = false) {
 			Graphics.Render(frame.Texture, position, 0, Vector2.Zero /* fixme */, Vector2.One, flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+		}
+
+		public TextureRegion GetCurrentTexture() {
+			return frame.Texture;
 		}
 		
 		public void Reset() {

@@ -1,10 +1,14 @@
+using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
+using Lens.util;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
@@ -98,6 +102,23 @@ namespace BurningKnight.entity.creature.player {
 				// todo: vel to mouse
 				
 				Entity.Area.Add(bomb);
+
+				var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
+				explosion.Particle.Position = Entity.Center;
+				explosion.Depth = 32;
+				Entity.Area.Add(explosion);
+
+				for (int i = 0; i < 4; i++) {
+					explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
+					explosion.Particle.Position = Entity.Center;
+					explosion.Depth = 31;
+					Entity.Area.Add(explosion);
+
+					var a = explosion.Particle.Angle - Math.PI / 2;//.ToRadians();
+					var d = 16;
+
+					explosion.Particle.Position += new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				}
 			}
 		}
 
