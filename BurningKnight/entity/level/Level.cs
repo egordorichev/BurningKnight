@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.entity.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -222,7 +223,16 @@ namespace BurningKnight.entity.level {
 			var toY = GetRenderBottom(camera);
 
 			var region = new TextureRegion();
+			var shader = Shaders.Terrain;
 			
+			Shaders.Begin(shader);
+			
+			var enabled = shader.Parameters["enabled"];
+			var tilePosition = shader.Parameters["tilePosition"];
+			var edgePosition = shader.Parameters["edgePosition"];
+			
+			enabled.SetValue(true);
+
 			for (int y = GetRenderTop(camera); y < toY; y++) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
 					var index = ToIndex(x, y);
@@ -235,10 +245,32 @@ namespace BurningKnight.entity.level {
 						region.Source.Width = 16;
 						region.Source.Height = 16;
 
-						Graphics.Render(region, new Vector2(x * 16, y * 16));
+						var pos = new Vector2(x * 16, y * 16);
+
+						if (!((Tile) tile).Matches(Tile.Ember, Tile.Chasm)) {						
+							var edge = Tilesets.Biome.Edges[tile][Variants[index]];
+
+							edgePosition.SetValue(new Vector2(
+								(float) edge.Source.X / edge.Texture.Width,
+								(float) edge.Source.Y / edge.Texture.Height
+							));
+							
+							tilePosition.SetValue(new Vector2(
+								(float) region.Source.X / region.Texture.Width,
+								(float) region.Source.Y / region.Texture.Height
+							));
+							
+							Graphics.Render(region, pos);
+						} else {
+							enabled.SetValue(false);
+							Graphics.Render(region, pos);
+							enabled.SetValue(true);
+						}
 					}
 				}
 			}
+
+			Shaders.End();
 
 			return true;
 		}

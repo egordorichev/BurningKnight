@@ -19,3 +19,9 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/entity.fx
 
+#begin Shaders/terrain.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/terrain.fx
+

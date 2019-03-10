@@ -5,9 +5,11 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BurningKnight.assets {
 	public class Shaders {
 		public static Effect Entity;
+		public static Effect Terrain;
 		
 		public static void Load() {
 			Entity = Effects.Get("entity");
+			Terrain = Effects.Get("terrain");
 		}
 
 		public static void Begin(Effect effect) {

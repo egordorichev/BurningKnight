@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",873,1219,0.9407093
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1014,1431,0.9328107
