@@ -12,10 +12,24 @@ namespace BurningKnight.entity.level {
 		}
 
 		public static void TileUp(Level level, int index) {
+			var liquid = level.Liquid[index];
+			byte lmask = 0;
+			
+			for (int i = 0; i < 4; i++) {
+				var m = PathFinder.Circle4[i];
+				var n = index + m;
+				
+				if (!level.IsInside(n) || ShouldTile(liquid, level.Liquid[n])) {
+					lmask |= (byte) (1 << i);
+				}
+			}
+
+			level.LiquidVariants[index] = lmask;
+			
 			if (level.Variants[index] != 0) {
 				return;
 			}
-			
+
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
 

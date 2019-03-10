@@ -69,10 +69,10 @@ namespace BurningKnight.entity.level {
 		}
 
 		private static Vector2[] Positions = {
-			new Vector2(0, 3), new Vector2(0, 2), new Vector2(3, 1), new Vector2(2, 1),
-			new Vector2(1, 3), new Vector2(1, 2), new Vector2(1, 1), new Vector2(0, 0), 
-			new Vector2(0, 1), new Vector2(1, 0), new Vector2(1, 1), new Vector2(3, 3), 
-			new Vector2(3, 2), new Vector2(2, 3), new Vector2(2, 2), new Vector2(3, 2)
+			new Vector2(0, 3), new Vector2(0, 2), new Vector2(1, 3), new Vector2(1, 2),
+			new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 0), new Vector2(1, 1),
+			new Vector2(3, 3), new Vector2(3, 2), new Vector2(2, 3), new Vector2(2, 2),
+			new Vector2(3, 0), new Vector2(3, 1), new Vector2(2, 0), new Vector2(2, 1)
 		};
 
 		private TextureRegion[] GetEdge(AnimationData animation, int x, int y) {

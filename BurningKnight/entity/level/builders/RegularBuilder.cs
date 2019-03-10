@@ -106,7 +106,7 @@ namespace BurningKnight.entity.level.builders {
 
 				do {
 					Curr = Branchable[Random.Int(Branchable.Count)];
-				} while (Curr is ConnectionRoomDef);
+				} while (Curr is ConnectionRoom);
 
 				var ConnectingRooms = Random.Chances(ConnectionChances);
 

@@ -1,7 +1,7 @@
 using Lens.util.math;
 
 namespace BurningKnight.entity.level.rooms.connection {
-	public class TunnelRoomDef : ConnectionRoomDef {
+	public class TunnelRoom : ConnectionRoom {
 		protected void Fill(Level Level) {
 			
 		}

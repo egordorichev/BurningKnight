@@ -41,6 +41,7 @@ namespace BurningKnight.entity.level {
 		public byte[] Tiles;
 		public byte[] Liquid;
 		public byte[] Variants;
+		public byte[] LiquidVariants;
 		public byte[] Light;
 
 		public Level(BiomeInfo biome) {
@@ -165,6 +166,7 @@ namespace BurningKnight.entity.level {
 			Tiles = new byte[Size];
 			Liquid = new byte[Size];
 			Variants = new byte[Size];
+			LiquidVariants = new byte[Size];
 			Light = new byte[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
@@ -248,7 +250,7 @@ namespace BurningKnight.entity.level {
 						var pos = new Vector2(x * 16, y * 16);
 
 						if (!((Tile) tile).Matches(Tile.Ember, Tile.Chasm)) {						
-							var edge = Tilesets.Biome.Edges[tile][Variants[index]];
+							var edge = Tilesets.Biome.Edges[tile][LiquidVariants[index]];
 
 							edgePosition.SetValue(new Vector2(
 								(float) edge.Source.X / edge.Texture.Width,

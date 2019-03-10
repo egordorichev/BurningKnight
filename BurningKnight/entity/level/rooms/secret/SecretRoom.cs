@@ -39,7 +39,7 @@ namespace BurningKnight.entity.level.rooms.secret {
 		}
 
 		public override bool CanConnect(RoomDef R) {
-			return !(R is ConnectionRoomDef) && base.CanConnect(R);
+			return !(R is ConnectionRoom) && base.CanConnect(R);
 		}
 	}
 }

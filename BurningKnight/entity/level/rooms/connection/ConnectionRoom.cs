@@ -1,5 +1,5 @@
 namespace BurningKnight.entity.level.rooms.connection {
-	public class ConnectionRoomDef : RoomDef {
+	public class ConnectionRoom : RoomDef {
 		public override int GetMinWidth() {
 			return 3;
 		}

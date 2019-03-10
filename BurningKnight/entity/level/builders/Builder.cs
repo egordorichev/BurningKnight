@@ -225,7 +225,7 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			if (Next.ConnectWithRoom(Prev)) {
-				if (Next is ConnectionRoomDef || Next is BossRoom || Next is ShopRoom) {
+				if (Next is ConnectionRoom || Next is BossRoom || Next is ShopRoom) {
 					Next.Id = Prev.Id;
 				} else {
 					Next.Id = Prev.Id + 1;

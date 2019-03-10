@@ -104,10 +104,6 @@ namespace BurningKnight.entity.level {
 			Rooms.Add(Entrance);
 			Rooms.Add(Exit);
 
-			/*if (Dungeon.Depth > 0)
-				if (GlobalSave.IsFalse("all_npcs_saved") && (Random.Chance(25) || Engine.Version.Debug))
-					Rooms.Add(new NpcSaveRoomDef());*/
-
 			var Regular = GetNumRegularRooms();
 			var Special = GetNumSpecialRooms();
 			var Connection = GetNumConnectionRooms();
