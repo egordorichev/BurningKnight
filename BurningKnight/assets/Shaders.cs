@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.assets {
 	public class Shaders {
-		public static Effect Creature;
+		public static Effect Entity;
 		
 		public static void Load() {
-			Creature = Effects.Get("creature");
+			Entity = Effects.Get("entity");
 		}
 
 		public static void Begin(Effect effect) {
@@ -15,6 +15,7 @@ namespace BurningKnight.assets {
 			
 			state.End();
 			state.Effect = effect;
+			effect.CurrentTechnique.Passes[0].Apply();
 			state.Begin();
 		}
 

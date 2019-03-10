@@ -18,6 +18,7 @@ namespace Lens {
 		public new static GraphicsDevice GraphicsDevice;
 		public static Matrix ScreenMatrix;
 		public static Matrix UiMatrix;
+		public static float Time;
 
 		public GameRenderer StateRenderer;
 		public GameState State { get; private set; }
@@ -97,6 +98,7 @@ namespace Lens {
 			}
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			Time += dt;
 			time += dt;
 			
 			while (time >= FixedUpdateTime) {

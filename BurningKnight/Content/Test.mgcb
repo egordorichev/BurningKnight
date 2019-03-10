@@ -10,8 +10,6 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:../../packages/MonoGame.Framework.Content.Pipeline.Portable.3.7.1.189/lib/portable-net45+win8+wpa81/MonoGame.Framework.Content.Pipeline.dll
-/reference:../../packages/MonoGame.Extended.Content.Pipeline.1.1.0/tools/MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 

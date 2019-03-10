@@ -7,17 +7,19 @@ namespace Lens.assets {
 		public static Dictionary<string, Effect> All = new Dictionary<string, Effect>();
 		
 		public static void Load() {
-			var textureDir = FileHandle.FromRoot("Effects/");
+			var shaderDir = new FileHandle("Content/bin/Shaders/");
 			
-			if (textureDir.Exists()) {
-				foreach (var h in textureDir.ListFileHandles()) {
-					LoadEffect(h);
+			if (shaderDir.Exists()) {
+				foreach (var h in shaderDir.ListFileHandles()) {
+					if (h.Extension == ".xnb") {
+						LoadEffect(h);
+					}
 				}
 			}
 		}
 
 		private static void LoadEffect(FileHandle handle) {
-			All[handle.NameWithoutExtension] = Assets.Content.Load<Effect>(handle.FullPath);
+			All[handle.NameWithoutExtension] = Assets.Content.Load<Effect>($"bin/Shaders/{handle.NameWithoutExtension}");
 		}
 		
 		public static void Destroy() {
