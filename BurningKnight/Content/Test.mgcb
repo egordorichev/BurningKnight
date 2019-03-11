@@ -3,9 +3,9 @@
 
 /outputDir:bin
 /intermediateDir:obj
-/platform:Windows
+/platform:DesktopGL
 /config:
-/profile:Reach
+/profile:HiDef
 /compress:False
 
 #-------------------------------- References --------------------------------#
@@ -22,7 +22,8 @@
 #begin Shaders/screen.fx
 /importer:EffectImporter
 /processor:EffectProcessor
-/processorParam:DebugMode=Auto
+/processorParam:DebugMode=Optimize
+/processorParam:Defines=
 /build:Shaders/screen.fx
 
 #begin Shaders/terrain.fx

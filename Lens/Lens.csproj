@@ -203,6 +203,7 @@
     <Compile Include="graphics\animation\AnimationDirection.cs" />
     <Compile Include="graphics\animation\AnimationFrame.cs" />
     <Compile Include="graphics\animation\AnimationTag.cs" />
+    <Compile Include="graphics\ColorUtils.cs" />
     <Compile Include="graphics\gamerenderer\DefaultGameRenderer.cs" />
     <Compile Include="graphics\gamerenderer\GameRenderer.cs" />
     <Compile Include="graphics\gamerenderer\PixelPerfectGameRenderer.cs" />

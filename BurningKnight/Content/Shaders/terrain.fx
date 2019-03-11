@@ -27,7 +27,7 @@ sampler2D SpriteTextureSampler = sampler_state {
 float4 MainPS(VertexShaderOutput input) : COLOR {
 	float4 color = tex2D(s0, input.TextureCoordinates);
 
-	if (enabled) {
+	if (enabled == true) {
 		float4 mask = tex2D(s0, float2(
 			input.TextureCoordinates.x - tilePosition.x + edgePosition.x, 
 			input.TextureCoordinates.y - tilePosition.y + edgePosition.y

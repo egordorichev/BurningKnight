@@ -46,7 +46,7 @@ namespace BurningKnight.entity.creature.player {
 			shader.Parameters["flashReplace"].SetValue(1f);
 			shader.Parameters["flashColor"].SetValue(new Vector4(1, 0, 0, 1));
 			shader.Parameters["flash"].SetValue((float) Math.Max(0, Math.Cos(Engine.Time * 2) * 0.5f + 0.5f));
-
+				
 			weapon.Render();
 			
 			Head.Render(Entity.Position + Offset, Flipped);

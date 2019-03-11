@@ -27,7 +27,7 @@ struct VertexShaderOutput {
 
 float4 MainPS(VertexShaderOutput input) : COLOR {
 	float4 color = tex2D(s0, input.TextureCoordinates);
-
+	
 	if (flash > 0.01f && color.a > 0.01f) {
 		if (flashReplace > 0.5f) {
 			color = flashColor * flash;

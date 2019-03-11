@@ -60,6 +60,7 @@
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\Mod.cs" />
     <Compile Include="assets\Mods.cs" />
+    <Compile Include="assets\Palette.cs" />
     <Compile Include="assets\particle\AnimatedParticle.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />

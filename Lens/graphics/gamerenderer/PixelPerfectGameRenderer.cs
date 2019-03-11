@@ -1,4 +1,5 @@
-﻿using Lens.util.camera;
+﻿using System;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
@@ -55,10 +56,6 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
-
-			if (GameEffect != null) {
-				GameEffect.Parameters["resolution"]?.SetValue(new Vector2(Display.Width, Display.Height));
-			}
 			
 			if (Camera.Instance != null) {
 				Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1), new Vector2(Engine.Instance.Upscale));	

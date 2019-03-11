@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx</SourceFile>
-  <SourceTime>2019-03-10T13:30:16.2341455+03:00</SourceTime>
+  <SourceTime>2019-03-11T11:23:10.0004715+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb</DestFile>
-  <DestTime>2019-03-10T13:30:20.687565+03:00</DestTime>
+  <DestTime>2019-03-11T11:56:54.2353203+03:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
   <Processor>EffectProcessor</Processor>
   <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
   <Parameters>
     <Key>DebugMode</Key>
-    <Value>Auto</Value>
+    <Value>Optimize</Value>
+  </Parameters>
+  <Parameters>
+    <Key>Defines</Key>
+    <Value />
   </Parameters>
   <Dependencies />
   <BuildAsset />
