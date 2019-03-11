@@ -15,9 +15,57 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Shaders/entity.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/entity.fx
+#begin Fonts/large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/large.png
+
+#begin Fonts/large.xnb
+/importer:
+/processor:
+/build:Fonts/large.xnb
+
+#begin Fonts/large_font.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:Fonts/large_font.fnt
+
+#begin Fonts/large_font.xnb
+/importer:
+/processor:
+/build:Fonts/large_font.xnb
+
+#begin Fonts/small.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Fonts/small.png
+
+#begin Fonts/small.xnb
+/importer:
+/processor:
+/build:Fonts/small.xnb
+
+#begin Fonts/small_font.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:Fonts/small_font.fnt
+
+#begin Fonts/small_font.xnb
+/importer:
+/processor:
+/build:Fonts/small_font.xnb
 

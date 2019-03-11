@@ -2,10 +2,11 @@ using BurningKnight.entity.component;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
-		private const float Speed = 25f;
+		private const float Speed = 20f;
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -13,37 +14,41 @@ namespace BurningKnight.entity.creature.player {
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			
-			body.Acceleration.X = 0;
-			body.Acceleration.Y = 0;
-
 			if (!(state.StateInstance is Player.RollState)) {
+				var acceleration = new Vector2();
+				
 				if (Input.IsDown(Controls.Up)) {
-					body.Acceleration.Y -= Speed;
+					acceleration.Y -= 1;
 				}
 			
 				if (Input.IsDown(Controls.Down)) {
-					body.Acceleration.Y += Speed;
+					acceleration.Y += 1;
 				}
 			
 				if (Input.IsDown(Controls.Left)) {
-					body.Acceleration.X -= Speed;
+					acceleration.X -= 1;
 				}
 			
 				if (Input.IsDown(Controls.Right)) {
-					body.Acceleration.X += Speed;
+					acceleration.X += 1;
 				}
 
 				if (Input.WasPressed(Controls.Roll)) {
 					state.Become<Player.RollState>();
 				} else {
-					if (body.Acceleration.Length() > 0.1f) {
+					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();
 					} else {
 						state.Become<Player.IdleState>();
 					}
+					
+					if (acceleration.Length() > 0.1f) {
+						acceleration.Normalize();
+					}
+				
+					body.Acceleration = acceleration * Speed;
+					body.Velocity -= body.Velocity * dt * 20 - body.Acceleration;
 				}
-
-				body.Velocity -= body.Velocity * dt * 10;
 			}
 		}
 	}

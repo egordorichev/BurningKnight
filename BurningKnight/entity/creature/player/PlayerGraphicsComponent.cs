@@ -31,8 +31,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override void Render() {
-			base.Render();
-
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 					

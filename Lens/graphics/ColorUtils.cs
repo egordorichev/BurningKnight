@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.graphics {
 	public static class ColorUtils {
+		public static Vector4 White = new Vector4(1, 1, 1, 1);
+		
 		public static Color FromHex(string hex) {
 			Color color = new Color();
 
@@ -21,10 +23,8 @@ namespace Lens.graphics {
 		public static bool Compare(Color a, Color b, byte ac) {
 			return Compare(a.R, b.R, ac) && Compare(a.G, b.G, ac) && Compare(a.B, b.B, ac);
 		}
-		
-		public static Vector3 WHITE = new Vector3(1, 1, 1);
-		
-		public static Color HSV_to_RGB(float H, float S, float V) {
+
+		public static Color ToRGB(float H, float S, float V) {
 			double R;
 			double G;
 			double B;

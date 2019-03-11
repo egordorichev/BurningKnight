@@ -79,8 +79,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class RollState : EntityState {
-			private const float RollTime = 0.5f;
-			private const float RollForce = 20000f;
+			private const float RollTime = 0.39f;
+			private const float RollForce = 400f;
 			
 			private Vector2 direction;
 			
@@ -113,7 +113,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				var body = Self.GetComponent<RectBodyComponent>();
-				body.Velocity = direction;
+				body.Velocity = direction * (RollTime - T);
+				body.Position += body.Velocity * dt;
 			}
 		}
 		#endregion
