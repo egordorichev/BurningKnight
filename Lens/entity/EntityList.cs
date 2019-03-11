@@ -10,7 +10,6 @@ namespace Lens.entity {
 		public List<Entity> ToRemove = new List<Entity>();
 
 		private Area Area;
-		private bool unsorted;
 		
 		private static Comparison<Entity> CompareByDepth = (a, b) => {
 			var ad = a.Depth;
@@ -23,8 +22,8 @@ namespace Lens.entity {
 			if (bd > ad) {
 				return -1;
 			}
-			
-			return 0;
+
+			return a.Bottom > b.Bottom ? 1 : (a.Bottom < b.Bottom ? -1 : 0);
 		};
 
 		public EntityList(Area area) {
@@ -37,10 +36,6 @@ namespace Lens.entity {
 		
 		public void Remove(Entity entity) {
 			ToRemove.Add(entity);
-		}
-
-		public void MarkUnsorted() {
-			unsorted = true;
 		}
 		
 		private bool CheckOnScreen(Entity entity) {
@@ -59,7 +54,6 @@ namespace Lens.entity {
 						Entities.Remove(entity);
 					}
 
-					unsorted = true;
 					ToRemove.Clear();
 				} catch (Exception e) {
 					Log.Error(e);
@@ -76,7 +70,6 @@ namespace Lens.entity {
 						entity.Init();
 					}
 
-					unsorted = true;
 					ToAdd.Clear();
 				} catch (Exception e) {
 					Log.Error(e);
@@ -99,10 +92,7 @@ namespace Lens.entity {
 				Log.Error(e);
 			}
 
-			if (unsorted) {
-				unsorted = false;
-				Entities.Sort(CompareByDepth);
-			}
+			Entities.Sort(CompareByDepth);
 		}
 
 		public void Render() {

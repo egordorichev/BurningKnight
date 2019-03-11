@@ -138,6 +138,7 @@
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />
+    <Compile Include="entity\item\ItemPickupFx.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\ItemType.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />

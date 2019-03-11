@@ -49,7 +49,7 @@ namespace Lens.assets {
 		}
 
 		private static void LoadAssets() {
-			// Locale.Load("en");
+			Locale.Load("en");
 			Effects.Load();
 			Textures.Load();
 			Animations.Load();

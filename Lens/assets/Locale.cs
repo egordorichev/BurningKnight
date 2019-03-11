@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Lens.lightJson;
+using Lens.util;
 using Lens.util.file;
-using Newtonsoft.Json;
 
 namespace Lens.assets {
 	public class Locale {
@@ -11,27 +11,36 @@ namespace Lens.assets {
 		
 		public static string Current;
 
-		private static void LoadRaw(string path, bool fallback = false) {
+		private static void LoadRaw(string path, bool backup = false) {
 			var file = new FileHandle(path);
-			var deserialized = JsonConvert.DeserializeObject<Dictionary<string, string>>(file.ReadAll());
 
-			foreach (string name in deserialized.Values) {
-				Console.WriteLine(name);
+			if (!file.Exists()) {
+				Log.Error($"Locale {path} was not found!");
+				return;
 			}
 			
-			// todo
+			var root = JsonValue.Parse(file.ReadAll());
+
+			foreach (var entry in root.AsJsonObject) {
+				if (backup) {
+					fallback[entry.Key] = entry.Value.AsString;
+				} else {
+					map[entry.Key] = entry.Value.AsString;
+					Log.Debug($"{entry.Key} = {entry.Value.AsString}");
+				}
+			}
 		}
 		
 		public static void Load(string locale) {
 			Current = locale;
 			map.Clear();
 
-			LoadRaw($"Locales/{locale}.json");
+			LoadRaw($"Content/Locales/{locale}.json");
 
 			if (!loadedFallback && locale != "en") {
-				LoadRaw("Locales/en.json", true);
+				LoadRaw("Content/Locales/en.json", true);
 				loadedFallback = true;
-			} 
+			} 			
 		}
 
 		public static string Get(string key) {

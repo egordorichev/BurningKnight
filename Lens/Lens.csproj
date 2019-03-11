@@ -217,6 +217,16 @@
     <Compile Include="input\KeyboardData.cs" />
     <Compile Include="input\MouseButtons.cs" />
     <Compile Include="input\MouseData.cs" />
+    <Compile Include="lightJson\JsonArray.cs" />
+    <Compile Include="lightJson\JsonObject.cs" />
+    <Compile Include="lightJson\JsonValue.cs" />
+    <Compile Include="lightJson\JsonValueType.cs" />
+    <Compile Include="lightJson\Serialization\JsonParseException.cs" />
+    <Compile Include="lightJson\Serialization\JsonReader.cs" />
+    <Compile Include="lightJson\Serialization\JsonSerializationException.cs" />
+    <Compile Include="lightJson\Serialization\JsonWriter.cs" />
+    <Compile Include="lightJson\Serialization\TextPosition.cs" />
+    <Compile Include="lightJson\Serialization\TextScanner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine.cs" />
