@@ -6,6 +6,7 @@ using Lens.graphics.animation;
 using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.assets {
 	public struct Animations {
@@ -97,6 +98,77 @@ namespace Lens.assets {
 
 		public static Animation Create(string id, string layer = null) {
 			return new Animation(Get(id), layer);
+		}
+
+		public static AnimationData GetColored(string id, ColorSet set) {
+			var fullId = $"{id}_{set.Id}";
+			
+			if (animations.TryGetValue(fullId, out var animation)) {
+				return animation;
+			}
+			
+			animation = Get(id);
+
+			if (animation == null) {
+				return null;
+			}
+			
+			var data = new AnimationData();
+			var w = animation.Texture.Width;
+			var h = animation.Texture.Height;
+			var texture = new Texture2D(Engine.GraphicsDevice, w, h);
+			var tdata = new Color[w * h];
+			
+			animation.Texture.GetData(tdata);
+			var pixelData = new Color[w * h];
+			
+			for (int y = 0; y < h; y++) {
+				for (int x = 0; x < w; x++) {
+					var i = x + y * w;
+					var color = tdata[i];
+
+					for (int c = 0; c < set.From.Length; c++) {
+						if (ColorUtils.Compare(set.From[c], color, 4)) {
+							color = set.To[c];
+						}
+					}
+					
+					pixelData[i] = color;
+				}
+			}
+			
+			texture.SetData(pixelData);
+
+			foreach (var l in animation.Layers) {
+				var list = new List<AnimationFrame>();
+				
+				foreach (var f in l.Value) {
+					list.Add(new AnimationFrame {
+						Texture = new TextureRegion(texture, f.Bounds),
+						Duration = f.Duration,
+						Bounds = f.Bounds
+					});	
+				}
+
+				data.Layers[l.Key] = list;
+			}
+
+			foreach (var s in animation.Slices) {
+				data.Slices[s.Key] = new TextureRegion(texture, s.Value.Source);
+			}
+
+			foreach (var t in animation.Tags) {
+				data.Tags[t.Key] = t.Value;
+			}
+			
+			data.Texture = texture;
+			animations[fullId] = data;
+			
+			return data;
+		}
+		
+		public static Animation CreateColored(string id, ColorSet set, string layer = null) {
+			return new Animation(GetColored(id, set), layer);
 		}
 	}
 }

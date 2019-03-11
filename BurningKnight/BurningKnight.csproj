@@ -225,7 +225,6 @@
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
-    <Compile Include="util\ColorUtils.cs" />
     <Compile Include="util\FollowingDriver.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
@@ -254,6 +253,9 @@
     <Content Include="Content\Fonts\small.fnt" />
     <Content Include="Content\Fonts\small.png" />
     <Content Include="Content\Locales\en.json" />
+    <Content Include="Content\Maps\main.tmx" />
+    <Content Include="Content\Maps\tiles.png" />
+    <Content Include="Content\Maps\tiles.tsx" />
     <Content Include="Content\Sfx\menu\change_parameter.mp3" />
     <Content Include="Content\Sfx\menu\exit.mp3" />
     <Content Include="Content\Sfx\menu\goback.mp3" />
@@ -266,6 +268,9 @@
     <None Include="./Content/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Mods" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />

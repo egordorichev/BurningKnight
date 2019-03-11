@@ -1,9 +1,9 @@
-using Lens.graphics;
+﻿using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets {
 	public static class Palette {
-		public static Color[] Default = {
+		public static Color[] Default = new[] {
 			ColorUtils.FromHex("#ff0040"),
 			ColorUtils.FromHex("#131313"),
 			ColorUtils.FromHex("#1b1b1b"),

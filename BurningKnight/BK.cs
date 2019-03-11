@@ -1,6 +1,8 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.creature.player;
 using BurningKnight.integration.discord;
 using Lens;
+using Lens.assets;
 using Lens.game;
 using Microsoft.Xna.Framework;
 
