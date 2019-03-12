@@ -21,12 +21,24 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void FindRoom() {
+			var old = Room;
+			
 			foreach (var room in Entity.Area.Tags[Tags.Room]) {
 				if (room.Contains(Entity.Center)) {
 					Room = (Room) room;
 					break;
 				}
 			}
+
+			if (old != Room) {
+				old?.Tagged.Remove(Entity);
+				Room?.Tagged.Add(Entity);
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Room?.Tagged.Remove(Entity);
 		}
 	}
 }

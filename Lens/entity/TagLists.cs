@@ -19,8 +19,10 @@ namespace Lens.entity {
 				return;
 			}
 
+			int tag = entity.Tag;
+
 			for (int i = 0; i < BitTag.Total; i++) {
-				if (entity.HasTag(1 << i)) {
+				if ((tag & 1 << i) != 0) {
 					Lists[i].Add(entity);
 				}
 			}
@@ -32,8 +34,10 @@ namespace Lens.entity {
 				return;
 			}
 
+			int tag = entity.Tag;
+
 			for (int i = 0; i < BitTag.Total; i++) {
-				if (entity.HasTag(1 << i)) {
+				if ((tag & 1 << i) != 0) {
 					Lists[i].Remove(entity);
 				}
 			}

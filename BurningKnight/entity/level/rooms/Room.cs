@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.save;
 using BurningKnight.util;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.file;
@@ -13,6 +14,7 @@ namespace BurningKnight.entity.level.rooms {
 		public int MapY;
 		public int MapW;
 		public int MapH;
+		public TagLists Tagged = new TagLists();
 		
 		public override void AddComponents() {
 			base.AddComponents();
