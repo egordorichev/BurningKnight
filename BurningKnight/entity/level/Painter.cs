@@ -9,7 +9,7 @@ using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
-namespace BurningKnight.entity.level.painters {
+namespace BurningKnight.entity.level {
 	public class Painter {
 		private float Cobweb = 0.1f;
 		private float Dirt = 0.5f;
@@ -332,7 +332,7 @@ namespace BurningKnight.entity.level.painters {
 					         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
 					if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-						var door = new Door();
+						var door = new LockableDoor();
 
 						door.X = D.X * 16;
 						door.Y = D.Y * 16;
@@ -341,6 +341,8 @@ namespace BurningKnight.entity.level.painters {
 						if (door.FacingSide) {
 							door.Y -= 8;
 							door.X += 5;
+						} else {
+							door.Y += 6;
 						}
 						
 						Level.Area.Add(door);

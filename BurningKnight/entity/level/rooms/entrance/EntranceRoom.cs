@@ -1,5 +1,4 @@
 using BurningKnight.entity.level.entities;
-using BurningKnight.entity.level.painters;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 

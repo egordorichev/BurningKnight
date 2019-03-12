@@ -23,11 +23,13 @@ namespace BurningKnight.entity.level.entities {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			Width = FacingSide ? H : W;
+			Height = FacingSide ? W : H;
+			Depth = Layers.Door;
 			
 			AddComponent(new StateComponent());
 			GetComponent<StateComponent>().Become<ClosedState>();
-
-			Depth = Layers.Door;
 		}
 
 		public override void Load(FileReader stream) {
@@ -39,7 +41,7 @@ namespace BurningKnight.entity.level.entities {
 			base.Save(stream);
 			stream.WriteBoolean(FacingSide);
 		}
-
+		
 		public override void PostInit() {
 			base.PostInit();
 
@@ -48,8 +50,7 @@ namespace BurningKnight.entity.level.entities {
 			};
 			
 			SetGraphicsComponent(animation);
-			
-			AddComponent(new RectBodyComponent(0, 0, FacingSide ? H : W, FacingSide ? W : H, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -21, Width + 4, Height + 4, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -94,12 +95,12 @@ namespace BurningKnight.entity.level.entities {
 		public class ClosingState : EntityState {
 			public override void Init() {
 				base.Init();
-				Self.GetComponent<AnimationComponent>().Animation.AutoStop = true;
+				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
 			public override void Destroy() {
 				base.Destroy();
-				Self.GetComponent<AnimationComponent>().Animation.AutoStop = false;
+				Self.GetComponent<AnimationComponent>().SetAutoStop(false);
 			}
 
 			public override void Update(float dt) {
@@ -118,12 +119,12 @@ namespace BurningKnight.entity.level.entities {
 		public class OpeningState : EntityState {
 			public override void Init() {
 				base.Init();
-				Self.GetComponent<AnimationComponent>().Animation.AutoStop = true;
+				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
 			public override void Destroy() {
 				base.Destroy();
-				Self.GetComponent<AnimationComponent>().Animation.AutoStop = false;
+				Self.GetComponent<AnimationComponent>().SetAutoStop(false);
 			}
 
 			public override void Update(float dt) {

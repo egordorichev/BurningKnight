@@ -16,6 +16,8 @@ namespace BurningKnight {
 
 		public const string Roll = "roll";
 		
+		public const string Pause = "pause";
+		
 		public static void Bind() {
 			Input.Bind(Up, Keys.W);
 			Input.Bind(Left, Keys.A);
@@ -29,6 +31,8 @@ namespace BurningKnight {
 			Input.Bind(Swap, Keys.LeftShift);
 
 			Input.Bind(Roll, MouseButtons.Right);
+			
+			Input.Bind(Pause, Keys.Escape);
 		}
 	}
 }

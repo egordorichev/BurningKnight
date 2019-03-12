@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BurningKnight.entity.level.painters;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;

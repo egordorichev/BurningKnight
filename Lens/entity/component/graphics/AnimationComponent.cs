@@ -7,14 +7,26 @@ namespace Lens.entity.component.graphics {
 	public class AnimationComponent : GraphicsComponent {
 		public Animation Animation;
 		private string name;
+		private ColorSet set;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
 			ReloadAnimation(layer, tag);
 		}
+		
+		public AnimationComponent(string animationName, ColorSet set) {
+			name = animationName;
+			this.set = set;
+			
+			ReloadAnimation();
+		}
 
+		public void SetAutoStop(bool stop) {
+			Animation.AutoStop = stop;
+		}
+		
 		private void ReloadAnimation(string layer = null, string tag = null) {
-			var data = Animations.Get(name);
+			var data = set == null ? Animations.Get(name) : Animations.GetColored(name, set);
 
 			if (data != null) {
 				Animation = data.CreateAnimation(layer);

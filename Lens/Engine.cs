@@ -19,7 +19,8 @@ namespace Lens {
 		public static Matrix ScreenMatrix;
 		public static Matrix UiMatrix;
 		public static float Time;
-
+		
+		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
 		public GameState State { get; private set; }
 		public static Vector2 Viewport;
@@ -42,6 +43,9 @@ namespace Lens {
 			Instance = this;
 			tmpTitle = title;
 
+			Activated += OnActivated;
+			Deactivated += OnDeactivated;
+
 			Graphics = new GraphicsDeviceManager(this);
 			Graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
@@ -52,6 +56,16 @@ namespace Lens {
 			Assets.Content = Content;
 
 			newState = state;
+			
+			Counter = new FrameCounter();
+		}
+
+		private void OnActivated() {
+			State?.OnActivated();
+		}
+
+		private void OnDeactivated() {
+			State?.OnDeactivated();
 		}
 
 		protected override void LoadContent() {
@@ -102,7 +116,7 @@ namespace Lens {
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
 			Time += dt;
 			time += dt;
-			
+						
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;
 	
@@ -123,6 +137,8 @@ namespace Lens {
 
 				State?.Update(FixedUpdateTime);
 			}
+			
+			Counter.Update(dt);
 		}
 
 		public virtual void RenderUi() {

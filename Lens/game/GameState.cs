@@ -6,7 +6,43 @@ namespace Lens.game {
 
 		public Area Area = new Area();
 		public Area Ui = new Area();
+
+		private bool paused;
 		
+		public bool Paused {
+			get {
+				return paused;
+			}
+			
+			set {
+				if (paused != value) {
+					paused = value;
+
+					if (paused) {
+						OnPause();
+					} else {
+						OnResume();						
+					}
+				}
+			}
+		}
+
+		public virtual void OnActivated() {
+			
+		}
+
+		public virtual void OnDeactivated() {
+			
+		}
+
+		protected virtual void OnPause() {
+			
+		}
+
+		protected virtual void OnResume() {
+			
+		}
+
 		public virtual void Init() {
 			
 		}

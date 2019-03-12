@@ -46,7 +46,8 @@ namespace Lens.graphics.animation {
 				if (tag == value) {
 					return;
 				}
-				
+
+				currentFrame = 0;
 				tag = value;
 				Paused = false;
 				
@@ -74,6 +75,7 @@ namespace Lens.graphics.animation {
 						}
 
 						if (AutoStop && currentFrame >= EndFrame - StartFrame) {
+							currentFrame = EndFrame - StartFrame;
 							Paused = true;
 						}
 					

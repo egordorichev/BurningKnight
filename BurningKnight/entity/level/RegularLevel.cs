@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using BurningKnight.entity.level.builders;
-using BurningKnight.entity.level.painters;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
 using BurningKnight.entity.level.rooms.entrance;

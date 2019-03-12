@@ -1,4 +1,3 @@
-using BurningKnight.entity.level.painters;
 using BurningKnight.entity.level.rooms.connection;
 
 namespace BurningKnight.entity.level.rooms.secret {

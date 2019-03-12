@@ -1,5 +1,3 @@
-using BurningKnight.entity.level.painters;
-
 namespace BurningKnight.entity.level.rooms.regular {
 	public class RegularRoom : RoomDef {
 		public override void Paint(Level Level) {

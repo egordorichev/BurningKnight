@@ -94,11 +94,13 @@
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
+    <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
+    <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
@@ -167,6 +169,10 @@
     <Compile Include="entity\level\builders\SingleRoomBuilder.cs" />
     <Compile Include="entity\level\entities\Door.cs" />
     <Compile Include="entity\level\entities\Entrance.cs" />
+    <Compile Include="entity\level\entities\GoldLock.cs" />
+    <Compile Include="entity\level\entities\IronLock.cs" />
+    <Compile Include="entity\level\entities\Lock.cs" />
+    <Compile Include="entity\level\entities\LockableDoor.cs" />
     <Compile Include="entity\level\entities\Portal.cs" />
     <Compile Include="entity\level\entities\Prop.cs" />
     <Compile Include="entity\level\entities\SolidProp.cs" />
