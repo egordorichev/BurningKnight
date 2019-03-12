@@ -11,12 +11,14 @@ using Lens.game;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
+using Lens.util.tween;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState {
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
+		private float blur;
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -37,9 +39,16 @@ namespace BurningKnight.state {
 			base.Destroy();
 		}
 
+		protected override void OnPause() {
+			base.OnPause();
+			Tween.To(this, new {blur = 1}, 0.25f);
+		}
+
 		protected override void OnResume() {
 			base.OnResume();
 			pausedByMouseOut = false;
+
+			Tween.To(this, new {blur = 0}, 0.25f);
 		}
 
 		public override void OnActivated() {
@@ -60,6 +69,7 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
+			Shaders.Screen.Parameters["blur"].SetValue(blur);
 			
 			if (!Paused && !inside) {
 				Paused = true;
@@ -87,6 +97,10 @@ namespace BurningKnight.state {
 			base.RenderUi();
 			
 			Graphics.Print($"{Engine.Instance.Counter.AverageFramesPerSecond}", Font.Small, 1, 1);
+
+			if (Paused) {
+				Graphics.Print("Paused", Font.Medium, 1, 16);
+			}
 		}
 
 		private void SetupUi() {
