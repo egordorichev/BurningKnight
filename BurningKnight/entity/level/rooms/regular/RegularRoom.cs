@@ -3,6 +3,8 @@ namespace BurningKnight.entity.level.rooms.regular {
 		public override void Paint(Level Level) {
 			Painter.Fill(Level, this, Tiles.RandomWall());
 			Painter.Fill(Level, this, 1, Tiles.RandomFloor());
+			
+			Painter.Fill(Level, this, 3, Tile.Chasm);
 
 			foreach (var Door in Connected.Values) {
 				Door.Type = DoorPlaceholder.Variant.Enemy;

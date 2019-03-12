@@ -27,6 +27,7 @@ namespace BurningKnight.entity.level.entities {
 			Width = FacingSide ? H : W;
 			Height = FacingSide ? W : H;
 			Depth = Layers.Door;
+			AlwaysActive = true;
 			
 			AddComponent(new StateComponent());
 			GetComponent<StateComponent>().Become<ClosedState>();

@@ -208,7 +208,26 @@ namespace BurningKnight.entity.level {
 
 					if (tile > 0) {
 						if (t.Matches(TileFlags.FloorLayer)) {
-							Graphics.Render(t == Tile.Chasm ? Tilesets.Biome.ChasmPattern : Tileset.Tiles[tile][Variants[index]], new Vector2(x * 16, y * 16));
+							var pos = new Vector2(x * 16, y * 16);
+							var tt = Get(index - width);
+
+							Graphics.Render(t == Tile.Chasm ? Tilesets.Biome.ChasmPattern : Tileset.Tiles[tile][Variants[index]], pos);
+
+							if (t == Tile.Chasm && !tt.Matches(Tile.Chasm)) {
+								var ind = CalcWallIndex(x, y) % 4;
+								TextureRegion region;
+
+								switch (tt) {
+									case Tile.WallA: region = Tileset.WallA[ind]; break;
+									case Tile.FloorA: region = Tileset.FloorSidesA[ind]; break;
+									case Tile.FloorB: region = Tileset.FloorSidesB[ind]; break;
+									case Tile.FloorC: region = Tileset.FloorSidesC[ind]; break;
+									case Tile.FloorD: region = Tileset.FloorSidesD[ind]; break;
+									default: case Tile.WallB: region = Tileset.WallB[ind]; break;
+								}
+								
+								Graphics.Render(region, pos);
+							}
 						} else if (t.Matches(TileFlags.WallLayer) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
 							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8));
 						}

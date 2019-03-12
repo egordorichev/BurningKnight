@@ -93,6 +93,10 @@ namespace BurningKnight.entity.level {
 			if (t == Tile.Grass || t == Tile.HighGrass) {
 				return tt == Tile.Grass || tt == Tile.HighGrass;
 			}
+
+			if (t == Tile.Water) {
+				return tt == Tile.Water || tt == Tile.Chasm;
+			}
 			
 			return tile == to;
 		}
