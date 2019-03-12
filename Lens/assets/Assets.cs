@@ -21,7 +21,7 @@ namespace Lens.assets {
 			Graphics.Init();
 			LoadAssets();
 
-			if (LoadOriginalFiles) {				
+			if (false && LoadOriginalFiles) {				
 				folders = new[] {
 					"Textures/",
 					"Animations/",

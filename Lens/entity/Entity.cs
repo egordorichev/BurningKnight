@@ -21,7 +21,7 @@ namespace Lens.entity {
 		
 		#region Bounds and position
 
-		private Vector2 position;
+		protected Vector2 position;
 		public Vector2 Position {
 			get => position;
 			set {

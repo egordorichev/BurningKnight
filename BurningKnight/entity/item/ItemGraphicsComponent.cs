@@ -2,6 +2,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.util;
+using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -19,9 +20,13 @@ namespace BurningKnight.entity.item {
 			t += dt;
 		}
 
+		public Vector2 CalculatePosition() {
+			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
+		}
+
 		public override void Render() {
 			var origin = Sprite.Center;
-			var position = Entity.Position + origin + new Vector2(0, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -6);
+			var position = CalculatePosition();
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 				
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {

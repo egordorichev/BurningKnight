@@ -73,11 +73,17 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 
+		private void OnInteractionStart(Entity entity) {
+			Area.Add(new ItemPickupFx(this));
+		}
+
 		public virtual void AddDroppedComponents() {
 			var slice = GetComponent<ItemGraphicsComponent>().Sprite;			
 	
 			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, true));
-			AddComponent(new InteractableComponent(Interact));
+			AddComponent(new InteractableComponent(Interact) {
+				OnStart = OnInteractionStart
+			});
 		}
 
 		public virtual void RemoveDroppedComponents() {

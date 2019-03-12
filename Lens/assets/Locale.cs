@@ -26,7 +26,6 @@ namespace Lens.assets {
 					fallback[entry.Key] = entry.Value.AsString;
 				} else {
 					map[entry.Key] = entry.Value.AsString;
-					Log.Debug($"{entry.Key} = {entry.Value.AsString}");
 				}
 			}
 		}

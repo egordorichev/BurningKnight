@@ -12,9 +12,9 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.level.painters {
 	public class Painter {
 		private float Cobweb = 0.1f;
-		private float Dirt = 0.3f;
-		private float Grass = 0.3f;
-		private float Water = 0.3f;
+		private float Dirt = 0.5f;
+		private float Grass = 0.5f;
+		private float Water = 0.5f;
 
 		public Painter SetWater(float V) {
 			Water = V;
