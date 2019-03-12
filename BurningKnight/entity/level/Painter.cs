@@ -340,50 +340,14 @@ namespace BurningKnight.entity.level.painters {
 
 						if (door.FacingSide) {
 							door.Y -= 8;
-							door.X += 6;
+							door.X += 4;
 						}
 						
 						Level.Area.Add(door);
-						
-						/*var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor(D.X + 1, D.Y, TileFlags.Solid));
 
-						if (type == DoorPlaceholder.Variant.Regular) {
-							D.Type = type = DoorPlaceholder.Variant.Enemy;
-						}
-
-						//Door.AutoLock = type == DoorPlaceholder.Variant.Enemy || type == DoorPlaceholder.Variant.Boss;
-						//Door.Lock = type == DoorPlaceholder.Variant.Locked;
-
-						if (type == DoorPlaceholder.Variant.Locked) {
-							// Door.Key = KeyC.GetType();
-						} else if (type == DoorPlaceholder.Variant.Boss) {
-						//	Door.BkDoor = true;
-						}
-
-						//Door.Lockable = Door.Lock;
-						Level.Area.Add(Door);
-					}
-
-					if (type == DoorPlaceholder.Variant.Secret) {
+						Level.Set(D.X, D.Y, Tiles.RandomFloor());
+					} else if (type == DoorPlaceholder.Variant.Secret) {
 						Level.Set(D.X, D.Y, Tile.Crack);
-					} else {
-						var F = Tiles.RandomFloor();
-
-						for (var Yy = -1; Yy <= 1; Yy++) {
-							for (var Xx = -1; Xx <= 1; Xx++) {
-								if (Math.Abs(Xx) + Math.Abs(Yy) == 1) {
-									var Tl = Level.Get(D.X + Xx, D.Y + Yy);
-
-									if (!Tl.Matches(Tile.Wall, Tile.Crack, Tile.Chasm)) {
-										F = Tl;
-
-										break;
-									}
-								}
-							}
-						}*/
-
-						Level.Set(D.X, D.Y, /*F*/ Tiles.RandomFloor());
 					}
 				}
 			}

@@ -7,12 +7,13 @@ using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.level.entities {
 	public class Door : SaveableEntity {
 		private const float W = 16;
-		private const float H = 4;
+		private const float H = 8;
 		private const float CloseTimer = 1f;
 		
 		public bool FacingSide;
@@ -40,7 +41,10 @@ namespace BurningKnight.entity.level.entities {
 		public override void PostInit() {
 			base.PostInit();
 
-			SetGraphicsComponent(new AnimationComponent(FacingSide ? "side_door" : "regular_door"));
+			SetGraphicsComponent(new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
+				Offset = new Vector2(-2, 0)
+			});
+			
 			AddComponent(new RectBodyComponent(0, 0, FacingSide ? H : W, FacingSide ? W : H, BodyType.Static, true));
 		}
 
