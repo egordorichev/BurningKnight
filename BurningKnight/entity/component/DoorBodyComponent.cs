@@ -11,12 +11,12 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			var sensor = GetComponent<LockComponent>().Lock.IsLocked;
+			var sensor = !GetComponent<LockComponent>().Lock.IsLocked;
 			
-			if (sensor != lastReading) {
+			//if (sensor != lastReading) {
 				lastReading = sensor;
-				// Body.IsSensor = sensor;
-			}
+				Body.IsSensor = sensor;
+			//}
 		}
 	}
 }

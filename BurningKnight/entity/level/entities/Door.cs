@@ -50,7 +50,7 @@ namespace BurningKnight.entity.level.entities {
 			};
 			
 			SetGraphicsComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -21, Width + 4, Height + 4, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
