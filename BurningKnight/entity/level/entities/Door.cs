@@ -13,7 +13,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.level.entities {
 	public class Door : SaveableEntity {
 		private const float W = 16;
-		private const float H = 8;
+		private const float H = 6;
 		private const float CloseTimer = 1f;
 		
 		public bool FacingSide;
@@ -26,6 +26,8 @@ namespace BurningKnight.entity.level.entities {
 			
 			AddComponent(new StateComponent());
 			GetComponent<StateComponent>().Become<ClosedState>();
+
+			Depth = Layers.Door;
 		}
 
 		public override void Load(FileReader stream) {
@@ -41,9 +43,11 @@ namespace BurningKnight.entity.level.entities {
 		public override void PostInit() {
 			base.PostInit();
 
-			SetGraphicsComponent(new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
-				Offset = new Vector2(-2, 0)
-			});
+			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
+				Offset = new Vector2(FacingSide ? -1 : -2, 0)
+			};
+			
+			SetGraphicsComponent(animation);
 			
 			AddComponent(new RectBodyComponent(0, 0, FacingSide ? H : W, FacingSide ? W : H, BodyType.Static, true));
 		}
@@ -88,10 +92,20 @@ namespace BurningKnight.entity.level.entities {
 		}
 
 		public class ClosingState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<AnimationComponent>().Animation.AutoStop = true;
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<AnimationComponent>().Animation.AutoStop = false;
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.05f && Self.GetComponent<AnimationComponent>().Animation.Frame == 0) {
+				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {
 					Self.GetComponent<StateComponent>().Become<ClosedState>();
 				}
 			}
@@ -102,10 +116,20 @@ namespace BurningKnight.entity.level.entities {
 		}
 
 		public class OpeningState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<AnimationComponent>().Animation.AutoStop = true;
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<AnimationComponent>().Animation.AutoStop = false;
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				if (T >= 0.05f && Self.GetComponent<AnimationComponent>().Animation.Frame == 0) {
+				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {
 					Self.GetComponent<StateComponent>().Become<OpenState>();
 				}
 			}

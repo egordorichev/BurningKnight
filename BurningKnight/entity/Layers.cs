@@ -4,7 +4,8 @@
 		public const int Blood = -2;
 		public const int Liquid = -1;
 		public const int Creature = 0;
-		public const int Wall = 1;
+		public const int Door = 1;
+		public const int Wall = 2;
 
 		public const int Ui = 10;
 		public const int Console = 11;

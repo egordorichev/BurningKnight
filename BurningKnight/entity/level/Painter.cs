@@ -340,7 +340,7 @@ namespace BurningKnight.entity.level.painters {
 
 						if (door.FacingSide) {
 							door.Y -= 8;
-							door.X += 4;
+							door.X += 5;
 						}
 						
 						Level.Area.Add(door);

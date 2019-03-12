@@ -9,12 +9,14 @@ namespace Lens.graphics.animation {
 		public AnimationCallback OnEnd;
 		
 		private AnimationFrame frame;
+		
 		private uint currentFrame;
 		public uint StartFrame { get; private set; }
 		public uint EndFrame { get; private set; }
 		
 		public float SpeedModifier = 1f;
 		public bool Paused;
+		public bool AutoStop;
 
 		public uint Frame {
 			get => currentFrame;
@@ -46,6 +48,8 @@ namespace Lens.graphics.animation {
 				}
 				
 				tag = value;
+				Paused = false;
+				
 				ReadFrame();
 			}
 		}
@@ -60,14 +64,23 @@ namespace Lens.graphics.animation {
 
 				if (timer >= frame.Duration) {
 					timer = 0;
-					Frame++;
 
-					if (SkipNextFrame) {
-						SkipNextFrame = false;
+					if (!AutoStop || currentFrame < EndFrame - StartFrame) {
 						Frame++;
-					}
 					
-					ReadFrame();
+						if (SkipNextFrame) {
+							SkipNextFrame = false;
+							Frame++;
+						}
+
+						if (AutoStop && currentFrame >= EndFrame - StartFrame) {
+							Paused = true;
+						}
+					
+						ReadFrame();	
+					} else {
+						Paused = true;
+					}
 				}
 			}
 		}
@@ -110,18 +123,18 @@ namespace Lens.graphics.animation {
 		}
 
 		private void ReadFrame() {
-			var nullableTag = Data.GetTag(this.tag);
+			var nullableTag = Data.GetTag(tag);
 
 			if (nullableTag == null) {
 				return;
 			}
 
-			var tag = nullableTag.Value;
+			var currentTag = nullableTag.Value;
 
-			StartFrame = tag.StartFrame;
-			EndFrame = tag.EndFrame;
+			StartFrame = currentTag.StartFrame;
+			EndFrame = currentTag.EndFrame;
 			
-			var frame = Data.GetFrame(layer, tag.Direction.GetFrameId(this));
+			var frame = Data.GetFrame(layer, currentTag.Direction.GetFrameId(this));
 
 			if (frame != null) {
 				this.frame = (AnimationFrame) frame;
