@@ -10,7 +10,7 @@ namespace BurningKnight.entity.level.entities {
 			base.PostInit();
 			
 			AddComponent(new LockComponent(this, CreateLock(), new Vector2(0, FacingSide ? 0 : 3)));
-			AddComponent(new DoorBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+			AddComponent(new DoorBodyComponent(0, FacingSide ? 0 : -8, Width, Height, BodyType.Static, true));
 		}
 
 		protected virtual Lock CreateLock() {
@@ -19,6 +19,10 @@ namespace BurningKnight.entity.level.entities {
 
 		public bool ShouldCollide(Entity entity) {
 			return !(entity is Door);
+		}
+
+		protected override bool CanOpen() {
+			return !GetComponent<LockComponent>().Lock.IsLocked;
 		}
 	}
 }

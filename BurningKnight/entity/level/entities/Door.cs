@@ -50,7 +50,7 @@ namespace BurningKnight.entity.level.entities {
 			};
 			
 			SetGraphicsComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -2 - (FacingSide ? 0 : 8), Width + 4, Height + 4, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.level.entities {
 				if (start.Entity is Creature) {
 					colliding.Add(start.Entity);
 
-					if (colliding.Count == 1) {
+					if (colliding.Count >= 1 && CanOpen()) {
 						GetComponent<StateComponent>().Become<OpeningState>();	
 					}
 				}
@@ -73,6 +73,10 @@ namespace BurningKnight.entity.level.entities {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		protected virtual bool CanOpen() {
+			return true;
 		}
 
 		public override void Update(float dt) {

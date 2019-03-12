@@ -8,15 +8,20 @@ namespace BurningKnight.entity.component {
 			
 		}
 
+		public override void Init() {
+			base.Init();
+			Body.IsSensor = !GetComponent<LockComponent>().Lock.IsLocked;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			var sensor = !GetComponent<LockComponent>().Lock.IsLocked;
 			
-			//if (sensor != lastReading) {
+			if (sensor != lastReading) {
 				lastReading = sensor;
 				Body.IsSensor = sensor;
-			//}
+			}
 		}
 	}
 }
