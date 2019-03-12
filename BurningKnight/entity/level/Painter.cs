@@ -328,10 +328,23 @@ namespace BurningKnight.entity.level.painters {
 					var T = Level.Get(D.X, D.Y);
 					var type = D.Type;
 
-					var Gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze &&
+					var gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze &&
 					         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
-					if (Gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
+					if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
+						var door = new Door();
+
+						door.X = D.X * 16;
+						door.Y = D.Y * 16;
+						door.FacingSide = Level.Get(D.X, D.Y + 1).Matches(TileFlags.Solid);
+
+						if (door.FacingSide) {
+							door.Y -= 8;
+							door.X += 6;
+						}
+						
+						Level.Area.Add(door);
+						
 						/*var Door = new Door((int) D.X, (int) D.Y, !Level.CheckFor(D.X + 1, D.Y, TileFlags.Solid));
 
 						if (type == DoorPlaceholder.Variant.Regular) {

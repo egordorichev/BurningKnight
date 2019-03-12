@@ -35,6 +35,10 @@ namespace BurningKnight.entity.component {
 					Body.Position = Entity.Position;
 				}
 			};
+
+			if (Body != null) {
+				Body.Position = Entity.Position;
+			}
 		}
 
 		public override void Destroy() {

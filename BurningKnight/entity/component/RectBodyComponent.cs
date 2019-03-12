@@ -19,7 +19,7 @@ namespace BurningKnight.entity.component {
 
 			FixtureFactory.AttachPolygon(new Vertices(4) {
 				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)
-			}, 1f, Body);
+			}, 1f, Body).IsSensor = sensor;
 		}
 	}
 }

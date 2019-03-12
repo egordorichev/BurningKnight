@@ -6,6 +6,8 @@ using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
+using Lens.util.file;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.level.entities {
 	public class Door : SaveableEntity {
@@ -16,16 +18,30 @@ namespace BurningKnight.entity.level.entities {
 		public bool FacingSide;
 
 		private List<Entity> colliding = new List<Entity>();
-		private float LastCollisionTimer;
+		private float lastCollisionTimer;
 		
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new RectBodyComponent(0, 0, FacingSide ? H : W, FacingSide ? W : H));
-			AddComponent(new AnimationComponent(FacingSide ? "side_door" : "regular_door"));
 			AddComponent(new StateComponent());
-			
 			GetComponent<StateComponent>().Become<ClosedState>();
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			FacingSide = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(FacingSide);
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			SetGraphicsComponent(new AnimationComponent(FacingSide ? "side_door" : "regular_door"));
+			AddComponent(new RectBodyComponent(0, 0, FacingSide ? H : W, FacingSide ? W : H, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -42,7 +58,7 @@ namespace BurningKnight.entity.level.entities {
 					colliding.Remove(end.Entity);
 					
 					if (colliding.Count == 0) {
-						LastCollisionTimer = CloseTimer;
+						lastCollisionTimer = CloseTimer;
 					}
 				}
 			}
@@ -55,9 +71,9 @@ namespace BurningKnight.entity.level.entities {
 			var state = GetComponent<StateComponent>();
 			
 			if (state.StateInstance is OpenState && colliding.Count == 0) {
-				LastCollisionTimer -= dt;
+				lastCollisionTimer -= dt;
 
-				if (LastCollisionTimer <= 0) {
+				if (lastCollisionTimer <= 0) {
 					state.Become<ClosingState>();
 				}
 			}
@@ -68,7 +84,13 @@ namespace BurningKnight.entity.level.entities {
 		}
 
 		public class ClosingState : EntityState {
-			// fixme: figure out a way to find when animation is ended and go to close state
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 0.05f && Self.GetComponent<AnimationComponent>().Animation.Frame == 0) {
+					Self.GetComponent<StateComponent>().Become<ClosedState>();
+				}
+			}
 		}
 
 		public class OpenState : EntityState {
@@ -76,7 +98,13 @@ namespace BurningKnight.entity.level.entities {
 		}
 
 		public class OpeningState : EntityState {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (T >= 0.05f && Self.GetComponent<AnimationComponent>().Animation.Frame == 0) {
+					Self.GetComponent<StateComponent>().Become<OpenState>();
+				}
+			}
 		}
 	}
 }
