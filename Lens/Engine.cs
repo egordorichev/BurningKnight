@@ -43,9 +43,6 @@ namespace Lens {
 			Instance = this;
 			tmpTitle = title;
 
-			Activated += OnActivated;
-			Deactivated += OnDeactivated;
-
 			Graphics = new GraphicsDeviceManager(this);
 			Graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
@@ -60,11 +57,13 @@ namespace Lens {
 			Counter = new FrameCounter();
 		}
 
-		private void OnActivated() {
+		protected override void OnActivated(object sender, EventArgs args) {
+			base.OnActivated(sender, args);
 			State?.OnActivated();
 		}
 
-		private void OnDeactivated() {
+		protected override void OnDeactivated(object sender, EventArgs args) {
+			base.OnDeactivated(sender, args);
 			State?.OnDeactivated();
 		}
 
