@@ -16,7 +16,6 @@ namespace BurningKnight.entity.fx {
 		private float angle;
 		private float angleSpeed;
 		private float speed;
-		private float amplitude;
 		private float t;
 		private Vector2 scale;
 		private Color color;
@@ -37,7 +36,7 @@ namespace BurningKnight.entity.fx {
 		}
 
 		private void Reset() {
-			delay = Random.Float(0, 3f);
+			delay = Random.Float(0, 5f);
 			speed = Random.Float(1f, 3f) * 40;
 			angle = Random.AnglePI();
 			angleSpeed = Random.Float(1f, 8f);
@@ -45,13 +44,13 @@ namespace BurningKnight.entity.fx {
 			t = 0;
 			
 			float v = Random.Float(0.5f, 1f);
-			color = new Color(v, v, v, Random.Float(0.2f, 0.9f));
+			color = new Color(v, v, v, Random.Float(0.1f, 0.7f));
 
 			var wind = CalculateWind();
 			var a = wind.ToAngle() - Math.PI / 2;
 			var w = -Display.Width;
 			var d = Random.Float(-w / 2, w / 2);
-			
+
 			Position = Camera.Instance.Position + wind * w;
 			X += (float) Math.Cos(a) * d;
 			Y += (float) Math.Sin(a) * d;
@@ -67,10 +66,10 @@ namespace BurningKnight.entity.fx {
 				return;
 			}
 
-			// todo: amplitude
 			t += dt;
 			
 			var w = CalculateWindSpeed();
+			
 			Position += CalculateWind() * (dt * speed * w);
 			angle += angleSpeed * dt * w;
 
@@ -93,7 +92,7 @@ namespace BurningKnight.entity.fx {
 
 		private static Vector2 CalculateWind() {
 			float t = Engine.Time * 0.1f;
-			double a = Math.Cos(t);
+			double a = Math.Cos(t) * Math.Sin(t * 1.3f) + Math.Cos(t * 1.5f);
 			
 			return new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 		}
