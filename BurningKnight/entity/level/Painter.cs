@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.door;
 using BurningKnight.entity.level.entities;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.state;

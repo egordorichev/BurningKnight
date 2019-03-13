@@ -4,7 +4,7 @@ using Lens.entity;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
-namespace BurningKnight.entity.level.entities {
+namespace BurningKnight.entity.door {
 	public class LockableDoor : Door, CollisionFilterEntity {
 		public override void PostInit() {
 			base.PostInit();

@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.level.entities;
+﻿using BurningKnight.entity.door;
+using BurningKnight.entity.level.entities;
 using Lens.entity;
 using Lens.entity.component;
 using Microsoft.Xna.Framework;

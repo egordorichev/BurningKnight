@@ -8,7 +8,8 @@
 		
 		public const int Lock = 2;
 		public const int Wall = 3;
-
+		public const int WindFx = 4;
+		
 		public const int Ui = 10;
 		public const int Console = 11;
 		public const int Cursor = 12;

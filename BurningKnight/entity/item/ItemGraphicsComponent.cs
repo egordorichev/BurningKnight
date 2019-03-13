@@ -11,7 +11,7 @@ namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
 		private float t;
 		
-		public ItemGraphicsComponent(string image, string slice) : base(image, slice) {
+		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
 			
 		}
 

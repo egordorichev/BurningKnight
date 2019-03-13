@@ -1,6 +1,7 @@
 ﻿using BurningKnight.assets;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.ui;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -27,6 +28,10 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 			SetupUi();
+
+			for (int i = 0; i < 10; i++) {
+				Area.Add(new WindFx());
+			}			
 		}
 
 		public override void Destroy() {

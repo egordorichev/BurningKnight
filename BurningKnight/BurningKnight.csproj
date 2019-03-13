@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\Mod.cs" />
     <Compile Include="assets\Mods.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
+    <Compile Include="entity\chest\Chest.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
@@ -124,6 +126,11 @@
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
     <Compile Include="entity\Cursor.cs" />
+    <Compile Include="entity\door\Door.cs" />
+    <Compile Include="entity\door\GoldLock.cs" />
+    <Compile Include="entity\door\IronLock.cs" />
+    <Compile Include="entity\door\Lock.cs" />
+    <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
@@ -137,6 +144,7 @@
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\fx\WindFx.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
@@ -167,12 +175,7 @@
     <Compile Include="entity\level\builders\LoopBuilder.cs" />
     <Compile Include="entity\level\builders\RegularBuilder.cs" />
     <Compile Include="entity\level\builders\SingleRoomBuilder.cs" />
-    <Compile Include="entity\level\entities\Door.cs" />
     <Compile Include="entity\level\entities\Entrance.cs" />
-    <Compile Include="entity\level\entities\GoldLock.cs" />
-    <Compile Include="entity\level\entities\IronLock.cs" />
-    <Compile Include="entity\level\entities\Lock.cs" />
-    <Compile Include="entity\level\entities\LockableDoor.cs" />
     <Compile Include="entity\level\entities\Portal.cs" />
     <Compile Include="entity\level\entities\Prop.cs" />
     <Compile Include="entity\level\entities\SolidProp.cs" />

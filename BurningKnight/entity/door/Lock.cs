@@ -4,7 +4,7 @@ using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics.animation;
 
-namespace BurningKnight.entity.level.entities {
+namespace BurningKnight.entity.door {
 	public class Lock : Entity {
 		public bool IsLocked { get; protected set; }
 		

@@ -1,7 +1,7 @@
 ﻿using BurningKnight.entity.creature.player;
 using Lens.entity;
 
-namespace BurningKnight.entity.level.entities {
+namespace BurningKnight.entity.door {
 	public class GoldLock : Lock {
 		protected override bool TryToConsumeKey(Entity entity) {
 			if (!entity.TryGetComponent<ConsumablesComponent>(out var component)) {

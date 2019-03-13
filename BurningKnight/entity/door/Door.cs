@@ -10,7 +10,7 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
-namespace BurningKnight.entity.level.entities {
+namespace BurningKnight.entity.door {
 	public class Door : SaveableEntity {
 		private const float W = 16;
 		private const float H = 6;

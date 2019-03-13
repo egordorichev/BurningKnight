@@ -1,7 +1,7 @@
 ﻿using BurningKnight.entity.component;
 using Lens.entity.component.logic;
 
-namespace BurningKnight.entity.level.entities {
+namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
 		protected override bool Disposable() {
 			return false;
