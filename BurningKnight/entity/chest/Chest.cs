@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.util.file;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.chest {
 	public class Chest : SaveableEntity {
@@ -61,6 +61,8 @@ namespace BurningKnight.entity.chest {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AddComponent(new RectBodyComponent(0, 0, 16, 16, BodyType.Static));
+			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract
 			});			
