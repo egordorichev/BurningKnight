@@ -62,7 +62,9 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public virtual bool CanInteract(Entity e) {
-			return e.HasComponent(typeof(InteractableComponent));
+			return e.TryGetComponent<InteractableComponent>(out var component)
+				? (component.CanInteract == null ? true : component.CanInteract())
+				: false;
 		}
 	}
 }
