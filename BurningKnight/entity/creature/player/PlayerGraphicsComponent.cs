@@ -3,9 +3,11 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.graphics.animation;
 using Lens.input;
 using Lens.util.camera;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : GraphicsComponent {
@@ -35,10 +37,10 @@ namespace BurningKnight.entity.creature.player {
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 					
 			weapon.Render();
-			
+
 			Head.Render(Entity.Position + Offset, Flipped);
 			Body.Render(Entity.Position + Offset, Flipped);
-
+			
 			activeWeapon.Render();
 		}
 

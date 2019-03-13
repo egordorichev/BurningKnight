@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Lens.graphics.gamerenderer {
 	public class GameRenderer {
 		public SpriteSortMode SpriteSortMode = SpriteSortMode.Immediate;
-		public BlendState BlendState = BlendState.AlphaBlend;
+		public BlendState BlendState = BlendState.NonPremultiplied;
 		public SamplerState SamplerState = SamplerState.PointClamp;
 		public DepthStencilState DepthStencilState = DepthStencilState.None;
 		public RasterizerState DefaultRasterizerState = RasterizerState.CullNone;

@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -10,6 +11,7 @@ using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level {
 	public abstract class Level : SaveableEntity {
@@ -212,6 +214,12 @@ namespace BurningKnight.entity.level {
 
 							if (t == Tile.Chasm) {
 								Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
+
+								if (Random.Chance(0.1f)) {
+									Area.Add(new ChasmFx {
+										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
+									});
+								}
 								
 								var tt = Get(index - width);
 

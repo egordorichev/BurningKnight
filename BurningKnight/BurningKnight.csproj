@@ -144,6 +144,7 @@
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />

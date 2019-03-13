@@ -37,14 +37,14 @@ namespace BurningKnight.entity.fx {
 
 		private void Reset() {
 			delay = Random.Float(0, 5f);
-			speed = Random.Float(1f, 3f) * 40;
+			speed = Random.Float(1f, 3f) * 20;
 			angle = Random.AnglePI();
 			angleSpeed = Random.Float(1f, 8f);
 			scale = new Vector2(Random.Float(0.05f, 0.3f));
 			t = 0;
 			
 			float v = Random.Float(0.5f, 1f);
-			color = new Color(v, v, v, Random.Float(0.1f, 0.7f));
+			color = new Color(v, v, v, Random.Float(0.2f, 0.7f));
 
 			var wind = CalculateWind();
 			var a = wind.ToAngle() - Math.PI / 2;
