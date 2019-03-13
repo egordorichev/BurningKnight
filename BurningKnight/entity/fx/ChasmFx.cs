@@ -29,7 +29,7 @@ namespace BurningKnight.entity.fx {
 			color = new Color(v, v, v, 0);
 			scale = new Vector2(Random.Float(0.15f, 0.3f));
 			targetAlpha = (byte) Random.Int(32, 150);
-			life = Random.Float(0.5f, 2f);
+			life = Random.Float(1f, 3f);
 			vx = Random.Float(-1f, 1f) * 5;
 			vy = Random.Float(0.5f, 2f) * -5;
 		}
@@ -44,10 +44,10 @@ namespace BurningKnight.entity.fx {
 
 			if (t < life - 0.5f) {
 				if (color.A < targetAlpha) {
-					color.A += (byte) (dt * 60);
+					color.A += (byte) (dt * 20 * targetAlpha);
 				}
 			} else {
-				color.A -= (byte) (dt * 60);
+				color.A -= (byte) (dt * 5 * targetAlpha);
 
 				if (color.A <= 0) {
 					Done = true;

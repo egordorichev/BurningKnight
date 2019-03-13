@@ -21,6 +21,7 @@ namespace BurningKnight.entity.fx {
 		private Color color;
 		private float delay;
 		private bool overlapped;
+		private Vector2 velocity;
 		
 		public override void Init() {
 			base.Init();
@@ -44,11 +45,11 @@ namespace BurningKnight.entity.fx {
 			t = 0;
 			
 			float v = Random.Float(0.5f, 1f);
-			color = new Color(v, v, v, Random.Float(0.2f, 0.7f));
+			color = new Color(v, v, v, Random.Float(0.4f, 0.9f));
 
 			var wind = CalculateWind();
 			var a = wind.ToAngle() - Math.PI / 2;
-			var w = -Display.Width;
+			var w = Display.Width * -0.75f;
 			var d = Random.Float(-w / 2, w / 2);
 
 			Position = Camera.Instance.Position + wind * w;
@@ -56,6 +57,7 @@ namespace BurningKnight.entity.fx {
 			Y += (float) Math.Sin(a) * d;
 				
 			overlapped = false;
+			velocity = wind;
 		}
 
 		public override void Update(float dt) {
@@ -69,8 +71,13 @@ namespace BurningKnight.entity.fx {
 			t += dt;
 			
 			var w = CalculateWindSpeed();
-			
-			Position += CalculateWind() * (dt * speed * w);
+
+			if (overlapped) {
+				Position += CalculateWind() * (dt * speed * w);
+			} else {
+				Position += velocity * (dt * speed);
+			}
+
 			angle += angleSpeed * dt * w;
 
 			var overlaps = Camera.Instance.Overlaps(this);
@@ -79,7 +86,7 @@ namespace BurningKnight.entity.fx {
 				overlapped = true;
 			} else if (overlapped) {
 				Reset();
-			} else if (t > 5f) {
+			} else if (t > 3f) {
 				Reset();
 			}
 		}
