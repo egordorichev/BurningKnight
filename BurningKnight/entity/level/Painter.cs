@@ -15,7 +15,7 @@ namespace BurningKnight.entity.level {
 		private float Cobweb = 0.1f;
 		private float Dirt = 0.5f;
 		private float Grass = 0.5f;
-		private float Water = 0.5f;
+		private float Water = 1f;
 
 		public Painter SetWater(float V) {
 			Water = V;
@@ -139,6 +139,8 @@ namespace BurningKnight.entity.level {
 			PathFinder.SetMapSize(Level.Width, Level.Height);
 
 			if (Run.Depth > -1) {
+				PaintWater(Level, Rooms);
+				/*
 				if (Dirt > 0) {
 					PaintDirt(Level, Rooms);
 				}
@@ -153,7 +155,7 @@ namespace BurningKnight.entity.level {
 
 				if (Water > 0) {
 					PaintWater(Level, Rooms);
-				}
+				}*/
 			}
 
 			Decorate(Level, Rooms);

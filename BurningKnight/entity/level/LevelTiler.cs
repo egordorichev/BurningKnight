@@ -19,7 +19,7 @@ namespace BurningKnight.entity.level {
 				var m = PathFinder.Circle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(n) || ShouldTile(liquid, level.Liquid[n])) {
+				if (!level.IsInside(n) || ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
 					lmask |= (byte) (1 << i);
 				}
 			}
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.level {
 				var m = PathFinder.Circle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n])) {
+				if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 					mask |= (byte) (1 << i);
 				}
 			}
@@ -73,7 +73,7 @@ namespace BurningKnight.entity.level {
 					var m = PathFinder.Corner[i];
 					var n = index + m;
 				
-					if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n])) {
+					if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 						mask |= (byte) (1 << (4 + i));
 					}
 				}
@@ -82,20 +82,21 @@ namespace BurningKnight.entity.level {
 			level.Variants[index] = mask;
 		}
 
-		public static bool ShouldTile(byte tile, byte to) {
+		public static bool ShouldTile(byte tile, byte to, byte l) {
 			var t = (Tile) tile;
 			var tt = (Tile) to;
+			var ll = (Tile) l;
 
 			if (t == Tile.WallA || t == Tile.WallB) {
 				return tt == Tile.WallA || tt == Tile.WallB;
 			}
 
 			if (t == Tile.Grass || t == Tile.HighGrass) {
-				return tt == Tile.Grass || tt == Tile.HighGrass;
+				return ll == Tile.Grass || ll == Tile.HighGrass;
 			}
 
 			if (t == Tile.Water) {
-				return tt == Tile.Water || tt == Tile.Chasm;
+				return ll == Tile.Water || tt == Tile.Chasm || tt == Tile.WallA || tt == Tile.WallB;
 			}
 			
 			return tile == to;

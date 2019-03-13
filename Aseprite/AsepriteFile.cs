@@ -281,8 +281,8 @@ namespace Aseprite {
 
 							for (int c = 0; c < (end - start); c++) {
 								var hasName = Calc.IsBitSet(WORD(), 0);
-								palette[start + c] = Color.FromNonPremultiplied(BYTE(), BYTE(), BYTE(), BYTE());
-
+								palette[start + c] = new Color(BYTE(), BYTE(), BYTE(), BYTE());
+								
 								if (hasName) {
 									STRING(); // Color name
 								}
@@ -297,7 +297,7 @@ namespace Aseprite {
 									lastUserData.UserDataText = STRING();
 								}
 								else if (Calc.IsBitSet(flags, 1)) {
-									lastUserData.UserDataColor = Color.FromNonPremultiplied(BYTE(), BYTE(), BYTE(), BYTE());
+									lastUserData.UserDataColor = new Color(BYTE(), BYTE(), BYTE(), BYTE());
 								}
 							}
 						} else if (chunkType == Chunks.FrameTags) {
@@ -313,7 +313,7 @@ namespace Aseprite {
 								tag.To = WORD();
 								tag.LoopDirection = (AsepriteTag.LoopDirections) BYTE();
 								SEEK(8);
-								tag.Color = Color.FromNonPremultiplied(BYTE(), BYTE(), BYTE(), 255);
+								tag.Color = new Color(BYTE(), BYTE(), BYTE(), (byte) 255);
 								SEEK(1);
 								tag.Name = STRING();
 

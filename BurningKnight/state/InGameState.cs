@@ -88,7 +88,7 @@ namespace BurningKnight.state {
 				base.Update(dt);
 
 				if (Input.WasPressed(Controls.Pause)) {
-					Paused = true;
+					Paused = !Paused;
 				}
 			}
 		}

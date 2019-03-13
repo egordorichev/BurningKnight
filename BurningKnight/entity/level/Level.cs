@@ -5,6 +5,7 @@ using BurningKnight.entity.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
@@ -198,6 +199,8 @@ namespace BurningKnight.entity.level {
 		public override void Render() {
 			var camera = Camera.Instance;
 
+			bool paused = ((InGameState) Engine.Instance.State).Paused;
+			
 			// Cache the condition
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderTop(camera);
@@ -215,7 +218,7 @@ namespace BurningKnight.entity.level {
 							if (t == Tile.Chasm) {
 								Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 
-								if (Random.Chance(0.1f)) {
+								if (!paused && Random.Chance(0.3f)) {
 									Area.Add(new ChasmFx {
 										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
 									});
@@ -275,6 +278,8 @@ namespace BurningKnight.entity.level {
 			var shader = Shaders.Terrain;
 			
 			Shaders.Begin(shader);
+
+			bool paused = ((InGameState) Engine.Instance.State).Paused;
 			
 			var enabled = shader.Parameters["enabled"];
 			var tilePosition = shader.Parameters["tilePosition"];
@@ -296,7 +301,9 @@ namespace BurningKnight.entity.level {
 
 						var pos = new Vector2(x * 16, y * 16);
 
-						if (!((Tile) tile).Matches(Tile.Ember, Tile.Chasm)) {				
+						var t = (Tile) tile;
+						
+						if (!t.Matches(Tile.Ember, Tile.Chasm)) {				
 							var edge = Tilesets.Biome.Edges[tile][LiquidVariants[index]];
 
 							edgePosition.SetValue(new Vector2(
@@ -310,23 +317,36 @@ namespace BurningKnight.entity.level {
 							));
 							
 							Graphics.Render(region, pos);
+
+							if (!paused && t == Tile.Water && Get(index + width) == Tile.Chasm && Random.Chance(5)) {
+								Area.Add(new WaterfallFx {
+									Position = pos + new Vector2(Random.Float(16), 16)
+								});
+							}
 						} else {
 							enabled.SetValue(false);
 							Graphics.Render(region, pos);
 							enabled.SetValue(true);
 						}
 					}
+				}
+			}
 
-					if (Get(x, y) == Tile.Chasm) {
+
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+					
+					if (Get(index) == Tile.Chasm) {
 						enabled.SetValue(false);
 						
 						if (Get(index + width) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcWallTopIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
 						}
 
-						if (Get(index - width) != Tile.Chasm) {
+						/*if (Get(index - width) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmTop[CalcWallTopIndex(x, y - 1)], new Vector2(x * 16, y * 16 - 16));
-						}
+						}*/
 								
 						if (Get(index + 1) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmRight[CalcWallTopIndex(x + 1, y)], new Vector2(x * 16 + 16, y * 16));
@@ -342,7 +362,6 @@ namespace BurningKnight.entity.level {
 			}
 
 			Shaders.End();
-
 			return true;
 		}
 		

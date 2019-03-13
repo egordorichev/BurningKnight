@@ -77,6 +77,7 @@ namespace Lens.assets {
 				animation.Tags[tag.Name] = newTag;
 			}
 
+
 			animation.Texture = file.Texture;
 			animations[name] = animation;
 		}

@@ -1,8 +1,9 @@
+using System;
 using BurningKnight.assets;
 using Lens.entity;
 using Lens.graphics;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class ChasmFx : Entity {
@@ -28,7 +29,7 @@ namespace BurningKnight.entity.fx {
 			var v = Random.Float(0.5f, 1f);
 			color = new Color(v, v, v, 0);
 			scale = new Vector2(Random.Float(0.15f, 0.3f));
-			targetAlpha = (byte) Random.Int(32, 150);
+			targetAlpha = (byte) Random.Int(120, 255);
 			life = Random.Float(1f, 3f);
 			vx = Random.Float(-1f, 1f) * 5;
 			vy = Random.Float(0.5f, 2f) * -5;
@@ -44,10 +45,10 @@ namespace BurningKnight.entity.fx {
 
 			if (t < life - 0.5f) {
 				if (color.A < targetAlpha) {
-					color.A += (byte) (dt * 20 * targetAlpha);
+					color.A = (byte) Math.Min(targetAlpha, dt * 20 * targetAlpha + color.A);
 				}
 			} else {
-				color.A -= (byte) (dt * 5 * targetAlpha);
+				color.A = (byte) Math.Max(0, color.A - dt * 5 * targetAlpha);
 
 				if (color.A <= 0) {
 					Done = true;
