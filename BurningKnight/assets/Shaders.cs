@@ -7,11 +7,13 @@ namespace BurningKnight.assets {
 		public static Effect Entity;
 		public static Effect Terrain;
 		public static Effect Screen;
+		public static Effect Fog;
 		
 		public static void Load() {
 			Entity = Effects.Get("entity");
 			Terrain = Effects.Get("terrain");
 			Screen = Effects.Get("screen");
+			Fog = Effects.Get("fog");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
 		}

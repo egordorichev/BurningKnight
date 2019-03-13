@@ -16,33 +16,28 @@ struct VertexShaderOutput {
 Texture2D SpriteTexture;
 sampler s0;
 
-bool enabled;
-float2 tilePosition;
-float2 edgePosition;
-float flow;
 float time;
+float cx;
+float cy;
+float tx;
+float ty;
+
+#define mod(x,y) (x-y*floor(x/y))
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
 };
 
 float4 MainPS(VertexShaderOutput input) : COLOR {
-	float4 color = tex2D(s0, input.TextureCoordinates);
-
-	if (enabled == true) {
-		float4 mask = tex2D(s0, float2(
-			input.TextureCoordinates.x - tilePosition.x + edgePosition.x, 
-			input.TextureCoordinates.y - tilePosition.y + edgePosition.y
-		));
-		
-		if (mask.r == 1 && mask.g == 0 && mask.b == 0 && mask.a == 1) {
-			return color;
-		}
-		
-		return mask;
-	}
-
-	return color;
+  float v = (tex2D(s0, float2(
+    mod(input.TextureCoordinates.x + cx + tx * time, 1.0), 
+    mod(input.TextureCoordinates.y + cy + ty * time, 1.0)
+  )).r * cos(time * 100.0 + tex2D(s0, float2(
+    mod(input.TextureCoordinates.x + cx, 2.0) * 0.5,
+    mod(input.TextureCoordinates.y + cy, 2.0) * 0.5
+  )).r * 10.0) * 0.5 + 0.5) * smoothstep(0.75f, 0.3f, length(input.TextureCoordinates - float2(0.5f, 0.5f)));
+      
+  return float4(v, v, v, 0.4f);
 }
 
 technique SpriteDrawing {

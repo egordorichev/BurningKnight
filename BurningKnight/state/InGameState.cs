@@ -7,6 +7,7 @@ using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
@@ -20,6 +21,8 @@ namespace BurningKnight.state {
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
+		private TextureRegion fog;
+		private float time;
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -31,7 +34,9 @@ namespace BurningKnight.state {
 
 			for (int i = 0; i < 30; i++) {
 				Area.Add(new WindFx());
-			}			
+			}
+
+			fog = Textures.Get("noise");
 		}
 
 		public override void Destroy() {
@@ -84,6 +89,7 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
+				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
 
@@ -96,6 +102,19 @@ namespace BurningKnight.state {
 		public override void Render() {
 			base.Render();
 			Physics.Render();
+
+			var shader = Shaders.Fog;
+			Shaders.Begin(shader);
+
+			shader.Parameters["time"]?.SetValue(time * 0.01f);
+			shader.Parameters["tx"]?.SetValue(1f);
+			shader.Parameters["ty"]?.SetValue(1f);
+			shader.Parameters["cx"]?.SetValue(Camera.Instance.Position.X / 512f);
+			shader.Parameters["cy"]?.SetValue(Camera.Instance.Position.Y / 512f);
+		
+			Graphics.Render(fog, Camera.Instance.TopLeft);
+			
+			Shaders.End();
 		}
 
 		public override void RenderUi() {

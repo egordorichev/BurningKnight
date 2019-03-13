@@ -1,3 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/home/egor/Lens/BurningKnight/Content/Fonts/large.png","/home/egor/Lens/BurningKnight/Content/bin/Fonts/large.xnb","TextureProcessor","Texture2DContent",6078,1048661,0.419682
-"/home/egor/Lens/BurningKnight/Content/Fonts/small.png","/home/egor/Lens/BurningKnight/Content/bin/Fonts/small.xnb","TextureProcessor","Texture2DContent",4094,1048661,0.252318
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1219,3.112403
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1127,2464,0.9789673
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1087,1612,1.170853
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1046,1571,0.8124615
