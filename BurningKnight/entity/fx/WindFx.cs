@@ -97,14 +97,14 @@ namespace BurningKnight.entity.fx {
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 
-		private static Vector2 CalculateWind() {
+		public static Vector2 CalculateWind() {
 			float t = Engine.Time * 0.1f;
 			double a = Math.Cos(t) * Math.Sin(t * 1.3f) + Math.Cos(t * 1.5f);
 			
 			return new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 		}
 
-		private static float CalculateWindSpeed() {
+		public static float CalculateWindSpeed() {
 			float t = Engine.Time * 0.1f;
 			return (float) (1 + Math.Cos(t) * Math.Sin(t * 0.9f) * 0.5f);
 		}

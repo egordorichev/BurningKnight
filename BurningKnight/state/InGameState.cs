@@ -106,11 +106,13 @@ namespace BurningKnight.state {
 			var shader = Shaders.Fog;
 			Shaders.Begin(shader);
 
-			shader.Parameters["time"]?.SetValue(time * 0.01f);
-			shader.Parameters["tx"]?.SetValue(1f);
-			shader.Parameters["ty"]?.SetValue(1f);
-			shader.Parameters["cx"]?.SetValue(Camera.Instance.Position.X / 512f);
-			shader.Parameters["cy"]?.SetValue(Camera.Instance.Position.Y / 512f);
+			var wind = WindFx.CalculateWind();
+			
+			shader.Parameters["time"].SetValue(time * 0.01f);
+			shader.Parameters["tx"].SetValue(wind.X * -1);
+			shader.Parameters["ty"].SetValue(wind.Y * -1);
+			shader.Parameters["cx"].SetValue(Camera.Instance.Position.X / 512f);
+			shader.Parameters["cy"].SetValue(Camera.Instance.Position.Y / 512f);
 		
 			Graphics.Render(fog, Camera.Instance.TopLeft);
 			
