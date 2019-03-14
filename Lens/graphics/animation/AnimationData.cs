@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.animation {
@@ -8,6 +9,16 @@ namespace Lens.graphics.animation {
 		public Dictionary<string, AnimationTag> Tags = new Dictionary<string, AnimationTag>();
 		public Dictionary<string, TextureRegion> Slices = new Dictionary<string, TextureRegion>();
 		public Texture2D Texture;
+
+		public AnimationData Recolor(Color[] from, Color[] to) {
+			if (from.Length != to.Length) {
+				return null;
+			}
+			
+			AnimationData data = new AnimationData();
+			
+			return data;
+		}
 		
 		public AnimationTag? GetTag(string tagName) {
 			AnimationTag tag;

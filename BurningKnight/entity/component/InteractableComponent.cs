@@ -5,6 +5,7 @@ using Lens.entity.component;
 namespace BurningKnight.entity.component {
 	public class InteractableComponent : Component {
 		public Func<Entity, bool> Interact;
+		public Func<bool> CanInteract;
 		public Action<Entity> OnStart;
 		public Action<Entity> OnEnd;
 		public Entity CurrentlyInteracting;

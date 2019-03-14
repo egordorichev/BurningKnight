@@ -8,6 +8,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,7 @@ namespace BurningKnight.entity.level {
 
 		private int width;
 		private int height;
+		private float time;
 
 		public new int Width {
 			get => width;
@@ -84,7 +86,7 @@ namespace BurningKnight.entity.level {
 		public void TileUp() {
 			LevelTiler.TileUp(this);
 		}
-		
+				
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
 				Liquid[i] = (byte) value;
@@ -191,8 +193,13 @@ namespace BurningKnight.entity.level {
 			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Ceiling(camera.Right / 16 + 1f));
 		}
 
-		protected int GetRenderBottom(Camera cameral) {
-			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Ceiling(cameral.Bottom / 16 + 1f));
+		protected int GetRenderBottom(Camera camera) {
+			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Ceiling(camera.Bottom / 16 + 1f));
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			time += dt;
 		}
 
 		// Renders floor layer
@@ -205,6 +212,14 @@ namespace BurningKnight.entity.level {
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderTop(camera);
 
+			var shader = Shaders.Chasm;
+			Shaders.Begin(shader);
+
+			shader.Parameters["h"].SetValue(8f / Tileset.WallTopA.Texture.Height);
+			var sy = shader.Parameters["y"];
+			var enabled = shader.Parameters["enabled"];
+			enabled.SetValue(false);
+							
 			for (int y = GetRenderBottom(camera) - 1; y >= toY; y--) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
 					var index = ToIndex(x, y);
@@ -239,7 +254,10 @@ namespace BurningKnight.entity.level {
 										default: case Tile.WallB: region = Tileset.WallB[ind]; break;
 									}
 									
+									enabled.SetValue(true);
+									sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
 									Graphics.Render(region, pos);
+									enabled.SetValue(false);
 								}
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
@@ -265,9 +283,11 @@ namespace BurningKnight.entity.level {
 					}
 				}
 			}
+
+			Shaders.End();
 		}
 
-		public bool RenderLiquids() {
+		public void RenderLiquids() {
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -284,7 +304,14 @@ namespace BurningKnight.entity.level {
 			var enabled = shader.Parameters["enabled"];
 			var tilePosition = shader.Parameters["tilePosition"];
 			var edgePosition = shader.Parameters["edgePosition"];
+			var flow = shader.Parameters["flow"];
+			flow.SetValue(0f);
 			
+			shader.Parameters["time"].SetValue(time * 0.04f);
+			shader.Parameters["h"].SetValue(64f / Tilesets.Biome.WaterPattern.Texture.Height);
+
+			var sy = shader.Parameters["sy"];
+
 			enabled.SetValue(true);
 
 			for (int y = GetRenderTop(camera); y < toY; y++) {
@@ -293,12 +320,21 @@ namespace BurningKnight.entity.level {
 					var tile = Liquid[index];
 
 					if (tile > 0) {
+						var tt = (Tile) tile;
+
 						region.Set(Tilesets.Biome.Patterns[tile]);
-						region.Source.X += x % 4 * 16;
-						region.Source.Y += y % 4 * 16;
 						region.Source.Width = 16;
 						region.Source.Height = 16;
 
+						if (tt == Tile.Water) {
+							flow.SetValue(1f);
+							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
+						} else {
+							region.Source.Y += y % 4 * 16;
+						}
+
+						region.Source.X += x % 4 * 16;
+						
 						var pos = new Vector2(x * 16, y * 16);
 
 						var t = (Tile) tile;
@@ -327,6 +363,10 @@ namespace BurningKnight.entity.level {
 							enabled.SetValue(false);
 							Graphics.Render(region, pos);
 							enabled.SetValue(true);
+						}
+						
+						if (tt == Tile.Water) {
+							flow.SetValue(0f);
 						}
 					}
 				}
@@ -362,10 +402,9 @@ namespace BurningKnight.entity.level {
 			}
 
 			Shaders.End();
-			return true;
 		}
 		
-		public bool RenderWalls() {
+		public void RenderWalls() {
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -452,8 +491,6 @@ namespace BurningKnight.entity.level {
 					}
 				}
 			}
-
-			return true;
 		}
 
 		private byte CalcWallIndex(int x, int y) {

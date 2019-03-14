@@ -93,6 +93,7 @@
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\chest\Chest.cs" />
+    <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />

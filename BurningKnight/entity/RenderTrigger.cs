@@ -3,9 +3,9 @@ using Lens.entity;
 
 namespace BurningKnight.entity {
 	public class RenderTrigger : Entity {
-		private Func<bool> method;
+		private Action method;
 		
-		public RenderTrigger(Func<bool> method, int depth) {
+		public RenderTrigger(Action method, int depth) {
 			Depth = depth;
 			this.method = method;
 

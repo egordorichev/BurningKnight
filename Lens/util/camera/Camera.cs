@@ -10,6 +10,7 @@ namespace Lens.util.camera {
 		public static bool Debug = true;
 		public static Camera Instance;
 
+		public Vector2 TopLeft => new Vector2(X, Y);
 		public new float X => position.X - Width / 2;
 		public new float Y => position.Y - Height / 2;
 		public new float Right => position.X + Width / 2;

@@ -118,14 +118,13 @@ namespace BurningKnight.entity.level {
 				if (Room != null) Rooms.Add(Room);
 			}
 
-			if (Run.Depth > 0) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Treasure));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Treasure));
 
-				if ((Run.Id == 1 || Random.Chance(50)) && (Run.Id != 0 || Run.Depth != 1)) {
-					Log.Info("Adding shop");
-					Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
-				}
-			}
+			/*
+			if ((Run.Id == 1 || Random.Chance(50)) && (Run.Id != 0 || Run.Depth != 1)) {
+				Log.Info("Adding shop");
+				Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
+			}*/
 
 			for (var I = 0; I < Connection; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Connection));

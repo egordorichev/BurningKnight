@@ -139,8 +139,6 @@ namespace BurningKnight.entity.level {
 			PathFinder.SetMapSize(Level.Width, Level.Height);
 
 			if (Run.Depth > -1) {
-				PaintWater(Level, Rooms);
-				/*
 				if (Dirt > 0) {
 					PaintDirt(Level, Rooms);
 				}
@@ -155,7 +153,7 @@ namespace BurningKnight.entity.level {
 
 				if (Water > 0) {
 					PaintWater(Level, Rooms);
-				}*/
+				}
 			}
 
 			Decorate(Level, Rooms);
