@@ -178,6 +178,8 @@
     <Compile Include="entity\level\builders\LoopBuilder.cs" />
     <Compile Include="entity\level\builders\RegularBuilder.cs" />
     <Compile Include="entity\level\builders\SingleRoomBuilder.cs" />
+    <Compile Include="entity\level\Chasm.cs" />
+    <Compile Include="entity\level\ChasmBodyComponent.cs" />
     <Compile Include="entity\level\entities\Entrance.cs" />
     <Compile Include="entity\level\entities\Portal.cs" />
     <Compile Include="entity\level\entities\Prop.cs" />

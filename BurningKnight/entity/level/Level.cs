@@ -49,6 +49,8 @@ namespace BurningKnight.entity.level {
 		public byte[] LiquidVariants;
 		public byte[] Light;
 
+		public Chasm Chasm;
+
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
 			
@@ -67,6 +69,11 @@ namespace BurningKnight.entity.level {
 
 			Depth = Layers.Floor;
 			
+			Chasm = new Chasm {
+				Level = this
+			};
+			
+			Area.Add(Chasm);
 			Area.Add(new RenderTrigger(RenderLiquids, Layers.Liquid));
 			Area.Add(new RenderTrigger(RenderWalls, Layers.Wall));
 		}
@@ -81,6 +88,7 @@ namespace BurningKnight.entity.level {
 		
 		public void CreateBody() {
 			GetComponent<LevelBodyComponent>().CreateBody();
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 		}
 
 		public void TileUp() {
