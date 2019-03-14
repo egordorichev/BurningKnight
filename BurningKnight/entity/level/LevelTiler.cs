@@ -99,7 +99,7 @@ namespace BurningKnight.entity.level {
 				return ll == Tile.Water || tt == Tile.Chasm || tt == Tile.WallA || tt == Tile.WallB;
 			}
 			
-			return tile == to;
+			return tile == to || tile == l;
 		}
 	}
 }
