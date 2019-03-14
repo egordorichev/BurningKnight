@@ -284,7 +284,7 @@ namespace BurningKnight.entity.level {
 			Shaders.End();
 		}
 
-		public bool RenderLiquids() {
+		public void RenderLiquids() {
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -304,7 +304,6 @@ namespace BurningKnight.entity.level {
 			
 			shader.Parameters["time"].SetValue(time * 0.04f);
 			shader.Parameters["h"].SetValue(64f / Tilesets.Biome.WaterPattern.Texture.Height);
-			shader.Parameters["ss"].SetValue((float) Tilesets.Biome.WaterPattern.Source.Y / Tilesets.Biome.WaterPattern.Texture.Height);
 
 			var sy = shader.Parameters["sy"];
 
@@ -383,11 +382,9 @@ namespace BurningKnight.entity.level {
 			}
 
 			Shaders.End();
-
-			return true;
 		}
 		
-		public bool RenderWalls() {
+		public void RenderWalls() {
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -474,8 +471,6 @@ namespace BurningKnight.entity.level {
 					}
 				}
 			}
-
-			return true;
 		}
 
 		private byte CalcWallIndex(int x, int y) {

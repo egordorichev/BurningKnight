@@ -22,7 +22,6 @@ float2 edgePosition;
 float flow;
 float time;
 float sy;
-float ss;
 float h;
 
 #define mod(x,y) (x-y*floor(x/y))
