@@ -13,6 +13,7 @@ namespace BurningKnight.entity.component {
 
 			Lock.Center = entity.Center + offset;
 			Lock.Depth = Layers.Lock;
+			Lock.AlwaysActive = true;
 			
 			entity.Area.Add(Lock);
 		}
