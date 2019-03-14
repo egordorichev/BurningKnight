@@ -35,16 +35,19 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float cy = input.TextureCoordinates.y;
 		
 	if (flow > 0.1f) {
-		cy = mod(cy - tilePosition.y + time * flow, h) + tilePosition.y;
+		cy -= tilePosition.y;
+		cy -= time * flow - sy;
+		cy -= h * floor(cy / h);
+		cy += tilePosition.y;
 	}
 
 	float4 color = tex2D(s0, float2(input.TextureCoordinates.x, cy));
 
 	if (enabled == true) {
-		float x = input.TextureCoordinates.x - tilePosition.x + edgePosition.x;
-    float y = input.TextureCoordinates.y - tilePosition.y + edgePosition.y;
-	
-		float4 mask = tex2D(s0, float2(x, y));
+		float4 mask = tex2D(s0, float2(
+			input.TextureCoordinates.x - tilePosition.x + edgePosition.x,
+      input.TextureCoordinates.y - tilePosition.y + edgePosition.y
+		));
 		
 		if (mask.r == 1 && mask.g == 0 && mask.b == 0 && mask.a == 1) {
 			if (flow > 0.1f) {

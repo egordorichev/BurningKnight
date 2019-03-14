@@ -302,8 +302,8 @@ namespace BurningKnight.entity.level {
 			var flow = shader.Parameters["flow"];
 			flow.SetValue(0f);
 			
-			shader.Parameters["time"].SetValue(time * 0.01f);
-			shader.Parameters["h"].SetValue(1f / Tilesets.Biome.WaterPattern.Texture.Height * 15f);
+			shader.Parameters["time"].SetValue(time * 0.04f);
+			shader.Parameters["h"].SetValue(64f / Tilesets.Biome.WaterPattern.Texture.Height);
 			shader.Parameters["ss"].SetValue((float) Tilesets.Biome.WaterPattern.Source.Y / Tilesets.Biome.WaterPattern.Texture.Height);
 
 			var sy = shader.Parameters["sy"];
