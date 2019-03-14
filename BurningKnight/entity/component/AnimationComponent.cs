@@ -1,9 +1,14 @@
-﻿using Lens.assets;
+﻿using BurningKnight.assets;
+using BurningKnight.util;
+using Lens.assets;
+using Lens.entity;
+using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.graphics.animation;
-using Lens.util;
+using MonoGame.Extended.Sprites;
 
-namespace Lens.entity.component.graphics {
+namespace BurningKnight.entity.component {
 	public class AnimationComponent : GraphicsComponent {
 		public Animation Animation;
 		private string name;
@@ -48,7 +53,24 @@ namespace Lens.entity.component.graphics {
 		}
 
 		public override void Render() {
-			Animation?.Render(Entity.Position + Offset, Flipped);
+			var pos = Entity.Position + Offset;
+			
+			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+				foreach (var d in MathUtils.EntityDirections) {
+					Animation?.Render(pos + d, Flipped);
+				}
+				
+				Shaders.End();
+			}
+			
+			Animation?.Render(pos, Flipped);
 		}
 
 		public override bool HandleEvent(Event e) {

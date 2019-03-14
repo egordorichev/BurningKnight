@@ -43,17 +43,17 @@ namespace BurningKnight.entity.level {
 						list.Clear();
 
 							if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx, Check(level, x, y - 1) ? yy : yy + 10));
+							list.Add(new Vector2(xx, Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
 							list.Add(new Vector2(xx, yy + 16));
-							list.Add(new Vector2(xx + 6, yy + 10));
+							list.Add(new Vector2(xx + 6, yy + 8));
 						}
 
 						if (Check(level, x + 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx + 16, Check(level, x, y - 1) ? yy : yy + 10));
+							list.Add(new Vector2(xx + 16, Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
 							list.Add(new Vector2(xx + 16, yy + 16));
-							list.Add(new Vector2(xx + 10, yy + 10));
+							list.Add(new Vector2(xx + 10, yy + 8));
 						}
 						
 						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {

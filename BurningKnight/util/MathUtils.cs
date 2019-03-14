@@ -10,6 +10,12 @@ namespace BurningKnight.util {
 			new Vector2(0, -1)
 		};
 		
+		public static Vector2[] EntityDirections = {
+			new Vector2(-1, 0),
+			new Vector2(1, 0),
+			new Vector2(0, -1)
+		};
+		
 		public static float Clamp(float Min, float Max, float Val) {
 			return Math.Max(Min, Math.Min(Max, Val));
 		}

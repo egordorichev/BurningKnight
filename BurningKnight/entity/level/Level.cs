@@ -99,6 +99,10 @@ namespace BurningKnight.entity.level {
 			if (value.Matches(TileFlags.LiquidLayer)) {
 				Liquid[i] = (byte) value;
 			} else {
+				if (value.Matches(Tile.WallA, Tile.WallB)) {
+					Liquid[i] = 0;
+				}
+				
 				Tiles[i] = (byte) value;
 			}
 		}

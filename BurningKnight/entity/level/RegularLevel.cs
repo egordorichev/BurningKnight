@@ -168,7 +168,7 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected int GetNumRegularRooms() {
-			return Random.Int(3, 6);
+			return 1;
 		}
 
 		protected int GetNumSpecialRooms() {

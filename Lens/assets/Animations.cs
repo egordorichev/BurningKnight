@@ -102,6 +102,10 @@ namespace Lens.assets {
 		}
 
 		public static AnimationData GetColored(string id, ColorSet set) {
+			if (set == null) {
+				return Get(id);
+			}
+			
 			var fullId = $"{id}_{set.Id}";
 			
 			if (animations.TryGetValue(fullId, out var animation)) {
