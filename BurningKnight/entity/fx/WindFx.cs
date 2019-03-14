@@ -62,10 +62,15 @@ namespace BurningKnight.entity.fx {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			var overlaps = Camera.Instance.Overlaps(this);
 
 			if (delay > 0) {
-				delay -= dt;
-				return;
+				if (overlaps) {
+					delay = 0;
+				} else {
+					delay -= dt;
+					return;
+				}
 			}
 
 			t += dt;
@@ -79,8 +84,6 @@ namespace BurningKnight.entity.fx {
 			}
 
 			angle += angleSpeed * dt * w;
-
-			var overlaps = Camera.Instance.Overlaps(this);
 			
 			if (overlaps) {
 				overlapped = true;

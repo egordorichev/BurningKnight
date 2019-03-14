@@ -92,10 +92,10 @@ namespace BurningKnight.state {
 				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
+			}
 
-				if (Input.WasPressed(Controls.Pause)) {
-					Paused = true;
-				}
+			if (Input.WasPressed(Controls.Pause)) {
+				Paused = !Paused;
 			}
 		}
 
@@ -109,8 +109,8 @@ namespace BurningKnight.state {
 			var wind = WindFx.CalculateWind();
 			
 			shader.Parameters["time"].SetValue(time * 0.01f);
-			shader.Parameters["tx"].SetValue(wind.X * -1);
-			shader.Parameters["ty"].SetValue(wind.Y * -1);
+			shader.Parameters["tx"].SetValue(wind.X * -0.1f);
+			shader.Parameters["ty"].SetValue(wind.Y * -0.1f);
 			shader.Parameters["cx"].SetValue(Camera.Instance.Position.X / 512f);
 			shader.Parameters["cy"].SetValue(Camera.Instance.Position.Y / 512f);
 		

@@ -21,21 +21,36 @@ float2 tilePosition;
 float2 edgePosition;
 float flow;
 float time;
+float sy;
+float ss;
+float h;
+
+#define mod(x,y) (x-y*floor(x/y))
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
 };
 
 float4 MainPS(VertexShaderOutput input) : COLOR {
-	float4 color = tex2D(s0, input.TextureCoordinates);
+	float cy = input.TextureCoordinates.y;
+		
+	if (flow > 0.1f) {
+		cy = mod(cy - tilePosition.y + time * flow, h) + tilePosition.y;
+	}
+
+	float4 color = tex2D(s0, float2(input.TextureCoordinates.x, cy));
 
 	if (enabled == true) {
-		float4 mask = tex2D(s0, float2(
-			input.TextureCoordinates.x - tilePosition.x + edgePosition.x, 
-			input.TextureCoordinates.y - tilePosition.y + edgePosition.y
-		));
+		float x = input.TextureCoordinates.x - tilePosition.x + edgePosition.x;
+    float y = input.TextureCoordinates.y - tilePosition.y + edgePosition.y;
+	
+		float4 mask = tex2D(s0, float2(x, y));
 		
 		if (mask.r == 1 && mask.g == 0 && mask.b == 0 && mask.a == 1) {
+			if (flow > 0.1f) {
+				color.a = 0.5f;
+			}
+			
 			return color;
 		}
 		

@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Shaders/chasm.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/chasm.fx
+
 #begin Shaders/entity.fx
 /importer:EffectImporter
 /processor:EffectProcessor
