@@ -45,10 +45,10 @@ namespace BurningKnight.entity.fx {
 
 			if (t < life - 0.5f) {
 				if (color.A < targetAlpha) {
-					color.A = (byte) Math.Min(targetAlpha, dt * 20 * targetAlpha + color.A);
+					color.A = (byte) Math.Min(targetAlpha, dt * 5 * targetAlpha + color.A);
 				}
 			} else {
-				color.A = (byte) Math.Max(0, color.A - dt * 5 * targetAlpha);
+				color.A = (byte) Math.Max(0, color.A - dt * 2 * targetAlpha);
 
 				if (color.A <= 0) {
 					Done = true;

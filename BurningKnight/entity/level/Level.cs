@@ -233,7 +233,7 @@ namespace BurningKnight.entity.level {
 							if (t == Tile.Chasm) {
 								Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 
-								if (!paused && Random.Chance(0.2f)) {
+								if (!paused && Random.Chance(0.1f)) {
 									Area.Add(new ChasmFx {
 										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
 									});

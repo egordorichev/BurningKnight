@@ -28,9 +28,10 @@ namespace BurningKnight.entity.fx {
 			color = new Color(Random.Float(0, 0.5f), Random.Float(0.5f, 1f), Random.Float(0, 0.5f), 1f);
 			lightColor = new Color(color.R, color.G, color.B, (byte) 128);
 			
-			size = new Vector2(Random.Float(0.05f, 0.3f));
-			lightSize = new Vector2(size.X * 2.5f);
+			size = new Vector2(Random.Float(0.1f, 0.2f));
+			lightSize = new Vector2(size.X * 3f);
 
+			Depth = Layers.WallDecor;
 			t = Random.Float(20f);
 		}
 
@@ -39,7 +40,7 @@ namespace BurningKnight.entity.fx {
 
 			t += dt;
 
-			lightSize.X += ((t % 20 <= 16f ? size.X * 2.5f : size.X) - lightSize.X) * dt * 3;
+			lightSize.X += ((t % 20 <= 16f ? size.X * 3f : size.X) - lightSize.X) * dt * 3;
 			lightSize.Y = lightSize.X;
 			
 			X = (float) (start.X + Math.Cos(t / 8) * Math.Sin(t / 9) * 32);
