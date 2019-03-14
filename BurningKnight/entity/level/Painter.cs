@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.door;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.level.entities;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.state;
@@ -276,15 +277,15 @@ namespace BurningKnight.entity.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				/*
-				if (Random.Chance(60)) {
+				
+				//if (Random.Chance(60)) {
 					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.Int(3, 6)); I++) {
-						var Fly = new Firefly();
-						Fly.X = (Room.Left + 2) * 16 + Random.Float((Room.GetWidth() - 4) * 16);
-						Fly.Y = (Room.Top + 2) * 16 + Random.Float((Room.GetHeight() - 4) * 16);
-						Dungeon.Area.Add(Fly.Add());
+						Level.Area.Add(new Firefly {
+							X = (Room.Left + 2) * 16 + Random.Float((Room.GetWidth() - 4) * 16),
+							Y = (Room.Top + 2) * 16 + Random.Float((Room.GetHeight() - 4) * 16)
+						});
 					}
-				}*/
+				//}
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 					for (int X = Room.Left; X <= Room.Right; X++) {

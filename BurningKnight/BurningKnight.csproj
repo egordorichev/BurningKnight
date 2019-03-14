@@ -146,6 +146,7 @@
     <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
+    <Compile Include="entity\fx\Firefly.cs" />
     <Compile Include="entity\fx\Prop.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
