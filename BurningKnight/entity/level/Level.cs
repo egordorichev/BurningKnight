@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.biome;
 using BurningKnight.save;
@@ -503,6 +504,8 @@ namespace BurningKnight.entity.level {
 					}
 				}
 			}
+
+			Lights.Render();
 		}
 
 		private byte CalcWallIndex(int x, int y) {

@@ -59,6 +59,11 @@
   <ItemGroup>
     <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\lighting\EntityLight.cs" />
+    <Compile Include="assets\lighting\Light.cs" />
+    <Compile Include="assets\lighting\LightComponent.cs" />
+    <Compile Include="assets\lighting\Lights.cs" />
+    <Compile Include="assets\lighting\PositionedLight.cs" />
     <Compile Include="assets\Mod.cs" />
     <Compile Include="assets\Mods.cs" />
     <Compile Include="assets\Palette.cs" />

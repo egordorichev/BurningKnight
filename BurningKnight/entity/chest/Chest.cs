@@ -10,6 +10,15 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
+/*
+ * TODO:
+ * Spawn items
+ * Small solid body
+ * React to bombs
+ * React to hitting
+ * Chest pool
+ * Chest item pools
+ */
 namespace BurningKnight.entity.chest {
 	public class Chest : SaveableEntity {
 		public bool IsOpen { get; private set; }

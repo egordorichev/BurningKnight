@@ -1,5 +1,4 @@
-﻿using System;
-using Lens.util.camera;
+﻿using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
@@ -18,7 +17,7 @@ namespace Lens.graphics.gamerenderer {
 			
 			UiTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.UiWidth, Display.UiHeight, false,
-				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 			);
 			
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);

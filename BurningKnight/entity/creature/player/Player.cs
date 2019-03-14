@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -15,6 +16,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			// Graphics
+			AddComponent(new LightComponent(this, 128f, Color.Red));
 			SetGraphicsComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -4)
 			});

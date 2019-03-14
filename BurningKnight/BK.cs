@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.integration.discord;
 using Lens;
 using Lens.game;
@@ -25,6 +26,7 @@ namespace BurningKnight {
 		protected override void UnloadContent() {
 			Discord.Destroy();
 			Mods.Destroy();
+			Lights.DestroySurface();
 			
 			base.UnloadContent();
 		}
