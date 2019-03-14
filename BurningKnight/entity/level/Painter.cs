@@ -9,6 +9,7 @@ using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
+using Prop = BurningKnight.entity.fx.Prop;
 
 namespace BurningKnight.entity.level {
 	public class Painter {
@@ -285,40 +286,33 @@ namespace BurningKnight.entity.level {
 					}
 				}*/
 
-				/*for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
-					
-					if (Dungeon.Depth > -1 && Level.Get(X, Y) == Terrain.WALL && !(Level is IceLevel || Level is TechLevel)) {
-						if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1) == Terrain.WALL && Level.Get(X, Y - 1) != Terrain.WALL && Random.Chance(20)) {
-							var Web = new Cobweb();
-							Web.X = X * 16;
-							Web.Y = Y * 16 - 16;
-							Web.Side = 0;
-							Dungeon.Area.Add(Web);
-							LevelSave.Add(Web);
-						} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1) == Terrain.WALL && Level.Get(X, Y - 1) != Terrain.WALL && Random.Chance(20)) {
-							var Web = new Cobweb();
-							Web.X = X * 16;
-							Web.Y = Y * 16 - 16;
-							Web.Side = 1;
-							Dungeon.Area.Add(Web);
-							LevelSave.Add(Web);
-						} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
-							var Web = new Cobweb();
-							Web.X = X * 16;
-							Web.Y = Y * 16 + 16;
-							Web.Side = 2;
-							Dungeon.Area.Add(Web);
-							LevelSave.Add(Web);
-						} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1) == Terrain.WALL && Level.Get(X, Y + 1) != Terrain.WALL && Random.Chance(20)) {
-							var Web = new Cobweb();
-							Web.X = X * 16;
-							Web.Y = Y * 16 + 16;
-							Web.Side = 3;
-							Dungeon.Area.Add(Web);
-							LevelSave.Add(Web);
+				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+					for (int X = Room.Left; X <= Room.Right; X++) {
+						if (Level.Get(X, Y).IsWall()) {
+							if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1).IsWall() && !Level.Get(X, Y - 1).IsWall() && Random.Chance(20)) {
+								Level.Area.Add(new Prop("cobweb_c", Layers.WallDecor) {
+									X = X * 16,
+									Y = Y * 16 - 24
+								});
+							} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1).IsWall() && !Level.Get(X, Y - 1).IsWall() && Random.Chance(20)) {
+								Level.Area.Add(new Prop("cobweb_d", Layers.WallDecor) {
+									X = X * 16,
+									Y = Y * 16 - 24
+								});
+							} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1).IsWall() && !Level.Get(X, Y + 1).IsWall() && Random.Chance(20)) {
+								Level.Area.Add(new Prop("cobweb_a", Layers.WallDecor) {
+									X = X * 16,
+									Y = Y * 16 + 8
+								});
+							} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1).IsWall() && !Level.Get(X, Y + 1).IsWall() && Random.Chance(20)) {
+								Level.Area.Add(new Prop("cobweb_b", Layers.WallDecor) {
+									X = X * 16,
+									Y = Y * 16 + 8
+								});
+							}
 						}
 					}
-				}*/
+				}
 			}
 		}
 

@@ -49,6 +49,10 @@ namespace BurningKnight.entity.level {
 			}
 
 			return false;
-		}		
+		}
+
+		public static bool IsWall(this Tile tile) {
+			return tile == Tile.WallA || tile == Tile.WallB;
+		}
 	}
 }
