@@ -25,14 +25,25 @@ namespace BurningKnight {
 			Input.Bind(Right, Keys.D);
 			
 			Input.Bind(Active, Keys.Space);
+			Input.Bind(Active, Buttons.A);
+			
 			Input.Bind(Use, MouseButtons.Left);
+			Input.Bind(Use, Buttons.LeftShoulder);
+			
 			Input.Bind(Bomb, Keys.Q);
+			Input.Bind(Bomb, Buttons.B);
+
 			Input.Bind(Interact, Keys.E);
+			Input.Bind(Interact, Buttons.X);
+			
 			Input.Bind(Swap, Keys.LeftShift);
+			Input.Bind(Swap, Buttons.Y);
 
 			Input.Bind(Roll, MouseButtons.Right);
+			Input.Bind(Roll, Buttons.RightShoulder);
 			
 			Input.Bind(Pause, Keys.Escape);
+			Input.Bind(Pause, Buttons.Back);
 		}
 	}
 }

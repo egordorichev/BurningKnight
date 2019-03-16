@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -64,6 +65,11 @@ namespace Lens.util.camera {
 			AlwaysVisible = true;
 
 			changed = true;
+		}
+
+		public void Shake(float a = 1f) {
+			var component = GetComponent<ShakeComponent>();
+			component.Amount = Math.Min(component.Amount + a, 20f);
 		}
 
 		public override void AddComponents() {

@@ -98,27 +98,10 @@ namespace BurningKnight.entity.creature.player {
 				Bombs--;
 				
 				var bomb = new Bomb();
-				bomb.Position = Entity.Center;
+				bomb.Center = Entity.Center;
 				// todo: vel to mouse
 				
 				Entity.Area.Add(bomb);
-
-				var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
-				explosion.Particle.Position = Entity.Center;
-				explosion.Depth = 32;
-				Entity.Area.Add(explosion);
-
-				for (int i = 0; i < 4; i++) {
-					explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
-					explosion.Particle.Position = Entity.Center;
-					explosion.Depth = 31;
-					Entity.Area.Add(explosion);
-
-					var a = explosion.Particle.Angle - Math.PI / 2;//.ToRadians();
-					var d = 16;
-
-					explosion.Particle.Position += new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
-				}
 			}
 		}
 

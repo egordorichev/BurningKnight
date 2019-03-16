@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics.animation;
+using Lens.util.camera;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
@@ -32,7 +33,9 @@ namespace BurningKnight.entity.door {
 				return true;
 			}
 
+			Camera.Instance.Shake(3);
 			shake = 1f;
+			
 			return false;
 		}
 

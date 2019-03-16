@@ -2,40 +2,55 @@ using BurningKnight.entity.component;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
-using Lens.util.camera;
+using Lens.util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
-
+		private GamepadData data;
+	
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (data == null) {
+				for (int i = 0; i < 4; i++) {
+					if (Input.Gamepads[i].Attached) {
+						data = Input.Gamepads[i];
+						Log.Info($"Connecteted {GamePad.GetState(i)}");
+						break;
+					}
+				}
+			}
+			
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			
 			if (!(state.StateInstance is Player.RollState)) {
 				var acceleration = new Vector2();
 				
-				if (Input.IsDown(Controls.Up)) {
+				if (Input.IsDown(Controls.Up, data)) {
 					acceleration.Y -= 1;
-				}
-			
-				if (Input.IsDown(Controls.Down)) {
+				}			
+				
+				if (Input.IsDown(Controls.Down, data)) {
 					acceleration.Y += 1;
 				}
 			
-				if (Input.IsDown(Controls.Left)) {
+				if (Input.IsDown(Controls.Left, data)) {
 					acceleration.X -= 1;
 				}
 			
-				if (Input.IsDown(Controls.Right)) {
-					// acceleration.X += 1;
-					Camera.Instance.GetComponent<ShakeComponent>().Amount += 1f;
+				if (Input.IsDown(Controls.Right, data)) {
+					acceleration.X += 1;
 				}
 
-				if (Input.WasPressed(Controls.Roll)) {
+				if (data != null) {
+					acceleration += data.GetLeftStick();
+				}
+
+				if (Input.WasPressed(Controls.Roll, data)) {
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {

@@ -224,6 +224,7 @@
     <Compile Include="entity\component\graphics\ImageComponent.cs" />
     <Compile Include="entity\component\graphics\SliceComponent.cs" />
     <Compile Include="entity\component\logic\EntityState.cs" />
+    <Compile Include="entity\component\logic\InterestingComponent.cs" />
     <Compile Include="entity\component\logic\ShakeComponent.cs" />
     <Compile Include="entity\component\logic\StateChangedEvent.cs" />
     <Compile Include="entity\component\logic\StateComponent.cs" />

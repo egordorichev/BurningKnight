@@ -13,7 +13,6 @@ namespace Lens.input {
 		public static KeyboardData Keyboard;
 		public static MouseData Mouse;
 		public static GamepadData[] Gamepads;
-		public static PlayerIndex GamepadIndex = PlayerIndex.One;
 		public static bool Blocked;
 		
 		private static Dictionary<string, InputButton> Buttons = new Dictionary<string, InputButton>();
@@ -85,7 +84,7 @@ namespace Lens.input {
 			Buttons[id] = button;
 		}
 
-		private static bool Check(string id, CheckType type) {
+		private static bool Check(string id, CheckType type, GamepadData data = null) {
 			if (Blocked) {
 				return false;
 			}
@@ -102,9 +101,9 @@ namespace Lens.input {
 				}
 			}
 			
-			if (button.Buttons != null) {
+			if (data != null && button.Buttons != null) {
 				foreach (var b in button.Buttons) {
-					if (Gamepads[(int) GamepadIndex].Check(b, type)) {
+					if (data.Check(b, type)) {
 						return true;
 					}
 				}
@@ -121,16 +120,16 @@ namespace Lens.input {
 			return false;
 		}
 
-		public static bool WasPressed(string id) {
-			return Check(id, CheckType.PRESSED);
+		public static bool WasPressed(string id, GamepadData data = null) {
+			return Check(id, CheckType.PRESSED, data);
 		}
 
-		public static bool WasReleased(string id) {
-			return Check(id, CheckType.RELEASED);
+		public static bool WasReleased(string id, GamepadData data = null) {
+			return Check(id, CheckType.RELEASED, data);
 		}
 
-		public static bool IsDown(string id) {
-			return Check(id, CheckType.DOWN);
+		public static bool IsDown(string id, GamepadData data = null) {
+			return Check(id, CheckType.DOWN, data);
 		}
 	}
 }
