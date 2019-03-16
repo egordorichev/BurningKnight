@@ -1,4 +1,5 @@
-﻿using Lens.util.camera;
+﻿using Lens.entity.component.logic;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
@@ -57,7 +58,7 @@ namespace Lens.graphics.gamerenderer {
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
 			
 			if (Camera.Instance != null) {
-				Graphics.Render(GameTarget, Engine.Viewport, 0, new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1), new Vector2(Engine.Instance.Upscale));	
+				Graphics.Render(GameTarget, new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale, Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale), Camera.Instance.GetComponent<ShakeComponent>().Angle, new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f, Camera.Instance.Position.Y % 1 + Display.Height / 2f), new Vector2(Engine.Instance.Upscale * Camera.Instance.TextureZoom));	
 			}
 
 			Graphics.Batch.End();

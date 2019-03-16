@@ -63,7 +63,7 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashReplace"].SetValue(1f);
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
-				foreach (var d in MathUtils.EntityDirections) {
+				foreach (var d in MathUtils.Directions) {
 					Animation?.Render(pos + d, Flipped);
 				}
 				

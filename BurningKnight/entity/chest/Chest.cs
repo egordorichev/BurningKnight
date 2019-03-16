@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
 using Lens.entity;
@@ -24,13 +25,18 @@ namespace BurningKnight.entity.chest {
 		public bool IsOpen { get; private set; }
 		protected List<Item> items = new List<Item>();
 		
-		public void Open() {
+		public void Open(Entity entity) {
 			if (IsOpen) {
 				return;
 			}
 
-			IsOpen = true;
-			GetComponent<StateComponent>().Become<OpeningState>();
+			if (!HandleEvent(new ChestOpenedEvent {
+				Chest = this,
+				Who = entity
+			})) {
+				IsOpen = true;
+				GetComponent<StateComponent>().Become<OpeningState>();
+			}
 		}
 
 		public virtual void GenerateLoot() {
@@ -74,7 +80,7 @@ namespace BurningKnight.entity.chest {
 		}
 
 		protected bool Interact(Entity entity) {
-			Open();
+			Open(entity);
 			return true;
 		}
 

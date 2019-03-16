@@ -1,12 +1,17 @@
-﻿using BurningKnight.entity.component;
+﻿using System;
+using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics.animation;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
 	public class Lock : Entity {
 		public bool IsLocked { get; protected set; }
+		public bool Move;
+		private float t;
+		private float shake;
 		
 		public Lock() {
 			Width = 10;
@@ -18,10 +23,16 @@ namespace BurningKnight.entity.door {
 			if (TryToConsumeKey(entity)) {
 				GetComponent<StateComponent>().Become<OpeningState>();
 				IsLocked = false;
+
+				HandleEvent(new LockOpenedEvent {
+					Who = entity,
+					Lock = this
+				});
 				
 				return true;
 			}
 
+			shake = 1f;
 			return false;
 		}
 
@@ -32,13 +43,42 @@ namespace BurningKnight.entity.door {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			AddComponent(new InteractableComponent(Interact));			
-			SetGraphicsComponent(new AnimationComponent("lock", GetLockPalette()));
-			
+			AddComponent(new InteractableComponent(Interact));
+			AddComponent(new RectBodyComponent(-1, 2, 10, 11, BodyType.Static, true));
+							
 			var state = new StateComponent();
 			AddComponent(state);
 
 			state.Become<IdleState>();
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (GraphicsComponent == null) {
+				// Set here, because of the ui thread
+				SetGraphicsComponent(new AnimationComponent("lock", GetLockPalette()));
+			}
+
+			if (!IsLocked) {
+				return;
+			}
+			
+			var offset = GetComponent<AnimationComponent>().Offset;
+
+			if (Move) {
+				t += dt;
+				offset.Y = (float) (Math.Cos(t * 3f) * 1.5f);
+			}
+
+			if (shake > 0) {
+				shake -= dt;
+			} else {
+				shake = 0;
+			}
+							
+			offset.X = (float) (Math.Cos(shake * 20f) * shake * 2.5f);
+			GetComponent<AnimationComponent>().Offset = offset;
 		}
 
 		public override void Render() {

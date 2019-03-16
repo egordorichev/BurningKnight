@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,12 +32,10 @@ namespace Lens.util.camera {
 		
 		public List<Target> Targets = new List<Target>();
 		public bool Detached;
+		public float TextureZoom = 1f;
+		
 		private CameraDriver driver;
-
-		public void Follow(Entity entity, float priority) {
-			Targets.Add(new Target(entity, priority));
-		}
-
+		
 		public CameraDriver Driver {
 			get => driver;
 
@@ -63,8 +62,17 @@ namespace Lens.util.camera {
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
-			
-			UpdateMatrices();
+
+			changed = true;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+			AddComponent(new ShakeComponent());
+		}
+
+		public void Follow(Entity entity, float priority) {
+			Targets.Add(new Target(entity, priority));
 		}
 
 		public override void Update(float dt) {
@@ -79,8 +87,8 @@ namespace Lens.util.camera {
 			if (!Detached) {
 				driver?.Update(dt);
 			}
-
-			if (changed) {
+			
+			if (changed || GetComponent<ShakeComponent>().Amount > 0.001f) {
 				UpdateMatrices();
 			}
 		}
@@ -189,10 +197,12 @@ namespace Lens.util.camera {
 			}
 		}
 
-		private void UpdateMatrices() {			
+		private void UpdateMatrices() {
+			var shake = GetComponent<ShakeComponent>();
+			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) System.Math.Floor(position.X), (int) System.Math.Floor(position.Y)), 0)) *
+				 -new Vector2((int) System.Math.Floor(position.X + shake.Position.X), (int) System.Math.Floor(position.Y + shake.Position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
 				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
 				Matrix.CreateTranslation(

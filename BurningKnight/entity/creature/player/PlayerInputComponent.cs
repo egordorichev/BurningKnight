@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
@@ -30,7 +31,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 			
 				if (Input.IsDown(Controls.Right)) {
-					acceleration.X += 1;
+					// acceleration.X += 1;
+					Camera.Instance.GetComponent<ShakeComponent>().Amount += 1f;
 				}
 
 				if (Input.WasPressed(Controls.Roll)) {

@@ -140,6 +140,7 @@
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
+    <Compile Include="entity\events\ChestOpenedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
     <Compile Include="entity\events\ConsumableAddedEvent.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
+    <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
@@ -254,7 +256,6 @@
     <Compile Include="util\Line.cs" />
     <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\Maze.cs" />
-    <Compile Include="util\Noise.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Vector.cs" />
   </ItemGroup>

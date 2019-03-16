@@ -15,7 +15,7 @@ namespace BurningKnight.entity.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
-			var chest = new Chest(); // todo: chest pool and such
+			var chest = new LockedChest(); // todo: chest pool and such
 			
 			chest.X = where.X * 16;
 			chest.Y = where.Y * 16;
