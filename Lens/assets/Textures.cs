@@ -4,6 +4,7 @@ using Aseprite;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.assets {
@@ -37,6 +38,7 @@ namespace Lens.assets {
 			var fileStream = new FileStream(handle.FullPath, FileMode.Open);
 			region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
 			region.Source = region.Texture.Bounds;
+			region.Center = new Vector2(region.Source.Width / 2f, region.Source.Height / 2f);
 			fileStream.Dispose();
 			
 			textures[id] = region;

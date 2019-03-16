@@ -9,7 +9,9 @@
 		public const int Lock = 2;
 		public const int Wall = 3;
 		public const int WallDecor = 4;
-		public const int WindFx = 5;
+		public const int Light = 5;
+		public const int WindFx = 6;
+		public const int InGameUi = 7;
 		
 		public const int Ui = 10;
 		public const int Console = 11;

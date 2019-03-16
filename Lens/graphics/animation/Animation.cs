@@ -74,12 +74,12 @@ namespace Lens.graphics.animation {
 							Frame++;
 						}
 
-						if (AutoStop && currentFrame >= EndFrame - StartFrame) {
-							currentFrame = EndFrame - StartFrame;
+						if (AutoStop && currentFrame > EndFrame - StartFrame + 1) {
+							currentFrame = EndFrame - StartFrame + 1;
 							Paused = true;
 						}
 					
-						ReadFrame();	
+						ReadFrame();
 					} else {
 						Paused = true;
 					}

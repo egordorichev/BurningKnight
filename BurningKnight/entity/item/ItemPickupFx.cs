@@ -18,7 +18,8 @@ namespace BurningKnight.entity.item {
 			
 			var text = item.Count == 1 ? item.Name : $"{item.Name} ({item.Count})";
 			var size = Font.Medium.MeasureString(text);
-			
+
+			Depth = Layers.InGameUi;
 			Width = size.Width;
 			Height = size.Height;
 

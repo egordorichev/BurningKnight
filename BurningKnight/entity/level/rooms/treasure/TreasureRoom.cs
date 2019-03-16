@@ -9,6 +9,11 @@ namespace BurningKnight.entity.level.rooms.treasure {
 			PlaceChest(level, GetCenter());
 		}
 
+		public override void PaintFloor(Level level) {
+			Painter.Fill(level, this, Tiles.RandomWall());
+			Painter.Fill(level, this, 1, Tile.FloorD);	
+		}
+
 		protected void PlaceChest(Level level, Vector2 where) {
 			var chest = new Chest(); // todo: chest pool and such
 			

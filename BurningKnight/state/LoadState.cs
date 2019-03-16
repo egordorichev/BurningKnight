@@ -1,4 +1,5 @@
 using System.Threading;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.level;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -13,6 +14,7 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Lights.Init();
 			Physics.Init();
 			gameArea = new Area();
 			

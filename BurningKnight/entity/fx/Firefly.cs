@@ -1,7 +1,9 @@
 ﻿using System;
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.save;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -20,6 +22,9 @@ namespace BurningKnight.entity.fx {
 			base.Init();
 
 			start = Position;
+			Width = 192;
+			Height = 192;
+			Centered = true;
 			
 			if (region == null) {
 				region = CommonAse.Fx.GetSlice("circ");
@@ -27,6 +32,8 @@ namespace BurningKnight.entity.fx {
 
 			color = new Color(Random.Float(0, 0.5f), Random.Float(0.5f, 1f), Random.Float(0, 0.5f), 1f);
 			lightColor = new Color(color.R, color.G, color.B, (byte) 128);
+			
+			AddComponent(new LightComponent(this, 1f, color));
 			
 			size = new Vector2(Random.Float(0.1f, 0.2f));
 			lightSize = new Vector2(size.X * 3f);
@@ -45,6 +52,10 @@ namespace BurningKnight.entity.fx {
 			
 			X = (float) (start.X + Math.Cos(t / 8) * Math.Sin(t / 9) * 32);
 			Y = (float) (start.Y + Math.Sin(t / 7) * Math.Cos(t / 10) * 32);
+
+			var light = GetComponent<LightComponent>().Light;
+			
+			light.Radius += ((t % 20 <= 16f ? 96f : 0) - light.Radius) * dt * 3;
 		}
 
 		public override void Render() {

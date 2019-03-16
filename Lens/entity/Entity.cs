@@ -39,50 +39,51 @@ namespace Lens.entity {
 		public event PositionChanged PositionChanged;
 		public float Width = 16;
 		public float Height = 16;
+		public bool Centered;
 		
 		public float X {
-			get => Position.X;
+			get => Centered ? Position.X - Width / 2 : Position.X;
 			set {
-				position.X = value;
+				position.X = Centered ? value + Width / 2 : value;
 				PositionChanged?.Invoke();
 			}
 		}
 
 		public float Y {
-			get => Position.Y;
+			get => Centered ? Position.Y - Height / 2 : Position.Y;
 			set {
-				position.Y = value;
+				position.Y = Centered ? value + Height / 2 : value;
 				PositionChanged?.Invoke();
 			}
 		}
 
 		public Vector2 Center {
-			get => new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
+			get => new Vector2(CenterX, CenterY);
 			set {
-				position.X = value.X - Width / 2;
-				position.Y = value.Y - Height / 2;
+				X = value.X - Width / 2;
+				Y = value.Y - Height / 2;
 				PositionChanged?.Invoke();
 			}
 		}
 		
 		public float CenterX {
-			get => Position.X + Width / 2;
+			get => X + Width / 2;
 			set {
-				position.X = value - Width / 2;
+				X = value - Width / 2;
 				PositionChanged?.Invoke();
 			}
 		}
 
 		public float CenterY {
-			get => Position.Y + Height / 2;
+			get => Y + Height / 2;
 			set {
-				position.Y = value - Height / 2;
+				Y = value - Height / 2;
 				PositionChanged?.Invoke();
 			}
 		}
 
-		public float Right => Position.X + Width;
-		public float Bottom => Position.Y + Height;
+		public float Right => X + Width;
+		public float Bottom => Y + Height;
 
 		#endregion
 		

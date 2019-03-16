@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.biome;
 using BurningKnight.save;
@@ -49,6 +50,8 @@ namespace BurningKnight.entity.level {
 		public byte[] LiquidVariants;
 		public byte[] Light;
 
+		public Chasm Chasm;
+
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
 			
@@ -67,8 +70,14 @@ namespace BurningKnight.entity.level {
 
 			Depth = Layers.Floor;
 			
+			Chasm = new Chasm {
+				Level = this
+			};
+			
+			Area.Add(Chasm);
 			Area.Add(new RenderTrigger(RenderLiquids, Layers.Liquid));
 			Area.Add(new RenderTrigger(RenderWalls, Layers.Wall));
+			Area.Add(new RenderTrigger(Lights.Render, Layers.Light));
 		}
 
 		public override void AddComponents() {
@@ -81,6 +90,7 @@ namespace BurningKnight.entity.level {
 		
 		public void CreateBody() {
 			GetComponent<LevelBodyComponent>().CreateBody();
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 		}
 
 		public void TileUp() {
@@ -91,6 +101,10 @@ namespace BurningKnight.entity.level {
 			if (value.Matches(TileFlags.LiquidLayer)) {
 				Liquid[i] = (byte) value;
 			} else {
+				if (value.Matches(Tile.WallA, Tile.WallB)) {
+					Liquid[i] = 0;
+				}
+				
 				Tiles[i] = (byte) value;
 			}
 		}

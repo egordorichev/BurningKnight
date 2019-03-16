@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.chest {
 	public class LockedChest : Chest {
 		protected override bool CanInteract() {
-			return !GetComponent<LockComponent>().Lock.IsLocked;
+			return base.CanInteract() && !GetComponent<LockComponent>().Lock.IsLocked;
 		}
 
 		public override void AddComponents() {

@@ -66,8 +66,10 @@ namespace Lens.entity {
 						var entity = ToAdd[i];
 						Entities.Add(entity);
 
-						entity.Area = Area;
-						entity.Init();
+						if (entity.Area == null) {
+							entity.Area = Area;
+							entity.Init();
+						}
 					}
 
 					ToAdd.Clear();

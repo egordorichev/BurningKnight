@@ -7,9 +7,9 @@ using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
 
 namespace BurningKnight.entity.level {
-	public class LevelBodyComponent : BodyComponent {
+	public class ChasmBodyComponent : BodyComponent {
 		public void CreateBody() {
-			var level = (Level) Entity;
+			var level = ((Chasm) Entity).Level;
 			
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
 			Body.FixedRotation = true;
@@ -22,13 +22,13 @@ namespace BurningKnight.entity.level {
 					var index = level.ToIndex(x, y);
 					var tile = level.Tiles[index];
 
-					if (TileFlags.Matches(tile, TileFlags.Solid)) {
+					if (TileFlags.Matches(tile, TileFlags.Hole)) {
 						var sum = 0;
 
 						foreach (var dir in PathFinder.Neighbours8) {
 							var n = dir + index;
 							
-							if (!level.IsInside(n) || TileFlags.Matches(level.Tiles[n], TileFlags.Solid) || TileFlags.Matches(level.Tiles[n], TileFlags.Hole)) {
+							if (!level.IsInside(n) || TileFlags.Matches(level.Tiles[n], TileFlags.Hole) || TileFlags.Matches(level.Tiles[n], TileFlags.Solid)) {
 								sum++;
 							}
 						}
@@ -42,18 +42,18 @@ namespace BurningKnight.entity.level {
 						
 						list.Clear();
 
-						if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx, yy));
+							if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
+							list.Add(new Vector2(xx, Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
-							list.Add(new Vector2(xx, yy + 6));
-							list.Add(new Vector2(xx + 6, yy));
+							list.Add(new Vector2(xx, yy + 16));
+							list.Add(new Vector2(xx + 6, yy + 8));
 						}
 
 						if (Check(level, x + 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx + 16, yy));
+							list.Add(new Vector2(xx + 16, Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
-							list.Add(new Vector2(xx + 16, yy + 6));
-							list.Add(new Vector2(xx + 10, yy));
+							list.Add(new Vector2(xx + 16, yy + 16));
+							list.Add(new Vector2(xx + 10, yy + 8));
 						}
 						
 						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {

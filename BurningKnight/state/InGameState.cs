@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
@@ -41,6 +42,7 @@ namespace BurningKnight.state {
 
 		public override void Destroy() {
 			Physics.Destroy();
+			Lights.Destroy();
 			// Fixme: enable
 			// SaveManager.SaveAll(Area);
 			Area = null;
