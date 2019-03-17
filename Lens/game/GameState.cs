@@ -2,7 +2,7 @@
 
 namespace Lens.game {
 	public class GameState {
-		public static bool RenderDebug = true;
+		public static bool RenderDebug = false;
 
 		public Area Area = new Area();
 		public Area Ui = new Area();
