@@ -368,7 +368,7 @@ namespace BurningKnight.entity.level {
 							
 							Graphics.Render(region, pos);
 
-							if (!paused && t == Tile.Water && Get(index + width) == Tile.Chasm && Random.Chance(5)) {
+							if (!paused && t == Tile.Water && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
 								Area.Add(new WaterfallFx {
 									Position = pos + new Vector2(Random.Float(16), 16)
 								});

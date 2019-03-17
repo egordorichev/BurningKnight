@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.util;
 using Lens.graphics;
 using Lens.input;
 using Lens.util;
@@ -11,25 +12,31 @@ namespace BurningKnight.entity.item.renderer {
 		public double Angle;
 		public float MaxAngle;
 		public bool Stay;
+
+		private double lastAngle;
 		
 		public AngledRenderer(float maxAngle, bool stay = false) {
 			MaxAngle = maxAngle.ToRadians();
 			Stay = stay;
 		}
 		
-		public override void Render(bool atBack) {
+		public override void Render(bool atBack, bool paused, float dt) {
 			var region = Item.Region;
 			var owner = Item.Owner;
 			var flipped = owner.GraphicsComponent.Flipped;
-			
-			var angle = Angle + owner.AngleTo(Input.Mouse.GamePosition);
 
-			if (flipped) {
-				angle -= Math.PI; // - angle;
+			if (!atBack && !paused) {
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
 			}
 			
-			Graphics.Render(region, new Vector2(owner.CenterX, owner.Bottom - 4), (float) angle, new Vector2(region.Center.X, region.Source.Height),
-				Vector2.One, flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);	
+			var angle = (flipped ? -Angle : Angle) + (atBack ? Math.PI / 4 : lastAngle);
+
+			if (flipped) {
+				angle -= Math.PI;
+			}
+			
+			Graphics.Render(region, new Vector2(owner.CenterX + (flipped ? -3 : 3), owner.Bottom - 6), (float) angle, new Vector2(region.Center.X, region.Source.Height),
+				new Vector2(flipped ? -1 : 1, 1));
 		}
 
 		public override void OnUse() {

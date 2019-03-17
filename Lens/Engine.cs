@@ -19,6 +19,7 @@ namespace Lens {
 		public static Matrix ScreenMatrix;
 		public static Matrix UiMatrix;
 		public static float Time;
+		public static float Delta;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
@@ -114,6 +115,7 @@ namespace Lens {
 			}
 
 			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			Delta = dt;
 			Time += dt;
 			time += dt;
 						

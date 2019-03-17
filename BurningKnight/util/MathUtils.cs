@@ -23,5 +23,15 @@ namespace BurningKnight.util {
 		public static float Map(float X, float In_min, float In_max, float Out_min, float Out_max) {
 			return (X - In_min) * (Out_max - Out_min) / (In_max - In_min) + Out_min;
 		}
+
+		public static double LerpAngle(double a, double to, float dt) {
+			return a + ShortAngleDistance(a, to) * dt;
+		}
+		
+		public static double ShortAngleDistance(double a0, double a1) {
+			double max = Math.PI * 2;
+			double da = (a1 - a0) % max;
+			return 2 * da % max - da;
+		}
 	}
 }

@@ -25,8 +25,8 @@ namespace BurningKnight.entity.creature.player {
 			// Inventory
 			AddComponent(new InventoryComponent());
 			AddComponent(new ActiveItemComponent());
-			AddComponent(new WeaponComponent());
 			AddComponent(new ActiveWeaponComponent());
+			AddComponent(new WeaponComponent());
 			AddComponent(new ConsumablesComponent());
 			
 			// Stats
@@ -45,12 +45,8 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 			
 			// Simple inventory simulation
-			/*var inventory = GetComponent<InventoryComponent>();
-			
-			inventory.Pickup(ItemRegistry.Create("iron_heart", Area));
+			var inventory = GetComponent<InventoryComponent>();
 			inventory.Pickup(ItemRegistry.Create("sword", Area));
-			inventory.Pickup(ItemRegistry.Create("sword", Area));
-			inventory.Pickup(ItemRegistry.Create("halo", Area));*/
 		}
 
 		public override void PostInit() {

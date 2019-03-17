@@ -1,9 +1,10 @@
+using Lens;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
 	public class ActiveWeaponComponent : WeaponComponent {
 		public override void Render() {
-			Item?.Renderer?.Render(false);
+			Item?.Renderer?.Render(false, Engine.Instance.State.Paused, Engine.Delta);
 		}
 
 		public override void Update(float dt) {
