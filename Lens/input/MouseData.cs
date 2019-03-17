@@ -1,4 +1,5 @@
 ﻿using System;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -94,6 +95,7 @@ namespace Lens.input {
 		}
 
 		public Vector2 ScreenPosition => new Vector2(CurrentState.X, CurrentState.Y);
+		public Vector2 GamePosition => Camera.Instance.ScreenToCamera(ScreenPosition);
 		
 		public Vector2 Position {
 			get { return Vector2.Transform(new Vector2(CurrentState.X, CurrentState.Y), Matrix.Invert(Engine.ScreenMatrix)); }

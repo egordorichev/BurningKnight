@@ -5,12 +5,8 @@ using Lens.graphics;
 
 namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
-		public void Render() {
-			if (Item == null) {
-				return;
-			}
-			
-			Graphics.Render(Item.GetComponent<SliceComponent>().Sprite, Entity.Position);
+		public virtual void Render() {
+			Item?.Renderer?.Render(true);
 		}
 		
 		protected override bool ShouldReplace(Item item) {

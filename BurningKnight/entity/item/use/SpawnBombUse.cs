@@ -8,7 +8,9 @@ namespace BurningKnight.entity.item.use {
 			var bomb = new Entity();
 			
 			bomb.Center = entity.Center;
-			bomb.AddComponent(new ExplodeComponent(3));
+			bomb.AddComponent(new ExplodeComponent {
+				Timer = 3
+			});
 						
 			entity.Area.Add(bomb);
 		}

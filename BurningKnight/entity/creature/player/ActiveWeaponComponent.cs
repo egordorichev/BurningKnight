@@ -2,11 +2,16 @@ using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
 	public class ActiveWeaponComponent : WeaponComponent {
+		public override void Render() {
+			Item?.Renderer?.Render(false);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (Item != null && Input.WasPressed(Controls.Use)) {
 				Item.Use((Player) Entity);
+				Item.Renderer?.OnUse();
 			}
 
 			if (Input.WasPressed(Controls.Swap)) {

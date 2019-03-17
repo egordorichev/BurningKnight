@@ -164,7 +164,6 @@ namespace BurningKnight.ui {
 			RenderActiveItem();
 			RenderHealthBar();
 			RenderConsumables();
-			
 		}
 		
 		private void RenderActiveItem() {

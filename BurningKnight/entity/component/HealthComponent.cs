@@ -100,6 +100,8 @@ namespace BurningKnight.entity.component {
 			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
 				ev.Item.Use(Entity);
 				return true;
+			} else if (e is ExplodedEvent b) {
+				ModifyHealth(-2, b.Who);
 			}
 			
 			return base.HandleEvent(e);

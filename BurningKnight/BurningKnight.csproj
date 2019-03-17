@@ -105,6 +105,7 @@
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
+    <Compile Include="entity\component\ExplodableComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="entity\events\ConsumableAddedEvent.cs" />
     <Compile Include="entity\events\ConsumableRemovedEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
+    <Compile Include="entity\events\ExplodedEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
@@ -166,6 +168,9 @@
     <Compile Include="entity\item\ItemPickupFx.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\ItemType.cs" />
+    <Compile Include="entity\item\renderer\AngledRenderer.cs" />
+    <Compile Include="entity\item\renderer\ItemRenderer.cs" />
+    <Compile Include="entity\item\renderer\SwordRenderer.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />

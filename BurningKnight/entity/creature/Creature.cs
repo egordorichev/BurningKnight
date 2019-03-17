@@ -14,6 +14,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new StateComponent());
 			AddComponent(new RoomComponent());
 			AddComponent(new BuffsComponent());
+			AddComponent(new ExplodableComponent());
 		}
 		
 		public void Kill(Entity w) {

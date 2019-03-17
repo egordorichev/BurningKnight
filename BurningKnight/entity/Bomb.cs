@@ -26,13 +26,15 @@ namespace BurningKnight.entity {
 			AlwaysActive = true;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));
-			AddComponent(new ExplodeComponent(explosionTime));
+			AddComponent(new ExplodeComponent {
+				Radius = 32,
+				Timer =  explosionTime
+			});
 		}
 
 		public void MoveToMouse() {
 			var component = GetComponent<RectBodyComponent>();
-			var pos = Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition);
-			var angle = AngleTo(pos);
+			var angle = AngleTo(Input.Mouse.GamePosition);
 			var force = 100f;
 			var vec = new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
 

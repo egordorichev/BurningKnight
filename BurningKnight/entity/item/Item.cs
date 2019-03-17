@@ -3,6 +3,7 @@ using System.Text;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
@@ -10,6 +11,7 @@ using BurningKnight.save;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
+using Lens.graphics;
 using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
@@ -37,6 +39,16 @@ namespace BurningKnight.entity.item {
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
+		public ItemRenderer Renderer;
+
+		public TextureRegion Region => GetComponent<ItemGraphicsComponent>().Sprite;
+		public Entity Owner => GetComponent<OwnerComponent>().Owner;
+		
+		public Item(ItemRenderer renderer, params ItemUse[] uses) {
+			Uses = uses;
+			Renderer = renderer;
+			Renderer.Item = this;
+		}
 		
 		public Item(params ItemUse[] uses) {
 			Uses = uses;
