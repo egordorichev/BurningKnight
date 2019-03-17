@@ -5,7 +5,27 @@ using System.Reflection;
 namespace Lens.util.tween {
 	public static class Tween {
 		private static List<TweenTask> tasks = new List<TweenTask>();
+
+		public static TweenTask To(float to, float value, Action<float> set, float duration, Func<float, float> ease = null, float delay = 0) {
+			if (ease == null) {
+				// Default ease
+				ease = Ease.QuadOut;
+			}
+			
+			TweenTask task = new TweenTask();
+			tasks.Add(task);
+			
+			task.Delay = delay;
+			task.Duration = duration;
+			task.EaseFn = ease;
+			task.Single = true;
+			task.From = value;
+			task.To = to;
+			task.Set = set;
 		
+			return task;
+		}
+
 		public static TweenTask To<T>(T target, object values, float duration, Func<float, float> ease = null, float delay = 0) {
 			if (ease == null) {
 				// Default ease

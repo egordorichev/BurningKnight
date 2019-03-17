@@ -248,6 +248,9 @@
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="ui\UiButton.cs" />
+    <Compile Include="ui\UiEntity.cs" />
+    <Compile Include="ui\UiLabel.cs" />
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />

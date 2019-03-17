@@ -17,6 +17,8 @@ namespace BurningKnight {
 		public const string Roll = "roll";
 		
 		public const string Pause = "pause";
+
+		public const string UiAccept = "ui_accept";
 		
 		public static void Bind() {
 			Input.Bind(Up, Keys.W);
@@ -44,6 +46,8 @@ namespace BurningKnight {
 			
 			Input.Bind(Pause, Keys.Escape);
 			Input.Bind(Pause, Buttons.Back);
+			
+			Input.Bind(UiAccept, MouseButtons.Left);
 		}
 	}
 }

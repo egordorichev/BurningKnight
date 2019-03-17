@@ -50,5 +50,9 @@ namespace Lens.graphics {
 		public static void Print(string str, BitmapFont font, Vector2 position) {
 			Batch.DrawString(font, str, new Vector2(position.X + 1, position.Y - 2), Color);
 		}
+
+		public static void Print(string str, BitmapFont font, Vector2 position, float angle, Vector2 origin, Vector2 scale) {
+			Batch.DrawString(font, str, new Vector2(position.X + 1, position.Y - 2), Color, angle, origin, scale);
+		}
 	}
 }

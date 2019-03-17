@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity {
 	public class Cursor : Entity {
 		private TextureRegion region;
-		private Vector scale = new Vector(1);
+		private Vector2 scale = new Vector2(1);
 		
 		public override void Init() {
 			base.Init();
@@ -31,7 +31,7 @@ namespace BurningKnight.entity {
 			Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
 
 			if (Input.Mouse.WasPressedLeftButton || Input.Mouse.WasPressedRightButton) {
-				Tween.To(scale, new { X = 1.3f, Y = 1.3f }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);
+				Tween.To(1.3f, scale.X, x => { scale.X = scale.Y = x; }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);
 			}
 		}
 

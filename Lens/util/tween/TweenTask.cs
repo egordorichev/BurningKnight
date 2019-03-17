@@ -16,6 +16,10 @@ namespace Lens.util.tween {
 		public float Delay;
 		public bool Started;
 		public bool Ended;
+		public bool Single;
+		public float From;
+		public float To;
+		public Action<float> Set;
 		
 		public void Update(float dt) {
 			if (Delay >= 0) {
@@ -57,6 +61,12 @@ namespace Lens.util.tween {
 		}
 		
 		protected void Interpolate(float t) {
+			if (Single) {
+				Set(From + (To - From) * t);
+				return;
+			}
+			
+			
 			int i = Vars.Count;
 			
 			while (i-- > 0) {
