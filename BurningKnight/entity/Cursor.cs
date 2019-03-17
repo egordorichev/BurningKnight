@@ -1,10 +1,8 @@
-﻿using BurningKnight.util;
-using Lens;
+﻿using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
-using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
@@ -31,7 +29,8 @@ namespace BurningKnight.entity {
 			Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
 
 			if (Input.Mouse.WasPressedLeftButton || Input.Mouse.WasPressedRightButton) {
-				Tween.To(1.3f, scale.X, x => { scale.X = scale.Y = x; }, 0.05f).OnEnd = () => Tween.To(scale, new { X = 1, Y = 1 }, 0.15f);
+				Tween.To(1.3f, scale.X, x => { scale.X = scale.Y = x; }, 0.05f).OnEnd = () =>
+					Tween.To(1f, scale.X, x => { scale.X = scale.Y = x; }, 0.15f);
 			}
 		}
 

@@ -4,9 +4,9 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
-using BurningKnight.entity.ui;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.ui;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -25,6 +25,7 @@ namespace BurningKnight.state {
 		private float blur;
 		private TextureRegion fog;
 		private float time;
+		private UiPane pauseMenu;
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -54,14 +55,19 @@ namespace BurningKnight.state {
 
 		protected override void OnPause() {
 			base.OnPause();
+			
+			// fixme: quadOut doesnt feel smooth as tween for the pauseMenu.Y
+			// it seems like its broken
 			Tween.To(this, new {blur = 1}, 0.25f);
+			Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
 		}
 
 		protected override void OnResume() {
 			base.OnResume();
-			pausedByMouseOut = false;
-
+			
 			Tween.To(this, new {blur = 0}, 0.25f);
+			pausedByMouseOut = false;
+			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
 		}
 
 		public override void OnActivated() {
@@ -84,7 +90,7 @@ namespace BurningKnight.state {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 			
-			if (!Paused && !inside) {
+			if (!Paused && !inside && !Engine.Version.Debug) {
 				Paused = true;
 				pausedByMouseOut = true;
 			} else if (Paused && pausedByMouseOut && inside) {
@@ -95,6 +101,8 @@ namespace BurningKnight.state {
 				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
+			} else {
+				Ui.Update(dt);
 			}
 
 			if (Input.WasPressed(Controls.Pause)) {
@@ -124,12 +132,7 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			
 			Graphics.Print($"{Engine.Instance.Counter.AverageFramesPerSecond}", Font.Small, 1, 1);
-
-			if (Paused) {
-				Graphics.Print("Paused", Font.Medium, 1, 16);
-			}
 		}
 
 		private void SetupUi() {
@@ -149,6 +152,32 @@ namespace BurningKnight.state {
 			}
 			
 			Ui.Add(new UiInventory(player));
+			
+			Ui.Add(pauseMenu = new UiPane {
+				Y = -Display.UiHeight				
+			});
+
+			float space = 32f;
+			float start = (Display.UiHeight - space * 2 - 14 * 3) / 2f;
+
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "resume",
+				CenterX = Display.UiWidth / 2f,
+				Y = start,
+				Click = () => Paused = false
+			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "settings",
+				CenterX = Display.UiWidth / 2f,
+				Y = start + space
+			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "back_to_menu",
+				CenterX = Display.UiWidth / 2f,
+				Y = start + space * 2
+			});
 		}
 	}
 }

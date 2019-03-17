@@ -10,11 +10,10 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
-using Lens.input;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.entity.ui {
+namespace BurningKnight.ui {
 	public class UiInventory : UiEntity {
 		private TextureRegion itemSlot;
 		private TextureRegion useSlot;
@@ -35,16 +34,16 @@ namespace BurningKnight.entity.ui {
 		
 		private Player player;
 
-		private Vector activeScale = new Vector(1);
-		private Vector itemScale = new Vector(1);
+		private Vector2 activeScale = new Vector2(1);
+		private Vector2 itemScale = new Vector2(1);
 
 		private int coins;
 		private int keys;
 		private int bombs;
 		
-		private Vector coinScale = new Vector(1);
-		private Vector keyScale = new Vector(1);
-		private Vector bombScale = new Vector(1);
+		private Vector2 coinScale = new Vector2(1);
+		private Vector2 keyScale = new Vector2(1);
+		private Vector2 bombScale = new Vector2(1);
 		
 		public UiInventory(Player player) {
 			this.player = player;	
@@ -95,7 +94,11 @@ namespace BurningKnight.entity.ui {
 					Tween.To(this, new {bombs = now}, 0.05f * Math.Abs(amount));					
 				}
 				
-				Tween.To(bombScale, new {X = 0.3f, Y = 2f}, 0.1f).OnEnd = () => Tween.To(bombScale, new {X = 1f, Y = 1f}, 0.2f);
+				Tween.To(0.3f, bombScale.X, x => bombScale.X = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, bombScale.X, x => bombScale.X = x, 0.2f);
+
+				Tween.To(2f, bombScale.Y, x => bombScale.Y = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, bombScale.Y, x => bombScale.Y = x, 0.2f);
 			} else if (type == ItemType.Key) {
 				if (Math.Abs(amount) == 1) {
 					keys = now;
@@ -103,7 +106,11 @@ namespace BurningKnight.entity.ui {
 					Tween.To(this, new {keys = now}, 0.05f * Math.Abs(amount));					
 				}
 				
-				Tween.To(keyScale, new {X = 0.3f, Y = 2f}, 0.1f).OnEnd = () => Tween.To(keyScale, new {X = 1f, Y = 1f}, 0.2f);
+				Tween.To(0.3f, keyScale.X, x => keyScale.X = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, keyScale.X, x => keyScale.X = x, 0.2f);
+
+				Tween.To(2f, keyScale.Y, x => keyScale.Y = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, keyScale.Y, x => keyScale.Y = x, 0.2f);
 			} else if (type == ItemType.Coin) {
 				if (Math.Abs(amount) == 1) {
 					coins = now;
@@ -111,7 +118,8 @@ namespace BurningKnight.entity.ui {
 					Tween.To(this, new {coins = now}, 0.05f * Math.Abs(amount));					
 				}
 				
-				Tween.To(coinScale, new {X = 0.3f, Y = 2f}, 0.1f).OnEnd = () => Tween.To(coinScale, new {X = 1f, Y = 1f}, 0.2f);
+				Tween.To(2f, coinScale.Y, x => coinScale.Y = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, coinScale.Y, x => coinScale.Y = x, 0.2f);
 			}
 		}
 
@@ -129,8 +137,20 @@ namespace BurningKnight.entity.ui {
 
 				case ItemUsedEvent item: {
 					if (player.GetComponent<ActiveItemComponent>().Item == item.Item) {
-						Tween.To(activeScale, new {X = 0.6f, Y = 1.5f}, 0.1f).OnEnd = () => Tween.To(activeScale, new {X = 1.5f, Y = 0.6f}, 0.1f, Ease.QuadOut).OnEnd = () => Tween.To(activeScale, new {X = 1f, Y = 1f}, 0.2f, Ease.QuadOut);
-						Tween.To(itemScale, new {X = 0.3f, Y = 2f}, 0.1f).OnEnd = () => Tween.To(itemScale, new {X = 1f, Y = 1f}, 0.2f);
+
+						Tween.To(0.6f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
+							Tween.To(1.5f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
+								Tween.To(1f, activeScale.X, x => activeScale.X = x, 0.2f);
+						
+						Tween.To(1.5f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
+							Tween.To(0.6f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
+								Tween.To(1f, activeScale.Y, x => activeScale.Y = x, 0.2f);
+						
+						Tween.To(0.3f, itemScale.X, x => itemScale.X = x, 0.1f).OnEnd = () =>
+							Tween.To(1f, itemScale.X, x => itemScale.X = x, 0.2f);
+						
+						Tween.To(2f, itemScale.Y, x => itemScale.Y = x, 0.1f).OnEnd = () =>
+							Tween.To(1f, itemScale.Y, x => itemScale.Y = x, 0.2f);
 					}
 					
 					break;
@@ -164,7 +184,7 @@ namespace BurningKnight.entity.ui {
 					Graphics.Color = Color.White;
 				}
 				
-				var region = item.GetComponent<SliceComponent>().Sprite;
+				var region = item.GetComponent<ItemGraphicsComponent>().Sprite;
 
 				if (region != null) {
 					Graphics.Render(region, new Vector2(

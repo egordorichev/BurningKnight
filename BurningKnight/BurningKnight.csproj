@@ -224,8 +224,6 @@
     <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
-    <Compile Include="entity\ui\UiEntity.cs" />
-    <Compile Include="entity\ui\UiInventory.cs" />
     <Compile Include="integration\discord\Discord.cs" />
     <Compile Include="integration\discord\NamedPipeClient\Control\UnityNamedPipe.cs" />
     <Compile Include="integration\discord\NamedPipeClient\IO\Exceptions\NamedPipeConnectionException.cs" />
@@ -250,7 +248,9 @@
     <Compile Include="Tags.cs" />
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiEntity.cs" />
+    <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
+    <Compile Include="ui\UiPane.cs" />
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
@@ -260,7 +260,6 @@
     <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
-    <Compile Include="util\Vector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">

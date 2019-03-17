@@ -280,6 +280,10 @@ namespace Lens.entity {
 			return (float) Math.Atan2(DyTo(entity), DxTo(entity));
 		}
 		
+		public float AngleTo(Vector2 vec) {
+			return (float) Math.Atan2(DyTo(vec), DxTo(vec));
+		}
+		
 		#endregion
 		
 		#region Simple collision

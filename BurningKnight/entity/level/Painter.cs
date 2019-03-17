@@ -14,34 +14,11 @@ using Prop = BurningKnight.entity.fx.Prop;
 
 namespace BurningKnight.entity.level {
 	public class Painter {
-		private float Cobweb = 0.1f;
-		private float Dirt = 0.5f;
-		private float Grass = 0.5f;
-		private float Water = 1f;
+		private float Cobweb = 0.05f;
+		private float Dirt = 0.35f;
+		private float Grass = 0.35f;
+		private float Water = 0.4f;
 
-		public Painter SetWater(float V) {
-			Water = V;
-
-			return this;
-		}
-
-		public Painter SetCobweb(float V) {
-			Cobweb = V;
-
-			return this;
-		}
-
-		public Painter SetDirt(float V) {
-			Dirt = V;
-
-			return this;
-		}
-
-		public Painter SetGrass(float V) {
-			Grass = V;
-
-			return this;
-		}
 
 		public void Paint(Level Level, List<RoomDef> Rooms) {
 			if (Rooms == null) {

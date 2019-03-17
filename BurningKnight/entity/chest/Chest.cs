@@ -13,18 +13,18 @@ using VelcroPhysics.Dynamics;
 
 /*
  * TODO:
- * Spawn items
  * Small solid body
  * React to bombs
  * React to hitting
  * Chest pool
  * Chest item pools
  */
+
 namespace BurningKnight.entity.chest {
 	public class Chest : SaveableEntity {
 		public bool IsOpen { get; private set; }
 		protected List<Item> items = new List<Item>();
-		
+
 		public void Open(Entity entity) {
 			if (IsOpen) {
 				return;
@@ -37,6 +37,22 @@ namespace BurningKnight.entity.chest {
 				IsOpen = true;
 				GetComponent<StateComponent>().Become<OpeningState>();
 			}
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is StateChangedEvent ev && ev.NewState == typeof(OpenState)) {
+				foreach (var i in items) {
+					Area.Add(i);
+
+					i.CenterX = CenterX;
+					i.Y = Bottom;
+					i.AddDroppedComponents();
+				}
+				
+				items.Clear();
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public virtual void GenerateLoot() {

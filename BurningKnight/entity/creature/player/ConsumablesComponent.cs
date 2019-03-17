@@ -99,9 +99,8 @@ namespace BurningKnight.entity.creature.player {
 				
 				var bomb = new Bomb();
 				bomb.Center = Entity.Center;
-				// todo: vel to mouse
-				
 				Entity.Area.Add(bomb);
+				bomb.MoveToMouse();
 			}
 		}
 

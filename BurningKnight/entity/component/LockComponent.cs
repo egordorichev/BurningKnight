@@ -6,7 +6,7 @@ using Lens.entity.component;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
-	public class LockComponent : Component {
+	public class LockComponent : Component, Subscriber {
 		public Lock Lock;
 		public Action<Entity> OnOpen;
 		
@@ -22,10 +22,11 @@ namespace BurningKnight.entity.component {
 			}
 			
 			entity.Area.Add(Lock);
+			entity.Area.EventListener.Subscribe<LockOpenedEvent>(this);
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is LockOpenedEvent ev) {
+			if (e is LockOpenedEvent ev && ev.Lock == Lock) {
 				OnOpen?.Invoke(ev.Who);
 			}
 			

@@ -1,3 +1,7 @@
 {
-  "halo" : "Halo", "halo_desc" : "OOO"
+  "halo" : "Halo", "halo_desc" : "OOO",
+  
+  "resume" : "Resume",
+  "settings" : "Settings",
+  "back_to_menu" : "Back to menu"
 }

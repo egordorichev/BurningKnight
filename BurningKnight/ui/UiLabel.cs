@@ -1,10 +1,10 @@
 ﻿using BurningKnight.assets;
+using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui {
 	public class UiLabel : UiEntity {
-		protected Vector2 origin;
 		protected string label;
 		
 		public string Label {
@@ -24,11 +24,12 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		public float Angle;
-		public Vector2 Scale = Vector2.One;
+		public string LocaleLabel {
+			set => Label = Locale.Get(value);
+		}
 
 		public override void Render(Vector2 position) {
-			Graphics.Print(label, Font.Small, position, Angle, origin, Scale);
+			Graphics.Print(label, Font.Medium, position + Position + origin, angle, origin, scale);
 		}
 	}
 }
