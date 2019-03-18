@@ -104,6 +104,7 @@
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
+    <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\ExplodableComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="entity\item\ItemType.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />
+    <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\SwordRenderer.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
@@ -184,6 +186,8 @@
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
+    <Compile Include="entity\item\use\ShootUse.cs" />
+    <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
@@ -234,6 +238,7 @@
     <Compile Include="entity\level\Tilesets.cs" />
     <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\Pool.cs" />
+    <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="integration\discord\Discord.cs" />
     <Compile Include="integration\discord\NamedPipeClient\Control\UnityNamedPipe.cs" />

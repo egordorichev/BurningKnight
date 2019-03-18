@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			Become<IdleState>();
 
-			var body = new RectBodyComponent(0, 0, 16, 16);
+			var body = new RectBodyComponent(2, 2, 12, 12);
 			AddComponent(body);
 
 			body.Body.LinearDamping = 3;

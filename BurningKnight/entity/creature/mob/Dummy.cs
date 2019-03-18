@@ -9,13 +9,16 @@ namespace BurningKnight.entity.creature.mob {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new RectBodyComponent(4, 2, 14, 8, BodyType.Static));
+			AddComponent(new RectBodyComponent(4, 2, 8, 14, BodyType.Static));
 			AddAnimation("dummy");
 			SetMaxHp(10);
 			
 			Become<IdleState>();
 
-			GetComponent<HealthComponent>().RenderInvt = false;
+			var health = GetComponent<HealthComponent>();
+
+			health.InvincibilityTimerMax = 0;
+			health.RenderInvt = false;
 		}
 
 		public override bool HandleEvent(Event e) {

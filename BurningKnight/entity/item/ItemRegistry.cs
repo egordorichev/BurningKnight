@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.entity.projectile;
 using Lens.entity;
+using Lens.input;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
@@ -24,13 +26,17 @@ namespace BurningKnight.entity.item {
 				
 				new ItemInfo("heart", () => new Item(new ModifyHpUse(2)), ItemType.Heart),
 				new ItemInfo("half_heart", () => new Item(new ModifyHpUse(1)), ItemType.Heart),
-				
 				new ItemInfo("iron_heart", () => new Item(new ModifyIronHeartsUse(1)), ItemType.Heart),
 				new ItemInfo("gold_heart", () => new Item(new ModifyGoldHeartsUse(1)), ItemType.Heart),
 				
 				new ItemInfo("sword", () => new Item(
-					new AngledRenderer(180, true), 
+					new MovingAngledRenderer(180, true), 
 					new MeleeArcUse(1, 0.2f)
+				)),
+				
+				new ItemInfo("gun", () => new Item(
+					new AngledRenderer(), 
+					new SimpleShootUse("small", 30f)
 				)),
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)

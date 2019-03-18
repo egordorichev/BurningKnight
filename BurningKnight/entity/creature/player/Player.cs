@@ -48,7 +48,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Simple inventory simulation
 			var inventory = GetComponent<InventoryComponent>();
-			inventory.Pickup(ItemRegistry.Create("sword", Area));
+			inventory.Pickup(ItemRegistry.Create("gun", Area));
 		}
 
 		public override void PostInit() {
