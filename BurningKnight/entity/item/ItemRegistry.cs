@@ -28,7 +28,10 @@ namespace BurningKnight.entity.item {
 				new ItemInfo("iron_heart", () => new Item(new ModifyIronHeartsUse(1)), ItemType.Heart),
 				new ItemInfo("gold_heart", () => new Item(new ModifyGoldHeartsUse(1)), ItemType.Heart),
 				
-				new ItemInfo("sword", () => new Item(new AngledRenderer(180, true))),
+				new ItemInfo("sword", () => new Item(
+					new AngledRenderer(180, true), 
+					new MeleeArcUse(1, 0.3f)
+				)),
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)
 			};

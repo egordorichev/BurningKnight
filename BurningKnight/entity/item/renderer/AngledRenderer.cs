@@ -5,7 +5,6 @@ using Lens.input;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.entity.item.renderer {
 	public class AngledRenderer : ItemRenderer {

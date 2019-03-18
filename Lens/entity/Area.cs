@@ -33,7 +33,7 @@ namespace Lens.entity {
 			entities.Entities.Clear();
 		}
 
-		public void Add(Entity entity, bool postInit = true) {
+		public Entity Add(Entity entity, bool postInit = true) {
 			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
@@ -43,6 +43,8 @@ namespace Lens.entity {
 			if (postInit) {
 				entity.PostInit();
 			}
+
+			return entity;
 		}
 
 		public void Remove(Entity entity) {

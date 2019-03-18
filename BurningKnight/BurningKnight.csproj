@@ -175,12 +175,14 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
+    <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
+    <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\level\BiomeInfo.cs" />
