@@ -118,6 +118,7 @@
     <Compile Include="entity\component\RoomComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
+    <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
