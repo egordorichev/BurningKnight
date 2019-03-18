@@ -30,7 +30,7 @@ namespace BurningKnight.entity.item {
 				
 				new ItemInfo("sword", () => new Item(
 					new AngledRenderer(180, true), 
-					new MeleeArcUse(1, 0.3f)
+					new MeleeArcUse(1, 0.2f)
 				)),
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)
