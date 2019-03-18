@@ -14,6 +14,8 @@ namespace BurningKnight.entity.creature.mob {
 			SetMaxHp(10);
 			
 			Become<IdleState>();
+
+			GetComponent<HealthComponent>().RenderInvt = false;
 		}
 
 		public override bool HandleEvent(Event e) {

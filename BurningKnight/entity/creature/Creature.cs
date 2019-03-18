@@ -10,7 +10,10 @@ namespace BurningKnight.entity.creature {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new HealthComponent());
+			AddComponent(new HealthComponent {
+				RenderInvt = true
+			});
+			
 			AddComponent(new StateComponent());
 			AddComponent(new RoomComponent());
 			AddComponent(new BuffsComponent());

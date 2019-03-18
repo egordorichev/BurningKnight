@@ -10,7 +10,8 @@ using Lens.util.file;
 namespace BurningKnight.entity.component {
 	public class HealthComponent : SaveableComponent {
 		private int health;
-		
+
+		public bool RenderInvt;
 		public int Health => health;
 
 		public void SetHealth(int hp, Entity setter) {			

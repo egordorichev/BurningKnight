@@ -69,8 +69,29 @@ namespace BurningKnight.entity.component {
 				
 				Shaders.End();
 			}
+
+			var stopShader = false;
+
+			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
+				var i = health.InvincibilityTimer;
+
+				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+					
+					stopShader = true;
+				}
+			}
 			
 			Animation?.Render(pos, Flipped);
+
+			if (stopShader) {
+				Shaders.End();
+			}
 		}
 
 		public override bool HandleEvent(Event e) {
