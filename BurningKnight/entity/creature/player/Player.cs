@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.physics;
@@ -54,18 +55,12 @@ namespace BurningKnight.entity.creature.player {
 
 			// todo: pick the entrance one
 			var room = Area.Tags[Tags.Room][0];
-			
-			CenterX = room.CenterX;
-			CenterY = room.CenterY;
+			Center = room.Center;
 
-			item = ItemRegistry.Create("halo", Area);
-			item.Center = Center;
-		}
+			var dummy = new Dummy();
+			Area.Add(dummy);
 
-		private Item item;
-
-		public override void Update(float dt) {
-			base.Update(dt);
+			dummy.Center = room.Center;
 		}
 
 		#region Player States

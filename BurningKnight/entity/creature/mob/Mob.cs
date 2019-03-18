@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void AddAnimation(string name, string layer = null) {
-			AddComponent(new AnimationComponent(name, layer));
+			SetGraphicsComponent(new AnimationComponent(name, layer));
 		}
 		
 		protected void SetMaxHp(int hp) {

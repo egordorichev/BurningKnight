@@ -119,6 +119,7 @@
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
+    <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
