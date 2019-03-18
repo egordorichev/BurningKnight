@@ -1,34 +1,47 @@
 ﻿using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.entity.level;
+using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
-	public class Projectile : Entity {
+	public class Projectile : Entity, CollisionFilterEntity {
 		protected BodyComponent BodyComponent;
 		public int Damage = 1;
 		public Entity Owner;
 		
-		public Projectile(Entity owner, string slice, double angle, float speed, bool circle = true) {
-			Owner = owner;
+		internal Projectile() {}
+
+		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true) {
+			var projectile = new Projectile();
+			owner.Area.Add(projectile);
+			
+			projectile.Owner = owner;
 			
 			var graphics = new SliceComponent("projectiles", slice);
-			SetGraphicsComponent(graphics);
+			projectile.SetGraphicsComponent(graphics);
 
 			var w = graphics.Sprite.Source.Width;
 			var h = graphics.Sprite.Source.Height;
 
+			projectile.Width = w;
+			projectile.Height = h;
+			projectile.Center = owner.Center;
+
 			if (circle) {
-				AddComponent(BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
+				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f));
 			} else {
-				AddComponent(BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
+				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h));
 			}
 			
-			BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
+			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
+
+			return projectile;
 		}
 
 		protected bool BreaksFrom(Entity entity) {
@@ -37,7 +50,7 @@ namespace BurningKnight.entity.projectile {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				
@@ -47,6 +60,10 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Creature);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace BurningKnight.entity.component {
 			Body.LinearDamping = 0;
 
 			Body.CreateFixture(new CircleShape(r, 1) {
-				Position = new Vector2(x, y)
+				Position = new Vector2(x + r, y + r)
 			}).IsSensor = sensor;
 		}
 	}
