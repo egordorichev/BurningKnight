@@ -124,6 +124,10 @@ namespace Lens.graphics.animation {
 			Frame = 0;
 		}
 
+		public bool HasTag(string tag) {
+			return Data.Tags.ContainsKey(tag);
+		}
+
 		private void ReadFrame() {
 			var nullableTag = Data.GetTag(tag);
 

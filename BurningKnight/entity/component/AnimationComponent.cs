@@ -6,11 +6,12 @@ using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.animation;
-using MonoGame.Extended.Sprites;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class AnimationComponent : GraphicsComponent {
 		public Animation Animation;
+		public Color Tint = Color.White;
 		private string name;
 		private ColorSet set;
 		
@@ -86,8 +87,10 @@ namespace BurningKnight.entity.component {
 					stopShader = true;
 				}
 			}
-			
+
+			Graphics.Color = Tint;
 			Animation?.Render(pos, Flipped);
+			Graphics.Color = ColorUtils.WhiteColor;
 
 			if (stopShader) {
 				Shaders.End();
@@ -96,7 +99,11 @@ namespace BurningKnight.entity.component {
 
 		public override bool HandleEvent(Event e) {
 			if (e is StateChangedEvent ev && Animation != null) {
-				Animation.Tag = ev.NewState.Name.ToLower().Replace("state", "");
+				var tag = ev.NewState.Name.ToLower().Replace("state", "");
+				
+				if (Animation.HasTag(tag)) {
+					Animation.Tag = tag;
+				}
 			}
 
 			return base.HandleEvent(e);

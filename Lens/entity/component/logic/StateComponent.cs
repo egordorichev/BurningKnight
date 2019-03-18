@@ -16,10 +16,18 @@ namespace Lens.entity.component.logic {
 			}
 		}
 
+		public Type ForceState {
+			set => newState = value;
+		}
+
 		public EntityState StateInstance => state;
 		
-		public void Become<T>() {
-			State = typeof(T);
+		public void Become<T>(bool force = false) {
+			if (force) {
+				ForceState = typeof(T);
+			} else {
+				State = typeof(T);
+			}
 		}
 
 		public override void Update(float dt) {
@@ -29,7 +37,7 @@ namespace Lens.entity.component.logic {
 				state?.Destroy();
 				
 				state = (EntityState) Activator.CreateInstance(newState);
-				state.Self = Entity;
+				state.Assign(Entity);
 				state.Init();
 
 				Send(new StateChangedEvent {

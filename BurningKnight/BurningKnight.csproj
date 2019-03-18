@@ -124,6 +124,7 @@
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
+    <Compile Include="entity\creature\mob\MobState.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />

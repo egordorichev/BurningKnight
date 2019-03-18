@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.physics;
@@ -61,6 +62,11 @@ namespace BurningKnight.entity.creature.player {
 			Area.Add(dummy);
 
 			dummy.Center = room.Center;
+			
+			var ghost = new Ghost();
+			Area.Add(ghost);
+
+			ghost.Center = room.Center;
 		}
 
 		#region Player States

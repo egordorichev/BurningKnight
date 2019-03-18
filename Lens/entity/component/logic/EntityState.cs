@@ -2,6 +2,10 @@
 	public class EntityState {
 		public Entity Self;
 		public float T;
+
+		public virtual void Assign(Entity self) {
+			Self = self;
+		}
 		
 		public virtual void Init() {
 			

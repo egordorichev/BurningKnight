@@ -1,12 +1,13 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.level;
+using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature {
-	public class Creature : SaveableEntity {
+	public class Creature : SaveableEntity, CollisionFilterEntity {
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -38,6 +39,10 @@ namespace BurningKnight.entity.creature {
 
 		protected virtual bool HasNoHealth(HealthModifiedEvent e) {
 			return GetComponent<HealthComponent>().Health == -e.Amount;
+		}
+
+		public virtual bool ShouldCollide(Entity entity) {
+			return !(entity is Creature);
 		}
 	}
 }

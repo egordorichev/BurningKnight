@@ -9,7 +9,7 @@ namespace BurningKnight.entity.creature.mob {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new RectBodyComponent(0, 0, 16, 16, BodyType.Static));
+			AddComponent(new RectBodyComponent(4, 2, 14, 8, BodyType.Static));
 			AddAnimation("dummy");
 			SetMaxHp(10);
 			
@@ -21,6 +21,8 @@ namespace BurningKnight.entity.creature.mob {
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev && ev.Amount < 0) {
 				Become<HurtState>();
+				GraphicsComponent.Flipped = ev.From.CenterX > CenterX;
+				
 				return true;
 			}
 			
@@ -47,7 +49,7 @@ namespace BurningKnight.entity.creature.mob {
 				base.Update(dt);
 				
 				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {
-					Self.GetComponent<StateComponent>().Become<IdleState>();
+					Self.GetComponent<StateComponent>().Become<IdleState>(true);
 				}
 			}
 		}
