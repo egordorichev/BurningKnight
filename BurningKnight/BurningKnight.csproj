@@ -240,13 +240,6 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
-    <Compile Include="integration\discord\Discord.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\Control\UnityNamedPipe.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\IO\Exceptions\NamedPipeConnectionException.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\IO\Exceptions\NamedPipeOpenException.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\IO\Exceptions\NamedPipeReadException.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\IO\Exceptions\NamedPipeWriteException.cs" />
-    <Compile Include="integration\discord\NamedPipeClient\IO\NamedPipeClientStream.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
@@ -301,8 +294,6 @@
     <Content Include="Content\Sfx\menu\goback.mp3" />
     <Content Include="Content\Sfx\menu\moving.mp3" />
     <Content Include="Content\Sfx\menu\select.mp3" />
-    <Content Include="integration\discord\NamedPipeClient\Plugins\x86_64\NativeNamedPipe.dll" />
-    <Content Include="integration\discord\NamedPipeClient\Plugins\x86_64\NativeNamedPipe.so" />
   </ItemGroup>
   <ItemGroup>
     <None Include="./Content/**">

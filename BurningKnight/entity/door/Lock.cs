@@ -46,8 +46,10 @@ namespace BurningKnight.entity.door {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			AddComponent(new InteractableComponent(Interact));
-			AddComponent(new RectBodyComponent(-1, 2, 10, 11, BodyType.Static, true));
+			if (Interactable()) {
+				AddComponent(new InteractableComponent(Interact));
+				AddComponent(new RectBodyComponent(-1, 2, 10, 11, BodyType.Static, true));
+			}
 							
 			var state = new StateComponent();
 			AddComponent(state);
@@ -96,6 +98,10 @@ namespace BurningKnight.entity.door {
 
 		protected virtual ColorSet GetLockPalette() {
 			return null;
+		}
+
+		protected virtual bool Interactable() {
+			return true;
 		}
 		
 		#region Lock States

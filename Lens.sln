@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopWindows", "DesktopWi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopMac", "DesktopMac\DesktopMac.csproj", "{44597C2F-5860-4E33-B219-02EB4F32FBF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{68B0E433-3961-4232-9EB1-393AB85FAF7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{44597C2F-5860-4E33-B219-02EB4F32FBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44597C2F-5860-4E33-B219-02EB4F32FBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44597C2F-5860-4E33-B219-02EB4F32FBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

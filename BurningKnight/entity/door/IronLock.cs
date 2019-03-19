@@ -7,13 +7,17 @@ namespace BurningKnight.entity.door {
 			return false;
 		}
 
+		protected override bool Interactable() {
+			return false;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			var shouldLock = false;
 
 			foreach (var player in Area.Tags[Tags.Player]) {
-				if (player.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob].Count > 0) {
+				if (player.GetComponent<RoomComponent>().Room.Tagged[Tags.MustBeKilled].Count > 0) {
 					shouldLock = true;
 					break;
 				}

@@ -13,6 +13,8 @@ namespace BurningKnight.entity.creature.mob {
 			base.AddComponents();
 			
 			AddTag(Tags.Mob);
+			AddTag(Tags.MustBeKilled);
+			
 			SetStats();
 		}
 

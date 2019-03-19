@@ -8,6 +8,8 @@ namespace Lens.entity.component.logic {
 		public float Angle;
 		public Vector2 Position;
 		public float Time;
+		
+		// fixme: push
 
 		public override void Update(float dt) {
 			Time += dt * 10f;

@@ -12,6 +12,7 @@ namespace BurningKnight.entity.creature.mob {
 			AddComponent(new RectBodyComponent(4, 2, 8, 14, BodyType.Static));
 			AddAnimation("dummy");
 			SetMaxHp(10);
+			RemoveTag(Tags.MustBeKilled);
 			
 			Become<IdleState>();
 

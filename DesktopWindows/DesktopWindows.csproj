@@ -86,6 +86,10 @@
       <Project>{d31d0d40-105e-47d5-a5d0-f6e30328bf86}</Project>
       <Name>BurningKnight</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Desktop\Desktop.csproj">
+      <Project>{68b0e433-3961-4232-9eb1-393ab85faf7c}</Project>
+      <Name>Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lens\Lens.csproj">
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>
