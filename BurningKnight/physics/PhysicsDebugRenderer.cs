@@ -1,23 +1,22 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using VelcroPhysics.Collision.Shapes;
 using VelcroPhysics.Dynamics;
-using VelcroPhysics.Extensions.DebugView;
 using VelcroPhysics.Shared;
 using VelcroPhysics.Utilities;
 
 namespace BurningKnight.physics {
 	public class PhysicsDebugRenderer {
-		public Color DefaultShapeColor = new Color(0.9f, 0.7f, 0.3f);
-		public Color InactiveShapeColor = new Color(0.5f, 0.5f, 0.3f);
-		public Color KinematicShapeColor = new Color(0.5f, 0.5f, 0.3f);
-		public Color SleepingShapeColor = new Color(0.6f, 0.6f, 0.3f);
-		public Color StaticShapeColor = new Color(0.5f, 0.9f, 0.3f);
+		private const float alpha = 0.7f;
+
+		public Color DefaultShapeColor = new Color(0.9f, 0.7f, 0.7f, alpha);
+		public Color InactiveShapeColor = new Color(0.5f, 0.5f, 0.3f, alpha);
+		public Color KinematicShapeColor = new Color(0.5f, 0.5f, 0.9f, alpha);
+		public Color SleepingShapeColor = new Color(0.6f, 0.6f, 0.6f, alpha);
+		public Color StaticShapeColor = new Color(0.5f, 0.9f, 0.5f, alpha);
 		
-		private const float alpha = 0.3f;
 		private World world;
 
 		public PhysicsDebugRenderer(World world) {

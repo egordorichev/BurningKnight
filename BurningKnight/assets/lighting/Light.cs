@@ -29,19 +29,17 @@ namespace BurningKnight.assets.lighting {
 
 			locked = true;
 			
-			Tween.To(0, radius, x => {
-				radius = x;
-				Scale.X = radius / 128f;
-				Scale.Y = Scale.X;
+			Tween.To(0, Color.A, x => {
+				Color.A = (byte) x;
 			}, 0.4f).OnEnd = () => Lights.Remove(this, true);
 		}
 
 		public void Start(float target) {
-			Tween.To(target, radius, x => {
-				radius = x;
-				Scale.X = radius / 128f;
-				Scale.Y = Scale.X;
-			}, 0.2f);
+			radius = target;
+
+			Tween.To(255, Color.A, x => {
+				Color.A = (byte) x; 
+			}, 0.4f);
 		}
 		
 		public void Update(float dt) {
