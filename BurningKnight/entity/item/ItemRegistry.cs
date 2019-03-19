@@ -37,7 +37,9 @@ namespace BurningKnight.entity.item {
 				new ItemInfo("gun", () => new Item(
 					new AngledRenderer(), 
 					new SimpleShootUse("small", 60f)
-				)),
+				) {
+					UseTime = 0.1f
+				}),
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)
 			};

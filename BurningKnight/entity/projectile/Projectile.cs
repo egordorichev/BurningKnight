@@ -1,6 +1,8 @@
 ﻿using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.level;
 using BurningKnight.physics;
@@ -44,8 +46,18 @@ namespace BurningKnight.entity.projectile {
 			return projectile;
 		}
 
+		public void AddLight(float radius, Color color) {
+			AddComponent(new LightComponent(this, radius, color));
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			Position += BodyComponent.Velocity * dt;
+		}
+
 		protected bool BreaksFrom(Entity entity) {
-			return entity is Level;
+			return entity != Owner && (entity is Level || entity is Door || entity.HasComponent<HealthComponent>());
 		}
 
 		public override bool HandleEvent(Event e) {

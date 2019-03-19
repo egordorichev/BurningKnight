@@ -222,7 +222,9 @@ namespace Lens.entity {
 			return components.ContainsKey(type);
 		}
 
-
+		public bool HasComponent<T>() {
+			return components.ContainsKey(typeof(T));
+		}
 		public bool TryGetComponent<T>(out T t) where T : Component {
 			if (components.TryGetValue(typeof(T), out var tmp)) {
 				t = (T) tmp;

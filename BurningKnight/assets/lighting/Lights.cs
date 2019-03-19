@@ -5,6 +5,7 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -75,18 +76,25 @@ namespace BurningKnight.assets.lighting {
 		}
 
 		public static Light New(Entity entity, float radius, Color color) {
-			if (lights.Count >= 256) {
-				return null;
-			}
-			
-			var light = new EntityLight((byte) lights.Count) {
-				Radius = radius,
+			var light = new EntityLight {
+				Radius = 0,
 				Entity = entity,
 				Color = color
 			};
+
+			light.Start(radius);
 			
 			lights.Add(light);
 			return light;
+		}
+
+		public static void Remove(Light light, bool fast = false) {
+			if (fast) {
+				lights.Remove(light);
+				return;
+			}
+			
+			light.Lock();
 		}
 	}
 }

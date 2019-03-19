@@ -1,6 +1,6 @@
 ﻿using System;
-using BurningKnight.entity.projectile;
 using Lens.entity;
+using Lens.util.camera;
 
 namespace BurningKnight.entity.item.use {
 	public class ShootUse : ItemUse {
@@ -12,6 +12,7 @@ namespace BurningKnight.entity.item.use {
 		
 		public void Use(Entity entity, Item item) {
 			SpawnProjectile(entity, item);
+			Camera.Instance.ShakeMax(4);
 		}
 	}
 }

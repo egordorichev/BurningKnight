@@ -13,5 +13,10 @@ namespace BurningKnight.assets.lighting {
 		public override void Update(float dt) {
 			Light.Update(dt);
 		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Lights.Remove(Light);
+		}
 	}
 }
