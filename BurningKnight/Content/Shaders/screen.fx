@@ -25,7 +25,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float mx = 1.0f / 320 * blur;
 	float my = 1.0f / 180 * blur;
 	float4 color = tex2D(s0, input.TextureCoordinates.xy);
-	float v = smoothstep(0.75f, 0.3f, length(input.TextureCoordinates - float2(0.5f, 0.5f)));
+	float v = smoothstep(0.75f, 0.5f, length(input.TextureCoordinates - float2(0.5f, 0.5f)));
 
 	if (blur > 0.001f) {		
 		for (int xx = -2; xx < 3; xx++) {

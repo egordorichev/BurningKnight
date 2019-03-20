@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Profile>HiDef</Profile>
-  <Platform>DesktopGL</Platform>
+  <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

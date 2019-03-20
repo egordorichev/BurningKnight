@@ -3,7 +3,7 @@
 
 /outputDir:bin
 /intermediateDir:obj
-/platform:DesktopGL
+/platform:Windows
 /config:
 /profile:HiDef
 /compress:False
@@ -30,6 +30,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/fog.fx
+
+#begin Shaders/item.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/item.fx
 
 #begin Shaders/screen.fx
 /importer:EffectImporter

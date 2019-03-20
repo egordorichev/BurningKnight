@@ -9,6 +9,7 @@ namespace BurningKnight.assets {
 		public static Effect Screen;
 		public static Effect Fog;
 		public static Effect Chasm;
+		public static Effect Item;
 		
 		public static void Load() {
 			Entity = Effects.Get("entity");
@@ -16,6 +17,7 @@ namespace BurningKnight.assets {
 			Screen = Effects.Get("screen");
 			Fog = Effects.Get("fog");
 			Chasm = Effects.Get("chasm");
+			Item = Effects.Get("item");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
 		}

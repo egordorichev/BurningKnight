@@ -4,7 +4,9 @@ using Lens.util.camera;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
-		public PlayerGraphicsComponent() : base("gobbo") {}
+		public PlayerGraphicsComponent() : base("gobbo") {
+			CustomFlip = true;
+		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
