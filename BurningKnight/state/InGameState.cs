@@ -88,6 +88,8 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
+			
+			Shaders.Screen.Parameters["split"].SetValue(1f);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 			
 			if (!Paused && !inside && !Engine.Version.Debug) {

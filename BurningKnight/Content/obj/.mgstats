@@ -1,7 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",775,989,1.671983
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1219,0.3437737
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1154,1676,0.4062751
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1264,0.6145629
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1103,1648,0.6719202
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1335,2282,0.4219068
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",775,989,0.6719182
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1219,0.2642854
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1154,1676,0.3163091
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1264,0.2031392
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1517,1957,1.002948
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1335,2282,0.2838192
