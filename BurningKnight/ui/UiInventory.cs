@@ -183,7 +183,7 @@ namespace BurningKnight.ui {
 					Graphics.Color = Color.White;
 				}
 				
-				var region = item.GetComponent<ItemGraphicsComponent>().Sprite;
+				var region = item.Region;
 
 				if (region != null) {
 					Graphics.Render(region, new Vector2(

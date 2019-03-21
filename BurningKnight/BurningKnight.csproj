@@ -144,6 +144,7 @@
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
+    <Compile Include="entity\editor\EditorCursor.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
     <Compile Include="entity\events\ChestOpenedEvent.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="save\SaveableEntity.cs" />
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="state\EditorState.cs" />
     <Compile Include="state\InGameState.cs" />
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\Run.cs" />

@@ -2,7 +2,6 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.util;
-using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;

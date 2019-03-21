@@ -195,19 +195,19 @@ namespace BurningKnight.entity.level {
 			Graphics.Batch.DrawRectangle(new RectangleF(0, 0, Width * 16, Height * 16), Color.Green);
 		}
 		
-		protected int GetRenderLeft(Camera camera) {
+		public int GetRenderLeft(Camera camera) {
 			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Floor(camera.X / 16 - 1f));
 		}
 
-		protected int GetRenderTop(Camera camera) {
+		public int GetRenderTop(Camera camera) {
 			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Floor(camera.Y / 16 - 1f));
 		}
 
-		protected int GetRenderRight(Camera camera) {
+		public int GetRenderRight(Camera camera) {
 			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Ceiling(camera.Right / 16 + 1f));
 		}
 
-		protected int GetRenderBottom(Camera camera) {
+		public int GetRenderBottom(Camera camera) {
 			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Ceiling(camera.Bottom / 16 + 1f));
 		}
 
@@ -219,8 +219,7 @@ namespace BurningKnight.entity.level {
 		// Renders floor layer
 		public override void Render() {
 			var camera = Camera.Instance;
-
-			bool paused = ((InGameState) Engine.Instance.State).Paused;
+			var paused = Engine.Instance.State.Paused;
 			
 			// Cache the condition
 			var toX = GetRenderRight(camera);
@@ -313,7 +312,7 @@ namespace BurningKnight.entity.level {
 			
 			Shaders.Begin(shader);
 
-			bool paused = ((InGameState) Engine.Instance.State).Paused;
+			var paused = Engine.Instance.State.Paused;
 			
 			var enabled = shader.Parameters["enabled"];
 			var tilePosition = shader.Parameters["tilePosition"];

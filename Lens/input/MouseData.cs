@@ -83,6 +83,8 @@ namespace Lens.input {
 
 		public bool WasMoved => CurrentState.X != PreviousState.X
 		                        || CurrentState.Y != PreviousState.Y;
+		
+		public Vector2 PositionDelta => new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y);
 
 		public float X {
 			get { return Position.X; }

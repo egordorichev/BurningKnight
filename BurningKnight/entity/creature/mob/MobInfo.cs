@@ -11,5 +11,17 @@ namespace BurningKnight.entity.creature.mob {
 				Spawns = spawns
 			};
 		}
+
+		public bool SpawnsIn(string biome) {
+			foreach (var b in Spawns) {
+				foreach (var a in b.Areas) {
+					if (a == biome) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
+		}
 	}
 }

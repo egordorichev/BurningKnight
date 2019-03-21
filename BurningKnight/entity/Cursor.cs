@@ -1,4 +1,5 @@
-﻿using Lens;
+﻿using BurningKnight.assets;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
@@ -8,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
 	public class Cursor : Entity {
-		private TextureRegion region;
+		protected TextureRegion Region;
 		private Vector2 scale = new Vector2(1);
 		
 		public override void Init() {
@@ -18,8 +19,7 @@ namespace BurningKnight.entity {
 			AlwaysVisible = true;
 			Depth = Layers.Cursor;
 
-			var anim = Animations.Get("ui");
-			region = anim.GetSlice("cursor_j");
+			Region = CommonAse.Ui.GetSlice("cursor_j");
 		}
 
 		public override void Update(float dt) {
@@ -36,7 +36,7 @@ namespace BurningKnight.entity {
 
 		public override void Render() {
 			var pos = Input.Mouse.UiPosition;
-			Graphics.Render(region, pos, 0, region.Center, scale);
+			Graphics.Render(Region, pos, 0, Region.Center, scale);
 		}
 	}
 }
