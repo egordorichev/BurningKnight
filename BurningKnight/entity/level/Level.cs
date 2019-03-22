@@ -306,6 +306,20 @@ namespace BurningKnight.entity.level {
 										sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
 										Graphics.Render(region, pos);
 										enabled.SetValue(false);
+										
+										var id = -1;
+
+										if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
+											id += 1;
+										}
+							
+										if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
+											id += 2;
+										}
+
+										if (id != -1) {
+											Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
+										}
 									}
 								}
 							} else {
@@ -317,11 +331,11 @@ namespace BurningKnight.entity.level {
 
 							var ind = -1;
 
-							if (!((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
 								ind += 1;
 							}
 							
-							if (!((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
 								ind += 2;
 							}
 
