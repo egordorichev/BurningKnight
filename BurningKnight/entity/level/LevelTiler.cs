@@ -25,7 +25,7 @@ namespace BurningKnight.entity.level {
 			}
 
 			level.LiquidVariants[index] = lmask;
-			
+
 			byte mask = 0;
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
@@ -34,7 +34,7 @@ namespace BurningKnight.entity.level {
 				if (level.Variants[index] != 0) {
 					return;
 				}
-				
+
 				var v = Random.Int(9);
 
 				if (v == 8 || v == 9) {
@@ -55,6 +55,10 @@ namespace BurningKnight.entity.level {
 				}
 
 				level.Variants[index] = (byte) v;
+				return;
+			}
+
+			if (!(t.Matches(TileFlags.LiquidLayer) || t.Matches(TileFlags.Solid))) {
 				return;
 			}
 			

@@ -1,10 +1,12 @@
 using System;
 using BurningKnight.entity.level;
+using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.entity.editor {
@@ -13,6 +15,8 @@ namespace BurningKnight.entity.editor {
 		public int CurrentIndex = 4;
 		public Editor Editor;
 
+		private float offset;
+		
 		private Tile[] order = {
 			Tile.WallA,
 			Tile.WallB,
@@ -75,12 +79,27 @@ namespace BurningKnight.entity.editor {
 			AlwaysVisible = true;
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			float speed = 320 * dt;
+
+			if (Input.Keyboard.IsDown(Keys.Down)) {
+				offset -= speed;
+			} else if (Input.Keyboard.IsDown(Keys.Up)) {
+				offset += speed;
+			}
+
+			offset = MathUtils.Clamp(-icons.Length * 20 + 34 + Display.UiHeight, 0, offset);
+		}
+
 		public bool OnClick(Vector2 pos) {
 			if (!Editor.ShowPanes || !Contains(Input.Mouse.UiPosition)) {
 				return false;	
 			}
 
-			CurrentIndex = (int) Math.Floor((Input.Mouse.UiPosition.Y + 1) / 18);
+			CurrentIndex = (int) MathUtils.Clamp(0, order.Length - 1, (float) 
+				Math.Floor((Input.Mouse.UiPosition.Y - offset + 1) / 18));
 			Current = order[CurrentIndex];
 
 			return true;
@@ -92,13 +111,14 @@ namespace BurningKnight.entity.editor {
 			
 			for (int i = 0; i < icons.Length; i++) {
 				if (i == CurrentIndex) {
-					Graphics.Batch.FillRectangle(new RectangleF(1, i * 18, 18, 18), ColorUtils.WhiteColor);
-				} else if (new Rectangle(0, i * 18 + 1, 20, 18).Contains(pos)) {
-					Graphics.Batch.FillRectangle(new RectangleF(1, i * 18, 18, 18), Color.Wheat);
-					Graphics.Batch.FillRectangle(new RectangleF(1, i * 18, 18, 18), Color.B);acl
+					Graphics.Batch.FillRectangle(new RectangleF(1, i * 18 + offset, 18, 18), ColorUtils.WhiteColor);
+					Graphics.Batch.FillRectangle(new RectangleF(2, i * 18 + 1 + offset, 16, 16), Color.Black);
+				} else if (new Rectangle(0, (int) (i * 18 + 1 + offset), 20, 18).Contains(pos)) {
+					Graphics.Batch.FillRectangle(new RectangleF(1, i * 18 + offset, 18, 18), Color.Red);
+					Graphics.Batch.FillRectangle(new RectangleF(2, i * 18 + 1 + offset, 16, 16), Color.Black);
 				}
 				
-				Graphics.Render(icons[i], new Vector2(2, i * 18 + 1));
+				Graphics.Render(icons[i], new Vector2(2, i * 18 + 1 + offset));
 			}
 		}
 	}
