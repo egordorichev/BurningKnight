@@ -82,9 +82,10 @@ namespace Lens.input {
 		#region Position
 
 		public bool WasMoved => CurrentState.X != PreviousState.X
-		                        || CurrentState.Y != PreviousState.Y;
+			|| CurrentState.Y != PreviousState.Y;
 		
-		public Vector2 PositionDelta => new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y);
+		public Vector2 PositionDelta => 
+			Vector2.Transform(new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y), Matrix.Invert(Engine.ScreenMatrix));
 
 		public float X {
 			get { return Position.X; }

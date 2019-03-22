@@ -96,6 +96,19 @@ namespace BurningKnight.entity.level {
 		public void TileUp() {
 			LevelTiler.TileUp(this);
 		}
+		
+		public void UpdateTile(int x, int y) {
+			var i = ToIndex(x, y);
+			
+			foreach (var d in PathFinder.Neighbours9) {
+				var index = i + d;
+				
+				if (IsInside(index)) {
+					Variants[index] = 0;
+					LevelTiler.TileUp(this, index);	
+				}
+			}
+		}
 				
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
