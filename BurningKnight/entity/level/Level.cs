@@ -109,6 +109,14 @@ namespace BurningKnight.entity.level {
 				}
 			}
 		}
+
+		public void Fill(Tile tile) {
+			byte t = (byte) tile;
+
+			for (int i = 0; i < Size; i++) {
+				Tiles[i] = t;
+			}
+		}
 				
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
@@ -264,26 +272,41 @@ namespace BurningKnight.entity.level {
 										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
 									});
 								}
-								
-								var tt = Get(index - width);
 
-								if (tt != Tile.Chasm) {					
-									var ind = CalcWallSide(x, y);
-									TextureRegion region;
-	
-									switch (tt) {
-										case Tile.WallA: region = Tileset.WallA[ind]; break;
-										case Tile.FloorA: region = Tileset.FloorSidesA[ind]; break;
-										case Tile.FloorB: region = Tileset.FloorSidesB[ind]; break;
-										case Tile.FloorC: region = Tileset.FloorSidesC[ind]; break;
-										case Tile.FloorD: region = Tileset.FloorSidesD[ind]; break;
-										default: case Tile.WallB: region = Tileset.WallB[ind]; break;
+								if (index >= width) {
+									var tt = Get(index - width);
+
+									if (tt != Tile.Chasm) {
+										var ind = CalcWallSide(x, y);
+										TextureRegion region;
+
+										switch (tt) {
+											case Tile.WallA:
+												region = Tileset.WallA[ind];
+												break;
+											case Tile.FloorA:
+												region = Tileset.FloorSidesA[ind];
+												break;
+											case Tile.FloorB:
+												region = Tileset.FloorSidesB[ind];
+												break;
+											case Tile.FloorC:
+												region = Tileset.FloorSidesC[ind];
+												break;
+											case Tile.FloorD:
+												region = Tileset.FloorSidesD[ind];
+												break;
+											default:
+											case Tile.WallB:
+												region = Tileset.WallB[ind];
+												break;
+										}
+
+										enabled.SetValue(true);
+										sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
+										Graphics.Render(region, pos);
+										enabled.SetValue(false);
 									}
-									
-									enabled.SetValue(true);
-									sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
-									Graphics.Render(region, pos);
-									enabled.SetValue(false);
 								}
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
@@ -406,7 +429,7 @@ namespace BurningKnight.entity.level {
 					if (Get(index) == Tile.Chasm) {
 						enabled.SetValue(false);
 						
-						if (Get(index + width) != Tile.Chasm) {
+						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcWallTopIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
 						}
 
@@ -414,11 +437,11 @@ namespace BurningKnight.entity.level {
 							Graphics.Render(Tilesets.Biome.ChasmTop[CalcWallTopIndex(x, y - 1)], new Vector2(x * 16, y * 16 - 16));
 						}*/
 								
-						if (Get(index + 1) != Tile.Chasm) {
+						if (IsInside(index + 1) && Get(index + 1) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmRight[CalcWallTopIndex(x + 1, y)], new Vector2(x * 16 + 16, y * 16));
 						}
 								
-						if (Get(index - 1) != Tile.Chasm) {
+						if (index > 0 && Get(index - 1) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmLeft[CalcWallTopIndex(x - 1, y)], new Vector2(x * 16 - 16, y * 16));
 						}
 						

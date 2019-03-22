@@ -9,6 +9,7 @@ using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.entity.editor {
@@ -44,8 +45,23 @@ namespace BurningKnight.entity.editor {
 			});
 
 			Level.Setup();
+			Level.Fill(Tile.Chasm);
 		}
-		
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
+				if (Input.Keyboard.WasPressed(Keys.Z)) {
+					Commands.Undo();
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.Y)) {
+					Commands.Redo();
+				}
+			}
+		}
+
 		public override void Render() {
 			base.Render();
 
