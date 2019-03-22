@@ -9,7 +9,6 @@ namespace BurningKnight.entity.level {
 		FloorC,
 		FloorD,
 		Water,
-		WallSide,
 		Chasm,
 		Lava,
 		Grass,

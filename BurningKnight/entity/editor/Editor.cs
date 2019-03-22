@@ -19,6 +19,7 @@ namespace BurningKnight.entity.editor {
 		public Camera Camera;
 		public Level Level;
 		public TileSelect TileSelect;
+		public bool ShowPanes = true;
 
 		public override void Init() {
 			base.Init();
@@ -29,8 +30,6 @@ namespace BurningKnight.entity.editor {
 			Commands = new CommandQueue {
 				Editor = this
 			};
-			
-			TileSelect = new TileSelect();
 			
 			Engine.Instance.State.Ui.Add(Cursor = new EditorCursor {
 				Editor = this
@@ -45,7 +44,20 @@ namespace BurningKnight.entity.editor {
 			});
 
 			Level.Setup();
-			Level.Fill(Tile.Chasm);
+			Level.Fill(Tile.FloorA);
+			Level.TileUp();
+			
+			Engine.Instance.State.Ui.Add(TileSelect = new TileSelect {
+				Editor = this
+			});
+		}
+
+		private void OnClick(Vector2 pos) {
+			if (TileSelect.OnClick(pos)) {
+				return;
+			}
+			
+			Cursor.OnClick(pos);
 		}
 
 		public override void Update(float dt) {
@@ -60,31 +72,21 @@ namespace BurningKnight.entity.editor {
 					Commands.Redo();
 				}
 			}
+
+			if (Input.Mouse.WasPressedLeftButton || (Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved)) {
+				OnClick(Input.Mouse.GamePosition);
+			}
 		}
 
 		public override void Render() {
 			base.Render();
-
-			// Cache the condition
-			var toX = Level.GetRenderRight(Camera);
-			var toY = Level.GetRenderTop(Camera);
-
-			var color = new Color(1f, 1f, 1f, 0.5f);
-			
-			for (int y = Run.Level.GetRenderBottom(Camera) - 1; y >= toY; y--) {
-				Graphics.Batch.DrawLine(0, y * 16, Display.Width, y * 16, color);
-			}
-			
-			for (int x = Run.Level.GetRenderLeft(Camera); x < toX; x++) {
-				Graphics.Batch.DrawLine(x * 16, 0, x * 16, Display.Height, color);
-			}
 
 			if (Cursor.CurrentMode != EditorCursor.Mode.Drag) {
 				var x = (int) Math.Floor(Input.Mouse.GamePosition.X / 16); 
 				var y = (int) Math.Floor(Input.Mouse.GamePosition.Y / 16);
 
 				if (Level.IsInside(x, y)) {
-					Graphics.Batch.DrawRectangle(new RectangleF(x * 16, y * 16, 16, 16), ColorUtils.WhiteColor);
+					Graphics.Batch.DrawRectangle(new RectangleF(x * 16, y * 16, 16, 16), new Color(1, 1, 1, 0.5f));
 				}
 			}
 		}

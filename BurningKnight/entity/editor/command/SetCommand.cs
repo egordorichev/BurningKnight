@@ -7,15 +7,27 @@ namespace BurningKnight.entity.editor.command {
 		public int Y;
 
 		private Tile before;
+		private Tile beforeLiquid;
 		
 		public void Do(Level level) {
-			before = level.Get(X, Y, Tile.Matches(TileFlags.LiquidLayer));
-			level.Set(X, Y, Tile);
+			var index = level.ToIndex(X, Y);
+			
+			before = level.Get(index);
+			beforeLiquid = level.Get(index, true);
+			
+			level.Liquid[index] = 0;
+
+			if (Tile.Matches(TileFlags.LiquidLayer) && (before.Matches(TileFlags.Solid) || before.Matches(TileFlags.Hole))) {
+				level.Tiles[index] = (byte) Tiles.RandomFloor();
+			}
+			
+			level.Set(index, Tile);
 			level.UpdateTile(X, Y);
 		}
 
 		public void Undo(Level level) {
 			level.Set(X, Y, before);
+			level.Set(X, Y, beforeLiquid);
 			level.UpdateTile(X, Y);
 		}
 	}

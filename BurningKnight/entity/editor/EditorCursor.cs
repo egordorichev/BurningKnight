@@ -5,6 +5,7 @@ using BurningKnight.entity.level;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.editor {
@@ -39,20 +40,20 @@ namespace BurningKnight.entity.editor {
 				// fixme: delta doesnt count screen upscale
 				Camera.Instance.Position -= Input.Mouse.PositionDelta;
 			}
+		}
 
-			if (Input.Mouse.WasPressedLeftButton || (Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved)) {
-				if (CurrentMode == Mode.Normal) {
-					var tile = Editor.TileSelect.Current;
-					var x = (int) Math.Floor(Input.Mouse.GamePosition.X / 16);
-					var y = (int) Math.Floor(Input.Mouse.GamePosition.Y / 16);
-					
-					if (Editor.Level.IsInside(x, y) && Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
-						Editor.Commands.Do(new SetCommand {
-							X = x,
-							Y = y,
-							Tile = tile
-						});
-					}
+		public void OnClick(Vector2 pos) {
+			if (CurrentMode == Mode.Normal) {
+				var tile = Editor.TileSelect.Current;
+				var x = (int) Math.Floor(pos.X / 16);
+				var y = (int) Math.Floor(pos.Y / 16);
+
+				if (Editor.Level.IsInside(x, y) && Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
+					Editor.Commands.Do(new SetCommand {
+						X = x,
+						Y = y,
+						Tile = tile
+					});
 				}
 			}
 		}

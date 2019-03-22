@@ -16,6 +16,15 @@ namespace Lens.graphics {
 			Source = texture.Bounds;
 			Center = new Vector2(Source.Width / 2f, Source.Height / 2f);
 		}
+	
+		public TextureRegion(TextureRegion texture, int w, int h) {
+			Texture = texture.Texture;
+			Source = new Rectangle {
+				X = texture.Source.X, Y = texture.Source.Y, Width = w, Height = h
+			};
+			
+			Center = new Vector2(Source.Width / 2f, Source.Height / 2f);
+		}
 
 		public TextureRegion(Texture2D texture, Rectangle source) {
 			Texture = texture;

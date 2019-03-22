@@ -99,12 +99,12 @@ namespace BurningKnight.entity.level {
 		
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
+			Variants[i] = 0;
 			
 			foreach (var d in PathFinder.Neighbours9) {
 				var index = i + d;
 				
 				if (IsInside(index)) {
-					Variants[index] = 0;
 					LevelTiler.TileUp(this, index);	
 				}
 			}
