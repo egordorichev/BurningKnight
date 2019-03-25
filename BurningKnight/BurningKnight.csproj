@@ -92,6 +92,8 @@
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
+    <Compile Include="debug\LoadCommand.cs" />
+    <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\Buff.cs" />

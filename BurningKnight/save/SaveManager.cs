@@ -1,3 +1,5 @@
+using System.IO;
+using System.Linq;
 using System.Threading;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -101,14 +103,40 @@ namespace BurningKnight.save {
 			}
 		}
 
-		public static FileHandle GetFileHandle(string Path) {
-			return new FileHandle(Path);
+		public static string PatchSavePath(string path, SaveType saveType) {
+			if (!path.EndsWith("/")) {
+				path += "/";
+			}
+			
+			path = Path.Combine(GetDir(), path);
+			
+			switch (saveType) {
+				case SaveType.Level: {
+					return $"{path}level{Run.Depth}.sv";
+				}
+				
+				case SaveType.Player: {
+					return $"{path}player.sv";
+				}
+				
+				case SaveType.Global: {
+					return $"{path}global.sv";
+				}
+				
+				default: {
+					return $"{path}game.sv";
+				}
+			}
 		}
 
-		public static void Save(Area area, SaveType saveType, bool Old) {
-			Log.Info("Saving " + saveType + " " + (Old ? Run.LastDepth : Run.Depth));
+		public static FileHandle GetFileHandle(string path) {			
+			return new FileHandle(path);
+		}
 
-			var file = new System.IO.FileInfo(GetSavePath(saveType, Old));
+		public static void Save(Area area, SaveType saveType, bool Old, string path = null) {
+			var file = new System.IO.FileInfo(path == null ? GetSavePath(saveType, Old) : PatchSavePath(path, saveType));
+			Log.Info($"Saving {saveType} {(Old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
+			
 			file.Directory.Create();
 			
 			var Stream = new FileWriter(file.FullName);

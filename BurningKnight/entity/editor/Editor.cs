@@ -2,7 +2,6 @@ using System;
 using BurningKnight.entity.editor.command;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
-using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -11,6 +10,7 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.entity.editor {
 	public class Editor : Entity {
@@ -27,6 +27,8 @@ namespace BurningKnight.entity.editor {
 			AlwaysVisible = true;
 			AlwaysActive = true;
 			
+			Engine.Instance.State.Ui.Add(new Console(Area));
+
 			Commands = new CommandQueue {
 				Editor = this
 			};

@@ -149,9 +149,7 @@ namespace BurningKnight.state {
 			Camera.Instance.Follow(cursor, 1f);
 			Camera.Instance.Jump();
 
-			if (Engine.Version.Debug) {
-				Ui.Add(new Console(Area));
-			}
+			Ui.Add(new Console(Area));
 			
 			Ui.Add(new UiInventory(player));
 			
