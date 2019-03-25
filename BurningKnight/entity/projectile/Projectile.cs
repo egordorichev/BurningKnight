@@ -16,6 +16,8 @@ namespace BurningKnight.entity.projectile {
 		protected BodyComponent BodyComponent;
 		public int Damage = 1;
 		public Entity Owner;
+		public float Range = -1;
+		public float T;
 		
 		internal Projectile() {}
 
@@ -53,6 +55,13 @@ namespace BurningKnight.entity.projectile {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			T += dt;
+
+			if (Range > -1 && T >= Range) {
+				Done = true;
+				return;
+			}
+			
 			Position += BodyComponent.Velocity * dt;
 		}
 

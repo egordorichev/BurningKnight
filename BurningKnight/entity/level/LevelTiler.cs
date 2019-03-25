@@ -25,19 +25,20 @@ namespace BurningKnight.entity.level {
 			}
 
 			level.LiquidVariants[index] = lmask;
-			
-			if (level.Variants[index] != 0) {
-				return;
-			}
 
+			byte mask = 0;
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
-
+			
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
+				if (level.Variants[index] != 0) {
+					return;
+				}
+
 				var v = Random.Int(9);
 
 				if (v == 8 || v == 9) {
-					if (level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
+					if (level.IsInside(index + level.Width + 1) && level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
 					    && level.Variants[index + 1] == 0 && level.Variants[index + level.Width] == 0 && level.Variants[index + 1 + level.Width] == 0) {
 
 						var st = v == 8 ? 8 : 10; 
@@ -53,11 +54,13 @@ namespace BurningKnight.entity.level {
 					v = Random.Int(8);
 				}
 
-				level.Variants[index] = (byte) v;					
+				level.Variants[index] = (byte) v;
 				return;
 			}
 
-			byte mask = 0;
+			if (!(t.Matches(TileFlags.LiquidLayer) || t.Matches(TileFlags.Solid))) {
+				return;
+			}
 			
 			for (int i = 0; i < 4; i++) {
 				var m = PathFinder.Circle4[i];

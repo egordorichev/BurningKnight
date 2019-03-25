@@ -11,6 +11,11 @@ namespace BurningKnight.entity.fx {
 			Depth = depth;
 		}
 
+		// Used for loadingx
+		public Prop() {
+			
+		}
+		
 		public override void PostInit() {
 			base.PostInit();
 			SetGraphicsComponent(new SliceComponent("props", sprite));

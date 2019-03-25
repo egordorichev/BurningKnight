@@ -4,7 +4,6 @@ namespace BurningKnight.state {
 	public static class Run {
 		private static int depth;
 		public static int NextDepth { get; private set; }
-		public static int LastDepth;
 		
 		public static int Depth {
 			get => depth;
@@ -16,7 +15,6 @@ namespace BurningKnight.state {
 		public static int Id = -1;
 
 		public static void UpdateLevel() {
-			LastDepth = depth;
 			depth = NextDepth;
 		}
 

@@ -7,10 +7,12 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

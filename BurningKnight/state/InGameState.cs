@@ -88,6 +88,8 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
+			
+			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 			
 			if (!Paused && !inside && !Engine.Version.Debug) {
@@ -147,9 +149,7 @@ namespace BurningKnight.state {
 			Camera.Instance.Follow(cursor, 1f);
 			Camera.Instance.Jump();
 
-			if (Engine.Version.Debug) {
-				Ui.Add(new Console(Area));
-			}
+			Ui.Add(new Console(Area));
 			
 			Ui.Add(new UiInventory(player));
 			

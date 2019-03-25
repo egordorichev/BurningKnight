@@ -2,17 +2,17 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.util;
-using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
 		private float t;
 		
 		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
-			
+			t = Random.Float(3f);
 		}
 
 		public override void Update(float dt) {
@@ -41,10 +41,16 @@ namespace BurningKnight.entity.item {
 					Graphics.Render(Sprite, position + d, angle, origin);
 				}
 				
-				Shaders.End();
 			}
+
+			var sh = Shaders.Item;
+			Shaders.Begin(sh);
+			sh.Parameters["time"].SetValue(t * 0.1f);
+			sh.Parameters["size"].SetValue(0.05f);
 			
 			Graphics.Render(Sprite, position, angle, origin);
+			
+			Shaders.End();
 		}
 	}
 }

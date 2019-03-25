@@ -1,15 +1,13 @@
+using System.IO;
 using System.Threading;
 using BurningKnight.state;
-using BurningKnight.util;
 using Lens.entity;
-using Lens.game;
 using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
 	public class SaveManager {
 		public const string SaveDir = "burning_knight/";
-		public static int Slot = 0;
 
 		public enum SaveType {
 			Player,
@@ -22,18 +20,10 @@ namespace BurningKnight.save {
 			Log.Info($"Save directory is {SaveDir}");
 		}
 
-		public static string GetDir(int slot = -1) {
-			if (slot == -1) {
-				slot = Slot;
-			}
-
-			return $"{SaveDir}slot-{slot}/";
-		}
-
 		public static void SaveGame(Area area) {
 			var thread = new Thread(() => {
-				Save(area, SaveType.Level, false);
-				Save(area, SaveType.Player, false);
+				Save(area, SaveType.Level);
+				Save(area, SaveType.Player);
 			});
 			
 			thread.Start();
@@ -41,8 +31,8 @@ namespace BurningKnight.save {
 		
 		public static void SaveGames(Area area) {
 			var thread = new Thread(() => {
-				Save(area, SaveType.Game, false);
-				Save(area, SaveType.Global, false);
+				Save(area, SaveType.Game);
+				Save(area, SaveType.Global);
 			});
 			
 			thread.Start();
@@ -50,10 +40,10 @@ namespace BurningKnight.save {
 		
 		public static void SaveAll(Area area) {
 			var thread = new Thread(() => {
-				Save(area, SaveType.Level, false);
-				Save(area, SaveType.Player, false);
-				Save(area, SaveType.Game, false);
-				Save(area, SaveType.Global, false);
+				Save(area, SaveType.Level);
+				Save(area, SaveType.Player);
+				Save(area, SaveType.Game);
+				Save(area, SaveType.Global);
 
 				area.Destroy();
 			});
@@ -61,55 +51,61 @@ namespace BurningKnight.save {
 			thread.Start();
 		}
 
-		public static string GetSavePath(SaveType saveType, bool Old = false) {
+		public static string GetSavePath(SaveType saveType) {
 			switch (saveType) {
 				case SaveType.Level: {
-					return $"{((Old ? Run.LastDepth : Run.Depth) <= -1 ? SaveDir : GetDir())}level{(Old ? Run.LastDepth : Run.Depth)}.sv";
+					return $"{SaveDir}level.sv";
 				}
 				
 				case SaveType.Player: {
-					return GetDir() + "player.sv";
+					return $"{SaveDir}player.sv";
 				}
 				
 				case SaveType.Global: {
-					return SaveDir + "global.sv";
+					return $"{SaveDir}global.sv";
 				}
 				
 				default: {
-					return GetDir() + "game.sv";
+					return $"{SaveDir}game.sv";
 				}
 			}
 		}
 
-		public static string GetSavePath(SaveType saveType, int Slot) {
+		public static string PatchSavePath(string path, SaveType saveType) {
+			if (!path.EndsWith("/")) {
+				path += "/";
+			}
+			
+			path = Path.Combine(SaveDir, path);
+			
 			switch (saveType) {
 				case SaveType.Level: {
-					return $"{(Run.Depth <= -1 ? SaveDir : GetDir(Slot))}level{Run.Depth}.sv";
+					return $"{path}level.sv";
 				}
 				
 				case SaveType.Player: {
-					return GetDir(Slot) + "player.sv";
+					return $"{path}player.sv";
 				}
 				
 				case SaveType.Global: {
-					return SaveDir + "global.sv";
+					return $"{path}global.sv";
 				}
-
+				
 				default: {
-					return GetDir(Slot) + "game.sv";
+					return $"{path}game.sv";
 				}
 			}
 		}
 
-		public static FileHandle GetFileHandle(string Path) {
-			return new FileHandle(Path);
+		public static FileHandle GetFileHandle(string path) {			
+			return new FileHandle(path);
 		}
 
-		public static void Save(Area area, SaveType saveType, bool Old) {
-			Log.Info("Saving " + saveType + " " + (Old ? Run.LastDepth : Run.Depth));
-
-			var file = new System.IO.FileInfo(GetSavePath(saveType, Old));
-			file.Directory.Create();
+		public static void Save(Area area, SaveType saveType, string path = null) {
+			var file = new FileInfo(path == null ? GetSavePath(saveType) : PatchSavePath(path, saveType));
+			Log.Info($"Saving {saveType} {Run.Depth} to {file.FullName}");
+			
+			file.Directory?.Create();
 			
 			var Stream = new FileWriter(file.FullName);
 
@@ -125,7 +121,7 @@ namespace BurningKnight.save {
 				}
 				
 				case SaveType.Game: {
-					GameSave.Save(area, Stream, Old);
+					GameSave.Save(area, Stream);
 					break;
 				}
 				
@@ -138,17 +134,12 @@ namespace BurningKnight.save {
 			Stream.Close();
 		}
 
-		public static bool Load(Area area, SaveType saveType, bool AutoGen = true) {
-			var save = GetFileHandle(GetSavePath(saveType));
+		public static bool Load(Area area, SaveType saveType, string path = null, bool AutoGen = true) {
+			var save = GetFileHandle(path == null ? GetSavePath(saveType) : PatchSavePath(path, saveType));
 
 			if (!save.Exists()) {
 				if (AutoGen) {
 					Generate(area, saveType);
-					/**Save(area, Type, false);
-
-					if (Type == Type.Level) {
-						Save(area, Type.Game, false);
-					}*/
 				} else {
 					return false;
 				}
@@ -186,7 +177,7 @@ namespace BurningKnight.save {
 
 		public static void DeletePlayer() {
 			Log.Info("Deleting player save!");
-			FileHandle Handle = GetFileHandle(GetSavePath(SaveType.Player, Slot));
+			var Handle = GetFileHandle(GetSavePath(SaveType.Player));
 
 			if (Handle.Exists()) {
 				Handle.Delete();
@@ -196,7 +187,7 @@ namespace BurningKnight.save {
 		public static void Delete() {
 			Log.Info("Deleting saves!");
 			
-			var File = GetFileHandle(GetDir());
+			var File = GetFileHandle(SaveDir);
 
 			if (File == null) {
 				Log.Error("Failed to delete!");
@@ -241,7 +232,6 @@ namespace BurningKnight.save {
 
 		public static void Generate(Area area, SaveType saveType) {
 			Log.Info($"Generating {saveType} {Run.Depth}");
-			Run.LastDepth = Run.Depth;
 
 			switch (saveType) {
 				case SaveType.Level: {

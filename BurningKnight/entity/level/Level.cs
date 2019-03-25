@@ -96,6 +96,27 @@ namespace BurningKnight.entity.level {
 		public void TileUp() {
 			LevelTiler.TileUp(this);
 		}
+		
+		public void UpdateTile(int x, int y) {
+			var i = ToIndex(x, y);
+			Variants[i] = 0;
+			
+			foreach (var d in PathFinder.Neighbours9) {
+				var index = i + d;
+				
+				if (IsInside(index)) {
+					LevelTiler.TileUp(this, index);	
+				}
+			}
+		}
+
+		public void Fill(Tile tile) {
+			byte t = (byte) tile;
+
+			for (int i = 0; i < Size; i++) {
+				Tiles[i] = t;
+			}
+		}
 				
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
@@ -195,19 +216,19 @@ namespace BurningKnight.entity.level {
 			Graphics.Batch.DrawRectangle(new RectangleF(0, 0, Width * 16, Height * 16), Color.Green);
 		}
 		
-		protected int GetRenderLeft(Camera camera) {
+		public int GetRenderLeft(Camera camera) {
 			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Floor(camera.X / 16 - 1f));
 		}
 
-		protected int GetRenderTop(Camera camera) {
+		public int GetRenderTop(Camera camera) {
 			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Floor(camera.Y / 16 - 1f));
 		}
 
-		protected int GetRenderRight(Camera camera) {
+		public int GetRenderRight(Camera camera) {
 			return (int) MathUtils.Clamp(0, Width - 1, (int) Math.Ceiling(camera.Right / 16 + 1f));
 		}
 
-		protected int GetRenderBottom(Camera camera) {
+		public int GetRenderBottom(Camera camera) {
 			return (int) MathUtils.Clamp(0, Height - 1, (int) Math.Ceiling(camera.Bottom / 16 + 1f));
 		}
 
@@ -219,8 +240,7 @@ namespace BurningKnight.entity.level {
 		// Renders floor layer
 		public override void Render() {
 			var camera = Camera.Instance;
-
-			bool paused = ((InGameState) Engine.Instance.State).Paused;
+			var paused = Engine.Instance.State.Paused;
 			
 			// Cache the condition
 			var toX = GetRenderRight(camera);
@@ -252,26 +272,55 @@ namespace BurningKnight.entity.level {
 										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
 									});
 								}
-								
-								var tt = Get(index - width);
 
-								if (tt != Tile.Chasm) {					
-									var ind = CalcWallSide(x, y);
-									TextureRegion region;
-	
-									switch (tt) {
-										case Tile.WallA: region = Tileset.WallA[ind]; break;
-										case Tile.FloorA: region = Tileset.FloorSidesA[ind]; break;
-										case Tile.FloorB: region = Tileset.FloorSidesB[ind]; break;
-										case Tile.FloorC: region = Tileset.FloorSidesC[ind]; break;
-										case Tile.FloorD: region = Tileset.FloorSidesD[ind]; break;
-										default: case Tile.WallB: region = Tileset.WallB[ind]; break;
+								if (index >= width) {
+									var tt = Get(index - width);
+
+									if (tt != Tile.Chasm) {
+										var ind = CalcWallSide(x, y);
+										TextureRegion region;
+
+										switch (tt) {
+											case Tile.WallA:
+												region = Tileset.WallA[ind];
+												break;
+											case Tile.FloorA:
+												region = Tileset.FloorSidesA[ind];
+												break;
+											case Tile.FloorB:
+												region = Tileset.FloorSidesB[ind];
+												break;
+											case Tile.FloorC:
+												region = Tileset.FloorSidesC[ind];
+												break;
+											case Tile.FloorD:
+												region = Tileset.FloorSidesD[ind];
+												break;
+											default:
+											case Tile.WallB:
+												region = Tileset.WallB[ind];
+												break;
+										}
+
+										enabled.SetValue(true);
+										sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
+										Graphics.Render(region, pos);
+										enabled.SetValue(false);
+										
+										var id = -1;
+
+										if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
+											id += 1;
+										}
+							
+										if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
+											id += 2;
+										}
+
+										if (id != -1) {
+											Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
+										}
 									}
-									
-									enabled.SetValue(true);
-									sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
-									Graphics.Render(region, pos);
-									enabled.SetValue(false);
 								}
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
@@ -282,11 +331,11 @@ namespace BurningKnight.entity.level {
 
 							var ind = -1;
 
-							if (!((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
 								ind += 1;
 							}
 							
-							if (!((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
 								ind += 2;
 							}
 
@@ -313,7 +362,7 @@ namespace BurningKnight.entity.level {
 			
 			Shaders.Begin(shader);
 
-			bool paused = ((InGameState) Engine.Instance.State).Paused;
+			var paused = Engine.Instance.State.Paused;
 			
 			var enabled = shader.Parameters["enabled"];
 			var tilePosition = shader.Parameters["tilePosition"];
@@ -394,7 +443,7 @@ namespace BurningKnight.entity.level {
 					if (Get(index) == Tile.Chasm) {
 						enabled.SetValue(false);
 						
-						if (Get(index + width) != Tile.Chasm) {
+						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcWallTopIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
 						}
 
@@ -402,11 +451,11 @@ namespace BurningKnight.entity.level {
 							Graphics.Render(Tilesets.Biome.ChasmTop[CalcWallTopIndex(x, y - 1)], new Vector2(x * 16, y * 16 - 16));
 						}*/
 								
-						if (Get(index + 1) != Tile.Chasm) {
+						if (IsInside(index + 1) && Get(index + 1) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmRight[CalcWallTopIndex(x + 1, y)], new Vector2(x * 16 + 16, y * 16));
 						}
 								
-						if (Get(index - 1) != Tile.Chasm) {
+						if (index > 0 && Get(index - 1) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmLeft[CalcWallTopIndex(x - 1, y)], new Vector2(x * 16 - 16, y * 16));
 						}
 						

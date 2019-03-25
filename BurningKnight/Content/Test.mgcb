@@ -31,6 +31,12 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/fog.fx
 
+#begin Shaders/item.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/item.fx
+
 #begin Shaders/screen.fx
 /importer:EffectImporter
 /processor:EffectProcessor

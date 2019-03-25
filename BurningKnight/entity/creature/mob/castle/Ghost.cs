@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddAnimation("ghost");
-			SetMaxHp(4);
+			SetMaxHp(2);
 			
 			Become<IdleState>();
 

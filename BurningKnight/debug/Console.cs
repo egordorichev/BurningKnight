@@ -34,6 +34,8 @@ namespace BurningKnight.debug {
 			commands.Add(new ZoomCommand());
 			commands.Add(new HurtCommand());
 			commands.Add(new EntityCommand());
+			commands.Add(new SaveCommand());
+			commands.Add(new LoadCommand());
 
 			AlwaysActive = true;
 			AlwaysVisible = true;

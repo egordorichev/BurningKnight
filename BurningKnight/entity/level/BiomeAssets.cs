@@ -34,6 +34,7 @@ namespace BurningKnight.entity.level {
 		public TextureRegion[] ChasmBottom = new TextureRegion[3];
 		public TextureRegion[] ChasmLeft = new TextureRegion[3];
 		public TextureRegion[] ChasmRight = new TextureRegion[3];
+		public TextureRegion[] ChasmSide = new TextureRegion[3];
 		
 		public TextureRegion EmberPattern;
 		
@@ -71,19 +72,12 @@ namespace BurningKnight.entity.level {
 			Patterns[(int) Tile.Ember] = EmberPattern = new TextureRegion(anim.Texture, new Rectangle(128, 128, 64, 64));
 
 			for (int i = 0; i < 3; i++) {
-				ChasmTop[i] = new TextureRegion(anim.Texture, new Rectangle(272 + i * 3, 0, 16, 16));
-			}
-			
-			for (int i = 0; i < 3; i++) {
-				ChasmBottom[i] = new TextureRegion(anim.Texture, new Rectangle(272 + i * 3, 64, 16, 16));
-			}
-			
-			for (int i = 0; i < 3; i++) {
-				ChasmLeft[i] = new TextureRegion(anim.Texture, new Rectangle(256, 16 + i * 3, 16, 16));
-			}
-			
-			for (int i = 0; i < 3; i++) {
-				ChasmRight[i] = new TextureRegion(anim.Texture, new Rectangle(320, 16 + i * 3, 16, 16));
+				ChasmTop[i] = new TextureRegion(anim.Texture, new Rectangle(272 + i * 16, 0, 16, 16));
+				ChasmBottom[i] = new TextureRegion(anim.Texture, new Rectangle(272 + i * 16, 64, 16, 16));
+				ChasmLeft[i] = new TextureRegion(anim.Texture, new Rectangle(256, 16 + i * 16, 16, 16));
+				ChasmRight[i] = new TextureRegion(anim.Texture, new Rectangle(320, 16 + i * 16, 16, 16));
+
+				ChasmSide[i] = new TextureRegion(anim.Texture, new Rectangle(256 + i * 16, 80, 16, 16));
 			}
 		}
 

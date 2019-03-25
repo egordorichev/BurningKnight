@@ -5,13 +5,15 @@
 		public int Update { get; }
 		public int Patch { get; }
 		public bool Debug { get; }
+		public bool Test { get; }
 		
-		public Version(int major, int minor, int update, int patch, bool debug) {
+		public Version(int major, int minor, int update, int patch, bool debug, bool test) {
 			Major = major;
 			Minor = minor;
 			Update = update;
 			Patch = patch;
 			Debug = debug;
+			Test = test;
 		}
 
 		public override string ToString() {

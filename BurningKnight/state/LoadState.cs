@@ -9,6 +9,7 @@ using Lens.game;
 
 namespace BurningKnight.state {
 	public class LoadState : GameState {
+		public string Path;
 		private Area gameArea;
 		
 		public override void Init() {
@@ -22,11 +23,11 @@ namespace BurningKnight.state {
 				Tilesets.Load();
 				
 				if (Run.Id == -1) {
-					SaveManager.Load(gameArea, SaveManager.SaveType.Game);
+					SaveManager.Load(gameArea, SaveManager.SaveType.Game, Path);
 				}
 
-				SaveManager.Load(gameArea, SaveManager.SaveType.Level);
-				SaveManager.Load(gameArea, SaveManager.SaveType.Player);
+				SaveManager.Load(gameArea, SaveManager.SaveType.Level, Path);
+				SaveManager.Load(gameArea, SaveManager.SaveType.Player, Path);
 				
 				Engine.Instance.SetState(new InGameState(gameArea));
 			});

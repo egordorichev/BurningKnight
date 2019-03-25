@@ -7,8 +7,8 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.save {
 	public class GameSave {
 
-		public static void Save(Area area, FileWriter Writer, bool Old) {
-			Writer.WriteByte((byte) (Old ? Run.LastDepth : Run.Depth));
+		public static void Save(Area area, FileWriter Writer) {
+			Writer.WriteByte((byte) Run.Depth);
 			Writer.WriteInt32(Run.KillCount);
 			Writer.WriteFloat(Run.Time);
 			Writer.WriteInt32(Run.Id);
