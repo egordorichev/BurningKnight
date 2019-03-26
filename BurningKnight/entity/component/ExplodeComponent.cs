@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets.particle;
+using Lens;
 using Lens.entity.component;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
@@ -34,7 +35,11 @@ namespace BurningKnight.entity.component {
 
 					explosion.Particle.Position += new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 				}
-
+				
+				Engine.Instance.Split = 1f;
+				Engine.Instance.Flash = 1f;
+				Engine.Instance.Freeze = 1f;
+					
 				foreach (var e in Entity.Area.GetEntitesInRadius(Entity.Center, Radius, typeof(ExplodableComponent))) {
 					e.GetComponent<ExplodableComponent>().HandleExplosion(Entity);
 				}

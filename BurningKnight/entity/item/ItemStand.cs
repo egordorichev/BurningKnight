@@ -1,8 +1,11 @@
-﻿using BurningKnight.entity.component;
+﻿using BurningKnight.assets;
+using BurningKnight.entity.component;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended.Sprites;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
@@ -35,6 +38,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			// todo: big sensor body component
 			AddComponent(new RectBodyComponent(2, 2, 10, 1, BodyType.Static));
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract
@@ -47,8 +51,8 @@ namespace BurningKnight.entity.item {
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (item != null) {
 					item.RemoveComponent<OwnerComponent>();
-					item = null;
 					inventory.Pickup(item);
+					item = null;
 				} else {
 					// todo: take active weapon
 				}
@@ -62,14 +66,49 @@ namespace BurningKnight.entity.item {
 		}
 		
 		public override void Render() {
-			base.Render();
+			var component = GetComponent<InteractableComponent>();
+			var renderOutline = component.OutlineAlpha > 0.05f;
+			
+			if (renderOutline) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
 
+				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+				foreach (var d in MathUtils.Directions) {
+					Graphics.Render(((SliceComponent) GraphicsComponent).Sprite, Position + d);
+				}
+				
+				Shaders.End();
+			}
+
+			GraphicsComponent.Render();
+			
 			if (item == null) {
 				return;
 			}
 
 			var region = item.Region;
-			Graphics.Render(region, new Vector2(CenterX, CenterY - region.Source.Height / 2f), 0, region.Center);
+			var pos = new Vector2(CenterX, CenterY - region.Source.Height / 2f);
+
+			if (renderOutline) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+				foreach (var d in MathUtils.Directions) {
+					Graphics.Render(region, pos + d, 0, region.Center);
+				}
+				
+				Shaders.End();
+			}
+			
+			Graphics.Render(region, pos, 0, region.Center);
 		}
 	}
 }

@@ -55,18 +55,30 @@ namespace Lens.graphics.gamerenderer {
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
-			
-			if (Camera.Instance != null) {
-				Graphics.Render(GameTarget, new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale, Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale), Camera.Instance.GetComponent<ShakeComponent>().Angle, new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f, Camera.Instance.Position.Y % 1 + Display.Height / 2f), new Vector2(Engine.Instance.Upscale * Camera.Instance.TextureZoom));	
+
+			if (Engine.Instance.Flash > 0.01f) {
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
+				Graphics.Clear(Engine.Instance.FlashColor);
+				Graphics.Batch.End();
+			} else {
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
+
+				if (Camera.Instance != null) {
+					Graphics.Render(GameTarget,
+						new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale,
+							Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale),
+						Camera.Instance.GetComponent<ShakeComponent>().Angle,
+						new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
+							Camera.Instance.Position.Y % 1 + Display.Height / 2f),
+						new Vector2(Engine.Instance.Upscale * Camera.Instance.TextureZoom));
+				}
+
+				Graphics.Batch.End();
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
+				Graphics.Render(UiTarget, Engine.Viewport, 0, Vector2.Zero, new Vector2(Engine.Instance.UiUpscale));
+				Graphics.Batch.End();
 			}
 
-			Graphics.Batch.End();
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
-			
-			Graphics.Render(UiTarget, Engine.Viewport, 0, Vector2.Zero, new Vector2(Engine.Instance.UiUpscale));
-			
-			Graphics.Batch.End();
 			Batcher2D.End();
 		}
 

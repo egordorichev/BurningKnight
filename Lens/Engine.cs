@@ -32,6 +32,9 @@ namespace Lens {
 		private const float FixedUpdateTime = 0.015f;
 		private float time;
 		public float Speed = 1;
+		public float Flash;
+		public float Freeze;
+		public Color FlashColor = Color.White;
 		public float Split;
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;
@@ -120,8 +123,15 @@ namespace Lens {
 
 			Delta = dt;
 			Time += dt;
-			time += (float) gameTime.ElapsedGameTime.TotalSeconds;
-						
+
+			if (Freeze < 0.01f) {
+				time += (float) gameTime.ElapsedGameTime.TotalSeconds;
+			}
+
+			Split = Math.Max(0, Split - dt);
+			Flash = Math.Max(0, Flash - dt * 20f);
+			Freeze = Math.Max(0, Freeze - dt * 10f);
+
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;
 	

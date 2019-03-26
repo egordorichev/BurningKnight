@@ -40,7 +40,6 @@ namespace BurningKnight.entity.item {
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(Sprite, position + d, angle, origin);
 				}
-				
 			}
 
 			var sh = Shaders.Item;

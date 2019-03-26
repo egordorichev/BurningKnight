@@ -32,10 +32,6 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
-				
-				Tween.To(0f, Engine.Instance.Split, x => {
-					Engine.Instance.Split = x;
-				}, 1f, Ease.Linear);
 			}
 			
 			return base.HandleEvent(e);
