@@ -3,6 +3,7 @@ using BurningKnight.entity.events;
 using Lens;
 using Lens.entity;
 using Lens.util;
+using Lens.util.camera;
 using Lens.util.tween;
 
 namespace BurningKnight.entity.creature.player {
@@ -22,16 +23,27 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new PlayerInputComponent());
 		}
 
+		private bool died;
+
 		public override bool HandleEvent(Event e) {
 			if (e is DiedEvent ev) {
-				if (!GetComponent<HealthComponent>().Dead) {
+				if (!GetComponent<HealthComponent>().Dead && !died) {
+					died = true;
+					
+					Camera.Instance.Targets.Clear();
+					Camera.Instance.Follow(this, 1);
+
 					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
-						Tween.To(1f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.2f);
+						Tween.To(1f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 1f);
 						Kill(ev.From);
 					};
+
+					return true;
 				}
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
+				Engine.Instance.Flash = 1f;
+				Engine.Instance.Freeze = 1f;
 			}
 			
 			return base.HandleEvent(e);

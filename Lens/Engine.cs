@@ -129,7 +129,7 @@ namespace Lens {
 			}
 
 			Split = Math.Max(0, Split - dt);
-			Flash = Math.Max(0, Flash - dt * 20f);
+			Flash = Math.Max(0, Flash - dt * 30f);
 			Freeze = Math.Max(0, Freeze - dt * 10f);
 
 			while (time >= FixedUpdateTime) {
