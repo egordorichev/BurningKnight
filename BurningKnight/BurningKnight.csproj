@@ -179,6 +179,7 @@
     <Compile Include="entity\item\ItemInfo.cs" />
     <Compile Include="entity\item\ItemPickupFx.cs" />
     <Compile Include="entity\item\ItemRegistry.cs" />
+    <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />

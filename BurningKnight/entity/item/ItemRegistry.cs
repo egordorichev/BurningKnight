@@ -41,7 +41,8 @@ namespace BurningKnight.entity.item {
 					UseTime = 0.1f
 				}),
 				
-				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact)
+				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1)), ItemType.Artifact),
+				new ItemInfo("lamp", () => new Item(), ItemType.Lamp)
 			};
 
 			foreach (var pair in infos) {

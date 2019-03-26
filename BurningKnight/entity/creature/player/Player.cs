@@ -60,7 +60,7 @@ namespace BurningKnight.entity.creature.player {
 			var room = Area.Tags[Tags.Room][0];
 			Center = room.Center;
 
-			var dummy = new Dummy();
+			/*var dummy = new Dummy();
 			Area.Add(dummy);
 
 			dummy.Center = room.Center;
@@ -69,7 +69,12 @@ namespace BurningKnight.entity.creature.player {
 			Area.Add(ghost);
 
 			ghost.CenterX = room.CenterX;
-			ghost.Y = room.CenterY + 64;
+			ghost.Y = room.CenterY + 64;*/
+
+			Area.Add(new ItemStand {
+				Center = room.Center - new Vector2(0, 16),
+				Item = ItemRegistry.Create("lamp", Area)
+			});
 		}
 
 		#region Player States
