@@ -134,14 +134,12 @@ namespace BurningKnight.save {
 			Stream.Close();
 		}
 
-		public static bool Load(Area area, SaveType saveType, string path = null, bool AutoGen = true) {
+		public static void Load(Area area, SaveType saveType, string path = null, bool AutoGen = true) {
 			var save = GetFileHandle(path == null ? GetSavePath(saveType) : PatchSavePath(path, saveType));
 
 			if (!save.Exists()) {
 				if (AutoGen) {
 					Generate(area, saveType);
-				} else {
-					return false;
 				}
 			} else {
 				Log.Info($"Loading {saveType} {Run.Depth}");
@@ -171,8 +169,6 @@ namespace BurningKnight.save {
 
 				Stream.Close();
 			}
-
-			return true;
 		}
 
 		public static void DeletePlayer() {

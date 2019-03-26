@@ -48,6 +48,9 @@ namespace BurningKnight.state {
 			// Fixme: enable
 			// SaveManager.SaveAll(Area);
 			Area = null;
+			
+			Shaders.Screen.Parameters["split"].SetValue(0f);
+			Shaders.Screen.Parameters["blur"].SetValue(0f);
 
 			// Clears the area, but we don't want that, cause we are still saving
 			base.Destroy();
@@ -89,7 +92,7 @@ namespace BurningKnight.state {
 		public override void Update(float dt) {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
-			Shaders.Screen.Parameters["split"].SetValue(0f);
+			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 			
 			if (!Paused && !inside && !Engine.Version.Debug) {

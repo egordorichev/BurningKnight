@@ -11,7 +11,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			AddComponent(new RectBodyComponent(4, 2, 8, 14, BodyType.Static));
 			AddAnimation("dummy");
-			SetMaxHp(10);
+			SetMaxHp(1);
 			RemoveTag(Tags.MustBeKilled);
 			
 			Become<IdleState>();
@@ -20,6 +20,8 @@ namespace BurningKnight.entity.creature.mob {
 
 			health.InvincibilityTimerMax = 0;
 			health.RenderInvt = false;
+
+			TouchDamage = 0;
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -1,13 +1,17 @@
+using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
 		public Entity Target;
+
+		protected List<Entity> CollidingToHurt = new List<Entity>();
+		protected int TouchDamage = 1;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -45,12 +49,33 @@ namespace BurningKnight.entity.creature.mob {
 			if (Target == null) {
 				FindTarget();
 			}
+
+			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {
+				var entity = CollidingToHurt[i];
+
+				if (entity.Done) {
+					CollidingToHurt.RemoveAt(i);
+					continue;
+				}
+
+				if (TouchDamage > 0) {
+					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
+				}
+			}
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is BuffAddedEvent add && add.Buff is CharmedBuff || e is BuffRemovedEvent del && del.Buff is CharmedBuff) {
 				// If old target even was a thing, it was from wrong category
 				FindTarget();
+			} else if (e is CollisionStartedEvent collisionStart) {
+				if (collisionStart.Entity.HasComponent<HealthComponent>()) {
+					CollidingToHurt.Add(collisionStart.Entity);
+				}
+			} else if (e is CollisionEndedEvent collisionEnd) {
+				if (collisionEnd.Entity.HasComponent<HealthComponent>()) {
+					CollidingToHurt.Remove(collisionEnd.Entity);
+				}
 			}
 			
 			return base.HandleEvent(e);

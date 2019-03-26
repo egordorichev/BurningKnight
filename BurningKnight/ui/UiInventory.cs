@@ -196,8 +196,8 @@ namespace BurningKnight.ui {
 
 		private void RenderHealthBar() {
 			var red = player.GetComponent<HealthComponent>();
-			var totalRed = red.Health;
-			var maxRed = red.MaxHealth;
+			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
+			var maxRed = red.MaxHealth - 1;
 			
 			var other = player.GetComponent<HeartsComponent>();
 			var totalIron = other.IronHalfs;			

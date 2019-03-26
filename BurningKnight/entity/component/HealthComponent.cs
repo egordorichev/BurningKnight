@@ -18,9 +18,7 @@ namespace BurningKnight.entity.component {
 			if (hp < health) {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;
-				}
-				
-				InvincibilityTimer = InvincibilityTimerMax;
+				}				
 			}
 			
 			var old = health;
@@ -30,6 +28,10 @@ namespace BurningKnight.entity.component {
 				Amount = h - old,
 				From = setter
 			})) {
+				if (hp < 0) {
+					InvincibilityTimer = InvincibilityTimerMax;
+				}
+				
 				health = h;				
 			}
 		}
@@ -59,8 +61,14 @@ namespace BurningKnight.entity.component {
 			get => maxHealth;
 
 			set {
+				var old = maxHealth;
 				maxHealth = Math.Max(1, value);
-				health = Math.Min(maxHealth, Health);
+
+				if (old == health) {
+					health = maxHealth;
+				} else {
+					health = Math.Min(maxHealth, Health);
+				}
 			}
 		}
 

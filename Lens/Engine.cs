@@ -31,6 +31,8 @@ namespace Lens {
 		private static Core.Core core;
 		private const float FixedUpdateTime = 0.015f;
 		private float time;
+		public float Speed = 1;
+		public float Split;
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;
 		private GameState newState;
@@ -114,10 +116,11 @@ namespace Lens {
 				}
 			}
 
-			float dt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;
+
 			Delta = dt;
 			Time += dt;
-			time += dt;
+			time += (float) gameTime.ElapsedGameTime.TotalSeconds;
 						
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;

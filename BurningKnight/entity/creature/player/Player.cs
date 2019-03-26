@@ -14,7 +14,7 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
-	public class Player : Creature, CollisionFilterEntity {
+	public class Player : Creature {
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -49,6 +49,8 @@ namespace BurningKnight.entity.creature.player {
 			// Simple inventory simulation
 			var inventory = GetComponent<InventoryComponent>();
 			inventory.Pickup(ItemRegistry.Create("gun", Area));
+
+			GetComponent<HealthComponent>().MaxHealth = 3;
 		}
 
 		public override void PostInit() {
@@ -66,7 +68,8 @@ namespace BurningKnight.entity.creature.player {
 			var ghost = new Ghost();
 			Area.Add(ghost);
 
-			ghost.Center = room.Center;
+			ghost.CenterX = room.CenterX;
+			ghost.Y = room.CenterY + 64;
 		}
 
 		#region Player States
@@ -119,8 +122,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 		#endregion
 
-		public bool ShouldCollide(Entity entity) {
-			return !(entity is Player);
+		public override bool ShouldCollide(Entity entity) {
+			return !(entity is Player) && base.ShouldCollide(entity);
 		}
 
 		protected override bool HasNoHealth(HealthModifiedEvent e) {

@@ -36,7 +36,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(GameTarget);
 			Begin();
 			Graphics.Clear(Bg);
-			Engine.Instance.State.Render();
+			Engine.Instance.State?.Render();
 			End();
 		}
 
@@ -44,7 +44,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Matrix.Identity);
 			Graphics.Clear(Color.Transparent);
-			Engine.Instance.State.RenderUi();
+			Engine.Instance.State?.RenderUi();
 			Graphics.Batch.End();
 		}
 		

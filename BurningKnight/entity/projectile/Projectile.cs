@@ -84,7 +84,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Creature);
+			return !(entity is Creature || entity is Chasm);
 		}
 	}
 }
