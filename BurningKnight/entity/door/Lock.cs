@@ -16,7 +16,7 @@ namespace BurningKnight.entity.door {
 		
 		public Lock() {
 			Width = 10;
-			Height = 15;
+			Height = 20;
 			IsLocked = true;
 		}
 		

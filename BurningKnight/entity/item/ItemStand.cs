@@ -55,8 +55,9 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			// todo: big sensor body component
 			AddComponent(new RectBodyComponent(2, 2, 10, 1, BodyType.Static));
+			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
+
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
 				OnStart = OnInteractionStart
@@ -74,11 +75,10 @@ namespace BurningKnight.entity.item {
 					SetItem(null, entity);
 					inventory.Pickup(i);
 
-					return true;
+					GetComponent<InteractableComponent>().OutlineAlpha = 0;
 				} else if (entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
-					
-					return true;
+					GetComponent<InteractableComponent>().OutlineAlpha = 0;
 				}
 			}
 

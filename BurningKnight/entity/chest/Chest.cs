@@ -108,18 +108,23 @@ namespace BurningKnight.entity.chest {
 			base.AddComponents();
 
 			Width = 20;
-			Height = 14;
+			Height = 18;
 			
 			SetGraphicsComponent(new AnimationComponent("chest", GetPalette()) {
 				Offset = new Vector2(-1, -5)
 			});
 			
-			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
 
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = CanInteract
+				CanInteract = CanInteract,
+				AlterInteraction = AlterInteraction
 			});
+		}
+
+		protected virtual Entity AlterInteraction() {
+			return this;
 		}
 
 		protected virtual ColorSet GetPalette() {

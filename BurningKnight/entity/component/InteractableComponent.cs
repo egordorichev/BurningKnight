@@ -8,6 +8,7 @@ namespace BurningKnight.entity.component {
 		public Func<bool> CanInteract;
 		public Action<Entity> OnStart;
 		public Action<Entity> OnEnd;
+		public Func<Entity> AlterInteraction;
 		public Entity CurrentlyInteracting;
 		public float OutlineAlpha;
 
