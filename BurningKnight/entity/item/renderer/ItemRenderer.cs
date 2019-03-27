@@ -6,6 +6,10 @@ namespace BurningKnight.entity.item.renderer {
 			
 		}
 
+		public virtual void Setup() {
+			
+		}
+
 		public virtual void OnUse() {
 			
 		}

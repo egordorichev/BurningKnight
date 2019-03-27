@@ -76,6 +76,14 @@ namespace Lens.util.camera {
 			var component = GetComponent<ShakeComponent>();
 			component.Amount = Math.Min(Math.Max(component.Amount, a), 20f);
 		}
+
+		public void Push(float angle, float force) {
+			var component = GetComponent<ShakeComponent>();
+			
+			component.Push = force;
+			component.PushDirection = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle));
+
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();

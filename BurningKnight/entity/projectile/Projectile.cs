@@ -66,7 +66,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
-			return entity != Owner && (entity is Level || entity is Door || entity.HasComponent<HealthComponent>());
+			return entity != Owner && (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>());
 		}
 
 		public override bool HandleEvent(Event e) {

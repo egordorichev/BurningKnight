@@ -7,15 +7,15 @@ namespace Lens.entity.component.logic {
 		public float Amount;
 		public float Angle;
 		public Vector2 Position;
+		public Vector2 PushDirection;
+		public float Push;
 		public float Time;
 		
 		// fixme: push
 
 		public override void Update(float dt) {
 			Time += dt * 10f;
-
-			float a = Math.Min(5, Amount * Amount * 0.5f * 0.1f);
-			Amount = Math.Max(0, Amount - dt * 15f);
+			var a = Math.Min(5, Amount * Amount * 0.05f);
 
 			if (Amount < 0.01f) {
 				Angle = 0;
@@ -26,6 +26,15 @@ namespace Lens.entity.component.logic {
 				Position.X = Noise.Generate(Time + 32) * a;
 				Position.Y = Noise.Generate(Time + 64) * a;	
 			}
+
+			if (Push >= 0.01f) {
+				var force = Math.Min(5, Push * Push * 0.3f);
+				Position.X += PushDirection.X * force;
+				Position.Y += PushDirection.Y * force;
+			}
+			
+			Amount = Math.Max(0, Amount - dt * 15f);
+			Push = Math.Max(0, Push - dt * 15f);
 		}
 	}
 }

@@ -18,6 +18,13 @@ namespace BurningKnight.entity.door {
 		
 		public bool FacingSide;
 
+		public bool Open {
+			get {
+				var component = GetComponent<StateComponent>();
+				return component.StateInstance is OpenState || component.StateInstance is OpeningState;
+			}	
+		}
+		
 		private List<Entity> colliding = new List<Entity>();
 		private float lastCollisionTimer;
 		
