@@ -217,6 +217,20 @@ namespace Lens.entity {
 		public T GetComponent<T>() where T : Component {
 			return (T) components[typeof(T)];
 		}
+		
+		public T GetAnyComponent<T>() where T : Component {
+			var type = typeof(T);
+
+			foreach (var component in components.Values) {
+				var t = component.GetType();
+				
+				if (t == type || t.IsSubclassOf(type)) {
+					return component as T;
+				}
+			}
+
+			return null;
+		}
 
 		public bool HasComponent(Type type) {
 			return components.ContainsKey(type);

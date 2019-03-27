@@ -4,7 +4,6 @@
 
 * Fix iteractable component: when you end interact with one, it should auto highlight outline of the second one.
 * Add knockback component
-* Shop stands
 
 ### Polish
 

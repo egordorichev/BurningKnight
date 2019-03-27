@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.events;
+﻿using System;
+using BurningKnight.entity.events;
 using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
@@ -10,7 +11,9 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.component {
 	public class BodyComponent : SaveableComponent {
 		public Body Body;
-		public Vector2 Acceleration = new Vector2();
+		public Vector2 Acceleration;
+		public Vector2 Knockback;
+		public float KnockbackModifier = 1;
 		
 		public Vector2 Velocity {
 			get => Body.LinearVelocity;
@@ -71,16 +74,34 @@ namespace BurningKnight.entity.component {
 			});
 		}
 
+		public void KnockbackFrom(Entity entity, float force = 1f) {
+			KnockbackFrom(entity.Center, force);
+		}
+
+		public void KnockbackFrom(Vector2 point, float force = 1f) {
+			KnockbackFrom(Entity.AngleTo(point), force);
+		}
+
+		public void KnockbackFrom(float a, float force = 1f) {			
+			force *= KnockbackModifier * 60;
+
+			Knockback.X += (float) Math.Cos(a) * force;
+			Knockback.Y += (float) Math.Sin(a) * force;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
-
+			
 			if (Body == null) {
 				return;
 			}
 
 			var velocity = Body.LinearVelocity;
-			velocity.X += Acceleration.X;
-			velocity.Y += Acceleration.Y;
+			velocity.X += Acceleration.X + Knockback.X;
+			velocity.Y += Acceleration.Y + Knockback.Y;
+
+			Knockback.X -= Knockback.X * dt * 10f;
+			Knockback.Y -= Knockback.Y * dt * 10f;
 
 			if (Entity.GraphicsComponent != null && !Entity.GraphicsComponent.CustomFlip && velocity.Length() > 0.1f) {
 				Entity.GraphicsComponent.Flipped = velocity.X < 0;
