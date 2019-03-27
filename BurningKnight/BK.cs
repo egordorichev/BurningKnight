@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public BK(int width, int height, bool fullscreen) : base(new MenuState(), Titles.Generate(), width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(new MenuState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 

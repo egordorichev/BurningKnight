@@ -9,7 +9,7 @@ namespace Desktop.integration.discord.NamedPipes
     {
         private IntPtr ptr;
         private bool _isDisposed;
-
+        
         /// <summary>
         /// Can the stream read? Always returns true.
         /// </summary>
@@ -43,11 +43,8 @@ namespace Desktop.integration.discord.NamedPipes
         /// <summary>
         /// The pipe name for this client.
         /// </summary>
-        public string PipeName { get; }
+        public string PipeName { get; private set; }
         
-        /// <summary>Prefix to prepend to all pipe names.</summary>
-        private static readonly string s_pipePrefix = Path.Combine(Path.GetTempPath(), "CoreFxPipe_");
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of a NamedPipeClient
@@ -89,9 +86,11 @@ namespace Desktop.integration.discord.NamedPipes
                     if (server != ".")
                         throw new PlatformNotSupportedException("Remote pipes are not supported on this platform.");
 
-                    return s_pipePrefix + pipeName;
+                    //Hack job?
+                    return Path.Combine(GetEnviromentTemp(), pipeName);
             }
         }
+               
         #endregion
 
         #region Open Close
@@ -116,7 +115,7 @@ namespace Desktop.integration.discord.NamedPipes
         #endregion
 
         /// <summary>
-        /// Reads a block of bytes from a stream and writes the data to a specified buffer. Will not block if there is no data available to write.
+        /// Reads a block of bytes from a stream and writes the data to a specified buffer. Will not block if there is no data available to read.
         /// </summary>
         /// <param name="buffer">When this method returns, contains the specified byte array with the values between offset and (offset + count - 1) replaced by the bytes read from the current source.</param>
         /// <param name="offset">The byte offset in the buffer array at which the bytes that are read will be placed.</param>
@@ -230,12 +229,23 @@ namespace Desktop.integration.discord.NamedPipes
 
         #endregion
 
+        private static string GetEnviromentTemp()
+        {
+            string temp = null;
+            temp = temp ?? Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR");
+            temp = temp ?? Environment.GetEnvironmentVariable("TMPDIR");
+            temp = temp ?? Environment.GetEnvironmentVariable("TMP");
+            temp = temp ?? Environment.GetEnvironmentVariable("TEMP");
+            temp = temp ?? "/tmp";
+            return temp;
+        }
+
         private static class Native
         {
-            const string LIBRARY_NAME = "/home/egor/Lens/DesktopLinux/bin/Debug/NativeNamedPipe.so";
+            const string LIBRARY_NAME = "NativeNamedPipe";
 
             #region Creation and Destruction
-            [DllImport(LIBRARY_NAME, EntryPoint = "createClient", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport(LIBRARY_NAME, EntryPoint = "createClient", CallingConvention = CallingConvention.Cdecl, ExactSpelling = false)]
             public static extern IntPtr CreateClient();
 
             [DllImport(LIBRARY_NAME, EntryPoint = "destroyClient", CallingConvention = CallingConvention.Cdecl)]
