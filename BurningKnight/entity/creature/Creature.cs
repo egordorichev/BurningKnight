@@ -27,6 +27,10 @@ namespace BurningKnight.entity.creature {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
+				if (ev.Amount < 0) {
+					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
+				}
+				
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
 				}

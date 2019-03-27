@@ -92,7 +92,8 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (!Send(new DiedEvent {
-				From = from
+				From = from,
+				Who = Entity
 			})) {
 				dead = true;
 				health = 0;

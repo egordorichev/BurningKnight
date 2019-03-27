@@ -3,5 +3,7 @@
   
   "resume" : "Resume",
   "settings" : "Settings",
-  "back_to_menu" : "Back to menu"
+  "back_to_menu" : "Back to menu",
+  "restart" : "Restart",
+  "death_message" : "RIP Gobbo"
 }

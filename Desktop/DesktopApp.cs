@@ -2,15 +2,18 @@
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.discord;
+using Lens;
 using Lens.game;
 using Microsoft.Xna.Framework;
 
 namespace Desktop {
 	public class DesktopApp : BK {
 		private List<Integration> integrations = new List<Integration>();
-		
-		public DesktopApp(GameState state, string title, int width, int height, bool fullscreen) : base(state, title, width, height, fullscreen) {}
 
+		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, false) {
+			
+		}
+		
 		protected override void LoadContent() {
 			base.LoadContent();
 			

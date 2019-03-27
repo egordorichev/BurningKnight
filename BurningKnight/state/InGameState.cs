@@ -1,11 +1,10 @@
-﻿using System;
-using BurningKnight.assets;
+﻿using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.physics;
-using BurningKnight.save;
 using BurningKnight.ui;
 using BurningKnight.util;
 using Lens;
@@ -19,16 +18,19 @@ using Lens.util.tween;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
-	public class InGameState : GameState {
+	public class InGameState : GameState, Subscriber {
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
 		private TextureRegion fog;
 		private float time;
 		private UiPane pauseMenu;
+		private UiPane gameOverMenu;
+		private bool died;
 		
 		public InGameState(Area area) {
 			Area = area;
+			Area.EventListener.Subscribe<DiedEvent>(this);
 		}
 		
 		public override void Init() {
@@ -58,6 +60,10 @@ namespace BurningKnight.state {
 
 		protected override void OnPause() {
 			base.OnPause();
+
+			if (died) {
+				return;
+			}
 			
 			// fixme: quadOut doesnt feel smooth as tween for the pauseMenu.Y
 			// it seems like its broken
@@ -68,9 +74,14 @@ namespace BurningKnight.state {
 		protected override void OnResume() {
 			base.OnResume();
 			
+			if (died) {
+				return;
+			}
+			
 			Tween.To(this, new {blur = 0}, 0.25f);
-			pausedByMouseOut = false;
 			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+
+			pausedByMouseOut = false;
 		}
 
 		public override void OnActivated() {
@@ -153,15 +164,14 @@ namespace BurningKnight.state {
 			Camera.Instance.Jump();
 
 			Ui.Add(new Console(Area));
-			
 			Ui.Add(new UiInventory(player));
 			
 			Ui.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight				
 			});
 
-			float space = 32f;
-			float start = (Display.UiHeight - space * 2 - 14 * 3) / 2f;
+			var space = 32f;
+			var start = (Display.UiHeight - space * 2 - 14 * 3) / 2f;
 
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
@@ -179,8 +189,49 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "back_to_menu",
 				CenterX = Display.UiWidth / 2f,
-				Y = start + space * 2
+				Y = start + space * 2,
+				Click = () => Engine.Instance.SetState(new MenuState())
 			});
+			
+			
+			Ui.Add(gameOverMenu = new UiPane {
+				Y = -Display.UiHeight				
+			});
+			
+			gameOverMenu.Add(new UiLabel {
+				LocaleLabel = "death_message",
+				CenterX = Display.UiWidth / 2f,
+				Y = start
+			});
+			
+			gameOverMenu.Add(new UiButton {
+				LocaleLabel = "restart",
+				CenterX = Display.UiWidth / 2f,
+				Y = start + space,
+				Click = () => Engine.Instance.SetState(new MenuState())
+			});
+			
+			gameOverMenu.Add(new UiButton {
+				LocaleLabel = "back_to_menu",
+				CenterX = Display.UiWidth / 2f,
+				Y = start + space * 2,
+				Click = () => Engine.Instance.SetState(new MenuState())
+			});
+		}
+
+		public bool HandleEvent(Event e) {
+			if (died) {
+				return false;
+			}
+			
+			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
+				died = true;
+				
+				Tween.To(this, new {blur = 1}, 0.5f);
+				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f);
+			}
+
+			return false;
 		}
 	}
 }

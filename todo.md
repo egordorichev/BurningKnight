@@ -2,8 +2,8 @@
 
 ### Important
 
-* Fix iteractable component: when you end interact with one, it should auto highlight outline of the second one.
-* Add knockback component
+* Game restart (death ui)
+* Make mobs not hurt each other, if they dont have charmed buff
 
 ### Polish
 
@@ -21,3 +21,7 @@
 * Explode item stand to replace the item with trash? :thinking:
 
 ### Ideas
+
+### Clean up
+
+* Move BurningBuff.Id somewhere else (other name), cause it hides Id field from Buff class

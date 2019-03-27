@@ -1,12 +1,14 @@
 ﻿using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.state;
+using BurningKnight.util;
 using Lens;
 using Lens.game;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public BK(GameState state, string title, int width, int height, bool fullscreen) : base(state, title, width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(new MenuState(), Titles.Generate(), width, height, fullscreen) {
 			
 		}
 
