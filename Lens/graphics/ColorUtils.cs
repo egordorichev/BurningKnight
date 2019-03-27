@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework;
 namespace Lens.graphics {
 	public static class ColorUtils {
 		public static Vector4 White = new Vector4(1, 1, 1, 1);
+		public static Vector4 Black = new Vector4(0, 0, 0, 1);
 		public static Color WhiteColor = Color.White;
+		public static Color BlackColor = Color.Black;
 		
 		public static Color FromHex(string hex) {
 			Color color = new Color();
