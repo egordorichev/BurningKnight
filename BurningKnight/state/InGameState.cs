@@ -198,6 +198,9 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight				
 			});
 			
+			space = 32f;
+			start = (Display.UiHeight - space * 2 - 14 * 4) / 2f;
+			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
 				CenterX = Display.UiWidth / 2f,
@@ -207,14 +210,14 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
 				CenterX = Display.UiWidth / 2f,
-				Y = start + space,
-				Click = () => Engine.Instance.SetState(new MenuState())
+				Y = start + space * 2,
+				Click = () => Engine.Instance.SetState(new LoadState())
 			});
 			
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "back_to_menu",
 				CenterX = Display.UiWidth / 2f,
-				Y = start + space * 2,
+				Y = start + space * 3,
 				Click = () => Engine.Instance.SetState(new MenuState())
 			});
 		}
@@ -222,7 +225,7 @@ namespace BurningKnight.state {
 		public bool HandleEvent(Event e) {
 			if (died) {
 				return false;
-			}
+			},
 			
 			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
 				died = true;

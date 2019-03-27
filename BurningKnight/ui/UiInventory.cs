@@ -161,6 +161,10 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
+			if (player.GetComponent<HealthComponent>().Dead) {
+				return;
+			}
+			
 			RenderActiveItem();
 			RenderHealthBar();
 			RenderConsumables();
