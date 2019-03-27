@@ -1,5 +1,7 @@
-﻿using BurningKnight.assets;
+﻿using System;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -11,7 +13,8 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.item {
 	public class ItemStand : Entity {
 		private Item item;
-
+		private float t;
+		
 		public Item Item {
 			get => item;
 			
@@ -25,8 +28,11 @@ namespace BurningKnight.entity.item {
 				
 				item = value;
 				
-				item?.RemoveDroppedComponents();
-				item?.AddComponent(new OwnerComponent(this));
+				if (item != null) {
+					item.RemoveDroppedComponents();
+					item.AddComponent(new OwnerComponent(this));
+					item.Position = new Vector2(CenterX, CenterY - item.Region.Source.Height / 2f);
+				}
 			}
 		}
 
@@ -41,7 +47,8 @@ namespace BurningKnight.entity.item {
 			// todo: big sensor body component
 			AddComponent(new RectBodyComponent(2, 2, 10, 1, BodyType.Static));
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = CanInteract
+				CanInteract = CanInteract,
+				OnStart = OnInteractionStart
 			});
 			
 			SetGraphicsComponent(new SliceComponent("props", "slab_a"));
@@ -54,22 +61,34 @@ namespace BurningKnight.entity.item {
 					inventory.Pickup(item);
 					item = null;
 				} else {
-					// todo: take active weapon
+					// todo: take active weapon/active item? (depending on type?)
 				}
 			}
 
 			return true;
 		}
+		
+		private void OnInteractionStart(Entity entity) {
+			if (item != null && entity is LocalPlayer) {
+				Area.Add(new ItemPickupFx(item));
+			}
+		}
 
 		private bool CanInteract() {
 			return true; // item != null;
 		}
-		
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			t += dt;
+		}
+
 		public override void Render() {
 			var component = GetComponent<InteractableComponent>();
 			var renderOutline = component.OutlineAlpha > 0.05f;
+			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
-			if (renderOutline) {
+			if (item == null && renderOutline) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
@@ -91,7 +110,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			var region = item.Region;
-			var pos = new Vector2(CenterX, CenterY - region.Source.Height / 2f);
+			var pos = item.Position + new Vector2(0, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
 
 			if (renderOutline) {
 				var shader = Shaders.Entity;
@@ -102,13 +121,20 @@ namespace BurningKnight.entity.item {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(region, pos + d, 0, region.Center);
+					Graphics.Render(region, pos + d, angle, region.Center);
 				}
 				
 				Shaders.End();
 			}
 			
-			Graphics.Render(region, pos, 0, region.Center);
+			var sh = Shaders.Item;
+			Shaders.Begin(sh);
+			sh.Parameters["time"].SetValue(t * 0.1f);
+			sh.Parameters["size"].SetValue(0.025f);
+			
+			Graphics.Render(region, pos, angle, region.Center);
+			
+			Shaders.End();
 		}
 	}
 }

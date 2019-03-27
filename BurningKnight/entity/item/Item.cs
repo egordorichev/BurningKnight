@@ -112,14 +112,7 @@ namespace BurningKnight.entity.item {
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
 		}
-
-		public StringBuilder BuildInfo() {
-			var builder = new StringBuilder();
-			builder.Append(Name).Append('\n').Append(Description);
-			
-			return builder;
-		}
-
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 			Delay = Math.Max(0, Delay - dt);

@@ -40,6 +40,10 @@ namespace BurningKnight.entity.item {
 				Y = item.GetComponent<ItemGraphicsComponent>().CalculatePosition().Y - 24;
 
 				if (!item.TryGetComponent<InteractableComponent>(out var component) || component.CurrentlyInteracting == null) {
+					if (item.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
+						return;
+					}
+					
 					tweened = true;
 
 					if (component == null) {

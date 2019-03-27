@@ -12,7 +12,7 @@ namespace BurningKnight.entity.creature.player {
 				var sh = Shaders.Item;
 				Shaders.Begin(sh);
 				sh.Parameters["time"].SetValue(Engine.Time * 0.1f);
-				sh.Parameters["size"].SetValue(0.05f);
+				sh.Parameters["size"].SetValue(0.025f);
 
 				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta);
 

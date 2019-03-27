@@ -25,6 +25,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		public override void Render() {
+			if (Entity.HasComponent<OwnerComponent>()) {
+				return;
+			}
+			
 			var origin = Sprite.Center;
 			var position = CalculatePosition();
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
@@ -45,7 +49,7 @@ namespace BurningKnight.entity.item {
 			var sh = Shaders.Item;
 			Shaders.Begin(sh);
 			sh.Parameters["time"].SetValue(t * 0.1f);
-			sh.Parameters["size"].SetValue(0.05f);
+			sh.Parameters["size"].SetValue(0.025f);
 			
 			Graphics.Render(Sprite, position, angle, origin);
 			
