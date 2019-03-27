@@ -27,15 +27,16 @@ namespace BurningKnight.entity.component {
 			set => Body.Rotation = value;
 		}
 
+		protected virtual void PositionChangedListener() {
+			if (Body != null) {
+				Body.Position = Entity.Position;
+			}
+		}
+
 		public override void Init() {
 			base.Init();
-
-			Entity.PositionChanged += () => {
-				if (Body != null) {
-					Body.Position = Entity.Position;
-				}
-			};
-
+			Entity.PositionChanged += PositionChangedListener;
+			
 			if (Body != null) {
 				Body.Position = Entity.Position;
 			}
@@ -43,6 +44,7 @@ namespace BurningKnight.entity.component {
 
 		public override void Destroy() {
 			base.Destroy();
+			Entity.PositionChanged -= PositionChangedListener;
 
 			if (Body != null) {
 				Physics.World.RemoveBody(Body);

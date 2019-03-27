@@ -164,7 +164,9 @@
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
+    <Compile Include="entity\events\ItemPlacedEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
+    <Compile Include="entity\events\ItemTakenEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />

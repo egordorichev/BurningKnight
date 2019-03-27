@@ -9,19 +9,19 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
-		private float t;
+		public float T;
 		
 		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
-			t = Random.Float(3f);
+			T = Random.Float(3f);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			t += dt;
+			T += dt;
 		}
 
 		public Vector2 CalculatePosition() {
-			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
+			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
 		}
 
 		public override void Render() {
@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item {
 			
 			var origin = Sprite.Center;
 			var position = CalculatePosition();
-			var angle = (float) Math.Cos(t * 3f) * 0.4f;
+			var angle = (float) Math.Cos(T * 3f) * 0.4f;
 				
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
@@ -48,7 +48,7 @@ namespace BurningKnight.entity.item {
 
 			var sh = Shaders.Item;
 			Shaders.Begin(sh);
-			sh.Parameters["time"].SetValue(t * 0.1f);
+			sh.Parameters["time"].SetValue(T * 0.1f);
 			sh.Parameters["size"].SetValue(0.025f);
 			
 			Graphics.Render(Sprite, position, angle, origin);

@@ -27,7 +27,7 @@ namespace BurningKnight.entity.component {
 			item.HandleEvent(e);
 		}
 		
-		public void Drop() {
+		public Item Drop() {
 			var e = new ItemRemovedEvent {
 				Item = Item
 			};
@@ -39,7 +39,11 @@ namespace BurningKnight.entity.component {
 			Entity.Area.Add(Item);
 			Item.RemoveComponent<OwnerComponent>();
 			Item.AddDroppedComponents();
+
+			var item = Item;
 			Item = null;
+
+			return item;
 		}
 
 		public override void Update(float dt) {

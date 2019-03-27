@@ -71,10 +71,13 @@ namespace BurningKnight.entity.creature.player {
 			ghost.CenterX = room.CenterX;
 			ghost.Y = room.CenterY + 64;*/
 
-			Area.Add(new ItemStand {
-				Center = room.Center - new Vector2(0, 16),
-				Item = ItemRegistry.Create("lamp", Area)
+			ItemStand stand;
+			
+			Area.Add(stand = new ItemStand {
+				Center = room.Center - new Vector2(0, 16)
 			});
+			
+			stand.SetItem(ItemRegistry.Create("lamp", Area), this);
 		}
 
 		#region Player States

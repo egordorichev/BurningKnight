@@ -19,11 +19,9 @@ namespace BurningKnight.assets {
 
 			foreach (var handle in dir.ListFileHandles()) {
 				if (handle.Extension == ".dll") {
-					var DLL = Assembly.LoadFile(handle.FullPath);
+					var dll = Assembly.LoadFile(handle.FullPath);
 
-					foreach(var type in DLL.GetExportedTypes()) {
-						Log.Info($"Found {handle.Name}");
-						
+					foreach(var type in dll.GetExportedTypes()) {
 						if (type.Name == "Program") {
 							Log.Info($"Loading mod {handle.NameWithoutExtension}!");
 							
@@ -57,7 +55,7 @@ namespace BurningKnight.assets {
 		public static bool TryInvoke(object on, string method, params object[] args) {
 			try {
 				on.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, on, args);
-			} catch (MissingMethodException e) {
+			} catch (MissingMethodException) {
 				return false;
 			} catch (Exception e) {
 				Log.Error(e);

@@ -2,37 +2,48 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended.Sprites;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
 	public class ItemStand : Entity {
 		private Item item;
-		private float t;
 		
-		public Item Item {
-			get => item;
-			
-			set {
-				if (item == value) {
-					return;
-				}
+		public Item Item => item;
+
+		public void SetItem(Item i, Entity entity) {
+			if (item == i) {
+				return;
+			}
+
+			if (item != null) {
+				item.AddDroppedComponents();
+				item.RemoveComponent<OwnerComponent>();
+
+				HandleEvent(new ItemTakenEvent {
+					Item = item,
+					Who = entity,
+					Stand = this
+				});
+			}
+
+			item = i;
 				
-				item?.AddDroppedComponents();
-				item?.RemoveComponent<OwnerComponent>();
-				
-				item = value;
-				
-				if (item != null) {
-					item.RemoveDroppedComponents();
-					item.AddComponent(new OwnerComponent(this));
-					item.Position = new Vector2(CenterX, CenterY - item.Region.Source.Height / 2f);
-				}
+			if (item != null) {
+				item.RemoveDroppedComponents();
+				item.AddComponent(new OwnerComponent(this));
+				item.Position = new Vector2(X + (Width - item.Region.Source.Width) / 2, CenterY - item.Region.Source.Height);
+					
+				HandleEvent(new ItemPlacedEvent {
+					Item = item,
+					Who = entity,
+					Stand = this
+				});
 			}
 		}
 
@@ -57,15 +68,21 @@ namespace BurningKnight.entity.item {
 		private bool Interact(Entity entity) {
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (item != null) {
+					var i = item;
+					
 					item.RemoveComponent<OwnerComponent>();
-					inventory.Pickup(item);
-					item = null;
-				} else {
-					// todo: take active weapon/active item? (depending on type?)
+					SetItem(null, entity);
+					inventory.Pickup(i);
+
+					return true;
+				} else if (entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
+					SetItem(weapon.Drop(), entity);
+					
+					return true;
 				}
 			}
 
-			return true;
+			return false;
 		}
 		
 		private void OnInteractionStart(Entity entity) {
@@ -78,14 +95,10 @@ namespace BurningKnight.entity.item {
 			return true; // item != null;
 		}
 
-		public override void Update(float dt) {
-			base.Update(dt);
-			t += dt;
-		}
-
 		public override void Render() {
 			var component = GetComponent<InteractableComponent>();
 			var renderOutline = component.OutlineAlpha > 0.05f;
+			var t = item?.GetComponent<ItemGraphicsComponent>().T ?? 0;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			if (item == null && renderOutline) {
@@ -110,7 +123,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			var region = item.Region;
-			var pos = item.Position + new Vector2(0, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
+			var pos = item.Center + new Vector2(region.Source.Width * -0.5f, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
 
 			if (renderOutline) {
 				var shader = Shaders.Entity;
