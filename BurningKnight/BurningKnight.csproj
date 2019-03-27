@@ -184,10 +184,12 @@
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
+    <Compile Include="entity\item\PriceCalculator.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />
     <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\SwordRenderer.cs" />
+    <Compile Include="entity\item\ShopStand.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />

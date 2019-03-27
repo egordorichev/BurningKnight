@@ -66,16 +66,22 @@ namespace BurningKnight.entity.item {
 			SetGraphicsComponent(new SliceComponent("props", "slab_a"));
 		}
 
+		protected virtual bool CanTake(Entity entity) {
+			return true;
+		}
+
 		private bool Interact(Entity entity) {
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (item != null) {
-					var i = item;
-					
-					item.RemoveComponent<OwnerComponent>();
-					SetItem(null, entity);
-					inventory.Pickup(i);
+					if (CanTake(entity)) {
+						var i = item;
 
-					GetComponent<InteractableComponent>().OutlineAlpha = 0;
+						item.RemoveComponent<OwnerComponent>();
+						SetItem(null, entity);
+						inventory.Pickup(i);
+
+						GetComponent<InteractableComponent>().OutlineAlpha = 0;
+					}
 				} else if (entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
 					GetComponent<InteractableComponent>().OutlineAlpha = 0;

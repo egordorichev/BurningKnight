@@ -73,7 +73,7 @@ namespace BurningKnight.entity.creature.player {
 
 			ItemStand stand;
 			
-			Area.Add(stand = new ItemStand {
+			Area.Add(stand = new ShopStand {
 				Center = room.Center - new Vector2(0, 16)
 			});
 			
