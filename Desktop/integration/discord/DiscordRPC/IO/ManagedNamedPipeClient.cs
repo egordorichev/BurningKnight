@@ -81,7 +81,7 @@ namespace Desktop.integration.discord.DiscordRPC.IO
 				throw new ArgumentOutOfRangeException("pipe", "Argument cannot be greater than 9");
 
 			//Attempt to connect to the specific pipe
-			if (pipe >= 0 && AttemptConnection(pipe))
+			if (pipe >= 0 && (AttemptConnection(pipe) || AttemptConnection(pipe, true)))
 			{
 				tBeginRead();
 				return true;
@@ -90,7 +90,7 @@ namespace Desktop.integration.discord.DiscordRPC.IO
 			//Iterate until we connect to a pipe
 			for (int i = 0; i < 10; i++)
 			{
-				if (AttemptConnection(i))
+				if (AttemptConnection(i) || AttemptConnection(i, true))
 				{
 					tBeginRead();
 					return true;
@@ -101,14 +101,18 @@ namespace Desktop.integration.discord.DiscordRPC.IO
 			return false;
 		}
 
-		private bool AttemptConnection(int pipe)
+		private bool AttemptConnection(int pipe, bool doSandbox =  false)
 		{
 			if (_isDisposed)
 				throw new ObjectDisposedException("_stream");
 
-            //Prepare the pipe name
-            Logger.Trace("Connection Attempt " + pipe);
-            string pipename = GetPipeName(pipe);
+			//If we are sandbox but we dont support sandbox, then skip
+			string sandbox = doSandbox ? GetPipeSandbox() : "";
+			if (doSandbox && sandbox == null) return false;
+
+			//Prepare the pipename
+            Logger.Trace("Connection Attempt " + pipe + " ("+sandbox+")");
+            string pipename = GetPipeName(pipe, sandbox);
 
             try
 			{
@@ -410,7 +414,7 @@ namespace Desktop.integration.discord.DiscordRPC.IO
 			_isDisposed = true;
 		}
                 
-        private string GetPipeName(int pipe)
+        private string GetPipeName(int pipe, string sandbox = "")
         {
             switch(Environment.OSVersion.Platform)
             {
@@ -420,14 +424,24 @@ namespace Desktop.integration.discord.DiscordRPC.IO
                 case PlatformID.Win32Windows:
                 case PlatformID.WinCE:
                     Logger.Trace("PIPE WIN");
-                    return string.Format(PIPE_NAME, pipe);
+                    return sandbox + string.Format(PIPE_NAME, pipe);
 
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
                     Logger.Trace("PIPE UNIX / MACOSX");
-                    return GetEnviromentTemp() + "/" + string.Format(PIPE_NAME, pipe);
+                    return GetEnviromentTemp() + "/" + sandbox + string.Format(PIPE_NAME, pipe);
             }
         }
+		private string GetPipeSandbox()
+		{
+			switch(Environment.OSVersion.Platform)
+            {
+                default:
+					return null;
+				case PlatformID.Unix:
+					return "snap.discord/";
+			}
+		}
 
         private string GetEnviromentTemp()
         {

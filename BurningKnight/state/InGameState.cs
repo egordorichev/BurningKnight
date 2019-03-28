@@ -225,7 +225,7 @@ namespace BurningKnight.state {
 		public bool HandleEvent(Event e) {
 			if (died) {
 				return false;
-			},
+			}
 			
 			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
 				died = true;

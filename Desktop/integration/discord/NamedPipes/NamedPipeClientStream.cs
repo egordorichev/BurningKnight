@@ -84,10 +84,8 @@ namespace Desktop.integration.discord.NamedPipes
 
                 case PlatformID.Unix:
                     if (server != ".")
-                        throw new PlatformNotSupportedException("Remote pipes are not supported on this platform.");
-
-                    //Hack job?
-                    return Path.Combine(GetEnviromentTemp(), pipeName);
+                        throw new PlatformNotSupportedException("Remote pipes are not supported on this platform.");                    
+                    return pipeName;
             }
         }
                
@@ -229,20 +227,9 @@ namespace Desktop.integration.discord.NamedPipes
 
         #endregion
 
-        private static string GetEnviromentTemp()
-        {
-            string temp = null;
-            temp = temp ?? Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR");
-            temp = temp ?? Environment.GetEnvironmentVariable("TMPDIR");
-            temp = temp ?? Environment.GetEnvironmentVariable("TMP");
-            temp = temp ?? Environment.GetEnvironmentVariable("TEMP");
-            temp = temp ?? "/tmp";
-            return temp;
-        }
-
         private static class Native
         {
-            const string LIBRARY_NAME = "NativeNamedPipe";
+            const string LIBRARY_NAME = "/home/egor/Lens/DesktopLinux/bin/Debug/NativeNamedPipe.so";
 
             #region Creation and Destruction
             [DllImport(LIBRARY_NAME, EntryPoint = "createClient", CallingConvention = CallingConvention.Cdecl, ExactSpelling = false)]
