@@ -63,7 +63,7 @@ namespace BurningKnight.entity.item {
 				OnStart = OnInteractionStart
 			});
 			
-			SetGraphicsComponent(new SliceComponent("props", "slab_a"));
+			AddComponent(new SliceComponent("props", "slab_a"));
 		}
 
 		protected virtual bool CanTake(Entity entity) {

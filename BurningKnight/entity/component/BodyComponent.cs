@@ -79,7 +79,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void KnockbackFrom(Vector2 point, float force = 1f) {
-			KnockbackFrom(Entity.AngleTo(point), force);
+			KnockbackFrom(Entity.AngleTo(point) - (float) Math.PI, force);
 		}
 
 		public void KnockbackFrom(float a, float force = 1f) {			

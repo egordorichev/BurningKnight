@@ -27,7 +27,7 @@ namespace BurningKnight.entity.item {
 			Y = item.Y;
 
 			var component = new TextGraphicsComponent(text);
-			SetGraphicsComponent(component);
+			AddComponent(component);
 
 			component.Color.A = 0;
 			Tween.To(component, new {A = 255}, 0.25f);

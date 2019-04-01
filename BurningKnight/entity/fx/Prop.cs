@@ -18,7 +18,7 @@ namespace BurningKnight.entity.fx {
 		
 		public override void PostInit() {
 			base.PostInit();
-			SetGraphicsComponent(new SliceComponent("props", sprite));
+			AddComponent(new SliceComponent("props", sprite));
 		}
 
 		public override void Save(FileWriter stream) {

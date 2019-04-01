@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob {
 			base.AddComponents();
 			
 			AddTag(Tags.Mob);
-			AddTag(Tags.MustBeKilled);
+			// AddTag(Tags.MustBeKilled);
 			
 			SetStats();
 		}
@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void AddAnimation(string name, string layer = null) {
-			SetGraphicsComponent(new AnimationComponent(name, layer));
+			AddComponent(new AnimationComponent(name, layer));
 		}
 		
 		protected void SetMaxHp(int hp) {

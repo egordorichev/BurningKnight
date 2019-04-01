@@ -30,7 +30,7 @@ namespace BurningKnight.entity.item.util {
 				Angle = Angle
 			});
 			
-			SetGraphicsComponent(new AnimationComponent("sword_trail", null, "idle") {
+			AddComponent(new AnimationComponent("sword_trail", null, "idle") {
 				Offset = new Vector2(4, 12)
 			});
 		}

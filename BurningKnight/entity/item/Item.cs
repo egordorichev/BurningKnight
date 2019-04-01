@@ -74,7 +74,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			SetGraphicsComponent(new ItemGraphicsComponent(Id));
+			AddComponent(new ItemGraphicsComponent(Id));
 			Renderer?.Setup();
 		}
 

@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Graphics
 			// AddComponent(new LightComponent(this, 128f, new Color(1, 1, 1, 1f)));
-			SetGraphicsComponent(new PlayerGraphicsComponent {
+			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -4)
 			});
 			

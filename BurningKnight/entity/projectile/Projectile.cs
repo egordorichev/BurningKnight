@@ -28,7 +28,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.Owner = owner;
 			
 			var graphics = new SliceComponent("projectiles", slice);
-			projectile.SetGraphicsComponent(graphics);
+			projectile.AddComponent(graphics);
 
 			var w = graphics.Sprite.Source.Width;
 			var h = graphics.Sprite.Source.Height;

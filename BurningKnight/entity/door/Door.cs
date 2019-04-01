@@ -57,7 +57,7 @@ namespace BurningKnight.entity.door {
 				Offset = new Vector2(FacingSide ? -1 : -2, 0)
 			};
 			
-			SetGraphicsComponent(animation);
+			AddComponent(animation);
 			AddComponent(new RectBodyComponent(-2, -2 - (FacingSide ? 0 : 8), Width + 4, Height + 4, BodyType.Static, true));
 		}
 

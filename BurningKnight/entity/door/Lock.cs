@@ -62,7 +62,7 @@ namespace BurningKnight.entity.door {
 
 			if (GraphicsComponent == null) {
 				// Set here, because of the ui thread
-				SetGraphicsComponent(new AnimationComponent("lock", GetLockPalette()));
+				AddComponent(new AnimationComponent("lock", GetLockPalette()));
 			}
 
 			if (!IsLocked) {

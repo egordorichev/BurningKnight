@@ -147,11 +147,6 @@ namespace Lens.entity {
 		public virtual void PostInit() {
 			
 		}
-
-		public void SetGraphicsComponent(GraphicsComponent component) {
-			GraphicsComponent = component;
-			AddComponent(component);
-		}
 		
 		public virtual void Destroy() {
 			foreach (var component in components.Values) {
@@ -191,6 +186,10 @@ namespace Lens.entity {
 		}
 
 		public void AddComponent(Component component) {
+			if (component is GraphicsComponent g) {
+				GraphicsComponent = g;
+			}
+			
 			components[component.GetType()] = component;
 
 			component.Entity = this;

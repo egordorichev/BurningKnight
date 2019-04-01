@@ -328,7 +328,7 @@ namespace BurningKnight.entity.level.rooms {
 		}
 
 		public Vector2 GetCenter() {
-			return new Vector2(Left + GetWidth() / 2, Top + GetHeight() / 2);
+			return new Vector2(Left + GetWidth() / 2f, Top + GetHeight() / 2f);
 		}
 
 		protected Rect GetConnectionSpace() {

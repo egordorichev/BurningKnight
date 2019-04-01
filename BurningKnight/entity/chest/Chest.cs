@@ -110,7 +110,7 @@ namespace BurningKnight.entity.chest {
 			Width = 20;
 			Height = 18;
 			
-			SetGraphicsComponent(new AnimationComponent("chest", GetPalette()) {
+			AddComponent(new AnimationComponent("chest", GetPalette()) {
 				Offset = new Vector2(-1, -5)
 			});
 			

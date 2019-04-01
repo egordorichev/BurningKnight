@@ -28,7 +28,7 @@ namespace BurningKnight.entity.component {
 				Amount = h - old,
 				From = setter
 			})) {
-				if (hp < 0) {
+				if (hp < health) {
 					InvincibilityTimer = InvincibilityTimerMax;
 				}
 				
@@ -49,7 +49,7 @@ namespace BurningKnight.entity.component {
 						hearts.Hurt(-amount, setter);
 						return;
 					}
-				}	
+				}
 			}
 			
 			SetHealth(health + amount, setter);

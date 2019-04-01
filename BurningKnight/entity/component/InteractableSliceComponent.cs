@@ -20,13 +20,13 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(Sprite, Entity.Position);
+					Graphics.Render(Sprite, Entity.Position + d);
 				}
 
 				Shaders.End();
 			}
 			
-			base.Render();
+			Graphics.Render(Sprite, Entity.Position);
 		}
 	}
 }

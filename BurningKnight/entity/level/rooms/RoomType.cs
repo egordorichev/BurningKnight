@@ -4,6 +4,7 @@ namespace BurningKnight.entity.level.rooms {
 		Secret,
 		Connection,
 		Boss,
+		Exit,
 		Special,
 		Shop,
 		Treasure,

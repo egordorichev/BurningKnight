@@ -18,6 +18,7 @@ namespace BurningKnight.entity.level.rooms {
 			RoomInfo[] infos = {
 				RoomInfo.New<RegularRoom>(1f),
 				RoomInfo.New<EntranceRoom>(1f, RoomType.Entrance),
+				RoomInfo.New<ExitRoom>(1f, RoomType.Exit),
 				RoomInfo.New<BossRoom>(1f, RoomType.Boss),
 				RoomInfo.New<SecretRoom>(1f, RoomType.Secret),
 				RoomInfo.New<TreasureRoom>(1f, RoomType.Treasure),

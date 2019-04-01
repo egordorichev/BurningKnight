@@ -12,8 +12,7 @@ namespace BurningKnight.entity.level.rooms.entrance {
 
 		protected void Place(Level Level, Vector2 Point) {
 			Level.Area.Add(new Exit {
-				X = Point.X * 16 + 1, 
-				Y = Point.Y * 16 - 6,
+				Center = Point * 16 + new Vector2(8, 8), 
 				To = To
 			});
 
