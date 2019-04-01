@@ -185,7 +185,7 @@ namespace BurningKnight.entity.level {
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-
+			
 			SetBiome(BiomeRegistry.Defined[stream.ReadString()]);
 
 			Width = stream.ReadInt32();

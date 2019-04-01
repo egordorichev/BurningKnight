@@ -112,6 +112,7 @@
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
+    <Compile Include="entity\component\InteractableSliceComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
+    <Compile Include="entity\fx\InteractFx.cs" />
     <Compile Include="entity\fx\Prop.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
@@ -219,7 +221,7 @@
     <Compile Include="entity\level\builders\SingleRoomBuilder.cs" />
     <Compile Include="entity\level\Chasm.cs" />
     <Compile Include="entity\level\ChasmBodyComponent.cs" />
-    <Compile Include="entity\level\entities\Entrance.cs" />
+    <Compile Include="entity\level\entities\Exit.cs" />
     <Compile Include="entity\level\entities\Portal.cs" />
     <Compile Include="entity\level\entities\Prop.cs" />
     <Compile Include="entity\level\entities\SolidProp.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="entity\level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="entity\level\rooms\connection\TunnelRoom.cs" />
     <Compile Include="entity\level\rooms\entrance\EntranceRoom.cs" />
+    <Compile Include="entity\level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="entity\level\rooms\regular\RegularRoom.cs" />
     <Compile Include="entity\level\rooms\Room.cs" />
     <Compile Include="entity\level\rooms\RoomDef.cs" />

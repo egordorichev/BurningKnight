@@ -33,10 +33,10 @@ namespace BurningKnight.entity.level.builders {
 			foreach (var Room in Rooms) {
 				if (Room is BossRoom room) {
 					Exit = room;
-				} else if (Room is EntranceRoom entranceRoom && entranceRoom.Exit) {
-					Exit = entranceRoom;
-				} else if (Room is EntranceRoom room1) {
-					Entrance = room1;
+				} else if (Room is ExitRoom exit) {
+					Exit = exit;
+				} else if (Room is EntranceRoom entrance) {
+					Entrance = entrance;
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) == 1) {
 					SingleConnection.Add(Room);
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) > 1) {

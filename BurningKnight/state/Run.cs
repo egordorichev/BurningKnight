@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.level;
+using Lens;
 
 namespace BurningKnight.state {
 	public static class Run {
@@ -14,8 +15,11 @@ namespace BurningKnight.state {
 		public static float Time;
 		public static int Id = -1;
 
-		public static void UpdateLevel() {
-			depth = NextDepth;
+		public static void Update() {
+			if (depth != NextDepth) {
+				depth = NextDepth;
+				Engine.Instance.SetState(new LoadState());
+			}			
 		}
 
 		public static Level Level;

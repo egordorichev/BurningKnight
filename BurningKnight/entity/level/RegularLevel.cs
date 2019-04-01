@@ -97,9 +97,9 @@ namespace BurningKnight.entity.level {
 			var Rooms = new List<RoomDef>();
 
 			var Entrance = RoomRegistry.Generate(RoomType.Entrance);
-			var Exit = (EntranceRoom) RoomRegistry.Generate(RoomType.Boss);
+			var Exit = (ExitRoom) RoomRegistry.Generate(RoomType.Boss);
+			Exit.To = Run.Depth + 1;
 			
-			Exit.Exit = true;
 			Rooms.Add(Entrance);
 			Rooms.Add(Exit);
 

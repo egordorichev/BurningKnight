@@ -124,6 +124,8 @@ namespace BurningKnight.state {
 			if (Input.WasPressed(Controls.Pause)) {
 				Paused = !Paused;
 			}
+			
+			Run.Update();
 		}
 
 		public override void Render() {
