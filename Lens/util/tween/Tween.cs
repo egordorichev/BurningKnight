@@ -12,7 +12,7 @@ namespace Lens.util.tween {
 				ease = Ease.QuadOut;
 			}
 			
-			TweenTask task = new TweenTask();
+			var task = new TweenTask();
 			tasks.Add(task);
 			
 			task.Delay = delay;
@@ -32,7 +32,7 @@ namespace Lens.util.tween {
 				ease = Ease.QuadOut;
 			}
 			
-			TweenTask task = new TweenTask();
+			var task = new TweenTask();
 			tasks.Add(task);
 			
 			task.Delay = delay;
