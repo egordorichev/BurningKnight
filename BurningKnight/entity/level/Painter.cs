@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.entities;
@@ -14,11 +15,10 @@ using Prop = BurningKnight.entity.fx.Prop;
 
 namespace BurningKnight.entity.level {
 	public class Painter {
-		private float Cobweb = 0.05f;
-		private float Dirt = 0.35f;
-		private float Grass = 0.35f;
-		private float Water = 0.4f;
-
+		public float Cobweb = 0.05f;
+		public float Dirt = 0.35f;
+		public float Grass = 0.35f;
+		public float Water = 0.4f;
 
 		public void Paint(Level Level, List<RoomDef> Rooms) {
 			if (Rooms == null) {
@@ -90,29 +90,6 @@ namespace BurningKnight.entity.level {
 						}
 					}
 				}
-
-				/*if (Level is IceLevel)
-					for (var Y = Room.Top; Y <= Room.Bottom; Y++)
-					for (var X = Room.Left; X <= Room.Right; X++) {
-						int I = Level.ToIndex(X, Y);
-
-						if (Level.LiquidData[I] == Terrain.WATER) {
-							Level.LiquidData[I] = 0;
-							Level.Set(I, Terrain.ICE);
-						}
-					}*/
-
-				/*if (!(Room is BossEntranceRoom) && Level is ForestLevel && Random.Chance(70))
-					for (var I = 0; I < Random.NewInt(1, 4); I++) {
-						var Point = Room.GetRandomFreeCell();
-
-						if (Point != null) {
-							var Bush = new Bush();
-							Bush.X = Point.X * 16 + Random.NewFloat(-4, 4);
-							Bush.Y = Point.Y * 16 + Random.NewFloat(-4, 4);
-							Dungeon.Area.Add(Bush.Add());
-						}
-					}*/
 			}
 
 			PathFinder.SetMapSize(Level.Width, Level.Height);
@@ -137,8 +114,39 @@ namespace BurningKnight.entity.level {
 
 			Decorate(Level, Rooms);
 			PaintDoors(Level, Rooms);
+			
+			PlaceMobs(Level, Rooms);
+		}
+
+		public static void PlaceMobs(Level level, RoomDef room) {
+			var mobs = new List<MobInfo>(MobRegistry.Current);
+			room.ModifyMobList(mobs);
+			var chances = new float[mobs.Count];
+
+			for (int i = 0; i < mobs.Count; i++) {
+				chances[i] = room.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
+			}
+
+			for (int i = 0; i < 4; i++) {
+				var index = Random.Chances(chances);
+
+				if (index == -1) {
+					return;
+				}
+
+				room.PlaceMob(level, (Mob) Activator.CreateInstance(mobs[index].Type));
+			}
 		}
 		
+		private void PlaceMobs(Level level, List<RoomDef> rooms) {
+			MobRegistry.SetupForBiome(level.Biome.Id);
+			
+			foreach (var room in rooms) {
+				if (room.ShouldSpawnMobs()) {
+					PlaceMobs(level, room);
+				}
+			}	
+		}
 		
 		private void PlaceDoors(RoomDef R) {
 			var connected = new Dictionary<RoomDef, DoorPlaceholder>();

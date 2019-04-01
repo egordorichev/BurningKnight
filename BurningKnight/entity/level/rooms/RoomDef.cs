@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -415,6 +416,32 @@ namespace BurningKnight.entity.level.rooms {
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
 				Painter.DrawLine(Level, Mid, End, Floor, Bold);
 			}
+		}
+
+		public virtual void PlaceMob(Level level, Mob mob) {
+			var spot = GetRandomDoorFreeCell();
+
+			if (!spot.HasValue) {
+				Log.Warning($"Failed to place {mob.GetType().Name}, no good spot was found in the room");
+				return;
+			}
+			
+			mob.CenterX = spot.Value.X * 16 + 8;
+			mob.CenterY = spot.Value.Y * 16 + 8;
+
+			level.Area.Add(mob);
+		}
+
+		public virtual float WeightMob(MobInfo info, SpawnChance chance) {
+			return chance.Chance;
+		}
+
+		public virtual void ModifyMobList(List<MobInfo> infos) {
+			
+		}
+
+		public virtual bool ShouldSpawnMobs() {
+			return false;
 		}
 	}
 }

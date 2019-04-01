@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		#region Knight States
+		#region Ghost States
 		public class IdleState : MobState<Ghost> {
 			public override void Init() {
 				base.Init();

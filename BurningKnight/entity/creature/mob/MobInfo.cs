@@ -13,15 +13,19 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public bool SpawnsIn(string biome) {
+			return GetChanceFor(biome) != null;
+		}
+
+		public SpawnChance GetChanceFor(string biome) {
 			foreach (var b in Spawns) {
 				foreach (var a in b.Areas) {
 					if (a == biome) {
-						return true;
+						return b;
 					}
 				}
 			}
 			
-			return false;
+			return null;
 		}
 	}
 }

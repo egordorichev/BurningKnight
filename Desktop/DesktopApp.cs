@@ -17,7 +17,7 @@ namespace Desktop {
 		protected override void LoadContent() {
 			base.LoadContent();
 			
-			integrations.Add(new DiscordIntegration());
+			// integrations.Add(new DiscordIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();

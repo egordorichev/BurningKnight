@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
+using BurningKnight.entity.level.biome;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
@@ -8,19 +9,19 @@ namespace BurningKnight.entity.creature.mob {
 		
 		static MobRegistry() {
 			MobInfo[] infos = {
-				// MobInfo.New<Knight>(new SpawnChance(1f, "castle", "library"), new SpawnChance(0.1f, "secret_area"))
-				MobInfo.New<Knight>(new SpawnChance(1f, "castle", "library"))
+				// MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle))
 			};
 			
 			All.AddRange(infos);
 		}
 		
 		public static void SetupForBiome(string biome) {
-			All.Clear();
+			Current.Clear();
 
 			foreach (var info in All) {
 				if (info.SpawnsIn(biome)) {
-					All.Add(info);
+					Current.Add(info);
 				}
 			}
 		}

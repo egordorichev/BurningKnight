@@ -26,5 +26,9 @@ namespace BurningKnight.entity.level.rooms.regular {
 
 			return 0;
 		}
+
+		public override bool ShouldSpawnMobs() {
+			return true;
+		}
 	}
 }
