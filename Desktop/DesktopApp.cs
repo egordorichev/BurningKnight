@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.discord;
 using Lens;
-using Lens.game;
 using Microsoft.Xna.Framework;
 
 namespace Desktop {

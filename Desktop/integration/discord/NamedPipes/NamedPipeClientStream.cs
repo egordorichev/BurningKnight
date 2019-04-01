@@ -229,8 +229,11 @@ namespace Desktop.integration.discord.NamedPipes
 
         private static class Native
         {
-            const string LIBRARY_NAME = "/home/egor/Lens/DesktopLinux/bin/Debug/NativeNamedPipe.so";
+            const string LIBRARY_NAME = "NativeNamedPipe";
 
+            static Native() {
+            }
+            
             #region Creation and Destruction
             [DllImport(LIBRARY_NAME, EntryPoint = "createClient", CallingConvention = CallingConvention.Cdecl, ExactSpelling = false)]
             public static extern IntPtr CreateClient();
