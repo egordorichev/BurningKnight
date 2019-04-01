@@ -29,11 +29,12 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	
 	if (split > 0.001f) {
 		float smx = 1.0f / 320 * split;
-    float4 l = tex2D(s0, float2(input.TextureCoordinates.x + smx, input.TextureCoordinates.y));
+		float smy = 1.0f / 180 * split;
+    float4 l = tex2D(s0, float2(input.TextureCoordinates.x + smx, input.TextureCoordinates.y + smy));
     
   	color = float4(l.r, 
   		tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y)).g,
-  		tex2D(s0, float2(input.TextureCoordinates.x - smx, input.TextureCoordinates.y)).b, l.a);
+  		tex2D(s0, float2(input.TextureCoordinates.x - smx, input.TextureCoordinates.y - smy)).b, l.a);
 	} else { 
 		color = tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y));
 	}

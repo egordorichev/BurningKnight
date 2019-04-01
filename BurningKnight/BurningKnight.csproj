@@ -115,6 +115,7 @@
     <Compile Include="entity\component\InteractableSliceComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
+    <Compile Include="entity\component\LampComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="entity\item\ItemRegistry.cs" />
     <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
+    <Compile Include="entity\item\Lamp.cs" />
     <Compile Include="entity\item\PriceCalculator.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />

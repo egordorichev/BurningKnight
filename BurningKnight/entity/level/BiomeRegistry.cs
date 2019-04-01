@@ -14,6 +14,10 @@ namespace BurningKnight.entity.level {
 				Add(info);
 			}
 		}
+
+		public static BiomeInfo ForDepth(int depth) {
+			return Defined[Biome.Castle]; // TODO: other biomes
+		}
 		
 		public static void Add(BiomeInfo info) {
 			Defined[info.Id] = info;

@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.util.file;
 
@@ -33,7 +34,7 @@ namespace BurningKnight.save {
 
 		public static void Generate(Area area) {
 			try {
-				var level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]);
+				var level = new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
 				area.Add(level);
 				level.Generate(area, I);
 

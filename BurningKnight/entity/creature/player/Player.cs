@@ -11,6 +11,7 @@ using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new ActiveWeaponComponent());
 			AddComponent(new WeaponComponent());
 			AddComponent(new ConsumablesComponent());
+			AddComponent(new LampComponent());
 			
 			// Stats
 			AddComponent(new HeartsComponent());
@@ -50,7 +52,7 @@ namespace BurningKnight.entity.creature.player {
 			var inventory = GetComponent<InventoryComponent>();
 			inventory.Pickup(ItemRegistry.Create("gun", Area));
 
-			GetComponent<HealthComponent>().MaxHealth = 3;
+			GetComponent<HealthComponent>().MaxHealth = 1;
 		}
 
 		public override void PostInit() {
@@ -60,17 +62,6 @@ namespace BurningKnight.entity.creature.player {
 			var room = Area.Tags[Tags.Room][0];
 			Center = room.Center;
 
-			/*var dummy = new Dummy();
-			Area.Add(dummy);
-
-			dummy.Center = room.Center;
-			
-			var ghost = new Ghost();
-			Area.Add(ghost);
-
-			ghost.CenterX = room.CenterX;
-			ghost.Y = room.CenterY + 64;*/
-
 			ItemStand stand;
 			
 			Area.Add(stand = new ShopStand {
@@ -79,7 +70,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			stand.SetItem(ItemRegistry.Create("lamp", Area), this);
 		}
-
+		
 		#region Player States
 		public class IdleState : EntityState {
 			
@@ -136,6 +127,14 @@ namespace BurningKnight.entity.creature.player {
 
 		protected override bool HasNoHealth(HealthModifiedEvent e) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e.Default ? 0 : -e.Amount);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace BurningKnight.entity.fx {
 			Width = size.Width;
 			Height = size.Height;
 			CenterX = entity.CenterX;
-			Y = entity.Y;
+			Y = entity.Y - Height;
 
 			var component = new TextGraphicsComponent(text);
 			AddComponent(component);

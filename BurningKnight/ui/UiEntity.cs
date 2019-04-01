@@ -25,7 +25,7 @@ namespace BurningKnight.ui {
 			base.Update(dt);
 
 			bool was = hovered;
-			hovered = Contains(Input.Mouse.UiPosition);
+			hovered = Contains(Super == null ? Input.Mouse.UiPosition : (Input.Mouse.UiPosition - Super.Position));
 
 			if (hovered) {
 				if (!was) {
