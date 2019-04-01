@@ -37,7 +37,7 @@ namespace Lens.entity {
 			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
-
+			
 			entity.Init();
 
 			if (postInit) {

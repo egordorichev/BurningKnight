@@ -27,11 +27,11 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Inventory
 			AddComponent(new InventoryComponent());
+			AddComponent(new LampComponent());
 			AddComponent(new ActiveItemComponent());
 			AddComponent(new ActiveWeaponComponent());
 			AddComponent(new WeaponComponent());
 			AddComponent(new ConsumablesComponent());
-			AddComponent(new LampComponent());
 			
 			// Stats
 			AddComponent(new HeartsComponent());
@@ -64,7 +64,7 @@ namespace BurningKnight.entity.creature.player {
 
 			ItemStand stand;
 			
-			Area.Add(stand = new ShopStand {
+			Area.Add(stand = new ItemStand {
 				Center = room.Center - new Vector2(0, 16)
 			});
 			

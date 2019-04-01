@@ -32,10 +32,12 @@ namespace Lens.entity {
 		
 		public void Add(Entity entity) {
 			ToAdd.Add(entity);
+			ToRemove.Remove(entity);
 		}
 		
 		public void Remove(Entity entity) {
 			ToRemove.Add(entity);
+			ToAdd.Remove(entity);
 		}
 		
 		private bool CheckOnScreen(Entity entity) {

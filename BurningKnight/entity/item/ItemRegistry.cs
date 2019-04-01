@@ -42,7 +42,7 @@ namespace BurningKnight.entity.item {
 				}),
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1))),
-				new ItemInfo("lamp", () => new Item(), ItemType.Lamp)
+				new ItemInfo("lamp", () => new Lamp(), ItemType.Lamp)
 			};
 
 			foreach (var pair in infos) {

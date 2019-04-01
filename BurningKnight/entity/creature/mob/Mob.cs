@@ -48,6 +48,9 @@ namespace BurningKnight.entity.creature.mob {
 
 			if (Target == null) {
 				FindTarget();
+			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room) {
+				Target = null;
+				FindTarget();
 			}
 
 			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {

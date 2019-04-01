@@ -15,6 +15,13 @@ namespace BurningKnight.entity.item {
 			T = Random.Float(3f);
 		}
 
+		public override void Init() {
+			base.Init();
+			
+			Entity.Width = Sprite.Source.Width;
+			Entity.Height = Sprite.Source.Height;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			T += dt;
@@ -31,7 +38,7 @@ namespace BurningKnight.entity.item {
 			
 			var origin = Sprite.Center;
 			var position = CalculatePosition();
-			var angle = (float) Math.Cos(T * 3f) * 0.4f;
+			var angle = (float) Math.Cos(T * 1.2f) * 0.4f;
 				
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;

@@ -2,11 +2,6 @@ using BurningKnight.entity.item;
 
 namespace BurningKnight.entity.component {
 	public class LampComponent : ItemComponent {
-		public override void Init() {
-			base.Init();
-			Set(ItemRegistry.Create("lamp", Entity.Area));
-		}
-
 		public override void Set(Item item) {
 			if (Item is Lamp lamp) {
 				lamp.Unequip(Entity);
@@ -15,7 +10,7 @@ namespace BurningKnight.entity.component {
 			base.Set(item);
 			
 			if (Item is Lamp l) {
-				l.Unequip(Entity);
+				l.Equip(Entity);
 				Entity.Area.Add(item);
 			}
 		}
