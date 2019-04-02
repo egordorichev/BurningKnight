@@ -11,6 +11,16 @@ namespace BurningKnight.entity.item {
 		protected Entity Player;
 		private float mx;
 		private float a;
+
+		protected void SetHearts(int count) {
+			var component = Player.GetComponent<HealthComponent>();
+
+			count *= 2;
+			count += 1;
+			
+			component.MaxHealth = count;
+			component.SetHealth(count, this);
+		}
 		
 		public virtual void Equip(Entity entity) {
 			Player = entity;
@@ -18,9 +28,16 @@ namespace BurningKnight.entity.item {
 			AlwaysActive = true;
 			
 			AddComponent(new LightComponent(this, 32, new Color(1f, 0f, 0f, 1f)));
+			GiveHearts();
+		}
+
+		protected virtual void GiveHearts() {
+			SetHearts(1);
 		}
 
 		public virtual void Unequip(Entity entity) {
+			SetHearts(0);
+			
 			Player = null;
 			AlwaysActive = false;
 			

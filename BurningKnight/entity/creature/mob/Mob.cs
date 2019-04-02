@@ -15,6 +15,8 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			AlwaysActive = true;
 			
 			AddTag(Tags.Mob);
 			AddTag(Tags.MustBeKilled);
