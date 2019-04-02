@@ -1,5 +1,5 @@
-﻿using System;
-using Desktop.integration.discord.DiscordRPC;
+﻿using Desktop.integration.discord.NamedPipes;
+using DiscordRPC;
 using Lens.util;
 
 namespace Desktop.integration.discord {
@@ -9,18 +9,16 @@ namespace Desktop.integration.discord {
 		public override void Init() {
 			base.Init();
 			
-			client = new DiscordRpcClient("459603244256198657", -1, null, 128, new UnityNamedPipe());
+			client = new DiscordRpcClient("459603244256198657", -1, null, true, new UnityNamedPipe());
             
-			client.OnReady += (sender, msg) => { Log.Info($"Connected to discord with user {msg.User.Username}"); };
-			client.OnPresenceUpdate += (sender, msg) => { Log.Debug("Presence has been updated!"); };
+			client.OnReady += (sender, msg) => Log.Info($"Connected to discord with user {msg.User.Username}");
+			client.OnPresenceUpdate += (sender, msg) => Log.Debug("Presence has been updated!");
 			client.OnError += (s, args) => Log.Error("[DRP] Error Occured within the Discord IPC: (" + args.Code + ") " + args.Message);
-			client.OnConnectionFailed += (sender, msg) => {
-				Log.Error("Connected fail " + 				msg.FailedPipe);
-			};
-			
+			client.OnConnectionFailed += (sender, msg) => Log.Error("Connected fail " + msg.FailedPipe);
 			client.OnConnectionEstablished += (sender, msg) => { Log.Info("Connected ok"); };
 			
 			client.Initialize();
+
 			client.SetPresence(new RichPresence {
 				Details = "A test",
 				State = "Trying to work",

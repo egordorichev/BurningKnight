@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.discord;
@@ -14,10 +12,9 @@ namespace Desktop {
 		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, false) {
 			
 		}
-		
-		protected override void LoadContent() {
-			base.LoadContent();
-			
+
+		protected override void Initialize() {
+			base.Initialize();
 			// integrations.Add(new DiscordIntegration());
 
 			foreach (var i in integrations) {

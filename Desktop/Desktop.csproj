@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DiscordRPC, Version=1.0.95.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\DiscordRichPresence.1.0.95\lib\net35\DiscordRPC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.1.1\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
       <Private>True</Private>
@@ -172,68 +176,12 @@
   <ItemGroup>
     <Compile Include="DesktopApp.cs" />
     <Compile Include="integration\discord\DiscordIntegration.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Configuration.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Converters\EnumSnakeCaseConverter.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Converters\EnumValueAttribute.cs" />
-    <Compile Include="integration\discord\DiscordRPC\DiscordRpcClient.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Events.cs" />
-    <Compile Include="integration\discord\DiscordRPC\EventType.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Exceptions\BadPresenceException.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Exceptions\InvalidConfigurationException.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Exceptions\InvalidPipeException.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Exceptions\StringOutOfRangeException.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Exceptions\UninitializedException.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Helper\BackoffDelay.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Helper\StringTools.cs" />
-    <Compile Include="integration\discord\DiscordRPC\IO\Handshake.cs" />
-    <Compile Include="integration\discord\DiscordRPC\IO\INamedPipeClient.cs" />
-    <Compile Include="integration\discord\DiscordRPC\IO\ManagedNamedPipeClient.cs" />
-    <Compile Include="integration\discord\DiscordRPC\IO\Opcode.cs" />
-    <Compile Include="integration\discord\DiscordRPC\IO\PipeFrame.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Logging\ConsoleLogger.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Logging\FileLogger.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Logging\ILogger.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Logging\LogLevel.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Logging\NullLogger.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\CloseMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\ConnectionEstablishedMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\ConnectionFailedMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\ErrorMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\IMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\JoinMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\JoinRequestMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\MessageType.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\PresenceMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\ReadyMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\SpectateMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\SubscribeMessage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Message\UnsubscribeMsesage.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Registry\IUriSchemeCreator.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Registry\MacUriSchemeCreator.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Registry\UnixUriSchemeCreator.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Registry\UriScheme.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Registry\WindowsUriSchemeCreator.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RichPresence.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Commands\CloseCommand.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Commands\ICommand.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Commands\PresenceCommand.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Commands\RespondCommand.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Commands\SubscribeCommand.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\ClosePayload.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\Command.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\IPayload.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\PayloadArgument.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\PayloadEvent.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\Payload\ServerEvent.cs" />
-    <Compile Include="integration\discord\DiscordRPC\RPC\RpcConnection.cs" />
-    <Compile Include="integration\discord\DiscordRPC\UnityNamedPipe.cs" />
-    <Compile Include="integration\discord\DiscordRPC\User.cs" />
-    <Compile Include="integration\discord\DiscordRPC\Web\WebRPC.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeConnectionException.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeOpenException.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeReadException.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeWriteException.cs" />
     <Compile Include="integration\discord\NamedPipes\NamedPipeClientStream.cs" />
+    <Compile Include="integration\discord\NamedPipes\UnityNamedPipe.cs" />
     <Compile Include="integration\Integration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -249,6 +197,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libs\x86_64\NativeNamedPipe.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libs\x86_64\NativeNamedPipe.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

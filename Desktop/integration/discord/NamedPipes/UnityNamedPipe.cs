@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using Desktop.integration.discord.DiscordRPC.IO;
-using Desktop.integration.discord.DiscordRPC.Logging;
-using Desktop.integration.discord.NamedPipes;
+using DiscordRPC.IO;
+using DiscordRPC.Logging;
 
-namespace Desktop.integration.discord.DiscordRPC
+namespace Desktop.integration.discord.NamedPipes
 {
     /// <summary>
     /// Pipe Client used to communicate with Discord.

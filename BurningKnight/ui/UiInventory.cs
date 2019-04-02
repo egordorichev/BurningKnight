@@ -198,6 +198,11 @@ namespace BurningKnight.ui {
 			}
 		}
 
+		private Vector2 GetHeartPosition(int i, bool bg = false) {
+			return new Vector2((bg ? 4 : 5) + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f),
+				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10);
+		}
+
 		private void RenderHealthBar() {
 			var red = player.GetComponent<HealthComponent>();
 			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
@@ -212,13 +217,10 @@ namespace BurningKnight.ui {
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
+				Graphics.Render(hurt ? changedHeartBackground : heartBackground, GetHeartPosition(i, true));
 
 				if (i < totalRed) {
-					// fixme: rows
-					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-						Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
+					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, GetHeartPosition(i));					
 				}
 			}
 

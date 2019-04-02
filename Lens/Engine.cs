@@ -4,6 +4,7 @@ using Lens.game;
 using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util;
+using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -102,6 +103,7 @@ namespace Lens {
 			UpdateView();
 
 			Log.Open();
+			Log.Info($"Starting from {AppDomain.CurrentDomain.BaseDirectory}");
 			Log.Info(tmpTitle);
 			Log.Info(DateTime.Now.ToString("dd.MM.yyyy h:mm tt"));
 
