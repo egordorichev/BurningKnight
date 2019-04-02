@@ -5,6 +5,7 @@ namespace BurningKnight.state {
 	public static class Run {
 		private static int depth;
 		public static int NextDepth { get; private set; }
+		public static int LastDepth;
 		
 		public static int Depth {
 			get => depth;
@@ -17,6 +18,7 @@ namespace BurningKnight.state {
 
 		public static void Update() {
 			if (depth != NextDepth) {
+				LastDepth = depth;
 				depth = NextDepth;
 				Engine.Instance.SetState(new LoadState());
 			}			

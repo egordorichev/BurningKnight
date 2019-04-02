@@ -22,37 +22,37 @@ namespace BurningKnight.debug {
 			var thread = new Thread(() => {
 				switch (saveType) {
 					case "all": {
-						SaveManager.Save(area, SaveManager.SaveType.Level, path);
-						SaveManager.Save(area, SaveManager.SaveType.Player, path);
-						SaveManager.Save(area, SaveManager.SaveType.Game, path);
-						SaveManager.Save(area, SaveManager.SaveType.Global, path);
+						SaveManager.Save(area, SaveType.Level, false, path);
+						SaveManager.Save(area, SaveType.Player, false, path);
+						SaveManager.Save(area, SaveType.Game, false, path);
+						SaveManager.Save(area, SaveType.Global, false, path);
 						break;
 					}
 
 					case "level": {
-						SaveManager.Save(area, SaveManager.SaveType.Level, path);
+						SaveManager.Save(area, SaveType.Level, false, path);
 						break;
 					}
 
 					case "player": {
-						SaveManager.Save(area, SaveManager.SaveType.Player, path);
+						SaveManager.Save(area, SaveType.Player, false, path);
 						break;
 					}
 
 					case "game": {
-						SaveManager.Save(area, SaveManager.SaveType.Game, path);
+						SaveManager.Save(area, SaveType.Game, false, path);
 						break;
 					}
 
 					case "global": {
-						SaveManager.Save(area, SaveManager.SaveType.Global, path);
+						SaveManager.Save(area, SaveType.Global, false, path);
 						break;
 					}
 
 					case "run": {
-						SaveManager.Save(area, SaveManager.SaveType.Level, path);
-						SaveManager.Save(area, SaveManager.SaveType.Player, path);
-						SaveManager.Save(area, SaveManager.SaveType.Game, path);
+						SaveManager.Save(area, SaveType.Level, false, path);
+						SaveManager.Save(area, SaveType.Player, false, path);
+						SaveManager.Save(area, SaveType.Game, false, path);
 						break;
 					}
 

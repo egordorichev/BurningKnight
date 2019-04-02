@@ -2,6 +2,8 @@ using System;
 using BurningKnight.entity.editor.command;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
+using BurningKnight.save;
+using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -20,6 +22,9 @@ namespace BurningKnight.entity.editor {
 		public Level Level;
 		public TileSelect TileSelect;
 		public bool ShowPanes = true;
+
+		public int Depth;
+		public bool UseDepth;
 
 		public override void Init() {
 			base.Init();
@@ -41,14 +46,19 @@ namespace BurningKnight.entity.editor {
 				Position = new Vector2(Display.Width / 2f, Display.Height / 2f)
 			});
 
-			Area.Add(Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
-				Width = 32, Height = 32
-			});
+			if (UseDepth) {
+				SaveManager.Load(Area, SaveType.Level);
+				Level = Run.Level;
+			} else {
+				Area.Add(Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
+					Width = 32, Height = 32
+				});
 
-			Level.Setup();
-			Level.Fill(Tile.FloorA);
-			Level.TileUp();
-			
+				Level.Setup();
+				Level.Fill(Tile.FloorA);
+				Level.TileUp();
+			}
+
 			Engine.Instance.State.Ui.Add(TileSelect = new TileSelect {
 				Editor = this
 			});

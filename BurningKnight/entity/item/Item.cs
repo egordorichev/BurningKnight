@@ -71,8 +71,8 @@ namespace BurningKnight.entity.item {
 			});
 		}
 
-		public override void AddComponents() {
-			base.AddComponents();
+		public override void PostInit() {
+			base.PostInit();
 			
 			AddComponent(new ItemGraphicsComponent(Id));
 			Renderer?.Setup();

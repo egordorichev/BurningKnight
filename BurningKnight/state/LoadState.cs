@@ -23,11 +23,11 @@ namespace BurningKnight.state {
 				Tilesets.Load();
 				
 				if (Run.Id == -1) {
-					SaveManager.Load(gameArea, SaveManager.SaveType.Game, Path);
+					SaveManager.Load(gameArea, SaveType.Game, Path);
 				}
 
-				SaveManager.Load(gameArea, SaveManager.SaveType.Level, Path);
-				SaveManager.Load(gameArea, SaveManager.SaveType.Player, Path);
+				SaveManager.Load(gameArea, SaveType.Level, Path);
+				SaveManager.Load(gameArea, SaveType.Player, Path);
 				
 				Engine.Instance.SetState(new InGameState(gameArea));
 			});

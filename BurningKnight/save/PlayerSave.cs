@@ -5,30 +5,35 @@ using Lens.entity;
 using Lens.util.file;
 
 namespace BurningKnight.save {
-	public class PlayerSave {
-		public static void Save(Area area, FileWriter Writer) {
+	public class PlayerSave : Saver {
+		public override void Save(Area area, FileWriter writer) {
 			var all = area.Tags[Tags.PlayerSave];
-			Writer.WriteInt32(all.Count);
+			writer.WriteInt32(all.Count);
 
-			foreach (SaveableEntity Entity in all) {
-				Writer.WriteString(Entity.GetType().FullName.Replace("BurningKnight.", ""));
-				Entity.Save(Writer);
+			foreach (var entity in all) {
+				var e = (SaveableEntity) entity;
+				writer.WriteString(e.GetType().FullName.Replace("BurningKnight.", ""));
+				e.Save(writer);
 			}
 		}
 
-		public static void Load(Area area, FileReader Reader) {
-			var Count = Reader.ReadInt32();
+		public override string GetPath(string path, bool old = false) {
+			return $"{path}player.sv";
+		}
 
-			for (var I = 0; I < Count; I++) {
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
+		public override void Load(Area area, FileReader reader) {
+			var count = reader.ReadInt32();
+
+			for (var I = 0; I < count; I++) {
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{reader.ReadString()}", true, false));
 
 				area.Add(entity, false);
-				entity.Load(Reader);
+				entity.Load(reader);
 				entity.PostInit();
 			}
 		}
 
-		public static void Generate(Area area) {
+		public override void Generate(Area area) {
 			area.Add(new LocalPlayer());
 		}
 	}

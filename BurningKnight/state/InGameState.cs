@@ -1,10 +1,12 @@
-﻿using BurningKnight.assets;
+﻿using System.Threading;
+using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.ui;
 using BurningKnight.util;
 using Lens;
@@ -15,6 +17,7 @@ using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
 using Lens.util.tween;
+using Microsoft.Xna.Framework.Input;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
@@ -45,10 +48,18 @@ namespace BurningKnight.state {
 		}
 
 		public override void Destroy() {
-			Physics.Destroy();
 			Lights.Destroy();
-			// Fixme: enable
-			// SaveManager.SaveAll(Area);
+
+			if (died) {
+				SaveManager.Save(Area, SaveType.Global);
+			} else {
+				SaveManager.Save(Area, SaveType.Global);
+				SaveManager.Save(Area, SaveType.Game);
+				SaveManager.Save(Area, SaveType.Level);
+				SaveManager.Save(Area, SaveType.Player);
+			}
+			
+			Physics.Destroy();
 			Area = null;
 			
 			Shaders.Screen.Parameters["split"].SetValue(0f);
@@ -124,10 +135,23 @@ namespace BurningKnight.state {
 			if (Input.WasPressed(Controls.Pause)) {
 				Paused = !Paused;
 			}
+
+			if (Engine.Version.Debug) {
+				UpdateDebug();
+			}
 			
 			Run.Update();
 		}
 
+		private void UpdateDebug() {
+			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
+				Engine.Instance.SetState(new EditorState {
+					Depth = Run.Depth,
+					UseDepth = true
+				});
+			}
+		}
+		
 		public override void Render() {
 			base.Render();
 			Physics.Render();
@@ -234,6 +258,10 @@ namespace BurningKnight.state {
 				
 				Tween.To(this, new {blur = 1}, 0.5f);
 				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f);
+
+				new Thread(() => {
+					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+				}).Start();
 			}
 
 			return false;

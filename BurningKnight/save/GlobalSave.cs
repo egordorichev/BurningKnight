@@ -4,7 +4,7 @@ using Lens.entity;
 using Lens.util.file;
 
 namespace BurningKnight.save {
-	public class GlobalSave {
+	public class GlobalSave : Saver {
 		public static Dictionary<string, string> Values = new Dictionary<string, string>();
 
 		public static bool IsTrue(string Key) {
@@ -45,36 +45,43 @@ namespace BurningKnight.save {
 
 		public static int GetInt(string Key, int Def = 0) {
 			return Values.TryGetValue(Key, out var Value) ? Int32.Parse(Value) : Def;
-
 		}
 
 		public static float GetFloat(string Key, float Def = 0) {
 			return Values.TryGetValue(Key, out var Value) ? Single.Parse(Value) : Def;
 		}
 
-		public static void Generate(Area area) {
+		public override void Generate(Area area) {
 			Settings.Generate();
 		}
 
-		public static void Load(Area area, FileReader Reader) {
+		public override string GetPath(string path, bool old = false) {
+			return $"{path}global.sv";
+		}
+
+		public override void Load(Area area, FileReader reader) {
 			Values.Clear();
-			var Count = Reader.ReadInt32();
+			var Count = reader.ReadInt32();
 
 			for (var I = 0; I < Count; I++) {
-				var Key = Reader.ReadString();
-				var Val = Reader.ReadString();
+				var Key = reader.ReadString();
+				var Val = reader.ReadString();
 				
 				Values[Key] = Val;
 			}
 		}
 
-		public static void Save(Area area, FileWriter Writer) {
-			Writer.WriteInt32(Values.Count);
+		public override void Save(Area area, FileWriter writer) {
+			writer.WriteInt32(Values.Count);
 
 			foreach (var Pair in Values) {
-				Writer.WriteString(Pair.Key);
-				Writer.WriteString(Pair.Value);
+				writer.WriteString(Pair.Key);
+				writer.WriteString(Pair.Value);
 			}
+		}
+		
+		public override FileHandle GetHandle() {
+			return new FileHandle(GetPath(SaveManager.SaveDir));
 		}
 	}
 }

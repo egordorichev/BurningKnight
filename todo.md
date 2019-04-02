@@ -2,10 +2,10 @@
 
 ### Important
 
-* Make mobs not hurt each other, if they dont have charmed buff
 * Allow to enter editor from in-game and back
 * Finish save implementation
 * Allow to place entities with editor
+* Loading items should take their uses/rendering/other stuff from ItemRegistry
 
 ### Polish
 
@@ -26,6 +26,8 @@
 * Explode item stand to replace the item with trash? :thinking:
 
 ### Ideas
+
+* Signs, you can write/read from them
 
 ### Clean up
 

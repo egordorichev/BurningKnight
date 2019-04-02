@@ -41,7 +41,7 @@ namespace BurningKnight.entity.item {
 				}
 				
 				a += ((m ? (x < 0 ? -1 : 1) : 0) - a) * dt * 4f;
-				Center = new Vector2(pos.X + 4 + mx * 8, pos.Y - 4);
+				Center = new Vector2(pos.X + 4 + mx * 16, pos.Y - 4);
 			}
 		}
 

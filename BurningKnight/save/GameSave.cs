@@ -5,25 +5,30 @@ using Lens.util.file;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.save {
-	public class GameSave {
-
-		public static void Save(Area area, FileWriter Writer) {
-			Writer.WriteByte((byte) Run.Depth);
-			Writer.WriteInt32(Run.KillCount);
-			Writer.WriteFloat(Run.Time);
-			Writer.WriteInt32(Run.Id);
-			Writer.WriteString(Random.Seed);
+	public class GameSave : Saver {
+		public override void Save(Area area, FileWriter writer) {
+			writer.WriteByte((byte) Run.Depth);
+			writer.WriteInt32(Run.KillCount);
+			writer.WriteFloat(Run.Time);
+			writer.WriteInt32(Run.Id);
+			writer.WriteString(Random.Seed);
 		}
 
-		public static void Load(Area area, FileReader Reader) {
-			Run.KillCount = Reader.ReadInt32();
-			Run.Time = Reader.ReadFloat();
-			Run.Id = Reader.ReadInt32();
+		public override string GetPath(string path, bool old = false) {
+			return $"{path}game.sv";
+		}
+
+		public override void Load(Area area, FileReader reader) {
+			Run.Depth = reader.ReadByte();
 			
-			Random.Seed = Reader.ReadString();
+			Run.KillCount = reader.ReadInt32();
+			Run.Time = reader.ReadFloat();
+			Run.Id = reader.ReadInt32();
+			
+			Random.Seed = reader.ReadString();
 		}
 
-		public static void Generate(Area area) {
+		public override void Generate(Area area) {
 			Run.KillCount = 0;
 			Run.Time = 0;
 			Run.Id = Math.Max(Run.Id, 0);

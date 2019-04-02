@@ -4,35 +4,40 @@ using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
-	public class LevelSave {
+	public class LevelSave : Saver {
 		private static int I;
 
-		public static void Save(Area area, FileWriter Writer) {
+		public override void Save(Area area, FileWriter writer) {
 			var all = area.Tags[Tags.LevelSave];
-			Writer.WriteInt32(all.Count);
+			writer.WriteInt32(all.Count);
 
-			foreach (SaveableEntity Entity in all) {
-				Writer.WriteString(Entity.GetType().FullName.Replace("BurningKnight.", ""));
-				Entity.Save(Writer);
+			foreach (SaveableEntity entity in all) {
+				writer.WriteString(entity.GetType().FullName.Replace("BurningKnight.", ""));
+				entity.Save(writer);
 			}
 		}
 
-		public static void Load(Area area, FileReader Reader) {
-			var Count = Reader.ReadInt32();
+		public override string GetPath(string path, bool old = false) {
+			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.sv";
+		}
 
-			for (var I = 0; I < Count; I++) {
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{Reader.ReadString()}", true, false));
+		public override void Load(Area area, FileReader reader) {
+			var count = reader.ReadInt32();
+
+			for (var I = 0; I < count; I++) {
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{reader.ReadString()}", true, false));
 
 				area.Add(entity, false);
-				entity.Load(Reader);
+				entity.Load(reader);
 				entity.PostInit();
 			}
 		}
 
-		public static void Generate(Area area) {
+		public override void Generate(Area area) {
 			try {
 				var level = new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
 				area.Add(level);
@@ -40,9 +45,38 @@ namespace BurningKnight.save {
 
 				I = 0;
 			} catch (Exception e) {
-				Console.WriteLine(e);
-				Generate(area);
+				Log.Error(e);
 				I++;
+
+				if (I > 100) {
+					Log.Error("Can't generate a level");
+					
+					var level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
+						Width = 32, Height = 32
+					};
+					
+					area.Add(level);
+
+					level.Setup();
+					level.Fill(Tile.FloorA);
+					level.TileUp();
+					
+					return;
+				}
+				
+				Generate(area);
+			}
+		}
+
+		public override FileHandle GetHandle() {
+			return new FileHandle(SaveManager.SlotDir);
+		}
+
+		public override void Delete() {
+			var handle = GetHandle();
+
+			foreach (var file in handle.ListFileHandles()) {
+				file.Delete();
 			}
 		}
 	}
