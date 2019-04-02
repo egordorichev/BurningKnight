@@ -48,5 +48,9 @@ namespace BurningKnight.entity.creature {
 		public virtual bool ShouldCollide(Entity entity) {
 			return !(entity is Creature);
 		}
+
+		public virtual bool IsFriendly() {
+			return true;
+		}
 	}
 }

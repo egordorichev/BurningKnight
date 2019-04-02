@@ -61,7 +61,7 @@ namespace BurningKnight.entity.creature.mob {
 					continue;
 				}
 
-				if (TouchDamage > 0) {
+				if (TouchDamage > 0 && (!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
 					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
 				}
 			}
@@ -85,7 +85,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void FindTarget() {
-			var targets = Area.Tags[GetComponent<BuffsComponent>().Has<CharmedBuff>() ? Tags.Mob : Tags.Player];
+			var targets = Area.Tags[IsFriendly() ? Tags.Mob : Tags.Player];
 			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			
@@ -110,6 +110,10 @@ namespace BurningKnight.entity.creature.mob {
 			// Might be null, thats ok
 			Target = closest;
 			OnTargetChange(closest);
+		}
+
+		public override bool IsFriendly() {
+			return GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
 	}
 }
