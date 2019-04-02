@@ -2,10 +2,11 @@
 
 ### Important
 
-* Allow to enter editor from in-game and back
-* Finish save implementation
 * Allow to place entities with editor
+* Allow to remove entities with editor
 * Loading items should take their uses/rendering/other stuff from ItemRegistry
+* Inv timer doesnt seem to work
+* Gold tiling is broken
 
 ### Polish
 

@@ -65,6 +65,12 @@ namespace Lens.util.tween {
 		public static void Update(float dt) {
 			for (int i = tasks.Count - 1; i >= 0; i--) {
 				var task = tasks[i];
+
+				if (task == null) { // A bug that used to happen somehow
+					tasks.RemoveAt(i);
+					continue;
+				}
+				
 				task.Update(dt);
 
 				if (task.Ended) {

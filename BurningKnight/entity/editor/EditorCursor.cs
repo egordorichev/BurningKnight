@@ -43,7 +43,7 @@ namespace BurningKnight.entity.editor {
 		}
 
 		public void OnClick(Vector2 pos) {
-			if (CurrentMode == Mode.Normal) {
+			if (CurrentMode == Mode.Normal && !Drag) {
 				var tile = Editor.TileSelect.Current;
 				var x = (int) Math.Floor(pos.X / 16);
 				var y = (int) Math.Floor(pos.Y / 16);

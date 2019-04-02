@@ -90,7 +90,7 @@ namespace BurningKnight.entity.level {
 		
 		public void CreateBody() {
 			GetComponent<LevelBodyComponent>().CreateBody();
-			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
 		}
 
 		public void TileUp() {

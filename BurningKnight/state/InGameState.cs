@@ -147,7 +147,8 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new EditorState {
 					Depth = Run.Depth,
-					UseDepth = true
+					UseDepth = true,
+					CameraPosition = Camera.Instance.Position
 				});
 			}
 		}

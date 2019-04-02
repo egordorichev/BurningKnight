@@ -25,6 +25,7 @@ namespace BurningKnight.entity.editor {
 
 		public int Depth;
 		public bool UseDepth;
+		public Vector2 CameraPosition;
 
 		public override void Init() {
 			base.Init();
@@ -43,7 +44,7 @@ namespace BurningKnight.entity.editor {
 			});
 			
 			Engine.Instance.State.Ui.Add(Camera = new Camera(new CameraDriver()) {
-				Position = new Vector2(Display.Width / 2f, Display.Height / 2f)
+				Position = CameraPosition
 			});
 
 			if (UseDepth) {
