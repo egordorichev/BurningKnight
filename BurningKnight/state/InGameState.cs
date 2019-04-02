@@ -150,6 +150,16 @@ namespace BurningKnight.state {
 					UseDepth = true,
 					CameraPosition = Camera.Instance.Position
 				});
+
+				return;
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.NumPad8)) {
+				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
+				Engine.Instance.SetState(new LoadState());
+				died = true;
+
+				return;
 			}
 		}
 		

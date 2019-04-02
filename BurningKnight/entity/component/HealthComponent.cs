@@ -28,11 +28,11 @@ namespace BurningKnight.entity.component {
 				Amount = h - old,
 				From = setter
 			})) {
-				if (hp < health) {
+				if (old > h) {
 					InvincibilityTimer = InvincibilityTimerMax;
 				}
 				
-				health = h;				
+				health = h;
 			}
 		}
 

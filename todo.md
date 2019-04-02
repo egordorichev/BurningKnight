@@ -2,10 +2,11 @@
 
 ### Important
 
+* Lamp give hearts
 * Allow to place entities with editor
 * Allow to remove entities with editor
 * Loading items should take their uses/rendering/other stuff from ItemRegistry
-* Inv timer doesnt seem to work
+* Adjust door position in hallways
 
 ### Polish
 
@@ -16,6 +17,12 @@
 * Flash frame for guns
 * Make bullets fly out from the right place
 * Bullet shells
+* Add sparks
+* Think about bloom shader
+* Think about blur around edges
+* Shadow
+* Show black sprite over obstacles, when player view is blocked by something?
+* Adjust door locks, they are a bit weird
 
 ### Mechanics
 

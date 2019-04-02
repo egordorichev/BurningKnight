@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob {
 			base.AddComponents();
 			
 			AddTag(Tags.Mob);
-			// AddTag(Tags.MustBeKilled);
+			AddTag(Tags.MustBeKilled);
 			
 			SetStats();
 		}
@@ -85,12 +85,11 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void FindTarget() {
-			var targets = Area.Tags[IsFriendly() ? Tags.Mob : Tags.Player];
+			var targets = GetComponent<RoomComponent>().Room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			
 			foreach (var target in targets) {
-				// todo: check only in the room
 				var d = target.DistanceTo(this);
 
 				if (d < closestDistance) {
