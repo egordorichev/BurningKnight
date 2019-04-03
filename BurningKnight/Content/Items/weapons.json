@@ -1,0 +1,15 @@
+{
+  "gun" : {
+    "type" : "weapon",
+    "time" : 0.1,
+    
+    "uses" : {
+      "bk:SimpleShoot" : {
+        "texture" : "small",
+        "speed" : 60
+      }
+    },
+    
+    "renderer" : "bk:AngledRenderer"
+  }
+}

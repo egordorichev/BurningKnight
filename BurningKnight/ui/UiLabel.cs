@@ -28,8 +28,8 @@ namespace BurningKnight.ui {
 			set => Label = Locale.Get(value);
 		}
 
-		public override void Render(Vector2 position) {
-			Graphics.Print(label, Font.Medium, position + Position + origin, angle, origin, scale);
+		public override void Render() {
+			Graphics.Print(label, Font.Medium, Position + origin, angle, origin, scale);
 		}
 	}
 }

@@ -1,0 +1,11 @@
+{
+  "halo" : {
+    "type" : "artifact",
+
+    "uses" : {
+      "bk:ModifyMaxHp" : {
+        "amount" : 2
+      }
+    }
+  }
+}

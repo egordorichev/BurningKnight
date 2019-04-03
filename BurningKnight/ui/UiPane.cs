@@ -4,13 +4,22 @@ namespace BurningKnight.ui {
 	public class UiPane : UiEntity {
 		public List<UiEntity> Entities = new List<UiEntity>();
 
+		private void OnPositionChange() {
+			foreach (var e in Entities) {
+				e.Position = Position + e.RelativePosition;
+			}
+		}
+		
 		public override void Init() {
 			base.Init();
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
-		}
 
+			PositionChanged += OnPositionChange;
+			OnPositionChange();
+		}
+		
 		public UiEntity Add(UiEntity entity) {
 			Entities.Add(entity);
 			entity.Super = this;
@@ -29,7 +38,7 @@ namespace BurningKnight.ui {
 
 		public override void Render() {
 			foreach (var e in Entities) {
-				e.Render(Position);
+				e.Render();
 			}
 		}
 	}

@@ -1,0 +1,21 @@
+{
+  "heart" : {
+    "type" : "heart",
+
+    "uses" : {
+      "bk:Heal" : {
+        "amount" : 2
+      }
+    }
+  },
+
+  "half_heart" : {
+    "type" : "heart",
+
+    "uses" : {
+      "bk:Heal" : {
+        "amount" : 1
+      }
+    }
+  }
+}

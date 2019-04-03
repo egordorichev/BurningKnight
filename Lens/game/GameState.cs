@@ -6,6 +6,7 @@ namespace Lens.game {
 
 		public Area Area = new Area();
 		public Area Ui = new Area();
+		public float Time;
 
 		private bool paused;
 		
@@ -55,6 +56,10 @@ namespace Lens.game {
 		public virtual void Update(float dt) {
 			Area?.Update(dt);
 			Ui.Update(dt);
+
+			if (!Paused) {
+				Time += dt;
+			}
 		}
 
 		public virtual void Render() {

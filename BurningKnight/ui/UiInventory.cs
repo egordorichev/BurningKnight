@@ -10,6 +10,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
@@ -20,10 +21,10 @@ namespace BurningKnight.ui {
 		private TextureRegion bomb;
 		private TextureRegion key;
 		private TextureRegion coin;
-		
-		private TextureRegion heart;
-		private TextureRegion halfHeart;
-		private TextureRegion heartBackground;
+
+		public static TextureRegion Heart;
+		public static TextureRegion HalfHeart;
+		public static TextureRegion HeartBackground;
 		private TextureRegion changedHeartBackground;
 		
 		private TextureRegion iron;
@@ -62,9 +63,9 @@ namespace BurningKnight.ui {
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
 			
-			heart = anim.GetSlice("heart");
-			halfHeart = anim.GetSlice("half_heart");
-			heartBackground = anim.GetSlice("heart_bg");
+			Heart = anim.GetSlice("heart");
+			HalfHeart = anim.GetSlice("half_heart");
+			HeartBackground = anim.GetSlice("heart_bg");
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
 			
 			iron = anim.GetSlice("iron_heart");
@@ -198,7 +199,7 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		private Vector2 GetHeartPosition(int i, bool bg = false) {
+		private Vector2 GetHeartPosition(int i, int count, bool bg = false) {
 			return new Vector2((bg ? 4 : 5) + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f),
 				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10);
 		}
@@ -211,16 +212,17 @@ namespace BurningKnight.ui {
 			var other = player.GetComponent<HeartsComponent>();
 			var totalIron = other.IronHalfs;			
 			var totalGolden = other.GoldenHalfs;
+			var total = totalRed + totalIron + totalGolden;
 			
 			var hurt = red.InvincibilityTimer > 0;
 
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, GetHeartPosition(i, true));
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
 
 				if (i < totalRed) {
-					Graphics.Render(i == totalRed - 1 ? halfHeart : heart, GetHeartPosition(i));					
+					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(i, total));					
 				}
 			}
 
@@ -228,20 +230,16 @@ namespace BurningKnight.ui {
 			var maxIron = ironI + totalIron % 2;
 			
 			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-					Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
+				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(i, total));					
 			}
 
 			var goldenI = totalGolden + maxIron;
 			var maxGold = goldenI + totalGolden % 2;
 			
 			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : heartBackground, new Vector2(4 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-					Display.UiHeight - 11 - (i / HeartsComponent.PerRow) * 10));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, new Vector2(5 + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f), 
-					Display.UiHeight - 10 - (i / HeartsComponent.PerRow) * 10));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
+				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(i, total));					
 			}
 		}
 

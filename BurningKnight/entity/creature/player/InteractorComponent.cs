@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		private void EndInteraction() {
+		public void EndInteraction() {
 			if (CurrentlyInteracting.TryGetComponent<InteractableComponent>(out var component)) {
 				component.OnEnd?.Invoke(Entity);
 				component.CurrentlyInteracting = null;

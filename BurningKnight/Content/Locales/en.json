@@ -1,5 +1,7 @@
 {
   "halo" : "Halo", "halo_desc" : "OOO",
+  "gun" : "Gun", "gun_desc" : "Hands up, @everyone!",
+  "heart" : "Heart",
   
   "resume" : "Resume",
   "settings" : "Settings",

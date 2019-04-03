@@ -9,6 +9,8 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
+		public const float FlashSize = 0.025f;
+		
 		public float T;
 		
 		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
@@ -27,7 +29,7 @@ namespace BurningKnight.entity.item {
 			T += dt;
 		}
 
-		public Vector2 CalculatePosition() {
+		public virtual Vector2 CalculatePosition() {
 			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
 		}
 
@@ -56,7 +58,7 @@ namespace BurningKnight.entity.item {
 			var sh = Shaders.Item;
 			Shaders.Begin(sh);
 			sh.Parameters["time"].SetValue(T * 0.1f);
-			sh.Parameters["size"].SetValue(0.025f);
+			sh.Parameters["size"].SetValue(FlashSize);
 			
 			Graphics.Render(Sprite, position, angle, origin);
 			

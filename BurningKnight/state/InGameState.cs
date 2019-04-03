@@ -212,27 +212,27 @@ namespace BurningKnight.state {
 
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
-				CenterX = Display.UiWidth / 2f,
-				Y = start,
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start,
 				Click = () => Paused = false
 			});
 			
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "settings",
-				CenterX = Display.UiWidth / 2f,
-				Y = start + space
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space
 			});
 			
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "back_to_menu",
-				CenterX = Display.UiWidth / 2f,
-				Y = start + space * 2,
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space * 2,
 				Click = () => Engine.Instance.SetState(new MenuState())
 			});
 			
 			
 			Ui.Add(gameOverMenu = new UiPane {
-				Y = -Display.UiHeight				
+				Y = -Display.UiHeight
 			});
 			
 			space = 32f;
@@ -240,21 +240,21 @@ namespace BurningKnight.state {
 			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
-				CenterX = Display.UiWidth / 2f,
-				Y = start
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start
 			});
 			
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
-				CenterX = Display.UiWidth / 2f,
-				Y = start + space * 2,
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space * 2,
 				Click = () => Engine.Instance.SetState(new LoadState())
 			});
 			
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "back_to_menu",
-				CenterX = Display.UiWidth / 2f,
-				Y = start + space * 3,
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space * 3,
 				Click = () => Engine.Instance.SetState(new MenuState())
 			});
 		}

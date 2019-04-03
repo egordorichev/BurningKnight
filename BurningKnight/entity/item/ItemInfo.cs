@@ -8,7 +8,7 @@ namespace BurningKnight.entity.item {
 		public float Warrior;
 		public ItemType Type;
 
-		public ItemInfo(string id, Func<Item> create, ItemType type = ItemType.Normal, Chance chance = null) {
+		public ItemInfo(string id, Func<Item> create, ItemType type = ItemType.Artifact, Chance chance = null) {
 			Id = id;
 			Create = create;
 			Chance = chance ?? Chance.All();

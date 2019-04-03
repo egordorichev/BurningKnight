@@ -2,7 +2,7 @@ namespace BurningKnight.entity.item {
 	public static class PriceCalculator {
 		public static int BasePrice(ItemType type) {
 			switch (type) {
-				case ItemType.Normal: return 15;
+				case ItemType.Artifact: return 15;
 				
 				case ItemType.Active: return 10;
 

@@ -12,7 +12,7 @@ namespace BurningKnight.entity.creature.player {
 				var sh = Shaders.Item;
 				Shaders.Begin(sh);
 				sh.Parameters["time"].SetValue(Engine.Time * 0.1f);
-				sh.Parameters["size"].SetValue(0.025f);
+				sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
 
 				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta);
 
@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		protected override bool ShouldReplace(Item item) {
-			return item.Type == ItemType.Normal;
+			return item.Type == ItemType.Weapon;
 		}
 	}
 }

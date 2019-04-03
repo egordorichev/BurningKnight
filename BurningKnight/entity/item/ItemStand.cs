@@ -13,6 +13,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.item {
 	public class ItemStand : Entity {
 		private Item item;
+		private float T;
 		
 		public Item Item => item;
 
@@ -37,8 +38,8 @@ namespace BurningKnight.entity.item {
 			if (item != null) {
 				item.RemoveDroppedComponents();
 				item.AddComponent(new OwnerComponent(this));
-				item.Position = new Vector2(X + (Width - item.Region.Source.Width) / 2, CenterY - item.Region.Source.Height);
-					
+				item.Center = Center;
+				
 				HandleEvent(new ItemPlacedEvent {
 					Item = item,
 					Who = entity,
@@ -97,6 +98,11 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+			T += dt;
+		}
+
 		private bool CanInteract() {
 			return true; // item != null;
 		}
@@ -104,7 +110,7 @@ namespace BurningKnight.entity.item {
 		public override void Render() {
 			var component = GetComponent<InteractableComponent>();
 			var renderOutline = component.OutlineAlpha > 0.05f;
-			var t = item?.GetComponent<ItemGraphicsComponent>().T ?? 0;
+			var t = T;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			if (item == null && renderOutline) {
@@ -129,8 +135,9 @@ namespace BurningKnight.entity.item {
 			}
 
 			var region = item.Region;
-			var pos = item.Center + new Vector2(region.Source.Width * -0.5f, (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
-
+			var animated = item.Animation != null;
+			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
+			
 			if (renderOutline) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
@@ -145,15 +152,19 @@ namespace BurningKnight.entity.item {
 				
 				Shaders.End();
 			}
+
+			if (animated) {
+				Graphics.Render(region, pos, 0, region.Center);				
+			} else {
+				var sh = Shaders.Item;
+				Shaders.Begin(sh);
+				sh.Parameters["time"].SetValue(t * 0.1f);
+				sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
 			
-			var sh = Shaders.Item;
-			Shaders.Begin(sh);
-			sh.Parameters["time"].SetValue(t * 0.1f);
-			sh.Parameters["size"].SetValue(0.025f);
+				Graphics.Render(region, pos, angle, region.Center);
 			
-			Graphics.Render(region, pos, angle, region.Center);
-			
-			Shaders.End();
+				Shaders.End();	
+			}
 		}
 	}
 }

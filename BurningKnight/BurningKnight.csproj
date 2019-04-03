@@ -179,6 +179,7 @@
     <Compile Include="entity\fx\Prop.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
+    <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\UiButton.cs" />
+    <Compile Include="ui\UiDescriptionBanner.cs" />
     <Compile Include="ui\UiEntity.cs" />
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />

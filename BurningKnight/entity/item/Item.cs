@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -10,8 +9,8 @@ using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.assets;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
@@ -36,12 +35,14 @@ namespace BurningKnight.entity.item {
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
 		public float Delay { get; protected set; }
+		public string Animation = null;
+		public bool AutoPickup = false;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		public ItemRenderer Renderer;
 
-		public TextureRegion Region => GetComponent<ItemGraphicsComponent>().Sprite;
+		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
 		public Entity Owner => GetComponent<OwnerComponent>().Owner;
 		
 		public Item(ItemRenderer renderer, params ItemUse[] uses) {
@@ -54,6 +55,15 @@ namespace BurningKnight.entity.item {
 			Uses = uses;
 		}
 
+		/*
+		 * Warning: do not use, this constructor exists
+		 * ONLY because we need to load items
+		 * from files
+		 */
+		public Item() {
+			
+		}
+		
 		public void Use(Entity entity) {
 			if (!UseCheck.CanUse(entity, this)) {
 				return;
@@ -73,8 +83,13 @@ namespace BurningKnight.entity.item {
 
 		public override void PostInit() {
 			base.PostInit();
+
+			if (Animation != null) {
+				AddComponent(new AnimatedItemGraphicsComponent(Animation));
+			} else {
+				AddComponent(new ItemGraphicsComponent(Id));
+			}
 			
-			AddComponent(new ItemGraphicsComponent(Id));
 			Renderer?.Setup();
 		}
 
@@ -88,11 +103,16 @@ namespace BurningKnight.entity.item {
 		}
 
 		private void OnInteractionStart(Entity entity) {
-			Area.Add(new ItemPickupFx(this));
+			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+				inventory.Pickup(this);
+				entity.GetComponent<InteractorComponent>().EndInteraction();
+			} else {
+				Area.Add(new ItemPickupFx(this));
+			}			
 		}
 
 		public virtual void AddDroppedComponents() {
-			var slice = GetComponent<ItemGraphicsComponent>().Sprite;			
+			var slice = Region;			
 	
 			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, true));
 			AddComponent(new InteractableComponent(Interact) {
@@ -113,6 +133,21 @@ namespace BurningKnight.entity.item {
 		public override void Load(FileReader stream) {
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
+
+			var item = ItemRegistry.BareCreate(Id);
+
+			if (item == null) {
+				Log.Error($"Failed to load item {Id}, such id does not exist!");
+				return;
+			}
+			
+			Uses = item.Uses;
+			Renderer = item.Renderer;
+
+			if (Renderer != null) {
+				Renderer.Item = this;
+				Renderer.Setup();
+			}
 		}
 		
 		public override void Update(float dt) {

@@ -8,12 +8,47 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.ui {
 	public class UiEntity : Entity {
 		public UiEntity Super;
+		
+		#region Relative Position
+		public Vector2 RelativePosition;
 
+		public float RelativeX {
+			get => Centered ? Position.X - Width / 2 : Position.X;
+			set => RelativePosition.X = Centered ? value + Width / 2 : value;
+		}
+
+		public float RelativeY {
+			get => Centered ? RelativePosition.Y - Height / 2 : RelativePosition.Y;
+			set => RelativePosition.Y = Centered ? value + Height / 2 : value;
+		}
+
+		public Vector2 RelativeCenter {
+			get => new Vector2(RelativeCenterX, RelativeCenterY);
+			set {
+				RelativeX = value.X - Width / 2;
+				RelativeY = value.Y - Height / 2;
+			}
+		}
+		
+		public float RelativeCenterX {
+			get => RelativeX + Width / 2;
+			set => RelativeX = value - Width / 2;
+		}
+
+		public float RelativeCenterY {
+			get => RelativeY + Height / 2;
+			set => RelativeY = value - Height / 2;
+		}
+
+		public float RelativeRight => RelativeX + Width;
+		public float RelativeBottom => RelativeY + Height;
+		#endregion
+		
 		protected bool hovered;
 		protected float angle;
 		protected float scale = 1f;
 		protected Vector2 origin = new Vector2(0);
-
+		
 		public override void Init() {
 			base.Init();
 
@@ -25,7 +60,7 @@ namespace BurningKnight.ui {
 			base.Update(dt);
 
 			bool was = hovered;
-			hovered = Contains(Super == null ? Input.Mouse.UiPosition : (Input.Mouse.UiPosition - Super.Position));
+			hovered = Contains(Input.Mouse.UiPosition);
 
 			if (hovered) {
 				if (!was) {
@@ -42,14 +77,8 @@ namespace BurningKnight.ui {
 			angle = (float) Math.Cos(Engine.Time * 3f + Y / (Display.UiHeight * 0.5f)) * (scale - 0.9f);
 		}
 
-		public virtual void Render(Vector2 position) {
-			
-		}
-
 		public override void Render() {
-			if (Super == null) {
-				Render(Position);
-			}
+			
 		}
 		
 		protected virtual void OnHover() {
