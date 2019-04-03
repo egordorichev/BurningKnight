@@ -5,6 +5,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.entities;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -66,7 +67,8 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
-			return entity != Owner && (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>());
+			return entity != Owner && (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() 
+			                           || entity is SolidProp);
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ExplodableComponent());
 			AddComponent(new DropsComponent());
 			
-			AddDrops(new SingleDrop("heart", 1));
+			AddDrops(new SingleDrop("heart", 0.05f));
 		}
 		
 		public void Kill(Entity w) {

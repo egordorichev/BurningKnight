@@ -98,7 +98,7 @@ namespace BurningKnight.debug {
 				open = false;
 				Input.Blocked = false;
 
-				if (input.Length > 0) {
+				if (str.Length > 0) {
 					RunCommand(str);
 				}
 				

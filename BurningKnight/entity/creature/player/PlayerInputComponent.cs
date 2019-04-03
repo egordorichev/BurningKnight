@@ -51,7 +51,6 @@ namespace BurningKnight.entity.creature.player {
 				}
 
 				if (Input.WasPressed(Controls.Roll, data)) {
-					GetComponent<DropsComponent>().SpawnDrops();
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
