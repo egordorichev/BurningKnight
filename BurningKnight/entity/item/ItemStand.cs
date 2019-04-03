@@ -147,7 +147,7 @@ namespace BurningKnight.entity.item {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(region, pos + d, angle, region.Center);
+					Graphics.Render(region, pos + d, animated ? 0 : angle, region.Center);
 				}
 				
 				Shaders.End();

@@ -143,6 +143,8 @@ namespace BurningKnight.entity.item {
 			
 			Uses = item.Uses;
 			Renderer = item.Renderer;
+			Animation = item.Animation;
+			AutoPickup = item.AutoPickup;
 
 			if (Renderer != null) {
 				Renderer.Item = this;

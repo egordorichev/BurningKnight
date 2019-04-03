@@ -4,6 +4,7 @@
 
 * Show item description, when you pick them up [UiItemDescription]
 
+* Mob drops
 * Animate gaining hearts from the lamp
 * Implement loading items from json
 * Allow to place entities with editor
@@ -66,3 +67,4 @@
 ### Bugs
 
 * Projectiles will collide with item stand (should disable the collision)
+* Animation treats some reds as transparent
