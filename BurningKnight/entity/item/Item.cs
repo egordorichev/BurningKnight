@@ -12,7 +12,9 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
@@ -35,8 +37,8 @@ namespace BurningKnight.entity.item {
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
 		public float Delay { get; protected set; }
-		public string Animation = null;
-		public bool AutoPickup = false;
+		public string Animation;
+		public bool AutoPickup;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -118,6 +120,17 @@ namespace BurningKnight.entity.item {
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = OnInteractionStart
 			});
+		}
+
+		public void RandomizeVelocity(float force) {
+			if (!TryGetComponent<RectBodyComponent>(out var component)) {
+				return;
+			}
+
+			force *= 60f;
+			var angle = Random.AnglePI();
+			
+			component.Velocity += new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
 		}
 
 		public virtual void RemoveDroppedComponents() {

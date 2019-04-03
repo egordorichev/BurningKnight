@@ -1,6 +1,7 @@
 {
   "halo" : {
     "type" : "artifact",
+    "pool" : "gold_chest",
 
     "uses" : {
       "bk:ModifyMaxHp" : {

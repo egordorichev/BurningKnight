@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			SetStats();
 			
-			AddDrops(new SingleDrop("heart", 1f));
+			AddDrops(new SingleDrop("heart", 0.05f)); // 5%
 		}
 
 		protected virtual void SetStats() {

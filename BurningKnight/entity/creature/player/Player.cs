@@ -53,6 +53,8 @@ namespace BurningKnight.entity.creature.player {
 			inventory.Pickup(ItemRegistry.Create("gun", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
+			
+			AddDrops(new SingleDrop("heart", 1f), new SingleDrop("heart", 1f), new SingleDrop("heart", 1f));
 		}
 
 		public override void PostInit() {

@@ -38,14 +38,7 @@ namespace BurningKnight.entity.creature {
 					Kill(ev.From);
 				}
 			} else if (e is DiedEvent) {
-				var drops = GetDrops();
-
-				foreach (var item in drops) {
-					item.Center = Center;
-					Area.Add(item);
-					item.AddDroppedComponents();
-				}
-				
+				GetComponent<DropsComponent>().SpawnDrops();
 				Done = true;
 			}
 
@@ -56,23 +49,6 @@ namespace BurningKnight.entity.creature {
 			GetComponent<DropsComponent>().Add(drops);
 		}
 
-		public virtual List<Item> GetDrops() {
-			var drops = new List<Item>();
-
-			foreach (var drop in GetComponent<DropsComponent>().Drops) {
-				var ids = drop.GetItems();
-
-				foreach (var id in ids) {
-					var item = ItemRegistry.BareCreate(id);
-
-					if (item != null) {
-						drops.Add(item);
-					}
-				}
-			}
-			
-			return drops;
-		}
 
 		protected virtual bool HasNoHealth(HealthModifiedEvent e) {
 			return GetComponent<HealthComponent>().Health == -e.Amount;

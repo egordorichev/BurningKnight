@@ -2,13 +2,12 @@
 
 ### Important
 
-!!!
-* Fix heart fx not auto picked
-!!!
-
-
+* Item velocity when creatures drop them
+* Make ui canvas the same size as the game
+* Chest should also use DropsComponent
+* Allow to put item into the chest pool from json
+* Shadows
 * Show item description, when you pick them up [UiItemDescription]
-* Mob drops
 * Animate gaining hearts from the lamp
 * Implement loading items from json
 * Allow to place entities with editor
@@ -17,7 +16,7 @@
 * Test heart items
 * Player must be always in cam view
 * Figure out ui stuff
-
+* Move all text to ui layer, so that it's smaller/can be at higher resolution
 ### Polish
 
 * Wall a -> wall b tiling
@@ -33,7 +32,6 @@
 * Add sparks
 * Think about bloom shader
 * Think about blur around edges
-* Shadows
 * Blood
 * Gore
 * Explosion left over
