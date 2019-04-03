@@ -23,17 +23,6 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.Body.LinearDamping = 3;
 			
 			GetComponent<AnimationComponent>().Tint.A = 30;
-			
-			AddDrops(
-				new SingleDrop("rare", 0.1f), 
-				
-				new OneOfDrop(
-					new [] {
-						new SingleDrop("omega_ultra_rare", 0.1f),
-						new SingleDrop("ultra_rare", 1f)
-					}, 0.1f
-				)
-			);
 		}
 
 		protected override void OnTargetChange(Entity target) {

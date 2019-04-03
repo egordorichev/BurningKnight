@@ -23,6 +23,8 @@ namespace BurningKnight.entity.creature.mob {
 			AddTag(Tags.MustBeKilled);
 			
 			SetStats();
+			
+			AddDrops(new SingleDrop("heart", 1f));
 		}
 
 		protected virtual void SetStats() {

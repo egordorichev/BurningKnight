@@ -44,8 +44,6 @@ namespace BurningKnight.entity.component {
 							return;
 						}
 				
-						InvincibilityTimer = InvincibilityTimerMax;
-						
 						hearts.Hurt(-amount, setter);
 						return;
 					}

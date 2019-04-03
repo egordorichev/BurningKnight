@@ -39,6 +39,12 @@ namespace BurningKnight.entity.creature {
 				}
 			} else if (e is DiedEvent) {
 				var drops = GetDrops();
+
+				foreach (var item in drops) {
+					item.Center = Center;
+					Area.Add(item);
+					item.AddDroppedComponents();
+				}
 				
 				Done = true;
 			}
