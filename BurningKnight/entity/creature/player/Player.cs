@@ -53,8 +53,6 @@ namespace BurningKnight.entity.creature.player {
 			inventory.Pickup(ItemRegistry.Create("gun", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
-			
-			AddDrops(new SingleDrop("heart", 1f), new SingleDrop("heart", 1f), new SingleDrop("heart", 1f));
 		}
 
 		public override void PostInit() {
@@ -127,16 +125,8 @@ namespace BurningKnight.entity.creature.player {
 			return !(entity is Player) && base.ShouldCollide(entity);
 		}
 
-		protected override bool HasNoHealth(HealthModifiedEvent e) {
-			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e.Default ? 0 : -e.Amount);
-		}
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-		}
-
-		public override void Save(FileWriter stream) {
-			base.Save(stream);
+		public override bool HasNoHealth(HealthModifiedEvent e = null) {
+			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
 		}
 	}
 }

@@ -116,6 +116,10 @@ namespace BurningKnight.entity.component {
 			return base.HandleEvent(e);
 		}
 
+		public bool IsFull() {
+			return health == MaxHealth;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			InvincibilityTimer = Math.Max(0, InvincibilityTimer - dt);

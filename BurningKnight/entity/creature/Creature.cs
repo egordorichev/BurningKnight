@@ -22,6 +22,8 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new BuffsComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new DropsComponent());
+			
+			AddDrops(new SingleDrop("heart", 1));
 		}
 		
 		public void Kill(Entity w) {
@@ -49,9 +51,8 @@ namespace BurningKnight.entity.creature {
 			GetComponent<DropsComponent>().Add(drops);
 		}
 
-
-		protected virtual bool HasNoHealth(HealthModifiedEvent e) {
-			return GetComponent<HealthComponent>().Health == -e.Amount;
+		public virtual bool HasNoHealth(HealthModifiedEvent e = null) {
+			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {

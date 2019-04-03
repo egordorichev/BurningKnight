@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.renderer;
@@ -106,8 +107,10 @@ namespace BurningKnight.entity.item {
 
 		public void OnInteractionStart(Entity entity) {
 			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
-				inventory.Pickup(this);
-				entity.GetComponent<InteractorComponent>().EndInteraction();
+				if (Type != ItemType.Heart || !(entity is Creature c) || !c.GetComponent<HealthComponent>().IsFull()) {
+					inventory.Pickup(this);
+					entity.GetComponent<InteractorComponent>().EndInteraction();	
+				}
 			} else {
 				Area.Add(new ItemPickupFx(this));
 			}			

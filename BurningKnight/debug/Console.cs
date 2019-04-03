@@ -91,14 +91,17 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Update(float Dt) {
-			if (input.Length > 0 && Input.Keyboard.WasPressed(Keys.Enter)) {
+			if (Input.Keyboard.WasPressed(Keys.Enter)) {
 				var str = input;
 				input = "";
 				guess = "";
 				open = false;
 				Input.Blocked = false;
-					
-				RunCommand(str);
+
+				if (input.Length > 0) {
+					RunCommand(str);
+				}
+				
 				return;
 			}
 

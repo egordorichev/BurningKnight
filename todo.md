@@ -17,8 +17,11 @@
 * Player must be always in cam view
 * Figure out ui stuff
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
+* Pause the game, while console is open, but do not bring pause menu up?
+
 ### Polish
 
+* Animate healing
 * Wall a -> wall b tiling
 * Far away tiles (darker version of the wall)
 * In wall decor, like nuclear throne
