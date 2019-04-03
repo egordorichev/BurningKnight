@@ -94,7 +94,12 @@ namespace BurningKnight.entity.item {
 		
 		private void OnInteractionStart(Entity entity) {
 			if (item != null && entity is LocalPlayer) {
-				Area.Add(new ItemPickupFx(item));
+				if (item.AutoPickup) {
+					item.OnInteractionStart(entity);
+					item = null;
+				} else {
+					Area.Add(new ItemPickupFx(item));
+				}
 			}
 		}
 

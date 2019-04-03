@@ -26,6 +26,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Render();
 			activeWeapon.Render();
 
+			if (true) {
+				return;
+			}
+			
 			var component = GetComponent<HealthComponent>();
 			var red = component.Health - 1;
 			

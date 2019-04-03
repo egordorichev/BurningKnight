@@ -109,6 +109,7 @@ namespace BurningKnight.entity.component {
 		public override bool HandleEvent(Event e) {
 			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
 				ev.Item.Use(Entity);
+				ev.Item.Done = true;
 				return true;
 			} else if (e is ExplodedEvent b) {
 				ModifyHealth(-2, b.Who);

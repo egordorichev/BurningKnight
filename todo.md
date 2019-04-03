@@ -2,8 +2,12 @@
 
 ### Important
 
-* Show item description, when you pick them up [UiItemDescription]
+!!!
+* Fix heart fx not auto picked
+!!!
 
+
+* Show item description, when you pick them up [UiItemDescription]
 * Mob drops
 * Animate gaining hearts from the lamp
 * Implement loading items from json

@@ -3,6 +3,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using Lens.entity;
 using Lens.entity.component.logic;
 

@@ -108,6 +108,7 @@
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
+    <Compile Include="entity\component\DropsComponent.cs" />
     <Compile Include="entity\component\ExplodableComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
+    <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\MobState.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
+    <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
     <Compile Include="entity\creature\player\ConsumablesComponent.cs" />
@@ -143,6 +146,8 @@
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
+    <Compile Include="entity\creature\SimpleDrop.cs" />
+    <Compile Include="entity\creature\SingleDrop.cs" />
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\door\Door.cs" />
     <Compile Include="entity\door\GoldLock.cs" />

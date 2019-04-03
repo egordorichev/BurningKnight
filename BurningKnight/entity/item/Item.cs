@@ -102,7 +102,7 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 
-		private void OnInteractionStart(Entity entity) {
+		public void OnInteractionStart(Entity entity) {
 			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				inventory.Pickup(this);
 				entity.GetComponent<InteractorComponent>().EndInteraction();
