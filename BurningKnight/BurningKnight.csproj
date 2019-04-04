@@ -124,6 +124,7 @@
     <Compile Include="entity\component\RoomComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
+    <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
@@ -179,6 +180,8 @@
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\TileCollisionEndEvent.cs" />
+    <Compile Include="entity\events\TileCollisionStartEvent.cs" />
     <Compile Include="entity\events\WeaponSwappedEvent.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\Firefly.cs" />

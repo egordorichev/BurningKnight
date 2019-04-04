@@ -6,20 +6,19 @@
  - Tile interaction/collision
 
 * Chest should also use DropsComponent
-* Allow to put item into the chest pool from json
 * Shadows
 * Show item description, when you pick them up [UiItemDescription]
 * Animate gaining hearts from the lamp
 * Implement loading items from json
 * Allow to place entities with editor
 * Allow to remove entities with editor
-* Adjust door position in hallways
 * Test heart items
 * Player must be always in cam view
 * Figure out ui stuff
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
+* High grass
 
 ### Polish
 
