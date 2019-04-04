@@ -422,7 +422,7 @@ namespace BurningKnight.entity.level {
 
 						var t = (Tile) tile;
 						
-						if (!t.Matches(Tile.Ember, Tile.Chasm)) {				
+						if (!t.Matches(Tile.Ember, Tile.Chasm)) {
 							var edge = Tilesets.Biome.Edges[tile][LiquidVariants[index]];
 
 							edgePosition.SetValue(new Vector2(
@@ -437,10 +437,22 @@ namespace BurningKnight.entity.level {
 							
 							Graphics.Render(region, pos);
 
-							if (!paused && t == Tile.Water && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
-								Area.Add(new WaterfallFx {
-									Position = pos + new Vector2(Random.Float(16), 16)
-								});
+							if (t == Tile.Water) {
+								if (!paused && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
+									Area.Add(new WaterfallFx {
+										Position = pos + new Vector2(Random.Float(16), 16)
+									});
+								}
+							} else if (t == Tile.HighGrass) {
+								enabled.SetValue(false);
+
+								var tm = Engine.Instance.State.Time;
+								
+								Graphics.Render(Tilesets.Biome.HighGrass, new Vector2(x * 16 + 8, y * 16 + 16), 
+									(float) (Math.Cos(tm - y * Math.PI * 0.25f) * Math.Sin(tm * 0.9f + x * Math.PI * 0.3f) * 0.6f),
+									new Vector2(8, 16));
+								
+								enabled.SetValue(true);
 							}
 						} else {
 							enabled.SetValue(false);

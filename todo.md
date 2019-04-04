@@ -2,9 +2,6 @@
 
 ### Important
 
-* Falling into chasms (items and creatures)
- - Tile interaction/collision
-
 * Chest should also use DropsComponent
 * Shadows
 * Show item description, when you pick them up [UiItemDescription]
@@ -18,11 +15,11 @@
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
-* High grass
 * Invt still doesnt work?
 
 ### Polish
 
+* Animate items/creatures falling into the chasm?
 * Animate healing
 * Wall a -> wall b tiling
 * Far away tiles (darker version of the wall)

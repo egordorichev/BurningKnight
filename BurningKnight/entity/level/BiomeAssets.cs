@@ -40,10 +40,14 @@ namespace BurningKnight.entity.level {
 		
 		public TextureRegion[][] Edges = new TextureRegion[(int) Tile.Total][];
 		public TextureRegion[] Patterns = new TextureRegion[(int) Tile.Total];
+
+		public TextureRegion HighGrass;
 		
 		public BiomeAssets() {
 			var anim = Animations.Get("biome_assets");
-						
+
+			HighGrass = anim.GetSlice("high_grass");
+			
 			Patterns[(int) Tile.Dirt] = DirtPattern = new TextureRegion(anim.Texture, new Rectangle(0, 0, 64, 64));
 			Edges[(int) Tile.Dirt] = Dirt = GetEdge(anim, 64, 0);
 			
