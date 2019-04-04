@@ -212,6 +212,22 @@ namespace Lens.lightJson
 			}
 		}
 
+		public float Number(float d) {
+			return (float) (Type == JsonValueType.Number ? value : d);
+		}
+		
+		public int Int(int d) {
+			return (int) (Type == JsonValueType.Number ? value : d);
+		}
+
+		public bool Bool(bool b) {
+			return Type == JsonValueType.Boolean ? (int) value == 1 : b;
+		}
+
+		public string String(string s) {
+			return Type == JsonValueType.String ? (string) reference : s;
+		}
+
 		/// <summary>
 		/// Gets this value as a String type.
 		/// </summary>

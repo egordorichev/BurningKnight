@@ -14,10 +14,7 @@ namespace BurningKnight.entity.item {
 		public static Dictionary<ItemType, List<ItemInfo>> ByType = new Dictionary<ItemType, List<ItemInfo>>();
 		
 		static ItemRegistry() {
-			ItemInfo[] infos = {
-				new ItemInfo("health_potion", () => new Item(new ModifyHpUse(30)), ItemType.Active),
-			
-				new ItemInfo("random_potion", () => new Item(new RandomUse(
+			/*new ItemInfo("random_potion", () => new Item(new RandomUse(
 					new ModifyHpUse(30), new ModifyHpUse(-30)
 				)), ItemType.Active),
 				
@@ -63,11 +60,7 @@ namespace BurningKnight.entity.item {
 				
 				new ItemInfo("halo", () => new Item(new ModifyMaxHpUse(1))),
 				new ItemInfo("lamp", () => new Lamp(), ItemType.Lamp)
-			};
-
-			foreach (var pair in infos) {
-				Items[pair.Id] = pair;
-			}
+			 */
 		}
 		
 		public static void Register(Mod mod, ItemInfo info) {

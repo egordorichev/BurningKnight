@@ -1,18 +1,14 @@
 ﻿using BurningKnight.entity.item.util;
 using Lens.entity;
 using Lens.input;
+using Lens.lightJson;
 
 namespace BurningKnight.entity.item.use {
 	public class MeleeArcUse : ItemUse {
 		protected int Damage;
 		protected float LifeTime;
 		
-		public MeleeArcUse(int damage, float lifeTime) {
-			Damage = damage;
-			LifeTime = lifeTime;
-		}
-		
-		public void Use(Entity entity, Item item) {
+		public override void Use(Entity entity, Item item) {
 			entity.Area.Add(new MeleeArc {
 				Owner = entity,
 				LifeTime = LifeTime,
@@ -20,6 +16,13 @@ namespace BurningKnight.entity.item.use {
 				Position = entity.Center,
 				Angle = entity.AngleTo(Input.Mouse.GamePosition)
 			});
+		}
+
+		public override void Setup(JsonValue settings) {
+			base.Setup(settings);
+
+			Damage = settings["damage"].Int(1);
+			LifeTime = settings["time"].Number(0.2f);
 		}
 	}
 }

@@ -3,9 +3,8 @@
     "type" : "heart",
 
     "uses" : {
-      "bk:Heal" : {
-        "amount" : 2
-      }
+      "id" : "bk:Heal",
+      "amount" : 2
     }
   },
 
@@ -13,9 +12,8 @@
     "type" : "heart",
 
     "uses" : {
-      "bk:Heal" : {
-        "amount" : 1
-      }
+      "id" : "bk:Heal",
+      "amount" : 1
     }
   }
 }

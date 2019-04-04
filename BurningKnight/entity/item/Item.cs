@@ -58,11 +58,6 @@ namespace BurningKnight.entity.item {
 			Uses = uses;
 		}
 
-		/*
-		 * Warning: do not use, this constructor exists
-		 * ONLY because we need to load items
-		 * from files
-		 */
 		public Item() {
 			
 		}

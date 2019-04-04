@@ -5,7 +5,7 @@ using Lens.util;
 
 namespace TestMod {
 	public class TestUse : ItemUse {
-		public void Use(Entity entity, Item item) {
+		public override void Use(Entity entity, Item item) {
 			Log.Debug("USSSSE");
 		}
 	}

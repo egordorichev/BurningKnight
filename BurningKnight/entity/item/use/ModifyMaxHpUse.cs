@@ -1,17 +1,13 @@
 ﻿using BurningKnight.entity.component;
 using Lens.entity;
+using Lens.lightJson;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyMaxHpUse : ItemUse {
 		public int Amount;
 		public bool GiveHp;
 
-		public ModifyMaxHpUse(int amount, bool giveHp = true) {
-			Amount = amount * 2;
-			GiveHp = giveHp;
-		}
-		
-		public void Use(Entity entity, Item item) {
+		public override void Use(Entity entity, Item item) {
 			var component = entity.GetComponent<HealthComponent>();
 
 			component.MaxHealth += Amount;
@@ -19,6 +15,13 @@ namespace BurningKnight.entity.item.use {
 			if (GiveHp && Amount > 0) {
 				component.ModifyHealth(Amount, entity);				
 			}
+		}
+
+		public override void Setup(JsonValue settings) {
+			base.Setup(settings);
+			
+			Amount = settings["amount"].Int(1);
+			GiveHp = settings["give_hp"].Bool(true);
 		}
 	}
 }

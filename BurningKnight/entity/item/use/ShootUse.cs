@@ -10,7 +10,7 @@ namespace BurningKnight.entity.item.use {
 			SpawnProjectile = spawn;
 		}
 		
-		public void Use(Entity entity, Item item) {
+		public override void Use(Entity entity, Item item) {
 			SpawnProjectile(entity, item);
 			Camera.Instance.ShakeMax(3);
 		}
