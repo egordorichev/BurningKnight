@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
@@ -50,8 +51,10 @@ namespace BurningKnight.entity.creature.player {
 					acceleration += data.GetLeftStick();
 				}
 
-				if (Input.WasPressed(Controls.Roll, data)) {
-						state.Become<Player.RollState>();
+				if (Input.WasPressed(Controls.Roll, data) && !Send(new PlayerRolledEvent {
+					Who = (Player) Entity
+				})) {
+					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();

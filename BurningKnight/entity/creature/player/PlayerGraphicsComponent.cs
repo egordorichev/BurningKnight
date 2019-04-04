@@ -1,14 +1,20 @@
 ﻿using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.ui;
 using Lens;
+using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
+		private Vector2 scale = Vector2.One;
+		
 		public PlayerGraphicsComponent() : base("gobbo") {
 			CustomFlip = true;
 		}
@@ -16,6 +22,25 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 			Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
+		}
+
+		protected override void CallRender(Vector2 pos) {
+			var region = Animation.GetCurrentTexture();
+			var origin = new Vector2(region.Source.Width / 2f, region.Source.Height);
+			
+			Graphics.Render(region, pos + origin, 0, origin, scale, Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is WeaponSwappedEvent) {
+				scale.Y = 0.3f;
+				scale.X = 2f;
+				
+				Tween.To(1f, scale.X, x => scale.X = x, 0.2f);
+				Tween.To(1f, scale.Y, x => scale.Y = x, 0.2f);
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public override void Render() {

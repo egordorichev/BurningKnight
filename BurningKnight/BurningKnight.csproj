@@ -178,6 +178,8 @@
     <Compile Include="entity\events\ItemUsedEvent.cs" />
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\WeaponSwappedEvent.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
     <Compile Include="entity\fx\InteractFx.cs" />
