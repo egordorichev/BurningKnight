@@ -14,6 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			AddAnimation("ghost");
 			SetMaxHp(2);
+			Flying = true;
 			
 			Become<IdleState>();
 

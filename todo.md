@@ -2,6 +2,10 @@
 
 ### Important
 
+* FIIIIX DOOORS
+
+
+
 * Chest should also use DropsComponent
 * Allow to put item into the chest pool from json
 * Shadows
@@ -17,7 +21,6 @@
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
-* Tween player scale when you change weapons
 * Rolling through chasms
 * Making flying creatures ignor chasms
 

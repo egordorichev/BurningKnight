@@ -125,6 +125,10 @@ namespace BurningKnight.entity.creature.player {
 			return !(entity is Player) && base.ShouldCollide(entity);
 		}
 
+		public override bool InAir() {
+			return base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
+		}
+
 		public override bool HasNoHealth(HealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
 		}

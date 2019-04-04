@@ -10,6 +10,8 @@ using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity {
+		public bool Flying;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -55,8 +57,12 @@ namespace BurningKnight.entity.creature {
 			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
 		}
 
+		public virtual bool InAir() {
+			return Flying;
+		}
+
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature);
+			return !(entity is Creature || (InAir() && entity is Chasm));
 		}
 
 		public virtual bool IsFriendly() {
