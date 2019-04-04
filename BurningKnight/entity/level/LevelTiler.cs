@@ -90,16 +90,16 @@ namespace BurningKnight.entity.level {
 			var tt = (Tile) to;
 			var ll = (Tile) l;
 
-			if (t == Tile.WallA || t == Tile.WallB) {
-				return tt == Tile.WallA || tt == Tile.WallB;
+			if (t.IsWall()) {
+				return tt.IsWall();
 			}
 
 			if (t == Tile.Grass || t == Tile.HighGrass) {
 				return ll == Tile.Grass || ll == Tile.HighGrass;
 			}
 
-			if (t == Tile.Water) {
-				return ll == Tile.Water || tt == Tile.Chasm || tt == Tile.WallA || tt == Tile.WallB;
+			if (t.Matches(TileFlags.LiquidLayer)) {
+				return tt.IsWall() || ll == t;
 			}
 			
 			return tile == to || tile == l;

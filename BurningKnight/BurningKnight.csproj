@@ -170,6 +170,8 @@
     <Compile Include="entity\events\ConsumableRemovedEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
     <Compile Include="entity\events\ExplodedEvent.cs" />
+    <Compile Include="entity\events\FlagCollisionEndEvent.cs" />
+    <Compile Include="entity\events\FlagCollisionStartEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="entity\events\TileCollisionEndEvent.cs" />
     <Compile Include="entity\events\TileCollisionStartEvent.cs" />
     <Compile Include="entity\events\WeaponSwappedEvent.cs" />
+    <Compile Include="entity\ExplosionMaker.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
     <Compile Include="entity\fx\InteractFx.cs" />
@@ -240,6 +243,7 @@
     <Compile Include="entity\level\entities\Prop.cs" />
     <Compile Include="entity\level\entities\SolidProp.cs" />
     <Compile Include="entity\level\DoorPlaceholder.cs" />
+    <Compile Include="entity\level\Flag.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />

@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
-using BurningKnight.entity.item;
 using BurningKnight.entity.level;
 using BurningKnight.physics;
 using BurningKnight.save;

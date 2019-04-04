@@ -49,6 +49,7 @@ namespace BurningKnight.entity.level {
 		public byte[] Variants;
 		public byte[] LiquidVariants;
 		public byte[] Light;
+		public byte[] Flags;
 
 		public Chasm Chasm;
 
@@ -180,6 +181,7 @@ namespace BurningKnight.entity.level {
 			for (int i = 0; i < Size; i++) {
 				stream.WriteByte(Tiles[i]);
 				stream.WriteByte(Liquid[i]);
+				stream.WriteByte(Flags[i]);
 			}
 		}
 
@@ -196,6 +198,7 @@ namespace BurningKnight.entity.level {
 			for (int i = 0; i < Size; i++) {
 				Tiles[i] = stream.ReadByte();
 				Liquid[i] = stream.ReadByte();
+				Flags[i] = stream.ReadByte();
 			}
 			
 			CreateBody();
@@ -208,8 +211,25 @@ namespace BurningKnight.entity.level {
 			Variants = new byte[Size];
 			LiquidVariants = new byte[Size];
 			Light = new byte[Size];
+			Flags = new byte[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
+		}
+
+		public bool CheckFlag(int x, int y, int i) {
+			return CheckFlag(ToIndex(x, y), i);
+		}
+		
+		public bool CheckFlag(int index, int i) {
+			return BitHelper.IsBitSet(Flags[index], i);
+		}
+
+		public void SetFlag(int x, int y, int i, bool on) {
+			SetFlag(ToIndex(x, y), i, on);
+		}
+
+		public void SetFlag(int index, int i, bool on) {
+			Flags[index] = (byte) BitHelper.SetBit(Flags[index], i, on);
 		}
 
 		public override void RenderDebug() {

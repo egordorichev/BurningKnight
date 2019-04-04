@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.events;
+using BurningKnight.entity.level;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
 
@@ -110,6 +112,20 @@ namespace BurningKnight.entity.component {
 			for (int i = 0; i < count; i++) {
 				Add(reader.ReadString());
 			}
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is TileCollisionStartEvent tileStart) {
+				if (tileStart.Tile == Tile.Water) {
+					Remove<BurningBuff>();
+				}
+			} else if (e is FlagCollisionStartEvent flagStart) {
+				if (flagStart.Flag == Flag.Burning) {
+					Add<BurningBuff>();
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

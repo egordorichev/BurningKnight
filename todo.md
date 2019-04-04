@@ -19,6 +19,7 @@
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
 * High grass
+* Invt still doesnt work?
 
 ### Polish
 
