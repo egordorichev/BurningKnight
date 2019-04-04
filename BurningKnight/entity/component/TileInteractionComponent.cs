@@ -4,6 +4,8 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.level;
 using BurningKnight.state;
 using Lens.entity.component;
+using Lens.util;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class TileInteractionComponent : Component {
@@ -12,6 +14,10 @@ namespace BurningKnight.entity.component {
 
 		public bool[] LastFlags;
 		public bool[] Flags;
+
+		public bool HasNoSupport;
+		public bool HadNoSupport;
+		public Vector2 LastSupportedPosition;
 
 		public TileInteractionComponent() {
 			Touching = new bool[(int) Tile.Total];
@@ -25,10 +31,11 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			if (Entity is Creature c && c.InAir()) {
+				HasNoSupport = false;
 				return;
 			}
 			
-			var startX = (int) Math.Floor(Entity.X / 16f);
+			var startX = (int) Math.Floor((Entity.X + Entity.Height / 2f) / 16f);
 			var startY = (int) Math.Floor(Entity.Y / 16f);
 			var endX = (int) Math.Floor(Entity.Right / 16f);
 			var endY = (int) Math.Floor(Entity.Bottom / 16f);
@@ -44,6 +51,9 @@ namespace BurningKnight.entity.component {
 				LastFlags[i] = Flags[i];
 				Flags[i] = false;
 			}
+
+			HadNoSupport = HasNoSupport;
+			HasNoSupport = true;
 			
 			for (int x = startX; x <= endX; x++) {
 				for (int y = startY; y <= endY; y++) {
@@ -58,6 +68,15 @@ namespace BurningKnight.entity.component {
 
 					if (tile > 0) {
 						Touching[tile] = true;
+
+						if (HasNoSupport) {
+							var t = (Tile) tile;
+
+							if (!t.IsWall() && t != Tile.Chasm) {
+								HasNoSupport = false;
+								LastSupportedPosition = Entity.Position;
+							}
+						}
 					}
 					
 					if (liquid > 0) {
@@ -76,6 +95,18 @@ namespace BurningKnight.entity.component {
 
 			for (int i = 0; i < Flags.Length; i++) {
 				CheckFlag(i);
+			}
+
+			CheckSupport();
+		}
+
+		private void CheckSupport() {
+			if (!HadNoSupport && HasNoSupport) {
+				if (Send(new LostSupportEvent {
+					Who = Entity
+				})) {
+					Entity.Position = LastSupportedPosition;
+				}
 			}
 		}
 

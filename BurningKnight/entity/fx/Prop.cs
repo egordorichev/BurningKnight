@@ -11,7 +11,7 @@ namespace BurningKnight.entity.fx {
 			Depth = depth;
 		}
 
-		// Used for loadingx
+		// Used for loading
 		public Prop() {
 			
 		}

@@ -43,6 +43,9 @@ namespace BurningKnight.entity.creature {
 			} else if (e is DiedEvent) {
 				GetComponent<DropsComponent>().SpawnDrops();
 				Done = true;
+			} else if (e is LostSupportEvent) {
+				Done = true;
+				return true;
 			}
 
 			return base.HandleEvent(e);

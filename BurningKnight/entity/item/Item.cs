@@ -180,5 +180,14 @@ namespace BurningKnight.entity.item {
 		public bool ShouldCollide(Entity entity) {
 			return !(entity is Player);
 		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is LostSupportEvent) {
+				Done = true;
+				return true;
+			}
+			
+			return base.HandleEvent(e);
+		}
 	}
 }
