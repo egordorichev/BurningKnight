@@ -56,7 +56,7 @@ namespace BurningKnight.entity.chest {
 		}
 
 		public virtual void GenerateLoot() {
-			items.Add(ItemRegistry.Create("health_potion"));
+			items.Add(ItemRegistry.Create("bk:health_potion"));
 		}
 
 		public override void PostInit() {

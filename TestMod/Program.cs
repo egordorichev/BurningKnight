@@ -6,7 +6,6 @@ namespace TestMod {
 	public class Program : Mod {
 		public void Init() {
 			ItemRegistry.Register(this, new ItemInfo("test", () => new Item(
-				new ModifyHpUse(2),
 				new TestUse()
 			)));
 		}

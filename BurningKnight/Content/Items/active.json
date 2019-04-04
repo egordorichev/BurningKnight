@@ -1,5 +1,5 @@
 {
-  "health_potion" : {
+  "bk:health_potion" : {
     "type" : "active",
     
     "uses" : {
@@ -8,7 +8,7 @@
     }
   },
 
-  "random_potion" : {
+  "bk:random_potion" : {
     "type" : "active",
 
     "uses" : [
@@ -19,7 +19,7 @@
             "id" : "bk:ModifyHp",
             "amount" : 3
           },
-
+          
           {
             "id" : "bk:ModifyHp",
             "amount" : 3

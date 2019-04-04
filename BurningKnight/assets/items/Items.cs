@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using Lens.lightJson;
 using Lens.util;
@@ -42,12 +43,22 @@ namespace BurningKnight.assets.items {
 		}
 
 		private static void ParseItem(string id, JsonValue item) {
+			var a = item["animation"];
+			var animation = a == JsonValue.Null ? null : a.AsString;
+
+			var type = ItemTypeFromString(item["type"].String("artifact"));
+			
+			var p = item["auto_pickup"];
+			var pickup = p == JsonValue.Null ? (type == ItemType.Key || type == ItemType.Bomb || type == ItemType.Heart || type == ItemType.Coin) : p.Bool(false);
+			
 			var data = new ItemData {
 				Id = id,
 				UseTime = item["time"].Number(0.1f),
-				Type = ItemTypeFromString(item["type"].String("artifact")),
+				Type = type,
 				Uses = item["uses"],
-				Renderer = item["renderer"]
+				Renderer = item["renderer"],
+				Animation = animation,
+				AutoPickup = pickup
 			};
 
 			datas[id] = data;
@@ -65,9 +76,13 @@ namespace BurningKnight.assets.items {
 				Type = data.Type
 			};
 
+			item.AutoPickup = data.AutoPickup;
+			item.Animation = data.Animation;
 			item.Uses = ParseUses(data.Uses);
-			
-			// todo: read up the renderer too
+
+			if (data.Renderer.IsString) {
+				item.Renderer = RendererRegistry.Create(data.Renderer.AsString);
+			}
 			
 			return item;
 		}
@@ -82,11 +97,34 @@ namespace BurningKnight.assets.items {
 					if (use != null) {
 						uses.Add(use);
 					}
+				} else if (data.IsJsonArray) {
+					foreach (var d in data.AsJsonArray) {
+						if (d.IsJsonObject) {
+							if (!d["id"].IsString) {
+								Log.Error("Item has no id");
+								continue;
+							}
+							
+							var use = ParseItemUse(d["id"], d);
+
+							if (use != null) {
+								uses.Add(use);
+							}
+						} else if (d.IsString) {
+							var use = ParseItemUse(d.AsString, null);
+
+							if (use != null) {
+								uses.Add(use);
+							}
+						}
+					}
 				} else if (data.IsJsonObject) {
 					var obj = data.AsJsonObject;
-
-					foreach (var pair in obj) {
-						var use = ParseItemUse(pair.Key, pair.Value);
+					
+					if (!obj["id"].IsString) {
+						Log.Error("Item has no id");
+					} else {
+						var use = ParseItemUse(obj["id"], obj);
 
 						if (use != null) {
 							uses.Add(use);

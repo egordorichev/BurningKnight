@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using Lens.util;
 
 namespace BurningKnight.entity.item.use {
 	public static class UseRegistry {
@@ -9,7 +10,7 @@ namespace BurningKnight.entity.item.use {
 		public static void Register<T>(Mod mod) where T : ItemUse {
 			var type = typeof(T);
 			var name = type.Name;
-			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Use") ? name.Substring(0, name.Length - 4) : name)}";
+			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Use") ? name.Substring(0, name.Length - 3) : name)}";
 
 			uses[id] = type;
 		}
@@ -27,7 +28,15 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		static UseRegistry() {
-			Register<SimpleShootUse>(); // -> bk:SimpleShoot
+			Register<DigUse>();
+			Register<SpawnBombUse>();
+			Register<ConsumeUse>();
+			Register<MeleeArcUse>();
+			Register<ModifyGoldHeartsUse>();
+			Register<ModifyIronHeartsUse>();
+			Register<ModifyHpUse>();
+			Register<ModifyMaxHpUse>();
+			Register<SimpleShootUse>();
 		}
 	}
 }

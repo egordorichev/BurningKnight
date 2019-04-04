@@ -1,6 +1,6 @@
 {
-  "bk:halo" : {
-    "type" : "artifact",
+  "lamp" : {
+    "type" : "lamp",
 
     "uses" : {
       "id" : "bk:ModifyMaxHp",

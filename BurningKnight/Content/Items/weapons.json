@@ -1,7 +1,6 @@
 {
-  "gun" : {
+  "bk:gun" : {
     "type" : "weapon",
-    "time" : 0.1,
     
     "uses" : {
       "bk:SimpleShoot" : {
@@ -10,6 +9,30 @@
       }
     },
     
+    "renderer" : "bk:AngledRenderer"
+  },
+  
+  "bk:sword" : {
+    "type" : "weapon",
+
+    "uses" : {
+      "bk:MeleeArc" : {
+        "damage" : 1,
+        "time" : 0.2
+      }
+    },
+
+    "renderer" : {
+      "id": "bk:AngledRenderer",
+      "angle" : 180,
+      "stay" : true
+    }
+  },
+
+  "bk:pickaxe" : {
+    "type" : "weapon",
+
+    "uses" : "bk:Dig",
     "renderer" : "bk:AngledRenderer"
   }
 }
