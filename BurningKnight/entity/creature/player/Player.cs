@@ -50,7 +50,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Simple inventory simulation
 			var inventory = GetComponent<InventoryComponent>();
-			inventory.Pickup(ItemRegistry.Create("gun", Area));
+			inventory.Pickup(ItemRegistry.Create("pickaxe", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
 		}

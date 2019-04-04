@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item.renderer {
 	public class AngledRenderer : ItemRenderer {
-		public double Angle;
+		public float Angle;
 		public Vector2 Origin;
 		
 		private double lastAngle;

@@ -39,6 +39,12 @@ namespace BurningKnight.entity.item {
 					new MeleeArcUse(1, 0.2f)
 				), ItemType.Weapon),
 				
+				new ItemInfo("pickaxe", () => new Item(
+					new MovingAngledRenderer(180, true), 
+					new MeleeArcUse(1, 0.2f),
+					new DigUse()
+				), ItemType.Weapon),
+				
 				new ItemInfo("gun", () => new Item(
 					new AngledRenderer(), 
 					new SimpleShootUse("small", 60f)

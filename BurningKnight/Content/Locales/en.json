@@ -8,5 +8,7 @@
   "back_to_menu" : "Back to menu",
   "restart" : "Restart",
   "death_message" : "RIP Gobbo",
-  "descend" : "Descend"
+  "descend" : "Descend",
+  "exit" : "Exit",
+  "play" : "Play!"
 }

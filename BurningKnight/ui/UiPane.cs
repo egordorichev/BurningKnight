@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lens;
 
 namespace BurningKnight.ui {
 	public class UiPane : UiEntity {
@@ -18,6 +19,9 @@ namespace BurningKnight.ui {
 
 			PositionChanged += Setup;
 			Setup();
+
+			Width = Display.UiWidth;
+			Height = Display.UiHeight;
 		}
 		
 		public UiEntity Add(UiEntity entity) {

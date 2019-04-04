@@ -16,6 +16,8 @@
 * Figure out ui stuff
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
 * Pause the game, while console is open, but do not bring pause menu up?
+* Implement settings
+* Tween player scale when you change weapons
 
 ### Polish
 
@@ -40,6 +42,7 @@
 * Adjust door locks, they are a bit weird
 * Animate hearts
 * Walls after explosion should be "a bit more broken?"
+* Polish main menu
 
 ### Mechanics
 
@@ -49,6 +52,7 @@
 * Add explodable component to chest?
 * Explode item stand to replace the item with trash? :thinking:
 * Remove half hearts?
+* Breakable walls (and bedrock, then)
 * Level interaction
  + Liquid collision
  + Falling into chasms (items, enemies, player)

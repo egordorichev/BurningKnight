@@ -9,6 +9,10 @@ using VelcroPhysics.Shared;
 namespace BurningKnight.entity.level {
 	public class ChasmBodyComponent : BodyComponent {
 		public void CreateBody() {
+			if (Body != null) {
+				Physics.World.RemoveBody(Body);
+			}
+
 			var level = ((Chasm) Entity).Level;
 			
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);

@@ -9,6 +9,10 @@ using VelcroPhysics.Shared;
 namespace BurningKnight.entity.level {
 	public class LevelBodyComponent : BodyComponent {
 		public void CreateBody() {
+			if (Body != null) {
+				Physics.World.RemoveBody(Body);
+			}
+			
 			var level = (Level) Entity;
 			
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);

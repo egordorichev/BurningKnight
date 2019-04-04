@@ -1,9 +1,13 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.entity;
+using BurningKnight.ui;
+using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.game;
 using Lens.graphics;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Sprites;
 
@@ -26,6 +30,8 @@ namespace BurningKnight.state {
 		
 		private TextureRegion dot;
 
+		private UiPane menu;
+
 		public override void Init() {
 			base.Init();
 
@@ -47,6 +53,8 @@ namespace BurningKnight.state {
 			letterT = anim.GetSlice("t");
 			
 			dot = anim.GetSlice("dot");
+
+			SetupUi();
 		}
 
 		private void RenderWhite(TextureRegion letter, Vector2 pos) {
@@ -86,8 +94,6 @@ namespace BurningKnight.state {
 		}
 		
 		public override void RenderUi() {
-			base.RenderUi();
-			
 			var shader = Shaders.Entity;
 			Shaders.Begin(shader);
 
@@ -149,6 +155,39 @@ namespace BurningKnight.state {
 			Render(letterT, new Vector2(143, 78));
 			
 			Render(dot, new Vector2(83, 59));
+			
+			base.RenderUi();
+		}
+
+		private void SetupUi() {
+			Ui.Add(new Camera(new FollowingDriver()));
+			Ui.Add(new Cursor());
+			Ui.Add(menu = new UiPane());
+			
+			var space = 32f;
+			var start = (Display.UiHeight - space * 2 - 14 * 3) / 2f;
+
+			menu.Add(new UiButton {
+				LocaleLabel = "play",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start,
+				Click = () => Engine.Instance.SetState(new LoadState())
+			});
+			
+			menu.Add(new UiButton {
+				LocaleLabel = "settings",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space
+			});
+			
+			menu.Add(new UiButton {
+				LocaleLabel = "exit",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start + space * 2,
+				Click = () => Engine.Instance.Quit()
+			});
+			
+			menu.Setup();
 		}
 	}
 }
