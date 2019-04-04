@@ -7,6 +7,7 @@ using Lens.util.file;
 namespace BurningKnight.assets {
 	public static class Mods {
 		public static Dictionary<string, object> Loaded = new Dictionary<string, object>();
+		public static string BurningKnight = "bk";
 		
 		public static void Load() {
 			var dir = new FileHandle("Content/Mods/");

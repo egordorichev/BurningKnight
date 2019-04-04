@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -20,11 +21,13 @@ namespace BurningKnight {
 			CommonAse.Load();
 			Shaders.Load();
 			Font.Load();
+			Items.Load();
 			Mods.Load();
 		}
 
 		protected override void UnloadContent() {
 			Mods.Destroy();
+			Items.Destroy();
 			Lights.DestroySurface();
 			
 			base.UnloadContent();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
@@ -69,7 +70,8 @@ namespace BurningKnight.entity.item {
 			}
 		}
 		
-		public static void Add(ItemInfo info) {
+		public static void Register(Mod mod, ItemInfo info) {
+			info.Id = $"{mod.GetPrefix()}:{info.Id}";
 			Items[info.Id] = info;
 
 			if (ByType.TryGetValue(info.Type, out var rooms)) {

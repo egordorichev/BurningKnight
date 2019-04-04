@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\items\ItemData.cs" />
+    <Compile Include="assets\items\Items.cs" />
     <Compile Include="assets\lighting\EntityLight.cs" />
     <Compile Include="assets\lighting\Light.cs" />
     <Compile Include="assets\lighting\LightComponent.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
+    <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
     <Compile Include="entity\Layers.cs" />

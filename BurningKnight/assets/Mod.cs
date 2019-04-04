@@ -4,5 +4,7 @@
 		void Destroy();
 		void Update(float dt);
 		void Render();
+
+		string GetPrefix();
 	}
 }
