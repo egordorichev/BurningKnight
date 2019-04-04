@@ -219,6 +219,8 @@ namespace Lens {
 			
 			ScreenMatrix = Matrix.CreateScale(Upscale) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
 			UiMatrix = Matrix.CreateScale(viewWidth / Display.UiWidth) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+			
+			StateRenderer?.Resize((int) screenWidth, (int) screenHeight);
 		}
 	}
 }

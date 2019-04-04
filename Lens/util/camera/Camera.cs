@@ -225,11 +225,11 @@ namespace Lens.util.camera {
 			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) System.Math.Floor(position.X + shake.Position.X), (int) System.Math.Floor(position.Y + shake.Position.Y)), 0)) *
+				 -new Vector2((int) Math.Floor(position.X + shake.Position.X), (int) Math.Floor(position.Y + shake.Position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
 				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
 				Matrix.CreateTranslation(
-				 new Vector3(new Vector2((int) System.Math.Floor(origin.X), (int) System.Math.Floor(origin.Y)), 0));
+				 new Vector3(new Vector2((int) Math.Floor(origin.X), (int) Math.Floor(origin.Y)), 0));
 
 			inverse = Matrix.Invert(matrix);
 			changed = false;

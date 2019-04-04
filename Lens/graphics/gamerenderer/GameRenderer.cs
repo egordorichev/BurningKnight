@@ -32,5 +32,9 @@ namespace Lens.graphics.gamerenderer {
 		public virtual void Destroy() {
 			
 		}
+
+		public virtual void Resize(int width, int height) {
+			
+		}
 	}
 }

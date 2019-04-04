@@ -3,22 +3,21 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
+using SharpDX.Direct2D1.Effects;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
 		public RenderTarget2D GameTarget;
 		public RenderTarget2D UiTarget;
 		public Batcher2D Batcher2D;
+
+		private Matrix One = Matrix.Identity;
+		private Matrix UiScale = Matrix.Identity;
 		
 		public PixelPerfectGameRenderer() {
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
-			);
-			
-			UiTarget = new RenderTarget2D(
-				Engine.GraphicsDevice, Display.UiWidth, Display.UiHeight, false,
-				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 			);
 			
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
@@ -41,8 +40,12 @@ namespace Lens.graphics.gamerenderer {
 		}
 
 		private void RenderUi() {
+			if (UiTarget == null) {
+				return;
+			}
+		
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Matrix.Identity);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
 			Graphics.Clear(Color.Transparent);
 			Engine.Instance.State?.RenderUi();
 			Graphics.Batch.End();
@@ -57,11 +60,11 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
 
 			if (Engine.Instance.Flash > 0.01f) {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
 				Graphics.Clear(Engine.Instance.FlashColor);
 				Graphics.Batch.End();
 			} else {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, Matrix.Identity);
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
 
 				if (Camera.Instance != null) {
 					Graphics.Render(GameTarget,
@@ -74,19 +77,33 @@ namespace Lens.graphics.gamerenderer {
 				}
 
 				Graphics.Batch.End();
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, Matrix.Identity);
-				Graphics.Render(UiTarget, Engine.Viewport, 0, Vector2.Zero, new Vector2(Engine.Instance.UiUpscale));
-				Graphics.Batch.End();
+
+				if (UiTarget != null) {
+					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
+					Graphics.Render(UiTarget, Engine.Viewport);
+					Graphics.Batch.End();
+				}
 			}
 
 			Batcher2D.End();
+		}
+
+		public override void Resize(int width, int height) {
+			base.Resize(width, height);
+			
+			UiTarget = new RenderTarget2D(
+				Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale), (int) (Display.UiHeight * Engine.Instance.Upscale), false,
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
+			);
+
+			UiScale = Matrix.Identity * Matrix.CreateScale(Engine.Instance.UiUpscale);
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 			
 			GameTarget.Dispose();
-			UiTarget.Dispose();
+			UiTarget?.Dispose();
 			Batcher2D.Dispose();
 		}
 	}

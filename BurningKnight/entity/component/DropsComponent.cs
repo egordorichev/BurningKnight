@@ -41,7 +41,7 @@ namespace BurningKnight.entity.component {
 				item.Center = Entity.Center;
 				Entity.Area.Add(item);
 				item.AddDroppedComponents();
-				// item.RandomizeVelocity(1f);
+				item.RandomizeVelocity(1f);
 			}
 		}
 	}

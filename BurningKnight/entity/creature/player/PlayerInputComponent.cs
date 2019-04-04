@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 
 				if (Input.WasPressed(Controls.Roll, data)) {
-					state.Become<Player.RollState>();
+						state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();

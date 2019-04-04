@@ -117,9 +117,13 @@ namespace BurningKnight.entity.item {
 		}
 
 		public virtual void AddDroppedComponents() {
-			var slice = Region;			
-	
-			AddComponent(new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height, BodyType.Dynamic, false));
+			var slice = Region;
+			var body = new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height);
+			
+			AddComponent(body);
+
+			body.Body.LinearDamping = 4;
+			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = OnInteractionStart
 			});
