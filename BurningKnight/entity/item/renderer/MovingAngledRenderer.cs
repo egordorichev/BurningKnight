@@ -12,7 +12,7 @@ namespace BurningKnight.entity.item.renderer {
 		}
 
 		public override void OnUse() {
-			Tween.To(this, new { Angle = Angle > 1 ? 0 : MaxAngle }, 0.1f);
+			Tween.To(Angle > 1 ? 0 : MaxAngle, Angle, x => Angle = x, 0.1f);
 		}
 	}
 }

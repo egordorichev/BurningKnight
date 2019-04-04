@@ -35,12 +35,20 @@ namespace BurningKnight.entity.item {
 				new ItemInfo("gold_heart", () => new Item(new ModifyGoldHeartsUse(1)), ItemType.Heart),
 				
 				new ItemInfo("sword", () => new Item(
-					new MovingAngledRenderer(180, true), 
+					new MovingAngledRenderer(180, true) {
+						CenterX = true,
+						EndY = true
+					}, 
+
 					new MeleeArcUse(1, 0.2f)
 				), ItemType.Weapon),
 				
 				new ItemInfo("pickaxe", () => new Item(
-					new MovingAngledRenderer(180, true), 
+					new MovingAngledRenderer(180, true) {
+						CenterX = true,
+						EndY = true
+					}, 
+					
 					new MeleeArcUse(1, 0.2f),
 					new DigUse()
 				), ItemType.Weapon),

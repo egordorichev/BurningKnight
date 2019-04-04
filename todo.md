@@ -18,6 +18,8 @@
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
 * Tween player scale when you change weapons
+* Rolling through chasms
+* Making flying creatures ignor chasms
 
 ### Polish
 

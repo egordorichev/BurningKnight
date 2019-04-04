@@ -9,7 +9,7 @@ namespace BurningKnight.entity.item.use {
 		public void Use(Entity entity, Item item) {
 			var cursor = Input.Mouse.GamePosition;
 			var x = (int) Math.Floor(cursor.X / 16f);
-			var y = (int) Math.Floor((cursor.Y + 8) / 16f);
+			var y = (int) Math.Floor((cursor.Y) / 16f);
 
 			var level = Run.Level;
 
@@ -25,18 +25,11 @@ namespace BurningKnight.entity.item.use {
 				if (t == Tile.Chasm) {
 					return;
 				}
-				
-				y = (int) Math.Floor((cursor.Y) / 16f);
-
-				if (!level.IsInside(x, y)) {
-					return;
-				}
-				
-				index = level.ToIndex(x, y);
-				
+								
 				if (level.Liquid[index] != 0) {
-					level.Liquid[index] = 0;					
+					level.Liquid[index] = 0;
 				} else {
+					level.Liquid[index] = 0;
 					level.Set(index, Tile.Chasm);
 				}
 			} else {

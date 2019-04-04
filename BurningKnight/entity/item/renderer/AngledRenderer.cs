@@ -16,12 +16,29 @@ namespace BurningKnight.entity.item.renderer {
 		private float sy = 1;
 		private float oy;
 		private float ox;
+
+		public bool CenterX;
+		public bool CenterY;
+		public bool EndX;
+		public bool EndY;
+
 		
 		public override void Setup() {
 			base.Setup();
 			
-			// var region = Item.Region;
-			Origin = new Vector2(0, 0);
+			var region = Item.Region;
+
+			if (CenterX) {
+				Origin.X = region.Source.Width / 2f;
+			} else if (EndX) {
+				Origin.X = region.Source.Width;
+			}
+
+			if (CenterY) {
+				Origin.Y = region.Source.Height / 2f;
+			} else if (EndY) {
+				Origin.Y = region.Source.Height;
+			}
 		}
 
 		public override void Render(bool atBack, bool paused, float dt) {
