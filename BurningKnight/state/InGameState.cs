@@ -230,6 +230,7 @@ namespace BurningKnight.state {
 				Click = () => Engine.Instance.SetState(new MenuState())
 			});
 			
+			pauseMenu.Setup();
 			
 			Ui.Add(gameOverMenu = new UiPane {
 				Y = -Display.UiHeight
@@ -257,6 +258,8 @@ namespace BurningKnight.state {
 				RelativeY = start + space * 3,
 				Click = () => Engine.Instance.SetState(new MenuState())
 			});
+
+			gameOverMenu.Setup();
 		}
 
 		public bool HandleEvent(Event e) {

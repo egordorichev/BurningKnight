@@ -4,7 +4,7 @@ namespace BurningKnight.ui {
 	public class UiPane : UiEntity {
 		public List<UiEntity> Entities = new List<UiEntity>();
 
-		private void OnPositionChange() {
+		public void Setup() {
 			foreach (var e in Entities) {
 				e.Position = Position + e.RelativePosition;
 			}
@@ -16,8 +16,8 @@ namespace BurningKnight.ui {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 
-			PositionChanged += OnPositionChange;
-			OnPositionChange();
+			PositionChanged += Setup;
+			Setup();
 		}
 		
 		public UiEntity Add(UiEntity entity) {

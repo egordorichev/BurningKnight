@@ -2,8 +2,6 @@
 
 ### Important
 
-* Item velocity when creatures drop them
-* Make ui canvas the same size as the game
 * Chest should also use DropsComponent
 * Allow to put item into the chest pool from json
 * Shadows
@@ -72,4 +70,3 @@
 ### Bugs
 
 * Projectiles will collide with item stand (should disable the collision)
-* Animation treats some reds as transparent
