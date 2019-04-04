@@ -25,14 +25,12 @@ namespace BurningKnight.entity.door {
 			}	
 		}
 		
-		private List<Entity> colliding = new List<Entity>();
+		protected List<Entity> Colliding = new List<Entity>();
 		private float lastCollisionTimer;
 		
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = FacingSide ? H : W;
-			Height = FacingSide ? W : H;
 			Depth = Layers.Door;
 			AlwaysActive = true;
 			
@@ -53,28 +51,31 @@ namespace BurningKnight.entity.door {
 		public override void PostInit() {
 			base.PostInit();
 
+			Width = FacingSide ? H : W;
+			Height = FacingSide ? W : H;
+			
 			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
 				Offset = new Vector2(FacingSide ? -1 : -2, 0)
 			};
 			
 			AddComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -2 - (FacingSide ? 0 : 8), Width + 4, Height + 4, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent start) {
 				if (start.Entity is Creature) {
-					colliding.Add(start.Entity);
+					Colliding.Add(start.Entity);
 
-					if (colliding.Count >= 1 && CanOpen()) {
+					if (Colliding.Count >= 1 && CanOpen()) {
 						GetComponent<StateComponent>().Become<OpeningState>();	
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
 				if (end.Entity is Creature) {
-					colliding.Remove(end.Entity);
+					Colliding.Remove(end.Entity);
 					
-					if (colliding.Count == 0) {
+					if (Colliding.Count == 0) {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
@@ -91,7 +92,7 @@ namespace BurningKnight.entity.door {
 			base.Update(dt);
 			var state = GetComponent<StateComponent>();
 			
-			if (state.StateInstance is OpenState && colliding.Count == 0) {
+			if (state.StateInstance is OpenState && Colliding.Count == 0) {
 				lastCollisionTimer -= dt;
 
 				if (lastCollisionTimer <= 0) {

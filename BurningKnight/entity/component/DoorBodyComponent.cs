@@ -10,13 +10,17 @@ namespace BurningKnight.entity.component {
 
 		public override void Init() {
 			base.Init();
-			Body.IsSensor = !GetComponent<LockComponent>().Lock.IsLocked;
+			Body.IsSensor = ShouldBeSensor();
+		}
+
+		private bool ShouldBeSensor() {
+			return !GetComponent<LockComponent>().Lock.IsLocked;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			var sensor = !GetComponent<LockComponent>().Lock.IsLocked;
+			var sensor = ShouldBeSensor();
 			
 			if (sensor != lastReading) {
 				lastReading = sensor;

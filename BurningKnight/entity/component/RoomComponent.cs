@@ -22,6 +22,10 @@ namespace BurningKnight.entity.component {
 
 		public void FindRoom() {
 			var old = Room;
+
+			if (old != null && old.Contains(Entity.Center)) {
+				return;
+			}
 			
 			foreach (var room in Entity.Area.Tags[Tags.Room]) {
 				if (room.Contains(Entity.Center)) {

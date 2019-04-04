@@ -83,7 +83,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void KnockbackFrom(float a, float force = 1f) {			
-			force *= KnockbackModifier * 60;
+			force *= KnockbackModifier * 30;
 
 			Knockback.X += (float) Math.Cos(a) * force;
 			Knockback.Y += (float) Math.Sin(a) * force;

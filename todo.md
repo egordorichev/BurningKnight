@@ -2,9 +2,8 @@
 
 ### Important
 
-* FIIIIX DOOORS
-
-
+* Falling into chasms (items and creatures)
+ - Tile interaction/collision
 
 * Chest should also use DropsComponent
 * Allow to put item into the chest pool from json
@@ -21,8 +20,6 @@
 * Move all text to ui layer, so that it's smaller/can be at higher resolution
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
-* Rolling through chasms
-* Making flying creatures ignor chasms
 
 ### Polish
 

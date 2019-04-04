@@ -323,7 +323,7 @@ namespace BurningKnight.entity.level {
 							door.Y -= 8;
 							door.X += 5;
 						} else {
-							door.Y += 6;
+							door.Y -= 2;
 						}
 						
 						Level.Area.Add(door);

@@ -1,6 +1,8 @@
 ﻿using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.physics;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -9,8 +11,18 @@ namespace BurningKnight.entity.door {
 		public override void PostInit() {
 			base.PostInit();
 			
-			AddComponent(new LockComponent(this, CreateLock(), new Vector2(0, FacingSide ? 0 : 3)));
-			AddComponent(new DoorBodyComponent(0, FacingSide ? 0 : -8, Width, Height, BodyType.Static, true));
+			AddComponent(new LockComponent(this, CreateLock(), new Vector2(0, FacingSide ? 1 : 3)));
+			AddComponent(new DoorBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			var state = GetComponent<StateComponent>();
+
+			if (state.StateInstance is OpenState && GetComponent<LockComponent>().Lock.IsLocked) {
+				state.Become<ClosingState>();
+			}
 		}
 
 		protected virtual Lock CreateLock() {

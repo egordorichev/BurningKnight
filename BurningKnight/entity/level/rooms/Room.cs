@@ -25,10 +25,10 @@ namespace BurningKnight.entity.level.rooms {
 		public override void PostInit() {
 			base.PostInit();
 
-			X = MapX * 16 + 8;
-			Y = MapY * 16;
-			Width = MapW * 16 - 16;
-			Height = MapH * 16 - 16;
+			X = MapX * 16;// + 8;
+			Y = MapY * 16 - 8;
+			Width = MapW * 16;
+			Height = MapH * 16;
 		}
 
 		public override void Load(FileReader stream) {
