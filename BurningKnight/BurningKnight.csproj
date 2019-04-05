@@ -250,6 +250,11 @@
     <Compile Include="entity\level\entities\SolidProp.cs" />
     <Compile Include="entity\level\DoorPlaceholder.cs" />
     <Compile Include="entity\level\Flag.cs" />
+    <Compile Include="entity\level\floors\ChessFloor.cs" />
+    <Compile Include="entity\level\floors\DiagonalFloor.cs" />
+    <Compile Include="entity\level\floors\FloorPainter.cs" />
+    <Compile Include="entity\level\floors\FloorRegistry.cs" />
+    <Compile Include="entity\level\floors\GeometryFloor.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />
@@ -277,7 +282,6 @@
     <Compile Include="entity\level\Tiles.cs" />
     <Compile Include="entity\level\Tileset.cs" />
     <Compile Include="entity\level\Tilesets.cs" />
-    <Compile Include="entity\pool\ClosingPool.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />

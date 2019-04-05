@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -48,7 +49,13 @@ namespace BurningKnight.debug {
 			}
 
 			if (Args.Length > 0 && Args.Length < 3) {
-				var item = Items.Create(Args[0]);
+				var id = Args[0];
+
+				if (!id.Contains(":")) {
+					id = $"{Mods.BurningKnight}:{id}";
+				}
+				
+				var item = Items.Create(id);
 
 				if (item == null) {
 					Console.Print($"Unknown item {Args[0]}");

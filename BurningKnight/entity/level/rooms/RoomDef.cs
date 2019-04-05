@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.level.floors;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -45,7 +46,7 @@ namespace BurningKnight.entity.level.rooms {
 
 		public virtual void PaintFloor(Level level) {
 			Painter.Fill(level, this, Tiles.RandomWall());
-			Painter.Fill(level, this, 1, Tiles.RandomFloor());	
+			FloorRegistry.Paint(level, this);
 		}
 		
 		public virtual void Paint(Level level) {

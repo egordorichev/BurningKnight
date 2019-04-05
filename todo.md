@@ -2,7 +2,6 @@
 
 ### Important
 
-* Chest/item pools
 * A few floor patterns
 * A few room patterns
 
@@ -11,6 +10,10 @@
 * Show item description, when you pick them up [UiItemDescription]
 
 * Invt still doesnt work?
+
+!!!
+* Path finding
+!!!
 
 * Hot swap items
 * Shadows (cool)

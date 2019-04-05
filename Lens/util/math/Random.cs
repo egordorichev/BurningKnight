@@ -83,7 +83,7 @@ namespace Lens.util.math {
 			return random.NextDouble() >= 0.5;
 		}
 
-		public static bool Chance(float chance) {
+		public static bool Chance(float chance = 50) {
 			return random.NextDouble() * 100 <= chance;
 		}
 
