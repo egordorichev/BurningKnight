@@ -2,10 +2,10 @@
 
 ### Important
 
-* A few floor patterns
-* A few room patterns
+* fix backpack rendering
+* hot swap items gif for sss
+* Hot swap items
 
-* Chest should also use DropsComponent
 * Player must be always in cam view
 * Show item description, when you pick them up [UiItemDescription]
 
@@ -16,9 +16,6 @@
 * Path finding
 !!!
 
-* fix backpack rendering
-* hot swap items gif for sss
-* Hot swap items
 * Shadows (cool)
 * Animate gaining hearts from the lamp
 * Implement loading items from json

@@ -11,8 +11,9 @@ namespace BurningKnight.entity.level.walls {
 		}
 
 		protected virtual void SetupRooms() {
+			Add(new WallPainter(), 1f);
 			Add(new CollumnWall(), 1f);
-			Add(new CollumsWall(), 100000f);
+			Add(new CollumsWall(), 1f);
 		}
 
 		public static void Paint(Level level, RoomDef room, WallRegistry registry = null) {

@@ -34,7 +34,7 @@ namespace BurningKnight.entity.item.renderer {
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
 			}
 			
-			var angle = (flipped ? -Angle : Angle) + (atBack ? Math.PI / 4 : lastAngle);
+			var angle = (flipped ? -Angle : Angle) + (atBack ? (flipped ? Math.PI / 4 : -Math.PI / 4) : lastAngle);
 
 			if (flipped) {
 				angle -= Math.PI;
