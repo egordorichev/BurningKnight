@@ -64,6 +64,7 @@
  + Liquid collision
  + Falling into chasms (items, enemies, player)
  + Rolling over chasm
+* Chest react to explosion/hitting
 
 ### Ideas
 

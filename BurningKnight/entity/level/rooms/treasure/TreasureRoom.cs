@@ -15,20 +15,13 @@ namespace BurningKnight.entity.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
-			var chest = new LockedChest(); // todo: chest pool and such
-			
-			chest.X = where.X * 16;
-			chest.Y = where.Y * 16;
+			var chest = new LockedChest {
+				X = where.X * 16, 
+				Y = where.Y * 16
+			};
 
 			level.Area.Add(chest);
-		}
-
-		protected override int ValidateWidth(int W) {
-			return W % 2 == 0 ? W : W + 1;
-		}
-
-		protected override int ValidateHeight(int H) {
-			return H % 2 == 0 ? H : H + 1;
+			chest.GenerateLoot();
 		}
 	}
 }

@@ -4,13 +4,13 @@ using Lens.util;
 
 namespace BurningKnight.entity.item {
 	public class ItemPool {
+		public static Dictionary<string, ItemPool> ByName = new Dictionary<string, ItemPool>();
+		public static ItemPool[] ById = new ItemPool[32];
+		
 		public static readonly ItemPool Consumable = new ItemPool("consumable");
 		public static readonly ItemPool Chest = new ItemPool("chest");
 		public static readonly ItemPool Secret = new ItemPool("secret");
 		public static readonly ItemPool Lamp = new ItemPool("lamp");
-
-		public static Dictionary<string, ItemPool> ByName = new Dictionary<string, ItemPool>();
-		public static ItemPool[] ById = new ItemPool[32];
 
 		private static int count;
 		

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
@@ -13,19 +12,11 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
-/*
- * TODO:
- * Small solid body
- * React to bombs
- * React to hitting
- * Chest pool
- * Chest item pools
- */
-
 namespace BurningKnight.entity.chest {
 	public class Chest : SaveableEntity {
 		public bool IsOpen { get; private set; }
-		
+		protected List<Item> items = new List<Item>();
+
 		public void Open(Entity entity) {
 			if (IsOpen) {
 				return;
@@ -42,10 +33,22 @@ namespace BurningKnight.entity.chest {
 
 		public override bool HandleEvent(Event e) {
 			if (e is StateChangedEvent ev && ev.NewState == typeof(OpenState)) {
-				GetComponent<DropsComponent>().SpawnDrops();
+				foreach (var i in items) {
+					Area.Add(i);
+					i.AddDroppedComponents();
+
+					i.CenterX = CenterX;
+					i.Y = Bottom;
+				}
+				
+				items.Clear();
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public virtual void GenerateLoot() {
+			items.Add(Items.Generate(ItemPool.Chest));
 		}
 
 		public override void PostInit() {
@@ -61,11 +64,27 @@ namespace BurningKnight.entity.chest {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			IsOpen = stream.ReadBoolean();
+
+			if (!IsOpen) {
+				var count = stream.ReadByte();
+
+				for (int i = 0; i < count; i++) {
+					items.Add(Items.Create(stream.ReadString()));
+				}
+			}
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(IsOpen);
+
+			if (!IsOpen) {
+				stream.WriteByte((byte) items.Count);
+
+				foreach (var item in items) {
+					stream.WriteString(item.Id);
+				}
+			}
 		}
 
 		protected bool Interact(Entity entity) {
@@ -89,7 +108,6 @@ namespace BurningKnight.entity.chest {
 			
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
-			AddComponent(new DropsComponent());
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
