@@ -1,7 +1,7 @@
 {
-  "halo" : "Halo", "halo_desc" : "OOO",
-  "gun" : "Gun", "gun_desc" : "Hands up, @everyone!",
-  "heart" : "Heart",
+  "bk:halo" : "Halo", "bk:halo_desc" : "OOO",
+  "bk:gun" : "Gun", "bk:gun_desc" : "Hands up, @everyone!",
+  "bk:heart" : "Heart",
   
   "resume" : "Resume",
   "settings" : "Settings",

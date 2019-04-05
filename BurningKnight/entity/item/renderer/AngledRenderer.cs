@@ -2,6 +2,7 @@ using System;
 using BurningKnight.util;
 using Lens.graphics;
 using Lens.input;
+using Lens.lightJson;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -16,30 +17,6 @@ namespace BurningKnight.entity.item.renderer {
 		private float sy = 1;
 		private float oy;
 		private float ox;
-
-		public bool CenterX;
-		public bool CenterY;
-		public bool EndX;
-		public bool EndY;
-
-		
-		public override void Setup() {
-			base.Setup();
-			
-			var region = Item.Region;
-
-			if (CenterX) {
-				Origin.X = region.Source.Width / 2f;
-			} else if (EndX) {
-				Origin.X = region.Source.Width;
-			}
-
-			if (CenterY) {
-				Origin.Y = region.Source.Height / 2f;
-			} else if (EndY) {
-				Origin.Y = region.Source.Height;
-			}
-		}
 
 		public override void Render(bool atBack, bool paused, float dt) {
 			float s = dt * 10f;
@@ -73,6 +50,13 @@ namespace BurningKnight.entity.item.renderer {
 			sx = 0.3f;
 			sy = 2f;
 			ox = 8;
+		}
+
+		public override void Setup(JsonValue settings) {
+			base.Setup(settings);
+
+			Origin.X = settings["ox"].Number(0);
+			Origin.Y = settings["oy"].Number(0);
 		}
 	}
 }

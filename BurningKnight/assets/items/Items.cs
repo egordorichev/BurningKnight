@@ -80,11 +80,34 @@ namespace BurningKnight.assets.items {
 			item.Animation = data.Animation;
 			item.Uses = ParseUses(data.Uses);
 
-			if (data.Renderer.IsString) {
-				item.Renderer = RendererRegistry.Create(data.Renderer.AsString);
+			if (data.Renderer != JsonValue.Null) {
+				if (data.Renderer.IsString) {
+					var name = data.Renderer.AsString;
+					item.Renderer = RendererRegistry.Create(name);
+
+					CheckRendererForNull(item, name);
+				} else if (data.Renderer.IsJsonObject) {
+					var name = data.Renderer["id"].String("bk:Angled");
+					item.Renderer = RendererRegistry.Create(name);
+
+					CheckRendererForNull(item, name);
+					
+					if (item.Renderer != null) {
+						item.Renderer.Item = item;
+						item.Renderer.Setup(data.Renderer);
+					}
+				} else {
+					Log.Error($"Invalid renderer declaration in item {id}");
+				}
 			}
-			
+
 			return item;
+		}
+
+		private static void CheckRendererForNull(Item item, string name) {
+			if (item.Renderer == null) {
+				Log.Error($"Unknown renderer {name} in item {item.Id}, did you register it?");
+			}
 		}
 
 		public static ItemUse[] ParseUses(JsonValue data) {

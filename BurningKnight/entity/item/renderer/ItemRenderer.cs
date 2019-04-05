@@ -1,3 +1,5 @@
+using Lens.lightJson;
+
 namespace BurningKnight.entity.item.renderer {
 	public class ItemRenderer {
 		public Item Item;
@@ -6,7 +8,7 @@ namespace BurningKnight.entity.item.renderer {
 			
 		}
 
-		public virtual void Setup() {
+		public virtual void Setup(JsonValue settings) {
 			
 		}
 

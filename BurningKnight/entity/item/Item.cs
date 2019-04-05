@@ -87,8 +87,6 @@ namespace BurningKnight.entity.item {
 			} else {
 				AddComponent(new ItemGraphicsComponent(Id));
 			}
-			
-			Renderer?.Setup();
 		}
 
 		private bool Interact(Entity entity) {
@@ -163,7 +161,6 @@ namespace BurningKnight.entity.item {
 
 			if (Renderer != null) {
 				Renderer.Item = this;
-				Renderer.Setup();
 			}
 		}
 		

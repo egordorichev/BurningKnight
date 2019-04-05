@@ -9,7 +9,11 @@
       }
     },
     
-    "renderer" : "bk:AngledRenderer"
+    "renderer" : {
+      "id" : "bk:Angled",
+      "ox" : 2,
+      "oy" : 2
+    }
   },
   
   "bk:sword" : {
@@ -23,16 +27,22 @@
     },
 
     "renderer" : {
-      "id": "bk:AngledRenderer",
+      "id": "bk:MovingAngled",
       "angle" : 180,
-      "stay" : true
+      "stay" : true,
+      "ox" : 3.5,
+      "oy" : 12
     }
   },
 
   "bk:pickaxe" : {
     "type" : "weapon",
-
     "uses" : "bk:Dig",
-    "renderer" : "bk:AngledRenderer"
+    
+    "renderer" : {
+      "id": "bk:MovingAngled",
+      "ox" : 6.5,
+      "oy" : 13
+    }
   }
 }
