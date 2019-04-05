@@ -12,7 +12,7 @@ namespace BurningKnight.entity.level.rooms.connection {
 				: Random.Chance(50) ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloor();
 
 			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance(50)) {
-				PaintTunnel(Level, Fl, true);
+				PaintTunnel(Level, Fl, null, true);
 			}
 
 			if (Fl == Tile.Lava) {

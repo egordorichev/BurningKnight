@@ -13,27 +13,12 @@ namespace BurningKnight.util.geometry {
 			
 		}
 
-		public Rect(Rect Rect) {
-			Left = Rect.Left;
-			Top = Rect.Top;
-			Right = Rect.Right;
-			Bottom = Rect.Bottom;
+		public Rect(Vector2 vec) {
+			Set((int) vec.X, (int) vec.Y, (int) vec.X, (int) vec.Y);
 		}
-
+		
 		public Rect(int Left, int Top, int Right, int Bottom) {
-			this.Left = Left;
-			this.Top = Top;
-			this.Right = Right;
-			this.Bottom = Bottom;
-		}
-
-		public static Rect Make(int Left, int Top, int W, int H) {
-			var Rect = new Rect();
-			Rect.Left = Left;
-			Rect.Top = Top;
-			Rect.Resize(W, H);
-
-			return Rect;
+			Set(Left, Top, Right, Bottom);
 		}
 
 		public virtual int GetWidth() {
@@ -45,6 +30,18 @@ namespace BurningKnight.util.geometry {
 		}
 
 		public Rect Set(int Left, int Top, int Right, int Bottom) {
+			if (Left > Right) {
+				var tmp = Left;
+				Left = Right;
+				Right = tmp;
+			}
+
+			if (Top > Bottom) {
+				var tmp = Top;
+				Top = Bottom;
+				Bottom = tmp;
+			}
+
 			this.Left = Left;
 			this.Top = Top;
 			this.Right = Right;
@@ -125,10 +122,6 @@ namespace BurningKnight.util.geometry {
 
 		public Rect Shrink(int D = 1) {
 			return new Rect(Left + D, Top + D, Right - D, Bottom - D);
-		}
-
-		public Rect Shrink(int D, int H) {
-			return new Rect(Left + D, Top + H, Right - D, Bottom - H);
 		}
 
 		public List<Vector2> GetPoints() {

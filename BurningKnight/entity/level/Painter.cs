@@ -347,17 +347,19 @@ namespace BurningKnight.entity.level {
 		public static void SetBold(Level Level, int X, int Y, Tile Value) {
 			for (var Yy = Y - 1; Yy < Y + 2; Yy++) {
 				for (var Xx = X - 1; Xx < X + 2; Xx++) {
-					var T = Level.Get(X, Y);
-
-					if (T != Value) {
-						if (Xx != X || Yy != Y) {
-							if (T == Tile.WallA || T == Tile.WallB) {
-								continue;
-							}
-						}
-
-						Set(Level, Xx, Yy, Value);
+					if (!Level.IsInside(Xx, Yy)) {
+						continue;
 					}
+					
+					if (Xx != X || Yy != Y) {
+						var T = Level.Get(X, Y);
+
+						if (T == Tile.WallA || T == Tile.WallB) {
+							continue;
+						}
+					}
+
+					Set(Level, Xx, Yy, Value);
 				}
 			}
 		}

@@ -132,11 +132,7 @@ namespace BurningKnight.entity.level {
 		}
 		
 		public void Set(int x, int y, Tile value) {
-			if (value.Matches(TileFlags.LiquidLayer)) {
-				Liquid[ToIndex(x, y)] = (byte) value;
-			} else {
-				Tiles[ToIndex(x, y)] = (byte) value;
-			}
+			Set(ToIndex(x, y), value);
 		}
 		
 		public Tile Get(int x, int y, bool liquid = false) {

@@ -3,6 +3,7 @@ using Lens.util.math;
 namespace BurningKnight.entity.level {
 	public static class Tiles {
 		private static Tile lastFloor;
+		private static Tile lastWall;
 		
 		public static Tile Pick(params Tile[] tiles) {
 			return tiles[Random.Int(tiles.Length)];
@@ -13,7 +14,11 @@ namespace BurningKnight.entity.level {
 		}
 
 		public static Tile RandomWall() {
-			return Random.Chance(50) ? Tile.WallA : Tile.WallB;
+			return lastWall = (Random.Chance() ? Tile.WallA : Tile.WallB);
+		}
+		
+		public static Tile RandomNewWall() {
+			return lastWall = (lastWall == Tile.WallA ? Tile.WallB : Tile.WallA);
 		}
 
 		public static Tile RandomNewFloor() {

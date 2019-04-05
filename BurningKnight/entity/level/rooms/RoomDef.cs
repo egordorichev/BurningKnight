@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.level.floors;
+using BurningKnight.entity.level.walls;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -50,6 +51,8 @@ namespace BurningKnight.entity.level.rooms {
 		}
 		
 		public virtual void Paint(Level level) {
+			WallRegistry.Paint(level, this);
+			
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}
@@ -363,14 +366,14 @@ namespace BurningKnight.entity.level.rooms {
 			return C;
 		}
 
-		protected void PaintTunnel(Level Level, Tile Floor, bool Bold = false) {
+		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false) {
 			if (Connected.Count == 0) {
 				Log.Error("Invalid connection room");
 
 				return;
 			}
 
-			var C = GetConnectionSpace();
+			var C = space ?? GetConnectionSpace();
 
 			foreach (var Door in Connected.Values) {
 				var Start = new Vector2(Door.X, Door.Y);

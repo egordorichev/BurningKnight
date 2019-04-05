@@ -23,7 +23,9 @@ namespace BurningKnight.entity.level.rooms {
 				RoomInfo.New<SecretRoom>(1f, RoomType.Secret),
 				RoomInfo.New<TreasureRoom>(1f, RoomType.Treasure),
 				RoomInfo.New<ShopRoom>(1f, RoomType.Shop),
-				RoomInfo.New<TunnelRoom>(1f, RoomType.Connection)
+				
+				RoomInfo.New<TunnelRoom>(1f, RoomType.Connection),
+				RoomInfo.New<WayOverChasmRoom>(1f, RoomType.Connection)
 			};
 
 			foreach (var info in infos) {

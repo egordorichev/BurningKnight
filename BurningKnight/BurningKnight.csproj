@@ -265,7 +265,9 @@
     <Compile Include="entity\level\rooms\boss\BossRoom.cs" />
     <Compile Include="entity\level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="entity\level\rooms\connection\TunnelRoom.cs" />
+    <Compile Include="entity\level\rooms\connection\WayOverChasmRoom.cs" />
     <Compile Include="entity\level\rooms\entrance\EntranceRoom.cs" />
+    <Compile Include="entity\level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="entity\level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="entity\level\rooms\regular\RegularRoom.cs" />
     <Compile Include="entity\level\rooms\Room.cs" />
@@ -283,6 +285,9 @@
     <Compile Include="entity\level\Tiles.cs" />
     <Compile Include="entity\level\Tileset.cs" />
     <Compile Include="entity\level\Tilesets.cs" />
+    <Compile Include="entity\level\walls\CollumnWall.cs" />
+    <Compile Include="entity\level\walls\WallPainter.cs" />
+    <Compile Include="entity\level\walls\WallRegistry.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />

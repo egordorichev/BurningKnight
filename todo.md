@@ -16,6 +16,8 @@
 * Path finding
 !!!
 
+* fix backpack rendering
+* hot swap items gif for sss
 * Hot swap items
 * Shadows (cool)
 * Animate gaining hearts from the lamp

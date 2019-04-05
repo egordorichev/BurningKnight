@@ -5,8 +5,11 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.level.rooms.treasure {
 	public class TreasureRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			base.Paint(level);
 			PlaceChest(level, GetCenter());
+			
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Regular;
+			}
 		}
 
 		public override void PaintFloor(Level level) {

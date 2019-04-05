@@ -1,6 +1,4 @@
-using BurningKnight.entity.level.entities;
-using Lens.util.math;
-using Microsoft.Xna.Framework;
+using BurningKnight.entity.level.walls;
 
 namespace BurningKnight.entity.level.rooms.entrance {
 	public class EntranceRoom : RoomDef {
@@ -16,6 +14,14 @@ namespace BurningKnight.entity.level.rooms.entrance {
 		public override int GetMaxConnections(Connection Side) {
 			if (Side == Connection.All) return 16;
 			return 4;
+		}
+
+		public override void Paint(Level level) {
+			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
+			
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Regular;
+			}
 		}
 	}
 }
