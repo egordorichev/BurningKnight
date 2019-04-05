@@ -352,7 +352,7 @@ namespace BurningKnight.entity.level {
 					}
 					
 					if (Xx != X || Yy != Y) {
-						var T = Level.Get(X, Y);
+						var T = Level.Get(Xx, Yy);
 
 						if (T == Tile.WallA || T == Tile.WallB) {
 							continue;

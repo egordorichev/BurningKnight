@@ -286,6 +286,7 @@
     <Compile Include="entity\level\Tileset.cs" />
     <Compile Include="entity\level\Tilesets.cs" />
     <Compile Include="entity\level\walls\CollumnWall.cs" />
+    <Compile Include="entity\level\walls\CollumsWall.cs" />
     <Compile Include="entity\level\walls\WallPainter.cs" />
     <Compile Include="entity\level\walls\WallRegistry.cs" />
     <Compile Include="entity\pool\Pool.cs" />

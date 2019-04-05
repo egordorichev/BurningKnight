@@ -19,9 +19,12 @@ namespace BurningKnight.entity.level.rooms.connection {
 				PaintTunnel(Level, Tiles.RandomFloor());
 			}
 
+			if (Random.Chance()) {
+				PaintTunnel(Level, Tiles.RandomFloor(), null, true);
+			}
+
 			PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance(50) ? 
 				Tile.Water : Tile.Dirt : Tiles.RandomFloor());
-
 
 			foreach (var Door in Connected.Values) {
 				Door.Type = DoorPlaceholder.Variant.Tunnel;

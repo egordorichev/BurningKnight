@@ -27,5 +27,21 @@ namespace BurningKnight.entity.level.rooms.regular {
 		public override bool ShouldSpawnMobs() {
 			return true;
 		}
+		
+		public override int GetMinWidth() {
+			return 12;
+		}
+
+		public override int GetMinHeight() {
+			return 12;
+		}
+
+		public override int GetMaxWidth() {
+			return 20;
+		}
+
+		public override int GetMaxHeight() {
+			return 20;
+		}
 	}
 }
