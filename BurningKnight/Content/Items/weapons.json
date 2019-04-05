@@ -37,7 +37,15 @@
 
   "bk:pickaxe" : {
     "type" : "weapon",
-    "uses" : "bk:Dig",
+    "uses" : [
+      {
+        "id" : "bk:MeleeArc",
+        "damage" : 1,
+        "time" : 0.2
+      },
+      
+      "bk:Dig"
+    ],
     
     "renderer" : {
       "id": "bk:MovingAngled",

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
@@ -24,8 +25,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.chest {
 	public class Chest : SaveableEntity {
 		public bool IsOpen { get; private set; }
-		protected List<Item> items = new List<Item>();
-
+		
 		public void Open(Entity entity) {
 			if (IsOpen) {
 				return;
@@ -42,23 +42,10 @@ namespace BurningKnight.entity.chest {
 
 		public override bool HandleEvent(Event e) {
 			if (e is StateChangedEvent ev && ev.NewState == typeof(OpenState)) {
-				foreach (var i in items) {
-					Area.Add(i);
-
-					i.CenterX = CenterX;
-					i.Y = Bottom;
-					i.AddDroppedComponents();
-				}
-				
-				items.Clear();
+				GetComponent<DropsComponent>().SpawnDrops();
 			}
 			
 			return base.HandleEvent(e);
-		}
-
-		public virtual void GenerateLoot() {
-			// todo: use drops component
-			items.Add(Items.Create("bk:health_potion"));
 		}
 
 		public override void PostInit() {
@@ -102,6 +89,7 @@ namespace BurningKnight.entity.chest {
 			
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
+			AddComponent(new DropsComponent());
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,

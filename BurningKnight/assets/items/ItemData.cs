@@ -12,5 +12,6 @@ namespace BurningKnight.assets.items {
 		public float UseTime;
 		public ItemType Type;
 		public Chance Chance;
+		public int Pools;
 	}
 }

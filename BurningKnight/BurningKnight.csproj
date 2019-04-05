@@ -202,6 +202,7 @@
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />
     <Compile Include="entity\item\ItemPickupFx.cs" />
+    <Compile Include="entity\item\ItemPool.cs" />
     <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
     <Compile Include="entity\item\Lamp.cs" />

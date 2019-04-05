@@ -19,7 +19,6 @@ namespace BurningKnight.entity.level.rooms.treasure {
 			
 			chest.X = where.X * 16;
 			chest.Y = where.Y * 16;
-			chest.GenerateLoot();
 
 			level.Area.Add(chest);
 		}

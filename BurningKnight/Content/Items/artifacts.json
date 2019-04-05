@@ -1,6 +1,10 @@
 {
   "bk:halo" : {
     "type" : "artifact",
+    "pool" : [
+      "chest",
+      "angel"
+    ],
 
     "uses" : {
       "id" : "bk:ModifyMaxHp",

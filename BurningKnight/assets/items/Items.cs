@@ -13,6 +13,7 @@ namespace BurningKnight.assets.items {
 	public static class Items {
 		public static Dictionary<string, ItemData> Datas = new Dictionary<string, ItemData>();
 		private static Dictionary<ItemType, List<ItemData>> byType = new Dictionary<ItemType, List<ItemData>>();
+		private static Dictionary<int, List<ItemData>> byPool = new Dictionary<int, List<ItemData>>();
     		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Items/"));
@@ -46,6 +47,27 @@ namespace BurningKnight.assets.items {
 			}
 		}
 
+		private static int TryToApply(ItemData data, int pool, string id) {
+			if (!ItemPool.ByName.TryGetValue(id, out var pl)) {
+				Log.Error($"Unknown item pool {id}");
+				return pool;
+			}
+
+			if (!pl.Contains(pool)) {
+				List<ItemData> datas;
+
+				if (!byPool.TryGetValue(pl.Id, out datas)) {
+					datas = new List<ItemData>();
+					byPool[pl.Id] = datas;
+				}
+
+				datas.Add(data);
+				return pl.Apply(pool);
+			}
+
+			return pool;
+		}
+		
 		private static void ParseItem(string id, JsonValue item) {
 			var a = item["animation"];
 			var animation = a == JsonValue.Null ? null : a.AsString;
@@ -65,9 +87,44 @@ namespace BurningKnight.assets.items {
 				AutoPickup = pickup,
 				Chance = Chance.Parse(item["chance"])
 			};
+			
+			var pl = item["pool"];
+			var pools = 0;
+
+			if (pl != JsonValue.Null) {
+				if (pl.IsJsonArray) {
+					foreach (var e in pl.AsJsonArray) {
+						pools = TryToApply(data, pools, e);
+					}
+				} else if (pl.IsString) {
+					pools = TryToApply(data, pools, pl);
+				} else {
+					Log.Error($"Invalid pool declaration in item ${id}");
+				}
+			} else {
+				switch (data.Type) {
+					case ItemType.Key:
+					case ItemType.Coin:
+					case ItemType.Bomb:
+					case ItemType.Heart:
+						pools = TryToApply(data, pools, ItemPool.Consumable.Name);
+						break;
+
+					case ItemType.Artifact:
+					case ItemType.Weapon:
+					case ItemType.Active:						
+						pools = TryToApply(data, pools, ItemPool.Chest.Name);
+						break;
+					
+					case ItemType.Lamp:						
+						pools = TryToApply(data, pools, ItemPool.Lamp.Name);
+						break;
+				}
+			}
+
+			data.Pools = pools;
 
 			Datas[id] = data;
-
 			List<ItemData> all;
 
 			if (!byType.TryGetValue(data.Type, out all)) {
@@ -96,7 +153,7 @@ namespace BurningKnight.assets.items {
 				Animation = data.Animation,
 				Uses = ParseUses(data.Uses)
 			};
-
+			
 			if (data.Renderer != JsonValue.Null) {
 				if (data.Renderer.IsString) {
 					var name = data.Renderer.AsString;
@@ -214,12 +271,8 @@ namespace BurningKnight.assets.items {
 		public static void Destroy() {
 			
 		}
-
-		public static Item Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
-			if (!byType.TryGetValue(type, out var types)) {
-				return null;
-			}
-			
+	
+		private static Item Generate(List<ItemData> types, PlayerClass c) {
 			float sum = 0;
 
 			foreach (var chance in types) {
@@ -238,6 +291,22 @@ namespace BurningKnight.assets.items {
 			}
 
 			return null;
+		}
+
+		public static Item Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
+			if (!byType.TryGetValue(type, out var types)) {
+				return null;
+			}
+
+			return Generate(types, c);
+		}
+
+		public static Item Generate(ItemPool pool, PlayerClass c = PlayerClass.Any) {
+			if (!byPool.TryGetValue(pool.Id, out var types)) {
+				return null;
+			}
+
+			return Generate(types, c);
 		}
 
 		public static Item CreateAndAdd(string id, Area area) {

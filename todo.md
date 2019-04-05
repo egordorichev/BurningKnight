@@ -2,7 +2,6 @@
 
 ### Important
 
-* Item saving
 * Chest/item pools
 * A few floor patterns
 * A few room patterns
@@ -13,7 +12,8 @@
 
 * Invt still doesnt work?
 
-* Shadows
+* Hot swap items
+* Shadows (cool)
 * Animate gaining hearts from the lamp
 * Implement loading items from json
 * Allow to place entities with editor
