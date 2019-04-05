@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -56,7 +57,8 @@ namespace BurningKnight.entity.chest {
 		}
 
 		public virtual void GenerateLoot() {
-			items.Add(ItemRegistry.Create("bk:health_potion"));
+			// todo: use drops component
+			items.Add(Items.Create("bk:health_potion"));
 		}
 
 		public override void PostInit() {
@@ -72,27 +74,11 @@ namespace BurningKnight.entity.chest {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			IsOpen = stream.ReadBoolean();
-
-			if (!IsOpen) {
-				var count = stream.ReadByte();
-
-				for (int i = 0; i < count; i++) {
-					items.Add(ItemRegistry.Create(stream.ReadString()));
-				}
-			}
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(IsOpen);
-
-			if (!IsOpen) {
-				stream.WriteByte((byte) items.Count);
-
-				foreach (var item in items) {
-					stream.WriteString(item.Id);
-				}
-			}
 		}
 
 		protected bool Interact(Entity entity) {

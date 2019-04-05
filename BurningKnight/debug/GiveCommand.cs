@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
@@ -26,7 +27,7 @@ namespace BurningKnight.debug {
 
 			var name = parts[1];
 
-			foreach (var item in ItemRegistry.Items) {
+			foreach (var item in Items.Datas) {
 				if (item.Key.StartsWith(name)) {
 					return $"{input}{item.Key.Substring(name.Length, item.Key.Length - name.Length)} ";
 				}
@@ -47,7 +48,7 @@ namespace BurningKnight.debug {
 			}
 
 			if (Args.Length > 0 && Args.Length < 3) {
-				var item = ItemRegistry.Create(Args[0]);
+				var item = Items.Create(Args[0]);
 
 				if (item == null) {
 					Console.Print($"Unknown item {Args[0]}");

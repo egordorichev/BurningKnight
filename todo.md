@@ -2,6 +2,11 @@
 
 ### Important
 
+* Item saving
+* Chest/item pools
+* A few floor patterns
+* A few room patterns
+
 * Chest should also use DropsComponent
 * Player must be always in cam view
 * Show item description, when you pick them up [UiItemDescription]
@@ -68,6 +73,8 @@
 ### Special rooms
 
 * Challenge room
+* Shop room
+* Cursed room
 
 ### Clean up
 
@@ -75,4 +82,4 @@
 
 ### Bugs
 
-* Projectiles will collide with item stand (should disable the collision)
+* Game will crash, if you die without saving

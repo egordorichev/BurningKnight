@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.item;
 using Lens.entity.component;
@@ -23,7 +24,7 @@ namespace BurningKnight.entity.component {
 				var ids = drop.GetItems();
 
 				foreach (var id in ids) {
-					var item = ItemRegistry.BareCreate(id);
+					var item = Items.Create(id);
 
 					if (item != null) {
 						drops.Add(item);

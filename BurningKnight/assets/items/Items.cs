@@ -1,15 +1,19 @@
 using System.Collections.Generic;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace BurningKnight.assets.items {
 	public static class Items {
-		private static Dictionary<string, ItemData> datas = new Dictionary<string, ItemData>();
-		
+		public static Dictionary<string, ItemData> Datas = new Dictionary<string, ItemData>();
+		private static Dictionary<ItemType, List<ItemData>> byType = new Dictionary<ItemType, List<ItemData>>();
+    		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Items/"));
 		}
@@ -58,27 +62,40 @@ namespace BurningKnight.assets.items {
 				Uses = item["uses"],
 				Renderer = item["renderer"],
 				Animation = animation,
-				AutoPickup = pickup
+				AutoPickup = pickup,
+				Chance = Chance.Parse(item["chance"])
 			};
 
-			datas[id] = data;
+			Datas[id] = data;
+
+			List<ItemData> all;
+
+			if (!byType.TryGetValue(data.Type, out all)) {
+				all = new List<ItemData>();
+				byType[data.Type] = all;
+			}
+			
+			all.Add(data);
 		}
 
 		public static Item Create(string id) {
-			if (!datas.TryGetValue(id, out var data)) {
+			if (!Datas.TryGetValue(id, out var data)) {
 				Log.Error($"Unknown item {id}");
 				return null;
 			}
 
-			var item = new Item {
-				UseTime = data.UseTime, 
-				Id = data.Id, 
-				Type = data.Type
-			};
+			return Create(data);
+		}
 
-			item.AutoPickup = data.AutoPickup;
-			item.Animation = data.Animation;
-			item.Uses = ParseUses(data.Uses);
+		public static Item Create(ItemData data) {
+			var item = new Item {
+				UseTime = data.UseTime,
+				Id = data.Id,
+				Type = data.Type,
+				AutoPickup = data.AutoPickup,
+				Animation = data.Animation,
+				Uses = ParseUses(data.Uses)
+			};
 
 			if (data.Renderer != JsonValue.Null) {
 				if (data.Renderer.IsString) {
@@ -97,7 +114,7 @@ namespace BurningKnight.assets.items {
 						item.Renderer.Setup(data.Renderer);
 					}
 				} else {
-					Log.Error($"Invalid renderer declaration in item {id}");
+					Log.Error($"Invalid renderer declaration in item {data.Id}");
 				}
 			}
 
@@ -154,7 +171,7 @@ namespace BurningKnight.assets.items {
 						}
 					}
 				} else {
-					Log.Error($"Invalid item use declaration");
+					Log.Error("Invalid item use declaration");
 				}
 
 				return uses.ToArray();
@@ -196,6 +213,44 @@ namespace BurningKnight.assets.items {
 		
 		public static void Destroy() {
 			
+		}
+
+		public static Item Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
+			if (!byType.TryGetValue(type, out var types)) {
+				return null;
+			}
+			
+			float sum = 0;
+
+			foreach (var chance in types) {
+				sum += chance.Chance.Calculate(c);
+			}
+
+			float value = Random.Float(sum);
+			sum = 0;
+
+			foreach (var t in types) {
+				sum += t.Chance.Calculate(c);
+
+				if (value < sum) {
+					return Create(t);
+				}
+			}
+
+			return null;
+		}
+
+		public static Item CreateAndAdd(string id, Area area) {
+			var item = Create(id);
+
+			if (item == null) {
+				return null;
+			}
+			
+			area.Add(item);
+			item.AddDroppedComponents();
+
+			return item;
 		}
 	}
 }

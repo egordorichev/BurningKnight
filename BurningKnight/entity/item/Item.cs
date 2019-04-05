@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -147,7 +148,7 @@ namespace BurningKnight.entity.item {
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
 
-			var item = ItemRegistry.BareCreate(Id);
+			var item = Items.Create(Id);
 
 			if (item == null) {
 				Log.Error($"Failed to load item {Id}, such id does not exist!");

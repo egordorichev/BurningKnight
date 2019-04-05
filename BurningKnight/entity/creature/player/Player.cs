@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -50,7 +51,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Simple inventory simulation
 			var inventory = GetComponent<InventoryComponent>();
-			inventory.Pickup(ItemRegistry.Create("bk:pickaxe", Area));
+			inventory.Pickup(Items.CreateAndAdd("bk:pickaxe", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
 		}
@@ -68,7 +69,7 @@ namespace BurningKnight.entity.creature.player {
 				Center = room.Center - new Vector2(0, 16)
 			});
 			
-			stand.SetItem(ItemRegistry.Create("bk:heart", Area), this);
+			stand.SetItem(Items.CreateAndAdd("bk:heart", Area), this);
 		}
 		
 		#region Player States

@@ -5,9 +5,7 @@ using BurningKnight.entity.item.use;
 namespace TestMod {
 	public class Program : Mod {
 		public void Init() {
-			ItemRegistry.Register(this, new ItemInfo("test", () => new Item(
-				new TestUse()
-			)));
+			
 		}
 
 		public void Destroy() {

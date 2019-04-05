@@ -1,4 +1,6 @@
 ﻿using BurningKnight.entity.creature.player;
+using Lens.lightJson;
+using Lens.util;
 
 namespace BurningKnight.entity.item {
 	public class Chance {
@@ -39,6 +41,21 @@ namespace BurningKnight.entity.item {
 
 		public static Chance Ranger(float all) {
 			return new Chance(all, OtherClasses, OtherClasses, 1);
+		}
+
+		public static Chance Parse(JsonValue value) {
+			if (value.IsJsonArray) {
+				var array = value.AsJsonArray;
+
+				if (array.Count != 4) {
+					Log.Error("Invalid chance declaration, must be [ all, melee, ranged, mage ] (3 numbers)");
+					return All();
+				}
+				
+				return new Chance(array[0], array[1], array[2], array[3]);
+			}
+			
+			return All(value.Number(1f));
 		}
 	}
 }
