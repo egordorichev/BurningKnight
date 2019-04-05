@@ -10,6 +10,7 @@
 * Show item description, when you pick them up [UiItemDescription]
 
 * Invt still doesnt work?
+* Save after gen
 
 !!!
 * Path finding

@@ -5,7 +5,7 @@ using Lens.util.math;
 namespace BurningKnight.entity.level.floors {
 	public class DiagonalFloor : FloorPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
-			if (Random.Chance(50)) {
+			if (Random.Chance()) {
 				Painter.Fill(level, inside, Tiles.RandomFloor());
 				inside = inside.Shrink(Random.Int(1, 3));
 			}

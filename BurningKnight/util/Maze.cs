@@ -1,26 +1,29 @@
 using System;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.util.geometry;
+using Lens.util;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.util {
 	public class Maze {
-		public const bool EMPTY = false;
-		public const bool FILLED = true;
+		public const bool Empty = false;
+		public const bool Filled = true;
 
 		public static bool[][] Generate(RoomDef R) {
 			var Maze = new bool[R.GetWidth()][];
 
 			for (var X = 0; X < Maze.Length; X++) {
 				Maze[X] = new bool[R.GetHeight()];
-				
-				for (var Y = 0; Y < Maze[0].Length; Y++)
-					if (X == 0 || X == Maze.Length - 1 || Y == 0 || Y == Maze[0].Length - 1)
-						Maze[X][Y] = FILLED;
+
+				for (var Y = 0; Y < Maze[0].Length; Y++) {
+					if (X == 0 || X == Maze.Length - 1 || Y == 0 || Y == Maze[0].Length - 1) {
+						Maze[X][Y] = Filled;
+					}
+				}
 			}
 
 			foreach (var D in R.Connected.Values) {
-				Maze[D.X - R.Left][D.Y - R.Top] = EMPTY;
+				Maze[D.X - R.Left][D.Y - R.Top] = Empty;
 			}
 
 			return Generate(Maze);
@@ -31,12 +34,18 @@ namespace BurningKnight.util {
 		}
 
 		public static bool[][] Generate(int Width, int Height) {
-			var array = new bool[Height][];
+			var array = new bool[Width][];
 
-			for (int Y = 0; Y < Height; Y++) {
-				array[Y] = new bool[Width];
+			for (var X = 0; X < Width; X++) {
+				array[X] = new bool[Height];
+
+				for (var Y = 0; Y < Height; Y++) {
+					if (X == 0 || X == Width - 1 || Y == 0 || Y == Height - 1) {
+						array[X][Y] = Filled;
+					}
+				}
 			}
-			
+
 			return Generate(array);
 		}
 
@@ -46,6 +55,8 @@ namespace BurningKnight.util {
 			int Y;
 			int Moves;
 			int[] Mov;
+
+			Log.Debug($"Generating maze {Maze.Length}x{Maze[0].Length}");
 
 			while (Fails < 2500) {
 				do {
@@ -57,15 +68,14 @@ namespace BurningKnight.util {
 
 				if (Mov == null) {
 					Fails++;
-				}
-				else {
+				} else {
 					Fails = 0;
 					Moves = 0;
 
 					do {
 						X += Mov[0];
 						Y += Mov[1];
-						Maze[X][Y] = FILLED;
+						Maze[X][Y] = Filled;
 						Moves++;
 					} while (Random.Int(Moves) == 0 && CheckValidMove(Maze, X, Y, Mov));
 				}
@@ -75,12 +85,12 @@ namespace BurningKnight.util {
 		}
 
 		private static int[] DecideDirection(bool[][] Maze, int X, int Y) {
-			if (Random.Int(4) == 0 && CheckValidMove(Maze, X, Y, new[] { 0, -1 })) {
-				return new[] { 0, -1 };
+			if (Random.Int(4) == 0 && CheckValidMove(Maze, X, Y, new[] {0, -1})) {
+				return new[] {0, -1};
 			}
 
-			if (Random.Int(3) == 0 && CheckValidMove(Maze, X, Y, new[] { 1, 0 })) {
-				return new[] { 1, 0 };
+			if (Random.Int(3) == 0 && CheckValidMove(Maze, X, Y, new[] {1, 0})) {
+				return new[] {1, 0};
 			}
 
 			if (Random.Int(2) == 0 && CheckValidMove(Maze, X, Y, new[] {
@@ -110,7 +120,10 @@ namespace BurningKnight.util {
 				X += Mov[0];
 				Y += Mov[1];
 
-				if (!(X > 0 && X < Maze.Length - 1 && Y > 0 && Y < Maze[0].Length - 1 && !Maze[X][Y] && !Maze[X + SideX][Y + SideY] && !Maze[X - SideX][Y - SideY])) return false;
+				if (!(X > 0 && X < Maze.Length - 1 && Y > 0 && Y < Maze[0].Length - 1
+				      && !Maze[X][Y] && !Maze[X + SideX][Y + SideY] && !Maze[X - SideX][Y - SideY])) {
+					return false;
+				}
 			}
 
 			return true;
