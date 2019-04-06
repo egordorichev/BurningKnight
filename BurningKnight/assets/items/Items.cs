@@ -46,7 +46,8 @@ namespace BurningKnight.assets.items {
 			if (Engine.Version.Debug) {
 				var path = handle.ParentName;
 
-				if (!paths.Contains(path)) {
+				// Fixme: broken on my laptop
+				if (false && !paths.Contains(path)) {
 					paths.Add(path);
 
 					var watcher = new FileSystemWatcher();

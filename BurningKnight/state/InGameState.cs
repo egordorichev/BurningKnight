@@ -137,13 +137,13 @@ namespace BurningKnight.state {
 			}
 
 			if (Engine.Version.Debug) {
-				UpdateDebug();
+				UpdateDebug(dt);
 			}
 			
 			Run.Update();
 		}
 
-		private void UpdateDebug() {
+		private void UpdateDebug(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new EditorState {
 					Depth = Run.Depth,
@@ -154,12 +154,36 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad8)) {
+			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Engine.Instance.SetState(new LoadState());
 				died = true;
 
 				return;
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
+				Camera.Instance.Detached = !Camera.Instance.Detached;
+			}
+
+			if (Camera.Instance.Detached) {
+				float speed = dt * 60f;
+				
+				if (Input.Keyboard.WasPressed(Keys.NumPad4)) {
+					Camera.Instance.PositionX -= speed;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.NumPad6)) {
+					Camera.Instance.PositionX += speed;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.NumPad8)) {
+					Camera.Instance.PositionY -= speed;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.NumPad2)) {
+					Camera.Instance.PositionY += speed;
+				}
 			}
 		}
 		
@@ -196,7 +220,7 @@ namespace BurningKnight.state {
 
 			var player = LocalPlayer.Locate(Area);
 			
-			Camera.Instance.Follow(player, 1f);
+			Camera.Instance.Follow(player, 1f, true);
 			Camera.Instance.Follow(cursor, 1f);
 			Camera.Instance.Jump();
 

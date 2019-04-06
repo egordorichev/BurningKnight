@@ -3,20 +3,42 @@ using System.Collections.Generic;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using Color = Microsoft.Xna.Framework.Color;
+using Matrix = Microsoft.Xna.Framework.Matrix;
+using RectangleF = MonoGame.Extended.RectangleF;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
+using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
 namespace Lens.util.camera {
 	public class Camera : Entity {
+		public const int TargetPadding = 16;
+		
 		public static bool Debug = true;
 		public static Camera Instance;
 
 		public Vector2 TopLeft => new Vector2(X, Y);
-		public new float X => position.X - Width / 2;
-		public new float Y => position.Y - Height / 2;
-		public new float Right => position.X + Width / 2;
-		public new float Bottom => position.Y + Height / 2;
+		// Todo: count zoom here?
+		public new float X {
+			get => position.X - Width / 2;
+			set => PositionX = value + Width / 2;
+		}
+
+		public new float Y {
+			get => position.Y - Height / 2;
+			set => PositionY = value + Height / 2;
+		}
+
+		public new float Right {
+			get => position.X + Width / 2;
+			set => PositionX = value - Width / 2;
+		}
+
+		public new float Bottom {
+			get => position.Y + Height / 2;
+			set => PositionY = value - Height / 2;
+		}
 		
 		#region Camera logic
 
@@ -32,6 +54,7 @@ namespace Lens.util.camera {
 		}
 		
 		public List<Target> Targets = new List<Target>();
+		public Entity MainTarget;
 		public bool Detached;
 		public float TextureZoom = 1f;
 		
@@ -90,8 +113,12 @@ namespace Lens.util.camera {
 			AddComponent(new ShakeComponent());
 		}
 
-		public void Follow(Entity entity, float priority) {
+		public void Follow(Entity entity, float priority, bool main = false) {
 			Targets.Add(new Target(entity, priority));
+
+			if (main) {
+				MainTarget = entity;
+			}
 		}
 
 		public override void Update(float dt) {
@@ -109,6 +136,13 @@ namespace Lens.util.camera {
 
 			if (!Detached) {
 				driver?.Update(dt);
+
+				if (MainTarget != null) {
+					X = Math.Min(X, MainTarget.X - TargetPadding);
+					Right = Math.Max(Right, MainTarget.Right + TargetPadding);
+					Y = Math.Min(Y, MainTarget.Y - TargetPadding);
+					Bottom = Math.Max(Bottom, MainTarget.Bottom + TargetPadding);
+				}
 			}
 			
 			if (changed || GetComponent<ShakeComponent>().Amount > 0.001f) {

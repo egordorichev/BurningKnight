@@ -2,13 +2,7 @@
 
 ### Important
 
-* fix backpack rendering
-* hot swap items gif for sss
-* Hot swap items
-
-* Player must be always in cam view
 * Show item description, when you pick them up [UiItemDescription]
-
 * Invt still doesnt work?
 * Save after gen
 
@@ -21,7 +15,7 @@
 * Implement loading items from json
 * Allow to place entities with editor
 * Allow to remove entities with editor
-* Move all text to ui layer, so that it's smaller/can be at higher resolution
+* Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
 * Missing texture slice
