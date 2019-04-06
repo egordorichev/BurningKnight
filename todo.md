@@ -3,13 +3,12 @@
 ### Important
 
 * Show item description, when you pick them up [UiItemDescription]
-* Invt still doesnt work?
-* Save after gen
 
 !!!
 * Path finding
 !!!
 
+* dev kit (god mod and tons of hp from start)
 * Shadows (cool)
 * Animate gaining hearts from the lamp
 * Implement loading items from json
