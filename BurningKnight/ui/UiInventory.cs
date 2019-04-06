@@ -199,8 +199,10 @@ namespace BurningKnight.ui {
 		}
 
 		private Vector2 GetHeartPosition(int i, bool bg = false) {
+			// todo: make it wave only sometimes (like in mc)
 			return new Vector2((bg ? 4 : 5) + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10);
+				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f);
 		}
 
 		private void RenderHealthBar() {

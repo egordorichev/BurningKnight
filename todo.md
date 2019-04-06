@@ -79,3 +79,4 @@
 ### Bugs
 
 * Game will crash, if you die without saving
+* Ui inventory sometimes wont show hearts
