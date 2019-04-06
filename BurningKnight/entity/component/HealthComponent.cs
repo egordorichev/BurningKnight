@@ -5,6 +5,7 @@ using BurningKnight.entity.item;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.entity.component {

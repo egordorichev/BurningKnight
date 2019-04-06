@@ -138,7 +138,6 @@ namespace BurningKnight.ui {
 
 				case ItemUsedEvent item: {
 					if (player.GetComponent<ActiveItemComponent>().Item == item.Item) {
-
 						Tween.To(0.6f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
 							Tween.To(1.5f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
 								Tween.To(1f, activeScale.X, x => activeScale.X = x, 0.2f);
@@ -199,9 +198,11 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		private Vector2 GetHeartPosition(int i, int count, bool bg = false) {
+		private Vector2 GetHeartPosition(int i, bool bg = false) {
+			// todo: make it wave only sometimes (like in mc)
 			return new Vector2((bg ? 4 : 5) + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10);
+				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f);
 		}
 
 		private void RenderHealthBar() {
@@ -212,17 +213,16 @@ namespace BurningKnight.ui {
 			var other = player.GetComponent<HeartsComponent>();
 			var totalIron = other.IronHalfs;			
 			var totalGolden = other.GoldenHalfs;
-			var total = totalRed + totalIron + totalGolden;
-			
+		
 			var hurt = red.InvincibilityTimer > 0;
 
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
 
 				if (i < totalRed) {
-					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(i, total));					
+					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(i));					
 				}
 			}
 
@@ -230,16 +230,16 @@ namespace BurningKnight.ui {
 			var maxIron = ironI + totalIron % 2;
 			
 			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(i, total));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
+				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(i));					
 			}
 
 			var goldenI = totalGolden + maxIron;
 			var maxGold = goldenI + totalGolden % 2;
 			
 			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, total, true));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(i, total));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
+				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(i));					
 			}
 		}
 

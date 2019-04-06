@@ -68,6 +68,7 @@ namespace BurningKnight.save {
 		public static void Generate(Area area, SaveType saveType) {
 			Log.Info($"Generating {saveType} {Run.Depth}");
 			ForType(saveType).Generate(area);
+			Save(area, saveType);
 		}
 
 		public static void Delete(params SaveType[] types) {

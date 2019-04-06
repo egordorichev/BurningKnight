@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.physics;
+using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.input;
@@ -42,6 +43,14 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new InteractorComponent());
 			
 			GetComponent<StateComponent>().Become<IdleState>();
+
+			if (Engine.Version.Dev) {
+				var health = GetComponent<HealthComponent>();
+
+				health.Unhittable = true;
+				health.MaxHealth = HeartsComponent.Cap;
+				health.SetHealth(health.MaxHealth, this);
+			}
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);
