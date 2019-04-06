@@ -8,6 +8,15 @@
     }
   },
 
+  "bk:potion" : {
+    "type" : "active",
+
+    "uses" : {
+      "id" : "bk:ModifyMaxHp",
+      "amount" : 2
+    }
+  },
+
   "bk:random_potion" : {
     "type" : "active",
 

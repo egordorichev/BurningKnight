@@ -37,7 +37,6 @@ namespace Lens.assets {
 
 					watcher.Changed += OnChanged;
 					watcher.Created += OnChanged;
-					watcher.Deleted += OnChanged;
 
 					watcher.EnableRaisingEvents = true;
 				}

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.IO;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using Lens;
 using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
@@ -14,7 +16,8 @@ namespace BurningKnight.assets.items {
 		public static Dictionary<string, ItemData> Datas = new Dictionary<string, ItemData>();
 		private static Dictionary<ItemType, List<ItemData>> byType = new Dictionary<ItemType, List<ItemData>>();
 		private static Dictionary<int, List<ItemData>> byPool = new Dictionary<int, List<ItemData>>();
-    		
+		private static List<string> paths = new List<string>();
+		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Items/"));
 		}
@@ -39,12 +42,39 @@ namespace BurningKnight.assets.items {
 			if (handle.Extension != ".json") {
 				return;
 			}
-			
+
+			if (Engine.Version.Debug) {
+				var path = handle.ParentName;
+
+				if (!paths.Contains(path)) {
+					paths.Add(path);
+
+					var watcher = new FileSystemWatcher();
+
+					watcher.Filter = "*.json";
+					watcher.Path = path;
+					watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+					                                                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+
+					watcher.Changed += OnChanged;
+					watcher.Created += OnChanged;
+
+					watcher.EnableRaisingEvents = true;
+
+					Log.Debug($"Started watching folder {path}");
+				}
+			}
+
 			var root = JsonValue.Parse(handle.ReadAll());
 
 			foreach (var item in root.AsJsonObject) {
 				ParseItem(item.Key, item.Value);
 			}
+		}
+
+		private static void OnChanged(object sender, FileSystemEventArgs args) {
+			Log.Debug($"Reloading {args.FullPath}");
+			Load(new FileHandle(args.FullPath));
 		}
 
 		private static int TryToApply(ItemData data, int pool, string id) {

@@ -95,11 +95,11 @@ namespace BurningKnight.entity.level {
 			}
 
 			if (t == Tile.Grass || t == Tile.HighGrass) {
-				return ll == Tile.Grass || ll == Tile.HighGrass;
+				return ll == Tile.Grass || ll == Tile.HighGrass || tt.IsWall();
 			}
 
 			if (t.Matches(TileFlags.LiquidLayer)) {
-				return tt.IsWall() || ll == t;
+				return tt.IsWall() || tt == Tile.Chasm || ll == t;
 			}
 			
 			return tile == to || tile == l;

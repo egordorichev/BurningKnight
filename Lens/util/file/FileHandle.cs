@@ -9,6 +9,8 @@ namespace Lens.util.file {
 		public string NameWithoutExtension => Path.GetFileNameWithoutExtension(path);
 		public string Name => Path.GetFileName(path);
 		public string Extension => Path.GetExtension(path);
+		public string ParentName => Path.GetDirectoryName(path);
+		public FileHandle Parent => new FileHandle(ParentName);
 		public long LastModified => File.GetLastWriteTime(FullPath).ToFileTime();
 
 		public FileHandle(string path) {

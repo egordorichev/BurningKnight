@@ -11,6 +11,7 @@ namespace BurningKnight.entity.item.renderer {
 	public class AngledRenderer : ItemRenderer {
 		public float Angle;
 		public Vector2 Origin;
+		public bool InvertBack;
 		
 		private double lastAngle;
 		private float sx = 1;
@@ -34,12 +35,12 @@ namespace BurningKnight.entity.item.renderer {
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
 			}
 			
-			var angle = (flipped ? -Angle : Angle) + (atBack ? (flipped ? Math.PI / 4 : -Math.PI / 4) : lastAngle);
+			var angle = (flipped ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (flipped ? -Math.PI / 4 : Math.PI / 4)) : lastAngle);
 
-			if (flipped) {
-				angle -= Math.PI;
+			if (atBack) {
+				flipped = !flipped;
 			}
-			
+
 			Graphics.Render(region, new Vector2(owner.CenterX + (flipped ? -3 : 3), owner.CenterY), 
 				(float) angle, Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, sy));
 		}
@@ -57,6 +58,7 @@ namespace BurningKnight.entity.item.renderer {
 
 			Origin.X = settings["ox"].Number(0);
 			Origin.Y = settings["oy"].Number(0);
+			InvertBack = settings["invert_back"].Bool(true);
 		}
 	}
 }

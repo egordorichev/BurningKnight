@@ -12,7 +12,8 @@
     "renderer" : {
       "id" : "bk:Angled",
       "ox" : 2,
-      "oy" : 2
+      "oy" : 2,
+      "invert_back" : false
     }
   },
   
