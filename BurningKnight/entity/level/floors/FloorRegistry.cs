@@ -12,6 +12,7 @@ namespace BurningKnight.entity.level.floors {
 			Add(new DiagonalFloor(), 1f);
 			Add(new GeometryFloor(), 1f);
 			Add(new MazeFloor(), 1f);
+			Add(new TrippleFloor(), 1f);
 		}
 
 		public static void Paint(Level level, RoomDef room) {

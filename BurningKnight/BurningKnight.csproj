@@ -256,6 +256,7 @@
     <Compile Include="entity\level\floors\FloorRegistry.cs" />
     <Compile Include="entity\level\floors\GeometryFloor.cs" />
     <Compile Include="entity\level\floors\MazeFloor.cs" />
+    <Compile Include="entity\level\floors\TrippleFloor.cs" />
     <Compile Include="entity\level\Level.cs" />
     <Compile Include="entity\level\LevelBodyComponent.cs" />
     <Compile Include="entity\level\LevelTiler.cs" />
