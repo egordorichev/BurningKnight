@@ -8,10 +8,9 @@
 * Path finding
 !!!
 
-* dev kit (god mod and tons of hp from start)
+* Cap max hearts on player
 * Shadows (cool)
 * Animate gaining hearts from the lamp
-* Implement loading items from json
 * Allow to place entities with editor
 * Allow to remove entities with editor
 * Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)

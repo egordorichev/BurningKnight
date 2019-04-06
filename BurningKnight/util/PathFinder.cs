@@ -17,7 +17,6 @@ namespace BurningKnight.util {
 		private static int Width;
 		private static int[] Dir;
 		private static int[] DirLR;
-		public static int LastStep;
 
 		public static void SetMapSize(int Width, int Height) {
 			PathFinder.Width = Width;
@@ -31,53 +30,14 @@ namespace BurningKnight.util {
 				MaxVal[i] = int.MaxValue;
 			}
 
-			Dir = new[] {
-					-1, +1, -Width, +Width
-				}
-				;
-
-			DirLR = new[] {
-					-1, -Width, +Width, +1
-				}
-				;
-
-			Neighbours4 = new[] {
-					-Width, -1, +1, +Width
-				}
-				;
-
-			Neighbours8 = new[] {
-					-Width - 1, -Width, -Width + 1, -1, +1, +Width - 1, +Width, +Width + 1
-				}
-				;
-
-			Neighbours9 = new[] {
-					-Width - 1, -Width, -Width + 1, -1, 0, +1, +Width - 1, +Width, +Width + 1
-				}
-				;
-
-			Circle4 = new[] {
-					-Width, +1, +Width, -1
-				}
-				;
-
-			Corner = new[] {
-					-Width + 1, +Width +1, +Width - 1, -1 - Width
-				}
-				;
-			
-			Circle8 = new[] {
-					-Width - 1, -Width, -Width + 1, +1, +Width + 1, +Width, +Width - 1, -1
-				}
-				;
-		}
-
-		public static bool GoodMove(int From, int I, bool[] Passable) {
-			return true;
-		}
-
-		public static bool GoodMoveLR(int From, int I, bool[] Passable) {
-			return true;
+			Dir = new[] {-1, +1, -Width, +Width};
+			DirLR = new[] {-1, -Width, +Width, +1};
+			Neighbours4 = new[] {-Width, -1, +1, +Width};
+			Neighbours8 = new[] {-Width - 1, -Width, -Width + 1, -1, +1, +Width - 1, +Width, +Width + 1};
+			Neighbours9 = new[] {-Width - 1, -Width, -Width + 1, -1, 0, +1, +Width - 1, +Width, +Width + 1};
+			Circle4 = new[] {-Width, +1, +Width, -1};
+			Corner = new[] {-Width + 1, +Width + 1, +Width - 1, -1 - Width};
+			Circle8 = new[] {-Width - 1, -Width, -Width + 1, +1, +Width + 1, +Width, +Width - 1, -1};
 		}
 
 		public static int StepCost(int I) {
@@ -99,7 +59,7 @@ namespace BurningKnight.util {
 			int StepD;
 
 			for (var I = 0; I < Dir.Length; I++) {
-				if ((StepD = Distance[Step = From + Dir[I]]) < MinD && GoodMove(Step, I, Passable)) {
+				if ((StepD = Distance[Step = From + Dir[I]]) < MinD) {
 					MinD = StepD;
 					Best = Step;
 				}
@@ -126,7 +86,7 @@ namespace BurningKnight.util {
 				var N = Cur + Dir[I];
 				var ThisD = Distance[N];
 
-				if (N != Last && GoodMove(From, I, Passable) && ThisD < MinD) {
+				if (N != Last && ThisD < MinD) {
 					MinD = ThisD;
 					Mins = N;
 				}
@@ -171,7 +131,7 @@ namespace BurningKnight.util {
 				for (var I = Start; I < DirLR.Length - End; I++) {
 					var N = Step + DirLR[I];
 
-					if (N == From || N >= 0 && N < Size && Passable[N] && GoodMoveLR(Step, I, Passable) &&
+					if (N == From || N >= 0 && N < Size && Passable[N] &&
 					    Distance[N] > NextDistance) {
 						Queue[Tail++] = N;
 						Distance[N] = NextDistance + StepCost(N);
@@ -218,7 +178,7 @@ namespace BurningKnight.util {
 				for (var I = Start; I < DirLR.Length - End; I++) {
 					var N = Step + DirLR[I];
 
-					if (N == From || N >= 0 && N < Size && Passable[N] && GoodMoveLR(Step, I, Passable) &&
+					if (N == From || N >= 0 && N < Size && Passable[N] &&
 					    Distance[N] > NextDistance) {
 						Queue[Tail++] = N;
 						Distance[N] = NextDistance + StepCost(N);
@@ -261,10 +221,9 @@ namespace BurningKnight.util {
 				for (var I = Start; I < DirLR.Length - End; I++) {
 					var N = Step + DirLR[I];
 
-					if (N >= 0 && N < Size && Passable[N] && GoodMoveLR(Step, I, Passable) && Distance[N] > NextDistance) {
+					if (N >= 0 && N < Size && Passable[N] && Distance[N] > NextDistance) {
 						Queue[Tail++] = N;
 						Distance[N] = NextDistance + StepCost(N);
-						LastStep = N;
 					}
 				}
 			}
@@ -291,7 +250,7 @@ namespace BurningKnight.util {
 				for (var I = Start; I < DirLR.Length - End; I++) {
 					var N = Step + DirLR[I];
 
-					if (N >= 0 && N < Size && Passable[N] && GoodMoveLR(Step, I, Passable) && Distance[N] > NextDistance) {
+					if (N >= 0 && N < Size && Passable[N] && Distance[N] > NextDistance) {
 						Queue[Tail++] = N;
 						Distance[N] = NextDistance + StepCost(N);
 					}
