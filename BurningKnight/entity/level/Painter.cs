@@ -375,6 +375,14 @@ namespace BurningKnight.entity.level {
 				}
 			}
 		}
+		
+		// To be tested
+		public static void Rect(Level level, int X, int Y, int W, int H, Tile value, bool bold = false) {
+			DrawLine(level, new Vector2(X, Y), new Vector2(X + W, Y), value, bold);
+			DrawLine(level, new Vector2(X, Y + H), new Vector2(X + W, Y + H), value, bold);
+			DrawLine(level, new Vector2(X, Y), new Vector2(X, Y + H), value, bold);
+			DrawLine(level, new Vector2(X + W, Y), new Vector2(X + W, Y + H), value, bold);
+		}
 
 		public static void Triangle(Level Level, Vector2 From, Vector2 P1, Vector2 P2, Tile V) {
 			if ((int) P1.X != (int) P2.X) {
@@ -460,6 +468,35 @@ namespace BurningKnight.entity.level {
 
 				for (var J = Cell; J < Cell + RowW; J++) {
 					Level.Set(J, Value);
+				}
+			}
+		}
+
+		// To be tested
+		public static void Ellipse(Level Level, int X, int Y, int W, int H, Tile Value, bool bold) {
+			double RadH = H / 2f;
+			double RadW = W / 2f;
+
+			for (var I = 0; I < H; I++) {
+				var RowY = -RadH + 0.5 + I;
+				var RowW = 2.0 * Math.Sqrt(RadW * RadW * (1.0 - RowY * RowY / (RadH * RadH)));
+
+				if (W % 2 == 0) {
+					RowW = Math.Round(RowW / 2.0) * 2.0;
+				} else {
+					RowW = Math.Floor(RowW / 2.0) * 2.0;
+					RowW++;
+				}
+
+				var Cell = X + (W - (int) RowW) / 2 + (Y + I) * Level.Width;
+				var CellB = (int) (Cell + RowW - 1);
+				
+				if (bold) {
+					SetBold(Level, Level.FromIndexX(Cell), Level.FromIndexY(Cell), Value);
+					SetBold(Level, Level.FromIndexX(CellB), Level.FromIndexY(CellB), Value);	
+				} else {
+					Level.Set(Cell, Value);
+					Level.Set(CellB, Value);	
 				}
 			}
 		}

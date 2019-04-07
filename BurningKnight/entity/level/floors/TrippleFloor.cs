@@ -14,7 +14,7 @@ namespace BurningKnight.entity.level.floors {
 			
 			var a = tiles[0];
 			var b = tiles[1];
-			var c = tiles[2];
+			var c = Random.Chance() ? a : tiles[2];
 			var start = Random.Float();
 			var size = Random.Int(1, 4);
 			var two = Random.Chance();
@@ -40,8 +40,6 @@ namespace BurningKnight.entity.level.floors {
 					Painter.Set(level, x, y, tile);
 				}
 			}
-			
-			// todo: some random rects in the center?
 		}
 	}
 }
