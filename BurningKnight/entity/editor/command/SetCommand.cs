@@ -7,13 +7,13 @@ namespace BurningKnight.entity.editor.command {
 		public int Y;
 
 		private Tile before;
-		private Tile beforeLiquid;
+		private bool liquid;
 		
 		public void Do(Level level) {
 			var index = level.ToIndex(X, Y);
+			liquid = level.Liquid[index] != 0;
 			
-			before = level.Get(index);
-			beforeLiquid = level.Get(index, true);
+			before = liquid ? level.Get(index, true) : level.Get(index);
 			
 			level.Liquid[index] = 0;
 
@@ -27,7 +27,6 @@ namespace BurningKnight.entity.editor.command {
 
 		public void Undo(Level level) {
 			level.Set(X, Y, before);
-			level.Set(X, Y, beforeLiquid);
 			level.UpdateTile(X, Y);
 		}
 	}

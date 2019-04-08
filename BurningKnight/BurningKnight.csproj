@@ -162,6 +162,7 @@
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\editor\command\Command.cs" />
     <Compile Include="entity\editor\command\CommandQueue.cs" />
+    <Compile Include="entity\editor\command\FillCommand.cs" />
     <Compile Include="entity\editor\command\SetCommand.cs" />
     <Compile Include="entity\editor\Editor.cs" />
     <Compile Include="entity\editor\EditorCursor.cs" />

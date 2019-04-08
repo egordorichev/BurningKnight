@@ -19,6 +19,7 @@ namespace BurningKnight.entity.editor {
 		
 		private TextureRegion hand;
 		private TextureRegion normal;
+		private TextureRegion fill;
 
 		public Mode CurrentMode = Mode.Normal;
 		public bool Drag;
@@ -29,6 +30,7 @@ namespace BurningKnight.entity.editor {
 
 			hand = CommonAse.Ui.GetSlice("editor_drag");
 			normal = CommonAse.Ui.GetSlice("editor_default");
+			fill = CommonAse.Ui.GetSlice("editor_bucket");
 		}
 
 		public override void Update(float dt) {
@@ -40,16 +42,40 @@ namespace BurningKnight.entity.editor {
 				// fixme: delta doesnt count screen upscale
 				Camera.Instance.Position -= Input.Mouse.PositionDelta;
 			}
+
+			if (Input.Keyboard.WasPressed(Keys.F) || Input.Keyboard.WasPressed(Keys.G)) {
+				CurrentMode = Mode.Fill;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.N) || Input.Keyboard.WasPressed(Keys.B)) {
+				CurrentMode = Mode.Normal;
+			}
 		}
 
 		public void OnClick(Vector2 pos) {
-			if (CurrentMode == Mode.Normal && !Drag) {
-				var tile = Editor.TileSelect.Current;
-				var x = (int) Math.Floor(pos.X / 16);
-				var y = (int) Math.Floor(pos.Y / 16);
+			if (Drag) {
+				return;
+			}
+			
+			var tile = Editor.TileSelect.Current;
+			var x = (int) Math.Floor(pos.X / 16);
+			var y = (int) Math.Floor(pos.Y / 16);
 
-				if (Editor.Level.IsInside(x, y) && Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
+			if (!Editor.Level.IsInside(x, y)) {
+				return;
+			}
+			
+			if (CurrentMode == Mode.Normal) {
+				if (Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
 					Editor.Commands.Do(new SetCommand {
+						X = x,
+						Y = y,
+						Tile = tile
+					});
+				}
+			} else if (CurrentMode == Mode.Fill) {
+				if (Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
+					Editor.Commands.Do(new FillCommand {
 						X = x,
 						Y = y,
 						Tile = tile
@@ -59,7 +85,7 @@ namespace BurningKnight.entity.editor {
 		}
 
 		public override void Render() {			
-			Region = CurrentMode == Mode.Drag || Drag ? hand : normal;
+			Region = CurrentMode == Mode.Drag || Drag ? hand : (CurrentMode == Mode.Fill ? fill : normal);
 			base.Render();
 		}
 	}
