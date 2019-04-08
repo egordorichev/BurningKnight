@@ -2,6 +2,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
+using BurningKnight.entity.editor;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;

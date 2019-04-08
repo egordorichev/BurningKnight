@@ -14,7 +14,7 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-
+			
 			Lights.Init();
 			Physics.Init();
 			gameArea = new Area();
