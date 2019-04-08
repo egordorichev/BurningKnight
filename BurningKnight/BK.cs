@@ -1,6 +1,7 @@
 ﻿using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.prefabs;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
@@ -9,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public BK(int width, int height, bool fullscreen) : base(new LoadState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(new EditorState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 
@@ -21,6 +22,7 @@ namespace BurningKnight {
 			CommonAse.Load();
 			Shaders.Load();
 			Font.Load();
+			Prefabs.Load();
 			Items.Load();
 			Mods.Load();
 		}
@@ -28,6 +30,7 @@ namespace BurningKnight {
 		protected override void UnloadContent() {
 			Mods.Destroy();
 			Items.Destroy();
+			Prefabs.Destroy();
 			Lights.DestroySurface();
 			
 			base.UnloadContent();

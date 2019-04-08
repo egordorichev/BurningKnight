@@ -1,15 +1,14 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.prefabs;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
-using Lens.entity;
 using Lens.graphics;
-using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -55,8 +54,10 @@ namespace BurningKnight.entity.level {
 
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
-			
-			Run.Level = this;
+
+			if (!(this is Prefab)) {
+				Run.Level = this;
+			}
 		}
 
 		protected void SetBiome(BiomeInfo biome) {
@@ -270,8 +271,8 @@ namespace BurningKnight.entity.level {
 			var enabled = shader.Parameters["enabled"];
 			enabled.SetValue(false);
 							
-			for (int y = GetRenderBottom(camera) - 1; y >= toY; y--) {
-				for (int x = GetRenderLeft(camera); x < toX; x++) {
+			for (int y = GetRenderBottom(camera); y >= toY; y--) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var tile = Tiles[index];
 					var t = (Tile) tile;
@@ -341,7 +342,7 @@ namespace BurningKnight.entity.level {
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
-						} else if (t.Matches(TileFlags.WallLayer) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB)) {
+						} else if (t.Matches(TileFlags.WallLayer) && (!IsInside(index + width) || !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
 							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
 
@@ -393,8 +394,8 @@ namespace BurningKnight.entity.level {
 
 			enabled.SetValue(true);
 
-			for (int y = GetRenderTop(camera); y < toY; y++) {
-				for (int x = GetRenderLeft(camera); x < toX; x++) {
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var tile = Liquid[index];
 
@@ -502,8 +503,8 @@ namespace BurningKnight.entity.level {
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderBottom(camera);
 
-			for (int y = GetRenderTop(camera); y < toY; y++) {
-				for (int x = GetRenderLeft(camera); x < toX; x++) {
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var tile = Tiles[index];
 					var t = (Tile) tile;

@@ -1,5 +1,6 @@
 using BurningKnight.entity.level;
 using BurningKnight.state;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.util {
 	public class PathFinder {
@@ -9,6 +10,8 @@ namespace BurningKnight.util {
 		public static int[] Neighbours9;
 		public static int[] Circle4;
 		public static int[] Corner;
+		public static Vector2[] VCircle4 = new[] {new Vector2(0, -1), new Vector2(1, 0), new Vector2(0, 1), new Vector2(-1, 0)};
+		public static Vector2[] VCorner = new[] {new Vector2(1, -1), new Vector2(1, 1), new Vector2(-1, 1), new Vector2(-1, -1)};
 		public static int[] Circle8;
 		private static int[] MaxVal;
 		private static bool[] Goals;

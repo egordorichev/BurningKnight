@@ -81,6 +81,8 @@
     <Compile Include="assets\particle\renderer\AnimatedParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />
+    <Compile Include="assets\prefabs\Prefab.cs" />
+    <Compile Include="assets\prefabs\Prefabs.cs" />
     <Compile Include="assets\Shaders.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="Controls.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\LoadCommand.cs" />
+    <Compile Include="debug\NewCommand.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />

@@ -45,6 +45,10 @@ namespace BurningKnight.debug {
 			Depth = Layers.Console;
 		}
 
+		public void AddCommand(ConsoleCommand command) {
+			commands.Add(command);
+		}
+
 		public override void Destroy() {
 			base.Destroy();
 			

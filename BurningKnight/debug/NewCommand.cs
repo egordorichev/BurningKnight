@@ -1,0 +1,38 @@
+using BurningKnight.entity.editor;
+using BurningKnight.entity.level;
+using BurningKnight.entity.level.biome;
+
+namespace BurningKnight.debug {
+	public class NewCommand : ConsoleCommand {
+		public Editor Editor;
+		
+		public NewCommand(Editor editor) {
+			Name = "new";
+			ShortName = "n";
+			Editor = editor;
+		}
+		
+		public override void Run(Console Console, string[] Args) {
+			int width = 32;
+			int height = 32;
+
+			if (Args.Length == 1) {
+				width = int.Parse(Args[0]);
+				height = width;
+			} else if (Args.Length == 2) {
+				width = int.Parse(Args[0]);
+				height = int.Parse(Args[1]);
+			}
+			
+			Editor.Level.Done = true;
+			
+			Editor.Area.Add(Editor.Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
+				Width = width, Height = height
+			});
+
+			Editor.Level.Setup();
+			Editor.Level.Fill(Tiles.RandomFloor());
+			Editor.Level.TileUp();
+		}
+	}
+}

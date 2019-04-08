@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.debug;
 using BurningKnight.entity.editor.command;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
@@ -32,9 +33,12 @@ namespace BurningKnight.entity.editor {
 
 			AlwaysVisible = true;
 			AlwaysActive = true;
-			
-			Engine.Instance.State.Ui.Add(new Console(Area));
 
+			var console = new Console(Area);
+			Engine.Instance.State.Ui.Add(console);
+
+			console.AddCommand(new NewCommand(this));
+			
 			Commands = new CommandQueue {
 				Editor = this
 			};
@@ -63,6 +67,8 @@ namespace BurningKnight.entity.editor {
 			Engine.Instance.State.Ui.Add(TileSelect = new TileSelect {
 				Editor = this
 			});
+
+			Depth = Layers.InGameUi;
 		}
 
 		private void OnClick(Vector2 pos) {

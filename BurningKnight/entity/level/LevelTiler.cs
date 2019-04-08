@@ -13,13 +13,17 @@ namespace BurningKnight.entity.level {
 
 		public static void TileUp(Level level, int index) {
 			var liquid = level.Liquid[index];
+			var x = level.FromIndexX(index);
+			var y = level.FromIndexY(index);
+			
 			byte lmask = 0;
 			
 			for (int i = 0; i < 4; i++) {
 				var m = PathFinder.Circle4[i];
+				var v = PathFinder.VCircle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(n) || ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
+				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
 					lmask |= (byte) (1 << i);
 				}
 			}
@@ -64,9 +68,10 @@ namespace BurningKnight.entity.level {
 			
 			for (int i = 0; i < 4; i++) {
 				var m = PathFinder.Circle4[i];
+				var v = PathFinder.VCircle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
+				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 					mask |= (byte) (1 << i);
 				}
 			}
@@ -74,9 +79,10 @@ namespace BurningKnight.entity.level {
 			if (t.Matches(Tile.WallA, Tile.WallB)) {
 				for (int i = 0; i < 4; i++) {
 					var m = PathFinder.Corner[i];
+					var v = PathFinder.VCorner[i];
 					var n = index + m;
 				
-					if (!level.IsInside(n) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
+					if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 						mask |= (byte) (1 << (4 + i));
 					}
 				}
