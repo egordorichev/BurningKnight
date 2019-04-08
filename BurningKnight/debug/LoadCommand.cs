@@ -42,6 +42,7 @@ namespace BurningKnight.debug {
 						e.Done = true;
 					}
 
+					Editor.Area.AutoRemove();
 					SaveManager.Load(Editor.Area, SaveType.Level, $"{FileHandle.FromRoot("Prefabs/").FullPath}/{path}.lvl");
 					Editor.Level = state.Run.Level;
 					

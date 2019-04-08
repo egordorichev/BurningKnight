@@ -48,7 +48,7 @@ namespace Lens.entity {
 			return Camera.Instance.Overlaps(entity);
 		}
 
-		public void Update(float dt) {
+		public void AutoRemove() {
 			if (ToRemove.Count > 0) {
 				try {
 					foreach (var entity in ToRemove) {
@@ -61,6 +61,10 @@ namespace Lens.entity {
 					Log.Error(e);
 				}
 			}
+		}
+
+		public void Update(float dt) {
+			AutoRemove();
 
 			if (ToAdd.Count > 0) {
 				try {

@@ -20,14 +20,13 @@ namespace BurningKnight.entity.level.rooms {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-			
 			AddTag(Tags.Room);
 		}
 
 		public override void PostInit() {
 			base.PostInit();
 
-			X = MapX * 16;// + 8;
+			X = MapX * 16;
 			Y = MapY * 16 - 8;
 			Width = MapW * 16;
 			Height = MapH * 16;
@@ -42,8 +41,6 @@ namespace BurningKnight.entity.level.rooms {
 			MapH = stream.ReadInt16();
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
-			
-			Log.Error($"Set type {Type}");
 		}
 
 		public override void Save(FileWriter stream) {

@@ -1,4 +1,5 @@
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.rooms;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 
@@ -11,6 +12,10 @@ namespace BurningKnight.assets.prefabs {
 			var pos = new Vector2(x * 16, y * 16);
 			
 			foreach (var e in Area.GetEntites()) {
+				if (e is Level || e is Room) {
+					continue;
+				}
+				
 				e.Position += pos;
 				level.Area.Add(e);
 			}
@@ -18,7 +23,7 @@ namespace BurningKnight.assets.prefabs {
 			for (int ty = 0; ty < Level.Height; ty++) {
 				for (int tx = 0; tx < Level.Width; tx++) {
 					var i = Level.ToIndex(tx, ty);
-					var i2 = level.ToIndex(ty + x, tx + y);
+					var i2 = level.ToIndex(tx + x, ty + y);
 					
 					level.Tiles[i2] = Level.Tiles[i];
 					level.Liquid[i2] = Level.Liquid[i];

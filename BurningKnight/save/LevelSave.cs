@@ -13,7 +13,7 @@ namespace BurningKnight.save {
 	public class LevelSave : Saver {
 		private static int I;
 
-		public override void Save(Area area, FileWriter writer) {
+		public override void Save(Area area, FileWriter writer) {			
 			var all = area.Tags[Tags.LevelSave];
 			writer.WriteInt32(all.Count);
 

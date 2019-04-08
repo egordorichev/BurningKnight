@@ -22,6 +22,10 @@ namespace Lens.entity {
 			entities = new EntityList(this);
 		}
 
+		public void AutoRemove() {
+			entities.AutoRemove();
+		}
+		
 		public void Destroy() {
 			foreach (var entity in entities.Entities) {
 				entity.Destroy();

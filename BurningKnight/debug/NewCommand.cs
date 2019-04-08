@@ -29,7 +29,9 @@ namespace BurningKnight.debug {
 			foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
 				e.Done = true;
 			}
-			
+
+			Editor.Area.AutoRemove();
+
 			Editor.Area.Add(Editor.Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
 				Width = width, Height = height
 			});

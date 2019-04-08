@@ -42,6 +42,8 @@ namespace BurningKnight.save {
 		}
 
 		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
+			area.AutoRemove();
+
 			var file = new FileInfo(GetSavePath(saveType, old, path));
 			Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
 			file.Directory?.Create();
