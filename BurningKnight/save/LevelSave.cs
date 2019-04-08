@@ -22,7 +22,11 @@ namespace BurningKnight.save {
 		}
 
 		public override string GetPath(string path, bool old = false) {
-			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.sv";
+			if (path.EndsWith(".lvl")) {
+				return path;
+			}
+			
+			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.lvl";
 		}
 
 		public override void Load(Area area, FileReader reader) {

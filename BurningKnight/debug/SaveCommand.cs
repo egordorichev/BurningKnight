@@ -1,6 +1,7 @@
 using System.Threading;
 using BurningKnight.save;
 using Lens;
+using Lens.util.file;
 
 namespace BurningKnight.debug {
 	public class SaveCommand : ConsoleCommand {
@@ -10,7 +11,7 @@ namespace BurningKnight.debug {
 		}
 		
 		public override void Run(Console console, string[] args) {
-			if (args.Length != 1 && args.Length != 2) {
+			if (args.Length == 0 || args.Length > 3) {
 				console.Print("save [save path] (save type)");
 				return;
 			}
@@ -56,8 +57,13 @@ namespace BurningKnight.debug {
 						break;
 					}
 
+					case "prefab": {
+						SaveManager.Save(area, SaveType.Level, false, $"{FileHandle.FromRoot("Prefabs/").FullPath}/{path}.lvl");
+						break;
+					}
+
 					default: {
-						console.Print($"Unknown save type ${saveType}. Should be one of all, level, player, game, global, run");
+						console.Print($"Unknown save type ${saveType}. Should be one of all, level, player, game, global, run, prefab");
 						break;
 					}
 				}

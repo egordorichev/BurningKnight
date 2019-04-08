@@ -23,8 +23,10 @@ namespace BurningKnight.debug {
 				width = int.Parse(Args[0]);
 				height = int.Parse(Args[1]);
 			}
-			
-			Editor.Level.Done = true;
+
+			foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+				e.Done = true;
+			}
 			
 			Editor.Area.Add(Editor.Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
 				Width = width, Height = height

@@ -60,6 +60,14 @@ namespace BurningKnight.entity.level {
 			}
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Run.Level == this) {
+				Run.Level = null;
+			}
+		}
+
 		protected void SetBiome(BiomeInfo biome) {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
@@ -77,9 +85,9 @@ namespace BurningKnight.entity.level {
 			};
 			
 			Area.Add(Chasm);
-			Area.Add(new RenderTrigger(RenderLiquids, Layers.Liquid));
-			Area.Add(new RenderTrigger(RenderWalls, Layers.Wall));
-			Area.Add(new RenderTrigger(Lights.Render, Layers.Light));
+			Area.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
+			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
+			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 		}
 
 		public override void AddComponents() {
@@ -256,6 +264,11 @@ namespace BurningKnight.entity.level {
 
 		// Renders floor layer
 		public override void Render() {
+			if (this != Run.Level) {
+				Done = true;
+				return;
+			}
+			
 			var camera = Camera.Instance;
 			var paused = Engine.Instance.State.Paused;
 			

@@ -1,12 +1,19 @@
+using BurningKnight.entity.editor;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens;
+using Lens.util.camera;
+using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.debug {
 	public class LoadCommand : ConsoleCommand {
-		public LoadCommand() {
+		public Editor Editor;
+		
+		public LoadCommand(Editor editor) {
 			Name = "load";
 			ShortName = "l";
+			Editor = editor;
 		}
 		
 		public override void Run(Console console, string[] args) {
@@ -19,7 +26,6 @@ namespace BurningKnight.debug {
 			var saveType = args.Length == 1 ? "all" : args[1];
 			var area = Engine.Instance.State.Area;
 			
-			// todo: load
 			switch (saveType) {
 				case "all": {
 					area.Destroy();
@@ -31,35 +37,21 @@ namespace BurningKnight.debug {
 					break;
 				}
 
-				/*case "level": {
-					SaveManager.Save(area, SaveManager.SaveType.Level, false, path);
+				case "prefab": {
+					foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+						e.Done = true;
+					}
+
+					SaveManager.Load(Editor.Area, SaveType.Level, $"{FileHandle.FromRoot("Prefabs/").FullPath}/{path}.lvl");
+					Editor.Level = state.Run.Level;
+					
+					Camera.Instance.Position = Vector2.Zero;
+					
 					break;
 				}
-
-				case "player": {
-					SaveManager.Save(area, SaveManager.SaveType.Player, false, path);
-					break;
-				}
-
-				case "game": {
-					SaveManager.Save(area, SaveManager.SaveType.Game, false, path);
-					break;
-				}
-
-				case "global": {
-					SaveManager.Save(area, SaveManager.SaveType.Global, false, path);
-					break;
-				}
-
-				case "run": {
-					SaveManager.Save(area, SaveManager.SaveType.Level, false, path);
-					SaveManager.Save(area, SaveManager.SaveType.Player, false, path);
-					SaveManager.Save(area, SaveManager.SaveType.Game, false, path);
-					break;
-				}*/
-
+				
 				default: {
-					console.Print($"Unknown save type ${saveType}. Should be one of all (level, player, game, global and run are not supported yet)");
+					console.Print($"Unknown save type ${saveType}. Should be one of all, prefab");
 					break;
 				}
 			}

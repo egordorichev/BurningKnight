@@ -38,6 +38,7 @@ namespace BurningKnight.entity.editor {
 			Engine.Instance.State.Ui.Add(console);
 
 			console.AddCommand(new NewCommand(this));
+			console.AddCommand(new LoadCommand(this));
 			
 			Commands = new CommandQueue {
 				Editor = this

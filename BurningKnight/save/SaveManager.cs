@@ -30,11 +30,11 @@ namespace BurningKnight.save {
 		public static string GetSavePath(SaveType saveType, bool old = false, string path = null) {
 			if (path == null) {
 				path = "";
-			} else if (!path.EndsWith("/")) {
+			} else if (saveType != SaveType.Level && !path.EndsWith("/")) {
 				path += "/";
 			}
 
-			return ForType(saveType).GetPath(Path.Combine(saveType == SaveType.Global ? SaveDir : SlotDir, path), old);
+			return ForType(saveType).GetPath(saveType == SaveType.Level && path != "" ? path : Path.Combine(saveType == SaveType.Global ? SaveDir : SlotDir, path), old);
 		}
 
 		public static FileHandle GetFileHandle(string path) {			
@@ -57,7 +57,7 @@ namespace BurningKnight.save {
 			if (!save.Exists()) {
 				Generate(area, saveType);
 			} else {
-				Log.Info($"Loading {saveType} {Run.Depth}");
+				Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? "" : $" from {path}")}");
 
 				var stream = new FileReader(save.FullPath);
 				ForType(saveType).Load(area, stream);
