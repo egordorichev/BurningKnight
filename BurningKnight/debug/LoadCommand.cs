@@ -38,11 +38,11 @@ namespace BurningKnight.debug {
 				}
 
 				case "prefab": {
-					foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
-						e.Done = true;
-					}
-
-					Editor.Area.AutoRemove();
+					Editor.Area.Destroy();
+					Editor.Area.NoInit = true;
+					Editor.Area.Add(Editor);
+					Editor.Area.NoInit = false;
+					
 					SaveManager.Load(Editor.Area, SaveType.Level, $"{FileHandle.FromRoot("Prefabs/").FullPath}/{path}.lvl");
 					Editor.Level = state.Run.Level;
 					

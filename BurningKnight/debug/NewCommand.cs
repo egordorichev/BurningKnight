@@ -26,12 +26,11 @@ namespace BurningKnight.debug {
 				height = int.Parse(Args[1]);
 			}
 
-			foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
-				e.Done = true;
-			}
-
-			Editor.Area.AutoRemove();
-
+			Editor.Area.Destroy();
+			Editor.Area.NoInit = true;
+			Editor.Area.Add(Editor);
+			Editor.Area.NoInit = false;
+			
 			Editor.Area.Add(Editor.Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
 				Width = width, Height = height
 			});

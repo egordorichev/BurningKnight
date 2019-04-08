@@ -24,18 +24,22 @@ namespace Lens.entity {
 
 		public void AutoRemove() {
 			entities.AutoRemove();
+			entities.ToAdd.Clear();
+			entities.ToRemove.Clear();
 		}
 		
 		public void Destroy() {
 			foreach (var entity in entities.Entities) {
 				entity.Destroy();
 			}
-			
+
 			foreach (var list in Tags.Lists) {
 				list.Clear();
 			}
 			
 			entities.Entities.Clear();
+			entities.ToAdd.Clear();
+			entities.ToRemove.Clear();
 		}
 
 		public Entity Add(Entity entity, bool postInit = true) {

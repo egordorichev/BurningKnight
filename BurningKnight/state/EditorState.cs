@@ -32,7 +32,7 @@ namespace BurningKnight.state {
 
 		public override void Destroy() {
 			if (UseDepth) {
-				SaveManager.Save(Area, SaveType.Level);
+				// SaveManager.Save(Area, SaveType.Level);
 			}
 			
 			base.Destroy();

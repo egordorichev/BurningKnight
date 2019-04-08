@@ -59,8 +59,9 @@ namespace BurningKnight.state {
 				SaveManager.Save(Area, SaveType.Player);
 			}
 			
-			Physics.Destroy();
+			Area.Destroy();
 			Area = null;
+			Physics.Destroy();
 			
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
