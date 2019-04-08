@@ -39,7 +39,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new HeartsComponent());
 			
 			// Collisions
-			AddComponent(new RectBodyComponent(2, 0, 12, 12));
+			AddComponent(new RectBodyComponent(4, 3, 8, 9));
 			AddComponent(new InteractorComponent());
 			
 			GetComponent<StateComponent>().Become<IdleState>();
@@ -126,7 +126,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				var body = Self.GetComponent<RectBodyComponent>();
 				body.Velocity = direction * (RollTime - T);
-				body.Position += body.Velocity * dt;
+				body.Position += body.Velocity * dt * 0.5f;
 			}
 		}
 		#endregion

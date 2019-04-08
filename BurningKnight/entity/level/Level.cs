@@ -99,6 +99,10 @@ namespace BurningKnight.entity.level {
 		}
 		
 		public void CreateBody() {
+			if (components == null) {
+				return;
+			}
+			
 			GetComponent<LevelBodyComponent>().CreateBody();
 			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
 		}

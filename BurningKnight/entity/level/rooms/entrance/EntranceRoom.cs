@@ -19,6 +19,8 @@ namespace BurningKnight.entity.level.rooms.entrance {
 		public override void Paint(Level level) {
 			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
 			
+			Painter.Prefab(level, "test", Left + 1, Top + 1);
+			
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}

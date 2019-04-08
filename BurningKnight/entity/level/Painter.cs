@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.prefabs;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
@@ -499,6 +500,17 @@ namespace BurningKnight.entity.level {
 					Level.Set(CellB, Value);	
 				}
 			}
+		}
+
+		public static void Prefab(Level level, string id, int x, int y) {
+			var prefab = Prefabs.Get(id);
+
+			if (prefab == null) {
+				Log.Error($"Unknown prefab {id}");
+				return;
+			}
+			
+			prefab.Place(level, x, y);
 		}
 	}
 }

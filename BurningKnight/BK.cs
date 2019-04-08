@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public BK(int width, int height, bool fullscreen) : base(new EditorState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(new LoadState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 

@@ -61,7 +61,7 @@ namespace BurningKnight.entity.level {
 			var Builder = GetBuilder();
 			var Rooms = CreateRooms();
 
-			Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+			// Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 
 			var Attempt = 0;
 
@@ -86,7 +86,7 @@ namespace BurningKnight.entity.level {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");
 						Attempt = 0;
 						Rooms = CreateRooms();
-						Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+						// Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 					}
 
 					Attempt++;
@@ -137,6 +137,10 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected Builder GetBuilder() {
+			if (true) {
+				return new LineBuilder();
+			}
+			
 			if (Run.Depth <= -1) {
 				return new SingleRoomBuilder();
 			}

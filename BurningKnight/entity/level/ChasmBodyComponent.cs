@@ -29,7 +29,7 @@ namespace BurningKnight.entity.level {
 					if (TileFlags.Matches(tile, TileFlags.Hole)) {
 						var sum = 0;
 
-						foreach (var dir in PathFinder.Neighbours8) {
+						foreach (var dir in PathFinder.Neighbours4) {
 							var n = dir + index;
 							
 							if (!level.IsInside(n) || TileFlags.Matches(level.Tiles[n], TileFlags.Hole) || TileFlags.Matches(level.Tiles[n], TileFlags.Solid)) {
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.level {
 							}
 						}
 
-						if (sum == 8) {
+						if (sum == 4) {
 							continue;
 						}
 						
@@ -46,33 +46,22 @@ namespace BurningKnight.entity.level {
 						
 						list.Clear();
 
-							if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx, Check(level, x, y - 1) ? yy : yy + 8));
+						if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
+							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
-							list.Add(new Vector2(xx, yy + 16));
-							list.Add(new Vector2(xx + 6, yy + 8));
+							list.Add(new Vector2(xx + 4, yy + 16));
+							list.Add(new Vector2(xx + 8, yy + 8));
 						}
 
 						if (Check(level, x + 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx + 16, Check(level, x, y - 1) ? yy : yy + 8));
+							list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), Check(level, x, y - 1) ? yy : yy + 8));
 						} else {
-							list.Add(new Vector2(xx + 16, yy + 16));
-							list.Add(new Vector2(xx + 10, yy + 8));
+							list.Add(new Vector2(xx + 12, yy + 16));
+							list.Add(new Vector2(xx + 8, yy + 8));
 						}
 						
-						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {
-							list.Add(new Vector2(xx + 16, yy + 16));
-						} else {
-							list.Add(new Vector2(xx + 16, yy + 10));
-							list.Add(new Vector2(xx + 10, yy + 16));
-						}
-						
-						if (Check(level, x - 1, y) || Check(level, x, y + 1)) {
-							list.Add(new Vector2(xx, yy + 16));
-						} else {
-							list.Add(new Vector2(xx, yy + 10));
-							list.Add(new Vector2(xx + 6, yy + 16));
-						}
+						list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), yy + 16));
+						list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), yy + 16));
 						
 						FixtureFactory.AttachPolygon(new Vertices(list), 1f, Body);			
 					}

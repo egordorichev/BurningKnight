@@ -6,7 +6,8 @@ namespace Lens.entity {
 	public class Area {
 		public TagLists Tags;
 		public EventListener EventListener;
-
+		public bool NoInit;
+		
 		private static bool initedTags;
 		private EntityList entities;
 
@@ -37,11 +38,13 @@ namespace Lens.entity {
 			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
-			
-			entity.Init();
 
-			if (postInit) {
-				entity.PostInit();
+			if (!NoInit) {
+				entity.Init();
+
+				if (postInit) {
+					entity.PostInit();
+				}
 			}
 
 			return entity;

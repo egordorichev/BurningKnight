@@ -9,6 +9,7 @@ namespace BurningKnight.entity {
 		public RenderTrigger(Entity entity, Action method, int depth) {
 			Depth = depth;
 			Entity = entity;
+			AlwaysActive = true;
 			AlwaysVisible = true;
 
 			this.method = method;

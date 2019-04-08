@@ -63,7 +63,7 @@ namespace BurningKnight.debug {
 					}
 
 					default: {
-						console.Print($"Unknown save type ${saveType}. Should be one of all, level, player, game, global, run, prefab");
+						console.Print($"Unknown save type {saveType}. Should be one of all, level, player, game, global, run, prefab");
 						break;
 					}
 				}

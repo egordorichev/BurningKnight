@@ -15,6 +15,10 @@ namespace BurningKnight.save {
 			stream.WriteInt32((int) X);
 			stream.WriteInt32((int) Y);
 
+			if (components == null) {
+				return;
+			}
+			
 			foreach (var component in components.Values) {
 				if (component is SaveableComponent saveable) {
 					saveable.Save(stream);
@@ -25,6 +29,10 @@ namespace BurningKnight.save {
 		public virtual void Load(FileReader stream) {
 			X = stream.ReadInt32();
 			Y = stream.ReadInt32();
+			
+			if (components == null) {
+				return;
+			}
 			
 			foreach (var component in components.Values) {
 				if (component is SaveableComponent saveable) {

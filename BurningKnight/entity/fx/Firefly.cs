@@ -18,8 +18,8 @@ namespace BurningKnight.entity.fx {
 		private Vector2 start;
 		private float t;
 		
-		public override void Init() {
-			base.Init();
+		public override void PostInit() {
+			base.PostInit();
 
 			start = Position;
 			Width = 192;
@@ -57,7 +57,7 @@ namespace BurningKnight.entity.fx {
 			
 			light.Radius += ((t % 20 <= 16f ? 96f : 0) - light.Radius) * dt * 3;
 		}
-
+		
 		public override void Render() {
 			Graphics.Color = lightColor;
 			Graphics.Render(region, Position, 0.1f, region.Center, lightSize);

@@ -1,6 +1,7 @@
 using BurningKnight.entity.editor;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.debug {
 	public class NewCommand : ConsoleCommand {
@@ -35,6 +36,8 @@ namespace BurningKnight.debug {
 			Editor.Level.Setup();
 			Editor.Level.Fill(Tiles.RandomFloor());
 			Editor.Level.TileUp();
+			
+			Editor.Camera.Position = Vector2.Zero;
 		}
 	}
 }
