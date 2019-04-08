@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.entity.level.builders;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
@@ -8,6 +9,7 @@ using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Lens.util.math;
+using MonoGame.Extended.Collections;
 
 namespace BurningKnight.entity.level {
 	public class RegularLevel : Level {
@@ -56,10 +58,10 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected void Build() {
-			var Builder = new LineBuilder(); // GetBuilder();
+			var Builder = GetBuilder();
 			var Rooms = CreateRooms();
 
-			// if (Dungeon.Depth > -2 && (GameSave.RunId != 0 || Dungeon.Depth != 1)) Collections.Shuffle(Rooms, new Java.Util.Random(ItemSelectState.StringToSeed(Random.GetSeed())));
+			Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 
 			var Attempt = 0;
 
@@ -84,8 +86,7 @@ namespace BurningKnight.entity.level {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");
 						Attempt = 0;
 						Rooms = CreateRooms();
-
-						// if (Dungeon.Depth > -2 && (GameSave.RunId != 0 || Dungeon.Depth != 1)) Collections.Shuffle(Rooms, new Java.Util.Random(ItemSelectState.StringToSeed(Random.GetSeed())));
+						Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 					}
 
 					Attempt++;
@@ -119,12 +120,6 @@ namespace BurningKnight.entity.level {
 			}
 
 			Rooms.Add(RoomRegistry.Generate(RoomType.Treasure));
-
-			/*
-			if ((Run.Id == 1 || Random.Chance(50)) && (Run.Id != 0 || Run.Depth != 1)) {
-				Log.Info("Adding shop");
-				Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
-			}*/
 
 			for (var I = 0; I < Connection; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Connection));
@@ -168,7 +163,7 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected int GetNumRegularRooms() {
-			return 1;
+			return 5;
 		}
 
 		protected int GetNumSpecialRooms() {
@@ -180,7 +175,7 @@ namespace BurningKnight.entity.level {
 		}
 
 		protected int GetNumConnectionRooms() {
-			return 0;
+			return Random.Int(3);
 		}
 	}
 }

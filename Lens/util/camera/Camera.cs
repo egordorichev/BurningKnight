@@ -250,6 +250,9 @@ namespace Lens.util.camera {
 
 			set {
 				zoom = value;
+				Width = Display.Width / zoom;
+				Height = Display.Height / zoom;
+				
 				changed = true;
 			}
 		}
@@ -261,7 +264,7 @@ namespace Lens.util.camera {
 				Matrix.CreateTranslation(new Vector3(
 				 -new Vector2((int) Math.Floor(position.X + shake.Position.X), (int) Math.Floor(position.Y + shake.Position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
-				Matrix.CreateScale(new Vector3(zoom, 1, 1)) *
+				Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
 				Matrix.CreateTranslation(
 				 new Vector3(new Vector2((int) Math.Floor(origin.X), (int) Math.Floor(origin.Y)), 0));
 

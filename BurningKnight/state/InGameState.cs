@@ -185,6 +185,32 @@ namespace BurningKnight.state {
 					Camera.Instance.PositionY += speed;
 				}
 			}
+
+			float s = dt * 10f;
+
+			if (Input.Keyboard.WasPressed(Keys.I)) {
+				Camera.Instance.TextureZoom -= s;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.O)) {
+				Camera.Instance.TextureZoom = 1;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.P)) {
+				Camera.Instance.TextureZoom += s;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.J)) {
+				Camera.Instance.Zoom -= s;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.K)) {
+				Camera.Instance.Zoom = 1;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.L)) {
+				Camera.Instance.Zoom += s;
+			}
 		}
 		
 		public override void Render() {

@@ -3,10 +3,9 @@
     "type" : "weapon",
     
     "uses" : {
-      "bk:SimpleShoot" : {
-        "texture" : "small",
-        "speed" : 60
-      }
+      "id" : "bk:SimpleShoot",
+      "texture" : "small",
+      "speed" : 60
     },
     
     "renderer" : {
@@ -21,10 +20,9 @@
     "type" : "weapon",
 
     "uses" : {
-      "bk:MeleeArc" : {
-        "damage" : 1,
-        "time" : 0.2
-      }
+      "id" : "bk:MeleeArc",
+      "damage" : 1,
+      "time" : 0.2
     },
 
     "renderer" : {

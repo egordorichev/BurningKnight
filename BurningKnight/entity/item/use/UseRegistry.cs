@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyHpUse>();
 			Register<ModifyMaxHpUse>();
 			Register<SimpleShootUse>();
+			Register<RandomUse>();
 		}
 	}
 }
