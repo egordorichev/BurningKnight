@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.level.rooms;
 using BurningKnight.physics;
 using Lens;
 using Lens.entity;
@@ -20,6 +21,8 @@ namespace BurningKnight.entity.creature.player {
 	public class Player : Creature {
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			Height = 11;
 			
 			// Graphics
 			// AddComponent(new LightComponent(this, 128f, new Color(1, 1, 1, 1f)));
@@ -68,17 +71,12 @@ namespace BurningKnight.entity.creature.player {
 		public override void PostInit() {
 			base.PostInit();
 
-			// todo: pick the entrance one
-			var room = Area.Tags[Tags.Room][0];
-			Center = room.Center;
-
-			ItemStand stand;
-			
-			Area.Add(stand = new ItemStand {
-				Center = room.Center - new Vector2(0, 16)
-			});
-			
-			stand.SetItem(Items.CreateAndAdd("bk:heart", Area), this);
+			foreach (var r in Area.Tags[Tags.Room]) {
+				if (((Room) r).Type == RoomType.Entrance) {
+					Center = r.Center;
+					break;
+				}
+			}
 		}
 		
 		#region Player States

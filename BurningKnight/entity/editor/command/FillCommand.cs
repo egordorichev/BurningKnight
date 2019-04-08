@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework;

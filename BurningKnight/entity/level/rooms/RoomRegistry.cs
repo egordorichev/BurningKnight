@@ -13,19 +13,45 @@ namespace BurningKnight.entity.level.rooms {
 	public static class RoomRegistry {
 		public static List<RoomInfo> All = new List<RoomInfo>();
 		public static Dictionary<RoomType, List<RoomInfo>> ByType = new Dictionary<RoomType, List<RoomInfo>>();
+
+		public static readonly RoomType[] TypesByIndex = {
+			RoomType.Regular,
+			RoomType.Secret,
+			RoomType.Connection,
+			RoomType.Boss,
+			RoomType.Exit,
+			RoomType.Special,
+			RoomType.Shop,
+			RoomType.Treasure,
+			RoomType.Entrance
+		};
+
+		public static RoomType FromIndex(int i) {
+			return TypesByIndex[i];
+		}
+
+		public static int FromType(RoomType type) {
+			for (var i = 0; i < TypesByIndex.Length; i++) {
+				if (TypesByIndex[i] == type) {
+					return i;
+				}
+			}
+
+			return 0;
+		}
 		
 		static RoomRegistry() {
 			RoomInfo[] infos = {
 				RoomInfo.New<RegularRoom>(1f),
-				RoomInfo.New<EntranceRoom>(1f, RoomType.Entrance),
-				RoomInfo.New<ExitRoom>(1f, RoomType.Exit),
-				RoomInfo.New<BossRoom>(1f, RoomType.Boss),
-				RoomInfo.New<SecretRoom>(1f, RoomType.Secret),
-				RoomInfo.New<TreasureRoom>(1f, RoomType.Treasure),
-				RoomInfo.New<ShopRoom>(1f, RoomType.Shop),
+				RoomInfo.New<EntranceRoom>(1f),
+				RoomInfo.New<ExitRoom>(1f),
+				RoomInfo.New<BossRoom>(1f),
+				RoomInfo.New<SecretRoom>(1f),
+				RoomInfo.New<TreasureRoom>(1f),
+				RoomInfo.New<ShopRoom>(1f),
 				
-				RoomInfo.New<TunnelRoom>(1f, RoomType.Connection),
-				RoomInfo.New<WayOverChasmRoom>(1f, RoomType.Connection)
+				RoomInfo.New<TunnelRoom>(1f),
+				RoomInfo.New<WayOverChasmRoom>(1f)
 			};
 
 			foreach (var info in infos) {

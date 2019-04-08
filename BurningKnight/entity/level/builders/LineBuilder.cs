@@ -5,15 +5,19 @@ using BurningKnight.entity.level.rooms.connection;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
+using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.builders {
 	public class LineBuilder : RegularBuilder {
-		private float Direction = Random.Angle();
+		private float Direction;
 
+		public LineBuilder() {
+			Direction = Random.Angle();
+		}
+		
 		public LineBuilder SetAngle(float Angle) {
 			Direction = Angle % 360f;
-
 			return this;
 		}
 
@@ -32,8 +36,7 @@ namespace BurningKnight.entity.level.builders {
 			Branchable.Add(Entrance);
 
 			if (MultiConnection.Count == 0) {
-				PlaceRoom(Init, Entrance, Boss, Random.Angle());
-
+				PlaceRoom(Init, Entrance, Exit, Random.Angle());
 				return Init;
 			}
 

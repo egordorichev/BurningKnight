@@ -7,10 +7,10 @@ namespace BurningKnight.entity.level.rooms {
 		public RoomType Type;
 		public string[] Biomes;
 		
-		public static RoomInfo New<T>(float chance, RoomType type = RoomType.Regular, params string[] biomes) where T : RoomDef {
+		public static RoomInfo New<T>(float chance, params string[] biomes) where T : RoomDef {
 			return new RoomInfo {
 				Chance = chance,
-				Type = type,
+				Type = RoomDef.DecideType(typeof(T)),
 				Room = typeof(T),
 				Biomes = biomes
 			};

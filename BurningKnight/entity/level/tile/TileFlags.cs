@@ -1,4 +1,4 @@
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.tile {
 	public static class TileFlags {
 		private static int[] flags = new int[(int) Tile.Total];
 		

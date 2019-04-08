@@ -2,6 +2,8 @@ using System;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
+using BurningKnight.entity.level.hub;
+using BurningKnight.entity.level.tile;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -41,9 +43,17 @@ namespace BurningKnight.save {
 			}
 		}
 
+		private RegularLevel CreateLevel() {
+			if (Run.Depth == -1) {
+				return new HubLevel();
+			}
+			
+			return new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
+		}
+
 		public override void Generate(Area area) {
 			try {
-				var level = new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
+				var level = CreateLevel();
 				area.Add(level);
 				level.Generate(area, I);
 
@@ -52,12 +62,17 @@ namespace BurningKnight.save {
 				Log.Error(e);
 				I++;
 
+				foreach (var en in area.Tags[Tags.LevelSave]) {
+					en.Done = true;
+				}
+
 				if (I > 100) {
 					Log.Error("Can't generate a level");
-					
-					var level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
-						Width = 32, Height = 32
-					};
+
+					var level = CreateLevel();
+
+					level.Width = 32;
+					level.Height = 32;
 					
 					area.Add(level);
 

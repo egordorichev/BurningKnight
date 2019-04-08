@@ -1,6 +1,7 @@
 using System.Threading;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens;

@@ -1,6 +1,7 @@
 using BurningKnight.entity.editor;
 using BurningKnight.entity.level;
 using BurningKnight.entity.level.biome;
+using BurningKnight.entity.level.tile;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.debug {

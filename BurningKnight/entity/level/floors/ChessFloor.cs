@@ -1,4 +1,5 @@
 using BurningKnight.entity.level.rooms;
+using BurningKnight.entity.level.tile;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 

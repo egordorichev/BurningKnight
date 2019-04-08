@@ -2,6 +2,14 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.level.floors;
+using BurningKnight.entity.level.rooms.boss;
+using BurningKnight.entity.level.rooms.connection;
+using BurningKnight.entity.level.rooms.entrance;
+using BurningKnight.entity.level.rooms.secret;
+using BurningKnight.entity.level.rooms.shop;
+using BurningKnight.entity.level.rooms.special;
+using BurningKnight.entity.level.rooms.treasure;
+using BurningKnight.entity.level.tile;
 using BurningKnight.entity.level.walls;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -45,8 +53,12 @@ namespace BurningKnight.entity.level.rooms {
 
 		public abstract int GetMinConnections(Connection Side);
 
-		public virtual void PaintFloor(Level level) {
+		protected virtual void Fill(Level level) {
 			Painter.Fill(level, this, Tiles.RandomWall());
+		}
+		
+		public virtual void PaintFloor(Level level) {
+			Fill(level);
 			FloorRegistry.Paint(level, this);
 		}
 		
@@ -446,6 +458,42 @@ namespace BurningKnight.entity.level.rooms {
 
 		public virtual bool ShouldSpawnMobs() {
 			return false;
+		}
+
+		public static RoomType DecideType(Type room) {
+			if (typeof(ExitRoom).IsAssignableFrom(room)) {
+				return RoomType.Exit;
+			}
+			
+			if (typeof(EntranceRoom).IsAssignableFrom(room)) {
+				return RoomType.Entrance;
+			}
+			
+			if (typeof(BossRoom).IsAssignableFrom(room)) {
+				return RoomType.Boss;
+			}
+			
+			if (typeof(SecretRoom).IsAssignableFrom(room)) {
+				return RoomType.Secret;
+			}
+			
+			if (typeof(SpecialRoom).IsAssignableFrom(room)) {
+				return RoomType.Special;
+			}
+			
+			if (typeof(ConnectionRoom).IsAssignableFrom(room)) {
+				return RoomType.Connection;
+			}
+			
+			if (typeof(TreasureRoom).IsAssignableFrom(room)) {
+				return RoomType.Treasure;
+			}
+			
+			if (typeof(ShopRoom).IsAssignableFrom(room)) {
+				return RoomType.Shop;
+			}
+
+			return RoomType.Regular;
 		}
 	}
 }

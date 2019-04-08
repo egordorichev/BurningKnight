@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.entity.editor.command;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;

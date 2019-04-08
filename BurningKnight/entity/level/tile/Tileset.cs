@@ -2,7 +2,7 @@
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.tile {
 	public class Tileset {
 		public TextureRegion[] WallA = new TextureRegion[12];
 		public TextureRegion[] WallB = new TextureRegion[12];

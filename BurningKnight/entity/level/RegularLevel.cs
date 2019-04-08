@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using BurningKnight.entity.level.biome;
 using BurningKnight.entity.level.builders;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.rooms.connection;
@@ -30,7 +31,6 @@ namespace BurningKnight.entity.level {
 			Paint();
 
 			if (rooms == null) {
-				Log.Error("NO ROOMS!");
 				return;
 			}
 
@@ -48,6 +48,7 @@ namespace BurningKnight.entity.level {
 			foreach (var def in rooms) {
 				var room = new Room();
 
+				room.Type = RoomDef.DecideType(def.GetType());
 				room.MapX = def.Left;
 				room.MapY = def.Top;
 				room.MapW = def.GetWidth();
@@ -61,7 +62,7 @@ namespace BurningKnight.entity.level {
 			var Builder = GetBuilder();
 			var Rooms = CreateRooms();
 
-			// Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+			Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 
 			var Attempt = 0;
 
@@ -86,7 +87,7 @@ namespace BurningKnight.entity.level {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");
 						Attempt = 0;
 						Rooms = CreateRooms();
-						// Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+						Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
 					}
 
 					Attempt++;
@@ -94,7 +95,7 @@ namespace BurningKnight.entity.level {
 			} while (rooms == null);
 		}
 
-		protected List<RoomDef> CreateRooms() {
+		protected virtual List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
 
 			var Entrance = RoomRegistry.Generate(RoomType.Entrance);

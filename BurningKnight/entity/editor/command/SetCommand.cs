@@ -1,4 +1,5 @@
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 
 namespace BurningKnight.entity.editor.command {
 	public class SetCommand : Command {

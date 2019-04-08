@@ -4,6 +4,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.biome;
+using BurningKnight.entity.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -582,17 +583,6 @@ namespace BurningKnight.entity.level {
 										if (vl != -1) {
 											Graphics.Render(t == Tile.WallA ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 										}
-										
-										/*int vl = Terrain.wallMap[lv];
-
-										if (vl != -1) {
-											/*float a = getLight(x + (xx == 0 ? -1 : 1), y + yy);
-
-											if (a > 0.05f) {
-												Graphics.batch.setColor(1, 1, 1, a);
-												Graphics.render(Terrain.wallTop[this.wallDecor[i]][vl], x * 16 + xx * 8, y * 16 + yy * 8);
-											}
-										}*/
 									}
 								}
 							}
@@ -612,6 +602,10 @@ namespace BurningKnight.entity.level {
 
 		private byte CalcWallTopIndex(int x, int y) {
 			return (byte) (((int) Math.Round(x * 16.217f + y * 8.12f)) % 3);
+		}
+
+		public virtual Tile GetFilling() {
+			return Tile.WallA;
 		}
 	}
 }

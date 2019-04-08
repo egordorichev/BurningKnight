@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 using BurningKnight.util;
 using Lens;
 using Lens.entity;

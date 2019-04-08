@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.entity.level.biome;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.tile {
 	public class Tilesets {
 		public static Dictionary<string, Tileset> Loaded = new Dictionary<string, Tileset>();
 		public static BiomeAssets Biome;

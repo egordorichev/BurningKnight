@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using BurningKnight.entity.level.biome;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.biome {
 	public static class BiomeRegistry {
 		public static Dictionary<string, BiomeInfo> Defined = new Dictionary<string, BiomeInfo>();
 

@@ -1,3 +1,4 @@
+using BurningKnight.entity.level.tile;
 using Lens.util.math;
 
 namespace BurningKnight.entity.level.rooms.connection {
@@ -6,12 +7,16 @@ namespace BurningKnight.entity.level.rooms.connection {
 			
 		}
 
+		public override void PaintFloor(Level level) {
+			
+		}
+
 		public override void Paint(Level Level) {
 			Fill(Level);
 			var Fl = Random.Chance(25) ? Random.Chance(33) ? Tile.Chasm 
-				: Random.Chance(50) ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloor();
+				: Random.Chance() ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloor();
 
-			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance(50)) {
+			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance()) {
 				PaintTunnel(Level, Fl, null, true);
 			}
 

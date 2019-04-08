@@ -1,7 +1,6 @@
 ﻿using System;
-using BurningKnight.entity.level.biome;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.biome {
 	public class BiomeInfo {
 		public Type Type;
 		public string Id;

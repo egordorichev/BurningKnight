@@ -1,4 +1,4 @@
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.tile {
 	public enum Tile {
 		WallA = 1,
 		WallB,

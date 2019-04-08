@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.entity.component;
+using BurningKnight.entity.level.tile;
 using BurningKnight.physics;
 using BurningKnight.util;
 using Microsoft.Xna.Framework;

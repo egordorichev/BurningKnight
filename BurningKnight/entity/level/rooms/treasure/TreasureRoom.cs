@@ -1,5 +1,6 @@
 using BurningKnight.entity.chest;
 using BurningKnight.entity.level.rooms.special;
+using BurningKnight.entity.level.tile;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.rooms.treasure {

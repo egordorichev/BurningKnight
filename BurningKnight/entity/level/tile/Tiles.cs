@@ -1,6 +1,6 @@
 using Lens.util.math;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.tile {
 	public static class Tiles {
 		private static Tile lastFloor;
 		private static Tile lastWall;

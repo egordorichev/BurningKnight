@@ -8,7 +8,6 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.level.builders {
 	public class RegularBuilder : Builder {
-		protected BossRoom Boss;
 		protected float[] BranchTunnelChances = {2, 2, 1};
 		protected EntranceRoom Entrance;
 		protected EntranceRoom Exit;
@@ -31,9 +30,7 @@ namespace BurningKnight.entity.level.builders {
 			}
 
 			foreach (var Room in Rooms) {
-				if (Room is BossRoom room) {
-					Exit = room;
-				} else if (Room is ExitRoom exit) {
+				if (Room is ExitRoom exit) {
 					Exit = exit;
 				} else if (Room is EntranceRoom entrance) {
 					Entrance = entrance;

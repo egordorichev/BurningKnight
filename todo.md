@@ -2,6 +2,14 @@
 
 ### Important
 
+* Debug command to show room type
+* Work out room layout for hub
+* Special tileset for hub?
+* Allow to place entities with editor
+* Allow to remove entities with editor
+* Update rider (toolbox)
+* Loop and castle builders
+
 * Show item description, when you pick them up [UiItemDescription]
 
 !!!
@@ -11,12 +19,11 @@
 * Cap max hearts on player
 * Shadows (cool)
 * Animate gaining hearts from the lamp
-* Allow to place entities with editor
-* Allow to remove entities with editor
 * Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
 * Missing texture slice
+* Set game icon
 
 ### Polish
 
@@ -42,7 +49,6 @@
 * Reflections in the water
 * Splashes on the water
 * Walls after explosion should be "a bit more broken?"
-* Polish main menu
 * Creatures break high grass, when they walk over it
 * Breaking high grass should emit particles (might drop seeds?)
 

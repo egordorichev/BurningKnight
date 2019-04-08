@@ -2,8 +2,10 @@ using BurningKnight.entity.level.walls;
 
 namespace BurningKnight.entity.level.rooms.entrance {
 	public class EntranceRoom : RoomDef {
+		protected bool IgnoreEntranceRooms;
+		
 		public override bool CanConnect(RoomDef R) {
-			return base.CanConnect(R) && !(R is EntranceRoom);
+			return base.CanConnect(R) && (IgnoreEntranceRooms || !(R is EntranceRoom || R is ExitRoom));
 		}
 
 		public override int GetMinConnections(Connection Side) {

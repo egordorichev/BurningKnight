@@ -4,6 +4,7 @@ using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.events;
 using BurningKnight.entity.level;
+using BurningKnight.entity.level.tile;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;

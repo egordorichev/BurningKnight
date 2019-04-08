@@ -6,6 +6,7 @@ using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.level.entities;
 using BurningKnight.entity.level.rooms;
+using BurningKnight.entity.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -63,14 +64,28 @@ namespace BurningKnight.entity.level {
 			BottomMost++;
 			RightMost += Sz;
 			BottomMost += Sz;
-			Log.Info("Setting level size to " + (1 + RightMost) + ":" + (BottomMost + 1));
+			
+			Log.Info($"Setting level size to {(1 + RightMost)}:{(BottomMost + 1)}");
+			
 			Level.Width = RightMost + 1;
 			Level.Height = BottomMost + 1;
 			
 			Level.Setup();
 
-			for (int i = 0; i < Level.Size; i++) {
-				Level.Tiles[i] = (byte) Tile.WallA;
+			var tile = Level.GetFilling();
+			var liquid = tile.Matches(TileFlags.LiquidLayer);
+
+			if (liquid) {
+				var t = (byte) Tile.FloorA;
+				
+				for (int i = 0; i < Level.Size; i++) {
+					Level.Tiles[i] = t;
+					Level.Liquid[i] = (byte) tile;
+				}
+			} else {
+				for (int i = 0; i < Level.Size; i++) {
+					Level.Tiles[i] = (byte) tile;
+				}	
 			}
 
 			for (int i = Rooms.Count - 1; i >= 0; i--) {

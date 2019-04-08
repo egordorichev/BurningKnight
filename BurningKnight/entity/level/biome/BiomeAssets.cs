@@ -1,9 +1,10 @@
-﻿using Lens.assets;
+﻿using BurningKnight.entity.level.tile;
+using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.entity.level {
+namespace BurningKnight.entity.level.biome {
 	public class BiomeAssets {
 		public TextureRegion DirtPattern;
 		public TextureRegion[] Dirt;

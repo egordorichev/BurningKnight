@@ -3,6 +3,7 @@ using BurningKnight.save;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,7 @@ namespace BurningKnight.entity.level.rooms {
 		public int MapW;
 		public int MapH;
 		public TagLists Tagged = new TagLists();
+		public RoomType Type;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -38,6 +40,10 @@ namespace BurningKnight.entity.level.rooms {
 			MapY = stream.ReadInt16();
 			MapW = stream.ReadInt16();
 			MapH = stream.ReadInt16();
+			
+			Type = RoomRegistry.FromIndex(stream.ReadByte());
+			
+			Log.Error($"Set type {Type}");
 		}
 
 		public override void Save(FileWriter stream) {
@@ -47,6 +53,8 @@ namespace BurningKnight.entity.level.rooms {
 			stream.WriteInt16((short) MapY);
 			stream.WriteInt16((short) MapW);
 			stream.WriteInt16((short) MapH);
+			
+			stream.WriteByte((byte) RoomRegistry.FromType(Type));
 		}
 
 		protected int GetRenderLeft(Camera camera, Level level) {
