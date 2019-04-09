@@ -270,8 +270,8 @@ namespace BurningKnight.entity.level {
 		// Renders floor layer
 		public override void Render() {
 			if (this != Run.Level) {
-				// Done = true;
-				// return;
+				Done = true;
+				return;
 			}
 			
 			var camera = Camera.Instance;

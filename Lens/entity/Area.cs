@@ -24,6 +24,9 @@ namespace Lens.entity {
 
 		public void AutoRemove() {
 			entities.AutoRemove();
+		}
+
+		public void CleanNew() {
 			entities.ToAdd.Clear();
 			entities.ToRemove.Clear();
 		}

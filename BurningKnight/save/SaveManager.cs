@@ -41,8 +41,12 @@ namespace BurningKnight.save {
 			return new FileHandle(path);
 		}
 
-		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
+		public static void Save(Area area, SaveType saveType, bool old = false, string path = null, bool generated = false) {
 			area.AutoRemove();
+
+			if (!generated) {
+				area.CleanNew();
+			}
 
 			var file = new FileInfo(GetSavePath(saveType, old, path));
 			Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
@@ -70,7 +74,7 @@ namespace BurningKnight.save {
 		public static void Generate(Area area, SaveType saveType) {
 			Log.Info($"Generating {saveType} {Run.Depth}");
 			ForType(saveType).Generate(area);
-			Save(area, saveType);
+			Save(area, saveType, false, null, true);
 		}
 
 		public static void Delete(params SaveType[] types) {

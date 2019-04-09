@@ -65,6 +65,9 @@ namespace BurningKnight.save {
 				foreach (var en in area.Tags[Tags.LevelSave]) {
 					en.Done = true;
 				}
+				
+				area.AutoRemove();
+				area.CleanNew();
 
 				if (I > 100) {
 					Log.Error("Can't generate a level");
