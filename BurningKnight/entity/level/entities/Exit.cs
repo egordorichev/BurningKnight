@@ -18,11 +18,6 @@ namespace BurningKnight.entity.level.entities {
 			Depth = Layers.Entrance;
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-			Log.Error("Got depth " + To);
-		}
-
 		private bool Interact(Entity entity) {
 			Run.Depth = To;
 			return true;
@@ -53,12 +48,10 @@ namespace BurningKnight.entity.level.entities {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			To = stream.ReadInt16();
-			Log.Error("Loaded depth " + To);
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			Log.Error("Save depth " + To);
 			stream.WriteInt16((short) To);
 		}
 	}

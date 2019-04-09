@@ -1,14 +1,23 @@
 using BurningKnight.entity.level.rooms.entrance;
+using BurningKnight.entity.level.tile;
+using BurningKnight.util.geometry;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.hub {
 	public class HubExitRoom : ExitRoom {
+		public HubExitRoom() {
+			IgnoreEntranceRooms = true;
+		}
+		
 		public override void PaintFloor(Level level) {
 			
 		}
 
 		public override void Paint(Level level) {
 			Painter.Prefab(level, "exit", Left, Top);
+			
+			PaintTunnel(level, Tile.FloorA, new Rect(GetCenter()), false, false);
 			Place(level, GetCenter());
 		}
 
@@ -33,7 +42,7 @@ namespace BurningKnight.entity.level.hub {
 		}
 
 		public override bool CanConnect(Vector2 p) {
-			return (int) p.X == Left && (int) p.Y == Top + 3;
+			return ((int) p.X) == Left && ((int) p.Y) == Top + 3;
 		}
 	}
 }

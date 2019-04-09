@@ -263,6 +263,7 @@
     <Compile Include="entity\level\floors\GeometryFloor.cs" />
     <Compile Include="entity\level\floors\MazeFloor.cs" />
     <Compile Include="entity\level\floors\TrippleFloor.cs" />
+    <Compile Include="entity\level\hub\HubBuilder.cs" />
     <Compile Include="entity\level\hub\HubEntranceRoom.cs" />
     <Compile Include="entity\level\hub\HubExitRoom.cs" />
     <Compile Include="entity\level\hub\HubLevel.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
+    <Compile Include="entity\Sign.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
@@ -330,6 +332,8 @@
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
+    <Compile Include="util\Direction.cs" />
+    <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />

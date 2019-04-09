@@ -1,4 +1,7 @@
 using BurningKnight.entity.level.rooms.entrance;
+using BurningKnight.entity.level.tile;
+using BurningKnight.util.geometry;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.hub {
@@ -13,6 +16,7 @@ namespace BurningKnight.entity.level.hub {
 
 		public override void Paint(Level level) {
 			Painter.Prefab(level, "entrance", Left, Top);
+			PaintTunnel(level, Tile.FloorA, new Rect(GetCenter()), false, false);
 		}
 		
 		protected override void Fill(Level level) {
@@ -36,7 +40,7 @@ namespace BurningKnight.entity.level.hub {
 		}
 
 		public override bool CanConnect(Vector2 p) {
-			return (int) p.X == Right && (int) p.Y == Top + 3;
+			return ((int) p.X) == Right && ((int) p.Y) == Top + 3;
 		}
 	}
 }

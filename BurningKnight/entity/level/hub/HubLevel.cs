@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.entity.level.biome;
+using BurningKnight.entity.level.builders;
 using BurningKnight.entity.level.rooms;
 using BurningKnight.entity.level.tile;
 
@@ -20,6 +21,10 @@ namespace BurningKnight.entity.level.hub {
 
 		public override Tile GetFilling() {
 			return Tile.FloorC;
+		}
+
+		protected override Builder GetBuilder() {
+			return new HubBuilder();
 		}
 	}
 }

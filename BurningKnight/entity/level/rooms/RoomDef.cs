@@ -378,7 +378,7 @@ namespace BurningKnight.entity.level.rooms {
 			return C;
 		}
 
-		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false) {
+		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false, bool shift = true) {
 			if (Connected.Count == 0) {
 				Log.Error("Invalid connection room");
 
@@ -392,14 +392,16 @@ namespace BurningKnight.entity.level.rooms {
 				Vector2 Mid;
 				Vector2 End;
 
-				if ((int) Start.X == Left) {
-					Start.X++;
-				} else if ((int) Start.Y == Top) {
-					Start.Y++;
-				} else if ((int) Start.X == Right) {
-					Start.X--;
-				} else if ((int) Start.Y == Bottom) {
-					Start.Y--;
+				if (shift) {
+					if ((int) Start.X == Left) {
+						Start.X++;
+					} else if ((int) Start.Y == Top) {
+						Start.Y++;
+					} else if ((int) Start.X == Right) {
+						Start.X--;
+					} else if ((int) Start.Y == Bottom) {
+						Start.Y--;
+					}
 				}
 
 				int RightShift;

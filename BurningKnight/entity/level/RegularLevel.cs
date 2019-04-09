@@ -137,7 +137,7 @@ namespace BurningKnight.entity.level {
 			return new Painter();
 		}
 
-		protected Builder GetBuilder() {
+		protected virtual Builder GetBuilder() {
 			if (true) {
 				return new LineBuilder();
 			}
