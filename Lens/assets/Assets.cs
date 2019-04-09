@@ -21,11 +21,11 @@ namespace Lens.assets {
 			Graphics.Init();
 			LoadAssets();
 
-			if (false && LoadOriginalFiles) {				
+			if (LoadOriginalFiles) {				
 				folders = new[] {
-					"Textures/",
-					"Animations/",
-					"Sfx/"
+					//"Textures/",
+					"Animations/"
+					//"Sfx/"
 				};
 
 				for (int i = 0; i < folders.Length; i++) {
@@ -117,7 +117,6 @@ namespace Lens.assets {
 						if (!reloadedAnimations) {
 							Log.Debug("Reloading animations...");
 
-							Animations.Destroy();
 							Animations.Load();
 							Animations.Reload = true;
 

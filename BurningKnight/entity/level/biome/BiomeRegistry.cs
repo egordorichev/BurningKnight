@@ -6,7 +6,8 @@ namespace BurningKnight.entity.level.biome {
 
 		static BiomeRegistry() {
 			BiomeInfo[]  infos = {
-				BiomeInfo.New<CastleBiome>(Biome.Castle)
+				BiomeInfo.New<CastleBiome>(Biome.Castle),
+				BiomeInfo.New<HubBiome>(Biome.Hub)
 			};
 			
 			foreach (var info in infos) {
@@ -14,8 +15,16 @@ namespace BurningKnight.entity.level.biome {
 			}
 		}
 
+		public static BiomeInfo Get(string id) {
+			return Defined[id];
+		}
+
 		public static BiomeInfo ForDepth(int depth) {
-			return Defined[Biome.Castle]; // TODO: other biomes
+			if (depth == -1) {
+				return Defined[Biome.Hub];
+			}
+		
+			return Defined[Biome.Castle];
 		}
 		
 		public static void Add(BiomeInfo info) {

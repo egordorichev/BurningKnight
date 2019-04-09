@@ -5,7 +5,7 @@ using BurningKnight.entity.level.tile;
 
 namespace BurningKnight.entity.level.hub {
 	public class HubLevel : RegularLevel {
-		public HubLevel() : base(BiomeRegistry.Defined[Biome.Castle]) {
+		public HubLevel() : base(BiomeRegistry.Get(Biome.Hub)) {
 			
 		}
 
@@ -19,7 +19,7 @@ namespace BurningKnight.entity.level.hub {
 		}
 
 		public override Tile GetFilling() {
-			return Tile.Grass;
+			return Tile.FloorC;
 		}
 	}
 }

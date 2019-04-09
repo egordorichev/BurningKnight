@@ -86,6 +86,7 @@
     <Compile Include="assets\Shaders.cs" />
     <Compile Include="BK.cs" />
     <Compile Include="Controls.cs" />
+    <Compile Include="debug\BiomeCommand.cs" />
     <Compile Include="debug\Console.cs" />
     <Compile Include="debug\ConsoleCommand.cs" />
     <Compile Include="debug\DebugCommand.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="entity\level\biome\BiomeInfo.cs" />
     <Compile Include="entity\level\biome\BiomeRegistry.cs" />
     <Compile Include="entity\level\biome\CastleBiome.cs" />
+    <Compile Include="entity\level\biome\HubBiome.cs" />
     <Compile Include="entity\level\builders\Builder.cs" />
     <Compile Include="entity\level\builders\CastleBuilder.cs" />
     <Compile Include="entity\level\builders\LineBuilder.cs" />

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.entity.level.biome;
+using Lens.assets;
+using Lens.util;
 
 namespace BurningKnight.entity.level.tile {
 	public class Tilesets {
@@ -11,7 +13,16 @@ namespace BurningKnight.entity.level.tile {
 				Biome = new BiomeAssets();
 			}
 		}
-		
+
+		public static void Update() {
+			if (Animations.Reload) {
+				foreach (var set in Loaded) {
+					Log.Debug($"Reloading {set.Key} tileset");
+					set.Value.Load(set.Key);
+				}
+			}
+		}
+
 		public static Tileset Get(string id) {
 			Tileset tileset;
 			

@@ -5,6 +5,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
@@ -139,8 +140,9 @@ namespace BurningKnight.state {
 
 			if (Engine.Version.Debug) {
 				UpdateDebug(dt);
+				Tilesets.Update();
 			}
-			
+
 			Run.Update();
 		}
 

@@ -2,6 +2,9 @@
 
 ### Important
 
+* InGameState wont show stuff at first try
+* Fix exits
+
 * Debug command to show room type
 * Work out room layout for hub
 * Special tileset for hub?

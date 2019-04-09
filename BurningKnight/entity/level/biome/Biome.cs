@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.level.biome {
 	public class Biome {
 		public const string Castle = "castle";
+		public const string Hub = "hub";
 		
 		public readonly string Music;
 		public readonly string Id;

@@ -97,6 +97,10 @@ namespace BurningKnight.entity.editor {
 			if (Input.Mouse.WasPressedLeftButton || (Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved)) {
 				OnClick(Input.Mouse.GamePosition);
 			}
+			
+			if (Engine.Version.Debug) {
+				Tilesets.Update();
+			}
 		}
 
 		public override void Render() {

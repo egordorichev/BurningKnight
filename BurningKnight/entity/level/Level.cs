@@ -69,7 +69,7 @@ namespace BurningKnight.entity.level {
 			}
 		}
 
-		protected void SetBiome(BiomeInfo biome) {
+		public void SetBiome(BiomeInfo biome) {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
 				Tileset = Tilesets.Get(Biome.Tileset);
