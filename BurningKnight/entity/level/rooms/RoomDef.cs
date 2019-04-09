@@ -102,7 +102,7 @@ namespace BurningKnight.entity.level.rooms {
 			return GetMaxConnections(Direction) - GetCurrentConnections(Direction);
 		}
 
-		public bool CanConnect(Vector2 P) {
+		public virtual bool CanConnect(Vector2 P) {
 			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
 		}
 

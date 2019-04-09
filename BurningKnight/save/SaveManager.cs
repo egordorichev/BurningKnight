@@ -59,7 +59,7 @@ namespace BurningKnight.save {
 			if (!save.Exists()) {
 				Generate(area, saveType);
 			} else {
-				Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? "" : $" from {path}")}");
+				Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
 
 				var stream = new FileReader(save.FullPath);
 				ForType(saveType).Load(area, stream);

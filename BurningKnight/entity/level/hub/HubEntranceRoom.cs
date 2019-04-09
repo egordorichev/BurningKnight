@@ -1,4 +1,5 @@
 using BurningKnight.entity.level.rooms.entrance;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.level.hub {
 	public class HubEntranceRoom : EntranceRoom {
@@ -32,6 +33,10 @@ namespace BurningKnight.entity.level.hub {
 
 		public override int GetMaxHeight() {
 			return 8;
+		}
+
+		public override bool CanConnect(Vector2 p) {
+			return (int) p.X == Right && (int) p.Y == Top + 3;
 		}
 	}
 }

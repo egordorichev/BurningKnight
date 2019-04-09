@@ -52,12 +52,12 @@ namespace BurningKnight.state {
 			Lights.Destroy();
 
 			if (died) {
-				SaveManager.Save(Area, SaveType.Global);
+				SaveManager.Save(Area, SaveType.Global, true);
 			} else {
-				SaveManager.Save(Area, SaveType.Global);
-				SaveManager.Save(Area, SaveType.Game);
-				SaveManager.Save(Area, SaveType.Level);
-				SaveManager.Save(Area, SaveType.Player);
+				SaveManager.Save(Area, SaveType.Global, true);
+				SaveManager.Save(Area, SaveType.Game, true);
+				SaveManager.Save(Area, SaveType.Level, true);
+				SaveManager.Save(Area, SaveType.Player, true);
 			}
 			
 			Area.Destroy();
@@ -302,7 +302,7 @@ namespace BurningKnight.state {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
-				Click = () => Engine.Instance.SetState(new LoadState())
+				Click = () => Run.Depth = -1
 			});
 			
 			gameOverMenu.Add(new UiButton {

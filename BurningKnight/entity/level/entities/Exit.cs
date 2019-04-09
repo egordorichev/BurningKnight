@@ -5,6 +5,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
@@ -15,6 +16,11 @@ namespace BurningKnight.entity.level.entities {
 		public override void Init() {
 			base.Init();
 			Depth = Layers.Entrance;
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			Log.Error("Got depth " + To);
 		}
 
 		private bool Interact(Entity entity) {
@@ -47,10 +53,12 @@ namespace BurningKnight.entity.level.entities {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			To = stream.ReadInt16();
+			Log.Error("Loaded depth " + To);
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
+			Log.Error("Save depth " + To);
 			stream.WriteInt16((short) To);
 		}
 	}

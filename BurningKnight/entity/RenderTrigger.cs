@@ -19,7 +19,7 @@ namespace BurningKnight.entity {
 			base.Update(dt);
 
 			if (Entity.Done) {
-				Done = true;
+				// Done = true;
 			}
 		}
 

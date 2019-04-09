@@ -19,6 +19,8 @@ namespace BurningKnight.state {
 			Lights.Init();
 			Physics.Init();
 			gameArea = new Area();
+
+			Run.Level = null;
 			
 			var thread = new Thread(() => {
 				Tilesets.Load();
