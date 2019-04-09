@@ -13,7 +13,7 @@ namespace Lens.input {
 		public static KeyboardData Keyboard;
 		public static MouseData Mouse;
 		public static GamepadData[] Gamepads;
-		public static bool Blocked;
+		public static int Blocked;
 		
 		private static Dictionary<string, InputButton> Buttons = new Dictionary<string, InputButton>();
 		
@@ -85,7 +85,7 @@ namespace Lens.input {
 		}
 
 		private static bool Check(string id, CheckType type, GamepadData data = null) {
-			if (Blocked) {
+			if (Blocked > 0) {
 				return false;
 			}
 
