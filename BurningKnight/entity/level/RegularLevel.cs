@@ -72,7 +72,7 @@ namespace BurningKnight.entity.level {
 				foreach (var Room in Rooms) {
 					Room.Connected.Clear();
 					Room.Neighbours.Clear();
-				}
+				} 
 
 				var Rm = new List<RoomDef>();
 				Rm.AddRange(Rooms);

@@ -7,6 +7,7 @@ using BurningKnight.entity.level.rooms.regular;
 using BurningKnight.entity.level.rooms.secret;
 using BurningKnight.entity.level.rooms.shop;
 using BurningKnight.entity.level.rooms.treasure;
+using Lens.util;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.level.rooms {
@@ -45,7 +46,7 @@ namespace BurningKnight.entity.level.rooms {
 				RoomInfo.New<RegularRoom>(1f),
 				RoomInfo.New<EntranceRoom>(1f),
 				RoomInfo.New<ExitRoom>(1f),
-				RoomInfo.New<BossRoom>(1f),
+				// RoomInfo.New<BossRoom>(1f),
 				RoomInfo.New<SecretRoom>(1f),
 				RoomInfo.New<TreasureRoom>(1f),
 				RoomInfo.New<ShopRoom>(1f),
@@ -79,6 +80,7 @@ namespace BurningKnight.entity.level.rooms {
 
 		public static RoomDef Generate(RoomType type) {
 			if (!ByType.TryGetValue(type, out var types)) {
+				Log.Error($"No rooms registered with type {type}");
 				return null;
 			}
 			
@@ -99,6 +101,8 @@ namespace BurningKnight.entity.level.rooms {
 					return (RoomDef) Activator.CreateInstance(types[i].Room);
 				}
 			}
+			
+			Log.Error($"Failed to generate a room with type {type}");
 
 			return null;
 		}

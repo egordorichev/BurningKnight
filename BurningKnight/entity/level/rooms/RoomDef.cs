@@ -477,16 +477,16 @@ namespace BurningKnight.entity.level.rooms {
 				return RoomType.Secret;
 			}
 			
+			if (typeof(TreasureRoom).IsAssignableFrom(room)) {
+				return RoomType.Treasure;
+			}
+			
 			if (typeof(SpecialRoom).IsAssignableFrom(room)) {
 				return RoomType.Special;
 			}
 			
 			if (typeof(ConnectionRoom).IsAssignableFrom(room)) {
 				return RoomType.Connection;
-			}
-			
-			if (typeof(TreasureRoom).IsAssignableFrom(room)) {
-				return RoomType.Treasure;
 			}
 			
 			if (typeof(ShopRoom).IsAssignableFrom(room)) {

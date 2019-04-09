@@ -360,7 +360,7 @@ namespace BurningKnight.entity.level {
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
-						} else if (t.Matches(TileFlags.WallLayer) && (!IsInside(index + width) || !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
+						} else if (t.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
 							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
 
