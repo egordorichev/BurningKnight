@@ -129,6 +129,7 @@
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
+    <Compile Include="entity\component\ShadowComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />

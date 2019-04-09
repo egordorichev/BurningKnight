@@ -30,6 +30,17 @@ namespace Lens.graphics.gamerenderer {
 		public override void End() {
 			Graphics.Batch.End();
 		}
+		
+		public void BeginShadows() {
+			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? One);
+			Graphics.Clear(Color.Transparent);
+		}
+
+		public void EndShadows() {
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(GameTarget);
+		}
 
 		private void RenderGame() {
 			Engine.GraphicsDevice.SetRenderTarget(GameTarget);

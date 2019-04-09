@@ -2,6 +2,7 @@
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -15,10 +16,12 @@ using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
@@ -215,11 +218,26 @@ namespace BurningKnight.state {
 				Camera.Instance.Zoom += s;
 			}
 		}
-		
-		public override void Render() {
-			base.Render();
-			Physics.Render();
 
+		private void PrerenderShadows() {
+			var renderer = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			
+			renderer.End();
+			renderer.BeginShadows();
+
+			Graphics.Batch.FillRectangle(new RectangleF(0, 0, 16, 16), Graphics.Color);
+
+			foreach (var e in Area.Tags[Tags.HasShadow]) {
+				//if (e.OnScreen) {
+					e.GetComponent<ShadowComponent>().Callback();
+				//}
+			}
+			
+			renderer.EndShadows();
+			renderer.Begin();
+		}
+		
+		private void RenderFog() {
 			var shader = Shaders.Fog;
 			Shaders.Begin(shader);
 
@@ -234,6 +252,13 @@ namespace BurningKnight.state {
 			Graphics.Render(fog, Camera.Instance.TopLeft);
 			
 			Shaders.End();
+		}
+		
+		public override void Render() {
+			PrerenderShadows();
+			base.Render();
+			Physics.Render();
+			RenderFog();
 		}
 
 		public override void RenderUi() {

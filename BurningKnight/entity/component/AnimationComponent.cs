@@ -98,7 +98,7 @@ namespace BurningKnight.entity.component {
 		}
 		
 		protected virtual void CallRender(Vector2 pos) {
-			Animation?.Render(pos, Flipped);
+			Animation?.Render(pos, Flipped, FlippedVerticaly);
 		}
 
 		public override bool HandleEvent(Event e) {
