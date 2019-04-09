@@ -360,23 +360,6 @@ namespace BurningKnight.entity.level {
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
-						} else if (t.Matches(TileFlags.WallLayer) && (!IsInside(index + width) || !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
-							var pos = new Vector2(x * 16, y * 16 + 8);
-							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
-
-							var ind = -1;
-
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
-								ind += 1;
-							}
-							
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
-								ind += 2;
-							}
-
-							if (ind != -1) {
-								Graphics.Render(t == Tile.WallA ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
-							}
 						}
 					}
 				}
@@ -412,7 +395,7 @@ namespace BurningKnight.entity.level {
 
 			enabled.SetValue(true);
 
-			for (int y = GetRenderTop(camera); y <= toY; y++) {
+			for (int y = toY; y >= GetRenderTop(camera); y--) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var tile = Liquid[index];
@@ -479,6 +462,31 @@ namespace BurningKnight.entity.level {
 							flow.SetValue(0f);
 						}
 					}
+
+					var tl = (Tile) Tiles[index];
+					
+					if (tl.Matches(TileFlags.WallLayer) && (!IsInside(index + width) || !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
+						enabled.SetValue(false);
+						
+						var pos = new Vector2(x * 16, y * 16 + 8);
+						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
+
+						var ind = -1;
+
+						if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
+							ind += 1;
+						}
+							
+						if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
+							ind += 2;
+						}
+
+						if (ind != -1) {
+							Graphics.Render(tl == Tile.WallA ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
+						}
+						
+						enabled.SetValue(true);
+					}
 				}
 			}
 
@@ -528,7 +536,19 @@ namespace BurningKnight.entity.level {
 					var t = (Tile) tile;
 
 					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
-						Graphics.Render(Tileset.Tiles[tile][0], new Vector2(x * 16, y * 16 - 8));
+						var region = Tileset.Tiles[tile][0];
+
+						if (t == Tile.WallB) {
+							if ((IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+							    IsInside(index - 1) && Get(index - 1) == Tile.WallA ||
+							    IsInside(index + width) && Get(index + width) == Tile.WallA ||
+							    IsInside(index - width) && Get(index - width) == Tile.WallA) {
+								
+								region = Tileset.WallMerge;
+							}
+						}
+						
+						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8));
 
 						if (t.Matches(Tile.WallA, Tile.WallB)) {
 							byte v = Variants[index];

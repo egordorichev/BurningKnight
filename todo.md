@@ -10,8 +10,8 @@
 * Special tileset for hub?
 * Allow to place entities with editor
 * Allow to remove entities with editor
-* Update rider (toolbox)
 * Loop and castle builders
+* Rooms that can spawn only in certant biomes
 
 * Show item description, when you pick them up [UiItemDescription]
 
