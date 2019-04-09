@@ -10,6 +10,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -20,6 +21,7 @@ namespace BurningKnight.entity.level {
 	public abstract class Level : SaveableEntity {
 		public Tileset Tileset;
 		public Biome Biome;
+		public Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
 
 		private int width;
 		private int height;
@@ -537,6 +539,13 @@ namespace BurningKnight.entity.level {
 			}
 
 			Shaders.End();
+			RenderShadowSurface();
+		}
+
+		private void RenderShadowSurface() {
+			Graphics.Color = ShadowColor;
+			Graphics.Render(((PixelPerfectGameRenderer) Engine.Instance.StateRenderer).UiTarget, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1));
+			Graphics.Color = ColorUtils.WhiteColor;
 		}
 		
 		public void RenderWalls() {

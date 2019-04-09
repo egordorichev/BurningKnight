@@ -9,5 +9,7 @@ namespace BurningKnight {
 		
 		public static int Room = new BitTag("room");
 		public static int MustBeKilled = new BitTag("mbk");
+		
+		public static int HasShadow = new BitTag("shadow");
 	}
 }

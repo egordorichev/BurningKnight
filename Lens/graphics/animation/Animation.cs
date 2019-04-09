@@ -112,8 +112,8 @@ namespace Lens.graphics.animation {
 			}
 		}
 
-		public void Render(Vector2 position, bool flipped = false) {
-			Graphics.Render(frame.Texture, position, 0, Vector2.Zero, Vector2.One, flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+		public void Render(Vector2 position, bool flipped = false, bool vflip = false) {
+			Graphics.Render(frame.Texture, position, 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(flipped, vflip));
 		}
 
 		public TextureRegion GetCurrentTexture() {

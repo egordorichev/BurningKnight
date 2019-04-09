@@ -23,6 +23,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ExplodableComponent());
 			AddComponent(new DropsComponent());
 			AddComponent(new TileInteractionComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
 			
 			AddDrops(new SingleDrop("bk:heart", 0.05f));
 		}
@@ -69,6 +70,12 @@ namespace BurningKnight.entity.creature {
 
 		public virtual bool IsFriendly() {
 			return true;
+		}
+
+		protected virtual void RenderShadow() {
+			GraphicsComponent.FlippedVerticaly = !GraphicsComponent.FlippedVerticaly;
+			GraphicsComponent.Render();
+			GraphicsComponent.FlippedVerticaly = !GraphicsComponent.FlippedVerticaly;
 		}
 	}
 }
