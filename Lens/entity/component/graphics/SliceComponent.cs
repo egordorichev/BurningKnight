@@ -2,6 +2,7 @@
 using Lens.graphics;
 using Lens.graphics.animation;
 using Lens.util;
+using Microsoft.Xna.Framework;
 
 namespace Lens.entity.component.graphics {
 	public class SliceComponent : GraphicsComponent {
@@ -23,7 +24,12 @@ namespace Lens.entity.component.graphics {
 			}
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
+			if (shadow) {
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				return;
+			}
+			
 			Graphics.Render(Sprite, Entity.Position);
 		}
 	}

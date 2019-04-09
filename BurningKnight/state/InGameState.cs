@@ -225,12 +225,10 @@ namespace BurningKnight.state {
 			renderer.End();
 			renderer.BeginShadows();
 
-			Graphics.Batch.FillRectangle(new RectangleF(0, 0, 16, 16), Graphics.Color);
-
 			foreach (var e in Area.Tags[Tags.HasShadow]) {
-				//if (e.OnScreen) {
+				if (e.AlwaysVisible || e.OnScreen) {
 					e.GetComponent<ShadowComponent>().Callback();
-				//}
+				}
 			}
 			
 			renderer.EndShadows();

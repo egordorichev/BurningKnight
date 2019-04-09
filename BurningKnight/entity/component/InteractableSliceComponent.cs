@@ -10,7 +10,9 @@ namespace BurningKnight.entity.component {
 
 		public InteractableSliceComponent(AnimationData image, string slice) : base(image, slice) {}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
+			// todo: shadow
+			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);

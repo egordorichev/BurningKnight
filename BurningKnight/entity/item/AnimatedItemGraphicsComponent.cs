@@ -16,8 +16,9 @@ namespace BurningKnight.entity.item {
 			Animation.Update(dt);
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			if (!Entity.HasComponent<OwnerComponent>()) {
+				// todo: shadow
 				Animation.Render(Entity.Position);
 			}
 		}

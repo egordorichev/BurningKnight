@@ -29,7 +29,7 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			Graphics.Print(label, Font.Medium, Position + origin, angle, origin, scale);
+			Graphics.Print(label, Font.Medium, Position + origin, angle, origin, new Vector2(scale));
 		}
 	}
 }

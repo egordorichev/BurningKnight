@@ -6,6 +6,11 @@ namespace Lens.graphics {
 		public Texture2D Texture;
 		public Rectangle Source;
 		public Vector2 Center;
+
+		public float X => Source.X;
+		public float Y => Source.Y;
+		public float Width => Source.Width;
+		public float Height => Source.Height;
 		
 		public TextureRegion() {
 			

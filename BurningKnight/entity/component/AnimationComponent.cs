@@ -53,8 +53,13 @@ namespace BurningKnight.entity.component {
 			Animation?.Update(dt);
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			var pos = Entity.Position + Offset;
+
+			if (shadow) {
+				FlippedVerticaly = !FlippedVerticaly;
+				pos.Y += Animation.GetCurrentTexture().Height;
+			}
 			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
@@ -94,6 +99,10 @@ namespace BurningKnight.entity.component {
 
 			if (stopShader) {
 				Shaders.End();
+			}
+
+			if (shadow) {
+				FlippedVerticaly = !FlippedVerticaly;
 			}
 		}
 		

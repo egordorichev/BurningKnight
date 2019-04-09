@@ -33,10 +33,12 @@ namespace BurningKnight.entity.item {
 			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			if (Entity.HasComponent<OwnerComponent>()) {
 				return;
 			}
+			
+			// todo: shadow
 			
 			var origin = Sprite.Center;
 			var position = CalculatePosition();

@@ -17,7 +17,12 @@ namespace BurningKnight.entity.component {
 			text = str;
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
+			if (shadow) {
+				Graphics.Print(text, Font.Medium, Entity.Position, 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				return;
+			}
+			
 			Graphics.Color = Color;
 			Graphics.Print(text, Font.Medium, Entity.Position);
 			Graphics.Color = ColorUtils.WhiteColor;

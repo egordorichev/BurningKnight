@@ -171,7 +171,7 @@ namespace Lens.entity {
 		}
 
 		public virtual void Render() {
-			GraphicsComponent?.Render();
+			GraphicsComponent?.Render(false);
 		}
 
 		public virtual void RenderDebug() {

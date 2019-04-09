@@ -26,9 +26,13 @@ namespace BurningKnight.entity.creature.player {
 
 		protected override void CallRender(Vector2 pos) {
 			var region = Animation.GetCurrentTexture();
-			var origin = new Vector2(region.Source.Width / 2f, region.Source.Height);
+			var origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
+
+			if (FlippedVerticaly) {
+				pos.Y += region.Source.Height;
+			}
 			
-			Graphics.Render(region, pos + origin, 0, origin, scale, Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+			Graphics.Render(region, pos + origin, 0, origin, scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -43,12 +47,12 @@ namespace BurningKnight.entity.creature.player {
 			return base.HandleEvent(e);
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 					
 			weapon.Render();
-			base.Render();
+			base.Render(shadow);
 			activeWeapon.Render();
 
 			if (true) {

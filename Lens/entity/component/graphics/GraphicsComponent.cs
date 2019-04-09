@@ -7,7 +7,7 @@ namespace Lens.entity.component.graphics {
 		public bool CustomFlip;
 		public Vector2 Offset;
 		
-		public virtual void Render() {
+		public virtual void Render(bool shadow) {
 			
 		}
 	}

@@ -133,7 +133,7 @@ namespace BurningKnight.entity.item {
 				Shaders.End();
 			}
 
-			GraphicsComponent.Render();
+			GraphicsComponent.Render(false);
 			
 			if (item == null) {
 				return;

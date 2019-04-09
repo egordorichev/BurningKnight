@@ -5,6 +5,8 @@ using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity {
@@ -73,9 +75,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		protected virtual void RenderShadow() {
-			GraphicsComponent.FlippedVerticaly = !GraphicsComponent.FlippedVerticaly;
-			GraphicsComponent.Render();
-			GraphicsComponent.FlippedVerticaly = !GraphicsComponent.FlippedVerticaly;
+			GraphicsComponent.Render(true);
 		}
 	}
 }

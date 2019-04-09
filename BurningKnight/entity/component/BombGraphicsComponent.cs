@@ -9,8 +9,9 @@ namespace BurningKnight.entity.component {
 			
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			// todo: flashes and color changes with shaders
+			// todo: shadow
 			
 			var timer = Entity.GetComponent<ExplodeComponent>();
 			var origin = new Vector2(Sprite.Center.X, Sprite.Source.Height);

@@ -9,7 +9,7 @@ namespace Lens.entity.component.graphics {
 			Sprite = Textures.Get(image);
 		}
 
-		public override void Render() {
+		public override void Render(bool shadow) {
 			Graphics.Render(Sprite, Entity.Position);
 		}
 	}

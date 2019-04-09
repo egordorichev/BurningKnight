@@ -35,6 +35,8 @@ namespace BurningKnight.entity.door {
 			AlwaysActive = true;
 			
 			AddComponent(new StateComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
+			
 			GetComponent<StateComponent>().Become<ClosedState>();
 		}
 
@@ -55,7 +57,7 @@ namespace BurningKnight.entity.door {
 			Height = FacingSide ? W : H;
 			
 			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
-				Offset = new Vector2(FacingSide ? -1 : -2, 0)
+				Offset = new Vector2(FacingSide ? -1 : -2, FacingSide ? 1 : 0)
 			};
 			
 			AddComponent(animation);
@@ -147,6 +149,10 @@ namespace BurningKnight.entity.door {
 					Self.GetComponent<StateComponent>().Become<OpenState>();
 				}
 			}
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 	}
 }
