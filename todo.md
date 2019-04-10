@@ -2,12 +2,12 @@
 
 ### Important
 
-* Debug command to show room type
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor
 * Loop and castle builders
 * Rooms that can spawn only in certant biomes
+* Debug command to show room type
 
 * Show item description, when you pick them up [UiItemDescription]
 
