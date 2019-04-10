@@ -1,5 +1,5 @@
 {
-  "lamp" : {
+  "bk:lamp" : {
     "type" : "lamp",
 
     "uses" : {

@@ -1,4 +1,4 @@
-using BurningKnight.entity.level;
+using BurningKnight.level;
 
 namespace BurningKnight.entity.editor.command {
 	public interface Command {

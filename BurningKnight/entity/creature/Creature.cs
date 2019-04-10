@@ -1,6 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
-using BurningKnight.entity.level;
+using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;

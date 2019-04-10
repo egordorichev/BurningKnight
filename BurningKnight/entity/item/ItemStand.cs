@@ -56,7 +56,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new RectBodyComponent(2, 2, 10, 1, BodyType.Static));
+			AddComponent(new RectBodyComponent(2, 2, 10, 5, BodyType.Static));
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 
 			AddComponent(new InteractableComponent(Interact) {

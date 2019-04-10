@@ -1,9 +1,9 @@
 using System;
 using BurningKnight.debug;
 using BurningKnight.entity.editor.command;
-using BurningKnight.entity.level;
-using BurningKnight.entity.level.biome;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level;
+using BurningKnight.level.biome;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens;

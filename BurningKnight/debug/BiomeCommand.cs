@@ -1,4 +1,4 @@
-using BurningKnight.entity.level.biome;
+using BurningKnight.level.biome;
 
 namespace BurningKnight.debug {
 	public class BiomeCommand : ConsoleCommand {

@@ -1,4 +1,4 @@
-﻿using BurningKnight.entity.level.rooms;
+﻿using BurningKnight.level.rooms;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {

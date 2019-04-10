@@ -82,8 +82,15 @@ namespace Lens.entity {
 			}
 		}
 
-		public float Right => X + Width;
-		public float Bottom => Y + Height;
+		public float Right {
+			get => X + Width;
+			set => X = value - Width;
+		}
+
+		public float Bottom {
+			get => Y + Height;
+			set => Y = value - Height;
+		}
 
 		#endregion
 		

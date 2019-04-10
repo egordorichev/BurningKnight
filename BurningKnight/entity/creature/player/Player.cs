@@ -6,7 +6,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
-using BurningKnight.entity.level.rooms;
+using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using Lens;
 using Lens.entity;
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Simple inventory simulation
 			var inventory = GetComponent<InventoryComponent>();
-			inventory.Pickup(Items.CreateAndAdd("bk:pickaxe", Area));
+			inventory.Pickup(Items.CreateAndAdd("bk:sword", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
 		}
@@ -74,7 +74,16 @@ namespace BurningKnight.entity.creature.player {
 			foreach (var r in Area.Tags[Tags.Room]) {
 				if (((Room) r).Type == RoomType.Entrance) {
 					Center = r.Center;
-					break;
+					return;
+				}
+			}
+			
+			foreach (var r in Area.Tags[Tags.Room]) {
+				var rm = (Room) r;
+				
+				if (rm.Type == RoomType.Exit) {
+					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+					return;
 				}
 			}
 		}

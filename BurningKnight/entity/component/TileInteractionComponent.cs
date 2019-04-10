@@ -1,8 +1,8 @@
 using System;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
-using BurningKnight.entity.level;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.entity.component;
 using Lens.util;

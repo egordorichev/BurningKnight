@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
-using BurningKnight.entity.level.biome;
+using BurningKnight.level.biome;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {

@@ -6,7 +6,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
@@ -325,14 +325,14 @@ namespace BurningKnight.state {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
-				Click = () => Run.Depth = -1
+				Click = () => Run.Depth = 0
 			});
 			
 			gameOverMenu.Add(new UiButton {
-				LocaleLabel = "back_to_menu",
+				LocaleLabel = "back_to_hub",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 3,
-				Click = () => Engine.Instance.SetState(new MenuState())
+				Click = () => Run.Depth = -1
 			});
 
 			gameOverMenu.Setup();

@@ -1,9 +1,10 @@
 using System;
 using BurningKnight.entity.creature.mob.castle;
-using BurningKnight.entity.level;
-using BurningKnight.entity.level.biome;
-using BurningKnight.entity.level.hub;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level;
+using BurningKnight.level.biome;
+using BurningKnight.level.hall;
+using BurningKnight.level.hub;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -46,6 +47,10 @@ namespace BurningKnight.save {
 		private RegularLevel CreateLevel() {
 			if (Run.Depth == -1) {
 				return new HubLevel();
+			}
+			
+			if (Run.Depth == 0) {
+				return new HallLevel();
 			}
 			
 			return new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));

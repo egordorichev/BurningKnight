@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Lens.util.math;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.animation {
@@ -96,7 +97,7 @@ namespace Lens.graphics.animation {
 			if (layer != null) {
 				Layer = layer;
 			} else {
-				ReadFrame();				
+				ReadFrame(true);				
 			}
 		}
 
@@ -128,7 +129,7 @@ namespace Lens.graphics.animation {
 			return Data.Tags.ContainsKey(tag);
 		}
 
-		private void ReadFrame() {
+		private void ReadFrame(bool rand = false) {
 			var nullableTag = Data.GetTag(tag);
 
 			if (nullableTag == null) {
@@ -139,6 +140,10 @@ namespace Lens.graphics.animation {
 
 			StartFrame = currentTag.StartFrame;
 			EndFrame = currentTag.EndFrame;
+			
+			if (rand) {
+				currentFrame = (uint) Random.Int(0, (int) (currentTag.EndFrame - currentTag.StartFrame));
+			}
 			
 			var frame = Data.GetFrame(layer, currentTag.Direction.GetFrameId(this));
 

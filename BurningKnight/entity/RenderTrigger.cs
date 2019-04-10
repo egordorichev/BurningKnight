@@ -15,15 +15,12 @@ namespace BurningKnight.entity {
 			this.method = method;
 		}
 
-		public override void Update(float dt) {
-			base.Update(dt);
-
+		public override void Render() {
 			if (Entity.Done) {
 				Done = true;
+				return;
 			}
-		}
 
-		public override void Render() {
 			method();
 		}
 	}

@@ -1,5 +1,5 @@
 using System;
-using BurningKnight.entity.level.rooms;
+using BurningKnight.level.rooms;
 using BurningKnight.util.geometry;
 using Lens.util;
 using Random = Lens.util.math.Random;

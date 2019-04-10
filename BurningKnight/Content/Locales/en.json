@@ -5,10 +5,11 @@
   
   "resume" : "Resume",
   "settings" : "Settings",
-  "back_to_menu" : "Back to menu",
+  "back_to_hub" : "Back to overworld",
   "restart" : "Restart",
   "death_message" : "RIP Gobbo",
   "descend" : "Descend",
+  "ascend" : "Ascend",
   "exit" : "Exit",
   "play" : "Play!"
 }

@@ -1,6 +1,5 @@
 using BurningKnight.entity.editor;
-using BurningKnight.entity.level;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens;

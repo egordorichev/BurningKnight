@@ -13,6 +13,7 @@
 
 !!!
 * Path finding
+* Mobs do not get removed after death
 !!!
 
 * Cap max hearts on player

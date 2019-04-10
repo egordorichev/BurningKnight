@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BurningKnight.entity.level;
 
 namespace BurningKnight.entity.editor.command {
 	public class CommandQueue {

@@ -1,5 +1,4 @@
-using BurningKnight.entity.level;
-using BurningKnight.entity.level.tile;
+using BurningKnight.level.tile;
 using Lens.entity;
 
 namespace BurningKnight.entity.events {

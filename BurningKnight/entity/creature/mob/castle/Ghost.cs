@@ -1,6 +1,6 @@
 using System;
 using BurningKnight.entity.component;
-using BurningKnight.entity.level;
+using BurningKnight.level;
 using Lens.entity;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -14,7 +14,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			AddAnimation("ghost");
 			SetMaxHp(2);
+			
 			Flying = true;
+			Depth = Layers.FlyingMob;
 			
 			Become<IdleState>();
 

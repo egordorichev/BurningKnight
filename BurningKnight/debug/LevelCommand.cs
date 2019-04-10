@@ -1,7 +1,6 @@
 using System;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
-using BurningKnight.entity.level.entities;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.debug {

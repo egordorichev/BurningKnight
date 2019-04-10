@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -164,10 +165,15 @@ namespace BurningKnight.ui {
 			if (player.GetComponent<HealthComponent>().Dead) {
 				return;
 			}
-			
-			RenderActiveItem();
-			RenderHealthBar();
-			RenderConsumables();
+
+			var show = Run.Depth > 0;
+
+			if (show) {
+				RenderActiveItem();
+				RenderConsumables();
+			}
+
+			RenderHealthBar(show);
 		}
 		
 		private void RenderActiveItem() {
@@ -198,14 +204,14 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		private Vector2 GetHeartPosition(int i, bool bg = false) {
+		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			// todo: make it wave only sometimes (like in mc)
-			return new Vector2((bg ? 4 : 5) + itemSlot.Source.Width + (int) (i % HeartsComponent.PerRow * 5.5f),
+			return new Vector2((bg ? 0 : 1) + (pad ? (4 + itemSlot.Source.Width) : 2) + (int) (i % HeartsComponent.PerRow * 5.5f),
 				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f);
 		}
 
-		private void RenderHealthBar() {
+		private void RenderHealthBar(bool pad) {
 			var red = player.GetComponent<HealthComponent>();
 			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
 			var maxRed = red.MaxHealth - 1;
@@ -219,10 +225,10 @@ namespace BurningKnight.ui {
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
 
 				if (i < totalRed) {
-					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(i));					
+					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(pad, i));					
 				}
 			}
 
@@ -230,16 +236,16 @@ namespace BurningKnight.ui {
 			var maxIron = ironI + totalIron % 2;
 			
 			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(i));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
+				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(pad, i));					
 			}
 
 			var goldenI = totalGolden + maxIron;
 			var maxGold = goldenI + totalGolden % 2;
 			
 			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(i, true));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(i));					
+				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
+				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(pad, i));					
 			}
 		}
 
