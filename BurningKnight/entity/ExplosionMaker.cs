@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens;
@@ -59,8 +60,12 @@ namespace BurningKnight.entity {
 							} else if (tile == Tile.Crack) {
 								level.Set(index, Tile.FloorA);
 								level.Set(index, Tile.Dirt);
-								level.CreateBody();
 								level.UpdateTile(x + xx, y + yy);
+								level.CreateBody();
+
+								whoHurts.HandleEvent(new SecretRoomFoundEvent {
+									Who = whoHurts
+								});
 							}
 						}
 					}

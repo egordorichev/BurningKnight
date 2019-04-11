@@ -22,8 +22,6 @@ namespace BurningKnight.level.rooms {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-
-			Depth = Layers.RoomCover;
 			AddTag(Tags.Room);
 		}
 
@@ -36,6 +34,16 @@ namespace BurningKnight.level.rooms {
 			Height = MapH * 16;
 		}
 
+		public void Discover() {
+			var level = Run.Level;
+
+			for (int y = MapY; y < MapY + MapH; y++) {
+				for (int x = MapX; x < MapX + MapW; x++) {
+					level.Explored[level.ToIndex(x, y)] = true;
+				}
+			}
+		}
+
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
@@ -46,7 +54,7 @@ namespace BurningKnight.level.rooms {
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
 		}
-
+		
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			

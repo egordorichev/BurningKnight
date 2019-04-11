@@ -3,7 +3,6 @@
 ### Important
 
 * Hide secret and unexplored rooms
-* Make secret rooms bombable
 * Make mobs get removed after death
 * Fix connection rooms with 1 door
 * Solid body component for chest

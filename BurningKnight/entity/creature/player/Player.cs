@@ -77,6 +77,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (rm.Type == RoomType.Entrance) {
 					Center = r.Center;
+					rm.Discover();
 
 					return;
 				}
@@ -87,6 +88,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (rm.Type == RoomType.Exit) {
 					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+					rm.Discover();
 
 					return;
 				}
@@ -159,6 +161,8 @@ namespace BurningKnight.entity.creature.player {
 			if (e is LostSupportEvent) {
 				GetComponent<HealthComponent>().ModifyHealth(-1, this);
 				return true;
+			} else if (e is RoomChangedEvent c) {
+				c.New.Discover();
 			}
 			
 			return base.HandleEvent(e);

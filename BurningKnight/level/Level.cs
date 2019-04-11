@@ -1,7 +1,6 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
-using BurningKnight.assets.prefabs;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.fx;
@@ -22,6 +21,10 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
+		public static bool NoLightNoRender = true;
+		public const float LightMin = 0.01f;
+		public const float LightMax = 0.95f;
+		
 		public Tileset Tileset;
 		public Biome Biome;
 		public Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
@@ -53,8 +56,9 @@ namespace BurningKnight.level {
 		public byte[] Liquid;
 		public byte[] Variants;
 		public byte[] LiquidVariants;
-		public byte[] Light;
 		public byte[] Flags;
+		public bool[] Explored;
+		public float[] Light;
 
 		public Chasm Chasm;
 
@@ -92,6 +96,7 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
+			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
 		}
 
 		public override void AddComponents() {
@@ -201,6 +206,7 @@ namespace BurningKnight.level {
 				stream.WriteByte(Tiles[i]);
 				stream.WriteByte(Liquid[i]);
 				stream.WriteByte(Flags[i]);
+				stream.WriteBoolean(Explored[i]);
 			}
 		}
 
@@ -218,6 +224,7 @@ namespace BurningKnight.level {
 				Tiles[i] = stream.ReadByte();
 				Liquid[i] = stream.ReadByte();
 				Flags[i] = stream.ReadByte();
+				Explored[i] = stream.ReadBoolean();
 			}
 			
 			CreateBody();
@@ -231,8 +238,9 @@ namespace BurningKnight.level {
 			Liquid = new byte[Size];
 			Variants = new byte[Size];
 			LiquidVariants = new byte[Size];
-			Light = new byte[Size];
+			Light = new float[Size];
 			Flags = new byte[Size];
+			Explored = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
 		}
@@ -303,6 +311,12 @@ namespace BurningKnight.level {
 			for (int y = GetRenderBottom(camera); y >= toY; y--) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
+					var light = Light[index];
+
+					if (NoLightNoRender && light < LightMin) {
+						continue;
+					}
+					
 					var tile = Tiles[index];
 					var t = (Tile) tile;
 
@@ -432,6 +446,12 @@ namespace BurningKnight.level {
 			for (int y = toY; y >= GetRenderTop(camera); y--) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
+					var light = Light[index];
+
+					if (NoLightNoRender && light < LightMin) {
+						continue;
+					}
+					
 					var tile = Liquid[index];
 
 					if (tile > 0) {
@@ -580,6 +600,8 @@ namespace BurningKnight.level {
 			for (int y = GetRenderTop(camera); y <= toY; y++) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
+					var light = Light[index];
+
 					var tile = Tiles[index];
 					var t = (Tile) tile;
 
@@ -650,13 +672,37 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMapExtra[lv];
 
 										if (vl != -1) {
-											Graphics.Render(a ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											light = Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy)];
+
+											if (light > LightMin) {
+												Graphics.Color.A = (byte) (light * 255);
+
+												Graphics.Render(
+													a
+														? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)]
+														: Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)],
+													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+
+												Graphics.Color.A = 255;
+											}
 										}
 									} else {
 										var vl = Tileset.wallMap[lv];
 										
 										if (vl != -1) {
-											Graphics.Render(a ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											light = Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy)];
+
+											if (light > LightMin) {
+												Graphics.Color.A = (byte) (light * 255);
+
+												Graphics.Render(
+													a
+														? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)]
+														: Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)],
+													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+
+												Graphics.Color.A = 255;
+											}
 										}
 									}
 								}
@@ -665,6 +711,36 @@ namespace BurningKnight.level {
 					}
 				}
 			}
+		}
+		
+		public void RenderLight() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+
+			var dt = Engine.Delta * 10f;
+			var region = Tileset.WallTopA;
+			
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
+					var index = ToIndex(x, y);
+					var light = Light[index];
+					var explored = Explored[index];
+
+					if (explored && light < LightMax) {
+						Light[index] = light = Math.Min(1, light + dt);
+					}
+
+					if (light < LightMax) {
+						Graphics.Color.A = (byte) (255 - light * 255);
+						Graphics.Render(region, new Vector2(x * 16, y * 16));
+					}
+				}
+			}
+			
+			Graphics.Color.A = 255;
 		}
 
 		private byte CalcWallIndex(int x, int y) {
