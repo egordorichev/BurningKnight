@@ -3,6 +3,8 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
+using BurningKnight.util;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.level.builders {
@@ -93,8 +95,8 @@ namespace BurningKnight.level.builders {
 			RoomDef Curr;
 			
 			var ConnectingRoomsThisBranch = new List<RoomDef>();
-			var ConnectionChances = ConnChances; // fixme: clone
-
+			var ConnectionChances = ArrayUtils.Clone(ConnChances);
+			
 			while (I < RoomsToBranch.Count) {
 				var R = RoomsToBranch[I];
 				N++;
@@ -107,10 +109,11 @@ namespace BurningKnight.level.builders {
 				var ConnectingRooms = Random.Chances(ConnectionChances);
 
 				if (ConnectingRooms == -1) {
-					ConnectionChances = ConnChances; // fixme: clone?
+					ConnectionChances = ArrayUtils.Clone(ConnChances);
 					ConnectingRooms = Random.Chances(ConnectionChances);
 				}
 
+				Log.Error(ConnectingRooms + " " + ConnectionChances.Length);
 				ConnectionChances[ConnectingRooms]--;
 
 				for (var J = 0; J < ConnectingRooms; J++) {

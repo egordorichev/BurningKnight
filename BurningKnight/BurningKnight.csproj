@@ -143,6 +143,7 @@
     <Compile Include="entity\creature\mob\MobState.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
+    <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
@@ -336,9 +337,12 @@
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
+    <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
+    <Compile Include="util\dialog\Dialog.cs" />
+    <Compile Include="util\dialog\Phrase.cs" />
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />

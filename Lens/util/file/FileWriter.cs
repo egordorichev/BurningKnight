@@ -13,6 +13,10 @@ namespace Lens.util.file {
 			stream.Write(Value);
 		}
 
+		public void WriteSbyte(sbyte Value) {
+			stream.Write(Value);
+		}
+
 		public void WriteBoolean(bool Value) {
 			stream.Write(Value);
 		}

@@ -60,10 +60,7 @@ namespace BurningKnight.level {
 
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
-
-			if (!(this is Prefab)) {
-				Run.Level = this;
-			}
+			Run.Level = this;
 		}
 
 		public override void Destroy() {
@@ -78,6 +75,7 @@ namespace BurningKnight.level {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
 				Tileset = Tilesets.Get(Biome.Tileset);
+				Engine.Instance.StateRenderer.Bg = Biome.Bg;
 			}
 		}
 
@@ -369,22 +367,29 @@ namespace BurningKnight.level {
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
-						} else if (t.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
+						} else if (t.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB, Tile.Crack))) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
-							Graphics.Render(t == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
+							var a = t == Tile.WallA;
+
+							if (t == Tile.Crack) {
+								a = IsInside(index + 1) && Get(index + 1) == Tile.WallA ||
+								    IsInside(index + width) && Get(index + width) == Tile.WallA;
+							}
+							
+							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
 
 							var ind = -1;
 
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB, Tile.Crack)) {
 								ind += 1;
 							}
 							
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB, Tile.Crack)) {
 								ind += 2;
 							}
 
 							if (ind != -1) {
-								Graphics.Render(t == Tile.WallA ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
+								Graphics.Render(a ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
 							}
 						}
 					}
@@ -602,6 +607,11 @@ namespace BurningKnight.level {
 								
 								region = Tileset.WallMerge;
 							}
+						} else if (t == Tile.Crack) {
+							region = IsInside(index + 1) && Get(index + 1) == Tile.WallA ||
+							         IsInside(index + width) && Get(index + width) == Tile.WallA
+								? Tileset.WallCrackA
+								: Tileset.WallCrackB;
 						}
 						
 						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8));
@@ -682,6 +692,10 @@ namespace BurningKnight.level {
 
 		public virtual Tile GetFilling() {
 			return Tile.WallA;
+		}
+
+		public virtual int GetPadding() {
+			return 1;
 		}
 	}
 }

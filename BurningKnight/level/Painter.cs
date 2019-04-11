@@ -42,7 +42,7 @@ namespace BurningKnight.level {
 
 			LeftMost--;
 			TopMost--;
-			var Sz = 0;
+			var Sz = Level.GetPadding();
 			LeftMost -= Sz;
 			TopMost -= Sz;
 			var RightMost = 0;

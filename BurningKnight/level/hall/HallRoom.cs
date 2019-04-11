@@ -1,4 +1,5 @@
 using BurningKnight.assets.items;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.entrance;
@@ -8,7 +9,10 @@ namespace BurningKnight.level.hall {
 	public class HallRoom : ExitRoom {
 		public override void Paint(Level level) {
 			Painter.Prefab(level, "hall", Left, Top);
-			Place(level, new Vector2(GetCenter().X, Top + 2.5f));
+
+			var man = new OldMan();
+			level.Area.Add(man);
+			man.Center = new Vector2(GetCenter().X, Top + 2.5f);
 			
 			Entrance entrance;
 			

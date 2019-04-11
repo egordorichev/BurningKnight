@@ -26,15 +26,19 @@ namespace BurningKnight.level {
 				for (int x = 0; x < level.Width; x++) {
 					var index = level.ToIndex(x, y);
 					var tile = level.Tiles[index];
+					var side = x == 0 || y == 0 || x == level.Width - 1 || y == level.Height - 1;
 
-					if (TileFlags.Matches(tile, TileFlags.Solid)) {
+					if (side || TileFlags.Matches(tile, TileFlags.Solid)) {
 						var sum = 0;
 
-						foreach (var dir in PathFinder.Neighbours8) {
-							var n = dir + index;
-							
-							if (!level.IsInside(n) || TileFlags.Matches(level.Tiles[n], TileFlags.Solid) || TileFlags.Matches(level.Tiles[n], TileFlags.Hole)) {
-								sum++;
+						if (!side) {
+							foreach (var dir in PathFinder.Neighbours8) {
+								var n = dir + index;
+
+								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid) ||
+								                          TileFlags.Matches(level.Tiles[n], TileFlags.Hole))) {
+									sum++;
+								}
 							}
 						}
 
@@ -47,28 +51,28 @@ namespace BurningKnight.level {
 						
 						list.Clear();
 
-						if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
+						if (side || Check(level, x - 1, y) || Check(level, x, y - 1)) {
 							list.Add(new Vector2(xx, yy + (Check(level, x, y - 1) ? 0 : 8)));
 						} else {
 							list.Add(new Vector2(xx, yy + 12));
 							list.Add(new Vector2(xx + 6, yy + (Check(level, x, y - 1) ? 0 : 8)));
 						}
 
-						if (Check(level, x + 1, y) || Check(level, x, y - 1)) {
+						if (side || Check(level, x + 1, y) || Check(level, x, y - 1)) {
 							list.Add(new Vector2(xx + 16, yy + (Check(level, x, y - 1) ? 0 : 8)));
 						} else {
 							list.Add(new Vector2(xx + 16, yy + 12));
 							list.Add(new Vector2(xx + 10, yy + (Check(level, x, y - 1) ? 0 : 8)));
 						}
 						
-						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {
+						if (side || Check(level, x + 1, y) || Check(level, x, y + 1)) {
 							list.Add(new Vector2(xx + 16, yy + 16));
 						} else {
 							list.Add(new Vector2(xx + 16, yy + 10));
 							list.Add(new Vector2(xx + 10, yy + 16));
 						}
 						
-						if (Check(level, x - 1, y) || Check(level, x, y + 1)) {
+						if (side || Check(level, x - 1, y) || Check(level, x, y + 1)) {
 							list.Add(new Vector2(xx, yy + 16));
 						} else {
 							list.Add(new Vector2(xx, yy + 10));

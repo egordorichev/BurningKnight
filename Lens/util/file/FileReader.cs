@@ -12,6 +12,10 @@ namespace Lens.util.file {
 		public byte ReadByte() {
 			return stream.ReadByte();
 		}
+		
+		public sbyte ReadSbyte() {
+			return stream.ReadSByte();
+		}
 
 		public bool ReadBoolean() {
 			return stream.ReadBoolean();

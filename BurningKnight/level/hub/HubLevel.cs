@@ -26,5 +26,9 @@ namespace BurningKnight.level.hub {
 		protected override Builder GetBuilder() {
 			return new HubBuilder();
 		}
+
+		public override int GetPadding() {
+			return 6; 
+		}
 	}
 }

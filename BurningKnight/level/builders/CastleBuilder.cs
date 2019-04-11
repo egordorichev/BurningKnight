@@ -24,7 +24,7 @@ namespace BurningKnight.level.builders {
 
 			RoomsToBranch.AddRange(SingleConnection);
 
-			if (!this.CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
+			if (!CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
 				return null;
 			}
 

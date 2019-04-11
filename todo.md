@@ -2,6 +2,9 @@
 
 ### Important
 
+* Make mobs get removed after death
+* Implement crack rendering
+
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor

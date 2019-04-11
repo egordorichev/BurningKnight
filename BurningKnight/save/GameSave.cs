@@ -7,7 +7,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.save {
 	public class GameSave : Saver {
 		public override void Save(Area area, FileWriter writer) {
-			writer.WriteByte((byte) Run.Depth);
+			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
 			writer.WriteInt32(Run.Id);
@@ -19,7 +19,7 @@ namespace BurningKnight.save {
 		}
 
 		public override void Load(Area area, FileReader reader) {
-			Run.Depth = reader.ReadByte();
+			Run.Depth = reader.ReadSbyte();
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();

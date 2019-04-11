@@ -11,5 +11,7 @@
   "descend" : "Descend",
   "ascend" : "Ascend",
   "exit" : "Exit",
-  "play" : "Play!"
+  "play" : "Play!",
+  
+  "its_dangerous_to_go_alone" : "It's dangerous to go alone! Take these!"
 }
