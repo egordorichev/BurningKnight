@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
 using BurningKnight.save;
-using BurningKnight.state;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -58,15 +55,19 @@ namespace BurningKnight.entity.door {
 		public override void PostInit() {
 			base.PostInit();
 
-			Width = FacingSide ? H : W;
-			Height = FacingSide ? W : H;
+			var width = FacingSide ? H : W;
+			var height = FacingSide ? W : H;
 			
 			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
-				Offset = new Vector2(FacingSide ? -1 : -2, FacingSide ? -2 : 0)
+				Offset = new Vector2(FacingSide ? -1 : -2, FacingSide ? -2 : 0),
+				ShadowOffset = 8
 			};
 			
 			AddComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -2, width + 4, height + 4, BodyType.Static, true));
+
+			Width = FacingSide ? 4 : 16;
+			Height = 16;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -110,9 +111,10 @@ namespace BurningKnight.entity.door {
 			if (rooms == null) {
 				rooms = new Room[2];
 				var i = 0;
+				var pos = Position + new Vector2(2);
 
 				foreach (var room in Area.Tags[Tags.Room]) {
-					if (room.Contains(Center)) {
+					if (room.Contains(pos)) {
 						rooms[i] = (Room) room;
 						i++;
 

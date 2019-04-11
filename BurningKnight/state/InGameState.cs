@@ -300,10 +300,10 @@ namespace BurningKnight.state {
 			});
 			
 			pauseMenu.Add(new UiButton {
-				LocaleLabel = "back_to_menu",
+				LocaleLabel = "back_to_hub",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
-				Click = () => Engine.Instance.SetState(new MenuState())
+				Click = () => Run.Depth = -1
 			});
 			
 			pauseMenu.Setup();

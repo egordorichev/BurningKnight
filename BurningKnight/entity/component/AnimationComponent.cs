@@ -14,6 +14,8 @@ namespace BurningKnight.entity.component {
 		public Color Tint = Color.White;
 		private string name;
 		private ColorSet set;
+
+		public float ShadowOffset;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
@@ -58,7 +60,7 @@ namespace BurningKnight.entity.component {
 
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
-				pos.Y += Animation.GetCurrentTexture().Height;
+				pos.Y += Animation.GetCurrentTexture().Height - ShadowOffset * 2;
 			}
 			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {

@@ -40,6 +40,13 @@ namespace Lens.util.camera {
 			set => PositionY = value - Height / 2;
 		}
 		
+		public bool Sees(Entity entity) {
+			return !(entity.X - 4 > Right ||
+			         entity.Right + 4 < X ||
+			         entity.Y - 4 > Bottom ||
+			         entity.Bottom + entity.Height < Y);
+		}
+		
 		#region Camera logic
 
 		public class Target {

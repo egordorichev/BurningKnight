@@ -17,6 +17,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public PlayerGraphicsComponent() : base("gobbo") {
 			CustomFlip = true;
+			ShadowOffset = 8;
 		}
 		
 		public override void Update(float dt) {

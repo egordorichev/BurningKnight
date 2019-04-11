@@ -45,7 +45,7 @@ namespace Lens.entity {
 				return true;
 			}
 
-			return Camera.Instance.Overlaps(entity);
+			return Camera.Instance.Sees(entity);
 		}
 
 		public void AutoRemove() {
@@ -53,6 +53,7 @@ namespace Lens.entity {
 				try {
 					foreach (var entity in ToRemove) {
 						entity.Destroy();
+						entity.Area.Tags.Remove(entity);
 						Entities.Remove(entity);
 					}
 
