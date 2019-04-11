@@ -140,6 +140,10 @@ namespace BurningKnight.level {
 				
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
+				if (Get(i) == Tile.Chasm) {
+					return;
+				}
+				
 				Liquid[i] = (byte) value;
 			} else {
 				if (value.Matches(Tile.WallA, Tile.WallB)) {
@@ -367,30 +371,6 @@ namespace BurningKnight.level {
 							} else {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
-						} else if (t.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB, Tile.Crack))) {
-							var pos = new Vector2(x * 16, y * 16 + 8);
-							var a = t == Tile.WallA;
-
-							if (t == Tile.Crack) {
-								a = IsInside(index + 1) && Get(index + 1) == Tile.WallA ||
-								    IsInside(index + width) && Get(index + width) == Tile.WallA;
-							}
-							
-							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
-
-							var ind = -1;
-
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB, Tile.Crack)) {
-								ind += 1;
-							}
-							
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB, Tile.Crack)) {
-								ind += 2;
-							}
-
-							if (ind != -1) {
-								Graphics.Render(a ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
-							}
 						}
 					}
 				}
@@ -415,8 +395,8 @@ namespace BurningKnight.level {
 					var index = ToIndex(x, y);
 					var tl = (Tile) Tiles[index];
 
-					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
-						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 8), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
+					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
+						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
 					}
 				}
 			}
@@ -528,9 +508,16 @@ namespace BurningKnight.level {
 					var tl = (Tile) Tiles[index];
 					
 					if (tl.Matches(TileFlags.WallLayer)) {
-						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).Matches(Tile.WallA, Tile.WallB))) {
+						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
-							Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
+							var a = tl == Tile.WallA;
+							
+							if (tl == Tile.Crack) {
+								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
+							}
+							
+							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
 
 							var ind = -1;
 
@@ -598,6 +585,7 @@ namespace BurningKnight.level {
 
 					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
 						var region = Tileset.Tiles[tile][0];
+						var a = t == Tile.WallA;
 
 						if (t == Tile.WallB) {
 							if ((IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
@@ -608,15 +596,16 @@ namespace BurningKnight.level {
 								region = Tileset.WallMerge;
 							}
 						} else if (t == Tile.Crack) {
-							region = IsInside(index + 1) && Get(index + 1) == Tile.WallA ||
-							         IsInside(index + width) && Get(index + width) == Tile.WallA
+							a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+							     (IsInside(index + width) && Get(index + width) == Tile.WallA);
+							region = a
 								? Tileset.WallCrackA
 								: Tileset.WallCrackB;
 						}
 						
 						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8));
 
-						if (t.Matches(Tile.WallA, Tile.WallB)) {
+						if (t.IsWall()) {
 							byte v = Variants[index];
 							
 							for (int xx = 0; xx < 2; xx++) {
@@ -661,13 +650,13 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMapExtra[lv];
 
 										if (vl != -1) {
-											Graphics.Render(t == Tile.WallA ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											Graphics.Render(a ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 										}
 									} else {
 										var vl = Tileset.wallMap[lv];
 										
 										if (vl != -1) {
-											Graphics.Render(t == Tile.WallA ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
+											Graphics.Render(a ? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)] : Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)], new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 										}
 									}
 								}

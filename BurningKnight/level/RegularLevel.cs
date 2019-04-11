@@ -135,10 +135,6 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
-			if (true) {
-				return new CastleBuilder();
-			}
-
 			var R = Random.Float();
 
 			if (R < 0.33f) {

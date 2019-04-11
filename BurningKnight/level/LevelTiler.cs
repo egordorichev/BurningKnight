@@ -77,7 +77,7 @@ namespace BurningKnight.level {
 				}
 			}
 
-			if (t.Matches(Tile.WallA, Tile.WallB)) {
+			if (t.IsWall()) {
 				for (int i = 0; i < 4; i++) {
 					var m = PathFinder.Corner[i];
 					var v = PathFinder.VCorner[i];
@@ -96,6 +96,10 @@ namespace BurningKnight.level {
 			var t = (Tile) tile;
 			var tt = (Tile) to;
 			var ll = (Tile) l;
+
+			if (t.IsWall()) {
+				return tt.IsWall();
+			}
 			
 			if (t == Tile.Grass || t == Tile.HighGrass) {
 				return ll == Tile.Grass || ll == Tile.HighGrass || tt.IsWall();

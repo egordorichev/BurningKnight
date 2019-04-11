@@ -19,7 +19,7 @@ namespace BurningKnight.entity {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new BombGraphicsComponent("items", "bomb"));
+			AddComponent(new BombGraphicsComponent("items", "bk:bomb"));
 
 			Width = 10;
 			Height = 13;

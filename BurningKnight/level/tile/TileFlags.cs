@@ -51,7 +51,7 @@ namespace BurningKnight.level.tile {
 		}
 
 		public static bool IsWall(this Tile tile) {
-			return tile == Tile.WallA || tile == Tile.WallB;
+			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack;
 		}
 	}
 }

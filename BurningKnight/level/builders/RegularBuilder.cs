@@ -113,7 +113,6 @@ namespace BurningKnight.level.builders {
 					ConnectingRooms = Random.Chances(ConnectionChances);
 				}
 
-				Log.Error(ConnectingRooms + " " + ConnectionChances.Length);
 				ConnectionChances[ConnectingRooms]--;
 
 				for (var J = 0; J < ConnectingRooms; J++) {
