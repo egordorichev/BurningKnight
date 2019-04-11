@@ -66,8 +66,29 @@ namespace BurningKnight.entity {
 								whoHurts.HandleEvent(new SecretRoomFoundEvent {
 									Who = whoHurts
 								});
+
+								LightUp((x + xx) * 16 + 8, (y + yy) * 16 + 8);
 							}
 						}
+					}
+				}
+			}
+		}
+
+		public static void LightUp(float X, float Y) {
+			var x = (int) (X / 16f);
+			var y = (int) (Y / 16f);
+			var d = 2;
+
+			for (int xx = -d; xx <= d; xx++) {
+				for (int yy = -d; yy <= d; yy++) {
+					var ds = Math.Sqrt(xx * xx + yy * yy);
+
+					if (ds <= d) {
+						var level = Run.Level;
+						var index = level.ToIndex(xx + x, yy + y);
+
+						level.Light[index] = (float) Math.Max(level.Light[index], Math.Max(0.1f, (d - ds) / d));
 					}
 				}
 			}
