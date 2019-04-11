@@ -21,13 +21,14 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
-		public static bool NoLightNoRender = true;
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
 		
 		public Tileset Tileset;
 		public Biome Biome;
 		public Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
+		public bool DrawLight = true;
+		public bool NoLightNoRender = true;
 
 		private int width;
 		private int height;
@@ -600,7 +601,7 @@ namespace BurningKnight.level {
 			for (int y = GetRenderTop(camera); y <= toY; y++) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
-					var light = Light[index];
+					var light = DrawLight ? Light[index] : 1;
 
 					var tile = Tiles[index];
 					var t = (Tile) tile;
@@ -672,7 +673,7 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMapExtra[lv];
 
 										if (vl != -1) {
-											light = Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)];
+											light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
 
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
@@ -690,7 +691,7 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMap[lv];
 										
 										if (vl != -1) {
-											light = Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)];
+											light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
 
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
@@ -714,6 +715,10 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderLight() {
+			if (!DrawLight) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 
 			// Cache the condition

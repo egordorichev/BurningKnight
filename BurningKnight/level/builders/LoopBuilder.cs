@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
+using BurningKnight.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -43,7 +44,7 @@ namespace BurningKnight.level.builders {
 			var RoomsOnLoop = (int) (MultiConnection.Count * PathLength) + Random.Chances(PathLenJitterChances);
 			RoomsOnLoop = Math.Min(RoomsOnLoop, MultiConnection.Count);
 			RoomsOnLoop++;
-			var PathTunnels = PathTunnelChances; // todo: clone?
+			var PathTunnels = ArrayUtils.Clone(PathTunnelChances);
 
 			for (var I = 0; I < RoomsOnLoop; I++) {
 				if (I == 0) {
@@ -56,7 +57,7 @@ namespace BurningKnight.level.builders {
 				var Tunnels = Random.Chances(PathTunnels);
 
 				if (Tunnels == -1) {
-					PathTunnels = PathTunnelChances; // todo: clone?
+					PathTunnels = ArrayUtils.Clone(PathTunnelChances);
 					Tunnels = Random.Chances(PathTunnels);
 				}
 

@@ -7,7 +7,8 @@ using BurningKnight.level.tile;
 namespace BurningKnight.level.hub {
 	public class HubLevel : RegularLevel {
 		public HubLevel() : base(BiomeRegistry.Get(Biome.Hub)) {
-			
+			NoLightNoRender = false;
+			DrawLight = false;
 		}
 
 		protected override List<RoomDef> CreateRooms() {

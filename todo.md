@@ -8,6 +8,8 @@
 * Guns should not collide with items (bullets)
 * Fix chest without lock not interacting
 * Fix bug with 0 size level
+* Fix shadows
+* Start working on blood?
 
 * Work out room layout for hub
 * Allow to place entities with editor

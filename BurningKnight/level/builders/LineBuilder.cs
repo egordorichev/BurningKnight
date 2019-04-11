@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.util;
 using Lens.util;
 using Random = Lens.util.math.Random;
 
@@ -40,7 +41,7 @@ namespace BurningKnight.level.builders {
 			var RoomsOnPath = (int) (MultiConnection.Count * PathLength) + Random.Chances(PathLenJitterChances);
 			RoomsOnPath = Math.Min(RoomsOnPath, MultiConnection.Count);
 			RoomDef Curr = Entrance;
-			var PathTunnels = PathTunnelChances; // fixme: clone?
+			var PathTunnels = ArrayUtils.Clone(PathTunnelChances);
 
 			for (var I = 0; I <= RoomsOnPath; I++) {
 				if (I == RoomsOnPath && Exit == null) continue;
@@ -48,7 +49,7 @@ namespace BurningKnight.level.builders {
 				var Tunnels = Random.Chances(PathTunnels);
 
 				if (Tunnels == -1) {
-					PathTunnels = PathTunnelChances; // fixme: clone?
+					PathTunnels = ArrayUtils.Clone(PathTunnelChances);
 					Tunnels = Random.Chances(PathTunnels);
 				}
 

@@ -81,6 +81,8 @@ namespace BurningKnight.save {
 
 					level.Width = 32;
 					level.Height = 32;
+					level.NoLightNoRender = false;
+					level.DrawLight = false;
 					
 					area.Add(level);
 

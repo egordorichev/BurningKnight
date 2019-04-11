@@ -130,7 +130,7 @@ namespace BurningKnight.level {
 			return Rooms;
 		}
 
-		protected Painter GetPainter() {
+		protected virtual Painter GetPainter() {
 			return new Painter();
 		}
 

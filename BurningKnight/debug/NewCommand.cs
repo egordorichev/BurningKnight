@@ -32,7 +32,9 @@ namespace BurningKnight.debug {
 			Editor.Area.NoInit = false;
 			
 			Editor.Area.Add(Editor.Level = new RegularLevel(BiomeRegistry.Defined[Biome.Castle]) {
-				Width = width, Height = height
+				Width = width, Height = height,
+				NoLightNoRender = false,
+				DrawLight = false
 			});
 
 			Editor.Level.Setup();

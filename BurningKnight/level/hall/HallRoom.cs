@@ -3,12 +3,14 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.tile;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.hall {
 	public class HallRoom : ExitRoom {
 		public override void Paint(Level level) {
-			Painter.Prefab(level, "hall", Left, Top);
+			Painter.Fill(level, this, Tile.WallA);
+			Painter.Prefab(level, "hall", Left + 1, Top + 1);
 
 			var man = new OldMan();
 			level.Area.Add(man);
@@ -69,19 +71,19 @@ namespace BurningKnight.level.hall {
 		}
 
 		public override int GetMinWidth() {
-			return 21;
+			return 23;
 		}
 
 		public override int GetMaxWidth() {
-			return 22;
+			return 24;
 		}
 
 		public override int GetMinHeight() {
-			return 11;
+			return 13;
 		}
 		
 		public override int GetMaxHeight() {
-			return 12;
+			return 14;
 		}
 	}
 }

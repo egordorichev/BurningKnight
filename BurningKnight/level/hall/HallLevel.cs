@@ -6,19 +6,26 @@ using BurningKnight.level.rooms;
 namespace BurningKnight.level.hall {
 	public class HallLevel : RegularLevel {
 		public HallLevel() : base(BiomeRegistry.Get(Biome.Castle)) {
-			
+
 		}
 
-		protected override List<RoomDef> CreateRooms() {
-			var rooms = new List<RoomDef>();
-			
-			rooms.Add(new HallRoom());
-
-			return rooms;
+		protected override List<RoomDef> CreateRooms() { 
+			return new List<RoomDef> {
+				new HallRoom()
+			};
 		}
 
 		protected override Builder GetBuilder() {
 			return new HallBuilder();
+		}
+
+		protected override Painter GetPainter() {
+			return new Painter {
+				Water = 0,
+				Cobweb = 0,
+				Grass = 0,
+				Dirt = 0
+			};
 		}
 	}
 }
