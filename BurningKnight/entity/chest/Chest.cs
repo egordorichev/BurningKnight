@@ -54,6 +54,9 @@ namespace BurningKnight.entity.chest {
 		public override void PostInit() {
 			base.PostInit();
 
+			Width = 22;
+			Height = 19;
+
 			if (IsOpen) {
 				GetComponent<StateComponent>().Become<OpenState>();				
 			} else {

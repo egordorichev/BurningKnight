@@ -20,6 +20,7 @@ using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util.camera;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
@@ -34,6 +35,7 @@ namespace BurningKnight.state {
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
 		private bool died;
+		private Cursor cursor;
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -168,6 +170,18 @@ namespace BurningKnight.state {
 				return;
 			}
 
+			if (Input.Keyboard.WasPressed(Keys.F2)) {
+				Settings.ShowFps = !Settings.ShowFps;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.F3)) {
+				Settings.HideUi = !Settings.HideUi;
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.F4)) {
+				Settings.HideCursor = !Settings.HideCursor;
+			}
+
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;
 			}
@@ -260,14 +274,35 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderUi() {
+			if (Settings.HideUi) {
+				cursor.Render();
+				return;
+			}
+			
 			base.RenderUi();
-			Graphics.Print($"{Engine.Instance.Counter.AverageFramesPerSecond}", Font.Small, 1, 1);
+
+			if (Settings.ShowFps) {
+				var c = Engine.Instance.Counter.AverageFramesPerSecond;
+				Color color;
+
+				if (c >= 59) {
+					color = new Color(0f, 1f, 0f, 1f);
+				} else if (c >= 49) {
+					color = new Color(1f, 1f, 0f, 1f);
+				} else {
+					color = new Color(1f, 0f, 0f, 1f);
+				}
+				
+				Graphics.Color = color;
+				Graphics.Print($"{c}", Font.Small, 1, 1);
+				Graphics.Color = ColorUtils.WhiteColor;
+			}
 		}
 
 		private void SetupUi() {
 			Ui.Add(new Camera(new FollowingDriver()));
 			
-			var cursor = new Cursor();
+			cursor = new Cursor();
 			Ui.Add(cursor);
 
 			var player = LocalPlayer.Locate(Area);

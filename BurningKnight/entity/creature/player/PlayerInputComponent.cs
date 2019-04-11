@@ -1,5 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
@@ -55,6 +57,11 @@ namespace BurningKnight.entity.creature.player {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();
+
+					Entity.Area.Add(new BloodFx {
+						Position = Entity.Center
+					});
+
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();

@@ -4,41 +4,66 @@ using Lens;
 namespace BurningKnight {
 	public class Settings {
 		public static bool Fullscreen;
-		public static bool Vsync = true;
-		public static bool Blood = true;
-		public static bool Gore = true;
-		public static bool Uisfx = true;
-		public static bool Speedrun_mode = true;
-		public static bool Speedrun_timer = true;
-		public static int Quality = 2;
-		public static float Screenshake = 0.7f;
-		public static float Music = 0.5f;
-		public static float Sfx = 0.75f;
-		public static string Cursor = "cursor-standart";
-		public static bool RotateCursor = true;
-		public static int Side_art;
-		public static float Freeze_frames = 0.5f;
-		public static float Flash_frames = 0.5f;
+		public static bool Vsync;
+		public static bool Blood;
+		public static bool Gore;
+		public static bool UiSfx;
+		public static bool SpeedrunMode;
+		public static bool SpeedrunTimer;
+		public static float Screenshake;
+		public static float Music;
+		public static float Sfx;
+		public static string Cursor;
+		public static bool RotateCursor;
+		public static float FreezeFrames;
+		public static float FlashFrames;
 		public static bool Vegan;
+		public static bool ShowFps;
 	
+		// Not saved
+		public static bool HideUi;
+		public static bool HideCursor;
+
+		static Settings() {
+			Setup();
+		}
+
+		private static void Setup() {
+			Fullscreen = false;
+			ShowFps = false;
+			Blood = true;
+			Gore = true;
+			UiSfx = true;
+			Vsync = true;
+			Screenshake = 0.5f;
+			SpeedrunMode = false;
+			SpeedrunTimer = false;
+			FreezeFrames = 0.5f;
+			FlashFrames = 0.5f;
+			Sfx = 0.75f;
+			Music = 0.5f;
+			Cursor = "default";
+			RotateCursor = false;
+			Vegan = false;
+		}
+		
 		public static void Load() {
-			Fullscreen = GlobalSave.IsTrue("settings_fullscreen");
-			Blood = GlobalSave.IsTrue("settings_blood");
-			Uisfx = GlobalSave.IsTrue("settings_uisfx");
-			Gore = GlobalSave.IsTrue("settings_gore");
-			Vsync = GlobalSave.IsTrue("settings_vsync");
-			Speedrun_mode = GlobalSave.IsTrue("settings_sm");
-			Speedrun_timer = GlobalSave.IsTrue("settings_st");
-			Side_art = GlobalSave.GetInt("settings_sa");
-			Quality = GlobalSave.GetInt("settings_quality");
-			Screenshake = GlobalSave.GetFloat("settings_screenshake");
-			Sfx = GlobalSave.GetFloat("settings_sfx");
-			Freeze_frames = GlobalSave.GetFloat("settings_frf");
-			Flash_frames = GlobalSave.GetFloat("settings_ff");
-			Music = GlobalSave.GetFloat("settings_music");
-			Cursor = GlobalSave.GetString("settings_cursor", "cursor-standart");
-			RotateCursor = GlobalSave.IsTrue("settings_rotate_cursor", true);
-			Vegan = GlobalSave.IsTrue("settings_v", false);
+			Fullscreen = GlobalSave.IsTrue("s_fullscreen");
+			ShowFps = GlobalSave.IsTrue("s_fps");
+			Blood = GlobalSave.IsTrue("s_blood");
+			UiSfx = GlobalSave.IsTrue("s_uisfx");
+			Gore = GlobalSave.IsTrue("s_gore");
+			Vsync = GlobalSave.IsTrue("s_vsync");
+			SpeedrunMode = GlobalSave.IsTrue("s_sm");
+			SpeedrunTimer = GlobalSave.IsTrue("s_st");
+			Screenshake = GlobalSave.GetFloat("s_screenshake");
+			Sfx = GlobalSave.GetFloat("s_sfx");
+			FreezeFrames = GlobalSave.GetFloat("s_frf");
+			FlashFrames = GlobalSave.GetFloat("s_ff");
+			Music = GlobalSave.GetFloat("s_music");
+			Cursor = GlobalSave.GetString("s_cursor", "cursor-standart");
+			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
+			Vegan = GlobalSave.IsTrue("s_v", false);
 
 			if (Fullscreen) {
 				Engine.Instance.SetFullscreen();
@@ -50,45 +75,27 @@ namespace BurningKnight {
 		}
 
 		public static void Save() {
-			GlobalSave.Put("settings_fullscreen", Fullscreen);
-			GlobalSave.Put("settings_blood", Blood);
-			GlobalSave.Put("settings_uisfx", Uisfx);
-			GlobalSave.Put("settings_gore", Gore);
-			GlobalSave.Put("settings_vsync", Vsync);
-			GlobalSave.Put("settings_sm", Speedrun_mode);
-			GlobalSave.Put("settings_st", Speedrun_timer);
-			GlobalSave.Put("settings_sa", Side_art);
-			GlobalSave.Put("settings_frf", Freeze_frames);
-			GlobalSave.Put("settings_ff", Flash_frames);
-			GlobalSave.Put("settings_quality", Quality);
-			GlobalSave.Put("settings_screenshake", Screenshake);
-			GlobalSave.Put("settings_sfx", Sfx);
-			GlobalSave.Put("settings_music", Music);
-			GlobalSave.Put("settings_cursor", Cursor);
-			GlobalSave.Put("settings_rotate_cursor", RotateCursor);
-			GlobalSave.Put("settings_v", Vegan);
+			GlobalSave.Put("s_fullscreen", Fullscreen);
+			GlobalSave.Put("s_fps", ShowFps);
+			GlobalSave.Put("s_blood", Blood);
+			GlobalSave.Put("s_uisfx", UiSfx);
+			GlobalSave.Put("s_gore", Gore);
+			GlobalSave.Put("s_vsync", Vsync);
+			GlobalSave.Put("s_sm", SpeedrunMode);
+			GlobalSave.Put("s_st", SpeedrunTimer);
+			GlobalSave.Put("s_frf", FreezeFrames);
+			GlobalSave.Put("s_ff", FlashFrames);
+			GlobalSave.Put("s_screenshake", Screenshake);
+			GlobalSave.Put("s_sfx", Sfx);
+			GlobalSave.Put("s_music", Music);
+			GlobalSave.Put("s_cursor", Cursor);
+			GlobalSave.Put("s_rotate_cursor", RotateCursor);
+			GlobalSave.Put("s_v", Vegan);
 		}
 
 		public static void Generate() {
-			GlobalSave.Put("settings_fullscreen", false);
-			GlobalSave.Put("settings_blood", true);
-			GlobalSave.Put("settings_uisfx", true);
-			GlobalSave.Put("settings_gore", true);
-			GlobalSave.Put("settings_vsync", true);
-			GlobalSave.Put("settings_sm", false);
-			GlobalSave.Put("settings_st", false);
-			GlobalSave.Put("settings_bl", false);
-			GlobalSave.Put("settings_sa", 0);
-			GlobalSave.Put("settings_frf", 0.5f);
-			GlobalSave.Put("settings_ff", 0.5f);
-			GlobalSave.Put("settings_quality", 2);
-			GlobalSave.Put("settings_screenshake", 0.3f);
-			GlobalSave.Put("settings_music", 0.5f);
-			GlobalSave.Put("settings_sfx", 0.75f);
-			GlobalSave.Put("settings_cursor", "cursor-standart");
-			GlobalSave.Put("settings_rotate_cursor", true);
-			GlobalSave.Put("settings_cb", 0);
-			GlobalSave.Put("settings_v", false);
+			Setup();
+			Save();
 		}
 	}
 }

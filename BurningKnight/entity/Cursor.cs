@@ -35,6 +35,10 @@ namespace BurningKnight.entity {
 		}
 
 		public override void Render() {
+			if (Settings.HideCursor) {
+				return;
+			}
+			
 			var pos = Input.Mouse.UiPosition;
 			Graphics.Render(Region, pos, 0, Region.Center, scale);
 		}

@@ -199,6 +199,7 @@
     <Compile Include="entity\events\TileCollisionStartEvent.cs" />
     <Compile Include="entity\events\WeaponSwappedEvent.cs" />
     <Compile Include="entity\ExplosionMaker.cs" />
+    <Compile Include="entity\fx\BloodFx.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\ExplosionLeftOver.cs" />
     <Compile Include="entity\fx\Firefly.cs" />

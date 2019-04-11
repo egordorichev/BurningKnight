@@ -20,7 +20,8 @@ namespace BurningKnight.entity {
 			base.AddComponents();
 			
 			AddComponent(new BombGraphicsComponent("items", "bk:bomb"));
-
+			AddComponent(new ShadowComponent(RenderShadow));
+			
 			Width = 10;
 			Height = 13;
 			AlwaysActive = true;
@@ -28,8 +29,12 @@ namespace BurningKnight.entity {
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));
 			AddComponent(new ExplodeComponent {
 				Radius = 32,
-				Timer =  explosionTime
+				Timer = explosionTime
 			});
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public void MoveToMouse() {

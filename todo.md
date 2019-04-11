@@ -2,16 +2,15 @@
 
 ### Important
 
-* Extend camera render limit a bit (down too)
 * Fix connection rooms with 1 door
 * Solid body component for chest
 * Guns should not collide with items (bullets)
 * Fix chest without lock not interacting
-* Fix bug with 0 size level
-* Fix shadows
 * Start working on blood?
-* Fix sword direction
-* JUice up gun
+* Fix C and D tiles in castle
+* Lock on chest wont be saved
+* Enemies / rooms drop rewards (bombs, keys, coins)
+* Auto saves
 
 * Work out room layout for hub
 * Allow to place entities with editor

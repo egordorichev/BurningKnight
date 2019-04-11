@@ -111,7 +111,7 @@ namespace BurningKnight.entity.component {
 				ev.Item.Done = true;
 				return true;
 			} else if (e is ExplodedEvent b) {
-				ModifyHealth(-2, b.Who);
+				ModifyHealth(Entity is Player ? -2 : -8, b.Who);
 			}
 			
 			return base.HandleEvent(e);

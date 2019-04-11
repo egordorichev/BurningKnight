@@ -19,12 +19,11 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
-			var chest = new LockedChest {
-				X = where.X * 16, 
-				Y = where.Y * 16
-			};
+			var chest = new LockedChest();
 
 			level.Area.Add(chest);
+
+			chest.Center = where * 16;
 			chest.GenerateLoot();
 		}
 	}

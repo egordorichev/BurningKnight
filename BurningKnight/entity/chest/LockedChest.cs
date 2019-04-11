@@ -9,9 +9,9 @@ namespace BurningKnight.entity.chest {
 		protected override bool CanInteract() {
 			return base.CanInteract() && !GetComponent<LockComponent>().Lock.IsLocked;
 		}
-		
-		public override void AddComponents() {
-			base.AddComponents();
+
+		public override void PostInit() {
+			base.PostInit();
 			
 			AddComponent(new LockComponent(this, new GoldLock(), Vector2.Zero, false) {
 				OnOpen = Open

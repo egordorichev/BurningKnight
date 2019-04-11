@@ -69,9 +69,12 @@ namespace BurningKnight.save {
 				
 				Values[Key] = Val;
 			}
+
+			Settings.Load();
 		}
 
 		public override void Save(Area area, FileWriter writer) {
+			Settings.Save();
 			writer.WriteInt32(Values.Count);
 
 			foreach (var Pair in Values) {
