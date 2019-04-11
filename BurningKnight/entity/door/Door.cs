@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
+using BurningKnight.level.rooms;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens.entity;
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.door {
 		protected List<Entity> Colliding = new List<Entity>();
 		private float lastCollisionTimer;
 		private bool lit;
+		private Room[] rooms;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -105,22 +107,53 @@ namespace BurningKnight.entity.door {
 				}
 			}
 
-			if (!lit) {
-				lit = true;
+			if (rooms == null) {
+				rooms = new Room[2];
+				var i = 0;
 
-				var x = (int) (CenterX / 16f);
-				var y = (int) (CenterY / 16f);
-				var d = 2;
+				foreach (var room in Area.Tags[Tags.Room]) {
+					if (room.Contains(Center)) {
+						rooms[i] = (Room) room;
+						i++;
 
-				for (int xx = -d; xx <= d; xx++) {
-					for (int yy = -d; yy <= d; yy++) {
-						var ds = Math.Sqrt(xx * xx + yy * yy);
+						if (i == 2) {
+							break;
+						}
+					}
+				}
+			}
 
-						if (ds <= d) {
-							var level = Run.Level;
-							var index = level.ToIndex(xx + x, yy + y);
+			if (rooms != null && !lit) {
+				var found = false;
 
-							level.Light[index] = (float) Math.Max(level.Light[index], Math.Max(0.1f, (d - ds) / d));
+				foreach (var p in Area.Tags[Tags.Player]) {
+					var r = p.GetComponent<RoomComponent>().Room;
+
+					foreach (var rm in rooms) {
+						if (rm == r) {
+							found = true;
+							break;
+						}
+					}
+				}
+
+				if (found) {
+					lit = true;
+
+					var x = (int) (CenterX / 16f);
+					var y = (int) (CenterY / 16f);
+					var d = 2;
+
+					for (int xx = -d; xx <= d; xx++) {
+						for (int yy = -d; yy <= d; yy++) {
+							var ds = Math.Sqrt(xx * xx + yy * yy);
+
+							if (ds <= d) {
+								var level = Run.Level;
+								var index = level.ToIndex(xx + x, yy + y);
+
+								level.Light[index] = (float) Math.Max(level.Light[index], Math.Max(0.1f, (d - ds) / d));
+							}
 						}
 					}
 				}

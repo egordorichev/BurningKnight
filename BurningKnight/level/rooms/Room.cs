@@ -28,10 +28,10 @@ namespace BurningKnight.level.rooms {
 		public override void PostInit() {
 			base.PostInit();
 
-			X = MapX * 16;
-			Y = MapY * 16 - 8;
-			Width = MapW * 16;
-			Height = MapH * 16;
+			X = MapX * 16 + 4;
+			Y = MapY * 16 - 4;
+			Width = MapW * 16 - 8;
+			Height = MapH * 16 - 8;
 		}
 
 		public void Discover() {
