@@ -15,6 +15,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
@@ -72,8 +73,11 @@ namespace BurningKnight.entity.creature.player {
 			base.PostInit();
 
 			foreach (var r in Area.Tags[Tags.Room]) {
-				if (((Room) r).Type == RoomType.Entrance) {
+				var rm = (Room) r;
+				
+				if (rm.Type == RoomType.Entrance) {
 					Center = r.Center;
+
 					return;
 				}
 			}
@@ -83,6 +87,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (rm.Type == RoomType.Exit) {
 					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+
 					return;
 				}
 			}

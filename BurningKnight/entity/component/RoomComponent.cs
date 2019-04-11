@@ -1,4 +1,5 @@
-﻿using BurningKnight.level.rooms;
+﻿using BurningKnight.entity.events;
+using BurningKnight.level.rooms;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
@@ -37,6 +38,12 @@ namespace BurningKnight.entity.component {
 			if (old != Room) {
 				old?.Tagged.Remove(Entity);
 				Room?.Tagged.Add(Entity);
+
+				Send(new RoomChangedEvent {
+					Who = Entity,
+					Old = old,
+					New = Room
+				});
 			}
 		}
 

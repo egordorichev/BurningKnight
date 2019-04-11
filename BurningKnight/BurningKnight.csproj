@@ -193,6 +193,7 @@
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\RoomChangedEvent.cs" />
     <Compile Include="entity\events\TileCollisionEndEvent.cs" />
     <Compile Include="entity\events\TileCollisionStartEvent.cs" />
     <Compile Include="entity\events\WeaponSwappedEvent.cs" />

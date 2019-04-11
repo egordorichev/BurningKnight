@@ -2,11 +2,14 @@
 
 ### Important
 
+* Hide secret and unexplored rooms
+* Make secret rooms bombable
 * Make mobs get removed after death
 * Fix connection rooms with 1 door
 * Solid body component for chest
 * Guns should not collide with items (bullets)
 * Fix chest without lock not interacting
+* Fix bug with 0 size level
 
 * Work out room layout for hub
 * Allow to place entities with editor

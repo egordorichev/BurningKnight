@@ -1,11 +1,14 @@
 using System;
+using BurningKnight.entity;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
 namespace BurningKnight.level.rooms {
@@ -19,6 +22,8 @@ namespace BurningKnight.level.rooms {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			Depth = Layers.RoomCover;
 			AddTag(Tags.Room);
 		}
 
@@ -52,7 +57,7 @@ namespace BurningKnight.level.rooms {
 			
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
 		}
-
+		
 		protected int GetRenderLeft(Camera camera, Level level) {
 			return (int) MathUtils.Clamp(0, level.Width - 1, Math.Max((int) Math.Floor(camera.X / 16 - 1f), MapX));
 		}

@@ -51,9 +51,15 @@ namespace BurningKnight.entity {
 						
 						if (Math.Sqrt(xm * xm + ym * ym) <= hurtRadius) {
 							var index = level.ToIndex(x + xx, y + yy);
-
-							if (!level.Get(index).IsWall()) {
+							var tile = level.Get(index);
+							
+							if (!tile.IsWall()) {
 								level.Set(index, Tile.Dirt);
+								level.UpdateTile(x + xx, y + yy);
+							} else if (tile == Tile.Crack) {
+								level.Set(index, Tile.FloorA);
+								level.Set(index, Tile.Dirt);
+								level.CreateBody();
 								level.UpdateTile(x + xx, y + yy);
 							}
 						}
