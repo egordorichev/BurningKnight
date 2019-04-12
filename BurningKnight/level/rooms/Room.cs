@@ -19,6 +19,7 @@ namespace BurningKnight.level.rooms {
 		public int MapH;
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
+		public bool Explored;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -32,9 +33,17 @@ namespace BurningKnight.level.rooms {
 			Y = MapY * 16 - 4;
 			Width = MapW * 16 - 8;
 			Height = MapH * 16 - 8;
+
+			var level = Run.Level;
+			Explored = level.Explored[level.ToIndex(MapX + 1, MapY + 1)];
 		}
 
 		public void Discover() {
+			if (Explored) {
+				return;
+			}
+
+			Explored = true;
 			var level = Run.Level;
 
 			for (int y = MapY; y < MapY + MapH - 1; y++) {

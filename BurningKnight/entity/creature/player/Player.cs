@@ -163,6 +163,21 @@ namespace BurningKnight.entity.creature.player {
 				return true;
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();
+
+				// Camera following current room, felt weird
+				/*if (Camera.Instance != null) {
+					foreach (var target in Camera.Instance.Targets) {
+						if (target.Entity == c.Old) {
+							Camera.Instance.Targets.Remove(target);
+							break;
+						}
+					}
+					
+					// I don't think the if clause worked right, connection rooms still were targeted
+					if (c.New.Type != RoomType.Connection) {
+						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
+					}
+				}*/
 			}
 			
 			return base.HandleEvent(e);

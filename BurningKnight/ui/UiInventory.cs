@@ -27,6 +27,8 @@ namespace BurningKnight.ui {
 		public static TextureRegion HalfHeart;
 		public static TextureRegion HeartBackground;
 		private TextureRegion changedHeartBackground;
+		private static TextureRegion halfHeartBackground;
+		private TextureRegion changedHalfHeartBackground;
 		
 		private TextureRegion iron;
 		private TextureRegion halfIron;
@@ -68,6 +70,8 @@ namespace BurningKnight.ui {
 			HalfHeart = anim.GetSlice("half_heart");
 			HeartBackground = anim.GetSlice("heart_bg");
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
+			halfHeartBackground = anim.GetSlice("half_heart_bg");
+			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
 			
 			iron = anim.GetSlice("iron_heart");
 			halfIron = anim.GetSlice("half_iron_heart");
@@ -225,7 +229,13 @@ namespace BurningKnight.ui {
 			int i = 0;
 			
 			for (; i < maxRed; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
+				var region = hurt ? changedHeartBackground : HeartBackground;
+
+				if (i == maxRed - 1) {
+					region = hurt ? changedHalfHeartBackground : halfHeartBackground;
+				}
+				
+				Graphics.Render(region, GetHeartPosition(pad, i, true));
 
 				if (i < totalRed) {
 					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(pad, i));					

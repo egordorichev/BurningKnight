@@ -3,16 +3,14 @@ using BurningKnight.entity.item;
 namespace BurningKnight.entity.component {
 	public class LampComponent : ItemComponent {
 		public override void Set(Item item) {
-			if (Item is Lamp lamp) {
-				lamp.Unequip(Entity);
+			if (Item != null) {
+				Entity.Area.Remove(Item);
 			}
-			
+
 			base.Set(item);
-			
-			if (Item is Lamp l) {
-				l.Equip(Entity);
-				Entity.Area.Add(item);
-			}
+
+			Item.Use(Entity);
+			Entity.Area.Add(item);
 		}
 
 		protected override bool ShouldReplace(Item item) {

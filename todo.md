@@ -2,6 +2,8 @@
 
 ### Important
 
+* lamp should give hearts (fix)
+* Heart fx shadow
 * weapons in player hands should drop shadows
 * Solid body component for chest
 * Fix chest without lock not interacting
@@ -37,6 +39,7 @@
 
 ### Polish
 
+* Low health indicator
 * Animate items/creatures falling into the chasm?
 * Animate healing
 * Wall a -> wall b tiling

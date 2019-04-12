@@ -216,7 +216,6 @@
     <Compile Include="entity\item\ItemPool.cs" />
     <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
-    <Compile Include="entity\item\Lamp.cs" />
     <Compile Include="entity\item\PriceCalculator.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />
