@@ -1,10 +1,35 @@
 using BurningKnight.state;
+using Lens.util;
 using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level {
 	public class Patch {
 		public static bool[] Generate(float Seed, int Octaves) {
 			return Generate(Run.Level.Width, Run.Level.Height, Seed, Octaves);
+		}
+
+		public static bool[] Noise(float seed, float s = 0.1f) {
+			return Noise(Run.Level.Width, Run.Level.Height, seed, s);
+		}
+
+		public static bool[] Noise(int w, int h, float seed, float s) {
+			seed = 1 - seed;
+			seed *= 2;
+			seed -= 1;
+
+			var mx = Random.Float(100f);
+			var my = Random.Float(100f);
+			var array = new bool[w * h];
+			
+			for (int y = 0; y < h; y++) {
+				for (int x = 0; x < w; x++) {
+					var n = Lens.util.Noise.Fbm(new Vector2(x * s + mx, y * s + my), 3);
+					array[x + y * w] = n >= seed;
+				}
+			}
+
+			return array;
 		}
 
 		public static bool[] Generate(int W, int H, float Seed, int Octaves) {

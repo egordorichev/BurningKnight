@@ -1,18 +1,14 @@
-using System;
-using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
-using Lens.util;
 using Lens.util.file;
-using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
-		private byte bombs = 32; // fixme
+		private byte bombs = 1;
 		private byte keys;
 		private byte coins;
 

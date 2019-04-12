@@ -25,7 +25,7 @@
 
 !!!
 * Path finding
-* Mobs do not get removed after death
+* noise wall room (only possible with path finding)
 !!!
 
 * Cap max hearts on player

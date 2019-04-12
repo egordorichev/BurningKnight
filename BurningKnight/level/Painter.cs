@@ -17,9 +17,9 @@ using Prop = BurningKnight.entity.fx.Prop;
 
 namespace BurningKnight.level {
 	public class Painter {
-		public float Cobweb = 0.05f;
-		public float Dirt = 0.35f;
-		public float Grass = 0.35f;
+		public float Cobweb = 0.1f;
+		public float Dirt = 0.4f;
+		public float Grass = 0.4f;
 		public float Water = 0.4f;
 
 		public void Paint(Level Level, List<RoomDef> Rooms) {
@@ -200,7 +200,7 @@ namespace BurningKnight.level {
 		}
 
 		private void PaintWater(Level Level, List<RoomDef> Rooms) {
-			var Lake = Patch.Generate(Water, 5);
+			var Lake = Patch.Noise(Water);
 			var Ice = false; // Level is IceLevel;
 
 			foreach (var R in Rooms) {
@@ -216,7 +216,7 @@ namespace BurningKnight.level {
 		}
 
 		private void PaintCobweb(Level Level, List<RoomDef> Rooms) {
-			var Lake = Patch.Generate(Water, 5);
+			var Lake = Patch.Noise(Cobweb);
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.WaterPlaceablePoints()) {
@@ -231,7 +231,7 @@ namespace BurningKnight.level {
 		}
 
 		private void PaintDirt(Level Level, List<RoomDef> Rooms) {
-			var Grass = Patch.Generate(Dirt, 5);
+			var Grass = Patch.Noise(Dirt);
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.GrassPlaceablePoints()) {
@@ -246,7 +246,7 @@ namespace BurningKnight.level {
 		}
 
 		private void PaintGrass(Level Level, List<RoomDef> Rooms) {
-			var Grass = Patch.Generate(this.Grass, 5);
+			var Grass = Patch.Noise(this.Grass);
 			var Cells = new List<int>();
 
 			foreach (var R in Rooms) {
@@ -347,6 +347,8 @@ namespace BurningKnight.level {
 						Level.Set(D.X, D.Y, Tiles.RandomFloor());
 					} else if (type == DoorPlaceholder.Variant.Secret) {
 						Level.Set(D.X, D.Y, Tile.Crack);
+					} else if (type == DoorPlaceholder.Variant.Tunnel) {
+						Level.Set(D.X, D.Y, Tiles.RandomFloor());
 					}
 				}
 			}
