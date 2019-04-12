@@ -25,7 +25,7 @@ namespace BurningKnight.level.hall {
 			entrance.Center = new Vector2(GetCenter().X, Bottom - 1.5f) * 16;
 
 			PlaceCampfire(level, new Vector2(Left + 7f, Top + 3f) * 16);
-			PlaceCampfire(level, new Vector2(Right - 6f, Top + 3f) * 16);
+			PlaceCampfire(level, new Vector2(Right - 7f, Top + 3f) * 16);
 
 			var weapons = new Item[6];
 			weapons[3] = Items.CreateAndAdd("bk:sword", level.Area);

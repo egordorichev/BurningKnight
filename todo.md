@@ -2,9 +2,7 @@
 
 ### Important
 
-* spawn liquids with noise, cobweb slow you down
 * weapons in player hands should drop shadows
-* Fix connection rooms with 1 door
 * Solid body component for chest
 * Fix chest without lock not interacting
 * Start working on blood?

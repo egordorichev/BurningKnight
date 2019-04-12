@@ -25,5 +25,21 @@ namespace BurningKnight.level.rooms.entrance {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}
 		}
+		
+		public override int GetMinWidth() {
+			return 7;
+		}
+
+		public override int GetMinHeight() {
+			return 7;
+		}
+
+		public override int GetMaxWidth() {
+			return 12;
+		}
+
+		public override int GetMaxHeight() {
+			return 12;
+		}
 	}
 }
