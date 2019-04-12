@@ -13,7 +13,6 @@ namespace BurningKnight.entity.component {
 		public LockComponent(Entity entity, Lock l, Vector2 offset, bool setDepth = true) {
 			Lock = l;
 
-			Lock.Center = entity.Center + offset;
 			Lock.AlwaysActive = true;
 			Lock.Move = !setDepth;
 
@@ -23,6 +22,8 @@ namespace BurningKnight.entity.component {
 			
 			entity.Area.Add(Lock);
 			entity.Area.EventListener.Subscribe<LockOpenedEvent>(this);
+
+			Lock.Center = entity.Center + offset;
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -86,7 +87,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || entity is Chasm);
+			return !(entity is Creature || entity is Chasm || entity is Item);
 		}
 	}
 }

@@ -29,21 +29,19 @@ namespace BurningKnight.entity.item {
 			T += dt;
 		}
 
-		public virtual Vector2 CalculatePosition() {
-			return Entity.Position + Sprite.Center + new Vector2(0, (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
+		public virtual Vector2 CalculatePosition(bool shadow = false) {
+			return Entity.Position + Sprite.Center + new Vector2(0, shadow ? 8 : (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
 		}
 
 		public override void Render(bool shadow) {
 			if (Entity.HasComponent<OwnerComponent>()) {
 				return;
 			}
-			
-			// todo: shadow
-			
+
 			var origin = Sprite.Center;
-			var position = CalculatePosition();
+			var position = CalculatePosition(shadow);
 			var angle = (float) Math.Cos(T * 1.2f) * 0.4f;
-				
+
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);

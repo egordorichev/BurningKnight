@@ -9,8 +9,9 @@ namespace BurningKnight.level.rooms.connection {
 			
 			if (Random.Chance()) {
 				PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.WallB, Tile.Chasm), new Rect(GetCenter()), true);
-				PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(GetCenter()));
 			}
+			
+			PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(GetCenter()));
 			
 			foreach (var Door in Connected.Values) {
 				Door.Type = Random.Chance() ? DoorPlaceholder.Variant.Regular : DoorPlaceholder.Variant.Tunnel;

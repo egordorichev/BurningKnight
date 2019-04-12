@@ -7,9 +7,11 @@ using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.graphics.animation;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.chest {
@@ -53,9 +55,6 @@ namespace BurningKnight.entity.chest {
 
 		public override void PostInit() {
 			base.PostInit();
-
-			Width = 22;
-			Height = 19;
 
 			if (IsOpen) {
 				GetComponent<StateComponent>().Become<OpenState>();				
@@ -103,19 +102,24 @@ namespace BurningKnight.entity.chest {
 			base.AddComponents();
 
 			Width = 20;
-			Height = 18;
+			Height = 12;
 			
 			AddComponent(new AnimationComponent("chest", GetPalette()) {
-				Offset = new Vector2(-1, -5)
+				Offset = new Vector2(-1, -6)
 			});
 			
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
 				AlterInteraction = AlterInteraction
 			});
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		protected virtual Entity AlterInteraction() {
@@ -124,6 +128,10 @@ namespace BurningKnight.entity.chest {
 
 		protected virtual ColorSet GetPalette() {
 			return null;
+		}
+		
+		public override void RenderDebug() {
+			Graphics.Batch.DrawRectangle(new RectangleF(X, Y, Width, Height), Color.Blue);
 		}
 		
 		#region Chest States

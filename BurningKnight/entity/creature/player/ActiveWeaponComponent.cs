@@ -1,4 +1,5 @@
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
@@ -15,19 +16,13 @@ namespace BurningKnight.entity.creature.player {
 				Item.Renderer?.OnUse();
 			}
 	
-			var component = Entity.GetComponent<WeaponComponent>();
-
-			if (Input.WasPressed(Controls.Swap) && !Send(new WeaponSwappedEvent {
-				Who = (Player) Entity,
-				Old = Item,
-				Current = component.Item
-			})) {
-
-				// Swap the items
-				var tmp = component.Item;
-				component.Item = Item;
-				Item = tmp;
+			if (Input.WasPressed(Controls.Swap)) {
+				Swap();
 			}
+		}
+
+		protected override bool ShouldReplace(Item item) {
+			return base.ShouldReplace(item) && (Item == null || Entity.GetComponent<WeaponComponent>().Item != null);
 		}
 	}
 }

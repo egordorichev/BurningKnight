@@ -2,15 +2,17 @@
 
 ### Important
 
+* spawn liquids with noise, cobweb slow you down
+* weapons in player hands should drop shadows
 * Fix connection rooms with 1 door
 * Solid body component for chest
-* Guns should not collide with items (bullets)
 * Fix chest without lock not interacting
 * Start working on blood?
-* Fix C and D tiles in castle
+* Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
 * Lock on chest wont be saved
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * Auto saves
+* bombs do not hurt player? fix
 
 * Work out room layout for hub
 * Allow to place entities with editor

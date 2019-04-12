@@ -121,6 +121,8 @@ namespace BurningKnight.entity.item {
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = OnInteractionStart
 			});
+			
+			AddComponent(new ShadowComponent(RenderShadow));
 		}
 
 		public void RandomizeVelocity(float force) {
@@ -137,6 +139,11 @@ namespace BurningKnight.entity.item {
 		public virtual void RemoveDroppedComponents() {
 			RemoveComponent<InteractableComponent>();
 			RemoveComponent<RectBodyComponent>();
+			RemoveComponent<ShadowComponent>();
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public override void Save(FileWriter stream) {
