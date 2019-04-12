@@ -13,5 +13,10 @@ namespace BurningKnight.entity.component {
 			base.Init();
 			Entity.AddTag(Tags.HasShadow);
 		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Entity.RemoveTag(Tags.HasShadow);
+		}
 	}
 }

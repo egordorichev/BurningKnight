@@ -37,6 +37,11 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
 			AddComponent(new InteractableSliceComponent("props", "entrance"));
+			AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public override void Load(FileReader stream) {

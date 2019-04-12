@@ -3,6 +3,7 @@ using BurningKnight.util;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class InteractableSliceComponent : SliceComponent {
@@ -11,7 +12,10 @@ namespace BurningKnight.entity.component {
 		public InteractableSliceComponent(AnimationData image, string slice) : base(image, slice) {}
 
 		public override void Render(bool shadow) {
-			// todo: shadow
+			if (shadow) {
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				return;
+			}
 			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;

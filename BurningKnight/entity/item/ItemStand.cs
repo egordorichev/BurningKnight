@@ -65,6 +65,11 @@ namespace BurningKnight.entity.item {
 			});
 			
 			AddComponent(new SliceComponent("props", "slab_a"));
+			AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		protected virtual bool CanTake(Entity entity) {
