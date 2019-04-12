@@ -36,7 +36,7 @@ namespace BurningKnight.level.rooms.connection {
 				Tile.Water : Tile.Dirt : Tiles.RandomFloor());
 
 			foreach (var Door in Connected.Values) {
-				Door.Type = DoorPlaceholder.Variant.Tunnel;
+				Door.Type = DoorPlaceholder.Variant.Regular;
 			}	
 		}
 	}

@@ -2,6 +2,8 @@
 
 ### Important
 
+* minimap
+* /explore command
 * lamp should give hearts (fix)
 * Heart fx shadow
 * weapons in player hands should drop shadows
@@ -29,7 +31,6 @@
 !!!
 
 * Cap max hearts on player
-* Shadows (cool)
 * Animate gaining hearts from the lamp
 * Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)
 * Pause the game, while console is open, but do not bring pause menu up?

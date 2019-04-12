@@ -8,7 +8,7 @@ namespace BurningKnight.level.rooms.connection {
 			}
 			
 			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Tunnel;
+				door.Type = DoorPlaceholder.Variant.Regular;
 			}
 		}
 

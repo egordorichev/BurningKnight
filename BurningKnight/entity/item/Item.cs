@@ -123,6 +123,7 @@ namespace BurningKnight.entity.item {
 			});
 			
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddTag(Tags.LevelSave);
 		}
 
 		public void RandomizeVelocity(float force) {
@@ -140,6 +141,8 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<InteractableComponent>();
 			RemoveComponent<RectBodyComponent>();
 			RemoveComponent<ShadowComponent>();
+			
+			RemoveTag(Tags.LevelSave);
 		}
 
 		private void RenderShadow() {
@@ -178,7 +181,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Player);
+			return !(entity is Creature);
 		}
 
 		public override bool HandleEvent(Event e) {

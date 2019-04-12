@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using Lens.assets;
 using Lens.entity.component.graphics;
 using Lens.graphics.animation;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
 	public class AnimatedItemGraphicsComponent : GraphicsComponent {
@@ -18,7 +19,11 @@ namespace BurningKnight.entity.item {
 
 		public override void Render(bool shadow) {
 			if (!Entity.HasComponent<OwnerComponent>()) {
-				// todo: shadow
+				if (shadow) {
+					Animation?.Render(Entity.Position, Flipped, !FlippedVerticaly);
+					return;
+				}
+				
 				Animation.Render(Entity.Position);
 			}
 		}

@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new TileInteractionComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
 			
-			AddDrops(new SingleDrop("bk:heart", 0.05f));
+			AddDrops(new SingleDrop("bk:heart", 10.05f));
 		}
 		
 		public void Kill(Entity w) {
