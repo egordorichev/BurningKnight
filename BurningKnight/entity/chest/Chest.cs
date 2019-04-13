@@ -108,6 +108,7 @@ namespace BurningKnight.entity.chest {
 				Offset = new Vector2(-1, -6)
 			});
 			
+			AddComponent(new RectBodyComponent(1, 6, Width - 2, Height - 14, BodyType.Static));
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));

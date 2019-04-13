@@ -71,7 +71,7 @@ namespace BurningKnight.entity.creature.player {
 			foreach (var r in Area.Tags[Tags.Room]) {
 				var rm = (Room) r;
 				
-				if (rm.Type == RoomType.Entrance) {
+				if (rm.Type == RoomType.Treasure) {
 					Center = r.Center;
 					rm.Discover();
 

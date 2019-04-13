@@ -11,8 +11,8 @@ namespace BurningKnight.entity.door {
 		public override void PostInit() {
 			base.PostInit();
 			
-			AddComponent(new LockComponent(this, CreateLock(), FacingSide ? new Vector2(1) : Vector2.Zero));
-			AddComponent(new DoorBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+			AddComponent(new LockComponent(this, CreateLock(), FacingSide ? new Vector2(0, 1) : Vector2.Zero));
+			AddComponent(new DoorBodyComponent(0, 0, Width, FacingSide ? Height : 8, BodyType.Static, true));
 		}
 
 		public override void Update(float dt) {

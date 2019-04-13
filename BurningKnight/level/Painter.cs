@@ -337,7 +337,7 @@ namespace BurningKnight.level {
 
 						if (door.FacingSide) {
 							door.Y -= 8;
-							door.X += 5;
+							door.X += 6;
 						} else {
 							door.Y -= 2;
 						}
