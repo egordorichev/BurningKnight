@@ -4,7 +4,7 @@
 
     "uses" : {
       "id" : "bk:ModifyMaxHp",
-      "amount" : 1
+      "amount" : 6
     }
   }
 }

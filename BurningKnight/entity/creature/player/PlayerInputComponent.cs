@@ -68,10 +68,11 @@ namespace BurningKnight.entity.creature.player {
 				})) {
 					state.Become<Player.RollState>();
 
+					/*
 					Entity.Area.Add(new BloodFx {
 						Position = Entity.Center
 					});
-
+					*/
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();

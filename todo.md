@@ -2,10 +2,8 @@
 
 ### Important
 
+* dropped items should save
 * minimap
-* /explore command
-* lamp should give hearts (fix)
-* Heart fx shadow
 * weapons in player hands should drop shadows
 * Solid body component for chest
 * Fix chest without lock not interacting
@@ -14,7 +12,6 @@
 * Lock on chest wont be saved
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * Auto saves
-* bombs do not hurt player? fix
 
 * Work out room layout for hub
 * Allow to place entities with editor

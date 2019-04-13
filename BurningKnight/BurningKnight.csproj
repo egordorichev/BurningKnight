@@ -92,6 +92,7 @@
     <Compile Include="debug\DebugCommand.cs" />
     <Compile Include="debug\DieCommand.cs" />
     <Compile Include="debug\EntityCommand.cs" />
+    <Compile Include="debug\ExploreCommand.cs" />
     <Compile Include="debug\GiveCommand.cs" />
     <Compile Include="debug\GodModeCommand.cs" />
     <Compile Include="debug\HealCommand.cs" />

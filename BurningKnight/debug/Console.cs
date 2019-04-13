@@ -36,6 +36,7 @@ namespace BurningKnight.debug {
 			commands.Add(new EntityCommand());
 			commands.Add(new SaveCommand());
 			commands.Add(new BiomeCommand());
+			commands.Add(new ExploreCommand());
 
 			AlwaysActive = true;
 			AlwaysVisible = true;

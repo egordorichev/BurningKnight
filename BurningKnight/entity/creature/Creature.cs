@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -27,7 +28,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new TileInteractionComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
 			
-			AddDrops(new SingleDrop("bk:heart", 10.05f));
+			AddDrops(new SingleDrop("bk:heart", 0.05f));
 		}
 		
 		public void Kill(Entity w) {
@@ -67,7 +68,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || (InAir() && entity is Chasm));
+			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item)));
 		}
 
 		public virtual bool IsFriendly() {

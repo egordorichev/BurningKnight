@@ -54,8 +54,8 @@ namespace Lens.game {
 		}
 
 		public virtual void Update(float dt) {
+			Ui.Update(dt); // Update ui first for screenshake compression
 			Area?.Update(dt);
-			Ui.Update(dt);
 
 			if (!Paused) {
 				Time += dt;

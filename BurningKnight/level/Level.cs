@@ -10,6 +10,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.util.camera;
@@ -583,9 +584,11 @@ namespace BurningKnight.level {
 			
 			if (Engine.Instance.State is InGameState) {
 				Graphics.Color = ShadowColor;
+				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 
 				Graphics.Render(((PixelPerfectGameRenderer) Engine.Instance.StateRenderer).UiTarget,
-					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1));
+					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
+						Camera.Instance.Position.Y % 1 - shake.Position.Y));
 
 				Graphics.Color = ColorUtils.WhiteColor;
 			}

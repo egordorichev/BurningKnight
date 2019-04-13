@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.util.camera;
@@ -59,7 +60,11 @@ namespace BurningKnight.assets.lighting {
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
 			Graphics.Color = new Color(1f, 1f, 1f, 0.4f);
-			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1));
+			
+			var shake = Camera.Instance.GetComponent<ShakeComponent>();
+
+			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
+			Camera.Instance.Position.Y % 1 - shake.Position.Y));
 			Graphics.Color = Color.White;
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);

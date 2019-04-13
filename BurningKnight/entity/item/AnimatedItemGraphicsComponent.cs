@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using Lens.assets;
 using Lens.entity.component.graphics;
+using Lens.graphics;
 using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
 
@@ -20,7 +21,8 @@ namespace BurningKnight.entity.item {
 		public override void Render(bool shadow) {
 			if (!Entity.HasComponent<OwnerComponent>()) {
 				if (shadow) {
-					Animation?.Render(Entity.Position, Flipped, !FlippedVerticaly);
+					var region = Animation.GetCurrentTexture();
+					Graphics.Render(region, Entity.Position, 0, new Vector2(0, -region.Height), Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 					return;
 				}
 				

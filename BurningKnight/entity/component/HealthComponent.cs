@@ -112,6 +112,9 @@ namespace BurningKnight.entity.component {
 				return true;
 			} else if (e is ExplodedEvent b) {
 				ModifyHealth(Entity is Player ? -2 : -8, b.Who);
+
+				var component = Entity.GetAnyComponent<BodyComponent>();
+				component?.KnockbackFrom(b.Who, 2);
 			}
 			
 			return base.HandleEvent(e);
