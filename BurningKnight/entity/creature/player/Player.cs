@@ -1,21 +1,13 @@
 using System;
-using BurningKnight.assets.items;
-using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob;
-using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.events;
-using BurningKnight.entity.item;
 using BurningKnight.level.rooms;
-using BurningKnight.physics;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
-using Lens.util.file;
-using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
@@ -71,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 			foreach (var r in Area.Tags[Tags.Room]) {
 				var rm = (Room) r;
 				
-				if (rm.Type == RoomType.Treasure) {
+				if (rm.Type == RoomType.Entrance) {
 					Center = r.Center;
 					rm.Discover();
 

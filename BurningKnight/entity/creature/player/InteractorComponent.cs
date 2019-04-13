@@ -15,6 +15,11 @@ namespace BurningKnight.entity.creature.player {
 
 			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact)) {
 				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
+					Send(new InteractedEvent {
+						Who = Entity,
+						With = CurrentlyInteracting
+					});
+					
 					EndInteraction();
 				}
 			}

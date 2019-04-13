@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using BurningKnight.ui;
 using Lens;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
@@ -39,6 +40,12 @@ namespace BurningKnight.entity.creature.player {
 		public override bool HandleEvent(Event e) {
 			if (e is WeaponSwappedEvent) {
 				scale.Y = 0.3f;
+				scale.X = 2f;
+				
+				Tween.To(1f, scale.X, x => scale.X = x, 0.2f);
+				Tween.To(1f, scale.Y, x => scale.Y = x, 0.2f);
+			} else if (e is InteractedEvent) {
+				scale.Y = 0.5f;
 				scale.X = 2f;
 				
 				Tween.To(1f, scale.X, x => scale.X = x, 0.2f);

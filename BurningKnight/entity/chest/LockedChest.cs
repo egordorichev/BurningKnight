@@ -12,10 +12,12 @@ namespace BurningKnight.entity.chest {
 
 		public override void PostInit() {
 			base.PostInit();
-			
-			AddComponent(new LockComponent(this, new GoldLock(), Vector2.Zero, false) {
-				OnOpen = Open
-			});
+
+			if (!IsOpen) {
+				AddComponent(new LockComponent(this, new GoldLock(), Vector2.Zero, false) {
+					OnOpen = Open
+				});
+			}
 		}
 
 		protected override Entity AlterInteraction() {

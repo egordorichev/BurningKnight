@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -57,6 +58,11 @@ namespace BurningKnight.entity.creature.player {
 			
 				if (Input.IsDown(Controls.Right, data)) {
 					acceleration.X += 1;
+				}
+
+				if (Input.Mouse.CheckMiddleButton) {
+					var a = Entity.AngleTo(Input.Mouse.GamePosition);
+					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
 
 				if (data != null) {

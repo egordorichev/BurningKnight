@@ -41,7 +41,8 @@ namespace Lens.entity.component.logic {
 				state.Init();
 
 				Send(new StateChangedEvent {
-					NewState = newState
+					NewState = newState,
+					State = state
 				});
 				
 				newState = null;
