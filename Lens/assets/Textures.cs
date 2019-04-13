@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Lens.assets {
 	public class Textures {
 		private static Dictionary<string, TextureRegion> textures = new Dictionary<string, TextureRegion>();
+		public static TextureRegion Missing;
 		
 		internal static void Load() {
 			var textureDir = FileHandle.FromRoot("Textures/");
@@ -58,7 +59,7 @@ namespace Lens.assets {
 			}
 			
 			Log.Error($"Texture {id} was not found!");
-			return null; // TODO: missing texture placeholder
+			return Missing;
 		}
 	}
 }

@@ -9,7 +9,6 @@
 * lamp rendering
 * minimap
 * weapons in player hands should drop shadows
-* Fix chest without lock not interacting
 * Start working on blood?
 * Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
 * Lock on chest wont be saved

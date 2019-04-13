@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Lens.assets;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -36,8 +38,9 @@ namespace Lens.graphics.animation {
 			if (Slices.TryGetValue(name, out var region)) {
 				return region;
 			}
-
-			return null;
+			
+			Log.Warning($"Unable to find slice {name}");
+			return Textures.Missing;
 		}
 		
 		public AnimationFrame? GetFrame(string layer, uint id) {
@@ -50,6 +53,7 @@ namespace Lens.graphics.animation {
 			}
 
 			if (frames.Count < id) {
+				Log.Warning($"Unable to find frame {layer}:{id}");
 				return null;
 			}
 
