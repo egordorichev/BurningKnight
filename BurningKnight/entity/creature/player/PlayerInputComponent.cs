@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.player {
 				for (int i = 0; i < 4; i++) {
 					if (Input.Gamepads[i].Attached) {
 						data = Input.Gamepads[i];
-						Log.Info($"Connecteted {GamePad.GetState(i)}");
+						Log.Info($"Connected {GamePad.GetState(i)}");
 						break;
 					}
 				}
@@ -30,7 +30,17 @@ namespace BurningKnight.entity.creature.player {
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			
-			if (!(state.StateInstance is Player.RollState)) {
+			if (state.StateInstance is Player.RollState) {
+				// Movement tech :) Direction changing
+				if (Input.WasPressed(Controls.Swap, data)) {
+					(state.StateInstance as Player.RollState).ChangeDirection();
+				}
+				
+				// Movement tech :) Roll cancelling
+				if (Input.WasPressed(Controls.Roll, data)) {
+					state.Become<Player.IdleState>();
+				}
+			} else {
 				var acceleration = new Vector2();
 				
 				if (Input.IsDown(Controls.Up, data)) {

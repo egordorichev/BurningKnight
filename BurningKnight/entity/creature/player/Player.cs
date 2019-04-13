@@ -139,8 +139,12 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				var body = Self.GetComponent<RectBodyComponent>();
-				body.Velocity = direction * (RollTime - T);
-				body.Position += body.Velocity * dt * 0.5f;
+				body.Velocity = direction * (RollTime - T * 0.5f);
+				body.Position += body.Velocity * dt * 0.75f;
+			}
+
+			public void ChangeDirection() {
+				direction *= -1;
 			}
 		}
 		#endregion
