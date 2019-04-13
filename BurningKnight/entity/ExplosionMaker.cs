@@ -68,6 +68,13 @@ namespace BurningKnight.entity {
 								});
 
 								LightUp((x + xx) * 16 + 8, (y + yy) * 16 + 8);
+							} else if (tile == Tile.Planks) {
+								// todo: particles
+								
+								level.Set(index, Tile.FloorA);
+								level.Set(index, Tile.Dirt);
+								level.UpdateTile(x + xx, y + yy);
+								level.CreateDestroyableBody();
 							}
 						}
 					}

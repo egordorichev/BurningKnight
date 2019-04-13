@@ -30,6 +30,7 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.Obsidian] = Passable | LiquidLayer;
 			flags[(int) Tile.Ember] = Passable | LiquidLayer;
 			flags[(int) Tile.Cobweb] = Passable | LiquidLayer | Burns;
+			flags[(int) Tile.Planks] = Solid | WallLayer | BreaksView;
 		}
 	
 		public static bool Matches(this Tile tile, int flag) {
@@ -51,7 +52,7 @@ namespace BurningKnight.level.tile {
 		}
 
 		public static bool IsWall(this Tile tile) {
-			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack;
+			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks;
 		}
 	}
 }

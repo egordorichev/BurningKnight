@@ -38,6 +38,7 @@ namespace BurningKnight.entity.item.use {
 			
 			level.UpdateTile(x, y);
 			level.CreateBody(); // Fixme: super bad, cause body is huge. Think of body chunks 16x16 or so
+			level.CreateDestroyableBody();
 		}
 	}
 }

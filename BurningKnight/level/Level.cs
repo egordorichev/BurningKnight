@@ -63,6 +63,7 @@ namespace BurningKnight.level {
 		public float[] Light;
 
 		public Chasm Chasm;
+		public DestroyableLevel Destroyable;
 
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
@@ -71,6 +72,9 @@ namespace BurningKnight.level {
 
 		public override void Destroy() {
 			base.Destroy();
+
+			Chasm.Done = true;
+			Destroyable.Done = true;
 
 			if (Run.Level == this) {
 				Run.Level = null;
@@ -94,7 +98,13 @@ namespace BurningKnight.level {
 				Level = this
 			};
 			
+			Destroyable = new DestroyableLevel {
+				Level = this
+			};
+			
 			Area.Add(Chasm);
+			Area.Add(Destroyable);
+
 			Area.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
@@ -118,6 +128,14 @@ namespace BurningKnight.level {
 			
 			GetComponent<LevelBodyComponent>().CreateBody();
 			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
+		}
+
+		public void CreateDestroyableBody() {
+			if (components == null) {
+				return;
+			}
+			
+			Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
 		}
 
 		public void TileUp() {
@@ -230,6 +248,7 @@ namespace BurningKnight.level {
 			}
 			
 			CreateBody();
+			CreateDestroyableBody();
 			TileUp();
 		}
 
@@ -346,6 +365,9 @@ namespace BurningKnight.level {
 											case Tile.WallA:
 												region = Tileset.WallA[ind];
 												break;
+											case Tile.Planks:
+												region = Tilesets.Biome.Planks[ind];
+												break;
 											case Tile.FloorA:
 												region = Tileset.FloorSidesA[ind];
 												break;
@@ -412,7 +434,7 @@ namespace BurningKnight.level {
 					var tl = (Tile) Tiles[index];
 
 					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
-						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
+						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
 					}
 				}
 			}
@@ -539,20 +561,20 @@ namespace BurningKnight.level {
 								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							}
 							
-							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)], pos);
+							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), pos);
 
 							var ind = -1;
 
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB, Tile.Planks)) {
 								ind += 1;
 							}
 
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB, Tile.Planks)) {
 								ind += 2;
 							}
 
 							if (ind != -1) {
-								Graphics.Render(tl == Tile.WallA ? Tileset.WallSidesA[ind] : Tileset.WallSidesB[ind], pos);
+								Graphics.Render(tl == Tile.WallA ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
 							}
 						}
 					} else if (tl == Tile.Chasm) {
@@ -610,7 +632,7 @@ namespace BurningKnight.level {
 					var t = (Tile) tile;
 
 					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
-						var region = Tileset.Tiles[tile][0];
+						var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
 						var a = t == Tile.WallA;
 
 						if (t == Tile.WallB) {
@@ -681,10 +703,12 @@ namespace BurningKnight.level {
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
 
+												var ind = vl + 12 * CalcWallTopIndex(x, y);
+												
 												Graphics.Render(
 													a
-														? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)]
-														: Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)],
+														? Tileset.WallTopsA[ind]
+														: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
 													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 
 												Graphics.Color.A = 255;
@@ -699,10 +723,12 @@ namespace BurningKnight.level {
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
 
+												var ind = vl + 12 * CalcWallTopIndex(x, y);
+												
 												Graphics.Render(
 													a
-														? Tileset.WallTopsA[vl + 12 * CalcWallTopIndex(x, y)]
-														: Tileset.WallTopsB[vl + 12 * CalcWallTopIndex(x, y)],
+														? Tileset.WallTopsA[ind]
+														: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
 													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
 
 												Graphics.Color.A = 255;

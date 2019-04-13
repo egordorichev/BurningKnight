@@ -54,7 +54,7 @@ namespace BurningKnight.level.rooms {
 		public abstract int GetMinConnections(Connection Side);
 
 		protected virtual void Fill(Level level) {
-			Painter.Fill(level, this, Tiles.RandomWall());
+			Painter.Fill(level, this, Tile.WallA);
 		}
 		
 		public virtual void PaintFloor(Level level) {
@@ -347,7 +347,7 @@ namespace BurningKnight.level.rooms {
 			return new Vector2(Left + GetWidth() / 2f, Top + GetHeight() / 2f);
 		}
 
-		protected Rect GetConnectionSpace() {
+		public Rect GetConnectionSpace() {
 			var C = GetDoorCenter();
 
 			return new Rect(C.X, C.Y, C.X, C.Y);

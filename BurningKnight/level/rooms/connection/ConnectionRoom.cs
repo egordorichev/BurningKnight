@@ -3,10 +3,6 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class ConnectionRoom : RoomDef {
 		public override void Paint(Level level) {
-			if (Random.Chance()) {
-				return;
-			}
-			
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}

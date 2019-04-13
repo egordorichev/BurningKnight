@@ -264,6 +264,8 @@
     <Compile Include="level\builders\SingleRoomBuilder.cs" />
     <Compile Include="level\Chasm.cs" />
     <Compile Include="level\ChasmBodyComponent.cs" />
+    <Compile Include="level\DestroyableBodyComponent.cs" />
+    <Compile Include="level\DestroyableLevel.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\Entrance.cs" />

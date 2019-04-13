@@ -18,6 +18,7 @@ namespace BurningKnight.level.tile {
 		Ember,
 		Cobweb,
 		Venom,
+		Planks,
 		
 		Total
 	}

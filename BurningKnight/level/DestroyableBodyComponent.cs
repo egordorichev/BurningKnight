@@ -8,13 +8,13 @@ using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
 
 namespace BurningKnight.level {
-	public class LevelBodyComponent : BodyComponent {
+	public class DestroyableBodyComponent : BodyComponent {
 		public void CreateBody() {
 			if (Body != null) {
 				Physics.World.RemoveBody(Body);
 			}
 			
-			var level = (Level) Entity;
+			var level = ((DestroyableLevel) Entity).Level;
 			
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
 			Body.FixedRotation = true;
@@ -28,7 +28,7 @@ namespace BurningKnight.level {
 					var tile = level.Tiles[index];
 					var side = x == 0 || y == 0 || x == level.Width - 1 || y == level.Height - 1;
 
-					if (side || TileFlags.Matches(tile, TileFlags.Solid) && ((Tile) tile) != Tile.Planks) {
+					if (side || ((Tile) tile) == Tile.Planks) {
 						var sum = 0;
 
 						if (!side) {

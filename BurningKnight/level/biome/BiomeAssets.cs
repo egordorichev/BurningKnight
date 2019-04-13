@@ -44,6 +44,11 @@ namespace BurningKnight.level.biome {
 
 		public TextureRegion HighGrass;
 		
+		public TextureRegion[] Planks = new TextureRegion[12];
+		public TextureRegion[] PlankTops = new TextureRegion[36];
+		public TextureRegion[] PlankSides = new TextureRegion[3];
+		public TextureRegion PlanksTop;
+		
 		public BiomeAssets() {
 			var anim = Animations.Get("biome_assets");
 
@@ -84,6 +89,24 @@ namespace BurningKnight.level.biome {
 
 				ChasmSide[i] = new TextureRegion(anim.Texture, new Rectangle(256 + i * 16, 80, 16, 16));
 			}
+			
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 12; j++) {
+					var n = j > 5 ? j + 1 : j;
+
+					PlankTops[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 208, n / 5 * 8 + 136, 8, 8));
+				}
+			}
+				
+			for (int i = 0; i < 12; i++) {
+				Planks[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16 + 208, 160, 16, 16));
+			}
+
+			for (int i = 0; i < 3; i++) {
+				PlankSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
+			}
+
+			PlanksTop = new TextureRegion(anim.Texture, new Rectangle(384, 144, 16, 16));
 		}
 
 		private static Vector2[] Positions = {

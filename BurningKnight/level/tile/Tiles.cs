@@ -17,8 +17,16 @@ namespace BurningKnight.level.tile {
 			return Tile.WallA;//lastWall = (Random.Chance() ? Tile.WallA : Tile.WallB);
 		}
 		
+		public static Tile RandomFillWall() {
+			return lastWall = Pick(Tile.Planks, Tile.WallA, Tile.WallB);
+		}
+		
 		public static Tile RandomNewWall() {
-			return Tile.WallA;//lastWall = (lastWall == Tile.WallA ? Tile.WallB : Tile.WallA);
+			switch (lastWall) {
+				case Tile.WallA: return Random.Chance(70) ? Tile.WallB : Tile.Planks;
+				case Tile.WallB: return Random.Chance(70) ? Tile.WallA : Tile.Planks;
+				case Tile.Planks: default: return Random.Chance() ? Tile.WallB : Tile.WallA;
+			}
 		}
 
 		public static Tile RandomNewFloor() {
