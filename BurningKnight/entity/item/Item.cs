@@ -42,6 +42,7 @@ namespace BurningKnight.entity.item {
 		public string Animation;
 		public bool AutoPickup;
 		public bool LoadedSelf;
+		public bool Used;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -79,6 +80,8 @@ namespace BurningKnight.entity.item {
 				Item = this,
 				Who = entity
 			});
+
+			Used = true;
 		}
 
 		public override void PostInit() {
@@ -159,6 +162,7 @@ namespace BurningKnight.entity.item {
 			
 			stream.WriteInt32(Count);
 			stream.WriteString(Id);
+			stream.WriteBoolean(Used);
 		}
 
 		public override void Load(FileReader stream) {
@@ -167,6 +171,7 @@ namespace BurningKnight.entity.item {
 			LoadedSelf = true;
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
+			Used = stream.ReadBoolean();
 
 			var item = Items.Create(Id);
 

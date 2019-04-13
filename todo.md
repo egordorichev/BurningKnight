@@ -2,6 +2,7 @@
 
 ### Important
 
+* lamp rendering
 * minimap
 * weapons in player hands should drop shadows
 * Solid body component for chest

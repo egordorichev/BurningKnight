@@ -36,6 +36,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyIronHeartsUse>();
 			Register<ModifyHpUse>();
 			Register<ModifyMaxHpUse>();
+			Register<GiveHeartContainersUse>();
 			Register<SimpleShootUse>();
 			Register<RandomUse>();
 		}

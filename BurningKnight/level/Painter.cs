@@ -490,6 +490,10 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void Ellipse(Level Level, Rect Rect, Tile Value, bool bold = false) {
+			Ellipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value, bold);
+		}
+		
 		// To be tested
 		public static void Ellipse(Level Level, int X, int Y, int W, int H, Tile Value, bool bold) {
 			double RadH = H / 2f;
@@ -508,13 +512,23 @@ namespace BurningKnight.level {
 
 				var Cell = X + (W - (int) RowW) / 2 + (Y + I) * Level.Width;
 				var CellB = (int) (Cell + RowW - 1);
-				
-				if (bold) {
-					SetBold(Level, Level.FromIndexX(Cell), Level.FromIndexY(Cell), Value);
-					SetBold(Level, Level.FromIndexX(CellB), Level.FromIndexY(CellB), Value);	
+
+				if (I == 0 || I == H - 1) {
+					for (var J = Cell; J < Cell + RowW; J++) {
+						if (bold) {
+							SetBold(Level, Level.FromIndexX(J), Level.FromIndexY(J), Value);
+						} else {
+							Level.Set(J, Value);
+						}
+					}
 				} else {
-					Level.Set(Cell, Value);
-					Level.Set(CellB, Value);	
+					if (bold) {
+						SetBold(Level, Level.FromIndexX(Cell), Level.FromIndexY(Cell), Value);
+						SetBold(Level, Level.FromIndexX(CellB), Level.FromIndexY(CellB), Value);	
+					} else {
+						Level.Set(Cell, Value);
+						Level.Set(CellB, Value);	
+					}
 				}
 			}
 		}

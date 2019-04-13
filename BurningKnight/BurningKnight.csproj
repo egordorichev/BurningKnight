@@ -228,6 +228,7 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />
+    <Compile Include="entity\item\use\GiveHeartContainersUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
@@ -313,6 +314,7 @@
     <Compile Include="level\tile\Tilesets.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
+    <Compile Include="level\walls\EllipseWalls.cs" />
     <Compile Include="level\walls\WallPainter.cs" />
     <Compile Include="level\walls\WallRegistry.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />

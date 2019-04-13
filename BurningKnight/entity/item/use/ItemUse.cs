@@ -1,5 +1,6 @@
 ﻿using Lens.entity;
 using Lens.lightJson;
+using Lens.util.file;
 
 namespace BurningKnight.entity.item.use {
 	public abstract class ItemUse {

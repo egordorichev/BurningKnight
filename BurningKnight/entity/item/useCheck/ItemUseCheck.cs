@@ -1,6 +1,7 @@
 ﻿using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using Lens.entity;
+using Lens.util.file;
 
 namespace BurningKnight.entity.item.useCheck {
 	public class ItemUseCheck {

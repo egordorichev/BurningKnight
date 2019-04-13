@@ -3,7 +3,7 @@
     "type" : "lamp",
 
     "uses" : {
-      "id" : "bk:ModifyMaxHp",
+      "id" : "bk:GiveHeartContainers",
       "amount" : 6
     }
   }
