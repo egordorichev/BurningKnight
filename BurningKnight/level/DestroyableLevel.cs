@@ -12,8 +12,15 @@ namespace BurningKnight.level {
 		}
 
 		public void Break(float x, float y) {
-			var tx = (int) Math.Floor(x / 16);
-			var ty = (int) Math.Floor(y / 16);
+			Set((int) Math.Floor(x / 16), (int) Math.Floor(y / 16));
+			
+			Set((int) Math.Floor(x / 16 - 0.5f), (int) Math.Floor(y / 16));
+			Set((int) Math.Floor(x / 16 + 0.5f), (int) Math.Floor(y / 16));
+			Set((int) Math.Floor(x / 16), (int) Math.Floor(y / 16 - 0.5f));
+			Set((int) Math.Floor(x / 16), (int) Math.Floor(y / 16 + 0.5f));
+		}
+
+		private void Set(int tx, int ty) {
 
 			if (!Level.IsInside(tx, ty)) {
 				return;

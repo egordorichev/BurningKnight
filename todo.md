@@ -2,6 +2,8 @@
 
 ### Important
 
+* Breakable props
+* Broken variant for walls that do not break
 * lamp rendering
 * minimap
 * weapons in player hands should drop shadows
