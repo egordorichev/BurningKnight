@@ -19,6 +19,7 @@ namespace BurningKnight {
 		public static float FlashFrames;
 		public static bool Vegan;
 		public static bool ShowFps;
+		public static bool Autosave;
 	
 		// Not saved
 		public static bool HideUi;
@@ -45,6 +46,7 @@ namespace BurningKnight {
 			Cursor = "default";
 			RotateCursor = false;
 			Vegan = false;
+			Autosave = true;
 		}
 		
 		public static void Load() {
@@ -64,6 +66,7 @@ namespace BurningKnight {
 			Cursor = GlobalSave.GetString("s_cursor", "cursor-standart");
 			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
 			Vegan = GlobalSave.IsTrue("s_v", false);
+			Autosave = GlobalSave.IsTrue("s_as");
 
 			if (Fullscreen) {
 				Engine.Instance.SetFullscreen();
@@ -91,6 +94,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_cursor", Cursor);
 			GlobalSave.Put("s_rotate_cursor", RotateCursor);
 			GlobalSave.Put("s_v", Vegan);
+			GlobalSave.Put("s_as", Autosave);
 		}
 
 		public static void Generate() {

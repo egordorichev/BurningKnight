@@ -36,6 +36,9 @@ namespace BurningKnight.state {
 		private UiPane gameOverMenu;
 		private bool died;
 		private Cursor cursor;
+		private float saveTimer;
+		private SaveIndicator indicator;
+		private bool saving;
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -149,6 +152,29 @@ namespace BurningKnight.state {
 			}
 
 			Run.Update();
+
+			if (Settings.Autosave && !saving) {
+				saveTimer += dt;
+
+				if (saveTimer >= 60f) {
+					saveTimer = 0;
+					saving = true;
+
+					var thread = new Thread(() => {
+						indicator.HandleEvent(new SaveStartedEvent());
+													
+						SaveManager.Save(Area, SaveType.Game);
+						SaveManager.Save(Area, SaveType.Level);
+						SaveManager.Save(Area, SaveType.Player);
+						
+						indicator.HandleEvent(new SaveEndedEvent());
+						saving = false;
+					});
+
+					thread.Priority = ThreadPriority.Lowest;
+					thread.Start();
+				}
+			}
 		}
 
 		private void UpdateDebug(float dt) {
@@ -304,6 +330,8 @@ namespace BurningKnight.state {
 			
 			cursor = new Cursor();
 			Ui.Add(cursor);
+			
+			Ui.Add(indicator = new SaveIndicator());
 
 			var player = LocalPlayer.Locate(Area);
 			
