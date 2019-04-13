@@ -1,4 +1,5 @@
 using BurningKnight.entity.item;
+using Lens.util;
 
 namespace BurningKnight.entity.component {
 	public class LampComponent : ItemComponent {
@@ -11,6 +12,8 @@ namespace BurningKnight.entity.component {
 
 			Item.Use(Entity);
 			Entity.Area.Add(item);
+			
+			Log.Error("Picked up lamp " + item.Id);
 		}
 
 		protected override bool ShouldReplace(Item item) {

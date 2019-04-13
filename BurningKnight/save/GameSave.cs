@@ -19,7 +19,7 @@ namespace BurningKnight.save {
 		}
 
 		public override void Load(Area area, FileReader reader) {
-			Run.Depth = reader.ReadSbyte();
+			Run.SetDepth(reader.ReadSbyte());
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();

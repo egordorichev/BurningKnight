@@ -3,6 +3,7 @@ using System.IO;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.entity.component {
@@ -15,6 +16,8 @@ namespace BurningKnight.entity.component {
 			})) {
 				item.Use(Entity);
 				Add(item);
+
+				Log.Error("Picke up " + item.Id);
 			}
 		}
 		

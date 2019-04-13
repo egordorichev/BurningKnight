@@ -11,6 +11,10 @@ namespace BurningKnight.state {
 			get => depth;
 			set => NextDepth = value;
 		}
+
+		public static void SetDepth(int value) {
+			depth = value;
+		}
 				
 		public static int KillCount;
 		public static float Time;
