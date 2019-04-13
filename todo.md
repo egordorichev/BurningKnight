@@ -2,6 +2,9 @@
 
 ### Important
 
+* Fx that is placed on destroyed tile, flashes white for 0.2 seconds, then gets removed
+* shake when destroying walls with guns
+* Destroy walls with melee
 * Breakable props
 * Broken variant for walls that do not break
 * lamp rendering
