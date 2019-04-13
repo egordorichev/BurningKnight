@@ -41,6 +41,7 @@ namespace BurningKnight.entity.item {
 		public float Delay { get; protected set; }
 		public string Animation;
 		public bool AutoPickup;
+		public bool LoadedSelf;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -87,6 +88,10 @@ namespace BurningKnight.entity.item {
 				AddComponent(new AnimatedItemGraphicsComponent(Animation));
 			} else {
 				AddComponent(new ItemGraphicsComponent(Id));
+			}
+			
+			if (LoadedSelf) {
+				AddDroppedComponents();
 			}
 		}
 
@@ -150,11 +155,16 @@ namespace BurningKnight.entity.item {
 		}
 
 		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			
 			stream.WriteInt32(Count);
 			stream.WriteString(Id);
 		}
 
 		public override void Load(FileReader stream) {
+			base.Load(stream);
+
+			LoadedSelf = true;
 			Count = stream.ReadInt32();
 			Id = stream.ReadString();
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using Lens.entity.component;
@@ -62,12 +63,29 @@ namespace BurningKnight.entity.component {
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			// todo: save
+			stream.WriteInt16((short) Items.Count);
+			
+			foreach (var item in Items) {
+				item.Save(stream);
+			}
 		}
 
-		public override void Load(FileReader reader) {
-			base.Load(reader);
-			// todo: load
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+
+			var count = stream.ReadInt16();
+
+			for (var i = 0; i < count; i++) {
+				var item = new Item();
+
+				Entity.Area.Add(item, false);
+				
+				item.Load(stream);
+				item.LoadedSelf = false;
+				item.PostInit();
+				
+				Pickup(item);
+			}
 		}
 	}
 }

@@ -2,7 +2,6 @@
 
 ### Important
 
-* dropped items should save
 * minimap
 * weapons in player hands should drop shadows
 * Solid body component for chest
