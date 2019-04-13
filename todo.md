@@ -8,7 +8,6 @@
 * Start working on blood?
 * Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
 * Enemies / rooms drop rewards (bombs, keys, coins)
-* save indicator
 
 * Work out room layout for hub
 * Allow to place entities with editor

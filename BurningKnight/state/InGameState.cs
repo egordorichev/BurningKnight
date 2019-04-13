@@ -27,6 +27,8 @@ using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
+		private const AutoSaveInterval = 60f;
+		
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
@@ -156,7 +158,7 @@ namespace BurningKnight.state {
 			if (Settings.Autosave && !saving) {
 				saveTimer += dt;
 
-				if (saveTimer >= 60f) {
+				if (saveTimer >= AutoSaveInterval) {
 					saveTimer = 0;
 					saving = true;
 
