@@ -2,6 +2,10 @@
 
 ### Important
 
+!!!
+* ask dad for neural net for generating room layouts
+!!!
+
 * lamp rendering
 * minimap
 * weapons in player hands should drop shadows

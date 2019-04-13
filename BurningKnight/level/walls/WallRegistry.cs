@@ -12,10 +12,11 @@ namespace BurningKnight.level.walls {
 
 		protected virtual void SetupRooms() {
 			Add(new WallPainter(), 1f);
+
 			Add(new CollumnWall(), 1f);
 			Add(new CollumsWall(), 1f);
-			
-			Add(new EllipseWalls(), 100000f);
+			Add(new EllipseWalls(), 1f);
+			Add(new TempleWalls(), 1f);
 		}
 
 		public static void Paint(Level level, RoomDef room, WallRegistry registry = null) {

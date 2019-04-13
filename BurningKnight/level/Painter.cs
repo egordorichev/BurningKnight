@@ -358,11 +358,16 @@ namespace BurningKnight.level {
 			Level.Set(cell, Value);
 		}
 
-		public static void Set(Level Level, int X, int Y, Tile Value) {
+		public static void Set(Level Level, int X, int Y, Tile Value, bool bold = false, bool walls = false) {
+			if (bold) {
+				SetBold(Level, X, Y, Value, walls);
+				return;
+			}
+			
 			Set(Level, Level.ToIndex(X, Y), Value);
 		}
 
-		public static void SetBold(Level Level, int X, int Y, Tile Value) {
+		public static void SetBold(Level Level, int X, int Y, Tile Value, bool walls = false) {
 			for (var Yy = Y - 1; Yy < Y + 2; Yy++) {
 				for (var Xx = X - 1; Xx < X + 2; Xx++) {
 					if (!Level.IsInside(Xx, Yy)) {
@@ -370,9 +375,7 @@ namespace BurningKnight.level {
 					}
 					
 					if (Xx != X || Yy != Y) {
-						var T = Level.Get(Xx, Yy);
-
-						if (T == Tile.WallA || T == Tile.WallB) {
+						if (!walls && Level.Get(Xx, Yy).IsWall()) {
 							continue;
 						}
 					}
