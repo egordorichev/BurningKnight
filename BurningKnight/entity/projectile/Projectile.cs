@@ -69,7 +69,7 @@ namespace BurningKnight.entity.projectile {
 
 		protected bool BreaksFrom(Entity entity) {
 			return entity != Owner && (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() 
-			                           || entity is SolidProp);
+			                           || entity is SolidProp || entity is DestroyableLevel);
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -80,6 +80,10 @@ namespace BurningKnight.entity.projectile {
 				
 				if (BreaksFrom(ev.Entity)) {
 					Done = true;
+
+					if (ev.Entity is DestroyableLevel lvl) {
+						lvl.Break(CenterX, CenterY);
+					}
 				}
 			}
 			

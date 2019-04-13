@@ -9,7 +9,31 @@ using VelcroPhysics.Shared;
 
 namespace BurningKnight.level {
 	public class DestroyableBodyComponent : BodyComponent {
+		private bool dirty;
+
+		public override void Init() {
+			base.Init();
+			Entity.AlwaysActive = true;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (dirty) {	
+				dirty = false;
+				Create();
+			}
+		}
+
 		public void CreateBody() {
+			if (Body == null) {
+				Create();
+			} else {
+				dirty = true;
+			}
+		}
+
+		private void Create() {
 			if (Body != null) {
 				Physics.World.RemoveBody(Body);
 			}
