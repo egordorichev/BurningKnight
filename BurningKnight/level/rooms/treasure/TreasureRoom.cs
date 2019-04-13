@@ -1,6 +1,7 @@
 using BurningKnight.entity.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
@@ -19,7 +20,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
-			var chest = new Chest();
+			var chest = Random.Chance(30) ? new Chest() : new LockedChest();
 
 			level.Area.Add(chest);
 

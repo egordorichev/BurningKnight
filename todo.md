@@ -2,27 +2,25 @@
 
 ### Important
 
-!!!
-* ask dad for neural net for generating room layouts
-!!!
-
 * lamp rendering
 * minimap
 * weapons in player hands should drop shadows
 * Start working on blood?
 * Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
-* Lock on chest wont be saved
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * Auto saves
 
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor
-* Loop and castle builders
 * Rooms that can spawn only in certant biomes
 * Debug command to show room type
 
 * Show item description, when you pick them up [UiItemDescription]
+
+!!!
+* ask dad for neural net for generating room layouts
+!!!
 
 !!!
 * Path finding

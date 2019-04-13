@@ -9,6 +9,8 @@ namespace BurningKnight.entity.component {
 	public class LockComponent : Component, Subscriber {
 		public Lock Lock;
 		public Action<Entity> OnOpen;
+
+		private Vector2 offset;
 		
 		public LockComponent(Entity entity, Lock l, Vector2 offset, bool setDepth = true) {
 			Lock = l;
@@ -24,6 +26,12 @@ namespace BurningKnight.entity.component {
 			entity.Area.EventListener.Subscribe<LockOpenedEvent>(this);
 
 			Lock.Center = entity.Center + offset;
+			this.offset = offset;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			Lock.Center = Entity.Center + offset;
 		}
 
 		public override bool HandleEvent(Event e) {
