@@ -61,10 +61,6 @@ namespace BurningKnight.entity.creature.player {
 			RemoveTag(Tags.LevelSave);
 
 			AlwaysActive = true;
-			
-			// Simple inventory simulation
-			var inventory = GetComponent<InventoryComponent>();
-			inventory.Pickup(Items.CreateAndAdd("bk:sword", Area));
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
 		}

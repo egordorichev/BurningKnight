@@ -72,11 +72,22 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Save(FileWriter stream) {
-			base.Save(stream); // todo
+			stream.WriteBoolean(Item != null);
+			Item?.Save(stream);
 		}
 
-		public override void Load(FileReader reader) {
-			base.Load(reader); // todo
+		public override void Load(FileReader stream) {
+			if (stream.ReadBoolean()) {
+				var item = new Item();
+
+				Entity.Area.Add(item, false);
+				
+				item.Load(stream);
+				item.LoadedSelf = false;
+				item.PostInit();
+
+				Set(item);
+			}
 		}
 	}
 }

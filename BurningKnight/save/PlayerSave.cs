@@ -1,6 +1,9 @@
 using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using Lens;
 using Lens.entity;
 using Lens.util.file;
 
@@ -34,7 +37,14 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
-			area.Add(new LocalPlayer());
+			var player = new LocalPlayer();
+			area.Add(player);
+
+			if (Engine.Version.Dev) {
+				// Simple inventory simulation
+				var inventory = player.GetComponent<InventoryComponent>();
+				inventory.Pickup(Items.CreateAndAdd("bk:sword", area));
+			}
 		}
 	}
 }

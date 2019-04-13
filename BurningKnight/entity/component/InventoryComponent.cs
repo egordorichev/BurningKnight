@@ -16,8 +16,6 @@ namespace BurningKnight.entity.component {
 			})) {
 				item.Use(Entity);
 				Add(item);
-
-				Log.Error("Picke up " + item.Id);
 			}
 		}
 		
@@ -65,7 +63,6 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Save(FileWriter stream) {
-			base.Save(stream);
 			stream.WriteInt16((short) Items.Count);
 			
 			foreach (var item in Items) {
@@ -74,8 +71,6 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Load(FileReader stream) {
-			base.Load(stream);
-
 			var count = stream.ReadInt16();
 
 			for (var i = 0; i < count; i++) {
