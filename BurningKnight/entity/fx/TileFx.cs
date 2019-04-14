@@ -14,7 +14,7 @@ namespace BurningKnight.entity.fx {
 			Depth = Layers.WallDecor;
 			AlwaysActive = true;
 
-			t = Random.Float(0.24f);
+			t = Random.Float(0.5f);
 			region = Animations.Get("particles").GetSlice("wall");
 		}
 

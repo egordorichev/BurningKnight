@@ -209,6 +209,14 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.WasPressed(Keys.F4)) {
 				Settings.HideCursor = !Settings.HideCursor;
 			}
+			
+			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
+				var level = Run.Level;
+
+				for (var i = 0; i < level.Explored.Length; i++) {
+					level.Explored[i] = true;
+				}
+			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;

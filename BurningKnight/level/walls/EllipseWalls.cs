@@ -7,6 +7,7 @@ namespace BurningKnight.level.walls {
 	public class EllipseWalls : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			Painter.Fill(level, room, Tiles.RandomWall());
+			Painter.Fill(level, inside, Random.Chance() ? Tile.WallA : Tile.Planks);
 			Painter.FillEllipse(level, inside, Tiles.RandomFloor());
 
 			var before = Random.Chance();

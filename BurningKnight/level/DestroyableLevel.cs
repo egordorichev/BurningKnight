@@ -68,8 +68,8 @@ namespace BurningKnight.level {
 				area.Add(part);
 			}
 
-			Engine.Instance.Freeze = 0.1f;
-			Camera.Instance.Shake(2);
+			Engine.Instance.Freeze = 1f;
+			Camera.Instance.Shake(4);
 		}
 	}
 }
