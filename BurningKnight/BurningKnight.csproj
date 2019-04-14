@@ -251,6 +251,7 @@
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
+    <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\Sign.cs" />
     <Compile Include="level\biome\Biome.cs" />

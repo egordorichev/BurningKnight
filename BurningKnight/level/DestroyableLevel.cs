@@ -2,7 +2,9 @@ using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.fx;
 using BurningKnight.level.tile;
+using Lens;
 using Lens.entity;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -65,6 +67,9 @@ namespace BurningKnight.level {
 				
 				area.Add(part);
 			}
+
+			Engine.Instance.Freeze = 0.1f;
+			Camera.Instance.Shake(2);
 		}
 	}
 }

@@ -1,7 +1,7 @@
-using System;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class TileFx : Entity {
@@ -14,6 +14,7 @@ namespace BurningKnight.entity.fx {
 			Depth = Layers.WallDecor;
 			AlwaysActive = true;
 
+			t = Random.Float(0.24f);
 			region = Animations.Get("particles").GetSlice("wall");
 		}
 

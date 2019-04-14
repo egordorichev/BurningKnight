@@ -2,12 +2,8 @@
 
 ### Important
 
-* Bullet shadow
-* Zoom out camera when explosion and tween it back
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* Fx that is placed on destroyed tile, flashes white for 0.2 seconds, then gets removed
-* shake when destroying walls with guns
-* Destroy walls with melee
+* redo wallB sprite (green?)
 * Breakable props
 * Broken variant for walls that do not break
 * lamp rendering

@@ -10,6 +10,7 @@ using BurningKnight.level.entities;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.graphics;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -29,7 +30,7 @@ namespace BurningKnight.entity.projectile {
 			
 			projectile.Owner = owner;
 			
-			var graphics = new SliceComponent("projectiles", slice);
+			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
 
 			var w = graphics.Sprite.Source.Width;
@@ -48,6 +49,15 @@ namespace BurningKnight.entity.projectile {
 			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 
 			return projectile;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+			AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		private void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public void AddLight(float radius, Color color) {
