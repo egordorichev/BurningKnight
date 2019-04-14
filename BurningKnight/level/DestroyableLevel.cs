@@ -4,6 +4,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.level.tile;
 using Lens.entity;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public class DestroyableLevel : Entity {
@@ -53,6 +54,15 @@ namespace BurningKnight.level {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
+				area.Add(part);
+			}
+			
+			for (var i = 0; i < 8; i++) {
+				var part = new ParticleEntity(Particles.Plank());
+						
+				part.Position = new Vector2(x * 16 + 8, y * 16);
+				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				
 				area.Add(part);
 			}
 		}

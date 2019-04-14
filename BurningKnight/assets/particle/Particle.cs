@@ -18,12 +18,15 @@ namespace BurningKnight.assets.particle {
 		public float Alpha = 1f;
 		public float Scale = 1f;
 		public bool Done;
+		public int Rnd;
 
 		public Particle(ParticleController controller, ParticleRenderer renderer) {
 			Controller = controller;
 			Renderer = renderer;
 
 			Angle = Random.AnglePI();
+			Rnd = Random.Int(1024);
+			T = Random.Float(1f);
 		}
 
 		public virtual void Update(float dt) {

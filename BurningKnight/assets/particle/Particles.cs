@@ -9,7 +9,8 @@ namespace BurningKnight.assets.particle {
 			new TexturedParticleRenderer("dust_1"),
 			new TexturedParticleRenderer("dust_2")
 		};
-		
+
+		private static ParticleRenderer planksRenderer = new RandomFrameRenderer("planks_particle");
 		public static ParticleRenderer AnimatedRenderer = new AnimatedParticleRenderer();
 		
 		public static Particle Textured(string slice) {
@@ -22,6 +23,10 @@ namespace BurningKnight.assets.particle {
 
 		public static Particle Dust() {
 			return new Particle(Controllers.Simple, dustRenderers[Random.Int(3)]);
+		}
+
+		public static Particle Plank() {
+			return new Particle(Controllers.Destroy, planksRenderer);
 		}
 	}
 }

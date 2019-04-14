@@ -1,5 +1,6 @@
 using BurningKnight.entity;
 using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.assets.particle {
 	// Wraps particle for cases, when particle system is too much
@@ -15,11 +16,13 @@ namespace BurningKnight.assets.particle {
 
 			Width = 0;
 			Height = 0;
+
+			X += Random.Float(-1, 1);
+			Y += Random.Float(-1, 1);
 			
 			Particle.Controller.Init(Particle, this);
 
 			AlwaysActive = true;
-			AlwaysVisible = true;
 
 			Depth = Layers.Door;
 		}
@@ -29,7 +32,10 @@ namespace BurningKnight.assets.particle {
 			
 			if (Particle.Controller.Update(Particle, dt) || Particle.Done) {
 				Done = true;
+				return;
 			}
+
+			Position = Particle.Position;
 		}
 
 		public override void Render() {

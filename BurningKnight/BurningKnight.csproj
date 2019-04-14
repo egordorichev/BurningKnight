@@ -71,6 +71,7 @@
     <Compile Include="assets\Palette.cs" />
     <Compile Include="assets\particle\AnimatedParticle.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
+    <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="assets\particle\ParticleSystem.cs" />
     <Compile Include="assets\particle\renderer\AnimatedParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
+    <Compile Include="assets\particle\renderer\RandomFrameRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />
     <Compile Include="assets\prefabs\Prefab.cs" />
     <Compile Include="assets\prefabs\Prefabs.cs" />
