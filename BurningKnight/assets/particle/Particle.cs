@@ -15,8 +15,8 @@ namespace BurningKnight.assets.particle {
 		public float AngleVelocity;
 
 		public float T;
-		public float Alpha;
-		public float Scale;
+		public float Alpha = 1f;
+		public float Scale = 1f;
 		public bool Done;
 
 		public Particle(ParticleController controller, ParticleRenderer renderer) {

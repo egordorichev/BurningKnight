@@ -23,8 +23,8 @@ namespace BurningKnight.level.tile {
 		
 		public static Tile RandomNewWall() {
 			switch (lastWall) {
-				case Tile.WallA: return Random.Chance(70) ? Tile.WallB : Tile.Planks;
-				case Tile.WallB: return Random.Chance(70) ? Tile.WallA : Tile.Planks;
+				case Tile.WallA: return Random.Chance(60) ? Tile.WallB : Tile.Planks;
+				case Tile.WallB: return Random.Chance(60) ? Tile.WallA : Tile.Planks;
 				case Tile.Planks: default: return Random.Chance() ? Tile.WallB : Tile.WallA;
 			}
 		}

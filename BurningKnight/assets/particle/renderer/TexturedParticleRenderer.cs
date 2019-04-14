@@ -11,8 +11,7 @@ namespace BurningKnight.assets.particle.renderer {
 		}
 		
 		public override void Render(Particle particle) {
-			// todo: set alpha
-			Graphics.Render(Region, particle.Position, particle.Alpha, Region.Center, new Vector2(particle.Scale));
+			Graphics.Render(Region, particle.Position, particle.Angle, Region.Center, new Vector2(particle.Scale));
 		}
 	}
 }

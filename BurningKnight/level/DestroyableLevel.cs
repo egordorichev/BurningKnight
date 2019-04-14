@@ -1,6 +1,9 @@
 using System;
+using BurningKnight.assets.particle;
+using BurningKnight.entity.fx;
 using BurningKnight.level.tile;
 using Lens.entity;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level {
 	public class DestroyableLevel : Entity {
@@ -21,7 +24,6 @@ namespace BurningKnight.level {
 		}
 
 		private void Set(int tx, int ty) {
-
 			if (!Level.IsInside(tx, ty)) {
 				return;
 			}
@@ -37,6 +39,22 @@ namespace BurningKnight.level {
 			Level.UpdateTile(tx, ty);
 			
 			GetComponent<DestroyableBodyComponent>().CreateBody();
+
+			Animate(Area, tx, ty);
+		}
+
+		public static void Animate(Area area, int x, int y) {
+			area.Add(new TileFx {
+				X = x * 16,
+				Y = y * 16 - 8
+			});
+			
+			for (var i = 0; i < 4; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+						
+				part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
+				area.Add(part);
+			}
 		}
 	}
 }

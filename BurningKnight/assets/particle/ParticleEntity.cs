@@ -1,3 +1,4 @@
+using BurningKnight.entity;
 using Lens.entity;
 
 namespace BurningKnight.assets.particle {
@@ -7,19 +8,25 @@ namespace BurningKnight.assets.particle {
 
 		public ParticleEntity(Particle particle) {
 			Particle = particle;
-			Particle.Controller.Init(Particle, this);
 		}
-		
+
 		public override void Init() {
 			base.Init();
 
+			Width = 0;
+			Height = 0;
+			
+			Particle.Controller.Init(Particle, this);
+
 			AlwaysActive = true;
 			AlwaysVisible = true;
+
+			Depth = Layers.Door;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
+			
 			if (Particle.Controller.Update(Particle, dt) || Particle.Done) {
 				Done = true;
 			}

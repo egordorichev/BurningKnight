@@ -2,12 +2,16 @@ using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
+using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
@@ -30,6 +34,14 @@ namespace BurningKnight.entity {
 
 				explosion.Particle.Position += new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 			}
+			
+			for (var i = 0; i < 6; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+						
+				part.Position = whoHurts.Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
+				
+				whoHurts.Area.Add(part);
+			}
 				
 			Engine.Instance.Split = 1f;
 			Engine.Instance.Flash = 1f;
@@ -39,7 +51,15 @@ namespace BurningKnight.entity {
 				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts);
 			}
 
+			var zoom = Camera.Instance.TextureZoom;
+			Camera.Instance.TextureZoom -= 0.05f;
+			Tween.To(zoom, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);
+			
 			if (leave) {
+				whoHurts.Area.Add(new ExplosionLeftOver {
+					Center = whoHurts.Center
+				});
+				
 				var xx = (int) Math.Floor(whoHurts.CenterX / 16f);
 				var yy = (int) Math.Floor(whoHurts.CenterY / 16f);
 				var r = (int) Math.Floor(hurtRadius / 16f);
@@ -68,6 +88,8 @@ namespace BurningKnight.entity {
 								});
 
 								LightUp((x + xx) * 16 + 8, (y + yy) * 16 + 8);
+
+								DestroyableLevel.Animate(whoHurts.Area, x + xx, y + yy);
 							} else if (tile == Tile.Planks) {
 								level.Set(index, Tile.Dirt);
 								level.Destroyable.Break((x + xx) * 16, (y + yy) * 16);

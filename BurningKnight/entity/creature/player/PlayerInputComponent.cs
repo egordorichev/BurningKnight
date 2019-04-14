@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -9,6 +10,7 @@ using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
@@ -73,12 +75,6 @@ namespace BurningKnight.entity.creature.player {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();
-
-					/*
-					Entity.Area.Add(new BloodFx {
-						Position = Entity.Center
-					});
-					*/
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();

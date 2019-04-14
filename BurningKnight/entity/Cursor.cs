@@ -40,6 +40,7 @@ namespace BurningKnight.entity {
 			}
 			
 			var pos = Input.Mouse.UiPosition;
+			
 			Graphics.Render(Region, pos, 0, Region.Center, scale);
 		}
 	}

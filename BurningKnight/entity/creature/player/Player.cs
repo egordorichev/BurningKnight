@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
@@ -9,6 +10,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature {
@@ -96,6 +98,7 @@ namespace BurningKnight.entity.creature.player {
 			private const float RollTime = 0.39f;
 			private const float RollForce = 400f;
 			
+			private float lastParticle = 0.05f;
 			private Vector2 direction;
 			
 			public override void Init() {
@@ -109,6 +112,15 @@ namespace BurningKnight.entity.creature.player {
 					: (Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition) - Self.Center).ToAngle();
 
 				direction = new Vector2((float) Math.Cos(angle) * RollForce, (float) Math.Sin(angle) * RollForce);
+				
+				
+				for (var i = 0; i < 4; i++) {
+					var part = new ParticleEntity(Particles.Dust());
+						
+					part.Position = Self.Center;
+					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					Self.Area.Add(part);
+				}
 			}
 
 			public override void Destroy() {
@@ -129,6 +141,18 @@ namespace BurningKnight.entity.creature.player {
 				var body = Self.GetComponent<RectBodyComponent>();
 				body.Velocity = direction * (RollTime - T * 0.5f);
 				body.Position += body.Velocity * dt * 0.75f;
+
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = 0.1f;
+					
+					var part = new ParticleEntity(Particles.Dust());
+						
+					part.Position = Self.Center;
+					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					Self.Area.Add(part);
+				}
 			}
 
 			public void ChangeDirection() {
