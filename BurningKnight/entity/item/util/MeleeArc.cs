@@ -1,11 +1,15 @@
 ﻿using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.level;
+using BurningKnight.physics;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VelcroPhysics.Dynamics;
+using VelcroPhysics.Shared;
 
 namespace BurningKnight.entity.item.util {
 	public class MeleeArc : Entity {
@@ -39,13 +43,18 @@ namespace BurningKnight.entity.item.util {
 			var component = GetComponent<AnimationComponent>();
 			var region = component.Animation.GetCurrentTexture();
 
-			// todo: make texture like in nt
 			Graphics.Render(region, Position, Angle, component.Offset, Vector2.One);
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (ev.Entity is DestroyableLevel) {
+					var fixture = Physics.Fixture;
+					fixture.GetAABB(out var hitbox, 0);
+
+					Run.Level.Destroyable.Break(hitbox.Center.X, hitbox.Center.Y);
+
+				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 			}

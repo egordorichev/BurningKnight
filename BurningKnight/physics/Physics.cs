@@ -10,6 +10,8 @@ namespace BurningKnight.physics {
 		public static PhysicsDebugRenderer Debug;
 		public static bool RenderDebug = false;
 
+		public static Fixture Fixture;
+
 		public static void Init() {
 			World = new World(Vector2.Zero);
 			Debug = new PhysicsDebugRenderer(World);
@@ -34,9 +36,12 @@ namespace BurningKnight.physics {
 		public static bool BeginContact(Contact contact) {
 			var a = contact.FixtureA.Body.UserData;
 			var b = contact.FixtureB.Body.UserData;
-
+			
 			if (a is BodyComponent ac && b is BodyComponent bc) {
+				Fixture = contact.FixtureB;
 				ac.OnCollision(bc.Entity);
+			
+				Fixture = contact.FixtureA;
 				bc.OnCollision(ac.Entity);
 			}
 
