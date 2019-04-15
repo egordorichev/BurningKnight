@@ -6,7 +6,10 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.level.entities;
+using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.connection;
+using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -316,7 +319,25 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (!(Room is RegularRoom) || Run.Depth < 1) {
+				if (!(Room is RegularRoom || Room is EntranceRoom || Room is ExitRoom || Room is ConnectionRoom) || Run.Depth < 1) {
+					continue;
+				}
+
+				
+				for (int X = Room.Left; X <= Room.Right; X++) {
+					if (X % 4 == 0) {
+						var painting = new Painting {
+							Id = "rexcellent"
+						};
+							
+						Level.Area.Add(painting);
+
+						painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
+						painting.Bottom = Room.Top * 16 + 17;
+					}
+				}
+
+				if (Room is ConnectionRoom) {
 					continue;
 				}
 				

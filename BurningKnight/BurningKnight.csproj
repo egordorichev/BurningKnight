@@ -297,6 +297,7 @@
     <Compile Include="level\LevelBodyComponent.cs" />
     <Compile Include="level\LevelTiler.cs" />
     <Compile Include="level\Painter.cs" />
+    <Compile Include="level\paintings\Painting.cs" />
     <Compile Include="level\Patch.cs" />
     <Compile Include="level\RegularLevel.cs" />
     <Compile Include="level\rooms\boss\BossRoom.cs" />
