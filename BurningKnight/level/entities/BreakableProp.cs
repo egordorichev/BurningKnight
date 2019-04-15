@@ -1,5 +1,6 @@
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using Lens;
 using Lens.entity;
@@ -27,6 +28,7 @@ namespace BurningKnight.level.entities {
 		};
 
 		private Entity from;
+		private bool hurts;
 		
 		public static BreakableProp Random() {
 			return new BreakableProp {
@@ -53,10 +55,12 @@ namespace BurningKnight.level.entities {
 		protected override Rectangle GetCollider() {
 			var rect = GetComponent<SliceComponent>().Sprite.Source;
 
+			hurts = Sprite == "cactus";
+
 			Width = rect.Width;
 			Height = rect.Height;
 			
-			return new Rectangle(0, 0, (int) Width, (int) Height);
+			return new Rectangle(hurts ? 2 : 0, 0, (int) (hurts ? Width - 4 : Width), (int) (hurts ? Height - 6 : Height));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -66,6 +70,11 @@ namespace BurningKnight.level.entities {
 				if (h.Health + ev.Amount == 0) {
 					from = ev.From;
 				}
+			} else if (e is CollisionStartedEvent c && hurts) {
+				if (c.Entity is Player) {
+					c.Entity.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+					c.Entity.GetAnyComponent<BodyComponent>().KnockbackFrom(this, 1);
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -74,7 +83,7 @@ namespace BurningKnight.level.entities {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.4f) {
+			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.45f) {
 				Done = true;
 				
 				for (var i = 0; i < 4; i++) {
