@@ -113,7 +113,6 @@ namespace BurningKnight.entity.creature.player {
 
 				direction = new Vector2((float) Math.Cos(angle) * RollForce, (float) Math.Sin(angle) * RollForce);
 				
-				
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());
 						
@@ -176,6 +175,15 @@ namespace BurningKnight.entity.creature.player {
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
 				GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				
+				for (var i = 0; i < 4; i++) {
+					var part = new ParticleEntity(Particles.Dust());
+						
+					part.Position = Center;
+					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					Area.Add(part);
+				}
+				
 				return true;
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();

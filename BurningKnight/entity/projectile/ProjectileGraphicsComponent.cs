@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.graphics.animation;

@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using Lens.entity;
 using Lens.entity.component.graphics;
 
@@ -6,7 +7,7 @@ namespace BurningKnight.entity.fx {
 		public ExplosionLeftOver() {
 			Width = 38;
 			Height = 38;
-			Depth = Layers.Entrance;
+			Depth = Layers.FloorParticles;
 		}
 
 		public override void AddComponents() {

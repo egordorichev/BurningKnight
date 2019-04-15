@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens.assets;

@@ -5,6 +5,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -13,7 +14,6 @@ using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
-using Prop = BurningKnight.entity.fx.Prop;
 
 namespace BurningKnight.level {
 	public class Painter {
@@ -278,7 +278,6 @@ namespace BurningKnight.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				
 				if (Random.Chance(60)) {
 					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.Int(3, 6)); I++) {
 						Level.Area.Add(new Firefly {
@@ -314,6 +313,31 @@ namespace BurningKnight.level {
 							}
 						}
 					}
+				}
+
+				if (Run.Depth < 1 || Random.Chance()) {
+					continue;
+				}
+				
+				var types = new List<string>();
+
+				for (var i = 0; i < Random.Int(2, 3); i++) {
+					types.Add(BreakableProp.Infos[Random.Int(BreakableProp.Infos.Length)]);
+				}
+				
+				for (int i = 0; i < Random.Int(1, 5); i++) {
+					var prop = new BreakableProp {
+						Sprite = types[Random.Int(types.Count)]
+					};
+					
+					var point = Room.GetRandomDoorFreeCell();
+
+					if (!point.HasValue) {
+						continue;
+					}
+					
+					Level.Area.Add(prop);
+					prop.Center = new Vector2(point.Value.X * 16 + 8, point.Value.Y * 16 + 8);
 				}
 			}
 		}

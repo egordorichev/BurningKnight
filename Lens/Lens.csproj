@@ -222,7 +222,6 @@
     <Compile Include="entity\component\Component.cs" />
     <Compile Include="entity\component\graphics\GraphicsComponent.cs" />
     <Compile Include="entity\component\graphics\ImageComponent.cs" />
-    <Compile Include="entity\component\graphics\SliceComponent.cs" />
     <Compile Include="entity\component\logic\EntityState.cs" />
     <Compile Include="entity\component\logic\InterestingComponent.cs" />
     <Compile Include="entity\component\logic\ShakeComponent.cs" />

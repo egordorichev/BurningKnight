@@ -2,12 +2,12 @@
 
 ### Important
 
+* Paintings
+* Breakable props
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * redo wallB sprite (green?)
-* Breakable props
 * Broken variant for walls that do not break
 * lamp rendering
-* minimap
 * weapons in player hands should drop shadows
 * Start working on blood?
 * Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below

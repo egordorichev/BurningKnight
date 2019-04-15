@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.level;
@@ -7,6 +8,7 @@ using BurningKnight.state;
 using Lens.entity.component;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class TileInteractionComponent : Component {
@@ -107,6 +109,14 @@ namespace BurningKnight.entity.component {
 					Who = Entity
 				})) {
 					Entity.Position = LastSupportedPosition;
+					
+					for (var i = 0; i < 4; i++) {
+						var part = new ParticleEntity(Particles.Dust());
+						
+						part.Position = Entity.Center;
+						part.Particle.Scale = Random.Float(0.4f, 0.8f);
+						Entity.Area.Add(part);
+					}
 				}
 			}
 		}

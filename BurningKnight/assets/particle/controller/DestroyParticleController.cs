@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -13,6 +14,7 @@ namespace BurningKnight.assets.particle.controller {
 			var f = Random.Float(0.6f, 1f) * 140f;
 			
 			particle.Velocity = new Vector2((float) Math.Cos(a) * f, (float) Math.Sin(a) * f);
+			owner.Depth = Layers.FloorParticles;
 		}
 		
 		public override bool Update(Particle particle, float dt) {

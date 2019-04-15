@@ -133,6 +133,7 @@
     <Compile Include="entity\component\RoomComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
+    <Compile Include="entity\component\SliceComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
@@ -210,7 +211,6 @@
     <Compile Include="entity\fx\ExplosionLeftOver.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
     <Compile Include="entity\fx\InteractFx.cs" />
-    <Compile Include="entity\fx\Prop.cs" />
     <Compile Include="entity\fx\TileFx.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
@@ -271,6 +271,7 @@
     <Compile Include="level\DestroyableBodyComponent.cs" />
     <Compile Include="level\DestroyableLevel.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
+    <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />

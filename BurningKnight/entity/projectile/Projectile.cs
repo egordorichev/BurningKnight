@@ -11,6 +11,7 @@ using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
