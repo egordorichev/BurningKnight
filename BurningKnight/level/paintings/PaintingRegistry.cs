@@ -19,6 +19,7 @@ namespace BurningKnight.level.paintings {
 			Add("skyscraper", "egordorichev");
 			Add("egor", "egordorichev", 0.25f);
 			Add("null", "SEGFAULT", 0.5f);
+			Add("company", "ANIVIRE", 10000f);
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null) {
