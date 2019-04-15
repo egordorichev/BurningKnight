@@ -19,6 +19,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.paintings {
 	public class Painting : SaveableEntity {
 		public string Id;
+		public string Author;
 		
 		private Entity from;
 		private TextureRegion big;
@@ -59,7 +60,7 @@ namespace BurningKnight.level.paintings {
 			Depth = Layers.Door;
 			
 			name = Locale.Get($"painting_{Id}");
-			author = $"{Locale.Get("by")} egordorichev";
+			author = $"{Locale.Get("by")} {Author}";
 
 			nameWidth = Font.Medium.MeasureString(name).Width;
 			authorWidth = Font.Small.MeasureString(author).Width;
@@ -90,11 +91,13 @@ namespace BurningKnight.level.paintings {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteString(Id);
+			stream.WriteString(Author);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			Id = stream.ReadString();
+			Author = stream.ReadString();
 		}
 
 		public override bool HandleEvent(Event e) {

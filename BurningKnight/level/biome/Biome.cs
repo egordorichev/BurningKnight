@@ -16,5 +16,19 @@ namespace BurningKnight.level.biome {
 			Tileset = tileset;
 			Bg = bg;
 		}
+
+		public bool IsPresent(string[] biomes) {
+			if (biomes == null) {
+				return true;
+			}
+
+			foreach (var b in biomes) {
+				if (b == Id) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }

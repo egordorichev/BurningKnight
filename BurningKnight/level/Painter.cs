@@ -11,6 +11,8 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
+using BurningKnight.level.rooms.secret;
+using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -319,16 +321,13 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (!(Room is RegularRoom || Room is EntranceRoom || Room is ExitRoom || Room is ConnectionRoom) || Run.Depth < 1) {
+				if (!(Room is SecretRoom || Room is TreasureRoom || Room is RegularRoom || Room is EntranceRoom || Room is ExitRoom || Room is ConnectionRoom) || Run.Depth < 1) {
 					continue;
 				}
 
-				for (int X = Room.Left; X <= Room.Right; X++) {
-					if (Random.Chance(10)) {
-						var painting = new Painting {
-							Id = "rexcellent"
-						};
-							
+				for (int X = Room.Left + 1; X < Room.Right; X++) {
+					if (Random.Chance(20)) {
+						var painting = PaintingRegistry.Generate(Level.Biome);
 						Level.Area.Add(painting);
 
 						painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
@@ -336,7 +335,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (Room is ConnectionRoom) {
+				if (Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom) {
 					continue;
 				}
 				
