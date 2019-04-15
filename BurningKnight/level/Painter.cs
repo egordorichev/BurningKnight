@@ -323,9 +323,8 @@ namespace BurningKnight.level {
 					continue;
 				}
 
-				
 				for (int X = Room.Left; X <= Room.Right; X++) {
-					if (X % 4 == 0) {
+					if (Random.Chance(10)) {
 						var painting = new Painting {
 							Id = "rexcellent"
 						};

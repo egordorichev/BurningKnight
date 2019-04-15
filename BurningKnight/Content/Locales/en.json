@@ -13,5 +13,8 @@
   "exit" : "Exit",
   "play" : "Play!",
   
-  "its_dangerous_to_go_alone" : "It's dangerous to go alone! Take these!"
+  "its_dangerous_to_go_alone" : "It's dangerous to go alone! Take these!",
+  
+  "painting_rexcellent" : "Excellent",
+  "by" : "by"
 }

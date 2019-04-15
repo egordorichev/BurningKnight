@@ -1,23 +1,53 @@
+using System;
+using BurningKnight.assets;
 using BurningKnight.assets.particle;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.save;
+using BurningKnight.state;
 using Lens;
+using Lens.assets;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.tween;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.paintings {
 	public class Painting : SaveableEntity {
 		public string Id;
+		
 		private Entity from;
+		private TextureRegion big;
+		private float scale;
+		private float uiY;
+
+		private string name;
+		private string author;
+		
+		private float nameWidth;
+		private float authorWidth;
+
+		public override void AddComponents() {
+			base.AddComponents();
+			
+			AddComponent(new HealthComponent {
+				InitMaxHealth = 1,
+				RenderInvt = true
+			});
+
+			AddComponent(new ExplodableComponent());
+			AddComponent(new InteractableComponent(Interact));
+		}
 
 		public override void PostInit() {
 			base.PostInit();
+
+			big = Animations.Get("paintings").GetSlice(Id);
 			
-			AddComponent(new InteractableComponent(Interact));
 			AddComponent(new InteractableSliceComponent("paintings", $"{Id}_small"));
 			var region = GetComponent<InteractableSliceComponent>().Sprite;
 
@@ -28,18 +58,33 @@ namespace BurningKnight.level.paintings {
 
 			Depth = Layers.Door;
 			
-			AddComponent(new HealthComponent {
-				InitMaxHealth = 1,
-				RenderInvt = true
-			});
-			
-			AddComponent(new ExplodableComponent());
+			name = Locale.Get($"painting_{Id}");
+			author = $"{Locale.Get("by")} egordorichev";
+
+			nameWidth = Font.Medium.MeasureString(name).Width;
+			authorWidth = Font.Small.MeasureString(author).Width;
 		}
 
 		protected virtual bool Interact(Entity entity) {
-			// TODO: open up the painting
+			((InGameState) Engine.Instance.State).CurrentPainting = this;
 
-			return true;
+			uiY = Display.UiHeight;
+			
+			Tween.To(1, 0, x => scale = x, 1.1f, Ease.BackOut);
+			Tween.To(0, uiY, x => uiY = x, 0.8f, Ease.BackOut);
+			
+			return false;
+		}
+
+		public void Remove() {
+			if (uiY > 1f) {
+				return;
+			}
+			
+			Tween.To(0, 1, x => scale = x, 0.2f);
+			Tween.To(Display.Height, uiY, x => uiY = x, 0.2f).OnEnd = () => {
+				((InGameState) Engine.Instance.State).CurrentPainting = null;
+			};
 		}
 
 		public override void Save(FileWriter stream) {
@@ -85,6 +130,22 @@ namespace BurningKnight.level.paintings {
 				Camera.Instance.Shake(2f);
 				Engine.Instance.Freeze = 1f;
 			}
+		}
+
+		public virtual void RenderUi() {
+			var sc = 4;
+			
+			Graphics.Render(big, new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY), 
+				(float) (Math.Cos(Engine.Time) * 0.1f),
+				big.Center, new Vector2(scale * sc));
+			
+			Graphics.Print(name, Font.Medium, 
+				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + big.Height * 0.5f * sc + 16f), 0,
+				new Vector2(nameWidth / 2, 8), new Vector2(scale));
+			
+			Graphics.Print(author, Font.Small, 
+				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + big.Height * 0.5f * sc + 28f), 0,
+				new Vector2(authorWidth / 2, 8), new Vector2(scale));
 		}
 	}
 }

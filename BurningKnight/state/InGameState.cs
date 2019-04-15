@@ -6,6 +6,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.level.paintings;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -41,6 +42,17 @@ namespace BurningKnight.state {
 		private float saveTimer;
 		private SaveIndicator indicator;
 		private bool saving;
+
+		private Painting painting;
+
+		public Painting CurrentPainting {
+			set {
+				painting = value;
+				Paused = painting != null;
+			}
+
+			get => painting;
+		}
 		
 		public InGameState(Area area) {
 			Area = area;
@@ -91,7 +103,10 @@ namespace BurningKnight.state {
 			// fixme: quadOut doesnt feel smooth as tween for the pauseMenu.Y
 			// it seems like its broken
 			Tween.To(this, new {blur = 1}, 0.25f);
-			Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+
+			if (painting == null) {
+				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+			}
 		}
 
 		protected override void OnResume() {
@@ -144,10 +159,16 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 
-			if (Input.WasPressed(Controls.Pause)) {
-				Paused = !Paused;
+			if (painting != null) {
+				if (Input.WasPressed(Controls.Pause) || Input.WasPressed(Controls.Interact) || Input.WasPressed(Controls.Use)) {
+					painting.Remove();
+				}
+			} else {
+				if (Input.WasPressed(Controls.Pause)) {
+					Paused = !Paused;
+				}
 			}
-
+			
 			if (Engine.Version.Debug) {
 				UpdateDebug(dt);
 				Tilesets.Update();
@@ -310,6 +331,10 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderUi() {
+			if (painting != null) {
+				painting.RenderUi();
+			}
+			
 			if (Settings.HideUi) {
 				cursor.Render();
 				return;
