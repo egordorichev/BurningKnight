@@ -1,6 +1,9 @@
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
+using Lens.entity;
+using Lens.graphics;
 using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets.particle {
 	public static class Particles {
@@ -27,6 +30,26 @@ namespace BurningKnight.assets.particle {
 
 		public static Particle Plank() {
 			return new Particle(Controllers.Destroy, planksRenderer);
+		}
+
+		public static void BreakSprite(Area area, TextureRegion region, Vector2 position) {
+			var s = 5;
+			
+			for (int x = 0; x < region.Width; x += s) {
+				for (int y = 0; y < region.Height; y += s) {
+					var r = new TextureRegion(region, s, s);
+					
+					r.Source.X += x;
+					r.Source.Y += y;
+					
+					var part = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
+						Region = r
+					}));
+					
+					part.Position = position + new Vector2(x, y);
+					area.Add(part);
+				}
+			}
 		}
 	}
 }

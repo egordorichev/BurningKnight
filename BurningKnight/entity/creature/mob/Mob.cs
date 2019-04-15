@@ -4,8 +4,10 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.entities;
 using Lens.entity;
 using Lens.entity.component.logic;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -75,7 +77,7 @@ namespace BurningKnight.entity.creature.mob {
 				// If old target even was a thing, it was from wrong category
 				FindTarget();
 			} else if (e is CollisionStartedEvent collisionStart) {
-				if (collisionStart.Entity.HasComponent<HealthComponent>()) {
+				if (collisionStart.Entity.HasComponent<HealthComponent>() && CanHurt(collisionStart.Entity)) {
 					CollidingToHurt.Add(collisionStart.Entity);
 				}
 			} else if (e is CollisionEndedEvent collisionEnd) {
@@ -85,6 +87,10 @@ namespace BurningKnight.entity.creature.mob {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		protected virtual bool CanHurt(Entity entity) {
+			return !(entity is BreakableProp);
 		}
 
 		protected void FindTarget() {

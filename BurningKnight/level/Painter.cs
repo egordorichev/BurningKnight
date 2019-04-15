@@ -315,7 +315,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (Run.Depth < 1 || Random.Chance()) {
+				if (Run.Depth < 1 || Random.Chance(20)) {
 					continue;
 				}
 				
@@ -325,7 +325,7 @@ namespace BurningKnight.level {
 					types.Add(BreakableProp.Infos[Random.Int(BreakableProp.Infos.Length)]);
 				}
 				
-				for (int i = 0; i < Random.Int(1, 5); i++) {
+				for (int i = 0; i < Random.IntCentred(1, 6); i++) {
 					var prop = new BreakableProp {
 						Sprite = types[Random.Int(types.Count)]
 					};

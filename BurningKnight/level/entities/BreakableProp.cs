@@ -60,20 +60,22 @@ namespace BurningKnight.level.entities {
 			if (e is HealthModifiedEvent ev) {
 				var h = GetComponent<HealthComponent>();
 				
-				if (h.Health == 1) {
+				if (h.Health + ev.Amount == 0) {
 					h.Kill(ev.From);
 				}
 			} else if (e is DiedEvent) {
 				Done = true;
 				
-				for (var i = 0; i < 4; i++) {
+				/*for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Center;
 					part.Particle.Scale = Lens.util.math.Random.Float(0.4f, 0.8f);
 					
 					Area.Add(part);
-				}
+				}*/
+
+				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
 			}
 			
 			return base.HandleEvent(e);

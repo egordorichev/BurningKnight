@@ -61,6 +61,10 @@ namespace Lens.util.math {
 			return random.Next(min, max);
 		}
 
+		public static int IntCentred(int min, int max) {
+			return (int) ((Int(min, max) + Int(min, max)) / 2f - 0.1f);
+		}
+
 		public static float Float() {
 			return (float) random.NextDouble();
 		}

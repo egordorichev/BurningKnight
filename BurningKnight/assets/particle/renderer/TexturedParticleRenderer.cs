@@ -9,7 +9,11 @@ namespace BurningKnight.assets.particle.renderer {
 		public TexturedParticleRenderer(string slice) {
 			Region = Animations.Get("particles").GetSlice(slice);
 		}
-		
+
+		public TexturedParticleRenderer() {
+			
+		}
+
 		public override void Render(Particle particle) {
 			Graphics.Render(Region, particle.Position, particle.Angle, Region.Center, new Vector2(particle.Scale));
 		}
