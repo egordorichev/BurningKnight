@@ -1,12 +1,39 @@
 # TODO
 
+### Castle enemies
+#### To sprite
+
+* Bandit
+* Dragon
+* King servant
+* Wall slime
+
+#### To implement
+
+* Slime
+  Jumps around, when sees player jumps to it. Might have a better version, that spits out bullets, when lands.
+* King
+  Decide AI, spawns king servants
+* King servant
+  Decide AI
+* Dragon
+  Slowly walks (or sits in one place), fires bullet hell
+* Knight
+  Decide AI
+* Ranged knight
+  Decide AI
+* Bandit
+  Wanders, shoots into you sometimes
+* Wall slime
+  Just take ai from isaac and revita
+* Clown
+  Gets close, plants a bomb, runs
+
 ### Important
 
-* Paintings
-* Breakable props
+* Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * redo wallB sprite (green?)
-* Broken variant for walls that do not break
 * lamp rendering
 * weapons in player hands should drop shadows
 * Start working on blood?
