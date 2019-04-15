@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
+using BurningKnight.level.paintings;
 using Lens.entity;
 using Lens.entity.component.logic;
 using VelcroPhysics.Dynamics;
@@ -90,7 +91,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected virtual bool CanHurt(Entity entity) {
-			return !(entity is BreakableProp);
+			return !(entity is BreakableProp || entity is Painting);
 		}
 
 		protected void FindTarget() {

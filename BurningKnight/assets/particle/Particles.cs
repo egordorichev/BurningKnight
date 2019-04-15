@@ -33,9 +33,9 @@ namespace BurningKnight.assets.particle {
 			return new Particle(Controllers.Destroy, planksRenderer);
 		}
 
-		public static void BreakSprite(Area area, TextureRegion region, Vector2 position) {
+		public static void BreakSprite(Area area, TextureRegion region, Vector2 position, int depth = -1) {
 			var s = 5;
-			
+						
 			for (int x = 0; x < region.Width; x += s) {
 				for (int y = 0; y < region.Height; y += s) {
 					var r = new TextureRegion(region, s, s);
@@ -47,9 +47,13 @@ namespace BurningKnight.assets.particle {
 						Region = r
 					}));
 
-					part.Particle.Angle = (float) (Math.Atan2(r.Center.Y - y, r.Center.X - x) - Math.PI);
+					part.Particle.Angle = (float) (Math.Atan2(r.Center.Y - y, r.Center.X - x) - Math.PI + Random.Float(-1, 1));
 					part.Position = position + new Vector2(x, y);
 					area.Add(part);
+
+					if (depth != -1) {
+						part.Depth = depth;
+					}
 				}
 			}
 		}

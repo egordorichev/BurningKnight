@@ -7,10 +7,10 @@ namespace BurningKnight.assets.particle.controller {
 	public class DestroyParticleController : ParticleController {
 		public override void Init(Particle particle, Entity owner) {
 			particle.Position = owner.Center;
-			particle.AngleVelocity = Random.Float(0.6f, 1) * 32 * (Random.Chance() ? -1 : 1);
+			particle.AngleVelocity = Random.Float(0.6f, 1) * Random.Float(24, 48) * (Random.Chance() ? -1 : 1);
 
 			var a = particle.Angle;
-			var f = Random.Float(0.6f, 1f) * 100f;
+			var f = Random.Float(0.6f, 1f) * Random.Float(80, 120f);
 
 			particle.Angle = 0;
 			particle.Velocity = new Vector2((float) Math.Cos(a) * f, (float) Math.Sin(a) * f);
