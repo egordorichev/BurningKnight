@@ -81,7 +81,7 @@ namespace BurningKnight.entity {
 								level.Set(index, Tile.Dirt);
 								level.UpdateTile(x + xx, y + yy);
 								level.CreateBody();
-
+								
 								whoHurts.HandleEvent(new SecretRoomFoundEvent {
 									Who = whoHurts
 								});

@@ -106,6 +106,7 @@ namespace BurningKnight.level {
 			Area.Add(Destroyable);
 
 			Area.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
+			Area.Add(new RenderTrigger(this, RenderSides, Layers.Sides));
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
@@ -345,68 +346,7 @@ namespace BurningKnight.level {
 						if (t.Matches(TileFlags.FloorLayer)) {
 							var pos = new Vector2(x * 16, y * 16);
 
-							if (t == Tile.Chasm) {
-								Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
-
-								if (!paused && Random.Chance(0.1f)) {
-									Area.Add(new ChasmFx {
-										Position = pos + new Vector2(Random.Float(16), Random.Float(16))
-									});
-								}
-
-								if (index >= width) {
-									var tt = Get(index - width);
-
-									if (tt != Tile.Chasm) {
-										var ind = CalcWallSide(x, y);
-										TextureRegion region;
-
-										switch (tt) {
-											case Tile.WallA:
-												region = Tileset.WallA[ind];
-												break;
-											case Tile.Planks:
-												region = Tilesets.Biome.Planks[ind];
-												break;
-											case Tile.FloorA:
-												region = Tileset.FloorSidesA[ind];
-												break;
-											case Tile.FloorB:
-												region = Tileset.FloorSidesB[ind];
-												break;
-											case Tile.FloorC:
-												region = Tileset.FloorSidesC[ind];
-												break;
-											case Tile.FloorD:
-												region = Tileset.FloorSidesD[ind];
-												break;
-											default:
-											case Tile.WallB:
-												region = Tileset.WallB[ind];
-												break;
-										}
-
-										enabled.SetValue(true);
-										sy.SetValue((float) region.Source.Y / Tileset.WallTopA.Texture.Height);
-										Graphics.Render(region, pos);
-										enabled.SetValue(false);
-										
-										var id = -1;
-
-										if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
-											id += 1;
-										}
-							
-										if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
-											id += 2;
-										}
-
-										if (id != -1) {
-											Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
-										}
-									}
-								}
-							} else {
+							if (t != Tile.Chasm) {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
 						}
@@ -545,6 +485,24 @@ namespace BurningKnight.level {
 			
 			Shaders.End();
 			RenderShadowSurface();
+		}
+		
+		private void RenderSides() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+			
+			var paused = Engine.Instance.State.Paused;
+			
+			var shader = Shaders.Chasm;
+			Shaders.Begin(shader);
+
+			shader.Parameters["h"].SetValue(8f / Tileset.WallTopA.Texture.Height);
+			var sy = shader.Parameters["y"];
+			var enabled = shader.Parameters["enabled"];
+			enabled.SetValue(false);
 			
 			for (int y = GetRenderTop(camera); y < toY; y++) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
@@ -578,6 +536,69 @@ namespace BurningKnight.level {
 							}
 						}
 					} else if (tl == Tile.Chasm) {
+						var pos = new Vector2(x * 16, y * 16);
+						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
+
+						if (!paused && Random.Chance(0.1f)) {
+							Area.Add(new ChasmFx {
+								Position = pos + new Vector2(Random.Float(16), Random.Float(16))
+							});
+						}
+
+						if (index >= width) {
+							var tt = Get(index - width);
+
+							if (tt != Tile.Chasm) {
+								var ind = CalcWallSide(x, y);
+								TextureRegion textureRegion;
+
+								switch (tt) {
+									case Tile.WallA:
+										textureRegion = Tileset.WallA[ind];
+										break;
+									case Tile.Planks:
+										textureRegion = Tilesets.Biome.Planks[ind];
+										break;
+									case Tile.FloorA:
+										textureRegion = Tileset.FloorSidesA[ind];
+										break;
+									case Tile.FloorB:
+										textureRegion = Tileset.FloorSidesB[ind];
+										break;
+									case Tile.FloorC:
+										textureRegion = Tileset.FloorSidesC[ind];
+										break;
+									case Tile.FloorD:
+										textureRegion = Tileset.FloorSidesD[ind];
+										break;
+									default:
+									case Tile.WallB:
+										textureRegion = Tileset.WallB[ind];
+										break;
+								}
+
+								enabled.SetValue(true);
+								sy.SetValue((float) textureRegion.Source.Y / Tileset.WallTopA.Texture.Height);
+								Graphics.Render(textureRegion, pos);
+								enabled.SetValue(false);
+								
+								var id = -1;
+
+								if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
+									id += 1;
+								}
+					
+								if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
+									id += 2;
+								}
+
+								if (id != -1) {
+									Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
+								}
+							}
+						}
+					
+						enabled.SetValue(false);
 						
 						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
 							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcWallTopIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
@@ -597,6 +618,8 @@ namespace BurningKnight.level {
 					}
 				}
 			}
+
+			Shaders.End();
 		}
 
 		private void RenderShadowSurface() {

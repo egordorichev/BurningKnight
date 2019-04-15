@@ -7,6 +7,7 @@ using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -315,7 +316,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (Run.Depth < 1 || Random.Chance(20)) {
+				if (!(Room is RegularRoom) || Run.Depth < 1) {
 					continue;
 				}
 				
@@ -325,7 +326,7 @@ namespace BurningKnight.level {
 					types.Add(BreakableProp.Infos[Random.Int(BreakableProp.Infos.Length)]);
 				}
 				
-				for (int i = 0; i < Random.IntCentred(1, 6); i++) {
+				for (int i = 0; i < Random.IntCentred(2, 7); i++) {
 					var prop = new BreakableProp {
 						Sprite = types[Random.Int(types.Count)]
 					};
@@ -337,7 +338,7 @@ namespace BurningKnight.level {
 					}
 					
 					Level.Area.Add(prop);
-					prop.Center = new Vector2(point.Value.X * 16 + 8, point.Value.Y * 16 + 8);
+					prop.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-3, 3), point.Value.Y * 16 + 8 + Random.Float(-3, 3));
 				}
 			}
 		}

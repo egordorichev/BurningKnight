@@ -59,8 +59,7 @@ namespace BurningKnight.level {
 							foreach (var dir in PathFinder.Neighbours8) {
 								var n = dir + index;
 
-								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid) ||
-								                          TileFlags.Matches(level.Tiles[n], TileFlags.Hole))) {
+								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid))) {
 									sum++;
 								}
 							}
@@ -110,7 +109,7 @@ namespace BurningKnight.level {
 		}
 
 		private bool Check(Level level, int x, int y) {
-			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid) || level.CheckFor(x, y, TileFlags.Hole));
+			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid));
 		}
 	}
 }

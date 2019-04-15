@@ -1,9 +1,10 @@
+using System;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using Lens.entity;
 using Lens.graphics;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle {
 	public static class Particles {
@@ -45,7 +46,8 @@ namespace BurningKnight.assets.particle {
 					var part = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
 						Region = r
 					}));
-					
+
+					part.Particle.Angle = (float) (Math.Atan2(r.Center.Y - y, r.Center.X - x) - Math.PI);
 					part.Position = position + new Vector2(x, y);
 					area.Add(part);
 				}

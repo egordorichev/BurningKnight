@@ -21,10 +21,9 @@ namespace BurningKnight.assets.particle {
 			Y += Random.Float(-1, 1);
 			
 			Particle.Controller.Init(Particle, this);
-
 			AlwaysActive = true;
 
-			Depth = Layers.Door;
+			Depth = Layers.FloorParticles;
 		}
 
 		public override void Update(float dt) {

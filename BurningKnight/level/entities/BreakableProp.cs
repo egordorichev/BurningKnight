@@ -1,8 +1,9 @@
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using Lens;
 using Lens.entity;
-using Lens.util;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities {
@@ -24,6 +25,8 @@ namespace BurningKnight.level.entities {
 			"crate_a",
 			"crate_b"
 		};
+
+		private Entity from;
 		
 		public static BreakableProp Random() {
 			return new BreakableProp {
@@ -36,7 +39,7 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new HealthComponent {
-				InitMaxHealth = Lens.util.math.Random.Int(1, 3),
+				InitMaxHealth = 1,
 				RenderInvt = true
 			});
 
@@ -61,24 +64,32 @@ namespace BurningKnight.level.entities {
 				var h = GetComponent<HealthComponent>();
 				
 				if (h.Health + ev.Amount == 0) {
-					h.Kill(ev.From);
+					from = ev.From;
 				}
-			} else if (e is DiedEvent) {
+			}
+			
+			return base.HandleEvent(e);
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.4f) {
 				Done = true;
 				
-				/*for (var i = 0; i < 4; i++) {
+				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Center;
 					part.Particle.Scale = Lens.util.math.Random.Float(0.4f, 0.8f);
 					
 					Area.Add(part);
-				}*/
+				}
 
 				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
+				Camera.Instance.Shake(2f);
+				Engine.Instance.Freeze = 1f;
 			}
-			
-			return base.HandleEvent(e);
 		}
 	}
 }
