@@ -134,8 +134,8 @@ namespace BurningKnight.level {
 				}
 			}
 
-			Decorate(Level, Rooms);
 			PaintDoors(Level, Rooms);
+			Decorate(Level, Rooms);
 			
 			PlaceMobs(Level, Rooms);
 		}
@@ -326,12 +326,12 @@ namespace BurningKnight.level {
 				}
 
 				for (int X = Room.Left + 1; X < Room.Right; X++) {
-					if (Random.Chance(20)) {
+					if (Level.Get(X, Room.Top).IsWall() && Random.Chance(20)) {
 						var painting = PaintingRegistry.Generate(Level.Biome);
 						Level.Area.Add(painting);
 
 						painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
-						painting.Bottom = Room.Top * 16 + 17;
+						painting.CenterY = Room.Top * 16 + 13;
 					}
 				}
 

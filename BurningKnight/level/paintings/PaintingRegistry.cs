@@ -10,11 +10,11 @@ namespace BurningKnight.level.paintings {
 			Add("rexcellent", "egordorichev");
 			Add("grannylisa", "DSF100");
 			Add("maanex", "DSF100");
-			Add("bk", "mate");
+			Add("bk", "Mate");
 			Add("failpositive", "FIXME: ADD AUTHOR"); // fixme
 			Add("old_man", "???");
-			Add("arthouse", "???");
-			Add("black", "???");
+			Add("arthouse", "xD");
+			Add("black", "!!!");
 			Add("milt", "egordorichev");
 			Add("skyscraper", "egordorichev");
 			Add("egor", "egordorichev", 0.25f);
