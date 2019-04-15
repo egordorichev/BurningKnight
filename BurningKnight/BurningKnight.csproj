@@ -136,10 +136,12 @@
     <Compile Include="entity\component\SliceComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
+    <Compile Include="entity\component\WallAnimationComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
+    <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
@@ -297,6 +299,7 @@
     <Compile Include="level\LevelBodyComponent.cs" />
     <Compile Include="level\LevelTiler.cs" />
     <Compile Include="level\Painter.cs" />
+    <Compile Include="level\paintings\AnimatedPainting.cs" />
     <Compile Include="level\paintings\Painting.cs" />
     <Compile Include="level\paintings\PaintingRegistry.cs" />
     <Compile Include="level\Patch.cs" />

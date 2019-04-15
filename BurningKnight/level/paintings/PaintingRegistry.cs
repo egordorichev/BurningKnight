@@ -19,14 +19,18 @@ namespace BurningKnight.level.paintings {
 			Add("skyscraper", "egordorichev");
 			Add("egor", "egordorichev", 0.25f);
 			Add("null", "SEGFAULT", 0.5f);
+			Add("lamp", "Brastin");
+			Add("banana", "Minions");
+			Add("badosz", "DSF100", 100000f, null, true);
 		}
 		
-		public static void Add(string id, string author, float chance = 1f, string[] biomes = null) {
+		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {
 			paintings.Add(new Info {
 				Id = id,
 				Author = author,
 				Chance = chance,
-				Biomes = biomes
+				Biomes = biomes,
+				Animated = animated
 			});
 		}
 
@@ -53,6 +57,13 @@ namespace BurningKnight.level.paintings {
 				sum += info.Chance;
 
 				if (value < sum) {
+					if (info.Animated) {
+						return new AnimatedPainting {
+							Id = info.Id,
+							Author = info.Author
+						};
+					}
+					
 					return new Painting {
 						Id = info.Id,
 						Author = info.Author
@@ -68,6 +79,7 @@ namespace BurningKnight.level.paintings {
 			public string Author;
 			public float Chance;
 			public string[] Biomes;
+			public bool Animated;
 		}
 	}
 }

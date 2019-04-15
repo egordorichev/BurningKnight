@@ -149,14 +149,43 @@ namespace BurningKnight.level {
 				chances[i] = room.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
 			}
 
-			for (int i = 0; i < 4; i++) {
-				var index = Random.Chances(chances);
+			var types = new List<Type>();
 
-				if (index == -1) {
-					return;
+			for (int i = 0; i < Random.Int(2, 4); i++) {
+				var type = mobs[Random.Chances(chances)].Type;
+				var found = false;
+				
+				foreach (var t in types) {
+					if (t == type) {
+						found = true;
+						break;
+					}
 				}
 
-				room.PlaceMob(level, (Mob) Activator.CreateInstance(mobs[index].Type));
+				if (found) {
+					i--;
+				} else {
+					types.Add(type);
+				}
+			}
+
+			var weight = Random.Float(4f, 7f);
+
+			while (weight > 0) {
+				var type = types[Random.Int(types.Count)];
+				var mob = (Mob) Activator.CreateInstance(type);
+				var wall = mob.SpawnsNearWall();
+				
+				var point = wall ? room.GetRandomCellNearWall() : room.GetRandomDoorFreeCell();
+
+				if (!point.HasValue) {
+					continue;
+				}
+				
+				weight -= mob.GetWeight();
+
+				level.Area.Add(mob);
+				mob.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-2, 2), point.Value.Y * 16 + (wall ? 0 : 8) + Random.Float(-2, 2));
 			}
 		}
 		

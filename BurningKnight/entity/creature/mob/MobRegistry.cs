@@ -10,7 +10,8 @@ namespace BurningKnight.entity.creature.mob {
 		static MobRegistry() {
 			MobInfo[] infos = {
 				// MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle))
+				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle))
 			};
 			
 			All.AddRange(infos);

@@ -124,5 +124,13 @@ namespace BurningKnight.entity.creature.mob {
 		public override bool IsFriendly() {
 			return GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
+
+		public virtual float GetWeight() {
+			return 1f;
+		}
+
+		public virtual bool SpawnsNearWall() {
+			return false;
+		}
 	}
 }
