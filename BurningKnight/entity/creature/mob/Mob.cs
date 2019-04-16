@@ -95,7 +95,13 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void FindTarget() {
-			var targets = GetComponent<RoomComponent>().Room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room == null) {
+				return;
+			}
+			
+			var targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			

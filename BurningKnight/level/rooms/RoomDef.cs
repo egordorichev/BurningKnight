@@ -259,22 +259,22 @@ namespace BurningKnight.level.rooms {
 					}
 				}
 
-				if (!Run.Level.Get((int) Point.X + 1, (int) Point.Y).IsWall()) {
+				if (Point.X + 1 < Right && !Run.Level.Get((int) Point.X + 1, (int) Point.Y).IsWall()) {
 					Busy.Add(Point);
 					return new Vector2(Point.X + 1, Point.Y);
 				}
 				
-				if (!Run.Level.Get((int) Point.X - 1, (int) Point.Y).IsWall()) {
+				if (Point.X - 1 > Left && !Run.Level.Get((int) Point.X - 1, (int) Point.Y).IsWall()) {
 					Busy.Add(Point);
 					return new Vector2(Point.X - 1, Point.Y);
 				}
 				
-				if (!Run.Level.Get((int) Point.X, (int) Point.Y + 1).IsWall()) {
+				if (Point.Y + 1 < Bottom && !Run.Level.Get((int) Point.X, (int) Point.Y + 1).IsWall()) {
 					Busy.Add(Point);
 					return new Vector2(Point.X, Point.Y + 1);
 				}
 				
-				if (!Run.Level.Get((int) Point.X, (int) Point.Y - 1).IsWall()) {
+				if (Point.X - 1 > Top && !Run.Level.Get((int) Point.X, (int) Point.Y - 1).IsWall()) {
 					Busy.Add(Point);
 					return new Vector2(Point.X, Point.Y - 1);
 				}

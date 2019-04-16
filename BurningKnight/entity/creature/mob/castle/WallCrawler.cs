@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
@@ -22,14 +21,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 		private Direction direction;
 		public bool Left;
 		public float T;
+		public bool Inited;
 		
 		/*
 		 * TODO:
-		 *
-		 * proper body rotation
-		 * melee arc reflect bullets
-		 * a bit of randomisation in init?
-		 * fix exceptions when loading
+		 * fix saving
 		 */
 		
 		protected override void SetStats() {
@@ -40,10 +36,6 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			Width = 16;
 			Height = 16;
-
-			var body = new RectBodyComponent(0, 8, 16, 8, BodyType.Dynamic, true);
-			AddComponent(body);
-			body.KnockbackModifier = 0;
 
 			Left = Random.Chance();
 		}
@@ -56,8 +48,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 		private void LockToWall() {
 			var dirs = new List<Direction>();
 			
-			var x = (int) Math.Floor(X / 16f);
-			var y = (int) Math.Floor((Y + 8) / 16f);
+			var x = (int) Math.Round(X / 16f);
+			var y = (int) Math.Round((Y + 8) / 16f);
 			var level = Run.Level;
 
 			if (level.Get(x + 1, y).IsWall()) {
@@ -87,8 +79,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			direction = dirs[Random.Int(dirs.Count)];
 			var angle = direction.ToAngle();
+			
+			var v = direction == Direction.Up || direction == Direction.Down;
+			var body = new RectBodyComponent(direction == Direction.Left ? 8 : 0, direction == Direction.Up ? 8 : 0, v ? 16 : 8, v ? 8 : 16, BodyType.Dynamic, true);
 
-			GetComponent<RectBodyComponent>().Body.Rotation = (float) (angle + Math.PI / 2f);
+			AddComponent(body);
+			body.KnockbackModifier = 0;
+			
 			GetComponent<WallAnimationComponent>().Angle = angle;
 			Become<IdleState>();
 		}
@@ -97,7 +94,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			var y = Y;
 				
 			X = (int) Math.Floor(X / 16f) * 16;
-			Y = (int) Math.Floor(y / 16f) * 16;
+			Y = (int) Math.Floor(y / 16f) * 16 + 8;
 			
 			base.Save(stream);
 
@@ -114,6 +111,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			public override void Init() {
 				base.Init();
+
+				if (!Self.Inited) {
+					Self.Inited = true;
+					T = Random.Float(1f);
+				}
 
 				var f = 30f;
 				var a = Self.direction.ToAngle();
