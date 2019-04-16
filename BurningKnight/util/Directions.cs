@@ -35,5 +35,23 @@ namespace BurningKnight.util {
 
 			return 0;
 		}
+
+		public static int GetMx(this Direction direction) {
+			switch (direction) {
+				case Direction.Left: return 1;
+				case Direction.Right: return -1;
+			}
+
+			return 0;
+		}
+
+		public static int GetMy(this Direction direction) {
+			switch (direction) {
+				case Direction.Up: return 1;
+				case Direction.Down: return -1;
+			}
+
+			return 0;
+		}
 	}
 }
