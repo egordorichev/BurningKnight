@@ -1,19 +1,36 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.entity.door;
+using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
+using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
-using Lens.graphics;
+using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
+using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class WallCrawler : Mob {
 		private Direction direction;
+		public bool Left;
+		public float T;
+		
+		/*
+		 * TODO:
+		 *
+		 * proper body rotation
+		 * melee arc reflect bullets
+		 * a bit of randomisation in init?
+		 * fix exceptions when loading
+		 */
 		
 		protected override void SetStats() {
 			base.SetStats();
@@ -21,13 +38,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new WallAnimationComponent("crawler"));
 			SetMaxHp(2);
 
-			// todo: rotate body
 			Width = 16;
 			Height = 16;
 
-			var body = new RectBodyComponent(0, 0, 16, 16);
+			var body = new RectBodyComponent(0, 8, 16, 8, BodyType.Dynamic, true);
 			AddComponent(body);
 			body.KnockbackModifier = 0;
+
+			Left = Random.Chance();
 		}
 
 		public override void PostInit() {
@@ -69,16 +87,22 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			direction = dirs[Random.Int(dirs.Count)];
 			var angle = direction.ToAngle();
-			
+
+			GetComponent<RectBodyComponent>().Body.Rotation = (float) (angle + Math.PI / 2f);
 			GetComponent<WallAnimationComponent>().Angle = angle;
 			Become<IdleState>();
 		}
 
-		public int tx;
-		public int ty;
+		public override void Save(FileWriter stream) {
+			var y = Y;
+				
+			X = (int) Math.Floor(X / 16f) * 16;
+			Y = (int) Math.Floor(y / 16f) * 16;
+			
+			base.Save(stream);
 
-		public int ttx;
-		public int tty;
+			Y = y;
+		}
 		
 		#region Crawler States
 		public class IdleState : MobState<WallCrawler> {
@@ -94,7 +118,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				var f = 30f;
 				var a = Self.direction.ToAngle();
 
-				if (Random.Chance()) {
+				if (Self.Left) {
 					a += (float) Math.PI;
 				}
 				
@@ -112,34 +136,52 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			public override void Update(float dt) {
 				base.Update(dt);
+				
+				var mx = Self.X + (this.mx) * 16;
+				var my = Self.CenterY + (this.my) * 16;
 
-				if (T < 0.2f) {
+				if (!Run.Level.Get((int) Math.Round(mx / 16f), (int) Math.Round(my / 16f)).IsWall()) {
+					Self.GetComponent<HealthComponent>().Kill(Self);
 					return;
 				}
 				
-				var mx = Self.X + (this.mx + vx) * 16;
-				var my = Self.CenterY + (this.my + vy) * 16;
+				mx = Self.X + (this.mx + vx * 0.5f) * 16;
+				my = Self.CenterY + (this.my + vy * 0.5f) * 16;
 							
-				Self.tx = (int) Math.Round(mx / 16f);
-				Self.ty = (int) Math.Round(my / 16f);
+				var tx = (int) Math.Round(mx / 16f);
+				var ty = (int) Math.Round(my / 16f);
 
-				if (!Run.Level.Get((int) Self.tx, (int) Self.ty).IsWall()) {
+				if (!Run.Level.Get(tx, ty).IsWall()) {
 					Flip();
 					return;
 				}
 				
-				mx = Self.X + (vx) * 16;
-				my = Self.CenterY + (vy) * 16;
+				mx = Self.X + (vx) * 12;
+				my = Self.CenterY + (vy) * 12;
 							
-				Self.ttx = (int) Math.Round(mx / 16f);
-				Self.tty = (int) Math.Round(my / 16f);
+				tx = (int) Math.Round(mx / 16f);
+				ty = (int) Math.Round(my / 16f);
 				
-				if (Run.Level.Get(Self.ttx, Self.tty).IsWall()) {
+				if (Run.Level.Get(tx, ty).IsWall()) {
 					Flip();
+					return;
+				}
+				
+				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+
+				if (T >= 3f) {
+					Become<FireState>();
 				}
 			}
 			
-			private void Flip() {
+			public void Flip() {
+				Self.Left = !Self.Left;
+
+				if (Self.T >= 3f) {
+					Become<FireState>();
+					return;
+				}
+
 				velocity *= -1;
 				vx *= -1;
 				vy *= -1;
@@ -147,16 +189,65 @@ namespace BurningKnight.entity.creature.mob.castle {
 				T = 0;
 			}
 		}
-		#endregion
 
-		public override void Render() {
-			Graphics.Batch.FillRectangle(new RectangleF(tx * 16 - 1, ty * 16 - 9, 18, 18), Color.Red);
-			Graphics.Batch.FillRectangle(new RectangleF(ttx * 16 - 1, tty * 16 - 9, 18, 18), Color.Blue);
-			base.Render();
+		public class FireState : MobState<WallCrawler> {
+			private bool fired;
+			
+			public override void Init() {
+				base.Init();
+
+				Self.T = 0;
+				
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+				Self.GetComponent<WallAnimationComponent>().SetAutoStop(true);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<WallAnimationComponent>().SetAutoStop(false);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (!fired && Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
+					fired = true;
+					T = 0;
+					
+					var angle = Self.direction.ToAngle();
+					var projectile = Projectile.Make(Self, "small", angle, 30f);
+
+					projectile.AddLight(32f, Color.Red);
+				} else if (fired && T > 0.2f) {
+					Self.GetComponent<StateComponent>().Become<IdleState>();
+				}
+			}
 		}
+		#endregion
 
 		public override bool SpawnsNearWall() {
 			return true;
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent ev) {
+				var en = ev.Entity;
+
+				if (en is Door || (en is SolidProp && !(en is BreakableProp))) {
+					var state = GetComponent<StateComponent>().StateInstance;
+
+					if (state is IdleState s) {
+						s.Flip();
+					}
+				}
+			}
+			
+			return base.HandleEvent(e);
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			T += dt;
 		}
 	}
 }
