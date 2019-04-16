@@ -474,8 +474,12 @@ namespace BurningKnight.level {
 				}
 			}
 		}
-		
-		// To be tested
+
+		public static void Rect(Level level, Rect rect, int m, Tile value, bool bold = false) {
+			rect = rect.Shrink(m);
+			Rect(level, rect.Left, rect.Top, rect.GetWidth() - 1, rect.GetHeight() - 1, value, bold);
+		}
+
 		public static void Rect(Level level, int X, int Y, int W, int H, Tile value, bool bold = false) {
 			DrawLine(level, new Vector2(X, Y), new Vector2(X + W, Y), value, bold);
 			DrawLine(level, new Vector2(X, Y + H), new Vector2(X + W, Y + H), value, bold);
@@ -545,7 +549,8 @@ namespace BurningKnight.level {
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, int M, Tile Value) {
-			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
+			Rect = Rect.Shrink(M);
+			FillEllipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
 		}
 
 		public static void FillEllipse(Level Level, int X, int Y, int W, int H, Tile Value) {
@@ -571,6 +576,11 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void Ellipse(Level Level, Rect Rect, int m, Tile Value, bool bold = false) {
+			Rect = Rect.Shrink(m);
+			Ellipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value, bold);
+		}
+		
 		public static void Ellipse(Level Level, Rect Rect, Tile Value, bool bold = false) {
 			Ellipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value, bold);
 		}
@@ -595,7 +605,7 @@ namespace BurningKnight.level {
 				var CellB = (int) (Cell + RowW - 1);
 
 				if (I == 0 || I == H - 1) {
-					for (var J = Cell; J < Cell + RowW; J++) {
+					for (var J = Cell - 1; J <= Cell + RowW; J++) {
 						if (bold) {
 							SetBold(Level, Level.FromIndexX(J), Level.FromIndexY(J), Value);
 						} else {

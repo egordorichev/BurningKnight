@@ -327,6 +327,7 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
+    <Compile Include="level\walls\BreakableCageWall.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
