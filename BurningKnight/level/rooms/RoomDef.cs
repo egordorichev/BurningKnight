@@ -32,6 +32,7 @@ namespace BurningKnight.level.rooms {
 		public int Id;
 
 		public List<RoomDef> Neighbours = new List<RoomDef>();
+		private List<Vector2> Busy = new List<Vector2>();
 
 		public virtual int GetMinWidth() {
 			return 10;
@@ -180,6 +181,10 @@ namespace BurningKnight.level.rooms {
 		public Vector2 GetRandomCell() {
 			return new Vector2(Random.Int(Left + 1, Right), Random.Int(Top + 1, Bottom));
 		}
+		
+		public Vector2 GetRandomCellWithWalls() {
+			return new Vector2(Random.Int(Left, Right + 1), Random.Int(Top, Bottom + 1));
+		}
 
 		public Vector2? GetRandomFreeCell() {
 			Vector2 Point;
@@ -216,24 +221,34 @@ namespace BurningKnight.level.rooms {
 						return null;
 					}
 
-					Point = GetRandomCell();
+					var found = false;
+					Point = GetRandomCellWithWalls();
+
+					foreach (var b in Busy) {
+						if ((int) b.X == (int) Point.X && (int) b.Y == (int) Point.Y) {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						continue;
+					}
 
 					if (Connected.Count == 0) {
 						return Point;
 					}
 
-					if (!Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable)) {
+					if (!Run.Level.Get((int) Point.X, (int) Point.Y).IsWall()) {
 						continue;
 					}
-
-					var found = false;
 
 					foreach (var Door in Connected.Values) {
 						var Dx = (int) (Door.X - Point.X);
 						var Dy = (int) (Door.Y - Point.Y);
 						var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-						if (D < 3 && Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable)) {
+						if (D < 3) {
 							found = true;
 							break;
 						}
@@ -245,18 +260,22 @@ namespace BurningKnight.level.rooms {
 				}
 
 				if (!Run.Level.Get((int) Point.X + 1, (int) Point.Y).IsWall()) {
+					Busy.Add(Point);
 					return new Vector2(Point.X + 1, Point.Y);
 				}
 				
 				if (!Run.Level.Get((int) Point.X - 1, (int) Point.Y).IsWall()) {
+					Busy.Add(Point);
 					return new Vector2(Point.X - 1, Point.Y);
 				}
 				
 				if (!Run.Level.Get((int) Point.X, (int) Point.Y + 1).IsWall()) {
+					Busy.Add(Point);
 					return new Vector2(Point.X, Point.Y + 1);
 				}
 				
 				if (!Run.Level.Get((int) Point.X, (int) Point.Y - 1).IsWall()) {
+					Busy.Add(Point);
 					return new Vector2(Point.X, Point.Y - 1);
 				}
 			} while (true);

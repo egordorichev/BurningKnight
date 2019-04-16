@@ -184,8 +184,13 @@ namespace BurningKnight.level {
 				
 				weight -= mob.GetWeight();
 
+				if (wall) {
+					mob.Position = new Vector2(point.Value.X * 16, point.Value.Y * 16 - 8);
+				} else {
+					mob.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-2, 2), point.Value.Y * 16 + 8 + Random.Float(-2, 2));
+				}
+
 				level.Area.Add(mob);
-				mob.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-2, 2), point.Value.Y * 16 + (wall ? 0 : 8) + Random.Float(-2, 2));
 			}
 		}
 		

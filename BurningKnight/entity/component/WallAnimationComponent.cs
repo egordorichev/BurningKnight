@@ -14,7 +14,7 @@ namespace BurningKnight.entity.component {
 
 		protected override void CallRender(Vector2 pos) {
 			var region = Animation.GetCurrentTexture();
-			var origin = new Vector2(region.Width / 2, region.Height);
+			var origin = new Vector2(region.Width / 2, region.Height / 2);
 			
 			Graphics.Render(region, pos + origin, Angle, origin);
 		}

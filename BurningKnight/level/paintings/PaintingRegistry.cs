@@ -21,7 +21,8 @@ namespace BurningKnight.level.paintings {
 			Add("null", "SEGFAULT", 0.5f);
 			Add("lamp", "Brastin");
 			Add("banana", "Minions");
-			Add("badosz", "DSF100", 100000f, null, true);
+			Add("badosz", "DSF100", 1f, null, true);
+			Add("tv", "ANIVIRE");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {
