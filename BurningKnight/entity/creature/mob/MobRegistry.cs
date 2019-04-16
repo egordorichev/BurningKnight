@@ -11,7 +11,8 @@ namespace BurningKnight.entity.creature.mob {
 			MobInfo[] infos = {
 				// MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle))
+				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Clown>(new SpawnChance(100000f, Biome.Castle)) // Fix the chance
 			};
 			
 			All.AddRange(infos);

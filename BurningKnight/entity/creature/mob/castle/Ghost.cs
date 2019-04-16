@@ -63,6 +63,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
+				// Fixme: this target stuff is bad for multiplayer, it will chase only random player, not closest
 				float d = Self.Target.DistanceSquaredTo(Self);
 				
 				if (d > TargetRadius + 10f) {

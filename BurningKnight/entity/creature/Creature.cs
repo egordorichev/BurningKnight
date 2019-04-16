@@ -68,7 +68,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb)));
+			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || entity is DestroyableLevel)));
 		}
 
 		public virtual bool IsFriendly() {

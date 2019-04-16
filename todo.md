@@ -6,7 +6,6 @@
 * Bandit
 * Dragon
 * King servant
-* Wall slime
 
 #### To implement
 
@@ -25,12 +24,13 @@
 * Bandit
   Wanders, shoots into you sometimes
 * Wall slime
-  Just take ai from isaac and revita
+  Move variants, 3 shoot? aim shot? 3 in a row shot?
 * Clown
   Gets close, plants a bomb, runs
 
 ### Important
 
+* Death animations
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * redo wallB sprite (green?)

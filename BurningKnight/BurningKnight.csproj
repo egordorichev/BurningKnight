@@ -139,6 +139,7 @@
     <Compile Include="entity\component\WallAnimationComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
+    <Compile Include="level\walls\BreakableBlockingWall.cs" />
     <Compile Include="level\walls\BreakableCageWall.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />

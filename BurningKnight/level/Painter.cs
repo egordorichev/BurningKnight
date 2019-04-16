@@ -411,7 +411,8 @@ namespace BurningKnight.level {
 
 						door.X = D.X * 16;
 						door.Y = D.Y * 16;
-						door.FacingSide = Level.Get(D.X, D.Y + 1).Matches(TileFlags.Solid);
+						var tile = Level.Get(D.X, D.Y + 1);
+						door.FacingSide = tile.IsWall() && tile != Tile.Planks;
 
 						if (door.FacingSide) {
 							door.Y -= 8;
