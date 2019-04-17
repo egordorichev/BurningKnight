@@ -3,7 +3,7 @@
 ### Castle enemies
 #### To sprite
 
-* Dragon
+* Dragon (maybe take gunner sprite and draw a new one for him? But we also have this old dino sprite, consider that)
 * King servant
 
 #### To implement
@@ -19,17 +19,17 @@
 * Knight
   Decide AI
 * Ranged knight
-  Decide AI
-* Bandit
-  Wanders, shoots into you sometimes
+  Probably should just reuse old bk ranger ai
 * Wall slime
   Move variants, 3 shoot? aim shot? 3 in a row shot?
 * Clown
-  Gets close, plants a bomb, runs
+  Ai core done, just make it feel nice, animate more particles?
 
 ### Important
 
 * Mark doors as unpassable
+* Doors must be ALWAYS solid for mobs
+* Ghosts should go rage mode, when no other enemy types are left in the room
 * Death animations
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast

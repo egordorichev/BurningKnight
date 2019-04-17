@@ -140,12 +140,15 @@
     <Compile Include="entity\component\WallAnimationComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\mob\BurningKnight.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Gunner.cs" />
+    <Compile Include="entity\creature\mob\castle\King.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\castle\Maggot.cs" />
+    <Compile Include="entity\creature\mob\castle\Slime.cs" />
     <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />

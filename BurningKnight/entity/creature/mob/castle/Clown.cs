@@ -1,10 +1,8 @@
-using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
-using Lens.graphics;
+using Lens.entity.component.logic;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
@@ -20,12 +18,15 @@ namespace BurningKnight.entity.creature.mob.castle {
 			var body = new RectBodyComponent(2, 2, 12, 12);
 			AddComponent(body);
 
-			body.Body.LinearDamping = 6;
+			body.Body.LinearDamping = 0;
 		}
 		
 		#region Clown States
 		public class IdleState : MobState<Clown> {
-			
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+			}
 		}
 		
 		public class RunState : MobState<Clown> {
@@ -38,8 +39,12 @@ namespace BurningKnight.entity.creature.mob.castle {
 					
 					bomb.Center = Self.Center;
 					bomb.VelocityTo(Self.AngleTo(Self.Target));
-					
-					Become<RunAwayState>();
+
+					foreach (var mob in Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob]) {
+						if (mob is Clown) {
+							mob.GetComponent<StateComponent>().Become<RunAwayState>();
+						}
+					}
 				}
 			}
 		}
