@@ -1,5 +1,7 @@
 ﻿using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
+using BurningKnight.physics;
 using Lens.entity;
 using Lens.input;
 using Lens.util;
@@ -7,7 +9,7 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
-	public class Bomb : Entity {
+	public class Bomb : Entity, CollisionFilterEntity {
 		public const float ExplosionTime = 3f;
 
 		private readonly float explosionTime; 
@@ -38,15 +40,21 @@ namespace BurningKnight.entity {
 		}
 
 		public void MoveToMouse() {
-			var component = GetComponent<RectBodyComponent>();
-			var angle = AngleTo(Input.Mouse.GamePosition);
-			var force = 100f;
-			var vec = new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
+			VelocityTo(AngleTo(Input.Mouse.GamePosition));
+		}
 
+		public void VelocityTo(float angle, float force = 100f) {
+			var component = GetComponent<RectBodyComponent>();
+			var vec = new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
+			
 			Position += vec * 0.05f;
 			
 			component.Body.LinearDamping = 5;
 			component.Velocity = vec;
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Mob);
 		}
 	}
 }

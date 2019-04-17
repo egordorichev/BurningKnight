@@ -94,8 +94,8 @@ namespace BurningKnight.entity.creature.player {
 				Bombs--;
 				
 				var bomb = new Bomb();
-				bomb.Center = Entity.Center;
 				Entity.Area.Add(bomb);
+				bomb.Center = Entity.Center;
 				bomb.MoveToMouse();
 			}
 		}

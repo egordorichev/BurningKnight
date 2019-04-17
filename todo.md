@@ -29,6 +29,7 @@
 
 ### Important
 
+* Mark doors as unpassable
 * Death animations
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast

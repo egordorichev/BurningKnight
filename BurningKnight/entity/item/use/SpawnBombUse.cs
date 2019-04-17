@@ -1,5 +1,3 @@
-using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -8,14 +6,10 @@ namespace BurningKnight.entity.item.use {
 		public int Timer;
 		
 		public override void Use(Entity entity, Item item) {
-			var bomb = new Entity();
-			
-			bomb.Center = entity.Center;
-			bomb.AddComponent(new ExplodeComponent {
-				Timer = Timer
-			});
-						
+			var bomb = new Bomb();
 			entity.Area.Add(bomb);
+			bomb.Center = entity.Center;
+			bomb.MoveToMouse();
 		}
 
 		public override void Setup(JsonValue settings) {

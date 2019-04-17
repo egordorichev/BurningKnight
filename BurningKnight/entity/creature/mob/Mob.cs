@@ -145,46 +145,53 @@ namespace BurningKnight.entity.creature.mob {
 		}
 		
 		#region Path finding
-		private Vec2 nextPathPoint;
+		protected Vec2 NextPathPoint;
+		private int lastStepBack;
 
-		private void BuildPath(Vector2 to) {
+		private void BuildPath(Vector2 to, bool back = false) {
 			var level = Run.Level;
-			var fp = level.ToIndex((int) Math.Round(CenterX / 16f), (int) Math.Round(CenterY / 16f));
-			var tp = level.ToIndex((int) Math.Round(to.X / 16f), (int) Math.Round(to.Y / 16f));
+			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(CenterY / 16f));
+			var tp = level.ToIndex((int) Math.Floor(to.X / 16f), (int) Math.Floor(to.Y / 16f));
 
-			var p = PathFinder.GetStep(fp, tp, level.Passable);
+			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, lastStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
 
+			if (back) {
+				lastStepBack = p;
+			}
+			
 			if (p == -1) {
 				return;
 			}
 			
-			nextPathPoint = new Vec2 {
+			NextPathPoint = new Vec2 {
 				X = level.FromIndexX(p) * 16 + 8, 
 				Y = level.FromIndexY(p) * 16 + 8
 			};
 		}
 		
-		public bool MoveTo(Vector2 point, float speed, float distance = 8f) {
-			var ds = DistanceTo(point);
-			
-			if (ds <= distance) {
-				return true;
-			}
-			
-			if (nextPathPoint == null) {
-				BuildPath(point);
+		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
+			if (!back) {
+				var ds = DistanceTo(point);
 
-				if (nextPathPoint == null) {
+				if (ds <= distance) {
+					return true;
+				}
+			}
+
+			if (NextPathPoint == null) {
+				BuildPath(point, back);
+
+				if (NextPathPoint == null) {
 					return false;
 				}
 			}
 
-			var dx = nextPathPoint.X - CenterX;
-			var dy = nextPathPoint.Y - CenterY;
+			var dx = NextPathPoint.X - CenterX;
+			var dy = NextPathPoint.Y - CenterY;
 			var d = (float) Math.Sqrt(dx * dx + dy * dy);
 
 			if (d <= 1f) {
-				nextPathPoint = null;
+				NextPathPoint = null;
 				return false;
 			}
 
