@@ -60,6 +60,7 @@ namespace BurningKnight.level {
 		public byte[] LiquidVariants;
 		public byte[] Flags;
 		public bool[] Explored;
+		public bool[] Passable;
 		public float[] Light;
 
 		public Chasm Chasm;
@@ -128,7 +129,7 @@ namespace BurningKnight.level {
 			}
 			
 			GetComponent<LevelBodyComponent>().CreateBody();
-			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 		}
 
 		public void CreateDestroyableBody() {
@@ -137,6 +138,23 @@ namespace BurningKnight.level {
 			}
 			
 			Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
+		}
+
+		private bool loadMarked;
+		private bool first;
+		
+		public void LoadPassable() {
+			if (first) {
+				CreatePassable();
+			} else {
+				loadMarked = false;
+			}
+		}
+		
+		public void CreatePassable() {
+			for (var i = 0; i < Size; i++) {
+				Passable[i] = Get(i).Matches(TileFlags.Passable);
+			}
 		}
 
 		public void TileUp() {
@@ -251,6 +269,7 @@ namespace BurningKnight.level {
 			CreateBody();
 			CreateDestroyableBody();
 			TileUp();
+			LoadPassable();
 		}
 
 		public void Setup() {
@@ -263,6 +282,7 @@ namespace BurningKnight.level {
 			Light = new float[Size];
 			Flags = new byte[Size];
 			Explored = new bool[Size];
+			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
 		}

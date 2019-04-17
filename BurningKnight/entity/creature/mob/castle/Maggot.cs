@@ -66,5 +66,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override Type GetIdleState() {
 			return typeof(IdleState);
 		}
+
+		public override float GetWeight() {
+			return 0.5f;
+		}
 	}
 }

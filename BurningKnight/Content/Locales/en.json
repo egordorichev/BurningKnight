@@ -31,6 +31,9 @@
   "painting_banana" : "BANANA",
   "painting_tv" : "TV in the sky",
   "painting_company" : "Good Company",
+  "painting_pico" : "PICO-8",
+  "painting_liko" : "LIKO-12",
+  "painting_trasevol" : "Dog du Trasevol",
   
   "by" : "by"
 }

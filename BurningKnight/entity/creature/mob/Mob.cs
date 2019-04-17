@@ -7,6 +7,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.entity;
@@ -147,10 +148,29 @@ namespace BurningKnight.entity.creature.mob {
 		private Vec2 nextPathPoint;
 
 		private void BuildPath(Vector2 to) {
+			var level = Run.Level;
+			var fp = level.ToIndex((int) Math.Round(CenterX / 16f), (int) Math.Round(CenterY / 16f));
+			var tp = level.ToIndex((int) Math.Round(to.X / 16f), (int) Math.Round(to.Y / 16f));
+
+			var p = PathFinder.GetStep(fp, tp, level.Passable);
+
+			if (p == -1) {
+				return;
+			}
 			
+			nextPathPoint = new Vec2 {
+				X = level.FromIndexX(p) * 16 + 8, 
+				Y = level.FromIndexY(p) * 16 + 8
+			};
 		}
 		
 		public bool MoveTo(Vector2 point, float speed, float distance = 8f) {
+			var ds = DistanceTo(point);
+			
+			if (ds <= distance) {
+				return true;
+			}
+			
 			if (nextPathPoint == null) {
 				BuildPath(point);
 
@@ -159,22 +179,17 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			}
 
-			var dx = nextPathPoint.X - point.X;
-			var dy = nextPathPoint.Y - point.Y;
+			var dx = nextPathPoint.X - CenterX;
+			var dy = nextPathPoint.Y - CenterY;
 			var d = (float) Math.Sqrt(dx * dx + dy * dy);
 
-			if (d <= 3f) {
+			if (d <= 1f) {
 				nextPathPoint = null;
-
-				if (DistanceTo(point) < distance) {
-					return true;
-				}
-
-				return MoveTo(point, speed, distance);
+				return false;
 			}
 
-			speed *= Engine.Delta;
-			GetAnyComponent<BodyComponent>().Velocity += new Vector2(dx / d * speed, dy / d * speed);
+			speed *= Engine.Delta * 60;
+			GetAnyComponent<BodyComponent>().Velocity = new Vector2(dx / d * speed, dy / d * speed);
 
 			return false;
 		}

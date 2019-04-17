@@ -143,8 +143,8 @@ namespace BurningKnight.level.paintings {
 		}
 
 		public virtual void RenderUi() {
-			var sc = 4;
 			var region = GetRegion();
+			var sc = (float) Math.Max(1, Math.Floor(Math.Max((Display.Width - 96f) / region.Width, (Display.Height - 96f) / region.Height)));
 			
 			Graphics.Render(region, new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY), 
 				(float) (Math.Cos(Engine.Time) * 0.1f),
