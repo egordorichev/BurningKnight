@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 		
 		#region Clown States
-		public class IdleState : MobState<Clown> {
+		public class IdleState : MobState<Gunner> {
 			
 		}
 		#endregion

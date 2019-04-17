@@ -42,11 +42,14 @@ namespace BurningKnight.level {
 			Level.UpdateTile(tx, ty);
 			
 			GetComponent<DestroyableBodyComponent>().CreateBody();
-
 			Animate(Area, tx, ty);
 		}
 
 		public static void Animate(Area area, int x, int y) {
+			if (!Camera.Instance.Overlaps(new Rectangle(x * 16, y * 16, 16, 16))) {
+				return;
+			}
+
 			area.Add(new TileFx {
 				X = x * 16,
 				Y = y * 16 - 8

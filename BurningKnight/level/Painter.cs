@@ -151,7 +151,7 @@ namespace BurningKnight.level {
 
 			var types = new List<Type>();
 
-			for (int i = 0; i < Random.Int(2, 4); i++) {
+			for (int i = 0; i < Random.Int(2, 5); i++) {
 				var type = mobs[Random.Chances(chances)].Type;
 				var found = false;
 				

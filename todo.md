@@ -3,7 +3,6 @@
 ### Castle enemies
 #### To sprite
 
-* Bandit
 * Dragon
 * King servant
 
