@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		public class IdleState : MobState<Bandit> {
 			private float delay;
 			private float fireDelay;
-			private float timer;
+			private bool fired;
 
 			public override void Init() {
 				base.Init();
@@ -39,10 +39,6 @@ namespace BurningKnight.entity.creature.mob.castle {
 				delay = Random.Float(1, 2.5f);
 				fireDelay = Self.moveId % 2 == 0 ? 3 : Random.Float(0.5f, delay - 0.5f);
 				Self.moveId++;
-
-				if (Self.moveId % 6 == 0) {
-					fireDelay = delay / 3.9f;
-				}
 			}
 
 			public override void Update(float dt) {
@@ -53,11 +49,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 					return;
 				}
 
-				timer += dt;
-
-				if (timer >= fireDelay) {
-					timer = 0;
-
+				if (!fired && T >= fireDelay) {
+					fired = true;
+					
 					if (Self.Target != null) {
 						var ac = 0.1f;
 						var angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
