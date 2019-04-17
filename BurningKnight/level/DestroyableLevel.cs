@@ -40,6 +40,7 @@ namespace BurningKnight.level {
 
 			Level.Tiles[index] = (byte) Tile.FloorA;
 			Level.UpdateTile(tx, ty);
+			Level.LoadPassable();
 			
 			GetComponent<DestroyableBodyComponent>().CreateBody();
 			Animate(Area, tx, ty);

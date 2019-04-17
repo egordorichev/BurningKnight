@@ -145,10 +145,11 @@ namespace BurningKnight.level {
 		private bool first;
 		
 		public void LoadPassable() {
-			if (first) {
+			if (!first) {
+				first = true;
 				CreatePassable();
 			} else {
-				loadMarked = false;
+				loadMarked = true;
 			}
 		}
 		
@@ -326,6 +327,12 @@ namespace BurningKnight.level {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (loadMarked) {
+				loadMarked = false;
+				CreatePassable();
+			}
+			
 			time += dt;
 		}
 
