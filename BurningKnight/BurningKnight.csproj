@@ -102,6 +102,7 @@
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\LoadCommand.cs" />
     <Compile Include="debug\NewCommand.cs" />
+    <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />

@@ -24,6 +24,7 @@ namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
+		public static bool RenderPassable = false;
 		
 		public Tileset Tileset;
 		public Biome Biome;
@@ -781,6 +782,20 @@ namespace BurningKnight.level {
 								}
 							}
 						}
+					}
+				}
+			}
+
+			if (!RenderPassable) {
+				return;
+			}
+			
+			var color = new Color(1f, 1f, 1f, 0.5f);
+
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
+					if (Passable[ToIndex(x, y)]) {
+						Graphics.Batch.DrawRectangle(new RectangleF(x * 16 + 1, y * 16 + 1, 14, 14), color);
 					}
 				}
 			}
