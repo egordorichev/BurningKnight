@@ -18,7 +18,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 		
 		#region Clown States
 		public class IdleState : MobState<Clown> {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.Target != null) {
+					Self.MoveTo(Self.Target.Center, 30f);
+				}
+			}
 		}
 		#endregion
 	}

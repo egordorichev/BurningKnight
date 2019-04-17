@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -6,8 +7,11 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
+using BurningKnight.util;
+using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob {
@@ -138,5 +142,42 @@ namespace BurningKnight.entity.creature.mob {
 		public virtual bool SpawnsNearWall() {
 			return false;
 		}
+		
+		#region Path finding
+		private Vec2 nextPathPoint;
+
+		private void BuildPath(Vector2 to) {
+			
+		}
+		
+		public bool MoveTo(Vector2 point, float speed, float distance = 8f) {
+			if (nextPathPoint == null) {
+				BuildPath(point);
+
+				if (nextPathPoint == null) {
+					return false;
+				}
+			}
+
+			var dx = nextPathPoint.X - point.X;
+			var dy = nextPathPoint.Y - point.Y;
+			var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+			if (d <= 3f) {
+				nextPathPoint = null;
+
+				if (DistanceTo(point) < distance) {
+					return true;
+				}
+
+				return MoveTo(point, speed, distance);
+			}
+
+			speed *= Engine.Delta;
+			GetAnyComponent<BodyComponent>().Velocity += new Vector2(dx / d * speed, dy / d * speed);
+
+			return false;
+		}
+		#endregion
 	}
 }

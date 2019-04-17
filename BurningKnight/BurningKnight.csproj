@@ -144,12 +144,14 @@
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Gunner.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
+    <Compile Include="entity\creature\mob\castle\Maggot.cs" />
     <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\MobState.cs" />
+    <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Titles.cs" />
+    <Compile Include="util\Vec2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">
