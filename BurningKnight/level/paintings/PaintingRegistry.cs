@@ -27,6 +27,13 @@ namespace BurningKnight.level.paintings {
 			Add("pico", "zep");
 			Add("liko", "Rami");
 			Add("trasevol", "TRASEVOL_DOG");
+			Add("scream", "???");
+			Add("stars", "???");
+			Add("fog", "???");
+			Add("nufflee", "Nufflee");
+			Add("car", "???");
+			Add("moika", "???");
+			Add("sunset", "???");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {
