@@ -105,10 +105,14 @@ namespace Lens.entity {
 		}
 
 		public void Render() {
-			foreach (var entity in Entities) {
-				if ((entity.OnScreen || entity.AlwaysVisible) && entity.Visible) {
-					entity.Render();
+			try {
+				foreach (var entity in Entities) {
+					if ((entity.OnScreen || entity.AlwaysVisible) && entity.Visible) {
+						entity.Render();
+					}
 				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 

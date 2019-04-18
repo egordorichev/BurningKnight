@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
-using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.state;
@@ -13,7 +11,6 @@ using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {

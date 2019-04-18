@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected override float GetSpeed() {
-			return 15;
+			return 45;
 		}
 		
 		#region Maggot States

@@ -33,7 +33,6 @@
 * Diagonal fly
 * Mark doors as unpassable
 * Doors must be ALWAYS solid for mobs
-* Ghosts should go rage mode, when no other enemy types are left in the room
 * Death animations
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast

@@ -59,7 +59,7 @@ namespace BurningKnight.level {
 							foreach (var dir in PathFinder.Neighbours8) {
 								var n = dir + index;
 
-								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid))) {
+								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid)) && ((Tile) level.Tiles[n]) != Tile.Planks) {
 									sum++;
 								}
 							}

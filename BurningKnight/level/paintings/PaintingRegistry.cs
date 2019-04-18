@@ -11,7 +11,7 @@ namespace BurningKnight.level.paintings {
 			Add("grannylisa", "DSF100");
 			Add("maanex", "DSF100");
 			Add("bk", "Mate");
-			Add("failpositive", "FIXME: ADD AUTHOR"); // fixme
+			Add("failpositive", "Jusiv_");
 			Add("old_man", "???");
 			Add("arthouse", "xD");
 			Add("black", "!!!");

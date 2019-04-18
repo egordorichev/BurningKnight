@@ -1,4 +1,6 @@
+using BurningKnight.level.entities;
 using BurningKnight.level.walls;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.entrance {
 	public class EntranceRoom : RoomDef {
@@ -24,6 +26,14 @@ namespace BurningKnight.level.rooms.entrance {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}
+			
+			Entrance entrance;
+			
+			level.Area.Add(entrance = new Entrance {
+				To = -1
+			});
+
+			entrance.Center = GetCenter() * 16;
 		}
 		
 		public override int GetMinWidth() {
