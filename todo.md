@@ -27,6 +27,7 @@
 
 ### Important
 
+* fix bomb explosion not spawning parts
 * Mark doors as unpassable
 * Doors must be ALWAYS solid for mobs
 * Ghosts should go rage mode, when no other enemy types are left in the room

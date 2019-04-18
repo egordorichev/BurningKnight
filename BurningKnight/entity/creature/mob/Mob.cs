@@ -64,6 +64,10 @@ namespace BurningKnight.entity.creature.mob {
 				FindTarget();
 			}
 
+			if (TouchDamage == 0) {
+				return;
+			}
+			
 			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {
 				var entity = CollidingToHurt[i];
 
@@ -72,7 +76,7 @@ namespace BurningKnight.entity.creature.mob {
 					continue;
 				}
 
-				if (TouchDamage > 0 && (!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
+				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
 					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
 				}
 			}

@@ -20,14 +20,14 @@ namespace BurningKnight.entity {
 				
 			var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
 			explosion.Particle.Position = whoHurts.Center;
-			explosion.Depth = 32;
 			whoHurts.Area.Add(explosion);
+			explosion.Depth = 32;
 
 			for (int i = 0; i < 4; i++) {
 				explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
 				explosion.Particle.Position = whoHurts.Center;
-				explosion.Depth = 31;
 				whoHurts.Area.Add(explosion);
+				explosion.Depth = 31;
 
 				var a = explosion.Particle.Angle - Math.PI / 2;
 				var d = 16;
@@ -39,6 +39,7 @@ namespace BurningKnight.entity {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = whoHurts.Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
+				part.Depth = 30;
 				
 				whoHurts.Area.Add(part);
 			}
