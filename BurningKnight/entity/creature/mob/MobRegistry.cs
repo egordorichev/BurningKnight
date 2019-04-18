@@ -17,10 +17,10 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Slime>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Gunner>(new SpawnChance(1f, Biome.Castle)),
 				
 				// WIP
-				MobInfo.New<Clown>(new SpawnChance(100000f, Biome.Castle)),
-				MobInfo.New<Gunner>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<King>(new SpawnChance(1f, Biome.Castle))
 			};

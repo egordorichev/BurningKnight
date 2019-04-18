@@ -8,12 +8,22 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddAnimation("king");
 			SetMaxHp(3);
 			
-			// Become<IdleState>();
+			Become<IdleState>();
 
 			var body = new RectBodyComponent(2, 2, 12, 12);
 			AddComponent(body);
 
-			body.Body.LinearDamping = 0;
+			body.Body.LinearDamping = 4;
+		}
+		
+		#region King States
+		public class IdleState : MobState<King> {
+			
+		}
+		#endregion
+
+		public override bool CanSpawnMultiple() {
+			return false;
 		}
 	}
 }

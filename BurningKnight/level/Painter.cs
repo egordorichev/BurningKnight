@@ -191,6 +191,14 @@ namespace BurningKnight.level {
 				}
 
 				level.Area.Add(mob);
+
+				if (!mob.CanSpawnMultiple()) {
+					types.Remove(type);
+
+					if (types.Count == 0) {
+						return;
+					}
+				}
 			}
 		}
 		

@@ -4,7 +4,6 @@
 #### To sprite
 
 * Dragon (maybe take gunner sprite and draw a new one for him? But we also have this old dino sprite, consider that)
-* King servant
 
 #### To implement
 
@@ -30,7 +29,8 @@
 
 ### Important
 
-* Single spawn mobs
+* Zelda like digging enemy
+* Diagonal fly
 * Mark doors as unpassable
 * Doors must be ALWAYS solid for mobs
 * Ghosts should go rage mode, when no other enemy types are left in the room

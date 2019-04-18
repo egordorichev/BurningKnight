@@ -144,6 +144,10 @@ namespace BurningKnight.entity.creature.mob {
 			return 1f;
 		}
 
+		public virtual bool CanSpawnMultiple() {
+			return true;
+		}
+		
 		public virtual bool SpawnsNearWall() {
 			return false;
 		}
