@@ -8,8 +8,6 @@
 
 #### To implement
 
-* Slime
-  Jumps around, when sees player jumps to it. Might have a better version, that spits out bullets, when lands.
 * King
   Decide AI, spawns king servants
 * King servant
@@ -20,14 +18,19 @@
   Decide AI
 * Ranged knight
   Probably should just reuse old bk ranger ai
-* Wall slime
-  Move variants, 3 shoot? aim shot? 3 in a row shot?
 * Clown
   Ai core done, just make it feel nice, animate more particles?
+  
+#### More variants?
+
+* Wall slime
+  Move variants, 3 shoot? aim shot? 3 in a row shot?
+* Slime
+  Might have a better version, that spits out bullets, when lands, maybe mother slime from terraria
 
 ### Important
 
-* fix bomb explosion not spawning parts
+* Single spawn mobs
 * Mark doors as unpassable
 * Doors must be ALWAYS solid for mobs
 * Ghosts should go rage mode, when no other enemy types are left in the room

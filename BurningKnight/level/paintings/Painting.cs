@@ -18,6 +18,8 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.paintings {
 	public class Painting : SaveableEntity {
+		private const float Padding = 64f;
+		
 		public string Id;
 		public string Author;
 		
@@ -144,7 +146,14 @@ namespace BurningKnight.level.paintings {
 
 		public virtual void RenderUi() {
 			var region = GetRegion();
-			var sc = (float) Math.Max(1, Math.Floor(Math.Min((Display.Width - 96f) / region.Width, (Display.Height - 96f) / region.Height)));
+			var sc = (float) Math.Max(
+				1, 
+				Math.Floor(
+					Math.Min(
+						(Display.UiWidth - Padding) / region.Width, 
+						(Display.UiHeight - Padding) / region.Height)
+					)
+				);
 			
 			Graphics.Render(region, new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY), 
 				(float) (Math.Cos(Engine.Time) * 0.1f),

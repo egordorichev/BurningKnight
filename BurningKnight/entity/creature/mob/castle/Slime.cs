@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(body);
 
 			body.Body.LinearDamping = 2;
-			body.KnockbackModifier = 0.3f;
+			body.KnockbackModifier = 0.5f;
 		}
 		
 		#region Slime States
@@ -74,7 +74,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				var a = Self.Target == null ? Random.AnglePI() : Self.AngleTo(Self.Target);
+				var a = Self.Target == null ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
 				var force = Random.Float(20f) + 120f;
 				
 				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
