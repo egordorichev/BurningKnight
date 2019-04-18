@@ -112,6 +112,8 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
+			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			
 		}
 
 		public override void AddComponents() {
@@ -512,7 +514,6 @@ namespace BurningKnight.level {
 			}
 			
 			Shaders.End();
-			RenderShadowSurface();
 		}
 		
 		private void RenderSides() {

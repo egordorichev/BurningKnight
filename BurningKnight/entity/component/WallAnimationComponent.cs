@@ -12,7 +12,7 @@ namespace BurningKnight.entity.component {
 		public WallAnimationComponent(string animationName, ColorSet set) : base(animationName, set) {
 		}
 
-		protected override void CallRender(Vector2 pos) {
+		protected override void CallRender(Vector2 pos, bool shadow) {
 			var region = Animation.GetCurrentTexture();
 			var origin = new Vector2(region.Width / 2, region.Height / 2);
 			

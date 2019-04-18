@@ -26,7 +26,7 @@ namespace BurningKnight.entity.creature.player {
 			Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
 		}
 
-		protected override void CallRender(Vector2 pos) {
+		protected override void CallRender(Vector2 pos, bool shadow) {
 			var region = Animation.GetCurrentTexture();
 			var origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 

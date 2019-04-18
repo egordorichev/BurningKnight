@@ -138,6 +138,8 @@
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\component\WallAnimationComponent.cs" />
+    <Compile Include="entity\component\ZAnimationComponent.cs" />
+    <Compile Include="entity\component\ZComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
