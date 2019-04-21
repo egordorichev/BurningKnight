@@ -148,6 +148,10 @@ namespace BurningKnight.entity.creature.mob {
 		public virtual bool SpawnsNearWall() {
 			return false;
 		}
+
+		public virtual float GetSpawnChance() {
+			return 1f;
+		}
 		
 		#region Path finding
 		protected Vec2 NextPathPoint;

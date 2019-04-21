@@ -1,31 +1,28 @@
-﻿using VelcroPhysics.Dynamics;
+﻿using BurningKnight.entity.creature.player;
+using Lens.entity;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.component {
 	public class DoorBodyComponent : RectBodyComponent {
-		private bool lastReading;
-		
 		public DoorBodyComponent(float x, float y, float w, float h, BodyType type = BodyType.Dynamic, bool sensor = false, bool center = false) : base(x, y, w, h, type, sensor, center) {
 			
 		}
 
 		public override void Init() {
 			base.Init();
-			Body.IsSensor = ShouldBeSensor();
+			Body.IsSensor = false;
 		}
 
 		private bool ShouldBeSensor() {
 			return !GetComponent<LockComponent>().Lock.IsLocked;
 		}
 
-		public override void Update(float dt) {
-			base.Update(dt);
-
-			var sensor = ShouldBeSensor();
-			
-			if (sensor != lastReading) {
-				lastReading = sensor;
-				Body.IsSensor = sensor;
+		public override bool ShouldCollide(Entity entity) {
+			if (entity is Player && ShouldBeSensor()) {
+				return false;
 			}
+
+			return true;
 		}
 	}
 }

@@ -1,4 +1,3 @@
-using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -33,6 +32,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public override float GetSpawnChance() {
+			return 0.5f;
 		}
 	}
 }

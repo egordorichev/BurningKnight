@@ -150,6 +150,7 @@ namespace BurningKnight.level {
 			}
 
 			var types = new List<Type>();
+			var spawnChances = new List<float>();
 
 			for (int i = 0; i < Random.Int(2, 6); i++) {
 				var type = mobs[Random.Chances(chances)].Type;
@@ -166,13 +167,14 @@ namespace BurningKnight.level {
 					i--;
 				} else {
 					types.Add(type);
+					spawnChances.Add(((Mob) Activator.CreateInstance(type)).GetSpawnChance());
 				}
 			}
 
 			var weight = Random.Float(4f, 7f);
 
 			while (weight > 0) {
-				var type = types[Random.Int(types.Count)];
+				var type = types[Random.Chances(spawnChances)];
 				var mob = (Mob) Activator.CreateInstance(type);
 				var wall = mob.SpawnsNearWall();
 				

@@ -186,9 +186,9 @@ namespace BurningKnight.state {
 					var thread = new Thread(() => {
 						indicator.HandleEvent(new SaveStartedEvent());
 													
-						SaveManager.Save(Area, SaveType.Game);
-						SaveManager.Save(Area, SaveType.Level);
-						SaveManager.Save(Area, SaveType.Player);
+						SaveManager.Save(Area, SaveType.Game, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Level, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Player, false, null, false, false);
 						
 						indicator.HandleEvent(new SaveEndedEvent());
 						saving = false;

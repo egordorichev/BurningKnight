@@ -145,6 +145,7 @@
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
+    <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Gunner.cs" />

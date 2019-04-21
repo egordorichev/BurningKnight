@@ -73,6 +73,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Destroy() {
 				base.Destroy();
 
+				Self.OnLand();
+
 				var anim = Self.GetComponent<ZAnimationComponent>();
 
 				anim.Scale.X = 2f;
@@ -128,6 +130,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 		public override bool ShouldCollideWithDestroyableInAir() {
 			return true;
+		}
+
+		protected virtual void OnLand() {
+			
 		}
 	}
 }

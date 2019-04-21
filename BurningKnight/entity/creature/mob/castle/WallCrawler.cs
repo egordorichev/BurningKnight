@@ -64,11 +64,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 				if (!fired && Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
 					fired = true;
 					T = 0;
-					
-					var angle = Self.Direction.ToAngle();
-					var projectile = Projectile.Make(Self, "small", angle, 30f);
 
-					projectile.AddLight(32f, Color.Red);
+					if (Self.Target != null) {
+						var angle = Self.Direction.ToAngle();
+						var projectile = Projectile.Make(Self, "small", angle, 30f);
+
+						projectile.AddLight(32f, Color.Red);
+					}
 				} else if (fired && T > 0.2f) {
 					Self.GetComponent<StateComponent>().Become<IdleState>();
 				}
