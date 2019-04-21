@@ -150,13 +150,15 @@
     <Compile Include="entity\creature\mob\castle\King.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
     <Compile Include="entity\creature\mob\castle\Maggot.cs" />
-    <Compile Include="entity\creature\mob\castle\Slime.cs" />
+    <Compile Include="entity\creature\mob\castle\MotherSlime.cs" />
+    <Compile Include="entity\creature\mob\castle\SimpleSlime.cs" />
     <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\MobState.cs" />
+    <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />

@@ -1,18 +1,11 @@
 # TODO
 
-### Castle enemies
-#### To sprite
-
-* Dragon (maybe take gunner sprite and draw a new one for him? But we also have this old dino sprite, consider that)
-
 #### To implement
 
 * King
   Decide AI, spawns king servants
 * King servant
   Decide AI
-* Dragon
-  Slowly walks (or sits in one place), fires bullet hell
 * Knight
   Decide AI
 * Ranged knight
