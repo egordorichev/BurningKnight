@@ -143,6 +143,7 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
+    <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />

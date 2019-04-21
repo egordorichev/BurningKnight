@@ -1,16 +1,16 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class MotherSlime : SimpleSlime {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			// todo: different sprite
-			AddComponent(new ZAnimationComponent("slime"));
+			AddComponent(new ZAnimationComponent("mother_slime"));
 			SetMaxHp(3);
 
 			var body = new RectBodyComponent(2, 7, 12, 9);
@@ -21,11 +21,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
-				for (var i = 0; i < Random.Int(3, 4); i++) {
-					var slime = new SimpleSlime();
+			if (e is DiedEvent ev) {
+				for (var i = 0; i < 2; i++) {
+					var slime = new BabySlime();
 					Area.Add(slime);
 					slime.Center = Center + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+					slime.GetComponent<HealthComponent>().InvincibilityTimer = 0.1f;
+
+					slime.GetAnyComponent<BodyComponent>().KnockbackFrom(ev.From, 2f, 1);
 				}
 			}
 			
