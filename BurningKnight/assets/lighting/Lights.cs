@@ -25,7 +25,7 @@ namespace BurningKnight.assets.lighting {
 
 			if (surface == null) {
 				surface = new RenderTarget2D(
-					Engine.GraphicsDevice, Display.Width, Display.Height, false,
+					Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 				);
 			}

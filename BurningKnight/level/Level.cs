@@ -182,7 +182,9 @@ namespace BurningKnight.level {
 				messBlend = new BlendState {
 					ColorBlendFunction = BlendFunction.Add,
 					ColorSourceBlend = Blend.DestinationColor,
-					ColorDestinationBlend = Blend.Zero
+					ColorDestinationBlend = Blend.Zero,
+					
+					AlphaSourceBlend = Blend.DestinationAlpha
 				};
 			} else {
 				loadMarked = true;
@@ -479,8 +481,8 @@ namespace BurningKnight.level {
 			region.Texture = MessSurface;
 			region.Source.X = (int) Math.Floor(camera.X);
 			region.Source.Y = (int) Math.Floor(camera.Y);
-			region.Source.Width = Display.Width;
-			region.Source.Height = Display.Height;
+			region.Source.Width = Display.Width + 1;
+			region.Source.Height = Display.Height + 1;
 			
 			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
 				                        camera.Position.Y % 1 - shake.Position.Y));
@@ -885,6 +887,7 @@ namespace BurningKnight.level {
 			}
 
 			Graphics.Batch.End();
+			RenderBlood();
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
@@ -919,6 +922,27 @@ namespace BurningKnight.level {
 					}
 				}
 			}
+		}
+		
+		public void RenderBlood() {
+			var camera = Camera.Instance;
+
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			var shake = camera.GetComponent<ShakeComponent>();
+			var region = new TextureRegion();
+
+			region.Texture = MessSurface;
+			region.Source.X = (int) Math.Floor(camera.X);
+			region.Source.Y = (int) Math.Floor(camera.Y) + 8;
+			region.Source.Width = Display.Width + 1;
+			region.Source.Height = Display.Height + 1;
+			
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
+				                        camera.Position.Y % 1 - shake.Position.Y));
+			
+			Graphics.Batch.End();
 		}
 		
 		public void RenderLight() {
