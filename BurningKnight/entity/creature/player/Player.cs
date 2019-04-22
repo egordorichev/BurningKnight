@@ -211,9 +211,13 @@ namespace BurningKnight.entity.creature.player {
 			var component = GetComponent<PlayerGraphicsComponent>();
 			var color = component.Tint;
 			
-			component.Tint = new Color(0f, 0f, 0f, 1f);
+			component.Tint = new Color(0f, 0f, 0f, 0.65f);
 			component.SimpleRender(false);
 			component.Tint = color;
+		}
+
+		public override bool ShouldCollideWithDestroyableInAir() {
+			return true;
 		}
 	}
 }

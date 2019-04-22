@@ -155,14 +155,35 @@ namespace BurningKnight.level {
 
 		private bool loadMarked;
 		private bool first;
-		
+		private BlendState blend;
+		private BlendState messBlend;
+
 		public void LoadPassable() {
 			if (!first) {
 				first = true;
 				CreatePassable();
 				
 				WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
-				MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
+				MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
+				
+				var s = BlendState.AlphaBlend;
+				
+				blend = new BlendState {
+					BlendFactor = s.BlendFactor,
+					AlphaDestinationBlend = s.AlphaDestinationBlend,
+					ColorDestinationBlend = s.ColorDestinationBlend,
+					ColorSourceBlend = s.ColorSourceBlend,
+					AlphaBlendFunction = s.AlphaBlendFunction,
+					ColorBlendFunction = s.ColorBlendFunction,
+					
+					AlphaSourceBlend = Blend.DestinationAlpha
+				};
+
+				messBlend = new BlendState {
+					ColorBlendFunction = BlendFunction.Add,
+					ColorSourceBlend = Blend.DestinationColor,
+					ColorDestinationBlend = Blend.Zero
+				};
 			} else {
 				loadMarked = true;
 			}
@@ -423,6 +444,52 @@ namespace BurningKnight.level {
 			}
 		}
 
+		private bool cleared;
+
+		public void RenderMess() {
+			var camera = Camera.Instance;
+			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			state.End();
+
+			Engine.GraphicsDevice.SetRenderTarget(MessSurface);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Matrix.Identity);
+
+			if (!cleared) {
+				cleared = true;
+				Graphics.Clear(Color.White);
+			}
+			
+			Graphics.Color = ColorUtils.WhiteColor;
+			
+			foreach (var p in Area.Tags[Tags.Mess]) {
+				((SplashFx) p).RenderInSurface();
+			}
+			
+			Graphics.Color = ColorUtils.WhiteColor;
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			var shake = camera.GetComponent<ShakeComponent>();
+			var region = new TextureRegion();
+
+			region.Texture = MessSurface;
+			region.Source.X = (int) Math.Floor(camera.X);
+			region.Source.Y = (int) Math.Floor(camera.Y);
+			region.Source.Width = Display.Width;
+			region.Source.Height = Display.Height;
+			
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
+				                        camera.Position.Y % 1 - shake.Position.Y));
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			state.Begin();
+		}
+		
 		public void RenderLiquids() {
 			var camera = Camera.Instance;
 
@@ -432,7 +499,7 @@ namespace BurningKnight.level {
 
 			var region = new TextureRegion();
 			var shader = Shaders.Terrain;
-			
+						
 			Shaders.Begin(shader);
 
 			var paused = Engine.Instance.State.Paused;
@@ -527,6 +594,7 @@ namespace BurningKnight.level {
 			}
 			
 			Shaders.End();
+			RenderMess();
 		}
 		
 		private void RenderSides() {
@@ -681,24 +749,7 @@ namespace BurningKnight.level {
 			}
 		}
 
-		private BlendState blend;
-		
 		public void RenderWalls() {
-			if (blend == null) {
-				var s = BlendState.AlphaBlend;
-				
-				blend = new BlendState {
-					BlendFactor = s.BlendFactor,
-					AlphaDestinationBlend = s.AlphaDestinationBlend,
-					ColorDestinationBlend = s.ColorDestinationBlend,
-					ColorSourceBlend = s.ColorSourceBlend,
-					AlphaBlendFunction = s.AlphaBlendFunction,
-					ColorBlendFunction = s.ColorBlendFunction,
-					
-					AlphaSourceBlend = Blend.DestinationAlpha
-				};
-			}
-			
 			var camera = Camera.Instance;
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();
