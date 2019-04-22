@@ -55,12 +55,16 @@ namespace BurningKnight.entity.creature.player {
 			return base.HandleEvent(e);
 		}
 
+		public void SimpleRender(bool shadow) {
+			base.Render(shadow);
+		}
+
 		public override void Render(bool shadow) {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 					
 			weapon.Render();
-			base.Render(shadow);
+			SimpleRender(shadow);
 			activeWeapon.Render();
 
 			if (true) {

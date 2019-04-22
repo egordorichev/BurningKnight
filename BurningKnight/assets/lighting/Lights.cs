@@ -38,7 +38,7 @@ namespace BurningKnight.assets.lighting {
 		public static void Render() {
 			if (lights.Count == 0) {
 				return;
-			}			
+			}
 			
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();

@@ -206,5 +206,14 @@ namespace BurningKnight.entity.creature.player {
 			
 			return base.HandleEvent(e);
 		}
+
+		public void RenderOutline() {
+			var component = GetComponent<PlayerGraphicsComponent>();
+			var color = component.Tint;
+			
+			component.Tint = new Color(0f, 0f, 0f, 1f);
+			component.SimpleRender(false);
+			component.Tint = color;
+		}
 	}
 }
