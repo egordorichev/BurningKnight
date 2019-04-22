@@ -4,6 +4,7 @@ using BurningKnight.entity.item;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {

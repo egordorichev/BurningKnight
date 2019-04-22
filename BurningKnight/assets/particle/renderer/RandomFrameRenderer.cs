@@ -5,6 +5,7 @@ using BurningKnight.util;
 using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets.particle.renderer {

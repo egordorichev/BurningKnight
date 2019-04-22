@@ -2,6 +2,7 @@
 
 ### Important
 
+* Resprite bullet slime
 * Enemy death animation
 * Blood
 * Polish guns

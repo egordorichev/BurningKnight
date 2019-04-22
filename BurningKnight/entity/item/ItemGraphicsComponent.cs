@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.util;
 using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 

@@ -2,10 +2,17 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class BulletSlime : Slime {
+		private static readonly Color color = ColorUtils.FromHex("#ff0000");
+		
+		protected override Color GetColor() {
+			return color;
+		}
+		
 		protected override void SetStats() {
 			base.SetStats();
 			

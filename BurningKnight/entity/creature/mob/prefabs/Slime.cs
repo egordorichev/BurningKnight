@@ -1,15 +1,20 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
 using BurningKnight.level;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
-	public class Slime : Mob {
+	public abstract class Slime : Mob {
+		protected abstract Color GetColor();
+		
 		protected override void SetStats() {
 			base.SetStats();
 			
@@ -24,7 +29,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			
 			public override void Init() {
 				base.Init();
-				// fixme: should not go through walls and destroyable
 				
 				delay = Random.Float(0.9f, 1.2f);
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
@@ -133,7 +137,14 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 
 		protected virtual void OnLand() {
+			if (Target == null) {
+				return;
+			}
 			
+			Area.Add(new SplashFx {
+				Position = Center,
+				Color = ColorUtils.Mod(GetColor())
+			});
 		}
 	}
 }

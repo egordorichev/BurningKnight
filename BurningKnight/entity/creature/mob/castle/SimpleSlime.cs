@@ -1,8 +1,16 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
+using Lens.graphics;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class SimpleSlime : Slime {
+		private static readonly Color color = ColorUtils.FromHex("#33984b");
+		
+		protected override Color GetColor() {
+			return color;
+		}
+		
 		protected override void SetStats() {
 			base.SetStats();
 			

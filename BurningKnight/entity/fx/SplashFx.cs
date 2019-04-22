@@ -18,6 +18,9 @@ namespace BurningKnight.entity.fx {
 		public override void PostInit() {
 			base.PostInit();
 
+			X -= 16;
+			Y -= 16;
+			
 			Width = 32;
 			Height = 32;
 			angle = Random.Angle();

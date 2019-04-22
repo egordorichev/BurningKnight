@@ -74,11 +74,6 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, data) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
-					Entity.Area.Add(new SplashFx {
-						Position = Entity.Center,
-						Color = Color.Red
-					});
-					
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {

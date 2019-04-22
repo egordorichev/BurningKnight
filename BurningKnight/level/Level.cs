@@ -15,6 +15,7 @@ using Lens;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;

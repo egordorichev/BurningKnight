@@ -1,11 +1,14 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity {
@@ -37,6 +40,13 @@ namespace BurningKnight.entity.creature {
 			if (e is HealthModifiedEvent ev) {
 				if (ev.Amount < 0) {
 					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
+					
+					// todo: ones with velocity from from
+					
+					Area.Add(new SplashFx {
+						Position = Center,
+						Color = ColorUtils.Mod(Color.Red)
+					});
 				}
 				
 				if (HasNoHealth(ev)) {

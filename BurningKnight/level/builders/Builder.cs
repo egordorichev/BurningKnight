@@ -6,6 +6,7 @@ using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 

@@ -1,11 +1,18 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class MotherSlime : SimpleSlime {
+		private static readonly Color color = ColorUtils.FromHex("#0069aa");
+		
+		protected override Color GetColor() {
+			return color;
+		}
+		
 		protected override void SetStats() {
 			base.SetStats();
 			
