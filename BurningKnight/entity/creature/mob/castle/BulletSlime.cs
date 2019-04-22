@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new ZAnimationComponent("slime"));
+			AddComponent(new ZAnimationComponent("bullet_slime"));
 			SetMaxHp(1);
 
 			var body = new RectBodyComponent(2, 7, 12, 9);
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a, 20);
+				var projectile = Projectile.Make(this, "small", a, (float) (Math.Abs(Math.Cos(a)) + Math.Abs(Math.Sin(a))) * 20f);
 					
 				projectile.Range = 1f;
 				projectile.AddLight(32f, Color.Red);

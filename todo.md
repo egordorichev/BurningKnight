@@ -2,9 +2,8 @@
 
 ### Important
 
-* Resprite bullet slime
 * Enemy death animation
-* Blood
+* Blood particles
 * Polish guns
 
 * Zelda like digging enemy
