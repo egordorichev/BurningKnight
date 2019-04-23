@@ -30,8 +30,12 @@ namespace BurningKnight.entity.item {
 			T += dt;
 		}
 
+		public float CalculateMove() {
+			return (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f;
+		}
+
 		public virtual Vector2 CalculatePosition(bool shadow = false) {
-			return Entity.Position + Sprite.Center + new Vector2(0, shadow ? 8 : (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f);
+			return Entity.Position + Sprite.Center + new Vector2(0, shadow ? 8 : CalculateMove());
 		}
 
 		public override void Render(bool shadow) {

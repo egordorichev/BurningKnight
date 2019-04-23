@@ -119,7 +119,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool CanInteract() {
-			return true; // item != null;
+			return true;
 		}
 
 		public override void Render() {
