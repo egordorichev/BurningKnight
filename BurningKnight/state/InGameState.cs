@@ -15,6 +15,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
@@ -110,6 +111,10 @@ namespace BurningKnight.state {
 		}
 
 		protected override void OnResume() {
+			if (painting != null) {
+				return;
+			}
+			
 			base.OnResume();
 			
 			if (died) {
@@ -125,7 +130,7 @@ namespace BurningKnight.state {
 		public override void OnActivated() {
 			base.OnActivated();
 
-			if (Paused && pausedByLostFocus) {
+			if (Paused && pausedByLostFocus && painting == null) {
 				Paused = false;
 			}
 		}
@@ -339,6 +344,14 @@ namespace BurningKnight.state {
 				cursor.Render();
 				return;
 			}
+
+			var player = LocalPlayer.Locate(Area);
+			var camera = Camera.Instance;
+			var shake = camera.GetComponent<ShakeComponent>();
+			var pos = (camera.CameraToScreen(player.Position) - Engine.Viewport - new Vector2(camera.Position.X % 1 - shake.Position.X, 
+				           camera.Position.Y % 1 - shake.Position.Y)) * Display.UiScale;
+			
+			Graphics.Print("Hello, world", Font.Small, pos);
 			
 			base.RenderUi();
 
