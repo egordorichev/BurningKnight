@@ -8,6 +8,7 @@ using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature {
@@ -40,9 +41,16 @@ namespace BurningKnight.entity.creature {
 			if (e is HealthModifiedEvent ev) {
 				if (ev.Amount < 0) {
 					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
-					
-					// todo: ones with velocity from from
-					
+
+					if (Random.Chance(30)) {
+						for (var i = 0; i < Random.Int(1, 3); i++) {
+							Area.Add(new SplashParticle {
+								Position = Center - new Vector2(2.5f),
+								Color = Color.Red
+							});
+						}
+					}
+
 					Area.Add(new SplashFx {
 						Position = Center,
 						Color = ColorUtils.Mod(Color.Red)
@@ -55,6 +63,13 @@ namespace BurningKnight.entity.creature {
 			} else if (e is DiedEvent) {
 				GetComponent<DropsComponent>().SpawnDrops();
 				Done = true;
+				
+				for (var i = 0; i < Random.Int(2, 8); i++) {
+					Area.Add(new SplashParticle {
+						Position = Center - new Vector2(2.5f),
+						Color = Color.Red
+					});
+				}
 			} else if (e is LostSupportEvent) {
 				Done = true;
 				return true;

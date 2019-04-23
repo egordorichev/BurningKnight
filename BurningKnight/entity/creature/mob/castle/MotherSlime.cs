@@ -42,7 +42,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		public override float GetSpawnChance() {
-			return 0.5f;
+			return 0.25f;
+		}
+
+		public override float GetWeight() {
+			return 2;
 		}
 	}
 }

@@ -19,11 +19,11 @@ namespace BurningKnight.entity.fx {
 
 			AlwaysActive = true;
 
-			Width = 8;
-			Height = 8;
+			Width = 5;
+			Height = 5;
 			
 			AddComponent(new RandomFrameComponent("splash_particle") {
-				Tint = Color
+				Tint = new Color(Color.R, Color.G, Color.B, 0.8f)
 			});
 			
 			AddComponent(new ShadowComponent(RenderShadow));
@@ -36,7 +36,7 @@ namespace BurningKnight.entity.fx {
 			var a = Random.AnglePI();
 			
 			body.Body.LinearVelocity = new Vector2((float) Math.Cos(a) * f, (float) Math.Sin(a) * f);
-			zv = Random.Float(1, 2);
+			zv = Random.Float(1, 3);
 		}
 
 		public override void Update(float dt) {
