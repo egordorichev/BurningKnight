@@ -6,6 +6,7 @@ using BurningKnight.entity.fx;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -75,6 +76,13 @@ namespace BurningKnight.entity.creature.player {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();
+
+					for (var i = 0; i < 5; i++) {
+						Entity.Area.Add(new SplashParticle {
+							Position = Entity.Center - new Vector2(4),
+							Color = ColorUtils.Mod(Color.Red)
+						});
+					}
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();
