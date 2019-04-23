@@ -14,6 +14,10 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public abstract class Slime : Mob {
 		protected abstract Color GetColor();
+
+		protected virtual float GetJumpDelay() {
+			return 0;
+		}
 		
 		protected override void SetStats() {
 			base.SetStats();
@@ -30,7 +34,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Random.Float(0.9f, 1.2f);
+				delay = Random.Float(0.9f, 1.2f) + Self.GetJumpDelay();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 
