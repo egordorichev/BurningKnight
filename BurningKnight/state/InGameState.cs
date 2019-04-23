@@ -345,14 +345,6 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			var player = LocalPlayer.Locate(Area);
-			var camera = Camera.Instance;
-			var shake = camera.GetComponent<ShakeComponent>();
-			var pos = (camera.CameraToScreen(player.Position) - Engine.Viewport - new Vector2(camera.Position.X % 1 - shake.Position.X, 
-				           camera.Position.Y % 1 - shake.Position.Y)) * Display.UiScale;
-			
-			Graphics.Print("Hello, world", Font.Small, pos);
-			
 			base.RenderUi();
 
 			if (Settings.ShowFps) {

@@ -2,6 +2,8 @@
 
 ### Before v0.0.0.1
 
+* Fix entities not getting deleted
+
 * Animate enemy death
 * ^^^^^^^ Add blood particles
 * ^^^^^^^ Effects when player is low hp

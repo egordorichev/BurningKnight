@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
@@ -91,7 +92,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (bombs > 0 && Input.WasPressed(Controls.Bomb)) {
+			if (bombs > 0 && Run.Depth > 0 && Input.WasPressed(Controls.Bomb)) {
 				Bombs--;
 				
 				var bomb = new Bomb();

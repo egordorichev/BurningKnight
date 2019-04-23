@@ -1,6 +1,7 @@
 {
   "bk:halo" : "Halo", "bk:halo_desc" : "OOO",
   "bk:gun" : "Gun", "bk:gun_desc" : "Hands up, @everyone!",
+  "bk:sword" : "Wooden Sword", "bk:sword_desc" : "Not just a stick",
   "bk:heart" : "Heart",
   
   "resume" : "Resume",
