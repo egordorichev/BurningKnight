@@ -5,7 +5,6 @@
 * Fix entities not getting deleted
 
 * Animate enemy death
-* ^^^^^^^ Add blood particles
 * ^^^^^^^ Effects when player is low hp
 
 * Enemies / rooms drop rewards (bombs, keys, coins)

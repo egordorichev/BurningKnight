@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.entity.editor.command;
 using BurningKnight.level.tile;
+using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
@@ -14,12 +15,15 @@ namespace BurningKnight.entity.editor {
 			Normal,
 			Drag,
 			Fill,
+			Entity,
 			Select
 		}
 		
 		private TextureRegion hand;
 		private TextureRegion normal;
 		private TextureRegion fill;
+		private Entity entity;
+		private string entityType;
 
 		public Mode CurrentMode = Mode.Normal;
 		public bool Drag;
@@ -31,6 +35,13 @@ namespace BurningKnight.entity.editor {
 			hand = CommonAse.Ui.GetSlice("editor_drag");
 			normal = CommonAse.Ui.GetSlice("editor_default");
 			fill = CommonAse.Ui.GetSlice("editor_bucket");
+		}
+
+		public void SetEntity(string type) {
+			entityType = $"BurningKnight.{type}";
+			entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
+
+			Area.Add(entity);
 		}
 
 		public override void Update(float dt) {
@@ -50,10 +61,19 @@ namespace BurningKnight.entity.editor {
 			if (Input.Keyboard.WasPressed(Keys.N) || Input.Keyboard.WasPressed(Keys.B)) {
 				CurrentMode = Mode.Normal;
 			}
+			
+			if (CurrentMode == Mode.Entity) {
+				entity.Center = Input.Mouse.GamePosition;
+			}
 		}
 
 		public void OnClick(Vector2 pos) {
 			if (Drag) {
+				return;
+			}
+			
+			if (CurrentMode == Mode.Entity) {
+				entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
 				return;
 			}
 			
@@ -84,7 +104,11 @@ namespace BurningKnight.entity.editor {
 			}
 		}
 
-		public override void Render() {			
+		public override void Render() {
+			if (CurrentMode == Mode.Entity) {
+				return;
+			}
+			
 			Region = CurrentMode == Mode.Drag || Drag ? hand : (CurrentMode == Mode.Fill ? fill : normal);
 			base.Render();
 		}

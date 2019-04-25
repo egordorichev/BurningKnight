@@ -49,6 +49,8 @@ namespace BurningKnight.entity.editor {
 				Editor = this
 			});
 			
+			Cursor.SetEntity("entity.creature.npc.OldMan");
+			
 			Engine.Instance.State.Ui.Add(Camera = new Camera(new CameraDriver()) {
 				Position = CameraPosition
 			});
