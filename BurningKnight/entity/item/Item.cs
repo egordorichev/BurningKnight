@@ -9,6 +9,7 @@ using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
 using BurningKnight.save;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
@@ -113,8 +114,8 @@ namespace BurningKnight.entity.item {
 					inventory.Pickup(this);
 					entity.GetComponent<InteractorComponent>().EndInteraction();	
 				}
-			} else {
-				Area.Add(new ItemPickupFx(this));
+			} else if (!HasComponent<OwnerComponent>()) {
+				Engine.Instance.State.Ui.Add(new ItemPickupFx(this));
 			}			
 		}
 

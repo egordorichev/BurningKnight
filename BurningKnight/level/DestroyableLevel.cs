@@ -56,14 +56,14 @@ namespace BurningKnight.level {
 				Y = y * 16 - 8
 			});
 			
-			for (var i = 0; i < 4; i++) {
+			for (var i = 0; i < 3; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
 				area.Add(part);
 			}
 			
-			for (var i = 0; i < 8; i++) {
+			for (var i = 0; i < 3; i++) {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16);

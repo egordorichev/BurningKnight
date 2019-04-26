@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopMac", "DesktopMac\De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{68B0E433-3961-4232-9EB1-393AB85FAF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ctrings", "Ctrings\Ctrings.csproj", "{71F5A410-AB23-41D3-8C78-8396F42535DD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,9 +60,5 @@ Global
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71F5A410-AB23-41D3-8C78-8396F42535DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71F5A410-AB23-41D3-8C78-8396F42535DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71F5A410-AB23-41D3-8C78-8396F42535DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71F5A410-AB23-41D3-8C78-8396F42535DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

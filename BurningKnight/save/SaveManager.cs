@@ -41,11 +41,13 @@ namespace BurningKnight.save {
 			return new FileHandle(path);
 		}
 
-		public static void Save(Area area, SaveType saveType, bool old = false, string path = null, bool generated = false) {
-			area.AutoRemove();
+		public static void Save(Area area, SaveType saveType, bool old = false, string path = null, bool generated = false, bool autoRemove = true) {
+			if (autoRemove) {
+				area.AutoRemove();
 
-			if (!generated) {
-				area.CleanNew();
+				if (!generated) {
+					area.CleanNew();
+				}
 			}
 
 			var file = new FileInfo(GetSavePath(saveType, old, path));

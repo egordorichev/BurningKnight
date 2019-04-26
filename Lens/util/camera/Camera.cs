@@ -177,6 +177,13 @@ namespace Lens.util.camera {
 		public Vector2 CameraToScreen(Vector2 position) {
 			return Vector2.Transform(position, matrix);
 		}
+		
+		public Vector2 CameraToUi(Vector2 position) {
+			var shake = GetComponent<ShakeComponent>();
+			
+			return (CameraToScreen(position) - Engine.Viewport - new Vector2(Position.X % 1 - shake.Position.X, 
+				          Position.Y % 1 - shake.Position.Y)) * Display.UiScale;
+		}
 
 		public void Approach(Vector2 position, float ease) {
 			Position += (position - Position) * ease;

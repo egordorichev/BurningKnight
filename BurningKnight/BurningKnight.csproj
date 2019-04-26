@@ -130,6 +130,7 @@
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
+    <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
@@ -143,7 +144,9 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
+    <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
+    <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
     <Compile Include="entity\creature\mob\castle\Gunner.cs" />
@@ -221,11 +224,12 @@
     <Compile Include="entity\events\TileCollisionStartEvent.cs" />
     <Compile Include="entity\events\WeaponSwappedEvent.cs" />
     <Compile Include="entity\ExplosionMaker.cs" />
-    <Compile Include="entity\fx\BloodFx.cs" />
+    <Compile Include="entity\fx\SplashFx.cs" />
     <Compile Include="entity\fx\ChasmFx.cs" />
     <Compile Include="entity\fx\ExplosionLeftOver.cs" />
     <Compile Include="entity\fx\Firefly.cs" />
     <Compile Include="entity\fx\InteractFx.cs" />
+    <Compile Include="entity\fx\SplashParticle.cs" />
     <Compile Include="entity\fx\TileFx.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
@@ -385,7 +389,6 @@
     <Compile Include="util\FollowingDriver.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
-    <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Titles.cs" />

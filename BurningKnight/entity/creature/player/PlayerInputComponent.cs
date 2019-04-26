@@ -6,6 +6,7 @@ using BurningKnight.entity.fx;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework;

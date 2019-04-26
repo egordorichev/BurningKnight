@@ -15,6 +15,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
@@ -110,6 +111,10 @@ namespace BurningKnight.state {
 		}
 
 		protected override void OnResume() {
+			if (painting != null) {
+				return;
+			}
+			
 			base.OnResume();
 			
 			if (died) {
@@ -125,7 +130,7 @@ namespace BurningKnight.state {
 		public override void OnActivated() {
 			base.OnActivated();
 
-			if (Paused && pausedByLostFocus) {
+			if (Paused && pausedByLostFocus && painting == null) {
 				Paused = false;
 			}
 		}
@@ -186,9 +191,9 @@ namespace BurningKnight.state {
 					var thread = new Thread(() => {
 						indicator.HandleEvent(new SaveStartedEvent());
 													
-						SaveManager.Save(Area, SaveType.Game);
-						SaveManager.Save(Area, SaveType.Level);
-						SaveManager.Save(Area, SaveType.Player);
+						SaveManager.Save(Area, SaveType.Game, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Level, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Player, false, null, false, false);
 						
 						indicator.HandleEvent(new SaveEndedEvent());
 						saving = false;
@@ -339,7 +344,7 @@ namespace BurningKnight.state {
 				cursor.Render();
 				return;
 			}
-			
+
 			base.RenderUi();
 
 			if (Settings.ShowFps) {

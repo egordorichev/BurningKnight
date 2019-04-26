@@ -18,10 +18,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)),
-				
-				
-				
-				// MobInfo.New<MotherSlime>(new SpawnChance(10000f, Biome.Castle)),
+				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)),
+				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)),
 				
 				// WIP
 				//MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)),

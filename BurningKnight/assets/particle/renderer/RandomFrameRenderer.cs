@@ -5,6 +5,7 @@ using BurningKnight.util;
 using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets.particle.renderer {
@@ -19,7 +20,7 @@ namespace BurningKnight.assets.particle.renderer {
 			var region = animation[particle.Rnd % animation.Count].Texture;
 
 			Graphics.Color.A = (byte) MathUtils.Clamp(0, 255, particle.Alpha * 255);
-			Graphics.Render(region, particle.Position, particle.Angle, region.Center, new Vector2(particle.Scale));
+			Graphics.Render(region, particle.Position - new Vector2(0, particle.Z), particle.Angle, region.Center, new Vector2(particle.Scale));
 			Graphics.Color.A = 255;
 		}
 	}

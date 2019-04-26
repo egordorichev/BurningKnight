@@ -7,6 +7,8 @@ namespace BurningKnight.entity.component {
 	public class TextGraphicsComponent : GraphicsComponent {
 		private string text;
 		public Color Color = Color.White;
+		public float Scale = 1;
+		public float Angle;
 
 		public byte A {
 			get => Color.A;
@@ -22,9 +24,11 @@ namespace BurningKnight.entity.component {
 				Graphics.Print(text, Font.Medium, Entity.Position, 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 				return;
 			}
+
+			var origin = new Vector2(Entity.Width / 2f, Entity.Height / 2);
 			
 			Graphics.Color = Color;
-			Graphics.Print(text, Font.Medium, Entity.Position);
+			Graphics.Print(text, Font.Medium, Entity.Position + origin, Angle, origin, new Vector2(Scale));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}

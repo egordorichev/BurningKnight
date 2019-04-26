@@ -11,5 +11,6 @@ namespace BurningKnight {
 		public static int MustBeKilled = new BitTag("mbk");
 		
 		public static int HasShadow = new BitTag("shadow");
+		public static int Mess = new BitTag("mess");
 	}
 }

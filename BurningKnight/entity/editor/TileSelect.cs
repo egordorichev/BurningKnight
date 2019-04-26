@@ -5,6 +5,7 @@ using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;

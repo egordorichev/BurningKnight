@@ -274,6 +274,7 @@
     <Compile Include="util\file\FileWriter.cs" />
     <Compile Include="util\FrameCounter.cs" />
     <Compile Include="util\Log.cs" />
+    <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\math\Calc.cs" />
     <Compile Include="util\math\Random.cs" />
     <Compile Include="util\Noise.cs" />

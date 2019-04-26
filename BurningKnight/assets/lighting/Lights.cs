@@ -25,7 +25,7 @@ namespace BurningKnight.assets.lighting {
 
 			if (surface == null) {
 				surface = new RenderTarget2D(
-					Engine.GraphicsDevice, Display.Width, Display.Height, false,
+					Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 				);
 			}
@@ -38,7 +38,7 @@ namespace BurningKnight.assets.lighting {
 		public static void Render() {
 			if (lights.Count == 0) {
 				return;
-			}			
+			}
 			
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();

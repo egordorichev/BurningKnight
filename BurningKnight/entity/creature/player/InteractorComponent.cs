@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.input;
+using Lens.util;
 
 namespace BurningKnight.entity.creature.player {
 	public class InteractorComponent : Component {
@@ -30,7 +31,7 @@ namespace BurningKnight.entity.creature.player {
 				component.OnEnd?.Invoke(Entity);
 				component.CurrentlyInteracting = null;
 			}
-
+			
 			if (InteractionCandidates.Count == 0) {
 				CurrentlyInteracting = null;
 			} else {
@@ -51,14 +52,16 @@ namespace BurningKnight.entity.creature.player {
 			if (e is CollisionStartedEvent start) {
 				if (CanInteract(start.Entity)) {
 					var entity = start.Entity.GetComponent<InteractableComponent>().AlterInteraction?.Invoke() ?? start.Entity;
-					
-					if (CurrentlyInteracting != null) {
-						if (!InteractionCandidates.Contains(entity)) {
-							InteractionCandidates.Add(entity);
+
+					if (CurrentlyInteracting != entity) {
+						if (CurrentlyInteracting != null) {
+							if (!InteractionCandidates.Contains(entity)) {
+								InteractionCandidates.Add(entity);
+							}
+						} else {
+							CurrentlyInteracting = entity;
+							OnStart();
 						}
-					} else {
-						CurrentlyInteracting = entity;
-						OnStart();
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {

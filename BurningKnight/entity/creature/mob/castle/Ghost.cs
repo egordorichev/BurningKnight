@@ -122,5 +122,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 		public override bool ShouldCollide(Entity entity) {
 			return base.ShouldCollide(entity) && !(entity is Level);
 		}
+
+		public override float GetSpawnChance() {
+			return 0.6f;
+		}
 	}
 }

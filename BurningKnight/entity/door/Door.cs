@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
 using BurningKnight.save;
@@ -72,7 +73,7 @@ namespace BurningKnight.entity.door {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent start) {
-				if (start.Entity is Creature) {
+				if (start.Entity is Player) {
 					Colliding.Add(start.Entity);
 
 					if (Colliding.Count >= 1 && CanOpen()) {
@@ -80,7 +81,7 @@ namespace BurningKnight.entity.door {
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
-				if (end.Entity is Creature) {
+				if (end.Entity is Player) {
 					Colliding.Remove(end.Entity);
 					
 					if (Colliding.Count == 0) {

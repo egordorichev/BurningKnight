@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.util {
+namespace Lens.util {
 	public class MathUtils {
 		public static Vector2[] Directions = {
 			new Vector2(-1, 0),
