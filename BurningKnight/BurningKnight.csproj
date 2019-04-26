@@ -369,6 +369,7 @@
     <Compile Include="state\InGameState.cs" />
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />
+    <Compile Include="state\PicoState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
