@@ -27,5 +27,9 @@ namespace BurningKnight.level.rooms.treasure {
 			chest.Center = where * 16;
 			chest.GenerateLoot();
 		}
+
+		public override bool ShouldSpawnMobs() {
+			return Random.Chance(10);
+		}
 	}
 }

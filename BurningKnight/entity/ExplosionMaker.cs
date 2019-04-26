@@ -19,15 +19,16 @@ namespace BurningKnight.entity {
 			Camera.Instance.Shake(10);
 				
 			var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
-			explosion.Particle.Position = whoHurts.Center;
-			explosion.Depth = 32;
+			explosion.Position = whoHurts.Center;
 			whoHurts.Area.Add(explosion);
+			explosion.Depth = 32;
 
 			for (int i = 0; i < 4; i++) {
 				explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
-				explosion.Particle.Position = whoHurts.Center;
-				explosion.Depth = 31;
+				explosion.Position = whoHurts.Center;
 				whoHurts.Area.Add(explosion);
+				explosion.Depth = 31;
+				explosion.Particle.AngleVelocity = 0;
 
 				var a = explosion.Particle.Angle - Math.PI / 2;
 				var d = 16;
@@ -39,10 +40,10 @@ namespace BurningKnight.entity {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = whoHurts.Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
-				
 				whoHurts.Area.Add(part);
+				part.Depth = 30;
 			}
-				
+			
 			Engine.Instance.Split = 1f;
 			Engine.Instance.Flash = 1f;
 			Engine.Instance.Freeze = 1f;
@@ -81,6 +82,7 @@ namespace BurningKnight.entity {
 								level.Set(index, Tile.Dirt);
 								level.UpdateTile(x + xx, y + yy);
 								level.CreateBody();
+								level.LoadPassable();
 								
 								whoHurts.HandleEvent(new SecretRoomFoundEvent {
 									Who = whoHurts

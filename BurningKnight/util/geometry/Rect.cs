@@ -123,6 +123,10 @@ namespace BurningKnight.util.geometry {
 		public Rect Shrink(int D = 1) {
 			return new Rect(Left + D, Top + D, Right - D, Bottom - D);
 		}
+		
+		public Rect Shrink(int x, int y) {
+			return new Rect(Left, Top, Right - x, Bottom - y);
+		}
 
 		public List<Vector2> GetPoints() {
 			var Points = new List<Vector2>();

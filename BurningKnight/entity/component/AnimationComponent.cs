@@ -72,7 +72,7 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					CallRender(pos + d);
+					CallRender(pos + d, shadow);
 				}
 				
 				Shaders.End();
@@ -96,7 +96,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			Graphics.Color = Tint;
-			CallRender(pos);
+			CallRender(pos, shadow);
 			Graphics.Color = ColorUtils.WhiteColor;
 
 			if (stopShader) {
@@ -108,7 +108,7 @@ namespace BurningKnight.entity.component {
 			}
 		}
 		
-		protected virtual void CallRender(Vector2 pos) {
+		protected virtual void CallRender(Vector2 pos, bool shadow) {
 			Animation?.Render(pos, Flipped, FlippedVerticaly);
 		}
 

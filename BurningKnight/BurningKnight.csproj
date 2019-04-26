@@ -102,6 +102,7 @@
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\LoadCommand.cs" />
     <Compile Include="debug\NewCommand.cs" />
+    <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
@@ -136,15 +137,29 @@
     <Compile Include="entity\component\SliceComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
+    <Compile Include="entity\component\WallAnimationComponent.cs" />
+    <Compile Include="entity\component\ZAnimationComponent.cs" />
+    <Compile Include="entity\component\ZComponent.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\mob\BurningKnight.cs" />
+    <Compile Include="entity\creature\mob\castle\Bandit.cs" />
+    <Compile Include="entity\creature\mob\castle\Clown.cs" />
     <Compile Include="entity\creature\mob\castle\Ghost.cs" />
+    <Compile Include="entity\creature\mob\castle\Gunner.cs" />
+    <Compile Include="entity\creature\mob\castle\King.cs" />
     <Compile Include="entity\creature\mob\castle\Knight.cs" />
+    <Compile Include="entity\creature\mob\castle\Maggot.cs" />
+    <Compile Include="entity\creature\mob\castle\MotherSlime.cs" />
+    <Compile Include="entity\creature\mob\castle\SimpleSlime.cs" />
+    <Compile Include="entity\creature\mob\castle\WallCrawler.cs" />
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\MobState.cs" />
+    <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
+    <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
@@ -297,6 +312,7 @@
     <Compile Include="level\LevelBodyComponent.cs" />
     <Compile Include="level\LevelTiler.cs" />
     <Compile Include="level\Painter.cs" />
+    <Compile Include="level\paintings\AnimatedPainting.cs" />
     <Compile Include="level\paintings\Painting.cs" />
     <Compile Include="level\paintings\PaintingRegistry.cs" />
     <Compile Include="level\Patch.cs" />
@@ -324,6 +340,8 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
+    <Compile Include="level\walls\BreakableBlockingWall.cs" />
+    <Compile Include="level\walls\BreakableCageWall.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
@@ -371,6 +389,7 @@
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Titles.cs" />
+    <Compile Include="util\Vec2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lens\Lens.csproj">

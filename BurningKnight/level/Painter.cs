@@ -149,14 +149,56 @@ namespace BurningKnight.level {
 				chances[i] = room.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
 			}
 
-			for (int i = 0; i < 4; i++) {
-				var index = Random.Chances(chances);
+			var types = new List<Type>();
 
-				if (index == -1) {
-					return;
+			for (int i = 0; i < Random.Int(2, 6); i++) {
+				var type = mobs[Random.Chances(chances)].Type;
+				var found = false;
+				
+				foreach (var t in types) {
+					if (t == type) {
+						found = true;
+						break;
+					}
 				}
 
-				room.PlaceMob(level, (Mob) Activator.CreateInstance(mobs[index].Type));
+				if (found) {
+					i--;
+				} else {
+					types.Add(type);
+				}
+			}
+
+			var weight = Random.Float(4f, 7f);
+
+			while (weight > 0) {
+				var type = types[Random.Int(types.Count)];
+				var mob = (Mob) Activator.CreateInstance(type);
+				var wall = mob.SpawnsNearWall();
+				
+				var point = wall ? room.GetRandomCellNearWall() : room.GetRandomDoorFreeCell();
+
+				if (!point.HasValue) {
+					continue;
+				}
+				
+				weight -= mob.GetWeight();
+
+				if (wall) {
+					mob.Position = new Vector2(point.Value.X * 16, point.Value.Y * 16 - 8);
+				} else {
+					mob.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-2, 2), point.Value.Y * 16 + 8 + Random.Float(-2, 2));
+				}
+
+				level.Area.Add(mob);
+
+				if (!mob.CanSpawnMultiple()) {
+					types.Remove(type);
+
+					if (types.Count == 0) {
+						return;
+					}
+				}
 			}
 		}
 		
@@ -377,7 +419,8 @@ namespace BurningKnight.level {
 
 						door.X = D.X * 16;
 						door.Y = D.Y * 16;
-						door.FacingSide = Level.Get(D.X, D.Y + 1).Matches(TileFlags.Solid);
+						var tile = Level.Get(D.X, D.Y + 1);
+						door.FacingSide = tile.IsWall() && tile != Tile.Planks;
 
 						if (door.FacingSide) {
 							door.Y -= 8;
@@ -440,8 +483,12 @@ namespace BurningKnight.level {
 				}
 			}
 		}
-		
-		// To be tested
+
+		public static void Rect(Level level, Rect rect, int m, Tile value, bool bold = false) {
+			rect = rect.Shrink(m);
+			Rect(level, rect.Left, rect.Top, rect.GetWidth() - 1, rect.GetHeight() - 1, value, bold);
+		}
+
 		public static void Rect(Level level, int X, int Y, int W, int H, Tile value, bool bold = false) {
 			DrawLine(level, new Vector2(X, Y), new Vector2(X + W, Y), value, bold);
 			DrawLine(level, new Vector2(X, Y + H), new Vector2(X + W, Y + H), value, bold);
@@ -511,7 +558,8 @@ namespace BurningKnight.level {
 		}
 
 		public static void FillEllipse(Level Level, Rect Rect, int M, Tile Value) {
-			FillEllipse(Level, Rect.Left + M, Rect.Top + M, Rect.GetWidth() - M * 2, Rect.GetHeight() - M * 2, Value);
+			Rect = Rect.Shrink(M);
+			FillEllipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value);
 		}
 
 		public static void FillEllipse(Level Level, int X, int Y, int W, int H, Tile Value) {
@@ -537,6 +585,11 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void Ellipse(Level Level, Rect Rect, int m, Tile Value, bool bold = false) {
+			Rect = Rect.Shrink(m);
+			Ellipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value, bold);
+		}
+		
 		public static void Ellipse(Level Level, Rect Rect, Tile Value, bool bold = false) {
 			Ellipse(Level, Rect.Left, Rect.Top, Rect.GetWidth(), Rect.GetHeight(), Value, bold);
 		}
@@ -561,7 +614,7 @@ namespace BurningKnight.level {
 				var CellB = (int) (Cell + RowW - 1);
 
 				if (I == 0 || I == H - 1) {
-					for (var J = Cell; J < Cell + RowW; J++) {
+					for (var J = Cell - 1; J <= Cell + RowW; J++) {
 						if (bold) {
 							SetBold(Level, Level.FromIndexX(J), Level.FromIndexY(J), Value);
 						} else {

@@ -86,6 +86,10 @@ namespace BurningKnight.level.entities {
 			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.45f) {
 				Done = true;
 				
+				if (!Camera.Instance.Overlaps(this)) {
+					return;
+				}
+				
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());
 						

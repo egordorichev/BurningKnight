@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using Color = Microsoft.Xna.Framework.Color;
 using Matrix = Microsoft.Xna.Framework.Matrix;
@@ -320,6 +321,14 @@ namespace Lens.util.camera {
 			         entity.Y > Bottom ||
 			         entity.Bottom < Y);
 		}
+		
+		public override bool Overlaps(Rectangle entity) {
+			return !(entity.X > Right ||
+			         entity.Right < X ||
+			         entity.Y > Bottom ||
+			         entity.Bottom < Y);
+		}
+
 
 		public override bool Contains(Entity entity) {
 			return entity.X >= X && entity.Right <= Right

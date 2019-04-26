@@ -32,6 +32,7 @@ namespace BurningKnight.level.rooms {
 		public int Id;
 
 		public List<RoomDef> Neighbours = new List<RoomDef>();
+		private List<Vector2> Busy = new List<Vector2>();
 
 		public virtual int GetMinWidth() {
 			return 10;
@@ -180,6 +181,10 @@ namespace BurningKnight.level.rooms {
 		public Vector2 GetRandomCell() {
 			return new Vector2(Random.Int(Left + 1, Right), Random.Int(Top + 1, Bottom));
 		}
+		
+		public Vector2 GetRandomCellWithWalls() {
+			return new Vector2(Random.Int(Left, Right + 1), Random.Int(Top, Bottom + 1));
+		}
 
 		public Vector2? GetRandomFreeCell() {
 			Vector2 Point;
@@ -196,6 +201,84 @@ namespace BurningKnight.level.rooms {
 			} while (!Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable));
 
 			return Point;
+		}
+		
+		public Vector2? GetRandomCellNearWall() {
+			Vector2 Point;
+			var Att = 0;
+
+			do {
+				var At = 0;
+
+				if (At++ > 200) {
+					Log.Error("To many attempts");
+					return null;
+				}
+
+				while (true) {
+					if (At++ > 200) {
+						Log.Error("To many attempts");
+						return null;
+					}
+
+					var found = false;
+					Point = GetRandomCellWithWalls();
+
+					foreach (var b in Busy) {
+						if ((int) b.X == (int) Point.X && (int) b.Y == (int) Point.Y) {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						continue;
+					}
+
+					if (Connected.Count == 0) {
+						return Point;
+					}
+
+					if (!Run.Level.Get((int) Point.X, (int) Point.Y).IsWall()) {
+						continue;
+					}
+
+					foreach (var Door in Connected.Values) {
+						var Dx = (int) (Door.X - Point.X);
+						var Dy = (int) (Door.Y - Point.Y);
+						var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
+
+						if (D < 3) {
+							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						break;
+					}
+				}
+
+				if (Point.X + 1 < Right && !Run.Level.Get((int) Point.X + 1, (int) Point.Y).IsWall()) {
+					Busy.Add(Point);
+					return new Vector2(Point.X + 1, Point.Y);
+				}
+				
+				if (Point.X - 1 > Left && !Run.Level.Get((int) Point.X - 1, (int) Point.Y).IsWall()) {
+					Busy.Add(Point);
+					return new Vector2(Point.X - 1, Point.Y);
+				}
+				
+				if (Point.Y + 1 < Bottom && !Run.Level.Get((int) Point.X, (int) Point.Y + 1).IsWall()) {
+					Busy.Add(Point);
+					return new Vector2(Point.X, Point.Y + 1);
+				}
+				
+				if (Point.X - 1 > Top && !Run.Level.Get((int) Point.X, (int) Point.Y - 1).IsWall()) {
+					Busy.Add(Point);
+					return new Vector2(Point.X, Point.Y - 1);
+				}
+			} while (true);
 		}
 
 		public Vector2? GetRandomDoorFreeCell() {
@@ -214,14 +297,25 @@ namespace BurningKnight.level.rooms {
 					return Point;
 				}
 
+				if (!Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable)) {
+					continue;
+				}
+
+				var found = false;
+
 				foreach (var Door in Connected.Values) {
 					var Dx = (int) (Door.X - Point.X);
 					var Dy = (int) (Door.Y - Point.Y);
 					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-					if (D > 3 && Run.Level.CheckFor((int) Point.X, (int) Point.Y, TileFlags.Passable)) {
-						return Point;
+					if (D < 3) {
+						found = true;
+						break;
 					}
+				}
+
+				if (!found) {
+					return Point;
 				}
 			}
 		}
@@ -434,20 +528,6 @@ namespace BurningKnight.level.rooms {
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
 				Painter.DrawLine(Level, Mid, End, Floor, Bold);
 			}
-		}
-
-		public virtual void PlaceMob(Level level, Mob mob) {
-			var spot = GetRandomDoorFreeCell();
-
-			if (!spot.HasValue) {
-				Log.Warning($"Failed to place {mob.GetType().Name}, no good spot was found in the room");
-				return;
-			}
-			
-			mob.CenterX = spot.Value.X * 16 + 8;
-			mob.CenterY = spot.Value.Y * 16 + 8;
-
-			level.Area.Add(mob);
 		}
 
 		public virtual float WeightMob(MobInfo info, SpawnChance chance) {

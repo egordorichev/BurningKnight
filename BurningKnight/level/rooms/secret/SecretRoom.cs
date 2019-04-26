@@ -1,5 +1,6 @@
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.tile;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms.secret {
 	public class SecretRoom : RoomDef {
@@ -40,6 +41,10 @@ namespace BurningKnight.level.rooms.secret {
 
 		public override bool CanConnect(RoomDef R) {
 			return !(R is ConnectionRoom) && base.CanConnect(R);
+		}
+
+		public override bool ShouldSpawnMobs() {
+			return Random.Chance(10);
 		}
 	}
 }

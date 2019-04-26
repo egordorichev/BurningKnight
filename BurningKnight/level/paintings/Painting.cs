@@ -18,11 +18,12 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.paintings {
 	public class Painting : SaveableEntity {
+		private const float Padding = 64f;
+		
 		public string Id;
 		public string Author;
 		
 		private Entity from;
-		private TextureRegion big;
 		private float scale;
 		private float uiY;
 
@@ -31,6 +32,12 @@ namespace BurningKnight.level.paintings {
 		
 		private float nameWidth;
 		private float authorWidth;
+
+		private TextureRegion big;
+		
+		protected virtual TextureRegion GetRegion() {
+			return big;
+		}
 
 		public override void AddComponents() {
 			base.AddComponents();
@@ -47,7 +54,9 @@ namespace BurningKnight.level.paintings {
 		public override void PostInit() {
 			base.PostInit();
 
-			big = Animations.Get("paintings").GetSlice(Id);
+			if (!HasComponent<AnimationComponent>()) {
+				big = Animations.Get("paintings").GetSlice(Id);
+			}
 			
 			AddComponent(new InteractableSliceComponent("paintings", $"{Id}_small"));
 			var region = GetComponent<InteractableSliceComponent>().Sprite;
@@ -104,7 +113,7 @@ namespace BurningKnight.level.paintings {
 			if (e is HealthModifiedEvent ev) {
 				var h = GetComponent<HealthComponent>();
 
-				if (h.Health + ev.Amount == 0) {
+				if (h.Health + ev.Amount == 0 && Id != "egor") {
 					from = ev.From;
 				}
 			}
@@ -136,18 +145,26 @@ namespace BurningKnight.level.paintings {
 		}
 
 		public virtual void RenderUi() {
-			var sc = 4;
+			var region = GetRegion();
+			var sc = (float) Math.Max(
+				1, 
+				Math.Floor(
+					Math.Min(
+						(Display.UiWidth - Padding) / region.Width, 
+						(Display.UiHeight - Padding) / region.Height)
+					)
+				);
 			
-			Graphics.Render(big, new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY), 
+			Graphics.Render(region, new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY), 
 				(float) (Math.Cos(Engine.Time) * 0.1f),
-				big.Center, new Vector2(scale * sc));
+				region.Center, new Vector2(scale * sc));
 			
 			Graphics.Print(name, Font.Medium, 
-				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + big.Height * 0.5f * sc + 16f), 0,
+				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + region.Height * 0.5f * sc + 16f), 0,
 				new Vector2(nameWidth / 2, 8), new Vector2(scale));
 			
 			Graphics.Print(author, Font.Small, 
-				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + big.Height * 0.5f * sc + 28f), 0,
+				new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f + uiY + region.Height * 0.5f * sc + 28f), 0,
 				new Vector2(authorWidth / 2, 8), new Vector2(scale));
 		}
 	}

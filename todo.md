@@ -1,43 +1,37 @@
 # TODO
 
-### Castle enemies
-#### To sprite
-
-* Bandit
-* Dragon
-* King servant
-* Wall slime
-
 #### To implement
 
-* Slime
-  Jumps around, when sees player jumps to it. Might have a better version, that spits out bullets, when lands.
 * King
   Decide AI, spawns king servants
 * King servant
   Decide AI
-* Dragon
-  Slowly walks (or sits in one place), fires bullet hell
 * Knight
   Decide AI
 * Ranged knight
-  Decide AI
-* Bandit
-  Wanders, shoots into you sometimes
-* Wall slime
-  Just take ai from isaac and revita
+  Probably should just reuse old bk ranger ai
 * Clown
-  Gets close, plants a bomb, runs
+  Ai core done, just make it feel nice, animate more particles?
+  
+#### More variants?
+
+* Wall slime
+  Move variants, 3 shoot? aim shot? 3 in a row shot?
+* Slime
+  Might have a better version, that spits out bullets, when lands, maybe mother slime from terraria
 
 ### Important
 
+* Zelda like digging enemy
+* Diagonal fly
+* Mark doors as unpassable
+* Doors must be ALWAYS solid for mobs
+* Death animations
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* redo wallB sprite (green?)
 * lamp rendering
 * weapons in player hands should drop shadows
 * Start working on blood?
-* Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * Work out room layout for hub

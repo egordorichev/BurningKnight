@@ -6,8 +6,6 @@ using BurningKnight.physics;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
-using Lens.graphics;
-using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity {
@@ -67,8 +65,12 @@ namespace BurningKnight.entity.creature {
 			return Flying;
 		}
 
+		public virtual bool ShouldCollideWithDestroyableInAir() {
+			return false;
+		}
+
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb)));
+			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (entity is DestroyableLevel && !ShouldCollideWithDestroyableInAir()))));
 		}
 
 		public virtual bool IsFriendly() {

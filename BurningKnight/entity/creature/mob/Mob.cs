@@ -1,14 +1,16 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
-using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
+using BurningKnight.state;
+using BurningKnight.util;
+using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
-using VelcroPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -59,6 +61,10 @@ namespace BurningKnight.entity.creature.mob {
 				FindTarget();
 			}
 
+			if (TouchDamage == 0) {
+				return;
+			}
+			
 			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {
 				var entity = CollidingToHurt[i];
 
@@ -67,7 +73,7 @@ namespace BurningKnight.entity.creature.mob {
 					continue;
 				}
 
-				if (TouchDamage > 0 && (!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
+				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
 					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
 				}
 			}
@@ -95,7 +101,13 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void FindTarget() {
-			var targets = GetComponent<RoomComponent>().Room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room == null) {
+				return;
+			}
+			
+			var targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			
@@ -124,5 +136,75 @@ namespace BurningKnight.entity.creature.mob {
 		public override bool IsFriendly() {
 			return GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
+
+		public virtual float GetWeight() {
+			return 1f;
+		}
+
+		public virtual bool CanSpawnMultiple() {
+			return true;
+		}
+		
+		public virtual bool SpawnsNearWall() {
+			return false;
+		}
+		
+		#region Path finding
+		protected Vec2 NextPathPoint;
+		private int lastStepBack;
+
+		private void BuildPath(Vector2 to, bool back = false) {
+			var level = Run.Level;
+			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(CenterY / 16f));
+			var tp = level.ToIndex((int) Math.Floor(to.X / 16f), (int) Math.Floor(to.Y / 16f));
+
+			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, lastStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
+
+			if (back) {
+				lastStepBack = p;
+			}
+			
+			if (p == -1) {
+				return;
+			}
+			
+			NextPathPoint = new Vec2 {
+				X = level.FromIndexX(p) * 16 + 8, 
+				Y = level.FromIndexY(p) * 16 + 8
+			};
+		}
+		
+		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
+			if (!back) {
+				var ds = DistanceTo(point);
+
+				if (ds <= distance) {
+					return true;
+				}
+			}
+
+			if (NextPathPoint == null) {
+				BuildPath(point, back);
+
+				if (NextPathPoint == null) {
+					return false;
+				}
+			}
+
+			var dx = NextPathPoint.X - CenterX;
+			var dy = NextPathPoint.Y - CenterY;
+			var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+			if (d <= 1f) {
+				NextPathPoint = null;
+				return false;
+			}
+
+			speed *= Engine.Delta * 60;
+			GetAnyComponent<BodyComponent>().Velocity = new Vector2(dx / d * speed, dy / d * speed);
+
+			return false;
+		}
+		#endregion
 	}
 }

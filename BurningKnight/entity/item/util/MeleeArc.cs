@@ -1,6 +1,8 @@
 ﻿using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.state;
@@ -53,7 +55,14 @@ namespace BurningKnight.entity.item.util {
 					fixture.GetAABB(out var hitbox, 0);
 
 					Run.Level.Destroyable.Break(hitbox.Center.X, hitbox.Center.Y);
+				} else if (ev.Entity is Projectile p && p.Owner is Mob != Owner is Mob) {
+					p.Owner = this;
 
+					var b = p.BodyComponent;
+					var d = b.Velocity.Length();
+					var a = Owner.AngleTo(p);
+
+					b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}

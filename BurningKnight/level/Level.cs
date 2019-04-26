@@ -24,6 +24,7 @@ namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
+		public static bool RenderPassable = false;
 		
 		public Tileset Tileset;
 		public Biome Biome;
@@ -60,6 +61,7 @@ namespace BurningKnight.level {
 		public byte[] LiquidVariants;
 		public byte[] Flags;
 		public bool[] Explored;
+		public bool[] Passable;
 		public float[] Light;
 
 		public Chasm Chasm;
@@ -110,6 +112,8 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
+			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			
 		}
 
 		public override void AddComponents() {
@@ -128,7 +132,7 @@ namespace BurningKnight.level {
 			}
 			
 			GetComponent<LevelBodyComponent>().CreateBody();
-			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 		}
 
 		public void CreateDestroyableBody() {
@@ -137,6 +141,24 @@ namespace BurningKnight.level {
 			}
 			
 			Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
+		}
+
+		private bool loadMarked;
+		private bool first;
+		
+		public void LoadPassable() {
+			if (!first) {
+				first = true;
+				CreatePassable();
+			} else {
+				loadMarked = true;
+			}
+		}
+		
+		public void CreatePassable() {
+			for (var i = 0; i < Size; i++) {
+				Passable[i] = Get(i).Matches(TileFlags.Passable);
+			}
 		}
 
 		public void TileUp() {
@@ -251,6 +273,7 @@ namespace BurningKnight.level {
 			CreateBody();
 			CreateDestroyableBody();
 			TileUp();
+			LoadPassable();
 		}
 
 		public void Setup() {
@@ -263,6 +286,7 @@ namespace BurningKnight.level {
 			Light = new float[Size];
 			Flags = new byte[Size];
 			Explored = new bool[Size];
+			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
 		}
@@ -305,6 +329,12 @@ namespace BurningKnight.level {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (loadMarked) {
+				loadMarked = false;
+				CreatePassable();
+			}
+			
 			time += dt;
 		}
 
@@ -484,7 +514,6 @@ namespace BurningKnight.level {
 			}
 			
 			Shaders.End();
-			RenderShadowSurface();
 		}
 		
 		private void RenderSides() {
@@ -761,6 +790,20 @@ namespace BurningKnight.level {
 								}
 							}
 						}
+					}
+				}
+			}
+
+			if (!RenderPassable) {
+				return;
+			}
+			
+			var color = new Color(1f, 1f, 1f, 0.5f);
+
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
+					if (Passable[ToIndex(x, y)]) {
+						Graphics.Batch.DrawRectangle(new RectangleF(x * 16 + 1, y * 16 + 1, 14, 14), color);
 					}
 				}
 			}
