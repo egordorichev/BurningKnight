@@ -10,6 +10,7 @@ namespace Lens.assets {
 		// If true, Assets.Content wont be used, the original files will be loaded
 		public static bool LoadOriginalFiles = true;
 		public static string Root => LoadOriginalFiles ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") : $"{Directory.GetCurrentDirectory()}/Content/bin/";
+		public static string NearRoot => $"{Directory.GetCurrentDirectory()}/Content/bin/";
 		
 		private static string[] folders;
 		private static List<FileSystemEventArgs> changed = new List<FileSystemEventArgs>();
@@ -52,7 +53,7 @@ namespace Lens.assets {
 			Effects.Load();
 			Textures.Load();
 			Animations.Load();
-			// Audio.Load();
+			Audio.Load();
 		}
 
 		public static void Destroy() {

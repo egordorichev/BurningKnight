@@ -9,7 +9,7 @@ namespace BurningKnight.save {
 	public class SaveManager {
 		public const string SaveDir = "burning_knight/";
 		public static byte CurrentSlot = 0;
-		public static string SlotDir = $"{SaveDir}slot:{CurrentSlot}/";
+		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";
 
 		public static Saver[] Savers;
 		

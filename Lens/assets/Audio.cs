@@ -12,8 +12,10 @@ namespace Lens.assets {
 
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
-				foreach (var sfx in file.ListFiles()) {
-					LoadSfx(sfx);
+				foreach (var sfx in file.ListFileHandles()) {
+					if (sfx.Extension == ".xnb") {
+						LoadSfx(sfx.NameWithoutExtension);
+					}
 				}
 
 				foreach (var dir in file.ListDirectoryHandles()) {
@@ -23,24 +25,21 @@ namespace Lens.assets {
 		}
 		
 		internal static void Load() {
-			LoadSfx(FileHandle.FromRoot("Sfx/"));
-
-			if (Assets.LoadOriginalFiles) {
-				// Can't load Song without content pipeline
-				return;
-			}
+			LoadSfx(FileHandle.FromNearRoot("Sfx/"));
 			
-			var musicDir = FileHandle.FromRoot("Music/");
+			var musicDir = FileHandle.FromNearRoot("Music/");
 			
 			if (musicDir.Exists()) {
-				foreach (var name in musicDir.ListFiles()) {
-					LoadMusic(name);
+				foreach (var h in musicDir.ListFileHandles()) {
+					if (h.Extension == ".xnb") {
+						LoadMusic(h.NameWithoutExtension);
+					}
 				}
 			}
 		}
 
 		private static void LoadSfx(string sfx) {
-			if (Assets.LoadOriginalFiles) {
+			if (false && Assets.LoadOriginalFiles) {
 				Log.Debug($"Content/Sfx/{Path.GetFileName(sfx)} {sfx}");
 				var fileStream = new FileStream(sfx, FileMode.Open);
 				sounds[Path.GetFileNameWithoutExtension(sfx)] = SoundEffect.FromStream(fileStream);

@@ -29,7 +29,7 @@ namespace BurningKnight.save {
 				return path;
 			}
 			
-			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.lvl";
+			return $"{path}level-{(old ? Run.LastDepth : Run.Depth)}.lvl";
 		}
 
 		public override void Load(Area area, FileReader reader) {
