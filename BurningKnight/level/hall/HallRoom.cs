@@ -16,6 +16,14 @@ namespace BurningKnight.level.hall {
 			level.Area.Add(man);
 			man.Center = new Vector2(GetCenter().X, Top + 2.5f) * 16;
 			
+			Exit exit;
+			
+			level.Area.Add(exit = new Exit {
+				To = 1
+			});
+
+			exit.Center = new Vector2(GetCenter().X, Bottom - 4.5f) * 16;
+			
 			Entrance entrance;
 			
 			level.Area.Add(entrance = new Entrance {
