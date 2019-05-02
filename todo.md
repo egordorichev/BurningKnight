@@ -2,7 +2,16 @@
 
 ### Before v0.0.0.1
 
-* Fix entities not getting deleted
+<<<<<<< HEAD
+
+* BK him self
+ + Healthbar
+ + Animation and spawning
+ + Finishing room hits him
+ + He spawns the enemies
+ + Player picking up hearts will heal bk
+ + Opening and buying heals bk
+ + Somehow make him a bit annoying??
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
@@ -27,6 +36,7 @@
 * Audio speed should depend on engine speed
 
 * Set game icon
+* Crash report/fail loading stuff
 
 #### Polish
 
@@ -107,6 +117,11 @@
 
 * Signs, you can write/read from them
 * In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"
+
+#### npcs
+
+* https://twitter.com/MateCziner/status/1107173510877720577
+* https://twitter.com/128_mhz/status/1107158705772978176
 
 ### Special rooms
 

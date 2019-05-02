@@ -105,8 +105,7 @@ namespace Lens.input {
 
 			if (ret.LengthSquared() < deadzone * deadzone) {
 				ret = Vector2.Zero;
-			}
-			else {
+			} else {
 				ret.Y = -ret.Y;
 			}
 

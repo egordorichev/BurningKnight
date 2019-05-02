@@ -41,19 +41,20 @@ namespace BurningKnight.entity.creature {
 			if (e is HealthModifiedEvent ev) {
 				if (ev.Amount < 0) {
 					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
-
+					var c = GetBloodColor();
+					
 					if (Random.Chance(30)) {
 						for (var i = 0; i < Random.Int(1, 3); i++) {
 							Area.Add(new SplashParticle {
 								Position = Center - new Vector2(2.5f),
-								Color = Color.Red
+								Color = c
 							});
 						}
 					}
 
 					Area.Add(new SplashFx {
 						Position = Center,
-						Color = ColorUtils.Mod(Color.Red)
+						Color = ColorUtils.Mod(c)
 					});
 				}
 				
@@ -67,7 +68,7 @@ namespace BurningKnight.entity.creature {
 				for (var i = 0; i < Random.Int(2, 8); i++) {
 					Area.Add(new SplashParticle {
 						Position = Center - new Vector2(2.5f),
-						Color = Color.Red
+						Color = GetBloodColor()
 					});
 				}
 			} else if (e is LostSupportEvent) {
@@ -104,6 +105,10 @@ namespace BurningKnight.entity.creature {
 
 		protected virtual void RenderShadow() {
 			GraphicsComponent.Render(true);
+		}
+
+		protected virtual Color GetBloodColor() {
+			return Color.Red;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-using BurningKnight.entity.events;
+using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using Lens.input;
 
@@ -13,12 +13,14 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Item != null && Input.WasPressed(Controls.Use)) {
+			var controller = GetComponent<GamepadComponent>().Controller;
+
+			if (Item != null && Input.WasPressed(Controls.Use, controller)) {
 				Item.Use((Player) Entity);
 				Item.Renderer?.OnUse();
 			}
 	
-			if (Input.WasPressed(Controls.Swap) || (Input.Mouse.WheelDelta != 0 && stopped)) {
+			if (Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) {
 				stopped = false;
 				Swap();
 			}

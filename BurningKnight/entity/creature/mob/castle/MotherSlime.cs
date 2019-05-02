@@ -9,7 +9,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 	public class MotherSlime : SimpleSlime {
 		private static readonly Color color = ColorUtils.FromHex("#0069aa");
 		
-		protected override Color GetColor() {
+		protected override Color GetBloodColor() {
 			return color;
 		}
 		
@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent("mother_slime"));
-			SetMaxHp(3);
+			SetMaxHp(1);
 
 			var body = new RectBodyComponent(2, 7, 12, 9);
 			AddComponent(body);

@@ -33,7 +33,7 @@ namespace BurningKnight.entity.item {
 			AddComponent(component);
 
 			component.Scale = 0;
-			Tween.To(component, new {Scale = 1f}, 0.25f, Ease.BackOut);
+			Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
 
 			y = 12;
 			Tween.To(0, y, x => y = x, 0.2f);
@@ -57,6 +57,8 @@ namespace BurningKnight.entity.item {
 						return;
 					}
 					
+					Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
+					Tween.To(12, y, x => y = x, 0.5f);
 					if (component == null) {
 						tweened = true;
 

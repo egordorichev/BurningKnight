@@ -9,7 +9,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 	public class BulletSlime : Slime {
 		private static readonly Color color = ColorUtils.FromHex("#ff0000");
 		
-		protected override Color GetColor() {
+		protected override Color GetBloodColor() {
 			return color;
 		}
 
@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a, (float) (Math.Abs(Math.Cos(a)) + Math.Abs(Math.Sin(a))) * 20f);
+				var projectile = Projectile.Make(this, "small", a, 20f);
 					
 				projectile.Range = 1f;
 				projectile.AddLight(32f, Color.Red);

@@ -20,7 +20,11 @@ namespace BurningKnight.entity.creature.player {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			AddComponent(new GamepadComponent());
 			AddComponent(new PlayerInputComponent());
+			
+			AddTag(Tags.LocalPlayer);
 		}
 
 		private bool died;

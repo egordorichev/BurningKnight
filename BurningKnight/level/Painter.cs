@@ -171,10 +171,16 @@ namespace BurningKnight.level {
 				}
 			}
 
+			if (types.Count == 0) {
+				Log.Warning($"No mobs detected to spawn in {level.Biome.Id} biome");
+				return;
+			}
+
 			var weight = Random.Float(4f, 7f);
 
 			while (weight > 0) {
-				var type = types[Random.Chances(spawnChances)];
+				var id = Random.Chances(spawnChances);
+				var type = types[id];
 				var mob = (Mob) Activator.CreateInstance(type);
 				var wall = mob.SpawnsNearWall();
 				
@@ -195,7 +201,8 @@ namespace BurningKnight.level {
 				level.Area.Add(mob);
 
 				if (!mob.CanSpawnMultiple()) {
-					types.Remove(type);
+					types.RemoveAt(id);
+					spawnChances.RemoveAt(id);
 
 					if (types.Count == 0) {
 						return;

@@ -7,7 +7,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 	public class SimpleSlime : Slime {
 		private static readonly Color color = ColorUtils.FromHex("#33984b");
 		
-		protected override Color GetColor() {
+		protected override Color GetBloodColor() {
 			return color;
 		}
 		

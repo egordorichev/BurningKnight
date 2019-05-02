@@ -28,7 +28,7 @@ namespace Lens.graphics {
 			return Compare(a.R, b.R, ac) && Compare(a.G, b.G, ac) && Compare(a.B, b.B, ac);
 		}
 
-		public static Color ToRGB(float H, float S, float V) {
+		public static Color FromHSV(float H, float S, float V) {
 			double R;
 			double G;
 			double B;

@@ -12,9 +12,7 @@ using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
-	public abstract class Slime : Mob {
-		protected abstract Color GetColor();
-
+	public class Slime : Mob {
 		protected virtual float GetJumpDelay() {
 			return 0;
 		}
@@ -147,7 +145,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			
 			Area.Add(new SplashFx {
 				Position = Center,
-				Color = ColorUtils.Mod(GetColor())
+				Color = ColorUtils.Mod(GetBloodColor())
 			});
 		}
 	}

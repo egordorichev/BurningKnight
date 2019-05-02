@@ -16,50 +16,54 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
-		private GamepadData data;
-	
+
+		public override bool HandleEvent(Event e) {
+			var controller = GetComponent<GamepadComponent>().Controller;
+			
+			if (controller != null) {
+				if (e is HealthModifiedEvent ev && ev.Amount < 0) {
+					controller.Rumble(0.5f, 0.1f);
+				} else if (e is DiedEvent) {
+					controller.Rumble(1f, 0.2f);
+				}
+			}
+
+			return base.HandleEvent(e);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (data == null) {
-				for (int i = 0; i < 4; i++) {
-					if (Input.Gamepads[i].Attached) {
-						data = Input.Gamepads[i];
-						Log.Info($"Connected {GamePad.GetState(i)}");
-						break;
-					}
-				}
-			}
-			
+			var controller = GetComponent<GamepadComponent>().Controller;
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			
 			if (state.StateInstance is Player.RollState) {
 				// Movement tech :) Direction changing
-				if (Input.WasPressed(Controls.Swap, data)) {
+				if (Input.WasPressed(Controls.Swap, controller)) {
 					(state.StateInstance as Player.RollState).ChangeDirection();
 				}
 				
 				// Movement tech :) Roll cancelling
-				if (Input.WasPressed(Controls.Roll, data)) {
+				if (Input.WasPressed(Controls.Roll, controller)) {
 					state.Become<Player.IdleState>();
 				}
 			} else {
 				var acceleration = new Vector2();
 				
-				if (Input.IsDown(Controls.Up, data)) {
+				if (Input.IsDown(Controls.Up, controller)) {
 					acceleration.Y -= 1;
 				}			
 				
-				if (Input.IsDown(Controls.Down, data)) {
+				if (Input.IsDown(Controls.Down, controller)) {
 					acceleration.Y += 1;
 				}
 			
-				if (Input.IsDown(Controls.Left, data)) {
+				if (Input.IsDown(Controls.Left, controller)) {
 					acceleration.X -= 1;
 				}
 			
-				if (Input.IsDown(Controls.Right, data)) {
+				if (Input.IsDown(Controls.Right, controller)) {
 					acceleration.X += 1;
 				}
 
@@ -68,11 +72,11 @@ namespace BurningKnight.entity.creature.player {
 					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
 
-				if (data != null) {
-					acceleration += data.GetLeftStick();
+				if (controller != null) {
+					acceleration += controller.GetLeftStick();
 				}
 
-				if (Input.WasPressed(Controls.Roll, data) && !Send(new PlayerRolledEvent {
+				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();

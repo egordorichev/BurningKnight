@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact)) {
+			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact, GetComponent<GamepadComponent>().Controller)) {
 				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
 					Send(new InteractedEvent {
 						Who = Entity,

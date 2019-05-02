@@ -2,6 +2,7 @@ using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.entities;
 using Lens;
 using Lens.entity;
 
@@ -27,10 +28,12 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (AtBack && e is ItemAddedEvent && Item != null) {
-				Swap();
+			if (e is ItemAddedEvent) {
+				if (AtBack && Item != null) {
+					Swap();
+				}
 			}
-			
+
 			return base.HandleEvent(e);
 		}
 
@@ -44,7 +47,9 @@ namespace BurningKnight.entity.creature.player {
 			})) {
 				// Swap the items
 				var tmp = component.Item;
+				
 				component.Item = Item;
+				
 				Item = tmp;
 			}
 		}

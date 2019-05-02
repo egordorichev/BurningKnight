@@ -113,8 +113,12 @@ namespace BurningKnight.level.paintings {
 			if (e is HealthModifiedEvent ev) {
 				var h = GetComponent<HealthComponent>();
 
-				if (h.Health + ev.Amount == 0 && Id != "egor") {
-					from = ev.From;
+				if (h.Health + ev.Amount == 0) {
+					if (Id != "egor") {
+						from = ev.From;
+					} else {
+						h.ModifyHealth(1, null);
+					}
 				}
 			}
 
