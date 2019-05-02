@@ -71,6 +71,8 @@ namespace BurningKnight.state {
 			}
 
 			fog = Textures.Get("noise");
+			
+			Audio.PlayMusic("Menu");
 		}
 
 		public override void Destroy() {
