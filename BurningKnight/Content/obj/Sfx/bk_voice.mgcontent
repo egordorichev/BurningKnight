@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bk_voice.mp3</SourceFile>
   <SourceTime>2019-03-05T08:42:10.092364+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bk_voice.xnb</DestFile>
-  <DestTime>2019-05-02T17:54:14.8253057+03:00</DestTime>
+  <DestTime>2019-05-02T19:24:22.0717278+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

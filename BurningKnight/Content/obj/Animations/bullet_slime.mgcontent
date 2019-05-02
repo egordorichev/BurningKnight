@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Animations/bullet_slime.ase</SourceFile>
+  <SourceTime>2019-05-02T16:43:10.4383613+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/bullet_slime.xnb</DestFile>
+  <DestTime>2019-05-02T19:23:27.7288876+03:00</DestTime>
+  <Importer>AsepriteImporter</Importer>
+  <ImporterTime>2019-05-02T19:20:08.080127+03:00</ImporterTime>
+  <Processor>AsepriteProcessor</Processor>
+  <ProcessorTime>2019-05-02T19:20:08.080127+03:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

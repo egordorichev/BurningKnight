@@ -43,7 +43,7 @@ namespace BurningKnight.assets.items {
 				return;
 			}
 
-			if (Engine.Version.Debug) {
+			if (Engine.Version.Dev) {
 				var path = handle.ParentName;
 
 				// Fixme: broken on my laptop

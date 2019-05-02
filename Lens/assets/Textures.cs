@@ -18,8 +18,6 @@ namespace Lens.assets {
 			if (textureDir.Exists()) {
 				LoadTextures(textureDir);
 			}
-
-			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 		}
 
 		private static void LoadTextures(FileHandle handle) {

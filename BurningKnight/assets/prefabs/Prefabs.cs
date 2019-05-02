@@ -50,7 +50,7 @@ namespace BurningKnight.assets.prefabs {
 			prefab.Level = Run.Level;
 			loaded[handle.NameWithoutExtension] = prefab;
 			
-			if (Engine.Version.Debug) {
+			if (Engine.Version.Dev) {
 				var path = handle.ParentName;
 
 				// Fixme: broken on my laptop
