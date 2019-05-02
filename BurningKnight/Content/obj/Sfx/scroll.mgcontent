@@ -3,10 +3,10 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/scroll.mp3</SourceFile>
   <SourceTime>2019-03-05T08:42:11.1290446+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/scroll.xnb</DestFile>
-  <DestTime>2019-05-02T17:27:16.6828264+03:00</DestTime>
+  <DestTime>2019-05-02T17:49:38.6767156+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
-  <Processor>SongProcessor</Processor>
+  <Processor>SoundEffectProcessor</Processor>
   <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
@@ -14,7 +14,5 @@
   </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput>
-    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/scroll.wma</string>
-  </BuildOutput>
+  <BuildOutput />
 </PipelineBuildEvent>

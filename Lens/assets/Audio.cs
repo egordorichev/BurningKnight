@@ -25,9 +25,7 @@ namespace Lens.assets {
 		}
 		
 		internal static void Load() {
-			if (false) {
-				LoadSfx(FileHandle.FromNearRoot("Sfx/"));
-			}
+			LoadSfx(FileHandle.FromNearRoot("Sfx/"));
 			
 			var musicDir = FileHandle.FromNearRoot("Music/");
 			
@@ -53,7 +51,6 @@ namespace Lens.assets {
 		}
 
 		private static void LoadMusic(string name) {
-			Log.Error("Loading " + name);
 			music[name] = Assets.Content.Load<Song>($"bin/Music/{name}");
 		}
 		
