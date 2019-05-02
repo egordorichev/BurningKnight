@@ -368,6 +368,7 @@
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\EditorState.cs" />
+    <Compile Include="state\InGameAudio.cs" />
     <Compile Include="state\InGameState.cs" />
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />

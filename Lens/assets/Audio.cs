@@ -119,5 +119,14 @@ namespace Lens.assets {
 			MediaPlayer.Volume = volume;
 			currentPlaying = music;
 		}
+
+		public static void Stop() {
+			if (currentPlaying == null) {
+				return;
+			}
+			
+			MediaPlayer.Stop();
+			currentPlaying = null;
+		}
 	}
 }

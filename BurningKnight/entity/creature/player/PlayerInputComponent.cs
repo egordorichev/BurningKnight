@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
@@ -79,6 +80,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
+					
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
