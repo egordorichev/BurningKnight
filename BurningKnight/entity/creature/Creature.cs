@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
@@ -7,7 +8,8 @@ using BurningKnight.save;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
-using MonoGame.Extended;
+using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity {
@@ -39,6 +41,21 @@ namespace BurningKnight.entity.creature {
 			if (e is HealthModifiedEvent ev) {
 				if (ev.Amount < 0) {
 					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
+					var c = GetBloodColor();
+					
+					if (Random.Chance(30)) {
+						for (var i = 0; i < Random.Int(1, 3); i++) {
+							Area.Add(new SplashParticle {
+								Position = Center - new Vector2(2.5f),
+								Color = c
+							});
+						}
+					}
+
+					Area.Add(new SplashFx {
+						Position = Center,
+						Color = ColorUtils.Mod(c)
+					});
 				}
 				
 				if (HasNoHealth(ev)) {
@@ -47,6 +64,13 @@ namespace BurningKnight.entity.creature {
 			} else if (e is DiedEvent) {
 				GetComponent<DropsComponent>().SpawnDrops();
 				Done = true;
+				
+				for (var i = 0; i < Random.Int(2, 8); i++) {
+					Area.Add(new SplashParticle {
+						Position = Center - new Vector2(2.5f),
+						Color = GetBloodColor()
+					});
+				}
 			} else if (e is LostSupportEvent) {
 				Done = true;
 				return true;
@@ -67,8 +91,12 @@ namespace BurningKnight.entity.creature {
 			return Flying;
 		}
 
+		public virtual bool ShouldCollideWithDestroyableInAir() {
+			return false;
+		}
+
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb)));
+			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (entity is DestroyableLevel && !ShouldCollideWithDestroyableInAir()))));
 		}
 
 		public virtual bool IsFriendly() {
@@ -77,6 +105,10 @@ namespace BurningKnight.entity.creature {
 
 		protected virtual void RenderShadow() {
 			GraphicsComponent.Render(true);
+		}
+
+		protected virtual Color GetBloodColor() {
+			return Color.Red;
 		}
 	}
 }

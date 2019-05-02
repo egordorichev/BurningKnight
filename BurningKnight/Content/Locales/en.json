@@ -1,6 +1,9 @@
 {
   "bk:halo" : "Halo", "bk:halo_desc" : "OOO",
   "bk:gun" : "Gun", "bk:gun_desc" : "Hands up, @everyone!",
+  "bk:sword" : "Wooden Sword", "bk:sword_desc" : "Not just a stick",
+  "bk:lamp" : "Lamp", "bk:lamp_desc" : "Watch out!",
+  
   "bk:heart" : "Heart",
   
   "resume" : "Resume",
@@ -27,6 +30,21 @@
   "painting_skyscraper" : "Lonely skyscraper",
   "painting_egor" : "Burning Rex",
   "painting_null" : "NULL",
+  "painting_badosz" : "Lost Boy in the Woods",
+  "painting_banana" : "BANANA",
+  "painting_tv" : "TV in the sky",
   "painting_company" : "Good Company",
+  "painting_pico" : "PICO-8",
+  "painting_liko" : "LIKO-12",
+  "painting_trasevol" : "Dog du Trasevol",
+  "painting_lamp" : "Take it",
+  "painting_scream" : "Icecream",
+  "painting_stars" : "Scarry night",
+  "painting_fog" : "In the Seas",
+  "painting_nufflee" : "Bark",
+  "painting_car" : "In a car",
+  "painting_moika" : "Moika selfie",
+  "painting_sunset" : "Sunset",
+  
   "by" : "by"
 }

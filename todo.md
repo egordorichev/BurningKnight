@@ -1,59 +1,69 @@
 # TODO
 
-### Castle enemies
-#### To sprite
+### Before v0.0.0.1
 
-* Bandit
-* Dragon
-* King servant
-* Wall slime
+* Throwing props
+* Pass ui area to ingame
 
-#### To implement
+* BK him self
+ + Healthbar
+ + Animation and spawning
+ + Finishing room hits him
+ + He spawns the enemies
+ + Player picking up hearts will heal bk
+ + Opening and buying heals bk
+ + Somehow make him a bit annoying??
 
-* Slime
-  Jumps around, when sees player jumps to it. Might have a better version, that spits out bullets, when lands.
-* King
-  Decide AI, spawns king servants
-* King servant
-  Decide AI
-* Dragon
-  Slowly walks (or sits in one place), fires bullet hell
-* Knight
-  Decide AI
-* Ranged knight
-  Decide AI
-* Bandit
-  Wanders, shoots into you sometimes
-* Wall slime
-  Just take ai from isaac and revita
-* Clown
-  Gets close, plants a bomb, runs
+* Fix entities not getting deleted
+
+* Animate enemy death
+* ^^^^^^^ Effects when player is low hp
+
+* Enemies / rooms drop rewards (bombs, keys, coins)
+
+* Show item description, when you pick it up [UiItemDescription]
+
+* Figure out lamp mechanics, display it on player
+* ^^^^^^ whats up with Burning Knight? gotta think a lot
+
+* Add PICO-8 prototype room
+* Make WIP sign
+* Add at least one NPC house
+* ^^^ implement dialogs
+
+* Add a few weapons for melee, magic and ranged
+* Add a few artifacts
+
+* Implement speed changing
+* Implement audio
+* Audio speed should depend on engine speed
+
+* Set game icon
+* Crash report/fail loading stuff
+
+#### Polish
+
+* Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
+* Weapons in player hands should drop shadows
+* Wall shadow of player should include weapons?
 
 ### Important
 
+* Zelda like digging enemy
+* Diagonal fly
 * Broken variant for walls that do not break
-* Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* redo wallB sprite (green?)
-* lamp rendering
-* weapons in player hands should drop shadows
-* Start working on blood?
-* Fix C and D tiles in castle, update dirt with less holes and more like its on top and not below
-* Enemies / rooms drop rewards (bombs, keys, coins)
-
+* Props that react to music beats
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor
 * Rooms that can spawn only in certant biomes
 * Debug command to show room type
 
-* Show item description, when you pick them up [UiItemDescription]
-
 !!!
 * ask dad for neural net for generating room layouts
 !!!
 
 !!!
-* Path finding
 * noise wall room (only possible with path finding)
 !!!
 
@@ -62,8 +72,6 @@
 * Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)
 * Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
-* Missing texture slice
-* Set game icon
 
 ### Polish
 
@@ -112,6 +120,11 @@
 
 * Signs, you can write/read from them
 * In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"
+
+#### npcs
+
+* https://twitter.com/MateCziner/status/1107173510877720577
+* https://twitter.com/128_mhz/status/1107158705772978176
 
 ### Special rooms
 

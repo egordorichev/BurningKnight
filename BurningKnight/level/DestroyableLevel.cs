@@ -40,26 +40,30 @@ namespace BurningKnight.level {
 
 			Level.Tiles[index] = (byte) Tile.FloorA;
 			Level.UpdateTile(tx, ty);
+			Level.LoadPassable();
 			
 			GetComponent<DestroyableBodyComponent>().CreateBody();
-
 			Animate(Area, tx, ty);
 		}
 
 		public static void Animate(Area area, int x, int y) {
+			if (!Camera.Instance.Overlaps(new Rectangle(x * 16, y * 16, 16, 16))) {
+				return;
+			}
+
 			area.Add(new TileFx {
 				X = x * 16,
 				Y = y * 16 - 8
 			});
 			
-			for (var i = 0; i < 4; i++) {
+			for (var i = 0; i < 3; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
 				area.Add(part);
 			}
 			
-			for (var i = 0; i < 8; i++) {
+			for (var i = 0; i < 3; i++) {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16);
@@ -68,8 +72,8 @@ namespace BurningKnight.level {
 				area.Add(part);
 			}
 
-			Engine.Instance.Freeze = 1f;
-			Camera.Instance.Shake(4);
+			Engine.Instance.Freeze = 0.5f;
+			Camera.Instance.Shake(2);
 		}
 	}
 }

@@ -316,6 +316,13 @@ namespace Lens.entity {
 			         entity.Y > Bottom ||
 			         entity.Bottom < Y);
 		}
+		
+		public virtual bool Overlaps(Rectangle entity) {
+			return !(entity.X > Right ||
+			         entity.Right < X ||
+			         entity.Y > Bottom ||
+			         entity.Bottom < Y);
+		}
 
 		public virtual bool Contains(Entity entity) {
 			return entity.X >= X && entity.Right <= Right

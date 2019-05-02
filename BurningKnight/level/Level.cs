@@ -3,16 +3,19 @@ using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
 using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using DiscordRPC;
 using Lens;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -24,6 +27,7 @@ namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
+		public static bool RenderPassable = false;
 		
 		public Tileset Tileset;
 		public Biome Biome;
@@ -60,13 +64,17 @@ namespace BurningKnight.level {
 		public byte[] LiquidVariants;
 		public byte[] Flags;
 		public bool[] Explored;
+		public bool[] Passable;
 		public float[] Light;
 
 		public Chasm Chasm;
 		public DestroyableLevel Destroyable;
+		public RenderTarget2D WallSurface;
+		public RenderTarget2D MessSurface;
 
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
+			
 			Run.Level = this;
 		}
 
@@ -78,6 +86,11 @@ namespace BurningKnight.level {
 
 			if (Run.Level == this) {
 				Run.Level = null;
+			}
+
+			if (WallSurface != null) {
+				WallSurface.Dispose();
+				MessSurface.Dispose();
 			}
 		}
 
@@ -110,6 +123,8 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
+			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			
 		}
 
 		public override void AddComponents() {
@@ -128,7 +143,7 @@ namespace BurningKnight.level {
 			}
 			
 			GetComponent<LevelBodyComponent>().CreateBody();
-			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();	
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 		}
 
 		public void CreateDestroyableBody() {
@@ -137,6 +152,50 @@ namespace BurningKnight.level {
 			}
 			
 			Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
+		}
+
+		private bool loadMarked;
+		private bool first;
+		private BlendState blend;
+		private BlendState messBlend;
+
+		public void LoadPassable() {
+			if (!first) {
+				first = true;
+				CreatePassable();
+				
+				WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
+				MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
+				
+				var s = BlendState.AlphaBlend;
+				
+				blend = new BlendState {
+					BlendFactor = s.BlendFactor,
+					AlphaDestinationBlend = s.AlphaDestinationBlend,
+					ColorDestinationBlend = s.ColorDestinationBlend,
+					ColorSourceBlend = s.ColorSourceBlend,
+					AlphaBlendFunction = s.AlphaBlendFunction,
+					ColorBlendFunction = s.ColorBlendFunction,
+					
+					AlphaSourceBlend = Blend.DestinationAlpha
+				};
+
+				messBlend = new BlendState {
+					ColorBlendFunction = BlendFunction.Add,
+					ColorSourceBlend = Blend.DestinationColor,
+					ColorDestinationBlend = Blend.Zero,
+					
+					AlphaSourceBlend = Blend.DestinationAlpha
+				};
+			} else {
+				loadMarked = true;
+			}
+		}
+		
+		public void CreatePassable() {
+			for (var i = 0; i < Size; i++) {
+				Passable[i] = Get(i).Matches(TileFlags.Passable);
+			}
 		}
 
 		public void TileUp() {
@@ -251,6 +310,7 @@ namespace BurningKnight.level {
 			CreateBody();
 			CreateDestroyableBody();
 			TileUp();
+			LoadPassable();
 		}
 
 		public void Setup() {
@@ -263,6 +323,7 @@ namespace BurningKnight.level {
 			Light = new float[Size];
 			Flags = new byte[Size];
 			Explored = new bool[Size];
+			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
 		}
@@ -305,6 +366,12 @@ namespace BurningKnight.level {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (loadMarked) {
+				loadMarked = false;
+				CreatePassable();
+			}
+			
 			time += dt;
 		}
 
@@ -380,6 +447,52 @@ namespace BurningKnight.level {
 			}
 		}
 
+		private bool cleared;
+
+		public void RenderMess() {
+			var camera = Camera.Instance;
+			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			state.End();
+
+			Engine.GraphicsDevice.SetRenderTarget(MessSurface);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Matrix.Identity);
+
+			if (!cleared) {
+				cleared = true;
+				Graphics.Clear(Color.White);
+			}
+			
+			Graphics.Color = ColorUtils.WhiteColor;
+			
+			foreach (var p in Area.Tags[Tags.Mess]) {
+				((SplashFx) p).RenderInSurface();
+			}
+			
+			Graphics.Color = ColorUtils.WhiteColor;
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			var shake = camera.GetComponent<ShakeComponent>();
+			var region = new TextureRegion();
+
+			region.Texture = MessSurface;
+			region.Source.X = (int) Math.Floor(camera.X);
+			region.Source.Y = (int) Math.Floor(camera.Y);
+			region.Source.Width = Display.Width + 1;
+			region.Source.Height = Display.Height + 1;
+			
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
+				                        camera.Position.Y % 1 - shake.Position.Y));
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			state.Begin();
+		}
+		
 		public void RenderLiquids() {
 			var camera = Camera.Instance;
 
@@ -389,7 +502,7 @@ namespace BurningKnight.level {
 
 			var region = new TextureRegion();
 			var shader = Shaders.Terrain;
-			
+						
 			Shaders.Begin(shader);
 
 			var paused = Engine.Instance.State.Paused;
@@ -484,7 +597,7 @@ namespace BurningKnight.level {
 			}
 			
 			Shaders.End();
-			RenderShadowSurface();
+			RenderMess();
 		}
 		
 		private void RenderSides() {
@@ -638,10 +751,19 @@ namespace BurningKnight.level {
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
-		
+
 		public void RenderWalls() {
 			var camera = Camera.Instance;
+			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			state.End();
 
+			Engine.GraphicsDevice.SetRenderTarget(WallSurface);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Clear(Color.TransparentBlack);
+
+			Graphics.Color = ColorUtils.WhiteColor;
+			
 			// Cache the condition
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderBottom(camera);
@@ -764,6 +886,64 @@ namespace BurningKnight.level {
 					}
 				}
 			}
+
+			Graphics.Batch.End();
+			RenderBlood();
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			foreach (var p in Area.Tags[Tags.Player]) {
+				((Player) p).RenderOutline();
+			}
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			var shake = camera.GetComponent<ShakeComponent>();
+
+			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
+				                             Camera.Instance.Position.Y % 1 - shake.Position.Y));
+			
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			state.Begin();
+
+			if (!RenderPassable) {
+				return;
+			}
+			
+			var color = new Color(1f, 1f, 1f, 0.5f);
+
+			for (int y = GetRenderTop(camera); y <= toY; y++) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
+					if (Passable[ToIndex(x, y)]) {
+						Graphics.Batch.DrawRectangle(new RectangleF(x * 16 + 1, y * 16 + 1, 14, 14), color);
+					}
+				}
+			}
+		}
+		
+		public void RenderBlood() {
+			var camera = Camera.Instance;
+
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			var shake = camera.GetComponent<ShakeComponent>();
+			var region = new TextureRegion();
+
+			region.Texture = MessSurface;
+			region.Source.X = (int) Math.Floor(camera.X);
+			region.Source.Y = (int) Math.Floor(camera.Y) + 8;
+			region.Source.Width = Display.Width + 1;
+			region.Source.Height = Display.Height + 1;
+			
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
+				                        camera.Position.Y % 1 - shake.Position.Y));
+			
+			Graphics.Batch.End();
 		}
 		
 		public void RenderLight() {

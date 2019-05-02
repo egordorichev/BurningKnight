@@ -11,6 +11,7 @@ namespace BurningKnight.entity {
 	public class Cursor : Entity {
 		protected TextureRegion Region;
 		private Vector2 scale = new Vector2(1);
+		private bool first;
 		
 		public override void Init() {
 			base.Init();
@@ -25,8 +26,11 @@ namespace BurningKnight.entity {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			Position = Input.Mouse.UiPosition;
-			Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
+			if (Input.Mouse.WasMoved || !first) {
+				first = true;
+				Position = Input.Mouse.UiPosition;
+				Position -= new Vector2(Display.UiWidth / 2f, Display.UiHeight / 2f);
+			}
 
 			if (Input.Mouse.WasPressedLeftButton || Input.Mouse.WasPressedRightButton) {
 				Tween.To(1.3f, scale.X, x => { scale.X = scale.Y = x; }, 0.05f).OnEnd = () =>
@@ -39,9 +43,7 @@ namespace BurningKnight.entity {
 				return;
 			}
 			
-			var pos = Input.Mouse.UiPosition;
-			
-			Graphics.Render(Region, pos, 0, Region.Center, scale);
+			Graphics.Render(Region, Input.Mouse.UiPosition, 0, Region.Center, scale);
 		}
 	}
 }

@@ -5,6 +5,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;

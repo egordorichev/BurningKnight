@@ -1,8 +1,11 @@
-﻿using Lens.graphics;
+﻿using System.Collections.Generic;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets {
 	public static class Palette {
+		public static Dictionary<string, Color> Colors = new Dictionary<string, Color>();
+		
 		public static Color[] Default = new[] {
 			ColorUtils.FromHex("#ff0040"),
 			ColorUtils.FromHex("#131313"),
@@ -69,5 +72,19 @@ namespace BurningKnight.assets {
 			ColorUtils.FromHex("#891e2b"),
 			ColorUtils.FromHex("#571c27")
 		};
+
+		static Palette() {
+			Define("red", Default[60]);
+			Define("green", Default[36]);
+			Define("blue", Default[41]);
+			Define("yellow", Default[32]);
+			Define("orange", Default[30]);
+			Define("brown", Default[20]);
+			Define("gray", Default[6]);
+		}
+
+		public static void Define(string s, Color c) {
+			Colors[s] = c;
+		}
 	}
 }

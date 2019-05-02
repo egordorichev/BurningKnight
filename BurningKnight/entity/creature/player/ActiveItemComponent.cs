@@ -7,7 +7,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Item != null && Input.WasPressed(Controls.Active)) {
+			if (Item != null && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
 				Item.Use((Player) Entity);
 			}
 		}

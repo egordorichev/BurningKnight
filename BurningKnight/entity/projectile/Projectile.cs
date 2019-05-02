@@ -2,6 +2,7 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -17,7 +18,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
 	public class Projectile : Entity, CollisionFilterEntity {
-		protected BodyComponent BodyComponent;
+		public BodyComponent BodyComponent;
 		public int Damage = 1;
 		public Entity Owner;
 		public float Range = -1;
@@ -54,7 +55,9 @@ namespace BurningKnight.entity.projectile {
 
 		public override void AddComponents() {
 			base.AddComponents();
+			
 			AddComponent(new ShadowComponent(RenderShadow));
+			AlwaysActive = true;
 		}
 
 		private void RenderShadow() {
@@ -79,13 +82,14 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
-			return entity != Owner && (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() 
-			                           || entity is SolidProp || entity is DestroyableLevel);
+			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
+			       (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() || 
+			        entity is SolidProp || entity is DestroyableLevel);
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (ev.Entity != Owner && Owner is Mob != ev.Entity is Mob && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				
@@ -102,7 +106,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || entity is Chasm || entity is Item);
+			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile);
 		}
 	}
 }

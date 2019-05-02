@@ -34,6 +34,8 @@ namespace BurningKnight.level {
 			TileUp();
 			CreateBody();
 			CreateDestroyableBody();
+			LoadPassable();
+			
 			Log.Info("Done!");
 		}
 

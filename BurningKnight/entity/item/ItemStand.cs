@@ -1,17 +1,22 @@
 ﻿using System;
 using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.save;
 using BurningKnight.util;
+using Lens;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
+using Lens.util;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
-	public class ItemStand : Entity {
+	public class ItemStand : SaveableEntity {
 		private Item item;
 		private float T;
 		
@@ -103,7 +108,7 @@ namespace BurningKnight.entity.item {
 					item.OnInteractionStart(entity);
 					item = null;
 				} else {
-					Area.Add(new ItemPickupFx(item));
+					Engine.Instance.State.Ui.Add(new ItemPickupFx(item));
 				}
 			}
 		}
@@ -114,7 +119,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool CanInteract() {
-			return true; // item != null;
+			return true;
 		}
 
 		public override void Render() {
@@ -174,6 +179,23 @@ namespace BurningKnight.entity.item {
 				Graphics.Render(region, pos, angle, region.Center);
 			
 				Shaders.End();	
+			}
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+
+			if (stream.ReadBoolean()) {
+				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
+			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(item != null);
+
+			if (item != null) {
+				stream.WriteString(item.Id);
 			}
 		}
 	}

@@ -45,6 +45,9 @@ namespace BurningKnight.save {
 				var inventory = player.GetComponent<InventoryComponent>();
 				inventory.Pickup(Items.CreateAndAdd("bk:sword", area));
 			}
+
+			var bk = new entity.creature.BurningKnight();
+			area.Add(bk);
 		}
 	}
 }

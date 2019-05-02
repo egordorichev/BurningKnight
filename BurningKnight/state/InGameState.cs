@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
@@ -11,10 +12,12 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.str;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
@@ -110,6 +113,10 @@ namespace BurningKnight.state {
 		}
 
 		protected override void OnResume() {
+			if (painting != null) {
+				return;
+			}
+			
 			base.OnResume();
 			
 			if (died) {
@@ -125,7 +132,7 @@ namespace BurningKnight.state {
 		public override void OnActivated() {
 			base.OnActivated();
 
-			if (Paused && pausedByLostFocus) {
+			if (Paused && pausedByLostFocus && painting == null) {
 				Paused = false;
 			}
 		}
@@ -159,16 +166,37 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 
-			if (painting != null) {
-				if (Input.WasPressed(Controls.Pause) || Input.WasPressed(Controls.Interact) || Input.WasPressed(Controls.Use)) {
-					painting.Remove();
+			foreach (var p in Area.Tags[Tags.LocalPlayer]) {
+				var controller = p.GetComponent<GamepadComponent>().Controller;
+				
+				if (painting != null) {
+					if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
+					    Input.WasPressed(Controls.Use, controller)) {
+						painting.Remove();
+					}
+				} else {
+					if (Input.WasPressed(Controls.Pause, controller)) {
+						Paused = !Paused;
+					}
 				}
-			} else {
-				if (Input.WasPressed(Controls.Pause)) {
-					Paused = !Paused;
+
+				if (controller == null) {
+					continue;
+				}
+				
+				// todo: separate cursors for everyone
+				var stick = controller.GetRightStick();
+				var dx = stick.X * stick.X;
+				var dy = stick.Y * stick.Y;
+				var d = (float) Math.Sqrt(dx + dy);
+
+				if (d > 0.25f) {
+					var f = 32;
+					var tar = new Vector2(p.CenterX + stick.X / d * f, p.CenterY + stick.Y / d * f);
+					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 7f;
 				}
 			}
-			
+
 			if (Engine.Version.Debug) {
 				UpdateDebug(dt);
 				Tilesets.Update();
@@ -186,9 +214,9 @@ namespace BurningKnight.state {
 					var thread = new Thread(() => {
 						indicator.HandleEvent(new SaveStartedEvent());
 													
-						SaveManager.Save(Area, SaveType.Game);
-						SaveManager.Save(Area, SaveType.Level);
-						SaveManager.Save(Area, SaveType.Player);
+						SaveManager.Save(Area, SaveType.Game, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Level, false, null, false, false);
+						SaveManager.Save(Area, SaveType.Player, false, null, false, false);
 						
 						indicator.HandleEvent(new SaveEndedEvent());
 						saving = false;
@@ -339,7 +367,7 @@ namespace BurningKnight.state {
 				cursor.Render();
 				return;
 			}
-			
+
 			base.RenderUi();
 
 			if (Settings.ShowFps) {
@@ -434,6 +462,11 @@ namespace BurningKnight.state {
 			});
 
 			gameOverMenu.Setup();
+
+			Ui.Add(new UiString(Font.Medium) {
+				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]seems\n[sp 0.5]to work[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
+				Position = new Vector2(32, 32)
+			});
 		}
 
 		public bool HandleEvent(Event e) {

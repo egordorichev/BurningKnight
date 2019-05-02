@@ -11,7 +11,7 @@ namespace BurningKnight.level.paintings {
 			Add("grannylisa", "DSF100");
 			Add("maanex", "DSF100");
 			Add("bk", "Mate");
-			Add("failpositive", "FIXME: ADD AUTHOR"); // fixme
+			Add("failpositive", "Jusiv_");
 			Add("old_man", "???");
 			Add("arthouse", "xD");
 			Add("black", "!!!");
@@ -19,15 +19,30 @@ namespace BurningKnight.level.paintings {
 			Add("skyscraper", "egordorichev");
 			Add("egor", "egordorichev", 0.25f);
 			Add("null", "SEGFAULT", 0.5f);
-			Add("company", "ANIVIRE", 10000f);
+			Add("lamp", "Brastin");
+			Add("banana", "Minions");
+			Add("badosz", "DSF100", 1f, null, true);
+			Add("tv", "ANIVIRE");
+			Add("company", "ANIVIRE");
+			Add("pico", "zep");
+			Add("liko", "Rami");
+			Add("trasevol", "TRASEVOL_DOG");
+			Add("scream", "???");
+			Add("stars", "???");
+			Add("fog", "???");
+			Add("nufflee", "Nufflee");
+			Add("car", "???");
+			Add("moika", "???");
+			Add("sunset", "???");
 		}
 		
-		public static void Add(string id, string author, float chance = 1f, string[] biomes = null) {
+		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {
 			paintings.Add(new Info {
 				Id = id,
 				Author = author,
 				Chance = chance,
-				Biomes = biomes
+				Biomes = biomes,
+				Animated = animated
 			});
 		}
 
@@ -54,6 +69,13 @@ namespace BurningKnight.level.paintings {
 				sum += info.Chance;
 
 				if (value < sum) {
+					if (info.Animated) {
+						return new AnimatedPainting {
+							Id = info.Id,
+							Author = info.Author
+						};
+					}
+					
 					return new Painting {
 						Id = info.Id,
 						Author = info.Author
@@ -69,6 +91,7 @@ namespace BurningKnight.level.paintings {
 			public string Author;
 			public float Chance;
 			public string[] Biomes;
+			public bool Animated;
 		}
 	}
 }

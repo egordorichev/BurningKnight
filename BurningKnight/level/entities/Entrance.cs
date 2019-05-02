@@ -25,6 +25,10 @@ namespace BurningKnight.level.entities {
 			AlwaysVisible = true;
 		}
 
+		private bool CanInteract() {
+			return Run.Depth < 1;
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -32,7 +36,8 @@ namespace BurningKnight.level.entities {
 			Height = 15;
 			
 			AddComponent(new InteractableComponent(Interact) {
-				OnStart = OnInteractionStart
+				OnStart = OnInteractionStart,
+				CanInteract = CanInteract
 			});
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));

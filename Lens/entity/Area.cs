@@ -23,10 +23,20 @@ namespace Lens.entity {
 		}
 
 		public void AutoRemove() {
+			foreach (var e in entities.Entities) {
+				if (e.Done) {
+					entities.ToRemove.Add(e);
+				}
+			}
+			
 			entities.AutoRemove();
 		}
 
 		public void CleanNew() {
+			foreach (var e in entities.ToRemove) {
+				entities.Entities.Remove(e);
+			}
+			
 			entities.ToAdd.Clear();
 			entities.ToRemove.Clear();
 		}

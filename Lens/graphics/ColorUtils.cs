@@ -1,4 +1,5 @@
 using System;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace Lens.graphics {
@@ -27,7 +28,7 @@ namespace Lens.graphics {
 			return Compare(a.R, b.R, ac) && Compare(a.G, b.G, ac) && Compare(a.B, b.B, ac);
 		}
 
-		public static Color ToRGB(float H, float S, float V) {
+		public static Color FromHSV(float H, float S, float V) {
 			double R;
 			double G;
 			double B;
@@ -99,6 +100,19 @@ namespace Lens.graphics {
 			}
 
 			return new Color((float) R / 255.0f, (float) G / 255.0f, (float) B / 255.0f, 1);
+		}
+		
+		public static Color Mod(Color c) {
+			var color = new Color();
+
+			var f = 30;
+
+			color.R = (byte) MathUtils.Clamp(0, 255, c.R + util.math.Random.Int(-f, f));
+			color.G = (byte) MathUtils.Clamp(0, 255, c.G + util.math.Random.Int(-f, f));
+			color.B = (byte) MathUtils.Clamp(0, 255, c.B + util.math.Random.Int(-f, f));
+			color.A = 255;
+
+			return color;
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using Color = Microsoft.Xna.Framework.Color;
 using Matrix = Microsoft.Xna.Framework.Matrix;
@@ -176,6 +177,13 @@ namespace Lens.util.camera {
 		public Vector2 CameraToScreen(Vector2 position) {
 			return Vector2.Transform(position, matrix);
 		}
+		
+		public Vector2 CameraToUi(Vector2 position) {
+			var shake = GetComponent<ShakeComponent>();
+			
+			return (CameraToScreen(position) - new Vector2(Position.X % 1 - shake.Position.X, 
+				          Position.Y % 1 - shake.Position.Y)) * Display.UiScale;
+		}
 
 		public void Approach(Vector2 position, float ease) {
 			Position += (position - Position) * ease;
@@ -320,6 +328,14 @@ namespace Lens.util.camera {
 			         entity.Y > Bottom ||
 			         entity.Bottom < Y);
 		}
+		
+		public override bool Overlaps(Rectangle entity) {
+			return !(entity.X > Right ||
+			         entity.Right < X ||
+			         entity.Y > Bottom ||
+			         entity.Bottom < Y);
+		}
+
 
 		public override bool Contains(Entity entity) {
 			return entity.X >= X && entity.Right <= Right

@@ -10,6 +10,9 @@ namespace BurningKnight.assets.particle {
 		
 		public Vector2 Position;
 		public Vector2 Velocity;
+
+		public float Z;
+		public float Zv;
 		
 		public float Angle;
 		public float AngleVelocity;
