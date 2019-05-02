@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3</SourceFile>
   <SourceTime>2019-03-05T08:42:09.1736943+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.xnb</DestFile>
-  <DestTime>2019-05-02T17:48:14.8899646+03:00</DestTime>
+  <DestTime>2019-05-02T17:53:37.7594218+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
   <Processor>SongProcessor</Processor>
@@ -15,6 +15,6 @@
   <Dependencies />
   <BuildAsset />
   <BuildOutput>
-    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.wma</string>
+    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.ogg</string>
   </BuildOutput>
 </PipelineBuildEvent>
