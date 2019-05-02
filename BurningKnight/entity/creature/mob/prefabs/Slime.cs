@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.level;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;

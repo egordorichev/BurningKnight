@@ -2,6 +2,7 @@
 
 ### Before v0.0.0.1
 
+<<<<<<< HEAD
 * Throwing props
 * Pass ui area to ingame
 
@@ -14,6 +15,8 @@
  + Opening and buying heals bk
  + Somehow make him a bit annoying??
 
+=======
+>>>>>>> 7f3cf1a7f0df51dd7c97fbd465220d5a68004d82
 * Fix entities not getting deleted
 
 * Animate enemy death
@@ -39,7 +42,10 @@
 * Audio speed should depend on engine speed
 
 * Set game icon
+<<<<<<< HEAD
 * Crash report/fail loading stuff
+=======
+>>>>>>> 7f3cf1a7f0df51dd7c97fbd465220d5a68004d82
 
 #### Polish
 
