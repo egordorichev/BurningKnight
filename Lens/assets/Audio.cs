@@ -25,9 +25,9 @@ namespace Lens.assets {
 		}
 		
 		internal static void Load() {
-			LoadSfx(FileHandle.FromNearRoot("Sfx/"));
+			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
 			
-			var musicDir = FileHandle.FromNearRoot("Music/");
+			var musicDir = FileHandle.FromNearRoot("bin/Music/");
 			
 			if (musicDir.Exists()) {
 				foreach (var h in musicDir.ListFileHandles()) {

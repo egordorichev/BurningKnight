@@ -15,231 +15,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Animations/baby_slime.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/baby_slime.ase
-
-#begin Animations/badosz.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/badosz.ase
-
-#begin Animations/bandit.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/bandit.ase
-
-#begin Animations/biome_assets.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/biome_assets.ase
-
-#begin Animations/bullet_slime.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/bullet_slime.ase
-
-#begin Animations/burning_knight.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/burning_knight.ase
-
-#begin Animations/campfire.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/campfire.ase
-
-#begin Animations/castle_biome.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/castle_biome.ase
-
-#begin Animations/chest.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/chest.ase
-
-#begin Animations/clown.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/clown.ase
-
-#begin Animations/crawler.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/crawler.ase
-
-#begin Animations/dragon.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/dragon.ase
-
-#begin Animations/dummy.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/dummy.ase
-
-#begin Animations/executioner.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/executioner.ase
-
-#begin Animations/explosion.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/explosion.ase
-
-#begin Animations/fx.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/fx.ase
-
-#begin Animations/ghost.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/ghost.ase
-
-#begin Animations/gobbo.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/gobbo.ase
-
-#begin Animations/gunner.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/gunner.ase
-
-#begin Animations/hub_biome.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/hub_biome.ase
-
-#begin Animations/item_heart.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/item_heart.ase
-
-#begin Animations/items.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/items.ase
-
-#begin Animations/king.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/king.ase
-
-#begin Animations/king_servant.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/king_servant.ase
-
-#begin Animations/knight.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/knight.ase
-
-#begin Animations/lamps.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/lamps.ase
-
-#begin Animations/lock.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/lock.ase
-
-#begin Animations/logo.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/logo.ase
-
-#begin Animations/maggot.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/maggot.ase
-
-#begin Animations/monitor.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/monitor.ase
-
-#begin Animations/mother_slime.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/mother_slime.ase
-
-#begin Animations/old_man.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/old_man.ase
-
-#begin Animations/paintings.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/paintings.ase
-
-#begin Animations/particles.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/particles.ase
-
-#begin Animations/pico.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/pico.ase
-
-#begin Animations/planks_particle.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/planks_particle.ase
-
-#begin Animations/projectiles.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/projectiles.ase
-
-#begin Animations/props.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/props.ase
-
-#begin Animations/regular_door.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/regular_door.ase
-
-#begin Animations/side_door.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/side_door.ase
-
-#begin Animations/slime.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/slime.ase
-
-#begin Animations/splash_fx.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/splash_fx.ase
-
-#begin Animations/splash_particle.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/splash_particle.ase
-
-#begin Animations/sword_trail.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/sword_trail.ase
-
-#begin Animations/ui.ase
-/importer:AsepriteImporter
-/processor:AsepriteProcessor
-/build:Animations/ui.ase
-
 #begin Music/Believer.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -1025,4 +800,112 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/terrain.fx
+
+#begin Textures/1f525.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/1f525.png
+
+#begin Textures/artwork_logo (sticker).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/artwork_logo (sticker).png
+
+#begin Textures/chars.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/chars.png
+
+#begin Textures/icon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/icon.png
+
+#begin Textures/icon128x128.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/icon128x128.png
+
+#begin Textures/icon32x32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/icon32x32.png
+
+#begin Textures/light.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/light.png
+
+#begin Textures/noise.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/noise.png
+
+#begin Textures/rexcellent_logo_pixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/rexcellent_logo_pixel.png
 

@@ -14,7 +14,7 @@ namespace Lens.assets {
 		    ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") 
 		    : NearRoot;
 		    
-		public static string NearRoot => $"{Directory.GetCurrentDirectory()}/Content/bin/";
+		public static string NearRoot => $"{Directory.GetCurrentDirectory()}/Content/";
 		
 		private static string[] folders;
 		private static List<FileSystemEventArgs> changed = new List<FileSystemEventArgs>();
@@ -53,12 +53,11 @@ namespace Lens.assets {
 		}
 
 		private static void LoadAssets() {
-			
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 			
 			Locale.Load("en");
 			Effects.Load();
-			// Textures.Load();
+			Textures.Load();
 			Animations.Load();
 			Audio.Load();
 		}
@@ -70,7 +69,7 @@ namespace Lens.assets {
 
 		private static void DestroyAssets() {
 			Effects.Destroy();
-			// Textures.Destroy();
+			Textures.Destroy();
 			Animations.Destroy();
 			Audio.Destroy();
 		}

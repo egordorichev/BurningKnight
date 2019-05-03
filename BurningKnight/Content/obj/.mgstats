@@ -1,49 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/baby_slime.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/baby_slime.xnb","AsepriteProcessor","ProcessedAseprite",1294,1399,0.2500194
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/badosz.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/badosz.xnb","AsepriteProcessor","ProcessedAseprite",4592,111083,0.0312541
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/bandit.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/bandit.xnb","AsepriteProcessor","ProcessedAseprite",2092,8070,0.0312486
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/biome_assets.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/biome_assets.xnb","AsepriteProcessor","ProcessedAseprite",17150,512171,0.0781328
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/bullet_slime.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/bullet_slime.xnb","AsepriteProcessor","ProcessedAseprite",1404,3507,0.0625011
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/burning_knight.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/burning_knight.xnb","AsepriteProcessor","ProcessedAseprite",6723,51150,0.0782342
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/campfire.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/campfire.xnb","AsepriteProcessor","ProcessedAseprite",1892,17977,0.046776
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/castle_biome.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/castle_biome.xnb","AsepriteProcessor","ProcessedAseprite",6358,179115,0.0625028
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/chest.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/chest.xnb","AsepriteProcessor","ProcessedAseprite",1580,6050,0.0625028
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/clown.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/clown.xnb","AsepriteProcessor","ProcessedAseprite",3979,12981,0.0781317
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/crawler.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/crawler.xnb","AsepriteProcessor","ProcessedAseprite",1866,6641,0.0781328
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/dragon.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/dragon.xnb","AsepriteProcessor","ProcessedAseprite",933,1067,0.0312523
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/dummy.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/dummy.xnb","AsepriteProcessor","ProcessedAseprite",1239,2433,0.0312555
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/executioner.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/executioner.xnb","AsepriteProcessor","ProcessedAseprite",975,1531,0.0624982
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/explosion.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/explosion.xnb","AsepriteProcessor","ProcessedAseprite",3512,61101,0.0937565
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/fx.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/fx.xnb","AsepriteProcessor","ProcessedAseprite",971,2219,0.0156269
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/ghost.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/ghost.xnb","AsepriteProcessor","ProcessedAseprite",1288,3125,0.1093816
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/gobbo.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/gobbo.xnb","AsepriteProcessor","ProcessedAseprite",3942,13877,0.0468799
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/gunner.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/gunner.xnb","AsepriteProcessor","ProcessedAseprite",2315,10062,0.0468778
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/hub_biome.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/hub_biome.xnb","AsepriteProcessor","ProcessedAseprite",4137,179115,0.0781316
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/item_heart.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/item_heart.xnb","AsepriteProcessor","ProcessedAseprite",1224,1570,0.0468751
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/items.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/items.xnb","AsepriteProcessor","ProcessedAseprite",7824,356787,0.0625075
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/king.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/king.xnb","AsepriteProcessor","ProcessedAseprite",3168,8510,0.0468756
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/king_servant.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/king_servant.xnb","AsepriteProcessor","ProcessedAseprite",1952,4726,0.0625055
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/knight.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/knight.xnb","AsepriteProcessor","ProcessedAseprite",2758,11510,0.0781307
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/lamps.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/lamps.xnb","AsepriteProcessor","ProcessedAseprite",861,65707,0.0937528
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/lock.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/lock.xnb","AsepriteProcessor","ProcessedAseprite",1879,4248,0.031257
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/logo.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/logo.xnb","AsepriteProcessor","ProcessedAseprite",5111,133551,0.1093792
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/maggot.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/maggot.xnb","AsepriteProcessor","ProcessedAseprite",1187,1405,0.0156274
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/monitor.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/monitor.xnb","AsepriteProcessor","ProcessedAseprite",1914,194859,0.0937541
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/mother_slime.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/mother_slime.xnb","AsepriteProcessor","ProcessedAseprite",1445,3247,0.0468806
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/old_man.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/old_man.xnb","AsepriteProcessor","ProcessedAseprite",1689,6561,0.0468747
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/paintings.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/paintings.xnb","AsepriteProcessor","ProcessedAseprite",56360,453315,0.0781277
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/particles.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/particles.xnb","AsepriteProcessor","ProcessedAseprite",1272,5631,0.0156269
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/pico.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/pico.xnb","AsepriteProcessor","ProcessedAseprite",6049,296144,0.078133
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/planks_particle.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/planks_particle.xnb","AsepriteProcessor","ProcessedAseprite",1281,1197,0.0468749
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/projectiles.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/projectiles.xnb","AsepriteProcessor","ProcessedAseprite",911,427,0.046876
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/props.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/props.xnb","AsepriteProcessor","ProcessedAseprite",8364,151335,0.062505
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/regular_door.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/regular_door.xnb","AsepriteProcessor","ProcessedAseprite",1592,4854,0.0156293
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/side_door.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/side_door.xnb","AsepriteProcessor","ProcessedAseprite",1592,4854,0.0625024
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/slime.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/slime.xnb","AsepriteProcessor","ProcessedAseprite",1521,2953,0.093759
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/splash_fx.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/splash_fx.xnb","AsepriteProcessor","ProcessedAseprite",1971,22881,0.0937523
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/splash_particle.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/splash_particle.xnb","AsepriteProcessor","ProcessedAseprite",1075,549,0.0625045
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/sword_trail.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/sword_trail.xnb","AsepriteProcessor","ProcessedAseprite",1354,6206,0.0468815
-"C:/Users/egord/Lens/BurningKnight/Content/Animations/ui.ase","C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/ui.xnb","AsepriteProcessor","ProcessedAseprite",5590,68671,0.0625028
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Believer.xnb","SongProcessor","SongContent",5122088,126,6.46159
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Born to do rogueries.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Born to do rogueries.xnb","SongProcessor","SongContent",3842088,138,4.456761
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Botanical Expedition.xnb","SongProcessor","SongContent",3842088,138,3.35078
@@ -175,3 +130,11 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1264,0.4586268
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1642,1941,0.4852649
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1335,2282,0.5222332
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/1f525.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/1f525.xnb","TextureProcessor","Texture2DContent",18481,1048661,1.140704
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/artwork_logo (sticker).png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/artwork_logo (sticker).xnb","TextureProcessor","Texture2DContent",5361,112885,0.1251055
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,0.1718881
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/icon.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/icon.xnb","TextureProcessor","Texture2DContent",6768,1109,0.2278332
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/icon32x32.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/icon32x32.xnb","TextureProcessor","Texture2DContent",10854,4181,0.2246367
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.2492054
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.2468018
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/rexcellent_logo_pixel.xnb","TextureProcessor","Texture2DContent",285,4181,0.1358351
