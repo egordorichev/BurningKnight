@@ -17,21 +17,16 @@ namespace Lens.assets {
 			var animationDir = FileHandle.FromRoot("Animations/");
 
 			if (animationDir.Exists()) {
-				foreach (var animation in animationDir.ListFiles()) {
-					LoadAnimation(Path.GetFileNameWithoutExtension(animation), animation);
+				foreach (var animation in animationDir.ListFileHandles()) {
+					if (animation.Extension == ".ase") {
+						LoadAnimation(animation.NameWithoutExtension, animation.FullPath);
+					}
 				}
 			}
 		}
 
 		private static void LoadAnimation(string name, string fullPath) {
-			AsepriteFile file;
-
-			if (Assets.LoadOriginalFiles) {
-				file = new AsepriteFile(fullPath);
-			} else {
-				file = Assets.Content.Load<AsepriteFile>($"bin/Animations/{name}");
-			}
-			
+			AsepriteFile file = new AsepriteFile(fullPath);
 			var animation = new AnimationData();
 			
 			for (var i = 0; i < file.Layers.Count; i++) {

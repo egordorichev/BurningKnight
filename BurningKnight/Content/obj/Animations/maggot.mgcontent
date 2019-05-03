@@ -3,11 +3,11 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Animations/maggot.ase</SourceFile>
   <SourceTime>2019-05-02T16:43:11.5266531+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Animations/maggot.xnb</DestFile>
-  <DestTime>2019-05-02T19:23:28.9141503+03:00</DestTime>
+  <DestTime>2019-05-03T05:28:53.6025138+03:00</DestTime>
   <Importer>AsepriteImporter</Importer>
-  <ImporterTime>2019-05-02T19:20:08.080127+03:00</ImporterTime>
+  <ImporterTime>2019-05-03T05:28:24.021562+03:00</ImporterTime>
   <Processor>AsepriteProcessor</Processor>
-  <ProcessorTime>2019-05-02T19:20:08.080127+03:00</ProcessorTime>
+  <ProcessorTime>2019-05-03T05:28:24.021562+03:00</ProcessorTime>
   <Dependencies />
   <BuildAsset />
   <BuildOutput />
