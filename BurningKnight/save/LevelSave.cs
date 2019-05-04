@@ -11,17 +11,11 @@ using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
-	public class LevelSave : Saver {
+	public class LevelSave : EntitySaver {
 		private static int I;
 
-		public override void Save(Area area, FileWriter writer) {			
-			var all = area.Tags[Tags.LevelSave];
-			writer.WriteInt32(all.Count);
-
-			foreach (SaveableEntity entity in all) {
-				writer.WriteString(entity.GetType().FullName.Replace("BurningKnight.", ""));
-				entity.Save(writer);
-			}
+		public override void Save(Area area, FileWriter writer) {
+			SmartSave(area.Tags[Tags.LevelSave], writer);
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -30,18 +24,6 @@ namespace BurningKnight.save {
 			}
 			
 			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.lvl";
-		}
-
-		public override void Load(Area area, FileReader reader) {
-			var count = reader.ReadInt32();
-
-			for (var I = 0; I < count; I++) {
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{reader.ReadString()}", true, false));
-
-				area.Add(entity, false);
-				entity.Load(reader);
-				entity.PostInit();
-			}
 		}
 
 		private RegularLevel CreateLevel() {
@@ -67,12 +49,17 @@ namespace BurningKnight.save {
 				Log.Error(e);
 				I++;
 
+				// FIXME: this part removes player, and thats ayayayay
+				
+				// Make sure the area.Add() entities received their tags in order to be removed
+				area.Entities.AddNew();
+				
 				foreach (var en in area.Tags[Tags.LevelSave]) {
+					Log.Error(en.GetType().FullName);
 					en.Done = true;
 				}
 				
 				area.AutoRemove();
-				area.CleanNew();
 
 				if (I > 100) {
 					Log.Error("Can't generate a level");

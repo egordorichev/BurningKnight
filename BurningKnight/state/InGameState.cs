@@ -17,7 +17,6 @@ using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
-using Lens.entity.component.logic;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
@@ -26,7 +25,6 @@ using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
@@ -44,7 +42,7 @@ namespace BurningKnight.state {
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
-		private bool saving;
+		private int saving;
 
 		private Painting painting;
 
@@ -77,12 +75,12 @@ namespace BurningKnight.state {
 			Lights.Destroy();
 
 			if (died) {
-				SaveManager.Save(Area, SaveType.Global, true);
+				SaveManager.ThreadSave(null, Area, SaveType.Global, true);
 			} else {
-				SaveManager.Save(Area, SaveType.Global, true);
-				SaveManager.Save(Area, SaveType.Game, true);
-				SaveManager.Save(Area, SaveType.Level, true);
-				SaveManager.Save(Area, SaveType.Player, true);
+				SaveManager.ThreadSave(null, Area, SaveType.Global, true);
+				SaveManager.ThreadSave(null, Area, SaveType.Game, true);
+				SaveManager.ThreadSave(null, Area, SaveType.Level, true);
+				SaveManager.ThreadSave(null, Area, SaveType.Player, true);
 			}
 			
 			Area.Destroy();
@@ -204,30 +202,28 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave && !saving) {
+			if (Settings.Autosave && saving <= 0) {
 				saveTimer += dt;
 
 				if (saveTimer >= AutoSaveInterval) {
 					saveTimer = 0;
-					saving = true;
+					saving = 3;
 
-					var thread = new Thread(() => {
-						indicator.HandleEvent(new SaveStartedEvent());
-													
-						SaveManager.Save(Area, SaveType.Game, false, null, false, false);
-						SaveManager.Save(Area, SaveType.Level, false, null, false, false);
-						SaveManager.Save(Area, SaveType.Player, false, null, false, false);
-						
-						indicator.HandleEvent(new SaveEndedEvent());
-						saving = false;
-					});
-
-					thread.Priority = ThreadPriority.Lowest;
-					thread.Start();
+					indicator.HandleEvent(new SaveStartedEvent());
+												
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Game, false, null, false, false);
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Level, false, null, false, false);
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Player, false, null, false, false);
+					
+					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
 		}
 
+		private void ReadyCallback() {
+			saving--;
+		}
+		
 		private void UpdateDebug(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new EditorState {
@@ -464,7 +460,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Setup();
 
 			Ui.Add(new UiString(Font.Medium) {
-				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]seems\n[sp 0.5]to work[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
+				Label = "[cl blue]^^Awesome^^, [dl]_this_[cl] [sp 2]seems\n[sp 0.5]to work[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
 				Position = new Vector2(32, 32)
 			});
 		}

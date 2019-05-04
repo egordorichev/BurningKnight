@@ -122,6 +122,10 @@ namespace Lens.util.camera {
 		}
 
 		public void Follow(Entity entity, float priority, bool main = false) {
+			if (entity == null) {
+				return;
+			}
+			
 			Targets.Add(new Target(entity, priority));
 
 			if (main) {

@@ -45,7 +45,6 @@ namespace BurningKnight.assets.prefabs {
 			
 			var stream = new FileReader(handle.FullPath);
 			SaveManager.ForType(SaveType.Level).Load(prefab.Area, stream);
-			stream.Close();
 
 			prefab.Level = Run.Level;
 			loaded[handle.NameWithoutExtension] = prefab;

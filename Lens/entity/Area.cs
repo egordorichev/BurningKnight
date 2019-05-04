@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
@@ -11,6 +12,8 @@ namespace Lens.entity {
 		private static bool initedTags;
 		private EntityList entities;
 
+		public EntityList Entities => entities;
+		
 		public Area() {
 			if (!initedTags) {
 				initedTags = true;
@@ -28,15 +31,17 @@ namespace Lens.entity {
 					entities.ToRemove.Add(e);
 				}
 			}
+
+			for (var i = entities.ToAdd.Count - 1; i >= 0; i--) {
+				if (entities.ToAdd[i].Done) {
+					entities.ToAdd.RemoveAt(i);
+				}
+			}
 			
 			entities.AutoRemove();
 		}
 
 		public void CleanNew() {
-			foreach (var e in entities.ToRemove) {
-				entities.Entities.Remove(e);
-			}
-			
 			entities.ToAdd.Clear();
 			entities.ToRemove.Clear();
 		}

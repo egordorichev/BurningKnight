@@ -1,60 +1,73 @@
+using System;
 using System.IO;
 using System.Text;
 
 namespace Lens.util.file {
 	public class FileReader {
-		private BinaryReader stream;
+		private byte[] read;
+		private int position;
+		
+		public int Position {
+			get => position;
 
-		public FileReader(string path) {
-			stream = new BinaryReader(File.Open(path, FileMode.Open));
-		}
-
-		public byte ReadByte() {
-			return stream.ReadByte();
+			set {
+				position = Math.Max(0, Math.Min(read.Length - 1, value));
+			}
 		}
 		
+		public FileReader(string path) {
+			var file = File.Open(path, FileMode.Open);
+			var stream = new BinaryReader(file);
+
+			read = new byte[file.Length];
+
+			for (var i = 0; i < file.Length; i++) {
+				read[i] = (byte) file.ReadByte();
+			}
+			
+			stream.Close();
+		}
+		
+		public byte ReadByte() {
+			return read[Position++];
+		}
+		
+		// todo: check for sign loss
 		public sbyte ReadSbyte() {
-			return stream.ReadSByte();
+			return (sbyte) ReadByte();
 		}
 
 		public bool ReadBoolean() {
-			return stream.ReadBoolean();
+			return ReadByte() == 1;
 		}
 
 		public short ReadInt16() {
-			return stream.ReadInt16();
+			return (short) (ReadByte() << 8 + ReadByte());
 		}
 
 		public int ReadInt32() {
-			return stream.ReadInt32();
+			return ReadByte() << 24 + ReadByte() << 16 + ReadByte() << 8 + ReadByte();
 		}
 
 		public string ReadString() {
-			byte Length = stream.ReadByte();
+			byte length = ReadByte();
 
-			if (Length == 0) {
+			if (length == 0) {
 				return null;
 			}
 
-			var Result = new StringBuilder();
+			var result = new StringBuilder();
 
-			for (int I = 0; I < Length; I++) {
-				Result.Append((char) stream.ReadByte());
+			for (int i = 0; i < length; i++) {
+				result.Append((char) ReadByte());
 			}
 
-			return Result.ToString();
-		}
-
-		public double ReadDouble() {
-			return stream.ReadDouble();
+			return result.ToString();
 		}
 
 		public float ReadFloat() {
-			return stream.ReadSingle();
-		}
-
-		public void Close() {
-			stream.Close();
+			// fixme: 100% wrong and looses sign or smth
+			return ReadByte() << 24 + ReadByte() << 16 + ReadByte() << 8 + ReadByte();
 		}
 	}
 }

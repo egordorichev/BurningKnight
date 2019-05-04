@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace Lens.entity {
 	public delegate void PositionChanged();
 	
-	public class Entity : Subscriber {
+	public class Entity : Subscriber, IComparable {
 		public Area Area;
 		
 		public bool Active = true;
@@ -335,5 +335,9 @@ namespace Lens.entity {
 		}
 		
 		#endregion
+
+		public int CompareTo(object obj) {
+			return GetType().FullName.CompareTo(obj.GetType().FullName);
+		}
 	}
 }

@@ -64,12 +64,10 @@ namespace Lens.entity {
 			}
 		}
 
-		public void Update(float dt) {
-			AutoRemove();
-
+		public void AddNew() {
 			if (ToAdd.Count > 0) {
-				try {
-					for (int i = 0; i < ToAdd.Count; i++) {
+				for (int i = 0; i < ToAdd.Count; i++) {
+					try {
 						var entity = ToAdd[i];
 						Entities.Add(entity);
 
@@ -77,43 +75,48 @@ namespace Lens.entity {
 							entity.Area = Area;
 							entity.Init();
 						}
-					}
 
-					ToAdd.Clear();
-				} catch (Exception e) {
-					Log.Error(e);
+						ToAdd.Clear();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				}
 			}
+		}
 
-			try {
-				foreach (var entity in Entities) {
-					entity.OnScreen = CheckOnScreen(entity);
+		public void Update(float dt) {
+			AutoRemove();
+			AddNew();
 
-					if ((entity.OnScreen || entity.AlwaysActive) && entity.Active) {
+			foreach (var entity in Entities) {
+				entity.OnScreen = CheckOnScreen(entity);
+
+				if ((entity.OnScreen || entity.AlwaysActive) && entity.Active) {
+					try {
 						entity.Update(dt);
-					}
-
-					if (entity.Done) {
-						ToRemove.Add(entity);
+					} catch (Exception e) {
+						Log.Error(e);
 					}
 				}
-			} catch (Exception e) {
-				Log.Error(e);
+
+				if (entity.Done) {
+					ToRemove.Add(entity);
+				}
 			}
 
 			Entities.Sort(CompareByDepth);
 		}
 
 		public void Render() {
-			try {
 				foreach (var entity in Entities) {
 					if ((entity.OnScreen || entity.AlwaysVisible) && entity.Visible) {
-						entity.Render();
+						try {
+							entity.Render();
+						} catch (Exception e) {
+							Log.Error(e);
+						}
 					}
 				}
-			} catch (Exception e) {
-				Log.Error(e);
-			}
 		}
 
 		public void RenderDebug() {

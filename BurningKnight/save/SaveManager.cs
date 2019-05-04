@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading;
 using BurningKnight.state;
@@ -59,6 +60,15 @@ namespace BurningKnight.save {
 			stream.Close();
 		}
 
+		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null, bool generated = false, bool autoRemove = true) {
+			new Thread(() => {
+				Save(area, saveType, old, path, generated, autoRemove);
+				callback?.Invoke();
+			}) {
+				Priority = ThreadPriority.Lowest
+			}.Start();
+		}
+
 		public static void Load(Area area, SaveType saveType, string path = null) {
 			var save = GetFileHandle(GetSavePath(saveType, false, path));
 
@@ -69,8 +79,16 @@ namespace BurningKnight.save {
 
 				var stream = new FileReader(save.FullPath);
 				ForType(saveType).Load(area, stream);
-				stream.Close();
 			}
+		}
+
+		public static void ThreadLoad(Action callback, Area area, SaveType saveType, string path = null) {
+			new Thread(() => {
+				Load(area, saveType, path);
+				callback?.Invoke();
+			}) {
+				Priority = ThreadPriority.Lowest
+			}.Start();
 		}
 		
 		public static void Generate(Area area, SaveType saveType) {
