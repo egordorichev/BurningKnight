@@ -465,10 +465,10 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Setup();
 
-			Ui.Add(new UiString(Font.Medium) {
+			/*Ui.Add(new UiString(Font.Medium) {
 				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]_seems_\n[sp 0.5]_to work_[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
 				Position = new Vector2(32, 32)
-			});
+			});*/
 		}
 
 		public bool HandleEvent(Event e) {
