@@ -90,7 +90,7 @@ namespace Lens.graphics.gamerenderer {
 				Graphics.Batch.End();
 
 				if (UiTarget != null) {
-					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
+					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState.LinearClamp, DepthStencilState, ClipRasterizerState, UiEffect, One);
 				
 					Graphics.Color = new Color(0, 0, 0, 0.5f);
 					Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
