@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Profile>Reach</Profile>
-  <Platform>Windows</Platform>
+  <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3</File>
@@ -135,8 +135,6 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/1f525.png</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/artwork_logo (sticker).png</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/icon.png</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/icon128x128.png</File>
@@ -146,8 +144,6 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
