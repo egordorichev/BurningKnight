@@ -371,9 +371,11 @@
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\EditorState.cs" />
+    <Compile Include="state\InGameAudio.cs" />
     <Compile Include="state\InGameState.cs" />
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />
+    <Compile Include="state\PicoState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\HealthBar.cs" />
@@ -427,27 +429,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fonts\large.fnt" />
-    <Content Include="Content\Fonts\large.png" />
-    <Content Include="Content\Fonts\small.fnt" />
-    <Content Include="Content\Fonts\small.png" />
-    <Content Include="Content\Locales\en.json" />
-    <Content Include="Content\Sfx\menu\change_parameter.mp3" />
-    <Content Include="Content\Sfx\menu\exit.mp3" />
-    <Content Include="Content\Sfx\menu\goback.mp3" />
-    <Content Include="Content\Sfx\menu\moving.mp3" />
-    <Content Include="Content\Sfx\menu\select.mp3" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="./Content/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./lib/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Prefabs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

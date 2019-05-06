@@ -14,10 +14,6 @@ namespace BurningKnight.entity.door {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (true) {
-				return;//fixme: debug
-			}
-
 			var shouldLock = false;
 
 			foreach (var player in Area.Tags[Tags.Player]) {

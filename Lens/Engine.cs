@@ -13,7 +13,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Lens {
 	public class Engine : Game {
-		public static Version Version = new Version(0, 0, 0, 1, true, true);
+#if DEBUG
+		private const bool Debug = true;
+#else
+		private const bool Debug = false;
+#endif
+		
+		public static Version Version = new Version(0, 0, 0, 2, Debug, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;

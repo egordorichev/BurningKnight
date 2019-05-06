@@ -31,8 +31,8 @@ namespace BurningKnight.state {
 			Tilesets.Load();
 			
 			if (Run.Id == -1) {
-				SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Game, Path);
 				ready = -1;
+				SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Game, Path);
 			}
 
 			SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Level, Path);

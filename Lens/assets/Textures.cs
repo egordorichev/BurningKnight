@@ -18,8 +18,6 @@ namespace Lens.assets {
 			if (textureDir.Exists()) {
 				LoadTextures(textureDir);
 			}
-
-			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 		}
 
 		private static void LoadTextures(FileHandle handle) {
@@ -35,12 +33,17 @@ namespace Lens.assets {
 		private static void LoadTexture(FileHandle handle) {
 			var region = new TextureRegion();
 			string id = handle.NameWithoutExtension;
-			
-			var fileStream = new FileStream(handle.FullPath, FileMode.Open);
-			region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+
+			if (Assets.LoadOriginalFiles) {
+				var fileStream = new FileStream(handle.FullPath, FileMode.Open);
+				region.Texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+				fileStream.Dispose();
+			} else {
+				region.Texture = Assets.Content.Load<Texture2D>($"bin/Textures/{handle.NameWithoutExtension}");
+			}
+
 			region.Source = region.Texture.Bounds;
 			region.Center = new Vector2(region.Source.Width / 2f, region.Source.Height / 2f);
-			fileStream.Dispose();
 			
 			textures[id] = region;
 		}

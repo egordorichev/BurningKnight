@@ -50,7 +50,6 @@ namespace Aseprite {
 			int celOriginY;
 			int celWidth;
 			int celHeight;
-			int pixelIndex;
 			int textureWidth = framesCount * width;
 			int textureHeight = layersCount * height;
 
@@ -80,12 +79,18 @@ namespace Aseprite {
 					celWidth = input.ReadInt32();
 					celHeight = input.ReadInt32();
 					
+					var addX = cel.X;
+					var addY = cel.Y;
+					
 					for (int celY = celOriginY; celY < celOriginY + celHeight; celY++) {
 						for (int celX = celOriginX; celX < celOriginX + celWidth; celX++) {
 							var pixel = input.ReadColor();
-							//           | x                  | y
-							pixelIndex = (f * width) + celX + ((layerIndex * height) + celY) * textureWidth;
-							pixelData[pixelIndex] = pixel;
+							var ind = (f * width) + celX + addX + ((i * height) + celY + addY) * textureWidth;
+							
+							// fixme: debug if check, figure out why texture loads wrong
+							if (ind > -1 && ind < pixelData.Length) {
+								pixelData[ind] = pixel;
+							}
 						}
 					}
 				}

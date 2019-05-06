@@ -53,7 +53,6 @@ namespace BurningKnight.debug {
 
 		public override void Destroy() {
 			base.Destroy();
-			
 			Engine.Instance.Window.TextInput -= TextEntered;
 		}
 

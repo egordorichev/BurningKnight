@@ -78,11 +78,9 @@ namespace Aseprite {
 					for (int celY = 0; celY < celHeight; celY++) {
 						for (int celX = 0; celX < celWidth; celX++) {
 							int ind = celX + celY * cel.Width;
-
 							var pixel = cel.Pixels[ind];
-							var pixelIndex = (f * width) + celX + addX + ((i * height) + celY + addY) * textureWidth;
 
-							pixelData[pixelIndex] = pixel;								
+							pixelData[(f * width) + celX + addX + ((i * height) + celY + addY) * textureWidth] = pixel;								
 						}
 					}
 				}

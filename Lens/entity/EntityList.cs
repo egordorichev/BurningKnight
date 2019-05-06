@@ -75,12 +75,12 @@ namespace Lens.entity {
 							entity.Area = Area;
 							entity.Init();
 						}
-
-						ToAdd.Clear();
 					} catch (Exception e) {
 						Log.Error(e);
 					}
 				}
+
+				ToAdd.Clear();
 			}
 		}
 

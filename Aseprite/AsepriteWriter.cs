@@ -23,6 +23,7 @@ namespace Aseprite {
 
 			// Frames
 			output.Write(aseprite.Frames.Count);
+			var f = 0;
 			
 			foreach (var frame in aseprite.Frames) {
 				output.Write(frame.Duration);
@@ -35,13 +36,16 @@ namespace Aseprite {
 					output.Write(cel.Y);
 					output.Write(cel.Width);
 					output.Write(cel.Height);
-					
-					int size = cel.Width * cel.Height;
-					
-					for (int p = 0; p < size; p++) {
-						output.Write(cel.Pixels[p]);
+
+					for (int celY = 0; celY < cel.Height; celY++) {
+						for (int celX = 0; celX < cel.Width; celX++) {
+							int ind = celX + celY * cel.Width;
+							output.Write(cel.Pixels[ind]);
+						}
 					}
 				}
+
+				f++;
 			}
 
 			// Animations

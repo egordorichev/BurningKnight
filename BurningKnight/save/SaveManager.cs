@@ -10,7 +10,7 @@ namespace BurningKnight.save {
 	public class SaveManager {
 		public const string SaveDir = "burning_knight/";
 		public static byte CurrentSlot = 0;
-		public static string SlotDir = $"{SaveDir}slot:{CurrentSlot}/";
+		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";
 
 		public static Saver[] Savers;
 		
@@ -83,18 +83,18 @@ namespace BurningKnight.save {
 		}
 
 		public static void ThreadLoad(Action callback, Area area, SaveType saveType, string path = null) {
-			new Thread(() => {
+			//new Thread(() => {
 				Load(area, saveType, path);
 				callback?.Invoke();
-			}) {
-				Priority = ThreadPriority.Lowest
-			}.Start();
+			//}) {
+			//	Priority = ThreadPriority.Lowest
+			//}.Start();
 		}
 		
 		public static void Generate(Area area, SaveType saveType) {
 			Log.Info($"Generating {saveType} {Run.Depth}");
 			ForType(saveType).Generate(area);
-			Save(area, saveType, false, null, true);
+			Save(area, saveType, false, null, true, false);
 		}
 
 		public static void Delete(params SaveType[] types) {

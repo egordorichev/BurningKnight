@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.level.paintings;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -69,9 +70,15 @@ namespace BurningKnight.state {
 			}
 
 			fog = Textures.Get("noise");
+			Area.Add(new InGameAudio());
+
+			foreach (var p in Area.Tags[Tags.Player]) {
+				((Player) p).FindSpawnPoint();
+			}
 		}
 
 		public override void Destroy() {
+			Audio.Stop();
 			Lights.Destroy();
 
 			if (died) {
@@ -223,6 +230,10 @@ namespace BurningKnight.state {
 		private void ReadyCallback() {
 			saving--;
 		}
+
+		private void TeleportTo(RoomType type) {
+			
+		}
 		
 		private void UpdateDebug(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
@@ -253,6 +264,10 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.F4)) {
 				Settings.HideCursor = !Settings.HideCursor;
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.F4)) {
+				TeleportTo(RoomType.Treasure);
 			}
 			
 			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
@@ -459,10 +474,10 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Setup();
 
-			Ui.Add(new UiString(Font.Medium) {
-				Label = "[cl blue]^^Awesome^^, [dl]_this_[cl] [sp 2]seems\n[sp 0.5]to work[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
+			/*Ui.Add(new UiString(Font.Medium) {
+				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]_seems_\n[sp 0.5]_to work_[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
 				Position = new Vector2(32, 32)
-			});
+			});*/
 		}
 
 		public bool HandleEvent(Event e) {

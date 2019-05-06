@@ -59,9 +59,7 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<HealthComponent>().MaxHealth = 1;
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-
+		public void FindSpawnPoint() {
 			foreach (var r in Area.Tags[Tags.Room]) {
 				var rm = (Room) r;
 				

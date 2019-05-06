@@ -4,14 +4,14 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.util {
 	public static class Titles {
 		private static DateTime[] birthdays = {
-			DateTime.Parse("06/29"), // Egor
-			DateTime.Parse("09/25"), // Mate
-			DateTime.Parse("02/21") // Bibiki
+			DateTime.Parse("06/29/2019 0:0:0 PM"), // Egor
+			DateTime.Parse("09/25/2019 0:0:0 PM"), // Mate
+			DateTime.Parse("02/21/2019 0:0:0 PM") // Bibiki
     };
 		
 		public static string Generate() {
 			var now = DateTime.Now;
-
+			
 			foreach (var b in birthdays) {
 				if (b.Day == now.Day && b.Month == now.Month) {
 					return birthdayTitles[Random.Int(titles.Length)];

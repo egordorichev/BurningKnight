@@ -70,6 +70,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.0.1708\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.7.0.1708\build\MonoGame.Framework.DesktopGL.targets'))" />
   </Target>
+  <PropertyGroup>
+    <ApplicationIcon>../BurningKnight/icon.ico</ApplicationIcon>
+    <TargetName>BurningKnightLinux</TargetName>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

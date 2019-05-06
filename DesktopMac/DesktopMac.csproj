@@ -70,6 +70,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MonoGame.Framework.MacOS.3.7.1.189\build\MonoGame.Framework.MacOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.MacOS.3.7.1.189\build\MonoGame.Framework.MacOS.targets'))" />
   </Target>
+  <PropertyGroup>
+    <ApplicationIcon>../BurningKnight/icon.ico</ApplicationIcon>
+    <TargetName>BurningKnightMac</TargetName>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

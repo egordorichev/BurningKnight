@@ -112,5 +112,9 @@
     </Target>
     <Target Name="AfterBuild">
     </Target>
-    -->
+    --> 
+  <PropertyGroup>
+    <ApplicationIcon>../BurningKnight/icon.ico</ApplicationIcon>
+    <TargetName>BurningKnightWindows</TargetName>
+  </PropertyGroup>
 </Project>

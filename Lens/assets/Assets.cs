@@ -2,14 +2,19 @@
 using System.IO;
 using Lens.graphics;
 using Lens.util;
+using Aseprite;
 using Microsoft.Xna.Framework.Content;
 
 namespace Lens.assets {
 	public static class Assets {
 		public static ContentManager Content;
 		// If true, Assets.Content wont be used, the original files will be loaded
-		public static bool LoadOriginalFiles = true;
-		public static string Root => LoadOriginalFiles ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") : $"{Directory.GetCurrentDirectory()}/Content/bin/";
+		public static bool LoadOriginalFiles = false;
+		public static string Root => LoadOriginalFiles 
+		    ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") 
+		    : NearRoot;
+		    
+		public static string NearRoot => $"{Directory.GetCurrentDirectory()}/Content/";
 		
 		private static string[] folders;
 		private static List<FileSystemEventArgs> changed = new List<FileSystemEventArgs>();
@@ -48,11 +53,13 @@ namespace Lens.assets {
 		}
 
 		private static void LoadAssets() {
+			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
+			
 			Locale.Load("en");
 			Effects.Load();
 			Textures.Load();
 			Animations.Load();
-			// Audio.Load();
+			Audio.Load();
 		}
 
 		public static void Destroy() {

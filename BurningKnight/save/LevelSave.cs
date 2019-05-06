@@ -23,7 +23,7 @@ namespace BurningKnight.save {
 				return path;
 			}
 			
-			return $"{path}level:{(old ? Run.LastDepth : Run.Depth)}.lvl";
+			return $"{path}level-{(old ? Run.LastDepth : Run.Depth)}.lvl";
 		}
 
 		private RegularLevel CreateLevel() {
@@ -39,27 +39,24 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
+			var a = new Area();
+		
 			try {
 				var level = CreateLevel();
-				area.Add(level);
-				level.Generate(area, I);
+				a.Add(level);
+				level.Generate(a, I);
 
+				foreach (var e in a.Entities.ToAdd) {
+					area.Add(e);
+				}
+
+				area.Entities.AddNew();
 				I = 0;
 			} catch (Exception e) {
 				Log.Error(e);
 				I++;
 
-				// FIXME: this part removes player, and thats ayayayay
-				
-				// Make sure the area.Add() entities received their tags in order to be removed
-				area.Entities.AddNew();
-				
-				foreach (var en in area.Tags[Tags.LevelSave]) {
-					Log.Error(en.GetType().FullName);
-					en.Done = true;
-				}
-				
-				area.AutoRemove();
+				a.Destroy();
 
 				if (I > 100) {
 					Log.Error("Can't generate a level");
@@ -71,7 +68,7 @@ namespace BurningKnight.save {
 					level.NoLightNoRender = false;
 					level.DrawLight = false;
 					
-					area.Add(level);
+					a.Add(level);
 
 					level.Setup();
 					level.Fill(Tile.FloorA);

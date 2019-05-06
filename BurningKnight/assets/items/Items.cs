@@ -24,6 +24,7 @@ namespace BurningKnight.assets.items {
 
 		private static void Load(FileHandle handle) {
 			if (!handle.Exists()) {
+				Log.Error($"Item data {handle.FullPath} does not exist!");
 				return;
 			}
 
@@ -43,7 +44,7 @@ namespace BurningKnight.assets.items {
 				return;
 			}
 
-			if (Engine.Version.Debug) {
+			if (Engine.Version.Dev) {
 				var path = handle.ParentName;
 
 				// Fixme: broken on my laptop

@@ -9,6 +9,7 @@ using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -50,7 +51,14 @@ namespace BurningKnight.entity.chest {
 		}
 
 		public virtual void GenerateLoot() {
-			items.Add(Items.Generate(ItemPool.Chest));
+			var item = Items.Generate(ItemPool.Chest);
+
+			if (item == null) {
+				Log.Error("Failed to generate an item for the chest!");
+				return;
+			}
+			
+			items.Add(item);
 		}
 
 		public override void PostInit() {

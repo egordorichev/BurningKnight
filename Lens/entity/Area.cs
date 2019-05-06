@@ -61,6 +61,14 @@ namespace Lens.entity {
 		}
 
 		public Entity Add(Entity entity, bool postInit = true) {
+			if (entity.Area != null) {
+				entity.Area = this;
+				entities.Add(entity);
+				Tags.Add(entity);
+				
+				return entity;
+			}
+
 			entity.Area = this;
 			entities.Add(entity);
 			Tags.Add(entity);
