@@ -2,8 +2,6 @@
 
 ### Before v0.0.0.1
 
-<<<<<<< HEAD
-
 * BK him self
  + Healthbar
  + Animation and spawning

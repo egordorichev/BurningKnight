@@ -379,6 +379,7 @@
     <Compile Include="state\PicoState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="ui\FrameRenderer.cs" />
     <Compile Include="ui\HealthBar.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
@@ -396,6 +397,7 @@
     <Compile Include="ui\str\UiString.cs" />
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
+    <Compile Include="ui\UiDialog.cs" />
     <Compile Include="ui\UiEntity.cs" />
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
