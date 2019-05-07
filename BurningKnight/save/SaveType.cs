@@ -3,6 +3,8 @@ namespace BurningKnight.save {
 		Player,
 		Game,
 		Level,
-		Global
+		Global,
+		
+		Secret
 	}
 }

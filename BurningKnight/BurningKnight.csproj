@@ -370,6 +370,7 @@
     <Compile Include="save\SaveType.cs" />
     <Compile Include="save\SaveableEntity.cs" />
     <Compile Include="save\SaveManager.cs" />
+    <Compile Include="save\SecretSave.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\EditorState.cs" />
     <Compile Include="state\InGameAudio.cs" />

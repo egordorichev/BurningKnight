@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading;
 using BurningKnight.state;
+using Lens;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
@@ -17,11 +18,12 @@ namespace BurningKnight.save {
 		static SaveManager() {
 			Log.Info($"Save directory is '{SaveDir}'");
 
-			Savers = new Saver[4];
+			Savers = new Saver[5];
 			Savers[(int) SaveType.Global] = new GlobalSave();
 			Savers[(int) SaveType.Game] = new GameSave();
 			Savers[(int) SaveType.Level] = new LevelSave();
 			Savers[(int) SaveType.Player] = new PlayerSave();
+			Savers[(int) SaveType.Secret] = new SecretSave();
 		}
 
 		public static Saver ForType(SaveType type) {
@@ -67,7 +69,9 @@ namespace BurningKnight.save {
 			if (!save.Exists()) {
 				Generate(area, saveType);
 			} else {
-				Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
+				if (saveType != SaveType.Secret || Engine.Version.Dev) {
+					Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
+				}
 
 				var stream = new FileReader(save.FullPath);
 				ForType(saveType).Load(area, stream);
@@ -84,14 +88,20 @@ namespace BurningKnight.save {
 		}
 		
 		public static void Generate(Area area, SaveType saveType) {
-			Log.Info($"Generating {saveType} {Run.Depth}");
+			if (saveType != SaveType.Secret || Engine.Version.Dev) {
+				Log.Info($"Generating {saveType} {Run.Depth}");
+			}
+			
 			ForType(saveType).Generate(area);
 			Save(area, saveType, false, null);
 		}
 
 		public static void Delete(params SaveType[] types) {
 			foreach (var type in types) {
-				Log.Info($"Deleting {type} save");
+				if (type != SaveType.Secret || Engine.Version.Dev) {
+					Log.Info($"Deleting {type} save");
+				}
+
 				ForType(type).Delete();
 			}
 		}

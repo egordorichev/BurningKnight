@@ -29,10 +29,13 @@ namespace Lens.util.file {
 		}
 		
 		public byte ReadByte() {
+			if (read.Length == Position) {
+				return 0;
+			}
+			
 			return read[Position++];
 		}
 		
-		// todo: check for sign loss
 		public sbyte ReadSbyte() {
 			return (sbyte) ReadByte();
 		}

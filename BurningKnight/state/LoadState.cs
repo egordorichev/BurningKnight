@@ -32,6 +32,8 @@ namespace BurningKnight.state {
 			
 			saveLock.UnlockGlobal();
 			
+			SecretSave.Load(Area);
+			
 			if (Run.Id == -1) {
 				SaveManager.ThreadLoad(saveLock.UnlockGame, gameArea, SaveType.Game, Path);
 			} else {

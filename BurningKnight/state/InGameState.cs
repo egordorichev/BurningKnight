@@ -113,6 +113,8 @@ namespace BurningKnight.state {
 				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Player, true);
 			}
 			
+			SaveManager.Save(Area, SaveType.Secret);
+			
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
 		}

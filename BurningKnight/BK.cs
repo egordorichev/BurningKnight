@@ -2,13 +2,9 @@
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
-using BurningKnight.entity.editor;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
-using Lens.game;
-using Lens.util;
-using Lens.util.file;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
