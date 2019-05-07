@@ -39,9 +39,6 @@
 * Crash report/fail loading stuff
 * Save system improvements:
  + Backups
- + Multithread (each save file on different thread)
- + Versioning
- + Magic numbers
 
 #### Polish
 

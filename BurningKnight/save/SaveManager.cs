@@ -10,6 +10,9 @@ using Lens.util.file;
 namespace BurningKnight.save {
 	public class SaveManager {
 		public const string SaveDir = "burning_knight/";
+		public const int MagicNumber = 894923782;
+		public const short Version = 0;
+
 		public static byte CurrentSlot = 0;
 		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";
 
@@ -24,6 +27,12 @@ namespace BurningKnight.save {
 			Savers[(int) SaveType.Level] = new LevelSave();
 			Savers[(int) SaveType.Player] = new PlayerSave();
 			Savers[(int) SaveType.Secret] = new SecretSave();
+			
+			var saveDirectory = new FileHandle(SaveDir);
+
+			if (!saveDirectory.Exists()) {
+				SecretSave.HadSaveBefore = false;
+			}
 		}
 
 		public static Saver ForType(SaveType type) {
@@ -46,21 +55,31 @@ namespace BurningKnight.save {
 
 		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
 			var file = new FileInfo(GetSavePath(saveType, old, path));
-			Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
+
+			if (saveType != SaveType.Secret || Engine.Version.Dev) {
+				Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
+			}
+
 			file.Directory?.Create();
 			
 			var stream = new FileWriter(file.FullName);
+			stream.WriteInt32(MagicNumber);
+			stream.WriteInt16(Version);
 			ForType(saveType).Save(area, stream);
 			stream.Close();
+
+			if (saveType != SaveType.Secret) {
+				SecretSave.HadSaveBefore = true;
+			}
 		}
 
 		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null) {
-			//new Thread(() => {
+			new Thread(() => {
 				Save(area, saveType, old, path);
 				callback?.Invoke();
-			//}) {
-			//	Priority = ThreadPriority.Lowest
-			//}.Start();
+			}) {
+				Priority = ThreadPriority.Lowest
+			}.Start();
 		}
 
 		public static void Load(Area area, SaveType saveType, string path = null) {
@@ -74,6 +93,22 @@ namespace BurningKnight.save {
 				}
 
 				var stream = new FileReader(save.FullPath);
+
+				if (stream.ReadInt32() != MagicNumber) {
+					Log.Error("Invalid magic number!");
+					Generate(area, saveType);
+					return;
+				}
+
+				var version = stream.ReadInt16();
+
+				if (version > Version) {
+					Log.Error($"Unknown version {version}, generating new");
+					Generate(area, saveType);
+				} else if (version < Version) {
+					// do something on it
+				}
+				
 				ForType(saveType).Load(area, stream);
 			}
 		}

@@ -1,6 +1,7 @@
 using System;
 using Lens;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
@@ -20,17 +21,33 @@ namespace BurningKnight.save {
 			return $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.nothing.sv";
 		}
 
+		public static bool HadSaveBefore = true;
+		public static bool DeletedSave;
 		public static bool WasATester;
-
+		
 		public override void Load(Area area, FileReader reader) {
-			WasATester = reader.ReadBoolean();
+			 DeletedSave = reader.ReadBoolean();
+			 WasATester = reader.ReadBoolean();
+
+			if (!HadSaveBefore) {
+				DeletedSave = true;
+				Log.Info("You think ya smart?");
+			}
+
+			if (WasATester) {
+				Log.Info("Thanks for being a tester!");
+			}
 		}
 
 		public override void Save(Area area, FileWriter writer) {
+			WasATester = Engine.Version.Debug;
+			
+			writer.WriteBoolean(DeletedSave);
 			writer.WriteBoolean(WasATester);
 		}
 
 		public override void Generate(Area area) {
+			DeletedSave = false;
 			WasATester = Engine.Version.Debug;
 		}
 	}
