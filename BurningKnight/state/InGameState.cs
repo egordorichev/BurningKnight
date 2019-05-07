@@ -44,7 +44,7 @@ namespace BurningKnight.state {
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
-		private int saving;
+		private SaveLock saveLock = new SaveLock();
 
 		private Painting painting;
 
@@ -225,30 +225,37 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave && saving <= 0) {
+			if (Settings.Autosave && !saving) {
 				saveTimer += dt;
 
 				if (saveTimer >= AutoSaveInterval) {
 					saveTimer = 0;
-					saving = 3;
-
+					saving = true;
+					saveLock.Reset();
+					
 					indicator.HandleEvent(new SaveStartedEvent());
 												
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Game);
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Level);
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Player);
+					SaveManager.ThreadSave(saveLock.UnlockGlobal, Area, SaveType.Global);
+					SaveManager.ThreadSave(saveLock.UnlockGame, Area, SaveType.Game);
+					SaveManager.ThreadSave(saveLock.UnlockLevel, Area, SaveType.Level);
+					SaveManager.ThreadSave(saveLock.UnlockPlayer, Area, SaveType.Player);
 					
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
 		}
 
-		private void ReadyCallback() {
-			saving--;
-		}
-
+		private bool saving;
+		
 		private void TeleportTo(RoomType type) {
-			
+			var player = LocalPlayer.Locate(Area);
+
+			foreach (var r in Area.Tags[Tags.Room]) {
+				if (((Room) r).Type == type) {
+					player.Center = r.Center;
+					return;
+				}
+			}
 		}
 		
 		private void UpdateDebug(float dt) {

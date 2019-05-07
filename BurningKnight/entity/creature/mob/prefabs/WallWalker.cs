@@ -30,10 +30,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			Left = Random.Chance();
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-			LockToWall();
-		}
+		private bool locked;
 		
 		private void LockToWall() {
 			var dirs = new List<Direction>();
@@ -202,6 +199,11 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 		
 		public override void Update(float dt) {
+			if (!locked) {
+				locked = true;
+				LockToWall();
+			}
+			
 			base.Update(dt);
 			T += dt;
 		}

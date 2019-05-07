@@ -25,8 +25,8 @@ namespace BurningKnight.save {
 				inventory.Pickup(Items.CreateAndAdd("bk:sword", area));
 			}
 
-			var bk = new entity.creature.BurningKnight();
-			area.Add(bk);
+			//var bk = new entity.creature.BurningKnight();
+			//area.Add(bk);
 		}
 	}
 }

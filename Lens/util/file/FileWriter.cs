@@ -25,7 +25,7 @@ namespace Lens.util.file {
 		
 		public void WriteByte(byte value) {
 			if (Cache) {
-				cache.Add(value);				
+				cache.Add(value);
 			} else {
 				stream.Write(value);
 			}
@@ -62,7 +62,7 @@ namespace Lens.util.file {
 				WriteByte((byte) str.Length);
 
 				for (var i = 0; i < Math.Min(255, str.Length); i++) {
-					stream.Write((byte) str[i]);
+					WriteByte((byte) str[i]);
 				}
 			}
 		}
@@ -77,11 +77,6 @@ namespace Lens.util.file {
 		}
 
 		public void Close() {
-			if (Cache) {
-				Flush();
-				Cache = false;
-			}
-			
 			stream.Close();
 		}
 	}

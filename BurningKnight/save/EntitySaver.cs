@@ -36,8 +36,7 @@ namespace BurningKnight.save {
 				entity.Save(writer);
 				writer.Cache = false;
 
-				// todo: write 1 bit (if true second is used, short is written) (to handle big entities like level)
-				writer.WriteByte((byte) writer.CacheSize);
+				writer.WriteInt16((short) writer.CacheSize);
 				writer.Flush();
 				
 				last = entity;
@@ -58,7 +57,7 @@ namespace BurningKnight.save {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
 				area.Add(entity, false);
 
-				var size = reader.ReadByte();
+				var size = reader.ReadInt16();
 				var position = reader.Position;
 				entity.Load(reader);
 				var sum = reader.Position - position - size;
@@ -67,8 +66,6 @@ namespace BurningKnight.save {
 					Log.Error($"Entity {entity.GetType().FullName} was expected to read {size} bytes but read {reader.Position - position}!");
 					reader.Position -= sum;
 				}
-				
-				Log.Error($"Loaded {entity.GetType().FullName}");
 				
 				entity.PostInit();
 				lastType = type;

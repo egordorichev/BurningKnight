@@ -15,7 +15,7 @@ namespace BurningKnight.state {
 	public class LoadState : GameState {
 		public string Path;
 		private Area gameArea;
-		private int ready;
+		private SaveLock saveLock = new SaveLock();
 		private bool down;
 		private float alpha;
 		
@@ -30,24 +30,23 @@ namespace BurningKnight.state {
 			
 			Tilesets.Load();
 			
+			saveLock.UnlockGlobal();
+			
 			if (Run.Id == -1) {
-				ready = -1;
-				SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Game, Path);
+				SaveManager.ThreadLoad(saveLock.UnlockGame, gameArea, SaveType.Game, Path);
+			} else {
+				saveLock.UnlockGame();
 			}
 
-			SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Level, Path);
-			SaveManager.ThreadLoad(ReadyCallback, gameArea, SaveType.Player, Path);
-		}
-
-		private void ReadyCallback() {
-			ready++;
+			SaveManager.ThreadLoad(saveLock.UnlockLevel, gameArea, SaveType.Level, Path);
+			SaveManager.ThreadLoad(saveLock.UnlockPlayer, gameArea, SaveType.Player, Path);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (down) {
-				if (ready >= 2 && ((Engine.Version.Debug) || Time > 3f)) {
+				if (saveLock.Done && ((Engine.Version.Debug) || Time > 3f)) {
 					alpha -= dt * 5;
 				}
 			} else {
@@ -59,7 +58,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (ready >= 2 && ((down && alpha < 0.05f) || (Engine.Version.Debug))) {
+			if (saveLock.Done && ((down && alpha < 0.05f) || (Engine.Version.Debug))) {
 				Engine.Instance.SetState(new InGameState(gameArea));
 			}
 		}
