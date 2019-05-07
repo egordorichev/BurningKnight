@@ -140,5 +140,11 @@ namespace Lens.assets {
 				currentPlayingMusic = null;
 			}
 		}
+
+		public static void Update() {
+			if (currentPlaying != null && currentPlaying.State == SoundState.Stopped) {
+				currentPlaying.Play();
+			}
+		}
 	}
 }

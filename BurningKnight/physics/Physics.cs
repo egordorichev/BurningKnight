@@ -59,7 +59,9 @@ namespace BurningKnight.physics {
 		}
 
 		public static void Update(float dt) {
-			World.Step(dt);
+			if (World != null) {
+				World.Step(dt);
+			}
 		}
 
 		public static void Render() {

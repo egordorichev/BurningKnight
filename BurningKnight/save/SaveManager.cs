@@ -53,12 +53,12 @@ namespace BurningKnight.save {
 		}
 
 		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null) {
-			new Thread(() => {
+			//new Thread(() => {
 				Save(area, saveType, old, path);
 				callback?.Invoke();
-			}) {
-				Priority = ThreadPriority.Lowest
-			}.Start();
+			//}) {
+			//	Priority = ThreadPriority.Lowest
+			//}.Start();
 		}
 
 		public static void Load(Area area, SaveType saveType, string path = null) {
@@ -75,12 +75,12 @@ namespace BurningKnight.save {
 		}
 
 		public static void ThreadLoad(Action callback, Area area, SaveType saveType, string path = null) {
-			new Thread(() => {
+			//new Thread(() => {
 				Load(area, saveType, path);
 				callback?.Invoke();
-			}) {
-				Priority = ThreadPriority.Lowest
-			}.Start();
+			//}) {
+			//	Priority = ThreadPriority.Lowest
+			//}.Start();
 		}
 		
 		public static void Generate(Area area, SaveType saveType) {
