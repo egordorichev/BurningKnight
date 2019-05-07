@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
@@ -14,13 +15,15 @@ namespace BurningKnight.save {
 
 		public static Comparer DefaultComparer;
 		
-		public void SmartSave(List<Entity> all, FileWriter writer) {
-			writer.WriteInt32(all.Count);
-			all.Sort(DefaultComparer);
+		public void SmartSave(List<Entity> a, FileWriter writer) {
+			writer.WriteInt32(a.Count);
+			a.Sort(DefaultComparer);
 
+			var all = ArrayUtils.Clone(a);
+			
 			SaveableEntity last = null;
 			
-			for (var i = 0; i < all.Count; i++) {
+			for (var i = 0; i < all.Length; i++) {
 				var entity = (SaveableEntity) all[i];
 
 				if (last != null && last.GetType().FullName == entity.GetType().FullName) {
@@ -43,9 +46,16 @@ namespace BurningKnight.save {
 
 		public override void Load(Area area, FileReader reader) {
 			var count = reader.ReadInt32();
+			var lastType = "";
 
 			for (var i = 0; i < count; i++) {
-				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{reader.ReadString()}", true, false));
+				var type = reader.ReadString();
+
+				if (type == null) {
+					type = lastType;
+				}
+				
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
 				area.Add(entity, false);
 
 				var size = reader.ReadByte();
@@ -55,10 +65,13 @@ namespace BurningKnight.save {
 
 				if (sum != 0) {
 					Log.Error($"Entity {entity.GetType().FullName} was expected to read {size} bytes but read {reader.Position - position}!");
-					reader.Position += sum;
+					reader.Position -= sum;
 				}
 				
+				Log.Error($"Loaded {entity.GetType().FullName}");
+				
 				entity.PostInit();
+				lastType = type;
 			}
 		}
 	}

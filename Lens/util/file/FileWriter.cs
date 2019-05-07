@@ -19,6 +19,8 @@ namespace Lens.util.file {
 			foreach (var b in cache) {
 				WriteByte(b);
 			}
+
+			cache.Clear();
 		}
 		
 		public void WriteByte(byte value) {
@@ -67,16 +69,17 @@ namespace Lens.util.file {
 
 		public unsafe void WriteFloat(float value) {
 			uint val = *((uint*) &value);
-			
-			WriteByte((byte) ((val >> 24) & 0xFF));
-			WriteByte((byte) ((val >> 16) & 0xFF));
-			WriteByte((byte) ((val >> 8) & 0xFF));
+
 			WriteByte((byte) (val & 0xFF));
+			WriteByte((byte) ((val >> 8) & 0xFF));
+			WriteByte((byte) ((val >> 16) & 0xFF));
+			WriteByte((byte) ((val >> 24) & 0xFF));
 		}
 
 		public void Close() {
 			if (Cache) {
 				Flush();
+				Cache = false;
 			}
 			
 			stream.Close();

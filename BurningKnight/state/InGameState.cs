@@ -27,6 +27,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Console = BurningKnight.debug.Console;
+using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
@@ -77,28 +78,43 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private int destroy;
+		
+		private void DestroyCallback() {
+			destroy++;
+
+			if (destroy < 4) {
+				return;
+			}
+			
+			// Use timer to escape the thread
+			Timer.Add(() => {
+				Area.Destroy();
+				Area = null;
+
+				Physics.Destroy();
+				base.Destroy();
+			}, 0.01f);
+		}
+
 		public override void Destroy() {
 			Audio.Stop();
 			Lights.Destroy();
 
-			if (died) {
-				SaveManager.ThreadSave(null, Area, SaveType.Global, true);
-			} else {
-				SaveManager.ThreadSave(null, Area, SaveType.Global, true);
-				SaveManager.ThreadSave(null, Area, SaveType.Game, true);
-				SaveManager.ThreadSave(null, Area, SaveType.Level, true);
-				SaveManager.ThreadSave(null, Area, SaveType.Player, true);
-			}
+			destroy = 0;
 			
-			Area.Destroy();
-			Area = null;
-			Physics.Destroy();
+			if (died) {
+				destroy = 3;
+				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
+			} else {
+				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
+				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Game, true);
+				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Level, true);
+				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Player, true);
+			}
 			
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
-
-			// Clears the area, but we don't want that, cause we are still saving
-			base.Destroy();
 		}
 
 		protected override void OnPause() {
@@ -150,7 +166,7 @@ namespace BurningKnight.state {
 			pausedByMouseOut = false;
 		}
 
-		public override void Update(float dt) {
+		public override void Update(float dt) {			
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
@@ -218,9 +234,9 @@ namespace BurningKnight.state {
 
 					indicator.HandleEvent(new SaveStartedEvent());
 												
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Game, false, null, false, false);
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Level, false, null, false, false);
-					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Player, false, null, false, false);
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Game);
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Level);
+					SaveManager.ThreadSave(ReadyCallback, Area, SaveType.Player);
 					
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
@@ -417,7 +433,7 @@ namespace BurningKnight.state {
 			Ui.Add(new UiInventory(player));
 			
 			Ui.Add(pauseMenu = new UiPane {
-				Y = -Display.UiHeight				
+				Y = -Display.UiHeight	
 			});
 
 			var space = 32f;

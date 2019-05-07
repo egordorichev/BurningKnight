@@ -42,11 +42,11 @@ namespace Lens.util.file {
 		}
 
 		public short ReadInt16() {
-			return (short) (ReadByte() << 8 + ReadByte());
+			return (short) ((ReadByte() << 8) | ReadByte());
 		}
 
 		public int ReadInt32() {
-			return ReadByte() << 24 + ReadByte() << 16 + ReadByte() << 8 + ReadByte();
+			return (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
 		}
 
 		public string ReadString() {
@@ -66,8 +66,7 @@ namespace Lens.util.file {
 		}
 
 		public float ReadFloat() {
-			// fixme: 100% wrong and looses sign or smth
-			return ReadByte() << 24 + ReadByte() << 16 + ReadByte() << 8 + ReadByte();
+			return BitConverter.ToSingle(new[] { ReadByte(), ReadByte(), ReadByte(), ReadByte() }, 0);
 		}
 	}
 }

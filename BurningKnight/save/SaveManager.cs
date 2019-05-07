@@ -42,15 +42,7 @@ namespace BurningKnight.save {
 			return new FileHandle(path);
 		}
 
-		public static void Save(Area area, SaveType saveType, bool old = false, string path = null, bool generated = false, bool autoRemove = true) {
-			if (autoRemove) {
-				area.AutoRemove();
-
-				if (!generated) {
-					area.CleanNew();
-				}
-			}
-
+		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
 			var file = new FileInfo(GetSavePath(saveType, old, path));
 			Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
 			file.Directory?.Create();
@@ -60,9 +52,9 @@ namespace BurningKnight.save {
 			stream.Close();
 		}
 
-		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null, bool generated = false, bool autoRemove = true) {
+		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null) {
 			new Thread(() => {
-				Save(area, saveType, old, path, generated, autoRemove);
+				Save(area, saveType, old, path);
 				callback?.Invoke();
 			}) {
 				Priority = ThreadPriority.Lowest
@@ -83,18 +75,18 @@ namespace BurningKnight.save {
 		}
 
 		public static void ThreadLoad(Action callback, Area area, SaveType saveType, string path = null) {
-			//new Thread(() => {
+			new Thread(() => {
 				Load(area, saveType, path);
 				callback?.Invoke();
-			//}) {
-			//	Priority = ThreadPriority.Lowest
-			//}.Start();
+			}) {
+				Priority = ThreadPriority.Lowest
+			}.Start();
 		}
 		
 		public static void Generate(Area area, SaveType saveType) {
 			Log.Info($"Generating {saveType} {Run.Depth}");
 			ForType(saveType).Generate(area);
-			Save(area, saveType, false, null, true, false);
+			Save(area, saveType, false, null);
 		}
 
 		public static void Delete(params SaveType[] types) {
