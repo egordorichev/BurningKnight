@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -57,6 +58,18 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
+
+			var dialog = new DialogComponent("old_man");
+			AddComponent(dialog);
+
+			dialog.Add(new Dialog("hello", "best"));
+			dialog.Add(new EventDialog("best", () => "test"));
+
+			dialog.Add(new ChoiceDialog("test", new[] {
+				"a", "b"
+			}, new[] {
+				"awesome", "eh"
+			}, c => {}));
 		}
 
 		public void FindSpawnPoint() {

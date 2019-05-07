@@ -13,6 +13,7 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.dialog;
 using BurningKnight.ui.str;
 using BurningKnight.util;
 using Lens;

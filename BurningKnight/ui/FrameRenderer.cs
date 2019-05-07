@@ -17,6 +17,8 @@ namespace BurningKnight.ui {
 		protected TextureRegion BottomLeft;
 		protected TextureRegion BottomRight;
 
+		public Color Tint = Color.White;
+		
 		public override void Init() {
 			base.Init();
 
@@ -46,6 +48,12 @@ namespace BurningKnight.ui {
 		}
 
 		public virtual void RenderFrame() {
+			if (Tint.A == 0) {
+				return;
+			}
+			
+			Graphics.Color = Tint;
+			
 			Graphics.Render(TopLeft, Position);
 			Graphics.Render(Top, new Vector2(X + TopLeft.Width, Y), 0, Vector2.Zero, 
 				new Vector2((Width - TopLeft.Width - TopRight.Width) / (Top.Width), 1));
@@ -65,6 +73,8 @@ namespace BurningKnight.ui {
 			Graphics.Render(RBottom, new Vector2(X + BottomLeft.Width, Bottom - RBottom.Height), 0, Vector2.Zero, 
 				new Vector2((Width - BottomLeft.Width - BottomRight.Width) / (RBottom.Width), 1));
 			Graphics.Render(BottomRight, new Vector2(Right - BottomRight.Width, Bottom - BottomRight.Height));
+			
+			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}
 }

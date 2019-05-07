@@ -379,6 +379,11 @@
     <Compile Include="state\PicoState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="ui\dialog\ChoiceDialog.cs" />
+    <Compile Include="ui\dialog\Dialog.cs" />
+    <Compile Include="ui\dialog\DialogComponent.cs" />
+    <Compile Include="ui\dialog\EventDialog.cs" />
+    <Compile Include="ui\dialog\UiDialog.cs" />
     <Compile Include="ui\FrameRenderer.cs" />
     <Compile Include="ui\HealthBar.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
@@ -397,7 +402,6 @@
     <Compile Include="ui\str\UiString.cs" />
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
-    <Compile Include="ui\UiDialog.cs" />
     <Compile Include="ui\UiEntity.cs" />
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
@@ -406,8 +410,6 @@
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
-    <Compile Include="util\dialog\Dialog.cs" />
-    <Compile Include="util\dialog\Phrase.cs" />
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
