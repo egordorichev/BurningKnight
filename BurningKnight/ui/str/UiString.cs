@@ -7,6 +7,7 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 
 namespace BurningKnight.ui.str {
@@ -94,41 +95,7 @@ namespace BurningKnight.ui.str {
 			var lc = '\0';
 			var parsingToken = false;
 			var events = new List<GlyphEvent>();
-			
-			var glp = font.GetGlyphs(label);
 
-			if (WidthLimit > 0) {
-				var k = 0;
-				var lastSpace = 0;
-				var sinceLast = 0;
-				var width = 0;
-
-				foreach (var g in glp) {
-					var c = label[k];
-
-					if (c == ' ') {
-						lastSpace = k;
-					} else if (c == '\n') {
-						sinceLast = 0;
-					}
-
-					width += g.FontRegion.Width;
-					sinceLast += g.FontRegion.Width;
-
-					if (width >= WidthLimit) {
-						width = sinceLast;
-						sinceLast = 0;
-						builder[lastSpace] = '\n';
-					}
-
-					builder.Append(c);
-					k++;
-				}
-
-				label = builder.ToString();
-				builder.Clear();
-			}
-			
 			for (var i = 0; i < label.Length; i++) {
 				var c = label[i];
 
@@ -265,6 +232,68 @@ namespace BurningKnight.ui.str {
 			}
 			
 			label = builder.ToString();
+			builder.Clear();
+			var glp = font.GetGlyphs(label);
+
+			if (WidthLimit > 0) {
+				var k = 0;
+				var lastSpace = 0;
+				var sinceLastSpace = 0;
+				var sinceLast = 0;
+				var width = 0;
+				var first = true;
+				var spaceWidth = (int) (font.MeasureString("a a").Width - font.MeasureString("aa").Width);
+				
+				foreach (var g in glp) {
+					var c = label[k];
+
+					if (c == ' ') {
+						lastSpace = k;
+						sinceLastSpace = 0;
+					} else if (c == '\n') {
+						sinceLast = 0;
+						sinceLastSpace = 0;
+					}
+
+					if (c != '\n') {
+						sinceLast += g.FontRegion.Width;
+						width += g.FontRegion.Width;
+
+						if (c != ' ') {
+							sinceLastSpace += g.FontRegion.Width;
+						}
+					}
+
+					builder.Append(c);
+					
+					if (width >= WidthLimit) {
+						if (first) {
+							WidthLimit = width - sinceLastSpace - spaceWidth;
+							first = false;
+						}
+
+						width -= sinceLast;
+						
+						sinceLast = width;
+						builder[lastSpace] = '\n';
+
+						foreach (var e in effects) {
+							if (e.Start >= k) {
+								e.Start -= 1;
+							}
+
+							if (e.End >= k) {
+								e.End -= 1;
+							}
+						}
+					}
+
+					k++;
+				}
+
+				label = builder.ToString();
+			}
+			
 			glp = font.GetGlyphs(label);
 			
 			var j = 0;
@@ -291,7 +320,7 @@ namespace BurningKnight.ui.str {
 		}
 
 		public override void Render() {
-			if (label == null || Tint.A == 0) {
+			if (label == null || Tint.A == 0 || glyphs.Count == 0) {
 				return;
 			}
 
@@ -324,7 +353,7 @@ namespace BurningKnight.ui.str {
 				}
 			}
 
-			var gl = glyphs[Math.Min(l, glyphs.Count - 1)];
+			var gl = glyphs[Math.Min((int) progress + 1, glyphs.Count - 1)];
 
 			if (gl.G.FontRegion != null) {
 				Width = Math.Max(Width, gl.G.Position.X + gl.G.FontRegion.Width);
@@ -382,7 +411,7 @@ namespace BurningKnight.ui.str {
 				var e = effects[i];
 				e.Update(dt);
 				
-				for (var j = e.Start; j < e.End; j++) {
+				for (var j = e.Start; j < Math.Min(glyphs.Count - 1, e.End); j++) {
 					e.Apply(glyphs[j], j);
 				}
 				

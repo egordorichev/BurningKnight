@@ -20,7 +20,7 @@ namespace BurningKnight.ui.dialog {
 		public override void Init() {
 			base.Init();
 			
-			Width = 172;
+			Width = 4;
 			Height = 4;
 				
 			Setup("ui", "dialog_");
@@ -31,7 +31,7 @@ namespace BurningKnight.ui.dialog {
 
 			str.Paused = true;
 			str.Depth = Depth + 1;
-			str.WidthLimit = (int) (Width - 16);
+			str.WidthLimit = 172;
 			
 			str.FinishedTyping += s => {
 				Timer.Add(() => {
@@ -41,7 +41,7 @@ namespace BurningKnight.ui.dialog {
 						str.Width = 4;
 						str.Height = 4;
 					};
-				}, 0.5f);
+				}, 10000.5f);
 			};
 			
 			Tint.A = 0;
@@ -77,7 +77,8 @@ namespace BurningKnight.ui.dialog {
 			base.Update(dt);
 			
 			Position = Camera.Instance.CameraToUi(new Vector2(Owner.CenterX, Owner.Y - 4));
-			Height = str.Height + 12;
+			Height += (str.Height + 12 - Height) * dt * 10;
+			Width += (str.Width + 16 - Width) * dt * 10;
 			X -= Width / 2;
 			Y -= Height;
 
