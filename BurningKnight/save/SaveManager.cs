@@ -15,6 +15,7 @@ namespace BurningKnight.save {
 
 		public static byte CurrentSlot = 0;
 		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";
+		public static string BackupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.burning_knight/";
 
 		public static Saver[] Savers;
 		
@@ -74,12 +75,12 @@ namespace BurningKnight.save {
 		}
 
 		public static void ThreadSave(Action callback, Area area, SaveType saveType, bool old = false, string path = null) {
-			new Thread(() => {
+			// new Thread(() => {
 				Save(area, saveType, old, path);
 				callback?.Invoke();
-			}) {
-				Priority = ThreadPriority.Lowest
-			}.Start();
+			// }) {
+			// 	Priority = ThreadPriority.Lowest
+			// }.Start();
 		}
 
 		public static void Load(Area area, SaveType saveType, string path = null) {
@@ -138,6 +139,66 @@ namespace BurningKnight.save {
 				}
 
 				ForType(type).Delete();
+			}
+		}
+
+		public static void Backup() {
+			var backup = new FileHandle(BackupDir);
+
+			if (!backup.Exists()) {
+				try {
+					backup.MakeDirectory();
+				} catch (Exception e) {
+					
+				}
+			}
+			
+			var save = new FileHandle(SaveDir);
+
+			if (!save.Exists()) {
+				return;
+			}
+			
+			Log.Info("Backing up the saves");
+
+			foreach (var folder in save.ListDirectoryHandles()) {
+				try {
+					folder.Delete();
+				} catch (Exception e) {
+					
+				}
+			}
+
+			foreach (var file in save.ListFileHandles()) {
+				try {
+					file.Delete();
+				} catch (Exception e) {
+					
+				}
+			}
+			
+			foreach (var folder in save.ListDirectoryHandles()) {
+				try {
+					Directory.CreateDirectory($"{backup.FullPath}{folder.Name}");
+				} catch (Exception e) {
+					
+				}
+			
+				foreach (var file in folder.ListFileHandles()) {
+					try {
+						File.Copy(file.FullPath, $"{backup.FullPath}{folder.Name}/{file.Name}", true);
+					} catch (Exception e) {
+					
+					}
+				}
+			}
+			
+			foreach (var file in save.ListFileHandles()) {
+				try {
+					File.Copy(file.FullPath, $"{backup.FullPath}{file.Name}", true);
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 	}

@@ -124,8 +124,9 @@ namespace Lens.assets {
 			currentPlayingMusic = music;
 			currentPlaying.Volume = 0;
 			currentPlaying.IsLooped = repeat;
-			
-			Tween.To(v, currentPlaying.Volume, x => currentPlaying.Volume = x, CrossFadeTime);
+
+			var m = currentPlaying;
+			Tween.To(v, m.Volume, x => m.Volume = x, CrossFadeTime);
 		}
 
 		public static void Stop() {

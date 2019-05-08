@@ -78,45 +78,27 @@ namespace BurningKnight.state {
 			}
 		}
 
-		private int destroy;
-		
-		private void DestroyCallback() {
-			destroy++;
-
-			if (destroy < 4) {
-				return;
-			}
-			
-			// Use timer to escape the thread
-			Timer.Add(() => {
-				Area.Destroy();
-				Area = null;
-
-				Physics.Destroy();
-				base.Destroy();
-			}, 0.01f);
-		}
-
 		public override void Destroy() {
 			Audio.Stop();
 			Lights.Destroy();
 
-			destroy = 0;
-			
-			if (died) {
-				destroy = 3;
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
-			} else {
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Game, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Level, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Player, true);
-			}
-			
+			SaveManager.Backup();
+			SaveManager.Save(Area, SaveType.Global, true);
 			SaveManager.Save(Area, SaveType.Secret);
+
+			if (!died) {
+				SaveManager.Save(Area, SaveType.Level, true);
+				SaveManager.Save(Area, SaveType.Player, true);
+			}
 			
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
+			
+			Area.Destroy();
+			Area = null;
+
+			Physics.Destroy();
+			base.Destroy();
 		}
 
 		protected override void OnPause() {
@@ -227,21 +209,30 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave && !saving) {
-				saveTimer += dt;
+			if (Settings.Autosave) {
+				if (!saving) {
+					saveTimer += dt;
 
-				if (saveTimer >= AutoSaveInterval) {
-					saveTimer = 0;
-					saving = true;
-					saveLock.Reset();
-					
-					indicator.HandleEvent(new SaveStartedEvent());
-												
-					SaveManager.ThreadSave(saveLock.UnlockGlobal, Area, SaveType.Global);
-					SaveManager.ThreadSave(saveLock.UnlockGame, Area, SaveType.Game);
-					SaveManager.ThreadSave(saveLock.UnlockLevel, Area, SaveType.Level);
-					SaveManager.ThreadSave(saveLock.UnlockPlayer, Area, SaveType.Player);
-					
+					if (saveTimer >= AutoSaveInterval) {
+						saveTimer = 0;
+						saving = true;
+						saveLock.Reset();
+
+						indicator.HandleEvent(new SaveStartedEvent());
+
+						new Thread(() => {
+							SaveManager.Backup();
+
+							SaveManager.ThreadSave(saveLock.UnlockGlobal, Area, SaveType.Global);
+							SaveManager.ThreadSave(saveLock.UnlockGame, Area, SaveType.Game);
+							SaveManager.ThreadSave(saveLock.UnlockLevel, Area, SaveType.Level);
+							SaveManager.ThreadSave(saveLock.UnlockPlayer, Area, SaveType.Player);
+						}) {
+							Priority = ThreadPriority.Lowest
+						}.Start();
+					}
+				} else if (saveLock.Done) {
+					saving = false;
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
@@ -518,6 +509,7 @@ namespace BurningKnight.state {
 
 				new Thread(() => {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+					SaveManager.Backup();
 				}).Start();
 			}
 

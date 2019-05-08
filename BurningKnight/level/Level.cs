@@ -393,7 +393,6 @@ namespace BurningKnight.level {
 			Shaders.Begin(shader);
 
 			shader.Parameters["h"].SetValue(8f / Tileset.WallTopA.Texture.Height);
-			var sy = shader.Parameters["y"];
 			var enabled = shader.Parameters["enabled"];
 			enabled.SetValue(false);
 							
@@ -966,7 +965,7 @@ namespace BurningKnight.level {
 					var light = Light[index];
 					var explored = Explored[index];
 
-					if (explored && light < LightMax) {
+					if (light < LightMax) {
 						Light[index] = light = Math.Min(1, light + dt);
 					}
 

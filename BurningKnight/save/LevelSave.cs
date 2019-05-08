@@ -57,6 +57,7 @@ namespace BurningKnight.save {
 				I++;
 
 				a.Destroy();
+				Run.Level = null;
 
 				if (I > 100) {
 					Log.Error("Can't generate a level");
