@@ -21,10 +21,10 @@ namespace BurningKnight {
 		public const string UiAccept = "ui_accept";
 		
 		public static void Bind() {
-			Input.Bind(Up, Keys.W);
-			Input.Bind(Left, Keys.A);
-			Input.Bind(Down, Keys.S);
-			Input.Bind(Right, Keys.D);
+			Input.Bind(Up, Keys.W, Keys.Up);
+			Input.Bind(Left, Keys.A, Keys.Left);
+			Input.Bind(Down, Keys.S, Keys.Down);
+			Input.Bind(Right, Keys.D, Keys.Right);
 			
 			Input.Bind(Active, Keys.Space);
 			Input.Bind(Active, Buttons.B);
@@ -48,6 +48,11 @@ namespace BurningKnight {
 			Input.Bind(Pause, Buttons.Back);
 			
 			Input.Bind(UiAccept, MouseButtons.Left);
+			
+			Input.Bind("console", Keys.F1);
+			Input.Bind("enter", Keys.Enter);
+			Input.Bind("delete", Keys.Back);
+			Input.Bind("autocomplete", Keys.Tab);
 		}
 	}
 }

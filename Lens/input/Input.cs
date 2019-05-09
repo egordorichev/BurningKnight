@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -84,8 +85,8 @@ namespace Lens.input {
 			Buttons[id] = button;
 		}
 
-		private static bool Check(string id, CheckType type, GamepadData data = null) {
-			if (Blocked > 0) {
+		private static bool Check(string id, CheckType type, GamepadData data = null, bool ignoreBlock = false) {
+			if (Blocked > 0 && !ignoreBlock) {
 				return false;
 			}
 
@@ -120,16 +121,16 @@ namespace Lens.input {
 			return false;
 		}
 
-		public static bool WasPressed(string id, GamepadData data = null) {
-			return Check(id, CheckType.PRESSED, data);
+		public static bool WasPressed(string id, GamepadData data = null, bool ignoreBlock = false) {
+			return Check(id, CheckType.PRESSED, data, ignoreBlock);
 		}
 
-		public static bool WasReleased(string id, GamepadData data = null) {
-			return Check(id, CheckType.RELEASED, data);
+		public static bool WasReleased(string id, GamepadData data = null, bool ignoreBlock = false) {
+			return Check(id, CheckType.RELEASED, data, ignoreBlock);
 		}
 
-		public static bool IsDown(string id, GamepadData data = null) {
-			return Check(id, CheckType.DOWN, data);
+		public static bool IsDown(string id, GamepadData data = null, bool ignoreBlock = false) {
+			return Check(id, CheckType.DOWN, data, ignoreBlock);
 		}
 	}
 }

@@ -48,5 +48,11 @@
   
   "by" : "by",
   
-  "old_man_hello" : "Hello there, ^^weird^^ stranger! Have a rest! We are glad to see youy in the town, finally!!!! Reallylongwork but idontcareeyiu knowthisisfun"
+  "om_hello" : "Hello there, ^^weird^^ stranger! Have a rest! We have a %%great future%% for you!",
+  "om_best" : "Ya da best!",
+  "om_test" : "Test? Idk...",
+  "om_a" : "Yay",
+  "om_b" : "Nay",
+  "om_awesome" : "Awesome!",
+  "om_eh" : "Eh.."
 }

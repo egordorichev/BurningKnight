@@ -19,12 +19,14 @@ namespace BurningKnight.ui.str {
 	/*
 	 * todo:
 	 * [tg a]test[dl a]
+	 * variables
 	 */
 	public class UiString : Entity {
 		private string label;
 		private BitmapFont font;
 		private List<Glyph> glyphs = new List<Glyph>();
 		private List<GlyphEffect> effects = new List<GlyphEffect>();
+		private List<StrRenderer> renderers = new List<StrRenderer>();
 		private float progress;
 		private int lastChar;
 
@@ -38,6 +40,7 @@ namespace BurningKnight.ui.str {
 		public FinishedTyping FinishedTyping;
 		public EventFired EventFired;
 		public CharTyped CharTyped;
+		public Action<Vector2, int> Renderer;
 
 		public Color Tint;
 		
@@ -125,6 +128,19 @@ namespace BurningKnight.ui.str {
 
 							case "ev": {
 								e = new UserEvent();
+								break;
+							}
+
+							case "rn": {
+								try {
+									renderers.Add(new StrRenderer {
+										Id = parts.Length > 1 ? int.Parse(parts[1]) : 0,
+										Where = builder.Length
+									});
+								} catch (Exception ex) {
+									Log.Error(ex);
+								}
+								
 								break;
 							}
 
@@ -246,21 +262,25 @@ namespace BurningKnight.ui.str {
 				
 				foreach (var g in glp) {
 					var c = label[k];
+					var w = 0;
 
 					if (c == ' ') {
 						lastSpace = k;
 						sinceLastSpace = 0;
+						w = spaceWidth;
 					} else if (c == '\n') {
 						sinceLast = 0;
 						sinceLastSpace = 0;
+					} else {
+						w = g.FontRegion.Width;
 					}
 
 					if (c != '\n') {
-						sinceLast += g.FontRegion.Width;
-						width += g.FontRegion.Width;
+						sinceLast += w;
+						width += w;
 
 						if (c != ' ') {
-							sinceLastSpace += g.FontRegion.Width;
+							sinceLastSpace += w;
 						}
 					}
 
@@ -276,16 +296,6 @@ namespace BurningKnight.ui.str {
 						
 						sinceLast = width;
 						builder[lastSpace] = '\n';
-
-						foreach (var e in effects) {
-							if (e.Start >= k) {
-								e.Start -= 1;
-							}
-
-							if (e.End >= k) {
-								e.End -= 1;
-							}
-						}
 					}
 
 					k++;
@@ -351,6 +361,14 @@ namespace BurningKnight.ui.str {
 					Graphics.Batch.Draw(g.G.FontRegion.TextureRegion.Texture, pos,
 						g.G.FontRegion.TextureRegion.Bounds, c, g.Angle, g.Origin, g.Scale, g.Effects, 0);
 				}
+
+				if (renderers.Count > 0) {
+					foreach (var r in renderers) {
+						if (r.Where == i) {
+							Renderer(Position + g.G.Position + g.Offset - new Vector2(0, 9), r.Id);
+						}
+					}
+				}
 			}
 
 			var gl = glyphs[Math.Min((int) progress + 1, glyphs.Count - 1)];
@@ -371,6 +389,11 @@ namespace BurningKnight.ui.str {
 			lastChar = 0;
 			Delay = 0;
 			Paused = false;
+			Speed = 1;
+
+			if (WidthLimit > 0) {
+				WidthLimit = 200;
+			}
 			
 			StartedTyping?.Invoke(this);
 		}

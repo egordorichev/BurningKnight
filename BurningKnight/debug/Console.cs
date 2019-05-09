@@ -96,7 +96,7 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Update(float Dt) {
-			if (Input.Keyboard.WasPressed(Keys.Enter, true)) {
+			if (Input.WasPressed("enter", null, true)) {
 				var str = input;
 				input = "";
 				guess = "";
@@ -110,17 +110,17 @@ namespace BurningKnight.debug {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
+			if (Input.WasPressed("console", null, true)) {
 				open = !open;
 				Input.Blocked += open ? 1 : -1;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.Tab, true) && realGuess.Length > 0) {
+			if (Input.WasPressed("autocomplete", null, true) && realGuess.Length > 0) {
 				input = realGuess;
 				UpdateGuess();
 			}
 			
-			if (Input.Keyboard.WasPressed(Keys.Back, true) && input.Length > 0) {
+			if (Input.WasPressed("delete", null, true) && input.Length > 0) {
 				input = input.Length == 1 ? "" : input.Substring(0, input.Length - 2);
 				UpdateGuess();
 			}

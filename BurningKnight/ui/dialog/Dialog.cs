@@ -11,5 +11,9 @@ namespace BurningKnight.ui.dialog {
 		public virtual string DecideNext() {
 			return Next;
 		}
+
+		public virtual string Modify(string dialog) {
+			return dialog;
+		}
 	}
 }

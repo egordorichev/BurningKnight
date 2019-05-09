@@ -58,18 +58,6 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
-
-			var dialog = new DialogComponent("old_man");
-			AddComponent(dialog);
-
-			dialog.Add(new Dialog("hello", "best"));
-			dialog.Add(new EventDialog("best", () => "test"));
-
-			dialog.Add(new ChoiceDialog("test", new[] {
-				"a", "b"
-			}, new[] {
-				"awesome", "eh"
-			}, c => {}));
 		}
 
 		public void FindSpawnPoint() {
