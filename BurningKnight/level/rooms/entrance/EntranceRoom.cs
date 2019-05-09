@@ -36,8 +36,8 @@ namespace BurningKnight.level.rooms.entrance {
 
 			entrance.Center = GetCenter() * 16;
 
-			level.Area.Add(new OldMan {
-				Center = GetCenter() * 16 - new Vector2(0, 16)
+			level.Area.Add(new Ord {
+				Center = GetCenter() * 16 - new Vector2(0, 32)
 			});
 		}
 		

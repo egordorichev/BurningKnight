@@ -244,6 +244,18 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+
+			if (Input.WasPressed(Controls.Mute)) {
+				Settings.MusicVolume = Settings.MusicVolume > 0.01f ? 0f : 0.5f;
+			}
+			
+			if (Input.WasPressed(Controls.Fullscreen)) {
+				if (Engine.Graphics.IsFullScreen) {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				} else {
+					Engine.Instance.SetFullscreen();
+				}
+			}
 		}
 
 		private bool saving;

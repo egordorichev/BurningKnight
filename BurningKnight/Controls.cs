@@ -20,6 +20,9 @@ namespace BurningKnight {
 
 		public const string UiAccept = "ui_accept";
 		
+		public const string Fullscreen = "fullscreen";
+		public const string Mute = "mute";
+
 		public static void Bind() {
 			Input.Bind(Up, Keys.W, Keys.Up);
 			Input.Bind(Left, Keys.A, Keys.Left);
@@ -53,6 +56,9 @@ namespace BurningKnight {
 			Input.Bind("enter", Keys.Enter);
 			Input.Bind("delete", Keys.Back);
 			Input.Bind("autocomplete", Keys.Tab);
+			
+			Input.Bind(Mute, Keys.M);
+			Input.Bind(Fullscreen, Keys.F11, Keys.F);
 		}
 	}
 }

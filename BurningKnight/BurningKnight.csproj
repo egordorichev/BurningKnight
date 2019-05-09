@@ -171,6 +171,7 @@
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
+    <Compile Include="entity\creature\npc\Ord.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
@@ -381,6 +382,7 @@
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\dialog\ChoiceDialog.cs" />
+    <Compile Include="ui\dialog\CombineDialog.cs" />
     <Compile Include="ui\dialog\Dialog.cs" />
     <Compile Include="ui\dialog\DialogComponent.cs" />
     <Compile Include="ui\dialog\EventDialog.cs" />

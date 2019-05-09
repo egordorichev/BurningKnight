@@ -9,9 +9,14 @@ using Lens.input;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.dialog {
+	public delegate void DialogCallback();
+	
 	public class DialogComponent : Component {
 		public UiDialog Dialog;
-		private Dialog currentData;
+		public Dialog Last;
+		public Dialog Current;
+
+		public DialogCallback OnNext;
 
 		public void Start(string id) {
 			var dialog = Dialogs.Get(id);
@@ -26,27 +31,35 @@ namespace BurningKnight.ui.dialog {
 
 				Dialog.Owner = Entity;
 				Dialog.OnEnd = () => {
-					var next = currentData.DecideNext();
+					var next = Current.GetNext();
 
 					if (next == null) {
 						Input.Blocked = 0;
+						Last = Current;
+						OnNext?.Invoke();
 						return true;
 					}
 
-					Start(next);
+					Setup(next);
+					OnNext?.Invoke();
 					return false;
 				};
 			}
-			
+
+			Setup(dialog);
+		}
+		
+		private void Setup(Dialog dialog) {
 			Input.Blocked = 1;
-			
-			currentData = dialog;
-			Dialog.Say(dialog.Modify(Locale.Get(id)));
+
+			Last = Current;
+			Current = dialog;
+			Dialog.Say(dialog.Modify(Locale.Get(dialog.Id)));
 			Dialog.Str.Renderer = RenderChoice;
 		}
 
 		private void RenderChoice(Vector2 pos, int i) {
-			if (currentData is ChoiceDialog c && i == c.Choice) {
+			if (Current is ChoiceDialog c && i == c.Choice) {
 				Graphics.Print(">", Font.Small, pos);
 			}
 		}
@@ -54,7 +67,7 @@ namespace BurningKnight.ui.dialog {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Dialog != null && Dialog.DoneSaying && currentData is ChoiceDialog c) {
+			if (Dialog != null && Dialog.DoneSaying && Current is ChoiceDialog c) {
 				var data = LocalPlayer.Locate(Engine.Instance.State.Area).GetComponent<GamepadComponent>().Controller;
 				
 				if (Input.WasPressed(Controls.Up, data, true)) {

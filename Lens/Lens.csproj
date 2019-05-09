@@ -303,6 +303,10 @@
       <Project>{13c6f252-0b3c-4a22-a9db-270c76657fab}</Project>
       <Name>Aseprite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VelcroPhysics\VelcroPhysics.MonoGame.csproj">
+      <Project>{4650bd15-4b03-4a7e-98d4-9f8697ed2eb4}</Project>
+      <Name>VelcroPhysics.MonoGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

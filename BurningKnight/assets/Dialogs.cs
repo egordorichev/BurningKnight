@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.ui.dialog;
+using Lens.assets;
 using Lens.util;
 
 namespace BurningKnight.assets {
@@ -15,25 +16,25 @@ namespace BurningKnight.assets {
 		}
 		
 		private static void AddNpc() {
-			// Old Man
-			Add(new Dialog("om_hello", "om_best"));
-			Add(new EventDialog("om_best", () => "om_test"));
-
-			Add(new ChoiceDialog("om_test", new[] {
-				"om_a", "om_b"
-			}, new[] {
-				"om_awesome", "om_eh"
-			}, (c, i) => {
-				Log.Debug($"{c} was selected (#{i})");
-			}));
-			
-			Add(new Dialog("om_awesome"));
-			Add(new Dialog("om_eh"));
+			// Ord
+			Add(new CombineDialog("ord_link", "ord_info", "ord_internet"));
+			Add(new CombineDialog("ord_info", "ord_interested", "ord_interested"));
+			Add(new CombineDialog("ord_interested", "ord_marketing"));
+			Add(new CombineDialog("ord_marketing", "ord_trailer", "ord_steam"));
+			Add(new CombineDialog("ord_internet"));
+			Add(new Dialog("ord_trailer"));
+			Add(new Dialog("ord_steam"));
 		}
 
 		public static Dialog Get(string id) {
 			if (!dialogs.TryGetValue(id, out var dialog)) {
-				Log.Error($"Unknown dialog {id}");
+				if (Locale.Contains(id)) {
+					dialog = new Dialog(id);
+					dialogs[id] = dialog;
+				} else {
+					Log.Error($"Unknown dialog {id}");
+					return null;
+				}
 			}
 
 			return dialog;

@@ -41,6 +41,11 @@ namespace BurningKnight.ui.str {
 		public EventFired EventFired;
 		public CharTyped CharTyped;
 		public Action<Vector2, int> Renderer;
+		public Dictionary<string, object> Variables;
+
+		public void SetVariable(string id, object o) {
+			Variables[id] = o;
+		}
 
 		public Color Tint;
 		
@@ -90,6 +95,7 @@ namespace BurningKnight.ui.str {
 		private void Recalculate() {
 			glyphs.Clear();
 			effects.Clear();
+			renderers.Clear();
 			
 			StartTyping();
 
@@ -128,6 +134,18 @@ namespace BurningKnight.ui.str {
 
 							case "ev": {
 								e = new UserEvent();
+								break;
+							}
+
+							case "vr": {
+								if (parts.Length > 1) {
+									if (Variables.TryGetValue(parts[1], out var vr)) {
+										builder.Append(vr.ToString());
+									} else {
+										Log.Error($"Undefined variable {parts[1]}!");
+									}
+								}
+								
 								break;
 							}
 
@@ -370,13 +388,6 @@ namespace BurningKnight.ui.str {
 					}
 				}
 			}
-
-			var gl = glyphs[Math.Min((int) progress + 1, glyphs.Count - 1)];
-
-			if (gl.G.FontRegion != null) {
-				Width = Math.Max(Width, gl.G.Position.X + gl.G.FontRegion.Width);
-				Height = Math.Max(Height, gl.G.Position.Y + gl.G.FontRegion.Height);	
-			}
 		}
 
 		public void FinishTyping() {
@@ -406,22 +417,31 @@ namespace BurningKnight.ui.str {
 			} else {
 				progress = Math.Min(progress + Speed * dt * 20f, glyphs.Count);
 				var v = (int) Math.Floor(progress);
-				
-				if (v > lastChar) {
-					lastChar = v;
 
-					if (v < glyphs.Count) {
-						var g = glyphs[v];
+				while (true) {
+					if (v > lastChar) {
+						lastChar++;
 
-						foreach (var e in g.Events) {
-							e.Fire(this, g);
+						if (v < glyphs.Count) {
+							var g = glyphs[v];
+
+							foreach (var e in g.Events) {
+								e.Fire(this, g);
+							}
+
+							CharTyped?.Invoke(this, v, label[v]);
+
+							if (g.G.FontRegion != null) {
+								Width = Math.Max(Width, g.G.Position.X + g.G.FontRegion.Width);
+								Height = Math.Max(Height, g.G.Position.Y + g.G.FontRegion.Height);
+							}
 						}
 
-						CharTyped?.Invoke(this, v, label[v]);
-					}
-
-					if ((int) Math.Ceiling(progress) == glyphs.Count) {
-						FinishTyping();
+						if ((int) Math.Ceiling(progress) == glyphs.Count) {
+							FinishTyping();
+						}
+					} else {
+						break;
 					}
 				}
 			}

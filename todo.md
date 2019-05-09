@@ -2,6 +2,8 @@
 
 ### Before v0.0.0.1
 
+* Implement audio muting
+
 * BK him self
  + Healthbar
  + Animation and spawning
@@ -21,6 +23,7 @@
 * Figure out lamp mechanics, display it on player
 * ^^^^^^ whats up with Burning Knight? gotta think a lot
 
+* ORD entity (pc)
 * Add PICO-8 prototype room
 * Make WIP sign
 * Add at least one NPC house
@@ -30,7 +33,6 @@
 * Add a few artifacts
 
 * Implement speed changing
-* Implement audio
 * Audio speed should depend on engine speed
 
 * Set game icon

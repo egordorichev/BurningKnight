@@ -9,6 +9,7 @@ namespace BurningKnight.ui.dialog {
 		public Action<string, int> Callback;
 
 		public int Choice;
+		public int Last;
 		
 		public ChoiceDialog(string id, string[] options, string[] branches, Action<string, int> callback = null) : base(id) {
 			Options = options;
@@ -20,7 +21,7 @@ namespace BurningKnight.ui.dialog {
 			var builder = new StringBuilder();
 			var i = 0;
 
-			builder.Append(dialog).Append("[sp 10]\n");
+			builder.Append(dialog).Append("\n");
 
 			foreach (var option in Options) {
 				builder.Append($"[rn {i}]  ").Append(Locale.Get(option)).Append('\n');
@@ -32,7 +33,10 @@ namespace BurningKnight.ui.dialog {
 
 		public override string DecideNext() {
 			var option = Branches[Choice];
-			Callback(option, Choice);
+			
+			Callback?.Invoke(option, Choice);
+			
+			Last = Choice;
 			Choice = 0;
 			
 			return option;

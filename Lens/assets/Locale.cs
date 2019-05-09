@@ -45,5 +45,9 @@ namespace Lens.assets {
 		public static string Get(string key) {
 			return map.ContainsKey(key) ? map[key] : (fallback.ContainsKey(key) ? fallback[key] : key);
 		}
+
+		public static bool Contains(string key) {
+			return map.ContainsKey(key) || fallback.ContainsKey(key);
+		}
 	}
 }

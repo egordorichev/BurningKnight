@@ -48,11 +48,46 @@
   
   "by" : "by",
   
-  "om_hello" : "Hello there, ^^weird^^ stranger! Have a rest! We have a %%great future%% for you!",
-  "om_best" : "Ya da best!",
-  "om_test" : "Test? Idk...",
-  "om_a" : "Yay",
-  "om_b" : "Nay",
-  "om_awesome" : "Awesome!",
-  "om_eh" : "Eh.."
+  "ord_link" : "Link.",
+
+  "ord_link_a" : "Click.",
+  "ord_link_ar" : "Ord.",
+
+  "ord_link_b" : "Ignore.",
+  "ord_link_br" : "Virus?",
+  
+  "ord_info" : "Info.",
+  
+  "ord_info_a" : "What?",
+  "ord_info_ar" : "Game.",
+  
+  "ord_info_b" : "When?",
+  "ord_info_br" : "June.",
+
+  "ord_interested" : "Interested?",
+
+  "ord_interested_a" : "Yes.",
+  "ord_interested_ar" : "Cool.",
+
+  "ord_interested_b" : "No.",
+  "ord_interested_br" : "Ok.",
+
+  "ord_marketing" : "Marketing.",
+
+  "ord_marketing_a" : "Trailer.",
+  "ord_marketing_ar" : "Enjoy.",
+
+  "ord_marketing_b" : "Wishlist.",
+  "ord_marketing_br" : "Thanks!",
+  
+  "ord_internet" : "Internet.",
+
+  "ord_internet_a" : "Pictures.",
+  "ord_internet_ar" : "Interesting.",
+  
+  "ord_internet_b" : "Mail.",
+  "ord_internet_br" : "Spam.",
+  
+  "ord_trailer" : "Trailer.",
+  "ord_steam" : "Steam."
 }
