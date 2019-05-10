@@ -79,43 +79,27 @@ namespace BurningKnight.state {
 			}
 		}
 
-		private int destroy;
-		
-		private void DestroyCallback() {
-			destroy++;
-
-			if (destroy < 4) {
-				return;
-			}
-			
-			// Use timer to escape the thread
-			Timer.Add(() => {
-				Area.Destroy();
-				Area = null;
-
-				Physics.Destroy();
-				base.Destroy();
-			}, 0.01f);
-		}
-
 		public override void Destroy() {
 			Audio.Stop();
 			Lights.Destroy();
+			
+			SaveManager.Save(Area, SaveType.Global, true);
 
-			destroy = 0;
-			
-			if (died) {
-				destroy = 3;
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
-			} else {
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Global, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Game, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Level, true);
-				SaveManager.ThreadSave(DestroyCallback, Area, SaveType.Player, true);
+			if (!died) {
+				SaveManager.Save(Area, SaveType.Global, true);
+				SaveManager.Save(Area, SaveType.Game, true);
+				SaveManager.Save(Area, SaveType.Level, true);
+				SaveManager.Save(Area, SaveType.Player, true);
 			}
-			
+
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
+			
+			Area.Destroy();
+			Area = null;
+
+			Physics.Destroy();
+			base.Destroy();
 		}
 
 		protected override void OnPause() {

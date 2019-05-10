@@ -2,7 +2,9 @@
 
 ### Before v0.0.0.1
 
-* Implement audio muting
+* Show item description, when you pick it up [UiItemDescription]
+* Editor allow to place entities
+* Animate bullet death
 
 * BK him self
  + Healthbar
@@ -12,22 +14,23 @@
  + Player picking up hearts will heal bk
  + Opening and buying heals bk
  + Somehow make him a bit annoying??
+ 
+* Fix player reading 1 byte less than expected (some component is broken? or maybe not added)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
-* Show item description, when you pick it up [UiItemDescription]
+* When player uses active item, animate him using it (like in isaac)
+* ^^^^ same for picking up item
 
 * Figure out lamp mechanics, display it on player
 * ^^^^^^ whats up with Burning Knight? gotta think a lot
 
-* ORD entity (pc)
 * Add PICO-8 prototype room
 * Make WIP sign
 * Add at least one NPC house
-* ^^^ implement dialogs
 
 * Add a few weapons for melee, magic and ranged
 * Add a few artifacts
@@ -35,13 +38,7 @@
 * Implement speed changing
 * Audio speed should depend on engine speed
 
-* Set game icon
 * Crash report/fail loading stuff
-* Save system improvements:
- + Backups
- + Multithread (each save file on different thread)
- + Versioning
- + Magic numbers
 
 #### Polish
 

@@ -36,6 +36,7 @@ namespace BurningKnight.ui.dialog {
 					if (next == null) {
 						Input.Blocked = 0;
 						Last = Current;
+						Current = null;
 						OnNext?.Invoke();
 						return true;
 					}

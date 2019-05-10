@@ -1,10 +1,20 @@
 using BurningKnight.save;
 using Lens;
+using Lens.assets;
 
 namespace BurningKnight {
 	public class Settings {
 		// Audio
-		public static float MusicVolume;
+		private static float musicVolume;
+		public static float MusicVolume {
+			get => musicVolume;
+
+			set {
+				musicVolume = value;
+				Audio.UpdateMusicVolume(musicVolume);
+			}
+		}
+		
 		public static float SfxVolume;
 		
 		// Graphics

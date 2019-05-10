@@ -14,8 +14,9 @@ namespace BurningKnight.entity.creature.npc {
 
 			anim.Animation.AutoStop = true;
 			anim.Animation.OnEnd += OnAnimationEnd;
-			
+
 			AddComponent(new RectBodyComponent(-4, -4, Width + 8, Height + 8));
+			
 			GetComponent<DialogComponent>().OnNext += OnChoice;
 			
 			AddComponent(new InteractableComponent(e => {

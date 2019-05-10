@@ -7,7 +7,7 @@ namespace BurningKnight.entity.creature.npc {
 			base.AddComponents();
 			
 			AddComponent(new DialogComponent());
-			GetComponent<HealthComponent>().InitMaxHealth = 10000;
+			GetComponent<HealthComponent>().Unhittable = true;
 		}
 	}
 }
