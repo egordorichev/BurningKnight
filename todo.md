@@ -13,13 +13,14 @@
  + He spawns the enemies
  + Player picking up hearts will heal bk
  + Opening and buying heals bk
- + Somehow make him a bit annoying??
+ + Somehow make him a bit annoying and scary??
  
 * Fix player reading 1 byte less than expected (some component is broken? or maybe not added)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 
+* Make general interact fx (animate same as item fx), give it to entrance, exit, etc
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * When player uses active item, animate him using it (like in isaac)

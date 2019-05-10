@@ -19,7 +19,6 @@ namespace BurningKnight.ui.str {
 	/*
 	 * todo:
 	 * [tg a]test[dl a]
-	 * variables
 	 */
 	public class UiString : Entity {
 		private string label;
@@ -47,7 +46,7 @@ namespace BurningKnight.ui.str {
 			Variables[id] = o;
 		}
 
-		public Color Tint;
+		public Color Tint = Color.White;
 		
 		public string Label {
 			get => label;
