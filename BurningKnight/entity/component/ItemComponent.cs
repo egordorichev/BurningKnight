@@ -1,7 +1,9 @@
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.entity.component.logic;
 using Lens.util.file;
 
 namespace BurningKnight.entity.component {
@@ -9,22 +11,33 @@ namespace BurningKnight.entity.component {
 		public Item Item { get; protected set; }
 
 		public virtual void Set(Item item) {
+			var old = Item;
+			
 			if (Item != null) {
 				Drop();
+				Item = null;
 			}
- 
-			Item = item;
-			Entity.Area.Remove(item);
 
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
-
-			var e = new ItemAddedEvent {
-				Item = item
-			};
 			
-			Send(e);
-			item.HandleEvent(e);
+			Entity.GetComponent<StateComponent>().PushState(new Player.GotState {
+				Item = item,
+				
+				OnEnd = (i) => {
+					Item = i;
+					Entity.Area.Remove(i);
+
+					var e = new ItemAddedEvent {
+						Item = i,
+						Old = old,
+						Component = this
+					};
+			
+					Send(e);
+					i.HandleEvent(e);
+				}
+			});
 		}
 		
 		public Item Drop() {

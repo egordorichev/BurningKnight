@@ -102,6 +102,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			private bool tweened;
 			public Item Item;
+			public Action<Item> OnEnd;
 			public Vector2 Scale;
 
 			public override void Init() {
@@ -116,8 +117,12 @@ namespace BurningKnight.entity.creature.player {
 			public override void Destroy() {
 				base.Destroy();
 
-				Self.GetComponent<InventoryComponent>().Add(Item);
-				Item.Use(Self);
+				if (OnEnd != null) {
+					OnEnd(Item);
+				} else {
+					Self.GetComponent<InventoryComponent>().Add(Item);
+					Item.Use(Self);	
+				}
 			}
 
 			public override void Update(float dt) {
