@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using Lens.entity.component;
+using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.file;
 
@@ -14,8 +16,16 @@ namespace BurningKnight.entity.component {
 			if (!Send(new ItemCheckEvent {
 				Item = item
 			})) {
-				item.Use(Entity);
-				Add(item);
+				if (Entity is Player && (item.Type == ItemType.Artifact || item.Type == ItemType.Active || 
+				                         item.Type == ItemType.Lamp || item.Type == ItemType.Weapon)) {
+					
+					Entity.GetComponent<StateComponent>().PushState(new Player.GotState {
+						Item = item
+					});
+				} else {
+					item.Use(Entity);
+					Add(item);	
+				}
 			}
 		}
 		
