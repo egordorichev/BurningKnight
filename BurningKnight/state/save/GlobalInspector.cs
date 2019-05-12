@@ -17,18 +17,18 @@ namespace BurningKnight.state.save {
 			}
 		}
 
-		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr();
-		
+		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+
 		public override void Render() {
 			ImGui.Text($"Global Save ({Values.Count} entries)");
-			//filter.Draw();
+			filter.Draw();
 
 			foreach (var pair in Values) {
-				//if (filter.PassFilter(pair.Key)) {
+				if (filter.PassFilter(pair.Key)) {
 					ImGui.BulletText(pair.Key);
 					ImGui.SameLine();
 					ImGui.Text(pair.Value);
-				//}
+				}
 			}
 		}
 	}

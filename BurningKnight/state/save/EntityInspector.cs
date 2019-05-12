@@ -3,7 +3,7 @@ using ImGuiNET;
 using Lens.util.file;
 
 namespace BurningKnight.state.save {
-	public class EntityInspector : SaveInspector {
+	public unsafe class EntityInspector : SaveInspector {
 		public Dictionary<string, EntityData> Datas = new Dictionary<string, EntityData>();
 		public int total;
 		
@@ -33,12 +33,17 @@ namespace BurningKnight.state.save {
 				lastType = type;
 			}
 		}
-
+		
+		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		
 		public override void Render() {
-			ImGui.Text($"Entity Save ({total} entities)");//filter.Draw();
-			// todo: filter
+			ImGui.Text($"Entity Save ({total} entities)");
+			filter.Draw();
+
 			foreach (var pair in Datas) {
-				ImGui.BulletText($"{pair.Key} x{pair.Value.Count}");
+				if (filter.PassFilter(pair.Key)) {
+					ImGui.BulletText($"{pair.Key} x{pair.Value.Count}");
+				}
 			}
 		}
 	}
