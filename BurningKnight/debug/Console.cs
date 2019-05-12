@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using BurningKnight.assets;
 using BurningKnight.entity;
 using ImGuiNET;
@@ -12,18 +13,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.debug {
-	public class Console : Entity {
-		public List<Line> Lines = new List<Line>();
+	public unsafe class Console : Entity {
+		public List<string> Lines = new List<string>();
 		public Area GameArea;
+		public bool Open;
 
 		private List<ConsoleCommand> commands = new List<ConsoleCommand>();
-
 		private string input = "";
-		private string guess = "";
-		private string realGuess = "";
-		private bool open;
-
-		public bool Open => open;
 		
 		public Console(Area area) {
 			GameArea = area;
@@ -45,95 +41,83 @@ namespace BurningKnight.debug {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 
-			Engine.Instance.Window.TextInput += TextEntered;
-
 			Depth = Layers.Console;
 		}
 
 		public void AddCommand(ConsoleCommand command) {
 			commands.Add(command);
 		}
-
-		public override void Destroy() {
-			base.Destroy();
-			Engine.Instance.Window.TextInput -= TextEntered;
-		}
-
-		private void TextEntered(object sender, TextInputEventArgs e) {
-			if (open && e.Character != '\r' && e.Character != '\t') {
-				input += e.Character;
-				UpdateGuess();
-			}
-		}
-
-		private void UpdateGuess() {
-			guess = "";
-
-			if (input.Length == 0) {
-				return;
-			}
-			
-			foreach (var command in commands) {
-				if (input.StartsWith(command.Name)) {
-					guess = command.AutoComplete(input == command.Name ? input + " " : input);
-					break;
-				} else if (input.StartsWith(command.ShortName)) {
-					guess = command.AutoComplete(input == command.Name ? input + " " : input);
-					break;
-				} else if (command.Name.StartsWith(input)) {
-					guess = command.Name + " ";
-					break;
-				} else if (command.ShortName.StartsWith(input)) {
-					guess = command.ShortName + " ";
-					break;
-				}
-			}
-
-			realGuess = guess;
-			
-			if (guess.Length > input.Length) {
-				guess = guess.Insert(input.Length, "|");				
-			} else if (guess.Length == input.Length) {
-				guess += "|";
-			}
-		}
-
-		public override void Update(float Dt) {
-			if (!open) {
-				return;
-			}
-		}
-
+		
 		public void Print(string str) {
-			Lines.Insert(0, new Line {Text = str});
+			Lines.Add(str);
 		}
+		
+		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+
 
 		public override void Render() {
 			ImGui.Begin("Console");
+
+			if (ImGui.Button("Clear")) {
+				Lines.Clear();
+			}
+			
+			filter.Draw();
+
+			ImGui.Separator();
+			
+			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
+			ImGui.BeginChild("ScrollingRegion", new System.Numerics.Vector2(0, -height), 
+				false, ImGuiWindowFlags.HorizontalScrollbar);
+			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new System.Numerics.Vector2(4, 1));
 			
 			foreach (var t in Lines) {
-				ImGui.Text(t.Text);
+				if (filter.PassFilter(t)) {
+					var popColor = false;
+
+					if (t[0] == '>') {
+						popColor = true;
+						ImGui.PushStyleColor(ImGuiCol.Text, new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f));
+					}
+					
+					ImGui.TextUnformatted(t);
+
+					if (popColor) {
+						ImGui.PopStyleColor();
+					}
+				}
 			}
 
+			ImGui.PopStyleVar();
+			ImGui.EndChild();
+			ImGui.Separator();
+
+			if (ImGui.InputText("Input", ref input, 128)) {
+				RunCommand(input);
+				input = null;
+			}
+			
 			ImGui.End();
 		}
 
 		public void RunCommand(string input) {
 			input = input.TrimEnd();	
+		
+			Lines.Add($"> {input}");
 			
-			var Parts = input.Split(null);
-			var Name = Parts[0];
+			var parts = input.Split(null);
+			var name = parts[0];
 
-			foreach (var Command in commands) {
-				if (Command.Name.Equals(Name) || Command.ShortName.Equals(Name)) {
-					var Args = new string[Parts.Length - 1];
-
-					for (int i = 0; i < Args.Length; i++) {
-						Args[i] = Parts[i + 1];
+			foreach (var command in commands) {
+				if (command.Name.Equals(name) || command.ShortName.Equals(name)) {
+					var args = new string[parts.Length - 1];
+					
+					for (int i = 0; i < args.Length; i++) {
+						args[i] = parts[i + 1];
 					}
 
 					try {
-						Command.Run(this, Args);
+						command.Run(this, args);
 					} catch (Exception e) {
 						Log.Error(e);	
 					}
