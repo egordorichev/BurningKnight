@@ -138,7 +138,7 @@ namespace BurningKnight.level {
 		}
 		
 		public void CreateBody() {
-			if (components == null) {
+			if (Components == null) {
 				return;
 			}
 			
@@ -147,7 +147,7 @@ namespace BurningKnight.level {
 		}
 
 		public void CreateDestroyableBody() {
-			if (components == null) {
+			if (Components == null) {
 				return;
 			}
 			

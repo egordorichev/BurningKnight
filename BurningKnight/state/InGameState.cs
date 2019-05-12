@@ -13,8 +13,6 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
-using BurningKnight.ui.dialog;
-using BurningKnight.ui.str;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -27,8 +25,8 @@ using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
-using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
@@ -173,6 +171,8 @@ namespace BurningKnight.state {
 			} else {
 				Ui.Update(dt);
 			}
+
+			console.Update(dt);
 
 			foreach (var p in Area.Tags[Tags.LocalPlayer]) {
 				var controller = p.GetComponent<GamepadComponent>().Controller;
@@ -327,32 +327,6 @@ namespace BurningKnight.state {
 					Camera.Instance.PositionY += speed;
 				}
 			}
-
-			float s = dt * 10f;
-
-			if (Input.Keyboard.WasPressed(Keys.I)) {
-				Camera.Instance.TextureZoom -= s;
-			}
-			
-			if (Input.Keyboard.WasPressed(Keys.O)) {
-				Camera.Instance.TextureZoom = 1;
-			}
-			
-			if (Input.Keyboard.WasPressed(Keys.P)) {
-				Camera.Instance.TextureZoom += s;
-			}
-			
-			if (Input.Keyboard.WasPressed(Keys.J)) {
-				Camera.Instance.Zoom -= s;
-			}
-			
-			if (Input.Keyboard.WasPressed(Keys.K)) {
-				Camera.Instance.Zoom = 1;
-			}
-			
-			if (Input.Keyboard.WasPressed(Keys.L)) {
-				Camera.Instance.Zoom += s;
-			}
 		}
 
 		private void PrerenderShadows() {
@@ -425,6 +399,8 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private Console console;
+
 		private void SetupUi() {
 			Ui.Add(new Camera(new FollowingDriver()));
 			
@@ -439,7 +415,7 @@ namespace BurningKnight.state {
 			Camera.Instance.Follow(cursor, 1f);
 			Camera.Instance.Jump();
 
-			Ui.Add(new Console(Area));
+			console = new Console(Area);
 			Ui.Add(new UiInventory(player));
 			
 			Ui.Add(pauseMenu = new UiPane {
@@ -537,6 +513,21 @@ namespace BurningKnight.state {
 			}
 
 			return false;
+		}
+
+		public override void RenderNative() {
+			if (!console.Open) {
+				return;
+			}
+			
+			ImGuiHelper.Begin();
+			console.Render();
+			AreaDebug.Render(Area);
+			ImGuiHelper.End();
+			
+			Graphics.Batch.Begin();
+			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);
+			Graphics.Batch.End();
 		}
 	}
 }

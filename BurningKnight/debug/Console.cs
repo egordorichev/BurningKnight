@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity;
+using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -22,6 +23,8 @@ namespace BurningKnight.debug {
 		private string realGuess = "";
 		private bool open;
 
+		public bool Open => open;
+		
 		public Console(Area area) {
 			GameArea = area;
 			
@@ -96,70 +99,29 @@ namespace BurningKnight.debug {
 		}
 
 		public override void Update(float Dt) {
-			if (Input.WasPressed("enter", null, true)) {
-				var str = input;
-				input = "";
-				guess = "";
-				open = false;
-				Input.Blocked -= 1;
-
-				if (str.Length > 0) {
-					RunCommand(str);
-				}
-				
+			if (!open) {
 				return;
-			}
-
-			if (Input.WasPressed("console", null, true)) {
-				open = !open;
-				Input.Blocked += open ? 1 : -1;
-			}
-
-			if (Input.WasPressed("autocomplete", null, true) && realGuess.Length > 0) {
-				input = realGuess;
-				UpdateGuess();
-			}
-			
-			if (Input.WasPressed("delete", null, true) && input.Length > 0) {
-				input = input.Length == 1 ? "" : input.Substring(0, input.Length - 2);
-				UpdateGuess();
-			}
-			
-			for (var I = Lines.Count - 1; I >= 0; I--) {
-				var Line = Lines[I];
-				Line.Time += Dt;
-
-				if (Line.Time >= 5f) {
-					Lines.RemoveAt(I);
-				}
 			}
 		}
 
-		public void Print(string Str) {
-			Lines.Insert(0, new Line {Text = Str});
+		public void Print(string str) {
+			Lines.Insert(0, new Line {Text = str});
 		}
 
 		public override void Render() {
-			for (var I = 0; I < Lines.Count; I++) {
-				var Line = Lines[I];
-				Graphics.Print(Line.Text, Font.Small, new Vector2(2, 2 + Display.UiHeight - (I + (open ? 2 : 1)) * 10 - 4));
+			ImGui.Begin("Console");
+			
+			foreach (var t in Lines) {
+				ImGui.Text(t.Text);
 			}
 
-			if (open) {
-				if (guess.Length > 0) {
-					Graphics.Color = Color.Gray;
-					Graphics.Print("> " + guess, Font.Small, new Vector2(2, Display.UiHeight - 12));
-					Graphics.Color = Color.White;
-				}
-				
-				Graphics.Print($"> {input}|", Font.Small, new Vector2(2, Display.UiHeight - 12));
-			}
+			ImGui.End();
 		}
 
-		public void RunCommand(string Input) {
-			Input = Input.TrimEnd();	
+		public void RunCommand(string input) {
+			input = input.TrimEnd();	
 			
-			var Parts = Input.Split(null);
+			var Parts = input.Split(null);
 			var Name = Parts[0];
 
 			foreach (var Command in commands) {

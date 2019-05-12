@@ -80,6 +80,7 @@
     <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\ImGuiHelper.cs" />
     <Compile Include="assets\items\ItemData.cs" />
     <Compile Include="assets\items\Items.cs" />
     <Compile Include="assets\lighting\EntityLight.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="save\SaveableEntity.cs" />
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="state\AreaDebug.cs" />
     <Compile Include="state\EditorState.cs" />
     <Compile Include="state\InGameAudio.cs" />
     <Compile Include="state\InGameState.cs" />

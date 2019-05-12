@@ -1,6 +1,7 @@
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
@@ -100,6 +101,12 @@ namespace BurningKnight.entity.component {
 				item.PostInit();
 
 				Set(item);
+			}
+		}
+
+		public override void RenderDebug() {
+			if (Item != null) {
+				ImGui.Text($"Item: {Item.Id}");
 			}
 		}
 	}

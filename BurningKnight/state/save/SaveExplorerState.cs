@@ -1,8 +1,7 @@
-using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.save;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
-using Lens;
 using Lens.game;
 using Lens.graphics;
 using Lens.util.file;
@@ -12,21 +11,15 @@ using MonoGame.Extended;
 
 namespace BurningKnight.state.save {
 	public class SaveExplorerState : GameState {
-		private ImGuiRenderer renderer;
-
 		public override void Init() {
 			base.Init();
-			
-			renderer = new ImGuiRenderer(Engine.Instance);
-			renderer.RebuildFontAtlas();
-			
 			RefreshSaveDir();
 		}
 
 		public override void RenderNative() {
-			renderer.BeforeLayout(Engine.GameTime);
+			ImGuiHelper.Begin();
 			RenderGui();
-			renderer.AfterLayout();
+			ImGuiHelper.End();
 
 			Graphics.Batch.Begin();
 			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);

@@ -3,7 +3,7 @@ using ImGuiNET;
 using Lens.util.file;
 
 namespace BurningKnight.state.save {
-	public class GlobalInspector : SaveInspector {
+	public unsafe class GlobalInspector : SaveInspector {
 		public Dictionary<string, string> Values = new Dictionary<string, string>();
 
 		public override void Inspect(FileReader reader) {

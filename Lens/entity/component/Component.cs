@@ -1,6 +1,4 @@
-﻿using Lens.util.file;
-
-namespace Lens.entity.component {
+﻿namespace Lens.entity.component {
 	public class Component {
 		public Entity Entity;
 
@@ -26,6 +24,10 @@ namespace Lens.entity.component {
 
 		public T GetComponent<T>() where T : Component {
 			return Entity.GetComponent<T>();
+		}
+
+		public virtual void RenderDebug() {
+			
 		}
 	}
 }
