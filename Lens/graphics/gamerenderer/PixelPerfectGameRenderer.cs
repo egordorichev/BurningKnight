@@ -101,6 +101,8 @@ namespace Lens.graphics.gamerenderer {
 				}
 			}
 
+			Engine.Instance.State?.RenderNative();
+
 			Batcher2D.End();
 		}
 

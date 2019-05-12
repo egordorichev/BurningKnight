@@ -4,6 +4,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
 using BurningKnight.entity.editor;
 using BurningKnight.state;
+using BurningKnight.state.save;
 using BurningKnight.util;
 using Lens;
 using Lens.game;
@@ -13,7 +14,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public BK(int width, int height, bool fullscreen) : base(new LoadState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(new SaveExplorerState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 

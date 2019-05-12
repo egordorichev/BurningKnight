@@ -8,6 +8,12 @@ namespace BurningKnight.save {
 		public abstract void Save(Area area, FileWriter writer);
 		public abstract void Generate(Area area);
 
+		public readonly SaveType SaveType;
+		
+		public Saver(SaveType type) {
+			SaveType = type;
+		}
+		
 		public virtual FileHandle GetHandle() {
 			return new FileHandle(GetPath(SaveManager.SlotDir));
 		}

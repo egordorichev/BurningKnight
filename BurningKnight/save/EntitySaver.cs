@@ -71,5 +71,9 @@ namespace BurningKnight.save {
 				lastType = type;
 			}
 		}
+
+		protected EntitySaver(SaveType type) : base(type) {
+			
+		}
 	}
 }

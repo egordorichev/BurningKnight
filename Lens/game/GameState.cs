@@ -79,5 +79,9 @@ namespace Lens.game {
 
 			Engine.Instance.RenderUi();
 		}
+
+		public virtual void RenderNative() {
+			
+		}
 	}
 }

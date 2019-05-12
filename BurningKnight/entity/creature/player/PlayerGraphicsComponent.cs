@@ -73,7 +73,7 @@ namespace BurningKnight.entity.creature.player {
 			if (state.StateInstance is Player.GotState gs) {
 				var region = gs.Item.Region;
 				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + gs.Scale.X * 6f), 
-					(float) Math.Cos(gs.T * 8f) * 0.25f,  new Vector2(region.Center.X, region.Height), gs.Scale);
+					0,  new Vector2(region.Center.X, region.Height), gs.Scale);
 			}
 
 			if (true) {

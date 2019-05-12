@@ -98,7 +98,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class GotState : EntityState {
-			private const float Delay = 1.3f;
+			private const float Delay = 1f;
 			
 			private bool tweened;
 			public Item Item;

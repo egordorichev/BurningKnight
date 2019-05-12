@@ -86,5 +86,9 @@ namespace BurningKnight.save {
 		public override FileHandle GetHandle() {
 			return new FileHandle(GetPath(SaveManager.SaveDir));
 		}
+
+		public GlobalSave() : base(SaveType.Global) {
+			
+		}
 	}
 }
