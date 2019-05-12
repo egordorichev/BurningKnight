@@ -13,13 +13,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.debug {
-	public unsafe class Console : Entity {
+	public unsafe class Console {
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 300);
+		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
+		private static System.Numerics.Vector4 color = new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f);
+		
+		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private List<ConsoleCommand> commands = new List<ConsoleCommand>();
+		private string input = "";
+
 		public List<string> Lines = new List<string>();
 		public Area GameArea;
 		public bool Open;
-
-		private List<ConsoleCommand> commands = new List<ConsoleCommand>();
-		private string input = "";
 		
 		public Console(Area area) {
 			GameArea = area;
@@ -37,11 +42,6 @@ namespace BurningKnight.debug {
 			commands.Add(new BiomeCommand());
 			commands.Add(new ExploreCommand());
 			commands.Add(new PassableCommand());
-
-			AlwaysActive = true;
-			AlwaysVisible = true;
-
-			Depth = Layers.Console;
 		}
 
 		public void AddCommand(ConsoleCommand command) {
@@ -51,11 +51,15 @@ namespace BurningKnight.debug {
 		public void Print(string str) {
 			Lines.Add(str);
 		}
+
+		public void Update(float dt) {
+			if (Input.Keyboard.WasPressed(Keys.F1)) {
+				Open = !Open;
+			}
+		}
 		
-		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
-
-
-		public override void Render() {
+		public void Render() {
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			ImGui.Begin("Console");
 
 			if (ImGui.Button("Clear")) {
@@ -69,7 +73,7 @@ namespace BurningKnight.debug {
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
 			ImGui.BeginChild("ScrollingRegion", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
-			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new System.Numerics.Vector2(4, 1));
+			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);
 			
 			foreach (var t in Lines) {
 				if (filter.PassFilter(t)) {
@@ -77,7 +81,7 @@ namespace BurningKnight.debug {
 
 					if (t[0] == '>') {
 						popColor = true;
-						ImGui.PushStyleColor(ImGuiCol.Text, new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f));
+						ImGui.PushStyleColor(ImGuiCol.Text, color);
 					}
 					
 					ImGui.TextUnformatted(t);
@@ -92,9 +96,9 @@ namespace BurningKnight.debug {
 			ImGui.EndChild();
 			ImGui.Separator();
 
-			if (ImGui.InputText("Input", ref input, 128)) {
+			if (ImGui.InputText("Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				RunCommand(input);
-				input = null;
+				input = "";
 			}
 			
 			ImGui.End();
@@ -127,11 +131,6 @@ namespace BurningKnight.debug {
 			}
 
 			Print("Unknown command");
-		}
-
-		public class Line {
-			public string Text;
-			public float Time;
 		}
 	}
 }

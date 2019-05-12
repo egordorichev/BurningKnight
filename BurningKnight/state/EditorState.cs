@@ -45,5 +45,9 @@ namespace BurningKnight.state {
 				Engine.Instance.SetState(new LoadState());
 			}
 		}
+
+		public override void RenderNative() {
+			editor.RenderNative();
+		}
 	}
 }

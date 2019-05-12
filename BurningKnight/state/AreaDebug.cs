@@ -4,9 +4,12 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.state {
 	public static unsafe class AreaDebug {
+		private static Vector2 position = new Vector2(410, 0);
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 
 		public static void Render(Area area) {
+			ImGui.SetNextWindowCollapsed(true, ImGuiCond.Once);
+			ImGui.SetNextWindowPos(position, ImGuiCond.Once);
 			ImGui.Begin("Entities");
 			
 			ImGui.Text($"Total {area.Entities.Entities.Count} entries");

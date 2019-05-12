@@ -29,14 +29,15 @@ namespace BurningKnight.entity.editor {
 		public bool UseDepth;
 		public Vector2 CameraPosition;
 
+		private Console console;
+
 		public override void Init() {
 			base.Init();
 
+			console = new Console(Area);
+
 			AlwaysVisible = true;
 			AlwaysActive = true;
-
-			var console = new Console(Area);
-			Engine.Instance.State.Ui.Add(console);
 
 			console.AddCommand(new NewCommand(this));
 			console.AddCommand(new LoadCommand(this));
@@ -116,6 +117,10 @@ namespace BurningKnight.entity.editor {
 					Graphics.Batch.DrawRectangle(new RectangleF(x * 16, y * 16, 16, 16), new Color(1, 1, 1, 0.5f));
 				}
 			}
+		}
+
+		public void RenderNative() {
+			console.Render();
 		}
 	}
 }
