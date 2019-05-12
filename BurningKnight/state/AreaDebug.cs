@@ -4,7 +4,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.state {
 	public static unsafe class AreaDebug {
-		private static Vector2 position = new Vector2(410, 0);
+		private static Vector2 position = new Vector2(420, 10);
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 
 		public static void Render(Area area) {

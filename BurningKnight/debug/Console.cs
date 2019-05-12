@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Input;
 namespace BurningKnight.debug {
 	public unsafe class Console {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 300);
+		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 10);
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static System.Numerics.Vector4 color = new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f);
 		
@@ -55,10 +56,12 @@ namespace BurningKnight.debug {
 		public void Update(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.F1)) {
 				Open = !Open;
+				Input.Blocked += Open ? 1 : -1;
 			}
 		}
 		
 		public void Render() {
+			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			ImGui.Begin("Console");
 
@@ -69,8 +72,7 @@ namespace BurningKnight.debug {
 			filter.Draw();
 
 			ImGui.Separator();
-			
-			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
+			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 10;
 			ImGui.BeginChild("ScrollingRegion", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);
@@ -96,9 +98,18 @@ namespace BurningKnight.debug {
 			ImGui.EndChild();
 			ImGui.Separator();
 
+			var focus = false;
+
 			if (ImGui.InputText("Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				RunCommand(input);
 				input = "";
+				focus = true;
+			}
+			
+			ImGui.SetItemDefaultFocus();
+
+			if (focus) {
+				ImGui.SetKeyboardFocusHere(-1);
 			}
 			
 			ImGui.End();
