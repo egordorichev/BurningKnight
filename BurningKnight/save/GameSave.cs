@@ -33,5 +33,9 @@ namespace BurningKnight.save {
 			Run.Time = 0;
 			Run.Id = Math.Max(Run.Id, 0);
 		}
+
+		public GameSave() : base(SaveType.Game) {
+			
+		}
 	}
 }

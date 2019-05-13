@@ -7,6 +7,8 @@
 * Editor allow to place entities
 * Animate bullet death
 * Implement coins
+* Proper animation for gaining an item (for gobbo.ase obv)
+* When player uses active item, animate him using it (like in isaac)
 
 * Make general interact fx (animate same as item fx), give it to entrance, exit, etc
 * BK him self
@@ -25,7 +27,6 @@
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
-* When player uses active item, animate him using it (like in isaac)
 * ^^^^ same for picking up item
 
 * Figure out lamp mechanics, display it on player
@@ -85,7 +86,6 @@
 * In wall decor, like nuclear throne
 * Water / liquid shader still has a 2-3 frames of other liquid overlapping
 * Item pickup fx convert to -> "+ item name (count)"
-* Animate item going to inventory
 * Flash frame for guns
 * Make bullets fly out from the right place
 * Bullet shells

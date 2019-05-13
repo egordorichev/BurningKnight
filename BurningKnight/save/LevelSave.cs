@@ -93,5 +93,9 @@ namespace BurningKnight.save {
 				file.Delete();
 			}
 		}
+
+		public LevelSave() : base(SaveType.Level) {
+			
+		}
 	}
 }

@@ -76,6 +76,10 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void KnockbackFrom(Entity entity, float force = 1f, float rnd = 0) {
+			if (entity == null) {
+				return;
+			}
+			
 			KnockbackFrom(entity.Center, force);
 		}
 

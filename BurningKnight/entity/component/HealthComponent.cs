@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
@@ -137,6 +138,33 @@ namespace BurningKnight.entity.component {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			health = stream.ReadInt32();
+		}
+
+		public override void RenderDebug() {
+			var hp = health;
+			
+			if (ImGui.DragInt("Health", ref hp, 1, 0, maxHealth)) {
+				health = hp;
+			}
+
+			ImGui.InputInt("Max health", ref maxHealth);
+			ImGui.Checkbox("Unhittable", ref Unhittable);
+
+			if (ImGui.Button("Heal")) {
+				ModifyHealth(maxHealth - health, null);
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Hurt")) {
+				ModifyHealth(-1, null);
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Kill")) {
+				ModifyHealth(health, null);
+			}
 		}
 	}
 }

@@ -28,5 +28,9 @@ namespace BurningKnight.save {
 			//var bk = new entity.creature.BurningKnight();
 			//area.Add(bk);
 		}
+
+		public PlayerSave() : base(SaveType.Player) {
+			
+		}
 	}
 }

@@ -23,23 +23,24 @@ namespace BurningKnight.entity.editor {
 		public Camera Camera;
 		public Level Level;
 		public TileSelect TileSelect;
+		public Console Console;
+		public EntitySelectWindow EntitySelectWindow;
+		
 		public bool ShowPanes = true;
 
-		public int Depth;
 		public bool UseDepth;
 		public Vector2 CameraPosition;
 
 		public override void Init() {
 			base.Init();
 
+			Console = new Console(Area);
+
 			AlwaysVisible = true;
 			AlwaysActive = true;
 
-			var console = new Console(Area);
-			Engine.Instance.State.Ui.Add(console);
-
-			console.AddCommand(new NewCommand(this));
-			console.AddCommand(new LoadCommand(this));
+			Console.AddCommand(new NewCommand(this));
+			Console.AddCommand(new LoadCommand(this));
 			
 			Commands = new CommandQueue {
 				Editor = this
@@ -48,8 +49,6 @@ namespace BurningKnight.entity.editor {
 			Engine.Instance.State.Ui.Add(Cursor = new EditorCursor {
 				Editor = this
 			});
-			
-			Cursor.SetEntity("entity.creature.npc.OldMan");
 			
 			Engine.Instance.State.Ui.Add(Camera = new Camera(new CameraDriver()) {
 				Position = CameraPosition
@@ -73,6 +72,7 @@ namespace BurningKnight.entity.editor {
 			});
 
 			Depth = Layers.InGameUi;
+			EntitySelectWindow = new EntitySelectWindow(this);
 		}
 
 		private void OnClick(Vector2 pos) {
@@ -116,6 +116,11 @@ namespace BurningKnight.entity.editor {
 					Graphics.Batch.DrawRectangle(new RectangleF(x * 16, y * 16, 16, 16), new Color(1, 1, 1, 0.5f));
 				}
 			}
+		}
+
+		public void RenderNative() {
+			Console.Render();
+			EntitySelectWindow.Render();
 		}
 	}
 }

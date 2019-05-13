@@ -38,6 +38,10 @@
       <HintPath>..\packages\DiscordRichPresence.1.0.77\lib\net35\DiscordRPC.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ImGui.NET, Version=1.70.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\ImGui.NET.1.70.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Extended.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
@@ -46,6 +50,7 @@
       <HintPath>..\packages\MonoGame.Framework.Portable.3.7.0.1708\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -54,14 +59,28 @@
       <HintPath>..\packages\SharpFNT.1.1.0\lib\netstandard1.3\SharpFNT.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />
+    <Compile Include="assets\ImGuiHelper.cs" />
     <Compile Include="assets\items\ItemData.cs" />
     <Compile Include="assets\items\Items.cs" />
     <Compile Include="assets\lighting\EntityLight.cs" />
@@ -198,6 +217,7 @@
     <Compile Include="entity\editor\command\SetCommand.cs" />
     <Compile Include="entity\editor\Editor.cs" />
     <Compile Include="entity\editor\EditorCursor.cs" />
+    <Compile Include="entity\editor\EntitySelectWindow.cs" />
     <Compile Include="entity\editor\TileSelect.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
@@ -374,6 +394,7 @@
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="save\SecretSave.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="state\AreaDebug.cs" />
     <Compile Include="state\EditorState.cs" />
     <Compile Include="state\InGameAudio.cs" />
     <Compile Include="state\InGameState.cs" />
@@ -381,6 +402,15 @@
     <Compile Include="state\MenuState.cs" />
     <Compile Include="state\PicoState.cs" />
     <Compile Include="state\Run.cs" />
+    <Compile Include="state\save\EntityData.cs" />
+    <Compile Include="state\save\EntityInspector.cs" />
+    <Compile Include="state\save\GameInspector.cs" />
+    <Compile Include="state\save\GlobalInspector.cs" />
+    <Compile Include="state\save\SaveData.cs" />
+    <Compile Include="state\save\SaveExplorerState.cs" />
+    <Compile Include="state\save\SaveGroup.cs" />
+    <Compile Include="state\save\SaveInspector.cs" />
+    <Compile Include="state\save\SaveNode.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\dialog\ChoiceDialog.cs" />
     <Compile Include="ui\dialog\CombineDialog.cs" />
@@ -390,6 +420,8 @@
     <Compile Include="ui\dialog\UiDialog.cs" />
     <Compile Include="ui\FrameRenderer.cs" />
     <Compile Include="ui\HealthBar.cs" />
+    <Compile Include="ui\imgui\DrawVertDeclaration.cs" />
+    <Compile Include="ui\imgui\ImGuiRenderer.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
     <Compile Include="ui\str\effect\ColorEffect.cs" />
@@ -450,6 +482,13 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

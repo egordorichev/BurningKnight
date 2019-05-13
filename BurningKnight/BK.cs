@@ -16,6 +16,8 @@ namespace BurningKnight {
 		protected override void Initialize() {
 			base.Initialize();
 			
+			ImGuiHelper.Init();
+			
 			Controls.Bind();
 			
 			CommonAse.Load();

@@ -104,6 +104,27 @@ namespace BurningKnight.level {
 
 		public override void Init() {
 			base.Init();
+			
+			var s = BlendState.AlphaBlend;
+				
+			blend = new BlendState {
+				BlendFactor = s.BlendFactor,
+				AlphaDestinationBlend = s.AlphaDestinationBlend,
+				ColorDestinationBlend = s.ColorDestinationBlend,
+				ColorSourceBlend = s.ColorSourceBlend,
+				AlphaBlendFunction = s.AlphaBlendFunction,
+				ColorBlendFunction = s.ColorBlendFunction,
+					
+				AlphaSourceBlend = Blend.DestinationAlpha
+			};
+
+			messBlend = new BlendState {
+				ColorBlendFunction = BlendFunction.Add,
+				ColorSourceBlend = Blend.DestinationColor,
+				ColorDestinationBlend = Blend.Zero,
+					
+				AlphaSourceBlend = Blend.DestinationAlpha
+			};
 
 			Depth = Layers.Floor;
 			
@@ -124,7 +145,6 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
 			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
-			
 		}
 
 		public override void AddComponents() {
@@ -138,7 +158,7 @@ namespace BurningKnight.level {
 		}
 		
 		public void CreateBody() {
-			if (components == null) {
+			if (Components == null) {
 				return;
 			}
 			
@@ -147,7 +167,7 @@ namespace BurningKnight.level {
 		}
 
 		public void CreateDestroyableBody() {
-			if (components == null) {
+			if (Components == null) {
 				return;
 			}
 			
@@ -163,30 +183,6 @@ namespace BurningKnight.level {
 			if (!first) {
 				first = true;
 				CreatePassable();
-				
-				WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
-				MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
-				
-				var s = BlendState.AlphaBlend;
-				
-				blend = new BlendState {
-					BlendFactor = s.BlendFactor,
-					AlphaDestinationBlend = s.AlphaDestinationBlend,
-					ColorDestinationBlend = s.ColorDestinationBlend,
-					ColorSourceBlend = s.ColorSourceBlend,
-					AlphaBlendFunction = s.AlphaBlendFunction,
-					ColorBlendFunction = s.ColorBlendFunction,
-					
-					AlphaSourceBlend = Blend.DestinationAlpha
-				};
-
-				messBlend = new BlendState {
-					ColorBlendFunction = BlendFunction.Add,
-					ColorSourceBlend = Blend.DestinationColor,
-					ColorDestinationBlend = Blend.Zero,
-					
-					AlphaSourceBlend = Blend.DestinationAlpha
-				};
 			} else {
 				loadMarked = true;
 			}
@@ -326,6 +322,9 @@ namespace BurningKnight.level {
 			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
+
+			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
+			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
 		}
 
 		public bool CheckFlag(int x, int y, int i) {
@@ -925,6 +924,10 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderBlood() {
+			if (MessSurface == null) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 

@@ -64,8 +64,11 @@ namespace BurningKnight.save {
 			file.Directory?.Create();
 			
 			var stream = new FileWriter(file.FullName);
+
 			stream.WriteInt32(MagicNumber);
 			stream.WriteInt16(Version);
+			stream.WriteByte((byte) saveType);
+
 			ForType(saveType).Save(area, stream);
 			stream.Close();
 
@@ -109,6 +112,12 @@ namespace BurningKnight.save {
 				} else if (version < Version) {
 					// do something on it
 				}
+
+				if (stream.ReadByte() != (byte) saveType) {
+					Log.Error("Save file did not match it's loader type!");
+					Generate(area, saveType);
+					return;
+				}
 				
 				ForType(saveType).Load(area, stream);
 			}
@@ -129,7 +138,7 @@ namespace BurningKnight.save {
 			}
 			
 			ForType(saveType).Generate(area);
-			Save(area, saveType, false, null);
+			Save(area, saveType);
 		}
 
 		public static void Delete(params SaveType[] types) {

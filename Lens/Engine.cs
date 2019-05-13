@@ -27,6 +27,7 @@ namespace Lens {
 		public static Matrix UiMatrix;
 		public static float Time;
 		public static float Delta;
+		public static GameTime GameTime;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
@@ -120,6 +121,7 @@ namespace Lens {
 			base.Update(gameTime);
 			Audio.Update();
 
+			GameTime = gameTime;
 			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;
 
 			Delta = dt;

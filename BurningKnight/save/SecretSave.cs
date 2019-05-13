@@ -50,5 +50,9 @@ namespace BurningKnight.save {
 			DeletedSave = false;
 			WasATester = Engine.Version.Debug;
 		}
+
+		public SecretSave() : base(SaveType.Secret) {
+		
+		}
 	}
 }

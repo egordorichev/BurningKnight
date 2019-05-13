@@ -139,16 +139,16 @@ namespace Lens.entity {
 		#region Entity logic
 
 		public GraphicsComponent GraphicsComponent;
-		protected Dictionary<Type, Component> components;
+		public Dictionary<Type, Component> Components;
 		
 		public virtual void Init() {
-			if (components == null) {
+			if (Components == null) {
 				AddComponents();
 			}
 		}
 
 		public virtual void AddComponents() {
-			components = new Dictionary<Type, Component>();
+			Components = new Dictionary<Type, Component>();
 		}
 
 		public virtual void PostInit() {
@@ -156,19 +156,19 @@ namespace Lens.entity {
 		}
 		
 		public virtual void Destroy() {
-			foreach (var component in components.Values) {
+			foreach (var component in Components.Values) {
 				component.Destroy();
 			}
 		}
 		
 		public virtual void Update(float dt) {
-			foreach (var component in components.Values) {
+			foreach (var component in Components.Values) {
 				component.Update(dt);
 			}
 		}
 		
 		public virtual bool HandleEvent(Event e) {
-			foreach (var component in components.Values) {
+			foreach (var component in Components.Values) {
 				if (component.HandleEvent(e)) {
 					return true;
 				}
@@ -197,7 +197,7 @@ namespace Lens.entity {
 				GraphicsComponent = g;
 			}
 			
-			components[component.GetType()] = component;
+			Components[component.GetType()] = component;
 
 			component.Entity = this;
 			component.Init();
@@ -206,9 +206,9 @@ namespace Lens.entity {
 		public void RemoveComponent<T>() {
 			var type = typeof(T);
 			
-			if (components.TryGetValue(type, out var component)) {
+			if (Components.TryGetValue(type, out var component)) {
 				component.Destroy();
-				components.Remove(type);
+				Components.Remove(type);
 			}
 		}
 
@@ -221,13 +221,13 @@ namespace Lens.entity {
 		}
 				
 		public T GetComponent<T>() where T : Component {
-			return (T) components[typeof(T)];
+			return (T) Components[typeof(T)];
 		}
 		
 		public T GetAnyComponent<T>() where T : Component {
 			var type = typeof(T);
 
-			foreach (var component in components.Values) {
+			foreach (var component in Components.Values) {
 				var t = component.GetType();
 				
 				if (t == type || t.IsSubclassOf(type)) {
@@ -239,14 +239,14 @@ namespace Lens.entity {
 		}
 
 		public bool HasComponent(Type type) {
-			return components.ContainsKey(type);
+			return Components.ContainsKey(type);
 		}
 
 		public bool HasComponent<T>() {
-			return components.ContainsKey(typeof(T));
+			return Components.ContainsKey(typeof(T));
 		}
 		public bool TryGetComponent<T>(out T t) where T : Component {
-			if (components.TryGetValue(typeof(T), out var tmp)) {
+			if (Components.TryGetValue(typeof(T), out var tmp)) {
 				t = (T) tmp;
 				return true;
 			}
