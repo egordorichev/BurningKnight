@@ -1,4 +1,5 @@
 using BurningKnight.ui.imgui;
+using ImGuiNET;
 using Lens;
 
 namespace BurningKnight.assets {

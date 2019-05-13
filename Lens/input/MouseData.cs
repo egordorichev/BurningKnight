@@ -1,4 +1,5 @@
 ﻿using System;
+using ImGuiNET;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -8,6 +9,8 @@ namespace Lens.input {
 		public MouseState PreviousState;
 		public MouseState CurrentState;
 
+		private bool blockedByGui;
+		
 		public MouseData() {
 			PreviousState = new MouseState();
 			CurrentState = new MouseState();
@@ -16,11 +19,17 @@ namespace Lens.input {
 		internal void Update() {
 			PreviousState = CurrentState;
 			CurrentState = Mouse.GetState();
+
+			blockedByGui = ImGui.GetIO().WantCaptureMouse;
 		}
 
 		#region Buttons
 
 		public bool Check(MouseButtons button, Input.CheckType type) {
+			if (blockedByGui) {
+				return false;
+			}
+			
 			switch (type) {
 				case Input.CheckType.PRESSED: {
 					switch (button) {
@@ -85,7 +94,10 @@ namespace Lens.input {
 			|| CurrentState.Y != PreviousState.Y;
 		
 		public Vector2 PositionDelta => 
-			Vector2.Transform(new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y), Matrix.Invert(Engine.ScreenMatrix));
+			Vector2.Transform(RawPositionDelta, Matrix.Invert(Engine.ScreenMatrix));
+		
+		public Vector2 RawPositionDelta => 
+			new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y);
 
 		public float X {
 			get { return Position.X; }

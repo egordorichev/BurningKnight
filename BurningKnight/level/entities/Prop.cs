@@ -1,10 +1,11 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.editor;
 using BurningKnight.save;
 using Lens.entity.component.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.level.entities {
-	public class Prop : SaveableEntity {
+	public class Prop : SaveableEntity, PlaceableEntity {
 		public string Sprite;
 		
 		public Prop(string slice = null, int depth = 0) {

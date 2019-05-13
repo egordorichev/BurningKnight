@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
@@ -16,7 +17,7 @@ using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.chest {
-	public class Chest : SaveableEntity {
+	public class Chest : SaveableEntity, PlaceableEntity {
 		public bool IsOpen { get; private set; }
 		protected List<Item> items = new List<Item>();
 

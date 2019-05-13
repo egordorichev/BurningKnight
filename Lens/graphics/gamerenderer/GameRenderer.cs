@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.gamerenderer {
 	public class GameRenderer {
+		public RenderTarget2D GameTarget;
+		public RenderTarget2D UiTarget;
+		
 		public SpriteSortMode SpriteSortMode = SpriteSortMode.Immediate;
 		public BlendState BlendState = BlendState.NonPremultiplied;
 		public SamplerState SamplerState = SamplerState.PointClamp;

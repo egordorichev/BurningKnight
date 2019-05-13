@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
 using BurningKnight.save;
@@ -12,7 +13,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
-	public class Door : SaveableEntity {
+	public class Door : SaveableEntity, PlaceableEntity {
 		private const float W = 16;
 		private const float H = 6;
 		private const float CloseTimer = 1f;

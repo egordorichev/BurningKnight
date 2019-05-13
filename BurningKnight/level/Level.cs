@@ -382,7 +382,6 @@ namespace BurningKnight.level {
 			}
 			
 			var camera = Camera.Instance;
-			var paused = Engine.Instance.State.Paused;
 			
 			// Cache the condition
 			var toX = GetRenderRight(camera);
@@ -419,7 +418,7 @@ namespace BurningKnight.level {
 				}
 			}
 
-			Shaders.End();
+			Shaders.End(); 
 		}
 
 		public void RenderShadows() {
@@ -449,7 +448,7 @@ namespace BurningKnight.level {
 
 		public void RenderMess() {
 			var camera = Camera.Instance;
-			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			var state = Engine.Instance.StateRenderer;
 			state.End();
 
 			Engine.GraphicsDevice.SetRenderTarget(MessSurface);
@@ -738,11 +737,11 @@ namespace BurningKnight.level {
 				return;
 			}
 			
-			if (Engine.Instance.State is InGameState) {
+			if (Engine.Instance.State is InGameState && Engine.Instance.StateRenderer.UiTarget != null) {
 				Graphics.Color = ShadowColor;
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 
-				Graphics.Render(((PixelPerfectGameRenderer) Engine.Instance.StateRenderer).UiTarget,
+				Graphics.Render(Engine.Instance.StateRenderer.UiTarget,
 					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
 						Camera.Instance.Position.Y % 1 - shake.Position.Y));
 
@@ -752,7 +751,7 @@ namespace BurningKnight.level {
 
 		public void RenderWalls() {
 			var camera = Camera.Instance;
-			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			var state = Engine.Instance.StateRenderer;
 			state.End();
 
 			Engine.GraphicsDevice.SetRenderTarget(WallSurface);

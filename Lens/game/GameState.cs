@@ -83,5 +83,9 @@ namespace Lens.game {
 		public virtual void RenderNative() {
 			
 		}
+
+		public virtual bool NativeRender() {
+			return false;
+		}
 	}
 }

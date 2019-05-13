@@ -11,6 +11,7 @@
     <AssemblyName>BurningKnight</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -217,7 +218,9 @@
     <Compile Include="entity\editor\command\SetCommand.cs" />
     <Compile Include="entity\editor\Editor.cs" />
     <Compile Include="entity\editor\EditorCursor.cs" />
-    <Compile Include="entity\editor\EntitySelectWindow.cs" />
+    <Compile Include="entity\editor\PlaceableEntity.cs" />
+    <Compile Include="entity\editor\SettingsWindow.cs" />
+    <Compile Include="entity\editor\TileInfo.cs" />
     <Compile Include="entity\editor\TileSelect.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />

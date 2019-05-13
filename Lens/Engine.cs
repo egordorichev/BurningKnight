@@ -146,6 +146,7 @@ namespace Lens {
 					State?.Init();
 
 					newState = null;
+					UpdateView();
 				}
 
 				Assets.Update(FixedUpdateTime);
@@ -204,22 +205,31 @@ namespace Lens {
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;
 			Graphics.ApplyChanges();
 
-			Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
-			UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
-
-			Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
-			Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;
-
-			float viewWidth;
-			
-			if (screenWidth / Display.Width > screenHeight / Display.Height) {
-				viewWidth = screenHeight / Display.Height * Display.Width;
+			if (State?.NativeRender() ?? false) {
+				Upscale = 1;
+				UiUpscale = 1;
+				Viewport.X = 0;
+				Viewport.Y = 0;
+				
+				ScreenMatrix = Matrix.Identity;
+				UiMatrix = Matrix.Identity;
 			} else {
-				viewWidth = screenWidth;
-			}
+				Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
+				UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
+				Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
+				Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;	
+
+				float viewWidth;
 			
-			ScreenMatrix = Matrix.CreateScale(Upscale) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
-			UiMatrix = Matrix.CreateScale(viewWidth / Display.UiWidth) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+				if (screenWidth / Display.Width > screenHeight / Display.Height) {
+					viewWidth = screenHeight / Display.Height * Display.Width;
+				} else {
+					viewWidth = screenWidth;
+				}
+			
+				ScreenMatrix = Matrix.CreateScale(Upscale) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+				UiMatrix = Matrix.CreateScale(viewWidth / Display.UiWidth) * Matrix.CreateTranslation(Viewport.X, Viewport.Y, 0);
+			}
 			
 			StateRenderer?.Resize((int) screenWidth, (int) screenHeight);
 		}

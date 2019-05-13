@@ -58,7 +58,11 @@ namespace BurningKnight.state.save {
 		}
 
 		private void RenderGui() {
-			ImGui.Begin("Save Files");
+			if (!ImGui.Begin("Save files")) {
+				ImGui.End();
+				return;
+			}
+			
 			ImGui.Text($"Save directory: \"{SaveManager.SaveDir}\"");
 			
 			ImGui.Text($"Exists: {saveDir.Exists()}");

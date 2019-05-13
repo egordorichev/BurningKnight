@@ -63,7 +63,11 @@ namespace BurningKnight.debug {
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
-			ImGui.Begin("Console");
+			
+			if (!ImGui.Begin("Console")) {
+				ImGui.End();
+				return;
+			}
 
 			if (ImGui.Button("Clear")) {
 				Lines.Clear();

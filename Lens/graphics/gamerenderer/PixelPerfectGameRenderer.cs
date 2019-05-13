@@ -7,8 +7,6 @@ using SharpDX.Direct2D1.Effects;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
-		public RenderTarget2D GameTarget;
-		public RenderTarget2D UiTarget;
 		public Batcher2D Batcher2D;
 
 		private Matrix One = Matrix.Identity;

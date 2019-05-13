@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;

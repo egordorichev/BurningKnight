@@ -11,13 +11,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.editor {
 	public class EditorCursor : Cursor {
-		public enum Mode {
-			Normal,
-			Drag,
-			Fill,
-			Entity,
-			Select
-		}
+		public const int Normal = 0;
+		public const int Fill = 1;
+		public const int Drag = 2;
+		public const int Entity = 3;
 		
 		private TextureRegion hand;
 		private TextureRegion normal;
@@ -25,8 +22,8 @@ namespace BurningKnight.entity.editor {
 		private Entity entity;
 		private string entityType;
 
-		public Mode CurrentMode = Mode.Entity;
-		public bool Drag;
+		public int CurrentMode;
+		public bool Draggging;
 		public Editor Editor;
 		
 		public override void Init() {
@@ -51,34 +48,33 @@ namespace BurningKnight.entity.editor {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			Drag = Input.Keyboard.IsDown(Keys.Space);
+			Draggging = Input.Keyboard.IsDown(Keys.Space);
 
-			if (Drag && Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved) {
-				// fixme: delta doesnt count screen upscale
-				Camera.Instance.Position -= Input.Mouse.PositionDelta;
+			if ((Draggging || CurrentMode == Drag) && Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved) {
+				Camera.Instance.Position -= Input.Mouse.RawPositionDelta;
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.F) || Input.Keyboard.WasPressed(Keys.G)) {
-				CurrentMode = Mode.Fill;
+				CurrentMode = Fill;
 			}
-			
+
 			if (Input.Keyboard.WasPressed(Keys.N) || Input.Keyboard.WasPressed(Keys.B)) {
-				CurrentMode = Mode.Normal;
+				CurrentMode = Normal;
 			}
-			
+
 			if (Input.Keyboard.WasPressed(Keys.E)) {
-				CurrentMode = Mode.Entity;
+				CurrentMode = Entity;
 			}
-			
-			if (CurrentMode == Mode.Entity) {
+
+			if (CurrentMode == Entity) {
 				var mouse = Input.Mouse.GamePosition;
 
-				if (Editor.EntitySelectWindow.SnapToGrid) {
+				if (Editor.SettingsWindow.SnapToGrid) {
 					mouse.X = (float) (Math.Floor(mouse.X / 16) * 16);
 					mouse.Y = (float) (Math.Floor(mouse.Y / 16) * 16);
 				}
 				
-				if (Editor.EntitySelectWindow.Center) {
+				if (Editor.SettingsWindow.Center) {
 					entity.Center = mouse;
 				} else {
 					entity.Position = mouse;
@@ -87,25 +83,24 @@ namespace BurningKnight.entity.editor {
 		}
 
 		public void OnClick(Vector2 pos) {
-			if (Drag) {
+			if (Draggging || CurrentMode == Drag) {
 				return;
 			}
-			
-			var tile = Editor.TileSelect.Current;
+
+			var tile = Editor.SettingsWindow.CurrentTile;
 			var x = (int) Math.Floor(pos.X / 16);
 			var y = (int) Math.Floor(pos.Y / 16);
 
-			// fixme: check if imgui handled the click
 			if (!Editor.Level.IsInside(x, y)) {
 				return;
 			}
 			
-			if (CurrentMode == Mode.Entity) {
+			if (CurrentMode == Entity) {
 				entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
 				return;
 			}
 			
-			if (CurrentMode == Mode.Normal) {
+			if (CurrentMode == Normal) {
 				if (Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
 					Editor.Commands.Do(new SetCommand {
 						X = x,
@@ -113,7 +108,7 @@ namespace BurningKnight.entity.editor {
 						Tile = tile
 					});
 				}
-			} else if (CurrentMode == Mode.Fill) {
+			} else if (CurrentMode == Fill) {
 				if (Editor.Level.Get(x, y, tile.Matches(TileFlags.LiquidLayer)) != tile) {
 					Editor.Commands.Do(new FillCommand {
 						X = x,
@@ -125,11 +120,11 @@ namespace BurningKnight.entity.editor {
 		}
 
 		public override void Render() {
-			if (CurrentMode == Mode.Entity) {
+			if (CurrentMode == Entity) {
 				return;
 			}
 			
-			Region = CurrentMode == Mode.Drag || Drag ? hand : (CurrentMode == Mode.Fill ? fill : normal);
+			Region = CurrentMode == Drag || Draggging ? hand : (CurrentMode == Fill ? fill : normal);
 			base.Render();
 		}
 	}

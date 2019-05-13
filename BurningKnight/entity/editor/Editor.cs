@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.debug;
 using BurningKnight.entity.editor.command;
 using BurningKnight.level;
@@ -6,6 +7,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
+using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -22,15 +24,14 @@ namespace BurningKnight.entity.editor {
 		public CommandQueue Commands;
 		public Camera Camera;
 		public Level Level;
-		public TileSelect TileSelect;
 		public Console Console;
-		public EntitySelectWindow EntitySelectWindow;
+		public SettingsWindow SettingsWindow;
 		
 		public bool ShowPanes = true;
 
 		public bool UseDepth;
 		public Vector2 CameraPosition;
-
+		
 		public override void Init() {
 			base.Init();
 
@@ -62,35 +63,31 @@ namespace BurningKnight.entity.editor {
 					Width = 32, Height = 32
 				});
 
+				Level.DrawLight = false;
 				Level.Setup();
 				Level.Fill(Tile.FloorA);
 				Level.TileUp();
 			}
 
-			Engine.Instance.State.Ui.Add(TileSelect = new TileSelect {
-				Editor = this
-			});
-
 			Depth = Layers.InGameUi;
-			EntitySelectWindow = new EntitySelectWindow(this);
+			SettingsWindow = new SettingsWindow(this);
 		}
 
 		private void OnClick(Vector2 pos) {
-			if (TileSelect.OnClick(pos)) {
-				return;
-			}
-			
 			Cursor.OnClick(pos);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			Camera.Width = Engine.GraphicsDevice.PresentationParameters.BackBufferWidth;
+			Camera.Height = Engine.GraphicsDevice.PresentationParameters.BackBufferHeight;
+
 			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
 				if (Input.Keyboard.WasPressed(Keys.Z)) {
 					Commands.Undo();
 				}
-				
+
 				if (Input.Keyboard.WasPressed(Keys.Y)) {
 					Commands.Redo();
 				}
@@ -99,7 +96,7 @@ namespace BurningKnight.entity.editor {
 			if (Input.Mouse.WasPressedLeftButton || (Input.Mouse.CheckLeftButton && Input.Mouse.WasMoved)) {
 				OnClick(Input.Mouse.GamePosition);
 			}
-			
+
 			if (Engine.Version.Debug) {
 				Tilesets.Update();
 			}
@@ -108,7 +105,9 @@ namespace BurningKnight.entity.editor {
 		public override void Render() {
 			base.Render();
 
-			if (Cursor.CurrentMode != EditorCursor.Mode.Drag) {
+			Graphics.Batch.DrawRectangle(new RectangleF(-1, -1, Level.Width * 16 + 2, Level.Height * 16 + 2), new Color(0, 1, 1, 1f));
+			
+			if (Cursor.CurrentMode != EditorCursor.Drag) {
 				var x = (int) Math.Floor(Input.Mouse.GamePosition.X / 16); 
 				var y = (int) Math.Floor(Input.Mouse.GamePosition.Y / 16);
 
@@ -120,7 +119,7 @@ namespace BurningKnight.entity.editor {
 
 		public void RenderNative() {
 			Console.Render();
-			EntitySelectWindow.Render();
+			SettingsWindow.Render();
 		}
 	}
 }

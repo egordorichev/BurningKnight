@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
@@ -12,7 +13,7 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature {
-	public class Creature : SaveableEntity, CollisionFilterEntity {
+	public class Creature : SaveableEntity, CollisionFilterEntity, PlaceableEntity {
 		public bool Flying;
 		
 		public override void AddComponents() {

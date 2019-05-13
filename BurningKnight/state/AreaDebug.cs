@@ -10,7 +10,11 @@ namespace BurningKnight.state {
 		public static void Render(Area area) {
 			ImGui.SetNextWindowCollapsed(true, ImGuiCond.Once);
 			ImGui.SetNextWindowPos(position, ImGuiCond.Once);
-			ImGui.Begin("Entities");
+
+			if (!ImGui.Begin("Entities")) {
+				ImGui.End();
+				return;
+			}			
 			
 			ImGui.Text($"Total {area.Entities.Entities.Count} entries");
 			filter.Draw();

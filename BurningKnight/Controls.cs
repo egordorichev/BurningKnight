@@ -53,9 +53,6 @@ namespace BurningKnight {
 			Input.Bind(UiAccept, MouseButtons.Left);
 			
 			Input.Bind("console", Keys.F1);
-			Input.Bind("enter", Keys.Enter);
-			Input.Bind("delete", Keys.Back);
-			Input.Bind("autocomplete", Keys.Tab);
 			
 			Input.Bind(Mute, Keys.M);
 			Input.Bind(Fullscreen, Keys.F11, Keys.F);

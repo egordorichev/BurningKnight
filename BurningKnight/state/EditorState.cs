@@ -1,13 +1,11 @@
 using BurningKnight.assets;
-using BurningKnight.debug;
 using BurningKnight.entity.editor;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
-using BurningKnight.save;
-using ImGuiNET;
 using Lens;
 using Lens.game;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -24,6 +22,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 			
+			Engine.Instance.StateRenderer = new NativeGameRenderer();
+
 			Physics.Init();
 			Tilesets.Load();
 			
@@ -41,6 +41,8 @@ namespace BurningKnight.state {
 			
 			base.Destroy();
 			Physics.Destroy();
+			
+			Engine.Instance.StateRenderer = new PixelPerfectGameRenderer();
 		}
 
 		public override void Update(float dt) {
@@ -59,6 +61,10 @@ namespace BurningKnight.state {
 			Graphics.Batch.Begin();
 			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);
 			Graphics.Batch.End();
+		}
+
+		public override bool NativeRender() {
+			return true;
 		}
 	}
 }
