@@ -217,6 +217,7 @@
     <Compile Include="entity\editor\command\SetCommand.cs" />
     <Compile Include="entity\editor\Editor.cs" />
     <Compile Include="entity\editor\EditorCursor.cs" />
+    <Compile Include="entity\editor\EntitySelectWindow.cs" />
     <Compile Include="entity\editor\TileSelect.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />

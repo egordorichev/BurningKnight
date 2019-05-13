@@ -1,6 +1,5 @@
 using BurningKnight.assets;
 using BurningKnight.save;
-using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens.game;
 using Lens.graphics;

@@ -25,7 +25,7 @@ namespace BurningKnight.entity.editor {
 		private Entity entity;
 		private string entityType;
 
-		public Mode CurrentMode = Mode.Normal;
+		public Mode CurrentMode = Mode.Entity;
 		public bool Drag;
 		public Editor Editor;
 		
@@ -37,11 +37,15 @@ namespace BurningKnight.entity.editor {
 			fill = CommonAse.Ui.GetSlice("editor_bucket");
 		}
 
-		public void SetEntity(string type) {
-			entityType = $"BurningKnight.{type}";
-			entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
+		public void SetEntity(Type type) {
+			if (entity != null) {
+				entity.Done = true;
+			}
+			
+			entityType = type.FullName;
+			entity = (Entity) Activator.CreateInstance(type);
 
-			Area.Add(entity);
+			Editor.Area.Add(entity);
 		}
 
 		public override void Update(float dt) {
@@ -62,8 +66,23 @@ namespace BurningKnight.entity.editor {
 				CurrentMode = Mode.Normal;
 			}
 			
+			if (Input.Keyboard.WasPressed(Keys.E)) {
+				CurrentMode = Mode.Entity;
+			}
+			
 			if (CurrentMode == Mode.Entity) {
-				entity.Center = Input.Mouse.GamePosition;
+				var mouse = Input.Mouse.GamePosition;
+
+				if (Editor.EntitySelectWindow.SnapToGrid) {
+					mouse.X = (float) (Math.Floor(mouse.X / 16) * 16);
+					mouse.Y = (float) (Math.Floor(mouse.Y / 16) * 16);
+				}
+				
+				if (Editor.EntitySelectWindow.Center) {
+					entity.Center = mouse;
+				} else {
+					entity.Position = mouse;
+				}
 			}
 		}
 
@@ -72,16 +91,17 @@ namespace BurningKnight.entity.editor {
 				return;
 			}
 			
-			if (CurrentMode == Mode.Entity) {
-				entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
-				return;
-			}
-			
 			var tile = Editor.TileSelect.Current;
 			var x = (int) Math.Floor(pos.X / 16);
 			var y = (int) Math.Floor(pos.Y / 16);
 
+			// fixme: check if imgui handled the click
 			if (!Editor.Level.IsInside(x, y)) {
+				return;
+			}
+			
+			if (CurrentMode == Mode.Entity) {
+				entity = (Entity) Activator.CreateInstance(Type.GetType(entityType, true, false));
 				return;
 			}
 			
