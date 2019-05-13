@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BurningKnight.assets;
-using BurningKnight.entity.chest;
-using BurningKnight.entity.creature.npc;
 using BurningKnight.level.tile;
 using ImGuiNET;
 using Lens.assets;
-using Lens.entity;
 using Microsoft.Xna.Framework.Graphics;
 using Num = System.Numerics;
 
 namespace BurningKnight.entity.editor {
 	public unsafe class SettingsWindow {
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 300);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 300);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
 		private static List<Type> types = new List<Type>();
 		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
@@ -52,7 +49,25 @@ namespace BurningKnight.entity.editor {
 			
 			DefineTile(Tile.WallA, 128, 0);
 			DefineTile(Tile.WallB, 144, 0);
+			DefineTile(Tile.Planks, 352, 144, true);
 			DefineTile(Tile.Crack, 128, 48);
+			DefineTile(Tile.FloorA, 0, 80);
+			DefineTile(Tile.FloorB, 64, 80);
+			DefineTile(Tile.FloorC, 0, 160);
+			DefineTile(Tile.FloorD, 64, 160);
+			DefineTile(Tile.Water, 64, 240, true);
+			DefineTile(Tile.Ice, 192, 112, true);
+			DefineTile(Tile.Lava, 64, 112, true);
+			DefineTile(Tile.Venom, 64, 304, true);
+			DefineTile(Tile.Obsidian, 64, 176, true);
+			DefineTile(Tile.Dirt, 64, 48, true);
+			DefineTile(Tile.Grass, 192, 48, true);
+			DefineTile(Tile.HighGrass, 336, 0, true);
+			DefineTile(Tile.Cobweb, 192, 240, true);
+			DefineTile(Tile.Ember, 144, 160, true);
+
+			CurrentInfo = infos[0];
+			CurrentTile = CurrentInfo.Tile;
 		}
 
 		private void DefineTile(Tile tile, int x, int y, bool biome = false) {
@@ -70,11 +85,13 @@ namespace BurningKnight.entity.editor {
 		private int currentMode;
 		private int dragMode = EditorCursor.Drag;
 
-		public Tile CurrentTile = Tile.WallA;
+		public Tile CurrentTile;
+		public TileInfo CurrentInfo;
 
 		private static Num.Vector2 tileSize = new Num.Vector2(32f);
 		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
 		private static Num.Vector4 tintColor = new Num.Vector4(1f);
+		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 		
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
@@ -97,24 +114,44 @@ namespace BurningKnight.entity.editor {
 
 			if (currentMode == 0) { // Tiles
 				ImGui.Combo("Cursor", ref (Editor.Cursor.Draggging ? ref dragMode : ref Editor.Cursor.CurrentMode), cursorModes, cursorModes.Length);
-				ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0));
+				ImGui.Separator();
+
+				var cur = CurrentInfo;
 				
+				ImGui.ImageButton(cur.Texture, tileSize, cur.Uv0, cur.Uv1, 4, bg, tintColor);
+				ImGui.SameLine();
+				ImGui.Text(CurrentInfo.Tile.ToString());
+
+				if (CurrentInfo.Tile.Matches(TileFlags.LiquidLayer)) {
+					ImGui.SameLine();
+					ImGui.Text("Liquid");
+				} else if (CurrentInfo.Tile.Matches(TileFlags.WallLayer)) {
+					ImGui.SameLine();
+					ImGui.Text("Wall");
+				}
+
+				if (CurrentInfo.Tile.Matches(TileFlags.Burns)) {
+					ImGui.SameLine();
+					ImGui.Text("Burns");
+				}
+				
+				ImGui.Separator();
+
 				for (var i = 0; i < infos.Count; i++) {
 					var info = infos[i];
 					ImGui.PushID((int) info.Tile);
 
-					if (ImGui.ImageButton(info.Texture, tileSize, info.Uv0, info.Uv1, 0, tintColor, info.Tile == CurrentTile ? tintColorActive : tintColor)) {
+					if (ImGui.ImageButton(info.Texture, tileSize, info.Uv0, info.Uv1, 0, bg, info.Tile == CurrentTile ? tintColorActive : tintColor)) {
 						CurrentTile = info.Tile;
+						CurrentInfo = info;
 					}
 
 					ImGui.PopID();
 					
-					if (i % 8 < 7 && i < infos.Count - 1) {
+					if (i % 4 < 3 && i < infos.Count - 1) {
 						ImGui.SameLine();
 					}
 				}
-				
-				ImGui.PopStyleVar();
 			} else if (currentMode == 1) { // Entities
 				ImGui.Checkbox("Snap to grid", ref SnapToGrid);
 				ImGui.SameLine();
