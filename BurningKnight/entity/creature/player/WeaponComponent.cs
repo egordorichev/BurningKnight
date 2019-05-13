@@ -28,8 +28,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ItemAddedEvent) {
-				if (AtBack && Item != null) {
+			if (e is ItemAddedEvent ev) {
+				if (AtBack && ev.Old == null && Item != null && ev.Component == this) {
 					Swap();
 				}
 			}

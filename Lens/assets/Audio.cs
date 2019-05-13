@@ -106,7 +106,7 @@ namespace Lens.assets {
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> instances = new Dictionary<string, SoundEffectInstance>();
 		
-		public static void PlayMusic(string music, float v = 1) {
+		public static void PlayMusic(string music) {
 			if (currentPlayingMusic == music) {
 				return;
 			}
@@ -126,7 +126,7 @@ namespace Lens.assets {
 			currentPlaying.IsLooped = repeat;
 
 			var m = currentPlaying;
-			Tween.To(v, m.Volume, x => m.Volume = x, CrossFadeTime);
+			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
 		}
 
 		public static void Stop() {
@@ -140,6 +140,16 @@ namespace Lens.assets {
 				currentPlaying = null;
 				currentPlayingMusic = null;
 			}
+		}
+		
+		private static float musicVolume;
+
+		public static void UpdateMusicVolume(float value) {
+			if (currentPlaying != null) {
+				currentPlaying.Volume = value;
+			}
+
+			musicVolume = value;
 		}
 
 		public static void Update() {

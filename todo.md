@@ -2,6 +2,13 @@
 
 ### Before v0.0.0.1
 
+* Gobbo tombstone
+* Show item description, when you pick it up [UiItemDescription]
+* Editor allow to place entities
+* Animate bullet death
+* Implement coins
+
+* Make general interact fx (animate same as item fx), give it to entrance, exit, etc
 * BK him self
  + Healthbar
  + Animation and spawning
@@ -9,14 +16,17 @@
  + He spawns the enemies
  + Player picking up hearts will heal bk
  + Opening and buying heals bk
- + Somehow make him a bit annoying??
+ + Somehow make him a bit annoying and scary??
+ 
+* Fix player reading 1 byte less than expected (some component is broken? or maybe not added)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
-* Show item description, when you pick it up [UiItemDescription]
+* When player uses active item, animate him using it (like in isaac)
+* ^^^^ same for picking up item
 
 * Figure out lamp mechanics, display it on player
 * ^^^^^^ whats up with Burning Knight? gotta think a lot
@@ -24,19 +34,14 @@
 * Add PICO-8 prototype room
 * Make WIP sign
 * Add at least one NPC house
-* ^^^ implement dialogs
 
 * Add a few weapons for melee, magic and ranged
 * Add a few artifacts
 
 * Implement speed changing
-* Implement audio
 * Audio speed should depend on engine speed
 
-* Set game icon
 * Crash report/fail loading stuff
-* Save system improvements:
- + Backups
 
 #### Polish
 
@@ -100,25 +105,21 @@
 
 ### Mechanics
 
-* Implement overworld
-* Infinite overworld?
 * Add health component to chest
 * Add explodable component to chest?
 * Explode item stand to replace the item with trash? :thinking:
-* Remove half hearts?
-* Breakable walls (and bedrock, then)
 * Level interaction
- + Liquid collision
- + Falling into chasms (items, enemies, player)
- + Rolling over chasm
+ + Falling into chasms (items, enemies)
 * Chest react to explosion/hitting
+ + ^^^^ redraw chest? doesnt really fit the artstyle
 
 ### Ideas
 
 * Signs, you can write/read from them
 * In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"
+* Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 
-#### npcs
+#### NPCs
 
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176

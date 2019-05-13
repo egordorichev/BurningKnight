@@ -44,10 +44,6 @@ namespace Lens.graphics.animation {
 			get => tag;
 
 			set {
-				if (tag == value) {
-					return;
-				}
-
 				currentFrame = 0;
 				tag = value;
 				Paused = false;
@@ -75,14 +71,10 @@ namespace Lens.graphics.animation {
 							Frame++;
 						}
 
-						if (AutoStop && currentFrame > EndFrame - StartFrame + 1) {
-							currentFrame = EndFrame - StartFrame + 1;
-							Paused = true;
-						}
-					
 						ReadFrame();
 					} else {
 						Paused = true;
+						OnEnd?.Invoke();
 					}
 				}
 			}

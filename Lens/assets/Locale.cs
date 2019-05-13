@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.file;
@@ -18,15 +19,19 @@ namespace Lens.assets {
 				Log.Error($"Locale {path} was not found!");
 				return;
 			}
-			
-			var root = JsonValue.Parse(file.ReadAll());
 
-			foreach (var entry in root.AsJsonObject) {
-				if (backup) {
-					fallback[entry.Key] = entry.Value.AsString;
-				} else {
-					map[entry.Key] = entry.Value.AsString;
+			try {
+				var root = JsonValue.Parse(file.ReadAll());
+
+				foreach (var entry in root.AsJsonObject) {
+					if (backup) {
+						fallback[entry.Key] = entry.Value.AsString;
+					} else {
+						map[entry.Key] = entry.Value.AsString;
+					}
 				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 		
@@ -44,6 +49,10 @@ namespace Lens.assets {
 
 		public static string Get(string key) {
 			return map.ContainsKey(key) ? map[key] : (fallback.ContainsKey(key) ? fallback[key] : key);
+		}
+
+		public static bool Contains(string key) {
+			return map.ContainsKey(key) || fallback.ContainsKey(key);
 		}
 	}
 }

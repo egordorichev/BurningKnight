@@ -1,30 +1,27 @@
-using System.Collections.Generic;
+using BurningKnight.assets;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using Lens;
+using Lens.assets;
 using Lens.entity.component;
-using Lens.util;
+using Lens.graphics;
+using Lens.input;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.dialog {
-	// todo: dialog registry?
+	public delegate void DialogCallback();
+	
 	public class DialogComponent : Component {
-		public readonly string Prefix;
-		public readonly Dictionary<string, Dialog> Dialogs = new Dictionary<string, Dialog>();
 		public UiDialog Dialog;
+		public Dialog Last;
+		public Dialog Current;
 
-		private Dialog currentData;
-		
-		public DialogComponent(string prefix, params Dialog[] dialogs) {
-			Prefix = $"{prefix}_";
-
-			foreach (var d in dialogs) {
-				Add(d);
-			}
-		}
+		public DialogCallback OnNext;
 
 		public void Start(string id) {
-			id = $"{Prefix}{id}";
-			
-			if (!Dialogs.TryGetValue(id, out var dialog)) {
-				Log.Error($"Unknown dialog {id}");
+			var dialog = Dialogs.Get(id);
+
+			if (dialog == null) {
 				return;
 			}
 			
@@ -33,14 +30,59 @@ namespace BurningKnight.ui.dialog {
 				Engine.Instance.State.Ui.Add(Dialog);
 
 				Dialog.Owner = Entity;
+				Dialog.OnEnd = () => {
+					var next = Current.GetNext();
+
+					if (next == null) {
+						Input.Blocked = 0;
+						Last = Current;
+						Current = null;
+						OnNext?.Invoke();
+						return true;
+					}
+
+					Setup(next);
+					OnNext?.Invoke();
+					return false;
+				};
 			}
-			
-			currentData = dialog;
-			Dialog.Say(id);
+
+			Setup(dialog);
+		}
+		
+		private void Setup(Dialog dialog) {
+			Input.Blocked = 1;
+
+			Last = Current;
+			Current = dialog;
+			Dialog.Say(dialog.Modify(Locale.Get(dialog.Id)));
+			Dialog.Str.Renderer = RenderChoice;
 		}
 
-		public void Add(Dialog d) {
-			Dialogs[$"{Prefix}{d.Id}"] = d;
+		private void RenderChoice(Vector2 pos, int i) {
+			if (Current is ChoiceDialog c && i == c.Choice) {
+				Graphics.Print(">", Font.Small, pos);
+			}
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Dialog != null && Dialog.DoneSaying && Current is ChoiceDialog c) {
+				var data = LocalPlayer.Locate(Engine.Instance.State.Area).GetComponent<GamepadComponent>().Controller;
+				
+				if (Input.WasPressed(Controls.Up, data, true)) {
+					c.Choice -= 1;
+
+					if (c.Choice < 0) {
+						c.Choice += c.Options.Length;
+					}
+				}
+				
+				if (Input.WasPressed(Controls.Down, data, true)) {
+					c.Choice = (c.Choice + 1) % c.Options.Length;
+				}
+			}
 		}
 	}
 }

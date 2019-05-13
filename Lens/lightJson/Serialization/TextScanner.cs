@@ -107,6 +107,24 @@ namespace Lens.lightJson.Serialization
 			{
 				Read();
 			}
+
+			if (Peek() == '/') {
+				Read();
+
+				if (Peek() != '/') {
+					throw new JsonParseException(
+						ErrorType.IncompleteMessage,
+						this.position
+					);
+				}
+				
+				while (Peek() != '\n')
+				{
+					Read();
+				}
+				
+				SkipWhitespace();
+			}
 		}
 
 		/// <summary>

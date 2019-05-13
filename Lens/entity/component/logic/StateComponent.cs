@@ -30,21 +30,24 @@ namespace Lens.entity.component.logic {
 			}
 		}
 
+		public void PushState(EntityState st) {
+			state?.Destroy();
+
+			state = st;
+			state.Assign(Entity);
+			state.Init();
+
+			Send(new StateChangedEvent {
+				NewState = state.GetType(),
+				State = state
+			});
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (newState != null) {
-				state?.Destroy();
-				
-				state = (EntityState) Activator.CreateInstance(newState);
-				state.Assign(Entity);
-				state.Init();
-
-				Send(new StateChangedEvent {
-					NewState = newState,
-					State = state
-				});
-				
+				PushState((EntityState) Activator.CreateInstance(newState));
 				newState = null;
 			}
 			

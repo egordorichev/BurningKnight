@@ -1,22 +1,27 @@
+using System;
 using BurningKnight.assets;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.ui.str;
-using Lens.assets;
+using Lens;
 using Lens.entity;
 using Lens.graphics;
+using Lens.input;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.ui.dialog {
 	public class UiDialog : FrameRenderer {
 		public Entity Owner;
 
 		private TextureRegion triangle;
-		private UiString str;
+		public UiString Str;
 
-		private bool saying;
-		private bool doneSaying;
+		public bool Saying { get; private set; }
+		public bool DoneSaying { get; private set; }
+
+		public Func<bool> OnEnd;
 		
 		public override void Init() {
 			base.Init();
@@ -27,15 +32,15 @@ namespace BurningKnight.ui.dialog {
 			Setup("ui", "dialog_");
 			triangle = CommonAse.Ui.GetSlice("dialog_tri");
 			
-			str = new UiString(Font.Small);
-			Area.Add(str);
+			Str = new UiString(Font.Small);
+			Area.Add(Str);
 
-			str.Paused = true;
-			str.Depth = Depth + 1;
-			str.WidthLimit = 172;
+			Str.Paused = true;
+			Str.Depth = Depth + 1;
+			Str.WidthLimit = 172;
 			
-			str.FinishedTyping += s => {
-				doneSaying = true;
+			Str.FinishedTyping += s => {
+				DoneSaying = true;
 			};
 			
 			Tint.A = 0;
@@ -43,16 +48,18 @@ namespace BurningKnight.ui.dialog {
 
 		public override void Destroy() {
 			base.Destroy();
-			str.Done = true;
+			Str.Done = true;
 		}
 
 		public void Say(string s) {
-			if (!saying) {
+			if (!Saying) {
 				Tween.To(255, 0, x => Tint.A = (byte) x, 0.3f);
 			}
 			
-			saying = true;
-			str.Label = Locale.Get(s);
+			Saying = true;
+			Str.Width = 4;
+			Str.Height = 4;
+			Str.Label = s;
 		}
 
 		public override void RenderFrame() {
@@ -71,13 +78,41 @@ namespace BurningKnight.ui.dialog {
 			base.Update(dt);
 			
 			Position = Camera.Instance.CameraToUi(new Vector2(Owner.CenterX, Owner.Y - 4));
-			Height += (str.Height + 12 - Height) * dt * 10;
-			Width += (str.Width + 16 - Width) * dt * 10;
+			Height += (Str.Height + 12 - Height) * dt * 10;
+			Width += (Str.Width + 16 - Width) * dt * 10;
 			X -= Width / 2;
 			Y -= Height;
 
-			str.Tint = Tint;
-			str.Position = Position + new Vector2(8, 4);
+			Str.Tint = Tint;
+			Str.Position = Position + new Vector2(8, 4);
+
+			if (Saying) {
+				if (Input.WasPressed(Controls.Interact, LocalPlayer.Locate(Engine.Instance.State.Area).GetComponent<GamepadComponent>().Controller, true)) {
+					if (DoneSaying) {
+						Finish();
+					} else {
+						Str.FinishTyping();
+					}
+				}
+			}
+		}
+
+		public void Finish() {
+			DoneSaying = false;
+
+			if (OnEnd == null || OnEnd.Invoke()) {
+				Close();
+			}
+		}
+		
+		public void Close() {
+			Saying = false;
+			DoneSaying = false;
+			
+			Tween.To(0, 255, x => Tint.A = (byte) x, 0.3f).OnEnd = () => {
+				Str.Width = 4;
+				Str.Height = 4;
+			};
 		}
 	}
 }

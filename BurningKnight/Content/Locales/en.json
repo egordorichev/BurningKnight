@@ -1,6 +1,6 @@
 {
   "bk:halo" : "Halo", "bk:halo_desc" : "OOO",
-  "bk:gun" : "Gun", "bk:gun_desc" : "Hands up, @everyone!",
+  "bk:gun" : "Gun",
   "bk:sword" : "Wooden Sword", "bk:sword_desc" : "Not just a stick",
   "bk:lamp" : "Lamp", "bk:lamp_desc" : "Watch out!",
   
@@ -15,7 +15,7 @@
   "ascend" : "Ascend",
   "exit" : "Exit",
   "play" : "Play!",
-  
+  // test
   "its_dangerous_to_go_alone" : "It's dangerous to go alone! Take these!",
   
   "painting_rexcellent" : "Excellent",
@@ -48,5 +48,14 @@
   
   "by" : "by",
   
-  "old_man_hello" : "Hello there, ^^weird^^ stranger! Have a rest! We are glad to see youy in the town, finally!!!! Reallylongwork but idontcareeyiu knowthisisfun"
+  "ord_link" : "Link.",
+  "ord_link_a" : "Click.",
+  "ord_link_ar" : "Ord.",
+  "ord_link_b" : "Ignore.",
+  "ord_link_br" : "Boring.",
+  "ord_info" : "Info.",
+  "ord_info_a" : "What?",
+  "ord_info_ar" : "Game.",
+  "ord_info_b" : "When?",
+  "ord_info_br" : "Idk."
 }

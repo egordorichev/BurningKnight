@@ -24,27 +24,15 @@ namespace Lens.input {
 			return false;
 		}
 
-		public bool IsDown(Keys key, bool ignore = false) {
-			if (Input.Blocked > 0 && !ignore) {
-				return false;
-			}
-			
+		public bool IsDown(Keys key) {
 			return State.IsKeyDown(key);
 		}
 
-		public bool WasPressed(Keys key, bool ignore = false) {
-			if (Input.Blocked > 0 && !ignore) {
-				return false;
-			}
-			
+		public bool WasPressed(Keys key) {
 			return State.IsKeyDown(key) && !PreviousState.IsKeyDown(key);
 		}
 		
-		public bool WasReleased(Keys key, bool ignore = false) {
-			if (Input.Blocked > 0 && !ignore) {
-				return false;
-			}
-			
+		public bool WasReleased(Keys key) {
 			return !State.IsKeyDown(key) && PreviousState.IsKeyDown(key);
 		}
 	}

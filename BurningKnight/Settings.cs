@@ -1,24 +1,39 @@
 using BurningKnight.save;
 using Lens;
+using Lens.assets;
 
 namespace BurningKnight {
 	public class Settings {
+		// Audio
+		private static float musicVolume;
+		public static float MusicVolume {
+			get => musicVolume;
+
+			set {
+				musicVolume = value;
+				Audio.UpdateMusicVolume(musicVolume);
+			}
+		}
+		
+		public static float SfxVolume;
+		
+		// Graphics
 		public static bool Fullscreen;
 		public static bool Vsync;
 		public static bool Blood;
 		public static bool Gore;
 		public static bool UiSfx;
-		public static bool SpeedrunMode;
-		public static bool SpeedrunTimer;
-		public static float Screenshake;
-		public static float Music;
-		public static float Sfx;
 		public static string Cursor;
 		public static bool RotateCursor;
 		public static float FreezeFrames;
 		public static float FlashFrames;
-		public static bool Vegan;
 		public static bool ShowFps;
+
+		// Game
+		public static bool SpeedrunMode;
+		public static bool SpeedrunTimer;
+		public static float Screenshake;
+		public static bool Vegan;
 		public static bool Autosave;
 	
 		// Not saved
@@ -41,8 +56,8 @@ namespace BurningKnight {
 			SpeedrunTimer = false;
 			FreezeFrames = 0.5f;
 			FlashFrames = 0.5f;
-			Sfx = 0.75f;
-			Music = 0.5f;
+			SfxVolume = 0.75f;
+			MusicVolume = 0.5f;
 			Cursor = "default";
 			RotateCursor = false;
 			Vegan = false;
@@ -59,10 +74,10 @@ namespace BurningKnight {
 			SpeedrunMode = GlobalSave.IsTrue("s_sm");
 			SpeedrunTimer = GlobalSave.IsTrue("s_st");
 			Screenshake = GlobalSave.GetFloat("s_screenshake");
-			Sfx = GlobalSave.GetFloat("s_sfx");
+			SfxVolume = GlobalSave.GetFloat("s_sfx");
 			FreezeFrames = GlobalSave.GetFloat("s_frf");
 			FlashFrames = GlobalSave.GetFloat("s_ff");
-			Music = GlobalSave.GetFloat("s_music");
+			MusicVolume = GlobalSave.GetFloat("s_music");
 			Cursor = GlobalSave.GetString("s_cursor", "cursor-standart");
 			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
 			Vegan = GlobalSave.IsTrue("s_v", false);
@@ -89,8 +104,8 @@ namespace BurningKnight {
 			GlobalSave.Put("s_frf", FreezeFrames);
 			GlobalSave.Put("s_ff", FlashFrames);
 			GlobalSave.Put("s_screenshake", Screenshake);
-			GlobalSave.Put("s_sfx", Sfx);
-			GlobalSave.Put("s_music", Music);
+			GlobalSave.Put("s_sfx", SfxVolume);
+			GlobalSave.Put("s_music", MusicVolume);
 			GlobalSave.Put("s_cursor", Cursor);
 			GlobalSave.Put("s_rotate_cursor", RotateCursor);
 			GlobalSave.Put("s_v", Vegan);

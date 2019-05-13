@@ -48,6 +48,7 @@ namespace BurningKnight.state {
 		private SaveLock saveLock = new SaveLock();
 
 		private Painting painting;
+		private UiDescriptionBanner banner;
 
 		public Painting CurrentPainting {
 			set {
@@ -61,6 +62,7 @@ namespace BurningKnight.state {
 		public InGameState(Area area) {
 			Area = area;
 			Area.EventListener.Subscribe<DiedEvent>(this);
+			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 		}
 		
 		public override void Init() {
@@ -91,7 +93,7 @@ namespace BurningKnight.state {
 				SaveManager.Save(Area, SaveType.Level, true);
 				SaveManager.Save(Area, SaveType.Player, true);
 			}
-			
+
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
 			
@@ -237,6 +239,18 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+
+			if (Input.WasPressed(Controls.Mute)) {
+				Settings.MusicVolume = Settings.MusicVolume > 0.01f ? 0f : 0.5f;
+			}
+			
+			if (Input.WasPressed(Controls.Fullscreen)) {
+				if (Engine.Graphics.IsFullScreen) {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				} else {
+					Engine.Instance.SetFullscreen();
+				}
+			}
 		}
 
 		private bool saving;
@@ -253,6 +267,10 @@ namespace BurningKnight.state {
 		}
 		
 		private void UpdateDebug(float dt) {
+			if (Input.Blocked > 0) {
+				return;
+			}
+			
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new EditorState {
 					Depth = Run.Depth,
@@ -496,11 +514,17 @@ namespace BurningKnight.state {
 				Position = new Vector2(32, 32)
 			});*/
 
-			var frame = new UiDialog {
-				Owner = LocalPlayer.Locate(Area)
-			};
+			var r = new FrameRenderer();
+			Ui.Add(r);
 			
-			Ui.Add(frame);
+			r.Setup("ui", "scroll_");
+			r.Width = 64;
+			r.Height = 23;
+
+			r.CenterX = Display.UiWidth / 2f;
+			r.CenterY = Display.UiHeight - 64f;
+			
+			Ui.Add(banner = new UiDescriptionBanner());
 		}
 
 		public bool HandleEvent(Event e) {
@@ -518,6 +542,8 @@ namespace BurningKnight.state {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
 					SaveManager.Backup();
 				}).Start();
+			} else if (e is ItemCheckEvent item) {
+				banner.Show(item.Item);
 			}
 
 			return false;

@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level.rooms;
 using BurningKnight.ui.dialog;
 using Lens;
@@ -10,6 +11,7 @@ using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -39,7 +41,9 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
-			AddComponent(new InteractorComponent());
+			AddComponent(new InteractorComponent {
+				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState)
+			});
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 
@@ -58,18 +62,6 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			GetComponent<HealthComponent>().MaxHealth = 1;
-
-			var dialog = new DialogComponent("old_man");
-			AddComponent(dialog);
-
-			dialog.Add(new Dialog("hello", "best"));
-			dialog.Add(new EventDialog("best", () => "test"));
-
-			dialog.Add(new ChoiceDialog("test", new[] {
-				"a", "b"
-			}, new[] {
-				"awesome", "eh"
-			}, c => {}));
 		}
 
 		public void FindSpawnPoint() {
@@ -103,6 +95,48 @@ namespace BurningKnight.entity.creature.player {
 		
 		public class RunState : EntityState {
 			
+		}
+		
+		public class GotState : EntityState {
+			private const float Delay = 1.3f;
+			
+			private bool tweened;
+			public Item Item;
+			public Action<Item> OnEnd;
+			public Vector2 Scale;
+
+			public override void Init() {
+				base.Init();
+
+				Tween.To(1, 0, x => {
+					Scale.X = x;
+					Scale.Y = x;
+				}, 0.5f, Ease.BackOut);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+
+				if (OnEnd != null) {
+					OnEnd(Item);
+				} else {
+					Self.GetComponent<InventoryComponent>().Add(Item);
+					Item.Use(Self);	
+				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (!tweened && T >= Delay) {
+					tweened = true;
+					
+					Tween.To(0, 1, x => {
+						Scale.X = x;
+						Scale.Y = x;
+					}, 0.3f, Ease.BackIn).OnEnd = Become<IdleState>;
+				}
+			}
 		}
 		
 		public class RollState : EntityState {

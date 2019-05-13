@@ -120,14 +120,6 @@ namespace Lens {
 			base.Update(gameTime);
 			Audio.Update();
 
-			if (Input.Keyboard.WasPressed(Keys.F11)) {
-				if (Graphics.IsFullScreen) {
-					SetWindowed(Display.Width * 3, Display.Height * 3);
-				} else {
-					SetFullscreen();
-				}
-			}
-
 			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;
 
 			Delta = dt;

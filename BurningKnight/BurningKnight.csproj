@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\CommonAse.cs" />
+    <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\items\ItemData.cs" />
     <Compile Include="assets\items\Items.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
+    <Compile Include="entity\creature\npc\Ord.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
@@ -381,6 +383,7 @@
     <Compile Include="state\Run.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\dialog\ChoiceDialog.cs" />
+    <Compile Include="ui\dialog\CombineDialog.cs" />
     <Compile Include="ui\dialog\Dialog.cs" />
     <Compile Include="ui\dialog\DialogComponent.cs" />
     <Compile Include="ui\dialog\EventDialog.cs" />
@@ -400,6 +403,7 @@
     <Compile Include="ui\str\event\SpeedEvent.cs" />
     <Compile Include="ui\str\event\UserEvent.cs" />
     <Compile Include="ui\str\Glyph.cs" />
+    <Compile Include="ui\str\StrRenderer.cs" />
     <Compile Include="ui\str\UiString.cs" />
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
@@ -436,6 +440,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="./Content/**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/**/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./lib/**">

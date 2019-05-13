@@ -40,10 +40,10 @@ namespace BurningKnight.entity.creature.player {
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			
-			if (state.StateInstance is Player.RollState) {
+			if (state.StateInstance is Player.RollState r) {
 				// Movement tech :) Direction changing
 				if (Input.WasPressed(Controls.Swap, controller)) {
-					(state.StateInstance as Player.RollState).ChangeDirection();
+					r.ChangeDirection();
 				}
 				
 				// Movement tech :) Roll cancelling
@@ -78,19 +78,22 @@ namespace BurningKnight.entity.creature.player {
 					acceleration += controller.GetLeftStick();
 				}
 
-				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
+				var got = state.StateInstance is Player.GotState;
+
+				if (!got && 
+				    Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
-					GetComponent<DialogComponent>().Start("hello");
-					
 					state.Become<Player.RollState>();
 				} else {
-					if (acceleration.Length() > 0.1f) {
-						state.Become<Player.RunState>();
-					} else {
-						state.Become<Player.IdleState>();
+					if (!got) {
+						if (acceleration.Length() > 0.1f) {
+							state.Become<Player.RunState>();
+						} else {
+							state.Become<Player.IdleState>();
+						}
 					}
-					
+
 					if (acceleration.Length() > 0.1f) {
 						acceleration.Normalize();
 					}

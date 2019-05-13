@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.creature.npc {
 	public class OldMan : Npc {
@@ -7,8 +8,14 @@ namespace BurningKnight.entity.creature.npc {
 
 			Width = 20;
 			Height = 18;
-			
+
 			AddComponent(new AnimationComponent("old_man"));
+			AddComponent(new RectBodyComponent(0, 0, Width, Height));
+			
+			AddComponent(new InteractableComponent(e => {
+				GetComponent<DialogComponent>().Start("om_ord");
+				return true;
+			}));
 		}
 	}
 }

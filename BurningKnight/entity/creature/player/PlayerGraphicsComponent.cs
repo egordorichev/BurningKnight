@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.ui;
@@ -66,6 +67,14 @@ namespace BurningKnight.entity.creature.player {
 			weapon.Render();
 			SimpleRender(shadow);
 			activeWeapon.Render();
+
+			var state = GetComponent<StateComponent>();
+
+			if (state.StateInstance is Player.GotState gs) {
+				var region = gs.Item.Region;
+				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + gs.Scale.X * 6f), 
+					(float) Math.Cos(gs.T * 8f) * 0.25f,  new Vector2(region.Center.X, region.Height), gs.Scale);
+			}
 
 			if (true) {
 				return;

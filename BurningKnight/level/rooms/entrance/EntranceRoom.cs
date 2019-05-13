@@ -1,3 +1,5 @@
+using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.walls;
 using Microsoft.Xna.Framework;
@@ -34,6 +36,10 @@ namespace BurningKnight.level.rooms.entrance {
 			});
 
 			entrance.Center = GetCenter() * 16;
+
+			level.Area.Add(new ItemStand {
+				Center = GetCenter() * 16 - new Vector2(16)
+			});
 		}
 		
 		public override int GetMinWidth() {
