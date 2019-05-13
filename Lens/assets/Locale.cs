@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Lens.lightJson;
+using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
 
@@ -8,7 +10,7 @@ namespace Lens.assets {
 	public class Locale {
 		public static Dictionary<string, string> Map;
 		
-		private static Dictionary<string, string> fallback = new Dictionary<string, string>();
+		public static Dictionary<string, string> Fallback = new Dictionary<string, string>();
 		private static Dictionary<string, Dictionary<string, string>> loaded = new Dictionary<string, Dictionary<string, string>>();
 		private static bool loadedFallback;
 		
@@ -54,18 +56,40 @@ namespace Lens.assets {
 			Current = locale;
 			LoadRaw(locale, $"Content/Locales/{locale}.json");
 
-			if (!loadedFallback && locale != "en") {
-				LoadRaw("en", "Content/Locales/en.json", true);
-				loadedFallback = true;
+			if (!loadedFallback) {
+				if (locale != "en") {
+					LoadRaw("en", "Content/Locales/en.json", true);
+					loadedFallback = true;
+				} else {
+					loadedFallback = true;
+					Fallback = Map;
+				}
 			} 			
 		}
 
+		public static void Save() {
+			try {
+				var file = File.CreateText($"Content/Locales/{Current}.json");
+				var writer = new JsonWriter(file);
+				var root = new JsonObject();
+
+				foreach (var t in Map) {
+					root[t.Key] = t.Value;
+				}
+
+				writer.Write(root);
+				file.Close();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+		}
+
 		public static string Get(string key) {
-			return Map.ContainsKey(key) ? Map[key] : (fallback.ContainsKey(key) ? fallback[key] : key);
+			return Map.ContainsKey(key) ? Map[key] : (Fallback.ContainsKey(key) ? Fallback[key] : key);
 		}
 
 		public static bool Contains(string key) {
-			return Map.ContainsKey(key) || fallback.ContainsKey(key);
+			return Map.ContainsKey(key) || Fallback.ContainsKey(key);
 		}
 	}
 }

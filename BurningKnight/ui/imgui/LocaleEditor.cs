@@ -7,13 +7,16 @@ using Lens.util.file;
 namespace BurningKnight.ui.imgui {
 	public static unsafe class LocaleEditor {
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 300);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(220, 10);
 		private static bool filterByKey = true;
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static List<ModifiedInfo> modified = new List<ModifiedInfo>();
 		private static string[] aviableLocales;
 		private static int locale;
+		private static string newKey = "";
+		private static string created;
+		private static bool showEnglish = true;
 		
 		private class ModifiedInfo {
 			public string OldKey;
@@ -52,8 +55,24 @@ namespace BurningKnight.ui.imgui {
 				return;
 			}
 
-			if (ImGui.Combo("Locale", ref locale, aviableLocales, aviableLocales.Length)) {
+			if (ImGui.Combo("##locale", ref locale, aviableLocales, aviableLocales.Length)) {
 				Locale.Load(aviableLocales[locale]);	
+			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Save")) {
+				Locale.Save();
+				// fixme: find a good russian font
+				// also button for new locale file (and del obv)
+			}
+			
+			var notEng = aviableLocales[locale] != "en";
+
+			ImGui.Text(notEng ? $"{Locale.Map.Count} entries (en has {Locale.Fallback.Count})" : $"{Locale.Map.Count} entries");
+
+			if (notEng) {
+				ImGui.Checkbox("Show english", ref showEnglish);
 			}
 			
 			ImGui.Separator();
@@ -63,7 +82,7 @@ namespace BurningKnight.ui.imgui {
 			ImGui.Checkbox("By key", ref filterByKey);
 			
 			ImGui.Separator();
-			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
+			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 4;
 			ImGui.BeginChild("ScrollingRegionLocale", new System.Numerics.Vector2(0, -height), 
 				false);
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);
@@ -84,6 +103,16 @@ namespace BurningKnight.ui.imgui {
 					ImGui.PushID($"{i}__value");
 					ImGui.InputText("", ref value, 256);
 
+					if (created == t.Key) {
+						ImGui.SetKeyboardFocusHere(-1);
+						ImGui.SetScrollHereY(-1);
+						created = null;
+					}
+
+					if (notEng && showEnglish && Locale.Fallback.TryGetValue(t.Key, out var en)) {
+						ImGui.BulletText(en);
+					}
+
 					if (key != t.Key || value != t.Value) {
 						modified.Add(new ModifiedInfo {
 							OldKey = t.Key,
@@ -97,14 +126,31 @@ namespace BurningKnight.ui.imgui {
 
 				i++;
 			}
+			
+			ImGui.PopStyleVar();
+			ImGui.EndChild();
+			ImGui.Separator();
+
+			var enter = ImGui.InputText("##newkey", ref newKey, 128, ImGuiInputTextFlags.EnterReturnsTrue);
+			ImGui.SameLine();
+			
+			if ((enter || ImGui.Button("Add")) && newKey.Length > 0) {
+				modified.Add(new ModifiedInfo {
+					Key = newKey,
+					Value = newKey
+				});
+
+				created = newKey;
+				newKey = "";
+			}
 
 			if (modified.Count > 0) {
 				foreach (var t in modified) {
-					if (t.KeyChanged) {
-						Locale.Map.Remove(t.OldKey);
-						Locale.Map[t.Key] = t.Value;
-					} else {
-						Locale.Map.Remove(Locale.Map.FirstOrDefault(m => m.Value == t.OldValue).Key);
+					if (t.OldKey != null) {
+						Locale.Map.Remove(t.KeyChanged ? t.OldKey : Locale.Map.FirstOrDefault(m => m.Value == t.OldValue).Key);
+					}
+
+					if (t.Key.Length > 0) {
 						Locale.Map[t.Key] = t.Value;
 					}
 				}
@@ -112,10 +158,6 @@ namespace BurningKnight.ui.imgui {
 				modified.Clear();
 			}
 
-			ImGui.PopStyleVar();
-			ImGui.EndChild();
-			ImGui.Separator();
-			
 			ImGui.End();
 		}
 	}

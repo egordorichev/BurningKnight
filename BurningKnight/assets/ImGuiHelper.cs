@@ -8,10 +8,16 @@ namespace BurningKnight.assets {
 
 		public static void Init() {
 			Renderer = new ImGuiRenderer(Engine.Instance);
-			Renderer.RebuildFontAtlas();
 		}
 
+		private static bool loadedFont;
+
 		public static void Begin() {
+			if (!loadedFont) {
+				loadedFont = true;
+				Renderer.RebuildFontAtlas();
+			}
+			
 			Renderer.BeforeLayout(Engine.GameTime);
 		}
 

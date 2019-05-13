@@ -69,12 +69,13 @@ namespace BurningKnight.debug {
 				return;
 			}
 
+			filter.Draw("##console");
+			ImGui.SameLine();
+			
 			if (ImGui.Button("Clear")) {
 				Lines.Clear();
 			}
 			
-			filter.Draw();
-
 			ImGui.Separator();
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 10;
 			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -height), 

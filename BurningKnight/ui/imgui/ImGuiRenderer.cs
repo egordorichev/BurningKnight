@@ -170,18 +170,8 @@ namespace BurningKnight.ui.imgui {
 
 				io.AddInputCharacter(a.Character);
 			};
-			///////////////////////////////////////////
-
-			// FNA-specific ///////////////////////////
-			//TextInputEXT.TextInput += c =>
-			//{
-			//    if (c == '\t') return;
-
-			//    ImGui.GetIO().AddInputCharacter(c);
-			//};
-			///////////////////////////////////////////
-
-			ImGui.GetIO().Fonts.AddFontDefault();
+			
+			ImGui.GetIO().Fonts.AddFontFromFileTTF("Content/font.ttf", 13, null, ImGui.GetIO().Fonts.GetGlyphRangesCyrillic());
 		}
 
         /// <summary>
