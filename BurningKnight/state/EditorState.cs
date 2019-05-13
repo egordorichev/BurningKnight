@@ -2,6 +2,7 @@ using BurningKnight.assets;
 using BurningKnight.entity.editor;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
+using BurningKnight.ui.imgui;
 using Lens;
 using Lens.game;
 using Lens.graphics;
@@ -56,6 +57,7 @@ namespace BurningKnight.state {
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
 			editor.RenderNative();
+			LocaleEditor.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

@@ -77,7 +77,7 @@ namespace BurningKnight.debug {
 
 			ImGui.Separator();
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 10;
-			ImGui.BeginChild("ScrollingRegion", new System.Numerics.Vector2(0, -height), 
+			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);
 			

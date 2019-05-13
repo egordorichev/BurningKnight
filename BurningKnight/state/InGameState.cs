@@ -13,6 +13,7 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.imgui;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -533,6 +534,7 @@ namespace BurningKnight.state {
 			ImGuiHelper.Begin();
 			console.Render();
 			AreaDebug.Render(Area);
+			LocaleEditor.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

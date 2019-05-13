@@ -11,7 +11,7 @@ using Num = System.Numerics;
 
 namespace BurningKnight.entity.editor {
 	public unsafe class SettingsWindow {
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 300);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
 		private static List<Type> types = new List<Type>();
 		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
