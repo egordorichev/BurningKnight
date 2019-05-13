@@ -5,7 +5,9 @@ using BurningKnight.ui.str.effect;
 using BurningKnight.ui.str.@event;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 
 namespace BurningKnight.ui.str {
@@ -19,7 +21,6 @@ namespace BurningKnight.ui.str {
 	 * [tg a]test[dl a]
 	 */
 	public class UiString : Entity {
-		
 		private string label;
 		private BitmapFont font;
 		private List<Glyph> glyphs = new List<Glyph>();
@@ -28,27 +29,31 @@ namespace BurningKnight.ui.str {
 		private int lastChar;
 
 		public float Delay;
+		public bool Paused;
 		public float Speed = 1f;
+		public int WidthLimit;
 		public bool Finished => progress >= glyphs.Count;
 
 		public StartedTyping StartedTyping;
 		public FinishedTyping FinishedTyping;
 		public EventFired EventFired;
 		public CharTyped CharTyped;
+
+		public Color Tint;
 		
 		public string Label {
 			get => label;
 			set {
-				if (label != value) {
-					label = value;
-					Recalculate();
-				}
+				label = value;
+				Recalculate();
 			}
 		}
 
 		public UiString(BitmapFont font) {
 			this.font = font;
 
+			Width = 4;
+			Height = 4;
 			AlwaysActive = true;
 			AlwaysVisible = true;
 		}
@@ -90,7 +95,7 @@ namespace BurningKnight.ui.str {
 			var lc = '\0';
 			var parsingToken = false;
 			var events = new List<GlyphEvent>();
-			
+
 			for (var i = 0; i < label.Length; i++) {
 				var c = label[i];
 
@@ -227,8 +232,70 @@ namespace BurningKnight.ui.str {
 			}
 			
 			label = builder.ToString();
-			
+			builder.Clear();
 			var glp = font.GetGlyphs(label);
+
+			if (WidthLimit > 0) {
+				var k = 0;
+				var lastSpace = 0;
+				var sinceLastSpace = 0;
+				var sinceLast = 0;
+				var width = 0;
+				var first = true;
+				var spaceWidth = (int) (font.MeasureString("a a").Width - font.MeasureString("aa").Width);
+				
+				foreach (var g in glp) {
+					var c = label[k];
+
+					if (c == ' ') {
+						lastSpace = k;
+						sinceLastSpace = 0;
+					} else if (c == '\n') {
+						sinceLast = 0;
+						sinceLastSpace = 0;
+					}
+
+					if (c != '\n') {
+						sinceLast += g.FontRegion.Width;
+						width += g.FontRegion.Width;
+
+						if (c != ' ') {
+							sinceLastSpace += g.FontRegion.Width;
+						}
+					}
+
+					builder.Append(c);
+					
+					if (width >= WidthLimit) {
+						if (first) {
+							WidthLimit = width - sinceLastSpace - spaceWidth;
+							first = false;
+						}
+
+						width -= sinceLast;
+						
+						sinceLast = width;
+						builder[lastSpace] = '\n';
+
+						foreach (var e in effects) {
+							if (e.Start >= k) {
+								e.Start -= 1;
+							}
+
+							if (e.End >= k) {
+								e.End -= 1;
+							}
+						}
+					}
+
+					k++;
+				}
+
+				label = builder.ToString();
+			}
+			
+			glp = font.GetGlyphs(label);
+			
 			var j = 0;
 
 			foreach (var g in glp) {
@@ -253,14 +320,15 @@ namespace BurningKnight.ui.str {
 		}
 
 		public override void Render() {
-			if (label == null) {
+			if (label == null || Tint.A == 0 || glyphs.Count == 0) {
 				return;
 			}
 
 			var m = 1;
 			var n = m - 1;
+			var l = (int) Math.Min(progress + n, glyphs.Count);
 
-			for (var i = 0; i < Math.Min(progress + n, glyphs.Count); i++) {
+			for (var i = 0; i < l; i++) {
 				var g = glyphs[i];
 				
 				if (g.G.FontRegion != null) {
@@ -271,28 +339,29 @@ namespace BurningKnight.ui.str {
 
 					var c = g.Color;
 
-					if (progress < i + 1) {
+					if (progress > i && progress < i + 1) {
 						float v = (progress + n - i) / m;
 						
 						pos.Y -= (1 - v) * 8f;
 						c.A = (byte) (v * 255);
 					}
-					
+
+					c.A = (byte) MathUtils.Clamp(0, 255, c.A * Tint.A / 255f);
+
 					Graphics.Batch.Draw(g.G.FontRegion.TextureRegion.Texture, pos,
 						g.G.FontRegion.TextureRegion.Bounds, c, g.Angle, g.Origin, g.Scale, g.Effects, 0);
-
-					if (progress < i + 1) {
-						c.A = 255;
-					}
 				}
+			}
+
+			var gl = glyphs[Math.Min((int) progress + 1, glyphs.Count - 1)];
+
+			if (gl.G.FontRegion != null) {
+				Width = Math.Max(Width, gl.G.Position.X + gl.G.FontRegion.Width);
+				Height = Math.Max(Height, gl.G.Position.Y + gl.G.FontRegion.Height);	
 			}
 		}
 
 		public void FinishTyping() {
-			if (Finished) {
-				return;
-			}
-			
 			progress = glyphs.Count;
 			FinishedTyping?.Invoke(this);
 		}
@@ -301,6 +370,7 @@ namespace BurningKnight.ui.str {
 			progress = 0f;
 			lastChar = 0;
 			Delay = 0;
+			Paused = false;
 			
 			StartedTyping?.Invoke(this);
 		}
@@ -308,7 +378,7 @@ namespace BurningKnight.ui.str {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Delay > 0) {
+			if (Delay > 0 || Paused) {
 				Delay -= dt;
 			} else {
 				progress = Math.Min(progress + Speed * dt * 20f, glyphs.Count);
@@ -325,7 +395,9 @@ namespace BurningKnight.ui.str {
 						}
 
 						CharTyped?.Invoke(this, v, label[v]);
-					} else {
+					}
+
+					if ((int) Math.Ceiling(progress) == glyphs.Count) {
 						FinishTyping();
 					}
 				}
@@ -339,7 +411,7 @@ namespace BurningKnight.ui.str {
 				var e = effects[i];
 				e.Update(dt);
 				
-				for (var j = e.Start; j < e.End; j++) {
+				for (var j = e.Start; j < Math.Min(glyphs.Count - 1, e.End); j++) {
 					e.Apply(glyphs[j], j);
 				}
 				

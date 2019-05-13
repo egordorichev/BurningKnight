@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.ui.dialog;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
@@ -80,6 +81,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
+					GetComponent<DialogComponent>().Start("hello");
 					
 					state.Become<Player.RollState>();
 				} else {

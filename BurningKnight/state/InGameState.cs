@@ -13,6 +13,7 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.dialog;
 using BurningKnight.ui.str;
 using BurningKnight.util;
 using Lens;
@@ -494,6 +495,12 @@ namespace BurningKnight.state {
 				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]_seems_\n[sp 0.5]_to work_[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
 				Position = new Vector2(32, 32)
 			});*/
+
+			var frame = new UiDialog {
+				Owner = LocalPlayer.Locate(Area)
+			};
+			
+			Ui.Add(frame);
 		}
 
 		public bool HandleEvent(Event e) {
