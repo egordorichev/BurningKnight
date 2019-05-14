@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
+using BurningKnight.ui.imgui.node;
 
 namespace BurningKnight.ui.imgui {
 	public class ImConnection {

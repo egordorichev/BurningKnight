@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.ui.imgui;
+using BurningKnight.ui.imgui.node;
+using ImGuiNET;
 using Lens;
 
 namespace BurningKnight.assets {

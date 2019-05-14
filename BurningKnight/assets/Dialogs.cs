@@ -10,10 +10,6 @@ namespace BurningKnight.assets {
 		public static void Add(Dialog dialog) {
 			dialogs[dialog.Id] = dialog;
 		}
-
-		static Dialogs() {
-			AddNpc();
-		}
 		
 		private static void AddNpc() {
 			// Ord

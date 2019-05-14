@@ -3,6 +3,7 @@ using BurningKnight.entity.editor;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.ui.imgui;
+using ImGuiNET;
 using Lens;
 using Lens.game;
 using Lens.graphics;
@@ -34,42 +35,24 @@ namespace BurningKnight.state {
 				CameraPosition = CameraPosition
 			});
 			
-			ImGuiHelper.ClearNodes();
+			DialogEditor.Init();
 		}
 
 		public override void Destroy() {
 			if (UseDepth) {
 				// SaveManager.Save(Area, SaveType.Level);
 			}
-			
-			ImGuiHelper.ClearNodes();
+
+			DialogEditor.Destroy();
 			base.Destroy();
 			Physics.Destroy();
 			
 			Engine.Instance.StateRenderer = new PixelPerfectGameRenderer();
 		}
-
-		private bool added;
-
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!added) {
-				added = true;
-			
-				ImGuiHelper.Node(new ImDialogNode("Awesome node"));
-				ImGuiHelper.Node(new ImDialogNode("Not awesome node :("));
-				ImGuiHelper.Node(new ImDialogNode("Not node"));
-
-				var end = new ImTextNode("End.");
-				end.AddInput();
-				ImGuiHelper.Node(end);
-				
-				var start = new ImTextNode("Start.");
-				start.AddOutput();
-				ImGuiHelper.Node(start);
-			}
-			
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new LoadState());
 			}
@@ -80,7 +63,7 @@ namespace BurningKnight.state {
 			
 			editor.RenderNative();
 			LocaleEditor.Render();
-			ImGuiHelper.RenderNodes();
+			DialogEditor.Render();
 			
 			ImGuiHelper.End();
 			

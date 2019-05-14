@@ -1,20 +1,21 @@
 using System.Collections.Generic;
 using BurningKnight.assets;
 using ImGuiNET;
+using Lens.lightJson;
 using Microsoft.Xna.Framework;
 using Vector2 = System.Numerics.Vector2;
 
-namespace BurningKnight.ui.imgui {
+namespace BurningKnight.ui.imgui.node {
 	public class ImNode {
 		private static Color connectorColor = new Color(0.6f, 0.6f, 0.6f, 1f); 
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
+		private static int lastId;
 
 		private const int connectorRadius = 6;
 		private const int connectorRadiusSquare = 36;
 
-		private static int lastId;
 		public int Id;
 		public string Name;
 		public Vector2 Position;
@@ -25,6 +26,10 @@ namespace BurningKnight.ui.imgui {
 		
 		public ImNode(string name) {
 			Name = name;
+			Id = lastId++;
+		}
+
+		public ImNode() {
 			Id = lastId++;
 		}
 
@@ -148,10 +153,33 @@ namespace BurningKnight.ui.imgui {
 		public virtual void RenderElements() {
 			
 		}
+		
+		public virtual void Save(JsonObject root) {
+			root["name"] = Name;
+			root["id"] = Id;
+			root["inputs"] = Inputs.Count;
+			root["outputs"] = Outputs.Count;
+		}
+
+		public virtual void Load(JsonObject root) {
+			Name = root["name"];
+			Id = root["id"].AsInteger;
+
+			var inputs = root["inputs"].AsInteger;
+			var outputs = root["outputs"].AsInteger;
+
+			while (inputs > Inputs.Count) {
+				AddInput();
+			}
+			
+			while (outputs > Outputs.Count) {
+				AddOutput();
+			}
+		}
 
 		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps, Color color) {
-			var t1 = new Vector2(+80.0f, 0.0f);
-			var t2 = new Vector2(+80.0f, 0.0f);
+			var t1 = new Vector2(80.0f, 0.0f);
+			var t2 = new Vector2(80.0f, 0.0f);
 
 			for (var step = 0; step <= steps; step++) {
 				var t = (float) step / steps;

@@ -1,8 +1,12 @@
 using ImGuiNET;
 
-namespace BurningKnight.ui.imgui {
+namespace BurningKnight.ui.imgui.node {
 	public class ImTextNode : ImNode {
 		private const int inputHalfHeight = 8;
+
+		public ImTextNode() {
+			
+		}
 		
 		public ImTextNode(string name) : base(name) {
 			
