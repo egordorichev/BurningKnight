@@ -6,16 +6,25 @@ using Microsoft.Xna.Framework;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
+	/*
+	 * Todo:
+	 * side window displaying all the nodes allowing to navigate em
+	 * scrolling
+	 * when you click on node in sidebar camera moves to it
+	 * creating new nodes
+	 */
 	public class ImNode {
 		private static Color connectorColor = new Color(0.6f, 0.6f, 0.6f, 1f); 
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
+		private static Color hoveredNodeBg = new Color(0.3f, 0.3f, 0.3f, 0.4f);
+		private static Color activeNodeBg = new Color(0.5f, 0.5f, 0.5f, 0.4f);
 		private static int lastId;
 
 		private const int connectorRadius = 6;
 		private const int connectorRadiusSquare = 36;
-
+		
 		public int Id;
 		public string Name;
 		public Vector2 Position;
@@ -128,8 +137,21 @@ namespace BurningKnight.ui.imgui.node {
 				DrawHermite(ImGui.GetForegroundDrawList(), connector, ImGui.GetIO().MousePos, 12, hovered ? hoveredConnectionColor : connectionColor);	
 			}
 		}
+
+		private bool hovered;
+		private bool focused;
 		
 		public virtual void Render() {
+			var pushedColor = false;
+
+			if (focused) {
+				pushedColor = true;
+				ImGui.PushStyleColor(ImGuiCol.WindowBg, activeNodeBg.PackedValue);
+			} else if (hovered) {
+				pushedColor = true;
+				ImGui.PushStyleColor(ImGuiCol.WindowBg, hoveredNodeBg.PackedValue);
+			}
+			
 			ImGui.Begin(Name, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
 			
 			Position = ImGui.GetWindowPos();
@@ -147,7 +169,15 @@ namespace BurningKnight.ui.imgui.node {
 			}
 			
 			RenderElements();
+
+			hovered = ImGui.IsWindowHovered();
+			focused = ImGui.IsWindowFocused();
+			
 			ImGui.End();
+
+			if (pushedColor) {
+				ImGui.PopStyleColor();
+			}
 		}
 
 		public virtual void RenderElements() {
