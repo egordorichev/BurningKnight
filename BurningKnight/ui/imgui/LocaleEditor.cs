@@ -17,6 +17,7 @@ namespace BurningKnight.ui.imgui {
 		private static string newKey = "";
 		private static string created;
 		private static bool showEnglish = true;
+		private static string newLocaleName = "";
 		
 		private class ModifiedInfo {
 			public string OldKey;
@@ -63,12 +64,89 @@ namespace BurningKnight.ui.imgui {
 
 			if (ImGui.Button("Save")) {
 				Locale.Save();
-				// fixme: find a good russian font
-				// also button for new locale file (and del obv)
+			}
+
+			ImGui.SameLine();
+			
+			if (ImGui.Button("New")) {
+				ImGui.OpenPopup("New locale");
 			}
 			
+			if (ImGui.BeginPopupModal("New locale")) {
+				ImGui.SetItemDefaultFocus();
+				var input = ImGui.InputText("Name", ref newLocaleName, 3, ImGuiInputTextFlags.EnterReturnsTrue);
+				var button = ImGui.Button("Create");
+
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Cancel")) {
+					ImGui.CloseCurrentPopup();
+					newLocaleName = "";
+				} else {
+					if (input || button) {
+						Locale.Current = newLocaleName;
+						Locale.Map = new Dictionary<string, string>();
+						Locale.Loaded[newLocaleName] = Locale.Map;
+					
+						var list = aviableLocales.ToList();
+						list.Add(newLocaleName);
+						aviableLocales = list.ToArray();
+						locale = list.Count - 1;
+
+						newLocaleName = "";
+						ImGui.CloseCurrentPopup();
+					}	
+				}
+
+				ImGui.EndPopup();
+			}
+
 			var notEng = aviableLocales[locale] != "en";
 
+			if (notEng) {
+				if (ImGui.Button("Clear")) {
+					Locale.Map.Clear();
+				}
+
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Delete")) {
+					ImGui.OpenPopup("Delete?");
+				}
+				
+				if (ImGui.BeginPopupModal("Delete?")) {
+					ImGui.Text("This operation can't be undone!");
+					ImGui.Text("Are you sure?");
+					
+					if (ImGui.Button("Yes")) {
+						ImGui.CloseCurrentPopup();
+						var list = aviableLocales.ToList();
+						list.Remove(Locale.Current);
+						aviableLocales = list.ToArray();
+						locale = 0;
+						Locale.Delete();
+					}
+						
+					ImGui.SameLine();
+					ImGui.SetItemDefaultFocus();
+					
+					if (ImGui.Button("No")) { 
+						ImGui.CloseCurrentPopup();
+					}
+
+					ImGui.EndPopup();
+				}
+			}
+
+			if (notEng && ImGui.Button("Add en")) {
+				foreach (var t in Locale.Fallback) {
+					if (!Locale.Map.ContainsKey(t.Key)) {
+						Locale.Map[t.Key] = t.Value;
+					}
+				}
+			}
+			
+			ImGui.SameLine();
 			ImGui.Text(notEng ? $"{Locale.Map.Count} entries (en has {Locale.Fallback.Count})" : $"{Locale.Map.Count} entries");
 
 			if (notEng) {

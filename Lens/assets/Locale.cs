@@ -11,13 +11,13 @@ namespace Lens.assets {
 		public static Dictionary<string, string> Map;
 		
 		public static Dictionary<string, string> Fallback = new Dictionary<string, string>();
-		private static Dictionary<string, Dictionary<string, string>> loaded = new Dictionary<string, Dictionary<string, string>>();
-		private static bool loadedFallback;
+		public static Dictionary<string, Dictionary<string, string>> Loaded = new Dictionary<string, Dictionary<string, string>>();
+		private static bool LoadedFallback;
 		
 		public static string Current;
 
 		private static void LoadRaw(string name, string path, bool backup = false) {
-			if (loaded.TryGetValue(name, out var cached)) {
+			if (Loaded.TryGetValue(name, out var cached)) {
 				Map = cached;
 				return;
 			}
@@ -33,14 +33,14 @@ namespace Lens.assets {
 				var root = JsonValue.Parse(file.ReadAll());
 				
 				cached = new Dictionary<string, string>();
-				loaded[name] = cached;
+				Loaded[name] = cached;
 
 				foreach (var entry in root.AsJsonObject) {
 					cached[entry.Key] = entry.Value.AsString;
 				}
 
 				if (!backup) {
-					loaded[name] = cached;
+					Loaded[name] = cached;
 					Map = cached;
 				}
 			} catch (Exception e) {
@@ -56,12 +56,12 @@ namespace Lens.assets {
 			Current = locale;
 			LoadRaw(locale, $"Content/Locales/{locale}.json");
 
-			if (!loadedFallback) {
+			if (!LoadedFallback) {
 				if (locale != "en") {
 					LoadRaw("en", "Content/Locales/en.json", true);
-					loadedFallback = true;
+					LoadedFallback = true;
 				} else {
-					loadedFallback = true;
+					LoadedFallback = true;
 					Fallback = Map;
 				}
 			} 			
@@ -79,6 +79,15 @@ namespace Lens.assets {
 
 				writer.Write(root);
 				file.Close();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+		}
+
+		public static void Delete() {
+			try {
+				new FileHandle($"Content/Locales/{Current}.json").Delete();
+				Current = "en";
 			} catch (Exception e) {
 				Log.Error(e);
 			}

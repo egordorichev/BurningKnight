@@ -170,9 +170,10 @@ namespace BurningKnight.ui.imgui {
 
 				io.AddInputCharacter(a.Character);
 			};
-			
-			ImGui.GetIO().Fonts.AddFontFromFileTTF("Content/font.ttf", 13, null, ImGui.GetIO().Fonts.GetGlyphRangesCyrillic());
-		}
+
+			ImGui.GetIO().Fonts.AddFontDefault();
+			// ImGui.GetIO().Fonts.AddFontFromFileTTF("Content/font.ttf", 13, null, ImGui.GetIO().Fonts.GetGlyphRangesCyrillic());
+        }
 
         /// <summary>
         ///   Updates the <see cref="Effect" /> to the current matrices and texture
