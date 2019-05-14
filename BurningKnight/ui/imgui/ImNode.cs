@@ -54,37 +54,51 @@ namespace BurningKnight.ui.imgui {
 			var hovered = IsConnectorHovered(connector);
 			list.AddCircleFilled(connector, connectorRadius, (hovered ? hoveredConnectorColor : connectorColor).PackedValue);
 
-			if (hovered && ImGui.IsMouseClicked(0)) {
-				if (CurrentActive != null && CurrentActive == connection) {
-					CurrentActive.Active = false;
-					CurrentActive = null;
-				} else {
-					if (CurrentActive != null) {
+			if (hovered) {
+				if (ImGui.IsMouseClicked(0)) {
+					if (CurrentActive != null && CurrentActive == connection) {
 						CurrentActive.Active = false;
-					}
-
-					CurrentActive = connection;
-					CurrentActive.Active = true; 
-					
-					if (ImGuiHelper.CurrentActive == null) {
-						ImGuiHelper.CurrentActive = this;
+						CurrentActive = null;
 					} else {
-						var active = ImGuiHelper.CurrentActive;
-						ImGuiHelper.CurrentActive = null;
-
-						if (active.CurrentActive != CurrentActive && active.CurrentActive.Input != CurrentActive.Input) {
-							active.CurrentActive.ConnectedTo = CurrentActive;
-							CurrentActive.ConnectedTo = active.CurrentActive;
-						}
-
-						active.CurrentActive.Active = false;
-						active.CurrentActive = null;
-
 						if (CurrentActive != null) {
 							CurrentActive.Active = false;
-							CurrentActive = null;	
+						}
+
+						CurrentActive = connection;
+						CurrentActive.Active = true;
+
+						if (ImGuiHelper.CurrentActive == null) {
+							ImGuiHelper.CurrentActive = this;
+						} else {
+							var active = ImGuiHelper.CurrentActive;
+							ImGuiHelper.CurrentActive = null;
+
+							if (active.CurrentActive != CurrentActive && active.CurrentActive.Input != CurrentActive.Input) {
+								active.CurrentActive.ConnectedTo = CurrentActive;
+								CurrentActive.ConnectedTo = active.CurrentActive;
+							}
+
+							active.CurrentActive.Active = false;
+							active.CurrentActive = null;
+
+							if (CurrentActive != null) {
+								CurrentActive.Active = false;
+								CurrentActive = null;
+							}
 						}
 					}
+				} else if (ImGui.IsMouseClicked(1) && connection.ConnectedTo != null) {
+					if (ImGuiHelper.CurrentActive == this || ImGuiHelper.CurrentActive == connection.ConnectedTo.Parent) {
+						ImGuiHelper.CurrentActive = null;
+					}
+						
+					connection.ConnectedTo.Active = false;
+					connection.ConnectedTo.ConnectedTo = null;
+					connection.ConnectedTo.Parent.CurrentActive = null;
+					connection.ConnectedTo = null;
+					connection.Active = false;
+
+					CurrentActive = null;
 				}
 			}
 
