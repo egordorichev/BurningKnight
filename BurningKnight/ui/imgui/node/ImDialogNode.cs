@@ -12,10 +12,6 @@ namespace BurningKnight.ui.imgui.node {
 		private string answerB = "Yeee.";
 
 		public ImDialogNode() {
-			
-		}
-		
-		public ImDialogNode(string name) : base(name) {
 			AddInput();
 			
 			AddOutput();
@@ -57,6 +53,10 @@ namespace BurningKnight.ui.imgui.node {
 			optionB = root["optionB"].AsString;
 			answerA = root["answerA"].AsString;
 			answerB = root["answerB"].AsString;
+		}
+
+		public override string GetName() {
+			return header;
 		}
 	}
 }

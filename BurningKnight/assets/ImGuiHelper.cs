@@ -40,6 +40,21 @@ namespace BurningKnight.assets {
 			foreach (var n in Nodes) {
 				n.Render();
 			}
+
+			if (!ImGui.Begin("Nodes", ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoFocusOnAppearing)) {
+				ImGui.End();
+				return;
+			}
+
+			
+			foreach (var node in Nodes) {
+				if (ImGui.Selectable($"{node.GetName()} #{node.Id}")) {
+					ImNode.Focused = node;
+					node.ForceFocus = true;
+				}
+			}
+			
+			ImGui.End();
 		}
 
 		public static ImNode CurrentActive;

@@ -8,7 +8,6 @@ using Vector2 = System.Numerics.Vector2;
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
-	 * side window displaying all the nodes allowing to navigate em
 	 * scrolling
 	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
@@ -18,26 +17,22 @@ namespace BurningKnight.ui.imgui.node {
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
-		private static Color hoveredNodeBg = new Color(0.3f, 0.3f, 0.3f, 0.4f);
-		private static Color activeNodeBg = new Color(0.5f, 0.5f, 0.5f, 0.4f);
+		private static Color hoveredNodeBg = new Color(0.2f, 0.2f, 0.2f, 0.4f);
+		private static Color activeNodeBg = new Color(0.3f, 0.35f, 0.3f, 0.4f);
 		private static int lastId;
-
+		
 		private const int connectorRadius = 6;
 		private const int connectorRadiusSquare = 36;
-		
+
+		public static ImNode Focused;
+
 		public int Id;
-		public string Name;
 		public Vector2 Position;
 		public Vector2 Size;
 		public List<ImConnection> Inputs = new List<ImConnection>();
 		public List<ImConnection> Outputs = new List<ImConnection>();
 		public ImConnection CurrentActive;
 		
-		public ImNode(string name) {
-			Name = name;
-			Id = lastId++;
-		}
-
 		public ImNode() {
 			Id = lastId++;
 		}
@@ -140,11 +135,17 @@ namespace BurningKnight.ui.imgui.node {
 
 		private bool hovered;
 		private bool focused;
+		public bool ForceFocus;
 		
 		public virtual void Render() {
 			var pushedColor = false;
 
-			if (focused) {
+			if (Focused != this) {
+				focused = false;
+				ForceFocus = false;
+			}
+			
+			if (focused || ForceFocus) {
 				pushedColor = true;
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, activeNodeBg.PackedValue);
 			} else if (hovered) {
@@ -152,8 +153,12 @@ namespace BurningKnight.ui.imgui.node {
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, hoveredNodeBg.PackedValue);
 			}
 			
-			ImGui.Begin(Name, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+			if (ForceFocus) {
+				ImGui.SetNextWindowFocus();
+			}
 			
+			ImGui.Begin($"node_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+
 			Position = ImGui.GetWindowPos();
 			Size = ImGui.GetWindowSize();
 			
@@ -172,6 +177,10 @@ namespace BurningKnight.ui.imgui.node {
 
 			hovered = ImGui.IsWindowHovered();
 			focused = ImGui.IsWindowFocused();
+
+			if (focused) {
+				Focused = this;
+			}
 			
 			ImGui.End();
 
@@ -185,14 +194,12 @@ namespace BurningKnight.ui.imgui.node {
 		}
 		
 		public virtual void Save(JsonObject root) {
-			root["name"] = Name;
 			root["id"] = Id;
 			root["inputs"] = Inputs.Count;
 			root["outputs"] = Outputs.Count;
 		}
 
 		public virtual void Load(JsonObject root) {
-			Name = root["name"];
 			Id = root["id"].AsInteger;
 
 			var inputs = root["inputs"].AsInteger;
@@ -222,6 +229,10 @@ namespace BurningKnight.ui.imgui.node {
 			}
 
 			ImGuiNative.ImDrawList_PathStroke(drawList, color.PackedValue, 0, 3.0f);
+		}
+
+		public virtual string GetName() {
+			return "Node";
 		}
 	}
 }

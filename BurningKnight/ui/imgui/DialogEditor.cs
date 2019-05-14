@@ -11,7 +11,6 @@ namespace BurningKnight.ui.imgui {
 	public static class DialogEditor {
 		public static void Init() {
 			ImGuiHelper.ClearNodes();
-
 			Load();
 		}
 

@@ -1,17 +1,11 @@
 using ImGuiNET;
+using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
 	public class ImTextNode : ImNode {
 		private const int inputHalfHeight = 8;
-
-		public ImTextNode() {
-			
-		}
+		private string name;
 		
-		public ImTextNode(string name) : base(name) {
-			
-		}
-
 		public override void RenderElements() {
 			if (Inputs.Count > 0) {
 				Inputs[0].Offset.Y = ImGui.GetCursorPos().Y + inputHalfHeight;
@@ -21,7 +15,21 @@ namespace BurningKnight.ui.imgui.node {
 				Outputs[0].Offset.Y = ImGui.GetCursorPos().Y + inputHalfHeight;
 			}
 			
-			ImGui.Text(Name);
+			ImGui.Text(name);
+		}
+
+		public override void Load(JsonObject root) {
+			base.Load(root);
+			name = root["name"];
+		}
+
+		public override void Save(JsonObject root) {
+			base.Save(root);
+			root["name"] = name;
+		}
+
+		public override string GetName() {
+			return name;
 		}
 	}
 }
