@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ImGuiNET;
 using Lens.assets;
+using Lens.input;
 using Lens.util.file;
+using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.ui.imgui {
 	public static unsafe class LocaleEditor {
@@ -18,6 +20,7 @@ namespace BurningKnight.ui.imgui {
 		private static string created;
 		private static bool showEnglish = true;
 		private static string newLocaleName = "";
+		private static bool open;
 		
 		private class ModifiedInfo {
 			public string OldKey;
@@ -48,6 +51,14 @@ namespace BurningKnight.ui.imgui {
 		}
 		
 		public static void Render() {
+			if (Input.Keyboard.WasPressed(Keys.F10)) {
+				open = !open;
+			}
+			
+			if (!open) {
+				return;
+			}
+			
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			
@@ -137,6 +148,8 @@ namespace BurningKnight.ui.imgui {
 					ImGui.EndPopup();
 				}
 			}
+				
+			ImGui.SameLine();
 
 			if (notEng && ImGui.Button("Add en")) {
 				foreach (var t in Locale.Fallback) {
@@ -146,7 +159,6 @@ namespace BurningKnight.ui.imgui {
 				}
 			}
 			
-			ImGui.SameLine();
 			ImGui.Text(notEng ? $"{Locale.Map.Count} entries (en has {Locale.Fallback.Count})" : $"{Locale.Map.Count} entries");
 
 			if (notEng) {
