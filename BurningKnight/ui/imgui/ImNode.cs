@@ -9,6 +9,7 @@ namespace BurningKnight.ui.imgui {
 		private static Color connectorColor = new Color(0.6f, 0.6f, 0.6f, 1f); 
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
+		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
 
 		private const int connectorRadius = 6;
 		private const int connectorRadiusSquare = 36;
@@ -87,11 +88,21 @@ namespace BurningKnight.ui.imgui {
 				}
 			}
 
+			var p2 = ImGui.GetIO().MousePos;
+			var draw = CurrentActive == connection;
+			
 			if (!connection.Input && connection.ConnectedTo != null) {
 				var to = connection.ConnectedTo;
-				DrawHermite(ImGui.GetForegroundDrawList(), connector, to.Parent.Position + to.Offset, 12);	
-			} else if (CurrentActive == connection) {
-				DrawHermite(ImGui.GetForegroundDrawList(), connector, ImGui.GetIO().MousePos, 12);	
+
+				p2 = to.Parent.Position + to.Offset;
+				draw = true;
+				hovered = hovered || IsConnectorHovered(p2);
+			}
+			
+			var color = hovered ? hoveredConnectionColor : connectionColor;
+
+			if (draw) {
+				DrawHermite(ImGui.GetForegroundDrawList(), connector, p2, 12, color);	
 			}
 		}
 		
@@ -120,7 +131,7 @@ namespace BurningKnight.ui.imgui {
 			
 		}
 
-		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps) {
+		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps, Color color) {
 			var t1 = new Vector2(+80.0f, 0.0f);
 			var t2 = new Vector2(+80.0f, 0.0f);
 
@@ -134,7 +145,7 @@ namespace BurningKnight.ui.imgui {
 				ImGuiNative.ImDrawList_PathLineTo(drawList, new Vector2(h1 * p1.X + h2 * p2.X + h3 * t1.X + h4 * t2.X, h1 * p1.Y + h2 * p2.Y + h3 * t1.Y + h4 * t2.Y));
 			}
 
-			ImGuiNative.ImDrawList_PathStroke(drawList, connectionColor.PackedValue, 0, 3.0f);
+			ImGuiNative.ImDrawList_PathStroke(drawList, color.PackedValue, 0, 3.0f);
 		}
 	}
 }
