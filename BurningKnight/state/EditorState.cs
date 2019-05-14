@@ -33,6 +33,8 @@ namespace BurningKnight.state {
 				UseDepth = UseDepth,
 				CameraPosition = CameraPosition
 			});
+			
+			ImGuiHelper.ClearNodes();
 		}
 
 		public override void Destroy() {
@@ -40,14 +42,33 @@ namespace BurningKnight.state {
 				// SaveManager.Save(Area, SaveType.Level);
 			}
 			
+			ImGuiHelper.ClearNodes();
 			base.Destroy();
 			Physics.Destroy();
 			
 			Engine.Instance.StateRenderer = new PixelPerfectGameRenderer();
 		}
 
+		private bool added;
+
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!added) {
+				added = true;
+			
+				ImGuiHelper.Node(new ImDialogNode("Awesome node"));
+				ImGuiHelper.Node(new ImDialogNode("Not awesome node :("));
+				ImGuiHelper.Node(new ImDialogNode("Not node"));
+
+				var end = new ImTextNode("End.");
+				end.AddInput();
+				ImGuiHelper.Node(end);
+				
+				var start = new ImTextNode("Start.");
+				start.AddOutput();
+				ImGuiHelper.Node(start);
+			}
 			
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				Engine.Instance.SetState(new LoadState());
@@ -56,8 +77,11 @@ namespace BurningKnight.state {
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
+			
 			editor.RenderNative();
 			LocaleEditor.Render();
+			ImGuiHelper.RenderNodes();
+			
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

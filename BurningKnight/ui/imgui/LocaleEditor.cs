@@ -148,17 +148,19 @@ namespace BurningKnight.ui.imgui {
 					ImGui.EndPopup();
 				}
 			}
-				
-			ImGui.SameLine();
 
-			if (notEng && ImGui.Button("Add en")) {
-				foreach (var t in Locale.Fallback) {
-					if (!Locale.Map.ContainsKey(t.Key)) {
-						Locale.Map[t.Key] = t.Value;
+			if (notEng) {
+				ImGui.SameLine();
+
+				if (ImGui.Button("Add en")) {
+					foreach (var t in Locale.Fallback) {
+						if (!Locale.Map.ContainsKey(t.Key)) {
+							Locale.Map[t.Key] = t.Value;
+						}
 					}
 				}
 			}
-			
+
 			ImGui.Text(notEng ? $"{Locale.Map.Count} entries (en has {Locale.Fallback.Count})" : $"{Locale.Map.Count} entries");
 
 			if (notEng) {
