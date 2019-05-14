@@ -8,6 +8,7 @@ namespace BurningKnight.ui.imgui {
 		public List<ImConnection> ConnectedTo = new List<ImConnection>();
 		public ImNode Parent;
 		public bool Input;
-		public bool Active = false;
+		public int Id;
+		public bool Active;
 	}
 }

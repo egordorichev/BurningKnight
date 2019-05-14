@@ -7,7 +7,7 @@ using Lens;
 namespace BurningKnight.assets {
 	public static class ImGuiHelper {
 		public static ImGuiRenderer Renderer;
-		public static List<ImNode> Nodes = new List<ImNode>();
+		public static Dictionary<int, ImNode> Nodes = new Dictionary<int, ImNode>();
 		
 		public static void Init() {
 			Renderer = new ImGuiRenderer(Engine.Instance);
@@ -33,22 +33,23 @@ namespace BurningKnight.assets {
 		}
 
 		public static void Node(ImNode node) {
-			Nodes.Add(node);
+			Nodes[node.Id] = node;
 		}
 
 		public static void RenderNodes() {
 			foreach (var n in Nodes) {
-				n.Render();
+				n.Value.Render();
 			}
 
 			if (!ImGui.Begin("Nodes", ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoFocusOnAppearing)) {
 				ImGui.End();
 				return;
 			}
-
 			
-			foreach (var node in Nodes) {
-				if (ImGui.Selectable($"{node.GetName()} #{node.Id}")) {
+			foreach (var p in Nodes) {
+				var node = p.Value;
+				
+				if (ImGui.Selectable($"{node.GetName()} #{node.Id}", ImNode.Focused == node)) {
 					ImNode.Focused = node;
 					node.ForceFocus = true;
 				}

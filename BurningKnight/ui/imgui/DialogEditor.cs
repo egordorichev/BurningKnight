@@ -23,7 +23,9 @@ namespace BurningKnight.ui.imgui {
 			var nodes = ImGuiHelper.Nodes;
 			var root = new JsonArray();
 
-			foreach (var node in nodes) {
+			foreach (var p in nodes) {
+				var node = p.Value;
+				
 				var obj = new JsonObject();
 				obj["type"] = ImNodeRegistry.GetName(node);
 				node.Save(obj);
@@ -32,7 +34,7 @@ namespace BurningKnight.ui.imgui {
 			}
 
 			var file = File.CreateText("Content/Dialogs/dialogs.json");
-			var writer = new JsonWriter(file);
+			var writer = new JsonWriter(file, true);
 			writer.Write(root);
 			file.Close();
 		}

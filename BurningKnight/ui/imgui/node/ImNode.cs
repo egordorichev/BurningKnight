@@ -8,6 +8,7 @@ using Vector2 = System.Numerics.Vector2;
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
+	 * connection saving
 	 * scrolling
 	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
@@ -49,13 +50,15 @@ namespace BurningKnight.ui.imgui.node {
 		public void AddInput() {
 			Inputs.Add(new ImConnection {
 				Input = true,
-				Parent = this
+				Parent = this,
+				Id = Inputs.Count
 			});
 		}
 
 		public void AddOutput() {
 			Outputs.Add(new ImConnection {
-				Parent = this
+				Parent = this,
+				Id = Outputs.Count
 			});
 		}
 		
@@ -136,8 +139,27 @@ namespace BurningKnight.ui.imgui.node {
 		private bool hovered;
 		private bool focused;
 		public bool ForceFocus;
+
+		private JsonArray outputs;
 		
 		public virtual void Render() {
+			if (outputs != null) {
+				var j = 0;
+				
+				foreach (var i in outputs) {
+					var to = ImGuiHelper.Nodes[i[j][0]];
+					var from = Outputs[j];
+					var where = to.Inputs[i[j][1]];
+
+					from.ConnectedTo.Add(where);
+					where.ConnectedTo.Add(from);
+					
+					j++;
+				}
+
+				outputs = null;
+			}
+			
 			var pushedColor = false;
 
 			if (Focused != this) {
@@ -193,25 +215,39 @@ namespace BurningKnight.ui.imgui.node {
 			
 		}
 		
+		private JsonArray SaveConnections(List<ImConnection> connections, bool inputs = true) {
+			var root = new JsonArray();
+
+			foreach (var c in connections) {
+				var array = new JsonArray();
+
+				if (c.ConnectedTo.Count == 0) {
+					continue;
+				}
+
+				foreach (var cc in c.ConnectedTo) {
+					array.Add(new JsonArray {
+						cc.Parent.Id, 
+						cc.Id
+					});
+				}
+				
+				root.Add(array);
+			}
+			
+			return root;
+		}
+		
 		public virtual void Save(JsonObject root) {
 			root["id"] = Id;
-			root["inputs"] = Inputs.Count;
-			root["outputs"] = Outputs.Count;
+			root["inputs"] = SaveConnections(Inputs);
+			root["outputs"] = SaveConnections(Outputs, false);
 		}
 
 		public virtual void Load(JsonObject root) {
 			Id = root["id"].AsInteger;
 
-			var inputs = root["inputs"].AsInteger;
-			var outputs = root["outputs"].AsInteger;
-
-			while (inputs > Inputs.Count) {
-				AddInput();
-			}
-			
-			while (outputs > Outputs.Count) {
-				AddOutput();
-			}
+			outputs = root["outputs"];
 		}
 
 		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps, Color color) {
