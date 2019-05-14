@@ -74,8 +74,8 @@ namespace BurningKnight.ui.imgui {
 							ImGuiHelper.CurrentActive = null;
 
 							if (active.CurrentActive != CurrentActive && active.CurrentActive.Input != CurrentActive.Input) {
-								active.CurrentActive.ConnectedTo = CurrentActive;
-								CurrentActive.ConnectedTo = active.CurrentActive;
+								active.CurrentActive.ConnectedTo.Add(CurrentActive);
+								CurrentActive.ConnectedTo.Add(active.CurrentActive);
 							}
 
 							active.CurrentActive.Active = false;
@@ -87,36 +87,40 @@ namespace BurningKnight.ui.imgui {
 							}
 						}
 					}
-				} else if (ImGui.IsMouseClicked(1) && connection.ConnectedTo != null) {
-					if (ImGuiHelper.CurrentActive == this || ImGuiHelper.CurrentActive == connection.ConnectedTo.Parent) {
+				} else if (ImGui.IsMouseClicked(1) && connection.ConnectedTo.Count > 0) {
+					if (ImGuiHelper.CurrentActive == this) {
 						ImGuiHelper.CurrentActive = null;
+					} else {
+						foreach (var to in connection.ConnectedTo) {
+							if (ImGuiHelper.CurrentActive == to.Parent) {
+								ImGuiHelper.CurrentActive = null;
+								break;
+							}
+						}
 					}
-						
-					connection.ConnectedTo.Active = false;
-					connection.ConnectedTo.ConnectedTo = null;
-					connection.ConnectedTo.Parent.CurrentActive = null;
-					connection.ConnectedTo = null;
+
+					foreach (var to in connection.ConnectedTo) {
+						to.Active = false;
+						to.ConnectedTo.Clear();
+						to.Parent.CurrentActive = null;
+					}
+					
+					connection.ConnectedTo.Clear();
 					connection.Active = false;
 
 					CurrentActive = null;
 				}
 			}
 
-			var p2 = ImGui.GetIO().MousePos;
-			var draw = CurrentActive == connection;
-			
-			if (!connection.Input && connection.ConnectedTo != null) {
-				var to = connection.ConnectedTo;
-
-				p2 = to.Parent.Position + to.Offset;
-				draw = true;
-				hovered = hovered || IsConnectorHovered(p2);
+			if (!connection.Input && connection.ConnectedTo.Count > 0) {
+				foreach (var to in connection.ConnectedTo) {
+					var p = to.Parent.Position + to.Offset;
+					DrawHermite(ImGui.GetForegroundDrawList(), connector, p, 12, hovered || IsConnectorHovered(p) ? hoveredConnectionColor : connectionColor);	
+				}
 			}
-			
-			var color = hovered ? hoveredConnectionColor : connectionColor;
 
-			if (draw) {
-				DrawHermite(ImGui.GetForegroundDrawList(), connector, p2, 12, color);	
+			if (CurrentActive == connection) {
+				DrawHermite(ImGui.GetForegroundDrawList(), connector, ImGui.GetIO().MousePos, 12, hovered ? hoveredConnectionColor : connectionColor);	
 			}
 		}
 		
