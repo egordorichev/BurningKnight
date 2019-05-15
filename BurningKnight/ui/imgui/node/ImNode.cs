@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using BurningKnight.assets;
 using ImGuiNET;
+using Lens.input;
 using Lens.lightJson;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
-	 * connection saving
 	 * scrolling
 	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
@@ -19,7 +20,7 @@ namespace BurningKnight.ui.imgui.node {
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
 		private static Color hoveredNodeBg = new Color(0.2f, 0.2f, 0.2f, 0.4f);
-		private static Color activeNodeBg = new Color(0.3f, 0.35f, 0.3f, 0.4f);
+		private static Color activeNodeBg = new Color(0.4f, 0.4f, 0.4f, 0.4f);
 		private static int lastId;
 		
 		private const int connectorRadius = 6;
@@ -33,6 +34,8 @@ namespace BurningKnight.ui.imgui.node {
 		public List<ImConnection> Inputs = new List<ImConnection>();
 		public List<ImConnection> Outputs = new List<ImConnection>();
 		public ImConnection CurrentActive;
+
+		public bool Done;
 		
 		public ImNode() {
 			Id = lastId++;
@@ -144,43 +147,58 @@ namespace BurningKnight.ui.imgui.node {
 		
 		public virtual void Render() {
 			if (outputs != null) {
-				var j = 0;
-				
-				foreach (var i in outputs) {
-					var to = ImGuiHelper.Nodes[i[j][0]];
-					var from = Outputs[j];
-					var where = to.Inputs[i[j][1]];
+				var j = -1;
 
-					from.ConnectedTo.Add(where);
-					where.ConnectedTo.Add(from);
-					
-					j++;
+				if (outputs != JsonValue.Null) {
+					foreach (var i in outputs) {
+						j++;
+
+						if (!i.IsJsonArray) {
+							continue;
+						}
+						
+						foreach (var o in i.AsJsonArray) {
+							if (!o.IsJsonArray) {
+								continue;
+							}
+							
+							var to = ImGuiHelper.Nodes[o[0]];
+							var from = Outputs[j];
+							var where = to.Inputs[o[1]];
+
+							from.ConnectedTo.Add(where);
+							where.ConnectedTo.Add(from);
+						}
+					}
 				}
 
 				outputs = null;
 			}
 			
-			var pushedColor = false;
-
 			if (Focused != this) {
 				focused = false;
 				ForceFocus = false;
 			}
 			
+			var pushedColor = false;
+			
 			if (focused || ForceFocus) {
 				pushedColor = true;
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, activeNodeBg.PackedValue);
+
+				if (Input.Keyboard.WasPressed(Keys.Delete, true) || Input.Keyboard.WasPressed(Keys.Back, true)) {
+					Done = true;
+				}
 			} else if (hovered) {
 				pushedColor = true;
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, hoveredNodeBg.PackedValue);
 			}
 			
-			if (ForceFocus) {
-				ImGui.SetNextWindowFocus();
-			}
-			
 			ImGui.Begin($"node_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
-
+			var old = ImGuiHelper.CurrentMenu;
+			ImGuiHelper.CurrentMenu = this;
+			ImGuiHelper.RenderMenu(true);
+			
 			Position = ImGui.GetWindowPos();
 			Size = ImGui.GetWindowSize();
 			
@@ -203,11 +221,40 @@ namespace BurningKnight.ui.imgui.node {
 			if (focused) {
 				Focused = this;
 			}
-			
-			ImGui.End();
 
+			ImGui.End();
+			ImGuiHelper.CurrentMenu = old;
+			
 			if (pushedColor) {
 				ImGui.PopStyleColor();
+			}
+
+			if (Done) {
+				Remove();
+			}
+		}
+
+		public void Remove() {
+			Done = true;
+			
+			if (ImGuiHelper.CurrentActive == this) {
+				ImGuiHelper.CurrentActive = null;
+			}
+
+			foreach (var i in Inputs) {
+				foreach (var t in i.ConnectedTo) {
+					t.ConnectedTo.Remove(i);
+				}
+
+				i.ConnectedTo.Clear();
+			}
+
+			foreach (var i in Outputs) {
+				foreach (var t in i.ConnectedTo) {
+					t.ConnectedTo.Remove(i);
+				}
+
+				i.ConnectedTo.Clear();
 			}
 		}
 
@@ -222,6 +269,7 @@ namespace BurningKnight.ui.imgui.node {
 				var array = new JsonArray();
 
 				if (c.ConnectedTo.Count == 0) {
+					array.Add(new JsonArray());
 					continue;
 				}
 
@@ -246,8 +294,7 @@ namespace BurningKnight.ui.imgui.node {
 
 		public virtual void Load(JsonObject root) {
 			Id = root["id"].AsInteger;
-
-			outputs = root["outputs"];
+			outputs = root["outputs"].AsJsonArray;
 		}
 
 		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps, Color color) {

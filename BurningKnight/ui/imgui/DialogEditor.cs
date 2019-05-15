@@ -12,6 +12,10 @@ namespace BurningKnight.ui.imgui {
 		public static void Init() {
 			ImGuiHelper.ClearNodes();
 			Load();
+			ImGuiHelper.Node(new ImDialogNode());
+			ImGuiHelper.Node(new ImDialogNode());
+			ImGuiHelper.Node(new ImDialogNode());
+			ImGuiHelper.Node(new ImDialogNode());
 		}
 
 		public static void Destroy() {
