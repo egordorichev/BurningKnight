@@ -4,7 +4,8 @@ using Lens.lightJson;
 namespace BurningKnight.ui.imgui.node {
 	public class ImTextNode : ImNode {
 		private const int inputHalfHeight = 8;
-		private string name;
+		private string name = "";
+		private string label = "";
 		
 		public override void RenderElements() {
 			if (Inputs.Count > 0) {
@@ -15,7 +16,13 @@ namespace BurningKnight.ui.imgui.node {
 				Outputs[0].Offset.Y = ImGui.GetCursorPos().Y + inputHalfHeight;
 			}
 			
-			ImGui.Text(name);
+			ImGui.PushItemWidth(200);
+			
+			if (ImGui.InputText($"##{name}", ref label, 256, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				name = label;
+			}
+			
+			ImGui.PopItemWidth();
 		}
 
 		public override void Load(JsonObject root) {

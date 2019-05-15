@@ -431,7 +431,9 @@
     <Compile Include="ui\imgui\node\ImDialogNode.cs" />
     <Compile Include="ui\imgui\node\ImNode.cs" />
     <Compile Include="ui\imgui\node\ImNodeRegistry.cs" />
+    <Compile Include="ui\imgui\node\ImTextInputNode.cs" />
     <Compile Include="ui\imgui\node\ImTextNode.cs" />
+    <Compile Include="ui\imgui\node\ImTextOutputNode.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
     <Compile Include="ui\str\effect\ColorEffect.cs" />

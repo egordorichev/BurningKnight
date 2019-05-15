@@ -5,11 +5,11 @@ namespace BurningKnight.ui.imgui.node {
 	public class ImDialogNode : ImNode {
 		private const int inputHalfHeight = 8;
 
-		private string header = "Alarm.";
-		private string optionA = "Wake.";
-		private string optionB = "Snore.";
-		private string answerA = "Early.";
-		private string answerB = "Yeee.";
+		private string header = "Title";
+		private string optionA = "Option A";
+		private string optionB = "Option B";
+		private string answerA = "Answer A";
+		private string answerB = "Answer B";
 
 		public ImDialogNode() {
 			AddInput();

@@ -6,8 +6,9 @@ namespace BurningKnight.ui.imgui.node {
 		public static Dictionary<string, Type> Defined = new Dictionary<string, Type>();
 
 		static ImNodeRegistry() {
-			Define<ImTextNode>("text");
-			Define<ImDialogNode>("dialog");
+			Define<ImTextOutputNode>("Text output");
+			Define<ImTextInputNode>("Text input");
+			Define<ImDialogNode>("Dialog");
 		}
 		
 		public static void Define<T>(string name) where T : ImNode {
@@ -18,18 +19,15 @@ namespace BurningKnight.ui.imgui.node {
 			if (!Defined.TryGetValue(name, out var type)) {
 				return null;
 			}
-
-			return (ImNode) Activator.CreateInstance(type);
+			
+			var node = (ImNode) Activator.CreateInstance(type);
+			node.Tip = name;
+			
+			return node;
 		}
 
 		public static string GetName(ImNode node) {
-			foreach (var d in Defined) {
-				if (d.Value == node.GetType()) {
-					return d.Key;
-				}
-			}
-
-			return null;
+			return node.Tip;
 		}
 	}
 }

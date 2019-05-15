@@ -8,10 +8,6 @@ using Microsoft.Xna.Framework;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
-	/*
-	 * Todo:
-	 * creating new nodes
-	 */
 	public class ImNode {
 		private const int connectorRadius = 7;
 		private const int connectorRadiusSquare = connectorRadius * connectorRadius;
@@ -37,6 +33,7 @@ namespace BurningKnight.ui.imgui.node {
 		public List<ImConnection> Outputs = new List<ImConnection>();
 		public ImConnection CurrentActive;
 		public bool Done;
+		public string Tip;
 		
 		public ImNode() {
 			Id = LastId++;
@@ -214,27 +211,11 @@ namespace BurningKnight.ui.imgui.node {
 				ImGui.SetNextWindowPos(RealPosition + Offset, ImGuiCond.Always);
 			}
 
-			ImGui.Begin($"node_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+			ImGui.Begin($"node_{Tip}_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
 			var old = ImGuiHelper.CurrentMenu;
 			ImGuiHelper.CurrentMenu = this;
 			ImGuiHelper.RenderMenu(true);
 
-			if (New) {
-				New = false;
-			} else if (!readPosition) {
-				readPosition = true;
-				Position = ImGui.GetWindowPos();
-				RealPosition = Position - Offset;
-				Size = ImGui.GetWindowSize();
-			} else {
-				if (hovered && ImGui.IsMouseDragging(0)) {
-					var d = ImGui.GetIO().MouseDelta;
-					RealPosition += d;
-				}
-				
-				Position = RealPosition + Offset;
-			}
-			
 			RenderElements();
 			
 			var rightSide = Position + new Vector2(Size.X, 0);
@@ -257,6 +238,22 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (focused) {
 				Focused = this;
+			}
+
+			if (New) {
+				New = false;
+			} else if (!readPosition) {
+				readPosition = true;
+				Position = ImGui.GetWindowPos();
+				RealPosition = Position - Offset;
+				Size = ImGui.GetWindowSize();
+			} else {
+				if (hovered && ImGui.IsMouseDragging(0)) {
+					var d = ImGui.GetIO().MouseDelta;
+					RealPosition += d;
+				}
+				
+				Position = RealPosition + Offset;
 			}
 
 			ImGui.End();
@@ -372,7 +369,8 @@ namespace BurningKnight.ui.imgui.node {
 				Log.Error($"Unknown node type {type.AsString}");
 				return null;
 			}
-			
+
+			node.Tip = type.AsString;
 			node.Load(vl);
 
 			if (ignoreId) {

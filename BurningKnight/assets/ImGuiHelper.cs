@@ -75,7 +75,7 @@ namespace BurningKnight.assets {
 				if ((target.Value - ImNode.Offset).Length() <= 3f) {
 					target = null;
 				}
-			} else if (ImGui.IsMouseDragging(2)) {
+			} else if (ImGui.IsMouseDragging(2) || Input.Keyboard.IsDown(Keys.Space, true)) {
 				ImNode.Offset += ImGui.GetIO().MouseDelta;
 			}
 			
@@ -99,6 +99,40 @@ namespace BurningKnight.assets {
 				}
 				
 				toRemove.Clear();
+			}
+
+			if (pasted != null) {
+				try {
+					var root = JsonValue.Parse(pasted);
+
+					if (root.IsJsonObject) {
+						var val = root["imnode"];
+						var node = ImNode.Create(val, true);
+
+						if (node != null) {
+							node.New = true;
+							node.Position = ImGui.GetIO().MousePos;
+							ImNode.Focused = node;
+						}
+					}
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				pasted = null;
+			}
+
+			if (toAdd != null) {
+				var node = ImNodeRegistry.Create(toAdd);
+				
+				if (node != null) {
+					node.New = true;
+					node.Position = ImGui.GetIO().MousePos;
+					ImNode.Focused = node;
+				}
+
+				Node(node);
+				toAdd = null;
 			}
 			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
@@ -156,31 +190,11 @@ namespace BurningKnight.assets {
 			}
 			
 			ImGui.End();
-
-			if (pasted != null) {
-				try {
-					var root = JsonValue.Parse(pasted);
-
-					if (root.IsJsonObject) {
-						var val = root["imnode"];
-						var node = ImNode.Create(val, true);
-
-						if (node != null) {
-							node.New = true;
-							node.Position = ImGui.GetIO().MousePos;
-							ImNode.Focused = node;
-						}
-					}
-				} catch (Exception e) {
-					Log.Error(e);
-				}
-
-				pasted = null;
-			}
 		}
 
 		public static ImNode CurrentMenu;
 		private static string pasted;
+		private static string toAdd;
 		private static bool hideFiltred;
 
 		public static void RenderPaste() {
@@ -192,6 +206,7 @@ namespace BurningKnight.assets {
 		public static void RenderVoidMenu() {
 			if (ImGui.BeginPopupContextVoid("void_menu")) {
 				RenderPaste();
+				RenderAddNew();
 			}
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true) || Input.Keyboard.IsDown(Keys.RightControl, true)) {
@@ -209,6 +224,16 @@ namespace BurningKnight.assets {
 			}
 		}
 
+		private static void RenderAddNew() {
+			ImGui.Separator();
+
+			foreach (var p in ImNodeRegistry.Defined) {
+				if (ImGui.Selectable(p.Key)) {
+					toAdd = p.Key;
+				}
+			}
+		}
+		
 		private static void Copy(bool menu = true) {
 			var root = new JsonObject();
 
@@ -242,6 +267,7 @@ namespace BurningKnight.assets {
 					CurrentMenu.Remove();
 				}
 				
+				RenderAddNew();
 				ImGui.EndPopup();
 			}
 		}
