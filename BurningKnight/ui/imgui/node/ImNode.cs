@@ -18,6 +18,9 @@ namespace BurningKnight.ui.imgui.node {
 	 * creating new nodes
 	 */
 	public class ImNode {
+		private const int connectorRadius = 7;
+		private const int connectorRadiusSquare = connectorRadius * connectorRadius;
+
 		private static Color connectorColor = new Color(0.6f, 0.6f, 0.6f, 1f); 
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
@@ -28,9 +31,6 @@ namespace BurningKnight.ui.imgui.node {
 		private static Vector2 connectorVector = new Vector2(connectorRadius);
 		public static int LastId;
 		
-		private const int connectorRadius = 6;
-		private const int connectorRadiusSquare = 36;
-
 		public static ImNode Focused;
 
 		public int Id;
@@ -76,6 +76,8 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (hovered) {
 				if (ImGui.IsMouseClicked(0)) {
+					justStarted = true;
+
 					if (CurrentActive != null && CurrentActive == connection) {
 						CurrentActive.Active = false;
 						CurrentActive = null;
@@ -86,18 +88,20 @@ namespace BurningKnight.ui.imgui.node {
 
 						CurrentActive = connection;
 						CurrentActive.Active = true;
-
+						
 						if (ImGuiHelper.CurrentActive == null) {
 							ImGuiHelper.CurrentActive = this;
 						} else {
 							var active = ImGuiHelper.CurrentActive;
 							ImGuiHelper.CurrentActive = null;
-
+							
 							if (active.CurrentActive != CurrentActive && active.CurrentActive.Input != CurrentActive.Input) {
 								active.CurrentActive.ConnectedTo.Add(CurrentActive);
 								CurrentActive.ConnectedTo.Add(active.CurrentActive);
-							}
 
+							}
+							
+							active.justStarted = true;
 							active.CurrentActive.Active = false;
 							active.CurrentActive = null;
 
@@ -121,7 +125,7 @@ namespace BurningKnight.ui.imgui.node {
 
 					foreach (var to in connection.ConnectedTo) {
 						to.Active = false;
-						to.ConnectedTo.Clear();
+						to.ConnectedTo.Remove(connection);
 						to.Parent.CurrentActive = null;
 					}
 					
@@ -146,10 +150,23 @@ namespace BurningKnight.ui.imgui.node {
 
 		private bool hovered;
 		private bool focused;
+		private bool justStarted;
 		public bool ForceFocus;
 		public bool New;
 		
 		private JsonArray outputs;
+
+		public void RemoveEmptyConnection() {
+			if (ImGuiHelper.CurrentActive == this) {
+				if (justStarted) {
+					justStarted = false;
+				} else if (ImGui.IsMouseClicked(0) && CurrentActive != null) {
+					CurrentActive.Active = false;
+					CurrentActive = null;
+					ImGuiHelper.CurrentActive = null;
+				}
+			}
+		}
 		
 		public virtual void Render() {
 			if (outputs != null) {

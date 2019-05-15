@@ -20,6 +20,8 @@ namespace BurningKnight.assets {
 
 		private static List<int> toRemove = new List<int>();
 		private static bool loadedFont;
+		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 
 		public static void Begin() {
 			if (!loadedFont) {
@@ -55,6 +57,8 @@ namespace BurningKnight.assets {
 				}
 			}
 
+			CurrentActive?.RemoveEmptyConnection();
+
 			if (toRemove.Count > 0) {
 				foreach (var k in toRemove) {
 					Nodes.Remove(k);
@@ -63,21 +67,40 @@ namespace BurningKnight.assets {
 				toRemove.Clear();
 			}
 			
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+
 			if (!ImGui.Begin("Nodes")) {
 				ImGui.End();
 				return;
 			}
 
+			filter.Draw("Filter");
+			ImGui.Separator();
+			
 			RenderMenu();
+
+			ImNode first = null;
+			var sawFocused = false;
 			
 			foreach (var p in Nodes) {
 				var node = p.Value;
 
-				if (ImNode.Focused == node) {
-					node.ForceFocus = true;
+				if (first == null) {
+					first = node;
 				}
 				
-				if (ImGui.Selectable($"{node.GetName()} #{node.Id}", ImNode.Focused == node)) {
+				var name = node.GetName();
+
+				if (!filter.PassFilter(name)) {
+					continue;
+				}
+
+				if (ImNode.Focused == node) {
+					node.ForceFocus = true;
+					sawFocused = true;
+				}
+				
+				if (ImGui.Selectable($"{name} #{node.Id}", ImNode.Focused == node)) {
 					ImNode.Focused = node;
 					node.ForceFocus = true;
 				}
@@ -85,6 +108,10 @@ namespace BurningKnight.assets {
 				if (ImGui.OpenPopupOnItemClick("node_menu", 1)) {
 					CurrentMenu = node;
 				}
+			}
+
+			if (!sawFocused) {
+				ImNode.Focused = first;
 			}
 			
 			ImGui.End();
@@ -134,7 +161,7 @@ namespace BurningKnight.assets {
 					Paste();
 				}
 				
-				if (Input.Keyboard.WasPressed(Keys.Delete, true) && ImNode.Focused != null) {
+				if (Input.Keyboard.WasPressed(Keys.D, true) && ImNode.Focused != null) {
 					ImNode.Focused.Remove();
 				}	
 			}
@@ -163,14 +190,13 @@ namespace BurningKnight.assets {
 		
 		public static void RenderMenu(bool window = false) {
 			if (window ? ImGui.BeginPopupContextWindow("window_node_menu", 1) : ImGui.BeginPopupContextItem("node_menu", 1)) {
-				
 				if (ImGui.Selectable("Copy (Ctrl+C)")) {
 					Copy();
 				}
 
 				RenderPaste();
 				
-				if (ImGui.Selectable("Delete (Delete)")) {
+				if (ImGui.Selectable("Delete (Ctrl+D)")) {
 					CurrentMenu.Remove();
 				}
 				
