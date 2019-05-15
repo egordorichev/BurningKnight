@@ -3,7 +3,6 @@ using BurningKnight.entity.editor;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.ui.imgui;
-using ImGuiNET;
 using Lens;
 using Lens.game;
 using Lens.graphics;
@@ -29,11 +28,11 @@ namespace BurningKnight.state {
 			Physics.Init();
 			Tilesets.Load();
 			
-			Area.Add(editor = new Editor {
+			/*Area.Add(editor = new Editor {
 				Depth = Depth,
 				UseDepth = UseDepth,
 				CameraPosition = CameraPosition
-			});
+			});*/
 			
 			DialogEditor.Init();
 		}
@@ -58,10 +57,14 @@ namespace BurningKnight.state {
 			}
 		}
 
+		public override void Render() {
+			Graphics.Clear(ColorUtils.BlackColor);
+		}
+
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
 			
-			editor.RenderNative();
+			// editor.RenderNative();
 			LocaleEditor.Render();
 			DialogEditor.Render();
 			

@@ -191,15 +191,26 @@ namespace Lens {
 			core.SetFullscreen();
 			UpdateView();
 		}
+
+		public float GetScreenWidth() {
+			if (Graphics.IsFullScreen) {
+				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+			}
+
+			return Math.Max(Display.Width, base.GraphicsDevice.PresentationParameters.BackBufferWidth);
+		}
+
+		public float GetScreenHeight() {
+			if (Graphics.IsFullScreen) {
+				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+			}
+
+			return Math.Max(Display.Height, base.GraphicsDevice.PresentationParameters.BackBufferHeight);
+		}
 		
 		public void UpdateView() {
-			float screenWidth = Math.Max(Display.Width, base.GraphicsDevice.PresentationParameters.BackBufferWidth);
-			float screenHeight = Math.Max(Display.Height, base.GraphicsDevice.PresentationParameters.BackBufferHeight);
-			
-			if (Graphics.IsFullScreen) {
-				screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-				screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-			}
+			float screenWidth = GetScreenWidth();
+			float screenHeight = GetScreenHeight();
 
 			Graphics.PreferredBackBufferWidth = (int) screenWidth;
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;

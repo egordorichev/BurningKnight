@@ -10,8 +10,6 @@ using Vector2 = System.Numerics.Vector2;
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
-	 * scrolling
-	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
 	 */
 	public class ImNode {
@@ -22,9 +20,9 @@ namespace BurningKnight.ui.imgui.node {
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
-		private static Color nodeBg = new Color(0f, 0f, 0f, 1f);
-		private static Color hoveredNodeBg = new Color(0.1f, 0.1f, 0.1f, 1f);
-		private static Color activeNodeBg = new Color(0.2f, 0.2f, 0.2f, 1f);
+		private static Color nodeBg = new Color(0f, 0f, 0f, 0.8f);
+		private static Color hoveredNodeBg = new Color(0.1f, 0.1f, 0.1f, 0.8f);
+		private static Color activeNodeBg = new Color(0.2f, 0.2f, 0.2f, 0.8f);
 		private static Vector2 connectorVector = new Vector2(connectorRadius);
 		public static int LastId;
 		
@@ -137,12 +135,12 @@ namespace BurningKnight.ui.imgui.node {
 			if (!connection.Input && connection.ConnectedTo.Count > 0) {
 				foreach (var to in connection.ConnectedTo) {
 					var p = to.Parent.Position + to.Offset;
-					DrawHermite(ImGui.GetForegroundDrawList(), connector, p, 12, hovered || IsConnectorHovered(p) ? hoveredConnectionColor : connectionColor);	
+					DrawHermite(ImGui.GetBackgroundDrawList(), connector, p, 12, hovered || IsConnectorHovered(p) ? hoveredConnectionColor : connectionColor);	
 				}
 			}
 
 			if (CurrentActive == connection) {
-				DrawHermite(ImGui.GetForegroundDrawList(), connector, ImGui.GetIO().MousePos, 12, hovered ? hoveredConnectionColor : connectionColor);	
+				DrawHermite(ImGui.GetBackgroundDrawList(), connector, ImGui.GetIO().MousePos, 12, hovered ? hoveredConnectionColor : connectionColor);	
 			}
 		}
 

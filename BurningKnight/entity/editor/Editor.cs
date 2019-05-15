@@ -80,8 +80,8 @@ namespace BurningKnight.entity.editor {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			Camera.Width = Engine.GraphicsDevice.PresentationParameters.BackBufferWidth;
-			Camera.Height = Engine.GraphicsDevice.PresentationParameters.BackBufferHeight;
+			Camera.Width = Engine.Instance.GetScreenWidth();
+			Camera.Height = Engine.Instance.GetScreenHeight();
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
 				if (Input.Keyboard.WasPressed(Keys.Z)) {

@@ -7,7 +7,9 @@ using Lens;
 using Lens.input;
 using Lens.lightJson;
 using Lens.util;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.assets {
 	public static class ImGuiHelper {
@@ -21,8 +23,12 @@ namespace BurningKnight.assets {
 		private static List<int> toRemove = new List<int>();
 		private static bool loadedFont;
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
-
+		private static Vector2 size = new Vector2(200, 400);
+		private static Color gridColor = new Color(0.15f, 0.15f, 0.15f, 1f);
+		private static int gridSize = 128;
+		private static Vector2? target;
+		private static bool grid = true;
+		
 		public static void Begin() {
 			if (!loadedFont) {
 				loadedFont = true;
@@ -45,9 +51,31 @@ namespace BurningKnight.assets {
 		}
 
 		public static void RenderNodes() {
+			if (grid) {
+				var list = ImGui.GetBackgroundDrawList();
+
+				var width = Engine.Instance.GetScreenWidth();
+				var height = Engine.Instance.GetScreenHeight();
+				var off = ImNode.Offset;
+
+				for (float x = off.X % gridSize; x <= width - off.X % gridSize; x += gridSize) {
+					list.AddLine(new Vector2(x, 0), new Vector2(x, height), gridColor.PackedValue);
+				}
+
+				for (float y = off.Y % gridSize; y <= height - off.Y % gridSize; y += gridSize) {
+					list.AddLine(new Vector2(0, y), new Vector2(width, y), gridColor.PackedValue);
+				}
+			}
+
 			RenderVoidMenu();
-			
-			if (ImGui.IsMouseDragging(2)) {
+
+			if (target.HasValue) {
+				ImNode.Offset += (target.Value - ImNode.Offset) * Engine.Delta * 10f;
+
+				if ((target.Value - ImNode.Offset).Length() <= 3f) {
+					target = null;
+				}
+			} else if (ImGui.IsMouseDragging(2)) {
 				ImNode.Offset += ImGui.GetIO().MouseDelta;
 			}
 			
@@ -80,6 +108,8 @@ namespace BurningKnight.assets {
 				return;
 			}
 
+			ImGui.Checkbox("Show grid", ref grid);
+
 			filter.Draw("Filter");
 			ImGui.Checkbox("Hide filtred", ref hideFiltred);
 			ImGui.Separator();
@@ -110,6 +140,10 @@ namespace BurningKnight.assets {
 					ImNode.Focused = node;
 					node.ForceFocus = true;
 					sawFocused = true;
+
+					target =
+						-node.RealPosition + new Vector2((Engine.Instance.GetScreenWidth() - node.Size.X) / 2,
+							(Engine.Instance.GetScreenHeight() - node.Size.Y) / 2);
 				}
 
 				if (ImGui.OpenPopupOnItemClick("node_menu", 1)) {
