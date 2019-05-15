@@ -12,10 +12,6 @@ namespace BurningKnight.ui.imgui {
 		public static void Init() {
 			ImGuiHelper.ClearNodes();
 			Load();
-			ImGuiHelper.Node(new ImDialogNode());
-			ImGuiHelper.Node(new ImDialogNode());
-			ImGuiHelper.Node(new ImDialogNode());
-			ImGuiHelper.Node(new ImDialogNode());
 		}
 
 		public static void Destroy() {
@@ -31,7 +27,6 @@ namespace BurningKnight.ui.imgui {
 				var node = p.Value;
 				
 				var obj = new JsonObject();
-				obj["type"] = ImNodeRegistry.GetName(node);
 				node.Save(obj);
 
 				root.Add(obj);
@@ -53,25 +48,7 @@ namespace BurningKnight.ui.imgui {
 
 		private static void LoadFromRoot(JsonArray root) {
 			foreach (var vl in root) {
-				if (!vl.IsJsonObject) {
-					continue;
-				}
-			
-				var type = vl["type"];
-
-				if (!type.IsString) {
-					continue;
-				}
-
-				var node = ImNodeRegistry.Create(type.AsString);
-
-				if (node == null) {
-					Log.Error($"Unknown node type {type.AsString}");
-					continue;
-				}
-			
-				node.Load(vl);
-				ImGuiHelper.Node(node);
+				ImNode.Create(vl);
 			}
 		}
 

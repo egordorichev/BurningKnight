@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using ImGuiNET;
 using Lens.input;
 using Lens.lightJson;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Vector2 = System.Numerics.Vector2;
@@ -10,6 +12,7 @@ using Vector2 = System.Numerics.Vector2;
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
+	 * node search
 	 * scrolling
 	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
@@ -19,9 +22,11 @@ namespace BurningKnight.ui.imgui.node {
 		private static Color hoveredConnectorColor = new Color(1f, 1f, 1f, 1f);
 		private static Color connectionColor = new Color(0.6f, 1f, 0.6f, 0.6f);
 		private static Color hoveredConnectionColor = new Color(0.3f, 1f, 0.3f, 1f);
-		private static Color hoveredNodeBg = new Color(0.2f, 0.2f, 0.2f, 0.4f);
-		private static Color activeNodeBg = new Color(0.4f, 0.4f, 0.4f, 0.4f);
-		private static int lastId;
+		private static Color nodeBg = new Color(0f, 0f, 0f, 1f);
+		private static Color hoveredNodeBg = new Color(0.1f, 0.1f, 0.1f, 1f);
+		private static Color activeNodeBg = new Color(0.2f, 0.2f, 0.2f, 1f);
+		private static Vector2 connectorVector = new Vector2(connectorRadius);
+		public static int LastId;
 		
 		private const int connectorRadius = 6;
 		private const int connectorRadiusSquare = 36;
@@ -38,7 +43,7 @@ namespace BurningKnight.ui.imgui.node {
 		public bool Done;
 		
 		public ImNode() {
-			Id = lastId++;
+			Id = LastId++;
 		}
 
 		private static bool IsConnectorHovered(Vector2 connector) {
@@ -142,7 +147,8 @@ namespace BurningKnight.ui.imgui.node {
 		private bool hovered;
 		private bool focused;
 		public bool ForceFocus;
-
+		public bool New;
+		
 		private JsonArray outputs;
 		
 		public virtual void Render() {
@@ -180,30 +186,40 @@ namespace BurningKnight.ui.imgui.node {
 				ForceFocus = false;
 			}
 			
-			var pushedColor = false;
-			
 			if (focused || ForceFocus) {
-				pushedColor = true;
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, activeNodeBg.PackedValue);
 
 				if (Input.Keyboard.WasPressed(Keys.Delete, true) || Input.Keyboard.WasPressed(Keys.Back, true)) {
 					Done = true;
 				}
 			} else if (hovered) {
-				pushedColor = true;
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, hoveredNodeBg.PackedValue);
+			} else {
+				ImGui.PushStyleColor(ImGuiCol.WindowBg, nodeBg.PackedValue);
 			}
-			
+
+			if (New) {
+				ImGui.SetNextWindowPos(Position, ImGuiCond.Always);
+			}
+
 			ImGui.Begin($"node_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
 			var old = ImGuiHelper.CurrentMenu;
 			ImGuiHelper.CurrentMenu = this;
 			ImGuiHelper.RenderMenu(true);
+
+			if (New) {
+				New = false;
+			} else {
+				Position = ImGui.GetWindowPos();
+				Size = ImGui.GetWindowSize();
+			}
 			
-			Position = ImGui.GetWindowPos();
-			Size = ImGui.GetWindowSize();
+			RenderElements();
 			
 			var rightSide = Position + new Vector2(Size.X, 0);
-			var list = ImGui.GetForegroundDrawList();
+			var list = ImGui.GetWindowDrawList();
+
+			list.PushClipRect(Position - connectorVector, Position + Size + connectorVector);
 
 			foreach (var input in Inputs) {
 				RenderConnector(list, input, Position + input.Offset);
@@ -213,8 +229,8 @@ namespace BurningKnight.ui.imgui.node {
 				RenderConnector(list, output, rightSide + output.Offset);
 			}
 			
-			RenderElements();
-
+			list.PopClipRect();
+			
 			hovered = ImGui.IsWindowHovered();
 			focused = ImGui.IsWindowFocused();
 
@@ -223,11 +239,8 @@ namespace BurningKnight.ui.imgui.node {
 			}
 
 			ImGui.End();
+			ImGui.PopStyleColor();
 			ImGuiHelper.CurrentMenu = old;
-			
-			if (pushedColor) {
-				ImGui.PopStyleColor();
-			}
 
 			if (Done) {
 				Remove();
@@ -290,11 +303,14 @@ namespace BurningKnight.ui.imgui.node {
 			root["id"] = Id;
 			root["inputs"] = SaveConnections(Inputs);
 			root["outputs"] = SaveConnections(Outputs, false);
+			root["type"] = ImNodeRegistry.GetName(this);
 		}
 
 		public virtual void Load(JsonObject root) {
 			Id = root["id"].AsInteger;
 			outputs = root["outputs"].AsJsonArray;
+
+			LastId = Math.Max(LastId, Id);
 		}
 
 		public static unsafe void DrawHermite(ImDrawList* drawList, Vector2 p1, Vector2 p2, int steps, Color color) {
@@ -316,6 +332,34 @@ namespace BurningKnight.ui.imgui.node {
 
 		public virtual string GetName() {
 			return "Node";
+		}
+
+		public static ImNode Create(JsonValue vl, bool ignoreId = false) {
+			if (!vl.IsJsonObject) {
+				return null;
+			}
+			
+			var type = vl["type"];
+
+			if (!type.IsString) {
+				return null;
+			}
+
+			var node = ImNodeRegistry.Create(type.AsString);
+
+			if (node == null) {
+				Log.Error($"Unknown node type {type.AsString}");
+				return null;
+			}
+			
+			node.Load(vl);
+
+			if (ignoreId) {
+				node.Id = LastId;
+			}
+			
+			ImGuiHelper.Node(node);
+			return node;
 		}
 	}
 }
