@@ -50,7 +50,9 @@ namespace BurningKnight.assets {
 			foreach (var n in Nodes) {
 				var node = n.Value;
 				
-				node.Render();
+				if (!hideFiltred || filter.PassFilter(node.GetName())) {
+					node.Render();
+				}
 
 				if (node.Done) {
 					toRemove.Add(n.Key);
@@ -75,6 +77,7 @@ namespace BurningKnight.assets {
 			}
 
 			filter.Draw("Filter");
+			ImGui.Checkbox("Hide filtred", ref hideFiltred);
 			ImGui.Separator();
 			
 			RenderMenu();
@@ -84,15 +87,14 @@ namespace BurningKnight.assets {
 			
 			foreach (var p in Nodes) {
 				var node = p.Value;
-
-				if (first == null) {
-					first = node;
-				}
-				
 				var name = node.GetName();
 
 				if (!filter.PassFilter(name)) {
 					continue;
+				}
+
+				if (first == null) {
+					first = node;
 				}
 
 				if (ImNode.Focused == node) {
@@ -103,6 +105,7 @@ namespace BurningKnight.assets {
 				if (ImGui.Selectable($"{name} #{node.Id}", ImNode.Focused == node)) {
 					ImNode.Focused = node;
 					node.ForceFocus = true;
+					sawFocused = true;
 				}
 
 				if (ImGui.OpenPopupOnItemClick("node_menu", 1)) {
@@ -140,6 +143,7 @@ namespace BurningKnight.assets {
 
 		public static ImNode CurrentMenu;
 		private static string pasted;
+		private static bool hideFiltred;
 
 		public static void RenderPaste() {
 			if (ImGui.Selectable("Paste (Ctrl+V)")) {

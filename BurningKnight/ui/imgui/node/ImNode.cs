@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using ImGuiNET;
-using Lens.input;
 using Lens.lightJson;
 using Lens.util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
 	/*
 	 * Todo:
-	 * node search
 	 * scrolling
 	 * when you click on node in sidebar camera moves to it
 	 * creating new nodes
@@ -205,10 +202,6 @@ namespace BurningKnight.ui.imgui.node {
 			
 			if (focused || ForceFocus) {
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, activeNodeBg.PackedValue);
-
-				if (Input.Keyboard.WasPressed(Keys.Delete, true) || Input.Keyboard.WasPressed(Keys.Back, true)) {
-					Done = true;
-				}
 			} else if (hovered) {
 				ImGui.PushStyleColor(ImGuiCol.WindowBg, hoveredNodeBg.PackedValue);
 			} else {
