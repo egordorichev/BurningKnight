@@ -28,6 +28,7 @@ namespace BurningKnight.ui.imgui.node {
 		public override void Load(JsonObject root) {
 			base.Load(root);
 			name = root["name"];
+			label = name;
 		}
 
 		public override void Save(JsonObject root) {

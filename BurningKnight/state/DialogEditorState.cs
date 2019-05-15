@@ -1,70 +1,36 @@
 using BurningKnight.assets;
-using BurningKnight.entity.editor;
-using BurningKnight.level.tile;
-using BurningKnight.physics;
-using BurningKnight.save;
 using BurningKnight.ui.imgui;
 using Lens;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
-using Lens.input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.state {
-	public class EditorState : GameState {
-		private Editor editor;
-
-		public int Depth;
-		public bool UseDepth;
-		public Vector2 CameraPosition;
-		
+	public class DialogEditorState : GameState {
 		public override void Init() {
 			base.Init();
 			
 			Engine.Instance.StateRenderer = new NativeGameRenderer();
 
-			Physics.Init();
-			Tilesets.Load();
-			
-			Area.Add(editor = new Editor {
-				Depth = Depth,
-				UseDepth = UseDepth,
-				CameraPosition = CameraPosition
-			});
+			DialogEditor.Init();
 		}
 
 		public override void Destroy() {
-			if (UseDepth) {
-				SaveManager.Save(Area, SaveType.Level);
-			}
-
+			DialogEditor.Destroy();
 			base.Destroy();
-			Physics.Destroy();
-			
 			Engine.Instance.StateRenderer = new PixelPerfectGameRenderer();
 		}
 		
-		public override void Update(float dt) {
-			base.Update(dt);
-
-			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
-				Engine.Instance.SetState(new LoadState());
-			}
-		}
-
 		public override void Render() {
 			Graphics.Clear(ColorUtils.BlackColor);
 		}
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
-			
-			editor.RenderNative();
-			LocaleEditor.Render();
-			
+			DialogEditor.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();
