@@ -47,6 +47,10 @@ namespace BurningKnight.assets {
 		public static void RenderNodes() {
 			RenderVoidMenu();
 			
+			if (ImGui.IsMouseDragging(2)) {
+				ImNode.Offset += ImGui.GetIO().MouseDelta;
+			}
+			
 			foreach (var n in Nodes) {
 				var node = n.Value;
 				

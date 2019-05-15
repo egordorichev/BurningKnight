@@ -29,14 +29,15 @@ namespace BurningKnight.ui.imgui.node {
 		public static int LastId;
 		
 		public static ImNode Focused;
+		public static Vector2 Offset;
 
 		public int Id;
 		public Vector2 Position;
+		public Vector2 RealPosition;
 		public Vector2 Size;
 		public List<ImConnection> Inputs = new List<ImConnection>();
 		public List<ImConnection> Outputs = new List<ImConnection>();
 		public ImConnection CurrentActive;
-
 		public bool Done;
 		
 		public ImNode() {
@@ -150,7 +151,8 @@ namespace BurningKnight.ui.imgui.node {
 		private bool justStarted;
 		public bool ForceFocus;
 		public bool New;
-		
+
+		private bool readPosition;
 		private JsonArray outputs;
 
 		public void RemoveEmptyConnection() {
@@ -210,6 +212,8 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (New) {
 				ImGui.SetNextWindowPos(Position, ImGuiCond.Always);
+			} else if (readPosition) {
+				ImGui.SetNextWindowPos(RealPosition + Offset, ImGuiCond.Always);
 			}
 
 			ImGui.Begin($"node_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
@@ -219,9 +223,18 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (New) {
 				New = false;
-			} else {
+			} else if (!readPosition) {
+				readPosition = true;
 				Position = ImGui.GetWindowPos();
+				RealPosition = Position - Offset;
 				Size = ImGui.GetWindowSize();
+			} else {
+				if (hovered && ImGui.IsMouseDragging(0)) {
+					var d = ImGui.GetIO().MouseDelta;
+					RealPosition += d;
+				}
+				
+				Position = RealPosition + Offset;
 			}
 			
 			RenderElements();
