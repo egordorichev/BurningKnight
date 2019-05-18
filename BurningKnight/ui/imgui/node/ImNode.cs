@@ -12,6 +12,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
 	public class ImNode {
+		public const int InputHalfHeight = 8;
 		private const int connectorRadius = 7;
 		private const int connectorRadiusSquare = connectorRadius * connectorRadius;
 
@@ -127,27 +128,7 @@ namespace BurningKnight.ui.imgui.node {
 						}
 					}
 				} else if (ImGui.IsMouseClicked(1) && connection.ConnectedTo.Count > 0) {
-					if (ImGuiHelper.CurrentActive == this) {
-						ImGuiHelper.CurrentActive = null;
-					} else {
-						foreach (var to in connection.ConnectedTo) {
-							if (ImGuiHelper.CurrentActive == to.Parent) {
-								ImGuiHelper.CurrentActive = null;
-								break;
-							}
-						}
-					}
-
-					foreach (var to in connection.ConnectedTo) {
-						to.Active = false;
-						to.ConnectedTo.Remove(connection);
-						to.Parent.CurrentActive = null;
-					}
-					
-					connection.ConnectedTo.Clear();
-					connection.Active = false;
-
-					CurrentActive = null;
+					RemoveConnection(connection);
 				}
 			}
 
@@ -160,6 +141,38 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (CurrentActive == connection) {
 				DrawHermite(ImGui.GetBackgroundDrawList(), connector, ImGui.GetIO().MousePos, 12, hovered ? hoveredConnectionColor : connectionColor);	
+			}
+		}
+		
+		public void RemoveConnection(ImConnection connection, bool remove = false) {
+			if (ImGuiHelper.CurrentActive == this) {
+				ImGuiHelper.CurrentActive = null;
+			} else {
+				foreach (var to in connection.ConnectedTo) {
+					if (ImGuiHelper.CurrentActive == to.Parent) {
+						ImGuiHelper.CurrentActive = null;
+						break;
+					}
+				}
+			}
+
+			foreach (var to in connection.ConnectedTo) {
+				to.Active = false;
+				to.ConnectedTo.Remove(connection);
+				to.Parent.CurrentActive = null;
+			}
+					
+			connection.ConnectedTo.Clear();
+			connection.Active = false;
+
+			CurrentActive = null;
+
+			if (remove) {
+				if (connection.Input) {
+					Inputs.Remove(connection);
+				} else {
+					Outputs.Remove(connection);
+				}
 			}
 		}
 
@@ -228,7 +241,7 @@ namespace BurningKnight.ui.imgui.node {
 						}
 						
 						foreach (var o in i.AsJsonArray) {
-							if (!o.IsJsonArray) {
+							if (!o.IsJsonArray || o.AsJsonArray.Count == 0) {
 								continue;
 							}
 							
@@ -265,7 +278,7 @@ namespace BurningKnight.ui.imgui.node {
 				ImGui.SetNextWindowPos(RealPosition + Offset, ImGuiCond.Always);
 			}
 
-			ImGui.Begin($"node_{Tip}_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+			ImGui.Begin($"node_{Tip}_{Id}", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.AlwaysAutoResize);
 			var old = ImGuiHelper.CurrentMenu;
 			ImGuiHelper.CurrentMenu = this;
 			ImGuiHelper.RenderMenu(true);
@@ -375,11 +388,12 @@ namespace BurningKnight.ui.imgui.node {
 			
 		}
 		
-		private JsonArray SaveConnections(List<ImConnection> connections, bool inputs = true) {
+		private JsonArray SaveConnections(List<ImConnection> connections) {
 			var root = new JsonArray();
 
 			foreach (var c in connections) {
 				var array = new JsonArray();
+				root.Add(array);
 
 				if (c.ConnectedTo.Count == 0) {
 					array.Add(new JsonArray());
@@ -392,8 +406,6 @@ namespace BurningKnight.ui.imgui.node {
 						cc.Id
 					});
 				}
-				
-				root.Add(array);
 			}
 			
 			return root;
@@ -401,7 +413,7 @@ namespace BurningKnight.ui.imgui.node {
 		
 		public virtual void Save(JsonObject root) {
 			root["id"] = Id;
-			root["outputs"] = SaveConnections(Outputs, false);
+			root["outputs"] = SaveConnections(Outputs);
 			root["type"] = ImNodeRegistry.GetName(this);
 			root["x"] = RealPosition.X;
 			root["y"] = RealPosition.Y;
