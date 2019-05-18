@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using ImGuiNET;
+using Lens.input;
 using Lens.lightJson;
 using Lens.util;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.ui.imgui.node {
@@ -66,6 +69,25 @@ namespace BurningKnight.ui.imgui.node {
 		private unsafe void RenderConnector(ImDrawListPtr list, ImConnection connection, Vector2 connector) {
 			var hovered = IsConnectorHovered(connector);
 			list.AddCircleFilled(connector, connectorRadius, (hovered ? hoveredConnectorColor : connectorColor).PackedValue);
+
+			if ((connection.ConnectedTo.Count == 0 || connection.Input) && !OnScreen) {
+				return;
+			}
+
+			if (!OnScreen) {
+				var found = false;
+
+				foreach (var c in connection.ConnectedTo) {
+					if (c.Parent.OnScreen) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					return;
+				}
+			}
 
 			if (hovered) {
 				if (ImGui.IsMouseClicked(0)) {
@@ -161,8 +183,39 @@ namespace BurningKnight.ui.imgui.node {
 				}
 			}
 		}
+
+		public bool OnScreen;
+
+		public void RenderConnections() {
+			var rightSide = Position + new Vector2(Size.X, 0);
+			var list = OnScreen ? ImGui.GetWindowDrawList() : ImGui.GetForegroundDrawList();
+
+			list.PushClipRect(Position - connectorVector, Position + Size + connectorVector);
+
+			foreach (var input in Inputs) {
+				RenderConnector(list, input, Position + input.Offset);
+			}
+			
+			foreach (var output in Outputs) {
+				RenderConnector(list, output, rightSide + output.Offset);
+			}
+			
+			list.PopClipRect();
+		}
 		
 		public virtual void Render() {
+			if (!New) {
+				Position = RealPosition + Offset;
+			}
+
+			if (readPosition && Camera.Instance != null && (Position.X + Size.X < 0 || Position.X > Camera.Instance.Width || Position.Y + Size.Y < 0 || Position.Y > Camera.Instance.Height)) {
+				OnScreen = false;
+				RenderConnections();
+				return;
+			}
+
+			OnScreen = true;
+			
 			if (outputs != null) {
 				var j = -1;
 
@@ -207,6 +260,7 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (New) {
 				ImGui.SetNextWindowPos(Position, ImGuiCond.Always);
+				RealPosition = Position - Offset; // fixme
 			} else if (readPosition) {
 				ImGui.SetNextWindowPos(RealPosition + Offset, ImGuiCond.Always);
 			}
@@ -217,21 +271,7 @@ namespace BurningKnight.ui.imgui.node {
 			ImGuiHelper.RenderMenu(true);
 
 			RenderElements();
-			
-			var rightSide = Position + new Vector2(Size.X, 0);
-			var list = ImGui.GetWindowDrawList();
-
-			list.PushClipRect(Position - connectorVector, Position + Size + connectorVector);
-
-			foreach (var input in Inputs) {
-				RenderConnector(list, input, Position + input.Offset);
-			}
-			
-			foreach (var output in Outputs) {
-				RenderConnector(list, output, rightSide + output.Offset);
-			}
-			
-			list.PopClipRect();
+			RenderConnections();
 			
 			hovered = ImGui.IsWindowHovered();
 			focused = ImGui.IsWindowFocused();
@@ -242,18 +282,22 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (New) {
 				New = false;
-			} else if (!readPosition) {
-				readPosition = true;
-				Position = ImGui.GetWindowPos();
-				RealPosition = Position - Offset;
-				Size = ImGui.GetWindowSize();
 			} else {
-				if (hovered && ImGui.IsMouseDragging(0)) {
+				readPosition = true;
+				Size = ImGui.GetWindowSize();
+			}
+
+			Moved = false;
+			
+			if (hovered) {
+				if (ImGui.IsMouseDragging(0) || Input.Keyboard.IsDown(Keys.LeftControl, true)) {
 					var d = ImGui.GetIO().MouseDelta;
-					RealPosition += d;
+					RealPosition += d;	
+				} else if (Input.Keyboard.IsDown(Keys.LeftShift, true)) {
+					Move(ImGui.GetIO().MouseDelta);
+				} else if (Input.Keyboard.IsDown(Keys.LeftWindows, true)) {
+					MoveBoth(ImGui.GetIO().MouseDelta);
 				}
-				
-				Position = RealPosition + Offset;
 			}
 
 			ImGui.End();
@@ -262,6 +306,44 @@ namespace BurningKnight.ui.imgui.node {
 
 			if (Done) {
 				Remove();
+			}
+		}
+
+		public bool Moved;
+		
+		public void Move(Vector2 d) {
+			if (Moved) {
+				return;
+			}
+			
+			Moved = true;
+			RealPosition += d;
+
+			foreach (var c in Outputs) {
+				foreach (var cc in c.ConnectedTo) {
+					cc.Parent.Move(d);
+				}
+			}
+		}
+		
+		public void MoveBoth(Vector2 d) {
+			if (Moved) {
+				return;
+			}
+			
+			Moved = true;
+			RealPosition += d;
+
+			foreach (var c in Outputs) {
+				foreach (var cc in c.ConnectedTo) {
+					cc.Parent.Move(d);
+				}
+			}
+			
+			foreach (var c in Inputs) {
+				foreach (var cc in c.ConnectedTo) {
+					cc.Parent.Move(d);
+				}
 			}
 		}
 
@@ -319,14 +401,18 @@ namespace BurningKnight.ui.imgui.node {
 		
 		public virtual void Save(JsonObject root) {
 			root["id"] = Id;
-			root["inputs"] = SaveConnections(Inputs);
 			root["outputs"] = SaveConnections(Outputs, false);
 			root["type"] = ImNodeRegistry.GetName(this);
+			root["x"] = RealPosition.X;
+			root["y"] = RealPosition.Y;
 		}
 
 		public virtual void Load(JsonObject root) {
 			Id = root["id"].AsInteger;
 			outputs = root["outputs"].AsJsonArray;
+
+			RealPosition.X = root["x"];
+			RealPosition.Y = root["y"];
 
 			LastId = Math.Max(LastId, Id);
 		}

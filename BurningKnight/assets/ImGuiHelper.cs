@@ -25,6 +25,7 @@ namespace BurningKnight.assets {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static Vector2 size = new Vector2(200, 400);
 		private static Color gridColor = new Color(0.15f, 0.15f, 0.15f, 1f);
+		private static Color gridMainColor = new Color(0.35f, 0.15f, 0.15f, 1f);
 		private static int gridSize = 128;
 		private static Vector2? target;
 		private static bool grid = true;
@@ -44,13 +45,14 @@ namespace BurningKnight.assets {
 
 		public static void ClearNodes() {
 			Nodes.Clear();
+			ImNode.LastId = 0;
 		}
 
 		public static void Node(ImNode node) {
 			Nodes[node.Id] = node;
 		}
 
-		public static void RenderNodes() {
+		public static bool BeforeRender() {
 			if (grid) {
 				var list = ImGui.GetBackgroundDrawList();
 
@@ -59,11 +61,11 @@ namespace BurningKnight.assets {
 				var off = ImNode.Offset;
 
 				for (float x = off.X % gridSize; x <= width - off.X % gridSize; x += gridSize) {
-					list.AddLine(new Vector2(x, 0), new Vector2(x, height), gridColor.PackedValue);
+					list.AddLine(new Vector2(x, 0), new Vector2(x, height), ((int) (off.X - x) == 0 ? gridMainColor : gridColor).PackedValue);
 				}
 
 				for (float y = off.Y % gridSize; y <= height - off.Y % gridSize; y += gridSize) {
-					list.AddLine(new Vector2(0, y), new Vector2(width, y), gridColor.PackedValue);
+					list.AddLine(new Vector2(0, y), new Vector2(width, y), ((int) (off.Y - y) == 0 ? gridMainColor : gridColor).PackedValue);
 				}
 			}
 
@@ -139,9 +141,13 @@ namespace BurningKnight.assets {
 
 			if (!ImGui.Begin("Nodes")) {
 				ImGui.End();
-				return;
+				return false;
 			}
 
+			return true;
+		}
+
+		public static void RenderNodes() {
 			ImGui.Checkbox("Show grid", ref grid);
 
 			filter.Draw("Filter");

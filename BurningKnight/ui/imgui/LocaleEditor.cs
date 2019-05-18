@@ -188,7 +188,13 @@ namespace BurningKnight.ui.imgui {
 
 					ImGui.PushItemWidth(100);
 					ImGui.PushID($"{i}__key");
-					ImGui.InputText("", ref key, 64);
+					
+					if (notEng && showEnglish && Locale.Fallback.TryGetValue(t.Key, out var en)) {
+						ImGui.InputText("", ref en, 64);
+					} else {
+						ImGui.InputText("", ref key, 64);
+					}
+					
 					ImGui.PopID();
 					ImGui.PopItemWidth();
 					ImGui.SameLine();
@@ -199,10 +205,6 @@ namespace BurningKnight.ui.imgui {
 						ImGui.SetKeyboardFocusHere(-1);
 						ImGui.SetScrollHereY(-1);
 						created = null;
-					}
-
-					if (notEng && showEnglish && Locale.Fallback.TryGetValue(t.Key, out var en)) {
-						ImGui.BulletText(en);
 					}
 
 					if (key != t.Key || value != t.Value) {

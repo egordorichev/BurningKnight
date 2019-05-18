@@ -15,7 +15,7 @@ namespace BurningKnight.ui.imgui.node {
 			if (Outputs.Count > 0) {
 				Outputs[0].Offset.Y = ImGui.GetCursorPos().Y + inputHalfHeight;
 			}
-			
+
 			ImGui.PushItemWidth(200);
 			
 			if (ImGui.InputText($"##{name}", ref label, 256, ImGuiInputTextFlags.EnterReturnsTrue)) {
