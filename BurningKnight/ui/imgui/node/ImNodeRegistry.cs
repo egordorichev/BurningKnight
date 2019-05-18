@@ -9,6 +9,7 @@ namespace BurningKnight.ui.imgui.node {
 			Define<ImTextOutputNode>("Text output");
 			Define<ImTextInputNode>("Text input");
 			Define<ImDialogNode>("Dialog");
+			Define<ImChoiceNode>("Choice");
 		}
 		
 		public static void Define<T>(string name) where T : ImNode {
