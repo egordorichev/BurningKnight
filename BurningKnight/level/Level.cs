@@ -144,7 +144,10 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
-			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+
+			if (Engine.Instance.State is InGameState) {
+				Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			}
 		}
 
 		public override void AddComponents() {
@@ -323,7 +326,7 @@ namespace BurningKnight.level {
 			
 			PathFinder.SetMapSize(Width, Height);
 			
-			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
+			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
 			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
 		}
 
@@ -768,7 +771,6 @@ namespace BurningKnight.level {
 			for (int y = GetRenderTop(camera); y <= toY; y++) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
-					var light = DrawLight ? Light[index] : 1;
 
 					var tile = Tiles[index];
 					var t = (Tile) tile;
@@ -797,7 +799,8 @@ namespace BurningKnight.level {
 
 						if (t.IsWall()) {
 							byte v = Variants[index];
-							
+							var light = DrawLight ? Light[index] : 1;
+
 							for (int xx = 0; xx < 2; xx++) {
 								for (int yy = 0; yy < 2; yy++) {
 									int lv = 0;

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BurningKnight.assets;
+using BurningKnight.entity;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.ui.editor.command;
 using ImGuiNET;
 using Lens.assets;
+using Lens.input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
 
 namespace BurningKnight.ui.editor {
@@ -26,6 +30,7 @@ namespace BurningKnight.ui.editor {
 
 		public bool SnapToGrid;
 		public bool Center;
+		public CommandQueue Commands;
 
 		public EditorState Editor;
 		
@@ -42,6 +47,10 @@ namespace BurningKnight.ui.editor {
 		
 		public SettingsWindow(EditorState e) {
 			Editor = e;
+
+			Commands = new CommandQueue {
+				Editor = e
+			};
 			
 			tilesetTexture = Animations.Get($"{e.Level.Biome.Id}_biome").Texture;
 			tilesetPointer = ImGuiHelper.Renderer.BindTexture(tilesetTexture);
@@ -67,6 +76,7 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.HighGrass, 336, 0, true);
 			DefineTile(Tile.Cobweb, 192, 240, true);
 			DefineTile(Tile.Ember, 144, 160, true);
+			DefineTile(Tile.Chasm, 288, 32, true);
 
 			CurrentInfo = infos[0];
 		}
@@ -80,7 +90,7 @@ namespace BurningKnight.ui.editor {
 		};
 
 		private static string[] cursorModes = {
-			"Place", "Fill", "Drag"
+			"Place", "Fill"
 		};
 
 		private int cursorMode;
@@ -92,10 +102,23 @@ namespace BurningKnight.ui.editor {
 		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
 		private static Num.Vector4 tintColor = new Num.Vector4(1f);
 		private static Num.Vector4 bg = new Num.Vector4(0.1f);
-		
+
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+
+			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {
+				if (Input.Keyboard.WasPressed(Keys.Z, true)) {
+					Commands.Undo();
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.Y, true)) {
+					Commands.Redo();
+				}
+			}
+			
+			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
+			var clicked = down && Input.Mouse.WasPressedLeftButton;
 			
 			if (!ImGui.Begin("Editor")) {
 				ImGui.End();
@@ -141,6 +164,39 @@ namespace BurningKnight.ui.editor {
 					
 					if (i % 4 < 3 && i < infos.Count - 1) {
 						ImGui.SameLine();
+					}
+				}
+
+				if (down) {
+					var mouse = Input.Mouse.GamePosition;
+
+					var x = (int) (mouse.X / 16);
+					var y = (int) (mouse.Y / 16);
+					
+					if (Editor.Level.IsInside(x, y)) {
+						if (Editor.Level.Get(x, y, CurrentInfo.Tile.Matches(TileFlags.LiquidLayer)) != CurrentInfo.Tile) {
+							switch (cursorMode) {
+								case CursorMode.Paint: {
+									Commands.Do(new SetCommand {
+										X = x,
+										Y = y,
+										Tile = CurrentInfo.Tile
+									});
+
+									break;
+								}
+
+								case CursorMode.Fill: {
+									Commands.Do(new FillCommand {
+										X = x,
+										Y = y,
+										Tile = CurrentInfo.Tile
+									});
+									
+									break;
+								}
+							}
+						}
 					}
 				}
 			} else if (mode == 1) { // Entities

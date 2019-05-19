@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.debug;
 using BurningKnight.level;
 using BurningKnight.level.biome;
@@ -9,6 +10,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.game;
 using Lens.graphics;
+using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -25,13 +27,15 @@ namespace BurningKnight.state {
 			base.Init();
 
 			Physics.Init();
+			Lights.Init();
 			Tilesets.Load();
 
 			Area.Add(Level = new RegularLevel {
 				Width = 32, Height = 32,
-				NoLightNoRender = false
+				NoLightNoRender = false,
+				DrawLight = false
 			});
-
+			
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
 			
 			Level.SetBiome(BiomeRegistry.Get(Biome.Castle));
@@ -41,21 +45,26 @@ namespace BurningKnight.state {
 			
 			Settings = new SettingsWindow(this);
 			Console = new Console(Area);
+
+			for (var i = 0; i < Level.Explored.Length; i++) {
+				Level.Explored[i] = true;
+			}
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 
 			Physics.Destroy();
+			Lights.Destroy();
 		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			
 			Console.Update(dt);
 			
-			Camera.Width = Engine.Instance.GetScreenWidth();
-			Camera.Height = Engine.Instance.GetScreenHeight();
+			if (Input.Keyboard.IsDown(Keys.Space)) {
+				Camera.Position -= Input.Mouse.PositionDelta;
+			}
 		}
 
 		public override void RenderNative() {
@@ -68,10 +77,6 @@ namespace BurningKnight.state {
 			Graphics.Batch.Begin();
 			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);
 			Graphics.Batch.End();
-		}
-
-		public override bool NativeRender() {
-			return true;
 		}
 	}
 }
