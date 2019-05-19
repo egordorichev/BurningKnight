@@ -18,7 +18,8 @@ namespace Lens {
 #else
 		private const bool Debug = false;
 #endif
-		
+
+		public static bool EditingLevel;
 		public static Version Version = new Version(0, 0, 0, 2, Debug, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;

@@ -5,6 +5,7 @@ using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using Lens;
 using Lens.entity.component;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -104,7 +105,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		private void CheckSupport() {
-			if (!HadNoSupport && HasNoSupport) {
+			if (!HadNoSupport && HasNoSupport && !Engine.EditingLevel) {
 				if (Send(new LostSupportEvent {
 					Who = Entity
 				})) {

@@ -418,6 +418,7 @@
     <Compile Include="ui\editor\PlaceableEntity.cs" />
     <Compile Include="ui\editor\SettingsWindow.cs" />
     <Compile Include="ui\editor\TileInfo.cs" />
+    <Compile Include="ui\editor\TypeInfo.cs" />
     <Compile Include="ui\FrameRenderer.cs" />
     <Compile Include="ui\HealthBar.cs" />
     <Compile Include="ui\imgui\DialogEditor.cs" />

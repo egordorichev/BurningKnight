@@ -8,13 +8,13 @@ namespace BurningKnight.ui.editor.command {
 		public int Y;
 
 		private Tile before;
-		private bool liquid;
+		private Tile beforeLiquid;
 		
 		public void Do(Level level) {
 			var index = level.ToIndex(X, Y);
-			liquid = level.Liquid[index] != 0;
-			
-			before = liquid ? level.Get(index, true) : level.Get(index);
+
+			before = level.Get(index);
+			beforeLiquid = level.Get(index, true);
 			
 			level.Liquid[index] = 0;
 
@@ -28,6 +28,7 @@ namespace BurningKnight.ui.editor.command {
 
 		public void Undo(Level level) {
 			level.Set(X, Y, before);
+			level.Set(X, Y, beforeLiquid);
 			level.UpdateTile(X, Y);
 		}
 	}

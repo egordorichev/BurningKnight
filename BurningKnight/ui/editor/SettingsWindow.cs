@@ -7,9 +7,14 @@ using BurningKnight.entity;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui.editor.command;
+using BurningKnight.ui.imgui.node;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
+using Lens.entity;
 using Lens.input;
+using Lens.util.camera;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
@@ -18,7 +23,9 @@ namespace BurningKnight.ui.editor {
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
-		private static List<Type> types = new List<Type>();
+		private static List<TypeInfo> types = new List<TypeInfo>();
+		private static Color gridColor = new Color(0.15f, 0.15f, 0.15f, 0.7f);
+		private static Color gridMainColor = new Color(0.35f, 0.15f, 0.25f, 0.7f);
 		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private int selected;
 		private List<TileInfo> infos = new List<TileInfo>();
@@ -39,7 +46,10 @@ namespace BurningKnight.ui.editor {
 				.GetTypes()
 				.Where(type => typeof(PlaceableEntity).IsAssignableFrom(type))) {
 				
-				types.Add(t);
+				types.Add(new TypeInfo {
+					Type = t,
+					Name = t.Name
+				});
 			}
 			
 			types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
@@ -95,6 +105,8 @@ namespace BurningKnight.ui.editor {
 
 		private int cursorMode;
 		private int mode;
+		private bool grid;
+		private Entity entity;
 		
 		public TileInfo CurrentInfo;
 
@@ -104,6 +116,25 @@ namespace BurningKnight.ui.editor {
 		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 
 		public void Render() {
+			if (grid) {
+				var list = ImGui.GetBackgroundDrawList();
+
+				var width = Engine.Instance.GetScreenWidth();
+				var height = Engine.Instance.GetScreenHeight();
+				var gridSize = 16 * Engine.Instance.Upscale;
+				var off = (-Camera.Instance.Position - new Vector2(0, 8)) * Engine.Instance.Upscale;
+
+				for (float x = off.X % gridSize; x <= width - off.X % gridSize; x += gridSize) {
+					list.AddLine(new System.Numerics.Vector2(x, 0), new System.Numerics.Vector2(x, height),
+						((int) (off.X - x) == 0 ? gridMainColor : gridColor).PackedValue);
+				}
+
+				for (float y = off.Y % gridSize; y <= height - off.Y % gridSize; y += gridSize) {
+					list.AddLine(new System.Numerics.Vector2(0, y), new System.Numerics.Vector2(width, y),
+						((int) (off.Y - y) == 0 ? gridMainColor : gridColor).PackedValue);
+				}
+			}
+
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
@@ -116,6 +147,20 @@ namespace BurningKnight.ui.editor {
 					Commands.Redo();
 				}
 			}
+
+			if (Input.Keyboard.WasPressed(Keys.E, true)) {
+				mode = 1;
+			}
+				
+			if (Input.Keyboard.WasPressed(Keys.N, true)) {
+				mode = 0;
+				cursorMode = CursorMode.Paint;
+			}
+				
+			if (Input.Keyboard.WasPressed(Keys.F, true)) {
+				mode = 0;
+				cursorMode = CursorMode.Fill;
+			}
 			
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
 			var clicked = down && Input.Mouse.WasPressedLeftButton;
@@ -124,10 +169,16 @@ namespace BurningKnight.ui.editor {
 				ImGui.End();
 				return;
 			}
-			
-			ImGui.Combo("Mode", ref mode, modes, modes.Length);
 
+			ImGui.Checkbox("Show grid", ref grid);
+			ImGui.Combo("Mode", ref mode, modes, modes.Length);
+			
 			if (mode == 0) {
+				if (entity != null) {
+					entity.Done = true;
+					entity = null;
+				}
+				
 				ImGui.Combo("Cursor", ref cursorMode, cursorModes, cursorModes.Length);
 				ImGui.Separator();
 
@@ -200,24 +251,57 @@ namespace BurningKnight.ui.editor {
 					}
 				}
 			} else if (mode == 1) { // Entities
+				if (entity != null) {
+					var mouse = Input.Mouse.GamePosition;
+
+					if (SnapToGrid) {
+						mouse.X = (float) Math.Floor(mouse.X / 16) * 16;
+						mouse.Y = (float) Math.Floor(mouse.Y / 16) * 16;
+					}
+					
+					if (Center) {
+						entity.Center = mouse;
+					} else {
+						entity.Position = mouse;
+					}
+
+					if (clicked) {
+						entity = (Entity) Activator.CreateInstance(entity.GetType());
+						Editor.Area.Add(entity);
+					}
+				}
+				
 				ImGui.Checkbox("Snap to grid", ref SnapToGrid);
 				ImGui.SameLine();
 				ImGui.Checkbox("Center", ref Center);
 
 				filter.Draw();
 				var i = 0;
-
+				
+				
+				ImGui.Separator();
+				var h = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
+				ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -h), 
+					false, ImGuiWindowFlags.HorizontalScrollbar);
+			
 				foreach (var t in types) {
-					if (filter.PassFilter(t.FullName)) {
-						if (ImGui.Selectable(t.FullName, selected == i)) {
+					if (filter.PassFilter(t.Name)) {
+						if (ImGui.Selectable(t.Name, selected == i)) {
 							selected = i;
-							//Editor.Cursor.SetEntity(types[selected]);
-							//Editor.Cursor.CurrentMode = EditorCursor.Entity;
+
+							if (entity != null) {
+								entity.Done = true;
+							}
+
+							entity = (Entity) Activator.CreateInstance(t.Type);
+							Editor.Area.Add(entity);
 						}
 					}
 
 					i++;
 				}
+
+				ImGui.EndChild();
 			}
 
 			ImGui.End();

@@ -50,8 +50,10 @@ namespace Lens.entity.component.logic {
 				PushState((EntityState) Activator.CreateInstance(newState));
 				newState = null;
 			}
-			
-			state?.Update(dt);
+
+			if (!Engine.EditingLevel) {
+				state?.Update(dt);
+			}
 		}
 	}
 }

@@ -26,6 +26,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Engine.EditingLevel = true;
+
 			Physics.Init();
 			Lights.Init();
 			Tilesets.Load();
@@ -56,6 +58,8 @@ namespace BurningKnight.state {
 
 			Physics.Destroy();
 			Lights.Destroy();
+			
+			Engine.EditingLevel = false;
 		}
 		
 		public override void Update(float dt) {
