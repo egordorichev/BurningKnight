@@ -12,7 +12,9 @@ using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.graphics;
 using Lens.input;
+using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +22,10 @@ using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
 
 namespace BurningKnight.ui.editor {
+	/*
+	 * todo:
+	 * highlight active entity
+	 */
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
@@ -106,7 +112,7 @@ namespace BurningKnight.ui.editor {
 		};
 
 		private int cursorMode;
-		private int mode;
+		private int mode = 1;
 		private int entityMode;
 		private Entity entity;
 		
@@ -140,6 +146,7 @@ namespace BurningKnight.ui.editor {
 			if (Input.Keyboard.WasPressed(Keys.M, true)) {
 				mode = 1;
 				entityMode = 1;
+				RemoveEntity();
 			}
 				
 			if (Input.Keyboard.WasPressed(Keys.N, true)) {
@@ -153,7 +160,7 @@ namespace BurningKnight.ui.editor {
 			}
 			
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
-			var clicked = down && Input.Mouse.WasPressedLeftButton;
+			var clicked = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.WasPressedLeftButton;
 			
 			if (!ImGui.Begin("Editor")) {
 				ImGui.End();
@@ -238,15 +245,24 @@ namespace BurningKnight.ui.editor {
 					}
 				}
 			} else if (mode == 1) { // Entities
+				if (entity != null) {
+					ImGui.Separator();
+					ImGui.Text(entity.GetType().Name);
+
+					if (ImGui.Button("Open debug")) {
+						AreaDebug.ToFocus = entity;
+					}
+					
+					ImGui.Separator();
+				}
+
 				if (ImGui.Combo("Cursor##e", ref entityMode, entityModes, entityModes.Length)) {
 					if (entityMode != 0) {
 						RemoveEntity();
-					} else if (entity == null) {
-						CreateEntity();
 					}
 				}
-				
-				if (entity != null) {
+
+				if (entityMode == 0 && entity != null) {
 					var mouse = Input.Mouse.GamePosition;
 
 					if (SnapToGrid) {
@@ -262,6 +278,38 @@ namespace BurningKnight.ui.editor {
 
 					if (clicked) {
 						CreateEntity(false);
+					}
+				} else if (entityMode == 1) {
+					var mouse = Input.Mouse.GamePosition;
+					
+					if (clicked) {
+						Entity selected = null;
+						
+						foreach (var e in Editor.Area.Entities.Entities) {
+							if (e.OnScreen && AreaDebug.PassFilter(e)) {
+								if (e.Contains(mouse)) {
+									selected = e;
+								}
+							}
+						}
+
+						if (selected != null) {
+							entity = selected;
+							offset = entity.Position - mouse;
+						}
+					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftControl, true))) {
+						mouse += offset;
+						
+						if (SnapToGrid) {
+							mouse.X = (float) Math.Round(mouse.X / 16) * 16;
+							mouse.Y = (float) Math.Round(mouse.Y / 16) * 16;
+						}
+					
+						if (Center) {
+							entity.Center = mouse;
+						} else {
+							entity.Position = mouse;
+						}
 					}
 				}
 				
@@ -297,14 +345,19 @@ namespace BurningKnight.ui.editor {
 		}
 
 		private Type currentType;
+		private Vector2 offset;
 
 		private void CreateEntity(bool remove = true) {
 			if (remove) {
 				RemoveEntity();
 			}
-			
-			entity = (Entity) Activator.CreateInstance(currentType);
-			Editor.Area.Add(entity);
+
+			try {
+				entity = (Entity) Activator.CreateInstance(currentType);
+				Editor.Area.Add(entity);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 
 		private void RemoveEntity() {

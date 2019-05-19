@@ -61,7 +61,8 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 
-			GetComponent<HealthComponent>().MaxHealth = 1;
+			// GetComponent<HealthComponent>().MaxHealth = 1;
+			GetComponent<HealthComponent>().InitMaxHealth = 32;
 		}
 
 		public void FindSpawnPoint() {

@@ -21,12 +21,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			base.SetStats();
 			
 			AddComponent(new ZComponent());
-
-			if (Random.Chance()) {
-				Become<IdleState>();
-			} else {
-				Become<JumpState>();
-			}
+			Become<IdleState>();
 		}
 		
 		#region Slime States

@@ -9,12 +9,18 @@ namespace BurningKnight.state {
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static bool hideLevel = true;
 
-		private static bool PassFilter(Entity e) {
+		public static bool PassFilter(Entity e) {
 			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Chasm);
 		}
+
+		public static Entity ToFocus;
 		
 		public static void Render(Area area) {
-			if (!ImGui.Begin("Entities")) {
+			if (ToFocus != null) {
+				ImGui.SetNextWindowCollapsed(false);
+			}
+			
+			if (!ImGui.Begin("Entities", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
 			}			
@@ -32,6 +38,12 @@ namespace BurningKnight.state {
 				var type = e.GetType().FullName;
 				
 				if (filter.PassFilter(type) && (!hideLevel || PassFilter(e))) {
+					if (ToFocus == e) {
+						ImGui.SetScrollHereY();
+						ImGui.SetNextTreeNodeOpen(true);
+						ToFocus = null;
+					}
+					
 					if (ImGui.CollapsingHeader(type)) {
 						pos.X = e.X;
 						pos.Y = e.Y;

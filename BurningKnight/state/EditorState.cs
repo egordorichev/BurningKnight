@@ -1,6 +1,6 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
-using BurningKnight.debug;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.tile;
@@ -15,6 +15,7 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class EditorState : GameState {
@@ -79,11 +80,11 @@ namespace BurningKnight.state {
 				var off = (Camera.Instance.TopLeft - new Vector2(0, 8));
 				var color = new Color(1f, 1f, 1f, 0.5f);
 				
-				for (float x = off.X - off.X % gridSize; x <= off.X + Display.Width; x += gridSize) {
+				for (float x = Math.Max(0, off.X - off.X % gridSize); x <= off.X + Display.Width && x <= Level.Height; x += gridSize) {
 					Graphics.Batch.DrawLine(x, 0, x, Display.Height, color);
 				}
 
-				for (float y = off.Y - off.Y % gridSize; y <= off.Y + Display.Height; y += gridSize) {
+				for (float y = Math.Max(0, off.Y - off.Y % gridSize); y <= off.Y + Display.Height && y <= Level.Height; y += gridSize) {
 					Graphics.Batch.DrawLine(0, y, Display.Width, y, color);
 				}
 			}
