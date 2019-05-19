@@ -24,8 +24,6 @@ namespace BurningKnight.ui.editor {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
 		private static List<TypeInfo> types = new List<TypeInfo>();
-		private static Color gridColor = new Color(0.15f, 0.15f, 0.15f, 0.7f);
-		private static Color gridMainColor = new Color(0.35f, 0.15f, 0.25f, 0.7f);
 		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private int selected;
 		private List<TileInfo> infos = new List<TileInfo>();
@@ -105,10 +103,10 @@ namespace BurningKnight.ui.editor {
 
 		private int cursorMode;
 		private int mode;
-		private bool grid;
 		private Entity entity;
 		
 		public TileInfo CurrentInfo;
+		public bool Grid;
 
 		private static Num.Vector2 tileSize = new Num.Vector2(32f);
 		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
@@ -116,25 +114,6 @@ namespace BurningKnight.ui.editor {
 		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 
 		public void Render() {
-			if (grid) {
-				var list = ImGui.GetBackgroundDrawList();
-
-				var width = Engine.Instance.GetScreenWidth();
-				var height = Engine.Instance.GetScreenHeight();
-				var gridSize = 16 * Engine.Instance.Upscale;
-				var off = (-Camera.Instance.Position - new Vector2(0, 8)) * Engine.Instance.Upscale;
-
-				for (float x = off.X % gridSize; x <= width - off.X % gridSize; x += gridSize) {
-					list.AddLine(new System.Numerics.Vector2(x, 0), new System.Numerics.Vector2(x, height),
-						((int) (off.X - x) == 0 ? gridMainColor : gridColor).PackedValue);
-				}
-
-				for (float y = off.Y % gridSize; y <= height - off.Y % gridSize; y += gridSize) {
-					list.AddLine(new System.Numerics.Vector2(0, y), new System.Numerics.Vector2(width, y),
-						((int) (off.Y - y) == 0 ? gridMainColor : gridColor).PackedValue);
-				}
-			}
-
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
@@ -170,7 +149,7 @@ namespace BurningKnight.ui.editor {
 				return;
 			}
 
-			ImGui.Checkbox("Show grid", ref grid);
+			ImGui.Checkbox("Show grid", ref Grid);
 			ImGui.Combo("Mode", ref mode, modes, modes.Length);
 			
 			if (mode == 0) {
