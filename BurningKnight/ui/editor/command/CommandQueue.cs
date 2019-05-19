@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using BurningKnight.state;
 
-namespace BurningKnight.entity.editor.command {
+namespace BurningKnight.ui.editor.command {
 	public class CommandQueue {
 		private Stack<Command> commands = new Stack<Command>();
 		private Stack<Command> redo = new Stack<Command>();
-		public Editor Editor;
+
+		public EditorState Editor;
 		
 		public void Do(Command command) {
 			redo.Clear();

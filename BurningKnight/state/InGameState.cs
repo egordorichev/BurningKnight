@@ -271,16 +271,6 @@ namespace BurningKnight.state {
 			if (Input.Blocked > 0) {
 				return;
 			}
-			
-			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
-				Engine.Instance.SetState(new EditorState {
-					Depth = Run.Depth,
-					UseDepth = true,
-					CameraPosition = Camera.Instance.Position
-				});
-
-				return;
-			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);

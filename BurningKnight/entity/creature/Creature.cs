@@ -1,11 +1,11 @@
 using BurningKnight.entity.component;
-using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;

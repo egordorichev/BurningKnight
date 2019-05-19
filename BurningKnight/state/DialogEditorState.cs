@@ -24,6 +24,7 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
 			Camera.Width = Engine.Instance.GetScreenWidth();
 			Camera.Height = Engine.Instance.GetScreenHeight();
 		}

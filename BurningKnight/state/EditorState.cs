@@ -1,70 +1,68 @@
 using BurningKnight.assets;
-using BurningKnight.entity.editor;
+using BurningKnight.debug;
+using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
-using BurningKnight.save;
-using BurningKnight.ui.imgui;
+using BurningKnight.ui.editor;
+using BurningKnight.util;
 using Lens;
 using Lens.game;
 using Lens.graphics;
-using Lens.graphics.gamerenderer;
-using Lens.input;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.state {
 	public class EditorState : GameState {
-		private Editor editor;
-
-		public int Depth;
-		public bool UseDepth;
-		public Vector2 CameraPosition;
+		public Level Level;
+		public SettingsWindow Settings;
+		public Camera Camera;
+		public Console Console;
 		
 		public override void Init() {
 			base.Init();
-			
-			Engine.Instance.StateRenderer = new NativeGameRenderer();
 
 			Physics.Init();
 			Tilesets.Load();
-			
-			Area.Add(editor = new Editor {
-				Depth = Depth,
-				UseDepth = UseDepth,
-				CameraPosition = CameraPosition
+
+			Area.Add(Level = new RegularLevel {
+				Width = 32, Height = 32,
+				NoLightNoRender = false
 			});
+
+			Ui.Add(Camera = new Camera(new FollowingDriver()));
+			
+			Level.SetBiome(BiomeRegistry.Get(Biome.Castle));
+			Level.Setup();
+			Level.Fill(Tile.FloorA);
+			Level.TileUp();
+			
+			Settings = new SettingsWindow(this);
+			Console = new Console(Area);
 		}
 
 		public override void Destroy() {
-			if (UseDepth) {
-				SaveManager.Save(Area, SaveType.Level);
-			}
-
 			base.Destroy();
+
 			Physics.Destroy();
-			
-			Engine.Instance.StateRenderer = new PixelPerfectGameRenderer();
 		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
-				Engine.Instance.SetState(new LoadState());
-			}
-		}
-
-		public override void Render() {
-			Graphics.Clear(ColorUtils.BlackColor);
+			
+			Console.Update(dt);
+			
+			Camera.Width = Engine.Instance.GetScreenWidth();
+			Camera.Height = Engine.Instance.GetScreenHeight();
 		}
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
-			
-			editor.RenderNative();
-			LocaleEditor.Render();
-			
+			Settings.Render();
+			Console.Render();
+			AreaDebug.Render(Area);
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

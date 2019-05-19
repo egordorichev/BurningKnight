@@ -3,7 +3,7 @@ using System.Numerics;
 using BurningKnight.level.tile;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BurningKnight.entity.editor {
+namespace BurningKnight.ui.editor {
 	public class TileInfo {
 		public Tile Tile;
 		public Vector2 Uv0;

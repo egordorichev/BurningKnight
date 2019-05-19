@@ -1,7 +1,7 @@
 using BurningKnight.level;
 using BurningKnight.level.tile;
 
-namespace BurningKnight.entity.editor.command {
+namespace BurningKnight.ui.editor.command {
 	public class SetCommand : Command {
 		public Tile Tile;
 		public int X;

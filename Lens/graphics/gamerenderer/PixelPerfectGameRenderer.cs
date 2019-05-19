@@ -13,6 +13,7 @@ namespace Lens.graphics.gamerenderer {
 		private Matrix UiScale = Matrix.Identity;
 		
 		public PixelPerfectGameRenderer() {
+	
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
@@ -88,7 +89,7 @@ namespace Lens.graphics.gamerenderer {
 				Graphics.Batch.End();
 
 				if (UiTarget != null) {
-					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState.LinearClamp, DepthStencilState, ClipRasterizerState, UiEffect, One);
+					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
 				
 					Graphics.Color = new Color(0, 0, 0, 0.5f);
 					Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));

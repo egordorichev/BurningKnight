@@ -7,7 +7,7 @@ using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace BurningKnight.entity.editor.command {
+namespace BurningKnight.ui.editor.command {
 	public class FillCommand : Command {
 		public Tile Tile;
 		public Tile Start;

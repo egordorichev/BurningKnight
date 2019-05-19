@@ -1,6 +1,6 @@
 using BurningKnight.level;
 
-namespace BurningKnight.entity.editor.command {
+namespace BurningKnight.ui.editor.command {
 	public interface Command {
 		void Do(Level level);
 		void Undo(Level level);

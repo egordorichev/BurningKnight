@@ -1,31 +1,39 @@
+using BurningKnight.entity;
+using BurningKnight.level;
 using ImGuiNET;
 using Lens.entity;
 using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.state {
 	public static unsafe class AreaDebug {
-		private static Vector2 position = new Vector2(420, 10);
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private static bool hideLevel = true;
 
+		private static bool PassFilter(Entity e) {
+			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Chasm);
+		}
+		
 		public static void Render(Area area) {
 			ImGui.SetNextWindowCollapsed(true, ImGuiCond.Once);
-			ImGui.SetNextWindowPos(position, ImGuiCond.Once);
 
 			if (!ImGui.Begin("Entities")) {
 				ImGui.End();
 				return;
 			}			
 			
-			ImGui.Text($"Total {area.Entities.Entities.Count} entries");
+			ImGui.Text($"Total {area.Entities.Entities.Count} entities");
 			filter.Draw();
 
+			ImGui.Checkbox("Hide level helpers", ref hideLevel);
+			ImGui.Separator();
+			
 			Vector2 pos;
 			Vector2 size;
 
 			foreach (var e in area.Entities.Entities) {
 				var type = e.GetType().FullName;
 				
-				if (filter.PassFilter(type)) {
+				if (filter.PassFilter(type) && (!hideLevel || PassFilter(e))) {
 					if (ImGui.CollapsingHeader(type)) {
 						pos.X = e.X;
 						pos.Y = e.Y;

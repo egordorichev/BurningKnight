@@ -4,12 +4,13 @@ using System.Linq;
 using System.Reflection;
 using BurningKnight.assets;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.assets;
 using Microsoft.Xna.Framework.Graphics;
 using Num = System.Numerics;
 
-namespace BurningKnight.entity.editor {
+namespace BurningKnight.ui.editor {
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
@@ -23,9 +24,10 @@ namespace BurningKnight.entity.editor {
 		private Texture2D tilesetTexture;
 		private IntPtr tilesetPointer;
 
-		public Editor Editor;
 		public bool SnapToGrid;
 		public bool Center;
+
+		public EditorState Editor;
 		
 		static SettingsWindow() {
 			foreach (var t in Assembly.GetExecutingAssembly()
@@ -38,9 +40,9 @@ namespace BurningKnight.entity.editor {
 			types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
 		}
 		
-		public SettingsWindow(Editor e) {
+		public SettingsWindow(EditorState e) {
 			Editor = e;
-
+			
 			tilesetTexture = Animations.Get($"{e.Level.Biome.Id}_biome").Texture;
 			tilesetPointer = ImGuiHelper.Renderer.BindTexture(tilesetTexture);
 			
@@ -67,7 +69,6 @@ namespace BurningKnight.entity.editor {
 			DefineTile(Tile.Ember, 144, 160, true);
 
 			CurrentInfo = infos[0];
-			CurrentTile = CurrentInfo.Tile;
 		}
 
 		private void DefineTile(Tile tile, int x, int y, bool biome = false) {
@@ -82,10 +83,9 @@ namespace BurningKnight.entity.editor {
 			"Place", "Fill", "Drag"
 		};
 
-		private int currentMode;
-		private int dragMode = EditorCursor.Drag;
-
-		public Tile CurrentTile;
+		private int cursorMode;
+		private int mode;
+		
 		public TileInfo CurrentInfo;
 
 		private static Num.Vector2 tileSize = new Num.Vector2(32f);
@@ -101,19 +101,11 @@ namespace BurningKnight.entity.editor {
 				ImGui.End();
 				return;
 			}
+			
+			ImGui.Combo("Mode", ref mode, modes, modes.Length);
 
-			if (Editor.Cursor.CurrentMode == EditorCursor.Entity) {
-				currentMode = 1;
-			} else {
-				currentMode = 0;
-			}
-
-			if (ImGui.Combo("Mode", ref currentMode, modes, modes.Length) && currentMode != 1) {
-				Editor.Cursor.CurrentMode = EditorCursor.Normal;
-			}
-
-			if (currentMode == 0) { // Tiles
-				ImGui.Combo("Cursor", ref (Editor.Cursor.Draggging ? ref dragMode : ref Editor.Cursor.CurrentMode), cursorModes, cursorModes.Length);
+			if (mode == 0) {
+				ImGui.Combo("Cursor", ref cursorMode, cursorModes, cursorModes.Length);
 				ImGui.Separator();
 
 				var cur = CurrentInfo;
@@ -141,8 +133,7 @@ namespace BurningKnight.entity.editor {
 					var info = infos[i];
 					ImGui.PushID((int) info.Tile);
 
-					if (ImGui.ImageButton(info.Texture, tileSize, info.Uv0, info.Uv1, 0, bg, info.Tile == CurrentTile ? tintColorActive : tintColor)) {
-						CurrentTile = info.Tile;
+					if (ImGui.ImageButton(info.Texture, tileSize, info.Uv0, info.Uv1, 0, bg, info == CurrentInfo ? tintColorActive : tintColor)) {
 						CurrentInfo = info;
 					}
 
@@ -152,7 +143,7 @@ namespace BurningKnight.entity.editor {
 						ImGui.SameLine();
 					}
 				}
-			} else if (currentMode == 1) { // Entities
+			} else if (mode == 1) { // Entities
 				ImGui.Checkbox("Snap to grid", ref SnapToGrid);
 				ImGui.SameLine();
 				ImGui.Checkbox("Center", ref Center);
@@ -164,8 +155,8 @@ namespace BurningKnight.entity.editor {
 					if (filter.PassFilter(t.FullName)) {
 						if (ImGui.Selectable(t.FullName, selected == i)) {
 							selected = i;
-							Editor.Cursor.SetEntity(types[selected]);
-							Editor.Cursor.CurrentMode = EditorCursor.Entity;
+							//Editor.Cursor.SetEntity(types[selected]);
+							//Editor.Cursor.CurrentMode = EditorCursor.Entity;
 						}
 					}
 

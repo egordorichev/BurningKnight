@@ -322,7 +322,7 @@ namespace BurningKnight.level {
 			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);
-
+			
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width, Display.Height);
 			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
 		}

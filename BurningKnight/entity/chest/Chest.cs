@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
-using BurningKnight.entity.editor;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.entity.component.logic;

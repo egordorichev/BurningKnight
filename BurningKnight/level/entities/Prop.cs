@@ -1,6 +1,6 @@
 using BurningKnight.entity.component;
-using BurningKnight.entity.editor;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using Lens.entity.component.graphics;
 using Lens.util.file;
 
