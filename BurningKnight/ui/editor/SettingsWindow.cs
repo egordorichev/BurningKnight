@@ -100,9 +100,14 @@ namespace BurningKnight.ui.editor {
 		private static string[] cursorModes = {
 			"Place", "Fill"
 		};
+		
+		private static string[] entityModes = {
+			"Place", "Move"
+		};
 
 		private int cursorMode;
 		private int mode;
+		private int entityMode;
 		private Entity entity;
 		
 		public TileInfo CurrentInfo;
@@ -129,6 +134,12 @@ namespace BurningKnight.ui.editor {
 
 			if (Input.Keyboard.WasPressed(Keys.E, true)) {
 				mode = 1;
+				entityMode = 0;
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.M, true)) {
+				mode = 1;
+				entityMode = 1;
 			}
 				
 			if (Input.Keyboard.WasPressed(Keys.N, true)) {
@@ -153,12 +164,9 @@ namespace BurningKnight.ui.editor {
 			ImGui.Combo("Mode", ref mode, modes, modes.Length);
 			
 			if (mode == 0) {
-				if (entity != null) {
-					entity.Done = true;
-					entity = null;
-				}
+				RemoveEntity();
 				
-				ImGui.Combo("Cursor", ref cursorMode, cursorModes, cursorModes.Length);
+				ImGui.Combo("Cursor##t", ref cursorMode, cursorModes, cursorModes.Length);
 				ImGui.Separator();
 
 				var cur = CurrentInfo;
@@ -230,6 +238,14 @@ namespace BurningKnight.ui.editor {
 					}
 				}
 			} else if (mode == 1) { // Entities
+				if (ImGui.Combo("Cursor##e", ref entityMode, entityModes, entityModes.Length)) {
+					if (entityMode != 0) {
+						RemoveEntity();
+					} else if (entity == null) {
+						CreateEntity();
+					}
+				}
+				
 				if (entity != null) {
 					var mouse = Input.Mouse.GamePosition;
 
@@ -245,8 +261,7 @@ namespace BurningKnight.ui.editor {
 					}
 
 					if (clicked) {
-						entity = (Entity) Activator.CreateInstance(entity.GetType());
-						Editor.Area.Add(entity);
+						CreateEntity(false);
 					}
 				}
 				
@@ -256,7 +271,6 @@ namespace BurningKnight.ui.editor {
 
 				filter.Draw();
 				var i = 0;
-				
 				
 				ImGui.Separator();
 				var h = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
@@ -268,12 +282,8 @@ namespace BurningKnight.ui.editor {
 						if (ImGui.Selectable(t.Name, selected == i)) {
 							selected = i;
 
-							if (entity != null) {
-								entity.Done = true;
-							}
-
-							entity = (Entity) Activator.CreateInstance(t.Type);
-							Editor.Area.Add(entity);
+							currentType = t.Type;
+							CreateEntity();
 						}
 					}
 
@@ -284,6 +294,24 @@ namespace BurningKnight.ui.editor {
 			}
 
 			ImGui.End();
-		}	
+		}
+
+		private Type currentType;
+
+		private void CreateEntity(bool remove = true) {
+			if (remove) {
+				RemoveEntity();
+			}
+			
+			entity = (Entity) Activator.CreateInstance(currentType);
+			Editor.Area.Add(entity);
+		}
+
+		private void RemoveEntity() {
+			if (entity != null) {
+				entity.Done = true;
+				entity = null;
+			}
+		}
 	}
 }
