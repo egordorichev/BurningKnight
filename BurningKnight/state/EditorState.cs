@@ -83,7 +83,7 @@ namespace BurningKnight.state {
 				var gridSize = 16;
 				var off = (Camera.Instance.TopLeft - new Vector2(0, 8));
 				var color = new Color(1f, 1f, 1f, 0.5f);
-				
+
 				for (float x = Math.Max(0, off.X - off.X % gridSize); x <= off.X + Display.Width && x <= Level.Width * 16; x += gridSize) {
 					Graphics.Batch.DrawLine(x, off.Y, x, off.Y + Display.Height + gridSize, color);
 				}
@@ -111,6 +111,15 @@ namespace BurningKnight.state {
 				} else {
 					Graphics.Batch.FillRectangle(mouse, new Vector2(16, 16), fill);
 					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
+				}
+			} else {
+				if (Settings.CurrentEntity != null) {
+					var e = Settings.CurrentEntity;
+					Graphics.Batch.DrawRectangle(e.Position - new Vector2(1), new Vector2(e.Width + 2, e.Height + 2), new Color(0.7f, 1f, 0.7f, 1f));
+				}
+				
+				if (Settings.HoveredEntity != null) {
+					Graphics.Batch.DrawRectangle(Settings.HoveredEntity.Position - new Vector2(1), new Vector2(Settings.HoveredEntity.Width + 2, Settings.HoveredEntity.Height + 2), new Color(0.7f, 0.7f, 1f, 1f));
 				}
 			}
 		}

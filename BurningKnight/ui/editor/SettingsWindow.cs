@@ -24,7 +24,6 @@ using Num = System.Numerics;
 namespace BurningKnight.ui.editor {
 	/*
 	 * todo:
-	 * highlight active entity
 	 * creating/saving levels
 	 * changing level size
 	 * fix space + drag in big window
@@ -118,7 +117,7 @@ namespace BurningKnight.ui.editor {
 		};
 
 		private int cursorMode;
-		private int mode;
+		private int mode = 1;
 		private int entityMode;
 		private Entity entity;
 		private string levelName = "";
@@ -127,7 +126,9 @@ namespace BurningKnight.ui.editor {
 		public bool Grid;
 
 		public bool EditingTiles => mode == 0;
-
+		public Entity CurrentEntity => entity;
+		public Entity HoveredEntity;
+		
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
@@ -279,17 +280,6 @@ namespace BurningKnight.ui.editor {
 					}
 				}
 			} else if (mode == 1) { // Entities
-				if (entity != null) {
-					ImGui.Separator();
-					ImGui.Text(entity.GetType().Name);
-
-					if (ImGui.Button("Open debug")) {
-						AreaDebug.ToFocus = entity;
-					}
-					
-					ImGui.Separator();
-				}
-
 				if (ImGui.Combo("Cursor##e", ref entityMode, entityModes, entityModes.Length)) {
 					if (entityMode != 0) {
 						RemoveEntity();
@@ -315,18 +305,19 @@ namespace BurningKnight.ui.editor {
 					}
 				} else if (entityMode == 1) {
 					var mouse = Input.Mouse.GamePosition;
-					
-					if (clicked) {
-						Entity selected = null;
+					Entity selected = null;
 						
-						foreach (var e in Editor.Area.Entities.Entities) {
-							if (e.OnScreen && AreaDebug.PassFilter(e)) {
-								if (e.Contains(mouse)) {
-									selected = e;
-								}
+					foreach (var e in Editor.Area.Entities.Entities) {
+						if (e.OnScreen && AreaDebug.PassFilter(e)) {
+							if (e.Contains(mouse)) {
+								selected = e;
 							}
 						}
+					}
 
+					HoveredEntity = selected;
+					
+					if (clicked) {
 						if (selected != null) {
 							entity = selected;
 							offset = entity.Position - mouse;
@@ -350,6 +341,17 @@ namespace BurningKnight.ui.editor {
 				ImGui.Checkbox("Snap to grid", ref SnapToGrid);
 				ImGui.SameLine();
 				ImGui.Checkbox("Center", ref Center);
+				
+				if (entity != null) {
+					ImGui.Separator();
+					ImGui.Text(entity.GetType().Name);
+
+					if (ImGui.Button("Open debug")) {
+						AreaDebug.ToFocus = entity;
+					}
+					
+					ImGui.Separator();
+				}
 
 				filter.Draw();
 				var i = 0;
