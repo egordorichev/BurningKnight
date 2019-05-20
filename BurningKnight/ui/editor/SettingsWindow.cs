@@ -27,11 +27,6 @@ using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
 
 namespace BurningKnight.ui.editor {
-	/*
-	 * todo:
-	 * fix hotkeys not working if window is not active
-	 * remove entities / copy / paste
-	 */
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 40);
@@ -203,6 +198,8 @@ namespace BurningKnight.ui.editor {
 		public bool EditingTiles => mode == 0;
 		public Entity CurrentEntity => entity;
 		public Entity HoveredEntity;
+
+		private Type copy;
 		
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
@@ -215,6 +212,24 @@ namespace BurningKnight.ui.editor {
 				
 				if (Input.Keyboard.WasPressed(Keys.Y, true)) {
 					Commands.Redo();
+				}
+
+				if (entity != null) {
+					if (Input.Keyboard.WasPressed(Keys.C, true)) {
+						copy = entity.GetType();
+					}
+					
+					if (copy != null && Input.Keyboard.WasPressed(Keys.V, true)) {
+						var od = currentType;
+						currentType = copy;
+						CreateEntity(false);
+						currentType = od;
+					}
+					
+					if (Input.Keyboard.WasPressed(Keys.D, true)) {
+						entity.Done = true;
+						entity = null;
+					}
 				}
 			}
 
@@ -521,7 +536,7 @@ namespace BurningKnight.ui.editor {
 							entity = selected;
 							offset = entity.Position - mouse;
 						}
-					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftControl, true))) {
+					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftShift, true))) {
 						mouse += offset;
 						
 						if (SnapToGrid) {
@@ -590,6 +605,7 @@ namespace BurningKnight.ui.editor {
 			try {
 				entity = (Entity) Activator.CreateInstance(currentType);
 				Editor.Area.Add(entity);
+				entity.Position = Input.Mouse.GamePosition;
 			} catch (Exception e) {
 				Log.Error(e);
 			}
