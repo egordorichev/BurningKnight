@@ -5,6 +5,8 @@ using System.Reflection;
 using BurningKnight.assets;
 using BurningKnight.entity;
 using BurningKnight.entity.fx;
+using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -27,7 +29,9 @@ using Num = System.Numerics;
 namespace BurningKnight.ui.editor {
 	/*
 	 * todo:
-	 * implement save/load/delete/resize
+	 * fix hotkeys not working if window is not active
+	 * remove entities / copy / paste
+	 * resize impl
 	 * fix space + drag in big window
 	 */
 	public unsafe class SettingsWindow {
@@ -280,9 +284,11 @@ namespace BurningKnight.ui.editor {
 			}
 
 			if (ImGui.BeginPopupModal("New level")) {
+				var ol = currentLevel;
+				
 				ImGui.SetItemDefaultFocus();
 				var input = ImGui.InputText("Name", ref levelName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
-				ImGui.DragInt2("Size", ref levelWidth, 1, 1, 128);
+				ImGui.InputInt2("Size", ref levelWidth);
 				
 				var button = ImGui.Button("Create");
 				ImGui.SameLine();
@@ -291,6 +297,14 @@ namespace BurningKnight.ui.editor {
 					ImGui.CloseCurrentPopup();
 				} else {
 					if (input || button) {
+						var oo = currentLevel;
+						currentLevel = ol;
+						Save();
+						currentLevel = oo;
+						
+						levelWidth = Math.Min(1024, Math.Max(1, levelWidth));
+						levelHeight = Math.Min(1024, Math.Max(1, levelHeight));
+						
 						var list = levels.ToList();
 						list.Add(levelName);
 
@@ -298,7 +312,34 @@ namespace BurningKnight.ui.editor {
 						currentLevel = list.Count - 1;
 						
 						ImGui.CloseCurrentPopup();
-						Load();
+
+						if (button) {
+							foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+								e.Done = true;
+							}
+			
+							Editor.Area.AutoRemove();
+							Run.Level = null;
+							
+							var level = new RegularLevel {
+								Width = levelWidth, 
+								Height = levelHeight, 
+								NoLightNoRender = false, 
+								DrawLight = false
+							};
+
+							Editor.Level = level;
+							Editor.Area.Add(level);
+							
+							level.SetBiome(BiomeRegistry.Get(Biome.Castle));
+							level.Setup();
+							level.Fill(Tile.FloorA);
+							level.TileUp();
+							
+							Editor.Camera.Position = Vector2.Zero;
+						} else {
+							Load();
+						}
 					}	
 				}
 
