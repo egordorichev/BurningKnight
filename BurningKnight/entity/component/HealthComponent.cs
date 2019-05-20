@@ -163,7 +163,7 @@ namespace BurningKnight.entity.component {
 			ImGui.SameLine();
 			
 			if (ImGui.Button("Kill")) {
-				ModifyHealth(health, null);
+				ModifyHealth(-health, null);
 			}
 		}
 	}

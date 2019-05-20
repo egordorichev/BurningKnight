@@ -1003,5 +1003,9 @@ namespace BurningKnight.level {
 		public virtual int GetPadding() {
 			return 1;
 		}
+
+		public void Resize(int w, int h) {
+			
+		}
 	}
 }

@@ -12,7 +12,8 @@ namespace BurningKnight.assets.prefabs {
 		private static List<string> paths = new List<string>();
 		
 		public static void Load() {
-			Load(FileHandle.FromRoot("Prefabs/"));
+			// fixme!!!!
+			// Load(FileHandle.FromRoot("Prefabs/"));
 			Run.Level = null;
 		}
 

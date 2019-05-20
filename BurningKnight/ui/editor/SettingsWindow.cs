@@ -16,6 +16,7 @@ using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,10 +25,8 @@ using Num = System.Numerics;
 namespace BurningKnight.ui.editor {
 	/*
 	 * todo:
-	 * creating/saving levels
-	 * changing level size
+	 * implement save/load/delete/resize
 	 * fix space + drag in big window
-	 * draw tile preview
 	 */
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
@@ -98,6 +97,38 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.Chasm, 288, 32, true);
 
 			CurrentInfo = infos[0];
+			var locales = new FileHandle("Content/Prefabs/");
+
+			if (!locales.Exists()) {
+				levels = new[] {
+					"test"
+				};
+				
+				return;
+			}
+
+			var names = new List<string>();
+
+			foreach (var f in locales.ListFileHandles()) {
+				if (f.Extension == ".lvl") {
+					names.Add(f.NameWithoutExtension);
+				}
+			}
+
+			levels = names.ToArray();
+			Load();
+		}
+
+		private void Save() {
+			
+		}
+		
+		private void Load() {
+			// todo
+		}
+
+		private void Delete() {
+			// todo
 		}
 
 		private void DefineTile(Tile tile, int x, int y, bool biome = false) {
@@ -120,7 +151,11 @@ namespace BurningKnight.ui.editor {
 		private int mode = 1;
 		private int entityMode;
 		private Entity entity;
-		private string levelName = "";
+		private string levelName = "new_level";
+		private string[] levels;
+		private int currentLevel;
+		private int levelWidth = 32;
+		private int levelHeight = 32;
 		
 		public TileInfo CurrentInfo;
 		public bool Grid;
@@ -172,34 +207,113 @@ namespace BurningKnight.ui.editor {
 				return;
 			}
 
-			if (ImGui.InputText("Name", ref levelName, 64)) {
-				
+			var o = currentLevel;
+			
+			if (ImGui.Combo("Level", ref currentLevel, levels, levels.Length)) {
+				var oo = currentLevel;
+				currentLevel = o;
+				Save();
+				currentLevel = oo;
+				Load();
 			}
 
 			if (ImGui.Button("Save")) {
-				
+				Save();
 			}
 			
 			ImGui.SameLine();
 
 			if (ImGui.Button("Delete")) {
+				ImGui.OpenPopup("Delete?##s");
+			}
 				
+			if (ImGui.BeginPopupModal("Delete?##s")) {
+				ImGui.Text("This operation can't be undone!");
+				ImGui.Text("Are you sure?");
+					
+				if (ImGui.Button("Yes")) {
+					ImGui.CloseCurrentPopup();
+					Delete();
+
+					var list = levels.ToList();
+					list.Remove(levels[currentLevel]);
+					levels = list.ToArray();
+					currentLevel = 0;
+				}
+						
+				ImGui.SameLine();
+				ImGui.SetItemDefaultFocus();
+					
+				if (ImGui.Button("No")) { 
+					ImGui.CloseCurrentPopup();
+				}
+
+				ImGui.EndPopup();
 			}
 			
 			ImGui.SameLine();
 
 			if (ImGui.Button("New")) {
+				ImGui.OpenPopup("New level");	
+				levelName = "new";
+				levelWidth = 32;
+				levelHeight = 32;
+			}
+
+			if (ImGui.BeginPopupModal("New level")) {
+				ImGui.SetItemDefaultFocus();
+				var input = ImGui.InputText("Name", ref levelName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
+				ImGui.DragInt2("Size", ref levelWidth, 1, 1, 128);
 				
+				var button = ImGui.Button("Create");
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Cancel")) {
+					ImGui.CloseCurrentPopup();
+				} else {
+					if (input || button) {
+						var list = levels.ToList();
+						list.Add(levelName);
+
+						levels = list.ToArray();
+						currentLevel = list.Count - 1;
+						
+						ImGui.CloseCurrentPopup();
+						Load();
+					}	
+				}
+
+				ImGui.EndPopup();
 			}
 			
 			ImGui.Text($"{Editor.Level.Width}x{Editor.Level.Height}");
 			ImGui.SameLine();
 
 			if (ImGui.Button("Resize")) {
-				
+				ImGui.OpenPopup("Resize level");	
+
+				levelWidth = Editor.Level.Width;
+				levelHeight = Editor.Level.Height;
 			}
 
-			
+			if (ImGui.BeginPopupModal("Resize level")) {
+				ImGui.Text($"Current size is {Editor.Level.Width}x{Editor.Level.Height}");
+				ImGui.DragInt2("New size", ref levelWidth, 1, 1, 128);
+				
+				if (ImGui.Button("Resize")) {
+					Editor.Level.Resize(levelWidth, levelHeight);
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Cancel")) {
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.EndPopup();
+			}
+
 			ImGui.Separator();
 
 			ImGui.Checkbox("Show grid", ref Grid);
@@ -357,7 +471,7 @@ namespace BurningKnight.ui.editor {
 				var i = 0;
 				
 				ImGui.Separator();
-				var h = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
+				var h = ImGui.GetStyle().ItemSpacing.Y;
 				ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -h), 
 					false, ImGuiWindowFlags.HorizontalScrollbar);
 			
