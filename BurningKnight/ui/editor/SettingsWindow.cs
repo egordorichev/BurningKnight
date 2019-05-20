@@ -28,7 +28,7 @@ using Num = System.Numerics;
 
 namespace BurningKnight.ui.editor {
 	public unsafe class SettingsWindow {
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 450);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 40);
 		private static List<TypeInfo> types = new List<TypeInfo>();
 		private static Num.Vector2 tileSize = new Num.Vector2(32f);
@@ -37,9 +37,11 @@ namespace BurningKnight.ui.editor {
 		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 		
 		static SettingsWindow() {
+			var pe = typeof(PlaceableEntity);
+			
 			foreach (var t in Assembly.GetExecutingAssembly()
 				.GetTypes()
-				.Where(type => typeof(PlaceableEntity).IsAssignableFrom(type))) {
+				.Where(type => pe.IsAssignableFrom(type) && type != pe)) {
 				
 				types.Add(new TypeInfo {
 					Type = t,
@@ -206,6 +208,10 @@ namespace BurningKnight.ui.editor {
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {
+				if (Input.Keyboard.WasPressed(Keys.S, true)) {
+					Save();
+				}
+
 				if (Input.Keyboard.WasPressed(Keys.Z, true)) {
 					Commands.Undo();
 				}
@@ -233,23 +239,23 @@ namespace BurningKnight.ui.editor {
 				}
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.E, true)) {
+			if (Input.Keyboard.WasPressed(Keys.E)) {
 				mode = 1;
 				entityMode = 0;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.M, true)) {
+			if (Input.Keyboard.WasPressed(Keys.M)) {
 				mode = 1;
 				entityMode = 1;
 				RemoveEntity();
 			}
 				
-			if (Input.Keyboard.WasPressed(Keys.N, true)) {
+			if (Input.Keyboard.WasPressed(Keys.N)) {
 				mode = 0;
 				cursorMode = CursorMode.Paint;
 			}
 				
-			if (Input.Keyboard.WasPressed(Keys.F, true)) {
+			if (Input.Keyboard.WasPressed(Keys.F)) {
 				mode = 0;
 				cursorMode = CursorMode.Fill;
 			}

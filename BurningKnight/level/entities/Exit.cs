@@ -4,13 +4,14 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.editor;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class Exit : SaveableEntity {
+	public class Exit : SaveableEntity, PlaceableEntity {
 		public int To;
 		
 		public override void Init() {

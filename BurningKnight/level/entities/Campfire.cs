@@ -1,11 +1,12 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class Campfire : SaveableEntity {
+	public class Campfire : SaveableEntity, PlaceableEntity {
 		public override void AddComponents() {
 			base.AddComponents();
 

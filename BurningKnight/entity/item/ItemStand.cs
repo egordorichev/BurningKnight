@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using BurningKnight.util;
 using Lens;
 using Lens.entity;
@@ -16,7 +17,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
-	public class ItemStand : SaveableEntity {
+	public class ItemStand : SaveableEntity, PlaceableEntity {
 		private Item item;
 		private float T;
 		

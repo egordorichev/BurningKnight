@@ -3,13 +3,14 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.editor;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class Entrance : SaveableEntity {
+	public class Entrance : SaveableEntity, PlaceableEntity {
 		public int To;
 
 		private bool Interact(Entity entity) {
