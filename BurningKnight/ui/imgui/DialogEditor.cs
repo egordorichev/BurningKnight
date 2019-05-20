@@ -5,7 +5,6 @@ using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.ui.imgui.node;
 using ImGuiNET;
-using Lens.assets;
 using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;

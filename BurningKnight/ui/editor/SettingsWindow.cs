@@ -31,7 +31,6 @@ namespace BurningKnight.ui.editor {
 	 * todo:
 	 * fix hotkeys not working if window is not active
 	 * remove entities / copy / paste
-	 * fix space + drag in big window
 	 */
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);

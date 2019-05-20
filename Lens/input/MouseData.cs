@@ -94,7 +94,7 @@ namespace Lens.input {
 			|| CurrentState.Y != PreviousState.Y;
 		
 		public Vector2 PositionDelta => 
-			Vector2.Transform(RawPositionDelta, Matrix.Invert(Engine.ScreenMatrix));
+			Vector2.Transform(RawPositionDelta, Matrix.Invert(Matrix.CreateScale(Engine.Instance.Upscale)));
 		
 		public Vector2 RawPositionDelta => 
 			new Vector2(CurrentState.X - PreviousState.X, CurrentState.Y - PreviousState.Y);
