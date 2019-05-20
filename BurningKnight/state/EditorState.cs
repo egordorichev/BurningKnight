@@ -34,18 +34,7 @@ namespace BurningKnight.state {
 			Lights.Init();
 			Tilesets.Load();
 
-			Area.Add(Level = new RegularLevel {
-				Width = 32, Height = 32,
-				NoLightNoRender = false,
-				DrawLight = false
-			});
-			
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
-			
-			Level.SetBiome(BiomeRegistry.Get(Biome.Castle));
-			Level.Setup();
-			Level.Fill(Tile.FloorA);
-			Level.TileUp();
 			
 			Settings = new SettingsWindow(this);
 			Console = new Console(Area);
@@ -113,13 +102,13 @@ namespace BurningKnight.state {
 					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
 				}
 			} else {
+				if (Settings.HoveredEntity != null) {
+					Graphics.Batch.DrawRectangle(Settings.HoveredEntity.Position - new Vector2(1), new Vector2(Settings.HoveredEntity.Width + 2, Settings.HoveredEntity.Height + 2), new Color(0.7f, 0.7f, 1f, 1f));
+				}
+				
 				if (Settings.CurrentEntity != null) {
 					var e = Settings.CurrentEntity;
 					Graphics.Batch.DrawRectangle(e.Position - new Vector2(1), new Vector2(e.Width + 2, e.Height + 2), new Color(0.7f, 1f, 0.7f, 1f));
-				}
-				
-				if (Settings.HoveredEntity != null) {
-					Graphics.Batch.DrawRectangle(Settings.HoveredEntity.Position - new Vector2(1), new Vector2(Settings.HoveredEntity.Width + 2, Settings.HoveredEntity.Height + 2), new Color(0.7f, 0.7f, 1f, 1f));
 				}
 			}
 		}

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using BurningKnight.assets;
 using BurningKnight.entity;
+using BurningKnight.entity.fx;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor.command;
 using BurningKnight.ui.imgui.node;
@@ -69,34 +71,7 @@ namespace BurningKnight.ui.editor {
 			Commands = new CommandQueue {
 				Editor = e
 			};
-			
-			tilesetTexture = Animations.Get($"{e.Level.Biome.Id}_biome").Texture;
-			tilesetPointer = ImGuiHelper.Renderer.BindTexture(tilesetTexture);
-			
-			biomeTexture = Animations.Get("biome_assets").Texture;
-			biomePointer = ImGuiHelper.Renderer.BindTexture(biomeTexture);
-			
-			DefineTile(Tile.WallA, 128, 0);
-			DefineTile(Tile.WallB, 144, 0);
-			DefineTile(Tile.Planks, 352, 144, true);
-			DefineTile(Tile.Crack, 128, 48);
-			DefineTile(Tile.FloorA, 0, 80);
-			DefineTile(Tile.FloorB, 64, 80);
-			DefineTile(Tile.FloorC, 0, 160);
-			DefineTile(Tile.FloorD, 64, 160);
-			DefineTile(Tile.Water, 64, 240, true);
-			DefineTile(Tile.Ice, 192, 112, true);
-			DefineTile(Tile.Lava, 64, 112, true);
-			DefineTile(Tile.Venom, 64, 304, true);
-			DefineTile(Tile.Obsidian, 64, 176, true);
-			DefineTile(Tile.Dirt, 64, 48, true);
-			DefineTile(Tile.Grass, 192, 48, true);
-			DefineTile(Tile.HighGrass, 336, 0, true);
-			DefineTile(Tile.Cobweb, 192, 240, true);
-			DefineTile(Tile.Ember, 144, 160, true);
-			DefineTile(Tile.Chasm, 288, 32, true);
 
-			CurrentInfo = infos[0];
 			var locales = new FileHandle("Content/Prefabs/");
 
 			if (!locales.Exists()) {
@@ -120,15 +95,59 @@ namespace BurningKnight.ui.editor {
 		}
 
 		private void Save() {
-			
+			SaveManager.Save(Editor.Area, SaveType.Level, true, $"Content/Prefabs/{levels[currentLevel]}.lvl");
 		}
 		
 		private void Load() {
-			// todo
+			foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+				e.Done = true;
+			}
+			
+			Editor.Area.AutoRemove();
+			
+			Run.Level = null;
+			SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
+			Editor.Level = Run.Level;
+			
+			tilesetTexture = Animations.Get($"{Editor.Level.Biome.Id}_biome").Texture;
+			tilesetPointer = ImGuiHelper.Renderer.BindTexture(tilesetTexture);
+			
+			biomeTexture = Animations.Get("biome_assets").Texture;
+			biomePointer = ImGuiHelper.Renderer.BindTexture(biomeTexture);
+			
+			infos.Clear();
+			
+			DefineTile(Tile.WallA, 128, 0);
+			DefineTile(Tile.WallB, 144, 0);
+			DefineTile(Tile.Planks, 352, 144, true);
+			DefineTile(Tile.Crack, 128, 48);
+			DefineTile(Tile.FloorA, 0, 80);
+			DefineTile(Tile.FloorB, 64, 80);
+			DefineTile(Tile.FloorC, 0, 160);
+			DefineTile(Tile.FloorD, 64, 160);
+			DefineTile(Tile.Water, 64, 240, true);
+			DefineTile(Tile.Ice, 192, 112, true);
+			DefineTile(Tile.Lava, 64, 112, true);
+			DefineTile(Tile.Venom, 64, 304, true);
+			DefineTile(Tile.Obsidian, 64, 176, true);
+			DefineTile(Tile.Dirt, 64, 48, true);
+			DefineTile(Tile.Grass, 192, 48, true);
+			DefineTile(Tile.HighGrass, 336, 0, true);
+			DefineTile(Tile.Cobweb, 192, 240, true);
+			DefineTile(Tile.Ember, 144, 160, true);
+			DefineTile(Tile.Chasm, 288, 32, true);
+				
+			CurrentInfo = infos[0];
 		}
 
 		private void Delete() {
-			// todo
+			var file = new FileHandle($"Content/Prefabs/{levels[currentLevel]}.lvl");
+
+			try {
+				file.Delete();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 
 		private void DefineTile(Tile tile, int x, int y, bool biome = false) {
@@ -422,7 +441,7 @@ namespace BurningKnight.ui.editor {
 					Entity selected = null;
 						
 					foreach (var e in Editor.Area.Entities.Entities) {
-						if (e.OnScreen && AreaDebug.PassFilter(e)) {
+						if (e.OnScreen && AreaDebug.PassFilter(e) && !(e is Firefly)) {
 							if (e.Contains(mouse)) {
 								selected = e;
 							}

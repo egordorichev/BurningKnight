@@ -41,13 +41,7 @@ namespace BurningKnight.save {
 		}
 
 		public static string GetSavePath(SaveType saveType, bool old = false, string path = null) {
-			if (path == null) {
-				path = "";
-			} else if (saveType != SaveType.Level && !path.EndsWith("/")) {
-				path += "/";
-			}
-
-			return ForType(saveType).GetPath(saveType == SaveType.Level && path != "" ? path : Path.Combine(saveType == SaveType.Global ? SaveDir : SlotDir, path), old);
+			return ForType(saveType).GetPath((path ?? (saveType == SaveType.Global ? SaveDir : SlotDir)), old);
 		}
 
 		public static FileHandle GetFileHandle(string path) {			
