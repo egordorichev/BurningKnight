@@ -25,25 +25,19 @@ namespace BurningKnight.ui.editor {
 	/*
 	 * todo:
 	 * highlight active entity
+	 * creating/saving levels
+	 * changing level size
+	 * fix space + drag in big window
+	 * draw tile preview
 	 */
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 400);
-		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(420, 10);
+		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 40);
 		private static List<TypeInfo> types = new List<TypeInfo>();
-		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
-		private int selected;
-		private List<TileInfo> infos = new List<TileInfo>();
-
-		private Texture2D biomeTexture;
-		private IntPtr biomePointer;
-		private Texture2D tilesetTexture;
-		private IntPtr tilesetPointer;
-
-		public bool SnapToGrid;
-		public bool Center;
-		public CommandQueue Commands;
-
-		public EditorState Editor;
+		private static Num.Vector2 tileSize = new Num.Vector2(32f);
+		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
+		private static Num.Vector4 tintColor = new Num.Vector4(1f);
+		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 		
 		static SettingsWindow() {
 			foreach (var t in Assembly.GetExecutingAssembly()
@@ -58,6 +52,18 @@ namespace BurningKnight.ui.editor {
 			
 			types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
 		}
+		
+		private ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private int selected;
+		private List<TileInfo> infos = new List<TileInfo>();
+		private Texture2D biomeTexture;
+		private IntPtr biomePointer;
+		private Texture2D tilesetTexture;
+		private IntPtr tilesetPointer;
+		public bool SnapToGrid;
+		public bool Center;
+		public CommandQueue Commands;
+		public EditorState Editor;
 		
 		public SettingsWindow(EditorState e) {
 			Editor = e;
@@ -112,17 +118,15 @@ namespace BurningKnight.ui.editor {
 		};
 
 		private int cursorMode;
-		private int mode = 1;
+		private int mode;
 		private int entityMode;
 		private Entity entity;
+		private string levelName = "";
 		
 		public TileInfo CurrentInfo;
 		public bool Grid;
 
-		private static Num.Vector2 tileSize = new Num.Vector2(32f);
-		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
-		private static Num.Vector4 tintColor = new Num.Vector4(1f);
-		private static Num.Vector4 bg = new Num.Vector4(0.1f);
+		public bool EditingTiles => mode == 0;
 
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
@@ -166,6 +170,36 @@ namespace BurningKnight.ui.editor {
 				ImGui.End();
 				return;
 			}
+
+			if (ImGui.InputText("Name", ref levelName, 64)) {
+				
+			}
+
+			if (ImGui.Button("Save")) {
+				
+			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Delete")) {
+				
+			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("New")) {
+				
+			}
+			
+			ImGui.Text($"{Editor.Level.Width}x{Editor.Level.Height}");
+			ImGui.SameLine();
+
+			if (ImGui.Button("Resize")) {
+				
+			}
+
+			
+			ImGui.Separator();
 
 			ImGui.Checkbox("Show grid", ref Grid);
 			ImGui.Combo("Mode", ref mode, modes, modes.Length);

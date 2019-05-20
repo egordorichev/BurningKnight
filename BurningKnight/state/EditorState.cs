@@ -15,6 +15,7 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using VelcroPhysics.Utilities;
 using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
@@ -69,6 +70,9 @@ namespace BurningKnight.state {
 			
 			if (Input.Keyboard.IsDown(Keys.Space)) {
 				Camera.Position -= Input.Mouse.PositionDelta;
+				
+				Camera.X = MathUtils.Clamp(Camera.X, -Display.Width / 2f, Level.Width * 16f - Display.Width / 2f);
+				Camera.Y = MathUtils.Clamp(Camera.Y, -Display.Height / 2f, Level.Height * 16f - Display.Height / 2f);
 			}
 		}
 
@@ -80,12 +84,33 @@ namespace BurningKnight.state {
 				var off = (Camera.Instance.TopLeft - new Vector2(0, 8));
 				var color = new Color(1f, 1f, 1f, 0.5f);
 				
-				for (float x = Math.Max(0, off.X - off.X % gridSize); x <= off.X + Display.Width && x <= Level.Height; x += gridSize) {
-					Graphics.Batch.DrawLine(x, 0, x, Display.Height, color);
+				for (float x = Math.Max(0, off.X - off.X % gridSize); x <= off.X + Display.Width && x <= Level.Width * 16; x += gridSize) {
+					Graphics.Batch.DrawLine(x, off.Y, x, off.Y + Display.Height + gridSize, color);
 				}
 
-				for (float y = Math.Max(0, off.Y - off.Y % gridSize); y <= off.Y + Display.Height && y <= Level.Height; y += gridSize) {
-					Graphics.Batch.DrawLine(0, y, Display.Width, y, color);
+				for (float y = Math.Max(0, off.Y - off.Y % gridSize); y <= off.Y + Display.Height && y <= Level.Height * 16; y += gridSize) {
+					Graphics.Batch.DrawLine(off.X, y, off.X + Display.Width + gridSize, y, color);
+				}
+			}
+
+			if (Settings.EditingTiles) {
+				var mouse = Input.Mouse.GamePosition;
+				var color = new Color(1f, 0.5f, 0.5f, 1f);
+				var fill = new Color(1f, 0.5f, 0.5f, 0.5f);
+
+				mouse.X = (float) (Math.Floor(mouse.X / 16) * 16);
+				mouse.Y = (float) (Math.Floor(mouse.Y / 16) * 16);
+
+				if (Settings.CurrentInfo.Tile.Matches(TileFlags.WallLayer)) {
+					mouse.Y -= 8;
+					Graphics.Batch.FillRectangle(mouse, new Vector2(16, 24), fill);
+					mouse.Y += 16;
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16, 8), new Color(1f, 0.7f, 0.7f, 1f));
+					mouse.Y -= 16;
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
+				} else {
+					Graphics.Batch.FillRectangle(mouse, new Vector2(16, 16), fill);
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
 				}
 			}
 		}
