@@ -31,7 +31,6 @@ namespace BurningKnight.ui.editor {
 	 * todo:
 	 * fix hotkeys not working if window is not active
 	 * remove entities / copy / paste
-	 * resize impl
 	 * fix space + drag in big window
 	 */
 	public unsafe class SettingsWindow {
@@ -112,6 +111,25 @@ namespace BurningKnight.ui.editor {
 			Run.Level = null;
 			SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
 			Editor.Level = Run.Level;
+
+			ReloadBiome();
+		}
+
+		private string[] biomes;
+		private int currentBiome;
+
+		private void ReloadBiome() {
+			biomes = new string[BiomeRegistry.Defined.Count];
+			var i = 0;
+			
+			foreach (var r in BiomeRegistry.Defined.Values) {
+				if (r.Id == Editor.Level.Biome.Id) {
+					currentBiome = i;
+				}
+				
+				biomes[i] = r.Id;
+				i++;
+			}
 			
 			tilesetTexture = Animations.Get($"{Editor.Level.Biome.Id}_biome").Texture;
 			tilesetPointer = ImGuiHelper.Renderer.BindTexture(tilesetTexture);
@@ -238,6 +256,11 @@ namespace BurningKnight.ui.editor {
 				Save();
 				currentLevel = oo;
 				Load();
+			}
+
+			if (ImGui.Combo("Biome", ref currentBiome, biomes, biomes.Length)) {
+				Editor.Level.SetBiome(BiomeRegistry.Get(biomes[currentBiome]));
+				ReloadBiome();
 			}
 
 			if (ImGui.Button("Save")) {
