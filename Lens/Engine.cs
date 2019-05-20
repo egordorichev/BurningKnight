@@ -20,7 +20,7 @@ namespace Lens {
 #endif
 
 		public static bool EditingLevel;
-		public static Version Version = new Version(0, 0, 0, 2, Debug, true);
+		public static Version Version = new Version(0, 0, 0, 3, Debug, true);
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;

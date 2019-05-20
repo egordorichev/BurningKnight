@@ -514,6 +514,8 @@ namespace BurningKnight.ui.editor {
 						mouse.Y = (float) Math.Floor(mouse.Y / 16) * 16;
 					}
 					
+					mouse += new Vector2(8 - entity.Width / 2f, 8 - entity.Height / 2f);
+					
 					if (Center) {
 						entity.Center = mouse;
 					} else {
@@ -538,8 +540,9 @@ namespace BurningKnight.ui.editor {
 					HoveredEntity = selected;
 					
 					if (clicked) {
+						entity = selected;
+
 						if (selected != null) {
-							entity = selected;
 							offset = entity.Position - mouse;
 						}
 					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftShift, true))) {
@@ -549,6 +552,8 @@ namespace BurningKnight.ui.editor {
 							mouse.X = (float) Math.Round(mouse.X / 16) * 16;
 							mouse.Y = (float) Math.Round(mouse.Y / 16) * 16;
 						}
+						
+						mouse += new Vector2(8 - entity.Width / 2f, 8 - entity.Height / 2f);
 					
 						if (Center) {
 							entity.Center = mouse;

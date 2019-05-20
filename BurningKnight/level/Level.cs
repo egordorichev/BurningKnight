@@ -144,10 +144,7 @@ namespace BurningKnight.level {
 			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
 			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
-
-			if (Engine.Instance.State is InGameState) {
-				Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
-			}
+			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
 		}
 
 		public override void AddComponents() {
@@ -740,7 +737,7 @@ namespace BurningKnight.level {
 				return;
 			}
 			
-			if (Engine.Instance.State is InGameState && Engine.Instance.StateRenderer.UiTarget != null) {
+			if (Engine.Instance.StateRenderer.UiTarget != null) {
 				Graphics.Color = ShadowColor;
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 

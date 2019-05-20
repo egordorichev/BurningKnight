@@ -1,10 +1,9 @@
 # TODO
 
-### Before v0.0.0.1
+### Before v0.0.0.4
 
 * Gobbo tombstone
 * Show item description, when you pick it up [UiItemDescription]
-* Editor allow to place entities
 * Animate bullet death
 * Implement coins
 * Proper animation for gaining an item (for gobbo.ase obv)

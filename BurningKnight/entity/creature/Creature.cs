@@ -105,7 +105,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		protected virtual void RenderShadow() {
-			GraphicsComponent.Render(true);
+			GraphicsComponent?.Render(true);
 		}
 
 		protected virtual Color GetBloodColor() {

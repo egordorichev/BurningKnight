@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.component;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.tile;
@@ -10,6 +11,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.game;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
@@ -65,7 +67,24 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private void PrerenderShadows() {
+			var renderer = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+			
+			renderer.End();
+			renderer.BeginShadows();
+
+			foreach (var e in Area.Tags[Tags.HasShadow]) {
+				if (e.AlwaysVisible || e.OnScreen) {
+					e.GetComponent<ShadowComponent>().Callback();
+				}
+			}
+			
+			renderer.EndShadows();
+			renderer.Begin();
+		}
+
 		public override void Render() {
+			PrerenderShadows();
 			base.Render();
 
 			if (Settings.Grid) {
