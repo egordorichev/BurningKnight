@@ -358,9 +358,12 @@ namespace BurningKnight.ui.editor {
 
 			if (ImGui.BeginPopupModal("Resize level")) {
 				ImGui.Text($"Current size is {Editor.Level.Width}x{Editor.Level.Height}");
-				ImGui.DragInt2("New size", ref levelWidth, 1, 1, 128);
+				ImGui.InputInt2("New size", ref levelWidth);
 				
 				if (ImGui.Button("Resize")) {
+					levelWidth = Math.Min(1024, Math.Max(1, levelWidth));
+					levelHeight = Math.Min(1024, Math.Max(1, levelHeight));
+
 					Editor.Level.Resize(levelWidth, levelHeight);
 					ImGui.CloseCurrentPopup();
 				}

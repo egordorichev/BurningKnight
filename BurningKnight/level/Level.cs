@@ -1004,8 +1004,44 @@ namespace BurningKnight.level {
 			return 1;
 		}
 
+		private void ResizeArray<T>(ref T[] array, int w, int h, int newSize, T val) {
+			var newArray = new T[newSize];
+
+			for (var y = 0; y < h; y++) {
+				for (var x = 0; x < w; x++) {
+					newArray[x + y * w] = x >= Width || y >= Height ? val : array[x + y * Width];
+				}
+			}
+
+			array = newArray;
+		}
+
 		public void Resize(int w, int h) {
+			var size = w * h;
 			
+			ResizeArray(ref Tiles, w, h, size, (byte) Tile.FloorA);
+			ResizeArray(ref Liquid, w, h, size, (byte) 0);
+			ResizeArray(ref Variants, w, h, size, (byte) 0);
+			ResizeArray(ref LiquidVariants, w, h, size, (byte) 0);
+			ResizeArray(ref Flags, w, h, size, (byte) 0);
+			ResizeArray(ref Explored, w, h, size, false);
+			ResizeArray(ref Passable, w, h, size, false);
+			ResizeArray(ref Light, w, h, size, 0);
+
+			Width = w;
+			Height = h;
+			Size = size;
+			cleared = false;
+			
+			PathFinder.SetMapSize(Width, Height);
+			
+			WallSurface.Dispose();
+			MessSurface.Dispose();
+			
+			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
+			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
+
+			TileUp();
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace BurningKnight.level {
 				var v = PathFinder.VCircle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
+				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || level.IsInside(n) && ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
 					lmask |= (byte) (1 << i);
 				}
 			}
@@ -72,7 +72,7 @@ namespace BurningKnight.level {
 				var v = PathFinder.VCircle4[i];
 				var n = index + m;
 				
-				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
+				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || level.IsInside(n) && ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 					mask |= (byte) (1 << i);
 				}
 			}
@@ -83,7 +83,7 @@ namespace BurningKnight.level {
 					var v = PathFinder.VCorner[i];
 					var n = index + m;
 				
-					if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
+					if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || level.IsInside(n) && ShouldTile(tile, level.Tiles[n], level.Liquid[n])) {
 						mask |= (byte) (1 << (4 + i));
 					}
 				}
