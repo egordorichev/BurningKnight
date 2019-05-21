@@ -11,7 +11,11 @@ namespace BurningKnight.entity.item {
 		private int price;
 		private string priceString;
 		private float priceX;
-		
+
+		protected override string GetSprite() {
+			return "shop_stand";
+		}
+
 		protected override bool CanTake(Entity entity) {
 			if (!base.CanTake(entity)) {
 				return false;

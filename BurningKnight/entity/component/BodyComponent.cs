@@ -30,7 +30,7 @@ namespace BurningKnight.entity.component {
 			get => Body.Rotation;
 			set => Body.Rotation = value;
 		}
-
+		
 		protected virtual void PositionChangedListener() {
 			if (Body != null) {
 				Body.Position = Entity.Position;

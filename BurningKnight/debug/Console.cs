@@ -26,6 +26,8 @@ namespace BurningKnight.debug {
 		public List<string> Lines = new List<string>();
 		public Area GameArea;
 		public bool Open;
+
+		private bool forceFocus;
 		
 		public Console(Area area) {
 			GameArea = area;
@@ -54,15 +56,19 @@ namespace BurningKnight.debug {
 		}
 
 		public void Update(float dt) {
-			if (Input.Keyboard.WasPressed(Keys.F1)) {
+			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
-				Input.Blocked += Open ? 1 : -1;
+				forceFocus = Open;
 			}
 		}
 		
 		public void Render() {
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+
+			if (forceFocus) {
+				ImGui.SetNextWindowCollapsed(false);
+			}
 			
 			if (!ImGui.Begin("Console")) {
 				ImGui.End();
@@ -113,10 +119,11 @@ namespace BurningKnight.debug {
 			
 			ImGui.SetItemDefaultFocus();
 
-			if (focus) {
+			if (focus || forceFocus) {
 				ImGui.SetKeyboardFocusHere(-1);
 			}
-			
+
+			forceFocus = false;
 			ImGui.End();
 		}
 

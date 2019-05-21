@@ -54,7 +54,9 @@ namespace Lens.entity {
 			foreach (var list in Tags.Lists) {
 				list.Clear();
 			}
-			
+
+			AutoRemove();
+
 			entities.Entities.Clear();
 			entities.ToAdd.Clear();
 			entities.ToRemove.Clear();

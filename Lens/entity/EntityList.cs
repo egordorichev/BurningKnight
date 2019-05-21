@@ -38,6 +38,8 @@ namespace Lens.entity {
 		public void Remove(Entity entity) {
 			ToRemove.Add(entity);
 			ToAdd.Remove(entity);
+
+			entity.Done = true;
 		}
 		
 		private bool CheckOnScreen(Entity entity) {
@@ -71,7 +73,7 @@ namespace Lens.entity {
 						var entity = ToAdd[i];
 						Entities.Add(entity);
 
-						if (entity.Area == null) {
+						if (entity.Components == null) {
 							entity.Area = Area;
 							entity.Init();
 						}

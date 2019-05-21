@@ -1,6 +1,7 @@
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using Lens.entity;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.assets.prefabs {

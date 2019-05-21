@@ -12,8 +12,7 @@ namespace BurningKnight.assets.prefabs {
 		private static List<string> paths = new List<string>();
 		
 		public static void Load() {
-			// fixme!!!!
-			// Load(FileHandle.FromRoot("Prefabs/"));
+			Load(FileHandle.FromRoot("Prefabs/"));
 			Run.Level = null;
 		}
 
@@ -43,14 +42,34 @@ namespace BurningKnight.assets.prefabs {
 			}
 			
 			var prefab = new Prefab();
-			
 			var stream = new FileReader(handle.FullPath);
-			SaveManager.ForType(SaveType.Level).Load(prefab.Area, stream);
+			
+			if (stream.ReadInt32() != SaveManager.MagicNumber) {
+				Log.Error("Invalid magic number!");
+				return;
+			}
+
+			var version = stream.ReadInt16();
+
+			if (version > SaveManager.Version) {
+				Log.Error($"Unknown version {version}");
+			} else if (version < SaveManager.Version) {
+				// do something on it
+			}
+
+			if (stream.ReadByte() != (byte) SaveType.Level) {
+				return;
+			}
+			
+			((EntitySaver) SaveManager.ForType(SaveType.Level)).Load(prefab.Area, stream, false);
 
 			prefab.Level = Run.Level;
 			loaded[handle.NameWithoutExtension] = prefab;
-			
-			if (Engine.Version.Dev) {
+			prefab.Area.Entities.AddNew();
+
+			Run.Level = null;
+
+			/*if (Engine.Version.Dev) {
 				var path = handle.ParentName;
 
 				// Fixme: broken on my laptop
@@ -71,7 +90,7 @@ namespace BurningKnight.assets.prefabs {
 
 					Log.Debug($"Started watching folder {path}");
 				}
-			}
+			}*/
 		}
 		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {

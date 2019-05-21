@@ -83,6 +83,9 @@ namespace BurningKnight.level {
 
 			Chasm.Done = true;
 			Destroyable.Done = true;
+			
+			Area.Remove(Chasm);
+			Area.Remove(Destroyable);
 
 			if (Run.Level == this) {
 				Run.Level = null;
@@ -92,6 +95,8 @@ namespace BurningKnight.level {
 				WallSurface.Dispose();
 				MessSurface.Dispose();
 			}
+
+			manager.Destroy();
 		}
 
 		public void SetBiome(BiomeInfo biome) {
@@ -101,6 +106,8 @@ namespace BurningKnight.level {
 				Engine.Instance.StateRenderer.Bg = Biome.Bg;
 			}
 		}
+
+		private RenderTriggerManager manager;
 
 		public override void Init() {
 			base.Init();
@@ -139,12 +146,16 @@ namespace BurningKnight.level {
 			Area.Add(Chasm);
 			Area.Add(Destroyable);
 
-			Area.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
-			Area.Add(new RenderTrigger(this, RenderSides, Layers.Sides));
-			Area.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
-			Area.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
-			Area.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
-			Area.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			Log.Debug("Add triggers x6");
+
+			manager = new RenderTriggerManager(this);
+			
+			manager.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
+			manager.Add(new RenderTrigger(this, RenderSides, Layers.Sides));
+			manager.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
+			manager.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
+			manager.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
+			manager.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
 		}
 
 		public override void AddComponents() {
@@ -365,6 +376,8 @@ namespace BurningKnight.level {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			manager.Update();
 			
 			if (loadMarked) {
 				loadMarked = false;

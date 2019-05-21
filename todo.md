@@ -2,7 +2,12 @@
 
 ### Before v0.0.0.4
 
-* Gobbo tombstone
+* Fix hub/hall
+* Dialog for old man
+* Dont let the player exit until he has a lamp
+* Implement putting items on item stand (and item components)
+* Old man -> bk when you take a lamp
+
 * Show item description, when you pick it up [UiItemDescription]
 * Animate bullet death
 * Implement coins
@@ -43,6 +48,8 @@
 
 * Crash report/fail loading stuff
 
+* Ui banner (level depth report and stuff)
+
 #### Polish
 
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
@@ -51,6 +58,7 @@
 
 ### Important
 
+* Gobbo tombstone impl (appears on next run too, gives random item)
 * Zelda like digging enemy
 * Diagonal fly
 * Broken variant for walls that do not break

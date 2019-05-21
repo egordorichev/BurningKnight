@@ -1,4 +1,6 @@
+using BurningKnight.assets.particle;
 using BurningKnight.entity;
+using BurningKnight.entity.fx;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using ImGuiNET;
@@ -12,7 +14,7 @@ namespace BurningKnight.state {
 		private static bool onlyOnScreen;
 
 		public static bool PassFilter(Entity e) {
-			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Chasm || e is Room);
+			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Chasm || e is Room || e is ParticleEntity || e is ParticleSystem || e is ChasmFx);
 		}
 
 		public static Entity ToFocus;

@@ -7,6 +7,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -295,7 +296,11 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.WasPressed(Keys.F4)) {
 				TeleportTo(RoomType.Treasure);
 			}
-			
+
+			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
+				LocalPlayer.Locate(Area).Center = Input.Mouse.GamePosition;
+			}
+
 			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
 				var level = Run.Level;
 
@@ -481,7 +486,7 @@ namespace BurningKnight.state {
 				Position = new Vector2(32, 32)
 			});*/
 
-			var r = new FrameRenderer();
+			/*var r = new FrameRenderer();
 			Ui.Add(r);
 			
 			r.Setup("ui", "scroll_");
@@ -491,7 +496,7 @@ namespace BurningKnight.state {
 			r.CenterX = Display.UiWidth / 2f;
 			r.CenterY = Display.UiHeight - 64f;
 			
-			Ui.Add(banner = new UiDescriptionBanner());
+			Ui.Add(banner = new UiDescriptionBanner());*/
 		}
 
 		public bool HandleEvent(Event e) {
@@ -501,9 +506,15 @@ namespace BurningKnight.state {
 			
 			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
 				died = true;
+
+				var stone = new Tombstone();
+				Area.Add(stone);
 				
-				Tween.To(this, new {blur = 1}, 0.5f);
-				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f);
+				stone.CenterX = ded.Who.CenterX;
+				stone.Bottom = ded.Who.Bottom;
+
+				Tween.To(this, new {blur = 1}, 0.5f).Delay = 3;
+				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 3;
 
 				new Thread(() => {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);

@@ -70,8 +70,12 @@ namespace BurningKnight.entity.item {
 				OnStart = OnInteractionStart
 			});
 			
-			AddComponent(new SliceComponent("props", "slab_a"));
+			AddComponent(new SliceComponent("props", GetSprite()));
 			AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		protected virtual string GetSprite() {
+			return "slab_a";
 		}
 
 		private void RenderShadow() {

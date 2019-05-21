@@ -44,6 +44,10 @@ namespace BurningKnight.save {
 		}
 
 		public override void Load(Area area, FileReader reader) {
+			Load(area, reader);
+		}
+
+		public void Load(Area area, FileReader reader, bool post = true) {
 			var count = reader.ReadInt32();
 			var lastType = "";
 
@@ -66,11 +70,15 @@ namespace BurningKnight.save {
 					Log.Error($"Entity {entity.GetType().FullName} was expected to read {size} bytes but read {reader.Position - position}!");
 					reader.Position -= sum;
 				}
+
+				if (post) {
+					entity.PostInit();
+				}
 				
-				entity.PostInit();
 				lastType = type;
 			}
 		}
+
 
 		protected EntitySaver(SaveType type) : base(type) {
 			

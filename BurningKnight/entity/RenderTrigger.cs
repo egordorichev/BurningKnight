@@ -1,5 +1,6 @@
 ﻿using System;
 using Lens.entity;
+using Lens.util;
 
 namespace BurningKnight.entity {
 	public class RenderTrigger : Entity {
@@ -18,6 +19,7 @@ namespace BurningKnight.entity {
 		public override void Render() {
 			if (Entity.Done) {
 				Done = true;
+				Log.Debug("Removed!!!!");
 				return;
 			}
 

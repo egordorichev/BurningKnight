@@ -12,12 +12,9 @@ namespace BurningKnight.level.hub {
 		}
 
 		protected override List<RoomDef> CreateRooms() {
-			var rooms = new List<RoomDef>();
-			
-			rooms.Add(new HubEntranceRoom());
-			rooms.Add(new HubExitRoom());
-
-			return rooms;
+			return new List<RoomDef> {
+				new HubRoom()
+			};
 		}
 
 		public override Tile GetFilling() {
@@ -25,7 +22,7 @@ namespace BurningKnight.level.hub {
 		}
 
 		protected override Builder GetBuilder() {
-			return new HubBuilder();
+			return new SingleRoomBuilder();
 		}
 
 		public override int GetPadding() {

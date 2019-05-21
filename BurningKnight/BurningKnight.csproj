@@ -289,6 +289,7 @@
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
+    <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\Sign.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
@@ -327,9 +328,8 @@
     <Compile Include="level\hall\HallLevel.cs" />
     <Compile Include="level\hall\HallRoom.cs" />
     <Compile Include="level\hub\HubBuilder.cs" />
-    <Compile Include="level\hub\HubEntranceRoom.cs" />
-    <Compile Include="level\hub\HubExitRoom.cs" />
     <Compile Include="level\hub\HubLevel.cs" />
+    <Compile Include="level\hub\HubRoom.cs" />
     <Compile Include="level\Level.cs" />
     <Compile Include="level\LevelBodyComponent.cs" />
     <Compile Include="level\LevelTiler.cs" />
