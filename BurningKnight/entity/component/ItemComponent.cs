@@ -1,3 +1,4 @@
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -34,6 +35,8 @@ namespace BurningKnight.entity.component {
 						Old = old,
 						Component = this
 					};
+
+					debugItem = i.Id;
 			
 					Send(e);
 					i.HandleEvent(e);
@@ -104,9 +107,11 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
+		private string debugItem = "";
+
 		public override void RenderDebug() {
-			if (Item != null) {
-				ImGui.Text($"Item: {Item.Id}");
+			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				Set(Items.CreateAndAdd(debugItem, Entity.Area));
 			}
 		}
 	}

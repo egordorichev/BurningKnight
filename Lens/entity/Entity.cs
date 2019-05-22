@@ -245,6 +245,7 @@ namespace Lens.entity {
 		public bool HasComponent<T>() {
 			return Components.ContainsKey(typeof(T));
 		}
+
 		public bool TryGetComponent<T>(out T t) where T : Component {
 			if (Components.TryGetValue(typeof(T), out var tmp)) {
 				t = (T) tmp;
@@ -338,6 +339,10 @@ namespace Lens.entity {
 
 		public int CompareTo(object obj) {
 			return GetType().FullName.CompareTo(obj.GetType().FullName);
+		}
+
+		public virtual void RenderImDebug() {
+			
 		}
 	}
 }

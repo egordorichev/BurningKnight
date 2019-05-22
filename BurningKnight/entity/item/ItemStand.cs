@@ -7,6 +7,7 @@ using BurningKnight.entity.events;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -204,6 +205,14 @@ namespace BurningKnight.entity.item {
 
 			if (item != null) {
 				stream.WriteString(item.Id);
+			}
+		}
+		
+		private string debugItem = "";
+
+		public override void RenderImDebug() {
+			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				SetItem(Items.CreateAndAdd(debugItem, Area), null);
 			}
 		}
 	}

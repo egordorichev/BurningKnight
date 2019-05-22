@@ -1,5 +1,10 @@
 # TODO
 
+### FIXMEE!!
+
+* No lighting
+* Can't give an item to player
+
 ### Before v0.0.0.4
 
 * Fix hub/hall

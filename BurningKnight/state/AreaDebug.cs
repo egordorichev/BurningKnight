@@ -85,6 +85,10 @@ namespace BurningKnight.state {
 						ImGui.Checkbox("On screen", ref e.OnScreen);
 						ImGui.Checkbox("Done", ref e.Done);
 						
+						e.RenderImDebug();
+						
+						ImGui.Separator();
+						
 						ImGui.Text("Components");
 						
 						foreach (var component in e.Components) {
