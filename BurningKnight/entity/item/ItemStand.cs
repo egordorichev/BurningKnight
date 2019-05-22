@@ -128,7 +128,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		public override void Render() {
-			var component = GetComponent<InteractableComponent>();
+			if (!TryGetComponent<InteractableComponent>(out var component)) {
+				return;
+			}
+			
 			var renderOutline = component.OutlineAlpha > 0.05f;
 			var t = T;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;

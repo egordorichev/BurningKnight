@@ -122,6 +122,7 @@
 
 ### Ideas
 
+* Random events (rain, blood moon, etc), ways to make them more or less likely
 * Signs, you can write/read from them
 * In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items

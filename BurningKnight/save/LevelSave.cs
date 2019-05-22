@@ -56,7 +56,9 @@ namespace BurningKnight.save {
 				Log.Error(e);
 				I++;
 
+				a.Entities.AddNew();
 				a.Destroy();
+				a = new Area();
 				Run.Level = null;
 
 				if (I > 100) {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lens.entity;
+using Lens.util;
 
 namespace BurningKnight.entity {
 	public class RenderTriggerManager {
@@ -17,11 +18,12 @@ namespace BurningKnight.entity {
 
 		public void Update() {
 			if (entity.Done) {
+				Destroy();
 				return;
 			}
 			
 			foreach (var t in triggers) {
-				if (t.Done) {
+				if (t.Done || t.Area != entity.Area) {
 					t.Done = false;
 					t.Area = null;
 					t.Components = null;

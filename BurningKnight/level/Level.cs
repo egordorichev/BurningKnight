@@ -145,8 +145,12 @@ namespace BurningKnight.level {
 			
 			Area.Add(Chasm);
 			Area.Add(Destroyable);
+		}
 
-			Log.Debug("Add triggers x6");
+		public override void PostInit() {
+			base.PostInit();
+			
+			
 
 			manager = new RenderTriggerManager(this);
 			
@@ -377,8 +381,6 @@ namespace BurningKnight.level {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			manager.Update();
-			
 			if (loadMarked) {
 				loadMarked = false;
 				CreatePassable();
@@ -393,7 +395,9 @@ namespace BurningKnight.level {
 				Done = true;
 				return;
 			}
-			
+
+			manager.Update();
+
 			var camera = Camera.Instance;
 			
 			// Cache the condition
