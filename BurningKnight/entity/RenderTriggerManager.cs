@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Lens.entity;
-using Lens.util;
 
 namespace BurningKnight.entity {
 	public class RenderTriggerManager {

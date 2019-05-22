@@ -50,9 +50,22 @@ namespace Lens.util.tween {
 			if (EaseFn != null) {
 				t = EaseFn(t);
 			}
-			
-			Interpolate(t);
-			OnUpdate?.Invoke();
+
+			try {
+				Interpolate(t);
+				OnUpdate?.Invoke();
+			} catch (Exception e) {
+				t = 1;
+				
+				if (EaseFn != null) {
+					t = EaseFn(t);
+				}
+				
+				Interpolate(t);
+
+				callEnd = true;
+				Log.Error(e);
+			}
 
 			if (callEnd && !Ended) {
 				Ended = true;

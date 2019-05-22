@@ -73,7 +73,7 @@ namespace Lens.entity {
 						var entity = ToAdd[i];
 						Entities.Add(entity);
 
-						if (entity.Components == null) {
+						if (!Area.NoInit && entity.Components == null) {
 							entity.Area = Area;
 							entity.Init();
 						}
