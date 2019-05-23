@@ -138,6 +138,7 @@
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\CircleBodyComponent.cs" />
+    <Compile Include="entity\component\CloseDialogComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />
     <Compile Include="entity\component\ExplodableComponent.cs" />

@@ -13,9 +13,11 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));
 			
 			AddComponent(new InteractableComponent(e => {
-				GetComponent<DialogComponent>().Start("om_ord");
+				GetComponent<DialogComponent>().Start("its_dangerous_to_go");
 				return true;
 			}));
+			
+			AddComponent(new CloseDialogComponent("its_dangerous_to_go"));
 		}
 	}
 }

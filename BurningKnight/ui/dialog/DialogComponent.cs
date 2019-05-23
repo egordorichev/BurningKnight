@@ -34,7 +34,6 @@ namespace BurningKnight.ui.dialog {
 					var next = Current.GetNext();
 
 					if (next == null) {
-						Input.Blocked = 0;
 						Last = Current;
 						Current = null;
 						OnNext?.Invoke();
@@ -51,8 +50,6 @@ namespace BurningKnight.ui.dialog {
 		}
 		
 		private void Setup(Dialog dialog) {
-			Input.Blocked = 1;
-
 			Last = Current;
 			Current = dialog;
 			Dialog.Say(dialog.Modify(Locale.Get(dialog.Id)));

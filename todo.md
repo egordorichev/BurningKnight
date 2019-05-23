@@ -7,10 +7,10 @@
 
 ### Before v0.0.0.4
 
-* Fix hub/hall
+* Fix player spawns
 * Dialog for old man
 * Dont let the player exit until he has a lamp
-* Implement putting items on item stand (and item components)
+* Put lamps and weapons in hall
 * Old man -> bk when you take a lamp
 
 * Show item description, when you pick it up [UiItemDescription]
