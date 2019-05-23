@@ -112,6 +112,8 @@ namespace BurningKnight.ui.dialog {
 			Tween.To(0, 255, x => Tint.A = (byte) x, 0.3f).OnEnd = () => {
 				Str.Width = 4;
 				Str.Height = 4;
+				Width = 4;
+				Height = 4;
 			};
 		}
 	}

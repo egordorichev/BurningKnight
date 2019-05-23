@@ -1,20 +1,56 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.ui.dialog;
+using BurningKnight.ui.imgui.node;
 using Lens.assets;
+using Lens.lightJson;
 using Lens.util;
+using Lens.util.file;
 
 namespace BurningKnight.assets {
 	public static class Dialogs {
 		private static Dictionary<string, Dialog> dialogs = new Dictionary<string, Dialog>();
 
+		public static void Load() {
+			var dir = new FileHandle("Content/Dialogs");
+			
+			foreach (var f in dir.ListFileHandles()) {
+				if (f.Extension == ".json") {
+					try {
+						var name = f.NameWithoutExtension;
+						var root = JsonValue.Parse(f.ReadAll());
+						
+						// Create nodes
+						foreach (var vl in root.AsJsonArray) {
+							ImNode.Create(name, vl);
+						}
+						
+						// Connect em
+						foreach (var node in ImGuiHelper.Nodes) {
+							node.Value.ReadOutputs();
+						}
+						
+						// Parse
+						foreach (var node in ImGuiHelper.Nodes) {
+							ParseNode(node.Value);
+						}
+						
+						ImGuiHelper.ClearNodes();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+				}
+			}
+		}
+
+		private static void ParseNode(ImNode node) {
+			if (node is DialogNode n) {
+				Add(n.Convert());				
+			}
+		}
+
 		public static void Add(Dialog dialog) {
 			dialogs[dialog.Id] = dialog;
-		}
-		
-		private static void AddNpc() {
-			// Ord
-			Add(new CombineDialog("ord_link", "ord_info"));
-			Add(new CombineDialog("ord_info"));
 		}
 
 		public static Dialog Get(string id) {

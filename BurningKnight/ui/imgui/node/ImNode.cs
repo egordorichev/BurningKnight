@@ -38,6 +38,9 @@ namespace BurningKnight.ui.imgui.node {
 		public ImConnection CurrentActive;
 		public bool Done;
 		public string Tip;
+		public string File;
+		
+		public string LocaleId => $"{File}_{Id}";
 		
 		public ImNode() {
 			Id = LastId++;
@@ -216,6 +219,35 @@ namespace BurningKnight.ui.imgui.node {
 			list.PopClipRect();
 		}
 		
+		public void ReadOutputs() {
+			var j = -1;
+
+			if (outputs != JsonValue.Null) {
+				foreach (var i in outputs) {
+					j++;
+
+					if (!i.IsJsonArray) {
+						continue;
+					}
+						
+					foreach (var o in i.AsJsonArray) {
+						if (!o.IsJsonArray || o.AsJsonArray.Count == 0) {
+							continue;
+						}
+							
+						var to = ImGuiHelper.Nodes[o[0]];
+						var from = Outputs[j];
+						var where = to.Inputs[o[1]];
+
+						from.ConnectedTo.Add(where);
+						where.ConnectedTo.Add(from);
+					}
+				}
+			}
+
+			outputs = null;
+		}
+		
 		public virtual void Render() {
 			if (!New) {
 				Position = RealPosition + Offset;
@@ -230,32 +262,7 @@ namespace BurningKnight.ui.imgui.node {
 			OnScreen = true;
 			
 			if (outputs != null) {
-				var j = -1;
-
-				if (outputs != JsonValue.Null) {
-					foreach (var i in outputs) {
-						j++;
-
-						if (!i.IsJsonArray) {
-							continue;
-						}
-						
-						foreach (var o in i.AsJsonArray) {
-							if (!o.IsJsonArray || o.AsJsonArray.Count == 0) {
-								continue;
-							}
-							
-							var to = ImGuiHelper.Nodes[o[0]];
-							var from = Outputs[j];
-							var where = to.Inputs[o[1]];
-
-							from.ConnectedTo.Add(where);
-							where.ConnectedTo.Add(from);
-						}
-					}
-				}
-
-				outputs = null;
+				ReadOutputs();
 			}
 			
 			if (Focused != this) {
@@ -450,7 +457,7 @@ namespace BurningKnight.ui.imgui.node {
 			return "Node";
 		}
 
-		public static ImNode Create(JsonValue vl, bool ignoreId = false) {
+		public static ImNode Create(string file, JsonValue vl, bool ignoreId = false) {
 			if (!vl.IsJsonObject) {
 				return null;
 			}
@@ -469,6 +476,7 @@ namespace BurningKnight.ui.imgui.node {
 			}
 
 			node.Tip = type.AsString;
+			node.File = file;
 			node.Load(vl);
 
 			if (ignoreId) {

@@ -5,6 +5,7 @@ using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.ui.imgui.node;
 using ImGuiNET;
+using Lens.assets;
 using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;
@@ -14,6 +15,8 @@ namespace BurningKnight.ui.imgui {
 	public static class DialogEditor {
 		private static string[] files;
 		private static int current;
+
+		public static string Current => files[current];
 		
 		public static void Init() {
 			Load();
@@ -22,6 +25,7 @@ namespace BurningKnight.ui.imgui {
 
 		public static void Destroy() {
 			SaveDialogs();
+			Locale.Save();
 			ImGuiHelper.ClearNodes();
 		}
 	
@@ -74,15 +78,16 @@ namespace BurningKnight.ui.imgui {
 			
 			try {
 				ImGuiHelper.ClearNodes();
-				LoadFromRoot(JsonValue.Parse(FileHandle.FromRoot($"Dialogs/{files[current]}.json").ReadAll()));
+				var name = files[current];
+				LoadFromRoot(name, JsonValue.Parse(FileHandle.FromRoot($"Dialogs/{name}.json").ReadAll()));
 			} catch (Exception e) {
 				Log.Error(e);
 			}
 		}
 
-		private static void LoadFromRoot(JsonArray root) {
+		private static void LoadFromRoot(string name, JsonArray root) {
 			foreach (var vl in root) {
-				ImNode.Create(vl);
+				ImNode.Create(name, vl);
 			}
 		}
 

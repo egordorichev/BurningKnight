@@ -411,6 +411,7 @@
     <Compile Include="ui\dialog\CombineDialog.cs" />
     <Compile Include="ui\dialog\Dialog.cs" />
     <Compile Include="ui\dialog\DialogComponent.cs" />
+    <Compile Include="ui\dialog\DialogNode.cs" />
     <Compile Include="ui\dialog\EventDialog.cs" />
     <Compile Include="ui\dialog\UiDialog.cs" />
     <Compile Include="ui\editor\command\Command.cs" />

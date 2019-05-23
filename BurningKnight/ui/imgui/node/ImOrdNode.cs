@@ -1,4 +1,5 @@
 using ImGuiNET;
+using Lens.assets;
 using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
@@ -36,21 +37,21 @@ namespace BurningKnight.ui.imgui.node {
 		public override void Save(JsonObject root) {
 			base.Save(root);
 			
-			root["header"] = header;
-			root["optionA"] = optionA;
-			root["optionB"] = optionB;
-			root["answerA"] = answerA;
-			root["answerB"] = answerB;
+			Locale.Map[LocaleId] = header;
+			Locale.Map[$"{LocaleId}_a"] = optionA;
+			Locale.Map[$"{LocaleId}_aa"] = answerA;
+			Locale.Map[$"{LocaleId}_b"] = optionB;
+			Locale.Map[$"{LocaleId}_ab"] = answerB;
 		}
 
 		public override void Load(JsonObject root) {
 			base.Load(root);
 			
-			header = root["header"].AsString;
-			optionA = root["optionA"].AsString;
-			optionB = root["optionB"].AsString;
-			answerA = root["answerA"].AsString;
-			answerB = root["answerB"].AsString;
+			header = Locale.Map[LocaleId];
+			optionA = Locale.Map[$"{LocaleId}_a"];
+			answerA = Locale.Map[$"{LocaleId}_aa"];
+			optionB = Locale.Map[$"{LocaleId}_b"];
+			answerB = Locale.Map[$"{LocaleId}_ab"];
 		}
 
 		public override string GetName() {

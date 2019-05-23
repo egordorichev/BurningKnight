@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ImGuiNET;
+using Lens.assets;
 using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
@@ -77,27 +78,26 @@ namespace BurningKnight.ui.imgui.node {
 		public override void Save(JsonObject root) {
 			base.Save(root);
 
-			var ch = new JsonArray();
-
+			var i = 0;
+			
 			foreach (var c in choices) {
-				ch.Add(c);
+				Locale.Map[$"{LocaleId}_{i}"] = c;
+				i++;
 			}
 
-			root["choices"] = ch;
-			root["name"] = name;
+			root["cc"] = choices.Count;
+			Locale.Map[LocaleId] = name;
 		}
 
 		public override void Load(JsonObject root) {
 			base.Load(root);
 
-			var ch = root["choices"].AsJsonArray;
-
-			foreach (var c in ch) {
-				choices.Add(c);
+			for (var i = 0; i < root["cc"]; i++) {
+				choices.Add(Locale.Map[$"{LocaleId}_{i}"]);
 				AddOutput();
 			}
 
-			name = root["name"];
+			name = Locale.Map[LocaleId];
 			label = name;
 		}
 	}

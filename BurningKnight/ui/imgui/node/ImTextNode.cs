@@ -1,10 +1,12 @@
+using System;
+using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens.assets;
 using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
-	public class ImTextNode : ImNode {
+	public class ImTextNode : ImNode, DialogNode {
 		private string name = "";
-		private string label = "";
 		
 		public override void RenderElements() {
 			if (Inputs.Count > 0) {
@@ -16,27 +18,30 @@ namespace BurningKnight.ui.imgui.node {
 			}
 
 			ImGui.PushItemWidth(200);
-			
-			if (ImGui.InputText($"##{name}", ref label, 256, ImGuiInputTextFlags.EnterReturnsTrue)) {
-				name = label;
-			}
-			
+			ImGui.InputText($"##{name}", ref name, 256);
 			ImGui.PopItemWidth();
 		}
 
 		public override void Load(JsonObject root) {
 			base.Load(root);
-			name = root["name"];
-			label = name;
+			name = Locale.Map[LocaleId];
 		}
 
 		public override void Save(JsonObject root) {
 			base.Save(root);
-			root["name"] = name;
+			Locale.Map[LocaleId] = name;
 		}
 
 		public override string GetName() {
 			return name;
+		}
+
+		public Dialog Convert() {
+			if (Outputs.Count < 2) {
+				return new Dialog(LocaleId, Outputs.Count == 0 ? null : Outputs[0].Parent.LocaleId);
+			}
+
+			throw new Exception("Dialog can not have more than 1 output");
 		}
 	}
 }

@@ -19,7 +19,8 @@ namespace BurningKnight {
 			ImGuiHelper.Init();
 			
 			Controls.Bind();
-			
+
+			Dialogs.Load();
 			CommonAse.Load();
 			Shaders.Load();
 			Font.Load();

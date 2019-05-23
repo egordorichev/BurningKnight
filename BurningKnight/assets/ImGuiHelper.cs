@@ -80,18 +80,23 @@ namespace BurningKnight.assets {
 			} else if (ImGui.IsMouseDragging(2) || Input.Keyboard.IsDown(Keys.Space, true)) {
 				ImNode.Offset += ImGui.GetIO().MouseDelta;
 			}
-			
-			foreach (var n in Nodes) {
-				var node = n.Value;
-				
-				if (!hideFiltred || filter.PassFilter(node.GetName())) {
-					node.Render();
-				}
 
-				if (node.Done) {
-					toRemove.Add(n.Key);
+
+			if (ImGui.Begin("Node editor", ImGuiWindowFlags.NoBringToFrontOnFocus)) {
+				foreach (var n in Nodes) {
+					var node = n.Value;
+
+					if (!hideFiltred || filter.PassFilter(node.GetName())) {
+						node.Render();
+					}
+
+					if (node.Done) {
+						toRemove.Add(n.Key);
+					}
 				}
 			}
+
+			ImGui.End();
 
 			CurrentActive?.RemoveEmptyConnection();
 
@@ -130,6 +135,7 @@ namespace BurningKnight.assets {
 				if (node != null) {
 					node.New = true;
 					node.Position = ImGui.GetIO().MousePos;
+					node.File = DialogEditor.Current;
 					ImNode.Focused = node;
 				}
 
@@ -176,7 +182,7 @@ namespace BurningKnight.assets {
 					sawFocused = true;
 				}
 				
-				if (ImGui.Selectable($"{name} #{node.Id}", ImNode.Focused == node)) {
+				if (ImGui.Selectable($"#{node.Id} {name}", ImNode.Focused == node)) {
 					ImNode.Focused = node;
 					node.ForceFocus = true;
 					sawFocused = true;
