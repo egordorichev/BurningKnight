@@ -14,6 +14,7 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
 using BurningKnight.util;
 using Lens;
@@ -49,6 +50,7 @@ namespace BurningKnight.state {
 
 		private Painting painting;
 		private UiDescriptionBanner banner;
+		private SettingsWindow settings;
 
 		public Painting CurrentPainting {
 			set {
@@ -371,6 +373,7 @@ namespace BurningKnight.state {
 			PrerenderShadows();
 			base.Render();
 			Physics.Render();
+			settings.RenderInGame();
 			RenderFog();
 		}
 
@@ -407,7 +410,14 @@ namespace BurningKnight.state {
 		private Console console;
 
 		private void SetupUi() {
-			Ui.Add(new Camera(new FollowingDriver()));
+			var cam = new Camera(new FollowingDriver());
+			Ui.Add(cam);
+			
+			settings = new SettingsWindow(new Editor {
+				Area = Area,
+				Level = Run.Level,
+				Camera = cam
+			});
 			
 			cursor = new Cursor();
 			Ui.Add(cursor);
@@ -536,6 +546,7 @@ namespace BurningKnight.state {
 			console.Render();
 			AreaDebug.Render(Area);
 			LocaleEditor.Render();
+			settings.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

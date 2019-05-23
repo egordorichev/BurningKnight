@@ -388,6 +388,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="state\AreaDebug.cs" />
     <Compile Include="state\DialogEditorState.cs" />
+    <Compile Include="state\Editor.cs" />
     <Compile Include="state\EditorState.cs" />
     <Compile Include="state\InGameAudio.cs" />
     <Compile Include="state\InGameState.cs" />

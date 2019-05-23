@@ -52,6 +52,7 @@ namespace BurningKnight.physics {
 		}
 
 		public void DrawShape(Fixture fixture, Transform xf, Color color) {
+			// todo: dont draw if offscreen
 			switch (fixture.Shape.ShapeType) {
 				case ShapeType.Circle: {
 					var circle = (CircleShape) fixture.Shape;

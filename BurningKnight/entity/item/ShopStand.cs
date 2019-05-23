@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -50,11 +51,23 @@ namespace BurningKnight.entity.item {
 		public override bool HandleEvent(Event e) {
 			if (e is ItemPlacedEvent) {
 				price = PriceCalculator.Calculate(Item);
-				priceString = $"{price}";
-				priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+				CalculatePriceSize();
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		private void CalculatePriceSize() {
+			priceString = $"{price}";
+			priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+
+			if (ImGui.InputInt("Price", ref price)) {
+				CalculatePriceSize();
+			}
 		}
 	}
 }

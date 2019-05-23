@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
@@ -112,6 +113,10 @@ namespace BurningKnight.entity.component {
 		public override void RenderDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				Set(Items.CreateAndAdd(debugItem, Entity.Area));
+			}
+
+			if (Item != null) {
+				AreaDebug.RenderEntity(Item);
 			}
 		}
 	}

@@ -6,7 +6,7 @@ namespace BurningKnight.ui.editor.command {
 		private Stack<Command> commands = new Stack<Command>();
 		private Stack<Command> redo = new Stack<Command>();
 
-		public EditorState Editor;
+		public Editor Editor;
 		
 		public void Do(Command command) {
 			redo.Clear();

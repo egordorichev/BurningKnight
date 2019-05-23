@@ -19,7 +19,6 @@ namespace BurningKnight.entity {
 		public override void Render() {
 			if (Entity.Done) {
 				Done = true;
-				Log.Debug("Removed!!!!");
 				return;
 			}
 

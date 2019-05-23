@@ -4,9 +4,13 @@ using System.Linq;
 using System.Reflection;
 using BurningKnight.assets;
 using BurningKnight.entity;
+using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.prefabs;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.fx;
 using BurningKnight.level;
 using BurningKnight.level.biome;
+using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -24,6 +28,8 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using VelcroPhysics.Dynamics;
 using Num = System.Numerics;
 
 namespace BurningKnight.ui.editor {
@@ -37,12 +43,20 @@ namespace BurningKnight.ui.editor {
 		private static Num.Vector4 bg = new Num.Vector4(0.1f);
 		
 		static SettingsWindow() {
+			var blocked = new List<Type> {
+				typeof(Slime),
+				typeof(BreakableProp),
+				typeof(PlaceableEntity),
+				typeof(Mob),
+				typeof(Npc)
+			};
+			
 			var pe = typeof(PlaceableEntity);
 			
 			foreach (var t in Assembly.GetExecutingAssembly()
 				.GetTypes()
-				.Where(type => pe.IsAssignableFrom(type) && type != pe)) {
-				
+				.Where(type => pe.IsAssignableFrom(type) && type != pe && !blocked.Contains(type))) {
+
 				types.Add(new TypeInfo {
 					Type = t,
 					Name = t.Name
@@ -62,9 +76,9 @@ namespace BurningKnight.ui.editor {
 		public bool SnapToGrid;
 		public bool Center;
 		public CommandQueue Commands;
-		public EditorState Editor;
+		public Editor Editor;
 		
-		public SettingsWindow(EditorState e) {
+		public SettingsWindow(Editor e) {
 			Editor = e;
 
 			Commands = new CommandQueue {
@@ -626,6 +640,52 @@ namespace BurningKnight.ui.editor {
 			if (entity != null) {
 				entity.Done = true;
 				entity = null;
+			}
+		}
+
+		public void RenderInGame() {
+			if (Grid) {
+				var gridSize = 16;
+				var off = (Camera.Instance.TopLeft - new Vector2(0, 8));
+				var color = new Color(1f, 1f, 1f, 0.5f);
+
+				for (float x = Math.Max(0, off.X - off.X % gridSize); x <= off.X + Display.Width && x <= Editor.Level.Width * 16; x += gridSize) {
+					Graphics.Batch.DrawLine(x, off.Y, x, off.Y + Display.Height + gridSize, color);
+				}
+
+				for (float y = Math.Max(0, off.Y - off.Y % gridSize); y <= off.Y + Display.Height && y <= Editor.Level.Height * 16; y += gridSize) {
+					Graphics.Batch.DrawLine(off.X, y, off.X + Display.Width + gridSize, y, color);
+				}
+			}
+
+			if (EditingTiles) {
+				var mouse = Input.Mouse.GamePosition;
+				var color = new Color(1f, 0.5f, 0.5f, 1f);
+				var fill = new Color(1f, 0.5f, 0.5f, 0.5f);
+
+				mouse.X = (float) (Math.Floor(mouse.X / 16) * 16);
+				mouse.Y = (float) (Math.Floor(mouse.Y / 16) * 16);
+
+				if (CurrentInfo.Tile.Matches(TileFlags.WallLayer)) {
+					mouse.Y -= 8;
+					Graphics.Batch.FillRectangle(mouse, new Vector2(16, 24), fill);
+					mouse.Y += 16;
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16, 8), new Color(1f, 0.7f, 0.7f, 1f));
+					mouse.Y -= 16;
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
+				} else {
+					Graphics.Batch.FillRectangle(mouse, new Vector2(16, 16), fill);
+					Graphics.Batch.DrawRectangle(mouse, new Vector2(16), color);
+				}
+			} else {
+				if (HoveredEntity != null) {
+					Graphics.Batch.DrawRectangle(HoveredEntity.Position - new Vector2(1), new Vector2(HoveredEntity.Width + 2, HoveredEntity.Height + 2), new Color(0.7f, 0.7f, 1f, 1f));
+				}
+				
+				if (CurrentEntity != null) {
+					var e = CurrentEntity;
+					Graphics.Batch.DrawRectangle(e.Position - new Vector2(1), new Vector2(e.Width + 2, e.Height + 2), new Color(0.7f, 1f, 0.7f, 1f));
+				}
 			}
 		}
 	}

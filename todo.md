@@ -123,7 +123,6 @@
 * Level interaction
  + Falling into chasms (items, enemies)
 * Chest react to explosion/hitting
- + ^^^^ redraw chest? doesnt really fit the artstyle
 
 ### Ideas
 
@@ -146,26 +145,3 @@
 ### Clean up
 
 * Move BurningBuff.Id somewhere else (other name), cause it hides Id field from Buff class
-
-### Bugs
-
-* Game will crash, if you die without saving
-* Ui inventory sometimes wont show hearts
-
-# Audio TODO
-
-### Music
-
-* Would be great to have a small track (like Shopkeeper one) for the treasure room
-* Soon will need a hub track (but before that I will somewhat layout the area and give you a build, so dont worry about this one for now)
-
-### Sfx
-
-* Figure out what to do with dialog sounds
-* Chest opening sfx (thinking about making it more exciting, look at chests in minit (or when you gain items in minit))
-* Lock opening sfx? (current one is unlock.mp3, what do you think?)
-* It would be nice to merge secret.mp3 and secret_room.mp3 into a single file
-* Pickup sfx (pickup.mp3, sounds more like heart pickup to me)
-* 1-2 sounds for actions, that you can't perform (current one is item_nocash, could use more)
-* Door lock/unlock sounds? (door_lock.mp3, door_unlock.mp3) Current ones can be used for other stuff, do not sound too much like doors locking
-* Roll sfx (dash.mp3, doesnt sound like dash) 

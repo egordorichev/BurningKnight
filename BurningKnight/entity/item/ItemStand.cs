@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.editor;
 using BurningKnight.util;
 using ImGuiNET;
@@ -213,6 +214,10 @@ namespace BurningKnight.entity.item {
 		public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				SetItem(Items.CreateAndAdd(debugItem, Area), null);
+			}
+
+			if (Item != null) {
+				AreaDebug.RenderEntity(Item);
 			}
 		}
 	}

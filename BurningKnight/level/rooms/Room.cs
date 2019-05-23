@@ -49,7 +49,9 @@ namespace BurningKnight.level.rooms {
 
 			for (int y = MapY; y < MapY + MapH - 1; y++) {
 				for (int x = MapX; x < MapX + MapW; x++) {
-					level.Explored[level.ToIndex(x, y)] = true;
+					if (level.IsInside(x, y)) {
+						level.Explored[level.ToIndex(x, y)] = true;
+					}
 				}
 			}
 		}
