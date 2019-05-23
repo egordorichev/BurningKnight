@@ -42,6 +42,7 @@ namespace BurningKnight.state {
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
 			DialogEditor.Render();
+			DebugWindow.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

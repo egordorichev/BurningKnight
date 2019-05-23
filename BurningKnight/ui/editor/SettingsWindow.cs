@@ -85,6 +85,10 @@ namespace BurningKnight.ui.editor {
 				Editor = e
 			};
 
+			if (Engine.Instance.State is InGameState) {
+				return;
+			}
+
 			var locales = new FileHandle("Content/Prefabs/");
 
 			if (!locales.Exists()) {
@@ -222,7 +226,7 @@ namespace BurningKnight.ui.editor {
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {
-				if (Input.Keyboard.WasPressed(Keys.S, true)) {
+				if (!(Engine.Instance.State is InGameState) && Input.Keyboard.WasPressed(Keys.S, true)) {
 					Save();
 				}
 
@@ -282,159 +286,162 @@ namespace BurningKnight.ui.editor {
 				return;
 			}
 
-			var o = currentLevel;
-			
-			if (ImGui.Combo("Level", ref currentLevel, levels, levels.Length)) {
-				var oo = currentLevel;
-				currentLevel = o;
-				Save();
-				currentLevel = oo;
-				Load();
-			}
 
-			if (ImGui.Combo("Biome", ref currentBiome, biomes, biomes.Length)) {
-				Editor.Level.SetBiome(BiomeRegistry.Get(biomes[currentBiome]));
-				ReloadBiome();
-			}
+			if (!(Engine.Instance.State is InGameState)) {
+				var o = currentLevel;
 
-			if (ImGui.Button("Save")) {
-				Save();
-			}
-			
-			ImGui.SameLine();
-
-			if (ImGui.Button("Delete")) {
-				ImGui.OpenPopup("Delete?##s");
-			}
-				
-			if (ImGui.BeginPopupModal("Delete?##s")) {
-				ImGui.Text("This operation can't be undone!");
-				ImGui.Text("Are you sure?");
-					
-				if (ImGui.Button("Yes")) {
-					ImGui.CloseCurrentPopup();
-					Delete();
-
-					var list = levels.ToList();
-					list.Remove(levels[currentLevel]);
-					levels = list.ToArray();
-					currentLevel = 0;
-				}
-						
-				ImGui.SameLine();
-				ImGui.SetItemDefaultFocus();
-					
-				if (ImGui.Button("No")) { 
-					ImGui.CloseCurrentPopup();
+				if (ImGui.Combo("Level", ref currentLevel, levels, levels.Length)) {
+					var oo = currentLevel;
+					currentLevel = o;
+					Save();
+					currentLevel = oo;
+					Load();
 				}
 
-				ImGui.EndPopup();
-			}
-			
-			ImGui.SameLine();
+				if (ImGui.Combo("Biome", ref currentBiome, biomes, biomes.Length)) {
+					Editor.Level.SetBiome(BiomeRegistry.Get(biomes[currentBiome]));
+					ReloadBiome();
+				}
 
-			if (ImGui.Button("New")) {
-				ImGui.OpenPopup("New level");	
-				levelName = "new";
-				levelWidth = 32;
-				levelHeight = 32;
-			}
+				if (ImGui.Button("Save")) {
+					Save();
+				}
 
-			if (ImGui.BeginPopupModal("New level")) {
-				var ol = currentLevel;
-				
-				ImGui.SetItemDefaultFocus();
-				var input = ImGui.InputText("Name", ref levelName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
-				ImGui.InputInt2("Size", ref levelWidth);
-				
-				var button = ImGui.Button("Create");
 				ImGui.SameLine();
-				
-				if (ImGui.Button("Cancel")) {
-					ImGui.CloseCurrentPopup();
-				} else {
-					if (input || button) {
-						var oo = currentLevel;
-						currentLevel = ol;
-						Save();
-						currentLevel = oo;
-						
+
+				if (ImGui.Button("Delete")) {
+					ImGui.OpenPopup("Delete?##s");
+				}
+
+				if (ImGui.BeginPopupModal("Delete?##s")) {
+					ImGui.Text("This operation can't be undone!");
+					ImGui.Text("Are you sure?");
+
+					if (ImGui.Button("Yes")) {
+						ImGui.CloseCurrentPopup();
+						Delete();
+
+						var list = levels.ToList();
+						list.Remove(levels[currentLevel]);
+						levels = list.ToArray();
+						currentLevel = 0;
+					}
+
+					ImGui.SameLine();
+					ImGui.SetItemDefaultFocus();
+
+					if (ImGui.Button("No")) {
+						ImGui.CloseCurrentPopup();
+					}
+
+					ImGui.EndPopup();
+				}
+
+				ImGui.SameLine();
+
+				if (ImGui.Button("New")) {
+					ImGui.OpenPopup("New level");
+					levelName = "new";
+					levelWidth = 32;
+					levelHeight = 32;
+				}
+
+				if (ImGui.BeginPopupModal("New level")) {
+					var ol = currentLevel;
+
+					ImGui.SetItemDefaultFocus();
+					var input = ImGui.InputText("Name", ref levelName, 64, ImGuiInputTextFlags.EnterReturnsTrue);
+					ImGui.InputInt2("Size", ref levelWidth);
+
+					var button = ImGui.Button("Create");
+					ImGui.SameLine();
+
+					if (ImGui.Button("Cancel")) {
+						ImGui.CloseCurrentPopup();
+					} else {
+						if (input || button) {
+							var oo = currentLevel;
+							currentLevel = ol;
+							Save();
+							currentLevel = oo;
+
+							levelWidth = Math.Min(1024, Math.Max(1, levelWidth));
+							levelHeight = Math.Min(1024, Math.Max(1, levelHeight));
+
+							var list = levels.ToList();
+							list.Add(levelName);
+
+							levels = list.ToArray();
+							currentLevel = list.Count - 1;
+
+							ImGui.CloseCurrentPopup();
+
+							if (button) {
+								foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+									e.Done = true;
+								}
+
+								Editor.Area.AutoRemove();
+								Run.Level = null;
+
+								var level = new RegularLevel {
+									Width = levelWidth,
+									Height = levelHeight,
+									NoLightNoRender = false,
+									DrawLight = false
+								};
+
+								Editor.Level = level;
+								Editor.Area.Add(level);
+
+								level.SetBiome(BiomeRegistry.Get(Biome.Castle));
+								level.Setup();
+								level.Fill(Tile.FloorA);
+								level.TileUp();
+
+								Editor.Camera.Position = Vector2.Zero;
+							} else {
+								Load();
+							}
+						}
+					}
+
+					ImGui.EndPopup();
+				}
+
+				ImGui.Text($"{Editor.Level.Width}x{Editor.Level.Height}");
+				ImGui.SameLine();
+
+				if (ImGui.Button("Resize")) {
+					ImGui.OpenPopup("Resize level");
+
+					levelWidth = Editor.Level.Width;
+					levelHeight = Editor.Level.Height;
+				}
+
+				if (ImGui.BeginPopupModal("Resize level")) {
+					ImGui.Text($"Current size is {Editor.Level.Width}x{Editor.Level.Height}");
+					ImGui.InputInt2("New size", ref levelWidth);
+
+					if (ImGui.Button("Resize")) {
 						levelWidth = Math.Min(1024, Math.Max(1, levelWidth));
 						levelHeight = Math.Min(1024, Math.Max(1, levelHeight));
-						
-						var list = levels.ToList();
-						list.Add(levelName);
 
-						levels = list.ToArray();
-						currentLevel = list.Count - 1;
-						
+						Editor.Level.Resize(levelWidth, levelHeight);
 						ImGui.CloseCurrentPopup();
+					}
 
-						if (button) {
-							foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
-								e.Done = true;
-							}
-			
-							Editor.Area.AutoRemove();
-							Run.Level = null;
-							
-							var level = new RegularLevel {
-								Width = levelWidth, 
-								Height = levelHeight, 
-								NoLightNoRender = false, 
-								DrawLight = false
-							};
+					ImGui.SameLine();
 
-							Editor.Level = level;
-							Editor.Area.Add(level);
-							
-							level.SetBiome(BiomeRegistry.Get(Biome.Castle));
-							level.Setup();
-							level.Fill(Tile.FloorA);
-							level.TileUp();
-							
-							Editor.Camera.Position = Vector2.Zero;
-						} else {
-							Load();
-						}
-					}	
+					if (ImGui.Button("Cancel")) {
+						ImGui.CloseCurrentPopup();
+					}
+
+					ImGui.EndPopup();
 				}
 
-				ImGui.EndPopup();
+				ImGui.Separator();
 			}
-			
-			ImGui.Text($"{Editor.Level.Width}x{Editor.Level.Height}");
-			ImGui.SameLine();
-
-			if (ImGui.Button("Resize")) {
-				ImGui.OpenPopup("Resize level");	
-
-				levelWidth = Editor.Level.Width;
-				levelHeight = Editor.Level.Height;
-			}
-
-			if (ImGui.BeginPopupModal("Resize level")) {
-				ImGui.Text($"Current size is {Editor.Level.Width}x{Editor.Level.Height}");
-				ImGui.InputInt2("New size", ref levelWidth);
-				
-				if (ImGui.Button("Resize")) {
-					levelWidth = Math.Min(1024, Math.Max(1, levelWidth));
-					levelHeight = Math.Min(1024, Math.Max(1, levelHeight));
-
-					Editor.Level.Resize(levelWidth, levelHeight);
-					ImGui.CloseCurrentPopup();
-				}
-				
-				ImGui.SameLine();
-				
-				if (ImGui.Button("Cancel")) {
-					ImGui.CloseCurrentPopup();
-				}
-				
-				ImGui.EndPopup();
-			}
-
-			ImGui.Separator();
 
 			ImGui.Checkbox("Show grid", ref Grid);
 			ImGui.Combo("Mode", ref mode, modes, modes.Length);
@@ -544,7 +551,7 @@ namespace BurningKnight.ui.editor {
 					Entity selected = null;
 						
 					foreach (var e in Editor.Area.Entities.Entities) {
-						if (e.OnScreen && AreaDebug.PassFilter(e) && !(e is Firefly)) {
+						if (e.OnScreen && AreaDebug.PassFilter(e) && !(e is Firefly || e is WindFx)) {
 							if (e.Contains(mouse)) {
 								selected = e;
 							}

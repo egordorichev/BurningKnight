@@ -423,6 +423,7 @@
     <Compile Include="ui\editor\TypeInfo.cs" />
     <Compile Include="ui\FrameRenderer.cs" />
     <Compile Include="ui\HealthBar.cs" />
+    <Compile Include="ui\imgui\DebugWindow.cs" />
     <Compile Include="ui\imgui\DialogEditor.cs" />
     <Compile Include="ui\imgui\DrawVertDeclaration.cs" />
     <Compile Include="ui\imgui\ImConnection.cs" />

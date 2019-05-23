@@ -7,6 +7,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.ui.editor;
+using BurningKnight.ui.imgui;
 using BurningKnight.util;
 using Lens;
 using Lens.game;
@@ -100,6 +101,7 @@ namespace BurningKnight.state {
 			Settings.Render();
 			Console.Render();
 			AreaDebug.Render(Area);
+			DebugWindow.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

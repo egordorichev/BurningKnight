@@ -547,6 +547,7 @@ namespace BurningKnight.state {
 			AreaDebug.Render(Area);
 			LocaleEditor.Render();
 			settings.Render();
+			DebugWindow.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

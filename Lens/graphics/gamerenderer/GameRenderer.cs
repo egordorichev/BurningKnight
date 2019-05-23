@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Lens.graphics.gamerenderer {
 	public class GameRenderer {
+		public static bool EnableBatcher = true;
+		
 		public RenderTarget2D GameTarget;
 		public RenderTarget2D UiTarget;
 		

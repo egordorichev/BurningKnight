@@ -1,5 +1,8 @@
+using BurningKnight.assets;
 using BurningKnight.entity;
+using BurningKnight.ui.imgui;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.game;
@@ -33,6 +36,12 @@ namespace BurningKnight.state {
 			
 			Graphics.Render(frame, new Vector2(32, 10));
 			Graphics.Render(fill, new Vector2(37, 26));
+		}
+
+		public override void RenderNative() {
+			ImGuiHelper.Begin();
+			DebugWindow.Render();
+			ImGuiHelper.End();
 		}
 	}
 }

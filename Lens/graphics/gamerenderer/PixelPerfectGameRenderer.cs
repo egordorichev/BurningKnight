@@ -62,7 +62,12 @@ namespace Lens.graphics.gamerenderer {
 		}
 		
 		public override void Render() {
-			Batcher2D.Begin();
+			var start = EnableBatcher;
+			
+			if (start) {
+				Batcher2D.Begin();
+			}
+			
 			RenderGame();
 			RenderUi();
 
@@ -102,7 +107,9 @@ namespace Lens.graphics.gamerenderer {
 
 			Engine.Instance.State?.RenderNative();
 
-			Batcher2D.End();
+			if (start) {
+				Batcher2D.End();
+			}
 		}
 
 		public override void Resize(int width, int height) {
