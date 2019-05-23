@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using BurningKnight.ui.dialog;
 using ImGuiNET;
 using Lens.assets;
 using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
-	public class ImChoiceNode : ImNode {
+	public class ImChoiceNode : ImNode, DialogNode {
 		private List<string> choices = new List<string>();
 		private string label = "";
 		private string name = "";
@@ -99,6 +100,22 @@ namespace BurningKnight.ui.imgui.node {
 
 			name = Locale.Map[LocaleId];
 			label = name;
+		}
+
+		public Dialog Convert() {
+			string[] variants = null;
+			
+			if (Outputs.Count > 0) {
+				variants = new string[Outputs.Count];
+				var i = 0;
+				
+				foreach (var o in Outputs) {
+					variants[i] = o.Parent.LocaleId;
+					i++;
+				}
+			}
+			
+			return new Dialog(name, variants);
 		}
 	}
 }

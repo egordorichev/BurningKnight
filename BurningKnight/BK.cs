@@ -16,12 +16,10 @@ namespace BurningKnight {
 		protected override void Initialize() {
 			base.Initialize();
 			
-			ImGuiHelper.Init();
-			
 			Controls.Bind();
-
 			Dialogs.Load();
 			CommonAse.Load();
+			ImGuiHelper.Init();
 			Shaders.Load();
 			Font.Load();
 			Prefabs.Load();

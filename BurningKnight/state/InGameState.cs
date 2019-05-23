@@ -543,11 +543,16 @@ namespace BurningKnight.state {
 			}
 			
 			ImGuiHelper.Begin();
+			
 			console.Render();
-			AreaDebug.Render(Area);
-			LocaleEditor.Render();
 			settings.Render();
+			
+			AreaDebug.Render(Area);
 			DebugWindow.Render();
+			
+			LocaleEditor.Render();
+			ItemEditor.Render();
+			
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

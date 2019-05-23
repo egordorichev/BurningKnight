@@ -4,9 +4,12 @@
 
 * No lighting
 * Can't give an item to player
+* Fix interacting with dialogs (and think what to do with input block?)
+* Make node editing possible in-game
 
 ### Before v0.0.0.4
 
+* Item editor
 * Fix player spawns
 * Dialog for old man
 * Dont let the player exit until he has a lamp
@@ -117,6 +120,7 @@
 
 ### Mechanics
 
+* Each level should have its own mechanic, except the starting one (running out of water, turn based movement, etc, allow to choose different roots)
 * Add health component to chest
 * Add explodable component to chest?
 * Explode item stand to replace the item with trash? :thinking:

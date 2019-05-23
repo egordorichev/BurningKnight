@@ -37,11 +37,19 @@ namespace BurningKnight.ui.imgui.node {
 		}
 
 		public Dialog Convert() {
-			if (Outputs.Count < 2) {
-				return new Dialog(LocaleId, Outputs.Count == 0 ? null : Outputs[0].Parent.LocaleId);
-			}
+			string[] variants = null;
 
-			throw new Exception("Dialog can not have more than 1 output");
+			if (Outputs.Count > 0) {
+				variants = new string[Outputs.Count];
+				var i = 0;
+				
+				foreach (var o in Outputs) {
+					variants[i] = o.Parent.LocaleId;
+					i++;
+				}
+			}
+			
+			return new Dialog(LocaleId, variants);
 		}
 	}
 }
