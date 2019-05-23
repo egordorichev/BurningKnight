@@ -85,7 +85,7 @@ namespace BurningKnight.ui.editor {
 				Editor = e
 			};
 
-			if (Engine.Instance.State is InGameState) {
+			if (!Engine.EditingLevel) {
 				return;
 			}
 
@@ -226,7 +226,7 @@ namespace BurningKnight.ui.editor {
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {
-				if (!(Engine.Instance.State is InGameState) && Input.Keyboard.WasPressed(Keys.S, true)) {
+				if (Engine.EditingLevel && Input.Keyboard.WasPressed(Keys.S, true)) {
 					Save();
 				}
 

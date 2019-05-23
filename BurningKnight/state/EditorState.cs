@@ -1,9 +1,7 @@
-using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.level;
-using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.ui.editor;
@@ -47,6 +45,7 @@ namespace BurningKnight.state {
 			
 			Console = new Console(Area);
 
+			Level = Settings.Editor.Level;
 			for (var i = 0; i < Level.Explored.Length; i++) {
 				Level.Explored[i] = true;
 			}
