@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item.renderer {
 			return (ItemRenderer) Activator.CreateInstance(renderer);
 		}
 
-		
+
 		public static void Register<T>(Mod mod) where T : ItemRenderer {
 			var type = typeof(T);
 			var name = type.Name;

@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using ImGuiNET;
 using Lens.assets;
+using Lens.lightJson;
 using Num = System.Numerics;
 
 namespace BurningKnight.state {
@@ -21,6 +22,20 @@ namespace BurningKnight.state {
 			"lamp",
 			"weapon"
 		};
+
+		private static void DisplayUse(JsonValue root) {
+			if (root.IsString) {
+				ImGui.Text(root.AsString);
+			} else if (root.IsJsonObject) {
+				foreach (var u in root.AsJsonObject) {
+					DisplayUse(u.Key);
+					
+					// todo: display stats
+				}
+			} else {
+				ImGui.Text("None");
+			}
+		}
 		
 		public static void Render() {
 			if (!ImGui.Begin("Item editor")) {
@@ -68,6 +83,18 @@ namespace BurningKnight.state {
 
 				if (animated) {
 					ImGui.InputText("Animation", ref selected.Animation, 128);
+				}
+				
+				ImGui.Separator();
+
+				if (ImGui.CollapsingHeader("Uses")) {
+					var root = selected.Uses;
+
+					DisplayUse(root);
+				}
+				
+				if (ImGui.CollapsingHeader("Renderer")) {
+					
 				}
 				
 				// todo: pools and spawn chance
