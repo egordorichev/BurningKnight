@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.graphics;
 using Lens.input;
 using Lens.lightJson;
@@ -59,6 +60,22 @@ namespace BurningKnight.entity.item.renderer {
 			Origin.X = settings["ox"].Number(0);
 			Origin.Y = settings["oy"].Number(0);
 			InvertBack = settings["invert_back"].Bool(true);
+		}
+
+		public static void RenderDebug(JsonValue root) {
+			var x = root["ox"].AsInteger;
+			var y = root["oy"].AsInteger;
+
+			if (ImGui.InputInt2("Origin", ref x)) {
+				root["ox"] = x;
+				root["oy"] = y;
+			}
+
+			var invert = root["invert_back"].AsBoolean;
+
+			if (ImGui.Checkbox("Invert back", ref invert)) {
+				root["invert_back"] = invert;
+			}
 		}
 	}
 }

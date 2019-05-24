@@ -1,8 +1,12 @@
 using BurningKnight.assets;
 using BurningKnight.assets.items;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
 using Lens.lightJson;
 using Num = System.Numerics;
@@ -56,6 +60,16 @@ namespace BurningKnight.state {
 				}
 			}
 		}
+
+		private static void DisplayRenderer(JsonValue root) {
+			var id = root["id"].AsString;
+
+			if (RendererRegistry.Renderers.TryGetValue(id, out var renderer)) {
+				renderer(root);
+			} else {
+				ImGui.Text($"No renderer found for '{id}'");
+			}
+		}
 		
 		private static void RenderWindow() {
 			if (selected == null) {
@@ -64,7 +78,7 @@ namespace BurningKnight.state {
 
 			var show = true;
 			
-			if (!ImGui.Begin("Item editor", ref show)) {
+			if (!ImGui.Begin("Item editor", ref show, ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
 			}
@@ -122,14 +136,18 @@ namespace BurningKnight.state {
 			}
 			
 			if (ImGui.CollapsingHeader("Renderer")) {
-				
+				DisplayRenderer(selected.Renderer);
 			}
 			
 			// todo: pools and spawn chance
 			// todo: uses and renderers
 			
 			if (ImGui.Button("Give")) {
-				// FIXME: give to player
+				LocalPlayer.Locate(Engine.Instance.State.Area)
+					?.GetComponent<InventoryComponent>()
+					.Pickup(Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					));
 			}
 			
 			ImGui.SameLine();
@@ -139,8 +157,6 @@ namespace BurningKnight.state {
 			}
 			
 			// todo: display if player has it
-			
-			ImGui.Separator();
 		}
 		
 		public static void Render() {
