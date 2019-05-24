@@ -1,24 +1,25 @@
 ﻿using BurningKnight.entity.creature.player;
+using ImGuiNET;
 using Lens.lightJson;
 using Lens.util;
 
 namespace BurningKnight.entity.item {
 	public class Chance {
-		public const float OtherClasses = 0.1f;
+		public const double OtherClasses = 0.1f;
 		
-		public float Any;
-		public float Melee;
-		public float Magic;
-		public float Range;
+		public double Any;
+		public double Melee;
+		public double Magic;
+		public double Range;
 
-		public Chance(float all, float warrior, float mage, float ranged) {
+		public Chance(double all, double warrior, double mage, double ranged) {
 			Any = all;
 			Melee = warrior;
 			Magic = mage;
 			Range = ranged;
 		}
 
-		public float Calculate(PlayerClass c) {
+		public double Calculate(PlayerClass c) {
 			switch (c) {
 				case PlayerClass.Warrior: return Melee * Any;
 				case PlayerClass.Mage: return Magic * Any;
@@ -27,19 +28,19 @@ namespace BurningKnight.entity.item {
 			}			
 		}
 
-		public static Chance All(float all = 1) {
+		public static Chance All(double all = 1) {
 			return new Chance(all, 1, 1, 1);
 		}
 
-		public static Chance Warrior(float all) {
+		public static Chance Warrior(double all) {
 			return new Chance(all, 1, OtherClasses, OtherClasses);
 		}
 
-		public static Chance Mage(float all) {
+		public static Chance Mage(double all) {
 			return new Chance(all, OtherClasses, 1, OtherClasses);
 		}
 
-		public static Chance Ranger(float all) {
+		public static Chance Ranger(double all) {
 			return new Chance(all, OtherClasses, OtherClasses, 1);
 		}
 
@@ -56,6 +57,16 @@ namespace BurningKnight.entity.item {
 			}
 			
 			return All(value.Number(1f));
+		}
+
+		public void RenderDebug() {
+			// todo: show 1 in x? etc
+			ImGui.InputDouble("Chance", ref Any);
+			ImGui.Separator();
+			
+			ImGui.InputDouble("Melee", ref Melee);
+			ImGui.InputDouble("Magic", ref Magic);
+			ImGui.InputDouble("Range", ref Range);
 		}
 	}
 }

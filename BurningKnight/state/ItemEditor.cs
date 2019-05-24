@@ -18,7 +18,7 @@ namespace BurningKnight.state {
 	/*
 	 * TODO:
 	 * save
-	 * pools and spawn chance
+	 * chance show 1 in x? etc
 	 */
 	public static class ItemEditor {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
@@ -315,8 +315,7 @@ namespace BurningKnight.state {
 			}
 			
 			if (ImGui.CollapsingHeader("Spawn chance")) {
-				// todo
-				
+				selected.Chance.RenderDebug();
 			}
 
 			ImGui.Separator();
@@ -410,6 +409,9 @@ namespace BurningKnight.state {
 						data.Root = JsonValue.Parse(selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
+
+						var c = selected.Chance;
+						data.Chance = new Chance(c.Any, c.Melee, c.Magic, c.Range);
 					}
 
 					data.Id = itemName;

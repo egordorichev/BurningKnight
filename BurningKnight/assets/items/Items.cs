@@ -306,13 +306,13 @@ namespace BurningKnight.assets.items {
 		}
 	
 		private static Item Generate(List<ItemData> types, PlayerClass c) {
-			float sum = 0;
+			double sum = 0;
 
 			foreach (var chance in types) {
 				sum += chance.Chance.Calculate(c);
 			}
 
-			float value = Random.Float(sum);
+			var value = Random.Double(sum);
 			sum = 0;
 
 			foreach (var t in types) {

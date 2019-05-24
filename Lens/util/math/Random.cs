@@ -80,6 +80,10 @@ namespace Lens.util.math {
 		public static double Double() {
 			return random.NextDouble();
 		}
+		
+		public static double Double(double max) {
+			return random.NextDouble() * max;
+		}
 
 		public static double Double(double min, double max) {
 			return random.NextDouble() * (max - min) + min;
