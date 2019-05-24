@@ -54,7 +54,10 @@ namespace Lens.entity {
 			if (ToRemove.Count > 0) {
 				try {
 					foreach (var entity in ToRemove) {
-						entity.Destroy();
+						if (entity.Area == Area) {
+							entity.Destroy();
+						}
+
 						entity.Area.Tags.Remove(entity);
 						Entities.Remove(entity);
 					}

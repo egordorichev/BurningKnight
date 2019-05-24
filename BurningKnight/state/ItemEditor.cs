@@ -302,28 +302,36 @@ namespace BurningKnight.state {
 			}
 			
 			ImGui.SameLine();
+			
+			if (ImGui.Button("Delete")) {
+				Items.Datas.Remove(selected.Id);
+				selected = null;
+			}
 
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
-			if (player != null) {
+			if (selected != null && player != null) {
 				var id = selected.Id;
 				
 				if (player.GetComponent<InventoryComponent>().Has(id)) {
 					ImGui.BulletText("Present in inventory");
-				}	else if (player.GetComponent<ActiveWeaponComponent>().Has(id)) {
+				}
+				
+				if (player.GetComponent<ActiveWeaponComponent>().Has(id)) {
 					ImGui.BulletText("Present in active weapon slot");
-				}	else if (player.GetComponent<WeaponComponent>().Has(id)) {
+				}
+				
+				if (player.GetComponent<WeaponComponent>().Has(id)) {
 					ImGui.BulletText("Present in weapon slot");
-				}	else if (player.GetComponent<ActiveItemComponent>().Has(id)) {
+				}
+				
+				if (player.GetComponent<ActiveItemComponent>().Has(id)) {
 					ImGui.BulletText("Present in active item slot");
-				}	else if (player.GetComponent<LampComponent>().Has(id)) {
+				}
+				
+				if (player.GetComponent<LampComponent>().Has(id)) {
 					ImGui.BulletText("Present in lamp slot");
 				}
-			}
-			
-			if (ImGui.Button("Delete")) {
-				Items.Datas.Remove(selected.Id); // FIXME: remove from pools
-				selected = null;
 			}
 			
 			ImGui.End();
@@ -370,9 +378,10 @@ namespace BurningKnight.state {
 					if (fromCurrent && selected != null) {
 						data.Type = selected.Type;
 						data.Animation = selected.Animation;
-						data.Pools = selected.Pools; // FIXME: add to corresponding pools
-
-						// fixme: finish this code, copy over renderers and uses
+						data.Pools = selected.Pools;
+						data.Root = JsonValue.Parse(selected.Root);
+						data.Renderer = data.Root["renderer"];
+						data.Uses = data.Root["uses"];
 					}
 
 					data.Id = itemName;

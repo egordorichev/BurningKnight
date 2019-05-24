@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.util;
 using Lens.util;
 
@@ -34,6 +35,10 @@ namespace BurningKnight.entity.item {
 
 		public int Apply(int pools) {
 			return BitHelper.SetBit(pools, Id, true);
+		}
+
+		public int Unapply(int pools) {
+			return BitHelper.SetBit(pools, Id, false);
 		}
 		
 		public bool Contains(int pools) {

@@ -3,7 +3,6 @@
 ### FIXMEE!!
 
 * No lighting
-* Can't give an item to player
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
 

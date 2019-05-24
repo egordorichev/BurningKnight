@@ -14,7 +14,7 @@ namespace BurningKnight.entity.component {
 		public Item Item { get; protected set; }
 
 		public bool Has(string id) {
-			return Item != null && Item.Id == id;
+			return Item?.Id == id;
 		}
 		
 		public virtual void Set(Item item) {
@@ -23,6 +23,7 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				Drop();
 				Item = null;
+				debugItem = "";
 			}
 
 			item.RemoveDroppedComponents();
@@ -34,6 +35,7 @@ namespace BurningKnight.entity.component {
 				OnEnd = (i) => {
 					Item = i;
 					Entity.Area.Remove(i);
+					i.Done = false;
 
 					var e = new ItemAddedEvent {
 						Item = i,
@@ -65,6 +67,8 @@ namespace BurningKnight.entity.component {
 			var item = Item;
 			Item = null;
 
+			debugItem = "";
+
 			return item;
 		}
 
@@ -74,6 +78,7 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				if (Item.Done) {
 					Item = null;
+					debugItem = "";
 				} else {
 					Item.Update(dt);
 				}
@@ -116,7 +121,8 @@ namespace BurningKnight.entity.component {
 
 		public override void RenderDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
-				Set(Items.CreateAndAdd(debugItem, Entity.Area));
+				var item = Items.CreateAndAdd(debugItem, Entity.Area);
+				Set(item);
 			}
 
 			if (Item != null) {
