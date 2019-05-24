@@ -18,10 +18,7 @@ namespace BurningKnight.state {
 	/*
 	 * TODO:
 	 * save
-	 * add use
-	 * add render
-	 * remove render
-	 * make sure remove use works
+	 * delete item
 	 * create new item
 	 * create new item based on existing one
 	 */
@@ -51,6 +48,8 @@ namespace BurningKnight.state {
 			"weapon"
 		};
 
+		private static int toRemove = -1;
+
 		public static void DisplayUse(JsonValue parent, JsonValue root) {
 			if (root == JsonValue.Null) {
 				return;
@@ -62,7 +61,7 @@ namespace BurningKnight.state {
 			if (!root.IsJsonArray) {
 				if (ImGui.Button("-")) {
 					if (parent.IsJsonArray) {
-						parent.AsJsonArray.Remove(parent.AsJsonArray.IndexOf(root));
+						toRemove = parent.AsJsonArray.IndexOf(root);
 					}	else if (root.IsJsonObject) {
 						root.AsJsonObject.Clear();
 					}
@@ -92,6 +91,11 @@ namespace BurningKnight.state {
 			} else if (root.IsJsonArray) {
 				foreach (var u in root.AsJsonArray) {
 					DisplayUse(root, u);
+				}
+
+				if (toRemove > -1) {
+					root.AsJsonArray.Remove(toRemove);
+					toRemove = -1;
 				}
 
 				if (ImGui.Button("Add use")) {
