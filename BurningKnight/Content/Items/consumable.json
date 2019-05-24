@@ -3,45 +3,41 @@
     "type" : "heart",
     "animation" : "item_heart",
 
-    "uses" : {
+    "uses" : [{
       "id" : "bk:ModifyHp",
       "amount" : 2
-    }
+    }]
   },
 
   "bk:half_heart" : {
     "type" : "heart",
 
-    "uses" : {
+    "uses" : [{
       "id" : "bk:ModifyHp",
       "amount" : 1
-    }
+    }]
   },
 
   "bk:iron_heart" : {
     "type" : "heart",
 
-    "uses" : {
+    "uses" : [{
       "id" : "bk:ModifyIronHearts",
       "amount" : 1
-    }
+    }]
   },
   
   "bk:gold_heart" : {
     "type" : "heart",
 
-    "uses" : {
+    "uses" : [{
       "id" : "bk:ModifyGoldHearts",
       "amount" : 1
-    }
+    }]
   },
   
   "bk:bomb" : {
-    "type" : "bomb",
-
-    "uses" : {
-      "id" : "bk:SpawnBomb"
-    }
+    "type" : "bomb"
   },
 
   "bk:key" : {

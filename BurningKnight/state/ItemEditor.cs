@@ -8,24 +8,34 @@ using BurningKnight.entity.item.use;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
+using Lens.input;
 using Lens.lightJson;
+using Lens.util;
+using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
 
 namespace BurningKnight.state {
 	/*
 	 * TODO:
-	 * filter
 	 * save
 	 * add use
 	 * add render
 	 * remove render
 	 * make sure remove use works
+	 * create new item
+	 * create new item based on existing one
 	 */
 	public static class ItemEditor {
+		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private static unsafe ImGuiTextFilterPtr popupFilter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
+		private static System.Numerics.Vector2 popupSize = new System.Numerics.Vector2(200, 300);
+
 		private static int id;
 		private static int ud;
+		private static string selectedUse;
+		private static string selectedRenderer;
 		private static ItemData selected;
-		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static JsonValue toAdd;
 		
 		// Keep in sync with ItemType enum!!!
@@ -88,6 +98,44 @@ namespace BurningKnight.state {
 					toAdd = root;
 					ImGui.OpenPopup("Add item use");
 				}
+				
+				if (ImGui.BeginPopupModal("Add item use")) {
+					id = 0;
+					
+					ImGui.SetWindowSize(popupSize);
+					ImGui.BeginChild("ScrollingRegionUses", new System.Numerics.Vector2(0, -ImGui.GetStyle().ItemSpacing.Y - ImGui.GetFrameHeightWithSpacing() - 4), 
+						false, ImGuiWindowFlags.HorizontalScrollbar);
+
+					foreach (var i in UseRegistry.Uses) {
+						ImGui.PushID(id);
+				
+						if (popupFilter.PassFilter(i.Key) && ImGui.Selectable(i.Key, selectedUse == i.Key)) {
+							selectedUse = i.Key;
+						}
+
+						ImGui.PopID();
+						id++;
+					}
+
+					ImGui.EndChild();
+					ImGui.Separator();
+
+					if (ImGui.Button("Add") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
+						toAdd.AsJsonArray.Add(new JsonObject {
+							["id"] = selectedUse
+						});
+
+						ImGui.CloseCurrentPopup();
+					}
+
+					ImGui.SameLine();
+				
+					if (ImGui.Button("Cancel") || Input.Keyboard.WasPressed(Keys.Escape, true)) {
+						ImGui.CloseCurrentPopup();
+					}
+				
+					ImGui.EndPopup();
+				}
 			} else {
 				if (ImGui.TreeNode(root.ToString())) {
 					ImGui.TreePop();
@@ -97,20 +145,75 @@ namespace BurningKnight.state {
 			ImGui.PopID();
 		}
 
-		private static void DisplayRenderer(JsonValue root) {
-			if (root == JsonValue.Null || root["id"] == JsonValue.Null) {
-				return;
-			}
+		private static void DisplayRenderer(JsonValue parent, JsonValue root) {
+			var nil = root == JsonValue.Null || root["id"] == JsonValue.Null;
 			
-			var id = root["id"].AsString;
-
-			if (RendererRegistry.Renderers.TryGetValue(id, out var renderer)) {
-				ImGui.PushID(ud);
-				ud++;
-				renderer(root);
-				ImGui.PopID();
+			if (nil) {
+				ImGui.Text("None");
 			} else {
-				ImGui.Text($"No renderer found for '{id}'");
+				var id = root["id"].AsString;
+
+				if (RendererRegistry.DebugRenderers.TryGetValue(id, out var renderer)) {
+					ImGui.PushID(ud);
+					ud++;
+					renderer(root);
+					ImGui.PopID();
+				} else {
+					ImGui.Text($"No renderer found for '{id}'");
+				}
+			}
+
+			if (ImGui.Button(nil ? "Add" : "Replace")) {
+				toAdd = parent;
+				ImGui.OpenPopup("Select renderer");
+			}
+
+			if (!nil) {
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Remove")) {
+					parent["renderer"] = JsonValue.Null;
+					selected.Renderer = JsonValue.Null;
+				}
+			}
+
+			if (ImGui.BeginPopupModal("Select renderer")) {
+				ImGui.SetWindowSize(popupSize);
+				
+				ImGui.BeginChild("ScrollingRegionRenderers", new System.Numerics.Vector2(0, -ImGui.GetStyle().ItemSpacing.Y - ImGui.GetFrameHeightWithSpacing() - 4), 
+					false, ImGuiWindowFlags.HorizontalScrollbar);
+
+				foreach (var i in RendererRegistry.Renderers) {
+					ImGui.PushID(id);
+				
+					if (popupFilter.PassFilter(i.Key) && ImGui.Selectable(i.Key, selectedRenderer == i.Key)) {
+						selectedRenderer = i.Key;
+					}
+
+					ImGui.PopID();
+					id++;
+				}
+
+				ImGui.EndChild();
+				ImGui.Separator();
+				
+				if (ImGui.Button("Select") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
+					toAdd["renderer"] = new JsonObject {
+						["id"] = selectedRenderer
+					};
+
+					selected.Renderer = toAdd["renderer"];
+					
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Cancel") || Input.Keyboard.WasPressed(Keys.Escape, true)) {
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.EndPopup();
 			}
 		}
 		
@@ -179,8 +282,10 @@ namespace BurningKnight.state {
 			}
 			
 			if (ImGui.CollapsingHeader("Renderer")) {
-				DisplayRenderer(selected.Renderer);
+				DisplayRenderer(selected.Root, selected.Renderer);
 			}
+			
+			ImGui.Separator();
 			
 			// todo: pools and spawn chance
 			// todo: uses and renderers
@@ -200,16 +305,14 @@ namespace BurningKnight.state {
 			}
 			
 			// todo: display if player has it
+			
+			ImGui.End();
 		}
 		
 		public static void Render() {
 			RenderWindow();
-
-			if (ImGui.BeginPopupModal("Add item use")) {
-
-				// todo: show all the possible uses in a new child
-				ImGui.EndPopup();
-			}
+			
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Item explorer")) {
 				ImGui.End();
@@ -220,7 +323,6 @@ namespace BurningKnight.state {
 			ud = 0;
 
 			filter.Draw("Search");
-			
 			ImGui.Separator();
 			
 			var height = ImGui.GetStyle().ItemSpacing.Y;

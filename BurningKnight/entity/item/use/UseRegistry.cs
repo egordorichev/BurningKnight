@@ -6,7 +6,7 @@ using Lens.util;
 
 namespace BurningKnight.entity.item.use {
 	public static class UseRegistry {
-		private static Dictionary<string, Type> uses = new Dictionary<string, Type>();
+		public static Dictionary<string, Type> Uses = new Dictionary<string, Type>();
 		public static Dictionary<string, Action<JsonValue>> Renderers = new Dictionary<string, Action<JsonValue>>();
 
 		public static void Register<T>(Mod mod, Action<JsonValue> renderer = null) where T : ItemUse {
@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item.use {
 			var name = type.Name;
 			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Use") ? name.Substring(0, name.Length - 3) : name)}";
 
-			uses[id] = type;
+			Uses[id] = type;
 
 			if (renderer != null) {
 				Renderers[id] = renderer;
@@ -26,7 +26,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static ItemUse Create(string id) {
-			if (!uses.TryGetValue(id, out var use)) {
+			if (!Uses.TryGetValue(id, out var use)) {
 				return null;
 			}
 
