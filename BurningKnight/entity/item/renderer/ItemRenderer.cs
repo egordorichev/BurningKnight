@@ -15,9 +15,5 @@ namespace BurningKnight.entity.item.renderer {
 		public virtual void OnUse() {
 			
 		}
-
-		public static void RenderDebug() {
-			
-		}
 	}
 }

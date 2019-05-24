@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.item.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.input;
 using Lens.lightJson;
@@ -23,6 +24,20 @@ namespace BurningKnight.entity.item.use {
 
 			Damage = settings["damage"].Int(1);
 			LifeTime = settings["time"].Number(0.2f);
+		}
+
+		public static void RenderDebug(JsonValue root) {
+			var damage = root["damage"].AsInteger;
+			
+			if (ImGui.InputInt("Damage", ref damage)) {
+				root["damage"] = damage;
+			}
+			
+			var time = root["time"].AsNumber;
+			
+			if (ImGui.InputDouble("Life time", ref time)) {
+				root["time"] = time;
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.debug {
 	public unsafe class Console {
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 300);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 200);
 		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 10);
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static System.Numerics.Vector4 color = new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f);
@@ -25,7 +25,7 @@ namespace BurningKnight.debug {
 
 		public List<string> Lines = new List<string>();
 		public Area GameArea;
-		public bool Open;
+		public bool Open = true;
 
 		private bool forceFocus;
 		
@@ -83,7 +83,7 @@ namespace BurningKnight.debug {
 			}
 			
 			ImGui.Separator();
-			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 10;
+			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
 			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);

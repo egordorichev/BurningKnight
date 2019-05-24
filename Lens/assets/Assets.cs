@@ -9,7 +9,7 @@ namespace Lens.assets {
 	public static class Assets {
 		public static ContentManager Content;
 		// If true, Assets.Content wont be used, the original files will be loaded
-		public static bool LoadOriginalFiles = false;
+		public static bool LoadOriginalFiles = true;
 		public static string Root => LoadOriginalFiles 
 		    ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") 
 		    : NearRoot;
