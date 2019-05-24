@@ -29,9 +29,9 @@
  + He spawns the enemies
  + Player picking up hearts will heal bk
  + Opening and buying heals bk
- + Somehow make him a bit annoying and scary??
+ + Somehow make him a bit annoying and scary?? But also super cool to fight, you should feel like not worthy, until you get well equipped
  
-* Fix player reading 1 byte less than expected (some component is broken? or maybe not added)
+* Fix player reading 1 byte less than expected (some component is broken? or maybe not added) (and other entities, like a lot in prefabs!!)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp

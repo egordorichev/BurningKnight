@@ -18,8 +18,6 @@ namespace BurningKnight.state {
 	/*
 	 * TODO:
 	 * save
-	 * create new item
-	 * create new item based on existing one
 	 * pools and spawn chance
 	 */
 	public static class ItemEditor {
@@ -167,7 +165,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (ImGui.Button(nil ? "Add" : "Replace")) {
+			if (ImGui.Button(nil ? "Add renderer" : "Replace")) {
 				toAdd = parent;
 				ImGui.OpenPopup("Select renderer");
 			}
@@ -267,10 +265,19 @@ namespace BurningKnight.state {
 				selected.Type = (ItemType) type;
 			}
 
-			ImGui.InputFloat("Use time", ref selected.UseTime);
-			ImGui.Checkbox("Auto pickup", ref selected.AutoPickup);
-			ImGui.SameLine();
-			
+			var t = selected.Type;
+
+			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
+				if (t == ItemType.Active || t == ItemType.Weapon) {
+					ImGui.InputFloat("Use time", ref selected.UseTime);
+				}
+
+				ImGui.Checkbox("Auto pickup", ref selected.AutoPickup);
+				ImGui.SameLine();
+			} else {
+				selected.AutoPickup = true;
+			}
+
 			if (ImGui.Checkbox("Animated", ref animated)) {
 				selected.Animation = animated ? "" : null;
 			}
@@ -379,7 +386,7 @@ namespace BurningKnight.state {
 						data.Type = selected.Type;
 						data.Animation = selected.Animation;
 						data.Pools = selected.Pools;
-						data.Root = JsonValue.Parse(selected.Root);
+						data.Root = JsonValue.Parse(selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
 					}
