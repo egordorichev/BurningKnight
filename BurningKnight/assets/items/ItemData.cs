@@ -3,6 +3,7 @@ using Lens.lightJson;
 
 namespace BurningKnight.assets.items {
 	public class ItemData {
+		public JsonValue Root;
 		public JsonValue Uses;
 		public JsonValue Renderer;
 

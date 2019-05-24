@@ -18,7 +18,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			ItemEditor.DisplayUse(root["uses"]);
+			ItemEditor.DisplayUse(root, root["uses"]);
 		}
 	}
 }

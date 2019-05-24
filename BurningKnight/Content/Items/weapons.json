@@ -2,11 +2,11 @@
   "bk:gun" : {
     "type" : "weapon",
     
-    "uses" : {
+    "uses" : [{
       "id" : "bk:SimpleShoot",
       "texture" : "small",
       "speed" : 60
-    },
+    }],
     
     "renderer" : {
       "id" : "bk:Angled",
@@ -19,11 +19,11 @@
   "bk:sword" : {
     "type" : "weapon",
 
-    "uses" : {
+    "uses" : [{
       "id" : "bk:MeleeArc",
       "damage" : 1,
       "time" : 0.2
-    },
+    }],
 
     "renderer" : {
       "id": "bk:MovingAngled",

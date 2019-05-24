@@ -113,6 +113,7 @@ namespace BurningKnight.assets.items {
 				Id = id,
 				UseTime = item["time"].Number(0.1f),
 				Type = type,
+				Root = item,
 				Uses = item["uses"],
 				Renderer = item["renderer"],
 				Animation = animation,

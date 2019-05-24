@@ -16,10 +16,18 @@ namespace BurningKnight.state {
 	 * TODO:
 	 * filter
 	 * save
+	 * add use
+	 * add render
+	 * remove render
+	 * make sure remove use works
 	 */
 	public static class ItemEditor {
+		private static int id;
+		private static int ud;
 		private static ItemData selected;
-
+		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+		private static JsonValue toAdd;
+		
 		// Keep in sync with ItemType enum!!!
 		// (in the same order)
 		private static string[] types = {
@@ -33,12 +41,33 @@ namespace BurningKnight.state {
 			"weapon"
 		};
 
-		public static void DisplayUse(JsonValue root) {
+		public static void DisplayUse(JsonValue parent, JsonValue root) {
+			if (root == JsonValue.Null) {
+				return;
+			}
+
+			ImGui.PushID(ud);
+			ud++;
+			
+			if (!root.IsJsonArray) {
+				if (ImGui.Button("-")) {
+					if (parent.IsJsonArray) {
+						parent.AsJsonArray.Remove(parent.AsJsonArray.IndexOf(root));
+					}	else if (root.IsJsonObject) {
+						root.AsJsonObject.Clear();
+					}
+					
+					return;
+				}
+				
+				ImGui.SameLine();
+			}
+
 			if (root.IsString) {
 				if (ImGui.TreeNode(root.AsString)) {
 					ImGui.TreePop();
 				}
-			} else if (root.IsJsonObject) {
+			} else if (root.IsJsonObject && root["id"] != JsonValue.Null) {
 				var id = root["id"].AsString;
 				
 				if (ImGui.TreeNode(id)) {
@@ -52,20 +81,34 @@ namespace BurningKnight.state {
 				}
 			} else if (root.IsJsonArray) {
 				foreach (var u in root.AsJsonArray) {
-					DisplayUse(u);
+					DisplayUse(root, u);
+				}
+
+				if (ImGui.Button("Add use")) {
+					toAdd = root;
+					ImGui.OpenPopup("Add item use");
 				}
 			} else {
 				if (ImGui.TreeNode(root.ToString())) {
 					ImGui.TreePop();
 				}
 			}
+			
+			ImGui.PopID();
 		}
 
 		private static void DisplayRenderer(JsonValue root) {
+			if (root == JsonValue.Null || root["id"] == JsonValue.Null) {
+				return;
+			}
+			
 			var id = root["id"].AsString;
 
 			if (RendererRegistry.Renderers.TryGetValue(id, out var renderer)) {
+				ImGui.PushID(ud);
+				ud++;
 				renderer(root);
+				ImGui.PopID();
 			} else {
 				ImGui.Text($"No renderer found for '{id}'");
 			}
@@ -75,7 +118,7 @@ namespace BurningKnight.state {
 			if (selected == null) {
 				return;
 			}
-
+			
 			var show = true;
 			
 			if (!ImGui.Begin("Item editor", ref show, ImGuiWindowFlags.AlwaysAutoResize)) {
@@ -132,7 +175,7 @@ namespace BurningKnight.state {
 			ImGui.Separator();
 
 			if (ImGui.CollapsingHeader("Uses")) {
-				DisplayUse(selected.Uses);
+				DisplayUse(selected.Root, selected.Uses);
 			}
 			
 			if (ImGui.CollapsingHeader("Renderer")) {
@@ -161,20 +204,38 @@ namespace BurningKnight.state {
 		
 		public static void Render() {
 			RenderWindow();
+
+			if (ImGui.BeginPopupModal("Add item use")) {
+
+				// todo: show all the possible uses in a new child
+				ImGui.EndPopup();
+			}
 			
 			if (!ImGui.Begin("Item explorer")) {
 				ImGui.End();
 				return;
 			}
 
+			id = 0;
+			ud = 0;
+
+			filter.Draw("Search");
+			
+			ImGui.Separator();
+			
 			var height = ImGui.GetStyle().ItemSpacing.Y;
 			ImGui.BeginChild("ScrollingRegionItems", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 
 			foreach (var i in Items.Datas.Values) {
-				if (ImGui.Selectable(i.Id, i == selected)) {
+				ImGui.PushID(id);
+				
+				if (filter.PassFilter(i.Id) && ImGui.Selectable(i.Id, i == selected)) {
 					selected = i;
 				}
+
+				ImGui.PopID();
+				id++;
 			}
 
 			ImGui.EndChild();
