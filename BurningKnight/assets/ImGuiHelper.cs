@@ -16,10 +16,12 @@ namespace BurningKnight.assets {
 		public static ImGuiRenderer Renderer;
 		public static Dictionary<int, ImNode> Nodes = new Dictionary<int, ImNode>();
 		public static IntPtr ItemsTexture;
+		public static IntPtr ProjectilesTexture;
 		
 		public static void Init() {
 			Renderer = new ImGuiRenderer(Engine.Instance);
 			ItemsTexture = Renderer.BindTexture(CommonAse.Items.Texture);
+			ProjectilesTexture = Renderer.BindTexture(CommonAse.Projectiles.Texture);
 		}
 
 		private static List<int> toRemove = new List<int>();

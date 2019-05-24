@@ -35,15 +35,15 @@ namespace BurningKnight.entity.item.use {
 
 		static UseRegistry() {
 			Register<DigUse>();
-			Register<SpawnBombUse>();
+			Register<SpawnBombUse>(SpawnBombUse.RenderDebug);
 			Register<ConsumeUse>();
 			Register<MeleeArcUse>(MeleeArcUse.RenderDebug);
-			Register<ModifyGoldHeartsUse>();
-			Register<ModifyIronHeartsUse>();
-			Register<ModifyHpUse>();
-			Register<ModifyMaxHpUse>();
-			Register<GiveHeartContainersUse>();
-			Register<SimpleShootUse>();
+			Register<ModifyGoldHeartsUse>(ModifyHpUse.RenderDebug);
+			Register<ModifyIronHeartsUse>(ModifyHpUse.RenderDebug);
+			Register<ModifyHpUse>(ModifyHpUse.RenderDebug);
+			Register<ModifyMaxHpUse>(ModifyMaxHpUse.RenderDebug);
+			Register<GiveHeartContainersUse>(ModifyHpUse.RenderDebug);
+			Register<SimpleShootUse>(SimpleShootUse.RenderDebug);
 			Register<RandomUse>(RandomUse.RenderDebug);
 		}
 	}

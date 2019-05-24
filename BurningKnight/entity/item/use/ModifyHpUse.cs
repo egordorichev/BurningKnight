@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.component;
+using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -13,6 +14,14 @@ namespace BurningKnight.entity.item.use {
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			Amount = settings["amount"].Int(1);
+		}
+		
+		public static void RenderDebug(JsonValue root) {
+			var val = root["amount"].AsInteger;
+
+			if (ImGui.InputInt("Amount", ref val)) {
+				root["amount"] = val;
+			}
 		}
 	}
 }

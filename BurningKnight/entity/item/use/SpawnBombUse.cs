@@ -1,12 +1,13 @@
+using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 
 namespace BurningKnight.entity.item.use {
 	public class SpawnBombUse : ConsumeUse {
-		public int Timer;
+		public float Timer;
 		
 		public override void Use(Entity entity, Item item) {
-			var bomb = new Bomb();
+			var bomb = new Bomb(Timer);
 			entity.Area.Add(bomb);
 			bomb.Center = entity.Center;
 			bomb.MoveToMouse();
@@ -14,7 +15,15 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
-			Timer = settings["timer"].Int(3);
+			Timer = settings["timer"].Number(3);
+		}
+
+		public static void RenderDebug(JsonValue root) {
+			var val = (float) root["timer"].AsNumber;
+
+			if (ImGui.InputFloat("Timer", ref val)) {
+				root["timer"] = val;
+			}
 		}
 	}
 }
