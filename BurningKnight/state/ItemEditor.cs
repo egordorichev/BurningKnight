@@ -18,7 +18,6 @@ namespace BurningKnight.state {
 	/*
 	 * TODO:
 	 * save
-	 * chance show 1 in x? etc
 	 */
 	public static class ItemEditor {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));

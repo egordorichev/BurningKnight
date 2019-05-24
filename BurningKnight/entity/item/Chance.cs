@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.creature.player;
+﻿using System;
+using BurningKnight.entity.creature.player;
 using ImGuiNET;
 using Lens.lightJson;
 using Lens.util;
@@ -59,8 +60,43 @@ namespace BurningKnight.entity.item {
 			return All(value.Number(1f));
 		}
 
+		private static bool simplify = true;
+
 		public void RenderDebug() {
-			// todo: show 1 in x? etc
+			ImGui.Checkbox("Show simplified", ref simplify);
+			
+			if (simplify) {
+				var vl = Math.Pow(Any, -1);
+				
+				ImGui.Text("1 in");
+
+				if (ImGui.InputDouble("Chance", ref vl)) {
+					Any = Math.Pow(vl, -1);
+				}
+				
+				ImGui.Separator();
+			
+				vl = Math.Pow(Melee, -1);
+
+				if (ImGui.InputDouble("Melee", ref Melee)) {
+					Melee = Math.Pow(vl, -1);
+				}
+				
+				vl = Math.Pow(Magic, -1);
+
+				if (ImGui.InputDouble("Magic", ref Magic)) {
+					Magic = Math.Pow(vl, -1);
+				}
+				
+				vl = Math.Pow(Range, -1);
+
+				if (ImGui.InputDouble("Range", ref Range)) {
+					Range = Math.Pow(vl, -1);
+				}
+
+				return;
+			}
+			
 			ImGui.InputDouble("Chance", ref Any);
 			ImGui.Separator();
 			
