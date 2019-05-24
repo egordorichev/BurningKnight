@@ -69,6 +69,7 @@ namespace BurningKnight.entity.item {
 				var vl = Math.Pow(Any, -1);
 				
 				ImGui.Text("1 in");
+				ImGui.SameLine();
 
 				if (ImGui.InputDouble("Chance", ref vl)) {
 					Any = Math.Pow(vl, -1);
@@ -78,18 +79,27 @@ namespace BurningKnight.entity.item {
 			
 				vl = Math.Pow(Melee, -1);
 
+				ImGui.Text("1 in");
+				ImGui.SameLine();
+				
 				if (ImGui.InputDouble("Melee", ref Melee)) {
 					Melee = Math.Pow(vl, -1);
 				}
 				
 				vl = Math.Pow(Magic, -1);
 
+				ImGui.Text("1 in");
+				ImGui.SameLine();
+				
 				if (ImGui.InputDouble("Magic", ref Magic)) {
 					Magic = Math.Pow(vl, -1);
 				}
 				
 				vl = Math.Pow(Range, -1);
 
+				ImGui.Text("1 in");
+				ImGui.SameLine();
+				
 				if (ImGui.InputDouble("Range", ref Range)) {
 					Range = Math.Pow(vl, -1);
 				}
