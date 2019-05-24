@@ -14,6 +14,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Lamp = new ItemPool("lamp");
 
 		private static int count;
+		public static int Count => count;
 		
 		public readonly string Name;
 		public readonly int Id;
@@ -33,12 +34,8 @@ namespace BurningKnight.entity.item {
 			count++;
 		}
 
-		public int Apply(int pools) {
-			return BitHelper.SetBit(pools, Id, true);
-		}
-
-		public int Unapply(int pools) {
-			return BitHelper.SetBit(pools, Id, false);
+		public int Apply(int pools, bool add = true) {
+			return BitHelper.SetBit(pools, Id, add);
 		}
 		
 		public bool Contains(int pools) {

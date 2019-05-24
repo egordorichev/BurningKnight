@@ -296,9 +296,30 @@ namespace BurningKnight.state {
 				DisplayRenderer(selected.Root, selected.Renderer);
 			}
 			
-			ImGui.Separator();
+			if (ImGui.CollapsingHeader("Pools")) {
+				var i = 0;
+				
+				foreach (var p in ItemPool.ById) {
+					var val = p.Contains(selected.Pools);
+					
+					if (ImGui.Checkbox(p.Name, ref val)) {
+						selected.Pools = p.Apply(selected.Pools, val);
+					}
+					
+					i++;
+					
+					if (i == ItemPool.Count) {
+						break;
+					}
+				}
+			}
 			
-			// todo: pools and spawn chance
+			if (ImGui.CollapsingHeader("Spawn chance")) {
+				// todo
+				
+			}
+
+			ImGui.Separator();
 			
 			if (ImGui.Button("Give")) {
 				LocalPlayer.Locate(Engine.Instance.State.Area)
