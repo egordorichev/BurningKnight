@@ -18,9 +18,9 @@ namespace BurningKnight.state {
 	/*
 	 * TODO:
 	 * save
-	 * delete item
 	 * create new item
 	 * create new item based on existing one
+	 * pools and spawn chance
 	 */
 	public static class ItemEditor {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
@@ -292,7 +292,6 @@ namespace BurningKnight.state {
 			ImGui.Separator();
 			
 			// todo: pools and spawn chance
-			// todo: uses and renderers
 			
 			if (ImGui.Button("Give")) {
 				LocalPlayer.Locate(Engine.Instance.State.Area)
@@ -304,14 +303,36 @@ namespace BurningKnight.state {
 			
 			ImGui.SameLine();
 
-			if (ImGui.Button("Delete")) {
-				// TODO
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+			if (player != null) {
+				var id = selected.Id;
+				
+				if (player.GetComponent<InventoryComponent>().Has(id)) {
+					ImGui.BulletText("Present in inventory");
+				}	else if (player.GetComponent<ActiveWeaponComponent>().Has(id)) {
+					ImGui.BulletText("Present in active weapon slot");
+				}	else if (player.GetComponent<WeaponComponent>().Has(id)) {
+					ImGui.BulletText("Present in weapon slot");
+				}	else if (player.GetComponent<ActiveItemComponent>().Has(id)) {
+					ImGui.BulletText("Present in active item slot");
+				}	else if (player.GetComponent<LampComponent>().Has(id)) {
+					ImGui.BulletText("Present in lamp slot");
+				}
 			}
 			
-			// todo: display if player has it
+			if (ImGui.Button("Delete")) {
+				Items.Datas.Remove(selected.Id); // FIXME: remove from pools
+				selected = null;
+			}
 			
 			ImGui.End();
 		}
+
+		private static bool fromCurrent;
+		private static bool sort;
+		private static int sortType;
+		private static string itemName = "";
 		
 		public static void Render() {
 			RenderWindow();
@@ -322,11 +343,67 @@ namespace BurningKnight.state {
 				ImGui.End();
 				return;
 			}
-
+			
 			id = 0;
 			ud = 0;
 
+			if (ImGui.Button("New")) {
+				ImGui.OpenPopup("New item");
+				fromCurrent = false;
+			}
+
+			if (selected != null) {
+				ImGui.SameLine();
+
+				if (ImGui.Button("New from current")) {
+					ImGui.OpenPopup("New item");
+					fromCurrent = true;
+				}
+			}
+
+			if (ImGui.BeginPopupModal("New item")) {
+				ImGui.InputText("Id", ref itemName, 64);
+				
+				if (ImGui.Button("Create") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
+					var data = new ItemData();
+					
+					if (fromCurrent && selected != null) {
+						data.Type = selected.Type;
+						data.Animation = selected.Animation;
+						data.Pools = selected.Pools; // FIXME: add to corresponding pools
+
+						// fixme: finish this code, copy over renderers and uses
+					}
+
+					data.Id = itemName;
+					Items.Datas[data.Id] = data;
+					itemName = "";
+
+					ImGui.CloseCurrentPopup();
+				}	
+				
+				ImGui.SameLine();
+
+				if (ImGui.Button("Cancel") || Input.Keyboard.WasPressed(Keys.Escape, true)) {
+					itemName = "";
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.EndPopup();
+			}
+			
+			ImGui.Separator();
+			
 			filter.Draw("Search");
+			ImGui.Checkbox("Sort", ref sort);
+
+			if (sort) {
+				ImGui.SameLine();
+				ImGui.Combo("Type", ref sortType, types, types.Length);
+			}
+
+			var type = (ItemType) sortType;
+			
 			ImGui.Separator();
 			
 			var height = ImGui.GetStyle().ItemSpacing.Y;
@@ -336,7 +413,7 @@ namespace BurningKnight.state {
 			foreach (var i in Items.Datas.Values) {
 				ImGui.PushID(id);
 				
-				if (filter.PassFilter(i.Id) && ImGui.Selectable(i.Id, i == selected)) {
+				if (filter.PassFilter(i.Id) && (!sort || i.Type == type) && ImGui.Selectable(i.Id, i == selected)) {
 					selected = i;
 				}
 

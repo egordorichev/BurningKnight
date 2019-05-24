@@ -29,6 +29,16 @@ namespace BurningKnight.entity.component {
 				}
 			}
 		}
+
+		public bool Has(string id) {
+			foreach (var i in Items) {
+				if (i.Id == id) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 		
 		public void Add(Item item) {
 			Items.Add(item);

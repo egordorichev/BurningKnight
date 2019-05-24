@@ -13,6 +13,10 @@ namespace BurningKnight.entity.component {
 	public class ItemComponent : SaveableComponent {
 		public Item Item { get; protected set; }
 
+		public bool Has(string id) {
+			return Item != null && Item.Id == id;
+		}
+		
 		public virtual void Set(Item item) {
 			var old = Item;
 			
