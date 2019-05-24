@@ -63,12 +63,11 @@ namespace BurningKnight.entity.item.renderer {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var x = root["ox"].AsInteger;
-			var y = root["oy"].AsInteger;
+			var v = new System.Numerics.Vector2(root["ox"].AsInteger, root["oy"].AsInteger);
 
-			if (ImGui.InputInt2("Origin", ref x)) {
-				root["ox"] = x;
-				root["oy"] = y;
+			if (ImGui.InputFloat2("Origin", ref v)) {
+				root["ox"] = v.X;
+				root["oy"] = v.Y;
 			}
 
 			var invert = root["invert_back"].AsBoolean;

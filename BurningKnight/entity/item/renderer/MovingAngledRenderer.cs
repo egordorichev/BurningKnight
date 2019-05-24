@@ -1,4 +1,5 @@
-﻿using Lens.lightJson;
+﻿using ImGuiNET;
+using Lens.lightJson;
 using Lens.util;
 using Lens.util.tween;
 
@@ -26,8 +27,18 @@ namespace BurningKnight.entity.item.renderer {
 
 		public static void RenderDebug(JsonValue root) {
 			AngledRenderer.RenderDebug(root);
+
+			var max = (float) root["max_angle"].AsNumber;
+
+			if (ImGui.InputFloat("Max angle", ref max)) {
+				root["max_angle"] = max;
+			}
 			
-			
+			var stay = root["stay"].AsBoolean;
+
+			if (ImGui.Checkbox("Stay", ref stay)) {
+				root["stay"] = stay;
+			}
 		}
 	}
 }
