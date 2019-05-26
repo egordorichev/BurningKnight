@@ -12,7 +12,7 @@ namespace BurningKnight.level.hub {
 		
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
-			Painter.Prefab(level, "hall", Left + 1, Top + 1);
+			Painter.Prefab(level, "hub", Left + 1, Top + 1);
 		}
 
 		public override void PaintFloor(Level level) {

@@ -1,4 +1,6 @@
-﻿using BurningKnight.entity.component;
+﻿using System;
+using BurningKnight.entity.component;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Narrowphase;
@@ -59,7 +61,11 @@ namespace BurningKnight.physics {
 		}
 
 		public static void Update(float dt) {
-			World?.Step(dt);
+			try {
+				World?.Step(dt);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 
 		public static void Render() {

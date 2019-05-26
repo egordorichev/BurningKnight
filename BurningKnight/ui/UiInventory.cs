@@ -78,18 +78,20 @@ namespace BurningKnight.ui {
 			
 			golden = anim.GetSlice("gold_heart");
 			halfGolden = anim.GetSlice("half_gold_heart");
-		
-			var component = player.GetComponent<ConsumablesComponent>();
 
-			coins = component.Coins;
-			keys = component.Keys;
-			bombs = component.Bombs;
+			if (player != null) {
+				var component = player.GetComponent<ConsumablesComponent>();
 
-			var area = player.Area;
-			
-			Subscribe<ConsumableAddedEvent>(area);
-			Subscribe<ConsumableRemovedEvent>(area);
-			Subscribe<ItemUsedEvent>(area);
+				coins = component.Coins;
+				keys = component.Keys;
+				bombs = component.Bombs;
+
+				var area = player.Area;
+
+				Subscribe<ConsumableAddedEvent>(area);
+				Subscribe<ConsumableRemovedEvent>(area);
+				Subscribe<ItemUsedEvent>(area);
+			}
 		}
 
 		private void AnimateConsumableChange(int amount, int now, ItemType type) {

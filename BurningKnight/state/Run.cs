@@ -3,7 +3,7 @@ using Lens;
 
 namespace BurningKnight.state {
 	public static class Run {
-		private static int depth = 1;
+		private static int depth = -1;
 		public static int NextDepth { get; private set; } = depth;
 		public static int LastDepth = depth;
 		
@@ -25,7 +25,7 @@ namespace BurningKnight.state {
 				LastDepth = depth;
 				depth = NextDepth;
 				Engine.Instance.SetState(new LoadState());
-			}			
+			}
 		}
 
 		public static Level Level;
