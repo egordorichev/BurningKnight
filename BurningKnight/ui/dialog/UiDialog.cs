@@ -87,7 +87,7 @@ namespace BurningKnight.ui.dialog {
 			Str.Position = Position + new Vector2(8, 4);
 
 			if (Saying) {
-				if (Input.WasPressed(Controls.Interact, LocalPlayer.Locate(Engine.Instance.State.Area).GetComponent<GamepadComponent>().Controller, true)) {
+				if (Input.WasPressed(Controls.Interact, LocalPlayer.Locate(Engine.Instance.State.Area)?.GetComponent<GamepadComponent>().Controller, true)) {
 					if (DoneSaying) {
 						Finish();
 					} else {

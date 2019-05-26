@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -79,7 +80,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
-				Center = c.Center;
+				Center = c.Center + new Vector2(0, 4);
 				Log.Debug("Teleported to spawn point");
 				return;
 			}
@@ -288,6 +289,27 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool ShouldCollideWithDestroyableInAir() {
 			return true;
+		}
+
+		protected override void HandleDeath() {
+			
+		}
+
+		public override void AnimateDeath() {
+			base.AnimateDeath();
+			
+			for (var i = 0; i < 6; i++) {
+				Area.Add(new ParticleEntity(Particles.Dust()) {
+					Position = Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4)), 
+					Depth = 30
+				});
+			}
+			
+			var stone = new Tombstone();
+			Area.Add(stone);
+				
+			stone.CenterX = CenterX;
+			stone.Bottom = Bottom;
 		}
 	}
 }

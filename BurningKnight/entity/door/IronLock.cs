@@ -17,7 +17,9 @@ namespace BurningKnight.entity.door {
 			var shouldLock = false;
 
 			foreach (var player in Area.Tags[Tags.Player]) {
-				if (player.GetComponent<RoomComponent>().Room.Tagged[Tags.MustBeKilled].Count > 0) {
+				var room = player.GetComponent<RoomComponent>().Room;
+				
+				if (room != null && room.Tagged[Tags.MustBeKilled].Count > 0) {
 					shouldLock = true;
 					break;
 				}

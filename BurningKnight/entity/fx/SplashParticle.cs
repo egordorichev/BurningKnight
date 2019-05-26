@@ -56,7 +56,7 @@ namespace BurningKnight.entity.fx {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return (entity is Door || entity is SolidProp || entity is Level || entity is DestroyableLevel);
+			return (entity is Door || (entity is SolidProp && !(entity is Tombstone)) || entity is Level || entity is DestroyableLevel);
 		}
 
 		private void Remove() {

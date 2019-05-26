@@ -36,7 +36,7 @@ namespace BurningKnight.ui.imgui {
 				}
 			}
 
-			ImGui.DragFloat("Speed", ref Engine.Instance.Speed, 0.05f, 0.1f, 2f);
+			ImGui.DragFloat("Speed", ref Engine.Instance.Speed, 0.01f, 0.1f, 2f);
 			
 			ImGui.Text($"Draw calls: {Engine.Graphics.GraphicsDevice.Metrics.DrawCount}");
 			ImGui.Text($"Clear calls: {Engine.Graphics.GraphicsDevice.Metrics.ClearCount}");

@@ -63,21 +63,29 @@ namespace BurningKnight.entity.creature {
 					Kill(ev.From);
 				}
 			} else if (e is DiedEvent) {
-				GetComponent<DropsComponent>().SpawnDrops();
-				Done = true;
-				
-				for (var i = 0; i < Random.Int(2, 8); i++) {
-					Area.Add(new SplashParticle {
-						Position = Center - new Vector2(2.5f),
-						Color = GetBloodColor()
-					});
-				}
+				HandleDeath();
 			} else if (e is LostSupportEvent) {
 				Done = true;
 				return true;
 			}
 
 			return base.HandleEvent(e);
+		}
+
+		protected virtual void HandleDeath() {
+			AnimateDeath();
+		}
+
+		public virtual void AnimateDeath() {
+			GetComponent<DropsComponent>().SpawnDrops();
+			Done = true;
+				
+			for (var i = 0; i < Random.Int(2, 8); i++) {
+				Area.Add(new SplashParticle {
+					Position = Center - new Vector2(2.5f),
+					Color = GetBloodColor()
+				});
+			}
 		}
 
 		protected void AddDrops(params Drop[] drops) {

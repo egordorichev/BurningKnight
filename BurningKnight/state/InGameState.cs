@@ -24,6 +24,7 @@ using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.input;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -514,21 +515,18 @@ namespace BurningKnight.state {
 				return false;
 			}
 			
-			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
+			if (e is DiedEvent ded && ded.Who is LocalPlayer p) {
 				died = true;
 
-				var stone = new Tombstone();
-				Area.Add(stone);
+				Log.Error("ded");
 				
-				stone.CenterX = ded.Who.CenterX;
-				stone.Bottom = ded.Who.Bottom;
-
-				Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
-					Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.3f);
+				Tween.To(0.1f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
+					Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).Delay = 0.2f;
+					p.AnimateDeath();
 				};
 
-				Tween.To(this, new {blur = 1}, 0.5f).Delay = 1;
-				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 1;
+				Tween.To(this, new {blur = 1}, 0.5f).Delay = 1.5f;
+				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 1.5f;
 
 				new Thread(() => {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
