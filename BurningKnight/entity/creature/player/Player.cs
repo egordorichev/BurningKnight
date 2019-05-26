@@ -80,13 +80,13 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
-				Center = c.Center + new Vector2(0, 4);
+				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
 				return;
 			}
 
 			foreach (var c in Area.Tags[Tags.Entrance]) {
-				Center = c.Center;
+				Center = c.Center + new Vector2(0, 4);
 				Log.Debug("Teleported to entrance");
 				return;
 			}
@@ -289,10 +289,6 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool ShouldCollideWithDestroyableInAir() {
 			return true;
-		}
-
-		protected override void HandleDeath() {
-			
 		}
 
 		public override void AnimateDeath() {

@@ -510,24 +510,19 @@ namespace BurningKnight.state {
 			Ui.Add(banner = new UiDescriptionBanner());*/
 		}
 
+		public void AnimateDeathScreen() {
+			Tween.To(this, new {blur = 1}, 0.5f);
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+		}
+
 		public bool HandleEvent(Event e) {
 			if (died) {
 				return false;
 			}
 			
-			if (e is DiedEvent ded && ded.Who is LocalPlayer p) {
+			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
 				died = true;
-
-				Log.Error("ded");
 				
-				Tween.To(0.1f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
-					Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).Delay = 0.2f;
-					p.AnimateDeath();
-				};
-
-				Tween.To(this, new {blur = 1}, 0.5f).Delay = 1.5f;
-				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 1.5f;
-
 				new Thread(() => {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
 					SaveManager.Backup();

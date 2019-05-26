@@ -91,6 +91,10 @@ namespace BurningKnight.save {
 		public override void Delete() {
 			var handle = GetHandle();
 
+			if (!handle.Exists()) {
+				return;
+			}
+			
 			foreach (var file in handle.ListFileHandles()) {
 				file.Delete();
 			}

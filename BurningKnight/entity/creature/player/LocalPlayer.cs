@@ -1,5 +1,6 @@
 ﻿using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.util;
@@ -30,16 +31,22 @@ namespace BurningKnight.entity.creature.player {
 		private bool died;
 
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent ev) {
+			if (e is DiedEvent ev && ev.Who == this) {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
-					
+					Done = false;
+
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 1);
+					
+					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).OnEnd = () => {
+						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.3f);
 
-					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
-						Tween.To(1f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 1f);
-						Kill(ev.From);
+						t.Delay = 0.8f;
+						t.OnEnd = ((InGameState) Engine.Instance.State).AnimateDeathScreen;
+						
+						AnimateDeath();
+						Done = true;
 					};
 					
 					return true;
