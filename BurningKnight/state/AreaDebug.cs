@@ -9,6 +9,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace BurningKnight.state {
 	public static unsafe class AreaDebug {
+		private static Vector2 defaultSize = new Vector2(400, 700);
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static bool hideLevel = true;
 		private static bool onlyOnScreen;
@@ -25,6 +26,8 @@ namespace BurningKnight.state {
 			if (ToFocus != null) {
 				ImGui.SetNextWindowCollapsed(false);
 			}
+
+			ImGui.SetNextWindowSize(defaultSize, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Entities")) {
 				ImGui.End();
@@ -41,11 +44,11 @@ namespace BurningKnight.state {
 			
 			ImGui.Separator();
 			
-			var height = ImGui.GetStyle().ItemSpacing.Y;
+			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 4;
 			ImGui.BeginChild("ScrollingRegionConsole", new Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 
-			foreach (var e in area.Entities.Entities) {
+			foreach (var e in (hasTag ? area.Tags[BitTag.Tags[currentTag]] : area.Entities.Entities)) {
 				if (filter.PassFilter(e.GetType().FullName) && (!onlyOnScreen || e.OnScreen) && (!hideLevel || PassFilter(e))) {
 					if (ToFocus == e) {
 						ImGui.SetScrollHereY();
@@ -60,8 +63,20 @@ namespace BurningKnight.state {
 			}
 			
 			ImGui.EndChild();
+			ImGui.Separator();
+
+			ImGui.Checkbox("Must have tag", ref hasTag);
+
+			if (hasTag) {
+				ImGui.SameLine();
+				ImGui.Combo("Tag", ref currentTag, Tags.AllTags, Tags.AllTags.Length);
+			}
+			
 			ImGui.End();
 		}
+
+		private static int currentTag;
+		private static bool hasTag;
 		
 		public static void RenderEntity(Entity e) {
 			if (ImGui.CollapsingHeader($"{e.GetType().FullName}##{e.GetHashCode()}")) {
@@ -94,16 +109,27 @@ namespace BurningKnight.state {
 				e.RenderImDebug();
 						
 				ImGui.Separator();
-						
-				ImGui.Text("Components");
-						
-				foreach (var component in e.Components) {
-					if (ImGui.TreeNode(component.Key.Name)) {
-						component.Value.RenderDebug();
-						ImGui.TreePop();
+				ImGui.TreePush();
+				
+				if (ImGui.CollapsingHeader("Components")) {
+					foreach (var component in e.Components) {
+						if (ImGui.TreeNode(component.Key.Name)) {
+							component.Value.RenderDebug();
+							ImGui.TreePop();
+						}
 					}
 				}
-						
+				
+				if (ImGui.CollapsingHeader("Tags")) {
+					for (var i = 0; i < BitTag.Total; i++) {
+						if (e.HasTag(BitTag.Tags[i])) {
+							ImGui.BulletText(BitTag.Tags[i].Name);
+						}
+					}
+				}
+
+				ImGui.TreePop();
+				ImGui.Separator();
 				ImGui.PopID();
 			}
 		}

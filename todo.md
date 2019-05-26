@@ -1,5 +1,11 @@
 # TODO
 
+### Update rush
+
+* Hub -> hall -> game -> die -> repeat
+* Nicer load screen thingy
+* Crash report
+
 ### FIXMEE!!
 
 * No lighting

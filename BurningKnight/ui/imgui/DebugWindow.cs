@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.state;
+using BurningKnight.state.save;
 using ImGuiNET;
 using Lens;
 using Lens.game;
@@ -8,12 +9,13 @@ using Lens.graphics.gamerenderer;
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
 		private static string[] states = {
-			"ingame", "dialog_editor", "level_editor", "pico", "load"
+			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer"
 		};
 
 		private static Type[] types = {
 			typeof(InGameState), typeof(DialogEditorState),
-			typeof(EditorState), typeof(PicoState), typeof(LoadState)
+			typeof(EditorState), typeof(PicoState), typeof(LoadState),
+			typeof(SaveExplorerState)
 		};
 		
 		public static void Render() {

@@ -292,6 +292,7 @@
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\Sign.cs" />
+    <Compile Include="entity\SpawnPoint.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
     <Compile Include="level\biome\BiomeInfo.cs" />

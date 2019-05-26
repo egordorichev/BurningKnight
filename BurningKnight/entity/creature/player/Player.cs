@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.rooms;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
@@ -11,12 +12,20 @@ using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.file;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature {
+		private bool loaded;
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			loaded = true;
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -61,11 +70,26 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 
-			// GetComponent<HealthComponent>().MaxHealth = 1;
-			GetComponent<HealthComponent>().InitMaxHealth = 32;
+			GetComponent<HealthComponent>().MaxHealth = 1;
 		}
 
 		public void FindSpawnPoint() {
+			if (Run.Depth > 0 && loaded) {
+				return;
+			}
+
+			foreach (var c in Area.Tags[Tags.Checkpoint]) {
+				Center = c.Center;
+				Log.Debug("Teleported to spawn point");
+				return;
+			}
+
+			foreach (var c in Area.Tags[Tags.Entrance]) {
+				Center = c.Center;
+				Log.Debug("Teleported to entrance");
+				return;
+			}
+			
 			foreach (var r in Area.Tags[Tags.Room]) {
 				var rm = (Room) r;
 				

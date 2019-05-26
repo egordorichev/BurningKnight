@@ -112,15 +112,13 @@ namespace BurningKnight.ui.editor {
 		}
 
 		private void Save() {
-			SaveManager.Save(Editor.Area, SaveType.Level, true, $"Content/Prefabs/{levels[currentLevel]}.lvl");
+			SaveManager.Save(Editor.Area, SaveType.Level, true, FileHandle.FromRoot($"Prefabs/{levels[currentLevel]}.lvl").FullPath);
 		}
 		
 		private void Load() {
-			foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
-				e.Done = true;
-			}
-			
-			Editor.Area.AutoRemove();
+			Editor.Area.Destroy();
+			Editor.Area = new Area();
+			Engine.Instance.State.Area = Editor.Area;
 			
 			Run.Level = null;
 			SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
@@ -295,6 +293,9 @@ namespace BurningKnight.ui.editor {
 					currentLevel = o;
 					Save();
 					currentLevel = oo;
+					
+					
+					
 					Load();
 				}
 
