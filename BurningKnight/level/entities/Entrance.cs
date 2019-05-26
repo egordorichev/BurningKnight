@@ -14,7 +14,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class Entrance : SaveableEntity, PlaceableEntity {
 		public int To;
-
+		
 		private bool Interact(Entity entity) {
 			Run.Depth = To;
 			return true;
@@ -27,6 +27,8 @@ namespace BurningKnight.level.entities {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			Depth = Run.Depth - 1;
+			
 			Width = 14;
 			Height = 15;
 			

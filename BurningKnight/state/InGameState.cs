@@ -482,7 +482,10 @@ namespace BurningKnight.state {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
-				Click = () => Run.Depth = 0
+				Click = () => {
+					// requires more complex manipulations imo
+					Run.Depth = 0;
+				}
 			});
 			
 			gameOverMenu.Add(new UiButton {

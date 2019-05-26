@@ -32,6 +32,8 @@ namespace BurningKnight.level.entities {
 			Width = 16;
 			Height = 14;
 			
+			Depth = Run.Depth + 1;
+			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
 					if (entity is LocalPlayer) {
