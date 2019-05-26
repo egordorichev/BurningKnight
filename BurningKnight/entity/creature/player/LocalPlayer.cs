@@ -48,8 +48,6 @@ namespace BurningKnight.entity.creature.player {
 						AnimateDeath();
 						Done = true;
 					};
-					
-					return true;
 				}
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;

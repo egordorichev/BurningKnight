@@ -2,6 +2,7 @@
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
@@ -39,6 +40,20 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void ModifyHealth(int amount, Entity setter) {
+			if (Entity is Player && Run.Depth < 1) {
+				if (Unhittable || InvincibilityTimer > 0) {
+					return;
+				}
+
+				Send(new HealthModifiedEvent {
+					Amount = 0,
+					From = null
+				});
+				
+				InvincibilityTimer = InvincibilityTimerMax;
+				return;
+			}
+			
 			if (amount < 0) {
 				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {

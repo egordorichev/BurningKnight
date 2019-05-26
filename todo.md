@@ -2,6 +2,8 @@
 
 ### Update rush
 
+* Entities don't get bodies sometimes?
+* Player spawn is really off sometimes
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window

@@ -19,7 +19,7 @@ namespace BurningKnight.ui.imgui {
 		};
 		
 		public static void Render() {
-			if (!ImGui.Begin("Debug")) {
+			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
 			}

@@ -166,8 +166,13 @@ namespace BurningKnight.ui {
 
 			return base.HandleEvent(e);
 		}
-
+		
 		public override void Render() {
+			if (player == null || player.Done) {
+				Done = true;
+				return;
+			}
+
 			if (player.GetComponent<HealthComponent>().Dead) {
 				return;
 			}

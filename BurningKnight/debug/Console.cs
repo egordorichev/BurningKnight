@@ -25,7 +25,7 @@ namespace BurningKnight.debug {
 
 		public List<string> Lines = new List<string>();
 		public Area GameArea;
-		public bool Open = true;
+		public bool Open;
 
 		private bool forceFocus;
 		
