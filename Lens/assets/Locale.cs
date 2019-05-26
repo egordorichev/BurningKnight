@@ -68,8 +68,10 @@ namespace Lens.assets {
 		}
 
 		public static void Save() {
+			Log.Info($"Saving locale {Current}");
+			
 			try {
-				var file = File.CreateText($"Content/Locales/{Current}.json");
+				var file = File.CreateText(FileHandle.FromRoot($"Locales/{Current}.json").FullPath);
 				var writer = new JsonWriter(file);
 				var root = new JsonObject();
 

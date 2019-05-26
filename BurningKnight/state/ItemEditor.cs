@@ -8,6 +8,7 @@ using BurningKnight.entity.item.use;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
+using Lens.graphics;
 using Lens.input;
 using Lens.lightJson;
 using Lens.util;
@@ -157,7 +158,7 @@ namespace BurningKnight.state {
 				if (RendererRegistry.DebugRenderers.TryGetValue(id, out var renderer)) {
 					ImGui.PushID(ud);
 					ud++;
-					renderer(root);
+					renderer(selected.Id, parent, root);
 					ImGui.PopID();
 				} else {
 					ImGui.Text($"No renderer found for '{id}'");
@@ -217,6 +218,13 @@ namespace BurningKnight.state {
 				ImGui.EndPopup();
 			}
 		}
+
+		public static void DrawItem(TextureRegion region) {
+			ImGui.Image(ImGuiHelper.ItemsTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
+				new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
+				new Num.Vector2((region.X + region.Width) / region.Texture.Width, 
+					(region.Y + region.Height) / region.Texture.Height));
+		}
 		
 		private static void RenderWindow() {
 			if (selected == null) {
@@ -239,12 +247,8 @@ namespace BurningKnight.state {
 			var region = CommonAse.Items.GetSlice(selected.Id);
 			var animated = selected.Animation != null;
 
-			// fixme: display animation???
 			if (!animated && region != null) {
-				ImGui.Image(ImGuiHelper.ItemsTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
-					new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
-					new Num.Vector2((region.X + region.Width) / region.Texture.Width, 
-						(region.Y + region.Height) / region.Texture.Height));
+				DrawItem(region);
 			}
 			
 			if (ImGui.InputText("Name", ref name, 64)) {
@@ -394,6 +398,13 @@ namespace BurningKnight.state {
 					fromCurrent = true;
 				}
 			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Save") || (Input.Keyboard.IsDown(Keys.LeftControl, true) && Input.Keyboard.WasPressed(Keys.S))) {
+				Log.Info("Saving items");
+				Items.Save();
+			}
 
 			if (ImGui.BeginPopupModal("New item")) {
 				ImGui.InputText("Id", ref itemName, 64);
@@ -411,6 +422,15 @@ namespace BurningKnight.state {
 
 						var c = selected.Chance;
 						data.Chance = new Chance(c.Any, c.Melee, c.Magic, c.Range);
+					} else {
+						data.Chance = Chance.All();
+						data.Uses = new JsonArray();
+						data.Renderer = new JsonObject();
+
+						data.Root = new JsonObject {
+							["uses"] = data.Uses, 
+							["renderer"] = data.Renderer
+						};
 					}
 
 					data.Id = itemName;

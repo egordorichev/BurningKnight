@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.assets;
+using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens.graphics;
@@ -62,12 +64,38 @@ namespace BurningKnight.entity.item.renderer {
 			InvertBack = settings["invert_back"].Bool(true);
 		}
 
-		public static void RenderDebug(JsonValue root) {
-			var v = new System.Numerics.Vector2(root["ox"].AsInteger, root["oy"].AsInteger);
+		public static unsafe void RenderDebug(string id, JsonValue parent, JsonValue root) {
+			var v = new System.Numerics.Vector2((float) root["ox"].AsNumber * 3, (float) root["oy"].AsNumber * 3);
+			var region = CommonAse.Items.GetSlice(id);
+			var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
+			
+			if (ImGui.IsMouseDown(1)) {
+				var mouse = ImGui.GetMousePos();
+				
+				//if (mouse.X >= pos.X && mouse.X <= pos.X + region.Width * 3 && mouse.Y >= pos.Y && mouse.Y <= pos.Y + region.Height * 3) {
+					v = ImGui.GetMousePos() - pos;
 
+					v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
+					v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
+					
+					root["ox"] = v.X / 3f;
+					root["oy"] = v.Y / 3f;
+				//}
+			}
+			
+			ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1), pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1), ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
+			ItemEditor.DrawItem(region);
+			ImGuiNative.ImDrawList_AddCircleFilled(ImGui.GetWindowDrawList(), pos + v, 3, ColorUtils.WhiteColor.PackedValue, 8);
+
+			v /= 3f;
+			
 			if (ImGui.InputFloat2("Origin", ref v)) {
 				root["ox"] = v.X;
 				root["oy"] = v.Y;
+			}
+
+			if (ImGui.Button("cx")) {
+				//root["ox"] = 
 			}
 
 			var invert = root["invert_back"].AsBoolean;

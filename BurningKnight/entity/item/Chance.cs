@@ -60,6 +60,12 @@ namespace BurningKnight.entity.item {
 			return All(value.Number(1f));
 		}
 
+		public JsonValue ToJson() {
+			return new JsonArray {
+				Any, Melee, Magic, Range
+			};
+		}
+
 		private static bool simplify = true;
 
 		public void RenderDebug() {

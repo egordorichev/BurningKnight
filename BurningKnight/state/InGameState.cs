@@ -531,7 +531,7 @@ namespace BurningKnight.state {
 					SaveManager.Backup();
 				}).Start();
 			} else if (e is ItemCheckEvent item) {
-				banner.Show(item.Item);
+				banner?.Show(item.Item);
 			}
 
 			return false;

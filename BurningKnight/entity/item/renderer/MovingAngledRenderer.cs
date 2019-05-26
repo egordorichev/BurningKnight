@@ -25,8 +25,8 @@ namespace BurningKnight.entity.item.renderer {
 			MaxAngle = settings["max_angle"].Number(180).ToRadians();
 		}
 
-		public static void RenderDebug(JsonValue root) {
-			AngledRenderer.RenderDebug(root);
+		public static void RenderDebug(string id, JsonValue parent, JsonValue root) {
+			AngledRenderer.RenderDebug(id, parent, root);
 
 			var max = (float) root["max_angle"].AsNumber;
 

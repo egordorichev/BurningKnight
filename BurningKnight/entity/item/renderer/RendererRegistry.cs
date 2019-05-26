@@ -5,7 +5,7 @@ using Lens.lightJson;
 
 namespace BurningKnight.entity.item.renderer {
 	public static class RendererRegistry {
-		public static Dictionary<string, Action<JsonValue>> DebugRenderers = new Dictionary<string, Action<JsonValue>>();
+		public static Dictionary<string, Action<string, JsonValue, JsonValue>> DebugRenderers = new Dictionary<string, Action<string, JsonValue, JsonValue>>();
 		public static Dictionary<string, Type> Renderers = new Dictionary<string, Type>();
 
 		public static ItemRenderer Create(string id) {
@@ -17,7 +17,7 @@ namespace BurningKnight.entity.item.renderer {
 		}
 
 
-		public static void Register<T>(Mod mod, Action<JsonValue> renderer = null) where T : ItemRenderer {
+		public static void Register<T>(Mod mod, Action<string, JsonValue, JsonValue> renderer = null) where T : ItemRenderer {
 			var type = typeof(T);
 			var name = type.Name;
 			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Renderer") ? name.Substring(0, name.Length - 8) : name)}";
@@ -29,7 +29,7 @@ namespace BurningKnight.entity.item.renderer {
 			}
 		}
 
-		private static void Register<T>(Action<JsonValue> renderer = null) where T : ItemRenderer {
+		private static void Register<T>(Action<string, JsonValue, JsonValue> renderer = null) where T : ItemRenderer {
 			Register<T>(null, renderer);
 		}
 

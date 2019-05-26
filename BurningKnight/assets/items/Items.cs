@@ -6,7 +6,9 @@ using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using Lens;
 using Lens.entity;
+using Lens.graphics;
 using Lens.lightJson;
+using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
@@ -74,6 +76,31 @@ namespace BurningKnight.assets.items {
 			}
 		}
 
+		public static void Save() {
+			var root = new JsonObject();
+
+			foreach (var item in Datas.Values) {
+				var data = new JsonObject();
+
+				data["id"] = item.Id;
+				data["animation"] = item.Animation;
+				data["time"] = item.UseTime;
+				data["type"] = (int) item.Type;
+				data["chance"] = item.Chance.ToJson();
+				data["auto_pickup"] = item.AutoPickup;
+				data["pool"] = item.Pools;
+				data["uses"] = item.Uses;
+				data["renderer"] = item.Renderer;
+				
+				root[item.Id] = data;
+			}
+			
+			var file = File.CreateText(FileHandle.FromRoot("Items/items.json").FullPath);
+			var writer = new JsonWriter(file);
+			writer.Write(root);
+			file.Close();
+		}
+		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {
 			Log.Debug($"Reloading {args.FullPath}");
 			Load(new FileHandle(args.FullPath));
@@ -104,8 +131,7 @@ namespace BurningKnight.assets.items {
 			var a = item["animation"];
 			var animation = a == JsonValue.Null ? null : a.AsString;
 
-			var type = ItemTypeFromString(item["type"].String("artifact"));
-			
+			var type = (ItemType) item["type"].AsInteger;
 			var p = item["auto_pickup"];
 			var pickup = p == JsonValue.Null ? (type == ItemType.Key || type == ItemType.Bomb || type == ItemType.Heart || type == ItemType.Coin) : p.Bool(false);
 			
@@ -124,17 +150,7 @@ namespace BurningKnight.assets.items {
 			var pl = item["pool"];
 			var pools = 0;
 
-			if (pl != JsonValue.Null) {
-				if (pl.IsJsonArray) {
-					foreach (var e in pl.AsJsonArray) {
-						pools = TryToApply(data, pools, e);
-					}
-				} else if (pl.IsString) {
-					pools = TryToApply(data, pools, pl);
-				} else {
-					Log.Error($"Invalid pool declaration in item ${id}");
-				}
-			} else {
+			if (pl == JsonValue.Null) {
 				switch (data.Type) {
 					case ItemType.Key:
 					case ItemType.Coin:
@@ -285,22 +301,6 @@ namespace BurningKnight.assets.items {
 			return use;
 		}
 
-		public static ItemType ItemTypeFromString(string str) {
-			switch (str.ToLower()) {
-				case "artifact": return ItemType.Artifact;
-				case "active": return ItemType.Active;
-				case "coin": return ItemType.Coin;
-				case "bomb": return ItemType.Bomb;
-				case "key": return ItemType.Key;
-				case "heart": return ItemType.Heart;
-				case "lamp": return ItemType.Lamp;
-				case "weapon": return ItemType.Weapon;
-			}
-
-			Log.Error($"Unknown item type {str}, setting to artifact");
-			return ItemType.Artifact;
-		}
-		
 		public static void Destroy() {
 			
 		}
