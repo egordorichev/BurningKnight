@@ -1,18 +1,25 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
+using Lens;
 using Lens.entity;
+using Lens.util.camera;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.fx {
 	public class InteractFx : Entity {
 		private bool tweened;
 		private string text;
 		private Entity entity;
-	
+		private float y;
+
 		public InteractFx(Entity e, string str) {
 			entity = e;
 			text = str;
+			AlwaysActive = true;
+			AlwaysVisible = true;
 		}
 
 		public override void AddComponents() {
@@ -25,26 +32,46 @@ namespace BurningKnight.entity.fx {
 			Height = size.Height;
 			CenterX = entity.CenterX;
 			Y = entity.Y - Height;
-
+			
+			Width = size.Width;
+			Height = size.Height;
+			
 			var component = new TextGraphicsComponent(text);
 			AddComponent(component);
 
-			component.Color.A = 0;
-			Tween.To(component, new {A = 255}, 0.25f);
+			component.Scale = 0;
+			Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
+
+			y = 12;
+			Tween.To(0, y, x => y = x, 0.2f);
+			
+			UpdatePosition();
+		}
+
+		private void UpdatePosition() {
+			Center = Camera.Instance.CameraToUi(new Vector2(entity.CenterX, entity.Y - 8 + y));
+			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!tweened && (!entity.TryGetComponent<InteractableComponent>(out var component) || component.CurrentlyInteracting == null)) {
-				tweened = true;
+			UpdatePosition();
 
-				if (component == null) {
-					Tween.To(GetComponent<TextGraphicsComponent>(), new {A = 0}, 0.5f).OnEnd = () => Done = true;
-					// fixme: tween up
-					// Tween.To(this, new {Y = Y + 32}, 0.5f);
-				} else {
-					Tween.To(GetComponent<TextGraphicsComponent>(), new {A = 0}, 0.25f).OnEnd = () => Done = true;
+			if (!tweened) {
+				if (!entity.TryGetComponent<InteractableComponent>(out var component) || component.CurrentlyInteracting == null) {
+					if (entity.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
+						return;
+					}
+					
+					Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
+					Tween.To(12, y, x => y = x, 0.5f);
+					if (component == null) {
+						tweened = true;
+
+						Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
+						Tween.To(12, y, x => y = x, 0.5f);
+					}
 				}
 			}
 		}

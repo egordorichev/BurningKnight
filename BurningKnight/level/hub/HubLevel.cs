@@ -6,7 +6,8 @@ using BurningKnight.level.tile;
 
 namespace BurningKnight.level.hub {
 	public class HubLevel : RegularLevel {
-		public HubLevel() : base(BiomeRegistry.Get(Biome.Hub)) {
+		// castle is tmp so that my eyes do not hurt so much
+		public HubLevel() : base(BiomeRegistry.Get(Biome.Castle)) {
 			NoLightNoRender = false;
 			DrawLight = false;
 		}
@@ -26,7 +27,7 @@ namespace BurningKnight.level.hub {
 		}
 
 		public override int GetPadding() {
-			return 6; 
+			return 0; 
 		}
 	}
 }

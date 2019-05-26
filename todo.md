@@ -5,6 +5,7 @@
 * No lighting
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
+* Fix -1 level madness
 
 ### Before v0.0.0.4
 
@@ -21,7 +22,6 @@
 * Proper animation for gaining an item (for gobbo.ase obv)
 * When player uses active item, animate him using it (like in isaac)
 
-* Make general interact fx (animate same as item fx), give it to entrance, exit, etc
 * BK him self
  + Healthbar
  + Animation and spawning

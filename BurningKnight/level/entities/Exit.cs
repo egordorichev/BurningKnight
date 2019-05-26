@@ -5,6 +5,8 @@ using BurningKnight.entity.fx;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
+using ImGuiNET;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
@@ -23,14 +25,6 @@ namespace BurningKnight.level.entities {
 			Run.Depth = To;
 			return true;
 		}
-		
-		private void OnInteractionStart(Entity entity) {
-			if (entity is LocalPlayer) {
-				Area.Add(new InteractFx(this, Locale.Get("descend")));
-			}
-
-			AlwaysVisible = true;
-		}
 
 		public override void AddComponents() {
 			base.AddComponents();
@@ -39,7 +33,11 @@ namespace BurningKnight.level.entities {
 			Height = 14;
 			
 			AddComponent(new InteractableComponent(Interact) {
-				OnStart = OnInteractionStart
+				OnStart = entity => {
+					if (entity is LocalPlayer) {
+						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get("descend")));
+					}
+				}
 			});
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
@@ -54,6 +52,10 @@ namespace BurningKnight.level.entities {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteInt16((short) To);
+		}
+
+		public override void RenderImDebug() {
+			ImGui.InputInt("To", ref To);
 		}
 	}
 }
