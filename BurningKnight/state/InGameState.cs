@@ -89,12 +89,15 @@ namespace BurningKnight.state {
 			Lights.Destroy();
 
 			SaveManager.Backup();
-			SaveManager.Save(Area, SaveType.Global, true);
+
+			var old = !Engine.Quiting;
+			
+			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!died) {
-				SaveManager.Save(Area, SaveType.Level, true);
-				SaveManager.Save(Area, SaveType.Player, true);
+			if (!died && Run.Depth > 0) {
+				SaveManager.Save(Area, SaveType.Level, old);
+				SaveManager.Save(Area, SaveType.Player, old);
 			}
 
 			Shaders.Screen.Parameters["split"].SetValue(0f);
@@ -114,8 +117,6 @@ namespace BurningKnight.state {
 				return;
 			}
 			
-			// fixme: quadOut doesnt feel smooth as tween for the pauseMenu.Y
-			// it seems like its broken
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
@@ -217,7 +218,7 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave) {
+			if (Settings.Autosave && Run.Depth > 0) {
 				if (!saving) {
 					saveTimer += dt;
 
@@ -233,6 +234,7 @@ namespace BurningKnight.state {
 
 							SaveManager.ThreadSave(saveLock.UnlockGlobal, Area, SaveType.Global);
 							SaveManager.ThreadSave(saveLock.UnlockGame, Area, SaveType.Game);
+
 							SaveManager.ThreadSave(saveLock.UnlockLevel, Area, SaveType.Level);
 							SaveManager.ThreadSave(saveLock.UnlockPlayer, Area, SaveType.Player);
 						}) {

@@ -60,7 +60,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				base.Init();
 
 				spread = Random.Chance();
-				fire = Self.Target != null && Self.moveId % 3 == 0;
+				fire = Self.Target != null && Self.moveId % 2 == 0;
 				angle = !fire ? Random.AnglePI() : Self.AngleTo(Self.Target);
 				timer = fire ? Random.Float(0.6f, 1.2f) : Random.Float(0.8f, 2f);
 				start = Random.Float(0f, 10f);
