@@ -2,8 +2,9 @@
 
 ### Update rush
 
+* giving items doesnt work still
 * Entities don't get bodies sometimes?
-* Player spawn is really off sometimes
+* Level -1 and 0 get corrupt sometimes?
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window

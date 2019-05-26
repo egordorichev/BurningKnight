@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -20,20 +21,14 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature {
-		private bool loaded;
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			loaded = true;
-		}
-
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			Height = 11;
 			
 			// Graphics
-			// AddComponent(new LightComponent(this, 128f, new Color(1, 1, 1, 1f)));
+			AddComponent(new LightComponent(this, 128f, new Color(0.3f, 0.4f, 0.3f, 0.2f)));
+			
 			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -5)
 			});
@@ -56,14 +51,6 @@ namespace BurningKnight.entity.creature.player {
 			});
 			
 			GetComponent<StateComponent>().Become<IdleState>();
-
-			if (Engine.Version.Dev) {
-				var health = GetComponent<HealthComponent>();
-
-				health.Unhittable = true;
-				health.MaxHealth = HeartsComponent.Cap;
-				health.SetHealth(health.MaxHealth, this);
-			}
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);
@@ -75,10 +62,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void FindSpawnPoint() {
-			if (Run.Depth > 0 && loaded) {
-				return;
-			}
-
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
 				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
@@ -112,6 +95,8 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				}
 			}
+			
+			Log.Error("Did not find a spawn point!");
 		}
 		
 		#region Player States
@@ -289,6 +274,10 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool ShouldCollideWithDestroyableInAir() {
 			return true;
+		}
+
+		protected override void HandleDeath() {
+			Done = false;
 		}
 
 		public override void AnimateDeath() {

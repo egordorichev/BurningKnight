@@ -39,7 +39,9 @@ namespace Lens.entity {
 			ToRemove.Add(entity);
 			ToAdd.Remove(entity);
 
-			entity.Done = true;
+			if (entity.Area == Area) {
+				entity.Done = true;
+			}
 		}
 		
 		private bool CheckOnScreen(Entity entity) {
