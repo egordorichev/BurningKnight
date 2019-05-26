@@ -523,8 +523,12 @@ namespace BurningKnight.state {
 				stone.CenterX = ded.Who.CenterX;
 				stone.Bottom = ded.Who.Bottom;
 
-				Tween.To(this, new {blur = 1}, 0.5f).Delay = 3;
-				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 3;
+				Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.1f).OnEnd = () => {
+					Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.3f);
+				};
+
+				Tween.To(this, new {blur = 1}, 0.5f).Delay = 1;
+				Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.5f).Delay = 1;
 
 				new Thread(() => {
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);

@@ -13,8 +13,6 @@ namespace Desktop {
 
 		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, false) {
 			CrashReporter.Bind();
-			Action a = null;
-			a();
 		}
 
 		protected override void Initialize() {

@@ -5,6 +5,7 @@ using Lens;
 namespace Desktop.integration.crash {
 	public class CrashReporter {
 		public static void Bind() {
+			
 			var domain = AppDomain.CurrentDomain;
 			domain.UnhandledException += ExceptionHandler;
 		}

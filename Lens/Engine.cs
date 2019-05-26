@@ -129,7 +129,7 @@ namespace Lens {
 			Time += dt;
 
 			if (Freeze < 0.01f) {
-				time += (float) gameTime.ElapsedGameTime.TotalSeconds;
+				time += dt;
 			}
 
 			Split = Math.Max(0, Split - dt);
@@ -142,6 +142,8 @@ namespace Lens {
 				if (newState != null) {
 					Log.Info("Setting state to " + newState.GetType().Name);
 
+					Speed = 1;
+					
 					State?.Destroy();
 					State = newState;
 					State?.Init();

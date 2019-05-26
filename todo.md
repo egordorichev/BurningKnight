@@ -4,7 +4,7 @@
 
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
-* Crash report
+* Crash report window
 
 ### FIXMEE!!
 
