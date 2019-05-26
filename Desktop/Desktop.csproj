@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesktopApp.cs" />
+    <Compile Include="integration\crash\CrashReporter.cs" />
     <Compile Include="integration\discord\DiscordIntegration.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeConnectionException.cs" />
     <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeOpenException.cs" />

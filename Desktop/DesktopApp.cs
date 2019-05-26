@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BurningKnight;
 using Desktop.integration;
+using Desktop.integration.crash;
 using Desktop.integration.discord;
 using Lens;
 using Microsoft.Xna.Framework;
@@ -10,7 +12,9 @@ namespace Desktop {
 		private List<Integration> integrations = new List<Integration>();
 
 		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, false) {
-			
+			CrashReporter.Bind();
+			Action a = null;
+			a();
 		}
 
 		protected override void Initialize() {
