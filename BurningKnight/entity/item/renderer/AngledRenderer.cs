@@ -64,23 +64,26 @@ namespace BurningKnight.entity.item.renderer {
 			InvertBack = settings["invert_back"].Bool(true);
 		}
 
+		private static bool snapGrid = true;
+
 		public static unsafe void RenderDebug(string id, JsonValue parent, JsonValue root) {
 			var v = new System.Numerics.Vector2((float) root["ox"].AsNumber * 3, (float) root["oy"].AsNumber * 3);
 			var region = CommonAse.Items.GetSlice(id);
 			var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
 			
 			if (ImGui.IsMouseDown(1)) {
-				var mouse = ImGui.GetMousePos();
-				
-				//if (mouse.X >= pos.X && mouse.X <= pos.X + region.Width * 3 && mouse.Y >= pos.Y && mouse.Y <= pos.Y + region.Height * 3) {
-					v = ImGui.GetMousePos() - pos;
+				v = ImGui.GetMousePos() - pos;
 
-					v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
-					v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
-					
-					root["ox"] = v.X / 3f;
-					root["oy"] = v.Y / 3f;
-				//}
+				if (snapGrid) {
+					v.X = (float) (Math.Floor(v.X / 3) * 3);
+					v.Y = (float) (Math.Floor(v.Y / 3) * 3);
+				}
+				
+				v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
+				v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
+				
+				root["ox"] = v.X / 3f;
+				root["oy"] = v.Y / 3f;
 			}
 			
 			ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1), pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1), ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
@@ -88,14 +91,42 @@ namespace BurningKnight.entity.item.renderer {
 			ImGuiNative.ImDrawList_AddCircleFilled(ImGui.GetWindowDrawList(), pos + v, 3, ColorUtils.WhiteColor.PackedValue, 8);
 
 			v /= 3f;
+
+			ImGui.Checkbox("Snap to grid", ref snapGrid);
 			
 			if (ImGui.InputFloat2("Origin", ref v)) {
 				root["ox"] = v.X;
 				root["oy"] = v.Y;
 			}
 
+			if (ImGui.Button("tx")) {
+				root["ox"] = 0;
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("ty")) {
+				root["oy"] = 0;
+			}
+
 			if (ImGui.Button("cx")) {
-				//root["ox"] = 
+				root["ox"] = region.Width / 2f;
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("cy")) {
+				root["oy"] = region.Height / 2f;
+			}
+
+			if (ImGui.Button("bx")) {
+				root["ox"] = region.Width;
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("by")) {
+				root["oy"] = region.Height;
 			}
 
 			var invert = root["invert_back"].AsBoolean;

@@ -1,1 +1,1 @@
-{"bk:sword":{"id":"bk:sword","animation":null,"time":0,"type":0,"chance":[1,1,1,1],"auto_pickup":false,"pool":0,"uses":[],"renderer":{"id":"bk:MovingAngled","ox":3.66666666666667,"oy":13,"stay":false}}}
+{"bk:sword":{"id":"bk:sword","animation":null,"time":0,"type":0,"chance":[1,1,1,1],"auto_pickup":false,"pool":0,"uses":[],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":false}}}
