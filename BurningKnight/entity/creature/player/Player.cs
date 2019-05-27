@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
@@ -20,7 +22,7 @@ using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
-	public class Player : Creature {
+	public class Player : Creature, DropModifier {
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -295,6 +297,23 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
+		}
+
+		public void ModifyDrops(List<Item> drops) {
+			var inventory = GetComponent<InventoryComponent>();
+
+			foreach (var i in inventory.Items) {
+				drops.Add(i);
+			}
+
+			inventory.Items.Clear();
+
+			foreach (var c in Components.Values) {
+				if (c is ItemComponent i && i.Item != null) {
+					drops.Add(i.Item);
+					i.Set(null);
+				}
+			}
 		}
 	}
 }

@@ -35,6 +35,8 @@ namespace BurningKnight.entity.creature.player {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
 					Done = false;
+					
+					((InGameState) Engine.Instance.State).HandleDeath();
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 1);
@@ -49,6 +51,8 @@ namespace BurningKnight.entity.creature.player {
 						Done = true;
 					};
 				}
+
+				return true;
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;

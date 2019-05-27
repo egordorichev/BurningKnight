@@ -14,6 +14,7 @@ namespace BurningKnight.entity.fx {
 		private string text;
 		private Entity entity;
 		private float y;
+		private TweenTask task;
 
 		public InteractFx(Entity e, string str) {
 			entity = e;
@@ -40,7 +41,7 @@ namespace BurningKnight.entity.fx {
 			AddComponent(component);
 
 			component.Scale = 0;
-			Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
+			task = Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
 
 			y = 12;
 			Tween.To(0, y, x => y = x, 0.2f);
@@ -63,15 +64,13 @@ namespace BurningKnight.entity.fx {
 					if (entity.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
 						return;
 					}
+
+					task.Ended = true;
 					
 					Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
 					Tween.To(12, y, x => y = x, 0.5f);
-					if (component == null) {
-						tweened = true;
-
-						Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
-						Tween.To(12, y, x => y = x, 0.5f);
-					}
+					
+					tweened = true;
 				}
 			}
 		}

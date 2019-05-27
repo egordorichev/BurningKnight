@@ -26,6 +26,11 @@ namespace BurningKnight.entity.component {
 				debugItem = "";
 			}
 
+			if (item == null) {
+				Item = null;
+				return;
+			}
+			
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
 			

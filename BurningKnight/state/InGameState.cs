@@ -64,7 +64,6 @@ namespace BurningKnight.state {
 		
 		public InGameState(Area area) {
 			Area = area;
-			Area.EventListener.Subscribe<DiedEvent>(this);
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 		}
 		
@@ -519,20 +518,22 @@ namespace BurningKnight.state {
 			Tween.To(this, new {blur = 1}, 0.5f);
 			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
 		}
+		
+		public void HandleDeath() {
+			died = true;
+				
+			new Thread(() => {
+				SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+				SaveManager.Backup();
+			}).Start();
+		}
 
 		public bool HandleEvent(Event e) {
 			if (died) {
 				return false;
 			}
 			
-			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
-				died = true;
-				
-				new Thread(() => {
-					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
-					SaveManager.Backup();
-				}).Start();
-			} else if (e is ItemCheckEvent item) {
+			if (e is ItemCheckEvent item) {
 				banner?.Show(item.Item);
 			}
 

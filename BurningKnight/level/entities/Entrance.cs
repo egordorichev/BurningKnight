@@ -27,7 +27,7 @@ namespace BurningKnight.level.entities {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Depth = Run.Depth - 1;
+			To = Run.Depth - 1;
 			
 			Width = 14;
 			Height = 15;

@@ -16,7 +16,7 @@ namespace BurningKnight.entity.component {
 		public List<Item> GetDrops() {
 			var drops = new List<Item>();
 
-			foreach (var drop in GetComponent<DropsComponent>().Drops) {
+			foreach (var drop in Drops) {
 				if (Random.Float(1f) > drop.Chance) {
 					continue;
 				}
@@ -30,6 +30,10 @@ namespace BurningKnight.entity.component {
 						drops.Add(item);
 					}
 				}
+			}
+
+			if (Entity is DropModifier d) {
+				d.ModifyDrops(drops);
 			}
 			
 			return drops;
