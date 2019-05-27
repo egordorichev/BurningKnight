@@ -73,7 +73,7 @@ namespace BurningKnight.ui.editor {
 		private IntPtr biomePointer;
 		private Texture2D tilesetTexture;
 		private IntPtr tilesetPointer;
-		public bool SnapToGrid;
+		public bool SnapToGrid = true;
 		public bool Center;
 		public CommandQueue Commands;
 		public Editor Editor;

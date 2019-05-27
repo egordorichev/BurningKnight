@@ -413,40 +413,48 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void PaintDoor(Level Level, RoomDef R) {
+			foreach (var N in R.Connected.Keys) {
+				var D = R.Connected[N];
+				PlaceDoor(Level, R, D);
+			}
+		}
+
+		public static void PlaceDoor(Level Level, RoomDef R, DoorPlaceholder D) {
+			var T = Level.Get(D.X, D.Y);
+			var type = D.Type;
+
+			var gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze &&
+			         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
+
+			if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
+				var door = new LockableDoor();
+
+				door.X = D.X * 16;
+				door.Y = D.Y * 16;
+				var tile = Level.Get(D.X, D.Y + 1);
+				door.FacingSide = tile.IsWall() && tile != Tile.Planks;
+
+				if (door.FacingSide) {
+					door.Y -= 8;
+					door.X += 6;
+				} else {
+					door.Y -= 2;
+				}
+						
+				Level.Area.Add(door);
+
+				Level.Set(D.X, D.Y, Tiles.RandomFloor());
+			} else if (type == DoorPlaceholder.Variant.Secret) {
+				Level.Set(D.X, D.Y, Tile.Crack);
+			} else if (type == DoorPlaceholder.Variant.Tunnel) {
+				Level.Set(D.X, D.Y, Tiles.RandomFloor());
+			}
+		}
+
 		private void PaintDoors(Level Level, List<RoomDef> Rooms) {
 			foreach (var R in Rooms) {
-				foreach (var N in R.Connected.Keys) {
-					var D = R.Connected[N];
-					var T = Level.Get(D.X, D.Y);
-					var type = D.Type;
-
-					var gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze &&
-					         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
-
-					if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-						var door = new LockableDoor();
-
-						door.X = D.X * 16;
-						door.Y = D.Y * 16;
-						var tile = Level.Get(D.X, D.Y + 1);
-						door.FacingSide = tile.IsWall() && tile != Tile.Planks;
-
-						if (door.FacingSide) {
-							door.Y -= 8;
-							door.X += 6;
-						} else {
-							door.Y -= 2;
-						}
-						
-						Level.Area.Add(door);
-
-						Level.Set(D.X, D.Y, Tiles.RandomFloor());
-					} else if (type == DoorPlaceholder.Variant.Secret) {
-						Level.Set(D.X, D.Y, Tile.Crack);
-					} else if (type == DoorPlaceholder.Variant.Tunnel) {
-						Level.Set(D.X, D.Y, Tiles.RandomFloor());
-					}
-				}
+				PaintDoor(Level, R);
 			}
 		}
 

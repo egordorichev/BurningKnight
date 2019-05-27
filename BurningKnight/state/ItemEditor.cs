@@ -16,10 +16,6 @@ using Microsoft.Xna.Framework.Input;
 using Num = System.Numerics;
 
 namespace BurningKnight.state {
-	/*
-	 * TODO:
-	 * save
-	 */
 	public static class ItemEditor {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static unsafe ImGuiTextFilterPtr popupFilter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
@@ -105,6 +101,7 @@ namespace BurningKnight.state {
 					id = 0;
 					
 					ImGui.SetWindowSize(popupSize);
+					popupFilter.Draw("");
 					ImGui.BeginChild("ScrollingRegionUses", new System.Numerics.Vector2(0, -ImGui.GetStyle().ItemSpacing.Y - ImGui.GetFrameHeightWithSpacing() - 4), 
 						false, ImGuiWindowFlags.HorizontalScrollbar);
 
@@ -147,6 +144,8 @@ namespace BurningKnight.state {
 			ImGui.PopID();
 		}
 
+		private static bool toSort = true;
+
 		private static void DisplayRenderer(JsonValue parent, JsonValue root) {
 			var nil = root == JsonValue.Null || root["id"] == JsonValue.Null;
 			
@@ -182,6 +181,7 @@ namespace BurningKnight.state {
 			if (ImGui.BeginPopupModal("Select renderer")) {
 				ImGui.SetWindowSize(popupSize);
 				
+				popupFilter.Draw("");
 				ImGui.BeginChild("ScrollingRegionRenderers", new System.Numerics.Vector2(0, -ImGui.GetStyle().ItemSpacing.Y - ImGui.GetFrameHeightWithSpacing() - 4), 
 					false, ImGuiWindowFlags.HorizontalScrollbar);
 
@@ -225,6 +225,8 @@ namespace BurningKnight.state {
 				new Num.Vector2((region.X + region.Width) / region.Texture.Width, 
 					(region.Y + region.Height) / region.Texture.Height));
 		}
+
+		private static bool forceFocus;
 		
 		private static void RenderWindow() {
 			if (selected == null) {
@@ -232,7 +234,7 @@ namespace BurningKnight.state {
 			}
 			
 			var show = true;
-			
+
 			if (!ImGui.Begin("Item editor", ref show, ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
@@ -371,8 +373,17 @@ namespace BurningKnight.state {
 		private static bool sort;
 		private static int sortType;
 		private static string itemName = "";
+
+		private static void Sort() {
+			// fixme
+		}
 		
 		public static void Render() {
+			if (toSort) {
+				toSort = false;
+				Sort();
+			}
+
 			RenderWindow();
 			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
@@ -407,7 +418,9 @@ namespace BurningKnight.state {
 			}
 
 			if (ImGui.BeginPopupModal("New item")) {
+				ImGui.PushItemWidth(300);
 				ImGui.InputText("Id", ref itemName, 64);
+				ImGui.PopItemWidth();
 				
 				if (ImGui.Button("Create") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
 					var data = new ItemData();
@@ -435,6 +448,7 @@ namespace BurningKnight.state {
 
 					data.Id = itemName;
 					Items.Datas[data.Id] = data;
+					selected = data;
 					itemName = "";
 
 					ImGui.CloseCurrentPopup();
@@ -453,6 +467,13 @@ namespace BurningKnight.state {
 			ImGui.Separator();
 			
 			filter.Draw("Search");
+
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Sort")) {
+				toSort = true;
+			}
+			
 			ImGui.Checkbox("Sort", ref sort);
 
 			if (sort) {
@@ -470,6 +491,11 @@ namespace BurningKnight.state {
 
 			foreach (var i in Items.Datas.Values) {
 				ImGui.PushID(id);
+
+				if (forceFocus && i == selected) {
+					ImGui.SetScrollHereY();
+					forceFocus = false;
+				}
 				
 				if (filter.PassFilter(i.Id) && (!sort || i.Type == type) && ImGui.Selectable(i.Id, i == selected)) {
 					selected = i;

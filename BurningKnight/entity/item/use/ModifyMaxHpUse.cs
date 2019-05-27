@@ -25,13 +25,13 @@ namespace BurningKnight.entity.item.use {
 		}
 		
 		public static void RenderDebug(JsonValue root) {
-			var val = root["amount"].AsInteger;
+			var val = root["amount"].Int(1);
 
 			if (ImGui.InputInt("Amount", ref val)) {
 				root["amount"] = val;
 			}
 
-			var giveHp = root["give_hp"].AsBoolean;
+			var giveHp = root["give_hp"].Bool(true);
 
 			if (ImGui.Checkbox("Give health", ref giveHp)) {
 				root["give_hp"] = giveHp;

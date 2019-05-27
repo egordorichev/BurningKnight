@@ -1,14 +1,14 @@
-﻿using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 
 namespace BurningKnight.entity.item.use {
-	public class ModifyHpUse : ItemUse {
+	public class GiveGoldUse : ItemUse {
 		public int Amount;
 
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<HealthComponent>().ModifyHealth(Amount, entity);
+			entity.GetComponent<ConsumablesComponent>().Coins += Amount;
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -19,9 +19,8 @@ namespace BurningKnight.entity.item.use {
 		public static void RenderDebug(JsonValue root) {
 			var val = root["amount"].Int(1);
 
-			if (ImGui.InputInt("Amount", ref val)) {
-				root["amount"] = val;
-			}
+			ImGui.InputInt("Amount", ref val);
+			root["amount"] = val;
 		}
 	}
 }

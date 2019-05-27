@@ -8,9 +8,15 @@ namespace BurningKnight.entity.component {
 			}
 
 			base.Set(item);
+		}
 
+		protected override void OnItemSet() {
+			if (Item == null) {
+				return;
+			}
+			
 			Item.Use(Entity);
-			Entity.Area.Add(item);
+			Entity.Area.Add(Item);
 		}
 
 		protected override bool ShouldReplace(Item item) {

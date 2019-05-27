@@ -1,14 +1,14 @@
-﻿using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 
 namespace BurningKnight.entity.item.use {
-	public class ModifyHpUse : ItemUse {
+	public class GiveBombUse: ItemUse {
 		public int Amount;
 
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<HealthComponent>().ModifyHealth(Amount, entity);
+			entity.GetComponent<ConsumablesComponent>().Bombs += Amount;
 		}
 
 		public override void Setup(JsonValue settings) {

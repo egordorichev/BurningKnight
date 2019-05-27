@@ -11,15 +11,12 @@
 
 ### FIXMEE!!
 
-* No lighting
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
 * Fix -1 level madness
 
 ### Before v0.0.0.4
 
-* Item editor
-* Fix player spawns
 * Dialog for old man
 * Dont let the player exit until he has a lamp
 * Put lamps and weapons in hall

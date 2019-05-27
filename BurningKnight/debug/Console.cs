@@ -58,7 +58,7 @@ namespace BurningKnight.debug {
 		public void Update(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
-				forceFocus = Open;
+				// forceFocus = Open;
 			}
 		}
 		

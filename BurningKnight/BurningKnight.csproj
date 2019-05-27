@@ -272,7 +272,11 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />
+    <Compile Include="entity\item\use\GiveBombUse.cs" />
+    <Compile Include="entity\item\use\GiveGoldUse.cs" />
     <Compile Include="entity\item\use\GiveHeartContainersUse.cs" />
+    <Compile Include="entity\item\use\GiveItemUse.cs" />
+    <Compile Include="entity\item\use\GiveKeyUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
@@ -399,6 +403,7 @@
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />
     <Compile Include="state\PicoState.cs" />
+    <Compile Include="state\RoomEditorState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="state\save\EntityData.cs" />
     <Compile Include="state\save\EntityInspector.cs" />

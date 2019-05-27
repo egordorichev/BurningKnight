@@ -45,6 +45,10 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveHeartContainersUse>(ModifyHpUse.RenderDebug);
 			Register<SimpleShootUse>(SimpleShootUse.RenderDebug);
 			Register<RandomUse>(RandomUse.RenderDebug);
+			Register<GiveGoldUse>(GiveGoldUse.RenderDebug);
+			Register<GiveKeyUse>(GiveKeyUse.RenderDebug);
+			Register<GiveBombUse>(GiveBombUse.RenderDebug);
+			Register<GiveItemUse>(GiveItemUse.RenderDebug);
 		}
 	}
 }

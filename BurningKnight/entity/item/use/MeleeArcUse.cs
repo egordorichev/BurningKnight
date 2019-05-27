@@ -27,13 +27,13 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var damage = root["damage"].AsInteger;
+			var damage = root["damage"].Int(1);
 			
 			if (ImGui.InputInt("Damage", ref damage)) {
 				root["damage"] = damage;
 			}
 			
-			var time = root["time"].AsNumber;
+			var time = (double) root["time"].Number(0.2f);
 			
 			if (ImGui.InputDouble("Life time", ref time)) {
 				root["time"] = time;

@@ -9,13 +9,13 @@ using Lens.graphics.gamerenderer;
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
 		private static string[] states = {
-			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer"
+			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer", "room_editor"
 		};
 
 		private static Type[] types = {
 			typeof(InGameState), typeof(DialogEditorState),
 			typeof(EditorState), typeof(PicoState), typeof(LoadState),
-			typeof(SaveExplorerState)
+			typeof(SaveExplorerState), typeof(RoomEditorState)
 		};
 		
 		public static void Render() {
