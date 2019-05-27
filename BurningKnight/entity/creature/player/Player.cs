@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
 			AddComponent(new InteractorComponent {
-				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState)
+				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState || died)
 			});
 			
 			GetComponent<StateComponent>().Become<IdleState>();
@@ -280,7 +280,10 @@ namespace BurningKnight.entity.creature.player {
 
 		protected override void HandleDeath() {
 			Done = false;
+			died = true;
 		}
+
+		private bool died;
 
 		public override void AnimateDeath() {
 			base.AnimateDeath();
@@ -310,8 +313,7 @@ namespace BurningKnight.entity.creature.player {
 
 			foreach (var c in Components.Values) {
 				if (c is ItemComponent i && i.Item != null) {
-					drops.Add(i.Item);
-					i.Set(null);
+					drops.Add(Items.Create(i.Item.Id));
 				}
 			}
 		}
