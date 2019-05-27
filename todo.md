@@ -2,7 +2,7 @@
 
 ### Update rush
 
-* Entities don't get bodies sometimes?
+* prefab should clone entities and not add originals
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window

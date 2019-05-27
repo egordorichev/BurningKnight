@@ -228,6 +228,7 @@
     <Compile Include="assets\Effects.cs" />
     <Compile Include="assets\Locale.cs" />
     <Compile Include="assets\Textures.cs" />
+    <Compile Include="Cloner.cs" />
     <Compile Include="core\ConsoleCore.cs" />
     <Compile Include="core\Core.cs" />
     <Compile Include="core\DesktopCore.cs" />

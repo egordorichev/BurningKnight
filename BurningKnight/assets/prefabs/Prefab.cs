@@ -1,5 +1,6 @@
 using BurningKnight.level;
 using BurningKnight.level.rooms;
+using Lens;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -16,9 +17,10 @@ namespace BurningKnight.assets.prefabs {
 				if (e is Level || e is Room) {
 					continue;
 				}
-				
-				e.Position += pos;
-				level.Area.Add(e);
+
+				var ee = Cloner.DeepClone(e);
+				ee.Position += pos;
+				level.Area.Add(ee);
 			}
 
 			for (int ty = 0; ty < Level.Height && ty + y < level.Height; ty++) {

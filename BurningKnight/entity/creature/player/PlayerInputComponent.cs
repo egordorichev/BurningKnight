@@ -84,7 +84,6 @@ namespace BurningKnight.entity.creature.player {
 				    Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
-					GetComponent<DropsComponent>().SpawnDrops();
 					state.Become<Player.RollState>();
 				} else {
 					if (!got) {
