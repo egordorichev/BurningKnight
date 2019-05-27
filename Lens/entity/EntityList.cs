@@ -55,7 +55,9 @@ namespace Lens.entity {
 		public void AutoRemove() {
 			if (ToRemove.Count > 0) {
 				try {
-					foreach (var entity in ToRemove) {
+					for (var i = ToRemove.Count - 1; i >= 0; i--) {
+						var entity = ToRemove[i];
+
 						if (entity.Area == Area) {
 							entity.Destroy();
 						}

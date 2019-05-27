@@ -70,18 +70,8 @@ namespace BurningKnight.entity.creature.player {
 			if (e is ItemCheckEvent ev) {
 				var type = ev.Item.Type;
 				
-				if (type == ItemType.Bomb) {	
-					Bombs += ev.Item.Count;
-					return true;
-				}
-				
-				if (type == ItemType.Key) {
-					Keys += ev.Item.Count;
-					return true;
-				}
-				
-				if (type == ItemType.Coin) {
-					Coins += ev.Item.Count;
+				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin) {
+					ev.Item.Use((Player) Entity);
 					return true;
 				}
 			}
