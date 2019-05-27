@@ -324,6 +324,14 @@ namespace BurningKnight.level {
 			LoadPassable();
 		}
 
+		public void MarkForClearing() {
+			Tiles = new byte[Size];
+			Liquid = new byte[Size];
+			Variants = new byte[Size];
+			LiquidVariants = new byte[Size];
+			cleared = false;
+		}
+
 		public void Setup() {
 			Size = width * height;
 			

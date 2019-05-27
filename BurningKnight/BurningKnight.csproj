@@ -398,6 +398,7 @@
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />
     <Compile Include="state\PicoState.cs" />
+    <Compile Include="state\RoomEditorState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="state\save\EntityData.cs" />
     <Compile Include="state\save\EntityInspector.cs" />
