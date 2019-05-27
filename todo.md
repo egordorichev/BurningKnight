@@ -6,6 +6,8 @@
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window
+* cpu / mem usage? 
+* check fps counter, draw a graph
 
 ### FIXMEE!!
 

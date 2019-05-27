@@ -2,6 +2,7 @@
 using BurningKnight.entity.events;
 using BurningKnight.physics;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
@@ -123,6 +124,25 @@ namespace BurningKnight.entity.component {
 		public override void Load(FileReader reader) {
 			base.Load(reader);
 			Body?.SetTransform(Entity.Position, 0);
+		}
+
+		public override void RenderDebug() {
+			ImGui.DragFloat("Knockback modifier", ref KnockbackModifier);
+			
+			if (Body == null) {
+				ImGui.BulletText("Body is null");
+			} else {
+				var vel = Body.LinearVelocity;
+				var v = new System.Numerics.Vector2(vel.X, vel.Y);
+
+				if (ImGui.DragFloat2("Velocity", ref v)) {
+					Body.LinearVelocity = vel;
+				}
+			
+				if (ImGui.Button("Sync body")) {
+					PositionChangedListener();
+				}
+			}
 		}
 	}
 }

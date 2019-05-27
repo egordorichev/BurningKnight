@@ -81,6 +81,8 @@ namespace BurningKnight.state {
 			foreach (var p in Area.Tags[Tags.Player]) {
 				((Player) p).FindSpawnPoint();
 			}
+			
+			Camera.Instance.Jump();
 		}
 
 		public override void Destroy() {

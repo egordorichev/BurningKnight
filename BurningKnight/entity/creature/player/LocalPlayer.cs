@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.player {
 					Camera.Instance.Follow(this, 1);
 					
 					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).OnEnd = () => {
-						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.3f);
+						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f);
 
 						t.Delay = 0.8f;
 						t.OnEnd = ((InGameState) Engine.Instance.State).AnimateDeathScreen;
