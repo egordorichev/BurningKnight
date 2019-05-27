@@ -407,7 +407,9 @@ namespace BurningKnight.state {
 			}
 
 			if (ImGui.BeginPopupModal("New item")) {
+				ImGui.PushItemWidth(200);
 				ImGui.InputText("Id", ref itemName, 64);
+				ImGui.PopItemWidth();
 				
 				if (ImGui.Button("Create") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
 					var data = new ItemData();

@@ -35,19 +35,19 @@ namespace BurningKnight.entity.item.use {
 		
 		
 		public static void RenderDebug(JsonValue root) {
-			var val = root["damage"].AsInteger;
+			var val = root["damage"].Int(1);
 
 			if (ImGui.InputInt("Damage", ref val)) {
 				root["damage"] = val;
 			}
 			
-			var spd = (float) root["speed"].AsNumber;
+			var spd = (float) root["speed"].Number(60);
 
 			if (ImGui.InputFloat("Speed", ref spd)) {
 				root["speed"] = spd;
 			}
 			
-			var range = (float) root["range"].AsNumber;
+			var range = (float) root["range"].Number(96);
 
 			if (ImGui.InputFloat("Range", ref range)) {
 				root["range"] = range;
