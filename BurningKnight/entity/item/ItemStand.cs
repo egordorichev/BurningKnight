@@ -215,10 +215,6 @@ namespace BurningKnight.entity.item {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				SetItem(Items.CreateAndAdd(debugItem, Area), null);
 			}
-
-			if (Item != null) {
-				AreaDebug.RenderEntity(Item);
-			}
 		}
 	}
 }
