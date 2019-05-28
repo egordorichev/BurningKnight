@@ -68,6 +68,7 @@ namespace BurningKnight.assets.prefabs {
 
 			prefab.Level = Run.Level;
 			prefab.Datas = ArrayUtils.Clone(saver.Datas);
+			saver.Datas.Clear();
 			
 			loaded[handle.NameWithoutExtension] = prefab;
 			Run.Level = null;
