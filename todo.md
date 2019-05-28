@@ -2,11 +2,11 @@
 
 ### Update rush
 
-* prefab should clone entities and not add originals
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window
 * cpu / mem usage? 
+* quick restart
 * check fps counter, draw a graph
 
 ### FIXMEE!!

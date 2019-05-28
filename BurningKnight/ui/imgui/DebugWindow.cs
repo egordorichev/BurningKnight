@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.state;
 using BurningKnight.state.save;
 using ImGuiNET;
@@ -56,6 +58,34 @@ namespace BurningKnight.ui.imgui {
 				} else {
 					Engine.Instance.SetState((GameState) Activator.CreateInstance(types[current]));
 				}
+			}
+
+			ImGui.Separator();
+			
+			ImGui.Text($"Run ID: {Run.Id}");
+			ImGui.Text($"Kills: {Run.KillCount}");
+			ImGui.Text($"Time: {Run.FormatTime()}");
+
+			if (ImGui.Button("Go to hall")) {
+				Run.Depth = -1;
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Go to hub")) {
+				Run.Depth = 0;
+			}
+			
+			if (ImGui.Button("New run")) {
+				Run.StartNew();
+			}
+			
+			ImGui.Separator();
+
+			var player = LocalPlayer.Locate(Run.Level?.Area);
+
+			if (player != null) {
+				ImGui.Checkbox("Unhittable", ref player.GetComponent<HealthComponent>().Unhittable);
 			}
 			
 			ImGui.End();

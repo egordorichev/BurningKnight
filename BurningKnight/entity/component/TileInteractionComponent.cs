@@ -76,7 +76,7 @@ namespace BurningKnight.entity.component {
 						if (HasNoSupport) {
 							var t = (Tile) tile;
 
-							if (t != Tile.Chasm && !t.IsWall()) {
+							if (t != Tile.Chasm) {
 								HasNoSupport = false;
 								LastSupportedPosition = Entity.Position;
 							}

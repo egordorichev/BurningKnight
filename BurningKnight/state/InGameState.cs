@@ -4,6 +4,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -65,10 +66,13 @@ namespace BurningKnight.state {
 		public InGameState(Area area) {
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
+			Area.EventListener.Subscribe<DiedEvent>(this);
 		}
 		
 		public override void Init() {
 			base.Init();
+			Run.StartingNew = false;
+
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -96,7 +100,8 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!died && Run.Depth > 0) {
+			if (!Run.StartingNew && !died && Run.Depth > 0) {
+				SaveManager.Save(Area, SaveType.Game, old);
 				SaveManager.Save(Area, SaveType.Level, old);
 				SaveManager.Save(Area, SaveType.Player, old);
 			}
@@ -172,6 +177,8 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
+				Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
+				Log.Error(Run.Time);
 				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
@@ -484,7 +491,7 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
 				Click = () => {
-					// requires more complex manipulations imo
+					Run.ResetStats();
 					Run.Depth = 0;
 				}
 			});
@@ -537,6 +544,8 @@ namespace BurningKnight.state {
 			
 			if (e is ItemCheckEvent item) {
 				banner?.Show(item.Item);
+			} else if (e is DiedEvent de && de.Who is Mob) {
+				Run.KillCount++;
 			}
 
 			return false;

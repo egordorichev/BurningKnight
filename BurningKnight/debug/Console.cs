@@ -109,17 +109,14 @@ namespace BurningKnight.debug {
 			ImGui.EndChild();
 			ImGui.Separator();
 
-			var focus = false;
-
 			if (ImGui.InputText("Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				RunCommand(input);
 				input = "";
-				focus = true;
 			}
 			
 			ImGui.SetItemDefaultFocus();
 
-			if (focus || forceFocus) {
+			if (forceFocus) {
 				ImGui.SetKeyboardFocusHere(-1);
 			}
 
