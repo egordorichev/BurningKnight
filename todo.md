@@ -14,6 +14,7 @@
 
 ### FIXMEE!!
 
+* animate gaining hp
 * ui entities generate on click 2 times?
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game

@@ -9,7 +9,30 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
 	public class Lock : Entity {
-		public bool IsLocked { get; protected set; }
+		private bool locked;
+
+		public bool IsLocked => locked;
+
+		public void SetLocked(bool value, Entity entity) {
+			if (value == locked) {
+				return;
+			}
+
+			locked = value;
+			
+			if (locked) {
+				HandleEvent(new LockOpenedEvent {
+					Lock = this,
+					Who = entity
+				});
+			} else {
+				HandleEvent(new LockClosedEvent {
+					Lock = this,
+					Who = entity
+				});
+			}
+		}
+		
 		public bool Move;
 		private float t;
 		private float shake;
@@ -17,18 +40,13 @@ namespace BurningKnight.entity.door {
 		public Lock() {
 			Width = 10;
 			Height = 20;
-			IsLocked = true;
+			locked = true;
 		}
 		
 		protected virtual bool Interact(Entity entity) {
 			if (TryToConsumeKey(entity)) {
 				GetComponent<StateComponent>().Become<OpeningState>();
-				IsLocked = false;
-
-				HandleEvent(new LockOpenedEvent {
-					Who = entity,
-					Lock = this
-				});
+				SetLocked(false, entity);
 				
 				return true;
 			}
@@ -141,10 +159,6 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
-				
-				Self.HandleEvent(new LockClosedEvent {
-					Lock = (Lock) Self
-				});
 			}
 
 			public override void Update(float dt) {

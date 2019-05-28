@@ -125,6 +125,11 @@ namespace BurningKnight.entity.component {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
+				Send(new ItemAddedEvent {
+					Item = ev.Item,
+					Who = Entity
+				});
+				
 				ev.Item.Use(Entity);
 				ev.Item.Done = true;
 				return true;

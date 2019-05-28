@@ -26,10 +26,10 @@ namespace BurningKnight.entity.door {
 			}
 
 			if (shouldLock && !IsLocked) {
-				IsLocked = true;
+				SetLocked(true, null);
 				GetComponent<StateComponent>().Become<ClosingState>();
 			} else if (!shouldLock && IsLocked) {
-				IsLocked = false;
+				SetLocked(false, null);
 				GetComponent<StateComponent>().Become<OpeningState>();
 			}
 		}

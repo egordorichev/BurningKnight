@@ -214,6 +214,7 @@
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
+    <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
     <Compile Include="entity\events\ChestOpenedEvent.cs" />

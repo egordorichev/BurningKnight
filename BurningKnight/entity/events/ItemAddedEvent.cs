@@ -7,5 +7,6 @@ namespace BurningKnight.entity.events {
 		public Item Item;
 		public Item Old;
 		public ItemComponent Component;
+		public Entity Who;
 	}
 }

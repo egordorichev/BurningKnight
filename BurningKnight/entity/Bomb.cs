@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.events;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.input;
@@ -32,6 +33,10 @@ namespace BurningKnight.entity {
 			AddComponent(new ExplodeComponent {
 				Radius = 32,
 				Timer = explosionTime
+			});
+
+			HandleEvent(new BombPlacedEvent {
+				Bomb = this
 			});
 		}
 

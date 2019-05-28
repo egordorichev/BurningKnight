@@ -3,6 +3,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
@@ -22,6 +23,9 @@ namespace BurningKnight.state {
 			Subscribe<DoorOpenedEvent>();
 			Subscribe<LockOpenedEvent>();
 			Subscribe<LockClosedEvent>();
+			
+			Subscribe<BombPlacedEvent>();
+			Subscribe<ItemAddedEvent>();
 			
 			Audio.PlayMusic(Run.Level.Biome.Music);
 		}
@@ -68,6 +72,33 @@ namespace BurningKnight.state {
 				Audio.PlaySfx(loe.Lock, loe.Lock is IronLock ? "door_unlock" : "door_lock");
 			} else if (e is LockClosedEvent lce) {
 				Audio.PlaySfx(lce.Lock, "door_lock");
+			} else if (e is BombPlacedEvent bpe) {
+				Audio.PlaySfx(bpe.Bomb, "bomb_placed");
+			} else if (e is ItemAddedEvent iad) {
+				if (iad.Who is Player) {
+					switch (iad.Item.Type) {
+						case ItemType.Coin: {
+							Audio.PlaySfx("coin");
+							break;
+						}
+						
+						case ItemType.Heart: {
+							Audio.PlaySfx("heart");
+							break;
+						}
+						
+						case ItemType.Bomb: {
+							// fixme: add different sfx
+							Audio.PlaySfx("heart");
+							break;
+						}
+						
+						case ItemType.Key: {
+							Audio.PlaySfx("key");
+							break;
+						}
+					}
+				}
 			}
 
 			return false;

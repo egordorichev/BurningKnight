@@ -48,7 +48,8 @@ namespace BurningKnight.entity.component {
 			item.AddComponent(new OwnerComponent(Entity));
 
 			var e = new ItemAddedEvent {
-				Item = item
+				Item = item,
+				Who = Entity
 			};
 			
 			Send(e);
