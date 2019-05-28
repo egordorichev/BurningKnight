@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Profile>Reach</Profile>
-  <Platform>DesktopGL</Platform>
+  <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3</File>
@@ -9,6 +9,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Burning Knight.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Cursed legend.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Fatiga.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Gobbeon.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Hidden knowledge.mp3</File>
@@ -16,7 +17,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/OnFire.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Outsider.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Pirate bay.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Pirate Bay.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Reckless.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Rogue.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Serendipity.mp3</File>
@@ -63,10 +64,14 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_thief.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_towelknight.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_close.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_lock.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_open.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_unlock.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/drop_item.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_alert.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_death.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_impact.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/exit.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion_old.mp3</File>
@@ -79,6 +84,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gameover.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/goback.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gobbo_death.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gobbo_jump.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gore.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/grenade_launcher.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gun_machinegun.mp3</File>
@@ -141,6 +147,12 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

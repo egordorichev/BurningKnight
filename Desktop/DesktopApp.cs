@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.crash;
-using Desktop.integration.discord;
 using Lens;
 using Microsoft.Xna.Framework;
 
@@ -17,7 +15,6 @@ namespace Desktop {
 
 		protected override void Initialize() {
 			base.Initialize();
-			// integrations.Add(new DiscordIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();

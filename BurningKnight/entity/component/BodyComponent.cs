@@ -4,6 +4,7 @@ using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
@@ -51,7 +52,13 @@ namespace BurningKnight.entity.component {
 			Entity.PositionChanged -= PositionChangedListener;
 
 			if (Body != null) {
-				Physics.World.RemoveBody(Body);
+				try {
+					Physics.World.RemoveBody(Body);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				Body = null;
 			}
 		}
 

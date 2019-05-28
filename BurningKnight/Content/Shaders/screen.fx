@@ -23,6 +23,13 @@ struct VertexShaderOutput {
 };
 
 float4 MainPS(VertexShaderOutput input) : COLOR {
+	float dx = input.TextureCoordinates.x - 0.5f;
+	float dy = input.TextureCoordinates.y - 0.5f;
+
+	if (dx * dx + dy * dy > 0.1f) {
+		return float4(0, 0, 0, 0);
+	}
+
 	float mx = 1.0f / 320 * blur;
 	float my = 1.0f / 180 * blur;
 	float4 color;
@@ -51,7 +58,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		}
 	
 	  color /= 14.8203f;
-	}	
+	}
 
 	return color * v;
 }

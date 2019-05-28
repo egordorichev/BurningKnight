@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3</SourceFile>
-  <SourceTime>2019-03-05T08:42:09.1736943+03:00</SourceTime>
+  <SourceTime>2019-05-22T01:55:22+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.xnb</DestFile>
-  <DestTime>2019-05-05T15:47:48.5071662+03:00</DestTime>
+  <DestTime>2019-05-28T13:56:10.4635552+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
-  <Processor>SoundEffectProcessor</Processor>
+  <Processor>SongProcessor</Processor>
   <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
@@ -14,5 +14,7 @@
   </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput />
+  <BuildOutput>
+    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.wma</string>
+  </BuildOutput>
 </PipelineBuildEvent>
