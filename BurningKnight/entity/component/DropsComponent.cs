@@ -24,10 +24,12 @@ namespace BurningKnight.entity.component {
 				var ids = drop.GetItems();
 
 				foreach (var id in ids) {
-					var item = Items.Create(id);
+					if (id != null) {
+						var item = Items.Create(id);
 
-					if (item != null) {
-						drops.Add(item);
+						if (item != null) {
+							drops.Add(item);
+						}
 					}
 				}
 			}

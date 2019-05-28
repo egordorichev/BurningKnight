@@ -1,20 +1,24 @@
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.level.entities {
 	public class ContinueRun : Exit {
-		public override void Init() {
-			base.Init();
-
+		private int depth;
+		
+		public ContinueRun() {
 			if (Engine.EditingLevel) {
 				return;
 			}
 
 			if (SaveManager.ExistsAndValid(SaveType.Game)
-				&& SaveManager.ExistsAndValid(SaveType.Level, $"{SaveManager.SlotDir}level-1.lvl")
-				&& SaveManager.ExistsAndValid(SaveType.Player)) {
+			    && SaveManager.ExistsAndValid(SaveType.Level, s => {
+				    depth = GameSave.PeekDepth(s); 
+				    // fixme: doesnt seem valid
+			    }, $"{SaveManager.SlotDir}level-1.lvl")
+			    && SaveManager.ExistsAndValid(SaveType.Player)) {
 
 				return;
 			}
@@ -28,7 +32,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override string GetFxText() {
-			return "continue_run";
+			return $"{Locale.Get("continue_run")} (depth {depth})";
 		}
 	}
 }

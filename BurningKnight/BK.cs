@@ -22,7 +22,6 @@ namespace BurningKnight {
 			ImGuiHelper.Init();
 			Shaders.Load();
 			Font.Load();
-			// fixme: move down to the end of this method
 			Prefabs.Load();
 			Items.Load();
 			Mods.Load();

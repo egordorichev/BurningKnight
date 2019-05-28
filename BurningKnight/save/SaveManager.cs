@@ -82,7 +82,7 @@ namespace BurningKnight.save {
 			// }.Start();
 		}
 
-		public static bool ExistsAndValid(SaveType saveType, string path = null) {
+		public static bool ExistsAndValid(SaveType saveType, Action<FileReader> action = null, string path = null) {
 			var save = GetFileHandle(GetSavePath(saveType, false, path));
 
 			if (!save.Exists()) {
@@ -102,7 +102,8 @@ namespace BurningKnight.save {
 			if (stream.ReadByte() != (byte) saveType) {
 				return false;
 			}
-
+			
+			action?.Invoke(stream);
 			return true;
 		}
 

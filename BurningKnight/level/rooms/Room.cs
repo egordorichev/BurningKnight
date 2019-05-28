@@ -2,7 +2,9 @@ using System;
 using BurningKnight.entity;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.editor;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
@@ -13,11 +15,11 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
 namespace BurningKnight.level.rooms {
-	public class Room : SaveableEntity {
+	public class Room : SaveableEntity, PlaceableEntity {
 		public int MapX;
 		public int MapY;
-		public int MapW;
-		public int MapH;
+		public int MapW = 4;
+		public int MapH = 4;
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
 		public bool Explored;
@@ -96,6 +98,25 @@ namespace BurningKnight.level.rooms {
 
 		public override void RenderDebug() {
 			Graphics.Batch.DrawRectangle(new RectangleF(X, Y, Width, Height), Color.Red);
+		}
+
+		public override void RenderImDebug() {
+			ImGui.InputInt("Map X", ref MapX);
+			ImGui.InputInt("Map Y", ref MapY);
+			ImGui.InputInt("Map W", ref MapW);
+			ImGui.InputInt("Map H", ref MapH);
+			
+			X = MapX * 16 + 4;
+			Y = MapY * 16 - 4;
+			Width = MapW * 16 - 8;
+			Height = MapH * 16 - 8;
+
+			/*if (ImGui.Button("Sync")) {
+				MapX = (int) Math.Floor(X / 16);
+				MapY = (int) Math.Floor(Y / 16);
+				MapW = (int) Math.Floor(Width / 16);
+				MapH = (int) Math.Floor(Height / 16);
+			}*/
 		}
 	}
 }

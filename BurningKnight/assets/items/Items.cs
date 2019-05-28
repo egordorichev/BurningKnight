@@ -88,6 +88,7 @@ namespace BurningKnight.assets.items {
 				data["type"] = (int) item.Type;
 				data["chance"] = item.Chance.ToJson();
 				data["auto_pickup"] = item.AutoPickup;
+				Log.Error($"{item.Id} {item.Pools}");
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
@@ -106,12 +107,7 @@ namespace BurningKnight.assets.items {
 			Load(new FileHandle(args.FullPath));
 		}
 
-		private static int TryToApply(ItemData data, int pool, string id) {
-			if (!ItemPool.ByName.TryGetValue(id, out var pl)) {
-				Log.Error($"Unknown item pool {id}");
-				return pool;
-			}
-
+		private static int TryToApply(ItemData data, int pool, ItemPool pl) {
 			if (!pl.Contains(pool)) {
 				List<ItemData> datas;
 
@@ -156,18 +152,27 @@ namespace BurningKnight.assets.items {
 					case ItemType.Coin:
 					case ItemType.Bomb:
 					case ItemType.Heart:
-						pools = TryToApply(data, pools, ItemPool.Consumable.Name);
+						pools = TryToApply(data, pools, ItemPool.Consumable);
 						break;
 
 					case ItemType.Artifact:
 					case ItemType.Weapon:
 					case ItemType.Active:						
-						pools = TryToApply(data, pools, ItemPool.Chest.Name);
+						pools = TryToApply(data, pools, ItemPool.Chest);
 						break;
 					
-					case ItemType.Lamp:						
-						pools = TryToApply(data, pools, ItemPool.Lamp.Name);
+					case ItemType.Lamp:	
+						pools = TryToApply(data, pools, ItemPool.Lamp);
 						break;
+				}
+			} else {
+				var pls = pl.Int(0);
+				data.Pools = pls;
+
+				for (var i = 0; i < ItemPool.Count; i++) {
+					if (ItemPool.ById[i].Contains(pls)) {
+						TryToApply(data, pools, ItemPool.ById[i]);
+					}
 				}
 			}
 
@@ -305,7 +310,7 @@ namespace BurningKnight.assets.items {
 			
 		}
 	
-		private static Item Generate(List<ItemData> types, PlayerClass c) {
+		private static string Generate(List<ItemData> types, PlayerClass c) {
 			double sum = 0;
 
 			foreach (var chance in types) {
@@ -319,14 +324,14 @@ namespace BurningKnight.assets.items {
 				sum += t.Chance.Calculate(c);
 
 				if (value < sum) {
-					return Create(t);
+					return t.Id;
 				}
 			}
 
 			return null;
 		}
 
-		public static Item Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
+		public static string Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
 			if (!byType.TryGetValue(type, out var types)) {
 				return null;
 			}
@@ -334,7 +339,7 @@ namespace BurningKnight.assets.items {
 			return Generate(types, c);
 		}
 
-		public static Item Generate(ItemPool pool, PlayerClass c = PlayerClass.Any) {
+		public static string Generate(ItemPool pool, PlayerClass c = PlayerClass.Any) {
 			if (!byPool.TryGetValue(pool.Id, out var types)) {
 				return null;
 			}

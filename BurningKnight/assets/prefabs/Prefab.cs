@@ -15,7 +15,7 @@ namespace BurningKnight.assets.prefabs {
 			var reader = new FileReader(null);
 			
 			foreach (var d in Datas) {
-				if (d.Type == typeof(Level) || d.Type == typeof(Room)) {
+				if (d.Type == typeof(Level)) {
 					continue;
 				}
 
@@ -25,7 +25,14 @@ namespace BurningKnight.assets.prefabs {
 				reader.SetData(d.Data);
 
 				e.Load(reader);
-				e.Position += pos;
+
+				if (e is Room r) {
+					r.MapX += x;
+					r.MapY += y;
+				} else {
+					e.Position += pos;
+				}
+				
 				e.PostInit();
 			}
 

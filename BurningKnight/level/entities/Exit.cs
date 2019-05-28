@@ -32,7 +32,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected virtual string GetFxText() {
-			return "descend";
+			return Locale.Get(Run.Depth == 0 ? "new_run" : "descend");
 		}
 
 		public override void AddComponents() {
@@ -46,7 +46,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
 					if (entity is LocalPlayer) {
-						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())));
+						Engine.Instance.State.Ui.Add(new InteractFx(this, GetFxText()));
 					}
 				}
 			});

@@ -303,6 +303,7 @@ namespace BurningKnight.state {
 			
 			if (ImGui.CollapsingHeader("Pools")) {
 				var i = 0;
+				ImGui.Text($"{selected.Pools}");
 				
 				foreach (var p in ItemPool.ById) {
 					var val = p.Contains(selected.Pools);

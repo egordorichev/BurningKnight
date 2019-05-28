@@ -154,6 +154,7 @@
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
+    <Compile Include="entity\component\PoolDropsComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
+    <Compile Include="entity\creature\PoolDrop.cs" />
     <Compile Include="entity\creature\SimpleDrop.cs" />
     <Compile Include="entity\creature\SingleDrop.cs" />
     <Compile Include="entity\Cursor.cs" />

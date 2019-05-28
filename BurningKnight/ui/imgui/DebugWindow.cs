@@ -82,12 +82,14 @@ namespace BurningKnight.ui.imgui {
 			
 			ImGui.Separator();
 
-			var player = LocalPlayer.Locate(Run.Level?.Area);
+			if (Run.Level != null) {
+				var player = LocalPlayer.Locate(Run.Level.Area);
 
-			if (player != null) {
-				ImGui.Checkbox("Unhittable", ref player.GetComponent<HealthComponent>().Unhittable);
+				if (player != null) {
+					ImGui.Checkbox("Unhittable", ref player.GetComponent<HealthComponent>().Unhittable);
+				}
 			}
-			
+
 			ImGui.End();
 		}
 	}

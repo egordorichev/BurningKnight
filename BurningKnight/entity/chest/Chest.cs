@@ -52,14 +52,7 @@ namespace BurningKnight.entity.chest {
 		}
 
 		public virtual void GenerateLoot() {
-			var item = Items.Generate(ItemPool.Chest);
-
-			if (item == null) {
-				Log.Error("Failed to generate an item for the chest!");
-				return;
-			}
-			
-			items.Add(item);
+			items.AddRange(GetComponent<PoolDropsComponent>().GetDrops());
 		}
 
 		public override void PostInit() {
@@ -121,6 +114,7 @@ namespace BurningKnight.entity.chest {
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,

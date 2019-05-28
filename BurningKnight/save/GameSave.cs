@@ -22,8 +22,8 @@ namespace BurningKnight.save {
 			}
 
 			Run.HasRun = true;
-			
-			Run.SetDepth(reader.ReadSbyte());
+			var d = reader.ReadSbyte();
+			// Run.SetDepth(d);
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
@@ -31,6 +31,10 @@ namespace BurningKnight.save {
 			Random.Seed = reader.ReadString();
 		}
 
+		public static int PeekDepth(FileReader reader) {
+			return reader.ReadSbyte();
+		}
+		
 		public override void Generate(Area area) {
 			Run.KillCount = 0;
 			Run.Time = 0;

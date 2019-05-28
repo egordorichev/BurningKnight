@@ -1,7 +1,9 @@
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -55,6 +57,10 @@ namespace BurningKnight.level.entities {
 		protected override Rectangle GetCollider() {
 			var rect = GetComponent<SliceComponent>().Sprite.Source;
 
+			if (true || Sprite.Contains("crate")) {
+				AddComponent(new PoolDropsComponent(ItemPool.Crate, 10.3f, 1, 3));
+			}
+			
 			hurts = Sprite == "cactus";
 
 			Width = rect.Width;
@@ -85,9 +91,13 @@ namespace BurningKnight.level.entities {
 
 			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.45f) {
 				Done = true;
-				
+
 				if (!Camera.Instance.Overlaps(this)) {
 					return;
+				}
+
+				if (TryGetComponent<PoolDropsComponent>(out var pool)) {
+					pool.SpawnDrops();
 				}
 				
 				for (var i = 0; i < 4; i++) {

@@ -82,7 +82,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (bombs > 0 && Run.Depth > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+			if (bombs > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
 				Bombs--;
 				
 				var bomb = new Bomb();

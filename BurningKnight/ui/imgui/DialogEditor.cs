@@ -48,17 +48,18 @@ namespace BurningKnight.ui.imgui {
 				root.Add(obj);
 			}
 
-			var file = File.CreateText(FileHandle.FromRoot($"Content/Dialogs/{files[current]}.json").FullPath);
+			var file = File.CreateText(FileHandle.FromRoot($"Dialogs/{files[current]}.json").FullPath);
 			var writer = new JsonWriter(file);
 			writer.Write(root);
 			file.Close();
 		}
 
 		public static void Load() {
-			var folder = FileHandle.FromRoot("Content/Dialogs");
+			var folder = FileHandle.FromRoot("Dialogs");
 
 			if (!folder.Exists()) {
 				Log.Error("Dialog folder is not found!");
+				files = new string[0];
 				return;
 			}
 

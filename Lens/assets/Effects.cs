@@ -7,7 +7,7 @@ namespace Lens.assets {
 		public static Dictionary<string, Effect> All = new Dictionary<string, Effect>();
 		
 		public static void Load() {
-			var shaderDir = new FileHandle("Content/bin/Shaders/");
+			var shaderDir = FileHandle.FromRoot("bin/Shaders/");
 			
 			if (shaderDir.Exists()) {
 				foreach (var h in shaderDir.ListFileHandles()) {
