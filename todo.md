@@ -2,6 +2,7 @@
 
 ### Update rush
 
+* fix gold pickup
 * continue old run fix depth reading
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
