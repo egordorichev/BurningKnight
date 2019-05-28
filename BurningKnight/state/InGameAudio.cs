@@ -1,3 +1,4 @@
+using System.Diagnostics.Eventing.Reader;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -26,6 +27,8 @@ namespace BurningKnight.state {
 			
 			Subscribe<BombPlacedEvent>();
 			Subscribe<ItemAddedEvent>();
+			
+			Subscribe<PlayerRolledEvent>();
 			
 			Audio.PlayMusic(Run.Level.Biome.Music);
 		}
@@ -73,6 +76,7 @@ namespace BurningKnight.state {
 			} else if (e is LockClosedEvent lce) {
 				Audio.PlaySfx(lce.Lock, "door_lock");
 			} else if (e is BombPlacedEvent bpe) {
+				// FIXME: not working
 				Audio.PlaySfx(bpe.Bomb, "bomb_placed");
 			} else if (e is ItemAddedEvent iad) {
 				if (iad.Who is Player) {
@@ -99,6 +103,8 @@ namespace BurningKnight.state {
 						}
 					}
 				}
+			} else if (e is PlayerRolledEvent) {
+				Audio.PlaySfx("gobbo_jump");
 			}
 
 			return false;

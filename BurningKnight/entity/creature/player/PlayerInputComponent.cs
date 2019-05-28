@@ -80,8 +80,7 @@ namespace BurningKnight.entity.creature.player {
 
 				var got = state.StateInstance is Player.GotState;
 
-				if (!got && 
-				    Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
+				if (!got && Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();
