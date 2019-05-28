@@ -45,30 +45,7 @@ namespace BurningKnight.assets.items {
 			if (handle.Extension != ".json") {
 				return;
 			}
-
-			if (Engine.Version.Dev) {
-				var path = handle.ParentName;
-
-				// Fixme: broken on my laptop
-				if (false && !paths.Contains(path)) {
-					paths.Add(path);
-
-					var watcher = new FileSystemWatcher();
-
-					watcher.Filter = "*.json";
-					watcher.Path = path;
-					watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-					                                                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-
-					watcher.Changed += OnChanged;
-					watcher.Created += OnChanged;
-
-					watcher.EnableRaisingEvents = true;
-
-					Log.Debug($"Started watching folder {path}");
-				}
-			}
-
+			
 			var root = JsonValue.Parse(handle.ReadAll());
 
 			foreach (var item in root.AsJsonObject) {
@@ -88,7 +65,6 @@ namespace BurningKnight.assets.items {
 				data["type"] = (int) item.Type;
 				data["chance"] = item.Chance.ToJson();
 				data["auto_pickup"] = item.AutoPickup;
-				Log.Error($"{item.Id} {item.Pools}");
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
@@ -167,11 +143,10 @@ namespace BurningKnight.assets.items {
 				}
 			} else {
 				var pls = pl.Int(0);
-				data.Pools = pls;
 
 				for (var i = 0; i < ItemPool.Count; i++) {
 					if (ItemPool.ById[i].Contains(pls)) {
-						TryToApply(data, pools, ItemPool.ById[i]);
+						pools = TryToApply(data, pools, ItemPool.ById[i]);
 					}
 				}
 			}
