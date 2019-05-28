@@ -13,6 +13,7 @@ namespace BurningKnight.entity.item {
 		private Item item;
 		private bool tweened;
 		private float y;
+		private TweenTask task;
 		
 		public ItemPickupFx(Item it) {
 			item = it;
@@ -33,7 +34,7 @@ namespace BurningKnight.entity.item {
 			AddComponent(component);
 
 			component.Scale = 0;
-			Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
+			task = Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
 
 			y = 12;
 			Tween.To(0, y, x => y = x, 0.2f);
@@ -56,15 +57,13 @@ namespace BurningKnight.entity.item {
 					if (item.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
 						return;
 					}
+
+					task.Ended = true;
 					
 					Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
 					Tween.To(12, y, x => y = x, 0.5f);
-					if (component == null) {
-						tweened = true;
-
-						Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
-						Tween.To(12, y, x => y = x, 0.5f);
-					}
+					
+					tweened = true;
 				}
 			}
 		}

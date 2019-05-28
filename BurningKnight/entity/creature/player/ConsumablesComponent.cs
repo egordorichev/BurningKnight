@@ -1,3 +1,4 @@
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -7,6 +8,7 @@ using Lens.entity;
 using Lens.input;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
@@ -61,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 
 			return !Send(new ConsumableRemovedEvent {
 				Amount = amount,
-				TotalNow =  totalNow,
+				TotalNow = totalNow,
 				Type = type
 			});	
 		}
@@ -70,18 +72,20 @@ namespace BurningKnight.entity.creature.player {
 			if (e is ItemCheckEvent ev) {
 				var type = ev.Item.Type;
 				
-				if (type == ItemType.Bomb) {	
-					Bombs += ev.Item.Count;
-					return true;
-				}
-				
-				if (type == ItemType.Key) {
-					Keys += ev.Item.Count;
-					return true;
-				}
-				
-				if (type == ItemType.Coin) {
-					Coins += ev.Item.Count;
+				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin) {
+					ev.Item.Use((Player) Entity);
+					ev.Item.Done = true;
+					
+					for (var i = 0; i < 4; i++) {
+						Entity.Area.Add(new ParticleEntity(Particles.Dust()) {
+							Position = ev.Item.Center, 
+							Particle = {
+								Scale = Random.Float(0.4f, 0.8f)
+							}
+						});
+					}
+					
+					
 					return true;
 				}
 			}
@@ -92,7 +96,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (bombs > 0 && Run.Depth > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+			if (bombs > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
 				Bombs--;
 				
 				var bomb = new Bomb();

@@ -31,12 +31,14 @@ namespace BurningKnight.state {
 			var thread = new Thread(() => {
 				Tilesets.Load();
 				
-				if (Run.Id == -1) {
-					SaveManager.Load(gameArea, SaveType.Game, Path);
-				}
-
+				SaveManager.Load(gameArea, SaveType.Game, Path);
 				SaveManager.Load(gameArea, SaveType.Level, Path);
-				SaveManager.Load(gameArea, SaveType.Player, Path);
+
+				if (Run.Depth > 0) {
+					SaveManager.Load(gameArea, SaveType.Player, Path);
+				} else {
+					SaveManager.Generate(gameArea, SaveType.Player);
+				}
 
 				ready = true;
 			});

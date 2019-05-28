@@ -12,6 +12,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Chest = new ItemPool("chest");
 		public static readonly ItemPool Secret = new ItemPool("secret");
 		public static readonly ItemPool Lamp = new ItemPool("lamp");
+		public static readonly ItemPool Crate = new ItemPool("crate");
 
 		private static int count;
 		public static int Count => count;

@@ -31,7 +31,7 @@ namespace BurningKnight.ui.imgui {
 		}
 
 		static LocaleEditor() {
-			var locales = new FileHandle("Content/Locales/");
+			var locales = FileHandle.FromRoot("Locales/");
 
 			if (!locales.Exists()) {
 				aviableLocales = new[] { "en" };

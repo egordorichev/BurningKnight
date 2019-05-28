@@ -12,7 +12,7 @@ namespace BurningKnight.assets {
 		private static Dictionary<string, Dialog> dialogs = new Dictionary<string, Dialog>();
 
 		public static void Load() {
-			var dir = new FileHandle("Content/Dialogs");
+			var dir = FileHandle.FromRoot("Dialogs");
 			
 			foreach (var f in dir.ListFileHandles()) {
 				if (f.Extension == ".json") {
@@ -22,7 +22,11 @@ namespace BurningKnight.assets {
 						
 						// Create nodes
 						foreach (var vl in root.AsJsonArray) {
-							ImNode.Create(name, vl);
+							try {
+								ImNode.Create(name, vl);
+							} catch (Exception e) {
+								Log.Error(e);
+							}
 						}
 						
 						// Connect em

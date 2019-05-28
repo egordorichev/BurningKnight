@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.state;
 using BurningKnight.state.save;
 using ImGuiNET;
@@ -9,17 +11,17 @@ using Lens.graphics.gamerenderer;
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
 		private static string[] states = {
-			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer"
+			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer", "room_editor"
 		};
 
 		private static Type[] types = {
 			typeof(InGameState), typeof(DialogEditorState),
 			typeof(EditorState), typeof(PicoState), typeof(LoadState),
-			typeof(SaveExplorerState)
+			typeof(SaveExplorerState), typeof(RoomEditorState)
 		};
 		
 		public static void Render() {
-			if (!ImGui.Begin("Debug")) {
+			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
 			}
@@ -57,7 +59,37 @@ namespace BurningKnight.ui.imgui {
 					Engine.Instance.SetState((GameState) Activator.CreateInstance(types[current]));
 				}
 			}
+
+			ImGui.Separator();
 			
+			ImGui.Text($"Kills: {Run.KillCount}");
+			ImGui.Text($"Time: {Run.FormatTime()}");
+			ImGui.Text($"Has run: {Run.HasRun}");
+
+			if (ImGui.Button("Go to hall (0)")) {
+				Run.Depth = 0;
+			}
+			
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Go to hub (-1)")) {
+				Run.Depth = -1;
+			}
+			
+			if (ImGui.Button("New run")) {
+				Run.StartNew();
+			}
+			
+			ImGui.Separator();
+
+			if (Run.Level != null) {
+				var player = LocalPlayer.Locate(Run.Level.Area);
+
+				if (player != null) {
+					ImGui.Checkbox("Unhittable", ref player.GetComponent<HealthComponent>().Unhittable);
+				}
+			}
+
 			ImGui.End();
 		}
 	}

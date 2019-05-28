@@ -7,6 +7,7 @@ using Lens.lightJson;
 namespace BurningKnight.ui.imgui.node {
 	public class ImTextNode : ImNode, DialogNode {
 		private string name = "";
+		private string label = "";
 		
 		public override void RenderElements() {
 			if (Inputs.Count > 0) {
@@ -18,17 +19,23 @@ namespace BurningKnight.ui.imgui.node {
 			}
 
 			ImGui.PushItemWidth(200);
-			ImGui.InputText($"##{name}", ref name, 256);
+			
+			if (ImGui.InputText($"##{name}", ref label, 256, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				name = label;
+			}
+			
 			ImGui.PopItemWidth();
 		}
 
 		public override void Load(JsonObject root) {
 			base.Load(root);
 			name = Locale.Map[LocaleId];
+			label = name;
 		}
 
 		public override void Save(JsonObject root) {
 			base.Save(root);
+			name = label;
 			Locale.Map[LocaleId] = name;
 		}
 

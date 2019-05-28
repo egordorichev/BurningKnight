@@ -25,7 +25,7 @@ namespace BurningKnight.debug {
 
 		public List<string> Lines = new List<string>();
 		public Area GameArea;
-		public bool Open = true;
+		public bool Open;
 
 		private bool forceFocus;
 		
@@ -58,7 +58,7 @@ namespace BurningKnight.debug {
 		public void Update(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
-				forceFocus = Open;
+				// forceFocus = Open;
 			}
 		}
 		
@@ -109,17 +109,14 @@ namespace BurningKnight.debug {
 			ImGui.EndChild();
 			ImGui.Separator();
 
-			var focus = false;
-
 			if (ImGui.InputText("Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				RunCommand(input);
 				input = "";
-				focus = true;
 			}
 			
 			ImGui.SetItemDefaultFocus();
 
-			if (focus || forceFocus) {
+			if (forceFocus) {
 				ImGui.SetKeyboardFocusHere(-1);
 			}
 

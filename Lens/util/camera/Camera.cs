@@ -133,6 +133,9 @@ namespace Lens.util.camera {
 			}
 		}
 
+		private Vector2 lastPosition;
+		public Vector2 PositionDelta => Position - lastPosition;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -146,6 +149,8 @@ namespace Lens.util.camera {
 				}
 			}
 
+			lastPosition = Position;
+			
 			if (!Detached) {
 				driver?.Update(dt);
 

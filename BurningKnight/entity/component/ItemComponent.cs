@@ -26,6 +26,11 @@ namespace BurningKnight.entity.component {
 				debugItem = "";
 			}
 
+			if (item == null) {
+				Item = null;
+				return;
+			}
+			
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
 			
@@ -44,11 +49,16 @@ namespace BurningKnight.entity.component {
 					};
 
 					debugItem = i.Id;
+					OnItemSet();
 			
 					Send(e);
 					i.HandleEvent(e);
 				}
 			});
+		}
+
+		protected virtual void OnItemSet() {
+			
 		}
 		
 		public Item Drop() {
@@ -123,10 +133,6 @@ namespace BurningKnight.entity.component {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				var item = Items.CreateAndAdd(debugItem, Entity.Area);
 				Set(item);
-			}
-
-			if (Item != null) {
-				AreaDebug.RenderEntity(Item);
 			}
 		}
 	}

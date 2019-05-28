@@ -2,21 +2,26 @@
 
 ### Update rush
 
+* weapons in hall
+* keep your weapons for new run
+* continue old run fix depth reading
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
 * Crash report window
+* cpu / mem usage? 
+* quick restart
+* check fps counter, draw a graph
 
 ### FIXMEE!!
 
-* No lighting
+* ui entities generate on click 2 times?
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
 * Fix -1 level madness
 
 ### Before v0.0.0.4
 
-* Item editor
-* Fix player spawns
+* make door explodable
 * Dialog for old man
 * Dont let the player exit until he has a lamp
 * Put lamps and weapons in hall
@@ -135,6 +140,7 @@
 
 ### Ideas
 
+* make bk himself sign!!!!
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Signs, you can write/read from them
 * In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"

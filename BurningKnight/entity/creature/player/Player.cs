@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -19,21 +22,15 @@ using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
-	public class Player : Creature {
-		private bool loaded;
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			loaded = true;
-		}
-
+	public class Player : Creature, DropModifier {
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			Height = 11;
 			
 			// Graphics
-			// AddComponent(new LightComponent(this, 128f, new Color(1, 1, 1, 1f)));
+			AddComponent(new LightComponent(this, 128f, new Color(0.3f, 0.4f, 0.3f, 0.2f)));
+			
 			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -5)
 			});
@@ -52,18 +49,10 @@ namespace BurningKnight.entity.creature.player {
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
 			AddComponent(new InteractorComponent {
-				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState)
+				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState || died)
 			});
 			
 			GetComponent<StateComponent>().Become<IdleState>();
-
-			if (Engine.Version.Dev) {
-				var health = GetComponent<HealthComponent>();
-
-				health.Unhittable = true;
-				health.MaxHealth = HeartsComponent.Cap;
-				health.SetHealth(health.MaxHealth, this);
-			}
 			
 			AddTag(Tags.Player);
 			AddTag(Tags.PlayerSave);
@@ -75,10 +64,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void FindSpawnPoint() {
-			if (Run.Depth > 0 && loaded) {
-				return;
-			}
-
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
 				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
@@ -112,6 +97,8 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				}
 			}
+			
+			Log.Error("Did not find a spawn point!");
 		}
 		
 		#region Player States
@@ -171,11 +158,15 @@ namespace BurningKnight.entity.creature.player {
 			
 			private float lastParticle = 0.05f;
 			private Vector2 direction;
+			private bool wasUnhittable;
 			
 			public override void Init() {
 				base.Init();
-				
-				Self.GetComponent<HealthComponent>().Unhittable = true;
+
+				var hp = Self.GetComponent<HealthComponent>();
+
+				wasUnhittable = hp.Unhittable;
+				hp.Unhittable = true;
 
 				var body = Self.GetComponent<RectBodyComponent>();
 				var angle = body.Acceleration.LengthSquared() > 0.1f 
@@ -196,7 +187,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Destroy() {
 				base.Destroy();
 				
-				Self.GetComponent<HealthComponent>().Unhittable = false;
+				Self.GetComponent<HealthComponent>().Unhittable = wasUnhittable;
 				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
 			}
 
@@ -291,6 +282,13 @@ namespace BurningKnight.entity.creature.player {
 			return true;
 		}
 
+		protected override void HandleDeath() {
+			Done = false;
+			died = true;
+		}
+
+		private bool died;
+
 		public override void AnimateDeath() {
 			base.AnimateDeath();
 			
@@ -306,6 +304,22 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
+		}
+
+		public void ModifyDrops(List<Item> drops) {
+			var inventory = GetComponent<InventoryComponent>();
+
+			foreach (var i in inventory.Items) {
+				drops.Add(i);
+			}
+
+			inventory.Items.Clear();
+
+			foreach (var c in Components.Values) {
+				if (c is ItemComponent i && i.Item != null) {
+					drops.Add(Items.Create(i.Item.Id));
+				}
+			}
 		}
 	}
 }

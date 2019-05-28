@@ -1,4 +1,5 @@
 ﻿using BurningKnight.physics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
@@ -13,6 +14,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);
+
 			Body.FixedRotation = true;
 			Body.UserData = this;
 			Body.LinearDamping = 0;

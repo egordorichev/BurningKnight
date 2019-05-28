@@ -29,6 +29,7 @@ namespace Lens {
 		public static float Time;
 		public static float Delta;
 		public static GameTime GameTime;
+		public static bool Quiting;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
@@ -89,6 +90,7 @@ namespace Lens {
 		}
 		
 		protected override void UnloadContent() {
+			Quiting = true;
 			State?.Destroy();
 			StateRenderer?.Destroy();
 			

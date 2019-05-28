@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var val = (float) root["timer"].AsNumber;
+			var val = (float) root["timer"].Int(3);
 
 			if (ImGui.InputFloat("Timer", ref val)) {
 				root["timer"] = val;

@@ -83,6 +83,8 @@ namespace BurningKnight.entity.fx {
 				Position += velocity * (dt * speed);
 			}
 
+			Position += Camera.Instance.PositionDelta * (speed * 0.01f);
+
 			angle += angleSpeed * dt * w;
 			
 			if (overlaps) {

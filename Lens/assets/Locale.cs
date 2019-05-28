@@ -22,7 +22,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			var file = new FileHandle(path);
+			var file = FileHandle.FromRoot(path);
 
 			if (!file.Exists()) {
 				Log.Error($"Locale {path} was not found!");
@@ -54,11 +54,11 @@ namespace Lens.assets {
 			}
 			
 			Current = locale;
-			LoadRaw(locale, $"Content/Locales/{locale}.json");
+			LoadRaw(locale, $"Locales/{locale}.json");
 
 			if (!LoadedFallback) {
 				if (locale != "en") {
-					LoadRaw("en", "Content/Locales/en.json", true);
+					LoadRaw("en", "Locales/en.json", true);
 					LoadedFallback = true;
 				} else {
 					LoadedFallback = true;
@@ -88,7 +88,7 @@ namespace Lens.assets {
 
 		public static void Delete() {
 			try {
-				new FileHandle($"Content/Locales/{Current}.json").Delete();
+				FileHandle.FromRoot($"Locales/{Current}.json").Delete();
 				Current = "en";
 			} catch (Exception e) {
 				Log.Error(e);

@@ -35,12 +35,14 @@ namespace BurningKnight.entity.creature.player {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
 					Done = false;
+					
+					((InGameState) Engine.Instance.State).HandleDeath();
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 1);
 					
 					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).OnEnd = () => {
-						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.3f);
+						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f);
 
 						t.Delay = 0.8f;
 						t.OnEnd = ((InGameState) Engine.Instance.State).AnimateDeathScreen;
@@ -48,9 +50,9 @@ namespace BurningKnight.entity.creature.player {
 						AnimateDeath();
 						Done = true;
 					};
-					
-					return true;
 				}
+
+				return true;
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;

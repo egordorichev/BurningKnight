@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public float CalculateMove() {
-			return (float) (Math.Sin(T * 2f) * 0.5f + 0.5f) * -5.5f;
+			return (float) (Math.Sin(T * 3f) * 0.5f + 0.5f) * -5.5f;
 		}
 
 		public virtual Vector2 CalculatePosition(bool shadow = false) {
@@ -45,7 +45,7 @@ namespace BurningKnight.entity.item {
 
 			var origin = Sprite.Center;
 			var position = CalculatePosition(shadow);
-			var angle = (float) Math.Cos(T * 1.2f) * 0.4f;
+			var angle = (float) Math.Cos(T * 1.8f) * 0.4f;
 
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;

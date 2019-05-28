@@ -140,6 +140,7 @@
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\CloseDialogComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
+    <Compile Include="entity\component\DropModifier.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />
     <Compile Include="entity\component\ExplodableComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
+    <Compile Include="entity\component\PoolDropsComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
+    <Compile Include="entity\creature\PoolDrop.cs" />
     <Compile Include="entity\creature\SimpleDrop.cs" />
     <Compile Include="entity\creature\SingleDrop.cs" />
     <Compile Include="entity\Cursor.cs" />
@@ -271,7 +274,11 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />
+    <Compile Include="entity\item\use\GiveBombUse.cs" />
+    <Compile Include="entity\item\use\GiveGoldUse.cs" />
     <Compile Include="entity\item\use\GiveHeartContainersUse.cs" />
+    <Compile Include="entity\item\use\GiveItemUse.cs" />
+    <Compile Include="entity\item\use\GiveKeyUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
@@ -312,6 +319,7 @@
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\Campfire.cs" />
+    <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Portal.cs" />
@@ -381,6 +389,8 @@
     <Compile Include="save\GlobalSave.cs" />
     <Compile Include="save\LevelSave.cs" />
     <Compile Include="save\PlayerSave.cs" />
+    <Compile Include="save\PrefabData.cs" />
+    <Compile Include="save\PrefabSaver.cs" />
     <Compile Include="save\SaveLock.cs" />
     <Compile Include="save\Saver.cs" />
     <Compile Include="save\SaveType.cs" />
@@ -398,6 +408,7 @@
     <Compile Include="state\LoadState.cs" />
     <Compile Include="state\MenuState.cs" />
     <Compile Include="state\PicoState.cs" />
+    <Compile Include="state\RoomEditorState.cs" />
     <Compile Include="state\Run.cs" />
     <Compile Include="state\save\EntityData.cs" />
     <Compile Include="state\save\EntityInspector.cs" />

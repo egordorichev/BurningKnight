@@ -4,6 +4,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -64,12 +65,14 @@ namespace BurningKnight.state {
 		
 		public InGameState(Area area) {
 			Area = area;
-			Area.EventListener.Subscribe<DiedEvent>(this);
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
+			Area.EventListener.Subscribe<DiedEvent>(this);
 		}
 		
 		public override void Init() {
 			base.Init();
+			Run.StartedNew = false;
+
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -82,6 +85,8 @@ namespace BurningKnight.state {
 			foreach (var p in Area.Tags[Tags.Player]) {
 				((Player) p).FindSpawnPoint();
 			}
+			
+			Camera.Instance.Jump();
 		}
 
 		public override void Destroy() {
@@ -89,12 +94,16 @@ namespace BurningKnight.state {
 			Lights.Destroy();
 
 			SaveManager.Backup();
-			SaveManager.Save(Area, SaveType.Global, true);
+
+			var old = !Engine.Quiting;
+			
+			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!died) {
-				SaveManager.Save(Area, SaveType.Level, true);
-				SaveManager.Save(Area, SaveType.Player, true);
+			if (!Run.StartedNew && !died && Run.Depth > 0) {
+				SaveManager.Save(Area, SaveType.Game, old);
+				SaveManager.Save(Area, SaveType.Level, old);
+				SaveManager.Save(Area, SaveType.Player, old);
 			}
 
 			Shaders.Screen.Parameters["split"].SetValue(0f);
@@ -114,8 +123,6 @@ namespace BurningKnight.state {
 				return;
 			}
 			
-			// fixme: quadOut doesnt feel smooth as tween for the pauseMenu.Y
-			// it seems like its broken
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
@@ -170,6 +177,10 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
+				if (!died) {
+					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
+				}
+
 				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
@@ -217,7 +228,7 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave) {
+			if (Settings.Autosave && Run.Depth > 0) {
 				if (!saving) {
 					saveTimer += dt;
 
@@ -233,6 +244,7 @@ namespace BurningKnight.state {
 
 							SaveManager.ThreadSave(saveLock.UnlockGlobal, Area, SaveType.Global);
 							SaveManager.ThreadSave(saveLock.UnlockGame, Area, SaveType.Game);
+
 							SaveManager.ThreadSave(saveLock.UnlockLevel, Area, SaveType.Level);
 							SaveManager.ThreadSave(saveLock.UnlockPlayer, Area, SaveType.Player);
 						}) {
@@ -480,7 +492,10 @@ namespace BurningKnight.state {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
-				Click = () => Run.Depth = 0
+				Click = () => {
+					Run.ResetStats();
+					Run.Depth = 0;
+				}
 			});
 			
 			gameOverMenu.Add(new UiButton {
@@ -514,21 +529,25 @@ namespace BurningKnight.state {
 			Tween.To(this, new {blur = 1}, 0.5f);
 			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
 		}
+		
+		public void HandleDeath() {
+			died = true;
+				
+			new Thread(() => {
+				SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+				SaveManager.Backup();
+			}).Start();
+		}
 
 		public bool HandleEvent(Event e) {
 			if (died) {
 				return false;
 			}
 			
-			if (e is DiedEvent ded && ded.Who is LocalPlayer) {
-				died = true;
-				
-				new Thread(() => {
-					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
-					SaveManager.Backup();
-				}).Start();
-			} else if (e is ItemCheckEvent item) {
+			if (e is ItemCheckEvent item) {
 				banner?.Show(item.Item);
+			} else if (e is DiedEvent de && de.Who is Mob) {
+				Run.KillCount++;
 			}
 
 			return false;

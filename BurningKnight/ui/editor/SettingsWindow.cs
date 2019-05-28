@@ -73,7 +73,7 @@ namespace BurningKnight.ui.editor {
 		private IntPtr biomePointer;
 		private Texture2D tilesetTexture;
 		private IntPtr tilesetPointer;
-		public bool SnapToGrid;
+		public bool SnapToGrid = true;
 		public bool Center;
 		public CommandQueue Commands;
 		public Editor Editor;
@@ -89,7 +89,7 @@ namespace BurningKnight.ui.editor {
 				return;
 			}
 
-			var locales = new FileHandle("Content/Prefabs/");
+			var locales = FileHandle.FromRoot("Prefabs/");
 
 			if (!locales.Exists()) {
 				levels = new[] {
@@ -175,7 +175,7 @@ namespace BurningKnight.ui.editor {
 		}
 
 		private void Delete() {
-			var file = new FileHandle($"Content/Prefabs/{levels[currentLevel]}.lvl");
+			var file = FileHandle.FromRoot($"Prefabs/{levels[currentLevel]}.lvl");
 
 			try {
 				file.Delete();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lens.util;
 using Lens.util.camera;
 
@@ -10,21 +11,6 @@ namespace Lens.entity {
 		public List<Entity> ToRemove = new List<Entity>();
 
 		private Area Area;
-		
-		private static Comparison<Entity> CompareByDepth = (a, b) => {
-			var ad = a.Depth;
-			var bd = b.Depth;
-
-			if (ad > bd) {
-				return 1;
-			}
-
-			if (bd > ad) {
-				return -1;
-			}
-
-			return a.Bottom > b.Bottom ? 1 : (a.Bottom < b.Bottom ? -1 : 0);
-		};
 
 		public EntityList(Area area) {
 			Area = area;
@@ -39,7 +25,9 @@ namespace Lens.entity {
 			ToRemove.Add(entity);
 			ToAdd.Remove(entity);
 
-			entity.Done = true;
+			if (entity.Area == Area) {
+				entity.Done = true;
+			}
 		}
 		
 		private bool CheckOnScreen(Entity entity) {
@@ -53,7 +41,9 @@ namespace Lens.entity {
 		public void AutoRemove() {
 			if (ToRemove.Count > 0) {
 				try {
-					foreach (var entity in ToRemove) {
+					for (var i = ToRemove.Count - 1; i >= 0; i--) {
+						var entity = ToRemove[i];
+
 						if (entity.Area == Area) {
 							entity.Destroy();
 						}
@@ -109,19 +99,19 @@ namespace Lens.entity {
 				}
 			}
 
-			Entities.Sort(CompareByDepth);
+			Entities = Entities.OrderBy(e => e.Depth).ThenBy(e => e.Bottom).ToList();
 		}
 
 		public void Render() {
-				foreach (var entity in Entities) {
-					if ((entity.OnScreen || entity.AlwaysVisible) && entity.Visible) {
-						try {
-							entity.Render();
-						} catch (Exception e) {
-							Log.Error(e);
-						}
+			foreach (var entity in Entities) {
+				if ((entity.OnScreen || entity.AlwaysVisible) && entity.Visible) {
+					try {
+						entity.Render();
+					} catch (Exception e) {
+						Log.Error(e);
 					}
 				}
+			}
 		}
 
 		public void RenderDebug() {

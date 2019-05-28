@@ -324,6 +324,14 @@ namespace BurningKnight.level {
 			LoadPassable();
 		}
 
+		public void MarkForClearing() {
+			Tiles = new byte[Size];
+			Liquid = new byte[Size];
+			Variants = new byte[Size];
+			LiquidVariants = new byte[Size];
+			cleared = false;
+		}
+
 		public void Setup() {
 			Size = width * height;
 			
@@ -813,7 +821,6 @@ namespace BurningKnight.level {
 
 						if (t.IsWall()) {
 							byte v = Variants[index];
-							var light = DrawLight ? Light[index] : 1;
 
 							for (int xx = 0; xx < 2; xx++) {
 								for (int yy = 0; yy < 2; yy++) {
@@ -857,7 +864,7 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMapExtra[lv];
 
 										if (vl != -1) {
-											light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
 
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
@@ -877,7 +884,7 @@ namespace BurningKnight.level {
 										var vl = Tileset.wallMap[lv];
 										
 										if (vl != -1) {
-											light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
 
 											if (light > LightMin) {
 												Graphics.Color.A = (byte) (light * 255);
@@ -982,9 +989,8 @@ namespace BurningKnight.level {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var light = Light[index];
-					var explored = Explored[index];
 
-					if (light < LightMax) {
+					if (Explored[index] && light < LightMax) {
 						Light[index] = light = Math.Min(1, light + dt);
 					}
 
