@@ -71,7 +71,7 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-			Run.StartingNew = false;
+			Run.StartedNew = false;
 
 			SetupUi();
 
@@ -100,7 +100,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartingNew && !died && Run.Depth > 0) {
+			if (!Run.StartedNew && !died && Run.Depth > 0) {
 				SaveManager.Save(Area, SaveType.Game, old);
 				SaveManager.Save(Area, SaveType.Level, old);
 				SaveManager.Save(Area, SaveType.Player, old);
@@ -177,8 +177,10 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
-				Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
-				Log.Error(Run.Time);
+				if (!died) {
+					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
+				}
+
 				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);

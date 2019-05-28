@@ -21,9 +21,18 @@ namespace BurningKnight.level.entities {
 			Depth = Layers.Entrance;
 		}
 
-		private bool Interact(Entity entity) {
-			Run.Depth = To;
+		protected virtual bool Interact(Entity entity) {
+			if (To == 1) {
+				Run.StartNew();
+			} else {
+				Run.Depth = To;
+			}
+
 			return true;
+		}
+
+		protected virtual string GetFxText() {
+			return "descend";
 		}
 
 		public override void AddComponents() {
@@ -37,7 +46,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
 					if (entity is LocalPlayer) {
-						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get("descend")));
+						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())));
 					}
 				}
 			});

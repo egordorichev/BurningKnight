@@ -158,11 +158,15 @@ namespace BurningKnight.entity.creature.player {
 			
 			private float lastParticle = 0.05f;
 			private Vector2 direction;
+			private bool wasUnhittable;
 			
 			public override void Init() {
 				base.Init();
-				
-				Self.GetComponent<HealthComponent>().Unhittable = true;
+
+				var hp = Self.GetComponent<HealthComponent>();
+
+				wasUnhittable = hp.Unhittable;
+				hp.Unhittable = true;
 
 				var body = Self.GetComponent<RectBodyComponent>();
 				var angle = body.Acceleration.LengthSquared() > 0.1f 
@@ -183,7 +187,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Destroy() {
 				base.Destroy();
 				
-				Self.GetComponent<HealthComponent>().Unhittable = false;
+				Self.GetComponent<HealthComponent>().Unhittable = wasUnhittable;
 				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
 			}
 

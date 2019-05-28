@@ -82,6 +82,30 @@ namespace BurningKnight.save {
 			// }.Start();
 		}
 
+		public static bool ExistsAndValid(SaveType saveType, string path = null) {
+			var save = GetFileHandle(GetSavePath(saveType, false, path));
+
+			if (!save.Exists()) {
+				return false;
+			}
+			
+			var stream = new FileReader(save.FullPath);
+
+			if (stream.ReadInt32() != MagicNumber) {
+				return false;
+			}
+
+			if (stream.ReadInt16() > Version) {
+				return false;
+			}
+
+			if (stream.ReadByte() != (byte) saveType) {
+				return false;
+			}
+
+			return true;
+		}
+
 		public static void Load(Area area, SaveType saveType, string path = null) {
 			var save = GetFileHandle(GetSavePath(saveType, false, path));
 
@@ -105,6 +129,7 @@ namespace BurningKnight.save {
 				if (version > Version) {
 					Log.Error($"Unknown version {version}, generating new");
 					Generate(area, saveType);
+					return;
 				} else if (version < Version) {
 					// do something on it
 				}

@@ -5,14 +5,15 @@ using Lens;
 
 namespace BurningKnight.state {
 	public static class Run {
-		private static int depth = 1;
+		private static int depth = 0;
 		public static int NextDepth { get; private set; } = depth;
 		public static int LastDepth = depth;
 		public static bool StartingNew;
 		public static int KillCount;
 		public static float Time;
-		public static int Id = 0;
 		public static Level Level;
+		public static bool StartedNew;
+		public static bool HasRun;
 
 		public static int Depth {
 			get => depth;
@@ -24,27 +25,29 @@ namespace BurningKnight.state {
 		}
 
 		public static void Update() {
-			if (depth != NextDepth) {
+			if (StartingNew) {
+				NextDepth = 1;
+				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
+			}
+
+			if (StartingNew || depth != NextDepth) {
 				LastDepth = depth;
 				depth = NextDepth;
+				StartedNew = StartingNew;
+				StartingNew = false;
 				Engine.Instance.SetState(new LoadState());
 			}
 		}
 
 		public static void StartNew() {
-			LastDepth = depth;
-			NextDepth = 1;
-			
 			StartingNew = true;
-			SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-			
-			Engine.Instance.SetState(new LoadState());
+			HasRun = false;
 		}
 
 		public static void ResetStats() {
 			KillCount = 0;
 			Time = 0;
-			Id++;
+			HasRun = false;
 		}
 
 		public static string FormatTime() {

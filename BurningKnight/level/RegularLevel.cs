@@ -141,18 +141,7 @@ namespace BurningKnight.level {
 			var R = Random.Float();
 
 			if (R < 0.33f) {
-				var Builder = new LineBuilder();
-
-				if (Run.Id == 0 && Run.Depth <= 2) {
-					Builder.SetPathLength(2, new [] { 0f, 1f, 0f });
-					Builder.SetExtraConnectionChance(0);
-
-					if (Run.Depth == 1) {
-						Builder.SetAngle(90);
-					}
-				}
-
-				return Builder;
+				return new LineBuilder();
 			}
 
 			if (R < 0.66f) return new LoopBuilder();

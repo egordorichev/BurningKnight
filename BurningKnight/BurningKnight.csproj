@@ -317,6 +317,7 @@
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\Campfire.cs" />
+    <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Portal.cs" />

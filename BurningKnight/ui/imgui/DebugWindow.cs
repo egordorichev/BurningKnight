@@ -62,18 +62,18 @@ namespace BurningKnight.ui.imgui {
 
 			ImGui.Separator();
 			
-			ImGui.Text($"Run ID: {Run.Id}");
 			ImGui.Text($"Kills: {Run.KillCount}");
 			ImGui.Text($"Time: {Run.FormatTime()}");
+			ImGui.Text($"Has run: {Run.HasRun}");
 
-			if (ImGui.Button("Go to hall")) {
-				Run.Depth = -1;
+			if (ImGui.Button("Go to hall (0)")) {
+				Run.Depth = 0;
 			}
 			
 			ImGui.SameLine();
 			
-			if (ImGui.Button("Go to hub")) {
-				Run.Depth = 0;
+			if (ImGui.Button("Go to hub (-1)")) {
+				Run.Depth = -1;
 			}
 			
 			if (ImGui.Button("New run")) {

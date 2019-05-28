@@ -1,4 +1,3 @@
-using System;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util.file;
@@ -10,7 +9,6 @@ namespace BurningKnight.save {
 			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
-			writer.WriteInt32(Run.Id);
 			writer.WriteString(Random.Seed);
 		}
 
@@ -19,11 +17,16 @@ namespace BurningKnight.save {
 		}
 
 		public override void Load(Area area, FileReader reader) {
+			if (Run.HasRun) {
+				return;
+			}
+
+			Run.HasRun = true;
+			
 			Run.SetDepth(reader.ReadSbyte());
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
-			Run.Id = reader.ReadInt32();
 			
 			Random.Seed = reader.ReadString();
 		}
@@ -31,7 +34,6 @@ namespace BurningKnight.save {
 		public override void Generate(Area area) {
 			Run.KillCount = 0;
 			Run.Time = 0;
-			Run.Id = Math.Max(Run.Id, 0);
 		}
 
 		public GameSave() : base(SaveType.Game) {
