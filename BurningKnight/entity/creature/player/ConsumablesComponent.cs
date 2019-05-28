@@ -1,3 +1,4 @@
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -7,6 +8,7 @@ using Lens.entity;
 using Lens.input;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
@@ -61,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 
 			return !Send(new ConsumableRemovedEvent {
 				Amount = amount,
-				TotalNow =  totalNow,
+				TotalNow = totalNow,
 				Type = type
 			});	
 		}
@@ -72,6 +74,18 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin) {
 					ev.Item.Use((Player) Entity);
+					ev.Item.Done = true;
+					
+					for (var i = 0; i < 4; i++) {
+						Entity.Area.Add(new ParticleEntity(Particles.Dust()) {
+							Position = ev.Item.Center, 
+							Particle = {
+								Scale = Random.Float(0.4f, 0.8f)
+							}
+						});
+					}
+					
+					
 					return true;
 				}
 			}

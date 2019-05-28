@@ -13,11 +13,12 @@ namespace BurningKnight.level.entities {
 				return;
 			}
 
-			if (SaveManager.ExistsAndValid(SaveType.Game)
-			    && SaveManager.ExistsAndValid(SaveType.Level, s => {
-				    depth = GameSave.PeekDepth(s); 
+			if (SaveManager.ExistsAndValid(SaveType.Game, s => {
+				    depth = GameSave.PeekDepth(s);
 				    // fixme: doesnt seem valid
-			    }, $"{SaveManager.SlotDir}level-1.lvl")
+			    })
+			    
+			    && SaveManager.ExistsAndValid(SaveType.Level, null, $"{SaveManager.SlotDir}level-1.lvl")
 			    && SaveManager.ExistsAndValid(SaveType.Player)) {
 
 				return;

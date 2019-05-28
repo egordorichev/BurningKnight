@@ -2,7 +2,8 @@
 
 ### Update rush
 
-* fix gold pickup
+* weapons in hall
+* keep your weapons for new run
 * continue old run fix depth reading
 * Hub -> hall -> game -> die -> repeat
 * Nicer load screen thingy
