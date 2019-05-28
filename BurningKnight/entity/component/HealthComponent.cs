@@ -29,6 +29,7 @@ namespace BurningKnight.entity.component {
 
 			if (!Send(new HealthModifiedEvent {
 				Amount = h - old,
+				Who = Entity,
 				From = setter
 			})) {
 				if (old > h) {
@@ -47,6 +48,7 @@ namespace BurningKnight.entity.component {
 
 				Send(new HealthModifiedEvent {
 					Amount = 0,
+					Who = Entity,
 					From = null
 				});
 				

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Lens.entity;
 using Lens.util;
+using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.tween;
 using Microsoft.Xna.Framework.Audio;
@@ -58,7 +60,29 @@ namespace Lens.assets {
 				m.Dispose();
 			}
 		}
-		
+
+		private static float maxD = Display.Width * 3;
+
+		public static void PlaySfx(Entity entity, string id, float volume = 1, float pitch = 0) {
+			if (!entity.OnScreen) {
+				return;
+			}
+
+			if (Camera.Instance == null) {
+				PlaySfx(id, volume, pitch);
+				return;
+			}
+
+			var ps = Camera.Instance.Position;
+			var d = entity.DistanceTo(ps);
+			
+			if (d > maxD) {
+				return;
+			}
+
+			PlaySfx(id, d / maxD * volume, pitch);
+		}
+
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
 			PlaySfx(GetSfx(id), volume, pitch, pan);
 		}

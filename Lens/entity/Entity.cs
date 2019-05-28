@@ -269,7 +269,7 @@ namespace Lens.entity {
 			return entity.CenterY - CenterY;
 		}
 
-		public float DistanceTo(Entity entity) {
+		public float DistanceToSquared(Entity entity) {
 			float dx = DxTo(entity);
 			float dy = DyTo(entity);
 			
@@ -284,19 +284,19 @@ namespace Lens.entity {
 			return entity.Y - CenterY;
 		}
 
-		public float DistanceTo(Vector2 entity) {
+		public float DistanceToSquared(Vector2 entity) {
 			float dx = DxTo(entity);
 			float dy = DyTo(entity);
 			
 			return dx * dx + dy * dy;
 		}
 
-		public float DistanceSquaredTo(Vector2 entity) {
-			return (float) Math.Sqrt(DistanceTo(entity));
+		public float DistanceTo(Vector2 entity) {
+			return (float) Math.Sqrt(DistanceToSquared(entity));
 		}
 
-		public float DistanceSquaredTo(Entity entity) {
-			return (float) Math.Sqrt(DistanceTo(entity));
+		public float DistanceTo(Entity entity) {
+			return (float) Math.Sqrt(DistanceToSquared(entity));
 		}
 		
 		public float AngleTo(Entity entity) {

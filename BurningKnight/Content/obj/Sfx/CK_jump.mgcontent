@@ -3,10 +3,10 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/CK_jump.mp3</SourceFile>
   <SourceTime>2019-03-05T08:42:10.0245616+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/CK_jump.xnb</DestFile>
-  <DestTime>2019-05-28T13:57:23.3780171+03:00</DestTime>
+  <DestTime>2019-05-28T16:29:19.0177898+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
-  <Processor>SongProcessor</Processor>
+  <Processor>SoundEffectProcessor</Processor>
   <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
@@ -14,7 +14,5 @@
   </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput>
-    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/CK_jump.wma</string>
-  </BuildOutput>
+  <BuildOutput />
 </PipelineBuildEvent>

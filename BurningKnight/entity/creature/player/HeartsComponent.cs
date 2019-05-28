@@ -24,6 +24,7 @@ namespace BurningKnight.entity.creature.player {
 			if (amount != 0 && !Send(new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
+				Who = Entity,
 				Default = false
 			})) {
 				ironHalfs = (byte) Math.Max(0, ironHalfs + amount);
@@ -37,6 +38,7 @@ namespace BurningKnight.entity.creature.player {
 			if (amount != 0 && !Send(new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
+				Who = Entity,
 				Default = false
 			})) {
 				goldenHalfs = (byte) Math.Max(0, goldenHalfs + amount);
@@ -47,6 +49,7 @@ namespace BurningKnight.entity.creature.player {
 			if (!Send(new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
+				Who = Entity,
 				Default = false
 			})) {
 				byte golden = (byte) Math.Min(amount, goldenHalfs);

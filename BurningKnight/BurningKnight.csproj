@@ -222,6 +222,8 @@
     <Compile Include="entity\events\ConsumableAddedEvent.cs" />
     <Compile Include="entity\events\ConsumableRemovedEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
+    <Compile Include="entity\events\DoorClosedEvent.cs" />
+    <Compile Include="entity\events\DoorOpenedEvent.cs" />
     <Compile Include="entity\events\ExplodedEvent.cs" />
     <Compile Include="entity\events\FlagCollisionEndEvent.cs" />
     <Compile Include="entity\events\FlagCollisionStartEvent.cs" />
@@ -233,6 +235,7 @@
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemTakenEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
+    <Compile Include="entity\events\LockClosedEvent.cs" />
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />

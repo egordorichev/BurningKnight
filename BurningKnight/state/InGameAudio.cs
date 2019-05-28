@@ -1,8 +1,12 @@
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.state {
 	public class InGameAudio : Entity {
@@ -11,6 +15,13 @@ namespace BurningKnight.state {
 			
 			Subscribe<RoomChangedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
+			Subscribe<DiedEvent>();
+			Subscribe<HealthModifiedEvent>();
+			
+			Subscribe<DoorClosedEvent>();
+			Subscribe<DoorOpenedEvent>();
+			Subscribe<LockOpenedEvent>();
+			Subscribe<LockClosedEvent>();
 			
 			Audio.PlayMusic(Run.Level.Biome.Music);
 		}
@@ -38,8 +49,27 @@ namespace BurningKnight.state {
 				
 				Audio.PlaySfx("secret");
 				Audio.PlaySfx("secret_room");
+			} else if (e is DiedEvent de) {
+				// FIXME: death sound for player?
+				if (de.Who is Player) {
+					Audio.PlayMusic("Nostalgia");
+				} else {
+					Audio.PlaySfx(de.Who, "enemy_death");
+				}
+			} else if (e is HealthModifiedEvent he) {
+				if (he.Amount < 0 && he.Who is Creature) {
+					Audio.PlaySfx(he.Who, he.Who is Player ? $"voice_gobbo_{Random.Int(1, 4)}" : "enemy_impact");
+				}
+			} else if (e is DoorClosedEvent dce) {
+				Audio.PlaySfx(dce.Who, "door_close");
+			} else if (e is DoorOpenedEvent doe) {
+				Audio.PlaySfx(doe.Who, "door_open");
+			} else if (e is LockOpenedEvent loe) {
+				Audio.PlaySfx(loe.Lock, loe.Lock is IronLock ? "door_unlock" : "door_lock");
+			} else if (e is LockClosedEvent lce) {
+				Audio.PlaySfx(lce.Lock, "door_lock");
 			}
-			
+
 			return false;
 		}
 	}

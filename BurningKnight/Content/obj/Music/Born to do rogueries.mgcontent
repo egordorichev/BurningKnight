@@ -3,10 +3,10 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Born to do rogueries.mp3</SourceFile>
   <SourceTime>2019-05-22T01:55:58+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Born to do rogueries.xnb</DestFile>
-  <DestTime>2019-05-28T13:54:54.1823845+03:00</DestTime>
+  <DestTime>2019-05-28T16:28:45.4357188+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
-  <Processor>SongProcessor</Processor>
+  <Processor>SoundEffectProcessor</Processor>
   <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
@@ -14,7 +14,5 @@
   </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput>
-    <string>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Born to do rogueries.wma</string>
-  </BuildOutput>
+  <BuildOutput />
 </PipelineBuildEvent>

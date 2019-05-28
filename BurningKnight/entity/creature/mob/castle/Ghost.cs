@@ -50,7 +50,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.Target != null && Self.Target.DistanceSquaredTo(Self) < TargetRadius) {
+				if (Self.Target != null && Self.Target.DistanceTo(Self) < TargetRadius) {
 					Become<ChaseState>();
 				}
 
@@ -74,7 +74,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				}
 				
 				// Fixme: this target stuff is bad for multiplayer, it will chase only random player, not closest
-				float d = Self.Target.DistanceSquaredTo(Self);
+				float d = Self.Target.DistanceTo(Self);
 
 				if (!rage) {
 					Self.CheckRage();

@@ -116,7 +116,7 @@ namespace Lens.entity {
 					continue;
 				}
 
-				if (entity.DistanceTo(from) <= d) {
+				if (entity.DistanceToSquared(from) <= d) {
 					list.Add(entity);
 				}
 			}

@@ -18,6 +18,7 @@ using BurningKnight.ui;
 using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -553,6 +554,24 @@ namespace BurningKnight.state {
 			return false;
 		}
 
+		private void RenderSettings() {
+			if (!ImGui.Begin("Settings")) {
+				ImGui.End();
+				return;
+			}
+
+			var m = Settings.MusicVolume;
+			
+			if (ImGui.DragFloat("Music", ref m, 0.01f, 0, 1f)) {
+				Settings.MusicVolume = m;
+			}
+
+			ImGui.DragFloat("Sounds", ref Settings.SfxVolume, 0.01f, 0, 1f);
+			ImGui.Checkbox("Ui sounds", ref Settings.UiSfx);
+			
+			ImGui.End();
+		}
+
 		public override void RenderNative() {
 			if (!console.Open) {
 				return;
@@ -568,7 +587,8 @@ namespace BurningKnight.state {
 			
 			LocaleEditor.Render();
 			ItemEditor.Render();
-			
+			RenderSettings();
+
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

@@ -141,6 +141,10 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
+				
+				Self.HandleEvent(new LockClosedEvent {
+					Lock = (Lock) Self
+				});
 			}
 
 			public override void Update(float dt) {

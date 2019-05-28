@@ -22,9 +22,7 @@ namespace BurningKnight.entity.creature {
 
 			if (Random.Float() <= Chance) {
 				for (var i = 0; i < Random.Int(Min, Max + 1); i++) {
-					var it = Items.Generate(Pool);
-					Log.Error(it);
-					list.Add(it);
+					list.Add(Items.Generate(Pool));
 				}
 			}
 

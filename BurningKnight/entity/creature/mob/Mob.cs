@@ -112,7 +112,7 @@ namespace BurningKnight.entity.creature.mob {
 			Entity closest = null;
 			
 			foreach (var target in targets) {
-				var d = target.DistanceTo(this);
+				var d = target.DistanceToSquared(this);
 
 				if (d < closestDistance) {
 					closestDistance = d;
@@ -180,7 +180,7 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
 			if (!back) {
-				var ds = DistanceTo(point);
+				var ds = DistanceToSquared(point);
 
 				if (ds <= distance) {
 					return true;

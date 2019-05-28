@@ -19,7 +19,7 @@ namespace BurningKnight.entity.component {
 			Lock.Move = !setDepth;
 
 			if (setDepth) {
-				Lock.Depth = Layers.Lock;	
+				Lock.Depth = Layers.Lock;
 			}
 			
 			entity.Area.Add(Lock);
@@ -27,6 +27,11 @@ namespace BurningKnight.entity.component {
 
 			Lock.Center = entity.Center + offset;
 			this.offset = offset;
+		}
+
+		public override void Init() {
+			base.Init();
+			Lock.AddComponent(new OwnerComponent(Entity));
 		}
 
 		public override void Update(float dt) {

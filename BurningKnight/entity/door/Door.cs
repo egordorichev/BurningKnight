@@ -78,7 +78,15 @@ namespace BurningKnight.entity.door {
 					Colliding.Add(start.Entity);
 
 					if (Colliding.Count >= 1 && CanOpen()) {
-						GetComponent<StateComponent>().Become<OpeningState>();	
+						var state = GetComponent<StateComponent>();
+
+						if (!(state.StateInstance is OpeningState || state.StateInstance is OpenState)) {
+							HandleEvent(new DoorOpenedEvent {
+								Who = this
+							});
+						}
+						
+						state.Become<OpeningState>();
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
@@ -106,6 +114,10 @@ namespace BurningKnight.entity.door {
 				lastCollisionTimer -= dt;
 
 				if (lastCollisionTimer <= 0) {
+					HandleEvent(new DoorClosedEvent {
+						Who = this
+					});
+					
 					state.Become<ClosingState>();
 				}
 			}
