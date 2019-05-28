@@ -386,6 +386,8 @@
     <Compile Include="save\GlobalSave.cs" />
     <Compile Include="save\LevelSave.cs" />
     <Compile Include="save\PlayerSave.cs" />
+    <Compile Include="save\PrefabData.cs" />
+    <Compile Include="save\PrefabSaver.cs" />
     <Compile Include="save\SaveLock.cs" />
     <Compile Include="save\Saver.cs" />
     <Compile Include="save\SaveType.cs" />

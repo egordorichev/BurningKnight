@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util;
 using Lens;
+using Lens.entity;
 using Lens.util;
 using Lens.util.file;
 
@@ -10,6 +12,7 @@ namespace BurningKnight.assets.prefabs {
 	public static class Prefabs {
 		private static Dictionary<string, Prefab> loaded = new Dictionary<string, Prefab>();
 		private static List<string> paths = new List<string>();
+		private static PrefabSaver saver = new PrefabSaver();
 		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Prefabs/"));
@@ -61,36 +64,13 @@ namespace BurningKnight.assets.prefabs {
 				return;
 			}
 			
-			((EntitySaver) SaveManager.ForType(SaveType.Level)).Load(prefab.Area, stream, false);
+			saver.Load(new Area { NoInit = true }, stream, false);
 
 			prefab.Level = Run.Level;
+			prefab.Datas = ArrayUtils.Clone(saver.Datas);
+			
 			loaded[handle.NameWithoutExtension] = prefab;
-			prefab.Area.Entities.AddNew();
-
 			Run.Level = null;
-
-			/*if (Engine.Version.Dev) {
-				var path = handle.ParentName;
-
-				// Fixme: broken on my laptop
-				if (!paths.Contains(path)) {
-					paths.Add(path);
-
-					var watcher = new FileSystemWatcher();
-
-					watcher.Filter = "*.json";
-					watcher.Path = path;
-					watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-					                                                | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-
-					watcher.Changed += OnChanged;
-					watcher.Created += OnChanged;
-
-					watcher.EnableRaisingEvents = true;
-
-					Log.Debug($"Started watching folder {path}");
-				}
-			}*/
 		}
 		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {

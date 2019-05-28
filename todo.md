@@ -17,6 +17,7 @@
 
 ### Before v0.0.0.4
 
+* make bk himself sign!!!!
 * Dialog for old man
 * Dont let the player exit until he has a lamp
 * Put lamps and weapons in hall

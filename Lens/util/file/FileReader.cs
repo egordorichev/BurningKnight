@@ -16,6 +16,11 @@ namespace Lens.util.file {
 		}
 		
 		public FileReader(string path) {
+			if (path == null) {
+				read = new byte[1];
+				return;
+			}
+			
 			var file = File.Open(path, FileMode.Open);
 			var stream = new BinaryReader(file);
 
@@ -70,6 +75,11 @@ namespace Lens.util.file {
 
 		public float ReadFloat() {
 			return BitConverter.ToSingle(new[] { ReadByte(), ReadByte(), ReadByte(), ReadByte() }, 0);
+		}
+
+		public void SetData(byte[] data) {
+			read = data;
+			position = 0;
 		}
 	}
 }
