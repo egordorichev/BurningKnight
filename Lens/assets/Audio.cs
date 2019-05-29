@@ -153,7 +153,7 @@ namespace Lens.assets {
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
 		}
 
-		public static void Stop() {
+		public static void FadeOut() {
 			if (currentPlaying != null) {
 				var m = currentPlaying;
 				
@@ -166,6 +166,14 @@ namespace Lens.assets {
 			}
 		}
 		
+		public static void Stop() {
+			if (currentPlaying != null) {
+				currentPlaying.Stop();
+				currentPlaying = null;
+				currentPlayingMusic = null;
+			}
+		}
+
 		private static float musicVolume = 1;
 
 		public static void UpdateMusicVolume(float value) {

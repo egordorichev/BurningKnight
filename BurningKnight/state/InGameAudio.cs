@@ -28,6 +28,7 @@ namespace BurningKnight.state {
 			
 			Subscribe<BombPlacedEvent>();
 			Subscribe<ItemAddedEvent>();
+			Subscribe<ChestOpenedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
 		}
@@ -100,10 +101,17 @@ namespace BurningKnight.state {
 							Audio.PlaySfx("key");
 							break;
 						}
+
+						default: {
+							Audio.PlaySfx("pickup_item");
+							break;
+						}
 					}
 				}
 			} else if (e is PlayerRolledEvent) {
 				Audio.PlaySfx("gobbo_jump");
+			} else if (e is ChestOpenedEvent coe) {
+				Audio.PlaySfx(coe.Chest, "chest_open");
 			}
 
 			return false;

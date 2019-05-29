@@ -2,6 +2,7 @@
 using BurningKnight.entity.events;
 using BurningKnight.state;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
@@ -35,6 +36,8 @@ namespace BurningKnight.entity.creature.player {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
 					Done = false;
+
+					Audio.FadeOut();
 					
 					((InGameState) Engine.Instance.State).HandleDeath();
 

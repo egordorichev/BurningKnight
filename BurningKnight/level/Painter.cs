@@ -386,7 +386,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom) {
+				if (Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom || Room is EntranceRoom) {
 					continue;
 				}
 				
