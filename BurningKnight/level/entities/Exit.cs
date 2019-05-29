@@ -22,11 +22,13 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected virtual bool Interact(Entity entity) {
-			if (To == 1) {
-				Run.StartNew();
-			} else {
-				Run.Depth = To;
-			}
+			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
+				if (To == 1) {
+					Run.StartNew();
+				} else {
+					Run.Depth = To;
+				}
+			});
 
 			return true;
 		}

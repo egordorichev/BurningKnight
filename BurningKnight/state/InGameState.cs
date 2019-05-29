@@ -50,10 +50,27 @@ namespace BurningKnight.state {
 		private float saveTimer;
 		private SaveIndicator indicator;
 		private SaveLock saveLock = new SaveLock();
-
+		
 		private Painting painting;
 		private UiDescriptionBanner banner;
 		private SettingsWindow settings;
+
+		public void TransitionToBlack(Vector2 position, Action callback = null) {
+			Camera.Instance.Targets.Clear();
+			var v = Camera.Instance.CameraToScreen(position);
+
+			Shaders.Screen.Parameters["bx"].SetValue(v.X / Display.Width);
+			Shaders.Screen.Parameters["by"].SetValue(v.Y / Display.Height);
+
+			Tween.To(0, 1, x => Shaders.Screen.Parameters["black"].SetValue(x), 0.7f).OnEnd = callback;
+		}
+
+		public void TransitionToOpen(Action callback = null) {
+			Shaders.Screen.Parameters["bx"].SetValue(0.5f);
+			Shaders.Screen.Parameters["by"].SetValue(0.5f);
+
+			Tween.To(1, 0, x => Shaders.Screen.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = callback;
+		}
 
 		public Painting CurrentPainting {
 			set {
@@ -73,6 +90,7 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Shaders.Screen.Parameters["black"].SetValue(0f);
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -83,9 +101,15 @@ namespace BurningKnight.state {
 			Area.Add(new InGameAudio());
 
 			foreach (var p in Area.Tags[Tags.Player]) {
+				if (p is LocalPlayer) {
+					Camera.Instance.Follow(p, 1f, true);
+				}
+
 				((Player) p).FindSpawnPoint();
 			}
-			
+
+			TransitionToOpen();
+			Camera.Instance.Follow(cursor, 1f);
 			Camera.Instance.Jump();
 			Run.StartedNew = false;
 		}
@@ -164,12 +188,12 @@ namespace BurningKnight.state {
 			pausedByMouseOut = false;
 		}
 
-		public override void Update(float dt) {			
+		public override void Update(float dt) {
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
-			
+      			
 			if (!Paused && !inside && !Engine.Version.Debug) {
 				Paused = true;
 				pausedByMouseOut = true;
@@ -439,10 +463,6 @@ namespace BurningKnight.state {
 			Ui.Add(indicator = new SaveIndicator());
 
 			var player = LocalPlayer.Locate(Area);
-			
-			Camera.Instance.Follow(player, 1f, true);
-			Camera.Instance.Follow(cursor, 1f);
-			Camera.Instance.Jump();
 
 			console = new Console(Area);
 			Ui.Add(new UiInventory(player));
@@ -588,7 +608,7 @@ namespace BurningKnight.state {
 			LocaleEditor.Render();
 			ItemEditor.Render();
 			RenderSettings();
-
+			
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();
