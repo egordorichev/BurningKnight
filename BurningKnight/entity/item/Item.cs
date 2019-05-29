@@ -9,6 +9,7 @@ using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.state;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -36,7 +37,7 @@ namespace BurningKnight.entity.item {
 
 		public ItemType Type;
 		public string Id;
-		public string Name => Locale.Get(Id);
+		public string Name => Masked ? "???" : Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
 		public float Delay { get; protected set; }
@@ -118,7 +119,7 @@ namespace BurningKnight.entity.item {
 				Engine.Instance.State.Ui.Add(new ItemPickupFx(this));
 			}			
 		}
-
+		
 		public virtual void AddDroppedComponents() {
 			var slice = Region;
 			var body = new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height);
@@ -133,6 +134,8 @@ namespace BurningKnight.entity.item {
 			
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddTag(Tags.LevelSave);
+			
+			CheckMasked();
 		}
 
 		public void RandomizeVelocity(float force) {
@@ -208,6 +211,16 @@ namespace BurningKnight.entity.item {
 			}
 			
 			return base.HandleEvent(e);
+		}
+		
+		public bool Masked { get; protected set; }
+
+		public void CheckMasked() {
+			Masked = Run.Depth == 0 && !Unlocked(Id);
+		}
+
+		public static bool Unlocked(string id) {
+			return GlobalSave.IsTrue(id);
 		}
 	}
 }

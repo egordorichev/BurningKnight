@@ -17,11 +17,11 @@ using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemStand : SaveableEntity, PlaceableEntity {
 		private Item item;
-		private float T;
 		
 		public Item Item => item;
 
@@ -59,6 +59,14 @@ namespace BurningKnight.entity.item {
 		public ItemStand() {
 			Width = 14;
 			Height = 14;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (item != null) {
+				item.Center = Center;
+			}
 		}
 
 		public override void AddComponents() {
@@ -120,11 +128,6 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public override void Update(float dt) {
-			base.Update(dt);
-			T += dt;
-		}
-
 		private bool CanInteract() {
 			return true;
 		}
@@ -135,8 +138,6 @@ namespace BurningKnight.entity.item {
 			}
 			
 			var renderOutline = component.OutlineAlpha > 0.05f;
-			var t = T;
-			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			if (item == null && renderOutline) {
 				var shader = Shaders.Entity;
@@ -159,6 +160,9 @@ namespace BurningKnight.entity.item {
 				return;
 			}
 
+			var t = item.GetComponent<ItemGraphicsComponent>().T;
+			var angle = (float) Math.Cos(t * 3f) * 0.4f;
+			
 			var region = item.Region;
 			var animated = item.Animation != null;
 			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
@@ -181,14 +185,20 @@ namespace BurningKnight.entity.item {
 			if (animated) {
 				Graphics.Render(region, pos, 0, region.Center);				
 			} else {
-				var sh = Shaders.Item;
-				Shaders.Begin(sh);
-				sh.Parameters["time"].SetValue(t * 0.1f);
-				sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
-			
-				Graphics.Render(region, pos, angle, region.Center);
-			
-				Shaders.End();	
+				if (item.Masked) {
+					Graphics.Color = ItemGraphicsComponent.MaskedColor;
+					Graphics.Render(region, pos, angle, region.Center);
+					Graphics.Color = ColorUtils.WhiteColor;
+				} else {
+					var shader = Shaders.Item;
+				
+					Shaders.Begin(shader);
+					shader.Parameters["time"].SetValue(t * 0.1f);
+					shader.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
+
+					Graphics.Render(region, pos, angle, region.Center);
+					Shaders.End();
+				}
 			}
 		}
 
@@ -196,7 +206,7 @@ namespace BurningKnight.entity.item {
 			base.Load(stream);
 
 			if (stream.ReadBoolean()) {
-				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
+				SetItem(Items.Create(stream.ReadString()), null);
 			}
 		}
 
@@ -213,7 +223,7 @@ namespace BurningKnight.entity.item {
 
 		public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
-				SetItem(Items.CreateAndAdd(debugItem, Area), null);
+				SetItem(Items.Create(debugItem), null);
 			}
 		}
 	}

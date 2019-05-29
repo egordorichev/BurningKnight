@@ -1,27 +1,25 @@
 # TODO
 
-### Update rush
+### Bibibki UPDATE
 
-* weapons in hall
 * keep your weapons for new run
-* Nicer load screen thingy
-* Crash report window
+* Dont let the player exit until he has a lamp
+* Put lamps and weapons in hall
 
 ### FIXMEE!!
 
 * animate gaining hp
+* Nicer load screen thingy
+* Crash report window
 * ui entities generate on click 2 times?
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
-* Fix -1 level madness
 
 ### Before v0.0.0.4
 
+* Old man -> bk when you take a lamp
 * make door explodable
 * Dialog for old man
-* Dont let the player exit until he has a lamp
-* Put lamps and weapons in hall
-* Old man -> bk when you take a lamp
 
 * Show item description, when you pick it up [UiItemDescription]
 * Animate bullet death

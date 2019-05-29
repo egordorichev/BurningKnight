@@ -131,7 +131,7 @@ namespace BurningKnight.entity.component {
 
 		public override void RenderDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
-				var item = Items.CreateAndAdd(debugItem, Entity.Area);
+				var item = Items.Create(debugItem);
 				Set(item);
 			}
 		}

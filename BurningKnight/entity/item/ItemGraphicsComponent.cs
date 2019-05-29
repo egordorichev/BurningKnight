@@ -11,11 +11,12 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
 		public const float FlashSize = 0.025f;
+		public static Color MaskedColor = new Color(0f, 0f, 0f, 0.75f);
 		
 		public float T;
 		
 		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
-			T = Random.Float(3f);
+			T = Random.Float(32f);
 		}
 
 		public override void Init() {
@@ -58,16 +59,24 @@ namespace BurningKnight.entity.item {
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(Sprite, position + d, angle, origin);
 				}
+				
+				Shaders.End();
 			}
 
-			var sh = Shaders.Item;
-			Shaders.Begin(sh);
-			sh.Parameters["time"].SetValue(T * 0.1f);
-			sh.Parameters["size"].SetValue(FlashSize);
-			
-			Graphics.Render(Sprite, position, angle, origin);
-			
-			Shaders.End();
+			if (((Item) Entity).Masked) {
+				Graphics.Color = MaskedColor;
+				Graphics.Render(Sprite, position, angle, origin);
+				Graphics.Color = ColorUtils.WhiteColor;
+			} else {
+				var shader = Shaders.Item;
+				
+				Shaders.Begin(shader);
+				shader.Parameters["time"].SetValue(T * 0.1f);
+				shader.Parameters["size"].SetValue(FlashSize);
+
+				Graphics.Render(Sprite, position, angle, origin);
+				Shaders.End();
+			}
 		}
 	}
 }

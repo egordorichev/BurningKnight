@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
@@ -20,7 +21,7 @@ namespace BurningKnight.entity.creature.player {
 				Item.Renderer?.OnUse();
 			}
 	
-			if (Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) {
+			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0) {
 				stopped = false;
 				Swap();
 			}

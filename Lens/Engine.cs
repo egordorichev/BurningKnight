@@ -67,9 +67,7 @@ namespace Lens {
 
 			Content.RootDirectory = "Content/";
 			Assets.Content = Content;
-
 			newState = state;
-			
 			Counter = new FrameCounter();
 		}
 

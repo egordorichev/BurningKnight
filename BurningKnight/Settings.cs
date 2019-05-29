@@ -89,7 +89,7 @@ namespace BurningKnight {
 				Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 			}
 
-			Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
+			// Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
 		}
 
 		public static void Save() {
