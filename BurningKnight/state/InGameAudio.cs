@@ -8,6 +8,7 @@ using BurningKnight.entity.item;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.state {
@@ -29,8 +30,6 @@ namespace BurningKnight.state {
 			Subscribe<ItemAddedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
-			
-			Audio.PlayMusic(Run.Level.Biome.Music);
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -47,7 +46,7 @@ namespace BurningKnight.state {
 					}
 
 					default: {
-						Audio.PlayMusic(Run.Level.Biome.Music);
+						Audio.PlayMusic(Run.Level.GetMusic());
 						break;
 					}
 				}
@@ -57,8 +56,8 @@ namespace BurningKnight.state {
 				Audio.PlaySfx("secret");
 				Audio.PlaySfx("secret_room");
 			} else if (e is DiedEvent de) {
-				// FIXME: death sound for player?
 				if (de.Who is Player) {
+					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
 				} else {
 					Audio.PlaySfx(de.Who, "enemy_death");

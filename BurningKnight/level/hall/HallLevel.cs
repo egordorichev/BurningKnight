@@ -27,5 +27,9 @@ namespace BurningKnight.level.hall {
 				Dirt = 0
 			};
 		}
+
+		public override string GetMusic() {
+			return "Gobbeon";
+		}
 	}
 }

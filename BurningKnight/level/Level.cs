@@ -1063,5 +1063,9 @@ namespace BurningKnight.level {
 
 			TileUp();
 		}
+
+		public virtual string GetMusic() {
+			return Biome.Music;
+		}
 	}
 }

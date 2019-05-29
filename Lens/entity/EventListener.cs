@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lens.util;
 
 namespace Lens.entity {
 	public class EventListener {

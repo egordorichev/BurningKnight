@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lens.entity.component;
 using Lens.entity.component.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace Lens.entity {

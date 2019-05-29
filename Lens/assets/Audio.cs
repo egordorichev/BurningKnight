@@ -166,7 +166,7 @@ namespace Lens.assets {
 			}
 		}
 		
-		private static float musicVolume;
+		private static float musicVolume = 1;
 
 		public static void UpdateMusicVolume(float value) {
 			if (currentPlaying != null) {

@@ -29,5 +29,9 @@ namespace BurningKnight.level.hub {
 		public override int GetPadding() {
 			return 0; 
 		}
+
+		public override string GetMusic() {
+			return "Outsider";
+		}
 	}
 }

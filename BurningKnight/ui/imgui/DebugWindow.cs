@@ -80,6 +80,12 @@ namespace BurningKnight.ui.imgui {
 				Run.StartNew();
 			}
 			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Kill")) {
+				LocalPlayer.Locate(Run.Level.Area)?.GetComponent<HealthComponent>().Kill(null);
+			}
+
 			ImGui.Separator();
 
 			if (Run.Level != null) {

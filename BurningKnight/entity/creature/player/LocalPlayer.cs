@@ -46,13 +46,14 @@ namespace BurningKnight.entity.creature.player {
 
 						t.Delay = 0.8f;
 						t.OnEnd = ((InGameState) Engine.Instance.State).AnimateDeathScreen;
-						
+
+						HandleEvent(e);
 						AnimateDeath();
 						Done = true;
 					};
-				}
 
-				return true;
+					return true;
+				}
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;
