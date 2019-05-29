@@ -7,9 +7,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Lens.assets {
 	public static class Assets {
-		public static ContentManager Content;
-		// If true, Assets.Content wont be used, the original files will be loaded
+#if DEBUG
 		public static bool LoadOriginalFiles = true;
+#else
+		public static bool LoadOriginalFiles = false;
+#endif
+
+		public static ContentManager Content;
 		public static string Root => LoadOriginalFiles 
 		    ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") 
 		    : NearRoot;
