@@ -101,7 +101,11 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool Interact(Entity entity) {
-			if (!Masked && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+			if (Masked) {
+				return false;
+			}
+			
+			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				inventory.Pickup(this);
 				return true;
 			}

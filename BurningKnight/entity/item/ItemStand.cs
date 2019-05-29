@@ -97,6 +97,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool Interact(Entity entity) {
+			if (Item != null && Item.Masked) {
+				return false;
+			}
+			
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (item != null) {
 					if (CanTake(entity)) {
