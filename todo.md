@@ -3,7 +3,8 @@
 ### Bibibki UPDATE
 
 * Dont let the player exit until he has a lamp
-* Put lamps and weapons in hall
+* draw lamp on player
+* Animate transitions
 
 ### FIXMEE!!
 
