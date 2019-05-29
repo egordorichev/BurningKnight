@@ -23,6 +23,9 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
+		public string StartingLamp;
+		public string StartingWeapon;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -64,6 +67,20 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void FindSpawnPoint() {
+			if (Run.StartedNew) {
+				if (StartingWeapon == null) {
+					StartingWeapon = Items.Generate(ItemPool.StartingWeapon);
+				}
+
+				if (StartingWeapon != null) {
+					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area));
+				}
+
+				if (StartingLamp != null) {
+					GetComponent<LampComponent>().Set(Items.CreateAndAdd(StartingLamp, Area));
+				}
+			}
+			
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
 				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
@@ -319,6 +336,15 @@ namespace BurningKnight.entity.creature.player {
 				if (c is ItemComponent i && i.Item != null) {
 					drops.Add(Items.Create(i.Item.Id));
 				}
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Run.StartingNew || Run.StartedNew) {
+				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
+				StartingLamp = GetComponent<LampComponent>().Item?.Id;
 			}
 		}
 	}

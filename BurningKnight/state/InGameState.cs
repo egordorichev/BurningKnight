@@ -72,7 +72,6 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-			Run.StartedNew = false;
 
 			SetupUi();
 
@@ -88,6 +87,7 @@ namespace BurningKnight.state {
 			}
 			
 			Camera.Instance.Jump();
+			Run.StartedNew = false;
 		}
 
 		public override void Destroy() {
