@@ -5,6 +5,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.lightJson;
@@ -76,6 +77,8 @@ namespace BurningKnight.assets.items {
 			var writer = new JsonWriter(file);
 			writer.Write(root);
 			file.Close();
+
+			Locale.Save();
 		}
 		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {

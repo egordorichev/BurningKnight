@@ -165,7 +165,7 @@ namespace BurningKnight.entity.item {
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 2f) * 0.5f + 0.5f) * -5.5f);
+			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;
@@ -206,7 +206,7 @@ namespace BurningKnight.entity.item {
 			base.Load(stream);
 
 			if (stream.ReadBoolean()) {
-				SetItem(Items.Create(stream.ReadString()), null);
+				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
 			}
 		}
 
@@ -223,7 +223,7 @@ namespace BurningKnight.entity.item {
 
 		public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
-				SetItem(Items.Create(debugItem), null);
+				SetItem(Items.CreateAndAdd(debugItem, Area), null);
 			}
 		}
 	}

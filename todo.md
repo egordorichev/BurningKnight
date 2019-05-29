@@ -2,7 +2,6 @@
 
 ### Bibibki UPDATE
 
-* keep your weapons for new run
 * Dont let the player exit until he has a lamp
 * Put lamps and weapons in hall
 

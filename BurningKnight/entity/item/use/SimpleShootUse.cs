@@ -53,7 +53,7 @@ namespace BurningKnight.entity.item.use {
 				root["range"] = range;
 			}
 			
-			var slice = root["texture"].AsString;
+			var slice = root["texture"].String("");
 			var region = CommonAse.Projectiles.GetSlice(slice);
 			
 			ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
