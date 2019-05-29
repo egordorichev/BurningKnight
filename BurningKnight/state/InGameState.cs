@@ -573,7 +573,7 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderNative() {
-			if (!console.Open) {
+			if (!Console.Open) {
 				return;
 			}
 			

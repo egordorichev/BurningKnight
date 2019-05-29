@@ -5,6 +5,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.ui.imgui;
 using Lens;
 using Lens.entity;
 using Lens.game;
@@ -74,6 +75,12 @@ namespace BurningKnight.state {
 			Graphics.Color = new Color(1f, 1f, 1f, alpha);
 			Graphics.Print($"Coming soon tm {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Medium, new Vector2(4, 4));
 			Graphics.Color = ColorUtils.WhiteColor;
+		}
+
+		public override void RenderNative() {
+			ImGuiHelper.Begin();
+			DebugWindow.Render();
+			ImGuiHelper.End();
 		}
 	}
 }

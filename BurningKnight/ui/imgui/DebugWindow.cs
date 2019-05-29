@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.state;
@@ -13,12 +15,20 @@ namespace BurningKnight.ui.imgui {
 		private static string[] states = {
 			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer", "room_editor"
 		};
+		
+		private static PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
 		private static Type[] types = {
 			typeof(InGameState), typeof(DialogEditorState),
 			typeof(EditorState), typeof(PicoState), typeof(LoadState),
 			typeof(SaveExplorerState), typeof(RoomEditorState)
 		};
+		
+		private static float[] fps = new float[60];
+		private static float[] cpuUsage = new float[60];
+		private static int pos;
+		private static int lastCall;
+		private static float lastFps;
 		
 		public static void Render() {
 			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
@@ -27,7 +37,32 @@ namespace BurningKnight.ui.imgui {
 			}
 			
 			ImGui.Text($"FPS: {Engine.Instance.Counter.CurrentFramesPerSecond}");
+			lastFps += Engine.Delta;
 
+			if (lastFps > 0.5f) {
+				lastFps = 0;
+				
+				for (var i = 1; i < fps.Length; i++) {
+					fps[i - 1] = fps[i];
+				}
+
+				fps[fps.Length - 1] = Engine.Instance.Counter.AverageFramesPerSecond;
+			}
+			
+			ImGui.PlotHistogram("FPS", ref fps[0], fps.Length, 0, null, 0, 60);
+
+			if (lastCall < (int) Engine.Time) {
+				lastCall = (int) Engine.Time;
+				
+				for (var i = 1; i < cpuUsage.Length; i++) {
+					cpuUsage[i - 1] = cpuUsage[i];
+				}
+
+				cpuUsage[cpuUsage.Length - 1] = (float) Math.Round(cpuCounter.NextValue());
+			}
+
+			ImGui.PlotHistogram("CPU", ref cpuUsage[0], cpuUsage.Length, 0, null, 0, 100);
+			
 			var current = 0;
 			var t = Engine.Instance.State.GetType();
 			
