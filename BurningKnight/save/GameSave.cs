@@ -23,13 +23,12 @@ namespace BurningKnight.save {
 			}
 
 			Run.HasRun = true;
-			var d = reader.ReadSbyte();
-			// Run.SetDepth(d);
+			var depth = reader.ReadSbyte();
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
 			
-			Random.Seed = reader.ReadString();
+			Random.Seed = Run.Seed = reader.ReadString();
 		}
 
 		public static int PeekDepth(FileReader reader) {

@@ -2,6 +2,8 @@
 using BurningKnight.level;
 using BurningKnight.save;
 using Lens;
+using Lens.util;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public static class Run {
@@ -14,14 +16,11 @@ namespace BurningKnight.state {
 		public static Level Level;
 		public static bool StartedNew;
 		public static bool HasRun;
-
+		public static string Seed;
+		
 		public static int Depth {
 			get => depth;
 			set => NextDepth = value;
-		}
-
-		public static void SetDepth(int value) {
-			depth = value;
 		}
 
 		public static void Update() {
@@ -42,12 +41,17 @@ namespace BurningKnight.state {
 		public static void StartNew() {
 			StartingNew = true;
 			HasRun = false;
+			Seed = Random.GenerateSeed();
+
+			Random.Seed = Seed;
+			Log.Debug($"This run's seed is {Seed}");
 		}
 
 		public static void ResetStats() {
 			KillCount = 0;
 			Time = 0;
 			HasRun = false;
+			Seed = Random.GenerateSeed();
 		}
 
 		public static string FormatTime() {

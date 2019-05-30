@@ -11,6 +11,7 @@ using Lens.entity;
 using Lens.game;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public class LoadState : GameState {
@@ -28,11 +29,14 @@ namespace BurningKnight.state {
 			gameArea = new Area();
 
 			Run.Level = null;
-			
+
 			var thread = new Thread(() => {
 				Tilesets.Load();
 				
 				SaveManager.Load(gameArea, SaveType.Game, Path);
+
+				Random.Seed = $"{Run.Seed}_{Run.Depth}"; 
+				
 				SaveManager.Load(gameArea, SaveType.Level, Path);
 
 				if (Run.Depth > 0) {
