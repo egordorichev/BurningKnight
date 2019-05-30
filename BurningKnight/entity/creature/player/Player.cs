@@ -55,6 +55,9 @@ namespace BurningKnight.entity.creature.player {
 				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState || died)
 			});
 			
+			// Other mechanics
+			AddComponent(new OrbitGiverComponent());
+			
 			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);

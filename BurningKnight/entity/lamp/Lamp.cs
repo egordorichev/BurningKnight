@@ -14,6 +14,9 @@ namespace BurningKnight.entity.lamp {
 			
 			AddComponent(new SliceComponent(CommonAse.Items, Item.Id));
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new OrbitalComponent());
+			
+			Owner.GetComponent<OrbitGiverComponent>().AddOrbiter(this);
 		}
 
 		private void RenderShadow() {

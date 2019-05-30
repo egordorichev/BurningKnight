@@ -153,6 +153,8 @@
     <Compile Include="entity\component\LampComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
+    <Compile Include="entity\component\OrbitalComponent.cs" />
+    <Compile Include="entity\component\OrbitGiverComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\PoolDropsComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
