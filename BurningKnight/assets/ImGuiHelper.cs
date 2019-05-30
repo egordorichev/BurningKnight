@@ -149,11 +149,6 @@ namespace BurningKnight.assets {
 			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
-			if (!ImGui.Begin("Nodes")) {
-				ImGui.End();
-				return false;
-			}
-
 			return true;
 		}
 
@@ -204,8 +199,6 @@ namespace BurningKnight.assets {
 			if (!sawFocused) {
 				ImNode.Focused = first;
 			}
-			
-			ImGui.End();
 		}
 
 		public static ImNode CurrentMenu;

@@ -144,6 +144,7 @@
     <Compile Include="entity\component\DropsComponent.cs" />
     <Compile Include="entity\component\ExplodableComponent.cs" />
     <Compile Include="entity\component\ExplodeComponent.cs" />
+    <Compile Include="entity\component\FollowerComponent.cs" />
     <Compile Include="entity\component\GamepadComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="entity\component\LampComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
+    <Compile Include="entity\component\OrbitalComponent.cs" />
+    <Compile Include="entity\component\OrbitGiverComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\PoolDropsComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
@@ -166,9 +169,11 @@
     <Compile Include="entity\component\WallAnimationComponent.cs" />
     <Compile Include="entity\component\ZAnimationComponent.cs" />
     <Compile Include="entity\component\ZComponent.cs" />
+    <Compile Include="entity\component\ZSliceComponent.cs" />
     <Compile Include="entity\creature\BurningKnight.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\CreatureState.cs" />
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
@@ -186,10 +191,10 @@
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
-    <Compile Include="entity\creature\mob\MobState.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
+    <Compile Include="entity\creature\npc\Beet.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\npc\Ord.cs" />
@@ -296,6 +301,7 @@
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
+    <Compile Include="entity\lamp\Lamp.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
@@ -479,6 +485,7 @@
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
+    <Compile Include="util\Birthday.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
     <Compile Include="util\Direction.cs" />

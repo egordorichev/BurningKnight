@@ -30,7 +30,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		#region Burning Knight States
-		public class IdleState : MobState<BurningKnight> {
+		public class IdleState : CreatureState<BurningKnight> {
 			
 		}
 		#endregion

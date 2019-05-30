@@ -3,10 +3,10 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.util {
 	public static class Titles {
-		private static DateTime[] birthdays = {
-			DateTime.Parse("06/29/2019 0:0:0 PM"), // Egor
-			DateTime.Parse("09/25/2019 0:0:0 PM"), // Mate
-			DateTime.Parse("02/21/2019 0:0:0 PM") // Bibiki
+		private static Birthday[] birthdays = {
+			new Birthday(25, 6), // Egor
+			new Birthday(25, 9), // Mate
+			new Birthday(21, 2) // Bibiki
     };
 		
 		public static string Generate() {

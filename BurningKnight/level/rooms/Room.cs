@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
 namespace BurningKnight.level.rooms {
-	public class Room : SaveableEntity, PlaceableEntity {
+	public class Room : SaveableEntity {
 		public int MapX;
 		public int MapY;
 		public int MapW = 4;

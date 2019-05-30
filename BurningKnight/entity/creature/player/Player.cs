@@ -23,8 +23,8 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
-		public string StartingLamp;
-		public string StartingWeapon;
+		public static string StartingLamp;
+		public static string StartingWeapon;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -55,6 +55,10 @@ namespace BurningKnight.entity.creature.player {
 				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState || died)
 			});
 			
+			// Other mechanics
+			AddComponent(new OrbitGiverComponent());
+			AddComponent(new FollowerComponent());
+			
 			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);
@@ -74,10 +78,12 @@ namespace BurningKnight.entity.creature.player {
 
 				if (StartingWeapon != null) {
 					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area));
+					StartingWeapon = null;
 				}
 
 				if (StartingLamp != null) {
 					GetComponent<LampComponent>().Set(Items.CreateAndAdd(StartingLamp, Area));
+					StartingLamp = null;
 				}
 			}
 			
@@ -315,6 +321,9 @@ namespace BurningKnight.entity.creature.player {
 					Depth = 30
 				});
 			}
+
+			GetComponent<OrbitGiverComponent>().DestroyAll();
+			GetComponent<FollowerComponent>().DestroyAll();
 			
 			var stone = new Tombstone();
 			Area.Add(stone);

@@ -97,6 +97,7 @@ namespace BurningKnight.ui.imgui {
 
 			ImGui.Separator();
 			
+			ImGui.Text($"Seed: {Run.Seed}");
 			ImGui.Text($"Kills: {Run.KillCount}");
 			ImGui.Text($"Time: {Run.FormatTime()}");
 			ImGui.Text($"Has run: {Run.HasRun}");
