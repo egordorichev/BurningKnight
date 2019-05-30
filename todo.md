@@ -3,6 +3,7 @@
 ### Update rush
 
 * Dont let the player exit until he has a lamp
+* animate lamp giving hp
 * draw lamp on player
 * figure out dialog interaction
 * beet idle anim

@@ -78,10 +78,12 @@ namespace BurningKnight.entity.creature.player {
 
 				if (StartingWeapon != null) {
 					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area));
+					StartingWeapon = null;
 				}
 
 				if (StartingLamp != null) {
 					GetComponent<LampComponent>().Set(Items.CreateAndAdd(StartingLamp, Area));
+					StartingLamp = null;
 				}
 			}
 			

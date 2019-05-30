@@ -485,6 +485,7 @@
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
+    <Compile Include="util\Birthday.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />
     <Compile Include="util\Direction.cs" />
