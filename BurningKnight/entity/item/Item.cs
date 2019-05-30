@@ -101,6 +101,10 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool Interact(Entity entity) {
+			if (Masked) {
+				return false;
+			}
+			
 			if (entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				inventory.Pickup(this);
 				return true;
@@ -220,7 +224,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id);
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp";
 		}
 	}
 }

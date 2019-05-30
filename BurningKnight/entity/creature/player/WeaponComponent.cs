@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
+using BurningKnight.state;
 using Lens;
 using Lens.entity;
 
@@ -24,7 +25,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		protected override bool ShouldReplace(Item item) {
-			return item.Type == ItemType.Weapon;
+			return (Run.Depth > 0 || !AtBack) && item.Type == ItemType.Weapon;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -47,9 +48,7 @@ namespace BurningKnight.entity.creature.player {
 			})) {
 				// Swap the items
 				var tmp = component.Item;
-				
 				component.Item = Item;
-				
 				Item = tmp;
 			}
 		}

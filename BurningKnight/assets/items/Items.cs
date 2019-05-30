@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using BurningKnight.entity.creature.player;
@@ -5,13 +6,14 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
-using Lens.util.math;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.items {
 	public static class Items {
@@ -76,6 +78,8 @@ namespace BurningKnight.assets.items {
 			var writer = new JsonWriter(file);
 			writer.Write(root);
 			file.Close();
+
+			Locale.Save();
 		}
 		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {
@@ -285,17 +289,24 @@ namespace BurningKnight.assets.items {
 			
 		}
 	
-		private static string Generate(List<ItemData> types, PlayerClass c) {
+		private static string Generate(List<ItemData> types, Func<ItemData, bool> filter, PlayerClass c) {
 			double sum = 0;
+			var datas = new List<ItemData>();
 
-			foreach (var chance in types) {
+			foreach (var t in types) {
+				if (filter == null || filter(t)) {
+					datas.Add(t);
+				}
+			}
+			
+			foreach (var chance in datas) {
 				sum += chance.Chance.Calculate(c);
 			}
 
 			var value = Random.Double(sum);
 			sum = 0;
 
-			foreach (var t in types) {
+			foreach (var t in datas) {
 				sum += t.Chance.Calculate(c);
 
 				if (value < sum) {
@@ -306,20 +317,20 @@ namespace BurningKnight.assets.items {
 			return null;
 		}
 
-		public static string Generate(ItemType type, PlayerClass c = PlayerClass.Any) {
+		public static string Generate(ItemType type, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			if (!byType.TryGetValue(type, out var types)) {
 				return null;
 			}
 
-			return Generate(types, c);
+			return Generate(types, filter, c);
 		}
 
-		public static string Generate(ItemPool pool, PlayerClass c = PlayerClass.Any) {
+		public static string Generate(ItemPool pool, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			if (!byPool.TryGetValue(pool.Id, out var types)) {
 				return null;
 			}
 
-			return Generate(types, c);
+			return Generate(types, filter, c);
 		}
 
 		public static Item CreateAndAdd(string id, Area area) {

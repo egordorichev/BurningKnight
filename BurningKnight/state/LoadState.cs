@@ -12,6 +12,7 @@ using Lens.game;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
+using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class LoadState : GameState {
@@ -83,7 +84,11 @@ namespace BurningKnight.state {
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
-			DebugWindow.Render();
+		
+			if (Console.Open) {
+				DebugWindow.Render();
+			}
+
 			ImGuiHelper.End();
 		}
 	}

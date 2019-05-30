@@ -3,6 +3,8 @@
 ### Bibibki UPDATE
 
 * Dont let the player exit until he has a lamp
+* draw lamp on player
+* Animate transitions
 
 ### FIXMEE!!
 

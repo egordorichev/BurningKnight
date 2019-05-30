@@ -567,7 +567,7 @@ namespace BurningKnight.ui.editor {
 						if (selected != null) {
 							offset = entity.Position - mouse;
 						}
-					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftShift, true))) {
+					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftAlt, true))) {
 						mouse += offset;
 						
 						if (SnapToGrid) {
