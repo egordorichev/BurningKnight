@@ -297,6 +297,7 @@
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
+    <Compile Include="entity\lamp\Lamp.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />

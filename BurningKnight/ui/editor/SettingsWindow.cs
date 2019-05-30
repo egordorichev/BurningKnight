@@ -565,6 +565,7 @@ namespace BurningKnight.ui.editor {
 						entity = selected;
 
 						if (selected != null) {
+							AreaDebug.ToFocus = entity;
 							offset = entity.Position - mouse;
 						}
 					} else if (entity != null && (down && entity.Contains(mouse) || Input.Keyboard.IsDown(Keys.LeftAlt, true))) {

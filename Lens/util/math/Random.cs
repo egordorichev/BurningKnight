@@ -18,7 +18,7 @@ namespace Lens.util.math {
 			}
 		}
 
-		private static string seedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		private static string seedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
 		
 		static Random() {
 			Seed = GenerateSeed();
@@ -33,7 +33,7 @@ namespace Lens.util.math {
 			int value = 0;
 
 			foreach (var c in seed) {
-				value += seedChars.IndexOf(c);
+				value += seedChars.IndexOf(c) * seedChars.Length;
 			}
 
 			return value;

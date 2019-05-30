@@ -1,22 +1,27 @@
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
+using BurningKnight.entity.lamp;
 
 namespace BurningKnight.entity.component {
 	public class LampComponent : ItemComponent {
-		public override void Set(Item item) {
-			if (Item != null) {
-				Entity.Area.Remove(Item);
-			}
-
-			base.Set(item);
-		}
-
+		public Lamp Lamp;
+		
 		protected override void OnItemSet() {
-			if (Item == null) {
-				return;
+			Item?.Use(Entity);
+
+			if (Lamp != null) {
+				Lamp.Done = true;
 			}
 			
-			Item.Use(Entity);
-			Entity.Area.Add(Item);
+			if (Item != null) {
+				Lamp = new Lamp {
+					Owner = (Player) Entity,
+					Item = Item
+				};
+				
+				Entity.Area.Add(Lamp);
+				Lamp.Center = Entity.Center;
+			}
 		}
 
 		protected override bool ShouldReplace(Item item) {

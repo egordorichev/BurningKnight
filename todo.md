@@ -1,10 +1,12 @@
 # TODO
 
-### Bibibki UPDATE
+### Update rush
 
 * Dont let the player exit until he has a lamp
 * draw lamp on player
-* Animate transitions
+* figure out dialog interaction
+* beet idle anim
+* talk to beet to set the seed
 
 ### FIXMEE!!
 
