@@ -10,6 +10,14 @@ namespace BurningKnight.entity.component {
 		public float RadiusMultiplier = 1;
 		public float T;
 		
+		public void DestroyAll() {
+			foreach (var o in Orbiting) {
+				o.Done = true;
+			}
+
+			Orbiting.Clear();
+		}
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
