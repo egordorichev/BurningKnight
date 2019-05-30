@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurningKnight", "BurningKni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysics.MonoGame", "VelcroPhysics\VelcroPhysics.MonoGame.csproj", "{4650BD15-4B03-4A7E-98D4-9F8697ED2EB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMod", "TestMod\TestMod.csproj", "{9692B960-C67C-430D-AB9F-BC0F5CA74265}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopLinux", "DesktopLinux\DesktopLinux.csproj", "{709AFE81-A140-4C07-A2D0-71AC8CEB9FC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopWindows", "DesktopWindows\DesktopWindows.csproj", "{D23D55BC-653A-4ED2-9A2C-B7277107ABA1}"
