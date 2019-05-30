@@ -26,7 +26,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		#region Gunner States
-		public class IdleState : MobState<Gunner> {
+		public class IdleState : CreatureState<Gunner> {
 			private float delay;
 
 			public override void Init() {
@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 		private int moveId;
 		
-		public class RunState : MobState<Gunner> {
+		public class RunState : CreatureState<Gunner> {
 			private const float Accuracy = 0.2f;
 			
 			private Vector2 velocity;

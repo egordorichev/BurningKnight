@@ -11,12 +11,6 @@ namespace BurningKnight.entity.creature.npc {
 
 			AddComponent(new AnimationComponent("old_man"));
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));
-			
-			/*AddComponent(new InteractableComponent(e => {
-				GetComponent<DialogComponent>().Start("old_man_0");
-				return true;
-			}));*/
-			
 			AddComponent(new CloseDialogComponent("old_man_0"));
 		}
 	}

@@ -28,7 +28,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		private int moveId;
 		
 		#region Bandit States
-		public class IdleState : MobState<Bandit> {
+		public class IdleState : CreatureState<Bandit> {
 			private float delay;
 			private float fireDelay;
 			private bool fired;
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 		
-		public class RunState : MobState<Bandit> {
+		public class RunState : CreatureState<Bandit> {
 			private Vector2 velocity;
 			private float timer;
 			

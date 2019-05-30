@@ -25,7 +25,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 		
 		#region Slime States
-		public class IdleState : MobState<Slime> {
+		public class IdleState : CreatureState<Slime> {
 			private float delay;
 			private bool tweened;
 			
@@ -60,7 +60,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 		}
 
-		public class JumpState : MobState<Slime> {
+		public class JumpState : CreatureState<Slime> {
 			private Vector2 velocity;
 			private float zVelocity;
 			

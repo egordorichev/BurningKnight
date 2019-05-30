@@ -169,6 +169,7 @@
     <Compile Include="entity\creature\BurningKnight.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\CreatureState.cs" />
     <Compile Include="entity\creature\mob\BurningKnight.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
@@ -186,10 +187,10 @@
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
-    <Compile Include="entity\creature\mob\MobState.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
+    <Compile Include="entity\creature\npc\Beet.cs" />
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\npc\Ord.cs" />

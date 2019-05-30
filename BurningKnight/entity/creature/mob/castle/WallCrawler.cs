@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		public class FireState : MobState<WallCrawler> {
+		public class FireState : CreatureState<WallCrawler> {
 			private bool fired;
 			
 			public override void Init() {

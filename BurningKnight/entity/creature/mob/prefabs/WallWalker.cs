@@ -93,7 +93,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 		
 		#region Walker States
-		public class IdleState : MobState<WallWalker> {
+		public class IdleState : CreatureState<WallWalker> {
 			protected Vector2 velocity;
 			protected float vx;
 			protected float vy;
