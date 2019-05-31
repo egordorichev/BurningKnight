@@ -1,17 +1,24 @@
 # TODO
 
-### Update rush
+### Before josh
 
-* Dont let the player exit until he has a lamp
-* animate lamp giving hp
-* draw lamp on player
+* fix: continue run does not return you lamp and weapons?
+* same seed all the time??
+
+* BK him self
+ + Healthbar
+ + He picks a random attack per room (not too strong)
+ + Finishing room hits him
+ + He spawns the enemies
+ + Player picking up hearts will heal bk
+ + Opening and buying heals bk
+ + Somehow make him a bit annoying and scary?? But also super cool to fight, you should feel like not worthy, until you get well equipped
+
+### do do do
+
 * figure out dialog interaction
 * beet idle anim
 * talk to beet to set the seed
-
-### FIXMEE!!
-
-* animate gaining hp
 * Nicer load screen thingy
 * Crash report window
 * ui entities generate on click 2 times?
@@ -22,22 +29,13 @@
 
 * Old man -> bk when you take a lamp
 * make door explodable
-* Dialog for old man
+* Dialog for old man (tell why wont let you out without a lamp, etc)
 
 * Show item description, when you pick it up [UiItemDescription]
 * Animate bullet death
 * Implement coins
 * Proper animation for gaining an item (for gobbo.ase obv)
 * When player uses active item, animate him using it (like in isaac)
-
-* BK him self
- + Healthbar
- + Animation and spawning
- + Finishing room hits him
- + He spawns the enemies
- + Player picking up hearts will heal bk
- + Opening and buying heals bk
- + Somehow make him a bit annoying and scary?? But also super cool to fight, you should feel like not worthy, until you get well equipped
  
 * Fix player reading 1 byte less than expected (some component is broken? or maybe not added) (and other entities, like a lot in prefabs!!)
 

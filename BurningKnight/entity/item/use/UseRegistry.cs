@@ -49,6 +49,7 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveKeyUse>(GiveKeyUse.RenderDebug);
 			Register<GiveBombUse>(GiveBombUse.RenderDebug);
 			Register<GiveItemUse>(GiveItemUse.RenderDebug);
+			Register<SetMaxHpUse>(SetMaxHpUse.RenderDebug);
 		}
 	}
 }

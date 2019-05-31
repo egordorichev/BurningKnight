@@ -28,6 +28,8 @@ namespace BurningKnight.ui.str {
 		private List<StrRenderer> renderers = new List<StrRenderer>();
 		private float progress;
 		private int lastChar;
+		private float finalWidth;
+		private float finalHeight;
 
 		public float Delay;
 		public bool Paused;
@@ -322,7 +324,11 @@ namespace BurningKnight.ui.str {
 			}
 			
 			glp = font.GetGlyphs(label);
-			
+			var size = font.MeasureString(label);
+
+			finalWidth = size.Width;
+			finalHeight = size.Height - 4;
+
 			var j = 0;
 
 			foreach (var g in glp) {
@@ -391,6 +397,8 @@ namespace BurningKnight.ui.str {
 
 		public void FinishTyping() {
 			progress = glyphs.Count;
+			Width = finalWidth;
+			Height = finalHeight;
 			FinishedTyping?.Invoke(this);
 		}
 

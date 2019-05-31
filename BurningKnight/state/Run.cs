@@ -39,10 +39,12 @@ namespace BurningKnight.state {
 		}
 
 		public static void StartNew() {
+			SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
+
 			StartingNew = true;
 			HasRun = false;
 			Seed = Random.GenerateSeed();
-
+			
 			Random.Seed = Seed;
 			Log.Debug($"This run's seed is {Seed}");
 		}

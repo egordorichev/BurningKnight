@@ -18,6 +18,9 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
+		
+		public bool InDialog;
+		public DialogComponent Dialog;
 
 		public override bool HandleEvent(Event e) {
 			var controller = GetComponent<GamepadComponent>().Controller;
@@ -37,6 +40,46 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			var controller = GetComponent<GamepadComponent>().Controller;
+
+			if (InDialog) {
+				if (Input.WasPressed(Controls.Cancel)) {
+					InDialog = false;
+					Dialog?.Close();
+					
+					return;
+				}
+
+				var dd = Dialog?.Dialog;
+
+				if (dd != null) {
+					if (dd.DoneSaying && Dialog.Current is ChoiceDialog c) {
+						if (Input.WasPressed(Controls.Up, controller, true)) {
+							c.Choice -= 1;
+
+							if (c.Choice < 0) {
+								c.Choice += c.Options.Length;
+							}
+						}
+
+						if (Input.WasPressed(Controls.Down, controller, true)) {
+							c.Choice = (c.Choice + 1) % c.Options.Length;
+						}
+					}
+
+					if (dd.Saying) {
+						if (Input.WasPressed(Controls.Interact, controller, true)) {
+							if (dd.DoneSaying) {
+								dd.Finish();
+							} else {
+								dd.Str.FinishTyping();
+							}
+						}
+					}
+				}
+				
+				return;
+			}
+			
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
 			

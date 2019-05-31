@@ -20,7 +20,7 @@ namespace BurningKnight.level.entities {
 			return true;
 		}
 
-		private bool CanInteract() {
+		private bool CanInteract(Entity e) {
 			return Run.Depth < 1;
 		}
 

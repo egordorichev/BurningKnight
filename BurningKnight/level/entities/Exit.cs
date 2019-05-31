@@ -50,11 +50,21 @@ namespace BurningKnight.level.entities {
 					if (entity is LocalPlayer) {
 						Engine.Instance.State.Ui.Add(new InteractFx(this, GetFxText()));
 					}
-				}
+				},
+				
+				CanInteract = CanInteract
 			});
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
 			AddComponent(new InteractableSliceComponent("props", "exit"));
+		}
+
+		protected virtual bool CanInteract(Entity e) {
+			if (Run.Depth != 0) {
+				return true;
+			}
+				
+			return !e.TryGetComponent<LampComponent>(out var l) || l.Lamp != null;
 		}
 
 		public override void Load(FileReader stream) {

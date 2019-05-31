@@ -3,6 +3,8 @@ using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Npc : Creature {
+		public const int Padding = 16;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 			

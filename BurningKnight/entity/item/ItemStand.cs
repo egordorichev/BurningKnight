@@ -132,7 +132,7 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		private bool CanInteract() {
+		private bool CanInteract(Entity e) {
 			return true;
 		}
 

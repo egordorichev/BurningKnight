@@ -10,8 +10,9 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 18;
 
 			AddComponent(new AnimationComponent("old_man"));
-			AddComponent(new RectBodyComponent(0, 0, Width, Height));
+			AddComponent(new RectBodyComponent(-Padding, -Padding, Width + Padding * 2, Height + Padding * 2));
 			AddComponent(new CloseDialogComponent("old_man_0"));
+			AddComponent(new InteractDialogComponent("old_man_1"));
 		}
 	}
 }

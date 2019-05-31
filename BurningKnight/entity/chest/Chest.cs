@@ -96,7 +96,7 @@ namespace BurningKnight.entity.chest {
 			return true;
 		}
 
-		protected virtual bool CanInteract() {
+		protected virtual bool CanInteract(Entity e) {
 			return !IsOpen;
 		}
 		

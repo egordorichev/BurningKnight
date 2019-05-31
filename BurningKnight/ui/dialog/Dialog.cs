@@ -12,6 +12,10 @@ namespace BurningKnight.ui.dialog {
 		}
 
 		public virtual string DecideNext() {
+			if (Next == null || Next.Length == 0) {
+				return null;
+			}
+			
 			return Next?[Random.Int(Next.Length)];
 		}
 

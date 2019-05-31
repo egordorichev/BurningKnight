@@ -1,7 +1,4 @@
-using BurningKnight.assets.items;
-using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
-using Lens;
 using Lens.entity;
 using Lens.util.file;
 
@@ -16,11 +13,7 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
-			var player = new LocalPlayer();
-			area.Add(player);
-
-			//var bk = new entity.creature.BurningKnight();
-			//area.Add(bk);
+			area.Add(new LocalPlayer());
 		}
 
 		public PlayerSave() : base(SaveType.Player) {

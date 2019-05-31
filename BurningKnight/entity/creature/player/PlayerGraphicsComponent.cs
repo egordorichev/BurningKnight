@@ -75,28 +75,6 @@ namespace BurningKnight.entity.creature.player {
 				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + gs.Scale.X * 6f), 
 					0,  new Vector2(region.Center.X, region.Height), gs.Scale);
 			}
-
-			if (true) {
-				return;
-			}
-			
-			var component = GetComponent<HealthComponent>();
-			var red = component.Health - 1;
-			
-			var from = Entity.Center;
-
-			for (var i = 0; i < red; i += 2) {
-				var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / 8 - Math.PI / 2;
-				var a = (float) (angle + Math.PI / 2);
-				var distance = 16f + (float) Math.Cos(Engine.Instance.State.Time * 6f) * 2.5f;
-			
-				var x = from.X + (float) Math.Cos(angle) * distance;
-				var y = from.Y + (float) Math.Sin(angle) * distance;	
-
-				var region = i == red - 1 ? UiInventory.HalfHeart : UiInventory.Heart;
-				Graphics.Render(UiInventory.HeartBackground, new Vector2(x,  y), a, UiInventory.HeartBackground.Center);
-				Graphics.Render(region, new Vector2(x,  y), a, region.Center);					
-			}
 		}
 	}
 }

@@ -79,7 +79,7 @@ namespace BurningKnight.entity.creature.player {
 		public Func<Entity, bool> CanInteractCallback;
 		
 		public virtual bool CanInteract(Entity e) {
-			return e.TryGetComponent<InteractableComponent>(out var component) && (component.CanInteract?.Invoke() ?? true) && (CanInteractCallback == null || CanInteractCallback(e));
+			return e.TryGetComponent<InteractableComponent>(out var component) && (component.CanInteract?.Invoke(Entity) ?? true) && (CanInteractCallback == null || CanInteractCallback(e));
 		}
 	}
 }

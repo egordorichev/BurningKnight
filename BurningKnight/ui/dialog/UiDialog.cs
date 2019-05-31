@@ -7,6 +7,7 @@ using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -56,6 +57,8 @@ namespace BurningKnight.ui.dialog {
 				Tween.To(255, 0, x => Tint.A = (byte) x, 0.3f);
 			}
 			
+			Log.Error($"Say {s}");
+			
 			Saying = true;
 			Str.Width = 4;
 			Str.Height = 4;
@@ -85,16 +88,6 @@ namespace BurningKnight.ui.dialog {
 
 			Str.Tint = Tint;
 			Str.Position = Position + new Vector2(8, 4);
-
-			if (Saying) {
-				if (Input.WasPressed(Controls.Interact, LocalPlayer.Locate(Engine.Instance.State.Area)?.GetComponent<GamepadComponent>().Controller, true)) {
-					if (DoneSaying) {
-						Finish();
-					} else {
-						Str.FinishTyping();
-					}
-				}
-			}
 		}
 
 		public void Finish() {

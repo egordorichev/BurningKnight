@@ -91,6 +91,7 @@ namespace BurningKnight.ui {
 				Subscribe<ConsumableAddedEvent>(area);
 				Subscribe<ConsumableRemovedEvent>(area);
 				Subscribe<ItemUsedEvent>(area);
+				Subscribe<ItemAddedEvent>(area);
 			}
 		}
 
@@ -162,6 +163,15 @@ namespace BurningKnight.ui {
 					
 					break;
 				}
+
+				case ItemAddedEvent iae: {
+					if (iae.Who == player && iae.Item.Type == ItemType.Lamp) {
+						hpZero = 0;
+						Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+					}
+					
+					break;
+				}
 			}
 
 			return base.HandleEvent(e);
@@ -215,11 +225,24 @@ namespace BurningKnight.ui {
 			}
 		}
 
+		private float hpZero = 1f;
+
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
-			// todo: make it wave only sometimes (like in mc)
-			return new Vector2((bg ? 0 : 1) + (pad ? (4 + itemSlot.Source.Width) : 2) + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 
-				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f);
+			var component = player.GetComponent<HealthComponent>();
+			var red = component.Health - 1;
+			
+			var from = Camera.Instance.CameraToUi(player.Center);
+
+			var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(component.MaxHealth / 2, 8) - Math.PI / 2;
+			const float distance = 24f;
+		
+			var x = from.X + (float) Math.Cos(angle) * distance - Heart.Width / 2f;
+			var y = from.Y + (float) Math.Sin(angle) * distance - Heart.Height / 2f;
+
+			return new Vector2((bg ? 0 : 1) + (pad ? (4 + itemSlot.Source.Width) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
+				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? 0 : 4)
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)) * hpZero 
+			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
 		}
 
 		private void RenderHealthBar(bool pad) {

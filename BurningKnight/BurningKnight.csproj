@@ -149,6 +149,7 @@
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
     <Compile Include="entity\component\InteractableSliceComponent.cs" />
+    <Compile Include="entity\component\InteractDialogComponent.cs" />
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\LampComponent.cs" />
@@ -174,7 +175,7 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\CreatureState.cs" />
-    <Compile Include="entity\creature\mob\BurningKnight.cs" />
+    <Compile Include="entity\creature\mob\He.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
@@ -295,6 +296,7 @@
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
+    <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />

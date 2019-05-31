@@ -45,6 +45,7 @@ namespace BurningKnight.entity.component {
 					var e = new ItemAddedEvent {
 						Item = i,
 						Old = old,
+						Who = Entity,
 						Component = this
 					};
 

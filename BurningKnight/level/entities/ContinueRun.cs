@@ -15,7 +15,6 @@ namespace BurningKnight.level.entities {
 
 			if (SaveManager.ExistsAndValid(SaveType.Game, s => {
 				    depth = GameSave.PeekDepth(s);
-				    // fixme: doesnt seem valid
 			    })
 			    
 			    && SaveManager.ExistsAndValid(SaveType.Level, null, $"{SaveManager.SlotDir}level-1.lvl")
@@ -34,6 +33,10 @@ namespace BurningKnight.level.entities {
 
 		protected override string GetFxText() {
 			return $"{Locale.Get("continue_run")} (depth {depth})";
+		}
+
+		protected override bool CanInteract(Entity e) {
+			return true;
 		}
 	}
 }

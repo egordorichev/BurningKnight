@@ -228,9 +228,8 @@ namespace Lens {
 				ScreenMatrix = Matrix.Identity;
 				UiMatrix = Matrix.Identity;
 			} else {
-				// FIXME: use max or min? *have black bars or cut game?
-				Upscale = Math.Max(screenWidth / Display.Width, screenHeight / Display.Height);
-				UiUpscale = Math.Max(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
+				Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
+				UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
 				Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
 				Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;	
 

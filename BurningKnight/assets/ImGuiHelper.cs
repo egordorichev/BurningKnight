@@ -86,21 +86,17 @@ namespace BurningKnight.assets {
 			}
 
 
-			if (ImGui.Begin("Node editor", ImGuiWindowFlags.NoBringToFrontOnFocus)) {
-				foreach (var n in Nodes) {
-					var node = n.Value;
+			foreach (var n in Nodes) {
+				var node = n.Value;
 
-					if (!hideFiltred || filter.PassFilter(node.GetName())) {
-						node.Render();
-					}
+				if (!hideFiltred || filter.PassFilter(node.GetName())) {
+					node.Render();
+				}
 
-					if (node.Done) {
-						toRemove.Add(n.Key);
-					}
+				if (node.Done) {
+					toRemove.Add(n.Key);
 				}
 			}
-
-			ImGui.End();
 
 			CurrentActive?.RemoveEmptyConnection();
 
@@ -148,6 +144,11 @@ namespace BurningKnight.assets {
 			}
 			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+
+			if (!ImGui.Begin("Nodes")) {
+				ImGui.End();
+				return false;
+			}
 
 			return true;
 		}
@@ -199,6 +200,8 @@ namespace BurningKnight.assets {
 			if (!sawFocused) {
 				ImNode.Focused = first;
 			}
+			
+			ImGui.End();
 		}
 
 		public static ImNode CurrentMenu;

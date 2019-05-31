@@ -43,7 +43,7 @@ namespace Lens.util.math {
 			var builder = new StringBuilder();
 
 			for (int i = 0; i < len; i++) {
-				builder.Append(seedChars[Int(seedChars.Length)]);
+				builder.Append(seedChars[Int(seedChars.Length - 1)]);
 			}
 			
 			return builder.ToString();

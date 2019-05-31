@@ -1,4 +1,3 @@
-using System;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
 using Lens.assets;
@@ -46,11 +45,12 @@ namespace BurningKnight.ui.imgui.node {
 		public Dialog Convert() {
 			string[] variants = null;
 
-			if (Outputs.Count > 0) {
-				variants = new string[Outputs.Count];
+			if (Outputs.Count == 1) {
+				var t = Outputs[0].ConnectedTo;
+				variants = new string[t.Count];
 				var i = 0;
 				
-				foreach (var o in Outputs) {
+				foreach (var o in t) {
 					variants[i] = o.Parent.LocaleId;
 					i++;
 				}

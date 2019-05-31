@@ -183,6 +183,10 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
+			if (Engine.Version.Dev) {
+				return;
+			}
+
 			Paused = true;
 			pausedByLostFocus = true;
 			pausedByMouseOut = false;

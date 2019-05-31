@@ -35,8 +35,7 @@ namespace BurningKnight.entity.creature.npc {
 			}
 		}
 		
-		private void OnChoice() {
-			var dialog = GetComponent<DialogComponent>();
+		private void OnChoice(DialogComponent dialog) {
 			var anim = GetComponent<AnimationComponent>().Animation;
 
 			if (dialog.Last is CombineDialog c) {

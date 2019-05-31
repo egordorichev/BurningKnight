@@ -1,1 +1,1 @@
-[{"id":0,"outputs":[[[1,0]]],"type":"Text output","x":168,"y":157},{"id":1,"outputs":[],"type":"Text input","x":409,"y":243}]
+[{"id":0,"outputs":[[[1,0]]],"type":"Text output","x":107,"y":127},{"id":1,"outputs":[[[2,0]]],"type":"Dialog","x":398,"y":129},{"id":2,"outputs":[[[]]],"type":"Dialog","x":676,"y":164}]

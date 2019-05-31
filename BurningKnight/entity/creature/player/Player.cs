@@ -147,7 +147,7 @@ namespace BurningKnight.entity.creature.player {
 				Tween.To(1, 0, x => {
 					Scale.X = x;
 					Scale.Y = x;
-				}, 0.5f, Ease.BackOut);
+				}, 0.5f);
 			}
 
 			public override void Destroy() {

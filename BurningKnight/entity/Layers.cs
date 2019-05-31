@@ -4,9 +4,9 @@
 		public const int Blood = -7;
 		public const int Liquid = -6;
 		public const int FloorParticles = -5;
-		public const int Shadows = -4;
-		public const int Sides = -3;
-		public const int Entrance = -2;
+		public const int Entrance = -4;
+		public const int Shadows = -3;
+		public const int Sides = -2;
 		public const int Door = -1;
 		public const int Creature = 0;
 		
