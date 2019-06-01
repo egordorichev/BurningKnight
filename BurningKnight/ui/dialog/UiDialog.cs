@@ -57,8 +57,6 @@ namespace BurningKnight.ui.dialog {
 				Tween.To(255, 0, x => Tint.A = (byte) x, 0.3f);
 			}
 			
-			Log.Error($"Say {s}");
-			
 			Saying = true;
 			Str.Width = 4;
 			Str.Height = 4;

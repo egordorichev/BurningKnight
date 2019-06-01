@@ -5,6 +5,8 @@ using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Beet : Npc {
+		private Entity interactingWith;
+	
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -22,6 +24,7 @@ namespace BurningKnight.entity.creature.npc {
 			var state = GetComponent<StateComponent>();
 
 			if (state.StateInstance is IdleState) {
+				interactingWith = e;
 				state.Become<PopState>();
 			} 
 
@@ -76,7 +79,9 @@ namespace BurningKnight.entity.creature.npc {
 		public class PoppedState : CreatureState<Beet> {
 			public override void Init() {
 				base.Init();
-				Self.GetComponent<DialogComponent>().Start("beet_0");
+				
+				Self.GetComponent<DialogComponent>().Start("beet_0", Self.interactingWith);
+				Self.interactingWith = null;
 			}
 		}
 		#endregion

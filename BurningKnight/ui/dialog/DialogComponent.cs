@@ -27,8 +27,6 @@ namespace BurningKnight.ui.dialog {
 				return;
 			}
 
-			Log.Error($"Started {id}");
-
 			if (Dialog == null) {
 				Dialog = new UiDialog();
 				Engine.Instance.State.Ui.Add(Dialog);
