@@ -432,6 +432,7 @@
     <Compile Include="state\save\SaveInspector.cs" />
     <Compile Include="state\save\SaveNode.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="ui\dialog\AnswerDialog.cs" />
     <Compile Include="ui\dialog\ChoiceDialog.cs" />
     <Compile Include="ui\dialog\CombineDialog.cs" />
     <Compile Include="ui\dialog\Dialog.cs" />
@@ -456,6 +457,7 @@
     <Compile Include="ui\imgui\ImConnection.cs" />
     <Compile Include="ui\imgui\ImGuiRenderer.cs" />
     <Compile Include="ui\imgui\LocaleEditor.cs" />
+    <Compile Include="ui\imgui\node\ImAnswerNode.cs" />
     <Compile Include="ui\imgui\node\ImChoiceNode.cs" />
     <Compile Include="ui\imgui\node\ImDialogNode.cs" />
     <Compile Include="ui\imgui\node\ImOrdNode.cs" />

@@ -100,8 +100,12 @@ namespace BurningKnight.ui.dialog {
 		}
 
 		private void RenderChoice(Vector2 pos, int i) {
-			if (Current is ChoiceDialog c && i == c.Choice) {
-				Graphics.Print(">", Font.Small, pos);
+			if (Current is ChoiceDialog c) {
+				if (i == c.Choice) {
+					Graphics.Print(">", Font.Small, pos);
+				}
+			} else if (Current is AnswerDialog a) {
+				Graphics.Print($"{a.Answer}{(Engine.Time % 1f > 0.5f ? "|" : "")}", Font.Small, pos);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.ui.dialog;
+using ImGuiNET;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
@@ -52,17 +53,21 @@ namespace BurningKnight.entity.creature.player {
 				var dd = Dialog?.Dialog;
 
 				if (dd != null) {
-					if (dd.DoneSaying && Dialog.Current is ChoiceDialog c) {
-						if (Input.WasPressed(Controls.Up, controller, true)) {
-							c.Choice -= 1;
+					if (dd.DoneSaying) {
+						if (Dialog.Current is ChoiceDialog c) {
+							if (Input.WasPressed(Controls.Up, controller, true)) {
+								c.Choice -= 1;
 
-							if (c.Choice < 0) {
-								c.Choice += c.Options.Length;
+								if (c.Choice < 0) {
+									c.Choice += c.Options.Length;
+								}
 							}
-						}
 
-						if (Input.WasPressed(Controls.Down, controller, true)) {
-							c.Choice = (c.Choice + 1) % c.Options.Length;
+							if (Input.WasPressed(Controls.Down, controller, true)) {
+								c.Choice = (c.Choice + 1) % c.Options.Length;
+							}
+						} else if (Dialog.Current is AnswerDialog a) {
+							// fixme: input text
 						}
 					}
 

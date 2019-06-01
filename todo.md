@@ -21,7 +21,7 @@
 * talk to beet to set the seed
 * Nicer load screen thingy
 * Crash report window
-* ui entities generate on click 2 times?
+* ui entities generate on click 2 times? (might be input bug)
 * Fix interacting with dialogs (and think what to do with input block?)
 * Make node editing possible in-game
 

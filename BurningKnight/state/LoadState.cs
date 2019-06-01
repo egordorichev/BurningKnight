@@ -78,7 +78,7 @@ namespace BurningKnight.state {
 			base.RenderUi();
 			
 			Graphics.Color = new Color(1f, 1f, 1f, alpha);
-			Graphics.Print($"Coming soon tm {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Medium, new Vector2(4, 4));
+			Graphics.Print($"Coming soon tm {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Small, new Vector2(4, 4));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 

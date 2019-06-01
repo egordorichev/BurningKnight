@@ -6,11 +6,12 @@ namespace BurningKnight.ui.imgui.node {
 		public static Dictionary<string, Type> Defined = new Dictionary<string, Type>();
 
 		static ImNodeRegistry() {
+			Define<ImOrdNode>("Ord");
 			Define<ImTextOutputNode>("Text output");
 			Define<ImTextInputNode>("Text input");
-			Define<ImOrdNode>("Ord");
 			Define<ImDialogNode>("Dialog");
 			Define<ImChoiceNode>("Choice");
+			Define<ImAnswerNode>("Answer");
 		}
 		
 		public static void Define<T>(string name) where T : ImNode {

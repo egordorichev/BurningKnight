@@ -42,7 +42,7 @@ namespace BurningKnight.ui.imgui.node {
 			return name;
 		}
 
-		public Dialog Convert() {
+		public virtual Dialog Convert() {
 			string[] variants = null;
 
 			if (Outputs.Count == 1) {
@@ -56,7 +56,11 @@ namespace BurningKnight.ui.imgui.node {
 				}
 			}
 			
-			return new Dialog(LocaleId, variants);
+			return CreateDialog(LocaleId, variants);
+		}
+
+		protected virtual Dialog CreateDialog(string id, string[] variants) {
+			return new Dialog(id, variants);
 		}
 	}
 }
