@@ -1,13 +1,10 @@
 using BurningKnight.assets;
-using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.graphics;
-using Lens.input;
-using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.dialog {
@@ -19,33 +16,58 @@ namespace BurningKnight.ui.dialog {
 		public Dialog Current;
 
 		public DialogCallback OnNext;
-		
+		public Entity To;
+
+		private bool added;
+
+		public override void Init() {
+			base.Init();
+			
+			Dialog = new UiDialog();
+			Dialog.Owner = Entity;
+			
+			Dialog.OnEnd += () => {
+				var next = Current.GetNext();
+
+				if (next == null) {
+					Last = Current;
+					Current = null;
+					OnNext?.Invoke(this);
+
+					if (To != null) {
+						var input = To.GetComponent<PlayerInputComponent>();
+
+						input.InDialog = false;
+						input.Dialog = null;
+							
+						To = null;
+					}
+						
+					return true;
+				}
+
+				Setup(next);
+				OnNext?.Invoke(this);
+				return false;
+			};
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (added) {
+				return;
+			}
+
+			added = true;
+			Engine.Instance.State.Ui.Add(Dialog);
+		}
+
 		public void Start(string id, Entity to = null) {
 			var dialog = Dialogs.Get(id);
 
 			if (dialog == null) {
 				return;
-			}
-
-			if (Dialog == null) {
-				Dialog = new UiDialog();
-				Engine.Instance.State.Ui.Add(Dialog);
-
-				Dialog.Owner = Entity;
-				Dialog.OnEnd = () => {
-					var next = Current.GetNext();
-
-					if (next == null) {
-						Last = Current;
-						Current = null;
-						OnNext?.Invoke(this);
-						return true;
-					}
-
-					Setup(next);
-					OnNext?.Invoke(this);
-					return false;
-				};
 			}
 
 			Setup(dialog, to);
@@ -66,12 +88,14 @@ namespace BurningKnight.ui.dialog {
 			Current = dialog;
 			Dialog.Say(dialog.Modify(Locale.Get(dialog.Id)));
 			Dialog.Str.Renderer = RenderChoice;
-
+			
 			if (to is Player p) {
 				var input = p.GetComponent<PlayerInputComponent>();
 
 				input.InDialog = true;
 				input.Dialog = this;
+
+				To = to;
 			}
 		}
 

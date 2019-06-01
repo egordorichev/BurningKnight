@@ -14,10 +14,16 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 19;
 
 			AddComponent(new AnimationComponent("beet"));
-			AddComponent(new RectBodyComponent(0, 0, Width, Height));
+			AddComponent(new RectBodyComponent(-Padding, -Padding, Width + Padding * 2, Height + Padding * 2));
 			AddComponent(new InteractableComponent(Interact));
 			
 			GetComponent<StateComponent>().Become<IdleState>();
+
+			GetComponent<DialogComponent>().OnNext += (c) => {
+				if (c.Current == null) {
+					GetComponent<StateComponent>().Become<HideState>();
+				}
+			};
 		}
 
 		private bool Interact(Entity e) {
@@ -26,7 +32,9 @@ namespace BurningKnight.entity.creature.npc {
 			if (state.StateInstance is IdleState) {
 				interactingWith = e;
 				state.Become<PopState>();
-			} 
+			} else {
+				GetComponent<DialogComponent>().Start("beet_0", e);
+			}
 
 			return true;
 		}

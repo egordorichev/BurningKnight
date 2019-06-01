@@ -77,6 +77,10 @@ namespace BurningKnight.ui.dialog {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Camera.Instance == null) {
+				return;
+			}
 			
 			Position = Camera.Instance.CameraToUi(new Vector2(Owner.CenterX, Owner.Y - 4));
 			Height += (Str.Height + 12 - Height) * dt * 10;
