@@ -3,11 +3,11 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/coin.mp3</SourceFile>
   <SourceTime>2019-05-28T16:47:06+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/coin.xnb</DestFile>
-  <DestTime>2019-05-29T20:52:00.299525+03:00</DestTime>
+  <DestTime>2019-05-30T10:16:15.2031892+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
-  <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
+  <ImporterTime>2019-05-28T20:47:12+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
+  <ProcessorTime>2019-05-28T20:47:12+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>

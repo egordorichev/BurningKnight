@@ -3,11 +3,11 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gobbo_jump.mp3</SourceFile>
   <SourceTime>2019-05-28T13:40:40.746608+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/gobbo_jump.xnb</DestFile>
-  <DestTime>2019-05-29T20:52:19.7243008+03:00</DestTime>
+  <DestTime>2019-05-30T10:16:30.1418414+03:00</DestTime>
   <Importer>Mp3Importer</Importer>
-  <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
+  <ImporterTime>2019-05-28T20:47:12+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
+  <ProcessorTime>2019-05-28T20:47:12+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>
