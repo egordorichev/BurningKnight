@@ -433,6 +433,7 @@
     <Compile Include="state\save\SaveNode.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="ui\dialog\AnswerDialog.cs" />
+    <Compile Include="ui\dialog\AnswerType.cs" />
     <Compile Include="ui\dialog\ChoiceDialog.cs" />
     <Compile Include="ui\dialog\CombineDialog.cs" />
     <Compile Include="ui\dialog\Dialog.cs" />

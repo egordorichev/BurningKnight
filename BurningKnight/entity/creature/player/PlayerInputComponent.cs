@@ -3,8 +3,10 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
@@ -12,6 +14,8 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.input;
 using Lens.util;
+using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Random = Lens.util.math.Random;
@@ -19,9 +23,34 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
+
+		private DialogComponent dialog;
 		
 		public bool InDialog;
-		public DialogComponent Dialog;
+
+		public DialogComponent Dialog {
+			get => dialog;
+			
+			set {
+				var old = dialog;
+				dialog = value;
+
+				if (dialog == null) {
+					if (old != null) {
+						((InGameState) Engine.Instance.State).ResetFollowing();
+						Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 1f);
+					}
+				} else if (dialog != null) {
+					Camera.Instance.Targets.Clear();
+
+					if (old == null) {				
+						Tween.To(2f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.35f);
+					}
+					
+					Camera.Instance.Follow(dialog.Entity, 1f);
+				}
+			}
+		}
 
 		public override bool HandleEvent(Event e) {
 			var controller = GetComponent<GamepadComponent>().Controller;
@@ -45,16 +74,19 @@ namespace BurningKnight.entity.creature.player {
 			if (InDialog) {
 				if (Input.WasPressed(Controls.Cancel)) {
 					InDialog = false;
-					Dialog?.Close();
+					dialog?.Close();
 					
 					return;
 				}
 
-				var dd = Dialog?.Dialog;
+				var dd = dialog?.Dialog;
 
 				if (dd != null) {
+					var isAnswer = dialog.Current is AnswerDialog;
+					var a = isAnswer ? (AnswerDialog) dialog.Current : null;
+					
 					if (dd.DoneSaying) {
-						if (Dialog.Current is ChoiceDialog c) {
+						if (dialog.Current is ChoiceDialog c) {
 							if (Input.WasPressed(Controls.Up, controller, true)) {
 								c.Choice -= 1;
 
@@ -66,13 +98,13 @@ namespace BurningKnight.entity.creature.player {
 							if (Input.WasPressed(Controls.Down, controller, true)) {
 								c.Choice = (c.Choice + 1) % c.Options.Length;
 							}
-						} else if (Dialog.Current is AnswerDialog a) {
+						} else if (isAnswer) {
 							// fixme: input text
 						}
 					}
 
 					if (dd.Saying) {
-						if (Input.WasPressed(Controls.Interact, controller, true)) {
+						if ((!isAnswer && Input.WasPressed(Controls.Interact, controller, true)) || (isAnswer && !a.Focused)) {
 							if (dd.DoneSaying) {
 								dd.Finish();
 							} else {

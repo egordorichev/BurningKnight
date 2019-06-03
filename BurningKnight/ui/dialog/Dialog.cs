@@ -1,10 +1,14 @@
+using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
-using Lens.util.math;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.ui.dialog {
 	public class Dialog {
 		public readonly string Id;
 		public string[] Next;
+
+		public List<Action<Dialog>> Callbacks = new List<Action<Dialog>>();
 		
 		public Dialog(string id, string[] next = null) {
 			Id = id;

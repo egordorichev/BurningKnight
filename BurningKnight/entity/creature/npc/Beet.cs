@@ -1,11 +1,22 @@
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Beet : Npc {
 		private Entity interactingWith;
+
+		static Beet() {
+			Dialogs.RegisterCallback("beet_4", d => {
+				var a = ((AnswerDialog) d).Answer;
+				Log.Error(a);
+				Random.Seed = a;
+			});
+		}
 	
 		public override void AddComponents() {
 			base.AddComponents();

@@ -114,6 +114,18 @@ namespace BurningKnight.state {
 			Run.StartedNew = false;
 		}
 
+		public void ResetFollowing() {
+			Camera.Instance.Targets.Clear();
+			
+			foreach (var p in Area.Tags[Tags.Player]) {
+				if (p is LocalPlayer) {
+					Camera.Instance.Follow(p, 1f, true);
+				}
+			}
+
+			Camera.Instance.Follow(cursor, 1f);
+		}
+
 		public override void Destroy() {
 			Audio.Stop();
 			Lights.Destroy();

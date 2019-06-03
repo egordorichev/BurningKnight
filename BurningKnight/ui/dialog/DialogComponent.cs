@@ -6,6 +6,7 @@ using Lens.entity;
 using Lens.entity.component;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.ui.dialog {
 	public delegate void DialogCallback(DialogComponent d);
@@ -20,13 +21,38 @@ namespace BurningKnight.ui.dialog {
 
 		private bool added;
 
+		private void HandleInput(object sender, TextInputEventArgs args) {
+			if (Current is AnswerDialog a) {
+				if (a.Focused) {
+					if (args.Key == Keys.Back) {
+						if (a.Answer.Length > 0) {
+							a.Answer = a.Answer.Substring(0, a.Answer.Length - 1);
+						}
+					} else if (args.Key == Keys.Enter) {
+						var s = a.Answer;
+						
+						a.Focused = false;
+						a.Answer = "";
+					} else {
+						a.Answer += args.Character;	
+					}
+				}
+			}
+		}
+
 		public override void Init() {
 			base.Init();
 			
+			Engine.Instance.Window.TextInput += HandleInput;
+
 			Dialog = new UiDialog();
 			Dialog.Owner = Entity;
 			
 			Dialog.OnEnd += () => {
+				foreach (var c in Current.Callbacks) {
+					c(Current);
+				}
+				
 				var next = Current.GetNext();
 
 				if (next == null) {
@@ -50,6 +76,11 @@ namespace BurningKnight.ui.dialog {
 				OnNext?.Invoke(this);
 				return false;
 			};
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Engine.Instance.Window.TextInput -= HandleInput;
 		}
 
 		public override void Update(float dt) {
@@ -86,7 +117,11 @@ namespace BurningKnight.ui.dialog {
 		private void Setup(Dialog dialog, Entity to = null) {
 			Last = Current;
 			Current = dialog;
-			Dialog.Say(dialog.Modify(Locale.Get(dialog.Id)));
+
+			var c = Locale.Get(dialog.Id);
+			var s = dialog.Modify(c);
+			
+			Dialog.Say(s);
 			Dialog.Str.Renderer = RenderChoice;
 			
 			if (to is Player p) {
@@ -105,7 +140,7 @@ namespace BurningKnight.ui.dialog {
 					Graphics.Print(">", Font.Small, pos);
 				}
 			} else if (Current is AnswerDialog a) {
-				Graphics.Print($"{a.Answer}{(Engine.Time % 1f > 0.5f ? "|" : "")}", Font.Small, pos);
+				Graphics.Print($"{a.Answer}{(a.Focused && Engine.Time % 0.8f > 0.4f ? "|" : "")}", Font.Small, pos);
 			}
 		}
 	}

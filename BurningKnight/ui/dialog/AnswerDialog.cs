@@ -1,19 +1,22 @@
-using System.Text;
-
 namespace BurningKnight.ui.dialog {
 	public class AnswerDialog : Dialog {
-		public string Answer = "";
+		// Keep in sync with AnswerType!
+		public static string[] Types = {
+			"Text", "Seed"
+		};
 		
-		public AnswerDialog(string id, string[] next = null) : base(id, next) {
-			
+		public string Answer = "";
+		public bool Focused = true;
+		public AnswerType Type;
+		
+		public AnswerDialog(string id, AnswerType type, string[] next = null) : base(id, next) {
+			Type = type;
 		}
+		
+		
 
 		public override string Modify(string dialog) {
-			var builder = new StringBuilder();
-
-			builder.Append(dialog).Append("\n[rn 0]");
-
-			return builder.ToString();
+			return $"{dialog}\n[rn 0] ";
 		}
 	}
 }

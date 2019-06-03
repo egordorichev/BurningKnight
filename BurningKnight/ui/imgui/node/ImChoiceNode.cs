@@ -110,12 +110,15 @@ namespace BurningKnight.ui.imgui.node {
 				var i = 0;
 				
 				foreach (var o in Outputs) {
-					variants[i] = o.Parent.LocaleId;
+					if (o.ConnectedTo.Count > 0) {
+						variants[i] = o.ConnectedTo[0].Parent.LocaleId;
+					}
+
 					i++;
 				}
 			}
 			
-			return new Dialog(name, variants);
+			return new ChoiceDialog(name, choices.ToArray(), variants);
 		}
 	}
 }

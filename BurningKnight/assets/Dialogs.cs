@@ -11,6 +11,10 @@ namespace BurningKnight.assets {
 	public static class Dialogs {
 		private static Dictionary<string, Dialog> dialogs = new Dictionary<string, Dialog>();
 
+		public static void RegisterCallback(string id, Action<Dialog> callback) {
+			Get(id)?.Callbacks.Add(callback);
+		}
+		
 		public static void Load() {
 			var dir = FileHandle.FromRoot("Dialogs");
 			
@@ -59,13 +63,8 @@ namespace BurningKnight.assets {
 
 		public static Dialog Get(string id) {
 			if (!dialogs.TryGetValue(id, out var dialog)) {
-				if (Locale.Contains(id)) {
-					dialog = new Dialog(id);
-					dialogs[id] = dialog;
-				} else {
-					Log.Error($"Unknown dialog {id}");
-					return null;
-				}
+				Log.Error($"Unknown dialog {id}");
+				return null;
 			}
 
 			return dialog;

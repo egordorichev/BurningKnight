@@ -27,7 +27,9 @@ namespace BurningKnight.ui.dialog {
 				builder.Append($"[rn {i}]  ").Append(Locale.Get(option)).Append('\n');
 				i++;
 			}
-			
+
+			// seems like it doesnt call modify on options after 1st
+			var s = builder.ToString();
 			return builder.ToString();
 		}
 
