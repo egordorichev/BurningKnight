@@ -17,6 +17,7 @@ namespace BurningKnight.state {
 		public static bool StartedNew;
 		public static bool HasRun;
 		public static string Seed;
+		public static bool IgnoreSeed;
 		
 		public static int Depth {
 			get => depth;
@@ -43,7 +44,12 @@ namespace BurningKnight.state {
 
 			StartingNew = true;
 			HasRun = false;
-			Seed = Random.GenerateSeed();
+
+			if (IgnoreSeed) {
+				IgnoreSeed = true;
+			} else {
+				Seed = Random.GenerateSeed();
+			}
 			
 			Random.Seed = Seed;
 			Log.Debug($"This run's seed is {Seed}");

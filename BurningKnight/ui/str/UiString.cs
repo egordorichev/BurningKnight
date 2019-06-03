@@ -42,7 +42,7 @@ namespace BurningKnight.ui.str {
 		public EventFired EventFired;
 		public CharTyped CharTyped;
 		public Action<Vector2, int> Renderer;
-		public Dictionary<string, object> Variables;
+		public Dictionary<string, object> Variables = new Dictionary<string, object>();
 
 		public void SetVariable(string id, object o) {
 			Variables[id] = o;

@@ -11,7 +11,7 @@ namespace BurningKnight.assets {
 	public static class Dialogs {
 		private static Dictionary<string, Dialog> dialogs = new Dictionary<string, Dialog>();
 
-		public static void RegisterCallback(string id, Action<Dialog> callback) {
+		public static void RegisterCallback(string id, Func<Dialog, DialogComponent, Dialog> callback) {
 			Get(id)?.Callbacks.Add(callback);
 		}
 		

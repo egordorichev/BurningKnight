@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Lens.assets;
+using Lens.util;
 
 namespace BurningKnight.ui.dialog {
 	public class ChoiceDialog : Dialog {
@@ -24,12 +25,14 @@ namespace BurningKnight.ui.dialog {
 			builder.Append(dialog).Append("\n");
 
 			foreach (var option in Options) {
-				builder.Append($"[rn {i}]  ").Append(Locale.Get(option)).Append('\n');
+				builder.Append($"[rn {i}]  ").Append(Locale.Get(option));
 				i++;
+
+				if (i < Options.Length) {
+					builder.Append('\n');
+				}
 			}
 
-			// seems like it doesnt call modify on options after 1st
-			var s = builder.ToString();
 			return builder.ToString();
 		}
 

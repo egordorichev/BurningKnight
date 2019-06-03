@@ -3,7 +3,7 @@
 ### Before josh
 
 * fix: continue run does not return you lamp and weapons?
-* same seed all the time??
+* fix nodes requiring to hit enter to set their name
 
 * BK him self
  + Healthbar

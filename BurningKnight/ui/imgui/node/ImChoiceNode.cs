@@ -15,7 +15,7 @@ namespace BurningKnight.ui.imgui.node {
 		}
 
 		public override string GetName() {
-			return label;
+			return name;
 		}
 
 		public override void RenderElements() {
@@ -118,7 +118,7 @@ namespace BurningKnight.ui.imgui.node {
 				}
 			}
 			
-			return new ChoiceDialog(name, choices.ToArray(), variants);
+			return new ChoiceDialog(LocaleId, choices.ToArray(), variants);
 		}
 	}
 }

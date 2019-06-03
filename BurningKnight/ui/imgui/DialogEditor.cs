@@ -25,7 +25,6 @@ namespace BurningKnight.ui.imgui {
 
 		public static void Destroy() {
 			SaveDialogs();
-			Locale.Save();
 			ImGuiHelper.ClearNodes();
 		}
 	
@@ -34,6 +33,7 @@ namespace BurningKnight.ui.imgui {
 				return;
 			}
 			
+			Locale.Save();
 			Log.Info($"Saving {files[current]}");
 			
 			var nodes = ImGuiHelper.Nodes;

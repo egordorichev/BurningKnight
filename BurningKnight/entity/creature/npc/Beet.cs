@@ -1,5 +1,6 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -11,10 +12,21 @@ namespace BurningKnight.entity.creature.npc {
 		private Entity interactingWith;
 
 		static Beet() {
-			Dialogs.RegisterCallback("beet_4", d => {
+			Dialogs.RegisterCallback("beet_0", (d, c) => {
+				c.Dialog.Str.SetVariable("seed", Run.Seed);
+				return Dialogs.Get($"beet_{(Run.IgnoreSeed ? 4 : 1)}");
+			});
+			
+			Dialogs.RegisterCallback("beet_2", (d, c) => {
 				var a = ((AnswerDialog) d).Answer;
-				Log.Error(a);
+
+				Log.Info($"Beet set the seed to {a}");
+				
 				Random.Seed = a;
+				Run.Seed = a;
+				Run.IgnoreSeed = true;
+
+				return null;
 			});
 		}
 	

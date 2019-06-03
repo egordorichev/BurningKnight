@@ -18,6 +18,8 @@ namespace BurningKnight.entity.creature {
 			
 			AddAnimation("burning_knight");
 			SetMaxHp(10000);
+
+			TouchDamage = 0;
 			
 			Become<IdleState>();
 		}

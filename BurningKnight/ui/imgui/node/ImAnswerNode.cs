@@ -1,9 +1,10 @@
 using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens.lightJson;
 
 namespace BurningKnight.ui.imgui.node {
 	public class ImAnswerNode : ImDialogNode {
-		public int type;
+		private int type;
 		
 		public override void RenderElements() {
 			base.RenderElements();
@@ -12,6 +13,16 @@ namespace BurningKnight.ui.imgui.node {
 
 		protected override Dialog CreateDialog(string id, string[] variants) {
 			return new AnswerDialog(id, (AnswerType) type, variants);
+		}
+
+		public override void Save(JsonObject root) {
+			base.Save(root);
+			root["atype"] = type;
+		}
+
+		public override void Load(JsonObject root) {
+			base.Load(root);
+			type = root["atype"].Int(0);
 		}
 	}
 }

@@ -23,7 +23,6 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
-
 		private DialogComponent dialog;
 		
 		public bool InDialog;
@@ -38,13 +37,13 @@ namespace BurningKnight.entity.creature.player {
 				if (dialog == null) {
 					if (old != null) {
 						((InGameState) Engine.Instance.State).ResetFollowing();
-						Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 1f);
+						// Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 1f);
 					}
 				} else if (dialog != null) {
 					Camera.Instance.Targets.Clear();
 
 					if (old == null) {				
-						Tween.To(2f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.35f);
+						// Tween.To(2f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.35f);
 					}
 					
 					Camera.Instance.Follow(dialog.Entity, 1f);

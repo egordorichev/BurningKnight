@@ -8,7 +8,7 @@ namespace BurningKnight.ui.dialog {
 		public readonly string Id;
 		public string[] Next;
 
-		public List<Action<Dialog>> Callbacks = new List<Action<Dialog>>();
+		public List<Func<Dialog, DialogComponent, Dialog>> Callbacks = new List<Func<Dialog, DialogComponent, Dialog>>();
 		
 		public Dialog(string id, string[] next = null) {
 			Id = id;
@@ -30,6 +30,10 @@ namespace BurningKnight.ui.dialog {
 
 		public virtual string Modify(string dialog) {
 			return dialog;
+		}
+
+		public virtual void Reset() {
+			
 		}
 	}
 }

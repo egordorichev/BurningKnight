@@ -24,18 +24,7 @@ namespace BurningKnight.ui.dialog {
 		private void HandleInput(object sender, TextInputEventArgs args) {
 			if (Current is AnswerDialog a) {
 				if (a.Focused) {
-					if (args.Key == Keys.Back) {
-						if (a.Answer.Length > 0) {
-							a.Answer = a.Answer.Substring(0, a.Answer.Length - 1);
-						}
-					} else if (args.Key == Keys.Enter) {
-						var s = a.Answer;
-						
-						a.Focused = false;
-						a.Answer = "";
-					} else {
-						a.Answer += args.Character;	
-					}
+					a.HandleInput(args);
 				}
 			}
 		}
@@ -49,11 +38,21 @@ namespace BurningKnight.ui.dialog {
 			Dialog.Owner = Entity;
 			
 			Dialog.OnEnd += () => {
+				Dialog next = null;
+				
 				foreach (var c in Current.Callbacks) {
-					c(Current);
+					var d = c(Current, this);
+
+					if (d != null) {
+						next = d;
+					}
+				}
+
+				if (next == null) {
+					next = Current.GetNext();
 				}
 				
-				var next = Current.GetNext();
+				Current.Reset();
 
 				if (next == null) {
 					Last = Current;
