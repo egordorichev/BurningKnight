@@ -1,13 +1,18 @@
 ﻿using System;
 using BurningKnight.assets;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
 using ImGuiNET;
+using Lens.assets;
 using Lens.input;
 using Lens.lightJson;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Num = System.Numerics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.use {
 	public class SimpleShootUse : ShootUse {
@@ -30,10 +35,25 @@ namespace BurningKnight.entity.item.use {
 				projectile.AddLight(32f, Color.Red);
 				projectile.Damage = damage;
 				projectile.Range = range * 0.5f / speed;
+				
+				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
+					Region = CommonAse.Particles.GetSlice("shell")
+				}));
+
+				p.Position = entity.Center;
+				entity.Area.Add(p);
+
+				var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
+				
+				p.Particle.Velocity = new Vector2(f * Random.Float(40, 50), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+				p.Particle.Angle = 0;
+				p.Particle.Zv = Random.Float(1.5f, 2.5f);
+				p.Particle.AngleVelocity = f * Random.Float(40, 70);
+				
+				p.AddShadow();
 			};
 		}
-		
-		
+
 		public static void RenderDebug(JsonValue root) {
 			var val = root["damage"].Int(1);
 

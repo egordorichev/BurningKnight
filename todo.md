@@ -4,6 +4,7 @@
 
 * fix: continue run does not return you lamp and weapons?
 * fix nodes requiring to hit enter to set their name
+* you cant break props with gun
 
 * BK him self
  + Healthbar

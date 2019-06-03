@@ -35,6 +35,10 @@ namespace BurningKnight.assets.particle {
 				return;
 			}
 
+			if (Depth == Layers.FloorParticles || Depth == Layers.FlyingMob) {
+				Depth = Particle.Z > 1 ? Layers.FlyingMob : Layers.FloorParticles;
+			}
+
 			Position = Particle.Position;
 		}
 
