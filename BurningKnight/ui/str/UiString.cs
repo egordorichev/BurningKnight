@@ -290,6 +290,7 @@ namespace BurningKnight.ui.str {
 					} else if (c == '\n') {
 						sinceLast = 0;
 						sinceLastSpace = 0;
+						width = 0;
 					} else {
 						w = g.FontRegion.Width;
 					}
