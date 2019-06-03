@@ -423,7 +423,7 @@ namespace BurningKnight.ui.str {
 			if (Delay > 0 || Paused) {
 				Delay -= dt;
 			} else {
-				progress = Math.Min(progress + Speed * dt * 20f, glyphs.Count);
+				progress = Math.Min(progress + Speed * dt * 25f, glyphs.Count);
 				var v = (int) Math.Floor(progress);
 
 				while (true) {

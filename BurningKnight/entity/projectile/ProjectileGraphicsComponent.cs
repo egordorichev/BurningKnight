@@ -15,7 +15,7 @@ namespace BurningKnight.entity.projectile {
 		public override void Render(bool shadow) {
 			if (shadow) {
 				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y), 
-					0, Sprite.Center, new Vector2(0.5f), Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+					0, Sprite.Center, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			

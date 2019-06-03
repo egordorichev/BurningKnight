@@ -3,5 +3,9 @@ namespace BurningKnight.assets.particle.renderer {
 		public virtual void Render(Particle particle) {
 			
 		}
+
+		public virtual void RenderShadow(Particle particle) {
+			
+		}
 	}
 }

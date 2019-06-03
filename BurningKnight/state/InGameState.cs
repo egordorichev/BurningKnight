@@ -432,10 +432,8 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderUi() {
-			if (painting != null) {
-				painting.RenderUi();
-			}
-			
+			painting?.RenderUi();
+
 			if (Settings.HideUi) {
 				cursor.Render();
 				return;
@@ -458,6 +456,8 @@ namespace BurningKnight.state {
 				Graphics.Color = color;
 				Graphics.Print($"{c}", Font.Small, 1, 1);
 				Graphics.Color = ColorUtils.WhiteColor;
+			} else if (!Engine.Version.Dev) {
+				Graphics.Print(Engine.Version.ToString(), Font.Small, 1, 1);
 			}
 		}
 

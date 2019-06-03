@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
@@ -74,7 +75,7 @@ namespace BurningKnight.entity.projectile {
 			T += dt;
 
 			if (Range > -1 && T >= Range) {
-				Done = true;
+				AnimateDeath();
 				return;
 			}
 			
@@ -84,7 +85,7 @@ namespace BurningKnight.entity.projectile {
 		protected bool BreaksFrom(Entity entity) {
 			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
 			       (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() || 
-			        entity is SolidProp || entity is DestroyableLevel);
+			        entity is SolidProp || entity is DestroyableLevel || entity is ItemStand);
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -94,8 +95,8 @@ namespace BurningKnight.entity.projectile {
 				}
 				
 				if (BreaksFrom(ev.Entity)) {
-					Done = true;
-
+					AnimateDeath();
+					
 					if (ev.Entity is DestroyableLevel lvl) {
 						lvl.Break(CenterX, CenterY);
 					}
@@ -106,7 +107,23 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile);
+			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Campfire);
+		}
+		
+		protected virtual void AnimateDeath() {
+			if (Done) {
+				return;
+			}
+			
+			Done = true;
+			
+			var explosion = new ParticleEntity(Particles.Animated("bullet_fx"));
+			explosion.Position = Center;
+			Area.Add(explosion);
+			explosion.Depth = 30;
+			explosion.Particle.AngleVelocity = 0;
+			explosion.Particle.Velocity = Vector2.Zero;
+			explosion.AddShadow();
 		}
 	}
 }

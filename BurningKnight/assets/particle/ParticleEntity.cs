@@ -1,4 +1,5 @@
 using BurningKnight.entity;
+using BurningKnight.entity.component;
 using Lens.entity;
 using Lens.util.math;
 
@@ -42,6 +43,16 @@ namespace BurningKnight.assets.particle {
 			
 			if (!Particle.Done) {
 				Particle.Renderer.Render(Particle);				
+			}
+		}
+
+		public void AddShadow() {
+			AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		private void RenderShadow() {
+			if (!Particle.Done) {
+				Particle.Renderer.RenderShadow(Particle);
 			}
 		}
 	}

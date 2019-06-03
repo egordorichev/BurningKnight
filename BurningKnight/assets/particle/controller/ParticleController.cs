@@ -7,7 +7,7 @@ namespace BurningKnight.assets.particle.controller {
 	public class ParticleController {
 		public virtual void Init(Particle particle, Entity owner) {
 			particle.Position = owner.Center;
-			particle.AngleVelocity = Random.Float(0.6f, 1) * 48 * (Random.Chance() ? -1 : 1);
+			particle.AngleVelocity = Random.Float(0.6f, 1) * 16 * (Random.Chance() ? -1 : 1);
 
 			var a = Random.AnglePI();
 			var f = Random.Float(0.6f, 1f) * 40f;

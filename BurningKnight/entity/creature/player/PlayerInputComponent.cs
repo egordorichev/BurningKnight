@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -114,6 +115,17 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				return;
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.Space, true)) {
+				var explosion = new ParticleEntity(Particles.Animated("spawn_fx"));
+				explosion.Position = Entity.Center;
+				Entity.Area.Add(explosion);
+
+				explosion.AddComponent(new LightComponent(explosion, 64f, new Color(1f, 0.1f, 0.1f, 0.8f)));
+				explosion.Depth = 31;
+				explosion.Particle.Velocity = Vector2.Zero;
+				explosion.Particle.AngleVelocity = 0;
 			}
 			
 			var state = Entity.GetComponent<StateComponent>();

@@ -28,6 +28,19 @@ namespace BurningKnight.entity.creature.npc {
 
 				return null;
 			});
+			
+			Dialogs.RegisterCallback("beet_4", (d, c) => {
+				if (((ChoiceDialog) d).Choice == 2) {
+					Run.Seed = Random.GenerateSeed();
+					Run.IgnoreSeed = false;
+
+					c.Dialog.Str.SetVariable("seed", Run.Seed);
+					Log.Info($"Beet randomly set the seed to {Run.Seed}");
+				}
+
+				return null;
+			});
+
 		}
 	
 		public override void AddComponents() {
@@ -37,13 +50,16 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 19;
 
 			AddComponent(new AnimationComponent("beet"));
-			AddComponent(new RectBodyComponent(-Padding, -Padding, Width + Padding * 2, Height + Padding * 2));
+			AddComponent(new RectBodyComponent(-Padding, -Padding, Width + Padding * 2, Height + Padding * 2) {
+				KnockbackModifier = 0
+			});
+			
 			AddComponent(new InteractableComponent(Interact));
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 
 			GetComponent<DialogComponent>().OnNext += (c) => {
-				if (c.Current == null) {
+				if (c.Current == null && !Run.IgnoreSeed) {
 					GetComponent<StateComponent>().Become<HideState>();
 				}
 			};
