@@ -23,7 +23,6 @@ namespace BurningKnight.level.rooms {
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
 		public bool Explored;
-		public bool Finished;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -40,10 +39,6 @@ namespace BurningKnight.level.rooms {
 
 			var level = Run.Level;
 			Explored = level.Explored[level.ToIndex(MapX + 1, MapY + 1)];
-
-			if (Type != RoomType.Regular) {
-				Finished = true;
-			}
 		}
 
 		public void Discover() {
@@ -72,10 +67,6 @@ namespace BurningKnight.level.rooms {
 			MapH = stream.ReadInt16();
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
-
-			if (Type == RoomType.Regular) {
-				Finished = stream.ReadBoolean();
-			}
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -87,10 +78,6 @@ namespace BurningKnight.level.rooms {
 			stream.WriteInt16((short) MapH);
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
-
-			if (Type == RoomType.Regular) {
-				stream.WriteBoolean(Finished);	
-			}
 		}
 		
 		protected int GetRenderLeft(Camera camera, Level level) {

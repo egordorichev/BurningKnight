@@ -1,4 +1,3 @@
-using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.lamp;
@@ -35,9 +34,6 @@ namespace BurningKnight.entity.component {
 				}
 
 				knight.SetLamp(Item);
-				
-				knight.CenterX = Entity.CenterX;
-				knight.Bottom = Entity.Y - 32;
 			}
 		}
 
