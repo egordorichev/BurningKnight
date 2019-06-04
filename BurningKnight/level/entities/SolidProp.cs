@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class SolidProp : Prop, CollisionFilterEntity {
+	public class SolidProp : SlicedProp, CollisionFilterEntity {
 		public override void PostInit() {
 			base.PostInit();
 

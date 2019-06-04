@@ -24,14 +24,14 @@ namespace BurningKnight.entity.component {
 				Entity.Area.Add(Lamp);
 				Lamp.Center = Entity.Center;
 
-				He knight;
+				creature.BurningKnight knight;
 				
 				if (Entity.Area.Tags[Tags.BurningKnight].Count == 0) {
-					knight = new He();
+					knight = new creature.BurningKnight();
 					Entity.Area.Add(knight);
 				} else {
 					var list = Entity.Area.Tags[Tags.BurningKnight];
-					knight = (He) list[Random.Int(list.Count)];
+					knight = (creature.BurningKnight) list[Random.Int(list.Count)];
 				}
 
 				knight.SetLamp(Item);

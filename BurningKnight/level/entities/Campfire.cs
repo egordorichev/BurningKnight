@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class Campfire : SaveableEntity, PlaceableEntity {
+	public class Campfire : Prop, PlaceableEntity {
 		public override void AddComponents() {
 			base.AddComponents();
 

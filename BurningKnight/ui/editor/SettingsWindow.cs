@@ -45,6 +45,9 @@ namespace BurningKnight.ui.editor {
 		static SettingsWindow() {
 			var blocked = new List<Type> {
 				typeof(Slime),
+				typeof(Prop),
+				typeof(SlicedProp),
+				typeof(SolidProp),
 				typeof(BreakableProp),
 				typeof(PlaceableEntity),
 				typeof(Mob),

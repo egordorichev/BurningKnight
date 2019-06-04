@@ -348,22 +348,22 @@ namespace BurningKnight.level {
 					for (int X = Room.Left; X <= Room.Right; X++) {
 						if (Level.Get(X, Y).IsWall()) {
 							if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1).IsWall() && !Level.Get(X, Y - 1).IsWall() && Random.Chance(20)) {
-								Level.Area.Add(new Prop("cobweb_c", Layers.WallDecor) {
+								Level.Area.Add(new SlicedProp("cobweb_c", Layers.WallDecor) {
 									X = X * 16,
 									Y = Y * 16 - 24
 								});
 							} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1).IsWall() && !Level.Get(X, Y - 1).IsWall() && Random.Chance(20)) {
-								Level.Area.Add(new Prop("cobweb_d", Layers.WallDecor) {
+								Level.Area.Add(new SlicedProp("cobweb_d", Layers.WallDecor) {
 									X = X * 16,
 									Y = Y * 16 - 24
 								});
 							} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1).IsWall() && !Level.Get(X, Y + 1).IsWall() && Random.Chance(20)) {
-								Level.Area.Add(new Prop("cobweb_a", Layers.WallDecor) {
+								Level.Area.Add(new SlicedProp("cobweb_a", Layers.WallDecor) {
 									X = X * 16,
 									Y = Y * 16 + 8
 								});
 							} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1).IsWall() && !Level.Get(X, Y + 1).IsWall() && Random.Chance(20)) {
-								Level.Area.Add(new Prop("cobweb_b", Layers.WallDecor) {
+								Level.Area.Add(new SlicedProp("cobweb_b", Layers.WallDecor) {
 									X = X * 16,
 									Y = Y * 16 + 8
 								});

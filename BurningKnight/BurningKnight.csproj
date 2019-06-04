@@ -95,6 +95,7 @@
     <Compile Include="assets\particle\AnimatedParticle.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
+    <Compile Include="assets\particle\controller\FloatParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -175,7 +176,6 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\CreatureState.cs" />
-    <Compile Include="entity\creature\mob\He.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
@@ -334,8 +334,10 @@
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
+    <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
+    <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
     <Compile Include="level\Flag.cs" />

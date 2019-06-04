@@ -9,6 +9,7 @@ namespace BurningKnight.assets {
 		public static AnimationData Ui;
 		public static AnimationData Projectiles;
 		public static AnimationData Particles;
+		public static AnimationData Props;
 		
 		public static TextureRegion Missing;
 		
@@ -18,6 +19,7 @@ namespace BurningKnight.assets {
 			Ui = Animations.Get("ui");
 			Projectiles = Animations.Get("projectiles");
 			Particles = Animations.Get("particles");
+			Props = Animations.Get("props");
 
 			Missing = Items.GetSlice("missing");
 			Textures.Missing = Missing;

@@ -107,7 +107,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Campfire);
+			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Prop);
 		}
 		
 		protected virtual void AnimateDeath() {
