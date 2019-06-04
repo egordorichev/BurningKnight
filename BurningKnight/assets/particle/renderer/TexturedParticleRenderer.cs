@@ -10,6 +10,10 @@ namespace BurningKnight.assets.particle.renderer {
 			Region = Animations.Get("particles").GetSlice(slice);
 		}
 
+		public TexturedParticleRenderer(TextureRegion r) {
+			Region = r;
+		}
+		
 		public TexturedParticleRenderer() {
 			
 		}

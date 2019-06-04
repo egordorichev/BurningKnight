@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3</SourceFile>
+  <SourceTime>2019-05-22T01:55:26+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Frozen to the bones.xnb</DestFile>
+  <DestTime>2019-05-29T15:28:05.9071393+03:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2019-02-23T19:50:18+03:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2019-02-23T19:50:18+03:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
