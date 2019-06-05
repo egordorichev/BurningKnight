@@ -28,10 +28,10 @@ namespace BurningKnight.level {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
 		public static bool RenderPassable = false;
+		public static Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
 		
 		public Tileset Tileset;
 		public Biome Biome;
-		public Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
 

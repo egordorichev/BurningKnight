@@ -4,6 +4,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -21,9 +22,20 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemStand : SaveableEntity, PlaceableEntity {
+		private static TextureRegion itemShadow;
+		private static Vector2 shadowOffset = new Vector2(3, 3);
+		
 		private Item item;
 		
 		public Item Item => item;
+
+		public override void Init() {
+			base.Init();
+
+			if (itemShadow == null) {
+				itemShadow = CommonAse.Props.GetSlice("item_shadow");
+			}
+		}
 
 		public void SetItem(Item i, Entity entity) {
 			if (item == i) {
@@ -46,7 +58,8 @@ namespace BurningKnight.entity.item {
 			if (item != null) {
 				item.RemoveDroppedComponents();
 				item.AddComponent(new OwnerComponent(this));
-				item.Center = Center;
+				item.CenterX = CenterX;
+				item.Bottom = Y + 6;
 				
 				HandleEvent(new ItemPlacedEvent {
 					Item = item,
@@ -164,12 +177,16 @@ namespace BurningKnight.entity.item {
 				return;
 			}
 
+			Graphics.Color = Level.ShadowColor;
+			Graphics.Render(itemShadow, Position + shadowOffset);
+			Graphics.Color = ColorUtils.WhiteColor;
+
 			var t = item.GetComponent<ItemGraphicsComponent>().T;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f);
+			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f - 5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;

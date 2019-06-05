@@ -315,9 +315,10 @@ namespace BurningKnight.state {
 		
 		private void TeleportTo(RoomType type) {
 			var player = LocalPlayer.Locate(Area);
+			var room = player.GetComponent<RoomComponent>().Room;
 
 			foreach (var r in Area.Tags[Tags.Room]) {
-				if (((Room) r).Type == type) {
+				if (r != room && ((Room) r).Type == type) {
 					player.Center = r.Center;
 					return;
 				}
@@ -355,6 +356,10 @@ namespace BurningKnight.state {
 			
 			if (Input.Keyboard.WasPressed(Keys.F6)) {
 				TeleportTo(RoomType.Shop);
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.F7)) {
+				TeleportTo(RoomType.Special);
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {

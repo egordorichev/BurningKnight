@@ -383,6 +383,7 @@
     <Compile Include="level\rooms\RoomType.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
+    <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\treasure\TreasureRoom.cs" />
