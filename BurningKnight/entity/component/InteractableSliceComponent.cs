@@ -18,7 +18,7 @@ namespace BurningKnight.entity.component {
 			var origin = new Vector2(Sprite.Width / 2, Sprite.Height);
 
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(origin.X, origin.Y * 2), 0, origin, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + origin, 0, new Vector2(origin.X, 0), Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			

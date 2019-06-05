@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util.math;
@@ -64,7 +65,7 @@ namespace BurningKnight.level.entities {
 				component.Coins -= 1;
 				coinsConsumed++;
 
-				if (Random.Float(100) > coinsConsumed * 30) {
+				if (Random.Float(100) > (coinsConsumed + Run.Luck) * 30) {
 					return; // Did not pay enough :P
 				}
 			}

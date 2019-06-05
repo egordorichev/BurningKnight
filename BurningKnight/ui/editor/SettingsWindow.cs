@@ -456,27 +456,27 @@ namespace BurningKnight.ui.editor {
 				ImGui.Combo("Cursor##t", ref cursorMode, cursorModes, cursorModes.Length);
 				ImGui.Separator();
 
+				if (CurrentInfo == null) {
+					CurrentInfo = infos[1];
+				}
+
 				var cur = CurrentInfo;
 
-				if (cur != null) {
-					ImGui.ImageButton(cur.Texture, tileSize, cur.Uv0, cur.Uv1, 4, bg, tintColor);
+				ImGui.ImageButton(cur.Texture, tileSize, cur.Uv0, cur.Uv1, 4, bg, tintColor);
+				ImGui.SameLine();
+				ImGui.Text(CurrentInfo.Tile.ToString());
+
+				if (CurrentInfo.Tile.Matches(TileFlags.LiquidLayer)) {
 					ImGui.SameLine();
-					ImGui.Text(CurrentInfo.Tile.ToString());
+					ImGui.Text("Liquid");
+				} else if (CurrentInfo.Tile.Matches(TileFlags.WallLayer)) {
+					ImGui.SameLine();
+					ImGui.Text("Wall");
+				}
 
-					if (CurrentInfo.Tile.Matches(TileFlags.LiquidLayer)) {
-						ImGui.SameLine();
-						ImGui.Text("Liquid");
-					} else if (CurrentInfo.Tile.Matches(TileFlags.WallLayer)) {
-						ImGui.SameLine();
-						ImGui.Text("Wall");
-					}
-
-					if (CurrentInfo.Tile.Matches(TileFlags.Burns)) {
-						ImGui.SameLine();
-						ImGui.Text("Burns");
-					}
-				} else {
-					ImGui.Text("Error");
+				if (CurrentInfo.Tile.Matches(TileFlags.Burns)) {
+					ImGui.SameLine();
+					ImGui.Text("Burns");
 				}
 				
 				ImGui.Separator();

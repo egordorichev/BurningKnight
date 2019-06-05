@@ -19,6 +19,7 @@ namespace BurningKnight.state {
 		public static bool HasRun;
 		public static string Seed;
 		public static bool IgnoreSeed;
+		public static int Luck;
 		
 		public static int Depth {
 			get => depth;
