@@ -235,6 +235,7 @@
     <Compile Include="entity\events\ExplodedEvent.cs" />
     <Compile Include="entity\events\FlagCollisionEndEvent.cs" />
     <Compile Include="entity\events\FlagCollisionStartEvent.cs" />
+    <Compile Include="entity\events\GramophoneBrokenEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\InteractedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />

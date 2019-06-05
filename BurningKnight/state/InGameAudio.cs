@@ -1,4 +1,5 @@
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -15,6 +16,8 @@ namespace BurningKnight.state {
 	public class InGameAudio : Entity {
 		public override void Init() {
 			base.Init();
+			
+			Subscribe<GramophoneBrokenEvent>();
 			
 			Subscribe<RoomChangedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
@@ -34,7 +37,25 @@ namespace BurningKnight.state {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
+			if (e is GramophoneBrokenEvent ge) {
+				var local = LocalPlayer.Locate(ge.Gramophone.Area);
+
+				if (local != null && ge.Gramophone.GetComponent<RoomComponent>().Room == local.GetComponent<RoomComponent>().Room) {
+					Audio.Stop();
+				}
+			} else if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
+				var gramophone = re.New.Tagged[Tags.Gramophone].FirstOrDefault();
+
+				if (gramophone != null) {
+					if (gramophone.GetComponent<HealthComponent>().Health == 0) {
+						Audio.FadeOut();
+					} else {
+						Audio.PlayMusic("Shopkeeper");
+					}
+
+					return false;
+				}
+				
 				switch (re.New.Type) {
 					case RoomType.Secret: {
 						Audio.PlayMusic("Serendipity");
