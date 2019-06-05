@@ -111,8 +111,8 @@
 ### Special rooms
 
 * Challenge room
-* Shop room
 * Cursed room
+* Room with transmutation well (current weapon slot)
 
 ### Clean up
 

@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
@@ -31,6 +32,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			if (component.Coins < price) {
+				AnimationUtil.ActionFailed();
 				return false;
 			}
 

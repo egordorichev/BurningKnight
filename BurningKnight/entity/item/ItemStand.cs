@@ -182,13 +182,12 @@ namespace BurningKnight.entity.item {
 			Graphics.Render(itemShadow, Position + shadowOffset);
 			Graphics.Color = ColorUtils.WhiteColor;
 
-			
 			var t = item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().T : 0;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f - 5.5f);
+			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f) - 5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;

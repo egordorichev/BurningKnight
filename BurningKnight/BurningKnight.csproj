@@ -199,6 +199,7 @@
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\npc\Ord.cs" />
+    <Compile Include="entity\creature\npc\ShopKeeper.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
