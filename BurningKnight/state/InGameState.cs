@@ -331,7 +331,7 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-				Engine.Instance.SetState(new LoadState());
+				Run.StartNew();
 				died = true;
 
 				return;
