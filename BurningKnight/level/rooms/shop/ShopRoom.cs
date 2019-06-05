@@ -97,6 +97,10 @@ namespace BurningKnight.level.rooms.shop {
 			}
 		}
 
+		public override void SetupDoors() {
+			
+		}
+
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {
 			var list = new List<Point>();
 
