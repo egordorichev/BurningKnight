@@ -52,6 +52,7 @@ namespace BurningKnight.entity.item {
 
 		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
 		public Entity Owner => GetComponent<OwnerComponent>().Owner;
+		public ItemData Data => Items.Datas[Id];
 		
 		public Item(ItemRenderer renderer, params ItemUse[] uses) {
 			Uses = uses;
@@ -137,8 +138,11 @@ namespace BurningKnight.entity.item {
 			});
 			
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddTag(Tags.LevelSave);
 			
+			AddTag(Tags.LevelSave);
+			AddTag(Tags.Item);
+			
+			AddComponent(new RoomComponent());
 			CheckMasked();
 		}
 
@@ -159,6 +163,9 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<ShadowComponent>();
 			
 			RemoveTag(Tags.LevelSave);
+			RemoveTag(Tags.Item);
+
+			RemoveComponent<RoomComponent>();
 		}
 
 		private void RenderShadow() {
@@ -168,35 +175,60 @@ namespace BurningKnight.entity.item {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
-			stream.WriteInt32(Count);
 			stream.WriteString(Id);
+			stream.WriteInt32(Count);
 			stream.WriteBoolean(Used);
+		}
+
+		public void ConvertTo(string id) {
+			var item = Items.Create(id);
+
+			if (item == null) {
+				Log.Error($"Failed to convert item {Id}, such id does not exist!");
+				return;
+			}
+
+			if (HasComponent<AnimatedItemGraphicsComponent>()) {
+				RemoveComponent<AnimatedItemGraphicsComponent>();
+			} else if (HasComponent<ItemGraphicsComponent>()) {
+				RemoveComponent<ItemGraphicsComponent>();
+			}
+
+			Uses = item.Uses;
+			Renderer = item.Renderer;
+			Animation = item.Animation;
+			AutoPickup = item.AutoPickup;
+			Type = item.Type;
+			Id = id;
+			Count = 1;
+			Used = false;
+			
+			if (Renderer != null) {
+				Renderer.Item = this;
+			}
+			
+			if (Animation != null) {
+				AddComponent(new AnimatedItemGraphicsComponent(Animation));
+			} else {
+				AddComponent(new ItemGraphicsComponent(Id));
+			}
+			
+			if (HasComponent<RectBodyComponent>()) {
+				RemoveDroppedComponents();
+				AddDroppedComponents();
+			}
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
 			LoadedSelf = true;
-			Count = stream.ReadInt32();
 			Id = stream.ReadString();
+
+			ConvertTo(Id);
+
+			Count = stream.ReadInt32();
 			Used = stream.ReadBoolean();
-
-			var item = Items.Create(Id);
-
-			if (item == null) {
-				Log.Error($"Failed to load item {Id}, such id does not exist!");
-				return;
-			}
-			
-			Uses = item.Uses;
-			Renderer = item.Renderer;
-			Animation = item.Animation;
-			AutoPickup = item.AutoPickup;
-			Type = item.Type;
-
-			if (Renderer != null) {
-				Renderer.Item = this;
-			}
 		}
 		
 		public override void Update(float dt) {

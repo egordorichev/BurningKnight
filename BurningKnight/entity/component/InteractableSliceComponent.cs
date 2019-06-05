@@ -8,13 +8,15 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class InteractableSliceComponent : SliceComponent {
+		public Vector2 Scale = Vector2.One;
+		
 		public InteractableSliceComponent(string image, string slice) : base(image, slice) {}
 
 		public InteractableSliceComponent(AnimationData image, string slice) : base(image, slice) {}
 
 		public override void Render(bool shadow) {
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
@@ -50,7 +52,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			Graphics.Render(Sprite, Entity.Position);
+			Graphics.Render(Sprite, Entity.Position, 0, Vector2.Zero, Scale);
 			
 			if (stopShader) {
 				Shaders.End();
