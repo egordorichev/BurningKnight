@@ -5,6 +5,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
+using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.treasure;
 using Lens.util;
 using Random = Lens.util.math.Random;
@@ -50,7 +51,9 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ShopRoom>(1f),
 				
 				RoomInfo.New<TunnelRoom>(1f),
-				RoomInfo.New<WayOverChasmRoom>(1f)
+				RoomInfo.New<WayOverChasmRoom>(1f),
+				
+				RoomInfo.New<IdolTrapRoom>(1f),
 			};
 
 			foreach (var info in infos) {

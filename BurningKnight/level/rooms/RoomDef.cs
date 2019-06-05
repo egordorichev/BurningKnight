@@ -16,6 +16,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Point = BurningKnight.util.geometry.Point;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms {

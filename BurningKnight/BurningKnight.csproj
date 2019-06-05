@@ -505,6 +505,7 @@
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
+    <Compile Include="util\geometry\Point.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\Maze.cs" />

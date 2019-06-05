@@ -44,7 +44,7 @@ namespace BurningKnight.entity.item {
 			base.Render();
 
 			if (Item != null && Sells) {
-				Graphics.Print(priceString, Font.Medium, Position + new Vector2(priceX, 18));
+				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
 			}
 		}
 

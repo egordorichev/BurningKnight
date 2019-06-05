@@ -132,7 +132,6 @@ namespace BurningKnight.level {
 			}
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
-			Rooms.Add(new IdolTrapRoom());
 
 			return Rooms;
 		}
@@ -157,7 +156,7 @@ namespace BurningKnight.level {
 		}
 
 		protected int GetNumSpecialRooms() {
-			return 0;
+			return 1;
 		}
 
 		protected int GetNumSecretRooms() {

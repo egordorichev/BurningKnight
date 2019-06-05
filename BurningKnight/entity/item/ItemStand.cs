@@ -60,6 +60,7 @@ namespace BurningKnight.entity.item {
 				item.AddComponent(new OwnerComponent(this));
 				item.CenterX = CenterX;
 				item.Bottom = Y + 6;
+				item.AutoPickup = false;
 				
 				HandleEvent(new ItemPlacedEvent {
 					Item = item,
@@ -181,7 +182,8 @@ namespace BurningKnight.entity.item {
 			Graphics.Render(itemShadow, Position + shadowOffset);
 			Graphics.Color = ColorUtils.WhiteColor;
 
-			var t = item.GetComponent<ItemGraphicsComponent>().T;
+			
+			var t = item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().T : 0;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			var region = item.Region;
