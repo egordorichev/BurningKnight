@@ -162,7 +162,7 @@ namespace Lens.util.camera {
 				}
 			}
 			
-			if (changed || GetComponent<ShakeComponent>().Amount > 0.001f) {
+			if (changed) {
 				UpdateMatrices();
 			}
 		}
@@ -188,10 +188,8 @@ namespace Lens.util.camera {
 		}
 		
 		public Vector2 CameraToUi(Vector2 position) {
-			var shake = GetComponent<ShakeComponent>();
-			
-			return (CameraToScreen(position) - new Vector2(Position.X % 1 - shake.Position.X, 
-				          Position.Y % 1 - shake.Position.Y)) * Display.UiScale;
+			return (CameraToScreen(position) - new Vector2(Position.X % 1, 
+				          Position.Y % 1)) * Display.UiScale;
 		}
 		
 		public void Approach(Vector2 position, float ease) {
@@ -282,11 +280,9 @@ namespace Lens.util.camera {
 		}
 
 		private void UpdateMatrices() {
-			var shake = GetComponent<ShakeComponent>();
-			
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) Math.Floor(position.X + shake.Position.X), (int) Math.Floor(position.Y + shake.Position.Y)), 0)) *
+				 -new Vector2((int) Math.Floor(position.X), (int) Math.Floor(position.Y)), 0)) *
 				Matrix.CreateRotationZ(angle) *
 				Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
 				Matrix.CreateTranslation(

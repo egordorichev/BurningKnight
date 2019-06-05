@@ -38,9 +38,9 @@ namespace BurningKnight.level.entities {
 
 		private void RealRender(bool shadow = false) {
 			if (shadow) {
-				Graphics.Render(bottom, Position + new Vector2(0, 24), 0, Vector2.Zero, MathUtils.InvertY);
+				Graphics.Render(bottom, Position + new Vector2(0, 34), 0, Vector2.Zero, MathUtils.InvertY);
 
-				Graphics.Render(top, Position + new Vector2(9, 36), (float) Math.Cos(t) * -0.1f, new Vector2(9, 14),
+				Graphics.Render(top, Position + new Vector2(9, 28), (float) Math.Cos(t) * -0.1f, new Vector2(9, 14),
 					new Vector2((float) Math.Cos(t * 2f) * 0.05f + 1f, (float) Math.Sin(t * 2f) * -0.05f - 1f));
 
 				return;

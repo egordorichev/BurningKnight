@@ -498,7 +498,6 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
 			var region = new TextureRegion();
 
 			region.Texture = MessSurface;
@@ -507,7 +506,8 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft);
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
+				                        camera.Position.Y % 1));
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -763,10 +763,10 @@ namespace BurningKnight.level {
 			
 			if (Engine.Instance.StateRenderer.UiTarget != null) {
 				Graphics.Color = ShadowColor;
-				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 
 				Graphics.Render(Engine.Instance.StateRenderer.UiTarget,
-					Camera.Instance.TopLeft);
+					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+						Camera.Instance.Position.Y % 1));
 
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
@@ -920,9 +920,8 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
-
-			Graphics.Render(WallSurface, Camera.Instance.TopLeft);
+			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+				                             Camera.Instance.Position.Y % 1));
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -953,7 +952,6 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
 			var region = new TextureRegion();
 
 			region.Texture = MessSurface;
@@ -962,7 +960,8 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft);
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
+				                        camera.Position.Y % 1));
 			
 			Graphics.Batch.End();
 		}

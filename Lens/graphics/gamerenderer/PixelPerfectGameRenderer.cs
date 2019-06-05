@@ -82,13 +82,16 @@ namespace Lens.graphics.gamerenderer {
 				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
 
 				if (Camera.Instance != null) {
+					var shake = Camera.Instance.GetComponent<ShakeComponent>();
+					var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
+
 					Graphics.Render(GameTarget,
-						new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale,
-							Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale),
-						Camera.Instance.GetComponent<ShakeComponent>().Angle,
+						new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
+							Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale + scale * shake.Position.Y),
+						shake.Angle,
 						new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
 							Camera.Instance.Position.Y % 1 + Display.Height / 2f),
-						new Vector2(Engine.Instance.Upscale * Camera.Instance.TextureZoom));
+						new Vector2(scale));
 				}
 
 				Graphics.Batch.End();
