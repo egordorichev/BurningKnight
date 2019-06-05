@@ -15,8 +15,10 @@ namespace BurningKnight.entity.component {
 		public InteractableSliceComponent(AnimationData image, string slice) : base(image, slice) {}
 
 		public override void Render(bool shadow) {
+			var origin = new Vector2(Sprite.Width / 2, Sprite.Height);
+
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(origin.X, origin.Y * 2), 0, origin, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
@@ -29,7 +31,7 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(Sprite, Entity.Position + d);
+					Graphics.Render(Sprite, Entity.Position + origin + d, 0, origin, Scale);
 				}
 
 				Shaders.End();
@@ -52,7 +54,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			Graphics.Render(Sprite, Entity.Position, 0, Vector2.Zero, Scale);
+			Graphics.Render(Sprite, Entity.Position + origin, 0, origin, Scale);
 			
 			if (stopShader) {
 				Shaders.End();

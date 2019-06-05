@@ -38,6 +38,9 @@ namespace BurningKnight.level.entities {
 		private void Animate() {
 			GetComponent<InteractableSliceComponent>().Scale.Y = 0.4f;
 			Tween.To(1, 0.4f, x => GetComponent<InteractableSliceComponent>().Scale.Y = x, 0.2f);
+			
+			GetComponent<InteractableSliceComponent>().Scale.X = 1.3f;
+			Tween.To(1, 1.3f, x => GetComponent<InteractableSliceComponent>().Scale.X = x, 0.2f);
 		}
 
 		public void Reroll(Entity entity, bool consumeCoin) {
@@ -64,9 +67,10 @@ namespace BurningKnight.level.entities {
 				if (Random.Float(100) > coinsConsumed * 30) {
 					return; // Did not pay enough :P
 				}
-			} else {
-				coinsConsumed = 0;
 			}
+
+			// Reset the luck for the next uses
+			coinsConsumed = 0;
 
 			var items = room.Tagged[Tags.Item].ToArray();
 
@@ -82,9 +86,7 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent ee) {
-				if (ee.Who is Player) {
-					Reroll(ee.Who, false);
-				}
+				Reroll(ee.Who, false);
 			}
 			
 			return base.HandleEvent(e);
