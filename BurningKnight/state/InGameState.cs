@@ -349,8 +349,12 @@ namespace BurningKnight.state {
 				Settings.HideCursor = !Settings.HideCursor;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.F4)) {
+			if (Input.Keyboard.WasPressed(Keys.F5)) {
 				TeleportTo(RoomType.Treasure);
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.F6)) {
+				TeleportTo(RoomType.Shop);
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {

@@ -66,7 +66,7 @@ namespace BurningKnight.entity.door {
 
 			if (Interactable()) {
 				AddComponent(new InteractableComponent(Interact));
-				AddComponent(new RectBodyComponent(-1, 2, 12, 13, BodyType.Static, true));
+				AddComponent(new RectBodyComponent(-3, -1, 18, 19, BodyType.Static, true));
 			}
 							
 			var state = new StateComponent();

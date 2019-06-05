@@ -6,8 +6,6 @@
 
 ### Before josh
 
-* golden lock door, doesnt allow to explode the lock
-
 * BK him self
  + Healthbar
  + He picks a random attack per room (not too strong)

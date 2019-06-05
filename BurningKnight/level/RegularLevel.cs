@@ -129,6 +129,8 @@ namespace BurningKnight.level {
 			for (var I = 0; I < Secret; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Secret));
 			}
+			
+			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
 
 			return Rooms;
 		}

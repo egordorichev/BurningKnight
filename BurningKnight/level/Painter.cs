@@ -99,6 +99,7 @@ namespace BurningKnight.level {
 				PlaceDoors(Room);
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
+				Room.SetupDoors();
 
 				if (Run.Depth == 1) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
@@ -428,7 +429,14 @@ namespace BurningKnight.level {
 			         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
 			if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-				var door = new LockableDoor();
+				Door door;
+
+				switch (type) {
+					case DoorPlaceholder.Variant.Locked: door = new SpecialDoor();
+						break;
+					default: door = new LockableDoor();
+						break;
+				}
 
 				door.X = D.X * 16;
 				door.Y = D.Y * 16;

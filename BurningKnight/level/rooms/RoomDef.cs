@@ -65,7 +65,9 @@ namespace BurningKnight.level.rooms {
 		
 		public virtual void Paint(Level level) {
 			WallRegistry.Paint(level, this);
-			
+		}
+
+		public virtual void SetupDoors() {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}
@@ -563,6 +565,10 @@ namespace BurningKnight.level.rooms {
 				return RoomType.Treasure;
 			}
 			
+			if (typeof(ShopRoom).IsAssignableFrom(room)) {
+				return RoomType.Shop;
+			}
+			
 			if (typeof(SpecialRoom).IsAssignableFrom(room)) {
 				return RoomType.Special;
 			}
@@ -571,10 +577,6 @@ namespace BurningKnight.level.rooms {
 				return RoomType.Connection;
 			}
 			
-			if (typeof(ShopRoom).IsAssignableFrom(room)) {
-				return RoomType.Shop;
-			}
-
 			return RoomType.Regular;
 		}
 	}

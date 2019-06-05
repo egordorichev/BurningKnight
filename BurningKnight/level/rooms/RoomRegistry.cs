@@ -45,7 +45,6 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<RegularRoom>(1f),
 				RoomInfo.New<EntranceRoom>(1f),
 				RoomInfo.New<ExitRoom>(1f),
-				// RoomInfo.New<BossRoom>(1f),
 				RoomInfo.New<SecretRoom>(1f),
 				RoomInfo.New<TreasureRoom>(1f),
 				RoomInfo.New<ShopRoom>(1f),
