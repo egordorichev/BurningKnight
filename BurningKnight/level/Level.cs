@@ -507,8 +507,7 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
-				                        camera.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(region, camera.TopLeft);
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -767,8 +766,7 @@ namespace BurningKnight.level {
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 
 				Graphics.Render(Engine.Instance.StateRenderer.UiTarget,
-					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
-						Camera.Instance.Position.Y % 1 - shake.Position.Y));
+					Camera.Instance.TopLeft);
 
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
@@ -924,8 +922,7 @@ namespace BurningKnight.level {
 			
 			var shake = camera.GetComponent<ShakeComponent>();
 
-			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
-				                             Camera.Instance.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(WallSurface, Camera.Instance.TopLeft);
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -965,8 +962,7 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
-				                        camera.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(region, camera.TopLeft);
 			
 			Graphics.Batch.End();
 		}

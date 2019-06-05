@@ -90,7 +90,7 @@ namespace BurningKnight.entity.projectile {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity != Owner && Owner is Mob != ev.Entity is Mob && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				

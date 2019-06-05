@@ -137,7 +137,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartedNew && !died && Run.Depth > 0) {
+			if (!Run.StartedNew && !died && (old ? Run.LastDepth : Run.Depth) > 0) {
 				SaveManager.Save(Area, SaveType.Game, old);
 				SaveManager.Save(Area, SaveType.Level, old);
 				SaveManager.Save(Area, SaveType.Player, old);

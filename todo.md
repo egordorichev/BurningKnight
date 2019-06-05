@@ -1,10 +1,11 @@
 # TODO
 
+### unimportant fixes
+
+* fix nodes requiring to hit enter to set their name
+
 ### Before josh
 
-* fix: continue run does not return you lamp and weapons?
-* fix nodes requiring to hit enter to set their name
-* you cant break props with gun
 * golden lock door, doesnt allow to explode the lock
 
 * BK him self
@@ -18,6 +19,7 @@
 
 ### do do do
 
+* Animate lamp up and down to make it more alive
 * Nicer load screen thingy
 * Crash report window
 * ui entities generate on click 2 times? (might be input bug)

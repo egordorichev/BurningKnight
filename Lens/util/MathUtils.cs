@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.util {
 	public class MathUtils {
+		public static Vector2 InvertX = new Vector2(1, -1);
+		public static Vector2 InvertY = new Vector2(1, -1);
+		
 		public static Vector2[] Directions = {
 			new Vector2(-1, 0),
 			new Vector2(1, 0),
