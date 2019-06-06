@@ -14,8 +14,6 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 2, Tiles.RandomFloor());
-
 			if (Random.Chance(30)) {
 				var t = Tiles.Pick(Tile.Chasm, Tile.FloorC, Tile.FloorD);
 
@@ -65,6 +63,8 @@ namespace BurningKnight.level.rooms.shop {
 			level.Area.Add(sk);
 			sk.Center = new Vector2(p.X * 16 + 8, p.Y * 16 + 16);
 
+			Painter.DrawLine(level, new Vector2(Left + 1, Top + 1), new Vector2(Right - 1, Top + 1), Tiles.RandomFloor());
+			
 			var points = new List<Point>();
 
 			for (var x = Left + Random.Int(1, 3); x < Right; x += 2) {

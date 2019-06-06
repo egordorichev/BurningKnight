@@ -445,7 +445,9 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public Rect GetCenterRect() {
-			return new Rect((int) (Left + GetWidth() / 2f), (int) (Top + GetHeight() / 2f), 1, 1);
+			var x = (int) (Left + GetWidth() / 2f); 
+			var y = (int) (Top + GetHeight() / 2f);
+			return new Rect(x, y, x + 1, y + 1);
 		}
 
 		public Rect GetConnectionSpace() {

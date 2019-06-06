@@ -4,7 +4,6 @@
 
 * fix nodes requiring to hit enter to set their name
 * spawn enemies use
-* spawn items around use
 * add those two uses to idol (coins around player and enemies in the room)
 
 ### Before josh
