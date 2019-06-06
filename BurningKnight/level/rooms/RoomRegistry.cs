@@ -54,6 +54,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WayOverChasmRoom>(1f),
 				
 				RoomInfo.New<IdolTrapRoom>(1f),
+				RoomInfo.New<WellRoom>(100f),
 			};
 
 			foreach (var info in infos) {

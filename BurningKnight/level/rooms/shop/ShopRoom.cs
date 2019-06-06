@@ -98,7 +98,11 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override void SetupDoors() {
+			var hidden = Random.Chance(30);
 			
+			foreach (var door in Connected.Values) {
+				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Regular;
+			}
 		}
 
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {

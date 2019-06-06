@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
@@ -57,7 +58,7 @@ namespace BurningKnight.level.entities {
 				
 				OnStart = (e) => {
 					if (e is LocalPlayer) {
-						Engine.Instance.State.Ui.Add(new InteractFx(this, type == Type.Coin ? "throw_coin" : "sip"));
+						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(type == Type.Coin ? "throw_coin" : "sip")));
 					}
 				}
 			});
@@ -98,7 +99,7 @@ namespace BurningKnight.level.entities {
 					}
 
 					c.Coins -= 1;
-					var r = Random.Int(1);
+					var r = Random.Int(3);
 
 					if (r == 0) {
 						for (var i = 0; i < 8; i++) {
@@ -108,6 +109,15 @@ namespace BurningKnight.level.entities {
 							bomb.CenterX = CenterX;
 							bomb.CenterY = Bottom;
 						}
+					} else if (r == 1) {
+						for (var i = 0; i < Random.Int(2, 5); i++) {
+							var coin = Items.CreateAndAdd("bk:coin", Area);
+							
+							coin.CenterX = CenterX;
+							coin.CenterY = Bottom;
+						}
+					} else if (r == 2) {
+						
 					}
 
 					break;
@@ -115,7 +125,8 @@ namespace BurningKnight.level.entities {
 
 				case Type.Death: {
 					var hp = e.GetComponent<HealthComponent>();
-					hp.ModifyHealth(-2, this);
+					hp.SetHealth(1, this);
+					hp.MaxHealth += 2;
 					
 					// todo: something GUT
 					
