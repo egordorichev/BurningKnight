@@ -349,6 +349,7 @@
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
     <Compile Include="level\entities\VendingMachine.cs" />
+    <Compile Include="level\entities\Well.cs" />
     <Compile Include="level\Flag.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
     <Compile Include="level\floors\DiagonalFloor.cs" />

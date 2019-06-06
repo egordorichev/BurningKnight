@@ -35,7 +35,7 @@ namespace BurningKnight.level.rooms.shop {
 			}
 
 			if (Random.Chance()) {
-				if (Random.Chance()) {
+				if (Random.Chance(20)) {
 					PaintTunnel(level, Tile.Chasm, GetCenterRect(), true);
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect());
 				} else {
@@ -142,17 +142,15 @@ namespace BurningKnight.level.rooms.shop {
 			var list = new List<Point>();
 
 			var sides = new bool[4];
-			var set = false;
+			var count = 0;
 
-			for (var i = 0; i < 4; i++) {
-				if (Random.Chance(60)) {
-					set = true;
-					sides[i] = true;
+			while (count < 2) {
+				for (var i = 0; i < 4; i++) {
+					if (Random.Chance(60)) {
+						count++;
+						sides[i] = true;
+					}
 				}
-			}
-
-			if (!set) {
-				sides[Random.Int(4)] = true;
 			}
 
 			for (var x = Left + (Random.Chance() ? 2 : 3); x < Right - 2; x += 2) {
