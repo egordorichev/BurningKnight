@@ -1,10 +1,13 @@
 # TODO
 
-### unimportant fixes
+### fixes
 
-* fix nodes requiring to hit enter to set their name
 * spawn enemies use
 * add those two uses to idol (coins around player and enemies in the room)
+* secret room contents
+* reroll item stands
+* bomb knockback items and bombs?
+* destroying destroyable tile doesnt make it passable?
 
 ### Before josh
 
@@ -22,6 +25,7 @@
 
 ### do do do
 
+* fix nodes requiring to hit enter to set their name
 * Animate lamp up and down to make it more alive
 * Nicer load screen thingy
 * Crash report window

@@ -177,7 +177,7 @@ namespace BurningKnight.assets.items {
 
 		private static float[] coinChances = {
 			1f,
-			1f / 5,
+			1f / 5f,
 			1f / 10f,
 			1f / 25f
 		};

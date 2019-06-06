@@ -76,11 +76,31 @@ namespace BurningKnight.level.entities {
 			var items = room.Tagged[Tags.Item].ToArray();
 
 			foreach (var e in items) {
-				var item = (Item) e;
+				Item item = null;
+				
+				if (e is ItemStand s) {
+					if (s.Item == null) {
+						s.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Shop), Area), null);
+						continue;
+					}
+					
+					item = s.Item;
+				} else if (e is Item i) {
+					item = i;
+				}
+
+				if (item == null) {
+					continue;
+				}
+				
 				var id = Items.Generate(item.Type, i => i.Id != item.Id);
 
 				if (id != null) {
 					item.ConvertTo(id);
+				}
+
+				if (e is ShopStand st) {
+					st.Recalculate();
 				}
 			}
 		}

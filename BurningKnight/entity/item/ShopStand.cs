@@ -50,10 +50,14 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		public void Recalculate() {
+			price = PriceCalculator.Calculate(Item);
+			CalculatePriceSize();
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is ItemPlacedEvent) {
-				price = PriceCalculator.Calculate(Item);
-				CalculatePriceSize();
+				Recalculate();
 			}
 			
 			return base.HandleEvent(e);

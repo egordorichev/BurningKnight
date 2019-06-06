@@ -48,6 +48,11 @@ namespace BurningKnight.level.entities {
 			base.Update(dt);
 			
 			t += dt;
+
+			if (GetComponent<HealthComponent>().Health == 0) {
+				return;
+			}
+			
 			tillNext -= dt;
 
 			if (tillNext <= 0) {
@@ -57,7 +62,7 @@ namespace BurningKnight.level.entities {
 				part.Position = Center;
 				Area.Add(part);
 				
-				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(10, 16));
+				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(20, 36));
 				part.Particle.Angle = 0;
 			}
 		}

@@ -86,6 +86,8 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			AddTag(Tags.Item);
+			
 			AddComponent(new RectBodyComponent(2, 2, 10, 5, BodyType.Static));
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 
@@ -96,6 +98,7 @@ namespace BurningKnight.entity.item {
 			
 			AddComponent(new SliceComponent("props", GetSprite()));
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new RoomComponent());
 		}
 
 		protected virtual string GetSprite() {
