@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.level.biome;
+using BurningKnight.state;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
@@ -29,7 +32,43 @@ namespace BurningKnight.entity.creature.mob {
 			
 			All.AddRange(infos);
 		}
-		
+
+		public static Mob Generate() {
+			var chances = new float[Current.Count];
+
+			for (int i = 0; i < Current.Count; i++) {
+				chances[i] = Current[i].GetChanceFor(Run.Level.Biome.Id).Chance;
+			}
+
+			var types = new List<Type>();
+			var spawnChances = new List<float>();
+
+			for (int i = 0; i < Random.Int(2, 6); i++) {
+				var type = Current[Random.Chances(chances)].Type;
+				var found = false;
+				
+				foreach (var t in types) {
+					if (t == type) {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					i--;
+				} else {
+					types.Add(type);
+					spawnChances.Add(((Mob) Activator.CreateInstance(type)).GetSpawnChance());
+				}
+			}
+
+			if (types.Count == 0) {
+				return null;
+			}
+
+			return (Mob) Activator.CreateInstance(types[Random.Chances(spawnChances)]);
+		}
+
 		public static void SetupForBiome(string biome) {
 			Current.Clear();
 

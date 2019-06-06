@@ -51,6 +51,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void Recalculate() {
+			Sells = true;
 			price = PriceCalculator.Calculate(Item);
 			CalculatePriceSize();
 		}

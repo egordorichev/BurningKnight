@@ -511,7 +511,7 @@ namespace BurningKnight.level {
 
 		public static void Rect(Level level, Rect rect, int m, Tile value, bool bold = false) {
 			rect = rect.Shrink(m);
-			Rect(level, rect.Left, rect.Top, rect.GetWidth() - 1, rect.GetHeight() - 1, value, bold);
+			Rect(level, rect.Left, rect.Top, rect.GetWidth(), rect.GetHeight(), value, bold);
 		}
 
 		public static void Rect(Level level, int X, int Y, int W, int H, Tile value, bool bold = false) {

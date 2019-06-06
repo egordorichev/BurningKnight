@@ -2,12 +2,10 @@
 
 ### fixes
 
-* spawn enemies use
-* add those two uses to idol (coins around player and enemies in the room)
 * secret room contents
-* reroll item stands
 * bomb knockback items and bombs?
 * destroying destroyable tile doesnt make it passable?
+* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 
 ### Before josh
 
@@ -119,6 +117,7 @@
 * Challenge room
 * Cursed room
 * Room with transmutation well (current weapon slot)
+* alg for connection rooms that makes a really maze like path but with no branches
 
 ### Clean up
 

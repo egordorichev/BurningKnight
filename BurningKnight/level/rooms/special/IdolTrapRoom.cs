@@ -5,7 +5,7 @@ using BurningKnight.level.tile;
 namespace BurningKnight.level.rooms.special {
 	public class IdolTrapRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 2, Tile.FloorD);
+			Painter.Rect(level, this, 2, Tile.FloorD);
 
 			var stand = new ItemStand();
 			level.Area.Add(stand);

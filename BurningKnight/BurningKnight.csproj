@@ -191,6 +191,7 @@
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
+    <Compile Include="entity\creature\mob\MobPair.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
     <Compile Include="entity\item\renderer\SwordRenderer.cs" />
     <Compile Include="entity\item\ShopStand.cs" />
+    <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
