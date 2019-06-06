@@ -51,6 +51,7 @@ namespace BurningKnight.entity {
 			Engine.Instance.Freeze = 1f;
 					
 			foreach (var e in whoHurts.Area.GetEntitesInRadius(whoHurts.Center, hurtRadius, typeof(ExplodableComponent))) {
+				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);
 				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts);
 			}
 

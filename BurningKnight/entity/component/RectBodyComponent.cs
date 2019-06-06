@@ -19,6 +19,10 @@ namespace BurningKnight.entity.component {
 			Body.UserData = this;
 			Body.LinearDamping = 0;
 
+			if (type == BodyType.Static) {
+				KnockbackModifier = 0;
+			}
+			
 			FixtureFactory.AttachPolygon(new Vertices(4) {
 				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)
 			}, 1f, Body).IsSensor = sensor;
