@@ -9,6 +9,9 @@
 
 ### Before josh
 
+* sk ai
+* sk dialog
+
 * BK him self
  + Healthbar
  + He picks a random attack per room (not too strong)

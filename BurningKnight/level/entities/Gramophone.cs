@@ -3,17 +3,22 @@ using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.renderer;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.entities {
 	public class Gramophone : Prop {
 		private TextureRegion top;
 		private TextureRegion bottom;
 		private float t;
-
+		private float tillNext;
+		
 		public override void Init() {
 			base.Init();
 
@@ -41,7 +46,20 @@ namespace BurningKnight.level.entities {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
 			t += dt;
+			tillNext -= dt;
+
+			if (tillNext <= 0) {
+				tillNext = Random.Float(1, 3f);
+				
+				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"note_{Random.Int(1, 3)}"))));
+				part.Position = Center;
+				Area.Add(part);
+				
+				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(10, 16));
+				part.Particle.Angle = 0;
+			}
 		}
 
 		public override void Render() {

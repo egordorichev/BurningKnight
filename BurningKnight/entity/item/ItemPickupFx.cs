@@ -24,7 +24,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			var text = item.Count == 1 ? item.Name : $"{item.Name} ({item.Count})";
+			var text = item.Name;
 			var size = Font.Medium.MeasureString(text);
 
 			Width = size.Width;

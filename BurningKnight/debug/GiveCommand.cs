@@ -55,21 +55,18 @@ namespace BurningKnight.debug {
 					id = $"{Mods.BurningKnight}:{id}";
 				}
 				
-				var item = Items.Create(id);
-
-				if (item == null) {
-					Console.Print($"Unknown item {Args[0]}");
-					return;
-				}
-				
-				item.Count = Count;
-				Console.GameArea.Add(item);
-				
 				var player = LocalPlayer.Locate(Console.GameArea);
 
-				if (player != null) {
-					player.GetComponent<InventoryComponent>().Pickup(item);
-					Console.Print($"Gave {Args[0]} ({Count})");
+				for (var i = 0; i < Count; i++) {
+					var item = Items.Create(id);
+
+					if (item == null) {
+						Console.Print($"Unknown item {Args[0]}");
+						return;
+					}
+
+					Console.GameArea.Add(item);
+					player?.GetComponent<InventoryComponent>().Pickup(item);
 				}
 			}
 		}

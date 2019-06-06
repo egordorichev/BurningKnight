@@ -22,19 +22,6 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
-		private int count = 1;
-
-		public int Count {
-			get => count;
-			set {
-				count = Math.Max(0, value);
-
-				if (count == 0) {
-					Done = true;
-				}
-			}
-		}
-
 		public ItemType Type;
 		public string Id;
 		public string Name => Masked ? "???" : Locale.Get(Id);
@@ -176,7 +163,6 @@ namespace BurningKnight.entity.item {
 			base.Save(stream);
 			
 			stream.WriteString(Id);
-			stream.WriteInt32(Count);
 			stream.WriteBoolean(Used);
 		}
 
@@ -200,7 +186,6 @@ namespace BurningKnight.entity.item {
 			AutoPickup = item.AutoPickup;
 			Type = item.Type;
 			Id = id;
-			Count = 1;
 			Used = false;
 			
 			if (Renderer != null) {
@@ -227,7 +212,6 @@ namespace BurningKnight.entity.item {
 
 			ConvertTo(Id);
 
-			Count = stream.ReadInt32();
 			Used = stream.ReadBoolean();
 		}
 		

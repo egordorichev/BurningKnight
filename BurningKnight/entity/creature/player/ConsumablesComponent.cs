@@ -114,11 +114,11 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Set(Item item) {
 			if (item.Type == ItemType.Bomb) {
-				Bombs += item.Count;
+				Bombs += 1;
 			} else if (item.Type == ItemType.Key) {
-				Keys += item.Count;
+				Keys += 1;
 			} else if (item.Type == ItemType.Coin) {
-				Coins += item.Count;
+				Coins += 1;
 			}
 			
 			item.Done = true;

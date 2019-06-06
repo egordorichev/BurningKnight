@@ -17,7 +17,7 @@ namespace BurningKnight.entity.item {
 		}
 		
 		public static int Calculate(Item item) {
-			return BasePrice(item.Type) * item.Count;
+			return BasePrice(item.Type);
 		}
 	}
 }
