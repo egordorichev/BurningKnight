@@ -43,10 +43,12 @@ namespace BurningKnight.level.rooms {
 		
 		static RoomRegistry() {
 			RoomInfo[] infos = {
+				RoomInfo.New<SecretMachineRoom>(1f),
+				RoomInfo.New<SecretChasmRoom>(1f),
+
 				RoomInfo.New<RegularRoom>(1f),
 				RoomInfo.New<EntranceRoom>(1f),
 				RoomInfo.New<ExitRoom>(1f),
-				RoomInfo.New<SecretRoom>(1f),
 				RoomInfo.New<TreasureRoom>(1f),
 				RoomInfo.New<ShopRoom>(1f),
 				
@@ -54,7 +56,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WayOverChasmRoom>(1f),
 				
 				RoomInfo.New<IdolTrapRoom>(1f),
-				RoomInfo.New<WellRoom>(100f),
+				RoomInfo.New<WellRoom>(1f),
 			};
 
 			foreach (var info in infos) {

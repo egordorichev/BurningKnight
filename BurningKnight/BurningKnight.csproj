@@ -387,6 +387,8 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
+    <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
+    <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
