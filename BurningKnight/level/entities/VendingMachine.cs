@@ -19,6 +19,7 @@ namespace BurningKnight.level.entities {
 	public class VendingMachine : Prop {
 		private int coinsConsumed;
 		private bool broken;
+		private int spawnedCount;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -56,8 +57,10 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(drops);
 			
+			AddComponent(new InteractableComponent(Interact) {
+				CanInteract = (e) => !broken
+			});
 			
-			AddComponent(new InteractableComponent(Interact));
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());
 			AddComponent(new RectBodyComponent(1, 8, 16, 12, BodyType.Static));
@@ -68,7 +71,12 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected bool Interact(Entity entity) {
+			if (broken) {
+				return false;
+			}
+			
 			var room = GetComponent<RoomComponent>().Room;
+			
 			if (room == null) {
 				return false;
 			}
@@ -105,6 +113,14 @@ namespace BurningKnight.level.entities {
 			e.CenterY = Bottom;
 
 			e.GetAnyComponent<BodyComponent>().Velocity = new Vector2(0, 128);
+
+			spawnedCount++;
+
+			if (Random.Float(100) < spawnedCount * 30) {
+				Break();
+				return true;
+			}
+			
 			return false;
 		}
 
@@ -115,16 +131,21 @@ namespace BurningKnight.level.entities {
 			GetComponent<InteractableSliceComponent>().Scale.X = 1.3f;
 			Tween.To(1, 1.3f, x => GetComponent<InteractableSliceComponent>().Scale.X = x, 0.2f);
 		}
+
+		private void Break() {
+			if (!broken) {
+				UpdateSprite();
+				AnimationUtil.Poof(Center);
+				AnimationUtil.Explosion(Center);
+				broken = true;
+					
+				GetComponent<DropsComponent>().SpawnDrops();
+			}
+		}
 		
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent) {
-				if (!broken) {
-					UpdateSprite();
-					AnimationUtil.Poof(Center);
-					broken = true;
-					
-					GetComponent<DropsComponent>().SpawnDrops();
-				}
+				Break();
 			}
 			
 			return base.HandleEvent(e);

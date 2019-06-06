@@ -6,6 +6,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -17,15 +18,11 @@ namespace BurningKnight.entity {
 	public static class ExplosionMaker {
 		public static void Make(Entity whoHurts, float hurtRadius, bool leave = true) {
 			Camera.Instance.Shake(10);
-				
-			var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
-			explosion.Position = whoHurts.Center;
-			whoHurts.Area.Add(explosion);
-			explosion.Depth = 32;
-			explosion.AddShadow();
+
+			AnimationUtil.Explosion(whoHurts.Center);
 
 			for (int i = 0; i < 4; i++) {
-				explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
+				var explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
 				explosion.Position = whoHurts.Center;
 				whoHurts.Area.Add(explosion);
 				explosion.Depth = 31;

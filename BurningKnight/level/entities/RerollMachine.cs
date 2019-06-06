@@ -1,3 +1,4 @@
+using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
@@ -7,6 +8,8 @@ using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
+using Lens.util;
+using Lens.util.file;
 using Lens.util.math;
 using Lens.util.tween;
 using VelcroPhysics.Dynamics;
@@ -14,6 +17,8 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class RerollMachine : Prop {
 		private int coinsConsumed;
+		private int numRolled;
+		private bool broken;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -21,7 +26,10 @@ namespace BurningKnight.level.entities {
 			Width = 18;
 			Height = 26;
 			
-			AddComponent(new InteractableComponent(Interact));
+			AddComponent(new InteractableComponent(Interact) {
+				CanInteract = (e) => !broken
+			});
+			
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());
 			AddComponent(new RectBodyComponent(1, 14, 16, 5, BodyType.Static));
@@ -33,7 +41,7 @@ namespace BurningKnight.level.entities {
 
 		protected bool Interact(Entity entity) {
 			Reroll(entity, true);
-			return false;
+			return broken;
 		}
 
 		private void Animate() {
@@ -45,6 +53,10 @@ namespace BurningKnight.level.entities {
 		}
 
 		public void Reroll(Entity entity, bool consumeCoin) {
+			if (broken) {
+				return;
+			}
+			
 			var room = GetComponent<RoomComponent>().Room;
 
 			if (room == null) {
@@ -103,6 +115,40 @@ namespace BurningKnight.level.entities {
 					st.Recalculate();
 				}
 			}
+
+			numRolled += (consumeCoin ? 1 : 2);
+
+			if (Random.Float(100) < numRolled * 15) {
+				Break();
+			}
+		}
+
+		private void Break() {
+			if (broken) {
+				return;
+			}
+
+			broken = true;
+			
+			AnimationUtil.Poof(Center);
+			AnimationUtil.Explosion(Center);
+
+			UpdateSprite();
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			if (broken) {
+				UpdateSprite();
+			}
+		}
+
+		private void UpdateSprite() {
+			var component = GetComponent<InteractableSliceComponent>();
+
+			component.Sprite = CommonAse.Props.GetSlice("reroll_machine_broken");
+			component.Offset.Y += Height - 14;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -115,6 +161,16 @@ namespace BurningKnight.level.entities {
 
 		private void RenderShadow() {
 			GraphicsComponent.Render(true);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			broken = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(broken);
 		}
 	}
 }

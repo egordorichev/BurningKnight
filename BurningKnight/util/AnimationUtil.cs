@@ -20,5 +20,13 @@ namespace BurningKnight.util {
 				Run.Level.Area.Add(part);
 			}
 		}
+
+		public static void Explosion(Vector2 where) {
+			var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
+			explosion.Position = where;
+			Run.Level.Area.Add(explosion);
+			explosion.Depth = 32;
+			explosion.AddShadow();
+		}
 	}
 }
