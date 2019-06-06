@@ -123,7 +123,6 @@ namespace BurningKnight.entity.item {
 					if (CanTake(entity)) {
 						var i = item;
 
-						item.RemoveComponent<OwnerComponent>();
 						SetItem(null, entity);
 						inventory.Pickup(i);
 

@@ -6,6 +6,7 @@
 * secret room contents
 * destroying destroyable tile doesnt make it passable?
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
+* lighting bolts
 
 ### Before josh
 

@@ -16,9 +16,10 @@ namespace BurningKnight.entity.component {
 
 		public override void Render(bool shadow) {
 			var origin = new Vector2(Sprite.Width / 2, Sprite.Height);
-
+			var pos = Entity.Position + origin + Offset;
+			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + origin, 0, new Vector2(origin.X, 0), Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, pos, 0, new Vector2(origin.X, 0), Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
@@ -31,7 +32,7 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(Sprite, Entity.Position + origin + d, 0, origin, Scale);
+					Graphics.Render(Sprite, pos + d, 0, origin, Scale);
 				}
 
 				Shaders.End();
@@ -54,7 +55,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			Graphics.Render(Sprite, Entity.Position + origin, 0, origin, Scale);
+			Graphics.Render(Sprite, pos, 0, origin, Scale);
 			
 			if (stopShader) {
 				Shaders.End();
