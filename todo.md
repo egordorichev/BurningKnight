@@ -2,7 +2,6 @@
 
 ### fixes
 
-* make item pickup anim from stand nicer (idol falls from the stand for some reason)
 * secret room contents
 * destroying destroyable tile doesnt make it passable?
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)

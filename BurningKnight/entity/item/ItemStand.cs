@@ -37,14 +37,16 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public void SetItem(Item i, Entity entity) {
+		public void SetItem(Item i, Entity entity, bool remove = true) {
 			if (item == i) {
 				return;
 			}
 
 			if (item != null) {
-				item.AddDroppedComponents();
-				item.RemoveComponent<OwnerComponent>();
+				if (remove) {
+					item.AddDroppedComponents();
+					item.RemoveComponent<OwnerComponent>();
+				}
 
 				HandleEvent(new ItemTakenEvent {
 					Item = item,
@@ -123,7 +125,7 @@ namespace BurningKnight.entity.item {
 					if (CanTake(entity)) {
 						var i = item;
 
-						SetItem(null, entity);
+						SetItem(null, entity, false);
 						inventory.Pickup(i);
 
 						GetComponent<InteractableComponent>().OutlineAlpha = 0;
