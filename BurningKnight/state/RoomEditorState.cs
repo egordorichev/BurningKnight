@@ -36,18 +36,20 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
-			floors = new string[FloorRegistry.Instance.Size + 1];
+			floors = new string[FloorRegistry.Instance.Size + 2];
 			floors[0] = "Random";
-			
+			floors[1] = "None";
+
 			for (var i = 0; i < FloorRegistry.Instance.Size; i++) {
-				floors[i + 1] = FloorRegistry.Instance.Get(i).GetType().Name.Replace("Floor", "");
+				floors[i + 2] = FloorRegistry.Instance.Get(i).GetType().Name.Replace("Floor", "");
 			}
 
-			walls = new string[WallRegistry.Instance.Size + 1];
+			walls = new string[WallRegistry.Instance.Size + 2];
 			walls[0] = "Random";
+			walls[1] = "None";
 			
 			for (var i = 0; i < WallRegistry.Instance.Size; i++) {
-				walls[i + 1] = WallRegistry.Instance.Get(i).GetType().Name.Replace("Walls", "").Replace("Wall", "");
+				walls[i + 2] = WallRegistry.Instance.Get(i).GetType().Name.Replace("Walls", "").Replace("Wall", "");
 			}
 			
 			Tilesets.Load();
@@ -87,14 +89,14 @@ namespace BurningKnight.state {
 
 			if (currentFloor == 0) {
 				room.PaintFloor(level);
-			} else {
-				FloorRegistry.Paint(level, room, currentFloor - 1);
+			} else if (currentFloor > 1) {
+				FloorRegistry.Paint(level, room, currentFloor - 2);
 			}
 
 			if (currentWall == 0) {
 				room.Paint(level);
-			} else {
-				WallRegistry.Paint(level, room, null, currentWall - 1);
+			} else if (currentWall > 1) {
+				WallRegistry.Paint(level, room, null, currentWall - 2);
 			}
 
 			level.TileUp();
