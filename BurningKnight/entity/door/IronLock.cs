@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.component;
+using BurningKnight.level.rooms;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
@@ -19,7 +20,7 @@ namespace BurningKnight.entity.door {
 			foreach (var player in Area.Tags[Tags.Player]) {
 				var room = player.GetComponent<RoomComponent>().Room;
 				
-				if (room != null && (!room.Finished || room.Tagged[Tags.MustBeKilled].Count > 0)) {
+				if (room != null && room.Type != RoomType.Connection && room.Tagged[Tags.MustBeKilled].Count > 0) {
 					shouldLock = true;
 					break;
 				}

@@ -137,7 +137,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartedNew && !died && Run.Depth > 0) {
+			if (!Run.StartedNew && !died && (old ? Run.LastDepth : Run.Depth) > 0) {
 				SaveManager.Save(Area, SaveType.Game, old);
 				SaveManager.Save(Area, SaveType.Level, old);
 				SaveManager.Save(Area, SaveType.Player, old);
@@ -315,9 +315,10 @@ namespace BurningKnight.state {
 		
 		private void TeleportTo(RoomType type) {
 			var player = LocalPlayer.Locate(Area);
+			var room = player.GetComponent<RoomComponent>().Room;
 
 			foreach (var r in Area.Tags[Tags.Room]) {
-				if (((Room) r).Type == type) {
+				if (r != room && ((Room) r).Type == type) {
 					player.Center = r.Center;
 					return;
 				}
@@ -331,7 +332,7 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-				Engine.Instance.SetState(new LoadState());
+				Run.StartNew();
 				died = true;
 
 				return;
@@ -349,8 +350,20 @@ namespace BurningKnight.state {
 				Settings.HideCursor = !Settings.HideCursor;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.F4)) {
+			if (Input.Keyboard.WasPressed(Keys.F5)) {
 				TeleportTo(RoomType.Treasure);
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.F6)) {
+				TeleportTo(RoomType.Shop);
+			}
+			
+			if (Input.Keyboard.WasPressed(Keys.F7)) {
+				TeleportTo(RoomType.Special);
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.F8)) {
+				TeleportTo(RoomType.Secret);
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {

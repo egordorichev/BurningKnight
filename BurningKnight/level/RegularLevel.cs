@@ -3,6 +3,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.special;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -129,6 +130,8 @@ namespace BurningKnight.level {
 			for (var I = 0; I < Secret; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Secret));
 			}
+			
+			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
 
 			return Rooms;
 		}
@@ -153,7 +156,7 @@ namespace BurningKnight.level {
 		}
 
 		protected int GetNumSpecialRooms() {
-			return 0;
+			return 1;
 		}
 
 		protected int GetNumSecretRooms() {

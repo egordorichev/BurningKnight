@@ -168,7 +168,29 @@ namespace BurningKnight.assets.items {
 			all.Add(data);
 		}
 
+		private static string[] coinIds = {
+			"bk:copper_coin",
+			"bk:iron_coin",
+			"bk:gold_coin",
+			"bk:platinum_coin"
+		};
+
+		private static float[] coinChances = {
+			1f,
+			1f / 5f,
+			1f / 10f,
+			1f / 25f
+		};
+
 		public static Item Create(string id) {
+			if (id == "bk:coin") {
+				id = coinIds[Random.Chances(coinChances)];
+			}
+			
+			if (id.EndsWith("_coin")) {
+				id += Random.Chance() ? "_a" : "_b";
+			}
+			
 			if (!Datas.TryGetValue(id, out var data)) {
 				Log.Error($"Unknown item {id}");
 				return null;

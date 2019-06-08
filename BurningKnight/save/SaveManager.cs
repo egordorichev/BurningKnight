@@ -145,22 +145,16 @@ namespace BurningKnight.save {
 			}
 		}
 
-		public static void ThreadLoad(Action callback, Area area, SaveType saveType, string path = null) {
-			//new Thread(() => {
-				Load(area, saveType, path);
-				callback?.Invoke();
-			//}) {
-			//	Priority = ThreadPriority.Lowest
-			//}.Start();
-		}
-		
 		public static void Generate(Area area, SaveType saveType) {
 			if (saveType != SaveType.Secret || Engine.Version.Dev) {
 				Log.Info($"Generating {saveType} {Run.Depth}");
 			}
 			
 			ForType(saveType).Generate(area);
-			Save(area, saveType);
+
+			if (Run.Depth > 0) {
+				Save(area, saveType);
+			}
 		}
 
 		public static void Delete(params SaveType[] types) {

@@ -10,7 +10,7 @@ namespace BurningKnight.save {
 			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
-			writer.WriteString(Random.Seed);
+			writer.WriteString(Run.Seed);
 		}
 
 		public override string GetPath(string path, bool old = false) {

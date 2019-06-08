@@ -61,10 +61,8 @@ namespace BurningKnight.assets.lighting {
 			
 			Graphics.Color = new Color(1f, 1f, 1f, 0.4f);
 			
-			var shake = Camera.Instance.GetComponent<ShakeComponent>();
-
-			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
-			Camera.Instance.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+			Camera.Instance.Position.Y % 1));
 			Graphics.Color = Color.White;
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);

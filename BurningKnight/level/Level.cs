@@ -28,10 +28,10 @@ namespace BurningKnight.level {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
 		public static bool RenderPassable = false;
+		public static Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
 		
 		public Tileset Tileset;
 		public Biome Biome;
-		public Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
 
@@ -498,7 +498,6 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
 			var region = new TextureRegion();
 
 			region.Texture = MessSurface;
@@ -507,8 +506,8 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
-				                        camera.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
+				                        camera.Position.Y % 1));
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -764,11 +763,10 @@ namespace BurningKnight.level {
 			
 			if (Engine.Instance.StateRenderer.UiTarget != null) {
 				Graphics.Color = ShadowColor;
-				var shake = Camera.Instance.GetComponent<ShakeComponent>();
 
 				Graphics.Render(Engine.Instance.StateRenderer.UiTarget,
-					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
-						Camera.Instance.Position.Y % 1 - shake.Position.Y));
+					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+						Camera.Instance.Position.Y % 1));
 
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
@@ -922,10 +920,8 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
-
-			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1 - shake.Position.X, 
-				                             Camera.Instance.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+				                             Camera.Instance.Position.Y % 1));
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -956,7 +952,6 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			var shake = camera.GetComponent<ShakeComponent>();
 			var region = new TextureRegion();
 
 			region.Texture = MessSurface;
@@ -965,8 +960,8 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1 - shake.Position.X, 
-				                        camera.Position.Y % 1 - shake.Position.Y));
+			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
+				                        camera.Position.Y % 1));
 			
 			Graphics.Batch.End();
 		}

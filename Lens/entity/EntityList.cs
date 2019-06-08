@@ -121,5 +121,20 @@ namespace Lens.entity {
 				}
 			}
 		}
+
+		public Entity Find(Func<Entity, bool> filter) {
+			foreach (var e in Entities) {
+				if (filter(e)) {
+					return e;
+				}
+			}
+
+			return null;
+		}
+
+		public Entity Find<T>() where T : Entity {
+			var t = typeof(T);
+			return Find(e => e.GetType() == t);
+		}
 	}
 }

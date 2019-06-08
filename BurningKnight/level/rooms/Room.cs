@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.entity;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -13,6 +15,7 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms {
 	public class Room : SaveableEntity {
@@ -23,7 +26,6 @@ namespace BurningKnight.level.rooms {
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
 		public bool Explored;
-		public bool Finished;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -40,10 +42,6 @@ namespace BurningKnight.level.rooms {
 
 			var level = Run.Level;
 			Explored = level.Explored[level.ToIndex(MapX + 1, MapY + 1)];
-
-			if (Type != RoomType.Regular) {
-				Finished = true;
-			}
 		}
 
 		public void Discover() {
@@ -72,10 +70,6 @@ namespace BurningKnight.level.rooms {
 			MapH = stream.ReadInt16();
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
-
-			if (Type == RoomType.Regular) {
-				Finished = stream.ReadBoolean();
-			}
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -87,10 +81,6 @@ namespace BurningKnight.level.rooms {
 			stream.WriteInt16((short) MapH);
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
-
-			if (Type == RoomType.Regular) {
-				stream.WriteBoolean(Finished);	
-			}
 		}
 		
 		protected int GetRenderLeft(Camera camera, Level level) {
@@ -130,6 +120,45 @@ namespace BurningKnight.level.rooms {
 				MapW = (int) Math.Floor(Width / 16);
 				MapH = (int) Math.Floor(Height / 16);
 			}*/
+		}
+
+		public List<Point> GetFreeTiles(Func<int, int, bool> filter = null) {
+			var list = new List<Point>();
+
+			for (var x = MapX; x < MapX + MapW; x++) {
+				for (var y = MapY; y < MapY + MapH; y++) {
+					if (Run.Level.CheckFor(x, y, TileFlags.Passable) && (filter == null || filter(x, y))) {
+						list.Add(new Point(x, y));
+					}
+				}
+			}
+			
+			return list;
+		}
+
+		public Vector2 GetRandomFreeTile(Func<int, int, bool> filter = null) {
+			var tiles = GetFreeTiles(filter);
+
+			if (tiles.Count == 0) {
+				return Center;
+			}
+
+			var tile = tiles[Random.Int(tiles.Count)];
+			return new Vector2(tile.X, tile.Y);
+		}
+
+		public Vector2 GetRandomFreeTileNearWall(Func<int, int, bool> filter = null) {
+			return GetRandomFreeTile((x, y) => {
+				if (Run.Level.CheckFor(x - 1, y, TileFlags.Passable)
+				&& Run.Level.CheckFor(x + 1, y, TileFlags.Passable)
+				&& Run.Level.CheckFor(x, y - 1, TileFlags.Passable)
+				&& Run.Level.CheckFor(x, y + 1, TileFlags.Passable)) {
+					// No wall here :/
+					return false;
+				}
+				
+				return filter == null || filter(x, y);
+			});
 		}
 	}
 }

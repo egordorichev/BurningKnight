@@ -24,7 +24,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			var text = item.Count == 1 ? item.Name : $"{item.Name} ({item.Count})";
+			var text = item.Name;
 			var size = Font.Medium.MeasureString(text);
 
 			Width = size.Width;
@@ -43,7 +43,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		private void UpdatePosition() {
-			Center = Camera.Instance.CameraToUi(new Vector2(item.CenterX, item.Y - 8 + y + item.GetComponent<ItemGraphicsComponent>().CalculateMove() * Display.UiScale));
+			Center = Camera.Instance.CameraToUi(new Vector2(item.CenterX, item.Y - 8 + y + (item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().CalculateMove() * Display.UiScale : 0)));
 			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
 		}
 

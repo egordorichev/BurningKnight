@@ -156,6 +156,10 @@ namespace BurningKnight.entity.creature.player {
 				if (OnEnd != null) {
 					OnEnd(Item);
 				} else {
+					if (Item.HasComponent<OwnerComponent>()) {
+						Item.RemoveComponent<OwnerComponent>();
+					}
+					
 					Self.GetComponent<InventoryComponent>().Add(Item);
 					Item.Use(Self);	
 				}

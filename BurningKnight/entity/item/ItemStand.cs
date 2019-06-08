@@ -4,6 +4,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -21,18 +22,31 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemStand : SaveableEntity, PlaceableEntity {
+		private static TextureRegion itemShadow;
+		private static Vector2 shadowOffset = new Vector2(3, 3);
+		
 		private Item item;
 		
 		public Item Item => item;
 
-		public void SetItem(Item i, Entity entity) {
+		public override void Init() {
+			base.Init();
+
+			if (itemShadow == null) {
+				itemShadow = CommonAse.Props.GetSlice("item_shadow");
+			}
+		}
+
+		public void SetItem(Item i, Entity entity, bool remove = true) {
 			if (item == i) {
 				return;
 			}
 
 			if (item != null) {
-				item.AddDroppedComponents();
-				item.RemoveComponent<OwnerComponent>();
+				if (remove) {
+					item.AddDroppedComponents();
+					item.RemoveComponent<OwnerComponent>();
+				}
 
 				HandleEvent(new ItemTakenEvent {
 					Item = item,
@@ -46,7 +60,9 @@ namespace BurningKnight.entity.item {
 			if (item != null) {
 				item.RemoveDroppedComponents();
 				item.AddComponent(new OwnerComponent(this));
-				item.Center = Center;
+				item.CenterX = CenterX;
+				item.Bottom = Y + 6;
+				item.AutoPickup = false;
 				
 				HandleEvent(new ItemPlacedEvent {
 					Item = item,
@@ -72,6 +88,8 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			AddTag(Tags.Item);
+			
 			AddComponent(new RectBodyComponent(2, 2, 10, 5, BodyType.Static));
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 
@@ -82,6 +100,7 @@ namespace BurningKnight.entity.item {
 			
 			AddComponent(new SliceComponent("props", GetSprite()));
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new RoomComponent());
 		}
 
 		protected virtual string GetSprite() {
@@ -106,8 +125,7 @@ namespace BurningKnight.entity.item {
 					if (CanTake(entity)) {
 						var i = item;
 
-						item.RemoveComponent<OwnerComponent>();
-						SetItem(null, entity);
+						SetItem(null, entity, false);
 						inventory.Pickup(i);
 
 						GetComponent<InteractableComponent>().OutlineAlpha = 0;
@@ -164,12 +182,16 @@ namespace BurningKnight.entity.item {
 				return;
 			}
 
-			var t = item.GetComponent<ItemGraphicsComponent>().T;
+			Graphics.Color = Level.ShadowColor;
+			Graphics.Render(itemShadow, Position + shadowOffset);
+			Graphics.Color = ColorUtils.WhiteColor;
+
+			var t = item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().T : 0;
 			var angle = (float) Math.Cos(t * 3f) * 0.4f;
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f);
+			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f) - 5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;

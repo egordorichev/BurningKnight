@@ -45,7 +45,8 @@ namespace BurningKnight.entity.component {
 			var drops = GetDrops();
 
 			foreach (var item in drops) {
-				item.Center = Entity.Center;
+				item.CenterX = Entity.CenterX;
+				item.CenterY = Entity.Bottom;
 				Entity.Area.Add(item);
 				item.AddDroppedComponents();
 				item.RandomizeVelocity(1f);

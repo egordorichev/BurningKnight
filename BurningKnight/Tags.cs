@@ -11,12 +11,14 @@ namespace BurningKnight {
 		
 		public static int Room = new BitTag("room");
 		public static int MustBeKilled = new BitTag("must_be_killed");
+		public static int Gramophone = new BitTag("gramophone");
 		
 		public static int HasShadow = new BitTag("shadow");
 		public static int Mess = new BitTag("mess");
 		
 		public static int Checkpoint = new BitTag("checkpoint");
 		public static int Entrance = new BitTag("entrance");
+		public static int Item = new BitTag("item");
 
 		public static string[] AllTags;
 		

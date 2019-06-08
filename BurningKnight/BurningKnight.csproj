@@ -191,6 +191,7 @@
     <Compile Include="entity\creature\mob\Dummy.cs" />
     <Compile Include="entity\creature\mob\Mob.cs" />
     <Compile Include="entity\creature\mob\MobInfo.cs" />
+    <Compile Include="entity\creature\mob\MobPair.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="entity\creature\npc\Npc.cs" />
     <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\npc\Ord.cs" />
+    <Compile Include="entity\creature\npc\ShopKeeper.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
+    <Compile Include="entity\door\SpecialDoor.cs" />
     <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
@@ -234,6 +237,7 @@
     <Compile Include="entity\events\ExplodedEvent.cs" />
     <Compile Include="entity\events\FlagCollisionEndEvent.cs" />
     <Compile Include="entity\events\FlagCollisionStartEvent.cs" />
+    <Compile Include="entity\events\GramophoneBrokenEvent.cs" />
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\InteractedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
@@ -269,6 +273,7 @@
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />
+    <Compile Include="entity\item\ItemPair.cs" />
     <Compile Include="entity\item\ItemPickupFx.cs" />
     <Compile Include="entity\item\ItemPool.cs" />
     <Compile Include="entity\item\ItemStand.cs" />
@@ -280,6 +285,7 @@
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
     <Compile Include="entity\item\renderer\SwordRenderer.cs" />
     <Compile Include="entity\item\ShopStand.cs" />
+    <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
@@ -300,6 +306,7 @@
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
+    <Compile Include="entity\item\use\SpawnItemsUse.cs" />
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
@@ -337,15 +344,19 @@
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
+    <Compile Include="level\entities\RerollMachine.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
+    <Compile Include="level\entities\VendingMachine.cs" />
+    <Compile Include="level\entities\Well.cs" />
     <Compile Include="level\Flag.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
     <Compile Include="level\floors\DiagonalFloor.cs" />
     <Compile Include="level\floors\FloorPainter.cs" />
     <Compile Include="level\floors\FloorRegistry.cs" />
     <Compile Include="level\floors\GeometryFloor.cs" />
+    <Compile Include="level\floors\LineFloor.cs" />
     <Compile Include="level\floors\MazeFloor.cs" />
     <Compile Include="level\floors\TrippleFloor.cs" />
     <Compile Include="level\hall\HallBuilder.cs" />
@@ -376,10 +387,14 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
+    <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
+    <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
+    <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
+    <Compile Include="level\rooms\special\WellRoom.cs" />
     <Compile Include="level\rooms\treasure\TreasureRoom.cs" />
     <Compile Include="level\tile\Tile.cs" />
     <Compile Include="level\tile\TileFlags.cs" />
@@ -490,6 +505,7 @@
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
+    <Compile Include="util\AnimationUtil.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
     <Compile Include="util\Birthday.cs" />
@@ -498,6 +514,7 @@
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
+    <Compile Include="util\geometry\Point.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\Maze.cs" />

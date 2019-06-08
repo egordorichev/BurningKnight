@@ -4,12 +4,13 @@ using Lens.util.math;
 
 namespace BurningKnight.level.rooms.secret {
 	public class SecretRoom : RoomDef {
-		public override void Paint(Level Level) {
-			Painter.Fill(Level, this, Tiles.RandomWall());
-			Painter.Fill(Level, this, 1, Tile.FloorD);
+		public override void Paint(Level level) {
+			Painter.Fill(level, this, 1, Tile.FloorD);
+		}
 
-			foreach (var Door in Connected.Values) {
-				Door.Type = DoorPlaceholder.Variant.Secret;
+		public override void SetupDoors() {
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Secret;
 			}		
 		}
 
@@ -30,12 +31,12 @@ namespace BurningKnight.level.rooms.secret {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
+			if (Side == Connection.All) return 4;
 			return 1;
 		}
 
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) return 1;
-
 			return 0;
 		}
 

@@ -1,10 +1,15 @@
 # TODO
 
+### fixes
+
+* !!! destroying destroyable tile doesnt make it passable?
+* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
+* lighting bolts
+
 ### Before josh
 
-* fix: continue run does not return you lamp and weapons?
-* fix nodes requiring to hit enter to set their name
-* you cant break props with gun
+* sk ai
+* sk dialog
 
 * BK him self
  + Healthbar
@@ -17,88 +22,47 @@
 
 ### do do do
 
-* figure out dialog interaction
-* beet idle anim
-* talk to beet to set the seed
+* fix nodes requiring to hit enter to set their name
+* Animate lamp up and down to make it more alive
 * Nicer load screen thingy
 * Crash report window
 * ui entities generate on click 2 times? (might be input bug)
-* Fix interacting with dialogs (and think what to do with input block?)
-* Make node editing possible in-game
 
 ### Before v0.0.0.4
 
-* Old man -> bk when you take a lamp
 * make door explodable
-* Dialog for old man (tell why wont let you out without a lamp, etc)
-
 * Show item description, when you pick it up [UiItemDescription]
-* Animate bullet death
-* Implement coins
 * Proper animation for gaining an item (for gobbo.ase obv)
 * When player uses active item, animate him using it (like in isaac)
- 
-* Fix player reading 1 byte less than expected (some component is broken? or maybe not added) (and other entities, like a lot in prefabs!!)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
-* ^^^^ same for picking up item
-
-* Figure out lamp mechanics, display it on player
-* ^^^^^^ whats up with Burning Knight? gotta think a lot
-
-* Add PICO-8 prototype room
-* Make WIP sign
-* Add at least one NPC house
-
 * Add a few weapons for melee, magic and ranged
 * Add a few artifacts
-
-* Implement speed changing
-* Audio speed should depend on engine speed
-
-* Crash report/fail loading stuff
-
 * Ui banner (level depth report and stuff)
-
-#### Polish
-
-* Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* Weapons in player hands should drop shadows
-* Wall shadow of player should include weapons?
 
 ### Important
 
-* Gobbo tombstone impl (appears on next run too, gives random item)
 * Zelda like digging enemy
 * Diagonal fly
-* Broken variant for walls that do not break
 * Props that react to music beats
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor
 * Rooms that can spawn only in certant biomes
-* Debug command to show room type
-
-!!!
-* ask dad for neural net for generating room layouts
-!!!
-
-!!!
 * noise wall room (only possible with path finding)
-!!!
-
 * Cap max hearts on player
-* Animate gaining hearts from the lamp
-* Move all text to ui layer, so that it's smaller/can be at higher resolution (also move lamp pickup hearts there)
-* Pause the game, while console is open, but do not bring pause menu up?
 * Implement settings
 
-### Polish
+#### Polish
 
+* Broken variant for walls that do not break
+* Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
+* Weapons in player hands should drop shadows
+* Wall shadow of player should include weapons?
 * Low health indicator
 * Animate items/creatures falling into the chasm?
 * Animate healing
@@ -150,8 +114,9 @@
 ### Special rooms
 
 * Challenge room
-* Shop room
 * Cursed room
+* Room with transmutation well (current weapon slot)
+* alg for connection rooms that makes a really maze like path but with no branches
 
 ### Clean up
 

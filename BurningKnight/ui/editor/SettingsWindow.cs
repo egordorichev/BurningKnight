@@ -456,8 +456,12 @@ namespace BurningKnight.ui.editor {
 				ImGui.Combo("Cursor##t", ref cursorMode, cursorModes, cursorModes.Length);
 				ImGui.Separator();
 
+				if (CurrentInfo == null) {
+					CurrentInfo = infos[1];
+				}
+
 				var cur = CurrentInfo;
-				
+
 				ImGui.ImageButton(cur.Texture, tileSize, cur.Uv0, cur.Uv1, 4, bg, tintColor);
 				ImGui.SameLine();
 				ImGui.Text(CurrentInfo.Tile.ToString());
@@ -491,6 +495,7 @@ namespace BurningKnight.ui.editor {
 						ImGui.SameLine();
 					}
 				}
+				
 
 				if (down) {
 					var mouse = Input.Mouse.GamePosition;

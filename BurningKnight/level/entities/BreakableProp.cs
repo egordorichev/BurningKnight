@@ -57,7 +57,7 @@ namespace BurningKnight.level.entities {
 		protected override Rectangle GetCollider() {
 			var rect = GetComponent<SliceComponent>().Sprite.Source;
 
-			if (Sprite.Contains("crate")) {
+			if (Sprite.Contains("pot") || Sprite.Contains("crate")) {
 				AddComponent(new PoolDropsComponent(ItemPool.Crate, 0.3f, 1, 3));
 			}
 			

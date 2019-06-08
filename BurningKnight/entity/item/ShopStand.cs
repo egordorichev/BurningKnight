@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
@@ -31,6 +32,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			if (component.Coins < price) {
+				AnimationUtil.ActionFailed();
 				return false;
 			}
 
@@ -44,14 +46,19 @@ namespace BurningKnight.entity.item {
 			base.Render();
 
 			if (Item != null && Sells) {
-				Graphics.Print(priceString, Font.Medium, Position + new Vector2(priceX, 18));
+				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
 			}
+		}
+
+		public void Recalculate() {
+			Sells = true;
+			price = PriceCalculator.Calculate(Item);
+			CalculatePriceSize();
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemPlacedEvent) {
-				price = PriceCalculator.Calculate(Item);
-				CalculatePriceSize();
+				Recalculate();
 			}
 			
 			return base.HandleEvent(e);

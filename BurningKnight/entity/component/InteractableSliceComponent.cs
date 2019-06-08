@@ -8,13 +8,18 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class InteractableSliceComponent : SliceComponent {
+		public Vector2 Scale = Vector2.One;
+		
 		public InteractableSliceComponent(string image, string slice) : base(image, slice) {}
 
 		public InteractableSliceComponent(AnimationData image, string slice) : base(image, slice) {}
 
 		public override void Render(bool shadow) {
+			var origin = new Vector2(Sprite.Width / 2, Sprite.Height);
+			var pos = Entity.Position + origin + Offset;
+			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, pos, 0, new Vector2(origin.X, 0), Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
@@ -27,7 +32,7 @@ namespace BurningKnight.entity.component {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(Sprite, Entity.Position + d);
+					Graphics.Render(Sprite, pos + d, 0, origin, Scale);
 				}
 
 				Shaders.End();
@@ -50,7 +55,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			Graphics.Render(Sprite, Entity.Position);
+			Graphics.Render(Sprite, pos, 0, origin, Scale);
 			
 			if (stopShader) {
 				Shaders.End();

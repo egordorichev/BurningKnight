@@ -53,10 +53,7 @@ namespace BurningKnight.entity.creature {
 
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce) {
-				if (!rce.New.Finished) {
-					// fixme: send enemy fireballs
-					// rce.New.Finished = true;
-				}
+				
 			}
 			
 			return base.HandleEvent(e);

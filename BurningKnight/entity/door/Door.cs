@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -9,6 +10,7 @@ using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -40,6 +42,7 @@ namespace BurningKnight.entity.door {
 			
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new ExplodableComponent());
 			
 			GetComponent<StateComponent>().Become<ClosedState>();
 		}
@@ -97,9 +100,31 @@ namespace BurningKnight.entity.door {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
+			} else if (e is ExplodedEvent ee) {
+				BreakFromExplosion();
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		protected virtual void BreakFromExplosion() {
+			Done = true;
+			
+			for (var i = 0; i < 3; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+
+				part.Position = Center;
+				Area.Add(part);
+			}
+			
+			for (var i = 0; i < 3; i++) {
+				var part = new ParticleEntity(Particles.Plank());
+						
+				part.Position = Center;
+				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				
+				Area.Add(part);
+			}
 		}
 
 		protected virtual bool CanOpen() {

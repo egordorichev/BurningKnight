@@ -18,6 +18,10 @@ namespace BurningKnight.entity.component {
 		public int Health => health;
 
 		public void SetHealth(int hp, Entity setter) {
+			if (hp == health) {
+				return;
+			}
+			
 			if (hp < health) {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;

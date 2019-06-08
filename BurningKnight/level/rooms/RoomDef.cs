@@ -16,6 +16,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Point = BurningKnight.util.geometry.Point;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms {
@@ -65,7 +66,9 @@ namespace BurningKnight.level.rooms {
 		
 		public virtual void Paint(Level level) {
 			WallRegistry.Paint(level, this);
-			
+		}
+
+		public virtual void SetupDoors() {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}
@@ -441,6 +444,12 @@ namespace BurningKnight.level.rooms {
 			return new Vector2(Left + GetWidth() / 2f, Top + GetHeight() / 2f);
 		}
 
+		public Rect GetCenterRect() {
+			var x = (int) (Left + GetWidth() / 2f); 
+			var y = (int) (Top + GetHeight() / 2f);
+			return new Rect(x, y, x + 1, y + 1);
+		}
+
 		public Rect GetConnectionSpace() {
 			var C = GetDoorCenter();
 
@@ -563,6 +572,10 @@ namespace BurningKnight.level.rooms {
 				return RoomType.Treasure;
 			}
 			
+			if (typeof(ShopRoom).IsAssignableFrom(room)) {
+				return RoomType.Shop;
+			}
+			
 			if (typeof(SpecialRoom).IsAssignableFrom(room)) {
 				return RoomType.Special;
 			}
@@ -571,10 +584,6 @@ namespace BurningKnight.level.rooms {
 				return RoomType.Connection;
 			}
 			
-			if (typeof(ShopRoom).IsAssignableFrom(room)) {
-				return RoomType.Shop;
-			}
-
 			return RoomType.Regular;
 		}
 	}
