@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
@@ -10,11 +11,8 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
-using DiscordRPC;
 using Lens;
-using Lens.entity.component.logic;
 using Lens.graphics;
-using Lens.graphics.gamerenderer;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
@@ -34,6 +32,8 @@ namespace BurningKnight.level {
 		public Biome Biome;
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
+
+		public List<string> ItemsToSpawn;
 
 		private int width;
 		private int height;

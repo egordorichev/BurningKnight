@@ -68,7 +68,7 @@ namespace BurningKnight.level.rooms {
 			WallRegistry.Paint(level, this);
 		}
 
-		public virtual void SetupDoors() {
+		public virtual void SetupDoors(Level level) {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Regular;
 			}

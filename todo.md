@@ -30,7 +30,6 @@
 
 ### Before v0.0.0.4
 
-* make door explodable
 * Show item description, when you pick it up [UiItemDescription]
 * Proper animation for gaining an item (for gobbo.ase obv)
 * When player uses active item, animate him using it (like in isaac)
