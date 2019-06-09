@@ -67,7 +67,7 @@ namespace BurningKnight.level.rooms.shop {
 			
 			var points = new List<Point>();
 
-			for (var x = Left + Random.Int(1, 3); x < Right; x += 2) {
+			for (var x = Left + 2; x < Right - 1; x += 2) {
 				points.Add(new Point(x, Top + 2));
 			}
 
@@ -97,11 +97,15 @@ namespace BurningKnight.level.rooms.shop {
 			}
 		}
 
-		public override void SetupDoors() {
+		public override void SetupDoors(Level level) {
 			var hidden = Random.Chance(30);
+
+			if (!hidden) {
+				level.ItemsToSpawn.Add("bk:key");
+			}
 			
 			foreach (var door in Connected.Values) {
-				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Regular;
+				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Locked;
 			}
 		}
 

@@ -137,6 +137,7 @@ namespace BurningKnight.util {
 			"Slow up, please",
 			"Thy hath the sickest of burns! - @avivbeer",
 			"Is this a game?",
+			"Roses are red, violets are blue, burning is knight and gobbo is you",
 			"Roses are red, violets are blue, water boils at 100°C and freezes at 0°C - @DSF100",
 			"Burn CPU, BURN",
 			"No one can defeat BK, why? READ THE LORE - @DSF100",
