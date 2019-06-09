@@ -10,6 +10,7 @@ using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -244,5 +245,15 @@ namespace BurningKnight.entity.item {
 		public static bool Unlocked(string id) {
 			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp";
 		}
+
+		#if DEBUG
+		private string debugItem = "";
+		
+		public override void RenderImDebug() {
+			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				ConvertTo(debugItem);
+			}
+		}
+		#endif
 	}
 }

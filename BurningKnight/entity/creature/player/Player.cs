@@ -13,10 +13,12 @@ using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -25,6 +27,37 @@ namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
 		public static string StartingLamp;
 		public static string StartingWeapon;
+
+		public List<TextureRegion> PickedUp = new List<TextureRegion>();
+		public float LastPickup;
+		public Vector2 Scale;
+		public Item PickedItem;
+
+		public void AnimateItemPickup(Item item, Action action = null) {
+			Tween.To(1, 0, x => {
+				Scale.X = x;
+				Scale.Y = x;
+			}, 0.5f);
+
+			PickedItem = item;
+					
+			Timer.Add(() => {
+				if (item.HasComponent<OwnerComponent>()) {
+					item.RemoveComponent<OwnerComponent>();
+				}
+					
+				GetComponent<InventoryComponent>().Add(item);
+				item.Use(this);	
+						
+				Tween.To(0, 1, x => {
+					Scale.X = x;
+					Scale.Y = x;
+				}, 0.3f, Ease.BackIn).OnEnd = () => { 
+					PickedItem = null; 
+					action?.Invoke();
+				};
+			}, 1f);
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -52,9 +85,9 @@ namespace BurningKnight.entity.creature.player {
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
 			AddComponent(new InteractorComponent {
-				CanInteractCallback = e => !(GetComponent<StateComponent>().StateInstance is GotState || died)
+				CanInteractCallback = e => !died && PickedItem == null
 			});
-			
+
 			// Other mechanics
 			AddComponent(new OrbitGiverComponent());
 			AddComponent(new FollowerComponent());
@@ -133,52 +166,6 @@ namespace BurningKnight.entity.creature.player {
 			
 		}
 		
-		public class GotState : EntityState {
-			private const float Delay = 1f;
-			
-			private bool tweened;
-			public Item Item;
-			public Action<Item> OnEnd;
-			public Vector2 Scale;
-
-			public override void Init() {
-				base.Init();
-
-				Tween.To(1, 0, x => {
-					Scale.X = x;
-					Scale.Y = x;
-				}, 0.5f);
-			}
-
-			public override void Destroy() {
-				base.Destroy();
-
-				if (OnEnd != null) {
-					OnEnd(Item);
-				} else {
-					if (Item.HasComponent<OwnerComponent>()) {
-						Item.RemoveComponent<OwnerComponent>();
-					}
-					
-					Self.GetComponent<InventoryComponent>().Add(Item);
-					Item.Use(Self);	
-				}
-			}
-
-			public override void Update(float dt) {
-				base.Update(dt);
-
-				if (!tweened && T >= Delay) {
-					tweened = true;
-					
-					Tween.To(0, 1, x => {
-						Scale.X = x;
-						Scale.Y = x;
-					}, 0.3f, Ease.BackIn).OnEnd = Become<IdleState>;
-				}
-			}
-		}
-		
 		public class RollState : EntityState {
 			private const float RollTime = 0.39f;
 			private const float RollForce = 400f;
@@ -248,6 +235,19 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		#endregion
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (PickedUp.Count > 0) {
+				LastPickup += dt;
+
+				if (LastPickup > 1f) {
+					LastPickup -= 0.1f;
+					PickedUp.RemoveAt(0);
+				}
+			}
+		}
 
 		public override bool ShouldCollide(Entity entity) {
 			return !(entity is Player) && base.ShouldCollide(entity);

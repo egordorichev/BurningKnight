@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.creature.player;
 using BurningKnight.util;
 using Lens.assets;
 using Lens.entity;

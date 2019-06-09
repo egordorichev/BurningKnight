@@ -55,12 +55,12 @@ namespace BurningKnight.level.rooms {
 
 		public abstract int GetMinConnections(Connection Side);
 
-		protected virtual void Fill(Level level) {
+		/*protected virtual void Fill(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
-		}
+		}*/
 		
 		public virtual void PaintFloor(Level level) {
-			Fill(level);
+			// Fill(level);
 			FloorRegistry.Paint(level, this);
 		}
 		

@@ -78,8 +78,10 @@ namespace BurningKnight.entity.creature.player {
 						Who = Entity,
 						Component = this
 					});
+
+					var p = (Player) Entity;
 					
-					ev.Item.Use((Player) Entity);
+					ev.Item.Use(p);
 					ev.Item.Done = true;
 					
 					for (var i = 0; i < 4; i++) {
@@ -91,6 +93,8 @@ namespace BurningKnight.entity.creature.player {
 						});
 					}
 					
+					p.PickedUp.Add(ev.Item.Region);
+					p.LastPickup = 0;
 					
 					return true;
 				}

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using ImGuiNET;
 using Lens.entity.component;
-using Lens.entity.component.logic;
-using Lens.util;
 using Lens.util.file;
+using Lens.util.timer;
+using Lens.util.tween;
 
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
@@ -17,12 +16,10 @@ namespace BurningKnight.entity.component {
 			if (!Send(new ItemCheckEvent {
 				Item = item
 			})) {
-				if (Entity is Player && (item.Type == ItemType.Artifact || item.Type == ItemType.Active || 
+				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.Active || 
 				                         item.Type == ItemType.Lamp || item.Type == ItemType.Weapon)) {
 					
-					Entity.GetComponent<StateComponent>().PushState(new Player.GotState {
-						Item = item
-					});
+					p.AnimateItemPickup(item);
 				} else {
 					item.Use(Entity);
 					Add(item);	
