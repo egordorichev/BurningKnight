@@ -4,7 +4,7 @@
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
-* Show item description, when you pick it up [UiItemDescription]
+* ui description banner bg
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * lighting bolts
 * darkness shader should be applied to all screen and not just game
@@ -16,7 +16,6 @@
 * BK him self (what to do???)
 * fix nodes requiring to hit enter to set their name
 * Animate lamp up and down to make it more alive
-* Nicer load screen thingy
 * Crash report window
 * ui entities generate on click 2 times? (might be input bug)
 

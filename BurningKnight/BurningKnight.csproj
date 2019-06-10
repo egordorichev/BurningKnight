@@ -520,6 +520,7 @@
     <Compile Include="util\geometry\Point.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
+    <Compile Include="util\LoadScreenTitles.cs" />
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Titles.cs" />

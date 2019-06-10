@@ -380,7 +380,7 @@ namespace BurningKnight.ui.str {
 						c.A = (byte) (v * 255);
 					}
 
-					c.A = (byte) MathUtils.Clamp(0, 255, c.A * Tint.A / 255f);
+					c.A = (byte) MathUtils.Clamp(0, 255, (float) c.A * Tint.A / 255f);
 
 					Graphics.Batch.Draw(g.G.FontRegion.TextureRegion.Texture, pos,
 						g.G.FontRegion.TextureRegion.Bounds, c, g.Angle, g.Origin, g.Scale, g.Effects, 0);

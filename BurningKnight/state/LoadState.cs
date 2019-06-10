@@ -6,7 +6,9 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui.imgui;
+using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
@@ -21,9 +23,17 @@ namespace BurningKnight.state {
 		private bool ready;
 		private bool down;
 		private float alpha;
+		private string title;
+		private string prefix;
+		private float titleX;
+		private float prefixX;
 		
 		public override void Init() {
 			base.Init();
+
+			// todo: generating too
+			prefix = Locale.Get("loading");
+			title = LoadScreenTitles.Generate();
 			
 			Lights.Init();
 			Physics.Init();
@@ -51,6 +61,9 @@ namespace BurningKnight.state {
 
 			thread.Priority = ThreadPriority.Lowest;
 			thread.Start();
+
+			titleX = Font.Small.MeasureString(title).Width * -0.5f;
+			prefixX = Font.Medium.MeasureString($"{prefix} 102%").Width * -0.5f;
 		}
 
 		public override void Update(float dt) {
@@ -78,7 +91,8 @@ namespace BurningKnight.state {
 			base.RenderUi();
 			
 			Graphics.Color = new Color(1f, 1f, 1f, alpha);
-			Graphics.Print($"Coming soon tm {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Small, new Vector2(4, 4));
+			Graphics.Print($"{prefix} {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Medium, new Vector2(Display.UiWidth / 2f + prefixX, Display.UiHeight / 2f - 8));
+			Graphics.Print(title, Font.Small, new Vector2(Display.UiWidth / 2f + titleX, Display.UiHeight / 2f + 8));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 

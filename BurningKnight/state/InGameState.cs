@@ -52,7 +52,6 @@ namespace BurningKnight.state {
 		private SaveLock saveLock = new SaveLock();
 		
 		private Painting painting;
-		private UiDescriptionBanner banner;
 		private SettingsWindow settings;
 
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
@@ -581,9 +580,7 @@ namespace BurningKnight.state {
 				return false;
 			}
 			
-			if (e is ItemCheckEvent item) {
-				banner?.Show(item.Item);
-			} else if (e is DiedEvent de && de.Who is Mob) {
+			if (e is DiedEvent de && de.Who is Mob) {
 				Run.KillCount++;
 			}
 

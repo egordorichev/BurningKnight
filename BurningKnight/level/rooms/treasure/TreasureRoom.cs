@@ -16,8 +16,13 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
-			var chest = Random.Chance(30) ? new Chest() : new LockedChest();
+			var l = Random.Chance(30);
+			var chest = l ? new Chest() : new LockedChest();
 
+			if (l) {
+				level.ItemsToSpawn.Add("bk:key");
+			}
+			
 			level.Area.Add(chest);
 
 			chest.Center = where * 16;

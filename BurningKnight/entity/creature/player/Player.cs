@@ -9,6 +9,7 @@ using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
@@ -39,6 +40,12 @@ namespace BurningKnight.entity.creature.player {
 				Scale.Y = x;
 			}, 0.5f);
 
+			if (add) {
+				var banner = new UiDescriptionBanner();
+				banner.Show(item);
+				Engine.Instance.State.Ui.Add(banner);
+			}
+			
 			PickedItem = item;
 					
 			Timer.Add(() => {
