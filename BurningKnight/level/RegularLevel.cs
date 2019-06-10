@@ -165,7 +165,7 @@ namespace BurningKnight.level {
 		}
 
 		protected int GetNumConnectionRooms() {
-			return 4; // 0; // Random.Int(3);
+			return 0;
 		}
 	}
 }

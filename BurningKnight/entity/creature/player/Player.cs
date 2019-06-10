@@ -52,7 +52,10 @@ namespace BurningKnight.entity.creature.player {
 						}
 
 						GetComponent<InventoryComponent>().Add(item);
-						item.Use(this);
+
+						if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
+							item.Use(this);
+						}
 					}
 					
 					PickedItem = null; 

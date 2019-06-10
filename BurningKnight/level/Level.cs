@@ -799,7 +799,7 @@ namespace BurningKnight.level {
 						var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
 						var a = t == Tile.WallA;
 
-						if (t == Tile.WallB) {
+						/*if (t == Tile.WallB) {
 							if ((IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 							    IsInside(index - 1) && Get(index - 1) == Tile.WallA ||
 							    IsInside(index + width) && Get(index + width) == Tile.WallA ||
@@ -807,7 +807,7 @@ namespace BurningKnight.level {
 								
 								region = Tileset.WallMerge;
 							}
-						} else if (t == Tile.Crack) {
+						} else */if (t == Tile.Crack) {
 							a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 							     (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							region = a

@@ -125,6 +125,7 @@ namespace BurningKnight.state {
 
 						default: {
 							Audio.PlaySfx("pickup_item");
+							Log.Error("Play " + iad.Item.Id);
 							break;
 						}
 					}

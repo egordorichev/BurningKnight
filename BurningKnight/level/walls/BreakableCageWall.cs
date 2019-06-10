@@ -7,6 +7,9 @@ namespace BurningKnight.level.walls {
 	public class BreakableCageWall : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var bold = Random.Chance();
+
+			inside.Right -= 1;
+			inside.Bottom -= 1;
 			
 			if (Random.Chance()) {
 				Painter.Ellipse(level, inside, Random.Int(1, 4), Tile.Planks, bold);
