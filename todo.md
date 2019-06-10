@@ -6,8 +6,8 @@
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * lighting bolts
 * Show item description, when you pick it up [UiItemDescription]
-
-* get some connection rooms from shattered
+* rework lava, should be like water in chasm or smth
+* fix sword being used when you get it
 
 ### Before josh
 

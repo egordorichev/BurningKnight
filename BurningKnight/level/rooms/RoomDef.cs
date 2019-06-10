@@ -450,9 +450,8 @@ namespace BurningKnight.level.rooms {
 			return new Rect(x, y, x + 1, y + 1);
 		}
 
-		public Rect GetConnectionSpace() {
+		public virtual Rect GetConnectionSpace() {
 			var C = GetDoorCenter();
-
 			return new Rect(C.X, C.Y, C.X, C.Y);
 		}
 
