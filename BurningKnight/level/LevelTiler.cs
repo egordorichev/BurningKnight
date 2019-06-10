@@ -105,6 +105,10 @@ namespace BurningKnight.level {
 				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack;
 			}
 			
+			if (t == Tile.WallB) {
+				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack;
+			}
+			
 			if (t.IsWall() && t != Tile.Planks) {
 				return tt.IsWall();
 			}

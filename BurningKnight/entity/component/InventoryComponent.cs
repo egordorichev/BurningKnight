@@ -5,21 +5,40 @@ using BurningKnight.entity.item;
 using ImGuiNET;
 using Lens.entity.component;
 using Lens.util.file;
-using Lens.util.timer;
-using Lens.util.tween;
 
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
 		public List<Item> Items = new List<Item>();
 
-		public void Pickup(Item item) {
+		public void Pickup(Item item, bool animate = true) {
 			if (!Send(new ItemCheckEvent {
-				Item = item
+				Item = item,
+				Animate = animate
 			})) {
 				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.Active || 
 				                         item.Type == ItemType.Lamp || item.Type == ItemType.Weapon)) {
-					
-					p.AnimateItemPickup(item);
+
+					if (animate) {
+						p.AnimateItemPickup(item, () => {
+							if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
+								item.Use(Entity);
+							}
+						}, false);
+					} else {
+						if (item.HasComponent<OwnerComponent>()) {
+							item.RemoveComponent<OwnerComponent>();
+						}
+						
+						Items.Add(item);
+						Entity.Area.Remove(item);
+
+						item.RemoveDroppedComponents();
+						item.AddComponent(new OwnerComponent(Entity));
+
+						if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
+							item.Use(Entity);
+						}
+					}
 				} else {
 					item.Use(Entity);
 					Add(item);	
@@ -50,7 +69,6 @@ namespace BurningKnight.entity.component {
 			};
 			
 			Send(e);
-			item.HandleEvent(e);
 		}
 
 		public void Remove(Item item) {
@@ -101,7 +119,7 @@ namespace BurningKnight.entity.component {
 				item.LoadedSelf = false;
 				item.PostInit();
 				
-				Pickup(item);
+				Pickup(item, false);
 			}
 		}
 

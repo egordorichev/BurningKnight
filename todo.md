@@ -3,11 +3,12 @@
 ### fixes
 
 * !!! destroying destroyable tile doesnt make it passable?
+* Show item description, when you pick it up [UiItemDescription]
+
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * lighting bolts
-* Show item description, when you pick it up [UiItemDescription]
 * rework lava, should be like water in chasm or smth
-* fix sword being used when you get it
+* fix event cascade
 
 ### Before josh
 
@@ -119,3 +120,7 @@
 ### Clean up
 
 * Move BurningBuff.Id somewhere else (other name), cause it hides Id field from Buff class
+
+### Bugs
+
+* Some connection room doesnt paint walls

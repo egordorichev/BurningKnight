@@ -46,6 +46,9 @@ namespace BurningKnight.entity.creature.player {
 					Scale.X = x;
 					Scale.Y = x;
 				}, 0.3f, Ease.BackIn).OnEnd = () => {
+					item.Area?.Remove(item);
+					item.Done = false;
+					
 					if (add) {
 						if (item.HasComponent<OwnerComponent>()) {
 							item.RemoveComponent<OwnerComponent>();
@@ -115,12 +118,12 @@ namespace BurningKnight.entity.creature.player {
 				}
 
 				if (StartingWeapon != null) {
-					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area));
+					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area), false);
 					StartingWeapon = null;
 				}
 
 				if (StartingLamp != null) {
-					GetComponent<LampComponent>().Set(Items.CreateAndAdd(StartingLamp, Area));
+					GetComponent<LampComponent>().Set(Items.CreateAndAdd(StartingLamp, Area), false);
 					StartingLamp = null;
 				}
 			}

@@ -98,7 +98,7 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override void SetupDoors(Level level) {
-			var hidden = Random.Chance(30);
+			var hidden = Random.Chance(20);
 
 			if (!hidden) {
 				level.ItemsToSpawn.Add("bk:key");
