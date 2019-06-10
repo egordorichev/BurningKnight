@@ -30,10 +30,11 @@ namespace BurningKnight.entity.component {
 						}
 						
 						Items.Add(item);
-						Entity.Area.Remove(item);
 
 						item.RemoveDroppedComponents();
 						item.AddComponent(new OwnerComponent(Entity));
+
+						Entity.Area.Remove(item);
 
 						if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
 							item.Use(Entity);

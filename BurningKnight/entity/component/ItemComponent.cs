@@ -18,8 +18,6 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public virtual void Set(Item item, bool animate = true) {
-			var old = Item;
-			
 			if (Item != null) {
 				Drop();
 				Item = null;
@@ -46,6 +44,7 @@ namespace BurningKnight.entity.component {
 		private void SetupItem(Item item) {
 			Item = item;
 			item.Done = false;
+			item.RemoveDroppedComponents();
 
 			debugItem = item.Id;
 			OnItemSet();
