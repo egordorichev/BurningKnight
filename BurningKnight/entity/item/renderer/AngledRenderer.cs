@@ -32,6 +32,7 @@ namespace BurningKnight.entity.item.renderer {
 			
 			var region = Item.Region;
 			var owner = Item.Owner;
+			
 			var flipped = owner.GraphicsComponent.Flipped;
 			
 			if (!atBack && !paused) {

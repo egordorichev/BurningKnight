@@ -376,6 +376,7 @@
     <Compile Include="level\RegularLevel.cs" />
     <Compile Include="level\rooms\boss\BossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
+    <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
     <Compile Include="level\rooms\connection\WayOverChasmRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />

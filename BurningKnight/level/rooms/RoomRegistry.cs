@@ -54,6 +54,7 @@ namespace BurningKnight.level.rooms {
 				
 				RoomInfo.New<TunnelRoom>(1f),
 				RoomInfo.New<WayOverChasmRoom>(1f),
+				RoomInfo.New<MazeConnectionRoom>(10000f),
 				
 				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<WellRoom>(1f),

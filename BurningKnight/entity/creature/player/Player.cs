@@ -42,19 +42,19 @@ namespace BurningKnight.entity.creature.player {
 			PickedItem = item;
 					
 			Timer.Add(() => {
-				if (add) {
-					if (item.HasComponent<OwnerComponent>()) {
-						item.RemoveComponent<OwnerComponent>();
-					}
-
-					GetComponent<InventoryComponent>().Add(item);
-					item.Use(this);
-				}
-
 				Tween.To(0, 1, x => {
 					Scale.X = x;
 					Scale.Y = x;
-				}, 0.3f, Ease.BackIn).OnEnd = () => { 
+				}, 0.3f, Ease.BackIn).OnEnd = () => {
+					if (add) {
+						if (item.HasComponent<OwnerComponent>()) {
+							item.RemoveComponent<OwnerComponent>();
+						}
+
+						GetComponent<InventoryComponent>().Add(item);
+						item.Use(this);
+					}
+					
 					PickedItem = null; 
 					action?.Invoke();
 				};
