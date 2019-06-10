@@ -9,6 +9,7 @@ using ImGuiNET;
 using Lens;
 using Lens.game;
 using Lens.graphics.gamerenderer;
+using Lens.util.camera;
 
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
@@ -29,61 +30,22 @@ namespace BurningKnight.ui.imgui {
 		private static int pos;
 		private static int lastCall;
 		private static float lastFps;
-		
+
 		public static void Render() {
 			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
 			}
 			
-			ImGui.Text($"FPS: {Engine.Instance.Counter.CurrentFramesPerSecond}");
-			lastFps += Engine.Delta;
-
-			if (lastFps > 0.5f) {
-				lastFps = 0;
-				
-				for (var i = 1; i < fps.Length; i++) {
-					fps[i - 1] = fps[i];
-				}
-
-				fps[fps.Length - 1] = Engine.Instance.Counter.AverageFramesPerSecond;
-			}
-			
-			ImGui.PlotHistogram("FPS", ref fps[0], fps.Length, 0, null, 0, 60);
-
-			if (lastCall < (int) Engine.Time) {
-				lastCall = (int) Engine.Time;
-				
-				for (var i = 1; i < cpuUsage.Length; i++) {
-					cpuUsage[i - 1] = cpuUsage[i];
-				}
-
-				cpuUsage[cpuUsage.Length - 1] = (float) Math.Round(cpuCounter.NextValue());
-			}
-
-			ImGui.PlotHistogram("CPU", ref cpuUsage[0], cpuUsage.Length, 0, null, 0, 100);
-			
 			var current = 0;
 			var t = Engine.Instance.State.GetType();
-			
+
 			for (var i = 0; i < types.Length; i++) {
 				if (t == types[i]) {
 					current = i;
 					break;
 				}
 			}
-
-			ImGui.DragFloat("Speed", ref Engine.Instance.Speed, 0.01f, 0.1f, 2f);
-			
-			ImGui.Text($"Draw calls: {Engine.Graphics.GraphicsDevice.Metrics.DrawCount}");
-			ImGui.Text($"Clear calls: {Engine.Graphics.GraphicsDevice.Metrics.ClearCount}");
-			ImGui.Text($"FBO binds: {Engine.Graphics.GraphicsDevice.Metrics.TargetCount}");
-			ImGui.Text($"Shader binds: {Engine.Graphics.GraphicsDevice.Metrics.PixelShaderCount}");
-			ImGui.Text($"Texture count: {Engine.Graphics.GraphicsDevice.Metrics.TextureCount}");
-			ImGui.Spacing();
-			ImGui.Checkbox("Enable batcher", ref GameRenderer.EnableBatcher);
-			
-			ImGui.Separator();
 			
 			var old = current;
 
@@ -94,28 +56,93 @@ namespace BurningKnight.ui.imgui {
 					Engine.Instance.SetState((GameState) Activator.CreateInstance(types[current]));
 				}
 			}
-
-			ImGui.Separator();
 			
-			ImGui.Text($"Seed: {Run.Seed}");
-			ImGui.Text($"Kills: {Run.KillCount}");
-			ImGui.Text($"Time: {Run.FormatTime()}");
-			ImGui.Text($"Has run: {Run.HasRun}");
+			if (ImGui.CollapsingHeader("Performance")) {
+				ImGui.Text($"FPS: {Engine.Instance.Counter.CurrentFramesPerSecond}");
+				lastFps += Engine.Delta;
+
+				if (lastFps > 0.5f) {
+					lastFps = 0;
+
+					for (var i = 1; i < fps.Length; i++) {
+						fps[i - 1] = fps[i];
+					}
+
+					fps[fps.Length - 1] = Engine.Instance.Counter.AverageFramesPerSecond;
+				}
+
+				ImGui.PlotHistogram("FPS", ref fps[0], fps.Length, 0, null, 0, 60);
+
+				if (lastCall < (int) Engine.Time) {
+					lastCall = (int) Engine.Time;
+
+					for (var i = 1; i < cpuUsage.Length; i++) {
+						cpuUsage[i - 1] = cpuUsage[i];
+					}
+
+					cpuUsage[cpuUsage.Length - 1] = (float) Math.Round(cpuCounter.NextValue());
+				}
+
+				ImGui.PlotHistogram("CPU", ref cpuUsage[0], cpuUsage.Length, 0, null, 0, 100);
+
+
+				ImGui.DragFloat("Speed", ref Engine.Instance.Speed, 0.01f, 0.1f, 2f);
+
+				ImGui.Text($"Draw calls: {Engine.Graphics.GraphicsDevice.Metrics.DrawCount}");
+				ImGui.Text($"Clear calls: {Engine.Graphics.GraphicsDevice.Metrics.ClearCount}");
+				ImGui.Text($"FBO binds: {Engine.Graphics.GraphicsDevice.Metrics.TargetCount}");
+				ImGui.Text($"Shader binds: {Engine.Graphics.GraphicsDevice.Metrics.PixelShaderCount}");
+				ImGui.Text($"Texture count: {Engine.Graphics.GraphicsDevice.Metrics.TextureCount}");
+				ImGui.Spacing();
+				ImGui.Checkbox("Enable batcher", ref GameRenderer.EnableBatcher);
+			}
+
+			if (ImGui.CollapsingHeader("Run info")) {
+				ImGui.Text($"Seed: {Run.Seed}");
+				ImGui.Text($"Kills: {Run.KillCount}");
+				ImGui.Text($"Time: {Run.FormatTime()}");
+				ImGui.Text($"Has run: {Run.HasRun}");
+			}
+
+			if (ImGui.CollapsingHeader("Camera")) {
+				var c = Camera.Instance;
+				var v = c.X;
+
+				if (ImGui.DragFloat("X", ref v)) {
+					c.X = v;
+				}
+				
+				v = c.Y;
+
+				if (ImGui.DragFloat("Y", ref v)) {
+					c.Y = v;
+				}
+
+				ImGui.Checkbox("Detatched", ref c.Detached);
+
+				v = c.Zoom;
+
+				if (ImGui.InputFloat("Zoom", ref v)) {
+					c.Zoom = v;
+				}
+
+				ImGui.InputFloat("Texture zoom", ref c.TextureZoom);
+			}
 
 			if (ImGui.Button("Go to hall (0)")) {
 				Run.Depth = 0;
 			}
-			
+
 			ImGui.SameLine();
-			
+
 			if (ImGui.Button("Go to hub (-1)")) {
 				Run.Depth = -1;
 			}
-			
+
 			if (ImGui.Button("New run")) {
 				Run.StartNew();
 			}
-			
+
 			ImGui.SameLine();
 
 			if (ImGui.Button("Kill")) {

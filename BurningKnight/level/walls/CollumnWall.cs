@@ -22,8 +22,8 @@ namespace BurningKnight.level.walls {
 			}
 
 			if (Random.Chance()) {
-				room.PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(room.GetCenter()), true);
-				room.PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(room.GetCenter()));
+				room.PaintTunnel(level, Tiles.RandomNewFloor(), room.GetCenterRect(), true);
+				room.PaintTunnel(level, Tiles.RandomNewFloor(), room.GetCenterRect());
 			}
 		}
 	}
