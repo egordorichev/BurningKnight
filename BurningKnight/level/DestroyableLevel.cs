@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.fx;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -15,6 +16,14 @@ namespace BurningKnight.level {
 		public override void AddComponents() {
 			base.AddComponents();
 			AddComponent(new DestroyableBodyComponent());
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Level != Run.Level || Level.Done) {
+				Done = true;
+			}
 		}
 
 		public void Break(float x, float y) {

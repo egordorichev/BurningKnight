@@ -134,23 +134,10 @@ namespace BurningKnight.level {
 			};
 
 			Depth = Layers.Floor;
-			
-			Chasm = new Chasm {
-				Level = this
-			};
-			
-			Destroyable = new DestroyableLevel {
-				Level = this
-			};
-			
-			Area.Add(Chasm);
-			Area.Add(Destroyable);
 		}
 
 		public override void PostInit() {
 			base.PostInit();
-			
-			
 
 			manager = new RenderTriggerManager(this);
 			
@@ -175,6 +162,19 @@ namespace BurningKnight.level {
 		public void CreateBody() {
 			if (Components == null) {
 				return;
+			}
+			
+			if (Chasm == null) {
+				Chasm = new Chasm {
+					Level = this
+				};
+				
+				Destroyable = new DestroyableLevel {
+					Level = this
+				};
+				
+				Area.Add(Chasm);
+				Area.Add(Destroyable);
 			}
 			
 			GetComponent<LevelBodyComponent>().CreateBody();
