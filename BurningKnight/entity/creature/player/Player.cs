@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.player {
 		public Vector2 Scale;
 		public Item PickedItem;
 
-		public void AnimateItemPickup(Item item, Action action = null) {
+		public void AnimateItemPickup(Item item, Action action = null, bool add = true) {
 			Tween.To(1, 0, x => {
 				Scale.X = x;
 				Scale.Y = x;
@@ -42,13 +42,15 @@ namespace BurningKnight.entity.creature.player {
 			PickedItem = item;
 					
 			Timer.Add(() => {
-				if (item.HasComponent<OwnerComponent>()) {
-					item.RemoveComponent<OwnerComponent>();
+				if (add) {
+					if (item.HasComponent<OwnerComponent>()) {
+						item.RemoveComponent<OwnerComponent>();
+					}
+
+					GetComponent<InventoryComponent>().Add(item);
+					item.Use(this);
 				}
-					
-				GetComponent<InventoryComponent>().Add(item);
-				item.Use(this);	
-						
+
 				Tween.To(0, 1, x => {
 					Scale.X = x;
 					Scale.Y = x;

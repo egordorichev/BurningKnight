@@ -39,7 +39,7 @@ namespace BurningKnight.entity.item {
 		public ItemRenderer Renderer;
 
 		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
-		public Entity Owner => GetComponent<OwnerComponent>().Owner;
+		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
 		public ItemData Data => Items.Datas[Id];
 		
 		public Item(ItemRenderer renderer, params ItemUse[] uses) {
@@ -73,6 +73,10 @@ namespace BurningKnight.entity.item {
 			});
 
 			Used = true;
+
+			if (Type == ItemType.Active) {
+				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false);
+			}
 		}
 
 		public override void PostInit() {
