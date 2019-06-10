@@ -557,22 +557,9 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Setup();
 
-			/*Ui.Add(new UiString(Font.Medium) {
-				Label = "[cl blue]^^Awesome^^, [dl]this[cl] [sp 2]_seems_\n[sp 0.5]_to work_[sp] now!!\n[cl red][ev test]##SOO COOL!!!##",
-				Position = new Vector2(32, 32)
-			});*/
-
-			/*var r = new FrameRenderer();
-			Ui.Add(r);
-			
-			r.Setup("ui", "scroll_");
-			r.Width = 64;
-			r.Height = 23;
-
-			r.CenterX = Display.UiWidth / 2f;
-			r.CenterY = Display.UiHeight - 64f;
-			
-			Ui.Add(banner = new UiDescriptionBanner());*/
+			if (Run.Depth > 0) {
+				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
+			}
 		}
 
 		public void AnimateDeathScreen() {

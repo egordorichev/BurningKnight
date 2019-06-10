@@ -2,28 +2,18 @@
 
 ### fixes
 
+* Animate enemy death
+* ^^^^^^^ Effects when player is low hp
 * Show item description, when you pick it up [UiItemDescription]
-
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * lighting bolts
-* rework lava, should be like water in chasm or smth
+* darkness shader should be applied to all screen and not just game
 
 ### Before josh
 
 * sk ai
 * sk dialog
-
-* BK him self
- + Healthbar
- + He picks a random attack per room (not too strong)
- + Finishing room hits him
- + He spawns the enemies
- + Player picking up hearts will heal bk
- + Opening and buying heals bk
- + Somehow make him a bit annoying and scary?? But also super cool to fight, you should feel like not worthy, until you get well equipped
-
-### do do do
-
+* BK him self (what to do???)
 * fix nodes requiring to hit enter to set their name
 * Animate lamp up and down to make it more alive
 * Nicer load screen thingy
@@ -32,20 +22,15 @@
 
 ### Before v0.0.0.4
 
-* Animate enemy death
-* ^^^^^^^ Effects when player is low hp
-
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * Add a few weapons for melee, magic and ranged
 * Add a few artifacts
-* Ui banner (level depth report and stuff)
 
 ### Important
 
 * Zelda like digging enemy
 * Diagonal fly
-* Props that react to music beats
 * Work out room layout for hub
 * Allow to place entities with editor
 * Allow to remove entities with editor
@@ -74,16 +59,14 @@
 * Add sparks
 * Think about bloom shader
 * Think about blur around edges
-* Blood
 * Gore
-* Show black sprite over obstacles, when player view is blocked by something?
-* Adjust door locks, they are a bit weird
-* Animate hearts in ui
 * Reflections in the water
 * Splashes on the water
 * Walls after explosion should be "a bit more broken?"
 * Creatures break high grass, when they walk over it
 * Breaking high grass should emit particles (might drop seeds?)
+* rework lava, should be like water in chasm or smth
+* Props that react to music beats
 
 ### Mechanics
 

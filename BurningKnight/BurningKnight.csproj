@@ -501,6 +501,7 @@
     <Compile Include="ui\str\Glyph.cs" />
     <Compile Include="ui\str\StrRenderer.cs" />
     <Compile Include="ui\str\UiString.cs" />
+    <Compile Include="ui\UiBanner.cs" />
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
     <Compile Include="ui\UiEntity.cs" />
