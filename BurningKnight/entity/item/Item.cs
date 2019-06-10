@@ -10,6 +10,7 @@ using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -38,7 +39,7 @@ namespace BurningKnight.entity.item {
 		public ItemRenderer Renderer;
 
 		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
-		public Entity Owner => GetComponent<OwnerComponent>().Owner;
+		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
 		public ItemData Data => Items.Datas[Id];
 		
 		public Item(ItemRenderer renderer, params ItemUse[] uses) {
@@ -72,6 +73,10 @@ namespace BurningKnight.entity.item {
 			});
 
 			Used = true;
+
+			if (Type == ItemType.Active) {
+				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false);
+			}
 		}
 
 		public override void PostInit() {
@@ -244,5 +249,15 @@ namespace BurningKnight.entity.item {
 		public static bool Unlocked(string id) {
 			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp";
 		}
+
+		#if DEBUG
+		private string debugItem = "";
+		
+		public override void RenderImDebug() {
+			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				ConvertTo(debugItem);
+			}
+		}
+		#endif
 	}
 }

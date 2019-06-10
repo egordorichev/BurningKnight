@@ -6,6 +6,7 @@ using Lens.entity;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
+using BurningKnight.entity;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -62,8 +63,9 @@ namespace BurningKnight.level.entities {
 				part.Position = Center;
 				Area.Add(part);
 				
-				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(20, 36));
+				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(40, 66));
 				part.Particle.Angle = 0;
+				part.Depth = Layers.InGameUi;
 			}
 		}
 

@@ -24,7 +24,8 @@ namespace BurningKnight.level {
 		
 		public void Generate(Area area, int Attempt) {
 			rooms = null;
-
+			ItemsToSpawn = new List<string>();
+			
 			Build();
 			Paint();
 

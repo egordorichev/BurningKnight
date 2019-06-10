@@ -1,8 +1,10 @@
 namespace BurningKnight.level.rooms.special {
 	public class LockedRoom : SpecialRoom {
-		public override void SetupDoors() {
-			foreach (var Door in Connected.Values) {
-				Door.Type = DoorPlaceholder.Variant.Locked;
+		public override void SetupDoors(Level level) {
+			level.ItemsToSpawn.Add("bk:key");
+			
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Locked;
 			}
 		}
 	}

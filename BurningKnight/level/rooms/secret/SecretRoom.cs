@@ -8,7 +8,7 @@ namespace BurningKnight.level.rooms.secret {
 			Painter.Fill(level, this, 1, Tile.FloorD);
 		}
 
-		public override void SetupDoors() {
+		public override void SetupDoors(Level level) {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Secret;
 			}		

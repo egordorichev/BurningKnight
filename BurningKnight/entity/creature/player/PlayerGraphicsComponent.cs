@@ -1,9 +1,5 @@
-﻿using System;
-using BurningKnight.assets;
-using BurningKnight.entity.component;
+﻿using BurningKnight.entity.component;
 using BurningKnight.entity.events;
-using BurningKnight.ui;
-using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -11,7 +7,6 @@ using Lens.input;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
@@ -21,7 +16,12 @@ namespace BurningKnight.entity.creature.player {
 			CustomFlip = true;
 			ShadowOffset = 8;
 		}
-		
+
+		public override void Init() {
+			base.Init();
+			Entity.Area.Add(new RenderTrigger(Entity, RenderPickups, Layers.InGameUi));
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
@@ -67,13 +67,26 @@ namespace BurningKnight.entity.creature.player {
 			weapon.Render();
 			SimpleRender(shadow);
 			activeWeapon.Render();
+		}
 
-			var state = GetComponent<StateComponent>();
+		public void RenderPickups() { // fixme: not rendered???
+			var player = (Player) Entity;
+			var y = 0f;
+			
+			if (player.PickedItem != null) {
+				var region = player.PickedItem.Region;
+				
+				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + player.Scale.X * 6f), 
+					0,  new Vector2(region.Center.X, region.Height), player.Scale);
+				
+				y += region.Height + 4f;
+			}
+			
+			foreach (var region in player.PickedUp) {
+				Graphics.Render(region, Entity.Center - new Vector2(0, y + Entity.Height / 2f + 4f),
+					0, region.Center);
 
-			if (state.StateInstance is Player.GotState gs) {
-				var region = gs.Item.Region;
-				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + gs.Scale.X * 6f), 
-					0,  new Vector2(region.Center.X, region.Height), gs.Scale);
+				y += region.Height + 4f;
 			}
 		}
 	}

@@ -169,19 +169,15 @@ namespace BurningKnight.entity.creature.player {
 					acceleration += controller.GetLeftStick();
 				}
 
-				var got = state.StateInstance is Player.GotState;
-
-				if (!got && Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
+				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
 					state.Become<Player.RollState>();
 				} else {
-					if (!got) {
-						if (acceleration.Length() > 0.1f) {
-							state.Become<Player.RunState>();
-						} else {
-							state.Become<Player.IdleState>();
-						}
+					if (acceleration.Length() > 0.1f) {
+						state.Become<Player.RunState>();
+					} else {
+						state.Become<Player.IdleState>();
 					}
 
 					if (acceleration.Length() > 0.1f) {

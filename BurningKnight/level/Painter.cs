@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.assets.prefabs;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
@@ -99,7 +100,7 @@ namespace BurningKnight.level {
 				PlaceDoors(Room);
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
-				Room.SetupDoors();
+				Room.SetupDoors(Level);
 
 				if (Run.Depth == 1) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
@@ -139,6 +140,26 @@ namespace BurningKnight.level {
 			Decorate(Level, Rooms);
 			
 			PlaceMobs(Level, Rooms);
+
+			var rooms = new List<RoomDef>();
+
+			foreach (var r in Rooms) {
+				if (r is RegularRoom) {
+					rooms.Add(r);
+				}
+			}
+			
+			foreach (var type in Level.ItemsToSpawn) {
+				var item = Items.CreateAndAdd(type, Level.Area);
+
+				if (item == null) {
+					continue;
+				}
+				
+				item.Center = rooms[Random.Int(rooms.Count)].GetRandomFreeCell().Value * 16;
+			}
+
+			Level.ItemsToSpawn = null;
 		}
 
 		public static void PlaceMobs(Level level, RoomDef room) {

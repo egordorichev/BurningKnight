@@ -5,6 +5,9 @@
 * !!! destroying destroyable tile doesnt make it passable?
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * lighting bolts
+* Show item description, when you pick it up [UiItemDescription]
+
+* get some connection rooms from shattered
 
 ### Before josh
 
@@ -29,11 +32,6 @@
 * ui entities generate on click 2 times? (might be input bug)
 
 ### Before v0.0.0.4
-
-* make door explodable
-* Show item description, when you pick it up [UiItemDescription]
-* Proper animation for gaining an item (for gobbo.ase obv)
-* When player uses active item, animate him using it (like in isaac)
 
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
