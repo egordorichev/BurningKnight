@@ -17,7 +17,7 @@ namespace BurningKnight.entity.component {
 			return Item?.Id == id;
 		}
 		
-		public virtual void Set(Item item) {
+		public virtual void Set(Item item, bool animate = true) {
 			var old = Item;
 			
 			if (Item != null) {
@@ -33,6 +33,10 @@ namespace BurningKnight.entity.component {
 			
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
+
+			if (!animate) {
+				return;
+			}
 			
 			((Player) Entity).AnimateItemPickup(item, () => {
 				Item = item;
@@ -120,7 +124,7 @@ namespace BurningKnight.entity.component {
 				item.LoadedSelf = false;
 				item.PostInit();
 
-				Set(item);
+				Set(item, false);
 			}
 		}
 

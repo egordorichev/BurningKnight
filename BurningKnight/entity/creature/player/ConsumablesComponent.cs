@@ -116,7 +116,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		public override void Set(Item item) {
+		public override void Set(Item item, bool animate = true) {
 			if (item.Type == ItemType.Bomb) {
 				Bombs += 1;
 			} else if (item.Type == ItemType.Key) {
