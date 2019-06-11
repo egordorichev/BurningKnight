@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.ui;
@@ -11,7 +12,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.bk {
-	public class BurningKnight : Mob {
+	public class BurningKnight : Boss {
 		private HealthBar healthBar;
 	
 		public override void AddComponents() {

@@ -18,12 +18,16 @@ namespace BurningKnight.level.biome {
 		}
 
 		public bool IsPresent(string[] biomes) {
+			return IsPresent(Id, biomes);
+		}
+
+		public static bool IsPresent(string id, string[] biomes) {
 			if (biomes == null) {
 				return true;
 			}
 
 			foreach (var b in biomes) {
-				if (b == Id) {
+				if (b == id) {
 					return true;
 				}
 			}
