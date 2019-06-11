@@ -30,6 +30,8 @@ namespace BurningKnight.level.rooms.boss {
 			if (!before) {
 				PaintRoad(level);
 			}
+
+			Place(level);
 		}
 
 		public override Rect GetConnectionSpace() {

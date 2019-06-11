@@ -27,5 +27,12 @@ namespace BurningKnight.level.rooms.boss {
 			if (Side == Connection.All) return 1;
 			return 0;
 		}
+
+		protected virtual void Place(Level level) {
+			var bk = new entity.creature.bk.BurningKnight();
+			level.Area.Add(bk);
+
+			bk.Center = GetCenter() * 16;
+		}
 	}
 }

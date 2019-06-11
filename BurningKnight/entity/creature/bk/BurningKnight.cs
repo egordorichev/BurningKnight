@@ -1,14 +1,8 @@
-using System;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
-using BurningKnight.entity.events;
-using BurningKnight.entity.item;
 using BurningKnight.ui;
 using Lens;
-using Lens.entity;
 using Lens.entity.component.logic;
-using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.bk {
@@ -18,10 +12,6 @@ namespace BurningKnight.entity.creature.bk {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			RemoveTag(Tags.LevelSave);
-			RemoveTag(Tags.MustBeKilled);
-			
-			AddTag(Tags.PlayerSave);
 			AddTag(Tags.BurningKnight);
 
 			Width = 42;
@@ -48,39 +38,8 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
-		public override bool HandleEvent(Event e) {
-			if (e is RoomChangedEvent rce) {
-				
-			}
-			
-			return base.HandleEvent(e);
-		}
-
 		#region Burning Knight States
-		public class IdleState : CreatureState<BurningKnight> {
-			public override void Update(float dt) {
-				base.Update(dt);
 
-				var room = Self.Target?.GetComponent<RoomComponent>().Room;
-
-				if (room == null) {
-					return;
-				}
-
-				var dx = Self.DxTo(room);
-				var dy = Self.DyTo(room);
-				var d = (float) Math.Sqrt(dx * dx + dy * dy);
-
-				var body = Self.GetAnyComponent<BodyComponent>();
-				
-				if (d > 16f) {
-					var s = dt * 8;
-					body.Velocity += new Vector2(dx * s, dy * s);
-				}
-
-				body.Velocity -= body.Velocity * (dt * 2);
-			}
-		}
 		#endregion
 	}
 }
