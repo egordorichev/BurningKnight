@@ -37,6 +37,18 @@ namespace Lens.util {
 			return 2 * da % max - da;
 		}
 
+		public static Vector2 RotateAround(Vector2 point, float angle, Vector2 origin) {
+			var s = Math.Sin(angle);
+			var c = Math.Cos(angle);
+
+			var p = point - origin;
+
+			p.X = (float) (point.X * c - point.Y * s);
+			p.Y = (float) (point.X * s + point.Y * c);
+			
+			return p + origin;
+		}
+
 		public static string ToRoman(int number) {
 			if (number >= 50) {
 				return "L" + ToRoman(number - 50);

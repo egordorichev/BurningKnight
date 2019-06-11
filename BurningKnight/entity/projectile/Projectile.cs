@@ -24,15 +24,17 @@ namespace BurningKnight.entity.projectile {
 		public Entity Owner;
 		public float Range = -1;
 		public float T;
+		public int BounceLeft = -1;
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, bool bounce = false) {
+		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, int bounce = -1) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 			
 			projectile.Owner = owner;
-			
+			projectile.BounceLeft = bounce;
+
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
 
@@ -53,11 +55,7 @@ namespace BurningKnight.entity.projectile {
 			
 			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 
-			if (bounce) {
-				projectile.BodyComponent.Body.Restitution = 1;
-			}
-			
-			
+			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;
       			
@@ -104,14 +102,18 @@ namespace BurningKnight.entity.projectile {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				
-				/*
 				if (BreaksFrom(ev.Entity)) {
-					AnimateDeath();
+					if (BounceLeft > 0) {
+						BounceLeft -= 1;
+					} else {
+						AnimateDeath();
+						
+					}
 					
 					if (ev.Entity is DestroyableLevel lvl) {
 						lvl.Break(CenterX, CenterY);
 					}
-				}*/
+				}
 			}
 			
 			return base.HandleEvent(e);
