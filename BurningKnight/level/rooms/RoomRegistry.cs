@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
@@ -59,6 +60,8 @@ namespace BurningKnight.level.rooms {
 				
 				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<WellRoom>(1f),
+				
+				RoomInfo.New<ChasmBossRoom>(1f),
 			};
 
 			foreach (var info in infos) {

@@ -1,5 +1,14 @@
 # TODO
 
+### bk himself
+
+* Boss door
+* Spawn when player enters the room
+* Hint about pattern
+* Attack patterns
+* Leaning to avoid the last attack that killed him
+* Changing attack
+
 ### fixes
 
 * Animate enemy death
@@ -13,7 +22,6 @@
 
 * sk ai
 * sk dialog
-* BK him self (what to do???)
 * fix nodes requiring to hit enter to set their name
 * Animate lamp up and down to make it more alive
 * Crash report window

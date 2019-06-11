@@ -172,7 +172,7 @@
     <Compile Include="entity\component\ZAnimationComponent.cs" />
     <Compile Include="entity\component\ZComponent.cs" />
     <Compile Include="entity\component\ZSliceComponent.cs" />
-    <Compile Include="entity\creature\BurningKnight.cs" />
+    <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\CreatureState.cs" />
@@ -375,6 +375,7 @@
     <Compile Include="level\Patch.cs" />
     <Compile Include="level\RegularLevel.cs" />
     <Compile Include="level\rooms\boss\BossRoom.cs" />
+    <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />

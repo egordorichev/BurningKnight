@@ -81,11 +81,13 @@ namespace BurningKnight.level {
 		public override void Destroy() {
 			base.Destroy();
 
-			Chasm.Done = true;
-			Destroyable.Done = true;
-			
-			Area.Remove(Chasm);
-			Area.Remove(Destroyable);
+			if (Chasm != null) {
+				Chasm.Done = true;
+				Destroyable.Done = true;
+
+				Area.Remove(Chasm);
+				Area.Remove(Destroyable);
+			}
 
 			if (Run.Level == this) {
 				Run.Level = null;

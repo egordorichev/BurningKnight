@@ -34,9 +34,5 @@ namespace BurningKnight.level.entities {
 		protected override string GetFxText() {
 			return $"{Locale.Get("continue_run")} (depth {depth})";
 		}
-
-		protected override bool CanInteract(Entity e) {
-			return true;
-		}
 	}
 }

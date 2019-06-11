@@ -10,7 +10,7 @@ using Lens.entity.component.logic;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
-namespace BurningKnight.entity.creature {
+namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Mob {
 		private HealthBar healthBar;
 	
@@ -36,10 +36,6 @@ namespace BurningKnight.entity.creature {
 			health.InitMaxHealth = 1024;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
-		}
-
-		public void SetLamp(Item item) {
-			// todo: take into the account
 		}
 
 		public override void Update(float dt) {

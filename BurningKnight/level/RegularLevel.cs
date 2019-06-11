@@ -100,12 +100,12 @@ namespace BurningKnight.level {
 		protected virtual List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
 
-			var Entrance = RoomRegistry.Generate(RoomType.Entrance);
-			var Exit = (ExitRoom) RoomRegistry.Generate(RoomType.Exit);
-			Exit.To = Run.Depth + 1;
+			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance));
+
+			//var Exit = (ExitRoom) RoomRegistry.Generate(RoomType.Exit);
+			//Exit.To = Run.Depth + 1;
 			
-			Rooms.Add(Entrance);
-			Rooms.Add(Exit);
+			//Rooms.Add(Exit);
 
 			var Regular = GetNumRegularRooms();
 			var Special = GetNumSpecialRooms();
@@ -133,7 +133,8 @@ namespace BurningKnight.level {
 			}
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
-
+			Rooms.Add(RoomRegistry.Generate(RoomType.Boss));
+			
 			return Rooms;
 		}
 

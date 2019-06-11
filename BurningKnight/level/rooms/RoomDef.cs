@@ -551,16 +551,16 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public static RoomType DecideType(Type room) {
+			if (typeof(BossRoom).IsAssignableFrom(room)) {
+				return RoomType.Boss;
+			}
+			
 			if (typeof(ExitRoom).IsAssignableFrom(room)) {
 				return RoomType.Exit;
 			}
 			
 			if (typeof(EntranceRoom).IsAssignableFrom(room)) {
 				return RoomType.Entrance;
-			}
-			
-			if (typeof(BossRoom).IsAssignableFrom(room)) {
-				return RoomType.Boss;
 			}
 			
 			if (typeof(SecretRoom).IsAssignableFrom(room)) {

@@ -556,7 +556,7 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Setup();
 
-			if (Run.Depth > 0) {
+			if (Run.Depth > 0 && Run.Level != null) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
 			}
 		}

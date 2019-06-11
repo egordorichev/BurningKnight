@@ -6,6 +6,7 @@ using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -80,6 +81,8 @@ namespace BurningKnight.entity.creature {
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;
 				
+			AnimationUtil.Poof(Center);
+			
 			for (var i = 0; i < Random.Int(2, 8); i++) {
 				Area.Add(new SplashParticle {
 					Position = Center - new Vector2(2.5f),

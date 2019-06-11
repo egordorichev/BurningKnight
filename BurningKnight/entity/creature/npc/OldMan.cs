@@ -16,14 +16,5 @@ namespace BurningKnight.entity.creature.npc {
 
 			AlwaysActive = true;
 		}
-
-		public override void Update(float dt) {
-			base.Update(dt);
-
-			if (Area.Tags[Tags.BurningKnight].Count > 0) {
-				Area.Tags[Tags.BurningKnight][0].Center = Center;
-				Done = true;
-			}
-		}
 	}
 }
