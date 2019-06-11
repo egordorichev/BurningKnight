@@ -323,6 +323,7 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
+    <Compile Include="entity\projectile\ProjectilePattern.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\Sign.cs" />

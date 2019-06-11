@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.state;
 using BurningKnight.ui;
 using Lens;
 using Lens.entity.component.logic;
@@ -8,6 +9,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
 		private HealthBar healthBar;
+		private BossPatternSet<BurningKnight> set;
 	
 		public override void AddComponents() {
 			base.AddComponents();
@@ -32,14 +34,19 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (set == null) {
+				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
+			}
+
 			if (healthBar == null) {
 				healthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(healthBar);
 			}
 		}
 
-		#region Burning Knight States
-
-		#endregion
+		protected override void SelectAttack() {
+			base.SelectAttack();
+			GetComponent<StateComponent>().PushState(set.GetNext());
+		}
 	}
 }

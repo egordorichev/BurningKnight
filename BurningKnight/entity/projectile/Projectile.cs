@@ -27,7 +27,7 @@ namespace BurningKnight.entity.projectile {
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true) {
+		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, bool bounce = false) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 			
@@ -48,9 +48,19 @@ namespace BurningKnight.entity.projectile {
 			} else {
 				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h));
 			}
+
+			speed *= 30f;
 			
 			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 
+			if (bounce) {
+				projectile.BodyComponent.Body.Restitution = 1;
+			}
+			
+			
+			projectile.BodyComponent.Body.Friction = 0;
+			projectile.BodyComponent.Body.IsBullet = true;
+      			
 			return projectile;
 		}
 
@@ -79,7 +89,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 			
-			Position += BodyComponent.Velocity * dt;
+			// Position += BodyComponent.Velocity * dt;
 		}
 
 		protected bool BreaksFrom(Entity entity) {
@@ -94,13 +104,14 @@ namespace BurningKnight.entity.projectile {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				
+				/*
 				if (BreaksFrom(ev.Entity)) {
 					AnimateDeath();
 					
 					if (ev.Entity is DestroyableLevel lvl) {
 						lvl.Break(CenterX, CenterY);
 					}
-				}
+				}*/
 			}
 			
 			return base.HandleEvent(e);

@@ -3,7 +3,8 @@
 ### bk himself
 
 * Boss door
-* Spawn when player enters the room
+* Cool intro
+* Cool death
 * Hint about pattern
 * Attack patterns
 * Leaning to avoid the last attack that killed him
@@ -11,6 +12,7 @@
 
 ### fixes
 
+* lock only locks that are in the current room
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 * ui description banner bg
