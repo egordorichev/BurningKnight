@@ -2,6 +2,7 @@
 
 ### bk himself
 
+* On death spawn exit
 * Boss door
 * Cool intro
 * Cool death
@@ -10,6 +11,9 @@
 * Leaning to avoid the last attack that killed him
 * Changing attack
 * Healthbar art
+* health bar animation, falling chunks of health like in dead cells
+* Too easy with melee
+* way to skip the boss battle but get harder game
 
 ### fixes
 

@@ -25,6 +25,10 @@ namespace BurningKnight.level {
 		public void Generate(Area area, int Attempt) {
 			rooms = null;
 			ItemsToSpawn = new List<string>();
+
+			if (Run.Depth > 0) {
+				ItemsToSpawn.Add("bk:bomb");
+			}
 			
 			Build();
 			Paint();

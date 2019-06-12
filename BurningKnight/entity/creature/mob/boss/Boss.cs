@@ -17,13 +17,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (target == null) {
 				Become<IdleState>();
 			} else {
+				Awoken = true;
+
 				if (true) { // fix
 					SelectAttack();
 					Camera.Instance.Follow(this, 0.6f);
 					return;
 				}
-				
-				Awoken = true;
 				
 				Camera.Instance.Targets.Clear();
 				Camera.Instance.Follow(this, 1f);
