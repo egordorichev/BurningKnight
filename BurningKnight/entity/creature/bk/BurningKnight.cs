@@ -18,15 +18,14 @@ namespace BurningKnight.entity.creature.bk {
 
 			Width = 42;
 			Height = 42;
-			TouchDamage = 0;
 
-			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
+			AddComponent(new RectBodyComponent(16, 16, Width - 32, Height - 32, BodyType.Dynamic, true));
 			
 			// FIXME: TMP sprite and size, obv
 			AddComponent(new AnimationComponent("burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
-			health.InitMaxHealth = 1024;
+			health.InitMaxHealth = 128 + (Run.Depth - 1) * 40;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 		}
@@ -44,7 +43,7 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
-		protected override void SelectAttack() {
+		public override void SelectAttack() {
 			base.SelectAttack();
 			GetComponent<StateComponent>().PushState(set.GetNext());
 		}

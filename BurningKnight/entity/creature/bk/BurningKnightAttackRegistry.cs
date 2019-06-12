@@ -9,7 +9,8 @@ namespace BurningKnight.entity.creature.bk {
 
 		static BurningKnightAttackRegistry() {
 			PatternRegistry.Register("bk_0", new BossPattern<BurningKnight>(
-				typeof(AutoSkullAttack)
+				typeof(AutoSkullAttack)//,
+				// typeof(ArrowAttack)
 			));
 			
 			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(

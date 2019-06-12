@@ -25,7 +25,7 @@ namespace BurningKnight.entity.item.use {
 			var slice = settings["texture"].AsString;
 			
 			SpawnProjectile = (entity, item) => {
-				/*var angle = entity.AngleTo(Input.Mouse.GamePosition);
+				var angle = entity.AngleTo(Input.Mouse.GamePosition);
 				var antiAngle = angle - (float) Math.PI;
 				var projectile = Projectile.Make(entity, slice, angle, speed);
 
@@ -50,15 +50,7 @@ namespace BurningKnight.entity.item.use {
 				p.Particle.Zv = Random.Float(1.5f, 2.5f);
 				p.Particle.AngleVelocity = f * Random.Float(40, 70);
 				
-				p.AddShadow();*/
-
-
-				ProjectileTemplate.Make(entity, "small", entity.Center, entity.AngleTo(Input.Mouse.GamePosition), 10, 2,
-		"   x  ",
-					"    x ",
-					"xxxxxx",
-					"    x ",
-					"   x  ");
+				p.AddShadow();
 			};
 		}
 

@@ -18,14 +18,14 @@ namespace BurningKnight.level.tile {
 		}
 		
 		public static Tile RandomFillWall() {
-			return lastWall = Pick(Tile.Planks, Tile.WallA, Tile.WallB);
+			return lastWall = Pick(Tile.Planks, Tile.WallA); // Tile.WallB
 		}
 		
 		public static Tile RandomNewWall() {
 			switch (lastWall) {
-				case Tile.WallA: return Random.Chance(60) ? Tile.WallB : Tile.Planks;
+				case Tile.WallA: return Tile.Planks;
 				case Tile.WallB: return Random.Chance(60) ? Tile.WallA : Tile.Planks;
-				case Tile.Planks: default: return Random.Chance() ? Tile.WallB : Tile.WallA;
+				case Tile.Planks: default: return Tile.WallA;
 			}
 		}
 

@@ -6,6 +6,8 @@ using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class Boss : Mob {
+		public bool Awoken;
+		
 		public override void PostInit() {
 			base.PostInit();
 			Become<IdleState>();
@@ -15,6 +17,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (target == null) {
 				Become<IdleState>();
 			} else {
+				Awoken = true;
+				
 				Camera.Instance.Targets.Clear();
 				Camera.Instance.Follow(this, 1f);
 				
@@ -30,7 +34,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.OnTargetChange(target);
 		}
 
-		protected virtual void SelectAttack() {
+		public virtual void SelectAttack() {
 			
 		}
 

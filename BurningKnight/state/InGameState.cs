@@ -365,6 +365,10 @@ namespace BurningKnight.state {
 				TeleportTo(RoomType.Secret);
 			}
 
+			if (Input.Keyboard.WasPressed(Keys.F9)) {
+				TeleportTo(RoomType.Boss);
+			}
+
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
 				LocalPlayer.Locate(Area).Center = Input.Mouse.GamePosition;
 			}

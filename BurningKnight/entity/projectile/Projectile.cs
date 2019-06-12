@@ -25,6 +25,10 @@ namespace BurningKnight.entity.projectile {
 		public float Range = -1;
 		public float T;
 		public int BounceLeft = -1;
+		public bool IndicateDeath;
+		public bool CanBeReflected = true;
+		public Action<Projectile, bool> OnDeath;
+		public Action<Projectile, float> Controller;
 		
 		internal Projectile() {}
 
@@ -51,7 +55,7 @@ namespace BurningKnight.entity.projectile {
 				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h));
 			}
 
-			speed *= 30f;
+			speed *= 10f;
 			
 			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 
@@ -83,11 +87,11 @@ namespace BurningKnight.entity.projectile {
 			T += dt;
 
 			if (Range > -1 && T >= Range) {
-				AnimateDeath();
+				AnimateDeath(true);
 				return;
 			}
 			
-			// Position += BodyComponent.Velocity * dt;
+			Controller?.Invoke(this, dt);
 		}
 
 		protected bool BreaksFrom(Entity entity) {
@@ -107,7 +111,6 @@ namespace BurningKnight.entity.projectile {
 						BounceLeft -= 1;
 					} else {
 						AnimateDeath();
-						
 					}
 					
 					if (ev.Entity is DestroyableLevel lvl) {
@@ -123,7 +126,7 @@ namespace BurningKnight.entity.projectile {
 			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Prop);
 		}
 		
-		protected virtual void AnimateDeath() {
+		protected virtual void AnimateDeath(bool timeout = false) {
 			if (Done) {
 				return;
 			}
@@ -137,6 +140,8 @@ namespace BurningKnight.entity.projectile {
 			explosion.Particle.AngleVelocity = 0;
 			explosion.Particle.Velocity = Vector2.Zero;
 			explosion.AddShadow();
+			
+			OnDeath?.Invoke(this, timeout);
 		}
 	}
 }
