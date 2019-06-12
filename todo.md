@@ -2,12 +2,10 @@
 
 ### bk himself
 
-* On death spawn exit
 * Boss door
 * Cool intro
 * Cool death
 * Hint about pattern
-* Attack patterns
 * Leaning to avoid the last attack that killed him
 * Changing attack
 * Healthbar art
@@ -27,6 +25,7 @@
 
 ### Before josh
 
+* break / explode chest, update art for it
 * sk ai
 * sk dialog
 * fix nodes requiring to hit enter to set their name

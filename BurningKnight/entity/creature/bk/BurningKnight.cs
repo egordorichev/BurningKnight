@@ -1,10 +1,12 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.events;
+using BurningKnight.level.entities;
 using BurningKnight.state;
 using BurningKnight.ui;
 using Lens;
+using Lens.entity;
 using Lens.entity.component.logic;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
@@ -51,7 +53,24 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void SelectAttack() {
 			base.SelectAttack();
-			GetComponent<StateComponent>().PushState(set.GetNext());
+			GetComponent<StateComponent>().PushState(BurningKnightAttackRegistry.GetNext(set));
+		}
+
+		private bool died;
+
+		public override bool HandleEvent(Event e) {
+			if (e is DiedEvent && !died) {
+				died = true;
+				// Done = false;
+
+				var exit = new Exit();
+				Area.Add(exit);
+				
+				exit.To = Run.Depth + 1;
+				exit.Center = Center;
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

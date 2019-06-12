@@ -6,7 +6,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 	public class BossPatternSetRegistry<T> where T : Boss {
 		private List<BossPatternSet<T>> defined = new List<BossPatternSet<T>>();
 		private List<float> chances = new List<float>();
-
+		
 		public void Register(BossPatternSet<T> set, float chance = 1f, params string[] biomes) {
 			defined.Add(set);
 			chances.Add(chance);

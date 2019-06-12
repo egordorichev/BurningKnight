@@ -1,3 +1,4 @@
+using BurningKnight.entity.creature.bk;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.mob.boss {
@@ -23,7 +24,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				current = null;
 			}
-
+			
 			current = registry.Get(patterns[Random.Int(patterns.Length)]);
 			
 			return GetNext();

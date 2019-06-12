@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			PickedItem = item;
-					
+			
 			Timer.Add(() => {
 				Tween.To(0, 1, x => {
 					Scale.X = x;
@@ -120,6 +120,7 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Engine.Version.Dev) {
 				hp.Unhittable = true;
+				GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:the_sword", Area));
 			}
 		}
 

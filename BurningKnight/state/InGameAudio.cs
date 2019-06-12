@@ -11,6 +11,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.util;
 using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.state {
 	public class InGameAudio : Entity {
@@ -57,6 +58,15 @@ namespace BurningKnight.state {
 				}
 				
 				switch (re.New.Type) {
+					case RoomType.Boss: {
+						Audio.FadeOut();
+						
+						Timer.Add(() => {
+							Audio.PlayMusic("Fatiga");
+						}, 1f);
+						break;
+					}
+					
 					case RoomType.Secret: {
 						Audio.PlayMusic("Serendipity");
 						break;
@@ -81,6 +91,9 @@ namespace BurningKnight.state {
 				if (de.Who is Player) {
 					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
+				} else if (de.Who is entity.creature.bk.BurningKnight) {
+					Audio.Stop();
+					Audio.PlayMusic("Reckless");
 				} else {
 					Audio.PlaySfx(de.Who, "enemy_death");
 				}
