@@ -4,7 +4,7 @@
 
 * castle_0 attack set
  * 3 patterns:
-  + Skull
+  ~~ + Skull
   + Arrow
   + Bomb
   - Big bullet

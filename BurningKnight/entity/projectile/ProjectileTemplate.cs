@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
 	public static class ProjectileTemplate {
-		public static void Make(Entity owner, string texture, Vector2 center, float angle, float speed, int bounce, params string[] data) {
+		public static void Make(Entity owner, string texture, Vector2 center, float angle, float speed, int bounce, int start, params string[] data) {
 			var height = data.Length;
 			var width = 0;
 
@@ -23,10 +23,28 @@ namespace BurningKnight.entity.projectile {
 					for (var y = 0; y < height; y++) {
 						if (data[y][x1] != ' ') {
 							var p = Projectile.Make(owner, texture, angle, speed, true, bounce);
-							p.Center = center + MathUtils.RotateAround(new Vector2(0, (y - height / 2f) * 16), angle, c);
+							p.Center = center + MathUtils.RotateAround(new Vector2(0, (y - height / 2f) * 10), angle, c);
 						}
 					}	
-				}, (width - x) * 0.1f);
+				}, (width - x + start) * 0.1f);
+			}
+		}
+
+		public static void Write(string what, Entity owner, string texture, Vector2 center, float angle, float speed, int bounce) {
+			what = what.ToLower();
+
+			for (var i = 0; i < what.Length; i++) {
+				var c = what[i];
+
+				if (c == ' ') {
+					continue;
+				}
+
+				if (!LetterTemplateData.Data.TryGetValue(c, out var data)) {
+					continue;
+				}
+				
+				Make(owner, texture, center, angle, speed, bounce, (what.Length - i) * 4, data);
 			}
 		}
 	}
