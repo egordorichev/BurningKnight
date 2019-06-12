@@ -3,11 +3,17 @@ using Lens.lightJson;
 using Lens.util.file;
 
 namespace BurningKnight.entity.item.use {
-	public abstract class ItemUse {
-		public abstract void Use(Entity entity, Item item);
+	public class ItemUse {
+		public virtual void Use(Entity entity, Item item) {
+			
+		}
 
 		public virtual void Setup(JsonValue settings) {
 			
+		}
+		
+		public virtual bool HandleEvent(Event e) {
+			return false;
 		}
 	}
 }

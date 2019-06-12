@@ -67,7 +67,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 					if (Self.Target != null) {
 						var angle = Self.Direction.ToAngle();
-						var projectile = Projectile.Make(Self, "small", angle, 30f);
+						var projectile = Projectile.Make(Self, "small", angle, 7f);
 
 						projectile.AddLight(32f, Color.Red);
 					}

@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 
 				var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), 10);
 
-				skull.OnDeath = (p, t) => {
+				skull.OnDeath += (p, t) => {
 					if (!t) {
 						return;
 					}
@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 					}
 				};
 
-				skull.Controller = TargetProjectileController.Make(Self.Target, 0.5f);
+				skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
 				skull.Range = 5f;
 				skull.IndicateDeath = true;
 				skull.CanBeReflected = false;

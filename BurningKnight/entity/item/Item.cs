@@ -247,7 +247,21 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp";
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:missile_wand" || id == "bk:gun";
+		}
+
+		public bool HandleOwnerEvent(Event e) {
+			if (Uses == null) {
+				return false;
+			}
+			
+			foreach (var use in Uses) {
+				if (use.HandleEvent(e)) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		#if DEBUG

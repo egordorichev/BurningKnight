@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 
 			bullet.OnDeath = (p, t) => {
 				for (var i = 0; i < SmallCount; i++) {
-					var b = Projectile.Make(Self, "small", (float) (((float) i) / SmallCount * Math.PI * 2), 6);
+					var b = Projectile.Make(Self, "small", (float) (((float) i) / SmallCount * Math.PI * 2), 6, true, -1, p);
 					b.Center = p.Center;
 				}
 			};

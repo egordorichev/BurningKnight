@@ -93,6 +93,10 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (Item != null && Item.HandleOwnerEvent(e)) {
+				return true;
+			}
+			
 			if (e is ItemCheckEvent ev && ShouldReplace(ev.Item)) {
 				Set(ev.Item, ev.Animate);
 				return true;

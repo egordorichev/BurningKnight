@@ -52,6 +52,7 @@ namespace BurningKnight.entity.item.use {
 			Register<SetMaxHpUse>(SetMaxHpUse.RenderDebug);
 			Register<SpawnItemsUse>(SpawnItemsUse.RenderDebug);
 			Register<SpawnMobsUse>(SpawnMobsUse.RenderDebug);
+			Register<MakeProjectilesSplitOnDeathUse>();
 		}
 	}
 }

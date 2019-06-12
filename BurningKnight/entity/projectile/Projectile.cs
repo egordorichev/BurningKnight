@@ -18,6 +18,9 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
+	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
+	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+
 	public class Projectile : Entity, CollisionFilterEntity {
 		public BodyComponent BodyComponent;
 		public int Damage = 1;
@@ -28,15 +31,19 @@ namespace BurningKnight.entity.projectile {
 		public bool IndicateDeath;
 		public bool CanBeReflected = true;
 		public bool CanBeBroken = true;
-		public Action<Projectile, bool> OnDeath;
-		public Action<Projectile, float> Controller;
+		public ProjectileDeathCallback OnDeath;
+		public ProjectileUpdateCallback Controller;
+		public Projectile Parent;
+		public string Slice;
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, int bounce = -1) {
+		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, int bounce = -1, Projectile parent = null) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
-			
+
+			projectile.Slice = slice;
+			projectile.Parent = parent;
 			projectile.Owner = owner;
 			projectile.BounceLeft = bounce;
 
@@ -63,7 +70,12 @@ namespace BurningKnight.entity.projectile {
 			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;
-      			
+
+			owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = owner,
+				Projectile = projectile
+			});
+			
 			return projectile;
 		}
 

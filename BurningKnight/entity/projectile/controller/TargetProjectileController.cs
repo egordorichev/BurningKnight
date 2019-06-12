@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile.controller {
 	public static class TargetProjectileController {
-		public static Action<Projectile, float> Make(Entity target, float speed = 1f) {
+		public static ProjectileUpdateCallback Make(Entity target, float speed = 1f) {
 			return (p, dt) => {
 				if (target.Done) {
 					p.Controller = null;

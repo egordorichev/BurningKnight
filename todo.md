@@ -6,8 +6,7 @@
 * Cool intro
 * Cool death
 * Hint about pattern
-* Leaning to avoid the last attack that killed him
-* Changing attack
+* Learning to avoid the last attack that killed him
 * Healthbar art
 * health bar animation, falling chunks of health like in dead cells
 * Too easy with melee
@@ -25,6 +24,7 @@
 
 ### Before josh
 
+* fix gun rendering
 * break / explode chest, update art for it
 * sk ai
 * sk dialog

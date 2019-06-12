@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using ImGuiNET;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
 
@@ -86,6 +87,16 @@ namespace BurningKnight.entity.component {
 			Entity.Area.Add(item);
 			item.AddDroppedComponents();
 			item.RemoveComponent<OwnerComponent>();
+		}
+
+		public override bool HandleEvent(Event e) {
+			foreach (var item in Items) {
+				if (item.HandleOwnerEvent(e)) {
+					return true;
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public override void Update(float dt) {

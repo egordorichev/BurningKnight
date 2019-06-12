@@ -264,6 +264,7 @@
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
     <Compile Include="entity\events\SaveEndedEvent.cs" />
     <Compile Include="entity\events\SaveStartedEvent.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="entity\item\use\GiveItemUse.cs" />
     <Compile Include="entity\item\use\GiveKeyUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
