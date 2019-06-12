@@ -115,7 +115,12 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 
-			GetComponent<HealthComponent>().MaxHealth = 1;
+			var hp = GetComponent<HealthComponent>();
+			hp.MaxHealth = 1;
+
+			if (Engine.Version.Dev) {
+				hp.Unhittable = true;
+			}
 		}
 
 		public void FindSpawnPoint() {

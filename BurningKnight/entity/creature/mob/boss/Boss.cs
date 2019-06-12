@@ -17,6 +17,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (target == null) {
 				Become<IdleState>();
 			} else {
+				if (true) {
+					SelectAttack();
+					return;
+				}
+				
 				Awoken = true;
 				
 				Camera.Instance.Targets.Clear();

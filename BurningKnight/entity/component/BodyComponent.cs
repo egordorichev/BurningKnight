@@ -35,7 +35,11 @@ namespace BurningKnight.entity.component {
 		
 		protected virtual void PositionChangedListener() {
 			if (Body != null) {
-				Body.Position = Entity.Position;
+				try {
+					Body.Position = Entity.Position;
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 

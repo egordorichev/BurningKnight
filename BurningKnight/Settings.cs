@@ -90,6 +90,8 @@ namespace BurningKnight {
 			}
 
 			// Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
+
+			Autosave = false;
 		}
 
 		public static void Save() {

@@ -16,13 +16,13 @@ namespace BurningKnight.entity.projectile {
 
 		public override void Render(bool shadow) {
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y), 
+				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y + 4), 
 					0, Sprite.Center, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 
 			var p = (Projectile) Entity;
-			var d = p.IndicateDeath && p.T >= p.Range - 1f && p.T % 0.8f <= 0.4f;
+			var d = p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f;
 
 			if (d) {
 				var shader = Shaders.Entity;

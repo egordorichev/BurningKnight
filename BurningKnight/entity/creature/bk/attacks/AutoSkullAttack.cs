@@ -28,7 +28,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 					
 					for (var i = 0; i < 8; i++) {
 						var bullet = Projectile.Make(Self, "small", 
-							((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 2);
+							((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 2 + 1);
 						
 						bullet.Center = p.Center;
 					}
