@@ -55,20 +55,12 @@ namespace BurningKnight.entity.creature.player {
 				}, 0.3f, Ease.BackIn).OnEnd = () => {
 					item.Area?.Remove(item);
 					item.Done = false;
-					
+					PickedItem = null;
+
 					if (add) {
-						if (item.HasComponent<OwnerComponent>()) {
-							item.RemoveComponent<OwnerComponent>();
-						}
-
 						GetComponent<InventoryComponent>().Add(item);
-
-						if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
-							item.Use(this);
-						}
 					}
-					
-					PickedItem = null; 
+
 					action?.Invoke();
 				};
 			}, 1f);
@@ -120,7 +112,6 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Engine.Version.Dev) {
 				hp.Unhittable = true;
-				GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:the_sword", Area));
 			}
 		}
 

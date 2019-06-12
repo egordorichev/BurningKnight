@@ -16,34 +16,12 @@ namespace BurningKnight.entity.component {
 				Item = item,
 				Animate = animate
 			})) {
-				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.Active || 
-				                         item.Type == ItemType.Lamp || item.Type == ItemType.Weapon)) {
-
+				if (Entity is Player p && item.Type == ItemType.Artifact) {
 					if (animate) {
-						p.AnimateItemPickup(item, () => {
-							if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
-								item.Use(Entity);
-							}
-						}, false);
+						p.AnimateItemPickup(item);
 					} else {
-						if (item.HasComponent<OwnerComponent>()) {
-							item.RemoveComponent<OwnerComponent>();
-						}
-						
-						Items.Add(item);
-
-						item.RemoveDroppedComponents();
-						item.AddComponent(new OwnerComponent(Entity));
-
-						Entity.Area.Remove(item);
-
-						if (item.Type == ItemType.Artifact || item.Type == ItemType.Lamp) {
-							item.Use(Entity);
-						}
+						Add(item);
 					}
-				} else {
-					item.Use(Entity);
-					Add(item);	
 				}
 			}
 		}
@@ -59,11 +37,18 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public void Add(Item item) {
+			if (item.HasComponent<OwnerComponent>()) {
+				item.RemoveComponent<OwnerComponent>();
+			}
+			
 			Items.Add(item);
 			Entity.Area.Remove(item);
+			item.Done = false;
 
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));
+
+			item.Use(Entity);
 
 			var e = new ItemAddedEvent {
 				Item = item,
