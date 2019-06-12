@@ -209,6 +209,20 @@ namespace BurningKnight.entity.creature.mob {
 
 			return false;
 		}
+
+		public bool FlyTo(Vector2 point, float speed, float distance = 8f) {
+			var dx = DxTo(point);
+			var dy = DyTo(point);
+			var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+			if (d <= distance) {
+				return true;
+			}
+			
+			GetAnyComponent<BodyComponent>().Velocity = new Vector2(dx / d * speed, dy / d * speed);
+
+			return false;
+		}
 		#endregion
 	}
 }

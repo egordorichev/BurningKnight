@@ -268,7 +268,8 @@ namespace BurningKnight.state {
 
 			Run.Update();
 
-			if (Settings.Autosave && Run.Depth > 0) {
+			// fixme: crashes the game
+			if (false && Settings.Autosave && Run.Depth > 0) {
 				if (!saving) {
 					saveTimer += dt;
 

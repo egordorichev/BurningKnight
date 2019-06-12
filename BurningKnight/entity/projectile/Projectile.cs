@@ -27,6 +27,7 @@ namespace BurningKnight.entity.projectile {
 		public int BounceLeft = -1;
 		public bool IndicateDeath;
 		public bool CanBeReflected = true;
+		public bool CanBeBroken = true;
 		public Action<Projectile, bool> OnDeath;
 		public Action<Projectile, float> Controller;
 		
@@ -124,6 +125,10 @@ namespace BurningKnight.entity.projectile {
 
 		public bool ShouldCollide(Entity entity) {
 			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Prop);
+		}
+
+		public void Break() {
+			AnimateDeath();
 		}
 		
 		protected virtual void AnimateDeath(bool timeout = false) {

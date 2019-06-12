@@ -2,27 +2,6 @@
 
 ### bk himself
 
-* castle_0 attack set
- * 3 patterns:
-  ~~ + Skull
-  + Arrow
-  + Bomb
-  - Big bullet
-  - Skull
-  - Spiral
-  * Shoot you
-  * Big bullet
-  * Arrow
-  
- * so the attacks:
-  + Skull
-  + Arrow
-  + Bomb from sky
-  + Big bullet
-  + Spiral
-  + Shoot you
-  
-
 * Boss door
 * Cool intro
 * Cool death

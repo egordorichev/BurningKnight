@@ -18,14 +18,20 @@ namespace BurningKnight.entity.creature.bk {
 
 			Width = 42;
 			Height = 42;
+			Flying = true;
 
-			AddComponent(new RectBodyComponent(16, 16, Width - 32, Height - 32, BodyType.Dynamic, true));
+			var b = new RectBodyComponent(16, 16, Width - 32, Height - 32) {
+				KnockbackModifier = 0
+			};
+
+			AddComponent(b);
+			b.Body.LinearDamping = 4;
 			
 			// FIXME: TMP sprite and size, obv
 			AddComponent(new AnimationComponent("burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
-			health.InitMaxHealth = 128 + (Run.Depth - 1) * 40;
+			health.InitMaxHealth = 64 + (Run.Depth - 1) * 20;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 		}

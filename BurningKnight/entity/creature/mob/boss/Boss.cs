@@ -17,8 +17,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (target == null) {
 				Become<IdleState>();
 			} else {
-				if (true) {
+				if (true) { // fix
 					SelectAttack();
+					Camera.Instance.Follow(this, 0.6f);
 					return;
 				}
 				
@@ -29,6 +30,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				
 				Timer.Add(() => {
 					((InGameState) Engine.Instance.State).ResetFollowing();
+					Camera.Instance.Follow(this, 0.6f);
 					
 					Timer.Add(() => {
 						SelectAttack();
