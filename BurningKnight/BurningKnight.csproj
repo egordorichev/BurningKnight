@@ -330,6 +330,7 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
+    <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />

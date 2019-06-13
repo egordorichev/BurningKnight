@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a, 10f);
+				var projectile = Projectile.Make(this, "small", a, 5f);
 					
 				projectile.Range = 1f;
 				projectile.AddLight(32f, Color.Red);

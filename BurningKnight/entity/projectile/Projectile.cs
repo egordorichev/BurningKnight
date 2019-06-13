@@ -38,7 +38,7 @@ namespace BurningKnight.entity.projectile {
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle, float speed, bool circle = true, int bounce = -1, Projectile parent = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = -1, Projectile parent = null) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
@@ -108,13 +108,17 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
-			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
+			return entity != Owner && (!(entity is Creature c) || Owner is Mob != entity is Mob) && 
 			       (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() || 
 			        entity is SolidProp || entity is DestroyableLevel || entity is ItemStand);
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
+				if (ev.Entity is Creature c && c.InAir()) {
+					return false;
+				}
+				
 				if (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
