@@ -180,6 +180,7 @@
     <Compile Include="entity\creature\bk\attacks\FourArrowAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\HugeSplittingBulletAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\ShootAttack.cs" />
+    <Compile Include="entity\creature\bk\attacks\SpawnSkullOrbitalAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobPair.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
+    <Compile Include="entity\creature\mob\orbital\SkullOrbital.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />

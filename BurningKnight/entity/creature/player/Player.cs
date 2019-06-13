@@ -326,6 +326,10 @@ namespace BurningKnight.entity.creature.player {
 			died = true;
 		}
 
+		public override bool IgnoresProjectiles() {
+			return GetComponent<StateComponent>().StateInstance is RollState;
+		}
+
 		private bool died;
 
 		public override void AnimateDeath() {

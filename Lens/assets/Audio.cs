@@ -137,6 +137,8 @@ namespace Lens.assets {
 
 			Stop();
 
+			Repeat = true;
+			
 			if (!instances.TryGetValue(music, out currentPlaying)) {
 				currentPlaying = GetMusic(music).CreateInstance();
 				instances[music] = currentPlaying;

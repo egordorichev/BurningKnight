@@ -33,9 +33,11 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(new AnimationComponent("burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
-			health.InitMaxHealth = 64 + (Run.Depth - 1) * 20;
+			health.InitMaxHealth = 48 + (Run.Depth - 1) * 20;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
+			
+			AddComponent(new OrbitGiverComponent());
 		}
 
 		public override void Update(float dt) {

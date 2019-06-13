@@ -94,6 +94,7 @@ namespace BurningKnight.state {
 				} else if (de.Who is entity.creature.bk.BurningKnight) {
 					Audio.Stop();
 					Audio.PlayMusic("Reckless");
+					Audio.Repeat = false;
 				} else {
 					Audio.PlaySfx(de.Who, "enemy_death");
 				}

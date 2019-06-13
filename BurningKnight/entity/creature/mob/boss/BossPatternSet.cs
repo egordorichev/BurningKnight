@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature.bk;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.mob.boss {
@@ -24,8 +25,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				current = null;
 			}
-			
-			current = registry.Get(patterns[Random.Int(patterns.Length)]);
+
+			// fixme: i suspect that rng is not right here
+			var i = Random.Int(patterns.Length);
+			Log.Error($"{i} {patterns.Length}");
+			current = registry.Get(patterns[i]);
 			
 			return GetNext();
 		}

@@ -9,6 +9,8 @@ namespace BurningKnight.entity.component {
 		public List<Entity> Orbiting = new List<Entity>();
 		public float RadiusMultiplier = 1;
 		public float T;
+
+		private float count;
 		
 		public void DestroyAll() {
 			foreach (var o in Orbiting) {
@@ -22,11 +24,17 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			T += dt;
+			count += (Orbiting.Count - count) * dt * 4;
 
-			for (var i = 0; i < Orbiting.Count; i++) {
+			for (var i = Orbiting.Count - 1; i >= 0; i--) {
 				var e = Orbiting[i];
 				var d = e.GetComponent<OrbitalComponent>().Radius * RadiusMultiplier;
-				var a = ((float) i) / Orbiting.Count * Math.PI * 2 + T;
+				var a = i / count * Math.PI * 2 + T;
+
+				if (e.Done) {
+					Orbiting.RemoveAt(i);
+					continue;
+				}
 				
 				e.Center = Entity.Center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 			}
