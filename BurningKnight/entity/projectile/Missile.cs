@@ -4,7 +4,9 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 
 namespace BurningKnight.entity.projectile {
@@ -14,6 +16,7 @@ namespace BurningKnight.entity.projectile {
 		private Entity target;
 		private bool goingDown;
 		private float toY;
+		private float shadowSize;
 		
 		public Missile(Entity owner, Entity tar) {
 			owner.Area.Add(this);
@@ -21,6 +24,7 @@ namespace BurningKnight.entity.projectile {
 			Slice = "missile";
 			Owner = owner;
 			target = tar;
+			AlwaysVisible = true;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
 			AddComponent(graphics);
@@ -67,16 +71,21 @@ namespace BurningKnight.entity.projectile {
 				toY = target.Bottom;
 				GraphicsComponent.FlippedVerticaly = true;
 				BodyComponent.Body.LinearVelocity = new Vector2(0, 100f);
+
+				Tween.To(16, 0, x => shadowSize = x, 1f);
 			}
 		}
 
 		protected override void AnimateDeath(bool timeout = false) {
 			base.AnimateDeath(timeout);
-			AnimationUtil.Explosion(Center);
+			ExplosionMaker.Make(this);
 		}
 
 		protected override void RenderShadow() {
-			
+			if (goingDown) {
+				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize, 16, ColorUtils.WhiteColor, 2f);
+				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize * 0.5f, 16, ColorUtils.WhiteColor, 2f);
+			}
 		}
 	}
 }

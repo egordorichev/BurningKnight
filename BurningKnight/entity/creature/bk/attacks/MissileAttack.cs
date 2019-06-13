@@ -44,12 +44,6 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				
 						pp.Launch(an, 40);
 						Self.Area.Add(pp);
-						
-						/*var b = Projectile.Make(Self, "small", an, 6, true, -1, p);
-						
-						b.Center = p.Center + new Vector2((float) Math.Cos(an) * 8, (float) Math.Sin(an) * 8);
-						b.Range = 1f;
-						b.AddLight(32f, Color.Red);*/
 					}
 
 					var a = p.AngleTo(Self.Target);
