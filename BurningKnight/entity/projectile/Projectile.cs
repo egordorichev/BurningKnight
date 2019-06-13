@@ -64,9 +64,12 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			speed *= 10f;
-			
-			projectile.BodyComponent.Velocity = new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 
+			if (Math.Abs(speed) > 0.01f) {
+				projectile.BodyComponent.Velocity =
+					new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
+			}
+			
 			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;

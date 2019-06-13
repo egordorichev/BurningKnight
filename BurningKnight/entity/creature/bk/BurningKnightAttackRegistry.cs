@@ -17,7 +17,8 @@ namespace BurningKnight.entity.creature.bk {
 			typeof(HugeSplittingBulletAttack),
 			typeof(ShootAttack),
 			typeof(SpinningHellAttack),
-			typeof(MissileAttack)
+			typeof(MissileAttack),
+			typeof(BulletRingAttack)
 		};
 
 		public static BossAttack<BurningKnight> GetNext(BossPatternSet<BurningKnight> p) {
@@ -53,7 +54,7 @@ namespace BurningKnight.entity.creature.bk {
 			));
 			
 			PatternRegistry.Register("test", new BossPattern<BurningKnight>(
-				typeof(HugeSplittingBulletAttack)
+				typeof(BulletRingAttack)
 			));
 			
 			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(

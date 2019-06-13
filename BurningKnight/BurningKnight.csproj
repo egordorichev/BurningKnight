@@ -175,6 +175,7 @@
     <Compile Include="entity\creature\bk\attacks\ArrowAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\AutoSkullAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\AutoWallAttack.cs" />
+    <Compile Include="entity\creature\bk\attacks\BulletRingAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\MissileAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\FourArrowAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\HugeSplittingBulletAttack.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="entity\projectile\Missile.cs" />
     <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />
     <Compile Include="entity\projectile\pattern\CircleWithCenterProjectilePattern.cs" />
+    <Compile Include="entity\projectile\pattern\ExpandingCirclePattern.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />

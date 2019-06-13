@@ -59,11 +59,13 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void Add(Projectile p) {
-			projectiles.Add(new Data {
-				Projectile = p,
-				Id = maxProjectiles
-			});
-			
+			if (!p.Done) {
+				projectiles.Add(new Data {
+					Projectile = p,
+					Id = maxProjectiles
+				});
+			}
+
 			maxProjectiles++;
 		}
 
