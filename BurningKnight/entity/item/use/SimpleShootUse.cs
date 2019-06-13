@@ -27,13 +27,13 @@ namespace BurningKnight.entity.item.use {
 			
 			SpawnProjectile = (entity, item) => {
 				var angle = entity.AngleTo(Input.Mouse.GamePosition);
-				/*var antiAngle = angle - (float) Math.PI;
+				var antiAngle = angle - (float) Math.PI;
 				var projectile = Projectile.Make(entity, slice, angle, speed);
 
 				Camera.Instance.Push(antiAngle, 4f);
 				entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f);
 
-				projectile.AddLight(32f, Color.Red);
+				projectile.AddLight(32f, Color.Yellow);
 				projectile.Damage = damage;
 				projectile.Range = range * 0.5f / speed;
 				
@@ -51,18 +51,7 @@ namespace BurningKnight.entity.item.use {
 				p.Particle.Zv = Random.Float(1.5f, 2.5f);
 				p.Particle.AngleVelocity = f * Random.Float(40, 70);
 				
-				p.AddShadow();*/
-
-				var p = new ProjectilePattern(CircleProjectilePattern.Make(4.5f, 9)) {
-					Position = entity.Center
-				};
-
-				for (var i = 0; i < 2; i++) {
-					p.Add(Projectile.Make(entity, slice));
-				}
-				
-				p.Launch(angle, 40);
-				entity.Area.Add(p);
+				p.AddShadow();
 			};
 		}
 

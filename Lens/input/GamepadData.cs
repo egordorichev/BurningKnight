@@ -7,6 +7,7 @@ namespace Lens.input {
 		public PlayerIndex PlayerIndex;
 		public GamePadState PreviousState;
 		public GamePadState CurrentState;
+		public bool WasAttached;
 		public bool Attached;
 		
 		private float rumbleStrength;
@@ -19,8 +20,9 @@ namespace Lens.input {
 		public void Update(float dt) {
 			PreviousState = CurrentState;
 			CurrentState = GamePad.GetState(PlayerIndex);
+			WasAttached = WasAttached || PreviousState.IsConnected;
 			Attached = CurrentState.IsConnected;
-
+			
 			if (rumbleTime > 0) {
 				rumbleTime -= dt;
 

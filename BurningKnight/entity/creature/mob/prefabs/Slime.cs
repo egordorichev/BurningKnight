@@ -138,6 +138,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			return true;
 		}
 
+		public override bool IgnoresProjectiles() {
+			return InAir();
+		}
+
 		protected virtual void OnLand() {
 			if (Target == null) {
 				return;

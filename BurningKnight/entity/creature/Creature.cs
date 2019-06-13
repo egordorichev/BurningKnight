@@ -103,6 +103,10 @@ namespace BurningKnight.entity.creature {
 			return Flying;
 		}
 
+		public virtual bool IgnoresProjectiles() {
+			return false;
+		}
+
 		public virtual bool ShouldCollideWithDestroyableInAir() {
 			return false;
 		}

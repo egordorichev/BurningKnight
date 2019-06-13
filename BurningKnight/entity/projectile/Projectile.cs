@@ -86,7 +86,7 @@ namespace BurningKnight.entity.projectile {
 			AlwaysActive = true;
 		}
 
-		private void RenderShadow() {
+		protected virtual void RenderShadow() {
 			GraphicsComponent.Render(true);
 		}
 
@@ -115,7 +115,7 @@ namespace BurningKnight.entity.projectile {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity is Creature c && c.InAir()) {
+				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
 					return false;
 				}
 				

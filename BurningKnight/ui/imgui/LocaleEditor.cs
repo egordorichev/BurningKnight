@@ -20,7 +20,6 @@ namespace BurningKnight.ui.imgui {
 		private static string created;
 		private static bool showEnglish = true;
 		private static string newLocaleName = "";
-		private static bool open;
 		
 		private class ModifiedInfo {
 			public string OldKey;
@@ -51,14 +50,6 @@ namespace BurningKnight.ui.imgui {
 		}
 		
 		public static void Render() {
-			if (Input.Keyboard.WasPressed(Keys.F10)) {
-				open = !open;
-			}
-			
-			if (!open) {
-				return;
-			}
-			
 			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			

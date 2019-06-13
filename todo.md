@@ -11,6 +11,7 @@
 * health bar animation, falling chunks of health like in dead cells
 * Too easy with melee
 * way to skip the boss battle but get harder game
+* difficulty progression through the fight
 
 ### fixes
 

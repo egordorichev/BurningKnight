@@ -3,6 +3,8 @@ using BurningKnight.entity.component;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Utilities;
+using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : SliceComponent {
@@ -34,7 +36,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(Sprite, Entity.Position);
+			Graphics.Render(Sprite, Entity.Position, 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 
 			if (d) {
 				Shaders.End();

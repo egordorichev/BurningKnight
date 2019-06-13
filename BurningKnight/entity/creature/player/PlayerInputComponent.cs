@@ -71,6 +71,11 @@ namespace BurningKnight.entity.creature.player {
 
 			var controller = GetComponent<GamepadComponent>().Controller;
 
+			if (controller.WasAttached && !controller.Attached) {
+				controller.WasAttached = false;
+				Engine.Instance.State.Paused = true;
+			}
+
 			if (InDialog) {
 				if (Input.WasPressed(Controls.Cancel)) {
 					InDialog = false;
