@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.projectile;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.bk.attacks {
 	public class FourArrowAttack : BossAttack<BurningKnight> {
@@ -10,12 +11,14 @@ namespace BurningKnight.entity.creature.bk.attacks {
 			base.Init();
 
 			for (var i = 0; i < 4; i++) {
-				ProjectileTemplate.Make(Self, "small", Self.Center, i * (float) Math.PI * 0.5f, 10, 2, 0,
-					"   x  ",
-					"    x ",
-					"xxxxxx",
-					"    x ",
-					"   x  ");
+				ProjectileTemplate.Make(Self, "green_small", Self.Center, 
+					i * (float) Math.PI * 0.5f, 5, 2, 0,
+
+					p => p.AddLight(16f, Color.Green),
+					
+					"  x ",
+					"xxxx",
+					"  x ");
 			}
 		}
 

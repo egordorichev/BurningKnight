@@ -1,5 +1,6 @@
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.projectile;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.bk.attacks {
 	public class ArrowAttack : BossAttack<BurningKnight> {
@@ -17,12 +18,12 @@ namespace BurningKnight.entity.creature.bk.attacks {
 					return;
 				}
 				
-				ProjectileTemplate.Make(Self, "small", Self.Center, Self.AngleTo(Self.Target), 10, 2, 0,
-					"   x  ",
-					"    x ",
-					"xxxxxx",
-					"    x ",
-					"   x  ");
+				ProjectileTemplate.Make(Self, "green_small", Self.Center, Self.AngleTo(Self.Target), 5, 2, 0,
+					p => p.AddLight(16f, Color.Green),
+					
+					"  x ",
+					"xxxx",
+					"  x ");
 			}
 		}
 	}

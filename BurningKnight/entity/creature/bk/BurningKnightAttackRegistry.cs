@@ -31,29 +31,33 @@ namespace BurningKnight.entity.creature.bk {
 		
 		static BurningKnightAttackRegistry() {
 			PatternRegistry.Register("bounce_0", new BossPattern<BurningKnight>(
-				typeof(AutoSkullAttack),
 				typeof(ArrowAttack),
-				typeof(ShootAttack)
+				typeof(ShootAttack),
+				typeof(MissileAttack)
 			));
 			
 			PatternRegistry.Register("bounce_1", new BossPattern<BurningKnight>(
-				typeof(HugeSplittingBulletAttack),
-				typeof(AutoSkullAttack),
+	typeof(FourArrowAttack),
 				typeof(ShootAttack)
 			));
 			
 			PatternRegistry.Register("bounce_2", new BossPattern<BurningKnight>(
-				typeof(SpinningHellAttack),
-				typeof(HugeSplittingBulletAttack),
+				typeof(MissileAttack),
 				typeof(ArrowAttack)
 			));
 			
+			PatternRegistry.Register("spam_0", new BossPattern<BurningKnight>(
+				typeof(MissileAttack),
+				typeof(HugeSplittingBulletAttack),
+				typeof(AutoSkullAttack)
+			));
+			
 			PatternRegistry.Register("test", new BossPattern<BurningKnight>(
-				typeof(MissileAttack)
+				typeof(HugeSplittingBulletAttack)
 			));
 			
 			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
-				PatternRegistry, "test"
+				PatternRegistry, "test" //"bounce_0", "bounce_1", "bounce_2"
 			), 1f, Biome.Castle);
 		}
 	}

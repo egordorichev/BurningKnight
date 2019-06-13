@@ -16,14 +16,15 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
-		public static void Make(Entity whoHurts, float hurtRadius = 16f, bool leave = true) {
+		public static void Make(Entity whoHurts, float hurtRadius = 16f, bool leave = true, Vec2 where = null) {
 			Camera.Instance.Shake(10);
+			var w = where == null ? whoHurts.Center : new Vector2(where.X, where.Y);
 
-			AnimationUtil.Explosion(whoHurts.Center);
-
+			AnimationUtil.Explosion(w);
+			
 			for (int i = 0; i < 4; i++) {
 				var explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
-				explosion.Position = whoHurts.Center;
+				explosion.Position = w;
 				whoHurts.Area.Add(explosion);
 				explosion.Depth = 31;
 				explosion.Particle.AngleVelocity = 0;
@@ -38,7 +39,7 @@ namespace BurningKnight.entity {
 			for (var i = 0; i < 6; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
-				part.Position = whoHurts.Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
+				part.Position = w + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
 				whoHurts.Area.Add(part);
 				part.Depth = 30;
 			}
@@ -47,7 +48,7 @@ namespace BurningKnight.entity {
 			Engine.Instance.Flash = 1f;
 			Engine.Instance.Freeze = 1f;
 					
-			foreach (var e in whoHurts.Area.GetEntitesInRadius(whoHurts.Center, hurtRadius, typeof(ExplodableComponent))) {
+			foreach (var e in whoHurts.Area.GetEntitesInRadius(w, hurtRadius, typeof(ExplodableComponent))) {
 				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);
 				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts);
 			}
@@ -57,11 +58,11 @@ namespace BurningKnight.entity {
 			
 			if (leave) {
 				whoHurts.Area.Add(new ExplosionLeftOver {
-					Center = whoHurts.Center
+					Center = w
 				});
 				
-				var xx = (int) Math.Floor(whoHurts.CenterX / 16f);
-				var yy = (int) Math.Floor(whoHurts.CenterY / 16f);
+				var xx = (int) Math.Floor(w.X / 16f);
+				var yy = (int) Math.Floor(w.Y / 16f);
 				var r = (int) Math.Floor(hurtRadius / 16f);
 				var level = Run.Level;
 				

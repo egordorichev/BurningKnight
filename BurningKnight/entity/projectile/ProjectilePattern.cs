@@ -50,6 +50,14 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
+		public void Kill() {
+			Done = true;
+
+			foreach (var p in projectiles) {
+				p.Projectile.Done = true;
+			}
+		}
+
 		public void Add(Projectile p) {
 			projectiles.Add(new Data {
 				Projectile = p,

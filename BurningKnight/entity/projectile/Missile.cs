@@ -57,8 +57,6 @@ namespace BurningKnight.entity.projectile {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			// fixme: need a shadow or rings like before
 			Position += BodyComponent.Velocity * dt;
 
 			if (goingDown) {
