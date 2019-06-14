@@ -27,7 +27,7 @@ namespace BurningKnight.entity.projectile {
 		public Entity Owner;
 		public float Range = -1;
 		public float T;
-		public int BounceLeft = -1;
+		public int BounceLeft;
 		public bool IndicateDeath;
 		public bool CanBeReflected = true;
 		public bool CanBeBroken = true;
@@ -38,7 +38,7 @@ namespace BurningKnight.entity.projectile {
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = -1, Projectile parent = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 

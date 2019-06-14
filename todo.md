@@ -1,9 +1,14 @@
 # TODO
 
+* rod of discord
+
 ### enable before build
 
 * spawn in lvl 0
 * enable attack mutation in bk
+* darkness shader should be applied to all screen and not just game
+* fix bk attack patterns
+* enable boss animation
 
 ### bk himself
 
@@ -18,15 +23,6 @@
 * Healthbar art
 * health bar animation, falling chunks of health like in dead cells
 
-### fixes
-
-* Animate enemy death
-* ^^^^^^^ Effects when player is low hp
-* ui description banner bg
-* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
-* lighting bolts
-* darkness shader should be applied to all screen and not just game
-
 ### Before josh
 
 * statistics about items/runs
@@ -36,6 +32,14 @@
 * sk dialog
 * Animate lamp up and down to make it more alive
 * Crash report window
+* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
+
+### fixes
+
+* Animate enemy death
+* ^^^^^^^ Effects when player is low hp
+* ui description banner bg
+* lighting bolts
 
 ### Before v0.0.0.4
 

@@ -20,7 +20,7 @@ namespace BurningKnight.state {
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static unsafe ImGuiTextFilterPtr popupFilter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
-		private static System.Numerics.Vector2 popupSize = new System.Numerics.Vector2(200, 300);
+		private static System.Numerics.Vector2 popupSize = new System.Numerics.Vector2(400, 400);
 
 		private static int id;
 		private static int ud;

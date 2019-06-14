@@ -79,19 +79,7 @@ namespace BurningKnight.entity {
 								level.Set(index, Tile.Dirt);
 								level.UpdateTile(x + xx, y + yy);
 							} else if (tile == Tile.Crack) {
-								level.Set(index, Tile.FloorA);
-								level.Set(index, Tile.Dirt);
-								level.UpdateTile(x + xx, y + yy);
-								level.CreateBody();
-								level.LoadPassable();
-								
-								whoHurts.HandleEvent(new SecretRoomFoundEvent {
-									Who = whoHurts
-								});
-
-								LightUp((x + xx) * 16 + 8, (y + yy) * 16 + 8);
-
-								DestroyableLevel.Animate(whoHurts.Area, x + xx, y + yy);
+								DiscoverCrack(whoHurts, level, x + xx, y + yy);
 							} else if (tile == Tile.Planks) {
 								level.Set(index, Tile.Dirt);
 								level.Destroyable.Break((x + xx) * 16, (y + yy) * 16);
@@ -100,6 +88,24 @@ namespace BurningKnight.entity {
 					}
 				}
 			}
+		}
+
+		public static void DiscoverCrack(Entity who, Level level, int x, int y) {
+			var index = level.ToIndex(x, y);
+			
+			level.Set(index, Tile.FloorA);
+			level.Set(index, Tile.Dirt);
+			level.UpdateTile(x, y);
+			level.CreateBody();
+			level.LoadPassable();
+								
+			who.HandleEvent(new SecretRoomFoundEvent {
+				Who = who
+			});
+
+			LightUp(x * 16 + 8, y * 16 + 8);
+
+			DestroyableLevel.Animate(who.Area, x, y);
 		}
 
 		public static void LightUp(float X, float Y) {

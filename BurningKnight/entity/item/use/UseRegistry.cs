@@ -52,7 +52,12 @@ namespace BurningKnight.entity.item.use {
 			Register<SetMaxHpUse>(SetMaxHpUse.RenderDebug);
 			Register<SpawnItemsUse>(SpawnItemsUse.RenderDebug);
 			Register<SpawnMobsUse>(SpawnMobsUse.RenderDebug);
+			Register<DiscoverSecretRoomsUse>(DiscoverSecretRoomsUse.RenderDebug);
+			Register<ModifyStatUse>(ModifyStatUse.RenderDebug);
 			Register<MakeProjectilesSplitOnDeathUse>();
+			Register<MakeProjectilesBounceUse>(MakeProjectilesBounceUse.RenderDebug);
+			Register<MakeProjectilesHomeInUse>(MakeProjectilesHomeInUse.RenderDebug);
+			Register<TeleportToCursorUse>();
 		}
 	}
 }

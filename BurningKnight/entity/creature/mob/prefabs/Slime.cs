@@ -22,6 +22,13 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			
 			AddComponent(new ZComponent());
 			Become<IdleState>();
+			
+			GetComponent<DropsComponent>().Add(new SimpleDrop {
+				Chance = 0.05f,
+				Items = new[] {
+					"bk:slime"
+				}
+			});
 		}
 		
 		#region Slime States
