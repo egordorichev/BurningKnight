@@ -115,6 +115,8 @@ namespace BurningKnight.entity.chest {
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
+			AddComponent(new ExplodableComponent());
+			AddComponent(new HealthComponent());
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,

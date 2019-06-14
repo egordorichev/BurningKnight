@@ -1,17 +1,22 @@
 # TODO
 
+### enable before build
+
+* spawn in lvl 0
+* enable attack mutation in bk
+
 ### bk himself
+
+* Learning to avoid the last attack that killed him
+* way to skip the boss battle but get harder game
+* difficulty progression through the fight
+* Learning to avoid the last attack that killed him
 
 * Boss door
 * Cool intro
 * Cool death
-* Hint about pattern
-* Learning to avoid the last attack that killed him
-* Healthbar art
+x* Healthbar art
 * health bar animation, falling chunks of health like in dead cells
-* Too easy with melee
-* way to skip the boss battle but get harder game
-* difficulty progression through the fight
 
 ### fixes
 
@@ -25,18 +30,18 @@
 
 ### Before josh
 
+* statistics about items/runs
 * fix gun rendering
 * break / explode chest, update art for it
 * sk ai
 * sk dialog
-* fix nodes requiring to hit enter to set their name
 * Animate lamp up and down to make it more alive
 * Crash report window
-* ui entities generate on click 2 times? (might be input bug)
 
 ### Before v0.0.0.4
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
+* fix nodes requiring to hit enter to set their name
 
 * Add a few weapons for melee, magic and ranged
 * Add a few artifacts

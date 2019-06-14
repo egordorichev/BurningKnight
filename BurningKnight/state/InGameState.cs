@@ -514,16 +514,17 @@ namespace BurningKnight.state {
 				Click = () => Paused = false
 			});
 			
-			pauseMenu.Add(new UiButton {
+			/*pauseMenu.Add(new UiButton {
 				LocaleLabel = "settings",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space
-			});
+			});*/
 			
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "back_to_hub",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
+				Type = ButtonType.Exit,
 				Click = () => Run.Depth = -1
 			});
 			
@@ -556,6 +557,7 @@ namespace BurningKnight.state {
 				LocaleLabel = "back_to_hub",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 3,
+				Type = ButtonType.Exit,
 				Click = () => Run.Depth = -1
 			});
 
