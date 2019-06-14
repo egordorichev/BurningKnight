@@ -31,7 +31,6 @@ namespace BurningKnight.level.rooms.secret {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.All) return 4;
 			return 1;
 		}
 

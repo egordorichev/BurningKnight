@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
+using BurningKnight.util;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.animation;
-using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -36,16 +36,22 @@ namespace BurningKnight.entity.chest {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is StateChangedEvent ev && ev.NewState == typeof(OpenState)) {
-				foreach (var i in items) {
-					Area.Add(i);
-					i.AddDroppedComponents();
+			if (e is StateChangedEvent ev) {
+				if (ev.NewState == typeof(OpenState)) {
+					foreach (var i in items) {
+						Area.Add(i);
+						i.AddDroppedComponents();
 
-					i.CenterX = CenterX;
-					i.Y = Bottom;
+						i.CenterX = CenterX;
+						i.Y = Bottom;
+					}
+
+					items.Clear();
 				}
-				
-				items.Clear();
+			} else if (e is DiedEvent) {
+				Done = true;
+				AnimationUtil.Poof(Center);
+				GetComponent<DropsComponent>().SpawnDrops();
 			}
 			
 			return base.HandleEvent(e);
@@ -116,14 +122,56 @@ namespace BurningKnight.entity.chest {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
 			AddComponent(new ExplodableComponent());
-			AddComponent(new HealthComponent());
+
+			AddComponent(new HealthComponent {
+				InitMaxHealth = 5,
+				RenderInvt = true
+			});
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
 				AlterInteraction = AlterInteraction
 			});
+			
+			var drops = new DropsComponent();
+			
+			drops.Add(new SimpleDrop {
+				Chance = 0.3f,
+				Items = new[] {
+					"bk:coin"
+				},
+				
+				Max = 3
+			});
+			
+			drops.Add(new SimpleDrop {
+				Chance = 0.5f,
+				Items = new[] {
+					"bk:key"
+				},
+				
+				Max = 2
+			});
+			
+			drops.Add(new SimpleDrop {
+				Chance = 0.3f,
+				Items = new[] {
+					"bk:bomb"
+				}
+			});
+			
+			drops.Add(new SimpleDrop {
+				Chance = 0.2f,
+				Items = new[] {
+					"bk:heart"
+				},
+				
+				Max = 2
+			});
+			
+			AddComponent(drops);
 		}
-
+		
 		private void RenderShadow() {
 			GraphicsComponent.Render(true);
 		}

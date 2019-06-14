@@ -183,6 +183,10 @@ namespace BurningKnight.assets.items {
 		};
 
 		public static Item Create(string id) {
+			if (id == null) {
+				return null;
+			}
+			
 			if (id == "bk:coin") {
 				id = coinIds[Random.Chances(coinChances)];
 			}

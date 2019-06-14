@@ -1,9 +1,21 @@
-﻿using BurningKnight.entity.component;
+﻿using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
+		private List<Room> rooms = new List<Room>();
+
+		public void CalcRooms() {
+			rooms.Clear();
+			
+			foreach (var room in Area.Tags[Tags.Room]) {
+				if (room.Overlaps(this)) {
+					rooms.Add((Room) room);
+				}
+			}
+		}
+
 		protected override bool Disposable() {
 			return false;
 		}
@@ -12,15 +24,19 @@ namespace BurningKnight.entity.door {
 			return false;
 		}
 
+		private bool updatedRooms;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (!updatedRooms || rooms.Count == 0) {
+				CalcRooms();
+			}
+			
 			var shouldLock = false;
 
-			foreach (var player in Area.Tags[Tags.Player]) {
-				var room = player.GetComponent<RoomComponent>().Room;
-				
-				if (room != null && room.Type != RoomType.Connection && room.Tagged[Tags.MustBeKilled].Count > 0) {
+			foreach (var r in rooms) {
+				if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 && r.Tagged[Tags.MustBeKilled].Count > 0) {
 					shouldLock = true;
 					break;
 				}

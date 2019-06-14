@@ -16,6 +16,7 @@ namespace BurningKnight.entity.component {
 
 		public bool RenderInvt;
 		public int Health => health;
+		public bool AutoKill = true;
 
 		public void SetHealth(int hp, Entity setter) {
 			if (hp == health) {
@@ -41,6 +42,10 @@ namespace BurningKnight.entity.component {
 				}
 				
 				health = h;
+
+				if (health == 0 && AutoKill) {
+					Kill(setter);
+				}
 			}
 		}
 

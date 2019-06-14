@@ -15,12 +15,11 @@
 * Boss door
 * Cool intro
 * Cool death
-x* Healthbar art
+* Healthbar art
 * health bar animation, falling chunks of health like in dead cells
 
 ### fixes
 
-* lock only locks that are in the current room
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 * ui description banner bg
@@ -31,8 +30,8 @@ x* Healthbar art
 ### Before josh
 
 * statistics about items/runs
-* fix gun rendering
-* break / explode chest, update art for it
+* iron hearts, half a heart spawning, etc
+* update art for chest
 * sk ai
 * sk dialog
 * Animate lamp up and down to make it more alive
@@ -40,6 +39,7 @@ x* Healthbar art
 
 ### Before v0.0.0.4
 
+* figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * fix nodes requiring to hit enter to set their name
 

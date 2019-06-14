@@ -44,7 +44,8 @@ namespace BurningKnight.level.paintings {
 			
 			AddComponent(new HealthComponent {
 				InitMaxHealth = 1,
-				RenderInvt = true
+				RenderInvt = true,
+				AutoKill = false
 			});
 
 			AddComponent(new ExplodableComponent());
@@ -117,7 +118,7 @@ namespace BurningKnight.level.paintings {
 					if (Id != "egor") {
 						from = ev.From;
 					} else {
-						h.ModifyHealth(1, null);
+						return true;
 					}
 				}
 			}

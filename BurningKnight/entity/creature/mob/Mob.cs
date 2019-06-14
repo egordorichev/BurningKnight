@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.buff;
+using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.level.entities;
@@ -10,6 +11,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
@@ -97,7 +99,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected virtual bool CanHurt(Entity entity) {
-			return !(entity is BreakableProp || entity is Painting);
+			return !(entity is BreakableProp || entity is Painting || entity is Chest || entity is Prop);
 		}
 
 		protected void FindTarget() {
@@ -152,7 +154,14 @@ namespace BurningKnight.entity.creature.mob {
 		public virtual float GetSpawnChance() {
 			return 1f;
 		}
-		
+
+		public override void AnimateDeath() {
+			base.AnimateDeath();
+			
+			Camera.Instance.Shake(4);
+			Engine.Instance.Freeze = 0.5f;
+		}
+
 		#region Path finding
 		protected Vec2 NextPathPoint;
 		private int lastStepBack;

@@ -21,7 +21,8 @@ namespace BurningKnight.entity.creature {
 			base.AddComponents();
 			
 			AddComponent(new HealthComponent {
-				RenderInvt = true
+				RenderInvt = true,
+				AutoKill = false
 			});
 			
 			AddComponent(new StateComponent());

@@ -39,14 +39,19 @@ namespace BurningKnight.entity.item.renderer {
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
 			}
 			
-			var angle = (flipped ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (flipped ? -Math.PI / 4 : Math.PI / 4)) : lastAngle);
+			var angle = ((flipped ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (flipped ? -Math.PI / 4 : Math.PI / 4)) : lastAngle)) % (Math.PI * 2);
+			var vf = angle > Math.PI * 0.5f && angle < Math.PI * 1.5f;
+	
+			if (vf) {
+				flipped = !flipped;
+			}	
 
 			if (atBack) {
 				flipped = !flipped;
 			}
 
-			Graphics.Render(region, new Vector2(owner.CenterX + (flipped ? -3 : 3), owner.CenterY), 
-				(float) angle, Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, sy));
+			Graphics.Render(region, new Vector2(owner.CenterX + (vf ? -3 : 3), owner.CenterY), 
+				(float) angle, Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, vf ? -sy : sy));
 		}
 
 		public override void OnUse() {

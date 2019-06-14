@@ -44,7 +44,8 @@ namespace BurningKnight.level.entities {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new HealthComponent {
 				InitMaxHealth = 1,
-				RenderInvt = true
+				RenderInvt = true,
+				AutoKill = false
 			});
 
 			AddComponent(new ExplodableComponent());
