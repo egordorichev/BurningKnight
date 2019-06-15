@@ -101,7 +101,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 					lastBullet = 0.05f;
 
 					var a = angle + Random.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * (spread ? 0.3f : 0.07f);
-					var projectile = Projectile.Make(Self, "small", a, spread ? 5f + 2f * T : (2f + 2f * T + v.Length()));
+					var projectile = Projectile.Make(Self, "small", a, spread ? 2f + 0.5f * T : (2f + T + v.Length()));
 
 					projectile.AddLight(32f, Color.Red);
 				}

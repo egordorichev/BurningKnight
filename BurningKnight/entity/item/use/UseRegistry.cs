@@ -58,6 +58,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectilesBounceUse>(MakeProjectilesBounceUse.RenderDebug);
 			Register<MakeProjectilesHomeInUse>(MakeProjectilesHomeInUse.RenderDebug);
 			Register<TeleportToCursorUse>();
+			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 		}
 	}
 }

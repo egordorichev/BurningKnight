@@ -22,8 +22,6 @@ namespace BurningKnight.entity.creature.mob.orbital {
 			AddComponent(new OrbitalComponent {
 				Radius = 32
 			});
-			
-			RemoveTag(Tags.LevelSave);
 		}
 
 		public override void Update(float dt) {

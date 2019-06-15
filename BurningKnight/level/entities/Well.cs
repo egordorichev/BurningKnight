@@ -125,10 +125,8 @@ namespace BurningKnight.level.entities {
 
 				case Type.Death: {
 					var hp = e.GetComponent<HealthComponent>();
-					hp.SetHealth(1, this);
+					hp.ModifyHealth(-hp.Health + 1, this);
 					hp.MaxHealth += 2;
-					
-					// todo: something GUT
 					
 					break;
 				}

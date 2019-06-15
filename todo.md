@@ -1,7 +1,5 @@
 # TODO
 
-* rod of discord
-
 ### enable before build
 
 * spawn in lvl 0
@@ -35,7 +33,11 @@
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 
 ### fixes
+* camera follow items that are on screen a bit?
 
+* item can make some items less/more luckyly to spawn
+* items that can spawn only if you dont have em
+* save orbitals
 * Animate enemy death
 * ^^^^^^^ Effects when player is low hp
 * ui description banner bg
