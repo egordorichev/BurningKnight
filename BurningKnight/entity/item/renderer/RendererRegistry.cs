@@ -36,6 +36,7 @@ namespace BurningKnight.entity.item.renderer {
 		static RendererRegistry() {
 			Register<AngledRenderer>(AngledRenderer.RenderDebug);
 			Register<MovingAngledRenderer>(MovingAngledRenderer.RenderDebug);
+			Register<StickRenderer>(StickRenderer.RenderDebug);
 		}
 	}
 }

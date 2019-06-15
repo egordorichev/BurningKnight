@@ -18,7 +18,6 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Item != null && Input.WasPressed(Controls.Use, controller)) {
 				Item.Use((Player) Entity);
-				Item.Renderer?.OnUse();
 			}
 	
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0) {

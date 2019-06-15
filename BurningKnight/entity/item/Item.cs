@@ -73,6 +73,7 @@ namespace BurningKnight.entity.item {
 			});
 
 			Used = true;
+			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
 				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false);

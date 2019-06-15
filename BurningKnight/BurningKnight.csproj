@@ -302,6 +302,7 @@
     <Compile Include="entity\item\renderer\ItemRenderer.cs" />
     <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
+    <Compile Include="entity\item\renderer\StickRenderer.cs" />
     <Compile Include="entity\item\renderer\SwordRenderer.cs" />
     <Compile Include="entity\item\ShopStand.cs" />
     <Compile Include="entity\item\SpawnMobsUse.cs" />
