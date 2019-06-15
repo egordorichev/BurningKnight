@@ -8,6 +8,11 @@
 * fix bk attack patterns
 * enable boss animation
 
+### item ideas
+
+* d6, etc etc
+* marshmallow orbital, can be light up
+
 ### bk himself
 
 * Learning to avoid the last attack that killed him

@@ -163,6 +163,7 @@
     <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
+    <Compile Include="entity\component\ScalableSliceComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
     <Compile Include="entity\component\SliceComponent.cs" />
@@ -319,6 +320,7 @@
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBounceUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesHomeInUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesSlowDown.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
@@ -342,6 +344,7 @@
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
     <Compile Include="entity\pool\Pool.cs" />
+    <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
     <Compile Include="entity\projectile\Missile.cs" />

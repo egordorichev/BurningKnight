@@ -26,6 +26,11 @@ namespace BurningKnight.entity.component {
 			Render(true);
 		}
 
+		public void SetOwnerSize() {
+			Entity.Width = Sprite.Width;
+			Entity.Height = Sprite.Height;
+		}
+
 		public override void Render(bool shadow) {
 			if (shadow) {
 				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + ShadowZ), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
