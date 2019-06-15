@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.component {
 	public class SliceComponent : GraphicsComponent {
 		public TextureRegion Sprite;
+		public int ShadowZ;
 		
 		public SliceComponent(string image, string slice) {
 			Sprite = Animations.Get(image).GetSlice(slice);
@@ -17,9 +18,17 @@ namespace BurningKnight.entity.component {
 			Sprite = image.GetSlice(slice);
 		}
 
+		public void AddShadow() {
+			Entity.AddComponent(new ShadowComponent(RenderShadow));
+		}
+
+		private void RenderShadow() {
+			Render(true);
+		}
+
 		public override void Render(bool shadow) {
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + ShadowZ), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			

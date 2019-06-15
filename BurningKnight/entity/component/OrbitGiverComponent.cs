@@ -24,7 +24,7 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			T += dt;
-			count += (Orbiting.Count - count) * dt * 4;
+			count += (Orbiting.Count - count) * dt;
 
 			for (var i = Orbiting.Count - 1; i >= 0; i--) {
 				var e = Orbiting[i];

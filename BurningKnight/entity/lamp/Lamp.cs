@@ -19,6 +19,8 @@ namespace BurningKnight.entity.lamp {
 
 			Width = region.Width;
 			Height = region.Height;
+
+			AlwaysActive = true;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
 			
