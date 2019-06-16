@@ -70,13 +70,13 @@ namespace BurningKnight.entity.creature.bk {
 				typeof(AutoSkullAttack)
 			));
 			
-			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
-				PatternRegistry, "test" // "spam_0", "spam_1", "spam_2"
-			), 1f, Biome.Castle);
-			
 			/*PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
-				PatternRegistry, "bounce_0", "bounce_1", "bounce_2"
+				PatternRegistry, "spam_0", "spam_1", "spam_2"
 			), 1f, Biome.Castle);*/
+			
+			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
+				PatternRegistry, "bounce_0", "bounce_1", "bounce_2"
+			), 1f, Biome.Castle);
 		}
 	}
 }

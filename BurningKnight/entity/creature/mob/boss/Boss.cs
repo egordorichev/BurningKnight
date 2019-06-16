@@ -1,3 +1,5 @@
+using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.state;
 using Lens;
 using Lens.entity;
@@ -19,11 +21,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 			} else {
 				Awoken = true;
 
-				if (true) { // fix
+				/*if (true) { // fix
 					SelectAttack();
 					Camera.Instance.Follow(this, 0.6f);
 					return;
-				}
+				}*/
 				
 				Camera.Instance.Targets.Clear();
 				Camera.Instance.Follow(this, 1f);

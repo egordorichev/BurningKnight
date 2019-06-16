@@ -62,8 +62,10 @@ namespace BurningKnight.entity.creature.player {
 				Engine.Instance.Flash = 1f;
 				Engine.Instance.Freeze = 1f;
 
-				Camera.Instance.TextureZoom -= 0.05f;
-				Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);
+				if (Camera.Instance != null) {
+					Camera.Instance.TextureZoom -= 0.05f;
+					Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);					
+				}
 			}
 			
 			return base.HandleEvent(e);

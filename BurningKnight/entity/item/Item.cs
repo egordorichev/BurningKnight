@@ -62,7 +62,11 @@ namespace BurningKnight.entity.item {
 			}
 
 			foreach (var use in Uses) {
-				use.Use(entity, this);
+				try {
+					use.Use(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 
 			Delay = UseTime;

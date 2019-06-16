@@ -1,12 +1,15 @@
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.state;
 using BurningKnight.ui;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
@@ -70,6 +73,11 @@ namespace BurningKnight.entity.creature.bk {
 				
 				exit.To = Run.Depth + 1;
 				exit.Center = Center;
+				
+				var stand = new BossStand();
+				Area.Add(stand);
+				stand.Center = Center - new Vector2(0, 32f);
+				stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
 			}
 			
 			return base.HandleEvent(e);

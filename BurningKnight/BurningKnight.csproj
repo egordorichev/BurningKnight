@@ -289,6 +289,7 @@
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
+    <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />

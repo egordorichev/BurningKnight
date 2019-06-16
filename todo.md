@@ -1,16 +1,4 @@
 # TODO
-
-### items
-
-* d1
-* d6
-* d4
-* d2
-* d8
-* d24
-* hp up without hearts
-* roll damages enemies
-
 ### enable before build
 
 * spawn in lvl 0
@@ -18,6 +6,7 @@
 * darkness shader should be applied to all screen and not just game
 * fix bk attack patterns
 * enable boss animation
+* boss pool / spawn reward
 
 ### item ideas
 
@@ -39,6 +28,9 @@
 
 ### Before josh
 
+* enemies can get stuck in wall
+* unpassable ring room :/
+* not a lot coins dropepd
 * statistics about items/runs
 * iron hearts, half a heart spawning, etc
 * update art for chest
@@ -47,6 +39,15 @@
 * Animate lamp up and down to make it more alive
 * Crash report window
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
+
+### items
+
+* d1
+* d4
+* d2
+* d8
+* d24
+* roll damages enemies
 
 ### fixes
 * camera follow items that are on screen a bit?

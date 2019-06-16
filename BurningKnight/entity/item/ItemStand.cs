@@ -87,10 +87,14 @@ namespace BurningKnight.entity.item {
 
 		public override void AddComponents() {
 			base.AddComponents();
+
+			var g = new SliceComponent("props", GetSprite());
+			AddComponent(g);
+			g.SetOwnerSize();
 			
 			AddTag(Tags.Item);
 			
-			AddComponent(new RectBodyComponent(2, 2, 10, 5, BodyType.Static));
+			AddComponent(new RectBodyComponent(2, 2, Width - 4, Height - 9 BodyType.Static));
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 
 			AddComponent(new InteractableComponent(Interact) {
@@ -98,7 +102,6 @@ namespace BurningKnight.entity.item {
 				OnStart = OnInteractionStart
 			});
 			
-			AddComponent(new SliceComponent("props", GetSprite()));
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new RoomComponent());
 		}

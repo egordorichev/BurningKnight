@@ -475,7 +475,7 @@ namespace BurningKnight.state {
 				toSort = true;
 			}
 			
-			ImGui.Checkbox("Sort", ref sort);
+			ImGui.Checkbox("Sort##srt", ref sort);
 
 			if (sort) {
 				ImGui.SameLine();

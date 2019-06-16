@@ -85,17 +85,7 @@ namespace BurningKnight.entity.component {
 
 		public int MaxHealth {
 			get => maxHealth;
-
-			set {
-				var old = maxHealth;
-				maxHealth = Math.Max(1, value);
-
-				if (old == health) {
-					health = maxHealth;
-				} else {
-					health = Math.Min(maxHealth, Health);
-				}
-			}
+			set => maxHealth = Math.Max(1, value);
 		}
 
 		public int InitMaxHealth {
