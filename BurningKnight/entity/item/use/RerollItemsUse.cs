@@ -115,30 +115,36 @@ namespace BurningKnight.entity.item.use {
 				tps = root["types"] = new JsonArray();
 			}
 
-			var tp = tps.AsJsonArray;
-			var toRemove = -1;
-			var toAdd = -1;
+			if (ImGui.TreeNode("Item types")) {
+				if (ImGui.Checkbox("Ignore those types", ref ignore)) {
+					root["ignore"] = ignore;
+				}
+				
+				ImGui.Separator();
+				
+				var tp = tps.AsJsonArray;
+				var toRemove = -1;
+				var toAdd = -1;
 
-			for (var i = 0; i < ItemEditor.Types.Length; i++) {
-				var v = tp.Contains(i);
+				for (var i = 0; i < ItemEditor.Types.Length; i++) {
+					var v = tp.Contains(i);
 
-				if (ImGui.Checkbox(ItemEditor.Types[i], ref v)) {
-					if (v) {
-						toAdd = tp.IndexOf(i);
-					} else {
-						toRemove = tp.IndexOf(i);
+					if (ImGui.Checkbox(ItemEditor.Types[i], ref v)) {
+						if (v) {
+							toAdd = i;
+						} else {
+							toRemove = tp.IndexOf(i);
+						}
 					}
 				}
-			}
 
-			if (toRemove != -1) {
-				tp.Remove(toRemove);
-			} else if (toAdd != -1) {
-				tp.Add(toAdd);
-			}
-			
-			if (ImGui.Checkbox("Ignore those types", ref ignore)) {
-				root["ignore"] = ignore;
+				if (toRemove != -1) {
+					tp.Remove(toRemove);
+				} else if (toAdd != -1) {
+					tp.Add(toAdd);
+				}
+				
+				ImGui.TreePop();
 			}
 		}
 	}
