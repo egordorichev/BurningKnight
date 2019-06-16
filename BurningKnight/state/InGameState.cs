@@ -628,6 +628,7 @@ namespace BurningKnight.state {
 			LocaleEditor.Render();
 			ItemEditor.Render();
 			RenderSettings();
+			Run.Statistics?.RenderWindow();
 			
 			ImGuiHelper.End();
 			

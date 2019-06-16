@@ -6,5 +6,6 @@ namespace BurningKnight.entity.events {
 		public Entity Who;
 		public Room Old;
 		public Room New;
+		public bool WasDiscovered;
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.level;
 using BurningKnight.save;
+using BurningKnight.save.statistics;
 using Lens;
 using Lens.util;
 using Random = Lens.util.math.Random;
@@ -20,6 +21,7 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
+		public static RunStatistics Statistics;
 		
 		public static int Depth {
 			get => depth;

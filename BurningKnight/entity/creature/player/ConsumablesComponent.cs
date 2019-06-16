@@ -56,7 +56,7 @@ namespace BurningKnight.entity.creature.player {
 			if (amount > 0) {
 				return !Send(new ConsumableAddedEvent {
 					Amount = amount,
-					TotalNow =  totalNow,
+					TotalNow = totalNow,
 					Type = type
 				});	
 			}

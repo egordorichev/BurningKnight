@@ -19,6 +19,7 @@
 
 ### Before josh
 
+* fix item pickup anim again not removing items
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * enemies can get stuck in wall
@@ -28,6 +29,7 @@
 
 ### can wait
 
+* shop sales
 * iron hearts, half a heart spawning, etc
 * update art for chest
 * sk ai
@@ -37,6 +39,7 @@
 
 ### items
 
+* shop sale
 * marshmallow orbital, can be light up
 * d1
 * d4

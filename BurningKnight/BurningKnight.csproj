@@ -268,6 +268,7 @@
     <Compile Include="entity\events\LockClosedEvent.cs" />
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\LostSupportEvent.cs" />
+    <Compile Include="entity\events\MaxHealthModifiedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />

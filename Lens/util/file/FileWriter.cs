@@ -51,6 +51,18 @@ namespace Lens.util.file {
 			WriteByte((byte) (value & 0xFF));
 		}
 
+		public void WriteUInt16(ushort value) {
+			WriteByte((byte) (value >> 8));
+			WriteByte((byte) value);
+		}
+
+		public void WriteUInt32(uint value) {
+			WriteByte((byte) ((value >> 24) & 0xFF));
+			WriteByte((byte) ((value >> 16) & 0xFF));
+			WriteByte((byte) ((value >> 8) & 0xFF));
+			WriteByte((byte) (value & 0xFF));
+		}
+
 		public void WriteString(string str) {
 			if (str == null) {
 				WriteByte(0);

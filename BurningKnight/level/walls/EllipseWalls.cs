@@ -10,6 +10,8 @@ namespace BurningKnight.level.walls {
 			Painter.Fill(level, inside, Random.Chance() ? Tile.WallA : Tile.Planks);
 			Painter.FillEllipse(level, inside, Tiles.RandomFloor());
 
+			// fixme: breaks custom floors
+			
 			var before = Random.Chance();
 
 			if (before) {

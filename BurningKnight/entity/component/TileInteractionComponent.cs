@@ -106,18 +106,18 @@ namespace BurningKnight.entity.component {
 
 		private void CheckSupport() {
 			if (!HadNoSupport && HasNoSupport && !Engine.EditingLevel) {
-				if (Send(new LostSupportEvent {
+				Send(new LostSupportEvent {
 					Who = Entity
-				})) {
-					Entity.Position = LastSupportedPosition;
+				});
+
+				Entity.Position = LastSupportedPosition;
+				
+				for (var i = 0; i < 4; i++) {
+					var part = new ParticleEntity(Particles.Dust());
 					
-					for (var i = 0; i < 4; i++) {
-						var part = new ParticleEntity(Particles.Dust());
-						
-						part.Position = Entity.Center;
-						part.Particle.Scale = Random.Float(0.4f, 0.8f);
-						Entity.Area.Add(part);
-					}
+					part.Position = Entity.Center;
+					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					Entity.Area.Add(part);
 				}
 			}
 		}

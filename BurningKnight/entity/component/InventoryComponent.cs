@@ -12,6 +12,8 @@ namespace BurningKnight.entity.component {
 		public List<Item> Items = new List<Item>();
 
 		public void Pickup(Item item, bool animate = true) {
+			item.Touched = true;
+			
 			if (!Send(new ItemCheckEvent {
 				Item = item,
 				Animate = animate

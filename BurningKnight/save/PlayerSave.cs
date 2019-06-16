@@ -1,4 +1,6 @@
 using BurningKnight.entity.creature.player;
+using BurningKnight.save.statistics;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.util.file;
 
@@ -14,6 +16,10 @@ namespace BurningKnight.save {
 
 		public override void Generate(Area area) {
 			area.Add(new LocalPlayer());
+
+			if (Run.Depth > 0) {
+				area.Add(new RunStatistics());
+			}
 		}
 
 		public PlayerSave() : base(SaveType.Player) {

@@ -22,13 +22,13 @@ namespace BurningKnight.save {
 		static SaveManager() {
 			Log.Info($"Save directory is '{SaveDir}'");
 
-			Savers = new Saver[5];
+			Savers = new Saver[6];
 			Savers[(int) SaveType.Global] = new GlobalSave();
 			Savers[(int) SaveType.Game] = new GameSave();
 			Savers[(int) SaveType.Level] = new LevelSave();
 			Savers[(int) SaveType.Player] = new PlayerSave();
-			Savers[(int) SaveType.Statistics] = new StatisticsSaver();
 			Savers[(int) SaveType.Secret] = new SecretSave();
+			Savers[(int) SaveType.Statistics] = new StatisticsSaver();
 			
 			var saveDirectory = new FileHandle(SaveDir);
 
@@ -42,7 +42,7 @@ namespace BurningKnight.save {
 		}
 
 		public static string GetSavePath(SaveType saveType, bool old = false, string path = null) {
-			return ForType(saveType).GetPath((path ?? (saveType == SaveType.Global || 
+			return ForType(saveType).GetPath((path ?? (saveType == SaveType.Statistics || saveType == SaveType.Global || 
 			                                    (saveType == SaveType.Level && (old ? Run.LastDepth : Run.Depth) < 1) ? 
 				                                  SaveDir : SlotDir)), old);
 		}

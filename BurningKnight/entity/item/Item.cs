@@ -33,6 +33,7 @@ namespace BurningKnight.entity.item {
 		public bool AutoPickup;
 		public bool LoadedSelf;
 		public bool Used;
+		public bool Touched;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -176,6 +177,7 @@ namespace BurningKnight.entity.item {
 			
 			stream.WriteString(Id);
 			stream.WriteBoolean(Used);
+			stream.WriteBoolean(Touched);
 		}
 
 		public void ConvertTo(string id) {
@@ -225,6 +227,7 @@ namespace BurningKnight.entity.item {
 			ConvertTo(Id);
 
 			Used = stream.ReadBoolean();
+			Touched = stream.ReadBoolean();
 		}
 		
 		public override void Update(float dt) {

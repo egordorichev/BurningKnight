@@ -284,8 +284,6 @@ namespace BurningKnight.entity.creature.player {
 					part.Particle.Scale = Random.Float(0.4f, 0.8f);
 					Area.Add(part);
 				}
-				
-				return true;
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();
 

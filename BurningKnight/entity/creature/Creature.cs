@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
@@ -67,8 +68,10 @@ namespace BurningKnight.entity.creature {
 			} else if (e is DiedEvent) {
 				HandleDeath();
 			} else if (e is LostSupportEvent) {
-				Done = true;
-				return true;
+				if (!(this is Player)) {
+					Done = true;
+					return true;
+				}
 			}
 
 			return base.HandleEvent(e);

@@ -57,6 +57,14 @@ namespace Lens.util.file {
 			return (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
 		}
 
+		public ushort ReadUInt16() {
+			return (ushort) ((ReadByte() << 8) | ReadByte());
+		}
+
+		public uint ReadUInt32() {
+			return (uint) ((ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte());
+		}
+
 		public string ReadString() {
 			byte length = ReadByte();
 
