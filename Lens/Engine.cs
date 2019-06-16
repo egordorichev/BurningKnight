@@ -14,13 +14,13 @@ using Microsoft.Xna.Framework.Input;
 namespace Lens {
 	public class Engine : Game {
 #if DEBUG
-		private const bool Debug = true;
+		public const bool Debug = true;
 #else
-		private const bool Debug = false;
+		public const bool Debug = false;
 #endif
 
 		public static bool EditingLevel;
-		public static Version Version = new Version(0, 0, 0, 3, Debug, true);
+		public static Version Version;
 		public static Engine Instance;
 		public static GraphicsDeviceManager Graphics;
 		public new static GraphicsDevice GraphicsDevice;
@@ -55,9 +55,10 @@ namespace Lens {
 			set => Window.Title = value;
 		}
 
-		public Engine(GameState state, string title, int width, int height, bool fullscreen) {
+		public Engine(Version version, GameState state, string title, int width, int height, bool fullscreen) {
 			Instance = this;
 			tmpTitle = title;
+			Version = version;
 
 			Graphics = new GraphicsDeviceManager(this);
 			Graphics.GraphicsProfile = GraphicsProfile.HiDef;

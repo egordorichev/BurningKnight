@@ -471,6 +471,8 @@
     <Compile Include="save\SaveableEntity.cs" />
     <Compile Include="save\SaveManager.cs" />
     <Compile Include="save\SecretSave.cs" />
+    <Compile Include="save\StatisticsSaver.cs" />
+    <Compile Include="save\statistics\RunStatistics.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\AreaDebug.cs" />
     <Compile Include="state\DialogEditorState.cs" />

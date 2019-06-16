@@ -1,13 +1,15 @@
 ﻿namespace Lens {
 	public class Version {
-		public readonly int Major;
-		public readonly int Minor;
-		public readonly int Update;
-		public readonly int Patch;
+		public readonly uint Major;
+		public readonly uint Minor;
+		public readonly uint Update;
+		public readonly uint Patch;
 		public readonly bool Debug;
 		public readonly bool Dev;
+		public readonly uint Id;
 		
-		public Version(int major, int minor, int update, int patch, bool debug, bool test) {
+		public Version(uint id, uint major, uint minor, uint update, uint patch, bool debug, bool test) {
+			Id = id;
 			Major = major;
 			Minor = minor;
 			Update = update;

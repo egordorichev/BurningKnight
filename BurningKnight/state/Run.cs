@@ -8,7 +8,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.state {
 	public static class Run {
 		// fixme
-		private static int depth = 1;
+		private static int depth = Engine.Version.Dev ? 1 : 0;
 		public static int NextDepth { get; private set; } = depth;
 		public static int LastDepth = depth;
 		public static bool StartingNew;

@@ -23,8 +23,7 @@ namespace BurningKnight.entity.creature.bk {
 
 		public static BossAttack<BurningKnight> GetNext(BossPatternSet<BurningKnight> p) {
 			if (Random.Chance(100f / (PatternRegistry.Count + 1))) {
-				// fixme: enable
-				// return (BossAttack<BurningKnight>) Activator.CreateInstance(Attacks[Random.Int(Attacks.Length)]);
+				return (BossAttack<BurningKnight>) Activator.CreateInstance(Attacks[Random.Int(Attacks.Length)]);
 			}
 
 			return p.GetNext();

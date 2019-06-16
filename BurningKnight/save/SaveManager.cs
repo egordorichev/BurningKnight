@@ -27,6 +27,7 @@ namespace BurningKnight.save {
 			Savers[(int) SaveType.Game] = new GameSave();
 			Savers[(int) SaveType.Level] = new LevelSave();
 			Savers[(int) SaveType.Player] = new PlayerSave();
+			Savers[(int) SaveType.Statistics] = new StatisticsSaver();
 			Savers[(int) SaveType.Secret] = new SecretSave();
 			
 			var saveDirectory = new FileHandle(SaveDir);
