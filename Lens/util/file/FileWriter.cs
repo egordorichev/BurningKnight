@@ -11,8 +11,8 @@ namespace Lens.util.file {
 		public int CacheSize => cache.Count;
 		public bool Cache;
 		
-		public FileWriter(string path) {
-			stream = new BinaryWriter(File.Open(path, FileMode.Create));
+		public FileWriter(string path, bool append = false) {
+			stream = new BinaryWriter(File.Open(path, append ? FileMode.Append : FileMode.Create));
 		}
 
 		public void Flush() {

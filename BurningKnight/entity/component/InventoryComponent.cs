@@ -13,6 +13,8 @@ namespace BurningKnight.entity.component {
 
 		public void Pickup(Item item, bool animate = true) {
 			item.Touched = true;
+			Entity.Area.Remove(item);
+			item.Done = false;
 			
 			if (!Send(new ItemCheckEvent {
 				Item = item,
@@ -44,8 +46,6 @@ namespace BurningKnight.entity.component {
 			}
 			
 			Items.Add(item);
-			Entity.Area.Remove(item);
-			item.Done = false;
 
 			item.RemoveDroppedComponents();
 			item.AddComponent(new OwnerComponent(Entity));

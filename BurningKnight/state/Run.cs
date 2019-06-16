@@ -54,7 +54,8 @@ namespace BurningKnight.state {
 			} else {
 				Seed = Random.GenerateSeed();
 			}
-			
+
+			GlobalSave.RunId++;
 			Random.Seed = Seed;
 			Log.Debug($"This run's seed is {Seed}");
 		}

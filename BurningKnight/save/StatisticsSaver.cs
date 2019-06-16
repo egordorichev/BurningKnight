@@ -1,3 +1,4 @@
+using BurningKnight.state;
 using Lens.entity;
 using Lens.util.file;
 
@@ -8,7 +9,7 @@ namespace BurningKnight.save {
 		}
 
 		public override string GetPath(string path, bool old = false) {
-			return $"{path}statistics.sv";
+			return $"{path}/stats/statistics-{GlobalSave.RunId}.sv";
 		}
 
 		public override void Load(Area area, FileReader reader) {
@@ -16,7 +17,10 @@ namespace BurningKnight.save {
 		}
 
 		public override void Save(Area area, FileWriter writer) {
-			
+			var statistics = Run.Statistics;
+
+			statistics.Frozen = true;
+			statistics.Save(writer);
 		}
 
 		public override void Generate(Area area) {

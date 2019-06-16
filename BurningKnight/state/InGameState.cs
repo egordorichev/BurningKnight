@@ -88,7 +88,7 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-
+			
 			Shaders.Screen.Parameters["black"].SetValue(0f);
 			SetupUi();
 
@@ -577,6 +577,7 @@ namespace BurningKnight.state {
 			died = true;
 				
 			new Thread(() => {
+				SaveManager.Save(Area, SaveType.Statistics);
 				SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
 				SaveManager.Backup();
 			}).Start();

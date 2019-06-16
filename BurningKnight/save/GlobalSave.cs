@@ -6,7 +6,8 @@ using Lens.util.file;
 namespace BurningKnight.save {
 	public class GlobalSave : Saver {
 		public static Dictionary<string, string> Values = new Dictionary<string, string>();
-
+		public static uint RunId;
+		
 		public static bool IsTrue(string Key) {
 			return IsTrue(Key, false);
 		}
@@ -52,7 +53,9 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
+			Values.Clear();
 			Settings.Generate();
+			RunId = 0;
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -70,6 +73,7 @@ namespace BurningKnight.save {
 				Values[Key] = Val;
 			}
 
+			RunId = reader.ReadUInt32();
 			Settings.Load();
 		}
 
@@ -81,6 +85,8 @@ namespace BurningKnight.save {
 				writer.WriteString(Pair.Key);
 				writer.WriteString(Pair.Value);
 			}
+			
+			writer.WriteUInt32(RunId);
 		}
 		
 		public override FileHandle GetHandle() {

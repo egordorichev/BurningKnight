@@ -19,16 +19,13 @@
 
 ### Before josh
 
-* fix item pickup anim again not removing items
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * enemies can get stuck in wall
-* unpassable ring room :/
-* not a lot coins dropepd
-* statistics about items/runs
 
 ### can wait
 
+* reset camera following when you tp out from boss battle
 * shop sales
 * iron hearts, half a heart spawning, etc
 * update art for chest
@@ -36,6 +33,8 @@
 * sk dialog
 * Animate lamp up and down to make it more alive
 * Crash report window
+* statistics fixes
+* stats window for multiple file
 
 ### items
 
@@ -50,6 +49,8 @@
 * dull blade
 * wallet buddy (collects money)
 * roll damages enemies
+* teleport to random room
+* teleport to prev room
 
 ### fixes
 * camera follow items that are on screen a bit?

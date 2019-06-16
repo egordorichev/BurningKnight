@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.state.save;
 using ImGuiNET;
@@ -98,6 +99,7 @@ namespace BurningKnight.ui.imgui {
 			}
 
 			if (ImGui.CollapsingHeader("Run info")) {
+				ImGui.Text($"Run ID: {GlobalSave.RunId}");
 				ImGui.Text($"Seed: {Run.Seed}");
 				ImGui.Text($"Kills: {Run.KillCount}");
 				ImGui.Text($"Time: {Run.FormatTime()}");

@@ -22,6 +22,7 @@ namespace BurningKnight.save.statistics {
 	 */
 	public class RunStatistics : SaveableEntity {
 		private const byte Version = 0;
+		public bool Frozen;
 		
 		public float Time;
 		public bool Won;
@@ -166,6 +167,11 @@ namespace BurningKnight.save.statistics {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Frozen) {
+				return;
+			}
+			
 			Time += dt;
 
 			var player = LocalPlayer.Locate(Area);
@@ -182,6 +188,10 @@ namespace BurningKnight.save.statistics {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (Frozen) {
+				return false;
+			}
+			
 			if (e is RoomChangedEvent rce) {
 				if (!rce.WasDiscovered) {
 					RoomsExplored++;

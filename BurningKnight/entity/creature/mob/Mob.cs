@@ -30,6 +30,15 @@ namespace BurningKnight.entity.creature.mob {
 			AddTag(Tags.MustBeKilled);
 			
 			SetStats();
+			
+			GetComponent<DropsComponent>().Add(new SimpleDrop {
+				Chance = 0.1f,
+				Items = new[] {
+					"bk:coin"
+				},
+				
+				Max = 2
+			});
 		}
 
 		protected virtual void SetStats() {
