@@ -60,6 +60,7 @@ namespace BurningKnight.entity.item.use {
 			Register<TeleportToCursorUse>();
 			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<MakeProjectilesSlowDown>(MakeProjectilesSlowDown.RenderDebug);
+			Register<RerollItemsUse>(RerollItemsUse.RenderDebug);
 		}
 	}
 }

@@ -161,7 +161,7 @@ namespace BurningKnight.entity.orbital {
 							s.SetOwnerSize();
 							
 							orbital.RemoveComponent<CircleBodyComponent>();
-							orbital.AddComponent(new CircleBodyComponent(0, 0, Math.Min(orbital.Width, orbital.Height), BodyType.Dynamic, true));
+							orbital.AddComponent(new CircleBodyComponent(0, 0, Math.Min(orbital.Width, orbital.Height) / 2f, BodyType.Dynamic, true));
 
 							Tween.To(1, 1.5f, x => s.Scale.X = x, 0.4f, Ease.ElasticOut);
 							Tween.To(1, 0, x => s.Scale.Y = x, 0.5f, Ease.ElasticOut);

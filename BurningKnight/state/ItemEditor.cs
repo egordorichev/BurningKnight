@@ -31,7 +31,7 @@ namespace BurningKnight.state {
 		
 		// Keep in sync with ItemType enum!!!
 		// (in the same order)
-		private static string[] types = {
+		public static string[] Types = {
 			"artifact",
 			"active",
 			"coin",
@@ -266,7 +266,7 @@ namespace BurningKnight.state {
 
 			var type = (int) selected.Type;
 
-			if (ImGui.Combo("Type", ref type, types, types.Length)) {
+			if (ImGui.Combo("Type", ref type, Types, Types.Length)) {
 				selected.Type = (ItemType) type;
 			}
 
@@ -479,7 +479,7 @@ namespace BurningKnight.state {
 
 			if (sort) {
 				ImGui.SameLine();
-				ImGui.Combo("Type", ref sortType, types, types.Length);
+				ImGui.Combo("Type", ref sortType, Types, Types.Length);
 			}
 
 			var type = (ItemType) sortType;

@@ -329,6 +329,7 @@
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
+    <Compile Include="entity\item\use\RerollItemsUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />

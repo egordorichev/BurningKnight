@@ -22,7 +22,7 @@ namespace BurningKnight.entity.item.use {
 			
 			var damage = settings["damage"].Int(1);
 			var speed = settings["speed"].Number(60);
-			var range = settings["range"].Number(96);
+			var range = settings["range"].Number(0);
 			var slice = settings["texture"].AsString;
 			
 			SpawnProjectile = (entity, item) => {
@@ -35,8 +35,11 @@ namespace BurningKnight.entity.item.use {
 
 				projectile.AddLight(32f, Color.Yellow);
 				projectile.Damage = damage;
-				projectile.Range = range * 0.5f / speed;
-				
+
+				if (range > 0.01f) {
+					projectile.Range = range * 0.5f / speed;
+				}
+
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
 					Region = CommonAse.Particles.GetSlice("shell")
 				}));
@@ -68,7 +71,7 @@ namespace BurningKnight.entity.item.use {
 				root["speed"] = spd;
 			}
 			
-			var range = (float) root["range"].Number(96);
+			var range = (float) root["range"].Number(0);
 
 			if (ImGui.InputFloat("Range", ref range)) {
 				root["range"] = range;
