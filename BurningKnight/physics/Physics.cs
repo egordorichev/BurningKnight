@@ -29,6 +29,26 @@ namespace BurningKnight.physics {
 			var b = contact.FixtureB.Body.UserData;
 
 			if (a is BodyComponent ac && b is BodyComponent bc) {
+				if (ac.Entity.TryGetComponent<CollisionFilterComponent>(out var af)) {
+					var v = af.Invoke(bc.Entity);
+
+					if (v == CollisionResult.Disable) {
+						contact.Enabled = false;
+					} else if (v == CollisionResult.Enable) {
+						return;
+					}
+				}
+				
+				if (bc.Entity.TryGetComponent<CollisionFilterComponent>(out var bf)) {
+					var v = bf.Invoke(ac.Entity);
+
+					if (v == CollisionResult.Disable) {
+						contact.Enabled = false;
+					} else if (v == CollisionResult.Enable) {
+						return;
+					}
+				}
+				
 				if (!ac.ShouldCollide(bc.Entity) || !bc.ShouldCollide(ac.Entity)) {
 					contact.Enabled = false;
 				}

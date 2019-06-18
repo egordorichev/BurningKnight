@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.level;
+using BurningKnight.level.entities;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -21,7 +22,7 @@ using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
-	public class ItemStand : SaveableEntity, PlaceableEntity {
+	public class ItemStand : Prop {
 		private static TextureRegion itemShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);
 		

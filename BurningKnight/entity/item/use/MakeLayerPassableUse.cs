@@ -1,6 +1,9 @@
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.projectile;
+using BurningKnight.level.entities;
+using BurningKnight.physics;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -14,20 +17,24 @@ namespace BurningKnight.entity.item.use {
 		private bool props;
 		private bool walls;
 		
+		// fixme: mobs
+		// fixme: walls break bullets
+		// fixme: bullets reflect off props
+		
 		public override void Use(Entity entity, Item item) {
 			if (forProjectiles) {
 				if (props) {
-					Projectile.ShouldIgnoreProps = true;
+
 				}
 
 				if (walls) {
-					Projectile.ShouldIgnoreWalls = true;
+					
 				}
 			}
 			
 			if (forPlayer) {
 				if (props) {
-					Player.ShouldIgnoreProps = true;
+					CollisionFilterComponent.Add(entity, (o, e) => e is Prop ? CollisionResult.Disable : CollisionResult.Default);
 				}
 
 				if (chasms) {
@@ -35,7 +42,7 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				if (walls) {
-					Player.ShouldIgnoreWalls = true;
+
 				}
 			}	
 		}

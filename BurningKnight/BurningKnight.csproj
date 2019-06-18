@@ -140,6 +140,7 @@
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\CloseDialogComponent.cs" />
+    <Compile Include="entity\component\CollisionFilterComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\DropModifier.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />
@@ -459,6 +460,7 @@
     <Compile Include="level\walls\WallPainter.cs" />
     <Compile Include="level\walls\WallRegistry.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
+    <Compile Include="physics\CollisionResult.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

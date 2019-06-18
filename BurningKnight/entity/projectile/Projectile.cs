@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -20,6 +22,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+	public delegate CollisionResult ProjectileCollisionCallback();
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public BodyComponent BodyComponent;
@@ -42,7 +45,7 @@ namespace BurningKnight.entity.projectile {
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
-
+			
 			projectile.Scale = scale;
 			projectile.Slice = slice;
 			projectile.Parent = parent;
@@ -113,9 +116,9 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
-			return entity != Owner && (!(entity is Creature c) || Owner is Mob != entity is Mob) && 
-			       (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() || 
-			        entity is DestroyableLevel || (!ShouldIgnoreProps && (entity is SolidProp || entity is ItemStand)));
+			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
+			       (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) 
+								|| entity.HasComponent<HealthComponent>() || entity is Prop);
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -144,11 +147,8 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
-		public static bool ShouldIgnoreProps;
-		public static bool ShouldIgnoreWalls;
-
 		public bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || (!ShouldIgnoreProps && entity is Prop) || (!ShouldIgnoreWalls && (entity is Level || entity is DestroyableLevel)));
+			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile);
 		}
 
 		public void Break() {

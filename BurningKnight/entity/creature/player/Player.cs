@@ -263,11 +263,8 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		public static bool ShouldIgnoreProps;
-		public static bool ShouldIgnoreWalls;
-
 		public override bool ShouldCollide(Entity entity) {
-			return (!ShouldIgnoreWalls || !(entity is DestroyableLevel || entity is Level)) && (!ShouldIgnoreProps || !(entity is Prop)) && (!(entity is Player) && base.ShouldCollide(entity));
+			return !(entity is Player) && base.ShouldCollide(entity);
 		}
 
 		public override bool InAir() {
