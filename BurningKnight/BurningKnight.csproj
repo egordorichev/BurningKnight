@@ -321,6 +321,7 @@
     <Compile Include="entity\item\use\GiveItemUse.cs" />
     <Compile Include="entity\item\use\GiveKeyUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
+    <Compile Include="entity\item\use\MakeLayerPassableUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBounceUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesHomeInUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesShatternOnDeathUse.cs" />

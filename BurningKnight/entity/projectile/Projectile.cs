@@ -115,7 +115,7 @@ namespace BurningKnight.entity.projectile {
 		protected bool BreaksFrom(Entity entity) {
 			return entity != Owner && (!(entity is Creature c) || Owner is Mob != entity is Mob) && 
 			       (entity is Level || (entity is Door d && !d.Open) || entity.HasComponent<HealthComponent>() || 
-			        entity is SolidProp || entity is DestroyableLevel || entity is ItemStand);
+			        entity is DestroyableLevel || (!ShouldIgnoreProps && (entity is SolidProp || entity is ItemStand)));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -144,8 +144,11 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
+		public static bool ShouldIgnoreProps;
+		public static bool ShouldIgnoreWalls;
+
 		public bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is Prop);
+			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || (!ShouldIgnoreProps && entity is Prop) || (!ShouldIgnoreWalls && (entity is Level || entity is DestroyableLevel)));
 		}
 
 		public void Break() {

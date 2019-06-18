@@ -58,9 +58,10 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectilesShatternOnDeathUse>();
 			Register<MakeProjectilesBounceUse>(MakeProjectilesBounceUse.RenderDebug);
 			Register<MakeProjectilesHomeInUse>(MakeProjectilesHomeInUse.RenderDebug);
-			Register<TeleportToCursorUse>();
-			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<MakeProjectilesSlowDown>(MakeProjectilesSlowDown.RenderDebug);
+			Register<TeleportToCursorUse>();
+			Register<MakeLayerPassableUse>(MakeLayerPassableUse.RenderDebug);
+			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<RerollItemsUse>(RerollItemsUse.RenderDebug);
 		}
 	}

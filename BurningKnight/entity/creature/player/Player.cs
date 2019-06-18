@@ -6,6 +6,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -262,8 +263,11 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
+		public static bool ShouldIgnoreProps;
+		public static bool ShouldIgnoreWalls;
+
 		public override bool ShouldCollide(Entity entity) {
-			return !(entity is Player) && base.ShouldCollide(entity);
+			return (!ShouldIgnoreWalls || !(entity is DestroyableLevel || entity is Level)) && (!ShouldIgnoreProps || !(entity is Prop)) && (!(entity is Player) && base.ShouldCollide(entity));
 		}
 
 		public override bool InAir() {
