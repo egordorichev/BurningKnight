@@ -342,7 +342,9 @@
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
     <Compile Include="entity\item\use\SpawnItemsUse.cs" />
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
+    <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
+    <Compile Include="entity\item\use\UseOnEventUse.cs" />
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />

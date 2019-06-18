@@ -52,7 +52,7 @@ namespace BurningKnight.state {
 			ImGui.PushID(ud);
 			ud++;
 			
-			if (!root.IsJsonArray) {
+			if (!root.IsJsonArray && parent != JsonValue.Null) {
 				if (ImGui.Button("-")) {
 					if (parent.IsJsonArray) {
 						toRemove = parent.AsJsonArray.IndexOf(root);

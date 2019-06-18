@@ -63,6 +63,8 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeLayerPassableUse>(MakeLayerPassableUse.RenderDebug);
 			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<RerollItemsUse>(RerollItemsUse.RenderDebug);
+			Register<SpawnProjectilesUse>(SpawnProjectilesUse.RenderDebug);
+			Register<UseOnEventUse>(UseOnEventUse.RenderDebug);
 		}
 	}
 }
