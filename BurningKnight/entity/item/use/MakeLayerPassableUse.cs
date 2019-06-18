@@ -1,7 +1,9 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
 using ImGuiNET;
@@ -16,22 +18,9 @@ namespace BurningKnight.entity.item.use {
 		private bool chasms;
 		private bool props;
 		private bool walls;
-		
-		// fixme: mobs
-		// fixme: walls break bullets
-		// fixme: bullets reflect off props
-		
+		private bool mobs;
+
 		public override void Use(Entity entity, Item item) {
-			if (forProjectiles) {
-				if (props) {
-
-				}
-
-				if (walls) {
-					
-				}
-			}
-			
 			if (forPlayer) {
 				if (props) {
 					CollisionFilterComponent.Add(entity, (o, e) => e is Prop ? CollisionResult.Disable : CollisionResult.Default);
@@ -42,9 +31,29 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				if (walls) {
-
+					CollisionFilterComponent.Add(entity, (o, en) => en is Level || en is DestroyableLevel ? CollisionResult.Disable : CollisionResult.Default);
 				}
 			}	
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is ProjectileCreatedEvent pce) {
+				if (forProjectiles) {
+					if (props) {
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Prop ? CollisionResult.Disable : CollisionResult.Default);
+					}
+
+					if (walls) {
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is DestroyableLevel ? CollisionResult.Disable : CollisionResult.Default);
+					}
+
+					if (mobs) {
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Creature ? CollisionResult.Disable : CollisionResult.Default);
+					}
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -55,6 +64,7 @@ namespace BurningKnight.entity.item.use {
 			chasms = settings["ic"].Bool(false);
 			props = settings["ip"].Bool(false);
 			walls = settings["iw"].Bool(false);
+			mobs = settings["im"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -88,6 +98,12 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.Checkbox("Ignore walls", ref v)) {
 				root["iw"] = v;
+			}
+			
+			v = root["im"].Bool(false);
+
+			if (ImGui.Checkbox("Ignore mobs", ref v)) {
+				root["im"] = v;
 			}
 		}
 	}

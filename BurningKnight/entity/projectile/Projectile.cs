@@ -116,6 +116,12 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
+			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
+				if (c.Invoke(entity) == CollisionResult.Disable) {
+					return false;
+				} 
+			}
+			
 			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
 			       (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) 
 								|| entity.HasComponent<HealthComponent>() || entity is Prop);
@@ -137,10 +143,10 @@ namespace BurningKnight.entity.projectile {
 					} else {
 						AnimateDeath();
 					}
+				}
 					
-					if (ev.Entity is DestroyableLevel lvl) {
-						lvl.Break(CenterX, CenterY);
-					}
+				if (ev.Entity is DestroyableLevel lvl) {
+					lvl.Break(CenterX, CenterY);
 				}
 			}
 			
