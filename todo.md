@@ -41,6 +41,9 @@
 
 ### items
 
+* duck gun (high knockback, high damage, slow big projectile)
+* portal gun (bullets fire from your cursor to your gun)
+* item that makes your bullets warp through screen
 * shop sale
 * marshmallow orbital, can be light up
 * d1
@@ -73,9 +76,6 @@
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * fix nodes requiring to hit enter to set their name
-
-* Add a few weapons for melee, magic and ranged
-* Add a few artifacts
 
 ### Important
 

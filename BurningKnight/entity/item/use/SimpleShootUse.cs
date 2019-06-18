@@ -5,11 +5,10 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
-using BurningKnight.entity.projectile.pattern;
 using ImGuiNET;
-using Lens.assets;
 using Lens.input;
 using Lens.lightJson;
+using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Num = System.Numerics;
@@ -17,27 +16,51 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.use {
 	public class SimpleShootUse : ShootUse {
+		private int damage;
+		private float speed;
+		private float speedMax;
+		private float range;
+		private float scaleMin;
+		private float scaleMax;
+		private string slice;
+		private float accuracy;
+		private int count;
+		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			
-			var damage = settings["damage"].Int(1);
-			var speed = settings["speed"].Number(60);
-			var range = settings["range"].Number(0);
-			var slice = settings["texture"].AsString;
+			damage = settings["damage"].Int(1);
+			speed = settings["speed"].Number(6);
+			speedMax = settings["speedm"].Number(10);
+			range = settings["range"].Number(0);
+			scaleMin = settings["scale"].Number(1);
+			scaleMax = settings["scalem"].Number(1);
+			slice = settings["texture"].AsString;
+			accuracy = settings["accuracy"].Number(0).ToRadians();
+			count = settings["amount"].Int(1);
 			
 			SpawnProjectile = (entity, item) => {
-				var angle = entity.AngleTo(Input.Mouse.GamePosition);
-				var antiAngle = angle - (float) Math.PI;
-				var projectile = Projectile.Make(entity, slice, angle, speed);
+				var a = entity.AngleTo(Input.Mouse.GamePosition);
 
-				Camera.Instance.Push(antiAngle, 4f);
-				entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f);
+				for (var i = 0; i < count; i++) {
+					var angle = a;
+					
+					if (count == 1 || i > 0) {
+						angle += Random.Float(-accuracy / 2f, accuracy / 2f);
+					}
 
-				projectile.AddLight(32f, Color.Yellow);
-				projectile.Damage = damage;
+					var antiAngle = angle - (float) Math.PI;
+					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), true, 0, null, Random.Float(scaleMin, scaleMax));
 
-				if (range > 0.01f) {
-					projectile.Range = range * 0.5f / speed;
+					Camera.Instance.Push(antiAngle, 4f);
+					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f);
+
+					projectile.AddLight(32f, Color.Yellow);
+					projectile.Damage = damage;
+
+					if (range > 0.01f) {
+						projectile.Range = range * 0.5f / speed;
+					}
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
@@ -48,12 +71,14 @@ namespace BurningKnight.entity.item.use {
 				entity.Area.Add(p);
 
 				var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
-				
-				p.Particle.Velocity = new Vector2(f * Random.Float(40, 50), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+
+				p.Particle.Velocity =
+					new Vector2(f * Random.Float(40, 50), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+
 				p.Particle.Angle = 0;
 				p.Particle.Zv = Random.Float(1.5f, 2.5f);
 				p.Particle.AngleVelocity = f * Random.Float(40, 70);
-				
+
 				p.AddShadow();
 			};
 		}
@@ -65,18 +90,48 @@ namespace BurningKnight.entity.item.use {
 				root["damage"] = val;
 			}
 			
-			var spd = (float) root["speed"].Number(60);
+			var amount = root["amount"].Int(1);
+
+			if (ImGui.InputInt("Amount", ref amount)) {
+				root["amount"] = amount;
+			}
+			
+			var spd = (float) root["speed"].Number(6);
 
 			if (ImGui.InputFloat("Speed", ref spd)) {
 				root["speed"] = spd;
 			}
 			
+			var spdm = (float) root["speedm"].Number(10);
+
+			if (ImGui.InputFloat("Max Speed", ref spdm)) {
+				root["speedm"] = spdm;
+			}
+			
+			var scale = (float) root["scale"].Number(1);
+
+			if (ImGui.InputFloat("Min Scale", ref scale)) {
+				root["scale"] = scale;
+			}
+			
+			var scalem = (float) root["scalem"].Number(1);
+
+			if (ImGui.InputFloat("Max Scale", ref scalem)) {
+				root["scalem"] = scalem;
+			}
+
 			var range = (float) root["range"].Number(0);
 
 			if (ImGui.InputFloat("Range", ref range)) {
 				root["range"] = range;
 			}
 			
+			var accuracy = (float) root["accuracy"].Number(0);
+
+			if (ImGui.InputFloat("accuracy", ref accuracy)) {
+				root["accuracy"] = accuracy;
+			}
+
 			var slice = root["texture"].String("");
 			var region = CommonAse.Projectiles.GetSlice(slice);
 			
