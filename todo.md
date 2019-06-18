@@ -10,6 +10,8 @@
 * way to skip the boss battle but get harder game
 * difficulty progression through the fight
 * Learning to avoid the last attack that killed him
+* slime pattern
+* bouncy pattern -> another transformation?
 
 * Boss door
 * Cool intro
@@ -25,6 +27,7 @@
 
 ### can wait
 
+* remove items that you have from pools (flag on item, if they can appear multiple times)
 * reset camera following when you tp out from boss battle
 * shop sales
 * iron hearts, half a heart spawning, etc
@@ -51,6 +54,8 @@
 * roll damages enemies
 * teleport to random room
 * teleport to prev room
+* egg: spawns a familiar after a while?
+* egg: needs to be cracked
 
 ### fixes
 * camera follow items that are on screen a bit?
@@ -136,6 +141,7 @@
 
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
+* trash goblin (gaz)
 
 ### Special rooms
 

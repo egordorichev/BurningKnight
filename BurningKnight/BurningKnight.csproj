@@ -167,6 +167,7 @@
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
     <Compile Include="entity\component\SliceComponent.cs" />
+    <Compile Include="entity\component\StatsComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\component\WallAnimationComponent.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBounceUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesHomeInUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesShatternOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSlowDown.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />

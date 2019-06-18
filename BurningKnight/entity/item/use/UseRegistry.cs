@@ -55,6 +55,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DiscoverSecretRoomsUse>(DiscoverSecretRoomsUse.RenderDebug);
 			Register<ModifyStatUse>(ModifyStatUse.RenderDebug);
 			Register<MakeProjectilesSplitOnDeathUse>();
+			Register<MakeProjectilesShatternOnDeathUse>();
 			Register<MakeProjectilesBounceUse>(MakeProjectilesBounceUse.RenderDebug);
 			Register<MakeProjectilesHomeInUse>(MakeProjectilesHomeInUse.RenderDebug);
 			Register<TeleportToCursorUse>();

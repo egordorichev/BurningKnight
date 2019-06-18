@@ -35,13 +35,15 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileUpdateCallback Controller;
 		public Projectile Parent;
 		public string Slice;
+		public float Scale;
 		
 		internal Projectile() {}
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
+			projectile.Scale = scale;
 			projectile.Slice = slice;
 			projectile.Parent = parent;
 			projectile.Owner = owner;
@@ -50,8 +52,8 @@ namespace BurningKnight.entity.projectile {
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
 
-			var w = graphics.Sprite.Source.Width;
-			var h = graphics.Sprite.Source.Height;
+			var w = graphics.Sprite.Source.Width * scale;
+			var h = graphics.Sprite.Source.Height * scale;
 
 			projectile.Width = w;
 			projectile.Height = h;
