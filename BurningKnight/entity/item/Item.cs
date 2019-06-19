@@ -28,7 +28,7 @@ namespace BurningKnight.entity.item {
 		public string Name => Masked ? "???" : Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
-		public float Delay { get; protected set; }
+		public float Delay;
 		public string Animation;
 		public bool AutoPickup;
 		public bool LoadedSelf;
@@ -71,7 +71,7 @@ namespace BurningKnight.entity.item {
 				}
 			}
 
-			Delay = UseTime;
+			Delay = Math.Abs(UseTime);
 
 			HandleEvent(new ItemUsedEvent {
 				Item = this,
@@ -234,7 +234,10 @@ namespace BurningKnight.entity.item {
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			Delay = Math.Max(0, Delay - dt);
+
+			if (Type != ItemType.Active || UseTime < 0) {
+				Delay = Math.Max(0, Delay - dt);
+			}
 		}
 
 		public bool ShouldCollide(Entity entity) {

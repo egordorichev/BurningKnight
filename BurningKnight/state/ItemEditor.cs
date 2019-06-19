@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
@@ -308,10 +309,24 @@ namespace BurningKnight.state {
 
 			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
 				if (t == ItemType.Active) {
-					var v = (int) selected.UseTime;
+					var d = selected.UseTime < 0;
 
-					if (ImGui.InputInt("Charges", ref v)) {
-						selected.UseTime = v;
+					if (ImGui.Checkbox("Auto charge", ref d)) {
+						selected.UseTime = Math.Abs(selected.UseTime) * (d ? -1 : 1);
+					}
+					
+					if (!d) {
+						var v = (int) selected.UseTime;
+
+						if (ImGui.InputInt("Charges", ref v)) {
+							selected.UseTime = v;
+						}
+					} else {
+						var v = -selected.UseTime;
+
+						if (ImGui.InputFloat("Charge time", ref v)) {
+							selected.UseTime = -v;
+						}
 					}
 				} else if (t == ItemType.Weapon) {
 					ImGui.InputFloat("Use time", ref selected.UseTime);

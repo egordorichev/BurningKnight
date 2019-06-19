@@ -104,6 +104,15 @@ namespace BurningKnight.entity.creature.mob {
 				if (collisionEnd.Entity.HasComponent<HealthComponent>()) {
 					CollidingToHurt.Remove(collisionEnd.Entity);
 				}
+			} else if (e is DiedEvent de) {
+				var r = GetComponent<RoomComponent>().Room;
+				
+				if (r != null && r.Tagged[Tags.MustBeKilled].Count == 1) {
+					de.From.HandleEvent(new RoomClearedEvent {
+						Room = r
+					});
+				}
+
 			}
 			
 			return base.HandleEvent(e);

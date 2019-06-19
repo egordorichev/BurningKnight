@@ -222,9 +222,9 @@ namespace BurningKnight.ui {
 
 			if (item != null) {
 				var region = item.Region;
-				var timed = true;
-				var chargeMax = item.UseTime;
-				var charge = timed ? item.UseTime - item.Delay : (float) Math.Floor(item.Delay);
+				var timed = item.UseTime < 0;
+				var chargeMax = Math.Abs(item.UseTime);
+				var charge = timed ? chargeMax - item.Delay : (float) Math.Floor(chargeMax - item.Delay);
 
 				if (region != null) {
 					var p = new Vector2(
@@ -275,11 +275,13 @@ namespace BurningKnight.ui {
 						for (var i = 0; i < charge; i++) {
 							Graphics.Render(activeFull, pos + new Vector2(0, barH - (i + 1) * cellH), 0, Vector2.Zero,
 								new Vector2(1, cellH - 1));
-
-							if (i < chargeMax - 1) {
-								Graphics.Render(activeSide, pos + new Vector2(0, barH - 1 - (i + 1) * cellH));
-							}
 						}
+					}
+				}
+
+				if (!timed) {
+					for (var i = 0; i < chargeMax - 1; i++) {
+						Graphics.Render(activeSide, pos + new Vector2(0, barH - 1 - (i + 1) * cellH));
 					}
 				}
 			}

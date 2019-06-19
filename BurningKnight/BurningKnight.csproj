@@ -275,6 +275,7 @@
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
+    <Compile Include="entity\events\RoomClearedEvent.cs" />
     <Compile Include="entity\events\SaveEndedEvent.cs" />
     <Compile Include="entity\events\SaveStartedEvent.cs" />
     <Compile Include="entity\events\SecretRoomFoundEvent.cs" />
