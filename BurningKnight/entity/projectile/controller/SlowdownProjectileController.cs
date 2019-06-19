@@ -16,10 +16,10 @@ namespace BurningKnight.entity.projectile.controller {
 
 				b.Velocity -= v * (speed * dt);
 
-				if (b.Velocity.Length() < 0.1f) {
+				if (b.Velocity.Length() < 1f) {
 					stopped = true;
 					
-					Timer.Add(() => { p.Break(); }, time);
+					Timer.Add(p.Break, time);
 				}
 			};
 		}

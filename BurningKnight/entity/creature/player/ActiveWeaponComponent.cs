@@ -16,8 +16,10 @@ namespace BurningKnight.entity.creature.player {
 
 			var controller = GetComponent<GamepadComponent>().Controller;
 
-			if (Item != null && Input.WasPressed(Controls.Use, controller)) {
-				Item.Use((Player) Entity);
+			if (Item != null) {
+				if (Input.WasPressed(Controls.Use, controller) || (Item.Automatic && Input.IsDown(Controls.Use, controller) && Item.Delay <= 0.001f)) {
+					Item.Use((Player) Entity);
+				}
 			}
 	
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0) {

@@ -234,6 +234,7 @@ namespace BurningKnight.state {
 			}
 			
 			var show = true;
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 			if (!ImGui.Begin("Item editor", ref show, ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
@@ -245,6 +246,39 @@ namespace BurningKnight.state {
 				return;
 			}
 			
+			if (ImGui.Button("Give")) {
+				LocalPlayer.Locate(Engine.Instance.State.Area)
+					?.GetComponent<InventoryComponent>()
+					.Pickup(Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					));
+			}
+
+			if (player != null) {
+				ImGui.SameLine();
+
+				if (ImGui.Button("Spawn")) {
+					var item = Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					);
+
+					item.Center = player.Center;
+				}
+				
+				ImGui.SameLine();
+
+				if (ImGui.Button("Spawn on stand")) {
+					var stand = new ItemStand();
+					Engine.Instance.State.Area.Add(stand);
+					var item = Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					);
+
+					stand.Center = player.Center;
+					stand.SetItem(item, null);
+				}
+			}
+
 			var name = Locale.Get(selected.Id);
 			var region = CommonAse.Items.GetSlice(selected.Id);
 			var animated = selected.Animation != null;
@@ -273,8 +307,15 @@ namespace BurningKnight.state {
 			var t = selected.Type;
 
 			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
-				if (t == ItemType.Active || t == ItemType.Weapon) {
+				if (t == ItemType.Active) {
+					var v = (int) selected.UseTime;
+
+					if (ImGui.InputInt("Charges", ref v)) {
+						selected.UseTime = v;
+					}
+				} else if (t == ItemType.Weapon) {
 					ImGui.InputFloat("Use time", ref selected.UseTime);
+					ImGui.Checkbox("Automatic", ref selected.Automatic);
 				}
 
 				ImGui.Checkbox("Auto pickup", ref selected.AutoPickup);
@@ -326,22 +367,10 @@ namespace BurningKnight.state {
 
 			ImGui.Separator();
 			
-			if (ImGui.Button("Give")) {
-				LocalPlayer.Locate(Engine.Instance.State.Area)
-					?.GetComponent<InventoryComponent>()
-					.Pickup(Items.CreateAndAdd(
-						selected.Id, Engine.Instance.State.Area
-					));
-			}
-			
-			ImGui.SameLine();
-			
 			if (ImGui.Button("Delete")) {
 				Items.Datas.Remove(selected.Id);
 				selected = null;
 			}
-
-			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 			if (selected != null && player != null) {
 				var id = selected.Id;
@@ -500,6 +529,16 @@ namespace BurningKnight.state {
 				
 				if (filter.PassFilter(i.Id) && (!sort || i.Type == type) && ImGui.Selectable(i.Id, i == selected)) {
 					selected = i;
+
+					if (ImGui.IsMouseDown(1)) {
+						if (ImGui.Button("Give")) {
+							LocalPlayer.Locate(Engine.Instance.State.Area)
+								?.GetComponent<InventoryComponent>()
+								.Pickup(Items.CreateAndAdd(
+									selected.Id, Engine.Instance.State.Area
+								));
+						}
+					}
 				}
 
 				ImGui.PopID();

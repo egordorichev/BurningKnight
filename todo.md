@@ -21,6 +21,7 @@
 
 ### Before josh
 
+* active item charge rework, battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * enemies can get stuck in wall
@@ -51,6 +52,8 @@
 * d2
 * d8
 * d24
+* matches (sets you on fire)
+* item that makes bombs explode faster
 * sharp blade
 * dull blade
 * wallet buddy (collects money)

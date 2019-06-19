@@ -120,6 +120,7 @@ namespace BurningKnight.assets.items {
 				Renderer = item["renderer"],
 				Animation = animation,
 				AutoPickup = pickup,
+				Automatic = item["auto"],
 				Chance = Chance.Parse(item["chance"])
 			};
 			
@@ -210,6 +211,7 @@ namespace BurningKnight.assets.items {
 				Type = data.Type,
 				AutoPickup = data.AutoPickup,
 				Animation = data.Animation,
+				Automatic = data.Automatic,
 				Uses = ParseUses(data.Uses)
 			};
 			

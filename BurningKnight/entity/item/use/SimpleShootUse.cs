@@ -25,6 +25,7 @@ namespace BurningKnight.entity.item.use {
 		private string slice;
 		private float accuracy;
 		private int count;
+		private string prefab;
 		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
@@ -38,9 +39,11 @@ namespace BurningKnight.entity.item.use {
 			slice = settings["texture"].AsString;
 			accuracy = settings["accuracy"].Number(0).ToRadians();
 			count = settings["amount"].Int(1);
+			prefab = settings["prefab"].String("");
 			
 			SpawnProjectile = (entity, item) => {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
+				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 
 				for (var i = 0; i < count; i++) {
 					var angle = a;
@@ -61,6 +64,8 @@ namespace BurningKnight.entity.item.use {
 					if (range > 0.01f) {
 						projectile.Range = range * 0.5f / speed;
 					}
+
+					pr?.Invoke(projectile);
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
@@ -128,8 +133,18 @@ namespace BurningKnight.entity.item.use {
 			
 			var accuracy = (float) root["accuracy"].Number(0);
 
-			if (ImGui.InputFloat("accuracy", ref accuracy)) {
+			if (ImGui.InputFloat("Accuracy", ref accuracy)) {
 				root["accuracy"] = accuracy;
+			}
+			
+			var prefab = root["prefab"].String("");
+
+			if (ImGui.InputText("Prefab", ref prefab, 128)) {
+				root["prefab"] = prefab;
+			}
+
+			if (prefab.Length > 0 && ProjectileRegistry.Get(prefab) == null) {
+				ImGui.BulletText("Unknown prefab");
 			}
 
 			var slice = root["texture"].String("");

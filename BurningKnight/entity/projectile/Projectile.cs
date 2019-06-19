@@ -39,6 +39,7 @@ namespace BurningKnight.entity.projectile {
 		public Projectile Parent;
 		public string Slice;
 		public float Scale;
+		public bool BreaksFromWalls = true;
 		
 		internal Projectile() {}
 
@@ -123,8 +124,8 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
-			       (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) 
-								|| entity.HasComponent<HealthComponent>() || entity is Prop);
+			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) || entity is Prop)
+			        || entity.HasComponent<HealthComponent>());
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -34,6 +34,7 @@ namespace BurningKnight.entity.item {
 		public bool LoadedSelf;
 		public bool Used;
 		public bool Touched;
+		public bool Automatic;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -198,6 +199,7 @@ namespace BurningKnight.entity.item {
 			Renderer = item.Renderer;
 			Animation = item.Animation;
 			AutoPickup = item.AutoPickup;
+			Automatic = item.Automatic;
 			Type = item.Type;
 			Id = id;
 			Used = false;

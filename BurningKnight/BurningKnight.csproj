@@ -337,6 +337,7 @@
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
+    <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
@@ -363,6 +364,7 @@
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />
+    <Compile Include="entity\projectile\ProjectileRegistry.cs" />
     <Compile Include="entity\projectile\ProjectileTemplate.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
