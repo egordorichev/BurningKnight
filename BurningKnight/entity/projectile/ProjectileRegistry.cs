@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
+using Lens.input;
 
 namespace BurningKnight.entity.projectile {
 	public static class ProjectileRegistry {
@@ -94,6 +95,11 @@ namespace BurningKnight.entity.projectile {
 			// not allow to fire until projectile is gone
 			Add("duck", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+			});
+			
+			Add("portal", p => {
+				p.Center = Input.Mouse.GamePosition;
+				p.GetAnyComponent<BodyComponent>().Velocity *= -1;
 			});
 		}
 	}
