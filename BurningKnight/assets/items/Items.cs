@@ -67,6 +67,7 @@ namespace BurningKnight.assets.items {
 				data["type"] = (int) item.Type;
 				data["chance"] = item.Chance.ToJson();
 				data["auto_pickup"] = item.AutoPickup;
+				data["auto"] = item.Automatic;
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;

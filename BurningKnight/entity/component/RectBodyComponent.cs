@@ -11,6 +11,7 @@ namespace BurningKnight.entity.component {
 			if (center) {
 				x -= w / 2;
 				y -= h / 2;
+				Offset = new Vector2(w / 2, h / 2);
 			}
 
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);

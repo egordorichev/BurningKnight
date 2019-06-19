@@ -64,9 +64,9 @@ namespace BurningKnight.entity.projectile {
 			projectile.Center = owner.Center;
 
 			if (circle) {
-				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f));
+				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
 			} else {
-				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h));
+				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
 			}
 
 			speed *= 10f;
@@ -140,7 +140,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 				
-				if (((CanHitOwner && ev.Entity == Owner) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (((CanHitOwner && ev.Entity == Owner && T > 0.3f) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				

@@ -28,6 +28,7 @@ namespace BurningKnight.entity.item.use {
 		private string prefab;
 		private bool light;
 		private float knockback;
+		private bool rect;
 		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
@@ -44,6 +45,7 @@ namespace BurningKnight.entity.item.use {
 			prefab = settings["prefab"].String("");
 			light = settings["light"].Bool(true);
 			knockback = settings["knockback"].Number(1);
+			rect = settings["rect"].Bool(false);
 
 			SpawnProjectile = (entity, item) => {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
@@ -57,7 +59,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), true, 0, null, Random.Float(scaleMin, scaleMax));
+					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax));
 
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
@@ -154,6 +156,12 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.Checkbox("Light", ref light)) {
 				root["light"] = light;
+			}
+			
+			var rect = root["rect"].Bool(false);
+
+			if (ImGui.Checkbox("Rect body", ref rect)) {
+				root["rect"] = rect;
 			}
 			
 			var prefab = root["prefab"].String("");

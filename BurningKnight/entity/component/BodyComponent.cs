@@ -17,6 +17,7 @@ namespace BurningKnight.entity.component {
 		public Vector2 Acceleration;
 		public Vector2 Knockback;
 		public float KnockbackModifier = 1;
+		public Vector2 Offset;
 		
 		public Vector2 Velocity {
 			get => Body.LinearVelocity;
@@ -36,7 +37,7 @@ namespace BurningKnight.entity.component {
 		protected virtual void PositionChangedListener() {
 			if (Body != null) {
 				try {
-					Body.Position = Entity.Position;
+					Body.Position = Entity.Position + Offset;
 				} catch (Exception e) {
 					Log.Error(e);
 				}
@@ -48,7 +49,7 @@ namespace BurningKnight.entity.component {
 			Entity.PositionChanged += PositionChangedListener;
 			
 			if (Body != null) {
-				Body.Position = Entity.Position;
+				Body.Position = Entity.Position + Offset;
 			}
 		}
 
@@ -129,7 +130,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			Body.LinearVelocity = velocity;
-			Entity.Position = Body.Position;
+			Entity.Position = Body.Position - Offset;
 		}
 
 		public override void Load(FileReader reader) {

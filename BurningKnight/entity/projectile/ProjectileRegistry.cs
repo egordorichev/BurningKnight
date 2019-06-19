@@ -30,7 +30,6 @@ namespace BurningKnight.entity.projectile {
 				p.GetComponent<CircleBodyComponent>().Body.AngularVelocity = 32f;
 
 				// todo: spin
-				// todo: hit player
 			});
 			
 			Add("grenade", p => {
@@ -50,7 +49,6 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
-			// fixme: rect shape
 			// todo: rotation
 			Add("missile", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);

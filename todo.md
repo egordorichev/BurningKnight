@@ -21,6 +21,9 @@
 
 ### Before josh
 
+* projectile rotation (disk, missile)
+* guns dont fire another bullet till first is done option
+
 * active item charge rework, battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
@@ -28,6 +31,7 @@
 
 ### can wait
 
+* shop generate item pool when generating and remove items (no samey)
 * remove items that you have from pools (flag on item, if they can appear multiple times)
 * reset camera following when you tp out from boss battle
 * shop sales
@@ -62,6 +66,8 @@
 * teleport to prev room
 * egg: spawns a familiar after a while?
 * egg: needs to be cracked
+* there are options
+* curse of unknown items
 
 ### fixes
 * camera follow items that are on screen a bit?
