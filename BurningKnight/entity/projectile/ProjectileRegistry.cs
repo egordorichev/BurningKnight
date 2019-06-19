@@ -27,9 +27,7 @@ namespace BurningKnight.entity.projectile {
 				p.BounceLeft += 10;
 				p.CanHitOwner = true;
 
-				p.GetComponent<CircleBodyComponent>().Body.AngularVelocity = 32f;
-
-				// todo: spin
+				p.GetComponent<CircleBodyComponent>().Body.AngularVelocity = 10f;
 			});
 			
 			Add("grenade", p => {
@@ -49,7 +47,6 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
-			// todo: rotation
 			Add("missile", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
 				
@@ -60,8 +57,6 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
-			// todo: rotation
-			// not allow to fire until projectile is gone
 			Add("follower", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
 				

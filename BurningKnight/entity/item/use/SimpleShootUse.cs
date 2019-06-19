@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
 using ImGuiNET;
+using Lens.entity;
 using Lens.input;
 using Lens.lightJson;
 using Lens.util;
@@ -29,7 +30,18 @@ namespace BurningKnight.entity.item.use {
 		private bool light;
 		private float knockback;
 		private bool rect;
+		private bool wait;
 		
+		public bool ProjectileDied = true;
+
+		public override void Use(Entity entity, Item item) {
+			if (wait && !ProjectileDied) {
+				return;
+			}
+			
+			base.Use(entity, item);
+		}
+
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			
@@ -46,6 +58,7 @@ namespace BurningKnight.entity.item.use {
 			light = settings["light"].Bool(true);
 			knockback = settings["knockback"].Number(1);
 			rect = settings["rect"].Bool(false);
+			wait = settings["wait"].Bool(false);
 
 			SpawnProjectile = (entity, item) => {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
@@ -75,6 +88,11 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					pr?.Invoke(projectile);
+
+					if (wait && i == 0) {
+						ProjectileDied = false;
+						projectile.OnDeath = (prj, t) => ProjectileDied = true;
+					}
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
@@ -162,6 +180,12 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.Checkbox("Rect body", ref rect)) {
 				root["rect"] = rect;
+			}
+
+			var wait = root["wait"].Bool(false);
+
+			if (ImGui.Checkbox("Wait for projectile death", ref wait)) {
+				root["wait"] = wait;
 			}
 			
 			var prefab = root["prefab"].String("");

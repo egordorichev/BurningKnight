@@ -21,9 +21,6 @@
 
 ### Before josh
 
-* projectile rotation (disk, missile)
-* guns dont fire another bullet till first is done option
-
 * active item charge rework, battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)

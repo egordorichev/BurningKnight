@@ -27,17 +27,20 @@ namespace BurningKnight.entity.projectile.controller {
 					}
 
 					if (target == null) {
+						b.Angle = b.Velocity.ToAngle();
 						return;
 					}
 				}
 				
 				if (target.Done) {
 					target = null;
+					b.Angle = b.Velocity.ToAngle();
 					return;
 				}
 
 				a = (float) MathUtils.LerpAngle(a, p.AngleTo(target), dt * speed * 4);
 				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				b.Angle = a;
 			};
 		}
 
@@ -53,6 +56,7 @@ namespace BurningKnight.entity.projectile.controller {
 				
 				a = (float) MathUtils.LerpAngle(a, p.AngleTo(Input.Mouse.GamePosition), dt * speed * 4);
 				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				b.Angle = a;
 			};
 		}
 	}
