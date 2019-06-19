@@ -11,9 +11,10 @@ namespace Lens.graphics.gamerenderer {
 
 		private Matrix One = Matrix.Identity;
 		private Matrix UiScale = Matrix.Identity;
+
+		private bool inUi;
 		
 		public PixelPerfectGameRenderer() {
-	
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
@@ -23,6 +24,11 @@ namespace Lens.graphics.gamerenderer {
 		}
 
 		public override void Begin() {
+			if (inUi) {
+				BeginUi();
+				return;
+			}
+			
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? One);
 		}
 
@@ -49,16 +55,20 @@ namespace Lens.graphics.gamerenderer {
 			End();
 		}
 
+		private void BeginUi() {
+			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
+		}
+
 		private void RenderUi() {
 			if (UiTarget == null) {
 				return;
 			}
-		
-			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
+
+			BeginUi();
 			Graphics.Clear(Color.Transparent);
 			Engine.Instance.State?.RenderUi();
-			Graphics.Batch.End();
+			End();
 		}
 		
 		public override void Render() {
@@ -69,7 +79,9 @@ namespace Lens.graphics.gamerenderer {
 			}
 			
 			RenderGame();
+			inUi = true;
 			RenderUi();
+			inUi = false;
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));

@@ -14,6 +14,8 @@ using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Utilities;
+using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.ui {
 	public class UiInventory : UiEntity {
@@ -23,6 +25,13 @@ namespace BurningKnight.ui {
 		private TextureRegion key;
 		private TextureRegion coin;
 
+		
+		private TextureRegion activeSide;
+		private TextureRegion activeBorder;
+		private TextureRegion activeEmpty;
+		private TextureRegion activeFull;
+		private TextureRegion activeDouble;
+		
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
 		public static TextureRegion HeartBackground;
@@ -65,6 +74,12 @@ namespace BurningKnight.ui {
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
+
+			activeSide = anim.GetSlice("active_side");
+			activeBorder = anim.GetSlice("active_border");
+			activeEmpty = anim.GetSlice("active_empty");
+			activeFull = anim.GetSlice("active_full");
+			activeDouble = anim.GetSlice("active_double");
 			
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
@@ -200,27 +215,72 @@ namespace BurningKnight.ui {
 		private void RenderActiveItem() {
 			var component = player.GetComponent<ActiveItemComponent>();
 			var item = component.Item;
+
+			var pos = new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2);
 			
-			Graphics.Render(itemSlot, new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2), 0, itemSlot.Center, activeScale);
+			Graphics.Render(itemSlot, pos, 0, itemSlot.Center, activeScale);
 
 			if (item != null) {
-				if (item.Delay > 0) {
-					float progress = item.Delay / item.UseTime;
-
-					useSlot.Source.Width = (int) Math.Ceiling(itemSlot.Source.Width * progress);
-
-					Graphics.Color = new Color(0.5f, 0.5f, 0.5f, 1);
-					Graphics.Render(useSlot, new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2), 0, useSlot.Center, activeScale);
-					Graphics.Color = Color.White;
-				}
-				
 				var region = item.Region;
+				var timed = true;
+				var chargeMax = item.UseTime;
+				var charge = timed ? item.UseTime - item.Delay : (float) Math.Floor(item.Delay);
 
 				if (region != null) {
-					Graphics.Render(region, new Vector2(
+					var p = new Vector2(
 						region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f,
-						region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 + (itemSlot.Source.Height - region.Source.Height) / 2f
-					), 0, region.Center, itemScale);
+						region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 +
+						(itemSlot.Source.Height - region.Source.Height) / 2f);
+					
+					if (Math.Abs(charge - chargeMax) < 0.01f) {
+						var shader = Shaders.Entity;
+						Shaders.Begin(shader);
+
+						shader.Parameters["flash"].SetValue(1f);
+						shader.Parameters["flashReplace"].SetValue(1f);
+						shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+						foreach (var d in MathUtils.Directions){
+							Graphics.Render(region, p + d, 0, region.Center, itemScale);
+						}
+						
+						Shaders.End();
+					}
+			
+					Graphics.Render(region, p, 0, region.Center, itemScale);
+				}
+				
+				pos.X += itemSlot.Width / 2f;
+				pos.Y -= itemSlot.Height / 2f;
+
+				var h = itemSlot.Height;
+				var cellH = timed ? h : (float) Math.Floor(h / chargeMax);
+				var barH = timed ? cellH : cellH * chargeMax;
+			
+				Graphics.Render(activeSide, pos);
+				Graphics.Render(activeSide, pos + new Vector2(0, itemSlot.Height - 1));
+			
+				Graphics.Render(activeBorder, pos + new Vector2(3, 1), 0, Vector2.Zero, new Vector2(1, barH - 2));
+
+				if (charge < chargeMax) {
+					Graphics.Render(activeEmpty, pos + new Vector2(0, 1), 0, Vector2.Zero, new Vector2(1, barH - 2));
+				}
+
+				if (charge > 0) {
+					if (timed) {
+						var hh = charge / chargeMax * (cellH - 2);
+						Graphics.Render(activeFull, pos + new Vector2(0, barH - hh - 1), 0, Vector2.Zero,
+							new Vector2(1, hh));
+					} else {
+						for (var i = 0; i < charge; i++) {
+							Graphics.Render(activeFull, pos + new Vector2(0, barH - (i + 1) * cellH), 0, Vector2.Zero,
+								new Vector2(1, cellH - 1));
+
+							if (i < chargeMax - 1) {
+								Graphics.Render(activeSide, pos + new Vector2(0, barH - 1 - (i + 1) * cellH));
+							}
+						}
+					}
 				}
 			}
 		}

@@ -21,6 +21,7 @@
 
 ### Before josh
 
+* hide active item slot if no active item is present
 * active item charge rework, battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
