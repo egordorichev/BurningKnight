@@ -122,19 +122,25 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				} 
 			}
+
+			if (CanHitOwner && entity == Owner) {
+				return true;
+			}
 			
-			return entity != Owner && (!(entity is Creature) || Owner is Mob != entity is Mob) && 
+			return (!(entity is Creature) || Owner is Mob != entity is Mob) && 
 			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) || entity is Prop)
 			        || entity.HasComponent<HealthComponent>());
 		}
 
+		public bool CanHitOwner;
+		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
 				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
 					return false;
 				}
 				
-				if (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (((CanHitOwner && ev.Entity == Owner) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 				}
 				

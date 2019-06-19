@@ -26,6 +26,8 @@ namespace BurningKnight.entity.item.use {
 		private float accuracy;
 		private int count;
 		private string prefab;
+		private bool light;
+		private float knockback;
 		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
@@ -40,7 +42,9 @@ namespace BurningKnight.entity.item.use {
 			accuracy = settings["accuracy"].Number(0).ToRadians();
 			count = settings["amount"].Int(1);
 			prefab = settings["prefab"].String("");
-			
+			light = settings["light"].Bool(true);
+			knockback = settings["knockback"].Number(1);
+
 			SpawnProjectile = (entity, item) => {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
@@ -56,9 +60,12 @@ namespace BurningKnight.entity.item.use {
 					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), true, 0, null, Random.Float(scaleMin, scaleMax));
 
 					Camera.Instance.Push(antiAngle, 4f);
-					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f);
+					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
 
-					projectile.AddLight(32f, Color.Yellow);
+					if (light) {
+						projectile.AddLight(32f, Color.Yellow);
+					}
+
 					projectile.Damage = damage;
 
 					if (range > 0.01f) {
@@ -131,10 +138,22 @@ namespace BurningKnight.entity.item.use {
 				root["range"] = range;
 			}
 			
+			var knockback = (float) root["knockback"].Number(1);
+
+			if (ImGui.InputFloat("Knockback", ref knockback)) {
+				root["knockback"] = knockback;
+			}
+			
 			var accuracy = (float) root["accuracy"].Number(0);
 
 			if (ImGui.InputFloat("Accuracy", ref accuracy)) {
 				root["accuracy"] = accuracy;
+			}
+			
+			var light = root["light"].Bool(true);
+
+			if (ImGui.Checkbox("Light", ref light)) {
+				root["light"] = light;
 			}
 			
 			var prefab = root["prefab"].String("");

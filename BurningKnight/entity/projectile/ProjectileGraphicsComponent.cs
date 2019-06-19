@@ -19,10 +19,11 @@ namespace BurningKnight.entity.projectile {
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
+			var a = p.GetAnyComponent<BodyComponent>().Body.Rotation;
 			
 			if (shadow) {
 				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y + 4), 
-					0, Sprite.Center, scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+					a, Sprite.Center, scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 
@@ -38,7 +39,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(Sprite, Entity.Position + Sprite.Center, 0, Sprite.Center, scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(Sprite, Entity.Position + Sprite.Center, a, Sprite.Center, scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 
 			if (d) {
 				Shaders.End();
