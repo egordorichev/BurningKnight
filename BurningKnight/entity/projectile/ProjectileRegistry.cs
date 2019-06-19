@@ -61,6 +61,18 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
+			// todo: rotation
+			// not allow to fire until projectile is gone
+			Add("follower", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
+				
+				p.Controller += TargetProjectileController.MakeCursor(1f);
+				
+				p.OnDeath += (pr, t) => {
+					ExplosionMaker.Make(pr);
+				};
+			});
+			
 			Add("flak", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
 
@@ -79,6 +91,7 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
+			// not allow to fire until projectile is gone
 			Add("duck", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 			});
