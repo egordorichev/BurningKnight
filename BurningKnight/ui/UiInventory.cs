@@ -161,28 +161,24 @@ namespace BurningKnight.ui {
 
 				case ItemUsedEvent item: {
 					if (player.GetComponent<ActiveItemComponent>().Item == item.Item) {
-						Tween.To(0.6f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
-							Tween.To(1.5f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
-								Tween.To(1f, activeScale.X, x => activeScale.X = x, 0.2f);
-						
-						Tween.To(1.5f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
-							Tween.To(0.6f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
-								Tween.To(1f, activeScale.Y, x => activeScale.Y = x, 0.2f);
-						
-						Tween.To(0.3f, itemScale.X, x => itemScale.X = x, 0.1f).OnEnd = () =>
-							Tween.To(1f, itemScale.X, x => itemScale.X = x, 0.2f);
-						
-						Tween.To(2f, itemScale.Y, x => itemScale.Y = x, 0.1f).OnEnd = () =>
-							Tween.To(1f, itemScale.Y, x => itemScale.Y = x, 0.2f);
+						TweenActive();
 					}
 					
 					break;
 				}
 
 				case ItemAddedEvent iae: {
-					if (iae.Who == player && iae.Item.Type == ItemType.Lamp) {
-						hpZero = 0;
-						Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+					if (iae.Who == player) {
+						if (iae.Item.Type == ItemType.Lamp) {
+							hpZero = 0;
+							Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+						} else if (iae.Item.Type == ItemType.Active) {
+							if (activePosition <= 0f) {
+								Tween.To(0, -1, x => activePosition = x, 0.6f, Ease.BackOut);
+							} else {
+								TweenActive();
+							}
+						}
 					}
 					
 					break;
@@ -190,6 +186,24 @@ namespace BurningKnight.ui {
 			}
 
 			return base.HandleEvent(e);
+		}
+
+		private float activePosition = -1f;
+		
+		private void TweenActive() {
+			Tween.To(0.6f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
+				Tween.To(1.5f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, activeScale.X, x => activeScale.X = x, 0.2f);
+						
+			Tween.To(1.5f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
+				Tween.To(0.6f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, activeScale.Y, x => activeScale.Y = x, 0.2f);
+						
+			Tween.To(0.3f, itemScale.X, x => itemScale.X = x, 0.1f).OnEnd = () =>
+				Tween.To(1f, itemScale.X, x => itemScale.X = x, 0.2f);
+						
+			Tween.To(2f, itemScale.Y, x => itemScale.Y = x, 0.1f).OnEnd = () =>
+				Tween.To(1f, itemScale.Y, x => itemScale.Y = x, 0.2f);
 		}
 		
 		public override void Render() {
@@ -213,10 +227,15 @@ namespace BurningKnight.ui {
 		}
 		
 		private void RenderActiveItem() {
+			if (activePosition <= -0.99f) {
+				return;
+			}
+			
 			var component = player.GetComponent<ActiveItemComponent>();
 			var item = component.Item;
 
-			var pos = new Vector2(useSlot.Center.X + 2, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2);
+			var v = activePosition * (itemSlot.Width + 10);
+			var pos = new Vector2(useSlot.Center.X + 2 + v, useSlot.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2);
 			
 			Graphics.Render(itemSlot, pos, 0, itemSlot.Center, activeScale);
 
@@ -228,7 +247,7 @@ namespace BurningKnight.ui {
 
 				if (region != null) {
 					var p = new Vector2(
-						region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f,
+						region.Center.X + 2 + (itemSlot.Source.Width - region.Source.Width) / 2f + v,
 						region.Center.Y + Display.UiHeight - itemSlot.Source.Height - 2 +
 						(itemSlot.Source.Height - region.Source.Height) / 2f);
 					
@@ -301,7 +320,20 @@ namespace BurningKnight.ui {
 			var x = from.X + (float) Math.Cos(angle) * distance - Heart.Width / 2f;
 			var y = from.Y + (float) Math.Sin(angle) * distance - Heart.Height / 2f;
 
-			return new Vector2((bg ? 0 : 1) + (pad ? (4 + itemSlot.Source.Width) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
+			var d = 0;
+			var it = player.GetComponent<ActiveItemComponent>().Item;
+
+			if (pad && it != null && Math.Abs(it.UseTime) > 0.01f) {
+				d = 4;
+			}
+			
+			var a = 0;
+			
+			if (it == null && (coins != 0 || bombs != 0 || keys != 0)) {
+				a += 24;
+			}
+			
+			return new Vector2((bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
 				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? 0 : 4)
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)) * hpZero 
 			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
@@ -352,18 +384,27 @@ namespace BurningKnight.ui {
 		}
 
 		private void RenderConsumables() {
-			var bottomY = Display.UiHeight - itemSlot.Source.Height - 14;
+			var bottomY = Display.UiHeight - itemSlot.Source.Height * (activePosition + 1) - 14;
 
-			Graphics.Render(coin, new Vector2(4 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
-			Graphics.Print($"{coins}", Font.Small, new Vector2(14, bottomY - 1));
-			
-			bottomY -= 12;
-			Graphics.Render(key, new Vector2(2 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);			
-			Graphics.Print($"{keys}", Font.Small, new Vector2(14, bottomY - 1));
+			if (coins > 0) {
+				Graphics.Render(coin, new Vector2(4 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
+				Graphics.Print($"{coins}", Font.Small, new Vector2(14, bottomY - 1));
+				bottomY -= 12;
+			}
 
-			// Bomb sprite has bigger height
-			Graphics.Render(bomb, new Vector2(2 + bomb.Center.X, bottomY - bomb.Source.Height - 2 + bomb.Center.Y), 0, bomb.Center, bombScale);
-			Graphics.Print($"{bombs}", Font.Small, new Vector2(14, bottomY - 10 - 3));
+			if (keys > 0) {
+				Graphics.Render(key, new Vector2(2 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);
+				Graphics.Print($"{keys}", Font.Small, new Vector2(14, bottomY - 1));
+				bottomY -= bomb.Source.Height + 2;
+			}
+
+			if (bombs > 0) {
+				// Bomb sprite has bigger height
+				Graphics.Render(bomb, new Vector2(2 + bomb.Center.X, bottomY + bomb.Center.Y), 0,
+					bomb.Center, bombScale);
+
+				Graphics.Print($"{bombs}", Font.Small, new Vector2(14, bottomY - 1));
+			}
 		}
 	}
 }

@@ -112,7 +112,6 @@ namespace BurningKnight.entity.creature.mob {
 						Room = r
 					});
 				}
-
 			}
 			
 			return base.HandleEvent(e);

@@ -42,6 +42,12 @@ namespace BurningKnight.entity.component {
 		}
 
 		private void SetupItem(Item item) {
+			Send(new ItemAddedEvent {
+				Item = item,
+				Component = this,
+				Who = Entity
+			});
+			
 			Item = item;
 			item.Done = false;
 			item.RemoveDroppedComponents();

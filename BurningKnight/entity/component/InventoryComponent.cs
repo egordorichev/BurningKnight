@@ -119,6 +119,9 @@ namespace BurningKnight.entity.component {
 				item.PostInit();
 				
 				Pickup(item, false);
+				Entity.Area.Remove(item);
+
+				item.Done = false;
 			}
 		}
 

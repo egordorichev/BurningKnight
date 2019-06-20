@@ -21,8 +21,11 @@
 
 ### Before josh
 
-* hide active item slot if no active item is present
-* active item charge rework, battaries
+* unpassable ring connection room
+* cap red containers
+* single use active items
+* something is wrong with active item saving?
+* battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * enemies can get stuck in wall
