@@ -18,7 +18,7 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public virtual void Set(Item item, bool animate = true) {
-			if (Item != null) {
+			if (!animate && Item != null) {
 				Drop();
 				Item = null;
 				debugItem = "";
@@ -38,7 +38,15 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
-			((Player) Entity).AnimateItemPickup(item, () => { SetupItem(item); }, false);
+			((Player) Entity).AnimateItemPickup(item, () => {
+				if (Item != null) {
+					Drop();
+					Item = null;
+					debugItem = "";
+				}
+
+				SetupItem(item);
+			}, false);
 		}
 
 		private void SetupItem(Item item) {
@@ -49,7 +57,9 @@ namespace BurningKnight.entity.component {
 			});
 			
 			Item = item;
+
 			item.Done = false;
+			item.Touched = true;
 			item.RemoveDroppedComponents();
 
 			debugItem = item.Id;

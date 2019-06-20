@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.state;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -66,6 +67,7 @@ namespace BurningKnight.assets.items {
 				data["time"] = item.UseTime;
 				data["type"] = (int) item.Type;
 				data["chance"] = item.Chance.ToJson();
+				data["single"] = item.Single;
 				data["auto_pickup"] = item.AutoPickup;
 				data["auto"] = item.Automatic;
 				data["pool"] = item.Pools;
@@ -121,6 +123,7 @@ namespace BurningKnight.assets.items {
 				Renderer = item["renderer"],
 				Animation = animation,
 				AutoPickup = pickup,
+				Single = item["single"].Bool(true),
 				Automatic = item["auto"],
 				Chance = Chance.Parse(item["chance"])
 			};
@@ -323,7 +326,7 @@ namespace BurningKnight.assets.items {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if (filter == null || filter(t)) {
+				if ((!t.Single || Run.Statistics == null || !Run.Statistics.Items.Contains(t.Id)) && (filter == null || filter(t))) {
 					datas.Add(t);
 				}
 			}

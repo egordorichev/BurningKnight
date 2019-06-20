@@ -199,8 +199,12 @@ namespace BurningKnight.save.statistics {
 			} else if (e is SecretRoomFoundEvent) {
 				SecretRoomsFound++;
 			} else if (e is ItemAddedEvent iae) {
-				if (!iae.Item.Touched) {
-					Items.Add(iae.Item.Id);
+				if (!iae.Item.Touched && !Items.Contains(iae.Item.Id)) {
+					var t = iae.Item.Type;
+
+					if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Key && t != ItemType.Bomb) {
+						Items.Add(iae.Item.Id);
+					}
 				}
 			} else if (e is HealthModifiedEvent hme) {
 				if (hme.Amount < 0) {

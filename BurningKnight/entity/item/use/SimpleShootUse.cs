@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.use {
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
-						projectile.OnDeath = (prj, t) => ProjectileDied = true;
+						projectile.OnDeath += (prj, t) => ProjectileDied = true;
 					}
 				}
 

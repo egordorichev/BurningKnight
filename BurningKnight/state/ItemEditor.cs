@@ -358,6 +358,8 @@ namespace BurningKnight.state {
 			}
 			
 			if (ImGui.CollapsingHeader("Pools")) {
+				ImGui.Checkbox("Single spawn", ref selected.Single);
+				
 				var i = 0;
 				ImGui.Text($"{selected.Pools}");
 				
@@ -418,6 +420,7 @@ namespace BurningKnight.state {
 		private static bool sort;
 		private static int sortType;
 		private static string itemName = "";
+		private static int count;
 
 		private static void Sort() {
 			// fixme
@@ -519,6 +522,9 @@ namespace BurningKnight.state {
 				toSort = true;
 			}
 			
+			ImGui.Text($"{count}");
+			count = 0;
+			ImGui.SameLine();
 			ImGui.Checkbox("Sort##srt", ref sort);
 
 			if (sort) {
@@ -542,16 +548,20 @@ namespace BurningKnight.state {
 					forceFocus = false;
 				}
 				
-				if (filter.PassFilter(i.Id) && (!sort || i.Type == type) && ImGui.Selectable(i.Id, i == selected)) {
-					selected = i;
+				if (filter.PassFilter(i.Id) && (!sort || i.Type == type)) {
+					count++;
 
-					if (ImGui.IsMouseDown(1)) {
-						if (ImGui.Button("Give")) {
-							LocalPlayer.Locate(Engine.Instance.State.Area)
-								?.GetComponent<InventoryComponent>()
-								.Pickup(Items.CreateAndAdd(
-									selected.Id, Engine.Instance.State.Area
-								));
+					if (ImGui.Selectable(i.Id, i == selected)) {
+						selected = i;
+
+						if (ImGui.IsMouseDown(1)) {
+							if (ImGui.Button("Give")) {
+								LocalPlayer.Locate(Engine.Instance.State.Area)
+									?.GetComponent<InventoryComponent>()
+									.Pickup(Items.CreateAndAdd(
+										selected.Id, Engine.Instance.State.Area
+									));
+							}
 						}
 					}
 				}

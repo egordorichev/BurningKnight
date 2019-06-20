@@ -21,20 +21,20 @@
 
 ### Before josh
 
-* unpassable ring connection room
+* reset camera following when you tp out from boss battle
+* shop sales
+* change how dmg works (single projectile should be able to hurt a few times)
+
 * cap red containers
 * single use active items
 * battaries
-* draw obtained items
+* draw obtained items (at least a few, full list in pause menu)
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * enemies can get stuck in wall
 
 ### can wait
 
-* shop generate item pool when generating and remove items (no samey)
-* remove items that you have from pools (flag on item, if they can appear multiple times)
-* reset camera following when you tp out from boss battle
-* shop sales
+* unpassable ring connection room (removed for now)
 * iron hearts, half a heart spawning, etc
 * update art for chest
 * sk ai

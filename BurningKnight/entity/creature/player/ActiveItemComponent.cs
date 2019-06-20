@@ -8,8 +8,10 @@ using Lens.input;
 namespace BurningKnight.entity.creature.player {
 	public class ActiveItemComponent : ItemComponent {
 		public override bool HandleEvent(Event e) {
-			if (e is RoomClearedEvent && Item != null && Item.Delay > 0) {
-				Item.Delay = Math.Max(0, Item.Delay - 1);
+			if (e is RoomClearedEvent) {
+				if (Item != null && Item.UseTime > 0) {
+					Item.Delay = Math.Max(0, Item.Delay - 1);
+				}
 			}
 			
 			return base.HandleEvent(e);

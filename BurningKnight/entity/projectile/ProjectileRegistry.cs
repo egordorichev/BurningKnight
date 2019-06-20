@@ -31,13 +31,20 @@ namespace BurningKnight.entity.projectile {
 			});
 			
 			Add("grenade", p => {
-				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
+				CollisionFilterComponent.Add(p, (entity, with) => {
+					if (with is Mob) {
+						p.BounceLeft = 0;
+						return CollisionResult.Enable;
+					}
+					
+					return CollisionResult.Default;
+				});
 				
 				p.Controller += SlowdownProjectileController.Make(1);
 				p.BreaksFromWalls = false;
 				
 				p.OnDeath += (pr, t) => {
-					ExplosionMaker.Make(pr);
+					ExplosionMaker.Make(pr, 32);
 				};
 
 				p.Controller += (pr, dt) => {
@@ -48,28 +55,49 @@ namespace BurningKnight.entity.projectile {
 			});
 			
 			Add("missile", p => {
-				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
+				CollisionFilterComponent.Add(p, (entity, with) => {
+					if (with is Mob) {
+						p.BounceLeft = 0;
+						return CollisionResult.Enable;
+					}
+					
+					return CollisionResult.Default;
+				});
 				
 				p.Controller += TargetProjectileController.Make(null, 0.5f);
 				
 				p.OnDeath += (pr, t) => {
-					ExplosionMaker.Make(pr);
+					ExplosionMaker.Make(pr, 32);
 				};
 			});
 			
 			Add("follower", p => {
-				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
+				CollisionFilterComponent.Add(p, (entity, with) => {
+					if (with is Mob) {
+						p.BounceLeft = 0;
+						return CollisionResult.Enable;
+					}
+					
+					return CollisionResult.Default;
+				});
 				
-				p.Controller += TargetProjectileController.MakeCursor(1f);
+				p.Controller += TargetProjectileController.MakeCursor();
 				
 				p.OnDeath += (pr, t) => {
-					ExplosionMaker.Make(pr);
+					ExplosionMaker.Make(pr, 32);
 				};
 			});
 			
 			Add("flak", p => {
-				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Enable : CollisionResult.Default);
-
+				CollisionFilterComponent.Add(p, (entity, with) => {
+					if (with is Mob) {
+						p.BounceLeft = 0;
+						return CollisionResult.Enable;
+					}
+					
+					return CollisionResult.Default;
+				});
+				
 				p.Controller += SlowdownProjectileController.Make(0.5f);
 
 				p.OnDeath += (pr, t) => {
