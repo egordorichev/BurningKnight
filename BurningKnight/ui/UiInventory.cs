@@ -277,26 +277,27 @@ namespace BurningKnight.ui {
 				pos.Y -= itemSlot.Height / 2f;
 
 				var h = itemSlot.Height;
-				var cellH = timed ? h : (float) Math.Floor(h / chargeMax);
-				var barH = timed ? cellH : cellH * chargeMax;
+				var cellH = timed ? (h - 2) : (float) Math.Floor((h - 2) / chargeMax);
+				var barH = (timed ? h : (float) Math.Floor((h - 2) / (int) chargeMax) * chargeMax);
+				var n = timed ? 0 : (h - barH - 1);
 			
-				Graphics.Render(activeSide, pos);
+				Graphics.Render(activeSide, pos + new Vector2(0, n));
 				Graphics.Render(activeSide, pos + new Vector2(0, itemSlot.Height - 1));
 			
-				Graphics.Render(activeBorder, pos + new Vector2(3, 1), 0, Vector2.Zero, new Vector2(1, barH - 2));
+				Graphics.Render(activeBorder, pos + new Vector2(3, 1 + n), 0, Vector2.Zero, new Vector2(1, barH - 1));
 
 				if (charge < chargeMax) {
-					Graphics.Render(activeEmpty, pos + new Vector2(0, 1), 0, Vector2.Zero, new Vector2(1, barH - 2));
+					Graphics.Render(activeEmpty, pos + new Vector2(0, 1 + n), 0, Vector2.Zero, new Vector2(1, barH - (timed ? 2 : 1)));
 				}
 
 				if (charge > 0) {
 					if (timed) {
-						var hh = charge / chargeMax * (cellH - 2);
+						var hh = charge / chargeMax * (cellH);
 						Graphics.Render(activeFull, pos + new Vector2(0, barH - hh - 1), 0, Vector2.Zero,
 							new Vector2(1, hh));
 					} else {
 						for (var i = 0; i < charge; i++) {
-							Graphics.Render(activeFull, pos + new Vector2(0, barH - (i + 1) * cellH), 0, Vector2.Zero,
+							Graphics.Render(activeFull, pos + new Vector2(0, h - (i + 1) * cellH), 0, Vector2.Zero,
 								new Vector2(1, cellH - 1));
 						}
 					}
@@ -304,7 +305,7 @@ namespace BurningKnight.ui {
 
 				if (!timed) {
 					for (var i = 0; i < chargeMax - 1; i++) {
-						Graphics.Render(activeSide, pos + new Vector2(0, barH - 1 - (i + 1) * cellH));
+						Graphics.Render(activeSide, pos + new Vector2(0, barH - (i + 1) * cellH + n));
 					}
 				}
 			}
