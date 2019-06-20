@@ -108,20 +108,32 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			} else if (e is DiedEvent de) {
 				var r = GetComponent<RoomComponent>().Room;
-				
-				if (r != null && r.Tagged[Tags.MustBeKilled].Count <= 1) {
-					Log.Error($"Room clreared {de.From.GetType().Name}");
-					Entity who = de.From;
+
+				if (r != null && !r.Cleared) {
+					var found = false;
 					
-					if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
-						who = o.Owner;
-					} else if (who is Projectile p) {
-						who = p.Owner;
+					foreach (var m in r.Tagged[Tags.MustBeKilled]) {
+						if (m.GetComponent<HealthComponent>().Health > 0) {
+							found = true;
+							break;
+						}
 					}
 					
-					who.HandleEvent(new RoomClearedEvent {
-						Room = r
-					});
+					if (!found) {
+						r.Cleared = true;
+						Log.Debug($"Room cleared {de.From.GetType().Name}");
+						var who = de.From;
+
+						if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
+							who = o.Owner;
+						} else if (who is Projectile p) {
+							who = p.Owner;
+						}
+
+						who.HandleEvent(new RoomClearedEvent {
+							Room = r
+						});
+					}
 				}
 			}
 			

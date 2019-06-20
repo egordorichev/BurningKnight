@@ -21,6 +21,9 @@
 
 ### Before josh
 
+* !!! treasure room design, send screenshots to bibiki!!!
+
+* item description show up for active items and lamps, as well as weapons
 * reset camera following when you tp out from boss battle
 * shop sales
 * change how dmg works (single projectile should be able to hurt a few times)

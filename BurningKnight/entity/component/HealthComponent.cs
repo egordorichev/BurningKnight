@@ -120,13 +120,14 @@ namespace BurningKnight.entity.component {
 			if (dead) {
 				return;
 			}
+			
+			health = 0;
 
 			if (!Send(new DiedEvent {
 				From = from,
 				Who = Entity
 			})) {
 				dead = true;
-				health = 0;
 				Entity.Done = true;	
 			}
 		}

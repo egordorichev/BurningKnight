@@ -228,6 +228,10 @@ namespace BurningKnight.state {
 		}
 
 		private static bool forceFocus;
+
+		private static string[] types = new[] {
+			"Room charged", "Auto charged", "Single use"
+		};
 		
 		private static void RenderWindow() {
 			if (selected == null) {
@@ -309,19 +313,31 @@ namespace BurningKnight.state {
 
 			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
 				if (t == ItemType.Active) {
-					var d = selected.UseTime < 0;
+					var o = 0;
 
-					if (ImGui.Checkbox("Auto charge", ref d)) {
-						selected.UseTime = Math.Abs(selected.UseTime) * (d ? -1 : 1);
+					if (selected.UseTime < -0.01f) {
+						o = 1;
+					} else if (selected.UseTime < 0.01f) {
+						o = 2;
+					}
+
+					if (ImGui.Combo("RC", ref o, types, types.Length)) {
+						if (o == 0) {
+							selected.UseTime = Math.Max(0.01f, Math.Abs(selected.UseTime));
+						} else if (o == 1) {
+							selected.UseTime = -Math.Max(0.01f, -Math.Abs(selected.UseTime));
+						} else {
+							selected.UseTime = 0;
+						}
 					}
 					
-					if (!d) {
+					if (o == 0) {
 						var v = (int) selected.UseTime;
 
 						if (ImGui.InputInt("Charges", ref v)) {
 							selected.UseTime = v;
 						}
-					} else {
+					} else if (o == 1) {
 						var v = -selected.UseTime;
 
 						if (ImGui.InputFloat("Charge time", ref v)) {

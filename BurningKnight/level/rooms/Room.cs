@@ -26,6 +26,7 @@ namespace BurningKnight.level.rooms {
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
 		public bool Explored;
+		public bool Cleared;
 		
 		public override void AddComponents() {
 			base.AddComponents();

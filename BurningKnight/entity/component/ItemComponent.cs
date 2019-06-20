@@ -76,7 +76,6 @@ namespace BurningKnight.entity.component {
 			};
 			
 			Send(e);
-			Item.HandleEvent(e);
 
 			Item.Center = Entity.Center;
 			Entity.Area.Add(Item);

@@ -147,6 +147,7 @@ namespace Lens {
 					
 					State?.Destroy();
 					State = newState;
+					Input.EnableImGuiFocus = true;
 					State?.Init();
 
 					newState = null;

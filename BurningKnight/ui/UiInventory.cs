@@ -229,6 +229,8 @@ namespace BurningKnight.ui {
 
 			RenderHealthBar(show);
 		}
+
+		private bool tweened;
 		
 		private void RenderActiveItem() {
 			if (activePosition <= -0.99f) {
@@ -271,6 +273,19 @@ namespace BurningKnight.ui {
 					}
 			
 					Graphics.Render(region, p, 0, region.Center, itemScale);
+				}
+
+				if (item.Done && !tweened) {
+					tweened = true;
+					
+					Tween.To(-1, 0, x => activePosition = x, 0.3f).OnEnd = () => {
+						player.GetComponent<ActiveItemComponent>().Clear();
+						tweened = false;
+					};
+				}
+
+				if (Math.Abs(item.UseTime) <= 0.01f) {
+					return;
 				}
 				
 				pos.X += itemSlot.Width / 2f;

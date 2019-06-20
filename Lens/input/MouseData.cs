@@ -20,7 +20,7 @@ namespace Lens.input {
 			PreviousState = CurrentState;
 			CurrentState = Mouse.GetState();
 
-			blockedByGui = ImGui.GetIO().WantCaptureMouse;
+			blockedByGui = Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureMouse;
 		}
 
 		#region Buttons
