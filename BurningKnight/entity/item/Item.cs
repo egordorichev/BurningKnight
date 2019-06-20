@@ -179,6 +179,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteString(Id);
 			stream.WriteBoolean(Used);
 			stream.WriteBoolean(Touched);
+			stream.WriteFloat(Delay);
 		}
 
 		public void ConvertTo(string id) {
@@ -196,6 +197,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			Uses = item.Uses;
+			UseTime = item.UseTime;
 			Renderer = item.Renderer;
 			Animation = item.Animation;
 			AutoPickup = item.AutoPickup;
@@ -230,6 +232,7 @@ namespace BurningKnight.entity.item {
 
 			Used = stream.ReadBoolean();
 			Touched = stream.ReadBoolean();
+			Delay = stream.ReadFloat();
 		}
 		
 		public override void Update(float dt) {

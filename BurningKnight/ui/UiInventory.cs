@@ -107,6 +107,10 @@ namespace BurningKnight.ui {
 				Subscribe<ConsumableRemovedEvent>(area);
 				Subscribe<ItemUsedEvent>(area);
 				Subscribe<ItemAddedEvent>(area);
+
+				if (player.GetComponent<ActiveItemComponent>().Item != null) {
+					activePosition = 0;
+				}
 			}
 		}
 
@@ -334,7 +338,7 @@ namespace BurningKnight.ui {
 			}
 			
 			return new Vector2((bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? 0 : 4)
+				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activePosition * 2) : 4)
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)) * hpZero 
 			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
 		}

@@ -24,7 +24,6 @@
 * unpassable ring connection room
 * cap red containers
 * single use active items
-* something is wrong with active item saving?
 * battaries
 * draw obtained items
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
