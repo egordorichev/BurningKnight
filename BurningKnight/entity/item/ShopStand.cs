@@ -45,7 +45,7 @@ namespace BurningKnight.entity.item {
 		protected override void OnTake(Item item, Entity who) {
 			base.OnTake(item, who);
 			
-			HandleEvent(new ItemBoughtEvent {
+			who.HandleEvent(new ItemBoughtEvent {
 				Item = item,
 				Who = who,
 				Stand = this

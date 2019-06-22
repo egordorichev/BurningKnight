@@ -112,7 +112,7 @@ namespace BurningKnight.entity.component {
 				return true;
 			}
 			
-			if (e is ItemCheckEvent ev && ShouldReplace(ev.Item)) {
+			if (e is ItemCheckEvent ev && !ev.Handled && ShouldReplace(ev.Item)) {
 				Set(ev.Item, ev.Animate);
 				return true;
 			}

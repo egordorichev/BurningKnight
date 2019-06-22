@@ -12,7 +12,7 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
-		private byte bombs = 1;
+		private byte bombs;
 		private byte keys;
 		private byte coins;
 
