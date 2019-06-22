@@ -21,15 +21,15 @@
 
 ### Before josh
 
+* explode gold tiles for coins
+* selling items?
 * !!! treasure room design, send screenshots to bibiki!!!
 
 * item description show up for active items and lamps, as well as weapons
 * reset camera following when you tp out from boss battle
-* shop sales
 * change how dmg works (single projectile should be able to hurt a few times)
 * cap red containers
 * battaries
-* draw obtained items (at least a few, full list in pause menu)
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * implement stats
 
@@ -62,6 +62,8 @@
 * item that makes bombs explode faster
 * sharp blade
 * dull blade
+* stick bombs
+* homing bombs
 * wallet buddy (collects money)
 * roll damages enemies
 * teleport to random room

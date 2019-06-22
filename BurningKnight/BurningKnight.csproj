@@ -265,6 +265,7 @@
     <Compile Include="entity\events\ItemBoughtEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemPlacedEvent.cs" />
+    <Compile Include="entity\events\ItemPriceCalculationEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemTakenEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
@@ -339,6 +340,7 @@
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
+    <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />

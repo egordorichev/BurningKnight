@@ -25,7 +25,6 @@ namespace BurningKnight.ui {
 		private TextureRegion key;
 		private TextureRegion coin;
 
-		
 		private TextureRegion activeSide;
 		private TextureRegion activeBorder;
 		private TextureRegion activeEmpty;
@@ -222,12 +221,43 @@ namespace BurningKnight.ui {
 
 			var show = Run.Depth > 0;
 
-			if (show) {
+			if (show && player != null) {
+				RenderGainedItems();
 				RenderActiveItem();
 				RenderConsumables();
 			}
-
+			
 			RenderHealthBar(show);
+		}
+
+		private void RenderGainedItems() {
+			var inventory = player.GetComponent<InventoryComponent>();
+			var x = Display.UiWidth - 4f;
+			var a = inventory.Items;
+
+			for (var i = Math.Max(0, Engine.Instance.State.Paused : a.Count - 6); i < a.Count; i++) {
+				var item = a[i];
+				var region = item.Region;
+
+				if (region == null) {
+					continue;
+				}
+				
+				Graphics.Render(region, new Vector2(x - 12 + (24 - region.Width) / 2f, Display.UiHeight - 16 + (24 - region.Height) / 2f), 0, region.Center);
+				x -= region.Width + 4;
+			}
+			
+			/*foreach (var item in ) {
+				var region = item.Region;
+
+				if (region == null) {
+					continue;
+				}
+				
+				Graphics.Render(region, new Vector2(Display.UiWidth - 12 - (16 - region.Width) / 2f, y));
+
+				y += region.Height + 4;
+			}*/
 		}
 
 		private bool tweened;

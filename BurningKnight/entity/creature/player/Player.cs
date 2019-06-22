@@ -289,6 +289,12 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();
 
+				foreach (var i in c.New.Tagged[Tags.Item]) {
+					if (i is ShopStand s) {
+						s.Recalculate();
+					}
+				}
+
 				// Camera following current room, felt weird
 				/*if (Camera.Instance != null) {
 					foreach (var target in Camera.Instance.Targets) {

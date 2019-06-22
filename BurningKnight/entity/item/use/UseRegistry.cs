@@ -67,6 +67,7 @@ namespace BurningKnight.entity.item.use {
 			Register<SpawnProjectilesUse>(SpawnProjectilesUse.RenderDebug);
 			Register<UseOnEventUse>(UseOnEventUse.RenderDebug);
 			Register<MakeShopRestockUse>();
+			Register<SaleItemsUse>(SaleItemsUse.RenderDebug);
 		}
 	}
 }
