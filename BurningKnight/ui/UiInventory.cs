@@ -235,7 +235,7 @@ namespace BurningKnight.ui {
 			var x = Display.UiWidth - 4f;
 			var a = inventory.Items;
 
-			for (var i = Math.Max(0, Engine.Instance.State.Paused : a.Count - 6); i < a.Count; i++) {
+			for (var i = Math.Max(0, Engine.Instance.State.Paused ? 0 : a.Count - 6); i < a.Count; i++) {
 				var item = a[i];
 				var region = item.Region;
 

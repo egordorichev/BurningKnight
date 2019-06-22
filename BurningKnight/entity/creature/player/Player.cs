@@ -35,13 +35,13 @@ namespace BurningKnight.entity.creature.player {
 		public Vector2 Scale;
 		public Item PickedItem;
 
-		public void AnimateItemPickup(Item item, Action action = null, bool add = true) {
+		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
 			Tween.To(1, 0, x => {
 				Scale.X = x;
 				Scale.Y = x;
-			}, 0.5f);
+			}, 0.2f);
 
-			if (add) {
+			if (ban) {
 				var banner = new UiDescriptionBanner();
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.player {
 				Tween.To(0, 1, x => {
 					Scale.X = x;
 					Scale.Y = x;
-				}, 0.3f, Ease.BackIn).OnEnd = () => {
+				}, 0.2f, Ease.BackIn).OnEnd = () => {
 					item.Area?.Remove(item);
 					item.Done = false;
 					PickedItem = null;
