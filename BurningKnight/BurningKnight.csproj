@@ -333,6 +333,7 @@
     <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeShopRestockUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
+    <Compile Include="entity\item\use\ModifyActiveChargeUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />

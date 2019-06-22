@@ -31,6 +31,7 @@
 * battaries
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * implement stats
+* push hearts and batteries and coins around, if you cant have more
 
 ### can wait
 

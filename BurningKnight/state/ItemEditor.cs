@@ -40,7 +40,8 @@ namespace BurningKnight.state {
 			"key",
 			"heart",
 			"lamp",
-			"weapon"
+			"weapon",
+			"battery"
 		};
 
 		private static int toRemove = -1;

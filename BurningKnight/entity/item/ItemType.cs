@@ -7,6 +7,7 @@ namespace BurningKnight.entity.item {
 		Key,
 		Heart,
 		Lamp,
-		Weapon
+		Weapon,
+		Battery
 	}
 }
