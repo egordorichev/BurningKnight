@@ -121,7 +121,6 @@ namespace BurningKnight.entity.creature.mob {
 					
 					if (!found) {
 						r.Cleared = true;
-						Log.Debug($"Room cleared {de.From.GetType().Name}");
 						var who = de.From;
 
 						if (de.From.TryGetComponent<OwnerComponent>(out var o)) {

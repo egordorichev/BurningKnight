@@ -38,6 +38,10 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		protected virtual void OnTake(Item item, Entity who) {
+			
+		}
+
 		public void SetItem(Item i, Entity entity, bool remove = true) {
 			if (item == i) {
 				return;
@@ -54,6 +58,8 @@ namespace BurningKnight.entity.item {
 					Who = entity,
 					Stand = this
 				});
+
+				OnTake(item, entity);
 			}
 
 			item = i;

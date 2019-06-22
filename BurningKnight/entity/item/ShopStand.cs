@@ -42,6 +42,16 @@ namespace BurningKnight.entity.item {
 			return true;
 		}
 
+		protected override void OnTake(Item item, Entity who) {
+			base.OnTake(item, who);
+			
+			HandleEvent(new ItemBoughtEvent {
+				Item = item,
+				Who = who,
+				Stand = this
+			});
+		}
+
 		public override void Render() {
 			base.Render();
 

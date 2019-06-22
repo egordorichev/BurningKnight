@@ -171,11 +171,15 @@ namespace Lens.entity {
 		public virtual bool HandleEvent(Event e) {
 			foreach (var component in Components.Values) {
 				if (component.HandleEvent(e)) {
-					return true;
+					e.Handled = true;
 				}
 			}
-			
-			return Area.EventListener.Handle(e);
+
+			if (Area.EventListener.Handle(e)) {
+				e.Handled = true;
+			}
+
+			return e.Handled;
 		}
 
 		public virtual void Render() {

@@ -262,6 +262,7 @@
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\InteractedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
+    <Compile Include="entity\events\ItemBoughtEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemPlacedEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="entity\item\use\MakeProjectilesShatternOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSlowDown.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
+    <Compile Include="entity\item\use\MakeShopRestockUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
