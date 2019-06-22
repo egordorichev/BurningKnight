@@ -27,11 +27,10 @@
 
 * reset camera following when you tp out from boss battle
 * change how dmg works (single projectile should be able to hurt a few times)
-* cap red containers
-* battaries
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
+* room rewards (batteries and stuff)
 
 ### can wait
 
@@ -52,6 +51,7 @@
 * item that makes your bullets warp through screen
 * shop sale
 * marshmallow orbital, can be light up
+* battery buddy
 * d1
 * d4
 * d2

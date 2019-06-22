@@ -111,6 +111,7 @@ namespace BurningKnight.entity.creature.player {
 
 			var hp = GetComponent<HealthComponent>();
 			hp.MaxHealth = 1;
+			hp.MaxHealthCap = 33;
 
 			if (Engine.Version.Dev) {
 				hp.Unhittable = true;

@@ -16,6 +16,7 @@ namespace BurningKnight.entity.component {
 
 		public bool RenderInvt;
 		public int Health => health;
+		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
 
 		public void SetHealth(int hp, Entity setter) {
@@ -92,6 +93,10 @@ namespace BurningKnight.entity.component {
 
 				var old = maxHealth;
 				var nw = Math.Max(1, value);
+
+				if (MaxHealthCap > -1) {
+					nw = Math.Min(MaxHealthCap, nw);
+				}
 
 				if (!Send(new MaxHealthModifiedEvent {
 					Who = Entity,
