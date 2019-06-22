@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.mob {
 				Max = 2
 			});
 
-			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.1f;
+			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
 		}
 
 		protected virtual void SetStats() {

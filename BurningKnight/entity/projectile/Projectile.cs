@@ -22,7 +22,6 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
-	public delegate CollisionResult ProjectileCollisionCallback();
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public BodyComponent BodyComponent;
@@ -112,6 +111,10 @@ namespace BurningKnight.entity.projectile {
 				AnimateDeath(true);
 				return;
 			}
+
+			foreach (var e in ToHurt) {
+				e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
+			}
 			
 			Controller?.Invoke(this, dt);
 		}
@@ -133,6 +136,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool CanHitOwner;
+		private List<Entity> ToHurt = new List<Entity>();
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
@@ -142,6 +146,7 @@ namespace BurningKnight.entity.projectile {
 				
 				if (((CanHitOwner && ev.Entity == Owner && T > 0.3f) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
+					ToHurt.Add(ev.Entity);
 				}
 				
 				if (BreaksFrom(ev.Entity)) {
@@ -154,6 +159,10 @@ namespace BurningKnight.entity.projectile {
 					
 				if (ev.Entity is DestroyableLevel lvl) {
 					lvl.Break(CenterX, CenterY);
+				}
+			} else if (e is CollisionEndedEvent cee) {
+				if (cee.Entity.HasComponent<HealthComponent>()) {
+					ToHurt.Remove(cee.Entity);
 				}
 			}
 			
@@ -182,8 +191,12 @@ namespace BurningKnight.entity.projectile {
 			explosion.Particle.AngleVelocity = 0;
 			explosion.Particle.Velocity = Vector2.Zero;
 			explosion.AddShadow();
-			
-			OnDeath?.Invoke(this, timeout);
+
+			try {
+				OnDeath?.Invoke(this, timeout);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 	}
 }
