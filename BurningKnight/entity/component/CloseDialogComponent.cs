@@ -5,8 +5,8 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.component {
 	public class CloseDialogComponent : Component {
-		private const int Radius = 64 * 64;
-		private const int RadiusMax = 80 * 80;
+		private const int Radius = 32 * 32;
+		private const int RadiusMax = 64 * 64;
 
 		public string[] Variants;
 		private Entity trigger;
@@ -16,7 +16,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Update(float dt) {
-			if (!Entity.OnScreen) {
+			if (!Entity.OnScreen || Variants.Length == 0) {
 				return;
 			}
 
