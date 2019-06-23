@@ -100,7 +100,7 @@ namespace Lens.util.camera {
 
 		public void Shake(float a = 1f) {
 			var component = GetComponent<ShakeComponent>();
-			component.Amount = Math.Min(component.Amount + a, 20f);
+			component.Amount = Math.Min(component.Amount + a, 32f);
 		}
 
 		public void ShakeMax(float a = 1f) {

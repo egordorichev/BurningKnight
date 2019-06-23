@@ -59,6 +59,10 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
+			if (set == null) {
+				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
+			}
+			
 			if (died) {
 				lastPart -= dt;
 
@@ -94,10 +98,6 @@ namespace BurningKnight.entity.creature.bk {
 						((InGameState) Engine.Instance.State).ResetFollowing();
 					}, 0.5f);
 				}
-			}
-			
-			if (set == null) {
-				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
 			}
 
 			if (healthBar == null) {

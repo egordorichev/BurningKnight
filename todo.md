@@ -14,7 +14,6 @@
 * slime pattern
 * bouncy pattern -> another transformation?
 
-* EEEEEEEEEEEEEEEEEEEEEEEPIC death
 * Boss door
 * Healthbar art
 
