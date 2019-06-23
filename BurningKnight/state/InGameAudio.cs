@@ -62,7 +62,11 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							Audio.PlayMusic("Fatiga");
+							if (Area.Tags[Tags.BurningKnight].Count > 0) {
+								Audio.PlayMusic("Fatiga");
+							} else {
+								Audio.PlayMusic("Gobbeon");
+							}
 						}, 1f);
 						break;
 					}

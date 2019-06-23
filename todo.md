@@ -14,11 +14,9 @@
 * slime pattern
 * bouncy pattern -> another transformation?
 
+* EEEEEEEEEEEEEEEEEEEEEEEPIC death
 * Boss door
-* EPIC death
 * Healthbar art
-* figure out where to spawn boss (near the entrance?)
-* fix win music looping
 
 * EEEEEEEEEEEEEEEEEEEEEPIC intro
  - ideas:
@@ -39,6 +37,7 @@
 
 ### can wait
 
+* unlockable items
 * missile should spawn dust after it (follower, missile launcher)
 * unpassable ring connection room (removed for now)
 * iron hearts, half a heart spawning, etc

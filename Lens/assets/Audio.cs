@@ -187,7 +187,7 @@ namespace Lens.assets {
 		}
 
 		public static void Update() {
-			if (currentPlaying != null && currentPlaying.State == SoundState.Stopped) {
+			if (currentPlaying != null && currentPlaying.State == SoundState.Stopped && currentPlaying.IsLooped) {
 				currentPlaying.Play();
 			}
 		}

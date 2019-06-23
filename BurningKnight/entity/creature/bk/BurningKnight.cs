@@ -1,15 +1,21 @@
+using System;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
+using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
@@ -46,6 +52,23 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (died) {
+				deathTimer += dt;
+				lastExplosion -= dt;
+
+				if (lastExplosion <= 0) {
+					lastExplosion = 0.3f;
+					AnimationUtil.Explosion(Center + new Vector2(Random.Float(-16, 16), Random.Float(-16, 16)));
+					Camera.Instance.Shake(3);
+				}
+
+				if (deathTimer >= 3f) {
+					Done = true;
+					((InGameState) Engine.Instance.State).ResetFollowing();
+					PlaceRewards();
+				}
+			}
+			
 			if (set == null) {
 				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
 			}
@@ -62,25 +85,45 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		private bool died;
-
+		private float deathTimer;
+		private float lastExplosion;
+		
 		public override bool HandleEvent(Event e) {
 			if (e is DiedEvent && !died) {
 				died = true;
-				// Done = false;
+				Done = false;
 
-				var exit = new Exit();
-				Area.Add(exit);
-				
-				exit.To = Run.Depth + 1;
-				exit.Center = Center;
-				
-				var stand = new BossStand();
-				Area.Add(stand);
-				stand.Center = Center - new Vector2(0, 32f);
-				stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
+				e.Handled = true;
+
+				Camera.Instance.Targets.Clear();
+				Camera.Instance.Follow(this, 1f);
 			}
 			
 			return base.HandleEvent(e);
+		}
+		
+		private void PlaceRewards() {
+			var exit = new Exit();
+			Area.Add(exit);
+				
+			exit.To = Run.Depth + 1;
+
+			var x = (int) Math.Floor(CenterX / 16);
+			var y = (int) Math.Floor(CenterY / 16);
+			var p = new Vector2(x * 16 + 8, y * 16 + 8);
+			
+			exit.Center = p;
+
+			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
+			Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
+
+			var stand = new BossStand();
+			Area.Add(stand);
+			stand.Center = p - new Vector2(0, 32f);
+			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
+			
+			Run.Level.TileUp();
+			Run.Level.CreateBody();
 		}
 	}
 }

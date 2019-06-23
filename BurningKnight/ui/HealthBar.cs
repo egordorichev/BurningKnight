@@ -123,6 +123,10 @@ namespace BurningKnight.ui {
 
 			if (lastHp > h) {
 				lastHp += Engine.Delta * 10f * (h - lastHp);
+
+				if (h == 0 && lastHp <= 2f) {
+					lastHp = 0;
+				}
 			} else {
 				lastHp = h;
 			}

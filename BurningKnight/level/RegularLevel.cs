@@ -22,7 +22,11 @@ namespace BurningKnight.level {
 		public RegularLevel() : base(null) {
 			
 		}
-		
+
+		public override int GetPadding() {
+			return 10;
+		}
+
 		public void Generate(Area area, int Attempt) {
 			rooms = null;
 			ItemsToSpawn = new List<string>();

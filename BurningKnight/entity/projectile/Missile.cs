@@ -1,5 +1,8 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.level;
+using BurningKnight.level.entities;
+using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
@@ -45,8 +48,18 @@ namespace BurningKnight.entity.projectile {
 				Owner = owner,
 				Projectile = this
 			});
-		}
 
+			Depth = Layers.TileLights;
+			
+			CollisionFilterComponent.Add(this, (p, e) => {
+				if (e is Level || e is Prop || e is DestroyableLevel) {
+					return CollisionResult.Disable;
+				}
+				
+				return CollisionResult.Default;
+			});
+		}
+		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent) {
 				return false; // Ignore all collision
