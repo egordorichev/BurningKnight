@@ -3,6 +3,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.state;
 using Lens.entity;
@@ -138,6 +139,7 @@ namespace BurningKnight.level {
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
 			Rooms.Add(RoomRegistry.Generate(RoomType.Boss));
+			Rooms.Add(new PrebossRoom());
 			
 			return Rooms;
 		}
@@ -147,14 +149,14 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
-			var R = Random.Float();
+			/*var R = Random.Float();
 
 			if (R < 0.33f) {
 				return new LineBuilder();
 			}
 
-			if (R < 0.66f) return new LoopBuilder();
-			return new CastleBuilder();
+			if (R < 0.66f) */return new LoopBuilder();
+			//return new CastleBuilder();
 		}
 
 		protected int GetNumRegularRooms() {

@@ -13,9 +13,11 @@ namespace BurningKnight.level.rooms.boss {
 		}
 		
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tile.Chasm);
+			Painter.Fill(level, this, 1, Tile.WallA);
+			Painter.Fill(level, GetCenterRect(), -2, Tile.FloorA);
+			PaintTunnel(level, Tile.FloorB);
 
-			var before = Random.Chance();
+			/*var before = Random.Chance();
 
 			if (before) {
 				PaintRoad(level);
@@ -29,7 +31,7 @@ namespace BurningKnight.level.rooms.boss {
 
 			if (!before) {
 				PaintRoad(level);
-			}
+			}*/
 
 			Place(level);
 		}

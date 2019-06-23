@@ -15,13 +15,18 @@
 * bouncy pattern -> another transformation?
 
 * Boss door
-* EEEEEEEEEEEEEEEEEEEEEPIC intro
 * EPIC death
 * Healthbar art
 * figure out where to spawn boss (near the entrance?)
 * fix win music looping
 
+* EEEEEEEEEEEEEEEEEEEEEPIC intro
+ - ideas:
+  + you enter a smol room, there is a bell, you ring it, then the room epicly expands into a boss arena, bk spawns
+
 ### Before josh
+
+* check all builders with boss room placement
 
 * !!! treasure room design, send screenshots to bibiki!!!
 * bk missile projectiles have no sprite??? wrong depth, maybe?
@@ -108,6 +113,7 @@
 
 #### Polish
 
+* bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Weapons in player hands should drop shadows
@@ -147,6 +153,7 @@
 
 ### Ideas
 
+* cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
 * make bk himself sign!!!!
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Signs, you can write/read from them

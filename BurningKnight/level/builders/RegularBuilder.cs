@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
@@ -11,7 +12,8 @@ namespace BurningKnight.level.builders {
 	public class RegularBuilder : Builder {
 		protected float[] BranchTunnelChances = {2, 2, 1};
 		protected EntranceRoom Entrance;
-		protected EntranceRoom Exit;
+		protected ExitRoom Exit;
+		protected BossRoom Boss;
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
@@ -31,7 +33,9 @@ namespace BurningKnight.level.builders {
 			}
 
 			foreach (var Room in Rooms) {
-				if (Room is ExitRoom exit) {
+				if (Room is BossRoom b) {
+					Boss = b;
+				} else if (Room is ExitRoom exit) {
 					Exit = exit;
 				} else if (Room is EntranceRoom entrance) {
 					Entrance = entrance;

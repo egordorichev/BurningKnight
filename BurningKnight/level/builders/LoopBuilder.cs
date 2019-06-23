@@ -96,6 +96,28 @@ namespace BurningKnight.level.builders {
 					if (!Init.Contains(Prev)) {
 						Init.Add(Prev);
 					}
+
+					if (R == Exit) {
+						var a = TargetAngle - 90;
+						var i = 0;
+						
+						while (true) {
+							var an = PlaceRoom(Init, R, Boss, a);
+							
+							if ((int) an != -1) {
+								break;
+							}
+
+							i++;
+
+							if (i > 36) {
+								break;
+								return null;
+							}
+							
+							a += 10;
+						}
+					}
 				} else {
 					return null;
 				}

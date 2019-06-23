@@ -14,13 +14,9 @@ namespace BurningKnight.level.rooms.entrance {
 		public override void Paint(Level level) {
 			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
 			Place(level, GetCenter());
-			
-			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Regular;
-			}
 		}
 		
-		protected void Place(Level Level, Vector2 Point) {
+		protected virtual void Place(Level Level, Vector2 Point) {
 			Exit exit;
 			
 			Level.Area.Add(exit = new Exit {

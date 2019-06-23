@@ -46,9 +46,7 @@ namespace BurningKnight.ui {
 			Height = frame.Height;
 
 			CenterX = Display.UiWidth / 2f;
-			// fixme:
-			Y = 0;
-			// Y = -Height;
+			Y = -Height;
 
 			Depth = 32;
 		}
@@ -99,15 +97,15 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			/*if (!entity.Awoken) {
+			if (!entity.Awoken) {
 				return;
-			}*/ // fixme
+			}
 			
 			Graphics.Render(frame, Position);
 
 			var health = entity.GetComponent<HealthComponent>();
 			var region = new TextureRegion(fill.Texture, fill.Source);
-			var h = 0; // health.Health;
+			var h = health.Health;
 			
 			if (h < lastDamage) {
 				sinceLastDamage = 0;
@@ -124,7 +122,7 @@ namespace BurningKnight.ui {
 			Graphics.Render(damage, Position + barOffset, 0, Vector2.Zero, new Vector2(lastChange / health.MaxHealth * region.Width, 1));
 
 			if (lastHp > h) {
-				lastHp += Engine.Delta * 4f * (h - lastHp);
+				lastHp += Engine.Delta * 10f * (h - lastHp);
 			} else {
 				lastHp = h;
 			}
