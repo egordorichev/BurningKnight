@@ -1,8 +1,9 @@
 # TODO
 
-### enable before build
+### on windows
 
 * darkness shader should be applied to all screen and not just game
+* get treasure music in
 
 ### bk himself
 
@@ -18,14 +19,13 @@
 * Cool death
 * Healthbar art
 * health bar animation, falling chunks of health like in dead cells
+* figure out where to spawn boss (near the entrance?)
 
 ### Before josh
 
-* explode gold tiles for coins
-* selling items?
 * !!! treasure room design, send screenshots to bibiki!!!
-
-* reset camera following when you tp out from boss battle
+* bk missile projectiles have no sprite??? wrong depth, maybe?
+* reroll based on the current room pool
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
@@ -42,6 +42,8 @@
 * Crash report window
 * statistics fixes
 * stats window for multiple file
+* selling items?
+* explode gold tiles for coins
 
 ### items
 
