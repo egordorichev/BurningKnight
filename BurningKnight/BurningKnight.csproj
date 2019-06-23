@@ -404,6 +404,7 @@
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
     <Compile Include="level\entities\RerollMachine.cs" />
+    <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />

@@ -7,6 +7,10 @@ namespace Lens.graphics.gamerenderer {
 			Begin();
 			Engine.Instance.State.Render();
 			End();
+			
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, GameEffect, Matrix.Identity * Matrix.CreateScale(2));
+			Engine.Instance.State.RenderUi();
+			End();
 
 			Engine.Instance.State.RenderNative();
 		}

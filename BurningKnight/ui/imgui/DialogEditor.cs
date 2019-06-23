@@ -4,12 +4,16 @@ using System.IO;
 using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.ui.imgui.node;
+using BurningKnight.ui.str;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
+using Lens.graphics;
 using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.imgui {
 	public static class DialogEditor {
@@ -21,6 +25,10 @@ namespace BurningKnight.ui.imgui {
 		public static void Init() {
 			Load();
 			LoadCurrent();
+
+			str = new UiString(Font.Small);
+			Engine.Instance.State.Ui.Add(str);
+			str.Position = new Vector2(5);
 		}
 
 		public static void Destroy() {
@@ -94,6 +102,20 @@ namespace BurningKnight.ui.imgui {
 			}
 		}
 
+		private static ImNode last;
+		private static UiString str;
+
+		public static void RenderUi() {
+			if (ImNode.Focused != null) {
+				if (last != ImNode.Focused) {
+					last = ImNode.Focused;
+					str.Label = Locale.Get(ImNode.Focused.LocaleId);
+				}
+			}
+			
+			str.Render();
+		}
+		
 		private static string newName = "";
 
 		public static void Render() {
