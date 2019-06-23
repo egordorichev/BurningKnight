@@ -84,15 +84,19 @@ namespace BurningKnight.ui {
 			}
 
 			if (entity.Done && !tweened) {
-				tweened = true;
+				Remove();
+			}
+		}
 
-				if (showedUp) {
-					Tween.To(-Height, Y, x => Y = x, 0.3f).OnEnd = () => {
-						Done = true;
-					};
-				} else {
+		public void Remove() {
+			tweened = true;
+
+			if (showedUp) {
+				Tween.To(-Height, Y, x => Y = x, 0.3f).OnEnd = () => {
 					Done = true;
-				}
+				};
+			} else {
+				Done = true;
 			}
 		}
 

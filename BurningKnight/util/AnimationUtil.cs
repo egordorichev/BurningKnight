@@ -26,6 +26,7 @@ namespace BurningKnight.util {
 			explosion.Position = where;
 			Run.Level.Area.Add(explosion);
 			explosion.Depth = 32;
+			explosion.Particle.Velocity = Vector2.Zero;
 			explosion.AddShadow();
 		}
 	}

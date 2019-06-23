@@ -11,9 +11,11 @@ using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util.camera;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -59,13 +61,18 @@ namespace BurningKnight.entity.creature.bk {
 				if (lastExplosion <= 0) {
 					lastExplosion = 0.3f;
 					AnimationUtil.Explosion(Center + new Vector2(Random.Float(-16, 16), Random.Float(-16, 16)));
-					Camera.Instance.Shake(3);
+					Camera.Instance.Shake(10);
+					Audio.PlaySfx("explosion");
 				}
 
 				if (deathTimer >= 3f) {
 					Done = true;
-					((InGameState) Engine.Instance.State).ResetFollowing();
 					PlaceRewards();
+					HandleEvent(new BurningKnightDefeatedEvent());
+					
+					Timer.Add(() => {
+						((InGameState) Engine.Instance.State).ResetFollowing();
+					}, 0.5f);
 				}
 			}
 			
@@ -94,9 +101,13 @@ namespace BurningKnight.entity.creature.bk {
 				Done = false;
 
 				e.Handled = true;
+				healthBar.Remove();
 
 				Camera.Instance.Targets.Clear();
 				Camera.Instance.Follow(this, 1f);
+				Become<DefeatedState>();
+
+				Audio.Stop();
 			}
 			
 			return base.HandleEvent(e);
@@ -124,6 +135,10 @@ namespace BurningKnight.entity.creature.bk {
 			
 			Run.Level.TileUp();
 			Run.Level.CreateBody();
+		}
+
+		private class DefeatedState : CreatureState<BurningKnight> {
+			
 		}
 	}
 }

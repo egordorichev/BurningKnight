@@ -249,6 +249,7 @@
     <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
+    <Compile Include="entity\events\BurningKnightDefeatedEvent.cs" />
     <Compile Include="entity\events\ChestOpenedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
