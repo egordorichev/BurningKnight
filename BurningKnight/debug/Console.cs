@@ -75,14 +75,14 @@ namespace BurningKnight.debug {
 				return;
 			}
 
-			filter.Draw("##console");
+			/* filter.Draw("##console");
 			ImGui.SameLine();
 			
 			if (ImGui.Button("Clear")) {
 				Lines.Clear();
 			}
 			
-			ImGui.Separator();
+			ImGui.Separator();*/
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
 			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
