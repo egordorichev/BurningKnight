@@ -1,5 +1,7 @@
 using System;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
@@ -14,6 +16,7 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.timer;
 using Microsoft.Xna.Framework;
@@ -51,13 +54,24 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(new OrbitGiverComponent());
 		}
 
+		private float lastPart;
+
 		public override void Update(float dt) {
 			base.Update(dt);
-
+			
 			if (died) {
+				lastPart -= dt;
+
+				if (lastPart <= 0) {
+					lastPart = 0.03f;
+					var p = new ParticleEntity(new Particle(Controllers.BkDeath, Particles.BkDeathRenderer));
+					Area.Add(p);
+					p.Particle.Position = Center;
+				}
+				
 				deathTimer += dt;
 				lastExplosion -= dt;
-
+				
 				if (lastExplosion <= 0) {
 					lastExplosion = 0.3f;
 					AnimationUtil.Explosion(Center + new Vector2(Random.Float(-16, 16), Random.Float(-16, 16)));
@@ -65,7 +79,13 @@ namespace BurningKnight.entity.creature.bk {
 					Audio.PlaySfx("explosion");
 				}
 
+				if (deathTimer > 1f) {
+					Engine.Instance.FlashColor = new Color(1f, 1f, 1f, (deathTimer - 1) * 0.5f);
+					Engine.Instance.Flash = 0.3f;
+				}
+
 				if (deathTimer >= 3f) {
+					Engine.Instance.FlashColor = ColorUtils.WhiteColor;
 					Done = true;
 					PlaceRewards();
 					HandleEvent(new BurningKnightDefeatedEvent());
@@ -96,18 +116,21 @@ namespace BurningKnight.entity.creature.bk {
 		private float lastExplosion;
 		
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent && !died) {
-				died = true;
+			if (e is DiedEvent) {
+				if (!died) {
+					died = true;
+
+					healthBar.Remove();
+
+					Camera.Instance.Targets.Clear();
+					Camera.Instance.Follow(this, 1f);
+					Become<DefeatedState>();
+
+					Audio.Stop();
+				}
+				
 				Done = false;
-
 				e.Handled = true;
-				healthBar.Remove();
-
-				Camera.Instance.Targets.Clear();
-				Camera.Instance.Follow(this, 1f);
-				Become<DefeatedState>();
-
-				Audio.Stop();
 			}
 			
 			return base.HandleEvent(e);

@@ -68,6 +68,11 @@ namespace Lens.graphics.gamerenderer {
 			BeginUi();
 			Graphics.Clear(Color.Transparent);
 			Engine.Instance.State?.RenderUi();
+
+			if (Engine.Instance.Flash > 0) {
+				Graphics.Clear(Engine.Instance.FlashColor);
+			}
+			
 			End();
 		}
 		
@@ -86,38 +91,34 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
 
-			if (Engine.Instance.Flash > 0.01f) {
+		
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
+
+			if (Camera.Instance != null) {
+				var shake = Camera.Instance.GetComponent<ShakeComponent>();
+				var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
+
+				Graphics.Render(GameTarget,
+					new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
+						Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale + scale * shake.Position.Y),
+					shake.Angle,
+					new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
+						Camera.Instance.Position.Y % 1 + Display.Height / 2f),
+					new Vector2(scale));
+			}
+
+			Graphics.Batch.End();
+
+			if (UiTarget != null) {
 				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
-				Graphics.Clear(Engine.Instance.FlashColor);
-				Graphics.Batch.End();
-			} else {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
-
-				if (Camera.Instance != null) {
-					var shake = Camera.Instance.GetComponent<ShakeComponent>();
-					var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
-
-					Graphics.Render(GameTarget,
-						new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
-							Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale + scale * shake.Position.Y),
-						shake.Angle,
-						new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
-							Camera.Instance.Position.Y % 1 + Display.Height / 2f),
-						new Vector2(scale));
-				}
-
-				Graphics.Batch.End();
-
-				if (UiTarget != null) {
-					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
+			
+				Graphics.Color = new Color(0, 0, 0, 0.5f);
+				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
+				Graphics.Color = ColorUtils.WhiteColor;
 				
-					Graphics.Color = new Color(0, 0, 0, 0.5f);
-					Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
-					Graphics.Color = ColorUtils.WhiteColor;
-					
-					Graphics.Render(UiTarget, Engine.Viewport);
-					Graphics.Batch.End();
-				}
+				Graphics.Render(UiTarget, Engine.Viewport);
+				
+				Graphics.Batch.End();
 			}
 
 			Engine.Instance.State?.RenderNative();

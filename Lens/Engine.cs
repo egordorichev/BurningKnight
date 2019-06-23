@@ -1,6 +1,7 @@
 ﻿using System;
 using Lens.assets;
 using Lens.game;
+using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util;
@@ -44,7 +45,7 @@ namespace Lens {
 		public float Speed = 1;
 		public float Flash;
 		public float Freeze;
-		public Color FlashColor = Color.White;
+		public Color FlashColor = ColorUtils.WhiteColor;
 		public float Split;
 		// Window.Title works only in Init, sadly
 		private string tmpTitle;

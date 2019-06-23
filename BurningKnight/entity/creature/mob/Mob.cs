@@ -34,12 +34,10 @@ namespace BurningKnight.entity.creature.mob {
 			SetStats();
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
-				Chance = 0.1f,
+				Chance = 0.05f,
 				Items = new[] {
 					"bk:coin"
-				},
-				
-				Max = 2
+				}
 			});
 
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;

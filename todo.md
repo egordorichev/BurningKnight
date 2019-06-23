@@ -33,7 +33,7 @@
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
 * room rewards (batteries and stuff)
-* music in boss room should depend on is boss dead or no
+* bk can despawn :( (and some saving bug?)
 
 ### can wait
 
