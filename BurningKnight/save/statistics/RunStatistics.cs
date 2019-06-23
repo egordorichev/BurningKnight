@@ -14,9 +14,7 @@ using Lens.util.file;
 namespace BurningKnight.save.statistics {
 	/*
 	 * todo:
-	 * time
 	 * won
-	 * walk distance
 	 * rooms total
 	 * secret rooms total
 	 */

@@ -96,6 +96,7 @@
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />
+    <Compile Include="assets\particle\controller\HealthParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="assets\particle\Particles.cs" />
     <Compile Include="assets\particle\ParticleSystem.cs" />
     <Compile Include="assets\particle\renderer\AnimatedParticleRenderer.cs" />
+    <Compile Include="assets\particle\renderer\HealthParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\RandomFrameRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />

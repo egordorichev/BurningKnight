@@ -1,5 +1,8 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using Lens;
@@ -16,6 +19,7 @@ namespace BurningKnight.ui {
 		private TextureRegion frame;
 		private TextureRegion fill;
 		private TextureRegion damage;
+		
 		private float lastHp;
 		private float sinceLastDamage;
 		private float lastChange;
@@ -59,7 +63,19 @@ namespace BurningKnight.ui {
 				sinceLastDamage += dt;
 
 				if (sinceLastDamage >= ChangeDelay) {
-					Tween.To(entity.GetComponent<HealthComponent>().Health, lastChange, x => lastChange = x, 0.3f);
+					var health = entity.GetComponent<HealthComponent>();
+					var h = health.Health;
+					var s = (lastChange - h) / health.MaxHealth * fill.Width;
+
+					var p = new ParticleEntity(new Particle(new HealthParticleController(), new HealthParticleRenderer(damage, s)));
+					p.Particle.Position = Position + barOffset + new Vector2((float) h / health.MaxHealth * fill.Width, 0);
+					p.Position = p.Particle.Position;
+					p.AlwaysActive = true;
+					p.AlwaysVisible = true;
+					Area.Add(p);
+					p.Depth = Depth + 1;
+					
+					Tween.To(h, lastChange, x => lastChange = x, 0.3f);
 					charge = false;
 				}
 			}
@@ -91,11 +107,11 @@ namespace BurningKnight.ui {
 
 			var health = entity.GetComponent<HealthComponent>();
 			var region = new TextureRegion(fill.Texture, fill.Source);
-			var h = health.Health;
+			var h = 0; // health.Health;
 			
 			if (h < lastDamage) {
 				sinceLastDamage = 0;
-				lastDamage = health.Health;
+				lastDamage = h;
 				charge = true;
 			} else if (h > lastDamage) {
 				lastDamage = h;

@@ -15,11 +15,11 @@
 * bouncy pattern -> another transformation?
 
 * Boss door
-* Cool intro
-* Cool death
+* EEEEEEEEEEEEEEEEEEEEEPIC intro
+* EPIC death
 * Healthbar art
-* health bar animation, falling chunks of health like in dead cells
 * figure out where to spawn boss (near the entrance?)
+* fix win music looping
 
 ### Before josh
 
@@ -30,9 +30,11 @@
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
 * room rewards (batteries and stuff)
+* music in boss room should depend on is boss dead or no
 
 ### can wait
 
+* missile should spawn dust after it (follower, missile launcher)
 * unpassable ring connection room (removed for now)
 * iron hearts, half a heart spawning, etc
 * update art for chest
@@ -44,6 +46,7 @@
 * stats window for multiple file
 * selling items?
 * explode gold tiles for coins
+* settings
 
 ### items
 
