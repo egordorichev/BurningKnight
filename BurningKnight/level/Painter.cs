@@ -9,6 +9,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
@@ -298,6 +299,10 @@ namespace BurningKnight.level {
 			var Lake = Patch.Noise(Cobweb);
 
 			foreach (var R in Rooms) {
+				if (R is BossRoom) {
+					continue;
+				}
+				
 				foreach (var P in R.WaterPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
