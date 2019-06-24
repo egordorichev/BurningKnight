@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.bk.forms;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -37,7 +38,7 @@ namespace BurningKnight.entity.creature.bk {
 			base.Update(dt);
 
 			if (!did && triggered) {
-				Camera.Instance.Shake(2);
+				Camera.Instance.Shake();
 				t += dt;
 
 				if (t >= 2f) {
@@ -98,8 +99,7 @@ namespace BurningKnight.entity.creature.bk {
 								level.CreateBody();
 							}
 
-							Engine.Instance.Freeze = 1f;
-							Camera.Instance.Shake(4);
+							Camera.Instance.Shake(2);
 						}, j * 0.1f);
 					}
 
@@ -109,7 +109,14 @@ namespace BurningKnight.entity.creature.bk {
 						bk.Center = Center;
 						
 						Camera.Instance.Follow(bk, 2f);
+
+						Timer.Add(() => {
+							((InGameState) (Engine.Instance.State)).ResetFollowing();
+						}, 1f);
+						
 						Done = true;
+						
+						Camera.Instance.Shake(10);
 					}, r * 0.1f + 3f);
 				}
 			}

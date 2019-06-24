@@ -118,7 +118,18 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
+		private bool loaded;
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			loaded = true;
+		}
+
 		public void FindSpawnPoint() {
+			if (loaded) {
+				return;
+			}
+			
 			if (Run.StartedNew) {
 				if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));

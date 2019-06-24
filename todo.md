@@ -20,6 +20,8 @@
 * EEEEEEEEEEEEEEEEEEEEEPIC intro
  * more epic stuff in the spawn trigger, some fire or smth, dissappears with the start of the shake
  * cool particles when tile gets removed
+ 
+* make player unhittable and remove projectiles/enemies from the room on bk death?
 
 ### Before josh
 
