@@ -15,6 +15,7 @@ namespace BurningKnight {
 		public const string Swap = "swap";
 
 		public const string Roll = "roll";
+		public const string Duck = "duck";
 		
 		public const string Pause = "pause";
 
@@ -47,6 +48,9 @@ namespace BurningKnight {
 
 			Input.Bind(Roll, MouseButtons.Right);
 			Input.Bind(Roll, Buttons.LeftTrigger);
+			
+			Input.Bind(Duck, Keys.R);
+			Input.Bind(Duck, Buttons.LeftShoulder);
 			
 			Input.Bind(Pause, Keys.Escape);
 			Input.Bind(Pause, Buttons.Back);

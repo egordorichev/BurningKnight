@@ -177,6 +177,26 @@ namespace BurningKnight.entity.creature.player {
 			
 		}
 		
+		public class DuckState : EntityState {
+			public override void Init() {
+				base.Init();
+
+				var c = Self.GetComponent<PlayerGraphicsComponent>();
+				
+				c.Scale.X = 1.3f;
+				c.Scale.Y = 0.8f;
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				
+				var c = Self.GetComponent<PlayerGraphicsComponent>();
+				
+				c.Scale.X = 1f;
+				c.Scale.Y = 1f;
+			}
+		}
+		
 		public class RunState : EntityState {
 			
 		}

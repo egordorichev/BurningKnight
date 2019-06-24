@@ -124,6 +124,15 @@ namespace BurningKnight.entity.creature.player {
 			
 			var state = Entity.GetComponent<StateComponent>();
 			var body = GetComponent<RectBodyComponent>();
+			var duck = state.StateInstance is Player.DuckState;
+			
+			if (duck) {
+				if (Input.WasReleased(Controls.Duck)) {
+					state.Become<Player.IdleState>();
+				}
+			} else if (Input.WasPressed(Controls.Duck)) {
+				state.Become<Player.DuckState>();
+			}
 			
 			if (state.StateInstance is Player.RollState r) {
 				// Movement tech :) Direction changing
@@ -135,7 +144,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller)) {
 					state.Become<Player.IdleState>();
 				}
-			} else {
+			} else if (!duck) {
 				var acceleration = new Vector2();
 				
 				if (Input.IsDown(Controls.Up, controller)) {
