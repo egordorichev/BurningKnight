@@ -118,18 +118,9 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		private bool loaded;
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			loaded = true;
-		}
+		private int lastDepth = -3;
 
 		public void FindSpawnPoint() {
-			if (loaded) {
-				return;
-			}
-			
 			if (Run.StartedNew) {
 				if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
@@ -145,6 +136,12 @@ namespace BurningKnight.entity.creature.player {
 					StartingLamp = null;
 				}
 			}
+			
+			if (lastDepth == Run.Depth) {
+				return;
+			}
+
+			lastDepth = Run.Depth;
 			
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
 				Center = c.Center;

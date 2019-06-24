@@ -25,9 +25,11 @@
 
 ### Before josh
 
+* wip sign and placement
+* steam cloud
+
 * !!! treasure room design
 * bk missile projectiles have no sprite??? wrong depth, maybe?
-* some saving bug?
 
 ### can wait
 

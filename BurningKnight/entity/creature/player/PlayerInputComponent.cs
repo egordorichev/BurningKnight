@@ -4,6 +4,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
@@ -132,6 +133,9 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (Input.WasPressed(Controls.Duck)) {
 				state.Become<Player.DuckState>();
+				
+				var m = new Missile(Entity, Entity);
+				m.AddLight(32f, Color.Red);
 			}
 			
 			if (state.StateInstance is Player.RollState r) {

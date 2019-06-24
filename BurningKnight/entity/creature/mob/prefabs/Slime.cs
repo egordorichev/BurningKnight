@@ -15,7 +15,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class Slime : Mob {
 		protected virtual float GetJumpDelay() {
-			return 0;
+			return 1;
 		}
 		
 		protected override void SetStats() {
