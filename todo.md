@@ -27,11 +27,11 @@
 
 * !!! treasure room design
 * bk missile projectiles have no sprite??? wrong depth, maybe?
-* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
 * some saving bug?
 
 ### can wait
 
+* nicer preboss room
 * room rewards (batteries and stuff)
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
