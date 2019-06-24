@@ -111,7 +111,6 @@ namespace BurningKnight.level.builders {
 							i++;
 
 							if (i > 36) {
-								break;
 								return null;
 							}
 							

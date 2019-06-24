@@ -153,14 +153,14 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
-			/*var R = Random.Float();
+			var R = Random.Float();
 
 			if (R < 0.33f) {
 				return new LineBuilder();
 			}
 
-			if (R < 0.66f) */return new LoopBuilder();
-			//return new CastleBuilder();
+			if (R < 0.66f) return new LoopBuilder();
+			return new CastleBuilder();
 		}
 
 		protected int GetNumRegularRooms() {

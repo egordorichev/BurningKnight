@@ -27,6 +27,25 @@ namespace BurningKnight.level.builders {
 			if (!CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
 				return null;
 			}
+			
+			var a = Random.Angle() - 90;
+			var i = 0;
+					
+			while (true) {
+				var an = PlaceRoom(Init, Exit, Boss, a);
+						
+				if ((int) an != -1) {
+					break;
+				}
+
+				i++;
+
+				if (i > 36) {
+					return null;
+				}
+						
+				a += 10;
+			}
 
 			FindNeighbours(Init);
 

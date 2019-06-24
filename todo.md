@@ -25,7 +25,6 @@
 
 ### Before josh
 
-* add boss room placement to all builders, introduce em back
 * !!! treasure room design
 * bk missile projectiles have no sprite??? wrong depth, maybe?
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
