@@ -21,9 +21,9 @@ namespace BurningKnight.level.rooms.connection {
 			var b = Random.Chance();
 			var d = b && Random.Chance();
 			
-			PaintTunnel(level, d ? Tiles.Pick(Tile.WallA, Tile.WallB, Tile.Planks, Tiles.RandomFloor(), Tile.FloorD) : Tiles.RandomFloor(), ring, b); 
+			PaintTunnel(level, d ? Tiles.Pick(Tile.WallA, Tile.Planks, Tiles.RandomFloor(), Tile.FloorD) : Tiles.RandomFloor(), ring, b); 
 
-			if (d && Random.Chance()) {
+			if (d || Random.Chance()) {
 				PaintTunnel(level, Tiles.RandomNewFloor(), ring);
 			}
 			

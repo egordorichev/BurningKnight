@@ -36,7 +36,7 @@ namespace BurningKnight.entity.creature.bk {
 			Height = 42;
 			Flying = true;
 
-			var b = new RectBodyComponent(16, 16, Width - 32, Height - 32) {
+			var b = new RectBodyComponent(8, 8, Width - 16, Height - 16) {
 				KnockbackModifier = 0
 			};
 

@@ -48,6 +48,12 @@ namespace BurningKnight.entity.component {
 				var dx = Following.DxTo(Entity);
 				var dy = Following.DyTo(Entity);
 				var d = Math.Sqrt(dx * dx + dy * dy);
+
+				if (d > 1024f) {
+					Entity.Center = Following.Center;
+					return;
+				}
+
 				var sp = dt * 16f;
 				
 				body.Velocity -= body.Velocity * (sp * 0.4f);
