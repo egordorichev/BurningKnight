@@ -12,6 +12,10 @@ namespace Lens.util.file {
 		public bool Cache;
 		
 		public FileWriter(string path, bool append = false) {
+			OpenStream(path, append);
+		}
+
+		protected virtual void OpenStream(string path, bool append) {
 			stream = new BinaryWriter(File.Open(path, append ? FileMode.Append : FileMode.Create));
 		}
 
@@ -22,12 +26,16 @@ namespace Lens.util.file {
 
 			cache.Clear();
 		}
+
+		protected virtual void Write(byte value) {
+			stream.Write(value);
+		}
 		
 		public void WriteByte(byte value) {
 			if (Cache) {
 				cache.Add(value);
 			} else {
-				stream.Write(value);
+				Write(value);
 			}
 		}
 

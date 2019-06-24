@@ -39,6 +39,10 @@
       <HintPath>..\packages\DiscordRichPresence.1.0.77\lib\net35\DiscordRPC.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Facepunch.Steamworks, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Facepunch.Steamworks.2.1.0\lib\net46\Facepunch.Steamworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ImGui.NET, Version=1.70.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\ImGui.NET.1.70.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
       <Private>True</Private>
@@ -482,6 +486,8 @@
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="save\cloud\CloudFileReader.cs" />
+    <Compile Include="save\cloud\CloudFileWriter.cs" />
     <Compile Include="save\EntitySaver.cs" />
     <Compile Include="save\GameSave.cs" />
     <Compile Include="save\GlobalSave.cs" />
