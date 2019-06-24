@@ -39,6 +39,10 @@
       <HintPath>..\packages\DiscordRichPresence.1.0.77\lib\net35\DiscordRPC.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Facepunch.Steamworks, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Facepunch.Steamworks.2.1.0\lib\net46\Facepunch.Steamworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ImGui.NET, Version=1.70.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\ImGui.NET.1.70.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
       <Private>True</Private>
@@ -93,9 +97,11 @@
     <Compile Include="assets\Mods.cs" />
     <Compile Include="assets\Palette.cs" />
     <Compile Include="assets\particle\AnimatedParticle.cs" />
+    <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />
+    <Compile Include="assets\particle\controller\HealthParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -104,6 +110,7 @@
     <Compile Include="assets\particle\Particles.cs" />
     <Compile Include="assets\particle\ParticleSystem.cs" />
     <Compile Include="assets\particle\renderer\AnimatedParticleRenderer.cs" />
+    <Compile Include="assets\particle\renderer\HealthParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\ParticleRenderer.cs" />
     <Compile Include="assets\particle\renderer\RandomFrameRenderer.cs" />
     <Compile Include="assets\particle\renderer\TexturedParticleRenderer.cs" />
@@ -140,6 +147,7 @@
     <Compile Include="entity\component\BuffsComponent.cs" />
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\CloseDialogComponent.cs" />
+    <Compile Include="entity\component\CollisionFilterComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\DropModifier.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />
@@ -167,6 +175,7 @@
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
     <Compile Include="entity\component\SliceComponent.cs" />
+    <Compile Include="entity\component\StatsComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\component\WallAnimationComponent.cs" />
@@ -185,6 +194,8 @@
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
+    <Compile Include="entity\creature\bk\forms\BurningSlime.cs" />
+    <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\CreatureState.cs" />
@@ -245,6 +256,7 @@
     <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
+    <Compile Include="entity\events\BurningKnightDefeatedEvent.cs" />
     <Compile Include="entity\events\ChestOpenedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
@@ -260,8 +272,10 @@
     <Compile Include="entity\events\HealthModifiedEvent.cs" />
     <Compile Include="entity\events\InteractedEvent.cs" />
     <Compile Include="entity\events\ItemAddedEvent.cs" />
+    <Compile Include="entity\events\ItemBoughtEvent.cs" />
     <Compile Include="entity\events\ItemCheckEvent.cs" />
     <Compile Include="entity\events\ItemPlacedEvent.cs" />
+    <Compile Include="entity\events\ItemPriceCalculationEvent.cs" />
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemTakenEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
@@ -273,6 +287,7 @@
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
+    <Compile Include="entity\events\RoomClearedEvent.cs" />
     <Compile Include="entity\events\SaveEndedEvent.cs" />
     <Compile Include="entity\events\SaveStartedEvent.cs" />
     <Compile Include="entity\events\SecretRoomFoundEvent.cs" />
@@ -320,11 +335,15 @@
     <Compile Include="entity\item\use\GiveItemUse.cs" />
     <Compile Include="entity\item\use\GiveKeyUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
+    <Compile Include="entity\item\use\MakeLayerPassableUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBounceUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesHomeInUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesShatternOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSlowDown.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitOnDeathUse.cs" />
+    <Compile Include="entity\item\use\MakeShopRestockUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
+    <Compile Include="entity\item\use\ModifyActiveChargeUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
@@ -332,13 +351,17 @@
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
+    <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
+    <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
     <Compile Include="entity\item\use\SpawnItemsUse.cs" />
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
+    <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
+    <Compile Include="entity\item\use\UseOnEventUse.cs" />
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
@@ -348,6 +371,7 @@
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
     <Compile Include="entity\projectile\Missile.cs" />
@@ -357,10 +381,10 @@
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />
+    <Compile Include="entity\projectile\ProjectileRegistry.cs" />
     <Compile Include="entity\projectile\ProjectileTemplate.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
-    <Compile Include="entity\Sign.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
@@ -388,6 +412,7 @@
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
     <Compile Include="level\entities\RerollMachine.cs" />
+    <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
@@ -427,6 +452,7 @@
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
+    <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
     <Compile Include="level\rooms\Room.cs" />
     <Compile Include="level\rooms\RoomDef.cs" />
@@ -456,9 +482,12 @@
     <Compile Include="level\walls\WallPainter.cs" />
     <Compile Include="level\walls\WallRegistry.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
+    <Compile Include="physics\CollisionResult.cs" />
     <Compile Include="physics\Physics.cs" />
     <Compile Include="physics\PhysicsDebugRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="save\cloud\CloudFileReader.cs" />
+    <Compile Include="save\cloud\CloudFileWriter.cs" />
     <Compile Include="save\EntitySaver.cs" />
     <Compile Include="save\GameSave.cs" />
     <Compile Include="save\GlobalSave.cs" />

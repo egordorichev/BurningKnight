@@ -37,7 +37,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				return;
 			}
 			
-			var am = 8;
+			var am = 4;
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);

@@ -17,13 +17,16 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public override void Render(bool shadow) {
+			var p = (Projectile) Entity;
+			var scale = new Vector2(p.Scale);
+			var a = p.GetAnyComponent<BodyComponent>().Body.Rotation;
+			
 			if (shadow) {
 				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y + 4), 
-					0, Sprite.Center, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+					a, Sprite.Center, scale);
 				return;
 			}
 
-			var p = (Projectile) Entity;
 			var d = p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f;
 
 			if (d) {
@@ -36,7 +39,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(Sprite, Entity.Position, 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(Sprite, Entity.Position + Sprite.Center, a, Sprite.Center, scale);
 
 			if (d) {
 				Shaders.End();

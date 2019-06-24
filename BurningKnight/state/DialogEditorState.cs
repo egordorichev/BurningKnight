@@ -39,6 +39,10 @@ namespace BurningKnight.state {
 			Graphics.Clear(ColorUtils.BlackColor);
 		}
 
+		public override void RenderUi() {
+			DialogEditor.RenderUi();
+		}
+
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
 			DialogEditor.Render();

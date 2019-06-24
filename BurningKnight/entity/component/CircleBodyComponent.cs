@@ -10,6 +10,7 @@ namespace BurningKnight.entity.component {
 			if (center) {
 				x -= r;
 				y -= r;
+				Offset = new Vector2(r, r);
 			}
 
 			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero, 0, type);
@@ -18,7 +19,7 @@ namespace BurningKnight.entity.component {
 			Body.LinearDamping = 0;
 
 			Body.CreateFixture(new CircleShape(r, 1) {
-				Position = new Vector2(x + r, y + r)
+				Position = new Vector2(x + r, y + r),
 			}).IsSensor = sensor;
 		}
 	}

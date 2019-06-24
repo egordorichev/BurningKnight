@@ -16,8 +16,8 @@ namespace BurningKnight.entity.item.use {
 					var s = v.Length();
 					var c = p.HasComponent<CircleBodyComponent>();
 
-					Projectile.Make(pce.Owner, p.Slice, a - (float) Math.PI * 0.5f, s, c, -1, p).Center = p.Center;
-					Projectile.Make(pce.Owner, p.Slice, a + (float) Math.PI * 0.5f, s, c, -1, p).Center = p.Center;
+					Projectile.Make(pce.Owner, p.Slice, a - (float) Math.PI * 0.5f, s, c, -1, p, p.Scale).Center = p.Center;
+					Projectile.Make(pce.Owner, p.Slice, a + (float) Math.PI * 0.5f, s, c, -1, p, p.Scale).Center = p.Center;
 				};
 			}
 			

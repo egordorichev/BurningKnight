@@ -2,6 +2,7 @@
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.crash;
+using Desktop.integration.steam;
 using Lens;
 using Microsoft.Xna.Framework;
 
@@ -15,6 +16,8 @@ namespace Desktop {
 
 		protected override void Initialize() {
 			base.Initialize();
+			
+			integrations.Add(new SteamIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();

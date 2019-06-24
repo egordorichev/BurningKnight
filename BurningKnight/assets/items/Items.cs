@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.state;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -66,7 +67,9 @@ namespace BurningKnight.assets.items {
 				data["time"] = item.UseTime;
 				data["type"] = (int) item.Type;
 				data["chance"] = item.Chance.ToJson();
+				data["single"] = item.Single;
 				data["auto_pickup"] = item.AutoPickup;
+				data["auto"] = item.Automatic;
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
@@ -120,6 +123,8 @@ namespace BurningKnight.assets.items {
 				Renderer = item["renderer"],
 				Animation = animation,
 				AutoPickup = pickup,
+				Single = item["single"].Bool(true),
+				Automatic = item["auto"],
 				Chance = Chance.Parse(item["chance"])
 			};
 			
@@ -210,6 +215,7 @@ namespace BurningKnight.assets.items {
 				Type = data.Type,
 				AutoPickup = data.AutoPickup,
 				Animation = data.Animation,
+				Automatic = data.Automatic,
 				Uses = ParseUses(data.Uses)
 			};
 			
@@ -314,16 +320,56 @@ namespace BurningKnight.assets.items {
 		public static void Destroy() {
 			
 		}
-	
-		private static string Generate(List<ItemData> types, Func<ItemData, bool> filter, PlayerClass c) {
-			double sum = 0;
+
+		public static List<ItemData> GetPool(ItemPool pool) {
+			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
+		}
+
+		public static List<ItemData> GeneratePool(List<ItemData> types, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if (filter == null || filter(t)) {
+				if ((!t.Single || Run.Statistics == null || !Run.Statistics.Items.Contains(t.Id)) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
 					datas.Add(t);
 				}
 			}
+
+			return datas;
+		}
+
+		public static string GenerateAndRemove(List<ItemData> datas) {
+			double sum = 0;
+			
+			foreach (var chance in datas) {
+				sum += chance.Chance.Calculate(PlayerClass.Any);
+			}
+
+			var value = Random.Double(sum);
+			sum = 0;
+
+			string id = null;
+			ItemData data = null;
+			
+			foreach (var t in datas) {
+				sum += t.Chance.Calculate(PlayerClass.Any);
+
+				if (value < sum) {
+					id = t.Id;
+					data = t;
+					break;
+				}
+			}
+
+			if (id != null) {
+				datas.Remove(data);
+			}
+			
+			return id;
+		}
+	
+		private static string Generate(List<ItemData> types, Func<ItemData, bool> filter, PlayerClass c) {
+			double sum = 0;
+			var datas = GeneratePool(types, filter, c);
 			
 			foreach (var chance in datas) {
 				sum += chance.Chance.Calculate(c);

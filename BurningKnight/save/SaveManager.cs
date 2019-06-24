@@ -1,14 +1,18 @@
 using System;
 using System.IO;
 using System.Threading;
+using BurningKnight.save.cloud;
 using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
+using Steamworks;
 
 namespace BurningKnight.save {
 	public class SaveManager {
+		public static bool EnableCloudSave;
+		
 		public const string SaveDir = "burning_knight/";
 		public const int MagicNumber = 894923782;
 		public const short Version = 0;
@@ -51,8 +55,17 @@ namespace BurningKnight.save {
 			return new FileHandle(path);
 		}
 
+		private static FileWriter GetWriter(string path) {
+			return EnableCloudSave ? new CloudFileWriter(path) : new FileWriter(path);
+		}
+		
+		private static FileReader GetReader(string path) {
+			return EnableCloudSave ? new CloudFileReader(path) : new FileReader(path);
+		}
+
 		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
-			var file = new FileInfo(GetSavePath(saveType, old, path));
+			var p = GetSavePath(saveType, old, path);
+			var file = new FileInfo(p);
 
 			if (saveType != SaveType.Secret || Engine.Version.Dev) {
 				Log.Info($"Saving {saveType} {(old ? Run.LastDepth : Run.Depth)} to {file.FullName}");
@@ -60,7 +73,7 @@ namespace BurningKnight.save {
 
 			file.Directory?.Create();
 			
-			var stream = new FileWriter(file.FullName);
+			var stream = GetWriter(p);
 
 			stream.WriteInt32(MagicNumber);
 			stream.WriteInt16(Version);
@@ -90,7 +103,7 @@ namespace BurningKnight.save {
 				return false;
 			}
 			
-			var stream = new FileReader(save.FullPath);
+			var stream = GetReader(save.FullPath);
 
 			if (stream.ReadInt32() != MagicNumber) {
 				return false;
@@ -118,7 +131,7 @@ namespace BurningKnight.save {
 					Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
 				}
 
-				var stream = new FileReader(save.FullPath);
+				var stream = GetReader(save.FullPath);
 
 				if (stream.ReadInt32() != MagicNumber) {
 					Log.Error("Invalid magic number!");

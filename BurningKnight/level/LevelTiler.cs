@@ -5,6 +5,10 @@ using Lens.util.math;
 namespace BurningKnight.level {
 	public class LevelTiler {
 		public static void TileUp(Level level) {
+			for (var i = 0; i < level.Variants.Length; i++) {
+				level.Variants[i] = 0;
+			}
+			
 			for (int y = 0; y < level.Height; y++) {
 				for (int x = 0; x < level.Width; x++) {
 					TileUp(level, level.ToIndex(x, y));

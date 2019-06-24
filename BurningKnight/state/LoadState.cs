@@ -27,6 +27,7 @@ namespace BurningKnight.state {
 		private string prefix;
 		private float titleX;
 		private float prefixX;
+		private float t;
 		
 		public override void Init() {
 			base.Init();
@@ -63,12 +64,13 @@ namespace BurningKnight.state {
 			thread.Start();
 
 			titleX = Font.Small.MeasureString(title).Width * -0.5f;
-			prefixX = Font.Medium.MeasureString($"{prefix} 102%").Width * -0.5f;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			t += dt;
+			
 			if (down) {
 				if (ready && ((Engine.Version.Debug) || Time > 3f)) {
 					alpha -= dt * 5;
@@ -89,10 +91,22 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
+
+			var s = $"{prefix} {Math.Min(102, Math.Floor(Time / 3f * 100f))}%";
+			
+			prefixX = Font.Medium.MeasureString(s).Width * -0.5f;
 			
 			Graphics.Color = new Color(1f, 1f, 1f, alpha);
-			Graphics.Print($"{prefix} {Math.Min(102, Math.Floor(Time / 3f * 100f))}%", Font.Medium, new Vector2(Display.UiWidth / 2f + prefixX, Display.UiHeight / 2f - 8));
+			Graphics.Print(s, Font.Medium, new Vector2(Display.UiWidth / 2f + prefixX, Display.UiHeight / 2f - 8));
 			Graphics.Print(title, Font.Small, new Vector2(Display.UiWidth / 2f + titleX, Display.UiHeight / 2f + 8));
+
+			var n = t % 2f;
+			
+			s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";
+			
+			var x = Font.Small.MeasureString(s).Width * -0.5f;
+			Graphics.Print(s, Font.Small, new Vector2(Display.UiWidth / 2f + x, Display.UiHeight / 2f + 32));
+
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 

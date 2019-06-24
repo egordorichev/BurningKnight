@@ -48,13 +48,22 @@ namespace BurningKnight.level.rooms.shop {
 			if (stands.Count == 0) {
 				return;
 			}
+
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Shop));
+
+			pool.Add(Items.Datas["bk:heart"]);
+			pool.Add(Items.Datas["bk:key"]);
 			
 			foreach (var s in stands) {
 				var stand = new ShopStand();
 				level.Area.Add(stand);
 
 				stand.Center = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
-				stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Shop), level.Area), null);
+				stand.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+
+				if (pool.Count == 0) {
+					break;
+				}
 			}
 
 			var p = stands[Random.Int(stands.Count)];

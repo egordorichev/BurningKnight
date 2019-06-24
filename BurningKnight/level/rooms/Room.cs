@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity;
+using BurningKnight.entity.item;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -26,10 +27,22 @@ namespace BurningKnight.level.rooms {
 		public TagLists Tagged = new TagLists();
 		public RoomType Type;
 		public bool Explored;
+		public bool Cleared;
 		
 		public override void AddComponents() {
 			base.AddComponents();
 			AddTag(Tags.Room);
+		}
+
+		public ItemPool GetPool() {
+			switch (Type) {
+				case RoomType.Shop: return ItemPool.Shop;
+				case RoomType.Secret: return ItemPool.Secret;
+				case RoomType.Boss: return ItemPool.Boss;
+				case RoomType.Treasure: return ItemPool.Chest;
+			}
+
+			return null;
 		}
 
 		public override void PostInit() {

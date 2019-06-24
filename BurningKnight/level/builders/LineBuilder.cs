@@ -74,6 +74,27 @@ namespace BurningKnight.level.builders {
 				if ((int) PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
 					return null;
 				}
+				
+				if (R == Exit) {
+					var a = Direction;
+					var i = 0;
+						
+					while (true) {
+						var an = PlaceRoom(Init, R, Boss, a);
+							
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							return null;
+						}
+							
+						a += 10;
+					}
+				}
 
 				Branchable.Add(R);
 				Curr = R;
@@ -86,7 +107,7 @@ namespace BurningKnight.level.builders {
 			}
 
 			RoomsToBranch.AddRange(SingleConnection);
-			
+
 			WeightRooms(Branchable);
 			CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances);
 			FindNeighbours(Init);

@@ -5,18 +5,18 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.component {
 	public class CloseDialogComponent : Component {
-		private const int Radius = 64 * 64;
-		private const int RadiusMax = 80 * 80;
-		
-		private string[] variants;
+		private const int Radius = 32 * 32;
+		private const int RadiusMax = 64 * 64;
+
+		public string[] Variants;
 		private Entity trigger;
 
 		public CloseDialogComponent(params string[] vars) {
-			variants = vars;
+			Variants = vars;
 		}
 
 		public override void Update(float dt) {
-			if (!Entity.OnScreen) {
+			if (!Entity.OnScreen || Variants.Length == 0) {
 				return;
 			}
 
@@ -35,7 +35,7 @@ namespace BurningKnight.entity.component {
 
 			foreach (var p in Entity.Area.Tags[Tags.Player]) {
 				if (p.DistanceToSquared(Entity) <= Radius) {
-					d.Start(variants[Random.Int(variants.Length)]);
+					d.Start(Variants[Random.Int(Variants.Length)]);
 					trigger = p;
 					return;
 				}

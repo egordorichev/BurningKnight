@@ -62,7 +62,7 @@ namespace BurningKnight.level.entities {
 			if (room == null) {
 				return;
 			}
-			
+
 			Animate();
 
 			if (consumeCoin) {
@@ -84,6 +84,7 @@ namespace BurningKnight.level.entities {
 
 			// Reset the luck for the next uses
 			coinsConsumed = 0;
+			var pool = room.GetPool() ?? ItemPool.Shop;
 
 			var items = room.Tagged[Tags.Item].ToArray();
 
@@ -92,7 +93,7 @@ namespace BurningKnight.level.entities {
 				
 				if (e is ItemStand s) {
 					if (s.Item == null) {
-						s.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Shop), Area), null);
+						s.SetItem(Items.CreateAndAdd(Items.Generate(pool), Area), null);
 						continue;
 					}
 					
@@ -105,7 +106,7 @@ namespace BurningKnight.level.entities {
 					continue;
 				}
 				
-				var id = Items.Generate(item.Type, i => i.Id != item.Id);
+				var id = Items.Generate(pool, i => i.Id != item.Id);
 
 				if (id != null) {
 					item.ConvertTo(id);

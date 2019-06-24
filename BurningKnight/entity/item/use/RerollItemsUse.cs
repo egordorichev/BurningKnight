@@ -21,6 +21,7 @@ namespace BurningKnight.entity.item.use {
 			
 			var items = room.Tagged[Tags.Item].ToArray();
 			var area = entity.Area;
+			var pool = room.GetPool() ?? ItemPool.Shop;
 
 			foreach (var e in items) {
 				Item item = null;
@@ -30,7 +31,7 @@ namespace BurningKnight.entity.item.use {
 
 						if (s.Item == null) {
 							if (spawnNewItems) {
-								s.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Shop), area), null);
+								s.SetItem(Items.CreateAndAdd(Items.Generate(pool), area), null);
 							}
 
 							continue;
@@ -60,7 +61,7 @@ namespace BurningKnight.entity.item.use {
 					continue;
 				}
 				
-				var id = Items.Generate(item.Type, i => i.Id != item.Id);
+				var id = Items.Generate(pool, i => i.Id != item.Id);
 
 				if (id != null) {
 					item.ConvertTo(id);

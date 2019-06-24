@@ -11,9 +11,10 @@ namespace Lens.graphics.gamerenderer {
 
 		private Matrix One = Matrix.Identity;
 		private Matrix UiScale = Matrix.Identity;
+
+		private bool inUi;
 		
 		public PixelPerfectGameRenderer() {
-	
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
@@ -23,6 +24,11 @@ namespace Lens.graphics.gamerenderer {
 		}
 
 		public override void Begin() {
+			if (inUi) {
+				BeginUi();
+				return;
+			}
+			
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? One);
 		}
 
@@ -49,16 +55,25 @@ namespace Lens.graphics.gamerenderer {
 			End();
 		}
 
+		private void BeginUi() {
+			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
+		}
+
 		private void RenderUi() {
 			if (UiTarget == null) {
 				return;
 			}
-		
-			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
+
+			BeginUi();
 			Graphics.Clear(Color.Transparent);
 			Engine.Instance.State?.RenderUi();
-			Graphics.Batch.End();
+
+			if (Engine.Instance.Flash > 0) {
+				Graphics.Clear(Engine.Instance.FlashColor);
+			}
+			
+			End();
 		}
 		
 		public override void Render() {
@@ -69,43 +84,41 @@ namespace Lens.graphics.gamerenderer {
 			}
 			
 			RenderGame();
+			inUi = true;
 			RenderUi();
+			inUi = false;
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
 
-			if (Engine.Instance.Flash > 0.01f) {
+		
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
+
+			if (Camera.Instance != null) {
+				var shake = Camera.Instance.GetComponent<ShakeComponent>();
+				var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
+
+				Graphics.Render(GameTarget,
+					new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
+						Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale + scale * shake.Position.Y),
+					shake.Angle,
+					new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
+						Camera.Instance.Position.Y % 1 + Display.Height / 2f),
+					new Vector2(scale));
+			}
+
+			Graphics.Batch.End();
+
+			if (UiTarget != null) {
 				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
-				Graphics.Clear(Engine.Instance.FlashColor);
-				Graphics.Batch.End();
-			} else {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
-
-				if (Camera.Instance != null) {
-					var shake = Camera.Instance.GetComponent<ShakeComponent>();
-					var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
-
-					Graphics.Render(GameTarget,
-						new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
-							Engine.Viewport.Y + Display.Height / 2f * Engine.Instance.Upscale + scale * shake.Position.Y),
-						shake.Angle,
-						new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
-							Camera.Instance.Position.Y % 1 + Display.Height / 2f),
-						new Vector2(scale));
-				}
-
-				Graphics.Batch.End();
-
-				if (UiTarget != null) {
-					Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
+			
+				Graphics.Color = new Color(0, 0, 0, 0.5f);
+				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
+				Graphics.Color = ColorUtils.WhiteColor;
 				
-					Graphics.Color = new Color(0, 0, 0, 0.5f);
-					Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
-					Graphics.Color = ColorUtils.WhiteColor;
-					
-					Graphics.Render(UiTarget, Engine.Viewport);
-					Graphics.Batch.End();
-				}
+				Graphics.Render(UiTarget, Engine.Viewport);
+				
+				Graphics.Batch.End();
 			}
 
 			Engine.Instance.State?.RenderNative();

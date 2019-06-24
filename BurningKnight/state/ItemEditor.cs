@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
@@ -39,7 +40,8 @@ namespace BurningKnight.state {
 			"key",
 			"heart",
 			"lamp",
-			"weapon"
+			"weapon",
+			"battery"
 		};
 
 		private static int toRemove = -1;
@@ -52,7 +54,7 @@ namespace BurningKnight.state {
 			ImGui.PushID(ud);
 			ud++;
 			
-			if (!root.IsJsonArray) {
+			if (!root.IsJsonArray && parent != JsonValue.Null) {
 				if (ImGui.Button("-")) {
 					if (parent.IsJsonArray) {
 						toRemove = parent.AsJsonArray.IndexOf(root);
@@ -227,6 +229,10 @@ namespace BurningKnight.state {
 		}
 
 		private static bool forceFocus;
+
+		private static string[] types = new[] {
+			"Room charged", "Auto charged", "Single use"
+		};
 		
 		private static void RenderWindow() {
 			if (selected == null) {
@@ -234,6 +240,7 @@ namespace BurningKnight.state {
 			}
 			
 			var show = true;
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 			if (!ImGui.Begin("Item editor", ref show, ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
@@ -245,6 +252,39 @@ namespace BurningKnight.state {
 				return;
 			}
 			
+			if (ImGui.Button("Give")) {
+				LocalPlayer.Locate(Engine.Instance.State.Area)
+					?.GetComponent<InventoryComponent>()
+					.Pickup(Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					));
+			}
+
+			if (player != null) {
+				ImGui.SameLine();
+
+				if (ImGui.Button("Spawn")) {
+					var item = Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					);
+
+					item.Center = player.Center;
+				}
+				
+				ImGui.SameLine();
+
+				if (ImGui.Button("Spawn on stand")) {
+					var stand = new ItemStand();
+					Engine.Instance.State.Area.Add(stand);
+					var item = Items.CreateAndAdd(
+						selected.Id, Engine.Instance.State.Area
+					);
+
+					stand.Center = player.Center;
+					stand.SetItem(item, null);
+				}
+			}
+
 			var name = Locale.Get(selected.Id);
 			var region = CommonAse.Items.GetSlice(selected.Id);
 			var animated = selected.Animation != null;
@@ -273,8 +313,41 @@ namespace BurningKnight.state {
 			var t = selected.Type;
 
 			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
-				if (t == ItemType.Active || t == ItemType.Weapon) {
+				if (t == ItemType.Active) {
+					var o = 0;
+
+					if (selected.UseTime < -0.01f) {
+						o = 1;
+					} else if (selected.UseTime < 0.01f) {
+						o = 2;
+					}
+
+					if (ImGui.Combo("RC", ref o, types, types.Length)) {
+						if (o == 0) {
+							selected.UseTime = Math.Max(0.01f, Math.Abs(selected.UseTime));
+						} else if (o == 1) {
+							selected.UseTime = -Math.Max(0.01f, -Math.Abs(selected.UseTime));
+						} else {
+							selected.UseTime = 0;
+						}
+					}
+					
+					if (o == 0) {
+						var v = (int) selected.UseTime;
+
+						if (ImGui.InputInt("Charges", ref v)) {
+							selected.UseTime = v;
+						}
+					} else if (o == 1) {
+						var v = -selected.UseTime;
+
+						if (ImGui.InputFloat("Charge time", ref v)) {
+							selected.UseTime = -v;
+						}
+					}
+				} else if (t == ItemType.Weapon) {
 					ImGui.InputFloat("Use time", ref selected.UseTime);
+					ImGui.Checkbox("Automatic", ref selected.Automatic);
 				}
 
 				ImGui.Checkbox("Auto pickup", ref selected.AutoPickup);
@@ -302,6 +375,8 @@ namespace BurningKnight.state {
 			}
 			
 			if (ImGui.CollapsingHeader("Pools")) {
+				ImGui.Checkbox("Single spawn", ref selected.Single);
+				
 				var i = 0;
 				ImGui.Text($"{selected.Pools}");
 				
@@ -326,22 +401,10 @@ namespace BurningKnight.state {
 
 			ImGui.Separator();
 			
-			if (ImGui.Button("Give")) {
-				LocalPlayer.Locate(Engine.Instance.State.Area)
-					?.GetComponent<InventoryComponent>()
-					.Pickup(Items.CreateAndAdd(
-						selected.Id, Engine.Instance.State.Area
-					));
-			}
-			
-			ImGui.SameLine();
-			
 			if (ImGui.Button("Delete")) {
 				Items.Datas.Remove(selected.Id);
 				selected = null;
 			}
-
-			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 			if (selected != null && player != null) {
 				var id = selected.Id;
@@ -374,6 +437,7 @@ namespace BurningKnight.state {
 		private static bool sort;
 		private static int sortType;
 		private static string itemName = "";
+		private static int count;
 
 		private static void Sort() {
 			// fixme
@@ -475,6 +539,9 @@ namespace BurningKnight.state {
 				toSort = true;
 			}
 			
+			ImGui.Text($"{count}");
+			count = 0;
+			ImGui.SameLine();
 			ImGui.Checkbox("Sort##srt", ref sort);
 
 			if (sort) {
@@ -498,8 +565,22 @@ namespace BurningKnight.state {
 					forceFocus = false;
 				}
 				
-				if (filter.PassFilter(i.Id) && (!sort || i.Type == type) && ImGui.Selectable(i.Id, i == selected)) {
-					selected = i;
+				if (filter.PassFilter(i.Id) && (!sort || i.Type == type)) {
+					count++;
+
+					if (ImGui.Selectable(i.Id, i == selected)) {
+						selected = i;
+
+						if (ImGui.IsMouseDown(1)) {
+							if (ImGui.Button("Give")) {
+								LocalPlayer.Locate(Engine.Instance.State.Area)
+									?.GetComponent<InventoryComponent>()
+									.Pickup(Items.CreateAndAdd(
+										selected.Id, Engine.Instance.State.Area
+									));
+							}
+						}
+					}
 				}
 
 				ImGui.PopID();

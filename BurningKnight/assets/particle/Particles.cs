@@ -15,6 +15,8 @@ namespace BurningKnight.assets.particle {
 		};
 
 		private static ParticleRenderer planksRenderer = new RandomFrameRenderer("planks_particle");
+		
+		public static ParticleRenderer BkDeathRenderer = new TexturedParticleRenderer("natural");
 		public static ParticleRenderer AnimatedRenderer = new AnimatedParticleRenderer();
 		
 		public static Particle Textured(string slice) {

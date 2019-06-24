@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.item.use;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -21,6 +22,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			var filter = CheckDistance(entity);
+			MobRegistry.SetupForBiome(Run.Level.Biome.Id);
 			
 			for (var i = 0; i < Count; i++) {
 				var mob = MobRegistry.Generate();

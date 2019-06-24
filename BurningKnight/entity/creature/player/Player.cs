@@ -6,6 +6,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -34,13 +35,13 @@ namespace BurningKnight.entity.creature.player {
 		public Vector2 Scale;
 		public Item PickedItem;
 
-		public void AnimateItemPickup(Item item, Action action = null, bool add = true) {
+		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
 			Tween.To(1, 0, x => {
 				Scale.X = x;
 				Scale.Y = x;
-			}, 0.5f);
+			}, 0.2f);
 
-			if (add) {
+			if (ban) {
 				var banner = new UiDescriptionBanner();
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
@@ -52,7 +53,7 @@ namespace BurningKnight.entity.creature.player {
 				Tween.To(0, 1, x => {
 					Scale.X = x;
 					Scale.Y = x;
-				}, 0.3f, Ease.BackIn).OnEnd = () => {
+				}, 0.2f, Ease.BackIn).OnEnd = () => {
 					item.Area?.Remove(item);
 					item.Done = false;
 					PickedItem = null;
@@ -87,6 +88,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new ConsumablesComponent());
 						
 			// Stats
+			AddComponent(new StatsComponent());
 			AddComponent(new HeartsComponent());
 			
 			// Collisions
@@ -109,11 +111,14 @@ namespace BurningKnight.entity.creature.player {
 
 			var hp = GetComponent<HealthComponent>();
 			hp.MaxHealth = 1;
+			hp.MaxHealthCap = 33;
 
 			if (Engine.Version.Dev) {
 				hp.Unhittable = true;
 			}
 		}
+
+		private int lastDepth = -3;
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew) {
@@ -131,6 +136,12 @@ namespace BurningKnight.entity.creature.player {
 					StartingLamp = null;
 				}
 			}
+			
+			if (lastDepth == Run.Depth) {
+				return;
+			}
+
+			lastDepth = Run.Depth;
 			
 			foreach (var c in Area.Tags[Tags.Checkpoint]) {
 				Center = c.Center;
@@ -171,6 +182,10 @@ namespace BurningKnight.entity.creature.player {
 		
 		#region Player States
 		public class IdleState : EntityState {
+			
+		}
+		
+		public class DuckState : EntityState {
 			
 		}
 		
@@ -286,6 +301,12 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();
+
+				foreach (var i in c.New.Tagged[Tags.Item]) {
+					if (i is ShopStand s) {
+						s.Recalculate();
+					}
+				}
 
 				// Camera following current room, felt weird
 				/*if (Camera.Instance != null) {

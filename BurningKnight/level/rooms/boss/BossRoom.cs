@@ -1,25 +1,27 @@
-using BurningKnight.level.rooms.entrance;
+using BurningKnight.entity.creature.bk;
+using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
+using Lens;
 
 namespace BurningKnight.level.rooms.boss {
-	public class BossRoom : ExitRoom {
+	public class BossRoom : RoomDef {
 		public override int GetMinWidth() {
-			return 18 + 5;
+			return Display.Width / 16;
 		}
 
 		public override int GetMinHeight() {
-			return 18 + 5;
+			return Display.Width / 16;
 		}
 
 		public override int GetMaxWidth() {
-			return 30;
+			return Display.Width / 16 + 1;
 		}
 
 		public override int GetMaxHeight() {
-			return 30;
+			return Display.Width / 16 + 1;
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.All) return 2;
 			return 1;
 		}
 
@@ -28,11 +30,56 @@ namespace BurningKnight.level.rooms.boss {
 			return 0;
 		}
 
-		protected virtual void Place(Level level) {
-			var bk = new entity.creature.bk.BurningKnight();
-			level.Area.Add(bk);
+		public override void Paint(Level level) {
+			PaintRoom(level);
+			
+			var trigger = new SpawnTrigger();
+			var w = GetWidth() - 2;
+			var h = GetHeight() - 2;
+			var s = w * h;
+			
+			trigger.Tiles = new byte[s];
+			trigger.Liquid = new byte[s];
+			trigger.RoomX = (ushort) (Left + 1);
+			trigger.RoomY = (ushort) (Top + 1);
+			trigger.RoomWidth = (byte) w;
+			trigger.RoomHeight = (byte) h;
 
-			bk.Center = GetCenter() * 16;
+			for (var y = 0; y < h; y++) {
+				for (var x = 0; x < w; x++) {
+					var li = level.ToIndex(Left + 1 + x, Top + 1 + y);
+					var i = x + y * w;
+
+					trigger.Tiles[i] = level.Tiles[li];
+					trigger.Liquid[i] = level.Liquid[li];
+				}
+			}
+			
+			Painter.Fill(level, this, 1, Tile.WallA);
+
+			var c = GetCenterRect();
+			
+			Painter.Fill(level, c, -3, Tiles.RandomFloor());
+
+			PaintTunnel(level, Tiles.RandomFloor());
+			
+			trigger.X = (c.Left - 2) * 16;
+			trigger.Y = (c.Top - 2) * 16;
+			trigger.Width = 5 * 16;
+			trigger.Height = 5 * 16;
+
+			level.Area.Add(trigger);
+			
+			Painter.Fill(level, c, -2, Tile.FloorD);
+			Painter.Fill(level, c, -1, Tiles.RandomFloor());
+		}
+
+		public override Rect GetConnectionSpace() {
+			return GetCenterRect();
+		}
+		
+		protected virtual void PaintRoom(Level level) {
+			
 		}
 	}
 }

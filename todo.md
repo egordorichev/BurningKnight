@@ -1,8 +1,9 @@
 # TODO
 
-### enable before build
+### on windows
 
 * darkness shader should be applied to all screen and not just game
+* get treasure music in
 
 ### bk himself
 
@@ -10,23 +11,33 @@
 * way to skip the boss battle but get harder game
 * difficulty progression through the fight
 * Learning to avoid the last attack that killed him
+* slime pattern
+* bouncy pattern -> another transformation?
 
 * Boss door
-* Cool intro
-* Cool death
 * Healthbar art
-* health bar animation, falling chunks of health like in dead cells
+
+* EEEEEEEEEEEEEEEEEEEEEPIC intro
+ * more epic stuff in the spawn trigger, some fire or smth, dissappears with the start of the shake
+ * cool particles when tile gets removed
+ 
+* make player unhittable and remove projectiles/enemies from the room on bk death?
 
 ### Before josh
 
-* draw obtained items
-* timeout delay on gen that restarts it (to break out of infinite while loops, etc)
-* enemies can get stuck in wall
+* wip sign and placement
+* steam cloud
+
+* !!! treasure room design
+* bk missile projectiles have no sprite??? wrong depth, maybe?
 
 ### can wait
 
-* reset camera following when you tp out from boss battle
-* shop sales
+* nicer preboss room
+* room rewards (batteries and stuff)
+* implement stats
+* push hearts and batteries and coins around, if you cant have more
+* unlockable items
 * iron hearts, half a heart spawning, etc
 * update art for chest
 * sk ai
@@ -35,22 +46,38 @@
 * Crash report window
 * statistics fixes
 * stats window for multiple file
+* selling items?
+* explode gold tiles for coins
+* settings
 
 ### items
 
+* duck gun (high knockback, high damage, slow big projectile)
+* portal gun (bullets fire from your cursor to your gun)
+* item that makes your bullets warp through screen
 * shop sale
 * marshmallow orbital, can be light up
+* battery buddy
 * d1
 * d4
 * d2
 * d8
 * d24
+* pig: gives you more money the deeper flor you use it on (single use active item)
+* matches (sets you on fire)
+* item that makes bombs explode faster
 * sharp blade
 * dull blade
+* stick bombs
+* homing bombs
 * wallet buddy (collects money)
 * roll damages enemies
 * teleport to random room
 * teleport to prev room
+* egg: spawns a familiar after a while?
+* egg: needs to be cracked
+* there are options
+* curse of unknown items
 
 ### fixes
 * camera follow items that are on screen a bit?
@@ -69,9 +96,6 @@
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * fix nodes requiring to hit enter to set their name
 
-* Add a few weapons for melee, magic and ranged
-* Add a few artifacts
-
 ### Important
 
 * Zelda like digging enemy
@@ -86,6 +110,7 @@
 
 #### Polish
 
+* bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Weapons in player hands should drop shadows
@@ -125,6 +150,7 @@
 
 ### Ideas
 
+* cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
 * make bk himself sign!!!!
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Signs, you can write/read from them
@@ -136,6 +162,7 @@
 
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
+* trash goblin (gaz)
 
 ### Special rooms
 

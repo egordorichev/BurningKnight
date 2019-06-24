@@ -44,6 +44,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyMaxHpUse>(ModifyMaxHpUse.RenderDebug);
 			Register<GiveHeartContainersUse>(ModifyHpUse.RenderDebug);
 			Register<SimpleShootUse>(SimpleShootUse.RenderDebug);
+			Register<ShootQueueUse>(ShootQueueUse.RenderDebug);
 			Register<RandomUse>(RandomUse.RenderDebug);
 			Register<GiveGoldUse>(GiveGoldUse.RenderDebug);
 			Register<GiveKeyUse>(GiveKeyUse.RenderDebug);
@@ -55,12 +56,19 @@ namespace BurningKnight.entity.item.use {
 			Register<DiscoverSecretRoomsUse>(DiscoverSecretRoomsUse.RenderDebug);
 			Register<ModifyStatUse>(ModifyStatUse.RenderDebug);
 			Register<MakeProjectilesSplitOnDeathUse>();
+			Register<MakeProjectilesShatternOnDeathUse>();
 			Register<MakeProjectilesBounceUse>(MakeProjectilesBounceUse.RenderDebug);
 			Register<MakeProjectilesHomeInUse>(MakeProjectilesHomeInUse.RenderDebug);
-			Register<TeleportToCursorUse>();
-			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<MakeProjectilesSlowDown>(MakeProjectilesSlowDown.RenderDebug);
+			Register<TeleportToCursorUse>();
+			Register<MakeLayerPassableUse>(MakeLayerPassableUse.RenderDebug);
+			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
 			Register<RerollItemsUse>(RerollItemsUse.RenderDebug);
+			Register<SpawnProjectilesUse>(SpawnProjectilesUse.RenderDebug);
+			Register<UseOnEventUse>(UseOnEventUse.RenderDebug);
+			Register<MakeShopRestockUse>();
+			Register<SaleItemsUse>(SaleItemsUse.RenderDebug);
+			Register<ModifyActiveChargeUse>(ModifyActiveChargeUse.RenderDebug);
 		}
 	}
 }

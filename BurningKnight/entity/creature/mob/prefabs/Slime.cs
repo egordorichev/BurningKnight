@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -8,13 +9,13 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util.tween;
-using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class Slime : Mob {
 		protected virtual float GetJumpDelay() {
-			return 0;
+			return 1;
 		}
 		
 		protected override void SetStats() {
@@ -67,6 +68,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 		}
 
+		protected float JumpForce = 120;
+		protected float ZVelocity = 5;
+		protected float ZVelocityMultiplier = 10;
+
 		public class JumpState : CreatureState<Slime> {
 			private Vector2 velocity;
 			private float zVelocity;
@@ -75,17 +80,18 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				base.Init();
 
 				var a = Self.Target == null ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
-				var force = Random.Float(20f) + 120f;
+				var force = Random.Float(20f) + Self.JumpForce;
 				
 				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				
-				zVelocity = 5;
+
+				zVelocity = Self.ZVelocity;
 			}
 
 			public override void Destroy() {
 				base.Destroy();
-
+				
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 				Self.OnLand();
 
 				var anim = Self.GetComponent<ZAnimationComponent>();
@@ -111,7 +117,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					Self.TouchDamage = 1;
 				}
 
-				zVelocity -= dt * 10;
+				zVelocity -= dt * Self.ZVelocityMultiplier;
 				
 				if (component.Z <= 0) {
 					component.Z = 0;

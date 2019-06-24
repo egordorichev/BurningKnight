@@ -12,7 +12,7 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
-		private byte bombs = 1;
+		private byte bombs;
 		private byte keys;
 		private byte coins;
 
@@ -72,7 +72,7 @@ namespace BurningKnight.entity.creature.player {
 			if (e is ItemCheckEvent ev) {
 				var type = ev.Item.Type;
 				
-				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin) {
+				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin || type == ItemType.Battery) {
 					Send(new ItemAddedEvent {
 						Item = ev.Item,
 						Who = Entity,
@@ -117,14 +117,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override void Set(Item item, bool animate = true) {
-			if (item.Type == ItemType.Bomb) {
-				Bombs += 1;
-			} else if (item.Type == ItemType.Key) {
-				Keys += 1;
-			} else if (item.Type == ItemType.Coin) {
-				Coins += 1;
-			}
-			
 			item.Done = true;
 		}
 

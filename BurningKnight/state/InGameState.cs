@@ -81,6 +81,8 @@ namespace BurningKnight.state {
 		}
 		
 		public InGameState(Area area) {
+			Input.EnableImGuiFocus = false;
+			
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);

@@ -10,6 +10,8 @@ namespace Lens.input {
 			RELEASED,
 			DOWN
 		}
+
+		public static bool EnableImGuiFocus;
 		
 		public static KeyboardData Keyboard;
 		public static MouseData Mouse;

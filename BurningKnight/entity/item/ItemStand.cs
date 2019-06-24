@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.level;
+using BurningKnight.level.entities;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -21,7 +22,7 @@ using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
-	public class ItemStand : SaveableEntity, PlaceableEntity {
+	public class ItemStand : Prop {
 		private static TextureRegion itemShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);
 		
@@ -35,6 +36,10 @@ namespace BurningKnight.entity.item {
 			if (itemShadow == null) {
 				itemShadow = CommonAse.Props.GetSlice("item_shadow");
 			}
+		}
+
+		protected virtual void OnTake(Item item, Entity who) {
+			
 		}
 
 		public void SetItem(Item i, Entity entity, bool remove = true) {
@@ -53,6 +58,8 @@ namespace BurningKnight.entity.item {
 					Who = entity,
 					Stand = this
 				});
+
+				OnTake(item, entity);
 			}
 
 			item = i;

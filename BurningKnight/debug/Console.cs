@@ -58,7 +58,7 @@ namespace BurningKnight.debug {
 		public void Update(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
-				// forceFocus = Open;
+				Input.EnableImGuiFocus = Open;
 			}
 		}
 		
@@ -75,14 +75,14 @@ namespace BurningKnight.debug {
 				return;
 			}
 
-			filter.Draw("##console");
+			/* filter.Draw("##console");
 			ImGui.SameLine();
 			
 			if (ImGui.Button("Clear")) {
 				Lines.Clear();
 			}
 			
-			ImGui.Separator();
+			ImGui.Separator();*/
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing();
 			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);

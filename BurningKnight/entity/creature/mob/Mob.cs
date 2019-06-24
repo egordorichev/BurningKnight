@@ -4,6 +4,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.state;
@@ -11,6 +12,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
@@ -32,13 +34,13 @@ namespace BurningKnight.entity.creature.mob {
 			SetStats();
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
-				Chance = 0.1f,
+				Chance = 0.05f,
 				Items = new[] {
 					"bk:coin"
-				},
-				
-				Max = 2
+				}
 			});
+
+			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
 		}
 
 		protected virtual void SetStats() {
@@ -101,6 +103,34 @@ namespace BurningKnight.entity.creature.mob {
 			} else if (e is CollisionEndedEvent collisionEnd) {
 				if (collisionEnd.Entity.HasComponent<HealthComponent>()) {
 					CollidingToHurt.Remove(collisionEnd.Entity);
+				}
+			} else if (e is DiedEvent de) {
+				var r = GetComponent<RoomComponent>().Room;
+
+				if (r != null && !r.Cleared) {
+					var found = false;
+					
+					foreach (var m in r.Tagged[Tags.MustBeKilled]) {
+						if (m.GetComponent<HealthComponent>().Health > 0) {
+							found = true;
+							break;
+						}
+					}
+					
+					if (!found) {
+						r.Cleared = true;
+						var who = de.From;
+
+						if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
+							who = o.Owner;
+						} else if (who is Projectile p) {
+							who = p.Owner;
+						}
+
+						who.HandleEvent(new RoomClearedEvent {
+							Room = r
+						});
+					}
 				}
 			}
 			

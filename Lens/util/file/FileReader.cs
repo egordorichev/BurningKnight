@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lens.util.file {
 	public class FileReader {
-		private byte[] read;
+		protected byte[] read;
 		private int position;
 		
 		public int Position {
@@ -20,7 +20,11 @@ namespace Lens.util.file {
 				read = new byte[1];
 				return;
 			}
-			
+
+			ReadData(path);
+		}
+
+		protected virtual void ReadData(string path) {
 			var file = File.Open(path, FileMode.Open);
 			var stream = new BinaryReader(file);
 
@@ -29,10 +33,10 @@ namespace Lens.util.file {
 			for (var i = 0; i < file.Length; i++) {
 				read[i] = (byte) file.ReadByte();
 			}
-			
+
 			stream.Close();
 		}
-		
+
 		public byte ReadByte() {
 			if (read.Length == Position) {
 				return 0;

@@ -3,6 +3,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.state;
 using Lens.entity;
@@ -21,7 +22,11 @@ namespace BurningKnight.level {
 		public RegularLevel() : base(null) {
 			
 		}
-		
+
+		public override int GetPadding() {
+			return 10;
+		}
+
 		public void Generate(Area area, int Attempt) {
 			rooms = null;
 			ItemsToSpawn = new List<string>();
@@ -138,6 +143,7 @@ namespace BurningKnight.level {
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
 			Rooms.Add(RoomRegistry.Generate(RoomType.Boss));
+			Rooms.Add(new PrebossRoom());
 			
 			return Rooms;
 		}

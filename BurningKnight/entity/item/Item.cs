@@ -28,12 +28,13 @@ namespace BurningKnight.entity.item {
 		public string Name => Masked ? "???" : Locale.Get(Id);
 		public string Description => Locale.Get($"{Id}_desc");
 		public float UseTime = 0.3f;
-		public float Delay { get; protected set; }
+		public float Delay;
 		public string Animation;
 		public bool AutoPickup;
 		public bool LoadedSelf;
 		public bool Used;
 		public bool Touched;
+		public bool Automatic;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -70,7 +71,7 @@ namespace BurningKnight.entity.item {
 				}
 			}
 
-			Delay = UseTime;
+			Delay = Math.Abs(UseTime);
 
 			HandleEvent(new ItemUsedEvent {
 				Item = this,
@@ -81,7 +82,7 @@ namespace BurningKnight.entity.item {
 			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
-				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false);
+				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false, false);
 			}
 		}
 
@@ -178,6 +179,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteString(Id);
 			stream.WriteBoolean(Used);
 			stream.WriteBoolean(Touched);
+			stream.WriteFloat(Delay);
 		}
 
 		public void ConvertTo(string id) {
@@ -195,9 +197,11 @@ namespace BurningKnight.entity.item {
 			}
 
 			Uses = item.Uses;
+			UseTime = item.UseTime;
 			Renderer = item.Renderer;
 			Animation = item.Animation;
 			AutoPickup = item.AutoPickup;
+			Automatic = item.Automatic;
 			Type = item.Type;
 			Id = id;
 			Used = false;
@@ -228,11 +232,15 @@ namespace BurningKnight.entity.item {
 
 			Used = stream.ReadBoolean();
 			Touched = stream.ReadBoolean();
+			Delay = stream.ReadFloat();
 		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			Delay = Math.Max(0, Delay - dt);
+
+			if (Type != ItemType.Active || UseTime < 0) {
+				Delay = Math.Max(0, Delay - dt);
+			}
 		}
 
 		public bool ShouldCollide(Entity entity) {

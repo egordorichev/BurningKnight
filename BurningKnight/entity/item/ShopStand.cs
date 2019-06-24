@@ -1,11 +1,17 @@
+using System;
 using BurningKnight.assets;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ShopStand : ItemStand {
@@ -13,6 +19,13 @@ namespace BurningKnight.entity.item {
 		private int price;
 		private string priceString;
 		private float priceX;
+		private bool onSale;
+		private bool hasSale;
+
+		public override void Init() {
+			base.Init();
+			onSale = Random.Chance(10 + Run.Luck * 2);
+		}
 
 		protected override string GetSprite() {
 			return "shop_stand";
@@ -42,17 +55,64 @@ namespace BurningKnight.entity.item {
 			return true;
 		}
 
+		protected override void OnTake(Item item, Entity who) {
+			base.OnTake(item, who);
+			
+			who.HandleEvent(new ItemBoughtEvent {
+				Item = item,
+				Who = who,
+				Stand = this
+			});
+		}
+
 		public override void Render() {
 			base.Render();
 
 			if (Item != null && Sells) {
+				if (hasSale) {
+					Graphics.Color = Color.Red;
+				}
+				
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
+				
+				if (hasSale) {
+					Graphics.Color = ColorUtils.WhiteColor;
+				}
 			}
 		}
 
 		public void Recalculate() {
+			if (Item == null) {
+				price = 0;
+				Sells = false;
+				return;
+			}
+			
 			Sells = true;
 			price = PriceCalculator.Calculate(Item);
+
+			if (onSale) {
+				price = (int) Math.Floor(price * 0.5f);
+				hasSale = true;
+			}
+			var r = GetComponent<RoomComponent>().Room;
+
+			if (r != null) {
+				var e = new ItemPriceCalculationEvent {
+					Stand = this,
+					Item = Item
+				};
+
+				foreach (var p in r.Tagged[Tags.Player]) {
+					p.HandleEvent(e);
+				}
+
+				if (e.Percent > 0.001f) {
+					price = (int) Math.Floor(price * Math.Max(0f, (1f - e.Percent * 0.01f)));
+					hasSale = true;
+				}
+			}
+
 			CalculatePriceSize();
 		}
 
@@ -75,6 +135,16 @@ namespace BurningKnight.entity.item {
 			if (ImGui.InputInt("Price", ref price)) {
 				CalculatePriceSize();
 			}
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			onSale = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(onSale);
 		}
 	}
 }

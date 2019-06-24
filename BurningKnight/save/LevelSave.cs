@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.level;
 using BurningKnight.level.biome;
@@ -38,7 +39,7 @@ namespace BurningKnight.save {
 			return new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
 		}
 
-		public override void Generate(Area area) {
+		private bool GenerationThread(Area area) {
 			var a = new Area();
 		
 			try {
@@ -77,10 +78,52 @@ namespace BurningKnight.save {
 					level.Fill(Tile.FloorA);
 					level.TileUp();
 					
-					return;
+					return false;
 				}
 				
+				return GenerationThread(area);
+			}
+
+			return true;
+		}
+
+		public override void Generate(Area area) {
+			var done = false;
+			var finished = false;
+			var aborted = false;
+			
+			var thread = new Thread(() => {
+				done = GenerationThread(area);
+				finished = true;
+			});
+			
+			Log.Debug("Thread started");
+			thread.Start();
+			var i = 0;
+			
+			while (true) {
+				Thread.Sleep(500);
+
+				if (finished) {
+					Log.Debug("Thread finished");
+					break;
+				}
+
+				i++;
+
+				if (i >= 15f) {
+					Log.Debug("Thread took too long, aborting :(");
+					thread.Abort();
+					aborted = true;
+
+					break;
+				}
+			}
+
+			if (aborted) {
 				Generate(area);
+			} else {
+				Log.Debug($"Generation done, took {i} cycles");
 			}
 		}
 

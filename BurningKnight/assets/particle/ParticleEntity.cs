@@ -17,9 +17,6 @@ namespace BurningKnight.assets.particle {
 
 			Width = 0;
 			Height = 0;
-
-			X += Random.Float(-1, 1);
-			Y += Random.Float(-1, 1);
 			
 			Particle.Controller.Init(Particle, this);
 			AlwaysActive = true;

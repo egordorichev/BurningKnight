@@ -65,21 +65,26 @@ namespace BurningKnight.save {
 		}
 
 		protected virtual void ReadEntity(Area area, FileReader reader, string type, bool post) {
-			var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
-			area.Add(entity, false);
+			try {
+				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
+				area.Add(entity, false);
 
-			var size = reader.ReadInt16();
-			var position = reader.Position;
-			entity.Load(reader);
-			var sum = reader.Position - position - size;
+				var size = reader.ReadInt16();
+				var position = reader.Position;
+				entity.Load(reader);
+				var sum = reader.Position - position - size;
 
-			if (sum != 0) {
-				Log.Error($"Entity {entity.GetType().FullName} was expected to read {size} bytes but read {reader.Position - position}!");
-				reader.Position -= sum;
-			}
+				if (sum != 0) {
+					Log.Error($"Entity {entity.GetType().FullName} was expected to read {size} bytes but read {reader.Position - position}!");
+					reader.Position -= sum;
+				}
 
-			if (post) {
-				entity.PostInit();
+				if (post) {
+					entity.PostInit();
+				}
+			} catch (Exception e) {
+				// FIXME MEEEEEEEE
+				Log.Error(e);
 			}
 		}
 

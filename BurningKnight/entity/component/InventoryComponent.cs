@@ -12,7 +12,6 @@ namespace BurningKnight.entity.component {
 		public List<Item> Items = new List<Item>();
 
 		public void Pickup(Item item, bool animate = true) {
-			item.Touched = true;
 			Entity.Area.Remove(item);
 			item.Done = false;
 			
@@ -57,7 +56,8 @@ namespace BurningKnight.entity.component {
 				Who = Entity
 			};
 			
-			Send(e);
+			Send(e);		
+			item.Touched = true;
 		}
 
 		public void Remove(Item item) {
@@ -119,6 +119,9 @@ namespace BurningKnight.entity.component {
 				item.PostInit();
 				
 				Pickup(item, false);
+				Entity.Area.Remove(item);
+
+				item.Done = false;
 			}
 		}
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
@@ -32,8 +33,12 @@ namespace BurningKnight.save {
 			if (Components == null) {
 				return;
 			}
+
+			// So that we can edit the components
+			// Tho those new components wont get loaded
+			var values = Components.Values.ToArray();
 			
-			foreach (var component in Components.Values) {
+			foreach (var component in values) {
 				if (component is SaveableComponent saveable) {
 					saveable.Load(stream);
 				}

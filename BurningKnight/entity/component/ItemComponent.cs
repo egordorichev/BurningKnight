@@ -18,7 +18,7 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public virtual void Set(Item item, bool animate = true) {
-			if (Item != null) {
+			if (!animate && Item != null) {
 				Drop();
 				Item = null;
 #if DEBUG
@@ -40,12 +40,28 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
-			((Player) Entity).AnimateItemPickup(item, () => { SetupItem(item); }, false);
+			((Player) Entity).AnimateItemPickup(item, () => {
+				if (Item != null) {
+					Drop();
+					Item = null;
+					debugItem = "";
+				}
+
+				SetupItem(item);
+			}, false);
 		}
 
 		private void SetupItem(Item item) {
+			Send(new ItemAddedEvent {
+				Item = item,
+				Component = this,
+				Who = Entity
+			});
+			
 			Item = item;
+
 			item.Done = false;
+			item.Touched = true;
 			item.RemoveDroppedComponents();
 #if DEBUG
 
@@ -64,7 +80,6 @@ namespace BurningKnight.entity.component {
 			};
 			
 			Send(e);
-			Item.HandleEvent(e);
 
 			Item.Center = Entity.Center;
 			Entity.Area.Add(Item);
@@ -103,7 +118,7 @@ namespace BurningKnight.entity.component {
 				return true;
 			}
 			
-			if (e is ItemCheckEvent ev && ShouldReplace(ev.Item)) {
+			if (e is ItemCheckEvent ev && !ev.Handled && ShouldReplace(ev.Item)) {
 				Set(ev.Item, ev.Animate);
 				return true;
 			}

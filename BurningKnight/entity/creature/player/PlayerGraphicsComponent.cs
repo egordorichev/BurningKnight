@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
 		private Vector2 scale = Vector2.One;
+		public Vector2 Scale = Vector2.One;
 		
 		public PlayerGraphicsComponent() : base("gobbo") {
 			CustomFlip = true;
@@ -35,7 +36,7 @@ namespace BurningKnight.entity.creature.player {
 				pos.Y += region.Source.Height;
 			}
 			
-			Graphics.Render(region, pos + origin, 0, origin, scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 
 		public override bool HandleEvent(Event e) {

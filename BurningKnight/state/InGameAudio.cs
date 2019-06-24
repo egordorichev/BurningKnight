@@ -35,6 +35,7 @@ namespace BurningKnight.state {
 			Subscribe<ChestOpenedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
+			Subscribe<BurningKnightDefeatedEvent>();
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -62,7 +63,11 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							Audio.PlayMusic("Fatiga");
+							if (Area.Tags[Tags.BurningKnight].Count > 0) {
+								Audio.PlayMusic("Fatiga");
+							} else {
+								Audio.PlayMusic("Gobbeon");
+							}
 						}, 1f);
 						break;
 					}
@@ -91,16 +96,20 @@ namespace BurningKnight.state {
 				if (de.Who is Player) {
 					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
-				} else if (de.Who is entity.creature.bk.BurningKnight) {
-					Audio.Stop();
-					Audio.PlayMusic("Reckless");
-					Audio.Repeat = false;
-				} else {
+				} else if (!(de.Who is entity.creature.bk.BurningKnight)) {
 					Audio.PlaySfx(de.Who, "enemy_death");
 				}
+			} else if (e is BurningKnightDefeatedEvent) {
+				Audio.Stop();
+				Audio.PlayMusic("Reckless");
+				Audio.Repeat = false;
 			} else if (e is HealthModifiedEvent he) {
-				if (he.Amount < 0 && he.Who is Creature) {
-					Audio.PlaySfx(he.Who, he.Who is Player ? $"voice_gobbo_{Random.Int(1, 4)}" : "enemy_impact");
+				if (he.Amount < 0) {
+					if (he.Who is entity.creature.bk.BurningKnight) {
+						Audio.PlaySfx(he.Who, $"BK_hurt_{Random.Int(1, 6)}");
+					} else if (he.Who is Creature) {
+						Audio.PlaySfx(he.Who, he.Who is Player ? $"voice_gobbo_{Random.Int(1, 4)}" : "enemy_impact");
+					}
 				}
 			} else if (e is DoorClosedEvent dce) {
 				Audio.PlaySfx(dce.Who, "door_close");

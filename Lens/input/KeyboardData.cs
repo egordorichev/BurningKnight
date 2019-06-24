@@ -5,7 +5,7 @@ namespace Lens.input {
 	public class KeyboardData {
 		public KeyboardState PreviousState;
 		public KeyboardState State;
-
+		
 		private bool guiBlocksKeyboard;
 
 		public KeyboardData() {
@@ -15,8 +15,8 @@ namespace Lens.input {
 		public void Update() {
 			PreviousState = State;
 			State = Keyboard.GetState();
-
-			guiBlocksKeyboard = ImGui.GetIO().WantCaptureKeyboard;
+			
+			guiBlocksKeyboard = Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureKeyboard;
 		}
 
 		public bool Check(Keys key, Input.CheckType type, bool ignoreGui = false) {

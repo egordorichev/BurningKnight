@@ -66,7 +66,9 @@ namespace BurningKnight.entity.creature {
 					Kill(ev.From);
 				}
 			} else if (e is DiedEvent) {
-				HandleDeath();
+				if (!e.Handled) {
+					HandleDeath();
+				}
 			} else if (e is LostSupportEvent) {
 				if (!(this is Player)) {
 					Done = true;

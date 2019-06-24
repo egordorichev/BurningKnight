@@ -21,18 +21,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 			} else {
 				Awoken = true;
 
-				/*if (true) { // fix
+				if (BK.Version.Dev) { // fix
 					SelectAttack();
-					Camera.Instance.Follow(this, 0.6f);
 					return;
-				}*/
+				}
 				
 				Camera.Instance.Targets.Clear();
-				Camera.Instance.Follow(this, 1f);
 				
 				Timer.Add(() => {
 					((InGameState) Engine.Instance.State).ResetFollowing();
-					Camera.Instance.Follow(this, 0.6f);
 					
 					Timer.Add(() => {
 						SelectAttack();
