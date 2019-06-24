@@ -21,7 +21,9 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				Drop();
 				Item = null;
+#if DEBUG
 				debugItem = "";
+#endif
 			}
 
 			if (item == null) {
@@ -45,8 +47,10 @@ namespace BurningKnight.entity.component {
 			Item = item;
 			item.Done = false;
 			item.RemoveDroppedComponents();
+#if DEBUG
 
 			debugItem = item.Id;
+#endif
 			OnItemSet();
 		}
 
@@ -69,9 +73,9 @@ namespace BurningKnight.entity.component {
 
 			var item = Item;
 			Item = null;
-
+#if DEBUG
 			debugItem = "";
-
+#endif
 			return item;
 		}
 
@@ -81,7 +85,9 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				if (Item.Done) {
 					Item = null;
+#if DEBUG
 					debugItem = "";
+#endif
 				} else {
 					Item.Update(dt);
 				}
