@@ -2,8 +2,13 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
+using BurningKnight.level;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
+using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.camera;
 using Lens.util.file;
@@ -26,19 +31,24 @@ namespace BurningKnight.entity.creature.bk {
 
 		private bool triggered;
 		private float t;
+		private bool did;
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (triggered) {
-				Camera.Instance.Shake(32);
+			if (!did && triggered) {
+				Camera.Instance.Shake(2);
 				t += dt;
 
 				if (t >= 2f) {
-					Done = true;
+					did = true;
+					var r = (int) Math.Ceiling(Math.Sqrt((RoomWidth + 1) * (RoomWidth + 1) + (RoomHeight + 1) * (RoomHeight + 1)));
 
-					var r = Math.Sqrt(RoomWidth * RoomWidth + RoomHeight * RoomHeight);
-
+					Camera.Instance.Targets.Clear();
+					Camera.Instance.Follow(this, 3f);
+					
+					// zoom out here would be super cool
+					
 					for (var j = 1; j < r; j++) {
 						var level = Run.Level;
 						var j1 = j;
@@ -52,23 +62,55 @@ namespace BurningKnight.entity.creature.bk {
 									if (Math.Sqrt(dx * dx + dy * dy) > j1) {
 										continue;	
 									}
-									
+
 									var i = x + y * RoomWidth;
+
+									if (Tiles[i] == 255) {
+										continue;
+									}
+									
 									var li = level.ToIndex(RoomX + x, RoomY + y);
-						
+									
+									if (level.Get(li).IsWall()) {
+										level.Variants[li] = 0;
+									}
+									
+									// tmp
+									Area.Add(new TileFx {
+										X = (RoomX + x) * 16,
+										Y = (RoomY + y) * 16 - 8
+									});
+
 									level.Tiles[li] = Tiles[i];
 									level.Liquid[li] = Liquid[i];
+
+									Tiles[i] = 255; // Mark as already checked;
+								}
+							}
+							
+							for (var y = -1; y < RoomHeight + 1; y++) {
+								for (var x = -1; x < RoomWidth + 1; x++) {
+									LevelTiler.TileUp(level, level.ToIndex(RoomX + x, RoomY + y));
 								}
 							}
 				
-							level.TileUp();
-							level.CreateBody();
-						}, j * 0.2f);
+							if (j1 == r - 1) {
+								level.CreateBody();
+							}
+
+							Engine.Instance.Freeze = 1f;
+							Camera.Instance.Shake(4);
+						}, j * 0.1f);
 					}
-					
-					/*var bk = new BurningKnight();
-					Area.Add(bk);
-					bk.Center = Center;*/
+
+					Timer.Add(() => {
+						var bk = new BurningKnight();
+						Area.Add(bk);
+						bk.Center = Center;
+						
+						Camera.Instance.Follow(bk, 2f);
+						Done = true;
+					}, r * 0.1f + 3f);
 				}
 			}
 		}
@@ -122,6 +164,11 @@ namespace BurningKnight.entity.creature.bk {
 			if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player) {
 					triggered = true;
+					
+					Engine.Instance.Freeze = 1f;
+					Engine.Instance.Flash = 1f;
+
+					Audio.Stop();
 				}
 			}
 			

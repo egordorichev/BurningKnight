@@ -1,23 +1,24 @@
 using BurningKnight.entity.creature.bk;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
+using Lens;
 
 namespace BurningKnight.level.rooms.boss {
 	public class BossRoom : RoomDef {
 		public override int GetMinWidth() {
-			return 18 + 5;
+			return Display.Width / 16;
 		}
 
 		public override int GetMinHeight() {
-			return 18 + 5;
+			return Display.Width / 16;
 		}
 
 		public override int GetMaxWidth() {
-			return 30;
+			return Display.Width / 16 + 1;
 		}
 
 		public override int GetMaxHeight() {
-			return 30;
+			return Display.Width / 16 + 1;
 		}
 
 		public override int GetMaxConnections(Connection Side) {

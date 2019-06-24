@@ -41,9 +41,10 @@ namespace Lens.util.math {
 
 		public static string GenerateSeed(int len = 8) {
 			var builder = new StringBuilder();
+			var r = new System.Random();
 
 			for (int i = 0; i < len; i++) {
-				builder.Append(SeedChars[Int(SeedChars.Length - 1)]);
+				builder.Append(SeedChars[r.Next(SeedChars.Length - 1)]);
 			}
 			
 			return builder.ToString();

@@ -18,24 +18,25 @@
 * Healthbar art
 
 * EEEEEEEEEEEEEEEEEEEEEPIC intro
- - ideas:
-  + you enter a smol room, there is a bell, you ring it, then the room epicly expands into a boss arena, bk spawns
+ * more epic stuff in the spawn trigger, some fire or smth, dissappears with the start of the shake
+ * cool particles when tile gets removed
 
 ### Before josh
 
-* check all builders with boss room placement
+* duck on R
 
-* !!! treasure room design, send screenshots to bibiki!!!
+* add boss room placement to all builders, introduce em back
+* !!! treasure room design
 * bk missile projectiles have no sprite??? wrong depth, maybe?
 * reroll based on the current room pool
 * timeout delay on gen that restarts it (to break out of infinite while loops, etc)
-* implement stats
-* push hearts and batteries and coins around, if you cant have more
-* room rewards (batteries and stuff)
-* bk can despawn :( (and some saving bug?)
+* some saving bug?
 
 ### can wait
 
+* room rewards (batteries and stuff)
+* implement stats
+* push hearts and batteries and coins around, if you cant have more
 * unlockable items
 * missile should spawn dust after it (follower, missile launcher)
 * unpassable ring connection room (removed for now)
