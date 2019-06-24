@@ -1,3 +1,5 @@
+using BurningKnight.level.tile;
+
 namespace BurningKnight.level.rooms.connection {
 	public class ConnectionRoom : RoomDef {
 		public override int GetMinWidth() {
@@ -14,6 +16,10 @@ namespace BurningKnight.level.rooms.connection {
 
 		public override int GetMaxHeight() {
 			return 10;
+		}
+
+		public override void Paint(Level level) {
+			Painter.Rect(level, Left, Top, GetWidth() - 1, GetHeight() - 1, Tile.WallA);
 		}
 
 		public override int GetMaxConnections(Connection Side) {

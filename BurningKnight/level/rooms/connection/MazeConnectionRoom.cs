@@ -4,6 +4,8 @@ using BurningKnight.util;
 namespace BurningKnight.level.rooms.connection {
 	public class MazeConnectionRoom : ConnectionRoom {
 		public override void Paint(Level level) {
+			Painter.Rect(level, Left, Top, GetWidth() - 1, GetHeight() - 1, Tile.WallA);
+			
 			var maze = Maze.Generate(this);
 			var wall = Tiles.Pick(Tile.WallA, Tile.WallB, Tile.Chasm, Tile.Lava, Tile.Planks);
 

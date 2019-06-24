@@ -35,7 +35,6 @@
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
 * unlockable items
-* unpassable ring connection room (removed for now)
 * iron hearts, half a heart spawning, etc
 * update art for chest
 * sk ai

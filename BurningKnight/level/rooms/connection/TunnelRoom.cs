@@ -4,15 +4,11 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class TunnelRoom : ConnectionRoom {
 		protected void Fill(Level Level) {
-			Painter.Fill(Level, this, Tile.WallA);
-
 			if (Random.Chance()) {
-				Painter.Fill(Level, this, 1, Tiles.RandomFloor());
+				Painter.Rect(Level, Left, Top, GetWidth() - 1, GetHeight() - 1, Tile.WallA);
+			} else {
+				Painter.Fill(Level, this, Tile.WallA);
 			}
-		}
-
-		public override void PaintFloor(Level level) {
-			
 		}
 
 		public override void Paint(Level Level) {
