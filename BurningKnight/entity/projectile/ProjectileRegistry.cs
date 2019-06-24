@@ -61,10 +61,15 @@ namespace BurningKnight.entity.projectile {
 						return CollisionResult.Enable;
 					}
 					
+					if (with is Prop) {
+						return CollisionResult.Disable;
+					}
+					
 					return CollisionResult.Default;
 				});
 				
 				p.Controller += TargetProjectileController.Make(null, 0.5f);
+				p.Controller += SmokeProjectileController.Make();
 				
 				p.OnDeath += (pr, t) => {
 					ExplosionMaker.Make(pr, 32);
@@ -76,12 +81,17 @@ namespace BurningKnight.entity.projectile {
 					if (with is Mob) {
 						p.BounceLeft = 0;
 						return CollisionResult.Enable;
-					}
+					} 
 					
+					if (with is Prop) {
+						return CollisionResult.Disable;
+					}
+
 					return CollisionResult.Default;
 				});
 				
 				p.Controller += TargetProjectileController.MakeCursor();
+				p.Controller += SmokeProjectileController.Make();
 				
 				p.OnDeath += (pr, t) => {
 					ExplosionMaker.Make(pr, 32);
@@ -113,7 +123,6 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
-			// not allow to fire until projectile is gone
 			Add("duck", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 			});

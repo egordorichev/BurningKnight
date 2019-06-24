@@ -10,6 +10,10 @@ namespace BurningKnight.entity.item.use {
 		private float delay;
 		
 		public override void Use(Entity entity, Item item) {
+			if (wait && !ProjectileDied) {
+				return;
+			}
+			
 			for (var i = 0; i < amount; i++) {
 				if (i == 0) {
 					SpawnProjectile(entity, item);

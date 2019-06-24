@@ -23,8 +23,6 @@
 
 ### Before josh
 
-* duck on R
-
 * add boss room placement to all builders, introduce em back
 * !!! treasure room design
 * bk missile projectiles have no sprite??? wrong depth, maybe?
@@ -38,7 +36,6 @@
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
 * unlockable items
-* missile should spawn dust after it (follower, missile launcher)
 * unpassable ring connection room (removed for now)
 * iron hearts, half a heart spawning, etc
 * update art for chest

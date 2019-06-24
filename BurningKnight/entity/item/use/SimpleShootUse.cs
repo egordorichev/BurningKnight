@@ -30,7 +30,7 @@ namespace BurningKnight.entity.item.use {
 		private bool light;
 		private float knockback;
 		private bool rect;
-		private bool wait;
+		protected bool wait;
 		
 		public bool ProjectileDied = true;
 

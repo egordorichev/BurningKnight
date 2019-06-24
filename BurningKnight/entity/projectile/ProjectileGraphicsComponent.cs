@@ -23,7 +23,7 @@ namespace BurningKnight.entity.projectile {
 			
 			if (shadow) {
 				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y + 4), 
-					a, Sprite.Center, scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+					a, Sprite.Center, scale);
 				return;
 			}
 
@@ -39,7 +39,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(Sprite, Entity.Position + Sprite.Center, a, Sprite.Center, scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(Sprite, Entity.Position + Sprite.Center, a, Sprite.Center, scale);
 
 			if (d) {
 				Shaders.End();
