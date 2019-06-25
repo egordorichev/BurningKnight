@@ -23,7 +23,10 @@ namespace Desktop.integration.steam {
 
 		public override void Destroy() {
 			base.Destroy();
-			SteamClient.Shutdown();
+
+			if (LaunchedFromSteam) {
+				SteamClient.Shutdown();
+			}
 		}
 	}
 }

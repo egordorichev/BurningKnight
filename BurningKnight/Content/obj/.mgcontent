@@ -13,6 +13,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Gobbeon.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Hidden knowledge.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Ma Precious.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Menu.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/OnFire.mp3</File>
@@ -147,6 +148,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -69,6 +69,12 @@
 /processorParam:Quality=Best
 /build:Music/Hidden knowledge.mp3
 
+#begin Music/Ma Precious.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Music/Ma Precious.mp3
+
 #begin Music/Menu.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor

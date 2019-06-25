@@ -2,6 +2,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
@@ -63,12 +64,17 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							if (Area.Tags[Tags.BurningKnight].Count > 0) {
+							if (Area.Tags[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tags[Tags.BurningKnight][0]).Awoken) {
 								Audio.PlayMusic("Fatiga");
 							} else {
 								Audio.PlayMusic("Gobbeon");
 							}
 						}, 1f);
+						break;
+					}
+					
+					case RoomType.Treasure: {
+						Audio.PlayMusic("Ma Precious");
 						break;
 					}
 					
