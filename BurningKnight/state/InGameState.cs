@@ -90,6 +90,9 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
+
+			v = BK.Version.ToString();
+			vx = -Font.Small.MeasureString(v).Width;
 			
 			Shaders.Screen.Parameters["black"].SetValue(0f);
 			SetupUi();
@@ -450,7 +453,14 @@ namespace BurningKnight.state {
 			RenderFog();
 		}
 
+		private float vx;
+		private string v;
+
 		public override void RenderUi() {
+			Graphics.Color = ColorUtils.HalfWhiteColor;
+			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 1));
+			Graphics.Color = ColorUtils.WhiteColor;
+			
 			painting?.RenderUi();
 
 			if (Settings.HideUi) {

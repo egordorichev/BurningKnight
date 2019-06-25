@@ -19,7 +19,7 @@
 		}
 
 		public override string ToString() {
-			return $"{Major}.{Minor}.{Update}.{Patch}{(Debug ? " debug" : "")}";
+			return $"{Major}.{Minor}.{Update}{(Patch == 0 ? "" : $".{Patch}")}{(Debug ? " alpha" : "")}{(Dev ? " dev" : "")}";
 		}
 	}
 }

@@ -21,9 +21,10 @@ namespace BurningKnight.entity.component {
 			if (!animate && Item != null) {
 				Drop();
 				Item = null;
-#if DEBUG
+
+	#if DEBUG
 				debugItem = "";
-#endif
+	#endif
 			}
 
 			if (item == null) {
@@ -44,7 +45,9 @@ namespace BurningKnight.entity.component {
 				if (Item != null) {
 					Drop();
 					Item = null;
+	#if DEBUG
 					debugItem = "";
+	#endif
 				}
 
 				SetupItem(item);
@@ -63,10 +66,11 @@ namespace BurningKnight.entity.component {
 			item.Done = false;
 			item.Touched = true;
 			item.RemoveDroppedComponents();
-#if DEBUG
-
+		
+	#if DEBUG
 			debugItem = item.Id;
-#endif
+	#endif
+
 			OnItemSet();
 		}
 
@@ -88,9 +92,11 @@ namespace BurningKnight.entity.component {
 
 			var item = Item;
 			Item = null;
-#if DEBUG
+
+	#if DEBUG
 			debugItem = "";
-#endif
+	#endif
+
 			return item;
 		}
 
@@ -100,9 +106,10 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				if (Item.Done) {
 					Item = null;
-#if DEBUG
+
+	#if DEBUG
 					debugItem = "";
-#endif
+	#endif
 				} else {
 					Item.Update(dt);
 				}

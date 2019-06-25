@@ -4,7 +4,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.util {
 	public static class Titles {
 		private static Birthday[] birthdays = {
-			new Birthday(25, 6), // Egor
+			new Birthday(29, 6), // Egor
 			new Birthday(25, 9), // Mate
 			new Birthday(21, 2) // Bibiki
     };
@@ -14,7 +14,7 @@ namespace BurningKnight.util {
 			
 			foreach (var b in birthdays) {
 				if (b.Day == now.Day && b.Month == now.Month) {
-					return birthdayTitles[Random.Int(titles.Length)];
+					return birthdayTitles[Random.Int(birthdayTitles.Length)];
 				}
 			}
 
