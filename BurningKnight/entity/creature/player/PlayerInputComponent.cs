@@ -104,8 +104,6 @@ namespace BurningKnight.entity.creature.player {
 							if (Input.WasPressed(Controls.Down, controller, true)) {
 								c.Choice = (c.Choice + 1) % c.Options.Length;
 							}
-						} else if (isAnswer) {
-							// fixme: input text
 						}
 					}
 
@@ -134,8 +132,8 @@ namespace BurningKnight.entity.creature.player {
 			} else if (Input.WasPressed(Controls.Duck)) {
 				state.Become<Player.DuckState>();
 				
-				var m = new Missile(Entity, Entity);
-				m.AddLight(32f, Color.Red);
+				/*var m = new Missile(Entity, Entity);
+				m.AddLight(32f, Color.Red);*/
 			}
 			
 			if (state.StateInstance is Player.RollState r) {

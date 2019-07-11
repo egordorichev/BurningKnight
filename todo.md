@@ -1,5 +1,11 @@
 # TODO
 
+### todo
+
+* gobbo remains
+* buffs, fire, etc
+* tall grass breaking?
+
 ### on windows
 
 * darkness shader should be applied to all screen and not just game

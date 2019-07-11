@@ -35,7 +35,6 @@ using Num = System.Numerics;
 namespace BurningKnight.ui.editor {
 	public unsafe class SettingsWindow {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 450);
-		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 40);
 		private static List<TypeInfo> types = new List<TypeInfo>();
 		private static Num.Vector2 tileSize = new Num.Vector2(32f);
 		private static Num.Vector4 tintColorActive = new Num.Vector4(0.6f);
@@ -223,7 +222,6 @@ namespace BurningKnight.ui.editor {
 		private Type copy;
 		
 		public void Render() {
-			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {

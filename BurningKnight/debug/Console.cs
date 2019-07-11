@@ -15,7 +15,6 @@ using Microsoft.Xna.Framework.Input;
 namespace BurningKnight.debug {
 	public unsafe class Console {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(400, 200);
-		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(10, 10);
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static System.Numerics.Vector4 color = new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f);
 		
@@ -63,7 +62,6 @@ namespace BurningKnight.debug {
 		}
 		
 		public void Render() {
-			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (forceFocus) {

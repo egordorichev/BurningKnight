@@ -145,6 +145,8 @@ namespace BurningKnight.level {
 			Rooms.Add(RoomRegistry.Generate(RoomType.Boss));
 			Rooms.Add(new PrebossRoom());
 			
+			TombRoom.Insert(Rooms);
+			
 			return Rooms;
 		}
 

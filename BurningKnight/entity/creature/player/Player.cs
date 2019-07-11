@@ -9,6 +9,7 @@ using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
@@ -365,6 +366,39 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<FollowerComponent>().DestroyAll();
 			
 			var stone = new Tombstone();
+
+			var pool = new List<string>();
+
+			foreach (var i in GetComponent<InventoryComponent>().Items) {
+				pool.Add(i.Id);
+			}
+
+			var w = GetComponent<ActiveItemComponent>().Item;
+
+			if (w != null) {
+				pool.Add(w.Id);
+			}
+
+			w = GetComponent<WeaponComponent>().Item;
+
+			if (w != null) {
+				pool.Add(w.Id);
+			}
+			
+			w = GetComponent<ActiveWeaponComponent>().Item;
+
+			if (w != null) {
+				pool.Add(w.Id);
+			}
+
+			if (pool.Count == 0) {
+				pool.Add("bk:coin");
+			}
+
+			stone.Item = pool[Random.Int(pool.Count)];
+			GlobalSave.Put("next_tomb", stone.Item);
+			GlobalSave.Put("tomb_depth", Run.Depth);
+			
 			Area.Add(stone);
 				
 			stone.CenterX = CenterX;

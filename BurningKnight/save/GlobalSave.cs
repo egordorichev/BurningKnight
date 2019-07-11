@@ -93,7 +93,7 @@ namespace BurningKnight.save {
 			return new FileHandle(GetPath(SaveManager.SaveDir));
 		}
 
-		public GlobalSave() : base(SaveType.Global) {
+		public GlobalSave(SaveType type = SaveType.Global) : base(type) {
 			
 		}
 	}

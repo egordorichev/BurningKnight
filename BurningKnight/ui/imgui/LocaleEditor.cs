@@ -10,7 +10,6 @@ namespace BurningKnight.ui.imgui {
 	public static unsafe class LocaleEditor {
 		private static ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
-		private static System.Numerics.Vector2 pos = new System.Numerics.Vector2(220, 10);
 		private static bool filterByKey = true;
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static List<ModifiedInfo> modified = new List<ModifiedInfo>();
@@ -50,7 +49,6 @@ namespace BurningKnight.ui.imgui {
 		}
 		
 		public static void Render() {
-			ImGui.SetNextWindowPos(pos, ImGuiCond.Once);
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Locale editor")) {

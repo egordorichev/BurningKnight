@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
@@ -632,6 +634,31 @@ namespace BurningKnight.state {
 			ItemEditor.Render();
 			RenderSettings();
 			Run.Statistics?.RenderWindow();
+
+			if (ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
+				var p = LocalPlayer.Locate(Area);
+
+				if (p != null) {
+					var rm = p.GetComponent<RoomComponent>().Room;
+					var rn = new List<Room>();
+
+					foreach (var r in Area.Tags[Tags.Room]) {
+						rn.Add((Room) r);
+					}
+					
+					rn.Sort((a, b) => a.Type.CompareTo(b.Type));
+					
+					foreach (var r in rn) {
+						var v = rm == r;
+
+						if (ImGui.Selectable($"{r.Type}#{r.Y}", ref v) && v) {
+							p.Center = r.Center;
+						}
+					}
+				}
+
+				ImGui.End();
+			}
 			
 			ImGuiHelper.End();
 			

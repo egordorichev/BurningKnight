@@ -11,11 +11,15 @@ namespace BurningKnight.entity.component {
 		public int ShadowZ;
 		
 		public SliceComponent(string image, string slice) {
-			Sprite = Animations.Get(image).GetSlice(slice);
+			Set(image, slice);
 		}
 
 		public SliceComponent(AnimationData image, string slice) {
 			Sprite = image.GetSlice(slice);
+		}
+
+		public void Set(string image, string slice) {
+			Sprite = Animations.Get(image).GetSlice(slice);
 		}
 
 		public void AddShadow() {

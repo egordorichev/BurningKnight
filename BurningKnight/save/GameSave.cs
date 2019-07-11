@@ -1,12 +1,66 @@
+using System;
+using System.Collections.Generic;
 using BurningKnight.state;
 using Lens.entity;
-using Lens.util;
 using Lens.util.file;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.save {
 	public class GameSave : Saver {
+		public static Dictionary<string, string> Values = new Dictionary<string, string>();
+		
+		public static bool IsTrue(string Key) {
+			return IsTrue(Key, false);
+		}
+
+		public static bool IsTrue(string Key, bool Def = false) {
+			if (Values.TryGetValue(Key, out var Value)) {
+				return Value == "true";
+			}
+			
+			return Def;
+		}
+
+		public static bool IsFalse(string Key) {
+			return !IsTrue(Key);
+		}
+
+		public static void Put(string Key, object Val) {
+			Values[Key] = Val.ToString();
+		}
+
+		public static void Put(string Key, int Val) {
+			Values[Key] = Val.ToString();
+		}
+
+		public static void Put(string Key, float Val) {
+			Values[Key] = Val.ToString();
+		}
+
+		public static void Put(string Key, bool Val) {
+			Values[Key] = Val.ToString();
+		}
+
+		public static string GetString(string Key, string Def = null) {
+			return Values.TryGetValue(Key, out var Value) ? Value : Def;
+		}
+
+		public static int GetInt(string Key, int Def = 0) {
+			return Values.TryGetValue(Key, out var Value) ? Int32.Parse(Value) : Def;
+		}
+
+		public static float GetFloat(string Key, float Def = 0) {
+			return Values.TryGetValue(Key, out var Value) ? Single.Parse(Value) : Def;
+		}
+
 		public override void Save(Area area, FileWriter writer) {
+			writer.WriteInt32(Values.Count);
+
+			foreach (var Pair in Values) {
+				writer.WriteString(Pair.Key);
+				writer.WriteString(Pair.Value);
+			}
+		
 			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
@@ -20,6 +74,16 @@ namespace BurningKnight.save {
 		public override void Load(Area area, FileReader reader) {
 			if (Run.HasRun) {
 				return;
+			}
+			
+			Values.Clear();
+			var Count = reader.ReadInt32();
+
+			for (var I = 0; I < Count; I++) {
+				var Key = reader.ReadString();
+				var Val = reader.ReadString();
+				
+				Values[Key] = Val;
 			}
 
 			Run.HasRun = true;
@@ -36,6 +100,7 @@ namespace BurningKnight.save {
 		}
 		
 		public override void Generate(Area area) {
+			Values.Clear();
 			Run.KillCount = 0;
 			Run.Time = 0;
 		}
