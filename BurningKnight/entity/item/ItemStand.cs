@@ -126,7 +126,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		private bool Interact(Entity entity) {
-			if (Item != null && Item.Masked) {
+			if (Item != null && Item.Masked && Run.Depth < 1) {
 				return false;
 			}
 			

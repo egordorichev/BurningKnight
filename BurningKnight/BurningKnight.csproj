@@ -238,6 +238,10 @@
     <Compile Include="entity\creature\npc\Ord.cs" />
     <Compile Include="entity\creature\npc\ShopKeeper.cs" />
     <Compile Include="entity\creature\OneOfDrop.cs" />
+    <Compile Include="entity\creature\pet\BooGraphicsComponent.cs" />
+    <Compile Include="entity\creature\pet\LilBoo.cs" />
+    <Compile Include="entity\creature\pet\Pet.cs" />
+    <Compile Include="entity\creature\pet\PetRegistry.cs" />
     <Compile Include="entity\creature\player\ActiveItemComponent.cs" />
     <Compile Include="entity\creature\player\ActiveWeaponComponent.cs" />
     <Compile Include="entity\creature\player\ConsumablesComponent.cs" />
@@ -356,6 +360,7 @@
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
+    <Compile Include="entity\item\use\RerollAndHideUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
@@ -365,6 +370,7 @@
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
     <Compile Include="entity\item\use\SpawnItemsUse.cs" />
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
+    <Compile Include="entity\item\use\SpawnPetUse.cs" />
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
     <Compile Include="entity\item\use\UseOnEventUse.cs" />

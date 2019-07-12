@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Lens.util.math {
 	public static class Random {
@@ -78,6 +79,11 @@ namespace Lens.util.math {
 			return (float) (random.NextDouble() * (max - min) + min);
 		}
 
+		public static Vector2 Offset(float d) {
+			var a = AnglePI();
+			return new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+		}
+		
 		public static double Double() {
 			return random.NextDouble();
 		}

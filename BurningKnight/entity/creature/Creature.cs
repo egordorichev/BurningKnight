@@ -36,6 +36,10 @@ namespace BurningKnight.entity.creature {
 			
 			AddDrops(new SingleDrop("bk:heart", 0.05f));
 		}
+
+		protected void Become<T>() {
+			GetComponent<StateComponent>().Become<T>();
+		}
 		
 		public void Kill(Entity w) {
 			GetComponent<HealthComponent>().Kill(w);

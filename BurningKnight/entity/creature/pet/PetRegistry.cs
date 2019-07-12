@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using BurningKnight.assets;
+using Lens.entity;
+using Random = Lens.util.math.Random;
+
+namespace BurningKnight.entity.creature.pet {
+	public static class PetRegistry {
+		private static Dictionary<string, Func<Entity, Entity>> defined = new Dictionary<string, Func<Entity, Entity>>();
+
+		public static Entity Create(string id, Entity owner) {
+			return !defined.TryGetValue(id, out var d) ? null : d(owner);
+		}
+
+		public static void Define(string id, Func<Entity, Entity> pet, Mod mod = null) {
+			defined[$"{(mod == null ? Mods.BurningKnight : mod.GetPrefix())}:{id}"] = pet;
+		}
+
+		public static bool Has(string id) {
+			return defined.ContainsKey(id);
+		}
+
+		static PetRegistry() {
+			Define("lil_boo", o => o.Area.Add(new LilBoo {
+				Owner = o
+			}));
+		}
+	}
+}

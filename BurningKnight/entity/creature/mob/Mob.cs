@@ -56,10 +56,6 @@ namespace BurningKnight.entity.creature.mob {
 			health.InitMaxHealth = hp;
 		}
 
-		protected void Become<T>() {
-			GetComponent<StateComponent>().Become<T>();
-		}
-
 		protected virtual void OnTargetChange(Entity target) {
 			
 		}

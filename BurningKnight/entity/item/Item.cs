@@ -180,6 +180,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteBoolean(Used);
 			stream.WriteBoolean(Touched);
 			stream.WriteFloat(Delay);
+			stream.WriteBoolean(Unknown);
 		}
 
 		public void ConvertTo(string id) {
@@ -233,6 +234,7 @@ namespace BurningKnight.entity.item {
 			Used = stream.ReadBoolean();
 			Touched = stream.ReadBoolean();
 			Delay = stream.ReadFloat();
+			Unknown = stream.ReadBoolean();
 		}
 		
 		public override void Update(float dt) {
@@ -258,8 +260,19 @@ namespace BurningKnight.entity.item {
 		
 		public bool Masked { get; protected set; }
 
+		private bool unknown;
+
+		public bool Unknown {
+			get => unknown;
+
+			set {
+				unknown = value;
+				CheckMasked();
+			}
+		}
+
 		public void CheckMasked() {
-			Masked = Run.Depth == 0 && !Unlocked(Id);
+			Masked = Unknown || (Run.Depth == 0 && !Unlocked(Id));
 		}
 
 		public static bool Unlocked(string id) {

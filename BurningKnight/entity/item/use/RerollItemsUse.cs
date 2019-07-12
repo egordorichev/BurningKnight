@@ -65,6 +65,7 @@ namespace BurningKnight.entity.item.use {
 
 				if (id != null) {
 					item.ConvertTo(id);
+					ProcessItem(item);
 				}
 
 				if (e is ShopStand st) {
@@ -73,6 +74,10 @@ namespace BurningKnight.entity.item.use {
 			}
 		}
 
+		protected virtual void ProcessItem(Item item) {
+			
+		}
+		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 

@@ -63,7 +63,9 @@ namespace BurningKnight.entity.item.use {
 			Register<TeleportToCursorUse>();
 			Register<MakeLayerPassableUse>(MakeLayerPassableUse.RenderDebug);
 			Register<SpawnOrbitalUse>(SpawnOrbitalUse.RenderDebug);
+			Register<SpawnPetUse>(SpawnPetUse.RenderDebug);
 			Register<RerollItemsUse>(RerollItemsUse.RenderDebug);
+			Register<RerollAndHideUse>(RerollItemsUse.RenderDebug);
 			Register<SpawnProjectilesUse>(SpawnProjectilesUse.RenderDebug);
 			Register<UseOnEventUse>(UseOnEventUse.RenderDebug);
 			Register<MakeShopRestockUse>();

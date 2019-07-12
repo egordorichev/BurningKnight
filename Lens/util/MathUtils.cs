@@ -32,6 +32,10 @@ namespace Lens.util {
 		public static double LerpAngle(double a, double to, float dt) {
 			return a + ShortAngleDistance(a, to) * dt;
 		}
+
+		public static float Distance(float dx, float dy) {
+			return (float) Math.Sqrt(dx * dx + dy * dy);
+		}
 		
 		public static double ShortAngleDistance(double a0, double a1) {
 			double max = Math.PI * 2;
