@@ -110,6 +110,7 @@
     <Compile Include="assets\particle\controller\HealthParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
+    <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
     <Compile Include="assets\particle\ParticleEmitter.cs" />
     <Compile Include="assets\particle\ParticleEntity.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
+    <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />

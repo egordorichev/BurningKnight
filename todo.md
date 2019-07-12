@@ -2,12 +2,23 @@
 
 ### todo
 
+* Tile interactions
+ * lava burn you
+ * burning buff effects
+ * burning terrain
+ * ember after burnt stuff
+ * ice sliding
+ * should water + lava near result in obsidian? 
+ 
+* Buffs
+ * poison
+ * charmed
+ * frozen
+ * burning
+ * broken armor (you take x2 damage)
+
 * lil boo
-* buffs, fire, etc
 * gases
-* more tile interaction
-* implement lava, lava particle
-* ambient lighting? like lighting for lava, etc
 
 ### on windows
 

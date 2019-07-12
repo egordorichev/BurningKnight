@@ -33,11 +33,19 @@ namespace BurningKnight.entity.component {
 			var old = health;
 			var h = (int) MathUtils.Clamp(0, maxHealth, hp);
 
-			if (!Send(new HealthModifiedEvent {
+			var e = new HealthModifiedEvent {
 				Amount = h - old,
 				Who = Entity,
 				From = setter
-			})) {
+			};
+			
+			if (!Send(e)) {
+				if (e.Amount == 0) {
+					return;
+				}
+				
+				h = old + e.Amount;
+
 				if (old > h) {
 					InvincibilityTimer = InvincibilityTimerMax;
 				}

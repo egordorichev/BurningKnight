@@ -7,10 +7,10 @@ namespace BurningKnight.entity.buff {
 		public float TimeLeft;
 		public float Duration = 1f;
 		public bool Infinite;
-		public readonly string Id;
+		public readonly string Type;
 
 		public Buff(string id) {
-			Id = id;
+			Type = id;
 		}
 		
 		public virtual void Init() {
@@ -25,6 +25,10 @@ namespace BurningKnight.entity.buff {
 			if (!Infinite) {
 				TimeLeft -= dt;				
 			}
+		}
+
+		public virtual void HandleEvent(Event e) {
+			
 		}
 	}
 }

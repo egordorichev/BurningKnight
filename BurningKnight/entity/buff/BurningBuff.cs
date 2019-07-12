@@ -2,7 +2,7 @@ using BurningKnight.entity.component;
 
 namespace BurningKnight.entity.buff {
 	public class BurningBuff : Buff {
-		public const string Id = "Burning";
+		public const string Id = "bk:burning";
 		public BurningBuff() : base(Id) {}
 		
 		private float lastHurt;

@@ -20,7 +20,9 @@ namespace BurningKnight.entity.creature {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-			
+
+			AddComponent(new BuffsComponent());
+
 			AddComponent(new HealthComponent {
 				RenderInvt = true,
 				AutoKill = false
@@ -28,7 +30,6 @@ namespace BurningKnight.entity.creature {
 			
 			AddComponent(new StateComponent());
 			AddComponent(new RoomComponent());
-			AddComponent(new BuffsComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new DropsComponent());
 			AddComponent(new TileInteractionComponent());

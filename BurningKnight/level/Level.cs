@@ -591,10 +591,11 @@ namespace BurningKnight.level {
 							
 							Graphics.Render(region, pos);
 
-							if (t == Tile.Water) {
+							if (t == Tile.Water || t == Tile.Lava) {
 								if (!paused && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
 									Area.Add(new WaterfallFx {
-										Position = pos + new Vector2(Random.Float(16), 16)
+										Position = pos + new Vector2(Random.Float(16), 16),
+										Lava = t == Tile.Lava
 									});
 								}
 							}

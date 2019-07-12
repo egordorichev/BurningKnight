@@ -109,6 +109,7 @@ namespace BurningKnight.state {
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
+					AreaDebug.ToFocus = p;
 				}
 
 				((Player) p).FindSpawnPoint();

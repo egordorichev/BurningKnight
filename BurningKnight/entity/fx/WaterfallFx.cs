@@ -15,6 +15,8 @@ namespace BurningKnight.entity.fx {
 		private Vector2 scale;
 		private Color color;
 		private bool grow;
+
+		public bool Lava;
 		
 		public override void Init() {
 			base.Init();
@@ -50,10 +52,18 @@ namespace BurningKnight.entity.fx {
 			vy += dt * 5;
 			angle += angleSpeed * dt;
 
-			if (color.B > 150) {
-				color.R -= (byte) (dt * 360f);
-				color.B -= (byte) (dt * 240f);
-				color.G -= (byte) (dt * 240f);
+			if (Lava) {
+				if (color.R > 150) {
+					color.R -= (byte) (dt * 140f);
+					color.B -= (byte) (dt * 360f);
+					color.G -= (byte) (dt * 240f);
+				}	
+			} else {
+				if (color.B > 150) {
+					color.R -= (byte) (dt * 360f);
+					color.B -= (byte) (dt * 240f);
+					color.G -= (byte) (dt * 240f);
+				}
 			}
 
 			color.A = (byte) Math.Max(0, color.A - dt * 55f);
