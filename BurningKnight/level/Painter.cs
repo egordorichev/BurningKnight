@@ -26,7 +26,7 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public class Painter {
-		public float Cobweb = 0.1f;
+		public float Cobweb = 0.2f;
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
@@ -285,12 +285,24 @@ namespace BurningKnight.level {
 			var Ice = false; // Level is IceLevel;
 
 			foreach (var R in Rooms) {
+				var placed = false;
+				
 				foreach (var P in R.WaterPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 
 					if (Lake[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {
 						Level.Set(I, Ice ? Tile.Ice : Tile.Water);
+						placed = true;
+					}
+				}
+
+				if (!placed) {
+					var v = R.GetRandomFreeCell();
+
+					if (v.HasValue) {
+						var p = v.Value;
+						SetBold(Level, (int) p.X, (int) p.Y, Ice ? Tile.Ice : Tile.Water);
 					}
 				}
 			}

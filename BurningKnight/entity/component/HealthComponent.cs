@@ -20,7 +20,7 @@ namespace BurningKnight.entity.component {
 		public bool AutoKill = true;
 		public int HealthModifier = 1;
 
-		public void SetHealth(int hp, Entity setter) {
+		public void SetHealth(int hp, Entity setter, bool mod = true) {
 			if (hp == health) {
 				return;
 			}
@@ -48,7 +48,7 @@ namespace BurningKnight.entity.component {
 				h = old + e.Amount;
 
 				if (old > h) {
-					InvincibilityTimer = InvincibilityTimerMax;
+					InvincibilityTimer = mod ? InvincibilityTimerMax : 0.1f;
 				}
 				
 				health = h;
@@ -60,6 +60,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void ModifyHealth(int amount, Entity setter, bool mod = true) {
+			// todo: smaller invt without mod
 			if (amount < 0 && Entity is Player && Run.Depth < 1) {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;
@@ -88,7 +89,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			SetHealth(health + (mod ? amount * HealthModifier : amount), setter);
+			SetHealth(health + (mod ? amount * HealthModifier : amount), setter, mod);
 		}
 
 		private int maxHealth;

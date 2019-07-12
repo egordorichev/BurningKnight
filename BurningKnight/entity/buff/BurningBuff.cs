@@ -3,18 +3,21 @@ using BurningKnight.entity.component;
 namespace BurningKnight.entity.buff {
 	public class BurningBuff : Buff {
 		public const string Id = "bk:burning";
-		public BurningBuff() : base(Id) {}
+
+		public BurningBuff() : base(Id) {
+			Infinite = true;
+		}
 		
-		private float lastHurt;
-		
+		private float tillDamage;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			lastHurt += dt;
+			tillDamage -= dt;
 
-			if (lastHurt >= 0.5f) {
-				lastHurt = 0;
-				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, WhoGave);
+			if (tillDamage <= 0) {
+				tillDamage = 1.3f;
+				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, Entity, false);
 			}
 		}
 	}

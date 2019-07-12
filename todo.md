@@ -9,6 +9,7 @@
 ### todo
 
 * fading hearts
+* poison on player should not blink and cause all those crazy things, cause too common (dont do it if the number is not int?)
 
 * Tile interactions
  * lava burn you
@@ -16,14 +17,18 @@
  * burning terrain
  * ember after burnt stuff
  * ice sliding
+ * cobweb slowdown
  * should water + lava near result in obsidian? 
  
 * Buffs
- * poison
- * charmed heart
+ * poison (green poison drops dropping from you, some slowness)
+ * slowness
+ * speed
+ * charmed hearts particles
  * frozen
- * burning
- * buff icons
+ * burning particles
+ 
+ * buff icons?
  
 * lil boo
 * gases

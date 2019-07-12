@@ -92,8 +92,12 @@ namespace BurningKnight.entity.component {
 			if (entity == null) {
 				return;
 			}
-			
-			KnockbackFrom(entity.Center, force);
+
+			if (entity == Entity) {
+				KnockbackFrom(Random.AnglePI(), force);
+			} else {
+				KnockbackFrom(entity.Center, force);
+			}
 		}
 
 		public void KnockbackFrom(Vector2 point, float force = 1f, float rnd = 0) {
