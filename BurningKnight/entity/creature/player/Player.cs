@@ -9,6 +9,7 @@ using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
@@ -322,6 +323,19 @@ namespace BurningKnight.entity.creature.player {
 					if (c.New.Type != RoomType.Connection) {
 						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
 					}
+				}*/
+			} else if (e is TileCollisionStartEvent tcse) {
+				/*if (tcse.Tile == Tile.HighGrass) {
+					var level = Run.Level;
+					
+					GetComponent<TileInteractionComponent>().ApplyForAllTouching((i, x, y) => {
+						var t = level.Get(x, y, true);
+
+						if (t == Tile.HighGrass) {
+							// todo: particles
+							level.Set(x, y, Tile.Grass);
+						}
+					});
 				}*/
 			}
 			

@@ -2,9 +2,12 @@
 
 ### todo
 
-* gobbo remains
+* lil boo
 * buffs, fire, etc
-* tall grass breaking?
+* gases
+* more tile interaction
+* implement lava, lava particle
+* ambient lighting? like lighting for lava, etc
 
 ### on windows
 

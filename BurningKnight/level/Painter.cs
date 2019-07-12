@@ -352,8 +352,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				var High = Random.Float() < Count / 12f;
-				Level.Set(I, High ? Tile.HighGrass : Tile.Grass);
+				Level.Set(I, Tile.Grass);
 			}
 		}
 
@@ -363,7 +362,7 @@ namespace BurningKnight.level {
 				if (Random.Chance(90)) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
-							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt, Tile.HighGrass) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 

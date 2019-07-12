@@ -39,13 +39,6 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
-			var startX = (int) Math.Floor((Entity.X + Entity.Height / 2f) / 16f);
-			var startY = (int) Math.Floor(Entity.Y / 16f);
-			var endX = (int) Math.Floor(Entity.Right / 16f);
-			var endY = (int) Math.Floor(Entity.Bottom / 16f);
-
-			var level = Run.Level;
-
 			for (int i = 0; i < Touching.Length; i++) {
 				LastTouching[i] = Touching[i];
 				Touching[i] = false;
@@ -59,39 +52,7 @@ namespace BurningKnight.entity.component {
 			HadNoSupport = HasNoSupport;
 			HasNoSupport = true;
 			
-			for (int x = startX; x <= endX; x++) {
-				for (int y = startY; y <= endY; y++) {
-					var index = level.ToIndex(x, y);
-
-					if (!level.IsInside(index)) {
-						continue;
-					}
-
-					var tile = level.Tiles[index];
-					var liquid = level.Liquid[index];
-
-					if (tile > 0) {
-						Touching[tile] = true;
-
-						if (HasNoSupport) {
-							var t = (Tile) tile;
-
-							if (t != Tile.Chasm) {
-								HasNoSupport = false;
-								LastSupportedPosition = Entity.Position;
-							}
-						}
-					}
-					
-					if (liquid > 0) {
-						Touching[liquid] = true;
-					}
-
-					if (level.CheckFlag(index, Flag.Burning)) {
-						Flags[Flag.Burning] = true;
-					}
-				}
-			}
+			ApplyForAllTouching(InspectTile);
 
 			for (int i = 0; i < Touching.Length; i++) {
 				CheckTile(i);
@@ -102,6 +63,55 @@ namespace BurningKnight.entity.component {
 			}
 
 			CheckSupport();
+		}
+
+		private void InspectTile(int index, int x, int y) {
+			var level = Run.Level;
+			
+			var tile = level.Tiles[index];
+			var liquid = level.Liquid[index];
+
+			if (tile > 0) {
+				Touching[tile] = true;
+
+				if (HasNoSupport) {
+					var t = (Tile) tile;
+
+					if (t != Tile.Chasm) {
+						HasNoSupport = false;
+						LastSupportedPosition = Entity.Position;
+					}
+				}
+			}
+					
+			if (liquid > 0) {
+				Touching[liquid] = true;
+			}
+
+			if (level.CheckFlag(index, Flag.Burning)) {
+				Flags[Flag.Burning] = true;
+			}
+		}
+
+		public void ApplyForAllTouching(Action<int, int, int> action) {
+			var startX = (int) Math.Floor((Entity.X + Entity.Height / 2f) / 16f);
+			var startY = (int) Math.Floor(Entity.Y / 16f);
+			var endX = (int) Math.Floor(Entity.Right / 16f);
+			var endY = (int) Math.Floor(Entity.Bottom / 16f);
+
+			var level = Run.Level;
+			
+			for (int x = startX; x <= endX; x++) {
+				for (int y = startY; y <= endY; y++) {
+					var index = level.ToIndex(x, y);
+
+					if (!level.IsInside(index)) {
+						continue;
+					}
+
+					action(index, x, y);
+				}
+			}
 		}
 
 		private void CheckSupport() {
