@@ -72,7 +72,7 @@ namespace BurningKnight.state {
 			t += dt;
 			
 			if (down) {
-				if (ready && ((Engine.Version.Debug) || Time > 3f)) {
+				if (ready && ((Engine.Version.Test) || Time > 3f)) {
 					alpha -= dt * 5;
 				}
 			} else {
@@ -84,7 +84,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Debug))) {
+			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Test))) {
 				Engine.Instance.SetState(new InGameState(gameArea));
 			}
 		}

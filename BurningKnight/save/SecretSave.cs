@@ -40,7 +40,7 @@ namespace BurningKnight.save {
 		}
 
 		public override void Save(Area area, FileWriter writer) {
-			WasATester = Engine.Version.Debug;
+			WasATester = Engine.Version.Test;
 			
 			writer.WriteBoolean(DeletedSave);
 			writer.WriteBoolean(WasATester);
@@ -48,7 +48,7 @@ namespace BurningKnight.save {
 
 		public override void Generate(Area area) {
 			DeletedSave = false;
-			WasATester = Engine.Version.Debug;
+			WasATester = Engine.Version.Test;
 		}
 
 		public SecretSave() : base(SaveType.Secret) {

@@ -114,6 +114,7 @@ namespace BurningKnight.entity.creature.player {
 			hp.MaxHealthCap = 33;
 
 			if (Engine.Version.Dev) {
+				Log.Info("Entering god mode for the player");
 				hp.Unhittable = true;
 			}
 		}
