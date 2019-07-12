@@ -225,9 +225,14 @@ namespace BurningKnight.ui {
 				RenderGainedItems();
 				RenderActiveItem();
 				RenderConsumables();
+				RenderBuffs();
 			}
 			
 			RenderHealthBar(show);
+		}
+
+		private void RenderBuffs() {
+			// todo
 		}
 
 		private void RenderGainedItems() {
@@ -360,7 +365,7 @@ namespace BurningKnight.ui {
 
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var component = player.GetComponent<HealthComponent>();
-			var red = component.Health - 1;
+			var red = (component.Health - 1) / component.HealthModifier;
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
@@ -389,10 +394,22 @@ namespace BurningKnight.ui {
 			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
 		}
 
+		private float lastRed;
+		
 		private void RenderHealthBar(bool pad) {
 			var red = player.GetComponent<HealthComponent>();
-			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
-			var maxRed = red.MaxHealth - 1;
+			var hm = (float) red.HealthModifier;
+			var totalRed = (int) ((red.Health - 1) / hm); // -1 accounts for hidden "not lamp hp"
+
+			if (lastRed > totalRed) {
+				lastRed = totalRed;
+			} else if (lastRed < totalRed) { 
+				lastRed = Math.Min(totalRed, lastRed + Engine.Delta * 30);
+			}
+
+			var r = (int) lastRed;
+			
+			var maxRed = (int) ((red.MaxHealth - 1) / hm);
 			
 			var other = player.GetComponent<HeartsComponent>();
 			var totalIron = other.IronHalfs;			
@@ -411,8 +428,8 @@ namespace BurningKnight.ui {
 				
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 
-				if (i < totalRed) {
-					Graphics.Render(i == totalRed - 1 ? HalfHeart : Heart, GetHeartPosition(pad, i));					
+				if (i < r) {
+					Graphics.Render(i == r - 1 ? HalfHeart : Heart, GetHeartPosition(pad, i));					
 				}
 			}
 

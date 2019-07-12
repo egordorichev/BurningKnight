@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.state;
@@ -18,6 +19,10 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
+				if (GetComponent<BuffsComponent>().Has<CharmedBuff>()) {
+					return;
+				}
+				
 				if (Input.WasPressed(Controls.Use, controller) || (Item.Automatic && Input.IsDown(Controls.Use, controller) && Item.Delay <= 0.001f)) {
 					Item.Use((Player) Entity);
 				}

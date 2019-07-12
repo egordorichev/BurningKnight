@@ -1,5 +1,11 @@
 # TODO
 
+### beta bugs
+
+* unexplorable rooms after reloading
+* openal crash
+* max hp resets
+
 ### todo
 
 * Tile interactions
@@ -12,11 +18,11 @@
  
 * Buffs
  * poison
- * charmed
+ * charmed heart
  * frozen
  * burning
- * broken armor (you take x2 damage)
-
+ * buff icons
+ 
 * lil boo
 * gases
 

@@ -18,6 +18,7 @@ namespace BurningKnight.entity.component {
 		public int Health => health;
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
+		public int HealthModifier = 1;
 
 		public void SetHealth(int hp, Entity setter) {
 			if (hp == health) {
@@ -58,7 +59,7 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		public void ModifyHealth(int amount, Entity setter) {
+		public void ModifyHealth(int amount, Entity setter, bool mod = true) {
 			if (amount < 0 && Entity is Player && Run.Depth < 1) {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;
@@ -81,13 +82,13 @@ namespace BurningKnight.entity.component {
 							return;
 						}
 				
-						hearts.Hurt(-amount, setter);
+						hearts.Hurt(-amount * HealthModifier, setter);
 						return;
 					}
 				}
 			}
 			
-			SetHealth(health + amount, setter);
+			SetHealth(health + (mod ? amount * HealthModifier : amount), setter);
 		}
 
 		private int maxHealth;
@@ -117,7 +118,7 @@ namespace BurningKnight.entity.component {
 
 		public int InitMaxHealth {
 			set {
-				maxHealth = Math.Max(1, value);
+				maxHealth = Math.Max(1, value * HealthModifier);
 				health = maxHealth;
 			}
 		}
@@ -195,6 +196,8 @@ namespace BurningKnight.entity.component {
 			if (ImGui.DragInt("Health", ref hp, 1, 0, maxHealth)) {
 				health = hp;
 			}
+			
+			ImGui.Text($"Health modifier: {HealthModifier}");
 
 			ImGui.InputInt("Max health", ref maxHealth);
 			ImGui.Checkbox("Unhittable", ref Unhittable);
