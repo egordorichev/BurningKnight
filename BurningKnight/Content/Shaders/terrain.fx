@@ -49,7 +49,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		));
 		
 		if (mask.r == 1 && mask.g == 0 && mask.b == 0 && mask.a == 1) {
-			if (flow > 0.1f) {
+			if (flow > 0.6f) {
 				color.a = 0.5f;
 			}
 			
