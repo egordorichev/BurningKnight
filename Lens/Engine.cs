@@ -113,6 +113,7 @@ namespace Lens {
 			UpdateView();
 
 			Log.Open();
+			Log.Info($"Burning Knight v{Version}");
 			Log.Info($"Starting from {AppDomain.CurrentDomain.BaseDirectory}");
 			Log.Info(tmpTitle);
 			Log.Info(DateTime.Now.ToString("dd.MM.yyyy h:mm tt"));

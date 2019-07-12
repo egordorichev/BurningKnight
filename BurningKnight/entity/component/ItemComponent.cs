@@ -21,6 +21,7 @@ namespace BurningKnight.entity.component {
 			if (!animate && Item != null) {
 				Drop();
 				Item = null;
+
 	#if DEBUG
 				debugItem = "";
 	#endif
@@ -69,7 +70,7 @@ namespace BurningKnight.entity.component {
 	#if DEBUG
 			debugItem = item.Id;
 	#endif
-			
+
 			OnItemSet();
 		}
 
@@ -95,6 +96,7 @@ namespace BurningKnight.entity.component {
 	#if DEBUG
 			debugItem = "";
 	#endif
+
 			return item;
 		}
 
@@ -104,7 +106,7 @@ namespace BurningKnight.entity.component {
 			if (Item != null) {
 				if (Item.Done) {
 					Item = null;
-	
+
 	#if DEBUG
 					debugItem = "";
 	#endif

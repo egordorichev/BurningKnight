@@ -92,6 +92,9 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
+
+			v = BK.Version.ToString();
+			vx = -Font.Small.MeasureString(v).Width;
 			
 			Shaders.Screen.Parameters["black"].SetValue(0f);
 			SetupUi();
@@ -213,7 +216,7 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
       			
-			if (!Paused && !inside && !Engine.Version.Debug) {
+			if (!Paused && !inside && !Engine.Version.Test) {
 				Paused = true;
 				pausedByMouseOut = true;
 			} else if (Paused && pausedByMouseOut && inside) {
@@ -265,7 +268,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (Engine.Version.Debug) {
+			if (Engine.Version.Test) {
 				UpdateDebug(dt);
 				Tilesets.Update();
 			}
@@ -452,7 +455,14 @@ namespace BurningKnight.state {
 			RenderFog();
 		}
 
+		private float vx;
+		private string v;
+
 		public override void RenderUi() {
+			Graphics.Color = ColorUtils.HalfWhiteColor;
+			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
+			Graphics.Color = ColorUtils.WhiteColor;
+			
 			painting?.RenderUi();
 
 			if (Settings.HideUi) {
@@ -477,8 +487,6 @@ namespace BurningKnight.state {
 				Graphics.Color = color;
 				Graphics.Print($"{c}", Font.Small, 1, 1);
 				Graphics.Color = ColorUtils.WhiteColor;
-			} else if (!Engine.Version.Dev) {
-				Graphics.Print(Engine.Version.ToString(), Font.Small, 1, 1);
 			}
 		}
 
