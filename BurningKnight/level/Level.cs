@@ -564,6 +564,9 @@ namespace BurningKnight.level {
 						if (tt == Tile.Water) {
 							flow.SetValue(1f);
 							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
+						} else if (tt == Tile.Lava) {
+							flow.SetValue(0.5f);
+							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
 						} else {
 							region.Source.Y += y % 4 * 16;
 						}
@@ -571,7 +574,6 @@ namespace BurningKnight.level {
 						region.Source.X += x % 4 * 16;
 						
 						var pos = new Vector2(x * 16, y * 16);
-
 						var t = (Tile) tile;
 						
 						if (!t.Matches(Tile.Ember, Tile.Chasm)) {
@@ -595,16 +597,6 @@ namespace BurningKnight.level {
 										Position = pos + new Vector2(Random.Float(16), 16)
 									});
 								}
-							} else if (t == Tile.HighGrass) {
-								enabled.SetValue(false);
-
-								var tm = Engine.Instance.State.Time;
-								
-								Graphics.Render(Tilesets.Biome.HighGrass, new Vector2(x * 16 + 8, y * 16 + 16), 
-									(float) (Math.Cos(tm - y * Math.PI * 0.25f) * Math.Sin(tm * 0.9f + x * Math.PI * 0.3f) * 0.6f),
-									new Vector2(8, 16));
-								
-								enabled.SetValue(true);
 							}
 						} else {
 							enabled.SetValue(false);
@@ -612,7 +604,7 @@ namespace BurningKnight.level {
 							enabled.SetValue(true);
 						}
 						
-						if (tt == Tile.Water) {
+						if (tt == Tile.Water || tt == Tile.Lava) {
 							flow.SetValue(0f);
 						}
 					}
