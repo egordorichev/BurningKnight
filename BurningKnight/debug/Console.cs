@@ -44,6 +44,7 @@ namespace BurningKnight.debug {
 			commands.Add(new BiomeCommand());
 			commands.Add(new ExploreCommand());
 			commands.Add(new PassableCommand());
+			commands.Add(new BuffCommand());
 		}
 
 		public void AddCommand(ConsoleCommand command) {

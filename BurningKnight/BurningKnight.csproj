@@ -127,6 +127,7 @@
     <Compile Include="BK.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="debug\BiomeCommand.cs" />
+    <Compile Include="debug\BuffCommand.cs" />
     <Compile Include="debug\Console.cs" />
     <Compile Include="debug\ConsoleCommand.cs" />
     <Compile Include="debug\DebugCommand.cs" />

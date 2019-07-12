@@ -154,6 +154,12 @@ namespace BurningKnight.entity.component {
 				ImGui.BulletText("No buffs");
 				return;
 			}
+
+			if (ImGui.Button("Remove all")) {
+				foreach (var b in Buffs.Values) {
+					b.TimeLeft = 0;
+				}
+			}
 			
 			foreach (var b in Buffs.Values) {
 				if (toAdd.Length > 0 && !BuffRegistry.All.ContainsKey(toAdd)) {
