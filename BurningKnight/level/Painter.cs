@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.plant;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.boss;
@@ -358,6 +359,21 @@ namespace BurningKnight.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
+				// Plants
+				if (Random.Chance(90)) {
+					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+						for (int X = Room.Left; X <= Room.Right; X++) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt, Tile.HighGrass) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
+								var plant = new Plant();
+								Level.Area.Add(plant);
+
+								plant.Center = new Vector2(X * 16 + 8 + Random.Float(-8, 8), Y * 16 + 8 + Random.Float(-8, 8));
+							}
+						}
+					}
+				}
+
+				// Fireflies
 				if (Random.Chance(60)) {
 					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.Int(3, 6)); I++) {
 						Level.Area.Add(new Firefly {
@@ -367,6 +383,7 @@ namespace BurningKnight.level {
 					}
 				}
 
+				// Cobweb
 				if (!(Room is BossRoom)) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
@@ -402,6 +419,7 @@ namespace BurningKnight.level {
 					continue;
 				}
 
+				// Paintings
 				for (int X = Room.Left + 1; X < Room.Right; X++) {
 					if (Level.Get(X, Room.Top).IsWall() && Random.Chance(20)) {
 						var painting = PaintingRegistry.Generate(Level.Biome);

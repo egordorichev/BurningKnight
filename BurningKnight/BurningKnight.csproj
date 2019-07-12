@@ -415,6 +415,8 @@
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
+    <Compile Include="level\entities\plant\Plant.cs" />
+    <Compile Include="level\entities\plant\PlantGraphicsComponent.cs" />
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
     <Compile Include="level\entities\RerollMachine.cs" />

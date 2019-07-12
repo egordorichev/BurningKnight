@@ -395,8 +395,7 @@ namespace BurningKnight.entity.creature.player {
 				pool.Add("bk:coin");
 			}
 
-			stone.Item = pool[Random.Int(pool.Count)];
-			GlobalSave.Put("next_tomb", stone.Item);
+			GlobalSave.Put("next_tomb", pool[Random.Int(pool.Count)]);
 			GlobalSave.Put("tomb_depth", Run.Depth);
 			
 			Area.Add(stone);

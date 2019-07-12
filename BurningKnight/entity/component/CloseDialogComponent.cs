@@ -1,7 +1,8 @@
+using System;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.entity.component;
-using Lens.util.math;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class CloseDialogComponent : Component {
@@ -10,6 +11,8 @@ namespace BurningKnight.entity.component {
 
 		public string[] Variants;
 		private Entity trigger;
+
+		public Func<Entity, bool> CanTalk;
 
 		public CloseDialogComponent(params string[] vars) {
 			Variants = vars;
@@ -35,9 +38,11 @@ namespace BurningKnight.entity.component {
 
 			foreach (var p in Entity.Area.Tags[Tags.Player]) {
 				if (p.DistanceToSquared(Entity) <= Radius) {
-					d.Start(Variants[Random.Int(Variants.Length)]);
-					trigger = p;
-					return;
+					if (CanTalk == null || CanTalk(Entity)) {
+						d.Start(Variants[Random.Int(Variants.Length)]);
+						trigger = p;
+						return;
+					}
 				}
 			}
 		}

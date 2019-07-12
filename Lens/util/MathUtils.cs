@@ -5,6 +5,7 @@ namespace Lens.util {
 	public class MathUtils {
 		public static Vector2 InvertX = new Vector2(1, -1);
 		public static Vector2 InvertY = new Vector2(1, -1);
+		public static Vector2 InvertXY = new Vector2(-1, -1);
 		public static Vector2 DoubleScale = new Vector2(2);
 		
 		public static Vector2[] Directions = {

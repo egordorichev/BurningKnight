@@ -19,7 +19,10 @@ namespace BurningKnight.level.entities {
 			Width = 12;
 			
 			AddComponent(new DialogComponent());
-			AddComponent(new CloseDialogComponent("tomb_0"));
+
+			AddComponent(new CloseDialogComponent("tomb_0") {
+				CanTalk = e => Item != null
+			});
 			
 			AddComponent(new RectBodyComponent(2, 8, (int) Width - 4, 1, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
@@ -46,7 +49,7 @@ namespace BurningKnight.level.entities {
 			AnimationUtil.Poof(Center);
 			Camera.Instance.Shake(16);
 			
-			// fixme: spawn ghosts, dialog does not appear
+			// fixme: spawn ghosts, dialog should not appear when player is ded
 			
 			return true;
 		}
