@@ -54,6 +54,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			Buffs[type] = buff;
+			buff.Entity = Entity;
 			buff.Init();
 			
 			Send(new BuffAddedEvent {

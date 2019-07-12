@@ -366,10 +366,11 @@ namespace BurningKnight.ui {
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var component = player.GetComponent<HealthComponent>();
 			var red = (component.Health - 1) / component.HealthModifier;
+			var m = (component.MaxHealth - 1) / component.HealthModifier;
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
-			var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(component.MaxHealth / 2, 8) - Math.PI / 2;
+			var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(m / 2, 8) - Math.PI / 2;
 			const float distance = 24f;
 		
 			var x = from.X + (float) Math.Cos(angle) * distance - Heart.Width / 2f;

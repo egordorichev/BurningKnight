@@ -8,6 +8,8 @@
 
 ### todo
 
+* fading hearts
+
 * Tile interactions
  * lava burn you
  * burning buff effects
@@ -143,7 +145,6 @@
 * Wall shadow of player should include weapons?
 * Low health indicator
 * Animate items/creatures falling into the chasm?
-* Animate healing
 * Wall a -> wall b tiling
 * Far away tiles (darker version of the wall)
 * In wall decor, like nuclear throne

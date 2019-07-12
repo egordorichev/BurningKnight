@@ -9,6 +9,7 @@ namespace BurningKnight.entity.buff {
 			Add<BurningBuff>(BurningBuff.Id);
 			Add<CharmedBuff>(CharmedBuff.Id);
 			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
+			Add<PoisonBuff>(PoisonBuff.Id);
 		}
 		
 		public static void Add<T>(string id) where T : Buff {

@@ -148,6 +148,7 @@
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
+    <Compile Include="entity\buff\PoisonBuff.cs" />
     <Compile Include="entity\chest\Chest.cs" />
     <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
