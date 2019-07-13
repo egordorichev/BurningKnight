@@ -5,7 +5,7 @@ namespace BurningKnight.entity.buff {
 		public static string Id = "bk:poison";
 		
 		public PoisonBuff() : base(Id) {
-			Duration = 15;
+			Duration = 10;
 		}
 
 		private float tillDamage;
@@ -16,7 +16,7 @@ namespace BurningKnight.entity.buff {
 			tillDamage -= dt;
 
 			if (tillDamage <= 0) {
-				tillDamage = 0.7f;
+				tillDamage = 0.8f;
 				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, Entity, false);
 			}
 		}

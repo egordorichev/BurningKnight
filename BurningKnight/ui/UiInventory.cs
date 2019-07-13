@@ -428,10 +428,17 @@ namespace BurningKnight.ui {
 				}
 				
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
+			}
 
-				if (i < r) {
-					Graphics.Render(i == r - 1 ? HalfHeart : Heart, GetHeartPosition(pad, i));					
-				}
+			var n = r;
+
+			for (var j = 0; j < n; j++) {
+				var h = j % 2 == 0;
+				
+					// d &&  : 
+				Graphics.Color = new Color(1f, 1f, 1f, j == n - 1 ? ((red.Health - 1) % red.HealthModifier + 1) / hm : 1f);
+				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
+				Graphics.Color = ColorUtils.WhiteColor;
 			}
 
 			var ironI = totalIron + maxRed;

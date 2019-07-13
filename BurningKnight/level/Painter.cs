@@ -291,7 +291,7 @@ namespace BurningKnight.level {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 
-					if (Lake[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {
+					if (Lake[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD) && Level.Liquid[I] == 0) {
 						Level.Set(I, Ice ? Tile.Ice : Tile.Water);
 						placed = true;
 					}

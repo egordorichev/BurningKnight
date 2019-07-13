@@ -13,7 +13,7 @@ namespace BurningKnight.level.entities.plant {
 
 		public override void Init() {
 			base.Init();
-			variant = (byte) Random.Int(variants.Length);
+			variant = (byte) Random.Int(variants.Length * 2);
 		}
 
 		public override void AddComponents() {

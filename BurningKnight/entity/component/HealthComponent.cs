@@ -29,6 +29,8 @@ namespace BurningKnight.entity.component {
 				if (Unhittable || InvincibilityTimer > 0) {
 					return;
 				}				
+			} else if (hp > health && HealthModifier > 1) {
+				hp += ((int) Math.Ceiling(health / (float) HealthModifier) * HealthModifier) - health;
 			}
 			
 			var old = health;
