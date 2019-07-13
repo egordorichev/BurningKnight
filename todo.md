@@ -24,8 +24,6 @@
  * speed
  * charmed hearts particles
  * frozen
- * burning particles
- 
  * buff icons?
  
 * lil boo
@@ -35,6 +33,11 @@
  * shopkeeper (spelunky)
  * granny
  * oldman smth?
+
+* Room improvements/ideas:
+ * Use lava in the terrain
+ * trap only room
+  + trap controllers
 
 ### on windows
 

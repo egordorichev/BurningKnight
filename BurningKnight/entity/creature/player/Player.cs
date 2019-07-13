@@ -194,7 +194,24 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class RunState : EntityState {
+			private float lastParticle = 0.25f;
 			
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = 0.25f;
+					
+					var part = new ParticleEntity(Particles.Dust());
+					
+					part.Position = Self.Center;
+					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					Self.Area.Add(part);
+				}
+			}
 		}
 		
 		public class RollState : EntityState {

@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.projectile;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
@@ -148,7 +149,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (!duck) {
 				var acceleration = new Vector2();
-				
+				var i = GetComponent<TileInteractionComponent>();
+
 				if (Input.IsDown(Controls.Up, controller)) {
 					acceleration.Y -= 1;
 				}			
@@ -188,9 +190,25 @@ namespace BurningKnight.entity.creature.player {
 					if (acceleration.Length() > 0.1f) {
 						acceleration.Normalize();
 					}
-				
-					body.Acceleration = acceleration * Speed;
-					body.Velocity -= body.Velocity * dt * 20 - body.Acceleration;
+
+					var s = Speed;
+					var sp = 20;
+					
+					if (i.Touching[(int) Tile.Ice]) {
+						sp -= 19;
+						s *= 0.25f;
+					}
+										
+					if (i.Touching[(int) Tile.Cobweb]) {
+						s *= 0.8f;
+					}
+					
+					if (i.Touching[(int) Tile.Water] || i.Touching[(int) Tile.Lava]) {
+						s *= 0.9f;
+					}
+					
+					body.Acceleration = acceleration * s;
+					body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
 				}
 			}
 		}
