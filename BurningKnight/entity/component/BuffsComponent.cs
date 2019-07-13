@@ -36,20 +36,20 @@ namespace BurningKnight.entity.component {
 			});
 		}
 
-		public void Add(Buff buff) {
+		public Buff Add(Buff buff) {
 			if (buff == null) {
-				return;
+				return null;
 			}
 			
 			var type = buff.GetType();
 			
 			if (Buffs.ContainsKey(type)) {
-				return;
+				return null;
 			}
 			
 			foreach (var t in Immune) {
 				if (t == type) {
-					return;
+					return null;
 				}
 			}
 
@@ -60,10 +60,12 @@ namespace BurningKnight.entity.component {
 			Send(new BuffAddedEvent {
 				Buff = buff
 			});
+
+			return buff;
 		}
 
-		public void Add(string id) {
-			Add(BuffRegistry.Create(id));
+		public Buff Add(string id) {
+			return Add(BuffRegistry.Create(id));
 		}
 
 		public bool Has<T>() {
@@ -104,8 +106,9 @@ namespace BurningKnight.entity.component {
 			base.Save(stream);
 			stream.WriteByte((byte) Buffs.Count);
 			
-			foreach (var buff in Buffs) {
-				stream.WriteString(buff.Value.Type);
+			foreach (var buff in Buffs.Values) {
+				stream.WriteString(buff.Type);
+				stream.WriteFloat(buff.TimeLeft);
 			}
 		}
 
@@ -114,7 +117,8 @@ namespace BurningKnight.entity.component {
 			var count = reader.ReadByte();
 
 			for (int i = 0; i < count; i++) {
-				Add(reader.ReadString());
+				var buff = Add(reader.ReadString());
+				buff.TimeLeft = reader.ReadFloat();
 			}
 		}
 

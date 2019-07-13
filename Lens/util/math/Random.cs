@@ -51,6 +51,10 @@ namespace Lens.util.math {
 			return builder.ToString();
 		}
 
+		public static Vector2 Vector(float min, float max) {
+			return new Vector2(Float(min, max), Float(min, max));
+		}
+
 		public static int Int() {
 			return random.Next();
 		}
