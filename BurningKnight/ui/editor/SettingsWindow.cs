@@ -88,6 +88,7 @@ namespace BurningKnight.ui.editor {
 			};
 
 			if (!Engine.EditingLevel) {
+				ReloadBiome();
 				return;
 			}
 

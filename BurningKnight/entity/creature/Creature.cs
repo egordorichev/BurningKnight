@@ -1,11 +1,14 @@
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.level;
+using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.editor;
 using BurningKnight.util;
 using Lens.entity;
@@ -78,6 +81,31 @@ namespace BurningKnight.entity.creature {
 				if (!(this is Player)) {
 					Done = true;
 					return true;
+				}
+			} else if (e is TileCollisionStartEvent tce) {
+				if (tce.Tile == Tile.Lava) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, null);
+					GetComponent<BuffsComponent>().Add(BurningBuff.Id);
+
+					var set = false;
+					var center = Center;
+					var count = 0;
+					
+					GetComponent<TileInteractionComponent>().ApplyForAllTouching((i, x, y) => {
+						if (Run.Level.Get(x, y, true) == Tile.Lava) {
+							var v = new Vector2(x * 16, y * 16);
+							count++;
+							
+							if (!set) {
+								set = true;
+								center = v;
+							} else {
+								center += v;
+							}
+						}
+					});
+					
+					GetAnyComponent<BodyComponent>()?.KnockbackFrom(center / count, 1.5f);
 				}
 			}
 

@@ -12,8 +12,6 @@
 * effects for room clear
 
 * Tile interactions
- * lava burn you
- * burning buff effects
  * burning terrain
  * ember after burnt stuff
  * ice sliding
@@ -32,6 +30,11 @@
  
 * lil boo
 * gases
+
+* NPCs:
+ * shopkeeper (spelunky)
+ * granny
+ * oldman smth?
 
 ### on windows
 
