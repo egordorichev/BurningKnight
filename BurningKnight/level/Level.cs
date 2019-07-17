@@ -204,6 +204,13 @@ namespace BurningKnight.level {
 			} else {
 				loadMarked = true;
 			}
+			
+			for (var i = 0; i < Size - Width; i++) {
+				if (Get(i).IsWall() && Get(i + Width).IsWall()) {
+					Explored[i] = true;
+					Light[i] = 1f;
+				}
+			}
 		}
 		
 		public void CreatePassable() {
@@ -829,7 +836,7 @@ namespace BurningKnight.level {
 								: Tileset.WallCrackB;
 						}
 
-						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8));
+						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
 
 						if (t.IsWall()) {
 							byte v = Variants[index];
