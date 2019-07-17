@@ -21,6 +21,7 @@ namespace Lens.entity.component.logic {
 		}
 
 		public EntityState StateInstance => state;
+		public int Pause;
 		
 		public void Become<T>(bool force = false) {
 			if (force) {
@@ -51,7 +52,7 @@ namespace Lens.entity.component.logic {
 				newState = null;
 			}
 
-			if (!Engine.EditingLevel) {
+			if (!Engine.EditingLevel && Pause < 1) {
 				state?.Update(dt);
 			}
 		}

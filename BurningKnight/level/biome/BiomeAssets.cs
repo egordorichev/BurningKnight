@@ -1,4 +1,5 @@
-﻿using BurningKnight.level.tile;
+﻿using System;
+using BurningKnight.level.tile;
 using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
@@ -101,7 +102,7 @@ namespace BurningKnight.level.biome {
 			for (int i = 0; i < 3; i++) {
 				PlankSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
 			}
-
+			
 			PlanksTop = new TextureRegion(anim.Texture, new Rectangle(384, 144, 16, 16));
 		}
 

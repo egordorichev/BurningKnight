@@ -63,6 +63,7 @@ namespace BurningKnight.level {
 		public byte[] Variants;
 		public byte[] LiquidVariants;
 		public byte[] Flags;
+		public byte[] WallDecor;
 		public bool[] Explored;
 		public bool[] Passable;
 		public float[] Light;
@@ -343,6 +344,14 @@ namespace BurningKnight.level {
 			LiquidVariants = new byte[Size];
 			Light = new float[Size];
 			Flags = new byte[Size];
+			WallDecor = new byte[Size];
+
+			for (var i = 0; i < Size; i++) {
+				if (Random.Chance(10)) {
+					WallDecor[i] = (byte) Random.Int(1, 9);
+				}
+			}
+			
 			Explored = new bool[Size];
 			Passable = new bool[Size];
 			
@@ -730,7 +739,11 @@ namespace BurningKnight.level {
 						enabled.SetValue(false);
 						
 						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
-							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcWallTopIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
+							var v = CalcChasmIndex(x, y + 1);
+
+							if (v != 3) {
+								Graphics.Render(Tilesets.Biome.ChasmBottom[v], new Vector2(x * 16, y * 16 + 16));
+							}
 						}
 
 						/*if (Get(index - width) != Tile.Chasm) {
@@ -738,11 +751,19 @@ namespace BurningKnight.level {
 						}*/
 								
 						if (IsInside(index + 1) && Get(index + 1) != Tile.Chasm) {
-							Graphics.Render(Tilesets.Biome.ChasmRight[CalcWallTopIndex(x + 1, y)], new Vector2(x * 16 + 16, y * 16));
+							var v = CalcChasmIndex(x + 1, y);
+
+							if (v != 3) {
+								Graphics.Render(Tilesets.Biome.ChasmRight[v], new Vector2(x * 16 + 16, y * 16));
+							}
 						}
 								
 						if (index > 0 && Get(index - 1) != Tile.Chasm) {
-							Graphics.Render(Tilesets.Biome.ChasmLeft[CalcWallTopIndex(x - 1, y)], new Vector2(x * 16 - 16, y * 16));
+							var v = CalcChasmIndex(x - 1, y);
+
+							if (v != 3) {
+								Graphics.Render(Tilesets.Biome.ChasmLeft[v], new Vector2(x * 16 - 16, y * 16));
+							}
 						}
 					}
 				}
@@ -794,22 +815,20 @@ namespace BurningKnight.level {
 						var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
 						var a = t == Tile.WallA;
 
-						/*if (t == Tile.WallB) {
-							if ((IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
-							    IsInside(index - 1) && Get(index - 1) == Tile.WallA ||
-							    IsInside(index + width) && Get(index + width) == Tile.WallA ||
-							    IsInside(index - width) && Get(index - width) == Tile.WallA) {
-								
-								region = Tileset.WallMerge;
+						if (a) {
+							var v = WallDecor[index];
+
+							if (v > 0) {
+								region = Tileset.WallVariants[v - 1];
 							}
-						} else */if (t == Tile.Crack) {
+						} else if (t == Tile.Crack) {
 							a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 							     (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							region = a
 								? Tileset.WallCrackA
 								: Tileset.WallCrackB;
 						}
-						
+
 						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8));
 
 						if (t.IsWall()) {
@@ -854,7 +873,7 @@ namespace BurningKnight.level {
 											lv += 8;
 										}
 
-										var vl = Tileset.wallMapExtra[lv];
+										var vl = Tileset.WallMapExtra[lv];
 
 										if (vl != -1) {
 											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
@@ -874,7 +893,7 @@ namespace BurningKnight.level {
 											}
 										}
 									} else {
-										var vl = Tileset.wallMap[lv];
+										var vl = Tileset.WallMap[lv];
 										
 										if (vl != -1) {
 											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
@@ -1002,6 +1021,10 @@ namespace BurningKnight.level {
 			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 4);
 		}
 
+		private byte CalcChasmIndex(int x, int y) {
+			return (byte) (((int) Math.Round(x * 7.417f + y * 2.12f)) % 4);
+		}
+		
 		private byte CalcWallTopIndex(int x, int y) {
 			return (byte) (((int) Math.Round(x * 16.217f + y * 8.12f)) % 3);
 		}

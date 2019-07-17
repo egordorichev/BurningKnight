@@ -1,4 +1,5 @@
-﻿using Lens.assets;
+﻿using System;
+using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
@@ -26,13 +27,21 @@ namespace BurningKnight.level.tile {
 		public TextureRegion[] FloorSidesC = new TextureRegion[4];
 		public TextureRegion[] FloorSidesD = new TextureRegion[4];
 		
+		public TextureRegion[] WallVariants = new TextureRegion[8];
+		
 		public TextureRegion[][] Tiles = new TextureRegion[(int) Tile.Total][];
 
-		public static int[] wallMap = { -1, -1, -1, 9, -1, -1, 0, 5, -1, 11, -1, 10, 2, 6, 1, -1 };
-		public static int[] wallMapExtra = { -1, 7, 3, -1, 4, -1, -1, -1, 8, -1, -1, -1, -1, -1, -1, -1 };
+		public static int[] WallMap = { -1, -1, -1, 9, -1, -1, 0, 5, -1, 11, -1, 10, 2, 6, 1, -1 };
+		public static int[] WallMapExtra = { -1, 7, 3, -1, 4, -1, -1, -1, 8, -1, -1, -1, -1, -1, -1, -1 };
 
 		public void Load(string id) {
 			var anim = Animations.Get(id);
+			
+			WallVariants = new TextureRegion[8];
+			
+			for (int i = 0; i < 8; i++) {
+				WallVariants[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i % 4 * 16, 160 + (int) Math.Floor(i / 4f) * 16, 16, 16));
+			}
 			
 			for (int w = 0; w < 2; w++) {
 				for (int i = 0; i < 3; i++) {

@@ -8,6 +8,9 @@
 
 ### todo
 
+* explore all walls by default, if they are not inside of a room (for decor)
+* wall decor
+
 * poison on player should not blink and cause all those crazy things, cause too common (dont do it if the number is not int?)
 * effects for room clear
 
