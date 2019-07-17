@@ -14,9 +14,7 @@
 * Tile interactions
  * burning terrain
  * ember after burnt stuff
- * ice sliding
- * cobweb slowdown
- * should water + lava near result in obsidian? 
+ * liquids should have smaller hitbox
  
 * Buffs
  * poison (green poison drops dropping from you, some slowness)
@@ -144,7 +142,6 @@
 * Allow to remove entities with editor
 * Rooms that can spawn only in certant biomes
 * noise wall room (only possible with path finding)
-* Cap max hearts on player
 * Implement settings
 
 #### Polish
@@ -208,11 +205,3 @@
 * Cursed room
 * Room with transmutation well (current weapon slot)
 * alg for connection rooms that makes a really maze like path but with no branches
-
-### Clean up
-
-* Move BurningBuff.Id somewhere else (other name), cause it hides Id field from Buff class
-
-### Bugs
-
-* Some connection room doesnt paint walls
