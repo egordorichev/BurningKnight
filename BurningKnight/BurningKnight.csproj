@@ -110,6 +110,7 @@
     <Compile Include="assets\particle\controller\HealthParticleController.cs" />
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
+    <Compile Include="assets\particle\controller\SparkParticleController.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
     <Compile Include="assets\particle\ParticleEmitter.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
     <Compile Include="entity\component\SliceComponent.cs" />
+    <Compile Include="entity\component\SparkEmitterComponent.cs" />
     <Compile Include="entity\component\StatsComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />

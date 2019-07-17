@@ -17,6 +17,7 @@ namespace BurningKnight.assets.particle {
 		private static ParticleRenderer planksRenderer = new RandomFrameRenderer("planks_particle");
 		
 		public static ParticleRenderer BkDeathRenderer = new TexturedParticleRenderer("natural");
+		public static ParticleRenderer SparkRenderer = new TexturedParticleRenderer("spark");
 		public static ParticleRenderer AnimatedRenderer = new AnimatedParticleRenderer();
 		
 		public static Particle Textured(string slice) {
@@ -33,6 +34,20 @@ namespace BurningKnight.assets.particle {
 
 		public static Particle Plank() {
 			return new Particle(Controllers.Destroy, planksRenderer);
+		}
+		
+		public static Particle Spark() {
+			return new Particle(Controllers.Spark, SparkRenderer);
+		}
+
+		public static ParticleEntity Wrap(Particle particle, Area area, Vector2 where) {
+			var e = new ParticleEntity(particle);
+			e.Position = where;
+			e.Particle.Position = where;
+
+			area.Add(e);
+			
+			return e;
 		}
 
 		public static void BreakSprite(Area area, TextureRegion region, Vector2 position, int depth = -1) {

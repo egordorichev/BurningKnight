@@ -159,5 +159,9 @@ namespace Lens.util.math {
 
 			return -1;
 		}
+
+		public static int Sign() {
+			return Chance() ? -1 : 1;
+		}
 	}
 }

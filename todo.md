@@ -8,6 +8,8 @@
 
 ### todo
 
+* maggots are boring
+* sparks
 * effects for room clear
 
 * Tile interactions
@@ -76,11 +78,8 @@
 * unlockable items
 * iron hearts, half a heart spawning, etc
 * update art for chest
-* sk ai
-* sk dialog
 * Animate lamp up and down to make it more alive
 * Crash report window
-* statistics fixes
 * stats window for multiple file
 * selling items?
 * explode gold tiles for coins
@@ -88,10 +87,7 @@
 
 ### items
 
-* duck gun (high knockback, high damage, slow big projectile)
-* portal gun (bullets fire from your cursor to your gun)
 * item that makes your bullets warp through screen
-* shop sale
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
@@ -116,8 +112,8 @@
 * curse of unknown items
 
 ### fixes
-* camera follow items that are on screen a bit?
 
+* camera follow items that are on screen a bit?
 * item can make some items less/more luckyly to spawn
 * items that can spawn only if you dont have em
 * save orbitals
@@ -152,14 +148,8 @@
 * Wall shadow of player should include weapons?
 * Low health indicator
 * Animate items/creatures falling into the chasm?
-* Wall a -> wall b tiling
-* Far away tiles (darker version of the wall)
-* In wall decor, like nuclear throne
-* Water / liquid shader still has a 2-3 frames of other liquid overlapping
-* Item pickup fx convert to -> "+ item name (count)"
 * Flash frame for guns
 * Make bullets fly out from the right place
-* Bullet shells
 * Add sparks
 * Think about bloom shader
 * Think about blur around edges
@@ -167,20 +157,13 @@
 * Reflections in the water
 * Splashes on the water
 * Walls after explosion should be "a bit more broken?"
-* Creatures break high grass, when they walk over it
-* Breaking high grass should emit particles (might drop seeds?)
 * rework lava, should be like water in chasm or smth
 * Props that react to music beats
 
 ### Mechanics
 
 * Each level should have its own mechanic, except the starting one (running out of water, turn based movement, etc, allow to choose different roots)
-* Add health component to chest
-* Add explodable component to chest?
 * Explode item stand to replace the item with trash? :thinking:
-* Level interaction
- + Falling into chasms (items, enemies)
-* Chest react to explosion/hitting
 
 ### Ideas
 

@@ -123,6 +123,7 @@ namespace BurningKnight.entity.chest {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
 			AddComponent(new ExplodableComponent());
+			AddComponent(new SparkEmitterComponent(1f, 30f));
 
 			AddComponent(new HealthComponent {
 				InitMaxHealth = 5,
