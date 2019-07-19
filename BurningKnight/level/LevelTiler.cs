@@ -67,7 +67,7 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			if (!(t.Matches(TileFlags.LiquidLayer) || t.Matches(TileFlags.Solid))) {
+			if (!(t.Matches(TileFlags.LiquidLayer) || t.Matches(TileFlags.Solid) || t == Tile.PistonDown)) {
 				return;
 			}
 			
@@ -81,7 +81,7 @@ namespace BurningKnight.level {
 				}
 			}
 
-			if (t.IsWall()) {
+			if (t.IsWall() || t == Tile.PistonDown) {
 				for (int i = 0; i < 4; i++) {
 					var m = PathFinder.Corner[i];
 					var v = PathFinder.VCorner[i];
@@ -105,12 +105,16 @@ namespace BurningKnight.level {
 				return tt == Tile.Planks;
 			}
 
-			if (t == Tile.WallA) {
-				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack;
+			if (t == Tile.WallA || t == Tile.Piston) {
+				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Piston;
 			}
 			
 			if (t == Tile.WallB) {
 				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack;
+			}
+
+			if (t == Tile.PistonDown) {
+				return tt == Tile.PistonDown;
 			}
 			
 			if (t.IsWall() && t != Tile.Planks) {

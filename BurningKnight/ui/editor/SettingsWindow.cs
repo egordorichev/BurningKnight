@@ -173,7 +173,9 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.Cobweb, 192, 240, true);
 			DefineTile(Tile.Ember, 144, 160, true);
 			DefineTile(Tile.Chasm, 288, 32, true);
-				
+			DefineTile(Tile.Piston, 128, 0);
+			DefineTile(Tile.PistonDown, 128, 0);
+			
 			CurrentInfo = infos[0];
 		}
 

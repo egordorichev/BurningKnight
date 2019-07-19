@@ -73,7 +73,7 @@ namespace BurningKnight.level.tile {
 				}
 			}
 
-			Tiles[(int) Tile.WallA] = new[] {
+			Tiles[(int) Tile.PistonDown] = Tiles[(int) Tile.Piston] = Tiles[(int) Tile.WallA] = new[] {
 				WallTopA = new TextureRegion(anim.Texture, new Rectangle(160, 8, 16, 16))
 			};
 			

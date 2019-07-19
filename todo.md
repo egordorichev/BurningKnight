@@ -8,6 +8,8 @@
 
 ### todo
 
+* shields
+* game intro
 * maggots are boring
 * sparks
 * effects for room clear

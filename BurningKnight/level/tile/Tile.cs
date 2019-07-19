@@ -19,6 +19,8 @@ namespace BurningKnight.level.tile {
 		Cobweb,
 		Venom,
 		Planks,
+		Piston,
+		PistonDown,
 		
 		Total
 	}

@@ -252,7 +252,7 @@ namespace BurningKnight.level {
 				
 				Liquid[i] = (byte) value;
 			} else {
-				if (value.Matches(Tile.WallA, Tile.WallB)) {
+				if (value.IsWall()) {
 					Liquid[i] = 0;
 				}
 				
@@ -453,7 +453,9 @@ namespace BurningKnight.level {
 						if (t.Matches(TileFlags.FloorLayer)) {
 							var pos = new Vector2(x * 16, y * 16);
 
-							if (t != Tile.Chasm) {
+							if (t == Tile.PistonDown) {
+								RenderWall(x, y, index, tile, t, 0);
+							} else if (t != Tile.Chasm) {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
 						}
@@ -481,7 +483,7 @@ namespace BurningKnight.level {
 					var tl = (Tile) Tiles[index];
 
 					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
-						Graphics.Render(tl == Tile.WallA ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
+						Graphics.Render(tl.Matches(Tile.WallA, Tile.Piston) ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
 					}
 				}
 			}
@@ -657,7 +659,8 @@ namespace BurningKnight.level {
 					if (tl.Matches(TileFlags.WallLayer)) {
 						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
-							var a = tl == Tile.WallA;
+							var a = tl.Matches(Tile.WallA, Tile.Piston);
+							var aa = a;
 							
 							if (tl == Tile.Crack) {
 								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
@@ -668,16 +671,16 @@ namespace BurningKnight.level {
 
 							var ind = -1;
 
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.WallA, Tile.WallB, Tile.Planks)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
 								ind += 1;
 							}
 
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.WallA, Tile.WallB, Tile.Planks)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
 								ind += 2;
 							}
 
 							if (ind != -1) {
-								Graphics.Render(tl == Tile.WallA ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
+								Graphics.Render(aa ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
 							}
 						}
 					} else if (tl == Tile.Chasm) {
@@ -698,7 +701,7 @@ namespace BurningKnight.level {
 								TextureRegion textureRegion;
 
 								switch (tt) {
-									case Tile.WallA:
+									case Tile.WallA: case Tile.Piston: case Tile.PistonDown:
 										textureRegion = Tileset.WallA[ind];
 										break;
 									case Tile.Planks:
@@ -794,6 +797,113 @@ namespace BurningKnight.level {
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
+		
+		private void RenderWall(int x, int y, int index, int tile, Tile t, int m) {
+			var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
+			var a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
+
+			if (a) {
+				var v = WallDecor[index];
+
+				if (v > 0) {
+					region = Tileset.WallVariants[v - 1];
+				}
+			} else if (t == Tile.Crack) {
+				a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+				     (IsInside(index + width) && Get(index + width) == Tile.WallA);
+				region = a
+					? Tileset.WallCrackA
+					: Tileset.WallCrackB;
+			}
+
+			Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
+
+			if (t.IsWall() || t == Tile.PistonDown) {
+				byte v = Variants[index];
+
+				for (int xx = 0; xx < 2; xx++) {
+					for (int yy = 0; yy < 2; yy++) {
+						int lv = 0;
+
+						if (yy > 0 || BitHelper.IsBitSet(v, 0)) {
+							lv += 1;
+						}
+
+						if (xx == 0 || BitHelper.IsBitSet(v, 1)) {
+							lv += 2;
+						}
+
+						if (yy == 0 || BitHelper.IsBitSet(v, 2)) {
+							lv += 4;
+						}
+
+						if (xx > 0 || BitHelper.IsBitSet(v, 3)) {
+							lv += 8;
+						}
+
+						if (lv == 15) {
+							lv = 0;
+
+							if (xx == 1 && yy == 0 && !BitHelper.IsBitSet(v, 4)) {
+								lv += 1;
+							}
+
+							if (xx == 1 && yy == 1 && !BitHelper.IsBitSet(v, 5)) {
+								lv += 2;
+							}
+
+							if (xx == 0 && yy == 1 && !BitHelper.IsBitSet(v, 6)) {
+								lv += 4;
+							}
+
+							if (xx == 0 && yy == 0 && !BitHelper.IsBitSet(v, 7)) {
+								lv += 8;
+							}
+
+							var vl = Tileset.WallMapExtra[lv];
+
+							if (vl != -1) {
+								var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+
+								if (light > LightMin) {
+									Graphics.Color.A = (byte) (light * 255);
+
+									var ind = vl + 12 * CalcWallTopIndex(x, y);
+									
+									Graphics.Render(
+										a
+											? Tileset.WallTopsA[ind]
+											: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
+										new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
+
+									Graphics.Color.A = 255;
+								}
+							}
+						} else {
+							var vl = Tileset.WallMap[lv];
+							
+							if (vl != -1) {
+								var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+
+								if (light > LightMin) {
+									Graphics.Color.A = (byte) (light * 255);
+
+									var ind = vl + 12 * CalcWallTopIndex(x, y);
+									
+									Graphics.Render(
+										a
+											? Tileset.WallTopsA[ind]
+											: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
+										new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
+
+									Graphics.Color.A = 255;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
 		public void RenderWalls() {
 			var camera = Camera.Instance;
@@ -819,110 +929,7 @@ namespace BurningKnight.level {
 					var t = (Tile) tile;
 
 					if (tile > 0 && t.Matches(TileFlags.WallLayer)) {
-						var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
-						var a = t == Tile.WallA;
-
-						if (a) {
-							var v = WallDecor[index];
-
-							if (v > 0) {
-								region = Tileset.WallVariants[v - 1];
-							}
-						} else if (t == Tile.Crack) {
-							a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
-							     (IsInside(index + width) && Get(index + width) == Tile.WallA);
-							region = a
-								? Tileset.WallCrackA
-								: Tileset.WallCrackB;
-						}
-
-						Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
-
-						if (t.IsWall()) {
-							byte v = Variants[index];
-
-							for (int xx = 0; xx < 2; xx++) {
-								for (int yy = 0; yy < 2; yy++) {
-									int lv = 0;
-
-									if (yy > 0 || BitHelper.IsBitSet(v, 0)) {
-										lv += 1;
-									}
-
-									if (xx == 0 || BitHelper.IsBitSet(v, 1)) {
-										lv += 2;
-									}
-
-									if (yy == 0 || BitHelper.IsBitSet(v, 2)) {
-										lv += 4;
-									}
-
-									if (xx > 0 || BitHelper.IsBitSet(v, 3)) {
-										lv += 8;
-									}
-
-									if (lv == 15) {
-										lv = 0;
-
-										if (xx == 1 && yy == 0 && !BitHelper.IsBitSet(v, 4)) {
-											lv += 1;
-										}
-
-										if (xx == 1 && yy == 1 && !BitHelper.IsBitSet(v, 5)) {
-											lv += 2;
-										}
-
-										if (xx == 0 && yy == 1 && !BitHelper.IsBitSet(v, 6)) {
-											lv += 4;
-										}
-
-										if (xx == 0 && yy == 0 && !BitHelper.IsBitSet(v, 7)) {
-											lv += 8;
-										}
-
-										var vl = Tileset.WallMapExtra[lv];
-
-										if (vl != -1) {
-											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
-
-											if (light > LightMin) {
-												Graphics.Color.A = (byte) (light * 255);
-
-												var ind = vl + 12 * CalcWallTopIndex(x, y);
-												
-												Graphics.Render(
-													a
-														? Tileset.WallTopsA[ind]
-														: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
-													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
-
-												Graphics.Color.A = 255;
-											}
-										}
-									} else {
-										var vl = Tileset.WallMap[lv];
-										
-										if (vl != -1) {
-											var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
-
-											if (light > LightMin) {
-												Graphics.Color.A = (byte) (light * 255);
-
-												var ind = vl + 12 * CalcWallTopIndex(x, y);
-												
-												Graphics.Render(
-													a
-														? Tileset.WallTopsA[ind]
-														: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind]),
-													new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - 8));
-
-												Graphics.Color.A = 255;
-											}
-										}
-									}
-								}
-							}
-						}
+						RenderWall(x, y, index, tile, t, 8);
 					}
 				}
 			}
