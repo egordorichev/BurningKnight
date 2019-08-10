@@ -15,6 +15,10 @@ namespace BurningKnight.save {
 		}
 
 		protected override void ReadEntity(Area area, FileReader reader, string type, bool post) {
+			if (type == "level.rooms.Room") {
+				type = "entity.room.Room";
+			}
+		
 			var t = Type.GetType($"BurningKnight.{type}", true, false);
 
 			if (typeof(Level).IsAssignableFrom(t)) {

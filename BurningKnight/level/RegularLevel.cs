@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
@@ -52,9 +53,7 @@ namespace BurningKnight.level {
 
 		protected void Paint() {
 			Log.Info("Painting...");
-
-			var Painter = GetPainter();
-			Painter.Paint(this, rooms);
+			GetPainter().Paint(this, rooms);
 			
 			foreach (var def in rooms) {
 				var room = new Room();
@@ -66,6 +65,8 @@ namespace BurningKnight.level {
 				room.MapH = def.GetHeight();
 				
 				Area.Add(room);
+
+				room.Generate();
 			}
 		}
 

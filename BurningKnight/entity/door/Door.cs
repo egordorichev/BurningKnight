@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.save;
 using BurningKnight.ui.editor;

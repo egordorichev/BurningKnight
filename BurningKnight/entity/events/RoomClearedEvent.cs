@@ -1,3 +1,4 @@
+using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using Lens.entity;
 

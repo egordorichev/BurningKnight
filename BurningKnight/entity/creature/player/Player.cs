@@ -6,6 +6,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;

@@ -10,6 +10,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;

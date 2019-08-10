@@ -1,6 +1,7 @@
 using BurningKnight.assets.particle;
 using BurningKnight.entity;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using ImGuiNET;

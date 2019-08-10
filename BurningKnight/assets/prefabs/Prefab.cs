@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using BurningKnight.save;

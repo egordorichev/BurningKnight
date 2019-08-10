@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using BurningKnight.entity;
 using BurningKnight.entity.item;
+using BurningKnight.entity.room.controllable;
+using BurningKnight.entity.room.controller;
+using BurningKnight.level;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
-using BurningKnight.ui.editor;
-using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
@@ -14,11 +15,10 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
-namespace BurningKnight.level.rooms {
+namespace BurningKnight.entity.room {
 	public class Room : SaveableEntity {
 		public int MapX;
 		public int MapY;
@@ -28,6 +28,10 @@ namespace BurningKnight.level.rooms {
 		public RoomType Type;
 		public bool Explored;
 		public bool Cleared;
+		
+		public List<RoomControllable> Controllable = new List<RoomControllable>();
+		public List<Piston> Pistons = new List<Piston>();
+		public List<RoomController> Controllers = new List<RoomController>();
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -55,6 +59,29 @@ namespace BurningKnight.level.rooms {
 
 			var level = Run.Level;
 			Explored = level.Explored[level.ToIndex(MapX + 1, MapY + 1)];
+			
+			ApplyToEachTile((x, y) => {
+				var tile = Run.Level.Get(x, y);
+
+				if (tile.Matches(Tile.Piston, Tile.PistonDown)) {
+					Pistons.Add(new Piston(x, y));
+				}
+			});
+			
+			foreach (var c in Controllers) {
+				c.Init();
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			
+			foreach (var c in Controllers) {
+				c.Destroy();
+			}
+
+			Pistons.Clear();
+			Controllable.Clear();
 		}
 
 		public void Discover() {
@@ -63,14 +90,27 @@ namespace BurningKnight.level.rooms {
 			}
 
 			Explored = true;
-			var level = Run.Level;
 
+			ApplyToEachTile((x, y) => {
+				Run.Level.Explored[Run.Level.ToIndex(x, y)] = true;
+			});
+		}
+
+		public void ApplyToEachTile(Action<int, int> callback) {
+			var level = Run.Level;
+			
 			for (int y = MapY; y < MapY + MapH - 1; y++) {
 				for (int x = MapX; x < MapX + MapW; x++) {
 					if (level.IsInside(x, y)) {
-						level.Explored[level.ToIndex(x, y)] = true;
+						callback(x, y);
 					}
 				}
+			}
+		}
+
+		public void Generate() {
+			foreach (var c in Controllers) {
+				c.Generate();
 			}
 		}
 
@@ -83,6 +123,17 @@ namespace BurningKnight.level.rooms {
 			MapH = stream.ReadInt16();
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
+
+			/*var count = stream.ReadByte();
+
+			for (var i = 0; i < count; i++) {
+				var c = RoomControllerRegistery.Get(stream.ReadString());
+
+				if (c != null) {
+					Controllers.Add(c);
+					c.Load(stream);
+				}
+			}*/
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -94,6 +145,13 @@ namespace BurningKnight.level.rooms {
 			stream.WriteInt16((short) MapH);
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
+
+			/*stream.WriteByte((byte) Controllers.Count);
+
+			foreach (var c in Controllers) {
+				stream.WriteString(c.Id);
+				c.Save(stream);
+			}*/
 		}
 		
 		protected int GetRenderLeft(Camera camera, Level level) {

@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;

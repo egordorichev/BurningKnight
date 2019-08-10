@@ -404,6 +404,12 @@
     <Compile Include="entity\projectile\ProjectileTemplate.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
+    <Compile Include="entity\room\controllable\Piston.cs" />
+    <Compile Include="entity\room\controllable\RoomControllable.cs" />
+    <Compile Include="entity\room\controller\RoomController.cs" />
+    <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />
+    <Compile Include="entity\room\controller\TimedPistonSwitchController.cs" />
+    <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
@@ -476,7 +482,6 @@
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
-    <Compile Include="level\rooms\Room.cs" />
     <Compile Include="level\rooms\RoomDef.cs" />
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
