@@ -55,6 +55,10 @@ namespace Lens.util {
 			return p + origin;
 		}
 
+		public static Vector2 CreateVector(double angle, float distance) {
+			return new Vector2((float) Math.Cos(angle) * distance, (float) Math.Sin(angle) * distance);
+		}
+
 		public static string ToRoman(int number) {
 			if (number >= 50) {
 				return "L" + ToRoman(number - 50);

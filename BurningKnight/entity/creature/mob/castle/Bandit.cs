@@ -3,8 +3,11 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -36,7 +39,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				delay = Random.Float(1, 2.5f);
+				delay = 0.5f; // Random.Float(1, 2.5f);
 				fireDelay = Self.moveId % 2 == 0 ? 3 : Random.Float(0.5f, delay - 0.5f);
 				Self.moveId++;
 			}
@@ -51,13 +54,29 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 				if (!fired && T >= fireDelay) {
 					fired = true;
-					
-					if (Self.Target != null) {
-						var ac = 0.1f;
-						var angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
-						var projectile = Projectile.Make(Self, "small", angle, 8f);
 
-						projectile.AddLight(32f, Color.Red);
+					if (Self.Target != null) {
+						var a = Self.GetComponent<AnimationComponent>();
+
+						Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+						Tween.To(1.6f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+
+							Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
+							Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
+
+								Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
+								Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+
+								var ac = 0.1f;
+								var angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
+								var projectile = Projectile.Make(Self, "small", angle, 8f);
+
+								projectile.Center += MathUtils.CreateVector(angle, 8f);
+								projectile.AddLight(32f, Color.Red);
+
+								AnimationUtil.Poof(projectile.Center);
+							};
+						};
 					}
 				}
 			}
@@ -94,7 +113,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				if (timer <= T) {
+				if (true || timer <= T) {
 					Become<IdleState>();
 				} else {
 					Self.GetComponent<RectBodyComponent>().Velocity = velocity * Math.Min(1, timer - T * 0.4f);

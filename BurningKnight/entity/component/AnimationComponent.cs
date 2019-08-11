@@ -18,6 +18,8 @@ namespace BurningKnight.entity.component {
 		private ColorSet set;
 
 		public float ShadowOffset;
+		public Vector2 Scale = Vector2.One;
+		public float Angle;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
@@ -111,7 +113,14 @@ namespace BurningKnight.entity.component {
 		}
 		
 		protected virtual void CallRender(Vector2 pos, bool shadow) {
-			Animation?.Render(pos, Flipped, FlippedVerticaly);
+			if (Animation == null) {
+				return;
+			}
+			
+			var region = Animation.GetCurrentTexture();
+			var or = new Vector2(region.Width / 2, shadow ? 0 : region.Height);
+			
+			Graphics.Render(region, pos + or, Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 
 		public override bool HandleEvent(Event e) {
