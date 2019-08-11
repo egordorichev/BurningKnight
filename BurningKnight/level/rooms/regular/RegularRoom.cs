@@ -1,11 +1,9 @@
 namespace BurningKnight.level.rooms.regular {
 	public class RegularRoom : RoomDef {
-		public override void Paint(Level level) {
-			base.Paint(level);
-
+		public override void SetupDoors(Level level) {
 			foreach (var Door in Connected.Values) {
 				Door.Type = DoorPlaceholder.Variant.Enemy;
-			}		
+			}
 		}
 
 		public override int GetMaxConnections(Connection Side) {

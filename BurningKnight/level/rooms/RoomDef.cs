@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.room;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
@@ -8,6 +9,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
 using BurningKnight.level.walls;
@@ -551,6 +553,10 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public static RoomType DecideType(Type room) {
+			if (typeof(TrapRoom).IsAssignableFrom(room)) {
+				return RoomType.Trap;
+			}
+
 			if (typeof(BossRoom).IsAssignableFrom(room)) {
 				return RoomType.Boss;
 			}
@@ -584,6 +590,10 @@ namespace BurningKnight.level.rooms {
 			}
 			
 			return RoomType.Regular;
+		}
+
+		public virtual void ModifyRoom(Room room) {
+			
 		}
 	}
 }

@@ -6,6 +6,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.trap;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -65,6 +66,8 @@ namespace BurningKnight.level {
 				room.MapH = def.GetHeight();
 				
 				Area.Add(room);
+
+				def.ModifyRoom(room);
 
 				room.Generate();
 			}
@@ -147,6 +150,8 @@ namespace BurningKnight.level {
 			Rooms.Add(new PrebossRoom());
 			
 			TombRoom.Insert(Rooms);
+			
+			Rooms.Add(new ShiftingWallsRoom());
 			
 			return Rooms;
 		}

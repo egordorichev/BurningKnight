@@ -8,6 +8,7 @@ namespace BurningKnight.level.rooms {
 		Special,
 		Shop,
 		Treasure,
-		Entrance
+		Entrance,
+		Trap
 	}
 }

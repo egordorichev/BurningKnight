@@ -258,5 +258,15 @@ namespace BurningKnight.entity.room {
 				return filter == null || filter(x, y);
 			});
 		}
+
+		public void AddController(string id) {
+			var c = RoomControllerRegistery.Get(id);
+
+			if (c != null) {
+				Controllers.Add(c);
+				c.Room = this;
+				c.Init();
+			}
+		}
 	}
 }
