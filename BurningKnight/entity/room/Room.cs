@@ -154,6 +154,7 @@ namespace BurningKnight.entity.room {
 
 				if (c != null) {
 					Controllers.Add(c);
+					c.Room = this;
 					c.Load(stream);
 				}
 			}

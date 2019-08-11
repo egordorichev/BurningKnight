@@ -18,7 +18,7 @@ namespace BurningKnight.entity.room.controllable {
 		public void Set(bool value) {
 			if (IsOn() != value) {
 				Run.Level.Set(X, Y, value ? Tile.Piston : Tile.PistonDown);
-				Run.Level.CreateBody();
+				Run.Level.ReCreateBodyChunk(X, Y);
 				Run.Level.UpdateTile(X, Y);
 			}
 		}

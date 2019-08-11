@@ -126,7 +126,7 @@ namespace BurningKnight.level {
 			}
 
 			if (t.Matches(TileFlags.LiquidLayer)) {
-				return tt.IsWall() || (t.Matches(Tile.Lava, Tile.Water, Tile.Venom) && tt == Tile.Chasm) || ll == t;
+				return tt.IsSimpleWall() || (t.Matches(Tile.Lava, Tile.Water, Tile.Venom) && tt == Tile.Chasm) || ll == t;
 			}
 			
 			return tile == to || tile == l;

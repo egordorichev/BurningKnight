@@ -161,6 +161,14 @@ namespace BurningKnight.level {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 		}
+
+		public void ReCreateBodyChunk(int x, int y) {
+			if (Components == null) {
+				return;
+			}
+
+			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
+		}
 		
 		public void CreateBody() {
 			if (Components == null) {
@@ -805,7 +813,7 @@ namespace BurningKnight.level {
 			if (a) {
 				var v = WallDecor[index];
 
-				if (v > 0) {
+				if (!t.Matches(Tile.Piston, Tile.PistonDown) && v > 0) {
 					region = Tileset.WallVariants[v - 1];
 				}
 			} else if (t == Tile.Crack) {

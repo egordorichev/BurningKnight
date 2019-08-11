@@ -25,11 +25,6 @@ namespace BurningKnight.entity.creature.bk {
 		public byte RoomWidth;
 		public byte RoomHeight;
 
-		public override void AddComponents() {
-			base.AddComponents();
-			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
-		}
-
 		private bool triggered;
 		private float t;
 		private bool did;
@@ -161,6 +156,11 @@ namespace BurningKnight.entity.creature.bk {
 				Tiles[i] = stream.ReadByte();
 				Liquid[i] = stream.ReadByte();
 			}
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {

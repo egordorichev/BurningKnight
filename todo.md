@@ -1,5 +1,7 @@
 # TODO
 
+* trap room doesnt save as trap room
+
 ### beta bugs
 
 * unexplorable rooms after reloading

@@ -96,7 +96,7 @@ namespace BurningKnight.entity {
 			level.Set(index, Tile.FloorA);
 			level.Set(index, Tile.Dirt);
 			level.UpdateTile(x, y);
-			level.CreateBody();
+			level.ReCreateBodyChunk(x, y);
 			level.LoadPassable();
 								
 			who.HandleEvent(new SecretRoomFoundEvent {

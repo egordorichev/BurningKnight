@@ -25,7 +25,8 @@ namespace BurningKnight.level.rooms {
 			RoomType.Special,
 			RoomType.Shop,
 			RoomType.Treasure,
-			RoomType.Entrance
+			RoomType.Entrance,
+			RoomType.Trap
 		};
 
 		public static RoomType FromIndex(int i) {
