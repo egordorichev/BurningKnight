@@ -57,11 +57,30 @@ namespace BurningKnight.entity.room {
 			Width = MapW * 16 - 8;
 			Height = MapH * 16 - 8;
 
+			AlwaysActive = true;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (!settedUp) {
+				settedUp = true;
+				Setup();
+			}
+
+			foreach (var c in Controllers) {
+				c.Update(dt);
+			}
+		}
+
+		private bool settedUp;
+		
+		private void Setup() {
 			var level = Run.Level;
 			Explored = level.Explored[level.ToIndex(MapX + 1, MapY + 1)];
 			
 			ApplyToEachTile((x, y) => {
-				var tile = Run.Level.Get(x, y);
+				var tile = level.Get(x, y);
 
 				if (tile.Matches(Tile.Piston, Tile.PistonDown)) {
 					Pistons.Add(new Piston(x, y));
@@ -124,7 +143,11 @@ namespace BurningKnight.entity.room {
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
 
-			/*var count = stream.ReadByte();
+			if (Run.Depth < 1) {
+				return;
+			}
+			
+			var count = stream.ReadByte();
 
 			for (var i = 0; i < count; i++) {
 				var c = RoomControllerRegistery.Get(stream.ReadString());
@@ -133,7 +156,7 @@ namespace BurningKnight.entity.room {
 					Controllers.Add(c);
 					c.Load(stream);
 				}
-			}*/
+			}
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -146,12 +169,16 @@ namespace BurningKnight.entity.room {
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
 
-			/*stream.WriteByte((byte) Controllers.Count);
+			if (Run.Depth < 1) {
+				return;
+			}
+			
+			stream.WriteByte((byte) Controllers.Count);
 
 			foreach (var c in Controllers) {
 				stream.WriteString(c.Id);
 				c.Save(stream);
-			}*/
+			}
 		}
 		
 		protected int GetRenderLeft(Camera camera, Level level) {

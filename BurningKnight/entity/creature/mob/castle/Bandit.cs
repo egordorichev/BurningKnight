@@ -39,7 +39,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				delay = 0.5f; // Random.Float(1, 2.5f);
+				delay = Random.Float(1, 2.5f);
 				fireDelay = Self.moveId % 2 == 0 ? 3 : Random.Float(0.5f, delay - 0.5f);
 				Self.moveId++;
 			}
@@ -113,7 +113,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				if (true || timer <= T) {
+				if (timer <= T) {
 					Become<IdleState>();
 				} else {
 					Self.GetComponent<RectBodyComponent>().Velocity = velocity * Math.Min(1, timer - T * 0.4f);
