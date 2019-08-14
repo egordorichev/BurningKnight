@@ -157,9 +157,9 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 					
-				if (ev.Entity is DestroyableLevel lvl) {
+				/*if (ev.Entity is DestroyableLevel lvl) {
 					lvl.Break(CenterX, CenterY);
-				}
+				}*/
 			} else if (e is CollisionEndedEvent cee) {
 				if (cee.Entity.HasComponent<HealthComponent>()) {
 					ToHurt.Remove(cee.Entity);

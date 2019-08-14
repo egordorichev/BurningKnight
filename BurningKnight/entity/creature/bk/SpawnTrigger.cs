@@ -76,6 +76,8 @@ namespace BurningKnight.entity.creature.bk {
 										X = (RoomX + x) * 16,
 										Y = (RoomY + y) * 16 - 8
 									});
+									
+									level.ReCreateBodyChunk(RoomX + x, RoomY + y);
 
 									level.Tiles[li] = Tiles[i];
 									level.Liquid[li] = Liquid[i];
@@ -90,10 +92,6 @@ namespace BurningKnight.entity.creature.bk {
 								}
 							}
 				
-							if (j1 == r - 1) {
-								level.CreateBody();
-							}
-
 							Camera.Instance.Shake(2);
 						}, j * 0.1f);
 					}

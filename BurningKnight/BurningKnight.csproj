@@ -447,6 +447,7 @@
     <Compile Include="level\entities\VendingMachine.cs" />
     <Compile Include="level\entities\Well.cs" />
     <Compile Include="level\Flag.cs" />
+    <Compile Include="level\floors\BathFloor.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
     <Compile Include="level\floors\DiagonalFloor.cs" />
     <Compile Include="level\floors\FloorPainter.cs" />
@@ -503,11 +504,10 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
-    <Compile Include="level\walls\BreakableBlockingWall.cs" />
-    <Compile Include="level\walls\BreakableCageWall.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
+    <Compile Include="level\walls\SegmentedWall.cs" />
     <Compile Include="level\walls\TempleWalls.cs" />
     <Compile Include="level\walls\WallPainter.cs" />
     <Compile Include="level\walls\WallRegistry.cs" />

@@ -4,8 +4,8 @@ using BurningKnight.level.tile;
 namespace BurningKnight.level.rooms.trap {
 	public class ShiftingWallsRoom : TrapRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 2, Tile.Piston);
-			Painter.Fill(level, this, 3, Tile.PistonDown);
+			Painter.Rect(level, this, 2, Tile.Piston);
+			Painter.Rect(level, this, 4, Tile.PistonDown);
 		}
 
 		public override void ModifyRoom(Room room) {

@@ -52,6 +52,13 @@ namespace Lens.util.math {
 		}
 
 		public static Vector2 Vector(float min, float max) {
+			if (min > max) {
+				var t = min;
+				
+				min = max;
+				max = t;
+			}
+			
 			return new Vector2(Float(min, max), Float(min, max));
 		}
 
@@ -64,10 +71,24 @@ namespace Lens.util.math {
 		}
 		
 		public static int Int(int min, int max) {
+			if (min > max) {
+				var t = min;
+				
+				min = max;
+				max = t;
+			}
+		
 			return random.Next(min, max);
 		}
 
 		public static int IntCentred(int min, int max) {
+			if (min > max) {
+				var t = min;
+				
+				min = max;
+				max = t;
+			}
+			
 			return (int) ((Int(min, max) + Int(min, max)) / 2f - 0.1f);
 		}
 
@@ -80,6 +101,13 @@ namespace Lens.util.math {
 		}
 
 		public static float Float(float min, float max) {
+			if (min > max) {
+				var t = min;
+				
+				min = max;
+				max = t;
+			}
+			
 			return (float) (random.NextDouble() * (max - min) + min);
 		}
 

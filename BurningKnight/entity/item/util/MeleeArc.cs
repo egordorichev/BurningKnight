@@ -50,12 +50,12 @@ namespace BurningKnight.entity.item.util {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity is DestroyableLevel) {
+				/*if (ev.Entity is DestroyableLevel) {
 					var fixture = Physics.Fixture;
 					fixture.GetAABB(out var hitbox, 0);
 
 					Run.Level.Destroyable.Break(hitbox.Center.X, hitbox.Center.Y);
-				} else if (ev.Entity is Projectile p && p.Owner is Mob != Owner is Mob) {
+				} else */if (ev.Entity is Projectile p && p.Owner is Mob != Owner is Mob) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
 
