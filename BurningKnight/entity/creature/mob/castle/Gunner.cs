@@ -3,8 +3,11 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -54,15 +57,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			private float angle;
 			private bool fire;
 			private float start;
-			private bool spread;
 			
 			public override void Init() {
 				base.Init();
 
-				spread = Random.Chance();
 				fire = Self.Target != null && Self.moveId % 2 == 0;
 				angle = !fire ? Random.AnglePI() : Self.AngleTo(Self.Target);
-				timer = fire ? Random.Float(0.6f, 1.2f) : Random.Float(0.8f, 2f);
+				timer = fire ? 0.9f : Random.Float(0.8f, 2f);
 				start = Random.Float(0f, 10f);
 				
 				var a = angle + Random.Float(-Accuracy, Accuracy);
@@ -98,12 +99,24 @@ namespace BurningKnight.entity.creature.mob.castle {
 				lastBullet -= dt;
 				
 				if (lastBullet <= 0) {
-					lastBullet = 0.05f;
+					lastBullet = 0.3f;
 
-					var a = angle + Random.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * (spread ? 0.3f : 0.07f);
-					var projectile = Projectile.Make(Self, "small", a, spread ? 2f + 0.5f * T : (2f + T + v.Length()));
+					var an = angle + Random.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
+					var a = Self.GetComponent<AnimationComponent>();
 
-					projectile.AddLight(32f, Color.Red);
+					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
+					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
+
+						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
+						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
+						
+						var projectile = Projectile.Make(Self, "big", an, 10f);
+
+						projectile.AddLight(32f, Color.Red);
+						projectile.Center += MathUtils.CreateVector(angle, 8);
+
+						AnimationUtil.Poof(projectile.Center);
+					};
 				}
 			}
 		}
