@@ -5,6 +5,7 @@ using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
@@ -66,15 +67,35 @@ namespace BurningKnight.entity.creature.mob.castle {
 					fired = true;
 					T = 0;
 
-					if (Self.Target != null) {
-						var angle = Self.Direction.ToAngle();
-						var projectile = Projectile.Make(Self, "small", angle, 5f);
-
-						// todo: juice up
-						projectile.AddLight(32f, Color.Red);
-						projectile.Center += MathUtils.CreateVector(angle, 16);
+					if (Self.Target == null) {
+						return;
 					}
-				} else if (fired && T > 0.2f) {
+
+					var a = Self.GetComponent<WallAnimationComponent>();
+
+					Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+					Tween.To(1.6f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+
+						Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
+						Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
+
+							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
+							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+
+							if (Self.Target == null) {
+								return;
+							}
+
+							var angle = Self.Direction.ToAngle();
+							var projectile = Projectile.Make(Self, "small", angle, 5f);
+
+							projectile.AddLight(32f, Color.Red);
+							projectile.Center += MathUtils.CreateVector(angle, 8);
+							
+							AnimationUtil.Poof(projectile.Center);
+						};
+					};
+				} else if (fired && T > 1f) {
 					Self.GetComponent<StateComponent>().Become<IdleState>();
 				}
 			}

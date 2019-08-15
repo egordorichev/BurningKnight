@@ -77,6 +77,9 @@ namespace BurningKnight.level {
 
 				chunks = null;
 			}
+
+			dirty = false;
+			toUpdate.Clear();
 		}
 
 		private void Create() {
@@ -113,12 +116,12 @@ namespace BurningKnight.level {
 
 			for (int y = cy * ChunkSize; y < (cy + 1) * ChunkSize; y++) {
 				for (int x = cx * ChunkSize; x < (cx + 1) * ChunkSize; x++) {
-					var index = level.ToIndex(x, y);
-
-					if (index > level.Tiles.Length) {
+					if (!level.IsInside(x, y)) {
 						continue;
 					}
-					
+
+					var index = level.ToIndex(x, y);
+
 					var tile = level.Tiles[index];
 					var side = x == 0 || y == 0 || x == level.Width - 1 || y == level.Height - 1;
 

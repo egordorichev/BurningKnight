@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)),
 				// Castle enemies, that are ready
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<WallCrawler>(new SpawnChance(10000f, Biome.Castle)),
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),

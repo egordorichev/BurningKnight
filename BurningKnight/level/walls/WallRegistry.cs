@@ -19,9 +19,8 @@ namespace BurningKnight.level.walls {
 			Add(new TempleWalls(), 1f);
 			Add(new SegmentedWall(), 1f);
 			Add(new PlatformWall(), 1f);
-			
-			// For testing only
-			Add(new PatchWall(), 10000f);
+			Add(new PatchWall(), 0.3f);
+			Add(new RuinsWall(), 1f);
 		}
 
 		public static void Paint(Level level, RoomDef room, WallRegistry registry = null, int i = -1) {

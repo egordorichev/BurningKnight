@@ -1,5 +1,4 @@
 using System;
-using BurningKnight.entity.door;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.util;
@@ -8,9 +7,9 @@ using Lens.util;
 
 namespace BurningKnight.level.walls {
 	public class PatchWall : WallPainter {
-		private bool[] patch;
+		protected bool[] Patch;
 
-		private int ToIndex(RoomDef room, int x, int y) {
+		protected int ToIndex(RoomDef room, int x, int y) {
 			return (x - room.Left - 1) + (y - room.Top - 1) * (room.GetWidth() - 2);
 		}
 
@@ -25,38 +24,38 @@ namespace BurningKnight.level.walls {
 				var attempt = 0;
 
 				do {
-					patch = Patch.Generate(w, h, fill, clustering);
+					Patch = BurningKnight.level.Patch.Generate(w, h, fill, clustering);
 					var start = 0;
 
 					foreach (var d in room.Connected.Values) {
 						if (d.X == room.Left) {
 							start = ToIndex(room, d.X + 1, d.Y);
 							
-							patch[ToIndex(room, d.X + 1, d.Y)] = false;
-							patch[ToIndex(room, d.X + 2, d.Y)] = false;
+							Patch[ToIndex(room, d.X + 1, d.Y)] = false;
+							Patch[ToIndex(room, d.X + 2, d.Y)] = false;
 						} else if (d.X == room.Right) {
 							start = ToIndex(room, d.X - 1, d.Y);
 							
-							patch[ToIndex(room, d.X - 1, d.Y)] = false;
-							patch[ToIndex(room, d.X - 2, d.Y)] = false;
+							Patch[ToIndex(room, d.X - 1, d.Y)] = false;
+							Patch[ToIndex(room, d.X - 2, d.Y)] = false;
 						} else if (d.Y == room.Top) {
 							start = ToIndex(room, d.X, d.Y + 1);
 							
-							patch[ToIndex(room, d.X, d.Y + 1)] = false;
-							patch[ToIndex(room, d.X, d.Y + 2)] = false;
+							Patch[ToIndex(room, d.X, d.Y + 1)] = false;
+							Patch[ToIndex(room, d.X, d.Y + 2)] = false;
 						} else if (d.Y == room.Bottom) {
 							start = ToIndex(room, d.X, d.Y - 1);
 							
-							patch[ToIndex(room, d.X, d.Y - 1)] = false;
-							patch[ToIndex(room, d.X, d.Y - 2)] = false;
+							Patch[ToIndex(room, d.X, d.Y - 1)] = false;
+							Patch[ToIndex(room, d.X, d.Y - 2)] = false;
 						}
 					}
 					
-					PathFinder.BuildDistanceMap(start, BArray.Not(patch, null));
+					PathFinder.BuildDistanceMap(start, BArray.Not(Patch, null));
 					valid = true;
 
-					for (var i = 0; i < patch.Length; i++) {
-						if (!patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
+					for (var i = 0; i < Patch.Length; i++) {
+						if (!Patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
 							valid = false;
 							break;
 						}
@@ -69,7 +68,7 @@ namespace BurningKnight.level.walls {
 				
 				PathFinder.SetMapSize(level.Width, level.Height);
 			} else {
-				patch = Patch.Generate(w, h, fill, clustering);
+				Patch = BurningKnight.level.Patch.Generate(w, h, fill, clustering);
 			}
 		}
 
@@ -78,8 +77,34 @@ namespace BurningKnight.level.walls {
 			
 			for (var y = 0; y < room.GetHeight() - 2; y++) {
 				for (var x = 0; x < w; x++) {
-					if (patch[x + y * w]) {
+					if (Patch[x + y * w]) {
 						level.Set(room.Left + x + 1, room.Top + y + 1, tile);						
+					}
+				}
+			}
+		}
+
+		protected void CleanDiagonalEdges(RoomDef room) {
+			if (Patch == null) {
+				return;
+			}
+
+			var w = room.GetWidth() - 2;
+
+			for (var i = 0; i < Patch.Length - w; i++) {
+				if (!Patch[i]) {
+					continue;
+				}
+
+				if (i % w != 0) {
+					if (Patch[i - 1 + w] && !(Patch[i - 1] || Patch[i + w])) {
+						Patch[i - 1 + w] = false;
+					}
+				}
+
+				if ((i + 1) % w != 0) {
+					if (Patch[i + 1 + w] && !(Patch[i + 1] || Patch[i + w])) {
+						Patch[i + 1 + w] = false;
 					}
 				}
 			}
@@ -89,6 +114,7 @@ namespace BurningKnight.level.walls {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
 			
 			Setup(level, room, fill, 4, true);
+			CleanDiagonalEdges(room);
 			PaintPatch(level, room, Tile.WallA);
 		}
 	}
