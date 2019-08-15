@@ -32,6 +32,18 @@ namespace BurningKnight.level {
 			return array;
 		}
 
+		public static bool[] GenerateWithNoise(int W, int H, float Seed, float h) {
+			var a = new bool[W * H];
+
+			for (var y = 0; y < H; y++) {
+				for (var x = 0; x < W; x++) {
+					a[x + y * W] = Lens.util.Noise.Generate(x + Seed, y + Seed) > h;
+				}
+			}
+			
+			return a;
+		}
+
 		public static bool[] Generate(int W, int H, float Seed, int Octaves) {
 			var Cur = new bool[W * H];
 			var Off = new bool[W * H];

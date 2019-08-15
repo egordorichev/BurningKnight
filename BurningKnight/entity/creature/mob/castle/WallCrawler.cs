@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity.component.logic;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
@@ -69,7 +70,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 						var angle = Self.Direction.ToAngle();
 						var projectile = Projectile.Make(Self, "small", angle, 5f);
 
+						// todo: juice up
 						projectile.AddLight(32f, Color.Red);
+						projectile.Center += MathUtils.CreateVector(angle, 16);
 					}
 				} else if (fired && T > 0.2f) {
 					Self.GetComponent<StateComponent>().Become<IdleState>();

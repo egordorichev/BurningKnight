@@ -507,6 +507,7 @@
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
+    <Compile Include="level\walls\PatchWall.cs" />
     <Compile Include="level\walls\PlatformWall.cs" />
     <Compile Include="level\walls\SegmentedWall.cs" />
     <Compile Include="level\walls\TempleWalls.cs" />
