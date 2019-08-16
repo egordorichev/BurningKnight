@@ -33,13 +33,13 @@ namespace BurningKnight.entity.room.controllable.platform {
 		}
 
 		public override void Apply(Entity e, float dt) {
-			base.Apply(e, dt);
 			var b = e.GetAnyComponent<BodyComponent>();
 
 			if (b == null || !ShouldMove(e)) {
 				return;
 			}
-
+			
+			base.Apply(e, dt);
 			b.Position += GetComponent<RectBodyComponent>().Velocity * dt;
 		}
 

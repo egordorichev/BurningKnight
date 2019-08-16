@@ -22,7 +22,11 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		public bool Left;
 		public float T;
 		public bool Inited;
-		
+
+		public override bool InAir() {
+			return true;
+		}
+
 		protected override void SetStats() {
 			base.SetStats();
 			Width = 16;

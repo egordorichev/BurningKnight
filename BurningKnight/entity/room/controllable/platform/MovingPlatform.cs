@@ -9,6 +9,10 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
+/*
+ * todo: different method of border collision, like chasms on 4 sides, that get disabled
+ */
+
 namespace BurningKnight.entity.room.controllable.platform {
 	public class MovingPlatform : Platform {
 		protected byte tw = 2;
@@ -38,7 +42,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 		}
 
 		protected override bool ShouldMove(Entity e) {
-			return e.Bottom < Bottom - 6;
+			return base.ShouldMove(e) && e.Bottom < Bottom - 6;
 		}
 
 		#region Platform States
