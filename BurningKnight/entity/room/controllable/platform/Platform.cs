@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.save;
 using Lens.entity;
 using Lens.util.file;
@@ -38,12 +39,12 @@ namespace BurningKnight.entity.room.controllable.platform {
 			if (b == null || !ShouldMove(e)) {
 				return;
 			}
-			
+
 			b.Position += GetComponent<RectBodyComponent>().Velocity * dt;
 		}
 
 		protected virtual bool ShouldMove(Entity e) {
-			return true;
+			return !(e is Creature c && c.InAir());
 		}
 	}
 }
