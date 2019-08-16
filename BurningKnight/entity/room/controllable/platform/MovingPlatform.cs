@@ -3,7 +3,6 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.level.tile;
 using BurningKnight.state;
-using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util.file;
@@ -11,7 +10,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable.platform {
-	public class MovingPlatform : Platform, PlaceableEntity {
+	public class MovingPlatform : Platform {
 		protected byte tw = 2;
 		protected byte th = 2;
 		

@@ -110,7 +110,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 						
-						var projectile = Projectile.Make(Self, "big", an, 10f);
+						var projectile = Projectile.Make(Self, "big", an, 7f);
 
 						projectile.AddLight(32f, Color.Red);
 						projectile.Center += MathUtils.CreateVector(angle, 8);

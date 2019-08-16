@@ -21,9 +21,12 @@ namespace Lens.graphics.animation {
 
 		public uint Frame {
 			get => currentFrame;
-			set => currentFrame = value % (EndFrame - StartFrame + 1);
+			set {
+				currentFrame = value % (EndFrame - StartFrame + 1);
+				ReadFrame();
+			}
 		}
-		
+
 		private string layer;
 		private string tag;
 

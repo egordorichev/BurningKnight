@@ -13,6 +13,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			base.PostInit();
 			
 			Depth = Layers.UnderFloor;
+			AlwaysActive = true;
 			startingPoint = Position;
 		}
 

@@ -1,8 +1,9 @@
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 
 namespace BurningKnight.entity.room.controllable {
-	public class RoomControllable : SaveableEntity {
-		protected bool On;
+	public class RoomControllable : SaveableEntity, PlaceableEntity {
+		public bool On { get; private set; }
 		
 		public virtual void TurnOn() {
 			On = true;
