@@ -1,10 +1,12 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.events;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
@@ -17,9 +19,10 @@ namespace BurningKnight.entity.room.controllable.platform {
 	public class MovingPlatform : Platform {
 		protected byte tw = 2;
 		protected byte th = 2;
-		
-		public Vector2 Direction = new Vector2(1, 0);
-		private Vector2 startDirection;
+
+		public PlatformController Controller;
+		private int step;
+		private Vector2 velocity;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -27,18 +30,14 @@ namespace BurningKnight.entity.room.controllable.platform {
 			Width = tw * 16;
 			Height = th * 16 + 6;
 
-			var s = new StateComponent();
-			AddComponent(s);
-			
-			s.Become<IdleState>();
-
+			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("moving_platform"));
 			AddComponent(new RectBodyComponent(0, 0, tw * 16, th * 16, BodyType.Dynamic, true));
 		}
 
 		public override void PostInit() {
 			base.PostInit();
-			startDirection = Direction;
+			Stop();
 		}
 
 		protected override bool ShouldMove(Entity e) {
@@ -63,16 +62,15 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			public override void Update(float dt) {
 				base.Update(dt);
-				Self.GetComponent<RectBodyComponent>().Velocity = Self.Direction * Speed;
+				Self.GetComponent<RectBodyComponent>().Velocity = Self.velocity * Speed;
 
-				var x = (int) (Self.Direction.X < 0 ? Math.Floor(Self.X / 16) : Math.Ceiling(Self.X / 16) + Self.tw - 1);
-				var y = (int) (Self.Direction.Y < 0 ? Math.Floor(Self.Y / 16) : Math.Ceiling(Self.Y / 16) + Self.th - 1);
+				var x = Math.Abs(Self.velocity.X) < 0.1f ? (int) Math.Ceiling(Self.X / 16) : (int) (Self.velocity.X < 0 ? Math.Floor(Self.X / 16) : Math.Ceiling(Self.X / 16) + Self.tw - 1);
+				var y = Math.Abs(Self.velocity.Y) < 0.1f ? (int) Math.Ceiling(Self.Y / 16) : (int) (Self.velocity.Y < 0 ? Math.Floor(Self.Y / 16) : Math.Ceiling(Self.Y / 16) + Self.th - 1);
 
 				var t = Run.Level.Get(x, y);
 
 				if (t != Tile.Chasm) {
-					Self.Direction *= -1;
-					Become<IdleState>();
+					Self.Stop();
 				}
 			}
 
@@ -82,6 +80,48 @@ namespace BurningKnight.entity.room.controllable.platform {
 			}
 		}
 		#endregion
+
+		private static Vector2[] directions = {
+			new Vector2(1, 0),
+			new Vector2(0, 1),
+			new Vector2(-1, 0),
+			new Vector2(0, -1)
+		};
+
+		protected virtual void Stop() {
+			GetComponent<StateComponent>().Become<IdleState>();
+			step++;
+			
+			switch (Controller) {
+				case PlatformController.LeftRight: {
+					step %= 2;
+					velocity.X *= -1;
+					break;
+				}
+				
+				case PlatformController.UpDown: {
+					step %= 2;
+					velocity.Y *= -1;
+					break;
+				}
+
+				case PlatformController.ClockWise: {
+					step %= 4;
+					velocity = directions[step];
+					break;
+				}
+
+				case PlatformController.CounterClockWise: {
+					step %= 4;
+					velocity = directions[3 - step];
+					break;
+				}
+			}
+
+			if (OnScreen) {
+				Camera.Instance.Shake(4);
+			}
+		}
 
 		public override void TurnOn() {
 			base.TurnOn();
@@ -96,15 +136,23 @@ namespace BurningKnight.entity.room.controllable.platform {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
-			stream.WriteFloat(startDirection.X);
-			stream.WriteFloat(startDirection.Y);
+			stream.WriteByte((byte) Controller);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
-			startDirection = new Vector2(stream.ReadFloat(), stream.ReadFloat());
-			Direction = startDirection;
+			Controller = (PlatformController) stream.ReadByte();
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent ev) {
+				if (ev.Entity is MovingPlatform) {
+					Stop();
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

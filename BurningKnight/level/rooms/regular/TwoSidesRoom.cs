@@ -21,7 +21,7 @@ namespace BurningKnight.level.rooms.regular {
 
 			platform.X = vertical ? (Random.Int(Left + 1, Right - 1)) * 16 : (Left + GetWidth() / 2) * 16;
 			platform.Y = vertical ? (Top + GetHeight() / 2) * 16 : (Random.Int(Top + 1, Bottom - 1)) * 16;
-			platform.Direction = new Vector2(vertical ? 0 : 1, vertical ? 1 : 0);
+			platform.Controller = Random.Chance(40) ? (Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise) : (vertical ? PlatformController.UpDown : PlatformController.LeftRight);
 
 			level.Area.Add(platform);
 		}
