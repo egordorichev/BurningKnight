@@ -642,6 +642,8 @@ namespace BurningKnight.level {
 			Shaders.End();
 			RenderMess();
 		}
+
+		private TextureRegion clear;
 		
 		private void RenderChasms() {
 			var camera = Camera.Instance;
@@ -651,26 +653,29 @@ namespace BurningKnight.level {
 			var toY = GetRenderBottom(camera);
 			
 			var paused = Engine.Instance.State.Paused;
+			var state = Engine.Instance.StateRenderer;
+			state.End();
+
+			if (clear == null) {
+				clear = CommonAse.Particles.GetSlice("wall");
+			}
+
+			Engine.GraphicsDevice.SetRenderTarget(MessSurface);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Matrix.Identity);
 
 			for (int y = GetRenderTop(camera); y < toY; y++) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
-					var index = ToIndex(x, y);
-
-					if ((Tile) Tiles[index] == Tile.Chasm) {
-						Graphics.Render(Tilesets.Biome.ChasmPattern, new Vector2(x * 16, y * 16));
+					if ((Tile) Tiles[ToIndex(x, y)] == Tile.Chasm) {
+						Graphics.Render(clear, new Vector2(x * 16, y * 16));
 					}
 				}
 			}
-		}
-		
-		private void RenderSides() {
-			var camera = Camera.Instance;
 
-			// Cache the condition
-			var toX = GetRenderRight(camera);
-			var toY = GetRenderBottom(camera);
-			
-			var paused = Engine.Instance.State.Paused;
+			Graphics.Batch.End();
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
 			var shader = Shaders.Chasm;
 			Shaders.Begin(shader);
@@ -679,42 +684,16 @@ namespace BurningKnight.level {
 			var sy = shader.Parameters["y"];
 			var enabled = shader.Parameters["enabled"];
 			enabled.SetValue(false);
-			
+
 			for (int y = GetRenderTop(camera); y < toY; y++) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
 					var index = ToIndex(x, y);
-					var tl = (Tile) Tiles[index];
-					
-					if (tl.Matches(TileFlags.WallLayer)) {
-						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
-							var pos = new Vector2(x * 16, y * 16 + 8);
-							var a = tl.Matches(Tile.WallA, Tile.Piston);
-							var aa = a;
-							
-							if (tl == Tile.Crack) {
-								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
-								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
-							}
-							
-							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), pos);
 
-							var ind = -1;
-
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
-								ind += 1;
-							}
-
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
-								ind += 2;
-							}
-
-							if (ind != -1) {
-								Graphics.Render(aa ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
-							}
-						}
-					} else if (tl == Tile.Chasm) {
+					if ((Tile) Tiles[index] == Tile.Chasm) {
 						var pos = new Vector2(x * 16, y * 16);
 
+						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
+						
 						if (!paused && Random.Chance(0.1f)) {
 							Area.Add(new ChasmFx {
 								Position = pos + new Vector2(Random.Float(16), Random.Float(16))
@@ -775,7 +754,53 @@ namespace BurningKnight.level {
 						}
 					
 						enabled.SetValue(false);
-						
+					}
+				}
+			}
+			
+			Shaders.End();
+		}
+		
+		private void RenderSides() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+			
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+					var tl = (Tile) Tiles[index];
+					
+					if (tl.Matches(TileFlags.WallLayer)) {
+						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
+							var pos = new Vector2(x * 16, y * 16 + 8);
+							var a = tl.Matches(Tile.WallA, Tile.Piston);
+							var aa = a;
+							
+							if (tl == Tile.Crack) {
+								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
+							}
+							
+							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), pos);
+
+							var ind = -1;
+
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
+								ind += 1;
+							}
+
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks)) {
+								ind += 2;
+							}
+
+							if (ind != -1) {
+								Graphics.Render(aa ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
+							}
+						}
+					} else if (tl == Tile.Chasm) {
 						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
 							var v = CalcChasmIndex(x, y + 1);
 
@@ -806,8 +831,6 @@ namespace BurningKnight.level {
 					}
 				}
 			}
-
-			Shaders.End();
 		}
 
 		private void RenderShadowSurface() {

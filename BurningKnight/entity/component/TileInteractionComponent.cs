@@ -62,6 +62,10 @@ namespace BurningKnight.entity.component {
 			HadNoSupport = HasNoSupport;
 			HasNoSupport = Supports.Count == 0;
 			
+			if (Supports.Count > 0) {
+				LastSupportedPosition = Entity.Position;
+			}
+			
 			ApplyForAllTouching(InspectTile);
 
 			for (int i = 0; i < Touching.Length; i++) {

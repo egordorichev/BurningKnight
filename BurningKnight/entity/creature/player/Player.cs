@@ -76,7 +76,7 @@ namespace BurningKnight.entity.creature.player {
 			Height = 11;
 			
 			// Graphics
-			AddComponent(new LightComponent(this, 128f, new Color(0.3f, 0.4f, 0.3f, 0.2f)));
+			// AddComponent(new LightComponent(this, 128f, new Color(0.3f, 0.4f, 0.3f, 0.2f)));
 			
 			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -5)

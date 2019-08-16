@@ -5,6 +5,7 @@ namespace BurningKnight.level.biome {
 		public const string Castle = "castle";
 		public const string Hub = "hub";
 		public const string Library = "library";
+		public const string Desert = "desert";
 		
 		public readonly string Music;
 		public readonly string Id;

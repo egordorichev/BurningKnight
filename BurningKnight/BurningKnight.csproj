@@ -420,6 +420,7 @@
     <Compile Include="level\biome\BiomeInfo.cs" />
     <Compile Include="level\biome\BiomeRegistry.cs" />
     <Compile Include="level\biome\CastleBiome.cs" />
+    <Compile Include="level\biome\DesertBiome.cs" />
     <Compile Include="level\biome\HubBiome.cs" />
     <Compile Include="level\biome\LibraryBiome.cs" />
     <Compile Include="level\builders\Builder.cs" />

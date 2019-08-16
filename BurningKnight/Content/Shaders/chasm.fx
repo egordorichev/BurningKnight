@@ -29,7 +29,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float4 color = tex2D(s0, input.TextureCoordinates);
 
 	if (enabled) {
-		color.a = 1 - (input.TextureCoordinates.y - y) / h;
+	    color.rgb = color.rgb * (1 - (input.TextureCoordinates.y - y) / h);
 	}
 
 	return color;
