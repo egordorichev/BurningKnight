@@ -8,6 +8,7 @@ using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.treasure;
+using BurningKnight.level.walls;
 using Lens.util;
 using Random = Lens.util.math.Random;
 
@@ -45,23 +46,30 @@ namespace BurningKnight.level.rooms {
 		
 		static RoomRegistry() {
 			RoomInfo[] infos = {
+				// Secret
 				RoomInfo.New<SecretMachineRoom>(1f),
 				RoomInfo.New<SecretChasmRoom>(1f),
 
-				RoomInfo.New<RegularRoom>(1f),
+				// Regular
+				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
+				RoomInfo.New<TwoSidesRoom>(1000000000000f),
+
 				RoomInfo.New<EntranceRoom>(1f),
 				RoomInfo.New<ExitRoom>(1f),
 				RoomInfo.New<TreasureRoom>(1f),
 				RoomInfo.New<ShopRoom>(1f),
 				
+				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
 				RoomInfo.New<WayOverChasmRoom>(1f),
 				RoomInfo.New<MazeConnectionRoom>(1f),
 				RoomInfo.New<RingConnectionRoom>(1f),
 				
+				// Special
 				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<WellRoom>(1f),
 				
+				// Boss
 				RoomInfo.New<ChasmBossRoom>(1f),
 			};
 

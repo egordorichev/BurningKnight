@@ -22,14 +22,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 		
 		#region Clown States
-		public class IdleState : CreatureState<Clown> {
+		public class IdleState : SmartState<Clown> {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 		}
 		
-		public class RunState : CreatureState<Clown> {
+		public class RunState : SmartState<Clown> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		public class RunAwayState : CreatureState<Clown> {
+		public class RunAwayState : SmartState<Clown> {
 			private float timer;
 
 			public override void Init() {

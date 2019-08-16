@@ -176,6 +176,7 @@
     <Compile Include="entity\component\LampComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
+    <Compile Include="entity\component\ExtraAnimationComponent.cs" />
     <Compile Include="entity\component\OrbitalComponent.cs" />
     <Compile Include="entity\component\OrbitGiverComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
@@ -211,7 +212,7 @@
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
-    <Compile Include="entity\creature\CreatureState.cs" />
+    <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
     <Compile Include="entity\creature\mob\boss\BossAttack.cs" />
@@ -405,7 +406,10 @@
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\room\controllable\Piston.cs" />
+    <Compile Include="entity\room\controllable\platform\MovingPlatform.cs" />
+    <Compile Include="entity\room\controllable\platform\Platform.cs" />
     <Compile Include="entity\room\controllable\RoomControllable.cs" />
+    <Compile Include="entity\room\controllable\Support.cs" />
     <Compile Include="entity\room\controller\RoomController.cs" />
     <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />
     <Compile Include="entity\room\controller\TimedPistonSwitchController.cs" />
@@ -483,6 +487,7 @@
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
+    <Compile Include="level\rooms\regular\TwoSidesRoom.cs" />
     <Compile Include="level\rooms\RoomDef.cs" />
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />

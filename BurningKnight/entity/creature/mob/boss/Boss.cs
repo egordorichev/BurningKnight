@@ -44,7 +44,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 		}
 
-		public class IdleState : CreatureState<Boss> {
+		public class IdleState : SmartState<Boss> {
 			
 		}
 	}

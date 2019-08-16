@@ -32,7 +32,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		private bool rage;
 		
 		#region Ghost States
-		public class IdleState : CreatureState<Ghost> {
+		public class IdleState : SmartState<Ghost> {
 			public override void Init() {
 				base.Init();
 
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		public class ChaseState : CreatureState<Ghost> {
+		public class ChaseState : SmartState<Ghost> {
 			private bool rage;
 
 			public override void Init() {

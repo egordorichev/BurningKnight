@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 		
 		#region King States
-		public class IdleState : CreatureState<King> {
+		public class IdleState : SmartState<King> {
 			
 		}
 		#endregion

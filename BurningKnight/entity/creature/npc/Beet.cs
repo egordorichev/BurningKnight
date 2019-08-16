@@ -79,11 +79,11 @@ namespace BurningKnight.entity.creature.npc {
 		}
 		
 		#region Beet States
-		public class IdleState : CreatureState<Beet> {
+		public class IdleState : SmartState<Beet> {
 			
 		}
 		
-		public class PopState : CreatureState<Beet> {
+		public class PopState : SmartState<Beet> {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
@@ -103,7 +103,7 @@ namespace BurningKnight.entity.creature.npc {
 			}
 		}
 		
-		public class HideState : CreatureState<Beet> {
+		public class HideState : SmartState<Beet> {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
@@ -123,7 +123,7 @@ namespace BurningKnight.entity.creature.npc {
 			}
 		}
 		
-		public class PoppedState : CreatureState<Beet> {
+		public class PoppedState : SmartState<Beet> {
 			public override void Init() {
 				base.Init();
 				

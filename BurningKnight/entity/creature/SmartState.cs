@@ -2,7 +2,7 @@
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.creature {
-	public class CreatureState<T> : EntityState where T: Creature {
+	public class SmartState<T> : EntityState where T: Entity {
 		public new T Self;
 
 		public override void Assign(Entity self) {

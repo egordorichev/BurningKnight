@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -23,12 +26,19 @@ namespace BurningKnight.entity.component {
 		public bool HadNoSupport;
 		public Vector2 LastSupportedPosition;
 
+		public List<Support> Supports = new List<Support>();
+
 		public TileInteractionComponent() {
 			Touching = new bool[(int) Tile.Total];
 			LastTouching = new bool[(int) Tile.Total];
 			
 			LastFlags = new bool[8];
 			Flags = new bool[8];
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Supports.Clear();
 		}
 
 		public override void Update(float dt) {
@@ -50,7 +60,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			HadNoSupport = HasNoSupport;
-			HasNoSupport = true;
+			HasNoSupport = Supports.Count == 0;
 			
 			ApplyForAllTouching(InspectTile);
 
@@ -63,6 +73,10 @@ namespace BurningKnight.entity.component {
 			}
 
 			CheckSupport();
+
+			foreach (var s in Supports) {
+				s.Apply(Entity, dt);
+			}
 		}
 
 		private void InspectTile(int index, int x, int y) {
@@ -158,6 +172,16 @@ namespace BurningKnight.entity.component {
 					Flag = flag
 				});
 			}
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse && cse.Entity is Support ss) {
+				Supports.Add(ss);
+			} else if (e is CollisionEndedEvent cee && cee.Entity is Support se) {
+				Supports.Remove(se);
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

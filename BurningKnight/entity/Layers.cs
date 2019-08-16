@@ -1,5 +1,7 @@
 ﻿namespace BurningKnight.entity {
 	public static class Layers {
+		public const int Chasm = -10;
+		public const int UnderFloor = -9;
 		public const int Floor = -8;
 		public const int Blood = -7;
 		public const int Liquid = -6;

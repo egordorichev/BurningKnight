@@ -144,6 +144,7 @@ namespace BurningKnight.level {
 
 			manager = new RenderTriggerManager(this);
 			
+			manager.Add(new RenderTrigger(this, RenderChasms, Layers.Chasm));
 			manager.Add(new RenderTrigger(this, RenderLiquids, Layers.Liquid));
 			manager.Add(new RenderTrigger(this, RenderSides, Layers.Sides));
 			manager.Add(new RenderTrigger(this, RenderWalls, Layers.Wall));
@@ -260,7 +261,7 @@ namespace BurningKnight.level {
 				
 				Liquid[i] = (byte) value;
 			} else {
-				if (value.IsWall()) {
+				if (value.IsWall() || value == Tile.Chasm) {
 					Liquid[i] = 0;
 				}
 				
@@ -642,6 +643,26 @@ namespace BurningKnight.level {
 			RenderMess();
 		}
 		
+		private void RenderChasms() {
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+			
+			var paused = Engine.Instance.State.Paused;
+
+			for (int y = GetRenderTop(camera); y < toY; y++) {
+				for (int x = GetRenderLeft(camera); x < toX; x++) {
+					var index = ToIndex(x, y);
+
+					if ((Tile) Tiles[index] == Tile.Chasm) {
+						Graphics.Render(Tilesets.Biome.ChasmPattern, new Vector2(x * 16, y * 16));
+					}
+				}
+			}
+		}
+		
 		private void RenderSides() {
 			var camera = Camera.Instance;
 
@@ -693,7 +714,6 @@ namespace BurningKnight.level {
 						}
 					} else if (tl == Tile.Chasm) {
 						var pos = new Vector2(x * 16, y * 16);
-						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 
 						if (!paused && Random.Chance(0.1f)) {
 							Area.Add(new ChasmFx {

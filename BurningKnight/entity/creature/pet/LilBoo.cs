@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		#region Boo states
-		private class IdleState : CreatureState<LilBoo> {
+		private class IdleState : SmartState<LilBoo> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
@@ -54,7 +54,7 @@ namespace BurningKnight.entity.creature.pet {
 			}
 		}
 
-		private class FollowState : CreatureState<LilBoo> {
+		private class FollowState : SmartState<LilBoo> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
@@ -84,7 +84,7 @@ namespace BurningKnight.entity.creature.pet {
 			}
 		}
 
-		private class EmotionState : CreatureState<LilBoo> {
+		private class EmotionState : SmartState<LilBoo> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
@@ -98,7 +98,7 @@ namespace BurningKnight.entity.creature.pet {
 			
 		}
 
-		private class WanderState : CreatureState<LilBoo> {
+		private class WanderState : SmartState<LilBoo> {
 			
 		}
 		#endregion

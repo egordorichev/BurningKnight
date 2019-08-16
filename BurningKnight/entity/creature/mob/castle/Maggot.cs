@@ -43,7 +43,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		public class WaitState : CreatureState<Maggot> {
+		public class WaitState : SmartState<Maggot> {
 			private float time;
 
 			public override void Init() {

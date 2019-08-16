@@ -160,7 +160,7 @@ namespace BurningKnight.entity.creature.bk {
 			Run.Level.CreateBody();
 		}
 
-		private class DefeatedState : CreatureState<BurningKnight> {
+		private class DefeatedState : SmartState<BurningKnight> {
 			
 		}
 	}
