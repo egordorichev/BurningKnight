@@ -26,19 +26,12 @@ namespace BurningKnight.entity.component {
 		public bool HadNoSupport;
 		public Vector2 LastSupportedPosition;
 
-		public List<Support> Supports = new List<Support>();
-
 		public TileInteractionComponent() {
 			Touching = new bool[(int) Tile.Total];
 			LastTouching = new bool[(int) Tile.Total];
 			
 			LastFlags = new bool[8];
 			Flags = new bool[8];
-		}
-
-		public override void Destroy() {
-			base.Destroy();
-			Supports.Clear();
 		}
 
 		public override void Update(float dt) {
@@ -60,9 +53,12 @@ namespace BurningKnight.entity.component {
 			}
 
 			HadNoSupport = HasNoSupport;
-			HasNoSupport = Supports.Count == 0;
+
+			var h = Entity.TryGetComponent<SupportableComponent>(out var sp);
 			
-			if (Supports.Count > 0) {
+			HasNoSupport = !h || sp.Supports.Count == 0;
+			
+			if (h && sp.Supports.Count > 0) {
 				LastSupportedPosition = Entity.Position;
 			}
 			
@@ -77,10 +73,6 @@ namespace BurningKnight.entity.component {
 			}
 
 			CheckSupport();
-
-			foreach (var s in Supports) {
-				s.Apply(Entity, dt);
-			}
 		}
 
 		private void InspectTile(int index, int x, int y) {
@@ -176,16 +168,6 @@ namespace BurningKnight.entity.component {
 					Flag = flag
 				});
 			}
-		}
-
-		public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent cse && cse.Entity is Support ss) {
-				Supports.Add(ss);
-			} else if (e is CollisionEndedEvent cee && cee.Entity is Support se) {
-				Supports.Remove(se);
-			}
-			
-			return base.HandleEvent(e);
 		}
 	}
 }

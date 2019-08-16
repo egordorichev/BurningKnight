@@ -143,6 +143,8 @@ namespace BurningKnight.entity.item {
 			
 			AddComponent(new RoomComponent());
 			AddComponent(new ExplodableComponent());
+			AddComponent(new SupportableComponent());
+			
 			CheckMasked();
 		}
 
@@ -167,6 +169,7 @@ namespace BurningKnight.entity.item {
 
 			RemoveComponent<RoomComponent>();
 			RemoveComponent<ExplodableComponent>();
+			RemoveComponent<SupportableComponent>();
 		}
 
 		private void RenderShadow() {

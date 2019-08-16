@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
+using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
@@ -80,7 +81,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile);
+			return !(entity is Projectile || entity is Chasm);
 		}
 	}
 }

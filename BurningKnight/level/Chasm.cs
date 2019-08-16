@@ -12,7 +12,7 @@ namespace BurningKnight.level {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !entity.TryGetComponent<TileInteractionComponent>(out var t) || t.Supports.Count == 0;
+			return !entity.TryGetComponent<SupportableComponent>(out var t) || t.Supports.Count == 0;
 		}
 	}
 }

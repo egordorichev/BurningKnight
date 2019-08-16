@@ -190,6 +190,7 @@
     <Compile Include="entity\component\SliceComponent.cs" />
     <Compile Include="entity\component\SparkEmitterComponent.cs" />
     <Compile Include="entity\component\StatsComponent.cs" />
+    <Compile Include="entity\component\SupportableComponent.cs" />
     <Compile Include="entity\component\TextGraphicsComponent.cs" />
     <Compile Include="entity\component\TileInteractionComponent.cs" />
     <Compile Include="entity\component\WallAnimationComponent.cs" />
@@ -408,6 +409,7 @@
     <Compile Include="entity\room\controllable\Piston.cs" />
     <Compile Include="entity\room\controllable\platform\MovingPlatform.cs" />
     <Compile Include="entity\room\controllable\platform\Platform.cs" />
+    <Compile Include="entity\room\controllable\RollingSpike.cs" />
     <Compile Include="entity\room\controllable\RoomControllable.cs" />
     <Compile Include="entity\room\controllable\Support.cs" />
     <Compile Include="entity\room\controllable\turret\QuadRotatingTurret.cs" />
