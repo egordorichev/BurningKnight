@@ -9,7 +9,8 @@ namespace BurningKnight.level.biome {
 				BiomeInfo.New<CastleBiome>(Biome.Castle),
 				BiomeInfo.New<HubBiome>(Biome.Hub),
 				BiomeInfo.New<LibraryBiome>(Biome.Library),
-				BiomeInfo.New<DesertBiome>(Biome.Desert)
+				BiomeInfo.New<DesertBiome>(Biome.Desert),
+				BiomeInfo.New<IceBiome>(Biome.Ice)
 			};
 			
 			foreach (var info in infos) {

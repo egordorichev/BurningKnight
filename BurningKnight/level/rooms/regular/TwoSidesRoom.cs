@@ -8,7 +8,11 @@ namespace BurningKnight.level.rooms.regular {
 	public class TwoSidesRoom : RegularRoom {
 		private Rect rect;
 		private bool vertical;
-		
+
+		public TwoSidesRoom() {
+			vertical = Random.Chance();
+		}
+
 		public override void Paint(Level level) {
 			SetupRect();
 			Painter.Fill(level, rect, Tile.Chasm);
@@ -23,13 +27,15 @@ namespace BurningKnight.level.rooms.regular {
 		}
 
 		public override bool CanConnect(Vector2 P) {
-			/*SetupRect();
-			
-			if (P.X >= rect.Left - 1 && P.X <= rect.Right + 1
-			    && P.Y >= rect.Top - 1 && P.Y <= rect.Bottom + 1) {
-
-				return false;
-			}*/
+			if (vertical) {
+				if ((int) P.X == Left || (int) P.X == Right) {
+					return false;
+				}	
+			} else {
+				if ((int) P.Y == Top || (int) P.Y == Bottom) {
+					return false;
+				}	
+			}
 			
 			return base.CanConnect(P);
 		}
@@ -39,24 +45,37 @@ namespace BurningKnight.level.rooms.regular {
 				return;
 			}
 			
-			var w = GetWidth() - 2;
-			var h = GetHeight() - 2;
 			rect = new Rect();
 			
-			if (w > h || (w == h && Random.Chance())) {
+			if (!vertical) {
 				rect.Top = Top + 1;
 				rect.Bottom = Bottom;
 
 				rect.Left = Left + 3 + Random.Int(3);
 				rect.Right = Right - 2 - Random.Int(3);
 			} else {
-				vertical = true;
 				rect.Left = Left + 1;
 				rect.Right = Right;
 				
 				rect.Top = Top + 3 + Random.Int(3);
 				rect.Bottom = Bottom - 2 - Random.Int(3);
 			}
+		}
+		
+		public override int GetMinWidth() {
+			return vertical ? 8 : 12;
+		}
+
+		public override int GetMinHeight() {
+			return vertical ? 12 : 8;
+		}
+
+		public override int GetMaxWidth() {
+			return vertical ? 12 : 18;
+		}
+
+		public override int GetMaxHeight() {
+			return vertical ? 12 : 18;
 		}
 	}
 }
