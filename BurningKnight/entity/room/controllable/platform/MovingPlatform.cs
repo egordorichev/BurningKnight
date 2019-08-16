@@ -10,9 +10,11 @@ using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
+using Random = Lens.util.math.Random;
 
 /*
  * todo: different method of border collision, like chasms on 4 sides, that get disabled
+ * platform, that only moves, if you stand on it
  */
 
 namespace BurningKnight.entity.room.controllable.platform {
@@ -62,15 +64,41 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (Math.Abs(Self.velocity.X) + Math.Abs(Self.velocity.Y) < 0.1f) {
+					Self.velocity = directions[Random.Int(2) + 2];
+				}
+
+				if (Math.Abs(Self.velocity.X) > 0.1f && Math.Abs(Self.velocity.Y) > 0.1f) {
+					Self.velocity.Y = 0;
+				}
+				
 				Self.GetComponent<RectBodyComponent>().Velocity = Self.velocity * Speed;
 
-				var x = Math.Abs(Self.velocity.X) < 0.1f ? (int) Math.Ceiling(Self.X / 16) : (int) (Self.velocity.X < 0 ? Math.Floor(Self.X / 16) : Math.Ceiling(Self.X / 16) + Self.tw - 1);
-				var y = Math.Abs(Self.velocity.Y) < 0.1f ? (int) Math.Ceiling(Self.Y / 16) : (int) (Self.velocity.Y < 0 ? Math.Floor(Self.Y / 16) : Math.Ceiling(Self.Y / 16) + Self.th - 1);
+				if (Math.Abs(Self.velocity.X) > 0.1f) {
+					var s = (int) Math.Round(Self.Y / 16);
+					var x = (int) (Self.velocity.X > 0 ? (Math.Ceiling(Self.X / 16) + Self.tw - 1) : (Math.Floor(Self.X / 16)));
+					
+					for (var y = s; y < s + Self.th; y++) {
+						var t = Run.Level.Get(x, y);
 
-				var t = Run.Level.Get(x, y);
+						if (t != Tile.Chasm) {
+							Self.Stop();
+							break;
+						}
+					}
+				} else {
+					var s = (int) Math.Round(Self.X / 16);
+					var y = (int) (Self.velocity.Y > 0 ? (Math.Ceiling(Self.Y / 16) + Self.th - 1) : (Math.Floor(Self.Y / 16)));
+					
+					for (var x = s; x < s + Self.tw; x++) {
+						var t = Run.Level.Get(x, y);
 
-				if (t != Tile.Chasm) {
-					Self.Stop();
+						if (t != Tile.Chasm) {
+							Self.Stop();
+							break;
+						}
+					}
 				}
 			}
 
