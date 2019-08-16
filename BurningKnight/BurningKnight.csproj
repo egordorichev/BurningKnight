@@ -410,6 +410,9 @@
     <Compile Include="entity\room\controllable\platform\Platform.cs" />
     <Compile Include="entity\room\controllable\RoomControllable.cs" />
     <Compile Include="entity\room\controllable\Support.cs" />
+    <Compile Include="entity\room\controllable\turret\QuadRotatingTurret.cs" />
+    <Compile Include="entity\room\controllable\turret\QuadTurret.cs" />
+    <Compile Include="entity\room\controllable\turret\RotatingTurret.cs" />
     <Compile Include="entity\room\controllable\turret\Turret.cs" />
     <Compile Include="entity\room\controller\RoomController.cs" />
     <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />

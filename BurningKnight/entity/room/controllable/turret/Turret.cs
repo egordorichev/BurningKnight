@@ -1,15 +1,18 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
+using BurningKnight.physics;
 using BurningKnight.util;
+using Lens.entity;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable.turret {
-	public class Turret : RoomControllable {
+	public class Turret : RoomControllable, CollisionFilterEntity {
 		private float beforeNextBullet;
+		protected bool Rotates;
 
 		protected uint Angle {
 			get => GetComponent<AnimationComponent>().Animation.Frame;
@@ -51,18 +54,33 @@ namespace BurningKnight.entity.room.controllable.turret {
 					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
 
 						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
-						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f).OnEnd = () => { Angle++; };
+						var t = Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 
-						var angle = Angle / 4f * Math.PI;
-						var projectile = Projectile.Make(this, "small", angle, 6f);
+						if (Rotates) {
+							t.OnEnd = () => { Angle++; };
+						}
 
-						projectile.Center += MathUtils.CreateVector(angle, 8f);
-						projectile.AddLight(32f, Color.Red);
-
-						AnimationUtil.Poof(projectile.Center);
+						Fire(Angle / 4f * Math.PI);
 					};
 				};
 			}
+		}
+
+		protected virtual void Fire(double angle) {
+			SendProjectile(angle);
+		}
+
+		protected void SendProjectile(double angle) {
+			var projectile = Projectile.Make(this, "small", angle, 6f);
+
+			projectile.Center += MathUtils.CreateVector(angle, 8f);
+			projectile.AddLight(32f, Color.Red);
+
+			AnimationUtil.Poof(projectile.Center);
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Projectile);
 		}
 	}
 }
