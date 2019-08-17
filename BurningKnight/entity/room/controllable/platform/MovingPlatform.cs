@@ -32,12 +32,6 @@ namespace BurningKnight.entity.room.controllable.platform {
 		private PlatformBorder up;
 		private PlatformBorder down;
 
-		public override void Render() {
-			base.Render();
-			
-			Graphics.Batch.DrawLine(Center, Center + velocity * 16, Color.Red);
-		}
-
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -49,7 +43,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			var w = tw * 16;
 			var h = th * 16;
-			var b = new RectBodyComponent(0, 0, w, h);
+			var b = new RectBodyComponent(0.5f, 0.5f, w - 1, h - 1);
 			AddComponent(b);
 
 			b.Body.Friction = 0;
@@ -102,12 +96,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 
-				
-				/*
-				 * bug: when two platforms stop after hit each other,
-				 * but after then start moving in directions, where they collide again, they do not notice that
-				*/
-				if (true || T >= Delay) {
+				if (T >= Delay) {
 					Become<MovingState>();
 				}
 			}
@@ -115,11 +104,12 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 		protected class MovingState : SmartState<MovingPlatform> {
 			private const float Speed = 32;
+			private bool first = true;
 
 			public override void Init() {
 				base.Init();
 				Self.ResetBorders();
-				Self.Center -= Self.velocity;
+				Self.Center -= Self.velocity * 0.1f;
 			}
 
 			public override void Update(float dt) {
@@ -153,6 +143,10 @@ namespace BurningKnight.entity.room.controllable.platform {
 							}
 							
 							Self.Stop();
+
+							if (first) {
+								Become<MovingState>();
+							}
 							
 							break;
 						}
@@ -175,10 +169,17 @@ namespace BurningKnight.entity.room.controllable.platform {
 							}
 
 							Self.Stop();
+
+							if (first) {
+								Become<MovingState>();
+							}
+							
 							break;
 						}
 					}
 				}
+
+				first = false;
 			}
 
 			public override void Destroy() {
@@ -265,7 +266,14 @@ namespace BurningKnight.entity.room.controllable.platform {
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
 				if (ev.Entity is MovingPlatform m) {
-					Stop();
+					var rect = new Rectangle((int) X, (int) Y, (int) Width, (int) Height - 6);
+					
+					rect.X += (int) (velocity.X * Width);
+					rect.Y += (int) (velocity.Y * (Height - 6));
+
+					if (new Rectangle((int) m.X, (int) m.Y, (int) m.Width, (int) m.Height - 6).Intersects(rect)) {
+						Stop();
+					}
 				}
 			}
 			
