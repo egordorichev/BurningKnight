@@ -5,6 +5,7 @@ using Lens.entity;
 using Lens.input;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.projectile.controller {
 	public static class TargetProjectileController {

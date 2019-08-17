@@ -7,6 +7,7 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {

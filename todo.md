@@ -5,6 +5,12 @@
 * entrance/exit rooms: add a few variations
 * more effects when you reflect a bullet? change its color somehow???
 
+### rooms
+
+* turret room
+* rolling spike rooms
+* rooms with turrets on platforms
+
 ### beta bugs
 
 * unexplorable rooms after reloading

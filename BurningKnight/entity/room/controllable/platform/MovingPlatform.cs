@@ -9,10 +9,12 @@ using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
@@ -30,8 +32,12 @@ namespace BurningKnight.entity.room.controllable.platform {
 		private PlatformBorder up;
 		private PlatformBorder down;
 
-		private List<MovingPlatform> colliding = new List<MovingPlatform>();
-		
+		public override void Render() {
+			base.Render();
+			
+			Graphics.Batch.DrawLine(Center, Center + velocity * 16, Color.Red);
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -40,8 +46,14 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("moving_platform"));
-			AddComponent(new RectBodyComponent(0, 0, tw * 16, th * 16, BodyType.Dynamic));
 
+			var w = tw * 16;
+			var h = th * 16;
+			var b = new RectBodyComponent(0, 0, w, h);
+			AddComponent(b);
+
+			b.Body.Friction = 0;
+			
 			Area.Add(left = new PlatformBorder());
 			left.Setup(this, -8, 0, 8, th * 16);
 			
@@ -71,14 +83,13 @@ namespace BurningKnight.entity.room.controllable.platform {
 			down.On = true;
 		}
 
-		protected void CheckCollisions() {
-			var rect = new Rectangle((int) (X + velocity.X), (int) (Y + velocity.Y), (int) Width, (int) Height);
+		protected void RoundUp() {
+			var x = ((int) Math.Round(X / 16)) * 16;
+			var y = ((int) Math.Round(Y / 16)) * 16;
 
-			foreach (var p in colliding) {
-				if (p.Overlaps(rect)) {
-					Stop();
-					return;
-				}
+			if (MathUtils.Distance(X - x, Y - y) < 3) {
+				X = x;
+				Y = y;
 			}
 		}
 
@@ -91,7 +102,12 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 
-				if (T >= Delay) {
+				
+				/*
+				 * bug: when two platforms stop after hit each other,
+				 * but after then start moving in directions, where they collide again, they do not notice that
+				*/
+				if (true || T >= Delay) {
 					Become<MovingState>();
 				}
 			}
@@ -103,13 +119,12 @@ namespace BurningKnight.entity.room.controllable.platform {
 			public override void Init() {
 				base.Init();
 				Self.ResetBorders();
+				Self.Center -= Self.velocity;
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				Self.CheckCollisions();
-				
 				if (Math.Abs(Self.velocity.X) + Math.Abs(Self.velocity.Y) < 0.1f) {
 					Self.velocity = directions[Random.Int(2) + 2];
 				}
@@ -128,9 +143,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
-							//Self.X = ((int) Math.Round(Self.X / 16)) * 16;
-							//Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
-							
+							Self.RoundUp();
 							Self.ResetBorders();
 
 							if (Self.velocity.X > 0) {
@@ -152,9 +165,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
-							//Self.X = ((int) Math.Round(Self.X / 16)) * 16;
-							//Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
-
+							Self.RoundUp();
 							Self.ResetBorders();
 							
 							if (Self.velocity.Y > 0) {
@@ -254,12 +265,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
 				if (ev.Entity is MovingPlatform m) {
-					colliding.Add(m);
-					CheckCollisions();
-				}
-			} else if (e is CollisionEndedEvent eve) {
-				if (eve.Entity is MovingPlatform m) {
-					colliding.Remove(m);
+					Stop();
 				}
 			}
 			

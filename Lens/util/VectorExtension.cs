@@ -10,8 +10,8 @@ namespace Lens.util {
 			return self;
 		}
 
-		public static float ToAngle(this Vector2 self) {
+		/*public static float ToAngle(this Vector2 self) {
 			return (float) Math.Atan2(self.Y, self.X);
-		}
+		}*/
 	}
 }

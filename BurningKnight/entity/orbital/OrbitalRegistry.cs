@@ -9,6 +9,7 @@ using Lens.entity;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 

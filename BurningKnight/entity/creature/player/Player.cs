@@ -26,6 +26,7 @@ using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
@@ -233,7 +234,7 @@ namespace BurningKnight.entity.creature.player {
 
 				var body = Self.GetComponent<RectBodyComponent>();
 				var angle = body.Acceleration.LengthSquared() > 0.1f 
-					?	body.Acceleration.ToAngle() 
+					?	body.Acceleration.ToAngle()
 					: (Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition) - Self.Center).ToAngle();
 
 				direction = new Vector2((float) Math.Cos(angle) * RollForce, (float) Math.Sin(angle) * RollForce);

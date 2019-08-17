@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesSplitOnDeathUse : ItemUse {

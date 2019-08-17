@@ -18,6 +18,11 @@ namespace BurningKnight.entity.room.controllable.platform {
 			startingPoint = Position;
 		}
 
+		public override void AddComponents() {
+			base.AddComponents();
+			RemoveComponent<SupportableComponent>();
+		}
+
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			
