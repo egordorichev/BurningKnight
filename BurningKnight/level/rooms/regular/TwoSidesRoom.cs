@@ -19,8 +19,8 @@ namespace BurningKnight.level.rooms.regular {
 
 			var platform = new MovingPlatform();
 
-			platform.X = vertical ? (Random.Int(Left + 1, Right - 1)) * 16 : (Left + GetWidth() / 2) * 16;
-			platform.Y = vertical ? (Top + GetHeight() / 2) * 16 : (Random.Int(Top + 1, Bottom - 1)) * 16;
+			platform.X = vertical ? (Random.Int(Left + 2, Right - 2)) * 16 : (Left + GetWidth() / 2) * 16;
+			platform.Y = vertical ? (Top + GetHeight() / 2) * 16 : (Random.Int(Top + 2, Bottom - 2)) * 16;
 			platform.Controller = Random.Chance(40) ? (Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise) : (vertical ? PlatformController.UpDown : PlatformController.LeftRight);
 
 			level.Area.Add(platform);
@@ -63,19 +63,19 @@ namespace BurningKnight.level.rooms.regular {
 		}
 		
 		public override int GetMinWidth() {
-			return vertical ? 8 : 12;
+			return vertical ? 8 : 13;
 		}
 
 		public override int GetMinHeight() {
-			return vertical ? 12 : 8;
+			return vertical ? 13 : 8;
 		}
 
 		public override int GetMaxWidth() {
-			return vertical ? 12 : 18;
+			return vertical ? 12 : 20;
 		}
 
 		public override int GetMaxHeight() {
-			return vertical ? 12 : 18;
+			return vertical ? 12 : 20;
 		}
 	}
 }

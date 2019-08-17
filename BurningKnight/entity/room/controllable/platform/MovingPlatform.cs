@@ -6,6 +6,7 @@ using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -22,9 +23,14 @@ namespace BurningKnight.entity.room.controllable.platform {
 		protected byte tw = 2;
 		protected byte th = 2;
 
-		public PlatformController Controller;
+		public PlatformController Controller = PlatformController.LeftRight;
 		private int step;
 		private Vector2 velocity;
+
+		private PlatformBorder left;
+		private PlatformBorder right;
+		private PlatformBorder up;
+		private PlatformBorder down;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -35,6 +41,18 @@ namespace BurningKnight.entity.room.controllable.platform {
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("moving_platform"));
 			AddComponent(new RectBodyComponent(0, 0, tw * 16, th * 16, BodyType.Dynamic, true));
+
+			Area.Add(left = new PlatformBorder());
+			left.Setup(this, -8, 0, 8, th * 16);
+			
+			Area.Add(right = new PlatformBorder());
+			right.Setup(this, tw * 16, 0, 8, th * 16);
+			
+			Area.Add(up = new PlatformBorder());
+			up.Setup(this, 0, -12, tw * 16, 8);
+			
+			Area.Add(down = new PlatformBorder());
+			down.Setup(this, 0, th * 16, tw * 16, 8);
 		}
 
 		public override void PostInit() {
@@ -83,6 +101,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
+							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
+							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
 							Self.Stop();
 							break;
 						}
@@ -95,6 +115,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
+							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
+							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
 							Self.Stop();
 							break;
 						}
@@ -119,16 +141,26 @@ namespace BurningKnight.entity.room.controllable.platform {
 		protected virtual void Stop() {
 			GetComponent<StateComponent>().Become<IdleState>();
 			step++;
-			
+
 			switch (Controller) {
-				case PlatformController.LeftRight: {
+				case PlatformController.LeftRight: default: {
 					step %= 2;
+
+					if (Math.Abs(velocity.X) < 0.1f) {
+						velocity = directions[0];
+					}
+					
 					velocity.X *= -1;
 					break;
 				}
 				
 				case PlatformController.UpDown: {
 					step %= 2;
+
+					if (Math.Abs(velocity.X) < 0.1f) {
+						velocity = directions[1];
+					}
+					
 					velocity.Y *= -1;
 					break;
 				}
@@ -145,7 +177,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 					break;
 				}
 			}
-
+			
 			if (OnScreen) {
 				Camera.Instance.Shake(4);
 			}

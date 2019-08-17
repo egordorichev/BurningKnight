@@ -91,6 +91,7 @@
 
 ### items
 
+* ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up
 * battery buddy

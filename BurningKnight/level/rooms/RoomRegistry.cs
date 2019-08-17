@@ -52,7 +52,7 @@ namespace BurningKnight.level.rooms {
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
-				RoomInfo.New<TwoSidesRoom>(1000000000000f),
+				RoomInfo.New<TwoSidesRoom>(1f),
 
 				RoomInfo.New<EntranceRoom>(1f),
 				RoomInfo.New<ExitRoom>(1f),
