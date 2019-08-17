@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.level.tile;
+using BurningKnight.physics;
 using BurningKnight.state;
+using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
@@ -13,13 +16,8 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
-/*
- * todo: different method of border collision, like chasms on 4 sides, that get disabled
- * platform, that only moves, if you stand on it
- */
-
 namespace BurningKnight.entity.room.controllable.platform {
-	public class MovingPlatform : Platform {
+	public class MovingPlatform : Platform, CollisionFilterEntity {
 		protected byte tw = 2;
 		protected byte th = 2;
 
@@ -31,6 +29,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 		private PlatformBorder right;
 		private PlatformBorder up;
 		private PlatformBorder down;
+
+		private List<MovingPlatform> colliding = new List<MovingPlatform>();
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -40,7 +40,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("moving_platform"));
-			AddComponent(new RectBodyComponent(0, 0, tw * 16, th * 16, BodyType.Dynamic, true));
+			AddComponent(new RectBodyComponent(0, 0, tw * 16, th * 16, BodyType.Dynamic));
 
 			Area.Add(left = new PlatformBorder());
 			left.Setup(this, -8, 0, 8, th * 16);
@@ -71,12 +71,25 @@ namespace BurningKnight.entity.room.controllable.platform {
 			down.On = true;
 		}
 
+		protected void CheckCollisions() {
+			var rect = new Rectangle((int) (X + velocity.X), (int) (Y + velocity.Y), (int) Width, (int) Height);
+
+			foreach (var p in colliding) {
+				if (p.Overlaps(rect)) {
+					Stop();
+					return;
+				}
+			}
+		}
+
 		#region Platform States
 		protected class IdleState : SmartState<MovingPlatform> {
 			private const float Delay = 1f;
 
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 
 				if (T >= Delay) {
 					Become<MovingState>();
@@ -95,6 +108,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 			public override void Update(float dt) {
 				base.Update(dt);
 
+				Self.CheckCollisions();
+				
 				if (Math.Abs(Self.velocity.X) + Math.Abs(Self.velocity.Y) < 0.1f) {
 					Self.velocity = directions[Random.Int(2) + 2];
 				}
@@ -113,8 +128,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
-							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
-							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
+							//Self.X = ((int) Math.Round(Self.X / 16)) * 16;
+							//Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
 							
 							Self.ResetBorders();
 
@@ -137,8 +152,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 						var t = Run.Level.Get(x, y);
 
 						if (t != Tile.Chasm) {
-							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
-							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
+							//Self.X = ((int) Math.Round(Self.X / 16)) * 16;
+							//Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
 
 							Self.ResetBorders();
 							
@@ -210,7 +225,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			}
 			
 			if (OnScreen) {
-				Camera.Instance.Shake(4);
+				Camera.Instance.ShakeMax(4);
 			}
 		}
 
@@ -238,12 +253,21 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity is MovingPlatform) {
-					Stop();
+				if (ev.Entity is MovingPlatform m) {
+					colliding.Add(m);
+					CheckCollisions();
+				}
+			} else if (e is CollisionEndedEvent eve) {
+				if (eve.Entity is MovingPlatform m) {
+					colliding.Remove(m);
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		bool CollisionFilterEntity.ShouldCollide(Entity entity) {
+			return entity is MovingPlatform;
 		}
 	}
 }

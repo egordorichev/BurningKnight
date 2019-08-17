@@ -10,7 +10,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable.platform {
 	public class PlatformBorder : Entity, CollisionFilterEntity {
-		public Entity Super;
+		public Support Super;
 		public Vector2 Offset;
 
 		private bool on = true;
@@ -22,7 +22,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			}
 		}
 		
-		public void Setup(Entity super, int x, int y, int w, int h) {
+		public void Setup(Support super, int x, int y, int w, int h) {
 			Super = super;
 			Offset = new Vector2(x, y);
 			AlwaysActive = true;
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 				return false;
 			}
 
-			return !(entity is Prop || entity is Level || entity is DestroyableLevel || entity is Chasm || (entity is Creature c && c.InAir()) || (entity.TryGetComponent<TileInteractionComponent>(out var t) && !t.HasNoTileSupport) || entity is Projectile);
+			return !(entity is Prop || entity is Level || entity is DestroyableLevel || entity is Chasm || (entity is Creature c && c.InAir()) || (entity.TryGetComponent<TileInteractionComponent>(out var t) && !t.HasNoTileSupport) || entity is Projectile || (entity.TryGetComponent<SupportableComponent>(out var s) && s.HasAnotherSupportBesides(Super)));
 		}
 	}
 }

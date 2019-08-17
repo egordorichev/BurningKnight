@@ -1,6 +1,9 @@
 # TODO
 
 * trap room doesnt save as trap room
+* moving platform variant, that requires it supporting something
+* entrance/exit rooms: add a few variations
+* more effects when you reflect a bullet? change its color somehow???
 
 ### beta bugs
 

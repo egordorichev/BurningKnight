@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
@@ -8,6 +9,7 @@ using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VelcroPhysics.Dynamics;
@@ -15,6 +17,8 @@ using VelcroPhysics.Shared;
 
 namespace BurningKnight.entity.item.util {
 	public class MeleeArc : Entity {
+		public static Color ReflectedColor = new Color(0f, 1f, 0f, 1f);
+		
 		public float LifeTime = 0.1f;
 		public int Damage;
 		public Entity Owner;
@@ -60,10 +64,16 @@ namespace BurningKnight.entity.item.util {
 						p.Owner = this;
 
 						var b = p.BodyComponent;
-						var d = b.Velocity.Length();
+						var d = b.Velocity.Length() * 1.2f;
 						var a = Owner.AngleTo(p);
 
-						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);	
+						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+
+						if (p.TryGetComponent<LightComponent>(out var l)) {
+							l.Light.Color = ReflectedColor;
+						}
+						
+						Camera.Instance.ShakeMax(4f);
 					} else if (p.CanBeBroken) {
 						p.Break();
 					}

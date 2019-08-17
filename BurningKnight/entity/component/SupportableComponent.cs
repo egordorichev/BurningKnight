@@ -30,5 +30,15 @@ namespace BurningKnight.entity.component {
 				s.Apply(Entity, dt);
 			}
 		}
+
+		public bool HasAnotherSupportBesides(Support support) {
+			foreach (var s in Supports) {
+				if (s != support) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
