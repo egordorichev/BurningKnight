@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.level.biome;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
@@ -52,9 +53,11 @@ namespace BurningKnight.level.rooms {
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
-				RoomInfo.New<TwoSidesRoom>(3f),
-				RoomInfo.New<PlatformChaosRoom>(1f),
-				RoomInfo.New<PlatformRingRoom>(1f),
+				
+				// Desert only room designs
+				RoomInfo.New<TwoSidesRoom>(3f, Biome.Desert),
+				RoomInfo.New<PlatformChaosRoom>(1f, Biome.Desert),
+				RoomInfo.New<PlatformRingRoom>(1f, Biome.Desert),
 
 				// Entrance
 				RoomInfo.New<EntranceRoom>(1f),

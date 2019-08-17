@@ -376,9 +376,11 @@ namespace BurningKnight.entity.creature.player {
 			return true;
 		}
 
-		protected override void HandleDeath() {
+		protected override bool HandleDeath() {
 			Done = false;
 			died = true;
+
+			return true;
 		}
 
 		public override bool IgnoresProjectiles() {

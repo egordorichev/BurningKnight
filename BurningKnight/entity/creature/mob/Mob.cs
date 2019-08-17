@@ -7,6 +7,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
+using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
@@ -14,6 +15,7 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
@@ -62,6 +64,17 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (dying) {
+				return;
+			}
+
+			var r = GetComponent<RoomComponent>().Room;
+
+			if (r != null && r.Type == RoomType.Connection) {
+				Done = true;
+				return;
+			}
 
 			if (Target == null) {
 				FindTarget();
@@ -190,11 +203,26 @@ namespace BurningKnight.entity.creature.mob {
 			return 1f;
 		}
 
+		private bool dying;
+
+		protected override bool HandleDeath() {
+			base.HandleDeath();
+			return true;
+		}
+
 		public override void AnimateDeath() {
-			base.AnimateDeath();
+			Done = false;
 			
-			Camera.Instance.Shake(4);
-			Engine.Instance.Freeze = 0.5f;
+			if (dying) {
+				return;
+			}
+			
+			RemoveComponent<StateComponent>();
+			
+			Timer.Add(() => {
+				// Sets the done flag
+				base.AnimateDeath();
+			}, 0.6f);
 		}
 
 		#region Path finding

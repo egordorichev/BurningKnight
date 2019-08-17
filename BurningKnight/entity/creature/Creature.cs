@@ -1,3 +1,4 @@
+using BurningKnight.assets.particle;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -76,7 +77,9 @@ namespace BurningKnight.entity.creature {
 				}
 			} else if (e is DiedEvent) {
 				if (!e.Handled) {
-					HandleDeath();
+					if (HandleDeath()) {
+						return true;
+					}
 				}
 			} else if (e is LostSupportEvent) {
 				if (!(this is Player)) {
@@ -113,15 +116,23 @@ namespace BurningKnight.entity.creature {
 			return base.HandleEvent(e);
 		}
 
-		protected virtual void HandleDeath() {
+		protected virtual bool HandleDeath() {
 			AnimateDeath();
+			return false;
 		}
 
 		public virtual void AnimateDeath() {
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;
-				
-			AnimationUtil.Poof(Center);
+			
+			for (var i = 0; i < 5; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+
+				part.Position = Center;
+				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				Run.Level.Area.Add(part);
+				part.Depth = 1;
+			}
 			
 			for (var i = 0; i < Random.Int(2, 8); i++) {
 				Area.Add(new SplashParticle {

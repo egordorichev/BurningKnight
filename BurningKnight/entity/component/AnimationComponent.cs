@@ -86,7 +86,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			var stopShader = false;
-
+			
 			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
 				var i = health.InvincibilityTimer;
 
@@ -105,7 +105,7 @@ namespace BurningKnight.entity.component {
 			Graphics.Color = Tint;
 			CallRender(pos, shadow);
 			Graphics.Color = ColorUtils.WhiteColor;
-
+				
 			if (stopShader) {
 				Shaders.End();
 			}

@@ -27,7 +27,7 @@ namespace BurningKnight.level.biome {
 				return Defined[Biome.Hub];
 			}
 
-			if (depth == 1 || depth == 2) {
+			if (depth == 3 || depth == 4) {
 				return Defined[Biome.Desert];
 			}
 			
