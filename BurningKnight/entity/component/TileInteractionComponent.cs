@@ -24,6 +24,7 @@ namespace BurningKnight.entity.component {
 
 		public bool HasNoSupport;
 		public bool HadNoSupport;
+		public bool HasNoTileSupport;
 		public Vector2 LastSupportedPosition;
 
 		public TileInteractionComponent() {
@@ -53,6 +54,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			HadNoSupport = HasNoSupport;
+			HasNoTileSupport = true;
 
 			var h = Entity.TryGetComponent<SupportableComponent>(out var sp);
 			
@@ -89,6 +91,7 @@ namespace BurningKnight.entity.component {
 
 					if (t != Tile.Chasm) {
 						HasNoSupport = false;
+						HasNoTileSupport = false;
 						LastSupportedPosition = Entity.Position;
 					}
 				}

@@ -64,6 +64,13 @@ namespace BurningKnight.entity.room.controllable.platform {
 			return base.ShouldMove(e) && e.Bottom < Bottom - 6;
 		}
 
+		protected void ResetBorders() {
+			left.On = true;
+			right.On = true;
+			up.On = true;
+			down.On = true;
+		}
+
 		#region Platform States
 		protected class IdleState : SmartState<MovingPlatform> {
 			private const float Delay = 1f;
@@ -79,6 +86,11 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 		protected class MovingState : SmartState<MovingPlatform> {
 			private const float Speed = 32;
+
+			public override void Init() {
+				base.Init();
+				Self.ResetBorders();
+			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -103,7 +115,17 @@ namespace BurningKnight.entity.room.controllable.platform {
 						if (t != Tile.Chasm) {
 							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
 							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
+							
+							Self.ResetBorders();
+
+							if (Self.velocity.X > 0) {
+								Self.right.On = false;
+							} else {
+								Self.left.On = false;
+							}
+							
 							Self.Stop();
+							
 							break;
 						}
 					}
@@ -117,6 +139,15 @@ namespace BurningKnight.entity.room.controllable.platform {
 						if (t != Tile.Chasm) {
 							Self.X = ((int) Math.Round(Self.X / 16)) * 16;
 							Self.Y = ((int) Math.Round(Self.Y / 16)) * 16;
+
+							Self.ResetBorders();
+							
+							if (Self.velocity.Y > 0) {
+								Self.down.On = false;
+							} else {
+								Self.up.On = false;
+							}
+
 							Self.Stop();
 							break;
 						}

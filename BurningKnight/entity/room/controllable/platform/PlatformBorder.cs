@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -11,7 +12,15 @@ namespace BurningKnight.entity.room.controllable.platform {
 	public class PlatformBorder : Entity, CollisionFilterEntity {
 		public Entity Super;
 		public Vector2 Offset;
-		public bool On = true;
+
+		private bool on = true;
+		
+		public bool On {
+			set {
+				on = value;
+				GetComponent<RectBodyComponent>().Body.IsSensor = !value;
+			}
+		}
 		
 		public void Setup(Entity super, int x, int y, int w, int h) {
 			Super = super;
@@ -37,11 +46,11 @@ namespace BurningKnight.entity.room.controllable.platform {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			if (!On) {
+			if (!on) {
 				return false;
 			}
 
-			return !(entity is Prop || entity is Level || entity is DestroyableLevel || entity is Chasm || (entity is Creature c && c.InAir()));
+			return !(entity is Prop || entity is Level || entity is DestroyableLevel || entity is Chasm || (entity is Creature c && c.InAir()) || (entity.TryGetComponent<TileInteractionComponent>(out var t) && !t.HasNoTileSupport) || entity is Projectile);
 		}
 	}
 }

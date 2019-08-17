@@ -56,6 +56,10 @@ namespace BurningKnight.entity.room.controllable {
 			base.Update(dt);
 
 			foreach (var p in colliding) {
+				if (p.InAir()) {
+					continue;
+				}
+				
 				p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
 				p.GetAnyComponent<BodyComponent>()?.KnockbackFrom(this, 4);
 			}

@@ -27,12 +27,15 @@ namespace BurningKnight.level.rooms.regular {
 		}
 
 		public override bool CanConnect(Vector2 P) {
+			var x = (int) P.X;
+			var y = (int) P.Y;
+			
 			if (vertical) {
-				if ((int) P.X == Left || (int) P.X == Right) {
+				if ((x == Left || x == Right) && (y > Top + 3 && y < Bottom - 3)) {
 					return false;
 				}	
 			} else {
-				if ((int) P.Y == Top || (int) P.Y == Bottom) {
+				if ((y == Top || y == Bottom) && (x > Left + 3 && x < Right - 3)) {
 					return false;
 				}	
 			}
