@@ -12,7 +12,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 	public class PlatformBorder : Entity, CollisionFilterEntity {
 		public Support Super;
 		public Vector2 Offset;
-
+		public bool Upper;
+		
 		private bool on = true;
 		
 		public bool On {
@@ -50,7 +51,15 @@ namespace BurningKnight.entity.room.controllable.platform {
 				return false;
 			}
 
-			return !(entity is Prop || entity is Level || entity is DestroyableLevel || entity is Chasm || (entity is Creature c && c.InAir()) || (entity.TryGetComponent<TileInteractionComponent>(out var t) && !t.HasNoTileSupport) || entity is Projectile || (entity.TryGetComponent<SupportableComponent>(out var s) && s.HasAnotherSupportBesides(Super)));
+			return !(entity is Prop 
+			  || entity is Level 
+				|| entity is DestroyableLevel 
+				|| entity is Chasm 
+				|| (entity is Creature c && c.InAir()) 
+				|| (entity.TryGetComponent<TileInteractionComponent>(out var t) && (!t.HasNoTileSupport)) 
+				|| entity is Projectile 
+				|| (entity.TryGetComponent<SupportableComponent>(out var s) && s.HasAnotherSupportBesides(Super))
+			);
 		}
 	}
 }

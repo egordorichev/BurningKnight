@@ -167,6 +167,11 @@ namespace BurningKnight.level {
 		public static void PlaceMobs(Level level, RoomDef room) {
 			var mobs = new List<MobInfo>(MobRegistry.Current);
 			room.ModifyMobList(mobs);
+
+			if (mobs.Count == 0) {
+				return;
+			}
+			
 			var chances = new float[mobs.Count];
 
 			for (int i = 0; i < mobs.Count; i++) {

@@ -12,6 +12,7 @@ namespace BurningKnight.level {
 		}
 
 		public bool ShouldCollide(Entity entity) {
+			// fixme: makes it impossible to pass to platform from top
 			return !entity.TryGetComponent<SupportableComponent>(out var t) || t.Supports.Count == 0;
 		}
 	}

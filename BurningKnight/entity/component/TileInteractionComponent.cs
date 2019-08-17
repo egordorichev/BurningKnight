@@ -86,7 +86,7 @@ namespace BurningKnight.entity.component {
 			if (tile > 0) {
 				Touching[tile] = true;
 
-				if (HasNoSupport) {
+				if (HasNoTileSupport) {
 					var t = (Tile) tile;
 
 					if (t != Tile.Chasm) {
@@ -110,7 +110,7 @@ namespace BurningKnight.entity.component {
 			var startX = (int) Math.Floor((Entity.X + Entity.Height / 2f) / 16f);
 			var startY = (int) Math.Floor(Entity.Y / 16f);
 			var endX = (int) Math.Floor(Entity.Right / 16f);
-			var endY = (int) Math.Floor(Entity.Bottom / 16f);
+			var endY = (int) Math.Floor((Entity.Bottom) / 16f);
 
 			var level = Run.Level;
 			

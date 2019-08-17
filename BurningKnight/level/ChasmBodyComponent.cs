@@ -72,17 +72,17 @@ namespace BurningKnight.level {
 						list.Clear();
 
 						if (Check(level, x - 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), Check(level, x, y - 1) ? yy : yy + 8));
+							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), Check(level, x, y - 1) ? yy : yy + 9));
 						} else {
 							list.Add(new Vector2(xx + 4, yy + 16));
-							list.Add(new Vector2(xx + 8, yy + 8));
+							list.Add(new Vector2(xx + 8, yy + 9));
 						}
 
 						if (Check(level, x + 1, y) || Check(level, x, y - 1)) {
-							list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), Check(level, x, y - 1) ? yy : yy + 8));
+							list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), Check(level, x, y - 1) ? yy : yy + 9));
 						} else {
 							list.Add(new Vector2(xx + 12, yy + 16));
-							list.Add(new Vector2(xx + 8, yy + 8));
+							list.Add(new Vector2(xx + 8, yy + 9));
 						}
 						
 						list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), yy + 16));

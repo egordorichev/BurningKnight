@@ -1,9 +1,14 @@
 # TODO
 
+
+* enemy death -> knockback and explode into particles
+* enemy hurt -> knockback and rotate
+
 * trap room doesnt save as trap room
 * moving platform variant, that requires it supporting something
 * entrance/exit rooms: add a few variations
 * more effects when you reflect a bullet? change its color somehow???
+* juice up pistons
 
 ### rooms
 

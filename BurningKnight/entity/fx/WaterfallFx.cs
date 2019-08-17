@@ -32,6 +32,8 @@ namespace BurningKnight.entity.fx {
 			AlwaysActive = true;
 			grow = true;
 			vy = Random.Float(4, 8);
+
+			Depth = Layers.UnderFloor;
 		}
 
 		public override void Update(float dt) {

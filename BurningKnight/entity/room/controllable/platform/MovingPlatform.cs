@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
@@ -24,6 +25,8 @@ namespace BurningKnight.entity.room.controllable.platform {
 		protected byte th = 2;
 
 		public PlatformController Controller = PlatformController.LeftRight;
+		public int StartingStep;
+		
 		private int step;
 		private Vector2 velocity;
 
@@ -49,20 +52,23 @@ namespace BurningKnight.entity.room.controllable.platform {
 			b.Body.Friction = 0;
 			
 			Area.Add(left = new PlatformBorder());
-			left.Setup(this, -8, 0, 8, th * 16);
+			left.Setup(this, -12, 0, 8, th * 16);
 			
 			Area.Add(right = new PlatformBorder());
-			right.Setup(this, tw * 16, 0, 8, th * 16);
+			right.Setup(this, tw * 16 + 4, 0, 8, th * 16);
 			
 			Area.Add(up = new PlatformBorder());
-			up.Setup(this, 0, -12, tw * 16, 8);
+			up.Setup(this, 0, -14, tw * 16, 8);
+			up.Upper = true;
 			
 			Area.Add(down = new PlatformBorder());
-			down.Setup(this, 0, th * 16, tw * 16, 8);
+			down.Setup(this, 0, th * 16 + 2, tw * 16, 8);
 		}
 
 		public override void PostInit() {
 			base.PostInit();
+
+			step = StartingStep;
 			Stop();
 		}
 
@@ -255,12 +261,14 @@ namespace BurningKnight.entity.room.controllable.platform {
 			base.Save(stream);
 			
 			stream.WriteByte((byte) Controller);
+			stream.WriteByte((byte) StartingStep);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
 			Controller = (PlatformController) stream.ReadByte();
+			StartingStep = stream.ReadByte();
 		}
 
 		public override bool HandleEvent(Event e) {

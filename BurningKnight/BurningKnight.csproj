@@ -497,6 +497,7 @@
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
+    <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
     <Compile Include="level\rooms\regular\TwoSidesRoom.cs" />
     <Compile Include="level\rooms\RoomDef.cs" />
