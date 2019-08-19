@@ -25,7 +25,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public static bool IsPresent(string id, string[] biomes) {
-			if (biomes == null) {
+			if (biomes == null || biomes.Length == 0) {
 				return true;
 			}
 

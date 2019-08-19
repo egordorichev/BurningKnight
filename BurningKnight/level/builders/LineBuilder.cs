@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
@@ -57,7 +58,7 @@ namespace BurningKnight.level.builders {
 
 				if (I != 0 && Run.Depth != 0)
 					for (var J = 0; J < Tunnels; J++) {
-						var T = RoomRegistry.Generate(RoomType.Connection);
+						var T = RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated);
 
 						if ((int) PlaceRoom(Init, Curr, T, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
 							return null;

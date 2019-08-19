@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
+using BurningKnight.save;
 using BurningKnight.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -75,7 +76,7 @@ namespace BurningKnight.level.builders {
 				PathTunnels[Tunnels]--;
 
 				for (var J = 0; J < Tunnels; J++) {
-					Loop.Add(RoomRegistry.Generate(RoomType.Connection));
+					Loop.Add(RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated));
 				}
 			}
 
@@ -123,7 +124,7 @@ namespace BurningKnight.level.builders {
 			}
 
 			while (!Prev.ConnectTo(Entrance)) {
-				var C = RoomRegistry.Generate(RoomType.Regular);
+				var C = RoomRegistry.Generate(RoomType.Regular, LevelSave.BiomeGenerated);
 
 				if ((int) PlaceRoom(Loop, Prev, C, AngleBetweenRooms(Prev, Entrance)) == -1) {
 					return null;

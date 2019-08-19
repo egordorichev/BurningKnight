@@ -31,11 +31,11 @@ namespace BurningKnight.level.rooms.regular {
 			var y = (int) P.Y;
 			
 			if (vertical) {
-				if ((x == Left || x == Right) && (y > Top + 3 && y < Bottom - 3)) {
+				if ((x == Left || x == Right) && (y > Top + 3 && y < Bottom - 4)) {
 					return false;
 				}	
 			} else {
-				if ((y == Top || y == Bottom) && (x > Left + 3 && x < Right - 3)) {
+				if ((y == Top || y == Bottom) && (x > Left + 3 && x < Right - 4)) {
 					return false;
 				}	
 			}

@@ -39,11 +39,14 @@ namespace BurningKnight.save {
 			return new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
 		}
 
+		public static Biome BiomeGenerated;
+		
 		private bool GenerationThread(Area area) {
 			var a = new Area();
 		
 			try {
 				var level = CreateLevel();
+				BiomeGenerated = level.Biome;
 				a.Add(level);
 				level.Generate(a, I);
 
@@ -66,6 +69,7 @@ namespace BurningKnight.save {
 					Log.Error("Can't generate a level");
 
 					var level = CreateLevel();
+					BiomeGenerated = level.Biome;
 
 					level.Width = 32;
 					level.Height = 32;
@@ -84,6 +88,7 @@ namespace BurningKnight.save {
 				return GenerationThread(area);
 			}
 
+			BiomeGenerated = null;
 			return true;
 		}
 

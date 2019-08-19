@@ -4,6 +4,7 @@ using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.regular;
+using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util;
 using Lens.util.math;
@@ -120,7 +121,7 @@ namespace BurningKnight.level.builders {
 				ConnectionChances[ConnectingRooms]--;
 
 				for (var J = 0; J < ConnectingRooms; J++) {
-					var T = RoomRegistry.Generate(RoomType.Connection);
+					var T = RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated);
 					Tries = 3;
 
 					do {

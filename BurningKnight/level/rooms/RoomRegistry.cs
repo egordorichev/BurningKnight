@@ -108,7 +108,7 @@ namespace BurningKnight.level.rooms {
 			ByType[info.Type].Remove(info);
 		}
 
-		public static RoomDef Generate(RoomType type) {
+		public static RoomDef Generate(RoomType type, Biome biome) {
 			if (!ByType.TryGetValue(type, out var types)) {
 				Log.Error($"No rooms registered with type {type}");
 				return null;
@@ -118,17 +118,25 @@ namespace BurningKnight.level.rooms {
 			float sum = 0;
 
 			foreach (var chance in types) {
-				sum += chance.Chance;
+				if (biome.IsPresent(chance.Biomes)) {
+					sum += chance.Chance;
+				}
 			}
 
 			float value = Random.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {
-				sum += types[i].Chance;
+				var t = types[i];
+				
+				if (!biome.IsPresent(t.Biomes)) {
+					continue;
+				}
+
+				sum += t.Chance;
 
 				if (value < sum) {
-					return (RoomDef) Activator.CreateInstance(types[i].Room);
+					return (RoomDef) Activator.CreateInstance(t.Room);
 				}
 			}
 			

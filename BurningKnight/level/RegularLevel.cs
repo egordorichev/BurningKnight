@@ -7,6 +7,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.trap;
+using BurningKnight.save;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -113,7 +114,7 @@ namespace BurningKnight.level {
 		protected virtual List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
 
-			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, LevelSave.BiomeGenerated));
 
 			//var Exit = (ExitRoom) RoomRegistry.Generate(RoomType.Exit);
 			//Exit.To = Run.Depth + 1;
@@ -127,26 +128,26 @@ namespace BurningKnight.level {
 			Log.Info("Creating r" + Regular + " sp" + Special + " c" + Connection + " sc" + Secret + " rooms");
 
 			for (var I = 0; I < Regular; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Regular));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Regular, LevelSave.BiomeGenerated));
 			}
 
 			for (var I = 0; I < Special; I++) {
-				var Room = RoomRegistry.Generate(RoomType.Special);
+				var Room = RoomRegistry.Generate(RoomType.Special, LevelSave.BiomeGenerated);
 				if (Room != null) Rooms.Add(Room);
 			}
 
-			Rooms.Add(RoomRegistry.Generate(RoomType.Treasure));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Treasure, LevelSave.BiomeGenerated));
 
 			for (var I = 0; I < Connection; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Connection));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated));
 			}
 
 			for (var I = 0; I < Secret; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Secret));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Secret, LevelSave.BiomeGenerated));
 			}
 			
-			Rooms.Add(RoomRegistry.Generate(RoomType.Shop));
-			Rooms.Add(RoomRegistry.Generate(RoomType.Boss));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Shop, LevelSave.BiomeGenerated));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Boss, LevelSave.BiomeGenerated));
 			Rooms.Add(new PrebossRoom());
 			
 			TombRoom.Insert(Rooms);
