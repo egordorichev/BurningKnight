@@ -1,7 +1,9 @@
 # TODO
 
 
+* when creature dies, its not visible, seems like regular hit
 * creature hurt -> new blood particles from the direction of hit
+* room cleared effect
 
 * trap room doesnt save as trap room
 * moving platform variant, that requires it supporting something

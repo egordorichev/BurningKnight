@@ -22,9 +22,7 @@ namespace BurningKnight.entity.component {
 				pos.Y -= component.Z;
 			}
 			
-			Graphics.Render(region, pos + origin, 0, origin, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
-
-		//	Animation?.Render(pos + new Vector2(0, (shadow ? 0 : -1) * component.Z), Flipped, FlippedVerticaly);
+			Graphics.Render(region, pos + origin, shadow ^ Flipped ? -Angle : Angle, origin, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 	}
 }

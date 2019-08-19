@@ -104,6 +104,7 @@
     <Compile Include="assets\Palette.cs" />
     <Compile Include="assets\particle\AnimatedParticle.cs" />
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
+    <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />

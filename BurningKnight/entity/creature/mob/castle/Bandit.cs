@@ -17,9 +17,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddAnimation("bandit");
-			SetMaxHp(1); // fixme: 1
+			SetMaxHp(1);
 			
-			// Become<IdleState>();
+			Become<IdleState>();
 
 			var body = new RectBodyComponent(2, 2, 12, 12);
 			AddComponent(body);

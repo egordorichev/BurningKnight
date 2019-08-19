@@ -18,6 +18,7 @@ namespace BurningKnight.assets.particle {
 		
 		public static ParticleRenderer BkDeathRenderer = new TexturedParticleRenderer("natural");
 		public static ParticleRenderer SparkRenderer = new TexturedParticleRenderer("spark");
+		public static ParticleRenderer BloodRenderer = new TexturedParticleRenderer("blood");
 		public static ParticleRenderer AnimatedRenderer = new AnimatedParticleRenderer();
 		
 		public static Particle Textured(string slice) {

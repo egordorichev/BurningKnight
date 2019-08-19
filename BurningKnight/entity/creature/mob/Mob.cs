@@ -43,7 +43,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			});
 
-			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.1f;
+			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
 		}
 
 		protected virtual void SetStats() {
@@ -220,7 +220,7 @@ namespace BurningKnight.entity.creature.mob {
 
 				if (a != null) {
 					var w = a.Angle;
-					a.Angle += 0.7f;
+					a.Angle += 0.5f;
 
 					var t = Tween.To(w, a.Angle, x => a.Angle = x, 0.2f);
 						
@@ -240,8 +240,11 @@ namespace BurningKnight.entity.creature.mob {
 			if (dying) {
 				return;
 			}
+
+			Engine.Instance.Freeze = 0.5f;
+			Camera.Instance.ShakeMax(5);
 			
-			RemoveComponent<StateComponent>();
+			GetComponent<StateComponent>().Pause++;
 			
 			Timer.Add(() => {
 				// Sets the done flag

@@ -1,4 +1,5 @@
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -15,6 +16,7 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -53,12 +55,26 @@ namespace BurningKnight.entity.creature {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
-				if (ev.Amount < 0) {
-					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
+				var b = GetAnyComponent<BodyComponent>();
+				
+				if (b != null && ev.Amount < 0) {
+					b.KnockbackFrom(ev.From);
 				}
 				
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
+				}
+
+				for (var i = 0; i < 8; i++) {
+					var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area, Center + Random.Vector(-4, 4));
+					var a = ev.From.AngleTo(this);
+
+					p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
+					p.Particle.Velocity.Y -= 8f;
+
+					if (b != null) {
+						p.Particle.Velocity += b.Velocity * 0.5f;
+					}
 				}
 			} else if (e is DiedEvent d) {
 				if (!e.Handled) {
