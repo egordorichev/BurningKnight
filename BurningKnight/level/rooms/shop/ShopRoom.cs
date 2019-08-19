@@ -35,8 +35,8 @@ namespace BurningKnight.level.rooms.shop {
 			}
 
 			if (Random.Chance()) {
-				if (Random.Chance(20)) {
-					PaintTunnel(level, Tile.Chasm, GetCenterRect(), true);
+				if (Random.Chance()) {
+					PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect(), true);
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect());
 				} else {
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect(), Random.Chance());

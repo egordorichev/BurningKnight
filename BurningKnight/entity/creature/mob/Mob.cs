@@ -217,14 +217,20 @@ namespace BurningKnight.entity.creature.mob {
 			if (!rotationApplied) {
 				rotationApplied = true;
 				var a = GetAnyComponent<AnimationComponent>();
-
+				
 				if (a != null) {
 					var w = a.Angle;
 					a.Angle += 0.5f;
 
 					var t = Tween.To(w, a.Angle, x => a.Angle = x, 0.2f);
+
+					/*Tween.To(0.5f, a.Scale.X, x => a.Scale.X = x, 0.3f);
+					Tween.To(0.5f, a.Scale.Y, x => a.Scale.Y = x, 0.3f).OnEnd = () => {
+						Tween.To(1.5f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+						Tween.To(1.5f, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
+					};*/
 						
-					t.Delay = 0.3f;
+					t.Delay = 0.2f;
 					t.OnEnd = () => {
 						rotationApplied = false;
 					};
