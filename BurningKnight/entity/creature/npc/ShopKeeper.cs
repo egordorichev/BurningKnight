@@ -1,14 +1,21 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
 using BurningKnight.ui.dialog;
+using Lens;
 using Lens.entity;
+using Lens.entity.component.logic;
+using Lens.util;
+using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.timer;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.npc {
 	public class ShopKeeper : Npc {
-		private sbyte _mood = 2;
+		private sbyte _mood = 3;
 
 		private sbyte mood {
 			get => _mood;
@@ -24,14 +31,17 @@ namespace BurningKnight.entity.creature.npc {
 					return;
 				}
 
+
+				Log.Error($"Mood change from {_mood} to {value}");
 				_mood = value;
 
-				if (_mood < 2 && _mood > -2) {
-					GetComponent<DialogComponent>().Start($"shopkeeper_{_mood + 1}");
+				if (_mood < 3 && _mood > -1) {
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{_mood}", 1);
 				}
 
 				if (!r && raging) {
 					Become<RunState>();
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
 				}
 			}
 		}
@@ -40,12 +50,14 @@ namespace BurningKnight.entity.creature.npc {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			AlwaysActive = true;
 			
 			AddComponent(new AnimationComponent("shopkeeper"));
 
 			var h = GetComponent<HealthComponent>();
 
-			h.InitMaxHealth = 10;
+			h.InitMaxHealth = 20;
 			h.Unhittable = false;
 
 			var b = new RectBodyComponent(4, 2, 10, 14);
@@ -83,17 +95,30 @@ namespace BurningKnight.entity.creature.npc {
 				if (bpe.Bomb.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					Enrage();
 				}
+
+				return false;
 			} else if (e is GramophoneBrokenEvent gbe) {
 				if (gbe.Gramophone.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					mood--;
 				}
+
+				return false;
 			} else if (e is RerollMachine.BrokenEvent rme) {
 				if (rme.Machine.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					mood--;
 				}
+
+				return false;
 			} else if (e is VendingMachine.BrokenEvent vme) {
 				if (vme.Machine.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					mood--;
+				}
+
+				return false;
+			} else if (e is HealthModifiedEvent hme) {
+				if (hme.Amount < 0 && mood > -2) {
+					mood--;
+					hme.Amount = -1;
 				}
 			}
 			

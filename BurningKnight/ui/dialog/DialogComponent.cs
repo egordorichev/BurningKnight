@@ -20,6 +20,7 @@ namespace BurningKnight.ui.dialog {
 		public Entity To;
 
 		private bool added;
+		private float tillClose = -1;
 
 		private void HandleInput(object sender, TextInputEventArgs args) {
 			if (Current is AnswerDialog a) {
@@ -85,6 +86,14 @@ namespace BurningKnight.ui.dialog {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (tillClose > -1) {
+				tillClose -= dt;
+
+				if (tillClose <= 0) {
+					Close();
+				}
+			}
+			
 			if (added) {
 				return;
 			}
@@ -103,6 +112,11 @@ namespace BurningKnight.ui.dialog {
 			Setup(dialog, to);
 		}
 
+		public void StartAndClose(string id, float time, Entity to = null) {
+			Start(id, to);
+			tillClose = time;
+		}
+
 		public void Close() {
 			if (Dialog == null || Current == null) {
 				return;
@@ -111,6 +125,7 @@ namespace BurningKnight.ui.dialog {
 			Dialog.Close();
 			Last = Current;
 			Current = null;
+			tillClose = -1;
 		}
 		
 		private void Setup(Dialog dialog, Entity to = null) {

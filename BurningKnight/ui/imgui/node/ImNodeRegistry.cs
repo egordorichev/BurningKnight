@@ -7,6 +7,7 @@ namespace BurningKnight.ui.imgui.node {
 
 		static ImNodeRegistry() {
 			Define<ImOrdNode>("Ord");
+			Define<ImTextNode>("Text");
 			Define<ImTextOutputNode>("Text output");
 			Define<ImTextInputNode>("Text input");
 			Define<ImDialogNode>("Dialog");

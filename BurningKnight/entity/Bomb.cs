@@ -36,10 +36,6 @@ namespace BurningKnight.entity {
 				Radius = 32,
 				Timer = explosionTime
 			});
-
-			HandleEvent(new BombPlacedEvent {
-				Bomb = this
-			});
 		}
 
 		private void RenderShadow() {
@@ -62,6 +58,21 @@ namespace BurningKnight.entity {
 
 		public bool ShouldCollide(Entity entity) {
 			return !(entity is Mob);
+		}
+
+		private bool sent;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (!sent) {
+				sent = true;
+				
+				// Not placed in init, so that room component had a chance to guess the room				
+				HandleEvent(new BombPlacedEvent {
+					Bomb = this
+				});
+			}
 		}
 	}
 }

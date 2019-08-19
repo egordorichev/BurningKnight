@@ -39,11 +39,7 @@ namespace BurningKnight.entity.creature.mob {
 					var dialog = GetComponent<DialogComponent>();
 
 					if (dialog.Current == null) {
-						dialog.Start($"npc_hurt_{Random.Int(3)}");
-
-						Timer.Add(() => {
-							dialog.Close();
-						}, Random.Float(2f, 3f));
+						dialog.StartAndClose($"npc_hurt_{Random.Int(3)}", 2);
 					}
 				}
 				

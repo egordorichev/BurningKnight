@@ -142,6 +142,23 @@ namespace BurningKnight.entity.creature.mob {
 						});
 					}
 				}
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
+				if (!rotationApplied) {
+					rotationApplied = true;
+					var a = GetAnyComponent<AnimationComponent>();
+				
+					if (a != null) {
+						var w = a.Angle;
+						a.Angle += 0.5f;
+
+						var t = Tween.To(w, a.Angle, x => a.Angle = x, 0.2f);
+						
+						t.Delay = 0.2f;
+						t.OnEnd = () => {
+							rotationApplied = false;
+						};
+					}
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -209,34 +226,6 @@ namespace BurningKnight.entity.creature.mob {
 
 		protected override bool HandleDeath(DiedEvent d) {
 			base.HandleDeath(d);
-
-			/*if (d.From != null) {
-				GetAnyComponent<BodyComponent>()?.KnockbackFrom(d.From);	
-			}*/
-
-			if (!rotationApplied) {
-				rotationApplied = true;
-				var a = GetAnyComponent<AnimationComponent>();
-				
-				if (a != null) {
-					var w = a.Angle;
-					a.Angle += 0.5f;
-
-					var t = Tween.To(w, a.Angle, x => a.Angle = x, 0.2f);
-
-					/*Tween.To(0.5f, a.Scale.X, x => a.Scale.X = x, 0.3f);
-					Tween.To(0.5f, a.Scale.Y, x => a.Scale.Y = x, 0.3f).OnEnd = () => {
-						Tween.To(1.5f, a.Scale.X, x => a.Scale.X = x, 0.2f);
-						Tween.To(1.5f, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
-					};*/
-						
-					t.Delay = 0.2f;
-					t.OnEnd = () => {
-						rotationApplied = false;
-					};
-				}
-			}
-
 			return true;
 		}
 
@@ -247,6 +236,8 @@ namespace BurningKnight.entity.creature.mob {
 				return;
 			}
 
+			dying = true;
+			
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.ShakeMax(5);
 			

@@ -9,6 +9,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
@@ -19,6 +20,7 @@ namespace BurningKnight.level.entities {
 		private TextureRegion bottom;
 		private float t;
 		private float tillNext;
+		private bool broken;
 		
 		public override void Init() {
 			base.Init();
@@ -28,6 +30,11 @@ namespace BurningKnight.level.entities {
 
 			top = CommonAse.Props.GetSlice("player_top");
 			bottom = CommonAse.Props.GetSlice("player");
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			broken = GetComponent<HealthComponent>().Health == 0;
 		}
 
 		public override void AddComponents() {
@@ -75,8 +82,6 @@ namespace BurningKnight.level.entities {
 		}
 
 		private void RealRender(bool shadow = false) {
-			var broken = GetComponent<HealthComponent>().Health == 0;
-			
 			if (shadow) {
 				Graphics.Render(bottom, Position + new Vector2(0, 34), 0, Vector2.Zero, MathUtils.InvertY);
 
@@ -106,9 +111,13 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent) {
-				HandleEvent(new GramophoneBrokenEvent {
-					Gramophone = this
-				});
+				if (!broken) {
+					HandleEvent(new GramophoneBrokenEvent {
+						Gramophone = this
+					});
+
+					broken = true;
+				}
 			}
 			
 			return base.HandleEvent(e);
