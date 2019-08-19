@@ -16,6 +16,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.item {
 	public class ShopStand : ItemStand {
 		public bool Sells = true;
+		public bool Free;
 		private int price;
 		private string priceString;
 		private float priceX;
@@ -36,7 +37,7 @@ namespace BurningKnight.entity.item {
 				return false;
 			}
 
-			if (!Sells) {
+			if (!Sells || Free) {
 				return true;
 			}
 
@@ -57,18 +58,20 @@ namespace BurningKnight.entity.item {
 
 		protected override void OnTake(Item item, Entity who) {
 			base.OnTake(item, who);
-			
-			who.HandleEvent(new ItemBoughtEvent {
-				Item = item,
-				Who = who,
-				Stand = this
-			});
+
+			if (!Free) {
+				who.HandleEvent(new ItemBoughtEvent {
+					Item = item,
+					Who = who,
+					Stand = this
+				});
+			}
 		}
 
 		public override void Render() {
 			base.Render();
 
-			if (Item != null && Sells) {
+			if (Item != null && Sells && !Free) {
 				if (hasSale) {
 					Graphics.Color = Color.Red;
 				}
@@ -82,6 +85,11 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void Recalculate() {
+			if (Free) {
+				price = 0;
+				return;
+			}
+			
 			if (Item == null) {
 				price = 0;
 				Sells = false;
@@ -95,6 +103,7 @@ namespace BurningKnight.entity.item {
 				price = (int) Math.Floor(price * 0.5f);
 				hasSale = true;
 			}
+			
 			var r = GetComponent<RoomComponent>().Room;
 
 			if (r != null) {
@@ -140,11 +149,13 @@ namespace BurningKnight.entity.item {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			onSale = stream.ReadBoolean();
+			Free = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(onSale);
+			stream.WriteBoolean(Free);
 		}
 	}
 }

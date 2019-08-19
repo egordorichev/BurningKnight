@@ -28,7 +28,6 @@ namespace BurningKnight.entity.item.use {
 				
 				if (e is ItemStand s) {
 					if (rerollStands) {
-
 						if (s.Item == null) {
 							if (spawnNewItems) {
 								s.SetItem(Items.CreateAndAdd(Items.Generate(pool), area), null);
@@ -65,6 +64,7 @@ namespace BurningKnight.entity.item.use {
 
 				if (id != null) {
 					item.ConvertTo(id);
+					item.AutoPickup = false;
 					ProcessItem(item);
 				}
 

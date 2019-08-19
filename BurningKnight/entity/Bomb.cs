@@ -25,6 +25,7 @@ namespace BurningKnight.entity {
 			AddComponent(new BombGraphicsComponent("items", "bk:bomb"));
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
+			AddComponent(new RoomComponent());
 			
 			Width = 10;
 			Height = 13;

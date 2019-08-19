@@ -179,5 +179,9 @@ namespace BurningKnight.level.entities {
 		private void RenderShadow() {
 			GraphicsComponent.Render(true);
 		}
+		
+		public class BrokenEvent : Event {
+			public VendingMachine Machine;
+		}
 	}
 }

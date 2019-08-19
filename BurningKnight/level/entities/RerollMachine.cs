@@ -135,6 +135,10 @@ namespace BurningKnight.level.entities {
 			AnimationUtil.Explosion(Center);
 
 			UpdateSprite();
+
+			HandleEvent(new BrokenEvent {
+				Machine = this
+			});
 		}
 
 		public override void PostInit() {
@@ -172,6 +176,10 @@ namespace BurningKnight.level.entities {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(broken);
+		}
+		
+		public class BrokenEvent : Event {
+			public RerollMachine Machine;
 		}
 	}
 }
