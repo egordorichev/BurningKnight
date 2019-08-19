@@ -16,6 +16,7 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
@@ -42,7 +43,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			});
 
-			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
+			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.1f;
 		}
 
 		protected virtual void SetStats() {
@@ -204,9 +205,32 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		private bool dying;
+		private bool rotationApplied;
 
-		protected override bool HandleDeath() {
-			base.HandleDeath();
+		protected override bool HandleDeath(DiedEvent d) {
+			base.HandleDeath(d);
+
+			/*if (d.From != null) {
+				GetAnyComponent<BodyComponent>()?.KnockbackFrom(d.From);	
+			}*/
+
+			if (!rotationApplied) {
+				rotationApplied = true;
+				var a = GetAnyComponent<AnimationComponent>();
+
+				if (a != null) {
+					var w = a.Angle;
+					a.Angle += 0.7f;
+
+					var t = Tween.To(w, a.Angle, x => a.Angle = x, 0.2f);
+						
+					t.Delay = 0.3f;
+					t.OnEnd = () => {
+						rotationApplied = false;
+					};
+				}
+			}
+
 			return true;
 		}
 

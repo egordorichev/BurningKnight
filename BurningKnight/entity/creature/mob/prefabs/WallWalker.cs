@@ -77,7 +77,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			AddComponent(body);
 			body.KnockbackModifier = 0;
 			
-			GetComponent<WallAnimationComponent>().Angle = angle;
+			GetComponent<WallAnimationComponent>().WallAngle = angle;
 			GetComponent<StateComponent>().State = GetIdleState();
 		}
 

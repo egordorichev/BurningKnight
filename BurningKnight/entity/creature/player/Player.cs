@@ -5,6 +5,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room;
 using BurningKnight.level;
@@ -345,19 +346,24 @@ namespace BurningKnight.entity.creature.player {
 						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
 					}
 				}*/
-			} else if (e is TileCollisionStartEvent tcse) {
-				/*if (tcse.Tile == Tile.HighGrass) {
-					var level = Run.Level;
+			} else if (e is HealthModifiedEvent h) {
+				if (h.Amount < 0) {
+					var cl = GetBloodColor();
 					
-					GetComponent<TileInteractionComponent>().ApplyForAllTouching((i, x, y) => {
-						var t = level.Get(x, y, true);
-
-						if (t == Tile.HighGrass) {
-							// todo: particles
-							level.Set(x, y, Tile.Grass);
+					if (Random.Chance(30)) {
+						for (var i = 0; i < Random.Int(1, 3); i++) {
+							Area.Add(new SplashParticle {
+								Position = Center - new Vector2(2.5f),
+								Color = cl
+							});
 						}
+					}
+
+					Area.Add(new SplashFx {
+						Position = Center,
+						Color = ColorUtils.Mod(cl)
 					});
-				}*/
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -376,7 +382,7 @@ namespace BurningKnight.entity.creature.player {
 			return true;
 		}
 
-		protected override bool HandleDeath() {
+		protected override bool HandleDeath(DiedEvent d) {
 			Done = false;
 			died = true;
 

@@ -55,29 +55,14 @@ namespace BurningKnight.entity.creature {
 			if (e is HealthModifiedEvent ev) {
 				if (ev.Amount < 0) {
 					GetAnyComponent<BodyComponent>()?.KnockbackFrom(ev.From);
-					var c = GetBloodColor();
-					
-					if (Random.Chance(30)) {
-						for (var i = 0; i < Random.Int(1, 3); i++) {
-							Area.Add(new SplashParticle {
-								Position = Center - new Vector2(2.5f),
-								Color = c
-							});
-						}
-					}
-
-					Area.Add(new SplashFx {
-						Position = Center,
-						Color = ColorUtils.Mod(c)
-					});
 				}
 				
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
 				}
-			} else if (e is DiedEvent) {
+			} else if (e is DiedEvent d) {
 				if (!e.Handled) {
-					if (HandleDeath()) {
+					if (HandleDeath(d)) {
 						return true;
 					}
 				}
@@ -116,7 +101,7 @@ namespace BurningKnight.entity.creature {
 			return base.HandleEvent(e);
 		}
 
-		protected virtual bool HandleDeath() {
+		protected virtual bool HandleDeath(DiedEvent d) {
 			AnimateDeath();
 			return false;
 		}

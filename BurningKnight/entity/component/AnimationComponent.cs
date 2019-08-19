@@ -89,7 +89,7 @@ namespace BurningKnight.entity.component {
 			
 			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
 				var i = health.InvincibilityTimer;
-
+				
 				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
 					var shader = Shaders.Entity;
 					Shaders.Begin(shader);
@@ -123,7 +123,7 @@ namespace BurningKnight.entity.component {
 			var region = Animation.GetCurrentTexture();
 			var or = new Vector2(region.Width / 2, shadow ? 0 : OriginY);
 			
-			Graphics.Render(region, pos + or, Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(region, pos + or, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 
 		public override bool HandleEvent(Event e) {

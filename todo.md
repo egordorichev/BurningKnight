@@ -1,12 +1,13 @@
 # TODO
 
 
-* enemy death -> knockback and explode into particles
-* enemy hurt -> knockback and rotate
+* creature hurt -> new blood particles from the direction of hit
 
 * trap room doesnt save as trap room
 * moving platform variant, that requires it supporting something
 * entrance/exit rooms: add a few variations
+* shop keeper ai
+* selling things to shop keeper?
 * more effects when you reflect a bullet? change its color somehow???
 * juice up pistons
 
