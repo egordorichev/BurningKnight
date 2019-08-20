@@ -16,8 +16,20 @@ namespace BurningKnight.entity.component {
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse && cse.Entity is Support ss) {
 				Supports.Add(ss);
+				ss.Supporting.Add(Entity);
+
+				ss.HandleEvent(new Support.StartedSupportingEvent {
+					Support = ss,
+					Entity = Entity
+				});
 			} else if (e is CollisionEndedEvent cee && cee.Entity is Support se) {
 				Supports.Remove(se);
+				se.Supporting.Remove(Entity);
+
+				se.HandleEvent(new Support.EndedSupportingEvent {
+					Support = se,
+					Entity = Entity
+				});
 			}
 			
 			return base.HandleEvent(e);

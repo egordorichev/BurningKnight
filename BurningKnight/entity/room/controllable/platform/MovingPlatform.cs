@@ -35,6 +35,10 @@ namespace BurningKnight.entity.room.controllable.platform {
 		private PlatformBorder up;
 		private PlatformBorder down;
 
+		protected virtual string GetAnimation() {
+			return "moving_platform";
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -42,7 +46,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			Height = th * 16 + 6;
 
 			AddComponent(new StateComponent());
-			AddComponent(new AnimationComponent("moving_platform"));
+			AddComponent(new AnimationComponent(GetAnimation()));
 
 			var w = tw * 16;
 			var h = th * 16;
@@ -102,7 +106,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 
-				if (T >= Delay) {
+				if (Self.On && T >= Delay) {
 					Become<MovingState>();
 				}
 			}

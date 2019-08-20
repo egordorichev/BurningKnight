@@ -27,7 +27,6 @@ using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {

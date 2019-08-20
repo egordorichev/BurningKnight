@@ -4,7 +4,6 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
-using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.use {

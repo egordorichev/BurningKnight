@@ -412,6 +412,7 @@
     <Compile Include="entity\room\controllable\platform\Platform.cs" />
     <Compile Include="entity\room\controllable\platform\PlatformBorder.cs" />
     <Compile Include="entity\room\controllable\platform\PlatformController.cs" />
+    <Compile Include="entity\room\controllable\platform\SteppingPlatform.cs" />
     <Compile Include="entity\room\controllable\RollingSpike.cs" />
     <Compile Include="entity\room\controllable\RoomControllable.cs" />
     <Compile Include="entity\room\controllable\Support.cs" />

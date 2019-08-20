@@ -4,7 +4,6 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
-using MonoGame.Extended;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesSplitOnDeathUse : ItemUse {
@@ -13,7 +12,7 @@ namespace BurningKnight.entity.item.use {
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
 				pce.Projectile.OnDeath += (p, t) => {
 					var v = p.GetAnyComponent<BodyComponent>().Velocity;
-					var a = v.ToAngle();
+					var a = v.ToAngle() - Math.PI;
 					var s = v.Length();
 					var c = p.HasComponent<CircleBodyComponent>();
 

@@ -42,6 +42,8 @@ namespace BurningKnight.entity.creature.npc {
 				if (!r && raging) {
 					Become<RunState>();
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
+
+					AddTag(Tags.MustBeKilled);
 				}
 			}
 		}
