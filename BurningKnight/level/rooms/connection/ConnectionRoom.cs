@@ -35,28 +35,5 @@ namespace BurningKnight.level.rooms.connection {
 
 			return 0;
 		}
-
-		public void CoverInSpikes(Level level) {
-			if (Random.Chance(10)) {
-				var m = Random.Int(0, 2);
-
-				for (var y = Top + 1 + m; y < Bottom - m; y++) {
-					for (var x = Left + 1 + m; x < Right - m; x++) {
-						var t = level.Get(x, y);
-
-						if (t.IsWall() || t == Tile.Chasm || t == Tile.PistonDown) {
-							continue;
-						}
-
-						var spikes = new SensingSpikes();
-
-						spikes.X = x * 16;
-						spikes.Y = y * 16;
-
-						level.Area.Add(spikes);
-					}
-				}
-			}
-		}
 	}
 }

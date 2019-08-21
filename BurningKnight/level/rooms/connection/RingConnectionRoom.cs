@@ -21,16 +21,14 @@ namespace BurningKnight.level.rooms.connection {
 			var b = Random.Chance();
 			var d = b && Random.Chance();
 			
-			PaintTunnel(level, d ? Tiles.Pick(Tile.WallA, Tile.Planks, Tiles.RandomFloor(), Tile.FloorD) : Tiles.RandomFloor(), ring, b); 
+			PaintTunnel(level, d ? Tiles.Pick(Tile.WallA, Tile.Planks, Tiles.RandomFloor(), Tile.FloorD) : Tiles.RandomFloorOrSpike(), ring, b); 
 
 			if (d || Random.Chance()) {
-				PaintTunnel(level, Tiles.RandomNewFloor(), ring);
+				PaintTunnel(level, Tiles.RandomFloorOrSpike(), ring);
 			}
 			
-			Painter.Fill(level, ring.Left - 1, ring.Top - 1, 3, 3, Tiles.RandomFloor());
-			Painter.Set(level, ring.Left, ring.Top, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.WallB, Tile.Planks));
-
-			CoverInSpikes(level);
+			Painter.Fill(level, ring.Left - 1, ring.Top - 1, 3, 3, Tiles.RandomFloorOrSpike());
+			Painter.Set(level, ring.Left, ring.Top, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks));
 		}
 
 		private Rect space;

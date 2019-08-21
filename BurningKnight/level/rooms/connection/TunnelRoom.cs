@@ -15,24 +15,22 @@ namespace BurningKnight.level.rooms.connection {
 		public override void Paint(Level Level) {
 			Fill(Level);
 			var Fl = Random.Chance(25) ? Random.Chance(33) ? Tile.Chasm 
-				: Random.Chance() ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloor();
+				: Random.Chance() ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloorOrSpike();
 
 			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance()) {
 				PaintTunnel(Level, Fl, null, true);
 			}
 
 			if (Fl == Tile.Lava) {
-				PaintTunnel(Level, Tiles.RandomFloor());
+				PaintTunnel(Level, Tiles.RandomFloorOrSpike());
 			}
 
 			if (Random.Chance()) {
-				PaintTunnel(Level, Tiles.RandomFloor(), null, true);
+				PaintTunnel(Level, Tiles.RandomFloorOrSpike(), null, true);
 			}
 
 			PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance() ? 
-				Tile.Water : Tile.Dirt : Tiles.RandomFloor());
-
-			CoverInSpikes(Level);
+				Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike());
 		}
 	}
 }

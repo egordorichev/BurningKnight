@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.plant;
 using BurningKnight.level.paintings;
@@ -104,15 +105,35 @@ namespace BurningKnight.level {
 				Room.Paint(Level);
 				Room.SetupDoors(Level);
 
-				if (Run.Depth == 1) {
-					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
-						for (var X = Room.Left; X <= Room.Right; X++) {
-							var I = Level.ToIndex(X, Y);
+				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+					for (var X = Room.Left; X <= Room.Right; X++) {
+						var I = Level.ToIndex(X, Y);
 
+						if (Run.Depth == 1) {
 							if (Level.Liquid[I] == (int) Tile.Lava) {
 								Level.Liquid[I] = 0;
 								Level.Set(I, Tile.Chasm);
 							}
+						}
+
+						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							
+							var spikes = new SensingSpikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							
+							var spikes = new Spikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
 						}
 					}
 				}

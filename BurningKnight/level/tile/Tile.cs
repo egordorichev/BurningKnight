@@ -22,6 +22,10 @@ namespace BurningKnight.level.tile {
 		Piston,
 		PistonDown,
 		
+		// Not an actual tile, used just for placement with painter
+		SpikeTmp,
+		SensingSpikeTmp,
+		
 		Total
 	}
 }

@@ -12,7 +12,11 @@ namespace BurningKnight.level.tile {
 		public static Tile RandomFloor() {
 			return lastFloor = Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
 		}
-
+		
+		public static Tile RandomFloorOrSpike() {
+			return lastFloor = Random.Chance(100) ? Tile.SensingSpikeTmp : Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
+		}
+		
 		public static Tile RandomWall() {
 			return Tile.WallA;//lastWall = (Random.Chance() ? Tile.WallA : Tile.WallB);
 		}
