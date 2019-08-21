@@ -7,7 +7,7 @@ namespace BurningKnight.level.walls {
 	public class TempleWalls : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var m = 2;
-			var f = Tiles.RandomNewFloor();
+			var f = Tiles.RandomFloorOrSpike();
 			var bold = Random.Chance(30);
 
 			inside = inside.Shrink(m);

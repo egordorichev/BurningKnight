@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.state;
@@ -59,7 +60,7 @@ namespace BurningKnight.entity.item.util {
 					fixture.GetAABB(out var hitbox, 0);
 
 					Run.Level.Destroyable.Break(hitbox.Center.X, hitbox.Center.Y);
-				} else */if (ev.Entity is Projectile p && p.Owner is Mob != Owner is Mob) {
+				} else */if (ev.Entity is Projectile p && (p.Owner is Mob != Owner is Mob || p.Owner is RoomControllable)) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
 

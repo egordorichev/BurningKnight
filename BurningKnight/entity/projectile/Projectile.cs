@@ -10,6 +10,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -127,11 +128,19 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
+			if (entity is RoomControllable && entity != Owner) {
+				return true;
+			}
+
+			if (Owner is RoomControllable && entity is Mob) {
+				return false;
+			}
+
 			if (CanHitOwner && entity == Owner) {
 				return true;
 			}
 			
-			return (!(entity is Creature) || Owner is Mob != entity is Mob) && 
+			return (entity is RoomControllable || !(entity is Creature) || Owner is Mob != entity is Mob) && 
 			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) || entity is Prop)
 			        || entity.HasComponent<HealthComponent>());
 		}
@@ -145,7 +154,19 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 				
-				if (((CanHitOwner && ev.Entity == Owner && T > 0.3f) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly() || bc is ShopKeeper))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if ((
+						(CanHitOwner && ev.Entity == Owner && T > 0.3f) 
+						|| (ev.Entity != Owner 
+						    && !(Owner is RoomControllable && ev.Entity is Mob) 
+						    && (
+							    !(Owner is Creature ac) 
+							    || !(ev.Entity is Creature bc) 
+							    || ac.IsFriendly() != bc.IsFriendly() 
+							    || bc is ShopKeeper
+							  )
+						  )
+						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+					
 					health.ModifyHealth(-Damage, Owner);
 					ToHurt.Add(ev.Entity);
 				}

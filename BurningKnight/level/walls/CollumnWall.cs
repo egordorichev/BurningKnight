@@ -2,6 +2,7 @@ using System;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
+using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.walls {
@@ -13,17 +14,48 @@ namespace BurningKnight.level.walls {
 			Painter.Fill(level, inside, Tiles.Pick(Tile.Chasm, Tiles.RandomFillWall()));
 
 			if (Random.Chance()) {
-				var tile = Tiles.Pick(Tile.Chasm, Tiles.RandomNewWall(), Tile.Lava);
-				inside.Shrink(Random.Int(1, 3));
+				var p = Random.Chance(30);
+				var tile = p ? Tiles.RandomFloor() : Tiles.Pick(Tile.Chasm, Tile.Lava, Tile.SensingSpikeTmp);
 
 				if (tile == Tile.Lava) {
-					Painter.Fill(level, inside, Tiles.RandomFloor());
+					Painter.Fill(level, inside, 1, Tiles.RandomFloor());
 				}
 				
-				Painter.Fill(level, inside, tile);
+				Painter.Fill(level, inside, 1, tile);
+
+				if (p || Random.Chance(70)) {
+					var m = false;
+					var f = Tiles.RandomFloorOrSpike();
+
+					if (Random.Chance(40)) {
+						m = true;
+
+						Painter.Set(level, new Vector2(inside.Left, inside.Top + inside.GetHeight() / 2 - 1), f);
+						Painter.Set(level, new Vector2(inside.Left, inside.Top + inside.GetHeight() / 2), f);
+					}
+
+					if (Random.Chance(40)) {
+						m = true;
+					
+						Painter.Set(level, new Vector2(inside.Right - 1, inside.Top + inside.GetHeight() / 2 + 1), f);
+						Painter.Set(level, new Vector2(inside.Right - 1, inside.Top + inside.GetHeight() / 2), f);
+					}
+
+					if (Random.Chance(40)) {
+						m = true;
+					
+						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2 - 1, inside.Top), f);
+						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2, inside.Top), f);
+					}
+
+					if (!m || Random.Chance(40)) {
+						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2 + 1, inside.Bottom - 1), f);
+						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2, inside.Bottom - 1), f);
+					}
+				}
 			}
 
-			if (Random.Chance()) {
+			if (Random.Chance(30)) {
 				room.PaintTunnel(level, Tiles.RandomNewFloor(), room.GetCenterRect(), true);
 				room.PaintTunnel(level, Tiles.RandomNewFloor(), room.GetCenterRect());
 			}

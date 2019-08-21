@@ -1,11 +1,13 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util;
+using Lens.util.file;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
@@ -19,7 +21,15 @@ namespace BurningKnight.entity.room.controllable.turret {
 			get => GetComponent<AnimationComponent>().Animation.Frame;
 			set => GetComponent<AnimationComponent>().Animation.Frame = value;
 		}
-		
+
+		public uint StartingAngle;
+		public bool ReverseDirection;
+
+		public override void Init() {
+			Y -= 8;
+			base.Init();
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -32,6 +42,35 @@ namespace BurningKnight.entity.room.controllable.turret {
 			a.Animation.Paused = true;
 			
 			AddComponent(new ShadowComponent());
+			AddComponent(new ExplodableComponent());
+
+			AlwaysActive = true;
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is ExplodedEvent) {
+				Done = true;
+				RemoveFromRoom();
+			}
+			
+			return base.HandleEvent(e);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			StartingAngle = stream.ReadByte();
+			ReverseDirection = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteByte((byte) StartingAngle);
+			stream.WriteBoolean(ReverseDirection);
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			Angle = StartingAngle;
 		}
 
 		public override void TurnOn() {
@@ -45,7 +84,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			if (beforeNextBullet <= 0) {
 				beforeNextBullet = 2;
-
+				
 				var a = GetComponent<AnimationComponent>();
 
 				Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);
@@ -58,10 +97,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 						var t = Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 
 						if (Rotates) {
-							t.OnEnd = () => { Angle++; };
+							t.OnEnd = () => Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
 						}
 
-						Fire(Angle / 4f * Math.PI);
+						var r = GetComponent<RoomComponent>();
+
+						if (r.Room != null && r.Room.Tagged[Tags.Player].Count > 0) {
+							Fire(Angle / 4f * Math.PI);
+						}
 					};
 				};
 			}
@@ -81,7 +124,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile || entity is Chasm);
+			return !(entity is Chasm);
 		}
 	}
 }

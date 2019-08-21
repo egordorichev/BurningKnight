@@ -75,5 +75,9 @@ namespace BurningKnight.entity.room.input {
 				room.Inputs.Add(this);
 			}
 		}
+
+		protected void RemoveFromRoom() {
+			GetComponent<RoomComponent>().Room?.Inputs.Remove(this);
+		}
 	}
 }

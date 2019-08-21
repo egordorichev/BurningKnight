@@ -7,9 +7,12 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.walls {
 	public class SegmentedWall : WallPainter {
+		private bool fl;
+		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var t = Tile.WallA;
-			
+			fl = Random.Chance(10);
+
 			CreateWalls(level, new Rect(room.Left + 1, room.Top + 1, room.Right - 1, room.Bottom - 1), t);
 		}
 
@@ -36,7 +39,7 @@ namespace BurningKnight.level.walls {
 							new Vector2(splitX, area.Bottom), tile);
 
 						var space = Random.Int(area.Top, area.Bottom - 1);
-						var f = Tiles.RandomFloor();
+						var f = fl ? Tile.SensingSpikeTmp : Tiles.RandomFloorOrSpike();
 						
 						Painter.Set(level, splitX, space, f);
 						Painter.Set(level, splitX, space + 1, f);
@@ -55,7 +58,7 @@ namespace BurningKnight.level.walls {
 						Painter.DrawLine(level, new Vector2(area.Left, splitY), new Vector2(area.Right, splitY), tile);
 
 						var space = Random.Int(area.Left, area.Right - 1);
-						var f = Tiles.RandomFloor();
+						var f = fl ? Tile.SensingSpikeTmp : Tiles.RandomFloorOrSpike();
 						
 						Painter.Set(level, space, splitY, f);
 						Painter.Set(level, space + 1, splitY, f);

@@ -45,5 +45,9 @@ namespace BurningKnight.entity.room.controllable {
 				room.Controllable.Add(this);
 			}
 		}
+
+		protected void RemoveFromRoom() {
+			GetComponent<RoomComponent>().Room?.Controllable.Remove(this);
+		}
 	}
 }

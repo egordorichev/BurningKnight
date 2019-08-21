@@ -107,10 +107,6 @@ namespace BurningKnight.entity.room {
 		}
 
 		public void Discover() {
-			if (Explored) {
-				return;
-			}
-
 			Explored = true;
 
 			ApplyToEachTile((x, y) => {

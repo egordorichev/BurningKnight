@@ -7,6 +7,7 @@ using BurningKnight.entity.item;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities {

@@ -11,8 +11,6 @@
 
 ### rooms
 
-* rooms with spikes
-* rooms with turrets
 * rooms with rolling spikes
 * rooms with turrets on platforms
 * rooms with spikes on platforms? xD
@@ -22,7 +20,6 @@
 ### beta bugs
 
 * enemy npe's when they die and still get hit by a bullet
-* unexplorable rooms after reloading
 * openal crash
 * max hp resets
 
