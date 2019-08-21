@@ -1,3 +1,4 @@
+using BurningKnight.entity.room.input;
 using Lens.entity;
 using Lens.util.file;
 
@@ -19,7 +20,7 @@ namespace BurningKnight.entity.room.controller {
 			T += dt;
 		}
 
-		public virtual void HandleEvent(Event e) {
+		public virtual void HandleInputChange(RoomInput.ChangedEvent e) {
 			
 		}
 

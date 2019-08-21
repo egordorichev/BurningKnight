@@ -6,9 +6,11 @@ namespace BurningKnight.entity.room.controllable {
 	public class RoomControllable : SaveableEntity, PlaceableEntity {
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			AddComponent(new RoomComponent());
 			AddComponent(new SupportableComponent());
 		}
-
+		
 		public bool On { get; private set; }
 		
 		public virtual void TurnOn() {
@@ -24,6 +26,23 @@ namespace BurningKnight.entity.room.controllable {
 				TurnOff();
 			} else {
 				TurnOn();
+			}
+		}
+
+		private bool added;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (!added) {
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room == null) {
+					return;
+				}
+				
+				added = true;
+				room.Controllable.Add(this);
 			}
 		}
 	}

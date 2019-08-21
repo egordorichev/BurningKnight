@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
+using BurningKnight.entity.room.input;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.room {
 		public bool Cleared;
 		
 		public List<RoomControllable> Controllable = new List<RoomControllable>();
+		public List<RoomInput> Inputs = new List<RoomInput>();
 		public List<Piston> Pistons = new List<Piston>();
 		public List<RoomController> Controllers = new List<RoomController>();
 		
@@ -101,6 +103,7 @@ namespace BurningKnight.entity.room {
 
 			Pistons.Clear();
 			Controllable.Clear();
+			Inputs.Clear();
 		}
 
 		public void Discover() {
@@ -267,6 +270,12 @@ namespace BurningKnight.entity.room {
 				Controllers.Add(c);
 				c.Room = this;
 				c.Init();
+			}
+		}
+
+		public void HandleInputChange(RoomInput.ChangedEvent e) {
+			foreach (var c in Controllers) {
+				c.HandleInputChange(e);
 			}
 		}
 	}

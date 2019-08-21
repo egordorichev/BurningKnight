@@ -1,12 +1,9 @@
 # TODO
 
-* spiikes
-
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 
 * trap room doesnt save as trap room
-* entrance/exit rooms: add a few variations
 * shop keeper ai
 * selling things to shop keeper?
 * more effects when you reflect a bullet? change its color somehow???
@@ -14,9 +11,13 @@
 
 ### rooms
 
-* turret room
-* rolling spike rooms
+* rooms with spikes
+* rooms with turrets
+* rooms with rolling spikes
 * rooms with turrets on platforms
+* rooms with spikes on platforms? xD
+* entrance/exit rooms variations
+* trap rooms
 
 ### beta bugs
 

@@ -1,5 +1,6 @@
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.tile;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms.connection {
 	public class ConnectionRoom : RoomDef {
@@ -36,20 +37,24 @@ namespace BurningKnight.level.rooms.connection {
 		}
 
 		public void CoverInSpikes(Level level) {
-			for (var y = Top + 2; y < Bottom - 1; y++) {
-				for (var x = Left + 2; x < Right - 1; x++) {
-					var t = level.Get(x, y);
+			if (Random.Chance(10)) {
+				var m = Random.Int(0, 2);
 
-					if (t.IsWall() || t == Tile.Chasm || t == Tile.PistonDown) {
-						continue;
+				for (var y = Top + 1 + m; y < Bottom - m; y++) {
+					for (var x = Left + 1 + m; x < Right - m; x++) {
+						var t = level.Get(x, y);
+
+						if (t.IsWall() || t == Tile.Chasm || t == Tile.PistonDown) {
+							continue;
+						}
+
+						var spikes = new SensingSpikes();
+
+						spikes.X = x * 16;
+						spikes.Y = y * 16;
+
+						level.Area.Add(spikes);
 					}
-
-					var spikes = new SensingSpikes();
-
-					spikes.X = x * 16;
-					spikes.Y = y * 16;
-
-					level.Area.Add(spikes);
 				}
 			}
 		}
