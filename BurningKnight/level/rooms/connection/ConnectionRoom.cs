@@ -1,3 +1,4 @@
+using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.tile;
 
 namespace BurningKnight.level.rooms.connection {
@@ -32,6 +33,25 @@ namespace BurningKnight.level.rooms.connection {
 			if (Side == Connection.All) return 2;
 
 			return 0;
+		}
+
+		public void CoverInSpikes(Level level) {
+			for (var y = Top + 2; y < Bottom - 1; y++) {
+				for (var x = Left + 2; x < Right - 1; x++) {
+					var t = level.Get(x, y);
+
+					if (t.IsWall() || t == Tile.Chasm || t == Tile.PistonDown) {
+						continue;
+					}
+
+					var spikes = new SensingSpikes();
+
+					spikes.X = x * 16;
+					spikes.Y = y * 16;
+
+					level.Area.Add(spikes);
+				}
+			}
 		}
 	}
 }

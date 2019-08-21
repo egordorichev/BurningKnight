@@ -12,10 +12,7 @@ namespace BurningKnight.level.rooms.connection {
 			}
 			
 			PaintTunnel(level, Tiles.RandomNewFloor(), Random.Chance() ? GetConnectionSpace() : new Rect(GetCenter()));
-			
-			foreach (var Door in Connected.Values) {
-				Door.Type = Random.Chance() ? DoorPlaceholder.Variant.Regular : DoorPlaceholder.Variant.Tunnel;
-			}
+			CoverInSpikes(level);
 		}
 
 		public override int GetMaxWidth() {

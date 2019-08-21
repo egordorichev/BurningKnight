@@ -29,6 +29,8 @@ namespace BurningKnight.level.rooms.connection {
 			
 			Painter.Fill(level, ring.Left - 1, ring.Top - 1, 3, 3, Tiles.RandomFloor());
 			Painter.Set(level, ring.Left, ring.Top, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.WallB, Tile.Planks));
+
+			CoverInSpikes(level);
 		}
 
 		private Rect space;

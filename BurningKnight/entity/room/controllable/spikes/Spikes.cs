@@ -15,10 +15,16 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		private static Vector2 offset = new Vector2(0, 5);
 		
 		protected List<Entity> Colliding = new List<Entity>();
-		
+
+		public override void Init() {
+			base.Init();
+			Y -= offset.Y;
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AlwaysActive = true;
 			Height = 21;
 
 			if (tile == null) {

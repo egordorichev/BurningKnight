@@ -16,6 +16,8 @@ namespace BurningKnight.level.rooms.connection {
 					}
 				}
 			}
+			
+			CoverInSpikes(level);
 		}
 	}
 }

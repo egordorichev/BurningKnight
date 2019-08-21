@@ -137,6 +137,10 @@ namespace BurningKnight.entity.creature.npc {
 			return base.HandleDeath(d);
 		}
 
+		public override bool IsFriendly() {
+			return !raging;
+		}
+
 		#region Shopkeeper States
 		/*
 		 * Peacefull

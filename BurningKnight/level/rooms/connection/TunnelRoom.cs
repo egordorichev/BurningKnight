@@ -1,3 +1,4 @@
+using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.tile;
 using Lens.util.math;
 
@@ -30,6 +31,8 @@ namespace BurningKnight.level.rooms.connection {
 
 			PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance() ? 
 				Tile.Water : Tile.Dirt : Tiles.RandomFloor());
+
+			CoverInSpikes(Level);
 		}
 	}
 }

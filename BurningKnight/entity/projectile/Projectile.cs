@@ -5,6 +5,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
@@ -144,7 +145,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 				
-				if (((CanHitOwner && ev.Entity == Owner && T > 0.3f) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly()))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				if (((CanHitOwner && ev.Entity == Owner && T > 0.3f) || (ev.Entity != Owner && (!(Owner is Creature ac) || !(ev.Entity is Creature bc) || ac.IsFriendly() != bc.IsFriendly() || bc is ShopKeeper))) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
 					ToHurt.Add(ev.Entity);
 				}
