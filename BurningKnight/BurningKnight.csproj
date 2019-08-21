@@ -415,6 +415,8 @@
     <Compile Include="entity\room\controllable\platform\SteppingPlatform.cs" />
     <Compile Include="entity\room\controllable\RollingSpike.cs" />
     <Compile Include="entity\room\controllable\RoomControllable.cs" />
+    <Compile Include="entity\room\controllable\spikes\SensingSpikes.cs" />
+    <Compile Include="entity\room\controllable\spikes\Spikes.cs" />
     <Compile Include="entity\room\controllable\Support.cs" />
     <Compile Include="entity\room\controllable\turret\QuadRotatingTurret.cs" />
     <Compile Include="entity\room\controllable\turret\QuadTurret.cs" />

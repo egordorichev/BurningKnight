@@ -1,11 +1,11 @@
 # TODO
 
+* spiikes
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 
 * trap room doesnt save as trap room
-* moving platform variant, that requires it supporting something
 * entrance/exit rooms: add a few variations
 * shop keeper ai
 * selling things to shop keeper?
@@ -20,6 +20,7 @@
 
 ### beta bugs
 
+* enemy npe's when they die and still get hit by a bullet
 * unexplorable rooms after reloading
 * openal crash
 * max hp resets
