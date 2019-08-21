@@ -426,6 +426,7 @@
     <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />
     <Compile Include="entity\room\controller\TimedPistonSwitchController.cs" />
     <Compile Include="entity\room\input\Lever.cs" />
+    <Compile Include="entity\room\input\PreasurePlate.cs" />
     <Compile Include="entity\room\input\RoomInput.cs" />
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />

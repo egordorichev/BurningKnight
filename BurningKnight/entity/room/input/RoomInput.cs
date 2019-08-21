@@ -14,7 +14,7 @@ namespace BurningKnight.entity.room.input {
 
 		public bool On { get; protected set; }
 		
-		public void TurnOn() {
+		public virtual void TurnOn() {
 			if (On) {
 				return;
 			}
@@ -24,7 +24,7 @@ namespace BurningKnight.entity.room.input {
 			SendEvents();
 		}
 		
-		public void TurnOff() {
+		public virtual void TurnOff() {
 			if (!On) {
 				return;
 			}
@@ -38,7 +38,7 @@ namespace BurningKnight.entity.room.input {
 			
 		}
 
-		private void SendEvents() {
+		protected void SendEvents() {
 			var e = new ChangedEvent {
 				Input = this
 			};

@@ -49,8 +49,8 @@ namespace BurningKnight.entity.room.input {
 			a.Scale.X = 2f;
 			a.Scale.Y = 0f;
 			
-			Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
-			Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
+			Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
+			Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 			
 			Camera.Instance.ShakeMax(6);
 		}
