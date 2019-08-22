@@ -8,6 +8,7 @@ using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
 using Lens.util;
@@ -67,6 +68,9 @@ namespace BurningKnight.level.rooms {
 				
 				// Treasure
 				RoomInfo.New<TreasureRoom>(1f),
+				
+				// Trap
+				RoomInfo.New<RollingSpikesRoom>(1f),
 				
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),

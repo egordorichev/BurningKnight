@@ -116,19 +116,19 @@ namespace BurningKnight.level {
 
 			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, LevelSave.BiomeGenerated));
 
-			//var Exit = (ExitRoom) RoomRegistry.Generate(RoomType.Exit);
-			//Exit.To = Run.Depth + 1;
-			
-			//Rooms.Add(Exit);
-
 			var Regular = GetNumRegularRooms();
 			var Special = GetNumSpecialRooms();
+			var trap = GetNumTrapRooms();
 			var Connection = GetNumConnectionRooms();
 			var Secret = GetNumSecretRooms();
-			Log.Info("Creating r" + Regular + " sp" + Special + " c" + Connection + " sc" + Secret + " rooms");
+			Log.Info($"Creating r{Regular} sp{Special} c{Connection} sc{Secret} t{trap} rooms");
 
 			for (var I = 0; I < Regular; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Regular, LevelSave.BiomeGenerated));
+			}
+
+			for (var i = 0; i < trap; i++) {
+				Rooms.Add(RoomRegistry.Generate(RoomType.Trap, LevelSave.BiomeGenerated));
 			}
 
 			for (var I = 0; I < Special; I++) {
@@ -152,8 +152,6 @@ namespace BurningKnight.level {
 			
 			TombRoom.Insert(Rooms);
 			
-			Rooms.Add(new ShiftingWallsRoom());
-			
 			return Rooms;
 		}
 
@@ -172,15 +170,19 @@ namespace BurningKnight.level {
 			return new CastleBuilder();
 		}
 
-		protected int GetNumRegularRooms() {
+		protected virtual int GetNumRegularRooms() {
 			return 5;
 		}
 
-		protected int GetNumSpecialRooms() {
+		protected virtual int GetNumTrapRooms() {
+			return Random.Chance(20) ? 0 : Random.Int(1, 3);
+		}
+
+		protected virtual int GetNumSpecialRooms() {
 			return 1;
 		}
 
-		protected int GetNumSecretRooms() {
+		protected virtual int GetNumSecretRooms() {
 			return Run.Depth <= 0 ? 0 : 1;
 		}
 

@@ -519,6 +519,7 @@
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
     <Compile Include="level\rooms\special\WellRoom.cs" />
+    <Compile Include="level\rooms\trap\RollingSpikesRoom.cs" />
     <Compile Include="level\rooms\trap\ShiftingWallsRoom.cs" />
     <Compile Include="level\rooms\trap\TrapRoom.cs" />
     <Compile Include="level\rooms\treasure\TreasureRoom.cs" />

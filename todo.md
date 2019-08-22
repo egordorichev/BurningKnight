@@ -12,6 +12,8 @@
 
 ### rooms
 
+* rooms with preasure plates
+* rooms with switches
 * rooms with rolling spikes
 * trap rooms
 
