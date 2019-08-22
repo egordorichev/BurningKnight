@@ -10,7 +10,7 @@ namespace BurningKnight.level.rooms.trap {
 
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) {
-				return 1;
+				return 2;
 			}
 
 			return 0;

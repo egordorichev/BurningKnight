@@ -13,6 +13,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -134,7 +135,7 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
-			if (entity is PlatformBorder || entity is MovingPlatform) {
+			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes) {
 				return false;
 			}
 

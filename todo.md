@@ -11,6 +11,7 @@
 
 ### rooms
 
+* trap room idea: spike circle follows player
 * rooms with preasure plates
 * rooms with switches
 * rooms with rolling spikes
