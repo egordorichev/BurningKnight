@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
@@ -17,8 +18,8 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity, PlaceableEntity {
@@ -78,8 +79,12 @@ namespace BurningKnight.entity.creature {
 				}
 			} else if (e is DiedEvent d) {
 				if (!e.Handled) {
-					if (HandleDeath(d)) {
-						return true;
+					try {
+						if (HandleDeath(d)) {
+							return true;
+						}
+					} catch (Exception ex) {
+						Log.Error(ex);
 					}
 				}
 			} else if (e is LostSupportEvent) {

@@ -531,6 +531,7 @@
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
+    <Compile Include="level\walls\MazeWall.cs" />
     <Compile Include="level\walls\PatchWall.cs" />
     <Compile Include="level\walls\PlatformWall.cs" />
     <Compile Include="level\walls\RuinsWall.cs" />

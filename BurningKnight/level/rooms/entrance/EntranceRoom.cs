@@ -1,7 +1,9 @@
 using BurningKnight.level.entities;
+using BurningKnight.level.tile;
 using BurningKnight.level.walls;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.entrance {
@@ -36,7 +38,14 @@ namespace BurningKnight.level.rooms.entrance {
 			};
 
 			level.Area.Add(prop);
-			prop.Center = (where + new Vector2(8)) * 16;
+
+			var t = level.Get((int) where.X, (int) where.Y);
+
+			if (Random.Chance(20) || !t.Matches(TileFlags.Passable)) {
+				where = GetRandomFreeCell().GetValueOrDefault(GetTileCenter());
+			}
+			
+			prop.Center = where * 16 + new Vector2(8);
 		}
 
 		public override int GetMinWidth() {
