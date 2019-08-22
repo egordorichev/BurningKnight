@@ -96,6 +96,8 @@ namespace BurningKnight.state {
 				Input.Blocked = 1;
 				gardient = CommonAse.Ui.GetSlice("gardient");
 				blur = 1;
+				
+				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
 			} else {
 				offset = Display.UiHeight;
 			}
@@ -244,7 +246,7 @@ namespace BurningKnight.state {
 					menuExited = true;
 					Input.Blocked = 0;
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, 1f);
-					Tween.To(-Display.UiHeight, offset, x => offset = x, 1f).OnEnd = () => Menu = false;
+					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
 			}
 			
@@ -502,6 +504,9 @@ namespace BurningKnight.state {
 
 			if (Menu && offset < Display.UiHeight) {
 				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight / 90f));
+				
+				Graphics.Print("Press X", Font.Small, Display.Height + 48 + (int) offset);
+				
 				LogoRenderer.Render(offset);
 			}
 
