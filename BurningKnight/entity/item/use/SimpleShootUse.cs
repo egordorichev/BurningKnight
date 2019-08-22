@@ -63,6 +63,8 @@ namespace BurningKnight.entity.item.use {
 			SpawnProjectile = (entity, item) => {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
+				var s = item.Region;
+				var offset = MathUtils.CreateVector(a, s.Width);
 
 				for (var i = 0; i < count; i++) {
 					var angle = a;
@@ -93,6 +95,8 @@ namespace BurningKnight.entity.item.use {
 						ProjectileDied = false;
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;
 					}
+					
+					projectile.Position += offset;
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {

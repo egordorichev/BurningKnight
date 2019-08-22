@@ -1,5 +1,6 @@
 # TODO
 
+* when creature dies from penetrating thing, on death can be spammed infinitly
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 
