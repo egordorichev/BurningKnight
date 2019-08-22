@@ -44,6 +44,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			Width = tw * 16;
 			Height = th * 16 + 6;
+			On = true;
 
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent(GetAnimation()));
@@ -52,7 +53,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			var h = th * 16;
 			var b = new RectBodyComponent(0.5f, 0.5f, w - 1, h - 1);
 			AddComponent(b);
-
+			
 			b.Body.Friction = 0;
 			
 			Area.Add(left = new PlatformBorder());

@@ -13,8 +13,6 @@
 
 * rooms with rolling spikes
 * rooms with turrets on platforms
-* rooms with spikes on platforms? xD
-* entrance/exit rooms variations
 * trap rooms
 
 ### beta bugs

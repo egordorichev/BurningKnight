@@ -4,7 +4,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 	public class SteppingPlatform : MovingPlatform {
 		public override void Init() {
 			base.Init();
-			TurnOff();
+			On = false;
 		}
 
 		protected override string GetAnimation() {

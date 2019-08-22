@@ -1,4 +1,5 @@
 using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
 using Lens.util.math;
@@ -24,6 +25,12 @@ namespace BurningKnight.level.rooms.regular {
 			platform.Controller = Random.Chance(40) ? (Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise) : (vertical ? PlatformController.UpDown : PlatformController.LeftRight);
 
 			level.Area.Add(platform);
+
+			if (Random.Chance(300)) {
+				var turret = new RotatingTurret();
+				turret.Position = platform.Position;
+				level.Area.Add(platform);
+			}
 		}
 
 		public override bool CanConnect(Vector2 P) {

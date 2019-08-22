@@ -11,7 +11,7 @@ namespace BurningKnight.entity.room.controllable {
 			AddComponent(new SupportableComponent());
 		}
 		
-		public bool On { get; private set; }
+		public bool On { get; protected set; }
 		
 		public virtual void TurnOn() {
 			On = true;
