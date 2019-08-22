@@ -56,7 +56,20 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			var s = GetComponent<StateComponent>();
 
 			if (s.StateInstance is HiddenState || s.StateInstance is HidingState) {
-				s.Become<ShowingState>();
+				s.Become<FshowingState>();
+			}
+		}
+
+		public void TurnOnSlowly() {
+			if (On) {
+				return;
+			}
+
+			On = true;
+			var s = GetComponent<StateComponent>();
+
+			if (s.StateInstance is HiddenState || s.StateInstance is HidingState) {
+				s.Become<FshowingState>();
 			}
 		}
 
@@ -64,7 +77,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			base.TurnOff();
 			var s = GetComponent<StateComponent>();
 
-			if (s.StateInstance is IdleState || s.StateInstance is ShowingState) {
+			if (s.StateInstance is IdleState || s.StateInstance is ShowingState || s.StateInstance is FshowingState) {
 				s.Become<HidingState>();
 			}
 		}
@@ -103,6 +116,31 @@ namespace BurningKnight.entity.room.controllable.spikes {
 				var a = Self.GetComponent<AnimationComponent>().Animation;
 
 				if (a.Frame > 3) {
+					Self.Hurt();
+				}
+				
+				if (a.Paused) {
+					Self.GetComponent<StateComponent>().Become<IdleState>();
+				}
+			}
+		}
+		
+		protected class FshowingState : SmartState<Spikes> {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<AnimationComponent>().SetAutoStop(false);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				var a = Self.GetComponent<AnimationComponent>().Animation;
+
+				if (a.Frame > 2) {
 					Self.Hurt();
 				}
 				

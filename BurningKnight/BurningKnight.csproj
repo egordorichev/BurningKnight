@@ -424,6 +424,7 @@
     <Compile Include="entity\room\controllable\turret\Turret.cs" />
     <Compile Include="entity\room\controller\RoomController.cs" />
     <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />
+    <Compile Include="entity\room\controller\SpikeFieldController.cs" />
     <Compile Include="entity\room\controller\TimedPistonSwitchController.cs" />
     <Compile Include="entity\room\input\Lever.cs" />
     <Compile Include="entity\room\input\PreasurePlate.cs" />
@@ -521,6 +522,7 @@
     <Compile Include="level\rooms\special\WellRoom.cs" />
     <Compile Include="level\rooms\trap\RollingSpikesRoom.cs" />
     <Compile Include="level\rooms\trap\ShiftingWallsRoom.cs" />
+    <Compile Include="level\rooms\trap\SpikePassageRoom.cs" />
     <Compile Include="level\rooms\trap\TrapRoom.cs" />
     <Compile Include="level\rooms\treasure\TreasureRoom.cs" />
     <Compile Include="level\tile\Tile.cs" />

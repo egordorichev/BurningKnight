@@ -4,7 +4,6 @@
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 
-* trap room doesnt save as trap room
 * shop keeper ai
 * selling things to shop keeper?
 * more effects when you reflect a bullet? change its color somehow???

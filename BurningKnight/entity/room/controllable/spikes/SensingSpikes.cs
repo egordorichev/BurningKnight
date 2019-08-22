@@ -13,7 +13,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 				}
 			} else if (!On && Colliding.Count > 0) {
 				timer = 1.5f;
-				TurnOn();
+				TurnOnSlowly();
 			}
 		}
 	}

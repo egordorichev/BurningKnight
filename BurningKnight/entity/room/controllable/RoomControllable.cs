@@ -20,6 +20,12 @@ namespace BurningKnight.entity.room.controllable {
 		public virtual void TurnOff() {
 			On = false;
 		}
+
+		public void SetState(bool on) {
+			if (on != On) {
+				Toggle();
+			}
+		}
 		
 		public void Toggle() {
 			if (On) {

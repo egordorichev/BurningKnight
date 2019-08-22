@@ -71,7 +71,8 @@ namespace BurningKnight.level.rooms {
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f),
-				
+				RoomInfo.New<SpikePassageRoom>(100f),
+
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),
 				
