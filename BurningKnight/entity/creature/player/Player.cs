@@ -155,16 +155,16 @@ namespace BurningKnight.entity.creature.player {
 				return;
 			}
 
-			/*foreach (var c in Area.Tags[Tags.Entrance]) {
+			foreach (var c in Area.Tags[Tags.Entrance]) {
 				Center = c.Center + new Vector2(0, 4);
 				Log.Debug("Teleported to entrance");
 				return;
-			}*/
+			}
 			
 			foreach (var r in Area.Tags[Tags.Room]) {
 				var rm = (Room) r;
-				// for testing
-				if (rm.Type == RoomType.Trap) {
+
+				if (rm.Type == RoomType.Entrance) {
 					Center = r.Center;
 					rm.Discover();
 
