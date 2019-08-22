@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
@@ -26,6 +27,7 @@ namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
 
 	public class Projectile : Entity, CollisionFilterEntity {
+		
 		public BodyComponent BodyComponent;
 		public int Damage = 1;
 		public Entity Owner;
@@ -41,8 +43,7 @@ namespace BurningKnight.entity.projectile {
 		public string Slice;
 		public float Scale;
 		public bool BreaksFromWalls = true;
-		
-		internal Projectile() {}
+		public float FlashTimer;
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1) {
 			var projectile = new Projectile();
@@ -108,6 +109,10 @@ namespace BurningKnight.entity.projectile {
 			base.Update(dt);
 
 			T += dt;
+
+			if (FlashTimer > 0) {
+				FlashTimer -= dt;
+			}
 
 			if (Range > -1 && T >= Range) {
 				AnimateDeath(true);

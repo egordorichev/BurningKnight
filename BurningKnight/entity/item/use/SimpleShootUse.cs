@@ -64,6 +64,7 @@ namespace BurningKnight.entity.item.use {
 				var a = entity.AngleTo(Input.Mouse.GamePosition);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var s = item.Region;
+				// fixme: offset up too? :(
 				var offset = MathUtils.CreateVector(a, s.Width);
 
 				for (var i = 0; i < count; i++) {
@@ -84,6 +85,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					projectile.Damage = damage;
+					projectile.FlashTimer = 0.05f;
 
 					if (range > 0.01f) {
 						projectile.Range = range * 0.5f / speed;

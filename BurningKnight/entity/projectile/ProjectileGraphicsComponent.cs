@@ -8,22 +8,24 @@ using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : SliceComponent {
+		public static TextureRegion Flash;
+		
 		public ProjectileGraphicsComponent(string image, string slice) : base(image, slice) {
-			
-		}
-
-		public ProjectileGraphicsComponent(AnimationData image, string slice) : base(image, slice) {
-			
+			if (Flash == null) {
+				Flash = CommonAse.Particles.GetSlice("flash");
+			}
 		}
 
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
 			var a = p.GetAnyComponent<BodyComponent>().Body.Rotation;
+
+			var spr = p.FlashTimer > 0 ? Flash : Sprite;
 			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(Sprite.Center.X, Sprite.Height + Sprite.Center.Y + 4), 
-					a, Sprite.Center, scale);
+				Graphics.Render(spr, Entity.Position + new Vector2(spr.Center.X, spr.Height + spr.Center.Y + 4), 
+					a, spr.Center, scale);
 				return;
 			}
 
@@ -39,7 +41,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(Sprite, Entity.Position + Sprite.Center, a, Sprite.Center, scale);
+			Graphics.Render(spr, Entity.Position + spr.Center, a, spr.Center, scale);
 
 			if (d) {
 				Shaders.End();
