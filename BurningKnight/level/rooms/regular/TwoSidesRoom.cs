@@ -26,10 +26,10 @@ namespace BurningKnight.level.rooms.regular {
 
 			level.Area.Add(platform);
 
-			if (true || Random.Chance(30)) {
+			if (Random.Chance(30)) {
 				var turret = new RotatingTurret();
-				level.Area.Add(platform);
-				turret.Center = platform.Center;
+				level.Area.Add(turret);
+				turret.Center = platform.Position + new Vector2(16, 12);
 			}
 		}
 

@@ -13,7 +13,6 @@
 ### rooms
 
 * rooms with rolling spikes
-* rooms with turrets on platforms
 * trap rooms
 
 ### beta bugs

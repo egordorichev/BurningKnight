@@ -64,7 +64,6 @@ namespace BurningKnight.entity.room.controllable.platform {
 			
 			Area.Add(up = new PlatformBorder());
 			up.Setup(this, 0, -14, tw * 16, 8);
-			up.Upper = true;
 			
 			Area.Add(down = new PlatformBorder());
 			down.Setup(this, 0, th * 16 + 2, tw * 16, 8);
@@ -78,7 +77,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 		}
 
 		protected override bool ShouldMove(Entity e) {
-			return base.ShouldMove(e) && e.Bottom < Bottom - 6;
+			return base.ShouldMove(e) && e.Bottom < Bottom - 4;
 		}
 
 		protected void ResetBorders() {

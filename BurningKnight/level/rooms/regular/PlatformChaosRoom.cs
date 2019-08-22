@@ -1,6 +1,8 @@
 using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level.tile;
 using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.regular {
 	public class PlatformChaosRoom : RegularRoom {
@@ -8,6 +10,7 @@ namespace BurningKnight.level.rooms.regular {
 			Painter.Fill(level, this, 3, Tile.Chasm);
 
 			var c = Random.Int(2, 4);
+			var p = Random.Chance(30);
 			
 			for (var i = 0; i < c; i++) {
 				var platform = new MovingPlatform();
@@ -17,6 +20,12 @@ namespace BurningKnight.level.rooms.regular {
 				platform.Controller = Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
 
 				level.Area.Add(platform);
+				
+				if (p && Random.Chance()) {
+					var turret = new RotatingTurret();
+					level.Area.Add(turret);
+					turret.Center = platform.Position + new Vector2(16, 12);
+				}
 			}
 		}
 		

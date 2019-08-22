@@ -12,6 +12,7 @@ using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room.controllable;
+using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -133,19 +134,23 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
-			if (entity is RoomControllable && entity != Owner) {
-				return true;
+			if (entity is PlatformBorder || entity is MovingPlatform) {
+				return false;
 			}
 
 			if (Owner is RoomControllable && entity is Mob) {
 				return false;
 			}
 
+			if (entity is RoomControllable && entity != Owner) {
+				return true;
+			}
+
 			if (CanHitOwner && entity == Owner) {
 				return true;
 			}
 			
-			return (entity is RoomControllable || !(entity is Creature) || Owner is Mob != entity is Mob) && 
+			return (!(entity is Creature) || entity is RoomControllable || Owner is Mob != entity is Mob) && 
 			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) || entity is Prop)
 			        || entity.HasComponent<HealthComponent>());
 		}
@@ -197,7 +202,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile);
+			return !(entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile);
 		}
 
 		public void Break() {

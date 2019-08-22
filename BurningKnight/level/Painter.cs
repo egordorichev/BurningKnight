@@ -520,14 +520,29 @@ namespace BurningKnight.level {
 
 				door.X = D.X * 16;
 				door.Y = D.Y * 16;
-				var tile = Level.Get(D.X, D.Y + 1);
-				door.FacingSide = tile.IsWall() && tile != Tile.Planks;
+				door.FacingSide = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
 
 				if (door.FacingSide) {
 					door.Y -= 8;
 					door.X += 6;
+
+					if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
+						Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+					}
+					
+					if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
+						Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+					}
 				} else {
 					door.Y -= 2;
+
+					if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
+						Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+					}
+					
+					if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
+						Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+					}
 				}
 						
 				Level.Area.Add(door);
