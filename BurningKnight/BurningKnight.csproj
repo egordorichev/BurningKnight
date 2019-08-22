@@ -501,7 +501,6 @@
     <Compile Include="level\rooms\connection\WayOverChasmRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
-    <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />

@@ -10,7 +10,16 @@ namespace BurningKnight.level.rooms {
 		public static RoomInfo New<T>(float chance, params string[] biomes) where T : RoomDef {
 			return new RoomInfo {
 				Chance = chance,
-				Type = RoomDef.DecideType(typeof(T)),
+				Type = RoomDef.DecideType(null, typeof(T)),
+				Room = typeof(T),
+				Biomes = biomes
+			};
+		}
+		
+		public static RoomInfo Typed<T>(RoomType type, float chance, params string[] biomes) where T : RoomDef {
+			return new RoomInfo {
+				Chance = chance,
+				Type = type,
 				Room = typeof(T),
 				Biomes = biomes
 			};

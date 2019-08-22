@@ -60,7 +60,7 @@ namespace BurningKnight.level {
 			foreach (var def in rooms) {
 				var room = new Room();
 
-				room.Type = RoomDef.DecideType(def.GetType());
+				room.Type = RoomDef.DecideType(def, def.GetType());
 				room.MapX = def.Left;
 				room.MapY = def.Top;
 				room.MapW = def.GetWidth();

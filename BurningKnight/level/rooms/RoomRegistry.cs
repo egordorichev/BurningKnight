@@ -63,7 +63,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<EntranceRoom>(1f),
 				
 				// Exit
-				RoomInfo.New<ExitRoom>(1f),
+				RoomInfo.Typed<EntranceRoom>(RoomType.Exit, 1f),
 				
 				// Treasure
 				RoomInfo.New<TreasureRoom>(1f),
