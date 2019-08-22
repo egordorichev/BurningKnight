@@ -20,6 +20,7 @@ namespace BurningKnight {
 		public const string Pause = "pause";
 
 		public const string UiAccept = "ui_accept";
+		public const string GameStart = "game_start";
 		public const string Cancel = "cancel";
 		
 		public const string Fullscreen = "fullscreen";
@@ -64,6 +65,9 @@ namespace BurningKnight {
 			
 			Input.Bind(Cancel, Keys.Escape);
 			Input.Bind(Cancel, Buttons.Back);
+			
+			Input.Bind(GameStart, Buttons.X, Buttons.Start);
+			Input.Bind(GameStart, Keys.Space, Keys.Enter, Keys.X);
 		}
 	}
 }

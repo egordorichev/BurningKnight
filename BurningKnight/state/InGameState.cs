@@ -57,6 +57,8 @@ namespace BurningKnight.state {
 		private Painting painting;
 		private SettingsWindow settings;
 
+		public bool Menu = true;
+
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -89,6 +91,14 @@ namespace BurningKnight.state {
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);
+
+			if (Menu) {
+				Input.Blocked = 1;
+				gardient = CommonAse.Ui.GetSlice("gardient");
+				blur = 1;
+			} else {
+				offset = Display.UiHeight;
+			}
 		}
 		
 		public override void Init() {
@@ -117,7 +127,11 @@ namespace BurningKnight.state {
 			}
 
 			TransitionToOpen();
-			Camera.Instance.Follow(cursor, 1f);
+
+			if (!Menu) {
+				Camera.Instance.Follow(cursor, 1f);
+			}
+			
 			Camera.Instance.Jump();
 			Run.StartedNew = false;
 		}
@@ -223,6 +237,15 @@ namespace BurningKnight.state {
 				pausedByMouseOut = true;
 			} else if (Paused && pausedByMouseOut && inside) {
 				Paused = false;
+			}
+
+			if (Menu && !menuExited) {
+				if (Input.WasPressed(Controls.GameStart, null, true)) {
+					menuExited = true;
+					Input.Blocked = 0;
+					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, 1f);
+					Tween.To(-Display.UiHeight, offset, x => offset = x, 1f).OnEnd = () => Menu = false;
+				}
 			}
 			
 			if (!Paused) {
@@ -459,6 +482,9 @@ namespace BurningKnight.state {
 
 		private float vx;
 		private string v;
+		private float offset;
+		private bool menuExited;
+		private TextureRegion gardient;
 
 		public override void RenderUi() {
 			Graphics.Color = ColorUtils.HalfWhiteColor;
@@ -473,6 +499,11 @@ namespace BurningKnight.state {
 			}
 
 			base.RenderUi();
+
+			if (Menu && offset < Display.UiHeight) {
+				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight / 90f));
+				LogoRenderer.Render(offset);
+			}
 
 			if (Settings.ShowFps) {
 				var c = Engine.Instance.Counter.AverageFramesPerSecond;

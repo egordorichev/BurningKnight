@@ -194,6 +194,10 @@
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 
+### enemies
+
+* bee hive and bee for forest biome
+
 #### NPCs
 
 * https://twitter.com/MateCziner/status/1107173510877720577
