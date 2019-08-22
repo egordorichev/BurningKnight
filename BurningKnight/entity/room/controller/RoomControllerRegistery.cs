@@ -10,6 +10,7 @@ namespace BurningKnight.entity.room.controller {
 		static RoomControllerRegistery() {
 			Add<TimedPistonSwitchController>("timed_piston_switch");
 			Add<SpikeFieldController>("spike_field");
+			Add<FollowingSpikeBallController>("following_spike_ball");
 		}
 		
 		public static void Add(string id, Func<RoomController> maker, Mod mod = null) {
