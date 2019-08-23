@@ -57,7 +57,7 @@ namespace BurningKnight.state {
 		private Painting painting;
 		private SettingsWindow settings;
 
-		public bool Menu = true;
+		public bool Menu;
 
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();

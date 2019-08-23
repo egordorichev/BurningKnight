@@ -5,12 +5,13 @@ namespace BurningKnight.level.biome {
 		public static Dictionary<string, BiomeInfo> Defined = new Dictionary<string, BiomeInfo>();
 
 		static BiomeRegistry() {
-			BiomeInfo[]  infos = {
+			BiomeInfo[] infos = {
 				BiomeInfo.New<CastleBiome>(Biome.Castle),
 				BiomeInfo.New<HubBiome>(Biome.Hub),
 				BiomeInfo.New<LibraryBiome>(Biome.Library),
 				BiomeInfo.New<DesertBiome>(Biome.Desert),
-				BiomeInfo.New<IceBiome>(Biome.Ice)
+				BiomeInfo.New<IceBiome>(Biome.Ice),
+				BiomeInfo.New<ForestBiome>(Biome.Forest)
 			};
 			
 			foreach (var info in infos) {

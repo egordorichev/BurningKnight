@@ -28,6 +28,8 @@ namespace BurningKnight.state {
 		private float titleX;
 		private float prefixX;
 		private float t;
+
+		public bool Menu;
 		
 		public override void Init() {
 			base.Init();
@@ -85,7 +87,9 @@ namespace BurningKnight.state {
 			}
 
 			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Test))) {
-				Engine.Instance.SetState(new InGameState(gameArea));
+				Engine.Instance.SetState(new InGameState(gameArea) {
+					Menu = Menu
+				});
 			}
 		}
 

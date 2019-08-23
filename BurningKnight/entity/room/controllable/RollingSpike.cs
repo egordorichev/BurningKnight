@@ -30,6 +30,8 @@ namespace BurningKnight.entity.room.controllable {
 			var a = new AnimationComponent("rolling_spike");
 			AddComponent(a);
 
+			AlwaysActive = true;
+			
 			a.OriginY *= 0.5f;
 		}
 
