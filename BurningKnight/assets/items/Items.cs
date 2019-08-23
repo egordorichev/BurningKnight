@@ -21,7 +21,6 @@ namespace BurningKnight.assets.items {
 		public static Dictionary<string, ItemData> Datas = new Dictionary<string, ItemData>();
 		private static Dictionary<ItemType, List<ItemData>> byType = new Dictionary<ItemType, List<ItemData>>();
 		private static Dictionary<int, List<ItemData>> byPool = new Dictionary<int, List<ItemData>>();
-		private static List<string> paths = new List<string>();
 		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Items/"));
@@ -329,7 +328,7 @@ namespace BurningKnight.assets.items {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if ((!t.Single || Run.Statistics == null || !Run.Statistics.Items.Contains(t.Id)) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
+				if ((!t.Single || Run.Statistics == null || (!Run.Statistics.Items.Contains(t.Id) && !Run.Statistics.Banned.Contains(t.Id))) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
 					datas.Add(t);
 				}
 			}
@@ -416,6 +415,10 @@ namespace BurningKnight.assets.items {
 			item.AddDroppedComponents();
 
 			return item;
+		}
+
+		public static bool Has(string id) {
+			return Datas.ContainsKey(id);
 		}
 	}
 }

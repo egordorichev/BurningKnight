@@ -307,6 +307,7 @@
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\PostHealthModifiedEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
+    <Compile Include="entity\events\RemoveFromPoolUse.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
     <Compile Include="entity\events\RoomClearedEvent.cs" />
     <Compile Include="entity\events\SaveEndedEvent.cs" />
@@ -365,6 +366,7 @@
     <Compile Include="entity\item\use\MakeShopRestockUse.cs" />
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyActiveChargeUse.cs" />
+    <Compile Include="entity\item\use\ModifyGameSaveValueUse.cs" />
     <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />

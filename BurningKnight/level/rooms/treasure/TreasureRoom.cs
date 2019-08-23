@@ -1,6 +1,8 @@
 using BurningKnight.entity.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
+using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -16,6 +18,13 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		protected void PlaceChest(Level level, Vector2 where) {
+			var chance = GameSave.GetFloat("mimic_chance") * 100;
+
+			if (Random.Chance(chance)) {
+				Log.Info("Enjoy your mimic :)");
+				return;
+			}
+			
 			var l = Random.Chance(30);
 			var chest = l ? new Chest() : new LockedChest();
 

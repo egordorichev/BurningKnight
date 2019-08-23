@@ -28,7 +28,8 @@ namespace BurningKnight.save.statistics {
 		public uint GameVersion;
 		
 		public List<string> Items = new List<string>();
-		
+		public List<string> Banned = new List<string>();
+
 		public ushort CoinsObtained;
 		public ushort BombsObtained;
 		public ushort KeysObtained;
@@ -73,6 +74,13 @@ namespace BurningKnight.save.statistics {
 				Items.Add(stream.ReadString());
 			}
 		
+			count = stream.ReadUInt16();
+			Banned.Clear();
+			
+			for (var i = 0; i < count; i++) {
+				Banned.Add(stream.ReadString());
+			}
+
 			CoinsObtained = stream.ReadUInt16();
 			BombsObtained = stream.ReadUInt16();
 			KeysObtained = stream.ReadUInt16();
@@ -109,6 +117,12 @@ namespace BurningKnight.save.statistics {
 			stream.WriteUInt16((ushort) Items.Count);
 
 			foreach (var item in Items) {
+				stream.WriteString(item);
+			}
+			
+			stream.WriteUInt16((ushort) Banned.Count);
+
+			foreach (var item in Banned) {
 				stream.WriteString(item);
 			}
 			
@@ -276,6 +290,14 @@ namespace BurningKnight.save.statistics {
 				ImGui.TreePop();
 			}
 			
+			if (ImGui.TreeNode("Banned items")) {
+				foreach (var item in Banned) {
+					ImGui.BulletText(item);
+				}
+				
+				ImGui.TreePop();
+			}
+
 			ImGui.Separator();
 			ImGui.Text($"Coins Collected: {CoinsObtained}");
 			ImGui.Text($"Keys Collected: {KeysObtained}");

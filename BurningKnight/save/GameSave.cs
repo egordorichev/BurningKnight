@@ -103,6 +103,8 @@ namespace BurningKnight.save {
 			Values.Clear();
 			Run.KillCount = 0;
 			Run.Time = 0;
+			
+			Put("mimic_chance", 0.2f);
 		}
 
 		public GameSave() : base(SaveType.Game) {

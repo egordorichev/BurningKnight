@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity.events;
 using Lens.lightJson;
 using Lens.util;
 
@@ -72,6 +73,8 @@ namespace BurningKnight.entity.item.use {
 			Register<SaleItemsUse>(SaleItemsUse.RenderDebug);
 			Register<ModifyActiveChargeUse>(ModifyActiveChargeUse.RenderDebug);
 			Register<PreventDamageUse>(PreventDamageUse.RenderDebug);
+			Register<RemoveFromPoolUse>(RemoveFromPoolUse.RenderDebug);
+			Register<ModifyGameSaveValueUse>(ModifyGameSaveValueUse.RenderDebug);
 		}
 	}
 }
