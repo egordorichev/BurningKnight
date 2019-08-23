@@ -20,14 +20,14 @@ namespace BurningKnight.entity.component {
 		public bool AutoKill = true;
 		public int HealthModifier = 1;
 
-		public void SetHealth(int hp, Entity setter, bool mod = true) {
+		public bool SetHealth(int hp, Entity setter, bool mod = true) {
 			if (hp == health) {
-				return;
+				return false;
 			}
 			
 			if (hp < health) {
 				if (Unhittable || InvincibilityTimer > 0) {
-					return;
+					return false;
 				}				
 			} else if (hp > health && HealthModifier > 1) {
 				hp += ((int) Math.Ceiling(health / (float) HealthModifier) * HealthModifier) - health;
@@ -44,7 +44,7 @@ namespace BurningKnight.entity.component {
 			
 			if (!Send(e)) {
 				if (e.Amount == 0) {
-					return;
+					return false;
 				}
 				
 				h = old + e.Amount;
@@ -58,13 +58,17 @@ namespace BurningKnight.entity.component {
 				if (health == 0 && AutoKill) {
 					Kill(setter);
 				}
+
+				return true;
 			}
+
+			return false;
 		}
 
-		public void ModifyHealth(int amount, Entity setter, bool mod = true) {
+		public bool ModifyHealth(int amount, Entity setter, bool mod = true) {
 			if (amount < 0 && Entity is Player && Run.Depth < 1) {
 				if (Unhittable || InvincibilityTimer > 0 || Health == 0) {
-					return;
+					return false;
 				}
 
 				Send(new HealthModifiedEvent {
@@ -74,23 +78,23 @@ namespace BurningKnight.entity.component {
 				});
 				
 				InvincibilityTimer = InvincibilityTimerMax;
-				return;
+				return false;
 			}
 			
 			if (amount < 0) {
 				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {
 						if (Unhittable || InvincibilityTimer > 0) {
-							return;
+							return false;
 						}
 				
 						hearts.Hurt(-amount * HealthModifier, setter);
-						return;
+						return true;
 					}
 				}
 			}
 			
-			SetHealth(health + (mod ? amount * HealthModifier : amount), setter, mod);
+			return SetHealth(health + (mod ? amount * HealthModifier : amount), setter, mod);
 		}
 
 		private int maxHealth;

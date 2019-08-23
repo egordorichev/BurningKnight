@@ -175,7 +175,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumTrapRooms() {
-			return Random.Chance(20) ? 0 : Random.Int(1, 3);
+			return 1;
 		}
 
 		protected virtual int GetNumSpecialRooms() {

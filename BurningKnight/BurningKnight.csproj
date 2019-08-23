@@ -369,6 +369,7 @@
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
+    <Compile Include="entity\item\use\PreventDamageUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
@@ -423,6 +424,7 @@
     <Compile Include="entity\room\controllable\turret\RotatingTurret.cs" />
     <Compile Include="entity\room\controllable\turret\Turret.cs" />
     <Compile Include="entity\room\controller\FollowingSpikeBallController.cs" />
+    <Compile Include="entity\room\controller\PistonActivatorController.cs" />
     <Compile Include="entity\room\controller\RoomController.cs" />
     <Compile Include="entity\room\controller\RoomControllerRegistery.cs" />
     <Compile Include="entity\room\controller\SpikeFieldController.cs" />
@@ -523,6 +525,7 @@
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
     <Compile Include="level\rooms\special\WellRoom.cs" />
+    <Compile Include="level\rooms\trap\CageRoom.cs" />
     <Compile Include="level\rooms\trap\FollowingSpikeBallRoom.cs" />
     <Compile Include="level\rooms\trap\RollingSpikesRoom.cs" />
     <Compile Include="level\rooms\trap\ShiftingWallsRoom.cs" />

@@ -1,4 +1,5 @@
 using BurningKnight.entity.room;
+using BurningKnight.entity.room.input;
 using BurningKnight.level.tile;
 using Lens.util.math;
 
@@ -25,16 +26,20 @@ namespace BurningKnight.level.rooms.trap {
 				Painter.Fill(level, this, m, Tile.SpikeTmp);
 			}
 
-			if (Random.Chance()) {
-				m += Random.Int(2, 5);
-				var f = Tiles.Pick(Tile.Chasm, Tile.WallA);
+			m += Random.Int(2, 5);
 
-				if (Random.Chance()) {
-					Painter.FillEllipse(level, this, m, f);
-				} else {
-					Painter.Fill(level, this, m, f);
-				}
+			if (Random.Chance()) {
+				Painter.FillEllipse(level, this, m, Tiles.RandomFloor());
+			} else {
+				Painter.Fill(level, this, m, Tiles.RandomFloor());
 			}
+
+			var c = GetTileCenter();
+			Painter.Set(level, c, Tiles.RandomFloor());
+			
+			var input = new Lever();
+			input.Position = c * 16;
+			level.Area.Add(input);
 		}
 
 		public override void ModifyRoom(Room room) {

@@ -144,12 +144,13 @@ namespace Lens.entity {
 		
 		public virtual void Init() {
 			if (Components == null) {
+				Components = new Dictionary<Type, Component>();
 				AddComponents();
 			}
 		}
 
 		public virtual void AddComponents() {
-			Components = new Dictionary<Type, Component>();
+			
 		}
 
 		public virtual void PostInit() {

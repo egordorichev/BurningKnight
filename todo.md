@@ -2,9 +2,13 @@
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
+* halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
+* remove lamp mechanics?
 
+* mimic
+* iron boots still show all the effects xd
 * shop keeper ai
-* juice up pistons
+* juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 
 ### rooms
 
@@ -40,6 +44,10 @@
  
 * lil boo
 * gases
+
+* animation data on when player head moves up and down 
+ * move his weapon with it
+ * introduce single sprite hats
 
 * NPCs:
  * shopkeeper (spelunky)

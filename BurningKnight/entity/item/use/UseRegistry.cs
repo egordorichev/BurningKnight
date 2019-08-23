@@ -71,6 +71,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeShopRestockUse>();
 			Register<SaleItemsUse>(SaleItemsUse.RenderDebug);
 			Register<ModifyActiveChargeUse>(ModifyActiveChargeUse.RenderDebug);
+			Register<PreventDamageUse>(PreventDamageUse.RenderDebug);
 		}
 	}
 }

@@ -1,10 +1,12 @@
 using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.entity.room.input;
 using Lens.util.file;
 using Lens.util.math;
 
 namespace BurningKnight.entity.room.controller {
 	public class SpikeFieldController : RoomController {
 		private byte variant;
+		private bool on = true;
 		
 		public override void Generate() {
 			base.Generate();
@@ -21,28 +23,37 @@ namespace BurningKnight.entity.room.controller {
 			variant = stream.ReadByte();
 		}
 
+		public override void HandleInputChange(RoomInput.ChangedEvent e) {
+			base.HandleInputChange(e);
+			on = !on;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			foreach (var c in Room.Controllable) {
 				if (c is Spikes) {
-					float x = (int) (c.X / 16);
-					float y = (int) (c.Y / 16);
+					if (on) {
 
-					var f = 0f;
+						float x = (int) (c.X / 16);
+						float y = (int) (c.Y / 16);
 
-					if (variant < 2) {
-						f = (x + y) / 3;
-					} else if (variant < 4) {
-						f = (x - y) / 3;
-					} else if (variant < 6) {
-						f = x / 3;
+						var f = 0f;
+
+						if (variant < 2) {
+							f = (x + y) / 3;
+						} else if (variant < 4) {
+							f = (x - y) / 3;
+						} else if (variant < 6) {
+							f = x / 3;
+						} else {
+							f = y / 3;
+						}
+
+						c.SetState(((int) (f + T * 0.5f * (variant % 2 == 0 ? 1 : -1)) % 2) == 0);
 					} else {
-						f = y / 3;
+						c.SetState(false);
 					}
-
-					var on = (int) ((int) (f + T * 0.5f * (variant % 2 == 0 ? 1 : -1)) % 2) == 0;
-					c.SetState(on);
 				}
 			}
 		}

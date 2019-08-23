@@ -56,25 +56,29 @@ namespace BurningKnight.entity.creature {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
-				var b = GetAnyComponent<BodyComponent>();
-				
-				if (b != null && ev.Amount < 0) {
-					b.KnockbackFrom(ev.From);
-				}
-				
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
 				}
 
-				for (var i = 0; i < 8; i++) {
-					var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area, Center + Random.Vector(-4, 4));
-					var a = ev.From.AngleTo(this);
+				if (!ev.Handled) {
+					var b = GetAnyComponent<BodyComponent>();
 
-					p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
-					p.Particle.Velocity.Y -= 8f;
+					if (b != null && ev.Amount < 0) {
+						b.KnockbackFrom(ev.From);
+					}
 
-					if (b != null) {
-						p.Particle.Velocity += b.Velocity * 0.5f;
+					for (var i = 0; i < 8; i++) {
+						var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
+							Center + Random.Vector(-4, 4));
+
+						var a = ev.From.AngleTo(this);
+
+						p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
+						p.Particle.Velocity.Y -= 8f;
+
+						if (b != null) {
+							p.Particle.Velocity += b.Velocity * 0.5f;
+						}
 					}
 				}
 			} else if (e is DiedEvent d) {
@@ -94,28 +98,29 @@ namespace BurningKnight.entity.creature {
 				}
 			} else if (e is TileCollisionStartEvent tce) {
 				if (tce.Tile == Tile.Lava) {
-					GetComponent<HealthComponent>().ModifyHealth(-1, null);
-					GetComponent<BuffsComponent>().Add(BurningBuff.Id);
+					if (GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level)) {
+						GetComponent<BuffsComponent>().Add(BurningBuff.Id);
 
-					var set = false;
-					var center = Center;
-					var count = 0;
-					
-					GetComponent<TileInteractionComponent>().ApplyForAllTouching((i, x, y) => {
-						if (Run.Level.Get(x, y, true) == Tile.Lava) {
-							var v = new Vector2(x * 16, y * 16);
-							count++;
-							
-							if (!set) {
-								set = true;
-								center = v;
-							} else {
-								center += v;
+						var set = false;
+						var center = Center;
+						var count = 0;
+
+						GetComponent<TileInteractionComponent>().ApplyForAllTouching((i, x, y) => {
+							if (Run.Level.Get(x, y, true) == Tile.Lava) {
+								var v = new Vector2(x * 16, y * 16);
+								count++;
+
+								if (!set) {
+									set = true;
+									center = v;
+								} else {
+									center += v;
+								}
 							}
-						}
-					});
-					
-					GetAnyComponent<BodyComponent>()?.KnockbackFrom(center / count, 1.5f);
+						});
+
+						GetAnyComponent<BodyComponent>()?.KnockbackFrom(center / count, 1.5f);
+					}
 				}
 			}
 

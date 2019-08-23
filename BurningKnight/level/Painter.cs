@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.entity.room.input;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.plant;
 using BurningKnight.level.paintings;
@@ -134,6 +135,15 @@ namespace BurningKnight.level {
 							spikes.Y = Y * 16;
 
 							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.Plate) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							
+							var plate = new PreasurePlate();
+
+							plate.X = X * 16;
+							plate.Y = Y * 16;
+
+							Level.Area.Add(plate);
 						}
 					}
 				}

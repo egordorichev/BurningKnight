@@ -46,15 +46,22 @@ namespace BurningKnight.entity.room.input {
 			if (e is CollisionStartedEvent cse) {
 				colliding.Add(cse.Entity);
 
-				if (!On) {
+				if ((!(cse.Entity is Creature c) || !c.InAir()) && !On) {
 					On = true;
 					UpdateState();
 					SendEvents();
 				}
 			} else if (e is CollisionEndedEvent cee) {
 				colliding.Remove(cee.Entity);
+				var cn = colliding.Count;
+
+				foreach (var en in colliding) {
+					if (en is Creature c && c.InAir()) {
+						cn--;
+					}
+				}
 				
-				if (On && colliding.Count == 0) {
+				if (On && cn == 0) {
 					On = false;
 					UpdateState();
 					SendEvents();

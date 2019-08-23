@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity.room.controllable;
 using Lens.util;
 
 namespace BurningKnight.entity.room.controller {
@@ -11,6 +12,7 @@ namespace BurningKnight.entity.room.controller {
 			Add<TimedPistonSwitchController>("timed_piston_switch");
 			Add<SpikeFieldController>("spike_field");
 			Add<FollowingSpikeBallController>("following_spike_ball");
+			Add<PistonActivatorController>("piston_activator");
 		}
 		
 		public static void Add(string id, Func<RoomController> maker, Mod mod = null) {

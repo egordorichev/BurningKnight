@@ -177,7 +177,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		#endregion
 
 		protected virtual bool ShouldHurt(Entity e) {
-			return e.HasComponent<HealthComponent>();
+			return e.HasComponent<HealthComponent>() && !(e is Creature c && c.InAir());
 		}
 
 		public override bool HandleEvent(Event e) {

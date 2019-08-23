@@ -72,8 +72,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public override void AddComponents() {
-			base.AddComponents();
-			
 			Height = 11;
 			
 			// Graphics
@@ -94,7 +92,10 @@ namespace BurningKnight.entity.creature.player {
 			// Stats
 			AddComponent(new StatsComponent());
 			AddComponent(new HeartsComponent());
-			
+				
+			// After inventory on purpose, health should be after inventory for proper event handling
+			base.AddComponents();
+
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
 			AddComponent(new InteractorComponent {
@@ -313,7 +314,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
-				GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level.Chasm);
 				
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());

@@ -25,6 +25,7 @@ namespace BurningKnight.level.tile {
 		// Not an actual tile, used just for placement with painter
 		SpikeTmp,
 		SensingSpikeTmp,
+		Plate,
 		
 		Total
 	}
