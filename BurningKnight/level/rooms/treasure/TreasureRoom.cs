@@ -1,4 +1,5 @@
 using BurningKnight.entity.chest;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -20,7 +21,13 @@ namespace BurningKnight.level.rooms.treasure {
 		protected void PlaceChest(Level level, Vector2 where) {
 			var chance = GameSave.GetFloat("mimic_chance") * 100;
 
-			if (Random.Chance(chance)) {
+			if (true || Random.Chance(chance)) {
+				var mimic = new Mimic();
+				
+				level.Area.Add(mimic);
+
+				mimic.Center = where * 16;
+
 				Log.Info("Enjoy your mimic :)");
 				return;
 			}

@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature.bk;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
 using Lens;
@@ -70,6 +71,26 @@ namespace BurningKnight.level.rooms.boss {
 
 			level.Area.Add(trigger);
 			
+			var ta = new Torch();
+			level.Area.Add(ta);
+			ta.CenterX = trigger.X + 8;
+			ta.Bottom = trigger.Y + 12;
+			
+			ta = new Torch();
+			level.Area.Add(ta);
+			ta.CenterX = trigger.X + 4 * 16 + 8;
+			ta.Bottom = trigger.Y + 12;
+			
+			ta = new Torch();
+			level.Area.Add(ta);
+			ta.CenterX = trigger.X + 8;
+			ta.Bottom = trigger.Y + 4 * 16 + 12;
+
+			ta = new Torch();
+			level.Area.Add(ta);
+			ta.CenterX = trigger.X + 4 * 16 + 8;
+			ta.Bottom = trigger.Y + 4 * 16 + 12;
+
 			Painter.Fill(level, c, -2, Tile.FloorD);
 			Painter.Fill(level, c, -1, Tiles.RandomFloor());
 		}

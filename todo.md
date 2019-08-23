@@ -5,19 +5,20 @@
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
 * remove lamp mechanics?
 
-* mimic
+* mimic attacks
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 
 ### rooms
 
+* better preboss room / boss rooms
+* take one of items treasure room (how does that work with mimics, tho??)
 * rooms with preasure plates
 * rooms with switches
 * trap rooms
 
 ### beta bugs
 
-* enemy npe's when they die and still get hit by a bullet
 * openal crash
 * max hp resets
 

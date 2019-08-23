@@ -23,7 +23,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature);
+			return true; // !(entity is Creature);
 		}
 	}
 }

@@ -8,12 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.entrance {
 	public class EntranceRoom : RoomDef {
-		protected bool IgnoreEntranceRooms;
 		public bool Exit;
-		
-		public override bool CanConnect(RoomDef R) {
-			return base.CanConnect(R) && (IgnoreEntranceRooms || !(R is EntranceRoom));
-		}
 
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) return 1;

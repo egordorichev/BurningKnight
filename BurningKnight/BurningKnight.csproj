@@ -214,6 +214,7 @@
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
@@ -462,6 +463,7 @@
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
+    <Compile Include="level\entities\decor\Torch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Gramophone.cs" />

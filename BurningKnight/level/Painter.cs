@@ -177,7 +177,7 @@ namespace BurningKnight.level {
 			var rooms = new List<RoomDef>();
 
 			foreach (var r in Rooms) {
-				if (r is RegularRoom) {
+				if (r is RegularRoom || (r is EntranceRoom e && !e.Exit)) {
 					rooms.Add(r);
 				}
 			}

@@ -73,7 +73,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<RollingSpikesRoom>(1f),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
-				RoomInfo.New<CageRoom>(1000000f),
+				// RoomInfo.New<CageRoom>(1f), // I dont like it :(
 
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),

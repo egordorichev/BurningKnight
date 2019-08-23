@@ -111,43 +111,56 @@ namespace BurningKnight.level {
 			} while (rooms == null);
 		}
 
+		private bool IsFinal() {
+			return LevelSave.BiomeGenerated.Id == Biome.Library && Run.Depth % 2 == 0;
+		}
+
 		protected virtual List<RoomDef> CreateRooms() {
 			var Rooms = new List<RoomDef>();
+			var biome = LevelSave.BiomeGenerated;
+			var final = IsFinal();
 
-			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, LevelSave.BiomeGenerated));
+			if (final) {
+				Log.Info("Prepare for the final!");
+			}
+			
+			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, biome));
 
-			var Regular = GetNumRegularRooms();
-			var Special = GetNumSpecialRooms();
-			var trap = GetNumTrapRooms();
-			var Connection = GetNumConnectionRooms();
-			var Secret = GetNumSecretRooms();
+			var Regular = final ? 0 : GetNumRegularRooms();
+			var Special = final ? 0 : GetNumSpecialRooms();
+			var trap = final ? 0 : GetNumTrapRooms();
+			var Connection = final ? 1 : GetNumConnectionRooms();
+			var Secret = final ? 0 : GetNumSecretRooms();
+			
 			Log.Info($"Creating r{Regular} sp{Special} c{Connection} sc{Secret} t{trap} rooms");
 
 			for (var I = 0; I < Regular; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Regular, LevelSave.BiomeGenerated));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Regular, biome));
 			}
 
 			for (var i = 0; i < trap; i++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Trap, LevelSave.BiomeGenerated));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Trap, biome));
 			}
 
 			for (var I = 0; I < Special; I++) {
-				var Room = RoomRegistry.Generate(RoomType.Special, LevelSave.BiomeGenerated);
+				var Room = RoomRegistry.Generate(RoomType.Special, biome);
 				if (Room != null) Rooms.Add(Room);
 			}
-
-			Rooms.Add(RoomRegistry.Generate(RoomType.Treasure, LevelSave.BiomeGenerated));
-
+			
 			for (var I = 0; I < Connection; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
 			for (var I = 0; I < Secret; I++) {
-				Rooms.Add(RoomRegistry.Generate(RoomType.Secret, LevelSave.BiomeGenerated));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
+			}
+
+			if (!final) {
+				Rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+				Rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 			}
 			
-			Rooms.Add(RoomRegistry.Generate(RoomType.Shop, LevelSave.BiomeGenerated));
-			Rooms.Add(RoomRegistry.Generate(RoomType.Boss, LevelSave.BiomeGenerated));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 			Rooms.Add(new PrebossRoom());
 			
 			TombRoom.Insert(Rooms);
@@ -160,6 +173,10 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
+			if (IsFinal()) {
+				return new LineBuilder();
+			}
+			
 			var R = Random.Float();
 
 			if (R < 0.33f) {
