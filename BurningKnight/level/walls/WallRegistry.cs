@@ -19,7 +19,7 @@ namespace BurningKnight.level.walls {
 			Add(new TempleWalls(), 1f);
 			Add(new SegmentedWall(), 1f);
 			Add(new PlatformWall(), 1f);
-			Add(new PatchWall(), 0.3f);
+			Add(new PatchWall(), 1f);
 			Add(new RuinsWall(), 1f);
 			Add(new TurretWall(), 1f);
 			Add(new CorneredTurretWall(), 1f);

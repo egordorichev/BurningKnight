@@ -1,21 +1,17 @@
 using System;
-using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
-using BurningKnight.util.geometry;
 using Random = Lens.util.math.Random;
 
-namespace BurningKnight.level.walls {
-	public class CollumsWall : WallPainter {
-		public override void Paint(Level level, RoomDef room, Rect inside) {
-			base.Paint(level, room, inside);
+namespace BurningKnight.level.rooms.boss {
+	public class CollumnsBossRoom : BossRoom {
+		protected override void PaintRoom(Level level) {
+			var minDim = Math.Min(GetWidth(), GetHeight());
+			var circ = Random.Chance();
 
-			var minDim = Math.Min(room.GetWidth(), room.GetHeight());
-			var circ = Random.Chance(50);
-
-			var left = room.Left;
-			var top = room.Top;
-			var right = room.Right;
-			var bottom = room.Bottom;
+			var left = Left;
+			var top = Top;
+			var right = Right;
+			var bottom = Bottom;
 
 			var same = Random.Chance();
 			var a = Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks, Tile.SensingSpikeTmp);
@@ -73,11 +69,11 @@ namespace BurningKnight.level.walls {
 				int pillarInset = minDim >= 12 ? 2 : 1;
 				int pillarSize = (minDim - 6) / (pillarInset + 1);
 
-				float xSpaces = room.GetWidth() - 2 * pillarInset - pillarSize - 2;
-				float ySpaces = room.GetHeight() - 2 * pillarInset - pillarSize - 2;
+				float xSpaces = GetWidth() - 2 * pillarInset - pillarSize - 2;
+				float ySpaces = GetHeight() - 2 * pillarInset - pillarSize - 2;
 				float minSpaces = Math.Min(xSpaces, ySpaces);
 
-				float percentSkew = (float) (Math.Round(Random.Float() * minSpaces) / minSpaces);
+				float percentSkew = (float) (Math.Round(Lens.util.math.Random.Float() * minSpaces) / minSpaces);
 
 				if (circ) {
 					if (o) {

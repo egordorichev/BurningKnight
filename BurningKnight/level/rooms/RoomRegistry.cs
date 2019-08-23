@@ -90,6 +90,7 @@ namespace BurningKnight.level.rooms {
 				
 				// Boss
 				RoomInfo.New<ChasmBossRoom>(1f),
+				RoomInfo.New<CollumnsBossRoom>(1f),
 			};
 
 			foreach (var info in infos) {

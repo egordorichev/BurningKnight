@@ -4,6 +4,7 @@ using BurningKnight.level.tile;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.walls {
 	public class PatchWall : WallPainter {
@@ -112,7 +113,44 @@ namespace BurningKnight.level.walls {
 		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
-			
+
+			if (Random.Chance()) {
+				Setup(level, room, fill, 4, true);
+				CleanDiagonalEdges(room);
+				PaintPatch(level, room, Tile.Chasm);
+
+				PathFinder.SetMapSize(room.GetWidth() - 2, room.GetHeight() - 2);
+				var start = 0;
+
+				foreach (var d in room.Connected.Values) {
+					if (d.X == room.Left) {
+						start = ToIndex(room, d.X + 1, d.Y);
+					} else if (d.X == room.Right) {
+						start = ToIndex(room, d.X - 1, d.Y);
+					} else if (d.Y == room.Top) {
+						start = ToIndex(room, d.X, d.Y + 1);
+					} else if (d.Y == room.Bottom) {
+						start = ToIndex(room, d.X, d.Y - 1);
+					}
+				}
+
+				PathFinder.BuildDistanceMap(start, BArray.Not(Patch, null));
+				var valid = true;
+
+				for (var i = 0; i < Patch.Length; i++) {
+					if (!Patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
+						valid = false;
+						break;
+					}
+				}
+
+				PathFinder.SetMapSize(level.Width, level.Height);
+
+				if (!valid) {
+					Painter.Fill(level, room, 1, Tile.FloorD);
+				}
+			}
+
 			Setup(level, room, fill, 4, true);
 			CleanDiagonalEdges(room);
 			PaintPatch(level, room, Tile.WallA);

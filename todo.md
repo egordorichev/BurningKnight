@@ -11,7 +11,7 @@
 
 ### rooms
 
-* better preboss room / boss rooms
+* better boss rooms
 * take one of items treasure room (how does that work with mimics, tho??)
 * rooms with preasure plates
 * rooms with switches
@@ -21,6 +21,7 @@
 
 * openal crash
 * max hp resets
+* bk missile still has no sprite???
 
 ### todo
 

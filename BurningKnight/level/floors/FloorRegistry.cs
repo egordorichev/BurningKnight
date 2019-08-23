@@ -15,6 +15,7 @@ namespace BurningKnight.level.floors {
 			Add(new TrippleFloor(), 1f);
 			Add(new LineFloor(), 1f);
 			Add(new BathFloor(), 1f);
+			Add(new PatchFloor(), 1f);
 		}
 
 		public static void Paint(Level level, RoomDef room, int i = -1) {

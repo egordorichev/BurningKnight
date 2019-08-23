@@ -488,6 +488,7 @@
     <Compile Include="level\floors\GeometryFloor.cs" />
     <Compile Include="level\floors\LineFloor.cs" />
     <Compile Include="level\floors\MazeFloor.cs" />
+    <Compile Include="level\floors\PatchFloor.cs" />
     <Compile Include="level\floors\TrippleFloor.cs" />
     <Compile Include="level\hall\HallBuilder.cs" />
     <Compile Include="level\hall\HallLevel.cs" />
@@ -506,6 +507,7 @@
     <Compile Include="level\RegularLevel.cs" />
     <Compile Include="level\rooms\boss\BossRoom.cs" />
     <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />
+    <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
