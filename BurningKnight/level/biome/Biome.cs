@@ -8,6 +8,7 @@ namespace BurningKnight.level.biome {
 		public const string Desert = "desert";
 		public const string Ice = "ice";
 		public const string Forest = "forest";
+		public const string Tech = "tech";
 		
 		public readonly string Music;
 		public readonly string Id;

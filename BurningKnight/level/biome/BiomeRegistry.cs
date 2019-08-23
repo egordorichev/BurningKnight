@@ -6,12 +6,14 @@ namespace BurningKnight.level.biome {
 
 		static BiomeRegistry() {
 			BiomeInfo[] infos = {
-				BiomeInfo.New<CastleBiome>(Biome.Castle),
 				BiomeInfo.New<HubBiome>(Biome.Hub),
+
+				BiomeInfo.New<CastleBiome>(Biome.Castle),
 				BiomeInfo.New<LibraryBiome>(Biome.Library),
 				BiomeInfo.New<DesertBiome>(Biome.Desert),
 				BiomeInfo.New<IceBiome>(Biome.Ice),
-				BiomeInfo.New<ForestBiome>(Biome.Forest)
+				BiomeInfo.New<ForestBiome>(Biome.Forest),
+				BiomeInfo.New<TechBiome>(Biome.Tech)
 			};
 			
 			foreach (var info in infos) {

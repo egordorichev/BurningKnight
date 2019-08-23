@@ -442,6 +442,7 @@
     <Compile Include="level\biome\HubBiome.cs" />
     <Compile Include="level\biome\IceBiome.cs" />
     <Compile Include="level\biome\LibraryBiome.cs" />
+    <Compile Include="level\biome\TechBiome.cs" />
     <Compile Include="level\builders\Builder.cs" />
     <Compile Include="level\builders\CastleBuilder.cs" />
     <Compile Include="level\builders\LineBuilder.cs" />
