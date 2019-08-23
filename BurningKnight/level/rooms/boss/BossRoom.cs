@@ -91,6 +91,11 @@ namespace BurningKnight.level.rooms.boss {
 			ta.CenterX = trigger.X + 4 * 16 + 8;
 			ta.Bottom = trigger.Y + 4 * 16 + 12;
 
+			var st = new BurningStatue();
+			level.Area.Add(st);
+			st.CenterX = c.Left * 16 + 8;
+			st.Bottom = c.Top * 16 + 8;
+
 			Painter.Fill(level, c, -2, Tile.FloorD);
 			Painter.Fill(level, c, -1, Tiles.RandomFloor());
 		}

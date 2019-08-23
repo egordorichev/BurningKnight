@@ -37,7 +37,7 @@ namespace BurningKnight.assets.particle.custom {
 
 			mod = Random.Float(0.7f, 1f);
 			sinOffset = Random.Float(3.2f);
-			offset = new Vector2(Random.Float(-4, 4), Random.Float(-2, 2));
+			offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
 
 			r = Random.Float(0.8f, 1f);
 			g = Random.Float(0f, 1f);
@@ -71,11 +71,13 @@ namespace BurningKnight.assets.particle.custom {
 			}
 		}
 
+		public float XChange = 1;
+
 		public override void Render() {
 			var a = (float) Math.Cos(t * 5f + sinOffset) * 0.4f;
 			var pos = Position + offset + region.Center;
 
-			pos.X += (float) Math.Cos(sinOffset + t * 2.5f) * scale * 8;
+			pos.X += (float) Math.Cos(sinOffset + t * 2.5f) * scale * 8 * XChange;
 			
 			Graphics.Color = new Color(r, r, 0f, 0.5f);
 			Graphics.Render(region, pos, a, region.Center, new Vector2(scale * 10));
