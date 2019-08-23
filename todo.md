@@ -1,19 +1,15 @@
 # TODO
 
-* when creature dies from penetrating thing, on death can be spammed infinitly
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 
 * shop keeper ai
-* selling things to shop keeper?
-* more effects when you reflect a bullet? change its color somehow???
 * juice up pistons
 
 ### rooms
 
 * rooms with preasure plates
 * rooms with switches
-* rooms with rolling spikes
 * trap rooms
 
 ### beta bugs
@@ -28,7 +24,6 @@
 * game intro
 * maggots are boring
 * sparks
-* effects for room clear
 
 * Tile interactions
  * burning terrain

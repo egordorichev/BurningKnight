@@ -103,6 +103,10 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (dying) {
+				return false;
+			}
+			
 			if (e is BuffAddedEvent add && add.Buff is CharmedBuff || e is BuffRemovedEvent del && del.Buff is CharmedBuff) {
 				// If old target even was a thing, it was from wrong category
 				FindTarget();

@@ -62,9 +62,8 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void ModifyHealth(int amount, Entity setter, bool mod = true) {
-			// todo: smaller invt without mod
 			if (amount < 0 && Entity is Player && Run.Depth < 1) {
-				if (Unhittable || InvincibilityTimer > 0) {
+				if (Unhittable || InvincibilityTimer > 0 || Health == 0) {
 					return;
 				}
 
