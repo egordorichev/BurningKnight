@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is HealthModifiedEvent ev) {
+			if (e is PostHealthModifiedEvent ev) {
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
 				}
@@ -161,6 +161,10 @@ namespace BurningKnight.entity.creature {
 			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
 		}
 
+		public virtual bool HasNoHealth(PostHealthModifiedEvent e = null) {
+			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
+		}
+		
 		public virtual bool InAir() {
 			return Flying;
 		}

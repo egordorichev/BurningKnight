@@ -55,6 +55,12 @@ namespace BurningKnight.entity.component {
 				
 				health = h;
 
+				Send(new PostHealthModifiedEvent {
+					Amount = e.Amount,
+					Who = Entity,
+					From = setter
+				});
+
 				if (health == 0 && AutoKill) {
 					Kill(setter);
 				}

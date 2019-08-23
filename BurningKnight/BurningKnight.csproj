@@ -305,6 +305,7 @@
     <Compile Include="entity\events\MaxHealthModifiedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\PostHealthModifiedEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
     <Compile Include="entity\events\RoomClearedEvent.cs" />

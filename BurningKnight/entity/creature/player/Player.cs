@@ -72,6 +72,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public override void AddComponents() {
+			base.AddComponents();
+
 			Height = 11;
 			
 			// Graphics
@@ -92,9 +94,6 @@ namespace BurningKnight.entity.creature.player {
 			// Stats
 			AddComponent(new StatsComponent());
 			AddComponent(new HeartsComponent());
-				
-			// After inventory on purpose, health should be after inventory for proper event handling
-			base.AddComponents();
 
 			// Collisions
 			AddComponent(new RectBodyComponent(4, 3, 8, 9));
@@ -311,6 +310,10 @@ namespace BurningKnight.entity.creature.player {
 		public override bool HasNoHealth(HealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
 		}
+		
+		public override bool HasNoHealth(PostHealthModifiedEvent e = null) {
+			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
+		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
@@ -346,7 +349,7 @@ namespace BurningKnight.entity.creature.player {
 						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
 					}
 				}*/
-			} else if (e is HealthModifiedEvent h) {
+			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {
 					var cl = GetBloodColor();
 					

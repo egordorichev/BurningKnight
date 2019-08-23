@@ -6,7 +6,6 @@
 * remove lamp mechanics?
 
 * mimic
-* iron boots still show all the effects xd
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 
