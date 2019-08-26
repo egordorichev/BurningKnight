@@ -28,6 +28,8 @@ namespace BurningKnight.state {
 		private float titleX;
 		private float prefixX;
 		private float t;
+		private int progress;
+		private float timer;
 
 		public bool Menu;
 		
@@ -43,15 +45,18 @@ namespace BurningKnight.state {
 			gameArea = new Area();
 
 			Run.Level = null;
+			progress = 0;
 
 			var thread = new Thread(() => {
 				Tilesets.Load();
 				
 				SaveManager.Load(gameArea, SaveType.Game, Path);
-
+				progress++;
+				
 				Random.Seed = $"{Run.Seed}_{Run.Depth}"; 
 				
 				SaveManager.Load(gameArea, SaveType.Level, Path);
+				progress++;
 
 				if (Run.Depth > 0) {
 					SaveManager.Load(gameArea, SaveType.Player, Path);
@@ -59,6 +64,7 @@ namespace BurningKnight.state {
 					SaveManager.Generate(gameArea, SaveType.Player);
 				}
 
+				progress++;
 				ready = true;
 			});
 
@@ -73,8 +79,11 @@ namespace BurningKnight.state {
 
 			t += dt;
 			
+			timer += dt / 3;
+			timer = Math.Min(timer, (progress + 1) * 34f);
+			
 			if (down) {
-				if (ready && ((Engine.Version.Test) || Time > 3f)) {
+				if (ready && ((Engine.Version.Test) || timer >= 1f)) {
 					alpha -= dt * 5;
 				}
 			} else {
@@ -96,7 +105,7 @@ namespace BurningKnight.state {
 		public override void RenderUi() {
 			base.RenderUi();
 
-			var s = $"{prefix} {Math.Min(102, Math.Floor(Time / 3f * 100f))}%";
+			var s = $"{prefix} {Math.Min(102, Math.Floor(timer * 100f))}%";
 			
 			prefixX = Font.Medium.MeasureString(s).Width * -0.5f;
 			

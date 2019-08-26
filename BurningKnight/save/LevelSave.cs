@@ -6,6 +6,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.hall;
 using BurningKnight.level.hub;
 using BurningKnight.level.tile;
+using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
@@ -102,7 +103,7 @@ namespace BurningKnight.save {
 				finished = true;
 			});
 			
-			Log.Debug("Thread started");
+			Log.Debug("Level gen thread started");
 			thread.Start();
 			var i = 0;
 			
@@ -119,6 +120,7 @@ namespace BurningKnight.save {
 				if (i >= 15f) {
 					Log.Debug("Thread took too long, aborting :(");
 					thread.Abort();
+					Physics.Destroy();
 					aborted = true;
 
 					break;

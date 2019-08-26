@@ -95,6 +95,7 @@ namespace BurningKnight.physics {
 		}
 
 		public static void Destroy() {
+			World?.Clear();
 			World = null;
 		}
 	}
