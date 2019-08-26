@@ -56,7 +56,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
 				
 				// Desert only room designs
-				RoomInfo.New<TwoSidesRoom>(30f, Biome.Desert),
+				RoomInfo.New<TwoSidesRoom>(3f, Biome.Desert),
 				RoomInfo.New<PlatformChaosRoom>(1f, Biome.Desert),
 				RoomInfo.New<PlatformRingRoom>(1f, Biome.Desert),
 
@@ -83,6 +83,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WayOverChasmRoom>(1f),
 				RoomInfo.New<MazeConnectionRoom>(1f),
 				RoomInfo.New<RingConnectionRoom>(1f),
+				RoomInfo.New<IntersectionConnectionRoom>(1f),
 				
 				// Special
 				RoomInfo.New<IdolTrapRoom>(1f),

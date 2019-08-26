@@ -17,20 +17,22 @@ namespace BurningKnight.level.rooms.connection {
 			var Fl = Random.Chance(25) ? Random.Chance(33) ? Tile.Chasm 
 				: Random.Chance() ? Tiles.RandomWall() : Tile.Lava : Tiles.RandomFloorOrSpike();
 
+			var w = GenerateSpot();
+			
 			if (GetWidth() > 4 && GetHeight() > 4 && Random.Chance()) {
-				PaintTunnel(Level, Fl, null, true);
+				PaintTunnel(Level, Fl, w, true);
 			}
 
 			if (Fl == Tile.Lava) {
-				PaintTunnel(Level, Tiles.RandomFloorOrSpike());
+				PaintTunnel(Level, Tiles.RandomFloorOrSpike(), w);
 			}
 
 			if (Random.Chance()) {
-				PaintTunnel(Level, Tiles.RandomFloorOrSpike(), null, true);
+				PaintTunnel(Level, Tiles.RandomFloorOrSpike(), w, true);
 			}
 
 			PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance() ? 
-				Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike());
+				Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike(), w);
 		}
 	}
 }

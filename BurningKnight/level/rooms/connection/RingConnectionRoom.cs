@@ -35,7 +35,7 @@ namespace BurningKnight.level.rooms.connection {
 
 		public override Rect GetConnectionSpace() {
 			if (space == null) {
-				space = base.GetConnectionSpace();
+				space = GenerateSpot();
 				space.Left = (int) MathUtils.Clamp(Left + 2, Right - 2, space.Left);
 				space.Top = (int) MathUtils.Clamp(Top + 2, Bottom - 2, space.Top);
 				space.Right = space.Left + 1;

@@ -1,6 +1,8 @@
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.connection {
 	public class ConnectionRoom : RoomDef {
@@ -18,6 +20,18 @@ namespace BurningKnight.level.rooms.connection {
 
 		public override int GetMaxHeight() {
 			return 10;
+		}
+		
+		protected Rect GenerateSpot() {
+			var r = 1; // Random.Float();
+
+			if (r < 0.33f) {
+				return GetConnectionSpace();
+			} else if (r < 0.66f) {
+				return GetCenterRect();
+			}
+			
+			return new Rect(new Vector2(Random.Int(Left + 2, Right - 2), Random.Int(Top + 2, Bottom - 2)));
 		}
 
 		public override void Paint(Level level) {
