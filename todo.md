@@ -2,7 +2,7 @@
 
 * broken props ase file
 * secret rooms seem to corrupt level sometimes
-* spikes dont hurt enemies??
+* spikes dont hurt enemies?? and your projectiles
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect

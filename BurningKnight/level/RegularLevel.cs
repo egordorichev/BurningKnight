@@ -173,10 +173,6 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
-			if (true) {
-				return new LoopBuilder();
-			}
-			
 			if (IsFinal()) {
 				return new LineBuilder();
 			}

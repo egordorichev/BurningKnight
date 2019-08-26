@@ -15,8 +15,9 @@ namespace BurningKnight.level.rooms.preboss {
 
 			foreach (var p in Connected) {
 				var d = p.Value;
+				var g = p.Key is BossRoom;
 
-				if (p.Key is BossRoom) {
+				if (g) {
 					Point a;
 					Point b;
 
@@ -63,7 +64,7 @@ namespace BurningKnight.level.rooms.preboss {
 					from = new Vector2(d.X, d.Y - 1);
 				}
 
-				var f = Tiles.RandomFloor();
+				var f = g ? Tile.FloorD : Tiles.RandomFloor();
 
 				if (d.X == Left || d.X == Right) {
 					var n = new Vector2(from.X, to.Y);

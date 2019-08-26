@@ -101,7 +101,7 @@ namespace BurningKnight.save {
 		
 		public override void Generate(Area area) {
 			Values.Clear();
-			// Run.ResetStats();
+			Run.ResetStats();
 			
 			Put("mimic_chance", 0.2f);
 		}
