@@ -16,6 +16,8 @@
 * special tiles for bk room?
 * show seed in pause menu
 
+* menu screen needs shadows
+
 ### rooms
 
 * better boss rooms
