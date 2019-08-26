@@ -1,6 +1,6 @@
 # TODO
 
-* broken props ase file
+* generating msg for load state, loading should be faster, than generating
 * secret rooms seem to corrupt level sometimes
 * spikes dont hurt enemies?? and your projectiles
 

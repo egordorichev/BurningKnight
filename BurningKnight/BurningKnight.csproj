@@ -583,6 +583,7 @@
     <Compile Include="save\statistics\RunStatistics.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="state\AreaDebug.cs" />
+    <Compile Include="state\AssetLoadState.cs" />
     <Compile Include="state\DialogEditorState.cs" />
     <Compile Include="state\Editor.cs" />
     <Compile Include="state\EditorState.cs" />

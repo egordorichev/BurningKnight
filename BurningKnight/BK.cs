@@ -12,9 +12,7 @@ namespace BurningKnight {
 		// "v0.0.1 (1)"
 		public static Version Version = new Version(1, 0, 0, 1, 0, true, Debug);
 		
-		public BK(int width, int height, bool fullscreen) : base(Version, new LoadState {
-			Menu = !Version.Dev
-		}, $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(Version, new AssetLoadState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 
@@ -22,14 +20,16 @@ namespace BurningKnight {
 			base.Initialize();
 			
 			Controls.Bind();
-			Dialogs.Load();
-			CommonAse.Load();
-			ImGuiHelper.Init();
-			Shaders.Load();
 			Font.Load();
+			ImGuiHelper.Init();
+
+			/*Dialogs.Load();
+			CommonAse.Load();
+			ImGuiHelper.BindTextures();
+			Shaders.Load();
 			Prefabs.Load();
 			Items.Load();
-			Mods.Load();
+			Mods.Load();*/
 		}
 
 		protected override void UnloadContent() {

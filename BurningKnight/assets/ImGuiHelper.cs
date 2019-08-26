@@ -20,6 +20,9 @@ namespace BurningKnight.assets {
 		
 		public static void Init() {
 			Renderer = new ImGuiRenderer(Engine.Instance);
+		}
+		
+		public static void BindTextures() {
 			ItemsTexture = Renderer.BindTexture(CommonAse.Items.Texture);
 			ProjectilesTexture = Renderer.BindTexture(CommonAse.Projectiles.Texture);
 		}

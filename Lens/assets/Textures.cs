@@ -20,6 +20,14 @@ namespace Lens.assets {
 			}
 		}
 
+		public static Texture2D FastLoad(string path) {
+			var fileStream = new FileStream(path, FileMode.Open);
+			var texture = Texture2D.FromStream(Engine.GraphicsDevice, fileStream);
+			fileStream.Dispose();
+
+			return texture;
+		}
+		
 		private static void LoadTextures(FileHandle handle) {
 			foreach (var h in handle.ListFileHandles()) {
 				LoadTexture(h);

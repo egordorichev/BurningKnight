@@ -25,9 +25,6 @@ namespace Lens.assets {
 		private static float lastUpdate;
 		
 		public static void Load() {
-			Content.RootDirectory = "Content/";
-			
-			Graphics.Init();
 			LoadAssets();
 
 			if (LoadOriginalFiles) {				

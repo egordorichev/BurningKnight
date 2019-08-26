@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
@@ -14,6 +15,7 @@ using Lens.game;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Random = Lens.util.math.Random;
 using Console = BurningKnight.debug.Console;
 
@@ -105,7 +107,7 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-
+			
 			var s = $"{prefix} {Math.Min(102, Math.Floor(timer * 100f))}%";
 			
 			prefixX = Font.Medium.MeasureString(s).Width * -0.5f;
