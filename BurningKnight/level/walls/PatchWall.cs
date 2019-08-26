@@ -110,15 +110,28 @@ namespace BurningKnight.level.walls {
 				}
 			}
 		}
+
+		private void SimplePaint(Level level, RoomDef room) {
+			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
+
+			Setup(level, room, fill, 4, true);
+			CleanDiagonalEdges(room);
+			PaintPatch(level, room, Tile.WallA);
+		}
 		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
-
-			if (Random.Chance()) {
+			var s = Random.Chance();
+			
+			if (s) {
 				Setup(level, room, fill, 4, true);
 				CleanDiagonalEdges(room);
 				PaintPatch(level, room, Tile.Chasm);
+			}
+			
+			SimplePaint(level, room);
 
+			if (s) {
 				PathFinder.SetMapSize(room.GetWidth() - 2, room.GetHeight() - 2);
 				var start = 0;
 
@@ -148,12 +161,9 @@ namespace BurningKnight.level.walls {
 
 				if (!valid) {
 					Painter.Fill(level, room, 1, Tile.FloorD);
+					SimplePaint(level, room);
 				}
 			}
-
-			Setup(level, room, fill, 4, true);
-			CleanDiagonalEdges(room);
-			PaintPatch(level, room, Tile.WallA);
 		}
 	}
 }
