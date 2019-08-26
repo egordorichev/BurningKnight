@@ -4,6 +4,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.save;
 using BurningKnight.util;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -36,6 +37,7 @@ namespace BurningKnight.level.builders {
 			SetupRooms(Init);
 
 			if (Entrance == null) {
+				Log.Error("1");
 				return null;
 			}
 
@@ -112,6 +114,7 @@ namespace BurningKnight.level.builders {
 							i++;
 
 							if (i > 36) {
+								Log.Error("2 " + Boss.GetType().Name);
 								return null;
 							}
 							
@@ -119,6 +122,7 @@ namespace BurningKnight.level.builders {
 						}
 					}
 				} else {
+					Log.Error("3 " + R.GetType().Name);
 					return null;
 				}
 			}
@@ -127,6 +131,7 @@ namespace BurningKnight.level.builders {
 				var C = RoomRegistry.Generate(RoomType.Regular, LevelSave.BiomeGenerated);
 
 				if ((int) PlaceRoom(Loop, Prev, C, AngleBetweenRooms(Prev, Entrance)) == -1) {
+					Log.Error("4 " + C.GetType().Name);
 					return null;
 				}
 

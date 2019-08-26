@@ -33,7 +33,7 @@ namespace BurningKnight.level.rooms.regular {
 			}
 		}
 
-		public override bool CanConnect(Vector2 P) {
+		public override bool CanConnect(RoomDef R, Vector2 P) {
 			var x = (int) P.X;
 			var y = (int) P.Y;
 			
@@ -47,7 +47,7 @@ namespace BurningKnight.level.rooms.regular {
 				}	
 			}
 			
-			return base.CanConnect(P);
+			return base.CanConnect(R, P);
 		}
 
 		private void SetupRect() {

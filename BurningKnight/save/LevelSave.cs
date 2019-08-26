@@ -11,6 +11,7 @@ using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
@@ -117,10 +118,12 @@ namespace BurningKnight.save {
 
 				i++;
 
-				if (i >= 15f) {
+				if (i >= 10f) {
 					Log.Debug("Thread took too long, aborting :(");
 					thread.Abort();
 					Physics.Destroy();
+					Physics.Init();
+					Random.Seed += "_";
 					aborted = true;
 
 					break;

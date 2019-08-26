@@ -12,6 +12,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 using Console = BurningKnight.debug.Console;
@@ -80,7 +81,7 @@ namespace BurningKnight.state {
 			t += dt;
 			
 			timer += dt / 3;
-			timer = Math.Min(timer, (progress + 1) * 34f);
+			timer = Math.Min(timer, (progress + 1) * 0.345f);
 			
 			if (down) {
 				if (ready && ((Engine.Version.Test) || timer >= 1f)) {

@@ -11,27 +11,27 @@ namespace BurningKnight.level.rooms.preboss {
 		}
 		
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tiles.RandomFloor());
-			Painter.Fill(level, this, 2, Tile.FloorD);
+			Painter.Fill(level, this, Tile.WallA);
 
 			foreach (var p in Connected) {
+				var d = p.Value;
+
 				if (p.Key is BossRoom) {
-					var d = p.Value;
 					Point a;
 					Point b;
 
 					if (d.X == Left) {
-						a = new Point(Left + 2, Top + 2);
-						b = new Point(Left + 2, Top + 4);
+						a = new Point(Left + 4, Top + 4);
+						b = new Point(Left + 4, Top + 6);
 					} else if (d.X == Right) {
-						a = new Point(Right - 2, Top + 2);
-						b = new Point(Right - 2, Top + 4);
+						a = new Point(Right - 4, Top + 4);
+						b = new Point(Right - 4, Top + 6);
 					} else if (d.Y == Top) {
-						a = new Point(Left + 2, Top + 2);
-						b = new Point(Left + 4, Top + 2);
+						a = new Point(Left + 4, Top + 4);
+						b = new Point(Left + 6, Top + 4);
 					} else {
-						a = new Point(Left + 2, Bottom - 2);
-						b = new Point(Left + 4, Bottom - 2);
+						a = new Point(Left + 4, Bottom - 4);
+						b = new Point(Left + 6, Bottom - 4);
 					}
 
 					var ta = new Torch();
@@ -44,50 +44,85 @@ namespace BurningKnight.level.rooms.preboss {
 					tb.CenterX = b.X * 16 + 8;
 					tb.Bottom = b.Y * 16 + 12;
 					
-					break;
+				}
+
+				Vector2 from;
+				Vector2 to;
+
+				if (d.X == Left) {
+					to = new Vector2(Left + 3, Top + 5);
+					from = new Vector2(d.X + 1, d.Y);
+				} else if (d.X == Right) {
+					to = new Vector2(Right - 3, Top + 5);
+					from = new Vector2(d.X - 1, d.Y);
+				} else if (d.Y == Top) {
+					to = new Vector2(Left + 5, Top + 3);
+					from = new Vector2(d.X, d.Y + 1);
+				} else {
+					to = new Vector2(Left + 5, Bottom - 3);
+					from = new Vector2(d.X, d.Y - 1);
+				}
+
+				var f = Tiles.RandomFloor();
+
+				if (d.X == Left || d.X == Right) {
+					var n = new Vector2(from.X, to.Y);
+					
+					Painter.DrawLine(level, from, n, f);
+					Painter.DrawLine(level, n, to, f);
+				} else {
+					var n = new Vector2(to.X, from.Y);
+					
+					Painter.DrawLine(level, from, n, f);
+					Painter.DrawLine(level, n, to, f);
 				}
 			}
+			
+			Painter.Fill(level, this, 3, Tile.FloorB);
+			Painter.Fill(level, this, 4, Tile.FloorD);
 		}
 
 		public override int GetMinWidth() {
-			return 7;
+			return 11;
 		}
 
 		public override int GetMinHeight() {
-			return 7;
+			return 11;
 		}
 
 		public override int GetMaxWidth() {
-			return 8;
+			return 12;
 		}
 
 		public override int GetMaxHeight() {
-			return 8;
+			return 12;
 		}
 
-		public override bool CanConnect(Vector2 P) {
-			var x = (int) P.X;
-			var y = (int) P.Y;
-			
-			if (x == Left || x == Right) {
-				if (y != Top + GetHeight() / 2) {
-					return false;
-				}
-			} else if (y == Top || y == Bottom) {
-				if (x != Left + GetWidth() / 2) {
-					return false;
+		public override bool CanConnect(RoomDef R, Vector2 P) {
+			if (R is BossRoom) {
+				var x = (int) P.X;
+				var y = (int) P.Y;
+
+				if (x == Left || x == Right) {
+					if (y != Top + GetHeight() / 2) {
+						return false;
+					}
+				} else if (y == Top || y == Bottom) {
+					if (x != Left + GetWidth() / 2) {
+						return false;
+					}
 				}
 			}
-			
-			return base.CanConnect(P);
+
+			return base.CanConnect(R, P);
 		}
 
-		public override int GetMaxConnections(Connection Side) {
+		/*public override int GetMaxConnections(Connection Side) {
 			if (Side == Connection.All) {
 				return 3;
 			}
 
 			return 1;
-		}
+		}*/
 	}
 }

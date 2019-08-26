@@ -296,7 +296,7 @@ namespace BurningKnight.level {
 					var DoorSpots = new List<Vector2>();
 
 					foreach (var P in I.GetPoints()) {
-						if (R.CanConnect(P) && N.CanConnect(P)) {
+						if (R.CanConnect(N, P) && N.CanConnect(R, P)) {
 							DoorSpots.Add(P);
 						}
 					}

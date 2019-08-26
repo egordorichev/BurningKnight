@@ -108,7 +108,7 @@ namespace BurningKnight.level.rooms {
 			return GetMaxConnections(Direction) - GetCurrentConnections(Direction);
 		}
 
-		public virtual bool CanConnect(Vector2 P) {
+		public virtual bool CanConnect(RoomDef R, Vector2 P) {
 			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
 		}
 
@@ -123,7 +123,7 @@ namespace BurningKnight.level.rooms {
 			var FoundPoint = false;
 
 			foreach (var P in I.GetPoints()) {
-				if (CanConnect(P) && R.CanConnect(P)) {
+				if (CanConnect(R, P) && R.CanConnect(R, P)) {
 					FoundPoint = true;
 
 					break;
@@ -197,7 +197,7 @@ namespace BurningKnight.level.rooms {
 
 			do {
 				if (At++ > 200) {
-					Log.Error("To many attempts");
+					Log.Error($"To many attempts ({GetType().Name})");
 
 					return null;
 				}
@@ -216,13 +216,13 @@ namespace BurningKnight.level.rooms {
 				var At = 0;
 
 				if (At++ > 200) {
-					Log.Error("To many attempts");
+					Log.Error($"To many attempts ({GetType().Name})");
 					return null;
 				}
 
 				while (true) {
 					if (At++ > 200) {
-						Log.Error("To many attempts");
+						Log.Error($"To many attempts ({GetType().Name})");
 						return null;
 					}
 
@@ -292,7 +292,7 @@ namespace BurningKnight.level.rooms {
 
 			while (true) {
 				if (At++ > 200) {
-					Log.Error("To many attempts");
+					Log.Error($"To many attempts ({GetType().Name})");
 					return null;
 				}
 

@@ -1,5 +1,9 @@
 # TODO
 
+* broken props ase file
+* secret rooms seem to corrupt level sometimes
+* spikes dont hurt enemies??
+
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
@@ -8,6 +12,9 @@
 * mimic attacks
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
+* signs of where bk room is
+* special tiles for bk room?
+* show seed in pause menu
 
 ### rooms
 

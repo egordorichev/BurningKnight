@@ -83,7 +83,7 @@ namespace BurningKnight.level {
 			var Attempt = 0;
 
 			do {
-				Log.Info("Generating (attempt " + Attempt + ")...");
+				Log.Info($"Generating (attempt {Attempt}, seed {Random.Seed})...");
 
 				foreach (var Room in Rooms) {
 					Room.Connected.Clear();
@@ -173,6 +173,10 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
+			if (true) {
+				return new LoopBuilder();
+			}
+			
 			if (IsFinal()) {
 				return new LineBuilder();
 			}
@@ -183,7 +187,10 @@ namespace BurningKnight.level {
 				return new LineBuilder();
 			}
 
-			if (R < 0.66f) return new LoopBuilder();
+			if (R < 0.66f) {
+				return new LoopBuilder();
+			}
+			
 			return new CastleBuilder();
 		}
 

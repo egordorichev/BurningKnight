@@ -23,7 +23,7 @@ namespace BurningKnight.level.rooms.connection {
 		}
 		
 		protected Rect GenerateSpot() {
-			var r = 1; // Random.Float();
+			var r = Random.Float();
 
 			if (r < 0.33f) {
 				return GetConnectionSpace();
