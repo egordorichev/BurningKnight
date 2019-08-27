@@ -116,5 +116,9 @@ namespace BurningKnight.level.entities {
 				Engine.Instance.Freeze = 1f;
 			}
 		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return false;
+		}
 	}
 }

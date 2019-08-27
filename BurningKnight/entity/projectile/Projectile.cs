@@ -178,6 +178,7 @@ namespace BurningKnight.entity.projectile {
 						  )
 						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					
+					Log.Error("Hurt");
 					health.ModifyHealth(-Damage, Owner);
 					ToHurt.Add(ev.Entity);
 				}

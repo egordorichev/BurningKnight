@@ -60,23 +60,20 @@ namespace BurningKnight.entity.creature {
 					Kill(ev.From);
 				}
 
-				if (!ev.Handled) {
+				if (ev.From != null && !ev.Handled) {
 					var b = GetAnyComponent<BodyComponent>();
 
 					if (b != null && ev.Amount < 0) {
 						b.KnockbackFrom(ev.From);
-					}
+						
+						for (var i = 0; i < 8; i++) {
+							var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
+								Center + Random.Vector(-4, 4));
 
-					for (var i = 0; i < 8; i++) {
-						var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
-							Center + Random.Vector(-4, 4));
+							var a = ev.From.AngleTo(this);
 
-						var a = ev.From.AngleTo(this);
-
-						p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
-						p.Particle.Velocity.Y -= 8f;
-
-						if (b != null) {
+							p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
+							p.Particle.Velocity.Y -= 8f;
 							p.Particle.Velocity += b.Velocity * 0.5f;
 						}
 					}
@@ -158,11 +155,11 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool HasNoHealth(HealthModifiedEvent e = null) {
-			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
+			return GetComponent<HealthComponent>().Health == 0 || GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
 		}
 
 		public virtual bool HasNoHealth(PostHealthModifiedEvent e = null) {
-			return GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
+			return GetComponent<HealthComponent>().Health == 0;
 		}
 		
 		public virtual bool InAir() {

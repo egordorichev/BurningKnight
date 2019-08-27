@@ -1,5 +1,7 @@
 # TODO
 
+* intersection room might have doors on oppozite sides, then its broken
+
 * generating msg for load state, loading should be faster, than generating
 * secret rooms seem to corrupt level sometimes
 * spikes dont hurt enemies?? and your projectiles
@@ -20,7 +22,6 @@
 
 ### rooms
 
-* better boss rooms
 * take one of items treasure room (how does that work with mimics, tho??)
 * rooms with preasure plates
 * rooms with switches

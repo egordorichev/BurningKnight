@@ -83,7 +83,7 @@ namespace BurningKnight.state {
 			base.Update(dt);
 
 			if (ready) {
-				Engine.Instance.SetState(new InGameState(gameArea, true));
+				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
 		}
 	}

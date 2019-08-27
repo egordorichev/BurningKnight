@@ -56,7 +56,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			var s = GetComponent<StateComponent>();
 
 			if (s.StateInstance is HiddenState || s.StateInstance is HidingState) {
-				s.Become<FshowingState>();
+				s.Become<ShowingState>();
 			}
 		}
 

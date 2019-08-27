@@ -312,7 +312,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public override bool HasNoHealth(PostHealthModifiedEvent e = null) {
-			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
+			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == 0;
 		}
 
 		public override bool HandleEvent(Event e) {
