@@ -4,6 +4,7 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -19,18 +20,16 @@ namespace BurningKnight.state {
 		public float Angle;
 		public bool GoAway;
 
-		private Vector2 start;
-		private float t;
+		public Vector2 Start;
 		private bool doneLerping;
 		private bool hovered;
-		private bool wasHovered;
 		private float sc = 1;
 		public float Scale = 0.6f;
 		
 		public override void Init() {
 			base.Init();
 
-			start = Position;
+			Start = Position;
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			Width = Region.Width;
@@ -40,25 +39,15 @@ namespace BurningKnight.state {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			t += dt;
-
 			if (Math.Abs(Angle) > 0.1f) {
 				Angle -= Angle * (dt * 2.5f);
 			}
 
 			if (GoAway) {
-				var dx = start.X - Position.X;
-				var dy = start.Y - Position.Y;
-				var d = MathUtils.Distance(dx, dy);
+				GoAway = false;
 
-				var s = dt;
-				
-				X += dx * s;
-				Y += dy * s;
-
-				if (d < 0.3f) {
-					Done = true;
-				}
+				Tween.To(Start.X, Position.X, x => X = x, 0.6f, Ease.QuadIn).OnEnd = () => Done = true;
+				Tween.To(Start.Y, Position.Y, x => Y = x, 0.6f, Ease.QuadIn);
 			} else if (!doneLerping) {
 				var dx = Target.X - Position.X;
 				var dy = Target.Y - Position.Y;
@@ -78,7 +67,6 @@ namespace BurningKnight.state {
 			var w = Width * Scale;
 			var h = Height * Scale;
 
-			wasHovered = hovered;
 			hovered = new Rectangle((int) (X - w / 2f), (int) (Y - h / 2f), (int) w, (int) h).Contains(Input.Mouse.UiPosition);
 
 			sc += ((hovered ? 1.3f : 1) - sc) * dt * 5;
@@ -98,10 +86,10 @@ namespace BurningKnight.state {
 
 			if (Name != null) {
 				Print(Name, (int) Position.X, (int) (Position.Y + Height / 2f * scl + 15), a);
-				Graphics.Color = tint;
 			}
 
 			if (Tasks != null) {
+				Graphics.Color = tint;
 				Print(Tasks, (int) Position.X, (int) (Position.Y + Height / 2f * scl + 25), a);
 				Graphics.Color = ColorUtils.WhiteColor;
 			}

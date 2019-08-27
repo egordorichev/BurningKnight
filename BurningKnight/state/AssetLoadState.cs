@@ -17,6 +17,7 @@ using Lens.util;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using Random = Lens.util.math.Random;
+using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class AssetLoadState : GameState {
@@ -36,11 +37,12 @@ namespace BurningKnight.state {
 				Region = new TextureRegion(Textures.FastLoad("Content/logo.png")),
 				Url = "https://twitter.com/rexcellentgames",
 				Name = "Rexcellent Games",
-				Position = new Vector2(240, -360),
+				Position = new Vector2(240, Display.UiHeight + 60),
 				Target = new Vector2(240, 135),
 				Scale = 1
 			});
 
+			logoCard.Start.Y = -90;
 			progress = 0;
 
 			var thread = new Thread(() => {
@@ -101,38 +103,42 @@ namespace BurningKnight.state {
 
 			t += dt;
 
-			if (t > 5f && !added) {
+			if (t > 3f && !added) {
 				added = true;
 				logoCard.GoAway = true;
 				
-				Ui.Add(cards[0] = new PhotoCard {
-					Region = new TextureRegion(Textures.FastLoad("Content/egor.png")),
-					Name = "Egor Dorichev",
-					Tasks = "Code, Art, Sfx & Design",
-					Url = "https://twitter.com/egordorichev",
-					Position = new Vector2(-200, 135),
-					Target = new Vector2(80, 135),
-					Angle = 1f
-				});
+				Timer.Add(() => {
+					Ui.Add(cards[0] = new PhotoCard {
+						Region = new TextureRegion(Textures.FastLoad("Content/egor.png")),
+						Name = "Egor Dorichev",
+						Tasks = "Code, Art, Sfx & Design",
+						Url = "https://twitter.com/egordorichev",
+						Position = new Vector2(-350, 135),
+						Target = new Vector2(80, 135),
+						Angle = 1f
+					});
 			
-				Ui.Add(cards[1] = new PhotoCard {
-					Region = new TextureRegion(Textures.FastLoad("Content/jose.png")),
-					Name = "Jose Ramon",
-					Tasks = "Music & Sfx",
-					Url = "https://twitter.com/BibikiGL",
-					Position = new Vector2(240, 260),
-					Target = new Vector2(240, 135)
-				});
+					Ui.Add(cards[1] = new PhotoCard {
+						Region = new TextureRegion(Textures.FastLoad("Content/jose.png")),
+						Name = "Jose Ramon",
+						Tasks = "Music & Sfx",
+						Url = "https://twitter.com/BibikiGL",
+						Position = new Vector2(240, 360),
+						Target = new Vector2(240, 135)
+					});
 			
-				Ui.Add(cards[2] = new PhotoCard {
-					Region = new TextureRegion(Textures.FastLoad("Content/mate.png")),
-					Name = "Mate Cziner",
-					Tasks = "Art & Design",
-					Url = "https://twitter.com/MateCziner",
-					Position = new Vector2(Display.UiWidth + 200, 135),
-					Target = new Vector2(400, 135),
-					Angle = -1f
-				});
+					cards[1].Start.Y = -160;
+				
+					Ui.Add(cards[2] = new PhotoCard {
+						Region = new TextureRegion(Textures.FastLoad("Content/mate.png")),
+						Name = "Mate Cziner",
+						Tasks = "Art & Design",
+						Url = "https://twitter.com/MateCziner",
+						Position = new Vector2(Display.UiWidth + 350, 135),
+						Target = new Vector2(400, 135),
+						Angle = -1f
+					});
+				}, 0.3f);
 			}
 
 			if (Input.WasPressed(Controls.GameStart)) {
@@ -163,7 +169,7 @@ namespace BurningKnight.state {
 			base.RenderUi();
 			var w = Input.Mouse.UiPosition;
 
-			Graphics.Print($"{Math.Floor(progress / 16f * 100f)}%", Font.Small, Vector2.Zero);
+			// Graphics.Print($"{Math.Floor(progress / 16f * 100f)}%", Font.Small, Vector2.Zero);
 			Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
 		}
 	}

@@ -101,8 +101,8 @@ namespace BurningKnight.state {
 				blur = 1;
 
 				offset = Display.UiHeight;
-				
-				Tween.To(0, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
+
+				Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
 				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
 			} else {
 				offset = Display.UiHeight;
@@ -115,7 +115,7 @@ namespace BurningKnight.state {
 			v = BK.Version.ToString();
 			vx = -Font.Small.MeasureString(v).Width;
 			
-			Shaders.Screen.Parameters["black"].SetValue(0f);
+			Shaders.Screen.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -134,9 +134,8 @@ namespace BurningKnight.state {
 				((Player) p).FindSpawnPoint();
 			}
 
-			TransitionToOpen();
-
 			if (!Menu) {
+				TransitionToOpen();
 				Camera.Instance.Follow(cursor, 1f);
 			}
 			
@@ -510,7 +509,7 @@ namespace BurningKnight.state {
 			base.RenderUi();
 
 			if (Menu && offset < Display.UiHeight) {
-				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight));
+				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight + 1));
 				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight / 90f));
 				
 				Graphics.Print("Press X", Font.Small, Display.Height + 48 + (int) offset);
