@@ -311,6 +311,7 @@
     <Compile Include="util\tween\TweenTask.cs" />
     <Compile Include="util\tween\TweenValue.cs" />
     <Compile Include="util\VectorExtension.cs" />
+    <Compile Include="util\Web.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>

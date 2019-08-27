@@ -87,7 +87,6 @@ namespace Lens {
 			GraphicsDevice = base.GraphicsDevice;
 			GraphicsDevice.BlendState = BlendState.NonPremultiplied;
 			Lens.graphics.Graphics.Init();
-			// Assets.Load();
 		}
 		
 		protected override void UnloadContent() {
@@ -180,7 +179,7 @@ namespace Lens {
 				newState = state;				
 			}
 		}
-
+		
 		public void Quit() {
 			Exit();
 		}

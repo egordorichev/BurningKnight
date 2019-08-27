@@ -85,7 +85,8 @@ namespace BurningKnight.state {
 			get => painting;
 		}
 		
-		public InGameState(Area area) {
+		public InGameState(Area area, bool menu) {
+			Menu = menu;
 			Input.EnableImGuiFocus = false;
 			
 			Area = area;
@@ -94,9 +95,14 @@ namespace BurningKnight.state {
 
 			if (Menu) {
 				Input.Blocked = 1;
+				
+				black = CommonAse.Ui.GetSlice("black");
 				gardient = CommonAse.Ui.GetSlice("gardient");
 				blur = 1;
+
+				offset = Display.UiHeight;
 				
+				Tween.To(0, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
 			} else {
 				offset = Display.UiHeight;
@@ -487,6 +493,7 @@ namespace BurningKnight.state {
 		private float offset;
 		private bool menuExited;
 		private TextureRegion gardient;
+		private TextureRegion black;
 
 		public override void RenderUi() {
 			Graphics.Color = ColorUtils.HalfWhiteColor;
@@ -503,6 +510,7 @@ namespace BurningKnight.state {
 			base.RenderUi();
 
 			if (Menu && offset < Display.UiHeight) {
+				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight));
 				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight / 90f));
 				
 				Graphics.Print("Press X", Font.Small, Display.Height + 48 + (int) offset);

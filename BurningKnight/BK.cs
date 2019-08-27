@@ -22,14 +22,6 @@ namespace BurningKnight {
 			Controls.Bind();
 			Font.Load();
 			ImGuiHelper.Init();
-
-			/*Dialogs.Load();
-			CommonAse.Load();
-			ImGuiHelper.BindTextures();
-			Shaders.Load();
-			Prefabs.Load();
-			Items.Load();
-			Mods.Load();*/
 		}
 
 		protected override void UnloadContent() {

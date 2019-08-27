@@ -24,8 +24,8 @@ namespace Lens.assets {
 		private static List<FileSystemEventArgs> changed = new List<FileSystemEventArgs>();
 		private static float lastUpdate;
 		
-		public static void Load() {
-			LoadAssets();
+		public static void Load(ref int progress) {
+			LoadAssets(ref progress);
 
 			if (LoadOriginalFiles) {				
 				folders = new[] {
@@ -53,14 +53,19 @@ namespace Lens.assets {
 			changed.Add(e);
 		}
 
-		private static void LoadAssets() {
+		private static void LoadAssets(ref int progress) {
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 			
 			Locale.Load("en");
+			progress++;
 			Effects.Load();
+			progress++;
 			Textures.Load();
+			progress++;
 			Animations.Load();
+			progress++;
 			Audio.Load();
+			progress++;
 		}
 
 		public static void Destroy() {
