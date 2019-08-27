@@ -84,7 +84,9 @@ namespace BurningKnight.entity.room.controllable.spikes {
 
 		protected void Hurt() {
 			foreach (var c in Colliding) {
-				c.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				if (!(c is Creature cc && cc.InAir())) {
+					c.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				}
 			}
 		}
 
@@ -177,7 +179,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		#endregion
 
 		protected virtual bool ShouldHurt(Entity e) {
-			return e.HasComponent<HealthComponent>() && !(e is Creature c && c.InAir());
+			return e.HasComponent<HealthComponent>();
 		}
 
 		public override bool HandleEvent(Event e) {
