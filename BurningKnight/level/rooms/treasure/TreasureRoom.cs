@@ -18,6 +18,12 @@ namespace BurningKnight.level.rooms.treasure {
 			Painter.Fill(level, this, 1, Tile.FloorD);	
 		}
 
+		public override void SetupDoors(Level level) {
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Enemy;
+			}
+		}
+
 		protected void PlaceChest(Level level, Vector2 where) {
 			var chance = GameSave.GetFloat("mimic_chance") * 100;
 
