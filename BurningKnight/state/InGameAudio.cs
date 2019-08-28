@@ -39,7 +39,7 @@ namespace BurningKnight.state {
 			Subscribe<PlayerRolledEvent>();
 			Subscribe<BurningKnightDefeatedEvent>();
 			
-			Subscribe<SpawnTrigger.Triggered>();
+			Subscribe<SpawnTrigger.TriggeredEvent>();
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -165,7 +165,7 @@ namespace BurningKnight.state {
 				Audio.PlaySfx("gobbo_jump");
 			} else if (e is ChestOpenedEvent coe) {
 				Audio.PlaySfx(coe.Chest, "chest_open");
-			} else if (e is SpawnTrigger.Triggered) {
+			} else if (e is SpawnTrigger.TriggeredEvent) {
 				Audio.Stop();
 			}
 

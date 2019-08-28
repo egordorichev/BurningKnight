@@ -56,6 +56,7 @@ namespace BurningKnight.save {
 					area.Add(e);
 				}
 
+				area.EventListener.Copy(a.EventListener);
 				area.Entities.AddNew();
 				I = 0;
 			} catch (Exception e) {

@@ -176,6 +176,12 @@ namespace Lens.entity {
 				}
 			}
 
+			if (e.WasInEL) {
+				return e.Handled;
+			}
+
+			e.WasInEL = true;
+
 			if (Area.EventListener.Handle(e)) {
 				e.Handled = true;
 			}

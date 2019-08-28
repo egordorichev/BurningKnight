@@ -3,10 +3,13 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens;
 using Lens.entity;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -27,6 +30,9 @@ namespace BurningKnight.level.entities.decor {
 
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			Subscribe<RoomChangedEvent>();
+			AddComponent(new RoomComponent());
 			
 			AddComponent(new ShadowComponent());
 			AddComponent(new InteractableComponent(Interact) {
@@ -59,6 +65,8 @@ namespace BurningKnight.level.entities.decor {
 		private bool Interact(Entity e) {
 			Broken = true;
 			GameSave.Put("statue_broken", true);
+			
+			Camera.Instance.Unfollow(this);
 			
 			AnimationUtil.Explosion(Center);
 			Camera.Instance.Shake(10);
@@ -129,6 +137,24 @@ namespace BurningKnight.level.entities.decor {
 
 		protected override Rectangle GetCollider() {
 			return new Rectangle(2, 8, 10, 14);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is RoomChangedEvent rce) { // fixme: sub doesnt work? same for boss lock, btw
+				var r = GetComponent<RoomComponent>().Room;
+
+				if (rce.Who is LocalPlayer) {
+					if (rce.New == r) {
+						Log.Info("Follow");
+						Camera.Instance.Follow(this, 0.7f);
+					} else if (rce.Old == r) {
+						Log.Error("Unfollow");
+						Camera.Instance.Unfollow(this);
+					}
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

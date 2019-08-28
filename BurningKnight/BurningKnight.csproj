@@ -269,6 +269,8 @@
     <Compile Include="entity\creature\SimpleDrop.cs" />
     <Compile Include="entity\creature\SingleDrop.cs" />
     <Compile Include="entity\Cursor.cs" />
+    <Compile Include="entity\door\BossDoor.cs" />
+    <Compile Include="entity\door\BossLock.cs" />
     <Compile Include="entity\door\Door.cs" />
     <Compile Include="entity\door\GoldLock.cs" />
     <Compile Include="entity\door\IronLock.cs" />

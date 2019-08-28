@@ -85,6 +85,10 @@ namespace BurningKnight.entity.creature.bk {
 				}
 
 				if (deathTimer >= 3f) {
+					HandleEvent(new DefeatedEvent {
+						BurningKnight = this
+					});
+					
 					Engine.Instance.FlashColor = ColorUtils.WhiteColor;
 					Done = true;
 					PlaceRewards();
@@ -162,6 +166,10 @@ namespace BurningKnight.entity.creature.bk {
 
 		private class DefeatedState : SmartState<BurningKnight> {
 			
+		}
+
+		public class DefeatedEvent : Event {
+			public BurningKnight BurningKnight;
 		}
 	}
 }

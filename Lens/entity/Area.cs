@@ -55,6 +55,8 @@ namespace Lens.entity {
 				list.Clear();
 			}
 
+			EventListener.Destroy();
+
 			AutoRemove();
 
 			entities.Entities.Clear();

@@ -26,14 +26,14 @@ namespace BurningKnight.entity.creature.bk {
 		public byte RoomWidth;
 		public byte RoomHeight;
 
-		private bool triggered;
+		public bool Triggered;
 		private float t;
 		private bool did;
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!did && triggered) {
+			if (!did && Triggered) {
 				Camera.Instance.Shake();
 				t += dt;
 
@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.bk {
 					Camera.Instance.Follow(this, 3f);
 					Tween.To(0.5f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
 					
-					// zoom out here would be super cool
+					// fixme: lock the door
 					
 					for (var j = 1; j < r; j++) {
 						var level = Run.Level;
@@ -166,18 +166,18 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (triggered) {
+			if (Triggered) {
 				return base.HandleEvent(e);
 			}
 			
 			if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player p) {
-					triggered = true;
+					Triggered = true;
 					
 					Engine.Instance.Freeze = 1f;
 					Engine.Instance.Flash = 1f;
 					
-					HandleEvent(new Triggered {
+					HandleEvent(new TriggeredEvent {
 						Trigger = this,
 						Who = p
 					});
@@ -187,7 +187,7 @@ namespace BurningKnight.entity.creature.bk {
 			return base.HandleEvent(e);
 		}
 
-		public class Triggered : Event {
+		public class TriggeredEvent : Event {
 			public SpawnTrigger Trigger;
 			public Player Who;
 		}

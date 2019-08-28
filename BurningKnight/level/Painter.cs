@@ -522,9 +522,16 @@ namespace BurningKnight.level {
 				Door door;
 
 				switch (type) {
-					case DoorPlaceholder.Variant.Locked: door = new SpecialDoor();
+					case DoorPlaceholder.Variant.Locked: 
+						door = new SpecialDoor();
 						break;
-					default: door = new LockableDoor();
+					
+					case DoorPlaceholder.Variant.Boss: 
+						door = new BossDoor();
+						break;
+				
+					default: 
+						door = new LockableDoor();
 						break;
 				}
 

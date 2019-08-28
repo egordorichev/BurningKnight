@@ -133,6 +133,25 @@ namespace Lens.util.camera {
 			}
 		}
 
+		public void Unfollow(Entity entity) {
+			Target tar = null;
+			
+			foreach (var t in Targets) {
+				if (t.Entity == entity) {
+					tar = t;
+					break;
+				}
+			}
+
+			if (tar != null) {
+				Targets.Remove(tar);
+			}
+
+			if (MainTarget == entity) {
+				MainTarget = null;
+			}
+		}
+
 		private Vector2 lastPosition;
 		public Vector2 PositionDelta => Position - lastPosition;
 

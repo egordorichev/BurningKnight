@@ -1,21 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lens.util;
 
 namespace Lens.entity {
 	public class EventListener {
 		private Dictionary<Type, List<Subscriber>> subscribers = new Dictionary<Type, List<Subscriber>>();
+
+		public void Copy(EventListener l) {
+			foreach (var pair in l.subscribers) {
+				if (!subscribers.ContainsKey(pair.Key)) {
+					subscribers[pair.Key] = new List<Subscriber>();
+				}
+				
+				subscribers[pair.Key].AddRange(pair.Value);
+			}
+			
+			l.subscribers.Clear();
+		}
 		
 		public bool Handle(Event e) {
 			if (subscribers.TryGetValue(e.GetType(), out var subs)) {
 				foreach (var sub in subs) {
 					if (sub.HandleEvent(e)) {
-						return true;
+						e.Handled = true;
 					}
 				}
 			}
 
-			return false;
+			return e.Handled;
 		}
 
 		public void Subscribe<T>(Subscriber s) where T : Event {
@@ -29,12 +42,18 @@ namespace Lens.entity {
 				
 				subscribers[type] = subs;
 			}
+			
+			Log.Debug($"{s.GetType().Name} subscribed to {type.Name} for a total of {subs.Count} subs");
 		}
 
 		public void Unsubscribe<T>(Subscriber s) where T : Event {
 			if (subscribers.TryGetValue(typeof(T), out var subs)) {
 				subs.Remove(s);
 			}
+		}
+
+		public void Destroy() {
+			subscribers.Clear();
 		}
 	}
 }

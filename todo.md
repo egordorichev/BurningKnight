@@ -19,6 +19,7 @@
 * darken bk room
 * breadcrumbs for bk type
 * ellipses seem to be 1 tile less width and height??
+* better bk spawn: fire from torches merges into a black hole, then bk appears, torches are destroyed
 
 * castle 2 mobs:
  + slime that shoots to you, when lands

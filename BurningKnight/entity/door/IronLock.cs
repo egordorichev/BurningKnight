@@ -5,7 +5,7 @@ using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
-		private List<Room> rooms = new List<Room>();
+		protected List<Room> rooms = new List<Room>();
 
 		public void CalcRooms() {
 			rooms.Clear();
@@ -33,7 +33,11 @@ namespace BurningKnight.entity.door {
 			if (!updatedRooms || rooms.Count == 0) {
 				CalcRooms();
 			}
-			
+
+			UpdateState();
+		}
+		
+		protected virtual void UpdateState() {
 			var shouldLock = false;
 
 			foreach (var r in rooms) {

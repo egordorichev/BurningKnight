@@ -103,6 +103,12 @@ namespace BurningKnight.level.rooms.boss {
 			Painter.Fill(level, c, -1, Tiles.RandomFloor());
 		}
 
+		public override void SetupDoors(Level level) {
+			foreach (var d in Connected.Values) {
+				d.Type = DoorPlaceholder.Variant.Boss;
+			}
+		}
+
 		public override Rect GetConnectionSpace() {
 			return GetCenterRect();
 		}
