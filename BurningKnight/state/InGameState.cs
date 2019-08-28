@@ -484,7 +484,7 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			settings.RenderInGame();
-			RenderFog();
+			// RenderFog();
 		}
 
 		private float vx;

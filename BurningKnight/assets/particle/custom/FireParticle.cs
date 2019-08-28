@@ -21,6 +21,7 @@ namespace BurningKnight.assets.particle.custom {
 
 		private float r;
 		private float g;
+		private float b;
 		
 		public override void Init() {
 			base.Init();
@@ -33,21 +34,28 @@ namespace BurningKnight.assets.particle.custom {
 			AlwaysVisible = true;
 			
 			growing = true;
-			scaleTar = Random.Float(0.3f, 0.7f);
+			scaleTar = Random.Float(0.5f, 0.9f);
 
 			mod = Random.Float(0.7f, 1f);
 			sinOffset = Random.Float(3.2f);
 			offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
 
-			r = Random.Float(0.8f, 1f);
-			g = Random.Float(0f, 1f);
+			r = 1f;
+			g = 1f;
+			b = 1f;
 		}
 
 		public override void Update(float dt) {
 			t += dt;
 
+			if (t > 0.2f) {
+				r = Math.Max(0, r - dt * 0.3f * mod);
+				g = Math.Max(0, g - dt * mod);
+				b = Math.Max(0, b - dt * 3 * mod);
+			}
+
 			if (growing) {
-				scale += dt ;
+				scale += dt;
 
 				if (scale >= scaleTar) {
 					scale = scaleTar;
@@ -79,9 +87,9 @@ namespace BurningKnight.assets.particle.custom {
 
 			pos.X += (float) Math.Cos(sinOffset + t * 2.5f) * scale * 8 * XChange;
 			
-			Graphics.Color = new Color(r, r, 0f, 0.5f);
+			Graphics.Color = new Color(r, g, b, 0.5f);
 			Graphics.Render(region, pos, a, region.Center, new Vector2(scale * 10));
-			Graphics.Color = new Color(r, g, 0f, 1f);
+			Graphics.Color = new Color(r, g, b, 1f);
 			Graphics.Render(region, pos, a, region.Center, new Vector2(scale * 5));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}

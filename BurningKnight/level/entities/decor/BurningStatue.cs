@@ -1,3 +1,4 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using Microsoft.Xna.Framework;
@@ -14,7 +15,25 @@ namespace BurningKnight.level.entities.decor {
 
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 			AddComponent(new ShadowComponent());
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			
+			Area.Add(new FireEmitter {
+				Depth = Depth + 1,
+				Position = new Vector2(X + 11, Y + 15),
+				Scale = 0.8f
+			});
+			
+			Area.Add(new FireEmitter {
+				Depth = Depth + 1,
+				Position = new Vector2(X + 4, Y + 15),
+				Scale = 0.8f
+			});
 		}
 
 		private float lastFlame;

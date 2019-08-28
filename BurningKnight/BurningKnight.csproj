@@ -112,6 +112,7 @@
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\controller\SparkParticleController.cs" />
+    <Compile Include="assets\particle\custom\FireEmitter.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
     <Compile Include="assets\particle\ParticleEmitter.cs" />
