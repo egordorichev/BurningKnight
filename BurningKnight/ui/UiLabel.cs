@@ -2,10 +2,12 @@
 using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended.BitmapFonts;
 
 namespace BurningKnight.ui {
 	public class UiLabel : UiEntity {
 		protected string label;
+		public BitmapFont Font = assets.Font.Medium;
 		
 		public string Label {
 			get => label;
@@ -14,7 +16,7 @@ namespace BurningKnight.ui {
 				if (label != value) {
 					label = value;
 					
-					var size = Font.Medium.MeasureString(label);
+					var size = Font.MeasureString(label);
 
 					Width = size.Width;
 					Height = size.Height;
@@ -29,7 +31,7 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			Graphics.Print(label, Font.Medium, Position + origin, angle, origin, new Vector2(scale));
+			Graphics.Print(label, Font, Position + origin, angle, origin, new Vector2(scale));
 		}
 	}
 }

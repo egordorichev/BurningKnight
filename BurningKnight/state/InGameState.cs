@@ -192,6 +192,8 @@ namespace BurningKnight.state {
 			if (died) {
 				return;
 			}
+
+			seedLabel.Label = Run.Seed;
 			
 			Tween.To(this, new {blur = 1}, 0.25f);
 
@@ -540,7 +542,8 @@ namespace BurningKnight.state {
 		}
 
 		private Console console;
-
+		private UiLabel seedLabel;
+		
 		private void SetupUi() {
 			var cam = new Camera(new FollowingDriver());
 			Ui.Add(cam);
@@ -566,8 +569,16 @@ namespace BurningKnight.state {
 			});
 
 			var space = 32f;
-			var start = (Display.UiHeight - space * 2 - 14 * 3) / 2f;
+			var start = (Display.UiHeight - space * 2 - 14 * 3) / 2f + space;
 
+			pauseMenu.Add(seedLabel = new UiLabel {
+				Font = Font.Small,
+				Label = Run.Seed,
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeY = start - space * 2,
+				AngleMod = 0
+			});
+			
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
 				RelativeCenterX = Display.UiWidth / 2f,
@@ -575,18 +586,18 @@ namespace BurningKnight.state {
 				Click = () => Paused = false
 			});
 			
-			/*pauseMenu.Add(new UiButton {
+			pauseMenu.Add(new UiButton {
 				LocaleLabel = "settings",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space
-			});*/
+			});
 			
 			pauseMenu.Add(new UiButton {
-				LocaleLabel = "back_to_hub",
+				LocaleLabel = "back_to_castle",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space * 2,
 				Type = ButtonType.Exit,
-				Click = () => Run.Depth = -1
+				Click = () => Run.Depth = 0
 			});
 			
 			pauseMenu.Setup();
