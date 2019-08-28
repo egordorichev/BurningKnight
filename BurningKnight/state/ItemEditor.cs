@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -444,6 +445,10 @@ namespace BurningKnight.state {
 		}
 		
 		public static void Render() {
+			if (!WindowManager.ItemEditor) {
+				return;
+			}
+			
 			if (toSort) {
 				toSort = false;
 				Sort();

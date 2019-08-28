@@ -15,6 +15,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor.command;
+using BurningKnight.ui.imgui;
 using BurningKnight.ui.imgui.node;
 using ImGuiNET;
 using Lens;
@@ -225,6 +226,10 @@ namespace BurningKnight.ui.editor {
 		private Type copy;
 		
 		public void Render() {
+			if (!WindowManager.LevelEditor) {
+				return;
+			}
+
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (Input.Keyboard.IsDown(Keys.LeftControl, true)) {
@@ -283,11 +288,10 @@ namespace BurningKnight.ui.editor {
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
 			var clicked = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.WasPressedLeftButton;
 			
-			if (!ImGui.Begin("Editor")) {
+			if (!ImGui.Begin("Level Editor")) {
 				ImGui.End();
 				return;
 			}
-
 
 			if (!(Engine.Instance.State is InGameState)) {
 				var o = currentLevel;

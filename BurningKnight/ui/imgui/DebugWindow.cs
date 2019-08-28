@@ -33,6 +33,10 @@ namespace BurningKnight.ui.imgui {
 		private static float lastFps;
 
 		public static void Render() {
+			if (!WindowManager.Debug) {
+				return;
+			}
+			
 			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;

@@ -1,9 +1,9 @@
 # TODO
 
-* !!! secret rooms seem to corrupt level sometimes
-* !!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
+* ?!!! secret rooms seem to corrupt level sometimes
+* ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
+* !!! generation needs hard testing
 
-* a way to sort imgui windows
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)

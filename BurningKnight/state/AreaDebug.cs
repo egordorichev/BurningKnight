@@ -4,6 +4,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
+using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens.entity;
 using Vector2 = System.Numerics.Vector2;
@@ -31,6 +32,7 @@ namespace BurningKnight.state {
 		}
 
 		private static void RenderWindow() {
+		
 			if (selected == null) {
 				return;
 			}
@@ -54,6 +56,10 @@ namespace BurningKnight.state {
 		}
 		
 		public static void Render(Area area) {
+			if (!WindowManager.Entities) {
+				return;
+			}
+			
 			RenderWindow();
 			
 			ImGui.SetNextWindowSize(defaultSize, ImGuiCond.Once);

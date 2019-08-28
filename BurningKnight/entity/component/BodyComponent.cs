@@ -49,7 +49,11 @@ namespace BurningKnight.entity.component {
 			Entity.PositionChanged += PositionChangedListener;
 			
 			if (Body != null) {
-				Body.Position = Entity.Position + Offset;
+				try {
+					Body.Position = Entity.Position + Offset;
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 

@@ -156,6 +156,10 @@ namespace BurningKnight.state {
 		}
 
 		public override void Destroy() {
+			if (Engine.Quiting) {
+				Run.SavingDepth = Run.Depth;
+			}
+			
 			Audio.Stop();
 			Lights.Destroy();
 
@@ -653,6 +657,10 @@ namespace BurningKnight.state {
 		}
 
 		private void RenderSettings() {
+			if (!WindowManager.Settings) {
+				return;
+			}
+			
 			if (!ImGui.Begin("Settings")) {
 				ImGui.End();
 				return;
@@ -688,7 +696,7 @@ namespace BurningKnight.state {
 			RenderSettings();
 			Run.Statistics?.RenderWindow();
 
-			if (ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
+			if (WindowManager.Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
 				var p = LocalPlayer.Locate(Area);
 
 				if (p != null) {
@@ -713,6 +721,7 @@ namespace BurningKnight.state {
 				ImGui.End();
 			}
 			
+			WindowManager.Render();
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

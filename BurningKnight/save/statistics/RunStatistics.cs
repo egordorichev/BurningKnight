@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
+using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens.entity;
 using Lens.util;
@@ -272,7 +273,11 @@ namespace BurningKnight.save.statistics {
 		}
 
 		public void RenderWindow() {
-			if (!ImGui.Begin("Run statistics")) {
+			if (!WindowManager.RunInfo) {
+				return;
+			}
+			
+			if (!ImGui.Begin("Run Info")) {
 				return;
 			}
 			

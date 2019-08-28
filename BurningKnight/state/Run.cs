@@ -11,6 +11,7 @@ namespace BurningKnight.state {
 		private static int depth = Engine.Version.Dev ? 1 : 0;
 		public static int NextDepth { get; private set; } = depth;
 		public static int LastDepth = depth;
+		public static int SavingDepth;
 		public static bool StartingNew;
 		public static int KillCount;
 		public static float Time;
@@ -35,6 +36,7 @@ namespace BurningKnight.state {
 
 			if (StartingNew || depth != NextDepth) {
 				LastDepth = depth;
+				SavingDepth = depth;
 				depth = NextDepth;
 				StartedNew = StartingNew;
 				StartingNew = false;

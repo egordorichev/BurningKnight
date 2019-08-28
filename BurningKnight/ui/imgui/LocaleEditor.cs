@@ -49,6 +49,10 @@ namespace BurningKnight.ui.imgui {
 		}
 		
 		public static void Render() {
+			if (!WindowManager.LocaleEditor) {
+				return;
+			}
+			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Locale editor")) {

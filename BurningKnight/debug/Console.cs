@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using BurningKnight.assets;
 using BurningKnight.entity;
+using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
@@ -63,6 +64,10 @@ namespace BurningKnight.debug {
 		}
 		
 		public void Render() {
+			if (!WindowManager.Console) {
+				return;
+			}
+			
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (forceFocus) {
