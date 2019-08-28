@@ -8,7 +8,7 @@
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
 * remove lamp mechanics?
-* mimic attacks
+* think about replacing chests with multichoice? fits the purpose of the game more. mimic attacks
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * signs of where bk room is
@@ -16,6 +16,9 @@
 * break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
 * redo bullet death animation: pause, flash white for a split second, then gone
+* darken bk room
+* breadcrumbs for bk type
+* ellipses seem to be 1 tile less width and height??
 
 * castle 2 mobs:
  + slime that shoots to you, when lands

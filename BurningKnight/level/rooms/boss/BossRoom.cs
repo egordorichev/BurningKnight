@@ -1,6 +1,7 @@
 using BurningKnight.entity.creature.bk;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens;
 
@@ -92,9 +93,11 @@ namespace BurningKnight.level.rooms.boss {
 			ta.Bottom = trigger.Y + 4 * 16 + 12;
 
 			var st = new BurningStatue();
+			st.Broken = GameSave.IsTrue("statue_broken");
 			level.Area.Add(st);
 			st.CenterX = c.Left * 16 + 8;
 			st.Bottom = c.Top * 16 + 8;
+			
 
 			Painter.Fill(level, c, -2, Tile.FloorD);
 			Painter.Fill(level, c, -1, Tiles.RandomFloor());

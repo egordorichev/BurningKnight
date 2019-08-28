@@ -140,6 +140,7 @@ namespace BurningKnight.state {
 			}
 			
 			Camera.Instance.Jump();
+				
 			Run.StartedNew = false;
 		}
 
@@ -456,6 +457,16 @@ namespace BurningKnight.state {
 			var renderer = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			
 			renderer.End();
+			
+			var c = Camera.Instance;
+			var z = c.Zoom;
+			var n = Math.Abs(z - 1) > 0.01f;
+				
+			if (n) {
+				c.Zoom = 1;
+				c.UpdateMatrices();
+			}
+			
 			renderer.BeginShadows();
 
 			foreach (var e in Area.Tags[Tags.HasShadow]) {
@@ -465,6 +476,12 @@ namespace BurningKnight.state {
 			}
 			
 			renderer.EndShadows();
+
+			if (n) {
+				c.Zoom = z;
+				c.UpdateMatrices();
+			}
+			
 			renderer.Begin();
 		}
 		
@@ -515,8 +532,8 @@ namespace BurningKnight.state {
 			base.RenderUi();
 
 			if (Menu && offset < Display.UiHeight) {
-				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight + 1));
-				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth, Display.UiHeight / 90f));
+				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, Display.UiHeight + 1));
+				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, (Display.UiHeight + 1) / 90f));
 				
 				Graphics.Print("Press X", Font.Small, Display.Height + 48 + (int) offset);
 				

@@ -841,10 +841,24 @@ namespace BurningKnight.level {
 			if (Engine.Instance.StateRenderer.UiTarget != null) {
 				Graphics.Color = ShadowColor;
 
+				var c = Camera.Instance;
+				var z = c.Zoom;
+				var n = Math.Abs(z - 1) > 0.01f;
+				
+				if (n) {
+					c.Zoom = 1;
+					c.UpdateMatrices();
+				}
+
 				Graphics.Render(Engine.Instance.StateRenderer.UiTarget,
 					Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
 						Camera.Instance.Position.Y % 1));
 
+				if (n) {
+					c.Zoom = z;
+					c.UpdateMatrices();
+				}
+				
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
@@ -955,13 +969,14 @@ namespace BurningKnight.level {
 				}
 			}
 		}
-
+		
 		public void RenderWalls() {
 			var camera = Camera.Instance;
 			var state = Engine.Instance.StateRenderer;
 			state.End();
 
 			Engine.GraphicsDevice.SetRenderTarget(WallSurface);
+
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.TransparentBlack);
@@ -996,6 +1011,16 @@ namespace BurningKnight.level {
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			
+			var c = Camera.Instance;
+			var z = c.Zoom;
+			var n = Math.Abs(z - 1) > 0.01f;
+			
+			if (n) {
+				c.Zoom = 1;
+				c.UpdateMatrices();
+			}
+
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
@@ -1003,6 +1028,12 @@ namespace BurningKnight.level {
 				                             Camera.Instance.Position.Y % 1));
 			
 			Graphics.Batch.End();
+
+			if (n) {
+				c.Zoom = z;
+				c.UpdateMatrices();
+			}
+			
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			state.Begin();
 

@@ -14,6 +14,7 @@ using Lens.entity;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.timer;
+using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.bk {
@@ -42,6 +43,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 3f);
+					Tween.To(0.5f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
 					
 					// zoom out here would be super cool
 					
@@ -97,6 +99,8 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					Timer.Add(() => {
+						Tween.To(1f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
+
 						var bk = new BurningKnight();
 						Area.Add(bk);
 						bk.Center = Center;
@@ -167,17 +171,25 @@ namespace BurningKnight.entity.creature.bk {
 			}
 			
 			if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Player) {
+				if (cse.Entity is Player p) {
 					triggered = true;
 					
 					Engine.Instance.Freeze = 1f;
 					Engine.Instance.Flash = 1f;
-
-					Audio.Stop();
+					
+					HandleEvent(new Triggered {
+						Trigger = this,
+						Who = p
+					});
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public class Triggered : Event {
+			public SpawnTrigger Trigger;
+			public Player Who;
 		}
 	}
 }

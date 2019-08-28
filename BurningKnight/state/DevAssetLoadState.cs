@@ -10,8 +10,10 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.game;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
@@ -85,6 +87,11 @@ namespace BurningKnight.state {
 			if (ready) {
 				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
+		}
+
+		public override void RenderUi() {
+			base.RenderUi();
+			Graphics.Print($"Loading assets {progress / 16f * 100}%", Font.Medium, new Vector2(10, 10));
 		}
 	}
 }

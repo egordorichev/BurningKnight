@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Lens;
 using Lens.assets;
@@ -17,10 +18,12 @@ namespace BurningKnight.assets.lighting {
 		private static List<Light> lights = new List<Light>();
 		private static RenderTarget2D surface;
 		private static BlendState blend;
+		private static TextureRegion black;
 		
 		public static void Init() {
 			if (region == null) {
 				region = Textures.Get("light");
+				black = CommonAse.Ui.GetSlice("black");
 			}
 
 			if (surface == null) {
@@ -31,22 +34,18 @@ namespace BurningKnight.assets.lighting {
 			}
 
 			if (blend == null) {
-				blend = BlendState.NonPremultiplied;//BlendState.Additive;
+				blend = BlendState.NonPremultiplied;
 			}
 		}
 
 		public static void Render() {
-			if (lights.Count == 0) {
-				return;
-			}
-			
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
-			
+
 			foreach (var light in lights) {
 				Graphics.Color = light.Color;
 				Graphics.Render(region, light.GetPosition(), 0, region.Center, light.Scale);	
@@ -56,17 +55,34 @@ namespace BurningKnight.assets.lighting {
 
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			
+			var c = Camera.Instance;
+			var z = c.Zoom;
+			var n = Math.Abs(z - 1) > 0.01f;
+				
+			if (n) {
+				c.Zoom = 1;
+				c.UpdateMatrices();
+			}
+			
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
 			Graphics.Color = new Color(1f, 1f, 1f, 0.4f);
-			
+
 			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
 			Camera.Instance.Position.Y % 1));
 			Graphics.Color = Color.White;
 			Graphics.Batch.End();
+			
+			if (n) {
+				c.Zoom = z;
+				c.UpdateMatrices();
+			}
+			
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			state.Begin();
+			
 		}
 
 		public static void Destroy() {

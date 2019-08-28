@@ -2,6 +2,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
@@ -37,6 +38,8 @@ namespace BurningKnight.state {
 			
 			Subscribe<PlayerRolledEvent>();
 			Subscribe<BurningKnightDefeatedEvent>();
+			
+			Subscribe<SpawnTrigger.Triggered>();
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -162,6 +165,8 @@ namespace BurningKnight.state {
 				Audio.PlaySfx("gobbo_jump");
 			} else if (e is ChestOpenedEvent coe) {
 				Audio.PlaySfx(coe.Chest, "chest_open");
+			} else if (e is SpawnTrigger.Triggered) {
+				Audio.Stop();
 			}
 
 			return false;

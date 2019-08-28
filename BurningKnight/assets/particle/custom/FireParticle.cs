@@ -48,7 +48,7 @@ namespace BurningKnight.assets.particle.custom {
 		public override void Update(float dt) {
 			t += dt;
 
-			if (t > 0.2f) {
+			if (t > 0.3f) {
 				r = Math.Max(0, r - dt * 0.3f * mod);
 				g = Math.Max(0, g - dt * mod);
 				b = Math.Max(0, b - dt * 3 * mod);

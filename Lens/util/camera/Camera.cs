@@ -279,7 +279,7 @@ namespace Lens.util.camera {
 			}
 		}
 
-		private void UpdateMatrices() {
+		public void UpdateMatrices() {
 			matrix = Matrix.Identity *
 				Matrix.CreateTranslation(new Vector3(
 				 -new Vector2((int) Math.Floor(position.X), (int) Math.Floor(position.Y)), 0)) *
