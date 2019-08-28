@@ -15,7 +15,6 @@ using Lens.game;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Random = Lens.util.math.Random;
 using Console = BurningKnight.debug.Console;
 
@@ -33,14 +32,21 @@ namespace BurningKnight.state {
 		private float t;
 		private int progress;
 		private float timer;
-
+		private bool loading;
+		
 		public bool Menu;
 		
 		public override void Init() {
 			base.Init();
+			
+			if (SaveManager.ExistsAndValid(SaveType.Game)
+			    && SaveManager.ExistsAndValid(SaveType.Level)
+			    && SaveManager.ExistsAndValid(SaveType.Player)) {
 
-			// todo: generating too
-			prefix = Locale.Get("loading");
+				loading = true;
+			}
+
+			prefix = Locale.Get(loading || Run.Depth < 1 ? "loading" : "generating");
 			title = LoadScreenTitles.Generate();
 			
 			Lights.Init();
@@ -86,7 +92,8 @@ namespace BurningKnight.state {
 			timer = Math.Min(timer, (progress + 1) * 0.345f);
 			
 			if (down) {
-				if (ready && ((Engine.Version.Test) || timer >= 1f)) {
+				if (ready && ((Engine.Version.Test || loading) || timer >= 1f)) {
+					timer = 1;
 					alpha -= dt * 5;
 				}
 			} else {

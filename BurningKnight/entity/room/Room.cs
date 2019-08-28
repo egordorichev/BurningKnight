@@ -169,7 +169,7 @@ namespace BurningKnight.entity.room {
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
 
-			if (Run.Depth < 1) {
+			if (Run.LastDepth < 1) {
 				return;
 			}
 			

@@ -1,10 +1,9 @@
 # TODO
 
-* generating msg for load state, loading should be faster, than generating
-
 * !!! secret rooms seem to corrupt level sometimes
 * !!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 
+* a way to sort imgui windows
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
@@ -18,6 +17,7 @@
 * make lamps breabkable (and improve them, as suggested in discord)
 * break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
+* redo bullet death animation: pause, flash white for a split second, then gone
 
 * castle 2 mobs:
  + slime that shoots to you, when lands
