@@ -1,22 +1,23 @@
 # TODO
 
 * intersection room might have doors on oppozite sides, then its broken
-
 * generating msg for load state, loading should be faster, than generating
-* secret rooms seem to corrupt level sometimes
+
+* !!! secret rooms seem to corrupt level sometimes
+* !!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
 * remove lamp mechanics?
-
 * mimic attacks
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * signs of where bk room is
 * special tiles for bk room?
 * show seed in pause menu
-
+* make lamps breabkable (and improve them, as suggested in discord)
+* break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
 
 ### rooms
