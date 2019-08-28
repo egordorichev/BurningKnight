@@ -140,15 +140,13 @@ namespace BurningKnight.level.entities.decor {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is RoomChangedEvent rce) { // fixme: sub doesnt work? same for boss lock, btw
+			if (e is RoomChangedEvent rce) {
 				var r = GetComponent<RoomComponent>().Room;
 
 				if (rce.Who is LocalPlayer) {
 					if (rce.New == r) {
-						Log.Info("Follow");
-						Camera.Instance.Follow(this, 0.7f);
+						Camera.Instance.Follow(this, 0.3f);
 					} else if (rce.Old == r) {
-						Log.Error("Unfollow");
 						Camera.Instance.Unfollow(this);
 					}
 				}

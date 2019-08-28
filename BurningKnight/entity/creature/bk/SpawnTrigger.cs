@@ -101,20 +101,21 @@ namespace BurningKnight.entity.creature.bk {
 					Timer.Add(() => {
 						Tween.To(1f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
 
-						var bk = new BurningKnight();
-						Area.Add(bk);
-						bk.Center = Center;
-						
-						Camera.Instance.Follow(bk, 2f);
-
 						Timer.Add(() => {
-							((InGameState) (Engine.Instance.State)).ResetFollowing();
+							var bk = new BurningKnight();
+							Area.Add(bk);
+							bk.Center = Center;
+
+							Camera.Instance.Follow(bk, 2f);
+
+							Timer.Add(() => {
+								((InGameState) (Engine.Instance.State)).ResetFollowing();
+							}, 1f);
+
+							Done = true;
+							Camera.Instance.Shake(10);
 						}, 1f);
-						
-						Done = true;
-						
-						Camera.Instance.Shake(10);
-					}, r * 0.1f + 3f);
+					}, r * 0.1f + 2f);
 				}
 			}
 		}

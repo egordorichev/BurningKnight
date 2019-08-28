@@ -42,8 +42,6 @@ namespace Lens.entity {
 				
 				subscribers[type] = subs;
 			}
-			
-			Log.Debug($"{s.GetType().Name} subscribed to {type.Name} for a total of {subs.Count} subs");
 		}
 
 		public void Unsubscribe<T>(Subscriber s) where T : Event {
