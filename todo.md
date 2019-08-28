@@ -1,6 +1,5 @@
 # TODO
 
-* intersection room might have doors on oppozite sides, then its broken
 * generating msg for load state, loading should be faster, than generating
 
 * !!! secret rooms seem to corrupt level sometimes
@@ -19,6 +18,11 @@
 * make lamps breabkable (and improve them, as suggested in discord)
 * break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
+
+* castle 2 mobs:
+ + slime that shoots to you, when lands
+ + burning slime
+ + bandit mutant: homing missiles?
 
 ### rooms
 
