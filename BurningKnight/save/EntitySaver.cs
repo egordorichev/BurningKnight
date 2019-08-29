@@ -83,7 +83,7 @@ namespace BurningKnight.save {
 					entity.PostInit();
 				}
 			} catch (Exception e) {
-				// FIXME MEEEEEEEE
+				Log.Error($"Failed to load {type}");
 				Log.Error(e);
 			}
 		}

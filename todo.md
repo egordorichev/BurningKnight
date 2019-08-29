@@ -7,7 +7,6 @@
 * !!! generation needs hard testing
 
 * !!! treasure room design
-* save orbitals
 
 * bk types:
  + slime

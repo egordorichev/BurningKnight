@@ -6,7 +6,7 @@ using Lens.entity;
 namespace BurningKnight.entity.orbital {
 	public delegate void OrbitalCollisionHandler(Orbital o, Entity e);
 	
-	public class Orbital : SaveableEntity {
+	public class Orbital : Entity {
 		public OrbitalCollisionHandler OnCollision;
 		
 		public override void AddComponents() {

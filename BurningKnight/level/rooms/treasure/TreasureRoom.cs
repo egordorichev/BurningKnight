@@ -27,7 +27,7 @@ namespace BurningKnight.level.rooms.treasure {
 		protected void PlaceChest(Level level, Vector2 where) {
 			var chance = GameSave.GetFloat("mimic_chance") * 100;
 
-			if (true || Random.Chance(chance)) {
+			if (Random.Chance(chance)) {
 				var mimic = new Mimic();
 				
 				level.Area.Add(mimic);
