@@ -11,16 +11,20 @@ namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
 		protected bool AtBack = true;
 
-		public void Render() {
+		public void Render(bool shadow) {
 			if (Item != null && Item.Renderer != null) {
-				var sh = Shaders.Item;
-				Shaders.Begin(sh);
-				sh.Parameters["time"].SetValue(Engine.Time * 0.1f);
-				sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
+				if (!shadow) {
+					var sh = Shaders.Item;
+					Shaders.Begin(sh);
+					sh.Parameters["time"].SetValue(Engine.Time * 0.1f);
+					sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
+				}
 
-				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta);
+				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta, shadow);
 
-				Shaders.End();
+				if (!shadow) {
+					Shaders.End();
+				}
 			}
 		}
 		

@@ -65,9 +65,9 @@ namespace BurningKnight.entity.creature.player {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 					
-			weapon.Render();
+			weapon.Render(shadow);
 			SimpleRender(shadow);
-			activeWeapon.Render();
+			activeWeapon.Render(shadow);
 		}
 
 		public void RenderPickups() { // fixme: not rendered???

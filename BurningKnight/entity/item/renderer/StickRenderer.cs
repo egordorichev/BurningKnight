@@ -21,7 +21,7 @@ namespace BurningKnight.entity.item.renderer {
 			Tween.To(1, scale.Y, x => scale.Y = x, 0.2f);
 		}
 
-		public override void Render(bool atBack, bool paused, float dt) {
+		public override void Render(bool atBack, bool paused, float dt, bool shadow) {
 			var region = Item.Region;
 			var owner = Item.Owner;
 			var origin = horizontal ? new Vector2(0, region.Height / 2f) : new Vector2(region.Width / 2f, region.Height);
@@ -36,7 +36,7 @@ namespace BurningKnight.entity.item.renderer {
 				angle -= (float) Math.PI * 0.5f;
 			}
 			
-			Graphics.Render(region, new Vector2(owner.CenterX - (horizontal ? 0 : region.Width / 2f), owner.Y) + origin, angle, origin, scale);
+			Graphics.Render(region, new Vector2(owner.CenterX - (horizontal ? 0 : region.Width / 2f), owner.Y) + origin, shadow ? -angle : angle, origin, new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
 		}
 
 		public override void Setup(JsonValue settings) {

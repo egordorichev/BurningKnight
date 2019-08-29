@@ -22,7 +22,7 @@ namespace BurningKnight.entity.item.renderer {
 		private float oy;
 		private float ox;
 
-		public override void Render(bool atBack, bool paused, float dt) {
+		public override void Render(bool atBack, bool paused, float dt, bool shadow) {
 			float s = dt * 10f;
 			
 			sx += (1 - sx) * s;
@@ -50,8 +50,8 @@ namespace BurningKnight.entity.item.renderer {
 				flipped = !flipped;
 			}
 
-			Graphics.Render(region, new Vector2(owner.CenterX + (vf ? -3 : 3), owner.CenterY), 
-				(float) angle, Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, vf ? -sy : sy));
+			Graphics.Render(region, new Vector2(owner.CenterX + (vf ? -3 : 3), owner.CenterY + (shadow ? owner.Height : 0)), 
+				(float) angle * (shadow ? -1 : 1), Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy));
 		}
 
 		public override void OnUse() {

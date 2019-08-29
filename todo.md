@@ -7,6 +7,7 @@
 * !!! generation needs hard testing
 
 * !!! treasure room design
+* save orbitals
 
 * bk types:
  + slime
@@ -105,7 +106,6 @@
 * Crash report window
 * explode gold tiles for coins
 * camera follow items that are on screen a bit?
-* save orbitals
 * lighting bolts
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 * Implement settings
@@ -142,7 +142,6 @@
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* Weapons in player hands should drop shadows
 * Low health indicator
 * Animate items/creatures falling into the chasm?
 * Add sparks
