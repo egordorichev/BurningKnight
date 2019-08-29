@@ -5,11 +5,12 @@
 * !!! generation needs hard testing
 
 * better bk spawn: fire from torches merges into a black hole, then bk appears, torches are destroyed
-* breaking burning statue should stop the boss room stuff spawning, breaks the lamps too?
 * breadcrumbs of where bk room is
 * breadcrumbs for bk type
+* things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
 * redo bullet death animation: pause, flash white for a split second, then gone
 * darken bk room
+* darken dungeon overall and have torches here and there?
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect

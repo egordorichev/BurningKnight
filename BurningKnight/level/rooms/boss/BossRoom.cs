@@ -60,10 +60,11 @@ namespace BurningKnight.level.rooms.boss {
 			Painter.Fill(level, this, 1, Tile.WallA);
 
 			var c = GetCenterRect();
+			c.Resize(1, 1);
 			
 			Painter.Fill(level, c, -3, Tiles.RandomFloor());
-
-			PaintTunnel(level, Tiles.RandomFloor());
+			PaintTunnel(level, Tile.FloorD, c);
+			Painter.Fill(level, c, -2, Tiles.RandomFloor());
 			
 			trigger.X = (c.Left - 2) * 16;
 			trigger.Y = (c.Top - 2) * 16;

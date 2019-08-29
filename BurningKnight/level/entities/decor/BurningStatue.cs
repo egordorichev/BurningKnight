@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
@@ -29,6 +30,7 @@ namespace BurningKnight.level.entities.decor {
 		private FireEmitter fea;
 		private FireEmitter feb;
 		private SpawnTrigger trigger;
+		private float XSpread = 0.1f;
 		
 		public override void Init() {
 			base.Init();
@@ -78,58 +80,78 @@ namespace BurningKnight.level.entities.decor {
 			if (trigger != null) {
 				trigger.Interrupted = true;
 			}
+
+			HandleEvent(new BrokenEvent {
+				BurningStatue = this
+			});
+
+			XSpread = 1;
 			
 			Tween.To(1f, Camera.Instance.Zoom, xx => Camera.Instance.Zoom = xx, 0.2f);
-			Tween.To(2f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.5f);
+			Tween.To(1.6f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.5f);
+			Camera.Instance.GetComponent<ShakeComponent>().Amount = 0;
+			GameSave.Put("statue_broken", true);
 
+			var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+
+			foreach (var t in torches) { 
+				var tr = (Torch) t;
+
+				tr.XSpread = 0.1f;
+				tr.On = true;
+			}
+			
 			Timer.Add(() => {
-				Broken = true;
+				for (var i = 0; i < torches.Count; i++) {
+					var i1 = i;
+					
+					Timer.Add(() => {
+						var t = (Torch) torches[i1];
 
-				GameSave.Put("statue_broken", true);
-			
-				Camera.Instance.Unfollow(this);
-			
-				AnimationUtil.Explosion(Center);
-				Camera.Instance.Shake(10);
-
-				Timer.Add(() => {
-					Camera.Instance.GetComponent<ShakeComponent>().Amount = 0;
-				}, 0.5f);
-
-				Camera.Instance.Targets.Clear();
-				Camera.Instance.Follow(this, 0.5f);
-			
-				Engine.Instance.Freeze = 1f;
-			
-				UpdateSprite();
-				RemoveComponent<LightComponent>();
-			
-				var exit = new Exit();
-				Area.Add(exit);
+						t.Break();
+						Camera.Instance.Shake(5);
+					}, i);
+				}
 				
-				exit.To = Run.Depth + 1;
-
-				var x = (int) Math.Floor(CenterX / 16);
-				var y = (int) Math.Floor(Bottom / 16 + 0.6f);
-				var p = new Vector2(x * 16 + 8, y * 16 + 8);
-			
-				exit.Center = p;
-
-				Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
-				Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
-
-				Run.Level.TileUp();
-				Run.Level.CreateBody();
-			
-				// todo: break the lamps around
-				// when you enter the trigger, torches should react
-				// in the same way as when you break the statue
-				// could set spread to 0 or change the flame color :thinking:
-			
 				Timer.Add(() => {
-					Tween.To(1f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.8f);
-					((InGameState) BK.Instance.State).ResetFollowing();
-				}, 3f);
+					Particles.BreakSprite(Area, GetComponent<InteractableSliceComponent>().Sprite, Position);
+					Broken = true;
+				
+					Camera.Instance.Unfollow(this);
+					Camera.Instance.Shake(10);
+
+					Timer.Add(() => {
+						Camera.Instance.GetComponent<ShakeComponent>().Amount = 0;
+					}, 0.5f);
+
+					Camera.Instance.Targets.Clear();
+					Camera.Instance.Follow(this, 0.5f);
+			
+					UpdateSprite();
+					RemoveComponent<LightComponent>();
+			
+					var exit = new Exit();
+					Area.Add(exit);
+				
+					exit.To = Run.Depth + 1;
+
+					var x = (int) Math.Floor(CenterX / 16);
+					var y = (int) Math.Floor(Bottom / 16 + 0.6f);
+					var p = new Vector2(x * 16 + 8, y * 16 + 8);
+			
+					exit.Center = p;
+
+					Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
+					Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
+
+					Run.Level.TileUp();
+					Run.Level.CreateBody();
+			
+					Timer.Add(() => {
+						Tween.To(1f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.8f);
+						((InGameState) BK.Instance.State).ResetFollowing();
+					}, 1f);
+				}, torches.Count + 3);
 			}, 1f);
 			
 			return true;
@@ -179,13 +201,13 @@ namespace BurningKnight.level.entities.decor {
 				Area.Add(new FireParticle {
 					X = X + 11,
 					Y = Y + 15,
-					XChange = 0.1f
+					XChange = XSpread
 				});
 				
 				Area.Add(new FireParticle {
 					X = X + 4,
 					Y = Y + 15,
-					XChange = 0.1f
+					XChange = XSpread
 				});
 
 				lastFlame = 0;
@@ -209,10 +231,13 @@ namespace BurningKnight.level.entities.decor {
 				}
 			} else if (e is SpawnTrigger.TriggeredEvent stte) {
 				trigger = stte.Trigger;
-				Log.Error("Caught trigger");
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public class BrokenEvent : Event {
+			public BurningStatue BurningStatue;
 		}
 	}
 }

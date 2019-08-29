@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.level;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -39,19 +40,17 @@ namespace BurningKnight.entity.creature.bk {
 			base.Update(dt);
 
 			if (!did && Triggered) {
-				Camera.Instance.Shake();
+				Camera.Instance.Shake(0.5f);
 				t += dt;
 
-				if (t >= 2f) {
+				if (t >= 4f) {
 					did = true;
 					var r = (int) Math.Ceiling(Math.Sqrt((RoomWidth + 1) * (RoomWidth + 1) + (RoomHeight + 1) * (RoomHeight + 1)));
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 3f);
 					Tween.To(0.5f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
-					
-					// fixme: lock the door
-					
+
 					for (var j = 1; j < r; j++) {
 						var level = Run.Level;
 						var j1 = j;
@@ -180,6 +179,8 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void PostInit() {
 			base.PostInit();
+			
+			AddComponent(new RoomComponent());
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
 		}
 
@@ -190,20 +191,43 @@ namespace BurningKnight.entity.creature.bk {
 			
 			if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player p) {
-					Triggered = true;
+					Timer.Add(() => {
+						Triggered = true;
+					}, 1f);
 					
-					Engine.Instance.Freeze = 1f;
-					Engine.Instance.Flash = 1f;
+					var xx = (int) Math.Floor(CenterX / 16);
+					var xy = (int) Math.Floor(CenterY / 16);
+
+					Painter.Rect(Run.Level, xx - 3, xy - 3, 6, 6, Tile.Chasm);
+					Run.Level.Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
+
+					var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+
+					foreach (var t in torches) {
+						((Torch) t).On = false;
+					}
+					
+					Timer.Add(() => {
+						if (Interrupted) {
+							return;
+						}
+						
+						foreach (var t in torches) {
+							var tr = (Torch) t;
+							tr.On = true;
+							tr.XSpread = 0.1f;
+						}
+					}, 3f);
 					
 					HandleEvent(new TriggeredEvent {
 						Trigger = this,
 						Who = p
 					});
 
-					for (var x = X; x < X + Width; x += 16) {
+					for (var x = X - 16; x < X + Width + 16; x += 16) {
 						for (var i = 0; i < Random.Int(3, 9); i++) {
 							Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), Y + Random.Float(-2, 18)),
+								Position = new Vector2(x + Random.Float(-2, 18), Y - 16 + Random.Float(-2, 18)),
 								Delay = Random.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
@@ -213,21 +237,29 @@ namespace BurningKnight.entity.creature.bk {
 							});
 							
 							Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), Y + Height - 16 + Random.Float(-2, 18)),
+								Position = new Vector2(x + Random.Float(-2, 18), Y + Height + Random.Float(-2, 18)),
 								Delay = Random.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
 								T = 0.5f,
 								B = 0
+							});
+							
+							Area.Add(new TileFx {
+								Position = new Vector2(x, Y - 16)
+							});
+							
+							Area.Add(new TileFx {
+								Position = new Vector2(x, Y + Height)
 							});
 						}
 					}
 
-					for (var y = Y + 16; y < Y + Height - 16; y += 16) {
+					for (var y = Y; y < Y + Height; y += 16) {
 						for (var i = 0; i < Random.Int(3, 9); i++) {
 							Area.Add(new FireParticle {
-								Position = new Vector2(X + Random.Float(-2, 18), y + Random.Float(-2, 18)),
+								Position = new Vector2(X + Random.Float(-2, 18) - 16, y + Random.Float(-2, 18)),
 								Delay = Random.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
@@ -237,13 +269,21 @@ namespace BurningKnight.entity.creature.bk {
 							});
 							
 							Area.Add(new FireParticle {
-								Position = new Vector2(X + Width - 16 + Random.Float(-2, 18), y + Random.Float(-2, 18)),
+								Position = new Vector2(X + Width + Random.Float(-2, 18), y + Random.Float(-2, 18)),
 								Delay = Random.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
 								T = 0.5f,
 								B = 0
+							});
+							
+							Area.Add(new TileFx {
+								Position = new Vector2(X - 16, y)
+							});
+							
+							Area.Add(new TileFx {
+								Position = new Vector2(X + Width, y)
 							});
 						}
 					}

@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature.bk;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -13,12 +14,13 @@ namespace BurningKnight.entity.door {
 			
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 			Subscribe<creature.bk.BurningKnight.DefeatedEvent>();
+			Subscribe<BurningStatue.BrokenEvent>();
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is SpawnTrigger.TriggeredEvent) {
 				triggered = true;
-			} else if (e is creature.bk.BurningKnight.DefeatedEvent) {
+			} else if (e is creature.bk.BurningKnight.DefeatedEvent || e is BurningStatue.BrokenEvent) {
 				triggered = false;
 			}
 			

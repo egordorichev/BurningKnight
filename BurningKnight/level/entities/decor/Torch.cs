@@ -1,10 +1,21 @@
+using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.util;
+using Lens.graphics;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.decor {
 	public class Torch : SolidProp {
+		public bool On = true;
+		public float XSpread = 1f;
+		
+		private bool broken;
+		private FireEmitter emitter;
+		
 		public override void Init() {
 			base.Init();
 
@@ -17,28 +28,68 @@ namespace BurningKnight.level.entities.decor {
 			
 			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 			AddComponent(new ShadowComponent());
+			AddComponent(new RoomComponent());
+			
+			AddTag(Tags.Torch);
 		}
 
 		public override void PostInit() {
 			base.PostInit();
-			
-			Area.Add(new FireEmitter {
-				Depth = Depth + 1,
-				Position = new Vector2(CenterX, Y + 3),
-				Scale = 0.5f
-			});
+
+			if (!broken) {
+				Area.Add(emitter = new FireEmitter {
+					Depth = Depth + 1,
+					Position = new Vector2(CenterX, Y + 3),
+					Scale = 0.5f
+				});
+			}
+
+			UpdateSprite();
 		}
 
+		private void UpdateSprite() {
+			if (broken) {
+				var s = GetComponent<SliceComponent>();
+
+				s.Sprite = CommonAse.Props.GetSlice("broken_torch");
+				s.Offset = new Vector2(0, 5);
+			}
+		}
+
+		public void Break() {
+			if (broken) {
+				return;
+			}
+
+			On = false;
+			broken = true;
+
+			if (emitter != null) {
+				emitter.Done = true;
+			}
+			
+			AnimationUtil.Poof(Center);
+			Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
+			
+			UpdateSprite();
+		}
+		
 		private float lastFlame;
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!On) {
+				return;
+			}
+			
 			lastFlame += dt;
 
 			if (lastFlame > 0.1f) {
 				Area.Add(new FireParticle {
 					X = CenterX,
-					Y = Y + 2
+					Y = Y + 2,
+					XChange = XSpread
 				});
 
 				lastFlame = 0;
@@ -47,6 +98,16 @@ namespace BurningKnight.level.entities.decor {
 
 		protected override Rectangle GetCollider() {
 			return new Rectangle(2, 5, 6, 5);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			broken = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(broken);
 		}
 	}
 }
