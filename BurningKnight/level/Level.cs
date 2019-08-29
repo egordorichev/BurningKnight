@@ -170,6 +170,7 @@ namespace BurningKnight.level {
 
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
 			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
+			Destroyable.GetComponent<DestroyableBodyComponent>().ReCreateBodyChunk(x, y);
 		}
 		
 		public void CreateBody() {

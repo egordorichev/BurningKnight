@@ -1,5 +1,7 @@
 # TODO
 
+* room still might try to load its controller :/
+
 * ?!!! secret rooms seem to corrupt level sometimes
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
@@ -15,7 +17,6 @@
 * darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
 * write steam update, look for festivals to showcase the game on
-* move body and destructable to the same chunk structure
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect

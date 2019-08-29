@@ -51,7 +51,7 @@ namespace BurningKnight.level {
 			Level.UpdateTile(tx, ty);
 			// Level.LoadPassable();
 			
-			GetComponent<DestroyableBodyComponent>().CreateBody();
+			GetComponent<DestroyableBodyComponent>().ReCreateBodyChunk(tx, ty);
 			Animate(Area, tx, ty);
 		}
 
