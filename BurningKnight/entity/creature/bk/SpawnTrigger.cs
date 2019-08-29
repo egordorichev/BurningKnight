@@ -32,6 +32,7 @@ namespace BurningKnight.entity.creature.bk {
 
 		public bool Triggered;
 		public bool Interrupted;
+		public bool ReadyToSpawn;
 		
 		private float t;
 		private bool did;
@@ -117,19 +118,9 @@ namespace BurningKnight.entity.creature.bk {
 							if (Interrupted) {
 								return;
 							}
-							
-							var bk = new BurningKnight();
-							Area.Add(bk);
-							bk.Center = Center;
-
-							Camera.Instance.Follow(bk, 2f);
-
-							Timer.Add(() => {
-								((InGameState) (Engine.Instance.State)).ResetFollowing();
-							}, 1f);
 
 							Done = true;
-							Camera.Instance.Shake(10);
+							ReadyToSpawn = true;
 						}, 1f);
 					}, r * 0.1f + 2f);
 				}

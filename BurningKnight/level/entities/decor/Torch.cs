@@ -12,6 +12,7 @@ namespace BurningKnight.level.entities.decor {
 	public class Torch : SolidProp {
 		public bool On = true;
 		public float XSpread = 1f;
+		public Vector2? Target;
 		
 		private bool broken;
 		private FireEmitter emitter;
@@ -89,6 +90,7 @@ namespace BurningKnight.level.entities.decor {
 				Area.Add(new FireParticle {
 					X = CenterX,
 					Y = Y + 2,
+					Target = Target,
 					XChange = XSpread
 				});
 

@@ -31,6 +31,7 @@ namespace BurningKnight.level.entities.decor {
 		private FireEmitter feb;
 		private SpawnTrigger trigger;
 		private float XSpread = 0.1f;
+		private Vector2? target;
 		
 		public override void Init() {
 			base.Init();
@@ -50,7 +51,7 @@ namespace BurningKnight.level.entities.decor {
 			
 			AddComponent(new ShadowComponent());
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => !Broken
+				CanInteract = e => !Broken && !busy
 			});
 		}
 
@@ -182,6 +183,7 @@ namespace BurningKnight.level.entities.decor {
 		}
 
 		private float lastFlame;
+		private bool busy;
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -194,6 +196,11 @@ namespace BurningKnight.level.entities.decor {
 			if (Broken) {
 				return;
 			}
+
+			if (trigger != null && trigger.ReadyToSpawn) {
+				trigger.ReadyToSpawn = false;
+				SetupSpawn();
+			}
 			
 			lastFlame += dt;
 
@@ -201,17 +208,60 @@ namespace BurningKnight.level.entities.decor {
 				Area.Add(new FireParticle {
 					X = X + 11,
 					Y = Y + 15,
-					XChange = XSpread
+					XChange = XSpread,
+					Target = target
 				});
 				
 				Area.Add(new FireParticle {
 					X = X + 4,
 					Y = Y + 15,
-					XChange = XSpread
+					XChange = XSpread,
+					Target = target
 				});
 
 				lastFlame = 0;
 			}
+		}
+
+		private void SetupSpawn() {
+			/*
+			
+
+			Camera.Instance.Follow(bk, 2f);
+
+			Camera.Instance.Shake(10);*/
+
+			busy = true;
+			
+			var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+			target = new Vector2(CenterX, Y - 4);
+
+			foreach (var t in torches) { 
+				var tr = (Torch) t;
+
+				tr.XSpread = 1;
+				tr.On = true;
+				tr.Target = target;
+			}
+
+			Timer.Add(() => {
+				var e = new EpicSpawn();
+				Area.Add(e);
+				e.Center = target.Value;
+				
+				Camera.Instance.Targets.Clear();
+				Camera.Instance.Follow(e, 0.2f);
+				
+				e.OnEnd = () => {
+					var bk = new entity.creature.bk.BurningKnight();
+					Area.Add(bk);
+					bk.Center = target.Value;
+					
+					Timer.Add(() => {
+						((InGameState) Engine.Instance.State).ResetFollowing();
+					}, 1f);
+				};
+			}, 3f);
 		}
 
 		protected override Rectangle GetCollider() {

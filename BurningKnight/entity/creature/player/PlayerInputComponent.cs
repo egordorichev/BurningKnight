@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -132,7 +133,11 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (Input.WasPressed(Controls.Duck)) {
 				state.Become<Player.DuckState>();
-				
+
+				Entity.Area.Add(new EpicSpawn {
+					Position = Entity.Position
+				});
+
 				/*var m = new Missile(Entity, Entity);
 				m.AddLight(32f, Color.Red);*/
 			}

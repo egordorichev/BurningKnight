@@ -2,6 +2,8 @@ using System;
 using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Utilities;
+using MathUtils = Lens.util.MathUtils;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.custom {
@@ -16,6 +18,7 @@ namespace BurningKnight.assets.particle.custom {
 		public float ScaleTar;
 		public Vector2 Offset;
 		public float Vy;
+		public float Vx;
 		public bool Growing;
 		public float SinOffset;
 		public float Mod;
@@ -24,6 +27,8 @@ namespace BurningKnight.assets.particle.custom {
 		public float G = 1f;
 		public float B = 1f;
 		
+		public Vector2? Target;
+
 		public override void Init() {
 			base.Init();
 
@@ -64,7 +69,7 @@ namespace BurningKnight.assets.particle.custom {
 					Growing = false;
 				}
 			} else {
-				Scale -= dt * 0.5f;
+				Scale -= dt * (Target.HasValue ? 0.33f : 0.5f);
 
 				if (Scale <= 0) {
 					Done = true;
@@ -73,6 +78,24 @@ namespace BurningKnight.assets.particle.custom {
 			}
 
 			Vy += dt * Mod * 20;
+
+			if (Target.HasValue) {
+				var t = Target.Value;
+
+				var dx = t.X - Position.X - Offset.X;
+				var dy = t.Y - Position.Y - Offset.Y;
+				var d = MathUtils.Distance(Vx, Vy) + dt * 30;
+				
+				var angle = Math.Atan2(dy, dx);
+				var va = Math.Atan2(-Vy, -Vx);
+
+				va = MathUtils.LerpAngle(va, angle, dt * 4);
+
+				Vx = (float) -Math.Cos(va) * d;
+				Vy = (float) -Math.Sin(va) * d;
+			}
+			
+			Offset.X -= Vx * dt;
 			Offset.Y -= Vy * dt;
 
 			if (Owner != null) {
