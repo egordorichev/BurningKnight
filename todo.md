@@ -6,6 +6,8 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* !!! treasure room design
+
 * bk types:
  + slime
  + king
@@ -30,6 +32,8 @@
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms
+* Enemies / rooms drop rewards (bombs, keys, coins)
+* bk missile projectiles have no sprite??? wrong depth, maybe?
 
 * castle 2 mobs:
  + slime that shoots to you, when lands
@@ -41,25 +45,16 @@
 * worm
 * ghost
 
-### rooms
-
-* take one of items treasure room (how does that work with mimics, tho??)
-* rooms with preasure plates
-* rooms with switches
-* trap rooms
-
 ### beta bugs
 
 * openal crash
 * max hp resets
-* bk missile still has no sprite???
 
 ### todo
 
 * shields
 * game intro
 * maggots are boring
-* sparks
 
 * Tile interactions
  * burning terrain
@@ -75,7 +70,7 @@
  * buff icons?
  
 * lil boo
-* gases
+* gases??
 
 * animation data on when player head moves up and down 
  * move his weapon with it
@@ -86,10 +81,7 @@
  * granny
  * oldman smth?
 
-* Room improvements/ideas:
- * Use lava in the terrain
- * trap only room
-  + trap controllers
+* Use lava in the terrain
 
 ### on windows
 
@@ -102,41 +94,21 @@
 * way to skip the boss battle but get harder game
 * difficulty progression through the fight
 * Learning to avoid the last attack that killed him
-* slime pattern
-* bouncy pattern -> another transformation?
-
-* Boss door
-* Healthbar art
-
-* EEEEEEEEEEEEEEEEEEEEEPIC intro
- * more epic stuff in the spawn trigger, some fire or smth, dissappears with the start of the shake
- * cool particles when tile gets removed
- 
-* make player unhittable and remove projectiles/enemies from the room on bk death?
-
-### Before josh
 
 * wip sign and placement
 * steam cloud
-
-* !!! treasure room design
-* bk missile projectiles have no sprite??? wrong depth, maybe?
-
-### can wait
-
-* nicer preboss room
-* room rewards (batteries and stuff)
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
 * unlockable items
 * iron hearts, half a heart spawning, etc
-* update art for chest
 * Animate lamp up and down to make it more alive
 * Crash report window
-* stats window for multiple file
-* selling items?
 * explode gold tiles for coins
-* settings
+* camera follow items that are on screen a bit?
+* save orbitals
+* lighting bolts
+* figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
+* Implement settings
 
 ### items
 
@@ -165,49 +137,16 @@
 * there are options
 * curse of unknown items
 
-### fixes
-
-* camera follow items that are on screen a bit?
-* item can make some items less/more luckyly to spawn
-* items that can spawn only if you dont have em
-* save orbitals
-* Animate enemy death
-* ^^^^^^^ Effects when player is low hp
-* ui description banner bg
-* lighting bolts
-
-### Before v0.0.0.4
-
-* figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
-* Enemies / rooms drop rewards (bombs, keys, coins)
-* fix nodes requiring to hit enter to set their name
-
-### Important
-
-* Zelda like digging enemy
-* Diagonal fly
-* Work out room layout for hub
-* Allow to place entities with editor
-* Allow to remove entities with editor
-* Rooms that can spawn only in certant biomes
-* noise wall room (only possible with path finding)
-* Implement settings
-
 #### Polish
 
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Weapons in player hands should drop shadows
-* Wall shadow of player should include weapons?
 * Low health indicator
 * Animate items/creatures falling into the chasm?
-* Flash frame for guns
-* Make bullets fly out from the right place
 * Add sparks
-* Think about bloom shader
 * Think about blur around edges
-* Gore
 * Reflections in the water
 * Splashes on the water
 * Walls after explosion should be "a bit more broken?"
@@ -221,11 +160,11 @@
 
 ### Ideas
 
+* fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
 * cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
 * make bk himself sign!!!!
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Signs, you can write/read from them
-* In-game settings (in lobby) with a sign "We also have normal settings, if you press esc..., but who needs them!?"
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * use cota tracks as disks to feature in the game and change in the gramaphone
@@ -233,6 +172,8 @@
 ### enemies
 
 * bee hive and bee for forest biome
+* Zelda like digging enemy
+* Diagonal fly
 
 #### NPCs
 
@@ -240,9 +181,12 @@
 * https://twitter.com/128_mhz/status/1107158705772978176
 * trash goblin (gaz)
 
-### Special rooms
+### Rooms
 
 * Challenge room
 * Cursed room
-* Room with transmutation well (current weapon slot)
-* alg for connection rooms that makes a really maze like path but with no branches
+* alg for connection rooms that makes a really maze like path but with no dead ends
+* take one of items treasure room (how does that work with mimics, tho??)
+* rooms with preasure plates
+* rooms with switches
+* trap rooms
