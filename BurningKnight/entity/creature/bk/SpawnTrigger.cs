@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.bk.forms;
 using BurningKnight.entity.creature.player;
@@ -15,7 +16,9 @@ using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk {
 	public class SpawnTrigger : SaveableEntity {
@@ -27,6 +30,8 @@ namespace BurningKnight.entity.creature.bk {
 		public byte RoomHeight;
 
 		public bool Triggered;
+		public bool Interrupted;
+		
 		private float t;
 		private bool did;
 
@@ -52,6 +57,10 @@ namespace BurningKnight.entity.creature.bk {
 						var j1 = j;
 
 						Timer.Add(() => {
+							if (Interrupted) {
+								return;
+							}
+								
 							for (var y = 0; y < RoomHeight; y++) {
 								for (var x = 0; x < RoomWidth; x++) {
 									var dx = x - RoomWidth / 2f;
@@ -99,9 +108,17 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					Timer.Add(() => {
+						if (Interrupted) {
+							return;
+						}
+							
 						Tween.To(1f, Camera.Instance.Zoom, x => Camera.Instance.Zoom = x, 0.3f);
 
 						Timer.Add(() => {
+							if (Interrupted) {
+								return;
+							}
+							
 							var bk = new BurningKnight();
 							Area.Add(bk);
 							bk.Center = Center;
@@ -182,6 +199,54 @@ namespace BurningKnight.entity.creature.bk {
 						Trigger = this,
 						Who = p
 					});
+
+					for (var x = X; x < X + Width; x += 16) {
+						for (var i = 0; i < Random.Int(3, 9); i++) {
+							Area.Add(new FireParticle {
+								Position = new Vector2(x + Random.Float(-2, 18), Y + Random.Float(-2, 18)),
+								Delay = Random.Float(0.5f),
+								XChange = 0.1f,
+								Scale = 0.3f,
+								Vy = 8,
+								T = 0.5f,
+								B = 0
+							});
+							
+							Area.Add(new FireParticle {
+								Position = new Vector2(x + Random.Float(-2, 18), Y + Height - 16 + Random.Float(-2, 18)),
+								Delay = Random.Float(0.5f),
+								XChange = 0.1f,
+								Scale = 0.3f,
+								Vy = 8,
+								T = 0.5f,
+								B = 0
+							});
+						}
+					}
+
+					for (var y = Y + 16; y < Y + Height - 16; y += 16) {
+						for (var i = 0; i < Random.Int(3, 9); i++) {
+							Area.Add(new FireParticle {
+								Position = new Vector2(X + Random.Float(-2, 18), y + Random.Float(-2, 18)),
+								Delay = Random.Float(0.5f),
+								XChange = 0.1f,
+								Scale = 0.3f,
+								Vy = 8,
+								T = 0.5f,
+								B = 0
+							});
+							
+							Area.Add(new FireParticle {
+								Position = new Vector2(X + Width - 16 + Random.Float(-2, 18), y + Random.Float(-2, 18)),
+								Delay = Random.Float(0.5f),
+								XChange = 0.1f,
+								Scale = 0.3f,
+								Vy = 8,
+								T = 0.5f,
+								B = 0
+							});
+						}
+					}
 				}
 			}
 			

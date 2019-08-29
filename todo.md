@@ -4,6 +4,13 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* better bk spawn: fire from torches merges into a black hole, then bk appears, torches are destroyed
+* breaking burning statue should stop the boss room stuff spawning, breaks the lamps too?
+* breadcrumbs of where bk room is
+* breadcrumbs for bk type
+* redo bullet death animation: pause, flash white for a split second, then gone
+* darken bk room
+
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
@@ -15,11 +22,8 @@
 * make lamps breabkable (and improve them, as suggested in discord)
 * break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
-* redo bullet death animation: pause, flash white for a split second, then gone
-* darken bk room
-* breadcrumbs for bk type
 * ellipses seem to be 1 tile less width and height??
-* better bk spawn: fire from torches merges into a black hole, then bk appears, torches are destroyed
+* parallaxed decor in the chasms
 
 * castle 2 mobs:
  + slime that shoots to you, when lands

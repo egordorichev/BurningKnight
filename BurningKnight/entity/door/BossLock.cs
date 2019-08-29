@@ -17,11 +17,9 @@ namespace BurningKnight.entity.door {
 
 		public override bool HandleEvent(Event e) {
 			if (e is SpawnTrigger.TriggeredEvent) {
-				Log.Debug("Trigger on");
 				triggered = true;
 			} else if (e is creature.bk.BurningKnight.DefeatedEvent) {
 				triggered = false;
-				Log.Debug("Trigger off");
 			}
 			
 			return base.HandleEvent(e);

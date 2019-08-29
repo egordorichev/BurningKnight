@@ -9,19 +9,20 @@ namespace BurningKnight.assets.particle.custom {
 		private static TextureRegion region;
 		
 		public Entity Owner;
+		public float Delay;
 
-		private float t;
-		private float scale;
-		private float scaleTar;
-		private Vector2 offset;
-		private float vy;
-		private bool growing;
-		private float sinOffset;
-		private float mod;
+		public float T;
+		public float Scale;
+		public float ScaleTar;
+		public Vector2 Offset;
+		public float Vy;
+		public bool Growing;
+		public float SinOffset;
+		public float Mod;
 
-		private float r;
-		private float g;
-		private float b;
+		public float R = 1f;
+		public float G = 1f;
+		public float B = 1f;
 		
 		public override void Init() {
 			base.Init();
@@ -33,45 +34,46 @@ namespace BurningKnight.assets.particle.custom {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			
-			growing = true;
-			scaleTar = Random.Float(0.5f, 0.9f);
+			Growing = true;
+			ScaleTar = Random.Float(0.5f, 0.9f);
 
-			mod = Random.Float(0.7f, 1f);
-			sinOffset = Random.Float(3.2f);
-			offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
-
-			r = 1f;
-			g = 1f;
-			b = 1f;
+			Mod = Random.Float(0.7f, 1f);
+			SinOffset = Random.Float(3.2f);
+			Offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
 		}
 
 		public override void Update(float dt) {
-			t += dt;
+			if (Delay > 0) {
+				Delay -= dt;
+				return;
+			}
+			
+			T += dt;
 
-			if (t > 0.3f) {
-				r = Math.Max(0, r - dt * 0.3f * mod);
-				g = Math.Max(0, g - dt * mod);
-				b = Math.Max(0, b - dt * 3 * mod);
+			if (T > 0.3f) {
+				R = Math.Max(0, R - dt * 0.3f * Mod);
+				G = Math.Max(0, G - dt * Mod);
+				B = Math.Max(0, B - dt * 3 * Mod);
 			}
 
-			if (growing) {
-				scale += dt;
+			if (Growing) {
+				Scale += dt;
 
-				if (scale >= scaleTar) {
-					scale = scaleTar;
-					growing = false;
+				if (Scale >= ScaleTar) {
+					Scale = ScaleTar;
+					Growing = false;
 				}
 			} else {
-				scale -= dt * 0.5f;
+				Scale -= dt * 0.5f;
 
-				if (scale <= 0) {
+				if (Scale <= 0) {
 					Done = true;
 					return;
 				}
 			}
 
-			vy += dt * mod * 20;
-			offset.Y -= vy * dt;
+			Vy += dt * Mod * 20;
+			Offset.Y -= Vy * dt;
 
 			if (Owner != null) {
 				X = Owner.CenterX;
@@ -82,15 +84,19 @@ namespace BurningKnight.assets.particle.custom {
 		public float XChange = 1;
 
 		public override void Render() {
-			var a = (float) Math.Cos(t * 5f + sinOffset) * 0.4f;
-			var pos = Position + offset + region.Center;
-
-			pos.X += (float) Math.Cos(sinOffset + t * 2.5f) * scale * 8 * XChange;
+			if (Delay > 0) {
+				return;
+			}
 			
-			Graphics.Color = new Color(r, g, b, 0.5f);
-			Graphics.Render(region, pos, a, region.Center, new Vector2(scale * 10));
-			Graphics.Color = new Color(r, g, b, 1f);
-			Graphics.Render(region, pos, a, region.Center, new Vector2(scale * 5));
+			var a = (float) Math.Cos(T * 5f + SinOffset) * 0.4f;
+			var pos = Position + Offset + region.Center;
+
+			pos.X += (float) Math.Cos(SinOffset + T * 2.5f) * Scale * 8 * XChange;
+			
+			Graphics.Color = new Color(R, G, B, 0.5f);
+			Graphics.Render(region, pos, a, region.Center, new Vector2(Scale * 10));
+			Graphics.Color = new Color(R, G, B, 1f);
+			Graphics.Render(region, pos, a, region.Center, new Vector2(Scale * 5));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}
