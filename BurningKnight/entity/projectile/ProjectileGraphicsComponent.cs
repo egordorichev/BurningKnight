@@ -29,7 +29,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			var d = p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f;
+			var d = p.Dying || (p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f);
 
 			if (d) {
 				var shader = Shaders.Entity;

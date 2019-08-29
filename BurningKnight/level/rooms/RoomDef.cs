@@ -33,6 +33,7 @@ namespace BurningKnight.level.rooms {
 
 		public Dictionary<RoomDef, DoorPlaceholder> Connected = new Dictionary<RoomDef, DoorPlaceholder>();
 		public int Id;
+		public int Distance = -1;
 
 		public List<RoomDef> Neighbours = new List<RoomDef>();
 		private List<Vector2> Busy = new List<Vector2>();

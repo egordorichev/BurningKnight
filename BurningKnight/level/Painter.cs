@@ -33,9 +33,34 @@ namespace BurningKnight.level {
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
 
+		private void InspectRoom(RoomDef room) {
+			foreach (var r in room.Connected.Keys) {
+				if (r.Distance == -1) {
+					r.Distance = room.Distance + 1;
+					InspectRoom(r);
+				}
+			}
+		}
+
 		public void Paint(Level Level, List<RoomDef> Rooms) {
 			if (Rooms == null) {
 				return;
+			}
+
+			RoomDef current = null;
+
+			foreach (var r in Rooms) {
+				if (r is EntranceRoom e && e.Exit) {
+					current = r;
+					break;
+				}
+			}
+
+			if (current == null) {
+				Log.Error("Failed to find the exit room");
+			} else {
+				current.Distance = 0;
+				InspectRoom(current);
 			}
 
 			var LeftMost = int.MaxValue;
@@ -507,11 +532,11 @@ namespace BurningKnight.level {
 		public static void PaintDoor(Level Level, RoomDef R) {
 			foreach (var N in R.Connected.Keys) {
 				var D = R.Connected[N];
-				PlaceDoor(Level, R, D);
+				PlaceDoor(Level, R, D, N);
 			}
 		}
 
-		public static void PlaceDoor(Level Level, RoomDef R, DoorPlaceholder D) {
+		public static void PlaceDoor(Level Level, RoomDef R, DoorPlaceholder D, RoomDef from) {
 			var T = Level.Get(D.X, D.Y);
 			var type = D.Type;
 

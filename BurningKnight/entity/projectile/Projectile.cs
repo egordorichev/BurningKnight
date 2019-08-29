@@ -46,6 +46,9 @@ namespace BurningKnight.entity.projectile {
 		public float Scale;
 		public bool BreaksFromWalls = true;
 		public float FlashTimer;
+		public bool Dying;
+
+		private float deathTimer;
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1) {
 			var projectile = new Projectile();
@@ -116,6 +119,16 @@ namespace BurningKnight.entity.projectile {
 				FlashTimer -= dt;
 			}
 
+			if (Dying) {
+				deathTimer -= dt;
+
+				if (deathTimer <= 0) {
+					Done = true;
+				}
+				
+				return;
+			}
+
 			if (Range > -1 && T >= Range) {
 				AnimateDeath(true);
 				return;
@@ -161,6 +174,10 @@ namespace BurningKnight.entity.projectile {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
+				if (Dying) {
+					return false;
+				}
+				
 				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
 					return false;
 				}
@@ -211,20 +228,15 @@ namespace BurningKnight.entity.projectile {
 		}
 		
 		protected virtual void AnimateDeath(bool timeout = false) {
-			if (Done) {
+			if (Dying) {
 				return;
 			}
-			
-			Done = true;
-			
-			var explosion = new ParticleEntity(Particles.Animated("bullet_fx"));
-			explosion.Position = Center;
-			Area.Add(explosion);
-			explosion.Depth = 30;
-			explosion.Particle.AngleVelocity = 0;
-			explosion.Particle.Velocity = Vector2.Zero;
-			explosion.AddShadow();
 
+			BodyComponent.Velocity = Vector2.Zero;
+			
+			Dying = true;
+			deathTimer = 0.1f;
+			
 			try {
 				OnDeath?.Invoke(this, timeout);
 			} catch (Exception e) {

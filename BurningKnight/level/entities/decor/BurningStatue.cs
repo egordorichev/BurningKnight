@@ -224,13 +224,6 @@ namespace BurningKnight.level.entities.decor {
 		}
 
 		private void SetupSpawn() {
-			/*
-			
-
-			Camera.Instance.Follow(bk, 2f);
-
-			Camera.Instance.Shake(10);*/
-
 			busy = true;
 			
 			var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
@@ -250,7 +243,7 @@ namespace BurningKnight.level.entities.decor {
 				e.Center = target.Value;
 				
 				Camera.Instance.Targets.Clear();
-				Camera.Instance.Follow(e, 0.2f);
+				Camera.Instance.Follow(e, 0.1f);
 				
 				e.OnEnd = () => {
 					var bk = new entity.creature.bk.BurningKnight();
@@ -260,6 +253,14 @@ namespace BurningKnight.level.entities.decor {
 					Timer.Add(() => {
 						((InGameState) Engine.Instance.State).ResetFollowing();
 					}, 1f);
+					
+					Camera.Instance.Shake(10);
+
+					foreach (var t in torches) {
+						t.Done = true;
+					}
+
+					Done = true;
 				};
 			}, 3f);
 		}

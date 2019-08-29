@@ -4,13 +4,17 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* better bk spawn: fire from torches merges into a black hole, then bk appears, torches are destroyed
-* breadcrumbs of where bk room is
-* breadcrumbs for bk type
+* bk types:
+ + slime
+ + king
+ + bandit
+ 
+* breadcrumbs of where bk room is (alg for detecting shortest path is there)
+* breadcrumbs for bk type 
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
-* redo bullet death animation: pause, flash white for a split second, then gone
-* darken bk room
-* darken dungeon overall and have torches here and there?
+* darken bk room, darken dungeon overall and have torches here and there?
+* improve epic spawn
+* write steam update, look for festivals to showcase the game on
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
@@ -30,6 +34,11 @@
  + slime that shoots to you, when lands
  + burning slime
  + bandit mutant: homing missiles?
+
+### future bk ideas
+
+* worm
+* ghost
 
 ### rooms
 
