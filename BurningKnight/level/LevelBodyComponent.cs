@@ -11,7 +11,7 @@ using VelcroPhysics.Shared;
 
 namespace BurningKnight.level {
 	public class LevelBodyComponent : BodyComponent {
-		private const byte ChunkSize = 8;
+		public const byte ChunkSize = 8;
 		
 		private bool dirty;
 		private Body[] chunks;
@@ -23,7 +23,6 @@ namespace BurningKnight.level {
 
 		public override void Init() {
 			base.Init();
-
 			Entity.AlwaysActive = true;
 		}
 
@@ -60,7 +59,7 @@ namespace BurningKnight.level {
 		}
 
 		public void CreateBody() {
-			if (Body == null) {
+			if (chunks == null) {
 				Create();
 			} else {
 				dirty = true;
@@ -110,7 +109,15 @@ namespace BurningKnight.level {
 			var body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
 			body.FixedRotation = true;
 			body.UserData = this;
-			chunks[cx + cy * cw] = body;
+
+			var i = cx + cy * cw;
+			var c = chunks[i];
+
+			if (c != null) {
+				Physics.World.RemoveBody(c);
+			}
+			
+			chunks[i] = body;
 
 			var list = new List<Vector2>();
 

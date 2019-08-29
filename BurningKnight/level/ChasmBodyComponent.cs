@@ -1,16 +1,25 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
+using BurningKnight.state;
 using BurningKnight.util;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
 
 namespace BurningKnight.level {
 	public class ChasmBodyComponent : BodyComponent {
 		private bool dirty;
+		private Body[] chunks;
+		private int cw;
+		private int ch;
+		private int cs;
 
+		private List<int> toUpdate = new List<int>();
+		
 		public override void Init() {
 			base.Init();
 			Entity.AlwaysActive = true;
@@ -22,11 +31,49 @@ namespace BurningKnight.level {
 			if (dirty) {
 				dirty = false;
 				Create();
+				toUpdate.Clear();
+				return;
+			}
+			
+			if (toUpdate.Count > 0) {
+				var updated = new List<int>();
+				var level = (Level) Entity;
+
+				foreach (var u in toUpdate) {
+					var cx = (int) Math.Floor(level.FromIndexX(u) / (float) LevelBodyComponent.ChunkSize);
+					var cy = (int) Math.Floor(level.FromIndexY(u) / (float) LevelBodyComponent.ChunkSize);
+					var ci = cx + cy * cw;
+
+					if (updated.Contains(ci)) {
+						continue;
+					}
+
+					updated.Add(ci);
+					Physics.World.RemoveBody(chunks[ci]);
+					RecreateChunk(cx, cy);
+				}
+
+				toUpdate.Clear();
 			}
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+			
+			if (chunks != null) {
+				foreach (var c in chunks) {
+					Physics.World.RemoveBody(c);
+				}
+
+				chunks = null;
+			}
+
+			dirty = false;
+			toUpdate.Clear();
+		}
+
 		public void CreateBody() {
-			if (Body == null) {
+			if (chunks == null) {
 				Create();
 			} else {
 				dirty = true;
@@ -34,21 +81,62 @@ namespace BurningKnight.level {
 		}
 
 		private void Create() {
+			var level = Run.Level;
+			
+			cw = (int) Math.Floor(level.Width / (float) LevelBodyComponent.ChunkSize + 0.5f);
+			ch = (int) Math.Floor(level.Height / (float) LevelBodyComponent.ChunkSize + 0.5f);
+			cs = cw * ch;
+			
+			if (chunks != null) {
+				foreach (var c in chunks) {
+					Physics.World.RemoveBody(c);
+				}
+			} else {
+				chunks = new Body[cs];
+			}
+
+			for (int cy = 0; cy < ch; cy++) {
+				for (int cx = 0; cx < cw; cx++) {
+					RecreateChunk(cx, cy);
+				}
+			}
+
+
 			if (Body != null) {
 				Physics.World.RemoveBody(Body);
 			}
+		}
 
-			var level = ((Chasm) Entity).Level;
+		public void ReCreateBodyChunk(int x, int y) {
+			toUpdate.Add(x + y * ((Level) Entity).Width);
+		}
+		
+		private void RecreateChunk(int cx, int cy) {
+			var level = Run.Level;
 			
-			Body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
-			Body.FixedRotation = true;
-			Body.UserData = this;
+			var body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
+			body.FixedRotation = true;
+			body.UserData = this;
+			
+			var i = cx + cy * cw;
+			var c = chunks[i];
+
+			if (c != null) {
+				Physics.World.RemoveBody(c);
+			}
+			
+			chunks[i] = body;
 
 			var list = new List<Vector2>();
-			
-			for (int y = 0; y < level.Height; y++) {
-				for (int x = 0; x < level.Width; x++) {
+
+			for (int y = cy * LevelBodyComponent.ChunkSize; y < (cy + 1) * LevelBodyComponent.ChunkSize; y++) {
+				for (int x = cx * LevelBodyComponent.ChunkSize; x < (cx + 1) * LevelBodyComponent.ChunkSize; x++) {
+					if (!level.IsInside(x, y)) {
+						continue;
+					}
+					
 					var index = level.ToIndex(x, y);
+
 					var tile = level.Tiles[index];
 
 					if (TileFlags.Matches(tile, TileFlags.Hole)) {
@@ -88,7 +176,7 @@ namespace BurningKnight.level {
 						list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), yy + 16));
 						list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), yy + 16));
 						
-						FixtureFactory.AttachPolygon(new Vertices(list), 1f, Body);			
+						FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);			
 					}
 				}
 			}

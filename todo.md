@@ -15,6 +15,7 @@
 * darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
 * write steam update, look for festivals to showcase the game on
+* move body and destructable to the same chunk structure
 
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
@@ -25,7 +26,6 @@
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * signs of where bk room is
 * make lamps breabkable (and improve them, as suggested in discord)
-* break statue to skip bk, dont spawn it anymore
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms

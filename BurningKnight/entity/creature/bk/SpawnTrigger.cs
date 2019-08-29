@@ -58,6 +58,8 @@ namespace BurningKnight.entity.creature.bk {
 
 						Timer.Add(() => {
 							if (Interrupted) {
+								level.Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
+								level.CreateBody();
 								return;
 							}
 								

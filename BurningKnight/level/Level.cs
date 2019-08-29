@@ -99,7 +99,7 @@ namespace BurningKnight.level {
 				MessSurface.Dispose();
 			}
 
-			manager.Destroy();
+			manager?.Destroy();
 		}
 
 		public void SetBiome(BiomeInfo biome) {
@@ -169,6 +169,7 @@ namespace BurningKnight.level {
 			}
 
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
+			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
 		}
 		
 		public void CreateBody() {
