@@ -2,6 +2,7 @@
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.crash;
+using Desktop.integration.rgb;
 using Desktop.integration.steam;
 using Lens;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ namespace Desktop {
 			base.Initialize();
 			
 			integrations.Add(new SteamIntegration());
+			// integrations.Add(new RgbIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();

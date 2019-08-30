@@ -545,6 +545,7 @@
     <Compile Include="level\rooms\trap\SpikePassageRoom.cs" />
     <Compile Include="level\rooms\trap\TrapRoom.cs" />
     <Compile Include="level\rooms\treasure\HoleTreasureRoom.cs" />
+    <Compile Include="level\rooms\treasure\PlatformTreasureRoom.cs" />
     <Compile Include="level\rooms\treasure\TreasureRoom.cs" />
     <Compile Include="level\tile\Tile.cs" />
     <Compile Include="level\tile\TileFlags.cs" />

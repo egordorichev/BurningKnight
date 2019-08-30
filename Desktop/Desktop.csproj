@@ -253,6 +253,7 @@
     <Compile Include="integration\discord\NamedPipes\NamedPipeClientStream.cs" />
     <Compile Include="integration\discord\NamedPipes\UnityNamedPipe.cs" />
     <Compile Include="integration\Integration.cs" />
+    <Compile Include="integration\rgb\RgbIntegration.cs" />
     <Compile Include="integration\steam\SteamIntegration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,13 @@
 # TODO
 
+## user view point
+
+* not enough hurt feedback
+* Low health indicator
+* darkness shader should be applied to all screen and not just game
+
+## general
+
 * room still might try to load its controller :/
 
 * ?!!! secret rooms seem to corrupt level sometimes
@@ -83,11 +91,6 @@
 
 * Use lava in the terrain
 
-### on windows
-
-* darkness shader should be applied to all screen and not just game
-* get treasure music in
-
 ### bk himself
 
 * Learning to avoid the last attack that killed him
@@ -138,10 +141,10 @@
 
 #### Polish
 
+* lowpass filter and somewhat responsible music? :(
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* Low health indicator
 * Animate items/creatures falling into the chasm?
 * Add sparks
 * Think about blur around edges
