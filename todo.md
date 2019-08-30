@@ -7,6 +7,7 @@
 * !!! generation needs hard testing
 
 * !!! treasure room design
+* !!! think about replacing chests with multichoice? fits the purpose of the game more. mimic attacks
 
 * bk types:
  + slime
@@ -24,7 +25,6 @@
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
 * remove lamp mechanics?
-* think about replacing chests with multichoice? fits the purpose of the game more. mimic attacks
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * signs of where bk room is

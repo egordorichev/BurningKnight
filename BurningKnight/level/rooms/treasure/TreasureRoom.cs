@@ -1,16 +1,26 @@
-using BurningKnight.entity.chest;
-using BurningKnight.entity.creature.mob;
+using BurningKnight.assets.items;
+using BurningKnight.entity.item;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
-using BurningKnight.save;
-using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class TreasureRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			PlaceChest(level, GetCenter());
+			var c = GetCenter() * 16;
+			
+			PlaceStand(level, c - new Vector2(32, 0));
+			PlaceStand(level, c);
+			PlaceStand(level, c + new Vector2(32, 0));
+		}
+
+		protected void PlaceStand(Level level, Vector2 where) {
+			var stand = new SingleChoiceStand();
+			level.Area.Add(stand);
+			stand.Position = where;
+			
+			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Chest), level.Area), null);
 		}
 
 		public override void PaintFloor(Level level) {
@@ -24,7 +34,7 @@ namespace BurningKnight.level.rooms.treasure {
 			}
 		}
 
-		protected void PlaceChest(Level level, Vector2 where) {
+		/*protected void PlaceChest(Level level, Vector2 where) {
 			var chance = GameSave.GetFloat("mimic_chance") * 100;
 
 			if (Random.Chance(chance)) {
@@ -49,7 +59,7 @@ namespace BurningKnight.level.rooms.treasure {
 
 			chest.Center = where * 16;
 			chest.GenerateLoot();
-		}
+		}*/
 
 		public override bool ShouldSpawnMobs() {
 			return Random.Chance(10);

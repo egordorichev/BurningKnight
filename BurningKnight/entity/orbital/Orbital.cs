@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.save;
 using Lens.entity;
+using Lens.util.tween;
 
 namespace BurningKnight.entity.orbital {
 	public delegate void OrbitalCollisionHandler(Orbital o, Entity e);
