@@ -18,10 +18,10 @@ namespace BurningKnight.level.floors {
 			Add(new PatchFloor(), 1f);
 		}
 
-		public static void Paint(Level level, RoomDef room, int i = -1) {
+		public static void Paint(Level level, RoomDef room, int i = -1, bool gold = false) {
 			var painter = i == -1 ? Instance.Generate() : Instance.Get(i);
 			painter.Paint(level, room, new Rect(room.Left + 1, room.Top + 1, 
-				room.Left + 1 + room.GetWidth() - 2, room.Top + 1 + room.GetHeight() - 2));
+				room.Left + 1 + room.GetWidth() - 2, room.Top + 1 + room.GetHeight() - 2), gold);
 		}
 	}
 }

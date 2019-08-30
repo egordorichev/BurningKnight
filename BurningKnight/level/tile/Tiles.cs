@@ -9,7 +9,11 @@ namespace BurningKnight.level.tile {
 			return tiles[Random.Int(tiles.Length)];
 		}
 
-		public static Tile RandomFloor() {
+		public static Tile RandomFloor(bool gold = false) {
+			if (gold) {
+				return lastFloor = Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD);
+			}
+			
 			return lastFloor = Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
 		}
 		

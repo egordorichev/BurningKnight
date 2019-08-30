@@ -4,13 +4,13 @@ using BurningKnight.util.geometry;
 
 namespace BurningKnight.level.floors {
 	public class PatchFloor : FloorPainter {
-		public override void Paint(Level level, RoomDef room, Rect inside) {
+		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
 			Painter.Fill(level, room, 1, Tiles.RandomFloor());
 			
 			var w = room.GetWidth() - 2;
 			var h = room.GetHeight() - 2;
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
-			var f = Tiles.RandomNewFloor();
+			var f = gold ? Tile.FloorD : Tiles.RandomNewFloor();
 			
 			var patch = Patch.Generate(w, h, fill, 4);
 

@@ -6,10 +6,14 @@ using Lens.util.math;
 
 namespace BurningKnight.level.floors {
 	public class TrippleFloor : FloorPainter {
-		public override void Paint(Level level, RoomDef room, Rect inside) {
+		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
 			var tiles = new[] {
 				Tile.FloorA, Tile.FloorB, Tile.FloorC
 			};
+
+			if (gold) {
+				tiles[Random.Int(3)] = Tile.FloorD;
+			}
 
 			tiles = tiles.OrderBy(x => Random.Generator.Next()).ToArray();
 			

@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
+using BurningKnight.level.floors;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using Lens.util.math;
@@ -24,8 +25,8 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override void PaintFloor(Level level) {
-			Painter.Fill(level, this, Tiles.RandomWall());
-			Painter.Fill(level, this, 1, Tile.FloorD);	
+			FloorRegistry.Paint(level, this, -1, true);
+			Painter.Rect(level, this, 1, Tile.FloorD);
 		}
 
 		public override void SetupDoors(Level level) {

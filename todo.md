@@ -6,8 +6,7 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* !!! treasure room design
-* !!! think about replacing chests with multichoice? fits the purpose of the game more. mimic attacks
+* !!! treasure room designs
 * !!! bullet velocity on death items (potatoo) are broken, cause velocity is set to 0
 
 * bk types:

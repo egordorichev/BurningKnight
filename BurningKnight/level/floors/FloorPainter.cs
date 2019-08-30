@@ -4,8 +4,8 @@ using BurningKnight.util.geometry;
 
 namespace BurningKnight.level.floors {
 	public class FloorPainter {
-		public virtual void Paint(Level level, RoomDef room, Rect inside) {
-			Painter.Fill(level, room, 1, Tiles.RandomFloor());
+		public virtual void Paint(Level level, RoomDef room, Rect inside, bool gold) {
+			Painter.Fill(level, room, 1, gold ? Tile.FloorD : Tiles.RandomFloor());
 		}
 	}
 }

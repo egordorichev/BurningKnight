@@ -6,13 +6,13 @@ using Lens.util.math;
 
 namespace BurningKnight.level.floors {
 	public class MazeFloor : FloorPainter {
-		public override void Paint(Level level, RoomDef room, Rect inside) {
+		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
 			if (Random.Chance()) {
 				Painter.Fill(level, inside, Tiles.RandomFloor());
 				inside = inside.Shrink(Random.Int(1, 3));
 			}
 
-			var a = Tiles.RandomFloor();
+			var a = gold ? Tile.FloorD : Tiles.RandomFloor();
 			var b = Tiles.RandomNewFloor();
 
 			var maze = Maze.Generate(inside);
