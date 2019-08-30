@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.util;
 using Lens.entity;
 
 namespace BurningKnight.entity.item {
@@ -7,6 +8,10 @@ namespace BurningKnight.entity.item {
 		public override void Init() {
 			base.Init();
 			Subscribe<ItemTakenEvent>();
+		}
+
+		protected override string GetSprite() {
+			return "single_stand";
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -21,6 +26,7 @@ namespace BurningKnight.entity.item {
 							var i = ist.Item;
 							ist.SetItem(null, this);
 							i.Done = true;
+							AnimationUtil.Poof(ist.Center);
 						}
 					}
 				}
