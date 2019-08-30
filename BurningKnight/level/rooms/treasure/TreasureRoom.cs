@@ -19,7 +19,7 @@ namespace BurningKnight.level.rooms.treasure {
 		protected void PlaceStand(Level level, Vector2 where) {
 			var stand = new SingleChoiceStand();
 			level.Area.Add(stand);
-			stand.Position = where;
+			stand.Center = where + new Vector2(8, 8);
 			
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Chest), level.Area), null);
 		}
