@@ -646,6 +646,14 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void RectOrEllipse(Level level, Rect rect, int m, Tile value) {
+			if (Random.Chance()) {
+				FillEllipse(level, rect, m, value);
+			} else {
+				Fill(level, rect, m, value);
+			}
+		}
+
 		public static void Rect(Level level, Rect rect, int m, Tile value, bool bold = false) {
 			rect = rect.Shrink(m);
 			Rect(level, rect.Left, rect.Top, rect.GetWidth(), rect.GetHeight(), value, bold);

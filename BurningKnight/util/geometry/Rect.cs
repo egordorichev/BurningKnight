@@ -17,6 +17,10 @@ namespace BurningKnight.util.geometry {
 			Set((int) vec.X, (int) vec.Y, (int) vec.X, (int) vec.Y);
 		}
 		
+		public Rect(int x, int y) {
+			Set(x, y, x, y);
+		}
+		
 		public Rect(int Left, int Top, int Right, int Bottom) {
 			Set(Left, Top, Right, Bottom);
 		}

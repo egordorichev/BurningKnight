@@ -129,9 +129,11 @@ namespace BurningKnight.entity.component {
 
 		private void CheckSupport() {
 			if (!HadNoSupport && HasNoSupport && !Engine.EditingLevel) {
-				Send(new LostSupportEvent {
+				if (Send(new LostSupportEvent {
 					Who = Entity
-				});
+				})) {
+					return;
+				}
 
 				Entity.Position = LastSupportedPosition;
 				

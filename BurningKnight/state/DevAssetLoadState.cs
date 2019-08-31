@@ -20,6 +20,7 @@ namespace BurningKnight.state {
 		private int progress;
 		private bool ready;
 		private Area gameArea;
+		private float t;
 		
 		public override void Init() {
 			base.Init();
@@ -84,6 +85,8 @@ namespace BurningKnight.state {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			t += dt;
+			
 			if (ready) {
 				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
@@ -92,6 +95,12 @@ namespace BurningKnight.state {
 		public override void RenderUi() {
 			base.RenderUi();
 			Graphics.Print($"Loading assets {progress / 16f * 100}%", Font.Medium, new Vector2(10, 10));
+			
+			var n = t % 2f;
+			var s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";
+			
+			var x = Font.Small.MeasureString(s).Width * -0.5f;
+			Graphics.Print(s, Font.Small, new Vector2(Display.UiWidth / 2f + x, Display.UiHeight / 2f + 32));
 		}
 	}
 }

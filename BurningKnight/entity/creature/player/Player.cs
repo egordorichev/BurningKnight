@@ -317,6 +317,10 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
+				if (GetComponent<HealthComponent>().Unhittable) {
+					return true;
+				}
+				
 				GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level.Chasm);
 				
 				for (var i = 0; i < 4; i++) {
