@@ -20,6 +20,7 @@ namespace BurningKnight.level.entities {
 	public class Gramophone : Prop {
 		private TextureRegion top;
 		private TextureRegion bottom;
+		private TextureRegion tdisk;
 		private float t;
 		private float tillNext;
 		private bool broken;
@@ -33,6 +34,7 @@ namespace BurningKnight.level.entities {
 
 			top = CommonAse.Props.GetSlice("player_top");
 			bottom = CommonAse.Props.GetSlice("player");
+			tdisk = CommonAse.Props.GetSlice("disk");
 		}
 
 		public override void Load(FileReader stream) {
@@ -64,25 +66,39 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool Interact(Entity entity) {
+			var h = entity.TryGetComponent<ActiveWeaponComponent>(out var c);
+			var l = h && c.Item != null && c.Item.Id.StartsWith("bk:disk_");
+			var hd = false;
+
 			if (disk > 0) {
-				DropDisk();
+				if (h) {
+					hd = true;
+				} else {
+					DropDisk();
+				}
 			}
 
-			if (entity.TryGetComponent<ActiveWeaponComponent>(out var c) && c.Item != null && c.Item.Id.StartsWith("bk:disk_")) {
+			if (l) {
 				try {
 					var id = byte.Parse(c.Item.Id.Replace("bk:disk_", ""));
-					disk = id;
-					
 					var old = c.Item;
-					c.Set(null, false);
-					
+
+					if (hd) {
+						c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));					
+					} else {
+						c.Set(null, false);
+					}
+
+					disk = id;
 					old.Done = true;
 				} catch (Exception e) {
 					Log.Error(e);
 				}
+			} else if (hd) {
+				c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));
+				disk = 0;
 			}
 			
-			// todo: take disk
 			SendEvent();
 			return false;
 		}
@@ -140,7 +156,6 @@ namespace BurningKnight.level.entities {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-
 					Graphics.Render(bottom, Position + new Vector2(0, 12) + d);
 
 					if (!broken) {
@@ -171,6 +186,10 @@ namespace BurningKnight.level.entities {
 			}
 
 			Graphics.Render(bottom, Position + new Vector2(0, 12));
+
+			if (disk > 0) {
+				Graphics.Render(tdisk, Position + new Vector2(2, 13));
+			}
 
 			if (!broken) {
 				Graphics.Render(top, Position + new Vector2(9, 14), (float) Math.Cos(t) * 0.1f, new Vector2(9, 14),

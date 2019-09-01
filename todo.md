@@ -12,6 +12,8 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* ui layer seems broken
+
 * !!! fix the bug, where the sword can face backwards while swinging
 * !!! treasure room designs
 * !!! bullet velocity on death items (potatoo) are broken, cause velocity is set to 0
