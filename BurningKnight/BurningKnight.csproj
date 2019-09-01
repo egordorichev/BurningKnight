@@ -309,6 +309,7 @@
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MaxHealthModifiedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\events\PlayerHurtEvent.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\PostHealthModifiedEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
@@ -361,6 +362,7 @@
     <Compile Include="entity\item\use\GiveHeartContainersUse.cs" />
     <Compile Include="entity\item\use\GiveItemUse.cs" />
     <Compile Include="entity\item\use\GiveKeyUse.cs" />
+    <Compile Include="entity\item\use\GiveWeaponUse.cs" />
     <Compile Include="entity\item\use\ItemUse.cs" />
     <Compile Include="entity\item\use\MakeLayerPassableUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBounceUse.cs" />

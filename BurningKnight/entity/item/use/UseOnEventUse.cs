@@ -9,8 +9,6 @@ namespace BurningKnight.entity.item.use {
 	public class UseOnEventUse : ItemUse {
 		private string type;
 		private Type typeInstance;
-		private Entity owner;
-		private Item item;
 		private string use;
 		private JsonValue options;
 
@@ -32,11 +30,6 @@ namespace BurningKnight.entity.item.use {
 			}
 		}
 
-		public override void Use(Entity entity, Item i) {
-			owner = entity;
-			item = i;
-		}
-
 		public override bool HandleEvent(Event e) {
 			if (e.GetType() == typeInstance) {
 				var u = UseRegistry.Create(use);
@@ -44,8 +37,9 @@ namespace BurningKnight.entity.item.use {
 				if (u == null) {
 					Log.Error($"{use} is invalid item use id");
 				} else {
+					u.Item = Item;
 					u.Setup(options);
-					u.Use(owner, item);
+					u.Use(Item.Owner, Item);
 				}
 			}
 			

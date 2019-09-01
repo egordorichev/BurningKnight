@@ -48,10 +48,18 @@ namespace BurningKnight.entity.item {
 			Uses = uses;
 			Renderer = renderer;
 			Renderer.Item = this;
+
+			foreach (var u in uses) {
+				u.Item = this;
+			}
 		}
 		
 		public Item(params ItemUse[] uses) {
 			Uses = uses;
+			
+			foreach (var u in uses) {
+				u.Item = this;
+			}
 		}
 
 		public Item() {
@@ -200,7 +208,12 @@ namespace BurningKnight.entity.item {
 				RemoveComponent<ItemGraphicsComponent>();
 			}
 
-			Uses = item.Uses;
+			Uses = Items.ParseUses(Items.Datas[id].Uses);
+			
+			foreach (var u in Uses) {
+				u.Item = this;
+			}
+			
 			UseTime = item.UseTime;
 			Renderer = item.Renderer;
 			Animation = item.Animation;

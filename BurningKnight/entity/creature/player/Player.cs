@@ -355,6 +355,10 @@ namespace BurningKnight.entity.creature.player {
 				}*/
 			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {
+					HandleEvent(new PlayerHurtEvent {
+						Player = this
+					});
+					
 					var cl = GetBloodColor();
 					
 					if (Random.Chance(30)) {

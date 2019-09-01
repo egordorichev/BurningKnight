@@ -75,6 +75,7 @@ namespace BurningKnight.entity.item.use {
 			Register<PreventDamageUse>(PreventDamageUse.RenderDebug);
 			Register<RemoveFromPoolUse>(RemoveFromPoolUse.RenderDebug);
 			Register<ModifyGameSaveValueUse>(ModifyGameSaveValueUse.RenderDebug);
+			Register<GiveWeaponUse>(GiveWeaponUse.RenderDebug);
 		}
 	}
 }

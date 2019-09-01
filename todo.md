@@ -14,6 +14,7 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* !!! fix the bug, where the sword can face backwards while swinging
 * !!! treasure room designs
 * !!! bullet velocity on death items (potatoo) are broken, cause velocity is set to 0
 
@@ -114,6 +115,9 @@
 
 ### items
 
+* dagger
+* sword that shoots projectiles, when you are full hp
+* item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up

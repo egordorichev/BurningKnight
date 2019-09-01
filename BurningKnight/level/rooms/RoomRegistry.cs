@@ -69,7 +69,7 @@ namespace BurningKnight.level.rooms {
 				// Treasure
 				RoomInfo.New<HoleTreasureRoom>(1f),
 				RoomInfo.New<PlatformTreasureRoom>(1f),
-				RoomInfo.New<PadTreasureRoom>(100000000f),
+				RoomInfo.New<PadTreasureRoom>(1f),
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f),

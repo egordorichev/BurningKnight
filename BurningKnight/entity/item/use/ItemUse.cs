@@ -4,6 +4,8 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.item.use {
 	public class ItemUse {
+		public Item Item;
+		
 		public virtual void Use(Entity entity, Item item) {
 			
 		}

@@ -217,6 +217,10 @@ namespace BurningKnight.assets.items {
 				Automatic = data.Automatic,
 				Uses = ParseUses(data.Uses)
 			};
+
+			foreach (var u in item.Uses) {
+				u.Item = item;
+			}
 			
 			if (data.Renderer != JsonValue.Null) {
 				if (data.Renderer.IsString) {
