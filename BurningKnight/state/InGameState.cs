@@ -63,17 +63,17 @@ namespace BurningKnight.state {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
 
-			Shaders.Screen.Parameters["bx"].SetValue(v.X / Display.Width);
-			Shaders.Screen.Parameters["by"].SetValue(v.Y / Display.Height);
+			Shaders.Ui.Parameters["bx"].SetValue(v.X / Display.UiWidth);
+			Shaders.Ui.Parameters["by"].SetValue(v.Y / Display.UiHeight);
 
-			Tween.To(0, 1, x => Shaders.Screen.Parameters["black"].SetValue(x), 0.7f).OnEnd = callback;
+			Tween.To(0, 1, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f).OnEnd = callback;
 		}
 
 		public void TransitionToOpen(Action callback = null) {
-			Shaders.Screen.Parameters["bx"].SetValue(0.5f);
-			Shaders.Screen.Parameters["by"].SetValue(0.5f);
+			Shaders.Ui.Parameters["bx"].SetValue(0.5f);
+			Shaders.Ui.Parameters["by"].SetValue(0.5f);
 
-			Tween.To(1, 0, x => Shaders.Screen.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = callback;
+			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = callback;
 		}
 
 		public Painting CurrentPainting {
@@ -115,7 +115,7 @@ namespace BurningKnight.state {
 			v = BK.Version.ToString();
 			vx = -Font.Small.MeasureString(v).Width;
 			
-			Shaders.Screen.Parameters["black"].SetValue(Menu ? 1f : 0f);
+			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -135,12 +135,15 @@ namespace BurningKnight.state {
 			}
 
 			if (!Menu) {
-				TransitionToOpen();
 				Camera.Instance.Follow(cursor, 1f);
 			}
-			
+
 			Camera.Instance.Jump();
-				
+
+			if (!Menu) {
+				TransitionToOpen();
+			}
+			
 			Run.StartedNew = false;
 		}
 

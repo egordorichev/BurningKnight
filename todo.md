@@ -4,12 +4,10 @@
 
 * not enough hurt feedback
 * Low health indicator
-* darkness shader should be applied to all screen and not just game
 
 ## general
 
-* room still might try to load its controller :/
-
+* ?!!! room still might try to load its controller :/
 * ?!!! secret rooms seem to corrupt level sometimes
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing

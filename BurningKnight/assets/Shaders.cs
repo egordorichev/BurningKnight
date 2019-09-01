@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.assets {
 	public class Shaders {
+		public static Effect Ui;
 		public static Effect Entity;
 		public static Effect Terrain;
 		public static Effect Screen;
@@ -12,6 +13,7 @@ namespace BurningKnight.assets {
 		public static Effect Item;
 		
 		public static void Load() {
+			Ui = Effects.Get("ui");
 			Entity = Effects.Get("entity");
 			Terrain = Effects.Get("terrain");
 			Screen = Effects.Get("screen");
@@ -20,6 +22,7 @@ namespace BurningKnight.assets {
 			Item = Effects.Get("item");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
+			Engine.Instance.StateRenderer.UiEffect = Ui;
 		}
 
 		public static void Begin(Effect effect) {
