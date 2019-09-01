@@ -47,49 +47,49 @@
 
 #begin Music/Disk 1.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 1.mp3
 
 #begin Music/Disk 2.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 2.mp3
 
 #begin Music/Disk 3.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 3.mp3
 
 #begin Music/Disk 4.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 4.mp3
 
 #begin Music/Disk 5.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 5.mp3
 
 #begin Music/Disk 6.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 6.mp3
 
 #begin Music/Disk 8.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 8.mp3
 
 #begin Music/Disk 9.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Music/Disk 9.mp3
 
