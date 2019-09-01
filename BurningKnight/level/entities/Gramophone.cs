@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -7,6 +8,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity;
+using BurningKnight.entity.creature.player;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
@@ -21,6 +23,7 @@ namespace BurningKnight.level.entities {
 		private float t;
 		private float tillNext;
 		private bool broken;
+		private byte disk = 10;
 		
 		public override void Init() {
 			base.Init();
@@ -34,7 +37,13 @@ namespace BurningKnight.level.entities {
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
+			disk = stream.ReadByte();
 			broken = GetComponent<HealthComponent>().Health == 0;
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteByte(disk);
 		}
 
 		public override void AddComponents() {
@@ -47,10 +56,35 @@ namespace BurningKnight.level.entities {
 			AddComponent(new ShadowComponent(RenderWithShadow));
 			AddComponent(new RectBodyComponent(2, 14, 12, 4, BodyType.Static));
 			AddComponent(new SensorBodyComponent(2, 2, Width - 4, Height - 4, BodyType.Static));
-
+			AddComponent(new InteractableComponent(Interact));
+			
 			AddComponent(new HealthComponent {
-				InitMaxHealth = 0
+				InitMaxHealth = 5
 			});
+		}
+
+		private bool Interact(Entity entity) {
+			if (disk > 0) {
+				DropDisk();
+			}
+
+			if (entity.TryGetComponent<ActiveWeaponComponent>(out var c) && c.Item != null && c.Item.Id.StartsWith("bk:disk_")) {
+				try {
+					var id = byte.Parse(c.Item.Id.Replace("bk:disk_", ""));
+					disk = id;
+					
+					var old = c.Item;
+					c.Set(null, false);
+					
+					old.Done = true;
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+			
+			// todo: take disk
+			SendEvent();
+			return false;
 		}
 
 		public override void Update(float dt) {
@@ -94,15 +128,58 @@ namespace BurningKnight.level.entities {
 
 				return;
 			}
-			
-			Graphics.Render(bottom, Position + new Vector2(0, 12));
 
-			if (broken) {
-				return;
+			var c = GetComponent<InteractableComponent>();
+			
+			if (c.OutlineAlpha > 0.05f) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(c.OutlineAlpha);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+				foreach (var d in MathUtils.Directions) {
+
+					Graphics.Render(bottom, Position + new Vector2(0, 12) + d);
+
+					if (!broken) {
+						Graphics.Render(top, Position + new Vector2(9, 14) + d, (float) Math.Cos(t) * 0.1f, new Vector2(9, 14),
+							new Vector2((float) Math.Cos(t * 2f) * 0.05f + 1f, (float) Math.Sin(t * 2f) * 0.05f + 1f));
+					}
+				}
+
+				Shaders.End();
 			}
 
-			Graphics.Render(top, Position + new Vector2(9, 14), (float) Math.Cos(t) * 0.1f, new Vector2(9, 14),
-				new Vector2((float) Math.Cos(t * 2f) * 0.05f + 1f, (float) Math.Sin(t * 2f) * 0.05f + 1f));
+			var stopShader = false;
+			var h = GetComponent<HealthComponent>();
+			
+			if (h.RenderInvt) {
+				var i = h.InvincibilityTimer;
+
+				if (i > h.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+					
+					stopShader = true;
+				}
+			}
+
+			Graphics.Render(bottom, Position + new Vector2(0, 12));
+
+			if (!broken) {
+				Graphics.Render(top, Position + new Vector2(9, 14), (float) Math.Cos(t) * 0.1f, new Vector2(9, 14),
+					new Vector2((float) Math.Cos(t * 2f) * 0.05f + 1f, (float) Math.Sin(t * 2f) * 0.05f + 1f));
+			}
+			
+			if (stopShader) {
+				Shaders.End();
+			}
 		}
 
 		private void RenderWithShadow() {
@@ -110,17 +187,55 @@ namespace BurningKnight.level.entities {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is HealthModifiedEvent) {
-				if (!broken) {
-					HandleEvent(new GramophoneBrokenEvent {
-						Gramophone = this
-					});
+			if (e is PostHealthModifiedEvent) {
+				if (GetComponent<HealthComponent>().Health == 0) {
+					if (!broken) {
+						HandleEvent(new GramophoneBrokenEvent {
+							Gramophone = this
+						});
 
-					broken = true;
+						DropDisk();
+						SendEvent();
+						broken = true;
+					}
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		private void DropDisk() {
+			if (disk == 0) {
+				return;
+			}
+
+			var item = Items.CreateAndAdd($"bk:disk_{disk}", Area);
+			item.CenterX = CenterX;
+			item.Y = Bottom + 4;
+
+			disk = 0;
+		}
+
+		private void SendEvent() {
+			HandleEvent(new DiskChangedEvent {
+				Gramophone = this,
+				Disk = disk
+			});
+		}
+
+		public string GetTune() {
+			if (disk == 0) {
+				return null;
+			} else if (disk == 10) {
+				return "Shopkeeper";
+			}
+
+			return $"Disk {disk}";
+		}
+		
+		public class DiskChangedEvent : Event {
+			public Gramophone Gramophone;
+			public byte Disk;
 		}
 	}
 }

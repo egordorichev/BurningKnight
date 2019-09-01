@@ -135,7 +135,7 @@ namespace Lens.assets {
 				return;
 			}
 
-			Stop();
+			FadeOut();
 
 			Repeat = true;
 			

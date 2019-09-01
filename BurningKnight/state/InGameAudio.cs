@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
@@ -19,8 +20,9 @@ namespace BurningKnight.state {
 	public class InGameAudio : Entity {
 		public override void Init() {
 			base.Init();
-			
+
 			Subscribe<GramophoneBrokenEvent>();
+			Subscribe<Gramophone.DiskChangedEvent>();
 			
 			Subscribe<RoomChangedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
@@ -46,17 +48,29 @@ namespace BurningKnight.state {
 			if (e is GramophoneBrokenEvent ge) {
 				var local = LocalPlayer.Locate(ge.Gramophone.Area);
 
-				if (local != null && ge.Gramophone.GetComponent<RoomComponent>().Room == local.GetComponent<RoomComponent>().Room) {
+				if (local != null && ge.Gramophone.GetComponent<RoomComponent>().Room ==
+				    local.GetComponent<RoomComponent>().Room) {
+	
+					Audio.Stop();
+				}
+			} else if (e is Gramophone.DiskChangedEvent gdce) {
+				var t = gdce.Gramophone.GetTune();
+					
+				if (t != null) {
+					Audio.PlayMusic(t);
+				} else {
 					Audio.Stop();
 				}
 			} else if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
 				var gramophone = re.New.Tagged[Tags.Gramophone].FirstOrDefault();
 
 				if (gramophone != null) {
-					if (gramophone.GetComponent<HealthComponent>().Health == 0) {
-						Audio.FadeOut();
+					var t = ((Gramophone) gramophone).GetTune();
+					
+					if (t != null) {
+						Audio.PlayMusic(t);
 					} else {
-						Audio.PlayMusic("Shopkeeper");
+						Audio.Stop();
 					}
 
 					return false;

@@ -47,6 +47,8 @@
  + burning slime
  + bandit mutant: homing missiles?
 
+* audio panning instead of lowering the volume
+
 ### future bk ideas
 
 * worm
