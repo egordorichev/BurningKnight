@@ -45,6 +45,54 @@
 /processorParam:Quality=Best
 /build:Music/Cursed legend.mp3
 
+#begin Music/Disk 1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 1.mp3
+
+#begin Music/Disk 2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 2.mp3
+
+#begin Music/Disk 3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 3.mp3
+
+#begin Music/Disk 4.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 4.mp3
+
+#begin Music/Disk 5.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 5.mp3
+
+#begin Music/Disk 6.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 6.mp3
+
+#begin Music/Disk 8.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 8.mp3
+
+#begin Music/Disk 9.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Disk 9.mp3
+
 #begin Music/Fatiga.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -842,6 +890,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/terrain.fx
+
+#begin Shaders/ui.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/ui.fx
 
 #begin Textures/chars.png
 /importer:TextureImporter
