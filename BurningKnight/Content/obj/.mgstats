@@ -131,12 +131,12 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/voice_gobbo_2.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/voice_gobbo_2.xnb","SoundEffectProcessor","SoundEffectContent",17389,189033,1.078467
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/voice_gobbo_3.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/voice_gobbo_3.xnb","SoundEffectProcessor","SoundEffectContent",17389,189033,1.172266
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/whoosh.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/whoosh.xnb","SoundEffectProcessor","SoundEffectContent",12480,25543,0.6897362
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",775,927,2.301225
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",835,966,5.786674
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1211,0.5737688
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1201,1593,0.532464
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1200,1592,0.35609
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1041,0.4546806
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1894,3232,2.465018
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1335,2220,2.771111
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1641,2590,4.071918
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1403,2220,0.5514599
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,1.716877
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.2326211
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.2480629

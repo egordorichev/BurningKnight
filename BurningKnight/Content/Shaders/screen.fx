@@ -11,9 +11,6 @@ Texture2D SpriteTexture;
 sampler s0;
 float blur;
 float split;
-float black;
-float bx;
-float by;
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
@@ -26,15 +23,6 @@ struct VertexShaderOutput {
 };
 
 float4 MainPS(VertexShaderOutput input) : COLOR {
-  if (black < 1.0f) { 
-		float dx = input.TextureCoordinates.x - bx;
-		float dy = (input.TextureCoordinates.y - by) * 0.5625f;
-	
-		if (sqrt(dx * dx + dy * dy) > black) {
-			return float4(0, 0, 0, 0);
-		}
-	}
-
 	float mx = 1.0f / 320 * blur;
 	float my = 1.0f / 180 * blur;
 	float4 color;
