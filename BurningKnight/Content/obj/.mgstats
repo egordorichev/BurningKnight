@@ -4,6 +4,14 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Botanical Expedition.xnb","SoundEffectProcessor","SoundEffectContent",3842088,16934693,3.053404
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Burning Knight.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Burning Knight.xnb","SoundEffectProcessor","SoundEffectContent",1154402,6354725,1.159826
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Cursed legend.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Cursed legend.xnb","SoundEffectProcessor","SoundEffectContent",1122219,4940069,0.9584982
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 1.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 1.xnb","SongProcessor","SongContent",5476380,124,14.0257
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 2.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 2.xnb","SongProcessor","SongContent",3621895,124,5.8784
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 3.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 3.xnb","SongProcessor","SongContent",3850101,124,6.553237
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 4.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 4.xnb","SongProcessor","SongContent",4650074,124,9.397789
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 5.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 5.xnb","SongProcessor","SongContent",3633807,124,7.39747
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 6.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 6.xnb","SongProcessor","SongContent",1982450,124,5.50225
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 8.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 8.xnb","SongProcessor","SongContent",1959880,124,4.867249
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 9.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 9.xnb","SongProcessor","SongContent",1995616,124,5.318701
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Fatiga.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Fatiga.xnb","SoundEffectProcessor","SoundEffectContent",1730350,9529637,1.219594
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Frozen to the bones.xnb","SoundEffectProcessor","SoundEffectContent",3530709,15561509,1.859971
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Gobbeon.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Gobbeon.xnb","SoundEffectProcessor","SoundEffectContent",4802350,21169445,2.398503
@@ -137,6 +145,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1041,0.4546806
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1641,2590,4.071918
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1403,2220,0.5514599
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb","EffectProcessor","CompiledEffectContent",894,1236,1.218421
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,1.716877
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.2326211
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.2480629
