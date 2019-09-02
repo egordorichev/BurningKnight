@@ -3,7 +3,7 @@ using BurningKnight.entity.creature.mob.prefabs;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.entity.creature.bk.forms {
+namespace BurningKnight.entity.creature.bk.forms.slime {
 	public class BurningSlime : Slime {
 		private static readonly Color color = ColorUtils.FromHex("#ff0040");
 		

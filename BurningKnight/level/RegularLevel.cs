@@ -112,7 +112,7 @@ namespace BurningKnight.level {
 		}
 
 		private bool IsFinal() {
-			return LevelSave.BiomeGenerated.Id == Biome.Library && Run.Depth % 2 == 0;
+			return Run.Depth == 3;
 		}
 
 		protected virtual List<RoomDef> CreateRooms() {
@@ -124,7 +124,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, biome));
+			Rooms.Add(true ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
 
 			var Regular = final ? 0 : GetNumRegularRooms();
 			var Special = final ? 0 : GetNumSpecialRooms();

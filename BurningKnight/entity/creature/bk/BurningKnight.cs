@@ -24,7 +24,6 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
-		private HealthBar healthBar;
 		private BossPatternSet<BurningKnight> set;
 	
 		public override void AddComponents() {
@@ -99,11 +98,6 @@ namespace BurningKnight.entity.creature.bk {
 					}, 0.5f);
 				}
 			}
-
-			if (healthBar == null) {
-				healthBar = new HealthBar(this);
-				Engine.Instance.State.Ui.Add(healthBar);
-			}
 		}
 
 		public override void SelectAttack() {
@@ -124,7 +118,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (!died) {
 					died = true;
 
-					healthBar.Remove();
+					HealthBar.Remove();
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 1f);

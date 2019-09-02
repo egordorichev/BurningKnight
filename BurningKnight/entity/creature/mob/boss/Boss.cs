@@ -1,6 +1,7 @@
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
+using BurningKnight.ui;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -9,7 +10,17 @@ using Lens.util.timer;
 namespace BurningKnight.entity.creature.mob.boss {
 	public class Boss : Mob {
 		public bool Awoken;
-		
+		protected HealthBar HealthBar;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (HealthBar == null) {
+				HealthBar = new HealthBar(this);
+				Engine.Instance.State.Ui.Add(HealthBar);
+			}
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 			Become<IdleState>();

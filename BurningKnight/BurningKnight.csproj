@@ -212,10 +212,13 @@
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
-    <Compile Include="entity\creature\bk\forms\BurningSlime.cs" />
+    <Compile Include="entity\creature\bk\forms\king\BurningKing.cs" />
+    <Compile Include="entity\creature\bk\forms\king\JumpAttack.cs" />
+    <Compile Include="entity\creature\bk\forms\slime\BurningSlime.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
@@ -521,6 +524,7 @@
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
     <Compile Include="level\rooms\connection\WayOverChasmRoom.cs" />
+    <Compile Include="level\rooms\entrance\BossTestRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />

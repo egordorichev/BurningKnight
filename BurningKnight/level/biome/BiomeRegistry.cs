@@ -31,7 +31,7 @@ namespace BurningKnight.level.biome {
 			}
 			
 			// Emulate short game for now
-			if (depth == 3 || depth == 4) {
+			if (depth == 2 || depth == 3) {
 				return Defined[Biome.Library];
 			}
 
