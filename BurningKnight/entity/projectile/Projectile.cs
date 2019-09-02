@@ -231,8 +231,6 @@ namespace BurningKnight.entity.projectile {
 			if (Dying) {
 				return;
 			}
-
-			BodyComponent.Velocity = Vector2.Zero;
 			
 			Dying = true;
 			deathTimer = 0.1f;
@@ -242,6 +240,8 @@ namespace BurningKnight.entity.projectile {
 			} catch (Exception e) {
 				Log.Error(e);
 			}
+			
+			BodyComponent.Velocity = Vector2.Zero;
 		}
 	}
 }
