@@ -40,8 +40,25 @@ namespace BurningKnight.state {
 			
 			Subscribe<PlayerRolledEvent>();
 			Subscribe<BurningKnightDefeatedEvent>();
-			
+
 			Subscribe<SpawnTrigger.TriggeredEvent>();
+			
+			var p = LocalPlayer.Locate(Area);
+			var gramophone = p?.GetComponent<RoomComponent>().Room?.Tagged[Tags.Gramophone].FirstOrDefault();
+
+			if (gramophone != null) {
+				var t = ((Gramophone) gramophone).GetTune();
+					
+				if (t != null) {
+					Audio.PlayMusic(t);
+				} else {
+					Audio.Stop();
+				}
+
+				return;
+			}
+
+			Audio.PlayMusic(Run.Level.GetMusic());
 		}
 
 		public override bool HandleEvent(Event e) {

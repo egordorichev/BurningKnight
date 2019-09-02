@@ -29,6 +29,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			WindowManager.LevelEditor = true;
+
 			Engine.EditingLevel = true;
 
 			Physics.Init();
@@ -101,7 +103,8 @@ namespace BurningKnight.state {
 			Console.Render();
 			AreaDebug.Render(Area);
 			DebugWindow.Render();
-			ImGuiHelper.End();
+			WindowManager.Render();
+			ImGuiHelper.End();			
 			
 			Graphics.Batch.Begin();
 			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);

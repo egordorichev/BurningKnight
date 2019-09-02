@@ -278,6 +278,7 @@
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
+    <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />

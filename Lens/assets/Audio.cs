@@ -140,7 +140,13 @@ namespace Lens.assets {
 			Repeat = true;
 			
 			if (!instances.TryGetValue(music, out currentPlaying)) {
-				currentPlaying = GetMusic(music).CreateInstance();
+				var ms = GetMusic(music);
+
+				if (ms == null) {
+					return;
+				}
+				
+				currentPlaying = ms.CreateInstance();
 				instances[music] = currentPlaying;
 				currentPlaying.Play();
 			} else {

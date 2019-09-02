@@ -1,4 +1,7 @@
-$HEADER$namespace $NAMESPACE$
-{
-  public class $CLASS$ {$END$}
+namespace BurningKnight.entity.door {
+	public class VerticalDoor : Door {
+		public VerticalDoor() {
+			FacingSide = true;
+		}
+	}
 }

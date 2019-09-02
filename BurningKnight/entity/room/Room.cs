@@ -9,6 +9,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.editor;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
@@ -20,7 +21,7 @@ using MonoGame.Extended;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.room {
-	public class Room : SaveableEntity {
+	public class Room : SaveableEntity, PlaceableEntity {
 		public int MapX;
 		public int MapY;
 		public int MapW = 4;

@@ -62,6 +62,9 @@ namespace BurningKnight.state {
 			Tilesets.Load();
 			progress++;
 				
+			SaveManager.Load(gameArea, SaveType.Global);
+			progress++;
+			
 			SaveManager.Load(gameArea, SaveType.Game);
 			progress++;
 				
@@ -76,7 +79,7 @@ namespace BurningKnight.state {
 				SaveManager.Generate(gameArea, SaveType.Player);
 			}
 
-			progress++; // Should be 16 here
+			progress++; // Should be 17 here
 			Log.Info("Done loading level! Going to menu.");
 				
 			ready = true;
@@ -88,13 +91,19 @@ namespace BurningKnight.state {
 			t += dt;
 			
 			if (ready) {
+				if (Settings.Fullscreen) {
+					Engine.Instance.SetFullscreen();
+				} else {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				}
+				
 				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
 		}
 
 		public override void RenderUi() {
 			base.RenderUi();
-			Graphics.Print($"Loading assets {progress / 16f * 100}%", Font.Medium, new Vector2(10, 10));
+			Graphics.Print($"Loading assets {progress / 17f * 100}%", Font.Medium, new Vector2(10, 10));
 			
 			var n = t % 2f;
 			var s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";

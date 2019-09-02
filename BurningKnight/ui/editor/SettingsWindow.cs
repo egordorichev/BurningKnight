@@ -116,6 +116,10 @@ namespace BurningKnight.ui.editor {
 		}
 
 		private void Save() {
+			if (levels.Length == 0) {
+				return;
+			}
+			
 			SaveManager.Save(Editor.Area, SaveType.Level, true, FileHandle.FromRoot($"Prefabs/{levels[currentLevel]}.lvl").FullPath);
 		}
 		
@@ -125,9 +129,29 @@ namespace BurningKnight.ui.editor {
 			Engine.Instance.State.Area = Editor.Area;
 			
 			Run.Level = null;
-			SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
-			Editor.Level = Run.Level;
 
+			if (levels.Length == 0) {
+				var level = new RegularLevel {
+					Width = levelWidth,
+					Height = levelHeight,
+					NoLightNoRender = false,
+					DrawLight = false
+				};
+
+				Editor.Level = level;
+				Editor.Area.Add(level);
+
+				level.SetBiome(BiomeRegistry.Get(Biome.Castle));
+				level.Setup();
+				level.Fill(Tile.FloorA);
+				level.TileUp();
+
+				Editor.Camera.Position = Vector2.Zero;
+			} else {
+				SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
+				Editor.Level = Run.Level;
+			}
+			
 			ReloadBiome();
 		}
 

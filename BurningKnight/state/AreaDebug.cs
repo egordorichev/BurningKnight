@@ -21,7 +21,7 @@ namespace BurningKnight.state {
 		private static Entity toFocus;
 		
 		public static bool PassFilter(Entity e) {
-			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Room || e is Chasm || e is ParticleEntity || e is ParticleSystem || e is ChasmFx);
+			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Room || e is Chasm || e is ParticleEntity || e is ParticleSystem || e is ChasmFx || e is WaterfallFx);
 		}
 
 		public static Entity ToFocus {

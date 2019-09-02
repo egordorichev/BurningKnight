@@ -25,13 +25,14 @@ namespace BurningKnight.level.entities {
 		private float t;
 		private float tillNext;
 		private bool broken;
-		private byte disk = 10;
+		private int disk = 10;
 		
 		public override void Init() {
 			base.Init();
 
-			disk = (byte) GameSave.GetInt("disk");
-
+			disk = GlobalSave.GetInt("disk");
+			Log.Error(disk);
+			
 			Width = 16;
 			Height = 23;
 
@@ -43,13 +44,13 @@ namespace BurningKnight.level.entities {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			disk = stream.ReadByte();
+			Log.Error(disk);
 			broken = GetComponent<HealthComponent>().Health == 0;
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteByte(disk);
-			GameSave.Put("disk", disk);
+			stream.WriteByte((byte) disk);
 		}
 
 		public override void AddComponents() {
@@ -94,7 +95,6 @@ namespace BurningKnight.level.entities {
 					}
 
 					disk = id;
-					GameSave.Put("disk", disk);
 					
 					old.Done = true;
 				} catch (Exception e) {
@@ -103,8 +103,10 @@ namespace BurningKnight.level.entities {
 			} else if (hd) {
 				c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));
 				disk = 0;
-				GameSave.Put("disk", disk);
 			}
+			
+			GlobalSave.Put("disk", disk);
+			Log.Error(GlobalSave.GetInt("disk"));
 			
 			SendEvent();
 			return false;
@@ -240,7 +242,8 @@ namespace BurningKnight.level.entities {
 			item.Y = Bottom + 4;
 
 			disk = 0;
-			GameSave.Put("disk", disk);
+			GlobalSave.Put("disk", disk);
+			Log.Error(GlobalSave.GetInt("disk"));
 		}
 
 		private void SendEvent() {
@@ -262,7 +265,7 @@ namespace BurningKnight.level.entities {
 		
 		public class DiskChangedEvent : Event {
 			public Gramophone Gramophone;
-			public byte Disk;
+			public int Disk;
 		}
 	}
 }

@@ -83,15 +83,7 @@ namespace BurningKnight {
 			Vegan = GlobalSave.IsTrue("s_v", false);
 			Autosave = GlobalSave.IsTrue("s_as");
 
-			if (Fullscreen) {
-				Engine.Instance.SetFullscreen();
-			} else {
-				Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
-			}
-
 			// Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
-
-			Autosave = false;
 		}
 
 		public static void Save() {

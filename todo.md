@@ -1,5 +1,12 @@
 # TODO
 
+## audio
+
+* switching between levels (dark out) should fade in/out music
+* hide music disks around
+* audio panning instead of lowering the volume
+* lowpass filter and somewhat responsible music? :(
+
 ## user view point
 
 * not enough hurt feedback
@@ -13,8 +20,7 @@
 * !!! generation needs hard testing
 
 * fix disks renderer
-* ui layer seems broken
-* get auto save back
+* ui layer seems to use alpha and not blackness?? (go recompile on windows)
 
 * !!! fix the bug, where the sword can face backwards while swinging
 * !!! treasure room designs
@@ -50,8 +56,6 @@
  + slime that shoots to you, when lands
  + burning slime
  + bandit mutant: homing missiles?
-
-* audio panning instead of lowering the volume
 
 ### future bk ideas
 
@@ -149,7 +153,6 @@
 
 #### Polish
 
-* lowpass filter and somewhat responsible music? :(
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
@@ -161,7 +164,6 @@
 * Walls after explosion should be "a bit more broken?"
 * rework lava, should be like water in chasm or smth
 * Props that react to music beats
-* hide music disks around
 
 ### Mechanics
 
