@@ -12,7 +12,9 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* fix disks renderer
 * ui layer seems broken
+* get auto save back
 
 * !!! fix the bug, where the sword can face backwards while swinging
 * !!! treasure room designs
@@ -159,6 +161,7 @@
 * Walls after explosion should be "a bit more broken?"
 * rework lava, should be like water in chasm or smth
 * Props that react to music beats
+* hide music disks around
 
 ### Mechanics
 

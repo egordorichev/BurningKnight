@@ -170,15 +170,15 @@ namespace BurningKnight.state {
 			SaveManager.Backup();
 
 			var old = !Engine.Quiting;
+
+			if (!Run.StartedNew && !died && (old ? Run.LastDepth : Run.Depth) > 0) {
+				SaveManager.Save(Area, SaveType.Level, old);
+				SaveManager.Save(Area, SaveType.Player, old);
+				SaveManager.Save(Area, SaveType.Game, old);
+			}
 			
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
-
-			if (!Run.StartedNew && !died && (old ? Run.LastDepth : Run.Depth) > 0) {
-				SaveManager.Save(Area, SaveType.Game, old);
-				SaveManager.Save(Area, SaveType.Level, old);
-				SaveManager.Save(Area, SaveType.Player, old);
-			}
 
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);

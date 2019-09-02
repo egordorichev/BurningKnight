@@ -9,6 +9,7 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
+using BurningKnight.save;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
@@ -29,6 +30,8 @@ namespace BurningKnight.level.entities {
 		public override void Init() {
 			base.Init();
 
+			disk = (byte) GameSave.GetInt("disk");
+
 			Width = 16;
 			Height = 23;
 
@@ -46,6 +49,7 @@ namespace BurningKnight.level.entities {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteByte(disk);
+			GameSave.Put("disk", disk);
 		}
 
 		public override void AddComponents() {
@@ -90,6 +94,8 @@ namespace BurningKnight.level.entities {
 					}
 
 					disk = id;
+					GameSave.Put("disk", disk);
+					
 					old.Done = true;
 				} catch (Exception e) {
 					Log.Error(e);
@@ -97,6 +103,7 @@ namespace BurningKnight.level.entities {
 			} else if (hd) {
 				c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));
 				disk = 0;
+				GameSave.Put("disk", disk);
 			}
 			
 			SendEvent();
@@ -108,7 +115,7 @@ namespace BurningKnight.level.entities {
 			
 			t += dt;
 
-			if (GetComponent<HealthComponent>().Health == 0) {
+			if (GetComponent<HealthComponent>().Health == 0 || disk == 0) {
 				return;
 			}
 			
@@ -233,6 +240,7 @@ namespace BurningKnight.level.entities {
 			item.Y = Bottom + 4;
 
 			disk = 0;
+			GameSave.Put("disk", disk);
 		}
 
 		private void SendEvent() {

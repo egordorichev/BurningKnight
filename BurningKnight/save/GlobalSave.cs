@@ -56,6 +56,7 @@ namespace BurningKnight.save {
 			Values.Clear();
 			Settings.Generate();
 			RunId = 0;
+			Put("disk", 10);
 		}
 
 		public override string GetPath(string path, bool old = false) {

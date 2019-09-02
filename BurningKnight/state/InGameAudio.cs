@@ -66,10 +66,11 @@ namespace BurningKnight.state {
 
 				if (gramophone != null) {
 					var t = ((Gramophone) gramophone).GetTune();
-					Audio.Stop();
 					
 					if (t != null) {
 						Audio.PlayMusic(t);
+					} else {
+						Audio.Stop();
 					}
 
 					return false;
