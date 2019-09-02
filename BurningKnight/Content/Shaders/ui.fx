@@ -29,7 +29,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		float dy = (input.TextureCoordinates.y - by) * 0.5625f;
 	
 		if (sqrt(dx * dx + dy * dy) > black) {
-			return float4(0, 0, 0, 0);
+			return float4(0, 0, 0, 1);
 		}
 	}
 

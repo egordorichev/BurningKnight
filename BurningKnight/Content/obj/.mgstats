@@ -145,7 +145,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1041,0.3307437
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1641,2590,0.5328316
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1403,2220,0.3437755
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb","EffectProcessor","CompiledEffectContent",894,1236,0.31633
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb","EffectProcessor","CompiledEffectContent",894,1236,2.225396
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,0.985781
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.156258
 "C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.1250069
