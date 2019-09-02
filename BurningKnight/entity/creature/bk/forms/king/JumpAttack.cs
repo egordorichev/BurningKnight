@@ -5,8 +5,12 @@ using Lens.util;
 
 namespace BurningKnight.entity.creature.bk.forms.king {
 	public class JumpAttack : BossAttack<BurningKing> {
+		// jumps up, lands on you (tries to) and spawns a ring of bullets
+		
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			// tmp
 
 			if (T > 3f) {
 				for (var i = 0; i < 16; i++) {

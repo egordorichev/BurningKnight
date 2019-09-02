@@ -15,6 +15,8 @@ namespace BurningKnight.entity.item.renderer {
 		public float Angle;
 		public Vector2 Origin;
 		public bool InvertBack;
+		public float AddedAngle;
+		public float SwingAngle;
 		
 		private double lastAngle;
 		private float sx = 1;
@@ -32,25 +34,28 @@ namespace BurningKnight.entity.item.renderer {
 			
 			var region = Item.Region;
 			var owner = Item.Owner;
-			
-			var flipped = owner.GraphicsComponent.Flipped;
+
+			var of = owner.GraphicsComponent.Flipped;
+			var flipped = of;
 			
 			if (!atBack && !paused) {
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
 			}
 			
-			var angle = ((flipped ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (flipped ? -Math.PI / 4 : Math.PI / 4)) : lastAngle)) % (Math.PI * 2);
+			var angle = ((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle)) % (Math.PI * 2);
 			var vf = angle > Math.PI * 0.5f && angle < Math.PI * 1.5f;
-	
+			
 			if (vf) {
 				flipped = !flipped;
 			}	
 
 			if (atBack) {
 				flipped = !flipped;
+			} else {
+				angle += (SwingAngle + AddedAngle) * (of ? -1 : 1);
 			}
-
-			Graphics.Render(region, new Vector2(owner.CenterX + (vf ? -3 : 3), owner.CenterY + (shadow ? owner.Height : 0)), 
+			
+			Graphics.Render(region, new Vector2(owner.CenterX + (of ? -3 : 3), owner.CenterY + (shadow ? owner.Height : 0)), 
 				(float) angle * (shadow ? -1 : 1), Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy));
 		}
 
@@ -68,6 +73,7 @@ namespace BurningKnight.entity.item.renderer {
 			Origin.X = settings["ox"].Number(0);
 			Origin.Y = settings["oy"].Number(0);
 			InvertBack = settings["invert_back"].Bool(true);
+			AddedAngle = settings["aa"].Number(0).ToRadians();
 		}
 
 		private static bool snapGrid = true;
@@ -137,8 +143,14 @@ namespace BurningKnight.entity.item.renderer {
 
 			var invert = root["invert_back"].AsBoolean;
 
-			if (ImGui.Checkbox("Invert back", ref invert)) {
+			if (ImGui.Checkbox("Invert back?", ref invert)) {
 				root["invert_back"] = invert;
+			}
+			
+			var min = (float) root["aa"].Number(0);
+
+			if (ImGui.InputFloat("Added Angle", ref min)) {
+				root["aa"] = min;
 			}
 		}
 	}

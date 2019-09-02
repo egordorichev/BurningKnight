@@ -212,8 +212,13 @@
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
+    <Compile Include="entity\creature\bk\forms\king\BladeAttack.cs" />
+    <Compile Include="entity\creature\bk\forms\king\BulletSpamAttack.cs" />
     <Compile Include="entity\creature\bk\forms\king\BurningKing.cs" />
+    <Compile Include="entity\creature\bk\forms\king\DashAttack.cs" />
     <Compile Include="entity\creature\bk\forms\king\JumpAttack.cs" />
+    <Compile Include="entity\creature\bk\forms\king\SpinAttack.cs" />
+    <Compile Include="entity\creature\bk\forms\king\SwingAttack.cs" />
     <Compile Include="entity\creature\bk\forms\slime\BurningSlime.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
