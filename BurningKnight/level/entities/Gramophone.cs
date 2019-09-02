@@ -31,7 +31,6 @@ namespace BurningKnight.level.entities {
 			base.Init();
 
 			disk = GlobalSave.GetInt("disk");
-			Log.Error(disk);
 			
 			Width = 16;
 			Height = 23;
@@ -44,7 +43,6 @@ namespace BurningKnight.level.entities {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			disk = stream.ReadByte();
-			Log.Error(disk);
 			broken = GetComponent<HealthComponent>().Health == 0;
 		}
 
@@ -106,7 +104,6 @@ namespace BurningKnight.level.entities {
 			}
 			
 			GlobalSave.Put("disk", disk);
-			Log.Error(GlobalSave.GetInt("disk"));
 			
 			SendEvent();
 			return false;
@@ -243,7 +240,6 @@ namespace BurningKnight.level.entities {
 
 			disk = 0;
 			GlobalSave.Put("disk", disk);
-			Log.Error(GlobalSave.GetInt("disk"));
 		}
 
 		private void SendEvent() {

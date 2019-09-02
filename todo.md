@@ -20,7 +20,6 @@
 * !!! generation needs hard testing
 
 * fix disks renderer
-* ui layer seems to use alpha and not blackness?? (go recompile on windows)
 
 * !!! fix the bug, where the sword can face backwards while swinging
 * !!! treasure room designs

@@ -70,8 +70,8 @@ namespace BurningKnight.state {
 		}
 
 		public void TransitionToOpen(Action callback = null) {
-			Shaders.Ui.Parameters["bx"].SetValue(0.5f);
-			Shaders.Ui.Parameters["by"].SetValue(0.5f);
+			Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+			Shaders.Ui.Parameters["by"].SetValue(0.333f);
 
 			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = callback;
 		}
