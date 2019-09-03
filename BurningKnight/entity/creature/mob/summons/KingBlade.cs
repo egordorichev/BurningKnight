@@ -48,6 +48,7 @@ namespace BurningKnight.entity.creature.mob.summons {
 				if (t > 1f && Target != null) {
 					var an = AngleTo(Target);
 					var p = Projectile.Make(this, "triangle", an, 10, false);
+					// fixme: use own angle, not to target
 					p.Center += MathUtils.CreateVector(an, 8f);
 
 					t = 0;
