@@ -111,9 +111,9 @@ namespace Lens.graphics.gamerenderer {
 
 			if (UiTarget != null) {
 				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
-				UiEffect.Parameters["tint"].SetValue(ColorUtils.HalfBlack);
+				UiEffect?.Parameters["tint"].SetValue(ColorUtils.HalfBlack);
 				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
-				UiEffect.Parameters["tint"].SetValue(ColorUtils.White);
+				UiEffect?.Parameters["tint"].SetValue(ColorUtils.White);
 				
 				Graphics.Render(UiTarget, Engine.Viewport);
 				

@@ -19,9 +19,6 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* !!! fix the bug, where the sword can face backwards while swinging
-* !!! ui layer shadow doesnt work, it draws with not half transparent black but color
-
 * make entity saver ignore entity (skip) if the type is invalid
 
 * bk types:
