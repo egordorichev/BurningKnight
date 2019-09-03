@@ -19,8 +19,6 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* make entity saver ignore entity (skip) if the type is invalid
-
 * bk types:
  + slime
  + king
@@ -45,9 +43,6 @@
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms
 * Enemies / rooms drop rewards (bombs, keys, coins)
-* bk missile projectiles have no sprite??? wrong depth, maybe?
-
-
 * buff icons
 * spice up bullets (different textures for different enemies)
 
@@ -59,7 +54,7 @@
 ### beta bugs
 
 * openal crash
-* max hp resets
+* bk missile projectiles have no sprite??? wrong depth, maybe?
 
 ### todo
 

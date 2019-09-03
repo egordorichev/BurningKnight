@@ -65,12 +65,13 @@ namespace BurningKnight.save {
 		}
 
 		protected virtual void ReadEntity(Area area, FileReader reader, string type, bool post) {
+			var size = reader.ReadInt16();
+			var position = reader.Position;
+
 			try {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
 				area.Add(entity, false);
 
-				var size = reader.ReadInt16();
-				var position = reader.Position;
 				entity.Load(reader);
 				var sum = reader.Position - position - size;
 
@@ -85,6 +86,8 @@ namespace BurningKnight.save {
 			} catch (Exception e) {
 				Log.Error($"Failed to load {type}");
 				Log.Error(e);
+
+				reader.Position = position + size;
 			}
 		}
 
