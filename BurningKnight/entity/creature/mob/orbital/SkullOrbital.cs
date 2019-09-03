@@ -7,7 +7,11 @@ namespace BurningKnight.entity.creature.mob.orbital {
 	public class SkullOrbital : Mob {
 		private const float FireRate = 3f;
 		private float t;
-		
+
+		protected override void HandleBreaking() {
+			
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -22,6 +26,8 @@ namespace BurningKnight.entity.creature.mob.orbital {
 			AddComponent(new OrbitalComponent {
 				Radius = 32
 			});
+			
+			RemoveTag(Tags.LevelSave);
 		}
 
 		public override void Update(float dt) {

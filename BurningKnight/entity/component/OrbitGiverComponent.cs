@@ -44,8 +44,14 @@ namespace BurningKnight.entity.component {
 			if (!e.HasComponent<OrbitalComponent>()) {
 				e.AddComponent(new OrbitalComponent());
 			}
-			
+
+			e.GetComponent<OrbitalComponent>().Orbiting = Entity;
 			Orbiting.Add(e);
+		}
+
+		public void RemoveOrbiter(Entity e) {
+			Orbiting.Remove(e);
+			e.GetComponent<OrbitalComponent>().Orbiting = null;
 		}
 	}
 }

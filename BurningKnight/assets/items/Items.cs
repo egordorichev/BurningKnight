@@ -217,10 +217,6 @@ namespace BurningKnight.assets.items {
 				Automatic = data.Automatic,
 				Uses = ParseUses(data.Uses)
 			};
-
-			foreach (var u in item.Uses) {
-				u.Item = item;
-			}
 			
 			if (data.Renderer != JsonValue.Null) {
 				if (data.Renderer.IsString) {
@@ -241,6 +237,11 @@ namespace BurningKnight.assets.items {
 				} else {
 					Log.Error($"Invalid renderer declaration in item {data.Id}");
 				}
+			}
+
+			foreach (var u in item.Uses) {
+				u.Item = item;
+				u.Init();
 			}
 
 			return item;

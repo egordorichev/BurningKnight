@@ -226,6 +226,7 @@
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
+    <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
+    <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />
     <Compile Include="entity\item\use\DiscoverSecretRoomsUse.cs" />

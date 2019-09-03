@@ -51,6 +51,7 @@ namespace BurningKnight.entity.item {
 
 			foreach (var u in uses) {
 				u.Item = this;
+				u.Init();
 			}
 		}
 		
@@ -59,13 +60,22 @@ namespace BurningKnight.entity.item {
 			
 			foreach (var u in uses) {
 				u.Item = this;
+				u.Init();
 			}
 		}
 
 		public Item() {
 			
 		}
-		
+
+		public override void Destroy() {
+			base.Destroy();
+
+			foreach (var u in Uses) {
+				u.Destroy();
+			}
+		}
+
 		public void Use(Entity entity) {
 			if (!UseCheck.CanUse(entity, this)) {
 				return;
@@ -212,6 +222,7 @@ namespace BurningKnight.entity.item {
 			
 			foreach (var u in Uses) {
 				u.Item = this;
+				u.Init();
 			}
 			
 			UseTime = item.UseTime;

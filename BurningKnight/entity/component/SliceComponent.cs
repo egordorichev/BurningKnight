@@ -9,6 +9,7 @@ namespace BurningKnight.entity.component {
 	public class SliceComponent : GraphicsComponent {
 		public TextureRegion Sprite;
 		public int ShadowZ;
+		public float Angle;
 		
 		public SliceComponent(string image, string slice) {
 			Set(image, slice);
@@ -36,8 +37,10 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Render(bool shadow) {
+			var o = Sprite.Center;
+			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + ShadowZ), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + ShadowZ) + o, Angle, o, Vector2.One, Graphics.ParseEffect(Flipped, ShadowZ > 0 ? FlippedVerticaly : !FlippedVerticaly));
 				return;
 			}
 			
@@ -58,7 +61,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			Graphics.Render(Sprite, Entity.Position);
+			Graphics.Render(Sprite, Entity.Position + o, Angle, o);
 			
 			if (stopShader) {
 				Shaders.End();

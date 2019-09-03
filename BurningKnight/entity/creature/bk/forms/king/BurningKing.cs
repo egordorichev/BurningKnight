@@ -17,9 +17,11 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 
 			AddComponent(new ZComponent());
 			AddComponent(new ZAnimationComponent("king"));
+			AddComponent(new OrbitGiverComponent());
+			
 			GetComponent<HealthComponent>().InitMaxHealth = 300;
 			
-			AddComponent(new RectBodyComponent(0, 0, Width, Height) {
+			AddComponent(new RectBodyComponent(0, 0, Width, Height, center : true) {
 				KnockbackModifier = 0.05f
 			});
 
@@ -57,7 +59,8 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 		private SimpleAttackRegistry<BurningKing> attacks = new SimpleAttackRegistry<BurningKing>(new [] {
 			new BossPattern<BurningKing>(
 				// typeof(DashAttack)
-				typeof(JumpAttack)
+				// typeof(JumpAttack)
+				typeof(BladeAttack)
 				
 			)
 		});

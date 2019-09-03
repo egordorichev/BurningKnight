@@ -13,6 +13,14 @@ namespace BurningKnight.entity.item.use {
 		public virtual void Setup(JsonValue settings) {
 			
 		}
+
+		public virtual void Init() {
+			
+		}
+
+		public virtual void Destroy() {
+			
+		}
 		
 		public virtual bool HandleEvent(Event e) {
 			return false;
