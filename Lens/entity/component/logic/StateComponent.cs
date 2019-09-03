@@ -56,5 +56,10 @@ namespace Lens.entity.component.logic {
 				state?.Update(dt);
 			}
 		}
+
+		public override bool HandleEvent(Event e) {
+			state?.HandleEvent(e);
+			return base.HandleEvent(e);
+		}
 	}
 }

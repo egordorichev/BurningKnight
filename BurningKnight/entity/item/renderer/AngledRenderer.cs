@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.entity.component;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
@@ -39,7 +40,7 @@ namespace BurningKnight.entity.item.renderer {
 			var flipped = of;
 			
 			if (!atBack && !paused) {
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition), dt * 6f);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
 			}
 			
 			var angle = ((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle)) % (Math.PI * 2);

@@ -75,7 +75,7 @@ namespace BurningKnight.entity.projectile {
 			} else {
 				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
 			}
-
+			
 			speed *= 10f;
 
 			if (Math.Abs(speed) > 0.01f) {
@@ -86,6 +86,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;
+			projectile.BodyComponent.Body.Rotation = (float) angle;
 
 			owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = owner,

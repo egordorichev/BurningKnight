@@ -11,12 +11,26 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-			
-			AddComponent(new SliceComponent("items", "missing"));
+
+			Width = 17;
+			Height = 22;
+
+			AddComponent(new ZComponent());
+			AddComponent(new ZAnimationComponent("king"));
 			GetComponent<HealthComponent>().InitMaxHealth = 300;
 			
-			AddComponent(new RectBodyComponent(0, 0, Width, Height));
+			AddComponent(new RectBodyComponent(0, 0, Width, Height) {
+				KnockbackModifier = 0.05f
+			});
 
+			var b = GetComponent<RectBodyComponent>().Body;
+				
+			b.LinearDamping = 0.5f;
+			b.Restitution = 1;
+			b.Friction = 0;
+				
+			AddComponent(new AimComponent(AimComponent.AimType.Target));
+			
 			sword = Items.CreateAndAdd("bk:burning_king_sword", Area);
 
 			if (sword != null) {
@@ -42,7 +56,9 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 		
 		private SimpleAttackRegistry<BurningKing> attacks = new SimpleAttackRegistry<BurningKing>(new [] {
 			new BossPattern<BurningKing>(
+				// typeof(DashAttack)
 				typeof(JumpAttack)
+				
 			)
 		});
 	}

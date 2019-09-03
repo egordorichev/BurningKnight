@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 
 namespace Lens.util.tween {
 	public static class Tween {
@@ -63,19 +64,26 @@ namespace Lens.util.tween {
 		}
 
 		public static void Update(float dt) {
-			for (int i = tasks.Count - 1; i >= 0; i--) {
-				var task = tasks[i];
+			var i = tasks.Count - 1;
+			
+			try {
+				for (; i >= 0; i--) {
+					var task = tasks[i];
 
-				if (task == null) { // A bug that used to happen somehow
-					tasks.RemoveAt(i);
-					continue;
-				}
-				
-				task.Update(dt);
+					if (task == null) { // A bug that used to happen somehow
+						tasks.RemoveAt(i);
+						continue;
+					}
 
-				if (task.Ended) {
-					tasks.RemoveAt(i);
+					task.Update(dt);
+
+					if (task.Ended) {
+						tasks.RemoveAt(i);
+					}
 				}
+			} catch (Exception e) {
+				tasks.RemoveAt(i);
+				Log.Error(e);
 			}
 		}
 	}

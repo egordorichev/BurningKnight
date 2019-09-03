@@ -22,5 +22,9 @@
 		public void Become<T>() {
 			Self.GetComponent<StateComponent>().Become<T>();
 		}
+
+		public virtual void HandleEvent(Event e) {
+			
+		}
 	}
 }

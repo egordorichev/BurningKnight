@@ -4,7 +4,7 @@
 
 * switching between levels (dark out) should fade in/out music
 * hide music disks around
-* audio panning instead of lowering the volume
+* 3d audio
 * lowpass filter and somewhat responsible music? :(
 
 ## user view point
@@ -39,11 +39,11 @@
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
 * halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
-* remove lamp mechanics?
+* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
+* curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * signs of where bk room is
-* make lamps breabkable (and improve them, as suggested in discord)
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms
@@ -54,6 +54,9 @@
  + slime that shoots to you, when lands
  + burning slime
  + bandit mutant: homing missiles?
+
+* buff icons
+* spice up bullets (different textures for different enemies)
 
 ### future bk ideas
 
@@ -121,7 +124,7 @@
 
 ### items
 
-* dagger
+* boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies

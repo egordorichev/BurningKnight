@@ -156,6 +156,7 @@
     <Compile Include="entity\buff\PoisonBuff.cs" />
     <Compile Include="entity\chest\Chest.cs" />
     <Compile Include="entity\chest\LockedChest.cs" />
+    <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />

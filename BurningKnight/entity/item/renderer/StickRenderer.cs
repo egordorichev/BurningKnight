@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.component;
 using ImGuiNET;
 using Lens.graphics;
 using Lens.input;
@@ -38,7 +39,7 @@ namespace BurningKnight.entity.item.renderer {
 			var origin = horizontal ? new Vector2(0, region.Height / 2f) : new Vector2(region.Width / 2f, region.Height);
 			
 			if (!atBack && !paused) {
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(Input.Mouse.GamePosition) + Math.PI * 0.5f, dt * 6f);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim) + Math.PI * 0.5f, dt * 6f);
 			}
 
 			var angle = atBack ? (float) Math.PI * (owner.GraphicsComponent.Flipped ? 0.25f : -0.25f) : (float) lastAngle;
