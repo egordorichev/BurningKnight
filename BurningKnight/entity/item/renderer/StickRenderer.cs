@@ -47,11 +47,10 @@ namespace BurningKnight.entity.item.renderer {
 				angle -= (float) Math.PI * 0.5f;
 			}
 			
-			// origin messed up?
 			Graphics.Render(region, new Vector2(
-				                        owner.CenterX - (horizontal ? 0 : region.Width / 2f), 
-				                        owner.Y - owner.Height / 2f
-			) + origin, shadow ? -angle : angle, 
+				                        owner.CenterX + (horizontal ? 0 : (region.Width / 2f) * (owner.GraphicsComponent.Flipped ? -1 : 1)), 
+				                        owner.CenterY
+			), shadow ? -angle : angle, 
 				origin + new Vector2(0, currentMove), new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
 		}
 
