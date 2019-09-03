@@ -8,6 +8,7 @@ using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class ItemComponent : SaveableComponent {
@@ -41,15 +42,15 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
+			if (Item != null) {
+				Drop();
+				Item = null;
+#if DEBUG
+				debugItem = "";
+#endif
+			}
+			
 			((Player) Entity).AnimateItemPickup(item, () => {
-				if (Item != null) {
-					Drop();
-					Item = null;
-	#if DEBUG
-					debugItem = "";
-	#endif
-				}
-
 				SetupItem(item);
 			}, false);
 		}
@@ -85,7 +86,7 @@ namespace BurningKnight.entity.component {
 			
 			Send(e);
 
-			Item.Center = Entity.Center;
+			Item.Center = Entity.Center - new Vector2(0, 4);
 			Entity.Area.Add(Item);
 			Item.RemoveComponent<OwnerComponent>();
 			Item.AddDroppedComponents();
