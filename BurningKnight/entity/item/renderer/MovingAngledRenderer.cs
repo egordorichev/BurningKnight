@@ -16,11 +16,11 @@ namespace BurningKnight.entity.item.renderer {
 			var task = Tween.To(stayed ? MinAngle : MaxAngle, SwingAngle, x => SwingAngle = x, SwingTime);
 			
 			if (!Stay) {
-				stayed = !stayed;
-
 				task.OnEnd = () => {
 					Tween.To(stayed ? MinAngle : MaxAngle, SwingAngle, x => SwingAngle = x, ReturnTime);
 				};
+			} else {
+				stayed = !stayed;
 			}
 		}
 

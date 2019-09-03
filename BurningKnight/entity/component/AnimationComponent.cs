@@ -21,6 +21,7 @@ namespace BurningKnight.entity.component {
 		public Vector2 Scale = Vector2.One;
 		public float Angle;
 		public float OriginY;
+		public float OriginX;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
@@ -48,6 +49,7 @@ namespace BurningKnight.entity.component {
 					Animation.Tag = tag;
 				}
 
+				OriginX = Animation.GetCurrentTexture().Width / 2f;
 				OriginY = Animation.GetCurrentTexture().Height;
 			}
 		}
@@ -121,7 +123,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			var region = Animation.GetCurrentTexture();
-			var or = new Vector2(region.Width / 2, shadow ? 0 : OriginY);
+			var or = new Vector2(OriginX, shadow ? 0 : OriginY);
 			
 			Graphics.Render(region, pos + or, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}

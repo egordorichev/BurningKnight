@@ -9,7 +9,7 @@ namespace BurningKnight.ui.imgui {
 		public static bool Debug;
 		public static bool Entities;
 		public static bool RunInfo;
-		public static bool Console;
+		public static bool Console = true;
 		public static bool ItemEditor;
 		public static bool LevelEditor;
 		public static bool LocaleEditor;

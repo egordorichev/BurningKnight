@@ -10,6 +10,7 @@ using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,26 +32,26 @@ namespace BurningKnight.entity.item.util {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = 8;
-			Height = 24;
-
 			float force = 40f;
 			velocity = new Vector2((float) Math.Cos(Angle) * force, (float) Math.Sin(Angle) * force);
 			
 			AddComponent(new RectBodyComponent(0, -Height / 2f, Width, Height, BodyType.Dynamic, true) {
 				Angle = Angle
 			});
-			
+
 			AddComponent(new AnimationComponent("sword_trail", null, "idle") {
-				Offset = new Vector2(4, 12)
+				Offset = new Vector2(4, 12),
+				Scale = new Vector2(Width / 8, Height / 24)
 			});
+
+			GetComponent<AnimationComponent>().OriginY = 12;
 		}
 
 		public override void Render() {
 			var component = GetComponent<AnimationComponent>();
 			var region = component.Animation.GetCurrentTexture();
 
-			Graphics.Render(region, Position, Angle, component.Offset, Vector2.One);
+			Graphics.Render(region, Position, Angle, component.Offset, component.Scale);
 		}
 
 		public override bool HandleEvent(Event e) {
