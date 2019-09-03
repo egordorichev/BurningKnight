@@ -12,6 +12,7 @@ sampler s0;
 float black;
 float bx;
 float by;
+float4 tint;
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
@@ -33,7 +34,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		}
 	}
 
-	return tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y));
+	return tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y)) * tint;
 }
 
 technique SpriteDrawing {

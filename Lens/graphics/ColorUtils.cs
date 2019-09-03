@@ -6,6 +6,7 @@ namespace Lens.graphics {
 	public static class ColorUtils {
 		public static Vector4 White = new Vector4(1, 1, 1, 1);
 		public static Vector4 Black = new Vector4(0, 0, 0, 1);
+		public static Vector4 HalfBlack = new Vector4(0, 0, 0, 0.5f);
 		public static Color WhiteColor = Color.White;
 		public static Color HalfWhiteColor = new Color(1f, 1f, 1f, 0.5f);
 		public static Color BlackColor = Color.Black;

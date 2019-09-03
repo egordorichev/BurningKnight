@@ -4,6 +4,14 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms.special {
 	public class DesertWellRoom : SpecialRoom {
+		public override int GetMaxWidth() {
+			return 11;
+		}
+
+		public override int GetMaxHeight() {
+			return 11;
+		}
+
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.Grass);
 
