@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx</SourceFile>
-  <SourceTime>2019-09-02T08:16:51.0037984+03:00</SourceTime>
+  <SourceTime>2019-09-03T12:04:14.1465564+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb</DestFile>
-  <DestTime>2019-09-02T08:18:08.5913444+03:00</DestTime>
+  <DestTime>2019-09-03T12:05:10.4507433+03:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2019-05-28T20:47:12+03:00</ImporterTime>
   <Processor>EffectProcessor</Processor>
