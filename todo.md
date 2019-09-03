@@ -50,10 +50,6 @@
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * bk missile projectiles have no sprite??? wrong depth, maybe?
 
-* castle 2 mobs:
- + slime that shoots to you, when lands
- + burning slime
- + bandit mutant: homing missiles?
 
 * buff icons
 * spice up bullets (different textures for different enemies)
@@ -185,8 +181,16 @@
 
 ### enemies
 
++ slime that shoots to you, when lands
++ burning slime
++ maggot on the floor
++ maggot nest: spawns maggots?
++ scorpion
++ worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
++ turtle
+
+* Zelda like digging enemy ??
 * bee hive and bee for forest biome
-* Zelda like digging enemy
 * Diagonal fly
 
 #### NPCs

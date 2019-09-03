@@ -50,7 +50,7 @@ namespace BurningKnight.save {
 				var level = CreateLevel();
 				BiomeGenerated = level.Biome;
 				a.Add(level);
-				level.Generate(a, I);
+				level.Generate();
 
 				foreach (var e in a.Entities.ToAdd) {
 					area.Add(e);

@@ -9,7 +9,6 @@ using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.save;
 using BurningKnight.state;
-using Lens.entity;
 using Lens.util;
 using Lens.util.math;
 using MonoGame.Extended.Collections;
@@ -30,7 +29,7 @@ namespace BurningKnight.level {
 			return 10;
 		}
 
-		public void Generate(Area area, int Attempt) {
+		public void Generate() {
 			rooms = null;
 			ItemsToSpawn = new List<string>();
 
@@ -55,7 +54,9 @@ namespace BurningKnight.level {
 
 		protected void Paint() {
 			Log.Info("Painting...");
-			GetPainter().Paint(this, rooms);
+			var p = GetPainter();
+			LevelSave.BiomeGenerated.ModifyPainter(p);
+			p.Paint(this, rooms);
 			
 			foreach (var def in rooms) {
 				var room = new Room();
@@ -124,7 +125,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			Rooms.Add(true ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
+			Rooms.Add(false ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
 
 			var Regular = final ? 0 : GetNumRegularRooms();
 			var Special = final ? 0 : GetNumSpecialRooms();
@@ -164,6 +165,8 @@ namespace BurningKnight.level {
 			Rooms.Add(new PrebossRoom());
 			
 			TombRoom.Insert(Rooms);
+			
+			LevelSave.BiomeGenerated.ModifyRooms(Rooms);
 			
 			return Rooms;
 		}

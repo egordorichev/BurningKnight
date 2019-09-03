@@ -30,17 +30,15 @@ namespace BurningKnight.level.biome {
 				return Defined[Biome.Hub];
 			}
 			
-			// Emulate short game for now
-			if (depth == 2 || depth == 3) {
+			if (depth == 2) {
+				return Defined[Biome.Desert];
+			}
+			
+			if (depth == 3) {
 				return Defined[Biome.Library];
 			}
 
-			/*
-			if (depth == 3 || depth == 4) {
-				return Defined[Biome.Desert];
-			}
-
-			if (depth == 5 || depth == 6) {
+			/*if (depth == 5 || depth == 6) {
 				return Defined[Biome.Forest];
 			}
 

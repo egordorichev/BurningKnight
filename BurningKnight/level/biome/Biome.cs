@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using BurningKnight.level.rooms;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
 	public class Biome {
@@ -38,6 +40,14 @@ namespace BurningKnight.level.biome {
 			}
 
 			return false;
+		}
+
+		public virtual void ModifyPainter(Painter painter) {
+			
+		}
+
+		public virtual void ModifyRooms(List<RoomDef> rooms) {
+			
 		}
 	}
 }

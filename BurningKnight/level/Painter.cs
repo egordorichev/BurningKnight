@@ -32,6 +32,7 @@ namespace BurningKnight.level {
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
+		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
 
 		private void InspectRoom(RoomDef room) {
 			foreach (var r in room.Connected.Keys) {
@@ -135,11 +136,8 @@ namespace BurningKnight.level {
 					for (var X = Room.Left; X <= Room.Right; X++) {
 						var I = Level.ToIndex(X, Y);
 
-						if (Run.Depth == 1) {
-							if (Level.Liquid[I] == (int) Tile.Lava) {
-								Level.Liquid[I] = 0;
-								Level.Set(I, Tile.Chasm);
-							}
+						foreach (var m in Modifiers) {
+							m(Level, X, Y);
 						}
 
 						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
