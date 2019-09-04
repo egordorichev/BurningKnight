@@ -20,8 +20,8 @@
 * !!! generation needs hard testing
 
 * exp particles flying from enemies to you, do nothing, just feedback
-* dead frames for all mobs
 * turn off turrets if room is empty
+* room cleared effect
 
 * bk types:
  + slime
@@ -36,8 +36,6 @@
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
 * darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
-* when creature dies, its not visible, seems like regular hit
-* room cleared effect
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
@@ -62,7 +60,6 @@
 
 * shields
 * game intro
-* maggots are boring
 
 * Tile interactions
  * burning terrain
@@ -187,11 +184,19 @@
 * bee hive and bee for forest biome
 * Diagonal fly
 
+* dragon (has a sprite)
+* clown (has a sprite)
+* thief (has a sprite)
+* skeleton (has a sprite)
+* king servant?? (has a sprite)
+* knight??? (has a sprite)
+
 #### NPCs
 
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
 * trash goblin (gaz)
+* elon (wizard, has a sprite)
 
 ### Rooms
 
