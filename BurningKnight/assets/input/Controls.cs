@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using BurningKnight.save;
 using Lens.input;
 using Lens.lightJson;
+using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +12,8 @@ using Microsoft.Xna.Framework.Input;
 namespace BurningKnight.assets.input {
 	public static class Controls {
 		private static List<Control> controls = new List<Control>();
-		
+		private static List<Control> custom = new List<Control>();
+
 		public const string Up = "up";
 		public const string Left = "left";
 		public const string Down = "down";
@@ -61,17 +65,25 @@ namespace BurningKnight.assets.input {
 		}
 
 		public static void Bind() {
+			Bind(custom);
+		}
+		
+		public static void BindDefault() {
+			Bind(controls);
+		}
+
+		private static void Bind(List<Control> controls) {
 			Input.ClearBindings();
 
 			foreach (var c in controls) {
 				if (c.Keys != null) {
 					Input.Bind(c.Id, c.Keys);
 				}
-				
+
 				if (c.Buttons != null) {
 					Input.Bind(c.Id, c.Buttons);
 				}
-				
+
 				if (c.MouseButtons != null) {
 					Input.Bind(c.Id, c.MouseButtons);
 				}
@@ -79,25 +91,120 @@ namespace BurningKnight.assets.input {
 		}
 
 		public static void Save() {
-			
+			try {
+				var p = new FileHandle($"{SaveManager.SaveDir}keybindings.json").FullPath;
+				Log.Info($"Saving keybindings to {p}");
+
+				var file = File.CreateText(p);
+				var writer = new JsonWriter(file, true);
+				var root = new JsonObject();
+
+				foreach (var t in (custom.Count == 0 ? controls : custom)) {
+					var o = new JsonObject();
+
+					if (t.Keys != null) {
+						var a = new JsonArray();
+
+						foreach (var k in t.Keys) {
+							a.Add(k.ToString());
+						}
+						
+						o["keys"] = a;
+					}
+
+					if (t.MouseButtons != null) {
+						var a = new JsonArray();
+
+						foreach (var k in t.MouseButtons) {
+							a.Add(k.ToString());
+						}
+						
+						o["mouse"] = a;
+					}
+
+					if (t.Buttons != null) {
+						var a = new JsonArray();
+
+						foreach (var k in t.Buttons) {
+							a.Add(k.ToString());
+						}
+						
+						o["gamepad"] = a;
+					}
+					
+					root[t.Id] = o;
+				}
+
+				writer.Write(root);
+				file.Close();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 
 		public static void Load() {
-			var handle = new FileHandle($"{SaveManager.SaveDir}");
+			try {
+				var handle = new FileHandle($"{SaveManager.SaveDir}keybindings.json");
 
-			if (!handle.Exists()) {
-				Log.Info("Keybindings file was not found, creating new one");
+				if (!handle.Exists()) {
+					Log.Info("Keybindings file was not found, creating new one");
+
+					BindDefault();
+					Save();
+
+					return;
+				}
 				
+				Log.Info("Loading keybindings");
+
+				var root = JsonValue.Parse(handle.ReadAll());
+				custom.Clear();
+
+				foreach (var pair in root.AsJsonObject) {
+					var control = new Control(pair.Key);
+					
+					if (pair.Value["keys"].IsJsonArray) {
+						var l = new List<Keys>();
+						
+						foreach (var k in pair.Value["keys"].AsJsonArray) {
+							if (Enum.TryParse<Keys>(k.String(""), out var key)) {
+								l.Add(key);
+							}
+						}
+
+						control.Keys = l.ToArray();
+					}
+					
+					if (pair.Value["mouse"].IsJsonArray) {
+						var l = new List<MouseButtons>();
+						
+						foreach (var k in pair.Value["mouse"].AsJsonArray) {
+							if (Enum.TryParse<MouseButtons>(k.String(""), out var key)) {
+								l.Add(key);
+							}
+						}
+
+						control.MouseButtons = l.ToArray();
+					}
+					
+					if (pair.Value["gamepad"].IsJsonArray) {
+						var l = new List<Buttons>();
+						
+						foreach (var k in pair.Value["gamepad"].AsJsonArray) {
+							if (Enum.TryParse<Buttons>(k.String(""), out var key)) {
+								l.Add(key);
+							}
+						}
+
+						control.Buttons = l.ToArray();
+					}
+					
+					custom.Add(control);
+				}
+
 				Bind();
-				Save();
-				
-				return;
-			}
-			
-			var root = JsonValue.Parse(handle.ReadAll());
-
-			foreach (var pair in root.AsJsonObject) {
-				
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 	}

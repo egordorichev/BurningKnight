@@ -19,7 +19,8 @@ namespace BurningKnight {
 
 		protected override void Initialize() {
 			base.Initialize();
-			
+
+			Controls.Load();
 			Controls.Bind();
 			Font.Load();
 			ImGuiHelper.Init();
