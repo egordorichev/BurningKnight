@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.input;
 using Lens;
 using Lens.entity;
 using Lens.input;

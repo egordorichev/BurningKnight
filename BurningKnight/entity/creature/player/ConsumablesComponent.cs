@@ -1,3 +1,4 @@
+using BurningKnight.assets.input;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;

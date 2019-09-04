@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;

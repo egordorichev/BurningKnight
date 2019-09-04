@@ -1,16 +1,29 @@
 # TODO
 
+# settings
+
+# audio
+
+* Music volume
+* Sfx volume
+* Ui sfx
+
+# video
+
+* fullscreen
+* vsync
+
+* blood
+* gore
+
+# controls
+
 ## audio
 
 * switching between levels (dark out) should fade in/out music
 * hide music disks around
 * 3d audio
 * lowpass filter and somewhat responsible music? :(
-
-## user view point
-
-* not enough hurt feedback
-* Low health indicator
 
 ## general
 
@@ -19,8 +32,11 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* exp particles flying from enemies to you, do nothing, just feedback
 * room cleared effect
+* add gore to npcs
+* picking up hearts should give more feedback
+* not enough hurt feedback
+* Low health indicator
 
 * bk types:
  + slime

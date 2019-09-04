@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;

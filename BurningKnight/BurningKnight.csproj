@@ -92,6 +92,8 @@
     <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\ImGuiHelper.cs" />
+    <Compile Include="assets\input\Control.cs" />
+    <Compile Include="assets\input\Controls.cs" />
     <Compile Include="assets\items\ItemData.cs" />
     <Compile Include="assets\items\Items.cs" />
     <Compile Include="assets\lighting\EntityLight.cs" />
@@ -129,7 +131,6 @@
     <Compile Include="assets\prefabs\Prefabs.cs" />
     <Compile Include="assets\Shaders.cs" />
     <Compile Include="BK.cs" />
-    <Compile Include="Controls.cs" />
     <Compile Include="debug\BiomeCommand.cs" />
     <Compile Include="debug\BuffCommand.cs" />
     <Compile Include="debug\Console.cs" />

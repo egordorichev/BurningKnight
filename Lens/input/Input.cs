@@ -44,6 +44,10 @@ namespace Lens.input {
 				gamepad.Update(dt);
 			}
 		}
+
+		public static void ClearBindings() {
+			Buttons.Clear();
+		}
 		
 		public static void Bind(string id, params Keys[] values) {
 			var button = Buttons.ContainsKey(id) ? Buttons[id] : new InputButton();
