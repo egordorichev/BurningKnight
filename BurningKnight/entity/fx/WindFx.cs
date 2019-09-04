@@ -27,7 +27,7 @@ namespace BurningKnight.entity.fx {
 			base.Init();
 
 			if (region == null) {
-				region = CommonAse.Fx.GetSlice("rect");
+				region = CommonAse.Particles.GetSlice("wall");
 			}
 
 			AlwaysActive = true;

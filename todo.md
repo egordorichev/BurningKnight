@@ -20,7 +20,6 @@
 * !!! generation needs hard testing
 
 * exp particles flying from enemies to you, do nothing, just feedback
-* turn off turrets if room is empty
 * room cleared effect
 
 * bk types:

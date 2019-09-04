@@ -27,7 +27,7 @@ namespace BurningKnight.entity.fx {
 			Centered = true;
 			
 			if (region == null) {
-				region = CommonAse.Fx.GetSlice("circ");
+				region = CommonAse.Particles.GetSlice("circ");
 			}
 
 			color = new Color(Random.Float(0, 0.5f), Random.Float(0.5f, 1f), Random.Float(0, 0.5f), 1f);
