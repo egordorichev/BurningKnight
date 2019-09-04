@@ -19,26 +19,28 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* exp particles flying from enemies to you, do nothing, just feedback
+* dead frames for all mobs
+* turn off turrets if room is empty
+
 * bk types:
  + slime
  + king
  + bandit
  
+* halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
+* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
+
 * breadcrumbs of where bk room is (alg for detecting shortest path is there)
 * breadcrumbs for bk type 
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
 * darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
-* write steam update, look for festivals to showcase the game on
-
 * when creature dies, its not visible, seems like regular hit
 * room cleared effect
-* halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
-* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
-* signs of where bk room is
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms

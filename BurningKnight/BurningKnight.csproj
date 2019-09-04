@@ -158,6 +158,7 @@
     <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
+    <Compile Include="entity\component\AudioEmitterComponent.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />

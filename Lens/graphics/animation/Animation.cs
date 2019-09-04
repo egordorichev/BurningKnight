@@ -146,5 +146,13 @@ namespace Lens.graphics.animation {
 				this.frame = (AnimationFrame) frame;
 			}
 		}
+
+		public TextureRegion GetFrame(string tag, int frame) {
+			if (!Data.Tags.TryGetValue(tag, out var t)) {
+				return null;
+			}
+
+			return Data.GetFrame(layer, (uint) (t.StartFrame + frame))?.Texture;
+		}
 	}
 }

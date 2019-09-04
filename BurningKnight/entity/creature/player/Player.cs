@@ -105,6 +105,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new OrbitGiverComponent());
 			AddComponent(new FollowerComponent());
 			AddComponent(new AimComponent(AimComponent.AimType.Cursor));
+			AddComponent(new AudioEmitterComponent());
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 			
@@ -407,8 +408,8 @@ namespace BurningKnight.entity.creature.player {
 
 		private bool died;
 
-		public override void AnimateDeath() {
-			base.AnimateDeath();
+		public override void AnimateDeath(DiedEvent d) {
+			base.AnimateDeath(d);
 			
 			for (var i = 0; i < 6; i++) {
 				Area.Add(new ParticleEntity(Particles.Dust()) {

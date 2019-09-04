@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature.npc {
 		private bool dying;
 		
 		// Same as in Mob
-		public override void AnimateDeath() {
+		public override void AnimateDeath(DiedEvent d) {
 			Done = false;
 			
 			if (dying) {
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			Timer.Add(() => {
 				// Sets the done flag
-				base.AnimateDeath();
+				base.AnimateDeath(d);
 			}, 0.6f);
 		}
 	}

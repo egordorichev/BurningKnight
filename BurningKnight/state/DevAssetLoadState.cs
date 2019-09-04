@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
@@ -12,8 +13,8 @@ using Lens.entity;
 using Lens.game;
 using Lens.graphics;
 using Lens.util;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
@@ -35,8 +36,14 @@ namespace BurningKnight.state {
 		
 		private void Load() {
 			Log.Info("Starting asset loading thread");
-				
+
+			var t = DateTime.Now.Millisecond;
+			var c = DateTime.Now.Millisecond;
+
 			Assets.Load(ref progress);
+			Log.Info($"Assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			c = DateTime.Now.Millisecond;
+			
 			Dialogs.Load();
 			progress++;
 			CommonAse.Load();
@@ -51,6 +58,8 @@ namespace BurningKnight.state {
 			progress++;
 			Mods.Load();
 			progress++; // Should be 12 here
+			Log.Info($"Custom assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			c = DateTime.Now.Millisecond;
 				
 			Log.Info("Done loading assets! Loading level now.");
 			
@@ -64,23 +73,32 @@ namespace BurningKnight.state {
 				
 			SaveManager.Load(gameArea, SaveType.Global);
 			progress++;
-			
+			Log.Info($"Global took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			c = DateTime.Now.Millisecond;
+				
 			SaveManager.Load(gameArea, SaveType.Game);
 			progress++;
+			Log.Info($"Game took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			c = DateTime.Now.Millisecond;
 				
 			Random.Seed = $"{Run.Seed}_{Run.Depth}"; 
 				
 			SaveManager.Load(gameArea, SaveType.Level);
 			progress++;
+			Log.Info($"Level took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			c = DateTime.Now.Millisecond;
 
 			if (Run.Depth > 0) {
 				SaveManager.Load(gameArea, SaveType.Player);
 			} else {
 				SaveManager.Generate(gameArea, SaveType.Player);
 			}
+			
+			Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");
+			// c = DateTime.Now.Millisecond;
 
 			progress++; // Should be 17 here
-			Log.Info("Done loading level! Going to menu.");
+			Log.Info($"Done loading level! ({(DateTime.Now.Millisecond - t) / 1000f} seconds) Going to menu.");
 				
 			ready = true;
 		}

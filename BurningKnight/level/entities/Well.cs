@@ -99,7 +99,7 @@ namespace BurningKnight.level.entities {
 					}
 
 					c.Coins -= 1;
-					var r = Random.Int(3);
+					var r = Random.Int(2);
 
 					if (r == 0) {
 						for (var i = 0; i < 8; i++) {
@@ -112,12 +112,10 @@ namespace BurningKnight.level.entities {
 					} else if (r == 1) {
 						for (var i = 0; i < Random.Int(2, 5); i++) {
 							var coin = Items.CreateAndAdd("bk:coin", Area);
-							
+
 							coin.CenterX = CenterX;
 							coin.CenterY = Bottom;
 						}
-					} else if (r == 2) {
-						
 					}
 
 					break;

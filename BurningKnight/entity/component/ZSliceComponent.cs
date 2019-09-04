@@ -8,6 +8,10 @@ namespace BurningKnight.entity.component {
 	public class ZSliceComponent : GraphicsComponent {
 		public TextureRegion Sprite;
 		
+		public ZSliceComponent(TextureRegion region) {
+			Sprite = region;
+		}
+		
 		public ZSliceComponent(string image, string slice) {
 			Sprite = Animations.Get(image).GetSlice(slice);
 		}
@@ -24,7 +28,7 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
-			Graphics.Render(Sprite, Entity.Position - new Vector2(0, z));
+			Graphics.Render(Sprite, Entity.Position - new Vector2(0, z), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 	}
 }

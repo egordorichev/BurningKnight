@@ -123,7 +123,7 @@ namespace BurningKnight.state {
 			}
 
 			fog = Textures.Get("noise");
-			Area.Add(new InGameAudio());
+			// Area.Add(new InGameAudio());
 
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {

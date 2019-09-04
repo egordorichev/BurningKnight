@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.player {
 						t.OnEnd = ((InGameState) Engine.Instance.State).AnimateDeathScreen;
 
 						HandleEvent(e);
-						AnimateDeath();
+						AnimateDeath(ev);
 						Done = true;
 					};
 
