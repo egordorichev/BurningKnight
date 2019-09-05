@@ -58,18 +58,14 @@ namespace BurningKnight.entity.creature.player {
 					return true;
 				}
 			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
-				var h = GetComponent<HealthComponent>();
-				
-				if ((h.Health + hp.Amount) % h.HealthModifier == 0) {
-					Engine.Instance.Split = 1f;
-					Engine.Instance.Flash = 1f;
-					Engine.Instance.Freeze = 1f;
+				Engine.Instance.Split = 1f;
+				Engine.Instance.Flash = 1f;
+				Engine.Instance.Freeze = 1f;
 
-					if (Camera.Instance != null) {
-						Camera.Instance.TextureZoom -= 0.05f;
-						Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);					
-					}	
-				}
+				if (Camera.Instance != null) {
+					Camera.Instance.TextureZoom -= 0.05f;
+					Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);					
+				}	
 			}
 			
 			return base.HandleEvent(e);

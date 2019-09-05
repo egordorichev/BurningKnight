@@ -365,8 +365,8 @@ namespace BurningKnight.ui {
 
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var component = player.GetComponent<HealthComponent>();
-			var red = (component.Health - 1) / component.HealthModifier;
-			var m = (component.MaxHealth - 1) / component.HealthModifier;
+			var red = component.Health - 1;
+			var m = component.MaxHealth - 1;
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
@@ -399,8 +399,7 @@ namespace BurningKnight.ui {
 		
 		private void RenderHealthBar(bool pad) {
 			var red = player.GetComponent<HealthComponent>();
-			var hm = (float) red.HealthModifier;
-			var totalRed = (int) ((red.Health - 1) / hm); // -1 accounts for hidden "not lamp hp"
+			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
 
 			if (lastRed > totalRed) {
 				lastRed = totalRed;
@@ -409,11 +408,7 @@ namespace BurningKnight.ui {
 			}
 
 			var r = (int) lastRed;
-			
-			var maxRed = (int) ((red.MaxHealth - 1) / hm);
-			
-			var other = player.GetComponent<HeartsComponent>();
-		
+			var maxRed = red.MaxHealth - 1;
 			var hurt = red.InvincibilityTimer > 0;
 
 			int i = 0;
@@ -428,14 +423,11 @@ namespace BurningKnight.ui {
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 			}
 
-			var n = r % 2 == 1 ? r + 1 : r;
+			var n = r;
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
-				
-				Graphics.Color = new Color(1f, 1f, 1f, j == n - 1 ? (red.HealthModifier - (red.Health - 1) % red.HealthModifier + 1) / hm : 1f);
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
-				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
 

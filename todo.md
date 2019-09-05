@@ -2,8 +2,6 @@
 
 # trailer
 
-! fix heart rendering
-
 * action, fighting in the dungeon
  + castle biome
  + with a gun
@@ -79,7 +77,6 @@
  + king
  + bandit
  
-* halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
 * lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 
 * breadcrumbs of where bk room is (alg for detecting shortest path is there)

@@ -29,7 +29,7 @@ namespace BurningKnight.entity.buff {
 
 			if (tillDamage <= 0) {
 				tillDamage = 1.3f;
-				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, Entity, false);
+				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, Entity);
 			}
 		}
 	}
