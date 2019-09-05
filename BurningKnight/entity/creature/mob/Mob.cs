@@ -64,7 +64,7 @@ namespace BurningKnight.entity.creature.mob {
 
 		protected virtual void OnTargetChange(Entity target) {
 			if (target == null) {
-				GetComponent<StateComponent>().Pause = 1;
+				GetComponent<StateComponent>().PauseOnChange = true;
 			} else {
 				GetComponent<StateComponent>().Pause = 0;
 			}

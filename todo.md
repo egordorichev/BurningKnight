@@ -2,16 +2,36 @@
 
 # trailer
 
-* redo oldman campfires with particles
+! fix heart rendering
 
-+ gobbo runs to old man, camera focus on om
-+ old man says, its dangerous, gobbo grabs a sword and descends
-+ action scene, gobbo dies
-+ scene with old man again, signs of time passed
-+ gobbo descends, creepy stuff, notices bk signs here and there
-+ goes through dungeon a bit
-+ bk appears
-+ to be continue
+* action, fighting in the dungeon
+ + castle biome
+ + with a gun
+ + with a sword
+ + with spear
+ + rod of discord?
+
+* death
+ + from a bullet behind
+ + show tombstone of gobbo the great
+
++ new gobbo runs to old man, camera focus on om
++ new old man says, its dangerous, gobbo runs with a dagger and descends
+ + better descend animation? maybe like, you walk into a hall or smth?
+
++ goes through dungeon, cuts with weird things here and there
+ + powerful combos:
+  * potato + glass
+  * missile 
+ + showcase orbitals
+ + show treasure room, where you chose one of the items
+ + enters shop room, sk goes like "wanna some tea?"
+
++ goes to the bk room
+ + show the bk spawn, remove epic spawn
+ + bk says: welcome, thief
+
++ to be continued
 
 # settings
 
@@ -39,6 +59,7 @@
 * lowpass filter and somewhat responsible music? :(
 
 ## general
+
 *!!! pad treasure room still can spawn stands on stands
 
 * ?!!! room still might try to load its controller :/
@@ -46,6 +67,7 @@
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
+* place items in oldman hall
 * room cleared effect
 * add gore to npcs
 * picking up hearts should give more feedback

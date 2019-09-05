@@ -205,7 +205,7 @@ namespace BurningKnight.entity.component {
 		public override void RenderDebug() {
 			var hp = health;
 			
-			if (ImGui.DragInt("Health", ref hp, 1, 0, maxHealth)) {
+			if (ImGui.InputInt("Health", ref hp)) {
 				health = hp;
 			}
 			

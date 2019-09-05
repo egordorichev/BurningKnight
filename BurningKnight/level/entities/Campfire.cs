@@ -3,6 +3,7 @@ using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -29,7 +30,8 @@ namespace BurningKnight.level.entities {
 				lastFlame = 0;
 
 				Area.Add(new FireParticle {
-					Owner = this
+					X = CenterX + Random.Float(-4, 4),
+					Y = CenterY
 				});
 			}
 		}

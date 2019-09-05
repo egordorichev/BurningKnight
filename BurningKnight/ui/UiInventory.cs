@@ -413,8 +413,6 @@ namespace BurningKnight.ui {
 			var maxRed = (int) ((red.MaxHealth - 1) / hm);
 			
 			var other = player.GetComponent<HeartsComponent>();
-			var totalIron = other.IronHalfs;			
-			var totalGolden = other.GoldenHalfs;
 		
 			var hurt = red.InvincibilityTimer > 0;
 
@@ -430,30 +428,14 @@ namespace BurningKnight.ui {
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 			}
 
-			var n = r;
+			var n = r % 2 == 1 ? r + 1 : r;
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
 				
-				Graphics.Color = new Color(1f, 1f, 1f, j == n - 1 ? ((red.Health - 1) % red.HealthModifier + 1) / hm : 1f);
+				Graphics.Color = new Color(1f, 1f, 1f, j == n - 1 ? (red.HealthModifier - (red.Health - 1) % red.HealthModifier + 1) / hm : 1f);
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
 				Graphics.Color = ColorUtils.WhiteColor;
-			}
-
-			var ironI = totalIron + maxRed;
-			var maxIron = ironI + totalIron % 2;
-			
-			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(pad, i));					
-			}
-
-			var goldenI = totalGolden + maxIron;
-			var maxGold = goldenI + totalGolden % 2;
-			
-			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(pad, i));					
 			}
 		}
 
