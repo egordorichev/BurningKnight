@@ -58,6 +58,7 @@
 
 ## general
 
+*!!! entrance to the shop can be blocked by a prop
 *!!! pad treasure room still can spawn stands on stands
 
 * ?!!! room still might try to load its controller :/
