@@ -123,7 +123,7 @@ namespace BurningKnight.entity.creature.npc {
 					hme.Amount = -1;
 				}
 			} else if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+				if (mood > -1 && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
 				}
 			}

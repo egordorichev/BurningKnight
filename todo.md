@@ -70,7 +70,6 @@
 * room cleared effect
 * add gore to npcs
 * picking up hearts should give more feedback
-* not enough hurt feedback
 * Low health indicator
 
 * bk types:
