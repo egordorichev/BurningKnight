@@ -1,5 +1,18 @@
 # TODO
 
+# trailer
+
+* redo oldman campfires with particles
+
++ gobbo runs to old man, camera focus on om
++ old man says, its dangerous, gobbo grabs a sword and descends
++ action scene, gobbo dies
++ scene with old man again, signs of time passed
++ gobbo descends, creepy stuff, notices bk signs here and there
++ goes through dungeon a bit
++ bk appears
++ to be continue
+
 # settings
 
 # audio
@@ -26,6 +39,7 @@
 * lowpass filter and somewhat responsible music? :(
 
 ## general
+*!!! pad treasure room still can spawn stands on stands
 
 * ?!!! room still might try to load its controller :/
 * ?!!! secret rooms seem to corrupt level sometimes

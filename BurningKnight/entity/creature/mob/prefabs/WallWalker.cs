@@ -124,8 +124,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				
 				velocity.X = vx * f;
 				velocity.Y = vy * f;
-
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
 				
 				mx = Self.Direction.GetMx();
 				my = Self.Direction.GetMy();

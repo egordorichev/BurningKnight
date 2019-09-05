@@ -386,10 +386,12 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
+			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {				
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew();
 				died = true;
+
+				Run.NextDepth = Run.Depth;
 
 				return;
 			}

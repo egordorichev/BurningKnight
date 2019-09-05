@@ -46,6 +46,7 @@ namespace BurningKnight.entity.creature.mob {
 			});
 
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
+			GetComponent<StateComponent>().Pause++;
 		}
 
 		protected virtual void SetStats() {
@@ -62,7 +63,11 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected virtual void OnTargetChange(Entity target) {
-			
+			if (target == null) {
+				GetComponent<StateComponent>().Pause = 1;
+			} else {
+				GetComponent<StateComponent>().Pause = 0;
+			}
 		}
 
 		protected virtual void HandleBreaking() {

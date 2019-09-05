@@ -143,14 +143,16 @@ namespace BurningKnight.save {
 		}
 
 		public override void Delete() {
-			var handle = GetHandle();
+			var handle = Run.Depth > 0 ? GetHandle() : new FileHandle(SaveManager.SaveDir);
 
 			if (!handle.Exists()) {
 				return;
 			}
 			
 			foreach (var file in handle.ListFileHandles()) {
-				file.Delete();
+				if (file.Extension == ".lvl" || file.Extension == "lvl") {
+					file.Delete();
+				}
 			}
 		}
 
