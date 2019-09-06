@@ -1,5 +1,7 @@
 # TODO
 
+* have torches here and there?
+
 # trailer
 
 * action, fighting in the dungeon
@@ -82,7 +84,6 @@
 * breadcrumbs of where bk room is (alg for detecting shortest path is there)
 * breadcrumbs for bk type 
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
-* darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * shop keeper ai
