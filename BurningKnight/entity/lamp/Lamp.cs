@@ -3,7 +3,10 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
+using BurningKnight.util;
 using Lens.entity;
+using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -34,6 +37,16 @@ namespace BurningKnight.entity.lamp {
 
 		private void RenderShadow() {
 			GraphicsComponent.Render(true);
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (DistanceTo(Owner) > 256f) {
+				AnimationUtil.Poof(Center);
+				Center = Owner.Center + MathUtils.CreateVector(Random.AnglePI(), 32f);
+				AnimationUtil.Poof(Center);
+			}
 		}
 	}
 }

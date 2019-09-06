@@ -2,8 +2,6 @@
 
 # trailer
 
-* remove auto state select from boss:35, introduce bk dialog there
-
 * action, fighting in the dungeon
  + castle biome
  + with a gun

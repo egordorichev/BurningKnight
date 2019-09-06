@@ -55,6 +55,15 @@ namespace BurningKnight.level.entities.decor {
 			});
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+
+			if (fea != null) {
+				fea.Done = true;
+				feb.Done = true;
+			}
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 

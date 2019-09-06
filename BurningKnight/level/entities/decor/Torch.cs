@@ -34,6 +34,14 @@ namespace BurningKnight.level.entities.decor {
 			AddTag(Tags.Torch);
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+
+			if (emitter != null) {
+				emitter.Done = true;
+			}
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 
