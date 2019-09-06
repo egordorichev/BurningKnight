@@ -370,10 +370,10 @@ namespace BurningKnight.ui {
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
-			var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(m / 2, 8) - Math.PI / 2;
+			var angle = (Math.Floor(i / 2f) * 2 - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(m / 2, 8) - Math.PI / 2;
 			const float distance = 24f;
 		
-			var x = from.X + (float) Math.Cos(angle) * distance - Heart.Width / 2f;
+			var x = from.X + (float) Math.Cos(angle) * distance - (i % 2 == 0 ? Heart.Width / 2f : -Heart.Width / 2f - 1);
 			var y = from.Y + (float) Math.Sin(angle) * distance - Heart.Height / 2f;
 
 			var d = 0;
@@ -388,11 +388,16 @@ namespace BurningKnight.ui {
 			if (it == null && (coins != 0 || bombs != 0 || keys != 0)) {
 				a += 24;
 			}
-			
-			return new Vector2((bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
+
+			return new Vector2(
+				(bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
 				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activePosition * 2) : 4)
-				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)) * hpZero 
-			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)
+				       
+			) * hpZero + new Vector2(
+				       (bg ? -1 : 0) + x, 
+				       (bg ? -1 : 0) + y
+			) * (1 - hpZero);
 		}
 
 		private float lastRed;

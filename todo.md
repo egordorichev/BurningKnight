@@ -1,7 +1,7 @@
 # TODO
 
 * have torches here and there?
-* fix lamp giving hp anim (heart halfs are in wrong places, play only when you replace your lamp)
+* fix lamp giving hp anim (play only when you replace your lamp)
 * nerf enemy red projectile light
 
 # trailer
