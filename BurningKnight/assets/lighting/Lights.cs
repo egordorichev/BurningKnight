@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -74,6 +75,10 @@ namespace BurningKnight.assets.lighting {
 				return;
 			}
 			
+			if (EnableFog) {
+				InGameState.RenderFog();
+			}
+			
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();
 			
@@ -127,7 +132,7 @@ namespace BurningKnight.assets.lighting {
 		private static BlendState surfaceBlend = BlendState.NonPremultiplied;
 		private static int surfaceBlendId = 5;
 		private static float radiusMod = 1;
-		public static bool EnableFog;
+		public static bool EnableFog = true;
 		private static Color clearColor = Color.Black;
 
 		private static BlendState lightBlend = BlendState.NonPremultiplied;

@@ -82,7 +82,7 @@ namespace BurningKnight.level.entities.decor {
 					Scale = 0.8f
 				});
 				
-				AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
+				AddComponent(new LightComponent(this, 32f, new Color(1f, 0.5f, 0f, 1f)));
 			}
 		}
 

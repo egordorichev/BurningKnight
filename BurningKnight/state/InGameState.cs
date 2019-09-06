@@ -45,7 +45,7 @@ namespace BurningKnight.state {
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
-		private TextureRegion fog;
+		private static TextureRegion fog;
 		private float time;
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
@@ -497,13 +497,13 @@ namespace BurningKnight.state {
 			renderer.Begin();
 		}
 		
-		private void RenderFog() {
+		public static void RenderFog() {
 			var shader = Shaders.Fog;
 			Shaders.Begin(shader);
 
 			var wind = WindFx.CalculateWind();
 			
-			shader.Parameters["time"].SetValue(time * 0.01f);
+			shader.Parameters["time"].SetValue(Engine.Time * 0.01f);
 			shader.Parameters["tx"].SetValue(wind.X * -0.1f);
 			shader.Parameters["ty"].SetValue(wind.Y * -0.1f);
 			shader.Parameters["cx"].SetValue(Camera.Instance.Position.X / 512f);
@@ -519,10 +519,6 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			settings.RenderInGame();
-
-			if (Lights.EnableFog) {
-				RenderFog();
-			}
 		}
 
 		private float vx;
