@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.door;
 using BurningKnight.level;
 using BurningKnight.physics;
 using Lens.entity;
@@ -9,7 +10,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature {
 	public class Gore : Entity, CollisionFilterEntity {
 		public bool ShouldCollide(Entity entity) {
-			return entity is Level || entity is DestroyableLevel || entity is Chasm;
+			return entity is Level || entity is DestroyableLevel || entity is Chasm || entity is Door;
 		}
 
 		private float vz;

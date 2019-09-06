@@ -21,7 +21,6 @@ namespace BurningKnight {
 			base.Initialize();
 
 			Controls.Load();
-			Controls.Bind();
 			Font.Load();
 			ImGuiHelper.Init();
 		}

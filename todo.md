@@ -2,6 +2,8 @@
 
 # trailer
 
+* remove auto state select from boss:35, introduce bk dialog there
+
 * action, fighting in the dungeon
  + castle biome
  + with a gun
@@ -18,6 +20,7 @@
  + better descend animation? maybe like, you walk into a hall or smth?
 
 + goes through dungeon, cuts with weird things here and there
+ + different areas!!!
  + powerful combos:
   * potato + glass
   * missile 
@@ -61,7 +64,6 @@
 *!!! entrance to the shop can be blocked by a prop
 *!!! pad treasure room still can spawn stands on stands
 
-* ?!!! room still might try to load its controller :/
 * ?!!! secret rooms seem to corrupt level sometimes
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
@@ -159,6 +161,7 @@
 
 ### items
 
+* map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)

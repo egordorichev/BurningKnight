@@ -142,10 +142,6 @@ namespace BurningKnight.entity.room {
 			MapH = stream.ReadInt16();
 			
 			Type = RoomRegistry.FromIndex(stream.ReadByte());
-
-			if (Run.Depth < 1) {
-				return;
-			}
 			
 			var count = stream.ReadByte();
 
@@ -169,11 +165,6 @@ namespace BurningKnight.entity.room {
 			stream.WriteInt16((short) MapH);
 
 			stream.WriteByte((byte) RoomRegistry.FromType(Type));
-
-			if (Run.SavingDepth < 1) {
-				return;
-			}
-			
 			stream.WriteByte((byte) Controllers.Count);
 
 			foreach (var c in Controllers) {
@@ -224,8 +215,8 @@ namespace BurningKnight.entity.room {
 		public List<Point> GetFreeTiles(Func<int, int, bool> filter = null) {
 			var list = new List<Point>();
 
-			for (var x = MapX; x < MapX + MapW; x++) {
-				for (var y = MapY; y < MapY + MapH; y++) {
+			for (var x = MapX + 1; x < MapX + MapW - 1; x++) {
+				for (var y = MapY + 1; y < MapY + MapH - 1; y++) {
 					if (Run.Level.CheckFor(x, y, TileFlags.Passable) && (filter == null || filter(x, y))) {
 						list.Add(new Point(x, y));
 					}

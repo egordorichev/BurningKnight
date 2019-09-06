@@ -31,13 +31,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 				Become<IdleState>();
 			} else {
 				Awoken = true;
-
-				if (BK.Version.Dev) { // fix
-					SelectAttack();
-					return;
-				}
 				
-				Camera.Instance.Targets.Clear();
+				/*Camera.Instance.Targets.Clear();
 				
 				Timer.Add(() => {
 					((InGameState) Engine.Instance.State).ResetFollowing();
@@ -45,7 +40,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					Timer.Add(() => {
 						SelectAttack();
 					}, 1f);
-				}, 3f);
+				}, 3f);*/
 			}
 			
 			base.OnTargetChange(target);

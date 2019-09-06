@@ -89,7 +89,7 @@ namespace BurningKnight.level.entities.decor {
 			XSpread = 1;
 			
 			Tween.To(1f, Camera.Instance.Zoom, xx => Camera.Instance.Zoom = xx, 0.2f);
-			Tween.To(1.6f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.5f);
+			Tween.To(1.4f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.5f);
 			Camera.Instance.GetComponent<ShakeComponent>().Amount = 0;
 			GameSave.Put("statue_broken", true);
 
@@ -238,30 +238,24 @@ namespace BurningKnight.level.entities.decor {
 			}
 
 			Timer.Add(() => {
-				var e = new EpicSpawn();
-				Area.Add(e);
-				e.Center = target.Value;
+				var bk = new entity.creature.bk.BurningKnight();
+				Area.Add(bk);
+				bk.Center = target.Value;
 				
 				Camera.Instance.Targets.Clear();
-				Camera.Instance.Follow(e, 0.1f);
-				
-				e.OnEnd = () => {
-					var bk = new entity.creature.bk.BurningKnight();
-					Area.Add(bk);
-					bk.Center = target.Value;
+				Camera.Instance.Follow(bk, 0.1f);
 					
-					Timer.Add(() => {
-						((InGameState) Engine.Instance.State).ResetFollowing();
-					}, 1f);
+				Timer.Add(() => {
+					((InGameState) Engine.Instance.State).ResetFollowing();
+				}, 2f);
 					
-					Camera.Instance.Shake(10);
+				Camera.Instance.Shake(10);
 
-					foreach (var t in torches) {
-						t.Done = true;
-					}
+				foreach (var t in torches) {
+					t.Done = true;
+				}
 
-					Done = true;
-				};
+				Done = true;
 			}, 3f);
 		}
 
@@ -275,9 +269,9 @@ namespace BurningKnight.level.entities.decor {
 
 				if (rce.Who is LocalPlayer) {
 					if (rce.New == r) {
-						Camera.Instance.Follow(this, 0.3f);
+						Camera.Instance?.Follow(this, 0.3f);
 					} else if (rce.Old == r) {
-						Camera.Instance.Unfollow(this);
+						Camera.Instance?.Unfollow(this);
 					}
 				}
 			} else if (e is SpawnTrigger.TriggeredEvent stte) {

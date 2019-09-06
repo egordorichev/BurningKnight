@@ -11,6 +11,7 @@ using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -49,8 +50,17 @@ namespace BurningKnight.entity.creature.bk {
 			health.InitMaxHealth = 48 + (Run.Depth - 1) * 20;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
-			
 			AddComponent(new OrbitGiverComponent());
+			
+			AddComponent(new DialogComponent());
+		}
+
+		protected override void OnTargetChange(Entity target) {
+			if (!Awoken && target != null) {
+				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 3);
+			}
+
+			base.OnTargetChange(target);
 		}
 
 		private float lastPart;
