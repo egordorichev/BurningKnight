@@ -36,7 +36,7 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 								var p = Projectile.Make(Self, "triangle", aa, 5, false);
 
 								p.Center += MathUtils.CreateVector(aa, 16f);
-								p.AddLight(32f, Color.Red);
+								p.AddLight(32f, Projectile.RedLight);
 							}
 
 							ready = true;

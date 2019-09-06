@@ -1,8 +1,8 @@
 # TODO
 
-* have torches here and there?
-* fix lamp giving hp anim (play only when you replace your lamp)
-* nerf enemy red projectile light
+* rolling spikes are stuck??
+* torches on the walls emit light
+* some small props on the floor, that emit light (can be mushrooms, etc)
 
 # trailer
 
@@ -27,6 +27,8 @@
   * potato + glass
   * missile 
  + showcase orbitals
+ + show idol and maybe the well?
+ + show rolling spikes
  + show treasure room, where you chose one of the items
  + enters shop room, sk goes like "wanna some tea?"
 
@@ -69,6 +71,8 @@
 * ?!!! secret rooms seem to corrupt level sometimes
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
+
+* idol and well needs room update, make them smaller, idol also will keep on spawning mobs with each load
 
 * place items in oldman hall
 * room cleared effect

@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
@@ -150,6 +151,8 @@ namespace BurningKnight.ui {
 			}
 		}
 
+		private bool first = true;
+		
 		public override bool HandleEvent(Event e) {
 			switch (e) {
 				case ConsumableAddedEvent add: {
@@ -173,8 +176,12 @@ namespace BurningKnight.ui {
 				case ItemAddedEvent iae: {
 					if (iae.Who == player) {
 						if (iae.Item.Type == ItemType.Lamp) {
-							hpZero = 0;
-							Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+							if (!first) {
+								hpZero = 0;
+								Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+							}
+
+							first = false;
 						} else if (iae.Item.Type == ItemType.Active) {
 							if (activePosition <= 0f) {
 								Tween.To(0, -1, x => activePosition = x, 0.6f, Ease.BackOut);

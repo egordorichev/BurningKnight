@@ -131,7 +131,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			var projectile = Projectile.Make(this, "small", angle, 6f);
 
 			projectile.Center += MathUtils.CreateVector(angle, 8f);
-			projectile.AddLight(32f, Color.Red);
+			projectile.AddLight(32f, Projectile.RedLight);
 
 			AnimationUtil.Poof(projectile.Center);
 		}

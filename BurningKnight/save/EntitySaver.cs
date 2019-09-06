@@ -14,6 +14,7 @@ namespace BurningKnight.save {
 		}
 
 		public static Comparer DefaultComparer;
+		public static bool Loading;
 		
 		public void SmartSave(List<Entity> a, FileWriter writer) {
 			writer.WriteInt32(a.Count);
@@ -51,6 +52,8 @@ namespace BurningKnight.save {
 			var count = reader.ReadInt32();
 			var lastType = "";
 
+			Loading = true;
+			
 			for (var i = 0; i < count; i++) {
 				var type = reader.ReadString();
 
@@ -62,6 +65,8 @@ namespace BurningKnight.save {
 				
 				lastType = type;
 			}
+
+			Loading = false;
 		}
 
 		protected virtual void ReadEntity(Area area, FileReader reader, string type, bool post) {
