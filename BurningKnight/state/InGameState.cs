@@ -519,7 +519,10 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			settings.RenderInGame();
-			// RenderFog();
+
+			if (Lights.EnableFog) {
+				RenderFog();
+			}
 		}
 
 		private float vx;
@@ -734,6 +737,7 @@ namespace BurningKnight.state {
 			LocaleEditor.Render();
 			ItemEditor.Render();
 			RenderSettings();
+			Lights.RenderDebug();
 			Run.Statistics?.RenderWindow();
 
 			if (WindowManager.Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
