@@ -1,7 +1,5 @@
 # TODO
 
-* rolling spikes are stuck??
-
 # trailer
 
 * action, fighting in the dungeon
