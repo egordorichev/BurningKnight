@@ -486,6 +486,7 @@
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\Torch.cs" />
+    <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Gramophone.cs" />

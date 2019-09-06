@@ -9,6 +9,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.input;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.plant;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
@@ -492,11 +493,18 @@ namespace BurningKnight.level {
 				// Paintings
 				for (int X = Room.Left + 1; X < Room.Right; X++) {
 					if (Level.Get(X, Room.Top).IsWall() && Random.Chance(20)) {
-						var painting = PaintingRegistry.Generate(Level.Biome);
-						Level.Area.Add(painting);
+						if (Random.Chance()) {
+							var torch = new WallTorch();
+							Level.Area.Add(torch);
+							torch.CenterX = X * 16 + 8 + Random.Float(-1, 1);
+							torch.CenterY = Room.Top * 16 + 13;
+						} else {
+							var painting = PaintingRegistry.Generate(Level.Biome);
+							Level.Area.Add(painting);
 
-						painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
-						painting.CenterY = Room.Top * 16 + 13;
+							painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
+							painting.CenterY = Room.Top * 16 + 13;
+						}
 					}
 				}
 

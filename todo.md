@@ -1,7 +1,6 @@
 # TODO
 
 * rolling spikes are stuck??
-* torches on the walls emit light
 
 # trailer
 
