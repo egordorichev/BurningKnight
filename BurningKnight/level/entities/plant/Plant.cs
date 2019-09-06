@@ -1,5 +1,7 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.entities.plant {
@@ -25,11 +27,19 @@ namespace BurningKnight.level.entities.plant {
 		public override void PostInit() {
 			base.PostInit();
 
-			var g = new PlantGraphicsComponent("props", $"{variants[variant % variants.Length]}{(variant >= variants.Length ? "s" : "")}");
+			var s = variants[variant % variants.Length];
+			
+			var g = new PlantGraphicsComponent("props", $"{s}{(variant >= variants.Length ? "s" : "")}");
 			AddComponent(g);
 
 			Width = g.Sprite.Width;
 			Height = g.Sprite.Height;
+
+			if (s == "plant_l") {
+				AddComponent(new LightComponent(this, 16, new Color(0.3f, 0.3f, 1f, 1f)));
+			} else if (s == "plant_j") {
+				AddComponent(new LightComponent(this, 16, new Color(1f, 0.3f, 0.3f, 1f)));
+			}
 		}
 
 		public override void Load(FileReader stream) {

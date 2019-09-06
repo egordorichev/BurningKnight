@@ -2,7 +2,6 @@
 
 * rolling spikes are stuck??
 * torches on the walls emit light
-* some small props on the floor, that emit light (can be mushrooms, etc)
 
 # trailer
 
@@ -166,6 +165,7 @@
 
 ### items
 
+* torch, has a good light radius, emits fire particles
 * map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
