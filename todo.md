@@ -1,8 +1,6 @@
 # TODO
 
-* add wall torches to the hall
 * light to child projectiles (radius changes with projectile scale)
-* projectiles reflected by jelly should change color to green too
 
 # trailer
 
@@ -166,6 +164,8 @@ d+ goes to the bk room
 
 ### items
 
+* existing orbitals should be smaller
+* orbital, that deals damage to enemies
 * torch, has a good light radius, emits fire particles
 * map, reveals all tiles
 * boomerang (or throwing axe)

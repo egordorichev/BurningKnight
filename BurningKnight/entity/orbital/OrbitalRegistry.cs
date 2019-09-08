@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.util;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -103,6 +105,10 @@ namespace BurningKnight.entity.orbital {
 						var a = b.Velocity.ToAngle() - Math.PI + Random.Float(-0.3f, 0.3f);
 
 						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+						
+						if (p.TryGetComponent<LightComponent>(out var l)) {
+							l.Light.Color = MeleeArc.ReflectedColor;
+						}
 					}
 				};
 				
