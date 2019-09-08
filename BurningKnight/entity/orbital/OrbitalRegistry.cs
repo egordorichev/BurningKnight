@@ -44,7 +44,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 					}
 				};
@@ -67,7 +67,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 						
 						if (Random.Chance(20 - Run.Luck * 5)) {
@@ -95,7 +95,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 5, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Owner = o;
 
 						var b = p.GetAnyComponent<BodyComponent>();
@@ -124,7 +124,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 3, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 					}
 				};
@@ -147,7 +147,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 3, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 						var s = (ScalableSliceComponent) or.GraphicsComponent;
 

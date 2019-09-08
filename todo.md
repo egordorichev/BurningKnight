@@ -1,9 +1,7 @@
 # TODO
 
-* make mother slime slimes go in different angles and distances, remove eyes from dead mother slime
 * add wall torches to the hall
 * light to child projectiles (radius changes with projectile scale)
-* your projectiles shouldnt collide with your orbitals
 * projectiles reflected by jelly should change color to green too
 
 # trailer

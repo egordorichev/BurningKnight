@@ -1,3 +1,4 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -8,6 +9,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.mob.castle {
 	public class MotherSlime : SimpleSlime {
 		private static readonly Color color = ColorUtils.FromHex("#0069aa");
+		public static Color LightColor = new Color(0.5f, 0.5f, 1f, 1f);
 		
 		protected override Color GetBloodColor() {
 			return color;
@@ -24,6 +26,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
+
+			AddComponent(new LightComponent(this, 64, LightColor));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -34,7 +38,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 					slime.Center = Center + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
 					slime.GetComponent<HealthComponent>().InvincibilityTimer = 0.1f;
 
-					slime.GetAnyComponent<BodyComponent>().KnockbackFrom(ev.From, 2f, 1);
+					slime.GetAnyComponent<BodyComponent>().KnockbackFrom(ev.From, Random.Float(1f, 2f), 2);
 				}
 			}
 			
