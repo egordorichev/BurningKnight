@@ -1,7 +1,5 @@
 # TODO
 
-* light to child projectiles (radius changes with projectile scale)
-
 # trailer
 
 d* action, fighting in the dungeon
