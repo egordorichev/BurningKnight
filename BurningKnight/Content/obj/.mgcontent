@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Fonts/small.png</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Fonts/large.png</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Fonts/small.png</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Born to do rogueries.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3</File>
@@ -35,117 +35,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/anchor_action.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/assault_rifle.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/attack_skeleton.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/auto_tail.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bite.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bk.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/BK_hurt_1.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/BK_hurt_2.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/BK_hurt_3.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/BK_hurt_4.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/BK_hurt_5.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bk_voice.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/block.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bomb_placed.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bullet_impact.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/burst.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/change_parameter.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/chest.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/chest_open.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/CK_attack.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/CK_call.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/CK_jump.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/clink.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/coin.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/crossbow.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/curse_lamp.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/damage_clown.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/damage_mummy.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/damage_skeleton.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/damage_thief.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/damage_towelknight.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dash.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dash_short.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_clown.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_mummy.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_skeleton.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_thief.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/death_towelknight.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_close.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_lock.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_open.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_unlock.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/drop_item.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_alert.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_death.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_impact.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/exit.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion_old.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/exterior.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fire.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_cast.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_death.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/flamethrower.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fly.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gameover.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/goback.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gobbo_death.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gobbo_jump.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gore.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/grenade_launcher.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gun_machinegun.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/head_explode.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/health_up.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/heart.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/heart_sfx.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hit.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_nocash.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_purchase.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/key.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/laser.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/laugh.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/magnet_action.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/magnet_off.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/magnet_on.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/magnet_start.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/missile.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/moving.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/no_ammo.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/photo.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/pickup_item.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/potion.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/predash.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/rage.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/rocket_launcher.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/scroll.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/secret.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/secret_room.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/select.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/shell.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/shield.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/shotgun.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/sword_1.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/sword_2.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/throw.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/time_gun.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/time_stop.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/turret_laser.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/ukulele_1.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/ukulele_2.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/ukulele_3.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/ukulele_4.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/ukulele_5.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlink.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlock.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/voice_gobbo_1.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/voice_gobbo_2.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/voice_gobbo_3.mp3</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/whoosh.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</File>
@@ -159,6 +49,48 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
