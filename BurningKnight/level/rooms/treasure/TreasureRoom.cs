@@ -31,7 +31,11 @@ namespace BurningKnight.level.rooms.treasure {
 
 		public override void SetupDoors(Level level) {
 			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Enemy;
+				door.Type = DoorPlaceholder.Variant.Locked;
+			}
+			
+			if (Random.Chance()) {
+				level.ItemsToSpawn.Add("bk:key");
 			}
 		}
 

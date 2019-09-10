@@ -14,6 +14,7 @@ namespace BurningKnight.save {
 		}
 
 		public static Comparer DefaultComparer;
+		public static bool Loading;
 		
 		public void SmartSave(List<Entity> a, FileWriter writer) {
 			writer.WriteInt32(a.Count);
@@ -51,6 +52,8 @@ namespace BurningKnight.save {
 			var count = reader.ReadInt32();
 			var lastType = "";
 
+			Loading = true;
+			
 			for (var i = 0; i < count; i++) {
 				var type = reader.ReadString();
 
@@ -62,15 +65,18 @@ namespace BurningKnight.save {
 				
 				lastType = type;
 			}
+
+			Loading = false;
 		}
 
 		protected virtual void ReadEntity(Area area, FileReader reader, string type, bool post) {
+			var size = reader.ReadInt16();
+			var position = reader.Position;
+
 			try {
 				var entity = (SaveableEntity) Activator.CreateInstance(Type.GetType($"BurningKnight.{type}", true, false));
 				area.Add(entity, false);
 
-				var size = reader.ReadInt16();
-				var position = reader.Position;
 				entity.Load(reader);
 				var sum = reader.Position - position - size;
 
@@ -85,6 +91,8 @@ namespace BurningKnight.save {
 			} catch (Exception e) {
 				Log.Error($"Failed to load {type}");
 				Log.Error(e);
+
+				reader.Position = position + size;
 			}
 		}
 

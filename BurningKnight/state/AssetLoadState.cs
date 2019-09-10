@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;

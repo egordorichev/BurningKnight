@@ -29,7 +29,7 @@ namespace BurningKnight.entity.component {
 			for (var i = Orbiting.Count - 1; i >= 0; i--) {
 				var e = Orbiting[i];
 				var d = e.GetComponent<OrbitalComponent>().Radius * RadiusMultiplier;
-				var a = i / count * Math.PI * 2 + T;
+				var a = i / count * Math.PI * 2 - T;
 
 				if (e.Done) {
 					Orbiting.RemoveAt(i);

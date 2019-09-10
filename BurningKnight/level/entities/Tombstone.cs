@@ -1,4 +1,5 @@
 using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.ui.dialog;
@@ -7,6 +8,7 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.util.camera;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
@@ -33,6 +35,8 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new InteractableSliceComponent("props", "tombstone"));
 			AddComponent(new ShadowComponent());
+
+			AddComponent(new LightComponent(this, 64, new Color(0.7f, 0.6f, 0.3f, 1f)));
 		}
 
 		private bool Interact(Entity entity) {

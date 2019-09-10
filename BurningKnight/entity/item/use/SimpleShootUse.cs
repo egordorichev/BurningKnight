@@ -81,7 +81,7 @@ namespace BurningKnight.entity.item.use {
 					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
 
 					if (light) {
-						projectile.AddLight(32f, Color.Yellow);
+						projectile.AddLight(32f, Projectile.YellowLight);
 					}
 
 					projectile.Damage = damage;

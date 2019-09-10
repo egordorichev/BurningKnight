@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;

@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 					var projectile = Projectile.Make(Self, "crown", angle, 4f);
 
 					if (Random.Chance()) {
-						projectile.AddLight(32f, Color.Red);
+						projectile.AddLight(32f, Projectile.RedLight);
 					}
 
 					projectile.Center += MathUtils.CreateVector(angle, 8);

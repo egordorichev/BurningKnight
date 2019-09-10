@@ -1,4 +1,5 @@
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
 using BurningKnight.level.walls;
 using BurningKnight.state;
@@ -41,6 +42,11 @@ namespace BurningKnight.level.rooms.entrance {
 			}
 			
 			prop.Center = where * 16 + new Vector2(8);
+
+			var torch = new Torch();
+			level.Area.Add(torch);
+
+			torch.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
 		}
 
 		public override int GetMinWidth() {

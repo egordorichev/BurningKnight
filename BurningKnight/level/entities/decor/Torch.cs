@@ -27,11 +27,19 @@ namespace BurningKnight.level.entities.decor {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
+			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.5f, 0f, 1f)));
 			AddComponent(new ShadowComponent());
 			AddComponent(new RoomComponent());
 			
 			AddTag(Tags.Torch);
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (emitter != null) {
+				emitter.Done = true;
+			}
 		}
 
 		public override void PostInit() {

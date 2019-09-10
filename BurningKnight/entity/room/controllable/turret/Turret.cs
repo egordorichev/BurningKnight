@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
+using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.util;
 using Lens.entity;
@@ -80,6 +81,18 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room != null) {
+				var a = room.Type == RoomType.Regular;
+				var b = room.Tagged[Tags.MustBeKilled].Count == 0;
+
+				if (a && b) {
+					return;
+				}
+			}
+
 			beforeNextBullet -= dt;
 
 			if (beforeNextBullet <= 0) {
@@ -118,7 +131,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			var projectile = Projectile.Make(this, "small", angle, 6f);
 
 			projectile.Center += MathUtils.CreateVector(angle, 8f);
-			projectile.AddLight(32f, Color.Red);
+			projectile.AddLight(32f, Projectile.RedLight);
 
 			AnimationUtil.Poof(projectile.Center);
 		}

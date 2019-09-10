@@ -31,8 +31,9 @@ namespace BurningKnight.entity.room.controllable {
 			AddComponent(a);
 
 			AlwaysActive = true;
-			
 			a.OriginY *= 0.5f;
+			
+			AddComponent(new ShadowComponent());
 		}
 
 		public override void Save(FileWriter stream) {

@@ -25,7 +25,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				}
 
 				var m = new Missile(Self, Self.Target);
-				m.AddLight(32f, Color.Red);
+				m.AddLight(32f, Projectile.RedLight);
 
 				m.OnDeath += (p, t) => {
 					for (var i = 0; i < SmallCount; i++) {
@@ -39,7 +39,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 							var b = Projectile.Make(Self, "small");
 							pp.Add(b);
 							b.Range = 2f;
-							b.AddLight(32f, Color.Red);
+							b.AddLight(32f, Projectile.RedLight);
 						}
 				
 						pp.Launch(an, 40);
@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 						var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", a + Random.Float(-0.3f, 0.3f), Random.Float(2, 12), true, 1, p);
 						
 						b.Center = p.Center;
-						b.AddLight(s ? 16f : 32f, Color.Green);
+						b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
 					}
 				};
 			}

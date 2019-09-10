@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
@@ -30,9 +31,7 @@ namespace BurningKnight.entity.creature.npc {
 				if (_mood < 0 && value > 0) {
 					return;
 				}
-
-
-				Log.Error($"Mood change from {_mood} to {value}");
+				
 				_mood = value;
 
 				if (_mood < 3 && _mood > -1) {
@@ -70,6 +69,7 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<GramophoneBrokenEvent>();
 			Subscribe<RerollMachine.BrokenEvent>();
 			Subscribe<VendingMachine.BrokenEvent>();
+			Subscribe<RoomChangedEvent>();
 			
 			Become<IdleState>();
 		}
@@ -122,8 +122,12 @@ namespace BurningKnight.entity.creature.npc {
 					mood--;
 					hme.Amount = -1;
 				}
+			} else if (e is RoomChangedEvent rce) {
+				if (mood > -1 && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
+				}
 			}
-			
+
 			return base.HandleEvent(e);
 		}
 

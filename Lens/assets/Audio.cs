@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Lens.assets {
@@ -130,7 +132,7 @@ namespace Lens.assets {
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> instances = new Dictionary<string, SoundEffectInstance>();
 		
-		public static void PlayMusic(string music) {
+		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {
 			if (currentPlayingMusic == music) {
 				return;
 			}
@@ -148,8 +150,10 @@ namespace Lens.assets {
 				
 				currentPlaying = ms.CreateInstance();
 				instances[music] = currentPlaying;
+				currentPlaying.Apply3D(l, e);
 				currentPlaying.Play();
 			} else {
+				currentPlaying.Apply3D(l, e);
 				currentPlaying.Resume();
 			}
 
@@ -159,7 +163,13 @@ namespace Lens.assets {
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
+
+			// e = emitter;
+			// l = listener;
 		}
+
+		private static AudioListener l = new AudioListener();
+		private static AudioEmitter e = new AudioEmitter();
 
 		public static void FadeOut() {
 			if (currentPlaying != null) {
@@ -191,11 +201,21 @@ namespace Lens.assets {
 
 			musicVolume = value;
 		}
-
+		
 		public static void Update() {
 			if (currentPlaying != null && currentPlaying.State == SoundState.Stopped && currentPlaying.IsLooped) {
 				currentPlaying.Play();
 			}
+			
+			/*if (e != null && l != null && currentPlaying != null) {
+				l.Position = Vector3.Zero;
+
+				var t = Engine.Time;
+				var d = 5;
+
+				e.Position = new Vector3((float) Math.Cos(t) * d, 0, (float) Math.Sin(t) * d);
+				currentPlaying.Apply3D(l, e);
+			}*/
 		}
 	}
 }

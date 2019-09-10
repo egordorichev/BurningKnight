@@ -92,6 +92,8 @@
     <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />
     <Compile Include="assets\ImGuiHelper.cs" />
+    <Compile Include="assets\input\Control.cs" />
+    <Compile Include="assets\input\Controls.cs" />
     <Compile Include="assets\items\ItemData.cs" />
     <Compile Include="assets\items\Items.cs" />
     <Compile Include="assets\lighting\EntityLight.cs" />
@@ -129,7 +131,6 @@
     <Compile Include="assets\prefabs\Prefabs.cs" />
     <Compile Include="assets\Shaders.cs" />
     <Compile Include="BK.cs" />
-    <Compile Include="Controls.cs" />
     <Compile Include="debug\BiomeCommand.cs" />
     <Compile Include="debug\BuffCommand.cs" />
     <Compile Include="debug\Console.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
+    <Compile Include="entity\component\AudioEmitterComponent.cs" />
     <Compile Include="entity\component\BodyComponent.cs" />
     <Compile Include="entity\component\BombGraphicsComponent.cs" />
     <Compile Include="entity\component\BuffsComponent.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
@@ -483,6 +486,7 @@
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\Torch.cs" />
+    <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\Gramophone.cs" />

@@ -190,7 +190,9 @@ namespace Lens.entity {
 		}
 
 		public virtual void Render() {
-			GraphicsComponent?.Render(false);
+			if (GraphicsComponent != null && GraphicsComponent.Enabled) {
+				GraphicsComponent.Render(false);
+			}
 		}
 
 		public virtual void RenderDebug() {

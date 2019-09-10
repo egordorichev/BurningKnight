@@ -17,9 +17,9 @@
 		public const int WallDecor = 4;
 		public const int FlyingMob = 5;
 		public const int TileLights = 6;
-		public const int Light = 7;
-		public const int WindFx = 8;
-		public const int InGameUi = 9;
+		public const int WindFx = 7;
+		public const int InGameUi = 8;
+		public const int Light = 9;
 		
 		public const int Ui = 10;
 		public const int Console = 11;

@@ -16,11 +16,19 @@ namespace BurningKnight.entity.component {
 		}
 
 		public SliceComponent(AnimationData image, string slice) {
-			Sprite = image.GetSlice(slice);
+			Set(image.GetSlice(slice));
+		}
+
+		public SliceComponent(TextureRegion region) {
+			Set(region);
 		}
 
 		public void Set(string image, string slice) {
-			Sprite = Animations.Get(image).GetSlice(slice);
+			Set(Animations.Get(image).GetSlice(slice));
+		}
+		
+		public virtual void Set(TextureRegion region) {
+			Sprite = region;
 		}
 
 		public void AddShadow() {

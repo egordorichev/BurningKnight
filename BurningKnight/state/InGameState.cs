@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
@@ -44,7 +45,7 @@ namespace BurningKnight.state {
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
-		private TextureRegion fog;
+		private static TextureRegion fog;
 		private float time;
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
@@ -123,7 +124,7 @@ namespace BurningKnight.state {
 			}
 
 			fog = Textures.Get("noise");
-			Area.Add(new InGameAudio());
+			// Area.Add(new InGameAudio());
 
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {
@@ -385,10 +386,12 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
+			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {				
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew();
 				died = true;
+
+				Run.NextDepth = Run.Depth;
 
 				return;
 			}
@@ -494,13 +497,13 @@ namespace BurningKnight.state {
 			renderer.Begin();
 		}
 		
-		private void RenderFog() {
+		public static void RenderFog() {
 			var shader = Shaders.Fog;
 			Shaders.Begin(shader);
 
 			var wind = WindFx.CalculateWind();
 			
-			shader.Parameters["time"].SetValue(time * 0.01f);
+			shader.Parameters["time"].SetValue(Engine.Time * 0.01f);
 			shader.Parameters["tx"].SetValue(wind.X * -0.1f);
 			shader.Parameters["ty"].SetValue(wind.Y * -0.1f);
 			shader.Parameters["cx"].SetValue(Camera.Instance.Position.X / 512f);
@@ -516,7 +519,6 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			settings.RenderInGame();
-			// RenderFog();
 		}
 
 		private float vx;
@@ -731,6 +733,7 @@ namespace BurningKnight.state {
 			LocaleEditor.Render();
 			ItemEditor.Render();
 			RenderSettings();
+			Lights.RenderDebug();
 			Run.Statistics?.RenderWindow();
 
 			if (WindowManager.Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {

@@ -29,6 +29,9 @@ namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
 
 	public class Projectile : Entity, CollisionFilterEntity {
+		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
+		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
+		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
 		public BodyComponent BodyComponent;
 		public int Damage = 1;

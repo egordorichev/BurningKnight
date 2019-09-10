@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
@@ -18,8 +19,8 @@ namespace BurningKnight {
 
 		protected override void Initialize() {
 			base.Initialize();
-			
-			Controls.Bind();
+
+			Controls.Load();
 			Font.Load();
 			ImGuiHelper.Init();
 		}

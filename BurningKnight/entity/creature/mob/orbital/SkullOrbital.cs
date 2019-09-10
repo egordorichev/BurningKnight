@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.mob.orbital {
 				for (var j = 0; j < 5; j++) {
 					var b = Projectile.Make(this, "small");
 					pp.Add(b);
-					b.AddLight(32f, Color.Red);
+					b.AddLight(32f, Projectile.RedLight);
 				}
 				
 				pp.Launch(AngleTo(Target), 30);

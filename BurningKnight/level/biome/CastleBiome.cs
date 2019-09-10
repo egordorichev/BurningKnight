@@ -11,7 +11,7 @@ namespace BurningKnight.level.biome {
 			base.ModifyPainter(painter);
 			
 			painter.Modifiers.Add((l, x, y) => {
-				if (l.Get(x, y) == Tile.Lava) {
+				if (l.Get(x, y, true) == Tile.Lava) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;

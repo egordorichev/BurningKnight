@@ -5,6 +5,8 @@ namespace Lens.entity.component.logic {
 	public class StateComponent : Component {
 		private EntityState state;
 		private Type newState;
+
+		public bool PauseOnChange;
 		
 		public Type State {
 			get => state.GetType();
@@ -42,6 +44,11 @@ namespace Lens.entity.component.logic {
 				NewState = state.GetType(),
 				State = state
 			});
+			
+			if (PauseOnChange) {
+				PauseOnChange = false;
+				Pause = 1;
+			}
 		}
 
 		public override void Update(float dt) {

@@ -125,11 +125,11 @@ namespace BurningKnight.entity.creature {
 		}
 
 		protected virtual bool HandleDeath(DiedEvent d) {
-			AnimateDeath();
+			AnimateDeath(d);
 			return false;
 		}
 
-		public virtual void AnimateDeath() {
+		public virtual void AnimateDeath(DiedEvent d) {
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;
 			

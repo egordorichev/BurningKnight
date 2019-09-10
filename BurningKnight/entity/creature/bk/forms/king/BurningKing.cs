@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 			GetComponent<HealthComponent>().InitMaxHealth = 300;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, center : true) {
-				KnockbackModifier = 0.05f
+				KnockbackModifier = 0
 			});
 
 			var b = GetComponent<RectBodyComponent>().Body;

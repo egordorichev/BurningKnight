@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;

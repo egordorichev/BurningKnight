@@ -1,5 +1,57 @@
 # TODO
 
+# trailer
+
+* action, fighting in the dungeon
+ + castle biome
+ + with a gun
+ + with a sword
+ + with spear
+ + rod of discord?
+
+* death
+ + from a bullet behind
+ + show tombstone of gobbo the great
+
++ new gobbo runs to old man, camera focus on om
++ new old man says, its dangerous, gobbo runs with a dagger and descends
+ + better descend animation? maybe like, you walk into a hall or smth?
+
++ goes through dungeon, cuts with weird things here and there
+ + different areas!!!
+ + powerful combos:
+  * potato + glass
+  * missile 
+ + showcase orbitals
+ + show idol and maybe the well?
+ + show rolling spikes
+ + show treasure room, where you chose one of the items
+ + enters shop room, sk goes like "wanna some tea?"
+
++ goes to the bk room
+ + show the bk spawn, remove epic spawn
+ + bk says: welcome, thief
+
++ to be continued
+
+# settings
+
+# audio
+
+* Music volume
+* Sfx volume
+* Ui sfx
+
+# video
+
+* fullscreen
+* vsync
+
+* blood
+* gore
+
+# controls
+
 ## audio
 
 * switching between levels (dark out) should fade in/out music
@@ -7,50 +59,41 @@
 * 3d audio
 * lowpass filter and somewhat responsible music? :(
 
-## user view point
-
-* not enough hurt feedback
-* Low health indicator
-
 ## general
 
-* ?!!! room still might try to load its controller :/
+*!!! entrance to the shop can be blocked by a prop
+*!!! pad treasure room still can spawn stands on stands
+
 * ?!!! secret rooms seem to corrupt level sometimes
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* !!! fix the bug, where the sword can face backwards while swinging
-* !!! ui layer shadow doesnt work, it draws with not half transparent black but color
+* idol and well needs room update, make them smaller, idol also will keep on spawning mobs with each load
 
-* make entity saver ignore entity (skip) if the type is invalid
+* place items in oldman hall
+* room cleared effect
+* add gore to npcs
+* picking up hearts should give more feedback
+* Low health indicator
 
 * bk types:
  + slime
  + king
  + bandit
  
+* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
+
 * breadcrumbs of where bk room is (alg for detecting shortest path is there)
 * breadcrumbs for bk type 
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
-* darken bk room, darken dungeon overall and have torches here and there?
 * improve epic spawn
-* write steam update, look for festivals to showcase the game on
-
-* when creature dies, its not visible, seems like regular hit
-* room cleared effect
-* halo gives 2 heart containers, but rendering seems wrong (it doesnt show up like a full heart)
-* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
-* signs of where bk room is
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms
 * Enemies / rooms drop rewards (bombs, keys, coins)
-* bk missile projectiles have no sprite??? wrong depth, maybe?
-
-
 * buff icons
 * spice up bullets (different textures for different enemies)
 
@@ -62,13 +105,12 @@
 ### beta bugs
 
 * openal crash
-* max hp resets
+* bk missile projectiles have no sprite??? wrong depth, maybe?
 
 ### todo
 
 * shields
 * game intro
-* maggots are boring
 
 * Tile interactions
  * burning terrain
@@ -120,6 +162,8 @@
 
 ### items
 
+* torch, has a good light radius, emits fire particles
+* map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
@@ -193,11 +237,19 @@
 * bee hive and bee for forest biome
 * Diagonal fly
 
+* dragon (has a sprite)
+* clown (has a sprite)
+* thief (has a sprite)
+* skeleton (has a sprite)
+* king servant?? (has a sprite)
+* knight??? (has a sprite)
+
 #### NPCs
 
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
 * trash goblin (gaz)
+* elon (wizard, has a sprite)
 
 ### Rooms
 

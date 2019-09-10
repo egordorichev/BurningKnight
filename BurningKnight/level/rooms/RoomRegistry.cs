@@ -72,7 +72,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<PadTreasureRoom>(1f),
 				
 				// Trap
-				RoomInfo.New<RollingSpikesRoom>(1f),
+				RoomInfo.New<RollingSpikesRoom>(100000000f),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 				// RoomInfo.New<CageRoom>(1f), // I dont like it :(
@@ -92,8 +92,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WellRoom>(1f),
 				
 				// Boss
-				RoomInfo.New<ChasmBossRoom>(1f),
-				RoomInfo.New<CollumnsBossRoom>(1f),
+				RoomInfo.New<ChasmBossRoom>(1f)
 			};
 
 			foreach (var info in infos) {

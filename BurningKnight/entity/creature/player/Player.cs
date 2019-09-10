@@ -77,7 +77,7 @@ namespace BurningKnight.entity.creature.player {
 			Height = 11;
 			
 			// Graphics
-			// AddComponent(new LightComponent(this, 128f, new Color(0.3f, 0.4f, 0.3f, 0.2f)));
+			AddComponent(new LightComponent(this, 100f, new Color(0.7f, 0.6f, 0.3f, 1f)));
 			
 			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -5)
@@ -105,6 +105,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new OrbitGiverComponent());
 			AddComponent(new FollowerComponent());
 			AddComponent(new AimComponent(AimComponent.AimType.Cursor));
+			AddComponent(new AudioEmitterComponent());
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 			
@@ -116,8 +117,8 @@ namespace BurningKnight.entity.creature.player {
 
 			var hp = GetComponent<HealthComponent>();
 			hp.MaxHealth = 1;
-			hp.MaxHealthCap = 321;
-			hp.HealthModifier = 5;
+			hp.InitMaxHealth = 1;
+			hp.MaxHealthCap = 33;
 
 			if (Engine.Version.Dev) {
 				Log.Info("Entering god mode for the player");
@@ -407,8 +408,8 @@ namespace BurningKnight.entity.creature.player {
 
 		private bool died;
 
-		public override void AnimateDeath() {
-			base.AnimateDeath();
+		public override void AnimateDeath(DiedEvent d) {
+			base.AnimateDeath(d);
 			
 			for (var i = 0; i < 6; i++) {
 				Area.Add(new ParticleEntity(Particles.Dust()) {

@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
@@ -150,6 +151,8 @@ namespace BurningKnight.ui {
 			}
 		}
 
+		private bool first = true;
+		
 		public override bool HandleEvent(Event e) {
 			switch (e) {
 				case ConsumableAddedEvent add: {
@@ -173,8 +176,12 @@ namespace BurningKnight.ui {
 				case ItemAddedEvent iae: {
 					if (iae.Who == player) {
 						if (iae.Item.Type == ItemType.Lamp) {
-							hpZero = 0;
-							Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+							if (!first) {
+								hpZero = 0;
+								Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
+							}
+
+							first = false;
 						} else if (iae.Item.Type == ItemType.Active) {
 							if (activePosition <= 0f) {
 								Tween.To(0, -1, x => activePosition = x, 0.6f, Ease.BackOut);
@@ -365,15 +372,15 @@ namespace BurningKnight.ui {
 
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var component = player.GetComponent<HealthComponent>();
-			var red = (component.Health - 1) / component.HealthModifier;
-			var m = (component.MaxHealth - 1) / component.HealthModifier;
+			var red = component.Health - 1;
+			var m = component.MaxHealth - 1;
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
-			var angle = (i - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(m / 2, 8) - Math.PI / 2;
+			var angle = (Math.Floor(i / 2f) * 2 - Math.Floor(red / 2f) + 1f) * Math.PI / Math.Max(m / 2, 8) - Math.PI / 2;
 			const float distance = 24f;
 		
-			var x = from.X + (float) Math.Cos(angle) * distance - Heart.Width / 2f;
+			var x = from.X + (float) Math.Cos(angle) * distance - (i % 2 == 0 ? Heart.Width / 2f : -Heart.Width / 2f - 1);
 			var y = from.Y + (float) Math.Sin(angle) * distance - Heart.Height / 2f;
 
 			var d = 0;
@@ -388,19 +395,23 @@ namespace BurningKnight.ui {
 			if (it == null && (coins != 0 || bombs != 0 || keys != 0)) {
 				a += 24;
 			}
-			
-			return new Vector2((bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
+
+			return new Vector2(
+				(bg ? 0 : 1) + (pad ? (2 + (2 + itemSlot.Source.Width + d) * (activePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
 				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activePosition * 2) : 4)
-				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)) * hpZero 
-			       + new Vector2((bg ? -1 : 0) + x, (bg ? -1 : 0) + y) * (1 - hpZero);
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)
+				       
+			) * hpZero + new Vector2(
+				       (bg ? -1 : 0) + x, 
+				       (bg ? -1 : 0) + y
+			) * (1 - hpZero);
 		}
 
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
 			var red = player.GetComponent<HealthComponent>();
-			var hm = (float) red.HealthModifier;
-			var totalRed = (int) ((red.Health - 1) / hm); // -1 accounts for hidden "not lamp hp"
+			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
 
 			if (lastRed > totalRed) {
 				lastRed = totalRed;
@@ -409,13 +420,7 @@ namespace BurningKnight.ui {
 			}
 
 			var r = (int) lastRed;
-			
-			var maxRed = (int) ((red.MaxHealth - 1) / hm);
-			
-			var other = player.GetComponent<HeartsComponent>();
-			var totalIron = other.IronHalfs;			
-			var totalGolden = other.GoldenHalfs;
-		
+			var maxRed = red.MaxHealth - 1;
 			var hurt = red.InvincibilityTimer > 0;
 
 			int i = 0;
@@ -434,26 +439,7 @@ namespace BurningKnight.ui {
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
-				
-				Graphics.Color = new Color(1f, 1f, 1f, j == n - 1 ? ((red.Health - 1) % red.HealthModifier + 1) / hm : 1f);
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
-				Graphics.Color = ColorUtils.WhiteColor;
-			}
-
-			var ironI = totalIron + maxRed;
-			var maxIron = ironI + totalIron % 2;
-			
-			for (; i < maxIron; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
-				Graphics.Render(i == ironI - 1 ? halfIron : iron, GetHeartPosition(pad, i));					
-			}
-
-			var goldenI = totalGolden + maxIron;
-			var maxGold = goldenI + totalGolden % 2;
-			
-			for (; i < maxGold; i += 2) {
-				Graphics.Render(hurt ? changedHeartBackground : HeartBackground, GetHeartPosition(pad, i, true));
-				Graphics.Render(i == goldenI - 1 ? halfGolden : golden, GetHeartPosition(pad, i));					
 			}
 		}
 

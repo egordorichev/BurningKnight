@@ -200,7 +200,7 @@ namespace BurningKnight.save {
 			
 			Log.Info("Backing up the saves");
 
-			foreach (var folder in save.ListDirectoryHandles()) {
+			foreach (var folder in backup.ListDirectoryHandles()) {
 				try {
 					folder.Delete();
 				} catch (Exception e) {
@@ -208,7 +208,7 @@ namespace BurningKnight.save {
 				}
 			}
 
-			foreach (var file in save.ListFileHandles()) {
+			foreach (var file in backup.ListFileHandles()) {
 				try {
 					file.Delete();
 				} catch (Exception e) {

@@ -13,6 +13,7 @@ using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
 using Lens.util;
+using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.timer;
 
@@ -59,9 +60,15 @@ namespace BurningKnight.state {
 			}
 
 			Audio.PlayMusic(Run.Level.GetMusic());
+			
+			// Audio.PlayMusic("Disk 6", Camera.Instance.Listener, LocalPlayer.Locate(Area).GetComponent<AudioEmitterComponent>().Emitter);
 		}
 
 		public override bool HandleEvent(Event e) {
+			/*if (true) {
+				return false;
+			}*/
+			
 			if (e is GramophoneBrokenEvent ge) {
 				var local = LocalPlayer.Locate(ge.Gramophone.Area);
 

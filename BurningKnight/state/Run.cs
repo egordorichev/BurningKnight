@@ -9,7 +9,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.state {
 	public static class Run {
 		private static int depth = Engine.Version.Dev ? 1 : 0;
-		public static int NextDepth { get; private set; } = depth;
+		public static int NextDepth { get; internal set; } = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
 		public static bool StartingNew;
@@ -29,11 +29,6 @@ namespace BurningKnight.state {
 		}
 
 		public static void Update() {
-			if (StartingNew) {
-				NextDepth = 1;
-				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-			}
-
 			if (StartingNew || depth != NextDepth) {
 				LastDepth = depth;
 				SavingDepth = depth;
@@ -49,6 +44,7 @@ namespace BurningKnight.state {
 
 			StartingNew = true;
 			HasRun = false;
+			NextDepth = 1;
 
 			if (IgnoreSeed) {
 				IgnoreSeed = true;
@@ -58,6 +54,7 @@ namespace BurningKnight.state {
 
 			GlobalSave.RunId++;
 			Random.Seed = Seed;
+			
 			Log.Debug($"This run's seed is {Seed}");
 		}
 

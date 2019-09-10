@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				for (var i = 0; i < SmallCount; i++) {
 					var b = Projectile.Make(Self, "green_small", (float) (((float) i) / SmallCount * Math.PI * 2), 6, true, 1, pr);
 					b.Center = pr.Center;
-					b.AddLight(32f, Color.Green);
+					b.AddLight(32f, Projectile.GreenLight);
 				}
 			};
 
@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				b.CanBeBroken = false;
 				b.CanBeReflected = false;
 				
-				b.AddLight(32f, Color.Green);
+				b.AddLight(32f, Projectile.GreenLight);
 				p.Add(b);
 			}
 				

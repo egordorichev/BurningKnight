@@ -89,7 +89,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 							var angle = Self.Direction.ToAngle();
 							var projectile = Projectile.Make(Self, "small", angle, 5f);
 
-							projectile.AddLight(32f, Color.Red);
+							projectile.AddLight(32f, Projectile.RedLight);
 							projectile.Center += MathUtils.CreateVector(angle, 8);
 							
 							AnimationUtil.Poof(projectile.Center);

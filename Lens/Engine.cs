@@ -131,6 +131,8 @@ namespace Lens {
 			Delta = dt;
 			Time += dt;
 
+			Freeze = Math.Min(3, Freeze);
+
 			if (Freeze < 0.01f) {
 				time += dt;
 			}

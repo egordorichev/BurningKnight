@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level.entities;
@@ -18,6 +19,7 @@ using Lens.util.camera;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -44,6 +46,7 @@ namespace BurningKnight.entity.creature.mob {
 			});
 
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
+			GetComponent<StateComponent>().Pause++;
 		}
 
 		protected virtual void SetStats() {
@@ -60,7 +63,12 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected virtual void OnTargetChange(Entity target) {
-			
+			if (target == null) {
+				GetComponent<StateComponent>().PauseOnChange = true;
+			} else {
+				GetComponent<StateComponent>().PauseOnChange = false;
+				GetComponent<StateComponent>().Pause = 0;
+			}
 		}
 
 		protected virtual void HandleBreaking() {
@@ -73,10 +81,6 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			
-			if (dying) {
-				return;
-			}
 
 			HandleBreaking();
 
@@ -106,10 +110,6 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (dying) {
-				return false;
-			}
-			
 			if (e is BuffAddedEvent add && add.Buff is CharmedBuff || e is BuffRemovedEvent del && del.Buff is CharmedBuff) {
 				// If old target even was a thing, it was from wrong category
 				FindTarget();
@@ -228,32 +228,46 @@ namespace BurningKnight.entity.creature.mob {
 			return 1f;
 		}
 
-		private bool dying;
 		private bool rotationApplied;
 
-		protected override bool HandleDeath(DiedEvent d) {
-			base.HandleDeath(d);
-			return true;
-		}
+		public override void AnimateDeath(DiedEvent d) {
+			base.AnimateDeath(d);
 
-		public override void AnimateDeath() {
-			Done = false;
-			
-			if (dying) {
+			Engine.Instance.Freeze = 0.5f;
+			Camera.Instance.ShakeMax(5);
+
+			var a = GetAnyComponent<AnimationComponent>();
+
+			if (a == null) {
 				return;
 			}
 
-			dying = true;
+			var gore = new Gore();
+			var r = a.Animation.GetFrame("dead", 0);
 			
-			Engine.Instance.Freeze = 0.5f;
-			Camera.Instance.ShakeMax(5);
+			Area.Add(gore);
 			
-			GetComponent<StateComponent>().Pause++;
+			gore.Position = Position;
+			gore.AddComponent(new ZSliceComponent(r));
+
+			gore.Width = r.Width;
+			gore.Height = r.Height;
+
+			var b = new RectBodyComponent(0, 0, gore.Width, gore.Height);
 			
-			Timer.Add(() => {
-				// Sets the done flag
-				base.AnimateDeath();
-			}, 0.6f);
+			gore.AddComponent(b);
+			
+			b.Body.LinearDamping = 2f;
+			b.Body.Restitution = 1;
+			b.Body.Friction = 0;
+
+			var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Random.AnglePI(), 64);
+			
+			b.Body.LinearVelocity = v;
+
+			if (v.X > 0) {
+				gore.GetComponent<ZSliceComponent>().Flipped = true;
+			}
 		}
 
 		#region Path finding

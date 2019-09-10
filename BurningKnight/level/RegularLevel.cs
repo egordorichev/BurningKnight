@@ -125,7 +125,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			Rooms.Add(false ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
+			Rooms.Add(false && Run.Depth == 1 ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
 
 			var Regular = final ? 0 : GetNumRegularRooms();
 			var Special = final ? 0 : GetNumSpecialRooms();
