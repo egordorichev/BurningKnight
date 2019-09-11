@@ -19,7 +19,6 @@ namespace Lens.util.camera {
 		
 		public static bool Debug = true;
 		public static Camera Instance;
-		public AudioListener Listener = new AudioListener();
 
 		public Vector2 TopLeft => new Vector2(X, Y);
 		// Todo: count zoom here?
@@ -159,9 +158,7 @@ namespace Lens.util.camera {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			Listener.Position = new Vector3(PositionX, 0, PositionY);
-
+			
 			if (Engine.Instance.State.Paused) {
 				return;
 			}

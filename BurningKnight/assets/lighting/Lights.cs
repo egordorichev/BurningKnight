@@ -181,8 +181,8 @@ namespace BurningKnight.assets.lighting {
 			
 			var c = new System.Numerics.Vector4(clearColor.R / 255f, clearColor.G / 255f, clearColor.B / 255f, clearColor.A / 255f);
 
-			if (ImGui.DragFloat4("Color", ref c, 0.05f, 0, 1f)) {
-				clearColor = new Color(c.X * 255, c.Y * 255, c.Z * 255, c.W * 255);
+			if (ImGui.InputFloat4("Color", ref c)) {
+				clearColor = new Color(c.X, c.Y, c.Z, c.W);
 			}
 			
 			ImGui.Separator();

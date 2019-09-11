@@ -1,5 +1,9 @@
 # TODO
 
+* flashes (like lighting)
+* rain
+* when bomb explodes, disable lighting for a bit>
+
 # trailer
 
 d* action, fighting in the dungeon
