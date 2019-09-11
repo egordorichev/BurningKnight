@@ -36,6 +36,9 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/clap.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/sand.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</File>
@@ -49,6 +52,9 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

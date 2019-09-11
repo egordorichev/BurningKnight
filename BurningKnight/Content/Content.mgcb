@@ -229,6 +229,24 @@
 /processorParam:Quality=Best
 /build:Sfx/airhorn.wav
 
+#begin Sfx/clap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/clap.wav
+
+#begin Sfx/sand.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/sand.wav
+
+#begin Sfx/step.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/step.wav
+
 #begin Shaders/chasm.fx
 /importer:EffectImporter
 /processor:EffectProcessor

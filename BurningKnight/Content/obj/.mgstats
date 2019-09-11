@@ -30,7 +30,10 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Shopkeeper.xnb","SoundEffectProcessor","SoundEffectContent",701125,3083045,0.8925758
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Void.xnb","SoundEffectProcessor","SoundEffectContent",4826382,21275429,1.772884
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Water.xnb","SoundEffectProcessor","SoundEffectContent",1728960,8290085,1.316127
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/airhorn.xnb","SoundEffectProcessor","SoundEffectContent",162188,162249,7.692858
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/airhorn.xnb","SoundEffectProcessor","SoundEffectContent",162188,162249,5.520892
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/clap.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/clap.xnb","SoundEffectProcessor","SoundEffectContent",476766,476725,0.8933871
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/sand.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/sand.xnb","SoundEffectProcessor","SoundEffectContent",290188,290147,0.8446205
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/step.xnb","SoundEffectProcessor","SoundEffectContent",461498,461457,0.7697122
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",835,966,0.7204435
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1211,0.3299042
 "C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1200,1592,0.3125261
