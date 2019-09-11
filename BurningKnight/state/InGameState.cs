@@ -714,7 +714,8 @@ namespace BurningKnight.state {
 
 			ImGui.DragFloat("Sounds", ref Settings.SfxVolume, 0.01f, 0, 1f);
 			ImGui.Checkbox("Ui sounds", ref Settings.UiSfx);
-			
+			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
+
 			ImGui.End();
 		}
 

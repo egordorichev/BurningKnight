@@ -22,6 +22,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			AlwaysActive = true;
+
 			AudioEmitterComponent.Listener = new AudioListener();
 			
 			Subscribe<GramophoneBrokenEvent>();
@@ -75,7 +77,7 @@ namespace BurningKnight.state {
 			base.Update(dt);
 
 			var c = Camera.Instance;
-			AudioEmitterComponent.Listener.Position = new Vector3(c.PositionX, 0, c.PositionY);
+			AudioEmitterComponent.Listener.Position = new Vector3(c.PositionX * AudioEmitterComponent.PositionScale, 0, c.PositionY * AudioEmitterComponent.PositionScale);
 		}
 
 		public override bool HandleEvent(Event e) {
