@@ -96,11 +96,11 @@ namespace BurningKnight.entity.component {
 			if (entity == null) {
 				return;
 			}
-
+			
 			if (entity == Entity) {
-				KnockbackFrom(Random.AnglePI(), force);
+				KnockbackFrom(Random.AnglePI(), force, rnd);
 			} else {
-				KnockbackFrom(entity.Center, force);
+				KnockbackFrom(entity.Center, force, rnd);
 			}
 		}
 

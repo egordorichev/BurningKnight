@@ -1,4 +1,3 @@
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
@@ -12,16 +11,19 @@ using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
-using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.timer;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BurningKnight.state {
 	public class InGameAudio : Entity {
 		public override void Init() {
 			base.Init();
 
+			AudioEmitterComponent.Listener = new AudioListener();
+			
 			Subscribe<GramophoneBrokenEvent>();
 			Subscribe<Gramophone.DiskChangedEvent>();
 			
@@ -44,7 +46,7 @@ namespace BurningKnight.state {
 
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 			
-			var p = LocalPlayer.Locate(Area);
+			/*var p = LocalPlayer.Locate(Area);
 			var gramophone = p?.GetComponent<RoomComponent>().Room?.Tagged[Tags.Gramophone].FirstOrDefault();
 
 			if (gramophone != null) {
@@ -59,15 +61,27 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			Audio.PlayMusic(Run.Level.GetMusic());
+			Audio.PlayMusic(Run.Level.GetMusic());*/
 			
 			// Audio.PlayMusic("Disk 6", Camera.Instance.Listener, LocalPlayer.Locate(Area).GetComponent<AudioEmitterComponent>().Emitter);
 		}
 
+		public override void Destroy() {
+			base.Destroy();
+			AudioEmitterComponent.Listener = null;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			var c = Camera.Instance;
+			AudioEmitterComponent.Listener.Position = new Vector3(c.PositionX, 0, c.PositionY);
+		}
+
 		public override bool HandleEvent(Event e) {
-			/*if (true) {
+			if (true) {
 				return false;
-			}*/
+			}
 			
 			if (e is GramophoneBrokenEvent ge) {
 				var local = LocalPlayer.Locate(ge.Gramophone.Area);

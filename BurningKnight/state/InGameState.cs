@@ -34,6 +34,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
@@ -124,7 +125,7 @@ namespace BurningKnight.state {
 			}
 
 			fog = Textures.Get("noise");
-			// Area.Add(new InGameAudio());
+			Area.Add(new InGameAudio());
 
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {
@@ -353,7 +354,7 @@ namespace BurningKnight.state {
 			}
 
 			Run.Update();
-
+			
 			if (Input.WasPressed(Controls.Mute)) {
 				Settings.MusicVolume = Settings.MusicVolume > 0.01f ? 0f : 0.5f;
 			}

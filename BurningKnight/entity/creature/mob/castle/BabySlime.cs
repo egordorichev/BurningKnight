@@ -1,3 +1,4 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using Lens.graphics;
@@ -22,6 +23,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
+			
+			AddComponent(new LightComponent(this, 32, MotherSlime.LightColor));
 		}
 	}
 }

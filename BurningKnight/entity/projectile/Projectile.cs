@@ -95,6 +95,10 @@ namespace BurningKnight.entity.projectile {
 				Owner = owner,
 				Projectile = projectile
 			});
+
+			if (parent != null && parent.TryGetComponent<LightComponent>(out var l)) {
+				projectile.AddLight(l.Light.Radius, l.Light.Color);
+			}
 			
 			return projectile;
 		}
@@ -111,7 +115,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void AddLight(float radius, Color color) {
-			AddComponent(new LightComponent(this, radius, color));
+			AddComponent(new LightComponent(this, radius * Scale, color));
 		}
 
 		public override void Update(float dt) {

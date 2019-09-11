@@ -8,7 +8,7 @@ namespace BurningKnight.level.entities.plant {
 	public class Plant : Prop {
 		private static string[] variants = {
 			"plant_a", "plant_b", "plant_c", "plant_d", "plant_e", "plant_f",
-			"plant_g", "plant_i", "plant_j", "plant_k", "plant_l", "plant_m"
+			"plant_g", "plant_i", "plant_j", "plant_k", "plant_l", "plant_m", "plant_n"
 		};
 
 		private byte variant;

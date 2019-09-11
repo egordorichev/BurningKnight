@@ -24,16 +24,16 @@ namespace Lens.assets {
 					}
 				}
 
-				foreach (var dir in file.ListDirectoryHandles()) {
+				/*foreach (var dir in file.ListDirectoryHandles()) {
 					LoadSfx(dir);
-				}
+				}*/
 			}
 		}
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
 			
-			var musicDir = FileHandle.FromNearRoot("bin/Music/");
+			/*var musicDir = FileHandle.FromNearRoot("bin/Music/");
 			
 			if (musicDir.Exists()) {
 				foreach (var h in musicDir.ListFileHandles()) {
@@ -41,7 +41,7 @@ namespace Lens.assets {
 						LoadMusic(h.NameWithoutExtension);
 					}
 				}
-			}
+			}*/
 		}
 
 		private static void LoadSfx(string sfx) {

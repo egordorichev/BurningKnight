@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.util;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -44,7 +46,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 					}
 				};
@@ -67,7 +69,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 						
 						if (Random.Chance(20 - Run.Luck * 5)) {
@@ -95,7 +97,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 5, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Owner = o;
 
 						var b = p.GetAnyComponent<BodyComponent>();
@@ -103,6 +105,10 @@ namespace BurningKnight.entity.orbital {
 						var a = b.Velocity.ToAngle() - Math.PI + Random.Float(-0.3f, 0.3f);
 
 						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+						
+						if (p.TryGetComponent<LightComponent>(out var l)) {
+							l.Light.Color = MeleeArc.ReflectedColor;
+						}
 					}
 				};
 				
@@ -124,7 +130,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 3, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 					}
 				};
@@ -147,7 +153,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 3, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p) {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 						var s = (ScalableSliceComponent) or.GraphicsComponent;
 

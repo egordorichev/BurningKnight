@@ -1,36 +1,40 @@
 # TODO
 
+* flashes (like lighting)
+* rain
+* when bomb explodes, disable lighting for a bit>
+
 # trailer
 
-* action, fighting in the dungeon
- + castle biome
- + with a gun
- + with a sword
- + with spear
- + rod of discord?
+d* action, fighting in the dungeon
+ d+ castle biome
+ d+ with a gun
+ d+ with a sword
+ d+ with spear
+ d+ rod of discord?
 
-* death
- + from a bullet behind
- + show tombstone of gobbo the great
+d* death
+ d+ from a bullet behind
+ d+ show tombstone of gobbo the great
 
-+ new gobbo runs to old man, camera focus on om
-+ new old man says, its dangerous, gobbo runs with a dagger and descends
+d+ new gobbo runs to old man, camera focus on om
+d+ new old man says, its dangerous, gobbo runs with a dagger and descends
  + better descend animation? maybe like, you walk into a hall or smth?
 
 + goes through dungeon, cuts with weird things here and there
- + different areas!!!
- + powerful combos:
-  * potato + glass
-  * missile 
- + showcase orbitals
- + show idol and maybe the well?
- + show rolling spikes
- + show treasure room, where you chose one of the items
- + enters shop room, sk goes like "wanna some tea?"
+ d+ different areas!!!
+ d+ powerful combos:
+  d* potato + glass
+  d* missile 
+ d+ showcase orbitals
+ d+ show idol and maybe the well?
+ d+ show rolling spikes
+ d+ show treasure room, where you chose one of the items
+ d+ enters shop room, sk goes like "wanna some tea?"
 
-+ goes to the bk room
- + show the bk spawn, remove epic spawn
- + bk says: welcome, thief
+d+ goes to the bk room
+ d+ show the bk spawn, remove epic spawn
+ d+ bk says: welcome, thief
 
 + to be continued
 
@@ -162,6 +166,8 @@
 
 ### items
 
+* existing orbitals should be smaller
+* orbital, that deals damage to enemies
 * torch, has a good light radius, emits fire particles
 * map, reveals all tiles
 * boomerang (or throwing axe)
