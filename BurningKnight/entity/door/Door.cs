@@ -41,6 +41,7 @@ namespace BurningKnight.entity.door {
 			Depth = Layers.Door;
 			AlwaysActive = true;
 			
+			AddComponent(new AudioEmitterComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
@@ -193,6 +194,8 @@ namespace BurningKnight.entity.door {
 		public class ClosingState : EntityState {
 			public override void Init() {
 				base.Init();
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("door_close");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -217,6 +220,8 @@ namespace BurningKnight.entity.door {
 		public class OpeningState : EntityState {
 			public override void Init() {
 				base.Init();
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("door_open");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

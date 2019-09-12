@@ -56,9 +56,11 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is PostHealthModifiedEvent ev) {
+			if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
+				} else {
+					GetComponent<AudioEmitterComponent>().EmitRandomized(GetHurtSfx());
 				}
 
 				if (ev.From != null && !ev.Handled) {
@@ -131,6 +133,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual void AnimateDeath(DiedEvent d) {
+			GetComponent<AudioEmitterComponent>().EmitRandomized(GetDeadSfx(), 1, false);
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;
 			
@@ -189,6 +192,14 @@ namespace BurningKnight.entity.creature {
 
 		protected virtual Color GetBloodColor() {
 			return Color.Red;
+		}
+
+		protected virtual string GetHurtSfx() {
+			return $"hurt{Random.Int(1, 3)}";
+		}
+
+		protected virtual string GetDeadSfx() {
+			return $"dead{Random.Int(1, 4)}";
 		}
 	}
 }

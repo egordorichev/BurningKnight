@@ -47,6 +47,8 @@ namespace BurningKnight.entity.door {
 			if (TryToConsumeKey(entity)) {
 				GetComponent<StateComponent>().Become<OpeningState>();
 				SetLocked(false, entity);
+
+				GetComponent<AudioEmitterComponent>().EmitRandomized("unlock");
 				
 				return true;
 			}
@@ -68,6 +70,8 @@ namespace BurningKnight.entity.door {
 				AddComponent(new InteractableComponent(Interact));
 				AddComponent(new RectBodyComponent(-3, -1, 18, 19, BodyType.Static, true));
 			}
+			
+			AddComponent(new AudioEmitterComponent());
 							
 			var state = new StateComponent();
 			AddComponent(state);

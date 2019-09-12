@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_fire.wav</SourceFile>
-  <SourceTime>2019-09-12T10:10:29.9429183+03:00</SourceTime>
-  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/gunner_fire.xnb</DestFile>
-  <DestTime>2019-09-12T10:22:57.7741499+03:00</DestTime>
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt2.wav</SourceFile>
+  <SourceTime>2019-09-12T10:10:30.347956+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt2.xnb</DestFile>
+  <DestTime>2019-09-12T12:34:37.0078491+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2019-05-28T20:47:12+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav</SourceFile>
   <SourceTime>2019-09-12T10:10:30.1529363+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_land.xnb</DestFile>
-  <DestTime>2019-09-12T10:23:02.4548385+03:00</DestTime>
+  <DestTime>2019-09-12T12:34:43.1565158+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2019-05-28T20:47:12+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

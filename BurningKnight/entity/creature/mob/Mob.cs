@@ -149,9 +149,7 @@ namespace BurningKnight.entity.creature.mob {
 						});
 					}
 				}
-			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
-				GetComponent<AudioEmitterComponent>().Emit("hurt");
-				
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
 				if (!rotationApplied) {
 					rotationApplied = true;
 					var a = GetAnyComponent<AnimationComponent>();
@@ -237,8 +235,6 @@ namespace BurningKnight.entity.creature.mob {
 
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.ShakeMax(5);
-
-			GetComponent<AudioEmitterComponent>().Emit("dead");
 			
 			var a = GetAnyComponent<AnimationComponent>();
 

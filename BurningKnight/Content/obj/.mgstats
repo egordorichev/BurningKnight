@@ -1,59 +1,87 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/egord/Lens/BurningKnight/Content/Fonts/large.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Fonts/large.xnb","TextureProcessor","Texture2DContent",6449,1048661,0.8857116
-"C:/Users/egord/Lens/BurningKnight/Content/Fonts/small.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Fonts/small.xnb","TextureProcessor","Texture2DContent",4509,1048661,0.3320947
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Believer.xnb","SoundEffectProcessor","SoundEffectContent",5122088,22579493,3.777224
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Born to do rogueries.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Born to do rogueries.xnb","SoundEffectProcessor","SoundEffectContent",3842088,16934693,2.556046
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Botanical Expedition.xnb","SoundEffectProcessor","SoundEffectContent",3842088,16934693,2.681201
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Burning Knight.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Burning Knight.xnb","SoundEffectProcessor","SoundEffectContent",1154402,6354725,1.271729
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Cursed legend.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Cursed legend.xnb","SoundEffectProcessor","SoundEffectContent",1122219,4940069,1.113162
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 1.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 1.xnb","SoundEffectProcessor","SoundEffectContent",5476380,40250985,2.743326
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 2.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 2.xnb","SoundEffectProcessor","SoundEffectContent",3621895,26620521,2.241764
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 3.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 3.xnb","SoundEffectProcessor","SoundEffectContent",3850101,28297833,2.807732
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 4.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 4.xnb","SoundEffectProcessor","SoundEffectContent",4650074,34177641,2.822192
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 5.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 5.xnb","SoundEffectProcessor","SoundEffectContent",3633807,26708073,2.303726
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 6.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 6.xnb","SoundEffectProcessor","SoundEffectContent",1982450,14570601,1.72571
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 8.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 8.xnb","SoundEffectProcessor","SoundEffectContent",1959880,14404713,1.551776
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 9.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 9.xnb","SoundEffectProcessor","SoundEffectContent",1995616,14667369,1.4735
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Fatiga.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Fatiga.xnb","SoundEffectProcessor","SoundEffectContent",1730350,9529637,1.320444
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Frozen to the bones.xnb","SoundEffectProcessor","SoundEffectContent",3530709,15561509,1.659805
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Gobbeon.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Gobbeon.xnb","SoundEffectProcessor","SoundEffectContent",4802350,21169445,1.77132
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Hidden knowledge.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Hidden knowledge.xnb","SoundEffectProcessor","SoundEffectContent",3692668,16275749,1.7362
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Ma Precious.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Ma Precious.xnb","SoundEffectProcessor","SoundEffectContent",1358366,5981477,1.822055
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Menu.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Menu.xnb","SoundEffectProcessor","SoundEffectContent",1154611,5082917,0.8329191
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.xnb","SoundEffectProcessor","SoundEffectContent",1298807,5718821,1.190433
-"C:/Users/egord/Lens/BurningKnight/Content/Music/OnFire.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/OnFire.xnb","SoundEffectProcessor","SoundEffectContent",1702653,10759973,1.394349
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Outsider.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Outsider.xnb","SoundEffectProcessor","SoundEffectContent",1282088,5645093,1.110435
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Pirate Bay.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Pirate Bay.xnb","SoundEffectProcessor","SoundEffectContent",4433501,19542821,1.620249
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Reckless.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Reckless.xnb","SoundEffectProcessor","SoundEffectContent",122252,530213,0.9233753
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Rogue.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Rogue.xnb","SoundEffectProcessor","SoundEffectContent",1730350,9529637,2.321723
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Serendipity.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Serendipity.xnb","SoundEffectProcessor","SoundEffectContent",962350,4235045,1.003676
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Shopkeeper.xnb","SoundEffectProcessor","SoundEffectContent",701125,3083045,0.8925758
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Void.xnb","SoundEffectProcessor","SoundEffectContent",4826382,21275429,1.772884
-"C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Water.xnb","SoundEffectProcessor","SoundEffectContent",1728960,8290085,1.316127
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/airhorn.xnb","SoundEffectProcessor","SoundEffectContent",162188,162249,5.520892
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit.xnb","SoundEffectProcessor","SoundEffectContent",70832,70761,4.203407
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit-2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit-2.xnb","SoundEffectProcessor","SoundEffectContent",46256,46185,1.000067
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/clap.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/clap.xnb","SoundEffectProcessor","SoundEffectContent",476766,476725,0.8933871
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/crawler.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/crawler.xnb","SoundEffectProcessor","SoundEffectContent",14512,14441,2.281404
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead.xnb","SoundEffectProcessor","SoundEffectContent",23628,23559,1.484475
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead-2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead-2.xnb","SoundEffectProcessor","SoundEffectContent",27380,27311,1.125078
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead-3.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead-3.xnb","SoundEffectProcessor","SoundEffectContent",23628,23559,1.046947
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_charge.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/gunner_charge.xnb","SoundEffectProcessor","SoundEffectContent",24764,24681,1.20321
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_fire.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/gunner_fire.xnb","SoundEffectProcessor","SoundEffectContent",13496,13417,0.9531835
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt.xnb","SoundEffectProcessor","SoundEffectContent",21400,21333,1.000067
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt-2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt-2.xnb","SoundEffectProcessor","SoundEffectContent",23040,22973,0.828182
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/sand.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/sand.xnb","SoundEffectProcessor","SoundEffectContent",290188,290147,0.8446205
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_jump.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_jump.xnb","SoundEffectProcessor","SoundEffectContent",36536,36457,1.914776
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_land.xnb","SoundEffectProcessor","SoundEffectContent",23736,23657,0.9063084
-"C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/step.xnb","SoundEffectProcessor","SoundEffectContent",461498,461457,0.7697122
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",835,966,0.7204435
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1211,0.3299042
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1200,1592,0.3125261
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1041,0.3307437
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1641,2590,0.5328316
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1403,2220,0.3437755
-"C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb","EffectProcessor","CompiledEffectContent",957,1329,0.9569889
-"C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,0.985781
-"C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.156258
-"C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.1250069
-"C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/rexcellent_logo_pixel.xnb","TextureProcessor","Texture2DContent",1859,82005,0.0954207
+"C:/Users/egord/Lens/BurningKnight/Content/Fonts/large.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Fonts/large.xnb","TextureProcessor","Texture2DContent",6449,1048661,4.530686
+"C:/Users/egord/Lens/BurningKnight/Content/Fonts/small.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Fonts/small.xnb","TextureProcessor","Texture2DContent",4509,1048661,0.1480336
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Believer.xnb","SoundEffectProcessor","SoundEffectContent",5122088,22579493,6.225551
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Born to do rogueries.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Born to do rogueries.xnb","SoundEffectProcessor","SoundEffectContent",3842088,16934693,4.037697
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Botanical Expedition.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Botanical Expedition.xnb","SoundEffectProcessor","SoundEffectContent",3842088,16934693,3.576931
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Burning Knight.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Burning Knight.xnb","SoundEffectProcessor","SoundEffectContent",1154402,6354725,2.21508
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Cursed legend.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Cursed legend.xnb","SoundEffectProcessor","SoundEffectContent",1122219,4940069,1.920481
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 1.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 1.xnb","SoundEffectProcessor","SoundEffectContent",5476380,40250985,5.272364
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 2.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 2.xnb","SoundEffectProcessor","SoundEffectContent",3621895,26620521,5.96287
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 3.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 3.xnb","SoundEffectProcessor","SoundEffectContent",3850101,28297833,5.053833
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 4.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 4.xnb","SoundEffectProcessor","SoundEffectContent",4650074,34177641,4.859193
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 5.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 5.xnb","SoundEffectProcessor","SoundEffectContent",3633807,26708073,4.813251
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 6.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 6.xnb","SoundEffectProcessor","SoundEffectContent",1982450,14570601,4.093694
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 8.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 8.xnb","SoundEffectProcessor","SoundEffectContent",1959880,14404713,3.20131
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Disk 9.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Disk 9.xnb","SoundEffectProcessor","SoundEffectContent",1995616,14667369,3.713444
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Fatiga.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Fatiga.xnb","SoundEffectProcessor","SoundEffectContent",1730350,9529637,4.197627
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Frozen to the bones.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Frozen to the bones.xnb","SoundEffectProcessor","SoundEffectContent",3530709,15561509,2.444613
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Gobbeon.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Gobbeon.xnb","SoundEffectProcessor","SoundEffectContent",4802350,21169445,4.805212
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Hidden knowledge.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Hidden knowledge.xnb","SoundEffectProcessor","SoundEffectContent",3692668,16275749,3.823477
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Ma Precious.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Ma Precious.xnb","SoundEffectProcessor","SoundEffectContent",1358366,5981477,2.548987
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Menu.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Menu.xnb","SoundEffectProcessor","SoundEffectContent",1154611,5082917,3.380275
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Nostalgia.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Nostalgia.xnb","SoundEffectProcessor","SoundEffectContent",1298807,5718821,2.06952
+"C:/Users/egord/Lens/BurningKnight/Content/Music/OnFire.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/OnFire.xnb","SoundEffectProcessor","SoundEffectContent",1702653,10759973,3.446858
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Outsider.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Outsider.xnb","SoundEffectProcessor","SoundEffectContent",1282088,5645093,3.705986
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Pirate Bay.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Pirate Bay.xnb","SoundEffectProcessor","SoundEffectContent",4433501,19542821,3.884259
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Reckless.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Reckless.xnb","SoundEffectProcessor","SoundEffectContent",122252,530213,2.886225
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Rogue.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Rogue.xnb","SoundEffectProcessor","SoundEffectContent",1730350,9529637,4.755477
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Serendipity.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Serendipity.xnb","SoundEffectProcessor","SoundEffectContent",962350,4235045,2.461137
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Shopkeeper.xnb","SoundEffectProcessor","SoundEffectContent",701125,3083045,2.15906
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Void.xnb","SoundEffectProcessor","SoundEffectContent",4826382,21275429,3.467418
+"C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Water.xnb","SoundEffectProcessor","SoundEffectContent",1728960,8290085,2.974261
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/airhorn.xnb","SoundEffectProcessor","SoundEffectContent",162188,162249,1.542384
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit1.xnb","SoundEffectProcessor","SoundEffectContent",70832,70761,1.627414
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit2.xnb","SoundEffectProcessor","SoundEffectContent",46256,46185,1.577398
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/bomb_placed.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bomb_placed.xnb","SoundEffectProcessor","SoundEffectContent",30952,30765,10.05883
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/change_parameter.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/change_parameter.xnb","SoundEffectProcessor","SoundEffectContent",67830,67643,1.020257
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/clap.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/clap.xnb","SoundEffectProcessor","SoundEffectContent",71724,71539,1.081491
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/crawler.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/crawler.xnb","SoundEffectProcessor","SoundEffectContent",14512,14441,0.9162259
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead1.xnb","SoundEffectProcessor","SoundEffectContent",23628,23559,0.7221791
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead2.xnb","SoundEffectProcessor","SoundEffectContent",27380,27311,0.5686592
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead3.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/dead3.xnb","SoundEffectProcessor","SoundEffectContent",23628,23559,0.5731462
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_close.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/door_close.xnb","SoundEffectProcessor","SoundEffectContent",41574,41549,6.889282
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_open.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/door_open.xnb","SoundEffectProcessor","SoundEffectContent",50264,50239,1.08627
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_alert.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/enemy_alert.xnb","SoundEffectProcessor","SoundEffectContent",64744,64557,1.794406
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/exit.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/exit.xnb","SoundEffectProcessor","SoundEffectContent",67986,67799,0.7421878
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/explosion.xnb","SoundEffectProcessor","SoundEffectContent",250148,249961,0.770195
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_cast.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/fireball_cast.xnb","SoundEffectProcessor","SoundEffectContent",85612,85425,0.6361601
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_death.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/fireball_death.xnb","SoundEffectProcessor","SoundEffectContent",65630,65443,0.8322101
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/goback.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/goback.xnb","SoundEffectProcessor","SoundEffectContent",69320,69133,1.685061
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_charge.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/gunner_charge.xnb","SoundEffectProcessor","SoundEffectContent",24764,24681,1.458368
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/health_up.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/health_up.xnb","SoundEffectProcessor","SoundEffectContent",90404,90217,0.7521878
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/hi.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hi.xnb","SoundEffectProcessor","SoundEffectContent",18714,18649,0.8522173
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt1.xnb","SoundEffectProcessor","SoundEffectContent",21400,21333,0.7679234
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt2.xnb","SoundEffectProcessor","SoundEffectContent",23040,22973,0.8304658
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_nocash.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/item_nocash.xnb","SoundEffectProcessor","SoundEffectContent",63220,63033,0.9502387
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_purchase.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/item_purchase.xnb","SoundEffectProcessor","SoundEffectContent",117340,117153,2.801148
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/key.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/key.xnb","SoundEffectProcessor","SoundEffectContent",66470,66283,1.152289
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/moving.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/moving.xnb","SoundEffectProcessor","SoundEffectContent",37542,37355,1.212308
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/pickup_item.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/pickup_item.xnb","SoundEffectProcessor","SoundEffectContent",38680,38493,1.973629
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/quck.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/quck.xnb","SoundEffectProcessor","SoundEffectContent",20652,20585,0.83421
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/sand.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/sand.xnb","SoundEffectProcessor","SoundEffectContent",290188,290147,0.7411866
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/scroll.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/scroll.xnb","SoundEffectProcessor","SoundEffectContent",73344,73157,1.034263
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/secret.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/secret.xnb","SoundEffectProcessor","SoundEffectContent",217380,217193,1.963405
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_dead.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_dead.xnb","SoundEffectProcessor","SoundEffectContent",54598,54517,1.864593
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_hurt.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_hurt.xnb","SoundEffectProcessor","SoundEffectContent",22702,22621,1.087271
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_jump.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_jump.xnb","SoundEffectProcessor","SoundEffectContent",36536,36457,0.8011974
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_land.xnb","SoundEffectProcessor","SoundEffectContent",23736,23657,0.818201
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/step.xnb","SoundEffectProcessor","SoundEffectContent",37304,37215,0.794202
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlock.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/unlock.xnb","SoundEffectProcessor","SoundEffectContent",89570,89497,0.9782465
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager1.xnb","SoundEffectProcessor","SoundEffectContent",37906,37831,1.66742
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager2.xnb","SoundEffectProcessor","SoundEffectContent",95412,95337,0.68317
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager3.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager3.xnb","SoundEffectProcessor","SoundEffectContent",64180,64105,0.5021273
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager4.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager4.xnb","SoundEffectProcessor","SoundEffectContent",115792,115717,0.5101236
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager5.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager5.xnb","SoundEffectProcessor","SoundEffectContent",19962,19887,0.4751212
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager6.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager6.xnb","SoundEffectProcessor","SoundEffectContent",25188,25109,0.5221288
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/chasm.xnb","EffectProcessor","CompiledEffectContent",835,966,3.063767
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/entity.xnb","EffectProcessor","CompiledEffectContent",874,1211,0.3019708
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb","EffectProcessor","CompiledEffectContent",1200,1592,0.2920735
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/item.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/item.xnb","EffectProcessor","CompiledEffectContent",821,1041,0.2990754
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/screen.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/screen.xnb","EffectProcessor","CompiledEffectContent",1641,2590,0.6631156
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/terrain.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/terrain.xnb","EffectProcessor","CompiledEffectContent",1403,2220,0.3030758
+"C:/Users/egord/Lens/BurningKnight/Content/Shaders/ui.fx","C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/ui.xnb","EffectProcessor","CompiledEffectContent",957,1329,0.3219778
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/chars.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/chars.xnb","TextureProcessor","Texture2DContent",8382,223385,0.1089293
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb","TextureProcessor","Texture2DContent",22142,409685,0.131033
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb","TextureProcessor","Texture2DContent",101599,1048661,0.180044
+"C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png","C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/rexcellent_logo_pixel.xnb","TextureProcessor","Texture2DContent",1859,82005,0.0740197

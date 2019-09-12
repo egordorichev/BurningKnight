@@ -13,6 +13,8 @@ namespace BurningKnight.entity.component {
 		public static float PositionScale = 0.05f;
 		
 		public AudioEmitter Emitter = new AudioEmitter();
+		public float PitchMod = 1;
+		
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
 
 		public override void Destroy() {
@@ -47,14 +49,14 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f) {
-			return Emit(sfx, volume, Random.Float(-0.2f, 0.2f));
-		}
+		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true) {
+			return Emit(sfx, volume, Random.Float(-0.4f, 0.4f), insert);
+    }
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f) {
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true) {
 			SoundEffectInstance instance;
 
-			if (!Playing.TryGetValue(sfx, out instance)) {
+			if (!insert || !Playing.TryGetValue(sfx, out instance)) {
 				var sound = Audio.GetSfx(sfx);
 
 				if (sound == null) {
@@ -62,7 +64,10 @@ namespace BurningKnight.entity.component {
 				}
 				
 				instance = sound.CreateInstance();
-				Playing[sfx] = instance;
+
+				if (insert) {
+					Playing[sfx] = instance;
+				}
 			}
 			
 			instance.Stop();
@@ -72,8 +77,10 @@ namespace BurningKnight.entity.component {
 				instance.Apply3D(Listener, Emitter);
 			}
 			
+			instance.Pitch = MathUtils.Clamp(0.5f, 2f, PitchMod + pitch);
 			instance.Play();
-			instance.Pitch = pitch;
+			
+			Log.Info("Play " + sfx);
 
 			return instance;
 		}

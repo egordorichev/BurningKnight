@@ -36,21 +36,49 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit-2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit1.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bomb_placed.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/change_parameter.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/clap.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/crawler.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead-2.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead-3.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead1.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/dead3.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_close.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/door_open.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/enemy_alert.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/exit.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/explosion.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_cast.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/fireball_death.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/goback.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_charge.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/gunner_fire.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt.wav</File>
-    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt-2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/health_up.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hi.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt1.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_nocash.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/item_purchase.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/key.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/moving.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/pickup_item.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/quck.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/sand.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/scroll.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/secret.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_dead.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_hurt.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_jump.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlock.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager1.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager2.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager3.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager4.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager5.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager6.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/chasm.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/entity.fx</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</File>
@@ -64,6 +92,34 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

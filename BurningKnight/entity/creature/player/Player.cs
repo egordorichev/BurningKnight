@@ -193,7 +193,10 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class DuckState : EntityState {
-			
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("duck");
+			}
 		}
 		
 		public class RunState : EntityState {

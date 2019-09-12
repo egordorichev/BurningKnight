@@ -117,13 +117,14 @@ namespace BurningKnight.entity.creature.npc {
 				}
 
 				return false;
-			} else if (e is HealthModifiedEvent hme) {
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
 				if (hme.Amount < 0 && mood > -2) {
 					mood--;
 					hme.Amount = -1;
 				}
 			} else if (e is RoomChangedEvent rce) {
 				if (mood > -1 && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
 				}
 			}
@@ -141,6 +142,14 @@ namespace BurningKnight.entity.creature.npc {
 			return base.HandleDeath(d);
 		}
 
+		protected override string GetDeadSfx() {
+			return "villager6";
+		}
+
+		protected override string GetHurtSfx() {
+			return "villager5";
+		}
+
 		public override bool IsFriendly() {
 			return !raging;
 		}
@@ -150,9 +159,16 @@ namespace BurningKnight.entity.creature.npc {
 		 * Peacefull
 		 */
 		private class IdleState : SmartState<ShopKeeper> {
+			private float delay;
+			
 			public override void Update(float dt) {
 				base.Update(dt);
-				
+				delay -= dt;
+
+				if (delay <= 0) {
+					delay = Random.Float(2, 6f);
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+				}
 			}
 		}
 		/*

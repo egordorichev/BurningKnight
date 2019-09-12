@@ -40,7 +40,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Random.Float(0.9f, 1.2f) + Self.GetJumpDelay();
+				delay = Random.Float(0.9f, 1.5f) + Self.GetJumpDelay();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				if (!tweened && T >= delay) {
 					tweened = true;
 
-					Self.GetComponent<AudioEmitterComponent>().Emit("slime_jump");
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("slime_jump");
 				
 					var anim = Self.GetComponent<ZAnimationComponent>();
 				
@@ -100,7 +100,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				anim.Scale.X = 2f;
 				anim.Scale.Y = 0.3f;
 				
-				Self.GetComponent<AudioEmitterComponent>().Emit("slime_land");
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("slime_land");
 
 				Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
 				Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f);
@@ -167,6 +167,14 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				Position = Center,
 				Color = ColorUtils.Mod(GetBloodColor())
 			});
+		}
+
+		protected override string GetDeadSfx() {
+			return "slime_dead";
+		}
+
+		protected override string GetHurtSfx() {
+			return "slime_hurt";
 		}
 	}
 }

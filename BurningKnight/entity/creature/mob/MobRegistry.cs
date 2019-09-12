@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<SimpleSlime>(new SpawnChance(10000f + 1f, Biome.Castle)),
+				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)),
 				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)),

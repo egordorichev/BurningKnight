@@ -1,42 +1,35 @@
 # TODO
 
+### sfx
+
+better mob hurt
+prop break
+wall crawelr sfx
+dummy sfx?
+turret sfx
+
+key pickup
+bomb pickup
+coin pickup
+bomb placement (reuse old?)
+explosion
+open lock
+
+door open/close
+door unlock/lock with enemies
+
+spikes popping up
+
+weapon swap
+active item used
+roll
+gobbo hurt
+
+###
+
 * flashes (like lighting)
 * rain
 * when bomb explodes, disable lighting for a bit>
-
-# trailer
-
-d* action, fighting in the dungeon
- d+ castle biome
- d+ with a gun
- d+ with a sword
- d+ with spear
- d+ rod of discord?
-
-d* death
- d+ from a bullet behind
- d+ show tombstone of gobbo the great
-
-d+ new gobbo runs to old man, camera focus on om
-d+ new old man says, its dangerous, gobbo runs with a dagger and descends
- + better descend animation? maybe like, you walk into a hall or smth?
-
-+ goes through dungeon, cuts with weird things here and there
- d+ different areas!!!
- d+ powerful combos:
-  d* potato + glass
-  d* missile 
- d+ showcase orbitals
- d+ show idol and maybe the well?
- d+ show rolling spikes
- d+ show treasure room, where you chose one of the items
- d+ enters shop room, sk goes like "wanna some tea?"
-
-d+ goes to the bk room
- d+ show the bk spawn, remove epic spawn
- d+ bk says: welcome, thief
-
-+ to be continued
 
 # settings
 
