@@ -42,6 +42,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new TileInteractionComponent());
 			AddComponent(new SupportableComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new AudioEmitterComponent());
 			
 			AddDrops(new SingleDrop("bk:heart", 0.05f));
 		}
