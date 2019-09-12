@@ -198,7 +198,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public class RunState : EntityState {
 			private float lastParticle = 0.25f;
-			
+			private uint lastFrame;
 			
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -213,6 +213,16 @@ namespace BurningKnight.entity.creature.player {
 					part.Position = Self.Center;
 					part.Particle.Scale = Random.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
+				}
+
+				var anim = Self.GetComponent<PlayerGraphicsComponent>().Animation;
+
+				if (anim.Frame != lastFrame) {
+					lastFrame = anim.Frame;
+
+					if (lastFrame == 2 || lastFrame == 6) {
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("step");
+					}
 				}
 			}
 		}

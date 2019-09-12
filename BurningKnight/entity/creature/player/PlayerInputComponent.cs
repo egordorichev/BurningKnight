@@ -134,9 +134,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (Input.WasPressed(Controls.Duck)) {
 				state.Become<Player.DuckState>();
-
-				GetComponent<AudioEmitterComponent>().Emit("airhorn");
-
+				
 				/*
 				Entity.Area.Add(new EpicSpawn {
 					Position = Entity.Position

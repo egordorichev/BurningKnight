@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Lens.assets;
 using Lens.entity.component;
+using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
 namespace BurningKnight.entity.component {
 	public class AudioEmitterComponent : Component {
 		public static AudioListener Listener;
+		public static float PositionScale = 0.05f;
 		
 		public AudioEmitter Emitter = new AudioEmitter();
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
@@ -25,7 +28,7 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			Emitter.Position = new Vector3(Entity.CenterX, 0, Entity.CenterY);
+			Emitter.Position = new Vector3(Entity.CenterX * PositionScale, 0, Entity.CenterY * PositionScale);
 
 			if (Playing.Count == 0) {
 				return;
@@ -44,7 +47,11 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f) {
+		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f) {
+			return Emit(sfx, volume, Random.Float(-0.2f, 0.2f));
+		}
+
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f) {
 			SoundEffectInstance instance;
 
 			if (!Playing.TryGetValue(sfx, out instance)) {
@@ -66,6 +73,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			instance.Play();
+			instance.Pitch = pitch;
 
 			return instance;
 		}
