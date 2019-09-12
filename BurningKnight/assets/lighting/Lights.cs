@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.state;
+using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -155,6 +156,10 @@ namespace BurningKnight.assets.lighting {
 		}
 
 		public static void RenderDebug() {
+			if (!WindowManager.Lighting) {
+				return;
+			}
+			
 			if (!ImGui.Begin("Lighting", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;

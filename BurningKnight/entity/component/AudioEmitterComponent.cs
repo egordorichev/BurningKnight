@@ -3,6 +3,7 @@ using System.Linq;
 using Lens.assets;
 using Lens.entity.component;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
@@ -39,7 +40,6 @@ namespace BurningKnight.entity.component {
 				var s = Playing[k];
 
 				if (s.State != SoundState.Playing) {
-					Log.Error($"Remove {k}");
 					Playing.Remove(k);
 				} else if (Listener != null) {
 					s.Apply3D(Listener, Emitter);
@@ -47,7 +47,11 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f) {
+		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f) {
+			return Emit(sfx, volume, Random.Float(-0.2f, 0.2f));
+		}
+
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f) {
 			SoundEffectInstance instance;
 
 			if (!Playing.TryGetValue(sfx, out instance)) {
@@ -69,7 +73,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			instance.Play();
-			Log.Error($"Play {sfx}");
+			instance.Pitch = pitch;
 
 			return instance;
 		}
