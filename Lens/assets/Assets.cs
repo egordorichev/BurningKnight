@@ -13,6 +13,8 @@ namespace Lens.assets {
 		public static bool LoadOriginalFiles = false;
 #endif
 
+		public static bool LoadAudio = false;
+
 		public static ContentManager Content;
 		public static string Root => LoadOriginalFiles 
 		    ? Path.Combine(Directory.GetCurrentDirectory(), "../../../BurningKnight/Content/") 
@@ -64,7 +66,11 @@ namespace Lens.assets {
 			progress++;
 			Animations.Load();
 			progress++;
-			Audio.Load();
+
+			if (LoadAudio) {
+				Audio.Load();
+			}
+
 			progress++;
 		}
 

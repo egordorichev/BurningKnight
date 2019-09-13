@@ -29,23 +29,41 @@ gobbo hurt/heal
 * rain
 * when bomb explodes, disable lighting for a bit>
 
-# settings
+### settings
 
-# audio
+* black bars
+* back out doesnt work?
+
+#### game
+
+* Autosave
+* Vegan mode
+
+* reset progress
+* view credits
+* speedrun timer
+* blood'n'gore
+
+#### video
+
+* fullscreen
+* vsync
+
+* show fps
+* screenshake
+* flashframes
+* freezeframes
+* cursor
+
+#### audio
 
 * Music volume
 * Sfx volume
 * Ui sfx
 
-# video
+#### controls
 
-* fullscreen
-* vsync
-
-* blood
-* gore
-
-# controls
+obv look at json conf
 
 ## audio
 

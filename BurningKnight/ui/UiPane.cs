@@ -3,6 +3,22 @@ using Lens;
 
 namespace BurningKnight.ui {
 	public class UiPane : UiEntity {
+		private bool enabled = true;
+
+		public bool Enabled {
+			get => enabled;
+
+			set {
+				if (value == enabled) {
+					return;
+				}
+
+				foreach (var e in Entities) {
+					e.Active = enabled;
+				}
+			}
+		}
+		
 		public List<UiEntity> Entities = new List<UiEntity>();
 
 		public void Setup() {
@@ -18,7 +34,6 @@ namespace BurningKnight.ui {
 			AlwaysVisible = true;
 
 			PositionChanged += Setup;
-			Setup();
 
 			Width = Display.UiWidth;
 			Height = Display.UiHeight;
@@ -30,20 +45,6 @@ namespace BurningKnight.ui {
 			
 			Area.Add(entity);
 			return entity;
-		}
-
-		public override void Update(float dt) {
-			base.Update(dt);
-			
-			foreach (var e in Entities) {
-				e.Update(dt);
-			}
-		}
-
-		public override void Render() {
-			foreach (var e in Entities) {
-				e.Render();
-			}
 		}
 	}
 }

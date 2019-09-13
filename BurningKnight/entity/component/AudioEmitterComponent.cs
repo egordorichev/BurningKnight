@@ -54,6 +54,10 @@ namespace BurningKnight.entity.component {
     }
 
 		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true) {
+			if (!Assets.LoadAudio) {
+				return null;
+			}
+
 			SoundEffectInstance instance;
 
 			if (!insert || !Playing.TryGetValue(sfx, out instance)) {

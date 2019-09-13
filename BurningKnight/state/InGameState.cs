@@ -41,15 +41,22 @@ using Console = BurningKnight.debug.Console;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
-		private const float AutoSaveInterval = 60f; 
+		private const float AutoSaveInterval = 60f;
+		private const float PaneTransitionTime = 0.2f;
 		
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
 		private float time;
+		
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
+		
+		private UiPane audioSettings;
+		private UiPane graphicsSettings;
+		private UiPane gameSettings;
+		
 		private bool died;
 		private Cursor cursor;
 		private float saveTimer;
@@ -60,7 +67,17 @@ namespace BurningKnight.state {
 		private SettingsWindow settings;
 
 		public bool Menu;
+		
+		private float vx;
+		private string v;
+		private float offset;
+		private bool menuExited;
+		private TextureRegion gardient;
+		private TextureRegion black;
 
+		private Console console;
+		private UiLabel seedLabel;
+		
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -202,12 +219,13 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			seedLabel.Label = Run.Seed;
+			seedLabel.Label = $"Seed: {Run.Seed}";
 			
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+				pauseMenu.X = 0;
+				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.4f, Ease.BackOut);
 			}
 		}
 
@@ -522,13 +540,6 @@ namespace BurningKnight.state {
 			settings.RenderInGame();
 		}
 
-		private float vx;
-		private string v;
-		private float offset;
-		private bool menuExited;
-		private TextureRegion gardient;
-		private TextureRegion black;
-
 		public override void RenderUi() {
 			Graphics.Color = ColorUtils.HalfWhiteColor;
 			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
@@ -569,9 +580,6 @@ namespace BurningKnight.state {
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
-
-		private Console console;
-		private UiLabel seedLabel;
 		
 		private void SetupUi() {
 			var cam = new Camera(new FollowingDriver());
@@ -602,7 +610,7 @@ namespace BurningKnight.state {
 
 			pauseMenu.Add(seedLabel = new UiLabel {
 				Font = Font.Small,
-				Label = Run.Seed,
+				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start - space * 2,
 				AngleMod = 0
@@ -618,7 +626,10 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "settings",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start + space
+				RelativeY = start + space,
+				Click = () => {
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
 			});
 			
 			pauseMenu.Add(new UiButton {
@@ -628,6 +639,8 @@ namespace BurningKnight.state {
 				Type = ButtonType.Exit,
 				Click = () => Run.Depth = 0
 			});
+
+			AddSettings();
 			
 			pauseMenu.Setup();
 			
@@ -667,6 +680,94 @@ namespace BurningKnight.state {
 			if (Run.Depth > 0 && Run.Level != null) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
 			}
+		}
+
+		private void AddSettings() {
+			var sx = Display.UiWidth * 1.5f;
+			var sy = Display.UiHeight * 0.5f;
+			var space = 32f;
+			
+			pauseMenu.Add(new UiLabel {
+				LocaleLabel = "settings",
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 3
+			});
+
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "game",
+				RelativeCenterX = sx,
+				RelativeY = sy - space,
+				Click = () => {
+					gameSettings.Enabled = true;
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
+			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "graphics",
+				RelativeCenterX = sx,
+				RelativeY = sy,
+				Click = () => {
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
+			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "audio",
+				RelativeCenterX = sx,
+				RelativeY = sy + space,
+				Click = () => {
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
+			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 3,
+				Click = () => {
+					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
+			});
+
+			AddGameSettings();
+			AddGraphicsSettings();
+			AddAudioSettings();
+		}
+
+		private void AddGameSettings() {
+			pauseMenu.Add(gameSettings = new UiPane {
+				RelativeX = Display.UiWidth * 2	
+			});
+			
+			var sx = Display.UiWidth * 0.5f;
+			var sy = Display.UiHeight * 0.5f;
+			var space = 32f;
+			
+			gameSettings.Add(new UiLabel {
+				LocaleLabel = "game",
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 3
+			});
+			
+			gameSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 3,
+				Click = () => {
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
+				}
+			});
+
+			gameSettings.Enabled = false;
+		}
+
+		private void AddGraphicsSettings() {
+			
+		}
+
+		private void AddAudioSettings() {
+			
 		}
 
 		public void AnimateDeathScreen() {

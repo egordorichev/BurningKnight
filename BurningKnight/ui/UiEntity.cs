@@ -49,6 +49,9 @@ namespace BurningKnight.ui {
 		protected float angle;
 		protected float scale = 1f;
 		protected Vector2 origin = new Vector2(0);
+
+		public float AngleMod = 1f;
+		public float ScaleMod = 1f;
 		
 		public override void Init() {
 			base.Init();
@@ -77,15 +80,13 @@ namespace BurningKnight.ui {
 
 			angle = (float) Math.Cos(Engine.Time * 3f + Y / (Display.UiHeight * 0.5f) * Math.PI) * (scale - 0.9f) * AngleMod;
 		}
-
-		public float AngleMod = 1f;
 		
 		public override void Render() {
 			
 		}
 		
 		protected virtual void OnHover() {
-			Tween.To(1.2f, scale, x => scale = x, 0.1f);
+			Tween.To(1 + ScaleMod * 0.2f, scale, x => scale = x, 0.1f);
 		}
 
 		protected virtual void OnUnhover() {
@@ -93,7 +94,7 @@ namespace BurningKnight.ui {
 		}
 
 		protected virtual void OnClick() {
-			Tween.To(0.5f, scale, x => scale = x, 0.1f).OnEnd = () =>
+			Tween.To(1 - ScaleMod * 0.5f, scale, x => scale = x, 0.1f).OnEnd = () =>
 				Tween.To(1f, scale, x => scale = x, 0.2f);
 		}
 	}
