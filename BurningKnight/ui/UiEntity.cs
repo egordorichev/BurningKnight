@@ -14,7 +14,7 @@ namespace BurningKnight.ui {
 		public Vector2 RelativePosition;
 
 		public float RelativeX {
-			get => Centered ? Position.X - Width / 2 : Position.X;
+			get => Centered ? RelativePosition.X - Width / 2 : RelativePosition.X;
 			set => RelativePosition.X = Centered ? value + Width / 2 : value;
 		}
 
@@ -60,11 +60,15 @@ namespace BurningKnight.ui {
 			AlwaysVisible = true;
 		}
 
+		public virtual bool CheckCollision(Vector2 v) {
+			return Contains(v);
+		}
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			bool was = hovered;
-			hovered = Contains(Input.Mouse.UiPosition);
+			hovered = CheckCollision(Input.Mouse.UiPosition);
 
 			if (hovered) {
 				if (!was) {

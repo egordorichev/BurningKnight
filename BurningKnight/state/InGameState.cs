@@ -653,6 +653,8 @@ namespace BurningKnight.state {
 				Type = ButtonType.Exit,
 				Click = () => Run.Depth = 0
 			});
+			
+			UiSlider.Make(pauseMenu, Display.UiWidth / 2f, start + space * 3, "Volume", 10);
 
 			AddSettings();
 			

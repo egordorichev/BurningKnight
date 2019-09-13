@@ -31,6 +31,12 @@ gobbo hurt/heal
 
 ### settings
 
+* small chance to switch letters in logo in menu
+* fix + in the font, it looks like a dot
+
+* adjust pause menu elements a bit to fit better
+* lazy ui slider implementation with + - buttons ;)
+
 #### game
 
 * Autosave

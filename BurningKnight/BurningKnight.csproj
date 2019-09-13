@@ -693,6 +693,7 @@
     <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
+    <Compile Include="ui\UiSlider.cs" />
     <Compile Include="util\AnimationUtil.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
