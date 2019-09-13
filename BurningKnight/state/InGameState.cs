@@ -79,6 +79,7 @@ namespace BurningKnight.state {
 
 		private Console console;
 		private UiLabel seedLabel;
+		private UiButton currentBack;
 		
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
@@ -354,7 +355,15 @@ namespace BurningKnight.state {
 					}
 				} else {
 					if (Input.WasPressed(Controls.Pause, controller)) {
-						Paused = !Paused;
+						if (Paused) {
+							if (currentBack != null) {
+								currentBack.Click();
+							} else {
+								Paused = false;
+							}
+						} else {
+							Paused = true;
+						}
 					}
 				}
 
@@ -630,7 +639,7 @@ namespace BurningKnight.state {
 				AngleMod = 0
 			});
 			
-			pauseMenu.Add(new UiButton {
+			pauseBack = currentBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start,
@@ -642,7 +651,8 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeY = start + space,
 				Click = () => {
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime, Ease.BackOut);
 				}
 			});
 			
@@ -654,8 +664,6 @@ namespace BurningKnight.state {
 				Click = () => Run.Depth = 0
 			});
 			
-			UiSlider.Make(pauseMenu, Display.UiWidth / 2f, start + space * 3, "Volume", 10);
-
 			AddSettings();
 			
 			pauseMenu.Setup();
@@ -714,6 +722,7 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeY = sy - space,
 				Click = () => {
+					currentBack = gameBack;
 					gameSettings.Enabled = true;
 					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
 				}
@@ -724,6 +733,8 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeY = sy,
 				Click = () => {
+					currentBack = graphicsBack;
+					graphicsSettings.Enabled = true;
 					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
 				}
 			});
@@ -733,11 +744,13 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeY = sy + space,
 				Click = () => {
+					currentBack = audioBack;
+					audioSettings.Enabled = true;
 					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
 				}
 			});
 			
-			pauseMenu.Add(new UiButton {
+			settingsBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,
 				RelativeY = sy + space * 3,
@@ -750,6 +763,12 @@ namespace BurningKnight.state {
 			AddGraphicsSettings();
 			AddAudioSettings();
 		}
+
+		private UiButton pauseBack;
+		private UiButton settingsBack;
+		private UiButton audioBack;
+		private UiButton graphicsBack;
+		private UiButton gameBack;
 
 		private void AddGameSettings() {
 			pauseMenu.Add(gameSettings = new UiPane {
@@ -766,11 +785,12 @@ namespace BurningKnight.state {
 				RelativeY = sy - space * 3
 			});
 			
-			gameSettings.Add(new UiButton {
+			gameBack = (UiButton) gameSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,
 				RelativeY = sy + space * 3,
 				Click = () => {
+					currentBack = settingsBack;
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
 				}
 			});
@@ -779,11 +799,73 @@ namespace BurningKnight.state {
 		}
 
 		private void AddGraphicsSettings() {
+			pauseMenu.Add(graphicsSettings = new UiPane {
+				RelativeX = Display.UiWidth * 2	
+			});
 			
+			var sx = Display.UiWidth * 0.5f;
+			var sy = Display.UiHeight * 0.5f;
+			var space = 32f;
+			
+			graphicsSettings.Add(new UiLabel {
+				LocaleLabel = "graphics",
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 3
+			});
+			
+			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 3,
+				Click = () => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => graphicsSettings.Enabled = false;
+				}
+			});
+			
+			//UiSlider.Make(graphicsSettings, sx, sy + space * 3, "Volume", 10);
+			
+			graphicsSettings.Enabled = false;
 		}
 
 		private void AddAudioSettings() {
+			pauseMenu.Add(audioSettings = new UiPane {
+				RelativeX = Display.UiWidth * 2	
+			});
 			
+			var sx = Display.UiWidth * 0.5f;
+			var sy = Display.UiHeight * 0.5f;
+			var space = 32f;
+			
+			audioSettings.Add(new UiLabel {
+				LocaleLabel = "audio",
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 3
+			});
+			
+			audioBack = (UiButton) audioSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 3,
+				Click = () => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => audioSettings.Enabled = false;
+				}
+			});
+			
+			UiSlider.Make(audioSettings, sx, sy - space, "master_volume", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
+				Settings.MasterVolume = s.Value / 100f;
+			};
+			
+			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
+				Settings.MusicVolume = s.Value / 100f;
+			};
+			
+			UiSlider.Make(audioSettings, sx, sy + space, "sfx", (int) (Settings.SfxVolume * 100)).OnValueChange = s => {
+				Settings.SfxVolume = s.Value / 100f;
+			};
+			
+			audioSettings.Enabled = false;
 		}
 
 		public void AnimateDeathScreen() {

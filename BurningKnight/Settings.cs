@@ -5,13 +5,24 @@ using Lens.assets;
 namespace BurningKnight {
 	public class Settings {
 		// Audio
+		private static float masterVolume;
+		
+		public static float MasterVolume {
+			get => masterVolume;
+
+			set {
+				masterVolume = value;
+				Audio.UpdateMusicVolume(masterVolume * musicVolume);
+			}
+		}
+		
 		private static float musicVolume;
 		public static float MusicVolume {
 			get => musicVolume;
 
 			set {
 				musicVolume = value;
-				Audio.UpdateMusicVolume(musicVolume);
+				Audio.UpdateMusicVolume(masterVolume * musicVolume);
 			}
 		}
 		
@@ -56,8 +67,9 @@ namespace BurningKnight {
 			SpeedrunTimer = false;
 			FreezeFrames = 0.5f;
 			FlashFrames = 0.5f;
-			SfxVolume = 0.75f;
+			SfxVolume = 0.8f;
 			MusicVolume = 0.5f;
+			masterVolume = 0.8f;
 			Cursor = "default";
 			RotateCursor = false;
 			Vegan = false;
@@ -78,6 +90,7 @@ namespace BurningKnight {
 			FreezeFrames = GlobalSave.GetFloat("s_frf");
 			FlashFrames = GlobalSave.GetFloat("s_ff");
 			MusicVolume = GlobalSave.GetFloat("s_music");
+			MasterVolume = GlobalSave.GetFloat("s_master");
 			Cursor = GlobalSave.GetString("s_cursor", "cursor-standart");
 			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
 			Vegan = GlobalSave.IsTrue("s_v", false);
@@ -100,6 +113,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_screenshake", Screenshake);
 			GlobalSave.Put("s_sfx", SfxVolume);
 			GlobalSave.Put("s_music", MusicVolume);
+			GlobalSave.Put("s_master", MasterVolume);
 			GlobalSave.Put("s_cursor", Cursor);
 			GlobalSave.Put("s_rotate_cursor", RotateCursor);
 			GlobalSave.Put("s_v", Vegan);

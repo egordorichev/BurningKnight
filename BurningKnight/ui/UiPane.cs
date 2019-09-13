@@ -13,8 +13,11 @@ namespace BurningKnight.ui {
 					return;
 				}
 
+				enabled = value;
+
 				foreach (var e in Entities) {
 					e.Active = enabled;
+					e.Visible = enabled;
 				}
 			}
 		}
@@ -44,6 +47,7 @@ namespace BurningKnight.ui {
 			entity.Super = this;
 			
 			Area.Add(entity);
+			
 			return entity;
 		}
 	}
