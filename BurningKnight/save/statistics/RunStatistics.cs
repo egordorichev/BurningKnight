@@ -281,7 +281,7 @@ namespace BurningKnight.save.statistics {
 				return;
 			}
 			
-			ImGui.Text($"Time: {Math.Floor(Time / 360f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time)}s");
+			ImGui.Text($"Time: {Math.Floor(Time / 360f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s");
 			ImGui.Text($"Won: {Won}");
 			ImGui.Text($"Max Depth: {MaxDepth}");
 			ImGui.Text($"Game Version: {GameVersion}");

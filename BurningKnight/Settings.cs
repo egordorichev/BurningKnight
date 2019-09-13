@@ -85,7 +85,7 @@ namespace BurningKnight {
 			Gore = GlobalSave.IsTrue("s_gore");
 			Vsync = GlobalSave.IsTrue("s_vsync");
 			SpeedrunMode = GlobalSave.IsTrue("s_sm");
-			SpeedrunTimer = GlobalSave.IsTrue("s_st");
+			SpeedrunTimer = GlobalSave.IsTrue("s_stmr");
 			Screenshake = GlobalSave.GetFloat("s_screenshake");
 			SfxVolume = GlobalSave.GetFloat("s_sfx");
 			FreezeFrames = GlobalSave.GetFloat("s_frf");
@@ -108,7 +108,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_gore", Gore);
 			GlobalSave.Put("s_vsync", Vsync);
 			GlobalSave.Put("s_sm", SpeedrunMode);
-			GlobalSave.Put("s_st", SpeedrunTimer);
+			GlobalSave.Put("s_stmr", SpeedrunTimer);
 			GlobalSave.Put("s_frf", FreezeFrames);
 			GlobalSave.Put("s_ff", FlashFrames);
 			GlobalSave.Put("s_screenshake", Screenshake);

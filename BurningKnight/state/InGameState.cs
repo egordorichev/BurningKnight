@@ -598,6 +598,8 @@ namespace BurningKnight.state {
 				LogoRenderer.Render(offset);
 			}
 
+			var x = 1;
+			
 			if (Settings.ShowFps) {
 				var c = Engine.Instance.Counter.AverageFramesPerSecond;
 				Color color;
@@ -611,8 +613,15 @@ namespace BurningKnight.state {
 				}
 				
 				Graphics.Color = color;
-				Graphics.Print($"{c}", Font.Small, 1, 1);
+				var s = $"{c}";
+				Graphics.Print(s, Font.Small, x, 1);
+				x += (int) Font.Small.MeasureString(s).Width + 1;
 				Graphics.Color = ColorUtils.WhiteColor;
+			}
+
+			if (Settings.SpeedrunTimer && Run.Statistics != null) {
+				var t = Run.Statistics.Time;
+				Graphics.Print($"{(Math.Floor(t / 360f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}", Font.Small, x, 1);
 			}
 		}
 		
@@ -775,7 +784,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					new Thread(() => {
-						try {					
+						try {
 							SaveManager.Save(Area, SaveType.Global);
 						} catch (Exception e) {
 							Log.Error(e);
@@ -824,6 +833,17 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
 				}
 			});
+
+			gameSettings.Add(new UiCheckbox {
+				Name = "speedrun_timer",
+				On = Settings.SpeedrunTimer,
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 2,
+				Click = b => {
+					Settings.SpeedrunTimer = ((UiCheckbox) b).On;
+				}
+			});
+
 
 			gameSettings.Enabled = false;
 		}

@@ -50,10 +50,6 @@ gobbo hurt/heal
 * speedrun timer
 * blood'n'gore
 
-#### video
-
-* fix vsync
-
 #### audio
 
 * check if all works
