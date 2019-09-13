@@ -209,5 +209,15 @@ namespace BurningKnight.assets.input {
 				Log.Error(e);
 			}
 		}
+
+		public static string Find(string id) {
+			foreach (var c in (custom.Count == 0 ? controls : custom)) {
+				if (c.Id == id) {
+					return c.Keys[0].ToString();
+				}
+			}
+
+			return "None";
+		}
 	}
 }

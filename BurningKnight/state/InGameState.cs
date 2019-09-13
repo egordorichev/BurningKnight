@@ -1288,6 +1288,7 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
+					inputSettings.Enabled = true;
 					currentBack = inputBack;
 					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => keyboardSettings.Enabled = false;
 				}

@@ -690,6 +690,7 @@
     <Compile Include="ui\UiButton.cs" />
     <Compile Include="ui\UiCheckbox.cs" />
     <Compile Include="ui\UiChoice.cs" />
+    <Compile Include="ui\UiControl.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
     <Compile Include="ui\UiEntity.cs" />
     <Compile Include="ui\UiInventory.cs" />
