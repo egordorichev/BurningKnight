@@ -3,6 +3,7 @@ using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public static class LogoRenderer {
@@ -50,11 +51,32 @@ namespace BurningKnight.state {
 		private static TextureRegion letterWH;
 		private static TextureRegion letterWT;
 		private static TextureRegion wdot;
-		
+
+		private static Vector2[] positions = {
+			new Vector2(0, 0),
+			new Vector2(37, 19),
+			new Vector2(62, 30),
+			new Vector2(83, 17),
+			new Vector2(109, 22),
+			new Vector2(125, 19),
+			new Vector2(148, 19),
+			new Vector2(20, 60),
+			new Vector2(57, 90),
+			new Vector2(84, 89),
+			new Vector2(93, 90),
+			new Vector2(121, 78),
+			new Vector2(143, 78),
+			new Vector2(83, 59)
+		};
+
+		private static bool showK;
+
 		public static void Init() {
 			if (letterB != null) {
 				return;
 			}
+
+			showK = Random.Float() < 0.999f;
 			
 			var anim = Animations.Get("logo");
 
@@ -117,50 +139,64 @@ namespace BurningKnight.state {
 		public static void Render(float offset) {
 			Init();
 			
-			Render(letterBB, letterB, new Vector2(0, offset + 0));
-			Render(letterBU, letterU, new Vector2(37, offset + 19));
-			Render(letterBR, letterR, new Vector2(62, offset + 30));
-			Render(letterBN1, letterN1, new Vector2(83, offset + 17));
-			Render(letterBI1, letterI1, new Vector2(109, offset + 22));
-			Render(letterBN2, letterN2, new Vector2(125, offset + 19));
-			Render(letterBG1, letterG1, new Vector2(148, offset + 19));
-			Render(letterBK, letterK, new Vector2(20, offset + 60));
-			Render(letterBN3, letterN3, new Vector2(57, offset + 90));
-			Render(letterBI2, letterI2, new Vector2(84, offset + 89));
-			Render(letterBG2, letterG2, new Vector2(93, offset + 90));
-			Render(letterBH, letterH, new Vector2(121, offset + 78));
-			Render(letterBT, letterT, new Vector2(143, offset + 78));
-			Render(bdot, dot, new Vector2(83, offset + 59));
+			var o = new Vector2(0, offset);
 			
-			Render(letterWB, letterB, new Vector2(0, offset + 0));
-			Render(letterWU, letterU, new Vector2(37, offset + 19));
-			Render(letterWR, letterR, new Vector2(62, offset + 30));
-			Render(letterWN1, letterN1, new Vector2(83, offset + 17));
-			Render(letterWI1, letterI1, new Vector2(109, offset + 22));
-			Render(letterWN2, letterN2, new Vector2(125, offset + 19));
-			Render(letterWG1, letterG1, new Vector2(148, offset + 19));
-			Render(letterWK, letterK, new Vector2(20, offset + 60));
-			Render(letterWN3, letterN3, new Vector2(57, offset + 90));
-			Render(letterWI2, letterI2, new Vector2(84, offset + 89));
-			Render(letterWG2, letterG2, new Vector2(93, offset + 90));
-			Render(letterWH, letterH, new Vector2(121, offset + 78));
-			Render(letterWT, letterT, new Vector2(143, offset + 78));
-			Render(wdot, dot, new Vector2(83, offset + 59));
+			Render(letterBB, letterB, positions[0] + o);
+			Render(letterBU, letterU, positions[1] + o);
+			Render(letterBR, letterR, positions[2] + o);
+			Render(letterBN1, letterN1, positions[3] + o);
+			Render(letterBI1, letterI1, positions[4] + o);
+			Render(letterBN2, letterN2, positions[5] + o);
+			Render(letterBG1, letterG1, positions[6] + o);
+
+			if (showK) {
+				Render(letterBK, letterK, positions[7] + o);
+			}
+
+			Render(letterBN3, letterN3, positions[8] + o);
+			Render(letterBI2, letterI2, positions[9] + o);
+			Render(letterBG2, letterG2, positions[10] + o);
+			Render(letterBH, letterH, positions[11] + o);
+			Render(letterBT, letterT, positions[12] + o);
+			Render(bdot, dot, positions[13] + o);
+
+			Render(letterWB, letterB, positions[0] + o);
+			Render(letterWU, letterU, positions[1] + o);
+			Render(letterWR, letterR, positions[2] + o);
+			Render(letterWN1, letterN1, positions[3] + o);
+			Render(letterWI1, letterI1, positions[4] + o);
+			Render(letterWN2, letterN2, positions[5] + o);
+			Render(letterWG1, letterG1, positions[6] + o);
+
+			if (showK) {
+				Render(letterWK, letterK, positions[7] + o);
+			}
+
+			Render(letterWN3, letterN3, positions[8] + o);
+			Render(letterWI2, letterI2, positions[9] + o);
+			Render(letterWG2, letterG2, positions[10] + o);
+			Render(letterWH, letterH, positions[11] + o);
+			Render(letterWT, letterT, positions[12] + o);
+			Render(wdot, dot, positions[13] + o);
 			
-			Render(letterB, letterB, new Vector2(0, offset + 0));
-			Render(letterU, letterU, new Vector2(37, offset + 19));
-			Render(letterR, letterR, new Vector2(62, offset + 30));
-			Render(letterN1, letterN1, new Vector2(83, offset + 17));
-			Render(letterI1, letterI1, new Vector2(109, offset + 22));
-			Render(letterN2, letterN2, new Vector2(125, offset + 19));
-			Render(letterG1, letterG1, new Vector2(148, offset + 19));
-			Render(letterK, letterK, new Vector2(20, offset + 60));
-			Render(letterN3, letterN3, new Vector2(57, offset + 90));
-			Render(letterI2, letterI2, new Vector2(84, offset + 89));
-			Render(letterG2, letterG2, new Vector2(93, offset + 90));
-			Render(letterH, letterH, new Vector2(121, offset + 78));
-			Render(letterT, letterT, new Vector2(143, offset + 78));
-			Render(dot, dot, new Vector2(83, offset + 59));
+			Render(letterB, letterB, positions[0] + o);
+			Render(letterU, letterU, positions[1] + o);
+			Render(letterR, letterR, positions[2] + o);
+			Render(letterN1, letterN1, positions[3] + o);
+			Render(letterI1, letterI1, positions[4] + o);
+			Render(letterN2, letterN2, positions[5] + o);
+			Render(letterG1, letterG1, positions[6] + o);
+
+			if (showK) {
+				Render(letterK, letterK, positions[7] + o);
+			}
+
+			Render(letterN3, letterN3, positions[8] + o);
+			Render(letterI2, letterI2, positions[9] + o);
+			Render(letterG2, letterG2, positions[10] + o);
+			Render(letterH, letterH, positions[11] + o);
+			Render(letterT, letterT, positions[12] + o);
+			Render(dot, dot, positions[13] + o);
 		}
 	}
 }

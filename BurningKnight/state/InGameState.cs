@@ -929,15 +929,6 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			gameSettings.Add(new UiButton {
-				LocaleLabel = "view_credits",
-				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 5,
-				Click = b => {
-					
-				}
-			});
-			
 			gameSettings.Enabled = false;
 		}
 

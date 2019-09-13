@@ -34,19 +34,10 @@ gobbo hurt/heal
 ### settings
 
 * gamepad support ;(
-* fix escape
-
 * small chance to switch letters in logo in menu
 * fix + in the font, it looks like a dot
 * adjust pause menu elements a bit to fit better
 * ui string support in label
-
-#### game
-
-* Vegan mode: press 20 times to unlock all content?
-* reset progress
-* reset settings
-* view credits
 
 #### audio
 
@@ -201,6 +192,7 @@ gamepad
 
 #### Polish
 
+* Vegan mode: press 20 times to unlock all content?
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
