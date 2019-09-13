@@ -138,6 +138,13 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
+			
+			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
+			Engine.Graphics.ApplyChanges();
+			
+			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
+				Engine.Instance.SetFullscreen();
+			}
 
 			v = BK.Version.ToString();
 			vx = -Font.Small.MeasureString(v).Width;
@@ -278,7 +285,7 @@ namespace BurningKnight.state {
 		}
 
 		public override void Update(float dt) {
-			if ((Settings.Autosave && Run.Depth > 0)) {
+			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
 					saveTimer += dt;
 
@@ -595,9 +602,9 @@ namespace BurningKnight.state {
 				var c = Engine.Instance.Counter.AverageFramesPerSecond;
 				Color color;
 
-				if (c >= 59) {
+				if (c >= 55) {
 					color = new Color(0f, 1f, 0f, 1f);
-				} else if (c >= 49) {
+				} else if (c >= 45) {
 					color = new Color(1f, 1f, 0f, 1f);
 				} else {
 					color = new Color(1f, 0f, 0f, 1f);
@@ -767,6 +774,16 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
+					new Thread(() => {
+						try {					
+							SaveManager.Save(Area, SaveType.Global);
+						} catch (Exception e) {
+							Log.Error(e);
+						}
+					}) {
+						Priority = ThreadPriority.Lowest
+					}.Start();
+					
 					currentBack = pauseBack;
 					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
 				}
@@ -864,8 +881,8 @@ namespace BurningKnight.state {
 				RelativeY = sy - space,
 				Click = b => {
 					Settings.Vsync = ((UiCheckbox) b).On;
-					// TEST ME
 					Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
+					Engine.Graphics.ApplyChanges();
 				}
 			});
 

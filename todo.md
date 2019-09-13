@@ -52,14 +52,7 @@ gobbo hurt/heal
 
 #### video
 
-* fullscreen
-* vsync
-
-* show fps
-* screenshake
-* flashframes
-* freezeframes
-* cursor
+* fix vsync
 
 #### audio
 

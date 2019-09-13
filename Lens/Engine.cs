@@ -60,7 +60,8 @@ namespace Lens {
 			Instance = this;
 			tmpTitle = title;
 			Version = version;
-
+			IsFixedTimeStep = false;
+			
 			Graphics = new GraphicsDeviceManager(this);
 			Graphics.GraphicsProfile = GraphicsProfile.HiDef;
 

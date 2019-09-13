@@ -98,7 +98,6 @@ namespace BurningKnight {
 			Autosave = GlobalSave.IsTrue("s_as");
 
 			ShakeComponent.Modifier = Screenshake;
-			// Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
 		}
 
 		public static void Save() {
