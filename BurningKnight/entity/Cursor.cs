@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
 	public class Cursor : Entity {
-		protected TextureRegion Region;
 		private Vector2 scale = new Vector2(1);
 		private bool first;
-		
+
+		private TextureRegion[] regions;
+
 		public override void Init() {
 			base.Init();
 
@@ -20,7 +21,17 @@ namespace BurningKnight.entity {
 			AlwaysVisible = true;
 			Depth = Layers.Cursor;
 
-			Region = CommonAse.Ui.GetSlice("cursor_j");
+			regions = new[] {
+				CommonAse.Ui.GetSlice("cursor_a"),
+				CommonAse.Ui.GetSlice("cursor_b"),
+				CommonAse.Ui.GetSlice("cursor_c"),
+				CommonAse.Ui.GetSlice("cursor_d"),
+				CommonAse.Ui.GetSlice("cursor_e"),
+				CommonAse.Ui.GetSlice("cursor_f"),
+				CommonAse.Ui.GetSlice("cursor_g"),
+				CommonAse.Ui.GetSlice("cursor_j"),
+				CommonAse.Ui.GetSlice("cursor_k")
+			};
 		}
 
 		public override void Update(float dt) {
@@ -42,8 +53,10 @@ namespace BurningKnight.entity {
 			if (Settings.HideCursor) {
 				return;
 			}
+
+			var r = regions[Settings.Cursor];
 			
-			Graphics.Render(Region, Input.Mouse.UiPosition, 0, Region.Center, scale);
+			Graphics.Render(r, Input.Mouse.UiPosition, 0, r.Center, scale);
 		}
 	}
 }

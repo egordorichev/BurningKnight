@@ -817,8 +817,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var sy = Display.UiHeight * 0.5f;
-			var space = 32f;
+			var sy = Display.UiHeight * 0.5f - 32;
+			var space = 18f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -883,7 +883,6 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			// TEST 1000 screenshake
 			UiSlider.Make(graphicsSettings, sx, sy + space, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
 				Settings.Screenshake = s.Value / 100f;
 				ShakeComponent.Modifier = Settings.Screenshake;
@@ -896,6 +895,21 @@ namespace BurningKnight.state {
 			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "freeze_frames", (int) (Settings.FreezeFrames * 100)).OnValueChange = s => {
 				Settings.FreezeFrames = s.Value / 100f;
 			};
+			
+			graphicsSettings.Add(new UiChoice {
+				Name = "cursor",
+				Options = new [] {
+					"A", "B", "C", "D", "E", "F", "G", "J", "K"
+				},
+				
+				Option = Settings.Cursor,
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 4,
+				
+				Click = c => {
+					Settings.Cursor = ((UiChoice) c).Option;
+				}
+			});
 			
 			graphicsSettings.Enabled = false;
 		}

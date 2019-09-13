@@ -35,7 +35,7 @@ namespace BurningKnight {
 		public static bool Blood;
 		public static bool Gore;
 		public static bool UiSfx;
-		public static string Cursor;
+		public static int Cursor;
 		public static bool RotateCursor;
 		public static float FreezeFrames;
 		public static float FlashFrames;
@@ -71,7 +71,7 @@ namespace BurningKnight {
 			SfxVolume = 0.8f;
 			MusicVolume = 0.5f;
 			masterVolume = 0.8f;
-			Cursor = "default";
+			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;
 			Autosave = true;
@@ -92,7 +92,7 @@ namespace BurningKnight {
 			FlashFrames = GlobalSave.GetFloat("s_ff");
 			MusicVolume = GlobalSave.GetFloat("s_music");
 			MasterVolume = GlobalSave.GetFloat("s_master");
-			Cursor = GlobalSave.GetString("s_cursor", "cursor-standart");
+			Cursor = GlobalSave.GetInt("s_cursor");
 			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
 			Vegan = GlobalSave.IsTrue("s_v", false);
 			Autosave = GlobalSave.IsTrue("s_as");
