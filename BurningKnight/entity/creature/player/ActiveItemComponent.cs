@@ -23,6 +23,7 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Item != null && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
 				Item.Use((Player) Entity);
+				Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("active_item");
 
 				if (Math.Abs(Item.UseTime) <= 0.01f) {
 					Item.Done = true;

@@ -36,6 +36,9 @@ namespace BurningKnight.entity {
 				Radius = 32,
 				Timer = explosionTime
 			});
+			
+			AddComponent(new AudioEmitterComponent());
+			GetComponent<AudioEmitterComponent>().EmitRandomized("bomb_placed");
 		}
 
 		private void RenderShadow() {

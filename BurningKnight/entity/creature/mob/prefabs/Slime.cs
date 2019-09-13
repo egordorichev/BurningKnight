@@ -22,7 +22,12 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			base.SetStats();
 			
 			AddComponent(new ZComponent());
-			Become<IdleState>();
+			
+			if (Random.Chance()) {
+				Become<JumpState>();
+			} else {
+				Become<IdleState>();
+			}
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
 				Chance = 0.05f,

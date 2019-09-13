@@ -21,7 +21,8 @@ namespace BurningKnight.entity {
 			var w = where == null ? whoHurts.Center : new Vector2(where.X, where.Y);
 
 			AnimationUtil.Explosion(w);
-			
+
+
 			for (int i = 0; i < 4; i++) {
 				var explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
 				explosion.Position = w;
@@ -34,6 +35,11 @@ namespace BurningKnight.entity {
 				var d = 16;
 
 				explosion.Particle.Position += new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				
+				if (i == 0) {
+					explosion.AddComponent(new AudioEmitterComponent());
+					explosion.GetComponent<AudioEmitterComponent>().EmitRandomized("explosion");
+				}
 			}
 			
 			for (var i = 0; i < 6; i++) {

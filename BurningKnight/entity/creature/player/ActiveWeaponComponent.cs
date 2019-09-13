@@ -32,6 +32,7 @@ namespace BurningKnight.entity.creature.player {
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0) {
 				stopped = false;
 				Swap();
+				Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("swap");
 			}
 
 			stopped = Input.Mouse.WheelDelta == 0;

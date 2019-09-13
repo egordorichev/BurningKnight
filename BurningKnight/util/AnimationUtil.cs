@@ -1,5 +1,6 @@
 using BurningKnight.assets.particle;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -8,7 +9,7 @@ namespace BurningKnight.util {
 	public static class AnimationUtil {
 		public static void ActionFailed() {
 			Camera.Instance.Shake(10);
-			// todo: sfx
+			Audio.PlaySfx("item_nocash");
 		}
 
 		public static void Poof(Vector2 where) {

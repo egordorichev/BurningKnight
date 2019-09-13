@@ -35,6 +35,7 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/active_item.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit1.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit2.wav</File>
@@ -72,6 +73,8 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_jump.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/swap.wav</File>
+    <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/take.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlock.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager1.wav</File>
     <File>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager2.wav</File>
@@ -92,6 +95,9 @@
     <File>C:/Users/egord/Lens/BurningKnight/Content/Textures/rexcellent_logo_pixel.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

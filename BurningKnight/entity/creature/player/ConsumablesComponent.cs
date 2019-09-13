@@ -74,6 +74,30 @@ namespace BurningKnight.entity.creature.player {
 				var type = ev.Item.Type;
 				
 				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin || type == ItemType.Battery) {
+					var a = Entity.GetComponent<AudioEmitterComponent>();
+					
+					switch (type) {
+						case ItemType.Bomb: {
+							a.Emit("bomb");
+							break;
+						}
+						
+						case ItemType.Key: {
+							a.Emit("key");
+							break;
+						}
+						
+						case ItemType.Coin: {
+							a.Emit("coin");
+							break;
+						}
+						
+						case ItemType.Battery: {
+							a.Emit("battery");
+							break;
+						}
+					}
+					
 					Send(new ItemAddedEvent {
 						Item = ev.Item,
 						Who = Entity,

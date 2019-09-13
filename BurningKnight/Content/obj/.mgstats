@@ -30,6 +30,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Shopkeeper.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Shopkeeper.xnb","SoundEffectProcessor","SoundEffectContent",701125,3083045,2.15906
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Void.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Void.xnb","SoundEffectProcessor","SoundEffectContent",4826382,21275429,3.467418
 "C:/Users/egord/Lens/BurningKnight/Content/Music/Water.mp3","C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Water.xnb","SoundEffectProcessor","SoundEffectContent",1728960,8290085,2.974261
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/active_item.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/active_item.xnb","SoundEffectProcessor","SoundEffectContent",50788,50717,3.018293
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/airhorn.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/airhorn.xnb","SoundEffectProcessor","SoundEffectContent",162188,162249,1.542384
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit1.xnb","SoundEffectProcessor","SoundEffectContent",70832,70761,1.627414
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit2.xnb","SoundEffectProcessor","SoundEffectContent",46256,46185,1.577398
@@ -67,6 +68,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_jump.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_jump.xnb","SoundEffectProcessor","SoundEffectContent",36536,36457,0.8011974
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/slime_land.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/slime_land.xnb","SoundEffectProcessor","SoundEffectContent",23736,23657,0.818201
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/step.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/step.xnb","SoundEffectProcessor","SoundEffectContent",37304,37215,0.794202
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/swap.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/swap.xnb","SoundEffectProcessor","SoundEffectContent",12460,12393,0.5821408
+"C:/Users/egord/Lens/BurningKnight/Content/Sfx/take.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/take.xnb","SoundEffectProcessor","SoundEffectContent",33842,33771,0.5601425
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/unlock.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/unlock.xnb","SoundEffectProcessor","SoundEffectContent",89570,89497,0.9782465
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager1.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager1.xnb","SoundEffectProcessor","SoundEffectContent",37906,37831,1.66742
 "C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager2.wav","C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager2.xnb","SoundEffectProcessor","SoundEffectContent",95412,95337,0.68317

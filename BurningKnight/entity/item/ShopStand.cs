@@ -23,6 +23,11 @@ namespace BurningKnight.entity.item {
 		private bool onSale;
 		private bool hasSale;
 
+		public override void AddComponents() {
+			base.AddComponents();
+			AddComponent(new AudioEmitterComponent());
+		}
+
 		public override void Init() {
 			base.Init();
 			onSale = Random.Chance(10 + Run.Luck * 2);
@@ -52,6 +57,8 @@ namespace BurningKnight.entity.item {
 
 			component.Coins -= price;
 			Sells = false;
+
+			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
 			
 			return true;
 		}

@@ -13,7 +13,7 @@ namespace BurningKnight.entity.component {
 		public static float PositionScale = 0.05f;
 		
 		public AudioEmitter Emitter = new AudioEmitter();
-		public float PitchMod = 1;
+		public float PitchMod;
 		
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
 
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true) {
-			return Emit(sfx, volume, Random.Float(-0.4f, 0.4f), insert);
+			return Emit(sfx, volume, PitchMod + Random.Float(-0.4f, 0.4f), insert);
     }
 
 		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true) {
@@ -77,7 +77,7 @@ namespace BurningKnight.entity.component {
 				instance.Apply3D(Listener, Emitter);
 			}
 			
-			instance.Pitch = MathUtils.Clamp(0.5f, 2f, PitchMod + pitch);
+			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
 			instance.Play();
 			
 			Log.Info("Play " + sfx);

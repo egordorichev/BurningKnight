@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.Body.LinearDamping = 6;
 			moveId = Random.Int(3);
 
-			GetComponent<AudioEmitterComponent>().PitchMod = 0.8f;
+			GetComponent<AudioEmitterComponent>().PitchMod = -0.3f;
 		}
 
 		#region Gunner States

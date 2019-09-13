@@ -11,19 +11,17 @@ turret sfx
 key pickup
 bomb pickup
 coin pickup
-bomb placement (reuse old?)
-explosion
-open lock
+battery pickup
 
-door open/close
+open lock louder
+
+door open/close louder
 door unlock/lock with enemies
 
 spikes popping up
 
-weapon swap
-active item used
 roll
-gobbo hurt
+gobbo hurt/heal
 
 ###
 
