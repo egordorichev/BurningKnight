@@ -275,7 +275,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (Engine.Version.Dev) {
+			if (Engine.Version.Dev || !Settings.Autopause) {
 				return;
 			}
 
@@ -323,7 +323,7 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
       			
-			if (!Paused && !inside && !Engine.Version.Test) {
+			if (!Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
 				Paused = true;
 				pausedByMouseOut = true;
 			} else if (Paused && pausedByMouseOut && inside) {
@@ -815,8 +815,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var sy = Display.UiHeight * 0.5f;
-			var space = 32f;
+			var space = 18f;
+			var sy = Display.UiHeight * 0.5f - space * 2;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -835,16 +835,82 @@ namespace BurningKnight.state {
 			});
 
 			gameSettings.Add(new UiCheckbox {
+				Name = "autosave",
+				On = Settings.Autosave,
+				RelativeCenterX = sx,
+				RelativeY = sy - space * 2,
+				Click = b => {
+					Settings.Autosave = ((UiCheckbox) b).On;
+				}
+			});
+
+			gameSettings.Add(new UiCheckbox {
+				Name = "autopause",
+				On = Settings.Autopause,
+				RelativeCenterX = sx,
+				RelativeY = sy - space,
+				Click = b => {
+					Settings.Autopause = ((UiCheckbox) b).On;
+				}
+			});
+
+			gameSettings.Add(new UiCheckbox {
 				Name = "speedrun_timer",
 				On = Settings.SpeedrunTimer,
 				RelativeCenterX = sx,
-				RelativeY = sy - space * 2,
+				RelativeY = sy,
 				Click = b => {
 					Settings.SpeedrunTimer = ((UiCheckbox) b).On;
 				}
 			});
 
+			gameSettings.Add(new UiCheckbox {
+				Name = "vegan_mode",
+				On = Settings.Vegan,
+				RelativeCenterX = sx,
+				RelativeY = sy + space,
+				Click = b => {
+					Settings.Vegan = ((UiCheckbox) b).On;
+				}
+			});
 
+			gameSettings.Add(new UiCheckbox {
+				Name = "blood_n_gore",
+				On = Settings.Blood,
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 2,
+				Click = b => {
+					Settings.Blood = ((UiCheckbox) b).On;
+				}
+			});
+			
+			gameSettings.Add(new UiButton {
+				LocaleLabel = "reset_settings",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 3,
+				Click = b => {
+					
+				}
+			});
+			
+			gameSettings.Add(new UiButton {
+				LocaleLabel = "reset_progress",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 4,
+				Click = b => {
+					
+				}
+			});
+			
+			gameSettings.Add(new UiButton {
+				LocaleLabel = "view_credits",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 5,
+				Click = b => {
+					
+				}
+			});
+			
 			gameSettings.Enabled = false;
 		}
 

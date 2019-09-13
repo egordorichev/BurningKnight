@@ -68,16 +68,18 @@ namespace BurningKnight.entity.creature {
 
 					if (b != null && ev.Amount < 0) {
 						b.KnockbackFrom(ev.From);
-						
-						for (var i = 0; i < 8; i++) {
-							var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
-								Center + Random.Vector(-4, 4));
 
-							var a = ev.From.AngleTo(this);
+						if (Settings.Blood) {
+							for (var i = 0; i < 8; i++) {
+								var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
+									Center + Random.Vector(-4, 4));
 
-							p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
-							p.Particle.Velocity.Y -= 8f;
-							p.Particle.Velocity += b.Velocity * 0.5f;
+								var a = ev.From.AngleTo(this);
+
+								p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
+								p.Particle.Velocity.Y -= 8f;
+								p.Particle.Velocity += b.Velocity * 0.5f;
+							}
 						}
 					}
 				}
@@ -145,12 +147,14 @@ namespace BurningKnight.entity.creature {
 				Run.Level.Area.Add(part);
 				part.Depth = 1;
 			}
-			
-			for (var i = 0; i < Random.Int(2, 8); i++) {
-				Area.Add(new SplashParticle {
-					Position = Center - new Vector2(2.5f),
-					Color = GetBloodColor()
-				});
+
+			if (Settings.Blood) {
+				for (var i = 0; i < Random.Int(2, 8); i++) {
+					Area.Add(new SplashParticle {
+						Position = Center - new Vector2(2.5f),
+						Color = GetBloodColor()
+					});
+				}
 			}
 		}
 

@@ -33,7 +33,6 @@ namespace BurningKnight {
 		public static bool Fullscreen;
 		public static bool Vsync;
 		public static bool Blood;
-		public static bool Gore;
 		public static bool UiSfx;
 		public static int Cursor;
 		public static bool RotateCursor;
@@ -46,6 +45,7 @@ namespace BurningKnight {
 		public static bool SpeedrunTimer;
 		public static float Screenshake;
 		public static bool Vegan;
+		public static bool Autopause;
 		public static bool Autosave;
 	
 		// Not saved
@@ -60,7 +60,6 @@ namespace BurningKnight {
 			Fullscreen = false;
 			ShowFps = false;
 			Blood = true;
-			Gore = true;
 			UiSfx = true;
 			Vsync = true;
 			Screenshake = 0.5f;
@@ -74,6 +73,7 @@ namespace BurningKnight {
 			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;
+			Autopause = true;
 			Autosave = true;
 		}
 		
@@ -82,7 +82,6 @@ namespace BurningKnight {
 			ShowFps = GlobalSave.IsTrue("s_fps");
 			Blood = GlobalSave.IsTrue("s_blood");
 			UiSfx = GlobalSave.IsTrue("s_uisfx");
-			Gore = GlobalSave.IsTrue("s_gore");
 			Vsync = GlobalSave.IsTrue("s_vsync");
 			SpeedrunMode = GlobalSave.IsTrue("s_sm");
 			SpeedrunTimer = GlobalSave.IsTrue("s_stmr");
@@ -96,6 +95,7 @@ namespace BurningKnight {
 			RotateCursor = GlobalSave.IsTrue("s_rotate_cursor", true);
 			Vegan = GlobalSave.IsTrue("s_v", false);
 			Autosave = GlobalSave.IsTrue("s_as");
+			Autopause = GlobalSave.IsTrue("s_ap");
 
 			ShakeComponent.Modifier = Screenshake;
 		}
@@ -105,7 +105,6 @@ namespace BurningKnight {
 			GlobalSave.Put("s_fps", ShowFps);
 			GlobalSave.Put("s_blood", Blood);
 			GlobalSave.Put("s_uisfx", UiSfx);
-			GlobalSave.Put("s_gore", Gore);
 			GlobalSave.Put("s_vsync", Vsync);
 			GlobalSave.Put("s_sm", SpeedrunMode);
 			GlobalSave.Put("s_stmr", SpeedrunTimer);
@@ -119,6 +118,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_rotate_cursor", RotateCursor);
 			GlobalSave.Put("s_v", Vegan);
 			GlobalSave.Put("s_as", Autosave);
+			GlobalSave.Put("s_ap", Autopause);
 		}
 
 		public static void Generate() {

@@ -242,6 +242,10 @@ namespace BurningKnight.entity.creature.mob {
 				return;
 			}
 
+			if (!Settings.Blood) {
+				return;
+			}
+
 			var gore = new Gore();
 			var r = a.Animation.GetFrame("dead", 0);
 			

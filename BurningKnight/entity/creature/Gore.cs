@@ -40,6 +40,10 @@ namespace BurningKnight.entity.creature {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (!Settings.Blood) {
+				Done = true;
+			}
+
 			if (!zdid) {
 				var z = GetComponent<ZComponent>();
 

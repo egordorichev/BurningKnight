@@ -372,22 +372,24 @@ namespace BurningKnight.entity.creature.player {
 					HandleEvent(new PlayerHurtEvent {
 						Player = this
 					});
-					
-					var cl = GetBloodColor();
-					
-					if (Random.Chance(30)) {
-						for (var i = 0; i < Random.Int(1, 3); i++) {
-							Area.Add(new SplashParticle {
-								Position = Center - new Vector2(2.5f),
-								Color = cl
-							});
-						}
-					}
 
-					Area.Add(new SplashFx {
-						Position = Center,
-						Color = ColorUtils.Mod(cl)
-					});
+					if (Settings.Blood) {
+						var cl = GetBloodColor();
+
+						if (Random.Chance(30)) {
+							for (var i = 0; i < Random.Int(1, 3); i++) {
+								Area.Add(new SplashParticle {
+									Position = Center - new Vector2(2.5f),
+									Color = cl
+								});
+							}
+						}
+
+						Area.Add(new SplashFx {
+							Position = Center,
+							Color = ColorUtils.Mod(cl)
+						});
+					}
 				}
 			}
 			

@@ -15,7 +15,7 @@ namespace BurningKnight.save {
 
 		public static bool IsTrue(string Key, bool Def = false) {
 			if (Values.TryGetValue(Key, out var Value)) {
-				return Value == "true";
+				return Value == "1";
 			}
 			
 			return Def;
@@ -38,7 +38,7 @@ namespace BurningKnight.save {
 		}
 
 		public static void Put(string Key, bool Val) {
-			Values[Key] = Val.ToString();
+			Values[Key] = Val ? "1" : "0";
 		}
 
 		public static string GetString(string Key, string Def = null) {
