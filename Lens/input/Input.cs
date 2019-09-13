@@ -37,6 +37,8 @@ namespace Lens.input {
 		}
 
 		public static void Update(float dt) {
+			GamepadData.WasChanged = false;
+			
 			Keyboard.Update();
 			Mouse.Update();
 

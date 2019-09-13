@@ -12,7 +12,6 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
-using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -21,7 +20,6 @@ using BurningKnight.save;
 using BurningKnight.ui;
 using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
-using BurningKnight.ui.str;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;
@@ -36,7 +34,6 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
@@ -53,7 +50,6 @@ namespace BurningKnight.state {
 		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
-		private float time;
 		
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
@@ -62,6 +58,9 @@ namespace BurningKnight.state {
 		private UiPane graphicsSettings;
 		private UiPane gameSettings;
 		private UiPane confirmationPane;
+		private UiPane inputSettings;
+		private UiPane gamepadSettings;
+		private UiPane keyboardSettings;
 		
 		private bool died;
 		private Cursor cursor;
@@ -85,6 +84,9 @@ namespace BurningKnight.state {
 		private Console console;
 		private UiLabel seedLabel;
 		private UiButton currentBack;
+		private UiButton inputBack;
+		private UiButton gamepadBack;
+		private UiButton keyboardBack;
 		
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
@@ -348,7 +350,6 @@ namespace BurningKnight.state {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
-				time += dt;
 				Physics.Update(dt);
 				base.Update(dt);
 			} else {
@@ -739,7 +740,7 @@ namespace BurningKnight.state {
 		private void AddSettings() {
 			var sx = Display.UiWidth * 1.5f;
 			var sy = Display.UiHeight * 0.5f;
-			var space = 32f;
+			var space = 24f;
 			
 			pauseMenu.Add(new UiLabel {
 				LocaleLabel = "settings",
@@ -780,6 +781,17 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "input",
+				RelativeCenterX = sx,
+				RelativeY = sy + space * 2,
+				Click = b => {
+					currentBack = inputBack;
+					inputSettings.Enabled = true;
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+				}
+			});
+			
 			settingsBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,
@@ -803,6 +815,7 @@ namespace BurningKnight.state {
 			AddGameSettings();
 			AddGraphicsSettings();
 			AddAudioSettings();
+			AddInputSettings();
 		}
 
 		private UiButton pauseBack;
@@ -1027,8 +1040,8 @@ namespace BurningKnight.state {
 				},
 				
 				OnUpdate = c => {
-					c.On = Engine.Graphics.IsFullScreen;
-					Settings.Fullscreen = c.On;
+					((UiCheckbox) c).On = Engine.Graphics.IsFullScreen;
+					Settings.Fullscreen = ((UiCheckbox) c).On;
 				}
 			});
 
@@ -1054,7 +1067,7 @@ namespace BurningKnight.state {
 				},
 				
 				OnUpdate = c => {
-					c.On = Settings.Fullscreen;
+					((UiCheckbox) c).On = Settings.Fullscreen;
 				}
 			});
 			
@@ -1137,6 +1150,178 @@ namespace BurningKnight.state {
 			});
 			
 			audioSettings.Enabled = false;
+		}
+
+		public void AddInputSettings() {
+			pauseMenu.Add(inputSettings = new UiPane {
+				RelativeX = Display.UiWidth * 2	
+			});
+			
+			var sx = Display.UiWidth * 0.5f;
+			var space = 32f;
+			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			
+			inputSettings.Add(new UiLabel {
+				LocaleLabel = "input",
+				RelativeCenterX = sx,
+				RelativeCenterY = TitleY
+			});
+			
+			inputBack = (UiButton) inputSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+				}
+			});
+
+			var first = true;
+			UiButton gamepad = null;
+			
+			inputSettings.Add(new UiChoice {
+				Name = "gamepad",
+				
+				Options = new [] {"none"},
+				
+				RelativeCenterX = sx,
+				RelativeCenterY = sy - space,
+				
+				Click = c => {
+					var i = ((UiChoice) c).Option;
+					var p = LocalPlayer.Locate(Area);
+					var e = i == GamepadData.Identifiers.Length;
+					
+					Settings.Gamepad = e ? null : GamepadData.Identifiers[i];
+					gamepad.Active = gamepad.Visible = !e;
+
+					if (p != null) {
+						var d = p.GetComponent<GamepadComponent>();
+							
+						d.Controller = null;
+						d.GamepadId = null;
+					}
+				},
+				
+				OnUpdate = uc => {
+					if (!first && !GamepadData.WasChanged) {
+						return;
+					}
+
+					first = false;
+					
+					var con = new List<string>();
+					var id = new List<string>();
+					var cur = 0;
+			
+					for (var i = 0; i < 4; i++) {
+						if (Input.Gamepads[i].Attached) {
+							var d = GamePad.GetCapabilities(i);
+					
+							if (d.GamePadType == GamePadType.GamePad) {
+								id.Add(d.Identifier);
+								con.Add(d.DisplayName);
+	
+								if (Settings.Gamepad == d.Identifier) {
+									cur = i;
+								}
+							}
+						}
+					}
+
+					GamepadData.Identifiers = id.ToArray();
+					con.Add("none");
+
+					uc.Options = con.ToArray();
+					uc.Option = cur;
+
+					GamepadData.Identifiers = id.ToArray();
+				}
+			});
+			
+			inputSettings.Add(new UiButton {
+				LocaleLabel = "keyboard_controls",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy,
+				Click = b => {
+					currentBack = keyboardBack;
+					keyboardSettings.Enabled = true;
+					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+				}
+			});
+			
+			gamepad = (UiButton) inputSettings.Add(new UiButton {
+				LocaleLabel = "gamepad_controls",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space,
+				Click = b => {
+					currentBack = gameBack;
+					gamepadSettings.Enabled = true;
+					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+				}
+			});
+			
+			inputSettings.Enabled = false;
+
+			AddKeyboardSettings();
+			AddGamepadSettings();
+		}
+
+		private void AddKeyboardSettings() {
+			pauseMenu.Add(keyboardSettings = new UiPane {
+				RelativeX = Display.UiWidth * 3
+			});
+			
+			var sx = Display.UiWidth * 0.5f;
+			var space = 32f;
+			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			
+			keyboardSettings.Add(new UiLabel {
+				LocaleLabel = "keyboard",
+				RelativeCenterX = sx,
+				RelativeCenterY = TitleY
+			});
+			
+			keyboardBack = (UiButton) keyboardSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = inputBack;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => keyboardSettings.Enabled = false;
+				}
+			});
+
+			keyboardSettings.Enabled = false;
+		}
+
+		private void AddGamepadSettings() {
+			pauseMenu.Add(gamepadSettings = new UiPane {
+				RelativeX = Display.UiWidth * 3
+			});
+			
+			var sx = Display.UiWidth * 0.5f;
+			var space = 32f;
+			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			
+			gamepadSettings.Add(new UiLabel {
+				LocaleLabel = "gamepad",
+				RelativeCenterX = sx,
+				RelativeCenterY = TitleY
+			});
+			
+			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = inputBack;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gamepadSettings.Enabled = false;
+				}
+			});
+
+			gamepadSettings.Enabled = false;
 		}
 
 		public void AnimateDeathScreen() {

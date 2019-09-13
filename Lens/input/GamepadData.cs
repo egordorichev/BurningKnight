@@ -1,14 +1,19 @@
 ﻿using System;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Lens.input {
 	public class GamepadData {
+		public static bool WasChanged;
+		
 		public PlayerIndex PlayerIndex;
 		public GamePadState PreviousState;
 		public GamePadState CurrentState;
 		public bool WasAttached;
 		public bool Attached;
+
+		public static string[] Identifiers;
 		
 		private float rumbleStrength;
 		private float rumbleTime;
@@ -30,6 +35,10 @@ namespace Lens.input {
 					GamePad.SetVibration(PlayerIndex, 0, 0);
 				}
 			}
+
+			if (Attached != WasAttached) {
+				WasChanged = true;
+			} 
 		}
 
 		public void Rumble(float strength, float time) {

@@ -47,6 +47,7 @@ namespace BurningKnight {
 		public static bool Vegan;
 		public static bool Autopause;
 		public static bool Autosave;
+		public static string Gamepad;
 	
 		// Not saved
 		public static bool HideUi;
@@ -75,6 +76,7 @@ namespace BurningKnight {
 			Vegan = false;
 			Autopause = true;
 			Autosave = true;
+			Gamepad = null;
 		}
 		
 		public static void Load() {
@@ -96,6 +98,7 @@ namespace BurningKnight {
 			Vegan = GlobalSave.IsTrue("s_v", false);
 			Autosave = GlobalSave.IsTrue("s_as");
 			Autopause = GlobalSave.IsTrue("s_ap");
+			Gamepad = GlobalSave.GetString("s_gp");
 
 			ShakeComponent.Modifier = Screenshake;
 		}
@@ -119,6 +122,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_v", Vegan);
 			GlobalSave.Put("s_as", Autosave);
 			GlobalSave.Put("s_ap", Autopause);
+			GlobalSave.Put("s_gp", Gamepad);
 		}
 
 		public static void Generate() {

@@ -16,12 +16,5 @@ namespace BurningKnight.ui {
 				"on", "off"
 			};
 		}
-
-		public Action<UiCheckbox> OnUpdate;
-
-		public override void Update(float dt) {
-			OnUpdate?.Invoke(this);
-			base.Update(dt);
-		}
 	}
 }

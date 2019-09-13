@@ -34,9 +34,7 @@ gobbo hurt/heal
 ### settings
 
 * gamepad support ;(
-* fix + in the font, it looks like a dot
 * adjust pause menu elements a bit to fit better
-* ui string support in label
 
 #### audio
 
@@ -44,8 +42,19 @@ gobbo hurt/heal
 
 #### input n controls
 
-obv look at json conf
-gamepad
+* gamepad selection
+
+* movement
+* use
+* active
+* bomb
+* interact
+* swap
+* roll
+* duck
+
+* obv look at json conf
+* gamepad and mouse'n'keyboard -> two different panes, allows to input only gamepad or pc controls
 
 ## audio
 

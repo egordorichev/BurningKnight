@@ -25,7 +25,7 @@ namespace BurningKnight.save {
 		}
 
 		public static void Put(string Key, object Val) {
-			Values[Key] = Val.ToString();
+			Values[Key] = Val?.ToString();
 		}
 
 		public static void Put(string Key, int Val) {

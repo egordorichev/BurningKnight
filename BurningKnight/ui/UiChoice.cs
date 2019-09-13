@@ -1,3 +1,4 @@
+using System;
 using Lens.assets;
 using Lens.input;
 
@@ -12,7 +13,7 @@ namespace BurningKnight.ui {
 			set {
 				option = value;
 
-				if (Options != null) {
+				if (Options != null && Options.Length > 0) {
 					Label = $"{Locale.Get(Name)}: {Locale.Get(Options[Option])}";
 					CenterX = cx;
 				}
@@ -22,12 +23,11 @@ namespace BurningKnight.ui {
 		public string Name = "";
 		public string[] Options;
 
-		
 		public override void Init() {
 			base.Init();
 
 			cx = RelativeCenterX;
-			Label = $"{Locale.Get(Name)}: {Locale.Get(Options[Option])}";
+			Label = $"{Locale.Get(Name)}: {(Options.Length > 0 ? Locale.Get(Options[Option]) : "None")}";
 			RelativeCenterX = cx;
 		}
 
@@ -43,6 +43,13 @@ namespace BurningKnight.ui {
 			}
 			
 			base.OnClick();
+		}
+
+		public Action<UiChoice> OnUpdate;
+
+		public override void Update(float dt) {
+			OnUpdate?.Invoke(this);
+			base.Update(dt);
 		}
 	}
 }
