@@ -77,7 +77,7 @@ namespace BurningKnight.entity.item.use {
 					var antiAngle = angle - (float) Math.PI;
 					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax));
 
-					Camera.Instance.Push(antiAngle, 4f);
+					Camera.Instance.Push(angle, 4f);
 					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
 
 					if (light) {

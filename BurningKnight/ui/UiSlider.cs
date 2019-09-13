@@ -1,9 +1,10 @@
 using System;
+using Lens.input;
 using Lens.util.tween;
 
 namespace BurningKnight.ui {
 	public static class UiSlider {
-		public static UiSliderLabel Make(UiPane pane, float x, float y, string label, int value) {
+		public static UiSliderLabel Make(UiPane pane, float x, float y, string label, int value, int max = 100) {
 			var a = pane.Add(new UiLabel {
 				LocaleLabel = label,
 				RelativeX = x,
@@ -16,7 +17,7 @@ namespace BurningKnight.ui {
 				Label = "-",
 				RelativeX = x + a.Width + 10,
 				RelativeY = y,
-				Click = () => {
+				Click = bt => {
 					c.Value = Math.Max(0, c.Value - 10);
 				},
 				Padding = 5,
@@ -24,9 +25,18 @@ namespace BurningKnight.ui {
 			});
 
 			c = (UiSliderLabel) pane.Add(new UiSliderLabel {
-				Label = "100%",
+				Label = $"{max}%",
 				RelativeX = x + a.Width + b.Width + 20,
-				RelativeY = y
+				RelativeY = y,
+				Click = bt => {
+					var n = (UiSliderLabel) bt;
+					
+					if (Input.Mouse.CheckRightButton) {
+						n.Value = Math.Max(0, n.Value - 10);
+					} else {
+						n.Value = Math.Min(max, n.Value + 10);
+					}
+				}
 			});
 
 			c.Value = value;
@@ -35,8 +45,8 @@ namespace BurningKnight.ui {
 				Label = "+",
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
 				RelativeY = y,
-				Click = () => {
-					c.Value = Math.Min(100, c.Value + 10);
+				Click = bt => {
+					c.Value = Math.Min(max, c.Value + 10);
 				},
 				Padding = 5,
 				ScaleMod = 2
@@ -52,7 +62,7 @@ namespace BurningKnight.ui {
 			return c;
 		}
 
-		public class UiSliderLabel : UiLabel {
+		public class UiSliderLabel : UiButton {
 			private int value;
 			public Action<UiSliderLabel> OnValueChange;
 

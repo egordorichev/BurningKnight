@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui {
 	public class UiButton : UiLabel {
-		public Action Click;
+		public Action<UiButton> Click;
 		public ButtonType Type = ButtonType.Normal;
 		public float Padding;
 
@@ -23,7 +23,7 @@ namespace BurningKnight.ui {
 
 		protected override void OnClick() {
 			base.OnClick();
-			Click?.Invoke();
+			Click?.Invoke(this);
 
 			Audio.PlaySfx(Type == ButtonType.Normal ? "select" : "exit");
 		}

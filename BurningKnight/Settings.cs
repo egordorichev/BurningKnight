@@ -1,6 +1,7 @@
 using BurningKnight.save;
 using Lens;
 using Lens.assets;
+using Lens.entity.component.logic;
 
 namespace BurningKnight {
 	public class Settings {
@@ -96,6 +97,7 @@ namespace BurningKnight {
 			Vegan = GlobalSave.IsTrue("s_v", false);
 			Autosave = GlobalSave.IsTrue("s_as");
 
+			ShakeComponent.Modifier = Screenshake;
 			// Engine.Graphics.SynchronizeWithVerticalRetrace = Vsync;
 		}
 

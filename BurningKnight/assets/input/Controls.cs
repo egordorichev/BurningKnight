@@ -35,6 +35,7 @@ namespace BurningKnight.assets.input {
 		public const string Cancel = "cancel";
 		
 		public const string Fullscreen = "fullscreen";
+		public const string Fps = "fps";
 		public const string Mute = "mute";
 
 		static Controls() {
@@ -55,11 +56,12 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.LeftShoulder));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
-			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left));
+			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
 			
 			controls.Add(new Control(Mute, Keys.M));
 			controls.Add(new Control(Fullscreen, Keys.F11, Keys.F));
-			
+			controls.Add(new Control(Fps, Keys.F2));
+
 			controls.Add(new Control(Cancel, Keys.Escape).Gamepad(Buttons.Back));
 			controls.Add(new Control(GameStart, Keys.Space, Keys.Enter, Keys.X).Gamepad(Buttons.X, Buttons.Start));
 		}

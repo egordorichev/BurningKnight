@@ -31,6 +31,7 @@ gobbo hurt/heal
 
 ### settings
 
+* gamepad support ;(
 * fix escape
 
 * small chance to switch letters in logo in menu
@@ -42,7 +43,7 @@ gobbo hurt/heal
 
 * Autosave
 * Vegan mode
-
+* ui string support in label
 * reset progress
 * reset settings
 * view credits
@@ -62,13 +63,12 @@ gobbo hurt/heal
 
 #### audio
 
-* Music volume
-* Sfx volume
-* Ui sfx
+* check if all works
 
-#### controls
+#### input n controls
 
 obv look at json conf
+gamepad
 
 ## audio
 
