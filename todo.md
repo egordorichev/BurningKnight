@@ -1,5 +1,7 @@
 # TODO
 
+* basic achievement system (nothing fancy for now, just work)
+
 ### sfx
 
 better mob hurt
@@ -41,7 +43,7 @@ gobbo hurt/heal
 
 #### game
 
-* Vegan mode
+* Vegan mode: press 20 times to unlock all content?
 * reset progress
 * reset settings
 * view credits

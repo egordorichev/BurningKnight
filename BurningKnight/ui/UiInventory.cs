@@ -162,7 +162,7 @@ namespace BurningKnight.ui {
 				case ItemAddedEvent iae: {
 					if (iae.Who == player) {
 						if (iae.Item.Type == ItemType.Lamp) {
-							if (!first) {
+							if (!first || Run.Depth < 1) {
 								hpZero = 0;
 								Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
 							}

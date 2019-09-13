@@ -21,6 +21,7 @@ using BurningKnight.save;
 using BurningKnight.ui;
 using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
+using BurningKnight.ui.str;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;
@@ -60,6 +61,7 @@ namespace BurningKnight.state {
 		private UiPane audioSettings;
 		private UiPane graphicsSettings;
 		private UiPane gameSettings;
+		private UiPane confirmationPane;
 		
 		private bool died;
 		private Cursor cursor;
@@ -729,7 +731,7 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Setup();
 
-			if (Run.Depth > 0 && Run.Level != null) {
+			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
 			}
 		}
@@ -889,7 +891,18 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = sy + space * 3,
 				Click = b => {
-					
+					GoConfirm("reset_settings_dis", () => {
+						new Thread(() => {
+							try {
+								Settings.Generate();
+								gameBack.Click(gameBack);
+							} catch (Exception e) {
+								Log.Error(e);
+							}
+						}) {
+							Priority = ThreadPriority.Lowest
+						}.Start();
+					});
 				}
 			});
 			
@@ -898,7 +911,21 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = sy + space * 4,
 				Click = b => {
-					
+					GoConfirm("reset_progress_dis", () => {
+						new Thread(() => {
+							try {
+								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
+								
+								Run.StartingNew = true;
+								Run.NextDepth = 0;
+								Run.IntoMenu = true;
+							} catch (Exception e) {
+								Log.Error(e);
+							}
+						}) {
+							Priority = ThreadPriority.Lowest
+						}.Start();
+					});
 				}
 			});
 			
@@ -914,6 +941,60 @@ namespace BurningKnight.state {
 			gameSettings.Enabled = false;
 		}
 
+		private void GoConfirm(string text, Action callback) {
+			pauseMenu.Add(confirmationPane = new UiPane {
+				RelativeX = Display.UiWidth * 3
+			});
+			
+			var sx = Display.UiWidth * 0.5f;
+			var sy = Display.UiHeight * 0.5f;
+			var space = 32;
+			
+			confirmationPane.Add(new UiLabel {
+				Font = Font.Small,
+				AngleMod = 0,
+				LocaleLabel = "are_you_sure",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy - space * 1.5f
+			});
+
+			confirmationPane.Add(new UiLabel {
+				Font = Font.Small,
+				AngleMod = 0,
+				LocaleLabel = text,
+				RelativeCenterX = sx,
+				RelativeCenterY = sy - space
+			});
+			
+			confirmationPane.Add(new UiButton {
+				LocaleLabel = "yes",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 2,
+				Click = b => {
+					currentBack = settingsBack;
+					gameSettings.Enabled = true;
+					callback();
+				}
+			});
+			
+			currentBack = (UiButton) confirmationPane.Add(new UiButton {
+				LocaleLabel = "no",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 3,
+				Click = b => {
+					currentBack = gameBack;
+					gameSettings.Enabled = true;
+
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						pauseMenu.Remove(confirmationPane);
+						confirmationPane = null;	
+					};
+				}
+			});
+			
+			Tween.To(Display.UiWidth * -3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
+		}
+		
 		private void AddGraphicsSettings() {
 			pauseMenu.Add(graphicsSettings = new UiPane {
 				RelativeX = Display.UiWidth * 2	

@@ -9,7 +9,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.state {
 	public static class Run {
 		private static int depth = Engine.Version.Dev ? 1 : 0;
-		public static int NextDepth { get; internal set; } = depth;
+		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
 		public static bool StartingNew;
@@ -21,6 +21,7 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
+		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		
 		public static int Depth {
@@ -35,7 +36,12 @@ namespace BurningKnight.state {
 				depth = NextDepth;
 				StartedNew = StartingNew;
 				StartingNew = false;
-				Engine.Instance.SetState(new LoadState());
+				
+				Engine.Instance.SetState(new LoadState {
+					Menu = IntoMenu
+				});
+
+				IntoMenu = false;
 			}
 		}
 
@@ -66,7 +72,7 @@ namespace BurningKnight.state {
 		}
 
 		public static string FormatTime() {
-			return $"{Math.Floor(Time / 360f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time)}s";
+			return $"{Math.Floor(Time / 360f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 	}
 }

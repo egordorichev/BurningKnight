@@ -21,7 +21,7 @@ namespace BurningKnight.ui {
 				}
 			}
 		}
-		
+
 		public List<UiEntity> Entities = new List<UiEntity>();
 
 		public void Setup() {
@@ -29,7 +29,7 @@ namespace BurningKnight.ui {
 				e.Position = Position + e.RelativePosition;
 			}
 		}
-		
+
 		public override void Init() {
 			base.Init();
 
@@ -41,14 +41,21 @@ namespace BurningKnight.ui {
 			Width = Display.UiWidth;
 			Height = Display.UiHeight;
 		}
-		
+
 		public UiEntity Add(UiEntity entity) {
 			Entities.Add(entity);
 			entity.Super = this;
-			
+
 			Area.Add(entity);
-			
+
 			return entity;
+		}
+
+		public void Remove(UiEntity entity) {
+			Entities.Remove(entity);
+			entity.Super = null;
+
+			entity.Done = true;
 		}
 	}
 }
