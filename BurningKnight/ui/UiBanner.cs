@@ -57,6 +57,10 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
+			if (Engine.Instance.State.Paused) {
+				return;
+			}
+			
 			base.Render();
 
 			Graphics.Color = color;

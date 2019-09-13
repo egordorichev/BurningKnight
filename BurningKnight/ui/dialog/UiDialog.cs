@@ -63,6 +63,12 @@ namespace BurningKnight.ui.dialog {
 			Str.Label = s;
 		}
 
+		public override void Render() {
+			if (!Engine.Instance.State.Paused) {
+				base.Render();
+			}
+		}
+
 		public override void RenderFrame() {
 			if (Tint.A == 0) {
 				return;

@@ -30,7 +30,6 @@ namespace BurningKnight.ui {
 		private TextureRegion activeBorder;
 		private TextureRegion activeEmpty;
 		private TextureRegion activeFull;
-		private TextureRegion activeDouble;
 		
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
@@ -38,12 +37,6 @@ namespace BurningKnight.ui {
 		private TextureRegion changedHeartBackground;
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
-		
-		private TextureRegion iron;
-		private TextureRegion halfIron;
-		
-		private TextureRegion golden;
-		private TextureRegion halfGolden;
 		
 		private Player player;
 
@@ -79,7 +72,6 @@ namespace BurningKnight.ui {
 			activeBorder = anim.GetSlice("active_border");
 			activeEmpty = anim.GetSlice("active_empty");
 			activeFull = anim.GetSlice("active_full");
-			activeDouble = anim.GetSlice("active_double");
 			
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
@@ -88,12 +80,6 @@ namespace BurningKnight.ui {
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
 			
-			iron = anim.GetSlice("iron_heart");
-			halfIron = anim.GetSlice("half_iron_heart");
-			
-			golden = anim.GetSlice("gold_heart");
-			halfGolden = anim.GetSlice("half_gold_heart");
-
 			if (player != null) {
 				var component = player.GetComponent<ConsumablesComponent>();
 
@@ -222,7 +208,8 @@ namespace BurningKnight.ui {
 				return;
 			}
 
-			if (player.GetComponent<HealthComponent>().Dead) {
+			// Seriously tmp solution about hiding the inventory ui, need to tween it all away!!!!
+			if (player.GetComponent<HealthComponent>().Dead || Engine.Instance.State.Paused) {
 				return;
 			}
 

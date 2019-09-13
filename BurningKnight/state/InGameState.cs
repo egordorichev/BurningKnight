@@ -43,7 +43,8 @@ namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
-		
+		private const float BarsSize = 50;
+
 		private bool pausedByMouseOut;
 		private bool pausedByLostFocus;
 		private float blur;
@@ -72,6 +73,7 @@ namespace BurningKnight.state {
 		private string v;
 		private float offset;
 		private bool menuExited;
+		private float blackBarsSize;
 		private TextureRegion gardient;
 		private TextureRegion black;
 
@@ -112,10 +114,12 @@ namespace BurningKnight.state {
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);
 
+			black = CommonAse.Ui.GetSlice("black");
+
 			if (Menu) {
 				Input.Blocked = 1;
-				
-				black = CommonAse.Ui.GetSlice("black");
+
+				blackBarsSize = BarsSize;
 				gardient = CommonAse.Ui.GetSlice("gardient");
 				blur = 1;
 
@@ -225,8 +229,10 @@ namespace BurningKnight.state {
 
 			if (painting == null) {
 				pauseMenu.X = 0;
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.4f, Ease.BackOut);
+				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut);
 			}
+			
+			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 
 		protected override void OnResume() {
@@ -242,6 +248,7 @@ namespace BurningKnight.state {
 			
 			Tween.To(this, new {blur = 0}, 0.25f);
 			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
 
 			pausedByMouseOut = false;
 		}
@@ -316,6 +323,8 @@ namespace BurningKnight.state {
 				if (Input.WasPressed(Controls.GameStart, null, true)) {
 					menuExited = true;
 					Input.Blocked = 0;
+					
+					Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, 1f);
 					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
@@ -541,6 +550,11 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderUi() {
+			if (blackBarsSize > 0.01f) {
+				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
+				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
+			}
+			
 			Graphics.Color = ColorUtils.HalfWhiteColor;
 			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
 			Graphics.Color = ColorUtils.WhiteColor;
@@ -551,7 +565,7 @@ namespace BurningKnight.state {
 				cursor.Render();
 				return;
 			}
-
+			
 			base.RenderUi();
 
 			if (Menu && offset < Display.UiHeight) {

@@ -31,15 +31,13 @@ gobbo hurt/heal
 
 ### settings
 
-* black bars
-* back out doesnt work?
-
 #### game
 
 * Autosave
 * Vegan mode
 
 * reset progress
+* reset settings
 * view credits
 * speedrun timer
 * blood'n'gore
