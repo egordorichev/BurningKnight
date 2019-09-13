@@ -2,7 +2,9 @@ using System;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
@@ -70,13 +72,21 @@ namespace BurningKnight.state {
 		};
 
 		private static bool showK;
+		private static bool flipR;
+		private static bool flipAll;
+		private static bool extremeWave;
 
 		public static void Init() {
 			if (letterB != null) {
 				return;
 			}
 
+			var d = DateTime.Now;
+
+			flipAll = d.Month == 4 && d.Day == 1;
 			showK = Random.Float() < 0.999f;
+			flipR = Random.Float() > 0.999f;
+			extremeWave = Random.Float() > 0.999f;
 			
 			var anim = Animations.Get("logo");
 
@@ -128,12 +138,14 @@ namespace BurningKnight.state {
 			bdot = anim.GetSlice("bdot");
 		}
  
-		private static void Render(TextureRegion letter, TextureRegion origin, Vector2 pos) {
+		private static void Render(TextureRegion letter, TextureRegion origin, Vector2 pos, bool flip = false) {
+			var m = extremeWave ? 6 : 1;
+			
 			var x = pos.X + origin.Center.X + (Display.UiWidth - 172) / 2f;
-			var y = pos.Y + origin.Center.Y + (Display.UiHeight - 134) / 2f + (float) Math.Cos(Engine.Time * 2.5f + (pos.X) * 0.03f) * 1.5f;
-			var angle = (float) Math.Sin(Engine.Time * 2.5f + (pos.X) * 0.03f - Math.PI) * 0.05f;
+			var y = pos.Y + origin.Center.Y + (Display.UiHeight - 134) / 2f + (float) Math.Cos(Engine.Time * 2.5f + (pos.X) * 0.03f) * 1.5f * m;
+			var angle = (float) Math.Sin(Engine.Time * 2.5f + (pos.X) * 0.03f - Math.PI) * 0.05f * m;
 
-			Graphics.Render(letter, new Vector2(x, y), angle, letter.Center);
+			Graphics.Render(letter, new Vector2(x, y), angle, letter.Center, Vector2.One, flipAll ^ flip ? SpriteEffects.FlipVertically : SpriteEffects.None);
 		}
 		
 		public static void Render(float offset) {
@@ -143,7 +155,7 @@ namespace BurningKnight.state {
 			
 			Render(letterBB, letterB, positions[0] + o);
 			Render(letterBU, letterU, positions[1] + o);
-			Render(letterBR, letterR, positions[2] + o);
+			Render(letterBR, letterR, positions[2] + o, flipR);
 			Render(letterBN1, letterN1, positions[3] + o);
 			Render(letterBI1, letterI1, positions[4] + o);
 			Render(letterBN2, letterN2, positions[5] + o);
@@ -162,7 +174,7 @@ namespace BurningKnight.state {
 
 			Render(letterWB, letterB, positions[0] + o);
 			Render(letterWU, letterU, positions[1] + o);
-			Render(letterWR, letterR, positions[2] + o);
+			Render(letterWR, letterR, positions[2] + o, flipR);
 			Render(letterWN1, letterN1, positions[3] + o);
 			Render(letterWI1, letterI1, positions[4] + o);
 			Render(letterWN2, letterN2, positions[5] + o);
@@ -181,7 +193,7 @@ namespace BurningKnight.state {
 			
 			Render(letterB, letterB, positions[0] + o);
 			Render(letterU, letterU, positions[1] + o);
-			Render(letterR, letterR, positions[2] + o);
+			Render(letterR, letterR, positions[2] + o, flipR);
 			Render(letterN1, letterN1, positions[3] + o);
 			Render(letterI1, letterI1, positions[4] + o);
 			Render(letterN2, letterN2, positions[5] + o);

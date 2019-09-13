@@ -34,7 +34,6 @@ gobbo hurt/heal
 ### settings
 
 * gamepad support ;(
-* small chance to switch letters in logo in menu
 * fix + in the font, it looks like a dot
 * adjust pause menu elements a bit to fit better
 * ui string support in label
