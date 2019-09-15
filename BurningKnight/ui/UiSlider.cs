@@ -8,7 +8,7 @@ namespace BurningKnight.ui {
 			var a = pane.Add(new UiLabel {
 				LocaleLabel = label,
 				RelativeX = x,
-				RelativeY = y
+				RelativeCenterY = y
 			});
 
 			UiSliderLabel c = null;
@@ -16,7 +16,7 @@ namespace BurningKnight.ui {
 			var b = pane.Add(new UiButton {
 				Label = "-",
 				RelativeX = x + a.Width + 10,
-				RelativeY = y,
+				RelativeCenterY = y,
 				Click = bt => {
 					c.Value = Math.Max(0, c.Value - 10);
 				},
@@ -27,7 +27,7 @@ namespace BurningKnight.ui {
 			c = (UiSliderLabel) pane.Add(new UiSliderLabel {
 				Label = $"{max}%",
 				RelativeX = x + a.Width + b.Width + 20,
-				RelativeY = y,
+				RelativeCenterY = y,
 				Click = bt => {
 					var n = (UiSliderLabel) bt;
 					
@@ -44,7 +44,7 @@ namespace BurningKnight.ui {
 			var d = pane.Add(new UiButton {
 				Label = "+",
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
-				RelativeY = y,
+				RelativeCenterY = y,
 				Click = bt => {
 					c.Value = Math.Min(max, c.Value + 10);
 				},

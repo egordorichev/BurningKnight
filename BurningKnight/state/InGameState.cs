@@ -717,7 +717,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start + space,
+				RelativeCenterY = start + space,
 				Click = b => {
 					Run.ResetStats();
 					Run.Depth = 0;
@@ -727,7 +727,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "back_to_castle",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start + start * 2,
+				RelativeCenterY = start + start * 2,
 				Type = ButtonType.Exit,
 				Click = b => Run.Depth = 0
 			});
@@ -1009,7 +1009,7 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 24f;
+			var space = 20f;
 			var sy = Display.UiHeight * 0.5f - space;
 			
 			graphicsSettings.Add(new UiLabel {
@@ -1032,7 +1032,7 @@ namespace BurningKnight.state {
 				Name = "fullscreen",
 				On = Engine.Graphics.IsFullScreen,
 				RelativeCenterX = sx,
-				RelativeY = sy - space * 2,
+				RelativeCenterY = sy - space * 2,
 				Click = b => {
 					Settings.Fullscreen = ((UiCheckbox) b).On;
 
@@ -1053,7 +1053,7 @@ namespace BurningKnight.state {
 				Name = "vsync",
 				On = Settings.Vsync,
 				RelativeCenterX = sx,
-				RelativeY = sy - space,
+				RelativeCenterY = sy - space,
 				Click = b => {
 					Settings.Vsync = ((UiCheckbox) b).On;
 					Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
@@ -1065,28 +1065,15 @@ namespace BurningKnight.state {
 				Name = "fps",
 				On = Settings.ShowFps,
 				RelativeCenterX = sx,
-				RelativeY = sy,
+				RelativeCenterY = sy,
 				Click = b => {
 					Settings.ShowFps = ((UiCheckbox) b).On;
 				},
 				
 				OnUpdate = c => {
-					((UiCheckbox) c).On = Settings.Fullscreen;
+					((UiCheckbox) c).On = Settings.ShowFps;
 				}
 			});
-			
-			UiSlider.Make(graphicsSettings, sx, sy + space, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
-				Settings.Screenshake = s.Value / 100f;
-				ShakeComponent.Modifier = Settings.Screenshake;
-			};
-				
-			UiSlider.Make(graphicsSettings, sx, sy + space * 2, "flash_frames", (int) (Settings.FlashFrames * 100)).OnValueChange = s => {
-				Settings.FlashFrames = s.Value / 100f;
-			};
-			
-			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "freeze_frames", (int) (Settings.FreezeFrames * 100)).OnValueChange = s => {
-				Settings.FreezeFrames = s.Value / 100f;
-			};
 			
 			graphicsSettings.Add(new UiChoice {
 				Name = "cursor",
@@ -1096,12 +1083,27 @@ namespace BurningKnight.state {
 				
 				Option = Settings.Cursor,
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 4,
+				RelativeCenterY = sy + space,
 				
 				Click = c => {
 					Settings.Cursor = ((UiChoice) c).Option;
 				}
 			});
+
+			sy += space * 0.5f;
+
+			UiSlider.Make(graphicsSettings, sx, sy + space * 2, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
+				Settings.Screenshake = s.Value / 100f;
+				ShakeComponent.Modifier = Settings.Screenshake;
+			};
+				
+			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "flash_frames", (int) (Settings.FlashFrames * 100)).OnValueChange = s => {
+				Settings.FlashFrames = s.Value / 100f;
+			};
+			
+			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "freeze_frames", (int) (Settings.FreezeFrames * 100)).OnValueChange = s => {
+				Settings.FreezeFrames = s.Value / 100f;
+			};
 			
 			graphicsSettings.Enabled = false;
 		}
@@ -1112,8 +1114,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 24f;
-			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			var space = 20f;
+			var sy = Display.UiHeight * 0.5f - space;
 			
 			audioSettings.Add(new UiLabel {
 				LocaleLabel = "audio",
@@ -1147,7 +1149,7 @@ namespace BurningKnight.state {
 				Name = "ui_sfx",
 				On = Settings.UiSfx,
 				RelativeCenterX = sx,
-				RelativeY = sy + space * 2,
+				RelativeCenterY = sy + space * 2.5f,
 				Click = b => {
 					Settings.UiSfx = ((UiCheckbox) b).On;
 				}
@@ -1162,8 +1164,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 24f;
-			var sy = Display.UiHeight * 0.5f;
+			var space = 20f;
+			var sy = Display.UiHeight * 0.5f - space * 0.5f;
 			
 			inputSettings.Add(new UiLabel {
 				LocaleLabel = "input",
@@ -1243,6 +1245,8 @@ namespace BurningKnight.state {
 					GamepadData.Identifiers = id.ToArray();
 				}
 			});
+
+			sy += space * 0.5f;
 			
 			inputSettings.Add(new UiButton {
 				LocaleLabel = "keyboard_controls",
