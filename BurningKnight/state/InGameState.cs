@@ -654,8 +654,8 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight	
 			});
 
-			var space = 32f;
-			var start = (Display.UiHeight - space * 2 - 14 * 3) / 2f + space;
+			var space = 24f;
+			var start = Display.UiHeight * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
 				LocaleLabel = "pause",
@@ -668,21 +668,21 @@ namespace BurningKnight.state {
 				Font = Font.Small,
 				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start - space * 1.5f,
+				RelativeCenterY = BackY,
 				AngleMod = 0
 			});
 			
 			pauseBack = currentBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start,
+				RelativeCenterY = start - space,
 				Click = b => Paused = false
 			});
 			
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "settings",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeY = start + space,
+				RelativeCenterY = start,
 				Click = b => {
 					currentBack = settingsBack;
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
@@ -692,7 +692,7 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "back_to_castle",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space * 2,
+				RelativeCenterY = start + space,
 				Type = ButtonType.Exit,
 				Click = b => Run.Depth = 0
 			});
@@ -741,8 +741,8 @@ namespace BurningKnight.state {
 
 		private void AddSettings() {
 			var sx = Display.UiWidth * 1.5f;
-			var sy = Display.UiHeight * 0.5f;
 			var space = 24f;
+			var sy = Display.UiHeight * 0.5f - space * 0.5f;
 			
 			pauseMenu.Add(new UiLabel {
 				LocaleLabel = "settings",
@@ -753,7 +753,7 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "game",
 				RelativeCenterX = sx,
-				RelativeY = sy - space,
+				RelativeCenterY = sy - space,
 				Click = b => {
 					currentBack = gameBack;
 					gameSettings.Enabled = true;
@@ -764,7 +764,7 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "graphics",
 				RelativeCenterX = sx,
-				RelativeY = sy,
+				RelativeCenterY = sy,
 				Click = b => {
 					currentBack = graphicsBack;
 					graphicsSettings.Enabled = true;
@@ -775,7 +775,7 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "audio",
 				RelativeCenterX = sx,
-				RelativeY = sy + space,
+				RelativeCenterY = sy + space,
 				Click = b => {
 					currentBack = audioBack;
 					audioSettings.Enabled = true;
@@ -786,7 +786,7 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiButton {
 				LocaleLabel = "input",
 				RelativeCenterX = sx,
-				RelativeY = sy + space * 2,
+				RelativeCenterY = sy + space * 2,
 				Click = b => {
 					currentBack = inputBack;
 					inputSettings.Enabled = true;
@@ -832,8 +832,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 18f;
-			var sy = Display.UiHeight * 0.5f - space * 2;
+			var space = 20f;
+			var sy = Display.UiHeight * 0.5f - space;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -855,7 +855,7 @@ namespace BurningKnight.state {
 				Name = "autosave",
 				On = Settings.Autosave,
 				RelativeCenterX = sx,
-				RelativeY = sy - space * 2,
+				RelativeCenterY = sy - space * 2,
 				Click = b => {
 					Settings.Autosave = ((UiCheckbox) b).On;
 				}
@@ -865,7 +865,7 @@ namespace BurningKnight.state {
 				Name = "autopause",
 				On = Settings.Autopause,
 				RelativeCenterX = sx,
-				RelativeY = sy - space,
+				RelativeCenterY = sy - space,
 				Click = b => {
 					Settings.Autopause = ((UiCheckbox) b).On;
 				}
@@ -875,7 +875,7 @@ namespace BurningKnight.state {
 				Name = "speedrun_timer",
 				On = Settings.SpeedrunTimer,
 				RelativeCenterX = sx,
-				RelativeY = sy,
+				RelativeCenterY = sy,
 				Click = b => {
 					Settings.SpeedrunTimer = ((UiCheckbox) b).On;
 				}
@@ -885,7 +885,7 @@ namespace BurningKnight.state {
 				Name = "vegan_mode",
 				On = Settings.Vegan,
 				RelativeCenterX = sx,
-				RelativeY = sy + space,
+				RelativeCenterY = sy + space,
 				Click = b => {
 					Settings.Vegan = ((UiCheckbox) b).On;
 				}
@@ -895,7 +895,7 @@ namespace BurningKnight.state {
 				Name = "blood_n_gore",
 				On = Settings.Blood,
 				RelativeCenterX = sx,
-				RelativeY = sy + space * 2,
+				RelativeCenterY = sy + space * 2,
 				Click = b => {
 					Settings.Blood = ((UiCheckbox) b).On;
 				}
@@ -904,7 +904,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_settings",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 3,
+				RelativeCenterY = sy + space * 3.5f,
 				Click = b => {
 					GoConfirm("reset_settings_dis", () => {
 						new Thread(() => {
@@ -924,7 +924,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_progress",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 4,
+				RelativeCenterY = sy + space * 4.5f,
 				Click = b => {
 					GoConfirm("reset_progress_dis", () => {
 						new Thread(() => {
@@ -971,11 +971,13 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = sy - space
 			});
+
+			var spx = 64;
 			
 			confirmationPane.Add(new UiButton {
 				LocaleLabel = "yes",
-				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 2,
+				RelativeCenterX = sx + spx,
+				RelativeCenterY = sy + space,
 				Click = b => {
 					currentBack = settingsBack;
 					gameSettings.Enabled = true;
@@ -985,8 +987,8 @@ namespace BurningKnight.state {
 			
 			currentBack = (UiButton) confirmationPane.Add(new UiButton {
 				LocaleLabel = "no",
-				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 3,
+				RelativeCenterX = sx - spx,
+				RelativeCenterY = sy + space,
 				Click = b => {
 					currentBack = gameBack;
 					gameSettings.Enabled = true;
@@ -1007,8 +1009,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var sy = Display.UiHeight * 0.5f - 32;
-			var space = 18f;
+			var space = 24f;
+			var sy = Display.UiHeight * 0.5f - space;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -1110,7 +1112,7 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 32f;
+			var space = 24f;
 			var sy = Display.UiHeight * 0.5f - space * 0.5f;
 			
 			audioSettings.Add(new UiLabel {
@@ -1160,8 +1162,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 32f;
-			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			var space = 24f;
+			var sy = Display.UiHeight * 0.5f;
 			
 			inputSettings.Add(new UiLabel {
 				LocaleLabel = "input",

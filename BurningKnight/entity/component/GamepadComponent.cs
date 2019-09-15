@@ -25,7 +25,7 @@ namespace BurningKnight.entity.component {
 				}
 				
 				Log.Error($"Unknown gamepad ${Settings.Gamepad}");
-			}/* else if (Controller == null) {
+			} else if (Controller == null) {
 				for (int i = 0; i < 4; i++) {
 					if (Input.Gamepads[i].Attached) {
 						Controller = Input.Gamepads[i];
@@ -36,7 +36,7 @@ namespace BurningKnight.entity.component {
 						break;
 					}
 				}
-			}*/
+			}
 		}
 	}
 }

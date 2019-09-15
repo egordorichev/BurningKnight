@@ -129,10 +129,10 @@ namespace BurningKnight.entity.creature.player {
 			var duck = state.StateInstance is Player.DuckState;
 			
 			if (duck) {
-				if (Input.WasReleased(Controls.Duck)) {
+				if (Input.WasReleased(Controls.Duck, controller)) {
 					state.Become<Player.IdleState>();
 				}
-			} else if (Input.WasPressed(Controls.Duck)) {
+			} else if (Input.WasPressed(Controls.Duck, controller)) {
 				state.Become<Player.DuckState>();
 				
 				/*

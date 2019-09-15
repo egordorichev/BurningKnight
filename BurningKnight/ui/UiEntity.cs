@@ -82,7 +82,7 @@ namespace BurningKnight.ui {
 				OnUnhover();
 			}
 
-			angle = (float) Math.Cos(Engine.Time * 3f + Y / (Display.UiHeight * 0.5f) * Math.PI) * (scale - 0.9f) * AngleMod;
+			angle = (float) Math.Cos(Engine.Time * 3f + Y / (Display.UiHeight * 0.5f) * Math.PI) * (scale - 0.9f) * AngleMod / Math.Max(1, Width * 0.04f);
 		}
 		
 		public override void Render() {

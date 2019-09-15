@@ -12,6 +12,7 @@ namespace BurningKnight.ui {
 		public GamepadComponent GamepadComponent;
 
 		private float cx;
+		private bool firstClickFrame;
 
 		public override void Init() {
 			base.Init();
@@ -30,6 +31,7 @@ namespace BurningKnight.ui {
 
 		protected override void OnClick() {
 			base.OnClick();
+			firstClickFrame = true;
 
 			if (Focused == this) {
 				Focused = null;
@@ -42,7 +44,6 @@ namespace BurningKnight.ui {
 		}
 
 		/*
-		 * gamepad dpad doesnt work??
 		 * centering is off
 		 */
 		private void SetLabel() {
@@ -52,6 +53,16 @@ namespace BurningKnight.ui {
 				k = k[1].ToString();
 			} else if (k.StartsWith("Left")) {
 				k = $"Left {k.Substring(4, k.Length - 4)}";
+			} else if (k.StartsWith("Right")) {
+				k = $"Right {k.Substring(5, k.Length - 5)}";
+			} else if (k.EndsWith("Left")) {
+				k = $"{k.Substring(0, k.Length - 4)} Left";
+			} else if (k.EndsWith("Right")) {
+				k = $"{k.Substring(0, k.Length - 5)} Right";
+			} else if (k.EndsWith("Down")) {
+				k = $"{k.Substring(0, k.Length - 4)} Down";
+			} else if (k.EndsWith("Up")) {
+				k = $"{k.Substring(0, k.Length - 2)} Up";
 			}
 			
 			Label = $"{Locale.Get(Key)}: {k}";
@@ -112,18 +123,22 @@ namespace BurningKnight.ui {
 							break;
 						}
 					}
-					
-					foreach (var b in mouseToCheck) {
-						if (Input.Mouse.Check(b, Input.CheckType.PRESSED)) {
-							
-							Controls.Replace(Key, b);
-							Controls.Bind();
-							Controls.Save();
-						
-							Focused = null;
-							SetLabel();
-						
-							break;
+
+					if (firstClickFrame) {
+						firstClickFrame = false;
+					} else {
+						foreach (var b in mouseToCheck) {
+							if (Input.Mouse.Check(b, Input.CheckType.PRESSED)) {
+
+								Controls.Replace(Key, b);
+								Controls.Bind();
+								Controls.Save();
+
+								Focused = null;
+								SetLabel();
+
+								break;
+							}
 						}
 					}
 				}

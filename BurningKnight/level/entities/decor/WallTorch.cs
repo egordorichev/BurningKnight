@@ -22,7 +22,7 @@ namespace BurningKnight.level.entities.decor {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.5f, 0.2f, 1f)));
+			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.2f, 1f)));
 		}
 
 		public override void Destroy() {

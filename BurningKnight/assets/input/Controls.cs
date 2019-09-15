@@ -47,7 +47,7 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Right, Keys.D, Keys.Right));
 
 			controls.Add(new Control(Active, Keys.Space).Gamepad(Buttons.B));
-			controls.Add(new Control(Use).Mouse(MouseButtons.Left).Gamepad(Buttons.RightTrigger));
+			controls.Add(new Control(Use).Mouse(MouseButtons.Left).Gamepad(Buttons.RightTrigger, Buttons.DPadDown));
 
 			controls.Add(new Control(Bomb, Keys.Q).Gamepad(Buttons.Y));
 			controls.Add(new Control(Interact, Keys.E).Gamepad(Buttons.A));
@@ -171,6 +171,8 @@ namespace BurningKnight.assets.input {
 						foreach (var k in pair.Value["keys"].AsJsonArray) {
 							if (Enum.TryParse<Keys>(k.String(""), out var key)) {
 								l.Add(key);
+							} else {
+								Log.Error($"Unknown key {k}");
 							}
 						}
 
@@ -183,6 +185,8 @@ namespace BurningKnight.assets.input {
 						foreach (var k in pair.Value["mouse"].AsJsonArray) {
 							if (Enum.TryParse<MouseButtons>(k.String(""), out var key)) {
 								l.Add(key);
+							} else {
+								Log.Error($"Unknown mouse button {k}");
 							}
 						}
 
@@ -195,6 +199,8 @@ namespace BurningKnight.assets.input {
 						foreach (var k in pair.Value["gamepad"].AsJsonArray) {
 							if (Enum.TryParse<Buttons>(k.String(""), out var key)) {
 								l.Add(key);
+							} else {
+								Log.Error($"Unknown gamepad button {k}");
 							}
 						}
 
@@ -216,9 +222,9 @@ namespace BurningKnight.assets.input {
 					if (gamepad) {
 						return c.Buttons[0].ToString();
 					} else {
-						if (c.Keys != null) {
+						if (c.Keys != null && c.Keys.Length > 0) {
 							return c.Keys[0].ToString();
-						} else if (c.MouseButtons != null) {
+						} else if (c.MouseButtons != null && c.MouseButtons.Length > 0) {
 							return c.MouseButtons[0].ToString();
 						}
 					}

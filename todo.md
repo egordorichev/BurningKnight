@@ -1,6 +1,9 @@
 # TODO
 
 * basic achievement system (nothing fancy for now, just work)
+* well lit rooms (randomly, shop, treasure)
+* emeralds
+* dont forget little bursts of light for guns and stuff
 
 ### sfx
 
@@ -167,7 +170,7 @@ gobbo hurt/heal
 
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
-* torch, has a good light radius, emits fire particles
+* torch, has a good light radius, emits fire particles (you drop it if you get hit)
 * map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp

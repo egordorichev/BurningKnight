@@ -38,7 +38,7 @@ namespace Lens.input {
 
 			if (Attached != WasAttached) {
 				WasChanged = true;
-			} 
+			}
 		}
 
 		public void Rumble(float strength, float time) {
