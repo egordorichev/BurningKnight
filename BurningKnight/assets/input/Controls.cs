@@ -210,14 +210,51 @@ namespace BurningKnight.assets.input {
 			}
 		}
 
-		public static string Find(string id) {
+		public static string Find(string id, bool gamepad) {
 			foreach (var c in (custom.Count == 0 ? controls : custom)) {
 				if (c.Id == id) {
-					return c.Keys[0].ToString();
+					if (gamepad) {
+						return c.Buttons[0].ToString();
+					} else {
+						if (c.Keys != null) {
+							return c.Keys[0].ToString();
+						} else if (c.MouseButtons != null) {
+							return c.MouseButtons[0].ToString();
+						}
+					}
 				}
 			}
 
 			return "None";
+		}
+
+		public static void Replace(string id, Keys key) {
+			foreach (var c in (custom.Count == 0 ? controls : custom)) {
+				if (c.Id == id) {
+					c.Keys = new[] {key};
+					c.MouseButtons = null;
+					break;
+				}
+			}
+		}
+
+		public static void Replace(string id, Buttons button) {
+			foreach (var c in (custom.Count == 0 ? controls : custom)) {
+				if (c.Id == id) {
+					c.Buttons = new[] {button};
+					break;
+				}
+			}
+		}
+
+		public static void Replace(string id, MouseButtons button) {
+			foreach (var c in (custom.Count == 0 ? controls : custom)) {
+				if (c.Id == id) {
+					c.MouseButtons = new[] {button};
+					c.Keys = null;
+					break;
+				}
+			}
 		}
 	}
 }

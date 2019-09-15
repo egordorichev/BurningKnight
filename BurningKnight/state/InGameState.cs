@@ -369,7 +369,9 @@ namespace BurningKnight.state {
 				} else {
 					if (Input.WasPressed(Controls.Pause, controller)) {
 						if (Paused) {
-							if (currentBack != null) {
+							if (UiControl.Focused != null) {
+								UiControl.Focused.Cancel();
+							} else if (currentBack != null) {
 								currentBack.Click(currentBack);
 							} else {
 								Paused = false;
@@ -1275,7 +1277,8 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 32f;
-			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			var spX = 96f;
+			var sy = Display.UiHeight * 0.5f + space * 0.5f;
 			
 			keyboardSettings.Add(new UiLabel {
 				LocaleLabel = "keyboard",
@@ -1294,6 +1297,48 @@ namespace BurningKnight.state {
 				}
 			});
 
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Use,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy - space * 2,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Active,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy - space * 2,
+			});
+
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Bomb,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy - space,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Interact,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy - space,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Swap,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Roll,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+				Key = Controls.Duck,
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space,
+			});
+
 			keyboardSettings.Enabled = false;
 		}
 
@@ -1304,7 +1349,8 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 32f;
-			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			var spX = 96f;
+			var sy = Display.UiHeight * 0.5f + space * 0.5f;
 			
 			gamepadSettings.Add(new UiLabel {
 				LocaleLabel = "gamepad",
@@ -1318,10 +1364,69 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					currentBack = inputBack;
+					inputSettings.Enabled = true;
 					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gamepadSettings.Enabled = false;
 				}
 			});
 
+			var g = LocalPlayer.Locate(Area).GetComponent<GamepadComponent>();
+
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Use,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy - space * 2,
+			});
+			
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Active,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy - space * 2,
+			});
+
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Bomb,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy - space,
+			});
+			
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Interact,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy - space,
+			});
+			
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Swap,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx - spX,
+				RelativeCenterY = sy,
+			});
+			
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Roll,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx + spX,
+				RelativeCenterY = sy,
+			});
+			
+			gamepadSettings.Add(new UiControl {
+				Key = Controls.Duck,
+				Gamepad = true,
+				GamepadComponent = g,
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space,
+			});
+			
 			gamepadSettings.Enabled = false;
 		}
 

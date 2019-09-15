@@ -44,7 +44,6 @@ gobbo hurt/heal
 
 * gamepad selection
 
-* movement
 * use
 * active
 * bomb
