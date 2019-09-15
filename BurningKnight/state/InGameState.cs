@@ -321,7 +321,107 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
-			
+
+			if (Paused) {
+				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
+					UiButton.SelectedInstance = null;
+					UiButton.Selected = -1;
+				}
+
+				if (UiButton.SelectedInstance == null) {
+					var min = UiButton.LastId;
+					UiButton btn = null;
+							
+					foreach (var b in Ui.Tags[Tags.Button]) {
+						var bt = ((UiButton) b);
+
+						if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
+							btn = bt;
+							min = bt.Id;
+						}
+					}
+
+					if (btn != null) {
+						UiButton.SelectedInstance = btn;
+						UiButton.Selected = btn.Id;
+					}
+				}
+
+				if (UiButton.Selected > -1) {
+					if (Input.WasPressed(Controls.UiDown, null, true)) {
+						UiButton sm = null;
+						var mn = UiButton.LastId;
+						
+						foreach (var b in Ui.Tags[Tags.Button]) {
+							var bt = ((UiButton) b);
+
+							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
+								mn = bt.Id;
+								sm = bt;
+							}
+						}
+
+						if (sm != null) {
+							UiButton.SelectedInstance = sm;
+							UiButton.Selected = sm.Id;
+						} else {
+							var min = UiButton.Selected;
+							UiButton btn = null;
+							
+							foreach (var b in Ui.Tags[Tags.Button]) {
+								var bt = ((UiButton) b);
+
+								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
+									btn = bt;
+									min = bt.Id;
+								}
+							}
+
+							if (btn != null) {
+								UiButton.SelectedInstance = btn;
+								UiButton.Selected = btn.Id;
+							}
+						}
+					}
+					
+					if (Input.WasPressed(Controls.UiUp, null, true)) {
+						UiButton sm = null;
+						var mn = -1;
+						
+						foreach (var b in Ui.Tags[Tags.Button]) {
+							var bt = ((UiButton) b);
+
+							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
+								mn = bt.Id;
+								sm = bt;
+							}
+						}
+
+						if (sm != null) {
+							UiButton.SelectedInstance = sm;
+							UiButton.Selected = sm.Id;
+						} else {
+							var max = UiButton.Selected;
+							UiButton btn = null;
+							
+							foreach (var b in Ui.Tags[Tags.Button]) {
+								var bt = ((UiButton) b);
+
+								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
+									btn = bt;
+									max = bt.Id;
+								}
+							}
+
+							if (btn != null) {
+								UiButton.SelectedInstance = btn;
+								UiButton.Selected = btn.Id;
+							}
+						}
+					}
+				}
+			}
+
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
@@ -382,7 +482,7 @@ namespace BurningKnight.state {
 					}
 				}
 
-				if (controller == null) {
+				if (controller == null || Paused) {
 					continue;
 				}
 				
@@ -631,6 +731,8 @@ namespace BurningKnight.state {
 		}
 		
 		private void SetupUi() {
+			UiButton.LastId = 0;
+			
 			var cam = new Camera(new FollowingDriver());
 			Ui.Add(cam);
 			
@@ -840,16 +942,6 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
 			});
-			
-			gameBack = (UiButton) gameSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
-				}
-			});
 
 			gameSettings.Add(new UiCheckbox {
 				Name = "autosave",
@@ -944,6 +1036,16 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			gameBack = (UiButton) gameSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
+				}
+			});
+			
 			gameSettings.Enabled = false;
 		}
 
@@ -972,7 +1074,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy - space
 			});
 
-			var spx = 64;
+			var spx = 32;
 			
 			confirmationPane.Add(new UiButton {
 				LocaleLabel = "yes",
@@ -1016,16 +1118,6 @@ namespace BurningKnight.state {
 				LocaleLabel = "graphics",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
-			});
-			
-			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => graphicsSettings.Enabled = false;
-				}
 			});
 
 			graphicsSettings.Add(new UiCheckbox {
@@ -1105,6 +1197,16 @@ namespace BurningKnight.state {
 				Settings.FreezeFrames = s.Value / 100f;
 			};
 			
+			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => graphicsSettings.Enabled = false;
+				}
+			});
+			
 			graphicsSettings.Enabled = false;
 		}
 
@@ -1121,16 +1223,6 @@ namespace BurningKnight.state {
 				LocaleLabel = "audio",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
-			});
-			
-			audioBack = (UiButton) audioSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => audioSettings.Enabled = false;
-				}
 			});
 			
 			UiSlider.Make(audioSettings, sx, sy - space, "master_volume", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
@@ -1155,6 +1247,16 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			audioBack = (UiButton) audioSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => audioSettings.Enabled = false;
+				}
+			});
+			
 			audioSettings.Enabled = false;
 		}
 
@@ -1171,16 +1273,6 @@ namespace BurningKnight.state {
 				LocaleLabel = "input",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
-			});
-			
-			inputBack = (UiButton) inputSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
-				}
 			});
 
 			var first = true;
@@ -1276,6 +1368,16 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
 				}
 			});
+			
+			inputBack = (UiButton) inputSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = settingsBack;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+				}
+			});
 
 			inputSettings.Enabled = false;
 
@@ -1297,17 +1399,6 @@ namespace BurningKnight.state {
 				LocaleLabel = "keyboard",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
-			});
-			
-			keyboardBack = (UiButton) keyboardSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					inputSettings.Enabled = true;
-					currentBack = inputBack;
-					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => keyboardSettings.Enabled = false;
-				}
 			});
 
 			keyboardSettings.Add(new UiControl {
@@ -1351,6 +1442,17 @@ namespace BurningKnight.state {
 				RelativeX = sx,
 				RelativeCenterY = sy + space,
 			});
+			
+			keyboardBack = (UiButton) keyboardSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					inputSettings.Enabled = true;
+					currentBack = inputBack;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => keyboardSettings.Enabled = false;
+				}
+			});
 
 			keyboardSettings.Enabled = false;
 		}
@@ -1369,17 +1471,6 @@ namespace BurningKnight.state {
 				LocaleLabel = "gamepad",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
-			});
-			
-			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
-				LocaleLabel = "back",
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = inputBack;
-					inputSettings.Enabled = true;
-					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gamepadSettings.Enabled = false;
-				}
 			});
 
 			var g = LocalPlayer.Locate(Area).GetComponent<GamepadComponent>();
@@ -1438,6 +1529,17 @@ namespace BurningKnight.state {
 				GamepadComponent = g,
 				RelativeX = sx,
 				RelativeCenterY = sy + space,
+			});
+			
+			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = inputBack;
+					inputSettings.Enabled = true;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gamepadSettings.Enabled = false;
+				}
 			});
 			
 			gamepadSettings.Enabled = false;

@@ -22,6 +22,8 @@ namespace BurningKnight {
 
 		public static int Torch = new BitTag("torch");
 
+		public static int Button = new BitTag("button");
+		
 		public static string[] AllTags;
 		
 		static Tags() {

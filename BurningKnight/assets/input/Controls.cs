@@ -30,13 +30,17 @@ namespace BurningKnight.assets.input {
 		
 		public const string Pause = "pause";
 
-		public const string UiAccept = "ui_accept";
 		public const string GameStart = "game_start";
 		public const string Cancel = "cancel";
 		
 		public const string Fullscreen = "fullscreen";
 		public const string Fps = "fps";
 		public const string Mute = "mute";
+
+		public const string UiUp = "ui_up";
+		public const string UiDown = "ui_down";
+		public const string UiAccept = "ui_accept";
+		public const string UiSelect = "ui_select";
 
 		static Controls() {
 			controls.Clear();
@@ -56,7 +60,6 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.LeftShoulder));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
-			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
 			
 			controls.Add(new Control(Mute, Keys.M));
 			controls.Add(new Control(Fullscreen, Keys.F11, Keys.F));
@@ -64,6 +67,11 @@ namespace BurningKnight.assets.input {
 
 			controls.Add(new Control(Cancel, Keys.Escape).Gamepad(Buttons.Back));
 			controls.Add(new Control(GameStart, Keys.Space, Keys.Enter, Keys.X).Gamepad(Buttons.X, Buttons.Start));
+			
+			controls.Add(new Control(UiUp, Keys.W, Keys.Up).Gamepad(Buttons.LeftThumbstickUp, Buttons.RightThumbstickUp, Buttons.DPadUp));
+			controls.Add(new Control(UiDown, Keys.S, Keys.Down).Gamepad(Buttons.LeftThumbstickDown, Buttons.RightThumbstickDown, Buttons.DPadDown));
+			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
+			controls.Add(new Control(UiSelect, Keys.Enter).Gamepad(Buttons.A, Buttons.B, Buttons.X, Buttons.Y));
 		}
 
 		public static void Bind() {

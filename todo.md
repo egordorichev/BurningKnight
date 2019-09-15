@@ -30,8 +30,8 @@ gobbo hurt/heal
 
 ### settings
 
+* input/audio settings first button id is wrong :/
 * gamepad navigation support ;(
-* choice/control is offcenter
 
 #### audio
 
