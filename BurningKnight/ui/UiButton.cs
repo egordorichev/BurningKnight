@@ -18,6 +18,7 @@ namespace BurningKnight.ui {
 		public ButtonType Type = ButtonType.Normal;
 		public float Padding;
 		public int Id;
+		public bool Selectable = true;
 
 		private bool wasSelected;
 
@@ -70,9 +71,10 @@ namespace BurningKnight.ui {
 			}
 			
 			if (wasSelected && !selected) {
+				Tween.To(UiLabel.DefaultTint, Tint, x => Tint = x, 0.1f);
 				Tween.To(1f, scale, x => scale = x, 0.1f);
 			} else if (selected && !wasSelected) {
-				Log.Error(Id);
+				Tween.To(1, Tint, x => Tint = x, 0.1f);
 				Tween.To(1 + ScaleMod * 0.2f, scale, x => scale = x, 0.1f);
 			}
 

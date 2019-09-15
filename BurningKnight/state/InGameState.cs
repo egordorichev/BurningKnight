@@ -327,8 +327,8 @@ namespace BurningKnight.state {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
-
-				if (UiButton.SelectedInstance == null) {
+				
+				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown) || Input.WasPressed(Controls.UiUp))) {
 					var min = UiButton.LastId;
 					UiButton btn = null;
 							
@@ -345,9 +345,7 @@ namespace BurningKnight.state {
 						UiButton.SelectedInstance = btn;
 						UiButton.Selected = btn.Id;
 					}
-				}
-
-				if (UiButton.Selected > -1) {
+				} else if (UiButton.Selected > -1) {
 					if (Input.WasPressed(Controls.UiDown, null, true)) {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
@@ -382,9 +380,7 @@ namespace BurningKnight.state {
 								UiButton.Selected = btn.Id;
 							}
 						}
-					}
-					
-					if (Input.WasPressed(Controls.UiUp, null, true)) {
+					} else if (Input.WasPressed(Controls.UiUp, null, true)) {
 						UiButton sm = null;
 						var mn = -1;
 						
@@ -401,7 +397,7 @@ namespace BurningKnight.state {
 							UiButton.SelectedInstance = sm;
 							UiButton.Selected = sm.Id;
 						} else {
-							var max = UiButton.Selected;
+							var max = -1;
 							UiButton btn = null;
 							
 							foreach (var b in Ui.Tags[Tags.Button]) {

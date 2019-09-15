@@ -20,8 +20,8 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Max(0, c.Value - 10);
 				},
-				Padding = 5,
-				ScaleMod = 2
+				Padding = 10,
+				ScaleMod = 3
 			});
 
 			c = (UiSliderLabel) pane.Add(new UiSliderLabel {
@@ -48,8 +48,8 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Min(max, c.Value + 10);
 				},
-				Padding = 5,
-				ScaleMod = 2
+				Padding = 10,
+				ScaleMod = 3
 			});
 
 			var m = (d.RelativeX + d.Width - a.RelativeX) / 2f;
@@ -65,6 +65,11 @@ namespace BurningKnight.ui {
 		public class UiSliderLabel : UiButton {
 			private int value;
 			public Action<UiSliderLabel> OnValueChange;
+
+			public override void Init() {
+				base.Init();
+				Selectable = false;
+			}
 
 			public int Value {
 				get => value;
