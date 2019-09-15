@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets.input;
+using BurningKnight.entity.component;
 using Lens;
 using Lens.assets;
 using Lens.input;
@@ -80,7 +81,7 @@ namespace BurningKnight.ui {
 
 			// fixme: gamepad
 			
-			if (selected && Input.WasPressed(Controls.UiSelect, null, true)) {
+			if (selected && Input.WasPressed(Controls.UiSelect, GamepadComponent.Current, true)) {
 				OnClick();
 			}
 

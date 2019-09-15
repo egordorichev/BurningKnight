@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.component {
 	public class GamepadComponent : Component {
+		public static GamepadData Current;
+		
 		public GamepadData Controller;
 
 		public string GamepadId;
@@ -18,6 +20,7 @@ namespace BurningKnight.entity.component {
 					if (GamePad.GetCapabilities(i).Identifier == Settings.Gamepad) {
 						Controller = Input.Gamepads[i];
 						GamepadId = Settings.Gamepad;
+						Current = Controller;
 						
 						Log.Info($"Connected {GamePad.GetState(i)}");
 						break;
@@ -30,8 +33,9 @@ namespace BurningKnight.entity.component {
 					if (Input.Gamepads[i].Attached) {
 						Controller = Input.Gamepads[i];
 						GamepadId = GamePad.GetCapabilities(i).Identifier;
-						Settings.Gamepad = GamepadId;
+						Current = Controller;
 						
+						Settings.Gamepad = GamepadId;
 						Log.Info($"Connected {GamePad.GetState(i)}");
 						break;
 					}

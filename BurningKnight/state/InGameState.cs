@@ -327,8 +327,10 @@ namespace BurningKnight.state {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
+
+				var gamepad = GamepadComponent.Current;
 				
-				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown) || Input.WasPressed(Controls.UiUp))) {
+				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
 					var min = UiButton.LastId;
 					UiButton btn = null;
 							
@@ -346,7 +348,7 @@ namespace BurningKnight.state {
 						UiButton.Selected = btn.Id;
 					}
 				} else if (UiButton.Selected > -1) {
-					if (Input.WasPressed(Controls.UiDown, null, true)) {
+					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
@@ -380,7 +382,7 @@ namespace BurningKnight.state {
 								UiButton.Selected = btn.Id;
 							}
 						}
-					} else if (Input.WasPressed(Controls.UiUp, null, true)) {
+					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
 						UiButton sm = null;
 						var mn = -1;
 						

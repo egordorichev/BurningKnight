@@ -27,7 +27,7 @@ namespace BurningKnight.ui {
 		protected override void OnClick() {
 			base.OnClick();
 			Tint = 0.5f;
-			Tween.To(DefaultTint, Tint, x => Tint = x, 0.1f);
+			Tween.To(1, Tint, x => Tint = x, 0.2f);
 		}
 
 		public string Label {
