@@ -108,6 +108,7 @@ namespace BurningKnight.state {
 			t += dt;
 
 			if (t > 3f && !added) {
+				t = 0;
 				added = true;
 				logoCard.GoAway = true;
 				
@@ -150,7 +151,7 @@ namespace BurningKnight.state {
 				return;
 			}
 			
-			if (ready) {
+			if (ready && added && t > 3f) {
 				if (removed) {
 					foreach (var c in cards) {
 						if (!c.Done) {

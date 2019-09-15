@@ -68,9 +68,9 @@ namespace BurningKnight {
 			SpeedrunTimer = false;
 			FreezeFrames = 0.5f;
 			FlashFrames = 0.5f;
-			SfxVolume = 0.8f;
-			MusicVolume = 0.5f;
-			masterVolume = 0.8f;
+			SfxVolume = 1f;
+			MusicVolume = 0.8f;
+			masterVolume = 1f;
 			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;

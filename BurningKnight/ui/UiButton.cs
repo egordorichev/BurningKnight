@@ -89,7 +89,7 @@ namespace BurningKnight.ui {
 		}
 
 		public bool IsOnScreen() {
-			return X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;
+			return Selectable && X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Lens.assets {
 		public static bool LoadOriginalFiles = false;
 #endif
 
-		public static bool LoadAudio = false;
+		public static bool LoadAudio = true;
 
 		public static ContentManager Content;
 		public static string Root => LoadOriginalFiles 

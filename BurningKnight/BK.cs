@@ -13,7 +13,13 @@ namespace BurningKnight {
 		// "v0.0.3 (3)"
 		public static Version Version = new Version(3, 0, 0, 3, 0, true, Debug);
 		
-		public BK(int width, int height, bool fullscreen) : base(Version, new DevAssetLoadState(), $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+		public BK(int width, int height, bool fullscreen) : base(Version, 
+			#if DEBUG
+				new DevAssetLoadState(),
+			#else
+				new AssetLoadState(),			
+			#endif
+			 $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 			
 		}
 

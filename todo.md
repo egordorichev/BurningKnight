@@ -28,11 +28,7 @@ spikes popping up
 roll
 gobbo hurt/heal
 
-### settings
-
-* auto pick the first button after tweening is fixed
-
-#### audio
+#### audio settings
 
 * check if all works
 

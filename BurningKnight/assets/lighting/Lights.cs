@@ -190,7 +190,7 @@ namespace BurningKnight.assets.lighting {
 				clearColor = new Color(c.X, c.Y, c.Z, c.W);
 			}
 			
-			ImGui.Separator();
+			/*ImGui.Separator();
 
 			var a = (int) custom.AlphaBlendFunction;
 
@@ -226,7 +226,7 @@ namespace BurningKnight.assets.lighting {
 
 			if (ImGui.InputInt("Color Source Blend", ref a)) {
 				custom.ColorSourceBlend = (Blend) a;
-			}
+			}*/
 			
 			ImGui.End();
 		}

@@ -244,7 +244,7 @@ namespace BurningKnight.state {
 
 			if (painting == null) {
 				pauseMenu.X = 0;
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut);
+				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
 			}
 			
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
@@ -288,6 +288,25 @@ namespace BurningKnight.state {
 			pausedByMouseOut = false;
 		}
 
+		private void SelectFirst() {
+			var min = UiButton.LastId;
+			UiButton btn = null;
+							
+			foreach (var b in Ui.Tags[Tags.Button]) {
+				var bt = ((UiButton) b);
+
+				if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
+					btn = bt;
+					min = bt.Id;
+				}
+			}
+
+			if (btn != null) {
+				UiButton.SelectedInstance = btn;
+				UiButton.Selected = btn.Id;
+			}
+		}
+		
 		public override void Update(float dt) {
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
@@ -331,22 +350,7 @@ namespace BurningKnight.state {
 				var gamepad = GamepadComponent.Current;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
-					var min = UiButton.LastId;
-					UiButton btn = null;
-							
-					foreach (var b in Ui.Tags[Tags.Button]) {
-						var bt = ((UiButton) b);
-
-						if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
-							btn = bt;
-							min = bt.Id;
-						}
-					}
-
-					if (btn != null) {
-						UiButton.SelectedInstance = btn;
-						UiButton.Selected = btn.Id;
-					}
+					SelectFirst();
 				} else if (UiButton.Selected > -1) {
 					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
 						UiButton sm = null;
@@ -785,7 +789,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = start,
 				Click = b => {
 					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -857,7 +861,7 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = gameBack;
 					gameSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -868,7 +872,7 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = graphicsBack;
 					graphicsSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -879,7 +883,7 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = audioBack;
 					audioSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -890,7 +894,7 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = inputBack;
 					inputSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -910,7 +914,7 @@ namespace BurningKnight.state {
 					}.Start();
 					
 					currentBack = pauseBack;
-					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime);
+					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
 			
@@ -1040,7 +1044,10 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						gameSettings.Enabled = false;
+					};
 				}
 			});
 			
@@ -1096,11 +1103,15 @@ namespace BurningKnight.state {
 					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
 						pauseMenu.Remove(confirmationPane);
 						confirmationPane = null;	
+						SelectFirst();
 					};
 				}
 			});
 			
-			Tween.To(Display.UiWidth * -3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gameSettings.Enabled = false;
+			Tween.To(Display.UiWidth * -3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+				SelectFirst();
+				gameSettings.Enabled = false;
+			};
 		}
 		
 		private void AddGraphicsSettings() {
@@ -1201,7 +1212,10 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => graphicsSettings.Enabled = false;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						graphicsSettings.Enabled = false;
+					};
 				}
 			});
 			
@@ -1251,7 +1265,10 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => audioSettings.Enabled = false;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						audioSettings.Enabled = false;
+					};
 				}
 			});
 			
@@ -1352,7 +1369,10 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = keyboardBack;
 					keyboardSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						inputSettings.Enabled = false;
+					};
 				}
 			});
 			
@@ -1363,7 +1383,10 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = gamepadBack;
 					gamepadSettings.Enabled = true;
-					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						inputSettings.Enabled = false;
+					};
 				}
 			});
 			
@@ -1373,7 +1396,10 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Click = b => {
 					currentBack = settingsBack;
-					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						inputSettings.Enabled = false;
+					};
 				}
 			});
 
@@ -1448,7 +1474,10 @@ namespace BurningKnight.state {
 				Click = b => {
 					inputSettings.Enabled = true;
 					currentBack = inputBack;
-					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => keyboardSettings.Enabled = false;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						keyboardSettings.Enabled = false;
+					};
 				}
 			});
 
@@ -1536,7 +1565,10 @@ namespace BurningKnight.state {
 				Click = b => {
 					currentBack = inputBack;
 					inputSettings.Enabled = true;
-					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => gamepadSettings.Enabled = false;
+					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						gamepadSettings.Enabled = false;
+					};
 				}
 			});
 			

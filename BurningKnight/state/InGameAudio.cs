@@ -48,7 +48,7 @@ namespace BurningKnight.state {
 
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 			
-			/*var p = LocalPlayer.Locate(Area);
+			var p = LocalPlayer.Locate(Area);
 			var gramophone = p?.GetComponent<RoomComponent>().Room?.Tagged[Tags.Gramophone].FirstOrDefault();
 
 			if (gramophone != null) {
@@ -63,7 +63,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			Audio.PlayMusic(Run.Level.GetMusic());*/
+			Audio.PlayMusic(Run.Level.GetMusic());
 			
 			// Audio.PlayMusic("Disk 6", Camera.Instance.Listener, LocalPlayer.Locate(Area).GetComponent<AudioEmitterComponent>().Emitter);
 		}
@@ -97,7 +97,7 @@ namespace BurningKnight.state {
 				} else {
 					Audio.Stop();
 				}
-			}/* else if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
+			} else if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
 				var gramophone = re.New.Tagged[Tags.Gramophone].FirstOrDefault();
 
 				if (gramophone != null) {
@@ -146,7 +146,7 @@ namespace BurningKnight.state {
 						break;
 					}
 				}
-			}*/ else if (e is SecretRoomFoundEvent) {
+			} else if (e is SecretRoomFoundEvent) {
 				Audio.Stop();
 				
 				Audio.PlaySfx("secret");
