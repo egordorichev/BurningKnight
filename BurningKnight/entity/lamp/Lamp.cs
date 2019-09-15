@@ -30,7 +30,7 @@ namespace BurningKnight.entity.lamp {
 			AddComponent(new ZSliceComponent(CommonAse.Items, Item.Id));
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ZComponent { Z = 2 });
-			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.3f, 0.3f, 0.2f)));
+			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.7f, 1f)));
 			
 			Owner.GetComponent<FollowerComponent>().AddFollower(this);
 		}

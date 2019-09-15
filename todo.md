@@ -28,35 +28,20 @@ spikes popping up
 roll
 gobbo hurt/heal
 
-###
-
-* flashes (like lighting)
-* rain
-* when bomb explodes, disable lighting for a bit>
-
 ### settings
 
-* gamepad support ;(
-* adjust pause menu elements a bit to fit better
+* gamepad navigation support ;(
+* choice/control is offcenter
 
 #### audio
 
 * check if all works
 
-#### input n controls
+# todo
 
-* gamepad selection
-
-* use
-* active
-* bomb
-* interact
-* swap
-* roll
-* duck
-
-* obv look at json conf
-* gamepad and mouse'n'keyboard -> two different panes, allows to input only gamepad or pc controls
+* flashes (like lighting)
+* rain
+* when bomb explodes, disable lighting for a bit>
 
 ## audio
 

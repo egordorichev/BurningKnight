@@ -2,6 +2,7 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using Lens.assets;
 using Lens.input;
+using Lens.util;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.ui {
@@ -17,7 +18,7 @@ namespace BurningKnight.ui {
 		public override void Init() {
 			base.Init();
 
-			cx = RelativeCenterX;
+			cx = RelativeX;
 			SetLabel();
 		}
 
@@ -43,13 +44,16 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		/*
-		 * centering is off
-		 */
 		private void SetLabel() {
 			var k = Controls.Find(Key, Gamepad);
 
-			if (k.Length == 2 && k[0] == 'D') {
+			if (k == "Left") {
+				k = "LMB";
+			} else if (k == "Right") {
+				k = "RMB";
+			} else if (k == "Middle") {
+				k = "MMB";
+			} else if (k.Length == 2 && k[0] == 'D') {
 				k = k[1].ToString();
 			} else if (k.StartsWith("Left")) {
 				k = $"Left {k.Substring(4, k.Length - 4)}";
@@ -97,6 +101,11 @@ namespace BurningKnight.ui {
 
 			if (Focused == this) {
 				if (Gamepad) {
+					if (GamepadComponent.Controller == null) {
+						Log.Error("Null controller");
+						return;
+					}
+					
 					foreach (var b in buttonsToCheck) {
 						if (GamepadComponent.Controller.WasPressed(b)) {
 							Controls.Replace(Key, b);

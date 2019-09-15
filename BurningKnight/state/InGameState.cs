@@ -854,7 +854,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiCheckbox {
 				Name = "autosave",
 				On = Settings.Autosave,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy - space * 2,
 				Click = b => {
 					Settings.Autosave = ((UiCheckbox) b).On;
@@ -864,7 +864,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiCheckbox {
 				Name = "autopause",
 				On = Settings.Autopause,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy - space,
 				Click = b => {
 					Settings.Autopause = ((UiCheckbox) b).On;
@@ -874,7 +874,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiCheckbox {
 				Name = "speedrun_timer",
 				On = Settings.SpeedrunTimer,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy,
 				Click = b => {
 					Settings.SpeedrunTimer = ((UiCheckbox) b).On;
@@ -884,7 +884,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiCheckbox {
 				Name = "vegan_mode",
 				On = Settings.Vegan,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space,
 				Click = b => {
 					Settings.Vegan = ((UiCheckbox) b).On;
@@ -894,7 +894,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiCheckbox {
 				Name = "blood_n_gore",
 				On = Settings.Blood,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space * 2,
 				Click = b => {
 					Settings.Blood = ((UiCheckbox) b).On;
@@ -1031,7 +1031,7 @@ namespace BurningKnight.state {
 			graphicsSettings.Add(new UiCheckbox {
 				Name = "fullscreen",
 				On = Engine.Graphics.IsFullScreen,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy - space * 2,
 				Click = b => {
 					Settings.Fullscreen = ((UiCheckbox) b).On;
@@ -1052,7 +1052,7 @@ namespace BurningKnight.state {
 			graphicsSettings.Add(new UiCheckbox {
 				Name = "vsync",
 				On = Settings.Vsync,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy - space,
 				Click = b => {
 					Settings.Vsync = ((UiCheckbox) b).On;
@@ -1064,7 +1064,7 @@ namespace BurningKnight.state {
 			graphicsSettings.Add(new UiCheckbox {
 				Name = "fps",
 				On = Settings.ShowFps,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy,
 				Click = b => {
 					Settings.ShowFps = ((UiCheckbox) b).On;
@@ -1082,7 +1082,7 @@ namespace BurningKnight.state {
 				},
 				
 				Option = Settings.Cursor,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space,
 				
 				Click = c => {
@@ -1148,7 +1148,7 @@ namespace BurningKnight.state {
 			audioSettings.Add(new UiCheckbox {
 				Name = "ui_sfx",
 				On = Settings.UiSfx,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space * 2.5f,
 				Click = b => {
 					Settings.UiSfx = ((UiCheckbox) b).On;
@@ -1189,10 +1189,10 @@ namespace BurningKnight.state {
 			inputSettings.Add(new UiChoice {
 				Name = "gamepad",
 				
-				Options = new [] {"none"},
-				
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy - space,
+				
+				Options = new [] {"none"},
 				
 				Click = c => {
 					var i = ((UiChoice) c).Option;
@@ -1211,12 +1211,14 @@ namespace BurningKnight.state {
 				},
 				
 				OnUpdate = uc => {
+					if (Settings.Gamepad == null) {
+						gamepad.Visible = gamepad.Active = false;
+					}
+					
 					if (!first && !GamepadData.WasChanged) {
 						return;
 					}
 
-					first = false;
-					
 					var con = new List<string>();
 					var id = new List<string>();
 					var cur = 0;
@@ -1242,6 +1244,11 @@ namespace BurningKnight.state {
 					uc.Options = con.ToArray();
 					uc.Option = cur;
 
+					if (first && cur == con.Count - 1) {
+						gamepad.Visible = gamepad.Active = false;
+					}
+					
+					first = false;
 					GamepadData.Identifiers = id.ToArray();
 				}
 			});
@@ -1264,12 +1271,12 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx,
 				RelativeCenterY = sy + space,
 				Click = b => {
-					currentBack = gameBack;
+					currentBack = gamepadBack;
 					gamepadSettings.Enabled = true;
 					Tween.To(-Display.UiWidth * 3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => inputSettings.Enabled = false;
 				}
 			});
-			
+
 			inputSettings.Enabled = false;
 
 			AddKeyboardSettings();
@@ -1282,7 +1289,7 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 32f;
+			var space = 20f;
 			var spX = 96f;
 			var sy = Display.UiHeight * 0.5f + space * 0.5f;
 			
@@ -1305,43 +1312,43 @@ namespace BurningKnight.state {
 
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Use,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy - space * 2,
 			});
 			
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Active,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy - space * 2,
 			});
 
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Bomb,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy - space,
 			});
 			
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Interact,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy - space,
 			});
 			
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Swap,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy,
 			});
 			
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Roll,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy,
 			});
 			
 			keyboardSettings.Add(new UiControl {
 				Key = Controls.Duck,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space,
 			});
 
@@ -1354,7 +1361,7 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 32f;
+			var space = 20f;
 			var spX = 96f;
 			var sy = Display.UiHeight * 0.5f + space * 0.5f;
 			
@@ -1381,7 +1388,7 @@ namespace BurningKnight.state {
 				Key = Controls.Use,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy - space * 2,
 			});
 			
@@ -1389,7 +1396,7 @@ namespace BurningKnight.state {
 				Key = Controls.Active,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy - space * 2,
 			});
 
@@ -1397,7 +1404,7 @@ namespace BurningKnight.state {
 				Key = Controls.Bomb,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy - space,
 			});
 			
@@ -1405,7 +1412,7 @@ namespace BurningKnight.state {
 				Key = Controls.Interact,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy - space,
 			});
 			
@@ -1413,7 +1420,7 @@ namespace BurningKnight.state {
 				Key = Controls.Swap,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx - spX,
+				RelativeX = sx - spX,
 				RelativeCenterY = sy,
 			});
 			
@@ -1421,7 +1428,7 @@ namespace BurningKnight.state {
 				Key = Controls.Roll,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx + spX,
+				RelativeX = sx + spX,
 				RelativeCenterY = sy,
 			});
 			
@@ -1429,7 +1436,7 @@ namespace BurningKnight.state {
 				Key = Controls.Duck,
 				Gamepad = true,
 				GamepadComponent = g,
-				RelativeCenterX = sx,
+				RelativeX = sx,
 				RelativeCenterY = sy + space,
 			});
 			

@@ -36,10 +36,16 @@ namespace BurningKnight.ui {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 
-			PositionChanged += Setup;
-
 			Width = Display.UiWidth;
 			Height = Display.UiHeight;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (Enabled) {
+				Setup();
+			}
 		}
 
 		public UiEntity Add(UiEntity entity) {
@@ -54,7 +60,6 @@ namespace BurningKnight.ui {
 		public void Remove(UiEntity entity) {
 			Entities.Remove(entity);
 			entity.Super = null;
-
 			entity.Done = true;
 		}
 	}

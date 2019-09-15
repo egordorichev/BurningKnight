@@ -1,6 +1,7 @@
 using System;
 using Lens.assets;
 using Lens.input;
+using Lens.util;
 
 namespace BurningKnight.ui {
 	public class UiChoice : UiButton {
@@ -15,7 +16,7 @@ namespace BurningKnight.ui {
 
 				if (Options != null && Options.Length > 0) {
 					Label = $"{Locale.Get(Name)}: {Locale.Get(Options[Option])}";
-					CenterX = cx;
+					RelativeCenterX = cx;
 				}
 			}
 		}
@@ -26,9 +27,8 @@ namespace BurningKnight.ui {
 		public override void Init() {
 			base.Init();
 
-			cx = RelativeCenterX;
-			Label = $"{Locale.Get(Name)}: {(Options.Length > 0 ? Locale.Get(Options[Option]) : "None")}";
-			RelativeCenterX = cx;
+			cx = RelativeX;
+			Option = option;
 		}
 
 		protected override void OnClick() {
