@@ -66,7 +66,7 @@ namespace Lens.assets {
 			progress++;
 			Animations.Load();
 			progress++;
-
+			
 			if (LoadAudio) {
 				Audio.Load();
 			}

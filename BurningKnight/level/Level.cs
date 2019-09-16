@@ -450,7 +450,7 @@ namespace BurningKnight.level {
 					var liquid = (Tile) Liquid[index];
 
 					if (liquid == Tile.Lava) {
-						Graphics.Render(Tilesets.Biome.Light[LiquidVariants[index]], new Vector2(x * 16 - 8, y * 16 - 8));
+						Graphics.Render(Tilesets.Biome.Light[LiquidVariants[index]], new Vector2(x * 16 - 24, y * 16 - 24), 0, Vector2.Zero, new Vector2(2));
 					}
 				}
 			}

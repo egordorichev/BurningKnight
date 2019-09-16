@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
@@ -50,6 +51,8 @@ namespace BurningKnight.state {
 				Log.Info("Starting asset loading thread");
 				
 				Assets.Load(ref progress);
+				
+				Achievements.Load();
 				Dialogs.Load();
 				progress++;
 				CommonAse.Load();

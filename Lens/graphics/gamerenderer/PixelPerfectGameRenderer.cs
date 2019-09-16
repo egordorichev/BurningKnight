@@ -90,7 +90,6 @@ namespace Lens.graphics.gamerenderer {
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
-
 		
 			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
 

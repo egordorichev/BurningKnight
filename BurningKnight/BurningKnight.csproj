@@ -88,6 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\achievements\Achievement.cs" />
+    <Compile Include="assets\achievements\Achievements.cs" />
     <Compile Include="assets\CommonAse.cs" />
     <Compile Include="assets\Dialogs.cs" />
     <Compile Include="assets\Font.cs" />

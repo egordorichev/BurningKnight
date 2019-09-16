@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.achievements;
 using Lens.entity;
 using Lens.util.file;
 
@@ -64,6 +65,8 @@ namespace BurningKnight.save {
 			Values.Clear();
 			Settings.Generate();
 			RunId = 0;
+			
+			Achievements.LockAll();
 			Put("disk", 10);
 		}
 
@@ -84,6 +87,8 @@ namespace BurningKnight.save {
 
 			RunId = reader.ReadUInt32();
 			Settings.Load();
+
+			Achievements.LoadState();
 		}
 
 		public override void Save(Area area, FileWriter writer) {

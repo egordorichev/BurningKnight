@@ -21,32 +21,25 @@ namespace BurningKnight.assets.lighting {
 		private static List<Light> lights = new List<Light>();
 		private static RenderTarget2D surface;
 
-		private static BlendState blend;
+		public static BlendState Blend;
 		private static BlendState messBlend;
 		
 		public static void Init() {
 			if (region == null) {
 				region = Textures.Get("light");
-				
-				var s = BlendState.AlphaBlend;
 
-				blend = new BlendState {
-					BlendFactor = s.BlendFactor,
-					AlphaDestinationBlend = s.AlphaDestinationBlend,
-					ColorDestinationBlend = s.ColorDestinationBlend,
-					ColorSourceBlend = s.ColorSourceBlend,
-					AlphaBlendFunction = s.AlphaBlendFunction,
-					ColorBlendFunction = s.ColorBlendFunction,
-					
-					AlphaSourceBlend = Blend.DestinationAlpha
+				Blend = new BlendState {
+					ColorSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.One,
+					ColorDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.One,
+					ColorBlendFunction = BlendFunction.Add
 				};
 
 				messBlend = new BlendState {
 					ColorBlendFunction = BlendFunction.Add,
-					ColorSourceBlend = Blend.DestinationColor,
-					ColorDestinationBlend = Blend.Zero,
+					ColorSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.DestinationColor,
+					ColorDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero,
 					
-					AlphaSourceBlend = Blend.DestinationAlpha
+					AlphaSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.DestinationAlpha
 				};
 				
 				surfaceBlend = messBlend;
@@ -140,7 +133,7 @@ namespace BurningKnight.assets.lighting {
 				case 1: return BlendState.AlphaBlend;
 				case 2: return BlendState.NonPremultiplied;
 				case 3: return BlendState.Opaque;
-				case 4: return blend;
+				case 4: return Blend;
 				case 5: return messBlend;
 			}
 		}

@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
@@ -43,7 +44,8 @@ namespace BurningKnight.state {
 			Assets.Load(ref progress);
 			Log.Info($"Assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
-			
+
+			Achievements.Load();
 			Dialogs.Load();
 			progress++;
 			CommonAse.Load();

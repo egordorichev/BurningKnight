@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
@@ -1642,6 +1643,7 @@ namespace BurningKnight.state {
 			ItemEditor.Render();
 			RenderSettings();
 			Lights.RenderDebug();
+			Achievements.RenderDebug();
 			Run.Statistics?.RenderWindow();
 
 			if (WindowManager.Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
