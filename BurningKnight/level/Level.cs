@@ -435,16 +435,22 @@ namespace BurningKnight.level {
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderTop(camera);
 
-			Graphics.Color = new Color(1f, 0.8f, 0.5f, 1f);
+			Graphics.Color = new Color(1f, 1f, 0f, 1f);
 			
 			for (int y = GetRenderBottom(camera); y >= toY; y--) {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
+					var light = Light[index];
+
+					if (NoLightNoRender && light < LightMin) {
+						continue;
+					}
+					
 					var tile = (Tile) Tiles[index];
 					var liquid = (Tile) Liquid[index];
 
-					if (liquid == Tile.Lava || tile == Tile.FloorD) {
-						Graphics.Render(Tilesets.Biome.Light, new Vector2(x * 16 - 8, y * 16 - 8));
+					if (liquid == Tile.Lava) {
+						Graphics.Render(Tilesets.Biome.Light[LiquidVariants[index]], new Vector2(x * 16 - 8, y * 16 - 8));
 					}
 				}
 			}

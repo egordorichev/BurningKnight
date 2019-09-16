@@ -1,5 +1,9 @@
 # TODO
 
+* tile lighting: figure it out
+* addictive or non premultiplied????
+* hearts, keys and coins should emit some light, maybe batteries
+
 * basic achievement system (nothing fancy for now, just work)
 * well lit rooms (randomly, shop, treasure)
 * emeralds
