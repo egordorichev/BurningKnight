@@ -77,6 +77,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyGameSaveValueUse>(ModifyGameSaveValueUse.RenderDebug);
 			Register<GiveWeaponUse>(GiveWeaponUse.RenderDebug);
 			Register<AddHitboxUse>();
+			Register<GiveEmeraldsUse>(GiveEmeraldsUse.RenderDebug);
 		}
 	}
 }

@@ -218,6 +218,16 @@ gobbo hurt/heal
 
 ### enemies
 
+* skull, that shoots missiles, that go through wall (terraria dungeon)
+* (can be with thief sprite) caster, that shoots 3 penetrating the walls missiles, then tp's (terraria dungeon)
+* buffer (etg)
+* enemy with waterbolt?
+* one, that just runs around all the walls and is unkillable (terraria dungeon)
+* man eater (wine plant, but in jungle??)
+* man eater, but on chain? for dungeon
+* clown (has a sprite) runs to you and explodes
+* snipper (nt)
+
 + slime that shoots to you, when lands
 + burning slime
 + maggot on the floor
@@ -231,7 +241,6 @@ gobbo hurt/heal
 * Diagonal fly
 
 * dragon (has a sprite)
-* clown (has a sprite)
 * thief (has a sprite)
 * skeleton (has a sprite)
 * king servant?? (has a sprite)

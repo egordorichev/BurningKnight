@@ -70,7 +70,7 @@ namespace BurningKnight.entity.creature.player {
 			activeWeapon.Render(shadow);
 		}
 
-		public void RenderPickups() { // fixme: not rendered???
+		public void RenderPickups() {
 			var player = (Player) Entity;
 			var y = 0f;
 			
@@ -84,7 +84,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			foreach (var region in player.PickedUp) {
-				Graphics.Render(region, Entity.Center - new Vector2(0, y + Entity.Height / 2f + 4f),
+				Graphics.Render(region, Entity.Center - new Vector2(0, y + Entity.Height / 2f + 4f + region.Height / 2f),
 					0, region.Center);
 
 				y += region.Height + 4f;

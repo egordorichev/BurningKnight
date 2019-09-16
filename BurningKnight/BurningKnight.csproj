@@ -375,6 +375,7 @@
     <Compile Include="entity\item\use\DigUse.cs" />
     <Compile Include="entity\item\use\DiscoverSecretRoomsUse.cs" />
     <Compile Include="entity\item\use\GiveBombUse.cs" />
+    <Compile Include="entity\item\use\GiveEmeraldsUse.cs" />
     <Compile Include="entity\item\use\GiveGoldUse.cs" />
     <Compile Include="entity\item\use\GiveHeartContainersUse.cs" />
     <Compile Include="entity\item\use\GiveItemUse.cs" />

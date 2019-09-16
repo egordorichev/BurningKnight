@@ -8,6 +8,7 @@ namespace BurningKnight.save {
 	public class GlobalSave : Saver {
 		public static Dictionary<string, string> Values = new Dictionary<string, string>();
 		public static uint RunId;
+		public static int Emeralds;
 		
 		public static bool IsTrue(string Key) {
 			return IsTrue(Key, false);
@@ -86,13 +87,16 @@ namespace BurningKnight.save {
 			}
 
 			RunId = reader.ReadUInt32();
+			Emeralds = GetInt("emeralds");
+			
 			Settings.Load();
-
 			Achievements.LoadState();
 		}
 
 		public override void Save(Area area, FileWriter writer) {
 			Settings.Save();
+			Put("emeralds", Emeralds);
+			
 			writer.WriteInt32(Values.Count);
 
 			foreach (var Pair in Values) {

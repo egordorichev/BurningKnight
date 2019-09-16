@@ -134,6 +134,8 @@ namespace BurningKnight.ui.imgui {
 
 				ImGui.InputFloat("Texture zoom", ref c.TextureZoom);
 			}
+			
+			ImGui.BulletText($"{GlobalSave.Emeralds} emeralds");
 
 			if (ImGui.Button("Go to hall (0)")) {
 				Run.Depth = 0;

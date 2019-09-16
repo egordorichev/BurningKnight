@@ -12,6 +12,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
@@ -81,6 +82,7 @@ namespace BurningKnight.state {
 		private float blackBarsSize;
 		private TextureRegion gardient;
 		private TextureRegion black;
+		private TextureRegion emerald;
 
 		private Console console;
 		private UiLabel seedLabel;
@@ -122,8 +124,10 @@ namespace BurningKnight.state {
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);
+			Area.EventListener.Subscribe<GiveEmeraldsUse.GaveEvent>(this);
 
 			black = CommonAse.Ui.GetSlice("black");
+			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
 				Input.Blocked = 1;
@@ -678,7 +682,16 @@ namespace BurningKnight.state {
 			settings.RenderInGame();
 		}
 
+		private float emeraldY = -20;
+		
 		public override void RenderUi() {
+			if (Run.Depth == 0 || emeraldY > -20) {
+				var y = Run.Depth == 0 ? 0 : emeraldY;
+				
+				Graphics.Render(emerald, new Vector2(2, 2 + y));
+				Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+			}
+
 			if (blackBarsSize > 0.01f) {
 				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
@@ -1598,6 +1611,12 @@ namespace BurningKnight.state {
 		}
 
 		public bool HandleEvent(Event e) {
+			if (e is GiveEmeraldsUse.GaveEvent ge) {
+				
+				
+				return false;
+			}
+			
 			if (died) {
 				return false;
 			}
