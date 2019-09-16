@@ -636,6 +636,7 @@
     <Compile Include="state\save\SaveInspector.cs" />
     <Compile Include="state\save\SaveNode.cs" />
     <Compile Include="Tags.cs" />
+    <Compile Include="ui\AchievementBanner.cs" />
     <Compile Include="ui\ButtonType.cs" />
     <Compile Include="ui\dialog\AnswerDialog.cs" />
     <Compile Include="ui\dialog\AnswerType.cs" />

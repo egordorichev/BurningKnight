@@ -17,6 +17,23 @@ namespace BurningKnight.ui.str {
 	public delegate void EventFired(UiString str, string id);
 	
 	/*
+	 * syntax:
+	 *
+	 * _ starts italic
+	 * ** starts bold
+	 * ## starts shake
+	 * %% starts rainbow
+	 * ^^ starts wave
+	 *
+	 * [event_name var1 var2] starts an event
+	 *  + [dl time] delays
+	 *  + [sp speed] sets speed
+	 *  + [ev event] fires user event
+	 *  + [vr variable_name] replaced with user variable
+	 *  + [cl color] sets color, can be hex or predefined string in Palette class
+	 */
+	
+	/*
 	 * todo:
 	 * [tg a]test[dl a]
 	 */
@@ -28,7 +45,7 @@ namespace BurningKnight.ui.str {
 		private List<StrRenderer> renderers = new List<StrRenderer>();
 		private float progress;
 		private int lastChar;
-		private float finalWidth;
+		public float FinalWidth;
 		private float finalHeight;
 
 		public float Delay;
@@ -327,7 +344,7 @@ namespace BurningKnight.ui.str {
 			glp = font.GetGlyphs(label);
 			var size = font.MeasureString(label);
 
-			finalWidth = size.Width;
+			FinalWidth = size.Width;
 			finalHeight = size.Height - 4;
 
 			var j = 0;
@@ -398,7 +415,7 @@ namespace BurningKnight.ui.str {
 
 		public void FinishTyping() {
 			progress = glyphs.Count;
-			Width = finalWidth;
+			Width = FinalWidth;
 			Height = finalHeight;
 			FinishedTyping?.Invoke(this);
 		}
@@ -462,7 +479,7 @@ namespace BurningKnight.ui.str {
 				var e = effects[i];
 				e.Update(dt);
 				
-				for (var j = e.Start; j < Math.Min(glyphs.Count - 1, e.End); j++) {
+				for (var j = e.Start; j < Math.Min(glyphs.Count, e.End); j++) {
 					e.Apply(glyphs[j], j);
 				}
 				

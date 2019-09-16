@@ -1,3 +1,4 @@
+using Lens.entity;
 using Lens.lightJson;
 
 namespace BurningKnight.assets.achievements {
@@ -15,6 +16,14 @@ namespace BurningKnight.assets.achievements {
 
 		public void Save(JsonValue root) {
 			
+		}
+
+		public class UnlockedEvent : Event {
+			public Achievement Achievement;
+		}
+
+		public class LockedEvent : Event {
+			public Achievement Achievement;
 		}
 	}
 }

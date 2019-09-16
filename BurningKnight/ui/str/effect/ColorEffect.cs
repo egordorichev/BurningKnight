@@ -1,5 +1,6 @@
 using BurningKnight.assets;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.str.effect {
@@ -15,6 +16,8 @@ namespace BurningKnight.ui.str.effect {
 				Color = ColorUtils.FromHex(color);
 			} else if (Palette.Colors.TryGetValue(color, out var c)) {
 				Color = c;
+			} else {
+				Log.Error($"Unknown color {color}");
 			}
 		}
 	}

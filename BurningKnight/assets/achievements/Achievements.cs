@@ -90,8 +90,13 @@ namespace BurningKnight.assets.achievements {
 			GlobalSave.Put($"ach_{a.Id}", true);
 			
 			Log.Info($"Achievement {id} was complete!");
+
+			var e = new Achievement.UnlockedEvent {
+				Achievement = a
+			};
 			
-			// todo: graphics
+			Engine.Instance.State.Area.EventListener.Handle(e);
+			Engine.Instance.State.Ui.EventListener.Handle(e);
 		}
 
 		public static void Lock(string id) {
@@ -110,12 +115,20 @@ namespace BurningKnight.assets.achievements {
 			GlobalSave.Put($"ach_{a.Id}", false);
 			
 			Log.Info($"Achievement {id} was locked!");
+
+			var e = new Achievement.LockedEvent {
+				Achievement = a
+			};
 			
-			// todo: graphics
+			Engine.Instance.State.Area.EventListener.Handle(e);
+			Engine.Instance.State.Ui.EventListener.Handle(e);
 		}
 		
 		private static string achievementName = "";
 		private static Achievement selected;
+		private static bool hideLocked;
+		private static bool hideUnlocked;
+		private static bool forceFocus;
 
 		private static void RenderSelectedInfo() {
 			var open = true;
@@ -209,6 +222,7 @@ namespace BurningKnight.assets.achievements {
 				if (ImGui.Button("Create") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
 					defined[achievementName] = selected = new Achievement(achievementName);
 					achievementName = "";
+					forceFocus = true;
 					
 					ImGui.CloseCurrentPopup();
 				}	
@@ -225,6 +239,10 @@ namespace BurningKnight.assets.achievements {
 			
 			ImGui.Separator();
 			filter.Draw("Search");
+
+			ImGui.Checkbox("Hide unlocked", ref hideUnlocked);
+			ImGui.SameLine();
+			ImGui.Checkbox("Hide locked", ref hideLocked);
 			ImGui.Separator();
 			
 			var height = ImGui.GetStyle().ItemSpacing.Y;
@@ -234,12 +252,16 @@ namespace BurningKnight.assets.achievements {
 			foreach (var i in defined.Values) {
 				ImGui.PushID(i.Id);
 
-				/*if (forceFocus && i == selected) {
+				if (forceFocus && i == selected) {
 					ImGui.SetScrollHereY();
 					forceFocus = false;
-				}*/
+				}
 				
 				if (filter.PassFilter(i.Id)) {
+					if ((hideLocked && !i.Unlocked) || (hideUnlocked && i.Unlocked)) {
+						continue;
+					}
+					
 					if (ImGui.Selectable(i.Id, i == selected)) {
 						selected = i;
 

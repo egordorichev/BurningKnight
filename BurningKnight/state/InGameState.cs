@@ -738,6 +738,7 @@ namespace BurningKnight.state {
 			
 			var cam = new Camera(new FollowingDriver());
 			Ui.Add(cam);
+			Ui.Add(new AchievementBanner());
 			
 			settings = new SettingsWindow(new Editor {
 				Area = Area,
@@ -769,6 +770,7 @@ namespace BurningKnight.state {
 				AngleMod = 0
 			});
 			
+			// would be nice click to copy the seed
 			pauseMenu.Add(seedLabel = new UiLabel {
 				Font = Font.Small,
 				Label = $"Seed: {Run.Seed}",
