@@ -23,7 +23,7 @@ namespace BurningKnight.save {
 
 		public static Saver[] Savers;
 		
-		static SaveManager() {
+		public static void Init() {
 			Log.Info($"Save directory is '{SaveDir}'");
 
 			Savers = new Saver[6];
@@ -37,6 +37,9 @@ namespace BurningKnight.save {
 			var saveDirectory = new FileHandle(SaveDir);
 
 			if (!saveDirectory.Exists()) {
+				saveDirectory.MakeDirectory();
+				Log.Info("Creating the save directory");
+				
 				SecretSave.HadSaveBefore = false;
 			}
 		}

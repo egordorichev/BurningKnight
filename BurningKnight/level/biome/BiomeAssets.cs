@@ -47,9 +47,13 @@ namespace BurningKnight.level.biome {
 		public TextureRegion[] PlankTops = new TextureRegion[36];
 		public TextureRegion[] PlankSides = new TextureRegion[3];
 		public TextureRegion PlanksTop;
-		
+
+		public TextureRegion Light;
+
 		public BiomeAssets() {
 			var anim = Animations.Get("biome_assets");
+			
+			Light = anim.GetSlice("light");
 			
 			Patterns[(int) Tile.Dirt] = DirtPattern = new TextureRegion(anim.Texture, new Rectangle(0, 0, 64, 64));
 			Edges[(int) Tile.Dirt] = Dirt = GetEdge(anim, 64, 0);

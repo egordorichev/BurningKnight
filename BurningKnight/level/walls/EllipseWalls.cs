@@ -7,7 +7,14 @@ namespace BurningKnight.level.walls {
 	public class EllipseWalls : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			Painter.Fill(level, room, Tiles.RandomWall());
-			Painter.Fill(level, inside, Random.Chance() ? Tile.WallA : Tile.Planks);
+
+			var t = Tiles.Pick(Tile.WallA, Tile.Lava, Tile.Planks);
+
+			if (t == Tile.Lava) {
+				Painter.Fill(level, inside, Tiles.RandomFloor());
+			}
+
+			Painter.Fill(level, inside, t);
 			Painter.FillEllipse(level, inside, Tiles.RandomFloor());
 
 			// fixme: breaks custom floors

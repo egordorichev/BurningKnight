@@ -7,7 +7,7 @@ using Lens.util.math;
 namespace BurningKnight.level.walls {
 	public class MazeWall : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
-			var w = Tiles.Pick(Tile.Chasm, Tile.Planks, Tile.WallA);
+			var w = Tiles.Pick(Tile.Chasm, Tile.Planks, Tile.WallA, Tile.Lava);
 			var s = Random.Chance(40);
 
 			var maze = Maze.Generate(room);

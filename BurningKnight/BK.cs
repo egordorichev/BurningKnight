@@ -3,6 +3,7 @@ using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.prefabs;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
@@ -20,12 +21,12 @@ namespace BurningKnight {
 				new AssetLoadState(),			
 			#endif
 			 $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
-			
 		}
 
 		protected override void Initialize() {
 			base.Initialize();
 
+			SaveManager.Init();
 			Controls.Load();
 			Font.Load();
 			ImGuiHelper.Init();

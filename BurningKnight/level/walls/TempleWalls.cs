@@ -12,7 +12,7 @@ namespace BurningKnight.level.walls {
 
 			inside = inside.Shrink(m);
 			
-			Painter.Fill(level, inside, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks));
+			Painter.Fill(level, inside, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks, Tile.Lava));
 			Painter.Fill(level, inside, 1, f);
 
 			Painter.Set(level, inside.Left, inside.Top + inside.GetHeight() / 2, f);

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.lighting;
 using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -8,7 +9,7 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.custom {
 	public class FireParticle : Entity {
-		private static TextureRegion region;
+		public static TextureRegion Region;
 		
 		public Entity Owner;
 		public float Delay;
@@ -32,8 +33,8 @@ namespace BurningKnight.assets.particle.custom {
 		public override void Init() {
 			base.Init();
 
-			if (region == null) {
-				region = CommonAse.Particles.GetSlice("fire");
+			if (Region == null) {
+				Region = CommonAse.Particles.GetSlice("fire");
 			}
 
 			AlwaysActive = true;
@@ -97,7 +98,7 @@ namespace BurningKnight.assets.particle.custom {
 			
 			Offset.X -= Vx * dt;
 			Offset.Y -= Vy * dt;
-
+			
 			if (Owner != null) {
 				X = Owner.CenterX;
 				Y = Owner.Bottom;
@@ -112,14 +113,14 @@ namespace BurningKnight.assets.particle.custom {
 			}
 			
 			var a = (float) Math.Cos(T * 5f + SinOffset) * 0.4f;
-			var pos = Position + Offset + region.Center;
+			var pos = Position + Offset + Region.Center;
 
 			pos.X += (float) Math.Cos(SinOffset + T * 2.5f) * Scale * 8 * XChange;
 			
 			Graphics.Color = new Color(R, G, B, 0.5f);
-			Graphics.Render(region, pos, a, region.Center, new Vector2(Scale * 10));
+			Graphics.Render(Region, pos, a, Region.Center, new Vector2(Scale * 10));
 			Graphics.Color = new Color(R, G, B, 1f);
-			Graphics.Render(region, pos, a, region.Center, new Vector2(Scale * 5));
+			Graphics.Render(Region, pos, a, Region.Center, new Vector2(Scale * 5));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}

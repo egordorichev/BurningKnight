@@ -45,11 +45,19 @@ namespace BurningKnight.save {
 		}
 
 		public static int GetInt(string Key, int Def = 0) {
-			return Values.TryGetValue(Key, out var Value) ? Int32.Parse(Value) : Def;
+			try {
+				return Values.TryGetValue(Key, out var Value) ? Int32.Parse(Value) : Def;
+			} catch (Exception e) {
+				return Def;
+			}
 		}
 
 		public static float GetFloat(string Key, float Def = 0) {
-			return Values.TryGetValue(Key, out var Value) ? Single.Parse(Value) : Def;
+			try {			
+				return Values.TryGetValue(Key, out var Value) ? Single.Parse(Value) : Def;
+			} catch (Exception e) {
+				return Def;
+			}
 		}
 
 		public override void Generate(Area area) {

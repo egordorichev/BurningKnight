@@ -11,6 +11,11 @@ namespace BurningKnight.assets.lighting {
 			Light = Lights.New(entity, radius, color);
 		}
 
+		public LightComponent(Light light) {
+			Light = light;
+			Lights.Add(light);
+		}
+
 		public override void Update(float dt) {
 			Light.Update(dt);
 		}

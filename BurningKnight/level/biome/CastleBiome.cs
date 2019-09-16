@@ -10,14 +10,14 @@ namespace BurningKnight.level.biome {
 		public override void ModifyPainter(Painter painter) {
 			base.ModifyPainter(painter);
 			
-			painter.Modifiers.Add((l, x, y) => {
+			/*painter.Modifiers.Add((l, x, y) => {
 				if (l.Get(x, y, true) == Tile.Lava) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;
 					l.Tiles[i] = (int) Tile.Chasm;
 				}
-			});
+			});*/
 		}
 	}
 }

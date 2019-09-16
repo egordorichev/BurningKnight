@@ -23,23 +23,12 @@ namespace BurningKnight.assets.lighting {
 
 		private static BlendState blend;
 		private static BlendState messBlend;
-		private static BlendState custom;
 		
 		public static void Init() {
 			if (region == null) {
 				region = Textures.Get("light");
 				
 				var s = BlendState.AlphaBlend;
-				
-				custom = new BlendState {
-					BlendFactor = s.BlendFactor,
-					AlphaDestinationBlend = s.AlphaDestinationBlend,
-					ColorDestinationBlend = s.ColorDestinationBlend,
-					ColorSourceBlend = s.ColorSourceBlend,
-					AlphaBlendFunction = s.AlphaBlendFunction,
-					ColorBlendFunction = s.ColorBlendFunction,
-					AlphaSourceBlend = s.AlphaSourceBlend
-				};
 
 				blend = new BlendState {
 					BlendFactor = s.BlendFactor,
@@ -96,6 +85,8 @@ namespace BurningKnight.assets.lighting {
 
 			Graphics.Color = ColorUtils.WhiteColor;
 
+			Run.Level?.RenderTileLights();
+
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			
@@ -140,7 +131,7 @@ namespace BurningKnight.assets.lighting {
 		private static int lightBlendId = 2;
 		
 		private static string[] blends = {
-			"Additive", "AlphaBlend", "NonPremultiplied", "Opaque", "Level", "Mess", "Custom"
+			"Additive", "AlphaBlend", "NonPremultiplied", "Opaque", "Level", "Mess"
 		};
 
 		private static BlendState BlendIdToBlend(int id) {
@@ -151,7 +142,6 @@ namespace BurningKnight.assets.lighting {
 				case 3: return BlendState.Opaque;
 				case 4: return blend;
 				case 5: return messBlend;
-				case 6: return custom;
 			}
 		}
 
@@ -190,44 +180,6 @@ namespace BurningKnight.assets.lighting {
 				clearColor = new Color(c.X, c.Y, c.Z, c.W);
 			}
 			
-			/*ImGui.Separator();
-
-			var a = (int) custom.AlphaBlendFunction;
-
-			if (ImGui.InputInt("Alpha Blend Function", ref a)) {
-				custom.AlphaBlendFunction = (BlendFunction) a;
-			}
-
-			a = (int) custom.ColorBlendFunction;
-
-			if (ImGui.InputInt("Color Blend Function", ref a)) {
-				custom.ColorBlendFunction = (BlendFunction) a;
-			}
-
-			a = (int) custom.AlphaDestinationBlend;
-
-			if (ImGui.InputInt("Alpha Destination Blend", ref a)) {
-				custom.AlphaDestinationBlend = (Blend) a;
-			}
-
-			a = (int) custom.AlphaSourceBlend;
-
-			if (ImGui.InputInt("Alpha Source Blend", ref a)) {
-				custom.AlphaSourceBlend = (Blend) a;
-			}
-			
-			a = (int) custom.ColorDestinationBlend;
-
-			if (ImGui.InputInt("Color Destination Blend", ref a)) {
-				custom.ColorDestinationBlend = (Blend) a;
-			}
-
-			a = (int) custom.ColorSourceBlend;
-
-			if (ImGui.InputInt("Color Source Blend", ref a)) {
-				custom.ColorSourceBlend = (Blend) a;
-			}*/
-			
 			ImGui.End();
 		}
 
@@ -248,9 +200,13 @@ namespace BurningKnight.assets.lighting {
 			};
 
 			light.Start(radius);
+			Add(light);
 			
-			lights.Add(light);
 			return light;
+		}
+
+		public static void Add(Light light) {
+			lights.Add(light);
 		}
 
 		public static void Remove(Light light, bool fast = false) {

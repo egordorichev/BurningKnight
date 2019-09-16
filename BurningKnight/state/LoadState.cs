@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading;
 using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
