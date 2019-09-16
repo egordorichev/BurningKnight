@@ -20,11 +20,12 @@ namespace BurningKnight.ui {
 			Subscribe<Achievement.UnlockedEvent>();
 			Subscribe<Achievement.LockedEvent>();
 
-			Y = Display.UiHeight - 64;
-			X = 64;
-
 			FinishedTyping += e => { timer = 3f; };
 			AlwaysActive = true;
+
+			Y = Display.UiHeight;
+
+			Depth = 10;
 		}
 
 		public override void Update(float dt) {
@@ -35,16 +36,19 @@ namespace BurningKnight.ui {
 
 				if (timer <= 0) {
 					timer = -1;
-					Tween.To(0, Tint.A, x => Tint.A = (byte) x, 0.4f);
+
+					if (Finished) {
+						Tween.To(Display.UiHeight, Y, x => Y = x, 0.2f, Ease.QuadIn).OnEnd = () => Tint.A = 0;
+					}
 				}
 			}
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is Achievement.UnlockedEvent au) {
-				Say($"Achievement %%complete%%! [cl red]{Locale.Get("ach_" + au.Achievement.Id)}");
+				Say($"Achievement [cl red]{Locale.Get("ach_" + au.Achievement.Id)}[cl] ^^%%complete%%^^!");
 			} else if (e is Achievement.LockedEvent al) {
-				Say($"Achievement locked :( [cl red]{Locale.Get("ach_" + al.Achievement.Id)}");
+				Say($"Achievement [cl red]{Locale.Get("ach_" + al.Achievement.Id)} [cl gray]locked[cl] :(");
 			}
 			
 			return base.HandleEvent(e);
@@ -57,8 +61,9 @@ namespace BurningKnight.ui {
 			CenterX = Display.UiWidth / 2f;
 			Tint.A = 255;
 
+			Tween.To(Display.UiHeight - 32, Y, x => Y = x, 0.4f, Ease.BackOut);
+
 			StartTyping();
-			Speed = 2;
 		}
 	}
 }

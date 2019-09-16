@@ -1199,6 +1199,10 @@ namespace BurningKnight.state {
 			UiSlider.Make(graphicsSettings, sx, sy + space * 2, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
 				Settings.Screenshake = s.Value / 100f;
 				ShakeComponent.Modifier = Settings.Screenshake;
+
+				if (s.Value == 1000) {
+					Achievements.Unlock("bk:overshake");
+				}
 			};
 				
 			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "flash_frames", (int) (Settings.FlashFrames * 100)).OnValueChange = s => {
