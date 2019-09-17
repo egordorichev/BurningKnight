@@ -428,5 +428,29 @@ namespace BurningKnight.assets.items {
 		public static bool Has(string id) {
 			return Datas.ContainsKey(id);
 		}
+
+		public static void Unlock(string id) {
+			if (!Datas.TryGetValue(id, out var data)) {
+				Log.Error($"Unknown item {id}");
+				return;
+			}
+
+			if (!data.Lockable) {
+				return;
+			}
+
+			if (GlobalSave.IsTrue(data.Id)) {
+				return;
+			}
+			
+			GlobalSave.Put(data.Id, true);
+
+			var e = new Item.UnlockedEvent {
+				Data = data
+			};
+			
+			Engine.Instance.State.Ui.EventListener.Handle(e);
+			Engine.Instance.State.Area.EventListener.Handle(e);
+		}
 	}
 }

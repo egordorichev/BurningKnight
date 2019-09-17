@@ -1,5 +1,6 @@
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
+using BurningKnight.entity.item;
 using BurningKnight.ui.str;
 using Lens;
 using Lens.assets;
@@ -19,6 +20,7 @@ namespace BurningKnight.ui {
 			
 			Subscribe<Achievement.UnlockedEvent>();
 			Subscribe<Achievement.LockedEvent>();
+			Subscribe<Item.UnlockedEvent>();
 
 			FinishedTyping += e => { timer = 3f; };
 			AlwaysActive = true;
@@ -49,6 +51,8 @@ namespace BurningKnight.ui {
 				Say($"Achievement [cl red]{Locale.Get("ach_" + au.Achievement.Id)}[cl] ^^%%complete%%^^!");
 			} else if (e is Achievement.LockedEvent al) {
 				Say($"Achievement [cl red]{Locale.Get("ach_" + al.Achievement.Id)} [cl gray]locked[cl] :(");
+			} else if (e is Item.UnlockedEvent iu) {
+				Say($"[cl red]{Locale.Get(iu.Data.Id)}[cl] was ^^%%unlocked%%^^!");
 			}
 			
 			return base.HandleEvent(e);

@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.save;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens;
@@ -366,7 +367,20 @@ namespace BurningKnight.state {
 			}
 
 			ImGui.Checkbox("Locked", ref selected.Lockable);
-							
+
+			if (selected.Lockable) {
+				ImGui.SameLine();
+				var unlocked = GlobalSave.IsTrue(selected.Id);
+
+				if (ImGui.Checkbox("Unlocked", ref unlocked)) {
+					if (unlocked) {
+						Items.Unlock(selected.Id);
+					} else {
+						GlobalSave.Put(selected.Id, false);
+					}
+				}
+			}
+
 			ImGui.Separator();
 
 			if (ImGui.CollapsingHeader("Uses")) {

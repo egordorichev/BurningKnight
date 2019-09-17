@@ -329,5 +329,9 @@ namespace BurningKnight.entity.item {
 			}
 		}
 		#endif
+
+		public class UnlockedEvent : Event {
+			public ItemData Data;
+		}
 	}
 }
