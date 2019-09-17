@@ -364,7 +364,9 @@ namespace BurningKnight.state {
 			if (animated) {
 				ImGui.InputText("Animation", ref selected.Animation, 128);
 			}
-			
+
+			ImGui.Checkbox("Locked", ref selected.Lockable);
+							
 			ImGui.Separator();
 
 			if (ImGui.CollapsingHeader("Uses")) {
@@ -435,11 +437,20 @@ namespace BurningKnight.state {
 		}
 
 		private static bool fromCurrent;
-		private static bool sort;
 		private static int sortType;
 		private static string itemName = "";
 		private static int count;
+		private static bool locked = true;
+		private static int pool;
+		private static int sortBy;
 
+		private static string[] sortTypes = {
+			"None",
+			"Type",
+			"Locked",
+			"Pool"
+		};
+		
 		private static void Sort() {
 			// fixme
 		}
@@ -539,19 +550,19 @@ namespace BurningKnight.state {
 			filter.Draw("Search");
 
 			ImGui.SameLine();
-			
-			if (ImGui.Button("Sort")) {
-				toSort = true;
-			}
-			
 			ImGui.Text($"{count}");
-			count = 0;
-			ImGui.SameLine();
-			ImGui.Checkbox("Sort##srt", ref sort);
 
-			if (sort) {
-				ImGui.SameLine();
-				ImGui.Combo("Type", ref sortType, Types, Types.Length);
+			count = 0;
+			ImGui.Combo("Filter by", ref sortBy, sortTypes, sortTypes.Length);
+
+			if (sortBy > 0) {
+				if (sortBy == 1) {
+					ImGui.Combo("Type", ref sortType, Types, Types.Length);
+				} else if (sortBy == 2) {
+					ImGui.Checkbox("Locked", ref locked);
+				} else if (sortBy == 3) {
+					ImGui.Combo("Pool##f", ref pool, ItemPool.Names, ItemPool.Count);
+				}
 			}
 
 			var type = (ItemType) sortType;
@@ -570,7 +581,23 @@ namespace BurningKnight.state {
 					forceFocus = false;
 				}
 				
-				if (filter.PassFilter(i.Id) && (!sort || i.Type == type)) {
+				if (filter.PassFilter(i.Id)) {
+					if (sortBy > 0) {
+						if (sortBy == 1) {
+							if (i.Type != (ItemType) sortType) {
+								continue;
+							}
+						} else if (sortBy == 2) {
+							if (i.Lockable != locked) {
+								continue;
+							}
+						} else {
+							if (!ItemPool.ById[pool].Contains(i.Pools)) {
+								continue;
+							}							
+						}
+					}
+					
 					count++;
 
 					if (ImGui.Selectable(i.Id, i == selected)) {

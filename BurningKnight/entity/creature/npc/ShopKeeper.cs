@@ -289,7 +289,9 @@ namespace BurningKnight.entity.creature.npc {
 
 				if (d <= 24) {
 					if ((toPlayer && Random.Chance(80)) || Random.Chance(30)) {
-						Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(12, 15)}", 3);
+						if (Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
+							Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(12, 15)}", 3);
+						}
 					}
 					
 					Self.Become<IdleState>();

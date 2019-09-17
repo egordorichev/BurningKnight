@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
+using BurningKnight.save;
 using BurningKnight.state;
 using Lens;
 using Lens.assets;
@@ -72,6 +73,7 @@ namespace BurningKnight.assets.items {
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
+				data["lock"] = item.Lockable;
 				
 				root[item.Id] = data;
 			}
@@ -124,7 +126,8 @@ namespace BurningKnight.assets.items {
 				AutoPickup = pickup,
 				Single = item["single"].Bool(true),
 				Automatic = item["auto"],
-				Chance = Chance.Parse(item["chance"])
+				Chance = Chance.Parse(item["chance"]),
+				Lockable = item["lock"].Bool(false)
 			};
 			
 			var pl = item["pool"];
@@ -333,7 +336,7 @@ namespace BurningKnight.assets.items {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if ((!t.Single || Run.Statistics == null || (!Run.Statistics.Items.Contains(t.Id) && !Run.Statistics.Banned.Contains(t.Id))) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
+				if ((!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null || (!Run.Statistics.Items.Contains(t.Id) && !Run.Statistics.Banned.Contains(t.Id))) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
 					datas.Add(t);
 				}
 			}

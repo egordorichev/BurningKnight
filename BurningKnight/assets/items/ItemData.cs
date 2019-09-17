@@ -16,5 +16,6 @@ namespace BurningKnight.assets.items {
 		public Chance Chance;
 		public int Pools;
 		public bool Single = true;
+		public bool Lockable;
 	}
 }

@@ -1,7 +1,11 @@
 # TODO
 
+* item unlocking implementation
+
 * unlock shotgun by killing sk
 * item unlocked ui (use achieevment banenr)
+* connecyion room lava
+* hats: sans hat
 
 * tile lighting: figure it out
 * addictive or non premultiplied????
@@ -10,8 +14,6 @@
 
 * npc shops in the hall
 * dont forget little bursts of light for guns and stuff
-
-* hats: sans hat
 
 ### sfx
 
