@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.npc {
 	public class ShopKeeper : Npc {
 		private sbyte _mood = 3;
 
-		private sbyte mood {
+		public sbyte Mood {
 			get => _mood;
 
 			set {
@@ -31,10 +31,11 @@ namespace BurningKnight.entity.creature.npc {
 				if (_mood < 0 && value > 0) {
 					return;
 				}
-				
+
+				var old = _mood;
 				_mood = value;
 
-				if (_mood < 3 && _mood > -1) {
+				if (_mood < old && _mood < 3 && _mood > -1) {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{_mood}", 1);
 				}
 
@@ -44,10 +45,20 @@ namespace BurningKnight.entity.creature.npc {
 
 					AddTag(Tags.MustBeKilled);
 				}
+
+				Recalc();
 			}
 		}
+
+		private bool raging => Mood < 0;
 		
-		private bool raging => mood < 0;
+		private void Recalc() {
+			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
+				if (s is ShopStand ss) {
+					ss.Recalculate();
+				}
+			}
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -70,18 +81,21 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RerollMachine.BrokenEvent>();
 			Subscribe<VendingMachine.BrokenEvent>();
 			Subscribe<RoomChangedEvent>();
+			Subscribe<ItemBoughtEvent>();
+			
+			AddTag(Tags.ShopKeeper);
 			
 			Become<IdleState>();
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			mood = stream.ReadSbyte();
+			Mood = stream.ReadSbyte();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteSbyte(mood);
+			stream.WriteSbyte(Mood);
 		}
 
 		public void Enrage() {
@@ -89,7 +103,7 @@ namespace BurningKnight.entity.creature.npc {
 				return;
 			}
 
-			mood = -1;
+			Mood = -1;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -97,35 +111,36 @@ namespace BurningKnight.entity.creature.npc {
 				if (bpe.Bomb.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					Enrage();
 				}
-
-				return false;
 			} else if (e is GramophoneBrokenEvent gbe) {
 				if (gbe.Gramophone.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					mood--;
+					Mood--;
 				}
-
-				return false;
 			} else if (e is RerollMachine.BrokenEvent rme) {
 				if (rme.Machine.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					mood--;
+					Mood--;
 				}
-
-				return false;
 			} else if (e is VendingMachine.BrokenEvent vme) {
 				if (vme.Machine.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					mood--;
+					Mood--;
 				}
-
-				return false;
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
-				if (hme.Amount < 0 && mood > -2) {
-					mood--;
+				if (hme.Amount < 0 && Mood > -2) {
+					Mood = (sbyte) Math.Min(2, Mood - 1);
 					hme.Amount = -1;
 				}
 			} else if (e is RoomChangedEvent rce) {
-				if (mood > -1 && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
+				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					Recalc();
+					
+					if (Mood > -1) {
+						GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
+						GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
+					}
+				}
+			} else if (e is ItemBoughtEvent ibe) {
+				if (ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
+					Mood++;
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(9, 12)}", 3);
 				}
 			}
 

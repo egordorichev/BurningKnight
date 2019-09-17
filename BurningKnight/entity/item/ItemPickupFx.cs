@@ -46,6 +46,12 @@ namespace BurningKnight.entity.item {
 			Center = Camera.Instance.CameraToUi(new Vector2(item.CenterX, item.Y - 8 + y + (item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().CalculateMove() * Display.UiScale : 0)));
 			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
 		}
+		
+		public override void Render() {
+			if (!Engine.Instance.State.Paused) {
+				base.Render();
+			}
+		}
 
 		public override void Update(float dt) {
 			base.Update(dt);

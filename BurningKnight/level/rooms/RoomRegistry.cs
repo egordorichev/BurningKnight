@@ -88,7 +88,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<IntersectionConnectionRoom>(1f),
 				
 				// Special
-				// RoomInfo.New<IdolTrapRoom>(1f),
+				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<WellRoom>(1f),
 				
 				// Boss

@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.state;
@@ -127,13 +128,23 @@ namespace BurningKnight.entity.item {
 					price = (int) Math.Floor(price * Math.Max(0f, (1f - e.Percent * 0.01f)));
 					hasSale = true;
 				}
+
+				if (r.Tagged[Tags.ShopKeeper].Count > 0) {
+					var min = sbyte.MaxValue;
+					
+					foreach (var s in r.Tagged[Tags.ShopKeeper]) {
+						min = Math.Min(min, ((ShopKeeper) s).Mood);
+					}
+
+					price = Math.Max(1, price - (min - 3));
+				}
 			}
 
 			CalculatePriceSize();
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ItemPlacedEvent) {
+			if (e is ItemPlacedEvent || e is RoomChangedEvent) {
 				Recalculate();
 			}
 			

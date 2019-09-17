@@ -54,6 +54,12 @@ namespace BurningKnight.entity.fx {
 			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
 		}
 
+		public override void Render() {
+			if (!Engine.Instance.State.Paused) {
+				base.Render();
+			}
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 

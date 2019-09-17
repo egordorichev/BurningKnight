@@ -349,12 +349,6 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is RoomChangedEvent c) {
 				c.New.Discover();
 
-				foreach (var i in c.New.Tagged[Tags.Item]) {
-					if (i is ShopStand s) {
-						s.Recalculate();
-					}
-				}
-
 				// Camera following current room, felt weird
 				/*if (Camera.Instance != null) {
 					foreach (var target in Camera.Instance.Targets) {
@@ -474,6 +468,16 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteInt32(lastDepth);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			lastDepth = stream.ReadInt32();
 		}
 
 		public void ModifyDrops(List<Item> drops) {
