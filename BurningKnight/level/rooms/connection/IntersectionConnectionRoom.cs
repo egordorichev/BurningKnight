@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.connection {
 	public class IntersectionConnectionRoom : ConnectionRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tile.Chasm);
+			Painter.Fill(level, this, 1, Tiles.Pick(Tile.Chasm, Tile.Chasm, Tile.Lava, Tile.WallA, Tile.Planks));
 
 			var b = Random.Chance();
 			var a = Random.Chance();

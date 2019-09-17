@@ -1,13 +1,11 @@
 # TODO
 
-* connecyion room lava
 * hats: sans hat
+* npc shops in the hall
 
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
-
-* npc shops in the hall
 * dont forget little bursts of light for guns and stuff
 
 ### sfx
