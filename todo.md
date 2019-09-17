@@ -1,14 +1,5 @@
 # TODO
 
-* hats
- + sans hat
- + clown mask
- + afro haircut
- + villager mask
- + diamond helmet
- + fez
- + granny
-
 * offset the weapons too 
 * npc shops in the hall
 
