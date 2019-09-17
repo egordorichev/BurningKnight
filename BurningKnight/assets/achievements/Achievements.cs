@@ -20,7 +20,6 @@ namespace BurningKnight.assets.achievements {
 		private static Dictionary<string, Achievement> defined = new Dictionary<string, Achievement>();
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
-		private static System.Numerics.Vector2 popupSize = new System.Numerics.Vector2(400, 400);
 
 		public static Achievement Get(string id) {
 			return defined.TryGetValue(id, out var a) ? a : null;

@@ -38,22 +38,17 @@ namespace BurningKnight.level.biome {
 				return Defined[Biome.Library];
 			}
 
-			/*if (depth == 5 || depth == 6) {
+			if (depth == 4) {
 				return Defined[Biome.Forest];
 			}
 
-			if (depth == 7 || depth == 8) {
+			if (depth == 5) {
 				return Defined[Biome.Ice];
 			}
 
-			if (depth == 9 || depth == 10) {
-				return Defined[Biome.Library];
-			}
-
-			// Off the root for now
-			if (depth == 11 || depth == 12) {
+			if (depth == 6) {
 				return Defined[Biome.Tech];
-			}*/
+			}
 			
 			return Defined[Biome.Castle];
 		}

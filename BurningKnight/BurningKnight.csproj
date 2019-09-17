@@ -603,6 +603,7 @@
     <Compile Include="save\PlayerSave.cs" />
     <Compile Include="save\PrefabData.cs" />
     <Compile Include="save\PrefabSaver.cs" />
+    <Compile Include="save\SaveDebug.cs" />
     <Compile Include="save\SaveLock.cs" />
     <Compile Include="save\Saver.cs" />
     <Compile Include="save\SaveType.cs" />

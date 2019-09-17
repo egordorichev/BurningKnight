@@ -8,10 +8,6 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.save {
 	public class GameSave : Saver {
 		public static Dictionary<string, string> Values = new Dictionary<string, string>();
-		
-		public static bool IsTrue(string Key) {
-			return IsTrue(Key, false);
-		}
 
 		public static bool IsTrue(string Key, bool Def = false) {
 			if (Values.TryGetValue(Key, out var Value)) {

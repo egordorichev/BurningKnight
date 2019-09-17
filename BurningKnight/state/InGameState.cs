@@ -1676,6 +1676,7 @@ namespace BurningKnight.state {
 			ItemEditor.Render();
 			RenderSettings();
 			Lights.RenderDebug();
+			SaveDebug.RenderDebug();
 			Achievements.RenderDebug();
 			Run.Statistics?.RenderWindow();
 

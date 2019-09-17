@@ -17,6 +17,7 @@ namespace BurningKnight.ui.imgui {
 		public static bool Settings;
 		public static bool Lighting;
 		public static bool Achievements;
+		public static bool Save;
 		
 		public static void Render() {
 			ImGui.SetNextWindowPos(new Vector2(Engine.Instance.GetScreenWidth() - size.X - 10, Engine.Instance.GetScreenHeight() - size.Y - 10));
@@ -45,6 +46,7 @@ namespace BurningKnight.ui.imgui {
 			ImGui.Checkbox("Settings", ref Settings);
 			ImGui.Checkbox("Lighting", ref Lighting);
 			ImGui.Checkbox("Achievements", ref Achievements);
+			ImGui.Checkbox("Save", ref Save);
 			
 			size = ImGui.GetWindowSize();
 			ImGui.End();

@@ -1,13 +1,13 @@
 # TODO
 
-* enrage sk in the future, if you enraged one
+* sk ai
+
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
 * item editor: sort by pool
 
-* emeralds
-* spawn emeralds in shops, just randomly on the level
+* npc shops in the hall
 * dont forget little bursts of light for guns and stuff
 
 ### sfx

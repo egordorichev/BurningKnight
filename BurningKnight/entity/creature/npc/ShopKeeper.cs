@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
+using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
@@ -39,6 +40,10 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{_mood}", 1);
 				}
 
+				if (raging) {
+					GameSave.Put("sk_enraged", true);
+				}
+
 				if (!r && raging) {
 					Become<RunState>();
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
@@ -53,7 +58,13 @@ namespace BurningKnight.entity.creature.npc {
 		private bool raging => Mood < 0;
 		
 		private void Recalc() {
-			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
+			var r = GetComponent<RoomComponent>().Room;
+
+			if (r == null) {
+				return;
+			}
+			
+			foreach (var s in r.Tagged[Tags.Item]) {
 				if (s is ShopStand ss) {
 					ss.Recalculate();
 				}
@@ -96,6 +107,14 @@ namespace BurningKnight.entity.creature.npc {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteSbyte(Mood);
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			if (GameSave.IsTrue("sk_enraged")) {
+				Enrage();
+			}
 		}
 
 		public void Enrage() {
