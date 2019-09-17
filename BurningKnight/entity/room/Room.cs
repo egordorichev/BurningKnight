@@ -41,7 +41,6 @@ namespace BurningKnight.entity.room {
 			base.AddComponents();
 			
 			AddTag(Tags.Room);
-			lit = Random.Chance(10);
 		}
 
 		public ItemPool GetPool() {

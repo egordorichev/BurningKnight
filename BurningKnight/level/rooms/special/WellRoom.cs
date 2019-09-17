@@ -9,5 +9,21 @@ namespace BurningKnight.level.rooms.special {
 			level.Area.Add(well);
 			well.Center = GetCenter() * 16 + new Vector2(Random.Float(-8, 8), Random.Float(-8, 8));
 		}
+
+		public override int GetMinWidth() {
+			return 5;
+		}
+
+		public override int GetMinHeight() {
+			return 5;
+		}
+
+		public override int GetMaxWidth() {
+			return 8;
+		}
+
+		public override int GetMaxHeight() {
+			return 8;
+		}
 	}
 }

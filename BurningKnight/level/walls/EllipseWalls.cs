@@ -8,7 +8,7 @@ namespace BurningKnight.level.walls {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			Painter.Fill(level, room, Tiles.RandomWall());
 
-			var t = Tiles.Pick(Tile.WallA, Tile.Lava, Tile.Planks);
+			var t = Tiles.Pick(Tile.WallA, Tile.Lava, Tile.Planks, Tile.Chasm);
 
 			if (t == Tile.Lava) {
 				Painter.Fill(level, inside, Tiles.RandomFloor());

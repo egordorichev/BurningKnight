@@ -46,7 +46,7 @@ namespace BurningKnight.level.entities {
 			base.AddComponents();
 
 			Width = 30;
-			Height = 22;
+			Height = 21;
 			
 			AddComponent(new RectBodyComponent(1, 6, 28, 9, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
