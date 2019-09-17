@@ -41,7 +41,7 @@ namespace BurningKnight.entity.item.renderer {
 			var flipped = false;
 			
 			if (!atBack && !paused) {
-				lastAngle = owner.AngleTo(owner.GetComponent<AimComponent>().Aim); // MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
 			}
 			
 			var angle = MathUtils.Mod((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle), Math.PI * 2);

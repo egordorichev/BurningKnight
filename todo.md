@@ -3,7 +3,6 @@
 * sk ai
  + enraged:
   
-* fix gun facing
 * unlock shotgun by killing sk
 * item unlocked ui (use achieevment banenr)
 

@@ -4,6 +4,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.projectile;
 using ImGuiNET;
 using Lens.entity;
@@ -61,11 +62,18 @@ namespace BurningKnight.entity.item.use {
 			wait = settings["wait"].Bool(false);
 
 			SpawnProjectile = (entity, item) => {
-				var a = entity.AngleTo(Input.Mouse.GamePosition);
+				var bad = entity is Creature c && !c.IsFriendly();
+				var sl = slice;
+				
+				if (bad) {
+					sl = "small";
+				}
+				
+				var a = entity.AngleTo(entity.GetComponent<AimComponent>().Aim);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var s = item.Region;
 				// fixme: offset up too? :(
-				var offset = MathUtils.CreateVector(a, s.Width);
+				var offset = MathUtils.CreateVector(a, s.Width / 2f);
 
 				for (var i = 0; i < count; i++) {
 					var angle = a;
@@ -75,13 +83,13 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, slice, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax));
+					var projectile = Projectile.Make(entity, sl, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax));
 
 					Camera.Instance.Push(angle, 4f);
 					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
 
 					if (light) {
-						projectile.AddLight(32f, Projectile.YellowLight);
+						projectile.AddLight(32f, bad ? Projectile.RedLight : Projectile.YellowLight);
 					}
 
 					projectile.Damage = damage;
