@@ -1,7 +1,6 @@
 # TODO
 
 * enrage sk in the future, if you enraged one
-* stop tp to entrance every single time
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
