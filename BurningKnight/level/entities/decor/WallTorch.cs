@@ -51,7 +51,7 @@ namespace BurningKnight.level.entities.decor {
 			
 			lastFlame += dt;
 
-			if (lastFlame > 0.1f) {
+			if (lastFlame > 0.3f) {
 				Area.Add(new FireParticle {
 					X = CenterX,
 					Y = Y + 1,

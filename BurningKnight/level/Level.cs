@@ -254,16 +254,16 @@ namespace BurningKnight.level {
 				Tiles[i] = t;
 			}
 		}
-				
+
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
 				if (Get(i) == Tile.Chasm) {
 					return;
 				}
-				
+
 				Liquid[i] = (byte) value;
 			} else {
-				if (value.IsWall() || value == Tile.Chasm) {
+				if (value.IsWall() || value == Tile.Chasm || (Tile) Liquid[i] == Tile.Lava) {
 					Liquid[i] = 0;
 				}
 				

@@ -1,5 +1,7 @@
 # TODO
 
+* npe in tile rendering in boss rooms and room editor if they see spikes
+
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries

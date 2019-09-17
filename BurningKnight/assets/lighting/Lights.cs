@@ -54,7 +54,7 @@ namespace BurningKnight.assets.lighting {
 		}
 
 		public static void Render() {
-			if (!enabled) {
+			if (!enabled || !(Engine.Instance.State is InGameState)) {
 				return;
 			}
 			

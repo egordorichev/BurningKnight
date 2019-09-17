@@ -9,14 +9,14 @@ namespace BurningKnight.ui.imgui {
 		public static bool Debug;
 		public static bool Entities;
 		public static bool RunInfo;
-		public static bool Console;
+		public static bool Console = true;
 		public static bool ItemEditor;
 		public static bool LevelEditor;
 		public static bool LocaleEditor;
 		public static bool Rooms;
 		public static bool Settings;
 		public static bool Lighting;
-		public static bool Achievements = true;
+		public static bool Achievements;
 		
 		public static void Render() {
 			ImGui.SetNextWindowPos(new Vector2(Engine.Instance.GetScreenWidth() - size.X - 10, Engine.Instance.GetScreenHeight() - size.Y - 10));
