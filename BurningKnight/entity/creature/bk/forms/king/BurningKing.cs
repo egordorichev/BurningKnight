@@ -43,12 +43,12 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 
 		public override void Render() {
 			base.Render();
-			sword?.Renderer.Render(false, false, Engine.Delta, false);
+			sword?.Renderer.Render(false, false, Engine.Delta, false, 0);
 		}
 
 		protected override void RenderShadow() {
 			base.RenderShadow();
-			sword?.Renderer.Render(false, false, Engine.Delta, true);
+			sword?.Renderer.Render(false, false, Engine.Delta, true, 0);
 		}
 
 		public override void SelectAttack() {

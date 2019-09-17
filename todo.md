@@ -1,6 +1,5 @@
 # TODO
 
-* offset the weapons too 
 * npc shops in the hall
 
 * tile lighting: figure it out

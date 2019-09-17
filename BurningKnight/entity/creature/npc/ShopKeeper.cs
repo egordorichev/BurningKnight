@@ -303,12 +303,12 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override void Render() {
 			base.Render();
-			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, false);
+			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, false, 0);
 		}
 
 		protected override void RenderShadow() {
 			base.RenderShadow();
-			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, true);
+			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, true, 0);
 		}
 
 		/*

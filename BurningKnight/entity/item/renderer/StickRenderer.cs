@@ -33,7 +33,7 @@ namespace BurningKnight.entity.item.renderer {
 			}
 		}
 
-		public override void Render(bool atBack, bool paused, float dt, bool shadow) {
+		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			var region = Item.Region;
 			var owner = Item.Owner;
 			var origin = horizontal ? new Vector2(0, region.Height / 2f) : new Vector2(region.Width / 2f, region.Height);
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.item.renderer {
 			
 			Graphics.Render(region, new Vector2(
 				                        owner.CenterX + (horizontal ? 0 : (region.Width / 2f) * (owner.GraphicsComponent.Flipped ? -1 : 1)), 
-				                        owner.CenterY
+				                        owner.CenterY + offset
 			), shadow ? -angle : angle, 
 				origin + new Vector2(0, currentMove), new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
 		}

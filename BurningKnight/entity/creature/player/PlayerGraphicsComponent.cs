@@ -85,10 +85,12 @@ namespace BurningKnight.entity.creature.player {
 		public override void Render(bool shadow) {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
-					
-			weapon.Render(shadow);
+
+			var o = (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame];
+			
+			weapon.Render(shadow, o);
 			SimpleRender(shadow);
-			activeWeapon.Render(shadow);
+			activeWeapon.Render(shadow, o);
 		}
 
 		public void RenderPickups() {

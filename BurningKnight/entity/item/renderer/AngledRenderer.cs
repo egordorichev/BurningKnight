@@ -26,7 +26,7 @@ namespace BurningKnight.entity.item.renderer {
 		private float oy;
 		private float ox;
 
-		public override void Render(bool atBack, bool paused, float dt, bool shadow) {
+		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			float s = dt * 10f;
 			
 			sx += (1 - sx) * s;
@@ -53,7 +53,7 @@ namespace BurningKnight.entity.item.renderer {
 				angle += (SwingAngle + AddedAngle) * (of ? -1 : 1);
 			}
 			
-			Graphics.Render(region, new Vector2(owner.CenterX + (of ? -3 : 3), owner.CenterY + (shadow ? owner.Height : 0)), 
+			Graphics.Render(region, new Vector2(owner.CenterX + (of ? -3 : 3), owner.CenterY + offset + (shadow ? owner.Height : 0)), 
 				(float) angle * (shadow ? -1 : 1), Origin + new Vector2(ox, oy), new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy));
 		}
 

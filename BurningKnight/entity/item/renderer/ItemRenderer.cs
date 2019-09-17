@@ -4,7 +4,7 @@ namespace BurningKnight.entity.item.renderer {
 	public class ItemRenderer {
 		public Item Item;
 		
-		public virtual void Render(bool atBack, bool paused, float dt, bool shadow) {
+		public virtual void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			
 		}
 

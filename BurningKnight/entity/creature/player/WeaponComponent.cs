@@ -11,7 +11,7 @@ namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
 		protected bool AtBack = true;
 
-		public void Render(bool shadow) {
+		public void Render(bool shadow, int offset) {
 			if (Item != null && Item.Renderer != null) {
 				if (!shadow) {
 					var sh = Shaders.Item;
@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.player {
 					sh.Parameters["size"].SetValue(ItemGraphicsComponent.FlashSize);
 				}
 
-				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta, shadow);
+				Item.Renderer.Render(AtBack, Engine.Instance.State.Paused, Engine.Delta, shadow, offset);
 
 				if (!shadow) {
 					Shaders.End();
