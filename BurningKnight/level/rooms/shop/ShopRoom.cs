@@ -16,7 +16,7 @@ namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
 		public override void Paint(Level level) {
 			if (Random.Chance(30)) {
-				var t = Tiles.Pick(Tile.Chasm, Tile.FloorC, Tile.FloorD);
+				var t = Tiles.Pick(Tile.FloorC, Tile.FloorD);
 
 				if (Random.Chance()) {
 					Painter.FillEllipse(level, this, 3, t);
@@ -25,7 +25,7 @@ namespace BurningKnight.level.rooms.shop {
 				}
 				
 				if (Random.Chance()) {
-					t = Tiles.Pick(Tile.Chasm, Tile.FloorC, Tile.FloorD);
+					t = Tiles.Pick(Tile.FloorC, Tile.FloorD);
 
 					if (Random.Chance()) {
 						Painter.FillEllipse(level, this, 4, t);

@@ -232,46 +232,7 @@ namespace BurningKnight.entity.creature.mob {
 
 		public override void AnimateDeath(DiedEvent d) {
 			base.AnimateDeath(d);
-
-			Engine.Instance.Freeze = 0.5f;
-			Camera.Instance.ShakeMax(5);
-			
-			var a = GetAnyComponent<AnimationComponent>();
-
-			if (a == null) {
-				return;
-			}
-
-			if (!Settings.Blood) {
-				return;
-			}
-
-			var gore = new Gore();
-			var r = a.Animation.GetFrame("dead", 0);
-			
-			Area.Add(gore);
-			
-			gore.Position = Position;
-			gore.AddComponent(new ZSliceComponent(r));
-
-			gore.Width = r.Width;
-			gore.Height = r.Height;
-
-			var b = new RectBodyComponent(0, 0, gore.Width, gore.Height);
-			
-			gore.AddComponent(b);
-			
-			b.Body.LinearDamping = 2f;
-			b.Body.Restitution = 1;
-			b.Body.Friction = 0;
-
-			var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Random.AnglePI(), 64);
-			
-			b.Body.LinearVelocity = v;
-
-			if (v.X > 0) {
-				gore.GetComponent<ZSliceComponent>().Flipped = true;
-			}
+			CreateGore(d);
 		}
 
 		#region Path finding

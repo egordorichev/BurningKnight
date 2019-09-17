@@ -1,8 +1,10 @@
 using System;
+using System.Numerics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.room;
 using BurningKnight.level.entities;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
@@ -14,6 +16,7 @@ using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.timer;
 using Random = Lens.util.math.Random;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.npc {
 	public class ShopKeeper : Npc {
@@ -188,23 +191,103 @@ namespace BurningKnight.entity.creature.npc {
 			return !raging;
 		}
 
+		public override bool ShouldCollide(Entity entity) {
+			return base.ShouldCollide(entity) && !(entity is Prop);
+		}
+		
+		private float delay;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			delay -= dt;
+
+			if (delay <= 0) {
+				delay = Random.Float(1, 3f);
+				GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+			}
+		}
+
 		#region Shopkeeper States
 		/*
 		 * Peacefull
 		 */
 		private class IdleState : SmartState<ShopKeeper> {
-			private float delay;
-			
+			private float actionDelay;
+
+			public override void Init() {
+				base.Init();
+				actionDelay = Random.Float(2, 6);
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
-				delay -= dt;
 
-				if (delay <= 0) {
-					delay = Random.Float(2, 6f);
-					Self.GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+				if (Self.GetComponent<DialogComponent>().Dialog.Saying) {
+					T = 0;
+					return;
+				}
+				
+				if (T >= actionDelay) {
+					Self.Become<MoveToState>();
 				}
 			}
 		}
+
+		private class MoveToState : SmartState<ShopKeeper> {
+			private Vector2 target;
+			private bool toPlayer;
+			
+			public override void Init() {
+				base.Init();
+				
+				Self.GetComponent<AnimationComponent>().Animation.Tag = "run";
+				var r = Self.GetComponent<RoomComponent>().Room;
+
+				toPlayer = r.Tagged[Tags.Player].Count > 0 && Random.Chance(40);
+
+				if (toPlayer) {
+					if (Self.DistanceTo(r.Tagged[Tags.Player][0]) < 64f) {
+						toPlayer = false;
+					} else {
+						return;
+					}
+				}
+				
+				var p = r.GetRandomFreeTile();
+				target = new Vector2(p.X * 16, p.Y * 16);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var t = target;
+
+				if (toPlayer) {
+					var a = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player];
+
+					if (a.Count > 0) {
+						target = a[0].Center;
+					}
+				}
+				
+				var dx = Self.DxTo(t);
+				var dy = Self.DyTo(t);
+				var d = MathUtils.Distance(dx, dy);
+				var s = dt * 300;
+
+				var b = Self.GetComponent<RectBodyComponent>();
+				b.Velocity += new Vector2(dx / d * s, dy / d * s);
+
+				if (d <= 24) {
+					if ((toPlayer && Random.Chance(80)) || Random.Chance(30)) {
+						Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(12, 15)}", 3);
+					}
+					
+					Self.Become<IdleState>();
+				}
+			}
+		}
+		
 		/*
 		 * Raging
 		 */

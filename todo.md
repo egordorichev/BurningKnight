@@ -1,6 +1,9 @@
 # TODO
 
 * sk ai
+ + walks in the shop, says some random trash
+ + enraged:
+  
 
 * tile lighting: figure it out
 * addictive or non premultiplied????

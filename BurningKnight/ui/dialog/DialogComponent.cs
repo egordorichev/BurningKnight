@@ -19,6 +19,7 @@ namespace BurningKnight.ui.dialog {
 		public DialogCallback OnNext;
 		public Entity To;
 
+		private bool added;
 		private float tillClose = -1;
 
 		private void HandleInput(object sender, TextInputEventArgs args) {
@@ -75,8 +76,6 @@ namespace BurningKnight.ui.dialog {
 				OnNext?.Invoke(this);
 				return false;
 			};
-			
-			Engine.Instance.State.Ui.Add(Dialog);
 		}
 
 		public override void Destroy() {
@@ -94,6 +93,13 @@ namespace BurningKnight.ui.dialog {
 					Close();
 				}
 			}
+			
+			if (added) {
+				return;
+			}
+
+			Engine.Instance.State.Ui.Add(Dialog);
+			added = true;
 		}
 
 		public void Start(string id, Entity to = null) {
@@ -130,8 +136,11 @@ namespace BurningKnight.ui.dialog {
 			var s = dialog.Modify(c);
 			
 			Dialog.Say(s);
-			Dialog.Str.Renderer = RenderChoice;
 			
+			if (Dialog.Str != null) {
+				Dialog.Str.Renderer = RenderChoice;
+			}
+
 			if (to is Player p) {
 				var input = p.GetComponent<PlayerInputComponent>();
 

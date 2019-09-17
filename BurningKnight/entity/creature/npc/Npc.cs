@@ -1,11 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.ui.dialog;
-using Lens;
 using Lens.entity;
-using Lens.entity.component.logic;
-using Lens.util.camera;
-using Lens.util.timer;
 using Lens.util.tween;
 
 namespace BurningKnight.entity.creature.npc {
@@ -44,27 +40,9 @@ namespace BurningKnight.entity.creature.npc {
 			return base.HandleEvent(e);
 		}
 		
-		private bool dying;
-		
-		// Same as in Mob
 		public override void AnimateDeath(DiedEvent d) {
-			Done = false;
-			
-			if (dying) {
-				return;
-			}
-
-			dying = true;
-
-			Engine.Instance.Freeze = 0.5f;
-			Camera.Instance.ShakeMax(5);
-			
-			GetComponent<StateComponent>().Pause++;
-			
-			Timer.Add(() => {
-				// Sets the done flag
-				base.AnimateDeath(d);
-			}, 0.6f);
+			base.AnimateDeath(d);
+			CreateGore(d);
 		}
 	}
 }
