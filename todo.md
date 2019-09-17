@@ -1,6 +1,15 @@
 # TODO
 
-* hats: sans hat
+* hats
+ + sans hat
+ + clown mask
+ + afro haircut
+ + villager mask
+ + diamond helmet
+ + fez
+ + granny
+
+* offset the weapons too 
 * npc shops in the hall
 
 * tile lighting: figure it out

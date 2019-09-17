@@ -1,4 +1,6 @@
 namespace BurningKnight.entity.item {
+	// Keep in sync with item editor defenition!!!
+	// (in the same order)
 	public enum ItemType {
 		Artifact,
 		Active,
@@ -8,6 +10,7 @@ namespace BurningKnight.entity.item {
 		Heart,
 		Lamp,
 		Weapon,
-		Battery
+		Battery,
+		Hat
 	}
 }

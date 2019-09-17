@@ -175,6 +175,7 @@
     <Compile Include="entity\component\ExplodeComponent.cs" />
     <Compile Include="entity\component\FollowerComponent.cs" />
     <Compile Include="entity\component\GamepadComponent.cs" />
+    <Compile Include="entity\component\HatComponent.cs" />
     <Compile Include="entity\component\HealthComponent.cs" />
     <Compile Include="entity\component\InteractableComponent.cs" />
     <Compile Include="entity\component\InteractableSliceComponent.cs" />

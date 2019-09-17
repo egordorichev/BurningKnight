@@ -57,8 +57,28 @@ namespace BurningKnight.entity.creature.player {
 			return base.HandleEvent(e);
 		}
 
+		private static sbyte[] offsets = {
+			3, 0, 0, 0, 1, 1, 1, 0, 0, 0, -2, -1, 0, 0, 1, 1, 0
+		};
+
 		public void SimpleRender(bool shadow) {
 			base.Render(shadow);
+
+			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				return;
+			}
+
+
+			// fixme: blend mode wrong or smth? it seems transparent
+			
+			var hat = GetComponent<HatComponent>().Item;
+
+			if (hat != null) {
+				var region = hat.Region;
+				var origin = new Vector2(region.Width / 2, region.Height);
+				
+				Graphics.Render(region, new Vector2(Entity.CenterX, Entity.Y + 7 + (shadow ? Entity.Height * 2 : 0) + (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
+			}
 		}
 
 		public override void Render(bool shadow) {

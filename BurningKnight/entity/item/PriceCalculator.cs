@@ -9,7 +9,10 @@ namespace BurningKnight.entity.item {
 				
 				case ItemType.Bomb:
 				case ItemType.Key:
+				case ItemType.Battery:
 				case ItemType.Heart: return 3;
+				
+				case ItemType.Hat: return 1;
 				
 				default: return 15;
 			}
