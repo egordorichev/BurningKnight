@@ -1,6 +1,5 @@
 # TODO
 
-* unlock shotgun by killing sk
 * connecyion room lava
 * hats: sans hat
 

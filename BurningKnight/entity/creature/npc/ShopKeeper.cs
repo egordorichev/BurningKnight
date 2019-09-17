@@ -174,6 +174,8 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
+			Items.Unlock("bk:shotgun");
+			
 			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
 				if (s is ShopStand ss) {
 					ss.Free = true;
