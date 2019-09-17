@@ -4,9 +4,9 @@
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
 
-* basic achievement system (nothing fancy for now, just work)
 * well lit rooms (randomly, shop, treasure)
 * emeralds
+* spawn emeralds in secret rooms, shops, just randomly on the level
 * dont forget little bursts of light for guns and stuff
 
 ### sfx

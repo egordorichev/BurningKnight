@@ -63,6 +63,12 @@ namespace Lens.util.tween {
 			return task;
 		}
 
+		public static void Remove(TweenTask task) {
+			if (task != null) {
+				tasks.Remove(task);
+			}
+		}
+		
 		public static void Update(float dt) {
 			var i = tasks.Count - 1;
 			

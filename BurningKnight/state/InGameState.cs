@@ -1610,9 +1610,17 @@ namespace BurningKnight.state {
 			}).Start();
 		}
 
+		private TweenTask last;
+
 		public bool HandleEvent(Event e) {
 			if (e is GiveEmeraldsUse.GaveEvent ge) {
-				
+				Tween.To(0, emeraldY, x => emeraldY = x, 0.4f, Ease.BackOut).OnEnd = () => {
+					Tween.Remove(last);
+					
+					last = Tween.To(-20, emeraldY, x => emeraldY = x, 0.3f, Ease.QuadIn);
+					last.OnEnd = () => { last = null; };
+					last.Delay = 3;
+				};
 				
 				return false;
 			}
