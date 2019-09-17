@@ -1,12 +1,15 @@
 ﻿using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.input;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
@@ -37,6 +40,20 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			
+			
+			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				return;
+			}
+			
+			var hat = GetComponent<HatComponent>().Item;
+
+			if (hat != null) {
+				region = hat.Region;
+				origin = new Vector2(region.Width / 2, region.Height);
+
+				Graphics.Render(region, new Vector2(Entity.CenterX, Entity.Y + 7 + (shadow ? Entity.Height * 2 : 0) + (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
+			}
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -63,22 +80,6 @@ namespace BurningKnight.entity.creature.player {
 
 		public void SimpleRender(bool shadow) {
 			base.Render(shadow);
-
-			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
-				return;
-			}
-
-
-			// fixme: blend mode wrong or smth? it seems transparent
-			
-			var hat = GetComponent<HatComponent>().Item;
-
-			if (hat != null) {
-				var region = hat.Region;
-				var origin = new Vector2(region.Width / 2, region.Height);
-				
-				Graphics.Render(region, new Vector2(Entity.CenterX, Entity.Y + 7 + (shadow ? Entity.Height * 2 : 0) + (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
-			}
 		}
 
 		public override void Render(bool shadow) {
