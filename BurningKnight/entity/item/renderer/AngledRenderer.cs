@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens;
 using Lens.graphics;
 using Lens.input;
 using Lens.lightJson;
@@ -37,18 +38,14 @@ namespace BurningKnight.entity.item.renderer {
 			var owner = Item.Owner;
 
 			var of = owner.GraphicsComponent.Flipped;
-			var flipped = of;
+			var flipped = false;
 			
 			if (!atBack && !paused) {
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
+				lastAngle = owner.AngleTo(owner.GetComponent<AimComponent>().Aim); // MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
 			}
 			
-			var angle = ((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle)) % (Math.PI * 2);
+			var angle = MathUtils.Mod((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle), Math.PI * 2);
 			var vf = angle > Math.PI * 0.5f && angle < Math.PI * 1.5f;
-			
-			if (vf) {
-				flipped = !flipped;
-			}	
 
 			if (atBack) {
 				flipped = !flipped;

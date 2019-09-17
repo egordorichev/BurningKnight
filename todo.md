@@ -1,9 +1,11 @@
 # TODO
 
 * sk ai
- + walks in the shop, says some random trash
  + enraged:
   
+* fix gun facing
+* unlock shotgun by killing sk
+* item unlocked ui (use achieevment banenr)
 
 * tile lighting: figure it out
 * addictive or non premultiplied????
@@ -12,6 +14,8 @@
 
 * npc shops in the hall
 * dont forget little bursts of light for guns and stuff
+
+* hats: sans hat
 
 ### sfx
 

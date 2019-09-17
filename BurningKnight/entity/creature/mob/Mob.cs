@@ -44,7 +44,7 @@ namespace BurningKnight.entity.creature.mob {
 					"bk:coin"
 				}
 			});
-
+			
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
 			GetComponent<StateComponent>().Pause++;
 		}

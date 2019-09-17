@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -21,6 +22,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace BurningKnight.entity.creature.npc {
 	public class ShopKeeper : Npc {
 		private sbyte _mood = 3;
+		private Item shotgun;
 
 		public sbyte Mood {
 			get => _mood;
@@ -76,9 +78,9 @@ namespace BurningKnight.entity.creature.npc {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-
 			AlwaysActive = true;
 			
+			AddComponent(new AimComponent(AimComponent.AimType.AnyPlayer));
 			AddComponent(new AnimationComponent("shopkeeper"));
 
 			var h = GetComponent<HealthComponent>();
@@ -199,12 +201,17 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			delay -= dt;
 
-			if (delay <= 0) {
-				delay = Random.Float(1, 3f);
-				GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+			if (!raging) {
+				delay -= dt;
+
+				if (delay <= 0) {
+					delay = Random.Float(1, 3f);
+					GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+				}
 			}
+
+			shotgun?.Update(dt);
 		}
 
 		#region Shopkeeper States
@@ -287,13 +294,69 @@ namespace BurningKnight.entity.creature.npc {
 				}
 			}
 		}
-		
+
+		public override void Render() {
+			base.Render();
+			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, false);
+		}
+
+		protected override void RenderShadow() {
+			base.RenderShadow();
+			shotgun?.Renderer.Render(false, Engine.Instance.State.Paused, Engine.Delta, true);
+		}
+
 		/*
 		 * Raging
 		 */
 		private class RunState : SmartState<ShopKeeper> {
+			private Vector2 target;
+			private float delay;
+			private bool set;
+			
+			public override void Init() {
+				base.Init();
+
+				delay = Random.Float(0.2f, 0.8f);
+				
+				Self.GetComponent<AnimationComponent>().Animation.Tag = "run";
+				var r = Self.GetComponent<RoomComponent>().Room;
+
+				if (r != null) {
+					set = true;
+					var p = r.GetRandomFreeTile();
+					target = new Vector2(p.X * 16, p.Y * 16);
+
+					if (Self.shotgun == null) {
+						Self.shotgun = Items.CreateAndAdd("bk:shotgun", Self.Area);
+						Self.shotgun.RemoveDroppedComponents();
+						Self.shotgun.AddComponent(new OwnerComponent(Self));
+					}
+				}
+			}
+			
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (!set) {
+					Init();
+				}
+
+				if (Self.shotgun != null) {
+					Self.shotgun.Use(Self);
+				}
+				
+				var dx = Self.DxTo(target);
+				var dy = Self.DyTo(target);
+				var d = MathUtils.Distance(dx, dy);
+				var s = Math.Min(T * 3, 1f) * dt * 36000;
+
+				var b = Self.GetComponent<RectBodyComponent>();
+				b.Velocity = new Vector2(dx / d * s, dy / d * s);
+
+				if (d <= 8 || T >= delay) {
+					T = 0;
+					Init();
+				}
 			}
 		}
 		#endregion

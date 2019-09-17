@@ -111,7 +111,7 @@ namespace BurningKnight.debug {
 			ImGui.EndChild();
 			ImGui.Separator();
 
-			if (ImGui.InputText("Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+			if (ImGui.InputText("##Input", ref input, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				RunCommand(input);
 				input = "";
 			}

@@ -21,6 +21,14 @@ namespace Lens.util {
 			new Vector2(0, -1)
 		};
 		
+		public static float Mod(float a, float b) {
+			return (float) (a - b * Math.Floor(a / b));
+		}
+		
+		public static double Mod(double a, double b) {
+			return a - b * Math.Floor(a / b);
+		}
+		
 		public static float Clamp(float Min, float Max, float Val) {
 			return Math.Max(Min, Math.Min(Max, Val));
 		}

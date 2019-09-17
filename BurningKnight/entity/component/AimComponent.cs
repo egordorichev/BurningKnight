@@ -7,7 +7,8 @@ namespace BurningKnight.entity.component {
 	public class AimComponent : Component {
 		public enum AimType {
 			Cursor,
-			Target
+			Target,
+			AnyPlayer
 		}
 
 		public AimComponent(AimType t) {
@@ -22,8 +23,14 @@ namespace BurningKnight.entity.component {
 
 			if (TheType == AimType.Cursor) {
 				Aim = Input.Mouse.GamePosition;
-			} else {
+			} else if (TheType == AimType.Target) {
 				Aim = ((Mob) Entity).Target?.Center ?? Input.Mouse.GamePosition;
+			} else {
+				var a = GetComponent<RoomComponent>().Room.Tagged[Tags.Player];
+
+				if (a.Count > 0) {
+					Aim = a[0].Center;
+				}
 			}
 		}
 	}
