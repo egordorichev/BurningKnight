@@ -15,6 +15,8 @@ namespace BurningKnight.level.rooms.treasure {
 			PlaceStand(level, new Vector2(Right - m, Top + m) * 16);
 			PlaceStand(level, new Vector2(Left + m, Bottom - m) * 16);
 			PlaceStand(level, new Vector2(Right - m, Bottom - m) * 16);
+			
+			SetupStands(level);
 		}
 	}
 }

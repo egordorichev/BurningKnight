@@ -498,7 +498,7 @@ namespace BurningKnight.level {
 
 							if (t == Tile.PistonDown) {
 								RenderWall(x, y, index, tile, t, 0);
-							} else if (t != Tile.Chasm) {
+							} else if (t != Tile.Chasm && t != Tile.SpikeTmp && t != Tile.SensingSpikeTmp) {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
 						}

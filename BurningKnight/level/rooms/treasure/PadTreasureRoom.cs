@@ -41,6 +41,8 @@ namespace BurningKnight.level.rooms.treasure {
 			foreach (var r in rs) {
 				Painter.Fill(level, r, Tile.FloorD);
 			}
+			
+			SetupStands(level);
 		}
 
 		private void PlacePad(Level level, Rect rect) {

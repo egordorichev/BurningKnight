@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.level.floors;
@@ -8,12 +9,32 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class TreasureRoom : SpecialRoom {
+		private List<ItemStand> stands = new List<ItemStand>();
+		
 		public override void Paint(Level level) {
 			var c = GetCenter() * 16;
 			
 			PlaceStand(level, c - new Vector2(32, 0));
 			PlaceStand(level, c);
 			PlaceStand(level, c + new Vector2(32, 0));
+
+			SetupStands(level);
+		}
+
+		protected void SetupStands(Level level) {
+			if (stands.Count == 0) {
+				return;
+			}
+
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Chest));
+
+			foreach (var s in stands) {
+				s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+
+				if (pool.Count == 0) {
+					break;
+				}
+			}
 		}
 
 		protected void PlaceStand(Level level, Vector2 where) {
@@ -21,7 +42,7 @@ namespace BurningKnight.level.rooms.treasure {
 			level.Area.Add(stand);
 			stand.Center = where + new Vector2(8, 8);
 			
-			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Chest), level.Area), null);
+			stands.Add(stand);
 		}
 
 		public override void PaintFloor(Level level) {

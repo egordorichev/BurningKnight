@@ -1,14 +1,12 @@
 # TODO
 
-* npe in tile rendering in boss rooms and room editor if they see spikes
-
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
 
 * well lit rooms (randomly, shop, treasure)
 * emeralds
-* spawn emeralds in secret rooms, shops, just randomly on the level
+* spawn emeralds in shops, just randomly on the level
 * dont forget little bursts of light for guns and stuff
 
 ### sfx

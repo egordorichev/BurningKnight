@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
@@ -8,8 +9,8 @@ using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
-using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
@@ -50,20 +51,26 @@ namespace BurningKnight.level.rooms.shop {
 			}
 
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Shop));
+			var consumablePool = Items.GeneratePool(Items.GetPool(ItemPool.ShopConsumable));
 
-			pool.Add(Items.Datas["bk:heart"]);
-			pool.Add(Items.Datas["bk:key"]);
+			var con = Math.Max(1, Math.Ceiling(stands.Count / 4f));
+			var i = 0;
 			
 			foreach (var s in stands) {
 				var stand = new ShopStand();
 				level.Area.Add(stand);
 
 				stand.Center = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
-				stand.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+
+				var id = Items.GenerateAndRemove(i < con ? consumablePool : pool);
+				
+				stand.SetItem(Items.CreateAndAdd(id, level.Area), null);
 
 				if (pool.Count == 0) {
 					break;
 				}
+
+				i++;
 			}
 
 			var p = stands[Random.Int(stands.Count)];

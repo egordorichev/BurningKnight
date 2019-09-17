@@ -22,6 +22,8 @@ namespace BurningKnight.level.rooms.treasure {
 			PlaceStand(level, new Vector2(Right - m, Bottom - m) * 16);
 
 			PaintTunnel(level, Random.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
+			
+			SetupStands(level);
 		}
 
 		public override int GetMinWidth() {
