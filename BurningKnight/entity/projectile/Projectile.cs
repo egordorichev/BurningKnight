@@ -65,6 +65,13 @@ namespace BurningKnight.entity.projectile {
 
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
+			
+			owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = owner,
+				Projectile = projectile
+			});
+
+			scale = projectile.Scale;
 
 			var w = graphics.Sprite.Source.Width * scale;
 			var h = graphics.Sprite.Source.Height * scale;
@@ -79,6 +86,11 @@ namespace BurningKnight.entity.projectile {
 				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
 			}
 			
+			projectile.BodyComponent.Body.Restitution = 1;
+			projectile.BodyComponent.Body.Friction = 0;
+			projectile.BodyComponent.Body.IsBullet = true;
+			projectile.BodyComponent.Body.Rotation = (float) angle;
+			
 			speed *= 10f;
 
 			if (Math.Abs(speed) > 0.01f) {
@@ -86,16 +98,6 @@ namespace BurningKnight.entity.projectile {
 					new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
 			}
 			
-			projectile.BodyComponent.Body.Restitution = 1;
-			projectile.BodyComponent.Body.Friction = 0;
-			projectile.BodyComponent.Body.IsBullet = true;
-			projectile.BodyComponent.Body.Rotation = (float) angle;
-
-			owner.HandleEvent(new ProjectileCreatedEvent {
-				Owner = owner,
-				Projectile = projectile
-			});
-
 			if (parent != null && parent.TryGetComponent<LightComponent>(out var l)) {
 				projectile.AddLight(l.Light.Radius, l.Light.Color);
 			}

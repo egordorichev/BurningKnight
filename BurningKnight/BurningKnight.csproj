@@ -396,6 +396,7 @@
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
     <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
+    <Compile Include="entity\item\use\ModifyProjectilesUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\PreventDamageUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />

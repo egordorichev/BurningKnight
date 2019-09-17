@@ -20,12 +20,13 @@ namespace BurningKnight.entity.projectile {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
 			var a = p.GetAnyComponent<BodyComponent>().Body.Rotation;
-
+			
 			var spr = p.FlashTimer > 0 ? Flash : Sprite;
+			var or = spr.Center; // new Vector2(p.Width / 2, p.Height / 2);
 			
 			if (shadow) {
-				Graphics.Render(spr, Entity.Position + new Vector2(spr.Center.X, spr.Height + spr.Center.Y + 4), 
-					a, spr.Center, scale);
+				Graphics.Render(spr, Entity.Center + new Vector2(0, 4), 
+					a, or, scale);
 				return;
 			}
 
@@ -41,7 +42,7 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 			}
 			
-			Graphics.Render(spr, Entity.Position + spr.Center, a, spr.Center, scale);
+			Graphics.Render(spr, Entity.Center, a, or, scale);
 
 			if (d) {
 				Shaders.End();

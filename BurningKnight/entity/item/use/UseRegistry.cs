@@ -78,6 +78,7 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveWeaponUse>(GiveWeaponUse.RenderDebug);
 			Register<AddHitboxUse>();
 			Register<GiveEmeraldsUse>(GiveEmeraldsUse.RenderDebug);
+			Register<ModifyProjectilesUse>(ModifyProjectilesUse.RenderDebug);
 		}
 	}
 }

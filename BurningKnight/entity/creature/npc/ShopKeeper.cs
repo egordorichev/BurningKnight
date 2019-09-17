@@ -83,6 +83,8 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(new AimComponent(AimComponent.AimType.AnyPlayer));
 			AddComponent(new AnimationComponent("shopkeeper"));
 
+			AddDrops(new SingleDrop("bk:shotgun", 1f));
+			
 			var h = GetComponent<HealthComponent>();
 
 			h.InitMaxHealth = 20;
