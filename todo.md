@@ -1,10 +1,10 @@
 # TODO
 
+* stop tp to entrance every single time
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
 
-* well lit rooms (randomly, shop, treasure)
 * emeralds
 * spawn emeralds in shops, just randomly on the level
 * dont forget little bursts of light for guns and stuff
@@ -152,6 +152,7 @@ gobbo hurt/heal
 
 ### items
 
+* discord rod should damage everything it tourches from point where you were to where you tp
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
 * torch, has a good light radius, emits fire particles (you drop it if you get hit)

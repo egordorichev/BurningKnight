@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
@@ -38,7 +39,9 @@ namespace BurningKnight.entity.room {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+			
 			AddTag(Tags.Room);
+			lit = Random.Chance(10);
 		}
 
 		public ItemPool GetPool() {
@@ -61,6 +64,10 @@ namespace BurningKnight.entity.room {
 			Height = MapH * 16 - 8;
 
 			AlwaysActive = true;
+			
+			if (Type == RoomType.Shop || Type == RoomType.Treasure) {
+				AddComponent(new LightComponent(this, 128f, new Color(1f, 0.9f, 0.5f, 0.8f)));
+			}
 		}
 
 		public override void Update(float dt) {

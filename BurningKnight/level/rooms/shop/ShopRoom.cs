@@ -59,10 +59,9 @@ namespace BurningKnight.level.rooms.shop {
 			foreach (var s in stands) {
 				var stand = new ShopStand();
 				level.Area.Add(stand);
-
 				stand.Center = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
 
-				var id = Items.GenerateAndRemove(i < con ? consumablePool : pool);
+				var id = Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool);
 				
 				stand.SetItem(Items.CreateAndAdd(id, level.Area), null);
 

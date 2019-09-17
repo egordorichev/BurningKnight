@@ -4,9 +4,8 @@ namespace BurningKnight.entity.item {
 			switch (type) {
 				case ItemType.Artifact: return 15;
 				
-				case ItemType.Active: return 10;
-
-				case ItemType.Coin: return 99;
+				case ItemType.Active:
+				case ItemType.Coin: return 10;
 				
 				case ItemType.Bomb:
 				case ItemType.Key:
