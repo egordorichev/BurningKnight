@@ -7,7 +7,7 @@ namespace BurningKnight.level.rooms.special {
 		public override void Paint(Level level) {
 			var well = new Well();
 			level.Area.Add(well);
-			well.Center = GetCenter() * 16 + new Vector2(Random.Float(-8, 8), Random.Float(-8, 8));
+			well.Center = GetCenter() * 16 + new Vector2(8);
 		}
 
 		public override int GetMinWidth() {

@@ -1,8 +1,5 @@
 # TODO
 
-* item, that just makes your projectiles bigger
-* item, that makes projectile smaller but doubles the dmg
-
 * unlock shotgun by killing sk
 * item unlocked ui (use achieevment banenr)
 

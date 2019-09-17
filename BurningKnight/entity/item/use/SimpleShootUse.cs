@@ -83,7 +83,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, sl, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax));
+					var projectile = Projectile.Make(entity, sl, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax), damage);
 
 					Camera.Instance.Push(angle, 4f);
 					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
@@ -92,7 +92,6 @@ namespace BurningKnight.entity.item.use {
 						projectile.AddLight(32f, bad ? Projectile.RedLight : Projectile.YellowLight);
 					}
 
-					projectile.Damage = damage;
 					projectile.FlashTimer = 0.05f;
 
 					if (range > 0.01f) {
