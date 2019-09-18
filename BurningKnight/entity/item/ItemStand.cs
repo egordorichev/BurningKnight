@@ -42,7 +42,7 @@ namespace BurningKnight.entity.item {
 			
 		}
 
-		public void SetItem(Item i, Entity entity, bool remove = true) {
+		public virtual void SetItem(Item i, Entity entity, bool remove = true) {
 			if (item == i) {
 				return;
 			}
@@ -137,12 +137,12 @@ namespace BurningKnight.entity.item {
 
 						SetItem(null, entity, false);
 						inventory.Pickup(i);
-
-						GetComponent<InteractableComponent>().OutlineAlpha = 0;
 					}
+
+					return true;
 				} else if (entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
-					GetComponent<InteractableComponent>().OutlineAlpha = 0;
+					return true;
 				}
 			}
 
@@ -160,7 +160,7 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		private bool CanInteract(Entity e) {
+		protected virtual bool CanInteract(Entity e) {
 			return true;
 		}
 

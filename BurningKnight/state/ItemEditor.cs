@@ -367,7 +367,8 @@ namespace BurningKnight.state {
 				ImGui.InputText("Animation", ref selected.Animation, 128);
 			}
 
-			ImGui.Checkbox("Locked", ref selected.Lockable);
+			ImGui.Separator();
+			ImGui.Checkbox("Lockable", ref selected.Lockable);
 
 			if (selected.Lockable) {
 				ImGui.SameLine();
@@ -379,6 +380,17 @@ namespace BurningKnight.state {
 					} else {
 						GlobalSave.Put(selected.Id, false);
 					}
+				}
+
+				var sells = selected.UnlockPrice > 0;
+
+				if (ImGui.Checkbox("Sells", ref sells)) {
+					selected.UnlockPrice = sells ? 1 : 0;
+				}
+
+				if (sells) {
+					ImGui.SameLine();
+					ImGui.InputInt("Price", ref selected.UnlockPrice);
 				}
 			}
 
@@ -462,7 +474,7 @@ namespace BurningKnight.state {
 		private static string[] sortTypes = {
 			"None",
 			"Type",
-			"Locked",
+			"Lockable",
 			"Pool"
 		};
 		
@@ -574,7 +586,7 @@ namespace BurningKnight.state {
 				if (sortBy == 1) {
 					ImGui.Combo("Type", ref sortType, Types, Types.Length);
 				} else if (sortBy == 2) {
-					ImGui.Checkbox("Locked", ref locked);
+					ImGui.Checkbox("Lockable", ref locked);
 				} else if (sortBy == 3) {
 					ImGui.Combo("Pool##f", ref pool, ItemPool.Names, ItemPool.Count);
 				}

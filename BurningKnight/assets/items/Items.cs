@@ -74,6 +74,10 @@ namespace BurningKnight.assets.items {
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
 				data["lock"] = item.Lockable;
+
+				if (item.Lockable) {
+					data["uprice"] = item.UnlockPrice;
+				}
 				
 				root[item.Id] = data;
 			}
@@ -129,6 +133,10 @@ namespace BurningKnight.assets.items {
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)
 			};
+
+			if (data.Lockable) {
+				data.UnlockPrice = item["uprice"];
+			}
 			
 			var pl = item["pool"];
 			var pools = 0;

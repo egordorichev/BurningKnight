@@ -12,13 +12,14 @@ namespace BurningKnight.util {
 			Audio.PlaySfx("item_nocash");
 		}
 
-		public static void Poof(Vector2 where) {
+		public static void Poof(Vector2 where, int depth = 0) {
 			for (var i = 0; i < 4; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = where;
 				part.Particle.Scale = Random.Float(0.4f, 0.8f);
 				Run.Level.Area.Add(part);
+				part.Depth = depth;
 			}
 		}
 

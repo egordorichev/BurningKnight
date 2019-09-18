@@ -64,10 +64,12 @@ namespace BurningKnight.entity.fx {
 			base.Update(dt);
 
 			UpdatePosition();
-
+			
 			if (!tweened) {
-				if (!entity.TryGetComponent<InteractableComponent>(out var component) || component.CurrentlyInteracting == null) {
-					if (entity.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
+				var d = entity.Done;
+
+				if (d || !entity.TryGetComponent<InteractableComponent>(out var component) || component.CurrentlyInteracting == null) {
+					if (!d && entity.TryGetComponent<OwnerComponent>(out var owner) && owner.Owner is ItemStand stand && stand.GetComponent<InteractableComponent>().CurrentlyInteracting != null) {
 						return;
 					}
 

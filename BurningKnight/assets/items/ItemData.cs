@@ -17,5 +17,6 @@ namespace BurningKnight.assets.items {
 		public int Pools;
 		public bool Single = true;
 		public bool Lockable;
+		public int UnlockPrice = 1;
 	}
 }
