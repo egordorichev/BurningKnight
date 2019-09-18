@@ -119,6 +119,7 @@
     <Compile Include="assets\particle\custom\EpicSpawn.cs" />
     <Compile Include="assets\particle\custom\FireEmitter.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
+    <Compile Include="assets\particle\custom\ProjectileParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
     <Compile Include="assets\particle\ParticleEmitter.cs" />
     <Compile Include="assets\particle\ParticleEntity.cs" />

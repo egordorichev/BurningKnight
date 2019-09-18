@@ -1,7 +1,5 @@
 # TODO
 
-* bomb light source
-
 * introduce shop npcs
 * granny
 * shop npc saving
@@ -14,6 +12,9 @@
 * dont forget little bursts of light for guns and stuff
 * lava should be drawn over the shadows
 * try wfc (wave function collapse) for procgen???
+* particles for lava like in pd
+* fix lavafall colors
+* fix fire particle changing the render state so much
 
 ### sfx
 

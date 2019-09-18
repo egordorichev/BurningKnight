@@ -19,13 +19,13 @@ namespace BurningKnight.entity.projectile {
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
-			var a = p.GetAnyComponent<BodyComponent>().Body.Rotation;
+			var a = p.BodyComponent.Body.Rotation;
 			
 			var spr = p.FlashTimer > 0 ? Flash : Sprite;
 			var or = spr.Center; // new Vector2(p.Width / 2, p.Height / 2);
 			
 			if (shadow) {
-				Graphics.Render(spr, Entity.Center + new Vector2(0, 4), 
+				Graphics.Render(spr, Entity.Center + new Vector2(0, 8), 
 					a, or, scale);
 				return;
 			}

@@ -1,9 +1,11 @@
 using System;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using VelcroPhysics.Utilities;
 using MathUtils = Lens.util.MathUtils;
 using Random = Lens.util.math.Random;
@@ -47,6 +49,8 @@ namespace BurningKnight.assets.particle.custom {
 			Mod = Random.Float(0.7f, 1f);
 			SinOffset = Random.Float(3.2f);
 			Offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
+
+			Depth = Layers.Wall + 1;
 		}
 
 		public override void Update(float dt) {
@@ -118,29 +122,14 @@ namespace BurningKnight.assets.particle.custom {
 
 			pos.X += (float) Math.Cos(SinOffset + T * 2.5f) * Scale * 8 * XChange;
 
-			/*var state = Engine.Instance.StateRenderer;
+			var state = Engine.Instance.StateRenderer;
 
 			state.End();
 			var b = state.BlendState;
-			state.BlendState = Lights.Blend;
-			state.Begin();*/
+			state.BlendState = BlendState.Additive;
+			state.Begin();
 			
 			/*
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
 			 *
 			 *
 			 *
@@ -153,9 +142,9 @@ namespace BurningKnight.assets.particle.custom {
 			Graphics.Render(Region, pos, a, Region.Center, new Vector2(Scale * 5));
 			Graphics.Color = ColorUtils.WhiteColor;
 
-			/*state.End();
+			state.End();
 			state.BlendState = b;
-			state.Begin();*/
+			state.Begin();
 		}
 	}
 }

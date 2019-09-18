@@ -1,4 +1,6 @@
+using System;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
 using BurningKnight.util;
@@ -68,7 +70,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 							projectile.BreaksFromWalls = false;
 							projectile.Spectral = true;
 							projectile.DieOffscreen = true;
-							
+							projectile.Rotates = true;
+							projectile.Controller += MakeController();
+
 							AnimationUtil.Poof(projectile.Center);
 						};
 					}
@@ -79,7 +83,32 @@ namespace BurningKnight.entity.creature.mob.castle {
 				}
 			}
 		}
+
+		private static ProjectileUpdateCallback MakeController() {
+			var lastPart = 0f;
+			
+			return (pr, dt) => {
+				lastPart += dt;
+
+				if (lastPart >= 0.1f) {
+					lastPart = 0;
+
+					var p = new ProjectileParticle();
+					pr.Area.Add(p);
+					p.Center = pr.Center; // + Random.Vector(3, 3);
+					// give some velocity too??
+				}
+			};
+		}
 		
+		/*
+		 * todo:
+		 * projectile particles
+		 * tween light radius when tp
+		 * delay between appear and dissappear
+		 *
+		 * dont collide when appearing/dissappearing
+		 */
 		public class DissappearState : SmartState<Caster> {
 			public override void Init() {
 				base.Init();

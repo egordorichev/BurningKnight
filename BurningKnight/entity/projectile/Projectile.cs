@@ -31,7 +31,7 @@ namespace BurningKnight.entity.projectile {
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
-		public static Color BlueLight = new Color(0.4f, 0.4f, 1f, 1f);
+		public static Color BlueLight = new Color(0.6f, 0.6f, 1f, 1f);
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
@@ -165,7 +165,7 @@ namespace BurningKnight.entity.projectile {
 			Controller?.Invoke(this, dt);
 
 			if (Rotates) {
-				Angle += dt * 10;
+				BodyComponent.Body.Rotation += dt * 10;
 			}
 			
 			if (!OnScreen && DieOffscreen) {

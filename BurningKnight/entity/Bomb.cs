@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
@@ -26,6 +27,8 @@ namespace BurningKnight.entity {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());
+			
+			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.3f, 0.3f, 1f)));
 			
 			Width = 10;
 			Height = 13;
