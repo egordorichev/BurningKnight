@@ -352,6 +352,7 @@
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
+    <Compile Include="entity\item\EmeraldStand.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
     <Compile Include="entity\item\ItemInfo.cs" />

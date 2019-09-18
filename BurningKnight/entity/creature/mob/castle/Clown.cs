@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -18,7 +19,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			var body = new RectBodyComponent(2, 2, 12, 12);
 			AddComponent(body);
 
+			body.KnockbackModifier = 2;
 			body.Body.LinearDamping = 0;
+			
+			RemoveComponent<ExplodableComponent>();
 		}
 		
 		#region Clown States
@@ -30,40 +34,58 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 		
 		public class RunState : SmartState<Clown> {
+			private Vector2 target;
+			private float delay;
+			private bool away;
+			
+			public override void Init() {
+				base.Init();
+				T = 0;
+				
+				if (away) {
+					target = Self.Center + MathUtils.CreateVector(Self.Target.AngleTo(Self) + Random.Float(-1, 1), 96f);
+					delay = Random.Float(1f, 2f);
+					return;
+				}
+				
+				delay = Random.Float(0.3f, 1f);
+				var toTarget = Self.Target != null && Random.Chance();
+
+				if (toTarget) {
+					target = Self.Target.Center;
+				} else {
+					target = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile();
+				}
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
+				
+				var dx = Self.DxTo(target);
+				var dy = Self.DyTo(target);
+				var d = MathUtils.Distance(dx, dy);
+				var s = dt * 150;
 
-				if (Self.MoveTo(Self.Target.Center, 50f, 16f)) {
-					var bomb = new Bomb();
-					Self.Area.Add(bomb);
+				var b = Self.GetComponent<RectBodyComponent>();
+				b.Velocity += new Vector2(dx / d * s, dy / d * s);
+
+				if (d <= 8 || T >= delay) {
+					if (away) {
+						away = false;
+					}
 					
+					Init();
+					return;
+				}
+
+				if (!away && Self.Target != null && Self.DistanceTo(Self.Target) < 8) {
+					var bomb = new Bomb(1);
+					Self.Area.Add(bomb);
 					bomb.Center = Self.Center;
 					bomb.VelocityTo(Self.AngleTo(Self.Target));
 
-					foreach (var mob in Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob]) {
-						if (mob is Clown) {
-							mob.GetComponent<StateComponent>().Become<RunAwayState>();
-						}
-					}
-				}
-			}
-		}
-
-		public class RunAwayState : SmartState<Clown> {
-			private float timer;
-
-			public override void Init() {
-				base.Init();
-				timer = Random.Float(2f, 3f);
-			}
-
-			public override void Update(float dt) {
-				base.Update(dt);
-
-				Self.MoveTo(Self.Target.Center, 60f, 16f, true);
-				
-				if (T >= timer) {
-					Become<RunState>();
+					away = true;
+					Init();
 				}
 			}
 		}
@@ -80,23 +102,5 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			return base.HandleEvent(e);
 		}
-
-		// debug pathfinding
-		/*public override void Render() {
-			var x = (int) Math.Floor(CenterX / 16f) * 16 + 8;
-			var y = (int) Math.Floor(CenterY / 16f) * 16 + 8;
-				
-			Graphics.Batch.DrawRectangle(new RectangleF(x - 2, y - 2, 4, 4), Color.Green);
-			
-			if (Target != null && NextPathPoint != null) {
-				x = (int) Math.Floor(Target.CenterX / 16f) * 16 + 8;
-				y = (int) Math.Floor(Target.CenterY / 16f) * 16 + 8;
-				
-				Graphics.Batch.DrawRectangle(new RectangleF(x - 2, y - 2, 4, 4), Color.Blue);
-				Graphics.Batch.DrawRectangle(new RectangleF(NextPathPoint.X - 2, NextPathPoint.Y - 2, 4, 4), Color.Red);
-			}
-			
-			// base.Render();
-		}*/
 	}
 }

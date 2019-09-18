@@ -1,11 +1,18 @@
 # TODO
 
+* bomb light source
+
+* introduce shop npcs
+* granny
+* shop npc saving
 * npc shops in the hall
+* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 
 * tile lighting: figure it out
 * addictive or non premultiplied????
 * hearts, keys and coins should emit some light, maybe batteries
 * dont forget little bursts of light for guns and stuff
+* lava should be drawn over the shadows
 
 ### sfx
 
@@ -30,13 +37,10 @@ spikes popping up
 roll
 gobbo hurt/heal
 
-#### audio settings
-
-* check if all works
-
 # todo
 
-* flashes (like lighting)
+* check if audio settings works
+* flashes (like lighting bolt zaps)
 * rain
 * when bomb explodes, disable lighting for a bit>
 
@@ -44,7 +48,6 @@ gobbo hurt/heal
 
 * switching between levels (dark out) should fade in/out music
 * hide music disks around
-* 3d audio
 * lowpass filter and somewhat responsible music? :(
 
 ## general
@@ -56,11 +59,10 @@ gobbo hurt/heal
 * ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
 * !!! generation needs hard testing
 
-* idol and well needs room update, make them smaller, idol also will keep on spawning mobs with each load
+* idol room update, make them smaller, idol also will keep on spawning mobs with each load
 
 * place items in oldman hall
 * room cleared effect
-* add gore to npcs
 * picking up hearts should give more feedback
 * Low health indicator
 
@@ -69,14 +71,11 @@ gobbo hurt/heal
  + king
  + bandit
  
-* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
-
 * breadcrumbs of where bk room is (alg for detecting shortest path is there)
 * breadcrumbs for bk type 
 * things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
 * improve epic spawn
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
-* shop keeper ai
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
@@ -113,19 +112,7 @@ gobbo hurt/heal
  * frozen
  * buff icons?
  
-* lil boo
 * gases??
-
-* animation data on when player head moves up and down 
- * move his weapon with it
- * introduce single sprite hats
-
-* NPCs:
- * shopkeeper (spelunky)
- * granny
- * oldman smth?
-
-* Use lava in the terrain
 
 ### bk himself
 
@@ -134,19 +121,13 @@ gobbo hurt/heal
 * difficulty progression through the fight
 * Learning to avoid the last attack that killed him
 
-* wip sign and placement
 * steam cloud
 * implement stats
 * push hearts and batteries and coins around, if you cant have more
-* unlockable items
-* iron hearts, half a heart spawning, etc
 * Animate lamp up and down to make it more alive
 * Crash report window
-* explode gold tiles for coins
-* camera follow items that are on screen a bit?
 * lighting bolts
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
-* Implement settings
 
 ### items
 
@@ -217,6 +198,8 @@ gobbo hurt/heal
 
 ### enemies
 
+* enemy that deals insane knockback to you
+* enemy with insane knockback modifier
 * skull, that shoots missiles, that go through wall (terraria dungeon)
 * (can be with thief sprite) caster, that shoots 3 penetrating the walls missiles, then tp's (terraria dungeon)
 * buffer (etg)
@@ -226,6 +209,7 @@ gobbo hurt/heal
 * man eater, but on chain? for dungeon
 * clown (has a sprite) runs to you and explodes
 * snipper (nt)
+* enemy, that moves as insane as sk, but not as much
 
 + slime that shoots to you, when lands
 + burning slime

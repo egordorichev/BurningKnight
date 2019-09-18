@@ -12,6 +12,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			return color;
 		}
 
+		protected override float GetJumpDelay() {
+			return -0.2f;
+		}
+
 		protected override void SetStats() {
 			base.SetStats();
 			

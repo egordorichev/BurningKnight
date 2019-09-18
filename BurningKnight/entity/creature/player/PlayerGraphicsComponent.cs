@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.component;
+﻿using System;
+using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens;
 using Lens.entity;
@@ -52,7 +53,9 @@ namespace BurningKnight.entity.creature.player {
 				region = hat.Region;
 				origin = new Vector2(region.Width / 2, region.Height);
 
-				Graphics.Render(region, new Vector2(Entity.CenterX, Entity.Y + 7 + (shadow ? Entity.Height * 2 : 0) + (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
+				Graphics.Render(region, new Vector2(Entity.CenterX, 
+					Entity.Y + 7 + (shadow ? Entity.Height * 2 - 5 : 0) + (shadow ? -1 : 1) * 
+					offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
 			}
 		}
 
@@ -86,7 +89,7 @@ namespace BurningKnight.entity.creature.player {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 
-			var o = (shadow ? -1 : 1) * offsets[Animation.Frame + Animation.StartFrame];
+			var o = (shadow ? -1 : 1) * offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)];
 			
 			weapon.Render(shadow, o);
 			SimpleRender(shadow);
