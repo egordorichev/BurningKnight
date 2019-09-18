@@ -13,6 +13,7 @@
 * hearts, keys and coins should emit some light, maybe batteries
 * dont forget little bursts of light for guns and stuff
 * lava should be drawn over the shadows
+* try wfc (wave function collapse) for procgen???
 
 ### sfx
 
@@ -131,6 +132,19 @@ gobbo hurt/heal
 
 ### items
 
+* hats
+ night vision hat
+ Diving hat
+ A flipped bucket
+ glowing hat (glowing mushroom)
+ tinfoil hat
+ headless
+ null texture
+ terminal head
+ 
+* animated hats
+* separate hat sprite for when you duck
+
 * discord rod should damage everything it tourches from point where you were to where you tp
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
@@ -207,7 +221,6 @@ gobbo hurt/heal
 * one, that just runs around all the walls and is unkillable (terraria dungeon)
 * man eater (wine plant, but in jungle??)
 * man eater, but on chain? for dungeon
-* clown (has a sprite) runs to you and explodes
 * snipper (nt)
 * enemy, that moves as insane as sk, but not as much
 

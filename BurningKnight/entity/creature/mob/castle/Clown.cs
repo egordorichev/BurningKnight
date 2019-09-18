@@ -21,10 +21,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			body.KnockbackModifier = 2;
 			body.Body.LinearDamping = 0;
-			
-			RemoveComponent<ExplodableComponent>();
 		}
-		
+
 		#region Clown States
 		public class IdleState : SmartState<Clown> {
 			public override void Init() {
@@ -92,7 +90,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 		#endregion
 
 		public override bool HandleEvent(Event e) {
-			if (e is MobTargetChange ev) {
+			if (e is ExplodedEvent) {
+				GetComponent<HealthComponent>().ModifyHealth(2, null);
+				return true;
+			} else if (e is MobTargetChange ev) {
 				if (ev.New == null) {
 					Become<IdleState>();
 				} else {

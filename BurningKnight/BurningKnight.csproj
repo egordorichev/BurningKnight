@@ -231,6 +231,7 @@
     <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
+    <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\SmartState.cs" />

@@ -170,8 +170,8 @@ namespace BurningKnight.entity.component {
 				ev.Item.Use(Entity);
 				ev.Item.Done = true;
 				return true;
-			} else if (e is ExplodedEvent b) {
-				ModifyHealth(Entity is Player ? -2 : -8, b.Who);
+			} else if (e is ExplodedEvent b && !b.Handled) {
+				ModifyHealth(Entity is Player ? -2 : -16, b.Who);
 
 				var component = Entity.GetAnyComponent<BodyComponent>();
 				component?.KnockbackFrom(b.Who, 2);

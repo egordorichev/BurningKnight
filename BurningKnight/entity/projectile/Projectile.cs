@@ -22,6 +22,7 @@ using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.projectile {
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
+		public static Color BlueLight = new Color(0.4f, 0.4f, 1f, 1f);
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
@@ -50,6 +52,9 @@ namespace BurningKnight.entity.projectile {
 		public bool BreaksFromWalls = true;
 		public float FlashTimer;
 		public bool Dying;
+		public bool DieOffscreen;
+		public bool Spectral;
+		public bool Rotates;
 
 		private float deathTimer;
 
@@ -121,6 +126,14 @@ namespace BurningKnight.entity.projectile {
 			AddComponent(new LightComponent(this, radius * Scale, color));
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+			
+			if (Spectral) {
+				BreaksFromWalls = false;
+			}
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -150,6 +163,14 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			Controller?.Invoke(this, dt);
+
+			if (Rotates) {
+				Angle += dt * 10;
+			}
+			
+			if (!OnScreen && DieOffscreen) {
+				Break();
+			}
 		}
 
 		protected bool BreaksFrom(Entity entity) {
@@ -167,7 +188,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			if (entity is RoomControllable && entity != Owner) {
+			if (!BreaksFromWalls && entity is RoomControllable && entity != Owner) {
 				return true;
 			}
 
@@ -231,7 +252,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is ShopStand);
+			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is ShopStand);
 		}
 
 		public void Break() {

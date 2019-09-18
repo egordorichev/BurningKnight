@@ -23,7 +23,7 @@ namespace BurningKnight.entity.component {
 		public static void Add(Entity e, Func<Entity, Entity, CollisionResult> filter) {
 			CollisionFilterComponent c;
 
-			if (!e.TryGetComponent<CollisionFilterComponent>(out c)) {
+			if (!e.TryGetComponent(out c)) {
 				c = new CollisionFilterComponent();
 				e.AddComponent(c);
 			}
