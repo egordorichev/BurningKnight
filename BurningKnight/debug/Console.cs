@@ -10,6 +10,7 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.input;
 using Lens.util;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -60,6 +61,7 @@ namespace BurningKnight.debug {
 		public void Update(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
+				Camera.Instance.Detached = Open;
 				Input.EnableImGuiFocus = Open;
 			}
 		}

@@ -113,12 +113,14 @@ namespace BurningKnight.entity.item.use {
 				}));
 
 				p.Position = entity.Center;
+				p.Y += Random.Float(-4, 10);
+
 				entity.Area.Add(p);
 
 				var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
 
 				p.Particle.Velocity =
-					new Vector2(f * Random.Float(40, 50), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+					new Vector2(f * Random.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
 
 				p.Particle.Angle = 0;
 				p.Particle.Zv = Random.Float(1.5f, 2.5f);

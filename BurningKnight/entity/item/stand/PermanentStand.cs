@@ -13,6 +13,10 @@ namespace BurningKnight.entity.item.stand {
 			}
 			
 			if (Item != null) {
+				if (Item.Id == item) {
+					return;
+				}
+				
 				Item.Done = true;
 			}
 			
