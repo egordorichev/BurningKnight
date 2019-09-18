@@ -1,5 +1,6 @@
 # TODO
 
+* picking up items in the hall is completely broken (weapons at least)
 * introduce shop npcs
 * granny
 * shop npc saving

@@ -4,6 +4,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.save;
@@ -135,7 +136,17 @@ namespace BurningKnight.entity.item {
 					if (CanTake(entity)) {
 						var i = item;
 
-						SetItem(null, entity, false);
+						if (this is HatStand) {
+							var ht = entity.GetComponent<HatComponent>();
+							var it = ht.Item;
+
+							ht.Set(null, false);
+							
+							SetItem(it, entity, false);
+						} else {
+							SetItem(null, entity, false);
+						}
+
 						inventory.Pickup(i);
 					}
 

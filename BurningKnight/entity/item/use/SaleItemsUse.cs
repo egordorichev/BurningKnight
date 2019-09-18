@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.stand;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;

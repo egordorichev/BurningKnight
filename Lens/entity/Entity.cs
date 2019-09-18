@@ -154,7 +154,9 @@ namespace Lens.entity {
 		}
 
 		public virtual void PostInit() {
-			
+			foreach (var component in Components.Values) {
+				component.PostInit();
+			}
 		}
 		
 		public virtual void Destroy() {

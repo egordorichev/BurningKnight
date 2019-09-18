@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;

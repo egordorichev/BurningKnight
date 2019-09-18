@@ -44,7 +44,9 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private void OnStart() {
-			var component = CurrentlyInteracting.GetComponent<InteractableComponent>();
+			if (!CurrentlyInteracting.TryGetComponent<InteractableComponent>(out var component)) {
+				return;
+			}
 
 			component.CurrentlyInteracting = Entity;
 			component.OnStart?.Invoke(Entity);

@@ -6,6 +6,10 @@
 			
 		}
 
+		public virtual void PostInit() {
+			
+		}
+
 		public virtual void Destroy() {
 			
 		}

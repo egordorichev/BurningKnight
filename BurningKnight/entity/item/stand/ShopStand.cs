@@ -9,12 +9,11 @@ using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
-using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
-namespace BurningKnight.entity.item {
+namespace BurningKnight.entity.item.stand {
 	public class ShopStand : ItemStand {
 		public bool Sells = true;
 		public bool Free;

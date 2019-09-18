@@ -53,21 +53,32 @@ namespace BurningKnight.entity.item {
 			GlobalSave.Emeralds -= price;
 			Items.Unlock(Item.Id);
 			AlreadyOnStand.Remove(Item.Id);
-			Item.Done = true;
+
+			if (!ShowUnlocked) {
+				Item.Done = true;
+				
+				var item = PickItem();
+				SetItem(item, entity, false);
+
+				AnimationUtil.Poof(Center, 1);
+			}
 			
-			var item = PickItem();
-			SetItem(item, entity, false);
-
-			AnimationUtil.Poof(Center, 1);
-
-			return false;
+			return ShowUnlocked;
 		}
+
+		protected virtual bool ApproveItem(ItemData item) {
+			return true;
+		}
+
+		protected bool ShowUnlocked;
 
 		private Item PickItem() {
 			var items = new List<ItemData>();
 
 			foreach (var i in Items.Datas.Values) {
-				if (i.Lockable && i.UnlockPrice > 0 && !AlreadyOnStand.Contains(i.Id) && GlobalSave.IsFalse(i.Id)) {
+				if (i.Lockable && i.UnlockPrice > 0 && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
+				    && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
+					
 					items.Add(i);
 				}
 			}
@@ -91,16 +102,20 @@ namespace BurningKnight.entity.item {
 		public override void Render() {
 			base.Render();
 
-			if (Item != null) {
+			if (Item != null && price > 0) {
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
 			}
 		}
 
 		public override void SetItem(Item i, Entity entity, bool remove = true) {
 			if (i != null) {
-				price = i.Data.UnlockPrice;
-				priceString = $"{price}";
-				priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+				if (GlobalSave.IsTrue(i.Id)) {
+					price = 0;
+				} else {
+					price = i.Data.UnlockPrice;
+					priceString = $"{price}";
+					priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+				}
 			}
 			
 			base.SetItem(i, entity, remove);

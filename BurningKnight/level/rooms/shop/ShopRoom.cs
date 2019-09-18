@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
@@ -47,6 +48,8 @@ namespace BurningKnight.level.rooms.shop {
 			var stands = ValidateStands(level, GenerateStands());
 
 			if (stands.Count == 0) {
+				Painter.Fill(level, this, 1, Tile.FloorD);
+				Paint(level);
 				return;
 			}
 

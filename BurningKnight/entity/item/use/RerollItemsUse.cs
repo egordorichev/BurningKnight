@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.stand;
 using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
