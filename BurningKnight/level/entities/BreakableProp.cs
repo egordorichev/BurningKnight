@@ -19,7 +19,7 @@ namespace BurningKnight.level.entities {
 			"pot_d",
 			"pot_e",
 			
-			"cactus",
+			// "cactus",
 			"cup",
 			
 			"chair_a",

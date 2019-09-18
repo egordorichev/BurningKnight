@@ -1,6 +1,14 @@
+using System.Collections.Generic;
 using System.Numerics;
+using BurningKnight.assets.lighting;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.room;
+using BurningKnight.save;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens;
+using Lens.entity;
 
 namespace BurningKnight.ui.imgui {
 	public static class WindowManager {
@@ -19,7 +27,66 @@ namespace BurningKnight.ui.imgui {
 		public static bool Achievements;
 		public static bool Save;
 		
-		public static void Render() {
+		private static void RenderSettings() {
+			if (!WindowManager.Settings) {
+				return;
+			}
+			
+			if (!ImGui.Begin("Settings")) {
+				ImGui.End();
+				return;
+			}
+
+			var m = BurningKnight.Settings.MusicVolume;
+			
+			if (ImGui.DragFloat("Music", ref m, 0.01f, 0, 1f)) {
+				BurningKnight.Settings.MusicVolume = m;
+			}
+
+			ImGui.DragFloat("Sounds", ref BurningKnight.Settings.SfxVolume, 0.01f, 0, 1f);
+			ImGui.Checkbox("Ui sounds", ref BurningKnight.Settings.UiSfx);
+			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
+
+			ImGui.End();
+		}
+		
+		public static void Render(Area Area) {
+			AreaDebug.Render(Area);
+			DebugWindow.Render();
+			
+			imgui.LocaleEditor.Render();
+			state.ItemEditor.Render();
+			RenderSettings();
+			Lights.RenderDebug();
+			SaveDebug.RenderDebug();
+			assets.achievements.Achievements.RenderDebug();
+			Run.Statistics?.RenderWindow();
+
+			if (Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
+				var p = LocalPlayer.Locate(Area);
+
+				if (p != null) {
+					var rm = p.GetComponent<RoomComponent>().Room;
+					var rn = new List<Room>();
+
+					foreach (var r in Area.Tags[Tags.Room]) {
+						rn.Add((Room) r);
+					}
+					
+					rn.Sort((a, b) => a.Type.CompareTo(b.Type));
+					
+					foreach (var r in rn) {
+						var v = rm == r;
+
+						if (ImGui.Selectable($"{r.Type}#{r.Y}", ref v) && v) {
+							p.Center = r.Center;
+						}
+					}
+				}
+
+				ImGui.End();
+			}
+			
 			ImGui.SetNextWindowPos(new Vector2(Engine.Instance.GetScreenWidth() - size.X - 10, Engine.Instance.GetScreenHeight() - size.Y - 10));
 			ImGui.Begin("Windows", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
 

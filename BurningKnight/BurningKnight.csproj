@@ -373,6 +373,7 @@
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
+    <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
     <Compile Include="entity\item\stand\WeaponStand.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />

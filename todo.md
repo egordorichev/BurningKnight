@@ -1,9 +1,11 @@
 # TODO
 
+* reset stands in the hall (with weapons/lamps select)
+* remove hat
 * picking up items in the hall is completely broken (weapons at least)
 * introduce shop npcs
 * granny
-* shop npc saving
+* shop npc saving from dungeon
 * npc shops in the hall
 * lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 

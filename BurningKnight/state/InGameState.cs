@@ -1636,29 +1636,6 @@ namespace BurningKnight.state {
 			return false;
 		}
 
-		private void RenderSettings() {
-			if (!WindowManager.Settings) {
-				return;
-			}
-			
-			if (!ImGui.Begin("Settings")) {
-				ImGui.End();
-				return;
-			}
-
-			var m = Settings.MusicVolume;
-			
-			if (ImGui.DragFloat("Music", ref m, 0.01f, 0, 1f)) {
-				Settings.MusicVolume = m;
-			}
-
-			ImGui.DragFloat("Sounds", ref Settings.SfxVolume, 0.01f, 0, 1f);
-			ImGui.Checkbox("Ui sounds", ref Settings.UiSfx);
-			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
-
-			ImGui.End();
-		}
-
 		public override void RenderNative() {
 			if (!Console.Open) {
 				return;
@@ -1669,43 +1646,7 @@ namespace BurningKnight.state {
 			console.Render();
 			settings.Render();
 			
-			AreaDebug.Render(Area);
-			DebugWindow.Render();
-			
-			LocaleEditor.Render();
-			ItemEditor.Render();
-			RenderSettings();
-			Lights.RenderDebug();
-			SaveDebug.RenderDebug();
-			Achievements.RenderDebug();
-			Run.Statistics?.RenderWindow();
-
-			if (WindowManager.Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
-				var p = LocalPlayer.Locate(Area);
-
-				if (p != null) {
-					var rm = p.GetComponent<RoomComponent>().Room;
-					var rn = new List<Room>();
-
-					foreach (var r in Area.Tags[Tags.Room]) {
-						rn.Add((Room) r);
-					}
-					
-					rn.Sort((a, b) => a.Type.CompareTo(b.Type));
-					
-					foreach (var r in rn) {
-						var v = rm == r;
-
-						if (ImGui.Selectable($"{r.Type}#{r.Y}", ref v) && v) {
-							p.Center = r.Center;
-						}
-					}
-				}
-
-				ImGui.End();
-			}
-			
-			WindowManager.Render();
+			WindowManager.Render(Area);
 			ImGuiHelper.End();
 			
 			Graphics.Batch.Begin();

@@ -101,9 +101,7 @@ namespace BurningKnight.state {
 			ImGuiHelper.Begin();
 			Settings.Render();
 			Console.Render();
-			AreaDebug.Render(Area);
-			DebugWindow.Render();
-			WindowManager.Render();
+			WindowManager.Render(Area);
 			ImGuiHelper.End();			
 			
 			Graphics.Batch.Begin();

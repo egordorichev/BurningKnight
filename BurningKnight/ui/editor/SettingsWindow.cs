@@ -288,6 +288,7 @@ namespace BurningKnight.ui.editor {
 				}
 			}
 
+			/*
 			if (Input.Keyboard.WasPressed(Keys.E)) {
 				mode = 1;
 				entityMode = 0;
@@ -307,7 +308,7 @@ namespace BurningKnight.ui.editor {
 			if (Input.Keyboard.WasPressed(Keys.F)) {
 				mode = 0;
 				cursorMode = CursorMode.Fill;
-			}
+			}*/
 			
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
 			var clicked = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.WasPressedLeftButton;

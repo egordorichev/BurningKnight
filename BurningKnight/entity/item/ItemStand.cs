@@ -265,8 +265,8 @@ namespace BurningKnight.entity.item {
 				stream.WriteString(item.Id);
 			}
 		}
-		
-		private string debugItem = "";
+
+		protected string debugItem = "";
 
 		public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
