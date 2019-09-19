@@ -235,6 +235,11 @@
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
+    <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
+    <Compile Include="entity\creature\npc\ActiveTrader.cs" />
+    <Compile Include="entity\creature\npc\HatTrader.cs" />
+    <Compile Include="entity\creature\npc\ShopNpc.cs" />
+    <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />

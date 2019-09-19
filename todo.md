@@ -1,11 +1,8 @@
 # TODO
 
-* bug: all map gets revealed
-* introduce shop npcs
 * all the shop props
 * granny
 * shop npc saving from dungeon
-* npc shops in the hall
 * lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 
 * tile lighting: figure it out
