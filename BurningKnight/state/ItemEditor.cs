@@ -540,6 +540,8 @@ namespace BurningKnight.state {
 						data.Root = JsonValue.Parse(selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
+						data.Lockable = selected.Lockable;
+						data.UnlockPrice = selected.UnlockPrice;
 
 						var c = selected.Chance;
 						data.Chance = new Chance(c.Any, c.Melee, c.Magic, c.Range);

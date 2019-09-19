@@ -129,7 +129,7 @@ namespace BurningKnight.entity.creature.player {
 		private int lastDepth = -3;
 
 		public void FindSpawnPoint() {
-			if (Run.StartedNew) {
+			if (Run.StartedNew && Run.Depth > 0) {
 				if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}

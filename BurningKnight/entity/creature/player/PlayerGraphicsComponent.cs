@@ -46,15 +46,16 @@ namespace BurningKnight.entity.creature.player {
 			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
 				return;
 			}
-			
-			var hat = GetComponent<HatComponent>().Item;
 
-			if (hat != null) {
+			var h = GetComponent<HatComponent>();
+			var hat = h.Item;
+
+			if (hat != null && !h.DoNotRender) {
 				region = hat.Region;
 				origin = new Vector2(region.Width / 2, region.Height);
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, 
-					Entity.Y + 7 + (shadow ? Entity.Height * 2 - 5 : 0) + (shadow ? -1 : 1) * 
+					Entity.Y + 7 + (shadow ? Entity.Height * 2 - 4 : 0) + (shadow ? -1 : 1) * 
 					offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
 			}
 		}

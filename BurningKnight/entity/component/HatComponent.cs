@@ -5,6 +5,8 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.component {
 	public class HatComponent : ItemComponent {
+		public bool DoNotRender;
+		
 		public override void PostInit() {
 			base.PostInit();
 			
@@ -13,6 +15,8 @@ namespace BurningKnight.entity.component {
 
 				if (hat != null) {
 					Set(Items.CreateAndAdd(hat, Entity.Area), false);
+				} else {
+					Set(Items.CreateAndAdd("bk:no_hat", Entity.Area), false);
 				}
 			}
 		}
@@ -24,6 +28,10 @@ namespace BurningKnight.entity.component {
 		public override void Set(Item item, bool animate = true) {
 			base.Set(item, animate);
 			GlobalSave.Put("hat", item?.Id);
+
+			if (item != null) {
+				DoNotRender = item.Id == "bk:no_hat";
+			}
 		}
 	}
 }

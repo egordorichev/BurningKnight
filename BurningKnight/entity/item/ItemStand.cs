@@ -249,9 +249,15 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		protected bool dontSaveItem;
+
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
+			if (dontSaveItem) {
+				return;
+			}
+			
 			if (stream.ReadBoolean()) {
 				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
 			}
@@ -259,6 +265,11 @@ namespace BurningKnight.entity.item {
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
+			
+			if (dontSaveItem) {
+				return;
+			}
+			
 			stream.WriteBoolean(item != null);
 
 			if (item != null) {

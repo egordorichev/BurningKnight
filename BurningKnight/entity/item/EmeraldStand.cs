@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.stand;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens.entity;
@@ -18,6 +19,10 @@ namespace BurningKnight.entity.item {
 		private int price;
 		private string priceString;
 		private float priceX;
+		
+		public EmeraldStand() {
+			dontSaveItem = true;
+		}
 
 		public override void Init() {
 			base.Init();
@@ -76,7 +81,7 @@ namespace BurningKnight.entity.item {
 			var items = new List<ItemData>();
 
 			foreach (var i in Items.Datas.Values) {
-				if (i.Lockable && i.UnlockPrice > 0 && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
+				if (((this is HatStand && i.Id == "bk:no_hat") || (i.Lockable && i.UnlockPrice > 0)) && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
 				    && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
 					
 					items.Add(i);

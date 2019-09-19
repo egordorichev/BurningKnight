@@ -1,4 +1,5 @@
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
@@ -21,7 +22,7 @@ namespace BurningKnight.state {
 		private static Entity toFocus;
 		
 		public static bool PassFilter(Entity e) {
-			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Room || e is Chasm || e is ParticleEntity || e is ParticleSystem || e is ChasmFx || e is WaterfallFx);
+			return !(e is Level || e is RenderTrigger || e is DestroyableLevel || e is Room || e is Chasm || e is ParticleEntity || e is ParticleSystem || e is ChasmFx || e is WaterfallFx || e is FireParticle);
 		}
 
 		public static Entity ToFocus {
