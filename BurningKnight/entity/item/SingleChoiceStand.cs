@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.stand;
 using BurningKnight.util;
 using Lens.entity;
 

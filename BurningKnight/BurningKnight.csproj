@@ -361,7 +361,6 @@
     <Compile Include="entity\item\ItemPair.cs" />
     <Compile Include="entity\item\ItemPickupFx.cs" />
     <Compile Include="entity\item\ItemPool.cs" />
-    <Compile Include="entity\item\ItemStand.cs" />
     <Compile Include="entity\item\ItemType.cs" />
     <Compile Include="entity\item\PriceCalculator.cs" />
     <Compile Include="entity\item\renderer\AngledRenderer.cs" />
@@ -371,8 +370,10 @@
     <Compile Include="entity\item\renderer\StickRenderer.cs" />
     <Compile Include="entity\item\SingleChoiceStand.cs" />
     <Compile Include="entity\item\SpawnMobsUse.cs" />
+    <Compile Include="entity\item\stand\ActiveStand.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
+    <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
     <Compile Include="entity\item\stand\WeaponStand.cs" />

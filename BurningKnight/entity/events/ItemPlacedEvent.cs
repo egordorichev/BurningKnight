@@ -1,4 +1,5 @@
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using Lens.entity;
 
 namespace BurningKnight.entity.events {

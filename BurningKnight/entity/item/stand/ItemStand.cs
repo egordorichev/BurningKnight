@@ -4,25 +4,19 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
-using BurningKnight.entity.item.stand;
 using BurningKnight.level;
 using BurningKnight.level.entities;
-using BurningKnight.save;
 using BurningKnight.state;
-using BurningKnight.ui.editor;
-using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
-namespace BurningKnight.entity.item {
+namespace BurningKnight.entity.item.stand {
 	public class ItemStand : Prop {
 		private static TextureRegion itemShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);

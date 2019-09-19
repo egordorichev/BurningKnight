@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level.tile;
 
 namespace BurningKnight.level.rooms.special {

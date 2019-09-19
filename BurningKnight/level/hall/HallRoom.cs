@@ -35,5 +35,9 @@ namespace BurningKnight.level.hall {
 		public override int GetMaxHeight() {
 			return prefab.Level.Height + 1;
 		}
+
+		public override bool ConvertToEntity() {
+			return false;
+		}
 	}
 }

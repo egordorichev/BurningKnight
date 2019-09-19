@@ -26,12 +26,12 @@ namespace BurningKnight.entity.item.stand {
 			SetItem(Items.CreateAndAdd(item, Area), null);
 		}
 
-		public override void RenderDebug() {
+		/*public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				SetItem(Items.CreateAndAdd(debugItem, Area), null);
 				item = debugItem;
 			}
-		}
+		}*/
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);

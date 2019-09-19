@@ -597,5 +597,9 @@ namespace BurningKnight.level.rooms {
 		public virtual void ModifyRoom(Room room) {
 			
 		}
+
+		public virtual bool ConvertToEntity() {
+			return true;
+		}
 	}
 }

@@ -1,5 +1,6 @@
 # TODO
 
+* bug: all map gets revealed
 * introduce shop npcs
 * all the shop props
 * granny

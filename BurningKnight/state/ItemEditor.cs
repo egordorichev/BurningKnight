@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.save;
 using BurningKnight.ui.imgui;

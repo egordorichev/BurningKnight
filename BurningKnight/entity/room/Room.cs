@@ -115,7 +115,8 @@ namespace BurningKnight.entity.room {
 
 		public void Discover() {
 			Explored = true;
-
+			Log.Debug("Discover");
+			
 			ApplyToEachTile((x, y) => {
 				Run.Level.Explored[Run.Level.ToIndex(x, y)] = true;
 			});
@@ -123,6 +124,7 @@ namespace BurningKnight.entity.room {
 
 		public void ApplyToEachTile(Action<int, int> callback) {
 			var level = Run.Level;
+			Log.Error($"Apply for tiles from {MapX}:{MapY} to {MapX + MapW}:{MapY + MapH - 1}");
 			
 			for (int y = MapY; y < MapY + MapH - 1; y++) {
 				for (int x = MapX; x < MapX + MapW; x++) {

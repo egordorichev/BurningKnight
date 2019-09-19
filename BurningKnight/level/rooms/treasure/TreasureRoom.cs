@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;

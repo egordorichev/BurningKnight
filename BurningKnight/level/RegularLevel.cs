@@ -63,6 +63,10 @@ namespace BurningKnight.level {
 			p.Paint(this, rooms);
 			
 			foreach (var def in rooms) {
+				if (!def.ConvertToEntity()) {
+					continue;
+				}
+				
 				var room = new Room();
 
 				room.Type = RoomDef.DecideType(def, def.GetType());
