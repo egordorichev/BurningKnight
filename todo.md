@@ -1,7 +1,5 @@
 # TODO
 
-* player should spawn with NO items in the hub area
-* reset stands in the hall (with weapons/lamps select)
 * remove hat
 * picking up items in the hall is completely broken (weapons at least)
 * introduce shop npcs

@@ -30,7 +30,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
-				Chance = 0.05f,
+				Chance = 0.01f,
 				Items = new[] {
 					"bk:slime"
 				}

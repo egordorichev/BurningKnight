@@ -3,11 +3,21 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
 	public class ActiveItemComponent : ItemComponent {
+		public override void PostInit() {
+			base.PostInit();
+
+			if (Item != null && Run.Depth < 1) {
+				Item.Done = true;
+				Item = null;
+			}
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is RoomClearedEvent) {
 				if (Item != null && Item.UseTime > 0) {

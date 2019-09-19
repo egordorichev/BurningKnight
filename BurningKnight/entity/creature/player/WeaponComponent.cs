@@ -11,6 +11,15 @@ namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
 		protected bool AtBack = true;
 
+		public override void PostInit() {
+			base.PostInit();
+
+			if (Item != null && Run.Depth < 1) {
+				Item.Done = true;
+				Item = null;
+			}
+		}
+
 		public void Render(bool shadow, int offset) {
 			if (Item != null && Item.Renderer != null) {
 				if (!shadow) {
