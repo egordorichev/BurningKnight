@@ -1,8 +1,7 @@
 # TODO
 
-* autoreplace item on permanent stand (when you take item, your active weapon item auto goes to the stand)
-* picking up items in the hall is completely broken (weapons at least)
 * introduce shop npcs
+* all the shop props
 * granny
 * shop npc saving from dungeon
 * npc shops in the hall
