@@ -1,5 +1,7 @@
 using BurningKnight.assets.items;
 using ImGuiNET;
+using Lens.util;
+using Lens.util.file;
 
 namespace BurningKnight.entity.item.stand {
 	public class PermanentStand : ItemStand {
@@ -20,6 +22,7 @@ namespace BurningKnight.entity.item.stand {
 				Item.Done = true;
 			}
 			
+			Log.Error("Resetting " + item);
 			SetItem(Items.CreateAndAdd(item, Area), null);
 		}
 
@@ -28,6 +31,16 @@ namespace BurningKnight.entity.item.stand {
 				SetItem(Items.CreateAndAdd(debugItem, Area), null);
 				item = debugItem;
 			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteString(item);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			item = stream.ReadString();
 		}
 	}
 }

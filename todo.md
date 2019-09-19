@@ -1,7 +1,5 @@
 # TODO
 
-* permanent stand doesnt seem to work
-
 * player should spawn with NO items in the hub area
 * reset stands in the hall (with weapons/lamps select)
 * remove hat
@@ -21,6 +19,7 @@
 * particles for lava like in pd
 * fix lavafall colors
 * fix fire particle changing the render state so much
+* teach controls
 
 ### sfx
 
