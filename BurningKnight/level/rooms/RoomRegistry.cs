@@ -51,6 +51,7 @@ namespace BurningKnight.level.rooms {
 				// Secret
 				RoomInfo.New<SecretMachineRoom>(1f),
 				RoomInfo.New<SecretChasmRoom>(1f),
+				RoomInfo.New<GrannyRoom>(0.01f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),

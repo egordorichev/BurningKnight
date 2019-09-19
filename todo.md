@@ -1,7 +1,5 @@
 # TODO
 
-* all the shop props
-* granny
 * shop npc saving from dungeon
 * lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
 

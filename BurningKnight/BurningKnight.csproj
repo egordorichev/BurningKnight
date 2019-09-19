@@ -237,6 +237,7 @@
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
+    <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
@@ -503,6 +504,7 @@
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
+    <Compile Include="level\entities\decor\GrannyDecor.cs" />
     <Compile Include="level\entities\decor\Torch.cs" />
     <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
@@ -566,6 +568,7 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
+    <Compile Include="level\rooms\secret\GrannyRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />

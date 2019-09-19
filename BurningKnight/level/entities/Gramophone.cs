@@ -10,6 +10,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.save;
+using ImGuiNET;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
@@ -262,6 +263,11 @@ namespace BurningKnight.level.entities {
 		public class DiskChangedEvent : Event {
 			public Gramophone Gramophone;
 			public int Disk;
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			ImGui.InputInt("Disk", ref disk);
 		}
 	}
 }
