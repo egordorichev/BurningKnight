@@ -1,6 +1,9 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
+using BurningKnight.assets.items;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.ui.str;
 using Lens;
 using Lens.assets;
@@ -28,6 +31,14 @@ namespace BurningKnight.ui {
 			Y = Display.UiHeight;
 
 			Depth = 10;
+			
+			if (Run.Depth == 0) {
+				var date = DateTime.Now;
+
+				if (date.Month == 12 && date.Day == 25) {
+					Items.Unlock("bk:xmas_hat");
+				}
+			}
 		}
 
 		public override void Update(float dt) {
