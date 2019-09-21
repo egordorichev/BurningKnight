@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.save;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {

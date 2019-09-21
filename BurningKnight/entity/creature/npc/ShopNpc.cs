@@ -7,6 +7,11 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
 	public class ShopNpc : Npc {
+		public static string AccessoryTrader = "accessory_trader";
+		public static string ActiveTrader = "accessory_trader";
+		public static string WeaponTrader = "accessory_trader";
+		public static string HatTrader = "accessory_trader";
+	
 		private float delay;
 
 		public override void Init() {

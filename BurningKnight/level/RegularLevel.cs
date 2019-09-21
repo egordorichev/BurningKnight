@@ -171,6 +171,10 @@ namespace BurningKnight.level {
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 			Rooms.Add(new PrebossRoom());
+
+			if (NpcSaveRoom.ShouldBeAdded()) {
+				Rooms.Add(new NpcSaveRoom());
+			}
 			
 			TombRoom.Insert(Rooms);
 			

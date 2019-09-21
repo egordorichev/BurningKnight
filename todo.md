@@ -1,18 +1,24 @@
 # TODO
 
 * shop npc saving from dungeon
-* lamp should give burning hp? extra hp ups different hp, etc. fix the bug with resetting max hp
+* lock shop rooms, that you didnt save npcs yet
+* lock access to the shop area, if you didnt save any npc yet
+* spawn emeralds only after you saved 1 or more npcs
+* teach controls
+* remove lamp
+* hearts, keys and coins should emit some light, maybe batteries
+
+* poison, thorns, ice, fire, charm rings
+* buffs display on mobs (like frozen and poisoned, charmed)
+* Enemies / rooms drop rewards (bombs, keys, coins)
 
 * tile lighting: figure it out
-* addictive or non premultiplied????
-* hearts, keys and coins should emit some light, maybe batteries
 * dont forget little bursts of light for guns and stuff
 * lava should be drawn over the shadows
-* try wfc (wave function collapse) for procgen???
 * particles for lava like in pd
 * fix lavafall colors
 * fix fire particle changing the render state so much
-* teach controls
+* try wfc (wave function collapse) for procgen???
 
 ### sfx
 
@@ -80,7 +86,6 @@ gobbo hurt/heal
 * menu screen needs shadows
 * ellipses seem to be 1 tile less width and height??
 * parallaxed decor in the chasms
-* Enemies / rooms drop rewards (bombs, keys, coins)
 * buff icons
 * spice up bullets (different textures for different enemies)
 
@@ -140,10 +145,13 @@ gobbo hurt/heal
  headless
  null texture
  terminal head
+ hat trader hat
  
 * animated hats
 * separate hat sprite for when you duck
 
+* kills random enemy (except boss)
+* tps random enemy to another room (except boss)
 * discord rod should damage everything it tourches from point where you were to where you tp
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
