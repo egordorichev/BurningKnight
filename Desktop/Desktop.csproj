@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DiscordRPC, Version=1.0.95.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\DiscordRichPresence.1.0.95\lib\net35\DiscordRPC.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Facepunch.Steamworks, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Facepunch.Steamworks.2.1.0\lib\net46\Facepunch.Steamworks.dll</HintPath>
       <Private>True</Private>
@@ -246,12 +242,7 @@
     <Compile Include="DesktopApp.cs" />
     <Compile Include="integration\crash\CrashReporter.cs" />
     <Compile Include="integration\discord\DiscordIntegration.cs" />
-    <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeConnectionException.cs" />
-    <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeOpenException.cs" />
-    <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeReadException.cs" />
-    <Compile Include="integration\discord\NamedPipes\Exceptions\NamedPipeWriteException.cs" />
-    <Compile Include="integration\discord\NamedPipes\NamedPipeClientStream.cs" />
-    <Compile Include="integration\discord\NamedPipes\UnityNamedPipe.cs" />
+    <Compile Include="integration\discord\DiscordRpc.cs" />
     <Compile Include="integration\Integration.cs" />
     <Compile Include="integration\rgb\RgbIntegration.cs" />
     <Compile Include="integration\steam\SteamIntegration.cs" />

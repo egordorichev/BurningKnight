@@ -35,10 +35,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DiscordRPC, Version=1.0.77.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\DiscordRichPresence.1.0.77\lib\net35\DiscordRPC.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Facepunch.Steamworks, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Facepunch.Steamworks.2.1.0\lib\net46\Facepunch.Steamworks.dll</HintPath>
       <Private>True</Private>

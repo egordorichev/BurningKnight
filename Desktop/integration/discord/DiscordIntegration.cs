@@ -1,43 +1,61 @@
-﻿using Desktop.integration.discord.NamedPipes;
-using DiscordRPC;
-using Lens.util;
+﻿using System;
 
 namespace Desktop.integration.discord {
 	public class DiscordIntegration : Integration {
-		private DiscordRpcClient client;
+		private float lastUpdate;
+		private long startTime;
+		
+		private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+		public static long CurrentTimeMillis() {
+			return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
+		}
 		
 		public override void Init() {
 			base.Init();
-			
-			client = new DiscordRpcClient("459603244256198657", -1, null, true, new UnityNamedPipe());
-            
-			client.OnReady += (sender, msg) => Log.Info($"Connected to discord with user {msg.User.Username}");
-			client.OnPresenceUpdate += (sender, msg) => Log.Debug("Presence has been updated!");
-			client.OnError += (s, args) => Log.Error("[DRP] Error Occured within the Discord IPC: (" + args.Code + ") " + args.Message);
-			client.OnConnectionFailed += (sender, msg) => Log.Error("Connected fail " + msg.FailedPipe);
-			client.OnConnectionEstablished += (sender, msg) => { Log.Info("Connected ok"); };
-			
-			client.Initialize();
 
-			client.SetPresence(new RichPresence {
-				Details = "A test",
-				State = "Trying to work",
+			startTime = CurrentTimeMillis() / 1000;
+			
+			var callbacks = new DiscordRpc.EventHandlers();
+			
+			callbacks.disconnectedCallback += DisconnectedCallback;
+			callbacks.errorCallback += ErrorCallback;
 
-				Assets = new Assets {
-					LargeImageKey = "hero_mercy",
-					LargeImageText = "It's woorking!",
-					SmallImageKey = "hero_mercy"
-				}
-			});
+			DiscordRpc.Initialize("459603244256198657", ref callbacks, true, string.Empty);
+
+			UpdateStatus();
 		}
 
 		public override void Update(float dt) {
-			client?.Invoke();
+			base.Update(dt);
+			lastUpdate += dt;
+
+			if (lastUpdate >= 5f) {
+				UpdateStatus();
+			}
+		}
+		
+		private void UpdateStatus() {
+			var Status = new DiscordRpc.RichPresence();
+			
+			Status.details = "Dying";
+			Status.startTimestamp = startTime;
+			Status.state = "state";
+
+			DiscordRpc.UpdatePresence(ref Status);
 		}
 
 		public override void Destroy() {
 			base.Destroy();
-			client?.Dispose();
+			DiscordRpc.Shutdown();
+		}
+
+		private static void DisconnectedCallback(int errorCode, string message) {
+			Console.WriteLine($"Discord::Disconnect({errorCode}, {message})");
+		}
+
+		private static void ErrorCallback(int errorCode, string message) {
+			Console.WriteLine($"Discord::Error({errorCode}, {message})");
 		}
 	}
 }

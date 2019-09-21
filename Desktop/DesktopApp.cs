@@ -2,6 +2,7 @@
 using BurningKnight;
 using Desktop.integration;
 using Desktop.integration.crash;
+using Desktop.integration.discord;
 using Desktop.integration.rgb;
 using Desktop.integration.steam;
 using Lens;
@@ -18,6 +19,7 @@ namespace Desktop {
 		protected override void Initialize() {
 			base.Initialize();
 			
+			integrations.Add(new DiscordIntegration());
 			integrations.Add(new SteamIntegration());
 			// integrations.Add(new RgbIntegration());
 
