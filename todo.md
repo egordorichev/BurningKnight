@@ -1,6 +1,5 @@
 # TODO
 
-* shop npc saving from dungeon
 * lock shop rooms, that you didnt save npcs yet
 * lock access to the shop area, if you didnt save any npc yet
 * spawn emeralds only after you saved 1 or more npcs

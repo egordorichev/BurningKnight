@@ -66,7 +66,7 @@ namespace BurningKnight.level.rooms.special {
 					FacingSide = true
 				};
 				
-				dr.Center = door * 16 + new Vector2(16, 0);
+				dr.Center = door * 16 + new Vector2(12, 0);
 				level.Area.Add(dr);
 				
 				var v = (d.X == Left ? -1 : 1);

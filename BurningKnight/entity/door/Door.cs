@@ -33,7 +33,7 @@ namespace BurningKnight.entity.door {
 		protected List<Entity> Colliding = new List<Entity>();
 		private float lastCollisionTimer;
 		private bool lit;
-		private Room[] rooms;
+		internal Room[] rooms;
 		
 		public override void AddComponents() {
 			base.AddComponents();

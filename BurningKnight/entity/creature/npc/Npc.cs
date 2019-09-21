@@ -13,6 +13,8 @@ namespace BurningKnight.entity.creature.npc {
 			
 			AddComponent(new DialogComponent());
 			GetComponent<HealthComponent>().Unhittable = true;
+			
+			AddTag(Tags.Npc);
 		}
 
 		private bool rotationApplied;

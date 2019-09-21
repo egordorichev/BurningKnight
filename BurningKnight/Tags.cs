@@ -20,6 +20,7 @@ namespace BurningKnight {
 		public static int Entrance = new BitTag("entrance");
 		public static int Item = new BitTag("item");
 		public static int ShopKeeper = new BitTag("shop_keeper");
+		public static int Npc = new BitTag("npc");
 
 		public static int Torch = new BitTag("torch");
 		public static int Button = new BitTag("button");
