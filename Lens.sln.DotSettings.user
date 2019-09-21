@@ -13,4 +13,5 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/usr/lib/mono/4.7.1-api/mscorlib.dll" /&gt;
   &lt;Assembly Path="/usr/lib/mono/4.5/Facades/netstandard.dll" /&gt;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	</wpf:ResourceDictionary>

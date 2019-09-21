@@ -276,6 +276,13 @@
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Target Name="Rename" AfterTargets="AfterBuild">
+    <Move SourceFiles="$(OUTDIR)\Desktop.exe" DestinationFiles="$(OUTDIR)\BurningKnight.exe" />
+    <Message Text="Renamed executable file." Importance="high" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

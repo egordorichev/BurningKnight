@@ -752,6 +752,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="./*discord-rpc*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./Content/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

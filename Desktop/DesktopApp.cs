@@ -40,10 +40,9 @@ namespace Desktop {
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
-			float dt = gameTime.ElapsedGameTime.Seconds;
 			
 			foreach (var i in integrations) {
-				i.Update(dt);
+				i.Update(Delta);
 			}
 		}
 	}

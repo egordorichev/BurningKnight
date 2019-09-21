@@ -1,4 +1,10 @@
 ﻿using System;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.state;
+using Lens;
+using Lens.assets;
+using Lens.util;
 
 namespace Desktop.integration.discord {
 	public class DiscordIntegration : Integration {
@@ -30,18 +36,27 @@ namespace Desktop.integration.discord {
 			base.Update(dt);
 			lastUpdate += dt;
 
-			if (lastUpdate >= 5f) {
+			if (lastUpdate >= 3f) {
+				lastUpdate = 0;
+				
 				UpdateStatus();
 			}
 		}
 		
 		private void UpdateStatus() {
 			var Status = new DiscordRpc.RichPresence();
-			
-			Status.details = "Dying";
-			Status.startTimestamp = startTime;
-			Status.state = "state";
 
+			if (Run.Level != null) {
+				Status.details = $"{Locale.Get(Run.Level.Biome.Id)} {(Run.Depth < 1 ? "" : MathUtils.ToRoman(Run.Depth))}";
+				var p = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+				if (p != null) {
+					var h = p.GetComponent<HatComponent>().Item;
+					Status.state = $"{(h?.Name ?? "No hat :(")}";
+				}
+			}
+			
+			Status.startTimestamp = startTime;
 			DiscordRpc.UpdatePresence(ref Status);
 		}
 
