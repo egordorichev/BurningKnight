@@ -37,6 +37,8 @@ namespace BurningKnight.ui {
 
 				if (date.Month == 12 && date.Day == 25) {
 					Items.Unlock("bk:xmas_hat");
+				} else if (date.Month == 10 && date.Day == 31) {
+					Items.Unlock("bk:pumkin_hat");
 				}
 			}
 		}
