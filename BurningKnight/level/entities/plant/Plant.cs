@@ -1,5 +1,6 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.state;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -35,10 +36,12 @@ namespace BurningKnight.level.entities.plant {
 			Width = g.Sprite.Width;
 			Height = g.Sprite.Height;
 
-			if (s == "plant_l") {
-				AddComponent(new LightComponent(this, 24, new Color(0.4f, 0.4f, 1f, 1f)));
-			} else if (s == "plant_j") {
-				AddComponent(new LightComponent(this, 24, new Color(1f, 0.4f, 0.4f, 1f)));
+			if (Run.Depth != 0 || (s != "plant_l" && s != "plant_j")) {
+				if (s == "plant_l") {
+					AddComponent(new LightComponent(this, 24, new Color(0.4f, 0.4f, 1f, 1f)));
+				} else if (s == "plant_j") {
+					AddComponent(new LightComponent(this, 24, new Color(1f, 0.4f, 0.4f, 1f)));
+				}
 			}
 		}
 

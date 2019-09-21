@@ -1,6 +1,8 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.math;
@@ -13,13 +15,20 @@ namespace BurningKnight.entity.creature.npc {
 		public static string HatTrader = "accessory_trader";
 	
 		private float delay;
+		private bool hidden;
 
 		public override void Init() {
 			base.Init();
 			Subscribe<RoomChangedEvent>();
+
+			hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
 		}
 
 		public override void Update(float dt) {
+			if (hidden) {
+				return;
+			}
+
 			base.Update(dt);
 			delay -= dt;
 
@@ -29,7 +38,27 @@ namespace BurningKnight.entity.creature.npc {
 			}
 		}
 
+		public override void Render() {
+			if (hidden) {
+				return;
+			}
+			
+			base.Render();
+		}
+
+		protected override void RenderShadow() {
+			if (hidden) {
+				return;
+			}
+		
+			base.RenderShadow();
+		}
+
 		public override bool HandleEvent(Event e) {
+			if (hidden) {
+				return false;
+			}
+			
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
@@ -42,6 +71,10 @@ namespace BurningKnight.entity.creature.npc {
 
 		protected virtual string GetDialog() {
 			return $"shopkeeper_{Random.Int(6, 9)}";
+		}
+
+		public virtual string GetId() {
+			return null;
 		}
 	}
 }

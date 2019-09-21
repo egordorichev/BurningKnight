@@ -137,6 +137,7 @@ gobbo hurt/heal
 ### items
 
 * hats
+ discord hat, obtain by joining the discord (discord rpc fix me)
  night vision hat
  Diving hat
  A flipped bucket

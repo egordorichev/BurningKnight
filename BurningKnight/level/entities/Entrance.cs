@@ -21,7 +21,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool CanInteract(Entity e) {
-			return Run.Depth < 1;
+			return false; // Run.Depth < 1;
 		}
 
 		public override void AddComponents() {

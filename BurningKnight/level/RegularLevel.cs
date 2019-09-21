@@ -174,6 +174,7 @@ namespace BurningKnight.level {
 
 			if (NpcSaveRoom.ShouldBeAdded()) {
 				Rooms.Add(new NpcSaveRoom());
+				Rooms.Add(new NpcKeyRoom());
 			}
 			
 			TombRoom.Insert(Rooms);
