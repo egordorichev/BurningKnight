@@ -46,28 +46,6 @@ namespace BurningKnight.ui {
 
 		private void SetLabel() {
 			var k = Controls.Find(Key, Gamepad);
-
-			if (k == "Left") {
-				k = "LMB";
-			} else if (k == "Right") {
-				k = "RMB";
-			} else if (k == "Middle") {
-				k = "MMB";
-			} else if (k.Length == 2 && k[0] == 'D') {
-				k = k[1].ToString();
-			} else if (k.StartsWith("Left")) {
-				k = $"Left {k.Substring(4, k.Length - 4)}";
-			} else if (k.StartsWith("Right")) {
-				k = $"Right {k.Substring(5, k.Length - 5)}";
-			} else if (k.EndsWith("Left")) {
-				k = $"{k.Substring(0, k.Length - 4)} Left";
-			} else if (k.EndsWith("Right")) {
-				k = $"{k.Substring(0, k.Length - 5)} Right";
-			} else if (k.EndsWith("Down")) {
-				k = $"{k.Substring(0, k.Length - 4)} Down";
-			} else if (k.EndsWith("Up")) {
-				k = $"{k.Substring(0, k.Length - 2)} Up";
-			}
 			
 			Label = $"{Locale.Get(Key)}: {k}";
 			RelativeCenterX = cx;

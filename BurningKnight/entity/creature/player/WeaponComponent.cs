@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -59,7 +60,8 @@ namespace BurningKnight.entity.creature.player {
 					if (GlobalSave.IsTrue("control_swap")) {
 						requestSwap = true;
 					} else {
-						Entity.GetComponent<DialogComponent>().Start("control_swap");
+						Entity.GetComponent<DialogComponent>().Start("control_5");
+						GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Swap, GamepadComponent.Current != null));
 					}
 				}
 			}

@@ -1,15 +1,15 @@
 # TODO
 
 * teach controls
- - movement: for dummies
- - roll
- - use
- - duck
+ - roll: old man?
+ - duck: cute duck somewhere in the hall
  
  - bomb
  - swap
  - interact
+ - use
 
+* maze connection room, but only the shortest path
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds

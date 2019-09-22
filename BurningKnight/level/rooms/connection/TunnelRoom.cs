@@ -31,6 +31,11 @@ namespace BurningKnight.level.rooms.connection {
 				PaintTunnel(Level, Tiles.RandomFloorOrSpike(), w, true);
 			}
 
+			if (Random.Chance()) {
+				PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance() ? 
+					Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike(), GenerateSpot());
+			}
+			
 			PaintTunnel(Level, Fl.Matches(Tile.Dirt, Tile.Lava) ? Random.Chance() ? 
 				Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike(), w);
 		}

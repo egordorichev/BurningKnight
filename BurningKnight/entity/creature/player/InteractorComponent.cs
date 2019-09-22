@@ -58,7 +58,8 @@ namespace BurningKnight.entity.creature.player {
 			component.OnStart?.Invoke(Entity);
 
 			if (GlobalSave.IsFalse("control_interact")) {
-				Entity.GetComponent<DialogComponent>().Start("controls_interact");
+				Entity.GetComponent<DialogComponent>().Start("control_3");
+				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Interact, GamepadComponent.Current != null));
 			}
 		}
 		

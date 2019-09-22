@@ -1,7 +1,9 @@
+using BurningKnight.entity.creature.npc;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
 using BurningKnight.level.walls;
+using BurningKnight.save;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util.math;
@@ -47,8 +49,13 @@ namespace BurningKnight.level.rooms.entrance {
 			level.Area.Add(torch);
 
 			torch.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
-			
-			
+
+			if (GlobalSave.IsFalse("control_roll")) {
+				var om = new OldMan();
+				level.Area.Add(om);
+				om.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
+			}
+
 			/*
 			var bk = new entity.creature.bk.BurningKnight();
 			level.Area.Add(bk);

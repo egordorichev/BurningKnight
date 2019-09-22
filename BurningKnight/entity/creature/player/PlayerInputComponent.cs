@@ -8,6 +8,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.projectile;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
@@ -186,6 +187,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
+					GlobalSave.Put("control_roll", true);
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
