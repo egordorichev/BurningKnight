@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -16,10 +17,12 @@ namespace BurningKnight.level.rooms.secret {
 				var item = Items.CreateAndAdd(Items.Generate(ItemPool.Consumable), level.Area);
 				item.Center = GetCenter() * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
 			}
-			
-			for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
-				var item = Items.CreateAndAdd("bk:emerald", level.Area);
-				item.Center = GetCenter() * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+
+			if (GlobalSave.IsTrue("saved_npc")) {
+				for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
+					var item = Items.CreateAndAdd("bk:emerald", level.Area);
+					item.Center = GetCenter() * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+				}
 			}
 		}
 	}

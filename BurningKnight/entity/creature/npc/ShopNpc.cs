@@ -92,7 +92,9 @@ namespace BurningKnight.entity.creature.npc {
 			if (Run.Depth > 0 && !saved) {
 				saved = true;
 				GetComponent<DialogComponent>().StartAndClose("npc_1", 6);
+				
 				GlobalSave.Put(GetId(), true);
+				GlobalSave.Put("saved_npc", true);
 			}
 		}
 		

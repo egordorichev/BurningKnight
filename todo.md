@@ -2,10 +2,12 @@
 
 * lock shop rooms, that you didnt save npcs yet
 * lock access to the shop area, if you didnt save any npc yet
-* spawn emeralds only after you saved 1 or more npcs
+* npc should reward you with emeralds (when it dissappears, it leaves an emerald on the stand)
 * teach controls
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
+* ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
+* overhaul dead screen
 
 * poison, thorns, ice, fire, charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
@@ -87,6 +89,7 @@ gobbo hurt/heal
 * parallaxed decor in the chasms
 * buff icons
 * spice up bullets (different textures for different enemies)
+* we need more secret room layouts
 
 ### future bk ideas
 

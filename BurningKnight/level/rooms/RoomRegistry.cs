@@ -49,7 +49,7 @@ namespace BurningKnight.level.rooms {
 		static RoomRegistry() {
 			RoomInfo[] infos = {
 				// Secret
-				RoomInfo.New<SecretMachineRoom>(1f),
+				// RoomInfo.New<SecretMachineRoom>(1f), - pretty bad
 				RoomInfo.New<SecretChasmRoom>(1f),
 				RoomInfo.New<GrannyRoom>(0.01f),
 
