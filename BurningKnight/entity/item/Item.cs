@@ -299,11 +299,11 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void CheckMasked() {
-			Masked = Unknown || (Run.Depth == 0 && !Unlocked(Id) && !Data.Lockable);
+			Masked = Unknown || (Run.Depth == 0 && Data.Lockable && !Unlocked(Id));
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:missile_wand" || id == "bk:gun" || id == "bk:no_hat";
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:gun" || id == "bk:no_hat";
 		}
 
 		public bool HandleOwnerEvent(Event e) {

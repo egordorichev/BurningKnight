@@ -1,10 +1,8 @@
 # TODO
 
-* fixme: shotgun was unlocked for some reason
 * teach controls
  - duck: cute duck somewhere in the hall
 
-* when bomb explodes, disable lighting for a bit>
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds

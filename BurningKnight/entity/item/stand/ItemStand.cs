@@ -137,20 +137,11 @@ namespace BurningKnight.entity.item.stand {
 							ht.Set(null, false);
 							SetItem(it, entity, false);
 						} else if (this is PermanentStand) {
-							if (Item.Data.Type == ItemType.Lamp) {
-								var ht = entity.GetComponent<LampComponent>();
-								var it = ht.Item;
+							var ht = entity.GetComponent<ActiveWeaponComponent>();
+							var it = ht.Item;
 
-								ht.Set(null, false);
-								SetItem(it, entity, false);
-							} else {
-								var ht = entity.GetComponent<ActiveWeaponComponent>();
-								var it = ht.Item;
-
-								ht.Set(null, false);
-								SetItem(it, entity, false);
-							}
-							
+							ht.Set(null, false);
+							SetItem(it, entity, false);
 						} else {
 							SetItem(null, entity, false);
 						}

@@ -136,8 +136,6 @@ namespace BurningKnight.ui {
 					Tween.To(1f, coinScale.Y, x => coinScale.Y = x, 0.2f);
 			}
 		}
-
-		private bool first = true;
 		
 		public override bool HandleEvent(Event e) {
 			switch (e) {
@@ -161,14 +159,7 @@ namespace BurningKnight.ui {
 
 				case ItemAddedEvent iae: {
 					if (iae.Who == player) {
-						if (iae.Item.Type == ItemType.Lamp) {
-							if (!first || Run.Depth < 1) {
-								hpZero = 0;
-								Tween.To(this, new {hpZero = 1}, 0.6f, Ease.QuadInOut).Delay = 1f;
-							}
-
-							first = false;
-						} else if (iae.Item.Type == ItemType.Active) {
+						if (iae.Item.Type == ItemType.Active) {
 							if (activePosition <= 0f) {
 								Tween.To(0, -1, x => activePosition = x, 0.6f, Ease.BackOut);
 							} else {

@@ -1,3 +1,4 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.state;
 using Lens.assets;
@@ -30,6 +31,8 @@ namespace BurningKnight.util {
 			explosion.Depth = 32;
 			explosion.Particle.Velocity = Vector2.Zero;
 			explosion.AddShadow();
+
+			Lights.Flash = 1f;
 		}
 	}
 }

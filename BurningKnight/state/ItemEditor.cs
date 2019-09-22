@@ -42,7 +42,6 @@ namespace BurningKnight.state {
 			"bomb",
 			"key",
 			"heart",
-			"lamp",
 			"weapon",
 			"battery",
 			"hat"
@@ -454,10 +453,6 @@ namespace BurningKnight.state {
 				
 				if (player.GetComponent<ActiveItemComponent>().Has(id)) {
 					ImGui.BulletText("Present in active item slot");
-				}
-				
-				if (player.GetComponent<LampComponent>().Has(id)) {
-					ImGui.BulletText("Present in lamp slot");
 				}
 			}
 			

@@ -22,7 +22,6 @@ namespace BurningKnight.entity {
 
 			AnimationUtil.Explosion(w);
 
-
 			for (int i = 0; i < 4; i++) {
 				var explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
 				explosion.Position = w;

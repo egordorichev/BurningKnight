@@ -16,6 +16,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.assets.lighting {
 	public static class Lights {
+		public static float Flash;
+		
 		private static TextureRegion region;
 
 		private static List<Light> lights = new List<Light>();
@@ -54,6 +56,11 @@ namespace BurningKnight.assets.lighting {
 		}
 
 		public static void Render() {
+			if (Flash > 0) {
+				Flash -= Engine.Delta * 8;
+				return;
+			}
+			
 			if (!enabled || !(Engine.Instance.State is InGameState)) {
 				return;
 			}
