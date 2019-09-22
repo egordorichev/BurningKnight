@@ -1,13 +1,12 @@
 # TODO
 
 * hearts are really rare?
-* weapons can dissappear from your hands???? WHUT???? (when you pickup new)
 
 * teach controls
  - duck: cute duck somewhere in the hall
 
-* fix well position in the well room (its also way too small)
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
+* same with shopkeeper, should say "im not giving you a discount" if you have not enough coins
 * overhaul death screen
 * tween npcs a bit when they talk (on each char)
 * npcs should react, when you buy stuff

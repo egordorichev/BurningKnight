@@ -46,7 +46,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		protected override bool ShouldReplace(Item item) {
-			return base.ShouldReplace(item) && (Item == null || Run.Depth < 1 || Entity.GetComponent<WeaponComponent>().Item != null);
+			return item.Type == ItemType.Weapon && (Item == null || Run.Depth < 1 || Entity.GetComponent<WeaponComponent>().Item != null);
 		}
 
 		protected override void OnItemSet() {

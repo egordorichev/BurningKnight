@@ -168,11 +168,11 @@ namespace BurningKnight.entity.item {
 				Color color;
 
 				if (Type == ItemType.Coin || Type == ItemType.Key) {
-					color = new Color(1f, 1f, 0.5f, 0.8f);
+					color = new Color(1f, 1f, 0.5f, 1f);
 				} else if (Type == ItemType.Heart) {
-					color = new Color(1f, 0.5f, 0.5f, 0.8f);
+					color = new Color(1f, 0.2f, 0.2f, 1f);
 				} else {
-					color = new Color(1f, 1f, 1f, 0.8f);
+					color = new Color(1f, 1f, 1f, 1f);
 				}
 				
 				AddComponent(new LightComponent(this, 32f, color));

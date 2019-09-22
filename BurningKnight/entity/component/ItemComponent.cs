@@ -7,6 +7,7 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 
