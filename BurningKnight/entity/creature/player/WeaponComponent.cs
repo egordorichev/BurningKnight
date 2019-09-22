@@ -60,8 +60,8 @@ namespace BurningKnight.entity.creature.player {
 					if (GlobalSave.IsTrue("control_swap")) {
 						requestSwap = true;
 					} else {
+						Entity.GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Swap, GamepadComponent.Current != null));
 						Entity.GetComponent<DialogComponent>().Start("control_5");
-						GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Swap, GamepadComponent.Current != null));
 					}
 				}
 			}

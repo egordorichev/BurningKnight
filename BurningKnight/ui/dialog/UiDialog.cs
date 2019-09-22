@@ -38,6 +38,7 @@ namespace BurningKnight.ui.dialog {
 			Str = new UiString(Font.Small);
 			Area.Add(Str);
 
+			Depth = 2;
 			Str.Paused = true;
 			Str.Depth = Depth + 1;
 			Str.WidthLimit = 172;

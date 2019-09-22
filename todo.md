@@ -1,15 +1,11 @@
 # TODO
 
+* fixme: shotgun was unlocked for some reason
 * teach controls
- - roll: old man?
  - duck: cute duck somewhere in the hall
- 
- - bomb
- - swap
- - interact
- - use
 
 * maze connection room, but only the shortest path
+* when bomb explodes, disable lighting for a bit>
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
@@ -58,7 +54,6 @@ gobbo hurt/heal
 * check if audio settings works
 * flashes (like lighting bolt zaps)
 * rain
-* when bomb explodes, disable lighting for a bit>
 
 ## audio
 
