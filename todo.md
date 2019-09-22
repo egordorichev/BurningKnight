@@ -1,6 +1,5 @@
 # TODO
 
-* lock access to the shop area, if you didnt save any npc yet
 * teach controls
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
@@ -8,6 +7,7 @@
 * overhaul dead screen
 * tween npcs a bit when they talk (on each char)
 * npcs should react, when you buy stuff
+* bring back cage key (from main pc)
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)

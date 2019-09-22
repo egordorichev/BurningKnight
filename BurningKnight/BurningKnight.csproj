@@ -296,6 +296,8 @@
     <Compile Include="entity\door\CageLock.cs" />
     <Compile Include="entity\door\Door.cs" />
     <Compile Include="entity\door\GoldLock.cs" />
+    <Compile Include="entity\door\HallDoor.cs" />
+    <Compile Include="entity\door\HallLock.cs" />
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
@@ -303,6 +305,7 @@
     <Compile Include="entity\door\ShopLock.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
+    <Compile Include="entity\door\VerticalHallDoor.cs" />
     <Compile Include="entity\door\VerticalShopDoor.cs" />
     <Compile Include="entity\events\BombPlacedEvent.cs" />
     <Compile Include="entity\events\BuffAddedEvent.cs" />
