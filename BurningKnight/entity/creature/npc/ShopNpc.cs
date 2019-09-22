@@ -1,6 +1,8 @@
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.stand;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -34,6 +36,12 @@ namespace BurningKnight.entity.creature.npc {
 			if (saved && !OnScreen) {
 				Done = true;
 				hidden = true;
+
+				var stand = new ItemStand();
+				Area.Add(stand);
+				stand.Center = Center;
+				stand.SetItem(Items.CreateAndAdd("bk:emerald", Area), null);
+				
 				return;
 			}
 

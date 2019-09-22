@@ -2,7 +2,6 @@
 
 * lock shop rooms, that you didnt save npcs yet
 * lock access to the shop area, if you didnt save any npc yet
-* npc should reward you with emeralds (when it dissappears, it leaves an emerald on the stand)
 * teach controls
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries

@@ -80,6 +80,8 @@ namespace BurningKnight.ui.dialog {
 
 		public override void Destroy() {
 			base.Destroy();
+			
+			Dialog.Close(() => { Dialog.Done = true; });
 			Engine.Instance.Window.TextInput -= HandleInput;
 		}
 

@@ -118,7 +118,7 @@ namespace BurningKnight.ui.dialog {
 			}
 		}
 		
-		public void Close() {
+		public void Close(Action callback = null) {
 			Saying = false;
 			DoneSaying = false;
 			
@@ -127,6 +127,7 @@ namespace BurningKnight.ui.dialog {
 				Str.Height = 4;
 				Width = 4;
 				Height = 4;
+				callback?.Invoke();
 			};
 		}
 	}
