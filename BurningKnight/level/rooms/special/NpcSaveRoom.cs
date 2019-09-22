@@ -53,7 +53,7 @@ namespace BurningKnight.level.rooms.special {
 
 			var fl = Tiles.RandomFloorOrSpike();
 			
-			if (d.X == Left || d.Y == Right) {
+			if (d.X == Left || d.X == Right) {
 				var w = (int) (GetWidth() / 2f + Random.Int(-1, 1));
 				var door = new Vector2(Left + w, Random.Int(Top + 2, Bottom - 2));
 				

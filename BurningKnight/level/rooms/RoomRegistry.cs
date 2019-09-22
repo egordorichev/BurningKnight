@@ -73,7 +73,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<PadTreasureRoom>(1f),
 				
 				// Trap
-				RoomInfo.New<RollingSpikesRoom>(100000000f),
+				RoomInfo.New<RollingSpikesRoom>(1f),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 				// RoomInfo.New<CageRoom>(1f), // I dont like it :(
@@ -84,7 +84,7 @@ namespace BurningKnight.level.rooms {
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
 				RoomInfo.New<WayOverChasmRoom>(1f),
-				RoomInfo.New<MazeConnectionRoom>(1f),
+				RoomInfo.New<MazeConnectionRoom>(1f + 100000f),
 				RoomInfo.New<RingConnectionRoom>(1f),
 				RoomInfo.New<IntersectionConnectionRoom>(1f),
 				

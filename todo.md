@@ -4,7 +4,6 @@
 * teach controls
  - duck: cute duck somewhere in the hall
 
-* maze connection room, but only the shortest path
 * when bomb explodes, disable lighting for a bit>
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
