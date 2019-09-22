@@ -1,13 +1,14 @@
 # TODO
 
+* hearts are really rare?
 * weapons can dissappear from your hands???? WHUT???? (when you pickup new)
 
 * teach controls
  - duck: cute duck somewhere in the hall
 
-* hearts, keys and coins should emit some light, maybe batteries
+* fix well position in the well room (its also way too small)
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
-* overhaul dead screen
+* overhaul death screen
 * tween npcs a bit when they talk (on each char)
 * npcs should react, when you buy stuff
 * bring back cage key (from main pc)

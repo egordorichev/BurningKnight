@@ -141,7 +141,7 @@ namespace BurningKnight.entity.creature.player {
 			if (bombs > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
 				if (GlobalSave.IsFalse("control_bomb")) {
 					Entity.GetComponent<DialogComponent>().Close();
-					GlobalSave.Put("control_0", true);
+					GlobalSave.Put("control_bomb", true);
 				}
 
 				Bombs--;

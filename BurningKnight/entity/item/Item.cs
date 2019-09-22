@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -162,6 +163,20 @@ namespace BurningKnight.entity.item {
 			AddComponent(new RoomComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new SupportableComponent());
+
+			if (Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
+				Color color;
+
+				if (Type == ItemType.Coin || Type == ItemType.Key) {
+					color = new Color(1f, 1f, 0.5f, 0.8f);
+				} else if (Type == ItemType.Heart) {
+					color = new Color(1f, 0.5f, 0.5f, 0.8f);
+				} else {
+					color = new Color(1f, 1f, 1f, 0.8f);
+				}
+				
+				AddComponent(new LightComponent(this, 32f, color));
+			}
 			
 			CheckMasked();
 		}
@@ -181,6 +196,7 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<InteractableComponent>();
 			RemoveComponent<RectBodyComponent>();
 			RemoveComponent<ShadowComponent>();
+			RemoveComponent<LightComponent>();
 			
 			RemoveTag(Tags.LevelSave);
 			RemoveTag(Tags.Item);
