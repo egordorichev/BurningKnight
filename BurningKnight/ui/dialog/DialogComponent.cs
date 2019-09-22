@@ -88,7 +88,7 @@ namespace BurningKnight.ui.dialog {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (tillClose > -1) {
+			if (tillClose > -1 && Dialog.DoneSaying) {
 				tillClose -= dt;
 
 				if (tillClose <= 0) {

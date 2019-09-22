@@ -1,14 +1,15 @@
 # TODO
 
-* lock shop rooms, that you didnt save npcs yet
 * lock access to the shop area, if you didnt save any npc yet
 * teach controls
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
 * overhaul dead screen
+* tween npcs a bit when they talk (on each char)
+* npcs should react, when you buy stuff
 
-* poison, thorns, ice, fire, charm rings
+* poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
 * Enemies / rooms drop rewards (bombs, keys, coins)
 

@@ -12,12 +12,12 @@ using Lens.util.math;
 namespace BurningKnight.entity.creature.npc {
 	public class ShopNpc : Npc {
 		public static string AccessoryTrader = "accessory_trader";
-		public static string ActiveTrader = "accessory_trader";
-		public static string WeaponTrader = "accessory_trader";
-		public static string HatTrader = "accessory_trader";
+		public static string ActiveTrader = "active_trader";
+		public static string WeaponTrader = "weapon_trader";
+		public static string HatTrader = "hat_trader";
 	
 		private float delay;
-		private bool hidden;
+		internal bool Hidden;
 		private bool saved;
 
 		public override void Init() {
@@ -25,17 +25,17 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 
 			AlwaysActive = true;
-			hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
+			Hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
 		}
 
 		public override void Update(float dt) {
-			if (hidden) {
+			if (Hidden) {
 				return;
 			}
 
 			if (saved && !OnScreen) {
 				Done = true;
-				hidden = true;
+				Hidden = true;
 
 				var stand = new ItemStand();
 				Area.Add(stand);
@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override void Render() {
-			if (hidden) {
+			if (Hidden) {
 				return;
 			}
 			
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		protected override void RenderShadow() {
-			if (hidden) {
+			if (Hidden) {
 				return;
 			}
 		
@@ -71,7 +71,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (hidden) {
+			if (Hidden) {
 				return false;
 			}
 			

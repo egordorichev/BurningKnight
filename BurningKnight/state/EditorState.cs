@@ -69,8 +69,8 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.IsDown(Keys.Space)) {
 				Camera.Position -= Input.Mouse.PositionDelta;
 				
-				Camera.X = MathUtils.Clamp(Camera.X, -Display.Width / 2f, Level.Width * 16f - Display.Width / 2f);
-				Camera.Y = MathUtils.Clamp(Camera.Y, -Display.Height / 2f, Level.Height * 16f - Display.Height / 2f);
+				// Camera.X = MathUtils.Clamp(Camera.X, -Display.Width / 2f, Level.Width * 16f - Display.Width / 2f);
+				// Camera.Y = MathUtils.Clamp(Camera.Y, -Display.Height / 2f, Level.Height * 16f - Display.Height / 2f);
 			}
 		}
 
