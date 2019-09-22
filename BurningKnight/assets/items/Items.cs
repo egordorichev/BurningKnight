@@ -155,10 +155,6 @@ namespace BurningKnight.assets.items {
 					case ItemType.Active:						
 						pools = TryToApply(data, pools, ItemPool.Chest);
 						break;
-					
-					case ItemType.Lamp:	
-						pools = TryToApply(data, pools, ItemPool.Lamp);
-						break;
 				}
 			} else {
 				var pls = pl.Int(0);

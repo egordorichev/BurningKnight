@@ -1,9 +1,10 @@
 # TODO
 
+* weapons can dissappear from your hands???? WHUT???? (when you pickup new)
+
 * teach controls
  - duck: cute duck somewhere in the hall
 
-* remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
 * overhaul dead screen

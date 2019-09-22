@@ -350,8 +350,8 @@ namespace BurningKnight.ui {
 
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var component = player.GetComponent<HealthComponent>();
-			var red = component.Health - 1;
-			var m = component.MaxHealth - 1;
+			var red = component.Health;
+			var m = component.MaxHealth;
 			
 			var from = Camera.Instance.CameraToUi(player.Center);
 
@@ -389,7 +389,7 @@ namespace BurningKnight.ui {
 		
 		private void RenderHealthBar(bool pad) {
 			var red = player.GetComponent<HealthComponent>();
-			var totalRed = red.Health - 1; // -1 accounts for hidden "not lamp hp"
+			var totalRed = red.Health;
 
 			if (lastRed > totalRed) {
 				lastRed = totalRed;
@@ -398,7 +398,7 @@ namespace BurningKnight.ui {
 			}
 
 			var r = (int) lastRed;
-			var maxRed = red.MaxHealth - 1;
+			var maxRed = red.MaxHealth;
 			var hurt = red.InvincibilityTimer > 0;
 
 			int i = 0;
