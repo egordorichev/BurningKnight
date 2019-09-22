@@ -3,7 +3,9 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;
+using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
 
@@ -53,9 +55,12 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemAddedEvent ev) {
-				// fixme: doesnt seem to work
 				if (AtBack && ev.Old == null && ev.Item != null && ev.Component == this) {
-					requestSwap = true;
+					if (GlobalSave.IsTrue("control_swap")) {
+						requestSwap = true;
+					} else {
+						Entity.GetComponent<DialogComponent>().Start("control_swap");
+					}
 				}
 			}
 
@@ -63,6 +68,11 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		protected void Swap() {
+			if (GlobalSave.IsFalse("control_swap")) {
+				GlobalSave.Put("control_swap", true);
+				Entity.GetComponent<DialogComponent>().Close();
+			}
+			
 			var component = AtBack ? Entity.GetComponent<ActiveWeaponComponent>() : Entity.GetComponent<WeaponComponent>();
 			
 			if (!Send(new WeaponSwappedEvent {

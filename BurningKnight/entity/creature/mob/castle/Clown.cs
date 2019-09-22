@@ -21,6 +21,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			body.KnockbackModifier = 2;
 			body.Body.LinearDamping = 0;
+			
+			AddDrops(new SingleDrop("bk:bomb", 0.1f));
 		}
 
 		#region Clown States

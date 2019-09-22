@@ -2,12 +2,13 @@
 
 * teach controls
  - movement: for dummies
- - interact
  - roll
  - use
- - swap
  - duck
+ 
  - bomb
+ - swap
+ - interact
 
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries

@@ -7,16 +7,18 @@ namespace BurningKnight.level.rooms.connection {
 			Painter.Fill(level, this, 1, Random.Chance(70) ? Tile.Chasm : Tiles.RandomFloor());
 
 			if (Random.Chance()) {
+				var r = GenerateSpot();
+				
 				if (Random.Chance()) {
-					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), GenerateSpot(), true);
+					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), Random.Chance() ? r : GenerateSpot(), true);
 				}
 			
-				PaintTunnel(level, Tiles.RandomFloorOrSpike(), GenerateSpot());
+				PaintTunnel(level, Tiles.RandomFloorOrSpike(), r);
 			} else {
 				var r = GenerateSpot();
 				
 				if (Random.Chance()) {
-					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), r, true);
+					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), Random.Chance() ? r : GenerateSpot(), true);
 				}
 
 				PaintTunnel(level, Tiles.RandomFloorOrSpike(), r);

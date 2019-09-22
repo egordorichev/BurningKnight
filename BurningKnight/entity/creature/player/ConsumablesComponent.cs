@@ -3,7 +3,9 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
@@ -78,6 +80,10 @@ namespace BurningKnight.entity.creature.player {
 					
 					switch (type) {
 						case ItemType.Bomb: {
+							if (GlobalSave.IsFalse("control_bomb")) {
+								Entity.GetComponent<DialogComponent>().Start("control_bomb");
+							}
+							
 							a.Emit("bomb");
 							break;
 						}
@@ -132,6 +138,11 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (bombs > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+				if (GlobalSave.IsFalse("control_bomb")) {
+					Entity.GetComponent<DialogComponent>().Close();
+					GlobalSave.Put("control_bomb", true);
+				}
+
 				Bombs--;
 				
 				var bomb = new Bomb();
