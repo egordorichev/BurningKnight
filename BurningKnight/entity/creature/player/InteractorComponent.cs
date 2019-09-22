@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.save;
+using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.input;
@@ -18,6 +20,8 @@ namespace BurningKnight.entity.creature.player {
 
 			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact, GetComponent<GamepadComponent>().Controller)) {
 				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
+					GlobalSave.Put("control_interact", true);
+
 					Send(new InteractedEvent {
 						Who = Entity,
 						With = CurrentlyInteracting
@@ -41,6 +45,8 @@ namespace BurningKnight.entity.creature.player {
 				InteractionCandidates.RemoveAt(0);
 				OnStart();
 			}
+
+			Entity.GetComponent<DialogComponent>().Close();
 		}
 
 		private void OnStart() {
@@ -50,6 +56,10 @@ namespace BurningKnight.entity.creature.player {
 
 			component.CurrentlyInteracting = Entity;
 			component.OnStart?.Invoke(Entity);
+
+			if (GlobalSave.IsFalse("control_interact")) {
+				Entity.GetComponent<DialogComponent>().Start("controls_interact");
+			}
 		}
 		
 		public override bool HandleEvent(Event e) {

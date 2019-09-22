@@ -106,6 +106,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new OrbitGiverComponent());
 			AddComponent(new FollowerComponent());
 			AddComponent(new AimComponent(AimComponent.AimType.Cursor));
+			AddComponent(new DialogComponent());
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 			

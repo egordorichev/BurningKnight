@@ -1,6 +1,14 @@
 # TODO
 
 * teach controls
+ - movement: for dummies
+ - interact
+ - roll
+ - use
+ - swap
+ - duck
+ - bomb
+
 * remove lamp
 * hearts, keys and coins should emit some light, maybe batteries
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds

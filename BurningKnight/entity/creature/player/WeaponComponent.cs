@@ -10,7 +10,8 @@ using Lens.entity;
 namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
 		protected bool AtBack = true;
-
+		private bool requestSwap;
+		
 		public override void PostInit() {
 			base.PostInit();
 
@@ -41,10 +42,20 @@ namespace BurningKnight.entity.creature.player {
 			return (Run.Depth > 0 || !AtBack) && item.Type == ItemType.Weapon;
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (requestSwap) {
+				Swap();
+				requestSwap = false;
+			}
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is ItemAddedEvent ev) {
-				if (AtBack && ev.Old == null && Item != null && ev.Component == this) {
-					Swap();
+				// fixme: doesnt seem to work
+				if (AtBack && ev.Old == null && ev.Item != null && ev.Component == this) {
+					requestSwap = true;
 				}
 			}
 

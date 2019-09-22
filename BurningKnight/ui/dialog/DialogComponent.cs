@@ -108,6 +108,7 @@ namespace BurningKnight.ui.dialog {
 			var dialog = Dialogs.Get(id);
 
 			if (dialog == null) {
+				Setup(new Dialog(id), to);
 				return;
 			}
 
