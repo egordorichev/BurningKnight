@@ -2,9 +2,11 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.graphics.animation;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
@@ -15,11 +17,14 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
 		private Vector2 scale = Vector2.One;
+		private Animation head;
 		public Vector2 Scale = Vector2.One;
 		
-		public PlayerGraphicsComponent() : base("gobbo") {
+		public PlayerGraphicsComponent() : base("gobbo", "body") {
 			CustomFlip = true;
 			ShadowOffset = 8;
+
+			head = Animations.Get("gobbo").CreateAnimation("head");
 		}
 
 		public override void Init() {
@@ -29,6 +34,8 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			head.Update(dt);
 			Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
 		}
 
@@ -41,7 +48,6 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
-			
 			
 			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
 				return;
@@ -57,6 +63,11 @@ namespace BurningKnight.entity.creature.player {
 				Graphics.Render(region, new Vector2(Entity.CenterX, 
 					Entity.Y + 7 + (shadow ? Entity.Height * 2 - 4 : 0) + (shadow ? -1 : 1) * 
 					offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
+			} else {	
+				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
+				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
+
+				Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 

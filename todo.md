@@ -1,7 +1,10 @@
 # TODO
 
-* hearts are really rare?
+* rework hats: custom head, separate frame for duck support
+* hat y should be based on the head bottom instead of y
 
+* duck lore (from discord)
+* hearts are really rare?
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
 * same with shopkeeper, should say "im not giving you a discount" if you have not enough coins
 * overhaul death screen
