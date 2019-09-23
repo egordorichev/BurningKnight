@@ -135,7 +135,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (Input.WasPressed(Controls.Duck, controller)) {
 				state.Become<Player.DuckState>();
-				
+				GlobalSave.Put("control_duck", true);
+
 				/*
 				Entity.Area.Add(new EpicSpawn {
 					Position = Entity.Position

@@ -315,7 +315,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void CheckMasked() {
-			Masked = Unknown || (Run.Depth == 0 && Data.Lockable && !Unlocked(Id));
+			Masked = Unknown || (Run.Depth == 0 && Data.Lockable && Data.UnlockPrice == 0 && !Unlocked(Id));
 		}
 
 		public static bool Unlocked(string id) {
