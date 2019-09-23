@@ -50,7 +50,7 @@ namespace BurningKnight.entity.item.renderer {
 			
 			Graphics.Render(region, new Vector2(
 				                        owner.CenterX + (horizontal ? 0 : (region.Width / 2f) * (owner.GraphicsComponent.Flipped ? -1 : 1)), 
-				                        owner.CenterY + offset
+				                        owner.CenterY + offset + (shadow ? owner.Height : 0)
 			), shadow ? -angle : angle, 
 				origin + new Vector2(0, currentMove), new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
 		}

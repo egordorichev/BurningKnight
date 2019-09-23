@@ -140,6 +140,8 @@ gobbo hurt/heal
 
 ### items
 
+* weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
+
 * hats
  discord hat, obtain by joining the discord (discord rpc fix me)
  night vision hat

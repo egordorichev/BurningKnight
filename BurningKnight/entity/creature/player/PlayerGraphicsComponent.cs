@@ -61,8 +61,8 @@ namespace BurningKnight.entity.creature.player {
 				origin = new Vector2(region.Width / 2, region.Height);
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, 
-					Entity.Y + 7 + (shadow ? Entity.Height * 2 - 4 : 0) + (shadow ? -1 : 1) * 
-					offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)]), 0, origin, Scale, Graphics.ParseEffect(Flipped, shadow));
+					Entity.Bottom + (shadow ? -1 : 1) * 
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(1, shadow ? -1 : 1), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
@@ -90,7 +90,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static sbyte[] offsets = {
-			3, 0, 0, 0, 1, 1, 1, 0, 0, 0, -2, -1, 0, 0, 1, 1, 0
+			13, 11, 11, 11, 12, 12, 12, 11, 11, 11, 10, 10, 11, 11, 10, 10, 11
 		};
 
 		public void SimpleRender(bool shadow) {
@@ -101,7 +101,7 @@ namespace BurningKnight.entity.creature.player {
 			var weapon = GetComponent<WeaponComponent>();
 			var activeWeapon = GetComponent<ActiveWeaponComponent>();
 
-			var o = (shadow ? -1 : 1) * offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)];
+			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
 			
 			weapon.Render(shadow, o);
 			SimpleRender(shadow);
