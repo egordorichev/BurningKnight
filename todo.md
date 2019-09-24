@@ -1,15 +1,11 @@
 # TODO
 
-* rework hats: custom head, separate frame for duck support
-
-* duck lore (from discord)
 * hearts are really rare?
 * ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
 * same with shopkeeper, should say "im not giving you a discount" if you have not enough coins
 * overhaul death screen
 * tween npcs a bit when they talk (on each char)
 * npcs should react, when you buy stuff
-* bring back cage key (from main pc)
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
@@ -21,7 +17,7 @@
 * particles for lava like in pd
 * fix lavafall colors
 * fix fire particle changing the render state so much
-* try wfc (wave function collapse) for procgen???
+* draw the duck frames for hats
 
 ### sfx
 
