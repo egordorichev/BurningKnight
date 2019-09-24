@@ -1,7 +1,6 @@
 # TODO
 
 * rework hats: custom head, separate frame for duck support
-* hat y should be based on the head bottom instead of y
 
 * duck lore (from discord)
 * hearts are really rare?
