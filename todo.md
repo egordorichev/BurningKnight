@@ -1,8 +1,7 @@
 # TODO
 
 * hearts are really rare?
-* ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
-* same with shopkeeper, should say "im not giving you a discount" if you have not enough coins
+* ui string should support drawing small icons
 * overhaul death screen
 * tween npcs a bit when they talk (on each char)
 * npcs should react, when you buy stuff
@@ -189,7 +188,6 @@ gobbo hurt/heal
 
 #### Polish
 
-* Vegan mode: press 20 times to unlock all content?
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
@@ -221,6 +219,9 @@ gobbo hurt/heal
 
 ### enemies
 
+* enemy, that dies from you touching it, does no contact damage, 
+ runs away from you and shoots, tons of hp (hard to kill without touching)
+ 
 * enemy that deals insane knockback to you
 * enemy with insane knockback modifier
 * skull, that shoots missiles, that go through wall (terraria dungeon)

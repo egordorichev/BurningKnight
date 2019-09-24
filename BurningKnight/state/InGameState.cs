@@ -9,6 +9,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -991,13 +992,33 @@ namespace BurningKnight.state {
 				}
 			});
 
+			var presses = 0;
+
 			gameSettings.Add(new UiCheckbox {
 				Name = "vegan_mode",
 				On = Settings.Vegan,
 				RelativeX = sx,
 				RelativeCenterY = sy + space,
 				Click = b => {
+					presses++;
 					Settings.Vegan = ((UiCheckbox) b).On;
+
+					Log.Info($"Click #{presses}");
+					
+					if (presses == 20) {
+						Log.Debug("Unlock npcs!");
+						
+						GlobalSave.Put(ShopNpc.AccessoryTrader, true);
+						GlobalSave.Put(ShopNpc.ActiveTrader, true);
+						GlobalSave.Put(ShopNpc.HatTrader, true);
+						GlobalSave.Put(ShopNpc.WeaponTrader, true);
+						
+						GlobalSave.Put("control_use", true);
+						GlobalSave.Put("control_swap", true);
+						GlobalSave.Put("control_roll", true);
+						GlobalSave.Put("control_interact", true);
+						GlobalSave.Put("control_duck", true);
+					}
 				}
 			});
 
