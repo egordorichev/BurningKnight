@@ -432,7 +432,9 @@ namespace BurningKnight.entity.creature.player {
 			var pool = new List<string>();
 
 			foreach (var i in GetComponent<InventoryComponent>().Items) {
-				pool.Add(i.Id);
+				if (i.Type != ItemType.Hat) {
+					pool.Add(i.Id);
+				}
 			}
 
 			var w = GetComponent<ActiveItemComponent>().Item;

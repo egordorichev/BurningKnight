@@ -352,84 +352,84 @@ namespace BurningKnight.state {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
+			}
 
-				var gamepad = GamepadComponent.Current;
-				
-				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
-					SelectFirst();
-				} else if (UiButton.Selected > -1) {
-					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
-						UiButton sm = null;
-						var mn = UiButton.LastId;
+			var gamepad = GamepadComponent.Current;
+			
+			if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
+				SelectFirst();
+			} else if (UiButton.Selected > -1) {
+				if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
+					UiButton sm = null;
+					var mn = UiButton.LastId;
+					
+					foreach (var b in Ui.Tags[Tags.Button]) {
+						var bt = ((UiButton) b);
+
+						if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
+							mn = bt.Id;
+							sm = bt;
+						}
+					}
+
+					if (sm != null) {
+						UiButton.SelectedInstance = sm;
+						UiButton.Selected = sm.Id;
+					} else {
+						var min = UiButton.Selected;
+						UiButton btn = null;
 						
 						foreach (var b in Ui.Tags[Tags.Button]) {
 							var bt = ((UiButton) b);
 
-							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
-								mn = bt.Id;
-								sm = bt;
+							if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
+								btn = bt;
+								min = bt.Id;
 							}
 						}
 
-						if (sm != null) {
-							UiButton.SelectedInstance = sm;
-							UiButton.Selected = sm.Id;
-						} else {
-							var min = UiButton.Selected;
-							UiButton btn = null;
-							
-							foreach (var b in Ui.Tags[Tags.Button]) {
-								var bt = ((UiButton) b);
-
-								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
-									btn = bt;
-									min = bt.Id;
-								}
-							}
-
-							if (btn != null) {
-								UiButton.SelectedInstance = btn;
-								UiButton.Selected = btn.Id;
-							}
+						if (btn != null) {
+							UiButton.SelectedInstance = btn;
+							UiButton.Selected = btn.Id;
 						}
-					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
-						UiButton sm = null;
-						var mn = -1;
+					}
+				} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
+					UiButton sm = null;
+					var mn = -1;
+					
+					foreach (var b in Ui.Tags[Tags.Button]) {
+						var bt = ((UiButton) b);
+
+						if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
+							mn = bt.Id;
+							sm = bt;
+						}
+					}
+
+					if (sm != null) {
+						UiButton.SelectedInstance = sm;
+						UiButton.Selected = sm.Id;
+					} else {
+						var max = -1;
+						UiButton btn = null;
 						
 						foreach (var b in Ui.Tags[Tags.Button]) {
 							var bt = ((UiButton) b);
 
-							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
-								mn = bt.Id;
-								sm = bt;
+							if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
+								btn = bt;
+								max = bt.Id;
 							}
 						}
 
-						if (sm != null) {
-							UiButton.SelectedInstance = sm;
-							UiButton.Selected = sm.Id;
-						} else {
-							var max = -1;
-							UiButton btn = null;
-							
-							foreach (var b in Ui.Tags[Tags.Button]) {
-								var bt = ((UiButton) b);
-
-								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
-									btn = bt;
-									max = bt.Id;
-								}
-							}
-
-							if (btn != null) {
-								UiButton.SelectedInstance = btn;
-								UiButton.Selected = btn.Id;
-							}
+						if (btn != null) {
+							UiButton.SelectedInstance = btn;
+							UiButton.Selected = btn.Id;
 						}
 					}
 				}
 			}
-
+			
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
@@ -878,8 +878,8 @@ namespace BurningKnight.state {
 				Click = b => Run.Depth = 0
 			});
 			
-			gameOverMenu.Active = false;
 			gameOverMenu.Setup();
+			gameOverMenu.Active = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
@@ -1567,7 +1567,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 
-			var g = LocalPlayer.Locate(Area).GetComponent<GamepadComponent>();
+			var g = LocalPlayer.Locate(Area)?.GetComponent<GamepadComponent>();
 
 			gamepadSettings.Add(new UiControl {
 				Key = Controls.Use,

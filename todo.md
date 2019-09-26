@@ -1,7 +1,6 @@
 # TODO
 
-* tombstone should not show dialog when you die
-* death screen is not navigateable with kyboard / gamepad
+* no hat should not spawn on tombstone
 
 * mother slime body is not removed!!!!
 * tween npcs a bit when they talk (on each char)

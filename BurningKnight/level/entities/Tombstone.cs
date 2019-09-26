@@ -31,14 +31,14 @@ namespace BurningKnight.level.entities {
 
 			AddComponent(new RectBodyComponent(2, 8, (int) Width - 4, 1, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
-			
-			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => Item != null
-			});
 
 			if (!DisableDialog) {
-				AddComponent(new InteractableSliceComponent("props", "tombstone"));
+				AddComponent(new InteractableComponent(Interact) {
+					CanInteract = e => Item != null
+				});
 			}
+
+			AddComponent(new InteractableSliceComponent("props", "tombstone"));
 
 			AddComponent(new ShadowComponent());
 			AddComponent(new LightComponent(this, 64, new Color(0.7f, 0.6f, 0.3f, 1f)));
