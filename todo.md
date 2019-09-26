@@ -1,6 +1,7 @@
 # TODO
 
-* hearts are really rare?
+* battery doesnt fully charge
+
 * overhaul death screen
 * death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)
@@ -125,7 +126,6 @@ gobbo hurt/heal
 
 * steam cloud
 * implement stats
-* push hearts and batteries and coins around, if you cant have more
 * Animate lamp up and down to make it more alive
 * Crash report window
 * lighting bolts

@@ -48,5 +48,9 @@ namespace BurningKnight.entity.creature.player {
 		protected override bool ShouldReplace(Item item) {
 			return item.Type == ItemType.Active;
 		}
+		
+		public bool IsFullOrEmpty() {
+			return Item == null || Item.Delay <= 0.01f;
+		}
 	}
 }

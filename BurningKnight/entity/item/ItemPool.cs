@@ -9,6 +9,13 @@ namespace BurningKnight.entity.item {
 		public static ItemPool[] ById = new ItemPool[32];
 		public static string[] Names = new string[32];
 
+		static ItemPool() {
+			// So that imgui doesnt crash
+			for (var i = 0; i < 32; i++) {
+				Names[i] = "";
+			}
+		}
+
 		public static readonly ItemPool Consumable = new ItemPool("consumable");
 		public static readonly ItemPool Chest = new ItemPool("chest");
 		public static readonly ItemPool Secret = new ItemPool("secret");
