@@ -1,0 +1,42 @@
+name: Build BurningKnight
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    name: Build BurningKnight
+    runs-on: windows-2019
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    
+    - name: Download MonoGame
+      shell: powershell
+      run: wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/MonoGameSetup.exe
+    
+    - name: Install MonoGame
+      run: MonoGameSetup.exe /S
+    
+    - name: Building Resources
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/BurningKnight/Content/
+        "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
+    
+    - name: Building Solution
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE
+        "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
+        mv -f -v $USERPROFILE/Desktop/bin/Release $GITHUB_WORKSPACE/Release
+        cd Release
+        ls
+        cd ..
+    
+    - name: Upload release artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Release
+        path: Release
