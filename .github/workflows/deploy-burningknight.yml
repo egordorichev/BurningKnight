@@ -21,6 +21,10 @@ jobs:
     - name: Install MonoGame
       run: MonoGameSetup.exe /S
 
+    - name: Install NuGet packages
+       shell: bash
+      run: nuget install
+
     - name: Building Aseprite Extention
       shell: bash
       run: |
