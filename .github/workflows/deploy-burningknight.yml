@@ -13,10 +13,9 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Install NuGet
-      shell: bash
+      shell: powershell
       run: | 
         wget -O nuget.exe  https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-        ls -l
 
     - name: Install NuGet packages
       shell: bash
@@ -29,12 +28,10 @@ jobs:
       run: |
         dotnet --info
         wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/MonoGameSetup.exe
-        ls -l
     
     - name: Install MonoGame
       run: |
         MonoGameSetup.exe /S
-        ls -l
 
     - name: Building Aseprite Extention
       shell: bash
