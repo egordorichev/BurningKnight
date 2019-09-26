@@ -16,7 +16,12 @@ jobs:
       shell: powershell
       run: | 
         wget -O butler.exe https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
-	cat butler.exe
+        
+    - name: Check Butler
+      shell: bash
+      run: | 
+        cat butler.exe
+        ./butler.exe
 
     - name: Install NuGet
       shell: powershell
