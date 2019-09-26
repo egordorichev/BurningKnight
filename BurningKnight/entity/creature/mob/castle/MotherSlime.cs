@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -30,19 +31,17 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new LightComponent(this, 64, LightColor));
 		}
 
-		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent ev) {
-				for (var i = 0; i < 2; i++) {
-					var slime = new BabySlime();
-					Area.Add(slime);
-					slime.Center = Center + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
-					slime.GetComponent<HealthComponent>().InvincibilityTimer = 0.1f;
+		protected override bool HandleDeath(DiedEvent d) {
+			for (var i = 0; i < 2; i++) {
+				var slime = new BabySlime();
+				Area.Add(slime);
+				slime.Center = Center + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+				slime.GetComponent<HealthComponent>().InvincibilityTimer = 0.1f;
 
-					slime.GetAnyComponent<BodyComponent>().KnockbackFrom(ev.From, Random.Float(1f, 2f), 2);
-				}
+				slime.GetAnyComponent<BodyComponent>().KnockbackFrom(d.From, Random.Float(1f, 2f), 2);
 			}
 			
-			return base.HandleEvent(e);
+			return base.HandleDeath(d);
 		}
 
 		public override float GetSpawnChance() {

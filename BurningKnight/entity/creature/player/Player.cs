@@ -463,6 +463,20 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
+			
+			Camera.Instance.Targets.Clear();
+			Camera.Instance.Follow(stone, 0.5f);
+
+			var x = (int) Math.Floor(stone.CenterX / 16f);
+			var y = (int) Math.Floor(stone.CenterY / 16f);
+			
+			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
+
+			Run.Level.UpdateTile(x - 1, y - 1);
+			Run.Level.UpdateTile(x + 1, y - 1);
+			Run.Level.UpdateTile(x - 1, y + 1);
+			Run.Level.UpdateTile(x + 1, y + 1);
+			Run.Level.TileUp();
 		}
 
 		public override void Save(FileWriter stream) {

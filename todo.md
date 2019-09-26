@@ -1,6 +1,6 @@
 # TODO
 
-* overhaul death screen
+* mother slime body is not removed!!!!
 * death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)
 

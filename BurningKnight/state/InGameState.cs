@@ -742,11 +742,19 @@ namespace BurningKnight.state {
 			}
 
 			if (Settings.SpeedrunTimer && Run.Statistics != null) {
-				var t = Run.Statistics.Time;
-				Graphics.Print($"{(Math.Floor(t / 360f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}", Font.Small, x, 1);
+				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
 		}
-		
+
+		private string GetRunTime() {
+			var t = Run.Statistics.Time;
+			return $"{(Math.Floor(t / 360f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
+		}
+
+		private UiLabel killsLabel;
+		private UiLabel timeLabel;
+		private UiLabel depthLabel;
+
 		private void SetupUi() {
 			UiButton.LastId = 0;
 			
@@ -826,14 +834,8 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight
 			});
 			
-			space = 32f;
-			start = (Display.UiHeight) / 2f;
-			
-			/* should include:
-			 * depth
-			 * time
-			 * mobs killed
-			 */
+			space = 20f;
+			start = (Display.UiHeight) / 2f - space;
 			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
@@ -841,13 +843,30 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 			
+			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Depth",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start - space
+			});
+			
+			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Time",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start
+			});
+			
+			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Mobs Killed",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start + space
+			});
+			
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
+				RelativeCenterY = start + space * 3,
 				Click = b => {
-					Run.ResetStats();
-					Run.Depth = 0;
+					Run.StartNew();
 				}
 			});
 			
@@ -1623,6 +1642,15 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
+			timeLabel.Label = $"{GetRunTime()}";
+			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
+			
+			killsLabel.Label = $"{Locale.Get("mobs_killed")} {Run.Statistics.MobsKilled}";
+			killsLabel.RelativeCenterX = Display.UiWidth / 2f;
+
+			depthLabel.Label = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}";
+			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
+
 			Tween.To(this, new {blur = 1}, 0.5f);
 			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
