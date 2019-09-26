@@ -106,7 +106,7 @@ namespace BurningKnight.level {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
 				Tileset = Tilesets.Get(Biome.Tileset);
-				Engine.Instance.StateRenderer.Bg = Biome.Bg;
+				// Engine.Instance.StateRenderer.Bg = Biome.Bg;
 			}
 		}
 
