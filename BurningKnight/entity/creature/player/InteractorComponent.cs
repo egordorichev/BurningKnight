@@ -19,9 +19,9 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact, GetComponent<GamepadComponent>().Controller)) {
-				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
-					GlobalSave.Put("control_interact", true);
+				GlobalSave.Put("control_interact", true);
 
+				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
 					Send(new InteractedEvent {
 						Who = Entity,
 						With = CurrentlyInteracting

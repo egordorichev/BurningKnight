@@ -198,6 +198,29 @@ namespace BurningKnight.level {
 			
 			PlaceMobs(Level, Rooms);
 
+			for (var y = 0; y < Level.Height; y++) {
+				for (var x = 0; x < Level.Width; x++) {
+					if (Level.Get(x, y) == Tile.WallA) {
+						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
+						
+						if (!a) {
+							a = true;
+							
+							foreach (var d in MathUtils.AllDirections) {
+								if (!Level.Get(x + (int) d.X, y + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
+									a = false;
+									break;
+								}	
+							}
+						}
+
+						if (a) {
+							Level.Set(x, y, Tile.Transition);
+						}
+					}			
+				}		
+			}
+
 			var rooms = new List<RoomDef>();
 
 			foreach (var r in Rooms) {
