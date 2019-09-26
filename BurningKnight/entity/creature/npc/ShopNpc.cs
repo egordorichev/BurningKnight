@@ -22,7 +22,9 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override void Init() {
 			base.Init();
+			
 			Subscribe<RoomChangedEvent>();
+			Subscribe<ItemBoughtEvent>();
 
 			AlwaysActive = true;
 			Hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
@@ -90,6 +92,10 @@ namespace BurningKnight.entity.creature.npc {
 					} else {
 						GetComponent<DialogComponent>().StartAndClose( GetDialog(), 3);
 					}
+				}
+			} else if (e is ItemBoughtEvent ibe) {
+				if (ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(9, 12)}", 3);
 				}
 			}
 			

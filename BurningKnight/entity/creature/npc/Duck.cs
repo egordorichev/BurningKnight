@@ -3,6 +3,7 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
+using Lens.util.file;
 using VelcroPhysics.Utilities;
 using Random = Lens.util.math.Random;
 
@@ -21,9 +22,13 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(b);
 			b.KnockbackModifier = 0;
 
+			quantom = Random.Chance(1);
+			
 			if (GlobalSave.IsFalse("control_duck")) {
 				AddComponent(new CloseDialogComponent("control_4"));
 				check = true;
+			} else {
+				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 1 : 0)}"));
 			}
 			
 			Become<IdleState>();
@@ -32,10 +37,16 @@ namespace BurningKnight.entity.creature.npc {
 		private bool set;
 		private float x;
 		private bool check;
+		private bool quantom;
 
 		public override void PostInit() {
 			base.PostInit();
 			x = X;
+		}
+
+		public override void Save(FileWriter stream) {
+			X = x;
+			base.Save(stream);
 		}
 
 		public override void Update(float dt) {
@@ -84,13 +95,29 @@ namespace BurningKnight.entity.creature.npc {
 					
 					vx += (toLeft ? -1 : 1) * (dt * 10);
 				}
-
+				
 				vx -= vx * (dt * 3);
-				Self.X = MathUtils.Clamp(Self.X + vx * (10 * dt), Self.x - 16, Self.x + 16);
+				var n = Self.X + vx * (10 * dt);
 
-				if (Math.Abs(Self.X - Self.x) >= 16) {
-					toLeft = !toLeft;
-					vx *= -1;
+				if (Self.quantom) {
+					Self.X = MathUtils.Clamp(n, Self.x - 16, Self.x + 16);
+
+					if (Math.Abs(Self.X - Self.x) >= 16) {
+						toLeft = !toLeft;
+						Self.X = Self.x + (toLeft ? -16 : 16);
+						vx *= -1;
+
+						if (Random.Chance(10)) {
+							Self.X = Self.x;
+						}
+					}
+				} else {
+					Self.X = MathUtils.Clamp(n, Self.x - 16, Self.x + 16);
+
+					if (Math.Abs(Self.X - Self.x) >= 16) {
+						toLeft = !toLeft;
+						vx *= -1;
+					}
 				}
 			}
 		}

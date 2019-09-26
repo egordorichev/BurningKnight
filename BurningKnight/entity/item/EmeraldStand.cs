@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.save;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
@@ -41,6 +44,16 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
+		protected override void OnTake(Item item, Entity who) {
+			base.OnTake(item, who);
+			
+			who.HandleEvent(new ItemBoughtEvent {
+				Item = item,
+				Who = who,
+				Stand = this
+			});
+		}
+
 		protected override string GetSprite() {
 			return "shop_stand";
 		}
@@ -52,6 +65,12 @@ namespace BurningKnight.entity.item {
 
 			if (GlobalSave.Emeralds < price) {
 				AnimationUtil.ActionFailed();
+
+				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
+					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+					break;
+				}
+				
 				return false;
 			}
 

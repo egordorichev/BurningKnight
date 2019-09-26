@@ -1,15 +1,9 @@
 # TODO
 
-* rework hats: custom head, separate frame for duck support
-
-* duck lore (from discord)
 * hearts are really rare?
-* ui string should support drawing small icons, shop npc's in the hall should say smth "gotta bring some [ic emerald]!", hinting that you need to collect emeralds
-* same with shopkeeper, should say "im not giving you a discount" if you have not enough coins
 * overhaul death screen
+* death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)
-* npcs should react, when you buy stuff
-* bring back cage key (from main pc)
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
@@ -21,7 +15,7 @@
 * particles for lava like in pd
 * fix lavafall colors
 * fix fire particle changing the render state so much
-* try wfc (wave function collapse) for procgen???
+* draw the duck frames for hats
 
 ### sfx
 
@@ -193,7 +187,6 @@ gobbo hurt/heal
 
 #### Polish
 
-* Vegan mode: press 20 times to unlock all content?
 * bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
@@ -225,6 +218,11 @@ gobbo hurt/heal
 
 ### enemies
 
+* enemy, that dies from you touching it, does no contact damage, 
+ runs away from you and shoots, tons of hp (hard to kill without touching)
+ 
+* insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
+ 
 * enemy that deals insane knockback to you
 * enemy with insane knockback modifier
 * skull, that shoots missiles, that go through wall (terraria dungeon)

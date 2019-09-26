@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens;
@@ -57,7 +58,9 @@ namespace BurningKnight.entity.creature.player {
 			var hat = h.Item;
 
 			if (hat != null && !h.DoNotRender) {
-				region = hat.Region;
+				var r = $"{hat.Id}_{(Entity.GetComponent<StateComponent>().StateInstance is Player.DuckState ? "b" : "a")}";
+				
+				region = CommonAse.Items.GetSlice(r);
 				origin = new Vector2(region.Width / 2, region.Height);
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, 

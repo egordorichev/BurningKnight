@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
@@ -52,6 +53,12 @@ namespace BurningKnight.entity.item.stand {
 
 			if (component.Coins < price) {
 				AnimationUtil.ActionFailed();
+
+				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
+					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+					break;
+				}
+				
 				return false;
 			}
 
