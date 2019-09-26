@@ -21,7 +21,10 @@ jobs:
       shell: bash
       run: |
         ls -l
-        ./nuget.exe install
+        ./nuget.exe install ./Lens/packages.config
+        ./nuget.exe install ./Aseprite/packages.config
+        ./nuget.exe install ./BurningKnight/packages.config
+        ./nuget.exe install ./Desktop/packages.config
         ls -l
     
     - name: Download MonoGame
@@ -38,7 +41,7 @@ jobs:
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE
-        ls -l packages/
+        ls -l
         "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
         ls -l
     
