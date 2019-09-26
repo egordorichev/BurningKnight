@@ -23,10 +23,10 @@ jobs:
         ls -l
         mkdir packages
         cd packages
-        ./nuget.exe install ../Lens/packages.config
-        ./nuget.exe install ../Aseprite/packages.config
-        ./nuget.exe install ../BurningKnight/packages.config
-        ./nuget.exe install ../Desktop/packages.config
+        ../nuget.exe install ../Lens/packages.config
+        ../nuget.exe install ../Aseprite/packages.config
+        ../nuget.exe install ../BurningKnight/packages.config
+        ../nuget.exe install ../Desktop/packages.config
         ls -l
         cd ..
     
