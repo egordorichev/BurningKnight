@@ -14,7 +14,9 @@ jobs:
     
     - name: Download MonoGame
       shell: powershell
-      run: wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/MonoGameSetup.exe
+      run: |
+        dotnet --info
+        wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/MonoGameSetup.exe
     
     - name: Install MonoGame
       run: MonoGameSetup.exe /S
@@ -46,3 +48,4 @@ jobs:
       with:
         name: Release
         path: Release
+
