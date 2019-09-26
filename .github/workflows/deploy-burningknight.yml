@@ -30,6 +30,8 @@ jobs:
         ../nuget.exe install ../VelcroPhysics/packages.config
         ls -l
         cd ..
+        echo $GITHUB_WORKSPACE
+        ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
     
     - name: Download MonoGame
       shell: powershell
