@@ -23,7 +23,7 @@ jobs:
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE
-        "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" .Lens.sln /target:Aseprite
+        "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
     
     - name: Building Resources
       shell: bash
@@ -46,4 +46,3 @@ jobs:
       with:
         name: Release
         path: Release
-
