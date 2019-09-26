@@ -16,12 +16,7 @@ jobs:
       shell: powershell
       run: | 
         wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
-        
-    - name: Check Butler
-      shell: bash
-      run: | 
         unzip butler.zip
-        ./butler.exe
 
     - name: Install NuGet
       shell: powershell
@@ -85,4 +80,4 @@ jobs:
       env:
         BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       run: | 
-        ./butler.exe push ./Release/ egordorichev/bkt:windows --userversion $GITHUB_REF
+        ./butler.exe push ./Release/ egordorichev/bkt:windows --userversion=$GITHUB_REF
