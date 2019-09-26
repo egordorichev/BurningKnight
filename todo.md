@@ -1,7 +1,5 @@
 # TODO
 
-* battery doesnt fully charge
-
 * overhaul death screen
 * death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)

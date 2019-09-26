@@ -136,7 +136,7 @@ namespace BurningKnight.entity.item {
 			return !(entity is Player c && (
 				         (Type == ItemType.Heart && c.GetComponent<HealthComponent>().IsFull()) ||
 				         (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
-				         (Type == ItemType.Coin && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
+				         (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
 				         (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
 				         (Type == ItemType.Key && c.GetComponent<ConsumablesComponent>().Keys == 99)
 			         ));
