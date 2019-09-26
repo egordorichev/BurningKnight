@@ -20,7 +20,7 @@ jobs:
     - name: Check Butler
       shell: bash
       run: | 
-	unzip butler.zip
+        unzip butler.zip
         ./butler.exe
 
     - name: Install NuGet
