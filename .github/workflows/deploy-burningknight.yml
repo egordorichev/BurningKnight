@@ -18,13 +18,19 @@ jobs:
     
     - name: Install MonoGame
       run: MonoGameSetup.exe /S
+
+    - name: Building Aseprite Extention
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE
+        "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
     
     - name: Building Resources
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE/BurningKnight/Content/
         "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
-    
+
     - name: Building Solution
       shell: bash
       run: |
