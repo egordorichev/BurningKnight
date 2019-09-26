@@ -32,7 +32,8 @@ jobs:
         cd ..
         echo $GITHUB_WORKSPACE
         ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
-    
+        dotnet restore
+
     - name: Download MonoGame
       shell: powershell
       run: |
