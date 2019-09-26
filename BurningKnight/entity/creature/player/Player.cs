@@ -502,7 +502,7 @@ namespace BurningKnight.entity.creature.player {
 			inventory.Items.Clear();
 
 			foreach (var c in Components.Values) {
-				if (c is ItemComponent i && i.Item != null) {
+				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat) {
 					drops.Add(Items.Create(i.Item.Id));
 				}
 			}

@@ -1,21 +1,11 @@
 # TODO
 
-* no hat should not spawn on tombstone
-
-* mother slime body is not removed!!!!
-* tween npcs a bit when they talk (on each char)
-
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
-* tile lighting: figure it out
-* dont forget little bursts of light for guns and stuff
-* lava should be drawn over the shadows
-* particles for lava like in pd
-* fix lavafall colors
-* fix fire particle changing the render state so much
 * draw the duck frames for hats
+* mother slime body is not removed!!!!
 
 ### sfx
 
@@ -53,6 +43,14 @@ gobbo hurt/heal
 * lowpass filter and somewhat responsible music? :(
 
 ## general
+
++ lava:
+ * tile lighting: figure it out
+ * dont forget little bursts of light for guns and stuff
+ * lava should be drawn over the shadows
+ * particles for lava like in pd
+ * fix lavafall colors
+ * fix fire particle changing the render state so much
 
 *!!! entrance to the shop can be blocked by a prop
 *!!! pad treasure room still can spawn stands on stands

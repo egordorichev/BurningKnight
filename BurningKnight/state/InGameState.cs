@@ -53,10 +53,10 @@ namespace BurningKnight.state {
 		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
-		
+
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
-		
+
 		private UiPane audioSettings;
 		private UiPane graphicsSettings;
 		private UiPane gameSettings;
@@ -64,18 +64,18 @@ namespace BurningKnight.state {
 		private UiPane inputSettings;
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
-		
+
 		private bool died;
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
 		private SaveLock saveLock = new SaveLock();
-		
+
 		private Painting painting;
 		private SettingsWindow settings;
 
 		public bool Menu;
-		
+
 		private float vx;
 		private string v;
 		private float offset;
@@ -91,7 +91,7 @@ namespace BurningKnight.state {
 		private UiButton inputBack;
 		private UiButton gamepadBack;
 		private UiButton keyboardBack;
-		
+
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -117,11 +117,11 @@ namespace BurningKnight.state {
 
 			get => painting;
 		}
-		
+
 		public InGameState(Area area, bool menu) {
 			Menu = menu;
 			Input.EnableImGuiFocus = false;
-			
+
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);
@@ -145,20 +145,20 @@ namespace BurningKnight.state {
 				offset = Display.UiHeight;
 			}
 		}
-		
+
 		public override void Init() {
 			base.Init();
-			
+
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
-			
+
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
 
 			v = BK.Version.ToString();
 			vx = -Font.Small.MeasureString(v).Width;
-			
+
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			SetupUi();
 
@@ -187,13 +187,13 @@ namespace BurningKnight.state {
 			if (!Menu) {
 				TransitionToOpen();
 			}
-			
+
 			Run.StartedNew = false;
 		}
 
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
-			
+
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
@@ -207,14 +207,14 @@ namespace BurningKnight.state {
 			if (Engine.Quiting) {
 				Run.SavingDepth = Run.Depth;
 			}
-			
+
 			Audio.Stop();
 			Lights.Destroy();
 
 			SaveManager.Backup();
 
 			var old = !Engine.Quiting;
-			
+
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
@@ -229,7 +229,7 @@ namespace BurningKnight.state {
 
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
-			
+
 			Area.Destroy();
 			Area = null;
 
@@ -245,14 +245,14 @@ namespace BurningKnight.state {
 			}
 
 			seedLabel.Label = $"Seed: {Run.Seed}";
-			
+
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
 				pauseMenu.X = 0;
 				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
 			}
-			
+
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 
@@ -260,13 +260,13 @@ namespace BurningKnight.state {
 			if (painting != null) {
 				return;
 			}
-			
+
 			base.OnResume();
-			
+
 			if (died) {
 				return;
 			}
-			
+
 			Tween.To(this, new {blur = 0}, 0.25f);
 			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
 			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
@@ -297,7 +297,7 @@ namespace BurningKnight.state {
 		private void SelectFirst() {
 			var min = UiButton.LastId;
 			UiButton btn = null;
-							
+
 			foreach (var b in Ui.Tags[Tags.Button]) {
 				var bt = ((UiButton) b);
 
@@ -312,7 +312,7 @@ namespace BurningKnight.state {
 				UiButton.Selected = btn.Id;
 			}
 		}
-		
+
 		public override void Update(float dt) {
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
@@ -347,89 +347,89 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (Paused) {
+			if (Paused || died) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
-			}
 
-			var gamepad = GamepadComponent.Current;
-			
-			if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
-				SelectFirst();
-			} else if (UiButton.Selected > -1) {
-				if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
-					UiButton sm = null;
-					var mn = UiButton.LastId;
-					
-					foreach (var b in Ui.Tags[Tags.Button]) {
-						var bt = ((UiButton) b);
-
-						if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
-							mn = bt.Id;
-							sm = bt;
-						}
-					}
-
-					if (sm != null) {
-						UiButton.SelectedInstance = sm;
-						UiButton.Selected = sm.Id;
-					} else {
-						var min = UiButton.Selected;
-						UiButton btn = null;
+				var gamepad = GamepadComponent.Current;
+				
+				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
+					SelectFirst();
+				} else if (UiButton.Selected > -1) {
+					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
+						UiButton sm = null;
+						var mn = UiButton.LastId;
 						
 						foreach (var b in Ui.Tags[Tags.Button]) {
 							var bt = ((UiButton) b);
 
-							if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
-								btn = bt;
-								min = bt.Id;
+							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
+								mn = bt.Id;
+								sm = bt;
 							}
 						}
 
-						if (btn != null) {
-							UiButton.SelectedInstance = btn;
-							UiButton.Selected = btn.Id;
-						}
-					}
-				} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
-					UiButton sm = null;
-					var mn = -1;
-					
-					foreach (var b in Ui.Tags[Tags.Button]) {
-						var bt = ((UiButton) b);
+						if (sm != null) {
+							UiButton.SelectedInstance = sm;
+							UiButton.Selected = sm.Id;
+						} else {
+							var min = UiButton.Selected;
+							UiButton btn = null;
+							
+							foreach (var b in Ui.Tags[Tags.Button]) {
+								var bt = ((UiButton) b);
 
-						if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
-							mn = bt.Id;
-							sm = bt;
-						}
-					}
+								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
+									btn = bt;
+									min = bt.Id;
+								}
+							}
 
-					if (sm != null) {
-						UiButton.SelectedInstance = sm;
-						UiButton.Selected = sm.Id;
-					} else {
-						var max = -1;
-						UiButton btn = null;
+							if (btn != null) {
+								UiButton.SelectedInstance = btn;
+								UiButton.Selected = btn.Id;
+							}
+						}
+					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
+						UiButton sm = null;
+						var mn = -1;
 						
 						foreach (var b in Ui.Tags[Tags.Button]) {
 							var bt = ((UiButton) b);
 
-							if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
-								btn = bt;
-								max = bt.Id;
+							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
+								mn = bt.Id;
+								sm = bt;
 							}
 						}
 
-						if (btn != null) {
-							UiButton.SelectedInstance = btn;
-							UiButton.Selected = btn.Id;
+						if (sm != null) {
+							UiButton.SelectedInstance = sm;
+							UiButton.Selected = sm.Id;
+						} else {
+							var max = -1;
+							UiButton btn = null;
+							
+							foreach (var b in Ui.Tags[Tags.Button]) {
+								var bt = ((UiButton) b);
+
+								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
+									btn = bt;
+									max = bt.Id;
+								}
+							}
+
+							if (btn != null) {
+								UiButton.SelectedInstance = btn;
+								UiButton.Selected = btn.Id;
+							}
 						}
 					}
 				}
 			}
-			
+
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
