@@ -20,7 +20,8 @@ jobs:
     - name: Install NuGet packages
       shell: bash
       run: |
-        nuget install
+        ls -l
+        ./nuget.exe install
         ls -l
     
     - name: Download MonoGame
