@@ -64,14 +64,19 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
-        mv -f -v $USERPROFILE/Desktop/bin/Release $GITHUB_WORKSPACE/Release
+        mv -f -v $GITHUB_WORKSPACE/Desktop/bin/Release $GITHUB_WORKSPACE/Release
         cd Release
         ls
         cd ..
     
-    - name: Upload release artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: Release
-        path: Release
+    - name: Install Butler
+      shell: powershell
+      run: | 
+        wget -O butler.exe https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
 
+    - name: Upload release artifact
+      shell: powershell
+      env:
+        BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      run: | 
+        ./butler.exe push ./Release/ egordorichev/bkt:windows --userversion $GITHUB_REF
