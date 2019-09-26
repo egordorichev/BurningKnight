@@ -3,6 +3,7 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using Lens;
 using Lens.assets;
+using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Lens.util.tween;
@@ -79,14 +80,13 @@ namespace BurningKnight.ui {
 				Tween.To(1 + ScaleMod * 0.2f, scale, x => scale = x, 0.1f);
 			}
 
-			// fixme: gamepad
-			
 			if (selected && Input.WasPressed(Controls.UiSelect, GamepadComponent.Current, true)) {
 				OnClick();
 			}
 
 			wasSelected = selected;
 		}
+
 
 		public bool IsOnScreen() {
 			return Selectable && X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;

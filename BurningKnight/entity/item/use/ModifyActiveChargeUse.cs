@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyActiveChargeUse : ItemUse {
@@ -20,6 +21,10 @@ namespace BurningKnight.entity.item.use {
 				i.Delay = Math.Max(0, i.Delay - i.UseTime * amount * 0.01f);
 			} else {
 				i.Delay = Math.Max(0, i.Delay - amount);
+			}
+
+			if (i.Delay <= 0.001f) {
+				i.Delay = 0;
 			}
 		}
 

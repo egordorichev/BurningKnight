@@ -15,6 +15,17 @@ namespace Lens.util {
 			new Vector2(0, -1)
 		};
 		
+		public static Vector2[] AllDirections = {
+			new Vector2(-1, 0),
+			new Vector2(1, 0),
+			new Vector2(0, 1),
+			new Vector2(0, -1),
+			new Vector2(-1, -1),
+			new Vector2(-1, 1),
+			new Vector2(1, 1),
+			new Vector2(1, -1)
+		};
+		
 		public static Vector2[] EntityDirections = {
 			new Vector2(-1, 0),
 			new Vector2(1, 0),

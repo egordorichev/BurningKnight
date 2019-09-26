@@ -26,6 +26,7 @@ namespace BurningKnight.level.tile {
 		SpikeTmp,
 		SensingSpikeTmp,
 		Plate,
+		Transition,
 		
 		Total
 	}

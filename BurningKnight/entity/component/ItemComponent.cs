@@ -158,6 +158,11 @@ namespace BurningKnight.entity.component {
 		private string debugItem = "";
 
 		public override void RenderDebug() {
+			if (Item != null) {
+				ImGui.Text($"Use time: {Item.UseTime}");
+				ImGui.Text($"Delay: {Item.Delay}");
+			}
+			
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				var item = Items.Create(debugItem);
 				Set(item);

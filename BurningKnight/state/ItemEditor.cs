@@ -587,7 +587,7 @@ namespace BurningKnight.state {
 				} else if (sortBy == 2) {
 					ImGui.Checkbox("Lockable", ref locked);
 				} else if (sortBy == 3) {
-					ImGui.Combo("Pool##f", ref pool, ItemPool.Names, ItemPool.Count);
+					ImGui.Combo("Pool##f", ref pool, ItemPool.Names, 32);
 				}
 			}
 

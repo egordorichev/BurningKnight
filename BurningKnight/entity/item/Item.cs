@@ -131,10 +131,21 @@ namespace BurningKnight.entity.item {
 
 			return false;
 		}
+		
+		private bool ShouldInteract(Entity entity) {
+			return !(entity is Player c && (
+				         (Type == ItemType.Heart && c.GetComponent<HealthComponent>().IsFull()) ||
+				         (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
+				         (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
+				         (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
+				         (Type == ItemType.Key && c.GetComponent<ConsumablesComponent>().Keys == 99)
+			         ));
+		}
 
 		public void OnInteractionStart(Entity entity) {
 			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
-				if (Type != ItemType.Heart || !(entity is Creature c) || !c.GetComponent<HealthComponent>().IsFull()) {
+				if (ShouldInteract(entity)) {
+					
 					inventory.Pickup(this);
 					entity.GetComponent<InteractorComponent>().EndInteraction();	
 				}
@@ -150,9 +161,11 @@ namespace BurningKnight.entity.item {
 			AddComponent(body);
 
 			body.Body.LinearDamping = 4;
+			body.Body.Friction = 0;
 			
 			AddComponent(new InteractableComponent(Interact) {
-				OnStart = OnInteractionStart
+				OnStart = OnInteractionStart,
+				CanInteract = ShouldInteract
 			});
 			
 			AddComponent(new ShadowComponent(RenderShadow));
@@ -289,7 +302,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Creature);
+			return !(entity is Creature) || !ShouldInteract(entity);
 		}
 
 		public override bool HandleEvent(Event e) {

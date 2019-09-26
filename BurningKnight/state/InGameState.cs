@@ -53,10 +53,10 @@ namespace BurningKnight.state {
 		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
-		
+
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
-		
+
 		private UiPane audioSettings;
 		private UiPane graphicsSettings;
 		private UiPane gameSettings;
@@ -64,18 +64,18 @@ namespace BurningKnight.state {
 		private UiPane inputSettings;
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
-		
+
 		private bool died;
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
 		private SaveLock saveLock = new SaveLock();
-		
+
 		private Painting painting;
 		private SettingsWindow settings;
 
 		public bool Menu;
-		
+
 		private float vx;
 		private string v;
 		private float offset;
@@ -91,7 +91,7 @@ namespace BurningKnight.state {
 		private UiButton inputBack;
 		private UiButton gamepadBack;
 		private UiButton keyboardBack;
-		
+
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -117,11 +117,11 @@ namespace BurningKnight.state {
 
 			get => painting;
 		}
-		
+
 		public InGameState(Area area, bool menu) {
 			Menu = menu;
 			Input.EnableImGuiFocus = false;
-			
+
 			Area = area;
 			Area.EventListener.Subscribe<ItemCheckEvent>(this);
 			Area.EventListener.Subscribe<DiedEvent>(this);
@@ -145,20 +145,20 @@ namespace BurningKnight.state {
 				offset = Display.UiHeight;
 			}
 		}
-		
+
 		public override void Init() {
 			base.Init();
-			
+
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
-			
+
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
 
 			v = BK.Version.ToString();
 			vx = -Font.Small.MeasureString(v).Width;
-			
+
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			SetupUi();
 
@@ -187,13 +187,13 @@ namespace BurningKnight.state {
 			if (!Menu) {
 				TransitionToOpen();
 			}
-			
+
 			Run.StartedNew = false;
 		}
 
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
-			
+
 			foreach (var p in Area.Tags[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
@@ -207,14 +207,14 @@ namespace BurningKnight.state {
 			if (Engine.Quiting) {
 				Run.SavingDepth = Run.Depth;
 			}
-			
+
 			Audio.Stop();
 			Lights.Destroy();
 
 			SaveManager.Backup();
 
 			var old = !Engine.Quiting;
-			
+
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
@@ -229,7 +229,7 @@ namespace BurningKnight.state {
 
 			Shaders.Screen.Parameters["split"].SetValue(0f);
 			Shaders.Screen.Parameters["blur"].SetValue(0f);
-			
+
 			Area.Destroy();
 			Area = null;
 
@@ -245,14 +245,14 @@ namespace BurningKnight.state {
 			}
 
 			seedLabel.Label = $"Seed: {Run.Seed}";
-			
+
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
 				pauseMenu.X = 0;
 				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
 			}
-			
+
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 
@@ -260,13 +260,13 @@ namespace BurningKnight.state {
 			if (painting != null) {
 				return;
 			}
-			
+
 			base.OnResume();
-			
+
 			if (died) {
 				return;
 			}
-			
+
 			Tween.To(this, new {blur = 0}, 0.25f);
 			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
 			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
@@ -297,7 +297,7 @@ namespace BurningKnight.state {
 		private void SelectFirst() {
 			var min = UiButton.LastId;
 			UiButton btn = null;
-							
+
 			foreach (var b in Ui.Tags[Tags.Button]) {
 				var bt = ((UiButton) b);
 
@@ -312,7 +312,7 @@ namespace BurningKnight.state {
 				UiButton.Selected = btn.Id;
 			}
 		}
-		
+
 		public override void Update(float dt) {
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
@@ -347,7 +347,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (Paused) {
+			if (Paused || died) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
@@ -742,11 +742,19 @@ namespace BurningKnight.state {
 			}
 
 			if (Settings.SpeedrunTimer && Run.Statistics != null) {
-				var t = Run.Statistics.Time;
-				Graphics.Print($"{(Math.Floor(t / 360f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}", Font.Small, x, 1);
+				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
 		}
-		
+
+		private string GetRunTime() {
+			var t = Run.Statistics.Time;
+			return $"{(Math.Floor(t / 360f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
+		}
+
+		private UiLabel killsLabel;
+		private UiLabel timeLabel;
+		private UiLabel depthLabel;
+
 		private void SetupUi() {
 			UiButton.LastId = 0;
 			
@@ -826,14 +834,8 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight
 			});
 			
-			space = 32f;
-			start = (Display.UiHeight) / 2f;
-			
-			/* should include:
-			 * depth
-			 * time
-			 * mobs killed
-			 */
+			space = 20f;
+			start = (Display.UiHeight) / 2f - space;
 			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
@@ -841,13 +843,30 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 			
+			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Depth",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start - space
+			});
+			
+			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Time",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start
+			});
+			
+			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = "Mobs Killed",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start + space
+			});
+			
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
+				RelativeCenterY = start + space * 3,
 				Click = b => {
-					Run.ResetStats();
-					Run.Depth = 0;
+					Run.StartNew();
 				}
 			});
 			
@@ -858,8 +877,9 @@ namespace BurningKnight.state {
 				Type = ButtonType.Exit,
 				Click = b => Run.Depth = 0
 			});
-
+			
 			gameOverMenu.Setup();
+			gameOverMenu.Active = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
@@ -1547,7 +1567,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 
-			var g = LocalPlayer.Locate(Area).GetComponent<GamepadComponent>();
+			var g = LocalPlayer.Locate(Area)?.GetComponent<GamepadComponent>();
 
 			gamepadSettings.Add(new UiControl {
 				Key = Controls.Use,
@@ -1623,8 +1643,19 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
+			gameOverMenu.Active = true;
+			
+			timeLabel.Label = $"{GetRunTime()}";
+			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
+			
+			killsLabel.Label = $"{Locale.Get("mobs_killed")} {Run.Statistics.MobsKilled}";
+			killsLabel.RelativeCenterX = Display.UiWidth / 2f;
+
+			depthLabel.Label = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}";
+			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
+
 			Tween.To(this, new {blur = 1}, 0.5f);
-			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = AnimateDeathScreen;
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 		

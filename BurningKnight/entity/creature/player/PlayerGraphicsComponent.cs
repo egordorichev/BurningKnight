@@ -43,12 +43,13 @@ namespace BurningKnight.entity.creature.player {
 		protected override void CallRender(Vector2 pos, bool shadow) {
 			var region = Animation.GetCurrentTexture();
 			var origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
+			var s = scale * Scale;
 
 			if (FlippedVerticaly) {
 				pos.Y += region.Source.Height;
 			}
 			
-			Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			
 			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
 				return;
@@ -59,18 +60,19 @@ namespace BurningKnight.entity.creature.player {
 
 			if (hat != null && !h.DoNotRender) {
 				var r = $"{hat.Id}_{(Entity.GetComponent<StateComponent>().StateInstance is Player.DuckState ? "b" : "a")}";
+				var m = shadow ? -4 : 4;
 				
 				region = CommonAse.Items.GetSlice(r);
-				origin = new Vector2(region.Width / 2, region.Height);
+				origin = new Vector2(region.Width / 2, region.Height + 4);
 
-				Graphics.Render(region, new Vector2(Entity.CenterX, 
+				Graphics.Render(region, new Vector2(Entity.CenterX, m +
 					Entity.Bottom + (shadow ? -1 : 1) * 
-					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(1, shadow ? -1 : 1), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
-				Graphics.Render(region, pos + origin, 0, origin, scale * Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 

@@ -427,11 +427,14 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<FollowerComponent>().DestroyAll();
 			
 			var stone = new Tombstone();
+			stone.DisableDialog = true;
 
 			var pool = new List<string>();
 
 			foreach (var i in GetComponent<InventoryComponent>().Items) {
-				pool.Add(i.Id);
+				if (i.Type != ItemType.Hat) {
+					pool.Add(i.Id);
+				}
 			}
 
 			var w = GetComponent<ActiveItemComponent>().Item;
@@ -463,6 +466,20 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
+			
+			Camera.Instance.Targets.Clear();
+			Camera.Instance.Follow(stone, 0.5f);
+
+			var x = (int) Math.Floor(stone.CenterX / 16f);
+			var y = (int) Math.Floor(stone.CenterY / 16f);
+			
+			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
+
+			Run.Level.UpdateTile(x - 1, y - 1);
+			Run.Level.UpdateTile(x + 1, y - 1);
+			Run.Level.UpdateTile(x - 1, y + 1);
+			Run.Level.UpdateTile(x + 1, y + 1);
+			Run.Level.TileUp();
 		}
 
 		public override void Save(FileWriter stream) {
@@ -485,7 +502,7 @@ namespace BurningKnight.entity.creature.player {
 			inventory.Items.Clear();
 
 			foreach (var c in Components.Values) {
-				if (c is ItemComponent i && i.Item != null) {
+				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat) {
 					drops.Add(Items.Create(i.Item.Id));
 				}
 			}

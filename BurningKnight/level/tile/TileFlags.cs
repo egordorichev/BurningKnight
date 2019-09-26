@@ -18,6 +18,7 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.FloorA] = Passable | FloorLayer;
 			flags[(int) Tile.WallA] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.WallB] = Solid | WallLayer | BreaksView;
+			flags[(int) Tile.Transition] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Crack] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Water] = Passable | LiquidLayer;
 			flags[(int) Tile.Venom] = LiquidLayer;
@@ -60,7 +61,7 @@ namespace BurningKnight.level.tile {
 		}
 
 		public static bool IsSimpleWall(this Tile tile) {
-			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks;
+			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks || tile == Tile.Transition;
 		}
 	}
 }
