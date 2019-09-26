@@ -32,10 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="MonoGame.Framework, Version=3.7.1, Culture=neutral, PublicKeyToken=null">
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.7.1, Culture=neutral, PublicKeyToken=null">
       <Private>True</Private>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
