@@ -877,7 +877,8 @@ namespace BurningKnight.state {
 				Type = ButtonType.Exit,
 				Click = b => Run.Depth = 0
 			});
-
+			
+			gameOverMenu.Active = false;
 			gameOverMenu.Setup();
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
@@ -1642,6 +1643,8 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
+			gameOverMenu.Active = true;
+			
 			timeLabel.Label = $"{GetRunTime()}";
 			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
 			
@@ -1652,7 +1655,7 @@ namespace BurningKnight.state {
 			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
 
 			Tween.To(this, new {blur = 1}, 0.5f);
-			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = AnimateDeathScreen;
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 		

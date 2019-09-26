@@ -1,7 +1,9 @@
 # TODO
 
+* tombstone should not show dialog when you die
+* death screen is not navigateable with kyboard / gamepad
+
 * mother slime body is not removed!!!!
-* death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings

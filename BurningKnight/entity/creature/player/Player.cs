@@ -427,6 +427,7 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<FollowerComponent>().DestroyAll();
 			
 			var stone = new Tombstone();
+			stone.DisableDialog = true;
 
 			var pool = new List<string>();
 
