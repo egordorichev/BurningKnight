@@ -827,7 +827,13 @@ namespace BurningKnight.state {
 			});
 			
 			space = 32f;
-			start = (Display.UiHeight - space * 2 - 14 * 4) / 2f;
+			start = (Display.UiHeight) / 2f;
+			
+			/* should include:
+			 * depth
+			 * time
+			 * mobs killed
+			 */
 			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
@@ -848,7 +854,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "back_to_castle",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + start * 2,
+				RelativeCenterY = BackY,
 				Type = ButtonType.Exit,
 				Click = b => Run.Depth = 0
 			});
@@ -1619,6 +1625,7 @@ namespace BurningKnight.state {
 		public void AnimateDeathScreen() {
 			Tween.To(this, new {blur = 1}, 0.5f);
 			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 		
 		public void HandleDeath() {

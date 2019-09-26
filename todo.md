@@ -1,10 +1,9 @@
 # TODO
 
 * hearts are really rare?
-* ui string should support drawing small icons
 * overhaul death screen
+* death screen is not navigateable with keyboard / gamepad
 * tween npcs a bit when they talk (on each char)
-* npcs should react, when you buy stuff
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
@@ -221,6 +220,8 @@ gobbo hurt/heal
 
 * enemy, that dies from you touching it, does no contact damage, 
  runs away from you and shoots, tons of hp (hard to kill without touching)
+ 
+* insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
  
 * enemy that deals insane knockback to you
 * enemy with insane knockback modifier
