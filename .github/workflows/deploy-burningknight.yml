@@ -15,7 +15,7 @@ jobs:
     - name: Install Butler
       shell: powershell
       run: | 
-        wget -O butler.zip https://broth.itch.ovh/butler/windows-x86/LATEST/archive/default
+        wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
         
     - name: Check Butler
       shell: bash
