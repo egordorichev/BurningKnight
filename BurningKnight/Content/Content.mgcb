@@ -11,19 +11,9 @@
 #-------------------------------- References --------------------------------#
 
 /reference:..\..\Aseprite\bin\Debug\Aseprite.dll
-/reference:..\..\packages\MonoGame.Framework.Content.Pipeline.Portable.3.7.1.189\lib\portable-net45+win8+wpa81\MonoGame.Framework.Content.Pipeline.dll
+/reference:..\..\packages\MonoGame.Framework.Content.Pipeline.Portable.3.7.0.1708\lib\portable-net45+win8+wpa81\MonoGame.Framework.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
-
-#begin Fonts/large_font.fnt
-/importer:
-/processor:
-/build:Fonts/large_font.fnt
-
-#begin Fonts/small_font.fnt
-/importer:
-/processor:
-/build:Fonts/small_font.fnt
 
 #begin Music/Believer.mp3
 /importer:Mp3Importer

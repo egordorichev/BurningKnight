@@ -53,7 +53,10 @@ namespace Desktop.integration.discord {
 
 				if (p != null) {
 					var h = p.GetComponent<HatComponent>().Item;
-					Status.state = $"{(h?.Name ?? "No hat :(")}";
+
+					if (h.Id != "bk:no_hat") {
+						Status.state = $"{(h?.Name ?? "No hat :(")}";
+					}
 				}
 			}
 			
