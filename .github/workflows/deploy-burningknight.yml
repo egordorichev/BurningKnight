@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - release
-      - master
+      - bk
       - desktop_fix
 
 jobs:
