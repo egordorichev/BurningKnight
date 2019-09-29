@@ -26,7 +26,8 @@ namespace Desktop.integration.discord {
 			
 			callbacks.disconnectedCallback += DisconnectedCallback;
 			callbacks.errorCallback += ErrorCallback;
-
+			callbacks.readyCallback += ReadyCallback;
+			
 			DiscordRpc.Initialize("459603244256198657", ref callbacks, true, string.Empty);
 
 			UpdateStatus();
@@ -65,11 +66,18 @@ namespace Desktop.integration.discord {
 			DiscordRpc.Shutdown();
 		}
 
+		private static void ReadyCallback() {
+			Log.Debug("YAY");
+			Console.WriteLine($"Discord::Ready()");
+		}
+
 		private static void DisconnectedCallback(int errorCode, string message) {
+			Log.Debug("YAY");
 			Console.WriteLine($"Discord::Disconnect({errorCode}, {message})");
 		}
 
 		private static void ErrorCallback(int errorCode, string message) {
+			Log.Debug("YAY");
 			Console.WriteLine($"Discord::Error({errorCode}, {message})");
 		}
 	}
