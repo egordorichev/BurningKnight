@@ -11,8 +11,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		// "v0.0.3 (3)"
-		public static Version Version = new Version(3, 0, 0, 3, 0, true, Debug);
+		// "v0.0.4 (4)"
+		public static Version Version = new Version(4, 0, 0, 4, 0, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
