@@ -33,7 +33,6 @@ jobs:
           ../nuget.exe install ../Aseprite/packages.config
           ../nuget.exe install ../BurningKnight/packages.config
           ../nuget.exe install ../Desktop/packages.config
-          ../nuget.exe install ../VelcroPhysics/packages.config
           ls -l
           cd ..
           echo $GITHUB_WORKSPACE
