@@ -70,14 +70,32 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
-          mv -f -v $GITHUB_WORKSPACE/Desktop/bin/Release $GITHUB_WORKSPACE/Release
-          cd Release
+          mv -f -v $GITHUB_WORKSPACE/Desktop/bin/Release $GITHUB_WORKSPACE/Windows
+          cd Windows
           ls
           cd ..
 
-      - name: Upload release artifact
+      - name: Upload Windows Version
         shell: powershell
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
-          ./butler.exe push ./Release/ egordorichev/bkt:windows
+          ./butler.exe push ./Windows/ egordorichev/bkt:windows
+
+      - name: Prepare Linux Version
+        shell: bash
+        run: |
+          mkdir ./Linux
+          cp -rf ./Windows/* ./Linux/
+          git clone https://github.com/egordorichev/bk_linux_kick
+          cp -rf ./bk_linux_kick/* ./Linux/
+          cd ./Linux
+          ls
+          cd ..
+          
+      - name: Upload Linux Version
+        shell: powershell
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          ./butler.exe push ./Linux/ egordorichev/bkt:linux
