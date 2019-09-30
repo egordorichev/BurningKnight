@@ -7,7 +7,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
-		public Batcher2D Batcher2D;
+		// public Batcher2D Batcher2D;
 
 		private Matrix One = Matrix.Identity;
 		private Matrix UiScale = Matrix.Identity;
@@ -20,7 +20,7 @@ namespace Lens.graphics.gamerenderer {
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 			);
 			
-			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
+			// Batcher2D = new Batcher2D(Engine.GraphicsDevice);
 		}
 
 		public override void Begin() {
@@ -80,7 +80,7 @@ namespace Lens.graphics.gamerenderer {
 			var start = EnableBatcher;
 			
 			if (start) {
-				Batcher2D.Begin();
+				//Batcher2D.Begin();
 			}
 			
 			RenderGame();
@@ -123,7 +123,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.Instance.State?.RenderNative();
 
 			if (start) {
-				Batcher2D.End();
+				//Batcher2D.End();
 			}
 		}
 
@@ -143,7 +143,7 @@ namespace Lens.graphics.gamerenderer {
 			
 			GameTarget.Dispose();
 			UiTarget?.Dispose();
-			Batcher2D.Dispose();
+			//Batcher2D.Dispose();
 		}
 	}
 }
