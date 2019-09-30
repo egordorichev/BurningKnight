@@ -949,6 +949,9 @@
     <None Include="./Content/Prefabs/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="./Content/Animations/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./lib/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
