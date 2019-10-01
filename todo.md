@@ -161,7 +161,6 @@ gobbo hurt/heal
 * discord rod should damage everything it tourches from point where you were to where you tp
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
-* torch, has a good light radius, emits fire particles (you drop it if you get hit)
 * map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp

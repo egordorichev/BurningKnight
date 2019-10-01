@@ -557,6 +557,7 @@
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
+    <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />

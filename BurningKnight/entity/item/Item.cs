@@ -323,6 +323,14 @@ namespace BurningKnight.entity.item {
 			if (Type != ItemType.Active || UseTime < 0) {
 				Delay = Math.Max(0, Delay - dt);
 			}
+
+			if (HasComponent<OwnerComponent>()) {
+				var o = Owner;
+				
+				foreach (var u in Uses) {
+					u.Update(o, this, dt);
+				}
+			}
 		}
 
 		public bool ShouldCollide(Entity entity) {

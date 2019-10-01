@@ -115,6 +115,7 @@ namespace BurningKnight.entity.component {
 					debugItem = "";
 	#endif
 				} else {
+					Item.Center = Entity.Center;
 					Item.Update(dt);
 				}
 			}

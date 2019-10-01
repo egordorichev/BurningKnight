@@ -10,6 +10,10 @@ namespace BurningKnight.entity.item.use {
 			
 		}
 
+		public virtual void Update(Entity entity, Item item, float dt) {
+			
+		}
+
 		public virtual void TakeOut(Entity entity, Item item) {
 			
 		}
