@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.use.parent;
 using Lens.lightJson;
 using Lens.util;
 
@@ -79,6 +80,7 @@ namespace BurningKnight.entity.item.use {
 			Register<AddHitboxUse>();
 			Register<GiveEmeraldsUse>(GiveEmeraldsUse.RenderDebug);
 			Register<ModifyProjectilesUse>(ModifyProjectilesUse.RenderDebug);
+			Register<TeleportUse>(TeleportUse.RenderDebug);
 		}
 	}
 }

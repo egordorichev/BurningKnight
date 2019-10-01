@@ -7,6 +7,8 @@
 
 # TODO
 
+* !!! TIMED ACTIVE ITEMS ARE BROKEN (cant set the recharge time)
+
 * poison, thorns, ice, fire, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
 * Enemies / rooms drop rewards (bombs, keys, coins)
