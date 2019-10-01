@@ -1,3 +1,10 @@
+## for showcase
+
+* auto reset the saves
+* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+* don't allow to exit fullscreeen mode, only through console
+* console under password or smth?
+
 # TODO
 
 * poison, thorns, ice, fire, charisma (minor sale), charm rings

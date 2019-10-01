@@ -49,8 +49,11 @@ namespace BurningKnight.entity.creature.player {
 			return item.Type == ItemType.Weapon && (Item == null || Run.Depth < 1 || Entity.GetComponent<WeaponComponent>().Item != null);
 		}
 
-		protected override void OnItemSet() {
-			base.OnItemSet();
+		protected override void OnItemSet(Item previous) {
+			base.OnItemSet(previous);
+			
+			previous?.PutAway();
+			Item?.TakeOut();
 
 			if (GlobalSave.IsFalse("control_use")) {
 				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null));

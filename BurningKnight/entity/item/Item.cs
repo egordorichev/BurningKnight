@@ -101,7 +101,31 @@ namespace BurningKnight.entity.item {
 			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
-				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false, false);
+				((Player) Owner).AnimateItemPickup(this, null, false, false);
+			}
+		}
+		
+		public void TakeOut() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.TakeOut(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void PutAway() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.PutAway(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 

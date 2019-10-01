@@ -10,6 +10,14 @@ namespace BurningKnight.entity.item.use {
 			
 		}
 
+		public virtual void TakeOut(Entity entity, Item item) {
+			
+		}
+
+		public virtual void PutAway(Entity entity, Item item) {
+			
+		}
+
 		public virtual void Setup(JsonValue settings) {
 			
 		}

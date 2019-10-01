@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.item.util;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
@@ -48,6 +49,29 @@ namespace BurningKnight.entity.orbital {
 				orbital.OnCollision += (or, e) => {
 					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
+					}
+				};
+				
+				return orbital;
+			});
+			
+			Define("sword", o => {
+				var orbital = new Orbital();
+				o.Area.Add(orbital);
+
+				var g = new SliceComponent("items", "bk:sword_orbital") {
+					ShadowZ = 2
+				};
+
+				orbital.AddComponent(g);
+				g.AddShadow();
+				g.SetOwnerSize();
+
+				orbital.AddComponent(new RectBodyComponent(0, 0, 9, 15, BodyType.Dynamic, true));
+				
+				orbital.OnCollision += (or, e) => {
+					if (e is Creature c && c.IsFriendly() != ((Creature) orbital.Owner).IsFriendly()) {
+						c.GetComponent<HealthComponent>().ModifyHealth(-1, orbital.Owner);
 					}
 				};
 				

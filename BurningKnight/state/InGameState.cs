@@ -501,9 +501,9 @@ namespace BurningKnight.state {
 				var d = (float) Math.Sqrt(dx + dy);
 
 				if (d > 0.25f) {
-					var f = 32;
+					var f = 48;
 					var tar = new Vector2(p.CenterX + stick.X / d * f, p.CenterY + stick.Y / d * f);
-					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 7f;
+					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 30f;
 				}
 			}
 
