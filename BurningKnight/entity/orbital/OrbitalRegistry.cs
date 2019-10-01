@@ -71,7 +71,7 @@ namespace BurningKnight.entity.orbital {
 				
 				orbital.OnCollision += (or, e) => {
 					if (e is Creature c && c.IsFriendly() != ((Creature) orbital.Owner).IsFriendly()) {
-						c.GetComponent<HealthComponent>().ModifyHealth(-1, orbital.Owner);
+						c.GetComponent<HealthComponent>().ModifyHealth(-1, orbital);
 					}
 				};
 				

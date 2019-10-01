@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.use.parent;
 using BurningKnight.entity.room;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -20,7 +21,9 @@ namespace BurningKnight.entity.item.use {
 				var newRoom = (Room) Random.Element<Entity>(rooms, r => r != room);
 
 				if (newRoom != null) {
+					AnimationUtil.Poof(e.Center);
 					e.Center = newRoom.GetRandomFreeTile() * 16 + new Vector2(8);
+					AnimationUtil.Poof(e.Center);
 				}
 			}
 		}
