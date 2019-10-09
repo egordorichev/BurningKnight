@@ -15,35 +15,6 @@ namespace BurningKnight.entity.component {
 		public Dictionary<Type, Buff> Buffs = new Dictionary<Type, Buff>();
 		public List<Type> Immune = new List<Type>();
 
-		public void Add<T>() {
-			var type = typeof(T);
-			
-			if (Buffs.ContainsKey(type)) {
-				return;
-			}
-			
-			foreach (var t in Immune) {
-				if (t == type) {
-					return;
-				}
-			}
-
-			var buff = (Buff) Activator.CreateInstance(type);
-
-			if (HandleEvent(new BuffCheckEvent {
-				Entity = Entity,
-				Buff = buff
-			})) {
-				return;
-			}
-			
-			Buffs[type] = buff;
-			
-			Send(new BuffAddedEvent {
-				Buff = buff
-			});
-		}
-
 		public Buff Add(Buff buff) {
 			if (buff == null) {
 				return null;
@@ -59,6 +30,13 @@ namespace BurningKnight.entity.component {
 				if (t == type) {
 					return null;
 				}
+			}
+			
+			if (Send(new BuffCheckEvent {
+					Entity = Entity,
+					Buff = buff
+			})) {
+				return null;
 			}
 
 			Buffs[type] = buff;
