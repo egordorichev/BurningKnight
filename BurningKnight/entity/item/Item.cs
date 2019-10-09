@@ -105,6 +105,30 @@ namespace BurningKnight.entity.item {
 			}
 		}
 		
+		public void Pickup() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.Pickup(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void Drop() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.Drop(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
 		public void TakeOut() {
 			var entity = Owner;
 		

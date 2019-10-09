@@ -11,15 +11,15 @@ namespace BurningKnight.entity.item.use {
 		private bool isOut;
 		private float lastFlame;
 		
-		public override void TakeOut(Entity entity, Item item) {
-			base.TakeOut(entity, item);
+		public override void Pickup(Entity entity, Item item) {
+			base.Pickup(entity, item);
 			
 			isOut = true;
 			item.AddComponent(new LightComponent(item, 192f, new Color(1f, 0.8f, 0.4f, 1f)));
 		}
 
-		public override void PutAway(Entity entity, Item item) {
-			base.PutAway(entity, item);
+		public override void Drop(Entity entity, Item item) {
+			base.Drop(entity, item);
 
 			isOut = false;
 			item.RemoveComponent<LightComponent>();

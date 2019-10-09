@@ -14,6 +14,14 @@ namespace BurningKnight.entity.item.use {
 			
 		}
 
+		public virtual void Pickup(Entity entity, Item item) {
+			
+		}
+
+		public virtual void Drop(Entity entity, Item item) {
+			
+		}
+
 		public virtual void TakeOut(Entity entity, Item item) {
 			
 		}

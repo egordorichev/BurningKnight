@@ -82,6 +82,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyProjectilesUse>(ModifyProjectilesUse.RenderDebug);
 			Register<TeleportUse>(TeleportUse.RenderDebug);
 			Register<AddTorchUse>();
+			Register<DoOnEnemyCollisionUse>(DoOnEnemyCollisionUse.RenderDebug);
 		}
 	}
 }
