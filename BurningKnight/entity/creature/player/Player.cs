@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
-			
+
 			PickedItem = item;
 			
 			Timer.Add(() => {

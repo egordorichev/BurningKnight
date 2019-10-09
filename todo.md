@@ -1,4 +1,3 @@
-* bill
 * brain
 * shield weapon (hurting/not hurting variants)
 
@@ -6,8 +5,6 @@
 * ring of gold
 * wings
 * laser pointer
-* stop watch
-* blue watch
 * star
 * zoom
 * poison, charisma (minor sale), charm rings
