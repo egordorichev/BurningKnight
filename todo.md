@@ -4,6 +4,7 @@
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * don't allow to exit fullscreeen mode, only through console
 * console under password or smth?
+* flickering bullets?
 
 # TODO
 
@@ -139,6 +140,8 @@ gobbo hurt/heal
 
 ### items
 
+* Mines
+
 * weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 
 * hats
@@ -211,6 +214,8 @@ gobbo hurt/heal
 
 ### Ideas
 
+* tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
+
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
 * cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
 * make bk himself sign!!!!
@@ -222,6 +227,8 @@ gobbo hurt/heal
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
 
 ### enemies
+
+* enemy, that stands still, shoots laser at you and gets pushed back
 
 * enemy, that dies from you touching it, does no contact damage, 
  runs away from you and shoots, tons of hp (hard to kill without touching)
@@ -274,3 +281,4 @@ gobbo hurt/heal
 * rooms with preasure plates
 * rooms with switches
 * trap rooms
+* room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies

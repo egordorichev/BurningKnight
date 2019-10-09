@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lens.util {
 	public static class Log {
-		public static bool WriteToFile = true;
+		public static bool WriteToFile = false;
 		private static StringBuilder builder;
 
 		public static void Open() {

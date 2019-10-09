@@ -89,7 +89,7 @@ namespace BurningKnight.entity.creature.player {
 				Item = tmp;
 
 				if (!AtBack) {
-					component.Item.PutAway();
+					component.Item?.PutAway();
 					Item?.TakeOut();
 				} else {
 					Log.Error("Swap is called from not active weapon component");
