@@ -2,18 +2,20 @@
 
 * !! TORCH BROKEN
 * !! Q TO BOMB doesnt go away
+* fix frozen buff, it should stop the enemy and animation and apply tint
 
 * auto reset the saves
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * don't allow to exit fullscreeen mode, only through console
 * console under password or smth?
 * flickering bullets?
+* explodable barrels
 
 # TODO
 
 * !!! TIMED ACTIVE ITEMS ARE BROKEN (cant set the recharge time)
 
-* poison, thorns, ice, fire, charisma (minor sale), charm rings
+* poison, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
 * Enemies / rooms drop rewards (bombs, keys, coins)
 

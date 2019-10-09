@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.buff {
@@ -10,6 +11,7 @@ namespace BurningKnight.entity.buff {
 
 		public override void Init() {
 			base.Init();
+			Entity.GetComponent<BuffsComponent>().Remove<BurningBuff>();
 
 			if (Entity.TryGetComponent<StateComponent>(out var s)) {
 				s.Pause++;

@@ -560,6 +560,7 @@
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
+    <Compile Include="entity\item\use\DoOnHurtUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />

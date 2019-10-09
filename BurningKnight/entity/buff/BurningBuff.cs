@@ -5,13 +5,18 @@ namespace BurningKnight.entity.buff {
 	public class BurningBuff : Buff {
 		public const string Id = "bk:burning";
 		public const float Delay = 1.3f;
+		
+		private float tillDamage = Delay;
+		private float lastParticle;
 
 		public BurningBuff() : base(Id) {
 			Infinite = true;
 		}
-		
-		private float tillDamage = Delay;
-		private float lastParticle;
+
+		public override void Init() {
+			base.Init();
+			Entity.GetComponent<BuffsComponent>().Remove<FrozenBuff>();
+		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
