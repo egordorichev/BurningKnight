@@ -12,17 +12,16 @@ namespace BurningKnight.entity.item.use {
 		private float lastFlame;
 		
 		public override void Pickup(Entity entity, Item item) {
-			base.Pickup(entity, item);
-			
 			isOut = true;
-			item.AddComponent(new LightComponent(item, 192f, new Color(1f, 0.8f, 0.4f, 1f)));
+			// new Color(1f, 0.8f, 0.4f, 1f))
+			item.AddComponent(new LightComponent(item, 192f, new Color(1f, 0, 0, 1f)));
+			Log.Error("Add light");
 		}
 
 		public override void Drop(Entity entity, Item item) {
-			base.Drop(entity, item);
-
 			isOut = false;
 			item.RemoveComponent<LightComponent>();
+			Log.Error("Remove light");
 		}
 
 		public override void Update(Entity entity, Item item, float dt) {

@@ -316,6 +316,7 @@
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
+    <Compile Include="entity\buff\BuffCheckEvent.cs" />
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
@@ -559,6 +560,7 @@
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
+    <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />

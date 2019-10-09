@@ -29,6 +29,14 @@ namespace BurningKnight.entity.component {
 			}
 
 			var buff = (Buff) Activator.CreateInstance(type);
+
+			if (HandleEvent(new BuffCheckEvent {
+				Entity = Entity,
+				Buff = buff
+			})) {
+				return;
+			}
+			
 			Buffs[type] = buff;
 			
 			Send(new BuffAddedEvent {

@@ -7,21 +7,21 @@ using Lens.util;
 
 namespace BurningKnight.entity.item.use {
 	public class GiveBuffUse : ItemUse {
-		private string buff;
-		private float time;
+		protected string Buff;
+		protected float Time;
 
 		public override void Use(Entity entity, Item item) {
-			var b = BuffRegistry.Create(buff);
+			var b = BuffRegistry.Create(Buff);
 
 			if (b == null) {
-				Log.Error($"Unknown buff {buff}");
+				Log.Error($"Unknown buff {Buff}");
 				return;
 			}
 
-			if (time < 0) {
+			if (Time < 0) {
 				b.Infinite = true;
 			} else {
-				b.TimeLeft = b.Duration = time;
+				b.TimeLeft = b.Duration = Time;
 			}
 			
 			entity.GetComponent<BuffsComponent>().Add(b);
@@ -30,8 +30,8 @@ namespace BurningKnight.entity.item.use {
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			
-			time = settings["time"].Number(1);
-			buff = settings["buff"].AsString ?? "";
+			Time = settings["time"].Number(1);
+			Buff = settings["buff"].AsString ?? "";
 		}
 		
 		public static void RenderDebug(JsonValue root) {

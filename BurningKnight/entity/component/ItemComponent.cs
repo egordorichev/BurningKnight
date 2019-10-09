@@ -62,7 +62,8 @@ namespace BurningKnight.entity.component {
 			Send(new ItemAddedEvent {
 				Item = item,
 				Component = this,
-				Who = Entity
+				Who = Entity,
+				Old = previous
 			});
 			
 			Item = item;

@@ -4,6 +4,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.save;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
@@ -18,6 +19,11 @@ namespace BurningKnight.entity.fx {
 		private Vector2 start;
 		private float t;
 		
+		public override void Save(FileWriter stream) {
+			Position = start;
+			base.Save(stream);
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 

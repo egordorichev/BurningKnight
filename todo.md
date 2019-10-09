@@ -17,6 +17,7 @@
 
 * poison, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
+* hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * draw the duck frames for hats

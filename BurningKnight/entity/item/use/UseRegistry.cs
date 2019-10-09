@@ -85,6 +85,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DoOnEnemyCollisionUse>(DoOnEnemyCollisionUse.RenderDebug);
 			Register<DoOnHurtUse>(DoOnHurtUse.RenderDebug);
 			Register<GiveBuffUse>(GiveBuffUse.RenderDebug);
+			Register<GiveBuffImmunityUse>(GiveBuffImmunityUse.RenderDebug);
 		}
 	}
 }
