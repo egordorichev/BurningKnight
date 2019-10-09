@@ -1,13 +1,13 @@
+* bill
+* brain
+* shield weapon (hurting/not hurting variants)
+
 * the ring
 * ring of gold
 * wings
 * laser pointer
-* bill
 * stop watch
 * blue watch
-* brain
-* d8
-* shield weapon (hurting/not hurting variants)
 * star
 * zoom
 * poison, charisma (minor sale), charm rings

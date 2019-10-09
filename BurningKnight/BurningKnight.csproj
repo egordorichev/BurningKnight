@@ -594,6 +594,7 @@
     <Compile Include="entity\item\use\ModifyProjectilesUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\PreventDamageUse.cs" />
+    <Compile Include="entity\item\use\RandomActiveUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
