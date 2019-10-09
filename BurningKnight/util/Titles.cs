@@ -26,6 +26,7 @@ namespace BurningKnight.util {
 		}
 
 		private static string[] titles = {
+			"oh no my game... EXPLODED!!!",
 			"Fireproof",
 			"Might burn",
 			"'Friendly' fire",

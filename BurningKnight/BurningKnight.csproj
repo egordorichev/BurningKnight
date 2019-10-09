@@ -693,6 +693,7 @@
     <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
+    <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\plant\Plant.cs" />
     <Compile Include="level\entities\plant\PlantGraphicsComponent.cs" />

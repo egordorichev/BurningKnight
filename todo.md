@@ -21,7 +21,7 @@
 * don't allow to exit fullscreeen mode, only through console
 * console under password or smth?
 * flickering bullets?
-* explodable barrels
+* explodable barrels placement
 
 # TODO
 

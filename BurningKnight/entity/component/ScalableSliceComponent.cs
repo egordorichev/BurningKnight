@@ -1,3 +1,4 @@
+using BurningKnight.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
@@ -26,7 +27,28 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
+			var stopShader = false;
+
+			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
+				var i = health.InvincibilityTimer;
+
+				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+					
+					stopShader = true;
+				}
+			}
+			
 			Graphics.Render(Sprite, Entity.Position + Origin, Angle, Origin, Scale);
+			
+			if (stopShader) {
+				Shaders.End();
+			}
 		}
 	}
 }
