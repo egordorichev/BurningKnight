@@ -1,5 +1,3 @@
-* potion of frost
-* obsidian shield
 * the ring
 * ring of gold
 * wings
@@ -16,6 +14,7 @@
 
 ## for showcase
 
+* ice buff doesnt work on player
 * !! TORCH BROKEN
 * !! Q TO BOMB doesnt go away
 * fix frozen buff, it should stop the enemy and animation and apply tint
