@@ -250,6 +250,7 @@ namespace BurningKnight.state {
 
 			if (painting == null) {
 				pauseMenu.X = 0;
+				pauseMenu.Enabled = true;
 				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
 			}
 
@@ -268,7 +269,10 @@ namespace BurningKnight.state {
 			}
 
 			Tween.To(this, new {blur = 0}, 0.25f);
-			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
+				pauseMenu.Enabled = false;
+			};
+
 			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
 
 			pausedByMouseOut = false;
@@ -862,8 +866,8 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = start + space * 3,
 				Click = b => {
+					gameOverMenu.Enabled = false;
 					Run.StartNew();
-					gameOverMenu.Active = false;
 				}
 			});
 			
@@ -873,13 +877,13 @@ namespace BurningKnight.state {
 				RelativeCenterY = BackY,
 				Type = ButtonType.Exit,
 				Click = b => {
-					gameOverMenu.Active = false;
+					gameOverMenu.Enabled = false;
 					Run.Depth = 0;
 				}
 			});
 			
 			gameOverMenu.Setup();
-			gameOverMenu.Active = false;
+			gameOverMenu.Enabled = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
@@ -957,9 +961,14 @@ namespace BurningKnight.state {
 					}.Start();
 					
 					currentBack = pauseBack;
-					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
+					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						pauseMenu.Enabled = false;
+					};
 				}
 			});
+			
+			pauseMenu.Enabled = false;
 			
 			AddGameSettings();
 			AddGraphicsSettings();
@@ -1643,7 +1652,7 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Active = true;
+			gameOverMenu.Enabled = true;
 			
 			timeLabel.Label = $"{GetRunTime()}";
 			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
