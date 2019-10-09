@@ -9,6 +9,7 @@ namespace BurningKnight.assets.items {
 
 		public bool AutoPickup;
 		public bool Automatic;
+		public bool SingleUse;
 		public string Animation;
 		public string Id;
 		public float UseTime;

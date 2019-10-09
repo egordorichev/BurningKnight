@@ -36,6 +36,7 @@ namespace BurningKnight.entity.item {
 		public bool Used;
 		public bool Touched;
 		public bool Automatic;
+		public bool SingleUse;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -77,9 +78,9 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public void Use(Entity entity) {
+		public bool Use(Entity entity) {
 			if (!UseCheck.CanUse(entity, this)) {
-				return;
+				return false;
 			}
 
 			foreach (var use in Uses) {
@@ -103,6 +104,8 @@ namespace BurningKnight.entity.item {
 			if (Type == ItemType.Active) {
 				((Player) Owner).AnimateItemPickup(this, null, false, false);
 			}
+
+			return true;
 		}
 		
 		public void Pickup() {
@@ -307,6 +310,7 @@ namespace BurningKnight.entity.item {
 			Animation = item.Animation;
 			AutoPickup = item.AutoPickup;
 			Automatic = item.Automatic;
+			SingleUse = item.SingleUse;
 			Type = item.Type;
 			Id = id;
 			Used = false;

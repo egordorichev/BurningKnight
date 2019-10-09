@@ -598,6 +598,7 @@
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
+    <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
@@ -609,6 +610,7 @@
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
     <Compile Include="entity\item\use\TeleportUse.cs" />
+    <Compile Include="entity\item\use\TriggerHurtEventUse.cs" />
     <Compile Include="entity\item\use\UseOnEventUse.cs" />
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />

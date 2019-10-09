@@ -1,3 +1,19 @@
+* potion of frost
+* obsidian shield
+* the ring
+* ring of gold
+* wings
+* laser pointer
+* bill
+* stop watch
+* blue watch
+* brain
+* d8
+* shield weapon (hurting/not hurting variants)
+* star
+* zoom
+* poison, charisma (minor sale), charm rings
+
 ## for showcase
 
 * !! TORCH BROKEN
@@ -13,9 +29,6 @@
 
 # TODO
 
-* !!! TIMED ACTIVE ITEMS ARE BROKEN (cant set the recharge time)
-
-* poison, charisma (minor sale), charm rings
 * buffs display on mobs (like frozen and poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
