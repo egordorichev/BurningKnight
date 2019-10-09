@@ -35,7 +35,6 @@ namespace BurningKnight.assets.input {
 		
 		public const string Fullscreen = "fullscreen";
 		public const string Fps = "fps";
-		public const string Mute = "mute";
 
 		public const string UiUp = "ui_up";
 		public const string UiDown = "ui_down";
@@ -61,8 +60,7 @@ namespace BurningKnight.assets.input {
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
 			
-			controls.Add(new Control(Mute, Keys.M));
-			controls.Add(new Control(Fullscreen, Keys.F11, Keys.F));
+			controls.Add(new Control(Fullscreen, Keys.F11));
 			controls.Add(new Control(Fps, Keys.F2));
 
 			controls.Add(new Control(Cancel, Keys.Escape).Gamepad(Buttons.Back));

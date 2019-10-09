@@ -809,7 +809,7 @@ namespace BurningKnight.level {
 						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
 							var a = tl.Matches(Tile.WallA, Tile.Piston);
-							var aa = a;
+							var aa = a || tl == Tile.Transition;
 							
 							if (tl == Tile.Crack) {
 								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||

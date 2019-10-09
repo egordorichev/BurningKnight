@@ -514,10 +514,6 @@ namespace BurningKnight.state {
 
 			Run.Update();
 			
-			if (Input.WasPressed(Controls.Mute)) {
-				Settings.MusicVolume = Settings.MusicVolume > 0.01f ? 0f : 0.5f;
-			}
-			
 			if (Input.WasPressed(Controls.Fullscreen)) {
 				if (Engine.Graphics.IsFullScreen) {
 					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
@@ -867,6 +863,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					Run.StartNew();
+					gameOverMenu.Active = false;
 				}
 			});
 			
@@ -875,7 +872,10 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
 				Type = ButtonType.Exit,
-				Click = b => Run.Depth = 0
+				Click = b => {
+					gameOverMenu.Active = false;
+					Run.Depth = 0;
+				}
 			});
 			
 			gameOverMenu.Setup();
