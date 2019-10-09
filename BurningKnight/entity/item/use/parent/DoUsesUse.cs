@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.state;
 using Lens.entity;
@@ -20,10 +19,19 @@ namespace BurningKnight.entity.item.use.parent {
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
+			
+			if (!settings["uses"].IsJsonArray) {
+				settings["uses"] = new JsonArray();
+			}
+			
 			Uses = Items.ParseUses(settings["uses"]);
 		}
 		
 		public static void RenderDebug(JsonValue root) {
+			if (!root["uses"].IsJsonArray) {
+				root["uses"] = new JsonArray();
+			}
+			
 			ItemEditor.DisplayUse(root, root["uses"]);
 		}
 	}

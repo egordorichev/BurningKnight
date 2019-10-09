@@ -1,5 +1,8 @@
 ## for showcase
 
+* !! TORCH BROKEN
+* !! Q TO BOMB doesnt go away
+
 * auto reset the saves
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * don't allow to exit fullscreeen mode, only through console
