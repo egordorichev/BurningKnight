@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
@@ -415,6 +416,11 @@ namespace BurningKnight.assets.items {
 
 			return Generate(types, filter, c);
 		}
+
+		public static string Generate(Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
+			return Generate(Datas.Values.ToList(), filter, c);
+		}
+
 
 		public static Item CreateAndAdd(string id, Area area) {
 			var item = Create(id);
