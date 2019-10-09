@@ -708,11 +708,9 @@ namespace BurningKnight.level {
 
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
-				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
-			
 			var shader = Shaders.Chasm;
-			Shaders.Begin(shader);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.None, 
+					RasterizerState.CullNone, shader, Camera.Instance?.Matrix);
 
 			shader.Parameters["h"].SetValue(8f / Tileset.WallTopA.Texture.Height);
 			var sy = shader.Parameters["y"];
@@ -740,7 +738,7 @@ namespace BurningKnight.level {
 							if (tt != Tile.Chasm) {
 								var ind = CalcWallSide(x, y);
 								TextureRegion textureRegion;
-
+								
 								switch (tt) {
 									case Tile.WallA: case Tile.Piston: case Tile.PistonDown:
 										textureRegion = Tileset.WallA[ind];
@@ -766,8 +764,8 @@ namespace BurningKnight.level {
 										break;
 								}
 
-								enabled.SetValue(true);
-								sy.SetValue((float) textureRegion.Source.Y / Tileset.WallTopA.Texture.Height);
+								enabled.SetValue(true);								
+								sy.SetValue((float) textureRegion.Source.Y / textureRegion.Texture.Height);
 								Graphics.Render(textureRegion, pos);
 								enabled.SetValue(false);
 								
@@ -783,7 +781,7 @@ namespace BurningKnight.level {
 
 								if (id != -1) {
 									Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
-								}
+								}								
 							}
 						}
 					
