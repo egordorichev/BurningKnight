@@ -310,6 +310,7 @@
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
+    <Compile Include="debug\LevelLayerDebug.cs" />
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />

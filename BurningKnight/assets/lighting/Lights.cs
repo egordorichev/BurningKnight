@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.debug;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
@@ -61,7 +62,7 @@ namespace BurningKnight.assets.lighting {
 				return;
 			}
 			
-			if (!enabled || !(Engine.Instance.State is InGameState)) {
+			if (!LevelLayerDebug.Lights || !(Engine.Instance.State is InGameState)) {
 				return;
 			}
 			
@@ -118,7 +119,6 @@ namespace BurningKnight.assets.lighting {
 			state.Begin();
 		}
 
-		private static bool enabled = true;
 		private static float alpha = 1f;
 		private static System.Numerics.Vector3 color = System.Numerics.Vector3.One;
 		private static BlendState surfaceBlend = BlendState.NonPremultiplied;
@@ -155,7 +155,7 @@ namespace BurningKnight.assets.lighting {
 				return;
 			}
 
-			ImGui.Checkbox("Enabled", ref enabled);
+			ImGui.Checkbox("Enabled", ref LevelLayerDebug.Lights);
 			ImGui.Checkbox("Enable fog", ref EnableFog);
 			ImGui.DragFloat("Radius mod", ref radiusMod);
 

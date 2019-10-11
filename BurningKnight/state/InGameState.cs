@@ -468,6 +468,19 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 
+			var found = false;
+
+			foreach (var t in Camera.Instance.Targets) {
+				if (t.Entity is Player) {
+					found = true;
+					break;
+				}
+			}
+
+			if (found) {
+				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
+			}
+
 			console.Update(dt);
 
 			foreach (var p in Area.Tags[Tags.LocalPlayer]) {

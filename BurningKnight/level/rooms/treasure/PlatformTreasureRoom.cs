@@ -27,7 +27,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override int GetMinWidth() {
-			return 9;
+			return 10;
 		}
 
 		public override int GetMinHeight() {

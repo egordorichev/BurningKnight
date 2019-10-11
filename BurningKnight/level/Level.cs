@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.debug;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -427,8 +428,11 @@ namespace BurningKnight.level {
 		}
 		
 		// Renders light emited by tiles
-
 		public void RenderTileLights() {
+			if (!LevelLayerDebug.TileLight) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 			
 			// Cache the condition
@@ -465,6 +469,10 @@ namespace BurningKnight.level {
 				return;
 			}
 
+			if (!LevelLayerDebug.Floor) {
+				return;
+			}
+			
 			manager.Update();
 
 			var camera = Camera.Instance;
@@ -514,6 +522,10 @@ namespace BurningKnight.level {
 				return;
 			}
 			
+			if (!LevelLayerDebug.Shadows) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -535,6 +547,10 @@ namespace BurningKnight.level {
 		private bool cleared;
 
 		public void RenderMess() {
+			if (!LevelLayerDebug.Mess) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 			var state = Engine.Instance.StateRenderer;
 			state.End();
@@ -578,6 +594,10 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderLiquids() {
+			if (!LevelLayerDebug.Liquids) {
+				return;
+			}
+
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -680,6 +700,10 @@ namespace BurningKnight.level {
 		private TextureRegion clear;
 		
 		private void RenderChasms() {
+			if (!LevelLayerDebug.Chasms) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -794,6 +818,10 @@ namespace BurningKnight.level {
 		}
 		
 		private void RenderSides() {
+			if (!LevelLayerDebug.Sides) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 
 			// Cache the condition
@@ -866,6 +894,10 @@ namespace BurningKnight.level {
 		}
 
 		private void RenderShadowSurface() {
+			if (!LevelLayerDebug.Shadows) {
+				return;
+			}
+			
 			if (Done) {
 				return;
 			}
@@ -961,23 +993,25 @@ namespace BurningKnight.level {
 								lv += 8;
 							}
 
-							var vl = Tileset.WallMapExtra[lv];
+							if (lv != 15) {
+								var vl = Tileset.WallMapExtra[lv];
 
-							if (vl != -1) {
-								var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+								if (vl != -1) {
+									var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
 
-								if (light > LightMin) {
-									Graphics.Color.A = (byte) (light * 255);
-									var ind = vl + 12 * CalcWallTopIndex(x, y);
-									
-									Graphics.Render(
-										t == Tile.Transition ? Tileset.WallTopsTransition[ind] :
-										(a
-											? Tileset.WallTopsA[ind]
-											: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind])),
-										new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
+									if (light > LightMin) {
+										Graphics.Color.A = (byte) (light * 255);
+										var ind = vl + 12 * CalcWallTopIndex(x, y);
+										
+										Graphics.Render(
+											t == Tile.Transition ? Tileset.WallTopsTransition[ind] :
+											(a
+												? Tileset.WallTopsA[ind]
+												: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind])),
+											new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
 
-									Graphics.Color.A = 255;
+										Graphics.Color.A = 255;
+									}
 								}
 							}
 						} else {
@@ -1008,6 +1042,10 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderWalls() {
+			if (!LevelLayerDebug.Walls) {
+				return;
+			}
+			
 			var camera = Camera.Instance;
 			var state = Engine.Instance.StateRenderer;
 			state.End();
@@ -1090,6 +1128,10 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderBlood() {
+			if (!LevelLayerDebug.Blood) {
+				return;
+			}
+			
 			if (MessSurface == null) {
 				return;
 			}
@@ -1114,7 +1156,7 @@ namespace BurningKnight.level {
 		}
 		
 		public void RenderLight() {
-			if (!DrawLight) {
+			if (!DrawLight || !LevelLayerDebug.TileLight) {
 				return;
 			}
 			

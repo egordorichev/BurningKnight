@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using BurningKnight.assets.lighting;
+using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.room;
@@ -20,6 +21,7 @@ namespace BurningKnight.ui.imgui {
 		public static bool Console = true;
 		public static bool ItemEditor;
 		public static bool LevelEditor;
+		public static bool LayerDebug;
 		public static bool LocaleEditor;
 		public static bool Rooms;
 		public static bool Settings;
@@ -59,6 +61,7 @@ namespace BurningKnight.ui.imgui {
 			RenderSettings();
 			Lights.RenderDebug();
 			SaveDebug.RenderDebug();
+			LevelLayerDebug.Render();
 			assets.achievements.Achievements.RenderDebug();
 			Run.Statistics?.RenderWindow();
 
@@ -107,6 +110,7 @@ namespace BurningKnight.ui.imgui {
 			ImGui.Checkbox("Console", ref Console);
 			ImGui.Checkbox("Item Editor", ref ItemEditor);
 			ImGui.Checkbox("Level Editor", ref LevelEditor);
+			ImGui.Checkbox("Layer Debug", ref LayerDebug);
 			ImGui.Checkbox("Locale Editor", ref LocaleEditor);
 			ImGui.Checkbox("Debug", ref Debug);
 			ImGui.Checkbox("Rooms", ref Rooms);

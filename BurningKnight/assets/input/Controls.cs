@@ -27,6 +27,7 @@ namespace BurningKnight.assets.input {
 
 		public const string Roll = "roll";
 		public const string Duck = "duck";
+		public const string Map = "map";
 		
 		public const string Pause = "pause";
 
@@ -57,6 +58,7 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Swap, Keys.LeftShift).Gamepad(Buttons.X));
 			controls.Add(new Control(Roll).Mouse(MouseButtons.Right).Gamepad(Buttons.LeftTrigger));
 			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.LeftShoulder));
+			controls.Add(new Control(Map, Keys.M).Gamepad(Buttons.LeftStick));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
 			
