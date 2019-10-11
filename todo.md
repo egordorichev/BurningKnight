@@ -1,5 +1,7 @@
 # scoped down
 
+* fix game fps
+
 * active item use hint
 * boss appearence should be much faster
 * make spawn trigger smaller, so that you dont die in the chasm
@@ -9,7 +11,6 @@
 
 * ice buff doesnt work on player
 * !! TORCH BROKEN
-* !! Q TO BOMB doesnt go away
 * fix frozen buff, it should stop the enemy and animation and apply tint
 
 * auto reset the saves
