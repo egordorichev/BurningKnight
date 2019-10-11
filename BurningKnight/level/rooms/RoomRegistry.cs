@@ -83,7 +83,7 @@ namespace BurningKnight.level.rooms {
 				
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
-				RoomInfo.New<WayOverChasmRoom>(1f),
+				RoomInfo.New<WayOverChasmRoom>(1f + 1000000f),
 				RoomInfo.New<MazeConnectionRoom>(1f),
 				RoomInfo.New<RingConnectionRoom>(1f),
 				RoomInfo.New<IntersectionConnectionRoom>(1f),

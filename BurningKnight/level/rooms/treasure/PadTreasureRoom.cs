@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class PadTreasureRoom : TreasureRoom {
-		private List<Vector2> rects = new List<Vector2>();
+		private List<Dot> rects = new List<Dot>();
 		private List<Rect> rs = new List<Rect>();
 		
 		public override void Paint(Level level) {
@@ -46,7 +46,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		private void PlacePad(Level level, Rect rect) {
-			var c = new Vector2(rect.Left + rect.GetWidth() / 2, rect.Top + rect.GetHeight() / 2);
+			var c = new Dot(rect.Left + rect.GetWidth() / 2, rect.Top + rect.GetHeight() / 2);
 			PlaceStand(level, c * 16);
 			rects.Add(c);
 			rs.Add(rect);

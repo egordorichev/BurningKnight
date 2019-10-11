@@ -1,5 +1,6 @@
 using BurningKnight.entity.room;
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -16,7 +17,7 @@ namespace BurningKnight.level.rooms.trap {
 			
 			Painter.Fill(level, r, Tile.Plate);
 
-			Painter.Set(level, new Vector2(Random.Int(r.Left, r.Right), Random.Int(r.Top, r.Bottom)), Tile.FloorD);
+			Painter.Set(level, new Dot(Random.Int(r.Left, r.Right), Random.Int(r.Top, r.Bottom)), Tile.FloorD);
 		}
 
 		public override void ModifyRoom(Room room) {

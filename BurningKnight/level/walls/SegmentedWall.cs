@@ -35,8 +35,8 @@ namespace BurningKnight.level.walls {
 					if (level.Get(splitX, area.Top - 1) == tile && level.Get(splitX, area.Bottom + 1) == tile) {
 						tries = 0;
 						
-						Painter.DrawLine(level, new Vector2(splitX, area.Top),
-							new Vector2(splitX, area.Bottom), tile);
+						Painter.DrawLine(level, new Dot(splitX, area.Top),
+							new Dot(splitX, area.Bottom), tile);
 
 						var space = Random.Int(area.Top, area.Bottom - 1);
 						var f = fl ? Tile.SensingSpikeTmp : Tiles.RandomFloorOrSpike();
@@ -55,7 +55,7 @@ namespace BurningKnight.level.walls {
 					if (level.Get(area.Left - 1, splitY) == tile && level.Get(area.Right + 1, splitY) == tile) {
 						tries = 0;
 						
-						Painter.DrawLine(level, new Vector2(area.Left, splitY), new Vector2(area.Right, splitY), tile);
+						Painter.DrawLine(level, new Dot(area.Left, splitY), new Dot(area.Right, splitY), tile);
 
 						var space = Random.Int(area.Left, area.Right - 1);
 						var f = fl ? Tile.SensingSpikeTmp : Tiles.RandomFloorOrSpike();

@@ -398,6 +398,9 @@
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
+    <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
@@ -919,7 +922,7 @@
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
-    <Compile Include="util\geometry\Point.cs" />
+    <Compile Include="util\geometry\Dot.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\LoadScreenTitles.cs" />

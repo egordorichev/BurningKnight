@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using BurningKnight.util.geometry;
 
 namespace BurningKnight.level {
 	public class DoorPlaceholder {
@@ -17,9 +17,9 @@ namespace BurningKnight.level {
 		public int X;
 		public int Y;
 		
-		public DoorPlaceholder(Vector2 P) {
-			X = (int) P.X;
-			Y = (int) P.Y;
+		public DoorPlaceholder(Dot P) {
+			X = P.X;
+			Y = P.Y;
 		}
 
 		public enum Variant {

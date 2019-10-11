@@ -2,6 +2,7 @@ using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.preboss {
@@ -18,21 +19,21 @@ namespace BurningKnight.level.rooms.preboss {
 				var g = p.Key is BossRoom;
 
 				if (g) {
-					Point a;
-					Point b;
+					Dot a;
+					Dot b;
 
 					if (d.X == Left) {
-						a = new Point(Left + 4, Top + 4);
-						b = new Point(Left + 4, Top + 6);
+						a = new Dot(Left + 4, Top + 4);
+						b = new Dot(Left + 4, Top + 6);
 					} else if (d.X == Right) {
-						a = new Point(Right - 4, Top + 4);
-						b = new Point(Right - 4, Top + 6);
+						a = new Dot(Right - 4, Top + 4);
+						b = new Dot(Right - 4, Top + 6);
 					} else if (d.Y == Top) {
-						a = new Point(Left + 4, Top + 4);
-						b = new Point(Left + 6, Top + 4);
+						a = new Dot(Left + 4, Top + 4);
+						b = new Dot(Left + 6, Top + 4);
 					} else {
-						a = new Point(Left + 4, Bottom - 4);
-						b = new Point(Left + 6, Bottom - 4);
+						a = new Dot(Left + 4, Bottom - 4);
+						b = new Dot(Left + 6, Bottom - 4);
 					}
 
 					var ta = new Torch();
@@ -47,32 +48,32 @@ namespace BurningKnight.level.rooms.preboss {
 					
 				}
 
-				Vector2 from;
-				Vector2 to;
+				Dot from;
+				Dot to;
 
 				if (d.X == Left) {
-					to = new Vector2(Left + 3, Top + 5);
-					from = new Vector2(d.X + 1, d.Y);
+					to = new Dot(Left + 3, Top + 5);
+					from = new Dot(d.X + 1, d.Y);
 				} else if (d.X == Right) {
-					to = new Vector2(Right - 3, Top + 5);
-					from = new Vector2(d.X - 1, d.Y);
+					to = new Dot(Right - 3, Top + 5);
+					from = new Dot(d.X - 1, d.Y);
 				} else if (d.Y == Top) {
-					to = new Vector2(Left + 5, Top + 3);
-					from = new Vector2(d.X, d.Y + 1);
+					to = new Dot(Left + 5, Top + 3);
+					from = new Dot(d.X, d.Y + 1);
 				} else {
-					to = new Vector2(Left + 5, Bottom - 3);
-					from = new Vector2(d.X, d.Y - 1);
+					to = new Dot(Left + 5, Bottom - 3);
+					from = new Dot(d.X, d.Y - 1);
 				}
 
 				var f = g ? Tile.FloorD : Tiles.RandomFloor();
 
 				if (d.X == Left || d.X == Right) {
-					var n = new Vector2(from.X, to.Y);
+					var n = new Dot(from.X, to.Y);
 					
 					Painter.DrawLine(level, from, n, f);
 					Painter.DrawLine(level, n, to, f);
 				} else {
-					var n = new Vector2(to.X, from.Y);
+					var n = new Dot(to.X, from.Y);
 					
 					Painter.DrawLine(level, from, n, f);
 					Painter.DrawLine(level, n, to, f);

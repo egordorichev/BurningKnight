@@ -1,5 +1,6 @@
 ﻿using Lens;
 using Lens.assets;
+using Lens.graphics.gamerenderer;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.assets {
@@ -30,6 +31,7 @@ namespace BurningKnight.assets {
 			
 			state.End();
 			state.SurfaceEffect = effect;
+			state.SpriteSortMode = SpriteSortMode.Immediate;
 			effect.CurrentTechnique.Passes[0].Apply();
 			state.Begin();
 		}
@@ -38,6 +40,7 @@ namespace BurningKnight.assets {
 			var state = Engine.Instance.StateRenderer;
 			
 			state.End();
+			state.SpriteSortMode = GameRenderer.DefaultSortMode;
 			state.SurfaceEffect = null;
 			state.Begin();
 		}

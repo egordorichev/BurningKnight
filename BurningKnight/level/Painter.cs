@@ -236,7 +236,7 @@ namespace BurningKnight.level {
 					continue;
 				}
 				
-				item.Center = rooms[Random.Int(rooms.Count)].GetRandomFreeCell().Value * 16;
+				item.Center = (rooms[Random.Int(rooms.Count)].GetRandomFreeCell() * 16).ToVector();
 			}
 
 			Level.ItemsToSpawn = null;
@@ -293,16 +293,16 @@ namespace BurningKnight.level {
 				
 				var point = wall ? room.GetRandomCellNearWall() : room.GetRandomDoorFreeCell();
 
-				if (!point.HasValue) {
+				if (point == null) {
 					continue;
 				}
 				
 				weight -= mob.GetWeight();
 
 				if (wall) {
-					mob.Position = new Vector2(point.Value.X * 16, point.Value.Y * 16 - 8);
+					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
 				} else {
-					mob.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-2, 2), point.Value.Y * 16 + 8 + Random.Float(-2, 2));
+					mob.Center = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
 				}
 
 				level.Area.Add(mob);
@@ -340,7 +340,7 @@ namespace BurningKnight.level {
 
 				if (Door == null) {
 					var I = R.Intersect(N);
-					var DoorSpots = new List<Vector2>();
+					var DoorSpots = new List<Dot>();
 
 					foreach (var P in I.GetPoints()) {
 						if (R.CanConnect(N, P) && N.CanConnect(R, P)) {
@@ -349,8 +349,7 @@ namespace BurningKnight.level {
 					}
 
 					if (DoorSpots.Count > 0) {
-						var Point = DoorSpots[Random.Int(DoorSpots.Count)];
-						Door = new DoorPlaceholder(Point);
+						Door = new DoorPlaceholder(DoorSpots[Random.Int(DoorSpots.Count)]);
 						R.Connected[N] = Door;
 						N.Connected[R] = Door;
 					} else {
@@ -383,9 +382,8 @@ namespace BurningKnight.level {
 				if (!placed) {
 					var v = R.GetRandomFreeCell();
 
-					if (v.HasValue) {
-						var p = v.Value;
-						SetBold(Level, (int) p.X, (int) p.Y, Ice ? Tile.Ice : Tile.Water);
+					if (v != null) {
+						SetBold(Level, v.X, v.Y, Ice ? Tile.Ice : Tile.Water);
 					}
 				}
 			}
@@ -548,12 +546,12 @@ namespace BurningKnight.level {
 					
 					var point = Room.GetRandomDoorFreeCell();
 
-					if (!point.HasValue) {
+					if (point == null) {
 						continue;
 					}
 					
 					Level.Area.Add(prop);
-					prop.Center = new Vector2(point.Value.X * 16 + 8 + Random.Float(-3, 3), point.Value.Y * 16 + 8 + Random.Float(-3, 3));
+					prop.Center = new Vector2(point.X * 16 + 8 + Random.Float(-3, 3), point.Y * 16 + 8 + Random.Float(-3, 3));
 				}
 			}
 		}
@@ -663,7 +661,7 @@ namespace BurningKnight.level {
 			}
 		}
 
-		public static void Set(Level Level, Vector2 P, Tile Value) {
+		public static void Set(Level Level, Dot P, Tile Value) {
 			Set(Level, (int) P.X, (int) P.Y, Value);
 		}
 
@@ -689,20 +687,20 @@ namespace BurningKnight.level {
 		}
 
 		public static void Rect(Level level, int X, int Y, int W, int H, Tile value, bool bold = false) {
-			DrawLine(level, new Vector2(X, Y), new Vector2(X + W, Y), value, bold);
-			DrawLine(level, new Vector2(X, Y + H), new Vector2(X + W, Y + H), value, bold);
-			DrawLine(level, new Vector2(X, Y), new Vector2(X, Y + H), value, bold);
-			DrawLine(level, new Vector2(X + W, Y), new Vector2(X + W, Y + H), value, bold);
+			DrawLine(level, new Dot(X, Y), new Dot(X + W, Y), value, bold);
+			DrawLine(level, new Dot(X, Y + H), new Dot(X + W, Y + H), value, bold);
+			DrawLine(level, new Dot(X, Y), new Dot(X, Y + H), value, bold);
+			DrawLine(level, new Dot(X + W, Y), new Dot(X + W, Y + H), value, bold);
 		}
 
-		public static void Triangle(Level Level, Vector2 From, Vector2 P1, Vector2 P2, Tile V) {
+		public static void Triangle(Level Level, Dot From, Dot P1, Dot P2, Tile V) {
 			if ((int) P1.X != (int) P2.X) {
 				for (var X = P1.X; X < P2.X; X++) {
-					DrawLine(Level, From, new Vector2(X, P1.Y), V);
+					DrawLine(Level, From, new Dot(X, P1.Y), V);
 				}
 			} else {
 				for (var Y = P1.Y; Y < P2.Y; Y++) {
-					DrawLine(Level, From, new Vector2(P1.X, Y), V);
+					DrawLine(Level, From, new Dot(P1.X, Y), V);
 				}
 			}
 		}
@@ -719,7 +717,7 @@ namespace BurningKnight.level {
 			Fill(Level, Rect.Left + L, Rect.Top + T, Rect.GetWidth() - (L + R), Rect.GetHeight() - (T + B), Value);
 		}
 
-		public static void DrawLine(Level Level, Vector2 From, Vector2 To, Tile Value, bool Bold = false) {
+		public static void DrawLine(Level Level, Dot From, Dot To, Tile Value, bool Bold = false) {
 			float X = From.X;
 			float Y = From.Y;
 			float Dx = To.X - From.X;

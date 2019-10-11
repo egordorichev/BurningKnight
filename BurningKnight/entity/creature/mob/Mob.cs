@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
@@ -24,9 +25,12 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
 		public Entity Target;
+		public bool HasPrefix => Prefix != null;
 
 		protected List<Entity> CollidingToHurt = new List<Entity>();
 		protected int TouchDamage = 1;
+		protected Prefix Prefix;
+
 		
 		public override void AddComponents() {
 			base.AddComponents();

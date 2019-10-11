@@ -1,5 +1,6 @@
 using BurningKnight.entity.creature.bk.forms;
 using BurningKnight.entity.creature.bk.forms.king;
+using BurningKnight.util.geometry;
 using Lens;
 using Microsoft.Xna.Framework;
 
@@ -9,7 +10,7 @@ namespace BurningKnight.level.rooms.entrance {
 			var boss = new BurningKing();
 			level.Area.Add(boss);
 
-			boss.Center = GetCenter() * 16 + new Vector2(0, -32);
+			boss.Center = (GetCenter() * 16 + new Dot(0, -32)).ToVector();
 			
 			Place(level, GetTileCenter());
 		}
