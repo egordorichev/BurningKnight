@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
+using BurningKnight.state;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
@@ -38,12 +39,16 @@ namespace BurningKnight.entity.door {
 		}
 		
 		protected virtual void UpdateState() {
-			var shouldLock = false;
+			var shouldLock = Run.Depth >= Run.ContentEndDepth;
 
-			foreach (var r in rooms) {
-				if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 && r.Tagged[Tags.MustBeKilled].Count > 0) {
-					shouldLock = true;
-					break;
+			if (!shouldLock) {
+				foreach (var r in rooms) {
+					if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 &&
+					    r.Tagged[Tags.MustBeKilled].Count > 0) {
+						shouldLock = true;
+
+						break;
+					}
 				}
 			}
 

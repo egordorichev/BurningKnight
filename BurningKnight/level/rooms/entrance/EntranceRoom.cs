@@ -50,7 +50,7 @@ namespace BurningKnight.level.rooms.entrance {
 
 			torch.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
 
-			if (GlobalSave.IsFalse("control_roll")) {
+			if ((Run.Depth == Run.ContentEndDepth) || (Run.Depth == 1 && GlobalSave.IsFalse("control_roll"))) {
 				var om = new OldMan();
 				level.Area.Add(om);
 				om.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);

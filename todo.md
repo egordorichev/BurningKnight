@@ -1,13 +1,9 @@
-* brain
-* shield weapon (hurting/not hurting variants)
+# scoped down
 
-* the ring
-* ring of gold
-* wings
-* laser pointer
-* star
-* zoom
-* poison, charisma (minor sale), charm rings
+* active item use hint
+* boss appearence should be much faster
+* make spawn trigger smaller, so that you dont die in the chasm
+* one basic bk pattern, not super hard
 
 ## for showcase
 
@@ -154,7 +150,16 @@ gobbo hurt/heal
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 
 ### items
+* brain
+* shield weapon (hurting/not hurting variants)
 
+* the ring
+* ring of gold
+* wings
+* laser pointer
+* star
+* zoom
+* poison, charisma (minor sale), charm rings
 * Mines
 
 * weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
