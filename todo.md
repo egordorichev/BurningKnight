@@ -25,6 +25,7 @@
 
 # TODO
 
+* troll bombs
 * buffs display on mobs (like frozen and poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
@@ -183,6 +184,7 @@ gobbo hurt/heal
 * animated hats
 * separate hat sprite for when you duck
 
+* makes bomb explode really soon
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * discord rod should damage everything it tourches from point where you were to where you tp
@@ -199,7 +201,6 @@ gobbo hurt/heal
 * d1
 * d4
 * d2
-* d8
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * matches (sets you on fire)

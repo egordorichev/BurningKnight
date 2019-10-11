@@ -90,6 +90,8 @@ namespace BurningKnight.entity.item.use {
 			Register<TriggerHurtEventUse>();
 			Register<SetKnockbackModifierUse>(SetKnockbackModifierUse.RenderDebug);
 			Register<RandomActiveUse>();
+			Register<CurseUse>();
+			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
 		}
 	}
 }

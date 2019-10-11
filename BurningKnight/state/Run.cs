@@ -23,6 +23,7 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
+		public static int Curse;
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		
@@ -70,6 +71,8 @@ namespace BurningKnight.state {
 			KillCount = 0;
 			Time = 0;
 			HasRun = false;
+			Luck = 0;
+			Curse = 0;
 			Seed = Random.GenerateSeed();
 		}
 
