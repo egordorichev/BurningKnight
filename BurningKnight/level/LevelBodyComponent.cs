@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
+using VelcroPhysics.Utilities;
+using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.level {
 	public class LevelBodyComponent : BodyComponent {
@@ -37,8 +39,31 @@ namespace BurningKnight.level {
 			}
 
 			if (toUpdate.Count > 0) {
-				var updated = new List<int>();
 				var level = (Level) Entity;
+
+				for (var y = 1; y < level.Height - 1; y++) {
+					for (var x = 1; x < level.Width - 1; x++) {
+						var t = level.Get(x, y);
+
+						if (t == Tile.WallA || t == Tile.Transition) {
+							var c = 0;
+							
+							foreach (var d in MathUtils.Directions) {
+								if (level.Get(x + (int) d.X, y + (int) d.Y) == t) {
+									c++;
+								}	
+							}
+
+							if (t == Tile.WallA && c == 8) {
+								level.Set(x, y, Tile.Transition);
+							} else if (t == Tile.Transition && c < 8) {
+								level.Set(x, y, Tile.WallA);
+							}
+						}
+					}
+				}
+				
+				var updated = new List<int>();
 
 				foreach (var u in toUpdate) {
 					var cx = (int) Math.Floor(level.FromIndexX(u) / (float) ChunkSize);
