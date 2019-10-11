@@ -173,7 +173,7 @@ namespace BurningKnight.level.entities.decor {
 						Tween.To(1f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.8f);
 						((InGameState) BK.Instance.State).ResetFollowing();
 					}, 1f);
-				}, torches.Count + 3);
+				}, torches.Count + 1);
 			}, 1f);
 			
 			return true;

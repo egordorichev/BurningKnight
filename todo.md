@@ -1,15 +1,12 @@
 # scoped down
 
-* bk room should be well lit
-* bk should emit light too
-
 * tile fx fadeout
 * fix game fps
 * tunnel bug, where tunnel connects by corner
 
-* one basic bk pattern, not super hard
-
-* curse
+* resprite bk
+* curse mechanics
+* curse when breaking statue
 * cursed mobs
 * items that give curse
 * explodable barrels placement
