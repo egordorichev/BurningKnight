@@ -15,7 +15,7 @@ namespace BurningKnight.entity.item.use {
 		public bool Random;
 
 		public override void Use(Entity entity, Item item) {
-			var id = Random ? Items.Generate() : Item;
+			var id = Random ? Items.Generate(i => i.Type == ItemType.Active || i.Type == ItemType.Weapon || i.Type == ItemType.Artifact) : Item;
 			
 			if (OnStand) {
 				var i = Items.CreateAndAdd(id, entity.Area);

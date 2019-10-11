@@ -3,7 +3,9 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.input;
 
@@ -18,14 +20,13 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		public override bool HandleEvent(Event e) {
-			if (e is RoomClearedEvent) {
-				if (Item != null && Item.UseTime > 0) {
-					Item.Delay = Math.Max(0, Item.Delay - 1);
-				}
-			}
+		protected override void OnItemSet(Item previous) {
+			base.OnItemSet(previous);
 			
-			return base.HandleEvent(e);
+			if (GlobalSave.IsFalse("control_active")) {
+				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Active, GamepadComponent.Current != null));
+				Entity.GetComponent<DialogComponent>().Start("control_6");
+			}
 		}
 
 		public override void Update(float dt) {
@@ -33,6 +34,11 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Item != null && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
 				if (Item.Use((Player) Entity)) {
+					if (GlobalSave.IsFalse("control_active")) {
+						Entity.GetComponent<DialogComponent>().Close();
+						GlobalSave.Put("control_active", true);
+					}
+					
 					Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("active_item");
 
 					if (Item.SingleUse) {
