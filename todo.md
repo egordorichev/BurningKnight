@@ -1,11 +1,18 @@
 # scoped down
 
-* fix game fps
+* bk room should be well lit
+* bk should emit light too
 
-* active item use hint
-* boss appearence should be much faster
-* make spawn trigger smaller, so that you dont die in the chasm
+* tile fx fadeout
+* fix game fps
+* tunnel bug, where tunnel connects by corner
+
 * one basic bk pattern, not super hard
+
+* curse
+* cursed mobs
+* items that give curse
+* explodable barrels placement
 
 ## for showcase
 
@@ -18,7 +25,6 @@
 * don't allow to exit fullscreeen mode, only through console
 * console under password or smth?
 * flickering bullets?
-* explodable barrels placement
 
 # TODO
 

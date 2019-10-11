@@ -98,6 +98,7 @@ namespace BurningKnight.ui.imgui {
 				ImGui.Text($"FBO binds: {Engine.Graphics.GraphicsDevice.Metrics.TargetCount}");
 				ImGui.Text($"Shader binds: {Engine.Graphics.GraphicsDevice.Metrics.PixelShaderCount}");
 				ImGui.Text($"Texture count: {Engine.Graphics.GraphicsDevice.Metrics.TextureCount}");
+
 				ImGui.Spacing();
 				ImGui.Checkbox("Enable batcher", ref GameRenderer.EnableBatcher);
 			}

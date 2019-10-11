@@ -7,10 +7,10 @@ using SharpDX.Direct2D1.Effects;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
-		// public Batcher2D Batcher2D;
+		public Batcher2D Batcher2D;
 
-		private Matrix One = Matrix.Identity;
-		private Matrix UiScale = Matrix.Identity;
+		private Matrix one = Matrix.Identity;
+		private Matrix uiScale = Matrix.Identity;
 
 		private bool inUi;
 		
@@ -20,7 +20,7 @@ namespace Lens.graphics.gamerenderer {
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 			);
 			
-			// Batcher2D = new Batcher2D(Engine.GraphicsDevice);
+			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
 		}
 
 		public override void Begin() {
@@ -29,7 +29,7 @@ namespace Lens.graphics.gamerenderer {
 				return;
 			}
 			
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? One);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 		}
 
 		public override void End() {
@@ -38,7 +38,7 @@ namespace Lens.graphics.gamerenderer {
 		
 		public void BeginShadows() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? One);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 			Graphics.Clear(Color.Transparent);
 		}
 
@@ -57,7 +57,7 @@ namespace Lens.graphics.gamerenderer {
 
 		private void BeginUi() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, UiScale);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, uiScale);
 		}
 
 		private void RenderUi() {
@@ -80,7 +80,7 @@ namespace Lens.graphics.gamerenderer {
 			var start = EnableBatcher;
 			
 			if (start) {
-				//Batcher2D.Begin();
+				Batcher2D.Begin();
 			}
 			
 			RenderGame();
@@ -91,7 +91,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.GraphicsDevice.SetRenderTarget(null);
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
 		
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, One);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, one);
 
 			if (Camera.Instance != null) {
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
@@ -109,7 +109,7 @@ namespace Lens.graphics.gamerenderer {
 			Graphics.Batch.End();
 
 			if (UiTarget != null) {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, One);
+				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, one);
 				UiEffect?.Parameters["tint"].SetValue(ColorUtils.HalfBlack);
 				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
 				var v = 0.7f;
@@ -123,7 +123,7 @@ namespace Lens.graphics.gamerenderer {
 			Engine.Instance.State?.RenderNative();
 
 			if (start) {
-				//Batcher2D.End();
+				Batcher2D.End();
 			}
 		}
 
@@ -135,7 +135,7 @@ namespace Lens.graphics.gamerenderer {
 				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
 			);
 
-			UiScale = Matrix.Identity * Matrix.CreateScale(Engine.Instance.UiUpscale);
+			uiScale = Matrix.Identity * Matrix.CreateScale(Engine.Instance.UiUpscale);
 		}
 
 		public override void Destroy() {
@@ -143,7 +143,7 @@ namespace Lens.graphics.gamerenderer {
 			
 			GameTarget.Dispose();
 			UiTarget?.Dispose();
-			//Batcher2D.Dispose();
+			Batcher2D.Dispose();
 		}
 	}
 }

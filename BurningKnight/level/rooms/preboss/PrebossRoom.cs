@@ -98,32 +98,5 @@ namespace BurningKnight.level.rooms.preboss {
 		public override int GetMaxHeight() {
 			return 12;
 		}
-
-		public override bool CanConnect(RoomDef R, Vector2 P) {
-			if (R is BossRoom) {
-				var x = (int) P.X;
-				var y = (int) P.Y;
-
-				if (x == Left || x == Right) {
-					if (y != Top + GetHeight() / 2) {
-						return false;
-					}
-				} else if (y == Top || y == Bottom) {
-					if (x != Left + GetWidth() / 2) {
-						return false;
-					}
-				}
-			}
-
-			return base.CanConnect(R, P);
-		}
-
-		/*public override int GetMaxConnections(Connection Side) {
-			if (Side == Connection.All) {
-				return 3;
-			}
-
-			return 1;
-		}*/
 	}
 }
