@@ -59,7 +59,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 						return;
 					}
 
-					var a = Self.GetComponent<AnimationComponent>();
+					var a = Self.GetComponent<MobAnimationComponent>();
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("bandit1");
 					
 					Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);

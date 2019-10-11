@@ -307,6 +307,7 @@ namespace BurningKnight.level {
 				}
 
 				level.Area.Add(mob);
+				mob.GeneratePrefix();
 
 				if (!mob.CanSpawnMultiple()) {
 					types.RemoveAt(id);

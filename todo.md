@@ -1,12 +1,11 @@
 # scoped down
 
-* tile fx fadeout
 * fix game fps
 
 * resprite bk
 * curse getting animation
-* cursed mobs
 
+* more prefixes
 * curse of unknown (do not know hp)
 * curse of lost (rooms get forgetten)
 * curse of ??? (do not know consumable counts)

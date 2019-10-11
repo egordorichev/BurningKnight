@@ -3,7 +3,7 @@ using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
-	public class ZAnimationComponent : AnimationComponent {
+	public class ZAnimationComponent : MobAnimationComponent {
 		public Vector2 Scale = Vector2.One;
 		
 		public ZAnimationComponent(string animationName, string layer = null, string tag = null) : base(animationName, layer, tag) {

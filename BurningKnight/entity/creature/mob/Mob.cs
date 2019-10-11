@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
@@ -17,6 +18,7 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -25,12 +27,12 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
 		public Entity Target;
-		public bool HasPrefix => Prefix != null;
-
+		public bool HasPrefix => prefix != null;
+		public Prefix Prefix => prefix;
+		
 		protected List<Entity> CollidingToHurt = new List<Entity>();
 		protected int TouchDamage = 1;
-		protected Prefix Prefix;
-
+		private Prefix prefix;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -58,7 +60,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void AddAnimation(string name, string layer = null) {
-			AddComponent(new AnimationComponent(name, layer));
+			AddComponent(new MobAnimationComponent(name, layer));
 		}
 		
 		protected void SetMaxHp(int hp) {
@@ -86,6 +88,7 @@ namespace BurningKnight.entity.creature.mob {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			prefix?.Update(dt);
 			HandleBreaking();
 
 			if (Target == null) {
@@ -114,6 +117,10 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (prefix != null && prefix.HandleEvent(e)) {
+				e.Handled = true;
+			}
+			
 			if (e is BuffAddedEvent add && add.Buff is CharmedBuff || e is BuffRemovedEvent del && del.Buff is CharmedBuff) {
 				// If old target even was a thing, it was from wrong category
 				FindTarget();
@@ -310,5 +317,47 @@ namespace BurningKnight.entity.creature.mob {
 			return false;
 		}
 		#endregion
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			var str = stream.ReadString();
+
+			if (str != null) {
+				SetPrefix(str);
+			}
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteString(prefix?.Id);
+		}
+
+		public void GeneratePrefix() {
+			if (!Random.Chance(Run.Curse * 10 + 0.5f)) {
+				return;
+			}
+
+			var all = PrefixRegistry.Defined.Keys.ToArray();
+			SetPrefix(all[Random.Int(all.Length)]);
+		}
+
+		public void SetPrefix(string id) {
+			if (!PrefixRegistry.Defined.TryGetValue(id, out var t)) {
+				return;
+			}
+
+			try {
+				var p = (Prefix) Activator.CreateInstance(t);
+
+				prefix = p;
+				
+				p.Id = id;
+				p.Mob = this;
+				p.Init();
+			} catch (Exception e) {
+				Log.Error(e);
+				return;
+			}
+		}
 	}
 }

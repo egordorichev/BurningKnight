@@ -104,7 +104,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 					lastBullet = 0.3f;
 
 					var an = angle + Random.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
-					var a = Self.GetComponent<AnimationComponent>();
+					var a = Self.GetComponent<MobAnimationComponent>();
 					
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("gunner_charge");
 

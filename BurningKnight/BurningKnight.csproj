@@ -349,6 +349,7 @@
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
+    <Compile Include="entity\component\MobAnimationComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\ExtraAnimationComponent.cs" />
     <Compile Include="entity\component\OrbitalComponent.cs" />

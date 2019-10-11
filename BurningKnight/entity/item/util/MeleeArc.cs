@@ -61,7 +61,11 @@ namespace BurningKnight.entity.item.util {
 					fixture.GetAABB(out var hitbox, 0);
 
 					Run.Level.Destroyable.Break(hitbox.Center.X, hitbox.Center.Y);
-				} else */if (ev.Entity is Projectile p && (p.Owner is Mob != Owner is Mob || p.Owner is RoomControllable)) {
+				} else */
+
+				if (ev.Entity is Bomb) {
+					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
+				} else if (ev.Entity is Projectile p && (p.Owner is Mob != Owner is Mob || p.Owner is RoomControllable)) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
 

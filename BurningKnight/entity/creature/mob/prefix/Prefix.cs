@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob.prefix {
 	public abstract class Prefix {
 		public Mob Mob;
-
+		public string Id;
+		
 		public virtual void Init() {
 			
 		}
@@ -17,6 +18,6 @@ namespace BurningKnight.entity.creature.mob.prefix {
 			return false;
 		}
 
-		public abstract Color GetColor();
+		public abstract Vector4 GetColor();
 	}
 }
