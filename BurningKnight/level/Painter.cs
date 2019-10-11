@@ -128,6 +128,7 @@ namespace BurningKnight.level {
 
 			for (int i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
+
 				PlaceDoors(Room);
 				Room.PaintFloor(Level);
 				Room.Paint(Level);

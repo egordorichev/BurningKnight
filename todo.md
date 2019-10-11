@@ -2,7 +2,6 @@
 
 * tile fx fadeout
 * fix game fps
-* tunnel bug, where tunnel connects by corner
 
 * resprite bk
 * curse getting animation
@@ -171,6 +170,7 @@ gobbo hurt/heal
 * zoom
 * poison, charisma (minor sale), charm rings
 * Mines
+* your bullets break enemy bullets
 
 * weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 

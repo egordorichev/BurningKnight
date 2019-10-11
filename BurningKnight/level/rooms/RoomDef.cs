@@ -480,14 +480,18 @@ namespace BurningKnight.level.rooms {
 			return C;
 		}
 
-		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false, bool shift = true) {
+		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true) {
 			if (Connected.Count == 0) {
 				Log.Error("Invalid connection room");
 
 				return;
 			}
-			
+
 			var C = space ?? GetConnectionSpace();
+			var minLeft = C.Left;
+			var maxRight = C.Right;
+			var minTop = C.Top;
+			var maxBottom = C.Bottom;
 
 			foreach (var Door in Connected.Values) {
 				var Start = new Dot(Door.X, Door.Y);
@@ -526,15 +530,53 @@ namespace BurningKnight.level.rooms {
 				}
 
 				if (Door.X == Left || Door.X == Right) {
-					Mid = new Dot(Start.X + RightShift, Start.Y);
-					End = new Dot(Mid.X, Mid.Y + DownShift);
+					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Start.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 1, Start.Y));
+					End = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Mid.X), MathUtils.Clamp(Top + 1, Bottom - 1, Mid.Y + DownShift));
 				} else {
-					Mid = new Dot(Start.X, Start.Y + DownShift);
-					End = new Dot(Mid.X + RightShift, Mid.Y);
+					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Start.X), MathUtils.Clamp(Top + 1, Bottom - 1, Start.Y + DownShift));
+					End = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Mid.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 1, Mid.Y));
 				}
 
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
 				Painter.DrawLine(Level, Mid, End, Floor, Bold);
+
+				if (Random.Chance(10)) {
+					Painter.Set(Level, End, Tiles.RandomFloor());
+				}
+
+				minLeft = Math.Min(minLeft, End.X);
+				minTop = Math.Min(minTop, End.Y);
+				maxRight = Math.Max(maxRight, End.X);
+				maxBottom = Math.Max(maxBottom, End.Y);
+			}
+
+			if (randomRect && Random.Chance(20)) {
+				if (Random.Chance()) {
+					minLeft--;
+				}
+				
+				if (Random.Chance()) {
+					minTop--;
+				}
+				
+				if (Random.Chance()) {
+					maxRight++;
+				}
+				
+				if (Random.Chance()) {
+					maxBottom++;
+				}
+			}
+
+			minLeft = MathUtils.Clamp(Left + 1, Right - 1, minLeft);
+			minTop = MathUtils.Clamp(Top + 1, Bottom - 1, minTop);
+			maxRight = MathUtils.Clamp(Left + 1, Right - 1, maxRight);
+			maxBottom = MathUtils.Clamp(Top + 1, Bottom - 1, maxBottom);
+
+			if (Random.Chance()) {
+				Painter.Fill(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Random.Chance() ? Floor : Tiles.RandomFloorOrSpike());
+			} else {
+				Painter.Rect(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Random.Chance() ? Floor : Tiles.RandomFloorOrSpike());
 			}
 		}
 
