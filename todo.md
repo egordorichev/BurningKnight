@@ -5,9 +5,14 @@
 * tunnel bug, where tunnel connects by corner
 
 * resprite bk
-* curse mechanics
-* curse when breaking statue
+* curse getting animation
 * cursed mobs
+
+* curse of unknown (do not know hp)
+* curse of lost (rooms get forgetten)
+* curse of ??? (do not know consumable counts)
+* curse of ??? (items hidden)
+
 * items that give curse
 * explodable barrels placement
 

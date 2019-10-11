@@ -109,6 +109,8 @@ namespace BurningKnight.ui.imgui {
 				ImGui.Text($"Kills: {Run.KillCount}");
 				ImGui.Text($"Time: {Run.FormatTime()}");
 				ImGui.Text($"Has run: {Run.HasRun}");
+				ImGui.Text($"Luck: {Run.Luck}");
+				ImGui.Text($"Curse: {Run.Curse}");
 			}
 
 			if (ImGui.CollapsingHeader("Camera")) {

@@ -98,6 +98,8 @@ namespace BurningKnight.level.entities.decor {
 			if (Broken || busy) {
 				return true;
 			}
+
+			Run.Curse++;
 			
 			if (trigger != null) {
 				trigger.Interrupted = true;

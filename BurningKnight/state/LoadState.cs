@@ -68,6 +68,9 @@ namespace BurningKnight.state {
 				SaveManager.Load(gameArea, SaveType.Level, Path);
 				progress++;
 
+				Run.Luck = 0;
+				Run.Curse = 0;
+				
 				if (Run.Depth > 0) {
 					SaveManager.Load(gameArea, SaveType.Player, Path);
 				} else {
