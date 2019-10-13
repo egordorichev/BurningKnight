@@ -28,6 +28,9 @@ namespace BurningKnight.ui {
 
 			Tween.To(255, 0, x => Tint.A = (byte) x, 0.4f);
 
+			Tween.To(0.1f, 0.25f, x => Shaders.Screen.Parameters["blurTop"].SetValue(x), 0.4f);
+			Tween.To(0.4f, 0.25f, x => Shaders.Screen.Parameters["blurBottom"].SetValue(x), 0.4f);
+			
 			title = item.Name;
 			Label = item.Description;
 
@@ -47,6 +50,12 @@ namespace BurningKnight.ui {
 					title = null;
 					Done = true;
 				};
+				
+				Tween.To(0.25f, 0.1f, x => Shaders.Screen.Parameters["blurTop"].SetValue(x), 0.3f);
+				Tween.To(0.25f, 0.4f, x => Shaders.Screen.Parameters["blurBottom"].SetValue(x), 0.3f).OnEnd = () => {
+					Shaders.Screen.Parameters["blurTop"].SetValue(0f);
+					Shaders.Screen.Parameters["blurBottom"].SetValue(0f);
+				};
 			}, 3f);
 		}
 
@@ -56,6 +65,9 @@ namespace BurningKnight.ui {
 			if (last == this) {
 				last = null;
 			}
+			
+			Shaders.Screen.Parameters["blurTop"].SetValue(0f);
+			Shaders.Screen.Parameters["blurBottom"].SetValue(0f);
 		}
 
 		public override void Render() {

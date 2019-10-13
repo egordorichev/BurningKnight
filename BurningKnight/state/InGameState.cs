@@ -162,8 +162,6 @@ namespace BurningKnight.state {
 			vx = -Font.Small.MeasureString(v).Width;
 
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
-			Shaders.Screen.Parameters["blurTop"].SetValue(0.1f);
-			Shaders.Screen.Parameters["blurBottom"].SetValue(0.3f);
 			
 			SetupUi();
 

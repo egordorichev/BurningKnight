@@ -1,7 +1,6 @@
 # scoped down
 
 * bomb with q still broken
-* make the blur strip used only in item banner
 
 * fix game fps
 
@@ -16,6 +15,11 @@
 
 * items that give curse
 * explodable barrels placement
+
+* player stats:
+ + use rate
+ + speed
+ + range mod
 
 ## for showcase
 
