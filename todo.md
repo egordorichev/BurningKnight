@@ -1,9 +1,7 @@
 # scoped down
 
 * bomb with q still broken
-* ui layer is rendered twice, second time without the tint :/
 * make the blur strip used only in item banner
-* fix active items all being set to single use
 
 * fix game fps
 
@@ -163,9 +161,10 @@ gobbo hurt/heal
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 
 ### items
+
 * brain
 * shield weapon (hurting/not hurting variants)
-
+* single use item, that kills all enemies
 * the ring
 * ring of gold
 * wings
@@ -211,6 +210,7 @@ gobbo hurt/heal
 * d1
 * d4
 * d2
+* ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * matches (sets you on fire)
