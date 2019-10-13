@@ -2,6 +2,8 @@
 
 * bomb with q still broken
 * ui layer is rendered twice, second time without the tint :/
+* make the blur strip used only in item banner
+* fix active items all being set to single use
 
 * fix game fps
 
