@@ -110,12 +110,11 @@ namespace Lens.graphics.gamerenderer {
 
 			Graphics.Batch.End();
 
-			if (UiTarget != null) {
-				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, one);
-				UiEffect?.Parameters["tint"].SetValue(new Vector4(1f, 0f, 0f, 1f));
+			if (UiTarget != null && UiEffect != null) {
+				Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, one);
+				UiEffect.Parameters["bottom"].SetValue(1f);
 				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
-				var v = 0.7f;
-				UiEffect?.Parameters["tint"].SetValue(new Vector4(v, v, v, 1f));
+				UiEffect.Parameters["bottom"].SetValue(0f);
 				
 				Graphics.Render(UiTarget, Engine.Viewport);
 				

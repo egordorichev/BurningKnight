@@ -152,6 +152,8 @@ namespace BurningKnight.state {
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
 
+			Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
+			
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
