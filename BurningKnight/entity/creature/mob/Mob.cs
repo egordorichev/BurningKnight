@@ -77,19 +77,10 @@ namespace BurningKnight.entity.creature.mob {
 			}
 		}
 
-		protected virtual void HandleBreaking() {
-			var r = GetComponent<RoomComponent>().Room;
-
-			if (r != null && r.Type == RoomType.Connection) {
-				Done = true;
-			}
-		}
-		
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			prefix?.Update(dt);
-			HandleBreaking();
 
 			if (Target == null) {
 				FindTarget();

@@ -83,7 +83,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			sfx.Play(volume, pitch, pan);
+			sfx?.Play(volume, pitch, pan);
 		}
 		
 		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {

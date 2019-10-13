@@ -1,5 +1,9 @@
 # scoped down
 
+* play music when boss appears
+* bomb with q still broken
+* music speed depends on build type
+* music speed change support
 * fix game fps
 
 * resprite bk
@@ -17,6 +21,8 @@
  + use rate
  + speed
  + range mod
+
+* music speed changing
 
 ## for showcase
 

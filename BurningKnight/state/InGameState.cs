@@ -1333,7 +1333,7 @@ namespace BurningKnight.state {
 				Settings.MasterVolume = s.Value / 100f;
 			};
 			
-			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
+			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MusicVolume * 100)).OnValueChange = s => {
 				Settings.MusicVolume = s.Value / 100f;
 			};
 			
