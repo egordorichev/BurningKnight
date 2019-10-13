@@ -6,6 +6,7 @@ using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
 	public class ExplodingBarrel : SolidProp {
@@ -27,7 +28,7 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(h);
 			
-			h.InitMaxHealth = 5;
+			h.InitMaxHealth = 3;
 			h.RenderInvt = true;
 			
 			AddComponent(new ExplodableComponent());
@@ -47,6 +48,8 @@ namespace BurningKnight.level.entities {
 				var h = GetComponent<HealthComponent>();
 				h.InvincibilityTimer = h.InvincibilityTimerMax;
 				return true;
+			} else if (e is HealthModifiedEvent hme) {
+				hme.Amount = -1;
 			}
 			
 			return base.HandleEvent(e);

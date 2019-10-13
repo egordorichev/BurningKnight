@@ -41,7 +41,7 @@ namespace BurningKnight.level.rooms.entrance {
 			var t = level.Get((int) where.X, (int) where.Y);
 
 			if (Random.Chance(20) || !t.Matches(TileFlags.Passable)) {
-				where = GetRandomFreeCell() ?? GetTileCenter();
+				where = GetRandomDoorFreeCell() ?? GetTileCenter();
 			}
 			
 			prop.Center = (where * 16 + new Dot(8)).ToVector();
@@ -49,12 +49,12 @@ namespace BurningKnight.level.rooms.entrance {
 			var torch = new Torch();
 			level.Area.Add(torch);
 
-			torch.Center = ((GetRandomFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
+			torch.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
 
 			if ((Run.Depth == Run.ContentEndDepth) || (Run.Depth == 1 && GlobalSave.IsFalse("control_roll"))) {
 				var om = new OldMan();
 				level.Area.Add(om);
-				om.Center = ((GetRandomFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
+				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
 			}
 
 			/*

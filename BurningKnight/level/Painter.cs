@@ -453,6 +453,20 @@ namespace BurningKnight.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
+				// Explodable barrel
+
+				if ((Room is RegularRoom) && Random.Chance(20)) {
+					for (var i = 0; i < Random.Int(1, 4); i++) {
+						var p = Room.GetRandomDoorFreeCell();
+
+						if (p != null) {
+							var barrel = new ExplodingBarrel();
+							Level.Area.Add(barrel);
+							barrel.Center = p * 16 + new Vector2(8);
+						}
+					}
+				}
+
 				// Plants
 				if (Random.Chance(90)) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {

@@ -12,7 +12,6 @@
 * more prefixes
 
 * items that give curse
-* explodable barrels placement
 
 * player stats:
  + use rate

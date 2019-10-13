@@ -31,9 +31,9 @@ namespace BurningKnight.level.paintings {
 			Add("stars", "???");
 			Add("fog", "???");
 			Add("nufflee", "Nufflee");
-			Add("car", "???");
-			Add("moika", "???");
-			Add("sunset", "???");
+			// Add("car", "???");
+			// Add("moika", "???");
+			// Add("sunset", "???");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {
