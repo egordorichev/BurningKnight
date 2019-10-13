@@ -1,7 +1,5 @@
 # scoped down
 
-* bomb with q still broken
-
 * fix game fps
 
 * resprite bk
