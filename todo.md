@@ -250,6 +250,7 @@ gobbo hurt/heal
 
 ### Ideas
 
+* secret seeds
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer

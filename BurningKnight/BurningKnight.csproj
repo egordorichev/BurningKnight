@@ -977,6 +977,9 @@
     <None Include="./Content/Animations/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="./Content/Textures/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./lib/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
