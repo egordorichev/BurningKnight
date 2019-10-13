@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Aseprite;
 using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
@@ -117,7 +118,7 @@ namespace Lens.assets {
 		
 		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {
 			if (!Assets.LoadAudio) {
-				return;
+				// return;
 			}
 			
 			if (currentPlayingMusic == music) {
@@ -129,13 +130,13 @@ namespace Lens.assets {
 			Repeat = true;
 			
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				var ms = GetMusic(music);
+				/*var ms = GetMusic(music);
 
-				if (ms == null) {
 					return;
-				}
+				if (ms == null) {
+				}*/
 				
-				currentPlaying = new Music(ms);
+				currentPlaying = new Music(Assets.Content.Load<AudioFile>("bin/Music/Believer"));
 				musicInstances[music] = currentPlaying;
 				currentPlaying.PlayFromStart();
 			} else {

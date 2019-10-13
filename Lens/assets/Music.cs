@@ -1,28 +1,24 @@
 using System;
 using System.Reflection;
+using Aseprite;
 using Lens.util;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Lens.assets {
 	public class Music {
-		public const int SampleRate = 44100;
-		
 		public DynamicSoundEffectInstance SoundInstance;
 		public byte[] Buffer;
+		public int SampleRate;
+		public bool Stereo;
 		public float Volume = 1f;
 		public float Position;
 		public bool Paused;
 		public bool Repeat = true;
 
-		public Music(SoundEffect source) {
-			var data = GetInstanceField(typeof(SoundEffect), source, "SoundBuffer");
-			
-			if (data == null) {
-				Log.Error("Failed to grab data from sound effect");
-				return;
-			}
-
-			Log.Info("Grabbed sound data from the effect!");
+		public Music(AudioFile source) {
+			Buffer = source.Buffer;
+			SampleRate = source.SampleRate;
+			Stereo = source.Stereo;
 		}
 		
 		private static object GetInstanceField(Type type, object instance, string fieldName) {

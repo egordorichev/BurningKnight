@@ -8,7 +8,6 @@ namespace Aseprite {
 			using (var vorbis = new NVorbis.VorbisReader(filename)) {
 				var channels = vorbis.Channels;
 				var sampleRate = vorbis.SampleRate;
-				var totalTime = vorbis.TotalTime;
 				var bufferSize = channels * sampleRate / 5;
 				var readBuffer = new float[bufferSize];
 
