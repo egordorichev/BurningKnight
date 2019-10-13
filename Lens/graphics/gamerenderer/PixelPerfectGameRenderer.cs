@@ -66,11 +66,13 @@ namespace Lens.graphics.gamerenderer {
 			}
 
 			BeginUi();
-			Graphics.Clear(Color.Transparent);
-			Engine.Instance.State?.RenderUi();
-
+			
 			if (Engine.Instance.Flash > 0) {
 				Graphics.Clear(Engine.Instance.FlashColor);
+			} else {
+				Graphics.Clear(Color.Transparent);
+      	Engine.Instance.State?.RenderUi();
+
 			}
 			
 			End();
@@ -110,7 +112,7 @@ namespace Lens.graphics.gamerenderer {
 
 			if (UiTarget != null) {
 				Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, one);
-				UiEffect?.Parameters["tint"].SetValue(ColorUtils.HalfBlack);
+				UiEffect?.Parameters["tint"].SetValue(new Vector4(1f, 0f, 0f, 1f));
 				Graphics.Render(UiTarget, Engine.Viewport + new Vector2(0, Engine.Instance.UiUpscale));
 				var v = 0.7f;
 				UiEffect?.Parameters["tint"].SetValue(new Vector4(v, v, v, 1f));

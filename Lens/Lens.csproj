@@ -236,6 +236,7 @@
     <Compile Include="assets\Audio.cs" />
     <Compile Include="assets\Effects.cs" />
     <Compile Include="assets\Locale.cs" />
+    <Compile Include="assets\Music.cs" />
     <Compile Include="assets\Textures.cs" />
     <Compile Include="Cloner.cs" />
     <Compile Include="core\ConsoleCore.cs" />

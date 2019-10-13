@@ -1,15 +1,17 @@
 # scoped down
 
+* ui layer is rendered twice, second time without the tint :/
+
 * fix game fps
 
 * resprite bk
 * curse getting animation
 
-* more prefixes
 * curse of unknown (do not know hp)
 * curse of lost (rooms get forgetten)
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
+* more prefixes
 
 * items that give curse
 * explodable barrels placement
@@ -185,6 +187,7 @@ gobbo hurt/heal
  terminal head
  hat trader hat
  
+* double the items on floor
 * animated hats
 * separate hat sprite for when you duck
 
