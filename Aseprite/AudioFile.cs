@@ -3,6 +3,6 @@ namespace Aseprite {
 		public int SampleRate;
 		public bool Stereo;
 
-		public byte[] Buffer;
+		public float[] Buffer;
 	}
 }

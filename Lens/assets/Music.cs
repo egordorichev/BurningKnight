@@ -9,7 +9,7 @@ namespace Lens.assets {
 		public const int BufferSize = 2048 * 4;
 		
 		public DynamicSoundEffectInstance SoundInstance;
-		public byte[] Buffer;
+		public float[] Buffer;
 		public int SampleRate;
 		public bool Stereo;
 		public float Volume = 1f;
@@ -30,15 +30,17 @@ namespace Lens.assets {
 
 		private byte[] dynamicBuffer;
 		private int position;
+		private byte channels;
 		
 		public Music(AudioFile source) {
 			Buffer = source.Buffer;
 			SampleRate = source.SampleRate;
 			Stereo = source.Stereo;
+			channels = (byte) (Stereo ? 2 : 1);
 
 			SoundInstance = new DynamicSoundEffectInstance(SampleRate, Stereo ? AudioChannels.Stereo : AudioChannels.Mono);
 			SoundInstance.Play();
-			dynamicBuffer = new byte[BufferSize];
+			dynamicBuffer = new byte[BufferSize * 2];
 		}
 		
 		private static object GetInstanceField(Type type, object instance, string fieldName) {
@@ -49,13 +51,27 @@ namespace Lens.assets {
 
 		public void Update() {
 			while (SoundInstance.PendingBufferCount < 3) {
-				var bufferLength = Buffer.Length;
-				
-				for (var i = 0; i < BufferSize; i++) {
-					dynamicBuffer[i] = Buffer[position];
+				var bufferLength = Buffer.Length / channels;
+				var dynamicBufferLength = BufferSize / channels;
+
+				for (var i = 0; i < dynamicBufferLength; i++) {
+					for (var c = 0; c < channels; c++) {
+						var floatSample = Buffer[position * channels + c] * Volume;
+						var shortSample = (short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+						var index = (i * channels + c) * 2;
+
+						if (!BitConverter.IsLittleEndian) {
+							dynamicBuffer[index] = (byte) (shortSample >> 8);
+							dynamicBuffer[index + 1] = (byte) shortSample;
+						} else {
+							dynamicBuffer[index] = (byte) shortSample;
+							dynamicBuffer[index + 1] = (byte) (shortSample >> 8);
+						}
+					}
+					
 					position = (position + 1) % bufferLength;
 				}
-				
+
 				SoundInstance.SubmitBuffer(dynamicBuffer);
 			}
 		}

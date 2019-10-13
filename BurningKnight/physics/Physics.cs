@@ -23,6 +23,14 @@ namespace BurningKnight.physics {
 			World.ContactManager.BeginContact += BeginContact;
 			World.ContactManager.EndContact += EndContact;
 		}
+
+		public static void RemoveBody(Body body) {
+			try {
+				World?.RemoveBody(body);
+			} catch {
+				
+			}
+		}
 		
 		public static void PreSolve(Contact contact, ref Manifold oldManifold) {
 			var a = contact.FixtureA.Body.UserData;

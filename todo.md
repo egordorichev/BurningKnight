@@ -1,5 +1,6 @@
 # scoped down
 
+* bomb with q still broken
 * ui layer is rendered twice, second time without the tint :/
 
 * fix game fps

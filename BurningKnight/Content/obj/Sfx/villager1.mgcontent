@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/villager1.wav</SourceFile>
   <SourceTime>2019-10-12T12:19:05.1976836+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/villager1.xnb</DestFile>
-  <DestTime>2019-10-13T09:26:42.4975943+03:00</DestTime>
+  <DestTime>2019-10-13T13:13:00.0483943+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

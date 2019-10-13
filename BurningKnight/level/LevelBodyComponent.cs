@@ -75,7 +75,7 @@ namespace BurningKnight.level {
 					}
 
 					updated.Add(ci);
-					Physics.World.RemoveBody(chunks[ci]);
+					Physics.RemoveBody(chunks[ci]);
 					RecreateChunk(cx, cy);
 				}
 
@@ -96,7 +96,7 @@ namespace BurningKnight.level {
 			
 			if (chunks != null) {
 				foreach (var c in chunks) {
-					Physics.World.RemoveBody(c);
+					Physics.RemoveBody(c);
 				}
 
 				chunks = null;
@@ -115,7 +115,7 @@ namespace BurningKnight.level {
 			
 			if (chunks != null) {
 				foreach (var c in chunks) {
-					Physics.World.RemoveBody(c);
+					Physics.RemoveBody(c);
 				}
 			} else {
 				chunks = new Body[cs];
@@ -139,7 +139,7 @@ namespace BurningKnight.level {
 			var c = chunks[i];
 
 			if (c != null) {
-				Physics.World.RemoveBody(c);
+				Physics.RemoveBody(c);
 			}
 			
 			chunks[i] = body;

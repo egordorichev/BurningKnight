@@ -10,7 +10,11 @@ namespace Aseprite {
 			var stereo = input.ReadBoolean();
 			var sampleRate = input.ReadInt32();
 			var length = input.ReadInt32();
-			var buffer = input.ReadBytes(length);
+			var buffer = new float[length];
+
+			for (var i = 0; i < buffer.Length; i++) {
+				buffer[i] = input.ReadSingle();
+			}
 
 			return new AudioFile {
 				Stereo = stereo,

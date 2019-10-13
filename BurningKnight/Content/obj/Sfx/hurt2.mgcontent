@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/hurt2.wav</SourceFile>
   <SourceTime>2019-10-12T12:19:05.1136582+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/hurt2.xnb</DestFile>
-  <DestTime>2019-10-13T09:26:29.5873524+03:00</DestTime>
+  <DestTime>2019-10-13T13:12:53.0056185+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

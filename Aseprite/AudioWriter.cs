@@ -19,7 +19,10 @@ namespace Aseprite {
 			output.Write(value.Stereo);
 			output.Write(value.SampleRate);
 			output.Write(value.Buffer.Length);
-			output.Write(value.Buffer);
+
+			for (var i = 0; i < value.Buffer.Length; i++) {
+				output.Write(value.Buffer[i]);
+			}
 		}
 	}
 }

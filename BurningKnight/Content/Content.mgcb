@@ -44,167 +44,140 @@
 /processor:AudioProcessor
 /build:Music/Believer.ogg
 
-#begin Music/Born to do rogueries.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Born to do rogueries.mp3
+#begin Music/Born to do rogueries.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Born to do rogueries.ogg
 
-#begin Music/Botanical Expedition.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Botanical Expedition.mp3
+#begin Music/Botanical Expedition.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Botanical Expedition.ogg
 
-#begin Music/Burning Knight.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Burning Knight.mp3
+#begin Music/Burning Knight.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Burning Knight.ogg
 
-#begin Music/Cursed legend.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Cursed legend.mp3
+#begin Music/Cursed legend.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Cursed legend.ogg
 
-#begin Music/Disk 1.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 1.mp3
+#begin Music/Disk 1.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 1.ogg
 
-#begin Music/Disk 2.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 2.mp3
+#begin Music/Disk 2.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 2.ogg
 
-#begin Music/Disk 3.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 3.mp3
+#begin Music/Disk 3.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 3.ogg
 
-#begin Music/Disk 4.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 4.mp3
+#begin Music/Disk 4.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 4.ogg
 
-#begin Music/Disk 5.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 5.mp3
+#begin Music/Disk 5.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 5.ogg
 
-#begin Music/Disk 6.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 6.mp3
+#begin Music/Disk 6.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 6.ogg
 
-#begin Music/Disk 8.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 8.mp3
+#begin Music/Disk 8.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 8.ogg
 
-#begin Music/Disk 9.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Disk 9.mp3
+#begin Music/Disk 9.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Disk 9.ogg
 
-#begin Music/Fatiga.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Fatiga.mp3
+#begin Music/Fatiga.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Fatiga.ogg
 
-#begin Music/Frozen to the bones.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Frozen to the bones.mp3
+#begin Music/Frozen to the bones.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Frozen to the bones.ogg
 
-#begin Music/Gobbeon.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Gobbeon.mp3
+#begin Music/Gobbeon.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Gobbeon.ogg
 
-#begin Music/Hidden knowledge.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Hidden knowledge.mp3
+#begin Music/Hidden knowledge.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Hidden knowledge.ogg
 
-#begin Music/Ma Precious.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Ma Precious.mp3
+#begin Music/Ma Precious.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Ma Precious.ogg
 
-#begin Music/Menu.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Menu.mp3
+#begin Music/Menu.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Menu.ogg
 
-#begin Music/Nostalgia.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Nostalgia.mp3
+#begin Music/Nostalgia.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Nostalgia.ogg
 
-#begin Music/OnFire.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/OnFire.mp3
+#begin Music/OnFire.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/OnFire.ogg
 
-#begin Music/Outsider.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Outsider.mp3
+#begin Music/Outsider.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Outsider.ogg
 
-#begin Music/Pirate Bay.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Pirate Bay.mp3
+#begin Music/Pirate bay.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Pirate bay.ogg
 
-#begin Music/Reckless.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Reckless.mp3
+#begin Music/Reckless.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Reckless.ogg
 
-#begin Music/Rogue.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Rogue.mp3
+#begin Music/Rogue.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Rogue.ogg
 
-#begin Music/Serendipity.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Serendipity.mp3
+#begin Music/Serendipity.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Serendipity.ogg
 
-#begin Music/Shopkeeper.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Shopkeeper.mp3
+#begin Music/Shopkeeper.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Shopkeeper.ogg
 
-#begin Music/Void.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Music/Void.mp3
+#begin Music/Void.ogg
+/importer:AudioImporter
+/processor:AudioProcessor
+/build:Music/Void.ogg
 
 #begin Sfx/active_item.wav
 /importer:WavImporter

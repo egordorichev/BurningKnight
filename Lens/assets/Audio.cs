@@ -33,7 +33,6 @@ namespace Lens.assets {
 		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
-		private static Dictionary<string, SoundEffect> music = new Dictionary<string, SoundEffect>();
 
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
@@ -51,34 +50,16 @@ namespace Lens.assets {
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
-			
-			var musicDir = FileHandle.FromNearRoot("bin/Music/");
-			
-			if (musicDir.Exists()) {
-				foreach (var h in musicDir.ListFileHandles()) {
-					if (h.Extension == ".xnb") {
-						LoadMusic(h.NameWithoutExtension);
-					}
-				}
-			}
 		}
 
 		private static void LoadSfx(string sfx) {
 			sfx = Path.GetFileNameWithoutExtension(sfx);
 			sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{sfx}");				
 		}
-
-		private static void LoadMusic(string name) {
-			music[name] = Assets.Content.Load<SoundEffect>($"bin/Music/{name}");
-		}
 		
 		internal static void Destroy() {
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
-			}
-			
-			foreach (var m in music.Values) {
-				m.Dispose();
 			}
 		}
 
@@ -104,21 +85,10 @@ namespace Lens.assets {
 			
 			sfx.Play(volume, pitch, pan);
 		}
-
-		public static SoundEffect GetMusic(string id) {
-			SoundEffect m;
-
-			if (music.TryGetValue(id, out m)) {
-				return m;
-			}
-
-			Log.Error($"Music {id} was not found!");
-			return null;
-		}
 		
 		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {
 			if (!Assets.LoadAudio) {
-				// return;
+				return;
 			}
 			
 			if (currentPlayingMusic == music) {
@@ -130,13 +100,7 @@ namespace Lens.assets {
 			Repeat = true;
 			
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				/*var ms = GetMusic(music);
-
-					return;
-				if (ms == null) {
-				}*/
-				
-				currentPlaying = new Music(Assets.Content.Load<AudioFile>("bin/Music/Believer"));
+				currentPlaying = new Music(Assets.Content.Load<AudioFile>($"bin/Music/{music}"));
 				musicInstances[music] = currentPlaying;
 				currentPlaying.PlayFromStart();
 			} else {
@@ -150,9 +114,6 @@ namespace Lens.assets {
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
 		}
-
-		private static AudioListener l = new AudioListener();
-		private static AudioEmitter e = new AudioEmitter();
 
 		public static void FadeOut() {
 			if (currentPlaying != null) {

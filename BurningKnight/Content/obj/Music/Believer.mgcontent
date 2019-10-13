@@ -3,11 +3,11 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Believer.ogg</SourceFile>
   <SourceTime>2019-10-13T07:40:24.0178384+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Believer.xnb</DestFile>
-  <DestTime>2019-10-13T09:25:29.0965165+03:00</DestTime>
+  <DestTime>2019-10-13T14:44:09.901196+03:00</DestTime>
   <Importer>AudioImporter</Importer>
-  <ImporterTime>2019-10-13T09:23:08.4900591+03:00</ImporterTime>
+  <ImporterTime>2019-10-13T14:10:43.2040363+03:00</ImporterTime>
   <Processor>AudioProcessor</Processor>
-  <ProcessorTime>2019-10-13T09:23:08.4900591+03:00</ProcessorTime>
+  <ProcessorTime>2019-10-13T14:10:43.2040363+03:00</ProcessorTime>
   <Dependencies />
   <BuildAsset />
   <BuildOutput />
