@@ -7,8 +7,8 @@ namespace BurningKnight.assets {
 		public static BitmapFont Medium;
 		
 		public static void Load() {
-			Small = LoadFont("bin/Fonts/small_font");
-			Medium = LoadFont("bin/Fonts/large_font");
+			Small = LoadFont("Fonts/small_font");
+			Medium = LoadFont("Fonts/large_font");
 		}
 
 		public static BitmapFont LoadFont(string name) {

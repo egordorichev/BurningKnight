@@ -968,6 +968,9 @@
     <None Include="./Content/Locales/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="./Content/Fonts/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./Content/Prefabs/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
