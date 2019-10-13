@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Lens.assets {
 	public class Music {
-		public const int BufferSize = 2048;
+		public const int BufferSize = 2048 * 4;
 		
 		public DynamicSoundEffectInstance SoundInstance;
 		public byte[] Buffer;
