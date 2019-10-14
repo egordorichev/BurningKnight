@@ -1,13 +1,11 @@
 # scoped down
 
 * item that makes your bullet size change over time (both ways (2 items))
-* lighting not so dark
  
 * bomb with q still broken
 * music speed depends on build type
 * music speed change support
 * fix game fps
-* torch broken
 * sword with projectiles
 * sword with projectiles only when full hp
 
