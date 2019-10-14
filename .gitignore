@@ -3,6 +3,8 @@
 .git
 */bin/*
 */obj/*
+BurningKnight/Content/bin
+BurningKnight/Content/obj
 *TestProject/Content/bin/*
 *TestProject/Content/obj/*
 packages/*
