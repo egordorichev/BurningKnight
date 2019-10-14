@@ -105,6 +105,8 @@ namespace BurningKnight.entity.component {
 			for (int i = 0; i < count; i++) {
 				var buff = Add(reader.ReadString());
 				buff.TimeLeft = reader.ReadFloat();
+				buff.Entity = Entity;
+				buff.Init();
 			}
 		}
 

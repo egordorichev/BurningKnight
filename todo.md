@@ -37,7 +37,6 @@
 
 * ice buff doesnt work on player
 * !! TORCH BROKEN
-* fix frozen buff, it should stop the enemy and animation and apply tint
 
 * auto reset the saves
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
@@ -48,7 +47,7 @@
 # TODO
 
 * troll bombs
-* buffs display on mobs (like frozen and poisoned, charmed)
+* buffs display on mobs (like poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
@@ -225,6 +224,7 @@ gobbo hurt/heal
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
+* charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24

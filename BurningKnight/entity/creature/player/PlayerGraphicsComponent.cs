@@ -109,8 +109,15 @@ namespace BurningKnight.entity.creature.player {
 			if (w) {
 				GetComponent<WeaponComponent>().Render(shadow, o);
 			}
+			
+			
+			var stopShader = StartShaders();
 
 			SimpleRender(shadow);
+
+			if (stopShader) {
+				Shaders.End();
+			}
 
 			if (w) {
 				GetComponent<ActiveWeaponComponent>().Render(shadow, o);
