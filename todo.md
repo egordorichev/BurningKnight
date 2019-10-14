@@ -1,7 +1,7 @@
 # scoped down
 
-* place active items in the hall and a explosive gun, and lock them. give unlock conditions 
-
+* give unlock conditions  to hall items
+   
 * look into that tunnel bug again
 * reexport fonts
 * control explanation is really broken 
@@ -15,7 +15,7 @@
 * curse getting animation
 
 * curse of unknown (do not know hp)
-* curse of lost (rooms get forgetten)
+* curse of lost (rooms get forgetten)   
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
