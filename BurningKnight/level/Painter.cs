@@ -284,7 +284,7 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			var weight = room.GetWidth() * room.GetHeight() / 20f + Random.Float(0f, 3f);
+			var weight = room.GetWidth() * room.GetHeight() / 30f + Random.Float(0f, 1.5f);
 
 			while (weight > 0) {
 				var id = Random.Chances(spawnChances);

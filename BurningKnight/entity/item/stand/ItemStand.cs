@@ -149,10 +149,10 @@ namespace BurningKnight.entity.item.stand {
 						inventory.Pickup(i);
 					}
 
-					return true;
+					return false;
 				} else if (entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
-					return true;
+					return false;
 				}
 			}
 

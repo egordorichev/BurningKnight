@@ -104,7 +104,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Render(bool shadow) {
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
-			var w = GetComponent<StateComponent>().StateInstance is Player.RollState;
+			var w = !(GetComponent<StateComponent>().StateInstance is Player.RollState);
 
 			if (w) {
 				GetComponent<WeaponComponent>().Render(shadow, o);
