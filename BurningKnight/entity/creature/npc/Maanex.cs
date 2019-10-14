@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Maanex : Npc {
@@ -9,7 +10,7 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 15;
 			
 			AddComponent(new AnimationComponent("maanex"));
-			AddComponent(new CloseDialogComponent("maanex_0"));
+			AddComponent(new CloseDialogComponent("maanex_0", "maanex_1", "maanex_2", "maanex_3", "maanex_4", "maanex_5"));
 		}
 	}
 }

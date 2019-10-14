@@ -1,7 +1,9 @@
 # scoped down
 
-* look into that tunnel bug again
+* place active items in the hall and a explosive gun, and lock them. give unlock conditions 
 
+* look into that tunnel bug again
+* save files are not always deleted or you can get the same seed rapidly
 * reexport fonts
 * control explanation is really broken 
 * item that makes your bullet size change over time (both ways (2 items))

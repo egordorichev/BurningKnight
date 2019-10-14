@@ -95,8 +95,11 @@ namespace BurningKnight.save {
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
-			
-			Random.Seed = Run.Seed = reader.ReadString();
+
+
+			if (depth > 0) {
+				Random.Seed = Run.Seed = reader.ReadString();
+			}
 		}
 
 		public static int PeekDepth(FileReader reader) {

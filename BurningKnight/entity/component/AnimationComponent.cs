@@ -123,7 +123,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			var region = Animation.GetCurrentTexture();
-			var or = new Vector2(OriginX, OriginY);
+			var or = new Vector2(OriginX, shadow ? region.Height - OriginY : OriginY);
 			
 			Graphics.Render(region, pos + or, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
