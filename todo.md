@@ -1,7 +1,5 @@
 # scoped down
 
-* give unlock conditions  to hall items
-   
 * look into that tunnel bug again
 * reexport fonts
 * control explanation is really broken 

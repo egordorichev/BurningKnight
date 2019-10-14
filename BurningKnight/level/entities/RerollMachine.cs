@@ -87,6 +87,8 @@ namespace BurningKnight.level.entities {
 				}
 			}
 
+			Items.Unlock("bk:d6");
+			
 			// Reset the luck for the next uses
 			coinsConsumed = 0;
 			Reroller.Reroll(entity.Area, room, true, false, true, ignoredTypes);
