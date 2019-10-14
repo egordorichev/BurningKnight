@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.level;
+using BurningKnight.level.entities;
 using Lens.entity;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -120,6 +121,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
+			if (entity is Prop) {
+				return false;
+			}
+			
 			return base.ShouldCollide(entity) && !(entity is Level);
 		}
 

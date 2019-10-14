@@ -5,6 +5,7 @@
 * music speed depends on build type
 * music speed change support
 * fix game fps
+* torch broken
 
 * resprite bk
 * curse getting animation
@@ -271,6 +272,7 @@ gobbo hurt/heal
 
 ### enemies
 
+* enemy, that reflects your bullets with melee arc
 * enemy, that stands still, shoots laser at you and gets pushed back
 
 * enemy, that dies from you touching it, does no contact damage, 

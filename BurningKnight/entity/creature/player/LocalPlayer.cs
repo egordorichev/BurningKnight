@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.player {
 
 			return null;
 		}
-		
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
