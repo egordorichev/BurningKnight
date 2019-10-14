@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.util.math {
 	public static class Random {
-		private static System.Random random = new System.Random();
+		private static System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
 		private static string seed;
 
 		public static System.Random Generator => random;
