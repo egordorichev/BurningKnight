@@ -70,8 +70,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -405,9 +404,12 @@
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
+    <Compile Include="entity\creature\npc\Brastin.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
+    <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
+    <Compile Include="entity\creature\npc\Maanex.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
@@ -551,6 +553,7 @@
     <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
     <Compile Include="entity\item\renderer\StickRenderer.cs" />
+    <Compile Include="entity\item\Reroller.cs" />
     <Compile Include="entity\item\SingleChoiceStand.cs" />
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ActiveStand.cs" />
@@ -570,6 +573,7 @@
     <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
+    <Compile Include="entity\item\use\GoThonkUse.cs" />
     <Compile Include="entity\item\use\ModifyLuckUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
@@ -604,7 +608,9 @@
     <Compile Include="entity\item\use\RandomActiveUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
+    <Compile Include="entity\item\use\RerollItemsOnPlayerUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
+    <Compile Include="entity\item\use\RevealMapUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
@@ -960,6 +966,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/obj/**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/Music/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Items/*">

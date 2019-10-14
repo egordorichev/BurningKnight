@@ -69,9 +69,7 @@ namespace Lens.assets {
 						}
 					}
 
-					if (i % 2 == 0) {
-						position = (position + 1) % bufferLength;
-					}
+					position = (position + 1) % bufferLength;
 				}
 
 				SoundInstance.SubmitBuffer(dynamicBuffer);

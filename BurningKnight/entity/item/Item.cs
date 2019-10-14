@@ -6,6 +6,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.renderer;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
@@ -268,6 +269,8 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<RoomComponent>();
 			RemoveComponent<ExplodableComponent>();
 			RemoveComponent<SupportableComponent>();
+
+			CheckMasked();
 		}
 
 		private void RenderShadow() {
@@ -388,7 +391,11 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void CheckMasked() {
-			Masked = Unknown || (Run.Depth == 0 && Data.Lockable && Data.UnlockPrice == 0 && !Unlocked(Id));
+			Masked = Unknown || 
+			         (Run.Depth == 0 
+			          && Data.Lockable 
+			          && (Data.UnlockPrice == 0 || (TryGetComponent<OwnerComponent>(out var o) && o.Owner is PermanentStand)) 
+			          && !Unlocked(Id));
 		}
 
 		public static bool Unlocked(string id) {

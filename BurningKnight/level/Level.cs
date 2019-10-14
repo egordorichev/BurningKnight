@@ -537,8 +537,18 @@ namespace BurningKnight.level {
 					var index = ToIndex(x, y);
 					var tl = (Tile) Tiles[index];
 
-					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
-						Graphics.Render(tl.Matches(Tile.WallA, Tile.Piston) ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically);
+					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width))) {
+						var t = (Tile) Tiles[index + width];
+
+						if (!t.IsWall() && t != Tile.Chasm) {
+							Graphics.Render(
+									tl.Matches(Tile.WallA, Tile.Piston)
+											? Tileset.WallA[CalcWallIndex(x, y)]
+											: (tl == Tile.Planks
+													? Tilesets.Biome.Planks[CalcWallIndex(x, y)]
+													: Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
+									Vector2.One, SpriteEffects.FlipVertically);
+						}
 					}
 				}
 			}
@@ -861,32 +871,16 @@ namespace BurningKnight.level {
 							}
 						}
 					} else if (tl == Tile.Chasm) {
-						if (IsInside(index + width) && Get(index + width) != Tile.Chasm) {
-							var v = CalcChasmIndex(x, y + 1);
-
-							if (v != 3) {
-								Graphics.Render(Tilesets.Biome.ChasmBottom[v], new Vector2(x * 16, y * 16 + 16));
-							}
-						}
-
-						/*if (Get(index - width) != Tile.Chasm) {
-							Graphics.Render(Tilesets.Biome.ChasmTop[CalcWallTopIndex(x, y - 1)], new Vector2(x * 16, y * 16 - 16));
-						}*/
-								
-						if (IsInside(index + 1) && Get(index + 1) != Tile.Chasm) {
-							var v = CalcChasmIndex(x + 1, y);
-
-							if (v != 3) {
-								Graphics.Render(Tilesets.Biome.ChasmRight[v], new Vector2(x * 16 + 16, y * 16));
-							}
+						if (IsInside(index + width) && !Get(index + width).IsWall() && Get(index + width) != Tile.Chasm) {
+							Graphics.Render(Tilesets.Biome.ChasmBottom[CalcChasmIndex(x, y + 1)], new Vector2(x * 16, y * 16 + 16));
 						}
 								
-						if (index > 0 && Get(index - 1) != Tile.Chasm) {
-							var v = CalcChasmIndex(x - 1, y);
-
-							if (v != 3) {
-								Graphics.Render(Tilesets.Biome.ChasmLeft[v], new Vector2(x * 16 - 16, y * 16));
-							}
+						if (IsInside(index + 1) && !Get(index + 1).IsWall() && Get(index + 1) != Tile.Chasm) {
+							Graphics.Render(Tilesets.Biome.ChasmRight[CalcChasmIndex(x + 1, y)], new Vector2(x * 16 + 16, y * 16));
+						}
+								
+						if (index > 0 && !Get(index - 1).IsWall() && Get(index - 1) != Tile.Chasm) {
+							Graphics.Render(Tilesets.Biome.ChasmLeft[CalcChasmIndex(x - 1, y)], new Vector2(x * 16 - 16, y * 16));
 						}
 					}
 				}
@@ -1197,7 +1191,7 @@ namespace BurningKnight.level {
 		}
 
 		private byte CalcChasmIndex(int x, int y) {
-			return (byte) (((int) Math.Round(x * 7.417f + y * 2.12f)) % 4);
+			return (byte) (((int) Math.Round(x * 7.417f + y * 2.12f)) % 3);
 		}
 		
 		private byte CalcWallTopIndex(int x, int y) {

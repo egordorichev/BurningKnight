@@ -114,6 +114,13 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 
+			InitStats();
+		}
+
+		public void InitStats() {
+			GetComponent<OrbitGiverComponent>().DestroyAll();
+			GetComponent<FollowerComponent>().DestroyAll();
+
 			var hp = GetComponent<HealthComponent>();
 			hp.MaxHealth = 6;
 			hp.InitMaxHealth = 6;

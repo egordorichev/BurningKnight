@@ -20,6 +20,16 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
+		public override bool HandleEvent(Event e) {
+			if (e is RoomClearedEvent) {
+				if (Item != null && Item.UseTime > 0.02f) {
+					Item.Delay = Math.Max(Item.Delay - 1, 0f);
+				}
+			}
+			
+			return base.HandleEvent(e);
+		}
+
 		protected override void OnItemSet(Item previous) {
 			base.OnItemSet(previous);
 			

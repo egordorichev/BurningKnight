@@ -103,14 +103,25 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override void Render(bool shadow) {
-			var weapon = GetComponent<WeaponComponent>();
-			var activeWeapon = GetComponent<ActiveWeaponComponent>();
-
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
+			var w = !(GetComponent<StateComponent>().StateInstance is Player.RollState);
+
+			if (w) {
+				GetComponent<WeaponComponent>().Render(shadow, o);
+			}
 			
-			weapon.Render(shadow, o);
+			
+			var stopShader = StartShaders();
+
 			SimpleRender(shadow);
-			activeWeapon.Render(shadow, o);
+
+			if (stopShader) {
+				Shaders.End();
+			}
+
+			if (w) {
+				GetComponent<ActiveWeaponComponent>().Render(shadow, o);
+			}
 		}
 
 		public void RenderPickups() {

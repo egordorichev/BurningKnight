@@ -84,8 +84,6 @@ namespace BurningKnight.entity.component {
 			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
 			instance.Play();
 			
-			Log.Info("Play " + sfx);
-
 			return instance;
 		}
 	}

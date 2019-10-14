@@ -1,3 +1,4 @@
+using BurningKnight.assets.items;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -7,6 +8,8 @@ namespace BurningKnight.entity.item.use {
 		public float Timer;
 		
 		public override void Use(Entity entity, Item item) {
+			Items.Unlock("bk:grenade_launcher");
+
 			var bomb = new Bomb(Timer);
 			entity.Area.Add(bomb);
 			bomb.Center = entity.Center;

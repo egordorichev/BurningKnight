@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bomb_placed.wav</SourceFile>
   <SourceTime>2019-10-12T12:19:05.0496401+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bomb_placed.xnb</DestFile>
-  <DestTime>2019-10-14T17:01:27.8552614+03:00</DestTime>
+  <DestTime>2019-10-14T17:03:23.2576034+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

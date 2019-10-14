@@ -1,8 +1,11 @@
 # scoped down
 
-* play music when boss appears
+* look into that tunnel bug again
+* reexport fonts
+* control explanation is really broken 
+* item that makes your bullet size change over time (both ways (2 items))
+ 
 * bomb with q still broken
-* music speed depends on build type
 * music speed change support
 * fix game fps
 
@@ -10,7 +13,7 @@
 * curse getting animation
 
 * curse of unknown (do not know hp)
-* curse of lost (rooms get forgetten)
+* curse of lost (rooms get forgetten)   
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
@@ -26,20 +29,14 @@
 
 ## for showcase
 
-* ice buff doesnt work on player
-* !! TORCH BROKEN
-* fix frozen buff, it should stop the enemy and animation and apply tint
-
 * auto reset the saves
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * don't allow to exit fullscreeen mode, only through console
-* console under password or smth?
-* flickering bullets?
 
 # TODO
 
 * troll bombs
-* buffs display on mobs (like frozen and poisoned, charmed)
+* buffs display on mobs (like poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
@@ -169,7 +166,10 @@ gobbo hurt/heal
 
 ### items
 
-* brain
+* sword with projectiles
+* sword with projectiles only when full hp
+* item, that makes bomb explode on touching enemy
+* brain (slow down enemy bullets near you)
 * shield weapon (hurting/not hurting variants)
 * single use item, that kills all enemies
 * the ring
@@ -215,7 +215,7 @@ gobbo hurt/heal
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
-* d4
+* charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
@@ -271,6 +271,7 @@ gobbo hurt/heal
 
 ### enemies
 
+* enemy, that reflects your bullets with melee arc
 * enemy, that stands still, shoots laser at you and gets pushed back
 
 * enemy, that dies from you touching it, does no contact damage, 

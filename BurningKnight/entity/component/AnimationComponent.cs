@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.creature.player;
 using BurningKnight.util;
 using Lens.assets;
@@ -87,22 +88,7 @@ namespace BurningKnight.entity.component {
 				Shaders.End();
 			}
 
-			var stopShader = false;
-			
-			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
-				var i = health.InvincibilityTimer;
-				
-				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
-					var shader = Shaders.Entity;
-					Shaders.Begin(shader);
-
-					shader.Parameters["flash"].SetValue(1f);
-					shader.Parameters["flashReplace"].SetValue(1f);
-					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
-					
-					stopShader = true;
-				}
-			}
+			var stopShader = StartShaders();
 
 			Graphics.Color = Tint;
 			CallRender(pos, shadow);
@@ -117,13 +103,45 @@ namespace BurningKnight.entity.component {
 			}
 		}
 		
+		protected bool StartShaders() {
+			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
+				var i = health.InvincibilityTimer;
+				
+				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+
+					return true;
+				}
+			}
+
+			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				if (buffs.Has<FrozenBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(0f);
+					shader.Parameters["flashColor"].SetValue(FrozenBuff.Color);
+
+					return true;
+				}
+			}
+
+			return false;
+		}
+		
 		protected virtual void CallRender(Vector2 pos, bool shadow) {
 			if (Animation == null) {
 				return;
 			}
 			
 			var region = Animation.GetCurrentTexture();
-			var or = new Vector2(OriginX, OriginY);
+			var or = new Vector2(OriginX, shadow ? region.Height - OriginY : OriginY);
 			
 			Graphics.Render(region, pos + or, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}

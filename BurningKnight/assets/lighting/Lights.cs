@@ -125,7 +125,7 @@ namespace BurningKnight.assets.lighting {
 		private static int surfaceBlendId = 5;
 		private static float radiusMod = 1;
 		public static bool EnableFog = true;
-		private static Color clearColor = Color.Black;
+		private static Color clearColor = new Color(0.2f, 0.2f, 0.2f, 1f);
 
 		private static BlendState lightBlend = BlendState.NonPremultiplied;
 		private static int lightBlendId = 2;

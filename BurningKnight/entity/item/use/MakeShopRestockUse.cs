@@ -8,7 +8,7 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			if (e is ItemBoughtEvent ibe) {
 				Timer.Add(() => {
-					ibe.Stand.SetItem(Items.CreateAndAdd(Items.Generate(ibe.Item.Type, i => i.Id != ibe.Item.Id), ibe.Stand.Area), null);
+					ibe.Stand.SetItem(Items.CreateAndAdd(Items.Generate(ibe.Item.Type, i => i.Id != ibe.Item.Id && Items.ShouldAppear(i)), ibe.Stand.Area), null);
 				}, 0.5f);
 			}
 			

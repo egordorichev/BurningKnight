@@ -182,7 +182,7 @@ namespace BurningKnight.state {
 			}
 
 			if (!Menu) {
-				Camera.Instance.Follow(cursor, 1f);
+				Camera.Instance.Follow(cursor, CursorPriority);
 			}
 
 			Camera.Instance.Jump();
@@ -194,6 +194,8 @@ namespace BurningKnight.state {
 			Run.StartedNew = false;
 		}
 
+		private const float CursorPriority = 0.5f;
+
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
 
@@ -203,7 +205,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			Camera.Instance.Follow(cursor, 1f);
+			Camera.Instance.Follow(cursor, CursorPriority);
 		}
 
 		public override void Destroy() {
@@ -455,7 +457,7 @@ namespace BurningKnight.state {
 					Input.Blocked = 0;
 					
 					Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
-					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, 1f);
+					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, CursorPriority);
 					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
 			}
