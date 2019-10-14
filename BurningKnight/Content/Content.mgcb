@@ -28,13 +28,6 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/large.png
 
-#begin Fonts/large_font.fnt
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/large_font.fnt
-
 #begin Fonts/small.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -46,11 +39,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Fonts/small.png
-
-#begin Fonts/small_font.fnt
-/importer:
-/processor:
-/build:Fonts/small_font.fnt
 
 #begin Sfx/active_item.wav
 /importer:WavImporter
