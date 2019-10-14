@@ -6,6 +6,8 @@
 * music speed change support
 * fix game fps
 * torch broken
+* sword with projectiles
+* sword with projectiles only when full hp
 
 * resprite bk
 * curse getting animation
