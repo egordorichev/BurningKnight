@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Aseprite;
 using Lens.entity;
 using Lens.util;
@@ -12,6 +13,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Lens.assets {
 	public class Audio {
+		public static bool UseOgg = true;
 		private const float CrossFadeTime = 0.5f;
 		
 		private static bool repeat;
@@ -86,33 +88,62 @@ namespace Lens.assets {
 			sfx?.Play(volume, pitch, pan);
 		}
 		
-		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {
-			if (!Assets.LoadAudio) {
+		public static void PlayMusic(string music) {
+			if (!Assets.LoadAudio || loading || currentPlayingMusic == music) {
 				return;
 			}
 			
-			if (currentPlayingMusic == music) {
-				return;
-			}
-
-			FadeOut();
-
 			Repeat = true;
+			FadeOut();
+			LoadAndPlayMusic(music);
+		}
+
+		private static bool loading;
+
+		private static void LoadAndPlayMusic(string music) {
+			loading = true;
 			
+			if (musicInstances.TryGetValue(music, out currentPlaying)) {
+				ThreadLoad(music);
+			} else {
+				new Thread(() => {
+					Log.Info($"Started loading {music}");
+					ThreadLoad(music);
+					Log.Info($"Ended loading {music}");
+				}).Start();
+			}
+		}
+
+		private static void ThreadLoad(string music) {
+			currentPlayingMusic = music;
+				
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				currentPlaying = new Music(Assets.Content.Load<AudioFile>($"bin/Music/{music}"));
+				AudioFile file = null;
+
+				if (UseOgg) {
+					try {
+						file = AudioImporter.Load($"{Assets.Content.RootDirectory}Music/{music}.ogg");
+					} catch (Exception e) {
+						Log.Error(e);
+						return;
+					}
+				} else {
+					file = Assets.Content.Load<AudioFile>($"bin/Music/{music}");
+				}
+
+				currentPlaying = new Music(file);
 				musicInstances[music] = currentPlaying;
 				currentPlaying.PlayFromStart();
 			} else {
 				currentPlaying.Paused = false;
 			}
 
-			currentPlayingMusic = music;
 			currentPlaying.Volume = 0;
 			currentPlaying.Repeat = repeat;
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
+			loading = false;
 		}
 
 		public static void FadeOut() {
