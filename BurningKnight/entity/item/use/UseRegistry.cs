@@ -93,6 +93,7 @@ namespace BurningKnight.entity.item.use {
 			Register<CurseUse>();
 			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
 			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
+			Register<GoThonkUse>();
 		}
 	}
 }
