@@ -47,12 +47,8 @@ namespace BurningKnight.entity.item {
 				if (item == null || (item.TryGetComponent<OwnerComponent>(out var o) && !(o.Owner is ItemStand))) {
 					continue;
 				}
-				
-				var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i));
 
-				if (id != null) {
-					item.ConvertTo(id);
-					item.AutoPickup = false;
+				if (Reroll(item, pool)) {
 					processItem?.Invoke(item);
 				}
 
@@ -60,6 +56,32 @@ namespace BurningKnight.entity.item {
 					st.Recalculate();
 				}
 			}
+		}
+
+		public static bool Reroll(Item item, ItemPool pool, Func<ItemData, bool> filter) {
+			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i) && filter(i));
+
+			if (id != null) {
+				item.ConvertTo(id);
+				item.AutoPickup = false;
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public static bool Reroll(Item item, ItemPool pool) {
+			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i));
+
+			if (id != null) {
+				item.ConvertTo(id);
+				item.AutoPickup = false;
+
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

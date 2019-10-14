@@ -543,6 +543,8 @@ namespace BurningKnight.state {
 						data.Root = JsonValue.Parse(selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
+						data.SingleUse = data.SingleUse;
+						data.UseTime = data.UseTime;
 						data.Lockable = selected.Lockable;
 						data.UnlockPrice = selected.UnlockPrice;
 

@@ -604,6 +604,7 @@
     <Compile Include="entity\item\use\RandomActiveUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
+    <Compile Include="entity\item\use\RerollItemsOnPlayerUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />

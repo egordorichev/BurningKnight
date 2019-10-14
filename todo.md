@@ -1,5 +1,8 @@
 # scoped down
 
+* item that makes your bullet size change over time (both ways (2 items))
+* lighting not so dark
+ 
 * bomb with q still broken
 * music speed depends on build type
 * music speed change support
@@ -217,7 +220,6 @@ gobbo hurt/heal
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
-* d4
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
