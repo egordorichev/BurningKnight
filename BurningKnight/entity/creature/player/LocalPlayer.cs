@@ -57,7 +57,7 @@ namespace BurningKnight.entity.creature.player {
 
 					return true;
 				}
-			} else if (e is HealthModifiedEvent hp && hp.Amount < 0) {
+			} else if (e is PostHealthModifiedEvent hp && hp.Amount < 0) {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;
 				Engine.Instance.Freeze = 1f;

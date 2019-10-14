@@ -6,6 +6,7 @@ using BurningKnight.entity.item;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens.entity.component.logic;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
@@ -22,7 +23,7 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
-				if (GetComponent<BuffsComponent>().Has<CharmedBuff>()) {
+				if (GetComponent<BuffsComponent>().Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
