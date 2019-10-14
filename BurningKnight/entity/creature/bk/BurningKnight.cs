@@ -60,6 +60,7 @@ namespace BurningKnight.entity.creature.bk {
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
 				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 3);
+				Audio.PlayMusic("Rogue");
 				
 				Timer.Add(() => {
 					SelectAttack();
