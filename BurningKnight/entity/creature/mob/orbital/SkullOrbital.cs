@@ -8,10 +8,6 @@ namespace BurningKnight.entity.creature.mob.orbital {
 		private const float FireRate = 3f;
 		private float t;
 
-		protected override void HandleBreaking() {
-			
-		}
-
 		public override void AddComponents() {
 			base.AddComponents();
 
