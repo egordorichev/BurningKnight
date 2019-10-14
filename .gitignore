@@ -7,6 +7,5 @@ BurningKnight/Content/bin/Textures
 BurningKnight/Content/bin/Sfx
 BurningKnight/Content/bin/Music
 BurningKnight/Content/obj*
-BurningKnight/Content/bin/**
 BurningKnight/Content/obj/**
 packages/*
