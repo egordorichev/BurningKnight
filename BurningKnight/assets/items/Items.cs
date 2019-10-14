@@ -340,11 +340,17 @@ namespace BurningKnight.assets.items {
 			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
 		}
 
+		public static bool ShouldAppear(ItemData t) {
+			return (!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
+			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
+			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";
+		}
+
 		public static List<ItemData> GeneratePool(List<ItemData> types, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if ((!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null || (!Run.Statistics.Items.Contains(t.Id) && !Run.Statistics.Banned.Contains(t.Id))) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
+				if (ShouldAppear(t) && (filter == null || filter(t))) {
 					datas.Add(t);
 				}
 			}

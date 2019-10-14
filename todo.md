@@ -1,5 +1,8 @@
 # scoped down
 
+* reroll broken
+* check reroll machine
+
 * play music when boss appears
 * bomb with q still broken
 * music speed depends on build type

@@ -103,7 +103,7 @@ namespace BurningKnight.level.entities {
 					item = i;
 				}
 
-				if (item == null) {
+				if (item == null || (item.TryGetComponent<OwnerComponent>(out var o) && !(o.Owner is ItemStand))) {
 					continue;
 				}
 				

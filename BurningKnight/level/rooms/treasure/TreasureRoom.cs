@@ -37,8 +37,6 @@ namespace BurningKnight.level.rooms.treasure {
 					break;
 				}
 			}
-			
-			
 		}
 
 		protected void PlaceStand(Level level, Dot where) {

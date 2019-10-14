@@ -57,11 +57,11 @@ namespace BurningKnight.entity.item.use {
 					item = i;
 				}
 
-				if (item == null) {
+				if (item == null || (item.TryGetComponent<OwnerComponent>(out var o) && !(o.Owner is ItemStand))) {
 					continue;
 				}
 				
-				var id = Items.Generate(pool, i => i.Id != item.Id);
+				var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i));
 
 				if (id != null) {
 					item.ConvertTo(id);
