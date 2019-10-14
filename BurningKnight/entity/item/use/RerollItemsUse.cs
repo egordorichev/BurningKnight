@@ -20,59 +20,7 @@ namespace BurningKnight.entity.item.use {
 				return;
 			}
 			
-			var items = room.Tagged[Tags.Item].ToArray();
-			var area = entity.Area;
-			var pool = room.GetPool() ?? ItemPool.Shop;
-
-			foreach (var e in items) {
-				Item item = null;
-				
-				if (e is ItemStand s) {
-					if (rerollStands) {
-						if (s.Item == null) {
-							if (spawnNewItems) {
-								s.SetItem(Items.CreateAndAdd(Items.Generate(pool), area), null);
-							}
-
-							continue;
-						}
-
-						item = s.Item;
-					}
-				} else if (e is Item i) {
-					if (types != null) {
-						var found = false;
-						
-						foreach (var t in types) {
-							if (t == i.Type) {
-								found = true;
-							}
-						}
-
-						if (found == ignore) {
-							continue;
-						}
-					}
-					
-					item = i;
-				}
-
-				if (item == null || (item.TryGetComponent<OwnerComponent>(out var o) && !(o.Owner is ItemStand))) {
-					continue;
-				}
-				
-				var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i));
-
-				if (id != null) {
-					item.ConvertTo(id);
-					item.AutoPickup = false;
-					ProcessItem(item);
-				}
-
-				if (e is ShopStand st) {
-					st.Recalculate();
-				}
-			}
+			Reroller.Reroll(entity.Area, room, rerollStands, spawnNewItems, ignore, types, ProcessItem);
 		}
 
 		protected virtual void ProcessItem(Item item) {

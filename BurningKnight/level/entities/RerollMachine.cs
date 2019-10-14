@@ -20,6 +20,10 @@ namespace BurningKnight.level.entities {
 		private int coinsConsumed;
 		private int numRolled;
 		private bool broken;
+
+		private static ItemType[] ignoredTypes = {
+			ItemType.Heart, ItemType.Coin, ItemType.Battery, ItemType.Key, ItemType.Bomb
+		};
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -85,38 +89,7 @@ namespace BurningKnight.level.entities {
 
 			// Reset the luck for the next uses
 			coinsConsumed = 0;
-			var pool = room.GetPool() ?? ItemPool.Shop;
-
-			var items = room.Tagged[Tags.Item].ToArray();
-
-			foreach (var e in items) {
-				Item item = null;
-				
-				if (e is ItemStand s) {
-					if (s.Item == null) {
-						s.SetItem(Items.CreateAndAdd(Items.Generate(pool), Area), null);
-						continue;
-					}
-					
-					item = s.Item;
-				} else if (e is Item i) {
-					item = i;
-				}
-
-				if (item == null || (item.TryGetComponent<OwnerComponent>(out var o) && !(o.Owner is ItemStand))) {
-					continue;
-				}
-				
-				var id = Items.Generate(pool, i => i.Id != item.Id);
-
-				if (id != null) {
-					item.ConvertTo(id);
-				}
-
-				if (e is ShopStand st) {
-					st.Recalculate();
-				}
-			}
+			Reroller.Reroll(entity.Area, room, true, false, true, ignoredTypes);
 
 			numRolled += (consumeCoin ? 1 : 2);
 

@@ -1,6 +1,5 @@
 # scoped down
 
-* reroll broken
 * check reroll machine
 
 * play music when boss appears

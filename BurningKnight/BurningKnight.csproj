@@ -551,6 +551,7 @@
     <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
     <Compile Include="entity\item\renderer\StickRenderer.cs" />
+    <Compile Include="entity\item\Reroller.cs" />
     <Compile Include="entity\item\SingleChoiceStand.cs" />
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ActiveStand.cs" />
