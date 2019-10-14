@@ -8,11 +8,8 @@
 * item that makes your bullet size change over time (both ways (2 items))
  
 * bomb with q still broken
-* music speed depends on build type
 * music speed change support
 * fix game fps
-* sword with projectiles
-* sword with projectiles only when full hp
 
 * resprite bk
 * curse getting animation
@@ -34,14 +31,9 @@
 
 ## for showcase
 
-* ice buff doesnt work on player
-* !! TORCH BROKEN
-
 * auto reset the saves
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * don't allow to exit fullscreeen mode, only through console
-* console under password or smth?
-* flickering bullets?
 
 # TODO
 
@@ -176,6 +168,8 @@ gobbo hurt/heal
 
 ### items
 
+* sword with projectiles
+* sword with projectiles only when full hp
 * item, that makes bomb explode on touching enemy
 * brain (slow down enemy bullets near you)
 * shield weapon (hurting/not hurting variants)

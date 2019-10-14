@@ -610,6 +610,7 @@
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
     <Compile Include="entity\item\use\RerollItemsOnPlayerUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
+    <Compile Include="entity\item\use\RevealMapUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
