@@ -39,66 +39,6 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/small.png
 
-#begin Music/Believer.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Believer.ogg
-
-#begin Music/Born to do rogueries.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Born to do rogueries.ogg
-
-#begin Music/Burning Knight.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Burning Knight.ogg
-
-#begin Music/Disk 1.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Disk 1.ogg
-
-#begin Music/Gobbeon.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Gobbeon.ogg
-
-#begin Music/Ma Precious.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Ma Precious.ogg
-
-#begin Music/Menu.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Menu.ogg
-
-#begin Music/Nostalgia.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Nostalgia.ogg
-
-#begin Music/Reckless.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Reckless.ogg
-
-#begin Music/Rogue.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Rogue.ogg
-
-#begin Music/Serendipity.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Serendipity.ogg
-
-#begin Music/Shopkeeper.ogg
-/importer:AudioImporter
-/processor:AudioProcessor
-/build:Music/Shopkeeper.ogg
-
 #begin Sfx/active_item.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
