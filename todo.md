@@ -1,5 +1,6 @@
 # scoped down
 
+* control explanation is really broken 
 * item that makes your bullet size change over time (both ways (2 items))
  
 * bomb with q still broken
