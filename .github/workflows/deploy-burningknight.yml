@@ -90,6 +90,9 @@ jobs:
           git clone https://github.com/egordorichev/bk_linux_kick
           cp -rf ./bk_linux_kick/* ./Linux/
           cd ./Linux
+          cd ./Content/bin/Music/
+          ls
+          cd ../../../
           ls
           cd ..
           
@@ -99,3 +102,22 @@ jobs:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           ./butler.exe push ./Linux/ egordorichev/bkt:linux
+          
+          
+      - name: Prepare Macos Version
+        shell: bash
+        run: |
+          mkdir ./Macos
+          cp -rf ./Windows/* ./Macos/
+          git clone https://github.com/egordorichev/bk_osx_kick
+          cp -rf ./bk_osx_kick/* ./Macos/
+          cd ./Macos
+          ls
+          cd ..
+          
+      - name: Upload Macos Version
+        shell: powershell
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          ./butler.exe push ./Macos/ egordorichev/bkt:macos
