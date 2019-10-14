@@ -4,6 +4,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.boss {
 	public class BossRoom : RoomDef {
@@ -30,6 +31,22 @@ namespace BurningKnight.level.rooms.boss {
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) return 1;
 			return 0;
+		}
+
+		public override bool CanConnect(RoomDef R, Dot P) {
+			var x = (int) P.X;
+			var y = (int) P.Y;
+
+			if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
+				return false;
+			}
+			
+			if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
+				return false;
+			}
+
+			
+			return base.CanConnect(R, P);
 		}
 
 		public override void Paint(Level level) {

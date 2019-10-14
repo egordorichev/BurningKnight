@@ -6,6 +6,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.renderer;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
 using BurningKnight.physics;
@@ -36,6 +37,7 @@ namespace BurningKnight.entity.item {
 		public bool Used;
 		public bool Touched;
 		public bool Automatic;
+		public bool SingleUse;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -77,9 +79,9 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public void Use(Entity entity) {
+		public bool Use(Entity entity) {
 			if (!UseCheck.CanUse(entity, this)) {
-				return;
+				return false;
 			}
 
 			foreach (var use in Uses) {
@@ -101,7 +103,57 @@ namespace BurningKnight.entity.item {
 			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
-				((Player) GetComponent<OwnerComponent>().Owner).AnimateItemPickup(this, null, false, false);
+				((Player) Owner).AnimateItemPickup(this, null, false, false);
+			}
+
+			return true;
+		}
+		
+		public void Pickup() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.Pickup(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void Drop() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.Drop(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void TakeOut() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.TakeOut(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+		}
+		
+		public void PutAway() {
+			var entity = Owner;
+		
+			foreach (var use in Uses) {
+				try {
+					use.PutAway(entity, this);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 
@@ -217,6 +269,8 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<RoomComponent>();
 			RemoveComponent<ExplodableComponent>();
 			RemoveComponent<SupportableComponent>();
+
+			CheckMasked();
 		}
 
 		private void RenderShadow() {
@@ -259,6 +313,7 @@ namespace BurningKnight.entity.item {
 			Animation = item.Animation;
 			AutoPickup = item.AutoPickup;
 			Automatic = item.Automatic;
+			SingleUse = item.SingleUse;
 			Type = item.Type;
 			Id = id;
 			Used = false;
@@ -299,6 +354,14 @@ namespace BurningKnight.entity.item {
 			if (Type != ItemType.Active || UseTime < 0) {
 				Delay = Math.Max(0, Delay - dt);
 			}
+
+			if (HasComponent<OwnerComponent>()) {
+				var o = Owner;
+				
+				foreach (var u in Uses) {
+					u.Update(o, this, dt);
+				}
+			}
 		}
 
 		public bool ShouldCollide(Entity entity) {
@@ -328,7 +391,11 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void CheckMasked() {
-			Masked = Unknown || (Run.Depth == 0 && Data.Lockable && Data.UnlockPrice == 0 && !Unlocked(Id));
+			Masked = Unknown || 
+			         (Run.Depth == 0 
+			          && Data.Lockable 
+			          && (Data.UnlockPrice == 0 || (TryGetComponent<OwnerComponent>(out var o) && o.Owner is PermanentStand)) 
+			          && !Unlocked(Id));
 		}
 
 		public static bool Unlocked(string id) {

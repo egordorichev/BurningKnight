@@ -20,7 +20,7 @@ namespace BurningKnight.entity.buff {
 		public static void Remove(string id) {
 			All.Remove(id);
 		}
-
+		
 		public static Buff Create(string id) {
 			if (!All.TryGetValue(id, out var buff)) {
 				return null;

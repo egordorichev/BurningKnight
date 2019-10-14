@@ -1,4 +1,5 @@
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -16,10 +17,10 @@ namespace BurningKnight.level.rooms.treasure {
 				m++;
 			}
 			
-			PlaceStand(level, new Vector2(Left + m, Top + m) * 16);
-			PlaceStand(level, new Vector2(Right - m, Top + m) * 16);
-			PlaceStand(level, new Vector2(Left + m, Bottom - m) * 16);
-			PlaceStand(level, new Vector2(Right - m, Bottom - m) * 16);
+			PlaceStand(level, new Dot(Left + m, Top + m) * 16);
+			PlaceStand(level, new Dot(Right - m, Top + m) * 16);
+			PlaceStand(level, new Dot(Left + m, Bottom - m) * 16);
+			PlaceStand(level, new Dot(Right - m, Bottom - m) * 16);
 
 			PaintTunnel(level, Random.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
 			
@@ -27,7 +28,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override int GetMinWidth() {
-			return 9;
+			return 10;
 		}
 
 		public override int GetMinHeight() {

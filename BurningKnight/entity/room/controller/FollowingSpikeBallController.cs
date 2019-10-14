@@ -24,7 +24,7 @@ namespace BurningKnight.entity.room.controller {
 			var d = MathUtils.Distance(dx, dy);
 
 			if (d > 1f) {
-				var s = dt * 48;
+				var s = dt * 32;
 				
 				ball.X += dx / d * s;
 				ball.Y += dy / d * s;

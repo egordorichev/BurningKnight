@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.level;
+using BurningKnight.level.entities;
 using Lens.entity;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -26,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			body.Body.LinearDamping = 3;
 			
-			GetComponent<AnimationComponent>().Tint.A = Alpha;
+			GetComponent<MobAnimationComponent>().Tint.A = Alpha;
 		}
 
 		private bool rage;
@@ -36,15 +37,15 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				var color = Self.GetComponent<AnimationComponent>().Tint;
-				Tween.To(Alpha, color.A, x => Self.GetComponent<AnimationComponent>().Tint.A = (byte) x, 0.3f);
+				var color = Self.GetComponent<MobAnimationComponent>().Tint;
+				Tween.To(Alpha, color.A, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.3f);
 			}
 
 			public override void Destroy() {
 				base.Destroy();	
 				
-				var color = Self.GetComponent<AnimationComponent>().Tint;
-				Tween.To(255f, color.A, x => Self.GetComponent<AnimationComponent>().Tint.A = (byte) x, 0.3f);
+				var color = Self.GetComponent<MobAnimationComponent>().Tint;
+				Tween.To(255f, color.A, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.3f);
 			}
 
 			public override void Update(float dt) {
@@ -120,6 +121,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
+			if (entity is Prop) {
+				return false;
+			}
+			
 			return base.ShouldCollide(entity) && !(entity is Level);
 		}
 

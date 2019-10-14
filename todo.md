@@ -1,7 +1,43 @@
+# scoped down
+
+* look into that tunnel bug again
+* reexport fonts
+* control explanation is really broken 
+* item that makes your bullet size change over time (both ways (2 items))
+ 
+* bomb with q still broken
+* music speed change support
+* fix game fps
+
+* resprite bk
+* curse getting animation
+
+* curse of unknown (do not know hp)
+* curse of lost (rooms get forgetten)   
+* curse of ??? (do not know consumable counts)
+* curse of ??? (items hidden)
+* more prefixes
+
+* items that give curse
+
+* player stats:
+ + use rate
+ + speed
+ + range mod
+
+* music speed changing
+
+## for showcase
+
+* auto reset the saves
+* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+* don't allow to exit fullscreeen mode, only through console
+
 # TODO
 
-* poison, thorns, ice, fire, charisma (minor sale), charm rings
-* buffs display on mobs (like frozen and poisoned, charmed)
+* troll bombs
+* buffs display on mobs (like poisoned, charmed)
+* hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * draw the duck frames for hats
@@ -130,6 +166,22 @@ gobbo hurt/heal
 
 ### items
 
+* sword with projectiles
+* sword with projectiles only when full hp
+* item, that makes bomb explode on touching enemy
+* brain (slow down enemy bullets near you)
+* shield weapon (hurting/not hurting variants)
+* single use item, that kills all enemies
+* the ring
+* ring of gold
+* wings
+* laser pointer
+* star
+* zoom
+* poison, charisma (minor sale), charm rings
+* Mines
+* your bullets break enemy bullets
+
 * weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 
 * hats
@@ -144,15 +196,16 @@ gobbo hurt/heal
  terminal head
  hat trader hat
  
+* double the items on floor
 * animated hats
 * separate hat sprite for when you duck
 
+* makes bomb explode really soon
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * discord rod should damage everything it tourches from point where you were to where you tp
 * existing orbitals should be smaller
 * orbital, that deals damage to enemies
-* torch, has a good light radius, emits fire particles (you drop it if you get hit)
 * map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
@@ -162,9 +215,9 @@ gobbo hurt/heal
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
-* d4
+* charms
 * d2
-* d8
+* ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * matches (sets you on fire)
@@ -203,6 +256,9 @@ gobbo hurt/heal
 
 ### Ideas
 
+* secret seeds
+* tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
+
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
 * cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
 * make bk himself sign!!!!
@@ -214,6 +270,9 @@ gobbo hurt/heal
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
 
 ### enemies
+
+* enemy, that reflects your bullets with melee arc
+* enemy, that stands still, shoots laser at you and gets pushed back
 
 * enemy, that dies from you touching it, does no contact damage, 
  runs away from you and shoots, tons of hp (hard to kill without touching)
@@ -266,3 +325,4 @@ gobbo hurt/heal
 * rooms with preasure plates
 * rooms with switches
 * trap rooms
+* room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Lens.entity;
 using Microsoft.Xna.Framework;
 
 namespace Lens.util.math {
 	public static class Random {
-		private static System.Random random = new System.Random();
+		private static System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
 		private static string seed;
 
 		public static System.Random Generator => random;
@@ -190,6 +191,32 @@ namespace Lens.util.math {
 
 		public static int Sign() {
 			return Chance() ? -1 : 1;
+		}
+
+		public static T Element<T>(List<T> list, Func<T, bool> filter) where T : Entity {
+			var length = list.Count;
+			var sum = 0;
+
+			foreach (var e in list) {
+				if (filter(e)) {
+					sum++;
+				}
+			}
+
+			int value = Int(sum);
+			sum = 0;
+
+			for (int i = 0; i < length; i++) {
+				if (filter(list[i])) {
+					sum++;
+					
+					if (value < sum) {
+						return list[i];
+					}
+				}
+			}
+
+			return null;
 		}
 	}
 }

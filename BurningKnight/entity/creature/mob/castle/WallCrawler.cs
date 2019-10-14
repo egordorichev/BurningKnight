@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
@@ -13,6 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
+			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 			AddComponent(new WallAnimationComponent("crawler"));
 			SetMaxHp(2);
 		}

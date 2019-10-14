@@ -31,7 +31,7 @@ namespace BurningKnight.level.rooms.connection {
 				return GetCenterRect();
 			}
 			
-			return new Rect(new Vector2(Random.Int(Left + 2, Right - 2), Random.Int(Top + 2, Bottom - 2)));
+			return new Rect(new Dot(Random.Int(Left + 2, Right - 2), Random.Int(Top + 2, Bottom - 2)));
 		}
 
 		public override void Paint(Level level) {

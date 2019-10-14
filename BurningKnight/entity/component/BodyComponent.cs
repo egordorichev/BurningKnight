@@ -63,7 +63,7 @@ namespace BurningKnight.entity.component {
 
 			if (Body != null) {
 				try {
-					Physics.World.RemoveBody(Body);
+					Physics.RemoveBody(Body);
 				} catch (Exception e) {
 					Log.Error(e);
 				}

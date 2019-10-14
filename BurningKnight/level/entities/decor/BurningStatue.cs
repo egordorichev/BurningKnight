@@ -53,6 +53,14 @@ namespace BurningKnight.level.entities.decor {
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !Broken && !busy
 			});
+
+			var h = new HealthComponent {
+				RenderInvt = true
+			};
+			
+			AddComponent(h);
+
+			h.InitMaxHealth = 3;
 		}
 
 		public override void Destroy() {
@@ -87,6 +95,12 @@ namespace BurningKnight.level.entities.decor {
 		}
 
 		private bool Interact(Entity e) {
+			if (Broken || busy) {
+				return true;
+			}
+
+			Run.Curse++;
+			
 			if (trigger != null) {
 				trigger.Interrupted = true;
 			}
@@ -161,7 +175,7 @@ namespace BurningKnight.level.entities.decor {
 						Tween.To(1f, Camera.Instance.TextureZoom, xx => Camera.Instance.TextureZoom = xx, 0.8f);
 						((InGameState) BK.Instance.State).ResetFollowing();
 					}, 1f);
-				}, torches.Count + 3);
+				}, torches.Count + 1);
 			}, 1f);
 			
 			return true;
@@ -265,7 +279,7 @@ namespace BurningKnight.level.entities.decor {
 				}
 
 				Done = true;
-			}, 3f);
+			}, 2f);
 		}
 
 		protected override Rectangle GetCollider() {
@@ -285,6 +299,9 @@ namespace BurningKnight.level.entities.decor {
 				}
 			} else if (e is SpawnTrigger.TriggeredEvent stte) {
 				trigger = stte.Trigger;
+			} else if (e is DiedEvent de) {
+				Interact(de.Who);
+				return true;
 			}
 			
 			return base.HandleEvent(e);

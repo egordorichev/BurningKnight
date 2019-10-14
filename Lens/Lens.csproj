@@ -60,10 +60,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.8.6.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NVorbis.0.8.6\lib\net35\NVorbis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
@@ -236,6 +239,7 @@
     <Compile Include="assets\Audio.cs" />
     <Compile Include="assets\Effects.cs" />
     <Compile Include="assets\Locale.cs" />
+    <Compile Include="assets\Music.cs" />
     <Compile Include="assets\Textures.cs" />
     <Compile Include="Cloner.cs" />
     <Compile Include="core\ConsoleCore.cs" />

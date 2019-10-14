@@ -8,7 +8,6 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
-using Point = BurningKnight.util.geometry.Point;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.builders {
@@ -180,7 +179,7 @@ namespace BurningKnight.level.builders {
 				return -1;
 			}
 
-			var TargetCenter = new Point();
+			var TargetCenter = new Dot();
 
 			if (Direction == RoomDef.Connection.Top) {
 				TargetCenter.Y = (int) (Prev.Top - (Next.GetHeight() - 1) / 2f);

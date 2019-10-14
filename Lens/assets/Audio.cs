@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using Aseprite;
 using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
@@ -11,10 +13,28 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Lens.assets {
 	public class Audio {
+		public static bool UseOgg = true;
 		private const float CrossFadeTime = 0.5f;
 		
+		private static bool repeat;
+		
+		public static bool Repeat {
+			get => repeat;
+			set {
+				if (currentPlaying != null) {
+					currentPlaying.Repeat = value;
+				}
+
+				repeat = value;
+			}
+		}
+
+		private static Music currentPlaying;
+		private static string currentPlayingMusic;
+		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
+		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
+
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
-		private static Dictionary<string, SoundEffect> music = new Dictionary<string, SoundEffect>();
 
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
@@ -24,42 +44,24 @@ namespace Lens.assets {
 					}
 				}
 
-				/*foreach (var dir in file.ListDirectoryHandles()) {
+				foreach (var dir in file.ListDirectoryHandles()) {
 					LoadSfx(dir);
-				}*/
+				}
 			}
 		}
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
-			
-			/*var musicDir = FileHandle.FromNearRoot("bin/Music/");
-			
-			if (musicDir.Exists()) {
-				foreach (var h in musicDir.ListFileHandles()) {
-					if (h.Extension == ".xnb") {
-						LoadMusic(h.NameWithoutExtension);
-					}
-				}
-			}*/
 		}
 
 		private static void LoadSfx(string sfx) {
 			sfx = Path.GetFileNameWithoutExtension(sfx);
 			sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{sfx}");				
 		}
-
-		private static void LoadMusic(string name) {
-			music[name] = Assets.Content.Load<SoundEffect>($"bin/Music/{name}");
-		}
 		
 		internal static void Destroy() {
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
-			}
-			
-			foreach (var m in music.Values) {
-				m.Dispose();
 			}
 		}
 
@@ -83,86 +85,73 @@ namespace Lens.assets {
 				return;
 			}
 			
-			sfx.Play(volume, pitch, pan);
+			sfx?.Play(volume, pitch, pan);
 		}
-
-		public static SoundEffect GetMusic(string id) {
-			SoundEffect m;
-
-			if (music.TryGetValue(id, out m)) {
-				return m;
-			}
-
-			Log.Error($"Music {id} was not found!");
-			return null;
-		}
-
-		private static bool repeat;
 		
-		public static bool Repeat {
-			get => repeat;
-			set {
-				if (currentPlaying != null) {
-					currentPlaying.IsLooped = value;
-				}
-
-				repeat = value;
-			}
-		}
-
-		private static SoundEffectInstance currentPlaying;
-		private static string currentPlayingMusic;
-		private static Dictionary<string, SoundEffectInstance> instances = new Dictionary<string, SoundEffectInstance>();
-		
-		public static void PlayMusic(string music, AudioListener listener = null, AudioEmitter emitter = null) {
-			if (!Assets.LoadAudio) {
+		public static void PlayMusic(string music) {
+			if (!Assets.LoadAudio || loading || currentPlayingMusic == music) {
 				return;
 			}
 			
-			if (currentPlayingMusic == music) {
-				return;
-			}
-
-			FadeOut();
-
 			Repeat = true;
-			
-			if (!instances.TryGetValue(music, out currentPlaying)) {
-				var ms = GetMusic(music);
+			FadeOut();
+			LoadAndPlayMusic(music);
+		}
 
-				if (ms == null) {
-					return;
-				}
-				
-				currentPlaying = ms.CreateInstance();
-				instances[music] = currentPlaying;
-				currentPlaying.Apply3D(l, e);
-				currentPlaying.Play();
+		private static bool loading;
+
+		private static void LoadAndPlayMusic(string music) {
+			loading = true;
+			
+			if (musicInstances.TryGetValue(music, out currentPlaying)) {
+				ThreadLoad(music);
 			} else {
-				currentPlaying.Apply3D(l, e);
-				currentPlaying.Resume();
+				new Thread(() => {
+					Log.Info($"Started loading {music}");
+					ThreadLoad(music);
+					Log.Info($"Ended loading {music}");
+				}).Start();
+			}
+		}
+
+		private static void ThreadLoad(string music) {
+			currentPlayingMusic = music;
+				
+			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
+				AudioFile file = null;
+
+				if (UseOgg) {
+					try {
+						file = AudioImporter.Load($"{Assets.Content.RootDirectory}Music/{music}.ogg");
+					} catch (Exception e) {
+						Log.Error(e);
+						return;
+					}
+				} else {
+					file = Assets.Content.Load<AudioFile>($"bin/Music/{music}");
+				}
+
+				currentPlaying = new Music(file);
+				musicInstances[music] = currentPlaying;
+				currentPlaying.PlayFromStart();
+			} else {
+				currentPlaying.Paused = false;
 			}
 
-			currentPlayingMusic = music;
 			currentPlaying.Volume = 0;
-			currentPlaying.IsLooped = repeat;
+			currentPlaying.Repeat = repeat;
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
-
-			// e = emitter;
-			// l = listener;
+			loading = false;
 		}
-
-		private static AudioListener l = new AudioListener();
-		private static AudioEmitter e = new AudioEmitter();
 
 		public static void FadeOut() {
 			if (currentPlaying != null) {
 				var m = currentPlaying;
 				
 				Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
-					m.Pause();
+					m.Paused = true;
 				};
 				
 				currentPlaying = null;
@@ -189,19 +178,7 @@ namespace Lens.assets {
 		}
 		
 		public static void Update() {
-			if (currentPlaying != null && currentPlaying.State == SoundState.Stopped && currentPlaying.IsLooped) {
-				currentPlaying.Play();
-			}
-			
-			/*if (e != null && l != null && currentPlaying != null) {
-				l.Position = Vector3.Zero;
-
-				var t = Engine.Time;
-				var d = 5;
-
-				e.Position = new Vector3((float) Math.Cos(t) * d, 0, (float) Math.Sin(t) * d);
-				currentPlaying.Apply3D(l, e);
-			}*/
+			currentPlaying?.Update();
 		}
 	}
 }

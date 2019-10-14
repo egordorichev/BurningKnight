@@ -98,6 +98,7 @@ namespace BurningKnight.ui.imgui {
 				ImGui.Text($"FBO binds: {Engine.Graphics.GraphicsDevice.Metrics.TargetCount}");
 				ImGui.Text($"Shader binds: {Engine.Graphics.GraphicsDevice.Metrics.PixelShaderCount}");
 				ImGui.Text($"Texture count: {Engine.Graphics.GraphicsDevice.Metrics.TextureCount}");
+
 				ImGui.Spacing();
 				ImGui.Checkbox("Enable batcher", ref GameRenderer.EnableBatcher);
 			}
@@ -108,6 +109,8 @@ namespace BurningKnight.ui.imgui {
 				ImGui.Text($"Kills: {Run.KillCount}");
 				ImGui.Text($"Time: {Run.FormatTime()}");
 				ImGui.Text($"Has run: {Run.HasRun}");
+				ImGui.Text($"Luck: {Run.Luck}");
+				ImGui.Text($"Curse: {Run.Curse}");
 			}
 
 			if (ImGui.CollapsingHeader("Camera")) {

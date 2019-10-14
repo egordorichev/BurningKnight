@@ -28,6 +28,7 @@ namespace BurningKnight.ui {
 
 			Tween.To(255, 0, x => Tint.A = (byte) x, 0.4f);
 
+			
 			title = item.Name;
 			Label = item.Description;
 

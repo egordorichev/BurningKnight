@@ -6,7 +6,7 @@ namespace BurningKnight.level.biome {
 
 		static BiomeRegistry() {
 			BiomeInfo[] infos = {
-				BiomeInfo.New<HubBiome>(Biome.Hub),
+				// BiomeInfo.New<HubBiome>(Biome.Hub),
 
 				BiomeInfo.New<CastleBiome>(Biome.Castle),
 				BiomeInfo.New<LibraryBiome>(Biome.Library),

@@ -322,6 +322,10 @@ namespace BurningKnight.save.statistics {
 			ImGui.Text($"Date Started: {Day} {Year}");
 			ImGui.Text($"Tiles Walked: {TilesWalked}");
 			ImGui.Text($"Pits Fallen: {PitsFallen}");
+			
+			ImGui.Separator();
+			ImGui.Text($"Luck: {Run.Luck}");
+			ImGui.Text($"Curse: {Run.Curse}");
 		}
 	}
 }

@@ -61,18 +61,18 @@ namespace BurningKnight.entity.creature.mob {
 		public class HurtState : EntityState {
 			public override void Init() {
 				base.Init();
-				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
+				Self.GetComponent<MobAnimationComponent>().SetAutoStop(true);
 			}
 
 			public override void Destroy() {
 				base.Destroy();
-				Self.GetComponent<AnimationComponent>().SetAutoStop(false);
+				Self.GetComponent<MobAnimationComponent>().SetAutoStop(false);
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {
+				if (Self.GetComponent<MobAnimationComponent>().Animation.Paused) {
 					Self.GetComponent<StateComponent>().Become<IdleState>(true);
 				}
 			}

@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -171,6 +172,8 @@ namespace BurningKnight.entity.component {
 				ev.Item.Done = true;
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
+				Items.Unlock("bk:infinite_bomb");
+				
 				ModifyHealth(Entity is Player ? -2 : -16, b.Who);
 
 				var component = Entity.GetAnyComponent<BodyComponent>();

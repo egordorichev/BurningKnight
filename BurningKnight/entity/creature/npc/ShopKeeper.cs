@@ -88,7 +88,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			var h = GetComponent<HealthComponent>();
 
-			h.InitMaxHealth = 20;
+			h.InitMaxHealth = 10;
 			h.Unhittable = false;
 
 			var b = new RectBodyComponent(4, 2, 10, 14);

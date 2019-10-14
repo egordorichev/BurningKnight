@@ -81,8 +81,8 @@ namespace BurningKnight.entity.creature.player {
 					switch (type) {
 						case ItemType.Bomb: {
 							if (GlobalSave.IsFalse("control_bomb")) {	
-								GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Bomb, GamepadComponent.Current != null));
-								GetComponent<DialogComponent>().Start("control_0");
+								//GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Bomb, GamepadComponent.Current != null));
+								//GetComponent<DialogComponent>().Start("control_0");
 							}
 							
 							a.Emit("bomb");
@@ -138,18 +138,20 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (bombs > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+			if (Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
 				if (GlobalSave.IsFalse("control_bomb")) {
 					Entity.GetComponent<DialogComponent>().Close();
 					GlobalSave.Put("control_bomb", true);
 				}
 
-				Bombs--;
-				
-				var bomb = new Bomb();
-				Entity.Area.Add(bomb);
-				bomb.Center = Entity.Center;
-				bomb.MoveToMouse();
+				if (bombs > 0) {
+					Bombs--;
+
+					var bomb = new Bomb();
+					Entity.Area.Add(bomb);
+					bomb.Center = Entity.Center;
+					bomb.MoveToMouse();
+				}
 			}
 		}
 

@@ -77,15 +77,16 @@ namespace BurningKnight.state {
 			ImGui.Checkbox("Show only on screen", ref onlyOnScreen);
 			
 			var sel = ImGui.Button("Jump to selected");
-			
+			ImGui.Text($"Showing {id} entities");
+
 			ImGui.Separator();
 			
 			var height = ImGui.GetStyle().ItemSpacing.Y + ImGui.GetFrameHeightWithSpacing() + 4;
 			ImGui.BeginChild("ScrollingRegionConsole", new Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 
-			id = 0;
-			
+			id = 0; 
+
 			foreach (var e in (hasTag ? area.Tags[BitTag.Tags[currentTag]] : area.Entities.Entities)) {
 				if (filter.PassFilter(e.GetType().FullName) && (!onlyOnScreen || e.OnScreen) && (!hideLevel || PassFilter(e))) {
 					var s = selected == e;

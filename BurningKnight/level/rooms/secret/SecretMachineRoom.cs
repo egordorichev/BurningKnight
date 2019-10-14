@@ -24,7 +24,7 @@ namespace BurningKnight.level.rooms.secret {
 			
 			for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
 				var item = Items.CreateAndAdd("bk:emerald", Level.Area);
-				item.Center = GetRandomFreeCell().Value * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+				item.Center = GetRandomFreeCell() * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
 			}
 		}
 	}

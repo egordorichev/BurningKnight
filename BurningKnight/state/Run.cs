@@ -8,6 +8,8 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public static class Run {
+		public const int ContentEndDepth = 2;
+		
 		private static int depth = Engine.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
@@ -21,6 +23,7 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
+		public static int Curse;
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		
@@ -68,6 +71,8 @@ namespace BurningKnight.state {
 			KillCount = 0;
 			Time = 0;
 			HasRun = false;
+			Luck = 0;
+			Curse = 0;
 			Seed = Random.GenerateSeed();
 		}
 

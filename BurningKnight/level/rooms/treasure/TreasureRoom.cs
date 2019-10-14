@@ -5,6 +5,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -15,9 +16,9 @@ namespace BurningKnight.level.rooms.treasure {
 		public override void Paint(Level level) {
 			var c = GetCenter() * 16;
 			
-			PlaceStand(level, c - new Vector2(32, 0));
+			PlaceStand(level, c - new Dot(32, 0));
 			PlaceStand(level, c);
-			PlaceStand(level, c + new Vector2(32, 0));
+			PlaceStand(level, c + new Dot(32, 0));
 
 			SetupStands(level);
 		}
@@ -36,11 +37,9 @@ namespace BurningKnight.level.rooms.treasure {
 					break;
 				}
 			}
-			
-			
 		}
 
-		protected void PlaceStand(Level level, Vector2 where) {
+		protected void PlaceStand(Level level, Dot where) {
 			var stand = new SingleChoiceStand();
 			level.Area.Add(stand);
 			stand.Center = where + new Vector2(8, 8);

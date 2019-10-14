@@ -5,6 +5,7 @@ using BurningKnight.level.tile;
 using BurningKnight.level.walls;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -28,7 +29,7 @@ namespace BurningKnight.level.rooms.entrance {
 			Place(level, GetTileCenter());
 		}
 
-		protected virtual void Place(Level level, Vector2 where) {
+		protected virtual void Place(Level level, Dot where) {
 			var prop = Exit ? (Entity) new Exit {
 				To = Run.Depth + 1
 			} : new Entrance {
@@ -40,20 +41,20 @@ namespace BurningKnight.level.rooms.entrance {
 			var t = level.Get((int) where.X, (int) where.Y);
 
 			if (Random.Chance(20) || !t.Matches(TileFlags.Passable)) {
-				where = GetRandomFreeCell().GetValueOrDefault(GetTileCenter());
+				where = GetRandomDoorFreeCell() ?? GetTileCenter();
 			}
 			
-			prop.Center = where * 16 + new Vector2(8);
+			prop.Center = (where * 16 + new Dot(8)).ToVector();
 
 			var torch = new Torch();
 			level.Area.Add(torch);
 
-			torch.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
+			torch.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
 
-			if (GlobalSave.IsFalse("control_roll")) {
+			if ((Run.Depth == Run.ContentEndDepth) || (Run.Depth == 1 && GlobalSave.IsFalse("control_roll"))) {
 				var om = new OldMan();
 				level.Area.Add(om);
-				om.Center = GetRandomFreeCell().GetValueOrDefault(GetTileCenter()) * 16 + new Vector2(8);
+				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
 			}
 
 			/*

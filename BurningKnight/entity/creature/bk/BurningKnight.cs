@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.component;
@@ -53,20 +54,36 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(new OrbitGiverComponent());
 			
 			AddComponent(new DialogComponent());
+			AddComponent(new LightComponent(this, 128f, new Color(1f, 0.8f, 0.3f, 1f)));
 		}
 
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
 				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 3);
+				Audio.PlayMusic("Rogue");
+				
+				Timer.Add(() => {
+					SelectAttack();
+				}, 3f);
 			}
 
 			base.OnTargetChange(target);
 		}
 
 		private float lastPart;
+		private bool added;
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!added) {
+				added = true;
+				
+				var e = new Entity();
+				Area.Add(e);
+				e.Center = GetComponent<RoomComponent>().Room.Center;
+				e.AddComponent(new LightComponent(e, 256f, new Color(1f, 0.9f, 0.5f, 1f)));
+			}
 			
 			if (died) {
 				lastPart -= dt;

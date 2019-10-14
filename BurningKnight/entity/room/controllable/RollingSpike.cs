@@ -68,7 +68,7 @@ namespace BurningKnight.entity.room.controllable {
 			}
 
 			var velocity = GetComponent<CircleBodyComponent>().Velocity;
-			GetComponent<AnimationComponent>().Angle += Math.Sign(Math.Abs(velocity.X) > 0.1f ? velocity.X : velocity.Y) * dt * 60;
+			GetComponent<AnimationComponent>().Angle += Math.Sign(Math.Abs(velocity.X) > 0.1f ? velocity.X : velocity.Y) * dt * 10;
 		}
 
 		public override bool HandleEvent(Event e) {

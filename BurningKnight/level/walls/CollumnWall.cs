@@ -30,27 +30,27 @@ namespace BurningKnight.level.walls {
 					if (Random.Chance(40)) {
 						m = true;
 
-						Painter.Set(level, new Vector2(inside.Left, inside.Top + inside.GetHeight() / 2 - 1), f);
-						Painter.Set(level, new Vector2(inside.Left, inside.Top + inside.GetHeight() / 2), f);
+						Painter.Set(level, new Dot(inside.Left, inside.Top + inside.GetHeight() / 2 - 1), f);
+						Painter.Set(level, new Dot(inside.Left, inside.Top + inside.GetHeight() / 2), f);
 					}
 
 					if (Random.Chance(40)) {
 						m = true;
 					
-						Painter.Set(level, new Vector2(inside.Right - 1, inside.Top + inside.GetHeight() / 2 + 1), f);
-						Painter.Set(level, new Vector2(inside.Right - 1, inside.Top + inside.GetHeight() / 2), f);
+						Painter.Set(level, new Dot(inside.Right - 1, inside.Top + inside.GetHeight() / 2 + 1), f);
+						Painter.Set(level, new Dot(inside.Right - 1, inside.Top + inside.GetHeight() / 2), f);
 					}
 
 					if (Random.Chance(40)) {
 						m = true;
 					
-						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2 - 1, inside.Top), f);
-						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2, inside.Top), f);
+						Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2 - 1, inside.Top), f);
+						Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2, inside.Top), f);
 					}
 
 					if (!m || Random.Chance(40)) {
-						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2 + 1, inside.Bottom - 1), f);
-						Painter.Set(level, new Vector2(inside.Left + inside.GetWidth() / 2, inside.Bottom - 1), f);
+						Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2 + 1, inside.Bottom - 1), f);
+						Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2, inside.Bottom - 1), f);
 					}
 				}
 			}

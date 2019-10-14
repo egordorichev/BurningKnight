@@ -8,6 +8,7 @@ using BurningKnight.level.entities;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -81,7 +82,7 @@ namespace BurningKnight.level.rooms.shop {
 			level.Area.Add(sk);
 			sk.Center = new Vector2(p.X * 16 + 8, p.Y * 16 + 16);
 
-			Painter.DrawLine(level, new Vector2(Left + 1, Top + 1), new Vector2(Right - 1, Top + 1), Tiles.RandomFloor());
+			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor());
 			
 			var points = new List<Point>();
 

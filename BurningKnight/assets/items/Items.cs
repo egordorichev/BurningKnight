@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
@@ -70,6 +71,7 @@ namespace BurningKnight.assets.items {
 				data["single"] = item.Single;
 				data["auto_pickup"] = item.AutoPickup;
 				data["auto"] = item.Automatic;
+				data["single"] = item.SingleUse;
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
@@ -130,6 +132,7 @@ namespace BurningKnight.assets.items {
 				AutoPickup = pickup,
 				Single = item["single"].Bool(true),
 				Automatic = item["auto"],
+				SingleUse = item["single"],
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)
 			};
@@ -222,6 +225,7 @@ namespace BurningKnight.assets.items {
 				AutoPickup = data.AutoPickup,
 				Animation = data.Animation,
 				Automatic = data.Automatic,
+				SingleUse = data.SingleUse,
 				Uses = ParseUses(data.Uses)
 			};
 			
@@ -336,11 +340,17 @@ namespace BurningKnight.assets.items {
 			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
 		}
 
+		public static bool ShouldAppear(ItemData t) {
+			return (!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
+			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
+			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";
+		}
+
 		public static List<ItemData> GeneratePool(List<ItemData> types, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if ((!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null || (!Run.Statistics.Items.Contains(t.Id) && !Run.Statistics.Banned.Contains(t.Id))) && (filter == null || filter(t)) && t.Id != "bk:the_sword") {
+				if (ShouldAppear(t) && (filter == null || filter(t))) {
 					datas.Add(t);
 				}
 			}
@@ -415,6 +425,11 @@ namespace BurningKnight.assets.items {
 
 			return Generate(types, filter, c);
 		}
+
+		public static string Generate(Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
+			return Generate(Datas.Values.ToList(), filter, c);
+		}
+
 
 		public static Item CreateAndAdd(string id, Area area) {
 			var item = Create(id);

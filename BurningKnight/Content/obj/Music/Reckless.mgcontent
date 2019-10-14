@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>/home/egor/Lens/BurningKnight/Content/Music/Reckless.mp3</SourceFile>
-  <SourceTime>2019-05-28T19:40:17.826322+03:00</SourceTime>
-  <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Music/Reckless.xnb</DestFile>
-  <DestTime>2019-09-26T13:50:39.823232+03:00</DestTime>
-  <Importer>Mp3Importer</Importer>
-  <ImporterTime>2018-12-29T18:57:46.548335+03:00</ImporterTime>
-  <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2018-12-29T18:57:46.548335+03:00</ProcessorTime>
-  <Parameters>
-    <Key>Quality</Key>
-    <Value>Best</Value>
-  </Parameters>
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Reckless.ogg</SourceFile>
+  <SourceTime>2019-10-13T13:27:43.5657083+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Reckless.xnb</DestFile>
+  <DestTime>2019-10-14T17:01:21.0340822+03:00</DestTime>
+  <Importer>AudioImporter</Importer>
+  <ImporterTime>2019-10-13T14:10:43.2040363+03:00</ImporterTime>
+  <Processor>AudioProcessor</Processor>
+  <ProcessorTime>2019-10-13T14:10:43.2040363+03:00</ProcessorTime>
   <Dependencies />
   <BuildAsset />
   <BuildOutput />

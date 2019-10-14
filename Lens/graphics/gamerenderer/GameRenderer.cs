@@ -7,8 +7,10 @@ namespace Lens.graphics.gamerenderer {
 		
 		public RenderTarget2D GameTarget;
 		public RenderTarget2D UiTarget;
-		
-		public SpriteSortMode SpriteSortMode = SpriteSortMode.Immediate;
+
+		public static SpriteSortMode DefaultSortMode = SpriteSortMode.Deferred;
+
+		public SpriteSortMode SpriteSortMode = DefaultSortMode;
 		public BlendState BlendState = BlendState.NonPremultiplied;
 		public SamplerState SamplerState = SamplerState.PointClamp;
 		public DepthStencilState DepthStencilState = DepthStencilState.None;

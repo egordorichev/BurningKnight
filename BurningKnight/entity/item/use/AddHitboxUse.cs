@@ -36,7 +36,7 @@ namespace BurningKnight.entity.item.use {
 			base.Destroy();
 
 			if (body != null) {
-				Physics.World.RemoveBody(body);
+				Physics.RemoveBody(body);
 				body = null;
 			}
 		}

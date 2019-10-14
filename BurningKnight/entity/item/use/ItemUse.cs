@@ -10,6 +10,26 @@ namespace BurningKnight.entity.item.use {
 			
 		}
 
+		public virtual void Update(Entity entity, Item item, float dt) {
+			
+		}
+
+		public virtual void Pickup(Entity entity, Item item) {
+			
+		}
+
+		public virtual void Drop(Entity entity, Item item) {
+			
+		}
+
+		public virtual void TakeOut(Entity entity, Item item) {
+			
+		}
+
+		public virtual void PutAway(Entity entity, Item item) {
+			
+		}
+
 		public virtual void Setup(JsonValue settings) {
 			
 		}

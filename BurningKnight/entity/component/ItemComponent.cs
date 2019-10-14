@@ -20,6 +20,8 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public virtual void Set(Item item, bool animate = true) {
+			var prev = Item;
+			
 			if (!animate && Item != null) {
 				Drop();
 				Item = null;
@@ -39,7 +41,7 @@ namespace BurningKnight.entity.component {
 			item.AddComponent(new OwnerComponent(Entity));
 
 			if (!animate) {
-				SetupItem(item);
+				SetupItem(item, prev);
 				return;
 			}
 			
@@ -52,15 +54,16 @@ namespace BurningKnight.entity.component {
 			}
 			
 			((Player) Entity).AnimateItemPickup(item, () => {
-				SetupItem(item);
+				SetupItem(item, prev);
 			}, false);
 		}
 
-		private void SetupItem(Item item) {
+		private void SetupItem(Item item, Item previous) {
 			Send(new ItemAddedEvent {
 				Item = item,
 				Component = this,
-				Who = Entity
+				Who = Entity,
+				Old = previous
 			});
 			
 			Item = item;
@@ -73,10 +76,10 @@ namespace BurningKnight.entity.component {
 			debugItem = item.Id;
 	#endif
 
-			OnItemSet();
+			OnItemSet(previous);
 		}
 
-		protected virtual void OnItemSet() {
+		protected virtual void OnItemSet(Item previous) {
 			
 		}
 		
@@ -113,6 +116,7 @@ namespace BurningKnight.entity.component {
 					debugItem = "";
 	#endif
 				} else {
+					Item.Center = Entity.Center;
 					Item.Update(dt);
 				}
 			}

@@ -4,27 +4,25 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class WayOverChasmRoom : ConnectionRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Random.Chance(70) ? Tile.Chasm : Tiles.RandomFloor());
+			Painter.Fill(level, this, 1, Tile.Chasm);
 
-			if (Random.Chance()) {
-				var r = GenerateSpot();
-				
-				if (Random.Chance()) {
-					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), Random.Chance() ? r : GenerateSpot(), true);
-				}
+			var r = GenerateSpot();
 			
-				PaintTunnel(level, Tiles.RandomFloorOrSpike(), r);
-			} else {
-				var r = GenerateSpot();
-				
-				if (Random.Chance()) {
-					PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), Random.Chance() ? r : GenerateSpot(), true);
-				}
-
-				PaintTunnel(level, Tiles.RandomFloorOrSpike(), r);
+			if (Random.Chance()) {
+				PaintTunnel(level, Tiles.Pick(Tile.Chasm, Tile.WallA, Tiles.RandomFloorOrSpike()), Random.Chance() ? r : GenerateSpot(), true);
 			}
+		
+			PaintTunnel(level, Tiles.RandomFloorOrSpike(), r);
 		}
 
+		public override int GetMinWidth() {
+			return 5;
+		}
+
+		public override int GetMinHeight() {
+			return 5;
+		}
+		
 		public override int GetMaxWidth() {
 			return 14;
 		}

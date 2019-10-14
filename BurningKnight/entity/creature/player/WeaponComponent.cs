@@ -9,6 +9,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
+using Lens.util;
 
 namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
@@ -56,12 +57,19 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemAddedEvent ev) {
-				if (AtBack && ev.Old == null && ev.Item != null && ev.Component == this) {
-					if (GlobalSave.IsTrue("control_swap")) {
-						requestSwap = true;
-					} else {
-						Entity.GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Swap, GamepadComponent.Current != null));
-						Entity.GetComponent<DialogComponent>().Start("control_5");
+				if (ev.Component == this) {
+					ev.Old?.Drop();
+					ev.Item?.Pickup();
+					
+					if (ev.Item != null && ev.Old == null && AtBack) {
+						if (GlobalSave.IsTrue("control_swap")) {
+							Entity.GetComponent<ActiveWeaponComponent>().requestSwap = true;
+						} else {
+							Entity.GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl",
+									Controls.Find(Controls.Swap, GamepadComponent.Current != null));
+
+							Entity.GetComponent<DialogComponent>().Start("control_5");
+						}
 					}
 				}
 			}
@@ -86,6 +94,13 @@ namespace BurningKnight.entity.creature.player {
 				var tmp = component.Item;
 				component.Item = Item;
 				Item = tmp;
+
+				if (!AtBack) {
+					component.Item?.PutAway();
+					Item?.TakeOut();
+				} else {
+					Log.Error("Swap is called from not active weapon component");
+				}
 			}
 		}
 	}

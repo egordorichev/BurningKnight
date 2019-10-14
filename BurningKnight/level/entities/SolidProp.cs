@@ -14,8 +14,12 @@ namespace BurningKnight.level.entities {
 		public override void PostInit() {
 			base.PostInit();
 
+			AddComponent(CreateBody());
+		}
+
+		protected virtual BodyComponent CreateBody() {
 			var collider = GetCollider();
-			AddComponent(new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Static));
+			return new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Static);
 		}
 
 		protected virtual Rectangle GetCollider() {

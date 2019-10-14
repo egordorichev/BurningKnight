@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.bk {
 			typeof(HugeSplittingBulletAttack),
 			typeof(ShootAttack),
 			typeof(SpinningHellAttack),
-			typeof(MissileAttack),
+			// typeof(MissileAttack),
 			typeof(BulletRingAttack)
 		};
 
@@ -32,22 +32,22 @@ namespace BurningKnight.entity.creature.bk {
 		static BurningKnightAttackRegistry() {
 			PatternRegistry.Register("bounce_0", new BossPattern<BurningKnight>(
 				typeof(ArrowAttack),
-				typeof(ShootAttack),
-				typeof(MissileAttack)
+				typeof(ShootAttack)//,
+			//	typeof(MissileAttack)
 			));
 			
 			PatternRegistry.Register("bounce_1", new BossPattern<BurningKnight>(
-	typeof(FourArrowAttack),
+				typeof(FourArrowAttack),
 				typeof(ShootAttack)
 			));
 			
 			PatternRegistry.Register("bounce_2", new BossPattern<BurningKnight>(
-				typeof(MissileAttack),
+				// typeof(MissileAttack),
 				typeof(ArrowAttack)
 			));
 			
 			PatternRegistry.Register("spam_0", new BossPattern<BurningKnight>(
-				typeof(MissileAttack),
+				// typeof(MissileAttack),
 				typeof(HugeSplittingBulletAttack),
 				typeof(AutoSkullAttack)
 			));

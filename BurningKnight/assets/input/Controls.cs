@@ -27,6 +27,7 @@ namespace BurningKnight.assets.input {
 
 		public const string Roll = "roll";
 		public const string Duck = "duck";
+		public const string Map = "map";
 		
 		public const string Pause = "pause";
 
@@ -35,7 +36,6 @@ namespace BurningKnight.assets.input {
 		
 		public const string Fullscreen = "fullscreen";
 		public const string Fps = "fps";
-		public const string Mute = "mute";
 
 		public const string UiUp = "ui_up";
 		public const string UiDown = "ui_down";
@@ -58,11 +58,11 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Swap, Keys.LeftShift).Gamepad(Buttons.X));
 			controls.Add(new Control(Roll).Mouse(MouseButtons.Right).Gamepad(Buttons.LeftTrigger));
 			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.LeftShoulder));
+			controls.Add(new Control(Map, Keys.M).Gamepad(Buttons.LeftStick));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
 			
-			controls.Add(new Control(Mute, Keys.M));
-			controls.Add(new Control(Fullscreen, Keys.F11, Keys.F));
+			controls.Add(new Control(Fullscreen, Keys.F11));
 			controls.Add(new Control(Fps, Keys.F2));
 
 			controls.Add(new Control(Cancel, Keys.Escape).Gamepad(Buttons.Back));

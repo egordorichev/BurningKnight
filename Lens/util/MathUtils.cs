@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.util {
 	public class MathUtils {
-		public static Vector2 InvertX = new Vector2(1, -1);
+		public static Vector2 InvertX = new Vector2(-1, 1);
 		public static Vector2 InvertY = new Vector2(1, -1);
 		public static Vector2 InvertXY = new Vector2(-1, -1);
 		public static Vector2 DoubleScale = new Vector2(2);
@@ -41,6 +41,10 @@ namespace Lens.util {
 		}
 		
 		public static float Clamp(float Min, float Max, float Val) {
+			return Math.Max(Min, Math.Min(Max, Val));
+		}
+		
+		public static int Clamp(int Min, int Max, int Val) {
 			return Math.Max(Min, Math.Min(Max, Val));
 		}
 

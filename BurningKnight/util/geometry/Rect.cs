@@ -13,7 +13,7 @@ namespace BurningKnight.util.geometry {
 			
 		}
 
-		public Rect(Vector2 vec) {
+		public Rect(Dot vec) {
 			Set((int) vec.X, (int) vec.Y, (int) vec.X, (int) vec.Y);
 		}
 		
@@ -116,11 +116,11 @@ namespace BurningKnight.util.geometry {
 			return this;
 		}
 
-		public Rect Union(Vector2 P) {
+		public Rect Union(Dot P) {
 			return Union((int) P.X, (int) P.Y);
 		}
 
-		public bool Inside(Vector2 P) {
+		public bool Inside(Dot P) {
 			return P.X >= Left && P.X < Right && P.Y >= Top && P.Y < Bottom;
 		}
 
@@ -132,12 +132,14 @@ namespace BurningKnight.util.geometry {
 			return new Rect(Left, Top, Right - x, Bottom - y);
 		}
 
-		public List<Vector2> GetPoints() {
-			var Points = new List<Vector2>();
+		public List<Dot> GetPoints() {
+			var Points = new List<Dot>();
 
-			for (int I = Math.Min(Right, Left); I <= Math.Max(Right, Left); I++)
-			for (int J = Math.Min(Top, Bottom); J <= Math.Max(Top, Bottom); J++)
-				Points.Add(new Vector2(I, J));
+			for (int I = Math.Min(Right, Left); I <= Math.Max(Right, Left); I++) {
+                for (int J = Math.Min(Top, Bottom); J <= Math.Max(Top, Bottom); J++) {
+                    Points.Add(new Dot(I, J));
+                }
+			}
 
 			return Points;
 		}

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>/home/egor/Lens/BurningKnight/Content/Textures/noise.png</SourceFile>
-  <SourceTime>2018-09-29T21:27:12.413948+03:00</SourceTime>
-  <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Textures/noise.xnb</DestFile>
-  <DestTime>2019-09-26T13:50:47.619397+03:00</DestTime>
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Textures/noise.png</SourceFile>
+  <SourceTime>2019-10-12T12:19:05.2446902+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/noise.xnb</DestFile>
+  <DestTime>2019-10-14T17:03:42.6647037+03:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2018-12-29T18:57:46.548335+03:00</ImporterTime>
+  <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2018-12-29T18:57:46.548335+03:00</ProcessorTime>
+  <ProcessorTime>2018-09-24T00:55:52+03:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

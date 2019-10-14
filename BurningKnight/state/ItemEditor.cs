@@ -234,8 +234,8 @@ namespace BurningKnight.state {
 
 		private static bool forceFocus;
 
-		private static string[] types = new[] {
-			"Room charged", "Auto charged", "Single use"
+		private static string[] types = {
+			"Room charged", "Auto charged", "Single use", "Infinite"
 		};
 		
 		private static void RenderWindow() {
@@ -318,21 +318,27 @@ namespace BurningKnight.state {
 
 			if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Bomb && t != ItemType.Key) {
 				if (t == ItemType.Active) {
-					var o = 0;
+					var o = 0; // Room charged
 
-					if (selected.UseTime < -0.01f) {
-						o = 1;
-					} else if (selected.UseTime < 0.01f) {
+					if (selected.SingleUse) {
 						o = 2;
+					} else if (selected.UseTime < -0.01f) {
+						o = 1; // Auto charged
+					} else if (selected.UseTime < 0.01f) {
+						o = 3; // Infinite
 					}
 
 					if (ImGui.Combo("RC", ref o, types, types.Length)) {
+						selected.SingleUse = false;
+						
 						if (o == 0) {
 							selected.UseTime = Math.Max(0.01f, Math.Abs(selected.UseTime));
 						} else if (o == 1) {
-							selected.UseTime = -Math.Max(0.01f, -Math.Abs(selected.UseTime));
-						} else {
+							selected.UseTime = Math.Min(-0.1f, -Math.Abs(selected.UseTime));
+						} else if (o == 3) {
 							selected.UseTime = 0;
+						} else {
+							selected.SingleUse = true;
 						}
 					}
 					
@@ -537,6 +543,8 @@ namespace BurningKnight.state {
 						data.Root = JsonValue.Parse(selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
+						data.SingleUse = data.SingleUse;
+						data.UseTime = data.UseTime;
 						data.Lockable = selected.Lockable;
 						data.UnlockPrice = selected.UnlockPrice;
 

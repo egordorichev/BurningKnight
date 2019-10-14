@@ -152,6 +152,8 @@ namespace BurningKnight.state {
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
 
+			Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
+			
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
@@ -160,6 +162,7 @@ namespace BurningKnight.state {
 			vx = -Font.Small.MeasureString(v).Width;
 
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
+			
 			SetupUi();
 
 			for (int i = 0; i < 30; i++) {
@@ -179,7 +182,7 @@ namespace BurningKnight.state {
 			}
 
 			if (!Menu) {
-				Camera.Instance.Follow(cursor, 1f);
+				Camera.Instance.Follow(cursor, CursorPriority);
 			}
 
 			Camera.Instance.Jump();
@@ -191,6 +194,8 @@ namespace BurningKnight.state {
 			Run.StartedNew = false;
 		}
 
+		private const float CursorPriority = 0.5f;
+
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
 
@@ -200,7 +205,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			Camera.Instance.Follow(cursor, 1f);
+			Camera.Instance.Follow(cursor, CursorPriority);
 		}
 
 		public override void Destroy() {
@@ -250,6 +255,7 @@ namespace BurningKnight.state {
 
 			if (painting == null) {
 				pauseMenu.X = 0;
+				pauseMenu.Enabled = true;
 				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
 			}
 
@@ -268,7 +274,10 @@ namespace BurningKnight.state {
 			}
 
 			Tween.To(this, new {blur = 0}, 0.25f);
-			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f);
+			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
+				pauseMenu.Enabled = false;
+			};
+
 			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
 
 			pausedByMouseOut = false;
@@ -448,7 +457,7 @@ namespace BurningKnight.state {
 					Input.Blocked = 0;
 					
 					Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
-					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, 1f);
+					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, CursorPriority);
 					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
 			}
@@ -462,6 +471,19 @@ namespace BurningKnight.state {
 				base.Update(dt);
 			} else {
 				Ui.Update(dt);
+			}
+
+			var found = false;
+
+			foreach (var t in Camera.Instance.Targets) {
+				if (t.Entity is Player) {
+					found = true;
+					break;
+				}
+			}
+
+			if (found) {
+				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
 			}
 
 			console.Update(dt);
@@ -501,9 +523,9 @@ namespace BurningKnight.state {
 				var d = (float) Math.Sqrt(dx + dy);
 
 				if (d > 0.25f) {
-					var f = 32;
+					var f = 48;
 					var tar = new Vector2(p.CenterX + stick.X / d * f, p.CenterY + stick.Y / d * f);
-					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 7f;
+					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 30f;
 				}
 			}
 
@@ -513,10 +535,6 @@ namespace BurningKnight.state {
 			}
 
 			Run.Update();
-			
-			if (Input.WasPressed(Controls.Mute)) {
-				Settings.MusicVolume = Settings.MusicVolume > 0.01f ? 0f : 0.5f;
-			}
 			
 			if (Input.WasPressed(Controls.Fullscreen)) {
 				if (Engine.Graphics.IsFullScreen) {
@@ -866,6 +884,7 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = start + space * 3,
 				Click = b => {
+					gameOverMenu.Enabled = false;
 					Run.StartNew();
 				}
 			});
@@ -875,11 +894,14 @@ namespace BurningKnight.state {
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
 				Type = ButtonType.Exit,
-				Click = b => Run.Depth = 0
+				Click = b => {
+					gameOverMenu.Enabled = false;
+					Run.Depth = 0;
+				}
 			});
 			
 			gameOverMenu.Setup();
-			gameOverMenu.Active = false;
+			gameOverMenu.Enabled = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
@@ -957,9 +979,14 @@ namespace BurningKnight.state {
 					}.Start();
 					
 					currentBack = pauseBack;
-					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
+					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						pauseMenu.Enabled = false;
+					};
 				}
 			});
+			
+			pauseMenu.Enabled = false;
 			
 			AddGameSettings();
 			AddGraphicsSettings();
@@ -1308,7 +1335,7 @@ namespace BurningKnight.state {
 				Settings.MasterVolume = s.Value / 100f;
 			};
 			
-			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
+			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MusicVolume * 100)).OnValueChange = s => {
 				Settings.MusicVolume = s.Value / 100f;
 			};
 			
@@ -1643,7 +1670,7 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Active = true;
+			gameOverMenu.Enabled = true;
 			
 			timeLabel.Label = $"{GetRunTime()}";
 			timeLabel.RelativeCenterX = Display.UiWidth / 2f;

@@ -6,6 +6,7 @@ using BurningKnight.entity.item;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens.entity.component.logic;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
@@ -22,7 +23,7 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
-				if (GetComponent<BuffsComponent>().Has<CharmedBuff>()) {
+				if (GetComponent<BuffsComponent>().Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
@@ -49,8 +50,11 @@ namespace BurningKnight.entity.creature.player {
 			return item.Type == ItemType.Weapon && (Item == null || Run.Depth < 1 || Entity.GetComponent<WeaponComponent>().Item != null);
 		}
 
-		protected override void OnItemSet() {
-			base.OnItemSet();
+		protected override void OnItemSet(Item previous) {
+			base.OnItemSet(previous);
+			
+			previous?.PutAway();
+			Item?.TakeOut();
 
 			if (GlobalSave.IsFalse("control_use")) {
 				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null));

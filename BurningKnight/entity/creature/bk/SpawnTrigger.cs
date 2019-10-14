@@ -44,7 +44,7 @@ namespace BurningKnight.entity.creature.bk {
 				Camera.Instance.Shake(0.5f);
 				t += dt;
 
-				if (t >= 4f) {
+				if (t >= 1f) {
 					did = true;
 					var r = (int) Math.Ceiling(Math.Sqrt((RoomWidth + 1) * (RoomWidth + 1) + (RoomHeight + 1) * (RoomHeight + 1)));
 
@@ -106,7 +106,7 @@ namespace BurningKnight.entity.creature.bk {
 							}
 				
 							Camera.Instance.Shake(2);
-						}, j * 0.1f);
+						}, j * 0.05f);
 					}
 
 					Timer.Add(() => {
@@ -124,7 +124,7 @@ namespace BurningKnight.entity.creature.bk {
 							Done = true;
 							ReadyToSpawn = true;
 						}, 1f);
-					}, r * 0.1f + 2f);
+					}, r * 0.05f + 1f);
 				}
 			}
 		}
@@ -173,11 +173,20 @@ namespace BurningKnight.entity.creature.bk {
 		public override void PostInit() {
 			base.PostInit();
 			
+			Subscribe<BurningStatue.BrokenEvent>();
+			
 			AddComponent(new RoomComponent());
-			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(8, 8, Width - 16, Height - 16, BodyType.Static, true));
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (e is BurningStatue.BrokenEvent) {
+				Interrupted = true;
+				Done = true;
+
+				return base.HandleEvent(e);
+			}
+			
 			if (Triggered) {
 				return base.HandleEvent(e);
 			}

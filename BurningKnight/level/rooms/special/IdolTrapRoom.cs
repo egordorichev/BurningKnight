@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.tile;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special {
 	public class IdolTrapRoom : SpecialRoom {
@@ -11,7 +12,7 @@ namespace BurningKnight.level.rooms.special {
 			var stand = new ItemStand();
 			level.Area.Add(stand);
 			
-			stand.Center = GetCenter() * 16;
+			stand.Center = GetCenter() * 16 + new Vector2(8);
 			stand.SetItem(Items.CreateAndAdd("bk:idol", level.Area), null);
 		}
 	}

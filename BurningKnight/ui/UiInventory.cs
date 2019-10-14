@@ -194,7 +194,7 @@ namespace BurningKnight.ui {
 		}
 		
 		public override void Render() {
-			if (player == null || player.Done) {
+			if (player == null || player.Done || Run.Depth < 1) {
 				Done = true;
 				return;
 			}
@@ -265,6 +265,16 @@ namespace BurningKnight.ui {
 			
 			Graphics.Render(itemSlot, pos, 0, itemSlot.Center, activeScale);
 
+			
+			if (item == null || (item.Done && !tweened)) {
+				tweened = true;
+					
+				Tween.To(-1, 0, x => activePosition = x, 0.3f).OnEnd = () => {
+					player.GetComponent<ActiveItemComponent>().Clear();
+					tweened = false;
+				};
+			}
+			
 			if (item != null) {
 				var region = item.Region;
 				var timed = item.UseTime < 0;
@@ -293,15 +303,6 @@ namespace BurningKnight.ui {
 					}
 			
 					Graphics.Render(region, p, 0, region.Center, itemScale);
-				}
-
-				if (item.Done && !tweened) {
-					tweened = true;
-					
-					Tween.To(-1, 0, x => activePosition = x, 0.3f).OnEnd = () => {
-						player.GetComponent<ActiveItemComponent>().Clear();
-						tweened = false;
-					};
 				}
 
 				if (Math.Abs(item.UseTime) <= 0.01f) {

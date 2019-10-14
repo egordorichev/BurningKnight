@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BurningKnight.ui.str.effect;
 using BurningKnight.ui.str.@event;
+using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
@@ -371,7 +372,7 @@ namespace BurningKnight.ui.str {
 		}
 
 		public override void Render() {
-			if (label == null || Tint.A == 0 || glyphs.Count == 0) {
+			if (Engine.Instance.State.Paused || label == null || Tint.A == 0 || glyphs.Count == 0) {
 				return;
 			}
 

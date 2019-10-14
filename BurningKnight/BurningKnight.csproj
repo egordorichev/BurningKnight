@@ -70,8 +70,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -310,12 +309,14 @@
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
+    <Compile Include="debug\LevelLayerDebug.cs" />
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
+    <Compile Include="entity\buff\BuffCheckEvent.cs" />
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
@@ -347,6 +348,7 @@
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
+    <Compile Include="entity\component\MobAnimationComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\ExtraAnimationComponent.cs" />
     <Compile Include="entity\component\OrbitalComponent.cs" />
@@ -396,12 +398,18 @@
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
+    <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
+    <Compile Include="entity\creature\npc\Brastin.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
+    <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
+    <Compile Include="entity\creature\npc\Maanex.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
@@ -545,6 +553,7 @@
     <Compile Include="entity\item\renderer\MovingAngledRenderer.cs" />
     <Compile Include="entity\item\renderer\RendererRegistry.cs" />
     <Compile Include="entity\item\renderer\StickRenderer.cs" />
+    <Compile Include="entity\item\Reroller.cs" />
     <Compile Include="entity\item\SingleChoiceStand.cs" />
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ActiveStand.cs" />
@@ -557,6 +566,17 @@
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
+    <Compile Include="entity\item\use\AddTorchUse.cs" />
+    <Compile Include="entity\item\use\CurseUse.cs" />
+    <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
+    <Compile Include="entity\item\use\DoWithUse.cs" />
+    <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
+    <Compile Include="entity\item\use\GiveBuffUse.cs" />
+    <Compile Include="entity\item\use\DoOnHurtUse.cs" />
+    <Compile Include="entity\item\use\GoThonkUse.cs" />
+    <Compile Include="entity\item\use\ModifyLuckUse.cs" />
+    <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
+    <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />
     <Compile Include="entity\item\use\DigUse.cs" />
     <Compile Include="entity\item\use\DiscoverSecretRoomsUse.cs" />
@@ -585,10 +605,14 @@
     <Compile Include="entity\item\use\ModifyProjectilesUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />
     <Compile Include="entity\item\use\PreventDamageUse.cs" />
+    <Compile Include="entity\item\use\RandomActiveUse.cs" />
     <Compile Include="entity\item\use\RandomUse.cs" />
     <Compile Include="entity\item\use\RerollAndHideUse.cs" />
+    <Compile Include="entity\item\use\RerollItemsOnPlayerUse.cs" />
     <Compile Include="entity\item\use\RerollItemsUse.cs" />
+    <Compile Include="entity\item\use\RevealMapUse.cs" />
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
+    <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
@@ -599,6 +623,8 @@
     <Compile Include="entity\item\use\SpawnPetUse.cs" />
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
+    <Compile Include="entity\item\use\TeleportUse.cs" />
+    <Compile Include="entity\item\use\TriggerHurtEventUse.cs" />
     <Compile Include="entity\item\use\UseOnEventUse.cs" />
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
@@ -680,6 +706,7 @@
     <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
+    <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\plant\Plant.cs" />
     <Compile Include="level\entities\plant\PlantGraphicsComponent.cs" />
@@ -722,6 +749,7 @@
     <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
+    <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
@@ -902,7 +930,7 @@
     <Compile Include="util\Direction.cs" />
     <Compile Include="util\Directions.cs" />
     <Compile Include="util\FollowingDriver.cs" />
-    <Compile Include="util\geometry\Point.cs" />
+    <Compile Include="util\geometry\Dot.cs" />
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\LoadScreenTitles.cs" />
@@ -940,10 +968,16 @@
     <None Include="./Content/obj/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="./Content/Music/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./Content/Items/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Locales/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/Fonts/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Prefabs/*">
@@ -952,12 +986,20 @@
     <None Include="./Content/Animations/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="./Content/Textures/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="./lib/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="level\entities\trap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\todo.md">
+      <Link>todo.md</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />

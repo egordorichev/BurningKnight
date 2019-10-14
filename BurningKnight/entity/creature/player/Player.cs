@@ -4,6 +4,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
@@ -49,7 +50,7 @@ namespace BurningKnight.entity.creature.player {
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
-			
+
 			PickedItem = item;
 			
 			Timer.Add(() => {
@@ -91,7 +92,6 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new HatComponent());
 			
 			// Stats
-			AddComponent(new StatsComponent());
 			AddComponent(new HeartsComponent());
 
 			// Collisions
@@ -113,6 +113,13 @@ namespace BurningKnight.entity.creature.player {
 			RemoveTag(Tags.LevelSave);
 
 			AlwaysActive = true;
+
+			InitStats();
+		}
+
+		public void InitStats() {
+			GetComponent<OrbitGiverComponent>().DestroyAll();
+			GetComponent<FollowerComponent>().DestroyAll();
 
 			var hp = GetComponent<HealthComponent>();
 			hp.MaxHealth = 6;
@@ -358,6 +365,10 @@ namespace BurningKnight.entity.creature.player {
 						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
 					}
 				}*/
+			} else if (e is HealthModifiedEvent hm) {
+				if (hm.Amount < 0 && hm.From is Mob m && m.HasPrefix) {
+					hm.Amount = Math.Min(hm.Amount, -2);
+				}			
 			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {
 					HandleEvent(new PlayerHurtEvent {
@@ -469,17 +480,6 @@ namespace BurningKnight.entity.creature.player {
 			
 			Camera.Instance.Targets.Clear();
 			Camera.Instance.Follow(stone, 0.5f);
-
-			var x = (int) Math.Floor(stone.CenterX / 16f);
-			var y = (int) Math.Floor(stone.CenterY / 16f);
-			
-			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
-
-			Run.Level.UpdateTile(x - 1, y - 1);
-			Run.Level.UpdateTile(x + 1, y - 1);
-			Run.Level.UpdateTile(x - 1, y + 1);
-			Run.Level.UpdateTile(x + 1, y + 1);
-			Run.Level.TileUp();
 		}
 
 		public override void Save(FileWriter stream) {

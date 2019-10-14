@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.use.parent;
 using Lens.lightJson;
 using Lens.util;
 
@@ -79,6 +80,21 @@ namespace BurningKnight.entity.item.use {
 			Register<AddHitboxUse>();
 			Register<GiveEmeraldsUse>(GiveEmeraldsUse.RenderDebug);
 			Register<ModifyProjectilesUse>(ModifyProjectilesUse.RenderDebug);
+			Register<TeleportUse>(TeleportUse.RenderDebug);
+			Register<AddTorchUse>();
+			Register<DoOnEnemyCollisionUse>(DoOnEnemyCollisionUse.RenderDebug);
+			Register<DoOnHurtUse>(DoOnHurtUse.RenderDebug);
+			Register<GiveBuffUse>(GiveBuffUse.RenderDebug);
+			Register<GiveBuffImmunityUse>(GiveBuffImmunityUse.RenderDebug);
+			Register<DoWithUse>(DoWithUse.RenderDebug);
+			Register<TriggerHurtEventUse>();
+			Register<SetKnockbackModifierUse>(SetKnockbackModifierUse.RenderDebug);
+			Register<RandomActiveUse>();
+			Register<CurseUse>();
+			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
+			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
+			Register<GoThonkUse>();
+			Register<RevealMapUse>();
 		}
 	}
 }

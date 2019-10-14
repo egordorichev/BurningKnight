@@ -3,7 +3,6 @@
 namespace BurningKnight.entity.buff {
 	public class Buff {
 		public Entity Entity;
-		public Entity WhoGave;
 		public float TimeLeft;
 		public float Duration = 1f;
 		public bool Infinite;
