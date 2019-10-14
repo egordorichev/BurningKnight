@@ -1,5 +1,7 @@
 # scoped down
 
+* remove disks except shopkeeper and the one that granny gives you ()music files for now
+
 * play music when boss appears
 * bomb with q still broken
 * music speed depends on build type
