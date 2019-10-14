@@ -90,9 +90,6 @@ jobs:
           git clone https://github.com/egordorichev/bk_linux_kick
           cp -rf ./bk_linux_kick/* ./Linux/
           cd ./Linux
-          cd ./Content/bin/Music/
-          ls
-          cd ../../../
           ls
           cd ..
           
