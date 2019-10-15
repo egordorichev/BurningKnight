@@ -14,7 +14,17 @@ namespace Lens.assets {
 		public bool Stereo;
 		public float Volume = 1f;
 
-		public bool Paused;
+		public bool Paused {
+			get => SoundInstance.State == SoundState.Playing;
+
+			set {
+				if (value) {
+					//SoundInstance.Play();
+				} else {
+					//SoundInstance.Pause();
+				}
+			}
+		}
 		
 		public bool Repeat = true;
 
@@ -46,7 +56,7 @@ namespace Lens.assets {
 
 				for (var i = 0; i < dynamicBufferLength; i++) {
 					for (var c = 0; c < channels; c++) {
-						var floatSample = Paused ? 0 : Buffer[position * channels + c] * Volume;
+						var floatSample = Buffer[position * channels + c] * Volume;
 						var shortSample = (short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
 						var index = (i * channels + c) * 2;
 
@@ -59,13 +69,7 @@ namespace Lens.assets {
 						}
 					}
 
-					if (position >= bufferLength) {
-						if (Repeat) {
-							position = 0;
-						} else {
-							Paused = true;
-						}
-					}
+					position = (position + 1) % bufferLength;
 				}
 
 				SoundInstance.SubmitBuffer(dynamicBuffer);

@@ -118,7 +118,7 @@ namespace Lens.assets {
 			currentPlayingMusic = music;
 				
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				AudioFile file = null;
+				AudioFile file;
 
 				if (UseOgg) {
 					try {
@@ -134,12 +134,11 @@ namespace Lens.assets {
 				currentPlaying = new Music(file);
 				musicInstances[music] = currentPlaying;
 				currentPlaying.PlayFromStart();
-			} else {
-				currentPlaying.Paused = false;
 			}
 
 			currentPlaying.Volume = 0;
 			currentPlaying.Repeat = repeat;
+			currentPlaying.Paused = false;
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);

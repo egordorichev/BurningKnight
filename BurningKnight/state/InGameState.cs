@@ -81,6 +81,8 @@ namespace BurningKnight.state {
 		private float offset;
 		private bool menuExited;
 		private float blackBarsSize;
+		private bool doneAnimatingPause = true;
+		
 		private TextureRegion gardient;
 		private TextureRegion black;
 		private TextureRegion emerald;
@@ -254,9 +256,15 @@ namespace BurningKnight.state {
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
+				doneAnimatingPause = false;
+
 				pauseMenu.X = 0;
 				pauseMenu.Enabled = true;
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = SelectFirst;
+
+				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
+					doneAnimatingPause = true;
+					SelectFirst();
+				};
 			}
 
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
@@ -273,9 +281,12 @@ namespace BurningKnight.state {
 				return;
 			}
 
+			doneAnimatingPause = false;
+
 			Tween.To(this, new {blur = 0}, 0.25f);
 			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
 				pauseMenu.Enabled = false;
+				doneAnimatingPause = true;
 			};
 
 			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
@@ -497,7 +508,7 @@ namespace BurningKnight.state {
 						painting.Remove();
 					}
 				} else {
-					if (Input.WasPressed(Controls.Pause, controller)) {
+					if (doneAnimatingPause && Input.WasPressed(Controls.Pause, controller)) {
 						if (Paused) {
 							if (UiControl.Focused != null) {
 								UiControl.Focused.Cancel();
