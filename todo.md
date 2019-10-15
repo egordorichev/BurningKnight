@@ -1,17 +1,14 @@
 # scoped down
 
 * fix active item control help
-* isaac npc in the basement
-* freaking connection room without passage
 * fix damaging by rolling into a wall
 * music repeat implementation (and bug with win jingle)
 * throwing music discs as weapons
-
 * bomb with q still broken
 * music speed change support
-* alt + enter
 * copy seed
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
+* isaac npc in the basement
 
 # TODO
 
