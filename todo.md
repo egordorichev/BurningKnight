@@ -1,14 +1,15 @@
 # scoped down
 
-* music repeat implementation (and bug with win jingle)
 * fix damaging by rolling into a wall
-* music speed change support
-* throwing music discs as weapons
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
+
+* music repeat implementation (and bug with win jingle)
+
 * isaac npc in the basement
 
 # TODO
 
+* throwing music discs as weapons
 * resprite bk
 * curse getting animation
 

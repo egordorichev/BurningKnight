@@ -12,24 +12,15 @@ namespace Lens.assets {
 		public float[] Buffer;
 		public int SampleRate;
 		public bool Stereo;
+		public float Speed = 1f;
 		public float Volume = 1f;
 
-		public bool Paused {
-			get => SoundInstance.State == SoundState.Playing;
-
-			set {
-				if (value) {
-					//SoundInstance.Play();
-				} else {
-					//SoundInstance.Pause();
-				}
-			}
-		}
+		public bool Paused;
 		
 		public bool Repeat = true;
 
 		private byte[] dynamicBuffer;
-		private int position;
+		private float position;
 		private byte channels;
 		
 		public Music(AudioFile source) {
@@ -56,7 +47,7 @@ namespace Lens.assets {
 
 				for (var i = 0; i < dynamicBufferLength; i++) {
 					for (var c = 0; c < channels; c++) {
-						var floatSample = Buffer[position * channels + c] * Volume;
+						var floatSample = Buffer[(int) position * channels + c] * Volume;
 						var shortSample = (short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
 						var index = (i * channels + c) * 2;
 
@@ -69,7 +60,7 @@ namespace Lens.assets {
 						}
 					}
 
-					position = (position + 1) % bufferLength;
+					position = (position + Speed) % bufferLength;
 				}
 
 				SoundInstance.SubmitBuffer(dynamicBuffer);
