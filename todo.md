@@ -2,8 +2,6 @@
 
 * fix damaging by rolling into a wall
 * music repeat implementation (and bug with win jingle)
-* look into that tunnel bug again
-* clip the painter to the room only, except if it is a boss room
 *  throwing music discs as weapons
 
 * reexport fonts
