@@ -547,7 +547,7 @@ namespace BurningKnight.state {
 
 			Run.Update();
 			
-			if (Input.WasPressed(Controls.Fullscreen)) {
+			if (Input.WasPressed(Controls.Fullscreen) || (Input.Keyboard.WasPressed(Keys.Enter) && (Input.Keyboard.IsDown(Keys.LeftAlt) || Input.Keyboard.IsDown(Keys.RightAlt)))) {
 				if (Engine.Graphics.IsFullScreen) {
 					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 				} else {

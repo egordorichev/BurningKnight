@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lens.util {
 	public static class Log {
-		public static bool WriteToFile = false;
+		public static bool WriteToFile = !Engine.Debug;
 		private static StringBuilder builder;
 
 		public static void Open() {
@@ -19,7 +19,7 @@ namespace Lens.util {
 				return;
 			}
 
-			File.WriteAllText("log.txt", builder.ToString());
+			File.WriteAllText("burning_log.txt", builder.ToString());
 			builder = null;
 		}
 		
