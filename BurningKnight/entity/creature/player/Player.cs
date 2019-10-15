@@ -33,6 +33,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
 		public static string StartingWeapon;
+		public static string StartingItem;
 
 		public List<TextureRegion> PickedUp = new List<TextureRegion>();
 		public float LastPickup;
@@ -142,6 +143,10 @@ namespace BurningKnight.entity.creature.player {
 
 				if (StartingWeapon != null) {
 					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area), false);
+				}
+				
+				if (StartingItem != null) {
+					GetComponent<ActiveItemComponent>().Set(Items.CreateAndAdd(StartingItem, Area), false);
 				}
 			}
 			
@@ -512,6 +517,7 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Run.StartingNew || Run.StartedNew) {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
+				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
 			}
 		}
 	}

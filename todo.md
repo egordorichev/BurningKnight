@@ -1,5 +1,6 @@
 # scoped down
 
+* gonner style respawn room, where you can go back or pick your items ()or ignore em
 * freaking connection room without passage
 * fix damaging by rolling into a wall
 * music repeat implementation (and bug with win jingle)
