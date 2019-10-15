@@ -142,7 +142,6 @@ namespace BurningKnight.entity.creature.player {
 
 				if (StartingWeapon != null) {
 					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area), false);
-					StartingWeapon = null;
 				}
 			}
 			

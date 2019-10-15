@@ -12,7 +12,6 @@
  
 * bomb with q still broken
 * music speed change support
-* fix game fps
 
 * resprite bk
 * curse getting animation
@@ -29,8 +28,6 @@
  + use rate
  + speed
  + range mod
-
-* music speed changing
 
 ## for showcase
 
