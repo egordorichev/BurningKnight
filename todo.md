@@ -1,8 +1,6 @@
 # scoped down
 
-* active item control help
 * music repeat implementation (and bug with win jingle)
-* bomb with q still broken
 * fix damaging by rolling into a wall
 
 * music speed change support
