@@ -1,7 +1,7 @@
 # scoped down
 
+* fix active item control helpw
 * isaac npc in the basement
-* borderless window size of display
 * gonner style respawn room, where you can go back or pick your items ()or ignore em
 * freaking connection room without passage
 * fix damaging by rolling into a wall

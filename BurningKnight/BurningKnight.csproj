@@ -680,6 +680,7 @@
     <Compile Include="entity\SpawnPoint.cs" />
     <Compile Include="level\basement\BasementRoom.cs" />
     <Compile Include="level\basement\BasementLevel.cs" />
+    <Compile Include="level\basement\BasementStand.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
     <Compile Include="level\biome\BiomeInfo.cs" />
