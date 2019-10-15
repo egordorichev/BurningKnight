@@ -30,7 +30,8 @@ namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
 		private DialogComponent dialog;
-		
+
+		public static float TimeIdle;
 		public bool InDialog;
 
 		public DialogComponent Dialog {
@@ -74,18 +75,20 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			var idle = true;
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (controller != null && controller.WasAttached && !controller.Attached) {
 				controller.WasAttached = false;
 				Engine.Instance.State.Paused = true;
+				idle = false;
 			}
 
 			if (InDialog) {
 				if (Input.WasPressed(Controls.Cancel)) {
 					InDialog = false;
 					dialog?.Close();
-					
+
 					return;
 				}
 
@@ -131,9 +134,11 @@ namespace BurningKnight.entity.creature.player {
 			
 			if (duck) {
 				if (Input.WasReleased(Controls.Duck, controller)) {
+					idle = false;
 					state.Become<Player.IdleState>();
 				}
 			} else if (Input.WasPressed(Controls.Duck, controller)) {
+				idle = false;
 				state.Become<Player.DuckState>();
 				GlobalSave.Put("control_duck", true);
 
@@ -149,11 +154,13 @@ namespace BurningKnight.entity.creature.player {
 			if (state.StateInstance is Player.RollState r) {
 				// Movement tech :) Direction changing
 				if (Input.WasPressed(Controls.Swap, controller)) {
+					idle = false;
 					r.ChangeDirection();
 				}
 				
 				// Movement tech :) Roll cancelling
 				if (Input.WasPressed(Controls.Roll, controller)) {
+					idle = false;
 					state.Become<Player.IdleState>();
 				}
 			} else if (!duck) {
@@ -161,22 +168,27 @@ namespace BurningKnight.entity.creature.player {
 				var i = GetComponent<TileInteractionComponent>();
 
 				if (Input.IsDown(Controls.Up, controller)) {
+					idle = false;
 					acceleration.Y -= 1;
 				}			
 				
 				if (Input.IsDown(Controls.Down, controller)) {
+					idle = false;
 					acceleration.Y += 1;
 				}
 			
 				if (Input.IsDown(Controls.Left, controller)) {
+					idle = false;
 					acceleration.X -= 1;
 				}
 			
 				if (Input.IsDown(Controls.Right, controller)) {
+					idle = false;
 					acceleration.X += 1;
 				}
 
 				if (Input.Mouse.CheckMiddleButton) {
+					idle = false;
 					var a = Entity.AngleTo(Input.Mouse.GamePosition);
 					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
@@ -188,6 +200,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
+					idle = false;
 					GlobalSave.Put("control_roll", true);
 					state.Become<Player.RollState>();
 				} else {
@@ -198,6 +211,7 @@ namespace BurningKnight.entity.creature.player {
 					}
 
 					if (acceleration.Length() > 0.1f) {
+						idle = false;
 						acceleration.Normalize();
 					}
 
@@ -220,6 +234,19 @@ namespace BurningKnight.entity.creature.player {
 					body.Acceleration = acceleration * s;
 					body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
 				}
+			}
+
+			if (BK.StandMode && idle && !Engine.Instance.State.Paused) {
+				TimeIdle += dt;
+
+				if (TimeIdle >= 120f) {
+					TimeIdle = 0;
+					Log.Info("The game was idle for 120 seconds, restarting");
+					GlobalSave.ResetControlKnowldge();
+					Run.StartNew();
+				}
+			} else {
+				TimeIdle = 0;
 			}
 		}
 	}

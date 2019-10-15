@@ -643,13 +643,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad1)) {
-				GlobalSave.Put("control_use", false);
-				GlobalSave.Put("control_swap", false);
-				GlobalSave.Put("control_roll", false);
-				GlobalSave.Put("control_interact", false);
-				GlobalSave.Put("control_duck", false);
-				GlobalSave.Put("control_bomb", false);
-				GlobalSave.Put("control_active", false);
+				GlobalSave.ResetControlKnowldge();
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {

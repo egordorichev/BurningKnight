@@ -7,6 +7,7 @@
 
 # TODO
 
+* make music update run in a separate thread
 * throwing music discs as weapons
 * resprite bk
 * curse getting animation
