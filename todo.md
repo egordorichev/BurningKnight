@@ -4,7 +4,6 @@
 * fix damaging by rolling into a wall
 * music speed change support
 * throwing music discs as weapons
-* copy seed
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * isaac npc in the basement
 

@@ -851,9 +851,15 @@ namespace BurningKnight.state {
 				AngleMod = 0,
 				Click = b => {
 					b.LocaleLabel = "copied_to_clipboard";
-					TextCopy.Clipboard.SetText(Run.Seed);
 
-					Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 1f);
+					try {
+						// Needs xclip on linux
+						TextCopy.Clipboard.SetText(Run.Seed);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+
+					Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
 				}
 			});
 			
