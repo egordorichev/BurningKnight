@@ -40,6 +40,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
+using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
@@ -842,12 +843,18 @@ namespace BurningKnight.state {
 			});
 			
 			// would be nice click to copy the seed
-			pauseMenu.Add(seedLabel = new UiLabel {
+			pauseMenu.Add(seedLabel = new UiButton {
 				Font = Font.Small,
 				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
-				AngleMod = 0
+				AngleMod = 0,
+				Click = b => {
+					b.LocaleLabel = "copied_to_clipboard";
+					TextCopy.Clipboard.SetText(Run.Seed);
+
+					Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 1f);
+				}
 			});
 			
 			pauseBack = currentBack = (UiButton) pauseMenu.Add(new UiButton {

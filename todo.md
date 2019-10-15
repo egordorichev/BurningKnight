@@ -2,7 +2,6 @@
 
 * music repeat implementation (and bug with win jingle)
 * fix damaging by rolling into a wall
-
 * music speed change support
 * throwing music discs as weapons
 * copy seed
