@@ -87,14 +87,20 @@ namespace BurningKnight.entity.item.stand {
 
 			if (Item != null && Sells && !Free) {
 				if (hasSale) {
-					Graphics.Color = Color.Red;
+					Graphics.Color = Palette.Default[35];
+				}
+				
+				var r = GetComponent<RoomComponent>().Room;
+
+				foreach (var p in r.Tagged[Tags.Player]) {
+					if (p.GetComponent<ConsumablesComponent>().Coins < price) {
+						Graphics.Color *= 0.6f;
+						break;
+					}					
 				}
 				
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
-				
-				if (hasSale) {
-					Graphics.Color = ColorUtils.WhiteColor;
-				}
+				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
 
