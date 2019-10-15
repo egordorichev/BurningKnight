@@ -24,6 +24,7 @@
 
 # TODO
 
+* discord rpc where??
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
 

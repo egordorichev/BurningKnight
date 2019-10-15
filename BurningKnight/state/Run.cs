@@ -9,8 +9,8 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.state {
 	public static class Run {
 		public const int ContentEndDepth = 2;
-		
-		private static int depth = Engine.Version.Dev ? 1 : 0;
+
+		private static int depth = 0;// Engine.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -50,10 +50,10 @@ namespace BurningKnight.state {
 			}
 		}
 
-		public static void StartNew() {
+		public static void StartNew(int depth = 1) {
 			StartingNew = true;
 			HasRun = false;
-			NextDepth = 1;
+			NextDepth = depth;
 
 			if (IgnoreSeed) {
 				IgnoreSeed = true;

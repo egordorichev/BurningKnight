@@ -305,7 +305,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (Engine.Version.Dev || !Settings.Autopause) {
+			if (!Settings.Autopause) {
 				return;
 			}
 
@@ -916,7 +916,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew();
+					Run.StartNew(-2);
 				}
 			});
 			
@@ -1010,9 +1010,10 @@ namespace BurningKnight.state {
 					}.Start();
 					
 					currentBack = pauseBack;
+					pauseMenu.Enabled = true;
+					
 					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
 						SelectFirst();
-						pauseMenu.Enabled = false;
 					};
 				}
 			});
