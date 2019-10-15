@@ -148,7 +148,7 @@ namespace Lens.graphics.animation {
 		}
 
 		public TextureRegion GetFrame(string tag, int frame) {
-			if (!Data.Tags.TryGetValue(tag, out var t)) {
+			if (tag == null || !Data.Tags.TryGetValue(tag, out var t)) {
 				return null;
 			}
 

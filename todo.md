@@ -1,6 +1,6 @@
 # scoped down
 
-* fix active item control helpw
+* fix active item control help
 * isaac npc in the basement
 * gonner style respawn room, where you can go back or pick your items ()or ignore em
 * freaking connection room without passage
