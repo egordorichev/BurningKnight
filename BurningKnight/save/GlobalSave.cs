@@ -71,7 +71,7 @@ namespace BurningKnight.save {
 			Achievements.LockAll();
 			Put("disk", 10);
 
-			if (BK.Version.Dev) {
+		/*	if (BK.Version.Dev) {
 				Put(ShopNpc.AccessoryTrader, true);
 				Put(ShopNpc.ActiveTrader, true);
 				Put(ShopNpc.HatTrader, true);
@@ -82,7 +82,9 @@ namespace BurningKnight.save {
 				Put("control_roll", true);
 				Put("control_interact", true);
 				Put("control_duck", true);
-			}
+				Put("control_bomb", true);
+				Put("control_active", true);
+			}*/
 		}
 
 		public override string GetPath(string path, bool old = false) {

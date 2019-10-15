@@ -571,8 +571,18 @@ namespace BurningKnight.state {
 				}
 			}
 		}
+
+		public static bool ToolsEnabled = true;
 		
 		private void UpdateDebug(float dt) {
+			if (Input.Keyboard.WasPressed(Keys.Tab)) {
+				ToolsEnabled = !ToolsEnabled;
+			}
+			
+			if (ToolsEnabled) {
+				return;
+			}
+			
 			if (Input.Blocked > 0) {
 				return;
 			}
@@ -629,6 +639,16 @@ namespace BurningKnight.state {
 				for (var i = 0; i < level.Explored.Length; i++) {
 					level.Explored[i] = true;
 				}
+			}
+
+			if (Input.Keyboard.WasPressed(Keys.NumPad1)) {
+				GlobalSave.Put("control_use", false);
+				GlobalSave.Put("control_swap", false);
+				GlobalSave.Put("control_roll", false);
+				GlobalSave.Put("control_interact", false);
+				GlobalSave.Put("control_duck", false);
+				GlobalSave.Put("control_bomb", false);
+				GlobalSave.Put("control_active", false);
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {

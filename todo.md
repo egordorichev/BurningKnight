@@ -1,13 +1,11 @@
 # scoped down
 
+* freaking connection room without passage
 * fix damaging by rolling into a wall
 * music repeat implementation (and bug with win jingle)
-*  throwing music discs as weapons
+* throwing music discs as weapons
 
 * reexport fonts
-* control explanation is really broken 
-* item that makes your bullet size change over time (both ways (2 items))
- 
 * bomb with q still broken
 * music speed change support
 
@@ -19,21 +17,20 @@
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
+* alt + enter
+* copy seed
+* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+
+# TODO
 
 * items that give curse
+* item that makes your bullet size change over time (both ways (2 items))
 
 * player stats:
  + use rate
  + speed
  + range mod
 
-## for showcase
-
-* auto reset the saves
-* game autoplay it self if it stands idle for long, but display something like ("press x to play")
-* don't allow to exit fullscreeen mode, only through console
-
-# TODO
 
 * troll bombs
 * buffs display on mobs (like poisoned, charmed)
