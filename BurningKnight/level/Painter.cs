@@ -34,7 +34,8 @@ namespace BurningKnight.level {
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
 		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
-
+		public static Rect Clip;
+		
 		private void InspectRoom(RoomDef room) {
 			foreach (var r in room.Connected.Keys) {
 				if (r.Distance == -1) {
@@ -130,8 +131,16 @@ namespace BurningKnight.level {
 				var Room = Rooms[i];
 
 				PlaceDoors(Room);
+
+				if (Room is ConnectionRoom) {
+					Clip = Room.Shrink(1);
+				}
+
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
+
+				Clip = null;
+				
 				Room.SetupDoors(Level);
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
@@ -647,6 +656,10 @@ namespace BurningKnight.level {
 		}
 
 		public static void Set(Level Level, int cell, Tile Value) {
+			if (Clip != null && !Clip.Contains(Level.FromIndexX(cell), Level.FromIndexY(cell))) {
+				return;
+			}
+
 			Level.Set(cell, Value);
 		}
 

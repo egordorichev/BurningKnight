@@ -754,7 +754,6 @@
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
-    <Compile Include="level\rooms\connection\WayOverChasmRoom.cs" />
     <Compile Include="level\rooms\entrance\BossTestRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
