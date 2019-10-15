@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -140,16 +141,33 @@ namespace BurningKnight.ui.dialog {
 		}
 
 		public void Close() {
+			Last = Current;
+			tillClose = -1;
+
 			if (Dialog == null || Current == null) {
+				Current = null;
 				return;
 			}
 
-			Dialog.Close();
-			Last = Current;
 			Current = null;
-			tillClose = -1;
+			Dialog.Close();
 		}
-		
+
+		private static string toSay;
+
+		public override void RenderDebug() {
+			base.RenderDebug();
+
+			if (ImGui.InputText("Say", ref toSay, 256, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				Start(toSay);
+				toSay = "";
+			}
+
+			if (ImGui.Button("Close")) {
+				Close();
+			}
+		}
+
 		private void Setup(Dialog dialog, Entity to = null) {
 			Last = Current;
 			Current = dialog;

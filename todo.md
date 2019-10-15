@@ -1,11 +1,12 @@
 # scoped down
 
-* fix active item control help
-* fix damaging by rolling into a wall
+* active item control help
 * music repeat implementation (and bug with win jingle)
-* throwing music discs as weapons
 * bomb with q still broken
+* fix damaging by rolling into a wall
+
 * music speed change support
+* throwing music discs as weapons
 * copy seed
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 * isaac npc in the basement

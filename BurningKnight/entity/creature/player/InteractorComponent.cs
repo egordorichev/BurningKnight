@@ -46,7 +46,7 @@ namespace BurningKnight.entity.creature.player {
 				OnStart();
 			}
 
-			Entity.GetComponent<DialogComponent>().Close();
+			// Entity.GetComponent<DialogComponent>().Close();
 		}
 
 		private void OnStart() {

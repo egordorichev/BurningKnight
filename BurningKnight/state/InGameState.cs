@@ -575,11 +575,11 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = true;
 		
 		private void UpdateDebug(float dt) {
-			if (Input.Keyboard.WasPressed(Keys.Tab)) {
+			if (Input.Keyboard.WasPressed(Keys.Home)) {
 				ToolsEnabled = !ToolsEnabled;
 			}
 			
-			if (ToolsEnabled) {
+			if (!ToolsEnabled) {
 				return;
 			}
 			
