@@ -1,5 +1,6 @@
 # scoped down
 
+* fix damaging by rolling into a wall
 * look into that tunnel bug again
 * clip the painter to the room only, except if it is a boss room
 *  throwing music discs as weapons

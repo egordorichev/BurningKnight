@@ -31,6 +31,7 @@ namespace BurningKnight.level.paintings {
 			Add("stars", "???");
 			Add("fog", "???");
 			Add("nufflee", "Nufflee");
+			Add("cat", "Brastin");
 			// Add("car", "???");
 			// Add("moika", "???");
 			// Add("sunset", "???");
