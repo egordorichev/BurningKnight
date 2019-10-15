@@ -530,11 +530,11 @@ namespace BurningKnight.level.rooms {
 				}
 
 				if (Door.X == Left || Door.X == Right) {
-					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 2, Start.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 2, Start.Y));
-					End = new Dot(MathUtils.Clamp(Left + 1, Right - 2, Mid.X), MathUtils.Clamp(Top + 1, Bottom - 2, Mid.Y + DownShift));
+					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Start.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 1, Start.Y));
+					End = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Mid.X), MathUtils.Clamp(Top + 1, Bottom - 1, Mid.Y + DownShift));
 				} else {
-					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 2, Start.X), MathUtils.Clamp(Top + 1, Bottom - 2, Start.Y + DownShift));
-					End = new Dot(MathUtils.Clamp(Left + 1, Right - 2, Mid.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 2, Mid.Y));
+					Mid = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Start.X), MathUtils.Clamp(Top + 1, Bottom - 1, Start.Y + DownShift));
+					End = new Dot(MathUtils.Clamp(Left + 1, Right - 1, Mid.X + RightShift), MathUtils.Clamp(Top + 1, Bottom - 1, Mid.Y));
 				}
 
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
@@ -568,10 +568,10 @@ namespace BurningKnight.level.rooms {
 				}
 			}
 
-			minLeft = MathUtils.Clamp(Left + 1, Right - 2, minLeft);
-			minTop = MathUtils.Clamp(Top + 1, Bottom - 2, minTop);
-			maxRight = MathUtils.Clamp(Left + 1, Right - 2, maxRight);
-			maxBottom = MathUtils.Clamp(Top + 1, Bottom - 2, maxBottom);
+			minLeft = MathUtils.Clamp(Left + 1, Right - 1, minLeft);
+			minTop = MathUtils.Clamp(Top + 1, Bottom - 1, minTop);
+			maxRight = MathUtils.Clamp(Left + 1, Right - 1, maxRight);
+			maxBottom = MathUtils.Clamp(Top + 1, Bottom - 1, maxBottom);
 
 			if (Random.Chance()) {
 				Painter.Fill(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Random.Chance() ? Floor : Tiles.RandomFloorOrSpike());

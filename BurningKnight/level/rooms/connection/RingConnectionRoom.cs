@@ -15,6 +15,7 @@ namespace BurningKnight.level.rooms.connection {
 		}
 
 		public override void Paint(Level level) {
+			Painter.Fill(level, this, Tile.WallA);
 			Painter.Fill(level, this, 1, Tiles.Pick(Tile.WallA, Tile.Chasm));
 
 			var ring = GetConnectionSpace();

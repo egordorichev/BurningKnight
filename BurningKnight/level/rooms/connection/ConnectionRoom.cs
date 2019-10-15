@@ -35,7 +35,7 @@ namespace BurningKnight.level.rooms.connection {
 		}
 
 		public override void Paint(Level level) {
-			Painter.Rect(level, Left, Top, GetWidth() - 1, GetHeight() - 1, Tile.WallA);
+			Painter.Fill(level, this, Tile.WallA);
 		}
 
 		public override int GetMaxConnections(Connection Side) {

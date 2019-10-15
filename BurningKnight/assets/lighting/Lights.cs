@@ -127,8 +127,8 @@ namespace BurningKnight.assets.lighting {
 		public static bool EnableFog = true;
 		private static Color clearColor = new Color(0.2f, 0.2f, 0.2f, 1f);
 
-		private static BlendState lightBlend = BlendState.NonPremultiplied;
-		private static int lightBlendId = 2;
+		private static BlendState lightBlend = BlendState.Additive;
+		private static int lightBlendId = 0;
 		
 		private static string[] blends = {
 			"Additive", "AlphaBlend", "NonPremultiplied", "Opaque", "Level", "Mess"

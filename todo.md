@@ -1,6 +1,9 @@
 # scoped down
 
 * look into that tunnel bug again
+* clip the painter to the room only, except if it is a boss room
+*  throwing music discs as weapons
+
 * reexport fonts
 * control explanation is really broken 
 * item that makes your bullet size change over time (both ways (2 items))

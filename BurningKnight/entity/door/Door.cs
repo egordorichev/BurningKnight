@@ -63,7 +63,7 @@ namespace BurningKnight.entity.door {
 			base.PostInit();
 
 			var width = FacingSide ? H : W;
-			var height = FacingSide ? W : H;
+			var height = FacingSide ? 24 : H;
 			
 			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
 				Offset = new Vector2(-2, FacingSide ? -2 : 0),

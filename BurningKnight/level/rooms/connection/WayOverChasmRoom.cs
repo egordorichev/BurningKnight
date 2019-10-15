@@ -4,6 +4,7 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class WayOverChasmRoom : ConnectionRoom {
 		public override void Paint(Level level) {
+			Painter.Fill(level, this, Tile.WallA);
 			Painter.Fill(level, this, 1, Tile.Chasm);
 
 			var r = GenerateSpot();
