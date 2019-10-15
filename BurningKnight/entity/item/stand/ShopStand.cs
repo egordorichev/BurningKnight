@@ -55,8 +55,10 @@ namespace BurningKnight.entity.item.stand {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
-					break;
+					if (n is ShopNpc) {
+						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+						break;
+					}
 				}
 				
 				return false;

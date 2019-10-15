@@ -410,6 +410,9 @@
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
     <Compile Include="entity\creature\npc\Maanex.cs" />
+    <Compile Include="entity\creature\npc\MaPuzzle.cs" />
+    <Compile Include="entity\creature\npc\Milt.cs" />
+    <Compile Include="entity\creature\npc\NullPtr.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\SmartState.cs" />

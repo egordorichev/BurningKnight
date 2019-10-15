@@ -277,7 +277,7 @@ namespace Aseprite {
 							var end = DWORD();
 							SEEK(8);
 
-							for (int c = 0; c < (end - start); c++) {
+							for (int c = 0; c < (end - start) + 1; c++) {
 								var hasName = Calc.IsBitSet(WORD(), 0);
 								palette[start + c] = new Color(BYTE(), BYTE(), BYTE(), BYTE());
 								

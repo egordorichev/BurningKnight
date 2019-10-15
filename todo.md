@@ -15,7 +15,7 @@
 * curse getting animation
 
 * curse of unknown (do not know hp)
-* curse of lost (rooms get forgetten)   
+* curse of lost (rooms get forgotten)   
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
@@ -315,7 +315,6 @@ gobbo hurt/heal
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
 * trash goblin (gaz)
-* elon (wizard, has a sprite)
 
 ### Rooms
 
