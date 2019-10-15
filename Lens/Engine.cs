@@ -45,6 +45,7 @@ namespace Lens {
 		public float Speed = 1;
 		public float Flash;
 		public float Freeze;
+		public bool Focused;
 		public Color FlashColor = ColorUtils.WhiteColor;
 		public float Split;
 		// Window.Title works only in Init, sadly
@@ -76,11 +77,13 @@ namespace Lens {
 
 		protected override void OnActivated(object sender, EventArgs args) {
 			base.OnActivated(sender, args);
+			Focused = true;
 			State?.OnActivated();
 		}
 
 		protected override void OnDeactivated(object sender, EventArgs args) {
 			base.OnDeactivated(sender, args);
+			Focused = false;
 			State?.OnDeactivated();
 		}
 

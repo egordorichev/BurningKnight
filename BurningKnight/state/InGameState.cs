@@ -916,7 +916,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(-2);
+					Run.StartNew(-1);
 				}
 			});
 			

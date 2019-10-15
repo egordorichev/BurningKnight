@@ -66,6 +66,10 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
+			if (!Engine.Instance.Focused) {
+				return;
+			}
+			
 			PlaySfx(GetSfx(id), volume, pitch, pan);
 		}
 
