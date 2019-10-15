@@ -132,6 +132,22 @@ namespace BurningKnight.level {
 
 				PlaceDoors(Room);
 
+				var t = Tiles.RandomWall();
+
+				foreach (var d in Room.Connected.Values) {
+					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
+					    d.Type != DoorPlaceholder.Variant.Maze && d.Type != DoorPlaceholder.Variant.Tunnel) {
+
+						if (d.X == Room.Left || d.Y == Room.Right) {
+							Set(Level, d.X, d.Y - 1, t);
+							Set(Level, d.X, d.Y + 1, t);
+						} else {
+							Set(Level, d.X - 1, d.Y, t);
+							Set(Level, d.X + 1, d.Y, t);
+						}
+					}
+				}
+
 				if (Room is ConnectionRoom) {
 					Clip = Room.Shrink(1);
 				}

@@ -12,10 +12,8 @@ namespace BurningKnight.level.rooms.connection {
 		public override int GetMinHeight() {
 			return 7;
 		}
-
+		
 		public override void Paint(Level level) {
-			Painter.Rect(level, Left, Top, GetWidth() - 1, GetHeight() - 1, Tile.WallA);
-			
 			var maze = Maze.Generate(this);
 			var wall = Tiles.Pick(Tile.WallA, Tile.Chasm, Tile.Lava, Tile.Planks);
 			var spikes = Random.Chance(30);

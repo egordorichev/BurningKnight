@@ -38,10 +38,6 @@ namespace BurningKnight.level.rooms.connection {
 			
 		}
 
-		public override void PaintFloor(Level level) {
-			
-		}
-
 		public override int GetMaxConnections(Connection Side) {
 			if (Side == Connection.All) return 16;
 			return 4;

@@ -1199,7 +1199,7 @@ namespace BurningKnight.level {
 		}
 
 		public virtual Tile GetFilling() {
-			return Tile.WallA;
+			return Tile.Chasm; //Tile.WallA;
 		}
 
 		public virtual int GetPadding() {

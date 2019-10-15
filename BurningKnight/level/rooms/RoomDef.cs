@@ -58,6 +58,7 @@ namespace BurningKnight.level.rooms {
 		public abstract int GetMinConnections(Connection Side);
 
 		public virtual void PaintFloor(Level level) {
+			Painter.Fill(level, this, Tile.WallA);
 			FloorRegistry.Paint(level, this);
 		}
 		
