@@ -26,8 +26,11 @@ namespace BurningKnight {
 				Audio.UpdateMusicVolume(masterVolume * musicVolume);
 			}
 		}
-		
-		public static float SfxVolume;
+
+		public static float SfxVolume {
+			get => Audio.SfxVolume;
+			set => Audio.SfxVolume = value;
+		}
 		
 		// Graphics
 		public static bool Fullscreen;

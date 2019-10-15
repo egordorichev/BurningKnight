@@ -130,6 +130,12 @@
 /processorParam:Quality=Best
 /build:Sfx/exit.wav
 
+#begin Sfx/select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/select.wav
+
 #begin Sfx/explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

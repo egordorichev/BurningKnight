@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.level;
+using BurningKnight.level.basement;
 using BurningKnight.level.biome;
 using BurningKnight.level.hall;
 using BurningKnight.level.hub;
@@ -30,8 +31,12 @@ namespace BurningKnight.save {
 		}
 
 		private RegularLevel CreateLevel() {
-			if (Run.Depth == -1) {
+			if (Run.Depth == -2) {
 				return new HubLevel();
+			}
+			
+			if (Run.Depth == -1) {
+				return new BasementLevel();
 			}
 			
 			if (Run.Depth == 0) {

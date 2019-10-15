@@ -40,6 +40,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Console = BurningKnight.debug.Console;
+using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
@@ -305,7 +306,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (Engine.Version.Dev || !Settings.Autopause) {
+			if (!Settings.Autopause) {
 				return;
 			}
 
@@ -547,7 +548,7 @@ namespace BurningKnight.state {
 
 			Run.Update();
 			
-			if (Input.WasPressed(Controls.Fullscreen)) {
+			if (Input.WasPressed(Controls.Fullscreen) || (Input.Keyboard.WasPressed(Keys.Enter) && (Input.Keyboard.IsDown(Keys.LeftAlt) || Input.Keyboard.IsDown(Keys.RightAlt)))) {
 				if (Engine.Graphics.IsFullScreen) {
 					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 				} else {
@@ -575,11 +576,11 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = true;
 		
 		private void UpdateDebug(float dt) {
-			if (Input.Keyboard.WasPressed(Keys.Tab)) {
+			if (Input.Keyboard.WasPressed(Keys.Home)) {
 				ToolsEnabled = !ToolsEnabled;
 			}
 			
-			if (ToolsEnabled) {
+			if (!ToolsEnabled) {
 				return;
 			}
 			
@@ -642,13 +643,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad1)) {
-				GlobalSave.Put("control_use", false);
-				GlobalSave.Put("control_swap", false);
-				GlobalSave.Put("control_roll", false);
-				GlobalSave.Put("control_interact", false);
-				GlobalSave.Put("control_duck", false);
-				GlobalSave.Put("control_bomb", false);
-				GlobalSave.Put("control_active", false);
+				GlobalSave.ResetControlKnowldge();
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
@@ -842,12 +837,24 @@ namespace BurningKnight.state {
 			});
 			
 			// would be nice click to copy the seed
-			pauseMenu.Add(seedLabel = new UiLabel {
+			pauseMenu.Add(seedLabel = new UiButton {
 				Font = Font.Small,
 				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
-				AngleMod = 0
+				AngleMod = 0,
+				Click = b => {
+					b.LocaleLabel = "copied_to_clipboard";
+
+					try {
+						// Needs xclip on linux
+						TextCopy.Clipboard.SetText(Run.Seed);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+
+					Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
+				}
 			});
 			
 			pauseBack = currentBack = (UiButton) pauseMenu.Add(new UiButton {
@@ -916,7 +923,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew();
+					Run.StartNew(-1);
 				}
 			});
 			
@@ -1010,9 +1017,10 @@ namespace BurningKnight.state {
 					}.Start();
 					
 					currentBack = pauseBack;
+					pauseMenu.Enabled = true;
+					
 					Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
 						SelectFirst();
-						pauseMenu.Enabled = false;
 					};
 				}
 			});

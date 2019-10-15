@@ -1,15 +1,12 @@
 # scoped down
 
-* gonner style respawn room, where you can go back or pick your items ()or ignore em
-* freaking connection room without passage
 * fix damaging by rolling into a wall
-* music repeat implementation (and bug with win jingle)
+* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+
+# TODO
+
+* make music update run in a separate thread
 * throwing music discs as weapons
-
-* reexport fonts
-* bomb with q still broken
-* music speed change support
-
 * resprite bk
 * curse getting animation
 
@@ -18,12 +15,8 @@
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
-* alt + enter
-* copy seed
-* game autoplay it self if it stands idle for long, but display something like ("press x to play")
 
-# TODO
-
+* discord rpc where??
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
 

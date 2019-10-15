@@ -248,6 +248,10 @@
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TextCopy, Version=1.7.1.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03">
+      <HintPath>..\packages\TextCopy.1.7.1\lib\net461\TextCopy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\achievements\Achievement.cs" />
@@ -409,6 +413,7 @@
     <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
+    <Compile Include="entity\creature\npc\Isaac.cs" />
     <Compile Include="entity\creature\npc\Maanex.cs" />
     <Compile Include="entity\creature\npc\MaPuzzle.cs" />
     <Compile Include="entity\creature\npc\Milt.cs" />
@@ -678,6 +683,9 @@
     <Compile Include="entity\room\input\RoomInput.cs" />
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
+    <Compile Include="level\basement\BasementRoom.cs" />
+    <Compile Include="level\basement\BasementLevel.cs" />
+    <Compile Include="level\basement\BasementStand.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
     <Compile Include="level\biome\BiomeInfo.cs" />

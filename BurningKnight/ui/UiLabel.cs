@@ -16,6 +16,8 @@ namespace BurningKnight.ui {
 
 		protected override void OnHover() {
 			base.OnHover();
+
+			Audio.PlaySfx("moving");
 			Tween.To(1, Tint, x => Tint = x, 0.1f);
 		}
 

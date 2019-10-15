@@ -10,12 +10,14 @@ using Lens.util.file;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using VelcroPhysics;
 
 namespace Lens.assets {
 	public class Audio {
 		public static bool UseOgg = true;
+		public static float SfxVolume = 1;
+
 		private const float CrossFadeTime = 0.5f;
-		
 		private static bool repeat;
 		
 		public static bool Repeat {
@@ -66,6 +68,10 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
+			if (!Engine.Instance.Focused) {
+				return;
+			}
+			
 			PlaySfx(GetSfx(id), volume, pitch, pan);
 		}
 
@@ -85,7 +91,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			sfx?.Play(volume, pitch, pan);
+			sfx?.Play(volume * SfxVolume, pitch, pan);
 		}
 		
 		public static void PlayMusic(string music) {

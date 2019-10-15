@@ -22,9 +22,12 @@ namespace Lens.input {
 			PlayerIndex = playerIndex;
 		}
 
+		public bool Idle;
+
 		public void Update(float dt) {
 			PreviousState = CurrentState;
 			CurrentState = GamePad.GetState(PlayerIndex);
+
 			WasAttached = WasAttached || PreviousState.IsConnected;
 			Attached = CurrentState.IsConnected;
 			

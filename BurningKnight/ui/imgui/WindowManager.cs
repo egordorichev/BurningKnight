@@ -9,6 +9,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using ImGuiNET;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.ui.imgui {
@@ -45,7 +46,7 @@ namespace BurningKnight.ui.imgui {
 				BurningKnight.Settings.MusicVolume = m;
 			}
 
-			ImGui.DragFloat("Sounds", ref BurningKnight.Settings.SfxVolume, 0.01f, 0, 1f);
+			ImGui.DragFloat("Sounds", ref Audio.SfxVolume, 0.01f, 0, 1f);
 			ImGui.Checkbox("Ui sounds", ref BurningKnight.Settings.UiSfx);
 			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
 

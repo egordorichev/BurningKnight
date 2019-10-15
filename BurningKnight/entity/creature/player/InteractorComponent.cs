@@ -19,7 +19,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact, GetComponent<GamepadComponent>().Controller)) {
-				GlobalSave.Put("control_interact", true);
+				if (GlobalSave.IsFalse("control_interact")) {
+					GlobalSave.Put("control_interact", true);
+					Entity.GetComponent<DialogComponent>().Close();
+				}
 
 				if (CurrentlyInteracting.GetComponent<InteractableComponent>().Interact(Entity)) {
 					Send(new InteractedEvent {
@@ -45,8 +48,6 @@ namespace BurningKnight.entity.creature.player {
 				InteractionCandidates.RemoveAt(0);
 				OnStart();
 			}
-
-			Entity.GetComponent<DialogComponent>().Close();
 		}
 
 		private void OnStart() {

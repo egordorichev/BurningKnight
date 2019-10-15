@@ -16,18 +16,18 @@ namespace BurningKnight.level.entities {
 		public int To;
 		
 		private bool Interact(Entity entity) {
-			Run.Depth = To;
+			Run.Depth = 0;
 			return true;
 		}
 
 		private bool CanInteract(Entity e) {
-			return false; // Run.Depth < 1;
+			return Run.Depth == -1;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
 
-			To = Run.Depth - 1;
+			To = 0; // Run.Depth - 1;
 			
 			Width = 14;
 			Height = 15;

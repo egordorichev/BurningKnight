@@ -44,6 +44,7 @@ namespace BurningKnight.ui {
 					Selected = Id;
 				} else {
 					base.OnHover();
+					return;
 				}
 			}
 
