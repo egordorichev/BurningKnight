@@ -413,6 +413,7 @@
     <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
+    <Compile Include="entity\creature\npc\Isaac.cs" />
     <Compile Include="entity\creature\npc\Maanex.cs" />
     <Compile Include="entity\creature\npc\MaPuzzle.cs" />
     <Compile Include="entity\creature\npc\Milt.cs" />

@@ -3,8 +3,6 @@
 * fix damaging by rolling into a wall
 * game autoplay it self if it stands idle for long, but display something like ("press x to play")
 
-* isaac npc in the basement
-
 # TODO
 
 * make music update run in a separate thread
