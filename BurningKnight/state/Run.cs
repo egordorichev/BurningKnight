@@ -40,6 +40,8 @@ namespace BurningKnight.state {
 				StartedNew = StartingNew;
 				StartingNew = false;
 				
+				SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
+				
 				Engine.Instance.SetState(new LoadState {
 					Menu = IntoMenu
 				});
@@ -49,8 +51,6 @@ namespace BurningKnight.state {
 		}
 
 		public static void StartNew() {
-			SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
-
 			StartingNew = true;
 			HasRun = false;
 			NextDepth = 1;

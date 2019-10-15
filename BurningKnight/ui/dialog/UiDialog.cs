@@ -42,6 +42,8 @@ namespace BurningKnight.ui.dialog {
 			Str.Paused = true;
 			Str.Depth = Depth + 1;
 			Str.WidthLimit = 172;
+			Str.Visible = false;
+			Str.AlwaysVisible = false;
 			
 			Str.FinishedTyping += s => {
 				DoneSaying = true;
@@ -74,6 +76,7 @@ namespace BurningKnight.ui.dialog {
 		public override void Render() {
 			if (!Engine.Instance.State.Paused) {
 				base.Render();
+				Str?.Render();
 			}
 		}
 

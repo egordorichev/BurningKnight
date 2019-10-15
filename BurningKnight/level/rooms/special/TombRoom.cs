@@ -39,7 +39,7 @@ namespace BurningKnight.level.rooms.special {
 			GlobalSave.Put("tomb_depth", 0);
 			
 			level.Area.Add(tomb);
-			tomb.Center = GetCenter() * 16;
+			tomb.Center = GetCenter() * 16 + new Vector2(8);
 		}
 	}
 }

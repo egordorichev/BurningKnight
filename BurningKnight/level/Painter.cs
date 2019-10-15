@@ -34,7 +34,8 @@ namespace BurningKnight.level {
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
 		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
-
+		public static Rect Clip;
+		
 		private void InspectRoom(RoomDef room) {
 			foreach (var r in room.Connected.Keys) {
 				if (r.Distance == -1) {
@@ -130,8 +131,32 @@ namespace BurningKnight.level {
 				var Room = Rooms[i];
 
 				PlaceDoors(Room);
+
+				var t = Tiles.RandomWall();
+
+				foreach (var d in Room.Connected.Values) {
+					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
+					    d.Type != DoorPlaceholder.Variant.Maze && d.Type != DoorPlaceholder.Variant.Tunnel) {
+
+						if (d.X == Room.Left || d.Y == Room.Right) {
+							Set(Level, d.X, d.Y - 1, t);
+							Set(Level, d.X, d.Y + 1, t);
+						} else {
+							Set(Level, d.X - 1, d.Y, t);
+							Set(Level, d.X + 1, d.Y, t);
+						}
+					}
+				}
+
+				if (Room is ConnectionRoom) {
+					Clip = Room.Shrink(1);
+				}
+
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
+
+				Clip = null;
+				
 				Room.SetupDoors(Level);
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
@@ -529,7 +554,7 @@ namespace BurningKnight.level {
 
 				// Paintings
 				for (int X = Room.Left + 1; X < Room.Right; X++) {
-					if (Level.Get(X, Room.Top).IsWall() && Random.Chance(20)) {
+					if (Level.Get(X, Room.Top).IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Random.Chance(20)) {
 						if (Random.Chance()) {
 							var torch = new WallTorch();
 							Level.Area.Add(torch);
@@ -647,6 +672,10 @@ namespace BurningKnight.level {
 		}
 
 		public static void Set(Level Level, int cell, Tile Value) {
+			if (Clip != null && !Clip.Contains(Level.FromIndexX(cell), Level.FromIndexY(cell))) {
+				return;
+			}
+
 			Level.Set(cell, Value);
 		}
 

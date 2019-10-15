@@ -1,39 +1,37 @@
 # scoped down
 
-* look into that tunnel bug again
+* gonner style respawn room, where you can go back or pick your items ()or ignore em
+* freaking connection room without passage
+* fix damaging by rolling into a wall
+* music repeat implementation (and bug with win jingle)
+* throwing music discs as weapons
+
 * reexport fonts
-* control explanation is really broken 
-* item that makes your bullet size change over time (both ways (2 items))
- 
 * bomb with q still broken
 * music speed change support
-* fix game fps
 
 * resprite bk
 * curse getting animation
 
 * curse of unknown (do not know hp)
-* curse of lost (rooms get forgetten)   
+* curse of lost (rooms get forgotten)   
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
+* alt + enter
+* copy seed
+* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+
+# TODO
 
 * items that give curse
+* item that makes your bullet size change over time (both ways (2 items))
 
 * player stats:
  + use rate
  + speed
  + range mod
 
-* music speed changing
-
-## for showcase
-
-* auto reset the saves
-* game autoplay it self if it stands idle for long, but display something like ("press x to play")
-* don't allow to exit fullscreeen mode, only through console
-
-# TODO
 
 * troll bombs
 * buffs display on mobs (like poisoned, charmed)
@@ -213,6 +211,7 @@ gobbo hurt/heal
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up
+* item, that gives your items autouse 
 * battery buddy
 * d1
 * charms
@@ -314,7 +313,6 @@ gobbo hurt/heal
 * https://twitter.com/MateCziner/status/1107173510877720577
 * https://twitter.com/128_mhz/status/1107158705772978176
 * trash goblin (gaz)
-* elon (wizard, has a sprite)
 
 ### Rooms
 

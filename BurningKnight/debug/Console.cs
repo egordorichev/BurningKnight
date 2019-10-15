@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using BurningKnight.assets;
 using BurningKnight.entity;
+using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens;
@@ -59,7 +60,7 @@ namespace BurningKnight.debug {
 		}
 
 		public void Update(float dt) {
-			if (Input.Keyboard.WasPressed(Keys.F1, true)) {
+			if (InGameState.ToolsEnabled && Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
 				Camera.Instance.Detached = Open;
 				Input.EnableImGuiFocus = Open;

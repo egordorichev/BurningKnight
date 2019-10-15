@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.level.rooms;
+using BurningKnight.level.tile;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -48,6 +49,10 @@ namespace BurningKnight.level.biome {
 
 		public virtual void ModifyRooms(List<RoomDef> rooms) {
 			
+		}
+
+		public virtual Tile GetFilling() {
+			return Tile.WallA;
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			if (Run.Depth == 0) {
 				AddComponent(new CloseDialogComponent("old_man_0"));
-				AddComponent(new InteractDialogComponent("old_man_1"));
+				// AddComponent(new InteractDialogComponent("old_man_1"));
 			} else if (Run.Depth == Run.ContentEndDepth) {
 				GetComponent<DialogComponent>().Start("old_man_4");
 				cycle = true;

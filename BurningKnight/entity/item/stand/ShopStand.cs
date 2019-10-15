@@ -55,8 +55,10 @@ namespace BurningKnight.entity.item.stand {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
-					break;
+					if (n is ShopNpc) {
+						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+						break;
+					}
 				}
 				
 				return false;
@@ -87,14 +89,20 @@ namespace BurningKnight.entity.item.stand {
 
 			if (Item != null && Sells && !Free) {
 				if (hasSale) {
-					Graphics.Color = Color.Red;
+					Graphics.Color = Palette.Default[35];
+				}
+				
+				var r = GetComponent<RoomComponent>().Room;
+
+				foreach (var p in r.Tagged[Tags.Player]) {
+					if (p.GetComponent<ConsumablesComponent>().Coins < price) {
+						Graphics.Color *= 0.6f;
+						break;
+					}					
 				}
 				
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
-				
-				if (hasSale) {
-					Graphics.Color = ColorUtils.WhiteColor;
-				}
+				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
 

@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using Lens.input;
+using Lens.util;
 
 namespace BurningKnight.debug {
 	public class GiveCommand : ConsoleCommand {
@@ -19,54 +20,36 @@ namespace BurningKnight.debug {
 			}
 		}
 
-		public override string AutoComplete(string input) {
-			var parts = input.Split(null);
-
-			if (parts.Length != 2) {
-				return input;
-			}
-
-			var name = parts[1];
-
-			foreach (var item in Items.Datas) {
-				if (item.Key.StartsWith(name)) {
-					return $"{input}{item.Key.Substring(name.Length, item.Key.Length - name.Length)} ";
-				}
-			}
-			
-			return input;
-		}
-
 		public override void Run(Console Console, string[] Args) {
-			var Count = 1;
+			var player = LocalPlayer.Locate(Console.GameArea);
 
-			if (Args.Length == 2) {
-				Count = Int32.Parse(Args[1]);
-
-				if (Count == 0) {
-					return;
-				}
-			}
-
-			if (Args.Length > 0 && Args.Length < 3) {
-				var id = Args[0];
+			for (var i = 0; i < Args.Length; i++) {
+				var id = Args[i];
+				var count = 1;
 
 				if (!id.Contains(":")) {
 					id = $"{Mods.BurningKnight}:{id}";
 				}
-				
-				var player = LocalPlayer.Locate(Console.GameArea);
 
-				for (var i = 0; i < Count; i++) {
-					var item = Items.Create(id);
+				if (i < Args.Length - 1) {
+					var c = Args[i + 1];
 
-					if (item == null) {
-						Console.Print($"Unknown item {Args[0]}");
-						return;
+					if (int.TryParse(c, out count) && count > 0) {
+						i++;
+					} else {
+						count = 1;
 					}
+				}
 
-					Console.GameArea.Add(item);
-					player?.GetComponent<InventoryComponent>().Pickup(item);
+				if (!Items.Has(id)) {
+					Console.Print($"Unknown item {id}");
+					continue;
+				}
+
+				Log.Info($"Giving {id} x{count}");
+
+				for (var j = 0; j < count; j++) {
+					player?.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(id, Console.GameArea));
 				}
 			}
 		}

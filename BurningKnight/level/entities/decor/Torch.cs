@@ -4,6 +4,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.util;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -27,7 +28,7 @@ namespace BurningKnight.level.entities.decor {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.3f, 1f)));
+			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 			AddComponent(new ShadowComponent());
 			AddComponent(new RoomComponent());
 			
@@ -118,6 +119,10 @@ namespace BurningKnight.level.entities.decor {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(broken);
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return false;
 		}
 	}
 }
