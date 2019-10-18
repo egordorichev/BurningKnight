@@ -236,14 +236,14 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 
-			if (BK.StandMode && idle && !Engine.Instance.State.Paused) {
+			if (BK.StandMode && idle && !Engine.Instance.State.Paused && Run.Depth > 0) {
 				TimeIdle += dt;
 
 				if (TimeIdle >= 120f) {
 					TimeIdle = 0;
 					Log.Info("The game was idle for 120 seconds, restarting");
 					GlobalSave.ResetControlKnowldge();
-					Run.StartNew();
+					Run.StartNew(0);
 				}
 			} else {
 				TimeIdle = 0;
