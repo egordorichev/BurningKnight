@@ -1,13 +1,11 @@
 # bug && feedback update
 
-* fix turret shadow
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Change, how sliders work with gamepad. Should select the whole thing
 * Ui hearts are not noticable
 * Limit screenshake even more, when you get hit or bombs explode it's really disorienting
 * Player invt should be much longer
-* Fix itemstand shadow
 * Duck gun is not a starting weapon by any means
 * Delete torch
 * No spikes in first two tiles near door. Fix the alive spike room.

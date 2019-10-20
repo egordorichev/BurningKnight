@@ -19,8 +19,9 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.item.stand {
 	public class ItemStand : Prop {
 		private static TextureRegion itemShadow;
+		private static TextureRegion standShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);
-		
+
 		private Item item;
 		
 		public Item Item => item;
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.item.stand {
 
 			if (itemShadow == null) {
 				itemShadow = CommonAse.Props.GetSlice("item_shadow");
+				standShadow = CommonAse.Props.GetSlice("stand_shadow");
 			}
 		}
 
@@ -113,7 +115,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		private void RenderShadow() {
-			GraphicsComponent.Render(true);
+			Graphics.Render(standShadow, Position + new Vector2(0, Height));
 		}
 
 		protected virtual bool CanTake(Entity entity) {

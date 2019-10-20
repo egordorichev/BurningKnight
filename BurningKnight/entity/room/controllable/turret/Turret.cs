@@ -41,13 +41,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			a.Animation.Tag = "single";
 			a.Animation.Paused = true;
+			a.ShadowOffset = 4;
 			
 			AddComponent(new ShadowComponent());
 			AddComponent(new ExplodableComponent());
 
 			AlwaysActive = true;
 		}
-
+		
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent) {
 				Done = true;
