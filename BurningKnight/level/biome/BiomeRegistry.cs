@@ -8,12 +8,12 @@ namespace BurningKnight.level.biome {
 			BiomeInfo[] infos = {
 				// BiomeInfo.New<HubBiome>(Biome.Hub),
 
-				BiomeInfo.New<CastleBiome>(Biome.Castle),
-				BiomeInfo.New<LibraryBiome>(Biome.Library),
-				BiomeInfo.New<DesertBiome>(Biome.Desert),
-				BiomeInfo.New<IceBiome>(Biome.Ice),
-				BiomeInfo.New<ForestBiome>(Biome.Forest),
-				BiomeInfo.New<TechBiome>(Biome.Tech)
+				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(0, 1f).Add(1, 1f),
+				BiomeInfo.New<DesertBiome>(Biome.Desert).Add(0, 1f).Add(1, 1f),
+				BiomeInfo.New<ForestBiome>(Biome.Forest).Add(0, 1f).Add(1, 1f),
+				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(0, 1f).Add(1, 1f),
+				BiomeInfo.New<TechBiome>(Biome.Tech).Add(0, 1f).Add(1, 1f),
+				BiomeInfo.New<IceBiome>(Biome.Ice).Add(0, 1f).Add(1, 1f)
 			};
 			
 			foreach (var info in infos) {
