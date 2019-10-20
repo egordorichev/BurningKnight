@@ -27,6 +27,7 @@ namespace BurningKnight.ui.str {
 	 * ^^ starts wave
 	 *
 	 * [event_name var1 var2] starts an event
+	 *  + [im image] shows image
 	 *  + [dl time] delays
 	 *  + [sp speed] sets speed
 	 *  + [ev event] fires user event
@@ -141,6 +142,11 @@ namespace BurningKnight.ui.str {
 						GlyphEvent e = null;
 
 						switch (parts[0]) {
+							case "im": {
+
+								break;
+							}
+							
 							case "sp": {
 								e = new SpeedEvent();
 								break;
@@ -221,10 +227,10 @@ namespace BurningKnight.ui.str {
 				}
 				
 				switch (c) {
-					case '\\': {
+					/*case '\\': {
 						i++;
 						break;
-					}
+					}*/
 
 					case '[': {
 						parsingToken = true;

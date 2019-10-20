@@ -1,5 +1,6 @@
 # bug && feedback update
 
+* fixme: escape in ui menus dont work anymore
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable
