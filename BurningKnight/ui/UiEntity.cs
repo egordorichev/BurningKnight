@@ -97,7 +97,7 @@ namespace BurningKnight.ui {
 			Tween.To(1f, scale, x => scale = x, 0.1f);
 		}
 
-		protected virtual void OnClick() {
+		public virtual void OnClick() {
 			Tween.To(1 - ScaleMod * 0.5f, scale, x => scale = x, 0.1f).OnEnd = () =>
 				Tween.To(1f, scale, x => scale = x, 0.2f);
 		}

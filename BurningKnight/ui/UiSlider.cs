@@ -1,11 +1,13 @@
 using System;
+using BurningKnight.assets.input;
+using BurningKnight.entity.component;
 using Lens.input;
 using Lens.util.tween;
 
 namespace BurningKnight.ui {
 	public static class UiSlider {
 		public static UiSliderLabel Make(UiPane pane, float x, float y, string label, int value, int max = 100) {
-			var a = pane.Add(new UiLabel {
+			var a = (UiSliderButton) pane.Add(new UiSliderButton {
 				LocaleLabel = label,
 				RelativeX = x,
 				RelativeCenterY = y
@@ -15,6 +17,7 @@ namespace BurningKnight.ui {
 
 			var b = pane.Add(new UiButton {
 				Label = "-",
+				Selectable = false,
 				RelativeX = x + a.Width + 10,
 				RelativeCenterY = y,
 				Click = bt => {
@@ -43,6 +46,7 @@ namespace BurningKnight.ui {
 			
 			var d = pane.Add(new UiButton {
 				Label = "+",
+				Selectable = false,
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
 				RelativeCenterY = y,
 				Click = bt => {
@@ -58,6 +62,9 @@ namespace BurningKnight.ui {
 			b.RelativeX -= m;
 			c.RelativeX -= m;
 			d.RelativeX -= m;
+
+			a.Minus = (UiButton) b;
+			a.Plus = (UiButton) d;
 
 			return c;
 		}
@@ -86,6 +93,25 @@ namespace BurningKnight.ui {
 					Tween.To(1f, scale, x => scale = x, 0.2f);
 					
 					OnValueChange?.Invoke(this);
+				}
+			}
+		}
+
+		public class UiSliderButton : UiButton {
+			public UiButton Minus;
+			public UiButton Plus;
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (Selected == Id) {
+					if (Input.WasPressed(Controls.UiLeft, GamepadComponent.Current, true)) {
+						Minus.OnClick();
+					}
+					
+					if (Input.WasPressed(Controls.UiRight, GamepadComponent.Current, true)) {
+						Plus.OnClick();
+					}
 				}
 			}
 		}

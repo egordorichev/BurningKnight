@@ -30,7 +30,7 @@ namespace BurningKnight.ui {
 			}
 		}
 
-		protected override void OnClick() {
+		public override void OnClick() {
 			base.OnClick();
 			firstClickFrame = true;
 

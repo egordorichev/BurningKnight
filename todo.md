@@ -1,8 +1,8 @@
 # bug && feedback update
 
+* press b to go back in menus too
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
-* Change, how sliders work with gamepad. Should select the whole thing
 * Ui hearts are not noticable
 * Hints on loading screen
 * Hold melee weapon to throw it 
