@@ -1,5 +1,7 @@
 # bug && feedback update
 
+* rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
+* all transition tiles get replaced with wall on world update
 * Bullets should not reflect from turrets
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
@@ -13,7 +15,6 @@
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 * Bk stuff rework. Chase you through the level
 * Implement basic loop
-* Explore the rooms nearby when you clear it
 * Enemies should only spawn when player enters, and get removed, when you to away
 * Tutorial when you first enter the gamr, accessable layer through settings
 * fix damaging by rolling into a wall
