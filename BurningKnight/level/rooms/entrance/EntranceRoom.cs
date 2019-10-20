@@ -27,6 +27,14 @@ namespace BurningKnight.level.rooms.entrance {
 		public override void Paint(Level level) {
 			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
 			Place(level, GetTileCenter());
+
+			var t = Tiles.RandomFloor();
+			
+			Painter.Call(level, this, 1, (x, y) => {
+				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
+					level.Set(x, y, t);
+				}
+			});
 		}
 
 		protected virtual void Place(Level level, Dot where) {

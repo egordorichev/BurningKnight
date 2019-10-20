@@ -709,20 +709,25 @@ namespace BurningKnight.level {
 		public static void Set(Level Level, Dot P, Tile Value) {
 			Set(Level, (int) P.X, (int) P.Y, Value);
 		}
+		
+		public static void Call(Level Level, int X, int Y, int W, int H, Action<int, int> callback) {
+			for (var Yy = Y; Yy < Y + H; Yy++) {
+				for (var Xx = X; Xx < X + W; Xx++) {
+					callback(Xx, Yy);
+				}
+			}
+		}
+
+		public static void Call(Level level, Rect rect, int m, Action<int, int> callback) {
+			rect = rect.Shrink(m);
+			Call(level, rect.Left, rect.Top, rect.GetWidth(), rect.GetHeight(), callback);
+		}
 
 		public static void Fill(Level Level, int X, int Y, int W, int H, Tile Value) {
 			for (var Yy = Y; Yy < Y + H; Yy++) {
 				for (var Xx = X; Xx < X + W; Xx++) {
 					Set(Level, Xx, Yy, Value);
 				}
-			}
-		}
-
-		public static void RectOrEllipse(Level level, Rect rect, int m, Tile value) {
-			if (Random.Chance()) {
-				FillEllipse(level, rect, m, value);
-			} else {
-				Fill(level, rect, m, value);
 			}
 		}
 
