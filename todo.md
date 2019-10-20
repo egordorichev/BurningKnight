@@ -1,5 +1,6 @@
 # bug && feedback update
 
+* Bullets should not reflect from turrets
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Change, how sliders work with gamepad. Should select the whole thing
@@ -11,7 +12,6 @@
 * Hold melee weapon to throw it 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 * Bk stuff rework. Chase you through the level
-* Each area should have 2 lvl
 * Implement basic loop
 * Explore the rooms nearby when you clear it
 * Enemies should only spawn when player enters, and get removed, when you to away
