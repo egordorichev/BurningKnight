@@ -8,6 +8,7 @@ namespace Lens.input {
 	public class MouseData {		
 		public MouseState PreviousState;
 		public MouseState CurrentState;
+		public static bool HadClick;
 
 		private bool blockedByGui;
 		
@@ -21,6 +22,7 @@ namespace Lens.input {
 			CurrentState = Mouse.GetState();
 
 			blockedByGui = Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureMouse;
+			HadClick = HadClick || WasPressedLeftButton;
 		}
 
 		#region Buttons

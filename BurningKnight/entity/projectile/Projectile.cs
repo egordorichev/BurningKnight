@@ -15,6 +15,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -179,6 +180,10 @@ namespace BurningKnight.entity.projectile {
 				if (c.Invoke(entity) == CollisionResult.Disable) {
 					return false;
 				} 
+			}
+
+			if (entity is Turret && entity != Owner) {
+				return true;
 			}
 
 			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {

@@ -1,7 +1,7 @@
 # bug && feedback update
 
+* fix entity not being created on select
 * all transition tiles get replaced with wall on world update
-* Bullets should not reflect from turrets
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Change, how sliders work with gamepad. Should select the whole thing
