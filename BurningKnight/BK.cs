@@ -20,7 +20,7 @@ namespace BurningKnight {
 			#else
 				new AssetLoadState(),			
 			#endif
-			 $"Burning Knight {Version}: {Titles.Generate()}", width, height, fullscreen) {
+			 $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 		}
 
 		protected override void Initialize() {

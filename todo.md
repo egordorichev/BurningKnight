@@ -1,9 +1,7 @@
 # bug && feedback update
 
 * Remove hall for now. Just throw the player into the game.
-* Don't let to swap weapons, if you don't have another one
 * Don't let to interest with stands, if they and you have no item rn
-* Interact on gamepad should be X
 * Tiny autoaim, but disable it in the settings
 * Nerf fog, it also should not move anywhere as fast
 * Autoselect restart button in death mennu
