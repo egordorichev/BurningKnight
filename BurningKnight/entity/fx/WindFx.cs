@@ -12,6 +12,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.fx {
 	public class WindFx : Entity {
 		private static TextureRegion region;
+		private const float MaxSpeed = 0.3f;
 		
 		private float angle;
 		private float angleSpeed;
@@ -106,7 +107,7 @@ namespace BurningKnight.entity.fx {
 			float t = Engine.Time * 0.1f;
 			double a = Math.Cos(t) * Math.Sin(t * 1.3f) + Math.Cos(t * 1.5f);
 			
-			return new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
+			return new Vector2(MathUtils.Clamp(-MaxSpeed, MaxSpeed, (float) Math.Cos(a)), MathUtils.Clamp(-MaxSpeed, MaxSpeed, (float) Math.Sin(a)));
 		}
 
 		public static float CalculateWindSpeed() {

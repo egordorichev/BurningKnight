@@ -5,3 +5,4 @@
 * Don't let to swap weapons, if you don't have another one
 * Interact on gamepad should be X
 * Don't let to interest with stands, if they and you have no item rn
+* Nerfed fog speed and alpha
