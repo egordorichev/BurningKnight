@@ -2,8 +2,6 @@
 
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
-* Autoselect restart button in death mennu
-* Don't mark seed label as gamepad selectable
 * Change, how sliders work with gamepad. Should select the whole thing
 * Player should not spawn on spikes
 * Ui hearts are not noticable

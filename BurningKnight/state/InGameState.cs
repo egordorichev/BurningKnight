@@ -839,6 +839,7 @@ namespace BurningKnight.state {
 			// would be nice click to copy the seed
 			pauseMenu.Add(seedLabel = new UiButton {
 				Font = Font.Small,
+				Selectable = false,
 				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
@@ -873,15 +874,17 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
-			
-			pauseMenu.Add(new UiButton {
-				LocaleLabel = "back_to_castle",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
-				Type = ButtonType.Exit,
-				Click = b => Run.Depth = 0
-			});
-			
+
+			if (Run.Depth != 0) {
+				pauseMenu.Add(new UiButton {
+						LocaleLabel = "back_to_castle",
+						RelativeCenterX = Display.UiWidth / 2f,
+						RelativeCenterY = start + space,
+						Type = ButtonType.Exit,
+						Click = b => Run.Depth = 0
+				});
+			}
+
 			AddSettings();
 			
 			pauseMenu.Setup();
@@ -1721,7 +1724,10 @@ namespace BurningKnight.state {
 			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
 
 			Tween.To(this, new {blur = 1}, 0.5f);
-			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = AnimateDeathScreen;
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+			};
+			
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 		
