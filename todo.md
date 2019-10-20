@@ -1,6 +1,5 @@
 # bug && feedback update
 
-* rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 * all transition tiles get replaced with wall on world update
 * Bullets should not reflect from turrets
 * Remove hall for now. Just throw the player into the game.
@@ -8,7 +7,6 @@
 * Change, how sliders work with gamepad. Should select the whole thing
 * Ui hearts are not noticable
 * Limit screenshake even more, when you get hit or bombs explode it's really disorienting
-* Player invt should be much longer
 * Water edges are way too bright. 
 * Hints on loading screen
 * Hold melee weapon to throw it 
@@ -19,7 +17,9 @@
 * Tutorial when you first enter the gamr, accessable layer through settings
 * fix damaging by rolling into a wall
 * rework chasm mechanics
-* fix all github issues
+* rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
+* seed input remove/rework, it doesnt affect the run?
+* Props in shop can block exit
 
 # TODO
 
@@ -327,10 +327,9 @@ gobbo hurt/heal
 
 ### Rooms
 
+* Room, where you press lever/button to open/close chasm
 * Challenge room
 * Cursed room
-* alg for connection rooms that makes a really maze like path but with no dead ends
-* take one of items treasure room (how does that work with mimics, tho??)
 * rooms with preasure plates
 * rooms with switches
 * trap rooms
