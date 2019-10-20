@@ -509,8 +509,16 @@ namespace BurningKnight.state {
 						painting.Remove();
 					}
 				} else {
-					if (doneAnimatingPause && Input.WasPressed(Controls.Pause, controller)) {
-						if (Paused) {
+					if (doneAnimatingPause) {
+						if (Input.WasPressed(Controls.Pause, controller)) {
+							if (Paused) {
+								if (UiControl.Focused == null && currentBack == null) {
+									Paused = false;
+								}
+							} else {
+								Paused = true;
+							}
+						} else if (Paused && Input.WasPressed(Controls.UiBack, controller)) {
 							if (UiControl.Focused != null) {
 								UiControl.Focused.Cancel();
 							} else if (currentBack != null) {
@@ -518,8 +526,6 @@ namespace BurningKnight.state {
 							} else {
 								Paused = false;
 							}
-						} else {
-							Paused = true;
 						}
 					}
 				}

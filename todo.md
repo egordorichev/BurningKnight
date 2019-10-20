@@ -1,6 +1,5 @@
 # bug && feedback update
 
-* press b to go back in menus too
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable

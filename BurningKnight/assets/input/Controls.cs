@@ -43,6 +43,7 @@ namespace BurningKnight.assets.input {
 		public const string UiRight = "ui_right";
 		public const string UiAccept = "ui_accept";
 		public const string UiSelect = "ui_select";
+		public const string UiBack = "ui_back";
 
 		static Controls() {
 			controls.Clear();
@@ -75,7 +76,8 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(UiLeft, Keys.A, Keys.Left).Gamepad(Buttons.LeftThumbstickLeft, Buttons.RightThumbstickLeft, Buttons.DPadLeft));
 			controls.Add(new Control(UiRight, Keys.D, Keys.Right).Gamepad(Buttons.LeftThumbstickRight, Buttons.RightThumbstickRight, Buttons.DPadRight));
 			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
-			controls.Add(new Control(UiSelect, Keys.Enter).Gamepad(Buttons.A, Buttons.B, Buttons.X, Buttons.Y));
+			controls.Add(new Control(UiSelect, Keys.Enter).Gamepad(Buttons.A,  Buttons.X, Buttons.Y));
+			controls.Add(new Control(UiBack, Keys.Escape).Gamepad(Buttons.Back, Buttons.B));
 		}
 
 		public static void Bind() {
