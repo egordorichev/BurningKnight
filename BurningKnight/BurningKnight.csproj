@@ -1010,6 +1010,7 @@
     <Content Include="..\todo.md">
       <Link>todo.md</Link>
     </Content>
+    <Content Include="changelog.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />

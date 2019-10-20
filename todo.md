@@ -1,7 +1,35 @@
-# scoped down
+# bug && feedback update
 
+* Remove hall for now. Just throw the player into the game.
+* Don't let to swap weapons, if you don't have another one
+* Don't let to interest with stands, if they and you have no item rn
+* Interact on gamepad should be X
+* Tiny autoaim, but disable it in the settings
+* Nerf fog, it also should not move anywhere as fast
+* Autoselect restart button in death mennu
+* Don't mark seed label as gamepad selectable
+* Change, how sliders work with gamepad. Should select the whole thing
+* Player should not spawn on spikes
+* Ui hearts are not noticable
+* Limit screenshake even more, when you get hit or bombs explode it's really disorienting
+* Player invt should be much longer
+* Fix itemstand shadow
+* Duck gun is not a starting weapon by any means
+* Delete torch
+* No spikes in first two tiles near door. Fix the alive spike room.
+* Water edges are way too bright. 
+* Hints on loading screen
+* Hold melee weapon to throw it 
+* Allow to use images in ui string, get some gamepad and keyboard buttons going
+* Bk stuff rework. Chase you through the level
+* Each area should have 2 lvl
+* Implement basic loop
+* Explore the rooms nearby when you clear it
+* Enemies should only spawn when player enters, and get removed, when you to away
+* Tutorial when you first enter the gamr, accessable layer through settings
 * fix damaging by rolling into a wall
-* game autoplay it self if it stands idle for long, but display something like ("press x to play")
+* rework chasm mechanics
+* fix all github issues
 
 # TODO
 
