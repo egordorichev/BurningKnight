@@ -6,7 +6,6 @@
 * Ui hearts are not noticable
 * Limit screenshake even more, when you get hit or bombs explode it's really disorienting
 * Player invt should be much longer
-* No spikes in first two tiles near door. Fix the alive spike room.
 * Water edges are way too bright. 
 * Hints on loading screen
 * Hold melee weapon to throw it 

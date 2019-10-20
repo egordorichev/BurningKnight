@@ -10,6 +10,7 @@ namespace BurningKnight.level.tile {
 		public static int FloorLayer = 0x20;
 		public static int LiquidLayer = 0x40;
 		public static int WallLayer = 0x80;
+		public static int Danger = 0x100;
 
 		static TileFlags() {
 			flags[(int) Tile.Chasm] = Hole | FloorLayer;
@@ -21,13 +22,13 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.Transition] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Crack] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Water] = Passable | LiquidLayer;
-			flags[(int) Tile.Venom] = LiquidLayer;
+			flags[(int) Tile.Venom] = LiquidLayer | Danger;
 			flags[(int) Tile.FloorB] = Passable | Burns | FloorLayer;
 			flags[(int) Tile.FloorC] = Passable | FloorLayer;
 			flags[(int) Tile.FloorD] = Passable | FloorLayer;
-			flags[(int) Tile.SpikeTmp] = FloorLayer;
-			flags[(int) Tile.SensingSpikeTmp] = FloorLayer;
-			flags[(int) Tile.Lava] = LiquidLayer;
+			flags[(int) Tile.SpikeTmp] = FloorLayer | Danger;
+			flags[(int) Tile.SensingSpikeTmp] = FloorLayer | Danger;
+			flags[(int) Tile.Lava] = LiquidLayer | Danger;
 			flags[(int) Tile.Ice] = Passable | LiquidLayer;
 			flags[(int) Tile.HighGrass] = Passable | Burns | LiquidLayer;
 			flags[(int) Tile.Obsidian] = Passable | LiquidLayer;

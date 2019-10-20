@@ -138,7 +138,7 @@ namespace BurningKnight.level {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
 					    d.Type != DoorPlaceholder.Variant.Maze && d.Type != DoorPlaceholder.Variant.Tunnel) {
 
-						if (d.X == Room.Left || d.Y == Room.Right) {
+						if (d.X == Room.Left || d.X == Room.Right) {
 							Set(Level, d.X, d.Y - 1, t);
 							Set(Level, d.X, d.Y + 1, t);
 						} else {
@@ -154,6 +154,23 @@ namespace BurningKnight.level {
 
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
+
+				Clip = Room.Shrink(1);
+
+				foreach (var d in Room.Connected.Values) {
+					if (d.Type != DoorPlaceholder.Variant.Secret) {
+						var a = d.X == Room.Left || d.X == Room.Right;
+						var w = a ? 2 : 1;
+						var h = a ? 1 : 2;
+						var f = Tiles.RandomFloor();
+
+						Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
+							if (Level.Get(x, y).Matches(TileFlags.Danger)) {
+								Level.Set(x, y, f);
+							}
+						});
+					}
+				}
 
 				Clip = null;
 				
