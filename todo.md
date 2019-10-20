@@ -1,6 +1,5 @@
 # bug && feedback update
 
-* fix by pool in item editor
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Change, how sliders work with gamepad. Should select the whole thing

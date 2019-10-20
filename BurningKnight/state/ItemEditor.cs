@@ -9,6 +9,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.save;
 using BurningKnight.ui.imgui;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -471,7 +472,7 @@ namespace BurningKnight.state {
 		private static string itemName = "";
 		private static int count;
 		private static bool locked = true;
-		private static int pool;
+		private static int pools;
 		private static int sortBy;
 
 		private static string[] sortTypes = {
@@ -595,7 +596,25 @@ namespace BurningKnight.state {
 				} else if (sortBy == 2) {
 					ImGui.Checkbox("Lockable", ref locked);
 				} else if (sortBy == 3) {
-					ImGui.Combo("Pool##f", ref pool, ItemPool.Names, 32);
+					if (ImGui.TreeNode("Spawns in")) {
+						var i = 0;
+						
+						foreach (var p in ItemPool.ById) {
+							var val = p.Contains(pools);
+					
+							if (ImGui.Checkbox(p.Name, ref val)) {
+								pools = p.Apply(pools, val);
+							}
+					
+							i++;
+					
+							if (i == ItemPool.Count) {
+								break;
+							}
+						}
+						
+						ImGui.TreePop();
+					}
 				}
 			}
 
@@ -626,9 +645,18 @@ namespace BurningKnight.state {
 								continue;
 							}
 						} else {
-							if (!ItemPool.ById[pool].Contains(i.Pools)) {
+							var found = false;
+							
+							for (var j = 0; j < 32; j++) {
+								if (BitHelper.IsBitSet(pools, j) && BitHelper.IsBitSet(i.Pools, j)) {
+									found = true;
+									break;
+								}
+							}
+
+							if (!found) {
 								continue;
-							}							
+							}
 						}
 					}
 					
