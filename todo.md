@@ -1,13 +1,9 @@
 # bug && feedback update
 
-* fix entity not being created on select
-* all transition tiles get replaced with wall on world update
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Change, how sliders work with gamepad. Should select the whole thing
 * Ui hearts are not noticable
-* Limit screenshake even more, when you get hit or bombs explode it's really disorienting
-* Water edges are way too bright. 
 * Hints on loading screen
 * Hold melee weapon to throw it 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

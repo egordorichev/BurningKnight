@@ -676,6 +676,7 @@ namespace BurningKnight.ui.editor {
 				entity = (Entity) Activator.CreateInstance(currentType);
 				Editor.Area.Add(entity);
 				entity.Position = Input.Mouse.GamePosition;
+				// somethig wrong here
 			} catch (Exception e) {
 				Log.Error(e);
 			}
