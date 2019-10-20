@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
+using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;

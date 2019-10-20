@@ -2,6 +2,7 @@
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
 using BurningKnight.save;
 using BurningKnight.state;

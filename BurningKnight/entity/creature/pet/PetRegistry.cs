@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.mod;
 using Lens.entity;
 using Random = Lens.util.math.Random;
 
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		public static void Define(string id, Func<Entity, Entity> pet, Mod mod = null) {
-			defined[$"{(mod == null ? Mods.BurningKnight : mod.GetPrefix())}:{id}"] = pet;
+			defined[$"{(mod == null ? Mods.BurningKnight : mod.Prefix)}:{id}"] = pet;
 		}
 
 		public static bool Has(string id) {

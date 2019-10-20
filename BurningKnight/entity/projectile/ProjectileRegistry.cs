@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.projectile.controller;
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.projectile {
 		private static Dictionary<string, Action<Projectile>> registry = new Dictionary<string, Action<Projectile>>();
 
 		public static void Add(string id, Action<Projectile> fn, Mod mod = null) {
-			registry[$"{mod?.GetPrefix() ?? Mods.BurningKnight}:{id}"] = fn;
+			registry[$"{mod?.Prefix ?? Mods.BurningKnight}:{id}"] = fn;
 		}
 
 		public static Action<Projectile> Get(string id) {
