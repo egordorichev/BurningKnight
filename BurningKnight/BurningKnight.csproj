@@ -413,6 +413,7 @@
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Brastin.cs" />
+    <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
     <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />

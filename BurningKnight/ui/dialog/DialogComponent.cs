@@ -153,7 +153,7 @@ namespace BurningKnight.ui.dialog {
 			Dialog.Close();
 		}
 
-		private static string toSay;
+		private static string toSay = "";
 
 		public override void RenderDebug() {
 			base.RenderDebug();

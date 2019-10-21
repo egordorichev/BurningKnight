@@ -1,5 +1,8 @@
 # bug && feedback update
 
+* shorter roll?
+* make items in shop free when sk becomes angry
+* fixme: betatesters wont get the new key bindings added
 * fixme: escape in ui menus dont work anymore
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings

@@ -227,11 +227,6 @@ namespace BurningKnight.ui.str {
 				}
 				
 				switch (c) {
-					/*case '\\': {
-						i++;
-						break;
-					}*/
-
 					case '[': {
 						parsingToken = true;
 						token.Clear();
