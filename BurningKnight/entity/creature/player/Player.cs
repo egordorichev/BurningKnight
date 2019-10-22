@@ -126,6 +126,7 @@ namespace BurningKnight.entity.creature.player {
 			hp.MaxHealth = 6;
 			hp.InitMaxHealth = 6;
 			hp.MaxHealthCap = 32;
+			hp.InvincibilityTimerMax = 1f;
 
 			if (Engine.Version.Dev) {
 				Log.Info("Entering god mode for the player");
@@ -343,7 +344,7 @@ namespace BurningKnight.entity.creature.player {
 					return true;
 				}
 				
-				GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level.Chasm);
+				GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
 				
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());

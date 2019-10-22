@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable.turret {
-	public class Turret : RoomControllable, CollisionFilterEntity {
+	public class Turret : RoomControllable {
 		private float beforeNextBullet;
 		protected bool Rotates;
 
@@ -41,13 +41,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			a.Animation.Tag = "single";
 			a.Animation.Paused = true;
+			a.ShadowOffset = 4;
 			
 			AddComponent(new ShadowComponent());
 			AddComponent(new ExplodableComponent());
 
 			AlwaysActive = true;
 		}
-
+		
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent) {
 				Done = true;
@@ -134,10 +135,6 @@ namespace BurningKnight.entity.room.controllable.turret {
 			projectile.AddLight(32f, Projectile.RedLight);
 
 			AnimationUtil.Poof(projectile.Center);
-		}
-
-		public bool ShouldCollide(Entity entity) {
-			return !(entity is Chasm);
 		}
 	}
 }

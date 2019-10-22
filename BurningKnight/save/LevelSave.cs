@@ -43,7 +43,7 @@ namespace BurningKnight.save {
 				return new HallLevel();
 			}
 			
-			return new RegularLevel(BiomeRegistry.ForDepth(Run.Depth));
+			return new RegularLevel(BiomeRegistry.GenerateForDepth(Run.Depth));
 		}
 
 		public static Biome BiomeGenerated;

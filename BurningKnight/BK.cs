@@ -2,6 +2,7 @@
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -12,7 +13,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight {
 	public class BK : Engine {
 		public static bool StandMode = false;
-		public static Version Version = new Version(8, 0, 1, 3, 0, true, Debug);
+		public static Version Version = new Version("Bug & Feedback update", 9, 0, 1, 4, 0, true, true);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

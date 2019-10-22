@@ -25,8 +25,8 @@ namespace BurningKnight.ui {
 			base.OnUnhover();
 			Tween.To(DefaultTint, Tint, x => Tint = x, 0.1f);
 		}
-		
-		protected override void OnClick() {
+
+		public override void OnClick() {
 			base.OnClick();
 			Tint = 0.5f;
 			Tween.To(1, Tint, x => Tint = x, 0.2f);

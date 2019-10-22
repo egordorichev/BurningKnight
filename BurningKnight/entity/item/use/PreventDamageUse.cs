@@ -14,8 +14,7 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
 				if ((spikes && ev.From is Spikes)
-				    || (lava && ev.From is Level)
-				    || (chasm && ev.From is Chasm)) {
+				    || (lava && ev.From is Level)) {
 					
 					return true;
 				}

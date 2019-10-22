@@ -37,7 +37,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
     mod(input.TextureCoordinates.y + cy + ty * time, 1.0)
   )).r * 10.0) * 0.5 + 0.5);
       
-  return float4(v, v, v, v * 0.3f);//v * (1 - smoothstep(0.75f, 0.3f, length(input.TextureCoordinates - float2(0.5f, 0.5f)))));
+  return float4(v, v, v, v * 0.15f);//v * (1 - smoothstep(0.75f, 0.3f, length(input.TextureCoordinates - float2(0.5f, 0.5f)))));
 }
 
 technique SpriteDrawing {

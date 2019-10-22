@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.mod;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.use.parent;
 using Lens.lightJson;
@@ -14,7 +15,7 @@ namespace BurningKnight.entity.item.use {
 		public static void Register<T>(Mod mod, Action<JsonValue> renderer = null) where T : ItemUse {
 			var type = typeof(T);
 			var name = type.Name;
-			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Use") ? name.Substring(0, name.Length - 3) : name)}";
+			var id = $"{mod?.Prefix ?? Mods.BurningKnight}:{(name.EndsWith("Use") ? name.Substring(0, name.Length - 3) : name)}";
 
 			Uses[id] = type;
 

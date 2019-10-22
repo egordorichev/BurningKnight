@@ -138,7 +138,7 @@ namespace BurningKnight.level {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
 					    d.Type != DoorPlaceholder.Variant.Maze && d.Type != DoorPlaceholder.Variant.Tunnel) {
 
-						if (d.X == Room.Left || d.Y == Room.Right) {
+						if (d.X == Room.Left || d.X == Room.Right) {
 							Set(Level, d.X, d.Y - 1, t);
 							Set(Level, d.X, d.Y + 1, t);
 						} else {
@@ -154,6 +154,23 @@ namespace BurningKnight.level {
 
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
+
+				Clip = Room.Shrink(1);
+
+				foreach (var d in Room.Connected.Values) {
+					if (d.Type != DoorPlaceholder.Variant.Secret) {
+						var a = d.X == Room.Left || d.X == Room.Right;
+						var w = a ? 2 : 1;
+						var h = a ? 1 : 2;
+						var f = Tiles.RandomFloor();
+
+						Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
+							if (Level.Get(x, y).Matches(TileFlags.Danger)) {
+								Level.Set(x, y, f);
+							}
+						});
+					}
+				}
 
 				Clip = null;
 				
@@ -709,20 +726,25 @@ namespace BurningKnight.level {
 		public static void Set(Level Level, Dot P, Tile Value) {
 			Set(Level, (int) P.X, (int) P.Y, Value);
 		}
+		
+		public static void Call(Level Level, int X, int Y, int W, int H, Action<int, int> callback) {
+			for (var Yy = Y; Yy < Y + H; Yy++) {
+				for (var Xx = X; Xx < X + W; Xx++) {
+					callback(Xx, Yy);
+				}
+			}
+		}
+
+		public static void Call(Level level, Rect rect, int m, Action<int, int> callback) {
+			rect = rect.Shrink(m);
+			Call(level, rect.Left, rect.Top, rect.GetWidth(), rect.GetHeight(), callback);
+		}
 
 		public static void Fill(Level Level, int X, int Y, int W, int H, Tile Value) {
 			for (var Yy = Y; Yy < Y + H; Yy++) {
 				for (var Xx = X; Xx < X + W; Xx++) {
 					Set(Level, Xx, Yy, Value);
 				}
-			}
-		}
-
-		public static void RectOrEllipse(Level level, Rect rect, int m, Tile value) {
-			if (Random.Chance()) {
-				FillEllipse(level, rect, m, value);
-			} else {
-				Fill(level, rect, m, value);
 			}
 		}
 

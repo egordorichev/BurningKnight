@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.mod;
 using BurningKnight.entity.room.controllable;
 using Lens.util;
 
@@ -16,7 +17,7 @@ namespace BurningKnight.entity.room.controller {
 		}
 		
 		public static void Add(string id, Func<RoomController> maker, Mod mod = null) {
-			defined[$"{(mod == null ? Mods.BurningKnight : mod.GetPrefix())}:{id}"] = maker;
+			defined[$"{(mod == null ? Mods.BurningKnight : mod.Prefix)}:{id}"] = maker;
 		}
 
 		public static void Add<T>(string id, Mod mod = null) where T : RoomController {

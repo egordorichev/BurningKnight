@@ -31,7 +31,7 @@ namespace BurningKnight.ui {
 			Option = option;
 		}
 
-		protected override void OnClick() {
+		public override void OnClick() {
 			var o = Option + (Input.Mouse.CheckRightButton ? -1 : 1);
 
 			if (o < 0) {

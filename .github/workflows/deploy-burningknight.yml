@@ -74,7 +74,7 @@ jobs:
           ls
           cd ..
 
-      - name: Upload Windows Version
+      - name: Upload Windows Version to Itch
         shell: powershell
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
@@ -92,7 +92,7 @@ jobs:
           ls
           cd ..
           
-      - name: Upload Linux Version
+      - name: Upload Linux Version to Itch
         shell: powershell
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
@@ -111,9 +111,26 @@ jobs:
           ls
           cd ..
           
-      - name: Upload Macos Version
+      - name: Upload Macos Version to Itch
         shell: powershell
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           ./butler.exe push ./Macos/ egordorichev/bkt:macos
+          
+      - name: Upload depots to steam
+        shell: bash
+        run: |
+           git clone https://github.com/egordorichev/steam_builder
+           mkdir "/Program Files/Steam/steam" -r
+           cp ./steam_builder/ssfn* "/Program Files/Steam/steam/"
+           ls -l "/Program Files/Steam/steam/"
+           cd steam_builder/tools/ContentBuilder
+           mkdir ./content/Windows
+           cp ../../../Windows/* ./content/Windows/
+           mkdir ./content/Linux
+           cp ../../../Linux/* ./content/Linux/
+           mkdir ./content/Macos
+           cp ../../../Macos/* ./content/Macos/
+           builder\steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
+           

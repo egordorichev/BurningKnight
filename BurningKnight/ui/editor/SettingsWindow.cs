@@ -311,8 +311,8 @@ namespace BurningKnight.ui.editor {
 			}*/
 			
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
-			var clicked = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.WasPressedLeftButton;
-			
+			var clicked = !ImGui.GetIO().WantCaptureMouse && MouseData.HadClick;
+
 			if (!ImGui.Begin("Level Editor")) {
 				ImGui.End();
 				return;
@@ -326,8 +326,6 @@ namespace BurningKnight.ui.editor {
 					currentLevel = o;
 					Save();
 					currentLevel = oo;
-					
-					
 					
 					Load();
 				}
@@ -678,6 +676,7 @@ namespace BurningKnight.ui.editor {
 				entity = (Entity) Activator.CreateInstance(currentType);
 				Editor.Area.Add(entity);
 				entity.Position = Input.Mouse.GamePosition;
+				// somethig wrong here
 			} catch (Exception e) {
 				Log.Error(e);
 			}

@@ -39,8 +39,11 @@ namespace BurningKnight.assets.input {
 
 		public const string UiUp = "ui_up";
 		public const string UiDown = "ui_down";
+		public const string UiLeft = "ui_left";
+		public const string UiRight = "ui_right";
 		public const string UiAccept = "ui_accept";
 		public const string UiSelect = "ui_select";
+		public const string UiBack = "ui_back";
 
 		static Controls() {
 			controls.Clear();
@@ -54,10 +57,10 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Use).Mouse(MouseButtons.Left).Gamepad(Buttons.RightTrigger, Buttons.DPadDown));
 
 			controls.Add(new Control(Bomb, Keys.Q).Gamepad(Buttons.Y));
-			controls.Add(new Control(Interact, Keys.E).Gamepad(Buttons.A));
-			controls.Add(new Control(Swap, Keys.LeftShift).Gamepad(Buttons.X));
+			controls.Add(new Control(Interact, Keys.E).Gamepad(Buttons.X));
+			controls.Add(new Control(Swap, Keys.LeftShift).Gamepad(Buttons.A));
 			controls.Add(new Control(Roll).Mouse(MouseButtons.Right).Gamepad(Buttons.LeftTrigger));
-			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.LeftShoulder));
+			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.B));
 			controls.Add(new Control(Map, Keys.M).Gamepad(Buttons.LeftStick));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
@@ -70,8 +73,11 @@ namespace BurningKnight.assets.input {
 			
 			controls.Add(new Control(UiUp, Keys.W, Keys.Up).Gamepad(Buttons.LeftThumbstickUp, Buttons.RightThumbstickUp, Buttons.DPadUp));
 			controls.Add(new Control(UiDown, Keys.S, Keys.Down).Gamepad(Buttons.LeftThumbstickDown, Buttons.RightThumbstickDown, Buttons.DPadDown));
+			controls.Add(new Control(UiLeft, Keys.A, Keys.Left).Gamepad(Buttons.LeftThumbstickLeft, Buttons.RightThumbstickLeft, Buttons.DPadLeft));
+			controls.Add(new Control(UiRight, Keys.D, Keys.Right).Gamepad(Buttons.LeftThumbstickRight, Buttons.RightThumbstickRight, Buttons.DPadRight));
 			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
-			controls.Add(new Control(UiSelect, Keys.Enter).Gamepad(Buttons.A, Buttons.B, Buttons.X, Buttons.Y));
+			controls.Add(new Control(UiSelect, Keys.Enter).Gamepad(Buttons.A,  Buttons.X, Buttons.Y));
+			controls.Add(new Control(UiBack, Keys.Escape).Gamepad(Buttons.Back, Buttons.B));
 		}
 
 		public static void Bind() {

@@ -15,6 +15,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
@@ -181,6 +182,10 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
+			if (entity is Turret && entity != Owner) {
+				return true;
+			}
+
 			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {
 				return false;
 			}
@@ -253,7 +258,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Chasm || entity is Item || entity is Projectile || entity is ShopStand);
+			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand);
 		}
 
 		public void Break() {

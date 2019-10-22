@@ -3,6 +3,7 @@ using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
+using BurningKnight.level.entities;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -85,7 +86,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 
 		protected void Hurt() {
 			foreach (var c in Colliding) {
-				if (!(c is Creature cc && cc.InAir())) {
+				if (!(c is Creature cc && cc.InAir()) || c is ExplodingBarrel) {
 					c.GetComponent<HealthComponent>().ModifyHealth(-1, this);
 				}
 			}

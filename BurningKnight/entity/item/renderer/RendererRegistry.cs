@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.mod;
 using Lens.lightJson;
 
 namespace BurningKnight.entity.item.renderer {
@@ -20,7 +21,7 @@ namespace BurningKnight.entity.item.renderer {
 		public static void Register<T>(Mod mod, Action<string, JsonValue, JsonValue> renderer = null) where T : ItemRenderer {
 			var type = typeof(T);
 			var name = type.Name;
-			var id = $"{mod?.GetPrefix() ?? Mods.BurningKnight}:{(name.EndsWith("Renderer") ? name.Substring(0, name.Length - 8) : name)}";
+			var id = $"{mod?.Prefix ?? Mods.BurningKnight}:{(name.EndsWith("Renderer") ? name.Substring(0, name.Length - 8) : name)}";
 
 			Renderers[id] = type;
 

@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Lens.util;
+using Lens.util.math;
 
 namespace BurningKnight.level.biome {
 	public static class BiomeRegistry {
@@ -8,12 +11,12 @@ namespace BurningKnight.level.biome {
 			BiomeInfo[] infos = {
 				// BiomeInfo.New<HubBiome>(Biome.Hub),
 
-				BiomeInfo.New<CastleBiome>(Biome.Castle),
-				BiomeInfo.New<LibraryBiome>(Biome.Library),
-				BiomeInfo.New<DesertBiome>(Biome.Desert),
-				BiomeInfo.New<IceBiome>(Biome.Ice),
-				BiomeInfo.New<ForestBiome>(Biome.Forest),
-				BiomeInfo.New<TechBiome>(Biome.Tech)
+				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(0, 1f).Add(1, 1f).Add(-1, 1f).Add(0, 1f),
+				BiomeInfo.New<DesertBiome>(Biome.Desert).Add(2, 1f).Add(3, 1f),
+				BiomeInfo.New<ForestBiome>(Biome.Forest).Add(4, 1f).Add(5, 1f),
+				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(6, 1f).Add(7, 1f),
+				BiomeInfo.New<TechBiome>(Biome.Tech).Add(8, 1f).Add(9, 1f),
+				BiomeInfo.New<IceBiome>(Biome.Ice).Add(10, 1f).Add(11, 1f)
 			};
 			
 			foreach (var info in infos) {
@@ -25,32 +28,25 @@ namespace BurningKnight.level.biome {
 			return Defined[id];
 		}
 
-		public static BiomeInfo ForDepth(int depth) {
-			if (depth == -1) {
-				return Defined[Biome.Hub];
-			}
-			
-			if (depth == 2) {
-				return Defined[Biome.Desert];
-			}
-			
-			if (depth == 3) {
-				return Defined[Biome.Library];
+		public static BiomeInfo GenerateForDepth(int depth) {
+			var list = new List<BiomeInfo>();
+			var chances = new List<float>();
+
+			foreach (var b in Defined.Values) {
+				if (b.Depths.Contains(depth)) {
+					list.Add(b);
+					chances.Add(b.Chances[b.Depths.IndexOf(depth)]);
+				}
 			}
 
-			if (depth == 4) {
-				return Defined[Biome.Forest];
+			var index = Random.Chances(chances);
+
+			if (index == -1) {
+				Log.Error($"Failed to generate a biome for the depth {depth}");
+				return Defined.Values.First();
 			}
 
-			if (depth == 5) {
-				return Defined[Biome.Ice];
-			}
-
-			if (depth == 6) {
-				return Defined[Biome.Tech];
-			}
-			
-			return Defined[Biome.Castle];
+			return list[index];
 		}
 		
 		public static void Add(BiomeInfo info) {

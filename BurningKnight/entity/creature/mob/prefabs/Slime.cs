@@ -140,10 +140,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
-			if (entity is Chasm) {
-				return !InAir();
-			}
-			
 			return base.ShouldCollide(entity);
 		}
 

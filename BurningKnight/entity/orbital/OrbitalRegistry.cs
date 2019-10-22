@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.item.util;
@@ -24,7 +25,7 @@ namespace BurningKnight.entity.orbital {
 		}
 
 		public static void Define(string id, Func<Entity, Entity> orbital, Mod mod = null) {
-			defined[$"{(mod == null ? Mods.BurningKnight : mod.GetPrefix())}:{id}"] = orbital;
+			defined[$"{(mod == null ? Mods.BurningKnight : mod.Prefix)}:{id}"] = orbital;
 		}
 
 		public static bool Has(string id) {

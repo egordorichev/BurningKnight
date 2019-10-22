@@ -142,8 +142,10 @@ namespace Lens {
 			}
 
 			Split = Math.Max(0, Split - dt);
-			Flash = Math.Max(0, Flash - dt * 30f);
-			Freeze = Math.Max(0, Freeze - dt * 10f);
+			Flash = Math.Max(0, Flash - dt * 60f);
+			Freeze = Math.Max(0, Freeze - dt * 20f);
+
+			MouseData.HadClick = false;
 
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;

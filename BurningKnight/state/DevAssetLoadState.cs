@@ -4,6 +4,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
 using BurningKnight.level.tile;
 using BurningKnight.physics;

@@ -21,7 +21,7 @@ namespace Lens.entity.component.logic {
 				Position.X = 0;
 				Position.Y = 0;
 			} else {
-				var a = Math.Min(5, Amount * Amount * 0.05f);
+				var a = Math.Min(4, Amount * Amount * 0.05f);
 
 				Angle = Noise.Generate(Time) * a * 0.01f;
 
@@ -32,7 +32,7 @@ namespace Lens.entity.component.logic {
 			}
 
 			if (Push >= 0.01f) {
-				var force = Math.Min(5, Push * Push * 0.3f) * (1 + Modifier * 0.1f);
+				var force = Math.Min(4, Push * Push * 0.3f) * (1 + Modifier * 0.1f);
 				Position.X += PushDirection.X * force;
 				Position.Y += PushDirection.Y * force;
 			}

@@ -58,7 +58,6 @@ namespace BurningKnight.entity.creature.bk {
 
 						Timer.Add(() => {
 							if (Interrupted) {
-								level.Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 								level.CreateBody();
 								return;
 							}
@@ -201,7 +200,6 @@ namespace BurningKnight.entity.creature.bk {
 					var xy = (int) Math.Floor(CenterY / 16);
 
 					Painter.Rect(Run.Level, xx - 3, xy - 3, 6, 6, Tile.Chasm);
-					Run.Level.Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 
 					var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 

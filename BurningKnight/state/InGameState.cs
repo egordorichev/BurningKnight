@@ -509,8 +509,16 @@ namespace BurningKnight.state {
 						painting.Remove();
 					}
 				} else {
-					if (doneAnimatingPause && Input.WasPressed(Controls.Pause, controller)) {
-						if (Paused) {
+					if (doneAnimatingPause) {
+						if (Input.WasPressed(Controls.Pause, controller)) {
+							if (Paused) {
+								if (UiControl.Focused == null && currentBack == null) {
+									Paused = false;
+								}
+							} else {
+								Paused = true;
+							}
+						} else if (Paused && Input.WasPressed(Controls.UiBack, controller)) {
 							if (UiControl.Focused != null) {
 								UiControl.Focused.Cancel();
 							} else if (currentBack != null) {
@@ -518,8 +526,6 @@ namespace BurningKnight.state {
 							} else {
 								Paused = false;
 							}
-						} else {
-							Paused = true;
 						}
 					}
 				}
@@ -730,22 +736,26 @@ namespace BurningKnight.state {
 		private float emeraldY = -20;
 		
 		public override void RenderUi() {
-			if (Run.Depth == 0 || emeraldY > -20) {
-				var y = Run.Depth == 0 ? 0 : emeraldY;
-				
-				Graphics.Render(emerald, new Vector2(2, 2 + y));
-				Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+			if (!Settings.HideUi) {
+				if (Run.Depth == 0 || emeraldY > -20) {
+					var y = Run.Depth == 0 ? 0 : emeraldY;
+
+					Graphics.Render(emerald, new Vector2(2, 2 + y));
+					Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+				}
 			}
 
 			if (blackBarsSize > 0.01f) {
 				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
 			}
-			
-			Graphics.Color = ColorUtils.HalfWhiteColor;
-			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
-			Graphics.Color = ColorUtils.WhiteColor;
-			
+
+			if (!Settings.HideUi) {
+				Graphics.Color = ColorUtils.HalfWhiteColor;
+				Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
+				Graphics.Color = ColorUtils.WhiteColor;
+			}
+
 			painting?.RenderUi();
 
 			if (Settings.HideUi) {
@@ -839,6 +849,7 @@ namespace BurningKnight.state {
 			// would be nice click to copy the seed
 			pauseMenu.Add(seedLabel = new UiButton {
 				Font = Font.Small,
+				Selectable = false,
 				Label = $"Seed: {Run.Seed}",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY,
@@ -873,15 +884,17 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
-			
-			pauseMenu.Add(new UiButton {
-				LocaleLabel = "back_to_castle",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
-				Type = ButtonType.Exit,
-				Click = b => Run.Depth = 0
-			});
-			
+
+			if (Run.Depth != 0) {
+				pauseMenu.Add(new UiButton {
+						LocaleLabel = "back_to_castle",
+						RelativeCenterX = Display.UiWidth / 2f,
+						RelativeCenterY = start + space,
+						Type = ButtonType.Exit,
+						Click = b => Run.Depth = 0
+				});
+			}
+
 			AddSettings();
 			
 			pauseMenu.Setup();
@@ -1721,7 +1734,10 @@ namespace BurningKnight.state {
 			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
 
 			Tween.To(this, new {blur = 1}, 0.5f);
-			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = AnimateDeathScreen;
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+			};
+			
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
 		}
 		
