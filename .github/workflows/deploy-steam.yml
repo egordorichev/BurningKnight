@@ -32,7 +32,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          cat linux/homework
+          ls linux/
       - name: Upload depots to steam
         shell: bash
         run: |
