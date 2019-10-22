@@ -19,7 +19,11 @@ jobs:
            echo "lin">>Linux/hi
            echo "win">>Windows/hi
            echo "mac">>Macos/hi
-           mkdir "/Program Files/Steam/steam" -p
+           mkdir "/Program Files (x86)/Steam/steam" -p
+           cp ./steam_builder/ssfn2631791037380626867 "/Program Files (x86)/Steam/"
+           cp ./steam_builder/ssfn2631791037380626867 "/Program Files (x86)/Steam/steam/"
+           ls -l "/Program Files (x86)/Steam/steam/"
+           mkdir "/Program Files (x86)/Steam/steam" -p
            cp ./steam_builder/ssfn2631791037380626867 "/Program Files/Steam/"
            cp ./steam_builder/ssfn2631791037380626867 "/Program Files/Steam/steam/"
            ls -l "/Program Files/Steam/steam/"
