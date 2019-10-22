@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build BurningKnight
-    runs-on: linux-2019
+    runs-on: ubuntu-18.04
     steps:
       - name: Upload depots to steam
         shell: bash
