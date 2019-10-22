@@ -33,19 +33,18 @@ namespace BurningKnight.entity.creature.bk {
 			
 			AddTag(Tags.BurningKnight);
 
-			Width = 42;
-			Height = 42;
+			Width = 22;
+			Height = 27;
 			Flying = true;
 
-			var b = new RectBodyComponent(8, 8, Width - 16, Height - 16) {
+			var b = new RectBodyComponent(8, 8, Width - 8, Height - 8) {
 				KnockbackModifier = 0
 			};
 
 			AddComponent(b);
 			b.Body.LinearDamping = 4;
 			
-			// FIXME: TMP sprite and size, obv
-			AddComponent(new BkGraphicsComponent("old_burning_knight"));
+			AddComponent(new AnimationComponent("old_burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
 			health.InitMaxHealth = 48 + (Run.Depth - 1) * 20;
@@ -54,7 +53,7 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(new OrbitGiverComponent());
 			
 			AddComponent(new DialogComponent());
-			AddComponent(new LightComponent(this, 128f, new Color(1f, 0.8f, 0.3f, 1f)));
+			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
 		}
 
 		protected override void OnTargetChange(Entity target) {

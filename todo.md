@@ -2,7 +2,6 @@
 
 * get discord npc somewhere to spawn
 * shorter roll?
-* make items in shop free when sk becomes angry
 * fixme: betatesters wont get the new key bindings added
 * fixme: escape in ui menus dont work anymore
 * Remove hall for now. Just throw the player into the game.
@@ -159,17 +158,7 @@ gobbo hurt/heal
  
 * gases??
 
-### bk himself
-
-* Learning to avoid the last attack that killed him
-* way to skip the boss battle but get harder game
-* difficulty progression through the fight
-* Learning to avoid the last attack that killed him
-
-* steam cloud
 * implement stats
-* Animate lamp up and down to make it more alive
-* Crash report window
 * lighting bolts
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 
@@ -334,3 +323,11 @@ gobbo hurt/heal
 * rooms with switches
 * trap rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
+
+### things I promissed to do
+
+* secret seeds
+* daily runs
+* local coop up to 4 players
+* twitch support
+* steam cloud

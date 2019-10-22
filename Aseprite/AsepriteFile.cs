@@ -251,7 +251,8 @@ namespace Aseprite {
 								} else {
 									SEEK(2);
 									var deflate = new DeflateStream(reader.BaseStream, CompressionMode.Decompress);
-									deflate.Read(colorBuffer, 0, byteCount);
+
+										deflate.Read(colorBuffer, 0, byteCount);
 								}
 
 								cel.Pixels = new Color[cel.Width * cel.Height];

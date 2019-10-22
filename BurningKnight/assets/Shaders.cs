@@ -22,7 +22,7 @@ namespace BurningKnight.assets {
 			Fog = Effects.Get("fog");
 			Chasm = Effects.Get("chasm");
 			Item = Effects.Get("item");
-			Bk = Effects.Get("bk");
+			// Bk = Effects.Get("bk");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
 			Engine.Instance.StateRenderer.UiEffect = Ui;

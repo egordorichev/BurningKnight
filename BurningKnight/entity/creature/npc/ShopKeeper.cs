@@ -55,6 +55,8 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
 
 					AddTag(Tags.MustBeKilled);
+
+					SetItemsFree();
 				}
 
 				Recalc();
@@ -174,14 +176,21 @@ namespace BurningKnight.entity.creature.npc {
 			return base.HandleEvent(e);
 		}
 
-		protected override bool HandleDeath(DiedEvent d) {
-			Items.Unlock("bk:shotgun");
-			
-			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
-				if (s is ShopStand ss) {
-					ss.Free = true;
+		private void SetItemsFree() {
+			var r = GetComponent<RoomComponent>().Room;
+
+			if (r != null) {
+				foreach (var s in r.Tagged[Tags.Item]) {
+					if (s is ShopStand ss) {
+						ss.Free = true;
+					}
 				}
 			}
+		}
+
+		protected override bool HandleDeath(DiedEvent d) {
+			Items.Unlock("bk:shotgun");
+			SetItemsFree();
 			
 			return base.HandleDeath(d);
 		}
