@@ -389,6 +389,7 @@
     <Compile Include="entity\creature\bk\attacks\ShootAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\SpawnSkullOrbitalAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
+    <Compile Include="entity\creature\bk\BkGraphicsComponent.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
     <Compile Include="entity\creature\bk\forms\king\BladeAttack.cs" />
@@ -1018,6 +1019,14 @@
     </Content>
     <Content Include="changelog.md" />
     <Content Include="Content\Mods\test\mod.lua" />
+    <Content Include="Content\Shaders\bk.fx" />
+    <Content Include="Content\Shaders\chasm.fx" />
+    <Content Include="Content\Shaders\entity.fx" />
+    <Content Include="Content\Shaders\fog.fx" />
+    <Content Include="Content\Shaders\item.fx" />
+    <Content Include="Content\Shaders\screen.fx" />
+    <Content Include="Content\Shaders\terrain.fx" />
+    <Content Include="Content\Shaders\ui.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />

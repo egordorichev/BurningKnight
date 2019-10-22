@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - release
-
 jobs:
   build:
     name: Build BurningKnight
@@ -17,12 +16,10 @@ jobs:
         run: |
           wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
           unzip butler.zip
-
       - name: Install NuGet
         shell: powershell
         run: |
           wget -O nuget.exe  https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-
       - name: Install NuGet packages
         shell: bash
         run: |
@@ -38,17 +35,14 @@ jobs:
           echo $GITHUB_WORKSPACE
           ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
           dotnet restore
-
       - name: Download MonoGame
         shell: powershell
         run: |
           dotnet --info
           wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-
       - name: Install MonoGame
         run: |
           MonoGameSetup.exe /S
-
       - name: Building Aseprite Extention
         shell: bash
         run: |
@@ -56,14 +50,12 @@ jobs:
           ls -l
           "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
           ls -l
-
       - name: Building Resources
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/BurningKnight/Content/
           "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
           ls -l
-
       - name: Building Solution
         shell: bash
         run: |
@@ -73,14 +65,12 @@ jobs:
           cd Windows
           ls
           cd ..
-
       - name: Upload Windows Version to Itch
         shell: powershell
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           ./butler.exe push ./Windows/ egordorichev/bkt:windows
-
       - name: Prepare Linux Version
         shell: bash
         run: |
@@ -99,38 +89,49 @@ jobs:
         run: |
           ./butler.exe push ./Linux/ egordorichev/bkt:linux
           
+      - name: Upload windows build to linux
+        uses: actions/upload-artifact@v1
+        with:
+          name: Windows
+          path: Windows
           
-      - name: Prepare Macos Version
-        shell: bash
-        run: |
-          mkdir ./Macos
-          cp -rf ./Windows/* ./Macos/
-          git clone https://github.com/egordorichev/bk_osx_kick
-          cp -rf ./bk_osx_kick/* ./Macos/
-          cd ./Macos
-          ls
-          cd ..
-          
-      - name: Upload Macos Version to Itch
-        shell: powershell
-        env:
-          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-        run: |
-          ./butler.exe push ./Macos/ egordorichev/bkt:macos
-          
+      - name: Upload linux build to linux
+        uses: actions/upload-artifact@v1
+        with:
+          name: Linux
+          path: Linux
+        
+  upload:
+    needs: build
+    name: Push BurningKnight to Steam
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Download windows
+        uses: actions/download-artifact@v1
+        with:
+          name: Windows
+      - name: Download linux
+        uses: actions/download-artifact@v1
+        with:
+          name: Linux
       - name: Upload depots to steam
         shell: bash
         run: |
-           git clone https://github.com/egordorichev/steam_builder
-           mkdir "/Program Files/Steam/steam" -r
-           cp ./steam_builder/ssfn* "/Program Files/Steam/steam/"
-           ls -l "/Program Files/Steam/steam/"
+           git clone "https://${{ secrets.GITHUB_KEY }}@github.com/egordorichev/steam_builder.git"
+           mkdir ~/.steam/steam/ -p
+           cp ./steam_builder/ssfn2631791037380626867 ~/.steam/steam/
+           ls -l ~/.steam/steam
+           mkdir -p ./steam_builder/tools/ContentBuilder/builder/public/
+           cp ./steam_builder/steambootstrapper_english.txt ./steam_builder/tools/ContentBuilder/builder/public/
+           ls -l ./steam_builder/tools/ContentBuilder/builder/public/
            cd steam_builder/tools/ContentBuilder
            mkdir ./content/Windows
-           cp ../../../Windows/* ./content/Windows/
+           cp ../../../Windows/* ./content/Windows/ -r
+           ls -l ./content/Windows/
            mkdir ./content/Linux
-           cp ../../../Linux/* ./content/Linux/
-           mkdir ./content/Macos
-           cp ../../../Macos/* ./content/Macos/
-           builder\steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
+           cp ../../../Linux/* ./content/Linux/ -r
+           ls -l ./content/Linux/
+           chmod a+x builder_linux/steamcmd.sh
+           chmod a+x builder_linux/linux32/steamcmd
+           builder_linux/steamcmd.sh +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build ../scripts/app_build_851150.vdf +quit
            

@@ -12,6 +12,7 @@ namespace BurningKnight.assets {
 		public static Effect Fog;
 		public static Effect Chasm;
 		public static Effect Item;
+		public static Effect Bk;
 		
 		public static void Load() {
 			Ui = Effects.Get("ui");
@@ -21,6 +22,7 @@ namespace BurningKnight.assets {
 			Fog = Effects.Get("fog");
 			Chasm = Effects.Get("chasm");
 			Item = Effects.Get("item");
+			// Bk = Effects.Get("bk");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
 			Engine.Instance.StateRenderer.UiEffect = Ui;
