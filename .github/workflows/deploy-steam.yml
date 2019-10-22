@@ -1,0 +1,33 @@
+name: Build BurningKnight
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    name: Build BurningKnight
+    runs-on: windows-2019
+    steps:
+      - name: Upload depots to steam
+        shell: bash
+        run: |
+           git clone https://github.com/egordorichev/steam_builder
+           mkdir Linux
+           mkdir Windows
+           mkdir Macos
+           echo "lin">>Linux/hi
+           echo "win">>Windows/hi
+           echo "mac">>Macos/hi
+           mkdir "/Program Files/Steam/steam" -r
+           cp ./steam_builder/ssfn* "/Program Files/Steam/steam/"
+           ls -l "/Program Files/Steam/steam/"
+           cd steam_builder/tools/ContentBuilder
+           mkdir ./content/Windows
+           cp ../../../Windows/* ./content/Windows/
+           mkdir ./content/Linux
+           cp ../../../Linux/* ./content/Linux/
+           mkdir ./content/Macos
+           cp ../../../Macos/* ./content/Macos/
+           builder\steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
+           
