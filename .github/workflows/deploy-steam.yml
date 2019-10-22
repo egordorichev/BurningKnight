@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build BurningKnight
-    runs-on: windows-2019
+    runs-on: linux-2019
     steps:
       - name: Upload depots to steam
         shell: bash
@@ -19,14 +19,9 @@ jobs:
            echo "lin">>Linux/hi
            echo "win">>Windows/hi
            echo "mac">>Macos/hi
-           mkdir "/Program Files (x86)/Steam/steam" -p
-           cp ./steam_builder/ssfn2631791037380626867 "/Program Files (x86)/Steam/"
-           cp ./steam_builder/ssfn2631791037380626867 "/Program Files (x86)/Steam/steam/"
-           ls -l "/Program Files (x86)/Steam/steam/"
-           mkdir "/Program Files/Steam/steam" -p
-           cp ./steam_builder/ssfn2631791037380626867 "/Program Files/Steam/"
-           cp ./steam_builder/ssfn2631791037380626867 "/Program Files/Steam/steam/"
-           ls -l "/Program Files/Steam/steam/"
+           mkdir ~/.steam/steam/ -p
+           cp ./steam_builder/ssfn2631791037380626867 ~/.steam/steam/
+           ls -l ~/.steam/steam
            mkdir -p ./steam_builder/tools/ContentBuilder/builder/public/
            cp ./steam_builder/steambootstrapper_english.txt ./steam_builder/tools/ContentBuilder/builder/public/
            ls -l ./steam_builder/tools/ContentBuilder/builder/public/
@@ -37,5 +32,7 @@ jobs:
            cp ../../../Linux/* ./content/Linux/
            mkdir ./content/Macos
            cp ../../../Macos/* ./content/Macos/
-           builder/steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
+           chmod a+x builder_linux/steamcmd.sh
+           chmod a+x builder_linux/linux32/steamcmd
+           builder_linux/steamcmd.sh +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
            
