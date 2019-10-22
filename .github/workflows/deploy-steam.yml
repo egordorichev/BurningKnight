@@ -6,9 +6,32 @@ on:
 
 jobs:
   build:
+    name: Setup test pack
+    runs-on: windows-latest
+    steps:
+      - name: Setup stuff
+        shell: bash
+        run: |
+         mkdir linux
+         echo "test">linux/homework.txt
+      - name: Push stuff
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux
+          path: linux
+
+  upload:
     name: Build BurningKnight
     runs-on: ubuntu-18.04
     steps:
+      - name: Download result
+        uses: actions/download-artifact@v1
+        with:
+          name: linux
+      - name: Test
+        shell: bash
+        run: |
+          cat linux/homework
       - name: Upload depots to steam
         shell: bash
         run: |
