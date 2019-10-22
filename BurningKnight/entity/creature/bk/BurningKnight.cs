@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.bk {
 			b.Body.LinearDamping = 4;
 			
 			// FIXME: TMP sprite and size, obv
-			AddComponent(new AnimationComponent("burning_knight"));
+			AddComponent(new BkGraphicsComponent("old_burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
 			health.InitMaxHealth = 48 + (Run.Depth - 1) * 20;
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.bk {
 				Audio.PlayMusic("Rogue");
 				
 				Timer.Add(() => {
-					SelectAttack();
+					// SelectAttack();
 				}, 3f);
 			}
 

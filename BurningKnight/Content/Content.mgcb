@@ -130,12 +130,6 @@
 /processorParam:Quality=Best
 /build:Sfx/exit.wav
 
-#begin Sfx/select.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/select.wav
-
 #begin Sfx/explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -244,6 +238,12 @@
 /processorParam:Quality=Best
 /build:Sfx/secret.wav
 
+#begin Sfx/select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/select.wav
+
 #begin Sfx/slime_dead.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -327,6 +327,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/villager6.wav
+
+#begin Shaders/bk.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/bk.fx
 
 #begin Shaders/chasm.fx
 /importer:EffectImporter
