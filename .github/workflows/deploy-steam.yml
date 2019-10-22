@@ -21,6 +21,7 @@ jobs:
           path: linux
 
   upload:
+    needs: build
     name: Build BurningKnight
     runs-on: ubuntu-18.04
     steps:
