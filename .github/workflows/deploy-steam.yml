@@ -3,46 +3,149 @@ on:
   push:
     branches:
       - dev
-
 jobs:
   build:
-    name: Setup test pack
-    runs-on: windows-latest
+    name: Build BurningKnight
+    runs-on: windows-2019
     steps:
-      - name: Setup stuff
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Butler
+        shell: powershell
+        run: |
+          wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
+          unzip butler.zip
+      - name: Install NuGet
+        shell: powershell
+        run: |
+          wget -O nuget.exe  https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+      - name: Install NuGet packages
         shell: bash
         run: |
-         mkdir linux
-         echo "test">linux/homework.txt
-      - name: Push stuff
+          ls -l
+          mkdir packages
+          cd packages
+          ../nuget.exe install ../Lens/packages.config
+          ../nuget.exe install ../Aseprite/packages.config
+          ../nuget.exe install ../BurningKnight/packages.config
+          ../nuget.exe install ../Desktop/packages.config
+          ls -l
+          cd ..
+          echo $GITHUB_WORKSPACE
+          ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
+          dotnet restore
+      - name: Download MonoGame
+        shell: powershell
+        run: |
+          dotnet --info
+          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
+      - name: Install MonoGame
+        run: |
+          MonoGameSetup.exe /S
+      - name: Building Aseprite Extention
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE
+          ls -l
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
+          ls -l
+      - name: Building Resources
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE/BurningKnight/Content/
+          "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
+          ls -l
+      - name: Building Solution
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
+          mv -f -v $GITHUB_WORKSPACE/Desktop/bin/Release $GITHUB_WORKSPACE/Windows
+          cd Windows
+          ls
+          cd ..
+      - name: Upload Windows Version to Itch
+        shell: powershell
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          ./butler.exe push ./Windows/ egordorichev/bkt:windows
+      - name: Prepare Linux Version
+        shell: bash
+        run: |
+          mkdir ./Linux
+          cp -rf ./Windows/* ./Linux/
+          git clone https://github.com/egordorichev/bk_linux_kick
+          cp -rf ./bk_linux_kick/* ./Linux/
+          cd ./Linux
+          ls
+          cd ..
+          
+      - name: Upload Linux Version to Itch
+        shell: powershell
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          ./butler.exe push ./Linux/ egordorichev/bkt:linux
+          
+          
+      - name: Prepare Macos Version
+        shell: bash
+        run: |
+          mkdir ./Macos
+          cp -rf ./Windows/* ./Macos/
+          git clone https://github.com/egordorichev/bk_osx_kick
+          cp -rf ./bk_osx_kick/* ./Macos/
+          cd ./Macos
+          ls
+          cd ..
+          
+      - name: Upload Macos Version to Itch
+        shell: powershell
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          ./butler.exe push ./Macos/ egordorichev/bkt:macos
+          
+      - name: Upload windows build to linux
         uses: actions/upload-artifact@v1
         with:
-          name: linux
-          path: linux
-
+          name: Windows
+          path: Windows
+          
+      - name: Upload linux build to linux
+        uses: actions/upload-artifact@v1
+        with:
+          name: Linux
+          path: Linux
+        
+      - name: Upload macos build to linux
+        uses: actions/upload-artifact@v1
+        with:
+          name: Macos
+          path: Macos
   upload:
     needs: build
-    name: Build BurningKnight
+    name: Push BurningKnight to Steam
     runs-on: ubuntu-18.04
     steps:
-      - name: Download result
+      - name: Download windows
         uses: actions/download-artifact@v1
         with:
-          name: linux
-      - name: Test
-        shell: bash
-        run: |
-          ls linux/
+          name: Windows
+      - name: Download linux
+        uses: actions/download-artifact@v1
+        with:
+          name: Linux
+      - name: Download macos
+        uses: actions/download-artifact@v1
+        with:
+          name: Macos
       - name: Upload depots to steam
         shell: bash
         run: |
            git clone "https://${{ secrets.GITHUB_KEY }}@github.com/egordorichev/steam_builder.git"
-           mkdir Linux
-           mkdir Windows
-           mkdir Macos
-           echo "lin">>Linux/hi
-           echo "win">>Windows/hi
-           echo "mac">>Macos/hi
            mkdir ~/.steam/steam/ -p
            cp ./steam_builder/ssfn2631791037380626867 ~/.steam/steam/
            ls -l ~/.steam/steam
