@@ -2,7 +2,7 @@ name: Build BurningKnight
 on:
   push:
     branches:
-      - dev
+      - release
 jobs:
   build:
     name: Build BurningKnight
