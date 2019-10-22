@@ -155,11 +155,13 @@ jobs:
            cd steam_builder/tools/ContentBuilder
            mkdir ./content/Windows
            cp ../../../Windows/* ./content/Windows/ -r
+           ls -l ./content/Windows/
            mkdir ./content/Linux
            cp ../../../Linux/* ./content/Linux/ -r
+           ls -l ./content/Linux/
            mkdir ./content/Macos
            cp ../../../Macos/* ./content/Macos/ -r
-           ls -l
+           ls -l ./content/Macos/
            chmod a+x builder_linux/steamcmd.sh
            chmod a+x builder_linux/linux32/steamcmd
            builder_linux/steamcmd.sh +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
