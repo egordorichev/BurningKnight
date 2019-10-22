@@ -24,7 +24,7 @@ jobs:
            ls -l "/Program Files/Steam/steam/"
            mkdir -p ./steam_builder/tools/ContentBuilder/builder/public/
            cp ./steam_builder/steambootstrapper_english.txt ./steam_builder/tools/ContentBuilder/builder/public/
-           ls -l "/Program Files/Steam/public/"
+           ls -l ./steam_builder/tools/ContentBuilder/builder/public/
            cd steam_builder/tools/ContentBuilder
            mkdir ./content/Windows
            cp ../../../Windows/* ./content/Windows/
