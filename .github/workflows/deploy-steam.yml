@@ -89,25 +89,6 @@ jobs:
         run: |
           ./butler.exe push ./Linux/ egordorichev/bkt:linux
           
-          
-      - name: Prepare Macos Version
-        shell: bash
-        run: |
-          mkdir ./Macos
-          cp -rf ./Windows/* ./Macos/
-          git clone https://github.com/egordorichev/bk_osx_kick
-          cp -rf ./bk_osx_kick/* ./Macos/
-          cd ./Macos
-          ls
-          cd ..
-          
-      - name: Upload Macos Version to Itch
-        shell: powershell
-        env:
-          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-        run: |
-          ./butler.exe push ./Macos/ egordorichev/bkt:macos
-          
       - name: Upload windows build to linux
         uses: actions/upload-artifact@v1
         with:
@@ -120,11 +101,6 @@ jobs:
           name: Linux
           path: Linux
         
-      - name: Upload macos build to linux
-        uses: actions/upload-artifact@v1
-        with:
-          name: Macos
-          path: Macos
   upload:
     needs: build
     name: Push BurningKnight to Steam
@@ -138,10 +114,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: Linux
-      - name: Download macos
-        uses: actions/download-artifact@v1
-        with:
-          name: Macos
       - name: Upload depots to steam
         shell: bash
         run: |
@@ -159,9 +131,6 @@ jobs:
            mkdir ./content/Linux
            cp ../../../Linux/* ./content/Linux/ -r
            ls -l ./content/Linux/
-           mkdir ./content/Macos
-           cp ../../../Macos/* ./content/Macos/ -r
-           ls -l ./content/Macos/
            chmod a+x builder_linux/steamcmd.sh
            chmod a+x builder_linux/linux32/steamcmd
            builder_linux/steamcmd.sh +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build ../scripts/app_build_851150.vdf +quit
