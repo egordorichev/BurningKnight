@@ -20,8 +20,8 @@ jobs:
            echo "win">>Windows/hi
            echo "mac">>Macos/hi
            mkdir "/Program Files/Steam/steam" -p
-           cp ./steam_builder/ssfn* "/Program Files/Steam/steam/"
-           mkdir "/Program Files/Steam/public" -p
+           cp ./steam_builder/ssfn2631791037380626867 "/Program Files/Steam/steam/"
+           ls -l "/Program Files/Steam/steam/"
            mkdir -p ./steam_builder/tools/ContentBuilder/builder/public/
            cp ./steam_builder/steambootstrapper_english.txt ./steam_builder/tools/ContentBuilder/builder/public/
            ls -l "/Program Files/Steam/public/"
