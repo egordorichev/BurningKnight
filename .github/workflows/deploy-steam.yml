@@ -12,7 +12,7 @@ jobs:
       - name: Upload depots to steam
         shell: bash
         run: |
-           git clone "https://${{ secrets.GITHUB_KEY }}@github.com/egordorichev/steam_builder-repo.git"
+           git clone "https://${{ secrets.GITHUB_KEY }}@github.com/egordorichev/steam_builder.git"
            mkdir Linux
            mkdir Windows
            mkdir Macos
