@@ -3,7 +3,6 @@
 * get discord npc somewhere to spawn
 * shorter roll?
 * fixme: betatesters wont get the new key bindings added
-* fixme: escape in ui menus dont work anymore
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable

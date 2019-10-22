@@ -510,15 +510,21 @@ namespace BurningKnight.state {
 					}
 				} else {
 					if (doneAnimatingPause) {
+						var did = false;
+						
 						if (Input.WasPressed(Controls.Pause, controller)) {
 							if (Paused) {
 								if (UiControl.Focused == null && currentBack == null) {
 									Paused = false;
+									did = true;
 								}
 							} else {
 								Paused = true;
+								did = true;
 							}
-						} else if (Paused && Input.WasPressed(Controls.UiBack, controller)) {
+						}
+						
+						if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
 							if (UiControl.Focused != null) {
 								UiControl.Focused.Cancel();
 							} else if (currentBack != null) {
