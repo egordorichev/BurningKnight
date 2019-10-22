@@ -736,22 +736,26 @@ namespace BurningKnight.state {
 		private float emeraldY = -20;
 		
 		public override void RenderUi() {
-			if (Run.Depth == 0 || emeraldY > -20) {
-				var y = Run.Depth == 0 ? 0 : emeraldY;
-				
-				Graphics.Render(emerald, new Vector2(2, 2 + y));
-				Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+			if (!Settings.HideUi) {
+				if (Run.Depth == 0 || emeraldY > -20) {
+					var y = Run.Depth == 0 ? 0 : emeraldY;
+
+					Graphics.Render(emerald, new Vector2(2, 2 + y));
+					Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+				}
 			}
 
 			if (blackBarsSize > 0.01f) {
 				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
 			}
-			
-			Graphics.Color = ColorUtils.HalfWhiteColor;
-			Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
-			Graphics.Color = ColorUtils.WhiteColor;
-			
+
+			if (!Settings.HideUi) {
+				Graphics.Color = ColorUtils.HalfWhiteColor;
+				Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
+				Graphics.Color = ColorUtils.WhiteColor;
+			}
+
 			painting?.RenderUi();
 
 			if (Settings.HideUi) {

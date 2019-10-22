@@ -1,5 +1,6 @@
 # bug && feedback update
 
+* get discord npc somewhere to spawn
 * shorter roll?
 * make items in shop free when sk becomes angry
 * fixme: betatesters wont get the new key bindings added
