@@ -29,5 +29,5 @@ jobs:
            cp ../../../Linux/* ./content/Linux/
            mkdir ./content/Macos
            cp ../../../Macos/* ./content/Macos/
-           builder\steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
+           builder/steamcmd.exe +login "${{ secrets.STEAM_USERNAME }}" "${{ secrets.STEAM_PASSWORD }}" +run_app_build_http ../scripts/app_build_851150.vdf +quit
            
