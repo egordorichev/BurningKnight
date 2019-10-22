@@ -19,7 +19,7 @@ jobs:
            echo "lin">>Linux/hi
            echo "win">>Windows/hi
            echo "mac">>Macos/hi
-           mkdir "/Program Files/Steam/steam" -r
+           mkdir "/Program Files/Steam/steam" -p
            cp ./steam_builder/ssfn* "/Program Files/Steam/steam/"
            ls -l "/Program Files/Steam/steam/"
            cd steam_builder/tools/ContentBuilder
