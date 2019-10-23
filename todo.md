@@ -9,14 +9,12 @@
  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
 * tutorial:
- * don't save it
- * grabbing key active turrets
- * exit goes to wrong depth
- * teach how to roll and use the weapon
+ * teach how to interact
 
 * fix damaging by rolling into a wall
 * rework chasm mechanics
 * Implement basic loop
+* Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 * get discord npc somewhere to spawn
 * shorter roll?
@@ -25,7 +23,6 @@
 * Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable
 * Hold melee weapon to throw it 
-* Allow to use images in ui string, get some gamepad and keyboard buttons going
 * Enemies should only spawn when player enters, and get removed, when you to away
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 * seed input remove/rework, it doesnt affect the run?

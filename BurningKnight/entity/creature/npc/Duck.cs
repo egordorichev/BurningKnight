@@ -26,9 +26,8 @@ namespace BurningKnight.entity.creature.npc {
 
 			quantom = Random.Chance(1);
 			
-			if (Run.Depth == -2 || GlobalSave.IsFalse("control_duck")) {
+			if (Run.Depth == -2) {
 				AddComponent(new CloseDialogComponent("control_4"));
-				check = Run.Depth != -2;
 			} else {
 				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 1 : 0)}"));
 			}
@@ -38,7 +37,6 @@ namespace BurningKnight.entity.creature.npc {
 
 		private bool set;
 		private float x;
-		private bool check;
 		private bool quantom;
 
 		public override void PostInit() {
@@ -62,14 +60,6 @@ namespace BurningKnight.entity.creature.npc {
 			if (!set) {
 				set = true;
 				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Duck, GamepadComponent.Current != null));
-			}
-
-			if (check) {
-				if (GlobalSave.IsTrue("control_duck")) {
-					check = false;
-					RemoveComponent<CloseDialogComponent>();
-					GetComponent<DialogComponent>().Close();
-				}
 			}
 		}
 		

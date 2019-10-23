@@ -23,7 +23,7 @@ namespace BurningKnight.level.entities {
 
 		protected virtual bool Interact(Entity entity) {
 			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
-				if (To == 1) {
+				if (To == 1 || Run.Depth == -2) { // To 1 or in tutorial
 					Run.StartNew();
 				} else {
 					Run.Depth = To;

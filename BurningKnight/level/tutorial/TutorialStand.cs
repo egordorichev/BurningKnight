@@ -1,6 +1,8 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
+using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.camera;
 
@@ -29,6 +31,15 @@ namespace BurningKnight.level.tutorial {
 				
 				foreach (var c in r.Controllable) {
 					c.TurnOn();
+				}
+
+				foreach (var n in r.Tagged[Tags.Npc]) {
+					if (n is OldMan) {
+						n.GetComponent<DialogComponent>().Start("old_man_5");
+						n.RemoveComponent<CloseDialogComponent>();
+
+						break;
+					}
 				}
 			}
 			

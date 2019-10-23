@@ -21,13 +21,17 @@ namespace BurningKnight.entity.creature.npc {
 
 			if (Run.Depth == 0) {
 				AddComponent(new CloseDialogComponent("old_man_0"));
+				
 				// AddComponent(new InteractDialogComponent("old_man_1"));
 			} else if (Run.Depth == Run.ContentEndDepth) {
 				GetComponent<DialogComponent>().Start("old_man_4");
 				cycle = true;
-			} else if (Run.Depth == 1 && GlobalSave.IsFalse("control_roll")) {
+			} else if (Run.Depth == -2) {
 				set = false;
-				AddComponent(new CloseDialogComponent("control_1"));
+				AddComponent(new CloseDialogComponent("control_1") {
+						Radius = 64 * 64,
+						RadiusMax = 72 * 72
+				});
 			}
 
 			AlwaysActive = true;

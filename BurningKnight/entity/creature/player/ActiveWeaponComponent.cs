@@ -28,8 +28,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				if (Input.WasPressed(Controls.Use, controller) || (Item.Automatic && Input.IsDown(Controls.Use, controller) && Item.Delay <= 0.001f)) {
-					if (GlobalSave.IsFalse("control_use")) {
-						GlobalSave.Put("control_use", true);
+					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();
 					}
 					
@@ -56,7 +55,7 @@ namespace BurningKnight.entity.creature.player {
 			previous?.PutAway();
 			Item?.TakeOut();
 
-			if (GlobalSave.IsFalse("control_use")) {
+			if (Run.Depth == -2) {
 				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null));
 				Entity.GetComponent<DialogComponent>().Start("control_2");
 			}
