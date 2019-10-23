@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.input;
@@ -58,9 +62,8 @@ namespace BurningKnight.entity.creature.player {
 			component.CurrentlyInteracting = Entity;
 			component.OnStart?.Invoke(Entity);
 
-			if (GlobalSave.IsFalse("control_interact")) {
-				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Interact, GamepadComponent.Current != null));
-				Entity.GetComponent<DialogComponent>().Start("control_3");
+			if (Run.Depth == -2) {
+				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, Controls.Find(Controls.Interact, GamepadComponent.Current != null)));
 			}
 		}
 		

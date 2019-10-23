@@ -1067,7 +1067,7 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space;
+			var sy = Display.UiHeight * 0.5f - space * 1.5f;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -1187,7 +1187,16 @@ namespace BurningKnight.state {
 					});
 				}
 			});
-			
+
+			if (Run.Depth > -2) {
+				gameSettings.Add(new UiButton {
+						LocaleLabel = "tutorial",
+						RelativeCenterX = sx,
+						RelativeCenterY = sy + space * 5.5f,
+						Click = b => { Run.Depth = -2; }
+				});
+			}
+
 			gameBack = (UiButton) gameSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,

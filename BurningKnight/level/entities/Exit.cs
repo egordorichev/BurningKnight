@@ -47,7 +47,7 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
-					if (entity is LocalPlayer) {
+					if (entity is LocalPlayer && Run.Depth != -2) {
 						Engine.Instance.State.Ui.Add(new InteractFx(this, GetFxText()));
 					}
 				}
