@@ -65,9 +65,9 @@ namespace BurningKnight.level.rooms.entrance {
 				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
 			}
 
-			var bk = new entity.creature.bk.BurningKnight();
+			/*var bk = new entity.creature.bk.BurningKnight();
 			level.Area.Add(bk);
-			bk.Center = where * 16;
+			bk.Center = where * 16;*/
 		}
 
 		public override int GetMinWidth() {

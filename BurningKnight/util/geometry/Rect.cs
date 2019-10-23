@@ -84,6 +84,10 @@ namespace BurningKnight.util.geometry {
 			return x >= Left && x <= Right && y >= Top && y <= Bottom;
 		}
 
+		public bool Intersects(Rect other) {
+			return !(Right < other.Left || Left > other.Right || Bottom < other.Top || Top > other.Bottom);
+		}
+
 		public Rect Intersect(Rect Other) {
 			var Result = new Rect();
 			Result.Left = Math.Max(Left, Other.Left);

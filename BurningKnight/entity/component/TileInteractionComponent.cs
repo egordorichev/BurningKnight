@@ -7,6 +7,7 @@ using BurningKnight.entity.room.controllable;
 using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
 using Lens.entity.component;
@@ -89,7 +90,7 @@ namespace BurningKnight.entity.component {
 				if (HasNoTileSupport) {
 					var t = (Tile) tile;
 
-					if (t != Tile.Chasm && !t.IsWall()) {
+					if (t != Tile.Chasm && (!t.IsWall() || (!level.Get(x, y + 1).IsWall() && level.Get(x, y + 1) != Tile.Chasm))) {
 						HasNoSupport = false;
 						HasNoTileSupport = false;
 						LastSupportedPosition = Entity.Position;
@@ -107,10 +108,16 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void ApplyForAllTouching(Action<int, int, int> action) {
-			var startX = (int) Math.Floor((Entity.X + Entity.Height / 2f) / 16f);
-			var startY = (int) Math.Floor(Entity.Y / 16f);
-			var endX = (int) Math.Floor(Entity.Right / 16f);
-			var endY = (int) Math.Floor((Entity.Bottom) / 16f);
+			var ex = Entity.X + Entity.Width / 6f;
+			var ey = Entity.Y + Entity.Height / 2f;
+			var ew = Entity.Width / 6f * 4f;
+			var eh = Entity.Height / 2f;
+			var rect = new Rect((int) ex, (int) ey, (int) (ex + ew), (int) (ey + eh));
+
+			var startX = (int) Math.Floor(ex / 16f);
+			var startY = (int) Math.Floor(ey / 16f);
+			var endX = (int) Math.Floor((ex + ew) / 16f);
+			var endY = (int) Math.Floor((ey + eh) / 16f);
 
 			var level = Run.Level;
 			
@@ -122,7 +129,9 @@ namespace BurningKnight.entity.component {
 						continue;
 					}
 
-					action(index, x, y);
+					if (new Rect(x * 16, y * 16, x * 16 + 16, y * 16 + 16).Intersects(rect)) {
+						action(index, x, y);
+					}
 				}
 			}
 		}
