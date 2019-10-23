@@ -70,7 +70,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public bool ModifyHealth(int amount, Entity setter) {
-			if (amount < 0 && Entity is Player && Run.Depth < 1) {
+			if (amount < 0 && Entity is Player && (Run.Depth != -2 && Run.Depth < 1)) {
 				if (Unhittable || InvincibilityTimer > 0 || Health == 0) {
 					return false;
 				}

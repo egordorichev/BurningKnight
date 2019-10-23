@@ -2,14 +2,18 @@
 
 * whuuuut, bk can be a metroid vania now???:  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
-* check, what happens, when you die in tutorial
-
 * bk:
  * attacks
  * the entrance room also has an exit, point players face to it, so that they know what to do
 
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
+
+
+
+
+
+
 
 * explosion leftovers should be rendered under the chasm
 * fixme: betatesters wont get the new key bindings added
@@ -115,7 +119,6 @@ gobbo hurt/heal
 
 * idol room update, make them smaller, idol also will keep on spawning mobs with each load
 
-* place items in oldman hall
 * room cleared effect
 * picking up hearts should give more feedback
 * Low health indicator

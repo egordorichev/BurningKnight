@@ -946,21 +946,23 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(-1);
+					Run.StartNew(Run.Depth == -2 ? -2 : -1);
 				}
 			});
-			
-			gameOverMenu.Add(new UiButton {
-				LocaleLabel = "back_to_castle",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = BackY,
-				Type = ButtonType.Exit,
-				Click = b => {
-					gameOverMenu.Enabled = false;
-					Run.Depth = 0;
-				}
-			});
-			
+
+			if (Run.Depth > 0) {
+				gameOverMenu.Add(new UiButton {
+						LocaleLabel = "back_to_castle",
+						RelativeCenterX = Display.UiWidth / 2f,
+						RelativeCenterY = BackY,
+						Type = ButtonType.Exit,
+						Click = b => {
+							gameOverMenu.Enabled = false;
+							Run.Depth = 0;
+						}
+				});
+			}
+
 			gameOverMenu.Setup();
 			gameOverMenu.Enabled = false;
 
