@@ -73,6 +73,11 @@ namespace BurningKnight.entity.creature.player {
 					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
+
+				if (region == null) {
+					return;
+				}
+				
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
 				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));

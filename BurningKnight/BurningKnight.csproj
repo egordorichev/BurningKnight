@@ -574,6 +574,7 @@
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ActiveStand.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
+    <Compile Include="entity\item\stand\BkStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />

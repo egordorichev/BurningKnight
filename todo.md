@@ -25,6 +25,14 @@
 * seed input remove/rework, it doesnt affect the run?
 * Props in shop can block exit
 
+* we need inventory in pause menu, like in revita
+* player can respawn without a weapon or with op weapon from last run
+* +hp up when items mod smth your stat on your head
+* windows has two builds on steam?
+* make enemies items and players fall into chasm
+* no chasms in depth 1
+* reflecting bullets should give them a high speed
+
 # TODO
 
 * get discord npc somewhere to spawn
