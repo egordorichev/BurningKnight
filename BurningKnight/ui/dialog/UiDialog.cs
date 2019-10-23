@@ -127,8 +127,11 @@ namespace BurningKnight.ui.dialog {
 			DoneSaying = false;
 			
 			Tween.To(0, 255, x => Tint.A = (byte) x, 0.3f).OnEnd = () => {
-				Str.Width = 4;
-				Str.Height = 4;
+				if (Str != null) {
+					Str.Width = 4;
+					Str.Height = 4;
+				}
+
 				Width = 4;
 				Height = 4;
 				callback?.Invoke();

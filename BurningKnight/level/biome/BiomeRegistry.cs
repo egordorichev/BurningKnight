@@ -11,7 +11,7 @@ namespace BurningKnight.level.biome {
 			BiomeInfo[] infos = {
 				// BiomeInfo.New<HubBiome>(Biome.Hub),
 
-				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(0, 1f).Add(1, 1f).Add(-1, 1f).Add(0, 1f),
+				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(0, 1f).Add(1, 1f).Add(-2, 1f).Add(-1, 1f).Add(0, 1f),
 				BiomeInfo.New<DesertBiome>(Biome.Desert).Add(2, 1f).Add(3, 1f),
 				BiomeInfo.New<ForestBiome>(Biome.Forest).Add(4, 1f).Add(5, 1f),
 				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(6, 1f).Add(7, 1f),

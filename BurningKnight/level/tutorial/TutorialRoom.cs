@@ -1,19 +1,20 @@
 using BurningKnight.assets.prefabs;
+using BurningKnight.entity.room;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.tile;
 
-namespace BurningKnight.level.basement {
-	public class BasementRoom : EntranceRoom {
+namespace BurningKnight.level.tutorial {
+	public class TutorialRoom : EntranceRoom {
 		private Prefab prefab;
 
-		public BasementRoom() {
+		public TutorialRoom() {
 			Exit = true;
-			prefab = Prefabs.Get("basement");
+			prefab = Prefabs.Get("tutorial");
 		}
 		
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
-			Painter.Prefab(level, "basement", Left + 1, Top + 1);
+			Painter.Prefab(level, "tutorial", Left + 1, Top + 1);
 		}
 
 		public override bool ConvertToEntity() {

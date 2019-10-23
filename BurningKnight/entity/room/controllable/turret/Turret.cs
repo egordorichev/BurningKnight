@@ -5,7 +5,9 @@ using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
 using BurningKnight.physics;
+using BurningKnight.state;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
@@ -83,15 +85,22 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			var room = GetComponent<RoomComponent>().Room;
+			// Always enabled in tutorial
+			if (Run.Depth != -2) {
+				var room = GetComponent<RoomComponent>().Room;
 
-			if (room != null) {
-				var a = room.Type == RoomType.Regular;
-				var b = room.Tagged[Tags.MustBeKilled].Count == 0;
+				if (room != null) {
+					var a = room.Type == RoomType.Regular;
+					var b = room.Tagged[Tags.MustBeKilled].Count == 0;
 
-				if (a && b) {
-					return;
+					if (a && b) {
+						return;
+					}
 				}
+			}
+
+			if (!On) {
+				return;
 			}
 
 			beforeNextBullet -= dt;
@@ -135,6 +144,15 @@ namespace BurningKnight.entity.room.controllable.turret {
 			projectile.AddLight(32f, Projectile.RedLight);
 
 			AnimationUtil.Poof(projectile.Center);
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			var u = (int) StartingAngle;
+
+			if (ImGui.InputInt("Starting angle", ref u)) {
+				Angle = StartingAngle = (uint) u % 8;
+			}
 		}
 	}
 }

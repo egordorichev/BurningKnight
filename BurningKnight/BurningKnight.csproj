@@ -490,6 +490,7 @@
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
+    <Compile Include="entity\door\LockedDoor.cs" />
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\ShopLock.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
@@ -809,6 +810,9 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
+    <Compile Include="level\tutorial\TutorialLevel.cs" />
+    <Compile Include="level\tutorial\TutorialRoom.cs" />
+    <Compile Include="level\tutorial\TutorialStand.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />

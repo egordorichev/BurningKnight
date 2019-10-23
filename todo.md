@@ -1,23 +1,36 @@
 # bug && feedback update
 
+* whuuuut, bk can be a metroid vania now???
+
+* bk:
+ * artifact, that you take from the lamp room
+ * he spawns and starts attacking ya
+ * the entrance room also has an exit, point players face to it, so that they know what to do
+ * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
+
+* tutorial:
+ * don't save it
+ * grabbing key active turrets
+ * exit goes to wrong depth
+ * teach how to roll and use the weapon
+
+* fix damaging by rolling into a wall
+* rework chasm mechanics
+* Implement basic loop
+
 * get discord npc somewhere to spawn
 * shorter roll?
 * fixme: betatesters wont get the new key bindings added
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable
-* Hints on loading screen
 * Hold melee weapon to throw it 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
-* Bk stuff rework. Chase you through the level
-* Implement basic loop
 * Enemies should only spawn when player enters, and get removed, when you to away
-* Tutorial when you first enter the gamr, accessable layer through settings
-* fix damaging by rolling into a wall
-* rework chasm mechanics
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 * seed input remove/rework, it doesnt affect the run?
 * Props in shop can block exit
+* Hints on loading screen
 
 # TODO
 

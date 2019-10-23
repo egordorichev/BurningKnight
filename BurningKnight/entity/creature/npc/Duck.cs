@@ -2,7 +2,9 @@ using System;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens;
 using Lens.util.file;
 using VelcroPhysics.Utilities;
 using Random = Lens.util.math.Random;
@@ -24,9 +26,9 @@ namespace BurningKnight.entity.creature.npc {
 
 			quantom = Random.Chance(1);
 			
-			if (GlobalSave.IsFalse("control_duck")) {
+			if (Run.Depth == -2 || GlobalSave.IsFalse("control_duck")) {
 				AddComponent(new CloseDialogComponent("control_4"));
-				check = true;
+				check = Run.Depth != -2;
 			} else {
 				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 1 : 0)}"));
 			}
@@ -45,7 +47,12 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override void Save(FileWriter stream) {
-			X = x;
+			if (Engine.Instance.State is EditorState) {
+				x = X;
+			} else {
+				X = x;
+			}
+
 			base.Save(stream);
 		}
 

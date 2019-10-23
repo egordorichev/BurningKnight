@@ -12,7 +12,7 @@ using Random = Lens.util.math.Random;
 namespace BurningKnight.entity.fx {
 	public class WindFx : Entity {
 		private static TextureRegion region;
-		private const float MaxSpeed = 0.3f;
+		private const float MaxSpeed = 0.8f;
 		
 		private float angle;
 		private float angleSpeed;

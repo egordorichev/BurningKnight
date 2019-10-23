@@ -891,7 +891,7 @@ namespace BurningKnight.state {
 				}
 			});
 
-			if (Run.Depth != 0) {
+			if (Run.Depth != 0 && false) {
 				pauseMenu.Add(new UiButton {
 						LocaleLabel = "back_to_castle",
 						RelativeCenterX = Display.UiWidth / 2f,
