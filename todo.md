@@ -11,7 +11,7 @@
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-* spikes not working
+* still has chasms in lvl 1
 * explosion leftovers should be rendered under the chasm
 * fixme: betatesters wont get the new key bindings added
 * Ui hearts are not noticable

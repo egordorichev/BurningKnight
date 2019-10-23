@@ -2,6 +2,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 	public class SensingSpikes : Spikes {
 		private float timer;
 		
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 

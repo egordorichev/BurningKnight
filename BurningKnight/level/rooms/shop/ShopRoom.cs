@@ -48,7 +48,7 @@ namespace BurningKnight.level.rooms.shop {
 			
 			var stands = ValidateStands(level, GenerateStands());
 
-			if (stands.Count == 0) {
+			if (stands.Count < 4) {
 				Painter.Fill(level, this, 1, Tile.FloorD);
 				Paint(level);
 				return;
@@ -134,8 +134,9 @@ namespace BurningKnight.level.rooms.shop {
 			for (var i = 0; i < stands.Count; i++) {
 				var found = false;
 				var p = stands[i];
+				var t = level.Get(p.X, p.Y);
 				
-				if (!level.CheckFor(p.X, p.Y, TileFlags.Passable)) {
+				if (t.IsWall() || t == Tile.Chasm) {
 					continue;
 				}
 				
@@ -173,7 +174,7 @@ namespace BurningKnight.level.rooms.shop {
 
 			while (count < 2) {
 				for (var i = 0; i < 4; i++) {
-					if (Random.Chance(60)) {
+					if (Random.Chance(80)) {
 						count++;
 						sides[i] = true;
 					}
