@@ -2,13 +2,14 @@
 
 * whuuuut, bk can be a metroid vania now???
 
+* check, what happens, when you die in tutorial
+
 * bk:
  * artifact, that you take from the lamp room
  * he spawns and starts attacking ya
  * the entrance room also has an exit, point players face to it, so that they know what to do
  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
-* fix last safe spot on ground detection
 * rework chasm mechanics
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

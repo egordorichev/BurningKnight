@@ -54,9 +54,9 @@ namespace BurningKnight.entity.creature.player {
 			
 			Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			
-			/*if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
+			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
 				return;
-			}*/
+			}
 
 			var h = GetComponent<HatComponent>();
 			var hat = h.Item;
@@ -77,37 +77,6 @@ namespace BurningKnight.entity.creature.player {
 
 				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
-			
-			
-			var ex = Entity.X + Entity.Width / 6f;
-			var ey = Entity.Y + Entity.Height / 2f;
-			var ew = Entity.Width / 6f * 4f;
-			var eh = Entity.Height / 2f;
-			var rect = new Rectangle((int) ex, (int) ey, (int) (ew), (int) (eh));
-			var rt = new Rect((int) ex, (int) ey, (int) (ex + ew), (int) (ey + eh));
-
-			var startX = (int) Math.Floor(ex / 16f);
-			var startY = (int) Math.Floor(ey / 16f);
-			var endX = (int) Math.Floor((ex + ew) / 16f);
-			var endY = (int) Math.Floor((ey + eh) / 16f);
-		
-			var level = Run.Level;
-			
-			for (int x = startX; x <= endX; x++) {
-				for (int y = startY; y <= endY; y++) {
-					var index = level.ToIndex(x, y);
-
-					if (!level.IsInside(index)) {
-						continue;
-					}
-
-					if (new Rect(x * 16, y * 16, x * 16 + 16, y * 16 + 16).Intersects(rt)) {
-						Graphics.Batch.DrawRectangle(new Rectangle(x * 16, y * 16, 16, 16), Color.Green);
-					}
-				}
-			}
-			
-			Graphics.Batch.DrawRectangle(rect, Color.Red);
 		}
 
 		public override bool HandleEvent(Event e) {
