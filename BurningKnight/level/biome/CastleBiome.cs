@@ -12,11 +12,10 @@ namespace BurningKnight.level.biome {
 			base.ModifyPainter(painter);
 			
 			painter.Modifiers.Add((l, x, y) => {
-				var t = l.Get(x, y, true);
 				var f = Run.Depth == 1;
 				var r = (byte) (f ? Tiles.RandomFloor() : Tile.Chasm);
 				
-				if (t == Tile.Lava || (f && t == Tile.Chasm)) {
+				if (l.Get(x, y, true) == Tile.Lava || (f && l.Get(x, y) == Tile.Chasm)) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;
