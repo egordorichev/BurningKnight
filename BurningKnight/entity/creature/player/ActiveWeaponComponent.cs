@@ -23,7 +23,9 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
-				if (GetComponent<BuffsComponent>().Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				var b = GetComponent<BuffsComponent>();
+				
+				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
