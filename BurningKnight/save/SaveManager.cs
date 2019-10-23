@@ -185,6 +185,11 @@ namespace BurningKnight.save {
 		}
 
 		public static void Backup() {
+			if (true) {
+				Log.Info("Backups are disabled, cause you cant restore anyway. Should I implement that?");
+				return;
+			}
+			
 			var backup = new FileHandle(BackupDir);
 
 			if (!backup.Exists()) {

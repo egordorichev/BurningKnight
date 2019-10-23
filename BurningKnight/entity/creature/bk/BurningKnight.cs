@@ -32,6 +32,7 @@ namespace BurningKnight.entity.creature.bk {
 			base.AddComponents();
 			
 			AddTag(Tags.BurningKnight);
+			RemoveTag(Tags.MustBeKilled);
 
 			Width = 22;
 			Height = 27;
@@ -53,7 +54,7 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(new OrbitGiverComponent());
 			
 			AddComponent(new DialogComponent());
-			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
+			// AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
 		}
 
 		protected override void OnTargetChange(Entity target) {

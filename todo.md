@@ -12,6 +12,7 @@
 * rework chasm mechanics
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
+* make some enemies, like clowns and gunners, only spawn on second depth
 
 * fixme: betatesters wont get the new key bindings added
 * Remove hall for now. Just throw the player into the game.
