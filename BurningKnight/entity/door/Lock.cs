@@ -62,12 +62,19 @@ namespace BurningKnight.entity.door {
 		protected virtual bool TryToConsumeKey(Entity entity) {
 			return false;
 		}
+
+		protected virtual bool CanInteract(Entity entity) {
+			return true;
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
 
 			if (Interactable()) {
-				AddComponent(new InteractableComponent(Interact));
+				AddComponent(new InteractableComponent(Interact) {
+					CanInteract = CanInteract
+				});
+				
 				AddComponent(new RectBodyComponent(-3, -1, 18, 19, BodyType.Static, true));
 			}
 			
@@ -79,12 +86,16 @@ namespace BurningKnight.entity.door {
 			state.Become<IdleState>();
 		}
 
+		protected virtual AnimationComponent CreateGraphicsComponent() {
+			return new AnimationComponent("lock", GetLockPalette());
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (GraphicsComponent == null) {
 				// Set here, because of the ui thread
-				AddComponent(new AnimationComponent("lock", GetLockPalette()));
+				AddComponent(CreateGraphicsComponent());
 			}
 
 			if (!IsLocked) {

@@ -489,6 +489,8 @@
     <Compile Include="entity\door\HallDoor.cs" />
     <Compile Include="entity\door\HallLock.cs" />
     <Compile Include="entity\door\IronLock.cs" />
+    <Compile Include="entity\door\LevelDoor.cs" />
+    <Compile Include="entity\door\LevelLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\door\LockedDoor.cs" />

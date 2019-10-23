@@ -6,7 +6,6 @@
  * attacks
  * the entrance room also has an exit, point players face to it, so that they know what to do
 
-* Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 
@@ -33,6 +32,7 @@
 
 # TODO
 
+* Implement basic loop
 * Tiny autoaim, but disable it in the settings
 * get discord npc somewhere to spawn
 * Hints on loading screen
@@ -175,100 +175,19 @@ gobbo hurt/heal
 * lighting bolts
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 
-### items
-
-* sword with projectiles
-* sword with projectiles only when full hp
-* item, that makes bomb explode on touching enemy
-* brain (slow down enemy bullets near you)
-* shield weapon (hurting/not hurting variants)
-* single use item, that kills all enemies
-* the ring
-* ring of gold
-* wings
-* laser pointer
-* star
-* zoom
-* poison, charisma (minor sale), charm rings
-* Mines
-* your bullets break enemy bullets
-
-* weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
-
-* hats
- discord hat, obtain by joining the discord (discord rpc fix me)
- night vision hat
- Diving hat
- A flipped bucket
- glowing hat (glowing mushroom)
- tinfoil hat
- headless
- null texture
- terminal head
- hat trader hat
- 
-* double the items on floor
-* animated hats
-* separate hat sprite for when you duck
-
-* makes bomb explode really soon
-* kills random enemy (except boss)
-* tps random enemy to another room (except boss)
-* discord rod should damage everything it tourches from point where you were to where you tp
-* existing orbitals should be smaller
-* orbital, that deals damage to enemies
-* map, reveals all tiles
-* boomerang (or throwing axe)
-* sword that shoots projectiles, when you are full hp
-* item, that scales you damage to health (negative and positive one)
-* ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
-* item that makes your bullets warp through screen
-* marshmallow orbital, can be light up
-* item, that gives your items autouse 
-* battery buddy
-* d1
-* charms
-* d2
-* ethernal d6: d6 with less charge needed but has chance to remove the item xd
-* d24
-* pig: gives you more money the deeper flor you use it on (single use active item)
-* matches (sets you on fire)
-* item that makes bombs explode faster
-* sharp blade
-* dull blade
-* stick bombs
-* homing bombs
-* wallet buddy (collects money)
-* roll damages enemies
-* teleport to random room
-* teleport to prev room
-* egg: spawns a familiar after a while?
-* egg: needs to be cracked
-* there are options
-* curse of unknown items
-
 #### Polish
 
-* bones and props in the walls
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
-* Animate items/creatures falling into the chasm?
 * Add sparks
-* Think about blur around edges
 * Reflections in the water
 * Splashes on the water
 * Walls after explosion should be "a bit more broken?"
-* rework lava, should be like water in chasm or smth
 * Props that react to music beats
-
-### Mechanics
-
-* Each level should have its own mechanic, except the starting one (running out of water, turn based movement, etc, allow to choose different roots)
-* Explode item stand to replace the item with trash? :thinking:
 
 ### Ideas
 
-* secret seeds
+* Explode item stand to replace the item with trash? :thinking:
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
@@ -281,53 +200,6 @@ gobbo hurt/heal
 * use cota tracks as disks to feature in the game and change in the gramaphone
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
 
-### enemies
-
-* enemy, that reflects your bullets with melee arc
-* enemy, that stands still, shoots laser at you and gets pushed back
-
-* enemy, that dies from you touching it, does no contact damage, 
- runs away from you and shoots, tons of hp (hard to kill without touching)
- 
-* insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
- 
-* creeper
-* enemy that deals insane knockback to you
-* enemy with insane knockback modifier
-* skull, that shoots missiles, that go through wall (terraria dungeon)
-* (can be with thief sprite) caster, that shoots 3 penetrating the walls missiles, then tp's (terraria dungeon)
-* buffer (etg)
-* enemy with waterbolt?
-* one, that just runs around all the walls and is unkillable (terraria dungeon)
-* man eater (wine plant, but in jungle??)
-* man eater, but on chain? for dungeon
-* snipper (nt)
-* enemy, that moves as insane as sk, but not as much
-
-+ slime that shoots to you, when lands
-+ burning slime
-+ maggot on the floor
-+ maggot nest: spawns maggots?
-+ scorpion
-+ worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
-+ turtle
-
-* Zelda like digging enemy ??
-* bee hive and bee for forest biome
-* Diagonal fly
-
-* dragon (has a sprite)
-* thief (has a sprite)
-* skeleton (has a sprite)
-* king servant?? (has a sprite)
-* knight??? (has a sprite)
-
-#### NPCs
-
-* https://twitter.com/MateCziner/status/1107173510877720577
-* https://twitter.com/128_mhz/status/1107158705772978176
-* trash goblin (gaz)
-
 ### Rooms
 
 * Room, where you press lever/button to open/close chasm
@@ -337,9 +209,11 @@ gobbo hurt/heal
 * rooms with switches
 * trap rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
+* angel/devil rooms, I dont like the theme tho, rename into smth else
 
 ### things I promissed to do
 
+* angel/devil rooms, I dont like the theme tho, rename into smth else
 * secret seeds
 * daily runs
 * local coop up to 4 players

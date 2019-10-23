@@ -11,8 +11,7 @@ namespace BurningKnight.level.rooms.entrance {
 			level.Area.Add(boss);
 
 			boss.Center = (GetCenter() * 16 + new Dot(0, -32)).ToVector();
-			
-			Place(level, GetTileCenter());
+			// Place(level, GetTileCenter());
 		}
 
 		public override int GetMinWidth() {
