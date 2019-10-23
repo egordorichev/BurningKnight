@@ -209,15 +209,15 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumRegularRooms() {
-			return 5;
+			return Run.Depth % 2 == 1 ? 3 : 5;
 		}
 
 		protected virtual int GetNumTrapRooms() {
-			return 1;
+			return Random.Int(0, 2);
 		}
 
 		protected virtual int GetNumSpecialRooms() {
-			return 1;
+			return Random.Int(0, 2);
 		}
 
 		protected virtual int GetNumSecretRooms() {

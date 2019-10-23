@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
-				pos.Y += Animation.GetCurrentTexture().Height - ShadowOffset * 2;
+				pos.Y += Animation.GetCurrentTexture().Height - ShadowOffset * 2 + 4;
 			}
 			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {

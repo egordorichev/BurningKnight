@@ -1,23 +1,19 @@
 # bug && feedback update
 
-* whuuuut, bk can be a metroid vania now???
+* whuuuut, bk can be a metroid vania now???:  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
 * check, what happens, when you die in tutorial
 
 * bk:
- * artifact, that you take from the lamp room
- * he spawns and starts attacking ya
+ * attacks
  * the entrance room also has an exit, point players face to it, so that they know what to do
- * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
-* make some enemies, like clowns and gunners, only spawn on second depth
 
+* spikes not working
 * explosion leftovers should be rendered under the chasm
 * fixme: betatesters wont get the new key bindings added
-* Remove hall for now. Just throw the player into the game.
-* Tiny autoaim, but disable it in the settings
 * Ui hearts are not noticable
 * Hold melee weapon to throw it 
 * Enemies should only spawn when player enters, and get removed, when you to away
@@ -30,11 +26,11 @@
 * +hp up when items mod smth your stat on your head
 * windows has two builds on steam?
 * make enemies items and players fall into chasm
-* no chasms in depth 1
 * reflecting bullets should give them a high speed
 
 # TODO
 
+* Tiny autoaim, but disable it in the settings
 * get discord npc somewhere to spawn
 * Hints on loading screen
 * make music update run in a separate thread
@@ -293,6 +289,7 @@ gobbo hurt/heal
  
 * insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
  
+* creeper
 * enemy that deals insane knockback to you
 * enemy with insane knockback modifier
 * skull, that shoots missiles, that go through wall (terraria dungeon)

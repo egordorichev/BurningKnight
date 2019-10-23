@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using Lens.entity;
 
 namespace BurningKnight.entity.creature.pet {
@@ -7,6 +8,7 @@ namespace BurningKnight.entity.creature.pet {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			RemoveComponent<HealthComponent>();
 			RemoveTag(Tags.LevelSave);
 		}
 	}

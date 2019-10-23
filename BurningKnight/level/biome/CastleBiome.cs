@@ -1,4 +1,5 @@
 ﻿using BurningKnight.level.tile;
+using BurningKnight.state;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -11,11 +12,15 @@ namespace BurningKnight.level.biome {
 			base.ModifyPainter(painter);
 			
 			painter.Modifiers.Add((l, x, y) => {
-				if (l.Get(x, y, true) == Tile.Lava) {
+				var t = l.Get(x, y, true);
+				var f = Run.Depth == 1;
+				var r = (byte) (f ? Tiles.RandomFloor() : Tile.Chasm);
+				
+				if (t == Tile.Lava || (f && t == Tile.Chasm)) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;
-					l.Tiles[i] = (int) Tile.Chasm;
+					l.Tiles[i] = r;
 				}
 			});
 		}

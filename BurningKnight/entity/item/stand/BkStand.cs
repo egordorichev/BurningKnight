@@ -6,17 +6,70 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.level;
 using BurningKnight.level.entities.decor;
+using BurningKnight.level.tile;
 using BurningKnight.state;
+using Lens;
 using Lens.entity;
 using Lens.util.camera;
 using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.stand {
 	public class BkStand : ItemStand {
+		private bool triggered;
+		private bool did;
+		private float t;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (!did && triggered) {
+				Camera.Instance.Shake(0.5f);
+				t += dt;
+
+				if (t >= 1f) {
+					did = true;
+
+					var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+					var target = new Vector2(CenterX, Y - 16);
+
+					foreach (var t in torches) { 
+						var tr = (Torch) t;
+
+						tr.XSpread = 1;
+						tr.On = true;
+						tr.Target = target;
+					}
+					
+					Timer.Add(() => {
+						foreach (var t in torches) {
+							t.Done = true;
+						}
+					}, 1f);
+
+					Timer.Add(() => {
+						var bk = new entity.creature.bk.BurningKnight();
+						Area.Add(bk);
+						bk.Center = target;
+				
+						Camera.Instance.Shake(10);
+
+						foreach (var t in torches) {
+							t.Done = true;
+						}
+
+						Done = true;
+					}, 2f);
+				}
+			}
+		}
+
 		public override bool HandleEvent(Event e) {
-			if (e is ItemTakenEvent) {
+			if (e is ItemTakenEvent && !triggered) {
+				Timer.Add(() => { triggered = true; }, 1f);
+				
 				Camera.Instance.Shake(12);
 				
 				var xx = (int) Math.Floor(CenterX / 16) * 16;
