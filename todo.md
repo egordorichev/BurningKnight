@@ -110,28 +110,10 @@ gobbo hurt/heal
  * fix lavafall colors
  * fix fire particle changing the render state so much
 
-*!!! entrance to the shop can be blocked by a prop
-*!!! pad treasure room still can spawn stands on stands
-
-* ?!!! secret rooms seem to corrupt level sometimes
-* ?!!! sometimes generation can fail, then go ok, game appears, but generation is still going in bg :OOO
-* !!! generation needs hard testing
-
 * idol room update, make them smaller, idol also will keep on spawning mobs with each load
-
 * room cleared effect
 * picking up hearts should give more feedback
 * Low health indicator
-
-* bk types:
- + slime
- + king
- + bandit
- 
-* breadcrumbs of where bk room is (alg for detecting shortest path is there)
-* breadcrumbs for bk type 
-* things, that watch after you, like in metroid. dungeon is dead at first, but gets more alive and alive??
-* improve epic spawn
 * curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * menu screen needs shadows
@@ -177,6 +159,7 @@ gobbo hurt/heal
 
 #### Polish
 
+* look into doors drawing at proper depth
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Add sparks

@@ -15,6 +15,19 @@ namespace BurningKnight.entity.component {
 				Follower.Done = true;
 			}
 		}
+
+		public void Remove() {
+			var f = Following.GetComponent<FollowerComponent>();
+			
+			f.Follower = Follower;
+
+			if (Follower != null) {
+				f.Follower.GetComponent<FollowerComponent>().Following = Following;
+			}
+
+			Follower = null;
+			Following = null;
+		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -25,14 +38,7 @@ namespace BurningKnight.entity.component {
 			
 			if (Following != null) {
 				if (Following.Done) {
-					var f = Following.GetComponent<FollowerComponent>();
-
-					if (f.Following != null) {
-						f.Following.GetComponent<FollowerComponent>().Follower = Entity;
-						Following = f.Following;
-					} else {
-						Following = null;
-					}
+					Following.GetComponent<FollowerComponent>().Remove();
 				}
 
 				if (Following == null) {

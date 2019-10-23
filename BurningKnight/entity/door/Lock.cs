@@ -84,6 +84,8 @@ namespace BurningKnight.entity.door {
 			AddComponent(state);
 
 			state.Become<IdleState>();
+
+			AddTag(Tags.Lock);
 		}
 
 		protected virtual AnimationComponent CreateGraphicsComponent() {

@@ -1,6 +1,5 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using Lens.entity;
 using Lens.graphics.animation;
 
@@ -25,6 +24,8 @@ namespace BurningKnight.entity.door {
 			Height = 40;
 
 			base.AddComponents();
+			
+			AddComponent(new RoomComponent());
 		}
 
 		protected override AnimationComponent CreateGraphicsComponent() {

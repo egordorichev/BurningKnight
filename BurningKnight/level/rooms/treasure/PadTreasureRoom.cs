@@ -10,7 +10,7 @@ namespace BurningKnight.level.rooms.treasure {
 		private List<Rect> rs = new List<Rect>();
 		
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tile.Chasm);
+			Painter.Fill(level, this, 1, Random.Chance() ? Tiles.RandomFloor() : Tile.Chasm);
 
 			var m = Random.Int(1, 3);
 			var rect = Shrink(m);
