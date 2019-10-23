@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 using Random = Lens.util.math.Random;
 
@@ -96,7 +97,6 @@ namespace BurningKnight.save {
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
 
-
 			if (depth > 0) {
 				Random.Seed = Run.Seed = reader.ReadString();
 			}
@@ -109,7 +109,12 @@ namespace BurningKnight.save {
 		public override void Generate(Area area) {
 			Values.Clear();
 			Run.ResetStats();
-			
+
+			if (GlobalSave.IsFalse("finished_tutorial")) {
+				Run.Depth = -2;
+				Log.Info("Throwing the player into tutorial");
+			}
+
 			Put("mimic_chance", 0.2f);
 		}
 

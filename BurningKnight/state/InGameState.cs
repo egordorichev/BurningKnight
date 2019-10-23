@@ -227,11 +227,13 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Secret);
 
 			if (!Run.StartedNew && !died) {
-				if (Run.Depth != -2) {
+				var d = (old ? Run.LastDepth : Run.Depth);
+				
+				if (d != -2) {
 					SaveManager.Save(Area, SaveType.Level, old);
 				}
 
-				if ((old ? Run.LastDepth : Run.Depth) > 0) {
+				if (d > 0) {
 					SaveManager.Save(Area, SaveType.Player, old);
 					SaveManager.Save(Area, SaveType.Game, old);
 				}

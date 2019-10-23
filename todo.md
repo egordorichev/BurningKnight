@@ -13,8 +13,6 @@
 * Implement basic loop
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-* get discord npc somewhere to spawn
-* shorter roll?
 * fixme: betatesters wont get the new key bindings added
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings
@@ -24,10 +22,11 @@
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 * seed input remove/rework, it doesnt affect the run?
 * Props in shop can block exit
-* Hints on loading screen
 
 # TODO
 
+* get discord npc somewhere to spawn
+* Hints on loading screen
 * make music update run in a separate thread
 * throwing music discs as weapons
 * resprite bk
