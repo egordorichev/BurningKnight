@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
@@ -55,6 +56,8 @@ namespace BurningKnight.entity.creature.bk {
 			
 			AddComponent(new DialogComponent());
 			// AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
+			
+			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 		}
 
 		protected override void OnTargetChange(Entity target) {

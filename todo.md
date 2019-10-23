@@ -14,6 +14,7 @@
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 * make some enemies, like clowns and gunners, only spawn on second depth
 
+* explosion leftovers should be rendered under the chasm
 * fixme: betatesters wont get the new key bindings added
 * Remove hall for now. Just throw the player into the game.
 * Tiny autoaim, but disable it in the settings

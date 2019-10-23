@@ -50,17 +50,20 @@ namespace BurningKnight.entity.component {
 				var d = Math.Sqrt(dx * dx + dy * dy);
 
 				if (d > 1024f) {
-					Entity.Center = Following.Center;
-					return;
+					//Entity.Center = Following.Center;
+					//return;
 				}
 
 				var sp = dt * 16f;
-				
 				body.Velocity -= body.Velocity * (sp * 0.4f);
 
-				if (d > MaxDistance) {
-					body.Velocity -= new Vector2(dx * sp, dy * sp);
+				if (d < 8) {
+					sp *= -1;
+				} else if (d < MaxDistance) {
+					return;
 				}
+				
+				body.Velocity -= new Vector2(dx * sp, dy * sp);
 			}
 		}
 
