@@ -10,6 +10,7 @@ using ImGuiNET;
 using Lens;
 using Lens.game;
 using Lens.graphics.gamerenderer;
+using Lens.input;
 using Lens.util.camera;
 
 namespace BurningKnight.ui.imgui {
@@ -40,6 +41,10 @@ namespace BurningKnight.ui.imgui {
 			if (!ImGui.Begin("Debug", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
+			}
+
+			if (Input.Blocked > 0) {
+				ImGui.Text("Input blocked");
 			}
 			
 			var current = 0;
