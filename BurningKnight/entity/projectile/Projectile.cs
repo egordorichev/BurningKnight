@@ -155,7 +155,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			if (Range > -1 && T >= Range) {
+			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen)) {
 				AnimateDeath(true);
 				return;
 			}

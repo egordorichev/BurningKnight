@@ -1,12 +1,16 @@
+using System;
 using BurningKnight.assets;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.door;
 using Lens.entity.component.logic;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.pet {
 	public class TheKey : Pet {
 		private LevelLock target;
+		private float lastParticle;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -15,6 +19,9 @@ namespace BurningKnight.entity.creature.pet {
 
 			Width = region.Width;
 			Height = region.Height;
+			
+			RemoveComponent<TileInteractionComponent>();
+			RemoveComponent<HealthComponent>();
 			
 			AddComponent(new ZSliceComponent(CommonAse.Items, "bk:the_key"));
 			AddComponent(new ShadowComponent(RenderShadow));
@@ -28,8 +35,28 @@ namespace BurningKnight.entity.creature.pet {
 			base.Update(dt);
 
 			if (target != null) {
+				var an = AngleTo(target);
+				var force = 300f * dt;
+
+				GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(an) * force, (float) Math.Sin(an) * force);
+
+				if (DistanceTo(target) < 16) {
+					Done = true;
+					target.GetComponent<StateComponent>().Become<Lock.OpeningState>();
+					target.SetLocked(false, this);
+				}
 
 				return;
+			}
+			
+			lastParticle += dt;
+
+			if (lastParticle >= 0.1f) {
+				lastParticle = 0;
+
+				Area.Add(new FireParticle {
+					Owner = this
+				});
 			}
 
 			var r = GetComponent<RoomComponent>().Room;
@@ -42,11 +69,7 @@ namespace BurningKnight.entity.creature.pet {
 			
 			foreach (var l in a) {
 				if (l is LevelLock lk) {
-					Done = true;
-					
 					target = lk;
-					target.GetComponent<StateComponent>().Become<Lock.OpeningState>();
-					target.SetLocked(false, this);
 
 					GetComponent<FollowerComponent>().Remove();
 					Owner.GetComponent<InventoryComponent>().RemoveAndDispose("bk:the_key");

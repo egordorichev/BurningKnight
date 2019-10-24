@@ -109,6 +109,9 @@ namespace BurningKnight.entity.creature.bk {
 
 				if (T >= 0.3f) {
 					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Random.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+
+					p.BreaksFromWalls = false;
+					p.Spectral = true;
 					p.Center = Self.Center;
 					p.Depth = Self.Depth;
 					
