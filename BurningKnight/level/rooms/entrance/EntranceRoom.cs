@@ -46,6 +46,12 @@ namespace BurningKnight.level.rooms.entrance {
 
 			var t = Tiles.RandomFloor();
 			
+			if (Run.Depth == Run.ContentEndDepth) {
+				var om = new OldMan();
+				level.Area.Add(om);
+				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
+			}
+			
 			Painter.Call(level, this, 1, (x, y) => {
 				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
 					level.Set(x, y, t);

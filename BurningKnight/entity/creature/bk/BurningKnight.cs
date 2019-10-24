@@ -97,7 +97,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 				
 				var a = Self.AngleTo(Self.Target);
-				var force = 200f * dt;
+				var force = 300f * dt;
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
@@ -107,8 +107,8 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 1f) {
-					var p = Projectile.Make(Self, "default", Self.AngleTo(Self.Target), 10, true, 0, null, 2);
+				if (T >= 0.3f) {
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Random.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
 					p.Center = Self.Center;
 					p.Depth = Self.Depth;
 					

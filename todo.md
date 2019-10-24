@@ -2,10 +2,8 @@
 
 * whuuuut, bk can be a metroid vania now???:  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
 
-* bk:
- * attacks
- * animate key going into the door
-
+* animate key going into the door
+* more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 
