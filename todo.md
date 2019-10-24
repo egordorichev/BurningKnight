@@ -28,7 +28,6 @@
 * +hp up when items mod smth your stat on your head
 * windows has two builds on steam?
 * make enemies items and players fall into chasm
-* reflecting bullets should give them a high speed
 
 # TODO
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using ImGuiNET;
 using Lens.entity.component.graphics;
 
 namespace Lens.entity.component.logic {
@@ -67,6 +68,15 @@ namespace Lens.entity.component.logic {
 		public override bool HandleEvent(Event e) {
 			state?.HandleEvent(e);
 			return base.HandleEvent(e);
+		}
+
+		public override void RenderDebug() {
+			ImGui.Text($"State: {(state == null ? "null" : state.GetType().Name)}");
+			var paused = Pause > 0;
+
+			if (ImGui.Checkbox("Paused", ref paused)) {
+				Pause = paused ? 1 : 0;
+			}
 		}
 	}
 }
