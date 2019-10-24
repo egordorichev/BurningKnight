@@ -27,7 +27,7 @@ namespace BurningKnight.ui.str {
 	 * ^^ starts wave
 	 *
 	 * [event_name var1 var2] starts an event
-	 *  + [im image] shows image
+	 *  + [im image slice] shows image
 	 *  + [dl time] delays
 	 *  + [sp speed] sets speed
 	 *  + [ev event] fires user event
@@ -143,6 +143,9 @@ namespace BurningKnight.ui.str {
 
 						switch (parts[0]) {
 							case "im": {
+								if (parts.Length != 3) {
+									Log.Error("Invalid use of [im] tag. Should be [im image slice]");
+								}
 
 								break;
 							}

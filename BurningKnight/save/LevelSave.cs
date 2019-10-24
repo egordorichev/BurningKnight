@@ -7,6 +7,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.hall;
 using BurningKnight.level.hub;
 using BurningKnight.level.tile;
+using BurningKnight.level.tutorial;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
@@ -32,7 +33,7 @@ namespace BurningKnight.save {
 
 		private RegularLevel CreateLevel() {
 			if (Run.Depth == -2) {
-				return new HubLevel();
+				return new TutorialLevel();
 			}
 			
 			if (Run.Depth == -1) {

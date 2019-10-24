@@ -77,6 +77,11 @@ namespace BurningKnight.state {
 			ImGui.Checkbox("Show only on screen", ref onlyOnScreen);
 			
 			var sel = ImGui.Button("Jump to selected");
+
+			if (sel) {
+				WindowManager.Entities = true;
+			}
+			
 			ImGui.Text($"Showing {id} entities");
 
 			ImGui.Separator();

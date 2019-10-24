@@ -14,7 +14,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		private bool ShouldBeSensor() {
-			return !GetComponent<LockComponent>().Lock.IsLocked;
+			return !(Entity.TryGetComponent<LockComponent>(out var l) && l.Lock.IsLocked);
 		}
 
 		public override bool ShouldCollide(Entity entity) {

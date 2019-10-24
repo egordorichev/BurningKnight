@@ -6,8 +6,8 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class CloseDialogComponent : Component {
-		private const int Radius = 32 * 32;
-		private const int RadiusMax = 64 * 64;
+		public int Radius = 32 * 32;
+		public int RadiusMax = 64 * 64;
 
 		public string[] Variants;
 		private Entity trigger;

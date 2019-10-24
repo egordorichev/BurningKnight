@@ -14,15 +14,15 @@ namespace BurningKnight.entity.creature.mob {
 			MobInfo[] infos = {
 				// XD
 				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)),
-				// Castle enemies, that are ready
+				// Castle enemies
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)),
-				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
 				
 				// WIP
 				//MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
@@ -76,7 +76,7 @@ namespace BurningKnight.entity.creature.mob {
 			Current.Clear();
 
 			foreach (var info in All) {
-				if (info.SpawnsIn(biome)) {
+				if (info.SpawnsIn(biome) && (info.SpawnsOnFirst || Run.Depth % 2 == 0)) {
 					Current.Add(info);
 				}
 			}

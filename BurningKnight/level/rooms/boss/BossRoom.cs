@@ -1,4 +1,6 @@
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.bk;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -50,7 +52,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override void Paint(Level level) {
-			PaintRoom(level);
+			/*PaintRoom(level);
 			
 			var trigger = new SpawnTrigger();
 			var w = GetWidth() - 2;
@@ -72,7 +74,7 @@ namespace BurningKnight.level.rooms.boss {
 					trigger.Tiles[i] = level.Tiles[li];
 					trigger.Liquid[i] = level.Liquid[li];
 				}
-			}
+			}*/
 			
 			Painter.Fill(level, this, 1, Tile.WallA);
 
@@ -82,40 +84,49 @@ namespace BurningKnight.level.rooms.boss {
 			Painter.Fill(level, c, -3, Tiles.RandomFloor());
 			PaintTunnel(level, Tile.FloorD, c);
 			Painter.Fill(level, c, -2, Tiles.RandomFloor());
+
+			var x = (c.Left - 2) * 16;
+			var y = (c.Top - 2) * 16;
 			
-			trigger.X = (c.Left - 2) * 16;
+			/*trigger.X = (c.Left - 2) * 16;
 			trigger.Y = (c.Top - 2) * 16;
 			trigger.Width = 5 * 16;
 			trigger.Height = 5 * 16;
 
-			level.Area.Add(trigger);
+			level.Area.Add(trigger);*/
 			
 			var ta = new Torch();
 			level.Area.Add(ta);
-			ta.CenterX = trigger.X + 8;
-			ta.Bottom = trigger.Y + 12;
+			ta.CenterX = x + 8;
+			ta.Bottom = y + 12;
 			
 			ta = new Torch();
 			level.Area.Add(ta);
-			ta.CenterX = trigger.X + 4 * 16 + 8;
-			ta.Bottom = trigger.Y + 12;
+			ta.CenterX = x + 4 * 16 + 8;
+			ta.Bottom = y + 12;
 			
 			ta = new Torch();
 			level.Area.Add(ta);
-			ta.CenterX = trigger.X + 8;
-			ta.Bottom = trigger.Y + 4 * 16 + 12;
+			ta.CenterX = x + 8;
+			ta.Bottom = y + 4 * 16 + 12;
 
 			ta = new Torch();
 			level.Area.Add(ta);
-			ta.CenterX = trigger.X + 4 * 16 + 8;
-			ta.Bottom = trigger.Y + 4 * 16 + 12;
+			ta.CenterX = x + 4 * 16 + 8;
+			ta.Bottom = y + 4 * 16 + 12;
 
-			var st = new BurningStatue();
+			/*var st = new BurningStatue();
 			st.Broken = GameSave.IsTrue("statue_broken");
 			level.Area.Add(st);
 			st.CenterX = c.Left * 16 + 8;
-			st.Bottom = c.Top * 16 + 8;
-			
+			st.Bottom = c.Top * 16 + 8;*/
+
+			var st = new BkStand();
+			level.Area.Add(st);
+
+			st.CenterX = c.Left * 16 + 8;
+			st.CenterY = c.Top * 16 + 8;
+			st.SetItem(Items.CreateAndAdd("bk:the_key", level.Area), null);
 
 			Painter.Fill(level, c, -2, Tile.FloorD);
 			Painter.Fill(level, c, -1, Tiles.RandomFloor());

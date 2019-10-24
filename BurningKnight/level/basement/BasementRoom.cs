@@ -16,6 +16,10 @@ namespace BurningKnight.level.basement {
 			Painter.Prefab(level, "basement", Left + 1, Top + 1);
 		}
 
+		public override bool ConvertToEntity() {
+			return false;
+		}
+
 		public override void PaintFloor(Level level) {
 			
 		}

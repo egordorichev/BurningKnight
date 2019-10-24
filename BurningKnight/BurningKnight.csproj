@@ -426,6 +426,7 @@
     <Compile Include="entity\creature\npc\NullPtr.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
+    <Compile Include="entity\creature\pet\TheKey.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
@@ -488,8 +489,11 @@
     <Compile Include="entity\door\HallDoor.cs" />
     <Compile Include="entity\door\HallLock.cs" />
     <Compile Include="entity\door\IronLock.cs" />
+    <Compile Include="entity\door\LevelDoor.cs" />
+    <Compile Include="entity\door\LevelLock.cs" />
     <Compile Include="entity\door\Lock.cs" />
     <Compile Include="entity\door\LockableDoor.cs" />
+    <Compile Include="entity\door\LockedDoor.cs" />
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\ShopLock.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
@@ -572,6 +576,7 @@
     <Compile Include="entity\item\SpawnMobsUse.cs" />
     <Compile Include="entity\item\stand\ActiveStand.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
+    <Compile Include="entity\item\stand\BkStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
@@ -588,6 +593,7 @@
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
     <Compile Include="entity\item\use\GoThonkUse.cs" />
+    <Compile Include="entity\item\use\ModifyBombsUse.cs" />
     <Compile Include="entity\item\use\ModifyLuckUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
@@ -647,6 +653,8 @@
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
+    <Compile Include="entity\pc\Controller.cs" />
+    <Compile Include="entity\pc\Pico.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
@@ -809,6 +817,9 @@
     <Compile Include="level\tile\Tiles.cs" />
     <Compile Include="level\tile\Tileset.cs" />
     <Compile Include="level\tile\Tilesets.cs" />
+    <Compile Include="level\tutorial\TutorialLevel.cs" />
+    <Compile Include="level\tutorial\TutorialRoom.cs" />
+    <Compile Include="level\tutorial\TutorialStand.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />
@@ -958,6 +969,14 @@
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGamePico8\MonoGamePico8.csproj">
+      <Project>{ba524303-7074-4c9e-8650-59e2c1293a56}</Project>
+      <Name>MonoGamePico8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pico8Emulator\Pico8Emulator.csproj">
+      <Project>{ec0602b1-5a17-4cdc-bbb7-f2c5401ff899}</Project>
+      <Name>Pico8Emulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VelcroPhysics\VelcroPhysics.MonoGame.csproj">
       <Project>{4650bd15-4b03-4a7e-98d4-9f8697ed2eb4}</Project>
       <Name>VelcroPhysics.MonoGame</Name>
@@ -983,6 +1002,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Music/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/Carts/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Items/*">

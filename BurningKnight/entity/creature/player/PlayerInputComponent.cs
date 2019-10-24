@@ -3,6 +3,7 @@ using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -75,6 +76,10 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (GetComponent<BuffsComponent>().Has<FrozenBuff>()) {
+				return;
+			}
+			
 			var idle = true;
 			var controller = GetComponent<GamepadComponent>().Controller;
 

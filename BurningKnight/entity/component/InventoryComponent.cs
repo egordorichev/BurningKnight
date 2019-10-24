@@ -61,7 +61,16 @@ namespace BurningKnight.entity.component {
 			item.Touched = true;
 		}
 
-		public void Remove(Item item) {
+		public void RemoveAndDispose(string id) {
+			foreach (var i in Items) {
+				if (i.Id == id) {
+					Remove(i, true);
+					break;
+				}
+			}
+		}
+		
+		public void Remove(Item item, bool dispose = false) {
 			Items.Remove(item);
 
 			var e = new ItemRemovedEvent {
@@ -70,6 +79,11 @@ namespace BurningKnight.entity.component {
 			
 			Send(e);
 			item.HandleEvent(e);
+
+			if (dispose) {
+				item.Done = true;
+				return;
+			}
 			
 			item.Center = Entity.Center;
 			Entity.Area.Add(item);

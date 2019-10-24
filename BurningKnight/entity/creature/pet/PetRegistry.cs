@@ -25,6 +25,10 @@ namespace BurningKnight.entity.creature.pet {
 			Define("lil_boo", o => o.Area.Add(new LilBoo {
 				Owner = o
 			}));
+
+			Define("the_key", o => o.Area.Add(new TheKey {
+				Owner = o
+			}));
 		}
 	}
 }

@@ -23,7 +23,11 @@ namespace BurningKnight.level.entities {
 
 		protected virtual bool Interact(Entity entity) {
 			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
-				if (To == 1) {
+				if (Run.Depth == -2) {
+					GlobalSave.Put("finished_tutorial", true);
+				}
+				
+				if (To == 1 || Run.Depth == -2) { // To 1 or in tutorial
 					Run.StartNew();
 				} else {
 					Run.Depth = To;
@@ -47,7 +51,7 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
-					if (entity is LocalPlayer) {
+					if (entity is LocalPlayer && Run.Depth != -2) {
 						Engine.Instance.State.Ui.Add(new InteractFx(this, GetFxText()));
 					}
 				}

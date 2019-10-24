@@ -14,6 +14,7 @@ namespace BurningKnight.entity.component {
 			var timer = Entity.GetComponent<ExplodeComponent>();
 			var origin = new Vector2(Sprite.Center.X, shadow ? 0 : Sprite.Source.Height);
 			var stopShader = false;
+			var bomb = (Bomb) Entity;
 			
 			if (!shadow && (timer.Timer < 1f ? timer.Timer % 0.3f > 0.1f : timer.Timer % 0.5f > 0.4f)) {
 				var shader = Shaders.Entity;
@@ -27,7 +28,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			Graphics.Render(Sprite, Entity.Position + new Vector2(origin.X, origin.Y + (shadow ? Sprite.Height : 0)),
-				0, origin, new Vector2((float) (Math.Cos(timer.Timer * 16) / 2f) + 1, (float) (Math.Cos(timer.Timer * 16 + Math.PI) / 3f) + 1), 
+				0, origin, new Vector2((float) (Math.Cos(timer.Timer * 16) / 2f) + 1, (float) (Math.Cos(timer.Timer * 16 + Math.PI) / 3f) + 1) * bomb.Scale, 
 				Graphics.ParseEffect(false, shadow));
 
 			if (stopShader) {

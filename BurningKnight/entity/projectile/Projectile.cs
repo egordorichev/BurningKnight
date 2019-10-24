@@ -155,7 +155,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			if (Range > -1 && T >= Range) {
+			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen)) {
 				AnimateDeath(true);
 				return;
 			}
@@ -258,7 +258,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand);
+			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		public void Break() {

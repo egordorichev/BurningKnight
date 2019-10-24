@@ -103,7 +103,7 @@ namespace BurningKnight.level.entities {
 
 					if (r == 0) {
 						for (var i = 0; i < 8; i++) {
-							var bomb = new Bomb(Random.Float(3, 5));
+							var bomb = new Bomb(this, Random.Float(3, 5));
 							
 							Area.Add(bomb);
 							bomb.CenterX = CenterX;

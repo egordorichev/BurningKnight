@@ -23,13 +23,14 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
-				if (GetComponent<BuffsComponent>().Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				var b = GetComponent<BuffsComponent>();
+				
+				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
 				if (Input.WasPressed(Controls.Use, controller) || (Item.Automatic && Input.IsDown(Controls.Use, controller) && Item.Delay <= 0.001f)) {
-					if (GlobalSave.IsFalse("control_use")) {
-						GlobalSave.Put("control_use", true);
+					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();
 					}
 					
@@ -56,7 +57,7 @@ namespace BurningKnight.entity.creature.player {
 			previous?.PutAway();
 			Item?.TakeOut();
 
-			if (GlobalSave.IsFalse("control_use")) {
+			if (Run.Depth == -2) {
 				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null));
 				Entity.GetComponent<DialogComponent>().Start("control_2");
 			}

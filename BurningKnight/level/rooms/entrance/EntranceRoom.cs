@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.door;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
@@ -25,10 +26,31 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override void Paint(Level level) {
-			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
-			Place(level, GetTileCenter());
+			// WallRegistry.Paint(level, this, EntranceWallPool.Instance);
+
+			var w = GetTileCenter();
+			var d = w + new Dot(0, -2);
+			
+			Painter.Fill(level, d.X - 1, d.Y - 1, 3, 3, Tile.WallA);
+			Painter.Set(level, d.X, d.Y, Tiles.RandomFloor());
+			Painter.Set(level, d.X, d.Y + 1, Tiles.RandomFloor());
+
+			var door = new LevelDoor();
+			level.Area.Add(door);
+
+			door.X = d.X * 16;
+			door.Y = d.Y * 16 + 16;
+
+			PlaceExit(level, d);
+			PlaceEntrance(level, w + new Dot(0, 1));
 
 			var t = Tiles.RandomFloor();
+			
+			if (Run.Depth == Run.ContentEndDepth) {
+				var om = new OldMan();
+				level.Area.Add(om);
+				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
+			}
 			
 			Painter.Call(level, this, 1, (x, y) => {
 				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
@@ -37,7 +59,16 @@ namespace BurningKnight.level.rooms.entrance {
 			});
 		}
 
-		protected virtual void Place(Level level, Dot where) {
+		private void PlaceExit(Level level, Dot where) {
+			var prop = new Exit {
+				To = Run.Depth + 1
+			};
+
+			level.Area.Add(prop);
+			prop.Center = (where * 16 + new Vector2(8));
+		}
+
+		private void PlaceEntrance(Level level, Dot where) {
 			var prop = Exit ? (Entity) new Exit {
 				To = Run.Depth + 1
 			} : new Entrance {
@@ -45,29 +76,13 @@ namespace BurningKnight.level.rooms.entrance {
 			};
 
 			level.Area.Add(prop);
+			prop.Center = (where * 16 + new Vector2(8));
 
-			var t = level.Get((int) where.X, (int) where.Y);
+			/*var t = level.Get(where.X, where.Y);
 
 			if (Random.Chance(20) || !t.Matches(TileFlags.Passable)) {
 				where = GetRandomDoorFreeCell() ?? GetTileCenter();
-			}
-			
-			prop.Center = (where * 16 + new Dot(8)).ToVector();
-
-			var torch = new Torch();
-			level.Area.Add(torch);
-
-			torch.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
-
-			if ((Run.Depth == Run.ContentEndDepth) || (Run.Depth == 1 && GlobalSave.IsFalse("control_roll"))) {
-				var om = new OldMan();
-				level.Area.Add(om);
-				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
-			}
-
-			var bk = new entity.creature.bk.BurningKnight();
-			level.Area.Add(bk);
-			bk.Center = where * 16;
+			}*/
 		}
 
 		public override int GetMinWidth() {
@@ -75,7 +90,7 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override int GetMinHeight() {
-			return 7;
+			return 10;
 		}
 
 		public override int GetMaxWidth() {

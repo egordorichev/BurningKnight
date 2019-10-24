@@ -194,7 +194,7 @@ namespace BurningKnight.ui {
 		}
 		
 		public override void Render() {
-			if (player == null || player.Done || Run.Depth < 1) {
+			if (player == null || player.Done || (Run.Depth < 1 && Run.Depth != -2)) {
 				Done = true;
 				return;
 			}

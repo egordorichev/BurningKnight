@@ -2,7 +2,9 @@ using System;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens;
 using Lens.util.file;
 using VelcroPhysics.Utilities;
 using Random = Lens.util.math.Random;
@@ -24,9 +26,8 @@ namespace BurningKnight.entity.creature.npc {
 
 			quantom = Random.Chance(1);
 			
-			if (GlobalSave.IsFalse("control_duck")) {
+			if (Run.Depth == -2) {
 				AddComponent(new CloseDialogComponent("control_4"));
-				check = true;
 			} else {
 				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 1 : 0)}"));
 			}
@@ -36,7 +37,6 @@ namespace BurningKnight.entity.creature.npc {
 
 		private bool set;
 		private float x;
-		private bool check;
 		private bool quantom;
 
 		public override void PostInit() {
@@ -45,7 +45,12 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override void Save(FileWriter stream) {
-			X = x;
+			if (Engine.Instance.State is EditorState) {
+				x = X;
+			} else {
+				X = x;
+			}
+
 			base.Save(stream);
 		}
 
@@ -55,14 +60,6 @@ namespace BurningKnight.entity.creature.npc {
 			if (!set) {
 				set = true;
 				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Duck, GamepadComponent.Current != null));
-			}
-
-			if (check) {
-				if (GlobalSave.IsTrue("control_duck")) {
-					check = false;
-					RemoveComponent<CloseDialogComponent>();
-					GetComponent<DialogComponent>().Close();
-				}
 			}
 		}
 		

@@ -19,6 +19,10 @@ namespace BurningKnight.entity.door {
 			return palette;
 		}
 
+		protected override bool CanInteract(Entity entity) {
+			return entity.TryGetComponent<ConsumablesComponent>(out var component) && component.Keys > 0;
+		}
+
 		protected override bool TryToConsumeKey(Entity entity) {
 			if (!entity.TryGetComponent<ConsumablesComponent>(out var component)) {
 				return false;

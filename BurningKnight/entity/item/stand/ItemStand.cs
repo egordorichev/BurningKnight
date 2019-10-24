@@ -166,7 +166,7 @@ namespace BurningKnight.entity.item.stand {
 				if (item.AutoPickup) {
 					item.OnInteractionStart(entity);
 					item = null;
-				} else {
+				} else if (Run.Depth != -2) {
 					Engine.Instance.State.Ui.Add(new ItemPickupFx(item));
 				}
 			}

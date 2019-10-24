@@ -4,6 +4,7 @@ using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -12,7 +13,9 @@ using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.ui.imgui;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -32,6 +35,8 @@ namespace BurningKnight.entity.creature.mob {
 		
 		protected List<Entity> CollidingToHurt = new List<Entity>();
 		protected int TouchDamage = 1;
+		protected bool TargetEverywhere;
+		
 		private Prefix prefix;
 		
 		public override void AddComponents() {
@@ -52,7 +57,10 @@ namespace BurningKnight.entity.creature.mob {
 			});
 			
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
-			GetComponent<StateComponent>().Pause++;
+
+			if (!(this is Boss)) {
+				GetComponent<StateComponent>().Pause++;
+			}
 		}
 
 		protected virtual void SetStats() {
@@ -178,13 +186,20 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected void FindTarget() {
-			var room = GetComponent<RoomComponent>().Room;
+			List<Entity> targets;
 
-			if (room == null) {
-				return;
+			if (TargetEverywhere) {
+				targets = Area.Tags[IsFriendly() ? Tags.Mob : Tags.Player];
+			} else {
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room == null) {
+					return;
+				}
+			
+				targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			}
 			
-			var targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			var closestDistance = float.MaxValue;
 			Entity closest = null;
 			
@@ -349,6 +364,21 @@ namespace BurningKnight.entity.creature.mob {
 				Log.Error(e);
 				return;
 			}
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			
+			ImGui.Text($"Target: {(Target == null ? "null" : Target.GetType().Name)}");
+
+			if (Target != null) {
+				if (ImGui.Button("Jump")) {
+					WindowManager.Entities = true;
+					AreaDebug.ToFocus = Target;
+				}
+			}
+			
+			ImGui.Text($"Prefix: {(Prefix == null ? "null" : Prefix.Id)}");
 		}
 	}
 }

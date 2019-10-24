@@ -3,10 +3,12 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.tile;
@@ -19,10 +21,14 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.timer;
-using Microsoft.Xna.Framework;
+using SharpDX;
+using VelcroPhysics.Dynamics;
+using Color = Microsoft.Xna.Framework.Color;
 using Random = Lens.util.math.Random;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
@@ -32,42 +38,88 @@ namespace BurningKnight.entity.creature.bk {
 			base.AddComponents();
 			
 			AddTag(Tags.BurningKnight);
+			RemoveTag(Tags.MustBeKilled);
 
 			Width = 22;
 			Height = 27;
 			Flying = true;
+			TargetEverywhere = true;
+			AlwaysActive = true;
+			AlwaysVisible = true;
+			Depth = Layers.Bk;
 
-			var b = new RectBodyComponent(8, 8, Width - 8, Height - 8) {
+			var b = new RectBodyComponent(8, 8, Width - 8, Height - 8, BodyType.Dynamic, true) {
 				KnockbackModifier = 0
 			};
-
+			
 			AddComponent(b);
-			b.Body.LinearDamping = 4;
+			b.Body.LinearDamping = 3;
 			
 			AddComponent(new AnimationComponent("old_burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
-			health.InitMaxHealth = 48 + (Run.Depth - 1) * 20;
+			health.Unhittable = true;
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
 			
 			AddComponent(new DialogComponent());
 			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
+			
+			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 		}
 
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
+				if (BK.Version.Dev) {
+					Become<ChaseState>();
+					return;
+				}
+				
 				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 3);
 				Audio.PlayMusic("Rogue");
 				
 				Timer.Add(() => {
-					// SelectAttack();
+					Become<ChaseState>();		
 				}, 3f);
 			}
 
 			base.OnTargetChange(target);
 		}
+		
+		#region Burning Knight States
+		public class ChaseState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.OnScreen && Self.DistanceTo(Self.Target) <= 128f) {
+					Become<AttackState>();
+				}
+				
+				var a = Self.AngleTo(Self.Target);
+				var force = 300f * dt;
+
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+
+		public class AttackState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 0.3f) {
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Random.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+
+					p.BreaksFromWalls = false;
+					p.Spectral = true;
+					p.Center = Self.Center;
+					p.Depth = Self.Depth;
+					
+					Become<ChaseState>();
+				}
+			}
+		}
+		#endregion
 
 		private float lastPart;
 		private bool added;

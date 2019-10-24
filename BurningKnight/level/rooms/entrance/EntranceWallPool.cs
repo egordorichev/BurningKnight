@@ -11,7 +11,6 @@ namespace BurningKnight.level.rooms.entrance {
 			Add(new PatchWall(), 1);
 			Add(new SegmentedWall(), 1f);
 			Add(new RuinsWall(), 1f);
-			Add(new MazeWall(), 1f);
 			Add(new CollumsWall(), 1f);
 			Add(new TempleWalls(), 1f);
 		}

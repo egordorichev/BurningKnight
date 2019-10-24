@@ -70,7 +70,7 @@ namespace BurningKnight.entity.item.util {
 						p.Owner = this;
 
 						var b = p.BodyComponent;
-						var d = b.Velocity.Length() * 1.2f;
+						var d = Math.Max(200, b.Velocity.Length() * 1.2f);
 						var a = Owner.AngleTo(p);
 
 						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);

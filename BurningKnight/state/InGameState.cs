@@ -227,9 +227,13 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Secret);
 
 			if (!Run.StartedNew && !died) {
-				SaveManager.Save(Area, SaveType.Level, old);
+				var d = (old ? Run.LastDepth : Run.Depth);
+				
+				if (d != -2) {
+					SaveManager.Save(Area, SaveType.Level, old);
+				}
 
-				if ((old ? Run.LastDepth : Run.Depth) > 0) {
+				if (d > 0) {
 					SaveManager.Save(Area, SaveType.Player, old);
 					SaveManager.Save(Area, SaveType.Game, old);
 				}
@@ -510,15 +514,21 @@ namespace BurningKnight.state {
 					}
 				} else {
 					if (doneAnimatingPause) {
+						var did = false;
+						
 						if (Input.WasPressed(Controls.Pause, controller)) {
 							if (Paused) {
 								if (UiControl.Focused == null && currentBack == null) {
 									Paused = false;
+									did = true;
 								}
 							} else {
 								Paused = true;
+								did = true;
 							}
-						} else if (Paused && Input.WasPressed(Controls.UiBack, controller)) {
+						}
+						
+						if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
 							if (UiControl.Focused != null) {
 								UiControl.Focused.Cancel();
 							} else if (currentBack != null) {
@@ -885,7 +895,7 @@ namespace BurningKnight.state {
 				}
 			});
 
-			if (Run.Depth != 0) {
+			if (Run.Depth != 0 && false) {
 				pauseMenu.Add(new UiButton {
 						LocaleLabel = "back_to_castle",
 						RelativeCenterX = Display.UiWidth / 2f,
@@ -936,26 +946,28 @@ namespace BurningKnight.state {
 				RelativeCenterY = start + space * 3,
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(-1);
+					Run.StartNew(Run.Depth == -2 ? -2 : -1);
 				}
 			});
-			
-			gameOverMenu.Add(new UiButton {
-				LocaleLabel = "back_to_castle",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = BackY,
-				Type = ButtonType.Exit,
-				Click = b => {
-					gameOverMenu.Enabled = false;
-					Run.Depth = 0;
-				}
-			});
-			
+
+			if (Run.Depth > 0) {
+				gameOverMenu.Add(new UiButton {
+						LocaleLabel = "back_to_castle",
+						RelativeCenterX = Display.UiWidth / 2f,
+						RelativeCenterY = BackY,
+						Type = ButtonType.Exit,
+						Click = b => {
+							gameOverMenu.Enabled = false;
+							Run.Depth = 0;
+						}
+				});
+			}
+
 			gameOverMenu.Setup();
 			gameOverMenu.Enabled = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
-				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}"));
+				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth % 2 + 1)}"));
 			}
 		}
 
@@ -1059,7 +1071,7 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space;
+			var sy = Display.UiHeight * 0.5f - space * 1.5f;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -1179,7 +1191,16 @@ namespace BurningKnight.state {
 					});
 				}
 			});
-			
+
+			if (Run.Depth > -2) {
+				gameSettings.Add(new UiButton {
+						LocaleLabel = "tutorial",
+						RelativeCenterX = sx,
+						RelativeCenterY = sy + space * 5.5f,
+						Click = b => { Run.Depth = -2; }
+				});
+			}
+
 			gameBack = (UiButton) gameSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,
@@ -1563,12 +1584,36 @@ namespace BurningKnight.state {
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
 			var spX = 96f;
-			var sy = Display.UiHeight * 0.5f + space * 0.5f;
+			var sy = Display.UiHeight * 0.5f + space * 1.5f;
 			
 			keyboardSettings.Add(new UiLabel {
 				LocaleLabel = "keyboard",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Left,
+					RelativeX = sx - spX,
+					RelativeCenterY = sy - space * 4,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Right,
+					RelativeX = sx + spX,
+					RelativeCenterY = sy - space * 4,
+			});
+
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Up,
+					RelativeX = sx - spX,
+					RelativeCenterY = sy - space * 3,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Down,
+					RelativeX = sx + spX,
+					RelativeCenterY = sy - space * 3,
 			});
 
 			keyboardSettings.Add(new UiControl {

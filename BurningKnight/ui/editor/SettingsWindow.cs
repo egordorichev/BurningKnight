@@ -408,33 +408,29 @@ namespace BurningKnight.ui.editor {
 
 							ImGui.CloseCurrentPopup();
 
-							if (button) {
-								foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
-									e.Done = true;
-								}
-
-								Editor.Area.AutoRemove();
-								Run.Level = null;
-
-								var level = new RegularLevel {
-									Width = levelWidth,
-									Height = levelHeight,
-									NoLightNoRender = false,
-									DrawLight = false
-								};
-
-								Editor.Level = level;
-								Editor.Area.Add(level);
-
-								level.SetBiome(BiomeRegistry.Get(Biome.Castle));
-								level.Setup();
-								level.Fill(Tile.FloorA);
-								level.TileUp();
-
-								Editor.Camera.Position = Vector2.Zero;
-							} else {
-								Load();
+							foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+								e.Done = true;
 							}
+
+							Editor.Area.AutoRemove();
+							Run.Level = null;
+
+							var level = new RegularLevel {
+								Width = levelWidth,
+								Height = levelHeight,
+								NoLightNoRender = false,
+								DrawLight = false
+							};
+
+							Editor.Level = level;
+							Editor.Area.Add(level);
+
+							level.SetBiome(BiomeRegistry.Get(Biome.Castle));
+							level.Setup();
+							level.Fill(Tile.FloorB);
+							level.TileUp();
+
+							Editor.Camera.Position = Vector2.Zero;
 						}
 					}
 

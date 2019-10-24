@@ -10,8 +10,8 @@ namespace BurningKnight.entity.room.controllable {
 			AddComponent(new RoomComponent());
 			AddComponent(new SupportableComponent());
 		}
-		
-		public bool On { get; protected set; }
+
+		public bool On { get; protected set; } = true;
 		
 		public virtual void TurnOn() {
 			On = true;

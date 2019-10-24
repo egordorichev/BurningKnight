@@ -12,10 +12,6 @@ namespace BurningKnight.entity.item.use {
 		private string pet;
 
 		public override void Use(Entity entity, Item item) {
-			if (item.Used) {
-				return;
-			}
-			
 			var o = PetRegistry.Create(pet, entity);
 
 			if (o == null) {
