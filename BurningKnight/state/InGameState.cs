@@ -1584,12 +1584,36 @@ namespace BurningKnight.state {
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
 			var spX = 96f;
-			var sy = Display.UiHeight * 0.5f + space * 0.5f;
+			var sy = Display.UiHeight * 0.5f + space * 1.5f;
 			
 			keyboardSettings.Add(new UiLabel {
 				LocaleLabel = "keyboard",
 				RelativeCenterX = sx,
 				RelativeCenterY = TitleY
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Left,
+					RelativeX = sx - spX,
+					RelativeCenterY = sy - space * 4,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Right,
+					RelativeX = sx + spX,
+					RelativeCenterY = sy - space * 4,
+			});
+
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Up,
+					RelativeX = sx - spX,
+					RelativeCenterY = sy - space * 3,
+			});
+			
+			keyboardSettings.Add(new UiControl {
+					Key = Controls.Down,
+					RelativeX = sx + spX,
+					RelativeCenterY = sy - space * 3,
 			});
 
 			keyboardSettings.Add(new UiControl {

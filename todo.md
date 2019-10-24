@@ -5,7 +5,6 @@
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-* fixme: betatesters wont get the new key bindings added
 * Ui hearts are not noticable
 * Hold melee weapon to throw it 
 * Enemies should only spawn when player enters, and get removed, when you to away
