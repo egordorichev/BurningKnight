@@ -5,13 +5,6 @@
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-
-
-
-
-
-
-* explosion leftovers should be rendered under the chasm
 * fixme: betatesters wont get the new key bindings added
 * Ui hearts are not noticable
 * Hold melee weapon to throw it 
