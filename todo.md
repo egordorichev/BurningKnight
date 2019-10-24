@@ -6,8 +6,6 @@
  * attacks
  * animate key going into the door
 
-* bullets are affected by bombs???
-* remove guns with explosive missiles
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 

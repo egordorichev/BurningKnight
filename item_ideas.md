@@ -30,8 +30,6 @@
  
 * double the items on floor
 * animated hats
-* separate hat sprite for when you duck
-* makes bomb explode really soon
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * discord rod should damage everything it tourches from point where you were to where you tp
@@ -53,6 +51,7 @@
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * bombs that stick
+* increase bomb explosion radius greatly
 * homing bombs
 * wallet buddy (collects money)
 * roll damages enemies
