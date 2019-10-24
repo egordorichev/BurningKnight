@@ -652,6 +652,8 @@
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
+    <Compile Include="entity\pc\Controller.cs" />
+    <Compile Include="entity\pc\Pico.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
@@ -966,6 +968,14 @@
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MonoGamePico8\MonoGamePico8.csproj">
+      <Project>{ba524303-7074-4c9e-8650-59e2c1293a56}</Project>
+      <Name>MonoGamePico8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pico8Emulator\Pico8Emulator.csproj">
+      <Project>{ec0602b1-5a17-4cdc-bbb7-f2c5401ff899}</Project>
+      <Name>Pico8Emulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VelcroPhysics\VelcroPhysics.MonoGame.csproj">
       <Project>{4650bd15-4b03-4a7e-98d4-9f8697ed2eb4}</Project>
       <Name>VelcroPhysics.MonoGame</Name>
@@ -991,6 +1001,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Music/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/Carts/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Items/*">

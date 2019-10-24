@@ -10,7 +10,7 @@ namespace BurningKnight.state {
 	public static class Run {
 		public const int ContentEndDepth = 3;
 
-		private static int depth = 1; // Engine.Version.Dev ? 1 : 0;
+		private static int depth = Engine.Version.Dev ? 0 : 1;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;

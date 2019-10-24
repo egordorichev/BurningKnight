@@ -4,7 +4,7 @@
 
 * bk:
  * attacks
- * the entrance room also has an exit, point players face to it, so that they know what to do
+ * animate key going into the door
 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
