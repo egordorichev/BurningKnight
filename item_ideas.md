@@ -52,11 +52,7 @@
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
-* matches (sets you on fire)
-* item that makes bombs explode faster
-* sharp blade
-* dull blade
-* stick bombs
+* bombs that stick
 * homing bombs
 * wallet buddy (collects money)
 * roll damages enemies
@@ -66,3 +62,4 @@
 * egg: needs to be cracked
 * there are options
 * curse of unknown items
+* gun, that gives you fetus effect and epic fetus

@@ -135,7 +135,7 @@ namespace Lens {
 			Delta = dt;
 			Time += dt;
 
-			Freeze = Math.Min(3, Freeze);
+			Freeze = Math.Min(1, Freeze);
 
 			if (Freeze < 0.01f) {
 				time += dt;
@@ -143,7 +143,7 @@ namespace Lens {
 
 			Split = Math.Max(0, Split - dt);
 			Flash = Math.Max(0, Flash - dt * 60f);
-			Freeze = Math.Max(0, Freeze - dt * 20f);
+			Freeze = Math.Max(0, Freeze - dt * 30f);
 
 			MouseData.HadClick = false;
 

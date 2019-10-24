@@ -11,6 +11,10 @@ namespace BurningKnight.entity.component {
 			Timer -= dt;
 
 			if (Timer <= 0) {
+				if (Entity is Bomb b) {
+					b.OnDeath?.Invoke(b);
+				}
+				
 				Entity.Done = true;
 				ExplosionMaker.Make(Entity, Radius);
 			}

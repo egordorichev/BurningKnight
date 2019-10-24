@@ -1,3 +1,4 @@
+using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
@@ -31,6 +32,8 @@ namespace BurningKnight.entity.pc {
 			
 			backend = new MonoGameGraphicsBackend(Engine.GraphicsDevice);
 			emulator = new Emulator(backend, new MonoGameAudioBackend(), new MonoGameInputBackend());
+
+			Area.Add(new RenderTrigger(this, RenderDisplay, Layers.Console));
 		}
 
 		public override void AddComponents() {
@@ -52,7 +55,7 @@ namespace BurningKnight.entity.pc {
 			Log.Info("Turning on");
 			
 			on = true;
-			//Input.Blocked++;
+			Input.Blocked++;
 
 			if (!emulator.CartridgeLoader.Load("Content/Carts/jelpi.p8")) {
 				Log.Error("Failed to load the cart");
@@ -67,13 +70,19 @@ namespace BurningKnight.entity.pc {
 			Log.Info("Turning off");
 
 			on = false;
-			//Input.Blocked--;
+			Input.Blocked--;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (!on) {
+				return;
+			}
+
+			if (Input.WasPressed(Controls.Pause, GamepadComponent.Current, true)) {
+				TurnOff();
+
 				return;
 			}
 			
@@ -91,16 +100,9 @@ namespace BurningKnight.entity.pc {
 				emulator.Update60();
 			}
 		}
-
-		public override void Render() {
-			base.Render();
-
-			if (!on) {
-				return;
-			}
-			
+		
+		public void RenderDisplay() {
 			var u = emulator.CartridgeLoader.HighFps ? UpdateTime60 : UpdateTime30;
-			
 			deltaDraw += Engine.Delta;
 
 			while (deltaDraw >= u) {
@@ -108,7 +110,7 @@ namespace BurningKnight.entity.pc {
 				emulator.Graphics.drawCalls = 0;
 				emulator.Draw();
 			}
-
+			
 			Graphics.Render(backend.Surface, Position + new Vector2(5, 16));
 		}
 	}

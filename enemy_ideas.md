@@ -1,5 +1,7 @@
 ### enemies
 
+## ALPHA ENEMIES
+
 * enemy, that reflects your bullets with melee arc
 * enemy, that stands still, shoots laser at you and gets pushed back
 

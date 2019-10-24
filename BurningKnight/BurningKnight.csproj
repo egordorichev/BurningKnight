@@ -593,6 +593,7 @@
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
     <Compile Include="entity\item\use\GoThonkUse.cs" />
+    <Compile Include="entity\item\use\ModifyBombsUse.cs" />
     <Compile Include="entity\item\use\ModifyLuckUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />

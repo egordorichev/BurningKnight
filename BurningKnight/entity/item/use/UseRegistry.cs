@@ -96,6 +96,8 @@ namespace BurningKnight.entity.item.use {
 			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
 			Register<GoThonkUse>();
 			Register<RevealMapUse>();
+			Register<RevealMapUse>();
+			Register<ModifyBombsUse>(ModifyBombsUse.RenderDebug);
 		}
 	}
 }

@@ -147,7 +147,7 @@ namespace BurningKnight.entity.creature.player {
 				if (bombs > 0) {
 					Bombs--;
 
-					var bomb = new Bomb();
+					var bomb = new Bomb(Entity);
 					Entity.Area.Add(bomb);
 					bomb.Center = Entity.Center;
 					bomb.MoveToMouse();

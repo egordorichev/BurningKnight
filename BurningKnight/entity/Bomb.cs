@@ -11,13 +11,28 @@ using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
+	public delegate void BombUpdateCallback(Bomb b, float dt);
+	public delegate void BombDeathCallback(Bomb b);
+	
 	public class Bomb : Entity, CollisionFilterEntity {
 		public const float ExplosionTime = 3f;
-
 		private readonly float explosionTime; 
 
-		public Bomb(float time = ExplosionTime) {
+		public BombUpdateCallback Controller;
+		public BombDeathCallback OnDeath;
+
+		public Bomb Parent;
+		public Entity Owner;
+
+		public float Scale;
+		
+		public Bomb(Entity owner, float time = ExplosionTime, Bomb parent = null) {
 			explosionTime = time;
+			
+			Parent = parent;
+			Owner = owner;
+
+			Scale = parent?.Scale * 0.7f ?? 1;
 		}
 		
 		public override void AddComponents() {
@@ -28,10 +43,10 @@ namespace BurningKnight.entity {
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());
 			
-			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.3f, 0.3f, 1f)));
+			AddComponent(new LightComponent(this, 32f * Scale, new Color(1f, 0.3f, 0.3f, 1f)));
 			
-			Width = 10;
-			Height = 13;
+			Width = 10 * Scale;
+			Height = 13 * Scale;
 			AlwaysActive = true;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));
@@ -63,7 +78,7 @@ namespace BurningKnight.entity {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Mob);
+			return !(entity is Mob || entity is Bomb);
 		}
 
 		private bool sent;
@@ -75,10 +90,13 @@ namespace BurningKnight.entity {
 				sent = true;
 				
 				// Not placed in init, so that room component had a chance to guess the room				
-				HandleEvent(new BombPlacedEvent {
-					Bomb = this
+				Owner.HandleEvent(new BombPlacedEvent {
+					Bomb = this,
+					Owner = Owner
 				});
 			}
+			
+			Controller?.Invoke(this, dt);
 		}
 	}
 }

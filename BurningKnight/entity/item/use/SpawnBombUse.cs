@@ -10,7 +10,7 @@ namespace BurningKnight.entity.item.use {
 		public override void Use(Entity entity, Item item) {
 			Items.Unlock("bk:grenade_launcher");
 
-			var bomb = new Bomb(Timer);
+			var bomb = new Bomb(entity, Timer);
 			entity.Area.Add(bomb);
 			bomb.Center = entity.Center;
 			bomb.MoveToMouse();
