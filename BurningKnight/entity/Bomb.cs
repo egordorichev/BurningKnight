@@ -9,6 +9,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity {
 	public delegate void BombUpdateCallback(Bomb b, float dt);
@@ -27,7 +28,7 @@ namespace BurningKnight.entity {
 		public float Scale;
 		
 		public Bomb(Entity owner, float time = ExplosionTime, Bomb parent = null) {
-			explosionTime = time;
+			explosionTime = time + Random.Float(-0.1f, 1f);
 			
 			Parent = parent;
 			Owner = owner;

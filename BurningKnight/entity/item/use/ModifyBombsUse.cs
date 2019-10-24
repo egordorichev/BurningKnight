@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item.use {
 				var bomb = bpe.Bomb;
 				
 				if (SetFuseTime) {
-					bomb.GetComponent<ExplodeComponent>().Timer = FuseTime;
+					bomb.GetComponent<ExplodeComponent>().Timer = FuseTime + Random.Float(-0.1f, 1f);
 				}
 
 				if (SpawnBombs) {

@@ -60,6 +60,11 @@
 * teleport to prev room
 * egg: spawns a familiar after a while?
 * egg: needs to be cracked
-* there are options
-* curse of unknown items
+* money is power
+* bombs are power
+* keys are power
+* active key, allows to open 1 thing for 2 charge?
+* active item, that detonates all barrels explosive stones and bombs on the floor
 * gun, that gives you fetus effect and epic fetus
+* 99 key
+* mama key and bomb, infinite resources for the floor
