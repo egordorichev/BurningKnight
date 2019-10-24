@@ -86,7 +86,13 @@ namespace BurningKnight.level.rooms.shop {
 			
 			var points = new List<Point>();
 
-			for (var x = Left + 2; x < Right - 1; x += 2) {
+			for (var x = Left + 2; x < Right - 1; x++) {
+				foreach (var d in Connected.Values) {
+					if (d.X == x && d.Y == Top) {
+						continue;
+					}
+				}
+			
 				points.Add(new Point(x, Top + 2));
 			}
 

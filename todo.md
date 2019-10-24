@@ -1,7 +1,5 @@
 # bug && feedback update
 
-* whuuuut, bk can be a metroid vania now???:  * the artifact give you access to some stuff, that you didnt have access to, but bk is on your tail
-
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
@@ -10,7 +8,6 @@
 * Enemies should only spawn when player enters, and get removed, when you to away
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 * seed input remove/rework, it doesnt affect the run?
-* Props in shop can block exit
 
 * we need inventory in pause menu, like in revita
 * player can respawn without a weapon or with op weapon from last run
@@ -44,49 +41,11 @@
  + speed
  + range mod
 
-
 * troll bombs
 * buffs display on mobs (like poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
-
-* draw the duck frames for hats
 * mother slime body is not removed!!!!
-
-### sfx
-
-better mob hurt
-prop break
-wall crawelr sfx
-dummy sfx?
-turret sfx
-
-key pickup
-bomb pickup
-coin pickup
-battery pickup
-
-open lock louder
-
-door open/close louder
-door unlock/lock with enemies
-
-spikes popping up
-
-roll
-gobbo hurt/heal
-
-# todo
-
-* check if audio settings works
-* flashes (like lighting bolt zaps)
-* rain
-
-## audio
-
-* switching between levels (dark out) should fade in/out music
-* hide music disks around
-* lowpass filter and somewhat responsible music? :(
 
 ## general
 
@@ -102,29 +61,10 @@ gobbo hurt/heal
 * room cleared effect
 * picking up hearts should give more feedback
 * Low health indicator
-* curse mechanics (you get curse points, basically difficulty points, at 9 or 10 bk spawns, like he was before (chasing you all the time, except battle))
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
-* menu screen needs shadows
-* ellipses seem to be 1 tile less width and height??
-* parallaxed decor in the chasms
-* buff icons
 * spice up bullets (different textures for different enemies)
 * we need more secret room layouts
-
-### future bk ideas
-
-* worm
-* ghost
-
-### beta bugs
-
-* openal crash
-* bk missile projectiles have no sprite??? wrong depth, maybe?
-
-### todo
-
 * shields
-* game intro
 
 * Tile interactions
  * burning terrain
@@ -136,13 +76,8 @@ gobbo hurt/heal
  * slowness
  * speed
  * charmed hearts particles
- * frozen
- * buff icons?
  
 * gases??
-
-* implement stats
-* lighting bolts
 * figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
 
 #### Polish
@@ -153,22 +88,16 @@ gobbo hurt/heal
 * Add sparks
 * Reflections in the water
 * Splashes on the water
-* Walls after explosion should be "a bit more broken?"
 * Props that react to music beats
 
 ### Ideas
 
 * Explode item stand to replace the item with trash? :thinking:
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
-
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
-* cool bonus for killing bk without dropping a single white chunk (health chunk, aka non stop kill)
-* make bk himself sign!!!!
 * Random events (rain, blood moon, etc), ways to make them more or less likely
-* Signs, you can write/read from them
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
-* use cota tracks as disks to feature in the game and change in the gramaphone
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
 
 ### Rooms
