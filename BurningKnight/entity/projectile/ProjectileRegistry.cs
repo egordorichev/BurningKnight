@@ -112,8 +112,8 @@ namespace BurningKnight.entity.projectile {
 				p.Controller += SlowdownProjectileController.Make(0.5f);
 
 				p.OnDeath += (pr, t) => {
-					for (var i = 0; i < 16; i++) {
-						Projectile.Make(pr.Owner, "default", (float) i / 16 * (float) Math.PI * 2, 3, true, 0, null, 0.65f).Center = pr.Center;
+					for (var i = 0; i < 8; i++) {
+						Projectile.Make(pr.Owner, "default", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, 0.8f).Center = pr.Center;
 					}
 				};
 

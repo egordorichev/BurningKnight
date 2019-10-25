@@ -63,33 +63,6 @@ namespace BurningKnight.level.rooms.treasure {
 			}
 		}
 
-		/*protected void PlaceChest(Level level, Vector2 where) {
-			var chance = GameSave.GetFloat("mimic_chance") * 100;
-
-			if (Random.Chance(chance)) {
-				var mimic = new Mimic();
-				
-				level.Area.Add(mimic);
-
-				mimic.Center = where * 16;
-
-				Log.Info("Enjoy your mimic :)");
-				return;
-			}
-			
-			var l = Random.Chance(30);
-			var chest = l ? new Chest() : new LockedChest();
-
-			if (l) {
-				level.ItemsToSpawn.Add("bk:key");
-			}
-			
-			level.Area.Add(chest);
-
-			chest.Center = where * 16;
-			chest.GenerateLoot();
-		}*/
-
 		public override bool ShouldSpawnMobs() {
 			return Random.Chance(10);
 		}

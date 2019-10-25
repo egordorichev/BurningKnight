@@ -72,14 +72,32 @@ namespace Lens.input {
 		}
 		
 		public bool IsDown(Buttons button) {
+			if (button == Buttons.LeftTrigger) {
+				return LeftTriggerCheck();
+			} else if (button == Buttons.RightTrigger) {
+				return RightTriggerCheck();
+			}
+			
 			return CurrentState.IsButtonDown(button);
 		}
 
 		public bool WasPressed(Buttons button) {
+			if (button == Buttons.LeftTrigger) {
+				return LeftTriggerWasPressed();
+			} else if (button == Buttons.RightTrigger) {
+				return RightTriggerWasPressed();
+			}
+			
 			return CurrentState.IsButtonDown(button) && PreviousState.IsButtonUp(button);
 		}
 
 		public bool WasReleased(Buttons button) {
+			if (button == Buttons.LeftTrigger) {
+				return LeftTriggerWasReleased();
+			} else if (button == Buttons.RightTrigger) {
+				return RightTriggerWasReleased();
+			}
+			
 			return CurrentState.IsButtonUp(button) && PreviousState.IsButtonDown(button);
 		}
 
@@ -312,27 +330,30 @@ namespace Lens.input {
 
 		#region Lef and right triggers
 
-		public bool LeftTriggerCheck(float threshold) {
+
+		public const float TriggerTreshold = 0.2f;
+		
+		public bool LeftTriggerCheck(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Left >= threshold;
 		}
 
-		public bool LeftTriggerWasPressed(float threshold) {
+		public bool LeftTriggerWasPressed(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Left >= threshold && PreviousState.Triggers.Left < threshold;
 		}
 
-		public bool LeftTriggerWasReleased(float threshold) {
+		public bool LeftTriggerWasReleased(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Left < threshold && PreviousState.Triggers.Left >= threshold;
 		}
 
-		public bool RightTriggerCheck(float threshold) {
+		public bool RightTriggerCheck(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Right >= threshold;
 		}
 
-		public bool RightTriggerWasPressed(float threshold) {
+		public bool RightTriggerWasPressed(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Right >= threshold && PreviousState.Triggers.Right < threshold;
 		}
 
-		public bool RightTriggerWasReleased(float threshold) {
+		public bool RightTriggerWasReleased(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Right < threshold && PreviousState.Triggers.Right >= threshold;
 		}
 
