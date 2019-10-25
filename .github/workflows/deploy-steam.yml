@@ -16,7 +16,7 @@ jobs:
       - name: Install MonoGame
         shell: cmd
         run: |
-          ./MonoGameSetup.exe /S
+          MonoGameSetup.exe /S
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install Butler
