@@ -173,7 +173,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected virtual bool CanInteract(Entity e) {
-			return Item != null || (e.TryGetComponent<ActiveWeaponComponent>(out var w) && w.Item != null);
+			return Item != null || (Run.Depth != -2 && e.TryGetComponent<ActiveWeaponComponent>(out var w) && w.Item != null);
 		}
 
 		public override void Render() {
