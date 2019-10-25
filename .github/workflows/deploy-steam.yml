@@ -13,14 +13,12 @@ jobs:
         run: |
           dotnet --info
           wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-      - name: Check MonoGame file
+      - name: Install MonoGame
         shell: bash
         run: |
           ls -l
-      - name: Install MonoGame
-        shell: powershell
-        run: |
           ./MonoGameSetup.exe /S
+          ls -l
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install Butler
