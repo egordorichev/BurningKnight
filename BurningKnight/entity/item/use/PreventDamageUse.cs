@@ -10,11 +10,13 @@ namespace BurningKnight.entity.item.use {
 		private bool spikes;
 		private bool lava;
 		private bool chasm;
+		private bool bombs;
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
 				if ((spikes && ev.From is Spikes)
-				    || (lava && ev.From is Level)) {
+				    || (lava && ev.From is Level)
+				    || (bombs && ev.From is Bomb)) {
 					
 					return true;
 				}
@@ -29,6 +31,7 @@ namespace BurningKnight.entity.item.use {
 			lava = settings["lv"].Bool(false);
 			spikes = settings["sp"].Bool(true);
 			chasm = settings["cs"].Bool(true);
+			bombs = settings["bms"].Bool(true);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -48,6 +51,12 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.Checkbox("From chasm", ref v)) {
 				root["cs"] = v;
+			}
+			
+			v = root["bms"].Bool(false);
+
+			if (ImGui.Checkbox("From bombs", ref v)) {
+				root["bms"] = v;
 			}
 		}
 	}

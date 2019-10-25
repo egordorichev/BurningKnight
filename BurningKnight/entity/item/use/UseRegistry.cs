@@ -82,7 +82,6 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveEmeraldsUse>(GiveEmeraldsUse.RenderDebug);
 			Register<ModifyProjectilesUse>(ModifyProjectilesUse.RenderDebug);
 			Register<TeleportUse>(TeleportUse.RenderDebug);
-			Register<AddTorchUse>();
 			Register<DoOnEnemyCollisionUse>(DoOnEnemyCollisionUse.RenderDebug);
 			Register<DoOnHurtUse>(DoOnHurtUse.RenderDebug);
 			Register<GiveBuffUse>(GiveBuffUse.RenderDebug);
@@ -98,6 +97,7 @@ namespace BurningKnight.entity.item.use {
 			Register<RevealMapUse>();
 			Register<RevealMapUse>();
 			Register<ModifyBombsUse>(ModifyBombsUse.RenderDebug);
+			Register<DuplicateItemsUse>();
 		}
 	}
 }

@@ -589,6 +589,7 @@
     <Compile Include="entity\item\use\CurseUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />
+    <Compile Include="entity\item\use\DuplicateItemsUse.cs" />
     <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />

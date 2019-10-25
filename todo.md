@@ -1,4 +1,7 @@
-# bug && feedback update
+# sand & oil 
+
+* spikes dont hurt??
+
 
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
