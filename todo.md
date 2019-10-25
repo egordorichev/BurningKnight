@@ -1,6 +1,10 @@
+# ui update
+
+* buff icons on creature heads
+* buffs display on mobs (like poisoned, charmed)
+
 # sand & oil 
 
-* hover item to see description
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
@@ -43,7 +47,6 @@
  + range mod
 
 * troll bombs
-* buffs display on mobs (like poisoned, charmed)
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * mother slime body is not removed!!!!
