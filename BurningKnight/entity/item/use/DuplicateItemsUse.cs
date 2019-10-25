@@ -25,25 +25,21 @@ namespace BurningKnight.entity.item.use {
 						continue;
 					}
 
-					Timer.Add(() => {
-						var st = new ItemStand();
-						entity.Area.Add(st);
+					var st = new ItemStand();
+					entity.Area.Add(st);
 
-						ist.X -= ist.Width / 2f + 1;
+					ist.X -= ist.Width / 2f + 1;
 
-						st.X = ist.X + ist.Width + 2;
-						st.Y = ist.Y;
+					st.X = ist.X + ist.Width + 2;
+					st.Y = ist.Y;
 
-						st.SetItem(Items.CreateAndAdd(ist.Item.Id, entity.Area), item);
-					}, Random.Float(0, 0.5f));
+					st.SetItem(Items.CreateAndAdd(ist.Item.Id, entity.Area), item);
 				} else if (it is Item i) {
-					Timer.Add(() => {
-						var st = Items.CreateAndAdd(i.Id, entity.Area);
-						i.X -= i.Width / 2f + 1;
-						
-						st.X = i.X + i.Width + 2;
-						st.Y = i.Y;
-					}, Random.Float(0, 0.5f));
+					var st = Items.CreateAndAdd(i.Id, entity.Area);
+					i.X -= i.Width / 2f + 1;
+					
+					st.X = i.X + i.Width + 2;
+					st.Y = i.Y;
 				}
 			}
 		}

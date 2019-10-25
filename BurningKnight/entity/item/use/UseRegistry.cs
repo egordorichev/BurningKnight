@@ -98,6 +98,7 @@ namespace BurningKnight.entity.item.use {
 			Register<RevealMapUse>();
 			Register<ModifyBombsUse>(ModifyBombsUse.RenderDebug);
 			Register<DuplicateItemsUse>();
+			Register<DuplicateMobsUse>();
 		}
 	}
 }
