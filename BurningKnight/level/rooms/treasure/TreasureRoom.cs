@@ -5,6 +5,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -54,7 +55,7 @@ namespace BurningKnight.level.rooms.treasure {
 
 		public override void SetupDoors(Level level) {
 			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Locked;
+				door.Type = Run.Depth == 1 ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Locked;
 			}
 			
 			if (Random.Chance()) {
