@@ -29,9 +29,9 @@ namespace BurningKnight.entity.item.use {
 			base.Setup(settings);
 
 			lava = settings["lv"].Bool(false);
-			spikes = settings["sp"].Bool(true);
-			chasm = settings["cs"].Bool(true);
-			bombs = settings["bms"].Bool(true);
+			spikes = settings["sp"].Bool(false);
+			chasm = settings["cs"].Bool(false);
+			bombs = settings["bms"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
