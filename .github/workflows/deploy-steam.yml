@@ -14,11 +14,9 @@ jobs:
           dotnet --info
           wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
       - name: Install MonoGame
-        shell: bash
+        shell: cmd
         run: |
-          ls -l
           ./MonoGameSetup.exe /S
-          ls -l
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install Butler
