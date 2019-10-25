@@ -203,7 +203,7 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return (!(entity is Creature) || Owner is Mob != entity is Mob) && 
-			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || (entity is Door d && !d.Open) || entity is Prop)
+			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || entity is Prop)
 			        || entity.HasComponent<HealthComponent>());
 		}
 

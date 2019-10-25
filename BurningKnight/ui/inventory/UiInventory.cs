@@ -1,24 +1,21 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
-using BurningKnight.save;
 using BurningKnight.state;
-using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
-using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Utilities;
 using MathUtils = Lens.util.MathUtils;
 
-namespace BurningKnight.ui {
+namespace BurningKnight.ui.inventory {
 	public class UiInventory : UiEntity {
 		private TextureRegion itemSlot;
 		private TextureRegion useSlot;
@@ -50,6 +47,8 @@ namespace BurningKnight.ui {
 		private Vector2 coinScale = new Vector2(1);
 		private Vector2 keyScale = new Vector2(1);
 		private Vector2 bombScale = new Vector2(1);
+
+		private List<UiItem> items = new List<UiItem>();
 		
 		public UiInventory(Player player) {
 			this.player = player;	
@@ -96,6 +95,12 @@ namespace BurningKnight.ui {
 
 				if (player.GetComponent<ActiveItemComponent>().Item != null) {
 					activePosition = 0;
+				}
+
+				var inventory = player.GetComponent<InventoryComponent>();
+
+				foreach (var item in inventory.Items) {
+					AddArtifact(item);
 				}
 			}
 		}
@@ -159,12 +164,16 @@ namespace BurningKnight.ui {
 
 				case ItemAddedEvent iae: {
 					if (iae.Who == player) {
-						if (iae.Item.Type == ItemType.Active) {
+						var item = iae.Item;
+								
+						if (item.Type == ItemType.Active) {
 							if (activePosition <= 0f) {
 								Tween.To(0, -1, x => activePosition = x, 0.6f, Ease.BackOut);
 							} else {
 								TweenActive();
 							}
+						} else if (item.Type == ItemType.Artifact) {
+							AddArtifact(item);
 						}
 					}
 					
@@ -173,6 +182,34 @@ namespace BurningKnight.ui {
 			}
 
 			return base.HandleEvent(e);
+		}
+		
+		private void AddArtifact(Item item) {
+			UiItem old = null;
+
+			foreach (var i in items) {
+				if (i.Id == item.Id) {
+					old = i;
+					break;
+				}
+			}
+
+			if (old == null) {
+				var x = Display.UiWidth - 4f;
+
+				if (items.Count > 0) {
+					x = items[items.Count - 1].X - 4;
+				}
+								
+				old = new UiItem(item.Id);
+				Area.Add(old);
+				items.Add(old);
+
+				old.Right = x;
+				old.Bottom = Display.UiHeight - 4f;
+			} else {
+				old.Count++;
+			}
 		}
 
 		private float activePosition = -1f;
@@ -207,10 +244,18 @@ namespace BurningKnight.ui {
 			var show = Run.Depth > 0;
 
 			if (show && player != null) {
-				RenderGainedItems();
 				RenderActiveItem();
 				RenderConsumables();
 				RenderBuffs();
+
+				if (UiItem.Hovered != null) {
+					var item = UiItem.Hovered;
+					
+					var x = Math.Min(Display.UiWidth - 4 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
+					
+					Graphics.Print(item.Name, Font.Small,  new Vector2(x, item.Position.Y - item.DescriptionSize.Y - item.NameSize.Y));
+					Graphics.Print(item.Description, Font.Small, new Vector2(x, item.Position.Y - item.DescriptionSize.Y));
+				}
 			}
 			
 			RenderHealthBar(show);
@@ -218,36 +263,6 @@ namespace BurningKnight.ui {
 
 		private void RenderBuffs() {
 			// todo
-		}
-
-		private void RenderGainedItems() {
-			var inventory = player.GetComponent<InventoryComponent>();
-			var x = Display.UiWidth - 4f;
-			var a = inventory.Items;
-
-			for (var i = Math.Max(0, Engine.Instance.State.Paused ? 0 : a.Count - 6); i < a.Count; i++) {
-				var item = a[i];
-				var region = item.Region;
-
-				if (region == null) {
-					continue;
-				}
-				
-				Graphics.Render(region, new Vector2(x - 12 + (24 - region.Width) / 2f, Display.UiHeight - 16 + (24 - region.Height) / 2f), 0, region.Center);
-				x -= region.Width + 4;
-			}
-			
-			/*foreach (var item in ) {
-				var region = item.Region;
-
-				if (region == null) {
-					continue;
-				}
-				
-				Graphics.Render(region, new Vector2(Display.UiWidth - 12 - (16 - region.Width) / 2f, y));
-
-				y += region.Height + 4;
-			}*/
 		}
 
 		private bool tweened;

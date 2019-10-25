@@ -28,7 +28,10 @@ namespace BurningKnight.entity.component {
 			}
 
 			Graphics.Render(Sprite, Entity.Position + new Vector2(origin.X, origin.Y + (shadow ? Sprite.Height : 0)),
-				0, origin, new Vector2((float) (Math.Cos(timer.Timer * 16) / 2f) + 1, (float) (Math.Cos(timer.Timer * 16 + Math.PI) / 3f) + 1) * bomb.Scale, 
+				0, origin, new Vector2(
+						(float) ((Math.Cos(timer.Timer * 16) / 2f) + 1) * bomb.Scale * Math.Min(bomb.T * 4f, 1), 
+						(float) ((Math.Cos(timer.Timer * 16 + Math.PI) / 3f) + 1) * bomb.Scale
+					), 
 				Graphics.ParseEffect(false, shadow));
 
 			if (stopShader) {

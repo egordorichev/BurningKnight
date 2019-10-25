@@ -1,5 +1,6 @@
 # sand & oil 
 
+* hover item to see description
 * more bk attacks
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 

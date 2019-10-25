@@ -331,7 +331,7 @@ namespace Lens.input {
 		#region Lef and right triggers
 
 
-		public const float TriggerTreshold = 0.2f;
+		public const float TriggerTreshold = 0.05f;
 		
 		public bool LeftTriggerCheck(float threshold = TriggerTreshold) {
 			return CurrentState.Triggers.Left >= threshold;

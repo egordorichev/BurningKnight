@@ -923,6 +923,9 @@
     <Compile Include="ui\imgui\node\ImTextNode.cs" />
     <Compile Include="ui\imgui\node\ImTextOutputNode.cs" />
     <Compile Include="ui\imgui\WindowManager.cs" />
+    <Compile Include="ui\inventory\UiActiveItemSlot.cs" />
+    <Compile Include="ui\inventory\UiInventory.cs" />
+    <Compile Include="ui\inventory\UiItem.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
     <Compile Include="ui\str\effect\ColorEffect.cs" />
@@ -945,7 +948,6 @@
     <Compile Include="ui\UiControl.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
     <Compile Include="ui\UiEntity.cs" />
-    <Compile Include="ui\UiInventory.cs" />
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="ui\UiSlider.cs" />

@@ -26,6 +26,7 @@ namespace BurningKnight.entity {
 		public Entity Owner;
 
 		public float Scale;
+		public float T;
 		
 		public Bomb(Entity owner, float time = ExplosionTime, Bomb parent = null) {
 			explosionTime = time + Random.Float(-0.1f, 1f);
@@ -86,6 +87,8 @@ namespace BurningKnight.entity {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			T += dt;
 
 			if (!sent) {
 				sent = true;

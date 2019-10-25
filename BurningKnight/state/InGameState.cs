@@ -23,6 +23,7 @@ using BurningKnight.save;
 using BurningKnight.ui;
 using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
+using BurningKnight.ui.inventory;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;

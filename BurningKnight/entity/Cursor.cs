@@ -55,8 +55,9 @@ namespace BurningKnight.entity {
 			}
 
 			var r = regions[Settings.Cursor];
+			var pos = Input.Mouse.UiPosition;
 			
-			Graphics.Render(r, Input.Mouse.UiPosition, 0, r.Center, scale);
+			Graphics.Render(r, pos, 0, r.Center, scale);
 		}
 	}
 }
