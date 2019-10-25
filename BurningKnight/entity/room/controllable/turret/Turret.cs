@@ -45,10 +45,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 			a.Animation.Paused = true;
 			a.ShadowOffset = 4;
 			
-			AddComponent(new ShadowComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
 
 			AlwaysActive = true;
+
+			if (Run.Depth == -2) {
+				On = false;
+			}
 		}
 		
 		public override bool HandleEvent(Event e) {
@@ -80,6 +84,26 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public override void TurnOn() {
 			base.TurnOn();
 			beforeNextBullet = 0;
+			
+			var a = GetComponent<AnimationComponent>();
+
+			a.Scale.X = 2f;
+			a.Scale.Y = 0.4f;
+			
+			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
+			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
+		}
+
+		public override void TurnOff() {
+			base.TurnOff();
+			
+			var a = GetComponent<AnimationComponent>();
+
+			a.Scale.X = 2f;
+			a.Scale.Y = 0.4f;
+			
+			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
+			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 		}
 
 		public override void Update(float dt) {
@@ -144,6 +168,18 @@ namespace BurningKnight.entity.room.controllable.turret {
 			projectile.AddLight(32f, Projectile.RedLight);
 
 			AnimationUtil.Poof(projectile.Center);
+		}
+
+		public override void Render() {
+			if (Run.Depth != -2 || On) {
+				base.Render();
+			}
+		}
+
+		public void RenderShadow() {
+			if (Run.Depth != -2 || On) {
+				GraphicsComponent.Render(true);
+			}
 		}
 
 		public override void RenderImDebug() {

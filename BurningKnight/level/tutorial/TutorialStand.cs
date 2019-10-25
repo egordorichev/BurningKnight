@@ -3,8 +3,10 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.tween;
 
 namespace BurningKnight.level.tutorial {
 	public class TutorialStand : ItemStand {
@@ -31,6 +33,7 @@ namespace BurningKnight.level.tutorial {
 				
 				foreach (var c in r.Controllable) {
 					c.TurnOn();
+					AnimationUtil.Poof(c.Center);
 				}
 
 				foreach (var n in r.Tagged[Tags.Npc]) {
