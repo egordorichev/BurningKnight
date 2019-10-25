@@ -99,6 +99,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyBombsUse>(ModifyBombsUse.RenderDebug);
 			Register<DuplicateItemsUse>();
 			Register<DuplicateMobsUse>();
+			Register<DuplicateMobsAndHealUse>();
 		}
 	}
 }
