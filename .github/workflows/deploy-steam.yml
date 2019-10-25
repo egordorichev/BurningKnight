@@ -8,6 +8,15 @@ jobs:
     name: Build BurningKnight
     runs-on: windows-2019
     steps:
+      - name: Download MonoGame
+        shell: powershell
+        run: |
+          dotnet --info
+          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
+      - name: Install MonoGame
+        shell: powershell
+        run: |
+          MonoGameSetup.exe /S
       - name: Checkout
         uses: actions/checkout@v1
 
@@ -35,14 +44,6 @@ jobs:
           echo $GITHUB_WORKSPACE
           ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
           dotnet restore
-      - name: Download MonoGame
-        shell: powershell
-        run: |
-          dotnet --info
-          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-      - name: Install MonoGame
-        run: |
-          MonoGameSetup.exe /S
       - name: Building Aseprite Extention
         shell: bash
         run: |
