@@ -14,6 +14,7 @@
 * zoom
 * poison, charisma (minor sale), charm rings
 * Mines
+* pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards
 * your bullets break enemy bullets
 * weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 * hats

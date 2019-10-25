@@ -2,6 +2,9 @@
 
 ## ALPHA ENEMIES
 
+* ant lion
+* mob, that orbits other enemies and just shoots
+
 * enemy, that reflects your bullets with melee arc
 * enemy, that stands still, shoots laser at you and gets pushed back
 
