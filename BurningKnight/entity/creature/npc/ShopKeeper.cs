@@ -208,10 +208,6 @@ namespace BurningKnight.entity.creature.npc {
 		public override bool IsFriendly() {
 			return !raging;
 		}
-
-		public override bool ShouldCollide(Entity entity) {
-			return base.ShouldCollide(entity) && !(entity is Prop);
-		}
 		
 		private float delay;
 

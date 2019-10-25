@@ -33,6 +33,11 @@ namespace BurningKnight.ui.inventory {
 		public override void Init() {
 			base.Init();
 			
+			var area = inventory.Player.Area;
+			
+			Subscribe<ItemUsedEvent>(area);
+			Subscribe<ItemAddedEvent>(area);
+			
 			var anim = Animations.Get("ui");
 
 			activeSide = anim.GetSlice("active_side");

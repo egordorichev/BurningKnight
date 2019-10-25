@@ -10,6 +10,7 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -203,10 +204,11 @@ namespace BurningKnight.ui.inventory {
 				if (UiItem.Hovered != null) {
 					var item = UiItem.Hovered;
 					
-					var x = Math.Min(Display.UiWidth - 4 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
-					
-					Graphics.Print(item.Name, Font.Small,  new Vector2(x, item.Position.Y - item.DescriptionSize.Y - item.NameSize.Y));
-					Graphics.Print(item.Description, Font.Small, new Vector2(x, item.Position.Y - item.DescriptionSize.Y));
+					var x = MathUtils.Clamp(4, Display.UiWidth - 4 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
+					var y = MathUtils.Clamp(4, Display.UiHeight - 4 - item.Position.Y - item.DescriptionSize.Y - item.NameSize.Y, item.Position.Y);
+
+					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y));
+					Graphics.Print(item.Description, Font.Small, new Vector2(x, item.Position.Y + item.NameSize.Y));
 				}
 			}
 			
@@ -228,8 +230,8 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			return new Vector2(
-				(bg ? 0 : 1) + (pad ? (2 + (2 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 11 : 10) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activeSlot.ActivePosition * 2) : 4)
+				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
+				Display.UiHeight - (bg ? 13 : 12) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activeSlot.ActivePosition * 2) : 4)
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)
 			);
 		}
