@@ -47,8 +47,8 @@ namespace BurningKnight.entity {
 			
 			AddComponent(new LightComponent(this, 32f * Scale, new Color(1f, 0.3f, 0.3f, 1f)));
 			
-			Width = 10 * Scale;
-			Height = 13 * Scale;
+			Width = 8 * Scale;
+			Height = 10 * Scale;
 			AlwaysActive = true;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height));

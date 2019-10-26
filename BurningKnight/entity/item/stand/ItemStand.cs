@@ -98,7 +98,10 @@ namespace BurningKnight.entity.item.stand {
 			
 			AddTag(Tags.Item);
 			
-			AddComponent(new RectBodyComponent(2, 2, Width - 4, Height - 9, BodyType.Static));
+			var body = new RectBodyComponent(2, 2, Width - 4, Height - 9);
+			AddComponent(body);
+			body.Body.Mass = 100000000f;
+			
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 
 			AddComponent(new InteractableComponent(Interact) {

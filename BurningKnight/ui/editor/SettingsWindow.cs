@@ -686,6 +686,10 @@ namespace BurningKnight.ui.editor {
 		}
 
 		public void RenderInGame() {
+			if (!WindowManager.LevelEditor) {
+				return;
+			}
+			
 			if (Grid) {
 				var gridSize = 16;
 				var off = (Camera.Instance.TopLeft - new Vector2(0, 8));

@@ -26,6 +26,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
 				// Desert
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<CactusOrbital>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);

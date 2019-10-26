@@ -6,8 +6,8 @@
 
 # bugs
 
+* taking disk/cage key overrides the weapon? doesnt take into the second slot??
 * swap weapons dialog stuck on the screen (cause player used the key)
-* dont allow to change active item while its in use (animating)
 
 # sand & oil 
 

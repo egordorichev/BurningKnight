@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Run.Depth > 0 && Item != null && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
+			if (Run.Depth > 0 && Item != null && !Item.Done && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
 				if (Item.Use((Player) Entity)) {
 					if (GlobalSave.IsFalse("control_active")) {
 						Entity.GetComponent<DialogComponent>().Close();

@@ -8,7 +8,6 @@
 * enemy, that stands still, shoots laser at you and gets pushed back
 * creeper
 * mummy, zombie but with insane knockback modifier
-* slime, that shoots when he lands
 * maggot, but on the floor. moves insanely fast and randomly, but mostly torwards you
 * maggot nest: idle, until all enemies are dead or you are too close, spawns tons of maggots and dies
 * worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
