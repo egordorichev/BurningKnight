@@ -195,8 +195,7 @@ namespace BurningKnight.entity.creature.bk {
 			if (e is DiedEvent) {
 				if (!died) {
 					died = true;
-
-					HealthBar.Remove();
+					HealthBar?.Remove();
 
 					Camera.Instance.Targets.Clear();
 					Camera.Instance.Follow(this, 1f);

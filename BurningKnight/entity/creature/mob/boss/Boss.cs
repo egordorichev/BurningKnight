@@ -15,10 +15,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			if (HealthBar == null) {
+			/*if (HealthBar == null) {
 				HealthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(HealthBar);
-			}
+			}*/
 		}
 
 		public override void PostInit() {

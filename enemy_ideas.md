@@ -1,8 +1,13 @@
 ### enemies
 
-## ALPHA ENEMIES
+### desert
 
 * ant lion
+* floating sand thing thing, poops bullets and flies to the opposite direction
+* 
+
+## ALPHA ENEMIES
+
 * mob, that orbits other enemies and just shoots
 
 * enemy, that reflects your bullets with melee arc

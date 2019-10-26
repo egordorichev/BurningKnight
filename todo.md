@@ -2,6 +2,12 @@
 
 * buff icons on creature heads
 * buffs display on mobs (like poisoned, charmed)
+* look into fullscreen bug
+
+# bugs
+
+* swap weapons dialog stuck on the screen (cause player used the key)
+* dont allow to change active item while its in use (animating)
 
 # sand & oil 
 
