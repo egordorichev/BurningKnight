@@ -17,6 +17,8 @@
 * laser pointer
 * star
 * zoom
+* when bullet penetrates enemy, it splits into two
+* double shot
 * item, that gives you one life (one respawn, think guppy collar)
 * poison, charisma (minor sale), charm rings
 * Mines

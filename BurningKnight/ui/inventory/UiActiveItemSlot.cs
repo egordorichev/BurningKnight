@@ -67,7 +67,7 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			var v = ActivePosition * (inventory.ItemSlot.Width + 10);
-			var pos = new Vector2(inventory.UseSlot.Center.X + 4 + v, inventory.UseSlot.Center.Y + Display.UiHeight - inventory.ItemSlot.Source.Height - 4);
+			var pos = new Vector2(inventory.UseSlot.Center.X + 8 + v, inventory.UseSlot.Center.Y + 8);
 			
 			Graphics.Render(inventory.ItemSlot, pos, 0, inventory.ItemSlot.Center, activeScale);
 

@@ -7,10 +7,8 @@
 
 # sand & oil 
 
-* menu is kinda broken with gamepad, input is also not blocked
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-* Ui hearts are not noticable
 * Hold melee weapon to throw it 
 * Enemies should only spawn when player enters, and get removed, when you to away
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?

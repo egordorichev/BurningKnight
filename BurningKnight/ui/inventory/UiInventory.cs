@@ -225,15 +225,9 @@ namespace BurningKnight.ui.inventory {
 				d = 4;
 			}
 			
-			var a = 0;
-			
-			if (it == null && (coins != 0 || bombs != 0 || keys != 0)) {
-				a += 24;
-			}
-
 			return new Vector2(
-				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + a) : 6) + (int) (i % HeartsComponent.PerRow * 5.5f),
-				Display.UiHeight - (bg ? 13 : 12) - (i / HeartsComponent.PerRow) * 10 - (pad ? (-activeSlot.ActivePosition * 2) : 4)
+				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1)) : 6) + 4 + (int) (i % HeartsComponent.PerRow * 5.5f),
+				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)
 			);
 		}
@@ -275,26 +269,26 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		private void RenderConsumables() {
-			var bottomY = Display.UiHeight - ItemSlot.Source.Height * (activeSlot.ActivePosition + 1) - 16;
+			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0);
 
 			if (coins > 0) {
-				Graphics.Render(coin, new Vector2(4 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
-				Graphics.Print($"{coins}", Font.Small, new Vector2(14, bottomY - 1));
-				bottomY -= 12;
+				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
+				Graphics.Print($"{coins}", Font.Small, new Vector2(18, bottomY - 1));
+				bottomY += 12;
 			}
 
 			if (keys > 0) {
-				Graphics.Render(key, new Vector2(4 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);
-				Graphics.Print($"{keys}", Font.Small, new Vector2(14, bottomY - 1));
-				bottomY -= bomb.Source.Height + 2;
+				Graphics.Render(key, new Vector2(8 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);
+				Graphics.Print($"{keys}", Font.Small, new Vector2(18, bottomY - 1));
+				bottomY += bomb.Source.Height + 2;
 			}
 
 			if (bombs > 0) {
 				// Bomb sprite has bigger height
-				Graphics.Render(bomb, new Vector2(4 + bomb.Center.X, bottomY + bomb.Center.Y), 0,
+				Graphics.Render(bomb, new Vector2(8 + bomb.Center.X, bottomY + bomb.Center.Y), 0,
 					bomb.Center, bombScale);
 
-				Graphics.Print($"{bombs}", Font.Small, new Vector2(14, bottomY - 1));
+				Graphics.Print($"{bombs}", Font.Small, new Vector2(18, bottomY - 1));
 			}
 		}
 	}

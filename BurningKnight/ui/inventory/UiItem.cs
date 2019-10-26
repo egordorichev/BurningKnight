@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Lens.util;
@@ -112,7 +113,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override void Render() {
-			if (id == null) {
+			if (id == null || Engine.Instance.State.Paused) {
 				return;
 			}
 
