@@ -182,7 +182,7 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
-			if (entity is Turret && entity != Owner) {
+			if (entity is Turret && T > 0.2f) {
 				return true;
 			}
 

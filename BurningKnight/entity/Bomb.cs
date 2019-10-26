@@ -40,7 +40,7 @@ namespace BurningKnight.entity {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new BombGraphicsComponent("items", "bk:bomb"));
+			AddComponent(new BombGraphicsComponent("items", "bomb"));
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());

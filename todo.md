@@ -88,6 +88,8 @@
 
 #### Polish
 
+* animate items on player head better, also dont stack em, display count 
+* animate item pickup / appearance
 * look into doors drawing at proper depth
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
