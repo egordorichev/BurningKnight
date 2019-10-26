@@ -3,6 +3,7 @@
 * buff icons on creature heads
 * buffs display on mobs (like poisoned, charmed)
 * look into fullscreen bug
+* coins need resprite, animated?
 
 # sand & oil 
 

@@ -469,7 +469,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Menu && !menuExited) {
-				if (Input.WasPressed(Controls.GameStart, null, true)) {
+				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
 					menuExited = true;
 					Input.Blocked = 0;
 					
@@ -590,7 +590,7 @@ namespace BurningKnight.state {
 			}
 		}
 
-		public static bool ToolsEnabled = true;
+		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.Home)) {

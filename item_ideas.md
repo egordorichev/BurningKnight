@@ -1,3 +1,8 @@
+### to rework
+
+* sharp/dull blade
+* can (different sprite and name)
+
 ### items
 
 * sword with projectiles

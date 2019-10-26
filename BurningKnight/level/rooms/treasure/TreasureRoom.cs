@@ -64,7 +64,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override bool ShouldSpawnMobs() {
-			return Random.Chance(10);
+			return false;// Random.Chance(10);
 		}
 	}
 }
