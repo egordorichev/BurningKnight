@@ -21,10 +21,11 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion activeFull;
 
 		private Vector2 activeScale = new Vector2(1);
-		private Vector2 itemScale = new Vector2(1);
 
 		public float ActivePosition = -1f;
 		private bool tweened;
+
+		private UiItem uiItem;
 		
 		public UiActiveItemSlot(UiInventory inv) {
 			inventory = inv;
@@ -32,6 +33,9 @@ namespace BurningKnight.ui.inventory {
 
 		public override void Init() {
 			base.Init();
+
+			uiItem = new UiItem();
+			Area.Add(uiItem);
 			
 			var area = inventory.Player.Area;
 			
@@ -57,11 +61,17 @@ namespace BurningKnight.ui.inventory {
 			
 			var component = inventory.Player.GetComponent<ActiveItemComponent>();
 			var item = component.Item;
+			
+			if (item != null && item.Id != uiItem.Id) {
+				uiItem.Id = item.Id;
+			}
 
 			var v = ActivePosition * (inventory.ItemSlot.Width + 10);
 			var pos = new Vector2(inventory.UseSlot.Center.X + 4 + v, inventory.UseSlot.Center.Y + Display.UiHeight - inventory.ItemSlot.Source.Height - 4);
 			
 			Graphics.Render(inventory.ItemSlot, pos, 0, inventory.ItemSlot.Center, activeScale);
+
+			uiItem.Center = pos;
 			
 			if (item == null || (item.Done && !tweened)) {
 				tweened = true;
@@ -73,12 +83,14 @@ namespace BurningKnight.ui.inventory {
 			}
 			
 			if (item != null) {
-				var region = item.Region;
+				// var region = item.Region;
 				var timed = item.UseTime < 0;
 				var chargeMax = Math.Abs(item.UseTime);
 				var charge = timed ? chargeMax - item.Delay : (float) Math.Floor(chargeMax - item.Delay);
 
-				if (region != null) {
+				uiItem.DrawBorder = Math.Abs(charge - chargeMax) < 0.01f;
+
+				/*if (region != null) {
 					var p = new Vector2(
 						region.Center.X + 4 + (inventory.ItemSlot.Source.Width - region.Source.Width) / 2f + v,
 						region.Center.Y + Display.UiHeight - inventory.ItemSlot.Source.Height - 4 +
@@ -100,8 +112,9 @@ namespace BurningKnight.ui.inventory {
 					}
 			
 					Graphics.Render(region, p, 0, region.Center, itemScale);
-				}
+				}*/
 
+				// Render the use time
 				if (Math.Abs(item.UseTime) <= 0.01f) {
 					return;
 				}
@@ -152,12 +165,13 @@ namespace BurningKnight.ui.inventory {
 			Tween.To(1.5f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
 					Tween.To(0.6f, activeScale.Y, x => activeScale.Y = x, 0.1f).OnEnd = () =>
 							Tween.To(1f, activeScale.Y, x => activeScale.Y = x, 0.2f);
+
+			
+			Tween.To(0.3f, uiItem.IconScale.X, x => uiItem.IconScale.X = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, uiItem.IconScale.X, x => uiItem.IconScale.X = x, 0.2f);
 						
-			Tween.To(0.3f, itemScale.X, x => itemScale.X = x, 0.1f).OnEnd = () =>
-					Tween.To(1f, itemScale.X, x => itemScale.X = x, 0.2f);
-						
-			Tween.To(2f, itemScale.Y, x => itemScale.Y = x, 0.1f).OnEnd = () =>
-					Tween.To(1f, itemScale.Y, x => itemScale.Y = x, 0.2f);
+			Tween.To(2f, uiItem.IconScale.Y, x => uiItem.IconScale.Y = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, uiItem.IconScale.Y, x => uiItem.IconScale.Y = x, 0.2f);
 		}
 
 		public override bool HandleEvent(Event e) {

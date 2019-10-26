@@ -118,11 +118,10 @@
 * Room, where you press lever/button to open/close chasm
 * Challenge room
 * Cursed room
-* rooms with preasure plates
-* rooms with switches
 * trap rooms
+* angel/devil rooms, I dont like the theme tho, think of smth else
+* more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
-* angel/devil rooms, I dont like the theme tho, rename into smth else
 
 ### things I promissed to do
 

@@ -175,7 +175,8 @@ namespace BurningKnight.ui.inventory {
 					x = items[items.Count - 1].X - 4;
 				}
 								
-				old = new UiItem(item.Id);
+				old = new UiItem();
+				old.Id = item.Id;
 				Area.Add(old);
 				items.Add(old);
 

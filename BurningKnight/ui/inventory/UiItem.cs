@@ -12,8 +12,29 @@ namespace BurningKnight.ui.inventory {
 	 */
 	public class UiItem : UiEntity {
 		public static UiItem Hovered;
-		
-		public readonly string Id;
+
+		private string id;
+
+		public string Id {
+			get => id;
+
+			set {
+				id = value;
+
+				if (id == null) {
+					return;
+				}
+				
+				Name = Locale.Get(id);
+				Description = Locale.Get($"{id}_desc");
+				region = CommonAse.Items.GetSlice(id);
+
+				NameSize = Font.Small.MeasureString(Name);
+				DescriptionSize = Font.Small.MeasureString(Description);
+
+				Width = region.Width;
+			}
+		}
 
 		private TextureRegion region;
 		public string Name;
@@ -27,8 +48,9 @@ namespace BurningKnight.ui.inventory {
 		private int countH;
 
 		private float border;
+		public bool DrawBorder;
 
-		private Vector2 iconScale = Vector2.One;
+		public Vector2 IconScale = Vector2.One;
 
 		public int Count {
 			get => count;
@@ -41,27 +63,15 @@ namespace BurningKnight.ui.inventory {
 				countW = (int) s.Width;
 				countH = (int) s.Height;
 
-				iconScale.X = 0;
-				iconScale.Y = 2;
+				IconScale.X = 0;
+				IconScale.Y = 2;
 
-				Tween.To(1, iconScale.X, x => iconScale.X = x, 0.3f);
-				Tween.To(1, iconScale.Y, x => iconScale.Y = x, 0.3f);
+				Tween.To(1, IconScale.X, x => IconScale.X = x, 0.3f);
+				Tween.To(1, IconScale.Y, x => IconScale.Y = x, 0.3f);
 			}
 		}
 
-		public UiItem(string item) {
-			Name = Locale.Get(item);
-			Description = Locale.Get($"{item}_desc");
-			region = CommonAse.Items.GetSlice(item);
-
-			Id = item;
-
-			NameSize = Font.Small.MeasureString(Name);
-			DescriptionSize = Font.Small.MeasureString(Description);
-
-			Width = region.Width;
-			// Height = region.Height;
-
+		public UiItem() {
 			Count = 1;
 			ScaleMod = 2;
 		}
@@ -75,6 +85,10 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		protected override void OnHover() {
+			if (id == null) {
+				return;
+			}
+			
 			base.OnHover();
 			
 			Tween.To(1, border, x => border = x, 0.3f);
@@ -84,6 +98,10 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		protected override void OnUnhover() {
+			if (id == null) {
+				return;
+			}
+			
 			base.OnUnhover();
 			
 			Tween.To(0, border, x => border = x, 0.3f);
@@ -94,22 +112,28 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override void Render() {
-			if (border > 0.01f) {
+			if (id == null) {
+				return;
+			}
+
+			var b = DrawBorder ? 1 : border;
+			
+			if (b > 0.01f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
-				shader.Parameters["flash"].SetValue(border);
+				shader.Parameters["flash"].SetValue(b);
 				shader.Parameters["flashReplace"].SetValue(1f);
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(region, Center + d, 0, region.Center, iconScale * scale);
+					Graphics.Render(region, Center + d, 0, region.Center, IconScale * scale);
 				}
 
 				Shaders.End();
 			}
 			
-			Graphics.Render(region, Center, 0, region.Center, iconScale * scale);
+			Graphics.Render(region, Center, 0, region.Center, IconScale * scale);
 			
 			if (count < 2) {
 				return;
