@@ -26,7 +26,7 @@
 * Implement basic loop
 * Tiny autoaim, but disable it in the settings
 * get discord npc somewhere to spawn
-* Hints on loading screen
+* Hints on loading screen  
 * make music update run in a separate thread
 * throwing music discs as weapons
 * resprite bk
