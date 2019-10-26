@@ -12,6 +12,7 @@
 * laser pointer
 * star
 * zoom
+* item, that gives you one life (one respawn, think guppy collar)
 * poison, charisma (minor sale), charm rings
 * Mines
 * pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards

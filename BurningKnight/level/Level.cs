@@ -69,6 +69,7 @@ namespace BurningKnight.level {
 		public bool[] Passable;
 		public float[] Light;
 
+		public Chasm Chasm;
 		public DestroyableLevel Destroyable;
 		public RenderTarget2D WallSurface;
 		public RenderTarget2D MessSurface;
@@ -85,6 +86,9 @@ namespace BurningKnight.level {
 			if (Destroyable != null) {
 				Destroyable.Done = true;
 				Area.Remove(Destroyable);
+
+				Chasm.Done = true;
+				Area.Remove(Chasm);
 			}
 
 			if (Run.Level == this) {
@@ -166,6 +170,7 @@ namespace BurningKnight.level {
 			}
 
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
+			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
 			Destroyable.GetComponent<DestroyableBodyComponent>().ReCreateBodyChunk(x, y);
 		}
 		
@@ -175,13 +180,16 @@ namespace BurningKnight.level {
 			}
 			
 			if (Destroyable == null) {
-				Destroyable = new DestroyableLevel {
+				Area.Add(Destroyable = new DestroyableLevel {
 					Level = this
-				};
+				});
 				
-				Area.Add(Destroyable);
+				Area.Add(Chasm = new Chasm {
+					Level = this
+				});
 			}
 			
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
 			GetComponent<LevelBodyComponent>().CreateBody();
 		}
 

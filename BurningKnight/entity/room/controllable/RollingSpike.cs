@@ -75,7 +75,7 @@ namespace BurningKnight.entity.room.controllable {
 			if (e is CollisionStartedEvent ev) {
 				var n = ev.Entity;
 
-				if (!(n is Prop) && !(n is Level) && !(n is DestroyableLevel) && !(n is RollingSpike)) {
+				if (!(n is Prop) && !(n is Level) && !(n is DestroyableLevel) && !(n is Chasm) && !(n is RollingSpike)) {
 					if (n is Player p) {
 						colliding.Add(p);
 					}

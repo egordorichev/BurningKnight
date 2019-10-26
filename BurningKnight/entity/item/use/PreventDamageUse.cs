@@ -16,6 +16,7 @@ namespace BurningKnight.entity.item.use {
 			if (e is HealthModifiedEvent ev) {
 				if ((spikes && ev.From is Spikes)
 				    || (lava && ev.From is Level)
+				    || (chasm && ev.From is Chasm)
 				    || (bombs && ev.From is Bomb)) {
 					
 					return true;

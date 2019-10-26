@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature {
 	public class Gore : Entity, CollisionFilterEntity {
 		public bool ShouldCollide(Entity entity) {
-			return entity is Level || entity is DestroyableLevel || entity is Door;
+			return entity is Level || entity is Chasm || entity is DestroyableLevel || entity is Door;
 		}
 
 		private float vz;

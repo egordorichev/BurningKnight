@@ -725,6 +725,8 @@
     <Compile Include="level\builders\LoopBuilder.cs" />
     <Compile Include="level\builders\RegularBuilder.cs" />
     <Compile Include="level\builders\SingleRoomBuilder.cs" />
+    <Compile Include="level\Chasm.cs" />
+    <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DestroyableBodyComponent.cs" />
     <Compile Include="level\DestroyableLevel.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />

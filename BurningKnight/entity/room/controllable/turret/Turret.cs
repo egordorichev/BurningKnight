@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable.turret {
-	public class Turret : RoomControllable {
+	public class Turret : RoomControllable, CollisionFilterEntity {
 		private float beforeNextBullet;
 		protected bool Rotates;
 
@@ -189,6 +189,10 @@ namespace BurningKnight.entity.room.controllable.turret {
 			if (ImGui.InputInt("Starting angle", ref u)) {
 				Angle = StartingAngle = (uint) u % 8;
 			}
+		}
+		
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Chasm);
 		}
 	}
 }
