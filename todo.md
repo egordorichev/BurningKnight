@@ -4,11 +4,6 @@
 * buffs display on mobs (like poisoned, charmed)
 * look into fullscreen bug
 
-# bugs
-
-* taking disk/cage key overrides the weapon? doesnt take into the second slot??
-* swap weapons dialog stuck on the screen (cause player used the key)
-
 # sand & oil 
 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
