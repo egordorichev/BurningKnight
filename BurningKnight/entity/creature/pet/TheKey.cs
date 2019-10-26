@@ -36,7 +36,8 @@ namespace BurningKnight.entity.creature.pet {
 
 			if (target != null) {
 				var an = AngleTo(target);
-				var force = 300f * dt;
+				var d = DistanceTo(target);
+				var force = 300f * dt * Math.Max(1, (64f - d / 64f) * 5);
 
 				GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(an) * force, (float) Math.Sin(an) * force);
 

@@ -6,6 +6,7 @@
 
 # sand & oil 
 
+* menu is kinda broken with gamepad, input is also not blocked
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 * Ui hearts are not noticable
@@ -22,6 +23,7 @@
 
 # TODO
 
+* duck interaction
 * Implement basic loop
 * Tiny autoaim, but disable it in the settings
 * get discord npc somewhere to spawn
