@@ -58,11 +58,11 @@ namespace BurningKnight.entity.creature.mob.desert {
 						an -= (float) Math.PI;
 
 						var ap = Projectile.Make(this, "spike", an - 0.2f, 8f, false, 0, projectile, 0.6f);
-						ap.Center = Center + MathUtils.CreateVector(an, 2f);
+						ap.Center = projectile.Center;
 						ap.AddLight(32f, Projectile.RedLight);
 
 						var bp = Projectile.Make(this, "spike", an + 0.2f, 8f, false, 0, projectile, 0.6f);
-						bp.Center = Center + MathUtils.CreateVector(an, 2f);
+						bp.Center = projectile.Center;
 						bp.AddLight(32f, Projectile.RedLight);
 					};
 				};

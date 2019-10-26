@@ -203,12 +203,13 @@ namespace BurningKnight.ui.inventory {
 
 				if (UiItem.Hovered != null) {
 					var item = UiItem.Hovered;
+					var w = item.DescriptionSize.Y + item.NameSize.Y + 8;
 					
-					var x = MathUtils.Clamp(4, Display.UiWidth - 4 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
-					var y = MathUtils.Clamp(4, Display.UiHeight - 4 - item.Position.Y - item.DescriptionSize.Y - item.NameSize.Y, item.Position.Y);
+					var x = MathUtils.Clamp(4, Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
+					var y = MathUtils.Clamp(4, Display.UiHeight - w, Display.UiHeight - w);
 
-					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y));
-					Graphics.Print(item.Description, Font.Small, new Vector2(x, item.Position.Y + item.NameSize.Y));
+					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
+					Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
 				}
 			}
 			
