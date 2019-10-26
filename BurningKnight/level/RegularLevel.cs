@@ -123,7 +123,7 @@ namespace BurningKnight.level {
 		}
 
 		private bool IsFinal() {
-			return Run.Depth == 3;
+			return Run.Depth == Run.ContentEndDepth;
 		}
 
 		protected virtual List<RoomDef> CreateRooms() {
@@ -209,7 +209,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumRegularRooms() {
-			return Run.Depth % 2 == 1 ? 3 : 5;
+			return Run.Depth + 2;
 		}
 
 		protected virtual int GetNumTrapRooms() {

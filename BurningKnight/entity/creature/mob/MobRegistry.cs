@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
+using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.level.biome;
 using BurningKnight.state;
 using Random = Lens.util.math.Random;
@@ -14,23 +15,17 @@ namespace BurningKnight.entity.creature.mob {
 			MobInfo[] infos = {
 				// XD
 				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)),
-				// Castle enemies
+				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)).DisableFirstSpawn(),
 				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
 				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
-				
-				// WIP
-				//MobInfo.New<Knight>(new SpawnChance(1f, Biome.Castle)),
-				//MobInfo.New<King>(new SpawnChance(1f, Biome.Castle)),
-				//MobInfo.New<Caster>(new SpawnChance(1f + 10000f, Biome.Castle)),
-				
-				// Unused
-				// MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Castle)),
+				// Desert
+				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);

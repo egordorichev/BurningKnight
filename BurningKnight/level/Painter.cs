@@ -506,7 +506,7 @@ namespace BurningKnight.level {
 				}
 
 				// Plants
-				if (Random.Chance(90)) {
+				/*if (Random.Chance(90)) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
 							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
@@ -517,7 +517,7 @@ namespace BurningKnight.level {
 							}
 						}
 					}
-				}
+				}*/
 
 				// Fireflies
 				if (Random.Chance(60)) {

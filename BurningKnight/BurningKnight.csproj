@@ -406,6 +406,7 @@
     <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
+    <Compile Include="entity\creature\mob\desert\DesertSlime.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />

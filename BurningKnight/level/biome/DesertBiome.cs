@@ -17,13 +17,9 @@ namespace BurningKnight.level.biome {
 			painter.Grass = 0;
 		}
 
-		public override void ModifyRooms(List<RoomDef> rooms) {
+		/*public override void ModifyRooms(List<RoomDef> rooms) {
 			base.ModifyRooms(rooms);
 			rooms.Add(new DesertWellRoom());
-		}
-
-		public override Tile GetFilling() {
-			return Tile.Chasm;
-		}
+		}*/
 	}
 }
