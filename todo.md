@@ -113,6 +113,8 @@
 ### Rooms
 
 * falling floor room
+* minigame rooms from rogue legacy
+* crawled space
 * Room, where you press lever/button to open/close chasm
 * Challenge room
 * Cursed room
