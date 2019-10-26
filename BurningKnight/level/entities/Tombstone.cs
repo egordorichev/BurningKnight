@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.events;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using ImGuiNET;
@@ -41,7 +42,21 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableSliceComponent("props", "tombstone"));
 
 			AddComponent(new ShadowComponent());
+			AddComponent(new HealthComponent {
+				RenderInvt = true,
+				InitMaxHealth = 3
+			});
+			
 			AddComponent(new LightComponent(this, 64, new Color(0.7f, 0.6f, 0.3f, 1f)));
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is DiedEvent d) {
+				Interact(d.From);
+				return true;
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		private bool Interact(Entity entity) {

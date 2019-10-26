@@ -112,6 +112,7 @@
 
 ### Rooms
 
+* falling floor room
 * Room, where you press lever/button to open/close chasm
 * Challenge room
 * Cursed room
