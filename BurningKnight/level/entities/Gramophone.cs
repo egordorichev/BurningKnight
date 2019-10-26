@@ -88,7 +88,7 @@ namespace BurningKnight.level.entities {
 					var old = c.Item;
 
 					if (hd) {
-						c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));					
+						entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd($"bk:disk_{disk}", Area));
 					} else {
 						c.Set(null, false);
 					}
@@ -100,7 +100,7 @@ namespace BurningKnight.level.entities {
 					Log.Error(e);
 				}
 			} else if (hd) {
-				c.Set(Items.CreateAndAdd($"bk:disk_{disk}", Area));
+				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd($"bk:disk_{disk}", Area));
 				disk = 0;
 			}
 			

@@ -2,6 +2,7 @@
 
 ### desert
 
+* wall crawler, that targets you directly
 * ant lion, sucks you in, pops out of the ground if you dont kill it quick enough
 * floating sand thing thing, poops bullets and flies to the opposite direction
 * enemy orbiter, just shoots a single bullet

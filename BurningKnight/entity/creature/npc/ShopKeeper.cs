@@ -57,7 +57,6 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
 
 					AddTag(Tags.MustBeKilled);
-
 					SetItemsFree();
 				}
 

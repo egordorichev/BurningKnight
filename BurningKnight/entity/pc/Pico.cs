@@ -102,6 +102,10 @@ namespace BurningKnight.entity.pc {
 		}
 		
 		public void RenderDisplay() {
+			if (!on) {
+				return;
+			}
+			
 			var u = emulator.CartridgeLoader.HighFps ? UpdateTime60 : UpdateTime30;
 			deltaDraw += Engine.Delta;
 
