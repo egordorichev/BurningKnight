@@ -896,6 +896,27 @@ namespace BurningKnight.state {
 				}
 			});
 
+			if (Run.Depth > 0) {
+				pauseMenu.Add(new UiButton {
+						LocaleLabel = "new_run",
+						RelativeCenterX = Display.UiWidth / 2f,
+						RelativeCenterY = start + space,
+						Type = ButtonType.Exit,
+						Click = b => GoConfirm("start_new_run", () => {
+							Run.StartNew();
+						}, () => {
+							currentBack = pauseBack;
+							pauseMenu.Enabled = true;
+
+							Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+								pauseMenu.Remove(confirmationPane);
+								confirmationPane = null;	
+								SelectFirst();
+							};
+						})
+				});
+			}
+
 			if (Run.Depth != 0 && false) {
 				pauseMenu.Add(new UiButton {
 						LocaleLabel = "back_to_castle",
@@ -1156,6 +1177,9 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space * 3.5f,
 				Click = b => {
 					GoConfirm("reset_settings_dis", () => {
+						currentBack = settingsBack;
+						gameSettings.Enabled = true;
+						
 						new Thread(() => {
 							try {
 								Settings.Generate();
@@ -1166,6 +1190,15 @@ namespace BurningKnight.state {
 						}) {
 							Priority = ThreadPriority.Lowest
 						}.Start();
+					}, () => {
+						currentBack = gameBack;
+						gameSettings.Enabled = true;
+
+						Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							pauseMenu.Remove(confirmationPane);
+							confirmationPane = null;	
+							SelectFirst();
+						};
 					});
 				}
 			});
@@ -1176,6 +1209,9 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space * 4.5f,
 				Click = b => {
 					GoConfirm("reset_progress_dis", () => {
+						currentBack = settingsBack;
+						gameSettings.Enabled = true;
+						
 						new Thread(() => {
 							try {
 								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
@@ -1189,6 +1225,15 @@ namespace BurningKnight.state {
 						}) {
 							Priority = ThreadPriority.Lowest
 						}.Start();
+					}, () => {
+						currentBack = gameBack;
+						gameSettings.Enabled = true;
+
+						Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							pauseMenu.Remove(confirmationPane);
+							confirmationPane = null;	
+							SelectFirst();
+						};
 					});
 				}
 			});
@@ -1218,7 +1263,7 @@ namespace BurningKnight.state {
 			gameSettings.Enabled = false;
 		}
 
-		private void GoConfirm(string text, Action callback) {
+		private void GoConfirm(string text, Action callback, Action nope) {
 			pauseMenu.Add(confirmationPane = new UiPane {
 				RelativeX = Display.UiWidth * 3
 			});
@@ -1250,8 +1295,6 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx + spx,
 				RelativeCenterY = sy + space,
 				Click = b => {
-					currentBack = settingsBack;
-					gameSettings.Enabled = true;
 					callback();
 				}
 			});
@@ -1261,14 +1304,7 @@ namespace BurningKnight.state {
 				RelativeCenterX = sx - spx,
 				RelativeCenterY = sy + space,
 				Click = b => {
-					currentBack = gameBack;
-					gameSettings.Enabled = true;
-
-					Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
-						pauseMenu.Remove(confirmationPane);
-						confirmationPane = null;	
-						SelectFirst();
-					};
+					nope();
 				}
 			});
 			

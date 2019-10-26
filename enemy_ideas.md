@@ -2,25 +2,27 @@
 
 ### desert
 
-* ant lion
+* ant lion, sucks you in, pops out of the ground if you dont kill it quick enough
 * floating sand thing thing, poops bullets and flies to the opposite direction
-* 
+* enemy orbiter, just shoots a single bullet
+* enemy, that stands still, shoots laser at you and gets pushed back
+* creeper
+* mummy, zombie but with insane knockback modifier
+* slime, that shoots when he lands
+* maggot, but on the floor. moves insanely fast and randomly, but mostly torwards you
+* maggot nest: idle, until all enemies are dead or you are too close, spawns tons of maggots and dies
+* worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
 
 ## ALPHA ENEMIES
 
-* mob, that orbits other enemies and just shoots
-
 * enemy, that reflects your bullets with melee arc
-* enemy, that stands still, shoots laser at you and gets pushed back
 
 * enemy, that dies from you touching it, does no contact damage, 
  runs away from you and shoots, tons of hp (hard to kill without touching)
  
 * insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
  
-* creeper
 * enemy that deals insane knockback to you
-* enemy with insane knockback modifier
 * skull, that shoots missiles, that go through wall (terraria dungeon)
 * (can be with thief sprite) caster, that shoots 3 penetrating the walls missiles, then tp's (terraria dungeon)
 * buffer (etg)
@@ -36,7 +38,6 @@
 + maggot on the floor
 + maggot nest: spawns maggots?
 + scorpion
-+ worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
 + turtle
 
 * Zelda like digging enemy ??
