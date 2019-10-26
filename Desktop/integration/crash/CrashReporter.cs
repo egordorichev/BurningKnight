@@ -1,6 +1,9 @@
 using System;
+using System.IO;
 using System.Reflection;
+using System.Text;
 using Lens;
+using Lens.util;
 
 namespace Desktop.integration.crash {
 	public class CrashReporter {
@@ -12,28 +15,32 @@ namespace Desktop.integration.crash {
 
 		private static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args) {
 			var e = (Exception) args.ExceptionObject;
+			var builder = new StringBuilder();
 			
-			Console.ForegroundColor = ConsoleColor.Red;
-			
-			Console.WriteLine("--- Burning Knight has crashed :( ---");
-			Console.WriteLine("PLEASE REPORT THIS TO REXCELLENT GAMES");
-			Console.WriteLine("via contact@rexcellentgames.com or @egordorichev on twitter");
+			builder.AppendLine("--- Burning Knight has crashed :( ---");
+			builder.AppendLine("PLEASE REPORT THIS TO REXCELLENT GAMES");
+			builder.AppendLine("via contact@rexcellentgames.com or @egordorichev on twitter");
 		
-			Console.WriteLine("--- Info --- ");
+			builder.AppendLine("--- Info --- ");
 
-			Console.WriteLine($"Date: {DateTime.Now:dd.MM.yyyy h:mm tt}");
-			Console.WriteLine($"OS: {Environment.OSVersion}");
+			builder.AppendLine($"Date: {DateTime.Now:dd.MM.yyyy h:mm tt}");
+			builder.AppendLine($"OS: {Environment.OSVersion}");
 
-			Console.WriteLine($"Mono version: {GetMonoVersion()}");
-			Console.WriteLine($"Burning Knight version: {Engine.Version}");
+			builder.AppendLine($"Mono version: {GetMonoVersion()}");
+			builder.AppendLine($"Burning Knight version: {Engine.Version}");
 			
-			Console.WriteLine("--- Error --- ");
+			builder.AppendLine("--- Error --- ");
 			
-			Console.WriteLine(e.Message);
-			Console.WriteLine();
-			Console.WriteLine(e.StackTrace);
+			builder.AppendLine(e.Message);
+			builder.AppendLine();
+			builder.AppendLine(e.StackTrace);
 
-			Console.WriteLine("--- Please report this to help us fix the issue! <3 ---");
+			builder.AppendLine("--- Please report this to help us fix the issue! <3 ---");
+
+			var message = builder.ToString();
+			Log.Error(message);
+			
+			File.WriteAllText("crashes.txt", message);
 		}
 
 		private static string GetMonoVersion() {

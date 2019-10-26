@@ -203,6 +203,7 @@ namespace Lens {
 		}
 
 		public void SetFullscreen() {
+			
 			core.SetFullscreen();
 			UpdateView();
 		}
