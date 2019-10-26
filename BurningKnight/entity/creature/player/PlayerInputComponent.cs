@@ -146,14 +146,6 @@ namespace BurningKnight.entity.creature.player {
 				idle = false;
 				state.Become<Player.DuckState>();
 				GlobalSave.Put("control_duck", true);
-
-				/*
-				Entity.Area.Add(new EpicSpawn {
-					Position = Entity.Position
-				});*/
-
-				/*var m = new Missile(Entity, Entity);
-				m.AddLight(32f, Color.Red);*/
 			}
 			
 			if (state.StateInstance is Player.RollState r) {

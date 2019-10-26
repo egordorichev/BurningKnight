@@ -21,7 +21,12 @@ namespace BurningKnight.entity.item.stand {
 		private bool triggered;
 		private bool did;
 		private float t;
-		
+
+		public override void AddComponents() {
+			base.AddComponents();
+			AlwaysActive = true;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			

@@ -148,14 +148,10 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (Room is ConnectionRoom) {
-					Clip = Room.Shrink(1);
-				}
+				Clip = Room.Shrink(1);
 
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
-
-				Clip = Room.Shrink(1);
 
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Secret) {

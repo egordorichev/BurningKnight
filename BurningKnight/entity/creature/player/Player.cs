@@ -205,6 +205,10 @@ namespace BurningKnight.entity.creature.player {
 
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("quck");
+
+				Self.HandleEvent(new QuackEvent {
+					Player = (Player) Self
+				});
 			}
 		}
 		
@@ -516,7 +520,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Destroy() {
 			base.Destroy();
 
-			if (Run.StartingNew || Run.StartedNew) {
+			if (Run.LastDepth == -1 || Run.LastDepth == 0) {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
 				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
 			}
