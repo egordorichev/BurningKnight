@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
-	public class IronLock : Lock {
+	public class ItemLock : Lock {
 		protected List<Room> rooms = new List<Room>();
 
 		public void CalcRooms() {
@@ -38,16 +40,18 @@ namespace BurningKnight.entity.door {
 
 			UpdateState();
 		}
-		
+
 		protected virtual void UpdateState() {
-			var shouldLock = Run.Depth >= Run.ContentEndDepth;
+			var shouldLock = false;
 
-			if (!shouldLock) {
-				foreach (var r in rooms) {
-					if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 &&
-					    r.Tagged[Tags.MustBeKilled].Count > 0) {
+			foreach (var r in rooms) {
+				if (r.Tagged[Tags.Player].Count == 0) {
+					continue;
+				}
+				
+				foreach (var item in r.Tagged[Tags.Item]) {
+					if ((item is ItemStand ist && ist.Item != null) || (item is Item)) {
 						shouldLock = true;
-
 						break;
 					}
 				}
