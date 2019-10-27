@@ -935,8 +935,8 @@ namespace BurningKnight.level {
 					a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 					     (IsInside(index + width) && Get(index + width) == Tile.WallA);
 					region = a
-						? Tileset.WallCrackA
-						: Tileset.WallCrackB;
+						? Tileset.WallTopA
+						: Tileset.WallTopB;
 				}
 
 				Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
@@ -1172,6 +1172,11 @@ namespace BurningKnight.level {
 					if (light < LightMax) {
 						Graphics.Color.A = (byte) (255 - light * 255);
 						Graphics.Render(region, new Vector2(x * 16, y * 16));
+					}
+
+					if (Tiles[index] == (byte) Tile.Crack) {
+						Graphics.Color.A = 255;
+						Graphics.Render(Tileset.WallCrackA, new Vector2(x * 16, y * 16 - 8));
 					}
 				}
 			}
