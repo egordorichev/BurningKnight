@@ -7,6 +7,8 @@
 
 # sand & oil 
 
+* fix item description being displayed
+* allow melee arc to reflect your own bullets
 * teleportation animation on player
 * cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

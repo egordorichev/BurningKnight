@@ -169,10 +169,10 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			if (old == null) {
-				var x = Display.UiWidth - 4f;
+				var x = Display.UiWidth - 8f;
 
 				if (items.Count > 0) {
-					x = items[items.Count - 1].X - 4;
+					x = items[items.Count - 1].X - 8;
 				}
 								
 				old = new UiItem();
@@ -181,7 +181,7 @@ namespace BurningKnight.ui.inventory {
 				items.Add(old);
 
 				old.Right = x;
-				old.Bottom = Display.UiHeight - 4f;
+				old.Bottom = Display.UiHeight - 8f;
 			} else {
 				old.Count++;
 			}

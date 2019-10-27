@@ -9,12 +9,6 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special {
 	public class NpcSaveRoom : SpecialRoom {
-		/*
-		 * todo:
-		 *
-		 * dialog about save me
-		 * dialog about thanks for saving and dissappear, gifting some emeralds
-		 */
 		public override int GetMaxConnections(Connection Side) {
 			return 1;
 		}

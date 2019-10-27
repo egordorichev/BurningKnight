@@ -80,7 +80,7 @@ namespace BurningKnight.entity {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Mob || entity is Bomb);
+			return !(entity is Mob);
 		}
 
 		private bool sent;
