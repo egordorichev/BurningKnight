@@ -51,7 +51,7 @@
  + speed
  + range mod
 
-* troll bombs
+* bomb item should have a chance to ignire
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 * mother slime body is not removed!!!!

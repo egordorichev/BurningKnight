@@ -76,7 +76,7 @@ namespace BurningKnight.entity.creature.bk {
 					return;
 				}
 				
-				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 3);
+				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
 				Audio.PlayMusic("Rogue");
 				
 				Timer.Add(() => {
