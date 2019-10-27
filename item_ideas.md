@@ -5,6 +5,7 @@
 
 ### items
 
+* controlled bullet 
 * sword with projectiles
 * sword with projectiles only when full hp
 * item, that makes bomb explode on touching enemy

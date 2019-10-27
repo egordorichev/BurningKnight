@@ -285,7 +285,12 @@ namespace BurningKnight.entity.item.stand {
 
 		public override void RenderImDebug() {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
+				var item = Item;
 				SetItem(Items.CreateAndAdd(debugItem, Area), null);
+
+				if (item != null) {
+					item.Done = true;
+				}
 			}
 		}
 	}
