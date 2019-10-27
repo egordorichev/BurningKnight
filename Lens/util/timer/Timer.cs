@@ -15,7 +15,12 @@ namespace Lens.util.timer {
 				task.Delay -= dt;
 
 				if (task.Delay <= 0) {
-					task.Fn?.Invoke();
+					try {
+						task.Fn?.Invoke();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+					
 					tasks.RemoveAt(i);
 				}
 			}
