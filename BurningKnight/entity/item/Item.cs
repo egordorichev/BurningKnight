@@ -9,6 +9,7 @@ using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
+using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -228,20 +229,6 @@ namespace BurningKnight.entity.item {
 			AddComponent(new ExplodableComponent());
 			AddComponent(new SupportableComponent());
 
-			if (Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
-				Color color;
-
-				if (Type == ItemType.Coin || Type == ItemType.Key) {
-					color = new Color(1f, 1f, 0.5f, 1f);
-				} else if (Type == ItemType.Heart) {
-					color = new Color(1f, 0.2f, 0.2f, 1f);
-				} else {
-					color = new Color(1f, 1f, 1f, 1f);
-				}
-				
-				AddComponent(new LightComponent(this, 32f, color));
-			}
-			
 			CheckMasked();
 		}
 
@@ -371,6 +358,26 @@ namespace BurningKnight.entity.item {
 			if (e is LostSupportEvent) {
 				Done = true;
 				return true;
+			} else if (e is RoomChangedEvent rce) {
+				if (HasComponent<LightComponent>()) {
+					if (rce.New.Type == RoomType.Secret) {
+						RemoveComponent<LightComponent>();
+					}
+				} else if (rce.New.Type != RoomType.Secret) {
+					if (Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
+						Color color;
+
+						if (Type == ItemType.Coin || Type == ItemType.Key) {
+							color = new Color(1f, 1f, 0.5f, 1f);
+						} else if (Type == ItemType.Heart) {
+							color = new Color(1f, 0.2f, 0.2f, 1f);
+						} else {
+							color = new Color(1f, 1f, 1f, 1f);
+						}
+				
+						AddComponent(new LightComponent(this, 32f, color));
+					}
+				}
 			}
 			
 			return base.HandleEvent(e);
