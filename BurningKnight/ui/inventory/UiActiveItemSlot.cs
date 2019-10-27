@@ -55,7 +55,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override void Render() {
-			if (ActivePosition <= -0.99f) {
+			if (ActivePosition <= -0.99f || Engine.Instance.State.Paused) {
 				return;
 			}
 			

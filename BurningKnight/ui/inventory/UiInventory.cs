@@ -272,6 +272,7 @@ namespace BurningKnight.ui.inventory {
 			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0);
 
 			if (coins > 0) {
+				bottomY += (int) (12 * (activeSlot.ActivePosition + 1));
 				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
 				Graphics.Print($"{coins}", Font.Small, new Vector2(18, bottomY - 1));
 				bottomY += 12;
