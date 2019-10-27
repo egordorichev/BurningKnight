@@ -11,6 +11,7 @@ namespace BurningKnight.entity.buff {
 			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
 			Add<PoisonBuff>(PoisonBuff.Id);
 			Add<FrozenBuff>(FrozenBuff.Id);
+			Add<SlowBuff>(SlowBuff.Id);
 		}
 		
 		public static void Add<T>(string id) where T : Buff {

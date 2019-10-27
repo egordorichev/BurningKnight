@@ -3,7 +3,7 @@ using Lens.entity;
 
 namespace BurningKnight.entity.buff {
 	public class BrokenArmorBuff : Buff {
-		public static string Id = "bk:broken_armor";
+		public const string Id = "bk:broken_armor";
 		
 		public BrokenArmorBuff() : base(Id) {
 			Duration = 300;

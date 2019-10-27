@@ -130,6 +130,39 @@ namespace BurningKnight.entity.component {
 
 					return true;
 				}
+
+				if (buffs.Has<BurningBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(0f);
+					shader.Parameters["flashColor"].SetValue(BurningBuff.Color);
+
+					return true;
+				}
+
+				if (buffs.Has<PoisonBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(0f);
+					shader.Parameters["flashColor"].SetValue(PoisonBuff.Color);
+
+					return true;
+				}
+
+				if (buffs.Has<SlowBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(0f);
+					shader.Parameters["flashColor"].SetValue(SlowBuff.Color);
+
+					return true;
+				}
 			}
 
 			return false;

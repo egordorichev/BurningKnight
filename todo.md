@@ -7,6 +7,7 @@
 
 # sand & oil 
 
+* teleportation animation on player
 * cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 

@@ -330,6 +330,7 @@
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\buff\FrozenBuff.cs" />
     <Compile Include="entity\buff\PoisonBuff.cs" />
+    <Compile Include="entity\buff\SlowBuff.cs" />
     <Compile Include="entity\chest\Chest.cs" />
     <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\AimComponent.cs" />

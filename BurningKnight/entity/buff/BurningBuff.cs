@@ -1,10 +1,12 @@
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.buff {
 	public class BurningBuff : Buff {
+		public static Vector4 Color = new Vector4(0.8f, 0.4f, 0.4f, 1f);
 		public const string Id = "bk:burning";
-		public const float Delay = 1.3f;
+		public const float Delay = 1f;
 		
 		private float tillDamage = Delay;
 		private float lastParticle;
@@ -23,7 +25,7 @@ namespace BurningKnight.entity.buff {
 
 			lastParticle += dt;
 
-			if (lastParticle >= 0.1f) {
+			if (lastParticle >= 0.5f) {
 				lastParticle = 0;
 
 				Entity.Area.Add(new FireParticle {
