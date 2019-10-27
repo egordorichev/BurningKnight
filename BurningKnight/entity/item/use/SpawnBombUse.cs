@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item.use {
@@ -14,12 +15,14 @@ namespace BurningKnight.entity.item.use {
 		public override void Use(Entity entity, Item item) {
 			Items.Unlock("bk:grenade_launcher");
 
+			var room = entity.GetComponent<RoomComponent>().Room;
+
 			for (var i = 0; i < Amount; i++) {
 				if (Randomly) {
 					Lens.util.timer.Timer.Add(() => {
 						var bomb = new Bomb(entity, Timer);
 						entity.Area.Add(bomb);
-						bomb.Center = entity.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16 + new Vector2(8);
+						bomb.Center = room == null ? entity.Center + Random.Vector(-4, 4) : room.GetRandomFreeTile() * 16 + new Vector2(8);
 					}, i * 0.1f);
 				} else {
 					var bomb = new Bomb(entity, Timer);

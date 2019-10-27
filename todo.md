@@ -7,6 +7,7 @@
 
 # sand & oil 
 
+* cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
 * Hold melee weapon to throw it 
