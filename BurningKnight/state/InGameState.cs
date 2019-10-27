@@ -750,9 +750,11 @@ namespace BurningKnight.state {
 			if (!Settings.HideUi) {
 				if (Run.Depth == 0 || emeraldY > -20) {
 					var y = Run.Depth == 0 ? 0 : emeraldY;
+					var str = $"{GlobalSave.Emeralds}";
+					var xx = Display.UiWidth - emerald.Width - 8;
 
-					Graphics.Render(emerald, new Vector2(2, 2 + y));
-					Graphics.Print($"{GlobalSave.Emeralds}", Font.Small, new Vector2(14, 3 + y));
+					Graphics.Render(emerald, new Vector2(xx, 8 + y));
+					Graphics.Print(str, Font.Small, new Vector2(xx - 8 - Font.Small.MeasureString(str).Width, 9 + y));
 				}
 			}
 
