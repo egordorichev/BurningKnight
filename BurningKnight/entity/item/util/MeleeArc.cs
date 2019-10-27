@@ -65,7 +65,7 @@ namespace BurningKnight.entity.item.util {
 
 				if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
-				} else if (ev.Entity is Projectile p && (p.Owner is Mob != Owner is Mob || p.Owner is RoomControllable)) {
+				} else if (ev.Entity is Projectile p) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
 
