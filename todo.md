@@ -28,6 +28,8 @@
 
 # TODO
 
+* dark mage/granny rooms
+
 * duck interaction
 * Implement basic loop
 * Tiny autoaim, but disable it in the settings
@@ -122,7 +124,6 @@
 * Challenge room
 * Cursed room
 * trap rooms
-* angel/devil rooms, I dont like the theme tho, think of smth else
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
 

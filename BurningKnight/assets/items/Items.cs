@@ -20,6 +20,8 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.items {
 	public static class Items {
+		public const string PlaceholderItem = "bk:my_heart";
+		
 		public static Dictionary<string, ItemData> Datas = new Dictionary<string, ItemData>();
 		private static Dictionary<ItemType, List<ItemData>> byType = new Dictionary<ItemType, List<ItemData>>();
 		private static Dictionary<int, List<ItemData>> byPool = new Dictionary<int, List<ItemData>>();
@@ -358,11 +360,13 @@ namespace BurningKnight.assets.items {
 			return datas;
 		}
 
-		public static string GenerateAndRemove(List<ItemData> datas) {
+		public static string GenerateAndRemove(List<ItemData> datas, Func<ItemData, bool> filter = null) {
 			double sum = 0;
 			
 			foreach (var chance in datas) {
-				sum += chance.Chance.Calculate(PlayerClass.Any);
+				if (filter == null || filter(chance)) {
+					sum += chance.Chance.Calculate(PlayerClass.Any);
+				}
 			}
 
 			var value = Random.Double(sum);
@@ -372,20 +376,24 @@ namespace BurningKnight.assets.items {
 			ItemData data = null;
 			
 			foreach (var t in datas) {
-				sum += t.Chance.Calculate(PlayerClass.Any);
+				if (filter == null || filter(t)) {
+					sum += t.Chance.Calculate(PlayerClass.Any);
+					
+					if (value < sum) {
+						id = t.Id;
+						data = t;
+						break;
+					}
 
-				if (value < sum) {
-					id = t.Id;
-					data = t;
-					break;
 				}
 			}
 
 			if (id != null) {
 				datas.Remove(data);
+				return id;
 			}
 			
-			return id;
+			return PlaceholderItem;
 		}
 	
 		private static string Generate(List<ItemData> types, Func<ItemData, bool> filter, PlayerClass c) {
@@ -407,7 +415,7 @@ namespace BurningKnight.assets.items {
 				}
 			}
 
-			return null;
+			return PlaceholderItem;
 		}
 
 		public static string Generate(ItemType type, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {

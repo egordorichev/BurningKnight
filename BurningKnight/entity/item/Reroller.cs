@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
@@ -9,8 +10,8 @@ namespace BurningKnight.entity.item {
 	public static class Reroller {
 		public static void Reroll(Area area, Room room, bool rerollStands, bool spawnNewItems, bool ignore, ItemType[] types, Action<Item> processItem = null) {
 			var items = room.Tagged[Tags.Item].ToArray();
-			var pool = room.GetPool() ?? ItemPool.Shop;
-
+			var pool = Items.GeneratePool(Items.GetPool(room.GetPool() ?? ItemPool.Shop));
+			
 			foreach (var e in items) {
 				Item item = null;
 				
@@ -18,7 +19,7 @@ namespace BurningKnight.entity.item {
 					if (rerollStands) {
 						if (s.Item == null) {
 							if (spawnNewItems) {
-								s.SetItem(Items.CreateAndAdd(Items.Generate(pool), area), null);
+								s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), area), null);
 							}
 
 							continue;
@@ -58,8 +59,8 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public static bool Reroll(Item item, ItemPool pool, Func<ItemData, bool> filter) {
-			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i) && filter(i));
+		public static bool Reroll(Item item, ItemPool pool, Func<ItemData, bool> filter = null) {
+			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i) && (filter == null || filter(i)));
 
 			if (id != null) {
 				item.ConvertTo(id);
@@ -71,8 +72,8 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 
-		public static bool Reroll(Item item, ItemPool pool) {
-			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i));
+		public static bool Reroll(Item item, List<ItemData> pool, Func<ItemData, bool> filter = null) {
+			var id = Items.GenerateAndRemove(pool, i => i.Id != item.Id && (filter == null || filter(i)));
 
 			if (id != null) {
 				item.ConvertTo(id);
