@@ -411,6 +411,7 @@
     <Compile Include="entity\creature\mob\desert\CactusOrbital.cs" />
     <Compile Include="entity\creature\mob\desert\DesertSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Maggot.cs" />
+    <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
