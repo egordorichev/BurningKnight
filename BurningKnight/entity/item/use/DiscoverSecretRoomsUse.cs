@@ -20,7 +20,7 @@ namespace BurningKnight.entity.item.use {
 			if (room != null) {
 				for (var y = room.MapY; y < room.MapY + room.MapY; y++) {
 					for (var x = room.MapX; x < room.MapX + room.MapW; x++) {
-						if (level.Get(x, y) == Tile.Crack) {
+						if (level.IsInside(x, y) && level.Get(x, y) == Tile.Crack) {
 							ExplosionMaker.DiscoverCrack(who, level, x, y);
 						}
 					}	

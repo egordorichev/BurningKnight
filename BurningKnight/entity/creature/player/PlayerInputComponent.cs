@@ -63,10 +63,10 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 			
 			if (controller != null) {
-				if (e is HealthModifiedEvent ev && ev.Amount < 0) {
-					controller.Rumble(0.5f, 0.1f);
+				if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
+					controller.Rumble(0.5f, 0.2f);
 				} else if (e is DiedEvent) {
-					controller.Rumble(1f, 0.2f);
+					controller.Rumble(1f, 0.4f);
 				}
 			}
 

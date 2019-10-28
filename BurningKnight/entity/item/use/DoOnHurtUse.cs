@@ -9,7 +9,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is HealthModifiedEvent ev && ev.Amount < 0) {
+			if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
 				foreach (var u in Uses) {
 					u.Use(ev.Who, Item);
 				}

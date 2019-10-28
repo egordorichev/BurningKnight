@@ -7,8 +7,10 @@
 
 # sand & oil 
 
-* fix item description being displayed
-* allow melee arc to reflect your own bullets
+* fix the same items appearing (make sure orbitals can appear more times tho)
+* teleporting removes your key
+
+* fix item description being displayed in wrong place
 * teleportation animation on player
 * cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

@@ -29,7 +29,7 @@ namespace Lens.assets {
 		public static void Load(ref int progress) {
 			LoadAssets(ref progress);
 
-			if (LoadOriginalFiles) {				
+			if (false && LoadOriginalFiles) {				
 				folders = new[] {
 					//"Textures/",
 					"Animations/"
