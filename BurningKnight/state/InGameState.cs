@@ -919,11 +919,11 @@ namespace BurningKnight.state {
 				});
 			}
 
-			if (Run.Depth != 0 && false) {
+			if (Run.Depth != 0) {
 				pauseMenu.Add(new UiButton {
 						LocaleLabel = "back_to_castle",
 						RelativeCenterX = Display.UiWidth / 2f,
-						RelativeCenterY = start + space,
+						RelativeCenterY = start + space * 2,
 						Type = ButtonType.Exit,
 						Click = b => Run.Depth = 0
 				});
