@@ -1,5 +1,4 @@
 using System;
-using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
@@ -9,15 +8,17 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.desert {
-	public class WallTargeter : WallWalker {
+	public class Maggot : WallWalker {
 		private const float TargetDistance = 4f;
 		private const float Speed = 30f;
 		
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new WallAnimationComponent("crawler"));
+			AddComponent(new WallAnimationComponent("maggot"));
 			SetMaxHp(3);
+
+			Depth = Layers.Creature + 1;
 		}
         	
 		#region Crawler States
@@ -82,10 +83,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 
-		public class FireState : SmartState<WallTargeter> {
-			private bool fired;
-			private bool ready;
-			
+		public class FireState : SmartState<Maggot> {
 			public override void Init() {
 				base.Init();
 
@@ -103,9 +101,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (!fired && Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
-					fired = true;
-
+				if (Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
 					if (Self.Target == null) {
 						Become<IdleState>();
 						return;
@@ -113,44 +109,21 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 					var a = Self.GetComponent<WallAnimationComponent>();
 
-					Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);
-					Tween.To(1.6f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+					var angle = Self.Direction.ToAngle();
+					var projectile = Projectile.Make(Self, "small", angle, 5f);
 
-						Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
-						Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
-
-							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
-							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
-
-							ready = true;
-
-							if (Self.Target == null) {
-								return;
-							}
-
-							var angle = Self.Direction.ToAngle();
-							var projectile = Projectile.Make(Self, "small", angle, 5f);
-
-							projectile.AddLight(32f, Projectile.RedLight);
-							projectile.Center += MathUtils.CreateVector(angle, 8);
+					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.Center += MathUtils.CreateVector(angle, 4);
 							
-							AnimationUtil.Poof(projectile.Center);
-						};
-					};
-				}
+					AnimationUtil.Poof(projectile.Center);
 
-				if (!ready) {
-					return;
-				}
-				
-				if (Self.Direction.GetMx() > 0) {
-					if (Math.Abs(Self.DxTo(Self.Target)) > TargetDistance) {
-						Become<IdleState>();
-					}
-				} else {
-					if (Math.Abs(Self.DyTo(Self.Target)) > TargetDistance) {
-						Become<IdleState>();
-					}
+					a.Scale.X = 1.8f;
+					a.Scale.Y = 0.2f;
+					
+					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
+					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+						
+					Become<IdleState>();
 				}
 			}
 		}
