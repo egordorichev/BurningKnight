@@ -4,10 +4,7 @@
 
 * ant lion, sucks you in, pops out of the ground if you dont kill it quick enough
 * floating sand thing thing, poops bullets and flies to the opposite direction
-* enemy orbiter, just shoots a single bullet
 * enemy, that stands still, shoots laser at you and gets pushed back
-* maggot, but on the floor. moves insanely fast and randomly, but mostly torwards you
-* maggot nest: idle, until all enemies are dead or you are too close, spawns tons of maggots and dies
 
 ## ALPHA ENEMIES
 
@@ -29,14 +26,12 @@
 * snipper (nt)
 * enemy, that moves as insane as sk, but not as much
 
-+ slime that shoots to you, when lands
 + burning slime
 + maggot on the floor
 + maggot nest: spawns maggots?
 + scorpion
 + turtle
 
-* Zelda like digging enemy ??
 * bee hive and bee for forest biome
 * Diagonal fly
 

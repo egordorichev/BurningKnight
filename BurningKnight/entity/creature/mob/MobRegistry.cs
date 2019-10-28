@@ -30,8 +30,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
-				
-				MobInfo.New<Fly>(new SpawnChance(100f, Biome.Desert)),
+				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);
