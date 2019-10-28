@@ -16,6 +16,7 @@ namespace BurningKnight.ui.imgui {
 	public static class WindowManager {
 		private static Vector2 size;
 
+		public static bool Cheats;
 		public static bool Debug;
 		public static bool Entities;
 		public static bool RunInfo;
@@ -54,6 +55,7 @@ namespace BurningKnight.ui.imgui {
 		}
 		
 		public static void Render(Area Area) {
+			CheatWindow.Render();
 			AreaDebug.Render(Area);
 			DebugWindow.Render();
 			
@@ -106,6 +108,7 @@ namespace BurningKnight.ui.imgui {
 			
 			ImGui.Separator();
 			
+			ImGui.Checkbox("Cheats", ref Cheats);
 			ImGui.Checkbox("Entities", ref Entities);
 			ImGui.Checkbox("Run Info", ref RunInfo);
 			ImGui.Checkbox("Console", ref Console);

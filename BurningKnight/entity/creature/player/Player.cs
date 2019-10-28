@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
@@ -128,7 +129,7 @@ namespace BurningKnight.entity.creature.player {
 			hp.MaxHealthCap = 32;
 			hp.InvincibilityTimerMax = 1f;
 
-			if (Engine.Version.Dev) {
+			if (CheatWindow.AutoGodMode) {
 				Log.Info("Entering god mode for the player");
 				hp.Unhittable = true;
 			}

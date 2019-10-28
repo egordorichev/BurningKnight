@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets.input;
+using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -44,6 +45,10 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Run.Depth > 0 && Item != null && !Item.Done && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
 				if (Item.Use((Player) Entity)) {
+					if (CheatWindow.InfiniteActive) {
+						Item.Delay = 0;
+					}
+					
 					if (GlobalSave.IsFalse("control_active")) {
 						Entity.GetComponent<DialogComponent>().Close();
 						GlobalSave.Put("control_active", true);
@@ -51,7 +56,7 @@ namespace BurningKnight.entity.creature.player {
 					
 					Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("active_item");
 
-					if (Item.SingleUse) {
+					if (Item.SingleUse && !CheatWindow.InfiniteActive) {
 						Item.Done = true;
 					}
 				}

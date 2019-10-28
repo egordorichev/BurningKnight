@@ -358,7 +358,7 @@ namespace BurningKnight.entity.item {
 			if (e is LostSupportEvent) {
 				Done = true;
 				return true;
-			} else if (e is RoomChangedEvent rce) {
+			} else if (e is RoomChangedEvent rce && !HasComponent<OwnerComponent>()) {
 				if (HasComponent<LightComponent>()) {
 					if (rce.New.Type == RoomType.Secret) {
 						RemoveComponent<LightComponent>();

@@ -69,7 +69,7 @@ namespace BurningKnight.entity.item {
 		private static bool simplify = true;
 
 		public void RenderDebug() {
-			ImGui.Checkbox("Show simplified", ref simplify);
+			/*ImGui.Checkbox("Show simplified", ref simplify);
 			
 			if (simplify) {
 				var vl = Math.Pow(Any, -1);
@@ -111,7 +111,7 @@ namespace BurningKnight.entity.item {
 				}
 
 				return;
-			}
+			}*/
 			
 			ImGui.InputDouble("Chance", ref Any);
 			ImGui.Separator();
