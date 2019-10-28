@@ -1,11 +1,9 @@
 using System;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using BurningKnight.util;
-using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -13,69 +11,80 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob.desert {
 	public class WallTargeter : WallWalker {
 		private const float TargetDistance = 4f;
+		private const float Speed = 30f;
 		
 		protected override void SetStats() {
 			base.SetStats();
 			
-			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 			AddComponent(new WallAnimationComponent("crawler"));
 			SetMaxHp(3);
 		}
         	
 		#region Crawler States
 		public class IdleState : WallWalker.IdleState {
-			public override void Update(float dt) {
-				base.Update(dt);
+			private bool stop;
+			
+			public override void DoLogic(float dt) {
+				base.DoLogic(dt);
 
 				if (Self.Target == null) {
 					ResetVelocity();
 					return;
 				}
 
-				if (mx > 0) {
-					if (Math.Abs(Self.DxTo(Self.Target)) < TargetDistance) {
+				if (mx == 0) {
+					if (Math.Abs(Self.DxTo(Self.Target)) <= TargetDistance) {
 						ResetVelocity();
 						Become<FireState>();
 
 						return;
 					}
-					
-					vx = Self.CenterX > Self.Target.CenterX ? -1 : 1;
-					vy = 0;
+
+					var left = Self.CenterX > Self.Target.CenterX;
+
+					if (Self.Left != left) {
+						InvertVelocity();
+						stop = false;
+					} else {
+						vx = Self.Left ? -1 : 1;
+						vy = 0;	
+					}
 				} else {
-					if (Math.Abs(Self.DyTo(Self.Target)) < TargetDistance) {
+					if (Math.Abs(Self.DyTo(Self.Target)) <= TargetDistance) {
 						ResetVelocity();
 						Become<FireState>();
 
 						return;
 					}
-					
+
+					var left = Self.CenterY > Self.Target.CenterY;
+
+					if (Self.Left != left) {
+						InvertVelocity();
+						stop = false;
+					} else {
+						vx = 0;
+						vy = Self.Left ? -1 : 1;		
+					}
+				}
+
+				if (stop) {
 					vx = 0;
-					vy = Self.CenterY > Self.Target.CenterY ? -1 : 1;	
+					vy = 0;
 				}
 				
-				velocity = new Vector2(vx, vy);
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+				velocity = new Vector2(vx * Speed, vy * Speed);
 			}
 			
 			public override void Flip() {
-				Self.Left = !Self.Left;
-
-				if (Self.T >= 3f) {
-					Become<FireState>();
-					return;
-				}
-
-				velocity *= -1;
-				vx *= -1;
-				vy *= -1;
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				T = 0;
+				ResetVelocity();
+				stop = true;
 			}
 		}
 
 		public class FireState : SmartState<WallTargeter> {
 			private bool fired;
+			private bool ready;
 			
 			public override void Init() {
 				base.Init();
@@ -83,12 +92,12 @@ namespace BurningKnight.entity.creature.mob.desert {
 				Self.T = 0;
 				
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
-				//Self.GetComponent<WallAnimationComponent>().SetAutoStop(true);
+				Self.GetComponent<WallAnimationComponent>().SetAutoStop(true);
 			}
 
 			public override void Destroy() {
 				base.Destroy();
-				//Self.GetComponent<WallAnimationComponent>().SetAutoStop(false);
+				Self.GetComponent<WallAnimationComponent>().SetAutoStop(false);
 			}
 
 			public override void Update(float dt) {
@@ -96,9 +105,9 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 				if (!fired && Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
 					fired = true;
-					T = 0;
 
 					if (Self.Target == null) {
+						Become<IdleState>();
 						return;
 					}
 
@@ -113,6 +122,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
 							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 
+							ready = true;
+
 							if (Self.Target == null) {
 								return;
 							}
@@ -126,8 +137,20 @@ namespace BurningKnight.entity.creature.mob.desert {
 							AnimationUtil.Poof(projectile.Center);
 						};
 					};
-				} else if (fired && T > 1f) {
-					Self.GetComponent<StateComponent>().Become<IdleState>();
+				}
+
+				if (!ready) {
+					return;
+				}
+				
+				if (Self.Direction.GetMx() > 0) {
+					if (Math.Abs(Self.DxTo(Self.Target)) > TargetDistance) {
+						Become<IdleState>();
+					}
+				} else {
+					if (Math.Abs(Self.DyTo(Self.Target)) > TargetDistance) {
+						Become<IdleState>();
+					}
 				}
 			}
 		}

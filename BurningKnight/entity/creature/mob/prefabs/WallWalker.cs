@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.door;
@@ -13,6 +14,7 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct3D11;
 using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
@@ -29,9 +31,11 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 		protected override void SetStats() {
 			base.SetStats();
+			
 			Width = 16;
 			Height = 16;
 			Left = Random.Chance();
+			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 		}
 
 		private bool locked;
@@ -110,7 +114,16 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				vy = 0;
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
 			}
-			
+
+			public void InvertVelocity() {
+				Self.Left = !Self.Left;
+				velocity *= -1;
+				vx *= -1;
+				vy *= -1;
+				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+				T = 0;
+			}
+
 			public override void Init() {
 				base.Init();
 				
@@ -144,7 +157,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 				if (!Run.Level.Get((int) Math.Round(mx / 16f), (int) Math.Round(my / 16f)).IsWall()) {
 					Self.GetComponent<HealthComponent>().Kill(Self);
-					return;
+					//return;
 				}
 				
 				mx = Self.X + (this.mx + vx * 0.5f) * 16;
@@ -168,17 +181,17 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					Flip();
 					return;
 				}
-				
+
+				DoLogic(dt);
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+			}
+
+			public virtual void DoLogic(float dt) {
+				
 			}
 			
 			public virtual void Flip() {
-				Self.Left = !Self.Left;
-				velocity *= -1;
-				vx *= -1;
-				vy *= -1;
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				T = 0;
+				InvertVelocity();
 			}
 		}
 		#endregion
