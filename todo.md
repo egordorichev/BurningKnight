@@ -1,5 +1,7 @@
 # ui update
 
+* fix laser pointer and nozzle
+
 * buff icons on creature heads
 * buffs display on mobs (like poisoned, charmed)
 * look into fullscreen bug
@@ -28,6 +30,7 @@
 
 # TODO
 
+* camera zoom setting?
 * dark mage/granny rooms
 
 * duck interaction

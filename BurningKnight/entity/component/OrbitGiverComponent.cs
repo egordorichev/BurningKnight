@@ -24,19 +24,26 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			T += dt;
-			count += (Orbiting.Count - count) * dt;
+			count += (Orbiting.Count - count) * dt * 4;
 
 			for (var i = Orbiting.Count - 1; i >= 0; i--) {
 				var e = Orbiting[i];
-				var d = e.GetComponent<OrbitalComponent>().Radius * RadiusMultiplier;
+				var component = e.GetComponent<OrbitalComponent>();
+				var d = component.Radius * RadiusMultiplier;
 				var a = i / count * Math.PI * 2 - T;
 
 				if (e.Done) {
 					Orbiting.RemoveAt(i);
 					continue;
 				}
-				
-				e.Center = Entity.Center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+
+				var target = Entity.Center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+
+				if (component.Lerp) {
+					e.Center += (target - e.Center) * (dt * 8);
+				} else {
+					e.Center = target;
+				}
 			}
 		}
 

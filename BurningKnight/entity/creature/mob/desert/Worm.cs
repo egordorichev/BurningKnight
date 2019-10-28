@@ -21,23 +21,42 @@ namespace BurningKnight.entity.creature.mob.desert {
 			AddComponent(body);
 			body.KnockbackModifier = 0;
 
-			if (Random.Chance()) {
-				Become<HiddenState>();
-			} else {
-				Become<IdleState>();
-			}
+			Become<IdleState>();
 		}
 
 		#region Worm 
 		public class HiddenState : SmartState<Worm> {
 			private float delay;
+			private Vector2 target;
 
 			public override void Init() {
 				base.Init();
 
+				var i = 0;
+
+				do {
+					var spot = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
+
+					if (Self.Target == null || Self.Target.DistanceTo(spot) > 32f) {
+						target = new Vector2(spot.X + 8, spot.Y);
+						break;
+					}
+
+					i++;
+
+					if (i > 99) {
+						Log.Error("Failed to find a spot where to dig up");
+
+						break;
+					}
+				} while (true);
+				
 				Self.TouchDamage = 0;
 				Self.GetComponent<HealthComponent>().Unhittable = true;
 				delay = Random.Float(0.5f, 1.5f);
+
+				Tween.To(target.X, Self.CenterX, x => Self.CenterX = x, delay);
+				Tween.To(target.Y, Self.CenterY, y => Self.CenterY = y, delay);
 			}
 
 			public override void Destroy() {
@@ -79,28 +98,6 @@ namespace BurningKnight.entity.creature.mob.desert {
 		public class ShowingState : SmartState<Worm> {
 			public override void Init() {
 				base.Init();
-
-				var i = 0;
-
-				do {
-					var spot = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16 + new Vector2(8);
-
-					if (Self.Target == null || Self.Target.DistanceTo(spot) > 32f) {
-						Self.CenterX = spot.X;
-						Self.Bottom = spot.Y;
-
-						break;
-					}
-
-					i++;
-
-					if (i > 99) {
-						Log.Error("Failed to find a spot where to dig up");
-
-						break;
-					}
-				} while (true);
-
 				Self.GetComponent<MobAnimationComponent>().SetAutoStop(true);
 			}
 

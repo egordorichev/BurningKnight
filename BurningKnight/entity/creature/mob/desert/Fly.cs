@@ -1,27 +1,33 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
 using Lens.util.tween;
 
 namespace BurningKnight.entity.creature.mob.desert {
-	public class CactusOrbital : Mob {
+	public class Fly : Mob {
 		protected const float DefaultZ = 2;
 		
 		protected override void SetStats() {
 			base.SetStats();
 
-			SetMaxHp(5);
+			SetMaxHp(3);
 			
-			AddComponent(new ZAnimationComponent("cactus_orbital"));
-			AddComponent(new RectBodyComponent(1, 1, 8, 7));
+			var body = new RectBodyComponent(1, 1, 10, 8);
+			AddComponent(body);
+			body.Body.LinearDamping = 4;
+			
+			AddComponent(new ZAnimationComponent("fly"));
 			AddComponent(new ZComponent());
 			
 			AddComponent(new OrbitalComponent {
-				Radius = 12
+				Radius = 12,
+				Lerp = true
 			});
-			
+
+			Depth = Layers.Wall;
 			Become<IdleState>();
 		}
 		
@@ -49,28 +55,16 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 				
 					var an = AngleTo(Target);
-					var projectile = Projectile.Make(this, "spike", an, 6f, false);
+					var projectile = Projectile.Make(this, "small", an, 8f, false, 0, null, 0.8f);
 
 					projectile.Center = Center + MathUtils.CreateVector(an, 2f);
 					projectile.AddLight(32f, Projectile.RedLight);
-
-					projectile.OnDeath += (p, t) => {
-						an -= (float) Math.PI;
-
-						var ap = Projectile.Make(this, "spike", an - 0.2f, 8f, false, 0, projectile, 0.6f);
-						ap.Center = projectile.Center;
-						ap.AddLight(32f, Projectile.RedLight);
-
-						var bp = Projectile.Make(this, "spike", an + 0.2f, 8f, false, 0, projectile, 0.6f);
-						bp.Center = projectile.Center;
-						bp.AddLight(32f, Projectile.RedLight);
-					};
 				};
 			};
 		}
 
 		#region Cactus States
-		public class IdleState : SmartState<CactusOrbital> {
+		public class IdleState : SmartState<Fly> {
 			private bool searched;
 			private Entity target;
 
@@ -86,7 +80,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 				if (!searched) {
 					searched = true;
-					target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Mob, e => !e.HasComponent<OrbitalComponent>());
+					target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Mob, e => !e.HasComponent<OrbitalComponent>() && !(e is WallWalker));
 				}
 
 				if (target != null) {
@@ -99,14 +93,14 @@ namespace BurningKnight.entity.creature.mob.desert {
 					return;
 				}
 
-				if (T >= 2f) {
+				if (T >= 3f) {
 					T = 0;
 					Self.Fire();
 				}
 			}
 		}
 		
-		public class OrbitingState : SmartState<CactusOrbital> {
+		public class OrbitingState : SmartState<Fly> {
 			public override void Init() {
 				base.Init();
 				
