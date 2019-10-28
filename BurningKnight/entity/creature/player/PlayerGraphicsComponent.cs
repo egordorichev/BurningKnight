@@ -31,7 +31,6 @@ using MonoGame.Extended;
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
 		private static Color AimLineColor = new Color(1f, 0f, 0f, 1f);
-		private static Color AimBackColor = new Color(0.9f, 0f, 0f, 0.5f);
 
 		private Vector2 scale = Vector2.One;
 		private Animation head;
@@ -147,7 +146,7 @@ namespace BurningKnight.entity.creature.player {
 				var aim = GetComponent<AimComponent>();
 				
 				if (aim.ShowLaserLine) {
-					var from = Entity.Center;
+					var from = aim.Center;
 					var to = aim.Aim;
 					var min = 1f;
 					var closest = MathUtils.CreateVector(MathUtils.Angle(to.X - from.X, to.Y - from.Y), Display.UiWidth) + from;
@@ -161,7 +160,7 @@ namespace BurningKnight.entity.creature.player {
 						return min;
 					}, from, to);
 					
-					Graphics.Batch.FillRectangle((int) closest.X - 1, (int) closest.Y - 1,3, 3, AimBackColor);
+					Graphics.Batch.FillRectangle((int) closest.X - 1, (int) closest.Y - 1,3, 3, AimLineColor);
 					Graphics.Batch.DrawLine(from, new Vector2((int) closest.X, (int) closest.Y), AimLineColor, 1);
 				}
 			}

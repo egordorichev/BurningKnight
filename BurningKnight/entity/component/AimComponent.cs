@@ -17,6 +17,7 @@ namespace BurningKnight.entity.component {
 
 		public AimType TheType;
 		public Vector2 Aim;
+		public Vector2 Center;
 		public bool ShowLaserLine;
 
 		public override void Update(float dt) {
@@ -33,6 +34,8 @@ namespace BurningKnight.entity.component {
 					Aim = a[0].Center;
 				}
 			}
+
+			Center = Entity.Center;
 		}
 	}
 }

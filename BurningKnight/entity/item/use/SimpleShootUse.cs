@@ -68,12 +68,11 @@ namespace BurningKnight.entity.item.use {
 				if (bad) {
 					sl = "small";
 				}
-				
-				var a = entity.AngleTo(entity.GetComponent<AimComponent>().Aim);
+
+				var aim = entity.GetComponent<AimComponent>();
+				var from = aim.Center;
+				var a = MathUtils.Angle(aim.Aim.X - from.X, aim.Aim.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
-				var s = item.Region;
-				// fixme: offset up too? :(
-				var offset = MathUtils.CreateVector(a, s.Width / 2f);
 
 				for (var i = 0; i < count; i++) {
 					var angle = a;
@@ -105,7 +104,7 @@ namespace BurningKnight.entity.item.use {
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;
 					}
 					
-					projectile.Position += offset;
+					projectile.Center = from;
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
