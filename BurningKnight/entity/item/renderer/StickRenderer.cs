@@ -7,6 +7,7 @@ using Lens.lightJson;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.item.renderer {
 	public class StickRenderer : ItemRenderer {
@@ -36,7 +37,6 @@ namespace BurningKnight.entity.item.renderer {
 		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			var region = Item.Region;
 			var owner = Item.Owner;
-			var origin = horizontal ? new Vector2(0, region.Height / 2f) : new Vector2(region.Width / 2f, region.Height);
 			
 			if (!atBack && !paused) {
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim) + Math.PI * 0.5f, dt * 6f);
@@ -53,14 +53,18 @@ namespace BurningKnight.entity.item.renderer {
 				owner.CenterY + offset + (shadow ? owner.Height : 0)
 			);
 
-			var or = origin + new Vector2(0, currentMove);
-
-			if (!atBack) {
-				owner.GetComponent<AimComponent>().Center = pos - or;
-			}
+			var or = Origin + new Vector2(0, currentMove);
 
 			Graphics.Render(region, pos, shadow ? -angle : angle, 
 				or, new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
+			
+			if (!atBack) {
+				owner.GetComponent<AimComponent>().Center = MathUtils.RotateAround(Nozzle, -angle, pos - or);
+				/*Graphics.Batch.DrawLine(pos, pos + MathUtils.CreateVector(angle - (horizontal ? (float) Math.PI * 0.5f : 0), region.Height), Color.Blue);
+				Graphics.Batch.DrawCircle(owner.GetComponent<AimComponent>().Center, 1, 8, Color.Green);
+				Graphics.Batch.DrawCircle(pos, 1, 8, Color.Yellow);
+				Graphics.Batch.DrawCircle(MathUtils.RotateAround(Origin, angle, pos), 1, 8, Color.Magenta);*/
+			}
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -72,7 +76,9 @@ namespace BurningKnight.entity.item.renderer {
 			returnTime = settings["rt"].Number(0.2f);
 		}
 
-		public static void RenderDebug(string id, JsonValue parent, JsonValue root) {
+		public static void RenderDebug(string id, JsonValue parent, JsonValue root) {			
+			ItemRenderer.RenderDebug(id, parent, root);
+
 			var h = root["h"].Bool(false);
 
 			if (ImGui.Checkbox("Horizontal", ref h)) {
