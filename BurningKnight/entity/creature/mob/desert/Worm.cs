@@ -121,7 +121,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 1f) {
+				if (T >= 3f) {
 					if (Self.Target == null || Self.DistanceTo(Self.Target) > 96f) {
 						Become<HidingState>();
 					} else {

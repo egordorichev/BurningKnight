@@ -9,6 +9,7 @@
 * holy mantel
 * cutsaw: rolling hurt enemies
 * controlled bullet 
+* speedup orbitals, spawns only if you have an orbital
 * sword with projectiles
 * sword with projectiles only when full hp
 * item, that makes bomb explode on touching enemy

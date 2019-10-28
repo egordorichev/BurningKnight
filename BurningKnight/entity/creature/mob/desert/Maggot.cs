@@ -84,6 +84,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 		}
 
 		public class FireState : SmartState<Maggot> {
+			private bool shot; 
+			
 			public override void Init() {
 				base.Init();
 
@@ -101,11 +103,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
+				if (!shot && Self.GetComponent<WallAnimationComponent>().Animation.Paused) {
 					if (Self.Target == null) {
 						Become<IdleState>();
 						return;
 					}
+
+					shot = true;
 
 					var a = Self.GetComponent<WallAnimationComponent>();
 
@@ -121,9 +125,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 					a.Scale.Y = 0.2f;
 					
 					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
-					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
-						
-					Become<IdleState>();
+					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f).OnEnd = () => { Become<IdleState>(); };
 				}
 			}
 		}

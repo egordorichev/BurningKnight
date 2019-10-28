@@ -36,9 +36,10 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 
 			var a = AngleTo(Target);
-			var projectile = Projectile.Make(this, "small", a, 6f);
+			var projectile = Projectile.Make(this, "small", a, 5f);
 
 			projectile.Center = Center + MathUtils.CreateVector(a, 5f);
+			projectile.Range = 1f;
 			projectile.AddLight(32f, Projectile.RedLight);
 			
 			GetComponent<RectBodyComponent>().KnockbackFrom(a - (float) Math.PI, 0.3f);

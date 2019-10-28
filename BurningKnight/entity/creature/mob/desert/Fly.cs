@@ -5,6 +5,7 @@ using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.desert {
 	public class Fly : Mob {
@@ -92,6 +93,14 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Become<OrbitingState>();
 					return;
 				}
+				
+				var dx = Self.DxTo(Self.Target);
+				var dy = Self.DyTo(Self.Target);
+				var d = MathUtils.Distance(dx, dy);
+
+				var s = dt * 100;
+
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2(dx / d * s, dy / d * s);
 
 				if (T >= 3f) {
 					T = 0;
@@ -122,7 +131,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Self.GetComponent<ZComponent>().Z = z.Z + DefaultZ;
 				}
 				
-				if (T >= 1f) {
+				if (T >= 3f) {
 					T = 0;
 					Self.Fire();
 				}
