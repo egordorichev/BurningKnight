@@ -380,5 +380,11 @@ namespace BurningKnight.entity.creature.mob {
 			
 			ImGui.Text($"Prefix: {(Prefix == null ? "null" : Prefix.Id)}");
 		}
+		
+		protected void TurnToTarget() {
+			if (Target != null) {
+				GraphicsComponent.Flipped = Target.CenterX < CenterX;
+			}
+		}
 	}
 }

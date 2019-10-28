@@ -28,9 +28,14 @@ namespace Lens.assets {
 			Stereo = source.Stereo;
 			channels = (byte) (Stereo ? 2 : 1);
 
-			SoundInstance = new DynamicSoundEffectInstance(SampleRate, Stereo ? AudioChannels.Stereo : AudioChannels.Mono);
-			SoundInstance.Play();
-			dynamicBuffer = new byte[BufferSize * 2];
+			try {
+				SoundInstance = new DynamicSoundEffectInstance(SampleRate, Stereo ? AudioChannels.Stereo : AudioChannels.Mono);
+				SoundInstance.Play();
+				dynamicBuffer = new byte[BufferSize * 2];
+			} catch (Exception e) {
+				Log.Error("Failed to create music source");
+				Log.Error(e);
+			}
 		}
 		
 		private static object GetInstanceField(Type type, object instance, string fieldName) {
@@ -40,6 +45,10 @@ namespace Lens.assets {
 		}
 
 		public void Update() {
+			if (SoundInstance == null) {
+				return;
+			}
+			
 			while (SoundInstance.PendingBufferCount < 3) {
 				var bufferLength = Buffer.Length / channels;
 				var dynamicBufferLength = BufferSize / channels;
