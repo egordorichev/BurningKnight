@@ -7,7 +7,6 @@ namespace BurningKnight.entity.creature.mob.desert {
 			base.SetStats();
 			
 			SetMaxHp(4);
-
 			AddAnimation("mummy");
 			
 			var body = new RectBodyComponent(3, 3, 7, 13);

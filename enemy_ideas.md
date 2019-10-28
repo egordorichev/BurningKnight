@@ -6,10 +6,8 @@
 * floating sand thing thing, poops bullets and flies to the opposite direction
 * enemy orbiter, just shoots a single bullet
 * enemy, that stands still, shoots laser at you and gets pushed back
-* creeper
 * maggot, but on the floor. moves insanely fast and randomly, but mostly torwards you
 * maggot nest: idle, until all enemies are dead or you are too close, spawns tons of maggots and dies
-* worm: pops up, waits, fires bullet hell at you, hides, goes to another place, repeat
 
 ## ALPHA ENEMIES
 

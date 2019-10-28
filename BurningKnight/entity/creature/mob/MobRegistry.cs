@@ -28,7 +28,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
-				MobInfo.New<Worm>(new SpawnChance(100f, Biome.Desert)),
+				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Spelunker>(new SpawnChance(100f, Biome.Desert)),
 				
 				// MobInfo.New<CactusOrbital>(new SpawnChance(1f, Biome.Desert)),
 			};

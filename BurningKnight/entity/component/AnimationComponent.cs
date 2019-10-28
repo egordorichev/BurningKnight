@@ -23,6 +23,8 @@ namespace BurningKnight.entity.component {
 		public float Angle;
 		public float OriginY;
 		public float OriginX;
+
+		public bool Flash;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
@@ -104,19 +106,15 @@ namespace BurningKnight.entity.component {
 		}
 		
 		protected bool StartShaders() {
-			if (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt) {
-				var i = health.InvincibilityTimer;
-				
-				if (i > health.InvincibilityTimerMax / 2f || i % 0.1f > 0.05f) {
-					var shader = Shaders.Entity;
-					Shaders.Begin(shader);
+			if (Flash || (Entity.TryGetComponent<HealthComponent>(out var health) && health.RenderInvt && (health.InvincibilityTimer > health.InvincibilityTimerMax / 2f || health.InvincibilityTimer % 0.1f > 0.05f))) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
 
-					shader.Parameters["flash"].SetValue(1f);
-					shader.Parameters["flashReplace"].SetValue(1f);
-					shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				shader.Parameters["flash"].SetValue(1f);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
 
-					return true;
-				}
+				return true;
 			}
 
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
