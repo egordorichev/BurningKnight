@@ -111,9 +111,13 @@ namespace BurningKnight.save {
 			Run.ResetStats();
 
 			if (GlobalSave.IsFalse("finished_tutorial")) {
-				Run.Depth = -2;
-				Run.IntoMenu = true;
-				Log.Info("Throwing the player into tutorial");
+				if (BK.Version.Dev) {
+					GlobalSave.Put("finished_tutorial", true);
+				} else {
+					Run.Depth = -2;
+					Run.IntoMenu = true;
+					Log.Info("Throwing the player into tutorial");
+				}
 			}
 
 			Put("mimic_chance", 0.2f);

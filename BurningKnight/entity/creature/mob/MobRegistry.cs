@@ -27,6 +27,7 @@ namespace BurningKnight.entity.creature.mob {
 				// Desert
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<CactusOrbital>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<WallTargeter>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);

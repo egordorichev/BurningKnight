@@ -103,6 +103,13 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			protected float vy;
 			protected int mx;
 			protected int my;
+
+			public void ResetVelocity() {
+				velocity = Vector2.Zero;
+				vx = 0;
+				vy = 0;
+				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+			}
 			
 			public override void Init() {
 				base.Init();
