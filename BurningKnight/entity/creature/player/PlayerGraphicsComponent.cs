@@ -1,7 +1,17 @@
 ﻿using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
+using BurningKnight.entity.projectile;
+using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.level;
+using BurningKnight.level.entities;
+using BurningKnight.physics;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens;
@@ -20,6 +30,9 @@ using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
+		private static Color AimLineColor = new Color(1f, 0f, 0f, 1f);
+		private static Color AimBackColor = new Color(0.9f, 0f, 0f, 0.5f);
+
 		private Vector2 scale = Vector2.One;
 		private Animation head;
 		public Vector2 Scale = Vector2.One;
@@ -110,6 +123,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Render(shadow);
 		}
 
+		private static bool RayShouldCollide(Entity entity) {
+			return entity is SolidProp || !(entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
+		}
+
 		public override void Render(bool shadow) {
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
 			var w = !(GetComponent<StateComponent>().StateInstance is Player.RollState);
@@ -118,13 +135,35 @@ namespace BurningKnight.entity.creature.player {
 				GetComponent<WeaponComponent>().Render(shadow, o);
 			}
 			
-			
 			var stopShader = StartShaders();
 
 			SimpleRender(shadow);
 
 			if (stopShader) {
 				Shaders.End();
+			}
+
+			if (!shadow) {
+				var aim = GetComponent<AimComponent>();
+				
+				if (aim.ShowLaserLine) {
+					var from = Entity.Center;
+					var to = aim.Aim;
+					var min = 1f;
+					var closest = MathUtils.CreateVector(MathUtils.Angle(to.X - from.X, to.Y - from.Y), Display.UiWidth) + from;
+
+					Physics.World.RayCast((fixture, point, normal, fraction) => {
+						if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
+							min = fraction;
+							closest = point;
+						}
+
+						return min;
+					}, from, to);
+					
+					Graphics.Batch.FillRectangle((int) closest.X - 1, (int) closest.Y - 1,3, 3, AimBackColor);
+					Graphics.Batch.DrawLine(from, new Vector2((int) closest.X, (int) closest.Y), AimLineColor, 1);
+				}
 			}
 
 			if (w) {

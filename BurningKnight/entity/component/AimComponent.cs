@@ -17,6 +17,7 @@ namespace BurningKnight.entity.component {
 
 		public AimType TheType;
 		public Vector2 Aim;
+		public bool ShowLaserLine;
 
 		public override void Update(float dt) {
 			base.Update(dt);

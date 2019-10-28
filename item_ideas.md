@@ -5,6 +5,9 @@
 
 ### items
 
+* nuclear throne perks: strong soul, hammer head, etc 
+* holy mantel
+* cutsaw: rolling hurt enemies
 * controlled bullet 
 * sword with projectiles
 * sword with projectiles only when full hp

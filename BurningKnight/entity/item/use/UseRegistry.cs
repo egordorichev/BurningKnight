@@ -100,6 +100,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DuplicateItemsUse>();
 			Register<DuplicateMobsUse>();
 			Register<DuplicateMobsAndHealUse>();
+			Register<GiveLaserAimUse>();
 		}
 	}
 }

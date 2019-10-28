@@ -59,6 +59,10 @@ namespace Lens.util {
 		public static float Distance(float dx, float dy) {
 			return (float) Math.Sqrt(dx * dx + dy * dy);
 		}
+
+		public static float Angle(float dx, float dy) {
+			return (float) Math.Atan2(dy, dx);
+		}
 		
 		public static double ShortAngleDistance(double a0, double a1) {
 			double max = Math.PI * 2;
