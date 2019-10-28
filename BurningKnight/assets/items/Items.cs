@@ -343,7 +343,6 @@ namespace BurningKnight.assets.items {
 		}
 
 		public static bool ShouldAppear(ItemData t) {
-			// doesnt work???
 			return (!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
 			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
 			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";

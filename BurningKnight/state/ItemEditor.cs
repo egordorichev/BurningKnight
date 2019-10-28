@@ -474,12 +474,15 @@ namespace BurningKnight.state {
 		private static bool locked = true;
 		private static int pools;
 		private static int sortBy;
+		private static bool single;
+		private static bool invertSpawn;
 
 		private static string[] sortTypes = {
 			"None",
 			"Type",
 			"Lockable",
-			"Pool"
+			"Pool",
+			"Single spawn"
 		};
 		
 		private static void Sort() {
@@ -597,6 +600,9 @@ namespace BurningKnight.state {
 					ImGui.Checkbox("Lockable", ref locked);
 				} else if (sortBy == 3) {
 					if (ImGui.TreeNode("Spawns in")) {
+						ImGui.Checkbox("Does not spawn", ref invertSpawn);
+						ImGui.Separator();
+						
 						var i = 0;
 						
 						foreach (var p in ItemPool.ById) {
@@ -615,6 +621,8 @@ namespace BurningKnight.state {
 						
 						ImGui.TreePop();
 					}
+				} else if (sortBy == 4) {
+					ImGui.Checkbox("Single?", ref single);
 				}
 			}
 
@@ -644,7 +652,7 @@ namespace BurningKnight.state {
 							if (i.Lockable != locked) {
 								continue;
 							}
-						} else {
+						} else if (sortBy == 3) {
 							var found = false;
 							
 							for (var j = 0; j < 32; j++) {
@@ -654,7 +662,11 @@ namespace BurningKnight.state {
 								}
 							}
 
-							if (!found) {
+							if (invertSpawn == found) {
+								continue;
+							}
+						} else if (sortBy == 4) {
+							if (i.Single != single) {
 								continue;
 							}
 						}
