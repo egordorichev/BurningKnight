@@ -120,14 +120,6 @@ namespace BurningKnight.entity.creature.npc {
 			stream.WriteSbyte(Mood);
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-
-			if (GameSave.IsTrue("sk_enraged")) {
-				Enrage();
-			}
-		}
-
 		public void Enrage() {
 			if (raging) {
 				return;
@@ -160,6 +152,10 @@ namespace BurningKnight.entity.creature.npc {
 				}
 			} else if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					if (GameSave.IsTrue("sk_enraged")) {
+						Enrage();
+					}
+					
 					Recalc();
 					
 					if (Mood > -1) {
