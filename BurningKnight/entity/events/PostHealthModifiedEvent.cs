@@ -6,5 +6,6 @@ namespace BurningKnight.entity.events {
 		public Entity From;
 		public Entity Who;
 		public bool Default = true;
+		public DamageType Type = DamageType.Regular;
 	}
 }

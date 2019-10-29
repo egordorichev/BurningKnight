@@ -20,7 +20,7 @@ namespace BurningKnight.entity.component {
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
 
-		public bool SetHealth(int hp, Entity setter, bool mod = true) {
+		public bool SetHealth(int hp, Entity setter, bool mod = true, DamageType type = DamageType.Regular) {
 			if (hp == health) {
 				return false;
 			}
@@ -37,7 +37,8 @@ namespace BurningKnight.entity.component {
 			var e = new HealthModifiedEvent {
 				Amount = h - old,
 				Who = Entity,
-				From = setter
+				From = setter,
+				Type = type
 			};
 			
 			if (!Send(e)) {
@@ -56,7 +57,8 @@ namespace BurningKnight.entity.component {
 				Send(new PostHealthModifiedEvent {
 					Amount = e.Amount,
 					Who = Entity,
-					From = setter
+					From = setter,
+					Type = type
 				});
 
 				if (health == 0 && AutoKill) {
@@ -69,7 +71,7 @@ namespace BurningKnight.entity.component {
 			return false;
 		}
 
-		public bool ModifyHealth(int amount, Entity setter) {
+		public bool ModifyHealth(int amount, Entity setter, DamageType type = DamageType.Regular) {
 			if (amount < 0 && Entity is Player && (Run.Depth != -2 && Run.Depth < 1)) {
 				if (Unhittable || InvincibilityTimer > 0 || Health == 0) {
 					return false;
@@ -98,7 +100,7 @@ namespace BurningKnight.entity.component {
 				}
 			}
 			
-			return SetHealth(health + (amount), setter);
+			return SetHealth(health + (amount), setter, true, type);
 		}
 
 		private int maxHealth;
@@ -174,7 +176,7 @@ namespace BurningKnight.entity.component {
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");
 				
-				ModifyHealth(Entity is Player ? -2 : -16, b.Who);
+				ModifyHealth(Entity is Player ? -2 : -16, b.Who, DamageType.Explosive);
 
 				var component = Entity.GetAnyComponent<BodyComponent>();
 				component?.KnockbackFrom(b.Who, 2);

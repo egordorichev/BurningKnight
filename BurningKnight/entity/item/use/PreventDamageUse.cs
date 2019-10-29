@@ -17,7 +17,7 @@ namespace BurningKnight.entity.item.use {
 				if ((spikes && ev.From is Spikes)
 				    || (lava && ev.From is Level)
 				    || (chasm && ev.From is Chasm)
-				    || (bombs && ev.From is Bomb)) {
+				    || (bombs && ev.Type == DamageType.Explosive)) {
 					
 					return true;
 				}
@@ -56,7 +56,7 @@ namespace BurningKnight.entity.item.use {
 			
 			v = root["bms"].Bool(false);
 
-			if (ImGui.Checkbox("From bombs", ref v)) {
+			if (ImGui.Checkbox("From explosions", ref v)) {
 				root["bms"] = v;
 			}
 		}
