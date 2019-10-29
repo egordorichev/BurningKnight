@@ -37,7 +37,7 @@ namespace BurningKnight.save {
 				entity.Save(writer);
 				writer.Cache = false;
 
-				writer.WriteInt16((short) writer.CacheSize);
+				writer.WriteUint16((ushort) writer.CacheSize);
 				writer.Flush();
 				
 				last = entity;
@@ -70,7 +70,7 @@ namespace BurningKnight.save {
 		}
 
 		protected virtual void ReadEntity(Area area, FileReader reader, string type, bool post) {
-			var size = reader.ReadInt16();
+			var size = reader.ReadUint16();
 			var position = reader.Position;
 
 			try {

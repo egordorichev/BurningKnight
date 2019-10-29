@@ -361,14 +361,21 @@ namespace BurningKnight.level {
 			Light = new float[Size];
 			Flags = new byte[Size];
 			WallDecor = new byte[Size];
+			Explored = new bool[Size];
 
+			var light = Run.Depth == 0;
+			
 			for (var i = 0; i < Size; i++) {
 				if (Random.Chance(10)) {
 					WallDecor[i] = (byte) Random.Int(1, 9);
 				}
+
+				if (light) {
+					Explored[i] = true;
+					Light[i] = 1;
+				}
 			}
 			
-			Explored = new bool[Size];
 			Passable = new bool[Size];
 			
 			PathFinder.SetMapSize(Width, Height);

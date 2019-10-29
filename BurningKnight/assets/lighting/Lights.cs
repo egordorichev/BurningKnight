@@ -28,6 +28,10 @@ namespace BurningKnight.assets.lighting {
 		private static BlendState messBlend;
 		
 		public static void Init() {
+			var v = Run.Depth == 0 ? 1 : 0.2f;
+			
+			clearColor = new Color(v, v, v, 1f);
+			
 			if (region == null) {
 				region = Textures.Get("light");
 
@@ -125,7 +129,7 @@ namespace BurningKnight.assets.lighting {
 		private static int surfaceBlendId = 5;
 		private static float radiusMod = 1;
 		public static bool EnableFog = true;
-		private static Color clearColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+		private static Color clearColor;
 
 		private static BlendState lightBlend = BlendState.Additive;
 		private static int lightBlendId = 0;

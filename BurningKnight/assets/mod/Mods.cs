@@ -10,6 +10,10 @@ namespace BurningKnight.assets.mod {
 		public static string BurningKnight = "bk";
 		
 		public static void Load() {
+			if (true) {
+				return;
+			}
+			
 			var dir = FileHandle.FromRoot("Mods/");
 
 			if (!dir.Exists()) {

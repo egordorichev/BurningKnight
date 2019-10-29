@@ -230,11 +230,8 @@ namespace BurningKnight.state {
 			if (!Run.StartedNew && !died) {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
-				if (d != -2) {
-					SaveManager.Save(Area, SaveType.Level, old);
-				}
-
 				if (d > 0) {
+					SaveManager.Save(Area, SaveType.Level, old);
 					SaveManager.Save(Area, SaveType.Player, old);
 					SaveManager.Save(Area, SaveType.Game, old);
 				}

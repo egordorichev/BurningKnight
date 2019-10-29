@@ -1,5 +1,9 @@
 # ui update
 
+* battery is confusing
+* explain what items do (redo small descriptions to be better)
+
+* glass statue was not removed??
 * fix laser pointer and nozzle
 
 * buff icons on creature heads
