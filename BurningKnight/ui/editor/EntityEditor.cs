@@ -63,14 +63,19 @@ namespace BurningKnight.ui.editor {
 			
 			types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
 		}
+
+		private static bool open;
 		
 		public static void Render() {
 			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Entity placer")) {
 				ImGui.End();
+				open = false;
 				return;
 			}
+
+			open = true;
 			
 			var down = !ImGui.GetIO().WantCaptureMouse && Input.Mouse.CheckLeftButton;
 			var clicked = !ImGui.GetIO().WantCaptureMouse && MouseData.HadClick;
@@ -222,6 +227,10 @@ namespace BurningKnight.ui.editor {
 		}
 
 		public static void RenderInGame() {
+			if (!open) {
+				return;
+			}
+			
 			if (HoveredEntity != null) {
 				Graphics.Batch.DrawRectangle(HoveredEntity.Position - new Vector2(1), new Vector2(HoveredEntity.Width + 2, HoveredEntity.Height + 2), new Color(0.7f, 0.7f, 1f, 1f));
 			}

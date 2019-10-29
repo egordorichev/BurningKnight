@@ -35,10 +35,11 @@ namespace BurningKnight.ui.editor {
 		private static Texture2D tilesetTexture;
 		private static IntPtr tilesetPointer;
 		private static bool fill;
-		
+		private static bool open;
+
 		public static TileInfo CurrentInfo;
 		public static bool Grid;
-
+		
 		public static void ReloadBiome() {
 			biomes = new string[BiomeRegistry.Defined.Count];
 			var i = 0;
@@ -88,8 +89,11 @@ namespace BurningKnight.ui.editor {
 		public static void Render() {
 			if (!ImGui.Begin("Tile editor", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
+				open = false;
 				return;
 			}
+
+			open = true;
 
 			if (ImGui.Combo("Biome", ref currentBiome, biomes, biomes.Length)) {
 				Editor.Level.SetBiome(BiomeRegistry.Get(biomes[currentBiome]));
@@ -186,6 +190,10 @@ namespace BurningKnight.ui.editor {
 		}
 
 		public static void RenderInGame() {
+			if (!open) {
+				return;
+			}
+			
 			Color color;
 
 			if (Grid) {
