@@ -40,7 +40,7 @@ namespace Desktop.integration.crash {
 			var message = builder.ToString();
 			Log.Error(message);
 			
-			File.WriteAllText("crashes.txt", message);
+			File.AppendAllText("crashes.txt", message);
 		}
 
 		private static string GetMonoVersion() {
