@@ -20,11 +20,19 @@ namespace BurningKnight.entity.item.use {
 			for (var i = 0; i < Amount; i++) {
 				if (Randomly) {
 					Lens.util.timer.Timer.Add(() => {
+						if (entity?.Area == null) {
+							return;
+						}
+							
 						var bomb = new Bomb(entity, Timer);
 						entity.Area.Add(bomb);
 						bomb.Center = room == null ? entity.Center + Random.Vector(-4, 4) : room.GetRandomFreeTile() * 16 + new Vector2(8);
 					}, i * 0.1f);
 				} else {
+					if (entity?.Area == null) {
+						return;
+					}
+					
 					var bomb = new Bomb(entity, Timer);
 					entity.Area.Add(bomb);
 					
