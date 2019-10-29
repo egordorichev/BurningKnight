@@ -5,7 +5,7 @@ using BurningKnight.level.rooms;
 
 namespace BurningKnight.level.hall {
 	public class HallLevel : RegularLevel {
-		public HallLevel() : base(BiomeRegistry.Get(Biome.Castle)) {
+		public HallLevel() : base(BiomeRegistry.Get(Biome.Hub)) {
 
 		}
 

@@ -117,7 +117,7 @@ namespace BurningKnight.state {
 				} else {
 					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 				}
-				
+
 				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
 		}

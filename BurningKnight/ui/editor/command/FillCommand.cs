@@ -50,11 +50,12 @@ namespace BurningKnight.ui.editor.command {
 		public void Do(Level level) {
 			try {
 				var i = level.ToIndex(X, Y);
+				var l = level.Liquid[i] != 0;
 				
 				Dir8 = Input.Keyboard.IsDown(Keys.LeftShift);
-				Start = level.Liquid[i] == 0 ? level.Get(i) : level.Get(i, true);
+				Start = l ? level.Get(i, true) : level.Get(i);
 				
-				Set(level, X, Y, Start.Matches(TileFlags.LiquidLayer));
+				Set(level, X, Y, l);
 			} catch (Exception e) {
 				Log.Error(e);
 				Log.Error("Failed to fill");

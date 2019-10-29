@@ -13,6 +13,11 @@ namespace BurningKnight.assets.prefabs {
 		private static Dictionary<string, Prefab> loaded = new Dictionary<string, Prefab>();
 		private static List<string> paths = new List<string>();
 		private static PrefabSaver saver = new PrefabSaver();
+
+		public static void Reload() {
+			loaded.Clear();
+			Load();
+		}
 		
 		public static void Load() {
 			Load(FileHandle.FromRoot("Prefabs/"));

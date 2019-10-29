@@ -1,5 +1,6 @@
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.prefabs;
 using BurningKnight.entity.component;
 using BurningKnight.level;
 using BurningKnight.level.tile;
@@ -22,7 +23,7 @@ using Console = BurningKnight.debug.Console;
 namespace BurningKnight.state {
 	public class EditorState : GameState {
 		public Level Level;
-		public SettingsWindow Settings;
+		public EditorWindow Editor;
 		public Camera Camera;
 		public Console Console;
 		
@@ -39,7 +40,7 @@ namespace BurningKnight.state {
 
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
 
-			Settings = new SettingsWindow(new Editor {
+			Editor = new EditorWindow(new Editor {
 				Area = Area,
 				Level = Level,
 				Camera = Camera
@@ -47,7 +48,7 @@ namespace BurningKnight.state {
 			
 			Console = new Console(Area);
 
-			Level = Settings.Editor.Level;
+			Level = Editor.Editor.Level;
 			for (var i = 0; i < Level.Explored.Length; i++) {
 				Level.Explored[i] = true;
 			}
@@ -60,8 +61,9 @@ namespace BurningKnight.state {
 			Lights.Destroy();
 			
 			Engine.EditingLevel = false;
+			Prefabs.Reload();
 		}
-		
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			Console.Update(dt);
@@ -94,12 +96,12 @@ namespace BurningKnight.state {
 			PrerenderShadows();
 			base.Render();
 
-			Settings.RenderInGame();
+			Editor.RenderInGame();
 		}
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
-			Settings.Render();
+			Editor.Render();
 			Console.Render();
 			WindowManager.Render(Area);
 			ImGuiHelper.End();			

@@ -74,7 +74,7 @@ namespace BurningKnight.state {
 		private SaveLock saveLock = new SaveLock();
 
 		private Painting painting;
-		private SettingsWindow settings;
+		private EditorWindow editor;
 
 		public bool Menu;
 
@@ -738,7 +738,7 @@ namespace BurningKnight.state {
 			PrerenderShadows();
 			base.Render();
 			Physics.Render();
-			settings.RenderInGame();
+			editor.RenderInGame();
 		}
 
 		private float emeraldY = -20;
@@ -826,7 +826,7 @@ namespace BurningKnight.state {
 			Ui.Add(cam);
 			Ui.Add(new AchievementBanner());
 			
-			settings = new SettingsWindow(new Editor {
+			editor = new EditorWindow(new Editor {
 				Area = Area,
 				Level = Run.Level,
 				Camera = cam
@@ -1866,7 +1866,7 @@ namespace BurningKnight.state {
 			ImGuiHelper.Begin();
 			
 			console.Render();
-			settings.Render();
+			editor.Render();
 			
 			WindowManager.Render(Area);
 			ImGuiHelper.End();

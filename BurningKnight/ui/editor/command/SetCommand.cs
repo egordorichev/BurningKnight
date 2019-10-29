@@ -1,5 +1,7 @@
 using BurningKnight.level;
 using BurningKnight.level.tile;
+using BurningKnight.state;
+using Lens;
 
 namespace BurningKnight.ui.editor.command {
 	public class SetCommand : Command {
@@ -24,14 +26,20 @@ namespace BurningKnight.ui.editor.command {
 			
 			level.Set(index, Tile);
 			level.UpdateTile(X, Y);
-			level.ReCreateBodyChunk(X, Y);
+
+			if (Engine.Instance.State is InGameState) {
+				level.ReCreateBodyChunk(X, Y);
+			}
 		}
 
 		public void Undo(Level level) {
 			level.Set(X, Y, before);
 			level.Set(X, Y, beforeLiquid);
 			level.UpdateTile(X, Y);
-			level.ReCreateBodyChunk(X, Y);
+
+			if (Engine.Instance.State is InGameState) {
+				level.ReCreateBodyChunk(X, Y);
+			}
 		}
 	}
 }
