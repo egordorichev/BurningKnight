@@ -1,5 +1,6 @@
 # ui update
 
+* fix music speed
 * battery is confusing
 * explain what items do (redo small descriptions to be better)
 

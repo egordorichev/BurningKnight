@@ -44,7 +44,7 @@ namespace BurningKnight.level.rooms.secret {
 		}
 
 		public override bool ShouldSpawnMobs() {
-			return Random.Chance(10);
+			return false;
 		}
 	}
 }

@@ -373,5 +373,9 @@ namespace BurningKnight.entity.creature.npc {
 			}
 		}
 		#endregion
+
+		public override bool ShouldCollide(Entity entity) {
+			return !(entity is ItemStand) && base.ShouldCollide(entity);
+		}
 	}
 }

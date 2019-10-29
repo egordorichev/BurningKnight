@@ -1,10 +1,11 @@
 ### to rework
 
-* sharp/dull blade
 * can (different sprite and name)
+* rename button into voodoo doll
 
 ### items
 
+* single time shop sale
 * nuclear throne perks: strong soul, hammer head, etc 
 * holy mantel
 * cutsaw: rolling hurt enemies
