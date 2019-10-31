@@ -35,8 +35,8 @@ namespace Lens.assets {
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
 		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
-
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
+		private static bool running;
 
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
@@ -54,6 +54,8 @@ namespace Lens.assets {
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
+			running = true;
+
 		}
 
 		private static void LoadSfx(string sfx) {
@@ -62,6 +64,7 @@ namespace Lens.assets {
 		}
 		
 		internal static void Destroy() {
+			running = false;
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
 			}
@@ -124,27 +127,14 @@ namespace Lens.assets {
 			currentPlayingMusic = music;
 				
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				AudioFile file;
-
-				if (UseOgg) {
-					try {
-						file = AudioImporter.Load($"{Assets.Content.RootDirectory}Music/{music}.ogg");
-					} catch (Exception e) {
-						Log.Error(e);
-						return;
-					}
-				} else {
-					file = Assets.Content.Load<AudioFile>($"bin/Music/{music}");
-				}
-
-				currentPlaying = new Music(file);
+				currentPlaying = new Music($"Content/Music/{music}.ogg");
 				musicInstances[music] = currentPlaying;
-				currentPlaying.PlayFromStart();
+				//currentPlaying.PlayFromStart();
 			}
 
-			currentPlaying.Volume = 0;
+			/*currentPlaying.Volume = 0;
 			currentPlaying.Repeat = repeat;
-			currentPlaying.Paused = false;
+			currentPlaying.Paused = false;*/
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
@@ -183,7 +173,7 @@ namespace Lens.assets {
 		}
 		
 		public static void Update() {
-			currentPlaying?.Update();
+			
 		}
 	}
 }

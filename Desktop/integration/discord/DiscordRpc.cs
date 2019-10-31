@@ -16,21 +16,16 @@ namespace Desktop.integration.discord {
 		public delegate void JoinRequestCallback(ref JoinRequest request);
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void ReadyCallback();
+		public delegate void ReadyCallback(ref DiscordUser connectedUser);
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate void SpectateGameCallback(string spectateSecret);
 
-		public enum ReplyValue {
-			No = 0,
-			Yes = 1,
-			Ignore = 2
-		}
-
 		private const string DiscordDll = "discord-rpc.dll";
 
 		[DllImport(DiscordDll, EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister, string optionalSteamId);
+		public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister,
+			string optionalSteamId);
 
 		[DllImport(DiscordDll, EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void UpdatePresence(ref RichPresence presence);
@@ -44,6 +39,20 @@ namespace Desktop.integration.discord {
 		[DllImport(DiscordDll, EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void Shutdown();
 
+		public enum ReplyValue {
+			No = 0,
+			Yes = 1,
+			Ignore = 2
+		}
+		
+		[Serializable]
+		public struct DiscordUser {
+			public string userId;
+			public string username;
+			public string discriminator;
+			public string avatar;
+		}
+		
 		[Serializable]
 		public struct JoinRequest {
 			public string userId;

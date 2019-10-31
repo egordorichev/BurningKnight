@@ -41,27 +41,33 @@ namespace Desktop.integration.discord {
 				lastUpdate = 0;
 				
 				UpdateStatus();
+				DiscordRpc.RunCallbacks();
 			}
 		}
 		
 		private void UpdateStatus() {
-			var Status = new DiscordRpc.RichPresence();
+			var status = new DiscordRpc.RichPresence();
 
 			if (Run.Level != null) {
-				Status.details = $"{Locale.Get(Run.Level.Biome.Id)} {(Run.Depth < 1 ? "" : MathUtils.ToRoman(Run.Depth))}";
+				status.details = $"{Locale.Get(Run.Level.Biome.Id)} {(Run.Depth < 1 ? "" : MathUtils.ToRoman((Run.Depth - 1) % 2 + 1))}";
 				var p = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 				if (p != null) {
 					var h = p.GetComponent<HatComponent>().Item;
 
 					if (h.Id != "bk:no_hat") {
-						Status.state = $"{(h?.Name ?? "No hat :(")}";
+						status.state = $"{(h?.Name ?? "No hat :(")}";
 					}
 				}
 			}
+
+			status.smallImageKey = "hero_mercy";
+			status.smallImageText = "hero_mercy";
+			status.largeImageKey = "hero_mercy";
+			status.largeImageKey = "burningknight.net";
+			status.startTimestamp = startTime;
 			
-			Status.startTimestamp = startTime;
-			DiscordRpc.UpdatePresence(ref Status);
+			DiscordRpc.UpdatePresence(ref status);
 		}
 
 		public override void Destroy() {
@@ -69,19 +75,16 @@ namespace Desktop.integration.discord {
 			DiscordRpc.Shutdown();
 		}
 
-		private static void ReadyCallback() {
-			Log.Debug("YAY");
-			Console.WriteLine($"Discord::Ready()");
+		private static void ReadyCallback(ref DiscordRpc.DiscordUser user) {
+			Log.Info($"Discord connected! Welcome, {user.username}#{user.discriminator}!");
 		}
 
 		private static void DisconnectedCallback(int errorCode, string message) {
-			Log.Debug("YAY");
-			Console.WriteLine($"Discord::Disconnect({errorCode}, {message})");
+			Log.Info($"Discord disconnected {errorCode} {message}");
 		}
 
 		private static void ErrorCallback(int errorCode, string message) {
-			Log.Debug("YAY");
-			Console.WriteLine($"Discord::Error({errorCode}, {message})");
+			Log.Error($"Discord error {errorCode} {message}");
 		}
 	}
 }
