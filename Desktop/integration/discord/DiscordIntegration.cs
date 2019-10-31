@@ -30,9 +30,13 @@ namespace Desktop.integration.discord {
 			callbacks.errorCallback += ErrorCallback;
 			callbacks.readyCallback += ReadyCallback;
 			
-			DiscordRpc.Initialize("459603244256198657", ref callbacks, true, string.Empty);
-
-			UpdateStatus();
+			
+			try {
+				DiscordRpc.Initialize("459603244256198657", ref callbacks, true, string.Empty);
+				UpdateStatus();
+			} catch (Exception e) {
+				Log.Error(e);	
+			}
 		}
 
 		public override void Update(float dt) {
@@ -42,8 +46,12 @@ namespace Desktop.integration.discord {
 			if (lastUpdate >= 3f) {
 				lastUpdate = 0;
 				
-				UpdateStatus();
-				DiscordRpc.RunCallbacks();
+				try {
+					UpdateStatus();
+					DiscordRpc.RunCallbacks();
+				} catch (Exception e) {
+					Log.Error(e);	
+				}
 			}
 		}
 		
