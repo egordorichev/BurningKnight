@@ -14,20 +14,18 @@ using VelcroPhysics;
 
 namespace Lens.assets {
 	public class Audio {
-		public static bool UseOgg = true;
 		public static float SfxVolume = 1;
+		private const float CrossFadeTime = 1f;
 
-		private const float CrossFadeTime = 0.5f;
-		private static bool repeat;
-
-		public static bool Repeat;
-
-		private static SoundEffectInstance currentPlaying;
+		private static Music currentPlaying;
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
+		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
-		private static bool running;
 
+		public static bool Repeat;
+		public static DynamicSoundEffectInstance SoundEffectInstance;
+		
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
 				foreach (var sfx in file.ListFileHandles()) {
@@ -44,8 +42,6 @@ namespace Lens.assets {
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
-			running = true;
-
 		}
 
 		private static void LoadSfx(string sfx) {
@@ -54,7 +50,6 @@ namespace Lens.assets {
 		}
 		
 		internal static void Destroy() {
-			running = false;
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
 			}
@@ -93,7 +88,7 @@ namespace Lens.assets {
 			}
 			
 			Repeat = true;
-			FadeOut();
+			// FadeOut();
 			LoadAndPlayMusic(music);
 		}
 
@@ -102,7 +97,7 @@ namespace Lens.assets {
 		private static void LoadAndPlayMusic(string music) {
 			loading = true;
 			
-			/*if (musicInstances.TryGetValue(music, out currentPlaying)) {
+			if (musicInstances.TryGetValue(music, out currentPlaying)) {
 				ThreadLoad(music);
 			} else {
 				new Thread(() => {
@@ -110,34 +105,33 @@ namespace Lens.assets {
 					ThreadLoad(music);
 					Log.Info($"Ended loading {music}");
 				}).Start();
-			}*/
+			}
 		}
 
-		/*private static void ThreadLoad(string music) {
+		private static void ThreadLoad(string music) {
 			currentPlayingMusic = music;
 				
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				currentPlaying = new Music($"Content/Music/{music}.ogg");
+				currentPlaying = new Music($"Content/Music/{music}.wav");
 				musicInstances[music] = currentPlaying;
-				//currentPlaying.PlayFromStart();
 			}
 
-			/*currentPlaying.Volume = 0;
-			currentPlaying.Repeat = repeat;
+			currentPlaying.Volume = musicVolume;
+			currentPlaying.Repeat = Repeat;
 			currentPlaying.Paused = false;
 
 			var m = currentPlaying;
-			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
+	//		Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
 			loading = false;
-		}*/
+		}
 
 		public static void FadeOut() {
 			if (currentPlaying != null) {
 				var m = currentPlaying;
 				
-				/*Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
+				Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
 					m.Paused = true;
-				};*/
+				};
 				
 				currentPlaying = null;
 				currentPlayingMusic = null;
@@ -164,6 +158,10 @@ namespace Lens.assets {
 		
 		public static void Update() {
 			
+		}
+
+		public static void UpdateBuffer(object sender, EventArgs e) {
+			currentPlaying?.UpdateBuffer();
 		}
 	}
 }

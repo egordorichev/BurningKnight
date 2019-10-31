@@ -196,7 +196,7 @@ namespace BurningKnight.level {
 		}
 
 		private bool Check(Level level, int x, int y) {
-			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid)) && level.Get(x, y) != Tile.Planks;
+			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid)); //&& level.Get(x, y) != Tile.Planks;
 		}
 	}
 }
