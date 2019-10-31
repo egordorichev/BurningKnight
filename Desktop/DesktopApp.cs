@@ -19,12 +19,10 @@ namespace Desktop {
 		protected override void Initialize() {
 			base.Initialize();
 
-			if (!BK.Version.Dev) {
-				integrations.Add(new DiscordIntegration());
-				integrations.Add(new SteamIntegration());
+			integrations.Add(new DiscordIntegration());
+			integrations.Add(new SteamIntegration());
 
-				// integrations.Add(new RgbIntegration());
-			}
+			// integrations.Add(new RgbIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();
