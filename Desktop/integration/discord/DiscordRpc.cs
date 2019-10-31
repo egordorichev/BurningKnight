@@ -3,49 +3,37 @@ using System.Runtime.InteropServices;
 
 namespace Desktop.integration.discord {
 	public class DiscordRpc {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void DisconnectedCallback(int errorCode, string message);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void ErrorCallback(int errorCode, string message);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void JoinGameCallback(string joinSecret);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void JoinRequestCallback(ref JoinRequest request);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void ReadyCallback(ref DiscordUser connectedUser);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate void SpectateGameCallback(string spectateSecret);
-
-		private const string DiscordDll = "discord-rpc.dll";
-
-		[DllImport(DiscordDll, EntryPoint = "Discord_Initialize", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void Initialize(string applicationId, ref EventHandlers handlers, bool autoRegister,
-			string optionalSteamId);
-
-		[DllImport(DiscordDll, EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void UpdatePresence(ref RichPresence presence);
-
-		[DllImport(DiscordDll, EntryPoint = "Discord_Respond", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void Respond(string userid, ReplyValue reply);
-
-		[DllImport(DiscordDll, EntryPoint = "Discord_RunCallbacks", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void RunCallbacks();
-
-		[DllImport(DiscordDll, EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void Shutdown();
-
-		public enum ReplyValue {
-			No = 0,
-			Yes = 1,
-			Ignore = 2
+		public struct EventHandlers {
+			public IntPtr ready;
+			public IntPtr disconnected;
+			public IntPtr errored;
+			public IntPtr joinGame;
+			public IntPtr spectateGame;
+			public IntPtr joinRequest;
 		}
+
+		//--------------------------------------------------------------------------------
+
+		public struct RichPresence {
+			public string state;
+			public string details;
+			public Int64 startTimestamp;
+			public Int64 endTimestamp;
+			public string largeImageKey;
+			public string largeImageText;
+			public string smallImageKey;
+			public string smallImageText;
+			public string partyId;
+			public int partySize;
+			public int partyMax;
+			public string matchSecret;
+			public string joinSecret;
+			public string spectateSecret;
+			public sbyte instance;
+		}
+
+		//--------------------------------------------------------------------------------
 		
-		[Serializable]
 		public struct DiscordUser {
 			public string userId;
 			public string username;
@@ -53,40 +41,77 @@ namespace Desktop.integration.discord {
 			public string avatar;
 		}
 		
-		[Serializable]
 		public struct JoinRequest {
 			public string userId;
 			public string username;
-			public string discriminator;
 			public string avatar;
 		}
 
-		[Serializable]
-		public struct RichPresence {
-			public string state; /* max 128 bytes */
-			public string details; /* max 128 bytes */
-			public long startTimestamp;
-			public long endTimestamp;
-			public string largeImageKey; /* max 32 bytes */
-			public string largeImageText; /* max 128 bytes */
-			public string smallImageKey; /* max 32 bytes */
-			public string smallImageText; /* max 128 bytes */
-			public string partyId; /* max 128 bytes */
-			public int partySize;
-			public int partyMax;
-			public string matchSecret; /* max 128 bytes */
-			public string joinSecret; /* max 128 bytes */
-			public string spectateSecret; /* max 128 bytes */
-			public byte instance;
+		//--------------------------------------------------------------------------------
+
+		public enum Reply : int {
+			No = 0,
+			Yes = 1,
+			Ignore = 2
 		}
 
-		public struct EventHandlers {
-			public ReadyCallback readyCallback;
-			public DisconnectedCallback disconnectedCallback;
-			public ErrorCallback errorCallback;
-			public JoinGameCallback joinCallback;
-			public SpectateGameCallback spectateCallback;
-			public JoinRequestCallback joinRequestCallback;
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_Initialize([MarshalAs(UnmanagedType.LPStr)] string applicationID,
+			ref EventHandlers handlers,
+			int autoRegister,
+			[MarshalAs(UnmanagedType.LPStr)] string optionalSteamId);
+
+		public static void Initialize(string appID, EventHandlers handlers) {
+			Discord_Initialize(appID, ref handlers, 1, String.Empty);
+		}
+
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_UpdatePresence(IntPtr presence);
+
+		public static void UpdatePresence(RichPresence presence) {
+			IntPtr ptrPresence = Marshal.AllocHGlobal(Marshal.SizeOf(presence));
+			Marshal.StructureToPtr(presence, ptrPresence, false);
+			Discord_UpdatePresence(ptrPresence);
+		}
+
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_Shutdown();
+
+		public static void Shutdown() {
+			Discord_Shutdown();
+		}
+
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_UpdateConnection();
+
+		public static void UpdateConnection() {
+			Discord_UpdateConnection();
+		}
+
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_RunCallbacks();
+
+		public static void RunCallbacks() {
+			Discord_RunCallbacks();
+		}
+
+		//--------------------------------------------------------------------------------
+
+		[DllImport("discord-rpc.dll")]
+		private static extern void Discord_Respond(string userId, int reply);
+
+		public static void Respond(string userID, Reply reply) {
+			Discord_Respond(userID, (int) reply);
 		}
 	}
 }

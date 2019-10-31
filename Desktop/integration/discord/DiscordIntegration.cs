@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.state;
@@ -7,6 +8,8 @@ using Lens.assets;
 using Lens.util;
 
 namespace Desktop.integration.discord {
+	public delegate void OnReadyInfo(DiscordRpc.DiscordUser connectedUser);
+
 	public class DiscordIntegration : Integration {
 		public static string CurrentPlayer;
 		
@@ -18,19 +21,15 @@ namespace Desktop.integration.discord {
 		public static long CurrentTimeMillis() {
 			return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
 		}
+
+		private OnReadyInfo OnReadyInfo;
 		
 		public override void Init() {
 			base.Init();
 
 			startTime = CurrentTimeMillis() / 1000;
-			
-			var callbacks = new DiscordRpc.EventHandlers();
-			
-			callbacks.disconnectedCallback += DisconnectedCallback;
-			callbacks.errorCallback += ErrorCallback;
-			callbacks.readyCallback += ReadyCallback;
-			
-			DiscordRpc.Initialize("459603244256198657", ref callbacks, true, string.Empty);
+
+			DiscordRpc.Initialize("459603244256198657", new DiscordRpc.EventHandlers());
 
 			UpdateStatus();
 		}
@@ -67,26 +66,12 @@ namespace Desktop.integration.discord {
 			status.largeImageText = "burningknight.net";
 			status.startTimestamp = startTime;
 			
-			DiscordRpc.UpdatePresence(ref status);
+			DiscordRpc.UpdatePresence(status);
 		}
 
 		public override void Destroy() {
 			base.Destroy();
 			DiscordRpc.Shutdown();
-		}
-
-		private static void ReadyCallback(ref DiscordRpc.DiscordUser user) {
-			CurrentPlayer = user.username;
-			Log.Info($"Discord connected! Welcome, {user.username}#{user.discriminator}!");
-		}
-
-		private static void DisconnectedCallback(int errorCode, string message) {
-			CurrentPlayer = null;
-			Log.Info($"Discord disconnected {errorCode} {message}");
-		}
-
-		private static void ErrorCallback(int errorCode, string message) {
-			Log.Error($"Discord error {errorCode} {message}");
 		}
 	}
 }
