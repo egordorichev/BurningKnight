@@ -1,37 +1,22 @@
 using System;
 using Lens.util;
 using Microsoft.Xna.Framework.Audio;
-using NAudio.Wave;
 
 namespace Lens.assets {
 	public class Music {
-		private const int BufferDuration = 100;
-		
-		private int position;
-		private int count;
-		private byte[] byteArray;
+		private float[] buffer;
+		private int channels;
+		private int sampleRate;
+		private int bufferLength;
 		
 		public bool Repeat = true;
-
-		public bool Paused {
-			get => Audio.SoundEffectInstance.State != SoundState.Playing;
-
-			set {
-				if (value) {
-					Audio.SoundEffectInstance.Pause();					 
-				} else {
-					Audio.SoundEffectInstance.Play();
-				}
-			}
-		}
-
-		public float Volume {
-			get => Audio.SoundEffectInstance.Volume;
-			set => Audio.SoundEffectInstance.Volume = value;
-		}
+		public bool Paused = false;
+		public float Volume = 1;
 
 		public Music(string musicFile) {			
+			Log.Info($"Started loading {musicFile}");
 			LoadMusic(musicFile);
+			Log.Info($"Ended loading {musicFile}");
 		}
 
 		public void Play() {
@@ -49,36 +34,36 @@ namespace Lens.assets {
 		}
 
 		private void LoadMusic(string musicFile) {
-			using (var reader = new WaveFileReader(musicFile)) {
-				byteArray = new byte[reader.Length];
-				var read = reader.Read(byteArray, 0, byteArray.Length);
-
-				Log.Debug($"Differenece: {byteArray.Length - read}, sample: {reader.WaveFormat.SampleRate}");
-			
+			using (var reader = new NVorbis.VorbisReader(musicFile)) {
+				channels = reader.Channels;
+				sampleRate = reader.SampleRate;
+				
+				Log.Info($"Sample rate is {sampleRate}, channels {channels}");
+				
+				var channelSize = sampleRate * reader.TotalTime.TotalSeconds;
+				var bufferSize = (int) Math.Ceiling(channels * channelSize);
+				
+				buffer = new float[bufferSize];
+				reader.ReadSamples(buffer, 0, bufferSize);
+				bufferLength = bufferSize / channels;
 				
 				if (Audio.SoundEffectInstance == null) {
-					Audio.SoundEffectInstance = new DynamicSoundEffectInstance(reader.WaveFormat.SampleRate, AudioChannels.Stereo);
+					Audio.SoundEffectInstance = new DynamicSoundEffectInstance(sampleRate, AudioChannels.Stereo);
+					Audio.SoundEffectInstance.Play();
 				}
-
-				count = AlignTo8Bytes(Audio.SoundEffectInstance.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(BufferDuration)) + 4);
-				Audio.SoundEffectInstance.BufferNeeded += Audio.UpdateBuffer;
-				Audio.SoundEffectInstance.Play();
 			}
 		}
 
-		public void UpdateBuffer() {
-			Audio.SoundEffectInstance.SubmitBuffer(byteArray, position, count / 2);
-			Audio.SoundEffectInstance.SubmitBuffer(byteArray, position + count / 2, count / 2);
-
-			position += count;
-
-			if (position + count > byteArray.Length) {
+		public float GetSample(uint position, int channel) {
+			if (position >= bufferLength) {
 				if (!Repeat) {
-					Audio.SoundEffectInstance.Stop();
+					return 0;
 				}
-				
-				position = 0;
+
+				position = (uint) (position % bufferLength);
 			}
+			
+			return Paused ? 0 : buffer[(position * channels + channel)] * Volume;
 		}
 	}
 }

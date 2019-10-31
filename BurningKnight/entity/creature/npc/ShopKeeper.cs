@@ -350,7 +350,7 @@ namespace BurningKnight.entity.creature.npc {
 					Init();
 				}
 
-				if (Self.shotgun != null) {
+				if (Self.shotgun != null && Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
 					Self.shotgun.Use(Self);
 				}
 				

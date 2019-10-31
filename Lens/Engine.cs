@@ -127,7 +127,7 @@ namespace Lens {
 
 		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
-			Audio.Update();
+			Audio.UpdateAudio();
 
 			GameTime = gameTime;
 			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;

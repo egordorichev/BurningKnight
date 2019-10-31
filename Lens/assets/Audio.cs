@@ -15,7 +15,7 @@ using VelcroPhysics;
 namespace Lens.assets {
 	public class Audio {
 		public static float SfxVolume = 1;
-		private const float CrossFadeTime = 1f;
+		private const float CrossFadeTime = 0.5f;
 
 		private static Music currentPlaying;
 		private static string currentPlayingMusic;
@@ -25,6 +25,8 @@ namespace Lens.assets {
 
 		public static bool Repeat;
 		public static DynamicSoundEffectInstance SoundEffectInstance;
+
+		public static List<Music> Playing = new List<Music>();
 		
 		private static void LoadSfx(FileHandle file) {
 			if (file.Exists()) {
@@ -42,6 +44,7 @@ namespace Lens.assets {
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
+			new Thread(Update).Start();
 		}
 
 		private static void LoadSfx(string sfx) {
@@ -53,6 +56,8 @@ namespace Lens.assets {
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
 			}
+
+			quit = true;
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
@@ -83,45 +88,65 @@ namespace Lens.assets {
 		}
 		
 		public static void PlayMusic(string music) {
-			if (!Assets.LoadAudio || loading || currentPlayingMusic == music) {
+			if (!Assets.LoadAudio || loading) {
+				return;
+			}
+
+			if (currentPlayingMusic == music) {
+				currentPlaying.Volume = musicVolume;
 				return;
 			}
 			
-			Repeat = true;
-			// FadeOut();
+			Log.Info($"Playing music {music} {Playing.Count}");
+			
+			Repeat = true;			
+			FadeOut();
 			LoadAndPlayMusic(music);
 		}
 
 		private static bool loading;
 
 		private static void LoadAndPlayMusic(string music) {
-			loading = true;
-			
 			if (musicInstances.TryGetValue(music, out currentPlaying)) {
 				ThreadLoad(music);
 			} else {
 				new Thread(() => {
-					Log.Info($"Started loading {music}");
 					ThreadLoad(music);
-					Log.Info($"Ended loading {music}");
 				}).Start();
 			}
 		}
 
-		private static void ThreadLoad(string music) {
+		private static void ThreadLoad(string music, bool play = true) {		
+			loading = true;
+
+			if (!play) {
+				musicInstances[music] = new Music($"Content/Music/{music}.ogg");
+				loading = false;
+				return;
+			}
+
 			currentPlayingMusic = music;
-				
+
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				currentPlaying = new Music($"Content/Music/{music}.wav");
+				currentPlaying = new Music($"Content/Music/{music}.ogg");
 				musicInstances[music] = currentPlaying;
 			}
 
-			currentPlaying.Volume = musicVolume;
+			var mo = currentPlaying;
+
+			currentPlaying.Volume = 0;
 			currentPlaying.Repeat = Repeat;
 			currentPlaying.Paused = false;
 
-			var m = currentPlaying;
-	//		Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
+			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, CrossFadeTime).OnEnd = () => {
+				Playing.Clear();
+				Playing.Add(currentPlaying);
+			};
+
+			if (!Playing.Contains(currentPlaying)) {
+				Playing.Add(currentPlaying);
+			}
+			
 			loading = false;
 		}
 
@@ -130,7 +155,10 @@ namespace Lens.assets {
 				var m = currentPlaying;
 				
 				Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
-					m.Paused = true;
+					if (m != currentPlaying) {
+						m.Paused = true;
+						Playing.Remove(m);
+					}
 				};
 				
 				currentPlaying = null;
@@ -155,13 +183,72 @@ namespace Lens.assets {
 
 			musicVolume = value;
 		}
-		
-		public static void Update() {
-			
-		}
 
-		public static void UpdateBuffer(object sender, EventArgs e) {
-			currentPlaying?.UpdateBuffer();
+		private static bool loadedAll;
+		private static List<string> toLoad = new List<string> {
+			"Shopkeeper", "Ma Precious", "Serendipity", 
+		};
+		
+		public static void UpdateAudio() {
+			if (loadedAll || currentPlaying == null || loading) {
+				return;
+			}
+
+			var name = toLoad[0];
+			toLoad.RemoveAt(0);
+
+			if (toLoad.Count == 0) {
+				loadedAll = true;
+			}
+			
+			ThreadLoad(name, false);
+		}
+		
+		private const int BufferSize = 3000;
+		private const int Channels = 2;
+		private static byte[] byteBuffer = new byte[BufferSize * 2 * Channels];
+		private static uint position;
+		private static bool quit;
+
+		private static void Update() {
+			while (true) {
+				if (quit) {
+					return;
+				}
+				
+				while (Playing.Count > 0 && SoundEffectInstance.PendingBufferCount < 3) {
+					for (var i = 0; i < BufferSize; i++) {
+						for (var c = 0; c < Channels; c++) {
+							var floatSample = 0f;
+
+							foreach (var p in Playing) {
+								floatSample += p.GetSample(position, c);
+							}
+							
+							floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
+
+							var shortSample =
+								(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+
+							var index = (i * Channels + c) * 2;
+
+							if (!BitConverter.IsLittleEndian) {
+								byteBuffer[index] = (byte) (shortSample >> 8);
+								byteBuffer[index + 1] = (byte) shortSample;
+							} else {
+								byteBuffer[index] = (byte) shortSample;
+								byteBuffer[index + 1] = (byte) (shortSample >> 8);
+							}
+						}
+
+						position++;
+					}
+
+					SoundEffectInstance.SubmitBuffer(byteBuffer);
+				}
+			
+				Thread.Sleep(50);
+			}
 		}
 	}
 }

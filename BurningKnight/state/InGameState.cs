@@ -104,6 +104,8 @@ namespace BurningKnight.state {
 			Shaders.Ui.Parameters["by"].SetValue(v.Y / Display.UiHeight);
 
 			Tween.To(0, 1, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f).OnEnd = callback;
+
+			Audio.FadeOut();
 		}
 
 		public void TransitionToOpen(Action callback = null) {
