@@ -8,6 +8,8 @@ using Lens.util;
 
 namespace Desktop.integration.discord {
 	public class DiscordIntegration : Integration {
+		public static string CurrentPlayer;
+		
 		private float lastUpdate;
 		private long startTime;
 		
@@ -61,10 +63,8 @@ namespace Desktop.integration.discord {
 				}
 			}
 
-			status.smallImageKey = "hero_mercy";
-			status.smallImageText = "hero_mercy";
-			status.largeImageKey = "hero_mercy";
-			status.largeImageKey = "burningknight.net";
+			status.largeImageKey = "bk";
+			status.largeImageText = "burningknight.net";
 			status.startTimestamp = startTime;
 			
 			DiscordRpc.UpdatePresence(ref status);
@@ -76,10 +76,12 @@ namespace Desktop.integration.discord {
 		}
 
 		private static void ReadyCallback(ref DiscordRpc.DiscordUser user) {
+			CurrentPlayer = user.username;
 			Log.Info($"Discord connected! Welcome, {user.username}#{user.discriminator}!");
 		}
 
 		private static void DisconnectedCallback(int errorCode, string message) {
+			CurrentPlayer = null;
 			Log.Info($"Discord disconnected {errorCode} {message}");
 		}
 

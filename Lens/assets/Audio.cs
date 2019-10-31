@@ -19,22 +19,12 @@ namespace Lens.assets {
 
 		private const float CrossFadeTime = 0.5f;
 		private static bool repeat;
-		
-		public static bool Repeat {
-			get => repeat;
-			set {
-				if (currentPlaying != null) {
-					currentPlaying.Repeat = value;
-				}
 
-				repeat = value;
-			}
-		}
+		public static bool Repeat;
 
-		private static Music currentPlaying;
+		private static SoundEffectInstance currentPlaying;
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
-		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 		private static bool running;
 
@@ -112,7 +102,7 @@ namespace Lens.assets {
 		private static void LoadAndPlayMusic(string music) {
 			loading = true;
 			
-			if (musicInstances.TryGetValue(music, out currentPlaying)) {
+			/*if (musicInstances.TryGetValue(music, out currentPlaying)) {
 				ThreadLoad(music);
 			} else {
 				new Thread(() => {
@@ -120,10 +110,10 @@ namespace Lens.assets {
 					ThreadLoad(music);
 					Log.Info($"Ended loading {music}");
 				}).Start();
-			}
+			}*/
 		}
 
-		private static void ThreadLoad(string music) {
+		/*private static void ThreadLoad(string music) {
 			currentPlayingMusic = music;
 				
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
@@ -134,20 +124,20 @@ namespace Lens.assets {
 
 			/*currentPlaying.Volume = 0;
 			currentPlaying.Repeat = repeat;
-			currentPlaying.Paused = false;*/
+			currentPlaying.Paused = false;
 
 			var m = currentPlaying;
 			Tween.To(musicVolume, m.Volume, x => m.Volume = x, CrossFadeTime);
 			loading = false;
-		}
+		}*/
 
 		public static void FadeOut() {
 			if (currentPlaying != null) {
 				var m = currentPlaying;
 				
-				Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
+				/*Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
 					m.Paused = true;
-				};
+				};*/
 				
 				currentPlaying = null;
 				currentPlayingMusic = null;

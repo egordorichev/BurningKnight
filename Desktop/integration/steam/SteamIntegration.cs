@@ -1,7 +1,10 @@
 using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.save;
+using Lens.entity;
 using Lens.util;
 using Steamworks;
+using Achievement = Steamworks.Data.Achievement;
 
 namespace Desktop.integration.steam {
 	public class SteamIntegration : Integration {
@@ -14,10 +17,27 @@ namespace Desktop.integration.steam {
 				SteamClient.Init(4000);
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
-				
+
 				Log.Info("Starting from steam! <3");
+
+				foreach (var achievement in SteamUserStats.Achievements) {
+					Achievements.Unlock(achievement.Identifier);
+				}
+
+				Achievements.UnlockedCallback += (id) => {
+					Log.Info($"Unlocking achievement {id} in steam!");
+					new Achievement(id).Trigger();
+				};
 			} catch (Exception e) {
 				Log.Info("No steam no fire :/");
+			}
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (LaunchedFromSteam) {
+				SteamClient.RunCallbacks();
 			}
 		}
 
@@ -26,6 +46,7 @@ namespace Desktop.integration.steam {
 
 			if (LaunchedFromSteam) {
 				SteamClient.Shutdown();
+				LaunchedFromSteam = false;
 			}
 		}
 	}

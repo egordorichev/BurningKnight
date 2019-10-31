@@ -16,11 +16,15 @@ using Lens.util.file;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.assets.achievements {
+	public delegate void AchievementUnlockedCallback(string id);
+	
 	public static class Achievements {
 		private static Dictionary<string, Achievement> defined = new Dictionary<string, Achievement>();
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
+		public static AchievementUnlockedCallback UnlockedCallback;
+		
 		public static Achievement Get(string id) {
 			return defined.TryGetValue(id, out var a) ? a : null;
 		}
@@ -94,8 +98,10 @@ namespace BurningKnight.assets.achievements {
 				Achievement = a
 			};
 			
-			Engine.Instance.State.Area.EventListener.Handle(e);
-			Engine.Instance.State.Ui.EventListener.Handle(e);
+			Engine.Instance?.State?.Area?.EventListener?.Handle(e);
+			Engine.Instance?.State?.Ui?.EventListener?.Handle(e);
+			
+			UnlockedCallback?.Invoke(id);
 		}
 
 		public static void Lock(string id) {

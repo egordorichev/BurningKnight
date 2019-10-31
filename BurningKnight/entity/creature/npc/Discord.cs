@@ -9,6 +9,8 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 12;
 			
 			AddComponent(new AnimationComponent("discord"));
+			
+			// todo: connect discordIntegration CurrentPlayer here
 			AddComponent(new CloseDialogComponent("discord_0"));
 		}
 	}
