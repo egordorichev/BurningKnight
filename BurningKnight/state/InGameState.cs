@@ -15,6 +15,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
+using BurningKnight.level.biome;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -155,6 +156,12 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			try {
+				Audio.Preload(((Biome) Activator.CreateInstance(BiomeRegistry.GenerateForDepth(Run.Depth + 1).Type)).Music);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+			
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
 

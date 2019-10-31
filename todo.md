@@ -1,6 +1,5 @@
 # ui update
 
-* auto preload next biome music
 * super low pass filter on the level music when no enemies are in the room for longer than 3 sec?
 * fix music speed
 * battery is confusing

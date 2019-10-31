@@ -192,6 +192,17 @@ namespace Lens.assets {
 		private static List<string> toLoad = new List<string> {
 			"Shopkeeper", "Ma Precious", "Serendipity", 
 		};
+
+		public static void Preload(string music) {
+			if (toLoad.Contains(music) || musicInstances.ContainsKey(music)) {
+				return;
+			}
+			
+			Log.Info($"Added {music} to preloading");
+
+			loadedAll = false;
+			toLoad.Insert(0, music);
+		}
 		
 		public static void UpdateAudio() {
 			if (loadedAll || currentPlaying == null || loading) {
