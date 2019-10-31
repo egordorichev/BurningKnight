@@ -13,7 +13,11 @@ namespace Lens.assets {
 		public bool Paused = false;
 		public float Volume = 1;
 
-		public Music(string musicFile) {			
+		public readonly string Id;
+
+		public Music(string musicFile) {
+			Id = musicFile;
+			
 			Log.Info($"Started loading {musicFile}");
 			LoadMusic(musicFile);
 			Log.Info($"Ended loading {musicFile}");

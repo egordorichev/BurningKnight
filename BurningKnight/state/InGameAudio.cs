@@ -57,7 +57,7 @@ namespace BurningKnight.state {
 				if (t != null) {
 					Audio.PlayMusic(t);
 				} else {
-					Audio.Stop();
+					Audio.FadeOut();
 				}
 
 				return;
@@ -95,7 +95,7 @@ namespace BurningKnight.state {
 				if (t != null) {
 					Audio.PlayMusic(t);
 				} else {
-					Audio.Stop();
+					Audio.FadeOut();
 				}
 			} else if (e is RoomChangedEvent re && re.Who is LocalPlayer) {
 				var gramophone = re.New.Tagged[Tags.Gramophone].FirstOrDefault();
@@ -106,7 +106,7 @@ namespace BurningKnight.state {
 					if (t != null) {
 						Audio.PlayMusic(t);
 					} else {
-						Audio.Stop();
+						Audio.FadeOut();
 					}
 
 					return false;

@@ -1,8 +1,7 @@
 # ui update
 
-* if you desecend too fast then the other level music wont load
+* auto preload next biome music
 * super low pass filter on the level music when no enemies are in the room for longer than 3 sec?
-* game should preload treasure, secret and current disk music when its free, but if the music not loaded yet, dont cut out till you load old one
 * fix music speed
 * battery is confusing
 * explain what items do (redo small descriptions to be better)

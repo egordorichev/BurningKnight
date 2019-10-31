@@ -219,7 +219,6 @@ namespace BurningKnight.state {
 				Run.SavingDepth = Run.Depth;
 			}
 
-			Audio.Stop();
 			Lights.Destroy();
 
 			SaveManager.Backup();

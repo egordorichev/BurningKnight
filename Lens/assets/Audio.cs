@@ -93,6 +93,8 @@ namespace Lens.assets {
 			}
 
 			if (currentPlayingMusic == music) {
+				Log.Info("Repeating");
+				currentPlaying.Paused = false;
 				currentPlaying.Volume = musicVolume;
 				return;
 			}
@@ -107,7 +109,7 @@ namespace Lens.assets {
 		private static bool loading;
 
 		private static void LoadAndPlayMusic(string music) {
-			if (musicInstances.TryGetValue(music, out currentPlaying)) {
+			if (musicInstances.ContainsKey(music)) {
 				ThreadLoad(music);
 			} else {
 				new Thread(() => {
@@ -139,14 +141,17 @@ namespace Lens.assets {
 			currentPlaying.Paused = false;
 
 			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, CrossFadeTime).OnEnd = () => {
-				Playing.Clear();
-				Playing.Add(currentPlaying);
+				if (currentPlaying == mo) {
+					Playing.Clear();
+					Playing.Add(currentPlaying);
+				}
 			};
 
 			if (!Playing.Contains(currentPlaying)) {
 				Playing.Add(currentPlaying);
 			}
 			
+			Log.Info($"Music: {currentPlaying.Id} {Playing.Count}, {musicVolume}");
 			loading = false;
 		}
 
@@ -155,10 +160,8 @@ namespace Lens.assets {
 				var m = currentPlaying;
 				
 				Tween.To(0, m.Volume, x => m.Volume = x, CrossFadeTime).OnEnd = () => {
-					if (m != currentPlaying) {
-						m.Paused = true;
-						Playing.Remove(m);
-					}
+					m.Paused = true;
+					Playing.Remove(m);
 				};
 				
 				currentPlaying = null;
@@ -167,11 +170,12 @@ namespace Lens.assets {
 		}
 		
 		public static void Stop() {
-			if (currentPlaying != null) {
-				currentPlaying.Stop();
-				currentPlaying = null;
-				currentPlayingMusic = null;
-			}
+			position = 0;
+			Log.Info($"Stop {currentPlaying?.Id ?? "null"}");
+			Playing.Clear();
+
+			currentPlaying = null;
+			currentPlayingMusic = null;
 		}
 
 		private static float musicVolume = 1;
@@ -200,8 +204,11 @@ namespace Lens.assets {
 			if (toLoad.Count == 0) {
 				loadedAll = true;
 			}
-			
-			ThreadLoad(name, false);
+
+			var t = new Thread(() => { ThreadLoad(name, false); });
+
+			t.Priority = ThreadPriority.BelowNormal;
+			t.Start();
 		}
 		
 		private const int BufferSize = 3000;
@@ -215,38 +222,42 @@ namespace Lens.assets {
 				if (quit) {
 					return;
 				}
-				
-				while (Playing.Count > 0 && SoundEffectInstance.PendingBufferCount < 3) {
-					for (var i = 0; i < BufferSize; i++) {
-						for (var c = 0; c < Channels; c++) {
-							var floatSample = 0f;
 
-							foreach (var p in Playing) {
-								floatSample += p.GetSample(position, c);
+				try {
+					while (Playing.Count > 0 && SoundEffectInstance.PendingBufferCount < 3) {
+						for (var i = 0; i < BufferSize; i++) {
+							for (var c = 0; c < Channels; c++) {
+								var floatSample = 0f;
+
+								foreach (var p in Playing) {
+									floatSample += p.GetSample(position, c);
+								}
+
+								floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
+
+								var shortSample =
+									(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+
+								var index = (i * Channels + c) * 2;
+
+								if (!BitConverter.IsLittleEndian) {
+									byteBuffer[index] = (byte) (shortSample >> 8);
+									byteBuffer[index + 1] = (byte) shortSample;
+								} else {
+									byteBuffer[index] = (byte) shortSample;
+									byteBuffer[index + 1] = (byte) (shortSample >> 8);
+								}
 							}
-							
-							floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
 
-							var shortSample =
-								(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
-
-							var index = (i * Channels + c) * 2;
-
-							if (!BitConverter.IsLittleEndian) {
-								byteBuffer[index] = (byte) (shortSample >> 8);
-								byteBuffer[index + 1] = (byte) shortSample;
-							} else {
-								byteBuffer[index] = (byte) shortSample;
-								byteBuffer[index + 1] = (byte) (shortSample >> 8);
-							}
+							position++;
 						}
 
-						position++;
+						SoundEffectInstance.SubmitBuffer(byteBuffer);
 					}
-
-					SoundEffectInstance.SubmitBuffer(byteBuffer);
+				} catch (Exception e) {
+					Log.Error(e);
 				}
-			
+
 				Thread.Sleep(50);
 			}
 		}
