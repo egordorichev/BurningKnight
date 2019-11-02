@@ -2,10 +2,12 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.orbital;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
@@ -123,7 +125,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
-			return entity is SolidProp || !(entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
+			return entity is SolidProp || !(entity is Orbital || entity is Pet || entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
 		}
 
 		public override void Render(bool shadow) {
