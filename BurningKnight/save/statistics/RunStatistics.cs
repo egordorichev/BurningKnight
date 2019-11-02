@@ -16,8 +16,6 @@ namespace BurningKnight.save.statistics {
 	/*
 	 * todo:
 	 * won
-	 * rooms total
-	 * secret rooms total
 	 */
 	public class RunStatistics : SaveableEntity {
 		private const byte Version = 0;
@@ -161,7 +159,7 @@ namespace BurningKnight.save.statistics {
 			Subscribe<RoomChangedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
 			Subscribe<ItemAddedEvent>();
-			Subscribe<HealthModifiedEvent>();
+			Subscribe<PostHealthModifiedEvent>();
 			Subscribe<DiedEvent>();
 			Subscribe<ConsumableAddedEvent>();
 			Subscribe<LostSupportEvent>();
@@ -219,12 +217,12 @@ namespace BurningKnight.save.statistics {
 						Items.Add(iae.Item.Id);
 					}
 				}
-			} else if (e is HealthModifiedEvent hme) {
+			} else if (e is PostHealthModifiedEvent hme) {
 				if (hme.Amount < 0) {
 					if (hme.From is Player) {
-						DamageDealt += (uint) hme.Amount;
+						DamageDealt += (uint) -hme.Amount;
 					} else if (hme.Who is Player) {
-						DamageTaken += (uint) hme.Amount;
+						DamageTaken += (uint) -hme.Amount;
 					}
 				} else if (hme.Amount > 0 && hme.Who is Player) {
 					HeartsCollected += (ushort) hme.Amount;
@@ -281,7 +279,7 @@ namespace BurningKnight.save.statistics {
 				return;
 			}
 			
-			ImGui.Text($"Time: {Math.Floor(Time / 360f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s");
+			ImGui.Text($"Time: {Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s");
 			ImGui.Text($"Won: {Won}");
 			ImGui.Text($"Max Depth: {MaxDepth}");
 			ImGui.Text($"Game Version: {GameVersion}");

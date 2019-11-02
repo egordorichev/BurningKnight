@@ -23,7 +23,7 @@ namespace BurningKnight.state.save {
 
 			ImGui.Text($"Depth: {depth}");
 			ImGui.Text($"Kill count: {killCount}");
-			ImGui.Text($"Time: {Math.Floor(time / 360)}:{Math.Floor(time / 60)}:{(int) Math.Floor(time % 1) * 60}");
+			ImGui.Text($"Time: {Math.Floor(time / 3600)}:{Math.Floor(time / 60)}:{(int) Math.Floor(time % 1) * 60}");
 			ImGui.Text($"Id: {id}");
 			ImGui.Text($"Seed: {seed}");
 		}

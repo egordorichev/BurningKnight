@@ -1,6 +1,5 @@
 # esty stuff
 
-* run time counter is broken
 * dont allow to pause while you interact with npcs
 * flies  still can be outside of the room and you can get stuck in a room 
 * projectiles are not auto autoaimed at shopkeeper
