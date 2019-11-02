@@ -6,6 +6,7 @@
 
 ### items
 
+* couch item
 * turret
 * pepega item rekvi
 * prism orbital
