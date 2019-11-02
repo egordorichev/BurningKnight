@@ -1,8 +1,8 @@
 # esty stuff
 
-* creeper range is too small, its too slow, like it didnt explode a single time, too ez
+* creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
+
 * special secret music with 10% chance?
-* remove the teleport enememies away/kill one enemy items
 * keyboard controls dont show up if you have gamepad connected (show both)
 * money is a huge problem. its or dropped too much or too little
 * do not display the control hint when not in the game or tutorial
