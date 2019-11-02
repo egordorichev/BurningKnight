@@ -12,6 +12,7 @@ using Lens.input;
 namespace BurningKnight.entity.creature.player {
 	public class ActiveWeaponComponent : WeaponComponent {
 		private bool stopped = true;
+		private float timeSinceReady;
 		
 		public ActiveWeaponComponent() {
 			AtBack = false;
@@ -23,19 +24,29 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<GamepadComponent>().Controller;
 
 			if (Item != null) {
+				var ready = Item.Delay <= 0.001f;
+
+				if (ready) {
+					timeSinceReady += dt;
+				} else {
+					timeSinceReady = 0;
+				}
+				
 				var b = GetComponent<BuffsComponent>();
 				
 				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
-				if (Input.WasPressed(Controls.Use, controller) || (Item.Automatic && Input.IsDown(Controls.Use, controller) && Item.Delay <= 0.001f)) {
+				if (Input.WasPressed(Controls.Use, controller) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
 					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();
 					}
 					
 					Item.Use((Player) Entity);
 				}
+			} else {
+				timeSinceReady = 0;
 			}
 	
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0 && GetComponent<WeaponComponent>().Item != null) {
