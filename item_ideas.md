@@ -15,6 +15,7 @@
 * single time shop sale
 * nuclear throne perks: strong soul, hammer head, etc 
 * holy mantel
+* item, that makes bullets bounce from each another
 * cutsaw: rolling hurt enemies
 * controlled bullet 
 * speedup orbitals, spawns only if you have an orbital

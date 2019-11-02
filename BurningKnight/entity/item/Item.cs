@@ -47,30 +47,8 @@ namespace BurningKnight.entity.item {
 		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
 		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
 		public ItemData Data => Items.Datas[Id];
-		
-		public Item(ItemRenderer renderer, params ItemUse[] uses) {
-			Uses = uses;
-			Renderer = renderer;
-			Renderer.Item = this;
 
-			foreach (var u in uses) {
-				u.Item = this;
-				u.Init();
-			}
-		}
-		
-		public Item(params ItemUse[] uses) {
-			Uses = uses;
-			
-			foreach (var u in uses) {
-				u.Item = this;
-				u.Init();
-			}
-		}
-
-		public Item() {
-			
-		}
+		private bool updateLight;
 
 		public override void Destroy() {
 			base.Destroy();
@@ -347,23 +325,15 @@ namespace BurningKnight.entity.item {
 				foreach (var u in Uses) {
 					u.Update(o, this, dt);
 				}
-			}
-		}
-
-		public bool ShouldCollide(Entity entity) {
-			return !(entity is Creature) || !ShouldInteract(entity);
-		}
-
-		public override bool HandleEvent(Event e) {
-			if (e is LostSupportEvent) {
-				Done = true;
-				return true;
-			} else if (e is RoomChangedEvent rce && !HasComponent<OwnerComponent>()) {
-				/*if (HasComponent<LightComponent>()) {
-					if (rce.New.Type == RoomType.Secret) {
+			} else if (updateLight) {
+				updateLight = false;
+				var room = GetComponent<RoomComponent>().Room;
+				
+				if (room == null || HasComponent<LightComponent>()) {
+					if (room == null || room.Type == RoomType.Secret) {
 						RemoveComponent<LightComponent>();
 					}
-				} else if (rce.New.Type != RoomType.Secret) {
+				} else if (room.Type != RoomType.Secret) {
 					if (Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
 						Color color;
 
@@ -377,7 +347,20 @@ namespace BurningKnight.entity.item {
 				
 						AddComponent(new LightComponent(this, 32f, color));
 					}
-				}*/
+				}
+			}
+		}
+
+		public bool ShouldCollide(Entity entity) {
+			return !(entity is Creature) || !ShouldInteract(entity);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is LostSupportEvent) {
+				Done = true;
+				return true;
+			} else if (e is RoomChangedEvent rce && !HasComponent<OwnerComponent>()) {
+				updateLight = true;
 			}
 			
 			return base.HandleEvent(e);

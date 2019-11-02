@@ -26,7 +26,7 @@ namespace BurningKnight.entity.door {
 			
 			var state = GetComponent<StateComponent>();
 
-			if (state.StateInstance is OpenState && GetComponent<LockComponent>().Lock.IsLocked) {
+			if (state.StateInstance is OpenState && TryGetComponent<LockComponent>(out var l) && l.Lock.IsLocked) {
 				state.Become<ClosingState>();
 			}
 		}
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override bool CanOpen() {
-			return !GetComponent<LockComponent>().Lock.IsLocked;
+			return !TryGetComponent<LockComponent>(out var c) || !c.Lock.IsLocked;
 		}
 	}
 }
