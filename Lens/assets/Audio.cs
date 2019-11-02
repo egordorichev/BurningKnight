@@ -148,7 +148,6 @@ namespace Lens.assets {
 				Playing.Add(currentPlaying);
 			}
 			
-			Log.Info($"Music: {currentPlaying.Id} {Playing.Count}, {musicVolume}");
 			loading = false;
 		}
 
@@ -168,7 +167,6 @@ namespace Lens.assets {
 		
 		public static void Stop() {
 			position = 0;
-			Log.Info($"Stop {currentPlaying?.Id ?? "null"}");
 			Playing.Clear();
 
 			currentPlaying = null;

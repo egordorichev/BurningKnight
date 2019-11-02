@@ -45,6 +45,9 @@ namespace Lens {
 		public float Speed = 1;
 		public float Flash;
 		public float Freeze;
+		public static float FlashModifier = 1;
+		public static float FreezeModifier = 1;
+		
 		public bool Focused;
 		public Color FlashColor = ColorUtils.WhiteColor;
 		public float Split;
@@ -135,15 +138,13 @@ namespace Lens {
 			Delta = dt;
 			Time += dt;
 
-			Freeze = Math.Min(1, Freeze);
+			Split = Math.Max(0, Split - dt);
+			Flash = Math.Max(0, Flash - dt * 120f * (1 - FlashModifier));
+			Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1 - FreezeModifier));
 
-			if (Freeze < 0.01f) {
+			if (FreezeModifier <= 0.01f || Freeze < 0.01f) {
 				time += dt;
 			}
-
-			Split = Math.Max(0, Split - dt);
-			Flash = Math.Max(0, Flash - dt * 60f);
-			Freeze = Math.Max(0, Freeze - dt * 30f);
 
 			MouseData.HadClick = false;
 

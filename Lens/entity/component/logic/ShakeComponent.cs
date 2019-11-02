@@ -21,18 +21,15 @@ namespace Lens.entity.component.logic {
 				Position.X = 0;
 				Position.Y = 0;
 			} else {
-				var a = Math.Min(4, Amount * Amount * 0.05f);
+				var a = Math.Min(4, Amount * Amount * 0.05f) * Modifier;
 
 				Angle = Noise.Generate(Time) * a * 0.01f;
-
-				a *= Modifier * (Modifier - 1);
-				
 				Position.X = Noise.Generate(Time + 32) * a;
 				Position.Y = Noise.Generate(Time + 64) * a;	
 			}
 
 			if (Push >= 0.01f) {
-				var force = Math.Min(4, Push * Push * 0.3f) * (1 + Modifier * 0.1f);
+				var force = Math.Min(4, Push * Push * 0.3f) * (Modifier * 0.3f);
 				Position.X += PushDirection.X * force;
 				Position.Y += PushDirection.Y * force;
 			}

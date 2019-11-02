@@ -329,6 +329,10 @@ namespace BurningKnight.state {
 		}
 
 		private void SelectFirst() {
+			if (GamepadComponent.Current == null) {
+				return;
+			}
+		
 			var min = UiButton.LastId;
 			UiButton btn = null;
 
@@ -1415,10 +1419,12 @@ namespace BurningKnight.state {
 				
 			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "flash_frames", (int) (Settings.FlashFrames * 100)).OnValueChange = s => {
 				Settings.FlashFrames = s.Value / 100f;
+				Engine.FlashModifier = Settings.FlashFrames;
 			};
 			
 			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "freeze_frames", (int) (Settings.FreezeFrames * 100)).OnValueChange = s => {
 				Settings.FreezeFrames = s.Value / 100f;
+				Engine.FreezeModifier = Settings.FreezeFrames;
 			};
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {

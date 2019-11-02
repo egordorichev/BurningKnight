@@ -13,7 +13,6 @@
 * some effects when you clear the whole level
 * jungle rooms should be a tad smaller than the rest of the game?
 * mother slime body is not removed
-* screenshake setting is not used?
 * don't add idol to the static item list
 * convert bat item to an item, that gives you life drain
 * laser pointer shouldn't make bullets smaller

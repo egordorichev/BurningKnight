@@ -104,6 +104,8 @@ namespace BurningKnight {
 			Gamepad = GlobalSave.GetString("s_gp");
 
 			ShakeComponent.Modifier = Screenshake;
+			Engine.FreezeModifier = FreezeFrames;
+			Engine.FlashModifier = FlashFrames;
 		}
 
 		public static void Save() {

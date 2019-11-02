@@ -36,9 +36,9 @@ namespace BurningKnight.entity.component {
 				}
 			}
 
-			if (old != null && !old.Contains(Entity.Center)) {
+			/*if (old != null && !old.Contains(Entity.Center)) {
 				old = null;
-			}
+			}*/
 
 			if (old != Room) {
 				old?.Tagged.Remove(Entity);

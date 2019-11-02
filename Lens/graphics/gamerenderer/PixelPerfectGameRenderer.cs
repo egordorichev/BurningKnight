@@ -67,7 +67,7 @@ namespace Lens.graphics.gamerenderer {
 
 			BeginUi();
 			
-			if (Engine.Instance.Flash > 0) {
+			if (Engine.Instance.Flash > 0 && Engine.FlashModifier > 0.001f) {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);
