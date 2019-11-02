@@ -1,9 +1,16 @@
 # esty stuff
 
+* run time counter is broken
+* dont allow to pause while you interact with npcs
+* flies  still can be outside of the room and you can get stuck in a room 
+* projectiles are not auto autoaimed at shopkeeper
+* projectiles dont break from doors, that doesnt count us bounce?
 * unlocked golden doors dont save that they were unlocked
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
+* spawn a single npc per run
+* autoswap weapon after you used the cage key
 * keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect
@@ -16,7 +23,9 @@
 * props in the shop can be unaccessable due item stands being too close 
 * can and battery look the same way, players are generaly confused about the battery
 * enemies/rooms/other stuff that doesn't happen/appear every run
-* throw player into the hub after the first run
+* throw player into the hub after the first run (players dont discover hub now)
+* animate mob spawning
+* you drop all items when you interact with cage keys
 
 # ui update
 
