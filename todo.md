@@ -9,7 +9,6 @@
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
-* don't keep button as selected if you dont have gamepad attached
 * spawn a single npc per run
 * autoswap weapon after you used the cage key
 * keyboard controls dont show up if you have gamepad connected (show both)

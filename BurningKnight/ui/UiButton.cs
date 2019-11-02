@@ -52,6 +52,11 @@ namespace BurningKnight.ui {
 		}
 
 		protected override void OnUnhover() {
+			if (GamepadComponent.Current == null && Selected == Id) {
+				Selected = -1;
+				SelectedInstance = null;
+			}
+		
 			if (Selected != Id) {
 				base.OnUnhover();
 			}

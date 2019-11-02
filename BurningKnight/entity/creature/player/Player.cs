@@ -9,6 +9,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.entities;
@@ -328,7 +329,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
-			return !(entity is Player) && base.ShouldCollide(entity);
+			return !(entity is Player || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
 		}
 
 		public override bool InAir() {
