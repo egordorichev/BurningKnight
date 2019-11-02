@@ -50,7 +50,7 @@ namespace BurningKnight.entity.creature.mob {
 			SetStats();
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
-				Chance = 0.05f,
+				Chance = 0.2f,
 				Items = new[] {
 					"bk:coin"
 				}

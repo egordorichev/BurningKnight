@@ -1,10 +1,10 @@
 # esty stuff
 
+* unlocked golden doors dont save that they were unlocked
+
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
-* special secret music with 10% chance?
 * keyboard controls dont show up if you have gamepad connected (show both)
-* money is a huge problem. its or dropped too much or too little
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect
 * players can get stuck in an enemy room, after everyone is ded the door did not open
@@ -15,11 +15,9 @@
 * mother slime body is not removed
 * don't add idol to the static item list
 * convert bat item to an item, that gives you life drain
-* laser pointer shouldn't make bullets smaller
 * props in the shop can be unaccessable due item stands being too close 
 * can and battery look the same way, players are generaly confused about the battery
 * enemies/rooms/other stuff that doesn't happen/appear every run
-* a special reward for completing the level fast
 * throw player into the hub after the first run
 
 # ui update
@@ -137,6 +135,9 @@
 * Props that react to music beats
 
 ### Ideas
+
+* special secret music with 10% chance?
+* a special reward for completing the level fast
 
 * Explode item stand to replace the item with trash? :thinking:
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
