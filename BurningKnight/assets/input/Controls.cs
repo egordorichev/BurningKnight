@@ -14,6 +14,10 @@ namespace BurningKnight.assets.input {
 		private static List<Control> controls = new List<Control>();
 		private static List<Control> custom = new List<Control>();
 
+		public static FileHandle BindingsHandle => new FileHandle($"{SaveManager.SaveDir}keybindings_{Version}.json");
+		
+		public const int Version = 0;
+
 		public const string Up = "up";
 		public const string Left = "left";
 		public const string Down = "down";
@@ -61,7 +65,7 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Swap, Keys.LeftShift).Gamepad(Buttons.A));
 			controls.Add(new Control(Roll).Mouse(MouseButtons.Right).Gamepad(Buttons.LeftTrigger));
 			controls.Add(new Control(Duck, Keys.R).Gamepad(Buttons.B));
-			controls.Add(new Control(Map, Keys.M).Gamepad(Buttons.LeftStick));
+			controls.Add(new Control(Map, Keys.M).Gamepad(Buttons.RightShoulder));
 
 			controls.Add(new Control(Pause, Keys.Escape).Gamepad(Buttons.Back));
 			
@@ -108,7 +112,7 @@ namespace BurningKnight.assets.input {
 
 		public static void Save() {
 			try {
-				var p = new FileHandle($"{SaveManager.SaveDir}keybindings.json").FullPath;
+				var p = BindingsHandle.FullPath;
 				Log.Info($"Saving keybindings to {p}");
 
 				var file = File.CreateText(p);
@@ -160,7 +164,7 @@ namespace BurningKnight.assets.input {
 
 		public static void Load() {
 			try {
-				var handle = new FileHandle($"{SaveManager.SaveDir}keybindings.json");
+				var handle = BindingsHandle;
 
 				if (!handle.Exists()) {
 					Log.Info("Keybindings file was not found, creating new one");

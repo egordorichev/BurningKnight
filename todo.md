@@ -14,14 +14,13 @@
 * some effects when you clear the whole level
 * jungle rooms should be a tad smaller than the rest of the game?
 * the ingame texture can be x2 the size, render in the center, so that the map is not so blurry?
-* map button on gamepad. its nice, but needs more stuff to pop up, when you go to the map view
 * depth counter in the pause menu is broken
 * mother slime body is not removed
 * screenshake setting is not used?
 * don't add idol to the static item list
 * convert bat item to an item, that gives you life drain
 * laser pointer shouldn't make bullets smaller
-* props in the shop can be unaccessable due item stands being too close
+* props in the shop can be unaccessable due item stands being too close 
 * can and battery look the same way, players are generaly confused about the battery
 * enemies/rooms/other stuff that doesn't happen/appear every run
 * a special reward for completing the level fast

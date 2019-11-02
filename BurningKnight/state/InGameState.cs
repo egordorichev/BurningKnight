@@ -507,7 +507,7 @@ namespace BurningKnight.state {
 			}
 
 			if (found) {
-				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
+				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
 			}
 
 			console.Update(dt);
