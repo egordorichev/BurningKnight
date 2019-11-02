@@ -5,7 +5,6 @@
 * flies  still can be outside of the room and you can get stuck in a room 
 * projectiles are not auto autoaimed at shopkeeper
 * projectiles dont break from doors, that doesnt count us bounce?
-* unlocked golden doors dont save that they were unlocked
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
@@ -28,6 +27,9 @@
 * you drop all items when you interact with cage keys
 * fix item description being displayed in wrong place
 * text on your head when you get +hp, etc, so that its all clear
+
+* game sometimes doesnt exit even after window is closed
+* animate keys, bombs and hearts
 
 # ui update
 

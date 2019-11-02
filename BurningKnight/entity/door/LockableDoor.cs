@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -28,6 +29,16 @@ namespace BurningKnight.entity.door {
 			if (state.StateInstance is OpenState && GetComponent<LockComponent>().Lock.IsLocked) {
 				state.Become<ClosingState>();
 			}
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			SkipLock = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(!TryGetComponent<LockComponent>(out var l) || l.Lock == null || l.Lock.Done);
 		}
 
 		protected virtual Lock CreateLock() {

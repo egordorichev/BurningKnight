@@ -359,7 +359,7 @@ namespace BurningKnight.entity.item {
 				Done = true;
 				return true;
 			} else if (e is RoomChangedEvent rce && !HasComponent<OwnerComponent>()) {
-				if (HasComponent<LightComponent>()) {
+				/*if (HasComponent<LightComponent>()) {
 					if (rce.New.Type == RoomType.Secret) {
 						RemoveComponent<LightComponent>();
 					}
@@ -377,7 +377,7 @@ namespace BurningKnight.entity.item {
 				
 						AddComponent(new LightComponent(this, 32f, color));
 					}
-				}
+				}*/
 			}
 			
 			return base.HandleEvent(e);

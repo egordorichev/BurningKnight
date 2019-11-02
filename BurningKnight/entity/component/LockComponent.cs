@@ -36,6 +36,11 @@ namespace BurningKnight.entity.component {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Lock.Done) {
+				return;
+			}
+			
 			Lock.Center = Entity.Center + offset;
 		}
 
