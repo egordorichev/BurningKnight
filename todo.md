@@ -1,7 +1,6 @@
 # esty stuff
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez
-* hide the seed in pause menu if you are not in the game yet
 * special secret music with 10% chance?
 * remove the teleport enememies away/kill one enemy items
 * keyboard controls dont show up if you have gamepad connected (show both)

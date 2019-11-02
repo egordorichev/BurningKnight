@@ -262,7 +262,9 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			seedLabel.Label = $"Seed: {Run.Seed}";
+			if (seedLabel != null) {
+				seedLabel.Label = $"Seed: {Run.Seed}";
+			}
 
 			Tween.To(this, new {blur = 1}, 0.25f);
 
@@ -863,29 +865,30 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY,
 				AngleMod = 0
 			});
-			
-			// would be nice click to copy the seed
-			pauseMenu.Add(seedLabel = new UiButton {
-				Font = Font.Small,
-				Selectable = false,
-				Label = $"Seed: {Run.Seed}",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = BackY,
-				AngleMod = 0,
-				Click = b => {
-					b.LocaleLabel = "copied_to_clipboard";
 
-					try {
-						// Needs xclip on linux
-						TextCopy.Clipboard.SetText(Run.Seed);
-					} catch (Exception e) {
-						Log.Error(e);
+			if (Run.Depth > 0) {
+				pauseMenu.Add(seedLabel = new UiButton {
+					Font = Font.Small,
+					Selectable = false,
+					Label = $"Seed: {Run.Seed}",
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = BackY,
+					AngleMod = 0,
+					Click = b => {
+						b.LocaleLabel = "copied_to_clipboard";
+
+						try {
+							// Needs xclip on linux
+							TextCopy.Clipboard.SetText(Run.Seed);
+						} catch (Exception e) {
+							Log.Error(e);
+						}
+
+						Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
 					}
+				});
+			}
 
-					Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
-				}
-			});
-			
 			pauseBack = currentBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "resume",
 				RelativeCenterX = Display.UiWidth / 2f,
