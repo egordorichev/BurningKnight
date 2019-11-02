@@ -7,7 +7,6 @@
 * money is a huge problem. its or dropped too much or too little
 * do not display the control hint when not in the game or tutorial
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
-* you can put your weapons on the item stands... remove that
 * light up room after finishing it? overall, some room cleared effect
 * fly can go outside of the room
 * players can get stuck in an enemy room, after everyone is ded the door did not open

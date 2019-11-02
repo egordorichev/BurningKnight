@@ -38,6 +38,10 @@ namespace BurningKnight.entity.item.stand {
 			return "shop_stand";
 		}
 
+		protected override bool CanInteract(Entity e) {
+			return Item != null && base.CanInteract(e);
+		}
+
 		protected override bool CanTake(Entity entity) {
 			if (!base.CanTake(entity)) {
 				return false;
@@ -69,6 +73,7 @@ namespace BurningKnight.entity.item.stand {
 
 			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
 			
+			// fixme: shop stand becomes interacted, and you can place your item by pressign e
 			return true;
 		}
 
