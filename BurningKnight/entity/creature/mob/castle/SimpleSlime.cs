@@ -17,11 +17,15 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new ZAnimationComponent("slime"));
 			SetMaxHp(2);
 
-			var body = new RectBodyComponent(2, 7, 12, 9);
+			var body = CreateBodyComponent();
 			AddComponent(body);
 
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
+		}
+
+		protected virtual BodyComponent CreateBodyComponent() {
+			return new RectBodyComponent(2, 7, 12, 9);
 		}
 	}
 }

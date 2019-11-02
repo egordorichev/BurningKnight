@@ -11,8 +11,6 @@
 * roll is too long
 * burst gun is trash
 * some effects when you clear the whole level
-* jungle rooms should be a tad smaller than the rest of the game?
-* mother slime body is not removed
 * don't add idol to the static item list
 * convert bat item to an item, that gives you life drain
 * props in the shop can be unaccessable due item stands being too close 
@@ -87,7 +85,6 @@
 * bomb item should have a chance to ignire
 * hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
-* mother slime body is not removed!!!!
 
 ## general
 
@@ -136,6 +133,7 @@
 
 ### Ideas
 
+* jungle rooms should be a tad smaller than the rest of the game?
 * special secret music with 10% chance?
 * a special reward for completing the level fast
 

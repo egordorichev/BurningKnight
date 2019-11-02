@@ -22,13 +22,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new ZAnimationComponent("mother_slime"));
 			SetMaxHp(1);
 
-			var body = new RectBodyComponent(2, 7, 12, 9);
-			AddComponent(body);
-
-			body.Body.LinearDamping = 2;
-			body.KnockbackModifier = 0.5f;
-
 			AddComponent(new LightComponent(this, 64, LightColor));
+		}
+
+		protected override BodyComponent CreateBodyComponent() {
+			return new RectBodyComponent(2, 7, 12, 9);
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
