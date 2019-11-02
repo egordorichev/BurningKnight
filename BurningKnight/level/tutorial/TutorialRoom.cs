@@ -4,11 +4,10 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.tile;
 
 namespace BurningKnight.level.tutorial {
-	public class TutorialRoom : EntranceRoom {
+	public class TutorialRoom : ExitRoom {
 		private Prefab prefab;
 
 		public TutorialRoom() {
-			Exit = true;
 			prefab = Prefabs.Get("tutorial");
 		}
 		

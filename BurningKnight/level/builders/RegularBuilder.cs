@@ -13,7 +13,7 @@ namespace BurningKnight.level.builders {
 	public class RegularBuilder : Builder {
 		protected float[] BranchTunnelChances = {2, 2, 1};
 		protected EntranceRoom Entrance;
-		protected EntranceRoom Exit;
+		protected ExitRoom Exit;
 		protected BossRoom Boss;
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
@@ -36,12 +36,10 @@ namespace BurningKnight.level.builders {
 			foreach (var Room in Rooms) {
 				if (Room is BossRoom b) {
 					Boss = b;
-				} else if (Room is EntranceRoom entrance) {
-					if (entrance.Exit) {
-						Exit = entrance;
-					} else {
-						Entrance = entrance;
-					}
+				} else if (Room is EntranceRoom) {
+					Entrance = (EntranceRoom) Room;
+				} else if (Room is ExitRoom) {
+					Exit = (ExitRoom) Room;
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) == 1) {
 					SingleConnection.Add(Room);
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) > 1) {

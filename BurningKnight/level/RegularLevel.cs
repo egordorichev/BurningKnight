@@ -135,7 +135,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			Rooms.Add(false && Run.Depth == 1 ? new BossTestRoom() : RoomRegistry.Generate(RoomType.Entrance, biome));
+			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, biome));
 
 			var Regular = final ? 0 : GetNumRegularRooms();
 			var Special = final ? 0 : GetNumSpecialRooms();
@@ -170,9 +170,14 @@ namespace BurningKnight.level {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				Rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 			}
-			
-			Rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
-			Rooms.Add(new PrebossRoom());
+
+
+			if (Run.Depth % 2 == 1) {
+				Rooms.Add(new ExitRoom());				
+			} else {
+				Rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
+				Rooms.Add(new PrebossRoom());	
+			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {
 				Rooms.Add(new NpcSaveRoom());

@@ -13,8 +13,6 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.entrance {
 	public class EntranceRoom : RoomDef {
-		public bool Exit;
-
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) return 1;
 			return 0;
@@ -69,20 +67,12 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		private void PlaceEntrance(Level level, Dot where) {
-			var prop = Exit ? (Entity) new Exit {
-				To = Run.Depth + 1
-			} : new Entrance {
+			var prop = new Entrance {
 				To = -1
 			};
 
 			level.Area.Add(prop);
 			prop.Center = (where * 16 + new Vector2(8));
-
-			/*var t = level.Get(where.X, where.Y);
-
-			if (Random.Chance(20) || !t.Matches(TileFlags.Passable)) {
-				where = GetRandomDoorFreeCell() ?? GetTileCenter();
-			}*/
 		}
 
 		public override int GetMinWidth() {

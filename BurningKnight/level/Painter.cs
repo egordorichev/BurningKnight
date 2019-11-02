@@ -53,7 +53,7 @@ namespace BurningKnight.level {
 			RoomDef current = null;
 
 			foreach (var r in Rooms) {
-				if (r is EntranceRoom e && e.Exit) {
+				if (r is ExitRoom) {
 					current = r;
 					break;
 				}
@@ -263,7 +263,7 @@ namespace BurningKnight.level {
 			var rooms = new List<RoomDef>();
 
 			foreach (var r in Rooms) {
-				if (r is RegularRoom || (r is EntranceRoom e && !e.Exit)) {
+				if (r is RegularRoom || (r is EntranceRoom e)) {
 					rooms.Add(r);
 				}
 			}

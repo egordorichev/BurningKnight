@@ -31,7 +31,7 @@ namespace BurningKnight.level.builders {
 			var a = Random.Angle() - 90;
 			var i = 0;
 					
-			while (true) {
+			while (true && Boss != null) {
 				var an = PlaceRoom(Init, Exit, Boss, a);
 						
 				if ((int) an != -1) {

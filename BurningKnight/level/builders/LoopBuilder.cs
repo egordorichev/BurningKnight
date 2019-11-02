@@ -99,7 +99,7 @@ namespace BurningKnight.level.builders {
 						Init.Add(Prev);
 					}
 
-					if (R == Exit) {
+					if (R == Exit && Boss != null) {
 						var a = TargetAngle - 90;
 						var i = 0;
 						

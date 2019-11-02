@@ -6,11 +6,7 @@ using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.preboss {
-	public class PrebossRoom : EntranceRoom {
-		public PrebossRoom() {
-			Exit = true;
-		}
-		
+	public class PrebossRoom : ExitRoom {
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
 

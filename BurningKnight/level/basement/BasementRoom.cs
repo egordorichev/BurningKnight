@@ -3,11 +3,10 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.tile;
 
 namespace BurningKnight.level.basement {
-	public class BasementRoom : EntranceRoom {
+	public class BasementRoom : ExitRoom {
 		private Prefab prefab;
 
 		public BasementRoom() {
-			Exit = true;
 			prefab = Prefabs.Get("basement");
 		}
 		

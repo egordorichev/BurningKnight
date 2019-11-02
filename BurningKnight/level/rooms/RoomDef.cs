@@ -610,12 +610,6 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public static RoomType DecideType(RoomDef r, Type room) {
-			if (r != null) {
-				if (r is EntranceRoom e) {
-					return e.Exit ? RoomType.Exit : RoomType.Entrance;
-				}
-			}
-			
 			if (typeof(TrapRoom).IsAssignableFrom(room)) {
 				return RoomType.Trap;
 			}
@@ -626,6 +620,10 @@ namespace BurningKnight.level.rooms {
 			
 			if (typeof(EntranceRoom).IsAssignableFrom(room)) {
 				return RoomType.Entrance;
+			}
+			
+			if (typeof(ExitRoom).IsAssignableFrom(room)) {
+				return RoomType.Exit;
 			}
 			
 			if (typeof(SecretRoom).IsAssignableFrom(room)) {

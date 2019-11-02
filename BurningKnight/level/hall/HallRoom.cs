@@ -3,11 +3,10 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.tile;
 
 namespace BurningKnight.level.hall {
-	public class HallRoom : EntranceRoom {
+	public class HallRoom : ExitRoom {
 		private Prefab prefab;
 
 		public HallRoom() {
-			Exit = true;
 			prefab = Prefabs.Get("new_hub");
 		}
 		

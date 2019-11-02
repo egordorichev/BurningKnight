@@ -76,7 +76,7 @@ namespace BurningKnight.level.builders {
 					return null;
 				}
 				
-				if (R == Exit) {
+				if (R == Exit && Boss != null) {
 					var a = Direction;
 					var i = 0;
 						
