@@ -44,7 +44,14 @@ namespace BurningKnight.entity.item {
 		}
 
 		private void UpdatePosition() {
-			Center = Camera.Instance.CameraToUi(new Vector2(item.CenterX, item.Y - 8 + y + (item.Animation == null ? item.GetComponent<ItemGraphicsComponent>().CalculateMove() * Display.UiScale : 0)));
+			var yy = 0f;
+			
+			if (item.Animation == null) {
+				var c = item.GetComponent<ItemGraphicsComponent>();
+				yy = ItemGraphicsComponent.CalculateMove(c.T) * Display.UiScale;
+			}
+			
+			Center = Camera.Instance.CameraToUi(new Vector2(item.CenterX, item.Y - 8 + y + yy));
 			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
 		}
 		

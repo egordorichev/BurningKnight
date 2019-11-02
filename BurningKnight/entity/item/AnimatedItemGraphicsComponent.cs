@@ -3,18 +3,24 @@ using Lens.assets;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
 	public class AnimatedItemGraphicsComponent : GraphicsComponent {
 		public Animation Animation;
+		public float T;
 		
 		public AnimatedItemGraphicsComponent(string animation) {
 			Animation = Animations.Create(animation);
+			Animation.Randomize();
+			T = Random.Float(32f);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			T += dt;
 			Animation.Update(dt);
 		}
 
@@ -26,7 +32,7 @@ namespace BurningKnight.entity.item {
 					return;
 				}
 				
-				Animation.Render(Entity.Position);
+				Animation.Render(Entity.Position + new Vector2(0, ItemGraphicsComponent.CalculateMove(T * 1.2f)));
 			}
 		}
 	}

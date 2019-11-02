@@ -9,6 +9,7 @@
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
+* don't keep button as selected if you dont have gamepad attached
 * spawn a single npc per run
 * autoswap weapon after you used the cage key
 * keyboard controls dont show up if you have gamepad connected (show both)
@@ -26,6 +27,8 @@
 * throw player into the hub after the first run (players dont discover hub now)
 * animate mob spawning
 * you drop all items when you interact with cage keys
+* fix item description being displayed in wrong place
+* text on your head when you get +hp, etc, so that its all clear
 
 # ui update
 
@@ -33,19 +36,16 @@
 
 * fix music speed
 * battery is confusing
-* explain what items do (redo small descriptions to be better)
 * fix laser pointer and nozzle
 
 * buff icons on creature heads
 * buffs display on mobs (like poisoned, charmed)
 * look into fullscreen bug
-* coins need resprite, animated?
 
 # sand & oil 
 
 * teleporting removes your followers
 
-* fix item description being displayed in wrong place
 * teleportation animation on player
 * cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

@@ -19,10 +19,12 @@ namespace Lens.graphics.animation {
 		public bool Paused;
 		public bool AutoStop;
 
+		public uint TagSize => (EndFrame - StartFrame + 1);
+
 		public uint Frame {
 			get => currentFrame;
 			set {
-				currentFrame = value % (EndFrame - StartFrame + 1);
+				currentFrame = value % TagSize;
 				ReadFrame();
 			}
 		}
@@ -153,6 +155,10 @@ namespace Lens.graphics.animation {
 			}
 
 			return Data.GetFrame(layer, (uint) (t.StartFrame + frame))?.Texture;
+		}
+
+		public void Randomize() {
+			Frame = (uint) Random.Int((int) TagSize);
 		}
 	}
 }
