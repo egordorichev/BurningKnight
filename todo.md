@@ -28,8 +28,6 @@
 * props in the shop can be unaccessable due item stands being too close
 * can and battery look the same way, players are generaly confused about the battery
 * enemies/rooms/other stuff that doesn't happen/appear every run
-* bug: chasms are not replaced with floor after you've started a new run (Run.depth is still old? biome.ModifyPainter())
-* fog is still way too fast
 * a special reward for completing the level fast
 * throw player into the hub after the first run
 
