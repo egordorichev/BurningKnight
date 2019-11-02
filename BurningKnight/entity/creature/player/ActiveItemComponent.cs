@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.player {
 		protected override void OnItemSet(Item previous) {
 			base.OnItemSet(previous);
 			
-			if (GlobalSave.IsFalse("control_active") && GetComponent<DialogComponent>().Dialog?.Str != null) {
+			if (Run.Depth > 0 && GlobalSave.IsFalse("control_active") && GetComponent<DialogComponent>().Dialog?.Str != null) {
 				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Active, GamepadComponent.Current != null));
 				Entity.GetComponent<DialogComponent>().StartAndClose("control_6", 5);
 			}
@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 						Item.Delay = 0;
 					}
 					
-					if (GlobalSave.IsFalse("control_active")) {
+					if (Run.Depth > 0 && GlobalSave.IsFalse("control_active")) {
 						Entity.GetComponent<DialogComponent>().Close();
 						GlobalSave.Put("control_active", true);
 					}

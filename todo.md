@@ -5,7 +5,6 @@
 * special secret music with 10% chance?
 * keyboard controls dont show up if you have gamepad connected (show both)
 * money is a huge problem. its or dropped too much or too little
-* do not display the control hint when not in the game or tutorial
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect
 * fly can go outside of the room

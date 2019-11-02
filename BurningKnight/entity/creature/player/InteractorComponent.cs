@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (CurrentlyInteracting != null && Input.WasPressed(Controls.Interact, GetComponent<GamepadComponent>().Controller)) {
-				if (GlobalSave.IsFalse("control_interact")) {
+				if (Run.Depth == -2 && GlobalSave.IsFalse("control_interact")) {
 					GlobalSave.Put("control_interact", true);
 					Entity.GetComponent<DialogComponent>().Close();
 				}
