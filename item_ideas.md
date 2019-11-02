@@ -2,6 +2,7 @@
 
 * can (different sprite and name)
 * rename button into voodoo doll
+* machine gun (sucks)
 
 ### items
 

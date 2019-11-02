@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.level;
 using BurningKnight.level.basement;
@@ -53,6 +54,7 @@ namespace BurningKnight.save {
 			var a = new Area();
 		
 			try {
+				Items.GeneratedOnFloor.Clear();
 				var level = CreateLevel();
 				BiomeGenerated = level.Biome;
 				a.Add(level);

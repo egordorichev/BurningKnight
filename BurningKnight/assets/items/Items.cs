@@ -344,11 +344,13 @@ namespace BurningKnight.assets.items {
 			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";
 		}
 
+		public static List<string> GeneratedOnFloor = new List<string>();
+
 		public static List<ItemData> GeneratePool(List<ItemData> types, Func<ItemData, bool> filter = null, PlayerClass c = PlayerClass.Any) {
 			var datas = new List<ItemData>();
 
 			foreach (var t in types) {
-				if (ShouldAppear(t) && (filter == null || filter(t))) {
+				if (ShouldAppear(t) && (filter == null || filter(t)) && !GeneratedOnFloor.Contains(t.Id)) {
 					datas.Add(t);
 				}
 			}
@@ -356,7 +358,7 @@ namespace BurningKnight.assets.items {
 			return datas;
 		}
 
-		public static string GenerateAndRemove(List<ItemData> datas, Func<ItemData, bool> filter = null) {
+		public static string GenerateAndRemove(List<ItemData> datas, Func<ItemData, bool> filter = null, bool removeFromFloor = false) {
 			double sum = 0;
 			
 			foreach (var chance in datas) {
@@ -385,10 +387,14 @@ namespace BurningKnight.assets.items {
 			}
 
 			if (id != null) {
+				if (removeFromFloor) {
+					GeneratedOnFloor.Add(id);
+				}
+				
 				datas.Remove(data);
 				return id;
 			}
-			
+
 			return PlaceholderItem;
 		}
 	

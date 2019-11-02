@@ -32,7 +32,7 @@ namespace BurningKnight.level.rooms.treasure {
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Chest));
 
 			foreach (var s in stands) {
-				s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+				s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area), null);
 
 				if (pool.Count == 0) {
 					break;
