@@ -13,8 +13,6 @@
 * burst gun is trash
 * some effects when you clear the whole level
 * jungle rooms should be a tad smaller than the rest of the game?
-* the ingame texture can be x2 the size, render in the center, so that the map is not so blurry?
-* depth counter in the pause menu is broken
 * mother slime body is not removed
 * screenshake setting is not used?
 * don't add idol to the static item list
@@ -30,12 +28,9 @@
 
 * send build to overgamez
 
-* super low pass filter on the level music when no enemies are in the room for longer than 3 sec?
 * fix music speed
 * battery is confusing
 * explain what items do (redo small descriptions to be better)
-
-* glass statue was not removed??
 * fix laser pointer and nozzle
 
 * buff icons on creature heads
@@ -45,8 +40,7 @@
 
 # sand & oil 
 
-* fix the same items appearing (make sure orbitals can appear more times tho)
-* teleporting removes your key
+* teleporting removes your followers
 
 * fix item description being displayed in wrong place
 * teleportation animation on player

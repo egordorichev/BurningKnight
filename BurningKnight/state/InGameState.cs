@@ -15,6 +15,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
+using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
@@ -507,7 +508,7 @@ namespace BurningKnight.state {
 			}
 
 			if (found) {
-				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
+				Camera.Instance.TextureZoom += ((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.TextureZoom) * dt * 10;
 			}
 
 			console.Update(dt);
@@ -860,7 +861,7 @@ namespace BurningKnight.state {
 			var start = Display.UiHeight * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
-				LocaleLabel = "pause",
+				Label = Level.GetDepthString(),
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = TitleY,
 				AngleMod = 0
@@ -999,7 +1000,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Enabled = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
-				Ui.Add(new UiBanner($"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}"));
+				Ui.Add(new UiBanner(Level.GetDepthString()));
 			}
 		}
 
@@ -1822,7 +1823,7 @@ namespace BurningKnight.state {
 			killsLabel.Label = $"{Locale.Get("mobs_killed")} {Run.Statistics.MobsKilled}";
 			killsLabel.RelativeCenterX = Display.UiWidth / 2f;
 
-			depthLabel.Label = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman(Run.Depth)}";
+			depthLabel.Label = Level.GetDepthString();
 			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
 
 			Tween.To(this, new {blur = 1}, 0.5f);

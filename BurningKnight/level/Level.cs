@@ -13,6 +13,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
@@ -1257,6 +1258,14 @@ namespace BurningKnight.level {
 
 		public virtual string GetMusic() {
 			return Biome.Music;
+		}
+
+		public static string GetDepthString() {
+			if (Run.Depth < 1) {
+				return Locale.Get(Run.Level.Biome.Id);
+			}
+			
+			return $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
 		}
 	}
 }

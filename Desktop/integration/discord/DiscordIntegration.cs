@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.level;
 using BurningKnight.state;
 using Lens;
 using Lens.assets;
@@ -50,7 +51,7 @@ namespace Desktop.integration.discord {
 			var status = new DiscordRpc.RichPresence();
 
 			if (Run.Level != null) {
-				status.details = $"{Locale.Get(Run.Level.Biome.Id)} {(Run.Depth < 1 ? "" : MathUtils.ToRoman((Run.Depth - 1) % 2 + 1))}";
+				status.details = $"{Locale.Get(Run.Level.Biome.Id)} {Level.GetDepthString()}";
 				var p = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 				if (p != null) {
