@@ -207,10 +207,6 @@ namespace BurningKnight.assets.items {
 				id = coinIds[Random.Chances(coinChances)];
 			}
 			
-			if (id.EndsWith("_coin")) {
-				id += Random.Chance() ? "_a" : "_b";
-			}
-			
 			if (!Datas.TryGetValue(id, out var data)) {
 				Log.Error($"Unknown item {id}");
 				return null;

@@ -1,4 +1,43 @@
+# esty stuff
+
+* creeper range is too small, its too slow, like it didnt explode a single time, too ez
+* hide the seed in pause menu if you are not in the game yet
+* special secret music with 10% chance?
+* remove the teleport enememies away/kill one enemy items
+* keyboard controls dont show up if you have gamepad connected (show both)
+* money is a huge problem. its or dropped too much or too little
+* do not display the control hint when not in the game or tutorial
+* enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
+* you can put your weapons on the item stands... remove that
+* light up room after finishing it? overall, some room cleared effect
+* fly can go outside of the room
+* players can get stuck in an enemy room, after everyone is ded the door did not open
+* roll is too long
+* calculate mob spawn weight based on passable room area and not overall area
+* burst gun is trash
+* some effects when you clear the whole level
+* jungle rooms should be a tad smaller than the rest of the game?
+* the ingame texture can be x2 the size, render in the center, so that the map is not so blurry?
+* map button on gamepad. its nice, but needs more stuff to pop up, when you go to the map view
+* depth counter in the pause menu is broken
+* mother slime body is not removed
+* screenshake setting is not used?
+* don't add idol to the static item list
+* convert bat item to an item, that gives you life drain
+* laser pointer shouldn't make bullets smaller
+* lower granny spawn rate
+* props in the shop can be unaccessable due item stands being too close
+* can and battery look the same way, players are generaly confused about the battery
+* enemies/rooms/other stuff that doesn't happen/appear every run
+* bug: chasms are not replaced with floor after you've started a new run (Run.depth is still old? biome.ModifyPainter())
+* couch item
+* fog is still way too fast
+* a special reward for completing the level fast
+* throw player into the hub after the first run
+
 # ui update
+
+* send build to overgamez
 
 * super low pass filter on the level music when no enemies are in the room for longer than 3 sec?
 * fix music speed

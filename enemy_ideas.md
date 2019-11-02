@@ -15,6 +15,8 @@
  
 * insanly hard enemy, that doesnt spawn, it's a statue at first. but if the statue breaks, the enemy appears (like it was a stone statue, but unstoned) and kicks your butt
  
+* buffer mob
+* buffer mob, that makes nearby enemies invincible 
 * enemy that deals insane knockback to you
 * skull, that shoots missiles, that go through wall (terraria dungeon)
 * (can be with thief sprite) caster, that shoots 3 penetrating the walls missiles, then tp's (terraria dungeon)

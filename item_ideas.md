@@ -5,6 +5,11 @@
 
 ### items
 
+* turret
+* pepega item rekvi
+* prism orbital
+* sack consumable
+* chest consumable
 * single time shop sale
 * nuclear throne perks: strong soul, hammer head, etc 
 * holy mantel
