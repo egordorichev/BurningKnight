@@ -92,14 +92,11 @@ namespace Lens.assets {
 				return;
 			}
 
-			if (currentPlayingMusic == music) {
-				Log.Info("Repeating");
+			if (currentPlayingMusic == music && currentPlaying != null) {
 				currentPlaying.Paused = false;
 				currentPlaying.Volume = musicVolume;
 				return;
 			}
-			
-			Log.Info($"Playing music {music} {Playing.Count}");
 			
 			Repeat = true;			
 			FadeOut();

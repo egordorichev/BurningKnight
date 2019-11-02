@@ -56,6 +56,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				var s = dt * 200;
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2(dx / d * s, dy / d * s);
+				Self.PushFromOtherEnemies(dt);
 			}
 		}
 

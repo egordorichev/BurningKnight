@@ -24,7 +24,7 @@ namespace BurningKnight.entity.component {
 
 		public void FindRoom() {
 			var old = Room;
-
+			
 			if (old != null && old.Contains(Entity.Center)) {
 				return;
 			}
@@ -34,6 +34,10 @@ namespace BurningKnight.entity.component {
 					Room = (Room) room;
 					break;
 				}
+			}
+
+			if (old != null && !old.Contains(Entity.Center)) {
+				old = null;
 			}
 
 			if (old != Room) {
