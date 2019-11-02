@@ -25,7 +25,6 @@
 * don't add idol to the static item list
 * convert bat item to an item, that gives you life drain
 * laser pointer shouldn't make bullets smaller
-* lower granny spawn rate
 * props in the shop can be unaccessable due item stands being too close
 * can and battery look the same way, players are generaly confused about the battery
 * enemies/rooms/other stuff that doesn't happen/appear every run
