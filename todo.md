@@ -2,7 +2,7 @@
 
 * dont allow to pause while you interact with npcs
 * flies  still can be outside of the room and you can get stuck in a room 
-* projectiles are not auto autoaimed at shopkeeper
+* if you teleport to special room unlock it, if you teleport to secret room open it
 * projectiles dont break from doors, that doesnt count us bounce?
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 

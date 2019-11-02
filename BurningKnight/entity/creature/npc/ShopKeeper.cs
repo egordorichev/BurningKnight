@@ -52,11 +52,11 @@ namespace BurningKnight.entity.creature.npc {
 
 				if (!r && raging) {
 					AddTag(Tags.Mob);
+					GetComponent<RoomComponent>().Room.Tagged[Tags.Mob].Add(this); // Hacky solution tbh
 					
 					Become<RunState>();
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
 
-					AddTag(Tags.MustBeKilled);
 					SetItemsFree();
 				}
 
