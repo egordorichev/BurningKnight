@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using BurningKnight.level;
 using Lens.entity;
 using Lens.util;
 using Lens.util.tween;
@@ -93,12 +94,16 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Become<OrbitingState>();
 					return;
 				}
+
+				if (Self.Target == null) {
+					return;
+				}
 				
 				var dx = Self.DxTo(Self.Target);
 				var dy = Self.DyTo(Self.Target);
 				var d = MathUtils.Distance(dx, dy);
 
-				var s = dt * 100;
+				var s = dt * 300;
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2(dx / d * s, dy / d * s);
 
@@ -138,5 +143,9 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 		#endregion
+
+		public override bool ShouldCollide(Entity entity) {
+			return !(entity is Level || entity is DestroyableLevel) &&base.ShouldCollide(entity);
+		}
 	}
 }
