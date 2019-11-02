@@ -10,7 +10,6 @@
 * fly can go outside of the room
 * players can get stuck in an enemy room, after everyone is ded the door did not open
 * roll is too long
-* calculate mob spawn weight based on passable room area and not overall area
 * burst gun is trash
 * some effects when you clear the whole level
 * jungle rooms should be a tad smaller than the rest of the game?

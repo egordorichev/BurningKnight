@@ -322,7 +322,8 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			var weight = room.GetWidth() * room.GetHeight() / 30f + Random.Float(0f, 1.5f);
+			var count = room.GetPassablePoints(level).Count;
+			var weight = count / 15f + Random.Float(0f, 1.5f);
 
 			while (weight > 0) {
 				var id = Random.Chances(spawnChances);
@@ -409,7 +410,7 @@ namespace BurningKnight.level {
 			foreach (var R in Rooms) {
 				var placed = false;
 				
-				foreach (var P in R.WaterPlaceablePoints()) {
+				foreach (var P in R.GetWaterPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 
@@ -433,7 +434,7 @@ namespace BurningKnight.level {
 			var Lake = Patch.Noise(Cobweb);
 
 			foreach (var R in Rooms) {
-				foreach (var P in R.WaterPlaceablePoints()) {
+				foreach (var P in R.GetWaterPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 					
@@ -448,7 +449,7 @@ namespace BurningKnight.level {
 			var Grass = Patch.Noise(Dirt);
 
 			foreach (var R in Rooms) {
-				foreach (var P in R.GrassPlaceablePoints()) {
+				foreach (var P in R.GetGrassPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 					
@@ -464,7 +465,7 @@ namespace BurningKnight.level {
 			var Cells = new List<int>();
 
 			foreach (var R in Rooms) {
-				foreach (var P in R.GrassPlaceablePoints()) {
+				foreach (var P in R.GetGrassPlaceablePoints()) {
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
 					var T = (Tile) Level.Tiles[I];
 					

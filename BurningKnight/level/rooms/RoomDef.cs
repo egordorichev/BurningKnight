@@ -395,15 +395,16 @@ namespace BurningKnight.level.rooms {
 			return Inside(P);
 		}
 
-		public List<Dot> WaterPlaceablePoints() {
+		public List<Dot> GetWaterPlaceablePoints() {
 			var Points = new List<Dot>();
 
-			for (var I = Left + 1; I <= Right - 1; I++)
-			for (var J = Top + 1; J <= Bottom - 1; J++) {
-				var P = new Dot(I, J);
+			for (var I = Left + 1; I <= Right - 1; I++) {
+				for (var J = Top + 1; J <= Bottom - 1; J++) {
+					var P = new Dot(I, J);
 
-				if (CanPlaceWater(P)) {
-					Points.Add(P);
+					if (CanPlaceWater(P)) {
+						Points.Add(P);
+					}
 				}
 			}
 
@@ -414,15 +415,30 @@ namespace BurningKnight.level.rooms {
 			return Inside(P);
 		}
 
-		public List<Dot> GrassPlaceablePoints() {
+		public List<Dot> GetGrassPlaceablePoints() {
 			var Points = new List<Dot>();
 
-			for (var I = Left + 1; I <= Right - 1; I++)
-			for (var J = Top + 1; J <= Bottom - 1; J++) {
-				var P = new Dot(I, J);
+			for (var I = Left + 1; I <= Right - 1; I++) {
+				for (var J = Top + 1; J <= Bottom - 1; J++) {
+					var P = new Dot(I, J);
 
-				if (CanPlaceGrass(P)) {
-					Points.Add(P);
+					if (CanPlaceGrass(P)) {
+						Points.Add(P);
+					}
+				}
+			}
+
+			return Points;
+		}
+		
+		public List<Dot> GetPassablePoints(Level level) {
+			var Points = new List<Dot>();
+
+			for (var I = Left + 1; I <= Right - 1; I++) {
+				for (var J = Top + 1; J <= Bottom - 1; J++) {
+					if (level.Get(I, J).Matches(TileFlags.Passable)) {
+						Points.Add(new Dot(I, J));
+					}
 				}
 			}
 
