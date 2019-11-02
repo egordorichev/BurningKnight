@@ -271,25 +271,25 @@ namespace BurningKnight.ui.inventory {
 		private void RenderConsumables() {
 			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
-			if (coins > 0) {
+			//if (coins > 0) {
 				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
 				Graphics.Print($"{coins}", Font.Small, new Vector2(18, bottomY - 1));
 				bottomY += 12;
-			}
+			//}
 
-			if (keys > 0) {
+			//if (keys > 0) {
 				Graphics.Render(key, new Vector2(8 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);
 				Graphics.Print($"{keys}", Font.Small, new Vector2(18, bottomY - 1));
 				bottomY += bomb.Source.Height + 2;
-			}
+			//}
 
-			if (bombs > 0) {
+			//if (bombs > 0) {
 				// Bomb sprite has bigger height
 				Graphics.Render(bomb, new Vector2(8 + bomb.Center.X, bottomY + bomb.Center.Y), 0,
 					bomb.Center, bombScale);
 
 				Graphics.Print($"{bombs}", Font.Small, new Vector2(18, bottomY - 1));
-			}
+			//}
 		}
 	}
 }
