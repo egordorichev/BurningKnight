@@ -256,7 +256,17 @@ namespace BurningKnight.state {
 				selected = null;
 				return;
 			}
-			
+
+			var name = Locale.Get(selected.Id);
+			var region = CommonAse.Items.GetSlice(selected.Id);
+			var animated = selected.Animation != null;
+
+			if (!animated && region != null) {
+				DrawItem(region);
+			}
+
+			ImGui.Text(selected.Id);
+
 			if (ImGui.Button("Give")) {
 				LocalPlayer.Locate(Engine.Instance.State.Area)
 					?.GetComponent<InventoryComponent>()
@@ -290,12 +300,46 @@ namespace BurningKnight.state {
 				}
 			}
 
-			var name = Locale.Get(selected.Id);
-			var region = CommonAse.Items.GetSlice(selected.Id);
-			var animated = selected.Animation != null;
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Rename")) {
+				ImGui.OpenPopup("Rename");
+				itemName = selected.Id;
+			}
+			
+			if (ImGui.BeginPopupModal("Rename")) {
+				ImGui.PushItemWidth(300);
+				ImGui.InputText("Id", ref itemName, 64);
+				ImGui.PopItemWidth();
+				
+				if (ImGui.Button("Rename") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
+					var iname = Locale.Get(selected.Id);
+					var idesc = $"{selected.Id}_desc";
+					var description = Locale.Get(idesc);
+					
+					Locale.Map.Remove(selected.Id);
+					Locale.Map.Remove(idesc);
 
-			if (!animated && region != null) {
-				DrawItem(region);
+					Items.Datas.Remove(selected.Id);
+
+					selected.Id = itemName;
+					itemName = "";
+
+					Locale.Map[selected.Id] = iname;
+					Locale.Map[$"{selected.Id}_desc"] = description;
+					Items.Datas[selected.Id] = selected;
+
+					ImGui.CloseCurrentPopup();
+				}	
+				
+				ImGui.SameLine();
+
+				if (ImGui.Button("Cancel") || Input.Keyboard.WasPressed(Keys.Escape, true)) {
+					itemName = "";
+					ImGui.CloseCurrentPopup();
+				}
+				
+				ImGui.EndPopup();
 			}
 			
 			if (ImGui.InputText("Name", ref name, 64)) {
