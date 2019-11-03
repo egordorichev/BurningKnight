@@ -203,7 +203,7 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return (!(entity is Creature) || Owner is Mob != entity is Mob) && 
-			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || entity is Prop)
+			       (BreaksFromWalls && (entity is DestroyableLevel || entity is Level || entity is Prop || (entity is Door d && !d.Open))
 			        || entity.HasComponent<HealthComponent>());
 		}
 
@@ -258,7 +258,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			return !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is Level || entity is DestroyableLevel)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		public void Break() {
