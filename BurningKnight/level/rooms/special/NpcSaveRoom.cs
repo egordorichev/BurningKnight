@@ -30,6 +30,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public override void Paint(Level level) {
+			GameSave.Put("npc_appeared", true);
 			var d = Connected.Values.First();
 			
 			ShopNpc npc;
@@ -89,8 +90,8 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public static bool ShouldBeAdded() {
-			return GlobalSave.IsFalse(ShopNpc.AccessoryTrader) || GlobalSave.IsFalse(ShopNpc.ActiveTrader) ||
-			       GlobalSave.IsFalse(ShopNpc.WeaponTrader) || GlobalSave.IsFalse(ShopNpc.HatTrader);
+			return GameSave.IsFalse("npc_appeared") && (GlobalSave.IsFalse(ShopNpc.AccessoryTrader) || GlobalSave.IsFalse(ShopNpc.ActiveTrader) ||
+			       GlobalSave.IsFalse(ShopNpc.WeaponTrader) || GlobalSave.IsFalse(ShopNpc.HatTrader));
 		}
 	}
 }

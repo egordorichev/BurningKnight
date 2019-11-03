@@ -21,7 +21,7 @@ namespace Desktop {
 
 			// integrations.Add(new DiscordIntegration());
 			
-			integrations.Add(new SteamIntegration());
+			// integrations.Add(new SteamIntegration());
 
 			// integrations.Add(new RgbIntegration());
 

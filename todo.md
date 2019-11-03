@@ -3,14 +3,12 @@
 * when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 
-* dont allow to pause while you interact with npcs
-* flies  still can be outside of the room and you can get stuck in a room 
+* flies still can be outside of the room and you can get stuck in a room 
 * if you teleport to special room unlock it, if you teleport to secret room open it
 * projectiles dont break from doors, that doesnt count us bounce?
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
-* spawn a single npc per run
 * autoswap weapon after you used the cage key
 * keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
@@ -146,6 +144,8 @@
 * Props that react to music beats
 
 ### Ideas
+
+* Unique saving experience for each NPCs (and save phrases)
 
 * jungle rooms should be a tad smaller than the rest of the game?
 * special secret music with 10% chance?
