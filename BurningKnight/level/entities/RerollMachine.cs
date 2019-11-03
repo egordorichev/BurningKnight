@@ -95,7 +95,7 @@ namespace BurningKnight.level.entities {
 
 			numRolled += (consumeCoin ? 1 : 2);
 
-			if (Random.Float(100) < numRolled * 15) {
+			if (Random.Float(100) < numRolled * 15 - Run.Luck * 2) {
 				Break();
 			}
 		}

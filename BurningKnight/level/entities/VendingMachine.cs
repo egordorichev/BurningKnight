@@ -116,7 +116,7 @@ namespace BurningKnight.level.entities {
 
 			spawnedCount++;
 
-			if (Random.Float(100) < spawnedCount * 30) {
+			if (Random.Float(100) < spawnedCount * 30 - Run.Luck * 2) {
 				Break();
 				return true;
 			}

@@ -74,5 +74,11 @@ namespace BurningKnight.entity.creature.player {
 		public bool IsFullOrEmpty() {
 			return Item == null || Item.Delay <= 0.01f;
 		}
+
+		public void Charge(int amount) {
+			if (Item != null && Item.UseTime > 0.02f) {
+				Item.Delay = Math.Max(Item.Delay - amount, 0f);
+			}
+		}
 	}
 }

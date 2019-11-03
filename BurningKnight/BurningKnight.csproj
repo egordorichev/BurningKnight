@@ -740,6 +740,7 @@
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\Campfire.cs" />
+    <Compile Include="level\entities\Charger.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />
@@ -815,6 +816,7 @@
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
+    <Compile Include="level\rooms\special\ChargerRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
