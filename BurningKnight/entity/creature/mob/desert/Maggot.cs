@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			base.SetStats();
 			
 			AddComponent(new WallAnimationComponent("maggot"));
-			SetMaxHp(3);
+			SetMaxHp(1);
 
 			Depth = Layers.Creature + 1;
 		}

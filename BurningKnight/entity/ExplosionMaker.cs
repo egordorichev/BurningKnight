@@ -17,7 +17,7 @@ using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
-		public static void Make(Entity whoHurts, float hurtRadius = 16f, bool leave = true, Vec2 where = null) {
+		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null) {
 			Camera.Instance.Shake(10);
 			var w = where == null ? whoHurts.Center : new Vector2(where.X, where.Y);
 

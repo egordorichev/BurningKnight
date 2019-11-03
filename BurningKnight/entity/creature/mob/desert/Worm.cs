@@ -12,7 +12,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 		protected override void SetStats() {
 			base.SetStats();
 
-			SetMaxHp(4);
+			SetMaxHp(1);
 			AddAnimation("worm");
 
 			GetComponent<MobAnimationComponent>().ShadowOffset = 1;
