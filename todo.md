@@ -12,7 +12,6 @@
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * players can get stuck in an enemy room, after everyone is ded the door did not open
-* roll is too long
 * some effects when you clear the whole level
 * don't add idol to the static item list
 * props in the shop can be unaccessable due item stands being too close 

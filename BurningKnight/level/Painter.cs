@@ -569,8 +569,9 @@ namespace BurningKnight.level {
 				// Paintings
 				for (int X = Room.Left + 1; X < Room.Right; X++) {
 					var s = Room is SecretRoom;
+					var t = Level.Get(X, Room.Top);
 
-					if (Level.Get(X, Room.Top).IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Random.Chance(s ?230 : 10)) {
+					if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Random.Chance(s ? 30 : 10)) {
 						if (!s && Random.Chance()) {
 							var torch = new WallTorch();
 							Level.Area.Add(torch);

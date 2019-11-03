@@ -247,8 +247,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public class RollState : EntityState {
-			private const float RollTime = 0.39f;
-			private const float RollForce = 400f;
+			private const float RollTime = 0.25f;
+			private const float RollForce = 600f;
 			
 			private float lastParticle = 0.05f;
 			private Vector2 direction;
