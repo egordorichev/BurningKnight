@@ -1,7 +1,5 @@
 # esty stuff
 
-* if you teleport to special room unlock it, if you teleport to secret room open it
-
 * when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 
@@ -10,7 +8,6 @@
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 
 
-* autoswap weapon after you used the cage key
 * keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect
@@ -34,6 +31,7 @@
 
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
+* convert cage key into a pet
 
 # ui update
 
@@ -134,6 +132,7 @@
 
 #### Polish
 
+* special door textures for shop and treasure room, maybe even boss room 
 * animate items on player head better, also dont stack em, display count 
 * animate item pickup / appearance
 * look into doors drawing at proper depth

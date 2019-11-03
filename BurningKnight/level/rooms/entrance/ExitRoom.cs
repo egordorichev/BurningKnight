@@ -1,5 +1,6 @@
 using BurningKnight.level.entities;
 using BurningKnight.level.tile;
+using BurningKnight.level.walls;
 using BurningKnight.state;
 using Microsoft.Xna.Framework;
 
@@ -32,7 +33,7 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override void Paint(Level level) {
-			base.Paint(level);
+			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
 			
 			var prop = new Exit {
 				To = Run.Depth + 1

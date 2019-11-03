@@ -15,6 +15,10 @@ namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
 		protected bool AtBack = true;
 		private bool requestSwap;
+
+		public void RequestSwap() {
+			requestSwap = true;
+		}
 		
 		public override void PostInit() {
 			base.PostInit();

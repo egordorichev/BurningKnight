@@ -42,7 +42,8 @@ namespace BurningKnight.entity.door {
 				var i = a.Item;
 				a.Set(null);
 				i.Done = true;
-
+				
+				a.RequestSwap();
 				SaveNpc();
 				
 				return true;
