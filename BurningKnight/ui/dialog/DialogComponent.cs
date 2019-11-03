@@ -1,11 +1,13 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -64,11 +66,7 @@ namespace BurningKnight.ui.dialog {
 					OnNext?.Invoke(this);
 
 					if (To != null) {
-						var input = To.GetComponent<PlayerInputComponent>();
-
-						input.InDialog = false;
-						input.Dialog = null;
-							
+						OnEnd();
 						To = null;
 					}
 						
@@ -181,13 +179,9 @@ namespace BurningKnight.ui.dialog {
 				Dialog.Str.Renderer = RenderChoice;
 			}
 
-			if (to is Player p) {
-				var input = p.GetComponent<PlayerInputComponent>();
-
-				input.InDialog = true;
-				input.Dialog = this;
-
+			if (to is Player) {
 				To = to;
+				OnStart();
 			}
 		}
 
@@ -199,6 +193,27 @@ namespace BurningKnight.ui.dialog {
 			} else if (Current is AnswerDialog a) {
 				Graphics.Print($"{a.Answer}{(a.Focused && Engine.Time % 0.8f > 0.4f ? "|" : "")}", Font.Small, pos);
 			}
+		}
+
+		private void OnStart() {
+			var p = (Player) To;
+			var input = p.GetComponent<PlayerInputComponent>();
+
+			input.InDialog = true;
+			input.Dialog = this;
+						
+			p.GetComponent<StateComponent>().Become<Player.IdleState>();
+				
+			((InGameState) Engine.Instance.State).OpenBlackBars();
+		}
+		
+		private void OnEnd() {
+			var input = To.GetComponent<PlayerInputComponent>();
+
+			input.InDialog = false;
+			input.Dialog = null;
+						
+			((InGameState) Engine.Instance.State).CloseBlackBars();
 		}
 	}
 }

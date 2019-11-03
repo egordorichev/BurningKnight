@@ -1,5 +1,7 @@
 # esty stuff
 
+* seed input rework, it doesnt affect the run?
+
 * dont allow to pause while you interact with npcs
 * flies  still can be outside of the room and you can get stuck in a room 
 * if you teleport to special room unlock it, if you teleport to secret room open it
@@ -53,7 +55,6 @@
 * Hold melee weapon to throw it 
 * Enemies should only spawn when player enters, and get removed, when you to away
 * rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
-* seed input remove/rework, it doesnt affect the run?
 
 * we need inventory in pause menu, like in revita
 * player can respawn without a weapon or with op weapon from last run

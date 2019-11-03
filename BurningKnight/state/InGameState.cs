@@ -281,7 +281,15 @@ namespace BurningKnight.state {
 				};
 			}
 
+			OpenBlackBars();
+		}
+
+		public void OpenBlackBars() {
 			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
+		}
+		
+		public void CloseBlackBars() {
+			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
 		}
 
 		protected override void OnResume() {
@@ -303,8 +311,7 @@ namespace BurningKnight.state {
 				doneAnimatingPause = true;
 			};
 
-			Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
-
+			CloseBlackBars();
 			pausedByMouseOut = false;
 		}
 
@@ -484,8 +491,8 @@ namespace BurningKnight.state {
 				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
 					menuExited = true;
 					Input.Blocked = 0;
-					
-					Tween.To(0, blackBarsSize, x => blackBarsSize = x, 0.2f);
+
+					CloseBlackBars();
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, CursorPriority);
 					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
@@ -1837,7 +1844,7 @@ namespace BurningKnight.state {
 				SelectFirst();
 			};
 			
-			Tween.To(BarsSize, blackBarsSize, x => blackBarsSize = x, 0.3f);
+			OpenBlackBars();
 		}
 		
 		public void HandleDeath() {

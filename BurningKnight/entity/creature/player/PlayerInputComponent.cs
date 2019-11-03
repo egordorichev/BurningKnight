@@ -105,7 +105,7 @@ namespace BurningKnight.entity.creature.player {
 					
 					if (dd.DoneSaying) {
 						if (dialog.Current is ChoiceDialog c) {
-							if (Input.WasPressed(Controls.Up, controller, true)) {
+							if (Input.WasPressed(Controls.UiUp, controller, true)) {
 								c.Choice -= 1;
 
 								if (c.Choice < 0) {
@@ -113,14 +113,14 @@ namespace BurningKnight.entity.creature.player {
 								}
 							}
 
-							if (Input.WasPressed(Controls.Down, controller, true)) {
+							if (Input.WasPressed(Controls.UiDown, controller, true)) {
 								c.Choice = (c.Choice + 1) % c.Options.Length;
 							}
 						}
 					}
 
 					if (dd.Saying) {
-						if ((!isAnswer && Input.WasPressed(Controls.Interact, controller, true)) || (isAnswer && !a.Focused)) {
+						if ((!isAnswer && (Input.WasPressed(Controls.Interact, controller, true) || Input.WasPressed(Controls.UiSelect, controller, true))) || (isAnswer && !a.Focused)) {
 							if (dd.DoneSaying) {
 								dd.Finish();
 							} else {
@@ -130,11 +130,11 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 				
+				Accelerate(Vector2.Zero, dt);
 				return;
 			}
 			
 			var state = Entity.GetComponent<StateComponent>();
-			var body = GetComponent<RectBodyComponent>();
 			var duck = state.StateInstance is Player.DuckState;
 			
 			if (duck) {
@@ -162,7 +162,6 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (!duck) {
 				var acceleration = new Vector2();
-				var i = GetComponent<TileInteractionComponent>();
 
 				if (Input.IsDown(Controls.Up, controller)) {
 					idle = false;
@@ -212,24 +211,7 @@ namespace BurningKnight.entity.creature.player {
 						acceleration.Normalize();
 					}
 
-					var s = Speed;
-					var sp = 20;
-					
-					if (i.Touching[(int) Tile.Ice]) {
-						sp -= 19;
-						s *= 0.25f;
-					}
-										
-					if (i.Touching[(int) Tile.Cobweb]) {
-						s *= 0.8f;
-					}
-					
-					if (i.Touching[(int) Tile.Water] || i.Touching[(int) Tile.Lava]) {
-						s *= 0.9f;
-					}
-					
-					body.Acceleration = acceleration * s;
-					body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
+					Accelerate(acceleration, dt);
 				}
 			}
 
@@ -245,6 +227,30 @@ namespace BurningKnight.entity.creature.player {
 			} else {
 				TimeIdle = 0;
 			}
+		}
+
+		public void Accelerate(Vector2 acceleration, float dt) {
+			var body = GetComponent<RectBodyComponent>();				
+			var i = GetComponent<TileInteractionComponent>();
+
+			var s = Speed;
+			var sp = 20;
+
+			if (i.Touching[(int) Tile.Ice]) {
+				sp -= 19;
+				s *= 0.25f;
+			}
+
+			if (i.Touching[(int) Tile.Cobweb]) {
+				s *= 0.8f;
+			}
+
+			if (i.Touching[(int) Tile.Water] || i.Touching[(int) Tile.Lava]) {
+				s *= 0.9f;
+			}
+
+			body.Acceleration = acceleration * s;
+			body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
 		}
 	}
 }
