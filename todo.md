@@ -10,20 +10,14 @@
 
 * keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
-* light up room after finishing it? overall, some room cleared effect
+* light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * players can get stuck in an enemy room, after everyone is ded the door did not open
 * roll is too long
-* burst gun is trash
 * some effects when you clear the whole level
 * don't add idol to the static item list
-* convert bat item to an item, that gives you life drain
 * props in the shop can be unaccessable due item stands being too close 
 * can and battery look the same way, players are generaly confused about the battery
-* enemies/rooms/other stuff that doesn't happen/appear every run
-* throw player into the hub after the first run (players dont discover hub now)
 * animate mob spawning
-* you drop all items when you interact with cage keys
-* fix item description being displayed in wrong place
 * text on your head when you get +hp, etc, so that its all clear
 
 * game sometimes doesnt exit even after window is closed
@@ -146,6 +140,7 @@
 ### Ideas
 
 * Unique saving experience for each NPCs (and save phrases)
+* enemies/rooms/other stuff that doesn't happen/appear every run
 
 * jungle rooms should be a tad smaller than the rest of the game?
 * special secret music with 10% chance?

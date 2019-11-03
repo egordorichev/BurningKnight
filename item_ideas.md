@@ -1,8 +1,8 @@
 ### to rework
 
 * can (different sprite and name)
-* rename button into voodoo doll
 * machine gun (sucks)
+* rework bat into life drain
 
 ### items
 

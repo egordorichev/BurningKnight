@@ -34,7 +34,10 @@ namespace BurningKnight.ui.inventory {
 		public override void Init() {
 			base.Init();
 
-			uiItem = new UiItem();
+			uiItem = new UiItem {
+				OnTop = true
+			};
+			
 			Area.Add(uiItem);
 			
 			var area = inventory.Player.Area;

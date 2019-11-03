@@ -988,14 +988,16 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space * 3,
+				// RelativeCenterY = start + space * 3,
+				RelativeCenterY = BackY,
+
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(Run.Depth == -2 ? -2 : -1);
+					Run.StartNew(Run.Depth == -2 ? -2 : /*-1*/ 0);
 				}
 			});
 
-			if (Run.Depth > 0) {
+			/*if (Run.Depth > 0) {
 				gameOverMenu.Add(new UiButton {
 						LocaleLabel = "back_to_castle",
 						RelativeCenterX = Display.UiWidth / 2f,
@@ -1006,7 +1008,7 @@ namespace BurningKnight.state {
 							Run.Depth = 0;
 						}
 				});
-			}
+			}*/
 
 			gameOverMenu.Setup();
 			gameOverMenu.Enabled = false;

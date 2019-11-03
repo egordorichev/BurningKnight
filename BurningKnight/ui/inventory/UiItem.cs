@@ -37,12 +37,13 @@ namespace BurningKnight.ui.inventory {
 			}
 		}
 
-		private TextureRegion region;
 		public string Name;
 		public string Description;
 		public Vector2 NameSize;
 		public Vector2 DescriptionSize;
-		
+		public bool OnTop;
+
+		private TextureRegion region;
 		private string countStr;
 		private int count;
 		private int countW;
