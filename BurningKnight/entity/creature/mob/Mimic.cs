@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			AddComponent(new RectBodyComponent(1, 6, Width - 2, Height - 14, BodyType.Static));
 			AddComponent(new ShadowComponent());
-			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
+			AddComponent(new PoolDropsComponent(ItemPool.Treasure, 1f, 1, 1));
 			AddComponent(new SparkEmitterComponent(1f, 30f));
 
 			RemoveTag(Tags.MustBeKilled);

@@ -28,7 +28,7 @@ namespace BurningKnight.entity.item.use {
 			}
 
 			var item = component.Item;
-			Reroller.Reroll(item, ItemPool.Chest, i => item.Type == i.Type);
+			Reroller.Reroll(item, ItemPool.Treasure, i => item.Type == i.Type);
 		}
 
 		private void Reroll(Entity entity, InventoryComponent component) {
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.item.use {
 			}
 			
 			foreach (var item in component.Items) {
-				Reroller.Reroll(item, ItemPool.Chest, i => item.Type == i.Type);
+				Reroller.Reroll(item, ItemPool.Treasure, i => item.Type == i.Type);
 			}
 		}
 

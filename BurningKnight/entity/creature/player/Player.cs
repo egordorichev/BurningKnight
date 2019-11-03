@@ -6,6 +6,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
@@ -360,22 +361,28 @@ namespace BurningKnight.entity.creature.player {
 					Area.Add(part);
 				}
 			} else if (e is RoomChangedEvent c) {
+				if (c.New == null) {
+					return base.HandleEvent(e);
+				}
+				
 				c.New.Discover();
 
-				// Camera following current room, felt weird
-				/*if (Camera.Instance != null) {
-					foreach (var target in Camera.Instance.Targets) {
-						if (target.Entity == c.Old) {
-							Camera.Instance.Targets.Remove(target);
-							break;
-						}
-					}
+				switch (c.New.Type) {
+					case RoomType.Secret:
+					case RoomType.Special:
+					case RoomType.Shop:
+					case RoomType.Treasure: {
+						ExplosionMaker.CheckForCracks(Run.Level, c.New, this);
 					
-					// I don't think the if clause worked right, connection rooms still were targeted
-					if (c.New.Type != RoomType.Connection) {
-						Camera.Instance.Targets.Add(new Camera.Target(c.New, 0.2f));
+						foreach (var door in c.New.Doors) {
+							if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
+								component.Lock.SetLocked(false, this);
+							}
+						}
+						
+						break;
 					}
-				}*/
+				}
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0 && hm.From is Mob m && m.HasPrefix) {
 					hm.Amount = Math.Min(hm.Amount, -2);

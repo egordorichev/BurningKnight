@@ -1,10 +1,11 @@
 # esty stuff
 
+* if you teleport to special room unlock it, if you teleport to secret room open it
+
 * when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 
 * flies still can be outside of the room and you can get stuck in a room 
-* if you teleport to special room unlock it, if you teleport to secret room open it
 * projectiles dont break from doors, that doesnt count us bounce?
 
 * creeper range is too small, its too slow, like it didnt explode a single time, too ez. he and the mummy should ranomly wander around 

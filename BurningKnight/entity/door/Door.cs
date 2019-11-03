@@ -156,7 +156,11 @@ namespace BurningKnight.entity.door {
 
 				foreach (var room in Area.Tags[Tags.Room]) {
 					if (room.Contains(pos)) {
-						rooms[i] = (Room) room;
+						var r = (Room) room;
+						rooms[i] = r;
+						
+						r.Doors.Add(this);
+						
 						i++;
 
 						if (i == 2) {

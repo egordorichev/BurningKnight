@@ -14,17 +14,20 @@ namespace BurningKnight.entity.door {
 		public bool IsLocked => locked;
 
 		public void SetLocked(bool value, Entity entity) {
-			if (value == locked) {
+			if (value == locked || Done) {
 				return;
 			}
 
 			locked = value;
 			
-			if (locked) {
+			if (!locked) {
 				HandleEvent(new LockOpenedEvent {
 					Lock = this,
 					Who = entity
 				});
+				
+				GetComponent<StateComponent>().Become<OpeningState>();
+				GetComponent<AudioEmitterComponent>().EmitRandomized("unlock");
 			} else {
 				HandleEvent(new LockClosedEvent {
 					Lock = this,
@@ -45,11 +48,7 @@ namespace BurningKnight.entity.door {
 		
 		protected virtual bool Interact(Entity entity) {
 			if (TryToConsumeKey(entity)) {
-				GetComponent<StateComponent>().Become<OpeningState>();
 				SetLocked(false, entity);
-
-				GetComponent<AudioEmitterComponent>().EmitRandomized("unlock");
-				
 				return true;
 			}
 

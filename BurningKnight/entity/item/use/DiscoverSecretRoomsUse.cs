@@ -14,22 +14,8 @@ namespace BurningKnight.entity.item.use {
 	public class DiscoverSecretRoomsUse : ItemUse {
 		private float chance;
 
-		private void CheckRoom(Entity who, Room room) {
-			var level = Run.Level;
-
-			if (room != null) {
-				for (var y = room.MapY; y < room.MapY + room.MapY; y++) {
-					for (var x = room.MapX; x < room.MapX + room.MapW; x++) {
-						if (level.IsInside(x, y) && level.Get(x, y) == Tile.Crack) {
-							ExplosionMaker.DiscoverCrack(who, level, x, y);
-						}
-					}	
-				}
-			}
-		}
-
-		public override void Use(Entity entity, Item item) {
-			CheckRoom(entity, entity.GetComponent<RoomComponent>().Room);
+		public override void Use(Entity entity, Item item) {				
+			ExplosionMaker.CheckForCracks(Run.Level, entity.GetComponent<RoomComponent>().Room, entity);
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -38,7 +24,7 @@ namespace BurningKnight.entity.item.use {
 					return base.HandleEvent(e);
 				}
 
-				CheckRoom(rce.Who, rce.New);
+				ExplosionMaker.CheckForCracks(Run.Level, rce.New, rce.Who);
 			}
 			
 			return base.HandleEvent(e);

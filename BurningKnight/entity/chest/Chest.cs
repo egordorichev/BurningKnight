@@ -121,7 +121,7 @@ namespace BurningKnight.entity.chest {
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new PoolDropsComponent(ItemPool.Chest, 1f, 1, 1));
+			AddComponent(new PoolDropsComponent(ItemPool.Treasure, 1f, 1, 1));
 			AddComponent(new ExplodableComponent());
 			AddComponent(new SparkEmitterComponent(1f, 30f));
 

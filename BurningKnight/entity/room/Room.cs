@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.door;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
@@ -36,6 +37,7 @@ namespace BurningKnight.entity.room {
 		public List<RoomInput> Inputs = new List<RoomInput>();
 		public List<Piston> Pistons = new List<Piston>();
 		public List<RoomController> Controllers = new List<RoomController>();
+		public List<Door> Doors = new List<Door>();
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -48,7 +50,7 @@ namespace BurningKnight.entity.room {
 				case RoomType.Shop: return ItemPool.Shop;
 				case RoomType.Secret: return ItemPool.Secret;
 				case RoomType.Boss: return ItemPool.Boss;
-				case RoomType.Treasure: return ItemPool.Chest;
+				case RoomType.Treasure: return ItemPool.Treasure;
 			}
 
 			return null;

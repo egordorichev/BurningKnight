@@ -29,7 +29,7 @@ namespace BurningKnight.level.rooms.treasure {
 				return;
 			}
 
-			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Chest));
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure));
 
 			foreach (var s in stands) {
 				s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area), null);

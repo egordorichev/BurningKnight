@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -65,32 +66,45 @@ namespace BurningKnight.entity {
 				whoHurts.Area.Add(new ExplosionLeftOver {
 					Center = w
 				});
+			}
 				
-				var xx = (int) Math.Floor(w.X / 16f);
-				var yy = (int) Math.Floor(w.Y / 16f);
-				var r = (int) Math.Floor(hurtRadius / 16f);
-				var level = Run.Level;
+			
+			var xx = (int) Math.Floor(w.X / 16f);
+			var yy = (int) Math.Floor(w.Y / 16f);
+			var r = (int) Math.Floor(hurtRadius / 16f);
+			var level = Run.Level;
 				
-				for (int x = -r; x <= r; x++) {
-					for (int y = -r; y <= r; y++) {
-						var xm = x * 16;
-						var ym = y * 16;
+			for (int x = -r; x <= r; x++) {
+				for (int y = -r; y <= r; y++) {
+					var xm = x * 16;
+					var ym = y * 16;
 						
-						if (Math.Sqrt(xm * xm + ym * ym) <= hurtRadius) {
-							var index = level.ToIndex(x + xx, y + yy);
-							var tile = level.Get(index);
+					if (Math.Sqrt(xm * xm + ym * ym) <= hurtRadius) {
+						var index = level.ToIndex(x + xx, y + yy);
+						var tile = level.Get(index);
 							
-							if (!tile.IsWall()) {
-								level.Set(index, Tile.Dirt);
-								level.UpdateTile(x + xx, y + yy);
-							} else if (tile == Tile.Crack) {
-								DiscoverCrack(whoHurts, level, x + xx, y + yy);
-							} else if (tile == Tile.Planks) {
-								level.Set(index, Tile.Dirt);
-								level.Destroyable.Break((x + xx) * 16, (y + yy) * 16);
-							}
+						if (!tile.IsWall()) {
+							level.Set(index, Tile.Dirt);
+							level.UpdateTile(x + xx, y + yy);
+						} else if (tile == Tile.Crack) {
+							DiscoverCrack(whoHurts, level, x + xx, y + yy);
+						} else if (tile == Tile.Planks) {
+							level.Set(index, Tile.Dirt);
+							level.Destroyable.Break((x + xx) * 16, (y + yy) * 16);
 						}
 					}
+				}
+			}
+		}
+
+		public static void CheckForCracks(Level level, Room room, Entity who) {
+			if (room != null) {
+				for (var y = room.MapY; y < room.MapY + room.MapY; y++) {
+					for (var x = room.MapX; x < room.MapX + room.MapW; x++) {
+						if (level.IsInside(x, y) && level.Get(x, y) == Tile.Crack) {
+							DiscoverCrack(who, level, x, y);
+						}
+					}	
 				}
 			}
 		}

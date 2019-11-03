@@ -158,7 +158,7 @@ namespace BurningKnight.assets.items {
 					case ItemType.Artifact:
 					case ItemType.Weapon:
 					case ItemType.Active:						
-						pools = TryToApply(data, pools, ItemPool.Chest);
+						pools = TryToApply(data, pools, ItemPool.Treasure);
 						break;
 				}
 			} else {
