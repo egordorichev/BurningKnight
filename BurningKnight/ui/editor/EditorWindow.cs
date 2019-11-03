@@ -103,6 +103,10 @@ namespace BurningKnight.ui.editor {
 				SaveManager.Load(Editor.Area, SaveType.Level, $"Content/Prefabs/{levels[currentLevel]}.lvl");
 				Editor.Level = Run.Level;
 			}
+
+			for (var i = 0; i < Editor.Level.Size; i++) {
+				Editor.Level.Explored[i] = true;
+			}
 			
 			TileEditor.ReloadBiome();
 		}

@@ -117,6 +117,8 @@ namespace BurningKnight.level {
 		public override void Init() {
 			base.Init();
 			
+			NoLightNoRender = Engine.Instance.State is InGameState;
+			
 			var s = BlendState.AlphaBlend;
 				
 			blend = new BlendState {

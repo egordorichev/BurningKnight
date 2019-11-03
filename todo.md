@@ -1,6 +1,7 @@
 # esty stuff
 
 * when player pickups the coin it's sprite should use the full frame 
+* you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 
 * dont allow to pause while you interact with npcs
 * flies  still can be outside of the room and you can get stuck in a room 
@@ -32,6 +33,7 @@
 * game sometimes doesnt exit even after window is closed
 * animate keys, bombs and hearts
 
+* maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
 
 # ui update
