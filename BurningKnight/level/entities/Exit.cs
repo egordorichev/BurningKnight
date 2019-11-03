@@ -26,6 +26,8 @@ namespace BurningKnight.level.entities {
 				if (Run.Depth == -2) {
 					GlobalSave.Put("finished_tutorial", true);
 				}
+
+				entity.GetComponent<HealthComponent>().Unhittable = true;
 				
 				if (To == 1 || Run.Depth == -2) { // To 1 or in tutorial
 					Run.StartNew();

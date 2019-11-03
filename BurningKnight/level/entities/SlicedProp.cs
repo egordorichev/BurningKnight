@@ -5,7 +5,7 @@ using Lens.entity.component.graphics;
 using Lens.util.file;
 
 namespace BurningKnight.level.entities {
-	public class SlicedProp : Prop, PlaceableEntity {
+	public class SlicedProp : Prop {
 		public string Sprite;
 		
 		public SlicedProp(string slice = null, int depth = 0) {

@@ -754,6 +754,7 @@
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
     <Compile Include="level\entities\RerollMachine.cs" />
+    <Compile Include="level\entities\Safe.cs" />
     <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
@@ -819,6 +820,7 @@
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\NpcKeyRoom.cs" />
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
+    <Compile Include="level\rooms\special\SafeRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
     <Compile Include="level\rooms\special\WellRoom.cs" />
@@ -1055,9 +1057,6 @@
     <None Include="./lib/**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="level\entities\trap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\todo.md">

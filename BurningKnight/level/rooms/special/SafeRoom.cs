@@ -1,13 +1,11 @@
 using BurningKnight.level.entities;
-using Lens.util.math;
-using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special {
-	public class WellRoom : SpecialRoom {
+	public class SafeRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			var well = new Well();
-			level.Area.Add(well);
-			well.BottomCenter = GetCenterVector();
+			var safe = new Safe();
+			level.Area.Add(safe);
+			safe.BottomCenter = GetCenterVector();
 		}
 
 		public override int GetMinWidth() {

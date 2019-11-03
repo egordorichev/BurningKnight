@@ -80,6 +80,10 @@ namespace BurningKnight {
 			Autopause = true;
 			Autosave = true;
 			Gamepad = null;
+			
+			ShakeComponent.Modifier = Screenshake;
+			Engine.FreezeModifier = FreezeFrames;
+			Engine.FlashModifier = FlashFrames;
 		}
 		
 		public static void Load() {

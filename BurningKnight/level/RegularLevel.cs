@@ -225,7 +225,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumSpecialRooms() {
-			return Random.Int(0, 2);
+			return 1;
 		}
 
 		protected virtual int GetNumSecretRooms() {

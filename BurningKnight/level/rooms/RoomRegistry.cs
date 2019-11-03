@@ -91,6 +91,7 @@ namespace BurningKnight.level.rooms {
 				// Special
 				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<WellRoom>(1f),
+				RoomInfo.New<SafeRoom>(1f),
 				
 				// Boss
 				RoomInfo.New<ChasmBossRoom>(1f)

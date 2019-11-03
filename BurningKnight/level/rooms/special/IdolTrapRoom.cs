@@ -12,7 +12,7 @@ namespace BurningKnight.level.rooms.special {
 			var stand = new ItemStand();
 			level.Area.Add(stand);
 			
-			stand.Center = GetCenter() * 16 + new Vector2(8);
+			stand.BottomCenter = GetCenterVector();
 			stand.SetItem(Items.CreateAndAdd("bk:idol", level.Area), null);
 		}
 	}

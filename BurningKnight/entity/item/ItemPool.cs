@@ -25,6 +25,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Shop = new ItemPool("shop");
 		public static readonly ItemPool Boss = new ItemPool("boss");
 		public static readonly ItemPool ShopConsumable = new ItemPool("shop_consumable");
+		public static readonly ItemPool Safe = new ItemPool("safe");
 
 		private static int count;
 		public static int Count => count;

@@ -139,8 +139,8 @@ namespace Lens {
 			Time += dt;
 
 			Split = Math.Max(0, Split - dt);
-			Flash = Math.Max(0, Flash - dt * 120f * (1 - FlashModifier));
-			Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1 - FreezeModifier));
+			Flash = Math.Max(0, Flash - dt * 120f * (1.1f - FlashModifier));
+			Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
 
 			if (FreezeModifier <= 0.01f || Freeze < 0.01f) {
 				time += dt;
