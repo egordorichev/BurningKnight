@@ -23,6 +23,7 @@ using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.ui;
+using BurningKnight.ui.dialog;
 using BurningKnight.ui.editor;
 using BurningKnight.ui.imgui;
 using BurningKnight.ui.inventory;
@@ -536,7 +537,7 @@ namespace BurningKnight.state {
 					if (doneAnimatingPause) {
 						var did = false;
 						
-						if (Input.WasPressed(Controls.Pause, controller)) {
+						if (DialogComponent.Talking == null && Input.WasPressed(Controls.Pause, controller)) {
 							if (Paused) {
 								if (UiControl.Focused == null && currentBack == null) {
 									Paused = false;

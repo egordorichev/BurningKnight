@@ -130,6 +130,7 @@ namespace BurningKnight.level {
 			var Rooms = new List<RoomDef>();
 			var biome = LevelSave.BiomeGenerated;
 			var final = IsFinal();
+			var first = Run.Depth % 2 == 1;
 
 			if (final) {
 				Log.Info("Prepare for the final!");
@@ -137,15 +138,15 @@ namespace BurningKnight.level {
 			
 			Rooms.Add(RoomRegistry.Generate(RoomType.Entrance, biome));
 
-			var Regular = final ? 0 : GetNumRegularRooms();
-			var Special = final ? 0 : GetNumSpecialRooms();
+			var regular = final ? 0 : GetNumRegularRooms();
+			var special = final ? 0 : GetNumSpecialRooms();
 			var trap = final ? 0 : GetNumTrapRooms();
 			var Connection = final ? 1 : GetNumConnectionRooms();
 			var Secret = final ? 0 : GetNumSecretRooms();
 			
-			Log.Info($"Creating r{Regular} sp{Special} c{Connection} sc{Secret} t{trap} rooms");
+			Log.Info($"Creating r{regular} sp{special} c{Connection} sc{Secret} t{trap} rooms");
 
-			for (var I = 0; I < Regular; I++) {
+			for (var I = 0; I < regular; I++) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Regular, biome));
 			}
 
@@ -153,7 +154,7 @@ namespace BurningKnight.level {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Trap, biome));
 			}
 
-			for (var I = 0; I < Special; I++) {
+			for (var I = 0; I < special; I++) {
 				var Room = RoomRegistry.Generate(RoomType.Special, biome);
 				if (Room != null) Rooms.Add(Room);
 			}
@@ -168,11 +169,13 @@ namespace BurningKnight.level {
 
 			if (!final) {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
-				Rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
+
+				if (!first) {
+					Rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
+				}
 			}
 
-
-			if (Run.Depth % 2 == 1) {
+			if (first) {
 				Rooms.Add(new ExitRoom());				
 			} else {
 				Rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));

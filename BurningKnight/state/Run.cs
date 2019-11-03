@@ -26,6 +26,7 @@ namespace BurningKnight.state {
 		public static int Curse;
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
+		public static string NextSeed;
 		
 		public static int Depth {
 			get => depth;
@@ -55,8 +56,12 @@ namespace BurningKnight.state {
 			HasRun = false;
 			NextDepth = depth;
 
-			if (IgnoreSeed) {
-				IgnoreSeed = true;
+			if (NextSeed != null) {
+				Seed = NextSeed;
+				NextSeed = null;
+				IgnoreSeed = false;
+			} else if (IgnoreSeed) {
+				IgnoreSeed = false;
 			} else {
 				Seed = Random.GenerateSeed();
 			}
@@ -73,7 +78,6 @@ namespace BurningKnight.state {
 			HasRun = false;
 			Luck = 0;
 			Curse = 0;
-			Seed = Random.GenerateSeed();
 		}
 
 		public static string FormatTime() {

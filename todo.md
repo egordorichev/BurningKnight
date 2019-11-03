@@ -1,6 +1,6 @@
 # esty stuff
 
-* seed input rework, it doesnt affect the run?
+* when player pickups the coin it's sprite should use the full frame 
 
 * dont allow to pause while you interact with npcs
 * flies  still can be outside of the room and you can get stuck in a room 

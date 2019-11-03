@@ -168,7 +168,7 @@ namespace BurningKnight.ui.str {
 							case "vr": {
 								if (parts.Length > 1) {
 									if (Variables.TryGetValue(parts[1], out var vr)) {
-										builder.Append(vr.ToString());
+										builder.Append(vr == null ? "null" : vr.ToString());
 									} else {
 										Log.Error($"Undefined variable {parts[1]}!");
 									}

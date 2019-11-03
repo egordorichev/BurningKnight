@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.npc {
 
 		static Beet() {
 			Dialogs.RegisterCallback("beet_0", (d, c) => {
-				c.Dialog.Str.SetVariable("seed", Run.Seed);
+				c.Dialog.Str.SetVariable("seed", Run.NextSeed);
 				return Dialogs.Get($"beet_{(Run.IgnoreSeed ? 4 : 1)}");
 			});
 			
@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.npc {
 				Log.Info($"Beet set the seed to {a}");
 				
 				Random.Seed = a;
-				Run.Seed = a;
+				Run.NextSeed = a;
 				Run.IgnoreSeed = true;
 
 				return null;
@@ -31,11 +31,11 @@ namespace BurningKnight.entity.creature.npc {
 			
 			Dialogs.RegisterCallback("beet_4", (d, c) => {
 				if (((ChoiceDialog) d).Choice == 2) {
-					Run.Seed = Random.GenerateSeed();
+					Run.NextSeed = Random.GenerateSeed();
 					Run.IgnoreSeed = false;
 
-					c.Dialog.Str.SetVariable("seed", Run.Seed);
-					Log.Info($"Beet randomly set the seed to {Run.Seed}");
+					c.Dialog.Str.SetVariable("seed", Run.NextSeed);
+					Log.Info($"Beet randomly set the seed to {Run.NextSeed}");
 				}
 
 				return null;

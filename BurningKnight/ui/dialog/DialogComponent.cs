@@ -17,6 +17,8 @@ namespace BurningKnight.ui.dialog {
 	public delegate void DialogCallback(DialogComponent d);
 	
 	public class DialogComponent : Component {
+		public static DialogComponent Talking;
+		
 		public UiDialog Dialog;
 		public Dialog Last;
 		public Dialog Current;
@@ -84,6 +86,10 @@ namespace BurningKnight.ui.dialog {
 			
 			Dialog.Close(() => { Dialog.Done = true; });
 			Engine.Instance.Window.TextInput -= HandleInput;
+
+			if (Talking == this) {
+				Talking = null;
+			}
 		}
 
 		private bool tweening;
@@ -205,6 +211,8 @@ namespace BurningKnight.ui.dialog {
 			p.GetComponent<StateComponent>().Become<Player.IdleState>();
 				
 			((InGameState) Engine.Instance.State).OpenBlackBars();
+
+			Talking = this;
 		}
 		
 		private void OnEnd() {
@@ -214,6 +222,8 @@ namespace BurningKnight.ui.dialog {
 			input.Dialog = null;
 						
 			((InGameState) Engine.Instance.State).CloseBlackBars();
+
+			Talking = null;
 		}
 	}
 }
