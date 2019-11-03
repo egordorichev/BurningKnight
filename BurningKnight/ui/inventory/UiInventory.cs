@@ -278,7 +278,7 @@ namespace BurningKnight.ui.inventory {
 			//}
 
 			//if (keys > 0) {
-				Graphics.Render(key, new Vector2(8 + key.Center.X, bottomY + key.Center.Y), 0, key.Center, keyScale);
+				Graphics.Render(key, new Vector2(7 + key.Center.X, bottomY + key.Center.Y + 2), 0, key.Center, keyScale);
 				Graphics.Print($"{keys}", Font.Small, new Vector2(18, bottomY - 1));
 				bottomY += bomb.Source.Height + 2;
 			//}

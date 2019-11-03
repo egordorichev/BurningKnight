@@ -15,6 +15,14 @@ namespace BurningKnight.level.rooms.entrance {
 			return 4;
 		}
 
+		public override int GetMinWidth() {
+			return 5;
+		}
+
+		public override int GetMinHeight() {
+			return 5;
+		}
+
 		public override int GetMaxWidth() {
 			return 11;
 		}

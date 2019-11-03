@@ -32,6 +32,8 @@
 * game sometimes doesnt exit even after window is closed
 * animate keys, bombs and hearts
 
+* seed select with gamepad (use buttons a b x y or make a proper input dialog)
+
 # ui update
 
 * send build to overgamez

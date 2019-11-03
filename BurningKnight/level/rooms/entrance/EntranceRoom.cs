@@ -24,71 +24,52 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override void Paint(Level level) {
-			// WallRegistry.Paint(level, this, EntranceWallPool.Instance);
-
-			var w = GetTileCenter();
-			var d = w + new Dot(0, -2);
+			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
 			
-			Painter.Fill(level, d.X - 1, d.Y - 1, 3, 3, Tile.WallA);
-			Painter.Set(level, d.X, d.Y, Tiles.RandomFloor());
-			Painter.Set(level, d.X, d.Y + 1, Tiles.RandomFloor());
+			var prop = new Entrance {
+				To = Run.Depth + 1
+			};
 
-			var door = new LevelDoor();
-			level.Area.Add(door);
+			var where = GetCenter();
+			
+			Painter.Fill(level, where.X - 1, where.Y - 1, 3, 3, Tiles.RandomFloor());
 
-			door.X = d.X * 16;
-			door.Y = d.Y * 16 + 16;
+			level.Area.Add(prop);
+			prop.Center = (where * 16 + new Vector2(8));
 
-			PlaceExit(level, d);
-			PlaceEntrance(level, w + new Dot(0, 1));
+			MakeSafe(level);
+		}
 
+		protected void MakeSafe(Level level) {
 			var t = Tiles.RandomFloor();
-			
-			if (Run.Depth == Run.ContentEndDepth) {
-				var om = new OldMan();
-				level.Area.Add(om);
-				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
-			}
 			
 			Painter.Call(level, this, 1, (x, y) => {
 				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
 					level.Set(x, y, t);
 				}
 			});
-		}
-
-		private void PlaceExit(Level level, Dot where) {
-			var prop = new Exit {
-				To = Run.Depth + 1
-			};
-
-			level.Area.Add(prop);
-			prop.Center = (where * 16 + new Vector2(8));
-		}
-
-		private void PlaceEntrance(Level level, Dot where) {
-			var prop = new Entrance {
-				To = -1
-			};
-
-			level.Area.Add(prop);
-			prop.Center = (where * 16 + new Vector2(8));
+			
+			if (Run.Depth == Run.ContentEndDepth) {
+				var om = new OldMan();
+				level.Area.Add(om);
+				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
+			}
 		}
 
 		public override int GetMinWidth() {
-			return 7;
+			return 5;
 		}
 
 		public override int GetMinHeight() {
-			return 10;
+			return 5;
 		}
 
 		public override int GetMaxWidth() {
-			return 12;
+			return 11;
 		}
 
 		public override int GetMaxHeight() {
-			return 12;
+			return 11;
 		}
 	}
 }
