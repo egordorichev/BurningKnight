@@ -113,6 +113,10 @@ namespace BurningKnight.entity.creature.mob {
 					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
 				}
 			}
+
+			if (GetComponent<RoomComponent>().Room == null) {
+				Kill(null);
+			}
 		}
 
 		public override bool HandleEvent(Event e) {

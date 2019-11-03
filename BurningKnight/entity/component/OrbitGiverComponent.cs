@@ -60,5 +60,15 @@ namespace BurningKnight.entity.component {
 			Orbiting.Remove(e);
 			e.GetComponent<OrbitalComponent>().Orbiting = null;
 		}
+
+		public override void Destroy() {
+			base.Destroy();
+			
+			foreach (var o in Orbiting) {
+				o.GetComponent<OrbitalComponent>().Orbiting = null;
+			}
+
+			Orbiting.Clear();
+		}
 	}
 }

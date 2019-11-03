@@ -72,17 +72,17 @@ namespace BurningKnight.entity.creature.mob.castle {
 								
 				var d = Self.DistanceTo(Self.Target);
 
-				if (d > 35f) {
+				if (d > 55f) {
 					Self.Become<RunState>();
 					return;
 				}
 
-				if (T >= 1f) {
+				if (T >= 0.66f) {
 					Self.Done = true;
 					ExplosionMaker.Make(Self);
 				}
 				
-				Self.GetComponent<MobAnimationComponent>().Flash = T % 0.5 < 0.25f;
+				Self.GetComponent<MobAnimationComponent>().Flash = T % 0.33 < 0.15f;
 			}
 		}
 		#endregion

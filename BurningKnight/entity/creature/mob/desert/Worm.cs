@@ -29,8 +29,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 			private float delay;
 			private Vector2 target;
 
-			public override void Init() {
-				base.Init();
+			public override void Destroy() {
+				base.Destroy();
 
 				var i = 0;
 
@@ -55,12 +55,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 				Self.GetComponent<HealthComponent>().Unhittable = true;
 				delay = Random.Float(0.5f, 1.5f);
 
-				Tween.To(target.X, Self.CenterX, x => Self.CenterX = x, delay);
-				Tween.To(target.Y, Self.CenterY, y => Self.CenterY = y, delay);
-			}
-
-			public override void Destroy() {
-				base.Destroy();
+				Self.Center = target;
 				
 				Self.TouchDamage = 1;
 				Self.GetComponent<HealthComponent>().Unhittable = false;
