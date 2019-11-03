@@ -1,5 +1,13 @@
 # esty stuff
 
+* chests: 
+ + cursed
+ + golden
+ + health chest 
+ + regular
+ + stone
+ + mimic
+
 * battery buddy, item, that makes you charge double per room
 * some items for charger item pool
 

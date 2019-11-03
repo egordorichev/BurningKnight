@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			SetMaxHp(5);
+			SetMaxHp(7);
 			AddAnimation("spelunker");
 			
 			var body = new RectBodyComponent(5, 4, 7, 11);
