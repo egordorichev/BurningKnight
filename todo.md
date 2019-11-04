@@ -1,15 +1,6 @@
 # esty stuff
 
-* chests: 
- + cursed
- + golden
- + health chest 
- + regular
- + stone
- + mimic
-
-* battery buddy, item, that makes you charge double per room
-* some items for charger item pool
+* battery buddy, item, that makes you charge double per room -> some items for charger item pool
 
 * when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
@@ -25,7 +16,7 @@
 * text on your head when you get +hp, etc, so that its all clear
 
 * game sometimes doesnt exit even after window is closed
-* animate keys, bombs and hearts
+* animate bombs and hearts, emeralds?
 
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
