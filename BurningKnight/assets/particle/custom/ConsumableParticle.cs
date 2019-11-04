@@ -22,7 +22,7 @@ namespace BurningKnight.assets.particle.custom {
 		private Action callback;
 		private Vector2 offset;
 		
-		public ConsumableParticle(TextureRegion r, Player p, bool item = false, Action call = null) {
+		public ConsumableParticle(TextureRegion r, Player p, bool item = false, Action call = null, bool emerald = false) {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 
@@ -40,6 +40,8 @@ namespace BurningKnight.assets.particle.custom {
 
 			if (item) {
 				target += new Vector2(Display.UiWidth, Display.UiHeight);
+			} else if (emerald) {
+				target += new Vector2(Display.UiWidth, 0);
 			}
 
 			callback = call;
