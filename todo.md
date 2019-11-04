@@ -1,7 +1,5 @@
 # esty stuff
 
-* battery buddy, item, that makes you charge double per room -> some items for charger item pool
-
 * when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 

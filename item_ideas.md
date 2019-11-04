@@ -1,3 +1,14 @@
+### pools to fill
+
+* red chest
+* cursed chest
+* gold chest
+* wooden chest
+* triple chest
+* double chest
+* battery buddy, item, that makes you charge double per room -> some items for charger item pool
+* safe pool (loot pick for example)
+
 ### to rework
 
 * can (different sprite and name)

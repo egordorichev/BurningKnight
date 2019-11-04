@@ -8,6 +8,7 @@ using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.special.minigame;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
@@ -93,6 +94,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WellRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
+				RoomInfo.New<ChestMinigameRoom>(1f + 1000000f),
 				
 				// Boss
 				RoomInfo.New<ChasmBossRoom>(1f)

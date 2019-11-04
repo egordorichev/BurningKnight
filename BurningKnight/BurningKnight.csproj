@@ -826,6 +826,7 @@
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
+    <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
     <Compile Include="level\rooms\special\NpcKeyRoom.cs" />
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
     <Compile Include="level\rooms\special\SafeRoom.cs" />
