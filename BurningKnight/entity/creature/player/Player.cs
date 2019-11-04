@@ -51,16 +51,19 @@ namespace BurningKnight.entity.creature.player {
 				Engine.Instance.State.Ui.Add(banner);
 			}
 
-			if (add) {
-				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, true, () => {
+			if (add || item.Type == ItemType.Active) {
+				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
 					item.Area?.Remove(item);
 					item.Done = false;
 					PickedItem = null;
 					
 					action?.Invoke();
+
+					if (item.Type != ItemType.Active) {
+						GetComponent<InventoryComponent>().Add(item);
+					}
 				}));
 				
-				GetComponent<InventoryComponent>().Add(item);
 				return;
 			}
 			
