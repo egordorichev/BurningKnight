@@ -59,7 +59,9 @@ namespace BurningKnight.level.entities.chest {
 
 			body.LinearDamping = 100;
 			body.Mass = 1000000;
-			
+
+			GetComponent<RectBodyComponent>().KnockbackModifier = 0.1f;
+
 			var a = GetComponent<InteractableSliceComponent>();
 
 			a.Scale.X = 0.6f * Scale;

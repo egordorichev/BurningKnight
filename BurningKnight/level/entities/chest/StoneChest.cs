@@ -5,10 +5,14 @@ using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
 	public class StoneChest : Chest {
+		public StoneChest() {
+			Sprite = "stone_chest";
+		}
+		
 		public override void AddComponents() {
 			base.AddComponents();
-			
-			RemoveComponent<InteractableComponent>();
+
+			CanOpen = false;
 			AddComponent(new ExplodableComponent());
 		}
 
@@ -25,6 +29,7 @@ namespace BurningKnight.level.entities.chest {
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent) {
 				Open();
+				return true;
 			}
 			
 			return base.HandleEvent(e);

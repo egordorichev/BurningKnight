@@ -108,9 +108,13 @@ namespace BurningKnight.entity.component {
 			KnockbackFrom(Entity.AngleTo(point) - (float) Math.PI, force, rnd);
 		}
 
-		public void KnockbackFrom(float a, float force = 1f, float rnd = 0) {		
+		public virtual void KnockbackFrom(float a, float force = 1f, float rnd = 0) {		
 			force *= KnockbackModifier * 30;
 
+			if (force <= 0.02f) {
+				return;
+			}
+			
 			if (rnd > 0.01f) {
 				a += Random.Float(-rnd, rnd);
 			}
