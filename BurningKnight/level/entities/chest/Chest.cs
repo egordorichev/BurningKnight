@@ -30,7 +30,7 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4));
 			AddComponent(new DropsComponent());
 			AddComponent(new ShadowComponent());
-			AddComponent(new RoomComponent);
+			AddComponent(new RoomComponent());
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !open
