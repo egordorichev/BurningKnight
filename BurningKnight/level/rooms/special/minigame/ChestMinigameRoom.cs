@@ -1,11 +1,16 @@
 using BurningKnight.entity.creature.npc;
 using BurningKnight.level.entities.chest;
+using BurningKnight.level.floors;
 using BurningKnight.level.tile;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special.minigame {
 	public class ChestMinigameRoom : SpecialRoom {
+		public override void PaintFloor(Level level) {
+			FloorRegistry.Paint(level, this, -1, true);
+		}
+		
 		public override void Paint(Level level) {
 			/*
 			 * todo: a rare variant that spawns below certaint depth with rainbow chests and the cost set to constant 69

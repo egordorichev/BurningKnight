@@ -1,7 +1,10 @@
 # esty stuff
 
-* you can start with no weapon, if you continue run, you have no weapon (same with active item?)
+* animate bombs and hearts, emeralds?
+* animate coins going to proper ui spot, same with items
 
+* !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
+* !! game sometimes doesnt exit even after window is closed
 * keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
@@ -10,10 +13,6 @@
 * can and battery look the same way, players are generaly confused about the battery
 * animate mob spawning
 * text on your head when you get +hp, etc, so that its all clear
-
-* game sometimes doesnt exit even after window is closed
-* animate bombs and hearts, emeralds?
-* animate coins going to proper ui spot, same with items
 
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)

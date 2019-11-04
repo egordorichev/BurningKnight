@@ -69,7 +69,20 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override void PostInit() {
 			base.PostInit();
-			AddComponent(new CloseDialogComponent($"maanex_{(interacted ? 7 : 5)}"));
+
+			if (Run.Depth != 0) {
+				AddComponent(new CloseDialogComponent($"maanex_{(interacted ? 7 : 5)}"));
+			}
+
+			GetComponent<CloseDialogComponent>().DecideVariant = (e) => {
+				var hat = e.GetComponent<HatComponent>().Item;
+
+				if (hat != null && hat.Id == "bk:maanex_head") {
+					return "maanex_12";
+				}
+
+				return null;
+			};
 		}
 
 		public override bool HandleEvent(Event e) {

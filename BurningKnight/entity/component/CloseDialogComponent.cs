@@ -13,6 +13,7 @@ namespace BurningKnight.entity.component {
 		private Entity trigger;
 
 		public Func<Entity, bool> CanTalk;
+		public Func<Entity, string> DecideVariant;
 
 		public CloseDialogComponent(params string[] vars) {
 			Variants = vars;
@@ -39,7 +40,7 @@ namespace BurningKnight.entity.component {
 			foreach (var p in Entity.Area.Tags[Tags.Player]) {
 				if (p.DistanceToSquared(Entity) <= Radius) {
 					if (CanTalk == null || CanTalk(Entity)) {
-						d.Start(Variants[Random.Int(Variants.Length)]);
+						d.Start(DecideVariant?.Invoke(p) ?? Variants[Random.Int(Variants.Length)]);
 						trigger = p;
 						return;
 					}
