@@ -1,4 +1,5 @@
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.machine;
 
 namespace BurningKnight.level.rooms.special {
 	public class ChargerRoom : SpecialRoom {

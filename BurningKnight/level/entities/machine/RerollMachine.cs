@@ -5,17 +5,15 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
-using BurningKnight.entity.item.stand;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
-using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
 using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 
-namespace BurningKnight.level.entities {
+namespace BurningKnight.level.entities.machine {
 	public class RerollMachine : Prop {
 		private int coinsConsumed;
 		private int numRolled;

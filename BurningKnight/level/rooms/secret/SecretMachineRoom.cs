@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.machine;
 using BurningKnight.state;
 using Lens.entity;
 using Lens.util.math;

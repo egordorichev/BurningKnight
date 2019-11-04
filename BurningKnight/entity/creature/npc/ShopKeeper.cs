@@ -8,6 +8,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.machine;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using Lens;

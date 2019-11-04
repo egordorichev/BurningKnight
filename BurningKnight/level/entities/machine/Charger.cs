@@ -14,7 +14,7 @@ using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.level.entities {
+namespace BurningKnight.level.entities.machine {
 	public class Charger : SolidProp {
 		private int timesUsed;
 		private int noMoneyAttempt;
@@ -37,6 +37,8 @@ namespace BurningKnight.level.entities {
 			AddComponent(new DialogComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new ShadowComponent());
+			AddComponent(new SensorBodyComponent(0, 0, Width, Height));
+			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !broken
 			});

@@ -15,7 +15,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
-namespace BurningKnight.level.entities {
+namespace BurningKnight.level.entities.machine {
 	public class VendingMachine : Prop {
 		private int coinsConsumed;
 		private bool broken;

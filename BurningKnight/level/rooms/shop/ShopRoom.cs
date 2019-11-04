@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.machine;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.state;
