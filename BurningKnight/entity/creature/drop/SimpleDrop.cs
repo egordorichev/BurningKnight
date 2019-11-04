@@ -23,7 +23,11 @@ namespace BurningKnight.entity.creature.drop {
 
 			if (Items != null) {
 				for (var i = 0; i < Random.Int(Min, Max + 1); i++) {
-					items.AddRange(Items);
+					foreach (var item in Items) {
+						if (assets.items.Items.ShouldAppear(item)) {
+							items.Add(item);
+						}
+					}
 				}
 			}
 			

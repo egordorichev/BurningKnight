@@ -67,6 +67,15 @@ namespace Lens.entity {
 			}
 		}
 		
+		public Vector2 TopCenter {
+			get => new Vector2(CenterX, Y);
+			set {
+				X = value.X - Width / 2;
+				Y = value.Y;
+				PositionChanged?.Invoke();
+			}
+		}
+
 		public Vector2 BottomCenter {
 			get => new Vector2(CenterX, Bottom);
 			set {

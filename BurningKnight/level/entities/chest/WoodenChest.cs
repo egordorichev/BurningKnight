@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
+using Lens.util.math;
 
 namespace BurningKnight.level.entities.chest {
 	public class WoodenChest : Chest {
@@ -29,6 +30,23 @@ namespace BurningKnight.level.entities.chest {
 						new SingleDrop("bk:halo", 1f)
 					)
 			));
+		}
+
+		protected override void SpawnDrops() {
+			if (Random.Chance(10)) {
+				var chest = Random.Chance() ? (Chest) new WoodenChest {
+					Scale = Scale * 0.9f
+				} : (Chest) new GoldChest {
+					Scale = Scale * 0.9f
+				};
+
+				Area.Add(chest);
+				chest.TopCenter = BottomCenter;
+				
+				return;
+			}
+			
+			base.SpawnDrops();
 		}
 	}
 }

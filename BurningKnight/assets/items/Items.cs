@@ -338,6 +338,14 @@ namespace BurningKnight.assets.items {
 			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
 		}
 
+		public static bool ShouldAppear(string id) {
+			if (!Datas.TryGetValue(id, out var data)) {
+				return false;
+			}
+
+			return ShouldAppear(data);
+		}
+
 		public static bool ShouldAppear(ItemData t) {
 			return (!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
 			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
