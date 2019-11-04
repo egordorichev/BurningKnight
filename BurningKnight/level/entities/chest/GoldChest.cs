@@ -6,13 +6,20 @@ using Lens.util.math;
 
 namespace BurningKnight.level.entities.chest {
 	public class GoldChest : Chest {
+		protected byte KeysRequired = 1;
+		
 		public GoldChest() {
-			Sprite = "gold_chest";
+			if (Sprite == null) {
+				Sprite = "gold_chest";
+			}
 		}
-	
+
 		public override void AddComponents() {
 			base.AddComponents();
+			DefineDrops();
+		}
 
+		protected virtual void DefineDrops() {
 			var drops = GetComponent<DropsComponent>();
 			
 			drops.Add(new OneOfDrop(
@@ -23,11 +30,11 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			if (!entity.TryGetComponent<ConsumablesComponent>(out var c) || c.Keys < 1) {
+			if (!entity.TryGetComponent<ConsumablesComponent>(out var c) || c.Keys < KeysRequired) {
 				return false;
 			}
 
-			c.Keys--;
+			c.Keys -= KeysRequired;
 			return true;
 		}
 

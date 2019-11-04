@@ -1,7 +1,10 @@
+using System;
 using BurningKnight.assets.items;
+using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 using Lens.util.timer;
 
@@ -40,6 +43,20 @@ namespace BurningKnight.entity.item.use {
 					
 					st.X = i.X + i.Width + 2;
 					st.Y = i.Y;
+				}
+			}
+			
+			var chests = room.Tagged[Tags.Chest].ToArray();
+
+			foreach (var i in chests) {
+				try {
+					var st = (Chest) Activator.CreateInstance(i.GetType());
+					i.X -= i.Width / 2f + 1;
+
+					st.X = i.X + i.Width + 2;
+					st.Y = i.Y;
+				} catch (Exception e) {
+					Log.Error(e);
 				}
 			}
 		}

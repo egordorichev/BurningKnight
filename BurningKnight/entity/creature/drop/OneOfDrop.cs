@@ -14,19 +14,31 @@ namespace BurningKnight.entity.creature.drop {
 
 			if (Drops != null) {
 				var sum = 0f;
+				var dropResults = new List<string>[Drops.Length];
+				var i = 0;
 
 				foreach (var drop in Drops) {
-					sum += drop.Chance;
+					var results = drop.GetItems();
+					dropResults[i++] = results;
+
+					if (results.Count > 0) {
+						sum += drop.Chance;
+					}
 				}			
 				
 				var value = Random.Float(sum);
 				sum = 0;
-
+				i = 0;
+				
 				foreach (var drop in Drops) {
+					if (dropResults[i++].Count == 0) {
+						continue;
+					}	
+					
 					sum += drop.Chance;
 
 					if (value <= sum) {
-						items.AddRange(drop.GetItems());
+						items.AddRange(dropResults[i - 1]);
 						break;
 					}
 				}

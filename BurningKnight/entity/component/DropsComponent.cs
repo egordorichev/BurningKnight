@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.item;
 using Lens.entity.component;
 using Lens.util.math;

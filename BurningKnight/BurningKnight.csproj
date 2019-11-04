@@ -404,8 +404,8 @@
     <Compile Include="entity\creature\bk\forms\slime\BurningSlime.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
-    <Compile Include="entity\creature\Drop.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
+    <Compile Include="entity\creature\drop\Drop.cs" />
     <Compile Include="entity\creature\drop\OneOfDrop.cs" />
     <Compile Include="entity\creature\drop\PoolDrop.cs" />
     <Compile Include="entity\creature\drop\SimpleDrop.cs" />

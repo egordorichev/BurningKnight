@@ -6,7 +6,6 @@ using Lens.entity;
 using Lens.util.file;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities.chest {
 	public class Chest : SolidProp {
@@ -31,9 +30,13 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4));
 			AddComponent(new DropsComponent());
 			AddComponent(new ShadowComponent());
+			AddComponent(new RoomComponent);
+			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !open
 			});
+			
+			AddTag(Tags.Chest);
 		}
 
 		public override void PostInit() {

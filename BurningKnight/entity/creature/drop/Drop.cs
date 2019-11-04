@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BurningKnight.entity.creature {
+namespace BurningKnight.entity.creature.drop {
 	public class Drop {
 		// From 0 to 1
 		public float Chance = 1f;
