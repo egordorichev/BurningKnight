@@ -25,6 +25,14 @@ namespace BurningKnight.entity.component {
 
 				foreach (var id in ids) {
 					if (id != null) {
+						if (id == "bk:troll_bomb") {
+							var bomb = new Bomb(Entity);
+							Entity.Area.Add(bomb);
+							bomb.Center = Entity.BottomCenter;
+							
+							continue;
+						}
+						
 						var item = Items.Create(id);
 
 						if (item != null) {
