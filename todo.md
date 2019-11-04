@@ -16,6 +16,7 @@
 
 * game sometimes doesnt exit even after window is closed
 * animate bombs and hearts, emeralds?
+* animate coins going to proper ui spot, same with items
 
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
