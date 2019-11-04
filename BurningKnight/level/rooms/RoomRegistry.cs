@@ -94,7 +94,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WellRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
-				RoomInfo.New<ChestMinigameRoom>(1f + 1000000f),
+				RoomInfo.New<ChestMinigameRoom>(1f),
 				
 				// Boss
 				RoomInfo.New<ChasmBossRoom>(1f)

@@ -744,6 +744,7 @@
     <Compile Include="level\entities\chest\DoubleChest.cs" />
     <Compile Include="level\entities\chest\GoldChest.cs" />
     <Compile Include="level\entities\chest\RedChest.cs" />
+    <Compile Include="level\entities\chest\StoneChest.cs" />
     <Compile Include="level\entities\chest\TripleChest.cs" />
     <Compile Include="level\entities\chest\WoodenChest.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />

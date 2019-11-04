@@ -6,6 +6,7 @@
 * wooden chest
 * triple chest
 * double chest
+* forest chest
 * battery buddy, item, that makes you charge double per room -> some items for charger item pool
 * safe pool (loot pick for example)
 
