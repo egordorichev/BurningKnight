@@ -118,6 +118,10 @@ namespace Lens.graphics.animation {
 			return frame.Texture;
 		}
 		
+		public TextureRegion GetFirstCurrent() {
+			return tag == null ? Data.GetFrame(layer, 0)?.Texture : GetFrame(tag, 0);
+		}
+		
 		public void Reset() {
 			Frame = 0;
 		}

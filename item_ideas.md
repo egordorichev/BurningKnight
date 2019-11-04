@@ -18,6 +18,9 @@
 
 ### items
 
+* sack of sacks
+* sack of bombs 
+* sack of keys
 * couch item
 * turret
 * pepega item rekvi

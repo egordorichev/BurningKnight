@@ -125,7 +125,7 @@ namespace BurningKnight.entity.creature.player {
 						});
 					}
 					
-					p.PickedUp.Add(ev.Item.Region);
+					p.PickedUp.Add(ev.Item.Animation != null ? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent() : ev.Item.Region);
 					p.LastPickup = 0;
 					
 					return true;

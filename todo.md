@@ -1,6 +1,5 @@
 # esty stuff
 
-* when player pickups the coin it's sprite should use the full frame 
 * you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 
 * keyboard controls dont show up if you have gamepad connected (show both)
