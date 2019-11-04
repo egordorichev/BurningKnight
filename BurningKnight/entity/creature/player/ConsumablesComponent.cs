@@ -1,5 +1,6 @@
 using BurningKnight.assets.input;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -7,6 +8,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens;
 using Lens.entity;
 using Lens.input;
 using Lens.util;
@@ -125,8 +127,9 @@ namespace BurningKnight.entity.creature.player {
 						});
 					}
 					
-					p.PickedUp.Add(ev.Item.Animation != null ? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent() : ev.Item.Region);
-					p.LastPickup = 0;
+					Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
+						? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
+						: ev.Item.Region, p));
 					
 					return true;
 				}

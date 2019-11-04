@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -44,16 +45,29 @@ namespace BurningKnight.entity.creature.player {
 		public Item PickedItem;
 
 		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
-			Tween.To(1, 0, x => {
-				Scale.X = x;
-				Scale.Y = x;
-			}, 0.2f);
-
 			if (ban) {
 				var banner = new UiDescriptionBanner();
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
+
+			if (add) {
+				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, true, () => {
+					item.Area?.Remove(item);
+					item.Done = false;
+					PickedItem = null;
+					
+					action?.Invoke();
+				}));
+				
+				GetComponent<InventoryComponent>().Add(item);
+				return;
+			}
+			
+			Tween.To(1, 0, x => {
+				Scale.X = x;
+				Scale.Y = x;
+			}, 0.2f);
 
 			PickedItem = item;
 			
@@ -65,10 +79,6 @@ namespace BurningKnight.entity.creature.player {
 					item.Area?.Remove(item);
 					item.Done = false;
 					PickedItem = null;
-
-					if (add) {
-						GetComponent<InventoryComponent>().Add(item);
-					}
 
 					action?.Invoke();
 				};
