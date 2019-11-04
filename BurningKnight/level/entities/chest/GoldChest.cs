@@ -19,7 +19,7 @@ namespace BurningKnight.level.entities.chest {
 			DefineDrops();
 		}
 
-		protected virtual void DefineDrops() {
+		protected override void DefineDrops() {
 			var drops = GetComponent<DropsComponent>();
 			
 			drops.Add(new OneOfDrop(

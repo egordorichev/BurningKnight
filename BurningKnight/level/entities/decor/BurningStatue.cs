@@ -99,7 +99,7 @@ namespace BurningKnight.level.entities.decor {
 				return true;
 			}
 
-			Run.Curse++;
+			Run.AddCurse();
 			
 			if (trigger != null) {
 				trigger.Interrupted = true;

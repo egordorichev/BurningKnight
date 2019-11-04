@@ -1,12 +1,9 @@
 using System;
 using BurningKnight.assets.items;
-using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
 using Lens.entity;
 using Lens.util;
-using Lens.util.math;
-using Lens.util.timer;
 
 namespace BurningKnight.entity.item.use {
 	public class DuplicateItemsUse : ItemUse {

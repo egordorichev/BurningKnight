@@ -332,8 +332,6 @@
     <Compile Include="entity\buff\FrozenBuff.cs" />
     <Compile Include="entity\buff\PoisonBuff.cs" />
     <Compile Include="entity\buff\SlowBuff.cs" />
-    <Compile Include="entity\chest\Chest.cs" />
-    <Compile Include="entity\chest\LockedChest.cs" />
     <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
     <Compile Include="entity\component\AudioEmitterComponent.cs" />
@@ -406,6 +404,7 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
     <Compile Include="entity\creature\drop\Drop.cs" />
+    <Compile Include="entity\creature\drop\EmptyDrop.cs" />
     <Compile Include="entity\creature\drop\OneOfDrop.cs" />
     <Compile Include="entity\creature\drop\PoolDrop.cs" />
     <Compile Include="entity\creature\drop\SimpleDrop.cs" />
@@ -515,7 +514,6 @@
     <Compile Include="entity\events\BuffAddedEvent.cs" />
     <Compile Include="entity\events\BuffRemovedEvent.cs" />
     <Compile Include="entity\events\BurningKnightDefeatedEvent.cs" />
-    <Compile Include="entity\events\ChestOpenedEvent.cs" />
     <Compile Include="entity\events\CollisionEndedEvent.cs" />
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
     <Compile Include="entity\events\ConsumableAddedEvent.cs" />

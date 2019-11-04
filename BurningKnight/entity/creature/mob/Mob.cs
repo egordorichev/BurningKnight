@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.entity.buff;
-using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.mob.boss;
@@ -187,7 +186,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		protected virtual bool CanHurt(Entity entity) {
-			return !(entity is BreakableProp || entity is Painting || entity is Chest || entity is Prop);
+			return !(entity is BreakableProp || entity is Painting || entity is Prop);
 		}
 
 		protected void FindTarget() {

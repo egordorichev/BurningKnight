@@ -12,7 +12,11 @@ namespace BurningKnight.entity.creature.drop {
 			var items = base.GetItems();
 
 			foreach (var d in Drops) {
-				items.AddRange(d.GetItems());
+				var i = d.GetItems();
+
+				if (i != null) {
+					items.AddRange(i);
+				}
 			}
 			
 			return items;

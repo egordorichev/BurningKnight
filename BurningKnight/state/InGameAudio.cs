@@ -41,7 +41,6 @@ namespace BurningKnight.state {
 			
 			Subscribe<BombPlacedEvent>();
 			Subscribe<ItemAddedEvent>();
-			Subscribe<ChestOpenedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
 			Subscribe<BurningKnightDefeatedEvent>();

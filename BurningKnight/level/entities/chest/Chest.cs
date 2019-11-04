@@ -37,6 +37,11 @@ namespace BurningKnight.level.entities.chest {
 			});
 			
 			AddTag(Tags.Chest);
+			DefineDrops();
+		}
+
+		protected virtual void DefineDrops() {
+			
 		}
 
 		public override void PostInit() {

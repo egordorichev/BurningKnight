@@ -23,7 +23,7 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
-		public static int Curse;
+		public static int Curse { get; private set; }
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		public static string NextSeed;
@@ -82,6 +82,14 @@ namespace BurningKnight.state {
 
 		public static string FormatTime() {
 			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
+		}
+
+		public static void AddCurse() {
+			Curse++;
+		}
+
+		public static void ResetCurse() {
+			Curse = 0;
 		}
 	}
 }
