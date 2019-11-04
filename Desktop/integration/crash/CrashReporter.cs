@@ -24,7 +24,7 @@ namespace Desktop.integration.crash {
 			builder.AppendLine("--- Info --- ");
 
 			builder.AppendLine($"Date: {DateTime.Now:dd.MM.yyyy h:mm tt}");
-			builder.AppendLine($"OS: {Environment.OSVersion}");
+			builder.AppendLine($"OS: {Environment.OSVersion} {(Environment.Is64BitOperatingSystem ? 64 : 32 )} bit");
 
 			builder.AppendLine($"Mono version: {GetMonoVersion()}");
 			builder.AppendLine($"Burning Knight version: {Engine.Version}");
