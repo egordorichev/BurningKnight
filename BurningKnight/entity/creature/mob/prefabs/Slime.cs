@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.level;

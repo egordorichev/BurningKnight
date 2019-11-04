@@ -16,6 +16,7 @@ namespace BurningKnight.level.entities.chest {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AddComponent(new DropsComponent());
 			AddComponent(new ShadowComponent());
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !open
@@ -46,6 +47,7 @@ namespace BurningKnight.level.entities.chest {
 			Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
 			Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
 				UpdateSprite();
+				SpawnDrops();
 				
 				Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(1.7f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
@@ -53,6 +55,10 @@ namespace BurningKnight.level.entities.chest {
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 				};
 			};
+		}
+
+		protected virtual void SpawnDrops() {
+			GetComponent<DropsComponent>().SpawnDrops();
 		}
 
 		protected virtual bool Interact(Entity entity) {

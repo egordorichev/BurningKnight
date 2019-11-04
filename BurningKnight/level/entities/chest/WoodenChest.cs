@@ -1,3 +1,6 @@
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
+
 namespace BurningKnight.level.entities.chest {
 	public class WoodenChest : Chest {
 		/*
@@ -7,6 +10,24 @@ namespace BurningKnight.level.entities.chest {
 
 		public WoodenChest() {
 			Sprite = "wooden_chest";
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+			var drops = GetComponent<DropsComponent>();
+
+			drops.Add(
+				new OneOfDrop(
+					new AnyDrop(
+						new SimpleDrop(0.5f, 1, 2, "bk:key"),
+						new SimpleDrop(0.3f, 1, 2, "bk:bomb"),
+						new SimpleDrop(0.5f, 1, 4, "bk:coin")
+					),
+					
+					new AnyDrop(
+						new SingleDrop("bk:halo", 1f)
+					)
+			));
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component.logic;

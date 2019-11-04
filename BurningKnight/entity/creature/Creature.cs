@@ -3,6 +3,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;

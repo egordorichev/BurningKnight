@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BurningKnight.entity.creature {
+namespace BurningKnight.entity.creature.drop {
 	public class SingleDrop : Drop {
 		public string Item;
 

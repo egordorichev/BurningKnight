@@ -405,6 +405,11 @@
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Drop.cs" />
+    <Compile Include="entity\creature\drop\AnyDrop.cs" />
+    <Compile Include="entity\creature\drop\OneOfDrop.cs" />
+    <Compile Include="entity\creature\drop\PoolDrop.cs" />
+    <Compile Include="entity\creature\drop\SimpleDrop.cs" />
+    <Compile Include="entity\creature\drop\SingleDrop.cs" />
     <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
@@ -467,7 +472,6 @@
     <Compile Include="entity\creature\npc\OldMan.cs" />
     <Compile Include="entity\creature\npc\Ord.cs" />
     <Compile Include="entity\creature\npc\ShopKeeper.cs" />
-    <Compile Include="entity\creature\OneOfDrop.cs" />
     <Compile Include="entity\creature\pet\BooGraphicsComponent.cs" />
     <Compile Include="entity\creature\pet\LilBoo.cs" />
     <Compile Include="entity\creature\pet\Pet.cs" />
@@ -483,9 +487,6 @@
     <Compile Include="entity\creature\player\PlayerGraphicsComponent.cs" />
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
-    <Compile Include="entity\creature\PoolDrop.cs" />
-    <Compile Include="entity\creature\SimpleDrop.cs" />
-    <Compile Include="entity\creature\SingleDrop.cs" />
     <Compile Include="entity\Cursor.cs" />
     <Compile Include="entity\DamageType.cs" />
     <Compile Include="entity\door\BossDoor.cs" />

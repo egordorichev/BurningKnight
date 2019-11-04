@@ -2,6 +2,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level.entities;

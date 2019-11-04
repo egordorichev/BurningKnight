@@ -4,6 +4,7 @@ using System.Linq;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.chest;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;

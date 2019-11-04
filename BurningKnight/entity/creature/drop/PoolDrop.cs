@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
-using Lens.util;
 using Lens.util.math;
 
-namespace BurningKnight.entity.creature {
+namespace BurningKnight.entity.creature.drop {
 	public class PoolDrop : Drop {
 		public ItemPool Pool;
 		public int Min;

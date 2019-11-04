@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.item;
 
 namespace BurningKnight.entity.component {

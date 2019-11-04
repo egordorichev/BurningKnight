@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
