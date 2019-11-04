@@ -1,6 +1,7 @@
 ﻿using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
+using ImGuiNET;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
@@ -56,6 +57,10 @@ namespace BurningKnight.entity.component {
 		public override void Destroy() {
 			base.Destroy();
 			Room?.Tagged.Remove(Entity);
+		}
+
+		public override void RenderDebug() {
+			ImGui.Text(Room == null ? "null" : $"{Room.Type}#{Room.Y}");
 		}
 	}
 }

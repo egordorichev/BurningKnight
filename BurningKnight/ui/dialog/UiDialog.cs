@@ -23,6 +23,7 @@ namespace BurningKnight.ui.dialog {
 		public bool DoneSaying { get; private set; }
 
 		public Func<bool> OnEnd;
+		public bool JustStarted;
 
 		private string toSay;
 		
@@ -66,7 +67,8 @@ namespace BurningKnight.ui.dialog {
 			if (!Saying) {
 				Tween.To(255, 0, x => Tint.A = (byte) x, 0.3f);
 			}
-			
+
+			JustStarted = true;
 			Saying = true;
 			Str.Width = 4;
 			Str.Height = 4;
@@ -111,6 +113,8 @@ namespace BurningKnight.ui.dialog {
 			if (toSay != null) {
 				Say(toSay);
 				toSay = null;
+			} else if (Saying) {
+				JustStarted = false;
 			}
 		}
 

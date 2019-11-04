@@ -132,6 +132,7 @@
 
 ### Ideas
 
+* breakable chests
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 

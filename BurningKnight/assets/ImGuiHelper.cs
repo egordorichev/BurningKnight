@@ -104,7 +104,13 @@ namespace BurningKnight.assets {
 			CurrentActive?.RemoveEmptyConnection();
 
 			if (toRemove.Count > 0) {
+				var c = Nodes.Count - 1;
+				
 				foreach (var k in toRemove) {
+					if (Nodes[k].Id == c) {
+						ImNode.LastId--;
+					}
+
 					Nodes.Remove(k);
 				}
 				

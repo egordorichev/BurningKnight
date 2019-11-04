@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.tween;
@@ -11,6 +12,9 @@ namespace BurningKnight.level.entities.chest {
 	public class Chest : SolidProp {
 		private bool open;
 		protected internal float Scale = 1;
+
+		public bool CanOpen = true;
+		public bool Empty;
 		
 		protected override Rectangle GetCollider() {
 			return new Rectangle((int) (2 * Scale), (int) (2 * Scale), (int) (Math.Max(1, 12 * Scale)), (int) (Math.Max(1, 8 * Scale)));
@@ -33,7 +37,7 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new RoomComponent());
 			
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => !open
+				CanInteract = e => CanOpen && !open
 			});
 			
 			AddTag(Tags.Chest);
@@ -92,14 +96,20 @@ namespace BurningKnight.level.entities.chest {
 					Tween.To(Scale, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 				};
 			};
+
+			HandleEvent(new OpenedEvent {
+				Chest = this
+			});
 		}
 
 		protected virtual void SpawnDrops() {
-			GetComponent<DropsComponent>().SpawnDrops();
+			if (!Empty) {
+				GetComponent<DropsComponent>().SpawnDrops();
+			}
 		}
 
 		protected virtual bool Interact(Entity entity) {
-			if (open) {
+			if (open || !CanOpen) {
 				return true;
 			}
 
@@ -122,6 +132,7 @@ namespace BurningKnight.level.entities.chest {
 			
 			stream.WriteBoolean(open);
 			stream.WriteFloat(Scale);
+			stream.WriteBoolean(Empty);
 		}
 
 		public override void Load(FileReader stream) {
@@ -129,6 +140,18 @@ namespace BurningKnight.level.entities.chest {
 			
 			open = stream.ReadBoolean();
 			Scale = stream.ReadFloat();
+			Empty = stream.ReadBoolean();
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+
+			ImGui.Checkbox("Empty", ref Empty);
+			ImGui.Checkbox("Can open", ref CanOpen);
+		}
+
+		public class OpenedEvent : Event {
+			public Chest Chest;
 		}
 	}
 }

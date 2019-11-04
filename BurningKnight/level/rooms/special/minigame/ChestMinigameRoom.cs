@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.special.minigame {
 	public class ChestMinigameRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			/*
+			 * todo: a rare variant that spawns below certaint depth with rainbow chests and the cost set to constant 69
+			 */
+			
 			if (Random.Chance()) {
 				if (Random.Chance()) {
 					var tt = Tiles.RandomFloor();
@@ -25,9 +29,13 @@ namespace BurningKnight.level.rooms.special.minigame {
 			level.Area.Add(maanex);
 			maanex.BottomCenter = new Vector2(Left + 4.5f, Top + 2) * 16;
 
+			var prize = Random.Int(4);
+			
 			for (var i = 0; i < 3; i++) {
 				var chest = new WoodenChest();
 				level.Area.Add(chest);
+
+				chest.Empty = i != prize;
 				chest.BottomCenter = new Vector2(Left + 2.5f + i * 2, Bottom - 1.5f) * 16;
 			}
 		}

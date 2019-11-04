@@ -327,7 +327,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (!Settings.Autopause) {
+			if (DialogComponent.Talking != null || !Settings.Autopause) {
 				return;
 			}
 
@@ -481,7 +481,7 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
       			
-			if (!Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
+			if (DialogComponent.Talking == null && !Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
 				Paused = true;
 				pausedByMouseOut = true;
 			} else if (Paused && pausedByMouseOut && inside) {

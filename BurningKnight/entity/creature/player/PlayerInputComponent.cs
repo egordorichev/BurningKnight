@@ -119,7 +119,7 @@ namespace BurningKnight.entity.creature.player {
 						}
 					}
 
-					if (dd.Saying) {
+					if (dd.Saying && !dd.JustStarted) {
 						if ((!isAnswer && (Input.WasPressed(Controls.Interact, controller, true) || Input.WasPressed(Controls.UiSelect, controller, true))) || (isAnswer && !a.Focused)) {
 							if (dd.DoneSaying) {
 								dd.Finish();
