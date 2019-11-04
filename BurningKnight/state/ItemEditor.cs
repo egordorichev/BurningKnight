@@ -43,7 +43,7 @@ namespace BurningKnight.state {
 			"bomb",
 			"key",
 			"heart",
-			"TMP",
+			"consumable_artifact",
 			"weapon",
 			"battery",
 			"hat"

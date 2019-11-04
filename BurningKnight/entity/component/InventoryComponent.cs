@@ -20,8 +20,13 @@ namespace BurningKnight.entity.component {
 				Item = item,
 				Animate = animate
 			})) {
-				if (Entity is Player p && item.Type == ItemType.Artifact) {
-					if (animate) {
+				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
+					if (item.Type == ItemType.ConsumableArtifact) {
+						p.AnimateItemPickup(item, () => {
+							item.Use(p);
+							item.Done = true;
+						}, false);
+					} else if (animate) {
 						p.AnimateItemPickup(item);
 					} else {
 						Add(item);

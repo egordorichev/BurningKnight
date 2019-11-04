@@ -8,7 +8,7 @@ namespace BurningKnight.entity.item {
 		Bomb,
 		Key,
 		Heart,
-		TMP,
+		ConsumableArtifact,
 		Weapon,
 		Battery,
 		Hat
