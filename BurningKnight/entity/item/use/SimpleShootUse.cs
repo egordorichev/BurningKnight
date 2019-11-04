@@ -96,15 +96,14 @@ namespace BurningKnight.entity.item.use {
 					if (range > 0.01f) {
 						projectile.Range = range * 0.5f / speed;
 					}
-
+					
+					projectile.Center = from;
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;
 					}
-					
-					projectile.Center = from;
 				}
 
 				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
