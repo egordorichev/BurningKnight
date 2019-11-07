@@ -65,8 +65,11 @@ namespace BurningKnight.entity.creature.bk {
 			
 			AddComponent(new DialogComponent());
 			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
+
+			var buffs = GetComponent<BuffsComponent>();
 			
-			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
+			buffs.AddImmunity<FrozenBuff>();
+			buffs.AddImmunity<BurningBuff>();
 		}
 
 		protected override void OnTargetChange(Entity target) {

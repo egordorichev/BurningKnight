@@ -1,8 +1,9 @@
 # esty stuff
 
+* rework damage system with floats
 * rework hitbox
+
 * finish buffs:
- * poisoned 
  * slow
  * broken armor
  * armor
@@ -137,6 +138,8 @@
 * Props that react to music beats
 
 ### Ideas
+
+* blue hearts, at least em
 
 * teleport tile mechanic for some level
 * breakable chests

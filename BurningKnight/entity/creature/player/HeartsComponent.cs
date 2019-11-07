@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public void ModifyIronHearts(int amount, Entity setter) {
 			var component = GetComponent<HealthComponent>();
-			amount = amount < 0 ? Math.Max(IronHalfs, amount) : Math.Min(Cap - component.Health - Total, amount);
+			amount = (int) (amount < 0 ? Math.Max(IronHalfs, amount) : Math.Min(Cap - component.Health - Total, amount));
 
 			if (amount != 0 && !Send(new HealthModifiedEvent {
 				Amount = amount,
@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public void ModifyGoldHearts(int amount, Entity setter) {
 			var component = GetComponent<HealthComponent>();
-			amount = amount < 0 ? Math.Max(GoldenHalfs, amount) : Math.Min(Cap - component.Health - Total, amount);
+			amount = (int) (amount < 0 ? Math.Max(GoldenHalfs, amount) : Math.Min(Cap - component.Health - Total, amount));
 
 			if (amount != 0 && !Send(new HealthModifiedEvent {
 				Amount = amount,

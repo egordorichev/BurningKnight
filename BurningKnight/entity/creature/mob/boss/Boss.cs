@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			GetComponent<BuffsComponent>().Immune.Add(typeof(CharmedBuff));
+			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
 		}
 
 		public override void Update(float dt) {

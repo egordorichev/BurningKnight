@@ -29,5 +29,9 @@ namespace BurningKnight.entity.buff {
 		public virtual void HandleEvent(Event e) {
 			
 		}
+
+		public virtual string GetIcon() {
+			return null;
+		}
 	}
 }

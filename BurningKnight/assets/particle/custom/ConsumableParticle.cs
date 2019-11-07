@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens;
 using Lens.entity;
@@ -76,7 +77,13 @@ namespace BurningKnight.assets.particle.custom {
 					Done = true;
 				}
 			} else {
-				Center = Camera.Instance.CameraToUi(player.TopCenter) - offset;
+				var pos = player.TopCenter;
+
+				if (player.TryGetComponent<ZComponent>(out var z)) {
+					pos += new Vector2(0, z.Z);
+				}
+				
+				Center = Camera.Instance.CameraToUi(pos) - offset;
 			}
 		}
 

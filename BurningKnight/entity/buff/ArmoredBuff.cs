@@ -3,22 +3,22 @@ using BurningKnight.entity.events;
 using Lens.entity;
 
 namespace BurningKnight.entity.buff {
-	public class BrokenArmorBuff : Buff {
-		public const string Id = "bk:broken_armor";
+	public class ArmoredBuff : Buff {
+		public const string Id = "bk:armored";
 		
-		public BrokenArmorBuff() : base(Id) {
+		public ArmoredBuff() : base(Id) {
 			Duration = 10;
 		}
 
 		public override void Init() {
 			base.Init();
-			Entity.GetComponent<BuffsComponent>().Remove<ArmoredBuff>();
+			Entity.GetComponent<BuffsComponent>().Remove<BrokenArmorBuff>();
 		}
 
 		public override void HandleEvent(Event e) {
 			if (e is HealthModifiedEvent hme) {
 				if (hme.Amount < 0) {
-					hme.Amount *= 2;
+					hme.Amount /= 2;
 				}
 			}
 			
@@ -26,7 +26,7 @@ namespace BurningKnight.entity.buff {
 		}
 
 		public override string GetIcon() {
-			return "broken_armor";
+			return "armor";
 		}
 	}
 }

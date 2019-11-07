@@ -35,7 +35,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			Width = 16;
 			Height = 16;
 			Left = Random.Chance();
-			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
+			
+			GetComponent<BuffsComponent>().AddImmunity<FrozenBuff>();
 		}
 
 		private bool locked;

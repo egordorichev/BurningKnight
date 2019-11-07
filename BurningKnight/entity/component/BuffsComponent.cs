@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using ImGuiNET;
+using Lens;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
@@ -13,8 +16,18 @@ using Lens.util.file;
 namespace BurningKnight.entity.component {
 	public class BuffsComponent : SaveableComponent {
 		public Dictionary<Type, Buff> Buffs = new Dictionary<Type, Buff>();
-		public List<Type> Immune = new List<Type>();
+		private List<Type> immune = new List<Type>();
+		
+		public List<BuffParticle> Particles = new List<BuffParticle>();
 
+		public void AddImmunity<T>() {
+			var type = typeof(T);
+
+			if (!immune.Contains(type)) {
+				immune.Add(type);
+			}
+		}
+		
 		public Buff Add(Buff buff) {
 			if (buff == null) {
 				return null;
@@ -26,7 +39,7 @@ namespace BurningKnight.entity.component {
 				return null;
 			}
 			
-			foreach (var t in Immune) {
+			foreach (var t in immune) {
 				if (t == type) {
 					return null;
 				}
@@ -47,6 +60,12 @@ namespace BurningKnight.entity.component {
 				Buff = buff
 			});
 
+			if (Engine.Instance.State is InGameState && buff.GetIcon() != null) {
+				var part = new BuffParticle(buff, Entity);
+				Particles.Add(part);
+				Engine.Instance.State.Ui.Add(part);
+			}
+
 			return buff;
 		}
 
@@ -59,20 +78,48 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void Remove<T>() {
-			var type = typeof(T);
+			Remove(typeof(T));
+		}
 
+		public void Remove(Type type) {
 			if (Buffs.TryGetValue(type, out var buff)) {
 				if (!Send(new BuffRemovedEvent {
 					Buff = buff
 				})) {
 					buff.Destroy();
 					Buffs.Remove(type);
+
+					var toRemove = -1;
+
+					for (var i = 0; i < Particles.Count; i++) {
+						if (Particles[i].Buff == buff) {
+							toRemove = i;
+							Particles[i].Remove();
+							break;
+						}
+					}
+
+					if (toRemove != -1) {
+						Particles.RemoveAt(toRemove);
+					}
 				}
 			}
 		}
+
+		private bool addedIcons;
 		
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!addedIcons) {
+				addedIcons = true;
+
+				foreach (var b in Buffs.Values) {
+					var part = new BuffParticle(b, Entity);
+					Particles.Add(part);
+					Engine.Instance.State.Ui.Add(part);
+				}
+			}
 
 			foreach (var buff in Buffs.Values) {				
 				buff.Update(dt);
@@ -82,12 +129,7 @@ namespace BurningKnight.entity.component {
 				var buff = Buffs[key];
 
 				if (buff.TimeLeft <= 0) {
-					if (!Send(new BuffRemovedEvent {
-						Buff = buff
-					})) {
-						buff.Destroy();
-						Buffs.Remove(key);
-					}
+					Remove(key);
 				}
 			}
 		}

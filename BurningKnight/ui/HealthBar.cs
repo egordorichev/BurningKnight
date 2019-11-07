@@ -23,7 +23,7 @@ namespace BurningKnight.ui {
 		private float lastHp;
 		private float sinceLastDamage;
 		private float lastChange;
-		private int lastDamage;
+		private float lastDamage;
 		private bool charge;
 		
 		private Boss entity;
@@ -128,7 +128,7 @@ namespace BurningKnight.ui {
 			if (lastHp > h) {
 				lastHp += Engine.Delta * 10f * (h - lastHp);
 
-				if (h == 0 && lastHp <= 2f) {
+				if (Math.Abs(h) < 0.01f && lastHp <= 2f) {
 					lastHp = 0;
 				}
 			} else {

@@ -14,7 +14,6 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			GetComponent<BuffsComponent>().Immune.Add(typeof(FrozenBuff));
 			AddComponent(new WallAnimationComponent("crawler"));
 			SetMaxHp(2);
 		}

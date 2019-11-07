@@ -45,11 +45,6 @@ namespace BurningKnight.entity.creature.player {
 			head = Animations.Get("gobbo").CreateAnimation("head");
 		}
 
-		public override void Init() {
-			base.Init();
-			Entity.Area.Add(new RenderTrigger(Entity, RenderPickups, Layers.InGameUi));
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -169,27 +164,6 @@ namespace BurningKnight.entity.creature.player {
 
 			if (w) {
 				GetComponent<ActiveWeaponComponent>().Render(shadow, o);
-			}
-		}
-
-		public void RenderPickups() {
-			var player = (Player) Entity;
-			var y = 0f;
-			
-			if (player.PickedItem != null) {
-				var region = player.PickedItem.Region;
-				
-				Graphics.Render(region, Entity.Center - new Vector2(0, Entity.Height / 2f - 4f + player.Scale.X * 6f), 
-					0,  new Vector2(region.Center.X, region.Height), player.Scale);
-				
-				y += region.Height + 4f;
-			}
-			
-			foreach (var region in player.PickedUp) {
-				Graphics.Render(region, Entity.Center - new Vector2(0, y + Entity.Height / 2f + 4f + region.Height / 2f),
-					0, region.Center);
-
-				y += region.Height + 4f;
 			}
 		}
 	}

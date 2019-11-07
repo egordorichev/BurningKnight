@@ -350,13 +350,14 @@ namespace BurningKnight.entity.creature.player {
 			return base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
 		}
 
+		/*
 		public override bool HasNoHealth(HealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
 		}
 		
 		public override bool HasNoHealth(PostHealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == 0;
-		}
+		}*/
 
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
@@ -397,8 +398,12 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 			} else if (e is HealthModifiedEvent hm) {
-				if (hm.Amount < 0 && hm.From is Mob m && m.HasPrefix) {
-					hm.Amount = Math.Min(hm.Amount, -2);
+				if (hm.Amount < 0) {
+					if (hm.From is Mob m && m.HasPrefix) {
+						hm.Amount = Math.Min(hm.Amount, -2);
+					}
+
+					hm.Amount = Math.Max(-1, hm.Amount);
 				}			
 			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {

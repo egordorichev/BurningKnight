@@ -1,11 +1,13 @@
 ﻿using System;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
@@ -13,15 +15,15 @@ using Lens.util.file;
 
 namespace BurningKnight.entity.component {
 	public class HealthComponent : SaveableComponent {
-		private int health;
+		private float health;
 
 		public bool RenderInvt;
-		public int Health => health;
+		public float Health => health;
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
 
-		public bool SetHealth(int hp, Entity setter, bool mod = true, DamageType type = DamageType.Regular) {
-			if (hp == health) {
+		public bool SetHealth(float hp, Entity setter, bool mod = true, DamageType type = DamageType.Regular) {
+			if (Math.Abs(hp - health) < 0.01f) {
 				return false;
 			}
 			
@@ -32,7 +34,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			var old = health;
-			var h = (int) MathUtils.Clamp(0, maxHealth, hp);
+			var h = MathUtils.Clamp(0, maxHealth, hp);
 
 			var e = new HealthModifiedEvent {
 				Amount = h - old,
@@ -42,7 +44,7 @@ namespace BurningKnight.entity.component {
 			};
 			
 			if (!Send(e)) {
-				if (e.Amount == 0) {
+				if (Math.Abs(e.Amount) <= 0.01f) {
 					return false;
 				}
 				
@@ -61,7 +63,7 @@ namespace BurningKnight.entity.component {
 					Type = type
 				});
 
-				if (health == 0 && AutoKill) {
+				if (health <= 0.01f && AutoKill) {
 					Kill(setter);
 				}
 
@@ -71,9 +73,9 @@ namespace BurningKnight.entity.component {
 			return false;
 		}
 
-		public bool ModifyHealth(int amount, Entity setter, DamageType type = DamageType.Regular) {
+		public bool ModifyHealth(float amount, Entity setter, DamageType type = DamageType.Regular) {
 			if (amount < 0 && Entity is Player && (Run.Depth != -2 && Run.Depth < 1)) {
-				if (Unhittable || InvincibilityTimer > 0 || Health == 0) {
+				if (Unhittable || InvincibilityTimer > 0 || Health <= 0.01f) {
 					return false;
 				}
 
@@ -87,7 +89,7 @@ namespace BurningKnight.entity.component {
 				return false;
 			}
 			
-			if (amount < 0) {
+			/*if (amount < 0) {
 				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {
 						if (Unhittable || InvincibilityTimer > 0) {
@@ -98,7 +100,7 @@ namespace BurningKnight.entity.component {
 						return true;
 					}
 				}
-			}
+			}*/
 			
 			return SetHealth(health + (amount), setter, true, type);
 		}
@@ -172,11 +174,16 @@ namespace BurningKnight.entity.component {
 				
 				ev.Item.Use(Entity);
 				ev.Item.Done = true;
+				
+				Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
+						? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
+						: ev.Item.Region, (Player) Entity));
+				
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");
 				
-				ModifyHealth(Entity is Player ? -2 : -16, b.Who, DamageType.Explosive);
+				ModifyHealth(Entity is Player ? -2 : -32, b.Who, DamageType.Explosive);
 
 				var component = Entity.GetAnyComponent<BodyComponent>();
 				component?.KnockbackFrom(b.Who, 2);
@@ -186,7 +193,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public bool IsFull() {
-			return health == MaxHealth;
+			return Math.Abs(health - MaxHealth) < 0.01f;
 		}
 
 		public override void Update(float dt) {
@@ -196,18 +203,18 @@ namespace BurningKnight.entity.component {
 		
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteInt32(health);
+			stream.WriteFloat(health);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			health = stream.ReadInt32();
+			health = stream.ReadFloat();
 		}
 
 		public override void RenderDebug() {
 			var hp = health;
 			
-			if (ImGui.InputInt("Health", ref hp)) {
+			if (ImGui.InputFloat("Health", ref hp)) {
 				health = hp;
 			}
 			

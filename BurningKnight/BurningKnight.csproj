@@ -286,6 +286,7 @@
     <Compile Include="assets\particle\controller\ParticleController.cs" />
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\controller\SparkParticleController.cs" />
+    <Compile Include="assets\particle\custom\BuffParticle.cs" />
     <Compile Include="assets\particle\custom\ConsumableParticle.cs" />
     <Compile Include="assets\particle\custom\EpicSpawn.cs" />
     <Compile Include="assets\particle\custom\FireEmitter.cs" />
@@ -324,6 +325,7 @@
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
+    <Compile Include="entity\buff\ArmoredBuff.cs" />
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\buff\BuffCheckEvent.cs" />

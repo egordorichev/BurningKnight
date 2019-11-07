@@ -9,10 +9,12 @@ namespace BurningKnight.entity.buff {
 		static BuffRegistry() {
 			Add<BurningBuff>(BurningBuff.Id, ProjectileGraphicsEffect.Burning);
 			Add<CharmedBuff>(CharmedBuff.Id, ProjectileGraphicsEffect.Charming);
-			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
 			Add<PoisonBuff>(PoisonBuff.Id, ProjectileGraphicsEffect.Poison);
 			Add<FrozenBuff>(FrozenBuff.Id, ProjectileGraphicsEffect.Freezing);
 			Add<SlowBuff>(SlowBuff.Id, ProjectileGraphicsEffect.Slowing);
+
+			Add<ArmoredBuff>(ArmoredBuff.Id);
+			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
 		}
 		
 		public static void Add<T>(string id, ProjectileGraphicsEffect effect = ProjectileGraphicsEffect.Normal) where T : Buff {
