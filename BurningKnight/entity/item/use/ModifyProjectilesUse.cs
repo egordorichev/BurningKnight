@@ -43,14 +43,16 @@ namespace BurningKnight.entity.item.use {
 			projectile.Damage = (int) Math.Round(projectile.Damage * Damage);
 
 			if (BuffToApply != null) {
+				if (!BuffRegistry.All.TryGetValue(BuffToApply, out var info)) {
+					Log.Error($"Unknown buff {BuffToApply}");
+					return;
+				}
+
+				projectile.Effect = info.Effect;
+				
 				projectile.OnHurt += (p, e) => {
 					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
 						var b = BuffRegistry.Create(BuffToApply);
-
-						if (b == null) {
-							Log.Error($"Unknown buff {BuffToApply}");
-							return;
-						}
 
 						if (InfiniteBuff) {
 							b.Infinite = true;

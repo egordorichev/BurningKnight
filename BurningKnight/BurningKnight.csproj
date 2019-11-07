@@ -327,11 +327,13 @@
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\buff\BuffCheckEvent.cs" />
+    <Compile Include="entity\buff\BuffInfo.cs" />
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\buff\FrozenBuff.cs" />
     <Compile Include="entity\buff\PoisonBuff.cs" />
+    <Compile Include="entity\buff\ProjectileShaderHelper.cs" />
     <Compile Include="entity\buff\SlowBuff.cs" />
     <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />
@@ -665,7 +667,6 @@
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
-    <Compile Include="entity\lamp\Lamp.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
@@ -682,6 +683,7 @@
     <Compile Include="entity\projectile\pattern\ExpandingCirclePattern.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
+    <Compile Include="entity\projectile\ProjectileGraphicsEffect.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />
     <Compile Include="entity\projectile\ProjectileRegistry.cs" />
     <Compile Include="entity\projectile\ProjectileTemplate.cs" />

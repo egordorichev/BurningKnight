@@ -423,7 +423,7 @@ namespace BurningKnight.entity.creature.mob {
 				var d = MathUtils.Distance(dx, dy);
 				var force = dt * 800;
 				
-				if (d <= 12) {
+				if (d <= 8) {
 					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
 					body.Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				}

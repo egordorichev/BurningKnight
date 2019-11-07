@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using Lens.graphics;
 using Lens.graphics.animation;
@@ -31,20 +32,29 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			var d = p.Dying || (p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f);
+			var started = d;
 
 			if (d) {
 				var shader = Shaders.Entity;
-				
 				Shaders.Begin(shader);
 				
 				shader.Parameters["flash"].SetValue(1f);
 				shader.Parameters["flashReplace"].SetValue(1f);
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+			} else if (p.Effect != ProjectileGraphicsEffect.Normal) {
+				started = true;
+				
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+				
+				shader.Parameters["flash"].SetValue(1f);
+				shader.Parameters["flashReplace"].SetValue(0f);
+				shader.Parameters["flashColor"].SetValue(p.Effect.GetColor());
 			}
 			
 			Graphics.Render(spr, Entity.Center, a, or, scale);
 
-			if (d) {
+			if (started) {
 				Shaders.End();
 			}
 		}

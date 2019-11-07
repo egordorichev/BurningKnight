@@ -51,6 +51,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileUpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
 		public Projectile Parent;
+		public ProjectileGraphicsEffect Effect;
 		public string Slice;
 		public float Scale;
 		public bool BreaksFromWalls = true;

@@ -8,6 +8,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.input;
@@ -150,42 +151,21 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			if (ImGui.TreeNode("Stats")) {			
-				var val = root["damage"].Int(1);
+			if (ImGui.TreeNode("Stats")) {
+				root.InputInt("Damage", "damage");
+				root.InputInt("Projectile Count", "amount");
 
-				if (ImGui.InputInt("Damage", ref val)) {
-					root["damage"] = val;
-				}
+				ImGui.Separator();
 
-				var amount = root["amount"].Int(1);
+				root.InputInt("Min Speed", "speed", 10);
+				root.InputInt("Max Speed", "speedm", 10);
 
-				if (ImGui.InputInt("Amount", ref amount)) {
-					root["amount"] = amount;
-				}
-
-				var spd = (float) root["speed"].Number(6);
-
-				if (ImGui.InputFloat("Speed", ref spd)) {
-					root["speed"] = spd;
-				}
-
-				var spdm = (float) root["speedm"].Number(10);
-
-				if (ImGui.InputFloat("Max Speed", ref spdm)) {
-					root["speedm"] = spdm;
-				}
-
-				var scale = (float) root["scale"].Number(1);
-
-				if (ImGui.InputFloat("Min Scale", ref scale)) {
-					root["scale"] = scale;
-				}
-
-				var scalem = (float) root["scalem"].Number(1);
-
-				if (ImGui.InputFloat("Max Scale", ref scalem)) {
-					root["scalem"] = scalem;
-				}
+				ImGui.Separator();
+				
+				root.InputInt("Min Scale", "scale");
+				root.InputInt("Max Scale", "scalem");
+				
+				ImGui.Separator();
 
 				var range = (float) root["range"].Number(0);
 
