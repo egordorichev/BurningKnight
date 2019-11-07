@@ -44,7 +44,7 @@ namespace BurningKnight.assets.particle.custom {
 				foreach (var p in Entity.GetComponent<BuffsComponent>().Particles) {
 					if (p.Id > Id) {
 						p.Id--;
-						p.lastX += (Width + 4) * 0.5f;
+						p.lastX -= (Width + 4) * 0.5f;
 					}
 				}
 			};
