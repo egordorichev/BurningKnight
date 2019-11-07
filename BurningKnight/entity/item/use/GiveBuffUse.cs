@@ -23,8 +23,10 @@ namespace BurningKnight.entity.item.use {
 			} else {
 				b.TimeLeft = b.Duration = Time;
 			}
-			
-			entity.GetComponent<BuffsComponent>().Add(b);
+
+			if (entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				buffs.Add(b);
+			}
 		}
 
 		public override void Setup(JsonValue settings) {

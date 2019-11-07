@@ -121,6 +121,14 @@ namespace BurningKnight.entity.item.use {
 						}
 					}
 
+					if (modifiers != null) {
+						projectile.OnHurt += (prj, en) => {
+							foreach (var m in modifiers) {
+								m.Use(en, Item);
+							}
+						};
+					}
+					
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
@@ -259,7 +267,7 @@ namespace BurningKnight.entity.item.use {
 					};
 				}
 
-				ItemEditor.DisplayUse(root, root["modifiers"], "bk:ModifyProjectiles");
+				ItemEditor.DisplayUse(root, root["modifiers"]);
 				ImGui.TreePop();
 			}
 		}

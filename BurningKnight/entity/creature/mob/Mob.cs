@@ -92,7 +92,9 @@ namespace BurningKnight.entity.creature.mob {
 
 			if (Target == null) {
 				FindTarget();
-			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room) {
+			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room ||
+			           (Target is Creature c && c.IsFriendly() == IsFriendly())) {
+				
 				Target = null;
 				FindTarget();
 			}

@@ -30,6 +30,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
@@ -48,6 +49,7 @@ namespace BurningKnight.entity.projectile {
 		public bool CanBeBroken = true;
 		public ProjectileDeathCallback OnDeath;
 		public ProjectileUpdateCallback Controller;
+		public ProjectileHurtCallback OnHurt;
 		public Projectile Parent;
 		public string Slice;
 		public float Scale;
@@ -228,13 +230,15 @@ namespace BurningKnight.entity.projectile {
 							    !(Owner is Creature ac) 
 							    || !(ev.Entity is Creature bc) 
 							    || ac.IsFriendly() != bc.IsFriendly() 
-							    || bc is ShopKeeper
+							    || bc is ShopKeeper || ac is Player
 							  )
 						  )
 						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
 					ToHurt.Add(ev.Entity);
+
+					OnHurt?.Invoke(this, ev.Entity);
 				}
 				
 				if (BreaksFrom(ev.Entity)) {
