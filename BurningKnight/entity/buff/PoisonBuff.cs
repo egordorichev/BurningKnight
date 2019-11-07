@@ -30,6 +30,11 @@ namespace BurningKnight.entity.buff {
 
 				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"poison_{Random.Int(1, 4)}"))));
 				part.Position = Entity.Center;
+
+				if (Entity.TryGetComponent<ZComponent>(out var z)) {
+					part.Position -= new Vector2(0, z.Z);
+				}
+				
 				Entity.Area.Add(part);
 				
 				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(30, 56));

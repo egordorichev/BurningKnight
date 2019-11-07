@@ -2,6 +2,7 @@
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
+using BurningKnight.entity.component;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -27,6 +28,11 @@ namespace BurningKnight.entity.buff {
 
 				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"heart"))));
 				part.Position = Entity.Center;
+
+				if (Entity.TryGetComponent<ZComponent>(out var z)) {
+					part.Position -= new Vector2(0, z.Z);
+				}
+				
 				Entity.Area.Add(part);
 				
 				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(30, 56));

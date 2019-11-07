@@ -54,9 +54,7 @@ namespace BurningKnight.entity.item.use {
 
 			if (modifiers != null) {
 				foreach (var m in modifiers) {
-					if (m is ModifyProjectilesUse mpu) {
-						mpu.EventCreated = false;
-					}
+					m.Item = Item;
 				}
 			}
 			
@@ -121,14 +119,6 @@ namespace BurningKnight.entity.item.use {
 						}
 					}
 
-					if (modifiers != null) {
-						projectile.OnHurt += (prj, en) => {
-							foreach (var m in modifiers) {
-								m.Use(en, Item);
-							}
-						};
-					}
-					
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
@@ -260,14 +250,10 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.TreeNode("Modifiers")) {
 				if (!root["modifiers"].IsJsonArray) {
-					root["modifiers"] = new JsonArray {
-						new JsonObject {
-							["id"] = "bk:ModifyProjectiles"
-						}
-					};
+					root["modifiers"] = new JsonArray();
 				}
 
-				ItemEditor.DisplayUse(root, root["modifiers"]);
+				ItemEditor.DisplayUse(root, root["modifiers"], "bk:ModifyProjectiles");
 				ImGui.TreePop();
 			}
 		}

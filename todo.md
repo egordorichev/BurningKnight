@@ -7,6 +7,8 @@
  * slow
  * broken armor
  * armor
+ 
+* fade out projectile when it dies, or maybe scale
 
 #
 

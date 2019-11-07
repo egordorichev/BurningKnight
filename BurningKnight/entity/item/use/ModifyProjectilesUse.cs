@@ -1,9 +1,15 @@
 using System;
+using BurningKnight.assets.items;
+using BurningKnight.entity.buff;
+using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.use {
@@ -12,6 +18,9 @@ namespace BurningKnight.entity.item.use {
 		public float Damage;
 		public float Chance;
 		public bool EventCreated = true;
+		public string BuffToApply;
+		public bool InfiniteBuff;
+		public float BuffDuration;
 
 		public override void Use(Entity entity, Item item) {
 			
@@ -32,33 +41,59 @@ namespace BurningKnight.entity.item.use {
 			
 			projectile.Scale *= Scale;
 			projectile.Damage = (int) Math.Round(projectile.Damage * Damage);
+
+			if (BuffToApply != null) {
+				projectile.OnHurt += (p, e) => {
+					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
+						var b = BuffRegistry.Create(BuffToApply);
+
+						if (b == null) {
+							Log.Error($"Unknown buff {BuffToApply}");
+							return;
+						}
+
+						if (InfiniteBuff) {
+							b.Infinite = true;
+						} else {
+							b.TimeLeft = b.Duration = BuffDuration;
+						}
+
+						buffs.Add(b);
+					}
+				};
+			}
 		}
 
 		public override void Setup(JsonValue settings) {
-			base.Setup(settings);
+			base.Setup(settings);			
 			
 			Chance = settings["chance"].Number(1);
 			Scale = settings["amount"].Number(1);
 			Damage = settings["damage"].Number(1);
+			
+			BuffToApply = settings["buff"].String(null);
+
+			if (BuffToApply != null) {
+				InfiniteBuff = settings["infinite_buff"].Bool(false);
+				BuffDuration = settings["buff_time"].Number(10);
+			}
 		}
 		
 		public static void RenderDebug(JsonValue root) {
-			var val = root["chance"].Number(1);
-
-			if (ImGui.InputFloat("Chance", ref val)) {
-				root["chance"] = val;
-			}
-
-			val = root["amount"].Number(1);
-
-			if (ImGui.InputFloat("Scale Modifier", ref val)) {
-				root["amount"] = val;
-			}
+			root.InputFloat("Chance", "chance");
+			root.InputFloat("Scale Modifier", "amount");
+			root.InputFloat("Damage Modifier", "damage");
 			
-			val = root["damage"].Number(1);
+			if (ImGui.TreeNode("Buff")) {
+				if (!BuffRegistry.All.ContainsKey(root.InputText("Buff", "buff", "bk:frozen"))) {
+					ImGui.BulletText("Unknown buff!");
+				}
 
-			if (ImGui.InputFloat("Damage Modifier", ref val)) {
-				root["damage"] = val;
+				if (!root.Checkbox("Infinite", "infinite_buff", false)) {
+					root.InputFloat("Buff Duration", "buff_time");
+				}
+
+				ImGui.TreePop();
 			}
 		}
 	}

@@ -994,6 +994,7 @@
     <Compile Include="util\FollowingDriver.cs" />
     <Compile Include="util\geometry\Dot.cs" />
     <Compile Include="util\geometry\Rect.cs" />
+    <Compile Include="util\ImJson.cs" />
     <Compile Include="util\Line.cs" />
     <Compile Include="util\LoadScreenTitles.cs" />
     <Compile Include="util\Maze.cs" />
