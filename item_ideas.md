@@ -13,7 +13,6 @@
 
 ### to rework
 
-* rename sale to charisma ring 
 *+ can (different sprite and name)
 * machine gun (sucks)
 * rework bat into life drain
