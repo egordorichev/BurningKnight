@@ -41,5 +41,9 @@ namespace BurningKnight.entity.buff {
 				part.Depth = Layers.InGameUi;
 			}
 		}
+
+		public override string GetIcon() {
+			return "love";
+		}
 	}
 }

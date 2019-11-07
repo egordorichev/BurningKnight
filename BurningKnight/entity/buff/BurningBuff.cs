@@ -40,5 +40,9 @@ namespace BurningKnight.entity.buff {
 				Entity.GetComponent<HealthComponent>().ModifyHealth(-1, Entity);
 			}
 		}
+
+		public override string GetIcon() {
+			return "fire";
+		}
 	}
 }

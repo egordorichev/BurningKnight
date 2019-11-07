@@ -49,5 +49,9 @@ namespace BurningKnight.entity.buff {
 				a.Animation.Paused = false;
 			}
 		}
+
+		public override string GetIcon() {
+			return "snow";
+		}
 	}
 }

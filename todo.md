@@ -1,14 +1,14 @@
 # esty stuff
 
-* rework damage system with floats
 * rework hitbox
 
 * finish buffs:
  * slow
- * broken armor
- * armor
+
+* icons for other buffs?
  
 * fade out projectile when it dies, or maybe scale
+* damage scaling for player
 
 #
 

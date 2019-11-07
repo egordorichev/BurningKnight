@@ -50,5 +50,9 @@ namespace BurningKnight.entity.buff {
 				Entity.GetComponent<HealthComponent>().ModifyHealth(-2, Entity);
 			}
 		}
+
+		public override string GetIcon() {
+			return "poison";
+		}
 	}
 }

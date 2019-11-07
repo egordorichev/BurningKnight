@@ -18,7 +18,8 @@
 
 ### items
 
-* item that gives a chance for each buff
+* smth that alters your bullet effect all the time, aka 3 dollar bill
+* items that gives each buff (broken armor is left only i think)
 
 * guitar weapon
 

@@ -15,6 +15,7 @@ namespace BurningKnight.assets.particle.custom {
 
 		private TextureRegion region;
 		private Vector2 scale = new Vector2(0, Display.UiScale * 3);
+		private bool removing;
 		
 		public BuffParticle(Buff buff, Entity entity) {
 			Buff = buff;
@@ -36,7 +37,21 @@ namespace BurningKnight.assets.particle.custom {
 			AlwaysVisible = true;
 		}
 
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (Entity.Done) {
+				Remove();
+			}
+		}
+		
 		public void Remove() {
+			if (removing) {
+				return;
+			}
+
+			removing = true;
+			
 			Tween.To(Display.UiScale * 4, scale.X, x => scale.X = x, 0.3f);
 			Tween.To(0, scale.Y, x => scale.Y = x, 0.3f).OnEnd = () => {
 				Done = true;
