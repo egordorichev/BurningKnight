@@ -46,5 +46,9 @@ namespace BurningKnight.level.rooms.entrance {
 			level.Area.Add(prop);
 			prop.Center = (where * 16 + new Vector2(8));
 		}
+
+		public override bool CanConnect(RoomDef R) {
+			return base.CanConnect(R) && !(R is EntranceRoom);
+		}
 	}
 }

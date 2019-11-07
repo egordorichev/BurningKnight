@@ -161,6 +161,17 @@ namespace BurningKnight.entity.component {
 
 					return true;
 				}
+
+				if (buffs.Has<CharmedBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(0f);
+					shader.Parameters["flashColor"].SetValue(CharmedBuff.Color);
+
+					return true;
+				}
 			}
 
 			return false;

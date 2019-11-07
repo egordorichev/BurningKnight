@@ -62,12 +62,12 @@ namespace BurningKnight.entity.component {
 			var type = typeof(T);
 
 			if (Buffs.TryGetValue(type, out var buff)) {
-				Send(new BuffRemovedEvent {
+				if (!Send(new BuffRemovedEvent {
 					Buff = buff
-				});
-				
-				buff.Destroy();
-				Buffs.Remove(type);
+				})) {
+					buff.Destroy();
+					Buffs.Remove(type);
+				}
 			}
 		}
 		
@@ -82,8 +82,12 @@ namespace BurningKnight.entity.component {
 				var buff = Buffs[key];
 
 				if (buff.TimeLeft <= 0) {
-					buff.Destroy();
-					Buffs.Remove(key);
+					if (!Send(new BuffRemovedEvent {
+						Buff = buff
+					})) {
+						buff.Destroy();
+						Buffs.Remove(key);
+					}
 				}
 			}
 		}

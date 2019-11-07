@@ -1,11 +1,13 @@
 ﻿using System;
 using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.input;
@@ -35,6 +37,8 @@ namespace BurningKnight.entity.item.use {
 		
 		public bool ProjectileDied = true;
 
+		private ItemUse[] modifiers;
+
 		public override void Use(Entity entity, Item item) {
 			if (wait && !ProjectileDied) {
 				return;
@@ -45,6 +49,16 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
+
+			modifiers = Items.ParseUses(settings["modifiers"]);
+
+			if (modifiers != null) {
+				foreach (var m in modifiers) {
+					if (m is ModifyProjectilesUse mpu) {
+						mpu.EventCreated = false;
+					}
+				}
+			}
 			
 			damage = settings["damage"].Int(1);
 			speed = settings["speed"].Number(6);
@@ -98,6 +112,15 @@ namespace BurningKnight.entity.item.use {
 					}
 					
 					projectile.Center = from;
+
+					if (modifiers != null) {
+						foreach (var m in modifiers) {
+							if (m is ModifyProjectilesUse mpu) {
+								mpu.ModifyProjectile(projectile);
+							}
+						}
+					}
+
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
@@ -129,98 +152,115 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var val = root["damage"].Int(1);
+			if (ImGui.TreeNode("Stats")) {			
+				var val = root["damage"].Int(1);
 
-			if (ImGui.InputInt("Damage", ref val)) {
-				root["damage"] = val;
+				if (ImGui.InputInt("Damage", ref val)) {
+					root["damage"] = val;
+				}
+
+				var amount = root["amount"].Int(1);
+
+				if (ImGui.InputInt("Amount", ref amount)) {
+					root["amount"] = amount;
+				}
+
+				var spd = (float) root["speed"].Number(6);
+
+				if (ImGui.InputFloat("Speed", ref spd)) {
+					root["speed"] = spd;
+				}
+
+				var spdm = (float) root["speedm"].Number(10);
+
+				if (ImGui.InputFloat("Max Speed", ref spdm)) {
+					root["speedm"] = spdm;
+				}
+
+				var scale = (float) root["scale"].Number(1);
+
+				if (ImGui.InputFloat("Min Scale", ref scale)) {
+					root["scale"] = scale;
+				}
+
+				var scalem = (float) root["scalem"].Number(1);
+
+				if (ImGui.InputFloat("Max Scale", ref scalem)) {
+					root["scalem"] = scalem;
+				}
+
+				var range = (float) root["range"].Number(0);
+
+				if (ImGui.InputFloat("Range", ref range)) {
+					root["range"] = range;
+				}
+
+				var knockback = (float) root["knockback"].Number(1);
+
+				if (ImGui.InputFloat("Knockback", ref knockback)) {
+					root["knockback"] = knockback;
+				}
+
+				var accuracy = (float) root["accuracy"].Number(0);
+
+				if (ImGui.InputFloat("Accuracy", ref accuracy)) {
+					root["accuracy"] = accuracy;
+				}
+
+				var light = root["light"].Bool(true);
+
+				if (ImGui.Checkbox("Light", ref light)) {
+					root["light"] = light;
+				}
+
+				var rect = root["rect"].Bool(false);
+
+				if (ImGui.Checkbox("Rect body", ref rect)) {
+					root["rect"] = rect;
+				}
+
+				var wait = root["wait"].Bool(false);
+
+				if (ImGui.Checkbox("Wait for projectile death", ref wait)) {
+					root["wait"] = wait;
+				}
+
+				var prefab = root["prefab"].String("");
+
+				if (ImGui.InputText("Prefab", ref prefab, 128)) {
+					root["prefab"] = prefab;
+				}
+
+				if (prefab.Length > 0 && ProjectileRegistry.Get(prefab) == null) {
+					ImGui.BulletText("Unknown prefab");
+				}
+
+				var slice = root["texture"].String("");
+				var region = CommonAse.Projectiles.GetSlice(slice);
+
+				ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
+					new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
+					new Num.Vector2((region.X + region.Width) / region.Texture.Width,
+						(region.Y + region.Height) / region.Texture.Height));
+
+				if (ImGui.InputText("Texture", ref slice, 128)) {
+					root["texture"] = slice;
+				}
+
+				ImGui.TreePop();
 			}
-			
-			var amount = root["amount"].Int(1);
 
-			if (ImGui.InputInt("Amount", ref amount)) {
-				root["amount"] = amount;
-			}
-			
-			var spd = (float) root["speed"].Number(6);
+			if (ImGui.TreeNode("Modifiers")) {
+				if (!root["modifiers"].IsJsonArray) {
+					root["modifiers"] = new JsonArray {
+						new JsonObject {
+							["id"] = "bk:ModifyProjectiles"
+						}
+					};
+				}
 
-			if (ImGui.InputFloat("Speed", ref spd)) {
-				root["speed"] = spd;
-			}
-			
-			var spdm = (float) root["speedm"].Number(10);
-
-			if (ImGui.InputFloat("Max Speed", ref spdm)) {
-				root["speedm"] = spdm;
-			}
-			
-			var scale = (float) root["scale"].Number(1);
-
-			if (ImGui.InputFloat("Min Scale", ref scale)) {
-				root["scale"] = scale;
-			}
-			
-			var scalem = (float) root["scalem"].Number(1);
-
-			if (ImGui.InputFloat("Max Scale", ref scalem)) {
-				root["scalem"] = scalem;
-			}
-
-			var range = (float) root["range"].Number(0);
-
-			if (ImGui.InputFloat("Range", ref range)) {
-				root["range"] = range;
-			}
-			
-			var knockback = (float) root["knockback"].Number(1);
-
-			if (ImGui.InputFloat("Knockback", ref knockback)) {
-				root["knockback"] = knockback;
-			}
-			
-			var accuracy = (float) root["accuracy"].Number(0);
-
-			if (ImGui.InputFloat("Accuracy", ref accuracy)) {
-				root["accuracy"] = accuracy;
-			}
-			
-			var light = root["light"].Bool(true);
-
-			if (ImGui.Checkbox("Light", ref light)) {
-				root["light"] = light;
-			}
-			
-			var rect = root["rect"].Bool(false);
-
-			if (ImGui.Checkbox("Rect body", ref rect)) {
-				root["rect"] = rect;
-			}
-
-			var wait = root["wait"].Bool(false);
-
-			if (ImGui.Checkbox("Wait for projectile death", ref wait)) {
-				root["wait"] = wait;
-			}
-			
-			var prefab = root["prefab"].String("");
-
-			if (ImGui.InputText("Prefab", ref prefab, 128)) {
-				root["prefab"] = prefab;
-			}
-
-			if (prefab.Length > 0 && ProjectileRegistry.Get(prefab) == null) {
-				ImGui.BulletText("Unknown prefab");
-			}
-
-			var slice = root["texture"].String("");
-			var region = CommonAse.Projectiles.GetSlice(slice);
-			
-			ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
-				new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
-				new Num.Vector2((region.X + region.Width) / region.Texture.Width, 
-					(region.Y + region.Height) / region.Texture.Height));
-			
-			if (ImGui.InputText("Texture", ref slice, 128)) {
-				root["texture"] = slice;
+				ItemEditor.DisplayUse(root, root["modifiers"], "bk:ModifyProjectiles");
+				ImGui.TreePop();
 			}
 		}
 	}

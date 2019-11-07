@@ -205,9 +205,15 @@ namespace BurningKnight.entity.creature.mob {
 			}
 			
 			var closestDistance = float.MaxValue;
+			var friendly = IsFriendly();
+			
 			Entity closest = null;
 			
 			foreach (var target in targets) {
+				if (target == this || ((Creature) target).IsFriendly() == friendly) {
+					continue;
+				}
+				
 				var d = target.DistanceToSquared(this);
 
 				if (d < closestDistance) {

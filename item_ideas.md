@@ -7,28 +7,34 @@
 * triple chest
 * double chest
 * forest chest
+* i think tripple and double chest ppols (check others too) are not used
 * battery buddy, item, that makes you charge double per room -> some items for charger item pool
 * safe pool (loot pick for example)
 
 ### to rework
 
-* can (different sprite and name)
+* rename sale to charisma ring 
+*+ can (different sprite and name)
 * machine gun (sucks)
 * rework bat into life drain
 
 ### items
 
-* sack of sacks
-* sack of bombs 
-* sack of keys
-* couch item
+*+ sack of sacks
+*+ sack of bombs 
+*+ sack of keys
 * turret
-* pepega item rekvi
+* powerful but lowrange gun
 * prism orbital
-* sack consumable
-* chest consumable
-* single time shop sale
-* nuclear throne perks: strong soul, hammer head, etc 
+* orbital, that fires to your cursor
+*+ sack consumable
+*+ single time shop sale (old sale sprite)
+* nuclear throne perks: strong soul, hammer head, etc:
+ *+ bloodlast: vampire_bat
+ *+ hammer head: pickacke
+ * impact?
+ *+ long arms: ruler
+
 * holy mantel
 * item, that makes bullets bounce from each another
 * cutsaw: rolling hurt enemies

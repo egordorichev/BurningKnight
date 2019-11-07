@@ -1,7 +1,21 @@
 # esty stuff
 
+* rework hitbox
+* finish buffs:
+ * charmed
+ * poisoned 
+ * slow
+ * broken armor
+ * armor
+
+#
+
+* loot table editor
+
 * animate bombs and hearts, emeralds?
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+* teleportation animation on player
+* teleporting removes your followers (probs just stay off screen)
 
 * !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed
@@ -30,11 +44,7 @@
 * buffs display on mobs (like poisoned, charmed)
 * look into fullscreen bug
 
-# sand & oil 
 
-* teleporting removes your followers
-
-* teleportation animation on player
 * cursed arrow item!
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
@@ -48,9 +58,6 @@
 * windows has two builds on steam?
 * make enemies items and players fall into chasm
 
-# TODO
-
-* camera zoom setting?
 * dark mage/granny rooms
 
 * duck interaction
@@ -130,6 +137,7 @@
 
 ### Ideas
 
+* teleport tile mechanic for some level
 * breakable chests
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
@@ -138,7 +146,6 @@
 * special secret music with 10% chance?
 * a special reward for completing the level fast
 
-* Explode item stand to replace the item with trash? :thinking:
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 * fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
 * Random events (rain, blood moon, etc), ways to make them more or less likely
@@ -158,6 +165,8 @@
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
 
+* secret level ith tons of shopkeepers, aka dark market from spelunky
+
 ### things I promissed to do
 
 * angel/devil rooms, I dont like the theme tho, rename into smth else
@@ -166,3 +175,10 @@
 * local coop up to 4 players
 * twitch support
 * steam cloud
+
+### Machine Ideas
+
+* Takes two weapons gives new 
+* Buys weapons from you
+* Health chest, can be mimic 
+* Rework well into different structs

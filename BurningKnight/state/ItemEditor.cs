@@ -51,7 +51,7 @@ namespace BurningKnight.state {
 
 		private static int toRemove = -1;
 
-		public static void DisplayUse(JsonValue parent, JsonValue root) {
+		public static void DisplayUse(JsonValue parent, JsonValue root, string useId = null) {
 			if (root == JsonValue.Null) {
 				return;
 			}
@@ -99,11 +99,19 @@ namespace BurningKnight.state {
 					toRemove = -1;
 				}
 
-				if (ImGui.Button("Add use")) {
-					toAdd = root;
-					ImGui.OpenPopup("Add item use");
+				if (useId != null) {
+					if (ImGui.Button("Add")) {
+						root.AsJsonArray.Add(new JsonObject {
+							["id"] = useId
+						});
+					}
+				} else {
+					if (ImGui.Button("Add use")) {
+						toAdd = root;
+						ImGui.OpenPopup("Add item use");
+					}
 				}
-				
+
 				if (ImGui.BeginPopupModal("Add item use")) {
 					id = 0;
 					

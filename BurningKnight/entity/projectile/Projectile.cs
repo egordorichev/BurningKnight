@@ -232,7 +232,7 @@ namespace BurningKnight.entity.projectile {
 							  )
 						  )
 						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
-					
+
 					health.ModifyHealth(-Damage, Owner);
 					ToHurt.Add(ev.Entity);
 				}
