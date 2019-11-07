@@ -2,7 +2,6 @@
 
 * rework hitbox
 * finish buffs:
- * charmed
  * poisoned 
  * slow
  * broken armor

@@ -20,6 +20,10 @@
 
 ### items
 
+* item that gives a chance for each buff
+
+* guitar weapon
+
 *+ sack of sacks
 *+ sack of bombs 
 *+ sack of keys

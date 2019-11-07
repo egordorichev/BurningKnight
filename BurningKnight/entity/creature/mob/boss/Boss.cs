@@ -1,3 +1,5 @@
+using BurningKnight.entity.buff;
+using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
@@ -11,6 +13,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 	public class Boss : Mob {
 		public bool Awoken;
 		protected HealthBar HealthBar;
+
+		public override void AddComponents() {
+			base.AddComponents();
+			GetComponent<BuffsComponent>().Immune.Add(typeof(CharmedBuff));
+		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
