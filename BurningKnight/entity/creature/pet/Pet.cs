@@ -7,8 +7,12 @@ namespace BurningKnight.entity.creature.pet {
 
 		public override void AddComponents() {
 			base.AddComponents();
+
+			AlwaysActive = true;
 			
-			RemoveComponent<HealthComponent>();
+			RemoveComponent<HealthComponent>();			
+			RemoveComponent<TileInteractionComponent>();
+
 			RemoveTag(Tags.LevelSave);
 		}
 	}

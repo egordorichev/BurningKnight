@@ -12,6 +12,10 @@ namespace BurningKnight.entity.component {
 		public List<Item> Items = new List<Item>();
 
 		public void Pickup(Item item, bool animate = true) {
+			if (item == null) {
+				return;
+			}
+		
 			item.Unknown = false;
 			Entity.Area.Remove(item);
 			item.Done = false;

@@ -441,6 +441,7 @@
     <Compile Include="entity\creature\npc\NullPtr.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
+    <Compile Include="entity\creature\pet\Strawberry.cs" />
     <Compile Include="entity\creature\pet\TheKey.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />

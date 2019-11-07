@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.mod;
@@ -23,7 +24,7 @@ namespace BurningKnight.entity.orbital {
 		public static Entity Create(string id, Entity owner) {
 			return !defined.TryGetValue(id, out var d) ? null : d(owner);
 		}
-
+		
 		public static void Define(string id, Func<Entity, Entity> orbital, Mod mod = null) {
 			defined[$"{(mod == null ? Mods.BurningKnight : mod.Prefix)}:{id}"] = orbital;
 		}

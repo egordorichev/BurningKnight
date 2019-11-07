@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.buff {
 	public class BurningBuff : Buff {
-		public static Vector4 Color = new Vector4(0.8f, 0.4f, 0.4f, 1f);
+		public static Vector4 Color = new Vector4(0.5f, 0f, 0f, 1f);
 		public const string Id = "bk:burning";
 		public const float Delay = 1f;
 		

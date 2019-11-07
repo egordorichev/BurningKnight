@@ -12,11 +12,11 @@
 #
 
 * loot table editor
+* give item tag to chests
 
 * animate bombs and hearts, emeralds?
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * teleportation animation on player
-* teleporting removes your followers (probs just stay off screen)
 
 * !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed

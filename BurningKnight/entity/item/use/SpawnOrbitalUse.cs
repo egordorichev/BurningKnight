@@ -1,5 +1,7 @@
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.orbital;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -8,8 +10,14 @@ using Lens.util;
 namespace BurningKnight.entity.item.use {
 	public class SpawnOrbitalUse : ItemUse {
 		private string orbital;
+		private bool random;
 
 		public override void Use(Entity entity, Item item) {
+			if (random) {
+				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemPool.Orbital), entity.Area));
+				return;
+			}
+			
 			var o = OrbitalRegistry.Create(orbital, entity);
 
 			if (o == null) {
@@ -22,17 +30,17 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
+
+			random = settings["random"].Bool(false);
 			orbital = settings["orbital"].String("");
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var id = root["orbital"].String("");
-
-			if (ImGui.InputText("Orbital", ref id, 128)) {
-				root["orbital"] = id;
+			if (root.Checkbox("Random", "random", false)) {
+				return;
 			}
-
-			if (!OrbitalRegistry.Has(id)) {
+			
+			if (!OrbitalRegistry.Has(root.InputText("Orbital", "orbital", "", 128))) {
 				ImGui.BulletText("Unknown orbital!");
 			}
 		}

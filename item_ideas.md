@@ -13,7 +13,6 @@
 
 ### to rework
 
-*+ can (different sprite and name)
 * machine gun (sucks)
 * rework bat into life drain
 
