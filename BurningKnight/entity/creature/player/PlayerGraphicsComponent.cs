@@ -37,12 +37,16 @@ namespace BurningKnight.entity.creature.player {
 		private Vector2 scale = Vector2.One;
 		private Animation head;
 		public Vector2 Scale = Vector2.One;
+
+		private TextureRegion wing;
 		
 		public PlayerGraphicsComponent() : base("gobbo", "body") {
 			CustomFlip = true;
 			ShadowOffset = 8;
 
 			head = Animations.Get("gobbo").CreateAnimation("head");
+
+			wing = CommonAse.Items.GetSlice("wing");
 		}
 
 		public override void Update(float dt) {
@@ -59,6 +63,10 @@ namespace BurningKnight.entity.creature.player {
 
 			if (FlippedVerticaly) {
 				pos.Y += region.Source.Height;
+			}
+			
+			if (!shadow) {
+				pos.Y -= GetComponent<ZComponent>().Z;
 			}
 			
 			Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
@@ -79,7 +87,7 @@ namespace BurningKnight.entity.creature.player {
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, m +
 					Entity.Bottom + (shadow ? -1 : 1) * 
-					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15 - GetComponent<ZComponent>().Z)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 
@@ -89,7 +97,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
-				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				Graphics.Render(region, pos + origin + Offset, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 
@@ -126,11 +134,32 @@ namespace BurningKnight.entity.creature.player {
 		public override void Render(bool shadow) {
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
 			var w = !(GetComponent<StateComponent>().StateInstance is Player.RollState);
+			var z = GetComponent<ZComponent>();
+
+			// Render wings
+			if (((Player) Entity).HasFlight) {
+				var a = (float) (Math.Sin(Engine.Time * 5f) * 0.5f) * (shadow ? -1 : 1);
+
+				if (!shadow) {
+					z.Z = -a * 3 + 4;
+				}
+
+				a -= (float) Math.PI / 4 * (shadow ? -1 : 1);
+				var wy = shadow ? Entity.Height : 0;
+
+				wy += GetComponent<ZComponent>().Z * (shadow ? 1 : -1);
+
+				Graphics.Render(wing, Entity.Center + new Vector2(-1, wy), a, new Vector2(8),
+					shadow ? MathUtils.InvertY : Vector2.One);
+
+				Graphics.Render(wing, Entity.Center + new Vector2(1, wy), -a, new Vector2(8),
+					shadow ? MathUtils.InvertXY : MathUtils.InvertX);
+			}
 
 			if (w) {
-				GetComponent<WeaponComponent>().Render(shadow, o);
+				GetComponent<WeaponComponent>().Render(shadow, o - (int) z.Z);
 			}
-			
+
 			var stopShader = StartShaders();
 
 			SimpleRender(shadow);
@@ -163,7 +192,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (w) {
-				GetComponent<ActiveWeaponComponent>().Render(shadow, o);
+				GetComponent<ActiveWeaponComponent>().Render(shadow, o - (int) z.Z);
 			}
 		}
 	}

@@ -611,6 +611,7 @@
     <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
+    <Compile Include="entity\item\use\GiveFlightUse.cs" />
     <Compile Include="entity\item\use\GiveLaserAimUse.cs" />
     <Compile Include="entity\item\use\GoThonkUse.cs" />
     <Compile Include="entity\item\use\KillMobUse.cs" />

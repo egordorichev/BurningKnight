@@ -11,7 +11,6 @@
 * fade out projectile when it dies, or maybe scale
 * damage scaling for player, other stats like speed?
 
-* saturn orbital hitbox is tiny
 * drops from rocks and tinted rocks
 
 * portal
@@ -37,6 +36,8 @@
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
 * convert cage key into a pet
+
+* second lvl deset enemies
 
 # ui update
 

@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.pet {
 			
 			AddComponent(new ZSliceComponent(CommonAse.Items, "bk:strawberry"));
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new ZComponent { Z = 2 });
+			AddComponent(new ZComponent { Float = true });
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
 			
 			Owner.GetComponent<FollowerComponent>().AddFollower(this);

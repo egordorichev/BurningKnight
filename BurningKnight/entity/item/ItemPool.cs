@@ -35,6 +35,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool RedChest = new ItemPool("red_chest");
 		public static readonly ItemPool Pet = new ItemPool("pet");
 		public static readonly ItemPool Orbital = new ItemPool("orbital");
+		public static readonly ItemPool StoneChest = new ItemPool("stone_chest");
 
 		private static int count;
 		public static int Count => count;

@@ -20,10 +20,12 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<MotherSlime>(new SpawnChance(1f + 1000f, Biome.Castle)),
-				MobInfo.New<Gunner>(new SpawnChance(0.5f, Biome.Castle)).DisableFirstSpawn(),
-				MobInfo.New<BulletSlime>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
-				MobInfo.New<Clown>(new SpawnChance(1f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<MotherSlime>(new SpawnChance(1f, Biome.Castle)),
+				
+				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				
 				// Desert
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)),
@@ -31,6 +33,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
+				// todo: second stage enemies
 			};
 			
 			All.AddRange(infos);

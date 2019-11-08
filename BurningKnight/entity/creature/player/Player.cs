@@ -124,6 +124,8 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new AimComponent(AimComponent.AimType.Cursor));
 			AddComponent(new DialogComponent());
 			
+			AddComponent(new ZComponent());
+			
 			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);
@@ -347,10 +349,12 @@ namespace BurningKnight.entity.creature.player {
 			return !(entity is Player || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
 		}
 
-		public override bool InAir() {
-			return base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
-		}
+		public bool HasFlight;
 
+		public override bool InAir() {
+			return HasFlight || base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
+		}
+		
 		/*
 		public override bool HasNoHealth(HealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
@@ -445,7 +449,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override bool ShouldCollideWithDestroyableInAir() {
-			return true;
+			return !HasFlight;
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {

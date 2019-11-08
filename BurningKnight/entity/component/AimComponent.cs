@@ -36,6 +36,10 @@ namespace BurningKnight.entity.component {
 			}
 
 			Center = Entity.Center;
+
+			if (Entity.TryGetComponent<ZComponent>(out var z)) {
+				Center.Y -= z.Z;
+			}
 		}
 	}
 }

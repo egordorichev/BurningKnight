@@ -52,8 +52,6 @@
 * the ring
 * item, that opens enemy doors
 * ring of gold
-* wings
-* laser pointer
 * star
 * zoom
 * when bullet penetrates enemy, it splits into two
