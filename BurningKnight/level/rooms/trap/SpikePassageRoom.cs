@@ -21,9 +21,9 @@ namespace BurningKnight.level.rooms.trap {
 			}
 
 			if (Random.Chance()) {
-				Painter.FillEllipse(level, this, m, Tile.SpikeTmp);
+				Painter.FillEllipse(level, this, m, Tile.SpikeOffTmp);
 			} else {
-				Painter.Fill(level, this, m, Tile.SpikeTmp);
+				Painter.Fill(level, this, m, Tile.SpikeOffTmp);
 			}
 
 			m += Random.Int(2, 5);

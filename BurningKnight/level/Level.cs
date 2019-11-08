@@ -155,6 +155,7 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, Lights.Render, Layers.Light));
 			manager.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
 			manager.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
+			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
 		}
 
 		public override void AddComponents() {
@@ -513,7 +514,7 @@ namespace BurningKnight.level {
 
 							if (t == Tile.PistonDown) {
 								RenderWall(x, y, index, tile, t, 0);
-							} else if (t != Tile.Chasm && t != Tile.SpikeTmp && t != Tile.SensingSpikeTmp) {
+							} else if (t != Tile.Chasm && t != Tile.SpikeOffTmp && t != Tile.SensingSpikeTmp) {
 								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
 							}
 						}
@@ -556,6 +557,16 @@ namespace BurningKnight.level {
 													: Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
 									Vector2.One, SpriteEffects.FlipVertically);
 						}
+					}
+					
+					var l = Liquid[index];
+					var lt = (Tile) l;
+
+					if (lt.IsRock()) {
+						Graphics.Render(Tileset.Tiles[l][LiquidVariants[index]], new Vector2(x * 16, y * 16 + 3));
+					} else if (lt == Tile.MetalBlock) {
+						Graphics.Render(Tileset.MetalBlockShadow, new Vector2(x * 16, y * 16 + 6), 0, Vector2.Zero,
+							Vector2.One, SpriteEffects.FlipVertically);
 					}
 				}
 			}
@@ -610,6 +621,40 @@ namespace BurningKnight.level {
 			state.Begin();
 		}
 		
+		
+		public void RenderRocks() {
+			if (!LevelLayerDebug.Rocks) {
+				return;
+			}
+
+			var camera = Camera.Instance;
+
+			// Cache the condition
+			var toX = GetRenderRight(camera);
+			var toY = GetRenderBottom(camera);
+
+			for (int y = toY; y >= GetRenderTop(camera); y--) {
+				for (int x = GetRenderLeft(camera); x <= toX; x++) {
+					var index = ToIndex(x, y);
+					var light = Light[index];
+
+					if (NoLightNoRender && light < LightMin) {
+						continue;
+					}
+					
+					var tile = Liquid[index];
+
+					if (tile > 0) {
+						var tt = (Tile) tile;
+
+						if (tt.IsHalfWall()) {
+							Graphics.Render(Tileset.Tiles[tile][LiquidVariants[index]], new Vector2(x * 16, y * 16));
+						}
+					}
+				}
+			}
+		}
+		
 		public void RenderLiquids() {
 			if (!LevelLayerDebug.Liquids) {
 				return;
@@ -655,6 +700,10 @@ namespace BurningKnight.level {
 					if (tile > 0) {
 						var tt = (Tile) tile;
 
+						if (tt.IsHalfWall()) {
+							continue;
+						}
+						
 						region.Set(Tilesets.Biome.Patterns[tile]);
 						region.Source.Width = 16;
 						region.Source.Height = 16;

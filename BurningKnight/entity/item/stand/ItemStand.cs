@@ -98,7 +98,7 @@ namespace BurningKnight.entity.item.stand {
 			
 			AddTag(Tags.Item);
 			
-			var body = new RectBodyComponent(2, 2, Width - 4, Height - 9);
+			var body = new RectBodyComponent(0, 4, 14, 10);
 			AddComponent(body);
 			body.Body.Mass = 100000000f;
 			

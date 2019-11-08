@@ -4,11 +4,11 @@
 
 * finish buffs:
  * slow
-
-* icons for other buffs?
  
 * fade out projectile when it dies, or maybe scale
 * damage scaling for player
+
+* saturn orbital hitbox is tiny
 
 #
 

@@ -21,24 +21,29 @@ namespace BurningKnight.level {
 			var x = level.FromIndexX(index);
 			var y = level.FromIndexY(index);
 			
-			byte lmask = 0;
-			
-			for (int i = 0; i < 4; i++) {
-				var m = PathFinder.Circle4[i];
-				var v = PathFinder.VCircle4[i];
-				var n = index + m;
-				
-				if (!level.IsInside(x + (int) v.X, y + (int) v.Y) || level.IsInside(n) && ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
-					lmask |= (byte) (1 << i);
-				}
-			}
+			if (((Tile) liquid).Matches(Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
+				level.LiquidVariants[index] = (byte) Random.Int(4);
+			} else {
+				byte lmask = 0;
 
-			level.LiquidVariants[index] = lmask;
+				for (int i = 0; i < 4; i++) {
+					var m = PathFinder.Circle4[i];
+					var v = PathFinder.VCircle4[i];
+					var n = index + m;
+
+					if (!level.IsInside(x + (int) v.X, y + (int) v.Y) ||
+					    level.IsInside(n) && ShouldTile(liquid, level.Tiles[n], level.Liquid[n])) {
+						lmask |= (byte) (1 << i);
+					}
+				}
+
+				level.LiquidVariants[index] = lmask;
+			}
 
 			byte mask = 0;
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
-			
+
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
 				if (level.Variants[index] != 0) {
 					return;

@@ -13,6 +13,7 @@ namespace BurningKnight.debug {
 		public static bool Lights = true;
 		public static bool TileLight = true;
 		public static bool Shadows = true;
+		public static bool Rocks = true;
 				
 		public static void Render() {
 			if (!WindowManager.LayerDebug) {
@@ -25,13 +26,13 @@ namespace BurningKnight.debug {
 			}
 
 			if (ImGui.Button("Show")) {
-				Chasms = Floor = Liquids = Mess = Sides = Walls = Blood = Lights = TileLight = Shadows = true;
+				Chasms = Floor = Liquids = Mess = Sides = Walls = Blood = Lights = TileLight = Rocks = Shadows = true;
 			}
 			
 			ImGui.SameLine();
 
 			if (ImGui.Button("Hide")) {
-				Chasms = Floor = Liquids = Mess = Sides = Walls = Blood = Lights = TileLight = Shadows = false;
+				Chasms = Floor = Liquids = Mess = Sides = Walls = Blood = Lights = TileLight = Rocks = Shadows = false;
 			}
 
 			ImGui.Checkbox("Chasms", ref Chasms);
@@ -44,6 +45,7 @@ namespace BurningKnight.debug {
 			ImGui.Checkbox("Blood", ref Blood);
 			ImGui.Checkbox("Lights", ref Lights);
 			ImGui.Checkbox("Tile Light", ref TileLight);
+			ImGui.Checkbox("Rocks", ref Rocks);
 			
 			ImGui.End();
 		}

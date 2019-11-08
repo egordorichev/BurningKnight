@@ -11,6 +11,7 @@ namespace BurningKnight.level.tile {
 		public static int LiquidLayer = 0x40;
 		public static int WallLayer = 0x80;
 		public static int Danger = 0x100;
+		public static int HalfWall = 0x200;
 
 		static TileFlags() {
 			flags[(int) Tile.Chasm] = Hole | FloorLayer;
@@ -26,7 +27,8 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.FloorB] = Passable | Burns | FloorLayer;
 			flags[(int) Tile.FloorC] = Passable | FloorLayer;
 			flags[(int) Tile.FloorD] = Passable | FloorLayer;
-			flags[(int) Tile.SpikeTmp] = FloorLayer | Danger;
+			flags[(int) Tile.SpikeOffTmp] = FloorLayer | Danger;
+			flags[(int) Tile.SpikeOnTmp] = FloorLayer | Danger;
 			flags[(int) Tile.SensingSpikeTmp] = FloorLayer | Danger;
 			flags[(int) Tile.Lava] = LiquidLayer | Danger;
 			flags[(int) Tile.Ice] = Passable | LiquidLayer;
@@ -37,6 +39,9 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.Planks] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Piston] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.PistonDown] = Passable | FloorLayer;
+			flags[(int) Tile.Rock] = Solid | LiquidLayer | BreaksView | HalfWall;
+			flags[(int) Tile.TintedRock] = Solid | LiquidLayer | BreaksView | HalfWall;
+			flags[(int) Tile.MetalBlock] = Solid | LiquidLayer | BreaksView | HalfWall;
 		}
 	
 		public static bool Matches(this Tile tile, int flag) {
@@ -60,9 +65,18 @@ namespace BurningKnight.level.tile {
 		public static bool IsWall(this Tile tile) {
 			return IsSimpleWall(tile) || tile == Tile.Piston;
 		}
+		
+		public static bool IsRock(this Tile tile) {
+			return tile == Tile.Rock || tile == Tile.TintedRock;
+		}
 
 		public static bool IsSimpleWall(this Tile tile) {
 			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks || tile == Tile.Transition;
+		}
+		
+		
+		public static bool IsHalfWall(this Tile tile) {
+			return tile == Tile.Rock || tile == Tile.TintedRock || tile == Tile.MetalBlock;
 		}
 	}
 }

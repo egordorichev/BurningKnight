@@ -30,11 +30,16 @@ namespace BurningKnight.level.tile {
 		
 		public TextureRegion[] WallVariants = new TextureRegion[8];
 		
+		public TextureRegion[] MetalBlock = new TextureRegion[4];
+		public TextureRegion[] Rock = new TextureRegion[4];
+		public TextureRegion[] TintedRock = new TextureRegion[4];
+		public TextureRegion MetalBlockShadow;
+		
 		public TextureRegion[][] Tiles = new TextureRegion[(int) Tile.Total][];
 
 		public static int[] WallMap = { -1, -1, -1, 9, -1, -1, 0, 5, -1, 11, -1, 10, 2, 6, 1, -1 };
 		public static int[] WallMapExtra = { -1, 7, 3, -1, 4, -1, -1, -1, 8, -1, -1, -1, -1, -1, -1, -1 };
-
+		
 		public void Load(string id) {
 			var anim = Animations.Get(id);
 			
@@ -91,7 +96,21 @@ namespace BurningKnight.level.tile {
 			};
 			
 			WallCrackB = new TextureRegion(anim.Texture, new Rectangle(176, 48, 16, 16));
-			
+
+			for (int f = 0; f < 3; f++) {
+				for (int i = 0; i < 4; i++) {
+					if (f == 0) {
+						MetalBlock[i] = new TextureRegion(anim.Texture, new Rectangle(128 + i % 2 * 16, 192 + i / 2 * 16, 16, 16));
+					} else if (f == 1) {
+						Rock[i] = new TextureRegion(anim.Texture, new Rectangle(160 + i % 2 * 16, 192 + i / 2 * 16, 16, 16));
+					} else {
+						TintedRock[i] = new TextureRegion(anim.Texture, new Rectangle(160 + i % 2 * 16, 224 + i / 2 * 16, 16, 16));
+					}
+				}
+			}
+
+			MetalBlockShadow = new TextureRegion(anim.Texture, new Rectangle(128, 224, 16, 16));
+
 			for (int f = 0; f < 4; f++) {
 				for (int i = 0; i < 16; i++) {
 					if (f == 0) {
@@ -116,17 +135,16 @@ namespace BurningKnight.level.tile {
 						FloorSidesD[i] = new TextureRegion(anim.Texture, new Rectangle(64 + i * 16, 224, 16, 16));
 					}
 				}
-
-				if (f == 0) {
-					Tiles[(int) Tile.FloorA] = FloorA;
-				} else if (f == 1) {
-					Tiles[(int) Tile.FloorB] = FloorB;
-				} else if (f == 2) {
-					Tiles[(int) Tile.FloorC] = FloorC;
-				} else if (f == 3) {
-					Tiles[(int) Tile.FloorD] = FloorD;
-				}
 			}
+			
+			Tiles[(int) Tile.FloorA] = FloorA;
+			Tiles[(int) Tile.FloorB] = FloorB;
+			Tiles[(int) Tile.FloorC] = FloorC;
+			Tiles[(int) Tile.FloorD] = FloorD;
+			
+			Tiles[(int) Tile.Rock] = Rock;
+			Tiles[(int) Tile.TintedRock] = TintedRock;
+			Tiles[(int) Tile.MetalBlock] = MetalBlock;
 		}
 	}
 }

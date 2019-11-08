@@ -44,7 +44,7 @@ namespace BurningKnight.level.rooms.entrance {
 			var t = Tiles.RandomFloor();
 			
 			Painter.Call(level, this, 1, (x, y) => {
-				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
+				if (level.Get(x, y).Matches(Tile.SpikeOffTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
 					level.Set(x, y, t);
 				}
 			});

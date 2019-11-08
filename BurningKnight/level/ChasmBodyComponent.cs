@@ -168,8 +168,19 @@ namespace BurningKnight.level {
 							list.Add(new Vector2(xx + 8, yy + 9));
 						}
 						
-						list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), yy + 16));
-						list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), yy + 16));
+						if (Check(level, x - 1, y) || Check(level, x, y + 1)) {
+							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), Check(level, x, y + 1) ? yy + 16 : yy + 24));
+						} else {
+							list.Add(new Vector2(xx + 4, yy + 24));
+							list.Add(new Vector2(xx + 8, yy + 18));
+						}
+
+						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {
+							list.Add(new Vector2(xx + (Check(level, x + 1, y) ? 16 : 12), Check(level, x, y + 1) ? yy + 16 : yy + 24));
+						} else {
+							list.Add(new Vector2(xx + 12, yy + 24));
+							list.Add(new Vector2(xx + 8, yy + 18));
+						}
 						
 						FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);			
 					}

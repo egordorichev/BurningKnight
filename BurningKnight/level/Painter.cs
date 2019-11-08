@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.input;
 using BurningKnight.level.entities;
@@ -189,10 +190,19 @@ namespace BurningKnight.level {
 							spikes.Y = Y * 16;
 
 							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.SpikeTmp) {
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
 							
 							var spikes = new Spikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							
+							var spikes = new AlwaysOnSpikes();
 
 							spikes.X = X * 16;
 							spikes.Y = Y * 16;

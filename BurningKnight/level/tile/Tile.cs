@@ -23,10 +23,16 @@ namespace BurningKnight.level.tile {
 		PistonDown,
 		
 		// Not an actual tile, used just for placement with painter
-		SpikeTmp,
+		SpikeOffTmp,
 		SensingSpikeTmp,
 		Plate,
 		Transition,
+		SpikeOnTmp,
+		
+		// Regular tiles
+		MetalBlock,
+		Rock,
+		TintedRock,
 		
 		Total
 	}

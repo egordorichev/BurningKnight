@@ -125,7 +125,7 @@ namespace BurningKnight.level.rooms.shop {
 			var tt = Tiles.RandomFloor();
 			
 			Painter.Call(level, this, 1, (x, y) => {
-				if (level.Get(x, y).Matches(Tile.SpikeTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
+				if (level.Get(x, y).Matches(Tile.SpikeOffTmp, Tile.SensingSpikeTmp, Tile.Chasm, Tile.Lava)) {
 					level.Set(x, y, tt);
 				}
 			});

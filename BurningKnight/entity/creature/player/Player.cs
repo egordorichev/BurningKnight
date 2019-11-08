@@ -112,7 +112,8 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new HeartsComponent());
 
 			// Collisions
-			AddComponent(new RectBodyComponent(4, 1, 8, 11));
+			AddComponent(new SensorBodyComponent(1, 1, Width - 2, Height - 1));
+			AddComponent(new RectBodyComponent(4, Height - 1, 8, 1));
 			AddComponent(new InteractorComponent {
 				CanInteractCallback = e => !died && PickedItem == null
 			});
@@ -261,7 +262,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public class RollState : EntityState {
 			private const float RollTime = 0.25f;
-			private const float RollForce = 600f;
+			private const float RollForce = 1600f;
 			
 			private float lastParticle = 0.05f;
 			private Vector2 direction;
@@ -307,8 +308,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				var body = Self.GetComponent<RectBodyComponent>();
-				body.Velocity = direction * (RollTime - T * 0.5f);
-				body.Position += body.Velocity * dt * 0.75f;
+				body.Velocity += direction * (RollTime - T * 0.5f);
+				body.Position += body.Velocity * dt * 0.1f;
 
 				lastParticle -= dt;
 
