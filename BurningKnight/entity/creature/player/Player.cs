@@ -112,7 +112,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new HeartsComponent());
 
 			// Collisions
-			AddComponent(new SensorBodyComponent(1, 1, Width - 2, Height - 1));
+			AddComponent(new SensorBodyComponent(2, 1, Width - 4, Height - 1));
 			AddComponent(new RectBodyComponent(4, Height - 1, 8, 1));
 			AddComponent(new InteractorComponent {
 				CanInteractCallback = e => !died && PickedItem == null

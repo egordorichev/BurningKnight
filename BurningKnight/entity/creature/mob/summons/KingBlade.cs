@@ -147,7 +147,7 @@ namespace BurningKnight.entity.creature.mob.summons {
 			if (e is CollisionStartedEvent cse) {
 				var en = cse.Entity;
 
-				if (moving && (en is Level || en is DestroyableLevel)) {
+				if (moving && (en is Level)) {
 					stuck = true;
 					GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 				}
@@ -157,7 +157,7 @@ namespace BurningKnight.entity.creature.mob.summons {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
-			return (entity is Level || entity is DestroyableLevel);
+			return (entity is Level);
 		}
 	}
 }

@@ -55,7 +55,6 @@ namespace BurningKnight.entity.room.controllable.platform {
 	      || entity is Projectile 
 			  || entity is Level 
 				|| entity is Chasm 
-				|| entity is DestroyableLevel 
 				|| (entity is Creature c && c.InAir()) 
 				|| (entity.TryGetComponent<TileInteractionComponent>(out var t) && (!t.HasNoTileSupport)) 
 				|| (entity.TryGetComponent<SupportableComponent>(out var s) && s.HasAnotherSupportBesides(Super))

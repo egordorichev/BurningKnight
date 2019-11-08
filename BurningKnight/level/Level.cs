@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.debug;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
@@ -14,6 +15,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
@@ -71,7 +73,6 @@ namespace BurningKnight.level {
 		public float[] Light;
 
 		public Chasm Chasm;
-		public DestroyableLevel Destroyable;
 		public RenderTarget2D WallSurface;
 		public RenderTarget2D MessSurface;
 
@@ -84,9 +85,9 @@ namespace BurningKnight.level {
 		public override void Destroy() {
 			base.Destroy();
 
-			if (Destroyable != null) {
-				Destroyable.Done = true;
-				Area.Remove(Destroyable);
+			if (Chasm != null) {
+				//Destroyable.Done = true;
+				//Area.Remove(Destroyable);
 
 				Chasm.Done = true;
 				Area.Remove(Chasm);
@@ -175,7 +176,7 @@ namespace BurningKnight.level {
 
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
 			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
-			Destroyable.GetComponent<DestroyableBodyComponent>().ReCreateBodyChunk(x, y);
+			//Destroyable.GetComponent<DestroyableBodyComponent>().ReCreateBodyChunk(x, y);
 		}
 		
 		public void CreateBody() {
@@ -183,10 +184,10 @@ namespace BurningKnight.level {
 				return;
 			}
 			
-			if (Destroyable == null) {
-				Area.Add(Destroyable = new DestroyableLevel {
+			if (Chasm == null) {
+				/*Area.Add(Destroyable = new DestroyableLevel {
 					Level = this
-				});
+				});*/
 				
 				Area.Add(Chasm = new Chasm {
 					Level = this
@@ -201,8 +202,8 @@ namespace BurningKnight.level {
 			if (Components == null) {
 				return;
 			}
-			
-			Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
+		
+			// Destroyable.GetComponent<DestroyableBodyComponent>().CreateBody();
 		}
 
 		private bool loadMarked;
@@ -1317,6 +1318,69 @@ namespace BurningKnight.level {
 			}
 			
 			return $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+		}
+		
+		/*
+		 * Destroyable tmp
+		 */
+		 
+		public void Break(float x, float y) {
+			BSet((int) Math.Floor(x / 16), (int) Math.Floor(y / 16));
+			
+			BSet((int) Math.Floor(x / 16 - 0.5f), (int) Math.Floor(y / 16));
+			BSet((int) Math.Floor(x / 16 + 0.5f), (int) Math.Floor(y / 16));
+			BSet((int) Math.Floor(x / 16), (int) Math.Floor(y / 16 - 0.5f));
+			BSet((int) Math.Floor(x / 16), (int) Math.Floor(y / 16 + 0.5f));
+		}
+
+		private void BSet(int tx, int ty) {
+			if (!IsInside(tx, ty)) {
+				return;
+			}
+
+			var index = ToIndex(tx, ty);
+			var tile = Tiles[index];
+
+			if ((Tile) tile != Tile.Planks) {
+				return;
+			}
+
+			Tiles[index] = (byte) Tile.FloorA;
+			UpdateTile(tx, ty);
+			// Level.LoadPassable();
+			
+			ReCreateBodyChunk(tx, ty);
+			Animate(Area, tx, ty);
+		}
+
+		public static void Animate(Area area, int x, int y) {
+			if (!Camera.Instance.Overlaps(new Rectangle(x * 16, y * 16, 16, 16))) {
+				return;
+			}
+
+			area.Add(new TileFx {
+				X = x * 16,
+				Y = y * 16 - 8
+			});
+			
+			for (var i = 0; i < 3; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+						
+				part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
+				area.Add(part);
+			}
+			
+			for (var i = 0; i < 3; i++) {
+				var part = new ParticleEntity(Particles.Plank());
+						
+				part.Position = new Vector2(x * 16 + 8, y * 16);
+				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				
+				area.Add(part);
+			}
+
+			Engine.Instance.Freeze = 0.5f;
+			Camera.Instance.Shake(2);
 		}
 	}
 }

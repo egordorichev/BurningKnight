@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				if (walls) {
-					CollisionFilterComponent.Add(entity, (o, en) => en is Level || en is DestroyableLevel ? CollisionResult.Disable : CollisionResult.Default);
+					CollisionFilterComponent.Add(entity, (o, en) => en is Level ? CollisionResult.Disable : CollisionResult.Default);
 				}
 			}	
 		}
@@ -44,7 +44,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (walls) {
-						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is DestroyableLevel ? CollisionResult.Disable : CollisionResult.Default);
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
 					if (mobs) {

@@ -83,14 +83,16 @@ namespace BurningKnight.entity {
 						var index = level.ToIndex(x + xx, y + yy);
 						var tile = level.Get(index);
 							
-						if (!tile.IsWall()) {
+						if (!tile.IsWall() && tile != Tile.MetalBlock) {
+							// todo: rock logic
+							
 							level.Set(index, Tile.Dirt);
 							level.UpdateTile(x + xx, y + yy);
 						} else if (tile == Tile.Crack) {
 							DiscoverCrack(whoHurts, level, x + xx, y + yy);
 						} else if (tile == Tile.Planks) {
 							level.Set(index, Tile.Dirt);
-							level.Destroyable.Break((x + xx) * 16, (y + yy) * 16);
+							level.Break((x + xx) * 16, (y + yy) * 16);
 						}
 					}
 				}
@@ -124,7 +126,7 @@ namespace BurningKnight.entity {
 
 			LightUp(x * 16 + 8, y * 16 + 8);
 
-			DestroyableLevel.Animate(who.Area, x, y);
+			Level.Animate(who.Area, x, y);
 		}
 
 		public static void LightUp(float X, float Y) {

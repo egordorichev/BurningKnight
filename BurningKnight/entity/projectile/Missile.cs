@@ -52,7 +52,7 @@ namespace BurningKnight.entity.projectile {
 			Depth = Layers.TileLights;
 			
 			CollisionFilterComponent.Add(this, (p, e) => {
-				if (e is Level || e is Prop || e is DestroyableLevel) {
+				if (e is Level || e is Prop) {
 					return CollisionResult.Disable;
 				}
 				

@@ -146,7 +146,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 		#endregion
 
 		public override bool ShouldCollide(Entity entity) {
-			return !(entity is Level || entity is DestroyableLevel) && base.ShouldCollide(entity);
+			return !(entity is Level) && base.ShouldCollide(entity);
 		}
 	}
 }

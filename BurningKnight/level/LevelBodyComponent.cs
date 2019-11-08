@@ -134,15 +134,14 @@ namespace BurningKnight.level {
 					var tile = level.Tiles[index];
 					var side = x == 0 || y == 0 || x == level.Width - 1 || y == level.Height - 1;
 
-					if (side || TileFlags.Matches(tile, TileFlags.Solid) && ((Tile) tile) != Tile.Planks) {
+					if (side || TileFlags.Matches(tile, TileFlags.Solid)) {
 						var sum = 0;
 
 						if (!side) {
 							foreach (var dir in PathFinder.Neighbours8) {
 								var n = dir + index;
 
-								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid)) &&
-								    ((Tile) level.Tiles[n]) != Tile.Planks) {
+								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid))) {
 									sum++;
 								}
 							}
