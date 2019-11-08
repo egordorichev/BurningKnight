@@ -62,8 +62,8 @@ namespace BurningKnight.entity.door {
 		public override void PostInit() {
 			base.PostInit();
 
-			var width = FacingSide ? H : W;
-			var height = FacingSide ? 24 : H;
+			var width = FacingSide ? 4 : 16;
+			var height = FacingSide ? 19 + 8 : 11;
 			
 			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
 				Offset = new Vector2(-2, FacingSide ? -2 : 0),
@@ -73,8 +73,8 @@ namespace BurningKnight.entity.door {
 			AddComponent(animation);
 			AddComponent(new RectBodyComponent(-2, -2, width + 4, height + 4, BodyType.Static, true));
 
-			Width = FacingSide ? 4 : 16;
-			Height = 16;
+			Width = width;
+			Height = height;
 		}
 
 		public override bool HandleEvent(Event e) {

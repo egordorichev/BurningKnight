@@ -1,21 +1,25 @@
 # esty stuff
 
-* rework hitbox
+* player doesnt collide with gramaphone and rolling spikes???
+* rework solid entities hitboxes size, same with enemies: give them 1 pixel high solid hitbox and sensor hitbox
+
+* fix bullets breaking if you fire near the wall (super bad now)
 
 * finish buffs:
  * slow
  
 * fade out projectile when it dies, or maybe scale
-* damage scaling for player
+* damage scaling for player, other stats like speed?
 
 * saturn orbital hitbox is tiny
+* drops from rocks and tinted rocks
 
-#
+* portal
 
 * loot table editor
 * give item tag to chests
 
-* animate bombs and hearts, emeralds?
+* spawn chests/pickups in the levels
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * teleportation animation on player
 
@@ -101,35 +105,17 @@
  * fix lavafall colors
  * fix fire particle changing the render state so much
 
-* idol room update, make them smaller, idol also will keep on spawning mobs with each load
-* room cleared effect
-* picking up hearts should give more feedback
 * Low health indicator
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * spice up bullets (different textures for different enemies)
 * we need more secret room layouts
 * shields
-
-* Tile interactions
- * burning terrain
- * ember after burnt stuff
- * liquids should have smaller hitbox
  
-* Buffs
- * poison (green poison drops dropping from you, some slowness)
- * slowness
- * speed
- * charmed hearts particles
- 
-* gases??
-* figure out what to do with classes? (like potatoo, it doesnt do anything for melee, etc)
-
 #### Polish
 
 * special door textures for shop and treasure room, maybe even boss room 
 * animate items on player head better, also dont stack em, display count 
 * animate item pickup / appearance
-* look into doors drawing at proper depth
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Add sparks

@@ -30,7 +30,7 @@ namespace BurningKnight.level.entities {
 				});
 			}
 
-			AddComponent(new RectBodyComponent(2, 8, (int) Width - 4, 1, BodyType.Static));
+			AddComponent(new RectBodyComponent(0, 2, 12, 14, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 
 			if (!DisableDialog) {

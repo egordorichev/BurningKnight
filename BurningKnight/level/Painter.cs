@@ -34,14 +34,55 @@ namespace BurningKnight.level {
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
+		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
 		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
 		public static Rect Clip;
 		
 		public Painter() {
-			// Small chance to replace rock with a tinted rock
+			// All the rocks, that have not full neighbours will become metal blocks (33% chance)
+			RoomModifiers.Add((l, r) => {
+				if (Random.Chance(66)) {
+					return;
+				}
+				
+				for (var y = r.Top; y <= r.Bottom; y++) {
+					for (var x = r.Left; x <= r.Right; x++) {
+						var index = l.ToIndex(x, y);
+
+						if (l.Get(index, true) == Tile.Rock) {
+							var sum = 0;
+
+							foreach (var dir in PathFinder.Neighbours8) {
+								var n = dir + index;
+
+								if (l.IsInside(n) && (TileFlags.Matches(l.Tiles[n], TileFlags.Solid) ||
+								                      TileFlags.Matches(l.Liquid[n], TileFlags.HalfWall))) {
+									sum++;
+								}
+							}
+
+							if (sum > 0 && sum < 8) {
+								l.Set(index, Tile.MetalBlock);
+
+								return;
+							}
+						}
+					}
+				}
+			});
+			
+			// Small chance to replace rock with a tinted rock or with a barrel
 			Modifiers.Add((l, x, y) => {
-				if (l.Get(x, y, true) == Tile.Rock && Random.Chance(5)) {
-					l.Set(x, y, Tile.TintedRock);
+				var index = l.ToIndex(x, y);
+
+				if (l.Get(index, true) == Tile.Rock) {
+					var r = Random.Float();
+
+					if (r <= 0.05f) {
+						l.Set(index, Tile.TintedRock);
+					} else if (r <= 0.1f) {
+						l.Set(index, Tile.BarrelTmp);
+					}
 				}
 			});
 		}
@@ -142,7 +183,7 @@ namespace BurningKnight.level {
 
 				PlaceDoors(Room);
 
-				var t = Tiles.RandomWall();
+				var t = Tile.WallA;
 
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
@@ -181,6 +222,10 @@ namespace BurningKnight.level {
 				Clip = null;
 				
 				Room.SetupDoors(Level);
+
+				foreach (var m in RoomModifiers) {
+					m(Level, Room);
+				}
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 					for (var X = Room.Left; X <= Room.Right; X++) {
@@ -226,6 +271,14 @@ namespace BurningKnight.level {
 							plate.Y = Y * 16;
 
 							Level.Area.Add(plate);
+						} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							
+							var barrel = new ExplodingBarrel();
+							Level.Area.Add(barrel);
+
+							barrel.CenterX = X * 16 + 8;
+							barrel.Bottom = Y * 16 + 16;
 						}
 					}
 				}

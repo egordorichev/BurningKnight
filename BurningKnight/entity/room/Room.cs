@@ -225,7 +225,7 @@ namespace BurningKnight.entity.room {
 
 			for (var x = MapX + 1; x < MapX + MapW - 1; x++) {
 				for (var y = MapY + 1; y < MapY + MapH - 1; y++) {
-					if (Run.Level.CheckFor(x, y, TileFlags.Passable) && (filter == null || filter(x, y))) {
+					if (Run.Level.IsPassable(x, y) && (filter == null || filter(x, y))) {
 						list.Add(new Point(x, y));
 					}
 				}

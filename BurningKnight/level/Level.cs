@@ -231,10 +231,18 @@ namespace BurningKnight.level {
 				}
 			}
 		}
-		
+
+		public bool IsPassable(int x, int y) {
+			return IsPassable(ToIndex(x, y));
+		}
+
+		public bool IsPassable(int i) {
+			return Get(i).Matches(TileFlags.Passable) && (Liquid[i] == 0 || Get(i, true).Matches(TileFlags.Passable));
+		}
+
 		public void CreatePassable() {
 			for (var i = 0; i < Size; i++) {
-				Passable[i] = Get(i).Matches(TileFlags.Passable);
+				Passable[i] = IsPassable(i);
 			}
 		}
 
@@ -265,8 +273,14 @@ namespace BurningKnight.level {
 
 		public void Set(int i, Tile value) {
 			if (value.Matches(TileFlags.LiquidLayer)) {
-				if (Get(i) == Tile.Chasm) {
+				var t = Get(i);
+				
+				if (t == Tile.Chasm) {
 					return;
+				}
+
+				if (t.IsWall()) {
+					Tiles[i] = (byte) Tile.FloorA;
 				}
 
 				Liquid[i] = (byte) value;

@@ -15,10 +15,10 @@ namespace BurningKnight.entity.door {
 			base.PostInit();
 
 			if (!SkipLock) {
-				AddComponent(new LockComponent(this, CreateLock(), FacingSide ? new Vector2(0, 1) : Vector2.Zero));
+				AddComponent(new LockComponent(this, CreateLock(), FacingSide ? new Vector2(0, -4) : new Vector2(0, 3)));
 			}
 
-			AddComponent(new DoorBodyComponent(0, 0, Width, FacingSide ? 24 : 8, BodyType.Static, true));
+			AddComponent(new DoorBodyComponent(0, FacingSide ? 0 : 5, (int) Width, FacingSide ? (int) Height : 6, BodyType.Static, true));
 		}
 
 		public override void Update(float dt) {

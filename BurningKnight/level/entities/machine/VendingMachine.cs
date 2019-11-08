@@ -64,7 +64,7 @@ namespace BurningKnight.level.entities.machine {
 			
 			AddComponent(new ExplodableComponent());
 			AddComponent(new RoomComponent());
-			AddComponent(new RectBodyComponent(1, 8, 16, 12, BodyType.Static));
+			AddComponent(new RectBodyComponent(0, 6, 18, 20, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 			AddComponent(new ShadowComponent(RenderShadow));
 			

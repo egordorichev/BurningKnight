@@ -17,7 +17,7 @@ namespace BurningKnight.level.entities.chest {
 		public bool Empty;
 		
 		protected override Rectangle GetCollider() {
-			return new Rectangle((int) (2 * Scale), (int) (2 * Scale), (int) (Math.Max(1, 12 * Scale)), (int) (Math.Max(1, 8 * Scale)));
+			return new Rectangle(0, (int) (5 * Scale), (int) (Math.Max(1, 17 * Scale)), (int) (Math.Max(1, 8 * Scale)));
 		}
 		
 		protected override BodyComponent CreateBody() {

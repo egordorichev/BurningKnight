@@ -10,7 +10,7 @@
 		public const int Rocks = -4;
 		public const int Chasm = -3;
 		public const int Sides = -2;
-		public const int Door = -1;
+		public const int Door = 0;
 		public const int Creature = 0;
 		
 		public const int Lock = 2;

@@ -198,7 +198,7 @@ namespace BurningKnight.level.rooms {
 				}
 
 				dot = GetRandomCell();
-			} while (!Run.Level.CheckFor((int) dot.X, (int) dot.Y, TileFlags.Passable));
+			} while (!Run.Level.IsPassable((int) dot.X, (int) dot.Y));
 
 			return dot;
 		}
@@ -297,7 +297,7 @@ namespace BurningKnight.level.rooms {
 					return dot;
 				}
 
-				if (!Run.Level.CheckFor((int) dot.X, (int) dot.Y, TileFlags.Passable)) {
+				if (!Run.Level.IsPassable((int) dot.X, (int) dot.Y)) {
 					continue;
 				}
 
@@ -436,7 +436,7 @@ namespace BurningKnight.level.rooms {
 
 			for (var I = Left + 1; I <= Right - 1; I++) {
 				for (var J = Top + 1; J <= Bottom - 1; J++) {
-					if (level.Get(I, J).Matches(TileFlags.Passable)) {
+					if (level.IsPassable(I, J)) {
 						Points.Add(new Dot(I, J));
 					}
 				}

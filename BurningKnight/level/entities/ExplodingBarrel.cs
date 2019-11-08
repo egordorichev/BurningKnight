@@ -90,7 +90,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override Rectangle GetCollider() {
-			return new Rectangle(3, 5, 5, 6);
+			return new Rectangle(0, 4, 11, 13);
 		}
 	}
 }

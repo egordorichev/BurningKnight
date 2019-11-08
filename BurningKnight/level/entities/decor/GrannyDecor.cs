@@ -7,7 +7,7 @@ namespace BurningKnight.level.entities.decor {
 		}
 		
 		protected override Rectangle GetCollider() {
-			return new Rectangle(15, 8, 30, 7);
+			return new Rectangle(0, 8, 60, 14);
 		}
 	}
 }

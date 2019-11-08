@@ -44,7 +44,6 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			AddComponent(new AnimationComponent("spikes"));
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new RectBodyComponent(2, 4, 12, 12, BodyType.Static, true));
-			AddComponent(new ExplodableComponent());
 			
 			GetComponent<StateComponent>().Become<HiddenState>();
 		}
@@ -197,8 +196,6 @@ namespace BurningKnight.entity.room.controllable.spikes {
 				}
 			} else if (e is CollisionEndedEvent cee) {
 				Colliding.Remove(cee.Entity);
-			} else if (e is ExplodedEvent) {
-				Done = true;
 			}
 			
 			return base.HandleEvent(e);

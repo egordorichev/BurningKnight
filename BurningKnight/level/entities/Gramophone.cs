@@ -60,7 +60,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new RoomComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new ShadowComponent(RenderWithShadow));
-			AddComponent(new RectBodyComponent(2, 14, 12, 4, BodyType.Static));
+			AddComponent(new RectBodyComponent(0, 5, 16, 6, BodyType.Static, false));
 			AddComponent(new SensorBodyComponent(2, 2, Width - 4, Height - 4, BodyType.Static));
 			AddComponent(new InteractableComponent(Interact));
 			

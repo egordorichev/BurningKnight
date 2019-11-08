@@ -17,13 +17,13 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override Rectangle GetCollider() {
-			return new Rectangle(1, 14, 17, 3);
+			return new Rectangle(0, 6, 19, 17);
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = 13;
+			Width = 19;
 			Height = 23;
 			
 			AddComponent(new HealthComponent {

@@ -26,7 +26,7 @@ namespace BurningKnight.level.entities.machine {
 		}
 
 		protected override Rectangle GetCollider() {
-			return new Rectangle(1, 14, 17, 3);
+			return new Rectangle(0, 6, 19, 17);
 		}
 
 		public override void AddComponents() {

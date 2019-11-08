@@ -28,6 +28,7 @@ namespace BurningKnight.level.tile {
 		Plate,
 		Transition,
 		SpikeOnTmp,
+		BarrelTmp,
 		
 		// Regular tiles
 		MetalBlock,
