@@ -785,6 +785,8 @@
     <Compile Include="level\floors\MazeFloor.cs" />
     <Compile Include="level\floors\PatchFloor.cs" />
     <Compile Include="level\floors\TrippleFloor.cs" />
+    <Compile Include="level\HalfWall.cs" />
+    <Compile Include="level\HalfWallBodyComponent.cs" />
     <Compile Include="level\hall\HallBuilder.cs" />
     <Compile Include="level\hall\HallLevel.cs" />
     <Compile Include="level\hall\HallRoom.cs" />

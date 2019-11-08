@@ -14,14 +14,16 @@ using MathUtils = Lens.util.MathUtils;
 namespace BurningKnight.level {
 	public class LevelBodyComponent : BodyComponent {
 		public const byte ChunkSize = 8;
+
+		public Level Level;
 		
 		private bool dirty;
-		private Body[] chunks;
-		private int cw;
+		protected Body[] chunks;
+		protected int cw;
 		private int ch;
 		private int cs;
 
-		private List<int> toUpdate = new List<int>();
+		protected List<int> toUpdate = new List<int>();
 
 		public override void Init() {
 			base.Init();
@@ -39,7 +41,7 @@ namespace BurningKnight.level {
 			}
 
 			if (toUpdate.Count > 0) {
-				var level = (Level) Entity;
+				var level = Level;
 				var updated = new List<int>();
 
 				foreach (var u in toUpdate) {
@@ -84,7 +86,7 @@ namespace BurningKnight.level {
 		}
 
 		private void Create() {
-			var level = (Level) Entity;
+			var level = Level;
 			
 			cw = (int) Math.Floor(level.Width / (float) ChunkSize + 0.5f);
 			ch = (int) Math.Floor(level.Height / (float) ChunkSize + 0.5f);
@@ -105,8 +107,8 @@ namespace BurningKnight.level {
 			}
 		}
 
-		private void RecreateChunk(int cx, int cy) {
-			var level = (Level) Entity;
+		protected virtual void RecreateChunk(int cx, int cy) {
+			var level = Level;
 			
 			var body = BodyFactory.CreateBody(Physics.World, Vector2.Zero);
 			body.FixedRotation = true;
@@ -191,11 +193,11 @@ namespace BurningKnight.level {
 		}
 
 		public void ReCreateBodyChunk(int x, int y) {
-			toUpdate.Add(x + y * ((Level) Entity).Width);
+			toUpdate.Add(x + y * Level.Width);
 		}
 
-		private bool Check(Level level, int x, int y) {
-			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid)); //&& level.Get(x, y) != Tile.Planks;
+		protected virtual bool Check(Level level, int x, int y) {
+			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid));
 		}
 	}
 }

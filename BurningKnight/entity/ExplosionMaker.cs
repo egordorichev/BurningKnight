@@ -81,14 +81,19 @@ namespace BurningKnight.entity {
 						
 					if (Math.Sqrt(xm * xm + ym * ym) <= hurtRadius) {
 						var index = level.ToIndex(x + xx, y + yy);
-						var tile = level.Get(index);
+						var l = level.Get(index, true);
 							
-						if (!tile.IsWall() && tile != Tile.MetalBlock) {
-							// todo: rock logic
-							
+						if (l.IsRock()) {
 							level.Set(index, Tile.Dirt);
 							level.UpdateTile(x + xx, y + yy);
-						} else if (tile == Tile.Crack) {
+							level.ReCreateBodyChunk(x + xx, y + yy);
+
+							continue;
+						} 
+						
+						var tile = level.Get(index);
+
+						if (tile == Tile.Crack) {
 							DiscoverCrack(whoHurts, level, x + xx, y + yy);
 						} else if (tile == Tile.Planks) {
 							level.Set(index, Tile.Dirt);
