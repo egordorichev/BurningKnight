@@ -4,7 +4,7 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class TunnelRoom : ConnectionRoom {
 		public override void Paint(Level level) {
-			var fl = Random.Chance() ? Tiles.RandomFloorOrSpike() : Tiles.Pick(Tile.Chasm, Tile.Lava, Tile.WallA, Tile.Planks);
+			var fl = Random.Chance() ? Tiles.RandomFloorOrSpike() : Tiles.RandomSolid();
 			var w = GenerateSpot();
 			
 			if (Random.Chance()) {

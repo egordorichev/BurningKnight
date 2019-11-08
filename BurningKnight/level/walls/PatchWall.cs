@@ -117,7 +117,7 @@ namespace BurningKnight.level.walls {
 
 			Setup(level, room, fill, 4, true);
 			CleanDiagonalEdges(room);
-			PaintPatch(level, room, Tile.WallA);
+			PaintPatch(level, room, Tiles.RandomSolid());
 		}
 		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
@@ -127,7 +127,7 @@ namespace BurningKnight.level.walls {
 			if (s) {
 				Setup(level, room, fill, 4, true);
 				CleanDiagonalEdges(room);
-				PaintPatch(level, room, Random.Chance() ? Tile.Chasm : Tile.Lava);
+				PaintPatch(level, room, Tiles.RandomSolid());
 			}
 			
 			SimplePaint(level, room);

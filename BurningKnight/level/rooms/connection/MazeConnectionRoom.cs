@@ -15,7 +15,7 @@ namespace BurningKnight.level.rooms.connection {
 		
 		public override void Paint(Level level) {
 			var maze = Maze.Generate(this);
-			var wall = Tiles.Pick(Tile.WallA, Tile.Chasm, Tile.Lava, Tile.Planks);
+			var wall = Tiles.RandomSolid();
 			var spikes = Random.Chance(30);
 
 			if (Random.Chance()) {

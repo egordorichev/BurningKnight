@@ -18,8 +18,8 @@ namespace BurningKnight.level.walls {
 			var bottom = room.Bottom;
 
 			var same = Random.Chance();
-			var a = Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks, Tile.SensingSpikeTmp, Tile.Lava);
-			var b = same ? a : Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.Planks, Tile.SensingSpikeTmp, Tile.Lava);
+			var a = Tiles.RandomSolid();
+			var b = same ? a : Tiles.RandomSolid();
 			var af = Tiles.Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD);
 			var bf = a == b ? af : Tiles.Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD);
 			

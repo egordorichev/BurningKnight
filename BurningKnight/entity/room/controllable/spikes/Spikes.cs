@@ -19,6 +19,8 @@ namespace BurningKnight.entity.room.controllable.spikes {
 
 		public override void Init() {
 			base.Init();
+
+			InitState();
 			Y -= offset.Y;
 		}
 

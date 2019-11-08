@@ -6,7 +6,7 @@ using Lens.util.math;
 namespace BurningKnight.level.walls {
 	public class PlatformWall : WallPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
-			Painter.Fill(level, room, 1, Tiles.Pick(Tile.Chasm, Tile.Lava));
+			Painter.Fill(level, room, 1, Tiles.RandomSolid());
 
 			var f = Tiles.RandomFloor();
 			Painter.Fill(level, room, Random.Int(2, 4), f);

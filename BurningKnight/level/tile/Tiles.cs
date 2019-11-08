@@ -22,18 +22,23 @@ namespace BurningKnight.level.tile {
 		}
 		
 		public static Tile RandomWall() {
-			return Tile.WallA;//lastWall = (Random.Chance() ? Tile.WallA : Tile.WallB);
+			return lastWall = Pick(Tile.WallA, Tile.Rock, Tile.MetalBlock);
+		}
+		
+		public static Tile RandomSolid() {
+			return lastWall = Pick(Tile.WallA, Tile.Rock, Tile.MetalBlock, Tile.Planks, Tile.Lava, Tile.Planks, Tile.SensingSpikeTmp);
 		}
 		
 		public static Tile RandomFillWall() {
-			return lastWall = Pick(Tile.Planks, Tile.WallA); // Tile.WallB
+			return lastWall = Pick(Tile.WallA, Tile.Rock, Tile.MetalBlock, Tile.Planks);
 		}
 		
 		public static Tile RandomNewWall() {
 			switch (lastWall) {
-				case Tile.WallA: return Tile.Planks;
-				case Tile.WallB: return Random.Chance(60) ? Tile.WallA : Tile.Planks;
-				case Tile.Planks: default: return Tile.WallA;
+				case Tile.WallA: return Pick(Tile.Planks, Tile.MetalBlock, Tile.Rock);
+				case Tile.Planks: return Pick(Tile.WallA, Tile.MetalBlock, Tile.Rock);
+				case Tile.MetalBlock: return Pick(Tile.WallA, Tile.Planks, Tile.Rock);
+				case Tile.Rock: default: return Pick(Tile.WallA, Tile.MetalBlock, Tile.Planks);
 			}
 		}
 

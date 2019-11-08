@@ -10,7 +10,7 @@ namespace BurningKnight.level.walls {
 		private bool fl;
 		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
-			var t = Tiles.Pick(Tile.Lava, Tile.WallA);
+			var t = Tiles.RandomSolid();
 			fl = Random.Chance(10);
 
 			CreateWalls(level, new Rect(room.Left + 1, room.Top + 1, room.Right - 1, room.Bottom - 1), t);

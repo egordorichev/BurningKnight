@@ -271,7 +271,7 @@ namespace BurningKnight.level {
 
 				Liquid[i] = (byte) value;
 			} else {
-				if (value.IsWall() || value == Tile.Chasm || (Tile) Liquid[i] == Tile.Lava) {
+				if (value.IsWall() || value == Tile.Chasm || ((Tile) Liquid[i]).Matches(Tile.Lava, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
 					Liquid[i] = 0;
 				}
 				

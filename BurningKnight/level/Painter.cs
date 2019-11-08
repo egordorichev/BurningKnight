@@ -37,6 +37,15 @@ namespace BurningKnight.level {
 		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
 		public static Rect Clip;
 		
+		public Painter() {
+			// Small chance to replace rock with a tinted rock
+			Modifiers.Add((l, x, y) => {
+				if (l.Get(x, y, true) == Tile.Rock && Random.Chance(5)) {
+					l.Set(x, y, Tile.TintedRock);
+				}
+			});
+		}
+		
 		private void InspectRoom(RoomDef room) {
 			foreach (var r in room.Connected.Keys) {
 				if (r.Distance == -1) {
