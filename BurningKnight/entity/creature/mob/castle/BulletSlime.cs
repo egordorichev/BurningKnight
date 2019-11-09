@@ -23,11 +23,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new ZAnimationComponent("bullet_slime"));
 			SetMaxHp(1);
 
-			var body = new RectBodyComponent(2, 7, 12, 9);
+			var body = new RectBodyComponent(2, 15, 14, 1);
 			AddComponent(body);
 
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
+			
+			AddComponent(new SensorBodyComponent(2, 7, 12, 9));
 		}
 
 		protected override void OnLand() {

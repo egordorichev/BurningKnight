@@ -1,12 +1,9 @@
 using System;
 using BurningKnight.entity.component;
-using BurningKnight.entity.projectile;
-using BurningKnight.util;
-using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
 
-namespace BurningKnight.entity.creature.mob.castle {
+namespace BurningKnight.entity.creature.mob.desert {
 	public class Spelunker : Mob {
 		private const float DetectionRadius = 64f;
 		

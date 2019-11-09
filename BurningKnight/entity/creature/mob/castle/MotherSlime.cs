@@ -29,6 +29,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			return new RectBodyComponent(2, 7, 12, 9);
 		}
 
+		protected override BodyComponent CreateSensorBodyComponent() {
+			return new SensorBodyComponent(2, 7, 12, 9);
+		}
+
 		protected override bool HandleDeath(DiedEvent d) {
 			for (var i = 0; i < 2; i++) {
 				var slime = new BabySlime();

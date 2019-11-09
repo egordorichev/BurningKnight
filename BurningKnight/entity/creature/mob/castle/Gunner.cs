@@ -20,13 +20,15 @@ namespace BurningKnight.entity.creature.mob.castle {
 			SetMaxHp(5);
 			
 			Become<IdleState>();
-
-			var body = new RectBodyComponent(2, 2, 12, 12);
+			
+			var body = new RectBodyComponent(1, 15, 15, 1);
 			AddComponent(body);
 
 			body.Body.LinearDamping = 6;
-			moveId = Random.Int(3);
+			
+			AddComponent(new SensorBodyComponent(2, 2, 12, 12));
 
+			moveId = Random.Int(3);
 			GetComponent<AudioEmitterComponent>().PitchMod = -0.3f;
 		}
 

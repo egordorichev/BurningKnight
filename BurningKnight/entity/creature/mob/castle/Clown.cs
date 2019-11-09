@@ -17,11 +17,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			Become<IdleState>();
 
-			var body = new RectBodyComponent(2, 2, 12, 12);
+			var body = new RectBodyComponent(2, 15, 12, 1);
 			AddComponent(body);
 
 			body.KnockbackModifier = 2;
 			body.Body.LinearDamping = 0;
+			
+			AddComponent(new SensorBodyComponent(2, 2, 12, 12));
 			
 			AddDrops(new SingleDrop("bk:bomb", 0.1f));
 

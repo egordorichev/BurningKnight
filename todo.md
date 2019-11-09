@@ -21,6 +21,7 @@
 * spawn chests/pickups in the levels
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * teleportation animation on player
+* special room just with a vending machine
 
 * !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed

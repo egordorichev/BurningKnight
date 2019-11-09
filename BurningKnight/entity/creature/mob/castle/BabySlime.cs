@@ -28,6 +28,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
 			
+			AddComponent(new SensorBodyComponent(4, 15, 8, 1));
+			
 			AddComponent(new LightComponent(this, 32, MotherSlime.LightColor));
 		}
 	}
