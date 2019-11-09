@@ -44,6 +44,8 @@ namespace BurningKnight.entity.creature.player {
 		public Vector2 Scale;
 		public Item PickedItem;
 
+		private bool dead;
+
 		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
 			if (ban) {
 				var banner = new UiDescriptionBanner();
@@ -466,6 +468,8 @@ namespace BurningKnight.entity.creature.player {
 		private bool died;
 
 		public override void AnimateDeath(DiedEvent d) {
+			dead = true;
+			
 			base.AnimateDeath(d);
 			
 			for (var i = 0; i < 6; i++) {
@@ -534,6 +538,10 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void ModifyDrops(List<Item> drops) {
+			if (!dead) {
+				return;
+			}
+			
 			var inventory = GetComponent<InventoryComponent>();
 
 			foreach (var i in inventory.Items) {

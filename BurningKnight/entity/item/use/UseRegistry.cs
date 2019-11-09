@@ -103,6 +103,7 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveLaserAimUse>();
 			Register<KillMobUse>(KillMobUse.RenderDebug);
 			Register<GiveFlightUse>();
+			Register<SpawnDropUse>(SpawnDropUse.RenderDebug);
 		}
 	}
 }

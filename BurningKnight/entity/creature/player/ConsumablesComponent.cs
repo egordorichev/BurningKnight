@@ -77,7 +77,7 @@ namespace BurningKnight.entity.creature.player {
 			if (e is ItemCheckEvent ev) {
 				var type = ev.Item.Type;
 				
-				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin || type == ItemType.Battery) {
+				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin || type == ItemType.Battery || type == ItemType.Pouch) {
 					var a = Entity.GetComponent<AudioEmitterComponent>();
 					
 					switch (type) {
@@ -105,6 +105,11 @@ namespace BurningKnight.entity.creature.player {
 							a.Emit("battery");
 							break;
 						}
+
+						case ItemType.Pouch: {
+							a.Emit("pouch");
+							break;
+						}
 					}
 					
 					Send(new ItemAddedEvent {
@@ -115,8 +120,7 @@ namespace BurningKnight.entity.creature.player {
 
 					var p = (Player) Entity;
 					
-					ev.Item.Use(p);
-					ev.Item.Done = true;
+					ev.Item.RemoveDroppedComponents();
 					
 					for (var i = 0; i < 4; i++) {
 						Entity.Area.Add(new ParticleEntity(Particles.Dust()) {
@@ -129,7 +133,10 @@ namespace BurningKnight.entity.creature.player {
 
 					Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
 						? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
-						: ev.Item.Region, p, false, null, ev.Item.Id == "bk:emerald"));
+						: ev.Item.Region, p, false, () => {
+							ev.Item.Use(p);
+							ev.Item.Done = true;
+						}, ev.Item.Id == "bk:emerald"));
 					
 					return true;
 				}
@@ -163,7 +170,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		protected override bool ShouldReplace(Item item) {
-			return item.Type == ItemType.Bomb || item.Type == ItemType.Key || item.Type == ItemType.Coin;
+			return item.Type == ItemType.Bomb || item.Type == ItemType.Key || item.Type == ItemType.Coin || item.Type == ItemType.Pouch;
 		}
 
 		public override void Save(FileWriter stream) {

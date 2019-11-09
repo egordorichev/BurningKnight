@@ -273,6 +273,7 @@
     <Compile Include="assets\lighting\LightComponent.cs" />
     <Compile Include="assets\lighting\Lights.cs" />
     <Compile Include="assets\lighting\PositionedLight.cs" />
+    <Compile Include="assets\loot\Drops.cs" />
     <Compile Include="assets\loot\LootTables.cs" />
     <Compile Include="assets\mod\Mod.cs" />
     <Compile Include="assets\mod\Mods.cs" />
@@ -667,6 +668,7 @@
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
     <Compile Include="entity\item\use\SpawnBombUse.cs" />
+    <Compile Include="entity\item\use\SpawnDropUse.cs" />
     <Compile Include="entity\item\use\SpawnItemsUse.cs" />
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
     <Compile Include="entity\item\use\SpawnPetUse.cs" />

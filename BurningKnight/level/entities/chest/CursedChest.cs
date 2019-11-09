@@ -10,15 +10,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override void DefineDrops() {
-			var drops = GetComponent<DropsComponent>();
-
-			drops.Add(new OneOfDrop(
-				new AnyDrop(
-					new SingleDrop("bk:halo", 1f)
-				),
-				
-				new EmptyDrop(0.5f)
-			));
+			GetComponent<DropsComponent>().Add("bk:cursed_chest");
 		}
 
 		protected override bool TryOpen(Entity entity) {

@@ -46,7 +46,8 @@ namespace BurningKnight.state {
 			"consumable_artifact",
 			"weapon",
 			"battery",
-			"hat"
+			"hat",
+			"pouch"
 		};
 
 		private static int toRemove = -1;

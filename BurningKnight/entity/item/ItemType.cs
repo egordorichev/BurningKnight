@@ -11,6 +11,7 @@ namespace BurningKnight.entity.item {
 		ConsumableArtifact,
 		Weapon,
 		Battery,
-		Hat
+		Hat,
+		Pouch
 	}
 }
