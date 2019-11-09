@@ -31,6 +31,7 @@ namespace BurningKnight.ui {
 			
 			title = item.Name;
 			Label = item.Description;
+			Depth = 3;
 
 			var size = Font.Small.MeasureString(Label);
 

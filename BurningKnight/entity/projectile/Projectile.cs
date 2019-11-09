@@ -91,11 +91,14 @@ namespace BurningKnight.entity.projectile {
 			projectile.Height = h;
 			projectile.Center = owner.Center;
 
-			if (circle) {
+			/*if (circle) {
 				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
 			} else {
 				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
-			}
+			}*/
+
+			projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(w / 4, h - 1, w / 2, 1, BodyType.Dynamic, false, true));
+			projectile.BodyComponent.Offset.Y = 18;
 			
 			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
@@ -263,6 +266,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
+			// fixme: no collision with door sensor
 			return !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is Level)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 

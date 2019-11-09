@@ -98,7 +98,7 @@ namespace BurningKnight.entity.item.use {
 					var projectile = Projectile.Make(entity, sl, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax), damage);
 
 					Camera.Instance.Push(angle, 4f);
-					entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(antiAngle, 0.2f * knockback);
+					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
 
 					if (light) {
 						projectile.AddLight(32f, bad ? Projectile.RedLight : Projectile.YellowLight);

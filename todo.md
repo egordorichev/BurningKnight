@@ -1,6 +1,3 @@
-# fixes before overgamez
-
-*!! rework solid entities hitboxes size, same with enemies: give them 1 pixel high solid hitbox and sensor hitbox
 *!! fix bullets breaking if you fire near the wall (super bad now)
 
 # esty stuff
