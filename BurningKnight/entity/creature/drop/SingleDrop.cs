@@ -15,7 +15,7 @@ namespace BurningKnight.entity.creature.drop {
 		}
 
 		public override List<string> GetItems() {
-			var items = base.GetItems();
+			var items = new List<string>();
 			
 			if (assets.items.Items.ShouldAppear(Item)) {
 				items.Add(Item);

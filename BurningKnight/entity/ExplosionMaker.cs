@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
@@ -8,6 +9,7 @@ using BurningKnight.level;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
+using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -84,6 +86,8 @@ namespace BurningKnight.entity {
 						var l = level.Get(index, true);
 							
 						if (l.IsRock()) {
+							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, new Dot((x + xx) * 16 + 8, (y + yy) * 16 + 8));
+							
 							level.Set(index, Tile.Dirt);
 							level.UpdateTile(x + xx, y + yy);
 							level.ReCreateBodyChunk(x + xx, y + yy);

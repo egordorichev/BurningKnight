@@ -6,8 +6,6 @@
 * fade out projectile when it dies, or maybe scale
 * damage scaling for player, other stats like speed?
 
-* drops from rocks and tinted rocks
-
 * portal
 
 * give item tag to chests

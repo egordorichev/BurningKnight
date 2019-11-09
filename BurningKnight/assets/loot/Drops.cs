@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.assets.mod;
 using BurningKnight.entity.creature.drop;
+using Lens.util;
 
 namespace BurningKnight.assets.loot {
 	public static class Drops {
@@ -74,6 +75,27 @@ namespace BurningKnight.assets.loot {
 				new SimpleDrop(0.5f, 1, 2, "bk:troll_bomb"),
 				new SimpleDrop(0.6f, 1, 4, "bk:coin")
 			));
+			
+			
+			Define("rock", new AnyDrop(
+				new SingleDrop("bk:pickaxe", 0.01f)
+			));
+			
+			Define("tinted_rock", new AnyDrop(
+				new SimpleDrop(0.3f, 1, 2, "bk:key"),
+				new SimpleDrop(0.3f, 1, 2, "bk:bomb"),
+				new SimpleDrop(0.3f, 1, 2, "bk:troll_bomb"),
+				new SimpleDrop(0.6f, 1, 2, "bk:heart")
+			));
+		}
+
+		public static Drop Get(string drop) {
+			if (!Defined.TryGetValue(drop, out var d)) {
+				Log.Error($"Unknown drop {drop}");
+				return null;
+			}
+
+			return d;
 		}
 		
 		public static void Define(string id, Drop drop, Mod mod = null) {

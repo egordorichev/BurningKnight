@@ -11,7 +11,7 @@ namespace BurningKnight.entity.creature.drop {
 		}
 
 		public override List<string> GetItems() {
-			var items = base.GetItems();
+			var items = new List<string>();
 
 			foreach (var d in Drops) {
 				var i = d.GetItems();

@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.loot;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
+using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.lightJson;
 using Lens.util.math;
@@ -27,8 +28,20 @@ namespace BurningKnight.entity.creature.drop {
 			root["chance"] = Chance;
 		}
 
-		public static void Create(List<Drop> dr, Entity entity) {
+		public static void Create(string id, Entity entity, Area area = null, Dot where = null) {
+			var drop = Drops.Get(id);
+
+			if (drop == null) {
+				return;
+			}
+			
+			Create(new List<Drop> { drop }, entity, area, where);
+		}
+
+		public static void Create(List<Drop> dr, Entity entity, Area area = null, Dot where = null) {
 			var drops = new List<Item>();
+			var ar = entity?.Area ?? area;
+			var wh = entity?.BottomCenter ?? where;
 			
 			foreach (var drop in dr) {
 				if (Random.Float(1f) > drop.Chance) {
@@ -41,8 +54,8 @@ namespace BurningKnight.entity.creature.drop {
 					if (id != null) {
 						if (id == "bk:troll_bomb") {
 							var bomb = new Bomb(entity);
-							entity.Area.Add(bomb);
-							bomb.Center = entity.BottomCenter;
+							ar.Add(bomb);
+							bomb.Center = wh;
 							
 							continue;
 						}
@@ -61,9 +74,9 @@ namespace BurningKnight.entity.creature.drop {
 			}
 
 			foreach (var item in drops) {
-				item.CenterX = entity.CenterX;
-				item.CenterY = entity.Bottom + 4;
-				entity.Area.Add(item);
+				item.CenterX = wh.X;
+				item.CenterY = wh.Y + 4;
+				ar.Add(item);
 				item.AddDroppedComponents();
 				item.RandomizeVelocity(1f);
 			}

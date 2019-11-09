@@ -94,7 +94,7 @@ namespace BurningKnight.entity {
 				sent = true;
 				
 				// Not placed in init, so that room component had a chance to guess the room				
-				Owner.HandleEvent(new BombPlacedEvent {
+				Owner?.HandleEvent(new BombPlacedEvent {
 					Bomb = this,
 					Owner = Owner
 				});

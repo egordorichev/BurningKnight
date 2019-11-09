@@ -61,7 +61,7 @@ namespace BurningKnight.entity.creature.player {
 					
 					action?.Invoke();
 
-					if (item.Type != ItemType.Active && item.Type == ItemType.Weapon) {
+					if (item.Type != ItemType.Active && item.Type != ItemType.Weapon) {
 						GetComponent<InventoryComponent>().Add(item);
 					}
 				}));
