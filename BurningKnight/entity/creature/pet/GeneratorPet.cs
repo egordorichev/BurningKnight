@@ -2,7 +2,10 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.projectile;
+using BurningKnight.util;
 using Lens.entity;
+using Lens.util.tween;
 
 namespace BurningKnight.entity.creature.pet {
 	public class GeneratorPet : Pet {
@@ -22,6 +25,9 @@ namespace BurningKnight.entity.creature.pet {
 			
 			AddComponent(new ZSliceComponent("items", sprite));
 			AddComponent(new ZComponent { Float = true });
+
+			var region = GetComponent<ZSliceComponent>().Sprite;
+			AddComponent(new SensorBodyComponent(0, 0, region.Width, region.Height));
 			
 			Subscribe<RoomClearedEvent>();
 		}
@@ -31,12 +37,29 @@ namespace BurningKnight.entity.creature.pet {
 				roomsCleared++;
 
 				if (roomsCleared >= numRooms) {
+					GetComponent<FollowerComponent>().Pause = 1f;
 					roomsCleared = 0;
-					var item = callback(Area);
 
-					if (item != null) {
-						item.Center = Center;
-					}
+					var a = GetComponent<ZSliceComponent>();
+					
+					Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+					Tween.To(1.6f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+
+						Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+						Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+					
+							var item = callback(Area);
+
+							if (item != null) {
+								item.Center = Center;
+							}
+							
+							AnimationUtil.Poof(Center);
+							
+							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.6f);
+							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.6f);
+						};
+					};
 				}
 			}
 			

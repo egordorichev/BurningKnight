@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.component {
 	public class ZSliceComponent : GraphicsComponent {
 		public TextureRegion Sprite;
+		public Vector2 Scale = Vector2.One;
 		
 		public ZSliceComponent(TextureRegion region) {
 			Sprite = region;
@@ -24,11 +25,11 @@ namespace BurningKnight.entity.component {
 			var z = Entity.GetComponent<ZComponent>().Z;
 			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + z), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + z), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
-			Graphics.Render(Sprite, Entity.Position - new Vector2(0, z), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(Sprite, Entity.Position - new Vector2(0, z), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 	}
 }

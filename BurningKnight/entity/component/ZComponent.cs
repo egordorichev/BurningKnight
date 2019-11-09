@@ -1,5 +1,6 @@
 using System;
 using Lens.entity.component;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class ZComponent : Component {
@@ -7,6 +8,11 @@ namespace BurningKnight.entity.component {
 		public bool Float;
 
 		private float t;
+
+		public override void Init() {
+			base.Init();
+			t = Random.Float(5f);
+		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
