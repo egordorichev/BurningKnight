@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.player {
 				Engine.Instance.State.Ui.Add(banner);
 			}
 
-			if (add || item.Type == ItemType.Active) {
+			if (add || item.Type == ItemType.Active || item.Type == ItemType.Weapon) {
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
 					item.Area?.Remove(item);
 					item.Done = false;
@@ -59,7 +59,7 @@ namespace BurningKnight.entity.creature.player {
 					
 					action?.Invoke();
 
-					if (item.Type != ItemType.Active) {
+					if (item.Type != ItemType.Active && item.Type == ItemType.Weapon) {
 						GetComponent<InventoryComponent>().Add(item);
 					}
 				}));

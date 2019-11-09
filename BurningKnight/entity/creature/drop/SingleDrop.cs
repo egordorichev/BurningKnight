@@ -37,5 +37,9 @@ namespace BurningKnight.entity.creature.drop {
 			base.Save(root);
 			root["item"] = Item;
 		}
+
+		public static void RenderDebug(JsonValue root) {
+			
+		}
 	}
 }

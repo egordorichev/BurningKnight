@@ -1,6 +1,4 @@
 using BurningKnight.assets.items;
-using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
@@ -17,9 +15,10 @@ namespace BurningKnight.debug {
 		private static System.Numerics.Vector2 popupSize = new System.Numerics.Vector2(400, 400);
 		private static string selectedItem;
 		private static int id;
-		private static int pool;
 		private static int count;
 		
+		public static int Pool;
+
 		public static void Render() {
 			if (!WindowManager.PoolEditor) {
 				return;
@@ -32,7 +31,7 @@ namespace BurningKnight.debug {
 				return;
 			}
 
-			ImGui.Combo("Pool##pe", ref pool, ItemPool.Names, ItemPool.Count);
+			ImGui.Combo("Pool##pe", ref Pool, ItemPool.Names, ItemPool.Count);
 			
 			ImGui.Separator();
 
@@ -56,7 +55,7 @@ namespace BurningKnight.debug {
 				foreach (var i in Items.Datas) {
 					ImGui.PushID($"{id}__itm");
 				
-					if (!BitHelper.IsBitSet(i.Value.Pools, pool) && popupFilter.PassFilter(i.Key) && ImGui.Selectable($"{i.Key}##d", selectedItem == i.Key)) {
+					if (!BitHelper.IsBitSet(i.Value.Pools, Pool) && popupFilter.PassFilter(i.Key) && ImGui.Selectable($"{i.Key}##d", selectedItem == i.Key)) {
 						selectedItem = i.Key;
 					}
 
@@ -73,7 +72,7 @@ namespace BurningKnight.debug {
 					ItemEditor.Selected = Items.Datas[selectedItem];
 					ItemEditor.ForceFocus = true;
 					
-					ItemEditor.Selected.Pools = BitHelper.SetBit(ItemEditor.Selected.Pools, pool, true);
+					ItemEditor.Selected.Pools = BitHelper.SetBit(ItemEditor.Selected.Pools, Pool, true);
 					ImGui.CloseCurrentPopup();
 				}
 
@@ -90,7 +89,7 @@ namespace BurningKnight.debug {
 				ImGui.SameLine();
 
 				if (ImGui.Button("Remove##pe")) {
-					ItemEditor.Selected.Pools = BitHelper.SetBit(ItemEditor.Selected.Pools, pool, false);
+					ItemEditor.Selected.Pools = BitHelper.SetBit(ItemEditor.Selected.Pools, Pool, false);
 					ItemEditor.Selected = null;
 				}
 			}
@@ -107,7 +106,7 @@ namespace BurningKnight.debug {
 				ImGui.PushID($"{id}___m");
 
 				if (filter.PassFilter(i.Id)) {
-					if (!BitHelper.IsBitSet(i.Pools, pool)) {
+					if (!BitHelper.IsBitSet(i.Pools, Pool)) {
 						continue;
 					}
 					
@@ -117,6 +116,7 @@ namespace BurningKnight.debug {
 						if (i != ItemEditor.Selected) {
 							ItemEditor.Selected = i;
 							ItemEditor.ForceFocus = true;
+							WindowManager.ItemEditor = true;
 						}
 					}
 				}

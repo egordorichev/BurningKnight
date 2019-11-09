@@ -412,6 +412,8 @@
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
     <Compile Include="entity\creature\drop\Drop.cs" />
+    <Compile Include="entity\creature\drop\DropInfo.cs" />
+    <Compile Include="entity\creature\drop\DropRegistry.cs" />
     <Compile Include="entity\creature\drop\EmptyDrop.cs" />
     <Compile Include="entity\creature\drop\OneOfDrop.cs" />
     <Compile Include="entity\creature\drop\PoolDrop.cs" />
@@ -426,7 +428,9 @@
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
+    <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\HealthyPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
     <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />

@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace BurningKnight.entity.creature.drop {
 	public class AnyDrop : OneOfDrop {
+		public AnyDrop() {
+			
+		}
+		
 		public AnyDrop(params Drop[] drops) : base(drops) {
 			
 		}

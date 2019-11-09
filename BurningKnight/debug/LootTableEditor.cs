@@ -3,7 +3,9 @@ using BurningKnight.entity.creature.drop;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
 using Lens.input;
+using Lens.lightJson;
 using Microsoft.Xna.Framework.Input;
+using ImGui = ImGuiNET.ImGui;
 
 namespace BurningKnight.debug {
 	public static class LootTableEditor {
@@ -26,14 +28,31 @@ namespace BurningKnight.debug {
 				ImGui.End();
 				return;
 			}
+
+			if (ImGui.Button("Save")) {
+				LootTables.Save();
+			}
+
+			ImGui.SameLine();
+			
+			if (ImGui.Button("New##pe")) {
+				ImGui.OpenPopup("Add Item##pe");	
+			}
+
+			if (selectedTable != null) {
+				ImGui.SameLine();
+				
+				if (ImGui.Button("Delete")) {
+					LootTables.Defined.Remove(selectedTable);
+					LootTables.Data.Remove(selectedTable);
+					
+					selectedTable = null;
+				}
+			}
 			
 			filter.Draw("");
 			ImGui.SameLine();
 			ImGui.Text($"{count}");
-
-			if (ImGui.Button("Add##pe")) {
-				ImGui.OpenPopup("Add Item##pe");	
-			}
 
 			if (ImGui.BeginPopupModal("Add Item##pe")) {
 				ImGui.PushItemWidth(300);
@@ -43,6 +62,9 @@ namespace BurningKnight.debug {
 				if (ImGui.Button("Add") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
 					selectedTable = poolName;
 					LootTables.Defined[poolName] = new AnyDrop();
+					LootTables.Data[poolName] = new JsonObject {
+						["type"] = "any"
+					};
 					
 					poolName = "";
 					ImGui.CloseCurrentPopup();
@@ -100,6 +122,7 @@ namespace BurningKnight.debug {
 			}
 
 			var show = true;
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
 
 			if (!ImGui.Begin("Loot Table", ref show)) {
 				ImGui.End();
@@ -112,8 +135,7 @@ namespace BurningKnight.debug {
 				return;
 			}
 			
-			ImGui.Text(selectedTable);
-			
+			LootTables.RenderDrop(LootTables.Data[selectedTable]);
 			ImGui.End();
 		}
 	}

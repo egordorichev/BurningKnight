@@ -1,15 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using BurningKnight.entity.creature.drop;
+using ImGuiNET;
 using Lens.lightJson;
+using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.assets.loot {
 	public static class LootTables {
 		public static Dictionary<string, Drop> Defined = new Dictionary<string, Drop>();
+		public static Dictionary<string, JsonValue> Data = new Dictionary<string, JsonValue>();
+		public static int LastDropId;
 
 		public static void Load() {
+			if (true) {
+				return;
+			}
+
 			Load(FileHandle.FromRoot("Loot/"));
 		}
 
@@ -46,6 +55,21 @@ namespace BurningKnight.assets.loot {
 			}
 		}
 
+		public static void Save() {
+			Log.Info("Saving loot tables");
+			
+			var root = new JsonObject();
+
+			foreach (var d in Data) {
+				root[d.Key] = d.Value;
+			}
+			
+			var file = File.CreateText(FileHandle.FromRoot("Loot/loot.json").FullPath);
+			var writer = new JsonWriter(file);
+			writer.Write(root);
+			file.Close();
+		}
+
 		public static void ParseTable(string id, JsonValue table) {
 			var drop = ParseDrop(table);
 
@@ -54,12 +78,13 @@ namespace BurningKnight.assets.loot {
 			}
 			
 			Defined[id] = drop;
+			Data[id] = table;
 		}
 
 		public static JsonValue WriteDrop(Drop drop) {
 			var o = new JsonObject();
 
-			o["id"] = drop.GetId();
+			o["type"] = drop.GetId();
 			drop.Save(o);
 
 			return o;
@@ -72,47 +97,33 @@ namespace BurningKnight.assets.loot {
 				return null;
 			}
 
-			Drop drop = null;
-
-			switch (type) {
-				case "any": {
-					drop = new AnyDrop(); 
-					break;
-				}
-				
-				case "empty": {
-					drop = new EmptyDrop(); 
-					break;
-				}
-				
-				case "one": {
-					drop = new OneOfDrop(); 
-					break;
-				}
-				
-				case "single": {
-					drop = new SingleDrop(); 
-					break;
-				}
-				
-				case "simple": {
-					drop = new SimpleDrop(); 
-					break;
-				}
-				
-				case "pool": {
-					drop = new PoolDrop(); 
-					break;
-				}
-
-				default: {
-					Log.Error($"Unknown drop type {type}");
-					return null;
-				}
+			if (!DropRegistry.Defined.TryGetValue(type, out var t)) {
+				Log.Error($"Unknown drop type {type}");
+				return null;
 			}
 
+			var drop = (Drop) Activator.CreateInstance(t.Type);
+			table["id"] = LastDropId++;
 			drop.Load(table);
+
 			return drop;
+		}
+
+		public static bool RenderDrop(JsonValue drop) {
+			var id = drop["type"].String("missing");
+
+			if (DropRegistry.Defined.TryGetValue(id, out var info)) {
+				if (ImGui.TreeNode($"{id}%##{drop["id"].AsInteger}")) {
+					info.Render(drop);
+					ImGui.TreePop();
+
+					return true;
+				}
+			} else {
+				ImGui.BulletText($"Unknown type {id}");
+			}
+
+			return false;
 		}
 	}
 }

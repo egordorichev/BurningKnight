@@ -8,6 +8,8 @@ namespace BurningKnight.entity.creature.mob.prefix {
 
 		static PrefixRegistry() {
 			Define<ExplosivePrefix>("explosive");
+			Define<DeathShotPrefix>("death_shot");
+			Define<HealthyPrefix>("healthy_shot");
 		}
 
 		public static void Define<T>(string id, Mod mod = null) where T : Prefix {

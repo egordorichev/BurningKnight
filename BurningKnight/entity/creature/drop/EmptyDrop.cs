@@ -22,5 +22,9 @@ namespace BurningKnight.entity.creature.drop {
 		public override void Save(JsonValue root) {
 			
 		}
+
+		public static void RenderDebug(JsonValue root) {
+			
+		}
 	}
 }
