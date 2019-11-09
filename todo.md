@@ -1,5 +1,3 @@
-*!! fix bullets breaking if you fire near the wall (super bad now)
-
 # esty stuff
 
 * finish buffs:

@@ -15,6 +15,7 @@
 
 * machine gun (sucks)
 * rework bat into life drain
+* make items that give bullet effects depend on luck
 
 ### items
 

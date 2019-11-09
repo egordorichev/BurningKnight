@@ -178,7 +178,7 @@ namespace BurningKnight.entity.creature.player {
 					var closest = MathUtils.CreateVector(MathUtils.Angle(to.X - from.X, to.Y - from.Y), Display.UiWidth) + from;
 
 					Physics.World.RayCast((fixture, point, normal, fraction) => {
-						if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
+						if (min > fraction && fixture.Body.UserData is BodyComponent b && (!(b.Entity is Creature) || b is SensorBodyComponent) && RayShouldCollide(b.Entity)) {
 							min = fraction;
 							closest = point;
 						}

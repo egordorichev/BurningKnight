@@ -801,6 +801,8 @@
     <Compile Include="level\paintings\Painting.cs" />
     <Compile Include="level\paintings\PaintingRegistry.cs" />
     <Compile Include="level\Patch.cs" />
+    <Compile Include="level\ProjectileBodyComponent.cs" />
+    <Compile Include="level\ProjectileLevelBody.cs" />
     <Compile Include="level\RegularLevel.cs" />
     <Compile Include="level\rooms\boss\BossRoom.cs" />
     <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />

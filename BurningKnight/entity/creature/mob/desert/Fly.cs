@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 			SetMaxHp(3);
 			
-			var body = new RectBodyComponent(1, 1, 10, 8);
+			var body = new SensorBodyComponent(1, 1, 10, 8);
 			AddComponent(body);
 			body.Body.LinearDamping = 4;
 			
