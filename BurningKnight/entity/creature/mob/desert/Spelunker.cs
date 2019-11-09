@@ -13,11 +13,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			SetMaxHp(7);
 			AddAnimation("spelunker");
 			
-			var body = new RectBodyComponent(5, 4, 7, 11);
+			var body = new RectBodyComponent(3, 15, 10, 1);
 			AddComponent(body);
 
 			body.KnockbackModifier = 2;
 			body.Body.LinearDamping = 6;
+
+			AddComponent(new SensorBodyComponent(5, 4, 7, 11));
 			
 			Become<IdleState>();
 		}

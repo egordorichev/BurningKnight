@@ -21,11 +21,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			AddComponent(new ZAnimationComponent("desert_slime"));
 			SetMaxHp(3);
 
-			var body = new RectBodyComponent(2, 7, 12, 9);
+			var body = new RectBodyComponent(2, 12, 12, 1);
 			AddComponent(body);
 
 			body.Body.LinearDamping = 2;
 			body.KnockbackModifier = 0.5f;
+			
+			AddComponent(new SensorBodyComponent(2, 7, 12, 9));
 		}
 		
 		protected override void OnLand() {
