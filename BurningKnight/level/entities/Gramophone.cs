@@ -32,9 +32,6 @@ namespace BurningKnight.level.entities {
 			base.Init();
 
 			disk = GlobalSave.GetInt("disk");
-			
-			Width = 16;
-			Height = 23;
 
 			top = CommonAse.Props.GetSlice("player_top");
 			bottom = CommonAse.Props.GetSlice("player");
@@ -44,7 +41,7 @@ namespace BurningKnight.level.entities {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			disk = stream.ReadByte();
-			broken = GetComponent<HealthComponent>().Health == 0;
+			broken = GetComponent<HealthComponent>().HasNoHealth;
 		}
 
 		public override void Save(FileWriter stream) {
@@ -55,13 +52,16 @@ namespace BurningKnight.level.entities {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			Width = 16;
+			Height = 23;
+			
 			AddTag(Tags.Gramophone);
 			
 			AddComponent(new RoomComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new ShadowComponent(RenderWithShadow));
-			AddComponent(new RectBodyComponent(0, 5, 16, 6, BodyType.Static, false));
-			AddComponent(new SensorBodyComponent(2, 2, Width - 4, Height - 4, BodyType.Static));
+			AddComponent(new RectBodyComponent(0, 17, 16, 6, BodyType.Static, false));
+			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static));
 			AddComponent(new InteractableComponent(Interact));
 			
 			AddComponent(new HealthComponent {
@@ -115,7 +115,7 @@ namespace BurningKnight.level.entities {
 			
 			t += dt;
 
-			if (GetComponent<HealthComponent>().Health == 0 || disk == 0) {
+			if (GetComponent<HealthComponent>().HasNoHealth || disk == 0) {
 				return;
 			}
 			
@@ -214,7 +214,7 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is PostHealthModifiedEvent) {
-				if (GetComponent<HealthComponent>().Health == 0) {
+				if (GetComponent<HealthComponent>().HasNoHealth) {
 					if (!broken) {
 						HandleEvent(new GramophoneBrokenEvent {
 							Gramophone = this

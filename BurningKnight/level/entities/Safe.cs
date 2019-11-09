@@ -81,7 +81,7 @@ namespace BurningKnight.level.entities {
 		public override void PostInit() {
 			base.PostInit();
 			
-			if (GetComponent<HealthComponent>().Health == 0) {
+			if (GetComponent<HealthComponent>().HasNoHealth) {
 				Break(false);
 			}
 		}

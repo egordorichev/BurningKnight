@@ -3,6 +3,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.events;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using ImGuiNET;
@@ -69,6 +70,7 @@ namespace BurningKnight.level.entities {
 			
 			Item = null;
 			UpdateSprite();
+			Run.AddCurse();
 			
 			AnimationUtil.Poof(Center);
 			Camera.Instance.Shake(16);

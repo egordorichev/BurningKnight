@@ -1,6 +1,5 @@
 # fixes before overgamez
 
-*!! player doesnt collide with gramaphone and rolling spikes???
 *!! rework solid entities hitboxes size, same with enemies: give them 1 pixel high solid hitbox and sensor hitbox
 *!! fix bullets breaking if you fire near the wall (super bad now)
 

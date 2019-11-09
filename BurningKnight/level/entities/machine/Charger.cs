@@ -137,7 +137,7 @@ namespace BurningKnight.level.entities.machine {
 					} else {
 						var hp = p.GetComponent<HealthComponent>();
 						hp.ModifyHealth(-1, this);
-						GetComponent<DialogComponent>().StartAndClose($"charger_{(hp.Health == 0 ? 5 : 4)}", 3);
+						GetComponent<DialogComponent>().StartAndClose($"charger_{(hp.HasNoHealth ? 5 : 4)}", 3);
 					}
 
 					noMoneyAttempt++;

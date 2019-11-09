@@ -208,11 +208,11 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool HasNoHealth(HealthModifiedEvent e = null) {
-			return GetComponent<HealthComponent>().Health == 0 || GetComponent<HealthComponent>().Health == (-e?.Amount ?? 0);
+			return GetComponent<HealthComponent>().HasNoHealth || Math.Abs(GetComponent<HealthComponent>().Health - (-e?.Amount ?? 0)) < 0.01f;
 		}
 
 		public virtual bool HasNoHealth(PostHealthModifiedEvent e = null) {
-			return GetComponent<HealthComponent>().Health == 0;
+			return GetComponent<HealthComponent>().HasNoHealth;
 		}
 		
 		public virtual bool InAir() {

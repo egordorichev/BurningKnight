@@ -22,6 +22,8 @@ namespace BurningKnight.entity.component {
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
 
+		public bool HasNoHealth => health <= 0.01f;
+
 		public bool SetHealth(float hp, Entity setter, bool mod = true, DamageType type = DamageType.Regular) {
 			if (Math.Abs(hp - health) < 0.01f) {
 				return false;

@@ -26,6 +26,7 @@ namespace BurningKnight.entity.room.controllable {
 			
 			b.Body.Restitution = 1;
 			b.Body.Friction = 0;
+			b.Body.Mass = 100000f;
 			
 			var a = new AnimationComponent("rolling_spike");
 			AddComponent(a);
@@ -88,7 +89,7 @@ namespace BurningKnight.entity.room.controllable {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile || entity is Creature);
+			return !(entity is Projectile || (entity is Creature && !(entity is Player)));
 		}
 	}
 }
