@@ -56,7 +56,7 @@
 * zoom
 * when bullet penetrates enemy, it splits into two
 * double shot
-* item, that gives you one life (one respawn, think guppy collar)
+* ankh
 * poison, charisma (minor sale), charm rings
 * Mines
 * pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards
@@ -88,7 +88,6 @@
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up
-* item, that gives your items autouse 
 * battery buddy
 * d1
 * charms

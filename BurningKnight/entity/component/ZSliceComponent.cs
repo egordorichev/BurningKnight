@@ -22,14 +22,12 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Render(bool shadow) {
-			var z = Entity.GetComponent<ZComponent>().Z;
-			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + z), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 				return;
 			}
 			
-			Graphics.Render(Sprite, Entity.Position - new Vector2(0, z), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(Sprite, Entity.Position - new Vector2(0, Entity.GetComponent<ZComponent>().Z), 0, Vector2.Zero, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 	}
 }

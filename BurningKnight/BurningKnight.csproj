@@ -322,6 +322,7 @@
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\LevelLayerDebug.cs" />
     <Compile Include="debug\PassableCommand.cs" />
+    <Compile Include="debug\PoolEditor.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />

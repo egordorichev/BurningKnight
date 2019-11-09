@@ -30,6 +30,7 @@ namespace BurningKnight.ui.imgui {
 		public static bool Lighting;
 		public static bool Achievements;
 		public static bool Save;
+		public static bool PoolEditor;
 		
 		private static void RenderSettings() {
 			if (!WindowManager.Settings) {
@@ -59,7 +60,8 @@ namespace BurningKnight.ui.imgui {
 			AreaDebug.Render(Area);
 			DebugWindow.Render();
 			
-			imgui.LocaleEditor.Render();
+			imgui.LocaleEditor.Render();			
+			debug.PoolEditor.Render();
 			state.ItemEditor.Render();
 			RenderSettings();
 			Lights.RenderDebug();
@@ -97,13 +99,13 @@ namespace BurningKnight.ui.imgui {
 			ImGui.Begin("Windows", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
 
 			if (ImGui.Button("Hide")) {
-				Debug = Entities = RunInfo = Console = ItemEditor = LevelEditor = LocaleEditor = Rooms = Settings = false;
+				Debug = Entities = RunInfo = Console = ItemEditor = LevelEditor = LocaleEditor = Rooms = Settings = PoolEditor = false;
 			}
 			
 			ImGui.SameLine();
 
 			if (ImGui.Button("Show")) {
-				Debug = Entities = RunInfo = Console = ItemEditor = LevelEditor = LocaleEditor = Rooms = Settings = true;
+				Debug = Entities = RunInfo = Console = ItemEditor = LevelEditor = LocaleEditor = Rooms = Settings = PoolEditor = true;
 			}
 			
 			ImGui.Separator();
@@ -122,6 +124,7 @@ namespace BurningKnight.ui.imgui {
 			ImGui.Checkbox("Lighting", ref Lighting);
 			ImGui.Checkbox("Achievements", ref Achievements);
 			ImGui.Checkbox("Save", ref Save);
+			ImGui.Checkbox("Pool Editor", ref PoolEditor);
 			
 			size = ImGui.GetWindowSize();
 			ImGui.End();

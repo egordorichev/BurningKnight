@@ -12,7 +12,9 @@ namespace BurningKnight.entity.item {
 		static ItemPool() {
 			// So that imgui doesnt crash
 			for (var i = 0; i < 32; i++) {
-				Names[i] = "";
+				if (Names[i] == null) {
+					Names[i] = "";
+				}
 			}
 		}
 
