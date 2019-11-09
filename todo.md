@@ -10,6 +10,7 @@
 
 * portal
 
+* pouch loot table
 * loot table editor
 * give item tag to chests
 
