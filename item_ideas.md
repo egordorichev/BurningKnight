@@ -48,7 +48,6 @@
 * item, that makes bomb explode on touching enemy
 * brain (slow down enemy bullets near you)
 * shield weapon (hurting/not hurting variants)
-* single use item, that kills all enemies
 * the ring
 * item, that opens enemy doors
 * ring of gold

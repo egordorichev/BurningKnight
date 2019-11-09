@@ -200,10 +200,12 @@ namespace BurningKnight.ui.inventory {
 			var show = Run.Depth > 0;
 			
 			RenderHealthBar(show);
-			
-			if (show && Player != null) {
-				RenderConsumables();
 
+			if ((show || Run.Depth == -2) && Player != null) {
+				RenderConsumables();
+			}
+
+			if (show && Player != null) {
 				if (UiItem.Hovered != null) {
 					var item = UiItem.Hovered;
 

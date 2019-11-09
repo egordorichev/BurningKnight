@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (add || item.Type == ItemType.Active) {
-				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
+				/*Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
 					item.Area?.Remove(item);
 					item.Done = false;
 					PickedItem = null;
@@ -62,7 +62,7 @@ namespace BurningKnight.entity.creature.player {
 					if (item.Type != ItemType.Active) {
 						GetComponent<InventoryComponent>().Add(item);
 					}
-				}));
+				}));*/
 				
 				return;
 			}

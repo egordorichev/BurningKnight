@@ -80,7 +80,7 @@ namespace BurningKnight.assets.particle.custom {
 				var pos = player.TopCenter;
 
 				if (player.TryGetComponent<ZComponent>(out var z)) {
-					pos += new Vector2(0, z.Z);
+					pos -= new Vector2(0, z.Z);
 				}
 				
 				Center = Camera.Instance.CameraToUi(pos) - offset;

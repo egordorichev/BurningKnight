@@ -44,10 +44,6 @@ namespace BurningKnight.entity.component {
 			};
 			
 			if (!Send(e)) {
-				if (Math.Abs(e.Amount) <= 0.01f) {
-					return false;
-				}
-				
 				h = old + e.Amount;
 
 				if (old > h) {

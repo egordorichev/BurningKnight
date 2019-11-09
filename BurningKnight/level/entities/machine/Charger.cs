@@ -114,11 +114,15 @@ namespace BurningKnight.level.entities.machine {
 			
 			if (active.Item == null) {
 				GetComponent<DialogComponent>().StartAndClose("charger_0", 3);
+				AnimationUtil.ActionFailed();
+				
 				return true;
 			}
 			
 			if (active.Item.Delay <= 0.02f) {
 				GetComponent<DialogComponent>().StartAndClose("charger_1", 3);
+				AnimationUtil.ActionFailed();
+				
 				return true;
 			}
 

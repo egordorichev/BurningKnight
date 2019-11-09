@@ -86,8 +86,8 @@ namespace BurningKnight.entity.creature.player {
 				origin = new Vector2(region.Width / 2, region.Height + 4);
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, m +
-					Entity.Bottom + (shadow ? -1 : 1) * 
-					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15 - GetComponent<ZComponent>().Z)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+					Entity.Bottom - (shadow ? 0 : GetComponent<ZComponent>().Z) + (shadow ? -1 : 1) * 
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 

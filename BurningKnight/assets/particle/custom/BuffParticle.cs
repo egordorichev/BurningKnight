@@ -77,7 +77,7 @@ namespace BurningKnight.assets.particle.custom {
 			var pos = Entity.TopCenter;
 
 			if (Entity.TryGetComponent<ZComponent>(out var z)) {
-				pos += new Vector2(0, z.Z);
+				pos -= new Vector2(0, z.Z);
 			}
 			
 			Center = Camera.Instance.CameraToUi(pos) + new Vector2(x, scale.X - Display.UiScale - 8);
