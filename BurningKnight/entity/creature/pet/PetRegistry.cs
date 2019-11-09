@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.assets.mod;
 using Lens.entity;
 using Random = Lens.util.math.Random;
@@ -37,6 +38,10 @@ namespace BurningKnight.entity.creature.pet {
 			}));
 
 			Define("strawberry", o => o.Area.Add(new Strawberry {
+				Owner = o
+			}));
+
+			Define("coin_pouch", o => o.Area.Add(new GeneratorPet("bk:coin_pouch", 3, a => Items.CreateAndAdd("bk:coin", a)) {
 				Owner = o
 			}));
 		}

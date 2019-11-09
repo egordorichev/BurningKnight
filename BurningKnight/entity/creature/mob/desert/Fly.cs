@@ -105,7 +105,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 				var s = dt * 300;
 
-				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2(dx / d * s, dy / d * s);
+				Self.GetComponent<SensorBodyComponent>().Velocity += new Vector2(dx / d * s, dy / d * s);
 				Self.PushFromOtherEnemies(dt, e => e.InAir());
 
 				if (T >= 3f) {

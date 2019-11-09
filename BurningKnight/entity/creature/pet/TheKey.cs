@@ -27,8 +27,6 @@ namespace BurningKnight.entity.creature.pet {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ZComponent { Z = 2 });
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
-			
-			Owner.GetComponent<FollowerComponent>().AddFollower(this);
 		}
 
 		public override void Update(float dt) {

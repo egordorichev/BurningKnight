@@ -15,5 +15,14 @@ namespace BurningKnight.entity.creature.pet {
 
 			RemoveTag(Tags.LevelSave);
 		}
+
+		public override void PostInit() {
+			base.PostInit();
+			Follow();
+		}
+
+		protected virtual void Follow() {
+			Owner.GetComponent<FollowerComponent>().AddFollower(this);
+		}
 	}
 }

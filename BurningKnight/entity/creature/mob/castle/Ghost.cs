@@ -91,7 +91,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				float a = Self.AngleTo(Self.Target);
 				float force = (rage ? 200f : 100f) * dt;
 
-				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+				Self.GetComponent<SensorBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				Self.PushFromOtherEnemies(dt);
 			}
 		}
