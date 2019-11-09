@@ -5,6 +5,7 @@ using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.loot;
 using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
 using BurningKnight.level.tile;
@@ -66,8 +67,10 @@ namespace BurningKnight.state {
 				progress++;
 				Items.Load();
 				progress++;
+				LootTables.Load();
+				progress++;
 				Mods.Load();
-				progress++; // Should be 12 here
+				progress++; // Should be 13 here
 				
 				Log.Info("Done loading assets! Loading level now.");
 			
@@ -96,7 +99,7 @@ namespace BurningKnight.state {
 					SaveManager.Generate(gameArea, SaveType.Player);
 				}
 
-				progress++; // Should be 17 here
+				progress++; // Should be 18 here
 				Log.Info("Done loading level! Going to menu.");
 				
 				ready = true;

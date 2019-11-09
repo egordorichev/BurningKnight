@@ -273,6 +273,7 @@
     <Compile Include="assets\lighting\LightComponent.cs" />
     <Compile Include="assets\lighting\Lights.cs" />
     <Compile Include="assets\lighting\PositionedLight.cs" />
+    <Compile Include="assets\loot\LootTables.cs" />
     <Compile Include="assets\mod\Mod.cs" />
     <Compile Include="assets\mod\Mods.cs" />
     <Compile Include="assets\Palette.cs" />
@@ -321,6 +322,7 @@
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
     <Compile Include="debug\LevelLayerDebug.cs" />
+    <Compile Include="debug\LootTableEditor.cs" />
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\PoolEditor.cs" />
     <Compile Include="debug\SaveCommand.cs" />
@@ -1056,6 +1058,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Items/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="./Content/Loot/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="./Content/Locales/*">

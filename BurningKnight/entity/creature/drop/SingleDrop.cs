@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using Lens.lightJson;
 
 namespace BurningKnight.entity.creature.drop {
 	public class SingleDrop : Drop {
 		public string Item;
+
+		public SingleDrop() {
+			
+		}
 
 		public SingleDrop(string id, float chance = 1f) {
 			Item = id;
@@ -17,6 +22,20 @@ namespace BurningKnight.entity.creature.drop {
 			}
 
 			return items;
+		}
+
+		public override string GetId() {
+			return "single";
+		}
+
+		public override void Load(JsonValue root) {
+			base.Load(root);
+			Item = root["item"].String("");
+		}
+
+		public override void Save(JsonValue root) {
+			base.Save(root);
+			root["item"] = Item;
 		}
 	}
 }

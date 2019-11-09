@@ -25,13 +25,11 @@
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * some effects when you clear the whole level
 * props in the shop can be unaccessable due item stands being too close 
-* can and battery look the same way, players are generaly confused about the battery
 * animate mob spawning
 * text on your head when you get +hp, etc, so that its all clear
 
 * maps should not reveal secret rooms
 * seed select with gamepad (use buttons a b x y or make a proper input dialog)
-* convert cage key into a pet
 
 * second lvl deset enemies
 

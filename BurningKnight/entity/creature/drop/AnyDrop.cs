@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 
 namespace BurningKnight.entity.creature.drop {
-	public class AnyDrop : Drop {
-		public Drop[] Drops;
-
-		public AnyDrop(params Drop[] drops) {
-			Drops = drops;
+	public class AnyDrop : OneOfDrop {
+		public AnyDrop(params Drop[] drops) : base(drops) {
+			
 		}
 
 		public override List<string> GetItems() {
@@ -20,6 +18,10 @@ namespace BurningKnight.entity.creature.drop {
 			}
 			
 			return items;
+		}
+
+		public override string GetId() {
+			return "any";
 		}
 	}
 }

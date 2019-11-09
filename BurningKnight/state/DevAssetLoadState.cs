@@ -4,6 +4,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.loot;
 using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
 using BurningKnight.level.tile;
@@ -59,8 +60,10 @@ namespace BurningKnight.state {
 			progress++;
 			Items.Load();
 			progress++;
+			LootTables.Load();
+			progress++;
 			Mods.Load();
-			progress++; // Should be 12 here
+			progress++; // Should be 13 here
 			Log.Info($"Custom assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
 				
@@ -100,7 +103,7 @@ namespace BurningKnight.state {
 			Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");
 			// c = DateTime.Now.Millisecond;
 
-			progress++; // Should be 17 here
+			progress++; // Should be 18 here
 			Log.Info($"Done loading level! ({(DateTime.Now.Millisecond - t) / 1000f} seconds) Going to menu.");
 				
 			ready = true;
@@ -124,7 +127,7 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			Graphics.Print($"Loading assets {progress / 17f * 100}%", Font.Medium, new Vector2(10, 10));
+			Graphics.Print($"Loading assets {progress / 18f * 100}%", Font.Medium, new Vector2(10, 10));
 			
 			var n = t % 2f;
 			var s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";

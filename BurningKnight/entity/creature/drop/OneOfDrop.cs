@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using BurningKnight.assets.loot;
+using Lens.lightJson;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.drop {
@@ -50,6 +52,34 @@ namespace BurningKnight.entity.creature.drop {
 			}
 
 			return items;
+		}
+
+		public override string GetId() {
+			return "one";
+		}
+
+		public override void Load(JsonValue root) {
+			base.Load(root);
+			
+			if (root["drops"].IsJsonArray) {
+				var drops = root["drops"].AsJsonArray;
+				Drops = new Drop[drops.Count];
+
+				for (var i = 0; i < Drops.Length; i++) {
+					Drops[i] = LootTables.ParseDrop(drops[i]);
+				}
+			}
+		}
+
+		public override void Save(JsonValue root) {
+			base.Save(root);
+			var drops = new JsonArray();
+
+			foreach (var d in Drops) {
+				drops.Add(LootTables.WriteDrop(d));
+			}
+		
+			root["drops"] = drops;
 		}
 	}
 }
