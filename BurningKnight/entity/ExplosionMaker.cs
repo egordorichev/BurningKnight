@@ -84,10 +84,21 @@ namespace BurningKnight.entity {
 					if (Math.Sqrt(xm * xm + ym * ym) <= hurtRadius) {
 						var index = level.ToIndex(x + xx, y + yy);
 						var l = level.Get(index, true);
+						var ww = new Dot((x + xx) * 16 + 8, (y + yy) * 16 + 8);
 							
 						if (l.IsRock()) {
-							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, new Dot((x + xx) * 16 + 8, (y + yy) * 16 + 8));
+							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, ww);
 							
+							
+							for (var i = 0; i < 3; i++) {
+								var part = new ParticleEntity(Particles.Dust());
+
+								part.Position = w;
+								level.Area.Add(part);
+							}
+			
+							Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : level.Tileset.Rock)[Random.Int(4)], ww);
+
 							level.Set(index, Tile.Dirt);
 							level.UpdateTile(x + xx, y + yy);
 							level.ReCreateBodyChunk(x + xx, y + yy);

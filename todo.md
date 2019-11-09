@@ -146,6 +146,7 @@
 * trap rooms
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
+* new secret room designs
 
 * secret level ith tons of shopkeepers, aka dark market from spelunky
 

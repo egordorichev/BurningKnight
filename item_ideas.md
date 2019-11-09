@@ -7,7 +7,6 @@
 * triple chest
 * double chest
 * forest chest
-* i think tripple and double chest ppols (check others too) are not used
 * battery buddy, item, that makes you charge double per room -> some items for charger item pool
 * safe pool (loot pick for example)
 
@@ -16,6 +15,7 @@
 * machine gun (sucks)
 * rework bat into life drain
 * make items that give bullet effects depend on luck
+* pickaxe implementation
 
 ### items
 

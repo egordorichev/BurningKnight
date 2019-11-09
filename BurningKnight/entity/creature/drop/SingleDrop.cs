@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lens.lightJson;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.drop {
 	public class SingleDrop : Drop {
@@ -17,7 +18,7 @@ namespace BurningKnight.entity.creature.drop {
 		public override List<string> GetItems() {
 			var items = new List<string>();
 			
-			if (assets.items.Items.ShouldAppear(Item)) {
+			if (Random.Float() <= Chance && assets.items.Items.ShouldAppear(Item)) {
 				items.Add(Item);
 			}
 
