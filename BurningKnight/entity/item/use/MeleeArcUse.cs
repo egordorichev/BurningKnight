@@ -21,7 +21,7 @@ namespace BurningKnight.entity.item.use {
 				Owner = entity,
 				LifeTime = LifeTime * (stats?.Range ?? 0),
 				Damage = Damage * (stats?.Damage ?? 1),
-				Width = W,
+				Width = W * (stats?.Range ?? 1),
 				Height = H,
 				Position = entity.Center,
 				Angle = entity.AngleTo(Input.Mouse.GamePosition) + Angle
