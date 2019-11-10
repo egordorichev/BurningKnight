@@ -8,6 +8,8 @@
 
 ## ALPHA ENEMIES
 
+* enemies that charm, break armor, have armor, etc
+
 * enemy, that reflects your bullets with melee arc
 
 * enemy, that dies from you touching it, does no contact damage, 

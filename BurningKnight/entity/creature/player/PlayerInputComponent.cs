@@ -249,8 +249,15 @@ namespace BurningKnight.entity.creature.player {
 				s *= 0.9f;
 			}
 
-			body.Acceleration = acceleration * s;
+			var ac = acceleration * s;
+			var st = (GetComponent<StatsComponent>().Speed);
+			
+			body.Acceleration = ac * st;
 			body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
+
+			if (st > 1) {
+				body.Position += ac * (0.5f * dt * (st - 1));
+			}
 		}
 	}
 }

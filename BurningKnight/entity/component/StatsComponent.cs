@@ -1,22 +1,48 @@
 using ImGuiNET;
 using Lens.entity.component;
+using Lens.util;
 
 namespace BurningKnight.entity.component {
 	public class StatsComponent : Component {
-		public float Speed = 1f;
-		public float Damage = 1f;
-		public float FireRate = 1f;
-		public float Accuracy = 1f;
-		public float Range = 1f;
+		private float speed = 1;
+		private float damage = 1;
+		private float fireRate = 1;
+		private float accuracy = 1;
+		private float range = 1;
+
+		public float Speed {
+			get => speed;
+			set => speed = MathUtils.Clamp(0.1f, 3f, value);
+		}
+		
+		public float Damage {
+			get => damage;
+			set => damage = MathUtils.Clamp(0.1f, 100f, value);
+		}
+		
+		public float FireRate {
+			get => fireRate;
+			set => fireRate = MathUtils.Clamp(0.1f, 3f, value);
+		}
+		
+		public float Accuracy {
+			get => accuracy;
+			set => accuracy = MathUtils.Clamp(0.1f, 10f, value);
+		}
+		
+		public float Range {
+			get => range;
+			set => range = MathUtils.Clamp(0.1f, 3f, value);
+		}
 
 		public override void RenderDebug() {
 			base.RenderDebug();
 
-			ImGui.InputFloat("Speed", ref Speed);
-			ImGui.InputFloat("Damage", ref Damage);
-			ImGui.InputFloat("Fire Rate", ref FireRate);
-			ImGui.InputFloat("Accuracy", ref Accuracy);
-			ImGui.InputFloat("Range", ref Range);
+			ImGui.InputFloat("Speed", ref speed);
+			ImGui.InputFloat("Damage", ref damage);
+			ImGui.InputFloat("Fire Rate", ref fireRate);
+			ImGui.InputFloat("Accuracy", ref accuracy);
+			ImGui.InputFloat("Range", ref range);
 		}
 	}
 }

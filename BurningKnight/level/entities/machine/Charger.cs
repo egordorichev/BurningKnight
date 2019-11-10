@@ -3,6 +3,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.drop;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -38,7 +39,7 @@ namespace BurningKnight.level.entities.machine {
 			AddComponent(new DialogComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new ShadowComponent());
-			AddComponent(new SensorBodyComponent(0, 0, Width, Height));
+			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2));
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => !broken

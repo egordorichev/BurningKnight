@@ -24,7 +24,8 @@ namespace BurningKnight.assets.loot {
 			Define("gold_chest", new OneOfDrop(
 				new SingleDrop("bk:halo"),
 				new SingleDrop("bk:wings"),
-				new SingleDrop("bk:potatoo")	
+				new SingleDrop("bk:potatoo"),
+				new SingleDrop("bk:spike")
 			));
 
 			Define("double_chest", new OneOfDrop(

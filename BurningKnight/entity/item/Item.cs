@@ -316,7 +316,13 @@ namespace BurningKnight.entity.item {
 			base.Update(dt);
 
 			if (Type != ItemType.Active || UseTime < 0) {
-				Delay = Math.Max(0, Delay - dt);
+				var s = dt;
+				
+				if (Owner != null && Owner.TryGetComponent<StatsComponent>(out var stats)) {
+					s *= stats.FireRate;
+				}
+				
+				Delay = Math.Max(0, Delay - s);
 			}
 
 			if (HasComponent<OwnerComponent>()) {

@@ -1,7 +1,6 @@
 # esty stuff
 
 * fade out projectile when it dies, or maybe scale
-* implement speed and fire rate
 
 * portal
 
@@ -58,11 +57,6 @@
 * discord rpc where??
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
-
-* player stats:
- + use rate
- + speed
- + range mod
 
 * bomb item should have a chance to ignire
 * hitting frozen enemy should let it slide a lot more around the room than usual

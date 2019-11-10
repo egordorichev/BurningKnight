@@ -76,19 +76,19 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			root.InputFloat("Speed", "speed");
+			root.InputFloat("Speed", "speed", 0);
 			root.Checkbox("Add Speed", "add_speed");
 			
-			root.InputFloat("Damage", "damage");
+			root.InputFloat("Damage", "damage", 0);
 			root.Checkbox("Add Damage", "add_damage");
 			
-			root.InputFloat("Fire Rate", "fire_rate");
+			root.InputFloat("Fire Rate", "fire_rate", 0);
 			root.Checkbox("Add Fire Rate", "add_fire_rate");
 			
-			root.InputFloat("Accuracy", "accuracy");
+			root.InputFloat("Accuracy", "accuracy", 0);
 			root.Checkbox("Add Accuracy", "add_accuracy");
 			
-			root.InputFloat("Range", "range");
+			root.InputFloat("Range", "range", 0);
 			root.Checkbox("Add Range", "add_range");
 		}
 	}

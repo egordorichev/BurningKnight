@@ -13,16 +13,18 @@
 ### to rework
 
 * machine gun (sucks)
-* rework bat into life drain
 * make items that give bullet effects depend on luck
-* pickaxe implementation
 
 ### items
+
+* range up, speed up, dmg up but scaling, accuracy up etc, soy milk obv
+* pickaxe implementation
 
 * smth that alters your bullet effect all the time, aka 3 dollar bill
 * items that gives each buff (broken armor is left only i think, and slowness)
 
 * guitar weapon
+* life drain
 
 *+ sack of sacks
 *+ sack of bombs 
