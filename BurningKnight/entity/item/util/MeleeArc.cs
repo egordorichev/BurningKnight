@@ -1,21 +1,13 @@
 ﻿using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
-using BurningKnight.entity.room.controllable;
-using BurningKnight.level;
-using BurningKnight.physics;
-using BurningKnight.state;
 using Lens.entity;
 using Lens.graphics;
-using Lens.util;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using VelcroPhysics.Dynamics;
-using VelcroPhysics.Shared;
 
 namespace BurningKnight.entity.item.util {
 	public class MeleeArc : Entity {

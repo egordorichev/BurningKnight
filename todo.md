@@ -2,7 +2,7 @@
 
 * finish buffs:
  * slow
- 
+
 * fade out projectile when it dies, or maybe scale
 * damage scaling for player, other stats like speed?
 
@@ -30,30 +30,14 @@
 
 * second lvl deset enemies
 
-# ui update
+* auto rotate projectiles after they bounce (stuff like arrows from amurs bow looks weird)
 
-* send build to overgamez
-
-* fix music speed
-* battery is confusing
 * fix laser pointer and nozzle
-
-* buff icons on creature heads
-* buffs display on mobs (like poisoned, charmed)
-* look into fullscreen bug
-
-
-* cursed arrow item!
+* look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
-
-* Hold melee weapon to throw it 
-* Enemies should only spawn when player enters, and get removed, when you to away
-* rework dialog look? dialog system with good old popup like in old versions of bk for long dialogs?
 
 * we need inventory in pause menu, like in revita
 * player can respawn without a weapon or with op weapon from last run
-* +hp up when items mod smth your stat on your head
-* windows has two builds on steam?
 * make enemies items and players fall into chasm
 
 * dark mage/granny rooms

@@ -1,5 +1,6 @@
-﻿using BurningKnight.entity.item.util;
-using ImGuiNET;
+﻿using System;
+using BurningKnight.entity.item.util;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
 using Lens.lightJson;
@@ -10,6 +11,7 @@ namespace BurningKnight.entity.item.use {
 		protected float LifeTime;
 		protected int W;
 		protected int H;
+		protected float Angle;
 		
 		public override void Use(Entity entity, Item item) {
 			entity.Area.Add(new MeleeArc {
@@ -19,7 +21,7 @@ namespace BurningKnight.entity.item.use {
 				Width = W,
 				Height = H,
 				Position = entity.Center,
-				Angle = entity.AngleTo(Input.Mouse.GamePosition)
+				Angle = entity.AngleTo(Input.Mouse.GamePosition) + Angle
 			});
 		}
 
@@ -30,32 +32,17 @@ namespace BurningKnight.entity.item.use {
 			W = settings["w"].Int(8);
 			H = settings["h"].Int(24);
 			LifeTime = settings["time"].Number(0.2f);
+			Angle = settings["angle"].Number(0) * (float) Math.PI * 2;
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var damage = root["damage"].Int(1);
+			root.InputInt("Damage", "damage", 1);
+			root.InputInt("Width", "w", 8);
+			root.InputInt("Height", "h", 24);
+
 			
-			if (ImGui.InputInt("Damage", ref damage)) {
-				root["damage"] = damage;
-			}
-			
-			var w = root["w"].Int(8);
-			
-			if (ImGui.InputInt("Width", ref w)) {
-				root["w"] = w;
-			}	
-			
-			var h = root["h"].Int(24);
-			
-			if (ImGui.InputInt("Height", ref h)) {
-				root["h"] = h;
-			}
-			
-			var time = (double) root["time"].Number(0.2f);
-			
-			if (ImGui.InputDouble("Life time", ref time)) {
-				root["time"] = time;
-			}
+			root.InputFloat("Life time", "time", 0.2f);
+			root.InputFloat("Angle", "angle", 0);
 		}
 	}
 }
