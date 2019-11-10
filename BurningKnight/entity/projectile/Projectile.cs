@@ -40,7 +40,7 @@ namespace BurningKnight.entity.projectile {
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
 		public BodyComponent BodyComponent;
-		public int Damage = 1;
+		public float Damage = 1;
 		public Entity Owner;
 		public float Range = -1;
 		public float T;
@@ -74,7 +74,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.Parent = parent;
 			projectile.Owner = owner;
 			projectile.BounceLeft = bounce;
-
+			
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
 			

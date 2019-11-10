@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item.util {
 		public static Color ReflectedColor = new Color(0.5f, 1f, 0.5f, 1f);
 		
 		public float LifeTime = 0.1f;
-		public int Damage;
+		public float Damage;
 		public Entity Owner;
 		public float Angle;
 

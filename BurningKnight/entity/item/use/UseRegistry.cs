@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.mod;
+using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.use.parent;
 using Lens.lightJson;
@@ -104,6 +105,7 @@ namespace BurningKnight.entity.item.use {
 			Register<KillMobUse>(KillMobUse.RenderDebug);
 			Register<GiveFlightUse>();
 			Register<SpawnDropUse>(SpawnDropUse.RenderDebug);
+			Register<ModifyStatsUse>(ModifyStatsUse.RenderDebug);
 		}
 	}
 }

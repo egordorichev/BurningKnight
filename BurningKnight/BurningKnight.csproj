@@ -625,6 +625,7 @@
     <Compile Include="entity\item\use\KillMobUse.cs" />
     <Compile Include="entity\item\use\ModifyBombsUse.cs" />
     <Compile Include="entity\item\use\ModifyLuckUse.cs" />
+    <Compile Include="entity\item\use\ModifyStatsUse.cs" />
     <Compile Include="entity\item\use\parent\DoUsesUse.cs" />
     <Compile Include="entity\item\use\parent\DoWithTagUse.cs" />
     <Compile Include="entity\item\use\ConsumeUse.cs" />

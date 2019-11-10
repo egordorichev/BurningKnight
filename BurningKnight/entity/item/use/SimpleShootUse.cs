@@ -82,16 +82,23 @@ namespace BurningKnight.entity.item.use {
 					sl = "small";
 				}
 
+				entity.TryGetComponent<StatsComponent>(out var stats);
+
 				var aim = entity.GetComponent<AimComponent>();
 				var from = aim.Center;
 				var a = MathUtils.Angle(aim.Aim.X - from.X, aim.Aim.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
+				var ac = accuracy;
 
+				if (stats != null) {
+					ac /= stats.Accuracy;
+				}
+				
 				for (var i = 0; i < count; i++) {
 					var angle = a;
 					
 					if (count == 1 || i > 0) {
-						angle += Random.Float(-accuracy / 2f, accuracy / 2f);
+						angle += Random.Float(-ac / 2f, ac / 2f);
 					}
 
 					var antiAngle = angle - (float) Math.PI;
@@ -121,6 +128,14 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					pr?.Invoke(projectile);
+
+					if (stats != null) {
+						projectile.Damage *= stats.Damage;
+
+						if (projectile.Range > 0) {
+							projectile.Range *= stats.Range;
+						}
+					}
 
 					if (wait && i == 0) {
 						ProjectileDied = false;

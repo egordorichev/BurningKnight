@@ -112,6 +112,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Stats
 			AddComponent(new HeartsComponent());
+			AddComponent(new StatsComponent());
 
 			// Collisions
 			AddComponent(new SensorBodyComponent(2, 1, Width - 4, Height - 1));
