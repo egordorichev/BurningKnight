@@ -88,12 +88,6 @@ namespace BurningKnight.level.rooms.shop {
 			var points = new List<Point>();
 
 			for (var x = Left + 2; x < Right - 1; x++) {
-				foreach (var d in Connected.Values) {
-					if (d.X == x && d.Y == Top) {
-						continue;
-					}
-				}
-			
 				points.Add(new Point(x, Top + 2));
 			}
 
@@ -132,7 +126,7 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override void SetupDoors(Level level) {
-			var hidden = Random.Chance(20);
+			var hidden = Random.Chance(5);
 
 			if (!hidden) {
 				level.ItemsToSpawn.Add("bk:key");
@@ -198,7 +192,7 @@ namespace BurningKnight.level.rooms.shop {
 
 			for (var x = Left + (Random.Chance() ? 2 : 3); x < Right - 2; x += 2) {
 				if (sides[0]) {
-					list.Add(new Point(x, Top + 2));
+					list.Add(new Point(x, Top + 3));
 				}
 
 				if (sides[1]) {
@@ -206,7 +200,7 @@ namespace BurningKnight.level.rooms.shop {
 				}
 			}
 			
-			for (var y = Top + (Random.Chance() ? 2 : 3); y < Bottom - 2; y += 2) {
+			for (var y = Top + (Random.Chance() ? 3 : 4); y < Bottom - 2; y += 2) {
 				if (sides[2]) {
 					list.Add(new Point(Left + 2, y));
 				}
@@ -217,6 +211,14 @@ namespace BurningKnight.level.rooms.shop {
 			}
 
 			return list;
+		}
+
+		public override bool CanConnect(RoomDef R, Dot P) {
+			if (P.Y == Top) {
+				return false;
+			}
+			
+			return base.CanConnect(R, P);
 		}
 	}
 }

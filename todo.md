@@ -11,7 +11,6 @@
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * some effects when you clear the whole level
-* props in the shop can be unaccessable due item stands being too close 
 * animate mob spawning
 * text on your head when you get +hp, etc, so that its all clear
 
