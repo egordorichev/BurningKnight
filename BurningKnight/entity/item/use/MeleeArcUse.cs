@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item.use {
 		
 			entity.Area.Add(new MeleeArc {
 				Owner = entity,
-				LifeTime = LifeTime * (stats?.Range ?? 0),
+				LifeTime = LifeTime,
 				Damage = Damage * (stats?.Damage ?? 1),
 				Width = W * (stats?.Range ?? 1),
 				Height = H,

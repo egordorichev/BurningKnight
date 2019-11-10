@@ -1,9 +1,7 @@
 # esty stuff
 
 * fade out projectile when it dies, or maybe scale
-* fix range not being tracked on bullets?
 * spetral bullets or smth 
-* ruler 
 
 * portal
 

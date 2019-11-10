@@ -114,7 +114,7 @@ namespace BurningKnight.entity.item.use {
 					projectile.FlashTimer = 0.05f;
 
 					if (range > 0.01f) {
-						projectile.Range = range * 0.5f / speed;
+						projectile.Range = range / speed;
 					}
 					
 					projectile.Center = from;
