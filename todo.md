@@ -2,26 +2,25 @@
 
 * portal
 
+* auto rotate projectiles after they bounce (stuff like arrows from amurs bow looks weird)
+* fix laser pointer and nozzle
+
 * spawn chests/pickups in the levels
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * teleportation animation on player
 
 * !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed
-* enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
+
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * some effects when you clear the whole level
 * animate mob spawning
 * text on your head when you get +hp, etc, so that its all clear
 
 * maps should not reveal secret rooms
-* seed select with gamepad (use buttons a b x y or make a proper input dialog)
 
 * second lvl deset enemies
 
-* auto rotate projectiles after they bounce (stuff like arrows from amurs bow looks weird)
-
-* fix laser pointer and nozzle
 * look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 
@@ -71,7 +70,8 @@
 * shields
 
 * projectile speed stat
- 
+* seed select with gamepad (use buttons a b x y or make a proper input dialog)
+
 #### Polish
 
 * special door textures for shop and treasure room, maybe even boss room 
