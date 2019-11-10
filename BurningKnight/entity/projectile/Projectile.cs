@@ -177,6 +177,8 @@ namespace BurningKnight.entity.projectile {
 
 			if (Rotates) {
 				BodyComponent.Body.Rotation += dt * 10;
+			} else {
+				BodyComponent.Body.Rotation = VectorExtension.ToAngle(BodyComponent.Body.LinearVelocity);
 			}
 			
 			if (!OnScreen && DieOffscreen) {

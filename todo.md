@@ -2,7 +2,6 @@
 
 * portal
 
-* auto rotate projectiles after they bounce (stuff like arrows from amurs bow looks weird)
 * fix laser pointer and nozzle
 
 * spawn chests/pickups in the levels
@@ -15,9 +14,6 @@
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * some effects when you clear the whole level
 * animate mob spawning
-* text on your head when you get +hp, etc, so that its all clear
-
-* maps should not reveal secret rooms
 
 * second lvl deset enemies
 
