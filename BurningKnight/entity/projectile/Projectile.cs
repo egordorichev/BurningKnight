@@ -155,6 +155,7 @@ namespace BurningKnight.entity.projectile {
 
 			if (Dying) {
 				deathTimer -= dt;
+				Scale -= dt * 10;
 
 				if (deathTimer <= 0) {
 					Done = true;

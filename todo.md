@@ -1,7 +1,5 @@
 # esty stuff
 
-* fade out projectile when it dies, or maybe scale
-
 * portal
 
 * give item tag to chests
