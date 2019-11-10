@@ -2,15 +2,12 @@
 
 * portal
 
-* give item tag to chests
-
 * spawn chests/pickups in the levels
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * teleportation animation on player
 
 * !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed
-* keyboard controls dont show up if you have gamepad connected (show both)
 * enemy bullets are hard tell from player bullets, in desert they are hard to spot, cause floor is red too
 * light up room after finishing it? overall, some room cleared effect (maybe like a torch that you light up when everyone ded)
 * some effects when you clear the whole level

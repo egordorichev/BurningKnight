@@ -234,21 +234,39 @@ namespace BurningKnight.assets.input {
 			}
 		}
 
-		public static string Find(string id, bool gamepad) {
+		public static string Find(string id, bool gamepad, bool both = false) {
 			var k = "None";
+			string a = null;
+			string b = null;
+			
+			if (!gamepad) {
+				both = false;
+			}
 			
 			foreach (var c in (custom.Count == 0 ? controls : custom)) {
 				if (c.Id == id) {
-					if (gamepad) {
-						k = c.Buttons[0].ToString();
-					} else {
-						if (c.Keys != null && c.Keys.Length > 0) {
-							k = c.Keys[0].ToString();
-						} else if (c.MouseButtons != null && c.MouseButtons.Length > 0) {
-							k = c.MouseButtons[0].ToString();
-						}
+					if (c.Buttons != null && c.Buttons.Length > 0) {
+						a = c.Buttons[0].ToString();
+					}
+
+					if (c.Keys != null && c.Keys.Length > 0) {
+						b = c.Keys[0].ToString();
+					} else if (c.MouseButtons != null && c.MouseButtons.Length > 0) {
+						b = c.MouseButtons[0].ToString();
 					}
 				}
+			}
+
+			if (both) {
+				if (a != null && b != null) {
+					k = $"{a} / {b}";
+				} else if (a != null) {
+					k = a;
+				}
+			} else if (gamepad && a != null) {
+				k = a;
+			} else if (!gamepad && b != null) {
+				k = b;
 			}
 			
 			if (k == "Left") {

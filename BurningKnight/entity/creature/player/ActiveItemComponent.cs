@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.player {
 			base.OnItemSet(previous);
 			
 			if (Run.Depth > 0 && GlobalSave.IsFalse("control_active") && GetComponent<DialogComponent>().Dialog?.Str != null) {
-				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Active, GamepadComponent.Current != null));
+				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Active, GamepadComponent.Current != null, true));
 				Entity.GetComponent<DialogComponent>().StartAndClose("control_6", 5);
 			}
 		}

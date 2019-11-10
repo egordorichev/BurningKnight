@@ -83,7 +83,7 @@ namespace BurningKnight.entity.creature.player {
 					switch (type) {
 						case ItemType.Bomb: {
 							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {	
-								GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Bomb, GamepadComponent.Current != null));
+								GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Bomb, GamepadComponent.Current != null, true));
 								GetComponent<DialogComponent>().StartAndClose("control_0", 5);
 							}
 							

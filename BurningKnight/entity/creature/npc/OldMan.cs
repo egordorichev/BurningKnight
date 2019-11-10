@@ -59,7 +59,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			if (!set) {
 				set = true;
-				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Roll, GamepadComponent.Current != null));
+				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Roll, GamepadComponent.Current != null, true));
 			}
 		}
 	}

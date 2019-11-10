@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 			component.OnStart?.Invoke(Entity);
 
 			if (Run.Depth == -2) {
-				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, Controls.Find(Controls.Interact, GamepadComponent.Current != null)));
+				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, Controls.Find(Controls.Interact, GamepadComponent.Current != null, true)));
 			}
 		}
 		

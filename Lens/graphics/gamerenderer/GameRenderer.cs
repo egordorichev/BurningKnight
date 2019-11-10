@@ -37,7 +37,8 @@ namespace Lens.graphics.gamerenderer {
 		}
 
 		public virtual void Destroy() {
-			
+			UiTarget?.Dispose();
+			GameTarget?.Dispose();
 		}
 
 		public virtual void Resize(int width, int height) {

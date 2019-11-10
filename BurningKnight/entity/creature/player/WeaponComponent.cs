@@ -70,7 +70,7 @@ namespace BurningKnight.entity.creature.player {
 							Entity.GetComponent<ActiveWeaponComponent>().requestSwap = true;
 						} else {
 							Entity.GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl",
-									Controls.Find(Controls.Swap, GamepadComponent.Current != null));
+									Controls.Find(Controls.Swap, GamepadComponent.Current != null, true));
 
 							Entity.GetComponent<DialogComponent>().StartAndClose("control_5", 5);
 						}

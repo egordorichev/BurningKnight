@@ -69,7 +69,7 @@ namespace BurningKnight.entity.creature.player {
 			Item?.TakeOut();
 
 			if (Run.Depth == -2) {
-				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null));
+				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null, true));
 				Entity.GetComponent<DialogComponent>().Start("control_2");
 			}
 		}

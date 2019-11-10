@@ -41,6 +41,8 @@ namespace BurningKnight.level.entities.chest {
 			});
 			
 			AddTag(Tags.Chest);
+			AddTag(Tags.Item);
+			
 			DefineDrops();
 		}
 
