@@ -74,8 +74,9 @@
 * Low health indicator
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 * spice up bullets (different textures for different enemies)
-* we need more secret room layouts
 * shields
+
+* projectile speed stat
  
 #### Polish
 
