@@ -604,7 +604,8 @@ namespace BurningKnight.state {
 						data.UseTime = data.UseTime;
 						data.Lockable = Selected.Lockable;
 						data.UnlockPrice = Selected.UnlockPrice;
-
+						data.Single = Selected.Single;
+						
 						var c = Selected.Chance;
 						data.Chance = new Chance(c.Any, c.Melee, c.Magic, c.Range);
 					} else {

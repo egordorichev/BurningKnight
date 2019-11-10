@@ -1,7 +1,6 @@
 # esty stuff
 
 * fade out projectile when it dies, or maybe scale
-* spetral bullets or smth 
 
 * portal
 

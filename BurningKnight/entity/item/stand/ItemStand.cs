@@ -102,7 +102,7 @@ namespace BurningKnight.entity.item.stand {
 			AddComponent(body);
 			body.Body.Mass = 100000000f;
 			
-			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));
+			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static));
 
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
