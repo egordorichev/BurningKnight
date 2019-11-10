@@ -18,10 +18,11 @@ namespace BurningKnight.entity.component {
 		public Vector2 Knockback;
 		public float KnockbackModifier = 1;
 		public Vector2 Offset;
+		public bool Slow;
 		
 		public Vector2 Velocity {
-			get => Body.LinearVelocity;
-			set => Body.LinearVelocity = value;
+			get => Slow ? Body.LinearVelocity * 2 : Body.LinearVelocity;
+			set => Body.LinearVelocity = Slow ? value / 2 : value;
 		}
 
 		public Vector2 Position {

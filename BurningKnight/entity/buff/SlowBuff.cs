@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.buff {
@@ -7,6 +8,38 @@ namespace BurningKnight.entity.buff {
 
 		public SlowBuff() : base(Id) {
 			Duration = 5;
+		}
+
+		public override void Init() {
+			base.Init();
+
+			if (Entity.TryGetComponent<RectBodyComponent>(out var b)) {
+				b.Slow = true;
+			}
+
+			if (Entity.TryGetComponent<SensorBodyComponent>(out var sb)) {
+				sb.Slow = true;
+			}
+
+			if (Entity.TryGetComponent<CircleBodyComponent>(out var cb)) {
+				cb.Slow = true;
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			
+			if (Entity.TryGetComponent<RectBodyComponent>(out var b)) {
+				b.Slow = false;
+			}
+
+			if (Entity.TryGetComponent<SensorBodyComponent>(out var sb)) {
+				sb.Slow = false;
+			}
+
+			if (Entity.TryGetComponent<CircleBodyComponent>(out var cb)) {
+				cb.Slow = false;
+			}
 		}
 
 		public override string GetIcon() {

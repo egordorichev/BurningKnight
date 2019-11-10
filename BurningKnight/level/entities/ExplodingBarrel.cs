@@ -27,8 +27,8 @@ namespace BurningKnight.level.entities {
 			var h = new HealthComponent();
 			
 			AddComponent(h);
-			
-			h.InitMaxHealth = 3;
+
+			h.InitMaxHealth = 1; // 3;
 			h.RenderInvt = true;
 			
 			AddComponent(new ExplodableComponent());

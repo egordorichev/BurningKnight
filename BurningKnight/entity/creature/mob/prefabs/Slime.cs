@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
@@ -116,7 +117,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				base.Update(dt);
 
 				var component = Self.GetComponent<ZComponent>();
-				component.Z += zVelocity * dt * 20;
+				component.Z += zVelocity * dt * 20 * (Self.GetComponent<BuffsComponent>().Has<SlowBuff>() ? 0.5f : 1f);
 
 				if (component.Z >= 4f) {
 					Self.Depth = Layers.FlyingMob;

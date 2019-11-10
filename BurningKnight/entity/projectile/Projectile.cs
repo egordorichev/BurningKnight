@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
@@ -101,6 +102,10 @@ namespace BurningKnight.entity.projectile {
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;
 			projectile.BodyComponent.Body.Rotation = (float) angle;
+
+			if (owner.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>()) {
+				speed *= 0.5f;
+			}
 			
 			speed *= 10f;
 
