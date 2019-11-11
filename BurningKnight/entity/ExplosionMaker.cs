@@ -89,7 +89,6 @@ namespace BurningKnight.entity {
 						if (l.IsRock()) {
 							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, ww);
 							
-							
 							for (var i = 0; i < 3; i++) {
 								var part = new ParticleEntity(Particles.Dust());
 

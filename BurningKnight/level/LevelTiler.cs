@@ -45,7 +45,7 @@ namespace BurningKnight.level {
 			var t = (Tile) tile;
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
-				if (level.Variants[index] != 0) {
+				if (level.Variants[index] != 0 && level.Variants[index] < 11) {
 					return;
 				}
 

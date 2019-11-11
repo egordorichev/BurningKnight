@@ -1,11 +1,14 @@
 # not so sopo
 
+* level body seems not to get updated properly (not always)
+
+* entrance and spikes should react to sensor body from player
+
 * fix laser pointer and nozzle
 * fix gobbo head in release
 * interactor component count only the sensor body from player
 
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
-* Retiling seems to be broken, black tiles after exploding stones, tiles dont update variants
 * continue run exit is in the wrong spot (you have 2?)
 * collision issues: can get stuck in a corner
 * give melee arc to disks

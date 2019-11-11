@@ -291,15 +291,19 @@ namespace BurningKnight.level {
 
 				if (t.IsWall()) {
 					Tiles[i] = (byte) Tile.FloorA;
+					Variants[i] = 0;
 				}
 
 				Liquid[i] = (byte) value;
+				LiquidVariants[i] = 0;
 			} else {
 				if (value.IsWall() || value == Tile.Chasm || ((Tile) Liquid[i]).Matches(Tile.Lava, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
 					Liquid[i] = 0;
+					LiquidVariants[i] = 0;
 				}
 				
 				Tiles[i] = (byte) value;
+				Variants[i] = 0;
 			}
 		}
 		
@@ -545,7 +549,16 @@ namespace BurningKnight.level {
 							if (t == Tile.PistonDown) {
 								RenderWall(x, y, index, tile, t, 0);
 							} else if (t != Tile.Chasm && t != Tile.SpikeOffTmp && t != Tile.SensingSpikeTmp) {
-								Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
+								#if DEBUG
+								try {
+#endif
+									Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
+#if DEBUG
+								} catch (Exception e) {
+									var variant = Variants[index];
+									Log.Error($"Variant: {variant}, {e}");
+								}
+#endif
 							}
 						}
 					}
@@ -1374,9 +1387,8 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			Tiles[index] = (byte) Tile.FloorA;
+			Set(index, Tile.FloorA);
 			UpdateTile(tx, ty);
-			// Level.LoadPassable();
 			
 			ReCreateBodyChunk(tx, ty);
 			Animate(Area, tx, ty);
