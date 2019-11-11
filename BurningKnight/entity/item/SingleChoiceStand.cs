@@ -15,6 +15,10 @@ namespace BurningKnight.entity.item {
 			return "single_stand";
 		}
 
+		protected override bool CanInteract(Entity e) {
+			return Item != null && base.CanInteract(e);
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is ItemTakenEvent ite && !(ite.Who is SingleChoiceStand || !(ite.Stand is SingleChoiceStand))) {
 				var rm = GetComponent<RoomComponent>().Room;
