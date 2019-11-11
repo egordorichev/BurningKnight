@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
 using BurningKnight.level.tile;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -90,8 +91,11 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public static bool ShouldBeAdded() {
-			return GameSave.IsFalse("npc_appeared") && (GlobalSave.IsFalse(ShopNpc.AccessoryTrader) || GlobalSave.IsFalse(ShopNpc.ActiveTrader) ||
-			       GlobalSave.IsFalse(ShopNpc.WeaponTrader) || GlobalSave.IsFalse(ShopNpc.HatTrader));
+			return GameSave.IsFalse("npc_appeared") && (
+				(Run.Depth == 1 && GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) || 
+				(Run.Depth == 2 && GlobalSave.IsFalse(ShopNpc.ActiveTrader)) || 
+				(Run.Depth == 3 && GlobalSave.IsFalse(ShopNpc.WeaponTrader)) || 
+				(Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader)));
 		}
 	}
 }

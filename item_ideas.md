@@ -14,6 +14,7 @@
 
 * machine gun (sucks)
 * make items that give bullet effects depend on luck
+* convert fire exstinguisher into flame thrower
 
 ### items
 
@@ -26,20 +27,15 @@
 * guitar weapon
 * life drain
 
-*+ sack of sacks
-*+ sack of bombs 
-*+ sack of keys
+* charge shot
 * turret
 * powerful but lowrange gun
 * prism orbital
 * orbital, that fires to your cursor
-*+ sack consumable
-*+ single time shop sale (old sale sprite)
 * nuclear throne perks: strong soul, hammer head, etc:
  *+ bloodlast: vampire_bat
  *+ hammer head: pickacke
  * impact?
- *+ long arms: ruler
 
 * holy mantel
 * item, that makes bullets bounce from each another
