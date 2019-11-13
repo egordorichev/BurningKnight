@@ -7,7 +7,6 @@
 
 * fix laser pointer and nozzle
 * fix gobbo head in release
-* interactor component count only the sensor body from player
 
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
 * continue run exit is in the wrong spot (you have 2?)
@@ -18,6 +17,7 @@
 * amurs bow is op, projectiles too big, fires too fast
 
 * fix lock render depth
+* juice up guns aka nuclear throne, do the same with melee
 
 # esty stuff
 

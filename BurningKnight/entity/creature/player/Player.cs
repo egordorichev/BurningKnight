@@ -32,6 +32,7 @@ using Lens.util.file;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
@@ -115,8 +116,13 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new StatsComponent());
 
 			// Collisions
-			AddComponent(new SensorBodyComponent(2, 1, Width - 4, Height - 1));
-			AddComponent(new RectBodyComponent(4, Height - 1, 8, 1));
+			AddComponent(new RectBodyComponent(4, Height - 1, 8, 1) {
+				CanCollide = false
+			});
+			
+			AddComponent(new SensorBodyComponent(2, 1, Width - 4, Height - 1, BodyType.Dynamic, true));
+			GetComponent<SensorBodyComponent>().Body.SleepingAllowed = false;
+			
 			AddComponent(new InteractorComponent {
 				CanInteractCallback = e => !died && PickedItem == null
 			});

@@ -654,7 +654,7 @@ namespace BurningKnight.level {
 							Level.Area.Add(painting);
 
 							painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
-							painting.CenterY = Room.Top * 16 + 13;
+							painting.Bottom = Room.Top * 16 + 17;
 						}
 					}
 				}

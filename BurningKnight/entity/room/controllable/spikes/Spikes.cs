@@ -43,7 +43,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("spikes"));
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new RectBodyComponent(1, 3, 14, 14, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(2, 4, 12, 12, BodyType.Static, true));
 			
 			GetComponent<StateComponent>().Become<HiddenState>();
 		}

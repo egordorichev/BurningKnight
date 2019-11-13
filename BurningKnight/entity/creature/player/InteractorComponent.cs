@@ -69,7 +69,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent start) {
-				if (CanInteract(start.Entity)) {
+				if (start.Body.CanCollide && CanInteract(start.Entity)) {
 					var entity = start.Entity.GetComponent<InteractableComponent>().AlterInteraction?.Invoke() ?? start.Entity;
 
 					if (CurrentlyInteracting != entity) {
@@ -83,7 +83,7 @@ namespace BurningKnight.entity.creature.player {
 						}
 					}
 				}
-			} else if (e is CollisionEndedEvent end) {
+			} else if (e is CollisionEndedEvent end && end.Body.CanCollide) {
 				if (CurrentlyInteracting == end.Entity) {
 					EndInteraction();
 				} else {
