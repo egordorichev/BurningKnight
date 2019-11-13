@@ -86,7 +86,7 @@ namespace BurningKnight.entity.item.use {
 
 				var aim = entity.GetComponent<AimComponent>();
 				var from = aim.Center;
-				var a = MathUtils.Angle(aim.Aim.X - from.X, aim.Aim.Y - from.Y);
+				var a = MathUtils.Angle(aim.RealAim.X - from.X, aim.RealAim.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var ac = accuracy;
 

@@ -39,7 +39,15 @@ namespace BurningKnight.entity.item.renderer {
 			var owner = Item.Owner;
 			
 			if (!atBack && !paused) {
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim) + Math.PI * 0.5f, dt * 6f);
+				var to = owner.GetComponent<AimComponent>().Aim;
+				var dx = Nozzle.X - Origin.X;
+				var dy = Nozzle.Y - Origin.Y;
+				
+				var a = MathUtils.Angle(dx, dy) + lastAngle;
+				var d = MathUtils.Distance(dx, dy);
+
+				to -= MathUtils.CreateVector(a, d);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to) + Math.PI * 0.5f, dt * 6f);
 			}
 
 			var angle = atBack ? (float) Math.PI * (owner.GraphicsComponent.Flipped ? 0.25f : -0.25f) : (float) lastAngle;
@@ -58,12 +66,17 @@ namespace BurningKnight.entity.item.renderer {
 			Graphics.Render(region, pos, shadow ? -angle : angle, 
 				or, new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
 			
-			if (!atBack) {
-				owner.GetComponent<AimComponent>().Center = MathUtils.RotateAround(Nozzle, -angle, pos - or);
-				/*Graphics.Batch.DrawLine(pos, pos + MathUtils.CreateVector(angle - (horizontal ? (float) Math.PI * 0.5f : 0), region.Height), Color.Blue);
-				Graphics.Batch.DrawCircle(owner.GetComponent<AimComponent>().Center, 1, 8, Color.Green);
-				Graphics.Batch.DrawCircle(pos, 1, 8, Color.Yellow);
-				Graphics.Batch.DrawCircle(MathUtils.RotateAround(Origin, angle, pos), 1, 8, Color.Magenta);*/
+			if (!atBack && !shadow) {
+				var dx = Nozzle.X - or.X;
+				var dy = Nozzle.Y - or.Y;
+				var a = MathUtils.Angle(dx, dy) + angle;
+				var d = MathUtils.Distance(dx, dy);
+
+				var aim = owner.GetComponent<AimComponent>();
+				aim.Center = pos + MathUtils.CreateVector(a, d);
+
+				d = (aim.Aim - pos).Length();
+				aim.RealAim = aim.Center + MathUtils.CreateVector(angle - Math.PI / 2, d);
 			}
 		}
 

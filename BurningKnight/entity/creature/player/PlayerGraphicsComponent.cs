@@ -129,7 +129,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
-			return entity is SolidProp || !(entity is MeleeArc || entity is Orbital || entity is Pet || entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
+			return entity is SolidProp || !(entity is Player || entity is MeleeArc || entity is Orbital || entity is Pet || entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
 		}
 
 		public override void Render(bool shadow) {
@@ -174,12 +174,12 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (aim.ShowLaserLine) {
 					var from = aim.Center;
-					var to = aim.Aim;
+					var to = aim.RealAim;
 					var min = 1f;
 					var closest = MathUtils.CreateVector(MathUtils.Angle(to.X - from.X, to.Y - from.Y), Display.UiWidth) + from;
 
 					Physics.World.RayCast((fixture, point, normal, fraction) => {
-						if (min > fraction && fixture.Body.UserData is BodyComponent b && (!(b.Entity is Creature) || b is SensorBodyComponent) && RayShouldCollide(b.Entity)) {
+						if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
 							min = fraction;
 							closest = point;
 						}

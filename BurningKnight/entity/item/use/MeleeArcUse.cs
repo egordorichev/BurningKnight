@@ -24,7 +24,7 @@ namespace BurningKnight.entity.item.use {
 				Width = W * (stats?.Range ?? 1),
 				Height = H,
 				Position = entity.Center,
-				Angle = entity.AngleTo(Input.Mouse.GamePosition) + Angle
+				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().RealAim) + Angle
 			});
 		}
 

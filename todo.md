@@ -3,13 +3,12 @@
 * level body seems not to get updated properly (not always)
 * player head is detatched in release
 
-* fix laser pointer and nozzle
 * fix gobbo head in release
 
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
-* collision issues: can get stuck in a corner
 * duck slide fixes
 
+* player leg shadow is moving if you are flying
 * juice up guns aka nuclear throne, do the same with melee
 
 # esty stuff
@@ -35,6 +34,8 @@
 * we need inventory in pause menu, like in revita
 * player can respawn without a weapon or with op weapon from last run
 * make enemies items and players fall into chasm
+
+##
 
 * dark mage/granny rooms
 

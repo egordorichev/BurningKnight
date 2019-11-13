@@ -17,6 +17,7 @@ namespace BurningKnight.entity.component {
 
 		public AimType TheType;
 		public Vector2 Aim;
+		public Vector2 RealAim;
 		public Vector2 Center;
 		public bool ShowLaserLine;
 
@@ -26,13 +27,17 @@ namespace BurningKnight.entity.component {
 			if (TheType == AimType.Cursor) {
 				Aim = Input.Mouse.GamePosition;
 			} else if (TheType == AimType.Target) {
-				Aim = ((Mob) Entity).Target?.Center ?? Input.Mouse.GamePosition;
+				RealAim = Aim = ((Mob) Entity).Target?.Center ?? Input.Mouse.GamePosition;
 			} else {
 				var a = GetComponent<RoomComponent>().Room.Tagged[Tags.Player];
 
 				if (a.Count > 0) {
-					Aim = a[0].Center;
+					RealAim = Aim = a[0].Center;
 				}
+			}
+
+			if (TheType == AimType.Cursor) {
+				return;
 			}
 
 			Center = Entity.Center;

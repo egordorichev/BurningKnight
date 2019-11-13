@@ -11,6 +11,7 @@ using Lens.lightJson;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.item.renderer {
 	public class AngledRenderer : ItemRenderer {
@@ -39,12 +40,25 @@ namespace BurningKnight.entity.item.renderer {
 			var of = owner.GraphicsComponent.Flipped;
 			var flipped = false;
 			
-			if (!atBack && !paused) {
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(owner.GetComponent<AimComponent>().Aim), dt * 6f);
-			}
 			
 			var angle = MathUtils.Mod((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle), Math.PI * 2);
 			var vf = angle > Math.PI * 0.5f && angle < Math.PI * 1.5f;
+			
+			if (!atBack && !paused) {
+				var to = owner.GetComponent<AimComponent>().Aim;
+				var dx = Nozzle.X - Origin.X;
+				var dy = Nozzle.Y - Origin.Y;
+
+				if (vf) {
+					dy *= -1;
+				}
+				
+				var a = MathUtils.Angle(dx, dy) + lastAngle;
+				var d = MathUtils.Distance(dx, dy);
+				
+				to -= MathUtils.CreateVector(a, d);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 6f);
+			}
 
 			if (atBack) {
 				flipped = !flipped;
@@ -55,12 +69,27 @@ namespace BurningKnight.entity.item.renderer {
 			var pos = new Vector2(owner.CenterX + (of ? -3 : 3), owner.CenterY + offset + (shadow ? owner.Height : 0));
 			var or = Origin + new Vector2(ox, oy);
 
-			if (!atBack) {
-				owner.GetComponent<AimComponent>().Center = pos - or;
-			}
-
 			Graphics.Render(region, pos, 
 				(float) angle * (shadow ? -1 : 1), or, new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy));
+
+			if (!atBack && !shadow) {
+				var dx = Nozzle.X - or.X;
+				var dy = Nozzle.Y - or.Y;
+
+				if (vf) {
+					dy *= -1;
+				}
+				
+				var a = MathUtils.Angle(dx, dy) + angle;
+				var d = MathUtils.Distance(dx, dy);
+
+				var aim = owner.GetComponent<AimComponent>();
+				
+				aim.Center = pos + MathUtils.CreateVector(a, d);
+
+				d = (aim.Aim - pos).Length();
+				aim.RealAim = aim.Center + MathUtils.CreateVector(angle, d);
+			}
 		}
 
 		public override void OnUse() {
