@@ -1387,7 +1387,9 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			Set(index, Tile.FloorA);
+			Set(index, Tile.FloorA);							
+			Set(index, Tile.Dirt);
+
 			UpdateTile(tx, ty);
 			
 			ReCreateBodyChunk(tx, ty);

@@ -8,6 +8,8 @@ namespace BurningKnight.level {
 
 		public override void AddComponents() {
 			base.AddComponents();
+
+			AlwaysActive = true;
 			
 			AddComponent(new ProjectileBodyComponent {
 				Level = Level

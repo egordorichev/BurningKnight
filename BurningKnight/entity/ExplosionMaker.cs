@@ -110,7 +110,6 @@ namespace BurningKnight.entity {
 						if (tile == Tile.Crack) {
 							DiscoverCrack(whoHurts, level, x + xx, y + yy);
 						} else if (tile == Tile.Planks) {
-							level.Set(index, Tile.Dirt);
 							level.Break((x + xx) * 16, (y + yy) * 16);
 						}
 					}
