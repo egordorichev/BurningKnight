@@ -12,23 +12,19 @@ namespace BurningKnight.entity.component {
 
 		private Vector2 offset;
 		
-		public LockComponent(Entity entity, Lock l, Vector2 offset, bool setDepth = true) {
+		public LockComponent(Entity entity, Lock l, Vector2 offset) {
 			Lock = l;
 
 			Lock.AlwaysActive = true;
-			Lock.Move = !setDepth;
+			Lock.Move = false;
 
-			if (setDepth) {
-				Lock.Depth = Layers.Lock;
-			}
-			
 			entity.Area.Add(Lock);
 			entity.Area.EventListener.Subscribe<LockOpenedEvent>(this);
 
 			Lock.Center = entity.Center + offset;
 			this.offset = offset;
 		}
-
+		
 		public override void Init() {
 			base.Init();
 			Lock.AddComponent(new OwnerComponent(Entity));

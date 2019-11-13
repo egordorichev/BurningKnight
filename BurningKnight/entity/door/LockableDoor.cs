@@ -52,5 +52,13 @@ namespace BurningKnight.entity.door {
 		protected override bool CanOpen() {
 			return !TryGetComponent<LockComponent>(out var c) || !c.Lock.IsLocked;
 		}
+
+		public override void Render() {
+			base.Render();
+
+			if (TryGetComponent<LockComponent>(out var l)) {
+				l.Lock?.RealRender();
+			}
+		}
 	}
 }

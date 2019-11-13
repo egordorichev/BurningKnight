@@ -10,7 +10,6 @@
 * collision issues: can get stuck in a corner
 * duck slide fixes
 
-* fix lock render depth
 * juice up guns aka nuclear throne, do the same with melee
 
 # esty stuff
