@@ -289,7 +289,7 @@ namespace BurningKnight.level {
 					return;
 				}
 
-				if (t.IsWall()) {
+				if (t.IsWall() || t.Matches(Tile.SensingSpikeTmp) || t.Matches(Tile.SpikeOnTmp) || t.Matches(Tile.SpikeOnTmp) || t.Matches(Tile.Plate)) {
 					Tiles[i] = (byte) Tile.FloorA;
 					Variants[i] = 0;
 				}

@@ -3,6 +3,7 @@
 * level body seems not to get updated properly (not always)
 
 * entrance and spikes should react to sensor body from player
+* player head is detatched in release
 
 * fix laser pointer and nozzle
 * fix gobbo head in release
