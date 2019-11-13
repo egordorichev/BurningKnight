@@ -231,12 +231,18 @@ namespace BurningKnight.entity.creature.player {
 			public override void Init() {
 				base.Init();
 
-				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("quck");
 
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
 			}
 		}
 		

@@ -46,7 +46,6 @@ namespace BurningKnight.entity.creature.player {
 			ShadowOffset = 8;
 
 			head = Animations.Get("gobbo").CreateAnimation("head");
-
 			wing = CommonAse.Items.GetSlice("wing");
 		}
 
@@ -98,7 +97,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
-				Graphics.Render(region, pos + origin + Offset, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 
@@ -157,8 +156,10 @@ namespace BurningKnight.entity.creature.player {
 					shadow ? MathUtils.InvertXY : MathUtils.InvertX);
 			}
 
+			var g = shadow ? 0 : (int) z.Z;
+
 			if (w) {
-				GetComponent<WeaponComponent>().Render(shadow, o - (int) z.Z);
+				GetComponent<WeaponComponent>().Render(shadow, o - g);
 			}
 
 			var stopShader = StartShaders();
@@ -193,7 +194,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (w) {
-				GetComponent<ActiveWeaponComponent>().Render(shadow, o - (int) z.Z);
+				GetComponent<ActiveWeaponComponent>().Render(shadow, o - g);
 			}
 		}
 	}
