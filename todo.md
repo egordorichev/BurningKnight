@@ -13,11 +13,11 @@
 * continue run exit is in the wrong spot (you have 2?)
 * collision issues: can get stuck in a corner
 * give melee arc to disks
-* spikes can spawn under rocks
 * holding amurs bow gives charm to all weapons you hold i think
 * duck slide only works with insanely small dt? (like disable vsync and have good fps)
 * amurs bow is op, projectiles too big, fires too fast
-* killing mother slime counts room as clear even tho slimes spawn from her
+
+* fix lock render depth
 
 # esty stuff
 

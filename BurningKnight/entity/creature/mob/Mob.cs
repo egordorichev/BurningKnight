@@ -138,33 +138,15 @@ namespace BurningKnight.entity.creature.mob {
 					CollidingToHurt.Remove(collisionEnd.Entity);
 				}
 			} else if (e is DiedEvent de) {
-				var r = GetComponent<RoomComponent>().Room;
-
-				if (r != null && !r.Cleared) {
-					var found = false;
-					
-					foreach (var m in r.Tagged[Tags.MustBeKilled]) {
-						if (m.GetComponent<HealthComponent>().Health > 0) {
-							found = true;
-							break;
-						}
-					}
-					
-					if (!found) {
-						r.Cleared = true;
-						var who = de.From;
-
-						if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
-							who = o.Owner;
-						} else if (who is Projectile p) {
-							who = p.Owner;
-						}
-
-						who.HandleEvent(new RoomClearedEvent {
-							Room = r
-						});
-					}
+				var who = de.From;
+				
+				if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
+					who = o.Owner;
+				} else if (who is Projectile p) {
+					who = p.Owner;
 				}
+				
+				GetComponent<RoomComponent>().Room.CheckCleared(who);
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
 				if (!rotationApplied) {
 					rotationApplied = true;

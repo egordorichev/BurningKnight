@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.component;
 using BurningKnight.entity.door;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.projectile;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
@@ -38,6 +41,16 @@ namespace BurningKnight.entity.room {
 		public List<Piston> Pistons = new List<Piston>();
 		public List<RoomController> Controllers = new List<RoomController>();
 		public List<Door> Doors = new List<Door>();
+
+		private bool checkCleared;
+		private Entity cleared;
+
+		public void CheckCleared(Entity entity) {
+			if (!Cleared) {
+				checkCleared = true;
+				cleared = entity;
+			}
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -81,6 +94,27 @@ namespace BurningKnight.entity.room {
 
 			foreach (var c in Controllers) {
 				c.Update(dt);
+			}
+
+			if (checkCleared) {
+				var found = false;
+
+				foreach (var m in Tagged[Tags.MustBeKilled]) {
+					if (m.GetComponent<HealthComponent>().Health > 0) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					Cleared = true;
+					
+					cleared.HandleEvent(new RoomClearedEvent {
+						Room = this
+					});
+				}
+
+				checkCleared = false;
 			}
 		}
 
