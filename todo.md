@@ -8,7 +8,6 @@
 
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
 * collision issues: can get stuck in a corner
-* give melee arc to disks
 * duck slide fixes
 
 * fix lock render depth
