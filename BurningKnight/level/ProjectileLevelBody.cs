@@ -15,7 +15,7 @@ namespace BurningKnight.level {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile);
+			return entity is Projectile;
 		}
 	}
 }

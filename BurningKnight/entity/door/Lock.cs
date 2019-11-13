@@ -73,8 +73,6 @@ namespace BurningKnight.entity.door {
 				AddComponent(new InteractableComponent(Interact) {
 					CanInteract = CanInteract
 				});
-				
-				AddComponent(new RectBodyComponent(-3, -1, 18, 19, BodyType.Static, true));
 			}
 			
 			AddComponent(new AudioEmitterComponent());
@@ -138,7 +136,7 @@ namespace BurningKnight.entity.door {
 			return null;
 		}
 
-		protected virtual bool Interactable() {
+		public virtual bool Interactable() {
 			return true;
 		}
 		

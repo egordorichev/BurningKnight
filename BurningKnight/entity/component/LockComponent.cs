@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.component {
 	public class LockComponent : Component, Subscriber {
@@ -20,6 +21,12 @@ namespace BurningKnight.entity.component {
 
 			entity.Area.Add(Lock);
 			entity.Area.EventListener.Subscribe<LockOpenedEvent>(this);
+
+			if (Lock.Interactable()) {
+				Lock.AddComponent(new RectBodyComponent(-4, -4, entity.Width + 8, entity.Height + 8, BodyType.Static, true) {
+					Offset = new Vector2(2, 2)
+				});
+			}
 
 			Lock.Center = entity.Center + offset;
 			this.offset = offset;

@@ -24,7 +24,7 @@ namespace BurningKnight.entity.door {
 			return false;
 		}
 
-		protected override bool Interactable() {
+		public override bool Interactable() {
 			return false;
 		}
 

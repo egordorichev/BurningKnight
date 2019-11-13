@@ -32,7 +32,7 @@ namespace BurningKnight.entity.door {
 			return new AnimationComponent("level_lock", GetLockPalette());
 		}
 
-		protected override bool Interactable() {
+		public override bool Interactable() {
 			return false;
 		}
 
