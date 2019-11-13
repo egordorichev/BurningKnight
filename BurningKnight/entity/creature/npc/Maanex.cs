@@ -28,6 +28,7 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(new AnimationComponent("maanex"));
 
 			if (Run.Depth == 0) {
+				locked = true;
 				AddComponent(new CloseDialogComponent("maanex_0", "maanex_1", "maanex_2", "maanex_3", "maanex_4"));
 			} else {
 				if (!interacted) {

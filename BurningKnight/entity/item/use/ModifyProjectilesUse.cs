@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.items;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
@@ -27,7 +28,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (EventCreated && e is ProjectileCreatedEvent pce) {
+			if (EventCreated && Item.Owner.GetComponent<ActiveWeaponComponent>().Item == Item && e is ProjectileCreatedEvent pce) {
 				ModifyProjectile(pce.Projectile);
 			}
 			

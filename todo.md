@@ -1,18 +1,14 @@
 # not so sopo
 
 * level body seems not to get updated properly (not always)
-
-* entrance and spikes should react to sensor body from player
 * player head is detatched in release
 
 * fix laser pointer and nozzle
 * fix gobbo head in release
 
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
-* continue run exit is in the wrong spot (you have 2?)
 * collision issues: can get stuck in a corner
 * give melee arc to disks
-* holding amurs bow gives charm to all weapons you hold i think
 * duck slide only works with insanely small dt? (like disable vsync and have good fps)
 * amurs bow is op, projectiles too big, fires too fast
 
