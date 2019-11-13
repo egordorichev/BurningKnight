@@ -9,8 +9,7 @@
 * Ben open cage door, but when he went to lvl 2 his weapon was gone
 * collision issues: can get stuck in a corner
 * give melee arc to disks
-* duck slide only works with insanely small dt? (like disable vsync and have good fps)
-* amurs bow is op, projectiles too big, fires too fast
+* duck slide fixes
 
 * fix lock render depth
 * juice up guns aka nuclear throne, do the same with melee
