@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.util;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
@@ -186,7 +187,11 @@ namespace BurningKnight.level {
 							list.Add(new Vector2(xx + 6, yy + 24));
 						}
 
-						FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);
+						try {
+							FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);
+						} catch (Exception e) {
+							Log.Error(e);
+						}
 					}
 				}
 			}

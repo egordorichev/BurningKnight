@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.bk {
 			AddComponent(b);
 			b.Body.LinearDamping = 3;
 			
-			AddComponent(new AnimationComponent("old_burning_knight"));
+			AddComponent(new BkGraphicsComponent("old_burning_knight"));
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
@@ -80,7 +80,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 				
 				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
-				Audio.PlayMusic("Rogue");
+				// Audio.PlayMusic("Rogue");
 				
 				Timer.Add(() => {
 					Become<ChaseState>();		
@@ -125,19 +125,9 @@ namespace BurningKnight.entity.creature.bk {
 		#endregion
 
 		private float lastPart;
-		private bool added;
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			if (!added) {
-				added = true;
-				
-				var e = new Entity();
-				Area.Add(e);
-				e.Center = GetComponent<RoomComponent>().Room.Center;
-				e.AddComponent(new LightComponent(e, 256f, new Color(1f, 0.9f, 0.5f, 1f)));
-			}
 			
 			if (died) {
 				lastPart -= dt;
@@ -196,6 +186,11 @@ namespace BurningKnight.entity.creature.bk {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is DiedEvent) {
+				if (true) {
+					Done = false;
+					return true;
+				}
+				
 				if (!died) {
 					died = true;
 					HealthBar?.Remove();

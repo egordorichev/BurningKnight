@@ -31,18 +31,27 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
     float y = (pos.y - input.TextureCoordinates.y) * cof.y;
     float v = floor(sin(time * 4.0 + y * 8.0));
 
-	float4 color = tex2D(s0, float2(
-        clamp(input.TextureCoordinates.x + v / (cof.x * 16.0), pos.x, pos.x + size.x),
-        clamp(input.TextureCoordinates.y + floor(sin(time * 2.0 + x)) / (cof.y * 24.0), pos.y, pos.y + size.y)
-    ));
+	float2 ps = float2(
+        clamp(input.TextureCoordinates.x + v / (cof.x * 10.0), pos.x, pos.x + size.x),
+        clamp(input.TextureCoordinates.y + floor(sin(time * 2.0 + x)) / (cof.y * 20.0), pos.y, pos.y + size.y)
+    );
+    
+    float4 color = tex2D(s0, ps);
+    
+    float xx = (ps.x - pos.x) * cof.x;
+    float yy = (ps.y - pos.y) * cof.y;
 
-    if (color.r > 0.7) {
-        color.a -= 0.5;
-    }
+    float dx = (xx - 0.5);
+    float dy = (yy + 0.5);
+    float d = sqrt(dx * dx + dy * dy);
 
-    color.a = min(color.a, a);
+    float sum = max(0.0, 1.41 - d * 2.0 + cos(time * 1.4));
 
-	return color;
+    color.r = min(1.0, sum + color.r);
+    color.g = min(1.0, sum + color.g);
+    color.b = min(1.0, sum + color.b);
+
+    return float4(1.0, abs(cos(time * 2.0) / 2.5) + color.g, color.b * 0.5, color.a * a);
 }
 
 technique SpriteDrawing {

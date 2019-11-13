@@ -48,7 +48,7 @@ namespace BurningKnight.entity.item {
 			var position = CalculatePosition(shadow);
 			var angle = (float) Math.Cos(T * 1.8f) * 0.4f;
 
-			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
+			if (!shadow && Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
@@ -68,14 +68,19 @@ namespace BurningKnight.entity.item {
 				Graphics.Render(Sprite, position, angle, origin);
 				Graphics.Color = ColorUtils.WhiteColor;
 			} else {
-				var shader = Shaders.Item;
+				if (!shadow) {
+					var shader = Shaders.Item;
 				
-				Shaders.Begin(shader);
-				shader.Parameters["time"].SetValue(T * 0.1f);
-				shader.Parameters["size"].SetValue(FlashSize);
+					Shaders.Begin(shader);
+					shader.Parameters["time"].SetValue(T * 0.1f);
+					shader.Parameters["size"].SetValue(FlashSize);
+				}
 
 				Graphics.Render(Sprite, position, angle, origin);
-				Shaders.End();
+
+				if (!shadow) {
+					Shaders.End();
+				}
 			}
 		}
 	}

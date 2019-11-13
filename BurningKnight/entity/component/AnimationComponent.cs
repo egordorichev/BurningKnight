@@ -90,7 +90,7 @@ namespace BurningKnight.entity.component {
 				Shaders.End();
 			}
 
-			var stopShader = StartShaders();
+			var stopShader = !shadow && StartShaders();
 
 			Graphics.Color = Tint;
 			CallRender(pos, shadow);

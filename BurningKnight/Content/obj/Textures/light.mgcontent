@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Textures/light.png</SourceFile>
-  <SourceTime>2019-10-13T17:47:32.0656244+03:00</SourceTime>
+  <SourceTime>2019-11-13T15:21:04.4999506+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Textures/light.xnb</DestFile>
-  <DestTime>2019-10-14T17:01:48.9927984+03:00</DestTime>
+  <DestTime>2019-11-13T16:14:25.5272393+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

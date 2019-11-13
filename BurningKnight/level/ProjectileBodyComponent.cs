@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.util;
+using Lens.util;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Factories;
 using VelcroPhysics.Shared;
@@ -59,12 +61,19 @@ namespace BurningKnight.level {
 
 						list.Clear();
 
-						list.Add(new Vector2(xx, yy + (Check(level, x, y - 1) ? 0 : 8)));
-						list.Add(new Vector2(xx + 16, yy + (Check(level, x, y - 1) ? 0 : 8)));
+						list.Add(new Vector2(xx, yy + (Check(level, x, y - 1) ? 0 : 7)));
+						list.Add(new Vector2(xx + 16, yy + (Check(level, x, y - 1) ? 0 : 7)));
 						list.Add(new Vector2(xx + 16, yy + (Check(level, x, y + 1) ? 16 : 8)));
 						list.Add(new Vector2(xx, yy + (Check(level, x, y + 1) ? 16 : 8)));
-						
-						FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);
+
+						try {
+							FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);
+						} catch (Exception e) {
+							foreach (var p in list) {
+								Log.Info($"{p.X - xx}:{p.Y - yy}");
+							}
+							Log.Error(e);
+						}
 					}
 				}
 			}

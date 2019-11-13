@@ -24,7 +24,7 @@ namespace BurningKnight.save {
 		public static Saver[] Savers;
 		
 		public static void Init() {
-			Log.Info($"Save directory is '{SaveDir}'");
+			Log.Info($"Save directory is '{new FileHandle(SaveDir).FullPath}'");
 
 			Savers = new Saver[6];
 			Savers[(int) SaveType.Global] = new GlobalSave();

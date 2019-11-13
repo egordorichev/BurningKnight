@@ -139,11 +139,13 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			} else if (e is DiedEvent de) {
 				var who = de.From;
-				
-				if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
-					who = o.Owner;
-				} else if (who is Projectile p) {
-					who = p.Owner;
+
+				if (de.From != null) {
+					if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
+						who = o.Owner;
+					} else if (who is Projectile p) {
+						who = p.Owner;
+					}
 				}
 				
 				GetComponent<RoomComponent>().Room.CheckCleared(who);

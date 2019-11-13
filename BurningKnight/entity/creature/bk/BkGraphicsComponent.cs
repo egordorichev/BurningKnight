@@ -24,39 +24,26 @@ namespace BurningKnight.entity.creature.bk {
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
 				pos.Y += Animation.GetCurrentTexture().Height - ShadowOffset * 2 + 4;
-			}
-			
-			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
-				var shader = Shaders.Entity;
-				Shaders.Begin(shader);
-
-				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
-				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
-
-				foreach (var d in MathUtils.Directions) {
-					CallRender(pos + d, shadow);
-				}
-				
-				Shaders.End();
 			} else {
-				var shader = Shaders.Bk; 
+				var shader = Shaders.Bk;
 				var region = Animation.GetCurrentTexture();
 
-				shader.Parameters["pos"].SetValue(new Vector2(region.Source.X / (float) region.Texture.Width, region.Source.Y / (float) region.Texture.Height));
-				shader.Parameters["size"].SetValue(new Vector2(region.Width / (float) region.Texture.Width, region.Height / (float) region.Texture.Height));
+				shader.Parameters["pos"].SetValue(new Vector2(region.Source.X / (float) region.Texture.Width,
+					region.Source.Y / (float) region.Texture.Height));
+				shader.Parameters["size"].SetValue(new Vector2(region.Width / (float) region.Texture.Width,
+					region.Height / (float) region.Texture.Height));
 				shader.Parameters["time"].SetValue(t);
 				shader.Parameters["a"].SetValue(1f);
-			}
-			
-			Graphics.Color = Tint;
-			CallRender(pos, shadow);
-			Graphics.Color = ColorUtils.WhiteColor;
 				
-			Shaders.End();
-			
+				Shaders.Begin(shader);
+			}
+
+			CallRender(pos, shadow);
+
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
+			} else {
+				Shaders.End();
 			}
 		}
 	}
