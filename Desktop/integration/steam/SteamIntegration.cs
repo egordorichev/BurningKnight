@@ -14,6 +14,7 @@ namespace Desktop.integration.steam {
 
 			try {
 				SteamClient.Init(851150);
+
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
 

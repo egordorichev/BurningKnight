@@ -43,7 +43,12 @@ namespace Lens.util {
 			var stackTrace = new StackTrace(true);
 			var frame = stackTrace.GetFrame(2);
 			var prev = stackTrace.GetFrame(3);
-			var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()}";
+
+			#if DEBUG
+				var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
+			#else 
+				var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}() <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}() ";
+			#endif
 
 			builder?.Append(text);
 			builder?.AppendLine(message == null ? "null" : message.ToString());

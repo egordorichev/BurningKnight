@@ -252,18 +252,23 @@ namespace BurningKnight.save {
 		}
 
 		public static void LoadCloudSaves() {
-			if (!EnableCloudSave) {
+			if (!EnableCloudSave || !SteamRemoteStorage.IsCloudEnabled) {
 				return;
 			}
 		
 			Log.Info("Loading data from cloud");
+			
+			if (!SteamClient.IsLoggedOn) {
+				Log.Error("Can't connect to steam servers");
+				return;
+			}
 
 			if (SteamRemoteStorage.FileCount > 0) {
 				RemoveFile(new FileHandle(SaveDir), "");
 			}
 
 			foreach (var file in SteamRemoteStorage.Files) {
-				var to = Path.GetFullPath(file);
+				var to = $"{SaveDir}{file}";
 				
 				Log.Info($"Loading file {file} to {to}");
 				File.WriteAllBytes(to, SteamRemoteStorage.FileRead(file));
@@ -291,16 +296,21 @@ namespace BurningKnight.save {
 		}
 
 		public static void SaveCloudSaves() {
-			if (!EnableCloudSave) {
+			if (!EnableCloudSave || !SteamRemoteStorage.IsCloudEnabled) {
 				return;
 			}
 			
 			Log.Info("Saving data to cloud");
-			
+
+			if (!SteamClient.IsLoggedOn) {
+				Log.Error("Can't connect to steam servers");
+				return;
+			}
+
 			var toRemove = new List<string>();
 
 			foreach (var file in SteamRemoteStorage.Files) {
-				var handle = new FileHandle(file);
+				var handle = new FileHandle($"{SaveDir}{file}");
 
 				if (!handle.Exists()) {
 					toRemove.Add(file);
