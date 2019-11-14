@@ -30,13 +30,13 @@ namespace Desktop {
 		}
 
 		protected override void UnloadContent() {
-			base.UnloadContent();
-			
 			foreach (var i in integrations) {
 				i.Destroy();
 			}
 			
 			integrations.Clear();
+			
+			base.UnloadContent();
 		}
 
 		protected override void Update(GameTime gameTime) {

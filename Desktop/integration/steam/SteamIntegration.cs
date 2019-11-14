@@ -33,7 +33,6 @@ namespace Desktop.integration.steam {
 				};
 
 				Achievements.UnlockedCallback += (id) => {
-					Log.Info($"Unlocking achievement {id} in steam!");
 					new Achievement(id).Trigger();
 				};
 				

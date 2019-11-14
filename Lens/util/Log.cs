@@ -47,7 +47,7 @@ namespace Lens.util {
 			#if DEBUG
 				var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
 			#else 
-				var text = $" {DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}() <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}() ";
+				var text = $" {DateTime.Now:h:mm:ss} {frame.GetMethod().Name}() <= {prev.GetMethod().Name}() ";
 			#endif
 
 			builder?.Append(text);

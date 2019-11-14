@@ -103,10 +103,10 @@ namespace Lens {
 			
 			Assets.Destroy();
 			Input.Destroy();
-			Log.Close();
 
 			Instance = null;
 			Log.Info("Bye");
+			Log.Close();
 		}
 		
 		protected override void Initialize() {
