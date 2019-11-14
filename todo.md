@@ -86,7 +86,6 @@
 
 * blue hearts, at least em
 
-* machine: gives random stat up
 * teleport tile mechanic for some level
 * breakable chests
 * Unique saving experience for each NPCs (and save phrases)
@@ -120,12 +119,10 @@
 
 ### things I promissed to do
 
-* angel/devil rooms, I dont like the theme tho, rename into smth else
 * secret seeds
 * daily runs
 * local coop up to 4 players
 * twitch support
-* steam cloud
 
 ### Machine Ideas
 
@@ -133,3 +130,4 @@
 * Buys weapons from you
 * Health chest, can be mimic 
 * Rework well into different structs
+* machine: gives random stat up
