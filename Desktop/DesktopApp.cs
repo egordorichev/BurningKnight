@@ -29,14 +29,14 @@ namespace Desktop {
 			}
 		}
 
-		protected override void UnloadContent() {
+		protected override void Destroy() {
 			foreach (var i in integrations) {
 				i.Destroy();
 			}
 			
 			integrations.Clear();
 			
-			base.UnloadContent();
+			base.Destroy();
 		}
 
 		protected override void Update(GameTime gameTime) {

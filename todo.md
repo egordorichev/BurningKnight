@@ -6,7 +6,8 @@
  + boss battle stuff
 }
 
-* ruller breaks melee, you swing back and forth?
+* buff disk gun
+* broken melee, you swing back and forth?
 
 * room / lvl cleared effect
 * portal

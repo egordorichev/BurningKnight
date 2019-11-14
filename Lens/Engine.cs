@@ -100,6 +100,8 @@ namespace Lens {
 			Quiting = true;
 			State?.Destroy();
 			StateRenderer?.Destroy();
+
+			Destroy();
 			
 			Assets.Destroy();
 			Input.Destroy();
@@ -107,6 +109,10 @@ namespace Lens {
 			Instance = null;
 			Log.Info("Bye");
 			Log.Close();
+		}
+
+		protected virtual void Destroy() {
+			
 		}
 		
 		protected override void Initialize() {
