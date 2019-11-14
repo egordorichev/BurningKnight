@@ -19,7 +19,7 @@ namespace Desktop {
 		protected override void Initialize() {
 			base.Initialize();
 
-			// integrations.Add(new DiscordIntegration());
+			integrations.Add(new DiscordIntegration());
 			// integrations.Add(new RgbIntegration());
 
 			integrations.Add(new SteamIntegration());
