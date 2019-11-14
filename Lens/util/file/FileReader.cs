@@ -5,8 +5,10 @@ using System.Text;
 namespace Lens.util.file {
 	public class FileReader {
 		protected byte[] read;
+		public byte[] Data => read;
+
 		private int position;
-		
+
 		public int Position {
 			get => position;
 

@@ -11,8 +11,6 @@ using Steamworks;
 
 namespace BurningKnight.save {
 	public class SaveManager {
-		public static bool EnableCloudSave;
-		
 		public const string SaveDir = "burning_knight/";
 		public const int MagicNumber = 894923782;
 		public const short Version = 0;
@@ -21,6 +19,8 @@ namespace BurningKnight.save {
 		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";
 		public static string BackupDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.burning_knight/";
 
+		public static bool EnableCloudSave;
+		
 		public static Saver[] Savers;
 		
 		public static void Init() {
@@ -59,11 +59,11 @@ namespace BurningKnight.save {
 		}
 
 		private static FileWriter GetWriter(string path) {
-			return EnableCloudSave ? new CloudFileWriter(path) : new FileWriter(path);
+			return new FileWriter(path);
 		}
 		
 		private static FileReader GetReader(string path) {
-			return EnableCloudSave ? new CloudFileReader(path) : new FileReader(path);
+			return new FileReader(path);
 		}
 
 		public static void Save(Area area, SaveType saveType, bool old = false, string path = null) {
@@ -247,6 +247,27 @@ namespace BurningKnight.save {
 					
 				}
 			}
+		}
+
+		public static void LoadCloudSaves() {
+			if (!EnableCloudSave) {
+				return;
+			}
+		
+			Log.Info("Loading data from cloud");
+
+			if (SteamRemoteStorage.FileExists("test.txt")) {
+				Log.Info(SteamRemoteStorage.FileRead("test.txt").ToString());
+			}
+		}
+
+		public static void SaveCloudSaves() {
+			if (!EnableCloudSave) {
+				return;
+			}
+			
+			Log.Info("Saving data to cloud");
+			SteamRemoteStorage.FileWrite("test", new byte[] { 1, 2, 3, 4, (byte) DateTime.Now.Hour, (byte) DateTime.Now.Minute });
 		}
 	}
 }

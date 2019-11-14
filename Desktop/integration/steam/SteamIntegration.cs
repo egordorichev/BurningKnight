@@ -1,7 +1,6 @@
 using System;
 using BurningKnight.assets.achievements;
 using BurningKnight.save;
-using Lens.entity;
 using Lens.util;
 using Steamworks;
 using Achievement = Steamworks.Data.Achievement;
@@ -14,7 +13,7 @@ namespace Desktop.integration.steam {
 			base.Init();
 
 			try {
-				SteamClient.Init(4000);
+				SteamClient.Init(851150);
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
 
@@ -28,7 +27,9 @@ namespace Desktop.integration.steam {
 					Log.Info($"Unlocking achievement {id} in steam!");
 					new Achievement(id).Trigger();
 				};
-			} catch (Exception e) {
+				
+				SaveManager.LoadCloudSaves();
+			} catch (Exception) {
 				Log.Info("No steam no fire :/");
 			}
 		}
@@ -45,7 +46,9 @@ namespace Desktop.integration.steam {
 			base.Destroy();
 
 			if (LaunchedFromSteam) {
+				SaveManager.SaveCloudSaves();
 				SteamClient.Shutdown();
+				
 				LaunchedFromSteam = false;
 			}
 		}

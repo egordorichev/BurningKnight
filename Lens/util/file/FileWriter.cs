@@ -101,7 +101,7 @@ namespace Lens.util.file {
 			WriteByte((byte) ((val >> 24) & 0xFF));
 		}
 
-		public void Close() {
+		public virtual void Close() {
 			stream.Close();
 		}
 	}

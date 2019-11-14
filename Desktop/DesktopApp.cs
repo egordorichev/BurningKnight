@@ -20,10 +20,9 @@ namespace Desktop {
 			base.Initialize();
 
 			// integrations.Add(new DiscordIntegration());
-			
-			// integrations.Add(new SteamIntegration());
-
 			// integrations.Add(new RgbIntegration());
+
+			integrations.Add(new SteamIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();
