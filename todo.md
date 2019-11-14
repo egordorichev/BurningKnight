@@ -6,8 +6,6 @@
  + boss battle stuff
 }
 
-* broken melee, you swing back and forth?
-
 * room / lvl cleared effect
 * portal
 
