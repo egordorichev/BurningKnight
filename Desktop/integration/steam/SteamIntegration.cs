@@ -19,9 +19,11 @@ namespace Desktop.integration.steam {
 
 				Log.Info("Starting from steam! <3");
 
-				foreach (var achievement in SteamUserStats.Achievements) {
-					Achievements.Unlock(achievement.Identifier);
-				}
+				Achievements.PostLoadCallback += () => {
+					foreach (var achievement in SteamUserStats.Achievements) {
+						Achievements.Unlock(achievement.Identifier);
+					}
+				};
 
 				Achievements.UnlockedCallback += (id) => {
 					Log.Info($"Unlocking achievement {id} in steam!");

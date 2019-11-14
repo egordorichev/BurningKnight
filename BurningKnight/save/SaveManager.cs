@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using BurningKnight.save.cloud;
@@ -256,8 +257,11 @@ namespace BurningKnight.save {
 		
 			Log.Info("Loading data from cloud");
 
-			if (SteamRemoteStorage.FileExists("test.txt")) {
-				Log.Info(SteamRemoteStorage.FileRead("test.txt").ToString());
+			foreach (var file in SteamRemoteStorage.Files) {
+				var to = Path.GetFullPath(file);
+				
+				Log.Info($"Loading file {file} to {to}");
+				File.WriteAllBytes(to, SteamRemoteStorage.FileRead(file));
 			}
 		}
 
@@ -267,7 +271,38 @@ namespace BurningKnight.save {
 			}
 			
 			Log.Info("Saving data to cloud");
-			SteamRemoteStorage.FileWrite("test", new byte[] { 1, 2, 3, 4, (byte) DateTime.Now.Hour, (byte) DateTime.Now.Minute });
+			
+			var toRemove = new List<string>();
+
+			foreach (var file in SteamRemoteStorage.Files) {
+				var handle = new FileHandle(file);
+
+				if (!handle.Exists()) {
+					toRemove.Add(file);
+				}
+			}
+
+			foreach (var file in toRemove) {
+				Log.Info($"Removing file {file}");
+				SteamRemoteStorage.FileDelete(file);
+			}
+
+			WriteFile(new FileHandle(SaveDir), "");
+		}
+
+		private static void WriteFile(FileHandle handle, string path) {
+			if (handle.IsDirectory()) {
+				path += $"{handle.Name}/";
+				
+				foreach (var file in handle.ListFileHandles()) {
+					WriteFile(file, path);
+				}
+			} else {
+				path = $"{path}{handle.Name}";
+				Log.Info($"Saving file {path} from {handle.FullPath}");
+				
+				SteamRemoteStorage.FileWrite(path, File.ReadAllBytes(handle.FullPath));
+			}
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using BurningKnight.assets.items;
@@ -24,6 +25,7 @@ namespace BurningKnight.assets.achievements {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
 		public static AchievementUnlockedCallback UnlockedCallback;
+		public static Action PostLoadCallback;
 		
 		public static Achievement Get(string id) {
 			return defined.TryGetValue(id, out var a) ? a : null;
@@ -31,6 +33,7 @@ namespace BurningKnight.assets.achievements {
 		
 		public static void Load() {
 			Load(FileHandle.FromRoot("achievements.json"));
+			PostLoadCallback?.Invoke();
 		}
 
 		private static void Load(FileHandle handle) {
