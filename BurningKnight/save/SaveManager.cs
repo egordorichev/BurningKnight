@@ -318,7 +318,7 @@ namespace BurningKnight.save {
 			}
 
 			foreach (var file in toRemove) {
-				Log.Info($"Removing file {file}");
+				Log.Info($"Removing cloud file {file}");
 				SteamRemoteStorage.FileDelete(file);
 			}
 
@@ -337,7 +337,7 @@ namespace BurningKnight.save {
 					WriteFile(file, path);
 				}
 			} else {
-				if (handle.Extension != "sv" && handle.Extension != "lvl") {
+				if (handle.Extension != ".sv" && handle.Extension != ".lvl") {
 					Log.Info($"Ignoring file {handle.FullPath} cause of its extension {handle.Extension}");
 					return;
 				}
