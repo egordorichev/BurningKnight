@@ -49,11 +49,11 @@ namespace Lens.util {
 				var text = $"{DateTime.Now:h:mm:ss} {frame.GetMethod().Name}() <= {prev.GetMethod().Name}() ";
 			#endif
 
-			builder?.Append($"{type} text");
+			builder?.Append($"{type} {text}");
 			builder?.AppendLine(message == null ? "null" : message.ToString());
 			
 			Console.ForegroundColor = color;
-			Console.Write($"{text} {message}");
+			Console.Write($"{message} ");
 			Console.ForegroundColor = ConsoleColor.Gray;
 			Console.WriteLine(text);
 		}

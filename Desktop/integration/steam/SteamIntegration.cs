@@ -33,7 +33,11 @@ namespace Desktop.integration.steam {
 				};
 
 				Achievements.UnlockedCallback += (id) => {
-					new Achievement(id).Trigger();
+					try {
+						new Achievement(id).Trigger();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				try {
@@ -51,7 +55,11 @@ namespace Desktop.integration.steam {
 			base.Update(dt);
 
 			if (LaunchedFromSteam) {
-				SteamClient.RunCallbacks();
+				try {
+					SteamClient.RunCallbacks();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 
@@ -61,12 +69,11 @@ namespace Desktop.integration.steam {
 			if (LaunchedFromSteam) {
 				try {
 					SaveManager.SaveCloudSaves();
+					SteamClient.Shutdown();
 				} catch (Exception e) {
 					Log.Error(e);
 				}
 
-				SteamClient.Shutdown();
-				
 				LaunchedFromSteam = false;
 			}
 		}
