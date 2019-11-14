@@ -29,7 +29,8 @@ namespace Desktop.integration.steam {
 				};
 				
 				SaveManager.LoadCloudSaves();
-			} catch (Exception) {
+			} catch (Exception e) {
+				Log.Error(e);
 				Log.Info("No steam no fire :/");
 			}
 		}

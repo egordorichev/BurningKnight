@@ -147,7 +147,10 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override void PostInit() {
-			Area.Add(new bk.BurningKnight()).Center = Center;
+			if (BK.Version.Dev) {
+				Area.Add(new bk.BurningKnight()).Center = Center;
+			}
+
 			base.PostInit();
 		}
 

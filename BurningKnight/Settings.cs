@@ -61,7 +61,7 @@ namespace BurningKnight {
 		}
 
 		private static void Setup() {
-			Fullscreen = false;
+			Fullscreen = true;
 			ShowFps = false;
 			Blood = true;
 			UiSfx = true;

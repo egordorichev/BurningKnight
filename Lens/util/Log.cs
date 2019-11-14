@@ -2,20 +2,20 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using ImGuiNET;
 
 namespace Lens.util {
 	public static class Log {
 		public static bool WriteToFile = !Engine.Debug;
 		private static StringBuilder builder;
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
 		public static void Open() {
-			if (WriteToFile) {
-				builder = new StringBuilder();
-			}
+			builder = new StringBuilder();
 		}
 
 		public static void Close() {
-			if (builder == null) {
+			if (!WriteToFile) {
 				return;
 			}
 
@@ -52,6 +52,28 @@ namespace Lens.util {
 			Console.Write(message);
 			Console.ForegroundColor = ConsoleColor.Gray;
 			Console.WriteLine(text);
+		}
+
+		public static void RenderDebug() {
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+			
+			if (!ImGui.Begin("Log")) {
+				ImGui.End();
+				return;
+			}
+
+			if (ImGui.Button("Clear")) {
+				builder.Clear();
+			}
+			
+			ImGui.Separator();
+			var height = ImGui.GetStyle().ItemSpacing.Y;
+			ImGui.BeginChild("ScrollingRegionItems", new System.Numerics.Vector2(0, -height), 
+				false, ImGuiWindowFlags.HorizontalScrollbar);
+
+			ImGui.Text(builder.ToString());
+			ImGui.EndChild();
+			ImGui.End();
 		}
 	}
 }
