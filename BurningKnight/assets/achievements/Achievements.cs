@@ -20,7 +20,7 @@ namespace BurningKnight.assets.achievements {
 	public delegate void AchievementUnlockedCallback(string id);
 	
 	public static class Achievements {
-		private static Dictionary<string, Achievement> defined = new Dictionary<string, Achievement>();
+		public static Dictionary<string, Achievement> Defined = new Dictionary<string, Achievement>();
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
@@ -28,7 +28,7 @@ namespace BurningKnight.assets.achievements {
 		public static Action PostLoadCallback;
 		
 		public static Achievement Get(string id) {
-			return defined.TryGetValue(id, out var a) ? a : null;
+			return Defined.TryGetValue(id, out var a) ? a : null;
 		}
 		
 		public static void Load() {
@@ -47,14 +47,14 @@ namespace BurningKnight.assets.achievements {
 			foreach (var item in root.AsJsonObject) {
 				var a = new Achievement(item.Key);
 				a.Load(item.Value);
-				defined[item.Key] = a;
+				Defined[item.Key] = a;
 			}
 		}
 
 		public static void Save() {
 			var root = new JsonObject();
 
-			foreach (var a in defined.Values) {
+			foreach (var a in Defined.Values) {
 				var data = new JsonObject();
 				a.Save(data);
 				root[a.Id] = data;
@@ -69,13 +69,13 @@ namespace BurningKnight.assets.achievements {
 		}
 
 		public static void LockAll() {
-			foreach (var a in defined.Values) {
+			foreach (var a in Defined.Values) {
 				a.Unlocked = false;
 			}
 		}
 
 		public static void LoadState() {
-			foreach (var a in defined.Values) {
+			foreach (var a in Defined.Values) {
 				a.Unlocked = GlobalSave.IsTrue($"ach_{a.Id}");
 			}
 		}
@@ -169,7 +169,7 @@ namespace BurningKnight.assets.achievements {
 			ImGui.SameLine();
 
 			if (ImGui.Button("Delete##ach")) {
-				defined.Remove(selected.Id);
+				Defined.Remove(selected.Id);
 				selected = null;
 
 				ImGui.End();
@@ -228,7 +228,7 @@ namespace BurningKnight.assets.achievements {
 				ImGui.PopItemWidth();
 				
 				if (ImGui.Button("Create") || Input.Keyboard.WasPressed(Keys.Enter, true)) {
-					defined[achievementName] = selected = new Achievement(achievementName);
+					Defined[achievementName] = selected = new Achievement(achievementName);
 					achievementName = "";
 					forceFocus = true;
 					
@@ -257,7 +257,7 @@ namespace BurningKnight.assets.achievements {
 			ImGui.BeginChild("ScrollingRegionItems", new System.Numerics.Vector2(0, -height), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 
-			foreach (var i in defined.Values) {
+			foreach (var i in Defined.Values) {
 				ImGui.PushID(i.Id);
 
 				if (forceFocus && i == selected) {

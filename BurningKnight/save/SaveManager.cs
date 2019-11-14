@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using BurningKnight.save.cloud;
 using BurningKnight.state;
@@ -257,11 +258,35 @@ namespace BurningKnight.save {
 		
 			Log.Info("Loading data from cloud");
 
+			if (SteamRemoteStorage.FileCount > 0) {
+				RemoveFile(new FileHandle(SaveDir), "");
+			}
+
 			foreach (var file in SteamRemoteStorage.Files) {
 				var to = Path.GetFullPath(file);
 				
 				Log.Info($"Loading file {file} to {to}");
 				File.WriteAllBytes(to, SteamRemoteStorage.FileRead(file));
+			}
+		}
+
+		private static void RemoveFile(FileHandle handle, string path) {
+			if (handle.IsDirectory()) {
+				path += $"{handle.Name}/";
+
+				foreach (var dir in handle.ListDirectoryHandles()) {
+					RemoveFile(dir, path);
+				}
+				
+				foreach (var file in handle.ListFileHandles()) {
+					RemoveFile(file, path);
+				}
+			} else {
+				path = $"{path}{handle.Name}";
+				
+				if (!SteamRemoteStorage.Files.Contains(path)) {
+					Log.Info($"Removing file {path} from local saves");
+				}
 			}
 		}
 
@@ -293,11 +318,20 @@ namespace BurningKnight.save {
 		private static void WriteFile(FileHandle handle, string path) {
 			if (handle.IsDirectory()) {
 				path += $"{handle.Name}/";
+
+				foreach (var dir in handle.ListDirectoryHandles()) {
+					WriteFile(dir, path);
+				}
 				
 				foreach (var file in handle.ListFileHandles()) {
 					WriteFile(file, path);
 				}
 			} else {
+				if (handle.Extension != "sv" && handle.Extension != "lvl") {
+					Log.Info($"Ignoring file {handle.FullPath} cause of its extension {handle.Extension}");
+					return;
+				}
+				
 				path = $"{path}{handle.Name}";
 				Log.Info($"Saving file {path} from {handle.FullPath}");
 				

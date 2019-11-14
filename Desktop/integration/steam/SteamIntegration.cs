@@ -21,7 +21,13 @@ namespace Desktop.integration.steam {
 
 				Achievements.PostLoadCallback += () => {
 					foreach (var achievement in SteamUserStats.Achievements) {
-						Achievements.Unlock(achievement.Identifier);
+						if (achievement.State) {
+							Achievements.Unlock(achievement.Identifier);
+						}
+					}
+
+					foreach (var achievement in Achievements.Defined.Keys) {
+						new Achievement(achievement).Trigger();
 					}
 				};
 
