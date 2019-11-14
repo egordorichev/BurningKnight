@@ -6,7 +6,6 @@
  + boss battle stuff
 }
 
-* buff disk gun
 * broken melee, you swing back and forth?
 
 * room / lvl cleared effect
