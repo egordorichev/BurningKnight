@@ -53,7 +53,7 @@ namespace Lens.util {
 			builder?.AppendLine(message == null ? "null" : message.ToString());
 			
 			Console.ForegroundColor = color;
-			Console.Write($"{textw} {message}");
+			Console.Write($"{text} {message}");
 			Console.ForegroundColor = ConsoleColor.Gray;
 			Console.WriteLine(text);
 		}
