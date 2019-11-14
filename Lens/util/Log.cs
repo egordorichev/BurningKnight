@@ -20,7 +20,6 @@ namespace Lens.util {
 			}
 
 			File.WriteAllText("burning_log.txt", builder.ToString());
-			builder = null;
 		}
 		
 		public static void Info(object message) {

@@ -269,8 +269,15 @@ namespace BurningKnight.save {
 
 			foreach (var file in SteamRemoteStorage.Files) {
 				var to = $"{SaveDir}{file}";
-				
 				Log.Info($"Loading file {file} to {to}");
+
+				var handle = new FileHandle(to);
+
+				if (!handle.Parent.Exists()) {
+					Log.Info($"Making the directory {handle.Parent.FullPath}");
+					handle.Parent.MakeDirectory();
+				}
+				
 				File.WriteAllBytes(to, SteamRemoteStorage.FileRead(file));
 			}
 		}

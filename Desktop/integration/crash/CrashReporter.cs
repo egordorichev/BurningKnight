@@ -41,6 +41,7 @@ namespace Desktop.integration.crash {
 			Log.Error(message);
 			
 			File.AppendAllText("crashes.txt", message);
+			Log.Close();
 		}
 
 		private static string GetMonoVersion() {

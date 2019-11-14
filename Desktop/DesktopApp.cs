@@ -12,7 +12,7 @@ namespace Desktop {
 	public class DesktopApp : BK {
 		private List<Integration> integrations = new List<Integration>();
 
-		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, false) {
+		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, !BK.Version.Dev) {
 			CrashReporter.Bind();
 		}
 
