@@ -92,12 +92,12 @@ namespace BurningKnight.save {
 			}
 
 			Run.HasRun = true;
-			var depth = reader.ReadSbyte();
+			Run.LastSavedDepth = reader.ReadSbyte();
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
 
-			if (depth > 0) {
+			if (Run.LastSavedDepth > 0) {
 				Random.Seed = Run.Seed = reader.ReadString();
 			}
 		}
@@ -109,7 +109,7 @@ namespace BurningKnight.save {
 		public override void Generate(Area area) {
 			Values.Clear();
 			Run.ResetStats();
-
+			
 			if (GlobalSave.IsFalse("finished_tutorial")) {
 				if (BK.Version.Dev) {
 					GlobalSave.Put("finished_tutorial", true);

@@ -35,8 +35,12 @@ namespace Desktop.integration.steam {
 				Achievements.UnlockedCallback += (id) => {
 					new Achievement(id).Trigger();
 				};
-				
-				SaveManager.LoadCloudSaves();
+
+				try {
+					SaveManager.LoadCloudSaves();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			} catch (Exception e) {
 				Log.Error(e);
 				Log.Info("No steam no fire :/");
@@ -55,7 +59,12 @@ namespace Desktop.integration.steam {
 			base.Destroy();
 
 			if (LaunchedFromSteam) {
-				SaveManager.SaveCloudSaves();
+				try {
+					SaveManager.SaveCloudSaves();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
 				SteamClient.Shutdown();
 				
 				LaunchedFromSteam = false;

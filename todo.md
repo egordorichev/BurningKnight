@@ -88,6 +88,7 @@
 
 * blue hearts, at least em
 
+* machine: gives random stat up
 * teleport tile mechanic for some level
 * breakable chests
 * Unique saving experience for each NPCs (and save phrases)

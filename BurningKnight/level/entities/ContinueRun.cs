@@ -27,7 +27,11 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override bool Interact(Entity entity) {
-			Run.Depth = 1;
+			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
+				Run.Continuing = true;
+				Run.Depth = Run.LastSavedDepth;
+			});
+			
 			return true;
 		}
 
