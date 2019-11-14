@@ -19,11 +19,6 @@ jobs:
           MonoGameSetup.exe /S
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Install Butler
-        shell: powershell
-        run: |
-          wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
-          unzip butler.zip
       - name: Install NuGet
         shell: powershell
         run: |
@@ -48,7 +43,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           ls -l
-          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite /p:Configuration=Release;Platform=x64
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite /p:Configuration=Release /p:Platform=x64
           ls -l
       - name: Building Resources
         shell: bash
@@ -60,11 +55,16 @@ jobs:
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE
-          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln  /p:Configuration=Release;Platform=x64
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln  /p:Configuration=Release /p:Platform=x64
           mv -f -v $GITHUB_WORKSPACE/Desktop/bin/Release $GITHUB_WORKSPACE/Windows
           cd Windows
           ls
           cd ..
+      - name: Install Butler
+        shell: powershell
+        run: |
+          wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
+          unzip butler.zip
       - name: Upload Windows Version to Itch
         shell: powershell
         env:
