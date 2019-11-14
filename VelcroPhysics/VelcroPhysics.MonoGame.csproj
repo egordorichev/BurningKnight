@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <RootNamespace>VelcroPhysics</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
