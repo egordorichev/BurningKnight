@@ -26,7 +26,7 @@ namespace BurningKnight.entity.item.use {
 					entity.Area.Add(m);
 					m.Center = mob.Center;
 
-					if (!m.SpawnsNearWall()) {
+					if (!(MobRegistry.FindFor(m.GetType())?.NearWall ?? false)) {
 						m.Center += Random.Vector(-8, 8);
 					}
 				} catch (Exception e) {

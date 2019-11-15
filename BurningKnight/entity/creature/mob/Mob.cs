@@ -225,22 +225,6 @@ namespace BurningKnight.entity.creature.mob {
 			return GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
 
-		public virtual float GetWeight() {
-			return 1f;
-		}
-
-		public virtual bool CanSpawnMultiple() {
-			return true;
-		}
-		
-		public virtual bool SpawnsNearWall() {
-			return false;
-		}
-
-		public virtual float GetSpawnChance() {
-			return 1f;
-		}
-
 		private bool rotationApplied;
 
 		public override void AnimateDeath(DiedEvent d) {

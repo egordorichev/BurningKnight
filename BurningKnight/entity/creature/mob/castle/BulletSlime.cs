@@ -48,13 +48,5 @@ namespace BurningKnight.entity.creature.mob.castle {
 				projectile.AddLight(32f, Projectile.RedLight);
 			}
 		}
-
-		public override float GetSpawnChance() {
-			return 0.5f;
-		}
-
-		public override float GetWeight() {
-			return 2;
-		}
 	}
 }

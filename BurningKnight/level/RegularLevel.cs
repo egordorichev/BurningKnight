@@ -63,26 +63,6 @@ namespace BurningKnight.level {
 			var p = GetPainter();
 			LevelSave.BiomeGenerated.ModifyPainter(p);
 			p.Paint(this, rooms);
-			
-			foreach (var def in rooms) {
-				if (!def.ConvertToEntity()) {
-					continue;
-				}
-				
-				var room = new Room();
-
-				room.Type = RoomDef.DecideType(def, def.GetType());
-				room.MapX = def.Left;
-				room.MapY = def.Top;
-				room.MapW = def.GetWidth();
-				room.MapH = def.GetHeight();
-				
-				Area.Add(room);
-
-				def.ModifyRoom(room);
-
-				room.Generate();
-			}
 		}
 
 		protected void Build() {

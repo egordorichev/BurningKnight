@@ -141,13 +141,5 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			return base.HandleEvent(e);
 		}
-
-		public override bool CanSpawnMultiple() {
-			return false;
-		}
-
-		public override float GetWeight() {
-			return 2.5f;
-		}
 	}
 }

@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.input;
@@ -24,6 +25,7 @@ using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
+using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
 using Random = Lens.util.math.Random;
@@ -307,8 +309,6 @@ namespace BurningKnight.level {
 			PaintDoors(Level, Rooms);
 			Decorate(Level, Rooms);
 			
-			PlaceMobs(Level, Rooms);
-
 			for (var y = 0; y < Level.Height; y++) {
 				for (var x = 0; x < Level.Width; x++) {
 					if (Level.Get(x, y) == Tile.WallA) {
@@ -335,7 +335,7 @@ namespace BurningKnight.level {
 			var rooms = new List<RoomDef>();
 
 			foreach (var r in Rooms) {
-				if (r is RegularRoom || (r is EntranceRoom e)) {
+				if (r is RegularRoom || r is EntranceRoom) {
 					rooms.Add(r);
 				}
 			}
@@ -351,11 +351,37 @@ namespace BurningKnight.level {
 			}
 
 			Level.ItemsToSpawn = null;
+
+			var rms = new List<Room>();
+			
+			foreach (var def in Rooms) {
+				if (!def.ConvertToEntity()) {
+					continue;
+				}
+				
+				var room = new Room();
+
+				room.Type = RoomDef.DecideType(def, def.GetType());
+				room.MapX = def.Left;
+				room.MapY = def.Top;
+				room.MapW = def.GetWidth();
+				room.MapH = def.GetHeight();
+				room.Parent = def;
+				
+				Level.Area.Add(room);
+				rms.Add(room);
+
+				def.ModifyRoom(room);
+
+				room.Generate();
+			}
+			
+			PlaceMobs(Level, rms);
 		}
 
-		public static void PlaceMobs(Level level, RoomDef room) {
+		public static void PlaceMobs(Level level, Room room) {
 			var mobs = new List<MobInfo>(MobRegistry.Current);
-			room.ModifyMobList(mobs);
+			room.Parent.ModifyMobList(mobs);
 
 			if (mobs.Count == 0) {
 				return;
@@ -364,14 +390,14 @@ namespace BurningKnight.level {
 			var chances = new float[mobs.Count];
 
 			for (int i = 0; i < mobs.Count; i++) {
-				chances[i] = room.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
+				chances[i] = room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
 			}
 
-			var types = new List<Type>();
+			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
 			for (int i = 0; i < Random.Int(2, 6); i++) {
-				var type = mobs[Random.Chances(chances)].Type;
+				var type = mobs[Random.Chances(chances)];
 				var found = false;
 				
 				foreach (var t in types) {
@@ -385,7 +411,7 @@ namespace BurningKnight.level {
 					i--;
 				} else {
 					types.Add(type);
-					spawnChances.Add(((Mob) Activator.CreateInstance(type)).GetSpawnChance());
+					spawnChances.Add(type.Chance);
 				}
 			}
 
@@ -394,33 +420,40 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			var count = room.GetPassablePoints(level).Count;
+			var count = room.Parent.GetPassablePoints(level).Count;
 			var weight = count / 15f + Random.Float(0f, 1.5f);
 
 			while (weight > 0) {
 				var id = Random.Chances(spawnChances);
-				var type = types[id];
-				var mob = (Mob) Activator.CreateInstance(type);
-				var wall = mob.SpawnsNearWall();
+
+				if (id == -1) {
+					Log.Error("Failed to generate mobs :O");
+					break;
+				}
 				
-				var point = wall ? room.GetRandomCellNearWall() : room.GetRandomDoorFreeCell();
+				var type = types[id];
+				
+				var point = type.NearWall ? room.Parent.GetRandomCellNearWall() : room.Parent.GetRandomDoorFreeCell();
 
 				if (point == null) {
 					continue;
 				}
+
+				var info = new MobSpawnInfo {
+					Type = type.Type
+				};
 				
-				weight -= mob.GetWeight();
+				weight -= type.Weight;
 
-				if (wall) {
-					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
+				if (type.NearWall) {
+					info.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
 				} else {
-					mob.Center = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
+					info.Position = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
 				}
+				
+				room.Mobs.Add(info);
 
-				level.Area.Add(mob);
-				mob.GeneratePrefix();
-
-				if (!mob.CanSpawnMultiple()) {
+				if (type.Single) {
 					types.RemoveAt(id);
 					spawnChances.RemoveAt(id);
 
@@ -431,11 +464,11 @@ namespace BurningKnight.level {
 			}
 		}
 		
-		private void PlaceMobs(Level level, List<RoomDef> rooms) {
+		private void PlaceMobs(Level level, List<Room> rooms) {
 			MobRegistry.SetupForBiome(level.Biome.Id);
 			
 			foreach (var room in rooms) {
-				if (room.ShouldSpawnMobs()) {
+				if (room.Parent.ShouldSpawnMobs()) {
 					PlaceMobs(level, room);
 				}
 			}	

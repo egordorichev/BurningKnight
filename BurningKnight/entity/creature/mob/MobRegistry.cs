@@ -14,21 +14,21 @@ namespace BurningKnight.entity.creature.mob {
 		static MobRegistry() {
 			MobInfo[] infos = {
 				// XD
-				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)),
+				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)).SetSpawnChance(0.5f),
 				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)).RequiresNearWall(),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(1f, Biome.Castle)),
 				
-				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				
 				// Desert
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
-				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)).RequiresNearWall(),
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
@@ -39,6 +39,16 @@ namespace BurningKnight.entity.creature.mob {
 			All.AddRange(infos);
 		}
 
+		public static MobInfo FindFor(Type type) {
+			foreach (var info in All) {
+				if (info.Type == type) {
+					return info;
+				}
+			}
+
+			return null;
+		}
+
 		public static Mob Generate() {
 			var chances = new float[Current.Count];
 
@@ -46,11 +56,11 @@ namespace BurningKnight.entity.creature.mob {
 				chances[i] = Current[i].GetChanceFor(Run.Level.Biome.Id).Chance;
 			}
 
-			var types = new List<Type>();
+			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
 			for (int i = 0; i < Random.Int(2, 6); i++) {
-				var type = Current[Random.Chances(chances)].Type;
+				var type = Current[Random.Chances(chances)];
 				var found = false;
 				
 				foreach (var t in types) {
@@ -64,7 +74,7 @@ namespace BurningKnight.entity.creature.mob {
 					i--;
 				} else {
 					types.Add(type);
-					spawnChances.Add(((Mob) Activator.CreateInstance(type)).GetSpawnChance());
+					spawnChances.Add(type.Chance);
 				}
 			}
 
@@ -72,7 +82,7 @@ namespace BurningKnight.entity.creature.mob {
 				return null;
 			}
 
-			return (Mob) Activator.CreateInstance(types[Random.Chances(spawnChances)]);
+			return (Mob) Activator.CreateInstance(types[Random.Chances(spawnChances)].Type);
 		}
 
 		public static void SetupForBiome(string biome) {

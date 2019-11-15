@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -35,12 +36,14 @@ namespace BurningKnight.entity.room {
 		public RoomType Type;
 		public bool Explored;
 		public bool Cleared;
+		public RoomDef Parent;
 		
 		public List<RoomControllable> Controllable = new List<RoomControllable>();
 		public List<RoomInput> Inputs = new List<RoomInput>();
 		public List<Piston> Pistons = new List<Piston>();
 		public List<RoomController> Controllers = new List<RoomController>();
 		public List<Door> Doors = new List<Door>();
+		public List<MobSpawnInfo> Mobs = new List<MobSpawnInfo>();
 
 		private bool checkCleared;
 		private Entity cleared;
@@ -196,6 +199,26 @@ namespace BurningKnight.entity.room {
 					c.Load(stream);
 				}
 			}
+
+			if (stream.ReadBoolean()) {
+				var enemyCount = stream.ReadUInt16();
+
+				for (var i = 0; i < enemyCount; i++) {
+					try {
+						var type = System.Type.GetType($"BurningKnight.{stream.ReadString()}");
+						var x = stream.ReadFloat();
+						var y = stream.ReadFloat();
+
+						Mobs.Add(new MobSpawnInfo {
+							Type = type,
+							Position = new Vector2(x, y)
+						});
+					} catch (Exception e) {
+						Log.Error(e);
+						return;
+					}
+				}
+			}
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -212,6 +235,19 @@ namespace BurningKnight.entity.room {
 			foreach (var c in Controllers) {
 				stream.WriteString(c.Id);
 				c.Save(stream);
+			}
+
+			if (Mobs.Count == 0) {
+				stream.WriteBoolean(false);
+				return;
+			}
+			
+			stream.WriteUInt16((ushort) Mobs.Count);
+
+			foreach (var m in Mobs) {
+				stream.WriteString(m.Type.FullName.Replace("BurningKnight.", ""));
+				stream.WriteFloat(m.Position.X);
+				stream.WriteFloat(m.Position.Y);
 			}
 		}
 		

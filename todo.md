@@ -3,7 +3,7 @@
 * bk: {
  + flying on lvl always somewhere near 
  + spawns enemies
- + raging when you take items from treasure rooms, make him take the rest of the stuff
+ + raging when you take items from treasure x64s, make him take the rest of the stuff
  + boss battle stuff
 }
 

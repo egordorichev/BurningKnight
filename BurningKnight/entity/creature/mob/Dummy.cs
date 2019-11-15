@@ -49,10 +49,6 @@ namespace BurningKnight.entity.creature.mob {
 			return base.HandleEvent(e);
 		}
 
-		public override float GetSpawnChance() {
-			return 1f;
-		}
-
 		#region Dummy States
 		public class IdleState : EntityState {
 			

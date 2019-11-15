@@ -201,10 +201,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			return typeof(IdleState);
 		}
 
-		public override bool SpawnsNearWall() {
-			return true;
-		}
-
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
 				var en = ev.Entity;

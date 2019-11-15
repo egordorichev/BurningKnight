@@ -6,12 +6,15 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
@@ -76,6 +79,8 @@ namespace BurningKnight.entity.creature.bk {
 			
 			buffs.AddImmunity<FrozenBuff>();
 			buffs.AddImmunity<BurningBuff>();
+			
+			Subscribe<RoomChangedEvent>();
 		}
 
 		public override bool IsFriendly() {
@@ -101,15 +106,16 @@ namespace BurningKnight.entity.creature.bk {
 				base.Update(dt);
 
 				var d = Self.DistanceTo(Self.Target);
+				var force = 200f * dt;
 
 				if (d < 64f) {
+					// force *= -1;
 					return;
 				} else if (d >= 200) {
 					Self.Become<TeleportState>();
 				}
 				
 				var a = Self.AngleTo(Self.Target);
-				var force = 200f * dt;
 				
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
@@ -248,7 +254,28 @@ namespace BurningKnight.entity.creature.bk {
 		private float lastExplosion;
 		
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
+			if (e is RoomChangedEvent rce) {
+				if (rce.Who is Player && rce.New != null && rce.New.Type == RoomType.Regular) {
+					foreach (var info in rce.New.Mobs) {
+						try {
+							var mob = (Mob) Activator.CreateInstance(info.Type);
+							Area.Add(mob);
+							
+							if (MobRegistry.FindFor(info.Type)?.NearWall ?? false) {
+								mob.Position = info.Position;
+							} else {
+								mob.Center = info.Position;
+							}
+							
+							mob.GeneratePrefix();
+						} catch (Exception ex) {
+							Log.Error(ex);
+						}
+					}
+
+					rce.New.Mobs.Clear();
+				}
+			} else if (e is DiedEvent) {
 				if (true) {
 					Done = false;
 					return true;

@@ -32,10 +32,6 @@ namespace BurningKnight.entity.creature.mob.desert {
 			Depth = Layers.Wall;
 			Become<IdleState>();
 		}
-		
-		public override float GetSpawnChance() {
-			return 0.5f;
-		}
 
 		public override bool InAir() {
 			return true;
