@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.assets.achievements {
 	public delegate void AchievementUnlockedCallback(string id);
+	public delegate void AchievementLockedCallback(string id);
 	
 	public static class Achievements {
 		public static Dictionary<string, Achievement> Defined = new Dictionary<string, Achievement>();
@@ -25,6 +26,7 @@ namespace BurningKnight.assets.achievements {
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
 		public static AchievementUnlockedCallback UnlockedCallback;
+		public static AchievementLockedCallback LockedCallback;
 		public static Action PostLoadCallback;
 		
 		public static Achievement Get(string id) {
@@ -103,8 +105,12 @@ namespace BurningKnight.assets.achievements {
 			
 			Engine.Instance?.State?.Area?.EventListener?.Handle(e);
 			Engine.Instance?.State?.Ui?.EventListener?.Handle(e);
-			
-			UnlockedCallback?.Invoke(id);
+
+			try {
+				UnlockedCallback?.Invoke(id);
+			} catch (Exception ex) {
+				Log.Error(ex);
+			}
 		}
 
 		public static void Lock(string id) {
@@ -130,6 +136,12 @@ namespace BurningKnight.assets.achievements {
 			
 			Engine.Instance.State.Area.EventListener.Handle(e);
 			Engine.Instance.State.Ui.EventListener.Handle(e);
+			
+			try {
+				LockedCallback?.Invoke(id);
+			} catch (Exception ex) {
+				Log.Error(ex);
+			}
 		}
 		
 		private static string achievementName = "";
@@ -243,6 +255,22 @@ namespace BurningKnight.assets.achievements {
 				}
 				
 				ImGui.EndPopup();
+			}
+			
+			ImGui.Separator();
+
+			if (ImGui.Button("Unlock all")) {
+				foreach (var a in Defined.Keys) {
+					Unlock(a);
+				}
+			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Lock all")) {
+				foreach (var a in Defined.Keys) {
+					Lock(a);
+				}
 			}
 			
 			ImGui.Separator();
