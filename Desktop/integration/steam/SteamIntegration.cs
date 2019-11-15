@@ -27,17 +27,19 @@ namespace Desktop.integration.steam {
 						}
 					}
 
-					foreach (var achievement in Achievements.Defined.Keys) {
-						new Achievement(achievement).Trigger();
+					foreach (var achievement in Achievements.Defined) {
+						if (achievement.Value.Unlocked) {
+							new Achievement(achievement.Key).Trigger();
+						}
 					}
 				};
 
 				Achievements.UnlockedCallback += (id) => {
-					try {
-						new Achievement(id).Trigger();
-					} catch (Exception e) {
-						Log.Error(e);
-					}
+					new Achievement(id).Trigger();
+				};
+
+				Achievements.LockedCallback += (id) => {
+					new Achievement(id).Clear();
 				};
 
 				try {
