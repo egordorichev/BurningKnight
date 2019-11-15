@@ -76,7 +76,7 @@ namespace BurningKnight.entity.item.renderer {
 				aim.Center = pos + MathUtils.CreateVector(a, d);
 
 				d = (aim.Aim - pos).Length();
-				aim.RealAim = aim.Center + MathUtils.CreateVector(angle - Math.PI / 2, d);
+				aim.RealAim = aim.Center + MathUtils.CreateVector(angle - (horizontal ? 0 : Math.PI / 2), d);
 			}
 		}
 

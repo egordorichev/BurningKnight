@@ -38,6 +38,9 @@ namespace BurningKnight.entity.creature.bk {
 			base.AddComponents();
 			
 			AddTag(Tags.BurningKnight);
+			AddTag(Tags.PlayerSave);
+			
+			RemoveTag(Tags.LevelSave);
 			RemoveTag(Tags.MustBeKilled);
 
 			Width = 22;

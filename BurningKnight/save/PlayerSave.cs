@@ -19,6 +19,7 @@ namespace BurningKnight.save {
 
 			if (Run.Depth > 0) {
 				area.Add(new RunStatistics());
+				area.Add(new entity.creature.bk.BurningKnight());
 			}
 		}
 

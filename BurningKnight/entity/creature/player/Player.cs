@@ -146,14 +146,6 @@ namespace BurningKnight.entity.creature.player {
 			InitStats();
 		}
 
-		public override void PostInit() {
-			if (BK.Version.Dev) {
-				Area.Add(new bk.BurningKnight()).Center = Center;
-			}
-
-			base.PostInit();
-		}
-
 		public void InitStats() {
 			GetComponent<OrbitGiverComponent>().DestroyAll();
 			GetComponent<FollowerComponent>().DestroyAll();

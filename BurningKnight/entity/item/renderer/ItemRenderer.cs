@@ -34,24 +34,29 @@ namespace BurningKnight.entity.item.renderer {
 				var v = new System.Numerics.Vector2((float) root["ox"].AsNumber * 3, (float) root["oy"].AsNumber * 3);
 				var region = CommonAse.Items.GetSlice(id);
 				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
+				var m = ImGui.GetScrollY();
 
 				if (ImGui.IsMouseDown(1)) {
 					v = ImGui.GetMousePos() - pos;
+					v.Y -= m;
 
-					if (snapGrid) {
-						v.X = (float) (Math.Floor(v.X / 3) * 3);
-						v.Y = (float) (Math.Floor(v.Y / 3) * 3);
+					if (!(v.X < 0) && !(v.Y < 0) && !(v.X > region.Width * 3) && !(v.Y > region.Height * 3)) {
+
+						if (snapGrid) {
+							v.X = (float) (Math.Floor(v.X / 3) * 3);
+							v.Y = (float) (Math.Floor(v.Y / 3) * 3);
+						}
+
+						v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
+						v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
+
+						root["ox"] = v.X / 3f;
+						root["oy"] = v.Y / 3f;
 					}
-
-					v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
-					v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
-
-					root["ox"] = v.X / 3f;
-					root["oy"] = v.Y / 3f;
 				}
-
-				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1),
-					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1),
+				
+				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1 + m),
+					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1 - m),
 					ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
 
 				ItemEditor.DrawItem(region);
@@ -105,24 +110,28 @@ namespace BurningKnight.entity.item.renderer {
 				var v = new System.Numerics.Vector2((float) root["nx"].AsNumber * 3, (float) root["ny"].AsNumber * 3);
 				var region = CommonAse.Items.GetSlice(id);
 				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
+				var m = ImGui.GetScrollY();
 
 				if (ImGui.IsMouseDown(1)) {
 					v = ImGui.GetMousePos() - pos;
+					v.Y -= m;
 
-					if (snapGrid) {
-						v.X = (float) (Math.Floor(v.X / 3) * 3);
-						v.Y = (float) (Math.Floor(v.Y / 3) * 3);
+					if (!(v.X < 0) && !(v.Y < 0) && !(v.X > region.Width * 3) && !(v.Y > region.Height * 3)) {
+						if (snapGrid) {
+							v.X = (float) (Math.Floor(v.X / 3) * 3);
+							v.Y = (float) (Math.Floor(v.Y / 3) * 3);
+						}
+
+						v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
+						v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
+
+						root["nx"] = v.X / 3f;
+						root["ny"] = v.Y / 3f;
 					}
-
-					v.X = VelcroPhysics.Utilities.MathUtils.Clamp(v.X, 0, region.Width * 3);
-					v.Y = VelcroPhysics.Utilities.MathUtils.Clamp(v.Y, 0, region.Height * 3);
-
-					root["nx"] = v.X / 3f;
-					root["ny"] = v.Y / 3f;
 				}
 
-				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1),
-					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1),
+				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1 + m),
+					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1 - m),
 					ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
 
 				ItemEditor.DrawItem(region);
