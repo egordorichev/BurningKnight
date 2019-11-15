@@ -36,8 +36,10 @@ namespace BurningKnight.assets.particle.custom {
 			offset = new Vector2(Random.Int(-4, 4), Height + Random.Int(-4, 4));
 			speed = Random.Float(1, 2f) * (Random.Chance() ? -1 : 1);
 
-			Tween.To(Display.UiScale, scale.X, x => scale.X = x, 0.3f);
-			Tween.To(Display.UiScale, scale.Y, x => scale.Y = x, 0.3f);
+			var s = item ? Display.UiScale : Random.Float(1f, 2f);
+
+			Tween.To(s, scale.X, x => scale.X = x, 0.3f);
+			Tween.To(s, scale.Y, x => scale.Y = x, 0.3f);
 
 			if (item) {
 				target += new Vector2(Display.UiWidth, Display.UiHeight);

@@ -291,6 +291,7 @@
     <Compile Include="assets\particle\custom\BuffParticle.cs" />
     <Compile Include="assets\particle\custom\ConsumableParticle.cs" />
     <Compile Include="assets\particle\custom\EpicSpawn.cs" />
+    <Compile Include="assets\particle\custom\FadingParticle.cs" />
     <Compile Include="assets\particle\custom\FireEmitter.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\custom\ProjectileParticle.cs" />

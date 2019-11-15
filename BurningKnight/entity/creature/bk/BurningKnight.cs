@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
@@ -24,6 +25,7 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.timer;
+using Lens.util.tween;
 using SharpDX;
 using VelcroPhysics.Dynamics;
 using Color = Microsoft.Xna.Framework.Color;
@@ -33,6 +35,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
 		private BossPatternSet<BurningKnight> set;
+		private static Color tint = new Color(234, 50, 60, 200);
 	
 		public override void AddComponents() {
 			base.AddComponents();
@@ -51,7 +54,7 @@ namespace BurningKnight.entity.creature.bk {
 			AlwaysVisible = true;
 			Depth = Layers.Bk;
 
-			var b = new RectBodyComponent(8, 8, Width - 8, Height - 8, BodyType.Dynamic, true) {
+			var b = new RectBodyComponent(6, 8, 10, 15, BodyType.Dynamic, true) {
 				KnockbackModifier = 0
 			};
 			
@@ -75,11 +78,18 @@ namespace BurningKnight.entity.creature.bk {
 			buffs.AddImmunity<BurningBuff>();
 		}
 
+		public override bool IsFriendly() {
+			return true; // Hackz!
+		}
+
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
 				Awoken = true;
 				// GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
 				Become<FollowState>();		
+			} else if (target == null) {
+				Become<IdleState>();
+				Awoken = false;
 			}
 
 			base.OnTargetChange(target);
@@ -87,7 +97,44 @@ namespace BurningKnight.entity.creature.bk {
 		
 		#region Buring Knight States while
 		public class FollowState : SmartState<BurningKnight> {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var d = Self.DistanceTo(Self.Target);
+
+				if (d < 64f) {
+					return;
+				} else if (d >= 200) {
+					Self.Become<TeleportState>();
+				}
+				
+				var a = Self.AngleTo(Self.Target);
+				var force = 200f * dt;
+				
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+
+		public class TeleportState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+
+				var graphics = Self.GetComponent<BkGraphicsComponent>();
+
+				Tween.To(0, graphics.Alpha, x => graphics.Alpha = x, 0.3f, Ease.QuadIn).OnEnd = () => {
+					if (Self.Target != null) {
+						Self.Center = Self.Target.Center + MathUtils.CreateVector(Random.AnglePI(), 64f);
+					}
+					
+					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						if (Self.Target != null) {
+							Self.Become<FollowState>();
+						} else {
+							Self.Become<IdleState>();
+						}
+					};
+				};
+			}
 		}
 		#endregion
 		
@@ -126,9 +173,21 @@ namespace BurningKnight.entity.creature.bk {
 		#endregion
 
 		private float lastPart;
-
+		private float lastFadingParticle;
+		
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			lastFadingParticle -= dt;
+			
+			if (lastFadingParticle <= 0) {
+				lastFadingParticle = 0.2f;
+
+				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
+				Area.Add(particle);
+
+				particle.Center = Center;
+			}
 			
 			#region Fight Stuff
 			if (died) {
