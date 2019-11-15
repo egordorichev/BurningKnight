@@ -2,7 +2,7 @@
 
 * bk: {
  + flying on lvl always somewhere near 
- + spawns enemies 
+ + spawns enemies
  + raging when you take items from treasure rooms, make him take the rest of the stuff
  + boss battle stuff
 }
@@ -24,7 +24,15 @@
 * make enemies items and players fall into chasm
 * spawn chests/pickups in the levels
 
+{
+> I wouldn't put the sound of the wind onto the music itself
+> cause everytime the music fades out, cause its going into the next round of looping it creates a short whole for the ambience too
+
+make ambience play in transitions?
+}
+
 ##
+
 
 * dark mage/granny rooms
 
@@ -82,6 +90,7 @@
 * Reflections in the water
 * Splashes on the water
 * Props that react to music beats
+* player should go up (like jumping arc) when he is rolling
 
 ### Ideas
 

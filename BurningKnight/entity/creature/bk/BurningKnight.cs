@@ -77,23 +77,21 @@ namespace BurningKnight.entity.creature.bk {
 
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
-				if (BK.Version.Dev) {
-					Become<ChaseState>();
-					return;
-				}
-				
-				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
-				// Audio.PlayMusic("Rogue");
-				
-				Timer.Add(() => {
-					Become<ChaseState>();		
-				}, 3f);
+				Awoken = true;
+				// GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
+				Become<FollowState>();		
 			}
 
 			base.OnTargetChange(target);
 		}
 		
-		#region Burning Knight States
+		#region Buring Knight States while
+		public class FollowState : SmartState<BurningKnight> {
+			
+		}
+		#endregion
+		
+		#region Burning Knight States while chasing
 		public class ChaseState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -132,6 +130,7 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
+			#region Fight Stuff
 			if (died) {
 				lastPart -= dt;
 
@@ -172,8 +171,10 @@ namespace BurningKnight.entity.creature.bk {
 					}, 0.5f);
 				}
 			}
+			#endregion
 		}
 
+		#region Fight Stuff
 		public override void SelectAttack() {
 			if (set == null) {
 				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
@@ -243,5 +244,6 @@ namespace BurningKnight.entity.creature.bk {
 		public class DefeatedEvent : Event {
 			public BurningKnight BurningKnight;
 		}
+		#endregion
 	}
 }

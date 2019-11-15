@@ -144,6 +144,8 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			InitStats();
+			
+			Subscribe<RoomClearedEvent>();
 		}
 
 		public void InitStats() {
@@ -417,6 +419,14 @@ namespace BurningKnight.entity.creature.player {
 						break;
 					}
 				}
+
+				if (c.Old != null) {
+					Camera.Instance.Unfollow(c.Old);
+				}
+
+				if (c.New != null && c.New.Tagged[Tags.MustBeKilled].Count > 0) {
+					Camera.Instance.Follow(c.New, 0.3f);
+				}
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
@@ -449,6 +459,8 @@ namespace BurningKnight.entity.creature.player {
 						});
 					}
 				}
+			} else if (e is RoomClearedEvent rce) {
+				Camera.Instance.Unfollow(rce.Room);
 			}
 			
 			return base.HandleEvent(e);
