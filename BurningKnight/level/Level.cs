@@ -637,7 +637,7 @@ namespace BurningKnight.level {
 			
 			Graphics.Color = ColorUtils.WhiteColor;
 			
-			foreach (var p in Area.Tags[Tags.Mess]) {
+			foreach (var p in Area.Tagged[Tags.Mess]) {
 				((SplashFx) p).RenderInSurface();
 			}
 			
@@ -1173,7 +1173,7 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			foreach (var p in Area.Tags[Tags.Player]) {
+			foreach (var p in Area.Tagged[Tags.Player]) {
 				((Player) p).RenderOutline();
 			}
 			

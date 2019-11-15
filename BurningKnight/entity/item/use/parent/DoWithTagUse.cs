@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item.use.parent {
 				list.Add(entity);
 			}
 
-			var tags = (sameRoom ? entity.GetComponent<RoomComponent>().Room.Tagged : entity.Area.Tags);
+			var tags = (sameRoom ? entity.GetComponent<RoomComponent>().Room.Tagged : entity.Area.Tagged);
 
 			for (var i = 0; i < BitTag.Total; i++) {
 				if ((tag & 1 << i) != 0) {

@@ -17,7 +17,7 @@ namespace BurningKnight.entity.projectile.controller {
 				if (target == null) {
 					var md = 320000f;
 
-					foreach (var m in (p.Owner.TryGetComponent<RoomComponent>(out var c) ? c.Room.Tagged[Tags.Mob] : p.Area.Tags[Tags.Mob])) {
+					foreach (var m in (p.Owner.TryGetComponent<RoomComponent>(out var c) ? c.Room.Tagged[Tags.Mob] : p.Area.Tagged[Tags.Mob])) {
 						var dd = m.DistanceTo(p);
 
 						if (dd < md) {

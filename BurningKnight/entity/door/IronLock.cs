@@ -11,7 +11,7 @@ namespace BurningKnight.entity.door {
 		public void CalcRooms() {
 			rooms.Clear();
 			
-			foreach (var room in Area.Tags[Tags.Room]) {
+			foreach (var room in Area.Tagged[Tags.Room]) {
 				if (room.Overlaps(this)) {
 					rooms.Add((Room) room);
 				}

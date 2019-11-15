@@ -116,7 +116,7 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							if (Area.Tags[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tags[Tags.BurningKnight][0]).Awoken) {
+							if (Area.Tagged[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tagged[Tags.BurningKnight][0]).Awoken) {
 								Audio.PlayMusic("Fatiga");
 							} else {
 								Audio.PlayMusic("Gobbeon");

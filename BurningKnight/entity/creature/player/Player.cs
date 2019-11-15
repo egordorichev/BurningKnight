@@ -187,19 +187,19 @@ namespace BurningKnight.entity.creature.player {
 
 			lastDepth = Run.Depth;
 			
-			foreach (var c in Area.Tags[Tags.Checkpoint]) {
+			foreach (var c in Area.Tagged[Tags.Checkpoint]) {
 				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
 				return;
 			}
 
-			foreach (var c in Area.Tags[Tags.Entrance]) {
+			foreach (var c in Area.Tagged[Tags.Entrance]) {
 				Center = c.Center + new Vector2(0, 4);
 				Log.Debug("Teleported to entrance");
 				return;
 			}
 			
-			foreach (var r in Area.Tags[Tags.Room]) {
+			foreach (var r in Area.Tagged[Tags.Room]) {
 				var rm = (Room) r;
 
 				if (rm.Type == RoomType.Entrance) {
@@ -210,7 +210,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 			
-			foreach (var r in Area.Tags[Tags.Room]) {
+			foreach (var r in Area.Tagged[Tags.Room]) {
 				var rm = (Room) r;
 				
 				if (rm.Type == RoomType.Exit) {

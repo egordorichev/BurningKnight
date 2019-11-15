@@ -179,7 +179,7 @@ namespace BurningKnight.entity.creature.mob {
 			List<Entity> targets;
 
 			if (TargetEverywhere) {
-				targets = Area.Tags[IsFriendly() ? Tags.Mob : Tags.Player];
+				targets = Area.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			} else {
 				var room = GetComponent<RoomComponent>().Room;
 

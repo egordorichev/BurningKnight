@@ -235,7 +235,7 @@ namespace BurningKnight.ui.editor {
 
 						ImGui.CloseCurrentPopup();
 
-						foreach (var e in Editor.Area.Tags[Tags.LevelSave]) {
+						foreach (var e in Editor.Area.Tagged[Tags.LevelSave]) {
 							e.Done = true;
 						}
 

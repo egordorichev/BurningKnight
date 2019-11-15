@@ -13,9 +13,6 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
-	/*
-	 * todo: show price
-	 */
 	public class EmeraldStand : ItemStand {
 		public static List<string> AlreadyOnStand = new List<string>();
 		
@@ -52,6 +49,14 @@ namespace BurningKnight.entity.item {
 				Who = who,
 				Stand = this
 			});
+
+			foreach (var i in Area.Tagged[Tags.Item]) {
+				if (i is Item it) {
+					it.CheckMasked();
+				} else if (i is ItemStand its) {
+					its.Item?.CheckMasked();
+				}
+			}
 		}
 
 		protected override string GetSprite() {

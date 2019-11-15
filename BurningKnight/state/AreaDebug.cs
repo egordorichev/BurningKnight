@@ -92,7 +92,7 @@ namespace BurningKnight.state {
 
 			id = 0; 
 
-			foreach (var e in (hasTag ? area.Tags[BitTag.Tags[currentTag]] : area.Entities.Entities)) {
+			foreach (var e in (hasTag ? area.Tagged[BitTag.Tags[currentTag]] : area.Entities.Entities)) {
 				if (filter.PassFilter(e.GetType().FullName) && (!onlyOnScreen || e.OnScreen) && (!hideLevel || PassFilter(e))) {
 					var s = selected == e;
 					

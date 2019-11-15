@@ -21,7 +21,7 @@ namespace BurningKnight.save {
 		private static int I;
 
 		public override void Save(Area area, FileWriter writer) {
-			SmartSave(area.Tags[Tags.LevelSave], writer);
+			SmartSave(area.Tagged[Tags.LevelSave], writer);
 			Run.LastSavedDepth = Run.Depth;
 		}
 

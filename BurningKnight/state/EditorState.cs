@@ -82,7 +82,7 @@ namespace BurningKnight.state {
 			renderer.End();
 			renderer.BeginShadows();
 
-			foreach (var e in Area.Tags[Tags.HasShadow]) {
+			foreach (var e in Area.Tagged[Tags.HasShadow]) {
 				if (e.AlwaysVisible || e.OnScreen) {
 					e.GetComponent<ShadowComponent>().Callback();
 				}

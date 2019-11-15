@@ -37,7 +37,7 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 
-			foreach (var p in Entity.Area.Tags[Tags.Player]) {
+			foreach (var p in Entity.Area.Tagged[Tags.Player]) {
 				if (p.DistanceToSquared(Entity) <= Radius) {
 					if (CanTalk == null || CanTalk(Entity)) {
 						d.Start(DecideVariant?.Invoke(p) ?? Variants[Random.Int(Variants.Length)]);

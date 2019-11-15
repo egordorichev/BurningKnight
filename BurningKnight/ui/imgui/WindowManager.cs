@@ -85,7 +85,7 @@ namespace BurningKnight.ui.imgui {
 					var rm = p.GetComponent<RoomComponent>().Room;
 					var rn = new List<Room>();
 
-					foreach (var r in Area.Tags[Tags.Room]) {
+					foreach (var r in Area.Tagged[Tags.Room]) {
 						rn.Add((Room) r);
 					}
 					
