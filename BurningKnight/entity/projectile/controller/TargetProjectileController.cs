@@ -50,11 +50,25 @@ namespace BurningKnight.entity.projectile.controller {
 				var d = b.Velocity.Length();
 				var a = b.Velocity.ToAngle();
 
-				/*if (p.DistanceTo(Input.Mouse.GamePosition) < 3f) {
-					p.Break();
-				}*/
-				
 				a = (float) MathUtils.LerpAngle(a, p.AngleTo(Input.Mouse.GamePosition), dt * speed * 4);
+				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				b.Angle = a;
+			};
+		}
+
+		public static ProjectileUpdateCallback MakePoint(Vector2 point, float speed = 1f) {
+			return (p, dt) => {
+				var b = p.GetAnyComponent<BodyComponent>();
+				var d = b.Velocity.Length();
+				var a = b.Velocity.ToAngle();
+				var dd = p.DistanceTo(point);
+				
+				if (dd < 3f) {
+					p.Break();
+					return;
+				}
+				
+				a = (float) MathUtils.LerpAngle(a, p.AngleTo(point), dt * speed * 4 * Math.Min(1, d / 32));
 				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 				b.Angle = a;
 			};

@@ -39,7 +39,7 @@ namespace BurningKnight.save {
 			}
 		}
 
-		public override void Save(Area area, FileWriter writer) {
+		public override void Save(Area area, FileWriter writer, bool old) {
 			WasATester = Engine.Version.Test;
 			
 			writer.WriteBoolean(DeletedSave);

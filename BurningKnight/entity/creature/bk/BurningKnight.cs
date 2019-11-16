@@ -12,6 +12,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.controller;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
@@ -29,7 +30,6 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.timer;
 using Lens.util.tween;
-using SharpDX;
 using VelcroPhysics.Dynamics;
 using Color = Microsoft.Xna.Framework.Color;
 using Random = Lens.util.math.Random;
@@ -56,6 +56,7 @@ namespace BurningKnight.entity.creature.bk {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			Depth = Layers.Bk;
+			TouchDamage = 0;
 
 			var b = new RectBodyComponent(6, 8, 10, 15, BodyType.Dynamic, true) {
 				KnockbackModifier = 0
@@ -83,10 +84,6 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<RoomChangedEvent>();
 		}
 
-		public override bool IsFriendly() {
-			return true; // Hackz!
-		}
-
 		protected override void OnTargetChange(Entity target) {
 			if (!Awoken && target != null) {
 				Awoken = true;
@@ -108,8 +105,9 @@ namespace BurningKnight.entity.creature.bk {
 				var d = Self.DistanceTo(Self.Target);
 				var force = 200f * dt;
 
-				if (d < 64f) {
-					// force *= -1;
+				if (d < 48f) {
+					Self.Become<FlyAwayState>();
+				} else if (d <= 72f) {
 					return;
 				} else if (d >= 200) {
 					Self.Become<TeleportState>();
@@ -117,6 +115,23 @@ namespace BurningKnight.entity.creature.bk {
 				
 				var a = Self.AngleTo(Self.Target);
 				
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class FlyAwayState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var d = Self.DistanceTo(Self.Target);
+				var force = -300f * dt;
+
+				if (d > 80f) {
+					Self.Become<FollowState>();
+					return;
+				}
+				
+				var a = Self.AngleTo(Self.Target);
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
 		}
@@ -192,6 +207,7 @@ namespace BurningKnight.entity.creature.bk {
 				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
 				Area.Add(particle);
 
+				particle.Depth = Depth - 1;
 				particle.Center = Center;
 			}
 			
@@ -257,20 +273,36 @@ namespace BurningKnight.entity.creature.bk {
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New != null && rce.New.Type == RoomType.Regular) {
 					foreach (var info in rce.New.Mobs) {
-						try {
-							var mob = (Mob) Activator.CreateInstance(info.Type);
-							Area.Add(mob);
-							
-							if (MobRegistry.FindFor(info.Type)?.NearWall ?? false) {
-								mob.Position = info.Position;
-							} else {
-								mob.Center = info.Position;
+						var projectile = Projectile.Make(this, "skull", AngleTo(info.Position) + Random.Float(-2, 2), Random.Float(8, 14));
+						
+						projectile.Center = Center;
+						projectile.Controller += TargetProjectileController.MakePoint(info.Position);
+						projectile.Controller += TimedProjectileController.MakeFadingParticles(0.1f, tint);
+						
+						projectile.Depth = Depth;
+					
+						projectile.CanBeBroken = false;
+						projectile.CanBeReflected = false;
+						projectile.IgnoreCollisions = true;
+						projectile.BodyComponent.Body.Rotation = 0;
+						
+						projectile.OnDeath = (pr, t) => {
+							try {
+								var mob = (Mob) Activator.CreateInstance(info.Type);
+								Area.Add(mob);
+
+								if (MobRegistry.FindFor(info.Type)?.NearWall ?? false) {
+									mob.Position = info.Position;
+								} else {
+									mob.Center = info.Position;
+								}
+
+								mob.GeneratePrefix();
+								AnimationUtil.Poof(mob.Center);
+							} catch (Exception ex) {
+								Log.Error(ex);
 							}
-							
-							mob.GeneratePrefix();
-						} catch (Exception ex) {
-							Log.Error(ex);
-						}
+						};
 					}
 
 					rce.New.Mobs.Clear();

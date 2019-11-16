@@ -84,7 +84,7 @@ namespace BurningKnight.save {
 			stream.WriteInt16(Version);
 			stream.WriteByte((byte) saveType);
 
-			ForType(saveType).Save(area, stream);
+			ForType(saveType).Save(area, stream, old);
 			stream.Close();
 
 			if (saveType != SaveType.Secret) {

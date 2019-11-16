@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected virtual BodyComponent CreateSensorBodyComponent() {
-			return new SensorBodyComponent(2, 7, 12, 9);
+			return new SensorBodyComponent(2, 5, 12, 9);
 		}
 	}
 }

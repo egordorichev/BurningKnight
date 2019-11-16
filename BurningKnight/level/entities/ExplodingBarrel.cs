@@ -19,9 +19,6 @@ namespace BurningKnight.level.entities {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			Width = 11;
-			Height = 17;
-			
 			AddComponent(new ShadowComponent());
 
 			var h = new HealthComponent();
@@ -90,7 +87,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override Rectangle GetCollider() {
-			return new Rectangle(0, 4, 11, 13);
+			return new Rectangle(0, 0, 16, 15);
 		}
 	}
 }

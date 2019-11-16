@@ -397,7 +397,7 @@ namespace BurningKnight.entity.creature.player {
 					Area.Add(part);
 				}
 			} else if (e is RoomChangedEvent c) {
-				if (c.New == null) {
+				if (c.New == null || Run.Level == null || Camera.Instance == null) {
 					return base.HandleEvent(e);
 				}
 				

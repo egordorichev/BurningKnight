@@ -9,8 +9,6 @@ using Lens.assets;
 using Lens.util;
 
 namespace Desktop.integration.discord {
-	public delegate void OnReadyInfo(DiscordRpc.DiscordUser connectedUser);
-
 	public class DiscordIntegration : Integration {
 		public static string CurrentPlayer;
 		
@@ -23,8 +21,6 @@ namespace Desktop.integration.discord {
 			return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
 		}
 
-		private OnReadyInfo OnReadyInfo;
-		
 		public override void Init() {
 			base.Init();
 
@@ -48,6 +44,10 @@ namespace Desktop.integration.discord {
 		}
 		
 		private void UpdateStatus() {
+			if (Run.Level == null) {
+				return;
+			}
+			
 			var status = new DiscordRpc.RichPresence();
 
 			if (Run.Level != null) {
@@ -57,7 +57,7 @@ namespace Desktop.integration.discord {
 				if (p != null) {
 					var h = p.GetComponent<HatComponent>().Item;
 
-					if (h.Id != "bk:no_hat") {
+					if (h != null && h.Id != "bk:no_hat") {
 						status.state = $"{(h?.Name ?? "No hat :(")}";
 					}
 				}

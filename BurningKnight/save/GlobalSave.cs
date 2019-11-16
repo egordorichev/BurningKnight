@@ -109,7 +109,7 @@ namespace BurningKnight.save {
 			Achievements.LoadState();
 		}
 
-		public override void Save(Area area, FileWriter writer) {
+		public override void Save(Area area, FileWriter writer, bool old) {
 			Settings.Save();
 			Put("emeralds", Emeralds);
 			

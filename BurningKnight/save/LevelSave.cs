@@ -20,9 +20,14 @@ namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
 		private static int I;
 
-		public override void Save(Area area, FileWriter writer) {
+		public override void Save(Area area, FileWriter writer, bool old) {
 			SmartSave(area.Tagged[Tags.LevelSave], writer);
-			Run.LastSavedDepth = Run.Depth;
+			var d = (old ? Run.LastDepth : Run.Depth);
+			
+			if (d > 0) {
+				Run.LastSavedDepth = d;
+				Log.Error($"Set run last saved depth to {Run.LastSavedDepth}");
+			}
 		}
 
 		public override string GetPath(string path, bool old = false) {

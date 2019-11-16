@@ -58,7 +58,7 @@ namespace BurningKnight.save {
 			}
 		}
 
-		public override void Save(Area area, FileWriter writer) {
+		public override void Save(Area area, FileWriter writer, bool old) {
 			writer.WriteInt32(Values.Count);
 
 			foreach (var Pair in Values) {

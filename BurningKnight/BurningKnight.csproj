@@ -692,6 +692,7 @@
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\TimedProjectileController.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
     <Compile Include="entity\projectile\Missile.cs" />
     <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />

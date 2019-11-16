@@ -11,6 +11,8 @@ namespace BurningKnight.assets.particle.custom {
 		public FadingParticle(TextureRegion sprite, Color tint) {
 			region = sprite;
 
+			AlwaysActive = true;
+			
 			Width = sprite.Width;
 			Height = sprite.Height;
 

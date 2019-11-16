@@ -28,7 +28,6 @@ namespace BurningKnight.state {
 		public static RunStatistics Statistics;
 		public static string NextSeed;
 		public static int LastSavedDepth;
-		public static bool Continuing;
 		
 		public static int Depth {
 			get => depth;
@@ -41,13 +40,12 @@ namespace BurningKnight.state {
 				SavingDepth = depth;
 				depth = NextDepth;
 				StartedNew = StartingNew;
-				StartingNew = false;
 
-				if (!Continuing) {
+				if (StartingNew) {
 					SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
-				} else {
-					Continuing = false;
 				}
+				
+				StartingNew = false;
 
 				Engine.Instance.SetState(new LoadState {
 					Menu = IntoMenu
