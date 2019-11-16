@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
+using BurningKnight.entity.component;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -30,6 +31,7 @@ namespace BurningKnight.assets.particle.custom {
 		public float R = 1f;
 		public float G = 1f;
 		public float B = 1f;
+		public float Size = 1;
 		
 		public Vector2? Target;
 
@@ -44,11 +46,14 @@ namespace BurningKnight.assets.particle.custom {
 			AlwaysVisible = true;
 			
 			Growing = true;
-			ScaleTar = Random.Float(0.5f, 0.9f);
+			ScaleTar = Random.Float(0.5f, 0.9f) * Size;
 
 			Mod = Random.Float(0.7f, 1f);
 			SinOffset = Random.Float(3.2f);
-			Offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
+
+			if (Math.Abs(Offset.X) + Math.Abs(Offset.Y) < 0.1f) {
+				Offset = new Vector2(Random.Float(-4, 4) * XChange, Random.Float(-2, 2));
+			}
 
 			Depth = Layers.Wall + 1;
 		}
@@ -105,8 +110,12 @@ namespace BurningKnight.assets.particle.custom {
 			Offset.Y -= Vy * dt;
 			
 			if (Owner != null) {
-				X = Owner.CenterX;
+				X = Owner.CenterX; 
 				Y = Owner.Bottom;
+
+				if (Owner.TryGetComponent<ZComponent>(out var z)) {
+					Y -= z.Z;
+				}
 			}
 		}
 

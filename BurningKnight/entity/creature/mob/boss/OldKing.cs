@@ -1,22 +1,84 @@
+using System;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.controller;
+using BurningKnight.entity.projectile.pattern;
+using BurningKnight.level;
+using Lens.entity;
+using Lens.entity.component.logic;
+using Microsoft.Xna.Framework;
+using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class OldKing : Boss {
+		public bool Raging => GetComponent<HealthComponent>().Percent <= 0.25f;
+	
 		public override void AddComponents() {
 			base.AddComponents();
 
 			Width = 20;
 			Height = 27;
 			
-			AddComponent(new AnimationComponent("old_king"));
-			AddComponent(new RectBodyComponent(3, 10, 14, 17));
+			AddComponent(new SensorBodyComponent(3, 10, 14, 17));
+
+			var body = new RectBodyComponent(3, 26, 14, 1);
+			AddComponent(body);
+
+			body.KnockbackModifier = 0.05f;
+			body.Body.LinearDamping = 1;
+
+			AddComponent(new ZComponent {
+				Gravity = 2
+			});
+			
+			AddComponent(new ZAnimationComponent("old_king"));
 			
 			Become<IdleState>();
-			
 			SetMaxHp(80);
+		}
+
+		private float lastParticle;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			lastParticle -= dt;
+
+			if (lastParticle <= 0) {
+				lastParticle = 0.1f;
+				
+				Area.Add(new FireParticle {
+					Offset = new Vector2(-2, -13),
+					Owner = this,
+					Size = 0.5f
+				});
+				
+				Area.Add(new FireParticle {
+					Offset = new Vector2(3, -13),
+					Owner = this,
+					Size = 0.5f
+				});
+			}
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			if (entity is Chasm) {
+				return true;
+			}
+			
+			return base.ShouldCollide(entity);
+		}
+
+		public override bool InAir() {
+			var state = GetComponent<StateComponent>().StateInstance;
+			
+			return state is UpState || state is DownState;
 		}
 		
 		#region Old King States
+		private int lastAttack;
+		
 		public class IdleState : SmartState<OldKing> {
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -26,36 +88,189 @@ namespace BurningKnight.entity.creature.mob.boss {
 					return;
 				}
 
-				if (T >= 5f) {
-					Become<JumpState>();
+				if (T >= (Self.Raging ? 3f : 5f)) {
+					if (Random.Chance(95)) {
+						Self.lastAttack = (Self.lastAttack + 1) % 2;
+					}
+
+					if (Self.lastAttack == 0) {
+						Become<SkullAttack>();
+					} else {
+						Become<JumpState>();
+					}
+				}
+			}
+		}
+		
+		public class SkullAttack : SmartState<OldKing> {
+			private int count;
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if ((count + 1) * (Self.Raging ? 0.7f : 1.5f) <= T) {
+					count++;
+
+					if (count == (Self.Raging ? 6 : 4)) {
+						Self.Become<IdleState>();
+						return;
+					}
+
+					var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), 10);
+
+					skull.OnDeath += (p, t) => {
+						if (!t) {
+							return;
+						}
+					
+						for (var i = 0; i < 8; i++) {
+							var bullet = Projectile.Make(Self, "small", 
+								((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 4);
+						
+							bullet.Center = p.Center;
+						}
+					};
+
+					skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
+					skull.Range = 5f;
+					skull.IndicateDeath = true;
+					skull.CanBeReflected = false;
+					skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
 				}
 			}
 		}
 		
 		public class JumpState : SmartState<OldKing> {
 			public override void Init() {
-				
+				base.Init();
+				Self.GetComponent<ZAnimationComponent>().SetAutoStop(true);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<ZAnimationComponent>().SetAutoStop(false);
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (Self.GetComponent<ZAnimationComponent>().Animation.Paused) {
+					Become<UpState>();
+				}
 			}
 		}
 		
 		public class UpState : SmartState<OldKing> {
-			
+			public override void Init() {
+				base.Init();
+				
+				var a = Self.Target == null || (!Self.Raging && Random.Chance()) ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
+				var force = Random.Float(20f) + (Self.Raging ? 240 : 120);
+				
+				Self.GetComponent<RectBodyComponent>().Velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+				Self.GetComponent<ZComponent>().ZVelocity = 10;
+				
+				Self.TouchDamage = 0;
+				Self.Depth = Layers.FlyingMob;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.GetComponent<ZComponent>().ZVelocity <= 0) {
+					Become<DownState>();
+				}
+			}
 		}
 		
 		public class DownState : SmartState<OldKing> {
-			
+			public override void Destroy() {
+				base.Destroy();				
+				
+				Self.TouchDamage = 1;				
+				Self.Depth = Layers.Creature;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.GetComponent<ZComponent>().Z <= 0) {
+					Become<LandState>();
+				}
+			}
 		}
+
+		private int jumpCounter;
 		
 		public class LandState : SmartState<OldKing> {
+			private const int SmallCount = 8;
+			private const int InnerCount = 8;
+
+			private bool fired;
 			
-		}
-		
-		public class RunState : SmartState<OldKing> {
-			
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<ZAnimationComponent>().SetAutoStop(true);
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<ZAnimationComponent>().SetAutoStop(false);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var animation = Self.GetComponent<ZAnimationComponent>().Animation;
+
+				if (!fired && animation.Frame == 1) {
+					fired = true;
+					
+					Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+					
+					for (var i = 0; i < SmallCount; i++) {
+						var an = (float) (((float) i) / SmallCount * Math.PI * 2);
+						
+						var pp = new ProjectilePattern(CircleProjectilePattern.Make(4.5f, 10 * (i % 2 == 0 ? 1 : -1))) {
+							Position = Self.BottomCenter
+						};
+
+						for (var j = 0; j < 2; j++) {
+							var b = Projectile.Make(Self, "small");
+							pp.Add(b);
+							b.AddLight(32f, Projectile.RedLight);
+						}
+				
+						pp.Launch(an, 40);
+						Self.Area.Add(pp);
+					}
+
+					var a = Self.AngleTo(Self.Target);
+					
+					for (var i = 0; i < (Self.Raging ? 2 : 1) * InnerCount; i++) {
+						var s = Random.Chance(40);
+						var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", a + Random.Float(-0.3f, 0.3f), Random.Float(2, 12), true, 1);
+						
+						b.Center = Self.BottomCenter;
+						b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
+					}
+				}
+					
+				if (animation.Paused) {
+					if (Self.Raging) {
+						if (Self.jumpCounter < 3) {
+							Become<JumpState>();
+							Self.jumpCounter++;
+
+							return;
+						}
+
+						Self.jumpCounter = 0;
+					}
+
+					Become<IdleState>();
+				}
+			}
 		}
 		#endregion
 	}

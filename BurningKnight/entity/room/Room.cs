@@ -81,7 +81,7 @@ namespace BurningKnight.entity.room {
 
 			AlwaysActive = true;
 			
-			if (Type == RoomType.Shop || Type == RoomType.Treasure) {
+			if (Type == RoomType.Shop || Type == RoomType.Treasure || Type == RoomType.Boss) {
 				AddComponent(new LightComponent(this, 128f, new Color(1f, 0.9f, 0.5f, 0.8f)));
 			}
 		}

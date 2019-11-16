@@ -1,10 +1,15 @@
 # esty stuff
 
-* fix bullet slime hitbox, check the rest of the slimes
+* old dude {
+ + reanimate 
+ + clear all bullets on death
+ + epic death 
+}
 
 * bk: {
  + raging when you take items from treasure x64s, make him take the rest of the stuff
  + boss battle stuff
+ + no hit boss battle reward
 }
 
 * room / lvl cleared effect
@@ -25,11 +30,13 @@
 * spawn chests/pickups in the levels
 
 {
-> I wouldn't put the sound of the wind onto the music itself
-> cause everytime the music fades out, cause its going into the next round of looping it creates a short whole for the ambience too
-
-make ambience play in transitions?
+    > I wouldn't put the sound of the wind onto the music itself
+    > cause everytime the music fades out, cause its going into the next round of looping it creates a short whole for the ambience too
+    
+    make ambience play in transitions?
 }
+
+* breakable torch
 
 ##
 
@@ -52,12 +59,9 @@ make ambience play in transitions?
 * curse of ??? (items hidden)
 * more prefixes
 
-* discord rpc where??
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
 
-* bomb item should have a chance to ignire
-* hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 ## general
@@ -111,6 +115,7 @@ make ambience play in transitions?
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
+* lore through shopkeeper (like in messager)?
 
 ### Rooms
 

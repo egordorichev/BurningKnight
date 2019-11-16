@@ -27,6 +27,7 @@
 * guitar weapon
 * life drain
 
+* bombs that clear all the bullets on screen
 * charge shot
 * turret
 * powerful but lowrange gun

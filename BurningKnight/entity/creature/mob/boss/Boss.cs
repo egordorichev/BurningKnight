@@ -30,14 +30,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-			Become<IdleState>();
-		}
-
 		protected override void OnTargetChange(Entity target) {
 			if (target == null) {
-				Become<IdleState>();
 				Awoken = false;
 			} else {
 				Awoken = true;
@@ -47,10 +41,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public virtual void SelectAttack() {
-			
-		}
-
-		public class IdleState : SmartState<Boss> {
 			
 		}
 	}

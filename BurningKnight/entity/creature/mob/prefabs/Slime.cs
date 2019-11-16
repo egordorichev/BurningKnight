@@ -73,11 +73,9 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 		protected float JumpForce = 120;
 		protected float ZVelocity = 5;
-		protected float ZVelocityMultiplier = 10;
 
 		public class JumpState : SmartState<Slime> {
 			private Vector2 velocity;
-			private float zVelocity;
 			
 			public override void Init() {
 				base.Init();
@@ -88,7 +86,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
 
-				zVelocity = Self.ZVelocity;
+				Self.GetComponent<ZComponent>().ZVelocity = Self.ZVelocity;
 			}
 
 			public override void Destroy() {
@@ -112,7 +110,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				base.Update(dt);
 
 				var component = Self.GetComponent<ZComponent>();
-				component.Z += zVelocity * dt * 20 * (Self.GetComponent<BuffsComponent>().Has<SlowBuff>() ? 0.5f : 1f);
 
 				if (component.Z >= 4f) {
 					Self.Depth = Layers.FlyingMob;
@@ -121,8 +118,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					Self.Depth = Layers.Creature;
 					Self.TouchDamage = 1;
 				}
-
-				zVelocity -= dt * Self.ZVelocityMultiplier;
 				
 				if (component.Z <= 0) {
 					component.Z = 0;

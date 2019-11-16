@@ -38,8 +38,6 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				skull.Range = 5f;
 				skull.IndicateDeath = true;
 				skull.CanBeReflected = false;
-				
-				// todo: speed up a bit? start slow?
 			}
 		}
 	}

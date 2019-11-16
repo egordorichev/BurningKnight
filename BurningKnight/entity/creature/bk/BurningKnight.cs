@@ -67,6 +67,7 @@ namespace BurningKnight.entity.creature.bk {
 			b.Body.LinearDamping = 3;
 			
 			AddComponent(new BkGraphicsComponent("old_burning_knight"));
+			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.7f, 0.2f, 1f)));
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
@@ -98,7 +99,11 @@ namespace BurningKnight.entity.creature.bk {
 			base.OnTargetChange(target);
 		}
 		
-		#region Buring Knight States while
+		#region Buring Knight States while calm
+		public class IdleState : SmartState<BurningKnight> {
+			
+		}
+		
 		public class FollowState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
