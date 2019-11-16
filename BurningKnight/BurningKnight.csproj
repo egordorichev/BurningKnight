@@ -422,6 +422,7 @@
     <Compile Include="entity\creature\drop\SimpleDrop.cs" />
     <Compile Include="entity\creature\drop\SingleDrop.cs" />
     <Compile Include="entity\creature\Gore.cs" />
+    <Compile Include="entity\creature\mob\boss\OldKing.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />

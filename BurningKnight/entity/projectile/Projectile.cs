@@ -202,6 +202,10 @@ namespace BurningKnight.entity.projectile {
 				return true;
 			}
 
+			if (entity is creature.bk.BurningKnight) {
+				return false;
+			}
+
 			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {
 				return false;
 			}

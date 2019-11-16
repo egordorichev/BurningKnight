@@ -55,6 +55,7 @@ namespace BurningKnight.entity.creature.bk {
 			TargetEverywhere = true;
 			AlwaysActive = true;
 			AlwaysVisible = true;
+			HasHealthbar = false;
 			Depth = Layers.Bk;
 			TouchDamage = 0;
 

@@ -12,6 +12,8 @@ using Lens.util.timer;
 namespace BurningKnight.entity.creature.mob.boss {
 	public class Boss : Mob {
 		public bool Awoken;
+		
+		protected bool HasHealthbar = true;
 		protected HealthBar HealthBar;
 
 		public override void AddComponents() {
@@ -22,10 +24,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			/*if (HealthBar == null) {
+			if (HasHealthbar && HealthBar == null) {
 				HealthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(HealthBar);
-			}*/
+			}
 		}
 
 		public override void PostInit() {
@@ -36,18 +38,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 		protected override void OnTargetChange(Entity target) {
 			if (target == null) {
 				Become<IdleState>();
+				Awoken = false;
 			} else {
 				Awoken = true;
-				
-				/*Camera.Instance.Targets.Clear();
-				
-				Timer.Add(() => {
-					((InGameState) Engine.Instance.State).ResetFollowing();
-					
-					Timer.Add(() => {
-						SelectAttack();
-					}, 1f);
-				}, 3f);*/
 			}
 			
 			base.OnTargetChange(target);

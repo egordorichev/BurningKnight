@@ -78,12 +78,12 @@ namespace BurningKnight.ui {
 				}
 			}
 
-			if (!showedUp) {
+			if (entity.Awoken && !showedUp) {
 				showedUp = true;
 				Tween.To(0, Y, x => Y = x, 0.3f);
 			}
 
-			if (entity.Done && !tweened) {
+			if (showedUp && (!entity.Awoken || (entity.Done && !tweened))) {
 				Remove();
 			}
 		}
@@ -93,10 +93,8 @@ namespace BurningKnight.ui {
 
 			if (showedUp) {
 				Tween.To(-Height, Y, x => Y = x, 0.3f).OnEnd = () => {
-					Done = true;
+					tweened = false;
 				};
-			} else {
-				Done = true;
 			}
 		}
 

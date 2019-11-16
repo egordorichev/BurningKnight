@@ -1,5 +1,7 @@
 # esty stuff
 
+* fix bullet slime hitbox, check the rest of the slimes
+
 * bk: {
  + raging when you take items from treasure x64s, make him take the rest of the stuff
  + boss battle stuff
