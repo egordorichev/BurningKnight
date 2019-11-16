@@ -439,19 +439,17 @@ namespace BurningKnight.level {
 					continue;
 				}
 
-				var info = new MobSpawnInfo {
-					Type = type.Type
-				};
+
+				var mob = (Mob) Activator.CreateInstance(type.Type);
 				
 				weight -= type.Weight;
-
-				if (type.NearWall) {
-					info.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
-				} else {
-					info.Position = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
-				}
+				level.Area.Add(mob);
 				
-				room.Mobs.Add(info);
+				if (type.NearWall) {
+					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
+				} else {
+					mob.Position = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
+				}
 
 				if (type.Single) {
 					types.RemoveAt(id);

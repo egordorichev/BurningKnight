@@ -270,44 +270,7 @@ namespace BurningKnight.entity.creature.bk {
 		private float lastExplosion;
 		
 		public override bool HandleEvent(Event e) {
-			if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New != null && rce.New.Type == RoomType.Regular) {
-					foreach (var info in rce.New.Mobs) {
-						var projectile = Projectile.Make(this, "skull", AngleTo(info.Position) + Random.Float(-2, 2), Random.Float(8, 14));
-						
-						projectile.Center = Center;
-						projectile.Controller += TargetProjectileController.MakePoint(info.Position);
-						projectile.Controller += TimedProjectileController.MakeFadingParticles(0.1f, tint);
-						
-						projectile.Depth = Depth;
-					
-						projectile.CanBeBroken = false;
-						projectile.CanBeReflected = false;
-						projectile.IgnoreCollisions = true;
-						projectile.BodyComponent.Body.Rotation = 0;
-						
-						projectile.OnDeath = (pr, t) => {
-							try {
-								var mob = (Mob) Activator.CreateInstance(info.Type);
-								Area.Add(mob);
-
-								if (MobRegistry.FindFor(info.Type)?.NearWall ?? false) {
-									mob.Position = info.Position;
-								} else {
-									mob.Center = info.Position;
-								}
-
-								mob.GeneratePrefix();
-								AnimationUtil.Poof(mob.Center);
-							} catch (Exception ex) {
-								Log.Error(ex);
-							}
-						};
-					}
-
-					rce.New.Mobs.Clear();
-				}
-			} else if (e is DiedEvent) {
+			if (e is DiedEvent) {
 				if (true) {
 					Done = false;
 					return true;
