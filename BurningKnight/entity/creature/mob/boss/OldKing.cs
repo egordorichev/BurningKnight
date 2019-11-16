@@ -17,12 +17,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = 20;
+			Width = 19;
 			Height = 27;
 			
-			AddComponent(new SensorBodyComponent(3, 10, 14, 17));
+			AddComponent(new SensorBodyComponent(2, 10, 14, 17));
 
-			var body = new RectBodyComponent(3, 26, 14, 1);
+			var body = new RectBodyComponent(2, 26, 14, 1);
 			AddComponent(body);
 
 			body.KnockbackModifier = 0.05f;
@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				});
 				
 				Area.Add(new FireParticle {
-					Offset = new Vector2(3, -13),
+					Offset = new Vector2(2, -13),
 					Owner = this,
 					Size = 0.5f
 				});

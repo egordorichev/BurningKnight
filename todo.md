@@ -1,15 +1,15 @@
 # esty stuff
 
 * old dude {
- + reanimate 
  + clear all bullets on death
  + epic death 
+ + no hit boss battle reward
 }
 
 * bk: {
  + raging when you take items from treasure x64s, make him take the rest of the stuff
- + boss battle stuff
- + no hit boss battle reward
+ + goes into the boss
+ + gets out of the boss on death
 }
 
 * room / lvl cleared effect
