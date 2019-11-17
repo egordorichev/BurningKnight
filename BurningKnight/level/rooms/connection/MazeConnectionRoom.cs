@@ -19,7 +19,7 @@ namespace BurningKnight.level.rooms.connection {
 			var spikes = Rnd.Chance(30);
 
 			if (Rnd.Chance()) {
-				var v = Rnd.Chance();
+				var v = true; // Rnd.Chance();
 				var k = Rnd.Int(1, 4);
 				
 				for (var i = 0; i < k; i++) {

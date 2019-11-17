@@ -7,9 +7,7 @@ namespace BurningKnight.level.rooms.connection {
 			var fl = Rnd.Chance() ? Tiles.RandomFloorOrSpike() : Tiles.RandomSolid();
 			var w = GenerateSpot();
 			
-			if (Rnd.Chance()) {
-				PaintTunnel(level, fl, w, true);
-			}
+			PaintTunnel(level, fl, w, true);
 
 			if (fl == Tile.Lava) {
 				PaintTunnel(level, Tiles.RandomFloorOrSpike(), w);

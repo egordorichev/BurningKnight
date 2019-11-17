@@ -2,7 +2,6 @@
 
 * fix {
  + gamepad shake
- + cut down on transition/connection rooms or make them feel more like tunnels
 }
 
 * bk: {
