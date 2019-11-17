@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using Lens.entity;
 using Lens.util.math;
 
 namespace BurningKnight.ui.dialog {
@@ -34,6 +35,16 @@ namespace BurningKnight.ui.dialog {
 
 		public virtual void Reset() {
 			
+		}
+
+		public class StartedEvent : Event {
+			public Dialog Dialog;
+			public Entity Owner;
+		}
+
+		public class EndedEvent : Event {
+			public Dialog Dialog;
+			public Entity Owner;
 		}
 	}
 }

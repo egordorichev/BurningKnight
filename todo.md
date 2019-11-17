@@ -1,11 +1,10 @@
-# esty stuff
+# publisher build stuff
 
 * fix {
  + gamepad shake
 }
 
 * bk: {
- + interaction between shopkeeper and bk like "burning sales!" "what a joke"
  + dialog like "DONT TOUCH MY STUFF" in the treasure room, make other items dissappear like he takes it?
  + better into boss going anim
  + better getting out of boss
@@ -36,6 +35,7 @@
 }
 
 * breakable torch
+* dialog sfx
 
 ##
 

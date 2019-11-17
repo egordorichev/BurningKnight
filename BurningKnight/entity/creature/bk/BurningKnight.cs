@@ -8,6 +8,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -88,6 +89,7 @@ namespace BurningKnight.entity.creature.bk {
 			
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemTakenEvent>();
+			Subscribe<Dialog.EndedEvent>();
 		}
 
 		protected override void OnTargetChange(Entity target) {
@@ -141,6 +143,13 @@ namespace BurningKnight.entity.creature.bk {
 							state.Become<AttackState>();
 						}, 3);
 					}
+				}
+			} else if (e is Dialog.EndedEvent dse) {
+				if (dse.Owner is ShopKeeper && dse.Dialog.Id == "shopkeeper_18") {
+					// What a joke
+					Timer.Add(() => {
+						GetComponent<DialogComponent>().StartAndClose("bk_4", 5);
+					}, 1);
 				}
 			}
 			
@@ -320,6 +329,9 @@ namespace BurningKnight.entity.creature.bk {
 				var d = Self.DistanceTo(Self.captured);
 				
 				if (d <= 8) {
+					// PREPARE TO DIE!
+					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
+					
 					Become<HiddenState>();
 					Self.captured.SelectAttack();
 				}
@@ -364,6 +376,8 @@ namespace BurningKnight.entity.creature.bk {
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
 						Timer.Add(() => {
 							Self.Become<ChaseState>();
+							// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
+							Self.GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
 						}, 1f);
 					};
 				}
