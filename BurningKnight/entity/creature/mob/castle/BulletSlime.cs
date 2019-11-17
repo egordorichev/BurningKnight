@@ -39,12 +39,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 				return;
 			}
 			
-			var am = 4;
+			var am = 8;
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
 				var projectile = Projectile.Make(this, "small", a, 5f);
 					
+				projectile.Center = BottomCenter;
 				projectile.AddLight(32f, Projectile.RedLight);
 			}
 		}

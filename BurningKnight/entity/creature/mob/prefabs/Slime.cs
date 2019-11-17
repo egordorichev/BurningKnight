@@ -75,16 +75,13 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		protected float ZVelocity = 5;
 
 		public class JumpState : SmartState<Slime> {
-			private Vector2 velocity;
-			
 			public override void Init() {
 				base.Init();
 
 				var a = Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
 				var force = Rnd.Float(20f) + Self.JumpForce;
 				
-				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+				Self.GetComponent<RectBodyComponent>().Velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 
 				Self.GetComponent<ZComponent>().ZVelocity = Self.ZVelocity;
 			}
@@ -119,7 +116,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					Self.TouchDamage = 1;
 				}
 				
-				if (component.Z <= 0) {
+				if (T >= 0.1f && component.Z <= 0) {
 					component.Z = 0;
 					Become<IdleState>();
 				}

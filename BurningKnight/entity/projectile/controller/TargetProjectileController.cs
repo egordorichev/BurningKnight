@@ -18,6 +18,10 @@ namespace BurningKnight.entity.projectile.controller {
 					var md = 320000f;
 
 					foreach (var m in (p.Owner.TryGetComponent<RoomComponent>(out var c) ? c.Room.Tagged[Tags.Mob] : p.Area.Tagged[Tags.Mob])) {
+						if (m.GetComponent<HealthComponent>().Unhittable) {
+							continue;
+						}
+						
 						var dd = m.DistanceTo(p);
 
 						if (dd < md) {

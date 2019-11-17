@@ -1,7 +1,6 @@
 # esty stuff
 
 * fix {
- + slimes cant jump (they dont move from their place)
  + gamepad shake
  + cut down on transition/connection rooms or make them feel more like tunnels
 }
