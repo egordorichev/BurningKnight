@@ -43,7 +43,7 @@ namespace BurningKnight.state {
 			Subscribe<ItemAddedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
-			Subscribe<BurningKnightDefeatedEvent>();
+			Subscribe<Boss.DefeatedEvent>();
 
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 			
@@ -154,7 +154,7 @@ namespace BurningKnight.state {
 					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
 				}
-			} else if (e is BurningKnightDefeatedEvent) {
+			} else if (e is Boss.DefeatedEvent) {
 				Audio.Stop();
 				Audio.PlayMusic("Reckless");
 				Audio.Repeat = false;

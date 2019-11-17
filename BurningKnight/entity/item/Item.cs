@@ -192,6 +192,7 @@ namespace BurningKnight.entity.item {
 
 			body.Body.LinearDamping = 4;
 			body.Body.Friction = 0;
+			body.Body.Mass = 0.1f;
 			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = OnInteractionStart,

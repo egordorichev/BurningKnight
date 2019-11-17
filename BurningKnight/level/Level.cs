@@ -1425,5 +1425,14 @@ namespace BurningKnight.level {
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.Shake(2);
 		}
+
+		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {
+			for (var yy = y - 1; yy < y + h + 1; yy++) {
+				for (var xx = x - 1; xx < x + w + 1; xx++) {
+					UpdateTile(xx, yy);
+					ReCreateBodyChunk(xx, yy);
+				}
+			}
+		}
 	}
 }

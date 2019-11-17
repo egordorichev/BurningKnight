@@ -125,6 +125,7 @@ namespace BurningKnight.entity.projectile {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			AddTag(Tags.Projectile);
 			AddComponent(new ShadowComponent(RenderShadow));
 			AlwaysActive = true;
 		}

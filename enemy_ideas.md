@@ -1,5 +1,14 @@
 ### enemies
 
+### jungle
+
+* bees
+* mike wazovski
+* monekeys
+* eating plants
+* bee quieen
+* been hive
+
 ### desert
 
 * ant lion, sucks you in, pops out of the ground if you dont kill it quick enough

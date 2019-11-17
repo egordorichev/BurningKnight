@@ -199,7 +199,6 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		#endregion
 
-		private float lastPart;
 		private float lastFadingParticle;
 		
 		public override void Update(float dt) {
@@ -216,49 +215,6 @@ namespace BurningKnight.entity.creature.bk {
 				particle.Depth = Depth - 1;
 				particle.Center = Center;
 			}
-			
-			#region Fight Stuff
-			if (died) {
-				lastPart -= dt;
-
-				if (lastPart <= 0) {
-					lastPart = 0.03f;
-					var p = new ParticleEntity(new Particle(Controllers.BkDeath, Particles.BkDeathRenderer));
-					Area.Add(p);
-					p.Particle.Position = Center;
-				}
-				
-				deathTimer += dt;
-				lastExplosion -= dt;
-				
-				if (lastExplosion <= 0) {
-					lastExplosion = 0.3f;
-					AnimationUtil.Explosion(Center + new Vector2(Rnd.Float(-16, 16), Rnd.Float(-16, 16)));
-					Camera.Instance.Shake(10);
-					Audio.PlaySfx("explosion");
-				}
-
-				if (deathTimer > 1f) {
-					Engine.Instance.FlashColor = new Color(1f, 1f, 1f, (deathTimer - 1) * 0.5f);
-					Engine.Instance.Flash = 0.3f;
-				}
-
-				if (deathTimer >= 3f) {
-					HandleEvent(new DefeatedEvent {
-						BurningKnight = this
-					});
-					
-					Engine.Instance.FlashColor = ColorUtils.WhiteColor;
-					Done = true;
-					PlaceRewards();
-					HandleEvent(new BurningKnightDefeatedEvent());
-					
-					Timer.Add(() => {
-						((InGameState) Engine.Instance.State).ResetFollowing();
-					}, 0.5f);
-				}
-			}
-			#endregion
 		}
 
 		#region Fight Stuff
@@ -269,67 +225,6 @@ namespace BurningKnight.entity.creature.bk {
 			
 			base.SelectAttack();
 			GetComponent<StateComponent>().PushState(BurningKnightAttackRegistry.GetNext(set));
-		}
-
-		private bool died;
-		private float deathTimer;
-		private float lastExplosion;
-		
-		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
-				if (true) {
-					Done = false;
-					return true;
-				}
-				
-				if (!died) {
-					died = true;
-					HealthBar?.Remove();
-
-					Camera.Instance.Targets.Clear();
-					Camera.Instance.Follow(this, 1f);
-					Become<DefeatedState>();
-
-					Audio.Stop();
-				}
-				
-				Done = false;
-				e.Handled = true;
-			}
-			
-			return base.HandleEvent(e);
-		}
-		
-		private void PlaceRewards() {
-			var exit = new Exit();
-			Area.Add(exit);
-				
-			exit.To = Run.Depth + 1;
-
-			var x = (int) Math.Floor(CenterX / 16);
-			var y = (int) Math.Floor(CenterY / 16);
-			var p = new Vector2(x * 16 + 8, y * 16 + 8);
-			
-			exit.Center = p;
-
-			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
-			Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
-
-			var stand = new BossStand();
-			Area.Add(stand);
-			stand.Center = p - new Vector2(0, 32f);
-			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
-			
-			Run.Level.TileUp();
-			Run.Level.CreateBody();
-		}
-
-		private class DefeatedState : SmartState<BurningKnight> {
-			
-		}
-
-		public class DefeatedEvent : Event {
-			public BurningKnight BurningKnight;
 		}
 		#endregion
 	}

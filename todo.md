@@ -64,6 +64,8 @@
 
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
+* dog or some pet, that you can pet, send to can you pet the dog tweet account
+
 ## general
 
 + lava:

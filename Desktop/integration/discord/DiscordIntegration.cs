@@ -44,7 +44,7 @@ namespace Desktop.integration.discord {
 		}
 		
 		private void UpdateStatus() {
-			if (Run.Level == null) {
+			if (Run.Level?.Biome == null) {
 				return;
 			}
 			
