@@ -35,8 +35,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 			});
 			
 			AddComponent(new ZAnimationComponent("old_king"));
-			
-			Become<IdleState>();
 			SetMaxHp(80);
 		}
 
@@ -49,18 +47,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			if (lastParticle <= 0) {
 				lastParticle = 0.1f;
-				
-				Area.Add(new FireParticle {
-					Offset = new Vector2(-2, -13),
-					Owner = this,
-					Size = 0.5f
-				});
-				
-				Area.Add(new FireParticle {
-					Offset = new Vector2(2, -13),
-					Owner = this,
-					Size = 0.5f
-				});
+
+				if (!IsFriendly()) {
+					Area.Add(new FireParticle {
+						Offset = new Vector2(-2, -13),
+						Owner = this,
+						Size = 0.5f
+					});
+
+					Area.Add(new FireParticle {
+						Offset = new Vector2(2, -13),
+						Owner = this,
+						Size = 0.5f
+					});
+				}
 			}
 		}
 
@@ -285,5 +285,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 		#endregion
+
+		public override void SelectAttack() {
+			base.SelectAttack();
+			Become<IdleState>();
+		}
 	}
 }

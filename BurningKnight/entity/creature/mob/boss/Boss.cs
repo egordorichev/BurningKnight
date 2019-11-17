@@ -17,6 +17,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
@@ -37,7 +38,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		public override void AddComponents() {
 			base.AddComponents();
+
 			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
+			Become<FriendlyState>();
 		}
 		
 		private bool cleared;
@@ -172,6 +175,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		public class DefeatedState : SmartState<Boss> {
 			
+		}
+
+		public class FriendlyState : SmartState<Boss> {
+		
+		}
+
+		public override bool IsFriendly() {
+			return GetComponent<StateComponent>().StateInstance is FriendlyState;
 		}
 
 		public class DefeatedEvent : Event {

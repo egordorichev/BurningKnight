@@ -1,5 +1,10 @@
 # esty stuff
 
+* fix {
+ + slimes cant jump (they dont move from their place)
+ + gamepad shake
+}
+
 * old dude {
  + clear all bullets on death
  + epic death 
@@ -10,6 +15,7 @@
  + raging when you take items from treasure x64s, make him take the rest of the stuff
  + goes into the boss
  + gets out of the boss on death and starts chasing you
+ + check how saving works with capturing bosses
 }
 
 * room / lvl cleared effect

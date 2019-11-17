@@ -39,7 +39,10 @@ namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
 		private BossPatternSet<BurningKnight> set;
 		private static Color tint = new Color(234, 50, 60, 200);
-	
+		private Boss captured;
+		
+		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -87,6 +90,10 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		protected override void OnTargetChange(Entity target) {
+			if (Hidden) {
+				return;
+			}
+			
 			if (!Awoken && target != null) {
 				Awoken = true;
 				// GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
@@ -97,6 +104,45 @@ namespace BurningKnight.entity.creature.bk {
 			}
 
 			base.OnTargetChange(target);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is RoomChangedEvent rce) {
+				if (rce.Who is Player && rce.New != null && rce.New.Type == RoomType.Boss) {
+					foreach (var mob in rce.New.Tagged[Tags.MustBeKilled]) {
+						if (mob != this && mob is Boss b) {
+							captured = b;
+							Become<CaptureState>();
+							
+							break;
+						}
+					}
+				}
+			}
+			
+			return base.HandleEvent(e);
+		}
+
+		private float lastFadingParticle;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (Hidden) {
+				return;
+			}
+
+			lastFadingParticle -= dt;
+			
+			if (lastFadingParticle <= 0) {
+				lastFadingParticle = 0.2f;
+
+				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
+				Area.Add(particle);
+
+				particle.Depth = Depth - 1;
+				particle.Center = Center;
+			}
 		}
 		
 		#region Buring Knight States while calm
@@ -197,27 +243,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			}
 		}
-		#endregion
-
-		private float lastFadingParticle;
 		
-		public override void Update(float dt) {
-			base.Update(dt);
-
-			lastFadingParticle -= dt;
-			
-			if (lastFadingParticle <= 0) {
-				lastFadingParticle = 0.2f;
-
-				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
-				Area.Add(particle);
-
-				particle.Depth = Depth - 1;
-				particle.Center = Center;
-			}
-		}
-
-		#region Fight Stuff
 		public override void SelectAttack() {
 			if (set == null) {
 				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
@@ -227,5 +253,58 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<StateComponent>().PushState(BurningKnightAttackRegistry.GetNext(set));
 		}
 		#endregion
+
+		public class CaptureState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				
+				Camera.Instance.Follow(Self, 0.8f);
+				
+				Timer.Add(() => {
+					Camera.Instance.Follow(Self.captured, 1);
+				}, 0.5f);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				var d = Self.DistanceTo(Self.captured);
+				
+				if (d <= 8) {
+					Become<HiddenState>();
+					Self.captured.SelectAttack();
+				}
+				
+				var a = Self.AngleTo(Self.captured);
+				var force = 300f * dt;
+
+				if (d <= 64f) {
+					force *= 2;
+				}
+
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class HiddenState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+
+				Camera.Instance.Shake(10);
+				Self.Position = Vector2.Zero;
+				
+				Timer.Add(() => {
+					((InGameState) Engine.Instance.State).ResetFollowing();
+				}, 1);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.captured.Done) {
+					Become<TeleportState>();
+				}
+			}
+		}
 	}
 }
