@@ -9,6 +9,13 @@
  + better into boss going anim
  + better getting out of boss
  + check how saving works with capturing bosses
+ 
+ + dialog interactions {
+  - freeing npc
+  - enraging sk 
+  - killing sk
+  - finding a secret room (oh comon stop breaking my castle)
+ }
 }
 
 * room / lvl cleared effect
