@@ -109,22 +109,37 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New != null && rce.New.Type == RoomType.Boss) {
-					foreach (var mob in rce.New.Tagged[Tags.MustBeKilled]) {
-						if (mob != this && mob is Boss b) {
-							captured = b;
-							Become<CaptureState>();
-							
-							break;
+				if (rce.Who is Player && rce.New != null) {
+					var t = rce.New.Type;
+
+					if (t == RoomType.Boss) {
+						foreach (var mob in rce.New.Tagged[Tags.MustBeKilled]) {
+							if (mob != this && mob is Boss b) {
+								captured = b;
+								Become<CaptureState>();
+
+								break;
+							}
+						}
+					} else if (t == RoomType.Treasure) {
+						foreach (var item in rce.New.Tagged[Tags.Item]) {
+							if (item is SingleChoiceStand stand && stand.Item != null) {
+								GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+								break;
+							}
 						}
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
 				if (ite.Stand is SingleChoiceStand) {
+					GetComponent<DialogComponent>().StartAndClose("bk_1", 5);
 					var state = GetComponent<StateComponent>();
 
 					if (!(state.StateInstance is HiddenState)) {
-						state.Become<AttackState>();
+						Timer.Add(() => {
+							Camera.Instance.Shake(10);
+							state.Become<AttackState>();
+						}, 3);
 					}
 				}
 			}
