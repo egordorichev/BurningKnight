@@ -116,7 +116,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			rooms.Add(first ? new EntranceRoom() : new PortalEntranceRoom());
+			rooms.Add(new EntranceRoom());
 
 			var regular = final ? 0 : GetNumRegularRooms();
 			var special = final ? 0 : GetNumSpecialRooms();

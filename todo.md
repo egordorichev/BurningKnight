@@ -3,18 +3,13 @@
 * fix {
  + slimes cant jump (they dont move from their place)
  + gamepad shake
-}
-
-* old dude {
- + clear all bullets on death
- + epic death 
- + no hit boss battle reward
+ + cut down on transition/connection rooms or make them feel more like tunnels
 }
 
 * bk: {
  + raging when you take items from treasure x64s, make him take the rest of the stuff
- + goes into the boss
- + gets out of the boss on death and starts chasing you
+ + better into boss going anim
+ + better getting out of boss
  + check how saving works with capturing bosses
 }
 
@@ -28,6 +23,7 @@
 * !! game sometimes doesnt exit even after window is closed
 
 * second lvl deset enemies
+ + no hit boss battle reward
 
 * look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

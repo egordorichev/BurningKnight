@@ -212,16 +212,37 @@ namespace BurningKnight.entity.creature.bk {
 		#endregion
 		
 		#region Burning Knight States while chasing
-		public class ChaseState : SmartState<BurningKnight> {
+		public class FlyAwayAttackingState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.OnScreen && Self.DistanceTo(Self.Target) <= 128f) {
-					Become<AttackState>();
+				var d = Self.DistanceTo(Self.Target);
+				var force = -300f * dt;
+
+				if (d > 72f) {
+					Self.Become<ChaseState>();
+					return;
 				}
 				
 				var a = Self.AngleTo(Self.Target);
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class ChaseState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				var d = Self.DistanceTo(Self.Target);
 				var force = 300f * dt;
+
+				if (d < 48f) {
+					Self.Become<FlyAwayAttackingState>();
+				} else if (d <= 128f) {
+					Self.Become<AttackState>();
+				}
+
+				var a = Self.AngleTo(Self.Target);
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
@@ -231,7 +252,11 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.3f) {
+				if (Self.DistanceTo(Self.Target) < 48f) {
+					Self.Become<FlyAwayAttackingState>();
+				}
+
+				if (T >= 0.5f) {
 					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
@@ -258,10 +283,10 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Init() {
 				base.Init();
 				
-				Camera.Instance.Follow(Self, 0.8f);
+				Camera.Instance.Follow(Self, 0.3f);
 				
 				Timer.Add(() => {
-					Camera.Instance.Follow(Self.captured, 1);
+					Camera.Instance.Follow(Self.captured, 0.3f);
 				}, 0.5f);
 			}
 
@@ -287,6 +312,8 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		
 		public class HiddenState : SmartState<BurningKnight> {
+			private bool teleported;
+			
 			public override void Init() {
 				base.Init();
 
@@ -301,8 +328,21 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.captured.Done) {
-					Become<TeleportState>();
+				if (!teleported && Self.captured.Done) {
+					teleported = true;
+					
+					var graphics = Self.GetComponent<BkGraphicsComponent>();
+					graphics.Alpha = 0;
+
+					if (Self.Target != null) {
+						Self.Center = Self.Target.Center + MathUtils.CreateVector(Rnd.AnglePI(), 128f);
+					}
+				
+					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						Timer.Add(() => {
+							Self.Become<ChaseState>();
+						}, 1f);
+					};
 				}
 			}
 		}
