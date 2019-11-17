@@ -33,7 +33,7 @@ namespace BurningKnight.level.entities.machine {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = 13;
+			Width = 19;
 			Height = 23;
 			
 			AddComponent(new DialogComponent());
