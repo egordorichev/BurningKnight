@@ -13,10 +13,10 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using SharpDX.Direct3D11;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class WallWalker : Mob {
@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			
 			Width = 16;
 			Height = 16;
-			Left = Random.Chance();
+			Left = Rnd.Chance();
 			
 			GetComponent<BuffsComponent>().AddImmunity<FrozenBuff>();
 		}
@@ -73,7 +73,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			CenterX = x * 16 + 8;
 			CenterY = y * 16;
 			
-			Direction = dirs[Random.Int(dirs.Count)];
+			Direction = dirs[Rnd.Int(dirs.Count)];
 			var angle = Direction.ToAngle();
 			
 			var v = Direction == Direction.Up || Direction == Direction.Down;
@@ -130,7 +130,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				
 				if (!Self.Inited) {
 					Self.Inited = true;
-					T = Random.Float(1f);
+					T = Rnd.Float(1f);
 				}
 
 				var f = Self.GetSpeed();

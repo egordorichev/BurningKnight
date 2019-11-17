@@ -11,8 +11,8 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.stand {
 	public class ShopStand : ItemStand {
@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item.stand {
 
 		public override void Init() {
 			base.Init();
-			onSale = Random.Chance(10 + Run.Luck * 2);
+			onSale = Rnd.Chance(10 + Run.Luck * 2);
 		}
 
 		protected override string GetSprite() {
@@ -60,7 +60,7 @@ namespace BurningKnight.entity.item.stand {
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
 					if (n is ShopNpc || n is ShopKeeper) {
-						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 						break;
 					}
 				}

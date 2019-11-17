@@ -1,7 +1,7 @@
 using System;
 using BurningKnight.entity.buff;
 using Lens.entity.component;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.component {
 	public class ZComponent : Component {
@@ -14,7 +14,7 @@ namespace BurningKnight.entity.component {
 
 		public override void Init() {
 			base.Init();
-			t = Random.Float(5f);
+			t = Rnd.Float(5f);
 		}
 
 		public override void Update(float dt) {

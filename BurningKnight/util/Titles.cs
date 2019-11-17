@@ -1,5 +1,5 @@
 using System;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.util {
 	public static class Titles {
@@ -14,15 +14,15 @@ namespace BurningKnight.util {
 			
 			foreach (var b in birthdays) {
 				if (b.Day == now.Day && b.Month == now.Month) {
-					return birthdayTitles[Random.Int(birthdayTitles.Length)];
+					return birthdayTitles[Rnd.Int(birthdayTitles.Length)];
 				}
 			}
 
-			if (Random.Chance(0.01f)) {
+			if (Rnd.Chance(0.01f)) {
 				return "You feel lucky";
 			}
 
-			return titles[Random.Int(titles.Length)];
+			return titles[Rnd.Int(titles.Length)];
 		}
 
 		private static string[] titles = {

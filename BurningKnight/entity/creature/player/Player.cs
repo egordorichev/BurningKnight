@@ -29,11 +29,11 @@ using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
@@ -263,7 +263,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 					
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 
@@ -306,7 +306,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 			}
@@ -338,7 +338,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 			}
@@ -393,7 +393,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Area.Add(part);
 				}
 			} else if (e is RoomChangedEvent c) {
@@ -444,8 +444,8 @@ namespace BurningKnight.entity.creature.player {
 					if (Settings.Blood) {
 						var cl = GetBloodColor();
 
-						if (Random.Chance(30)) {
-							for (var i = 0; i < Random.Int(1, 3); i++) {
+						if (Rnd.Chance(30)) {
+							for (var i = 0; i < Rnd.Int(1, 3); i++) {
 								Area.Add(new SplashParticle {
 									Position = Center - new Vector2(2.5f),
 									Color = cl
@@ -499,7 +499,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			for (var i = 0; i < 6; i++) {
 				Area.Add(new ParticleEntity(Particles.Dust()) {
-					Position = Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4)), 
+					Position = Center + new Vector2(Rnd.Int(-4, 4), Rnd.Int(-4, 4)), 
 					Depth = 30
 				});
 			}
@@ -540,7 +540,7 @@ namespace BurningKnight.entity.creature.player {
 				pool.Add("bk:coin");
 			}
 
-			GlobalSave.Put("next_tomb", pool[Random.Int(pool.Count)]);
+			GlobalSave.Put("next_tomb", pool[Rnd.Int(pool.Count)]);
 			GlobalSave.Put("tomb_depth", Run.Depth);
 			
 			Area.Add(stone);

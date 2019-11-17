@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.drop {
 					}
 				}			
 				
-				var value = Random.Float(sum);
+				var value = Rnd.Float(sum);
 				sum = 0;
 				i = 0;
 				

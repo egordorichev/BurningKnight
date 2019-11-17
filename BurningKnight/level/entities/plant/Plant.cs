@@ -3,8 +3,8 @@ using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.entities.plant {
 	public class Plant : Prop {
@@ -41,7 +41,7 @@ namespace BurningKnight.level.entities.plant {
 
 		public override void Init() {
 			base.Init();
-			variant = (byte) Random.Int(variants.Length * 2);
+			variant = (byte) Rnd.Int(variants.Length * 2);
 		}
 		
 		public override void Load(FileReader stream) {

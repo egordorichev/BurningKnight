@@ -5,10 +5,12 @@ using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.entity.projectile.pattern;
 using BurningKnight.level;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class OldKing : Boss {
@@ -89,7 +91,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 
 				if (T >= (Self.Raging ? 3f : 5f)) {
-					if (Random.Chance(95)) {
+					if (Rnd.Chance(95)) {
 						Self.lastAttack = (Self.lastAttack + 1) % 2;
 					}
 
@@ -111,31 +113,39 @@ namespace BurningKnight.entity.creature.mob.boss {
 				if ((count + 1) * (Self.Raging ? 0.7f : 1.5f) <= T) {
 					count++;
 
-					if (count == (Self.Raging ? 6 : 4)) {
-						Self.Become<IdleState>();
-						return;
-					}
+					var a = Self.GetComponent<ZAnimationComponent>();
 
-					var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), 10);
+					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
 
-					skull.OnDeath += (p, t) => {
-						if (!t) {
-							return;
-						}
-					
-						for (var i = 0; i < 8; i++) {
-							var bullet = Projectile.Make(Self, "small", 
-								((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 4);
+						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
+						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 						
-							bullet.Center = p.Center;
+						var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), Rnd.Float(5, 12));
+
+						skull.OnDeath += (p, t) => {
+							if (!t) {
+								return;
+							}
+					
+							for (var i = 0; i < 8; i++) {
+								var bullet = Projectile.Make(Self, "small", 
+									((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+						
+								bullet.Center = p.Center;
+							}
+						};
+
+						skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
+						skull.Range = 5f;
+						skull.IndicateDeath = true;
+						skull.CanBeReflected = false;
+						skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
+						
+						if (count == (Self.Raging ? 6 : 4)) {
+							Self.Become<IdleState>();
 						}
 					};
-
-					skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
-					skull.Range = 5f;
-					skull.IndicateDeath = true;
-					skull.CanBeReflected = false;
-					skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
 				}
 			}
 		}
@@ -164,8 +174,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Init() {
 				base.Init();
 				
-				var a = Self.Target == null || (!Self.Raging && Random.Chance()) ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
-				var force = Random.Float(20f) + (Self.Raging ? 240 : 120);
+				var a = Self.Target == null || (!Self.Raging && Rnd.Chance()) ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
+				var force = Rnd.Float(20f) + (Self.Raging ? 240 : 120);
 				
 				Self.GetComponent<RectBodyComponent>().Velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				Self.GetComponent<ZComponent>().ZVelocity = 10;
@@ -206,11 +216,46 @@ namespace BurningKnight.entity.creature.mob.boss {
 			private const int SmallCount = 8;
 			private const int InnerCount = 8;
 
-			private bool fired;
-			
 			public override void Init() {
 				base.Init();
-				Self.GetComponent<ZAnimationComponent>().SetAutoStop(true);
+				
+				var a = Self.GetComponent<ZAnimationComponent>();
+				a.SetAutoStop(true);
+
+				Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
+				Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
+					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
+					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
+				};
+				
+				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+					
+				for (var i = 0; i < SmallCount; i++) {
+					var an = (float) (((float) i) / SmallCount * Math.PI * 2);
+						
+					var pp = new ProjectilePattern(CircleProjectilePattern.Make(4.5f, 10 * (i % 2 == 0 ? 1 : -1))) {
+						Position = Self.BottomCenter
+					};
+
+					for (var j = 0; j < 2; j++) {
+						var b = Projectile.Make(Self, "small");
+						pp.Add(b);
+						b.AddLight(32f, Projectile.RedLight);
+					}
+				
+					pp.Launch(an, 40);
+					Self.Area.Add(pp);
+				}
+
+				var aa = Self.AngleTo(Self.Target);
+					
+				for (var i = 0; i < (Self.Raging ? 2 : 1) * InnerCount; i++) {
+					var s = Rnd.Chance(40);
+					var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1);
+						
+					b.Center = Self.BottomCenter;
+					b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
+				}
 			}
 
 			public override void Destroy() {
@@ -223,39 +268,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				var animation = Self.GetComponent<ZAnimationComponent>().Animation;
 
-				if (!fired && animation.Frame == 1) {
-					fired = true;
-					
-					Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
-					
-					for (var i = 0; i < SmallCount; i++) {
-						var an = (float) (((float) i) / SmallCount * Math.PI * 2);
-						
-						var pp = new ProjectilePattern(CircleProjectilePattern.Make(4.5f, 10 * (i % 2 == 0 ? 1 : -1))) {
-							Position = Self.BottomCenter
-						};
-
-						for (var j = 0; j < 2; j++) {
-							var b = Projectile.Make(Self, "small");
-							pp.Add(b);
-							b.AddLight(32f, Projectile.RedLight);
-						}
-				
-						pp.Launch(an, 40);
-						Self.Area.Add(pp);
-					}
-
-					var a = Self.AngleTo(Self.Target);
-					
-					for (var i = 0; i < (Self.Raging ? 2 : 1) * InnerCount; i++) {
-						var s = Random.Chance(40);
-						var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", a + Random.Float(-0.3f, 0.3f), Random.Float(2, 12), true, 1);
-						
-						b.Center = Self.BottomCenter;
-						b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
-					}
-				}
-					
 				if (animation.Paused) {
 					if (Self.Raging) {
 						if (Self.jumpCounter < 3) {

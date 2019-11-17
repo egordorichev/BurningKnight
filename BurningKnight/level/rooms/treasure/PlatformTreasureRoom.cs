@@ -9,7 +9,7 @@ namespace BurningKnight.level.rooms.treasure {
 			Painter.Fill(level, this, 1, Tiles.RandomSolid());
 
 			var f = Tiles.RandomFloor();
-			var m = Random.Int(2, 4);
+			var m = Rnd.Int(2, 4);
 			
 			Painter.Fill(level, this, m, f);
 
@@ -22,7 +22,7 @@ namespace BurningKnight.level.rooms.treasure {
 			PlaceStand(level, new Dot(Left + m, Bottom - m) * 16);
 			PlaceStand(level, new Dot(Right - m, Bottom - m) * 16);
 
-			PaintTunnel(level, Random.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
+			PaintTunnel(level, Rnd.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
 			
 			SetupStands(level);
 		}

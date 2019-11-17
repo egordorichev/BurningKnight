@@ -12,7 +12,7 @@ namespace BurningKnight.entity.component {
 		
 		public RandomFrameComponent(string anim) {
 			var list = Animations.Get(anim).Layers.First().Value;
-			Sprite = list[Random.Int(list.Count)].Texture;
+			Sprite = list[Rnd.Int(list.Count)].Texture;
 		}
 		
 		public override void Render(bool shadow) {

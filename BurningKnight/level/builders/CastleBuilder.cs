@@ -28,7 +28,7 @@ namespace BurningKnight.level.builders {
 				return null;
 			}
 			
-			var a = Random.Angle() - 90;
+			var a = Rnd.Angle() - 90;
 			var i = 0;
 					
 			while (true && Boss != null) {
@@ -51,7 +51,7 @@ namespace BurningKnight.level.builders {
 
 			foreach (RoomDef R in Init) {
 				foreach (RoomDef N in R.Neighbours) {
-					if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+					if (!N.Connected.ContainsKey(R) && Rnd.Float() < ExtraConnectionChance) {
 						R.ConnectWithRoom(N);
 					}
 				}

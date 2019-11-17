@@ -7,9 +7,9 @@ using BurningKnight.state;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.util {
 	public static class AnimationUtil {
@@ -23,7 +23,7 @@ namespace BurningKnight.util {
 				var part = new ParticleEntity(Particles.Dust());
 						
 				part.Position = where;
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				Run.Level.Area.Add(part);
 				part.Depth = depth;
 			}

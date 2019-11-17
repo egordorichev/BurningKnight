@@ -53,7 +53,7 @@ namespace BurningKnight.ui.dialog {
 						c = char.ToUpper(c);
 					}
 					
-					return Answer.Length < 8 && Random.SeedChars.IndexOf(c) != -1 && c != '_' ? c : '\0';
+					return Answer.Length < 8 && Rnd.SeedChars.IndexOf(c) != -1 && c != '_' ? c : '\0';
 				}
 			}
 

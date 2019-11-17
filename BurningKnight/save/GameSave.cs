@@ -4,7 +4,7 @@ using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.save {
 	public class GameSave : Saver {
@@ -98,7 +98,7 @@ namespace BurningKnight.save {
 			Run.Time = reader.ReadFloat();
 
 			if (Run.LastSavedDepth > 0) {
-				Random.Seed = Run.Seed = reader.ReadString();
+				Rnd.Seed = Run.Seed = reader.ReadString();
 			}
 		}
 

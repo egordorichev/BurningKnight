@@ -37,7 +37,7 @@ namespace BurningKnight.level {
 				ItemsToSpawn.Add("bk:bomb");
 
 				if (GlobalSave.IsTrue("saved_npc")) {
-					for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
+					for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
 						ItemsToSpawn.Add("bk:emerald");
 					}
 				}
@@ -69,12 +69,12 @@ namespace BurningKnight.level {
 			var Builder = GetBuilder();
 			var Rooms = CreateRooms();
 
-			Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+			Rooms = (List<RoomDef>) Rooms.Shuffle(Rnd.Generator);
 
 			var Attempt = 0;
 
 			do {
-				Log.Info($"Generating (attempt {Attempt}, seed {Random.Seed})...");
+				Log.Info($"Generating (attempt {Attempt}, seed {Rnd.Seed})...");
 
 				foreach (var Room in Rooms) {
 					Room.Connected.Clear();
@@ -94,7 +94,7 @@ namespace BurningKnight.level {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");
 						Attempt = 0;
 						Rooms = CreateRooms();
-						Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+						Rooms = (List<RoomDef>) Rooms.Shuffle(Rnd.Generator);
 					}
 
 					Attempt++;
@@ -183,7 +183,7 @@ namespace BurningKnight.level {
 				return new LineBuilder();
 			}
 			
-			var R = Random.Float();
+			var R = Rnd.Float();
 
 			if (R < 0.33f) {
 				return new LineBuilder();
@@ -201,7 +201,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumTrapRooms() {
-			return Random.Int(0, 2);
+			return Rnd.Int(0, 2);
 		}
 
 		protected virtual int GetNumSpecialRooms() {

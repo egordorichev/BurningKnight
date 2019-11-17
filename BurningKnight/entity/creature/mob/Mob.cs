@@ -22,10 +22,10 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -319,12 +319,12 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public void GeneratePrefix() {
-			if (!Random.Chance(Run.Curse * 10 + 0.5f)) {
+			if (!Rnd.Chance(Run.Curse * 10 + 0.5f)) {
 				return;
 			}
 
 			var all = PrefixRegistry.Defined.Keys.ToArray();
-			SetPrefix(all[Random.Int(all.Length)]);
+			SetPrefix(all[Rnd.Int(all.Length)]);
 		}
 
 		public void SetPrefix(string id) {

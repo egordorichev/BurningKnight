@@ -318,7 +318,7 @@
     <Compile Include="util\Log.cs" />
     <Compile Include="util\MathUtils.cs" />
     <Compile Include="util\math\Calc.cs" />
-    <Compile Include="util\math\Random.cs" />
+    <Compile Include="util\math\Rnd.cs" />
     <Compile Include="util\Noise.cs" />
     <Compile Include="util\NumberExtensions.cs" />
     <Compile Include="util\pool\DisposablePool.cs" />

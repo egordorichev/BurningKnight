@@ -12,10 +12,10 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.orbital {
 	public static class OrbitalRegistry {
@@ -98,7 +98,7 @@ namespace BurningKnight.entity.orbital {
 					if (e is Projectile p && p.Owner != orbital.Owner) {
 						p.Break();
 						
-						if (Random.Chance(20 - Run.Luck * 5)) {
+						if (Rnd.Chance(20 - Run.Luck * 5)) {
 							or.Done = true;
 							AnimationUtil.Poof(or.Center);
 						}
@@ -128,7 +128,7 @@ namespace BurningKnight.entity.orbital {
 
 						var b = p.GetAnyComponent<BodyComponent>();
 						var d = b.Velocity.Length();
-						var a = b.Velocity.ToAngle() - Math.PI + Random.Float(-0.3f, 0.3f);
+						var a = b.Velocity.ToAngle() - Math.PI + Rnd.Float(-0.3f, 0.3f);
 
 						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 						
@@ -189,7 +189,7 @@ namespace BurningKnight.entity.orbital {
 
 						Tween.To(1, 1.5f, x => s.Scale.X = x, 0.3f);
 						Tween.To(0, 1, x => s.Scale.Y = x, 0.2f).OnEnd = () => {
-							s.Sprite = CommonAse.Items.GetSlice(planets[Random.Int(planets.Length)]);
+							s.Sprite = CommonAse.Items.GetSlice(planets[Rnd.Int(planets.Length)]);
 							s.SetOwnerSize();
 							
 							orbital.RemoveComponent<CircleBodyComponent>();

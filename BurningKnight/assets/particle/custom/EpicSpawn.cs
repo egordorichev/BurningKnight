@@ -6,9 +6,9 @@ using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.custom {
 	public class EpicSpawn : Entity {
@@ -26,7 +26,7 @@ namespace BurningKnight.assets.particle.custom {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			tt = Random.Float(1024);
+			tt = Rnd.Float(1024);
 
 			Depth = Layers.Ui;
 			AlwaysActive = true;
@@ -50,7 +50,7 @@ namespace BurningKnight.assets.particle.custom {
 			if (lastRay <= 0) {
 				lastRay = Math.Max(0.1f, (5f - t) / 20f);
 				rays.Add(new Ray {
-					Angle = Random.AnglePI()
+					Angle = Rnd.AnglePI()
 				});
 			}
 

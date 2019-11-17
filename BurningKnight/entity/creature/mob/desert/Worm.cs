@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 				
 				Self.TouchDamage = 0;
 				Self.GetComponent<HealthComponent>().Unhittable = true;
-				delay = Random.Float(0.5f, 1.5f);
+				delay = Rnd.Float(0.5f, 1.5f);
 
 				Self.Center = target;
 				
@@ -159,7 +159,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 							}
 								
 							var ac = 0.1f;
-							var angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
+							var angle = Self.AngleTo(Self.Target) + Rnd.Float(-ac, ac);
 							var projectile = Projectile.Make(Self, "small", angle, 8f);
 
 							projectile.Center += MathUtils.CreateVector(angle, 2f);

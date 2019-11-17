@@ -4,7 +4,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesShatternOnDeathUse : ItemUse {
@@ -17,8 +17,8 @@ namespace BurningKnight.entity.item.use {
 					var s = v.Length();
 					var c = p.HasComponent<CircleBodyComponent>();
 
-					for (var i = 0; i < Random.Int(3, 5); i++) {
-						Projectile.Make(pce.Owner, p.Slice, a + Random.Float(-1.4f, 1.4f), s * Random.Float(0.3f, 0.7f), c, -1, p, p.Scale * Random.Float(0.4f, 0.8f)).Center = p.Center;
+					for (var i = 0; i < Rnd.Int(3, 5); i++) {
+						Projectile.Make(pce.Owner, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f), c, -1, p, p.Scale * Rnd.Float(0.4f, 0.8f)).Center = p.Center;
 					}
 				};
 			}

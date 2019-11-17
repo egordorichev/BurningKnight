@@ -6,7 +6,7 @@ namespace BurningKnight.assets.particle.controller {
 		public override void Init(Particle particle, Entity owner) {
 			base.Init(particle, owner);
 			
-			particle.AngleVelocity = Random.Float(0.6f, 1) * 5 * (Random.Chance() ? -1 : 1);
+			particle.AngleVelocity = Rnd.Float(0.6f, 1) * 5 * (Rnd.Chance() ? -1 : 1);
 		}
 
 		public override bool Update(Particle particle, float dt) {

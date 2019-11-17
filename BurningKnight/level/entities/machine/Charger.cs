@@ -153,9 +153,9 @@ namespace BurningKnight.level.entities.machine {
 
 			timesUsed += e == null ? 2 : 1;
 
-			active.Charge(Random.Int(1, 3));
+			active.Charge(Rnd.Int(1, 3));
 			
-			if (Random.Float(100) < timesUsed * 2 - Run.Luck * 0.5f) {
+			if (Rnd.Float(100) < timesUsed * 2 - Run.Luck * 0.5f) {
 				Break();
 				ExplosionMaker.Make(p);
 				return true;

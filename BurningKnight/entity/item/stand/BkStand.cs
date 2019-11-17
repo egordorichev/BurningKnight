@@ -11,10 +11,10 @@ using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.stand {
 	public class BkStand : ItemStand {
@@ -96,10 +96,10 @@ namespace BurningKnight.entity.item.stand {
 				}, 3f);
 
 				for (var x = xx - p; x < xx + Width + p; x += 16) {
-					for (var i = 0; i < Random.Int(3, 9); i++) {
+					for (var i = 0; i < Rnd.Int(3, 9); i++) {
 						Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), xy - p + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(x + Rnd.Float(-2, 18), xy - p + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -108,8 +108,8 @@ namespace BurningKnight.entity.item.stand {
 						});
 
 						Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), xy + Height + p - 16 + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(x + Rnd.Float(-2, 18), xy + Height + p - 16 + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -120,10 +120,10 @@ namespace BurningKnight.entity.item.stand {
 				}
 
 				for (var y = xy; y < xy + Height; y += 16) {
-					for (var i = 0; i < Random.Int(3, 9); i++) {
+					for (var i = 0; i < Rnd.Int(3, 9); i++) {
 						Area.Add(new FireParticle {
-								Position = new Vector2(xx + Random.Float(-2, 18) - p, y + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(xx + Rnd.Float(-2, 18) - p, y + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -132,8 +132,8 @@ namespace BurningKnight.entity.item.stand {
 						});
 
 						Area.Add(new FireParticle {
-								Position = new Vector2(xx + Width + p - 16 + Random.Float(-2, 18), y + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(xx + Width + p - 16 + Rnd.Float(-2, 18), y + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,

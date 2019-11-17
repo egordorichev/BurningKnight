@@ -12,17 +12,17 @@ namespace BurningKnight.level.floors {
 			};
 
 			if (gold) {
-				tiles[Random.Int(3)] = Tile.FloorD;
+				tiles[Rnd.Int(3)] = Tile.FloorD;
 			}
 
-			tiles = tiles.OrderBy(x => Random.Generator.Next()).ToArray();
+			tiles = tiles.OrderBy(x => Rnd.Generator.Next()).ToArray();
 			
 			var a = tiles[0];
 			var b = tiles[1];
-			var c = Random.Chance() ? a : tiles[2];
-			var start = Random.Float();
-			var size = Random.Int(1, 4);
-			var two = Random.Chance();
+			var c = Rnd.Chance() ? a : tiles[2];
+			var start = Rnd.Float();
+			var size = Rnd.Int(1, 4);
+			var two = Rnd.Chance();
 						
 			for (int y = inside.Top; y < inside.Bottom; y++) {
 				for (int x = inside.Left; x < inside.Right; x++) {

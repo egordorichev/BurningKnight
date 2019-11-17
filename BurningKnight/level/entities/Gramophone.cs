@@ -14,9 +14,9 @@ using ImGuiNET;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.entities {
 	public class Gramophone : Prop {
@@ -122,13 +122,13 @@ namespace BurningKnight.level.entities {
 			tillNext -= dt;
 
 			if (tillNext <= 0) {
-				tillNext = Random.Float(1, 3f);
+				tillNext = Rnd.Float(1, 3f);
 				
-				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"note_{Random.Int(1, 3)}"))));
+				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"note_{Rnd.Int(1, 3)}"))));
 				part.Position = Center;
 				Area.Add(part);
 				
-				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(40, 66));
+				part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(40, 66));
 				part.Particle.Angle = 0;
 				part.Depth = Layers.InGameUi;
 			}

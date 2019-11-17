@@ -57,7 +57,7 @@ namespace BurningKnight.level.paintings {
 				}
 			}
 
-			float value = Random.Float(sum);
+			float value = Rnd.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {

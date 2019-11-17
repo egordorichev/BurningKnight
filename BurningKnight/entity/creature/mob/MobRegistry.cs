@@ -4,7 +4,7 @@ using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.level.biome;
 using BurningKnight.state;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
@@ -59,8 +59,8 @@ namespace BurningKnight.entity.creature.mob {
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
-			for (int i = 0; i < Random.Int(2, 6); i++) {
-				var type = Current[Random.Chances(chances)];
+			for (int i = 0; i < Rnd.Int(2, 6); i++) {
+				var type = Current[Rnd.Chances(chances)];
 				var found = false;
 				
 				foreach (var t in types) {
@@ -82,7 +82,7 @@ namespace BurningKnight.entity.creature.mob {
 				return null;
 			}
 
-			return (Mob) Activator.CreateInstance(types[Random.Chances(spawnChances)].Type);
+			return (Mob) Activator.CreateInstance(types[Rnd.Chances(spawnChances)].Type);
 		}
 
 		public static void SetupForBiome(string biome) {

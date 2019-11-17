@@ -8,32 +8,32 @@ namespace BurningKnight.level.floors {
 		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
 			Painter.Fill(level, inside, Tiles.RandomFloor(gold));
 
-			if (Random.Chance()) {
-				Painter.FillEllipse(level, inside, gold && Random.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
+			if (Rnd.Chance()) {
+				Painter.FillEllipse(level, inside, gold && Rnd.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
 			}
 
-			if (Random.Chance(20)) {
+			if (Rnd.Chance(20)) {
 				return;
 			}
 			
-			inside = inside.Shrink(Random.Int(1, 3));
+			inside = inside.Shrink(Rnd.Int(1, 3));
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.Fill(level, inside, gold ? Tile.FloorD : Tiles.RandomNewFloor());
 			} else {
 				Painter.Fill(level, inside, gold ? Tile.FloorD : Tiles.RandomNewFloor());
 			}
 			
-			if (Random.Chance(40)) {
+			if (Rnd.Chance(40)) {
 				return;
 			}
 			
-			inside = inside.Shrink(Random.Int(1, 3));
+			inside = inside.Shrink(Rnd.Int(1, 3));
 
-			if (Random.Chance()) {
-				Painter.Fill(level, inside, gold && Random.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
+			if (Rnd.Chance()) {
+				Painter.Fill(level, inside, gold && Rnd.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
 			} else {
-				Painter.Fill(level, inside, gold && Random.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
+				Painter.Fill(level, inside, gold && Rnd.Chance(30) ? Tile.FloorD : Tiles.RandomNewFloor());
 			}
 		}
 	}

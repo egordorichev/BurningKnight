@@ -6,15 +6,15 @@ using Lens.util.math;
 namespace BurningKnight.level.floors {
 	public class ChessFloor : FloorPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.Fill(level, inside, Tiles.RandomFloor());
-				inside = inside.Shrink(Random.Int(1, 3));
+				inside = inside.Shrink(Rnd.Int(1, 3));
 			}
 			
 			var a = gold ? Tile.FloorD : Tiles.RandomFloor();
 			var b = Tiles.RandomNewFloor();
-			var start = Random.Float();
-			var size = (float) Random.Int(1, 4); // Cast to float for division later on
+			var start = Rnd.Float();
+			var size = (float) Rnd.Int(1, 4); // Cast to float for division later on
 						
 			for (int y = inside.Top; y < inside.Bottom; y++) {
 				for (int x = inside.Left; x < inside.Right; x++) {

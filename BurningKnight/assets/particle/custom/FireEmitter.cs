@@ -1,8 +1,8 @@
 using System;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.custom {
 	public class FireEmitter : Entity {
@@ -17,7 +17,7 @@ namespace BurningKnight.assets.particle.custom {
 			region = CommonAse.Particles.GetSlice("fire_emitter");
 			Width = region.Width;
 			Height = region.Height;
-			t = Random.Float(6);
+			t = Rnd.Float(6);
 		}
 
 		public override void Update(float dt) {

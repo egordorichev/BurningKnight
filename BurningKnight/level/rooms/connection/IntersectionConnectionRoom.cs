@@ -9,8 +9,8 @@ namespace BurningKnight.level.rooms.connection {
 			Painter.Fill(level, this, Tile.WallA);
 			Painter.Fill(level, this, 1, Tiles.RandomSolid());
 
-			var b = Random.Chance();
-			var a = Random.Chance();
+			var b = Rnd.Chance();
+			var a = Rnd.Chance();
 
 			var left = false;
 			var right = false;
@@ -39,15 +39,15 @@ namespace BurningKnight.level.rooms.connection {
 					from = new Dot(d.X, d.Y - 1);
 				}
 				
-				Painter.DrawLine(level, from, to, Tiles.RandomFloor(), b && (a || Random.Chance()));
+				Painter.DrawLine(level, from, to, Tiles.RandomFloor(), b && (a || Rnd.Chance()));
 			}
 
 			if ((right || left) && !(bottom || top)) {
-				var x = Random.Int(Left + 1, Right - 1);
-				Painter.DrawLine(level, new Dot(x, Top + 1), new Dot(x, Bottom - 1), Tile.FloorD, b && (a || Random.Chance()));
+				var x = Rnd.Int(Left + 1, Right - 1);
+				Painter.DrawLine(level, new Dot(x, Top + 1), new Dot(x, Bottom - 1), Tile.FloorD, b && (a || Rnd.Chance()));
 			} else if ((top || bottom) && !(left || right)) {
-				var y = Random.Int(Top + 1, Bottom - 1);
-				Painter.DrawLine(level, new Dot(Left + 1, y), new Dot(Right - 1, y), Tile.FloorD, b && (a || Random.Chance()));
+				var y = Rnd.Int(Top + 1, Bottom - 1);
+				Painter.DrawLine(level, new Dot(Left + 1, y), new Dot(Right - 1, y), Tile.FloorD, b && (a || Rnd.Chance()));
 			}
 		}
 

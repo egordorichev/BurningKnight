@@ -2,8 +2,8 @@ using System;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class FollowerComponent : Component {
@@ -69,7 +69,7 @@ namespace BurningKnight.entity.component {
 
 				if (d > 1024f || !Entity.OnScreen) {
 					AnimationUtil.Poof(Entity.Center);
-					Entity.Center = Following.Center + Random.Vector(-16, 16);
+					Entity.Center = Following.Center + Rnd.Vector(-16, 16);
 					AnimationUtil.Poof(Entity.Center);
 					return;
 				}

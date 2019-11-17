@@ -25,7 +25,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 			}
 
-			return types[Random.Chances(ch)];
+			return types[Rnd.Chances(ch)];
 		}
 	}
 }

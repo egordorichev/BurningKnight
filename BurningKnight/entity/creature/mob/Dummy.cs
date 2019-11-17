@@ -35,11 +35,11 @@ namespace BurningKnight.entity.creature.mob {
 				Become<HurtState>();
 				GraphicsComponent.Flipped = ev.From.CenterX > CenterX;
 
-				if (Run.Depth < 1 && Random.Chance(30)) {
+				if (Run.Depth < 1 && Rnd.Chance(30)) {
 					var dialog = GetComponent<DialogComponent>();
 
 					if (dialog.Current == null) {
-						dialog.StartAndClose($"npc_hurt_{Random.Int(3)}", 2);
+						dialog.StartAndClose($"npc_hurt_{Rnd.Int(3)}", 2);
 					}
 				}
 				

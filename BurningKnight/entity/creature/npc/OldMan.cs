@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.npc {
 					t = 0;
 
 					var all = BiomeRegistry.Defined.Values.ToArray();
-					Run.Level.SetBiome(all[Random.Int(all.Length)]);
+					Run.Level.SetBiome(all[Rnd.Int(all.Length)]);
 				}
 
 				return;

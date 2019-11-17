@@ -123,7 +123,7 @@ namespace BurningKnight.entity.door {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = Center;
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				
 				Area.Add(part);
 			}

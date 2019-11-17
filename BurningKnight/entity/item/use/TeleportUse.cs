@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item.use {
 			
 			foreach (var e in entities) {
 				var room = e.GetComponent<RoomComponent>().Room;
-				var newRoom = (Room) Random.Element<Entity>(rooms, r => r != room);
+				var newRoom = (Room) Rnd.Element<Entity>(rooms, r => r != room);
 
 				if (newRoom != null) {
 					AnimationUtil.TeleportAway(e, () => {

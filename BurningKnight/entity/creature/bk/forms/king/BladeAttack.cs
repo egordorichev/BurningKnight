@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 
 		public override void Init() {
 			base.Init();
-			count = Random.Int(3, 5);
+			count = Rnd.Int(3, 5);
 		}
 
 		public override void Update(float dt) {

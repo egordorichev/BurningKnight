@@ -4,7 +4,7 @@ using BurningKnight.save;
 using BurningKnight.save.statistics;
 using Lens;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.state {
 	public static class Run {
@@ -67,11 +67,11 @@ namespace BurningKnight.state {
 			} else if (IgnoreSeed) {
 				IgnoreSeed = false;
 			} else {
-				Seed = Random.GenerateSeed();
+				Seed = Rnd.GenerateSeed();
 			}
 
 			GlobalSave.RunId++;
-			Random.Seed = Seed;
+			Rnd.Seed = Seed;
 			
 			Log.Debug($"This run's seed is {Seed}");
 		}

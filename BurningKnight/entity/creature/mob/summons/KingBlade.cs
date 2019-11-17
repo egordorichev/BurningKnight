@@ -5,9 +5,9 @@ using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.summons {
 	public class KingBlade : Mob {
@@ -65,7 +65,7 @@ namespace BurningKnight.entity.creature.mob.summons {
 					
 					for (var i = 0; i < 16; i++) {
 						var aan = (float) Math.PI * i / 8f;
-						var p = Projectile.Make(this, "small_triangle", aan, 5, false, scale : Random.Float(0.5f, 1f));
+						var p = Projectile.Make(this, "small_triangle", aan, 5, false, scale : Rnd.Float(0.5f, 1f));
 
 						p.Center += v;
 						p.AddLight(32f, Color.Red);
@@ -102,7 +102,7 @@ namespace BurningKnight.entity.creature.mob.summons {
 				if (tt > 0.1f) {
 					tt = 0;
 					
-					var p = Projectile.Make(this, "triangle", angle + Random.Float(-0.8f, 0.8f), 10, false, scale: Random.Float(0.5f, 1f));
+					var p = Projectile.Make(this, "triangle", angle + Rnd.Float(-0.8f, 0.8f), 10, false, scale: Rnd.Float(0.5f, 1f));
 					p.Center += MathUtils.CreateVector(angle, 13);
 				}
 

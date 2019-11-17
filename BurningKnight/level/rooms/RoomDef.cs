@@ -17,8 +17,8 @@ using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms {
 	public abstract class RoomDef : Rect {
@@ -180,11 +180,11 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public Dot GetRandomCell() {
-			return new Dot(Random.Int(Left + 1, Right), Random.Int(Top + 1, Bottom));
+			return new Dot(Rnd.Int(Left + 1, Right), Rnd.Int(Top + 1, Bottom));
 		}
 		
 		public Dot GetRandomCellWithWalls() {
-			return new Dot(Random.Int(Left, Right + 1), Random.Int(Top, Bottom + 1));
+			return new Dot(Rnd.Int(Left, Right + 1), Rnd.Int(Top, Bottom + 1));
 		}
 
 		public Dot GetRandomFreeCell() {
@@ -321,7 +321,7 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public RoomDef GetRandomNeighbour() {
-			return Neighbours[Random.Int(Neighbours.Count)];
+			return Neighbours[Rnd.Int(Neighbours.Count)];
 		}
 
 		public bool SetSize() {
@@ -342,10 +342,10 @@ namespace BurningKnight.level.rooms {
 			}
 
 			if (Quad()) {
-				var V = Math.Min(ValidateWidth(Random.Int(MinW, MaxW) - 1), ValidateHeight(Random.Int(MinH, MaxH) - 1));
+				var V = Math.Min(ValidateWidth(Rnd.Int(MinW, MaxW) - 1), ValidateHeight(Rnd.Int(MinH, MaxH) - 1));
 				Resize(V, V);
 			} else {
-				Resize(ValidateWidth(Random.Int(MinW, MaxW) - 1), ValidateHeight(Random.Int(MinH, MaxH) - 1));
+				Resize(ValidateWidth(Rnd.Int(MinW, MaxW) - 1), ValidateHeight(Rnd.Int(MinH, MaxH) - 1));
 			}
 
 
@@ -487,11 +487,11 @@ namespace BurningKnight.level.rooms {
 			var N = Connected.Count;
 			var C = new Dot(DoorCenter.X / N, DoorCenter.Y / N);
 
-			if (Random.Float() < DoorCenter.X % 1) {
+			if (Rnd.Float() < DoorCenter.X % 1) {
 				C.X++;
 			}
 
-			if (Random.Float() < DoorCenter.Y % 1) {
+			if (Rnd.Float() < DoorCenter.Y % 1) {
 				C.Y++;
 			}
 
@@ -561,7 +561,7 @@ namespace BurningKnight.level.rooms {
 				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
 				Painter.DrawLine(Level, Mid, End, Floor, Bold);
 
-				if (Random.Chance(10)) {
+				if (Rnd.Chance(10)) {
 					Painter.Set(Level, End, Tiles.RandomFloor());
 				}
 
@@ -571,20 +571,20 @@ namespace BurningKnight.level.rooms {
 				maxBottom = Math.Max(maxBottom, End.Y);
 			}
 
-			if (randomRect && Random.Chance(20)) {
-				if (Random.Chance()) {
+			if (randomRect && Rnd.Chance(20)) {
+				if (Rnd.Chance()) {
 					minLeft--;
 				}
 				
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					minTop--;
 				}
 				
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					maxRight++;
 				}
 				
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					maxBottom++;
 				}
 			}
@@ -594,10 +594,10 @@ namespace BurningKnight.level.rooms {
 			maxRight = MathUtils.Clamp(Left + 1, Right - 1, maxRight);
 			maxBottom = MathUtils.Clamp(Top + 1, Bottom - 1, maxBottom);
 
-			if (Random.Chance()) {
-				Painter.Fill(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Random.Chance() ? Floor : Tiles.RandomFloorOrSpike());
+			if (Rnd.Chance()) {
+				Painter.Fill(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Rnd.Chance() ? Floor : Tiles.RandomFloorOrSpike());
 			} else {
-				Painter.Rect(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Random.Chance() ? Floor : Tiles.RandomFloorOrSpike());
+				Painter.Rect(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Rnd.Chance() ? Floor : Tiles.RandomFloorOrSpike());
 			}
 		}
 

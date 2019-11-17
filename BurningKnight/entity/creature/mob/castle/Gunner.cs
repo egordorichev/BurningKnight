@@ -7,9 +7,9 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class Gunner : Mob {
@@ -28,7 +28,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			AddComponent(new SensorBodyComponent(2, 2, 12, 12));
 
-			moveId = Random.Int(3);
+			moveId = Rnd.Int(3);
 			GetComponent<AudioEmitterComponent>().PitchMod = -0.3f;
 		}
 
@@ -38,7 +38,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			public override void Init() {
 				base.Init();
-				delay = Random.Float(0.4f, 1f);
+				delay = Rnd.Float(0.4f, 1f);
 			}
 
 			public override void Update(float dt) {
@@ -66,11 +66,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 				base.Init();
 
 				fire = Self.Target != null && Self.moveId % 2 == 0;
-				angle = !fire ? Random.AnglePI() : Self.AngleTo(Self.Target);
-				timer = fire ? 0.9f : Random.Float(0.8f, 2f);
-				start = Random.Float(0f, 10f);
+				angle = !fire ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
+				timer = fire ? 0.9f : Rnd.Float(0.8f, 2f);
+				start = Rnd.Float(0f, 10f);
 				
-				var a = angle + Random.Float(-Accuracy, Accuracy);
+				var a = angle + Rnd.Float(-Accuracy, Accuracy);
 				var force = fire ? 60 : 120;
 				
 				velocity.X = (float) Math.Cos(a) * force;
@@ -105,7 +105,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				if (lastBullet <= 0) {
 					lastBullet = 0.3f;
 
-					var an = angle + Random.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
+					var an = angle + Rnd.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
 					var a = Self.GetComponent<MobAnimationComponent>();
 					
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("gunner_charge");

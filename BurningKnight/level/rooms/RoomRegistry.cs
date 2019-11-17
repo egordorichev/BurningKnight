@@ -13,7 +13,7 @@ using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms {
 	public static class RoomRegistry {
@@ -139,7 +139,7 @@ namespace BurningKnight.level.rooms {
 				}
 			}
 
-			float value = Random.Float(sum);
+			float value = Rnd.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {

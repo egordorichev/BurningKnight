@@ -3,7 +3,7 @@ using Lens.util.math;
 namespace BurningKnight.util {
 	public static class LoadScreenTitles {
 		public static string Generate() {
-			return titles[Random.Int(titles.Length)];
+			return titles[Rnd.Int(titles.Length)];
 		}
 		
 		private static string[] titles = {

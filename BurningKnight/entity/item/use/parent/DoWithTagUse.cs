@@ -28,7 +28,7 @@ namespace BurningKnight.entity.item.use.parent {
 					if (all) {
 						list.AddRange(l);
 					} else if (l.Count > 0) {
-						list.Add(l[Random.Int(l.Count)]);
+						list.Add(l[Rnd.Int(l.Count)]);
 					}
 				}
 			}

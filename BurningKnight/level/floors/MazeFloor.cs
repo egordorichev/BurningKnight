@@ -7,9 +7,9 @@ using Lens.util.math;
 namespace BurningKnight.level.floors {
 	public class MazeFloor : FloorPainter {
 		public override void Paint(Level level, RoomDef room, Rect inside, bool gold) {
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.Fill(level, inside, Tiles.RandomFloor());
-				inside = inside.Shrink(Random.Int(1, 3));
+				inside = inside.Shrink(Rnd.Int(1, 3));
 			}
 
 			var a = gold ? Tile.FloorD : Tiles.RandomFloor();

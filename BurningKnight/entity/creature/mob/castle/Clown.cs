@@ -4,8 +4,8 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class Clown : Mob {
@@ -48,13 +48,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 				T = 0;
 				
 				if (away) {
-					target = Self.Center + MathUtils.CreateVector(Self.Target.AngleTo(Self) + Random.Float(-1, 1), 96f);
-					delay = Random.Float(1f, 2f);
+					target = Self.Center + MathUtils.CreateVector(Self.Target.AngleTo(Self) + Rnd.Float(-1, 1), 96f);
+					delay = Rnd.Float(1f, 2f);
 					return;
 				}
 				
-				delay = Random.Float(0.3f, 1f);
-				var toTarget = Self.Target != null && Random.Chance();
+				delay = Rnd.Float(0.3f, 1f);
+				var toTarget = Self.Target != null && Rnd.Chance();
 
 				if (toTarget) {
 					target = Self.Target.Center;

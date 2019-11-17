@@ -1,6 +1,6 @@
 using System;
 using BurningKnight.level.tile;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms.special {
 	public class DesertWellRoom : SpecialRoom {
@@ -31,7 +31,7 @@ namespace BurningKnight.level.rooms.special {
 					var v = Math.Min(y - Top, Bottom - y);
 					var h = Math.Min(x - Left, Right - x);
 
-					if (Math.Min(v, h) > floorW || (Math.Min(v, h) == floorW && Random.Float() > edgeFloorChance)) {
+					if (Math.Min(v, h) > floorW || (Math.Min(v, h) == floorW && Rnd.Float() > edgeFloorChance)) {
 						Painter.Set(level, x, y, Tile.Water);
 					}
 				}

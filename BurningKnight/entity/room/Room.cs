@@ -22,9 +22,9 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.room {
 	public class Room : SaveableEntity, PlaceableEntity {
@@ -277,7 +277,7 @@ namespace BurningKnight.entity.room {
 				return Center;
 			}
 
-			var tile = tiles[Random.Int(tiles.Count)];
+			var tile = tiles[Rnd.Int(tiles.Count)];
 			return new Vector2(tile.X, tile.Y);
 		}
 

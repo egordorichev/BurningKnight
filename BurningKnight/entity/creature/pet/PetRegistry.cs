@@ -5,7 +5,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.mod;
 using Lens.entity;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.pet {
 	public static class PetRegistry {
@@ -17,7 +17,7 @@ namespace BurningKnight.entity.creature.pet {
 		
 		public static Entity CreateRandom(Entity owner) {
 			var keys = defined.Keys.ToArray();
-			return Create(keys[Random.Int(keys.Length)], owner);
+			return Create(keys[Rnd.Int(keys.Length)], owner);
 		}
 
 		public static void Define(string id, Func<Entity, Entity> pet, Mod mod = null) {

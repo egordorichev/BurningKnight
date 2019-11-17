@@ -2,7 +2,7 @@ using System;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms.connection {
 	public class RingConnectionRoom : ConnectionRoom {
@@ -19,12 +19,12 @@ namespace BurningKnight.level.rooms.connection {
 			Painter.Fill(level, this, 1, Tiles.RandomSolid());
 
 			var ring = GetConnectionSpace();
-			var b = Random.Chance();
-			var d = b && Random.Chance();
+			var b = Rnd.Chance();
+			var d = b && Rnd.Chance();
 			
 			PaintTunnel(level, d ? Tiles.Pick(Tiles.RandomSolid(), Tiles.RandomFloor(), Tile.FloorD) : Tiles.RandomFloorOrSpike(), ring, b); 
 
-			if (d || Random.Chance()) {
+			if (d || Rnd.Chance()) {
 				PaintTunnel(level, Tiles.RandomFloorOrSpike(), ring);
 			}
 			

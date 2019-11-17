@@ -18,9 +18,9 @@ using Lens.game;
 using Lens.graphics;
 using Lens.input;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
@@ -88,7 +88,7 @@ namespace BurningKnight.state {
 				SaveManager.Load(gameArea, SaveType.Game);
 				progress++;
 				
-				Random.Seed = $"{Run.Seed}_{Run.Depth}"; 
+				Rnd.Seed = $"{Run.Seed}_{Run.Depth}"; 
 				
 				SaveManager.Load(gameArea, SaveType.Level);
 				progress++;

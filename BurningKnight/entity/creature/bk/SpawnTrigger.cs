@@ -15,11 +15,11 @@ using Lens.assets;
 using Lens.entity;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk {
 	public class SpawnTrigger : SaveableEntity {
@@ -225,10 +225,10 @@ namespace BurningKnight.entity.creature.bk {
 					});
 
 					for (var x = X - 16; x < X + Width + 16; x += 16) {
-						for (var i = 0; i < Random.Int(3, 9); i++) {
+						for (var i = 0; i < Rnd.Int(3, 9); i++) {
 							Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), Y - 16 + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(x + Rnd.Float(-2, 18), Y - 16 + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -237,8 +237,8 @@ namespace BurningKnight.entity.creature.bk {
 							});
 							
 							Area.Add(new FireParticle {
-								Position = new Vector2(x + Random.Float(-2, 18), Y + Height + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(x + Rnd.Float(-2, 18), Y + Height + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -257,10 +257,10 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					for (var y = Y; y < Y + Height; y += 16) {
-						for (var i = 0; i < Random.Int(3, 9); i++) {
+						for (var i = 0; i < Rnd.Int(3, 9); i++) {
 							Area.Add(new FireParticle {
-								Position = new Vector2(X + Random.Float(-2, 18) - 16, y + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(X + Rnd.Float(-2, 18) - 16, y + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,
@@ -269,8 +269,8 @@ namespace BurningKnight.entity.creature.bk {
 							});
 							
 							Area.Add(new FireParticle {
-								Position = new Vector2(X + Width + Random.Float(-2, 18), y + Random.Float(-2, 18)),
-								Delay = Random.Float(0.5f),
+								Position = new Vector2(X + Width + Rnd.Float(-2, 18), y + Rnd.Float(-2, 18)),
+								Delay = Rnd.Float(0.5f),
 								XChange = 0.1f,
 								Scale = 0.3f,
 								Vy = 8,

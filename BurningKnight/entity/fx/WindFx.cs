@@ -6,8 +6,8 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class WindFx : Entity {
@@ -38,20 +38,20 @@ namespace BurningKnight.entity.fx {
 		}
 
 		private void Reset() {
-			delay = Random.Float(0, 5f);
-			speed = Random.Float(1f, 3f) * 20;
-			angle = Random.AnglePI();
-			angleSpeed = Random.Float(1f, 8f);
-			scale = new Vector2(Random.Float(0.05f, 0.3f));
+			delay = Rnd.Float(0, 5f);
+			speed = Rnd.Float(1f, 3f) * 20;
+			angle = Rnd.AnglePI();
+			angleSpeed = Rnd.Float(1f, 8f);
+			scale = new Vector2(Rnd.Float(0.05f, 0.3f));
 			t = 0;
 			
-			float v = Random.Float(0.5f, 1f);
-			color = new Color(v, v, v, Random.Float(0.4f, 0.9f));
+			float v = Rnd.Float(0.5f, 1f);
+			color = new Color(v, v, v, Rnd.Float(0.4f, 0.9f));
 
 			var wind = CalculateWind();
 			var a = wind.ToAngle() - Math.PI / 2;
 			var w = Display.Width * -0.75f;
-			var d = Random.Float(-w / 2, w / 2);
+			var d = Rnd.Float(-w / 2, w / 2);
 
 			Position = Camera.Instance.Position + wind * w;
 			X += (float) Math.Cos(a) * d;

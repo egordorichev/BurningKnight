@@ -7,9 +7,9 @@ using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.component {
 	public class BodyComponent : SaveableComponent {
@@ -102,7 +102,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			if (entity == Entity) {
-				KnockbackFrom(Random.AnglePI(), force, rnd);
+				KnockbackFrom(Rnd.AnglePI(), force, rnd);
 			} else {
 				KnockbackFrom(entity.Center, force, rnd);
 			}
@@ -120,7 +120,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			if (rnd > 0.01f) {
-				a += Random.Float(-rnd, rnd);
+				a += Rnd.Float(-rnd, rnd);
 			}
 
 			Knockback.X += (float) Math.Cos(a) * force;

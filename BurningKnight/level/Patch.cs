@@ -18,8 +18,8 @@ namespace BurningKnight.level {
 			seed *= 2;
 			seed -= 1;
 
-			var mx = Random.Float(100f);
-			var my = Random.Float(100f);
+			var mx = Rnd.Float(100f);
+			var my = Rnd.Float(100f);
 			var array = new bool[w * h];
 			
 			for (int y = 0; y < h; y++) {
@@ -48,7 +48,7 @@ namespace BurningKnight.level {
 			var Cur = new bool[W * H];
 			var Off = new bool[W * H];
 
-			for (var I = 0; I < W * H; I++) Off[I] = Random.Float() < Seed;
+			for (var I = 0; I < W * H; I++) Off[I] = Rnd.Float() < Seed;
 
 			for (var I = 0; I < Octaves; I++) {
 				for (var Y = 1; Y < H - 1; Y++)

@@ -3,7 +3,7 @@ using BurningKnight.entity.creature.bk.attacks;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.level.biome;
 using BurningKnight.state;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.bk {
 	public static class BurningKnightAttackRegistry {
@@ -22,8 +22,8 @@ namespace BurningKnight.entity.creature.bk {
 		};
 
 		public static BossAttack<BurningKnight> GetNext(BossPatternSet<BurningKnight> p) {
-			if (Random.Chance(100f / (PatternRegistry.Count + 1))) {
-				return (BossAttack<BurningKnight>) Activator.CreateInstance(Attacks[Random.Int(Attacks.Length)]);
+			if (Rnd.Chance(100f / (PatternRegistry.Count + 1))) {
+				return (BossAttack<BurningKnight>) Activator.CreateInstance(Attacks[Rnd.Int(Attacks.Length)]);
 			}
 
 			return p.GetNext();

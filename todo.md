@@ -9,7 +9,7 @@
 * bk: {
  + raging when you take items from treasure x64s, make him take the rest of the stuff
  + goes into the boss
- + gets out of the boss on death
+ + gets out of the boss on death and starts chasing you
 }
 
 * room / lvl cleared effect

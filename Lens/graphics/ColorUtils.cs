@@ -110,9 +110,9 @@ namespace Lens.graphics {
 
 			var f = 30;
 
-			color.R = (byte) MathUtils.Clamp(0, 255, c.R + util.math.Random.Int(-f, f));
-			color.G = (byte) MathUtils.Clamp(0, 255, c.G + util.math.Random.Int(-f, f));
-			color.B = (byte) MathUtils.Clamp(0, 255, c.B + util.math.Random.Int(-f, f));
+			color.R = (byte) MathUtils.Clamp(0, 255, c.R + util.math.Rnd.Int(-f, f));
+			color.G = (byte) MathUtils.Clamp(0, 255, c.G + util.math.Rnd.Int(-f, f));
+			color.B = (byte) MathUtils.Clamp(0, 255, c.B + util.math.Rnd.Int(-f, f));
 			color.A = 255;
 
 			return color;

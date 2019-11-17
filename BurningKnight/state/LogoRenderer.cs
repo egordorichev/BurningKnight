@@ -3,9 +3,9 @@ using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public static class LogoRenderer {
@@ -84,9 +84,9 @@ namespace BurningKnight.state {
 			var d = DateTime.Now;
 
 			flipAll = d.Month == 4 && d.Day == 1;
-			showK = Random.Float() < 0.999f;
-			flipR = Random.Float() > 0.999f;
-			extremeWave = Random.Float() > 0.999f;
+			showK = Rnd.Float() < 0.999f;
+			flipR = Rnd.Float() > 0.999f;
+			extremeWave = Rnd.Float() > 0.999f;
 			
 			var anim = Animations.Get("logo");
 

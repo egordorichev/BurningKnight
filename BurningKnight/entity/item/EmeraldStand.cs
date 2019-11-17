@@ -72,7 +72,7 @@ namespace BurningKnight.entity.item {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 					break;
 				}
 				

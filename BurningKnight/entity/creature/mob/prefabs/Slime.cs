@@ -10,8 +10,8 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util.math;
 using Lens.util.tween;
-using Random = Lens.util.math.Random;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Random.Float(0.9f, 1.5f) + Self.GetJumpDelay();
+				delay = Rnd.Float(0.9f, 1.5f) + Self.GetJumpDelay();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 
@@ -80,8 +80,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 
-				var a = Self.Target == null ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
-				var force = Random.Float(20f) + Self.JumpForce;
+				var a = Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
+				var force = Rnd.Float(20f) + Self.JumpForce;
 				
 				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;

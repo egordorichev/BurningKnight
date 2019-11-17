@@ -9,19 +9,19 @@ namespace BurningKnight.level.rooms.regular {
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, 3, Tile.Chasm);
 
-			var c = Random.Int(2, 4);
-			var p = Random.Chance(30);
+			var c = Rnd.Int(2, 4);
+			var p = Rnd.Chance(30);
 			
 			for (var i = 0; i < c; i++) {
 				var platform = new MovingPlatform();
 
-				platform.X = Random.Int(Left + 4, Right - 4) * 16;
-				platform.Y = Random.Int(Top + 4, Bottom - 4) * 16;
-				platform.Controller = Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
+				platform.X = Rnd.Int(Left + 4, Right - 4) * 16;
+				platform.Y = Rnd.Int(Top + 4, Bottom - 4) * 16;
+				platform.Controller = Rnd.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
 
 				level.Area.Add(platform);
 				
-				if (p && Random.Chance()) {
+				if (p && Rnd.Chance()) {
 					var turret = new RotatingTurret();
 					level.Area.Add(turret);
 					turret.Center = platform.Position + new Vector2(16, 12);

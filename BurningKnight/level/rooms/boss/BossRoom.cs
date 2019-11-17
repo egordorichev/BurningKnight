@@ -7,6 +7,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.boss {
@@ -55,7 +56,13 @@ namespace BurningKnight.level.rooms.boss {
 		public override void Paint(Level level) {
 			PaintRoom(level);
 
-			var boss = new OldKing();
+			var boss = BossRegistry.Generate();
+
+			if (boss == null) {
+				Log.Error("Failed to generate the boss!");
+				return;
+			}
+			
 			level.Area.Add(boss);
 			boss.Center = GetCenterVector();
 

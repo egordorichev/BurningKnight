@@ -30,7 +30,7 @@ namespace BurningKnight.level.entities {
 				lastFlame = 0;
 
 				Area.Add(new FireParticle {
-					X = CenterX + Random.Float(-4, 4),
+					X = CenterX + Rnd.Float(-4, 4),
 					Y = CenterY
 				});
 			}

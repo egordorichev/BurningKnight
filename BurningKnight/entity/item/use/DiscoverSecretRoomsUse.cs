@@ -8,7 +8,7 @@ using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class DiscoverSecretRoomsUse : ItemUse {
@@ -20,7 +20,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce) {
-				if (!Random.Chance(chance)) {
+				if (!Rnd.Chance(chance)) {
 					return base.HandleEvent(e);
 				}
 

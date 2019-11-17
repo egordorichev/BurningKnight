@@ -2,8 +2,8 @@
 using BurningKnight.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class WaterfallFx : Entity {
@@ -26,12 +26,12 @@ namespace BurningKnight.entity.fx {
 			}
 
 			color = new Color(255, 255, 255, 255);
-			angleSpeed = Random.Float(-1, 1) * 4;
+			angleSpeed = Rnd.Float(-1, 1) * 4;
 			scale = new Vector2(0);
 			
 			AlwaysActive = true;
 			grow = true;
-			vy = Random.Float(4, 8);
+			vy = Rnd.Float(4, 8);
 
 			Depth = Layers.UnderFloor;
 		}

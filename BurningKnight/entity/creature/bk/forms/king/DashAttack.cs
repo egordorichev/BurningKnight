@@ -4,9 +4,9 @@ using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk.forms.king {
 	public class DashAttack : BossAttack<BurningKing> {
@@ -48,10 +48,10 @@ namespace BurningKnight.entity.creature.bk.forms.king {
 				var a = b.Velocity.ToAngle() - Math.PI;
 
 				for (var i = 0; i < 2; i++) {
-					var angle = a + (i == 0 ? -1 : 1) * Random.Float(0.3f, 0.5f);
+					var angle = a + (i == 0 ? -1 : 1) * Rnd.Float(0.3f, 0.5f);
 					var projectile = Projectile.Make(Self, "crown", angle, 4f);
 
-					if (Random.Chance()) {
+					if (Rnd.Chance()) {
 						projectile.AddLight(32f, Projectile.RedLight);
 					}
 

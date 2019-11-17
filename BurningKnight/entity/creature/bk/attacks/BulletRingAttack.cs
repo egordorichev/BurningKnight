@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.pattern;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk.attacks {
 	public class BulletRingAttack : BossAttack<BurningKnight> {
@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 		public override void Init() {
 			base.Init();
 
-			totalBullets = Random.Int(8, 24);
+			totalBullets = Rnd.Int(8, 24);
 		}
 
 		public override void Update(float dt) {

@@ -1,7 +1,7 @@
 using System;
 using BurningKnight.entity.component;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.desert {
 	public class Mummy : Mob {
@@ -30,7 +30,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 			public override void Init() {
 				base.Init();
-				delay = Random.Int(1, 2);
+				delay = Rnd.Int(1, 2);
 			}
 
 			public override void Update(float dt) {
@@ -55,10 +55,10 @@ namespace BurningKnight.entity.creature.mob.desert {
 			public override void Init() {
 				base.Init();
 
-				angle = Random.AnglePI();
-				timer = Random.Float(0.8f, 2f);
+				angle = Rnd.AnglePI();
+				timer = Rnd.Float(0.8f, 2f);
 				
-				var force = Random.Float(40f, 60f);
+				var force = Rnd.Float(40f, 60f);
 				
 				velocity.X = (float) Math.Cos(angle) * force;
 				velocity.Y = (float) Math.Sin(angle) * force;

@@ -28,11 +28,11 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 using Color = Microsoft.Xna.Framework.Color;
-using Random = Lens.util.math.Random;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.bk {
@@ -150,7 +150,7 @@ namespace BurningKnight.entity.creature.bk {
 
 				Tween.To(0, graphics.Alpha, x => graphics.Alpha = x, 0.3f, Ease.QuadIn).OnEnd = () => {
 					if (Self.Target != null) {
-						Self.Center = Self.Target.Center + MathUtils.CreateVector(Random.AnglePI(), 64f);
+						Self.Center = Self.Target.Center + MathUtils.CreateVector(Rnd.AnglePI(), 64f);
 					}
 					
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
@@ -186,7 +186,7 @@ namespace BurningKnight.entity.creature.bk {
 				base.Update(dt);
 
 				if (T >= 0.3f) {
-					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Random.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
 					p.Spectral = true;
@@ -233,7 +233,7 @@ namespace BurningKnight.entity.creature.bk {
 				
 				if (lastExplosion <= 0) {
 					lastExplosion = 0.3f;
-					AnimationUtil.Explosion(Center + new Vector2(Random.Float(-16, 16), Random.Float(-16, 16)));
+					AnimationUtil.Explosion(Center + new Vector2(Rnd.Float(-16, 16), Rnd.Float(-16, 16)));
 					Camera.Instance.Shake(10);
 					Audio.PlaySfx("explosion");
 				}

@@ -19,22 +19,22 @@ namespace BurningKnight.level.walls {
 
 			// fixme: breaks custom floors
 			
-			var before = Random.Chance();
+			var before = Rnd.Chance();
 
 			if (before) {
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					room.PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(room.GetCenter()), true);
 				}
 				
 				room.PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(room.GetCenter()));
 			}
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.Ellipse(level, inside,Tiles.RandomFloor());
 			}
 			
 			if (!before) {
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					room.PaintTunnel(level, Tiles.RandomNewFloor(), new Rect(room.GetCenter()), true);
 				}
 				

@@ -4,7 +4,7 @@ using BurningKnight.level.tile;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.walls {
 	public class PatchWall : WallPainter {
@@ -122,7 +122,7 @@ namespace BurningKnight.level.walls {
 		
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
-			var s = Random.Chance();
+			var s = Rnd.Chance();
 			
 			if (s) {
 				Setup(level, room, fill, 4, true);

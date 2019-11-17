@@ -143,7 +143,7 @@ namespace Lens.graphics.animation {
 			EndFrame = currentTag.EndFrame;
 			
 			if (rand) {
-				currentFrame = (uint) Random.Int(0, (int) (currentTag.EndFrame - currentTag.StartFrame));
+				currentFrame = (uint) Rnd.Int(0, (int) (currentTag.EndFrame - currentTag.StartFrame));
 			}
 			
 			var frame = Data.GetFrame(layer, currentTag.Direction.GetFrameId(this));
@@ -162,7 +162,7 @@ namespace Lens.graphics.animation {
 		}
 
 		public void Randomize() {
-			Frame = (uint) Random.Int((int) TagSize);
+			Frame = (uint) Rnd.Int((int) TagSize);
 		}
 	}
 }

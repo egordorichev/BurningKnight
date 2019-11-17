@@ -20,10 +20,10 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
@@ -404,8 +404,8 @@ namespace BurningKnight.level {
 			var light = Run.Depth == 0;
 			
 			for (var i = 0; i < Size; i++) {
-				if (Random.Chance(10)) {
-					WallDecor[i] = (byte) Random.Int(1, 9);
+				if (Rnd.Chance(10)) {
+					WallDecor[i] = (byte) Rnd.Int(1, 9);
 				}
 
 				if (light) {
@@ -782,9 +782,9 @@ namespace BurningKnight.level {
 							Graphics.Render(region, pos);
 
 							if (t == Tile.Water || t == Tile.Lava) {
-								if (!paused && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
+								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(10)) {
 									Area.Add(new WaterfallFx {
-										Position = pos + new Vector2(Random.Float(16), 16),
+										Position = pos + new Vector2(Rnd.Float(16), 16),
 										Lava = t == Tile.Lava
 									});
 								}
@@ -859,9 +859,9 @@ namespace BurningKnight.level {
 
 						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 						
-						if (!paused && Random.Chance(0.1f)) {
+						if (!paused && Rnd.Chance(0.1f)) {
 							Area.Add(new ChasmFx {
-								Position = pos + new Vector2(Random.Float(16), Random.Float(16))
+								Position = pos + new Vector2(Rnd.Float(16), Rnd.Float(16))
 							});
 						}
 
@@ -1417,7 +1417,7 @@ namespace BurningKnight.level {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16);
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				
 				area.Add(part);
 			}

@@ -2,8 +2,8 @@ using System;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.level.tile;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms.regular {
 	public class PlatformRingRoom : RegularRoom {
@@ -11,8 +11,8 @@ namespace BurningKnight.level.rooms.regular {
 			Painter.Rect(level, this, 3, Tile.Chasm);
 			Painter.Rect(level, this, 4, Tile.Chasm);
 
-			var c = Random.Int(1, 5);
-			var d = Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
+			var c = Rnd.Int(1, 5);
+			var d = Rnd.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
 			
 			for (var i = 0; i < c; i++) {
 				var platform = new MovingPlatform();

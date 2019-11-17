@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle {
 	public class ParticleSystem : Entity {
@@ -13,7 +13,7 @@ namespace BurningKnight.assets.particle {
 			Create = create;
 			Position = position;
 
-			var count = Random.Int(min, max + 1);
+			var count = Rnd.Int(min, max + 1);
 
 			for (int i = 0; i < count; i++) {
 				AddParticle();

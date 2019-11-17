@@ -108,14 +108,14 @@ namespace BurningKnight.level.builders {
 				ConnectingRoomsThisBranch.Clear();
 
 				do {
-					Curr = Branchable[Random.Int(Branchable.Count)];
+					Curr = Branchable[Rnd.Int(Branchable.Count)];
 				} while (Curr is ConnectionRoom);
 
-				var ConnectingRooms = Random.Chances(ConnectionChances);
+				var ConnectingRooms = Rnd.Chances(ConnectionChances);
 
 				if (ConnectingRooms == -1) {
 					ConnectionChances = ArrayUtils.Clone(ConnChances);
-					ConnectingRooms = Random.Chances(ConnectionChances);
+					ConnectingRooms = Rnd.Chances(ConnectionChances);
 				}
 
 				ConnectionChances[ConnectingRooms]--;
@@ -178,12 +178,12 @@ namespace BurningKnight.level.builders {
 				}
 
 				foreach (var AConnectingRoomsThisBranch in ConnectingRoomsThisBranch) {
-					if (Random.Int(3) <= 1) {
+					if (Rnd.Int(3) <= 1) {
 						Branchable.Add(AConnectingRoomsThisBranch);
 					}
 				}
 
-				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Random.Int(3) == 0) {
+				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Rnd.Int(3) == 0) {
 					if (R is RegularRoom room) {
 						/*for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
 							Branchable.Add(room);
@@ -202,7 +202,7 @@ namespace BurningKnight.level.builders {
 		}
 
 		protected float RandomBranchAngle(RoomDef R) {
-			return Random.Angle();
+			return Rnd.Angle();
 		}
 	}
 }

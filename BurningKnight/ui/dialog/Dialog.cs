@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.ui.dialog {
 	public class Dialog {
@@ -20,7 +20,7 @@ namespace BurningKnight.ui.dialog {
 				return null;
 			}
 			
-			return Next?[Random.Int(Next.Length)];
+			return Next?[Rnd.Int(Next.Length)];
 		}
 
 		public virtual Dialog GetNext() {

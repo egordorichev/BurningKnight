@@ -8,7 +8,7 @@ namespace BurningKnight.level.rooms.trap {
 		public override void Paint(Level level) {
 			var a = 0;
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				for (var i = Left + 2; i < Right - 1; i += 2) {
 					var spike = new RollingSpike();
 

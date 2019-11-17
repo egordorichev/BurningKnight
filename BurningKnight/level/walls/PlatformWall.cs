@@ -9,9 +9,9 @@ namespace BurningKnight.level.walls {
 			Painter.Fill(level, room, 1, Tiles.RandomSolid());
 
 			var f = Tiles.RandomFloor();
-			Painter.Fill(level, room, Random.Int(2, 4), f);
+			Painter.Fill(level, room, Rnd.Int(2, 4), f);
 			
-			room.PaintTunnel(level, Random.Chance(30) ? f : Tiles.RandomFloorOrSpike(), room.GetCenterRect());
+			room.PaintTunnel(level, Rnd.Chance(30) ? f : Tiles.RandomFloorOrSpike(), room.GetCenterRect());
 		}
 	}
 }

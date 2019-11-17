@@ -1,15 +1,15 @@
 using System;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.controller {
 	public class BkDeathParticleController : ParticleController {
 		public override void Init(Particle particle, Entity owner) {
 			base.Init(particle, owner);
 
-			var a = Random.AnglePI();
-			var d = Random.Float(60, 90);
+			var a = Rnd.AnglePI();
+			var d = Rnd.Float(60, 90);
 			
 			particle.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 		}

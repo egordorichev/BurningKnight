@@ -50,7 +50,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true) {
-			return Emit(sfx, volume, PitchMod + Random.Float(-0.4f, 0.4f), insert);
+			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert);
     }
 
 		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true) {

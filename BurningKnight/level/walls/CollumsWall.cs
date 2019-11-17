@@ -2,7 +2,7 @@ using System;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.walls {
 	public class CollumsWall : WallPainter {
@@ -10,33 +10,33 @@ namespace BurningKnight.level.walls {
 			base.Paint(level, room, inside);
 
 			var minDim = Math.Min(room.GetWidth(), room.GetHeight());
-			var circ = Random.Chance(50);
+			var circ = Rnd.Chance(50);
 
 			var left = room.Left;
 			var top = room.Top;
 			var right = room.Right;
 			var bottom = room.Bottom;
 
-			var same = Random.Chance();
+			var same = Rnd.Chance();
 			var a = Tiles.RandomSolid();
 			var b = same ? a : Tiles.RandomSolid();
 			var af = Tiles.Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD);
 			var bf = a == b ? af : Tiles.Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD);
 			
-			var o = Random.Chance();
+			var o = Rnd.Chance();
 
-			if (minDim == 7 || Random.Int(2) == 0) {
+			if (minDim == 7 || Rnd.Int(2) == 0) {
 				int pillarInset = minDim >= 11 ? 2 : 1;
 				int pillarSize = ((minDim - 3) / 2) - pillarInset;
 
 				int pillarX, pillarY;
 
-				if (Random.Int(2) == 0) {
-					pillarX = Random.Int(left + 1 + pillarInset, right - pillarSize - pillarInset);
+				if (Rnd.Int(2) == 0) {
+					pillarX = Rnd.Int(left + 1 + pillarInset, right - pillarSize - pillarInset);
 					pillarY = top + 1 + pillarInset;
 				} else {
 					pillarX = left + 1 + pillarInset;
-					pillarY = Random.Int(top + 1 + pillarInset, bottom - pillarSize - pillarInset);
+					pillarY = Rnd.Int(top + 1 + pillarInset, bottom - pillarSize - pillarInset);
 				}
 
 				if (circ) {
@@ -77,7 +77,7 @@ namespace BurningKnight.level.walls {
 				float ySpaces = room.GetHeight() - 2 * pillarInset - pillarSize - 2;
 				float minSpaces = Math.Min(xSpaces, ySpaces);
 
-				float percentSkew = (float) (Math.Round(Random.Float() * minSpaces) / minSpaces);
+				float percentSkew = (float) (Math.Round(Rnd.Float() * minSpaces) / minSpaces);
 
 				if (circ) {
 					if (o) {

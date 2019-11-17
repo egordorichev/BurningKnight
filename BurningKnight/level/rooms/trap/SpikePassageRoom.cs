@@ -8,27 +8,27 @@ namespace BurningKnight.level.rooms.trap {
 		public override void Paint(Level level) {
 			var m = 1;
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.Fill(level, this, m, Tile.Chasm);
-				m += Random.Int(1, 3);
+				m += Rnd.Int(1, 3);
 				Painter.Fill(level, this, m, Tiles.RandomFloor());
 
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect(), true);
 				}
 				
 				PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect());
 			}
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.FillEllipse(level, this, m, Tile.SpikeOffTmp);
 			} else {
 				Painter.Fill(level, this, m, Tile.SpikeOffTmp);
 			}
 
-			m += Random.Int(2, 5);
+			m += Rnd.Int(2, 5);
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.FillEllipse(level, this, m, Tiles.RandomFloor());
 			} else {
 				Painter.Fill(level, this, m, Tiles.RandomFloor());

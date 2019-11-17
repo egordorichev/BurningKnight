@@ -4,8 +4,8 @@ using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class SplashFx : Entity {
@@ -23,14 +23,14 @@ namespace BurningKnight.entity.fx {
 			
 			Width = 32;
 			Height = 32;
-			angle = Random.Angle();
-			targetScale = Random.Float(0.7f, 1.2f);
+			angle = Rnd.Angle();
+			targetScale = Rnd.Float(0.7f, 1.2f);
 			AlwaysActive = true;
 			
 			AddTag(Tags.Mess);
 
 			var list = Animations.Get("splash_fx").Layers.First().Value;
-			region = list[Random.Int(list.Count)].Texture;
+			region = list[Rnd.Int(list.Count)].Texture;
 		}
 
 		public override void Update(float dt) {

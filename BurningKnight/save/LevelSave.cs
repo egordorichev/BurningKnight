@@ -14,7 +14,7 @@ using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
@@ -138,7 +138,7 @@ namespace BurningKnight.save {
 					thread.Abort();
 					Physics.Destroy();
 					Physics.Init();
-					Random.Seed += "_";
+					Rnd.Seed += "_";
 					aborted = true;
 
 					break;

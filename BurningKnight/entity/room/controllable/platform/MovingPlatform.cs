@@ -14,10 +14,10 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.room.controllable.platform {
 	public class MovingPlatform : Platform, CollisionFilterEntity {
@@ -126,7 +126,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 				base.Update(dt);
 
 				if (Math.Abs(Self.velocity.X) + Math.Abs(Self.velocity.Y) < 0.1f) {
-					Self.velocity = directions[Random.Int(2) + 2];
+					Self.velocity = directions[Rnd.Int(2) + 2];
 				}
 
 				if (Math.Abs(Self.velocity.X) > 0.1f && Math.Abs(Self.velocity.Y) > 0.1f) {

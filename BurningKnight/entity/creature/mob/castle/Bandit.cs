@@ -7,9 +7,9 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class Bandit : Mob {
@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 			AddComponent(new SensorBodyComponent(2, 2, 12, 12));
 
-			moveId = Random.Int(0, 2);
+			moveId = Rnd.Int(0, 2);
 		}
 
 		private int moveId;
@@ -41,8 +41,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				delay = Random.Float(1, 2.5f);
-				fireDelay = Self.moveId % 2 == 0 ? 3 : Random.Float(0.5f, delay - 0.5f);
+				delay = Rnd.Float(1, 2.5f);
+				fireDelay = Self.moveId % 2 == 0 ? 3 : Rnd.Float(0.5f, delay - 0.5f);
 				Self.moveId++;
 			}
 
@@ -78,7 +78,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 							}
 								
 							var ac = 0.1f;
-							var angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
+							var angle = Self.AngleTo(Self.Target) + Rnd.Float(-ac, ac);
 							var projectile = Projectile.Make(Self, "small", angle, 8f);
 
 							projectile.Center += MathUtils.CreateVector(angle, 8f);
@@ -98,14 +98,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 			public override void Init() {
 				base.Init();
 
-				timer = Random.Float(0.4f, 1f);
+				timer = Rnd.Float(0.4f, 1f);
 				
-				var angle = Random.AnglePI();
-				var force = 120f + Random.Float(50f);
+				var angle = Rnd.AnglePI();
+				var force = 120f + Rnd.Float(50f);
 				
-				if (Random.Chance() && Self.Target != null) {
+				if (Rnd.Chance() && Self.Target != null) {
 					var ac = 0.1f;
-					angle = Self.AngleTo(Self.Target) + Random.Float(-ac, ac);
+					angle = Self.AngleTo(Self.Target) + Rnd.Float(-ac, ac);
 				}
 				
 				velocity.X = (float) Math.Cos(angle) * force;

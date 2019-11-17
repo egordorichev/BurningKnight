@@ -23,7 +23,7 @@ namespace BurningKnight.entity.item.use {
 			var attempt = 0;
 
 			do {
-				var enemy = enemies[Random.Int(enemies.Count)];
+				var enemy = enemies[Rnd.Int(enemies.Count)];
 
 				if (enemy.GetComponent<BuffsComponent>().Add(new FrozenBuff {
 						Duration = 30
