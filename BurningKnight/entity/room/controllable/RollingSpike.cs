@@ -89,7 +89,7 @@ namespace BurningKnight.entity.room.controllable {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile || (entity is Creature && !(entity is Player)));
+			return !(entity is Projectile || entity is RollingSpike || (entity is Creature && !(entity is Player)));
 		}
 	}
 }
