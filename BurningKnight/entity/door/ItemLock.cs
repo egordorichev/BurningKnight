@@ -50,7 +50,7 @@ namespace BurningKnight.entity.door {
 				}
 				
 				foreach (var item in r.Tagged[Tags.Item]) {
-					if ((item is ItemStand ist && ist.Item != null) || (item is Item)) {
+					if ((item is ItemStand ist && ist.Item != null)) {
 						shouldLock = true;
 						break;
 					}
