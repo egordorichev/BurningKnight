@@ -7,19 +7,17 @@
 }
 
 * bk: {
- + raging when you take items from treasure x64s, make him take the rest of the stuff
+ + dialog like "DONT TOUCH MY STUFF" in the treasure room, make other items dissappear like he takes it?
  + better into boss going anim
  + better getting out of boss
  + check how saving works with capturing bosses
 }
 
 * room / lvl cleared effect
-* portal
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * finish teleportation animation on player
 
-* !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed
 
 * second lvl deset enemies
@@ -28,8 +26,8 @@
 * look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
 * we need inventory in pause menu, like in revita
-* make enemies items and players fall into chasm
 * spawn chests/pickups in the levels
+* remove rewards
 
 {
     > I wouldn't put the sound of the wind onto the music itself

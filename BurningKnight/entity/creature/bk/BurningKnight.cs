@@ -87,6 +87,7 @@ namespace BurningKnight.entity.creature.bk {
 			buffs.AddImmunity<BurningBuff>();
 			
 			Subscribe<RoomChangedEvent>();
+			Subscribe<ItemTakenEvent>();
 		}
 
 		protected override void OnTargetChange(Entity target) {
@@ -116,6 +117,14 @@ namespace BurningKnight.entity.creature.bk {
 							
 							break;
 						}
+					}
+				}
+			} else if (e is ItemTakenEvent ite) {
+				if (ite.Stand is SingleChoiceStand) {
+					var state = GetComponent<StateComponent>();
+
+					if (!(state.StateInstance is HiddenState)) {
+						state.Become<AttackState>();
 					}
 				}
 			}
@@ -219,7 +228,7 @@ namespace BurningKnight.entity.creature.bk {
 				var d = Self.DistanceTo(Self.Target);
 				var force = -300f * dt;
 
-				if (d > 72f) {
+				if (d > 96f) {
 					Self.Become<ChaseState>();
 					return;
 				}
@@ -236,7 +245,7 @@ namespace BurningKnight.entity.creature.bk {
 				var d = Self.DistanceTo(Self.Target);
 				var force = 300f * dt;
 
-				if (d < 48f) {
+				if (d < 64f) {
 					Self.Become<FlyAwayAttackingState>();
 				} else if (d <= 128f) {
 					Self.Become<AttackState>();
@@ -252,7 +261,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.DistanceTo(Self.Target) < 48f) {
+				if (Self.DistanceTo(Self.Target) < 64f) {
 					Self.Become<FlyAwayAttackingState>();
 				}
 
@@ -317,11 +326,12 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Init() {
 				base.Init();
 
-				Camera.Instance.Shake(10);
+				Camera.Instance.Shake(20);
 				Self.Position = Vector2.Zero;
 				
 				Timer.Add(() => {
 					((InGameState) Engine.Instance.State).ResetFollowing();
+					Camera.Instance.Shake(10);
 				}, 1);
 			}
 
@@ -334,9 +344,7 @@ namespace BurningKnight.entity.creature.bk {
 					var graphics = Self.GetComponent<BkGraphicsComponent>();
 					graphics.Alpha = 0;
 
-					if (Self.Target != null) {
-						Self.Center = Self.Target.Center + MathUtils.CreateVector(Rnd.AnglePI(), 128f);
-					}
+					Self.Center = Self.captured.Center;
 				
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
 						Timer.Add(() => {

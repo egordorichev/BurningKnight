@@ -1,3 +1,5 @@
+using BurningKnight.entity.creature.player;
+
 namespace BurningKnight.entity.room.controllable.spikes {
 	public class SensingSpikes : Spikes {
 		private float timer;
@@ -13,8 +15,14 @@ namespace BurningKnight.entity.room.controllable.spikes {
 					TurnOff();
 				}
 			} else if (!On && Colliding.Count > 0) {
-				timer = 1.5f;
-				TurnOnSlowly();
+				foreach (var c in Colliding) {
+					if (c is Player) {
+						timer = 1.5f;
+						TurnOnSlowly();
+						
+						break;
+					}
+				}
 			}
 		}
 	}

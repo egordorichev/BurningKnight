@@ -3,6 +3,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.util;
 using Lens.entity;
+using Lens.util.camera;
 
 namespace BurningKnight.entity.item {
 	public class SingleChoiceStand : ItemStand {
@@ -34,6 +35,8 @@ namespace BurningKnight.entity.item {
 							AnimationUtil.Poof(ist.Center);
 						}
 					}
+					
+					Camera.Instance.Shake(10);
 				}
 			}
 			

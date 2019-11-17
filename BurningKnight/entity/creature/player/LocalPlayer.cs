@@ -61,6 +61,8 @@ namespace BurningKnight.entity.creature.player {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;
 				Engine.Instance.Freeze = 1f;
+				
+				Camera.Instance.Shake(4);
 
 				if (Camera.Instance != null) {
 					Camera.Instance.TextureZoom -= 0.2f;

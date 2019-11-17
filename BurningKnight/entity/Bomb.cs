@@ -35,6 +35,8 @@ namespace BurningKnight.entity {
 			Owner = owner;
 
 			Scale = parent?.Scale * 0.7f ?? 1;
+			
+			Camera.Instance.Shake(6);
 		}
 		
 		public override void AddComponents() {
