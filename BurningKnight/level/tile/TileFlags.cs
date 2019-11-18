@@ -75,7 +75,7 @@ namespace BurningKnight.level.tile {
 		}
 
 		public static bool IsSimpleWall(this Tile tile) {
-			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks || tile == Tile.Transition;
+			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks || tile == Tile.Transition || tile == Tile.GrannyWall || tile == Tile.EvilWall;
 		}
 		
 		

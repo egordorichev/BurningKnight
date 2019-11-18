@@ -64,11 +64,17 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.WallA, 128, 0);
 			DefineTile(Tile.WallB, 144, 0);
 			DefineTile(Tile.Planks, 352, 144, true);
+			DefineTile(Tile.GrannyWall, 192, 336, true);
+			DefineTile(Tile.EvilWall, 0, 336, true);
 			DefineTile(Tile.Crack, 128, 48);
+			DefineTile(Tile.GrannyFloor, 192, 368, true);
+			DefineTile(Tile.EvilFloor, 48, 384, true);
 			DefineTile(Tile.FloorA, 0, 80);
 			DefineTile(Tile.FloorB, 64, 80);
 			DefineTile(Tile.FloorC, 0, 160);
 			DefineTile(Tile.FloorD, 64, 160);
+			DefineTile(Tile.GrannyFloor, 192, 368);
+			DefineTile(Tile.EvilFloor, 48, 384);
 			DefineTile(Tile.Water, 64, 240, true);
 			DefineTile(Tile.Ice, 192, 112, true);
 			DefineTile(Tile.Lava, 64, 112, true);

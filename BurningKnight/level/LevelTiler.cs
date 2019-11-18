@@ -44,7 +44,7 @@ namespace BurningKnight.level {
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
 
-			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
+			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.EvilFloor, Tile.GrannyFloor)) {
 				if (level.Variants[index] != 0 && level.Variants[index] < 11) {
 					return;
 				}
@@ -110,12 +110,12 @@ namespace BurningKnight.level {
 				return tt == Tile.Planks;
 			}
 
-			if (t == Tile.WallA || t == Tile.Piston) {
-				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Piston || tt == Tile.Transition;
+			if (t == Tile.WallA || t == Tile.Piston || t == Tile.GrannyWall || t == Tile.EvilWall) {
+				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Piston || tt == Tile.Transition || tt == Tile.GrannyWall || tt == Tile.EvilWall;
 			}
 			
 			if (t == Tile.WallB) {
-				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Transition;
+				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Transition || tt == Tile.GrannyWall || tt == Tile.EvilWall;
 			}
 
 			if (t == Tile.Transition) {

@@ -49,18 +49,19 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
-			var x = (int) P.X;
-			var y = (int) P.Y;
+			if (R is PrebossRoom) {
+				var x = (int) P.X;
+				var y = (int) P.Y;
 
-			if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
-				return false;
-			}
-			
-			if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
-				return false;
+				if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
+					return false;
+				}
+
+				if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
+					return false;
+				}
 			}
 
-			
 			return base.CanConnect(R, P);
 		}
 

@@ -16,7 +16,7 @@ namespace BurningKnight.level.rooms.oldman {
 			
 			var dm = new DarkMage();
 			level.Area.Add(dm);
-			dm.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 2) * 16;
+			dm.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 3) * 16;
 		}
 
 		public override bool CanConnect(RoomDef R) {

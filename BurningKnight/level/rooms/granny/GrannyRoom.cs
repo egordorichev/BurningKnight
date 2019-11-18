@@ -16,7 +16,7 @@ namespace BurningKnight.level.rooms.granny {
 			
 			var granny = new Granny();
 			level.Area.Add(granny);
-			granny.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 2) * 16;
+			granny.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 3) * 16;
 		}
 
 		public override bool CanConnect(RoomDef R) {
