@@ -863,8 +863,12 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			console = new Console(Area);
-			Ui.Add(new UiInventory(player));
+
+			if (player != null) {
+				Ui.Add(new UiInventory(player));
+			}
 			
+
 			Ui.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight	
 			});

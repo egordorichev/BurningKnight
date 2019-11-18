@@ -29,7 +29,6 @@ namespace BurningKnight.level.builders {
 			}
 			
 			if (Boss == null || Granny == null || OldMan == null) {
-				Log.Error("Vital rooms are missing!");
 				return null;
 			}
 

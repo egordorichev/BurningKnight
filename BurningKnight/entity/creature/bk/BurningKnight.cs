@@ -109,6 +109,10 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (Hidden) {
+				return base.HandleEvent(e);
+			}
+		
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New != null) {
 					var t = rce.New.Type;

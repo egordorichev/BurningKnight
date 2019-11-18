@@ -438,9 +438,9 @@ namespace BurningKnight.entity.creature.player {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
 						hm.Amount = Math.Min(hm.Amount, -2);
+					} else if (!(hm.From is DarkMageStand)) {
+						hm.Amount = Math.Max(-1, hm.Amount);
 					}
-
-					hm.Amount = Math.Max(-1, hm.Amount);
 				}			
 			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {

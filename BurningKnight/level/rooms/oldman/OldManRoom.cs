@@ -19,7 +19,7 @@ namespace BurningKnight.level.rooms.oldman {
 			Painter.Rect(level, this, 1, Tile.EvilWall);
 			Painter.Fill(level, this, 2, Tile.EvilFloor);
 			
-			PaintTunnel(level, Tile.EvilFloor);
+			PaintTunnel(level, Tile.EvilFloor, GetCenterRect(), false, false, false);
 			
 			var dm = new DarkMage();
 			level.Area.Add(dm);
@@ -58,11 +58,11 @@ namespace BurningKnight.level.rooms.oldman {
 		}
 
 		public override int GetMinWidth() {
-			return 7;
+			return 9;
 		}
 
 		public override int GetMaxWidth() {
-			return 14;
+			return 16;
 		}
 
 		protected override int ValidateWidth(int W) {

@@ -123,6 +123,10 @@ namespace BurningKnight.entity.item.stand {
 			Graphics.Print(PriceString, Font.Small, Position + new Vector2(PriceX, 14));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
+
+		protected virtual int CalculatePrice() {
+			return PriceCalculator.Calculate(Item);
+		}
 		
 		public void Recalculate() {
 			if (Free) {
@@ -137,7 +141,7 @@ namespace BurningKnight.entity.item.stand {
 			}
 			
 			Sells = true;
-			Price = PriceCalculator.Calculate(Item);
+			Price = CalculatePrice();
 
 			if (OnSale) {
 				Price = (int) Math.Floor(Price * 0.5f);

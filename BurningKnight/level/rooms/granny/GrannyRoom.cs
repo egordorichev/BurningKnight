@@ -19,7 +19,7 @@ namespace BurningKnight.level.rooms.granny {
 			Painter.Rect(level, this, 1, Tile.GrannyWall);
 			Painter.Fill(level, this, 2, Tile.GrannyFloor);
 			
-			PaintTunnel(level, Tile.GrannyFloor);
+			PaintTunnel(level, Tile.GrannyFloor, GetCenterRect(), false, false, false);
 			
 			var granny = new Granny();
 			level.Area.Add(granny);

@@ -114,7 +114,7 @@ namespace BurningKnight.entity.component {
 				}
 
 				var old = maxHealth;
-				var nw = Math.Max(1, value);
+				var nw = value;
 
 				if (MaxHealthCap > -1) {
 					nw = Math.Min(MaxHealthCap, nw);

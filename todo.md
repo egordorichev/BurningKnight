@@ -1,12 +1,11 @@
 # publisher build stuff
 
-* dark mage/granny rooms {
- + change wall (sides) tile height to 8?
- + fix dm prices
-}
-
 * fix {
  + gamepad shake
+}
+
+* dark mage/granny rooms {
+ + fix dm prices
 }
 
 * granny: {
