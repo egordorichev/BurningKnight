@@ -105,6 +105,7 @@
 
 ### Ideas
 
+* disco floor (secret location or just secret room?)
 * blue hearts, at least em
 
 * teleport tile mechanic for some level
