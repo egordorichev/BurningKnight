@@ -19,6 +19,8 @@ namespace BurningKnight.level.rooms.granny {
 			Painter.Rect(level, this, 1, Tile.GrannyWall);
 			Painter.Fill(level, this, 2, Tile.GrannyFloor);
 			
+			PaintTunnel(level, Tile.GrannyFloor);
+			
 			var granny = new Granny();
 			level.Area.Add(granny);
 			granny.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 3) * 16;

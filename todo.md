@@ -8,6 +8,12 @@
  + gamepad shake
 }
 
+* granny: {
+ + custom dialog in the room
+ + dialog when you take an item, tp away after a few sec? 
+ + dialog with bk
+}
+
 * bk: {
  + better into boss going anim
  + better getting out of boss

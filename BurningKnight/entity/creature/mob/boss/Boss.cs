@@ -93,7 +93,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				return;
 			}
 			
-			if (HasHealthbar && HealthBar == null) {
+			if (!(GetComponent<StateComponent>().StateInstance is FriendlyState) && HasHealthbar && HealthBar == null) {
 				HealthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(HealthBar);
 			}
