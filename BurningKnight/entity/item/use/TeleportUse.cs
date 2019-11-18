@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.use.parent;
 using BurningKnight.entity.room;
+using BurningKnight.level.rooms;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util.camera;
@@ -19,7 +20,7 @@ namespace BurningKnight.entity.item.use {
 			
 			foreach (var e in entities) {
 				var room = e.GetComponent<RoomComponent>().Room;
-				var newRoom = (Room) Rnd.Element<Entity>(rooms, r => r != room);
+				var newRoom = (Room) Rnd.Element<Entity>(rooms, r => r != room && r is Room rm && rm.Type != RoomType.Granny && rm.Type != RoomType.OldMan && rm.Type != RoomType.Secret);
 
 				if (newRoom != null) {
 					AnimationUtil.TeleportAway(e, () => {

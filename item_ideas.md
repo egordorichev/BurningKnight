@@ -10,7 +10,7 @@
 * boss pool
 * charger pool       -- battery buddy, item, that makes you charge double per room -> some items for charger item pool
 * safe pool (loot pick for example)
-* granny
+* granny --- tea cup! and other tea based items
 * dark mage
 
 ### to rework
