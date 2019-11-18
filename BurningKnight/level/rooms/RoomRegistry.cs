@@ -4,6 +4,8 @@ using BurningKnight.level.biome;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
@@ -30,7 +32,9 @@ namespace BurningKnight.level.rooms {
 			RoomType.Shop,
 			RoomType.Treasure,
 			RoomType.Entrance,
-			RoomType.Trap
+			RoomType.Trap,
+			RoomType.Granny,
+			RoomType.OldMan
 		};
 
 		public static RoomType FromIndex(int i) {
@@ -52,7 +56,7 @@ namespace BurningKnight.level.rooms {
 				// Secret
 				// RoomInfo.New<SecretMachineRoom>(1f), - pretty bad
 				RoomInfo.New<SecretChasmRoom>(1f),
-				RoomInfo.New<GrannyRoom>(0.01f),
+				RoomInfo.New<GrannySecretRoom>(0.01f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
@@ -99,6 +103,12 @@ namespace BurningKnight.level.rooms {
 				// Boss
 				RoomInfo.New<BossRoom>(1f),
 				RoomInfo.New<ChasmBossRoom>(1f),
+				
+				// Granny
+				RoomInfo.New<GrannyRoom>(1f),
+				
+				// Old Man
+				RoomInfo.New<OldManRoom>(1f),
 			};
 
 			foreach (var info in infos) {

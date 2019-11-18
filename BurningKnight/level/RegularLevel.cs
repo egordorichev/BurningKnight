@@ -155,6 +155,9 @@ namespace BurningKnight.level {
 				}
 			}
 
+			rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+			rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+			
 			if (first) {
 				rooms.Add(new ExitRoom());				
 			} else {
@@ -179,6 +182,10 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
+			if (true) {
+				return new LineBuilder();
+			}
+			
 			if (IsFinal()) {
 				return new LineBuilder();
 			}

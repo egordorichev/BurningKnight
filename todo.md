@@ -5,7 +5,6 @@
 }
 
 * bk: {
- + dialog like "DONT TOUCH MY STUFF" in the treasure room, make other items dissappear like he takes it?
  + better into boss going anim
  + better getting out of boss
  + check how saving works with capturing bosses
@@ -18,7 +17,7 @@
  }
 }
 
-* room / lvl cleared effect
+* room cleared effect
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * finish teleportation animation on player
@@ -30,15 +29,13 @@
 
 * look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
-* we need inventory in pause menu, like in revita
-* spawn chests/pickups in the levels
-* remove rewards
+* room clear reward. Spawns in the center, destroying the tiles. 
 
-{
-    > I wouldn't put the sound of the wind onto the music itself
-    > cause everytime the music fades out, cause its going into the next round of looping it creates a short whole for the ambience too
-    
-    make ambience play in transitions?
+* audio {
+ + make ambience play in transitions? it feels empty
+ + dialog sounds
+ + boss sounds
+ + bk fire sound (when near)
 }
 
 * breakable torch
@@ -48,6 +45,8 @@
 
 
 * dark mage/granny rooms
+
+* spawn chests/pickups in the levels
 
 * duck interaction
 * Implement basic loop
@@ -146,6 +145,7 @@
 * daily runs
 * local coop up to 4 players
 * twitch support
+* steam rpc
 
 ### Machine Ideas
 

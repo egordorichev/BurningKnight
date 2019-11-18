@@ -3,6 +3,8 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.save;
 using BurningKnight.util;
@@ -15,6 +17,8 @@ namespace BurningKnight.level.builders {
 		protected EntranceRoom Entrance;
 		protected ExitRoom Exit;
 		protected BossRoom Boss;
+		protected GrannyRoom Granny;
+		protected OldManRoom OldMan;
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
@@ -36,6 +40,10 @@ namespace BurningKnight.level.builders {
 			foreach (var Room in Rooms) {
 				if (Room is BossRoom b) {
 					Boss = b;
+				} else if (Room is OldManRoom) {
+					OldMan = (OldManRoom) Room;
+				} else if (Room is GrannyRoom) {
+					Granny = (GrannyRoom) Room;
 				} else if (Room is EntranceRoom) {
 					Entrance = (EntranceRoom) Room;
 				} else if (Room is ExitRoom) {

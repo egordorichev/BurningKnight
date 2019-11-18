@@ -6,6 +6,8 @@ using BurningKnight.level.floors;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
@@ -620,6 +622,14 @@ namespace BurningKnight.level.rooms {
 
 			if (typeof(BossRoom).IsAssignableFrom(room)) {
 				return RoomType.Boss;
+			}
+			
+			if (typeof(GrannyRoom).IsAssignableFrom(room)) {
+				return RoomType.Granny;
+			}
+			
+			if (typeof(OldManRoom).IsAssignableFrom(room)) {
+				return RoomType.OldMan;
 			}
 			
 			if (typeof(EntranceRoom).IsAssignableFrom(room)) {

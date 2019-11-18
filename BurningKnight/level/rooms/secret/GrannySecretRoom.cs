@@ -1,5 +1,5 @@
 namespace BurningKnight.level.rooms.secret {
-	public class GrannyRoom : SecretRoom {
+	public class GrannySecretRoom : SecretRoom {
 		public override void PaintFloor(Level level) {
 			
 		}

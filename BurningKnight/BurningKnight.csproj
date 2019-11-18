@@ -443,6 +443,7 @@
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Brastin.cs" />
+    <Compile Include="entity\creature\npc\DarkMage.cs" />
     <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
     <Compile Include="entity\creature\npc\Elon.cs" />
@@ -835,6 +836,8 @@
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\entrance\PortalEntranceRoom.cs" />
+    <Compile Include="level\rooms\granny\GrannyRoom.cs" />
+    <Compile Include="level\rooms\oldman\OldManRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
@@ -844,7 +847,7 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
-    <Compile Include="level\rooms\secret\GrannyRoom.cs" />
+    <Compile Include="level\rooms\secret\GrannySecretRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />

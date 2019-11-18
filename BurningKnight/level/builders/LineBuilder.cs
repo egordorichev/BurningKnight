@@ -27,6 +27,11 @@ namespace BurningKnight.level.builders {
 				Log.Error("No entrance!");
 				return null;
 			}
+			
+			if (Boss == null || Granny == null || OldMan == null) {
+				Log.Error("Vital rooms are missing!");
+				return null;
+			}
 
 			var Branchable = new List<RoomDef>();
 			
@@ -82,6 +87,44 @@ namespace BurningKnight.level.builders {
 						
 					while (true) {
 						var an = PlaceRoom(Init, R, Boss, a);
+							
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							return null;
+						}
+							
+						a += 10;
+					}
+					
+					a = Rnd.Angle();
+					i = 0;
+						
+					while (true) {
+						var an = PlaceRoom(Init, Boss, Granny, a);
+							
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							return null;
+						}
+							
+						a += 10;
+					}
+					
+					a = Rnd.Angle();
+					i = 0;
+						
+					while (true) {
+						var an = PlaceRoom(Init, Boss, OldMan, a);
 							
 						if ((int) an != -1) {
 							break;

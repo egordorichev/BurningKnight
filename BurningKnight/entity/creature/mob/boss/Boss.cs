@@ -13,6 +13,7 @@ using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens;
 using Lens.assets;
@@ -39,6 +40,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AddComponent(new DialogComponent());
+			
 			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
 			Become<FriendlyState>();
 		}

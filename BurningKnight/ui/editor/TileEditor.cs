@@ -45,7 +45,7 @@ namespace BurningKnight.ui.editor {
 			var i = 0;
 			
 			foreach (var r in BiomeRegistry.Defined.Values) {
-				if (r.Id == Editor.Level.Biome.Id) {
+				if (r.Id == Editor?.Level?.Biome?.Id) {
 					currentBiome = i;
 				}
 				

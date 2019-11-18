@@ -3,6 +3,9 @@ using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities.decor;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.util.geometry;
@@ -29,12 +32,20 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			return 1;
+			return 3;
 		}
 
 		public override int GetMinConnections(Connection Side) {
 			if (Side == Connection.All) return 1;
 			return 0;
+		}
+
+		public override bool CanConnect(RoomDef R) {
+			if (R is GrannyRoom || R is OldManRoom || R is PrebossRoom) {
+				return base.CanConnect(R);
+			}
+
+			return false;
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {

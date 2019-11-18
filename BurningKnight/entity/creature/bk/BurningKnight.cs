@@ -79,7 +79,6 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
 			
-			AddComponent(new DialogComponent());
 			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
 
 			var buffs = GetComponent<BuffsComponent>();
