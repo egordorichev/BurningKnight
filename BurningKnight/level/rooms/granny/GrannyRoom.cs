@@ -26,7 +26,6 @@ namespace BurningKnight.level.rooms.granny {
 			granny.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 3) * 16;
 
 			var count = Math.Ceiling((GetWidth() - 6) / 2f);
-
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Granny));
 
 			for (var i = 0; i < count; i++) {

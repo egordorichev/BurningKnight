@@ -1,4 +1,8 @@
+using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.special;
@@ -28,10 +32,41 @@ namespace BurningKnight.level.rooms.oldman {
 				level.Area.Add(campfire);
 				campfire.BottomCenter = w + new Vector2(24 * (i == 0 ? -1 : 1), 0);
 			}
+
+			var count = Math.Ceiling((GetWidth() - 6) / 2f);
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.OldMan));
+
+			for (var i = 0; i < count; i++) {
+				var stand = new DarkMageStand();
+				level.Area.Add(stand);
+				stand.Center = new Vector2(Left + 3.5f + i * 2, Top + 4.5f) * 16;
+				
+				stand.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+			}
 		}
 
 		public override bool CanConnect(RoomDef R) {
 			return R is BossRoom;
+		}
+
+		public override int GetMinHeight() {
+			return 9;
+		}
+
+		public override int GetMaxHeight() {
+			return 11;
+		}
+
+		public override int GetMinWidth() {
+			return 7;
+		}
+
+		public override int GetMaxWidth() {
+			return 14;
+		}
+
+		protected override int ValidateWidth(int W) {
+			return W % 2 == 0 ? W : W - 1;
 		}
 	}
 }
