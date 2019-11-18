@@ -114,13 +114,13 @@ namespace BurningKnight.level {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
 				Tileset = Tilesets.Get(Biome.Tileset);
-				
-				Tileset.Tiles[(int) Tile.EvilFloor] = Tilesets.Biome.EvilFloor;
-				Tileset.Tiles[(int) Tile.GrannyFloor] = Tilesets.Biome.GrannyFloor;
-				Tileset.Tiles[(int) Tile.EvilWall] = Tileset.Tiles[(int) Tile.WallA];
-				Tileset.Tiles[(int) Tile.GrannyWall] = Tileset.Tiles[(int) Tile.WallA];
 
-				// Engine.Instance.StateRenderer.Bg = Biome.Bg;
+				if (Tilesets.Biome != null && Tileset != null) {
+					Tileset.Tiles[(int) Tile.EvilFloor] = Tilesets.Biome.EvilFloor;
+					Tileset.Tiles[(int) Tile.GrannyFloor] = Tilesets.Biome.GrannyFloor;
+					Tileset.Tiles[(int) Tile.EvilWall] = Tileset.Tiles[(int) Tile.WallA];
+					Tileset.Tiles[(int) Tile.GrannyWall] = Tileset.Tiles[(int) Tile.WallA];
+				}
 			}
 		}
 

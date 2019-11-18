@@ -15,13 +15,17 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.item {
 	public class EmeraldStand : ItemStand {
 		public static List<string> AlreadyOnStand = new List<string>();
+
+		private TextureRegion emerald;
 		
 		private int price;
+		private float priceWidth;
 		private string priceString;
 		private float priceX;
 		
 		public EmeraldStand() {
 			dontSaveItem = true;
+			emerald = CommonAse.Ui.GetSlice("emerald");
 		}
 
 		public override void Init() {
@@ -133,6 +137,7 @@ namespace BurningKnight.entity.item {
 
 			if (Item != null && price > 0) {
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
+				Graphics.Render(emerald, Position + new Vector2(priceX + priceWidth + 2, 17));
 			}
 		}
 
@@ -143,7 +148,8 @@ namespace BurningKnight.entity.item {
 				} else {
 					price = i.Data.UnlockPrice;
 					priceString = $"{price}";
-					priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+					priceWidth = Font.Small.MeasureString(priceString).Width;
+					priceX = (Width - priceWidth - 2 - emerald.Width) / 2f;
 				}
 			}
 			

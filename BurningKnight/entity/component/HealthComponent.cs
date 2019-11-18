@@ -125,6 +125,7 @@ namespace BurningKnight.entity.component {
 					Amount = nw - old
 				})) {
 					maxHealth = nw;
+					health = Math.Min(health, maxHealth);
 				}
 			}
 		}

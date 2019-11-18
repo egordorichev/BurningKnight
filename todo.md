@@ -2,6 +2,7 @@
 
 * dark mage/granny rooms {
  + change wall (sides) tile height to 8?
+ + fix dm prices
 }
 
 * fix {
@@ -52,6 +53,12 @@
 
 * breakable torch
 * dialog sfx
+
++ hub {
+ + fix tranders dialogs
+ + hide stuff from traders you did not allow yet
+ + allow to layer in stuff for speical events
+}
 
 ##
 
