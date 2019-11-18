@@ -118,6 +118,44 @@ namespace BurningKnight.level.builders {
 							
 							a += 10;
 						}
+					
+						a = Rnd.Angle();
+						i = 0;
+						
+						while (true) {
+							var an = PlaceRoom(Init, Boss, Granny, a);
+							
+							if ((int) an != -1) {
+								break;
+							}
+
+							i++;
+
+							if (i > 36) {
+								return null;
+							}
+							
+							a += 10;
+						}
+					
+						a = Rnd.Angle();
+						i = 0;
+						
+						while (true) {
+							var an = PlaceRoom(Init, Boss, OldMan, a);
+							
+							if ((int) an != -1) {
+								break;
+							}
+
+							i++;
+
+							if (i > 36) {
+								return null;
+							}
+							
+							a += 10;
+						}
 					}
 				} else {
 					return null;

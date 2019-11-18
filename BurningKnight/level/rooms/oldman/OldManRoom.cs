@@ -1,4 +1,5 @@
 using BurningKnight.entity.creature.npc;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
@@ -14,9 +15,19 @@ namespace BurningKnight.level.rooms.oldman {
 			Painter.Rect(level, this, 1, Tile.EvilWall);
 			Painter.Fill(level, this, 2, Tile.EvilFloor);
 			
+			PaintTunnel(level, Tile.EvilFloor);
+			
 			var dm = new DarkMage();
 			level.Area.Add(dm);
-			dm.BottomCenter = new Vector2(Left + GetWidth() / 2 + 0.5f, Top + 3) * 16;
+
+			var w = new Vector2(GetCenterVector().X, (Top + 3) * 16);
+			dm.BottomCenter = w;
+
+			for (var i = 0; i < 2; i++) {
+				var campfire = new Campfire();
+				level.Area.Add(campfire);
+				campfire.BottomCenter = w + new Vector2(24 * (i == 0 ? -1 : 1), 0);
+			}
 		}
 
 		public override bool CanConnect(RoomDef R) {

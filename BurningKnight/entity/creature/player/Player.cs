@@ -420,6 +420,13 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 
+				// Darken the lighting in old man room
+				if (c.New.Type == RoomType.OldMan) {
+					Tween.To(0.7f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
+				} else if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
+				}
+
 				if (c.Old != null) {
 					Camera.Instance.Unfollow(c.Old);
 				}

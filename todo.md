@@ -1,12 +1,12 @@
 # publisher build stuff
 
 * dark mage/granny rooms {
- + fix other builders
  + change wall (sides) tile height to 8?
 }
 
 * fix {
  + gamepad shake
+ + fix boss battle camera going somewhere up. I guess since bk is gone, should unfollow it
 }
 
 * bk: {
