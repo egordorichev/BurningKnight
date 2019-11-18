@@ -1,5 +1,10 @@
 # publisher build stuff
 
+* dark mage/granny rooms {
+ + fix other builders
+ + change wall (sides) tile height to 8?
+}
+
 * fix {
  + gamepad shake
 }
@@ -14,6 +19,8 @@
   - enraging sk 
   - killing sk
   - finding a secret room (oh comon stop breaking my castle)
+  - hi my master to gm
+  - not you again to granny
  }
 }
 
@@ -43,8 +50,6 @@
 
 ##
 
-
-* dark mage/granny rooms
 
 * spawn chests/pickups in the levels
 

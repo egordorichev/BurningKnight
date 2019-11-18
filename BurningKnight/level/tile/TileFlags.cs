@@ -37,6 +37,10 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.Ember] = Passable | LiquidLayer;
 			flags[(int) Tile.Cobweb] = Passable | LiquidLayer | Burns;
 			flags[(int) Tile.Planks] = Solid | WallLayer | BreaksView;
+			flags[(int) Tile.EvilWall] = Solid | WallLayer | BreaksView;
+			flags[(int) Tile.EvilFloor] = Passable | FloorLayer;
+			flags[(int) Tile.GrannyWall] = Solid | WallLayer | BreaksView;
+			flags[(int) Tile.GrannyFloor] = Passable | FloorLayer;
 			flags[(int) Tile.Piston] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.PistonDown] = Passable | FloorLayer;
 			flags[(int) Tile.Rock] = Solid | LiquidLayer | BreaksView | HalfWall;

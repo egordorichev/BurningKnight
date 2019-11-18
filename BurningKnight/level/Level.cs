@@ -879,6 +879,12 @@ namespace BurningKnight.level {
 									case Tile.Planks:
 										textureRegion = Tilesets.Biome.Planks[ind];
 										break;
+									case Tile.EvilWall: case Tile.EvilFloor:
+										textureRegion = Tilesets.Biome.EvilWall[ind];
+										break;
+									case Tile.GrannyWall: case Tile.GrannyFloor:
+										textureRegion = Tilesets.Biome.GrannyWall[ind];
+										break;
 									case Tile.FloorA:
 										textureRegion = Tileset.FloorSidesA[ind];
 										break;
@@ -953,19 +959,21 @@ namespace BurningKnight.level {
 								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							}
 							
+							// fixme: use array indexing
 							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), pos);
 
 							var ind = -1;
 
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks, Tile.Transition)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks, Tile.EvilWall, Tile.GrannyWall, Tile.Transition)) {
 								ind += 1;
 							}
 
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks, Tile.Transition)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.EvilWall, Tile.GrannyWall, Tile.Planks, Tile.Transition)) {
 								ind += 2;
 							}
 
 							if (ind != -1) {
+								// fixme: use array indexing
 								Graphics.Render(aa ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
 							}
 						}

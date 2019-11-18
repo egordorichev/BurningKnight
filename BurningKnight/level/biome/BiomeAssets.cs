@@ -48,6 +48,14 @@ namespace BurningKnight.level.biome {
 		public TextureRegion[] PlankSides = new TextureRegion[3];
 		public TextureRegion PlanksTop;
 
+		public TextureRegion[] EvilWall = new TextureRegion[12];
+		public TextureRegion[] EvilWallTops = new TextureRegion[36];
+		public TextureRegion[] EvilWallSides = new TextureRegion[3];
+		
+		public TextureRegion[] GrannyWall = new TextureRegion[12];
+		public TextureRegion[] GrannyWallTops = new TextureRegion[36];
+		public TextureRegion[] GrannyWallSides = new TextureRegion[3];
+
 		public TextureRegion[] Light;
 
 		public BiomeAssets() {
@@ -95,15 +103,21 @@ namespace BurningKnight.level.biome {
 					var n = j > 5 ? j + 1 : j;
 
 					PlankTops[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 208, n / 5 * 8 + 136, 8, 8));
+					EvilWallTops[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40, n / 5 * 8 + 320, 8, 8));
+					GrannyWallTops[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 192, n / 5 * 8 + 320, 8, 8));
 				}
 			}
 				
 			for (int i = 0; i < 12; i++) {
 				Planks[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16 + 208, 160, 16, 16));
+				EvilWall[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 334, 16, 16));
+				GrannyWall[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16 + 192, 334, 16, 16));
 			}
 
 			for (int i = 0; i < 3; i++) {
 				PlankSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
+				EvilWallSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
+				GrannyWallSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
 			}
 			
 			PlanksTop = new TextureRegion(anim.Texture, new Rectangle(384, 144, 16, 16));
