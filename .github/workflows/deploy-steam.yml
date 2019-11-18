@@ -83,23 +83,25 @@ jobs:
           cd ..
           
       - name: Upload Linux Version to Itch
-        shell: powershell
+        shell: bash
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
           ./butler.exe push ./Linux/ egordorichev/bkt:linux
+          ls -l ./Linux/
+          ls -l ./Windows/
           
       - name: Upload windows build to linux
         uses: actions/upload-artifact@v1
         with:
           name: Windows
-          path: Windows
+          path: ./Windows/
           
       - name: Upload linux build to linux
         uses: actions/upload-artifact@v1
         with:
           name: Linux
-          path: Linux
+          path: ./Linux/  
         
   upload:
     needs: build
