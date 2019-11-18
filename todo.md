@@ -6,7 +6,6 @@
 
 * fix {
  + gamepad shake
- + fix boss battle camera going somewhere up. I guess since bk is gone, should unfollow it
 }
 
 * bk: {

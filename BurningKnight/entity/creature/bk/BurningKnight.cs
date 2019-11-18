@@ -330,6 +330,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (d <= 8) {
 					// PREPARE TO DIE!
 					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
+					Camera.Instance.Unfollow(Self);
 					
 					Become<HiddenState>();
 					Self.captured.SelectAttack();

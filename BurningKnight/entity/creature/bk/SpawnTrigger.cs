@@ -1,7 +1,6 @@
 using System;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.bk.forms;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;

@@ -52,13 +52,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 					Area.Add(new FireParticle {
 						Offset = new Vector2(-2, -13),
 						Owner = this,
-						Size = 0.5f
+						Size = 0.5f,
+						Depth = Depth + 1
 					});
 
 					Area.Add(new FireParticle {
 						Offset = new Vector2(2, -13),
 						Owner = this,
-						Size = 0.5f
+						Size = 0.5f,
+						Depth = Depth + 1
 					});
 				}
 			}

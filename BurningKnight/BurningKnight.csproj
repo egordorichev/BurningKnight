@@ -402,14 +402,6 @@
     <Compile Include="entity\creature\bk\BkGraphicsComponent.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BladeAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BulletSpamAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BurningKing.cs" />
-    <Compile Include="entity\creature\bk\forms\king\DashAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\JumpAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\SpinAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\SwingAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\slime\BurningSlime.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
@@ -831,7 +823,6 @@
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
-    <Compile Include="level\rooms\entrance\BossTestRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
