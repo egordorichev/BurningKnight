@@ -6,6 +6,8 @@
 
 * dark mage/granny rooms {
  + fix dm prices
+ + appearance logic 
+ + actual appearance only after boss battle
 }
 
 * granny: {
