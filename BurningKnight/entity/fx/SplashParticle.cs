@@ -6,8 +6,8 @@ using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class SplashParticle : Entity, CollisionFilterEntity {
@@ -32,11 +32,11 @@ namespace BurningKnight.entity.fx {
 			var body = new CircleBodyComponent(0, 0, 4);
 			AddComponent(body);
 
-			var f = Random.Float(60, 90);
-			var a = Random.AnglePI();
+			var f = Rnd.Float(60, 90);
+			var a = Rnd.AnglePI();
 			
 			body.Body.LinearVelocity = new Vector2((float) Math.Cos(a) * f, (float) Math.Sin(a) * f);
-			zv = Random.Float(1, 3);
+			zv = Rnd.Float(1, 3);
 		}
 
 		public override void Update(float dt) {

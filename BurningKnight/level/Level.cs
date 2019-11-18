@@ -20,10 +20,10 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public abstract class Level : SaveableEntity {
@@ -114,7 +114,13 @@ namespace BurningKnight.level {
 			if (biome != null) {
 				Biome = (Biome) Activator.CreateInstance(biome.Type);
 				Tileset = Tilesets.Get(Biome.Tileset);
-				// Engine.Instance.StateRenderer.Bg = Biome.Bg;
+
+				if (Tilesets.Biome != null && Tileset != null) {
+					Tileset.Tiles[(int) Tile.EvilFloor] = Tilesets.Biome.EvilFloor;
+					Tileset.Tiles[(int) Tile.GrannyFloor] = Tilesets.Biome.GrannyFloor;
+					Tileset.Tiles[(int) Tile.EvilWall] = Tileset.Tiles[(int) Tile.WallA];
+					Tileset.Tiles[(int) Tile.GrannyWall] = Tileset.Tiles[(int) Tile.WallA];
+				}
 			}
 		}
 
@@ -404,8 +410,8 @@ namespace BurningKnight.level {
 			var light = Run.Depth == 0;
 			
 			for (var i = 0; i < Size; i++) {
-				if (Random.Chance(10)) {
-					WallDecor[i] = (byte) Random.Int(1, 9);
+				if (Rnd.Chance(10)) {
+					WallDecor[i] = (byte) Rnd.Int(1, 9);
 				}
 
 				if (light) {
@@ -592,13 +598,8 @@ namespace BurningKnight.level {
 						var t = (Tile) Tiles[index + width];
 
 						if (!t.IsWall() && t != Tile.Chasm) {
-							Graphics.Render(
-									tl.Matches(Tile.WallA, Tile.Piston)
-											? Tileset.WallA[CalcWallIndex(x, y)]
-											: (tl == Tile.Planks
-													? Tilesets.Biome.Planks[CalcWallIndex(x, y)]
-													: Tileset.WallB[CalcWallIndex(x, y)]), new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
-									Vector2.One, SpriteEffects.FlipVertically);
+							Graphics.Render(Tileset.WallA[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
+								Vector2.One, SpriteEffects.FlipVertically);
 						}
 					}
 					
@@ -637,7 +638,7 @@ namespace BurningKnight.level {
 			
 			Graphics.Color = ColorUtils.WhiteColor;
 			
-			foreach (var p in Area.Tags[Tags.Mess]) {
+			foreach (var p in Area.Tagged[Tags.Mess]) {
 				((SplashFx) p).RenderInSurface();
 			}
 			
@@ -782,9 +783,9 @@ namespace BurningKnight.level {
 							Graphics.Render(region, pos);
 
 							if (t == Tile.Water || t == Tile.Lava) {
-								if (!paused && Get(index + width) == Tile.Chasm && Random.Chance(10)) {
+								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(10)) {
 									Area.Add(new WaterfallFx {
-										Position = pos + new Vector2(Random.Float(16), 16),
+										Position = pos + new Vector2(Rnd.Float(16), 16),
 										Lava = t == Tile.Lava
 									});
 								}
@@ -859,9 +860,9 @@ namespace BurningKnight.level {
 
 						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 						
-						if (!paused && Random.Chance(0.1f)) {
+						if (!paused && Rnd.Chance(0.1f)) {
 							Area.Add(new ChasmFx {
-								Position = pos + new Vector2(Random.Float(16), Random.Float(16))
+								Position = pos + new Vector2(Rnd.Float(16), Rnd.Float(16))
 							});
 						}
 
@@ -878,6 +879,12 @@ namespace BurningKnight.level {
 										break;
 									case Tile.Planks:
 										textureRegion = Tilesets.Biome.Planks[ind];
+										break;
+									case Tile.EvilWall: case Tile.EvilFloor:
+										textureRegion = Tilesets.Biome.EvilWall[ind];
+										break;
+									case Tile.GrannyWall: case Tile.GrannyFloor:
+										textureRegion = Tilesets.Biome.GrannyWall[ind];
 										break;
 									case Tile.FloorA:
 										textureRegion = Tileset.FloorSidesA[ind];
@@ -946,27 +953,59 @@ namespace BurningKnight.level {
 						if ((IsInside(index + width) && !((Tile) Tiles[index + width]).IsWall())) {
 							var pos = new Vector2(x * 16, y * 16 + 8);
 							var a = tl.Matches(Tile.WallA, Tile.Piston);
-							var aa = a || tl == Tile.Transition;
 							
 							if (tl == Tile.Crack) {
 								a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							}
+
+							var ar = Tileset.WallA;
+							var arr = Tileset.WallSidesA;
+
+							if (!a) {
+								switch (tl) {
+									case Tile.Planks: {
+										ar = Tilesets.Biome.Planks;
+										arr = Tilesets.Biome.PlankSides;
+										break;
+									}
+									
+									case Tile.WallB: {
+										ar = Tileset.WallB;
+										arr = Tileset.WallSidesB;
+										break;
+									}
+																		
+									case Tile.EvilWall: {
+										ar = Tilesets.Biome.EvilWall;
+										arr = Tilesets.Biome.EvilWallSides;
+										break;
+									}
+
+									case Tile.GrannyWall: {
+										ar = Tilesets.Biome.GrannyWall;
+										arr = Tilesets.Biome.GrannyWallSides;
+										break;
+									}
+								}
+							}
 							
-							Graphics.Render(a ? Tileset.WallA[CalcWallIndex(x, y)] : (tl == Tile.Planks ? Tilesets.Biome.Planks[CalcWallIndex(x, y)] : Tileset.WallB[CalcWallIndex(x, y)]), pos);
+							Graphics.Render(ar[CalcWallIndex(x, y)], pos);
 
 							var ind = -1;
 
-							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks, Tile.Transition)) {
+							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB,
+								    Tile.Planks, Tile.EvilWall, Tile.GrannyWall, Tile.Transition)) {
 								ind += 1;
 							}
 
-							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.Planks, Tile.Transition)) {
+							if (index <= 0 || !((Tile) Tiles[index - 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB, Tile.EvilWall,
+								    Tile.GrannyWall, Tile.Planks, Tile.Transition)) {
 								ind += 2;
 							}
 
 							if (ind != -1) {
-								Graphics.Render(aa ? Tileset.WallSidesA[ind] : (tl == Tile.Planks ? Tilesets.Biome.PlankSides[ind] : Tileset.WallSidesB[ind]), pos);
+								Graphics.Render(arr[ind], pos);
 							}
 						}
 					} else if (tl == Tile.Chasm) {
@@ -1025,7 +1064,7 @@ namespace BurningKnight.level {
 			
 			if (t != Tile.Transition) {
 				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
-				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
+				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown || t == Tile.GrannyWall || t == Tile.EvilWall;
 
 				if (a) {
 					var v = WallDecor[index];
@@ -1067,6 +1106,37 @@ namespace BurningKnight.level {
 							lv += 8;
 						}
 
+						var ar = Tileset.WallTopsA;
+
+						if (!a) {
+							switch (t) {
+								case Tile.Transition: {
+									ar = Tileset.WallTopsTransition;
+									break;
+								}
+								
+								case Tile.WallB: {
+									ar = Tileset.WallTopsB;
+									break;
+								}
+								
+								case Tile.Planks: {
+									ar = Tilesets.Biome.PlankTops;
+									break;
+								}
+								
+								case Tile.GrannyWall: {
+									ar = Tilesets.Biome.GrannyWallTops;
+									break;
+								}
+								
+								case Tile.EvilWall: {
+									ar = Tilesets.Biome.EvilWallTops;
+									break;
+								}
+							}
+						}
+						
 						if (lv == 15) {
 							lv = 0;
 
@@ -1096,11 +1166,7 @@ namespace BurningKnight.level {
 										Graphics.Color.A = (byte) (light * 255);
 										var ind = vl + 12 * CalcWallTopIndex(x, y);
 										
-										Graphics.Render(
-											t == Tile.Transition ? Tileset.WallTopsTransition[ind] :
-											(a
-												? Tileset.WallTopsA[ind]
-												: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind])),
+										Graphics.Render(ar[ind],
 											new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
 
 										Graphics.Color.A = 255;
@@ -1118,11 +1184,7 @@ namespace BurningKnight.level {
 
 									var ind = vl + 12 * CalcWallTopIndex(x, y);
 									
-									Graphics.Render(
-										t == Tile.Transition ? Tileset.WallTopsTransition[ind] :
-										(a
-											? Tileset.WallTopsA[ind]
-											: (t == Tile.Planks ? Tilesets.Biome.PlankTops[ind] : Tileset.WallTopsB[ind])),
+									Graphics.Render(ar[ind],
 										new Vector2(x * 16 + xx * 8, y * 16 + yy * 8 - m));
 
 									Graphics.Color.A = 255;
@@ -1173,7 +1235,7 @@ namespace BurningKnight.level {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			
-			foreach (var p in Area.Tags[Tags.Player]) {
+			foreach (var p in Area.Tagged[Tags.Player]) {
 				((Player) p).RenderOutline();
 			}
 			
@@ -1417,13 +1479,22 @@ namespace BurningKnight.level {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = new Vector2(x * 16 + 8, y * 16);
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				
 				area.Add(part);
 			}
 
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.Shake(2);
+		}
+
+		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {
+			for (var yy = y - 1; yy < y + h + 1; yy++) {
+				for (var xx = x - 1; xx < x + w + 1; xx++) {
+					UpdateTile(xx, yy);
+					ReCreateBodyChunk(xx, yy);
+				}
+			}
 		}
 	}
 }

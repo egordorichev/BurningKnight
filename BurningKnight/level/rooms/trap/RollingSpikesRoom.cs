@@ -1,4 +1,5 @@
 using BurningKnight.entity.room.controllable;
+using BurningKnight.level.tile;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -7,7 +8,7 @@ namespace BurningKnight.level.rooms.trap {
 		public override void Paint(Level level) {
 			var a = 0;
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				for (var i = Left + 2; i < Right - 1; i += 2) {
 					var spike = new RollingSpike();
 
@@ -28,6 +29,15 @@ namespace BurningKnight.level.rooms.trap {
 					level.Area.Add(spike);
 				
 					a++;
+				}
+			}
+			
+			foreach (var d in Connected.Values) {
+				if (d.Type != DoorPlaceholder.Variant.Secret) {
+					var w = 2;
+					var h = 2;
+					
+					Painter.Fill(level, d.X - w, d.Y - w, w * 2 + 1, h * 2 + 1, Tile.Chasm);
 				}
 			}
 		}

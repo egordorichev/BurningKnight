@@ -5,14 +5,14 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.builders {
 	public class LineBuilder : RegularBuilder {
 		private float Direction;
 
 		public LineBuilder() {
-			Direction = Random.Angle();
+			Direction = Rnd.Angle();
 		}
 		
 		public LineBuilder SetAngle(float Angle) {
@@ -27,6 +27,10 @@ namespace BurningKnight.level.builders {
 				Log.Error("No entrance!");
 				return null;
 			}
+			
+			if (Boss == null || Granny == null || OldMan == null) {
+				return null;
+			}
 
 			var Branchable = new List<RoomDef>();
 			
@@ -35,11 +39,11 @@ namespace BurningKnight.level.builders {
 			Branchable.Add(Entrance);
 
 			if (MultiConnection.Count == 0) {
-				PlaceRoom(Init, Entrance, Exit, Random.Angle());
+				PlaceRoom(Init, Entrance, Exit, Rnd.Angle());
 				return Init;
 			}
 
-			var RoomsOnPath = (int) (MultiConnection.Count * PathLength) + Random.Chances(PathLenJitterChances);
+			var RoomsOnPath = (int) (MultiConnection.Count * PathLength) + Rnd.Chances(PathLenJitterChances);
 			RoomsOnPath = Math.Min(RoomsOnPath, MultiConnection.Count);
 			RoomDef Curr = Entrance;
 			var PathTunnels = ArrayUtils.Clone(PathTunnelChances);
@@ -47,11 +51,11 @@ namespace BurningKnight.level.builders {
 			for (var I = 0; I <= RoomsOnPath; I++) {
 				if (I == RoomsOnPath && Exit == null) continue;
 
-				var Tunnels = Random.Chances(PathTunnels);
+				var Tunnels = Rnd.Chances(PathTunnels);
 
 				if (Tunnels == -1) {
 					PathTunnels = ArrayUtils.Clone(PathTunnelChances);
-					Tunnels = Random.Chances(PathTunnels);
+					Tunnels = Rnd.Chances(PathTunnels);
 				}
 
 				PathTunnels[Tunnels]--;
@@ -60,7 +64,7 @@ namespace BurningKnight.level.builders {
 					for (var J = 0; J < Tunnels; J++) {
 						var T = RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated);
 
-						if ((int) PlaceRoom(Init, Curr, T, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
+						if ((int) PlaceRoom(Init, Curr, T, Direction + Rnd.Float(-PathVariance, PathVariance)) == -1) {
 							return null;
 						}
 
@@ -72,7 +76,7 @@ namespace BurningKnight.level.builders {
 				var R = I == RoomsOnPath ? Exit : MultiConnection[I];
 
 
-				if ((int) PlaceRoom(Init, Curr, R, Direction + Random.Float(-PathVariance, PathVariance)) == -1) {
+				if ((int) PlaceRoom(Init, Curr, R, Direction + Rnd.Float(-PathVariance, PathVariance)) == -1) {
 					return null;
 				}
 				
@@ -82,6 +86,44 @@ namespace BurningKnight.level.builders {
 						
 					while (true) {
 						var an = PlaceRoom(Init, R, Boss, a);
+							
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							return null;
+						}
+							
+						a += 10;
+					}
+					
+					a = Rnd.Angle();
+					i = 0;
+						
+					while (true) {
+						var an = PlaceRoom(Init, Boss, Granny, a);
+							
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							return null;
+						}
+							
+						a += 10;
+					}
+					
+					a = Rnd.Angle();
+					i = 0;
+						
+					while (true) {
+						var an = PlaceRoom(Init, Boss, OldMan, a);
 							
 						if ((int) an != -1) {
 							break;
@@ -115,7 +157,7 @@ namespace BurningKnight.level.builders {
 
 			foreach (var R in Init) {
 				foreach (var N in R.Neighbours) {
-					if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+					if (!N.Connected.ContainsKey(R) && Rnd.Float() < ExtraConnectionChance) {
 						R.ConnectWithRoom(N);
 					}
 				}

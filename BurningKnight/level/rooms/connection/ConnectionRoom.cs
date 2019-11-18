@@ -23,7 +23,7 @@ namespace BurningKnight.level.rooms.connection {
 		}
 		
 		protected Rect GenerateSpot() {
-			var r = Random.Float();
+			var r = Rnd.Float();
 
 			if (r < 0.33f) {
 				return GetConnectionSpace();
@@ -31,7 +31,7 @@ namespace BurningKnight.level.rooms.connection {
 				return GetCenterRect();
 			}
 			
-			return new Rect(new Dot(Random.Int(Left + 2, Right - 2), Random.Int(Top + 2, Bottom - 2)));
+			return new Rect(new Dot(Rnd.Int(Left + 2, Right - 2), Rnd.Int(Top + 2, Bottom - 2)));
 		}
 
 		public override void Paint(Level level) {

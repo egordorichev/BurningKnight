@@ -13,18 +13,19 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
-	/*
-	 * todo: show price
-	 */
 	public class EmeraldStand : ItemStand {
 		public static List<string> AlreadyOnStand = new List<string>();
+
+		private TextureRegion emerald;
 		
 		private int price;
+		private float priceWidth;
 		private string priceString;
 		private float priceX;
 		
 		public EmeraldStand() {
 			dontSaveItem = true;
+			emerald = CommonAse.Ui.GetSlice("emerald");
 		}
 
 		public override void Init() {
@@ -52,6 +53,14 @@ namespace BurningKnight.entity.item {
 				Who = who,
 				Stand = this
 			});
+
+			foreach (var i in Area.Tagged[Tags.Item]) {
+				if (i is Item it) {
+					it.CheckMasked();
+				} else if (i is ItemStand its) {
+					its.Item?.CheckMasked();
+				}
+			}
 		}
 
 		protected override string GetSprite() {
@@ -67,7 +76,7 @@ namespace BurningKnight.entity.item {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 					break;
 				}
 				
@@ -128,6 +137,7 @@ namespace BurningKnight.entity.item {
 
 			if (Item != null && price > 0) {
 				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
+				Graphics.Render(emerald, Position + new Vector2(priceX + priceWidth + 2, 17));
 			}
 		}
 
@@ -138,7 +148,8 @@ namespace BurningKnight.entity.item {
 				} else {
 					price = i.Data.UnlockPrice;
 					priceString = $"{price}";
-					priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+					priceWidth = Font.Small.MeasureString(priceString).Width;
+					priceX = (Width - priceWidth - 2 - emerald.Width) / 2f;
 				}
 			}
 			

@@ -7,7 +7,7 @@ namespace BurningKnight.level.walls {
 	public class RuinsWall : PatchWall {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 2048f;
-			var t = Random.Chance(20) ? Tile.Lava : Tiles.RandomFloorOrSpike();
+			var t = Rnd.Chance(20) ? Tile.Lava : Tiles.RandomFloorOrSpike();
 			
 			Setup(level, room, fill, 0, true);
 			CleanDiagonalEdges(room);

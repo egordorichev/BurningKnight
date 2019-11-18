@@ -1,22 +1,22 @@
 using System;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.controller {
 	public class DestroyParticleController : ParticleController {
 		public override void Init(Particle particle, Entity owner) {
 			particle.Position = owner.Center;
-			particle.AngleVelocity = Random.Float(0.6f, 1) * Random.Float(24, 48) * (Random.Chance() ? -1 : 1);
+			particle.AngleVelocity = Rnd.Float(0.6f, 1) * Rnd.Float(24, 48) * (Rnd.Chance() ? -1 : 1);
 
 			var a = particle.Angle;
-			var f = Random.Float(0.6f, 1f) * Random.Float(80, 120f);
+			var f = Rnd.Float(0.6f, 1f) * Rnd.Float(80, 120f);
 
 			particle.Angle = 0;
 			particle.Velocity = new Vector2((float) Math.Cos(a) * f, (float) Math.Sin(a) * f);
-			particle.Zv = Random.Float(1, 3);
+			particle.Zv = Rnd.Float(1, 3);
 
-			particle.T = Random.Float(1f);
+			particle.T = Rnd.Float(1f);
 		}
 		
 		public override bool Update(Particle particle, float dt) {

@@ -31,7 +31,7 @@ namespace BurningKnight.level.entities {
 		public override void Init() {
 			base.Init();
 
-			type = (Type) Random.Int(4);
+			type = (Type) Rnd.Int(4);
 		}
 
 		public override void PostInit() {
@@ -99,18 +99,18 @@ namespace BurningKnight.level.entities {
 					}
 
 					c.Coins -= 1;
-					var r = Random.Int(2);
+					var r = Rnd.Int(2);
 
 					if (r == 0) {
 						for (var i = 0; i < 8; i++) {
-							var bomb = new Bomb(this, Random.Float(3, 5));
+							var bomb = new Bomb(this, Rnd.Float(3, 5));
 							
 							Area.Add(bomb);
 							bomb.CenterX = CenterX;
 							bomb.CenterY = Bottom;
 						}
 					} else if (r == 1) {
-						for (var i = 0; i < Random.Int(2, 5); i++) {
+						for (var i = 0; i < Rnd.Int(2, 5); i++) {
 							var coin = Items.CreateAndAdd("bk:coin", Area);
 
 							coin.CenterX = CenterX;

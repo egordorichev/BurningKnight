@@ -1,32 +1,70 @@
-# esty stuff
+# publisher build stuff
 
-* bk: {
- + flying on lvl always somewhere near 
- + spawns enemies 
- + raging when you take items from treasure rooms, make him take the rest of the stuff
- + boss battle stuff
+* fix {
+ + gamepad shake
 }
 
-* room / lvl cleared effect
-* portal
+* dark mage/granny rooms {
+ + fix dm prices
+ + appearance logic 
+ + actual appearance only after boss battle
+}
+
+* granny: {
+ + custom dialog in the room
+ + dialog when you take an item, tp away after a few sec? 
+ + dialog with bk
+}
+
+* bk: {
+ + better into boss going anim
+ + better getting out of boss
+ + check how saving works with capturing bosses
+ 
+ + dialog interactions {
+  - freeing npc
+  - enraging sk 
+  - killing sk
+  - finding a secret room (oh comon stop breaking my castle)
+  - hi my master to gm
+  - not you again to granny
+ }
+}
+
+* room cleared effect
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * finish teleportation animation on player
 
-* !! you can start with no weapon, if you continue run, you have no weapon (same with active item?)
 * !! game sometimes doesnt exit even after window is closed
 
 * second lvl deset enemies
+ + no hit boss battle reward
 
 * look into maximized bug
 * Allow to use images in ui string, get some gamepad and keyboard buttons going
-* we need inventory in pause menu, like in revita
-* make enemies items and players fall into chasm
-* spawn chests/pickups in the levels
+* room clear reward. Spawns in the center, destroying the tiles. 
+
+* audio {
+ + make ambience play in transitions? it feels empty
+ + dialog sounds
+ + boss sounds
+ + bk fire sound (when near)
+}
+
+* breakable torch
+* dialog sfx
+
++ hub {
+ + fix tranders dialogs
+ + hide stuff from traders you did not allow yet
+ + allow to layer in stuff for speical events
+}
 
 ##
 
-* dark mage/granny rooms
+
+* spawn chests/pickups in the levels
 
 * duck interaction
 * Implement basic loop
@@ -44,13 +82,12 @@
 * curse of ??? (items hidden)
 * more prefixes
 
-* discord rpc where??
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
 
-* bomb item should have a chance to ignire
-* hitting frozen enemy should let it slide a lot more around the room than usual
 * Enemies / rooms drop rewards (bombs, keys, coins)
+
+* dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 ## general
 
@@ -82,9 +119,11 @@
 * Reflections in the water
 * Splashes on the water
 * Props that react to music beats
+* player should go up (like jumping arc) when he is rolling
 
 ### Ideas
 
+* disco floor (secret location or just secret room?)
 * blue hearts, at least em
 
 * teleport tile mechanic for some level
@@ -102,6 +141,7 @@
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
+* lore through shopkeeper (like in messager)?
 
 ### Rooms
 
@@ -124,6 +164,7 @@
 * daily runs
 * local coop up to 4 players
 * twitch support
+* steam rpc
 
 ### Machine Ideas
 

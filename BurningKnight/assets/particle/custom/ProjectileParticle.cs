@@ -17,8 +17,8 @@ namespace BurningKnight.assets.particle.custom {
 
 			AlwaysActive = true;
 
-			scale = Random.Float(5, 8);
-			angle = Random.AnglePI();
+			scale = Rnd.Float(5, 8);
+			angle = Rnd.AnglePI();
 			region = CommonAse.Particles.GetSlice("fire");
 
 			Width = scale;

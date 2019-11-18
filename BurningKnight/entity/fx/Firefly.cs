@@ -5,8 +5,8 @@ using BurningKnight.save;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class Firefly : SaveableEntity {
@@ -36,16 +36,16 @@ namespace BurningKnight.entity.fx {
 				region = CommonAse.Particles.GetSlice("circ");
 			}
 
-			color = new Color(Random.Float(0, 0.5f), Random.Float(0.5f, 1f), Random.Float(0, 0.5f), 1f);
+			color = new Color(Rnd.Float(0, 0.5f), Rnd.Float(0.5f, 1f), Rnd.Float(0, 0.5f), 1f);
 			lightColor = new Color(color.R, color.G, color.B, (byte) 128);
 			
 			AddComponent(new LightComponent(this, 1f, color));
 			
-			size = new Vector2(Random.Float(0.1f, 0.2f));
+			size = new Vector2(Rnd.Float(0.1f, 0.2f));
 			lightSize = new Vector2(size.X * 3f);
 
 			Depth = Layers.WallDecor;
-			t = Random.Float(20f);
+			t = Rnd.Float(20f);
 		}
 
 		public override void Update(float dt) {

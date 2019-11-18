@@ -6,8 +6,8 @@ using Lens.util.file;
 
 namespace BurningKnight.save {
 	public class PlayerSave : EntitySaver {
-		public override void Save(Area area, FileWriter writer) {
-			SmartSave(area.Tags[Tags.PlayerSave], writer);
+		public override void Save(Area area, FileWriter writer, bool old) {
+			SmartSave(area.Tagged[Tags.PlayerSave], writer);
 		}
 
 		public override string GetPath(string path, bool old = false) {

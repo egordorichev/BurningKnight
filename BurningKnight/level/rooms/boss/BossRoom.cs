@@ -1,11 +1,16 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.creature.bk;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities.decor;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.boss {
@@ -27,7 +32,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			return 1;
+			return 3;
 		}
 
 		public override int GetMinConnections(Connection Side) {
@@ -35,26 +40,45 @@ namespace BurningKnight.level.rooms.boss {
 			return 0;
 		}
 
+		public override bool CanConnect(RoomDef R) {
+			if (R is GrannyRoom || R is OldManRoom || R is PrebossRoom) {
+				return base.CanConnect(R);
+			}
+
+			return false;
+		}
+
 		public override bool CanConnect(RoomDef R, Dot P) {
-			var x = (int) P.X;
-			var y = (int) P.Y;
+			if (R is PrebossRoom) {
+				var x = (int) P.X;
+				var y = (int) P.Y;
 
-			if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
-				return false;
-			}
-			
-			if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
-				return false;
+				if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
+					return false;
+				}
+
+				if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
+					return false;
+				}
 			}
 
-			
 			return base.CanConnect(R, P);
 		}
 
 		public override void Paint(Level level) {
-			/*PaintRoom(level);
+			PaintRoom(level);
+
+			var boss = BossRegistry.Generate();
+
+			if (boss == null) {
+				Log.Error("Failed to generate the boss!");
+				return;
+			}
 			
-			var trigger = new SpawnTrigger();
+			level.Area.Add(boss);
+			boss.Center = GetCenterVector();
+
+			/*var trigger = new SpawnTrigger();
 			var w = GetWidth() - 2;
 			var h = GetHeight() - 2;
 			var s = w * h;
@@ -74,7 +98,7 @@ namespace BurningKnight.level.rooms.boss {
 					trigger.Tiles[i] = level.Tiles[li];
 					trigger.Liquid[i] = level.Liquid[li];
 				}
-			}*/
+			}
 			
 			Painter.Fill(level, this, 1, Tile.WallA);
 
@@ -87,13 +111,6 @@ namespace BurningKnight.level.rooms.boss {
 
 			var x = (c.Left - 2) * 16;
 			var y = (c.Top - 2) * 16;
-			
-			/*trigger.X = (c.Left - 2) * 16;
-			trigger.Y = (c.Top - 2) * 16;
-			trigger.Width = 5 * 16;
-			trigger.Height = 5 * 16;
-
-			level.Area.Add(trigger);*/
 			
 			var ta = new Torch();
 			level.Area.Add(ta);
@@ -115,12 +132,6 @@ namespace BurningKnight.level.rooms.boss {
 			ta.CenterX = x + 4 * 16 + 8;
 			ta.Bottom = y + 4 * 16 + 12;
 
-			/*var st = new BurningStatue();
-			st.Broken = GameSave.IsTrue("statue_broken");
-			level.Area.Add(st);
-			st.CenterX = c.Left * 16 + 8;
-			st.Bottom = c.Top * 16 + 8;*/
-
 			var st = new BkStand();
 			level.Area.Add(st);
 
@@ -129,7 +140,7 @@ namespace BurningKnight.level.rooms.boss {
 			st.SetItem(Items.CreateAndAdd("bk:the_key", level.Area), null);
 
 			Painter.Fill(level, c, -2, Tile.FloorD);
-			Painter.Fill(level, c, -1, Tiles.RandomFloor());
+			Painter.Fill(level, c, -1, Tiles.RandomFloor());*/
 		}
 
 		public override void SetupDoors(Level level) {

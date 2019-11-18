@@ -111,6 +111,13 @@ namespace BurningKnight.ui.dialog {
 
 			Engine.Instance.State.Ui.Add(Dialog);
 
+			Dialog.Str.FinishedTyping += s => {
+				Entity.HandleEvent(new Dialog.EndedEvent {
+					Dialog = Last ?? Current,
+					Owner = Entity
+				});
+			};
+
 			Dialog.Str.CharTyped += (s, i, c) => {
 				if (!tweening && c != ' ' && Entity.TryGetComponent<AnimationComponent>(out var a)) {
 					tweening = true;
@@ -189,6 +196,11 @@ namespace BurningKnight.ui.dialog {
 				To = to;
 				OnStart();
 			}
+
+			Entity.HandleEvent(new Dialog.StartedEvent {
+				Dialog = dialog,
+				Owner = Entity
+			});
 		}
 
 		private void RenderChoice(Vector2 pos, int i) {

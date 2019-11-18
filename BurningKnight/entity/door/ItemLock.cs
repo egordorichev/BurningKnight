@@ -13,7 +13,7 @@ namespace BurningKnight.entity.door {
 		public void CalcRooms() {
 			rooms.Clear();
 			
-			foreach (var room in Area.Tags[Tags.Room]) {
+			foreach (var room in Area.Tagged[Tags.Room]) {
 				if (room.Overlaps(this)) {
 					rooms.Add((Room) room);
 				}
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.door {
 				}
 				
 				foreach (var item in r.Tagged[Tags.Item]) {
-					if ((item is ItemStand ist && ist.Item != null) || (item is Item)) {
+					if ((item is ItemStand ist && ist.Item != null)) {
 						shouldLock = true;
 						break;
 					}

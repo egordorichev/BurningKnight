@@ -129,9 +129,9 @@ namespace Lens.entity {
 
 						if (has != add) {
 							if (add) {
-								Area.Tags[i].Add(this);
+								Area.Tagged[i].Add(this);
 							} else {
-								Area.Tags[i].Remove(this);
+								Area.Tagged[i].Remove(this);
 							}
 						}
 					}	

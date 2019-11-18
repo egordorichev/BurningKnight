@@ -71,9 +71,9 @@ namespace Lens.graphics.gamerenderer {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);
-      	Engine.Instance.State?.RenderUi();
-
 			}
+			
+			Engine.Instance.State?.RenderUi();
 			
 			End();
 		}

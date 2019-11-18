@@ -3,6 +3,8 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.save;
 using BurningKnight.util;
@@ -15,6 +17,8 @@ namespace BurningKnight.level.builders {
 		protected EntranceRoom Entrance;
 		protected ExitRoom Exit;
 		protected BossRoom Boss;
+		protected GrannyRoom Granny;
+		protected OldManRoom OldMan;
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
@@ -36,6 +40,10 @@ namespace BurningKnight.level.builders {
 			foreach (var Room in Rooms) {
 				if (Room is BossRoom b) {
 					Boss = b;
+				} else if (Room is OldManRoom) {
+					OldMan = (OldManRoom) Room;
+				} else if (Room is GrannyRoom) {
+					Granny = (GrannyRoom) Room;
 				} else if (Room is EntranceRoom) {
 					Entrance = (EntranceRoom) Room;
 				} else if (Room is ExitRoom) {
@@ -108,14 +116,14 @@ namespace BurningKnight.level.builders {
 				ConnectingRoomsThisBranch.Clear();
 
 				do {
-					Curr = Branchable[Random.Int(Branchable.Count)];
+					Curr = Branchable[Rnd.Int(Branchable.Count)];
 				} while (Curr is ConnectionRoom);
 
-				var ConnectingRooms = Random.Chances(ConnectionChances);
+				var ConnectingRooms = Rnd.Chances(ConnectionChances);
 
 				if (ConnectingRooms == -1) {
 					ConnectionChances = ArrayUtils.Clone(ConnChances);
-					ConnectingRooms = Random.Chances(ConnectionChances);
+					ConnectingRooms = Rnd.Chances(ConnectionChances);
 				}
 
 				ConnectionChances[ConnectingRooms]--;
@@ -178,12 +186,12 @@ namespace BurningKnight.level.builders {
 				}
 
 				foreach (var AConnectingRoomsThisBranch in ConnectingRoomsThisBranch) {
-					if (Random.Int(3) <= 1) {
+					if (Rnd.Int(3) <= 1) {
 						Branchable.Add(AConnectingRoomsThisBranch);
 					}
 				}
 
-				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Random.Int(3) == 0) {
+				if (R.GetMaxConnections(RoomDef.Connection.All) > 1 && Rnd.Int(3) == 0) {
 					if (R is RegularRoom room) {
 						/*for (var J = 0; J < room.GetSize().GetConnectionWeight(); J++) {
 							Branchable.Add(room);
@@ -202,7 +210,7 @@ namespace BurningKnight.level.builders {
 		}
 
 		protected float RandomBranchAngle(RoomDef R) {
-			return Random.Angle();
+			return Rnd.Angle();
 		}
 	}
 }

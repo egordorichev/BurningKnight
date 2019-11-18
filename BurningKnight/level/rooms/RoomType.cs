@@ -9,6 +9,8 @@ namespace BurningKnight.level.rooms {
 		Shop,
 		Treasure,
 		Entrance,
-		Trap
+		Trap,
+		Granny,
+		OldMan
 	}
 }

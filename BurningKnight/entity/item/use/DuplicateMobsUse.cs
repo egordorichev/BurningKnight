@@ -4,7 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using Lens.entity;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class DuplicateMobsUse : ItemUse {
@@ -26,8 +26,8 @@ namespace BurningKnight.entity.item.use {
 					entity.Area.Add(m);
 					m.Center = mob.Center;
 
-					if (!m.SpawnsNearWall()) {
-						m.Center += Random.Vector(-8, 8);
+					if (!(MobRegistry.FindFor(m.GetType())?.NearWall ?? false)) {
+						m.Center += Rnd.Vector(-8, 8);
 					}
 				} catch (Exception e) {
 					Log.Error(e);

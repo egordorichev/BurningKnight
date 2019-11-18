@@ -25,7 +25,6 @@ using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {

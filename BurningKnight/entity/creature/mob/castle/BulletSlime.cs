@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected override float GetJumpDelay() {
-			return 2;
+			return 1;
 		}
 
 		protected override void SetStats() {
@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddComponent(new ZAnimationComponent("bullet_slime"));
 			SetMaxHp(1);
 
-			var body = new RectBodyComponent(2, 15, 14, 1);
+			var body = new RectBodyComponent(1, 15, 14, 1);
 			AddComponent(body);
 
 			body.Body.LinearDamping = 2;
@@ -39,22 +39,15 @@ namespace BurningKnight.entity.creature.mob.castle {
 				return;
 			}
 			
-			var am = 4;
+			var am = 8;
 			
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
 				var projectile = Projectile.Make(this, "small", a, 5f);
 					
+				projectile.Center = BottomCenter;
 				projectile.AddLight(32f, Projectile.RedLight);
 			}
-		}
-
-		public override float GetSpawnChance() {
-			return 0.5f;
-		}
-
-		public override float GetWeight() {
-			return 2;
 		}
 	}
 }

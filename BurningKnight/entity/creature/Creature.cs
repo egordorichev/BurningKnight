@@ -21,8 +21,8 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature {
 	public class Creature : SaveableEntity, CollisionFilterEntity, PlaceableEntity {
@@ -75,11 +75,11 @@ namespace BurningKnight.entity.creature {
 						if (Settings.Blood) {
 							for (var i = 0; i < 8; i++) {
 								var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
-									Center + Random.Vector(-4, 4));
+									Center + Rnd.Vector(-4, 4));
 
 								var a = ev.From.AngleTo(this);
 
-								p.Particle.Velocity = MathUtils.CreateVector(a + Random.Float(-0.5f, 0.5f), Random.Float(80, 120));
+								p.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.5f, 0.5f), Rnd.Float(80, 120));
 								p.Particle.Velocity.Y -= 8f;
 								p.Particle.Velocity += b.Velocity * 0.5f;
 							}
@@ -146,13 +146,13 @@ namespace BurningKnight.entity.creature {
 				var part = new ParticleEntity(Particles.Dust());
 
 				part.Position = Center;
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				Run.Level.Area.Add(part);
 				part.Depth = 1;
 			}
 
 			if (Settings.Blood) {
-				for (var i = 0; i < Random.Int(2, 8); i++) {
+				for (var i = 0; i < Rnd.Int(2, 8); i++) {
 					Area.Add(new SplashParticle {
 						Position = Center - new Vector2(2.5f),
 						Color = GetBloodColor()
@@ -194,7 +194,7 @@ namespace BurningKnight.entity.creature {
 			b.Body.Restitution = 1;
 			b.Body.Friction = 0;
 
-			var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Random.AnglePI(), 64);
+			var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Rnd.AnglePI(), 64);
 			
 			b.Body.LinearVelocity = v;
 
@@ -244,11 +244,11 @@ namespace BurningKnight.entity.creature {
 		}
 
 		protected virtual string GetHurtSfx() {
-			return $"hurt{Random.Int(1, 3)}";
+			return $"hurt{Rnd.Int(1, 3)}";
 		}
 
 		protected virtual string GetDeadSfx() {
-			return $"dead{Random.Int(1, 4)}";
+			return $"dead{Rnd.Int(1, 4)}";
 		}
 	}
 }

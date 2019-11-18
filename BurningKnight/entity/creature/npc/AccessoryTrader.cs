@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		protected override string GetDialog() {
-			return $"accessorytrader_{Random.Int(3)}";
+			return $"accessorytrader_{Rnd.Int(3)}";
 		}
 
 		public override string GetId() {

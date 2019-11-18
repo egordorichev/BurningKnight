@@ -22,10 +22,10 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature {
@@ -148,7 +148,7 @@ namespace BurningKnight.entity.creature.mob {
 					}
 				}
 				
-				GetComponent<RoomComponent>().Room.CheckCleared(who);
+				GetComponent<RoomComponent>().Room?.CheckCleared(who);
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
 				if (!rotationApplied) {
 					rotationApplied = true;
@@ -179,7 +179,7 @@ namespace BurningKnight.entity.creature.mob {
 			List<Entity> targets;
 
 			if (TargetEverywhere) {
-				targets = Area.Tags[IsFriendly() ? Tags.Mob : Tags.Player];
+				targets = Area.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
 			} else {
 				var room = GetComponent<RoomComponent>().Room;
 
@@ -223,22 +223,6 @@ namespace BurningKnight.entity.creature.mob {
 
 		public override bool IsFriendly() {
 			return GetComponent<BuffsComponent>().Has<CharmedBuff>();
-		}
-
-		public virtual float GetWeight() {
-			return 1f;
-		}
-
-		public virtual bool CanSpawnMultiple() {
-			return true;
-		}
-		
-		public virtual bool SpawnsNearWall() {
-			return false;
-		}
-
-		public virtual float GetSpawnChance() {
-			return 1f;
 		}
 
 		private bool rotationApplied;
@@ -335,12 +319,12 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public void GeneratePrefix() {
-			if (!Random.Chance(Run.Curse * 10 + 0.5f)) {
+			if (!Rnd.Chance(Run.Curse * 10 + 0.5f)) {
 				return;
 			}
 
 			var all = PrefixRegistry.Defined.Keys.ToArray();
-			SetPrefix(all[Random.Int(all.Length)]);
+			SetPrefix(all[Rnd.Int(all.Length)]);
 		}
 
 		public void SetPrefix(string id) {

@@ -14,15 +14,20 @@ using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Lens.util.file;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
 		private static int I;
 
-		public override void Save(Area area, FileWriter writer) {
-			SmartSave(area.Tags[Tags.LevelSave], writer);
-			Run.LastSavedDepth = Run.Depth;
+		public override void Save(Area area, FileWriter writer, bool old) {
+			SmartSave(area.Tagged[Tags.LevelSave], writer);
+			var d = (old ? Run.LastDepth : Run.Depth);
+			
+			if (d > 0) {
+				Run.LastSavedDepth = d;
+				Log.Error($"Set run last saved depth to {Run.LastSavedDepth}");
+			}
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -133,7 +138,7 @@ namespace BurningKnight.save {
 					thread.Abort();
 					Physics.Destroy();
 					Physics.Init();
-					Random.Seed += "_";
+					Rnd.Seed += "_";
 					aborted = true;
 
 					break;

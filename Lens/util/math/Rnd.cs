@@ -5,7 +5,7 @@ using Lens.entity;
 using Microsoft.Xna.Framework;
 
 namespace Lens.util.math {
-	public static class Random {
+	public static class Rnd {
 		private static System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
 		private static string seed;
 
@@ -22,7 +22,7 @@ namespace Lens.util.math {
 
 		public static string SeedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
 		
-		static Random() {
+		static Rnd() {
 			Seed = GenerateSeed();
 			Log.Debug($"Random seed is {seed}");
 		}

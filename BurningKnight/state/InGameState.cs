@@ -187,7 +187,7 @@ namespace BurningKnight.state {
 			fog = Textures.Get("noise");
 			Area.Add(new InGameAudio());
 
-			foreach (var p in Area.Tags[Tags.Player]) {
+			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
 					AreaDebug.ToFocus = p;
@@ -214,7 +214,7 @@ namespace BurningKnight.state {
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
 
-			foreach (var p in Area.Tags[Tags.Player]) {
+			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
 				}
@@ -344,7 +344,7 @@ namespace BurningKnight.state {
 			var min = UiButton.LastId;
 			UiButton btn = null;
 
-			foreach (var b in Ui.Tags[Tags.Button]) {
+			foreach (var b in Ui.Tagged[Tags.Button]) {
 				var bt = ((UiButton) b);
 
 				if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -408,7 +408,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
-						foreach (var b in Ui.Tags[Tags.Button]) {
+						foreach (var b in Ui.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
@@ -424,7 +424,7 @@ namespace BurningKnight.state {
 							var min = UiButton.Selected;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tags[Tags.Button]) {
+							foreach (var b in Ui.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -442,7 +442,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = -1;
 						
-						foreach (var b in Ui.Tags[Tags.Button]) {
+						foreach (var b in Ui.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
@@ -458,7 +458,7 @@ namespace BurningKnight.state {
 							var max = -1;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tags[Tags.Button]) {
+							foreach (var b in Ui.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
@@ -525,7 +525,7 @@ namespace BurningKnight.state {
 
 			console.Update(dt);
 
-			foreach (var p in Area.Tags[Tags.LocalPlayer]) {
+			foreach (var p in Area.Tagged[Tags.LocalPlayer]) {
 				var controller = p.GetComponent<GamepadComponent>().Controller;
 				
 				if (painting != null) {
@@ -602,7 +602,7 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 			var room = player.GetComponent<RoomComponent>().Room;
 
-			foreach (var r in Area.Tags[Tags.Room]) {
+			foreach (var r in Area.Tagged[Tags.Room]) {
 				if (r != room && ((Room) r).Type == type) {
 					player.Center = r.Center;
 					return;
@@ -724,7 +724,7 @@ namespace BurningKnight.state {
 			
 			renderer.BeginShadows();
 
-			foreach (var e in Area.Tags[Tags.HasShadow]) {
+			foreach (var e in Area.Tagged[Tags.HasShadow]) {
 				if (e.AlwaysVisible || e.OnScreen) {
 					e.GetComponent<ShadowComponent>().Callback();
 				}
@@ -863,8 +863,12 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			console = new Console(Area);
-			Ui.Add(new UiInventory(player));
+
+			if (player != null) {
+				Ui.Add(new UiInventory(player));
+			}
 			
+
 			Ui.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight	
 			});

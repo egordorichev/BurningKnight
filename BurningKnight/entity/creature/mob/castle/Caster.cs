@@ -6,9 +6,9 @@ using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class Caster : Mob {
@@ -38,7 +38,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			public override void Init() {
 				base.Init();
-				delay = Random.Float(0.5f, 2f);
+				delay = Rnd.Float(0.5f, 2f);
 			}
 
 			public override void Update(float dt) {

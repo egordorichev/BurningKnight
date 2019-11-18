@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.drop {
 		public override List<string> GetItems() {
 			var items = new List<string>();
 			
-			if (Random.Float() <= Chance && assets.items.Items.ShouldAppear(Item)) {
+			if (Rnd.Float() <= Chance && assets.items.Items.ShouldAppear(Item)) {
 				items.Add(Item);
 			}
 

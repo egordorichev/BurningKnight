@@ -5,7 +5,7 @@ namespace BurningKnight.save {
 	public abstract class Saver {
 		public abstract string GetPath(string path, bool old = false);
 		public abstract void Load(Area area, FileReader reader);
-		public abstract void Save(Area area, FileWriter writer);
+		public abstract void Save(Area area, FileWriter writer, bool old);
 		public abstract void Generate(Area area);
 
 		public readonly SaveType SaveType;

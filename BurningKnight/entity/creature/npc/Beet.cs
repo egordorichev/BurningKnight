@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.npc {
 
 				Log.Info($"Beet set the seed to {a}");
 				
-				Random.Seed = a;
+				Rnd.Seed = a;
 				Run.NextSeed = a;
 				Run.IgnoreSeed = true;
 
@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			Dialogs.RegisterCallback("beet_4", (d, c) => {
 				if (((ChoiceDialog) d).Choice == 2) {
-					Run.NextSeed = Random.GenerateSeed();
+					Run.NextSeed = Rnd.GenerateSeed();
 					Run.IgnoreSeed = false;
 
 					c.Dialog.Str.SetVariable("seed", Run.NextSeed);

@@ -16,8 +16,8 @@ namespace BurningKnight.level.rooms.special.minigame {
 			 * todo: a rare variant that spawns below certaint depth with rainbow chests and the cost set to constant 69
 			 */
 			
-			if (Random.Chance()) {
-				if (Random.Chance()) {
+			if (Rnd.Chance()) {
+				if (Rnd.Chance()) {
 					var tt = Tiles.RandomFloor();
 					
 					Painter.Set(level, Left + 2, Top + 2, tt, true);
@@ -34,7 +34,7 @@ namespace BurningKnight.level.rooms.special.minigame {
 			level.Area.Add(maanex);
 			maanex.BottomCenter = new Vector2(Left + 4.5f, Top + 2) * 16;
 
-			var prize = Random.Int(4);
+			var prize = Rnd.Int(4);
 			
 			for (var i = 0; i < 3; i++) {
 				var chest = new WoodenChest();

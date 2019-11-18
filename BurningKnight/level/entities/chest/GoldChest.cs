@@ -33,8 +33,8 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override void SpawnDrops() {
-			if (Random.Chance(5)) {
-				var chest = Random.Chance(60) ? (Chest) new WoodenChest {
+			if (Rnd.Chance(5)) {
+				var chest = Rnd.Chance(60) ? (Chest) new WoodenChest {
 					Scale = Scale * 0.9f
 				} : (Chest) new GoldChest {
 					Scale = Scale * 0.9f

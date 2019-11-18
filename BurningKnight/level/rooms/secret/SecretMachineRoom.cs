@@ -12,7 +12,7 @@ namespace BurningKnight.level.rooms.secret {
 			base.Paint(Level);
 
 			Entity prop;
-			var r = Random.Int(2);
+			var r = Rnd.Int(2);
 
 			if (r == 0) {
 				prop = new VendingMachine();
@@ -21,11 +21,11 @@ namespace BurningKnight.level.rooms.secret {
 			}
 
 			Level.Area.Add(prop);
-			prop.Center = GetCenter() * 16 + new Vector2(Random.Float(-8, 8), Random.Float(-8, 8));
+			prop.Center = GetCenter() * 16 + new Vector2(Rnd.Float(-8, 8), Rnd.Float(-8, 8));
 			
-			for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
+			for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
 				var item = Items.CreateAndAdd("bk:emerald", Level.Area);
-				item.Center = GetRandomFreeCell() * 16 + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+				item.Center = GetRandomFreeCell() * 16 + new Vector2(Rnd.Float(-4, 4), Rnd.Float(-4, 4));
 			}
 		}
 	}

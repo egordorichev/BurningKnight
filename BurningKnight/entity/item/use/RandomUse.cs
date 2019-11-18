@@ -10,7 +10,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
-			Uses[Random.Int(Uses.Length)].Use(entity, item);
+			Uses[Rnd.Int(Uses.Length)].Use(entity, item);
 		}
 	}
 }

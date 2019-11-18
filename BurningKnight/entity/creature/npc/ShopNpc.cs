@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.npc {
 			delay -= dt;
 
 			if (delay <= 0) {
-				delay = Random.Float(1, 4);
+				delay = Rnd.Float(1, 4);
 				GraphicsComponent.Flipped = !GraphicsComponent.Flipped;
 			}
 		}
@@ -95,7 +95,7 @@ namespace BurningKnight.entity.creature.npc {
 				}
 			} else if (e is ItemBoughtEvent ibe) {
 				if (ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(9, 12)}", 3);
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
 				}
 			}
 			
@@ -113,7 +113,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 		
 		protected virtual string GetDialog() {
-			return $"shopkeeper_{Random.Int(6, 9)}";
+			return $"shopkeeper_{Rnd.Int(6, 9)}";
 		}
 
 		public virtual string GetId() {

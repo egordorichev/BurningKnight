@@ -9,9 +9,9 @@ namespace BurningKnight.level.rooms.boss {
 			Painter.Fill(level, this, Tile.WallA);
 			Painter.Fill(level, this, m, Tile.Chasm);
 
-			m += Random.Int(1, 3);
+			m += Rnd.Int(1, 3);
 			
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.FillEllipse(level, this, m, Tiles.RandomFloor());
 			} else {
 				Painter.Fill(level, this, m, Tiles.RandomFloor());
@@ -19,13 +19,13 @@ namespace BurningKnight.level.rooms.boss {
 
 			m++;
 			
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				Painter.FillEllipse(level, this, m, Tiles.RandomNewFloor());
 			} else {
 				Painter.Fill(level, this, m, Tiles.RandomNewFloor());
 			}
 
-			if (Random.Chance()) {
+			if (Rnd.Chance()) {
 				PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect(), true);
 			}
 			

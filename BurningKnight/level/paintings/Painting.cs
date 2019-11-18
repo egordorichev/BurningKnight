@@ -136,7 +136,7 @@ namespace BurningKnight.level.paintings {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Center;
-					part.Particle.Scale = Lens.util.math.Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Lens.util.math.Rnd.Float(0.4f, 0.8f);
 					
 					Area.Add(part);
 

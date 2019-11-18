@@ -10,8 +10,8 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util.math;
 using Lens.util.tween;
-using Random = Lens.util.math.Random;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
@@ -24,12 +24,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			base.SetStats();
 			
 			AddComponent(new ZComponent());
-			
-			if (Random.Chance()) {
-				Become<JumpState>();
-			} else {
-				Become<IdleState>();
-			}
+			Become<IdleState>();
 			
 			GetComponent<DropsComponent>().Add(new SimpleDrop {
 				Chance = 0.01f,
@@ -47,7 +42,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Random.Float(0.9f, 1.5f) + Self.GetJumpDelay();
+				delay = Rnd.Float(0.9f, 1.5f) + Self.GetJumpDelay();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 
@@ -78,22 +73,17 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 		protected float JumpForce = 120;
 		protected float ZVelocity = 5;
-		protected float ZVelocityMultiplier = 10;
 
 		public class JumpState : SmartState<Slime> {
-			private Vector2 velocity;
-			private float zVelocity;
-			
 			public override void Init() {
 				base.Init();
 
-				var a = Self.Target == null ? Random.AnglePI() : Self.AngleTo(Self.Target) + Random.Float(-0.1f, 0.1f);
-				var force = Random.Float(20f) + Self.JumpForce;
+				var a = Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
+				var force = Rnd.Float(20f) + Self.JumpForce;
 				
-				velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+				Self.GetComponent<RectBodyComponent>().Velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 
-				zVelocity = Self.ZVelocity;
+				Self.GetComponent<ZComponent>().ZVelocity = Self.ZVelocity;
 			}
 
 			public override void Destroy() {
@@ -117,7 +107,6 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				base.Update(dt);
 
 				var component = Self.GetComponent<ZComponent>();
-				component.Z += zVelocity * dt * 20 * (Self.GetComponent<BuffsComponent>().Has<SlowBuff>() ? 0.5f : 1f);
 
 				if (component.Z >= 4f) {
 					Self.Depth = Layers.FlyingMob;
@@ -126,10 +115,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					Self.Depth = Layers.Creature;
 					Self.TouchDamage = 1;
 				}
-
-				zVelocity -= dt * Self.ZVelocityMultiplier;
 				
-				if (component.Z <= 0) {
+				if (T >= 0.1f && component.Z <= 0) {
 					component.Z = 0;
 					Become<IdleState>();
 				}

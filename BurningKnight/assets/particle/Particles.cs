@@ -3,8 +3,8 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle {
 	public static class Particles {
@@ -30,7 +30,7 @@ namespace BurningKnight.assets.particle {
 		}
 
 		public static Particle Dust() {
-			return new Particle(Controllers.Simple, dustRenderers[Random.Int(3)]);
+			return new Particle(Controllers.Simple, dustRenderers[Rnd.Int(3)]);
 		}
 
 		public static Particle Plank() {
@@ -65,7 +65,7 @@ namespace BurningKnight.assets.particle {
 						Region = r
 					}));
 
-					part.Particle.Angle = (float) (Math.Atan2(r.Center.Y - y, r.Center.X - x) - Math.PI + Random.Float(-1, 1));
+					part.Particle.Angle = (float) (Math.Atan2(r.Center.Y - y, r.Center.X - x) - Math.PI + Rnd.Float(-1, 1));
 					part.Position = position + new Vector2(x, y);
 					area.Add(part);
 

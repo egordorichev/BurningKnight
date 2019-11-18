@@ -37,7 +37,7 @@ namespace BurningKnight.level {
 				ItemsToSpawn.Add("bk:bomb");
 
 				if (GlobalSave.IsTrue("saved_npc")) {
-					for (var i = 0; i < Random.Int(1, Run.Depth); i++) {
+					for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
 						ItemsToSpawn.Add("bk:emerald");
 					}
 				}
@@ -63,38 +63,18 @@ namespace BurningKnight.level {
 			var p = GetPainter();
 			LevelSave.BiomeGenerated.ModifyPainter(p);
 			p.Paint(this, rooms);
-			
-			foreach (var def in rooms) {
-				if (!def.ConvertToEntity()) {
-					continue;
-				}
-				
-				var room = new Room();
-
-				room.Type = RoomDef.DecideType(def, def.GetType());
-				room.MapX = def.Left;
-				room.MapY = def.Top;
-				room.MapW = def.GetWidth();
-				room.MapH = def.GetHeight();
-				
-				Area.Add(room);
-
-				def.ModifyRoom(room);
-
-				room.Generate();
-			}
 		}
 
 		protected void Build() {
 			var Builder = GetBuilder();
 			var Rooms = CreateRooms();
 
-			Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+			Rooms = (List<RoomDef>) Rooms.Shuffle(Rnd.Generator);
 
 			var Attempt = 0;
 
 			do {
-				Log.Info($"Generating (attempt {Attempt}, seed {Random.Seed})...");
+				Log.Info($"Generating (attempt {Attempt}, seed {Rnd.Seed})...");
 
 				foreach (var Room in Rooms) {
 					Room.Connected.Clear();
@@ -114,7 +94,7 @@ namespace BurningKnight.level {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");
 						Attempt = 0;
 						Rooms = CreateRooms();
-						Rooms = (List<RoomDef>) Rooms.Shuffle(Random.Generator);
+						Rooms = (List<RoomDef>) Rooms.Shuffle(Rnd.Generator);
 					}
 
 					Attempt++;
@@ -136,7 +116,7 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
-			rooms.Add(first ? new EntranceRoom() : new PortalEntranceRoom());
+			rooms.Add(new EntranceRoom());
 
 			var regular = final ? 0 : GetNumRegularRooms();
 			var special = final ? 0 : GetNumSpecialRooms();
@@ -175,6 +155,9 @@ namespace BurningKnight.level {
 				}
 			}
 
+			rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+			rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+			
 			if (first) {
 				rooms.Add(new ExitRoom());				
 			} else {
@@ -203,7 +186,7 @@ namespace BurningKnight.level {
 				return new LineBuilder();
 			}
 			
-			var R = Random.Float();
+			var R = Rnd.Float();
 
 			if (R < 0.33f) {
 				return new LineBuilder();
@@ -221,7 +204,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual int GetNumTrapRooms() {
-			return Random.Int(0, 2);
+			return Rnd.Int(0, 2);
 		}
 
 		protected virtual int GetNumSpecialRooms() {

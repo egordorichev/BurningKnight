@@ -28,7 +28,7 @@ namespace BurningKnight.level.builders {
 				return null;
 			}
 			
-			var a = Random.Angle() - 90;
+			var a = Rnd.Angle() - 90;
 			var i = 0;
 					
 			while (true && Boss != null) {
@@ -46,12 +46,50 @@ namespace BurningKnight.level.builders {
 						
 				a += 10;
 			}
+			
+			a = Rnd.Angle();
+			i = 0;
+						
+			while (true) {
+				var an = PlaceRoom(Init, Boss, Granny, a);
+							
+				if ((int) an != -1) {
+					break;
+				}
+
+				i++;
+
+				if (i > 36) {
+					return null;
+				}
+							
+				a += 10;
+			}
+					
+			a = Rnd.Angle();
+			i = 0;
+						
+			while (true) {
+				var an = PlaceRoom(Init, Boss, OldMan, a);
+							
+				if ((int) an != -1) {
+					break;
+				}
+
+				i++;
+
+				if (i > 36) {
+					return null;
+				}
+							
+				a += 10;
+			}
 
 			FindNeighbours(Init);
 
 			foreach (RoomDef R in Init) {
 				foreach (RoomDef N in R.Neighbours) {
-					if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+					if (!N.Connected.ContainsKey(R) && Rnd.Float() < ExtraConnectionChance) {
 						R.ConnectWithRoom(N);
 					}
 				}

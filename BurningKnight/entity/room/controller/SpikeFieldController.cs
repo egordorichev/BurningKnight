@@ -10,7 +10,7 @@ namespace BurningKnight.entity.room.controller {
 		
 		public override void Generate() {
 			base.Generate();
-			variant = (byte) Random.Int(8);
+			variant = (byte) Rnd.Int(8);
 		}
 
 		public override void Save(FileWriter stream) {

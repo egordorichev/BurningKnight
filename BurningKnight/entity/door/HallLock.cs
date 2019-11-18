@@ -6,7 +6,7 @@ namespace BurningKnight.entity.door {
 		protected override void UpdateState() {
 			var found = false;
 
-			foreach (var n in Area.Tags[Tags.Npc]) {
+			foreach (var n in Area.Tagged[Tags.Npc]) {
 				if (n is ShopNpc sn && !sn.Hidden) {
 					found = true;
 					break;

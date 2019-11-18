@@ -4,6 +4,8 @@ using BurningKnight.level.biome;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
@@ -13,7 +15,7 @@ using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.level.rooms {
 	public static class RoomRegistry {
@@ -30,7 +32,9 @@ namespace BurningKnight.level.rooms {
 			RoomType.Shop,
 			RoomType.Treasure,
 			RoomType.Entrance,
-			RoomType.Trap
+			RoomType.Trap,
+			RoomType.Granny,
+			RoomType.OldMan
 		};
 
 		public static RoomType FromIndex(int i) {
@@ -52,7 +56,7 @@ namespace BurningKnight.level.rooms {
 				// Secret
 				// RoomInfo.New<SecretMachineRoom>(1f), - pretty bad
 				RoomInfo.New<SecretChasmRoom>(1f),
-				RoomInfo.New<GrannyRoom>(0.01f),
+				RoomInfo.New<GrannySecretRoom>(0.01f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
@@ -74,10 +78,9 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<PadTreasureRoom>(1f),
 				
 				// Trap
-				RoomInfo.New<RollingSpikesRoom>(1f),
+				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
-				// RoomInfo.New<CageRoom>(1f), // I dont like it :(
 
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),
@@ -98,7 +101,14 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<VendingRoom>(1f),
 				
 				// Boss
-				RoomInfo.New<ChasmBossRoom>(1f)
+				RoomInfo.New<BossRoom>(1f),
+				RoomInfo.New<ChasmBossRoom>(1f),
+				
+				// Granny
+				RoomInfo.New<GrannyRoom>(1f),
+				
+				// Old Man
+				RoomInfo.New<OldManRoom>(1f),
 			};
 
 			foreach (var info in infos) {
@@ -139,7 +149,7 @@ namespace BurningKnight.level.rooms {
 				}
 			}
 
-			float value = Random.Float(sum);
+			float value = Rnd.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {

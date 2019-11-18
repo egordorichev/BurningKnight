@@ -4,13 +4,13 @@ using BurningKnight.save;
 using BurningKnight.save.statistics;
 using Lens;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.state {
 	public static class Run {
 		public const int ContentEndDepth = 5;
 
-		private static int depth = 0; //BK.Version.Dev ? 1 : 0;
+		private static int depth = BK.Version.Dev ? 2 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -28,7 +28,6 @@ namespace BurningKnight.state {
 		public static RunStatistics Statistics;
 		public static string NextSeed;
 		public static int LastSavedDepth;
-		public static bool Continuing;
 		
 		public static int Depth {
 			get => depth;
@@ -41,13 +40,12 @@ namespace BurningKnight.state {
 				SavingDepth = depth;
 				depth = NextDepth;
 				StartedNew = StartingNew;
-				StartingNew = false;
 
-				if (!Continuing) {
+				if (StartingNew) {
 					SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
-				} else {
-					Continuing = false;
 				}
+				
+				StartingNew = false;
 
 				Engine.Instance.SetState(new LoadState {
 					Menu = IntoMenu
@@ -69,11 +67,11 @@ namespace BurningKnight.state {
 			} else if (IgnoreSeed) {
 				IgnoreSeed = false;
 			} else {
-				Seed = Random.GenerateSeed();
+				Seed = Rnd.GenerateSeed();
 			}
 
 			GlobalSave.RunId++;
-			Random.Seed = Seed;
+			Rnd.Seed = Seed;
 			
 			Log.Debug($"This run's seed is {Seed}");
 		}

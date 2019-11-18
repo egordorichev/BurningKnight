@@ -6,8 +6,8 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.util.file;
+using Lens.util.math;
 using VelcroPhysics.Utilities;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Duck : Npc {
@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(b);
 			b.KnockbackModifier = 0;
 
-			quantom = Random.Chance(1);
+			quantom = Rnd.Chance(1);
 			
 			if (Run.Depth == -2) {
 				AddComponent(new CloseDialogComponent("control_4"));
@@ -80,14 +80,14 @@ namespace BurningKnight.entity.creature.npc {
 					pauseTimer -= dt;
 
 					if (pauseTimer <= 0) {
-						tillPause = Random.Float(0.5f, 2f);
+						tillPause = Rnd.Float(0.5f, 2f);
 					}
 				} else if (tillPause >= 0) {
 					tillPause -= dt;
 
 					if (tillPause < 0) {
 						tillPause = 0;
-						pauseTimer = Random.Float(0.5f, 2f);
+						pauseTimer = Rnd.Float(0.5f, 2f);
 					}
 					
 					vx += (toLeft ? -1 : 1) * (dt * 10);
@@ -104,7 +104,7 @@ namespace BurningKnight.entity.creature.npc {
 						Self.X = Self.x + (toLeft ? -16 : 16);
 						vx *= -1;
 
-						if (Random.Chance(10)) {
+						if (Rnd.Chance(10)) {
 							Self.X = Self.x;
 						}
 					}

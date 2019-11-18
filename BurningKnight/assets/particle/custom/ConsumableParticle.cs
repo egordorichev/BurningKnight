@@ -5,14 +5,14 @@ using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.assets.particle.custom {
 	public class ConsumableParticle : Entity {
-		private Vector2 target = new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+		private Vector2 target = new Vector2(Rnd.Float(-4, 4), Rnd.Float(-4, 4));
 		private TextureRegion region;
 		private float angle;
 		private float angleV;
@@ -33,11 +33,13 @@ namespace BurningKnight.assets.particle.custom {
 
 			player = p;
 
-			offset = new Vector2(Random.Int(-4, 4), Height + Random.Int(-4, 4));
-			speed = Random.Float(1, 2f) * (Random.Chance() ? -1 : 1);
+			offset = new Vector2(Rnd.Int(-4, 4), Height + Rnd.Int(-4, 4));
+			speed = Rnd.Float(1, 2f) * (Rnd.Chance() ? -1 : 1);
 
-			Tween.To(Display.UiScale, scale.X, x => scale.X = x, 0.3f);
-			Tween.To(Display.UiScale, scale.Y, x => scale.Y = x, 0.3f);
+			var s = item ? Display.UiScale : Rnd.Float(1f, 2f);
+
+			Tween.To(s, scale.X, x => scale.X = x, 0.3f);
+			Tween.To(s, scale.Y, x => scale.Y = x, 0.3f);
 
 			if (item) {
 				target += new Vector2(Display.UiWidth, Display.UiHeight);

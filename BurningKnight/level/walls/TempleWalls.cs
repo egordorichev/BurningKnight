@@ -8,7 +8,7 @@ namespace BurningKnight.level.walls {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var m = 2;
 			var f = Tiles.RandomFloorOrSpike();
-			var bold = Random.Chance(30);
+			var bold = Rnd.Chance(30);
 
 			inside = inside.Shrink(m);
 			
@@ -33,7 +33,7 @@ namespace BurningKnight.level.walls {
 			
 				Painter.Set(level, inside.Left + inside.GetWidth() / 2 + 1, inside.Top, f);
 				Painter.Set(level, inside.Left + inside.GetWidth() / 2 + 1, inside.Bottom - 1, f);
-			} else if (Random.Chance()) {
+			} else if (Rnd.Chance()) {
 				f = Tiles.RandomFloor();
 				
 				Painter.Set(level, inside.Left, inside.Top, f);

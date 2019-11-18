@@ -11,18 +11,19 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.stand {
 	public class ShopStand : ItemStand {
 		public bool Sells = true;
 		public bool Free;
-		private int price;
-		private string priceString;
-		private float priceX;
-		private bool onSale;
-		private bool hasSale;
+
+		protected int Price;
+		protected string PriceString;
+		protected float PriceX;
+		protected bool OnSale;
+		protected bool HasSale;
 
 		public override void AddComponents() {
 			base.AddComponents();
@@ -31,7 +32,7 @@ namespace BurningKnight.entity.item.stand {
 
 		public override void Init() {
 			base.Init();
-			onSale = Random.Chance(10 + Run.Luck * 2);
+			OnSale = Rnd.Chance(10 + Run.Luck * 2);
 		}
 
 		protected override string GetSprite() {
@@ -42,6 +43,19 @@ namespace BurningKnight.entity.item.stand {
 			return Item != null && base.CanInteract(e);
 		}
 
+		protected virtual bool TryPay(Entity entity) {
+			if (!entity.TryGetComponent<ConsumablesComponent>(out var component)) {
+				return false;
+			}
+
+			if (component.Coins < Price) {
+				return false;
+			}
+
+			component.Coins -= Price;
+			return true;
+		}
+
 		protected override bool CanTake(Entity entity) {
 			if (!base.CanTake(entity)) {
 				return false;
@@ -50,25 +64,20 @@ namespace BurningKnight.entity.item.stand {
 			if (!Sells || Free) {
 				return true;
 			}
-
-			if (!entity.TryGetComponent<ConsumablesComponent>(out var component)) {
-				return false;
-			}
-
-			if (component.Coins < price) {
+			
+			if (!TryPay(entity)) {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
 					if (n is ShopNpc || n is ShopKeeper) {
-						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(15, 18)}", 3);
+						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 						break;
 					}
 				}
-				
+
 				return false;
 			}
-
-			component.Coins -= price;
+			
 			Sells = false;
 
 			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
@@ -93,42 +102,50 @@ namespace BurningKnight.entity.item.stand {
 			base.Render();
 
 			if (Item != null && Sells && !Free) {
-				if (hasSale) {
-					Graphics.Color = Palette.Default[35];
-				}
-				
-				var r = GetComponent<RoomComponent>().Room;
-
-				foreach (var p in r.Tagged[Tags.Player]) {
-					if (p.GetComponent<ConsumablesComponent>().Coins < price) {
-						Graphics.Color *= 0.6f;
-						break;
-					}					
-				}
-				
-				Graphics.Print(priceString, Font.Small, Position + new Vector2(priceX, 14));
-				Graphics.Color = ColorUtils.WhiteColor;
+				RenderPrice();
 			}
 		}
 
+		protected virtual void RenderPrice() {
+			if (HasSale) {
+				Graphics.Color = Palette.Default[35];
+			}
+				
+			var r = GetComponent<RoomComponent>().Room;
+
+			foreach (var p in r.Tagged[Tags.Player]) {
+				if (p.GetComponent<ConsumablesComponent>().Coins < Price) {
+					Graphics.Color *= 0.6f;
+					break;
+				}					
+			}
+				
+			Graphics.Print(PriceString, Font.Small, Position + new Vector2(PriceX, 14));
+			Graphics.Color = ColorUtils.WhiteColor;
+		}
+
+		protected virtual int CalculatePrice() {
+			return PriceCalculator.Calculate(Item);
+		}
+		
 		public void Recalculate() {
 			if (Free) {
-				price = 0;
+				Price = 0;
 				return;
 			}
 			
 			if (Item == null) {
-				price = 0;
+				Price = 0;
 				Sells = false;
 				return;
 			}
 			
 			Sells = true;
-			price = PriceCalculator.Calculate(Item);
+			Price = CalculatePrice();
 
-			if (onSale) {
-				price = (int) Math.Floor(price * 0.5f);
-				hasSale = true;
+			if (OnSale) {
+				Price = (int) Math.Floor(Price * 0.5f);
+				HasSale = true;
 			}
 			
 			var r = GetComponent<RoomComponent>().Room;
@@ -144,8 +161,8 @@ namespace BurningKnight.entity.item.stand {
 				}
 
 				if (e.Percent > 0.001f) {
-					price = (int) Math.Floor(price * Math.Max(0f, (1f - e.Percent * 0.01f)));
-					hasSale = true;
+					Price = (int) Math.Floor(Price * Math.Max(0f, (1f - e.Percent * 0.01f)));
+					HasSale = true;
 				}
 
 				if (r.Tagged[Tags.ShopKeeper].Count > 0) {
@@ -155,7 +172,7 @@ namespace BurningKnight.entity.item.stand {
 						min = Math.Min(min, ((ShopKeeper) s).Mood);
 					}
 
-					price = Math.Max(1, price - (min - 3));
+					Price = Math.Max(1, Price - (min - 3));
 				}
 			}
 
@@ -170,28 +187,28 @@ namespace BurningKnight.entity.item.stand {
 			return base.HandleEvent(e);
 		}
 
-		private void CalculatePriceSize() {
-			priceString = $"{price}";
-			priceX = (Width - Font.Small.MeasureString(priceString).Width) / 2f;
+		protected virtual void CalculatePriceSize() {
+			PriceString = $"{Price}";
+			PriceX = (Width - Font.Small.MeasureString(PriceString).Width) / 2f;
 		}
 
 		public override void RenderImDebug() {
 			base.RenderImDebug();
 
-			if (ImGui.InputInt("Price", ref price)) {
+			if (ImGui.InputInt("Price", ref Price)) {
 				CalculatePriceSize();
 			}
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			onSale = stream.ReadBoolean();
+			OnSale = stream.ReadBoolean();
 			Free = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteBoolean(onSale);
+			stream.WriteBoolean(OnSale);
 			stream.WriteBoolean(Free);
 		}
 	}

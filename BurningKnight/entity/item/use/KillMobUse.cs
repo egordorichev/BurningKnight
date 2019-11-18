@@ -33,7 +33,7 @@ namespace BurningKnight.entity.item.use {
 			var i = 0;
 
 			do {
-				var index = Random.Int(mobs.Count);
+				var index = Rnd.Int(mobs.Count);
 				var mob = mobs[index];
 				mobs.RemoveAt(index);
 

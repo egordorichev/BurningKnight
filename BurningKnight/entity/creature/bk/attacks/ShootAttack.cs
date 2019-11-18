@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 
 			if (sinceLast >= Delay) {
 				sinceLast = 0;
-				Projectile.Make(Self, Random.Chance(30) ? "tiny" : "small", Self.AngleTo(Self.Target) + Random.Float(-0.5f, 0.5f), Random.Float(8, 15));
+				Projectile.Make(Self, Rnd.Chance(30) ? "tiny" : "small", Self.AngleTo(Self.Target) + Rnd.Float(-0.5f, 0.5f), Rnd.Float(8, 15));
 			}
 		}
 	}

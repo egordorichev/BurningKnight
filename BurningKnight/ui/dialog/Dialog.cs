@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
-using Random = Lens.util.math.Random;
+using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.ui.dialog {
 	public class Dialog {
@@ -20,7 +21,7 @@ namespace BurningKnight.ui.dialog {
 				return null;
 			}
 			
-			return Next?[Random.Int(Next.Length)];
+			return Next?[Rnd.Int(Next.Length)];
 		}
 
 		public virtual Dialog GetNext() {
@@ -34,6 +35,16 @@ namespace BurningKnight.ui.dialog {
 
 		public virtual void Reset() {
 			
+		}
+
+		public class StartedEvent : Event {
+			public Dialog Dialog;
+			public Entity Owner;
+		}
+
+		public class EndedEvent : Event {
+			public Dialog Dialog;
+			public Entity Owner;
 		}
 	}
 }

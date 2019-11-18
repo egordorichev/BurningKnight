@@ -85,7 +85,7 @@ namespace BurningKnight.assets.lighting {
 
 			foreach (var light in lights) {
 				Graphics.Color = light.Color;
-				Graphics.Render(region, light.GetPosition(), 0, region.Center, light.Scale * radiusMod);	
+				Graphics.Render(region, light.GetPosition(), 0, region.Center, light.Scale * RadiusMod);	
 			}
 
 			Graphics.Color = ColorUtils.WhiteColor;
@@ -127,7 +127,7 @@ namespace BurningKnight.assets.lighting {
 		private static System.Numerics.Vector3 color = System.Numerics.Vector3.One;
 		private static BlendState surfaceBlend = BlendState.NonPremultiplied;
 		private static int surfaceBlendId = 5;
-		private static float radiusMod = 1;
+		public static float RadiusMod = 1;
 		public static bool EnableFog = true;
 		private static Color clearColor;
 
@@ -161,7 +161,7 @@ namespace BurningKnight.assets.lighting {
 
 			ImGui.Checkbox("Enabled", ref LevelLayerDebug.Lights);
 			ImGui.Checkbox("Enable fog", ref EnableFog);
-			ImGui.DragFloat("Radius mod", ref radiusMod);
+			ImGui.DragFloat("Radius mod", ref RadiusMod);
 
 			ImGui.Separator();
 			

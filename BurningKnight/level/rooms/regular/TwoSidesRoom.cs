@@ -11,7 +11,7 @@ namespace BurningKnight.level.rooms.regular {
 		private bool vertical;
 
 		public TwoSidesRoom() {
-			vertical = Random.Chance();
+			vertical = Rnd.Chance();
 		}
 
 		public override void Paint(Level level) {
@@ -20,13 +20,13 @@ namespace BurningKnight.level.rooms.regular {
 
 			var platform = new MovingPlatform();
 
-			platform.X = vertical ? (Random.Int(Left + 2, Right - 2)) * 16 : (Left + GetWidth() / 2) * 16;
-			platform.Y = vertical ? (Top + GetHeight() / 2) * 16 : (Random.Int(Top + 2, Bottom - 2)) * 16;
-			platform.Controller = Random.Chance(40) ? (Random.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise) : (vertical ? PlatformController.UpDown : PlatformController.LeftRight);
+			platform.X = vertical ? (Rnd.Int(Left + 2, Right - 2)) * 16 : (Left + GetWidth() / 2) * 16;
+			platform.Y = vertical ? (Top + GetHeight() / 2) * 16 : (Rnd.Int(Top + 2, Bottom - 2)) * 16;
+			platform.Controller = Rnd.Chance(40) ? (Rnd.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise) : (vertical ? PlatformController.UpDown : PlatformController.LeftRight);
 
 			level.Area.Add(platform);
 
-			if (Random.Chance(30)) {
+			if (Rnd.Chance(30)) {
 				var turret = new RotatingTurret();
 				level.Area.Add(turret);
 				turret.Center = platform.Position + new Vector2(16, 12);
@@ -61,14 +61,14 @@ namespace BurningKnight.level.rooms.regular {
 				rect.Top = Top + 1;
 				rect.Bottom = Bottom;
 
-				rect.Left = Left + 3 + Random.Int(3);
-				rect.Right = Right - 2 - Random.Int(3);
+				rect.Left = Left + 3 + Rnd.Int(3);
+				rect.Right = Right - 2 - Rnd.Int(3);
 			} else {
 				rect.Left = Left + 1;
 				rect.Right = Right;
 				
-				rect.Top = Top + 3 + Random.Int(3);
-				rect.Bottom = Bottom - 2 - Random.Int(3);
+				rect.Top = Top + 3 + Rnd.Int(3);
+				rect.Bottom = Bottom - 2 - Rnd.Int(3);
 			}
 		}
 		

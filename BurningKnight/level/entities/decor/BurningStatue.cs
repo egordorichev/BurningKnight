@@ -211,7 +211,7 @@ namespace BurningKnight.level.entities.decor {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Area.Tags[Tags.BurningKnight].Count > 0) {
+			if (Area.Tagged[Tags.BurningKnight].Count > 0) {
 				Done = true;
 				return;
 			}

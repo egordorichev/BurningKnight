@@ -3,14 +3,20 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.controller;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
@@ -23,17 +29,21 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.timer;
-using SharpDX;
+using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 using Color = Microsoft.Xna.Framework.Color;
-using Random = Lens.util.math.Random;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.bk {
 	public class BurningKnight : Boss {
 		private BossPatternSet<BurningKnight> set;
-	
+		private static Color tint = new Color(234, 50, 60, 200);
+		private Boss captured;
+		
+		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -49,9 +59,11 @@ namespace BurningKnight.entity.creature.bk {
 			TargetEverywhere = true;
 			AlwaysActive = true;
 			AlwaysVisible = true;
+			HasHealthbar = false;
 			Depth = Layers.Bk;
+			TouchDamage = 0;
 
-			var b = new RectBodyComponent(8, 8, Width - 8, Height - 8, BodyType.Dynamic, true) {
+			var b = new RectBodyComponent(6, 8, 10, 15, BodyType.Dynamic, true) {
 				KnockbackModifier = 0
 			};
 			
@@ -59,6 +71,7 @@ namespace BurningKnight.entity.creature.bk {
 			b.Body.LinearDamping = 3;
 			
 			AddComponent(new BkGraphicsComponent("old_burning_knight"));
+			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.7f, 0.2f, 1f)));
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
@@ -66,44 +79,206 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
 			
-			AddComponent(new DialogComponent());
 			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
 
 			var buffs = GetComponent<BuffsComponent>();
 			
 			buffs.AddImmunity<FrozenBuff>();
 			buffs.AddImmunity<BurningBuff>();
+			
+			Subscribe<RoomChangedEvent>();
+			Subscribe<ItemTakenEvent>();
+			Subscribe<Dialog.EndedEvent>();
 		}
 
 		protected override void OnTargetChange(Entity target) {
+			if (Hidden) {
+				return;
+			}
+			
 			if (!Awoken && target != null) {
-				if (BK.Version.Dev) {
-					Become<ChaseState>();
-					return;
-				}
-				
-				GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
-				// Audio.PlayMusic("Rogue");
-				
-				Timer.Add(() => {
-					Become<ChaseState>();		
-				}, 3f);
+				Awoken = true;
+				// GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
+				Become<FollowState>();		
+			} else if (target == null) {
+				Become<IdleState>();
+				Awoken = false;
 			}
 
 			base.OnTargetChange(target);
 		}
+
+		public override bool HandleEvent(Event e) {
+			if (Hidden) {
+				return base.HandleEvent(e);
+			}
 		
-		#region Burning Knight States
-		public class ChaseState : SmartState<BurningKnight> {
+			if (e is RoomChangedEvent rce) {
+				if (rce.Who is Player && rce.New != null) {
+					var t = rce.New.Type;
+
+					if (t == RoomType.Boss) {
+						foreach (var mob in rce.New.Tagged[Tags.MustBeKilled]) {
+							if (mob != this && mob is Boss b) {
+								captured = b;
+								Become<CaptureState>();
+
+								break;
+							}
+						}
+					} else if (t == RoomType.Treasure) {
+						foreach (var item in rce.New.Tagged[Tags.Item]) {
+							if (item is SingleChoiceStand stand && stand.Item != null) {
+								GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+								break;
+							}
+						}
+					}
+				}
+			} else if (e is ItemTakenEvent ite) {
+				if (ite.Stand is SingleChoiceStand) {
+					GetComponent<DialogComponent>().StartAndClose("bk_1", 5);
+					var state = GetComponent<StateComponent>();
+
+					if (!(state.StateInstance is HiddenState)) {
+						Timer.Add(() => {
+							Camera.Instance.Shake(10);
+							state.Become<AttackState>();
+						}, 3);
+					}
+				}
+			} else if (e is Dialog.EndedEvent dse) {
+				if (dse.Owner is ShopKeeper && dse.Dialog.Id == "shopkeeper_18") {
+					// What a joke
+					Timer.Add(() => {
+						GetComponent<DialogComponent>().StartAndClose("bk_4", 5);
+					}, 1);
+				}
+			}
+			
+			return base.HandleEvent(e);
+		}
+
+		private float lastFadingParticle;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			if (Hidden) {
+				return;
+			}
+
+			lastFadingParticle -= dt;
+			
+			if (lastFadingParticle <= 0) {
+				lastFadingParticle = 0.2f;
+
+				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
+				Area.Add(particle);
+
+				particle.Depth = Depth - 1;
+				particle.Center = Center;
+			}
+		}
+		
+		#region Buring Knight States while calm
+		public class IdleState : SmartState<BurningKnight> {
+			
+		}
+		
+		public class FollowState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.OnScreen && Self.DistanceTo(Self.Target) <= 128f) {
-					Become<AttackState>();
+				var d = Self.DistanceTo(Self.Target);
+				var force = 200f * dt;
+
+				if (d < 48f) {
+					Self.Become<FlyAwayState>();
+				} else if (d <= 72f) {
+					return;
+				} else if (d >= 200) {
+					Self.Become<TeleportState>();
 				}
 				
 				var a = Self.AngleTo(Self.Target);
+				
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class FlyAwayState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var d = Self.DistanceTo(Self.Target);
+				var force = -300f * dt;
+
+				if (d > 80f) {
+					Self.Become<FollowState>();
+					return;
+				}
+				
+				var a = Self.AngleTo(Self.Target);
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+
+		public class TeleportState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+
+				var graphics = Self.GetComponent<BkGraphicsComponent>();
+
+				Tween.To(0, graphics.Alpha, x => graphics.Alpha = x, 0.3f, Ease.QuadIn).OnEnd = () => {
+					if (Self.Target != null) {
+						Self.Center = Self.Target.Center + MathUtils.CreateVector(Rnd.AnglePI(), 64f);
+					}
+					
+					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						if (Self.Target != null) {
+							Self.Become<FollowState>();
+						} else {
+							Self.Become<IdleState>();
+						}
+					};
+				};
+			}
+		}
+		#endregion
+		
+		#region Burning Knight States while chasing
+		public class FlyAwayAttackingState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				var d = Self.DistanceTo(Self.Target);
+				var force = -300f * dt;
+
+				if (d > 96f) {
+					Self.Become<ChaseState>();
+					return;
+				}
+				
+				var a = Self.AngleTo(Self.Target);
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class ChaseState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				var d = Self.DistanceTo(Self.Target);
 				var force = 300f * dt;
+
+				if (d < 64f) {
+					Self.Become<FlyAwayAttackingState>();
+				} else if (d <= 128f) {
+					Self.Become<AttackState>();
+				}
+
+				var a = Self.AngleTo(Self.Target);
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
@@ -113,8 +288,12 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.3f) {
-					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Random.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+				if (Self.DistanceTo(Self.Target) < 64f) {
+					Self.Become<FlyAwayAttackingState>();
+				}
+
+				if (T >= 0.5f) {
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
 					p.Spectral = true;
@@ -125,55 +304,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			}
 		}
-		#endregion
-
-		private float lastPart;
-
-		public override void Update(float dt) {
-			base.Update(dt);
-			
-			if (died) {
-				lastPart -= dt;
-
-				if (lastPart <= 0) {
-					lastPart = 0.03f;
-					var p = new ParticleEntity(new Particle(Controllers.BkDeath, Particles.BkDeathRenderer));
-					Area.Add(p);
-					p.Particle.Position = Center;
-				}
-				
-				deathTimer += dt;
-				lastExplosion -= dt;
-				
-				if (lastExplosion <= 0) {
-					lastExplosion = 0.3f;
-					AnimationUtil.Explosion(Center + new Vector2(Random.Float(-16, 16), Random.Float(-16, 16)));
-					Camera.Instance.Shake(10);
-					Audio.PlaySfx("explosion");
-				}
-
-				if (deathTimer > 1f) {
-					Engine.Instance.FlashColor = new Color(1f, 1f, 1f, (deathTimer - 1) * 0.5f);
-					Engine.Instance.Flash = 0.3f;
-				}
-
-				if (deathTimer >= 3f) {
-					HandleEvent(new DefeatedEvent {
-						BurningKnight = this
-					});
-					
-					Engine.Instance.FlashColor = ColorUtils.WhiteColor;
-					Done = true;
-					PlaceRewards();
-					HandleEvent(new BurningKnightDefeatedEvent());
-					
-					Timer.Add(() => {
-						((InGameState) Engine.Instance.State).ResetFollowing();
-					}, 0.5f);
-				}
-			}
-		}
-
+		
 		public override void SelectAttack() {
 			if (set == null) {
 				set = BurningKnightAttackRegistry.PatternSetRegistry.Generate(Run.Level.Biome.Id);
@@ -182,66 +313,79 @@ namespace BurningKnight.entity.creature.bk {
 			base.SelectAttack();
 			GetComponent<StateComponent>().PushState(BurningKnightAttackRegistry.GetNext(set));
 		}
+		#endregion
 
-		private bool died;
-		private float deathTimer;
-		private float lastExplosion;
-		
-		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
-				if (true) {
-					Done = false;
-					return true;
-				}
+		public class CaptureState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
 				
-				if (!died) {
-					died = true;
-					HealthBar?.Remove();
-
-					Camera.Instance.Targets.Clear();
-					Camera.Instance.Follow(this, 1f);
-					Become<DefeatedState>();
-
-					Audio.Stop();
-				}
+				Camera.Instance.Follow(Self, 0.3f);
 				
-				Done = false;
-				e.Handled = true;
+				Timer.Add(() => {
+					Camera.Instance.Follow(Self.captured, 0.3f);
+				}, 0.5f);
 			}
-			
-			return base.HandleEvent(e);
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				var d = Self.DistanceTo(Self.captured);
+				
+				if (d <= 8) {
+					// PREPARE TO DIE!
+					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
+					Camera.Instance.Unfollow(Self);
+					
+					Become<HiddenState>();
+					Self.captured.SelectAttack();
+				}
+				
+				var a = Self.AngleTo(Self.captured);
+				var force = 300f * dt;
+
+				if (d <= 64f) {
+					force *= 2;
+				}
+
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
 		}
 		
-		private void PlaceRewards() {
-			var exit = new Exit();
-			Area.Add(exit);
+		public class HiddenState : SmartState<BurningKnight> {
+			private bool teleported;
+			
+			public override void Init() {
+				base.Init();
+
+				Camera.Instance.Shake(20);
+				Self.Position = Vector2.Zero;
 				
-			exit.To = Run.Depth + 1;
+				Timer.Add(() => {
+					((InGameState) Engine.Instance.State).ResetFollowing();
+					Camera.Instance.Shake(10);
+				}, 1);
+			}
 
-			var x = (int) Math.Floor(CenterX / 16);
-			var y = (int) Math.Floor(CenterY / 16);
-			var p = new Vector2(x * 16 + 8, y * 16 + 8);
-			
-			exit.Center = p;
+			public override void Update(float dt) {
+				base.Update(dt);
 
-			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
-			Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
+				if (!teleported && Self.captured.Done) {
+					teleported = true;
+					
+					var graphics = Self.GetComponent<BkGraphicsComponent>();
+					graphics.Alpha = 0;
 
-			var stand = new BossStand();
-			Area.Add(stand);
-			stand.Center = p - new Vector2(0, 32f);
-			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
-			
-			Run.Level.TileUp();
-			Run.Level.CreateBody();
-		}
-
-		private class DefeatedState : SmartState<BurningKnight> {
-			
-		}
-
-		public class DefeatedEvent : Event {
-			public BurningKnight BurningKnight;
+					Self.Center = Self.captured.Center;
+				
+					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						Timer.Add(() => {
+							Self.Become<ChaseState>();
+							// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
+							Self.GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
+						}, 1f);
+					};
+				}
+			}
 		}
 	}
 }

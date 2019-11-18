@@ -64,7 +64,7 @@ namespace BurningKnight.entity.creature.pet {
 				
 				if (d > 256) {
 					AnimationUtil.Poof(Self.Center);
-					Self.Center = Self.Owner.Center + Random.Offset(24);
+					Self.Center = Self.Owner.Center + Rnd.Offset(24);
 					AnimationUtil.Poof(Self.Center);
 					
 					Self.Become<HappyState>();

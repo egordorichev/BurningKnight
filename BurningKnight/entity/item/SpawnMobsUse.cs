@@ -28,7 +28,7 @@ namespace BurningKnight.entity.item {
 				var mob = MobRegistry.Generate();
 				entity.Area.Add(mob);
 
-				if (mob.SpawnsNearWall()) {
+				if (MobRegistry.FindFor(mob.GetType())?.NearWall ?? false) {
 					mob.Center = r.Room.GetRandomFreeTileNearWall(filter) * 16;
 				} else {
 					mob.Center = r.Room.GetRandomFreeTile(filter) * 16;

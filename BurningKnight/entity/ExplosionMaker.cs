@@ -13,9 +13,9 @@ using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
@@ -47,7 +47,7 @@ namespace BurningKnight.entity {
 			for (var i = 0; i < 6; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
-				part.Position = w + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4));
+				part.Position = w + new Vector2(Rnd.Int(-4, 4), Rnd.Int(-4, 4));
 				whoHurts.Area.Add(part);
 				part.Depth = 30;
 			}
@@ -96,7 +96,7 @@ namespace BurningKnight.entity {
 								level.Area.Add(part);
 							}
 			
-							Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : level.Tileset.Rock)[Random.Int(4)], ww);
+							Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : level.Tileset.Rock)[Rnd.Int(4)], ww);
 
 							level.Set(index, Tile.Dirt);
 							level.UpdateTile(x + xx, y + yy);

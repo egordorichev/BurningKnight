@@ -43,7 +43,7 @@ namespace BurningKnight.state {
 			Subscribe<ItemAddedEvent>();
 			
 			Subscribe<PlayerRolledEvent>();
-			Subscribe<BurningKnightDefeatedEvent>();
+			Subscribe<Boss.DefeatedEvent>();
 
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 			
@@ -116,7 +116,7 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							if (Area.Tags[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tags[Tags.BurningKnight][0]).Awoken) {
+							if (Area.Tagged[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tagged[Tags.BurningKnight][0]).Awoken) {
 								Audio.PlayMusic("Fatiga");
 							} else {
 								Audio.PlayMusic("Gobbeon");
@@ -154,7 +154,7 @@ namespace BurningKnight.state {
 					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
 				}
-			} else if (e is BurningKnightDefeatedEvent) {
+			} else if (e is Boss.DefeatedEvent) {
 				Audio.Stop();
 				Audio.PlayMusic("Reckless");
 				Audio.Repeat = false;

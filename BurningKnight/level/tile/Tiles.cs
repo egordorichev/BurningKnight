@@ -6,7 +6,7 @@ namespace BurningKnight.level.tile {
 		private static Tile lastWall;
 		
 		public static Tile Pick(params Tile[] tiles) {
-			return tiles[Random.Int(tiles.Length)];
+			return tiles[Rnd.Int(tiles.Length)];
 		}
 
 		public static Tile RandomFloor(bool gold = false) {
@@ -18,7 +18,7 @@ namespace BurningKnight.level.tile {
 		}
 		
 		public static Tile RandomFloorOrSpike() {
-			return lastFloor = Random.Chance(20) ? Tile.SensingSpikeTmp : Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
+			return lastFloor = Rnd.Chance(20) ? Tile.SensingSpikeTmp : Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
 		}
 		
 		public static Tile RandomWall() {
@@ -68,7 +68,7 @@ namespace BurningKnight.level.tile {
 				}
 			}
 
-			return tiles[Random.Int(2)];
+			return tiles[Rnd.Int(2)];
 		}
 	}
 }

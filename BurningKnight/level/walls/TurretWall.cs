@@ -11,11 +11,11 @@ namespace BurningKnight.level.walls {
 
 			var c = room.GetTileCenter() * 16;
 			var m = 16;
-			var r = Random.Chance();
-			var t = Random.Chance(30);
+			var r = Rnd.Chance();
+			var t = Rnd.Chance(30);
 
-			if (Random.Chance()) {
-				if (Random.Chance()) {
+			if (Rnd.Chance()) {
+				if (Rnd.Chance()) {
 					level.Area.Add(new QuadRotatingTurret {
 						Position = c
 					});
@@ -25,7 +25,7 @@ namespace BurningKnight.level.walls {
 					});
 				}
 			} else {
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					level.Area.Add(new Turret {
 						Position = c + new Vector2(m, m),
 						StartingAngle = 1,

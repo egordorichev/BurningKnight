@@ -29,11 +29,11 @@ using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
@@ -144,6 +144,8 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			InitStats();
+			
+			Subscribe<RoomClearedEvent>();
 		}
 
 		public void InitStats() {
@@ -185,19 +187,19 @@ namespace BurningKnight.entity.creature.player {
 
 			lastDepth = Run.Depth;
 			
-			foreach (var c in Area.Tags[Tags.Checkpoint]) {
+			foreach (var c in Area.Tagged[Tags.Checkpoint]) {
 				Center = c.Center;
 				Log.Debug("Teleported to spawn point");
 				return;
 			}
 
-			foreach (var c in Area.Tags[Tags.Entrance]) {
+			foreach (var c in Area.Tagged[Tags.Entrance]) {
 				Center = c.Center + new Vector2(0, 4);
 				Log.Debug("Teleported to entrance");
 				return;
 			}
 			
-			foreach (var r in Area.Tags[Tags.Room]) {
+			foreach (var r in Area.Tagged[Tags.Room]) {
 				var rm = (Room) r;
 
 				if (rm.Type == RoomType.Entrance) {
@@ -208,7 +210,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 			
-			foreach (var r in Area.Tags[Tags.Room]) {
+			foreach (var r in Area.Tagged[Tags.Room]) {
 				var rm = (Room) r;
 				
 				if (rm.Type == RoomType.Exit) {
@@ -261,7 +263,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 					
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 
@@ -304,7 +306,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 			}
@@ -336,7 +338,7 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Self.Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Self.Area.Add(part);
 				}
 			}
@@ -391,11 +393,11 @@ namespace BurningKnight.entity.creature.player {
 					var part = new ParticleEntity(Particles.Dust());
 						
 					part.Position = Center;
-					part.Particle.Scale = Random.Float(0.4f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 					Area.Add(part);
 				}
 			} else if (e is RoomChangedEvent c) {
-				if (c.New == null) {
+				if (c.New == null || Run.Level == null || Camera.Instance == null) {
 					return base.HandleEvent(e);
 				}
 				
@@ -417,13 +419,28 @@ namespace BurningKnight.entity.creature.player {
 						break;
 					}
 				}
+
+				// Darken the lighting in old man room
+				if (c.New.Type == RoomType.OldMan) {
+					Tween.To(0.7f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
+				} else if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
+				}
+
+				if (c.Old != null) {
+					Camera.Instance.Unfollow(c.Old);
+				}
+
+				if (c.New != null && c.New.Tagged[Tags.MustBeKilled].Count > 0) {
+					Camera.Instance.Follow(c.New, 0.3f);
+				}
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
 						hm.Amount = Math.Min(hm.Amount, -2);
+					} else if (!(hm.From is DarkMageStand)) {
+						hm.Amount = Math.Max(-1, hm.Amount);
 					}
-
-					hm.Amount = Math.Max(-1, hm.Amount);
 				}			
 			} else if (e is PostHealthModifiedEvent h) {
 				if (h.Amount < 0) {
@@ -434,8 +451,8 @@ namespace BurningKnight.entity.creature.player {
 					if (Settings.Blood) {
 						var cl = GetBloodColor();
 
-						if (Random.Chance(30)) {
-							for (var i = 0; i < Random.Int(1, 3); i++) {
+						if (Rnd.Chance(30)) {
+							for (var i = 0; i < Rnd.Int(1, 3); i++) {
 								Area.Add(new SplashParticle {
 									Position = Center - new Vector2(2.5f),
 									Color = cl
@@ -449,6 +466,8 @@ namespace BurningKnight.entity.creature.player {
 						});
 					}
 				}
+			} else if (e is RoomClearedEvent rce) {
+				Camera.Instance.Unfollow(rce.Room);
 			}
 			
 			return base.HandleEvent(e);
@@ -487,7 +506,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			for (var i = 0; i < 6; i++) {
 				Area.Add(new ParticleEntity(Particles.Dust()) {
-					Position = Center + new Vector2(Random.Int(-4, 4), Random.Int(-4, 4)), 
+					Position = Center + new Vector2(Rnd.Int(-4, 4), Rnd.Int(-4, 4)), 
 					Depth = 30
 				});
 			}
@@ -528,7 +547,7 @@ namespace BurningKnight.entity.creature.player {
 				pool.Add("bk:coin");
 			}
 
-			GlobalSave.Put("next_tomb", pool[Random.Int(pool.Count)]);
+			GlobalSave.Put("next_tomb", pool[Rnd.Int(pool.Count)]);
 			GlobalSave.Put("tomb_depth", Run.Depth);
 			
 			Area.Add(stone);

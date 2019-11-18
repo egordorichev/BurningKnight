@@ -34,6 +34,10 @@ namespace BurningKnight.level.tile {
 		MetalBlock,
 		Rock,
 		TintedRock,
+		EvilWall,
+		EvilFloor,
+		GrannyWall,
+		GrannyFloor,
 		
 		Total
 	}

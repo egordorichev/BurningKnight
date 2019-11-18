@@ -1,3 +1,5 @@
+using BurningKnight.entity.room;
+using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens.entity;
 
@@ -8,8 +10,16 @@ namespace BurningKnight.entity.item.use {
 			
 			var level = Run.Level;
 
-			for (var i = 0; i < level.Explored.Length; i++) {
-				level.Explored[i] = true;
+			foreach (var e in entity.Area.Tagged[Tags.Room]) {
+				var room = (Room) e;
+
+				if (room.Type != RoomType.Secret && room.Type != RoomType.Granny && room.Type != RoomType.OldMan) {
+					for (var y = room.MapY; y < room.MapY + room.MapH; y++) {
+						for (var x = room.MapX; x < room.MapX + room.MapW; x++) {
+							level.Explored[level.ToIndex(x, y)] = true;
+						}	
+					}
+				}
 			}
 		}
 	}

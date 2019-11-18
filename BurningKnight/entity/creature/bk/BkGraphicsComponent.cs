@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.bk {
 	public class BkGraphicsComponent : AnimationComponent {
 		private float t;
+		public float Alpha = 1f;
 	
 		public BkGraphicsComponent(string animationName, string layer = null, string tag = null) : base(animationName, layer, tag) {
 			
@@ -33,7 +34,7 @@ namespace BurningKnight.entity.creature.bk {
 				shader.Parameters["size"].SetValue(new Vector2(region.Width / (float) region.Texture.Width,
 					region.Height / (float) region.Texture.Height));
 				shader.Parameters["time"].SetValue(t);
-				shader.Parameters["a"].SetValue(1f);
+				shader.Parameters["a"].SetValue(Alpha);
 				
 				Shaders.Begin(shader);
 			}

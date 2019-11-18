@@ -16,7 +16,7 @@ namespace BurningKnight.entity.projectile.controller {
 					p.Area.Add(part);
 					part.Particle.Position = p.Center;
 					part.Particle.Velocity = p.BodyComponent.Velocity * -0.2f;
-					part.Particle.Scale = Random.Float(0.6f, 0.8f);
+					part.Particle.Scale = Rnd.Float(0.6f, 0.8f);
 					part.Depth = Layers.Creature;
 				}
 			};

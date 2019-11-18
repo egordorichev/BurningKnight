@@ -51,13 +51,13 @@ namespace BurningKnight.level.rooms.special {
 			var fl = Tiles.RandomFloorOrSpike();
 			
 			if (d.X == Left || d.X == Right) {
-				var w = (int) (GetWidth() / 2f + Random.Int(-1, 1));
-				var door = new Dot(Left + w, Random.Int(Top + 2, Bottom - 2));
+				var w = (int) (GetWidth() / 2f + Rnd.Int(-1, 1));
+				var door = new Dot(Left + w, Rnd.Int(Top + 2, Bottom - 2));
 				
 				Painter.DrawLine(level, new Dot(Left + w, Top), new Dot(Left + w, Bottom), Tile.WallA);
 				Painter.Set(level, door, fl);
 				
-				npc.Center = new Dot(Left + w + (d.X == Left ? 2 : -2), Random.Int(Top + 2, Bottom - 3)) * 16 + new Vector2(8);
+				npc.Center = new Dot(Left + w + (d.X == Left ? 2 : -2), Rnd.Int(Top + 2, Bottom - 3)) * 16 + new Vector2(8);
 
 				var dr = new CageDoor {
 					FacingSide = true
@@ -71,13 +71,13 @@ namespace BurningKnight.level.rooms.special {
 				Painter.DrawLine(level, new Dot(Left + w + v, Top + 1), new Dot(Left + w + v, Bottom - 1), Tiles.Pick(Tile.Chasm, Tile.Lava, Tile.SensingSpikeTmp));
 				Painter.Set(level, door + new Dot(v, 0), fl);
 			} else if (true) {
-				var h = (int) (GetHeight() / 2f + Random.Int(-1, 1));
-				var door = new Dot(Random.Int(Left + 2, Right - 2), Top + h);
+				var h = (int) (GetHeight() / 2f + Rnd.Int(-1, 1));
+				var door = new Dot(Rnd.Int(Left + 2, Right - 2), Top + h);
 
 				Painter.DrawLine(level, new Dot(Left, Top + h), new Dot(Right, Top + h), Tile.WallA);
 				Painter.Set(level, door, fl);
 				
-				npc.Center = new Dot(Random.Int(Left + 2, Right - 2), Top + h + (d.Y == Top ? 2 : -2)) * 16 + new Vector2(8);
+				npc.Center = new Dot(Rnd.Int(Left + 2, Right - 2), Top + h + (d.Y == Top ? 2 : -2)) * 16 + new Vector2(8);
 				
 				var dr = new CageDoor();
 				dr.Center = door * 16 + new Vector2(8, 8);

@@ -11,7 +11,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		
 		public BossAttack<T> Next() {
 			if (current == null) {
-				current = patterns[Random.Int(patterns.Length)];
+				current = patterns[Rnd.Int(patterns.Length)];
 			}
 
 			var a = current.Generate();

@@ -11,7 +11,7 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyProjectilesUse : ItemUse {
@@ -36,7 +36,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public void ModifyProjectile(Projectile projectile) {
-			if (Random.Float() > Chance) {
+			if (Rnd.Float() > Chance) {
 				return;
 			}
 			

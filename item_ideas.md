@@ -7,8 +7,11 @@
 * triple chest
 * double chest
 * forest chest
-* battery buddy, item, that makes you charge double per room -> some items for charger item pool
+* boss pool
+* charger pool       -- battery buddy, item, that makes you charge double per room -> some items for charger item pool
 * safe pool (loot pick for example)
+* granny --- tea cup! and other tea based items
+* dark mage
 
 ### to rework
 
@@ -27,6 +30,7 @@
 * guitar weapon
 * life drain
 
+* bombs that clear all the bullets on screen
 * charge shot
 * turret
 * powerful but lowrange gun

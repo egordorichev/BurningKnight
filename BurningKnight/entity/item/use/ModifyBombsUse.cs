@@ -5,7 +5,7 @@ using BurningKnight.entity.projectile;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyBombsUse : ItemUse {
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item.use {
 				var bomb = bpe.Bomb;
 				
 				if (SetFuseTime) {
-					bomb.GetComponent<ExplodeComponent>().Timer = FuseTime + Random.Float(-0.1f, 1f);
+					bomb.GetComponent<ExplodeComponent>().Timer = FuseTime + Rnd.Float(-0.1f, 1f);
 				}
 
 				if (SpawnBombs) {
@@ -70,7 +70,7 @@ namespace BurningKnight.entity.item.use {
 						for (var i = 0; i < 4; i++) {
 							var bm = new Bomb(b.Owner, Bomb.ExplosionTime, b);
 							b.Area.Add(bm);
-							bm.Center = b.Center + Random.Vector(-4, 4);
+							bm.Center = b.Center + Rnd.Vector(-4, 4);
 							bm.VelocityTo(i / 2f * (float) Math.PI, 300f);
 						}
 					};

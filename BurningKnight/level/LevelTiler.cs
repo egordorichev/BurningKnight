@@ -22,7 +22,7 @@ namespace BurningKnight.level {
 			var y = level.FromIndexY(index);
 			
 			if (((Tile) liquid).Matches(Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
-				level.LiquidVariants[index] = (byte) Random.Int(4);
+				level.LiquidVariants[index] = (byte) Rnd.Int(4);
 			} else {
 				byte lmask = 0;
 
@@ -44,12 +44,12 @@ namespace BurningKnight.level {
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
 
-			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD)) {
+			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.EvilFloor, Tile.GrannyFloor)) {
 				if (level.Variants[index] != 0 && level.Variants[index] < 11) {
 					return;
 				}
 
-				var v = Random.Int(9);
+				var v = Rnd.Int(9);
 
 				if (v == 8 || v == 9) {
 					if (level.IsInside(index + level.Width + 1) && level.Tiles[index + 1] == tile && level.Tiles[index + level.Width] == tile && level.Tiles[index + 1 + level.Width] == tile 
@@ -65,7 +65,7 @@ namespace BurningKnight.level {
 						return;
 					}
 
-					v = Random.Int(8);
+					v = Rnd.Int(8);
 				}
 
 				level.Variants[index] = (byte) v;
@@ -110,12 +110,12 @@ namespace BurningKnight.level {
 				return tt == Tile.Planks;
 			}
 
-			if (t == Tile.WallA || t == Tile.Piston) {
-				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Piston || tt == Tile.Transition;
+			if (t == Tile.WallA || t == Tile.Piston || t == Tile.GrannyWall || t == Tile.EvilWall) {
+				return tt == Tile.WallA || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Piston || tt == Tile.Transition || tt == Tile.GrannyWall || tt == Tile.EvilWall;
 			}
 			
 			if (t == Tile.WallB) {
-				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Transition;
+				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Transition || tt == Tile.GrannyWall || tt == Tile.EvilWall;
 			}
 
 			if (t == Tile.Transition) {

@@ -28,7 +28,7 @@ namespace BurningKnight.entity.buff {
 			if (lastParticle >= 0.5f) {
 				lastParticle = 0;
 
-				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"poison_{Random.Int(1, 4)}"))));
+				var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"poison_{Rnd.Int(1, 4)}"))));
 				part.Position = Entity.Center;
 
 				if (Entity.TryGetComponent<ZComponent>(out var z)) {
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.buff {
 				
 				Entity.Area.Add(part);
 				
-				part.Particle.Velocity = new Vector2(Random.Float(8, 16) * (Random.Chance() ? -1 : 1), -Random.Float(30, 56));
+				part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
 				part.Particle.Angle = 0;
 				part.Particle.Alpha = 0.8f;
 				part.Depth = Layers.InGameUi;

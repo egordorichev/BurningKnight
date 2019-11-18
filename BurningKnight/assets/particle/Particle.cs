@@ -27,9 +27,9 @@ namespace BurningKnight.assets.particle {
 			Controller = controller;
 			Renderer = renderer;
 
-			Angle = Random.AnglePI();
-			Rnd = Random.Int(1024);
-			T = Random.Float(1f);
+			Angle = Lens.util.math.Rnd.AnglePI();
+			Rnd = Lens.util.math.Rnd.Int(1024);
+			T = Lens.util.math.Rnd.Float(1f);
 		}
 
 		public virtual void Update(float dt) {

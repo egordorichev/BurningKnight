@@ -21,9 +21,5 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 		}
 		#endregion
-
-		public override bool CanSpawnMultiple() {
-			return false;
-		}
 	}
 }

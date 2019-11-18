@@ -30,7 +30,7 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
-			foreach (var room in Entity.Area.Tags[Tags.Room]) {
+			foreach (var room in Entity.Area.Tagged[Tags.Room]) {
 				if (room.Contains(Entity.Center)) {
 					Room = (Room) room;
 					break;

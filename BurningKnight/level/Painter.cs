@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.input;
@@ -24,9 +25,10 @@ using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
+using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level {
 	public class Painter {
@@ -41,7 +43,7 @@ namespace BurningKnight.level {
 		public Painter() {
 			// All the rocks, that have not full neighbours will become metal blocks (33% chance)
 			RoomModifiers.Add((l, r) => {
-				if (Random.Chance(66)) {
+				if (Rnd.Chance(66)) {
 					return;
 				}
 				
@@ -76,7 +78,7 @@ namespace BurningKnight.level {
 				var index = l.ToIndex(x, y);
 
 				if (l.Get(index, true) == Tile.Rock) {
-					var r = Random.Float();
+					var r = Rnd.Float();
 
 					if (r <= 0.05f) {
 						l.Set(index, Tile.TintedRock);
@@ -307,8 +309,6 @@ namespace BurningKnight.level {
 			PaintDoors(Level, Rooms);
 			Decorate(Level, Rooms);
 			
-			PlaceMobs(Level, Rooms);
-
 			for (var y = 0; y < Level.Height; y++) {
 				for (var x = 0; x < Level.Width; x++) {
 					if (Level.Get(x, y) == Tile.WallA) {
@@ -335,7 +335,7 @@ namespace BurningKnight.level {
 			var rooms = new List<RoomDef>();
 
 			foreach (var r in Rooms) {
-				if (r is RegularRoom || (r is EntranceRoom e)) {
+				if (r is RegularRoom || r is EntranceRoom) {
 					rooms.Add(r);
 				}
 			}
@@ -347,15 +347,41 @@ namespace BurningKnight.level {
 					continue;
 				}
 				
-				item.Center = (rooms[Random.Int(rooms.Count)].GetRandomFreeCell() * 16).ToVector();
+				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16).ToVector();
 			}
 
 			Level.ItemsToSpawn = null;
+
+			var rms = new List<Room>();
+			
+			foreach (var def in Rooms) {
+				if (!def.ConvertToEntity()) {
+					continue;
+				}
+				
+				var room = new Room();
+
+				room.Type = RoomDef.DecideType(def, def.GetType());
+				room.MapX = def.Left;
+				room.MapY = def.Top;
+				room.MapW = def.GetWidth();
+				room.MapH = def.GetHeight();
+				room.Parent = def;
+				
+				Level.Area.Add(room);
+				rms.Add(room);
+
+				def.ModifyRoom(room);
+
+				room.Generate();
+			}
+			
+			PlaceMobs(Level, rms);
 		}
 
-		public static void PlaceMobs(Level level, RoomDef room) {
+		public static void PlaceMobs(Level level, Room room) {
 			var mobs = new List<MobInfo>(MobRegistry.Current);
-			room.ModifyMobList(mobs);
+			room.Parent.ModifyMobList(mobs);
 
 			if (mobs.Count == 0) {
 				return;
@@ -364,14 +390,14 @@ namespace BurningKnight.level {
 			var chances = new float[mobs.Count];
 
 			for (int i = 0; i < mobs.Count; i++) {
-				chances[i] = room.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
+				chances[i] = room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
 			}
 
-			var types = new List<Type>();
+			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
-			for (int i = 0; i < Random.Int(2, 6); i++) {
-				var type = mobs[Random.Chances(chances)].Type;
+			for (int i = 0; i < Rnd.Int(2, 6); i++) {
+				var type = mobs[Rnd.Chances(chances)];
 				var found = false;
 				
 				foreach (var t in types) {
@@ -385,7 +411,7 @@ namespace BurningKnight.level {
 					i--;
 				} else {
 					types.Add(type);
-					spawnChances.Add(((Mob) Activator.CreateInstance(type)).GetSpawnChance());
+					spawnChances.Add(type.Chance);
 				}
 			}
 
@@ -394,33 +420,38 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			var count = room.GetPassablePoints(level).Count;
-			var weight = count / 15f + Random.Float(0f, 1.5f);
+			var count = room.Parent.GetPassablePoints(level).Count;
+			var weight = count / 15f + Rnd.Float(0f, 1.5f);
 
 			while (weight > 0) {
-				var id = Random.Chances(spawnChances);
-				var type = types[id];
-				var mob = (Mob) Activator.CreateInstance(type);
-				var wall = mob.SpawnsNearWall();
+				var id = Rnd.Chances(spawnChances);
+
+				if (id == -1) {
+					Log.Error("Failed to generate mobs :O");
+					break;
+				}
 				
-				var point = wall ? room.GetRandomCellNearWall() : room.GetRandomDoorFreeCell();
+				var type = types[id];
+				
+				var point = type.NearWall ? room.Parent.GetRandomCellNearWall() : room.Parent.GetRandomDoorFreeCell();
 
 				if (point == null) {
 					continue;
 				}
-				
-				weight -= mob.GetWeight();
 
-				if (wall) {
+
+				var mob = (Mob) Activator.CreateInstance(type.Type);
+				
+				weight -= type.Weight;
+				level.Area.Add(mob);
+				
+				if (type.NearWall) {
 					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
 				} else {
-					mob.Center = new Vector2(point.X * 16 + 8 + Random.Float(-2, 2), point.Y * 16 + 8 + Random.Float(-2, 2));
+					mob.Position = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
 				}
 
-				level.Area.Add(mob);
-				mob.GeneratePrefix();
-
-				if (!mob.CanSpawnMultiple()) {
+				if (type.Single) {
 					types.RemoveAt(id);
 					spawnChances.RemoveAt(id);
 
@@ -431,11 +462,11 @@ namespace BurningKnight.level {
 			}
 		}
 		
-		private void PlaceMobs(Level level, List<RoomDef> rooms) {
+		private void PlaceMobs(Level level, List<Room> rooms) {
 			MobRegistry.SetupForBiome(level.Biome.Id);
 			
 			foreach (var room in rooms) {
-				if (room.ShouldSpawnMobs()) {
+				if (room.Parent.ShouldSpawnMobs()) {
 					PlaceMobs(level, room);
 				}
 			}	
@@ -462,7 +493,7 @@ namespace BurningKnight.level {
 					}
 
 					if (DoorSpots.Count > 0) {
-						Door = new DoorPlaceholder(DoorSpots[Random.Int(DoorSpots.Count)]);
+						Door = new DoorPlaceholder(DoorSpots[Rnd.Int(DoorSpots.Count)]);
 						R.Connected[N] = Door;
 						N.Connected[R] = Door;
 					} else {
@@ -566,8 +597,8 @@ namespace BurningKnight.level {
 			foreach (var Room in Rooms) {
 				// Explodable barrel
 
-				if ((Room is RegularRoom) && Random.Chance(20)) {
-					for (var i = 0; i < Random.Int(1, 4); i++) {
+				if ((Room is RegularRoom) && Rnd.Chance(20)) {
+					for (var i = 0; i < Rnd.Int(1, 4); i++) {
 						var p = Room.GetRandomDoorFreeCell();
 
 						if (p != null) {
@@ -593,11 +624,11 @@ namespace BurningKnight.level {
 				}*/
 
 				// Fireflies
-				if (Random.Chance(60)) {
-					for (var I = 0; I < (Random.Chance(50) ? 1 : Random.Int(3, 6)); I++) {
+				if (Rnd.Chance(60)) {
+					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)); I++) {
 						Level.Area.Add(new Firefly {
-							X = (Room.Left + 2) * 16 + Random.Float((Room.GetWidth() - 4) * 16),
-							Y = (Room.Top + 2) * 16 + Random.Float((Room.GetHeight() - 4) * 16)
+							X = (Room.Left + 2) * 16 + Rnd.Float((Room.GetWidth() - 4) * 16),
+							Y = (Room.Top + 2) * 16 + Rnd.Float((Room.GetHeight() - 4) * 16)
 						});
 					}
 				}
@@ -607,22 +638,22 @@ namespace BurningKnight.level {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
 							if (Level.Get(X, Y).IsSimpleWall()) {
-								if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1).IsSimpleWall() && !Level.Get(X, Y - 1).IsSimpleWall() && Random.Chance(20)) {
+								if (Y > Room.Top && X > Room.Left && Level.Get(X - 1, Y - 1).IsSimpleWall() && !Level.Get(X, Y - 1).IsSimpleWall() && Rnd.Chance(20)) {
 									Level.Area.Add(new SlicedProp("cobweb_c", Layers.WallDecor) {
 										X = X * 16,
 										Y = Y * 16 - 24
 									});
-								} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1).IsSimpleWall() && !Level.Get(X, Y - 1).IsSimpleWall() && Random.Chance(20)) {
+								} else if (Y > Room.Top && X < Room.Right && Level.Get(X + 1, Y - 1).IsSimpleWall() && !Level.Get(X, Y - 1).IsSimpleWall() && Rnd.Chance(20)) {
 									Level.Area.Add(new SlicedProp("cobweb_d", Layers.WallDecor) {
 										X = X * 16,
 										Y = Y * 16 - 24
 									});
-								} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1).IsSimpleWall() && !Level.Get(X, Y + 1).IsSimpleWall() && Random.Chance(20)) {
+								} else if (Y < Room.Bottom - 1 && X > Room.Left && Level.Get(X - 1, Y + 1).IsSimpleWall() && !Level.Get(X, Y + 1).IsSimpleWall() && Rnd.Chance(20)) {
 									Level.Area.Add(new SlicedProp("cobweb_a", Layers.WallDecor) {
 										X = X * 16,
 										Y = Y * 16 + 8
 									});
-								} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1).IsSimpleWall() && !Level.Get(X, Y + 1).IsSimpleWall() && Random.Chance(20)) {
+								} else if (Y < Room.Bottom - 1 && X < Room.Right && Level.Get(X + 1, Y + 1).IsSimpleWall() && !Level.Get(X, Y + 1).IsSimpleWall() && Rnd.Chance(20)) {
 									Level.Area.Add(new SlicedProp("cobweb_b", Layers.WallDecor) {
 										X = X * 16,
 										Y = Y * 16 + 8
@@ -643,17 +674,17 @@ namespace BurningKnight.level {
 					var s = Room is SecretRoom;
 					var t = Level.Get(X, Room.Top);
 
-					if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Random.Chance(s ? 50 : 30)) {
-						if (!s && Random.Chance()) {
+					if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Rnd.Chance(s ? 50 : 30)) {
+						if (!s && Rnd.Chance()) {
 							var torch = new WallTorch();
 							Level.Area.Add(torch);
-							torch.CenterX = X * 16 + 8 + Random.Float(-1, 1);
+							torch.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
 							torch.CenterY = Room.Top * 16 + 13;
 						} else {
 							var painting = PaintingRegistry.Generate(Level.Biome);
 							Level.Area.Add(painting);
 
-							painting.CenterX = X * 16 + 8 + Random.Float(-1, 1);
+							painting.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
 							painting.Bottom = Room.Top * 16 + 17;
 						}
 					}
@@ -665,13 +696,13 @@ namespace BurningKnight.level {
 				
 				var types = new List<string>();
 
-				for (var i = 0; i < Random.Int(2, 3); i++) {
-					types.Add(BreakableProp.Infos[Random.Int(BreakableProp.Infos.Length)]);
+				for (var i = 0; i < Rnd.Int(2, 3); i++) {
+					types.Add(BreakableProp.Infos[Rnd.Int(BreakableProp.Infos.Length)]);
 				}
 				
-				for (int i = 0; i < Random.IntCentred(2, 7); i++) {
+				for (int i = 0; i < Rnd.IntCentred(2, 7); i++) {
 					var prop = new BreakableProp {
-						Sprite = types[Random.Int(types.Count)]
+						Sprite = types[Rnd.Int(types.Count)]
 					};
 					
 					var point = Room.GetRandomDoorFreeCell();
@@ -681,7 +712,7 @@ namespace BurningKnight.level {
 					}
 					
 					Level.Area.Add(prop);
-					prop.Center = new Vector2(point.X * 16 + 8 + Random.Float(-3, 3), point.Y * 16 + 8 + Random.Float(-3, 3));
+					prop.Center = new Vector2(point.X * 16 + 8 + Rnd.Float(-3, 3), point.Y * 16 + 8 + Rnd.Float(-3, 3));
 				}
 			}
 		}

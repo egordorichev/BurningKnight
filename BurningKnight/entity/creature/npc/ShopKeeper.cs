@@ -18,8 +18,8 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
-using Random = Lens.util.math.Random;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.npc {
@@ -57,7 +57,7 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<RoomComponent>().Room.Tagged[Tags.Mob].Add(this); // Hacky solution tbh
 					
 					Become<RunState>();
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(3, 5)}", 1);
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(3, 5)}", 1);
 
 					SetItemsFree();
 				}
@@ -162,13 +162,13 @@ namespace BurningKnight.entity.creature.npc {
 					
 					if (Mood > -1) {
 						GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
-						GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(6, 9)}", 3);
+						GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(6, 9)}", 3);
 					}
 				}
 			} else if (e is ItemBoughtEvent ibe) {
 				if (ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					Mood++;
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(9, 12)}", 3);
+					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
 				}
 			}
 
@@ -215,8 +215,8 @@ namespace BurningKnight.entity.creature.npc {
 				delay -= dt;
 
 				if (delay <= 0) {
-					delay = Random.Float(1, 3f);
-					GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Random.Int(1, 5)}");
+					delay = Rnd.Float(1, 3f);
+					GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Rnd.Int(1, 5)}");
 				}
 			}
 
@@ -232,7 +232,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			public override void Init() {
 				base.Init();
-				actionDelay = Random.Float(2, 6);
+				actionDelay = Rnd.Float(2, 6);
 			}
 
 			public override void Update(float dt) {
@@ -259,7 +259,7 @@ namespace BurningKnight.entity.creature.npc {
 				Self.GetComponent<AnimationComponent>().Animation.Tag = "run";
 				var r = Self.GetComponent<RoomComponent>().Room;
 
-				toPlayer = r.Tagged[Tags.Player].Count > 0 && Random.Chance(40);
+				toPlayer = r.Tagged[Tags.Player].Count > 0 && Rnd.Chance(40);
 
 				if (toPlayer) {
 					if (Self.DistanceTo(r.Tagged[Tags.Player][0]) < 64f) {
@@ -295,9 +295,9 @@ namespace BurningKnight.entity.creature.npc {
 				b.Velocity += new Vector2(dx / d * s, dy / d * s);
 
 				if (d <= 24) {
-					if ((toPlayer && Random.Chance(80)) || Random.Chance(30)) {
+					if ((toPlayer && Rnd.Chance(80)) || Rnd.Chance(30)) {
 						if (Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
-							Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Random.Int(12, 15)}", 3);
+							Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{(Rnd.Chance(30) ? 18 : Rnd.Int(12, 15))}", 3);
 						}
 					}
 					
@@ -327,7 +327,7 @@ namespace BurningKnight.entity.creature.npc {
 			public override void Init() {
 				base.Init();
 
-				delay = Random.Float(0.2f, 0.8f);
+				delay = Rnd.Float(0.2f, 0.8f);
 				
 				Self.GetComponent<AnimationComponent>().Animation.Tag = "run";
 				var r = Self.GetComponent<RoomComponent>().Room;

@@ -123,7 +123,7 @@ namespace BurningKnight.entity.door {
 				var part = new ParticleEntity(Particles.Plank());
 						
 				part.Position = Center;
-				part.Particle.Scale = Random.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				
 				Area.Add(part);
 			}
@@ -154,7 +154,7 @@ namespace BurningKnight.entity.door {
 				var i = 0;
 				var pos = Position + new Vector2(2);
 
-				foreach (var room in Area.Tags[Tags.Room]) {
+				foreach (var room in Area.Tagged[Tags.Room]) {
 					if (room.Contains(pos)) {
 						var r = (Room) room;
 						rooms[i] = r;
@@ -173,7 +173,7 @@ namespace BurningKnight.entity.door {
 			if (rooms != null && !lit) {
 				var found = false;
 
-				foreach (var p in Area.Tags[Tags.Player]) {
+				foreach (var p in Area.Tagged[Tags.Player]) {
 					var r = p.GetComponent<RoomComponent>().Room;
 
 					foreach (var rm in rooms) {

@@ -5,8 +5,8 @@ using BurningKnight.util;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
@@ -16,7 +16,7 @@ namespace BurningKnight.entity.item {
 		public float T;
 		
 		public ItemGraphicsComponent(string slice) : base(CommonAse.Items, slice) {
-			T = Random.Float(32f);
+			T = Rnd.Float(32f);
 		}
 
 		public override void Init() {

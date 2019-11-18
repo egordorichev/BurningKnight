@@ -126,7 +126,7 @@ namespace BurningKnight.entity.creature.player {
 						Entity.Area.Add(new ParticleEntity(Particles.Dust()) {
 							Position = ev.Item.Center, 
 							Particle = {
-								Scale = Random.Float(0.4f, 0.8f)
+								Scale = Rnd.Float(0.4f, 0.8f)
 							}
 						});
 					}

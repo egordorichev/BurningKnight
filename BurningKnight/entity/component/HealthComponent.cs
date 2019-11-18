@@ -23,6 +23,7 @@ namespace BurningKnight.entity.component {
 		public bool AutoKill = true;
 
 		public bool HasNoHealth => health <= 0.01f;
+		public float Percent => Health / MaxHealth;
 
 		public bool SetHealth(float hp, Entity setter, bool mod = true, DamageType type = DamageType.Regular) {
 			if (Math.Abs(hp - health) < 0.01f) {
@@ -113,7 +114,7 @@ namespace BurningKnight.entity.component {
 				}
 
 				var old = maxHealth;
-				var nw = Math.Max(1, value);
+				var nw = value;
 
 				if (MaxHealthCap > -1) {
 					nw = Math.Min(MaxHealthCap, nw);
@@ -124,6 +125,7 @@ namespace BurningKnight.entity.component {
 					Amount = nw - old
 				})) {
 					maxHealth = nw;
+					health = Math.Min(health, maxHealth);
 				}
 			}
 		}

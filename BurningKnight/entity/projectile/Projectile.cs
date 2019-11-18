@@ -61,6 +61,7 @@ namespace BurningKnight.entity.projectile {
 		public bool DieOffscreen;
 		public bool Spectral;
 		public bool Rotates;
+		public bool IgnoreCollisions;
 
 		private float deathTimer;
 
@@ -124,6 +125,7 @@ namespace BurningKnight.entity.projectile {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			AddTag(Tags.Projectile);
 			AddComponent(new ShadowComponent(RenderShadow));
 			AlwaysActive = true;
 		}
@@ -187,6 +189,10 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		protected bool BreaksFrom(Entity entity) {
+			if (IgnoreCollisions) {
+				return false;
+			}
+			
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
 				if (c.Invoke(entity) == CollisionResult.Disable) {
 					return false;
@@ -195,6 +201,10 @@ namespace BurningKnight.entity.projectile {
 
 			if (entity is Turret && T > 0.2f) {
 				return true;
+			}
+
+			if (entity is creature.bk.BurningKnight) {
+				return false;
 			}
 
 			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {
@@ -223,7 +233,7 @@ namespace BurningKnight.entity.projectile {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (Dying) {
+				if (Dying || IgnoreCollisions) {
 					return false;
 				}
 				
@@ -271,7 +281,11 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Level) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			if (IgnoreCollisions) {
+				return false;
+			}
+			
+			return !(entity is Level) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfWall || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		public void Break() {

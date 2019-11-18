@@ -5,8 +5,8 @@ using BurningKnight.level.rooms.connection;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.builders {
 	public class LoopBuilder : RegularBuilder {
@@ -42,10 +42,10 @@ namespace BurningKnight.level.builders {
 
 			Entrance.SetPos(0, 0);
 			Entrance.SetSize();
-			var StartAngle = Random.Angle();
+			var StartAngle = Rnd.Angle();
 			var Loop = new List<RoomDef>();
 			
-			var RoomsOnLoop = (int) (MultiConnection.Count * PathLength) + Random.Chances(PathLenJitterChances);
+			var RoomsOnLoop = (int) (MultiConnection.Count * PathLength) + Rnd.Chances(PathLenJitterChances);
 			RoomsOnLoop = Math.Min(RoomsOnLoop, MultiConnection.Count);
 			RoomsOnLoop++;
 			var PathTunnels = ArrayUtils.Clone(PathTunnelChances);
@@ -67,11 +67,11 @@ namespace BurningKnight.level.builders {
 					MultiConnection.RemoveAt(0);
 				}
 
-				var Tunnels = Random.Chances(PathTunnels);
+				var Tunnels = Rnd.Chances(PathTunnels);
 
 				if (Tunnels == -1) {
 					PathTunnels = ArrayUtils.Clone(PathTunnelChances);
-					Tunnels = Random.Chances(PathTunnels);
+					Tunnels = Rnd.Chances(PathTunnels);
 				}
 
 				PathTunnels[Tunnels]--;
@@ -105,6 +105,44 @@ namespace BurningKnight.level.builders {
 						
 						while (true) {
 							var an = PlaceRoom(Init, R, Boss, a);
+							
+							if ((int) an != -1) {
+								break;
+							}
+
+							i++;
+
+							if (i > 36) {
+								return null;
+							}
+							
+							a += 10;
+						}
+					
+						a = Rnd.Angle();
+						i = 0;
+						
+						while (true) {
+							var an = PlaceRoom(Init, Boss, Granny, a);
+							
+							if ((int) an != -1) {
+								break;
+							}
+
+							i++;
+
+							if (i > 36) {
+								return null;
+							}
+							
+							a += 10;
+						}
+					
+						a = Rnd.Angle();
+						i = 0;
+						
+						while (true) {
+							var an = PlaceRoom(Init, Boss, OldMan, a);
 							
 							if ((int) an != -1) {
 								break;
@@ -155,7 +193,7 @@ namespace BurningKnight.level.builders {
 
 			foreach (var R in Init)
 			foreach (var N in R.Neighbours) {
-				if (!N.Connected.ContainsKey(R) && Random.Float() < ExtraConnectionChance) {
+				if (!N.Connected.ContainsKey(R) && Rnd.Float() < ExtraConnectionChance) {
 					R.ConnectWithRoom(N);
 				}
 			}

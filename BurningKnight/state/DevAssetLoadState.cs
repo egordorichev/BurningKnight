@@ -16,8 +16,8 @@ using Lens.entity;
 using Lens.game;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
@@ -87,7 +87,7 @@ namespace BurningKnight.state {
 			Log.Info($"Game took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
 				
-			Random.Seed = $"{Run.Seed}_{Run.Depth}"; 
+			Rnd.Seed = $"{Run.Seed}_{Run.Depth}"; 
 				
 			SaveManager.Load(gameArea, SaveType.Level);
 			progress++;

@@ -4,8 +4,8 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class MotherSlime : SimpleSlime {
@@ -37,21 +37,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			for (var i = 0; i < 2; i++) {
 				var slime = new BabySlime();
 				Area.Add(slime);
-				slime.Center = Center + new Vector2(Random.Float(-4, 4), Random.Float(-4, 4));
+				slime.Center = Center + new Vector2(Rnd.Float(-4, 4), Rnd.Float(-4, 4));
 				slime.GetComponent<HealthComponent>().InvincibilityTimer = 0.1f;
 
-				slime.GetAnyComponent<BodyComponent>().KnockbackFrom(d.From, Random.Float(1f, 2f), 2);
+				slime.GetAnyComponent<BodyComponent>().KnockbackFrom(d.From, Rnd.Float(1f, 2f), 2);
 			}
 			
 			return base.HandleDeath(d);
-		}
-
-		public override float GetSpawnChance() {
-			return 0.25f;
-		}
-
-		public override float GetWeight() {
-			return 2;
 		}
 	}
 }

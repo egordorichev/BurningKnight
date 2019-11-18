@@ -80,7 +80,7 @@ namespace BurningKnight.level.entities.machine {
 				component.Coins -= 1;
 				coinsConsumed++;
 
-				if (Random.Float(100) > (coinsConsumed + Run.Luck) * 30) {
+				if (Rnd.Float(100) > (coinsConsumed + Run.Luck) * 30) {
 					return; // Did not pay enough :P
 				}
 			}
@@ -93,7 +93,7 @@ namespace BurningKnight.level.entities.machine {
 
 			numRolled += (consumeCoin ? 1 : 2);
 
-			if (Random.Float(100) < numRolled * 15 - Run.Luck * 2) {
+			if (Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
 				Break();
 			}
 		}

@@ -7,8 +7,8 @@ using BurningKnight.level.rooms.shop;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.builders {
 	public class Builder {
@@ -88,7 +88,7 @@ namespace BurningKnight.level.builders {
 						HDiff = (closestRoomDef.Bottom - Space.Top) * (Space.GetWidth() + 1);
 					}
 
-					if (WDiff < HDiff || WDiff == HDiff && Random.Int(2) == 0) {
+					if (WDiff < HDiff || WDiff == HDiff && Rnd.Int(2) == 0) {
 						if (closestRoomDef.Left >= Start.X && closestRoomDef.Left < Space.Right) {
 							Space.Right = closestRoomDef.Left;
 						}

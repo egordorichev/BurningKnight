@@ -16,11 +16,11 @@ namespace BurningKnight.level.rooms.connection {
 		public override void Paint(Level level) {
 			var maze = Maze.Generate(this);
 			var wall = Tiles.RandomSolid();
-			var spikes = Random.Chance(30);
+			var spikes = Rnd.Chance(30);
 
-			if (Random.Chance()) {
-				var v = Random.Chance();
-				var k = Random.Int(1, 4);
+			if (Rnd.Chance()) {
+				var v = true; // Rnd.Chance();
+				var k = Rnd.Int(1, 4);
 				
 				for (var i = 0; i < k; i++) {
 					var nmaze = new bool[maze.Length][];
@@ -64,7 +64,7 @@ namespace BurningKnight.level.rooms.connection {
 				for (int y = 1; y < maze[0].Length - 1; y++) {
 					if (maze[x][y]) {
 						Painter.Set(level, x + Left, y + Top, wall);
-					} else if (spikes && Random.Chance(20)) {
+					} else if (spikes && Rnd.Chance(20)) {
 						Painter.Set(level, x + Left, y + Top, Tile.SensingSpikeTmp);
 					}
 				}

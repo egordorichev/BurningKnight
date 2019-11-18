@@ -48,6 +48,18 @@ namespace BurningKnight.level.biome {
 		public TextureRegion[] PlankSides = new TextureRegion[3];
 		public TextureRegion PlanksTop;
 
+		public TextureRegion[] EvilWall = new TextureRegion[12];
+		public TextureRegion[] EvilWallTops = new TextureRegion[36];
+		public TextureRegion[] EvilWallSides = new TextureRegion[3];
+		
+		public TextureRegion[] GrannyWall = new TextureRegion[12];
+		public TextureRegion[] GrannyWallTops = new TextureRegion[36];
+		public TextureRegion[] GrannyWallSides = new TextureRegion[3];
+		
+		
+		public TextureRegion[] GrannyFloor = new TextureRegion[16];
+		public TextureRegion[] EvilFloor = new TextureRegion[16];
+
 		public TextureRegion[] Light;
 
 		public BiomeAssets() {
@@ -56,28 +68,30 @@ namespace BurningKnight.level.biome {
 
 			Patterns[(int) Tile.Dirt] = DirtPattern = new TextureRegion(anim.Texture, new Rectangle(0, 0, 64, 64));
 			Edges[(int) Tile.Dirt] = Dirt = GetEdge(anim, 64, 0);
-			
+
 			Patterns[(int) Tile.Lava] = LavaPattern = new TextureRegion(anim.Texture, new Rectangle(0, 64, 64, 64));
 			Edges[(int) Tile.Lava] = Lava = GetEdge(anim, 64, 64);
-			
+
 			Patterns[(int) Tile.Water] = WaterPattern = new TextureRegion(anim.Texture, new Rectangle(0, 192, 64, 64));
 			Edges[(int) Tile.Water] = Water = GetEdge(anim, 64, 192);
-			
+
 			Patterns[(int) Tile.Ice] = IcePattern = new TextureRegion(anim.Texture, new Rectangle(128, 64, 64, 64));
 			Edges[(int) Tile.Ice] = Ice = GetEdge(anim, 192, 64);
-			
+
 			Patterns[(int) Tile.Venom] = VenomPattern = new TextureRegion(anim.Texture, new Rectangle(0, 256, 64, 64));
 			Edges[(int) Tile.Venom] = Venom = GetEdge(anim, 64, 256);
-			
+
 			Patterns[(int) Tile.Obsidian] = ObsidianPattern = new TextureRegion(anim.Texture, new Rectangle(0, 128, 64, 64));
 			Edges[(int) Tile.Obsidian] = Obsidian = GetEdge(anim, 64, 128);
-			
-			Patterns[(int) Tile.HighGrass] = Patterns[(int) Tile.Grass] = GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));
+
+			Patterns[(int) Tile.HighGrass] = Patterns[(int) Tile.Grass] =
+				GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));
+
 			Edges[(int) Tile.HighGrass] = Edges[(int) Tile.Grass] = Grass = GetEdge(anim, 192, 0);
-			
+
 			Patterns[(int) Tile.Cobweb] = CobwebPattern = new TextureRegion(anim.Texture, new Rectangle(128, 192, 64, 64));
 			Edges[(int) Tile.Cobweb] = Cobweb = GetEdge(anim, 192, 192);
-			
+
 			Patterns[(int) Tile.Chasm] = ChasmPattern = new TextureRegion(anim.Texture, new Rectangle(288, 32, 16, 16));
 			Patterns[(int) Tile.Ember] = EmberPattern = new TextureRegion(anim.Texture, new Rectangle(128, 128, 64, 64));
 
@@ -89,23 +103,39 @@ namespace BurningKnight.level.biome {
 
 				ChasmSide[i] = new TextureRegion(anim.Texture, new Rectangle(256 + i * 16, 80, 16, 16));
 			}
-			
+
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 12; j++) {
 					var n = j > 5 ? j + 1 : j;
 
-					PlankTops[i * 12 + j] = new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 208, n / 5 * 8 + 136, 8, 8));
+					PlankTops[i * 12 + j] =
+						new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 208, n / 5 * 8 + 136, 8, 8));
+
+					EvilWallTops[i * 12 + j] =
+						new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40, n / 5 * 8 + 320, 8, 8));
+
+					GrannyWallTops[i * 12 + j] =
+						new TextureRegion(anim.Texture, new Rectangle(n % 5 * 8 + i * 40 + 192, n / 5 * 8 + 320, 8, 8));
 				}
 			}
-				
+
 			for (int i = 0; i < 12; i++) {
 				Planks[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16 + 208, 160, 16, 16));
+				EvilWall[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 344, 16, 16));
+				GrannyWall[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16 + 192, 344, 16, 16));
 			}
 
 			for (int i = 0; i < 3; i++) {
 				PlankSides[i] = new TextureRegion(anim.Texture, new Rectangle(344 + i * 16, 176, 16, 16));
+				EvilWallSides[i] = new TextureRegion(anim.Texture, new Rectangle(64 + i * 16, 368, 16, 16));
+				GrannyWallSides[i] = new TextureRegion(anim.Texture, new Rectangle(256 + i * 16, 368, 16, 16));
 			}
-			
+
+			for (int i = 0; i < 16; i++) {
+				EvilFloor[i] = new TextureRegion(anim.Texture, new Rectangle(i % 4 * 16, 368 + i / 4 * 16, 16, 16));
+				GrannyFloor[i] = new TextureRegion(anim.Texture, new Rectangle(192 + i % 4 * 16, 368 + i / 4 * 16, 16, 16));
+			}
+
 			PlanksTop = new TextureRegion(anim.Texture, new Rectangle(384, 144, 16, 16));
 		}
 

@@ -26,7 +26,7 @@ namespace BurningKnight.entity.item.use {
 				return;
 			}
 			
-			o.Center = entity.Center + Random.Offset(24);
+			o.Center = entity.Center + Rnd.Offset(24);
 		}
 
 		public override void Setup(JsonValue settings) {

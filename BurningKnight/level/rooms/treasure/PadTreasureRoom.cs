@@ -10,21 +10,21 @@ namespace BurningKnight.level.rooms.treasure {
 		private List<Rect> rs = new List<Rect>();
 		
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Random.Chance() ? Tiles.RandomFloor() : Tile.Chasm);
+			Painter.Fill(level, this, 1, Rnd.Chance() ? Tiles.RandomFloor() : Tile.Chasm);
 
-			var m = Random.Int(1, 3);
+			var m = Rnd.Int(1, 3);
 			var rect = Shrink(m);
 			
-			var w = Random.Int(3, rect.GetWidth() / 2);
-			var h = Random.Int(3, rect.GetHeight() / 2);
+			var w = Rnd.Int(3, rect.GetWidth() / 2);
+			var h = Rnd.Int(3, rect.GetHeight() / 2);
 			
 			PlacePad(level, new Rect(Left + m, Top + m).Resize(w, h));
 			PlacePad(level, new Rect(Right - m - w + 1, Top + m).Resize(w, h));
 			PlacePad(level, new Rect(Right - m - w + 1, Bottom - m - h + 1).Resize(w, h));
 			PlacePad(level, new Rect(Left + m, Bottom - m - h + 1).Resize(w, h));
 
-			var missing = Random.Chance() ? -1 : Random.Int(4);
-			var rr = Random.Chance();
+			var missing = Rnd.Chance() ? -1 : Rnd.Int(4);
+			var rr = Rnd.Chance();
 			var f = Tiles.RandomFloor();
 			
 			for (var i = 0; i < rects.Count; i++) {

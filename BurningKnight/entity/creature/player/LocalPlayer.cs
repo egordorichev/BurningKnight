@@ -11,7 +11,7 @@ using Lens.util.tween;
 namespace BurningKnight.entity.creature.player {
 	public class LocalPlayer : Player {
 		public static LocalPlayer Locate(Area area) {
-			foreach (var player in area.Tags[Tags.Player]) {
+			foreach (var player in area.Tagged[Tags.Player]) {
 				if (player is LocalPlayer localPlayer) {
 					return localPlayer;
 				}
@@ -61,6 +61,8 @@ namespace BurningKnight.entity.creature.player {
 				Engine.Instance.Split = 1f;
 				Engine.Instance.Flash = 1f;
 				Engine.Instance.Freeze = 1f;
+				
+				Camera.Instance.Shake(4);
 
 				if (Camera.Instance != null) {
 					Camera.Instance.TextureZoom -= 0.2f;

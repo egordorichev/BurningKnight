@@ -1,6 +1,9 @@
+using System;
 using Lens.entity.component;
+using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,6 +15,17 @@ namespace BurningKnight.entity.component {
 
 		public string GamepadId;
 
+		static GamepadComponent() {
+			Camera.OnShake += () => {
+				if (Current == null) {
+					return;
+				}
+
+				var a = Camera.Instance.GetComponent<ShakeComponent>().Amount;
+				Current.Rumble(a, Math.Min(1, a));
+			};
+		}
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 

@@ -10,6 +10,7 @@ using MathUtils = Lens.util.MathUtils;
 namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : SliceComponent {
 		public static TextureRegion Flash;
+		public bool IgnoreRotation;
 		
 		public ProjectileGraphicsComponent(string image, string slice) : base(image, slice) {
 			if (Flash == null) {
@@ -20,7 +21,7 @@ namespace BurningKnight.entity.projectile {
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
-			var a = p.BodyComponent.Body.Rotation;
+			var a = IgnoreRotation ? 0 : p.BodyComponent.Body.Rotation;
 			
 			var spr = p.FlashTimer > 0 ? Flash : Sprite;
 			var or = spr.Center; // new Vector2(p.Width / 2, p.Height / 2);

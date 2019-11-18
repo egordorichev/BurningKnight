@@ -16,7 +16,7 @@ using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.assets.items {
 	public static class Items {
@@ -204,7 +204,7 @@ namespace BurningKnight.assets.items {
 			}
 			
 			if (id == "bk:coin") {
-				id = coinIds[Random.Chances(coinChances)];
+				id = coinIds[Rnd.Chances(coinChances)];
 			}
 			
 			if (!Datas.TryGetValue(id, out var data)) {
@@ -375,7 +375,7 @@ namespace BurningKnight.assets.items {
 				}
 			}
 
-			var value = Random.Double(sum);
+			var value = Rnd.Double(sum);
 			sum = 0;
 
 			string id = null;
@@ -414,7 +414,7 @@ namespace BurningKnight.assets.items {
 				sum += chance.Chance.Calculate(c);
 			}
 
-			var value = Random.Double(sum);
+			var value = Rnd.Double(sum);
 			sum = 0;
 
 			foreach (var t in datas) {

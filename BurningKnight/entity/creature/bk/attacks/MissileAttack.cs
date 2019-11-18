@@ -2,8 +2,8 @@ using System;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.pattern;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.creature.bk.attacks {
 	public class MissileAttack : BossAttack<BurningKnight> {
@@ -49,8 +49,8 @@ namespace BurningKnight.entity.creature.bk.attacks {
 					var a = p.AngleTo(Self.Target);
 					
 					for (var i = 0; i < InnerCount; i++) {
-						var s = Random.Chance(40);
-						var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", a + Random.Float(-0.3f, 0.3f), Random.Float(2, 12), true, 1, p);
+						var s = Rnd.Chance(40);
+						var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", a + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1, p);
 						
 						b.Center = p.Center;
 						b.AddLight(s ? 16f : 32f, Projectile.GreenLight);

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Lens.entity {
 	public class Area {
-		public TagLists Tags;
+		public TagLists Tagged;
 		public EventListener EventListener;
 		public bool NoInit;
 		
@@ -21,7 +21,7 @@ namespace Lens.entity {
 			}
 			
 			EventListener = new EventListener();
-			Tags = new TagLists();
+			Tagged = new TagLists();
 			entities = new EntityList(this);
 		}
 
@@ -51,7 +51,7 @@ namespace Lens.entity {
 				entity.Destroy();
 			}
 
-			foreach (var list in Tags.Lists) {
+			foreach (var list in Tagged.Lists) {
 				list.Clear();
 			}
 
@@ -72,14 +72,14 @@ namespace Lens.entity {
 			if (entity.Area != null) {
 				entity.Area = this;
 				entities.Add(entity);
-				Tags.Add(entity);
+				Tagged.Add(entity);
 				
 				return entity;
 			}
 
 			entity.Area = this;
 			entities.Add(entity);
-			Tags.Add(entity);
+			Tagged.Add(entity);
 
 			if (!NoInit) {
 				entity.Init();
@@ -94,7 +94,7 @@ namespace Lens.entity {
 
 		public void Remove(Entity entity) {
 			entities.Remove(entity);
-			Tags.Remove(entity);
+			Tagged.Remove(entity);
 		}
 
 		public void Update(float dt) {

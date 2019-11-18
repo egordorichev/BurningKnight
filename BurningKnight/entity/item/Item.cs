@@ -20,9 +20,9 @@ using Lens.entity;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
@@ -192,6 +192,7 @@ namespace BurningKnight.entity.item {
 
 			body.Body.LinearDamping = 4;
 			body.Body.Friction = 0;
+			body.Body.Mass = 0.1f;
 			
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = OnInteractionStart,
@@ -216,7 +217,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			force *= 60f;
-			var angle = Random.AnglePI();
+			var angle = Rnd.AnglePI();
 			
 			component.Velocity += new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
 		}

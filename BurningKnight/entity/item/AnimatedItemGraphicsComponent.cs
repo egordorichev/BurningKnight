@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item {
 		public AnimatedItemGraphicsComponent(string animation) {
 			Animation = Animations.Create(animation);
 			Animation.Randomize();
-			T = Random.Float(32f);
+			T = Rnd.Float(32f);
 		}
 
 		public override void Update(float dt) {

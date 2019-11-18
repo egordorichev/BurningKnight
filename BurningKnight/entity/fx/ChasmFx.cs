@@ -2,8 +2,8 @@ using System;
 using BurningKnight.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.fx {
 	public class ChasmFx : Entity {
@@ -26,13 +26,13 @@ namespace BurningKnight.entity.fx {
 			
 			AlwaysActive = true;
 
-			var v = Random.Float(0.5f, 1f);
+			var v = Rnd.Float(0.5f, 1f);
 			color = new Color(v, v, v, 0);
-			scale = new Vector2(Random.Float(0.15f, 0.3f));
-			targetAlpha = (byte) Random.Int(120, 255);
-			life = Random.Float(2f, 3f);
-			vx = Random.Float(-1f, 1f) * 2;
-			vy = Random.Float(0.5f, 2f) * -2;
+			scale = new Vector2(Rnd.Float(0.15f, 0.3f));
+			targetAlpha = (byte) Rnd.Int(120, 255);
+			life = Rnd.Float(2f, 3f);
+			vx = Rnd.Float(-1f, 1f) * 2;
+			vy = Rnd.Float(0.5f, 2f) * -2;
 		}
 
 		public override void Update(float dt) {

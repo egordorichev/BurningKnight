@@ -291,6 +291,7 @@
     <Compile Include="assets\particle\custom\BuffParticle.cs" />
     <Compile Include="assets\particle\custom\ConsumableParticle.cs" />
     <Compile Include="assets\particle\custom\EpicSpawn.cs" />
+    <Compile Include="assets\particle\custom\FadingParticle.cs" />
     <Compile Include="assets\particle\custom\FireEmitter.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\custom\ProjectileParticle.cs" />
@@ -401,14 +402,6 @@
     <Compile Include="entity\creature\bk\BkGraphicsComponent.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BladeAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BulletSpamAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\BurningKing.cs" />
-    <Compile Include="entity\creature\bk\forms\king\DashAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\JumpAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\SpinAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\king\SwingAttack.cs" />
-    <Compile Include="entity\creature\bk\forms\slime\BurningSlime.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
@@ -421,6 +414,9 @@
     <Compile Include="entity\creature\drop\SimpleDrop.cs" />
     <Compile Include="entity\creature\drop\SingleDrop.cs" />
     <Compile Include="entity\creature\Gore.cs" />
+    <Compile Include="entity\creature\mob\boss\BossInfo.cs" />
+    <Compile Include="entity\creature\mob\boss\BossRegistry.cs" />
+    <Compile Include="entity\creature\mob\boss\OldKing.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />
@@ -429,6 +425,7 @@
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
+    <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\HealthyPrefix.cs" />
@@ -438,6 +435,7 @@
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Brastin.cs" />
+    <Compile Include="entity\creature\npc\DarkMage.cs" />
     <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
     <Compile Include="entity\creature\npc\Elon.cs" />
@@ -601,6 +599,8 @@
     <Compile Include="entity\item\stand\ActiveStand.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
     <Compile Include="entity\item\stand\BkStand.cs" />
+    <Compile Include="entity\item\stand\DarkMageStand.cs" />
+    <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
@@ -690,6 +690,7 @@
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\TimedProjectileController.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
     <Compile Include="entity\projectile\Missile.cs" />
     <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />
@@ -824,11 +825,12 @@
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
-    <Compile Include="level\rooms\entrance\BossTestRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
     <Compile Include="level\rooms\entrance\PortalEntranceRoom.cs" />
+    <Compile Include="level\rooms\granny\GrannyRoom.cs" />
+    <Compile Include="level\rooms\oldman\OldManRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
@@ -838,7 +840,7 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
-    <Compile Include="level\rooms\secret\GrannyRoom.cs" />
+    <Compile Include="level\rooms\secret\GrannySecretRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />

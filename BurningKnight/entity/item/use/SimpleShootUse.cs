@@ -15,9 +15,9 @@ using Lens.input;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Num = System.Numerics;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.item.use {
 	public class SimpleShootUse : ShootUse {
@@ -98,11 +98,11 @@ namespace BurningKnight.entity.item.use {
 					var angle = a;
 					
 					if (count == 1 || i > 0) {
-						angle += Random.Float(-ac / 2f, ac / 2f);
+						angle += Rnd.Float(-ac / 2f, ac / 2f);
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, sl, angle, Random.Float(speed, speedMax), !rect, 0, null, Random.Float(scaleMin, scaleMax), damage);
+					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage);
 
 					Camera.Instance.Push(angle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
@@ -148,18 +148,18 @@ namespace BurningKnight.entity.item.use {
 				}));
 
 				p.Position = entity.Center;
-				p.Y += Random.Float(-4, 10);
+				p.Y += Rnd.Float(-4, 10);
 
 				entity.Area.Add(p);
 
 				var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
 
 				p.Particle.Velocity =
-					new Vector2(f * Random.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+					new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
 
 				p.Particle.Angle = 0;
-				p.Particle.Zv = Random.Float(1.5f, 2.5f);
-				p.Particle.AngleVelocity = f * Random.Float(40, 70);
+				p.Particle.Zv = Rnd.Float(1.5f, 2.5f);
+				p.Particle.AngleVelocity = f * Rnd.Float(40, 70);
 
 				p.AddShadow();
 			};

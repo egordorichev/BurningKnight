@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lens.util;
-using Random = Lens.util.math.Random;
+using Lens.util.math;
 
 namespace BurningKnight.entity.pool {
 	public class Pool<T> {
@@ -11,7 +11,7 @@ namespace BurningKnight.entity.pool {
 		public int Size => Classes.Count;
 
 		public virtual T Generate() {
-			var I = Random.Chances(Chances);
+			var I = Rnd.Chances(Chances);
 
 			if (I == -1) {
 				Log.Error("-1 as pool result!");

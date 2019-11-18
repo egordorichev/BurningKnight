@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -21,9 +22,9 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.entity.room {
 	public class Room : SaveableEntity, PlaceableEntity {
@@ -35,6 +36,7 @@ namespace BurningKnight.entity.room {
 		public RoomType Type;
 		public bool Explored;
 		public bool Cleared;
+		public RoomDef Parent;
 		
 		public List<RoomControllable> Controllable = new List<RoomControllable>();
 		public List<RoomInput> Inputs = new List<RoomInput>();
@@ -79,7 +81,7 @@ namespace BurningKnight.entity.room {
 
 			AlwaysActive = true;
 			
-			if (Type == RoomType.Shop || Type == RoomType.Treasure) {
+			if (Type == RoomType.Shop || Type == RoomType.Treasure || Type == RoomType.Boss) {
 				AddComponent(new LightComponent(this, 128f, new Color(1f, 0.9f, 0.5f, 0.8f)));
 			}
 		}
@@ -275,7 +277,7 @@ namespace BurningKnight.entity.room {
 				return Center;
 			}
 
-			var tile = tiles[Random.Int(tiles.Count)];
+			var tile = tiles[Rnd.Int(tiles.Count)];
 			return new Vector2(tile.X, tile.Y);
 		}
 

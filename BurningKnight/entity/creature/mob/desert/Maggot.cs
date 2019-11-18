@@ -135,10 +135,6 @@ namespace BurningKnight.entity.creature.mob.desert {
 			return typeof(IdleState);
 		}
 
-		public override bool SpawnsNearWall() {
-			return true;
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
 			T += dt;

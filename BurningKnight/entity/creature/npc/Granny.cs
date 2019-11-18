@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.npc {
 			delay -= dt;
 
 			if (delay <= 0) {
-				delay = Random.Float(1, 4);
+				delay = Rnd.Float(1, 4);
 				GraphicsComponent.Flipped = !GraphicsComponent.Flipped;
 			}
 		}
@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		private string GetDialog() {
-			return $"granny_{Random.Int(3)}";
+			return $"granny_{Rnd.Int(3)}";
 		}
 	}
 }

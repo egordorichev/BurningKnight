@@ -39,7 +39,7 @@ namespace BurningKnight.level.biome {
 				}
 			}
 
-			var index = Random.Chances(chances);
+			var index = Rnd.Chances(chances);
 
 			if (index == -1) {
 				Log.Error($"Failed to generate a biome for the depth {depth}");

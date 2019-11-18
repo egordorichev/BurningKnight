@@ -33,15 +33,13 @@ namespace BurningKnight.entity.item.renderer {
 			if (ImGui.TreeNode("Origin")) {
 				var v = new System.Numerics.Vector2((float) root["ox"].AsNumber * 3, (float) root["oy"].AsNumber * 3);
 				var region = CommonAse.Items.GetSlice(id);
-				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
 				var m = ImGui.GetScrollY();
+				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos() - new System.Numerics.Vector2(0, m);
 
 				if (ImGui.IsMouseDown(1)) {
 					v = ImGui.GetMousePos() - pos;
-					v.Y -= m;
-
+					
 					if (!(v.X < 0) && !(v.Y < 0) && !(v.X > region.Width * 3) && !(v.Y > region.Height * 3)) {
-
 						if (snapGrid) {
 							v.X = (float) (Math.Floor(v.X / 3) * 3);
 							v.Y = (float) (Math.Floor(v.Y / 3) * 3);
@@ -55,8 +53,8 @@ namespace BurningKnight.entity.item.renderer {
 					}
 				}
 				
-				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1 + m),
-					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1 - m),
+				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1),
+					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1),
 					ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
 
 				ItemEditor.DrawItem(region);
@@ -109,12 +107,11 @@ namespace BurningKnight.entity.item.renderer {
 			if (ImGui.TreeNode("Nozzle")) {
 				var v = new System.Numerics.Vector2((float) root["nx"].AsNumber * 3, (float) root["ny"].AsNumber * 3);
 				var region = CommonAse.Items.GetSlice(id);
-				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos();
 				var m = ImGui.GetScrollY();
-
+				var pos = ImGui.GetWindowPos() + ImGui.GetCursorPos() - new System.Numerics.Vector2(0, m);
+				
 				if (ImGui.IsMouseDown(1)) {
 					v = ImGui.GetMousePos() - pos;
-					v.Y -= m;
 
 					if (!(v.X < 0) && !(v.Y < 0) && !(v.X > region.Width * 3) && !(v.Y > region.Height * 3)) {
 						if (snapGrid) {
@@ -130,8 +127,8 @@ namespace BurningKnight.entity.item.renderer {
 					}
 				}
 
-				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1 + m),
-					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1 - m),
+				ImGuiNative.ImDrawList_AddRect(ImGui.GetWindowDrawList(), pos - new System.Numerics.Vector2(1, 1),
+					pos + new System.Numerics.Vector2(region.Width * 3 + 1, region.Height * 3 + 1),
 					ColorUtils.WhiteColor.PackedValue, 0, 0, 1);
 
 				ItemEditor.DrawItem(region);

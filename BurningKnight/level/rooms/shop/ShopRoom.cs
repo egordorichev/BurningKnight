@@ -12,25 +12,25 @@ using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
-using Random = Lens.util.math.Random;
 
 namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
 		public override void Paint(Level level) {
-			if (Random.Chance(30)) {
+			if (Rnd.Chance(30)) {
 				var t = Tiles.Pick(Tile.FloorC, Tile.FloorD);
 
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					Painter.FillEllipse(level, this, 3, t);
 				} else {
 					Painter.Fill(level, this, 3, t);
 				}
 				
-				if (Random.Chance()) {
+				if (Rnd.Chance()) {
 					t = Tiles.Pick(Tile.FloorC, Tile.FloorD);
 
-					if (Random.Chance()) {
+					if (Rnd.Chance()) {
 						Painter.FillEllipse(level, this, 4, t);
 					} else {
 						Painter.Fill(level, this, 4, t);
@@ -38,12 +38,12 @@ namespace BurningKnight.level.rooms.shop {
 				}
 			}
 
-			if (Random.Chance()) {
-				if (Random.Chance()) {
+			if (Rnd.Chance()) {
+				if (Rnd.Chance()) {
 					PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect(), true);
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect());
 				} else {
-					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect(), Random.Chance());
+					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect(), Rnd.Chance());
 				}
 			}
 			
@@ -77,7 +77,7 @@ namespace BurningKnight.level.rooms.shop {
 				i++;
 			}
 
-			var p = stands[Random.Int(stands.Count)];
+			var p = stands[Rnd.Int(stands.Count)];
 			var sk = new ShopKeeper();
 
 			level.Area.Add(sk);
@@ -95,20 +95,20 @@ namespace BurningKnight.level.rooms.shop {
 				new Gramophone()
 			};
 
-			if (Random.Chance(40 + Run.Luck * 7)) {
+			if (Rnd.Chance(40 + Run.Luck * 7)) {
 				props.Add(new RerollMachine());
 			}
 
-			if (Random.Chance(40 + Run.Luck * 7)) {
+			if (Rnd.Chance(40 + Run.Luck * 7)) {
 				props.Add(new VendingMachine());
 			}
 
 			foreach (var prop in props) {
-				var pl = points[Random.Int(points.Count)];
+				var pl = points[Rnd.Int(points.Count)];
 				points.Remove(pl);
 				
 				level.Area.Add(prop);
-				prop.CenterX = pl.X * 16 + 8 + Random.Int(-4, 4);
+				prop.CenterX = pl.X * 16 + 8 + Rnd.Int(-4, 4);
 				prop.Bottom = pl.Y * 16;
 
 				if (points.Count == 0) {
@@ -126,7 +126,7 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override void SetupDoors(Level level) {
-			var hidden = Random.Chance(5);
+			var hidden = Rnd.Chance(5);
 
 			if (!hidden) {
 				level.ItemsToSpawn.Add("bk:key");
@@ -183,14 +183,14 @@ namespace BurningKnight.level.rooms.shop {
 
 			while (count < 2) {
 				for (var i = 0; i < 4; i++) {
-					if (Random.Chance(80)) {
+					if (Rnd.Chance(80)) {
 						count++;
 						sides[i] = true;
 					}
 				}
 			}
 
-			for (var x = Left + (Random.Chance() ? 2 : 3); x < Right - 2; x += 2) {
+			for (var x = Left + (Rnd.Chance() ? 2 : 3); x < Right - 2; x += 2) {
 				if (sides[0]) {
 					list.Add(new Point(x, Top + 3));
 				}
@@ -200,7 +200,7 @@ namespace BurningKnight.level.rooms.shop {
 				}
 			}
 			
-			for (var y = Top + (Random.Chance() ? 3 : 4); y < Bottom - 2; y += 2) {
+			for (var y = Top + (Rnd.Chance() ? 3 : 4); y < Bottom - 2; y += 2) {
 				if (sides[2]) {
 					list.Add(new Point(Left + 2, y));
 				}

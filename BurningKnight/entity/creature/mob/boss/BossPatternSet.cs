@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 
 			// fixme: i suspect that rng is not right here
-			var i = Random.Int(patterns.Length);
+			var i = Rnd.Int(patterns.Length);
 			Log.Error($"{i} {patterns.Length}");
 			current = registry.Get(patterns[i]);
 			
