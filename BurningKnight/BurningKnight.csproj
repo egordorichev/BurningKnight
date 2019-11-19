@@ -755,6 +755,7 @@
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
+    <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\CursedChest.cs" />
