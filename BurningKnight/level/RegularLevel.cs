@@ -181,10 +181,6 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
-			if (true) {
-				return new CastleBuilder();
-			}
-
 			if (IsFinal()) {
 				return new LineBuilder();
 			}

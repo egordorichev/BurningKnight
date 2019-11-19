@@ -981,8 +981,10 @@
     <Compile Include="ui\inventory\UiInventory.cs" />
     <Compile Include="ui\inventory\UiItem.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
+    <Compile Include="ui\str\effect\BlinkEffect.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
     <Compile Include="ui\str\effect\ColorEffect.cs" />
+    <Compile Include="ui\str\effect\FlipEffect.cs" />
     <Compile Include="ui\str\effect\GlyphEffect.cs" />
     <Compile Include="ui\str\effect\ItalicEffect.cs" />
     <Compile Include="ui\str\effect\RainbowEffect.cs" />

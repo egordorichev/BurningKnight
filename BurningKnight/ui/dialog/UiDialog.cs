@@ -134,6 +134,7 @@ namespace BurningKnight.ui.dialog {
 				if (Str != null) {
 					Str.Width = 4;
 					Str.Height = 4;
+					Str.Stop();
 				}
 
 				Width = 4;

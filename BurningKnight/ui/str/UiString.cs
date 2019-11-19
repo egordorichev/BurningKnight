@@ -23,6 +23,8 @@ namespace BurningKnight.ui.str {
 	 * _ starts italic
 	 * ** starts bold
 	 * ## starts shake
+	 * @@ starts blink
+	 * && starts flip
 	 * %% starts rainbow
 	 * ^^ starts wave
 	 *
@@ -265,6 +267,22 @@ namespace BurningKnight.ui.str {
 						break;
 					}
 
+					case '&': {
+						if (lc == '&') {
+							AddEffect<FlipEffect>(builder);
+						}
+						
+						break;
+					}
+
+					case '@': {
+						if (lc == '@') {
+							AddEffect<BlinkEffect>(builder);
+						}
+						
+						break;
+					}
+
 					case '#': {
 						if (lc == '#') {
 							AddEffect<ShakeEffect>(builder);
@@ -374,6 +392,10 @@ namespace BurningKnight.ui.str {
 				j++;
 			}
 		}
+		
+		public void Stop() {
+			label = null;
+		}
 
 		public override void Render() {
 			if (Engine.Instance.State.Paused || label == null || Tint.A == 0 || glyphs.Count == 0) {
@@ -441,6 +463,10 @@ namespace BurningKnight.ui.str {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (label == null) {
+				return;
+			}
 
 			if (Delay > 0 || Paused) {
 				Delay -= dt;

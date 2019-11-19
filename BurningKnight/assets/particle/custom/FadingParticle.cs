@@ -31,7 +31,7 @@ namespace BurningKnight.assets.particle.custom {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			scale.X -= dt * 0.5f;
+			scale.X -= dt * 0.8f;
 			scale.Y = scale.X;
 
 			if (scale.X <= 0) {

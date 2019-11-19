@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.stand;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
@@ -23,6 +24,10 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override string GetId() {
 			return HatTrader;
+		}
+
+		protected override bool OwnsStand(ItemStand stand) {
+			return stand is HatStand;
 		}
 	}
 }
