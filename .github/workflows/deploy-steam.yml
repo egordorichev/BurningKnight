@@ -8,79 +8,72 @@ jobs:
     name: Build BurningKnight
     runs-on: windows-2019
     steps:
-      - name: Setup test repo
+      - name: Download MonoGame
+        shell: powershell
+        run: |
+          dotnet --info
+          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
+      - name: Install MonoGame
+        shell: cmd
+        run: |
+          MonoGameSetup.exe /S
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Install Butler
+        shell: powershell
+        run: |
+          wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
+          unzip butler.zip
+      - name: Install NuGet
+        shell: powershell
+        run: |
+          wget -O nuget.exe  https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+      - name: Install NuGet packages
         shell: bash
-        run: | 
-          mkdir test
-          cd test
-          touch hi.txt
+        run: |
+          ls -l
+          mkdir packages
+          cd packages
+          ../nuget.exe install ../Lens/packages.config
+          ../nuget.exe install ../Aseprite/packages.config
+          ../nuget.exe install ../BurningKnight/packages.config
+          ../nuget.exe install ../Desktop/packages.config
+          ls -l
+          cd ..
+          echo $GITHUB_WORKSPACE
+          ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
+          dotnet restore
+      - name: Building Aseprite Extention
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE
+          ls -l
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
+          ls -l
+      - name: Building Resources
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE/BurningKnight/Content/
+          "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
+          ls -l
+      - name: Building Solution
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
+          cd $GITHUB_WORKSPACE/Desktop/bin/Release
           git init
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add *
           git commit -m "Added changes"
-      - name: Push changes
+      - name: Push Build to egordorichev/bk_builds
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_KEY }}
           force: true
           repository: "egordorichev/bk_builds"
-          directory: "test" 
-#      - name: Download MonoGame
-#        shell: powershell
-#        run: |
-#          dotnet --info
-#          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-#      - name: Install MonoGame
-#        shell: cmd
-#        run: |
-#          MonoGameSetup.exe /S
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Install Butler
-#        shell: powershell
-#        run: |
-#          wget -O butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default
-#          unzip butler.zip
-#      - name: Install NuGet
-#        shell: powershell
-#        run: |
-#          wget -O nuget.exe  https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-#      - name: Install NuGet packages
-#        shell: bash
-#        run: |
-#          ls -l
-#          mkdir packages
-#          cd packages
-#          ../nuget.exe install ../Lens/packages.config
-#          ../nuget.exe install ../Aseprite/packages.config
-#          ../nuget.exe install ../BurningKnight/packages.config
-#          ../nuget.exe install ../Desktop/packages.config
-#          ls -l
-#          cd ..
-#          echo $GITHUB_WORKSPACE
-#          ./nuget.exe restore ./VelcroPhysics/packages.config -SolutionDirectory $GITHUB_WORKSPACE
-#          dotnet restore
-#      - name: Building Aseprite Extention
-#        shell: bash
-#        run: |
-#          cd $GITHUB_WORKSPACE
-#          ls -l
-#          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
-#          ls -l
-#      - name: Building Resources
-#        shell: bash
-#        run: |
-#          cd $GITHUB_WORKSPACE/BurningKnight/Content/
-#          "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
-#          ls -l
-#      - name: Building Solution
-#        shell: bash
-#        run: |
-#          cd $GITHUB_WORKSPACE
-#          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /property:Configuration=Release
-#          cd $GITHUB_WORKSPACE/Desktop/bin/Release
-#    
+          directory: "$GITHUB_WORKSPACE/Desktop/bin/Release" 
 #      - name: Upload Windows Version to Itch
 #        shell: powershell
 #        env:
