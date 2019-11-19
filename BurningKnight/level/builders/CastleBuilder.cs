@@ -30,59 +30,61 @@ namespace BurningKnight.level.builders {
 			
 			var a = Rnd.Angle() - 90;
 			var i = 0;
-					
-			while (true && Boss != null) {
-				var an = PlaceRoom(Init, Exit, Boss, a);
-						
-				if ((int) an != -1) {
-					break;
+
+			if (Boss != null) {
+				while (true) {
+					var an = PlaceRoom(Init, Exit, Boss, a);
+
+					if ((int) an != -1) {
+						break;
+					}
+
+					i++;
+
+					if (i > 36) {
+						return null;
+					}
+
+					a += 10;
 				}
 
-				i++;
+				a = Rnd.Angle();
+				i = 0;
 
-				if (i > 36) {
-					return null;
-				}
-						
-				a += 10;
-			}
-			
-			a = Rnd.Angle();
-			i = 0;
-						
-			while (true) {
-				var an = PlaceRoom(Init, Boss, Granny, a);
-							
-				if ((int) an != -1) {
-					break;
-				}
+				while (true) {
+					var an = PlaceRoom(Init, Boss, Granny, a);
 
-				i++;
+					if ((int) an != -1) {
+						break;
+					}
 
-				if (i > 36) {
-					return null;
-				}
-							
-				a += 10;
-			}
-					
-			a = Rnd.Angle();
-			i = 0;
-						
-			while (true) {
-				var an = PlaceRoom(Init, Boss, OldMan, a);
-							
-				if ((int) an != -1) {
-					break;
+					i++;
+
+					if (i > 36) {
+						return null;
+					}
+
+					a += 10;
 				}
 
-				i++;
+				a = Rnd.Angle();
+				i = 0;
 
-				if (i > 36) {
-					return null;
+				while (true) {
+					var an = PlaceRoom(Init, Boss, OldMan, a);
+
+					if ((int) an != -1) {
+						break;
+					}
+
+					i++;
+
+					if (i > 36) {
+						return null;
+					}
+
+					a += 10;
 				}
-							
-				a += 10;
 			}
 
 			FindNeighbours(Init);

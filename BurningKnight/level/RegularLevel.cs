@@ -154,15 +154,14 @@ namespace BurningKnight.level {
 					rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 				}
 			}
-
-			rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
-			rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 			
 			if (first) {
 				rooms.Add(new ExitRoom());				
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 				rooms.Add(new PrebossRoom());	
+				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {
@@ -182,6 +181,10 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
+			if (true) {
+				return new CastleBuilder();
+			}
+
 			if (IsFinal()) {
 				return new LineBuilder();
 			}
