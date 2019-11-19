@@ -394,7 +394,7 @@ namespace BurningKnight.ui.str {
 		}
 		
 		public void Stop() {
-			label = null;
+			Paused = true;
 		}
 
 		public override void Render() {
@@ -463,10 +463,6 @@ namespace BurningKnight.ui.str {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			if (label == null) {
-				return;
-			}
 
 			if (Delay > 0 || Paused) {
 				Delay -= dt;

@@ -46,17 +46,13 @@
 
 * audio {
  + make ambience play in transitions? it feels empty
- + dialog sounds
  + boss sounds
  + bk fire sound (when near)
 }
 
 * breakable torch
-* dialog sfx
 
 + hub {
- + fix tranders dialogs
- + hide stuff from traders you did not allow yet
  + allow to layer in stuff for speical events
 }
 
