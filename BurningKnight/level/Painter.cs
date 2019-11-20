@@ -347,7 +347,7 @@ namespace BurningKnight.level {
 					continue;
 				}
 				
-				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16).ToVector();
+				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
 			}
 
 			Level.ItemsToSpawn = null;
@@ -778,6 +778,8 @@ namespace BurningKnight.level {
 				Level.Area.Add(door);
 
 				Level.Set(D.X, D.Y, Tiles.RandomFloor());
+			} else if (type == DoorPlaceholder.Variant.Hidden) {
+				Level.Set(D.X, D.Y, Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {
 				Level.Set(D.X, D.Y, Tile.Crack);
 			} else if (type == DoorPlaceholder.Variant.Tunnel) {

@@ -23,6 +23,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
@@ -159,6 +160,19 @@ namespace BurningKnight.entity.room {
 			});
 		}
 
+		public void Hide() {
+			Explored = false;
+			
+			ApplyToEachTile((x, y) => {
+				var i = Run.Level.ToIndex(x, y);
+
+				if (!Run.Level.Get(i).IsWall() || !Run.Level.Get(i + Run.Level.Width).IsWall()) {
+					Run.Level.Explored[i] = false;
+					Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+				}
+			});
+		}
+		
 		public void ApplyToEachTile(Action<int, int> callback) {
 			var level = Run.Level;
 			

@@ -30,7 +30,8 @@ namespace BurningKnight.level {
 			Enemy,
 			Locked,
 			Boss,
-			Secret
+			Secret,
+			Hidden
 		}
 	}
 }

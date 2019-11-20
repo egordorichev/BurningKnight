@@ -399,26 +399,74 @@ namespace BurningKnight.entity.creature.player {
 					Area.Add(part);
 				}
 			} else if (e is RoomChangedEvent c) {
-				if (c.New == null || !InGameState.Ready) {
+				if (c.New == null || Run.Level == null || Camera.Instance == null) {
 					return base.HandleEvent(e);
 				}
 				
 				c.New.Discover();
+				var level = Run.Level;
 
-				switch (c.New.Type) {
-					case RoomType.Secret:
-					case RoomType.Special:
-					case RoomType.Shop:
-					case RoomType.Treasure: {
-						ExplosionMaker.CheckForCracks(Run.Level, c.New, this);
-					
-						foreach (var door in c.New.Doors) {
-							if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
-								component.Lock.SetLocked(false, this);
+				if (InGameState.Ready) {
+					switch (c.New.Type) {
+						case RoomType.Secret:
+						case RoomType.Special:
+						case RoomType.Shop:
+						case RoomType.Treasure: {
+							ExplosionMaker.CheckForCracks(level, c.New, this);
+
+							foreach (var door in c.New.Doors) {
+								if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
+									component.Lock.SetLocked(false, this);
+								}
 							}
+
+							break;
 						}
-						
-						break;
+
+						case RoomType.OldMan:
+						case RoomType.Granny: {
+							foreach (var door in c.New.Doors) {
+								var x = (int) Math.Floor(door.CenterX / 16);
+								var y = (int) Math.Floor(door.CenterY / 16);
+								var t = level.Get(x, y);
+
+								if (t == Tile.WallA) {
+									var index = level.ToIndex(x, y);
+			
+									level.Set(index, Tile.EvilFloor);
+									level.UpdateTile(x, y);
+									level.ReCreateBodyChunk(x, y);
+									level.LoadPassable();
+
+									ExplosionMaker.LightUp(x * 16 + 8, y * 16 + 8);
+
+									Level.Animate(Area, x, y);
+								}
+							}
+
+							break;
+						}
+					}
+				}
+				
+				if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+					foreach (var door in c.Old.Doors) {
+						var x = (int) Math.Floor(door.CenterX / 16);
+						var y = (int) Math.Floor(door.CenterY / 16);
+						var t = level.Get(x, y);
+
+						if (level.Get(x, y).Matches(TileFlags.Passable)) {
+							var index = level.ToIndex(x, y);
+			
+							level.Set(index, Tile.WallA);
+							level.UpdateTile(x, y);
+							level.ReCreateBodyChunk(x, y);
+							level.LoadPassable();
+
+							c.Old.Hide();
+
+							Camera.Instance.Shake(10);
+						}
 					}
 				}
 

@@ -6,6 +6,8 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
@@ -185,6 +187,12 @@ namespace BurningKnight.entity.door {
 				}
 
 				if (found) {
+					foreach (var rm in rooms) {
+						if (rm.Type == RoomType.OldMan || rm.Type == RoomType.Granny) {
+							return;
+						}
+					}
+
 					lit = true;
 					ExplosionMaker.LightUp(CenterX, CenterY);
 				}

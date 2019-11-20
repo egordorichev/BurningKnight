@@ -516,7 +516,12 @@ namespace BurningKnight.level.rooms {
 			var minTop = C.Top;
 			var maxBottom = C.Bottom;
 
-			foreach (var Door in Connected.Values) {
+			foreach (var pair in Connected) {
+				if (pair.Key is GrannyRoom || pair.Key is OldManRoom) {
+					continue;
+				}
+				
+				var Door = pair.Value;
 				var Start = new Dot(Door.X, Door.Y);
 				Dot Mid;
 				Dot End;
