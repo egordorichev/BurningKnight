@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
@@ -71,6 +72,10 @@ namespace BurningKnight.level.rooms.boss {
 			var boss = BossRegistry.Generate();
 
 			if (boss == null) {
+				var exit = new Exit();
+				level.Area.Add(exit);
+				exit.Center = GetCenterVector();
+
 				Log.Error("Failed to generate the boss!");
 				return;
 			}

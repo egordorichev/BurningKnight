@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			var index = Rnd.Chances(chances);
 
 			if (index == -1) {
-				
+				return null;
 			}
 
 			return (Boss) Activator.CreateInstance(current[index].Type);

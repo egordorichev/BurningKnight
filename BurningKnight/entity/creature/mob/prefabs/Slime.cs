@@ -78,6 +78,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 
+				Self.OnJump();
 				var a = Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
 				var force = Rnd.Float(20f) + Self.JumpForce;
 				
@@ -150,6 +151,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 		public override bool IgnoresProjectiles() {
 			return InAir();
+		}
+
+		protected virtual void OnJump() {
+			
 		}
 
 		protected virtual void OnLand() {
