@@ -30,10 +30,7 @@ namespace BurningKnight.level.entities.building {
 		}
 
 		private void RenderShadow() {
-			
-			Width = 141;
-			Height = 164;
-			Graphics.Render(shadow, Position + new Vector2(0, 5 + Height), 0, Vector2.Zero, MathUtils.InvertY);
+			Graphics.Render(shadow, Position + new Vector2(0,  Height + shadow.Height - 5), 0, Vector2.Zero, MathUtils.InvertY);
 		}
 	}
 }
