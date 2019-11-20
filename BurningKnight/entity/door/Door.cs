@@ -89,9 +89,9 @@ namespace BurningKnight.entity.door {
 							HandleEvent(new DoorOpenedEvent {
 								Who = this
 							});
+							
+							state.Become<OpeningState>();
 						}
-						
-						state.Become<OpeningState>();
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
