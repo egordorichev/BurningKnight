@@ -70,6 +70,7 @@ jobs:
           force: true
           repository: "egordorichev/bk_builds"
           directory: "./Desktop/bin/Release/" 
+          branch: "master" 
 #      - name: Upload Windows Version to Itch
 #        shell: powershell
 #        env:
