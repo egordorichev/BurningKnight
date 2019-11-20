@@ -1,6 +1,7 @@
 # Environment
 
 * Door open/close
+* Room cleared
 * Lock unlocked
 * Room with enemy entred, doors lock
 * Room cleared
@@ -15,10 +16,10 @@
 
 # Items
 
+* Projectile reflected a bullet
 * Guns (a few different ones)
 * Gun being equiped
 * Gun being reloaded
-* Melee being used
 * Melee being equiped
 * Magic spells cast (a few different ones)
 * Magic weapon being equiped
@@ -43,3 +44,5 @@
 
 * Low hp scream (when you are left with half a heart)
 * Rolling sfx
+* Death
+* Cursed

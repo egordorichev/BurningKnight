@@ -5,6 +5,7 @@ namespace BurningKnight {
 		public static int Player = new BitTag("player");
 		public static int LocalPlayer = new BitTag("local_player");
 		public static int Mob = new BitTag("mob");
+		public static int Boss = new BitTag("boss");
 		public static int BurningKnight = new BitTag("burning_knight");
 		public static int PlayerSave = new BitTag("player_save");
 		public static int LevelSave = new BitTag("level_save");

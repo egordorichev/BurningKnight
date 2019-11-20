@@ -1064,18 +1064,19 @@ namespace BurningKnight.level {
 			
 			if (t != Tile.Transition) {
 				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
-				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown || t == Tile.GrannyWall || t == Tile.EvilWall;
+				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
+				var ab = a || t == Tile.GrannyWall || t == Tile.EvilWall;
 
-				if (a) {
+				if (ab) {
 					var v = WallDecor[index];
 
 					if (!t.Matches(Tile.Piston, Tile.PistonDown) && v > 0) {
 						region = Tileset.WallVariants[v - 1];
 					}
 				} else if (t == Tile.Crack) {
-					a = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
+					ab = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 					     (IsInside(index + width) && Get(index + width) == Tile.WallA);
-					region = a
+					region = ab
 						? Tileset.WallTopA
 						: Tileset.WallTopB;
 				}

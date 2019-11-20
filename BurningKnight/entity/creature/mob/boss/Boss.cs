@@ -44,6 +44,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
 			Become<FriendlyState>();
+			
+			AddTag(Tags.Boss);
 		}
 		
 		private bool cleared;

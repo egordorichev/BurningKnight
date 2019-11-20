@@ -1,5 +1,9 @@
 # publisher build stuff
 
+* sfx {
+ + door sound is triggered multiple times
+}
+
 * fix {
  + gamepad shake
 }
