@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
@@ -53,6 +54,9 @@ namespace BurningKnight.entity.item.stand {
 			}
 
 			component.Coins -= Price;
+			// fixme: add it
+			Achievements.Unlock("bk:shopper");
+			
 			return true;
 		}
 

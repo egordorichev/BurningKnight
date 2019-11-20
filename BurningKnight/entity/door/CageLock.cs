@@ -1,9 +1,12 @@
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
+using BurningKnight.save;
 using Lens.entity;
 using Lens.graphics.animation;
+using Steamworks.Data;
 
 namespace BurningKnight.entity.door {
 	public class CageLock : Lock {
@@ -37,6 +40,14 @@ namespace BurningKnight.entity.door {
 			}
 			
 			GetComponent<AudioEmitterComponent>().EmitRandomized("item_cage_key_used");
+
+			if (GlobalSave.IsTrue(ShopNpc.AccessoryTrader) &&
+			    GlobalSave.IsTrue(ShopNpc.ActiveTrader) &&
+			    GlobalSave.IsTrue(ShopNpc.WeaponTrader) &&
+			    GlobalSave.IsTrue(ShopNpc.HatTrader)) {
+
+				Achievements.Unlock("npc_party");
+			}
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {

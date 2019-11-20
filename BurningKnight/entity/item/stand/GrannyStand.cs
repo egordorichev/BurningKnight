@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.util;
 using Lens.entity;
@@ -25,6 +26,7 @@ namespace BurningKnight.entity.item.stand {
 			
 			Done = true;
 			Camera.Instance.Shake(10);
+			Achievements.Unlock("bk:grannys_gift");
 		}
 	}
 }

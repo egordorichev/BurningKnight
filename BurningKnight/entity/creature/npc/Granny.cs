@@ -1,10 +1,13 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.level.rooms;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Granny : Npc {
@@ -44,6 +47,10 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
 					GetComponent<DialogComponent>().StartAndClose(GetDialog(), 3);
 					
+					if (rce.New.Type != RoomType.Granny) {
+						Achievements.Unlock("bk:tea_party");
+					}
+
 					Items.Unlock("bk:grandma_head");
 				}
 			}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
@@ -8,6 +9,7 @@ using BurningKnight.ui.str;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.util.timer;
 using Lens.util.tween;
 
 namespace BurningKnight.ui {
@@ -17,6 +19,8 @@ namespace BurningKnight.ui {
 		}
 
 		private float timer;
+		private Queue<string> toSay = new Queue<string>();
+		private bool ready = true;
 
 		public override void Init() {
 			base.Init();
@@ -46,6 +50,10 @@ namespace BurningKnight.ui {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (ready && toSay.Count > 0) {
+				ActuallySay(toSay.Dequeue());
+			}
+			
 			if (timer > 0) {
 				timer -= dt;
 
@@ -53,7 +61,10 @@ namespace BurningKnight.ui {
 					timer = -1;
 
 					if (Finished) {
-						Tween.To(Display.UiHeight, Y, x => Y = x, 0.2f, Ease.QuadIn).OnEnd = () => Tint.A = 0;
+						Tween.To(Display.UiHeight, Y, x => Y = x, 0.2f, Ease.QuadIn).OnEnd = () => {
+							Tint.A = 0;
+							Timer.Add(() => { ready = true; }, 0.25f);
+						};
 					}
 				}
 			}
@@ -72,7 +83,14 @@ namespace BurningKnight.ui {
 		}
 
 		private void Say(string str) {
+			if (!toSay.Contains(str)) {
+				toSay.Enqueue(str);
+			}
+		}
+		
+		private void ActuallySay(string str) {
 			Label = str;
+			ready = false;
 
 			Width = FinalWidth;
 			CenterX = Display.UiWidth / 2f;

@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -77,6 +78,7 @@ namespace BurningKnight.entity.item.stand {
 			takenItem = Item;
 			
 			entity.GetComponent<StatsComponent>().TookDeal = true;
+			Achievements.Unlock("bk:deal");
 			
 			return true;
 		}

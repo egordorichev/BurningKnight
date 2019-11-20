@@ -30,7 +30,9 @@ namespace BurningKnight.level.entities {
 			if (lastFlame > 0.1f) {
 				lastFlame = 0;
 
-				if (GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room != null && room.Tagged[Tags.Player].Count > 0) {
 					Area.Add(new FireParticle {
 						X = CenterX + Rnd.Float(-4, 4),
 						Y = CenterY
