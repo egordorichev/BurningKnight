@@ -342,5 +342,51 @@ namespace BurningKnight.entity.room {
 
 			return en;
 		}
+
+		public void OpenHiddenDoors() {
+			var level = Run.Level;
+			
+			foreach (var door in Doors) {
+				var x = (int) Math.Floor(door.CenterX / 16);
+				var y = (int) Math.Floor(door.CenterY / 16);
+				var t = level.Get(x, y);
+
+				if (t == Tile.WallA) {
+					var index = level.ToIndex(x, y);
+			
+					level.Set(index, Type == RoomType.OldMan ? Tile.EvilFloor : Tile.GrannyFloor);
+					level.UpdateTile(x, y);
+					level.ReCreateBodyChunk(x, y);
+					level.LoadPassable();
+
+					ExplosionMaker.LightUp(x * 16 + 8, y * 16 + 8);
+
+					Level.Animate(Area, x, y);
+				}
+			}
+		}
+
+		public void CloseHiddenDoors() {
+			var level = Run.Level;
+			
+			foreach (var door in Doors) {
+				var x = (int) Math.Floor(door.CenterX / 16);
+				var y = (int) Math.Floor(door.CenterY / 16);
+				var t = level.Get(x, y);
+
+				if (level.Get(x, y).Matches(TileFlags.Passable)) {
+					var index = level.ToIndex(x, y);
+			
+					level.Set(index, Tile.WallA);
+					level.UpdateTile(x, y);
+					level.ReCreateBodyChunk(x, y);
+					level.LoadPassable();
+
+					Hide();
+
+					Camera.Instance.Shake(10);
+				}
+			}
+		}
 	}
 }

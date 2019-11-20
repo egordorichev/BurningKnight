@@ -425,49 +425,28 @@ namespace BurningKnight.entity.creature.player {
 
 						case RoomType.OldMan:
 						case RoomType.Granny: {
-							foreach (var door in c.New.Doors) {
-								var x = (int) Math.Floor(door.CenterX / 16);
-								var y = (int) Math.Floor(door.CenterY / 16);
-								var t = level.Get(x, y);
-
-								if (t == Tile.WallA) {
-									var index = level.ToIndex(x, y);
-			
-									level.Set(index, Tile.EvilFloor);
-									level.UpdateTile(x, y);
-									level.ReCreateBodyChunk(x, y);
-									level.LoadPassable();
-
-									ExplosionMaker.LightUp(x * 16 + 8, y * 16 + 8);
-
-									Level.Animate(Area, x, y);
-								}
+							if (c.New.Type == RoomType.OldMan) {
+								GetComponent<StatsComponent>().SawDeal = true;
 							}
 
+							c.New.OpenHiddenDoors();
+							
+							foreach (var r in Area.Tagged[Tags.Room]) {
+								var room = (Room) r;
+
+								if (room.Type == (c.New.Type == RoomType.OldMan ? RoomType.Granny : RoomType.OldMan)) {
+									room.CloseHiddenDoors();
+									break;
+								}
+							}
+							
 							break;
 						}
 					}
 				}
 				
 				if (c.Old != null && c.Old.Type == RoomType.OldMan) {
-					foreach (var door in c.Old.Doors) {
-						var x = (int) Math.Floor(door.CenterX / 16);
-						var y = (int) Math.Floor(door.CenterY / 16);
-						var t = level.Get(x, y);
-
-						if (level.Get(x, y).Matches(TileFlags.Passable)) {
-							var index = level.ToIndex(x, y);
-			
-							level.Set(index, Tile.WallA);
-							level.UpdateTile(x, y);
-							level.ReCreateBodyChunk(x, y);
-							level.LoadPassable();
-
-							c.Old.Hide();
-
-							Camera.Instance.Shake(10);
-						}
-					}
+					c.Old.CloseHiddenDoors();
 				}
 
 				// Darken the lighting in old man room

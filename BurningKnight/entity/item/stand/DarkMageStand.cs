@@ -76,6 +76,8 @@ namespace BurningKnight.entity.item.stand {
 			lastPrice = Price * 2;
 			takenItem = Item;
 			
+			entity.GetComponent<StatsComponent>().TookDeal = true;
+			
 			return true;
 		}
 
