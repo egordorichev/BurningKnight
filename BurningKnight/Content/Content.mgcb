@@ -184,17 +184,17 @@
 /processorParam:Quality=Best
 /build:Sfx/hurt2.wav
 
-#begin Sfx/item/key/cage_key_used.wav
+#begin Sfx/item/cage_key_used.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/item/key/cage_key_used.wav
+/build:Sfx/item/cage_key_used.wav
 
-#begin Sfx/item/key/key.wav
+#begin Sfx/item/key.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/item/key/key.wav
+/build:Sfx/item/key.wav
 
 #begin Sfx/item/pickup.wav
 /importer:WavImporter
@@ -202,23 +202,23 @@
 /processorParam:Quality=Best
 /build:Sfx/item/pickup.wav
 
-#begin Sfx/item/sword/sword_1.wav
+#begin Sfx/item/sword/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/item/sword/sword_1.wav
+/build:Sfx/item/sword/1.wav
 
-#begin Sfx/item/sword/sword_2.wav
+#begin Sfx/item/sword/2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/item/sword/sword_2.wav
+/build:Sfx/item/sword/2.wav
 
-#begin Sfx/item/sword/sword_3.wav
+#begin Sfx/item/sword/3.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/item/sword/sword_3.wav
+/build:Sfx/item/sword/3.wav
 
 #begin Sfx/item_nocash.wav
 /importer:WavImporter

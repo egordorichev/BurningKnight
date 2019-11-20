@@ -5,8 +5,8 @@
 }
 
 * dark mage/granny rooms {
- + appearance logic 
- + actual appearance only after boss battle
+ + build bridges in the boss rooms to dm/granny rooms 
+ + spawn chance logic
 }
 
 * granny: {
@@ -30,6 +30,8 @@
  }
 }
 
+
+* imlement achievement unlocking
 * room cleared effect
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
