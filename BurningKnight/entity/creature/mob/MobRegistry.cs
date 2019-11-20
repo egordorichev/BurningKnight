@@ -36,6 +36,7 @@ namespace BurningKnight.entity.creature.mob {
 				
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn(),
 				MobInfo.New<MegaSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f),
+				MobInfo.New<Cactus>(new SpawnChance(2f + 10f, Biome.Desert)).DisableFirstSpawn(),
 			};
 			
 			All.AddRange(infos);
