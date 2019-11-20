@@ -19,6 +19,7 @@ namespace BurningKnight.entity.creature.npc {
 		private float delay;
 		internal bool Hidden;
 		private bool saved;
+		private bool hided;
 
 		public override void Init() {
 			base.Init();
@@ -30,8 +31,30 @@ namespace BurningKnight.entity.creature.npc {
 			Hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
 		}
 
+		public override void AddComponents() {
+			base.AddComponents();
+			
+			if (Run.Depth == 0) {
+				AddComponent(new CloseDialogComponent(GetDialog()) {
+					DecideVariant = e => GetDialog(),
+					Radius = 72 * 72,
+					RadiusMax = 96 * 96
+				});
+			}
+		}
+		
 		public override void Update(float dt) {
 			if (Hidden) {
+				if (!hided) {
+					hided = true;
+
+					foreach (var item in Area.Tagged[Tags.Item]) {
+						if (item is ItemStand stand && OwnsStand(stand)) {
+							stand.Done = true;
+						}
+					}
+				}
+				
 				return;
 			}
 
@@ -72,6 +95,10 @@ namespace BurningKnight.entity.creature.npc {
 			base.RenderShadow();
 		}
 
+		protected virtual bool OwnsStand(ItemStand stand) {
+			return false;
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (Hidden) {
 				return false;
@@ -79,9 +106,9 @@ namespace BurningKnight.entity.creature.npc {
 			
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
-
 					if (Run.Depth > 0) {
+						GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
+
 						if ((rce.Who.TryGetComponent<ActiveWeaponComponent>(out var a) && a.Item != null && a.Item.Id == "bk:cage_key") ||
 						    (rce.Who.TryGetComponent<WeaponComponent>(out var w) && w.Item != null && w.Item.Id == "bk:cage_key")) {
 
@@ -89,12 +116,10 @@ namespace BurningKnight.entity.creature.npc {
 						} else {
 							GetComponent<DialogComponent>().StartAndClose( "npc_0", 3);
 						}
-					} else {
-						GetComponent<DialogComponent>().StartAndClose( GetDialog(), 3);
 					}
 				}
 			} else if (e is ItemBoughtEvent ibe) {
-				if (ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
+				if (OwnsStand(ibe.Stand) && ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
 				}
 			}

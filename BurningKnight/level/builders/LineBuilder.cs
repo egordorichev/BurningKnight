@@ -27,10 +27,6 @@ namespace BurningKnight.level.builders {
 				Log.Error("No entrance!");
 				return null;
 			}
-			
-			if (Boss == null || Granny == null || OldMan == null) {
-				return null;
-			}
 
 			var Branchable = new List<RoomDef>();
 			

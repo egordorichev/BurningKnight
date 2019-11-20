@@ -35,6 +35,8 @@ namespace BurningKnight.level.entities {
 					Run.Depth = To;
 				}
 			});
+			
+			Audio.PlaySfx("player_descending");			
 
 			return true;
 		}

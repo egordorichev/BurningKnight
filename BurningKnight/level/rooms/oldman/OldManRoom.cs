@@ -15,6 +15,12 @@ namespace BurningKnight.level.rooms.oldman {
 			
 		}
 
+		public override void SetupDoors(Level level) {
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Hidden;
+			}
+		}
+
 		public override void Paint(Level level) {
 			Painter.Rect(level, this, 1, Tile.EvilWall);
 			Painter.Fill(level, this, 2, Tile.EvilFloor);

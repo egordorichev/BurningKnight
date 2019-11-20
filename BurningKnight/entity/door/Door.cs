@@ -6,6 +6,8 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
@@ -89,9 +91,9 @@ namespace BurningKnight.entity.door {
 							HandleEvent(new DoorOpenedEvent {
 								Who = this
 							});
+							
+							state.Become<OpeningState>();
 						}
-						
-						state.Become<OpeningState>();
 					}
 				}
 			} else if (e is CollisionEndedEvent end) {
@@ -185,6 +187,12 @@ namespace BurningKnight.entity.door {
 				}
 
 				if (found) {
+					foreach (var rm in rooms) {
+						if (rm.Type == RoomType.OldMan || rm.Type == RoomType.Granny) {
+							return;
+						}
+					}
+
 					lit = true;
 					ExplosionMaker.LightUp(CenterX, CenterY);
 				}
@@ -225,7 +233,7 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("door_open");
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door_open", 3);
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

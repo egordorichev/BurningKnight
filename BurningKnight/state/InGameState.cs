@@ -99,6 +99,8 @@ namespace BurningKnight.state {
 		private UiButton gamepadBack;
 		private UiButton keyboardBack;
 
+		public static bool Ready;
+
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -109,13 +111,17 @@ namespace BurningKnight.state {
 			Tween.To(0, 1, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f).OnEnd = callback;
 
 			Audio.FadeOut();
+			Ready = false;
 		}
 
 		public void TransitionToOpen(Action callback = null) {
 			Shaders.Ui.Parameters["bx"].SetValue(0.333f);
 			Shaders.Ui.Parameters["by"].SetValue(0.333f);
 
-			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = callback;
+			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = () => {
+				Ready = true;
+				callback();
+			};
 		}
 
 		public Painting CurrentPainting {

@@ -33,7 +33,10 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
-				// todo: second stage enemies
+				
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn(),
+				MobInfo.New<MegaSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f),
+				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 			};
 			
 			All.AddRange(infos);

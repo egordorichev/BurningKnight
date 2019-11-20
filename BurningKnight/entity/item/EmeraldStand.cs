@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.save;
@@ -74,10 +75,10 @@ namespace BurningKnight.entity.item {
 
 			if (GlobalSave.Emeralds < price) {
 				AnimationUtil.ActionFailed();
+				var npc = Area.FindClosest(Center, Tags.Npc, n => n is ShopNpc);
 
-				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
-					break;
+				if (npc != null && npc.TryGetComponent<DialogComponent>(out var c)) {
+					c.StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 				}
 				
 				return false;

@@ -45,17 +45,16 @@ namespace Lens.input {
 		}
 
 		public void Rumble(float strength, float time) {
-			if (rumbleTime <= 0 || strength > rumbleStrength ||
-			    (Math.Abs(strength - rumbleStrength) < 0.1f && time > rumbleTime)) {
-				
-				GamePad.SetVibration(PlayerIndex, strength, strength);
+			if (GamePad.SetVibration(PlayerIndex, strength, strength)) {
 				rumbleStrength = strength;
 				rumbleTime = time;
+			} else {
+				Log.Error($"Error {GamePad.GetState(PlayerIndex).IsConnected}");
 			}
 		}
 
 		public void StopRumble() {
-			GamePad.SetVibration(PlayerIndex, 0, 0);
+			// GamePad.SetVibration(PlayerIndex, 0, 0);
 			rumbleTime = 0;
 		}
 

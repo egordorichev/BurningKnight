@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bandit2.wav</SourceFile>
-  <SourceTime>2019-11-13T15:21:04.3169036+03:00</SourceTime>
-  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bandit2.xnb</DestFile>
-  <DestTime>2019-11-13T16:14:03.9777566+03:00</DestTime>
+  <SourceFile>/home/egor/Lens/BurningKnight/Content/Sfx/bandit2.wav</SourceFile>
+  <SourceTime>2019-10-04T10:34:35.9515694+03:00</SourceTime>
+  <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Sfx/bandit2.xnb</DestFile>
+  <DestTime>2019-11-20T17:38:09.2175346+03:00</DestTime>
   <Importer>WavImporter</Importer>
-  <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
+  <ImporterTime>2019-11-20T16:55:24.8246146+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2018-09-24T00:55:52+03:00</ProcessorTime>
+  <ProcessorTime>2019-11-20T16:55:24.8246146+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>

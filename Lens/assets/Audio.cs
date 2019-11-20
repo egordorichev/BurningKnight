@@ -28,28 +28,31 @@ namespace Lens.assets {
 
 		public static List<Music> Playing = new List<Music>();
 		
-		private static void LoadSfx(FileHandle file) {
+		private static void LoadSfx(FileHandle file, string path, bool root = false) {
 			if (file.Exists()) {
+				path = $"{path}{file.Name}{(root ? "" : "/")}";
+
 				foreach (var sfx in file.ListFileHandles()) {
 					if (sfx.Extension == ".xnb") {
-						LoadSfx(sfx.NameWithoutExtension);
+						LoadSfx(sfx.NameWithoutExtension, path);
 					}
 				}
 
 				foreach (var dir in file.ListDirectoryHandles()) {
-					LoadSfx(dir);
+					LoadSfx(dir, path);
 				}
 			}
 		}
 		
 		internal static void Load() {
-			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"));
+			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"), "", true);
 			new Thread(Update).Start();
 		}
 
-		private static void LoadSfx(string sfx) {
-			sfx = Path.GetFileNameWithoutExtension(sfx);
-			sounds[sfx] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{sfx}");				
+		private static void LoadSfx(string sfx, string path) {
+			var s = Path.GetFileNameWithoutExtension(sfx);
+			Log.Info($"Load bin/Sfx/{path}{s} to {($"{path}{s}".Replace('/', '_'))}");
+			sounds[$"{path}{s}".Replace('/', '_')] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{path}{s}");				
 		}
 		
 		internal static void Destroy() {
@@ -185,7 +188,7 @@ namespace Lens.assets {
 
 		private static bool loadedAll;
 		private static List<string> toLoad = new List<string> {
-			"Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia" 
+			"Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Reckless", "Disk 1"
 		};
 
 		public static void Preload(string music) {
@@ -200,7 +203,7 @@ namespace Lens.assets {
 		}
 		
 		public static void UpdateAudio() {
-			if (loadedAll || currentPlaying == null || loading) {
+			if (loadedAll || loading) {
 				return;
 			}
 

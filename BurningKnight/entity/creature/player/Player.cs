@@ -53,6 +53,8 @@ namespace BurningKnight.entity.creature.player {
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
+			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
 
 			if (add || item.Type == ItemType.Active || item.Type == ItemType.Weapon) {
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
@@ -402,22 +404,49 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				c.New.Discover();
+				var level = Run.Level;
 
-				switch (c.New.Type) {
-					case RoomType.Secret:
-					case RoomType.Special:
-					case RoomType.Shop:
-					case RoomType.Treasure: {
-						ExplosionMaker.CheckForCracks(Run.Level, c.New, this);
-					
-						foreach (var door in c.New.Doors) {
-							if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
-								component.Lock.SetLocked(false, this);
+				if (InGameState.Ready) {
+					switch (c.New.Type) {
+						case RoomType.Secret:
+						case RoomType.Special:
+						case RoomType.Shop:
+						case RoomType.Treasure: {
+							ExplosionMaker.CheckForCracks(level, c.New, this);
+
+							foreach (var door in c.New.Doors) {
+								if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
+									component.Lock.SetLocked(false, this);
+								}
 							}
+
+							break;
 						}
-						
-						break;
+
+						case RoomType.OldMan:
+						case RoomType.Granny: {
+							if (c.New.Type == RoomType.OldMan) {
+								GetComponent<StatsComponent>().SawDeal = true;
+							}
+
+							c.New.OpenHiddenDoors();
+							
+							foreach (var r in Area.Tagged[Tags.Room]) {
+								var room = (Room) r;
+
+								if (room.Type == (c.New.Type == RoomType.OldMan ? RoomType.Granny : RoomType.OldMan)) {
+									room.CloseHiddenDoors();
+									break;
+								}
+							}
+							
+							break;
+						}
 					}
+				}
+				
+				if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+					c.Old.CloseHiddenDoors();
 				}
 
 				// Darken the lighting in old man room

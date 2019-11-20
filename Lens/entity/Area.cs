@@ -133,5 +133,23 @@ namespace Lens.entity {
 		private void InitTags() {
 			
 		}
+
+		public Entity FindClosest(Vector2 to, int tag, Func<Entity, bool> filter) {
+			var min = float.MaxValue;
+			Entity en = null;
+			
+			foreach (var e in Tagged[tag]) {
+				if (filter(e)) {
+					var d = e.DistanceTo(to);
+
+					if (d < min) {
+						min = d;
+						en = e;
+					}
+				}
+			}
+
+			return en;
+		}
 	}
 }

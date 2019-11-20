@@ -116,7 +116,8 @@ namespace BurningKnight.state {
 						Audio.FadeOut();
 						
 						Timer.Add(() => {
-							if (Area.Tagged[Tags.BurningKnight].Count > 0 && ((Boss) Area.Tagged[Tags.BurningKnight][0]).Awoken) {
+							// fixme
+							if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
 								Audio.PlayMusic("Fatiga");
 							} else {
 								Audio.PlayMusic("Gobbeon");
@@ -137,6 +138,16 @@ namespace BurningKnight.state {
 
 					case RoomType.Shop: {
 						Audio.PlayMusic("Shopkeeper");
+						break;
+					}
+					
+					case RoomType.OldMan: {
+						Audio.PlayMusic("Gobbeon");
+						break;
+					}
+					
+					case RoomType.Granny: {
+						Audio.PlayMusic("Disk 1");
 						break;
 					}
 

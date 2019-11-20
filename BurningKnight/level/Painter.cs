@@ -347,7 +347,7 @@ namespace BurningKnight.level {
 					continue;
 				}
 				
-				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16).ToVector();
+				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
 			}
 
 			Level.ItemsToSpawn = null;
@@ -448,7 +448,7 @@ namespace BurningKnight.level {
 				if (type.NearWall) {
 					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
 				} else {
-					mob.Position = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
+					mob.BottomCenter = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
 				}
 
 				if (type.Single) {
@@ -778,6 +778,8 @@ namespace BurningKnight.level {
 				Level.Area.Add(door);
 
 				Level.Set(D.X, D.Y, Tiles.RandomFloor());
+			} else if (type == DoorPlaceholder.Variant.Hidden) {
+				Level.Set(D.X, D.Y, Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {
 				Level.Set(D.X, D.Y, Tile.Crack);
 			} else if (type == DoorPlaceholder.Variant.Tunnel) {

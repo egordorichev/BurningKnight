@@ -419,9 +419,12 @@
     <Compile Include="entity\creature\mob\boss\OldKing.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
+    <Compile Include="entity\creature\mob\desert\Cactus.cs" />
+    <Compile Include="entity\creature\mob\desert\DesertBulletSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />
     <Compile Include="entity\creature\mob\desert\DesertSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Maggot.cs" />
+    <Compile Include="entity\creature\mob\desert\MegaSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
@@ -755,6 +758,7 @@
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
+    <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\CursedChest.cs" />
@@ -981,8 +985,10 @@
     <Compile Include="ui\inventory\UiInventory.cs" />
     <Compile Include="ui\inventory\UiItem.cs" />
     <Compile Include="ui\SaveIndicator.cs" />
+    <Compile Include="ui\str\effect\BlinkEffect.cs" />
     <Compile Include="ui\str\effect\BoldEffect.cs" />
     <Compile Include="ui\str\effect\ColorEffect.cs" />
+    <Compile Include="ui\str\effect\FlipEffect.cs" />
     <Compile Include="ui\str\effect\GlyphEffect.cs" />
     <Compile Include="ui\str\effect\ItalicEffect.cs" />
     <Compile Include="ui\str\effect\RainbowEffect.cs" />

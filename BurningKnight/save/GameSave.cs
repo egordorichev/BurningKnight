@@ -113,7 +113,7 @@ namespace BurningKnight.save {
 			if (GlobalSave.IsFalse("finished_tutorial")) {
 				if (BK.Version.Dev) {
 					GlobalSave.Put("finished_tutorial", true);
-				} else {
+				} else if (Run.Depth != -2) {
 					Run.Depth = -2;
 					Run.IntoMenu = true;
 					Log.Info("Throwing the player into tutorial");

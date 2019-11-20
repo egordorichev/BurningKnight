@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using Lens.entity;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
@@ -127,6 +128,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 			
 			return base.ShouldCollide(entity) && !(entity is Level);
+		}
+
+		protected override string GetHurtSfx() {
+			return $"mob_ghost_hurt_{Rnd.Int(1, 3)}";
 		}
 	}
 }

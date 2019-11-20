@@ -5,11 +5,14 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
@@ -44,6 +47,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
 			Become<FriendlyState>();
+			
+			AddTag(Tags.Boss);
 		}
 		
 		private bool cleared;
@@ -65,10 +70,37 @@ namespace BurningKnight.entity.creature.mob.boss {
 					HandleEvent(new DefeatedEvent {
 						Boss = this
 					});
+
+					var player = LocalPlayer.Locate(Area);
+
+					if (player != null) {
+						var stats = player.GetComponent<StatsComponent>();
+
+						if (!stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
+							foreach (var r in Area.Tagged[Tags.Room]) {
+								var room = (Room) r;
+
+								if (room.Type == RoomType.Granny) {
+									room.OpenHiddenDoors();
+									break;
+								}
+							}
+						}
+						
+						if (Rnd.Chance(stats.DMChance * 100)) {
+							foreach (var r in Area.Tagged[Tags.Room]) {
+								var room = (Room) r;
+
+								if (room.Type == RoomType.OldMan) {
+									room.OpenHiddenDoors();
+									break;
+								}
+							}
+						}
+					}
 					
 					Done = true;
 					PlaceRewards();
-					HandleEvent(new DefeatedEvent());
 					
 					Timer.Add(() => {
 						((InGameState) Engine.Instance.State).ResetFollowing();

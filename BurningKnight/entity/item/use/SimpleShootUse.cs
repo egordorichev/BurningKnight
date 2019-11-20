@@ -167,18 +167,18 @@ namespace BurningKnight.entity.item.use {
 
 		public static void RenderDebug(JsonValue root) {
 			if (ImGui.TreeNode("Stats")) {
-				root.InputInt("Damage", "damage");
+				root.InputFloat("Damage", "damage");
 				root.InputInt("Projectile Count", "amount");
 
 				ImGui.Separator();
 
-				root.InputInt("Min Speed", "speed", 10);
-				root.InputInt("Max Speed", "speedm", 10);
+				root.InputFloat("Min Speed", "speed", 10);
+				root.InputFloat("Max Speed", "speedm", 10);
 
 				ImGui.Separator();
 				
-				root.InputInt("Min Scale", "scale");
-				root.InputInt("Max Scale", "scalem");
+				root.InputFloat("Min Scale", "scale");
+				root.InputFloat("Max Scale", "scalem");
 				
 				ImGui.Separator();
 

@@ -1,6 +1,10 @@
 ﻿using System;
+using BurningKnight.assets;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -12,6 +16,9 @@ using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
+using Lens.util.timer;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class HealthComponent : SaveableComponent {
@@ -171,14 +178,32 @@ namespace BurningKnight.entity.component {
 					Item = ev.Item,
 					Who = Entity
 				});
-				
+
 				ev.Item.Use(Entity);
 				ev.Item.Done = true;
-				
+
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
-						? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
-						: ev.Item.Region, (Player) Entity));
+					? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
+					: ev.Item.Region, (Player) Entity));
+
+				for (var i = 0; i < 3; i++) {
+					Timer.Add(() => {
+							var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"heart_{Rnd.Int(1, 4)}"))));
+							part.Position = Entity.Center;
+
+							if (Entity.TryGetComponent<ZComponent>(out var z)) {
+								part.Position -= new Vector2(0, z.Z);
+							}
 				
+							Entity.Area.Add(part);
+				
+							part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
+							part.Particle.Angle = 0;
+							part.Particle.Alpha = 0.9f;
+							part.Depth = Layers.InGameUi;
+						}, i * 0.5f);
+				}
+
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");

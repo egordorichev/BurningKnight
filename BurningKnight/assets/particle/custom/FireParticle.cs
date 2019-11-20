@@ -55,7 +55,7 @@ namespace BurningKnight.assets.particle.custom {
 				Offset = new Vector2(Rnd.Float(-4, 4) * XChange, Rnd.Float(-2, 2));
 			}
 
-			Depth = Layers.Wall + 1;
+			Depth = Layers.TileLights + 1;
 		}
 
 		public override void Update(float dt) {

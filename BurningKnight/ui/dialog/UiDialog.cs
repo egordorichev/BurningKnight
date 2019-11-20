@@ -130,6 +130,8 @@ namespace BurningKnight.ui.dialog {
 			Saying = false;
 			DoneSaying = false;
 			
+			Str?.Stop();
+			
 			Tween.To(0, 255, x => Tint.A = (byte) x, 0.3f).OnEnd = () => {
 				if (Str != null) {
 					Str.Width = 4;

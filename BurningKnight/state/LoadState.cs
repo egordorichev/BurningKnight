@@ -111,6 +111,7 @@ namespace BurningKnight.state {
 
 			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Test))) {
 				Engine.Instance.SetState(new InGameState(gameArea, Menu));
+				Menu = false;
 			}
 		}
 

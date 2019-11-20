@@ -47,6 +47,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
+			AddComponent(new AudioEmitterComponent());
 
 			AlwaysActive = true;
 
@@ -147,6 +148,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 							t.OnEnd = () => Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
 						}
 
+						GetComponent<AudioEmitterComponent>().EmitRandomized("fire");
 						var r = GetComponent<RoomComponent>();
 
 						if (r.Room != null && r.Room.Tagged[Tags.Player].Count > 0) {

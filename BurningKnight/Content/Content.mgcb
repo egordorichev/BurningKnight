@@ -184,6 +184,42 @@
 /processorParam:Quality=Best
 /build:Sfx/hurt2.wav
 
+#begin Sfx/item/key/cage_key_used.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/key/cage_key_used.wav
+
+#begin Sfx/item/key/key.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/key/key.wav
+
+#begin Sfx/item/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/pickup.wav
+
+#begin Sfx/item/sword/sword_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/sword/sword_1.wav
+
+#begin Sfx/item/sword/sword_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/sword/sword_2.wav
+
+#begin Sfx/item/sword/sword_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/sword/sword_3.wav
+
 #begin Sfx/item_nocash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -202,6 +238,78 @@
 /processorParam:Quality=Best
 /build:Sfx/key.wav
 
+#begin Sfx/level/door/open_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/door/open_1.wav
+
+#begin Sfx/level/door/open_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/door/open_2.wav
+
+#begin Sfx/level/door/open_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/door/open_3.wav
+
+#begin Sfx/level/door/shut.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/door/shut.wav
+
+#begin Sfx/level/turret/fire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/turret/fire.wav
+
+#begin Sfx/mob/bandit/death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bandit/death.wav
+
+#begin Sfx/mob/ghost/hurt_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/ghost/hurt_1.wav
+
+#begin Sfx/mob/ghost/hurt_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/ghost/hurt_2.wav
+
+#begin Sfx/mob/slime/jump_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/slime/jump_1.wav
+
+#begin Sfx/mob/slime/jump_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/slime/jump_2.wav
+
+#begin Sfx/mob/slime/land_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/slime/land_1.wav
+
+#begin Sfx/mob/slime/land_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/slime/land_2.wav
+
 #begin Sfx/moving.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -213,6 +321,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/pickup_item.wav
+
+#begin Sfx/player/descending.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/descending.wav
+
+#begin Sfx/player/hurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/hurt.wav
 
 #begin Sfx/quck.wav
 /importer:WavImporter

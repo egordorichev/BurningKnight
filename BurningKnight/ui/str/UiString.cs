@@ -23,6 +23,8 @@ namespace BurningKnight.ui.str {
 	 * _ starts italic
 	 * ** starts bold
 	 * ## starts shake
+	 * @@ starts blink
+	 * && starts flip
 	 * %% starts rainbow
 	 * ^^ starts wave
 	 *
@@ -265,6 +267,22 @@ namespace BurningKnight.ui.str {
 						break;
 					}
 
+					case '&': {
+						if (lc == '&') {
+							AddEffect<FlipEffect>(builder);
+						}
+						
+						break;
+					}
+
+					case '@': {
+						if (lc == '@') {
+							AddEffect<BlinkEffect>(builder);
+						}
+						
+						break;
+					}
+
 					case '#': {
 						if (lc == '#') {
 							AddEffect<ShakeEffect>(builder);
@@ -373,6 +391,10 @@ namespace BurningKnight.ui.str {
 
 				j++;
 			}
+		}
+		
+		public void Stop() {
+			Paused = true;
 		}
 
 		public override void Render() {

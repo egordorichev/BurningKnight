@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new ZAnimationComponent("bullet_slime"));
+			AddComponent(new ZAnimationComponent(GetSprite()));
 			SetMaxHp(1);
 
 			var body = new RectBodyComponent(1, 15, 14, 1);
@@ -30,6 +30,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.KnockbackModifier = 0.5f;
 			
 			AddComponent(new SensorBodyComponent(2, 7, 12, 9));
+		}
+
+		protected virtual string GetSprite() {
+			return "bullet_slime";
 		}
 
 		protected override void OnLand() {

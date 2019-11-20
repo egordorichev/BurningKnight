@@ -35,6 +35,8 @@ namespace BurningKnight.entity.door {
 					}
 				}
 			}
+			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("item_cage_key_used");
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {

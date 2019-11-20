@@ -50,6 +50,7 @@ namespace BurningKnight.entity.creature.bk {
 			AddTag(Tags.BurningKnight);
 			AddTag(Tags.PlayerSave);
 			
+			RemoveTag(Tags.Boss);
 			RemoveTag(Tags.LevelSave);
 			RemoveTag(Tags.MustBeKilled);
 

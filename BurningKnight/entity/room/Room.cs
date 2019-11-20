@@ -23,6 +23,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
@@ -159,6 +160,19 @@ namespace BurningKnight.entity.room {
 			});
 		}
 
+		public void Hide() {
+			Explored = false;
+			
+			ApplyToEachTile((x, y) => {
+				var i = Run.Level.ToIndex(x, y);
+
+				if (!Run.Level.Get(i).IsWall() || !Run.Level.Get(i + Run.Level.Width).IsWall()) {
+					Run.Level.Explored[i] = false;
+					Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+				}
+			});
+		}
+		
 		public void ApplyToEachTile(Action<int, int> callback) {
 			var level = Run.Level;
 			
@@ -327,6 +341,52 @@ namespace BurningKnight.entity.room {
 			}
 
 			return en;
+		}
+
+		public void OpenHiddenDoors() {
+			var level = Run.Level;
+			
+			foreach (var door in Doors) {
+				var x = (int) Math.Floor(door.CenterX / 16);
+				var y = (int) Math.Floor(door.CenterY / 16);
+				var t = level.Get(x, y);
+
+				if (t == Tile.WallA) {
+					var index = level.ToIndex(x, y);
+			
+					level.Set(index, Type == RoomType.OldMan ? Tile.EvilFloor : Tile.GrannyFloor);
+					level.UpdateTile(x, y);
+					level.ReCreateBodyChunk(x, y);
+					level.LoadPassable();
+
+					ExplosionMaker.LightUp(x * 16 + 8, y * 16 + 8);
+
+					Level.Animate(Area, x, y);
+				}
+			}
+		}
+
+		public void CloseHiddenDoors() {
+			var level = Run.Level;
+			
+			foreach (var door in Doors) {
+				var x = (int) Math.Floor(door.CenterX / 16);
+				var y = (int) Math.Floor(door.CenterY / 16);
+				var t = level.Get(x, y);
+
+				if (level.Get(x, y).Matches(TileFlags.Passable)) {
+					var index = level.ToIndex(x, y);
+			
+					level.Set(index, Tile.WallA);
+					level.UpdateTile(x, y);
+					level.ReCreateBodyChunk(x, y);
+					level.LoadPassable();
+
+					Hide();
+
+					Camera.Instance.Shake(10);
+				}
+			}
 		}
 	}
 }
