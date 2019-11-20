@@ -139,6 +139,16 @@ namespace BurningKnight.state {
 						Audio.PlayMusic("Shopkeeper");
 						break;
 					}
+					
+					case RoomType.OldMan: {
+						Audio.PlayMusic("Gobbeon");
+						break;
+					}
+					
+					case RoomType.Granny: {
+						Audio.PlayMusic("Gobbeon");
+						break;
+					}
 
 					default: {
 						Audio.PlayMusic(Run.Level.GetMusic());

@@ -448,7 +448,7 @@ namespace BurningKnight.level {
 				if (type.NearWall) {
 					mob.Position = new Vector2(point.X * 16, point.Y * 16 - 8);
 				} else {
-					mob.Position = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
+					mob.BottomCenter = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
 				}
 
 				if (type.Single) {

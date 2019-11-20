@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens.entity;
 using Lens.graphics.animation;
@@ -34,6 +35,7 @@ namespace BurningKnight.entity.door {
 
 			if (component.Keys > 0) {
 				component.Keys--;
+				GetComponent<AudioEmitterComponent>().EmitRandomized("item_key");
 				return true;
 			}
 			

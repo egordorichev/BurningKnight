@@ -225,7 +225,7 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("door_open");
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door_open", 3);
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

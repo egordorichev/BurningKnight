@@ -16,6 +16,7 @@ namespace BurningKnight.entity.item.use {
 		
 		public override void Use(Entity entity, Item item) {
 			entity.TryGetComponent<StatsComponent>(out var stats);
+			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword", 3);
 		
 			entity.Area.Add(new MeleeArc {
 				Owner = entity,

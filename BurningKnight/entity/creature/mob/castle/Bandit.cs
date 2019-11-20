@@ -144,5 +144,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			return base.HandleEvent(e);
 		}
+
+		protected override string GetDeadSfx() {
+			return "mob_bandit_death";
+		}
 	}
 }

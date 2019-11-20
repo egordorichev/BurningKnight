@@ -49,6 +49,10 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
+		public SoundEffectInstance EmitRandomizedPrefixed(string sfx, int prefixMax, float volume = 1f, bool insert = true) {
+			return Emit($"{sfx}_{Rnd.Int(1, prefixMax + 1)}", volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert);
+		}
+		
 		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true) {
 			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert);
     }

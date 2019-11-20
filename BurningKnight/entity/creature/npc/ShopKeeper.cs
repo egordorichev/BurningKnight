@@ -215,8 +215,8 @@ namespace BurningKnight.entity.creature.npc {
 				delay -= dt;
 
 				if (delay <= 0) {
-					delay = Rnd.Float(1, 3f);
-					GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Rnd.Int(1, 5)}");
+					delay = Rnd.Float(3, 9f);
+					GetComponent<AudioEmitterComponent>().EmitRandomized($"villager{Rnd.Int(1, 5)}", 0.5f);
 				}
 			}
 

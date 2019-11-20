@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.entity.component;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -56,6 +57,8 @@ namespace BurningKnight.entity.door {
 			if (shouldLock && !IsLocked) {
 				SetLocked(true, null);
 				GetComponent<StateComponent>().Become<ClosingState>();
+				
+				GetComponent<AudioEmitterComponent>().EmitRandomized("level_door_shut");
 			} else if (!shouldLock && IsLocked) {
 				SetLocked(false, null);
 				GetComponent<StateComponent>().Become<OpeningState>();

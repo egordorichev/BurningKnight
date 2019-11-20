@@ -53,6 +53,8 @@ namespace BurningKnight.entity.creature.player {
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
+			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
 
 			if (add || item.Type == ItemType.Active || item.Type == ItemType.Weapon) {
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {

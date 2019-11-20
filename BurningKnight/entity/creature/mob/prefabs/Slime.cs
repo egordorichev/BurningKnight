@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				if (!tweened && T >= delay) {
 					tweened = true;
 
-					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("slime_jump");
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("mob_slime_jump", 2);
 				
 					var anim = Self.GetComponent<ZAnimationComponent>();
 				
@@ -98,8 +98,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				anim.Scale.X = 2f;
 				anim.Scale.Y = 0.3f;
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("slime_land");
-
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("mob_slime_land", 2);
+				
 				Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
 				Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f);
 			}
