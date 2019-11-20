@@ -20,6 +20,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new SliceComponent("props", "campfire"));
 			AddComponent(new LightComponent(this, 32, new Color(1f, 1f, 0f, 1f)));
 			AddComponent(new RectBodyComponent(Width / 4, 0, Width / 2, Height - 5, BodyType.Static));
+			AddComponent(new RoomComponent());
 		}
 
 		public override void Update(float dt) {
@@ -29,10 +30,12 @@ namespace BurningKnight.level.entities {
 			if (lastFlame > 0.1f) {
 				lastFlame = 0;
 
-				Area.Add(new FireParticle {
-					X = CenterX + Rnd.Float(-4, 4),
-					Y = CenterY
-				});
+				if (GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
+					Area.Add(new FireParticle {
+						X = CenterX + Rnd.Float(-4, 4),
+						Y = CenterY
+					});
+				}
 			}
 		}
 	}
