@@ -15,18 +15,24 @@ namespace BurningKnight.entity.item.use {
 		protected float Angle;
 		
 		public override void Use(Entity entity, Item item) {
-			entity.TryGetComponent<StatsComponent>(out var stats);
 			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword", 3);
-		
-			entity.Area.Add(new MeleeArc {
+
+			var arc = new MeleeArc {
 				Owner = entity,
 				LifeTime = LifeTime,
-				Damage = Damage * (stats?.Damage ?? 1),
-				Width = W * (stats?.Range ?? 1),
+				Damage = Damage,
+				Width = W,
 				Height = H,
 				Position = entity.Center,
 				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().Aim) + Angle
+			};
+
+			entity.HandleEvent(new MeleeArc.CreatedEvent {
+				Arc = arc,
+				Owner = entity
 			});
+			
+			entity.Area.Add(arc);
 		}
 
 		public override void Setup(JsonValue settings) {

@@ -6,6 +6,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
@@ -57,6 +58,50 @@ namespace BurningKnight.entity.orbital {
 				return orbital;
 			});
 			
+			Define("bullet_stone", o => {
+				var orbital = new Orbital();
+				o.Area.Add(orbital);
+
+				var g = new SliceComponent("items", "bk:bullet_stone") {
+					ShadowZ = 2
+				};
+
+				orbital.AddComponent(g);
+				g.AddShadow();
+				g.SetOwnerSize();
+
+				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
+				
+				orbital.OnCollision += (or, e) => {
+					if (e is Projectile p && p.Owner != orbital.Owner) {
+						p.Break();
+					}
+				};
+
+				var timer = 0f;
+
+				orbital.Controller += (dt) => {
+					timer += dt;
+
+					if (timer >= 2f) {
+						timer = 0;
+
+						var a = orbital.AngleTo(o.GetComponent<AimComponent>().RealAim);
+						var projectile = Projectile.Make(o, "default", a, 10f);
+
+						projectile.Center = orbital.Center + MathUtils.CreateVector(a, 5f);
+						projectile.AddLight(32f, Projectile.YellowLight);
+						
+						o.HandleEvent(new ProjectileCreatedEvent {
+							Projectile = projectile,
+							Owner = o
+						});
+					}
+				};
+				
+				return orbital;
+			});
+			
 			Define("sword", o => {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
@@ -74,6 +119,8 @@ namespace BurningKnight.entity.orbital {
 				orbital.OnCollision += (or, e) => {
 					if (e is Creature c && c.IsFriendly() != ((Creature) orbital.Owner).IsFriendly()) {
 						c.GetComponent<HealthComponent>().ModifyHealth(-1, orbital);
+					} else if (e is Projectile p && p.Owner != orbital.Owner) {
+						p.Break();
 					}
 				};
 				

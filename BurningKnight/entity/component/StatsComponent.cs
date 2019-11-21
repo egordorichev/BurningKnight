@@ -1,4 +1,5 @@
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.util;
 using BurningKnight.level.rooms;
 using ImGuiNET;
 using Lens.entity;
@@ -112,6 +113,19 @@ namespace BurningKnight.entity.component {
 
 				GrannyChance = 0.5f;
 				DMChance = 1f;
+			} else if (e is ProjectileCreatedEvent pce) {
+				var projectile = pce.Projectile;
+				
+				projectile.Damage *= Damage;
+
+				if (projectile.Range > 0) {
+					projectile.Range *= Range;
+				}
+			} else if (e is MeleeArc.CreatedEvent mace) {
+				var arc = mace.Arc;
+
+				arc.Damage *= Damage;
+				arc.Width *= Range;
 			}
 			
 			return base.HandleEvent(e);

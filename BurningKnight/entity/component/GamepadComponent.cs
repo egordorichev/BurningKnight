@@ -31,7 +31,7 @@ namespace BurningKnight.entity.component {
 
 			if (Settings.Gamepad != GamepadId && Settings.Gamepad != null) {
 				for (int i = 0; i < 4; i++) {
-					if (GamePad.GetCapabilities(i).Identifier == Settings.Gamepad) {
+					if (GamePad.GetCapabilities(i).IsConnected && GamePad.GetCapabilities(i).Identifier == Settings.Gamepad) {
 						Controller = Input.Gamepads[i];
 						GamepadId = Settings.Gamepad;
 						Current = Controller;

@@ -73,7 +73,7 @@ namespace BurningKnight.assets.items {
 				data["single"] = item.Single;
 				data["auto_pickup"] = item.AutoPickup;
 				data["auto"] = item.Automatic;
-				data["single"] = item.SingleUse;
+				data["single_use"] = item.SingleUse;
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
 				data["renderer"] = item.Renderer;
@@ -134,7 +134,7 @@ namespace BurningKnight.assets.items {
 				AutoPickup = pickup,
 				Single = item["single"].Bool(true),
 				Automatic = item["auto"],
-				SingleUse = item["single"],
+				SingleUse = item["single_use"],
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)
 			};

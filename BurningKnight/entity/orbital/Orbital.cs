@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.save;
@@ -10,11 +11,17 @@ namespace BurningKnight.entity.orbital {
 	public class Orbital : Entity {
 		public OrbitalCollisionHandler OnCollision;
 		public Entity Owner => GetComponent<OrbitalComponent>().Orbiting;
+		public Action<float> Controller; 
 		
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddComponent(new OrbitalComponent());
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			Controller?.Invoke(dt);
 		}
 
 		public override bool HandleEvent(Event e) {
