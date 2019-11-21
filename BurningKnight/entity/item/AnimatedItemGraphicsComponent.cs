@@ -28,11 +28,11 @@ namespace BurningKnight.entity.item {
 			if (!Entity.HasComponent<OwnerComponent>()) {
 				if (shadow) {
 					var region = Animation.GetCurrentTexture();
-					Graphics.Render(region, Entity.Position, 0, new Vector2(0, -region.Height + 3f), Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
+					Graphics.Render(region, Entity.Position, 0, new Vector2(0, -region.Height), Vector2.One, Graphics.ParseEffect(Flipped, !FlippedVerticaly));
 					return;
 				}
 				
-				Animation.Render(Entity.Position + new Vector2(0, ItemGraphicsComponent.CalculateMove(T * 1.2f) - 3f));
+				Animation.Render(Entity.Position + new Vector2(0, ItemGraphicsComponent.CalculateMove(T * 1.2f)));
 			}
 		}
 	}

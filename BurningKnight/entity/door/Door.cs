@@ -188,7 +188,7 @@ namespace BurningKnight.entity.door {
 
 				if (found) {
 					foreach (var rm in rooms) {
-						if (rm.Type == RoomType.OldMan || rm.Type == RoomType.Granny) {
+						if (rm != null && (rm.Type == RoomType.OldMan || rm.Type == RoomType.Granny)) {
 							return;
 						}
 					}

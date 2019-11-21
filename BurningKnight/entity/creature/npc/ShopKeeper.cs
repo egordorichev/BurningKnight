@@ -61,6 +61,10 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(3, 5)}", 1);
 
 					SetItemsFree();
+
+					HandleEvent(new EnragedEvent {
+						ShopKeeper = this
+					});
 				}
 
 				Recalc();
@@ -377,6 +381,10 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override bool ShouldCollide(Entity entity) {
 			return !(entity is ItemStand) && base.ShouldCollide(entity);
+		}
+
+		public class EnragedEvent : Event {
+			public ShopKeeper ShopKeeper;
 		}
 	}
 }

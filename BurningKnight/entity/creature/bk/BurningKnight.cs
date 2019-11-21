@@ -90,6 +90,10 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemTakenEvent>();
 			Subscribe<Dialog.EndedEvent>();
+			Subscribe<ShopNpc.SavedEvent>();
+			Subscribe<ShopKeeper.EnragedEvent>();
+			Subscribe<DiedEvent>();
+			Subscribe<SecretRoomFoundEvent>();
 		}
 
 		protected override void OnTargetChange(Entity target) {
@@ -99,7 +103,6 @@ namespace BurningKnight.entity.creature.bk {
 			
 			if (!Awoken && target != null) {
 				Awoken = true;
-				// GetComponent<DialogComponent>().StartAndClose("burning_knight_0", 7);
 				Become<FollowState>();		
 			} else if (target == null) {
 				Become<IdleState>();
@@ -134,6 +137,12 @@ namespace BurningKnight.entity.creature.bk {
 								break;
 							}
 						}
+					} else if (t == RoomType.Granny) {
+						// GRANNY, CAN YOU JUST DIE, PLEASE??
+						GetComponent<DialogComponent>().StartAndClose("bk_9", 5);
+					} else if (t == RoomType.OldMan) {
+						// MY MASTER, I BROUGHT THE GOBLIN
+						GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
@@ -155,6 +164,24 @@ namespace BurningKnight.entity.creature.bk {
 						GetComponent<DialogComponent>().StartAndClose("bk_4", 5);
 					}, 1);
 				}
+			} else if (e is ShopNpc.SavedEvent) {
+				// I WOULDN'T BOTHER EVEN TALKING TO THEM
+				GetComponent<DialogComponent>().StartAndClose("bk_5", 5);
+			} else if (e is ShopKeeper.EnragedEvent skee) {
+				if (skee.ShopKeeper.GetComponent<RoomComponent>().Room.Explored) {
+					// KILL HIM, EDWARD!
+					GetComponent<DialogComponent>().StartAndClose("bk_6", 5);
+				}
+			} else if (e is DiedEvent de) {
+				if (de.Who is ShopKeeper) {
+					// EDWARD, NOOOOOO!
+					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
+				}
+				
+				return false;
+			} else if (e is SecretRoomFoundEvent) {
+				// OH COMON, STOP EXPLODING MY CASTLE!
+				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
 			}
 			
 			return base.HandleEvent(e);

@@ -6,25 +6,11 @@
  + game sometimes doesnt exit even after window is closed
 }
 
-* granny: {
- + custom dialog in the room
- + dialog when you take an item
-}
-
 * bk: {
  + better into boss going anim
  + better getting out of boss
  + fix how saving works with capturing ths bosses
  + no hit boss battle reward
-
- + dialog interactions {
-  - freeing npc
-  - enraging sk 
-  - killing sk
-  - finding a secret room (oh comon stop breaking my castle)
-  - hi my master to gm
-  - not you again to granny
- }
 }
 
 * Allow to use images in ui string, get some gamepad and keyboard buttons going

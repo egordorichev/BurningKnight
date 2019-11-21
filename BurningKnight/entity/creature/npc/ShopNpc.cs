@@ -134,6 +134,10 @@ namespace BurningKnight.entity.creature.npc {
 				
 				GlobalSave.Put(GetId(), true);
 				GlobalSave.Put("saved_npc", true);
+
+				HandleEvent(new SavedEvent {
+					Npc = this
+				});
 			}
 		}
 		
@@ -143,6 +147,10 @@ namespace BurningKnight.entity.creature.npc {
 
 		public virtual string GetId() {
 			return null;
+		}
+
+		public class SavedEvent : Event {
+			public ShopNpc Npc;
 		}
 	}
 }
