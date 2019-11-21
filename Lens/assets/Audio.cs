@@ -51,7 +51,6 @@ namespace Lens.assets {
 
 		private static void LoadSfx(string sfx, string path) {
 			var s = Path.GetFileNameWithoutExtension(sfx);
-			Log.Info($"Load bin/Sfx/{path}{s} to {($"{path}{s}".Replace('/', '_'))}");
 			sounds[$"{path}{s}".Replace('/', '_')] = Assets.Content.Load<SoundEffect>($"bin/Sfx/{path}{s}");				
 		}
 		
@@ -203,7 +202,7 @@ namespace Lens.assets {
 		}
 		
 		public static void UpdateAudio() {
-			if (!Assets.LoadAudio || loadedAll || loading) {
+			if (!Assets.LoadAudio || currentPlaying == null || loadedAll || loading) {
 				return;
 			}
 
