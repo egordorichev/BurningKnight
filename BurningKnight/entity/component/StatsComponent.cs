@@ -1,4 +1,7 @@
+using BurningKnight.entity.events;
+using BurningKnight.level.rooms;
 using ImGuiNET;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
 using Lens.util.file;
@@ -15,6 +18,9 @@ namespace BurningKnight.entity.component {
 		public float GrannyChance;
 		public bool SawDeal;
 		public bool TookDeal;
+		public bool TookDamageInRoom;
+		public bool TookDamageInLastRoom;
+		public bool TookDamageOnLevel;
 
 		public float Speed {
 			get => speed;
@@ -57,24 +63,58 @@ namespace BurningKnight.entity.component {
 
 			ImGui.Checkbox("Saw Deal", ref SawDeal);
 			ImGui.Checkbox("Took Deal", ref TookDeal);
+			
+			ImGui.Separator();
+			
+			ImGui.Checkbox("Took Damage in Room", ref TookDamageInRoom);
+			ImGui.Checkbox("Took Damage on Level", ref TookDamageOnLevel);
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
-			stream.WriteFloat(DMChance);
-			stream.WriteFloat(GrannyChance);
 			stream.WriteBoolean(SawDeal);
 			stream.WriteBoolean(TookDeal);
+			stream.WriteBoolean(TookDamageInRoom);
+			stream.WriteBoolean(TookDamageOnLevel);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
-			DMChance = stream.ReadFloat();
-			GrannyChance = stream.ReadFloat();
 			SawDeal = stream.ReadBoolean();
 			TookDeal = stream.ReadBoolean();
+			TookDamageInRoom = stream.ReadBoolean();
+			TookDamageOnLevel = stream.ReadBoolean();
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is PlayerHurtEvent) {
+				if (!TookDamageOnLevel) {
+					DMChance -= 0.5f;
+				}
+
+				if (!TookDamageInRoom && Entity.GetComponent<RoomComponent>().Room.Type == RoomType.Boss) {
+					DMChance -= 0.25f;
+				}
+				
+				TookDamageInRoom = true;
+				TookDamageOnLevel = true;
+			} else if (e is RoomChangedEvent rce) {
+				if (rce.WasDiscovered) {
+					TookDamageInLastRoom = TookDamageInRoom;
+					TookDamageInRoom = false;
+				}
+			} else if (e is NewLevelStartedEvent) {
+				TookDamageOnLevel = false;
+				TookDamageInRoom = false;
+				TookDamageInLastRoom = false;
+
+				GrannyChance = 0.5f;
+				DMChance = 1f;
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

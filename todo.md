@@ -2,10 +2,8 @@
 
 * fix {
  + gamepad shake
-}
-
-* dark mage/granny rooms {
- + spawn chance logic
+ + maximized bug
+ + game sometimes doesnt exit even after window is closed
 }
 
 * granny: {
@@ -16,8 +14,9 @@
 * bk: {
  + better into boss going anim
  + better getting out of boss
- + check how saving works with capturing bosses
- 
+ + fix how saving works with capturing ths bosses
+ + no hit boss battle reward
+
  + dialog interactions {
   - freeing npc
   - enraging sk 
@@ -35,12 +34,9 @@
  + clear reward. Spawns in the center, destroying the tiles. 
 }
 
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-
-* !! game sometimes doesnt exit even after window is closed
-
-* no hit boss battle reward
-* look into maximized bug
+* ui {
+ + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+}
 
 * audio {
  + make ambience play in transitions? it feels empty
@@ -52,6 +48,12 @@
 
 + hub {
  + allow to layer in stuff for speical events
+}
+
+* twitter {
+ + showcase desert area
+ + showcase boss
+ + showcase granny/dm rooms
 }
 
 ##

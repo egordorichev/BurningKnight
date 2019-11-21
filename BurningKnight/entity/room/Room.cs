@@ -392,10 +392,8 @@ namespace BurningKnight.entity.room {
 			}
 		}
 
-		public void PaintTunnel(Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true) {
+		public void PaintTunnel(List<Door> Doors, Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true) {
 			if (Doors.Count == 0) {
-				Log.Error("Invalid connection room");
-
 				return;
 			}
 

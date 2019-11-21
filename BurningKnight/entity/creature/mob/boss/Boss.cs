@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
@@ -73,11 +74,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					});
 
 					var player = LocalPlayer.Locate(Area);
-
-					// fixme: do this only if a deal was open and only to the deals open
-					GetComponent<RoomComponent>().Room.PaintTunnel(Tile.FloorD);
-					Run.Level.TileUp();
-					Run.Level.CreateBody();
+					var doors = new List<Door>();
 					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
@@ -88,6 +85,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 								if (room.Type == RoomType.Granny) {
 									room.OpenHiddenDoors();
+									doors.AddRange(room.Doors);
+									
 									break;
 								}
 							}
@@ -99,12 +98,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 								if (room.Type == RoomType.OldMan) {
 									room.OpenHiddenDoors();
+									doors.AddRange(room.Doors);
+
 									break;
 								}
 							}
 						}
 					}
-					
+
+					if (doors.Count > 0) {
+						GetComponent<RoomComponent>().Room.PaintTunnel(doors, Tiles.RandomFloor());
+						Run.Level.TileUp();
+						Run.Level.CreateBody();
+					}
+
 					Done = true;
 					PlaceRewards();
 					
