@@ -23,6 +23,8 @@ namespace BurningKnight.entity.component {
 			if (Float) {
 				t += dt;
 				Z = 1.5f + (float) Math.Sin(t * 5f) * 1.5f;
+				
+				return;
 			}
 			
 			Z += ZVelocity * dt * 20 * (Entity.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>() ? 0.5f : 1f);

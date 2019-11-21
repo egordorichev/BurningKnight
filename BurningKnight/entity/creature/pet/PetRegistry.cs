@@ -81,6 +81,10 @@ namespace BurningKnight.entity.creature.pet {
 			Define("bomb_pouch", o => o.Area.Add(new GeneratorPet("bk:bomb_pouch", 3, a => Items.CreateAndAdd("bk:bomb", a)) {
 				Owner = o
 			}));
+			
+			Define("batman", o => o.Area.Add(new GeneratorPet("bk:batman", 3, a => Items.CreateAndAdd("bk:battery", a)) {
+				Owner = o
+			}));
 
 			Define("pouch_pouch", o => o.Area.Add(new GeneratorPet("bk:pouch_pouch", 4, a => Items.CreateAndAdd("bk:pouch", a)) {
 				Owner = o
