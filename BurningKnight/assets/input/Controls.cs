@@ -294,6 +294,47 @@ namespace BurningKnight.assets.input {
 			return k;
 		}
 
+
+		public static string FindSlice(string name, bool gamepad) {
+			var id = Find(name, gamepad);
+
+			if (id == null) {
+				return null;
+			}
+			
+			if (gamepad) {
+				if (id == "Left Trigger") {
+					return "button_lt";
+				}
+				
+				if (id == "Left Shoulder") {
+					return "button_lb";
+				}
+				
+				if (id == "Right Trigger") {
+					return "button_rt";
+				}
+				
+				if (id == "Right Shoulder") {
+					return "button_rb";
+				}
+				
+				return $"button_{id.ToLower()}";
+			} else {
+				if (id == "LMB") {
+					return "button_lmb";
+				}
+
+				if (id == "RMB") {
+					return "button_rmb";
+				}
+
+				return $"key_{id.ToLower()}";
+			}
+
+			return id;
+		}
+
 		public static void Replace(string id, Keys key) {
 			foreach (var c in (custom.Count == 0 ? controls : custom)) {
 				if (c.Id == id) {

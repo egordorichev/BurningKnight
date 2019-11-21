@@ -24,6 +24,10 @@ namespace BurningKnight.entity.component {
 		}
 
 		public void Set(string image, string slice) {
+			if (image == null || slice == null) {
+				return;
+			}
+			
 			Set(Animations.Get(image).GetSlice(slice));
 		}
 		

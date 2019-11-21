@@ -8,6 +8,10 @@ namespace BurningKnight.entity.component {
 		public Vector2 Scale = Vector2.One;
 		public Vector2 Origin;
 		
+		public ScalableSliceComponent(TextureRegion region) : base("", null) {
+			Sprite = region;
+		}
+		
 		public ScalableSliceComponent(string image, string slice) : base(image, slice) {
 			
 		}

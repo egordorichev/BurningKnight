@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -63,7 +65,10 @@ namespace BurningKnight.entity.creature.player {
 			component.OnStart?.Invoke(Entity);
 
 			if (Run.Depth == -2) {
-				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, Controls.Find(Controls.Interact, GamepadComponent.Current != null, true)));
+				var region = CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Interact, false));
+				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, null, region, -5));
+				region = CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Interact, true));
+				Engine.Instance.State.Ui.Add(new InteractFx(CurrentlyInteracting, null, region, 5));
 			}
 		}
 		
