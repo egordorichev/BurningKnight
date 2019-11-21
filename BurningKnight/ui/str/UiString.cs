@@ -69,6 +69,10 @@ namespace BurningKnight.ui.str {
 		public void SetVariable(string id, object o) {
 			Variables[id] = o;
 		}
+
+		public void ClearIcons() {
+			Icons.Clear();
+		}
 		
 		public void AddIcon(TextureRegion o) {
 			Icons.Add(o);
