@@ -129,14 +129,6 @@ namespace BurningKnight.entity.item.use {
 
 					pr?.Invoke(projectile);
 
-					if (stats != null) {
-						projectile.Damage *= stats.Damage;
-
-						if (projectile.Range > 0) {
-							projectile.Range *= stats.Range;
-						}
-					}
-
 					if (wait && i == 0) {
 						ProjectileDied = false;
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;

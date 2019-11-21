@@ -4,7 +4,11 @@ using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.mod;
+using BurningKnight.entity.component;
+using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.pet {
@@ -33,13 +37,38 @@ namespace BurningKnight.entity.creature.pet {
 				Owner = o
 			}));
 
-			Define("the_key", o => o.Area.Add(new TheKey {
+			Define("strawberry", o => o.Area.Add(new FollowerPet("bk:strawberry") {
 				Owner = o
 			}));
 
-			Define("strawberry", o => o.Area.Add(new Strawberry {
-				Owner = o
-			}));
+			Define("meat_guy", o => {
+				var timer = 0f;
+				var pet = new FollowerPet("bk:meat_guy") {
+					Owner = o
+				};
+
+				pet.Controller += dt => {
+					timer += dt;
+
+					if (timer >= 2f) {
+						timer = 0;
+
+						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim);
+						var projectile = Projectile.Make(o, "default", a, 10f);
+
+						projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
+						projectile.AddLight(32f, Projectile.YellowLight);
+
+						o.HandleEvent(new ProjectileCreatedEvent {
+							Projectile = projectile,
+							Owner = o
+						});
+					}
+				};
+
+				o.Area.Add(pet);
+				return pet;
+			});
 
 			Define("coin_pouch", o => o.Area.Add(new GeneratorPet("bk:coin_pouch", 3, a => Items.CreateAndAdd("bk:coin", a)) {
 				Owner = o

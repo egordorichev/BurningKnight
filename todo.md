@@ -1,7 +1,8 @@
 # publisher build stuff
 
 * fix {
- + gamepad shake
+ + screenshake is trash
+ + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
  + maximized bug
  + game sometimes doesnt exit even after window is closed
 }
