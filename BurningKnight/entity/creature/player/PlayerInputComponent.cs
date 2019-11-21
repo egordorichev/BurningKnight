@@ -141,10 +141,6 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasReleased(Controls.Duck, controller)) {
 					idle = false;
 					state.Become<Player.IdleState>();
-
-					var dialog = GetComponent<DialogComponent>();
-					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice("button_x"));
-					dialog.Start("Press [ic] to duck");
 				}
 			} else if (Input.WasPressed(Controls.Duck, controller)) {
 				idle = false;

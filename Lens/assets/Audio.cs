@@ -192,7 +192,7 @@ namespace Lens.assets {
 		};
 
 		public static void Preload(string music) {
-			if (toLoad.Contains(music) || musicInstances.ContainsKey(music)) {
+			if (!Assets.LoadAudio || toLoad.Contains(music) || musicInstances.ContainsKey(music)) {
 				return;
 			}
 			
@@ -203,7 +203,7 @@ namespace Lens.assets {
 		}
 		
 		public static void UpdateAudio() {
-			if (loadedAll || loading) {
+			if (!Assets.LoadAudio || loadedAll || loading) {
 				return;
 			}
 

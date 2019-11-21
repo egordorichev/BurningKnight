@@ -75,6 +75,10 @@ namespace BurningKnight.ui.str {
 		}
 		
 		public void AddIcon(TextureRegion o) {
+			if (o == null) {
+				Log.Error("Unknown icon");
+			}
+			
 			Icons.Add(o);
 		}
 
@@ -201,6 +205,8 @@ namespace BurningKnight.ui.str {
 										Id = parts.Length > 1 ? int.Parse(parts[1]) : 0,
 										Where = builder.Length
 									});
+									
+									builder.Append(' ');
 								} catch (Exception ex) {
 									Log.Error(ex);
 								}
@@ -331,6 +337,7 @@ namespace BurningKnight.ui.str {
 			label = builder.ToString();
 			builder.Clear();
 			var glp = font.GetGlyphs(label);
+			var spaceWidth = (int) (font.MeasureString("a a").Width - font.MeasureString("aa").Width);
 
 			if (WidthLimit > 0) {
 				var k = 0;
@@ -339,7 +346,6 @@ namespace BurningKnight.ui.str {
 				var sinceLast = 0;
 				var width = 0;
 				var first = true;
-				var spaceWidth = (int) (font.MeasureString("a a").Width - font.MeasureString("aa").Width);
 				var i = 0;
 				
 				foreach (var g in glp) {
@@ -364,7 +370,7 @@ namespace BurningKnight.ui.str {
 						foreach (var r in renderers) {
 							if (r.Where == i) {
 								if (r is IconRenderer ir) {
-									w += ir.GetWidth(this);
+									w += ir.GetWidth(this) - spaceWidth;
 									hadIcon = true;
 								}
 							}
@@ -416,19 +422,23 @@ namespace BurningKnight.ui.str {
 					G = g
 				};
 				
+				if (label[j] == '\n') {
+					ww = 0;
+				}
+				
+				gl.G.Position.X += ww;
+				
 				if (renderers.Count > 0) {
 					foreach (var r in renderers) {
 						if (r.Where == j) {
 							if (r is IconRenderer ir) {
-								var v = ir.GetWidth(this);
+								var v = ir.GetWidth(this) - spaceWidth;
 								ww += v;
 								FinalWidth += v;
 							}
 						}
 					}
 				}
-
-				gl.G.Position.X += ww;
 
 				gl.Reset();
 				glyphs.Add(gl);
@@ -484,17 +494,23 @@ namespace BurningKnight.ui.str {
 				}
 
 				if (renderers.Count > 0) {
+					Graphics.Color.A = (byte) MathUtils.Clamp(0, 255, (float) g.Color.A * Tint.A / 255f);
+
 					foreach (var r in renderers) {
 						if (r.Where == i) {
 							if (r is IconRenderer ir) {
-								Graphics.Render(ir.Region, new Vector2(Position.X + g.G.Position.X - ir.Region.Width, 
-									Position.Y + g.G.Position.Y + (ir.Region.Height - 7) / 2f - ir.Region.Height + 1));
+								if (ir.Region != null) {
+									Graphics.Render(ir.Region, new Vector2(Position.X + g.G.Position.X + g.Offset.X + g.Origin.X,
+										Position.Y + g.G.Position.Y + (ir.Region.Height - 7) / 2f - ir.Region.Height + 1 + g.Offset.Y + g.Origin.Y));
+								}
 							} else {
 								Renderer(Position + g.G.Position + g.Offset - new Vector2(0, 9), r.Id);
 							}
 						}
 					}
 				}
+				
+				Graphics.Color.A = 255;
 			}
 		}
 

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.debug;
 using BurningKnight.entity.component;
@@ -35,8 +36,16 @@ namespace BurningKnight.entity.creature.player {
 			base.OnItemSet(previous);
 			
 			if (Run.Depth > 0 && GlobalSave.IsFalse("control_active") && GetComponent<DialogComponent>().Dialog?.Str != null) {
-				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Active, GamepadComponent.Current != null, true));
-				Entity.GetComponent<DialogComponent>().StartAndClose("control_6", 5);
+				var dialog = GetComponent<DialogComponent>();
+								
+				dialog.Dialog.Str.ClearIcons();
+				dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Active, false)));
+
+				if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
+					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Active, true)));
+				}
+								
+				dialog.StartAndClose("control_6", 5);
 			}
 		}
 

@@ -21,8 +21,8 @@ namespace BurningKnight.entity.component {
 					return;
 				}
 
-				var a = Camera.Instance.GetComponent<ShakeComponent>().Amount;
-				Current.Rumble(a, Math.Min(1, a));
+				var a = Math.Min(1, Camera.Instance.GetComponent<ShakeComponent>().Amount / 20f);
+				Current.Rumble(a, a);
 			};
 		}
 		
@@ -42,6 +42,7 @@ namespace BurningKnight.entity.component {
 				}
 				
 				Log.Error($"Unknown gamepad ${Settings.Gamepad}");
+				Current = null;
 				Settings.Gamepad = null;
 			} else if (Controller == null) {
 				for (int i = 0; i < 4; i++) {

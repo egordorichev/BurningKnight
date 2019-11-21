@@ -13,8 +13,6 @@
  + no hit boss battle reward
 }
 
-* Allow to use images in ui string, get some gamepad and keyboard buttons going
-
 * room {
  + cleared effect
  + clear reward. Spawns in the center, destroying the tiles. 

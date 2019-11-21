@@ -321,15 +321,29 @@ namespace BurningKnight.assets.input {
 				
 				return $"button_{id.ToLower()}";
 			} else {
-				if (id == "LMB") {
+				id = id.ToLower();
+				
+				if (id == "lmb") {
 					return "button_lmb";
 				}
 
-				if (id == "RMB") {
+				if (id == "rmb") {
 					return "button_rmb";
 				}
+				
+				if (id.Contains("shift")) {
+					return "key_shift";
+				}
 
-				return $"key_{id.ToLower()}";
+				if (id.Contains("caps")) {
+					return "key_capslock";
+				}
+
+				if (id.Contains("ntrl")) {
+					return "key_control";
+				}
+
+				return $"key_{id}";
 			}
 
 			return id;
