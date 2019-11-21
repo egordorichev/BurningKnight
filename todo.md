@@ -5,14 +5,12 @@
 }
 
 * dark mage/granny rooms {
- + build bridges in the boss rooms to dm/granny rooms 
  + spawn chance logic
 }
 
 * granny: {
  + custom dialog in the room
- + dialog when you take an item, tp away after a few sec? 
- + dialog with bk
+ + dialog when you take an item
 }
 
 * bk: {
@@ -30,21 +28,19 @@
  }
 }
 
+* Allow to use images in ui string, get some gamepad and keyboard buttons going
 
-* imlement achievement unlocking
-* room cleared effect
+* room {
+ + cleared effect
+ + clear reward. Spawns in the center, destroying the tiles. 
+}
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* finish teleportation animation on player
 
 * !! game sometimes doesnt exit even after window is closed
 
-* second lvl deset enemies
- + no hit boss battle reward
-
+* no hit boss battle reward
 * look into maximized bug
-* Allow to use images in ui string, get some gamepad and keyboard buttons going
-* room clear reward. Spawns in the center, destroying the tiles. 
 
 * audio {
  + make ambience play in transitions? it feels empty

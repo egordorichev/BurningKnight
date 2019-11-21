@@ -188,10 +188,27 @@ namespace BurningKnight.level {
 				return;
 			}
 
+
+			MarkForBodyUpdate(x, y);
+			
+			if (x % LevelBodyComponent.ChunkSize == 0) {
+				MarkForBodyUpdate(x - 1, y);
+			} else if (x % LevelBodyComponent.ChunkSize == LevelBodyComponent.ChunkSize - 1) {
+				MarkForBodyUpdate(x + 1, y);
+			}
+			
+			if (y % LevelBodyComponent.ChunkSize == 0) {
+				MarkForBodyUpdate(x, y - 1);
+			} else if (y % LevelBodyComponent.ChunkSize == LevelBodyComponent.ChunkSize - 1) {
+				MarkForBodyUpdate(x, y + 1);
+			}
+		}
+		
+		private void MarkForBodyUpdate(int x, int y) {
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
 			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
 			HalfWall.GetComponent<HalfWallBodyComponent>().ReCreateBodyChunk(x, y);
-			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().ReCreateBodyChunk(x, y);
+			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().ReCreateBodyChunk(x, y);		
 		}
 		
 		public void CreateBody() {

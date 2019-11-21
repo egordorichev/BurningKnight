@@ -59,6 +59,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (died) {
 				if (!cleared) {
 					cleared = true;
+					GetComponent<DialogComponent>().Close();
 					
 					foreach (var p in Area.Tagged[Tags.Projectile]) {
 						AnimationUtil.Poof(p.Center);
@@ -73,10 +74,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 					var player = LocalPlayer.Locate(Area);
 
+					// fixme: do this only if a deal was open and only to the deals open
+					GetComponent<RoomComponent>().Room.PaintTunnel(Tile.FloorD);
+					Run.Level.TileUp();
+					Run.Level.CreateBody();
+					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
 
-						if (!stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
+						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {
 								var room = (Room) r;
 

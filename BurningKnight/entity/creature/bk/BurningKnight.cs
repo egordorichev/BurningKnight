@@ -229,6 +229,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Init() {
 				base.Init();
 
+				Self.GetComponent<DialogComponent>().Close();
 				var graphics = Self.GetComponent<BkGraphicsComponent>();
 
 				Tween.To(0, graphics.Alpha, x => graphics.Alpha = x, 0.3f, Ease.QuadIn).OnEnd = () => {
