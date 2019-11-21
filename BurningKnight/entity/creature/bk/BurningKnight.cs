@@ -139,7 +139,7 @@ namespace BurningKnight.entity.creature.bk {
 						}
 					} else if (t == RoomType.Granny) {
 						// GRANNY, CAN YOU JUST DIE, PLEASE??
-						GetComponent<DialogComponent>().StartAndClose("bk_9", 5);
+						GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
 					} else if (t == RoomType.OldMan) {
 						// MY MASTER, I BROUGHT THE GOBLIN
 						GetComponent<DialogComponent>().StartAndClose("bk_10", 5);

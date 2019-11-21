@@ -29,12 +29,12 @@ namespace BurningKnight.ui.str {
 	 * ^^ starts wave
 	 *
 	 * [event_name var1 var2] starts an event
-	 *  + [im image slice] shows image
 	 *  + [dl time] delays
 	 *  + [sp speed] sets speed
 	 *  + [ev event] fires user event
 	 *  + [vr variable_name] replaced with user variable
 	 *  + [cl color] sets color, can be hex or predefined string in Palette class
+	 *  + [ic id] draws an icon with id=id
 	 */
 	
 	/*
@@ -64,9 +64,14 @@ namespace BurningKnight.ui.str {
 		public CharTyped CharTyped;
 		public Action<Vector2, int> Renderer;
 		public Dictionary<string, object> Variables = new Dictionary<string, object>();
+		public List<TextureRegion> Icons = new List<TextureRegion>();
 
 		public void SetVariable(string id, object o) {
 			Variables[id] = o;
+		}
+		
+		public void AddIcon(TextureRegion o) {
+			Icons.Add(o);
 		}
 
 		public Color Tint = Color.White;
@@ -144,14 +149,6 @@ namespace BurningKnight.ui.str {
 						GlyphEvent e = null;
 
 						switch (parts[0]) {
-							case "im": {
-								if (parts.Length != 3) {
-									Log.Error("Invalid use of [im] tag. Should be [im image slice]");
-								}
-
-								break;
-							}
-							
 							case "sp": {
 								e = new SpeedEvent();
 								break;
@@ -174,14 +171,29 @@ namespace BurningKnight.ui.str {
 									} else {
 										Log.Error($"Undefined variable {parts[1]}!");
 									}
+
+									break;
 								}
 								
-								break;
+								continue;
 							}
 
 							case "rn": {
 								try {
 									renderers.Add(new StrRenderer {
+										Id = parts.Length > 1 ? int.Parse(parts[1]) : 0,
+										Where = builder.Length
+									});
+								} catch (Exception ex) {
+									Log.Error(ex);
+								}
+								
+								break;
+							}
+
+							case "ic": {
+								try {
+									renderers.Add(new IconRenderer {
 										Id = parts.Length > 1 ? int.Parse(parts[1]) : 0,
 										Where = builder.Length
 									});
@@ -241,17 +253,19 @@ namespace BurningKnight.ui.str {
 					case '^': {
 						if (lc == '^') {
 							AddEffect<WaveEffect>(builder);
+							break;
 						}
-						
-						break;
+
+						continue;
 					}
 
 					case '*': {
 						if (lc == '*') {
 							AddEffect<BoldEffect>(builder);
+							break;
 						}
-						
-						break;
+
+						continue;
 					}
 
 					case '_': {
@@ -262,33 +276,37 @@ namespace BurningKnight.ui.str {
 					case '%': {
 						if (lc == '%') {
 							AddEffect<RainbowEffect>(builder);
+							break;
 						}
-						
-						break;
+
+						continue;
 					}
 
 					case '&': {
 						if (lc == '&') {
 							AddEffect<FlipEffect>(builder);
+							break;
 						}
-						
-						break;
+
+						continue;
 					}
 
 					case '@': {
 						if (lc == '@') {
 							AddEffect<BlinkEffect>(builder);
+							break;
 						}
 						
-						break;
+						continue;
 					}
 
 					case '#': {
 						if (lc == '#') {
 							AddEffect<ShakeEffect>(builder);
+							break;
 						}
 						
-						break;
+						continue;
 					}
 
 					default: {
@@ -318,6 +336,7 @@ namespace BurningKnight.ui.str {
 				var width = 0;
 				var first = true;
 				var spaceWidth = (int) (font.MeasureString("a a").Width - font.MeasureString("aa").Width);
+				var i = 0;
 				
 				foreach (var g in glp) {
 					var c = label[k];
@@ -335,7 +354,22 @@ namespace BurningKnight.ui.str {
 						w = g.FontRegion.Width;
 					}
 
-					if (c != '\n') {
+					var hadIcon = false;
+					
+					if (renderers.Count > 0) {
+						foreach (var r in renderers) {
+							if (r.Where == i) {
+								if (r is IconRenderer ir) {
+									w += ir.GetWidth(this);
+									hadIcon = true;
+								}
+							}
+						}
+					}
+					
+					i++;
+
+					if (c != '\n' || hadIcon) {
 						sinceLast += w;
 						width += w;
 
@@ -371,11 +405,26 @@ namespace BurningKnight.ui.str {
 			finalHeight = size.Height - 4;
 
 			var j = 0;
+			var ww = 0;
 
 			foreach (var g in glp) {
 				var gl = new Glyph {
 					G = g
 				};
+				
+				if (renderers.Count > 0) {
+					foreach (var r in renderers) {
+						if (r.Where == j) {
+							if (r is IconRenderer ir) {
+								var v = ir.GetWidth(this);
+								ww += v;
+								FinalWidth += v;
+							}
+						}
+					}
+				}
+
+				gl.G.Position.X += ww;
 
 				gl.Reset();
 				glyphs.Add(gl);
@@ -433,7 +482,12 @@ namespace BurningKnight.ui.str {
 				if (renderers.Count > 0) {
 					foreach (var r in renderers) {
 						if (r.Where == i) {
-							Renderer(Position + g.G.Position + g.Offset - new Vector2(0, 9), r.Id);
+							if (r is IconRenderer ir) {
+								Graphics.Render(ir.Region, new Vector2(Position.X + g.G.Position.X - ir.Region.Width, 
+									Position.Y + g.G.Position.Y + (ir.Region.Height - 7) / 2f - ir.Region.Height + 1));
+							} else {
+								Renderer(Position + g.G.Position + g.Offset - new Vector2(0, 9), r.Id);
+							}
 						}
 					}
 				}
