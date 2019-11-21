@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -69,8 +70,16 @@ namespace BurningKnight.entity.creature.player {
 			Item?.TakeOut();
 
 			if (Run.Depth == -2) {
-				Entity.GetComponent<DialogComponent>().Dialog?.Str?.SetVariable("ctrl", Controls.Find(Controls.Use, GamepadComponent.Current != null, true));
-				Entity.GetComponent<DialogComponent>().Start("control_2");
+				var dialog = GetComponent<DialogComponent>();
+								
+				dialog.Dialog.Str.ClearIcons();
+				dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Use, false)));
+
+				if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
+					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Use, true)));
+				}
+								
+				dialog.StartAndClose("control_2", 5);
 			}
 		}
 	}

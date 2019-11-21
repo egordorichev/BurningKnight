@@ -12,10 +12,13 @@ using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
 using BurningKnight.level;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.granny;
+using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
+using BurningKnight.util.geometry;
 using ImGuiNET;
 using Lens.entity;
 using Lens.graphics;
@@ -386,6 +389,115 @@ namespace BurningKnight.entity.room {
 
 					Camera.Instance.Shake(10);
 				}
+			}
+		}
+
+		public void PaintTunnel(List<Door> Doors, Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true) {
+			if (Doors.Count == 0) {
+				return;
+			}
+
+			var Level = Run.Level;
+			var C = space;
+
+			if (C == null) {
+				var c = new Dot(MapX + MapW /2, MapY + MapH / 2);
+				C = new Rect(c.X, c.Y, c.X, c.Y);
+			}
+
+			var minLeft = C.Left;
+			var maxRight = C.Right;
+			var minTop = C.Top;
+			var maxBottom = C.Bottom;
+			var Right = MapX + MapW - 1;
+			var Bottom = MapY + MapH - 1;
+
+			foreach (var Door in Doors) {
+				var dx = (int) Math.Floor(Door.CenterX / 16f);
+				var dy = (int) Math.Floor(Door.CenterY / 16f);
+				var Start = new Dot(dx, dy);
+				Dot Mid;
+				Dot End;
+
+				if (shift) {
+					if ((int) Start.X == MapX) {
+						Start.X++;
+					} else if ((int) Start.Y == MapY) {
+						Start.Y++;
+					} else if ((int) Start.X == Right) {
+						Start.X--;
+					} else if ((int) Start.Y == Bottom) {
+						Start.Y--;
+					}
+				}
+
+				int RightShift;
+				int DownShift;
+
+				if (Start.X < C.Left) {
+					RightShift = (int) (C.Left - Start.X);
+				} else if (Start.X > C.Right) {
+					RightShift = (int) (C.Right - Start.X);
+				} else {
+					RightShift = 0;
+				}
+
+				if (Start.Y < C.Top) {
+					DownShift = (int) (C.Top - Start.Y);
+				} else if (Start.Y > C.Bottom) {
+					DownShift = (int) (C.Bottom - Start.Y);
+				} else {
+					DownShift = 0;
+				}
+
+				if (dx == MapX || dx == Right) {
+					Mid = new Dot(MathUtils.Clamp(MapX + 1, Right - 1, Start.X + RightShift), MathUtils.Clamp(MapY + 1, Bottom - 1, Start.Y));
+					End = new Dot(MathUtils.Clamp(MapX + 1, Right - 1, Mid.X), MathUtils.Clamp(MapY + 1, Bottom - 1, Mid.Y + DownShift));
+				} else {
+					Mid = new Dot(MathUtils.Clamp(MapX + 1, Right - 1, Start.X), MathUtils.Clamp(MapY + 1, Bottom - 1, Start.Y + DownShift));
+					End = new Dot(MathUtils.Clamp(MapX + 1, Right - 1, Mid.X + RightShift), MathUtils.Clamp(MapY + 1, Bottom - 1, Mid.Y));
+				}
+
+				Painter.DrawLine(Level, Start, Mid, Floor, Bold);
+				Painter.DrawLine(Level, Mid, End, Floor, Bold);
+
+				if (Rnd.Chance(10)) {
+					Painter.Set(Level, End, Tiles.RandomFloor());
+				}
+
+				minLeft = Math.Min(minLeft, End.X);
+				minTop = Math.Min(minTop, End.Y);
+				maxRight = Math.Max(maxRight, End.X);
+				maxBottom = Math.Max(maxBottom, End.Y);
+			}
+
+			if (randomRect && Rnd.Chance(20)) {
+				if (Rnd.Chance()) {
+					minLeft--;
+				}
+				
+				if (Rnd.Chance()) {
+					minTop--;
+				}
+				
+				if (Rnd.Chance()) {
+					maxRight++;
+				}
+				
+				if (Rnd.Chance()) {
+					maxBottom++;
+				}
+			}
+
+			minLeft = MathUtils.Clamp(MapX + 1, Right - 1, minLeft);
+			minTop = MathUtils.Clamp(MapY + 1, Bottom - 1, minTop);
+			maxRight = MathUtils.Clamp(MapX + 1, Right - 1, maxRight);
+			maxBottom = MathUtils.Clamp(MapY + 1, Bottom - 1, maxBottom);
+
+			if (Rnd.Chance()) {
+				Painter.Fill(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Rnd.Chance() ? Floor : Tiles.RandomFloor());
+			} else {
+				Painter.Rect(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Rnd.Chance() ? Floor : Tiles.RandomFloor());
 			}
 		}
 	}

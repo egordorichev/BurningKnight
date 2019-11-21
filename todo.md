@@ -2,49 +2,25 @@
 
 * fix {
  + gamepad shake
-}
-
-* dark mage/granny rooms {
- + build bridges in the boss rooms to dm/granny rooms 
- + spawn chance logic
-}
-
-* granny: {
- + custom dialog in the room
- + dialog when you take an item, tp away after a few sec? 
- + dialog with bk
+ + maximized bug
+ + game sometimes doesnt exit even after window is closed
 }
 
 * bk: {
  + better into boss going anim
  + better getting out of boss
- + check how saving works with capturing bosses
- 
- + dialog interactions {
-  - freeing npc
-  - enraging sk 
-  - killing sk
-  - finding a secret room (oh comon stop breaking my castle)
-  - hi my master to gm
-  - not you again to granny
- }
+ + fix how saving works with capturing ths bosses
+ + no hit boss battle reward
 }
 
+* room {
+ + cleared effect
+ + clear reward. Spawns in the center, destroying the tiles. 
+}
 
-* imlement achievement unlocking
-* room cleared effect
-
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* finish teleportation animation on player
-
-* !! game sometimes doesnt exit even after window is closed
-
-* second lvl deset enemies
- + no hit boss battle reward
-
-* look into maximized bug
-* Allow to use images in ui string, get some gamepad and keyboard buttons going
-* room clear reward. Spawns in the center, destroying the tiles. 
+* ui {
+ + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+}
 
 * audio {
  + make ambience play in transitions? it feels empty
@@ -56,6 +32,12 @@
 
 + hub {
  + allow to layer in stuff for speical events
+}
+
+* twitter {
+ + showcase desert area
+ + showcase boss
+ + showcase granny/dm rooms
 }
 
 ##

@@ -1,3 +1,4 @@
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
@@ -83,8 +84,16 @@ namespace BurningKnight.entity.creature.player {
 					switch (type) {
 						case ItemType.Bomb: {
 							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {	
-								GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Bomb, GamepadComponent.Current != null, true));
-								GetComponent<DialogComponent>().StartAndClose("control_0", 5);
+								var dialog = GetComponent<DialogComponent>();
+								
+								dialog.Dialog.Str.ClearIcons();
+								dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, false)));
+
+								if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
+									dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, true)));
+								}
+								
+								dialog.StartAndClose("control_0", 5);
 							}
 							
 							a.Emit("bomb");

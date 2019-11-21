@@ -5,6 +5,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using Lens;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -16,34 +17,48 @@ namespace BurningKnight.entity.fx {
 		private Entity entity;
 		private float y;
 		private TweenTask task;
-
-		public InteractFx(Entity e, string str) {
+		private TextureRegion region;
+		private float offset;
+		
+		public InteractFx(Entity e, string str, TextureRegion sprite = null, float of = 0) {
 			entity = e;
 			text = str;
+			region = sprite;
 			AlwaysActive = true;
 			AlwaysVisible = true;
+			offset = of;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
-			
-			var size = Font.Medium.MeasureString(text);
+
+			if (region != null) {
+				Width = region.Width;
+				Height = region.Height;
+				
+				var component = new ScalableSliceComponent(region);
+				AddComponent(component);
+
+				component.Scale = Vector2.Zero;
+				component.Origin = new Vector2(Width / 2, Height / 2);
+				task = Tween.To(1f, component.Scale.X, x => component.Scale = new Vector2(x), 0.25f, Ease.BackOut);
+			} else {
+				var size = Font.Medium.MeasureString(text);
+
+				Width = size.Width;
+				Height = size.Height;
+				
+				var component = new TextGraphicsComponent(text);
+				AddComponent(component);
+
+				component.Scale = 0;
+				task = Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
+			}
 
 			Depth = Layers.InGameUi;
-			Width = size.Width;
-			Height = size.Height;
-			CenterX = entity.CenterX;
+			CenterX = entity.CenterX + offset;
 			Y = entity.Y - Height;
 			
-			Width = size.Width;
-			Height = size.Height;
-			
-			var component = new TextGraphicsComponent(text);
-			AddComponent(component);
-
-			component.Scale = 0;
-			task = Tween.To(component, new {Scale = 1.3f}, 0.25f, Ease.BackOut);
-
 			y = 12;
 			Tween.To(0, y, x => y = x, 0.2f);
 			
@@ -51,8 +66,11 @@ namespace BurningKnight.entity.fx {
 		}
 
 		private void UpdatePosition() {
-			Center = Camera.Instance.CameraToUi(new Vector2(entity.CenterX, entity.Y - 8 + y));
-			GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
+			Center = Camera.Instance.CameraToUi(new Vector2(entity.CenterX + offset, entity.Y - 8 + y));
+
+			if (region == null) {
+				GetComponent<TextGraphicsComponent>().Angle = (float) (Math.Cos(Engine.Instance.State.Time) * 0.05f);
+			}
 		}
 
 		public override void Render() {
@@ -75,10 +93,15 @@ namespace BurningKnight.entity.fx {
 					}
 
 					task.Ended = true;
-					
-					Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
+
+					if (region != null) {
+						var c = GetComponent<ScalableSliceComponent>();
+						Tween.To(0, c.Scale.X, x => c.Scale = new Vector2(x), 0.25f, Ease.BackOut).OnEnd = () => Done = true;
+					} else {
+						Tween.To(GetComponent<TextGraphicsComponent>(), new {Scale = 0}, 0.2f).OnEnd = () => Done = true;
+					}
+
 					Tween.To(12, y, x => y = x, 0.5f);
-					
 					tweened = true;
 				}
 			}

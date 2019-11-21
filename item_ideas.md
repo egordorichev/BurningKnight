@@ -21,6 +21,9 @@
 
 ### items
 
+* 100% dm deal/granny deal
+* getting one deal opens up the other one
+
 * range up, speed up, dmg up but scaling, accuracy up etc, soy milk obv
 * pickaxe implementation
 

@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
@@ -59,6 +60,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (died) {
 				if (!cleared) {
 					cleared = true;
+					GetComponent<DialogComponent>().Close();
 					
 					foreach (var p in Area.Tagged[Tags.Projectile]) {
 						AnimationUtil.Poof(p.Center);
@@ -72,16 +74,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 					});
 
 					var player = LocalPlayer.Locate(Area);
-
+					var doors = new List<Door>();
+					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
 
-						if (!stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
+						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {
 								var room = (Room) r;
 
 								if (room.Type == RoomType.Granny) {
 									room.OpenHiddenDoors();
+									doors.AddRange(room.Doors);
+									
 									break;
 								}
 							}
@@ -93,12 +98,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 								if (room.Type == RoomType.OldMan) {
 									room.OpenHiddenDoors();
+									doors.AddRange(room.Doors);
+
 									break;
 								}
 							}
 						}
 					}
-					
+
+					if (doors.Count > 0) {
+						GetComponent<RoomComponent>().Room.PaintTunnel(doors, Tiles.RandomFloor());
+						Run.Level.TileUp();
+						Run.Level.CreateBody();
+					}
+
 					Done = true;
 					PlaceRewards();
 					

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -141,9 +142,10 @@ namespace BurningKnight.entity {
 			who.HandleEvent(new SecretRoomFoundEvent {
 				Who = who
 			});
-
+			
+			Achievements.Unlock("bk:treasure_hunter");
+			
 			LightUp(x * 16 + 8, y * 16 + 8);
-
 			Level.Animate(who.Area, x, y);
 		}
 

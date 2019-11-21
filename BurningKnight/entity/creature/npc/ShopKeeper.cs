@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -60,6 +61,10 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(3, 5)}", 1);
 
 					SetItemsFree();
+
+					HandleEvent(new EnragedEvent {
+						ShopKeeper = this
+					});
 				}
 
 				Recalc();
@@ -170,6 +175,8 @@ namespace BurningKnight.entity.creature.npc {
 					Mood++;
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
 				}
+			} else if (e is DiedEvent) {
+				Achievements.Unlock("bk:marauder");
 			}
 
 			return base.HandleEvent(e);
@@ -374,6 +381,10 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override bool ShouldCollide(Entity entity) {
 			return !(entity is ItemStand) && base.ShouldCollide(entity);
+		}
+
+		public class EnragedEvent : Event {
+			public ShopKeeper ShopKeeper;
 		}
 	}
 }

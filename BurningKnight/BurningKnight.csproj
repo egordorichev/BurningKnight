@@ -555,6 +555,7 @@
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MaxHealthModifiedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\events\NewLevelStartedEvent.cs" />
     <Compile Include="entity\events\PlayerHurtEvent.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
     <Compile Include="entity\events\PostHealthModifiedEvent.cs" />
@@ -999,6 +1000,7 @@
     <Compile Include="ui\str\event\SpeedEvent.cs" />
     <Compile Include="ui\str\event\UserEvent.cs" />
     <Compile Include="ui\str\Glyph.cs" />
+    <Compile Include="ui\str\IconRenderer.cs" />
     <Compile Include="ui\str\StrRenderer.cs" />
     <Compile Include="ui\str\UiString.cs" />
     <Compile Include="ui\UiBanner.cs" />

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
@@ -59,7 +60,15 @@ namespace BurningKnight.entity.creature.npc {
 
 			if (!set) {
 				set = true;
-				GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl", Controls.Find(Controls.Duck, GamepadComponent.Current != null, true));
+				
+				var dialog = GetComponent<DialogComponent>();
+								
+				dialog.Dialog.Str.ClearIcons();
+				dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Duck, false)));
+
+				if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
+					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Duck, true)));
+				}
 			}
 		}
 		

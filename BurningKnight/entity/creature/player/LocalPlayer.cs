@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.component;
+﻿using BurningKnight.assets.achievements;
+using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.state;
 using Lens;
@@ -36,6 +37,8 @@ namespace BurningKnight.entity.creature.player {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
 					Done = false;
+					
+					Achievements.Unlock("bk:rip");
 
 					Audio.FadeOut();
 					

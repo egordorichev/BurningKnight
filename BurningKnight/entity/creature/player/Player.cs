@@ -188,42 +188,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			lastDepth = Run.Depth;
-			
-			foreach (var c in Area.Tagged[Tags.Checkpoint]) {
-				Center = c.Center;
-				Log.Debug("Teleported to spawn point");
-				return;
-			}
-
-			foreach (var c in Area.Tagged[Tags.Entrance]) {
-				Center = c.Center + new Vector2(0, 4);
-				Log.Debug("Teleported to entrance");
-				return;
-			}
-			
-			foreach (var r in Area.Tagged[Tags.Room]) {
-				var rm = (Room) r;
-
-				if (rm.Type == RoomType.Entrance) {
-					Center = r.Center;
-					rm.Discover();
-
-					return;
-				}
-			}
-			
-			foreach (var r in Area.Tagged[Tags.Room]) {
-				var rm = (Room) r;
-				
-				if (rm.Type == RoomType.Exit) {
-					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
-					rm.Discover();
-
-					return;
-				}
-			}
-			
-			Log.Error("Did not find a spawn point!");
+			HandleEvent(new NewLevelStartedEvent());
 		}
 		
 		#region Player States
@@ -497,6 +462,42 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
+			} else if (e is NewLevelStartedEvent) {
+				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
+					Center = cc.Center;
+					Log.Debug("Teleported to spawn point");
+					return base.HandleEvent(e);
+				}
+
+				foreach (var cc in Area.Tagged[Tags.Entrance]) {
+					Center = cc.Center + new Vector2(0, 4);
+					Log.Debug("Teleported to entrance");
+					return base.HandleEvent(e);
+				}
+			
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					var rm = (Room) r;
+
+					if (rm.Type == RoomType.Entrance) {
+						Center = r.Center;
+						rm.Discover();
+
+						return base.HandleEvent(e);
+					}
+				}
+			
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					var rm = (Room) r;
+				
+					if (rm.Type == RoomType.Exit) {
+						Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+						rm.Discover();
+
+						return base.HandleEvent(e);
+					}
+				}
+			
+				Log.Error("Did not find a spawn point!");
 			}
 			
 			return base.HandleEvent(e);

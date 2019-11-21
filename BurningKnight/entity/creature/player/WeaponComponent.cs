@@ -69,10 +69,16 @@ namespace BurningKnight.entity.creature.player {
 						if (GlobalSave.IsTrue("control_swap")) {
 							Entity.GetComponent<ActiveWeaponComponent>().requestSwap = true;
 						} else {
-							Entity.GetComponent<DialogComponent>().Dialog.Str.SetVariable("ctrl",
-									Controls.Find(Controls.Swap, GamepadComponent.Current != null, true));
+							var dialog = GetComponent<DialogComponent>();
+								
+							dialog.Dialog.Str.ClearIcons();
+							dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Swap, false)));
 
-							Entity.GetComponent<DialogComponent>().StartAndClose("control_5", 5);
+							if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
+								dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Swap, true)));
+							}
+								
+							dialog.StartAndClose("control_5", 5);
 						}
 					}
 				}

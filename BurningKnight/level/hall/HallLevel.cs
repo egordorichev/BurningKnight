@@ -29,7 +29,7 @@ namespace BurningKnight.level.hall {
 		}
 
 		public override string GetMusic() {
-			return "Outsider";
+			return "Gobbeon";
 		}
 	}
 }

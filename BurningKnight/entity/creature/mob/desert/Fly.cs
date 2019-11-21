@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
@@ -61,7 +62,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			};
 		}
 
-		#region Cactus States
+		#region Fly States
 		public class IdleState : SmartState<Fly> {
 			private bool searched;
 			private Entity target;
@@ -78,7 +79,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 				if (!searched) {
 					searched = true;
-					target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Mob, e => !e.HasComponent<OrbitalComponent>() && !(e is WallWalker));
+					target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Mob, e => !e.HasComponent<OrbitalComponent>() && !(e is WallWalker || e is Boss));
 				}
 
 				if (target != null) {
