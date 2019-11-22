@@ -1,6 +1,9 @@
 # publisher build stuff
 
 * fix {
+ + the weapons go crazy when you point directly up or down
+ + add a way to exit the game
+
  + screenshake is trash
  + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
  + maximized bug

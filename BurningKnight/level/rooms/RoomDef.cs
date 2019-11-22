@@ -250,7 +250,7 @@ namespace BurningKnight.level.rooms {
 						var Dy = (int) (Door.Y - dot.Y);
 						var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-						if (D < 3) {
+						if (D < 4) {
 							found = true;
 							break;
 						}
@@ -310,7 +310,7 @@ namespace BurningKnight.level.rooms {
 					var Dy = (int) (Door.Y - dot.Y);
 					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-					if (D < 3) {
+					if (D < 4) {
 						found = true;
 						break;
 					}
