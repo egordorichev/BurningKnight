@@ -27,6 +27,7 @@
  + make ambience play in transitions? it feels empty
  + boss sounds
  + bk fire sound (when near)
+ + slow down music when you die
 }
 
 * breakable torch

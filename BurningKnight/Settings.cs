@@ -29,7 +29,7 @@ namespace BurningKnight {
 
 		public static float SfxVolume {
 			get => Audio.SfxVolume;
-			set => Audio.SfxVolume = value;
+			set => Audio.SfxVolume = masterVolume * value;
 		}
 		
 		// Graphics
