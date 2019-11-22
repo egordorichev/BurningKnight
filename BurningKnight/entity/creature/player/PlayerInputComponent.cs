@@ -59,20 +59,6 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		public override bool HandleEvent(Event e) {
-			var controller = GetComponent<GamepadComponent>().Controller;
-			
-			if (controller != null) {
-				if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
-					controller.Rumble(0.5f, 0.2f);
-				} else if (e is DiedEvent) {
-					controller.Rumble(1f, 0.4f);
-				}
-			}
-
-			return base.HandleEvent(e);
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
 

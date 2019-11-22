@@ -1604,7 +1604,7 @@ namespace BurningKnight.state {
 					GamepadData.Identifiers = id.ToArray();
 				}
 			});
-
+			
 			sy += space * 0.5f;
 			
 			inputSettings.Add(new UiButton {
@@ -1634,6 +1634,8 @@ namespace BurningKnight.state {
 					};
 				}
 			});
+			
+			gamepad.Visible = GamepadComponent.Current != null || Settings.Gamepad != null;
 			
 			inputBack = (UiButton) inputSettings.Add(new UiButton {
 				LocaleLabel = "back",
@@ -1827,6 +1829,20 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space,
 			});
 			
+			gamepadSettings.Add(new UiCheckbox {
+				Name = "vibration",
+				On = Settings.Vibrate,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 2,
+				Click = b => {
+					Settings.Vibrate = ((UiCheckbox) b).On;
+				},
+				
+				OnUpdate = c => {
+					((UiCheckbox) c).On = Settings.Vibrate;
+				}
+			});
+
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,
