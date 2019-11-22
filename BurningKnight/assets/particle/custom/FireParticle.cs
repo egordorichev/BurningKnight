@@ -45,6 +45,8 @@ namespace BurningKnight.assets.particle.custom {
 			if (Region == null) {
 				Region = CommonAse.Particles.GetSlice("fire");
 			}
+			
+			AddTag(Tags.FireParticle);
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
@@ -151,6 +153,10 @@ namespace BurningKnight.assets.particle.custom {
 		public float XChange = 1;
 
 		public override void Render() {
+			
+		}
+		
+		public void ActuallyRender() {
 			if (Delay > 0) {
 				return;
 			}
@@ -159,30 +165,32 @@ namespace BurningKnight.assets.particle.custom {
 			var pos = Position + Offset + Region.Center;
 
 			pos.X += (float) Math.Cos(SinOffset + T * 2.5f) * Scale * 8 * XChange;
-
-			var state = Engine.Instance.StateRenderer;
-
-			state.End();
-			var b = state.BlendState;
-			state.BlendState = BlendState.Additive;
-			state.Begin();
-			
-			/*
-			 *
-			 *
-			 *
-			 * fixme: super bad perforamnce, imo, figure out the right blend mode, to make this stuff look like its glowing??
-			 */
-			
+		
 			Graphics.Color = new Color(R, G, B, 0.5f);
 			Graphics.Render(Region, pos, a, Region.Center, new Vector2(Scale * 10));
 			Graphics.Color = new Color(R, G, B, 1f);
 			Graphics.Render(Region, pos, a, Region.Center, new Vector2(Scale * 5));
-			Graphics.Color = ColorUtils.WhiteColor;
+		}
 
-			state.End();
-			state.BlendState = b;
-			state.Begin();
+		public static void Hook(Area area) {
+			area.Add(new RenderTrigger(() => {
+				var state = Engine.Instance.StateRenderer;
+
+				state.End();
+				var b = state.BlendState;
+				state.BlendState = BlendState.Additive;
+				state.Begin();
+				
+				foreach (var e in area.Tagged[Tags.FireParticle]) {
+					((FireParticle) e).ActuallyRender();
+				}
+				
+				Graphics.Color = ColorUtils.WhiteColor;
+
+				state.End();
+				state.BlendState = b;
+				state.Begin();
+			}, Layers.WindFx));
 		}
 	}
 }

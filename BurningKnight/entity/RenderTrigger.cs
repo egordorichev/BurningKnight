@@ -7,6 +7,15 @@ namespace BurningKnight.entity {
 		private Action method;
 		public Entity Entity;
 		
+		
+		public RenderTrigger(Action method, int depth) {
+			Depth = depth;
+			AlwaysActive = true;
+			AlwaysVisible = true;
+
+			this.method = method;
+		}
+		
 		public RenderTrigger(Entity entity, Action method, int depth) {
 			Depth = depth;
 			Entity = entity;
@@ -17,7 +26,7 @@ namespace BurningKnight.entity {
 		}
 
 		public override void Render() {
-			if (Entity.Done) {
+			if (Entity != null && Entity.Done) {
 				Done = true;
 				return;
 			}

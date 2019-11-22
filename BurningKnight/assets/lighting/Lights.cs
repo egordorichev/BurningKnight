@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.debug;
+using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
@@ -89,6 +90,14 @@ namespace BurningKnight.assets.lighting {
 			}
 
 			Graphics.Color = ColorUtils.WhiteColor;
+			Graphics.Color.A = 130;
+
+			foreach (var p in Run.Level.Area.Tagged[Tags.Projectile]) {
+				var cc = p.GetComponent<ProjectileGraphicsComponent>();
+				Graphics.Render(cc.Sprite, p.Center, cc.Rotation, cc.Sprite.Center, new Vector2(((Projectile) p).Scale * 2));
+			}
+
+			Graphics.Color.A = 255;
 
 			Run.Level?.RenderTileLights();
 

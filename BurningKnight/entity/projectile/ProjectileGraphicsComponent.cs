@@ -11,6 +11,7 @@ namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : SliceComponent {
 		public static TextureRegion Flash;
 		public bool IgnoreRotation;
+		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
 		
 		public ProjectileGraphicsComponent(string image, string slice) : base(image, slice) {
 			if (Flash == null) {
@@ -21,7 +22,7 @@ namespace BurningKnight.entity.projectile {
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
-			var a = IgnoreRotation ? 0 : p.BodyComponent.Body.Rotation;
+			var a = Rotation;
 			
 			var spr = p.FlashTimer > 0 ? Flash : Sprite;
 			var or = spr.Center; // new Vector2(p.Width / 2, p.Height / 2);

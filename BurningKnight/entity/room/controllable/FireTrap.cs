@@ -1,5 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.component;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -28,13 +30,13 @@ namespace BurningKnight.entity.room.controllable {
 		}
 
 		private void ResetTimer() {
-			timer = X / 64f * 5f;
+			timer = X / 256f * 5f % 5f;
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!On) {
+			if (!On || GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count == 0) {
 				ResetTimer();
 				return;
 			}
@@ -42,7 +44,7 @@ namespace BurningKnight.entity.room.controllable {
 			timer += dt;
 
 			if (flaming) {
-				if (timer <= 0.4f) {
+				if (timer <= 0.3f) {
 					lastParticle -= dt;
 					
 					if (lastParticle <= 0) {
@@ -67,7 +69,7 @@ namespace BurningKnight.entity.room.controllable {
 							XChange = 0.1f,
 							Scale = 0.3f,
 							Vy = 8,
-							Hurts = Rnd.Chance(),
+							Hurts = Rnd.Chance(10),
 							Mod = 4
 						});
 					}

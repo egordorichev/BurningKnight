@@ -6,6 +6,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -212,6 +213,7 @@ namespace BurningKnight.state {
 				TransitionToOpen();
 			}
 
+			FireParticle.Hook(Area);
 			Run.StartedNew = false;
 		}
 

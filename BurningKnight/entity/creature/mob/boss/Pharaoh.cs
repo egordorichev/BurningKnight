@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.KnockbackModifier = 0.1f;
 			body.Body.LinearDamping = 4;
 
-			AddComponent(new ZAnimationComponent("pharaoh"));
+			AddAnimation("pharaoh");
 			SetMaxHp(100);
 		}
 
