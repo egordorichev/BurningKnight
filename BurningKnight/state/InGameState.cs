@@ -974,25 +974,29 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 			
 			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Depth",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start - space
+				RelativeCenterY = start - space,
+				Clickable = false
 			});
 			
 			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Time",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start
+				RelativeCenterY = start,
+				Clickable = false
 			});
 			
 			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Mobs Killed",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space
+				RelativeCenterY = start + space,
+				Clickable = false
 			});
 			
 			gameOverMenu.Add(new UiButton {
