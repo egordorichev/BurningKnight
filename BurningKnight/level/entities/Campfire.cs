@@ -2,6 +2,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.editor;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -32,7 +33,7 @@ namespace BurningKnight.level.entities {
 
 				var room = GetComponent<RoomComponent>().Room;
 
-				if (room != null && room.Tagged[Tags.Player].Count > 0) {
+				if (Run.Depth < 1 || (room != null && room.Tagged[Tags.Player].Count > 0)) {
 					Area.Add(new FireParticle {
 						X = CenterX + Rnd.Float(-4, 4),
 						Y = CenterY
