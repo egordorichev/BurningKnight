@@ -87,8 +87,7 @@ namespace BurningKnight.assets.lighting {
 			Graphics.Color.A = 150;
 
 			foreach (var p in Run.Level.Area.Tagged[Tags.Projectile]) {
-				var cc = p.GetComponent<ProjectileGraphicsComponent>();
-				Graphics.Render(cc.Sprite, p.Center, cc.Rotation, cc.Sprite.Center, new Vector2(((Projectile) p).Scale * 2));
+				p.GetComponent<ProjectileGraphicsComponent>().RenderLight();
 			}
 			
 			state.End();

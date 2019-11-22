@@ -20,10 +20,12 @@ using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
@@ -301,6 +303,22 @@ namespace BurningKnight.entity.projectile {
 			deathTimer = 0.1f;
 			
 			try {
+				var l = BodyComponent.Velocity.Length();
+				
+				if (l > 1f) {
+					var a = VectorExtension.ToAngle(BodyComponent.Velocity);
+					
+					for (var i = 0; i < 4; i++) {
+						var part = new ParticleEntity(Particles.Dust());
+						
+						part.Position = Center;
+						Run.Level.Area.Add(part);
+						part.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.2f, 0.2f), l);
+						part.Depth = Layers.WindFx;
+						part.Particle.Scale = 0.7f;
+					}
+				}
+				
 				OnDeath?.Invoke(this, timeout);
 			} catch (Exception e) {
 				Log.Error(e);

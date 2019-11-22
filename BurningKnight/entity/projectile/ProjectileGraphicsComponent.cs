@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
@@ -12,11 +13,14 @@ namespace BurningKnight.entity.projectile {
 		public static TextureRegion Flash;
 		public bool IgnoreRotation;
 		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
+		public TextureRegion Big;
 		
 		public ProjectileGraphicsComponent(string image, string slice) : base(image, slice) {
 			if (Flash == null) {
 				Flash = CommonAse.Particles.GetSlice("flash");
 			}
+
+			Big = Animations.Get(image).GetSlice($"{slice}_big");
 		}
 
 		public override void Render(bool shadow) {
@@ -58,6 +62,12 @@ namespace BurningKnight.entity.projectile {
 
 			if (started) {
 				Shaders.End();
+			}
+		}
+		
+		public void RenderLight() {
+			if (Big != null) {
+				Graphics.Render(Big, Entity.Center, Rotation, Big.Center, new Vector2(((Projectile) Entity).Scale));
 			}
 		}
 	}
