@@ -9,7 +9,8 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.ui {
 	public class UiEntity : Entity {
 		public UiEntity Super;
-		
+		public bool Clickable = true;
+
 		#region Relative Position
 		public Vector2 RelativePosition;
 
@@ -90,16 +91,22 @@ namespace BurningKnight.ui {
 		}
 		
 		protected virtual void OnHover() {
-			Tween.To(1 + ScaleMod * 0.2f, scale, x => scale = x, 0.1f);
+			if (Clickable) {
+				Tween.To(1 + ScaleMod * 0.2f, scale, x => scale = x, 0.1f);
+			}
 		}
 
 		protected virtual void OnUnhover() {
-			Tween.To(1f, scale, x => scale = x, 0.1f);
+			if (Clickable) {
+				Tween.To(1f, scale, x => scale = x, 0.1f);
+			}
 		}
 
 		public virtual void OnClick() {
-			Tween.To(1 - ScaleMod * 0.5f, scale, x => scale = x, 0.1f).OnEnd = () =>
-				Tween.To(1f, scale, x => scale = x, 0.2f);
+			if (Clickable) {
+				Tween.To(1 - ScaleMod * 0.5f, scale, x => scale = x, 0.1f).OnEnd = () =>
+					Tween.To(1f, scale, x => scale = x, 0.2f);
+			}
 		}
 	}
 }

@@ -253,7 +253,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 				for (var i = 0; i < (Self.Raging ? 2 : 1) * InnerCount; i++) {
 					var s = Rnd.Chance(40);
-					var b = Projectile.Make(Self, s ? "green_tiny" : "green_small", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1);
+					var b = Projectile.Make(Self, "green_small", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1, null, Rnd.Float(0.5f, 1f));
 						
 					b.Center = Self.BottomCenter;
 					b.AddLight(s ? 16f : 32f, Projectile.GreenLight);

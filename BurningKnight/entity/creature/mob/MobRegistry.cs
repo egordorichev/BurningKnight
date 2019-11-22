@@ -34,8 +34,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
 				
-				MobInfo.New<DesertBulletSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn(),
-				MobInfo.New<MegaSlime>(new SpawnChance(2f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f),
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f),
+				MobInfo.New<MegaSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 			};
 			

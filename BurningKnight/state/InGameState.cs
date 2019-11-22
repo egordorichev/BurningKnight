@@ -6,6 +6,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -212,6 +213,7 @@ namespace BurningKnight.state {
 				TransitionToOpen();
 			}
 
+			FireParticle.Hook(Area);
 			Run.StartedNew = false;
 		}
 
@@ -974,25 +976,29 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 			
 			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Depth",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start - space
+				RelativeCenterY = start - space,
+				Clickable = false
 			});
 			
 			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Time",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start
+				RelativeCenterY = start,
+				Clickable = false
 			});
 			
 			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Label = "Mobs Killed",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space
+				RelativeCenterY = start + space,
+				Clickable = false
 			});
 			
 			gameOverMenu.Add(new UiButton {
@@ -1600,7 +1606,7 @@ namespace BurningKnight.state {
 					GamepadData.Identifiers = id.ToArray();
 				}
 			});
-
+			
 			sy += space * 0.5f;
 			
 			inputSettings.Add(new UiButton {
@@ -1630,6 +1636,8 @@ namespace BurningKnight.state {
 					};
 				}
 			});
+			
+			gamepad.Visible = GamepadComponent.Current != null || Settings.Gamepad != null;
 			
 			inputBack = (UiButton) inputSettings.Add(new UiButton {
 				LocaleLabel = "back",
@@ -1823,6 +1831,20 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space,
 			});
 			
+			gamepadSettings.Add(new UiCheckbox {
+				Name = "vibration",
+				On = Settings.Vibrate,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 2,
+				Click = b => {
+					Settings.Vibrate = ((UiCheckbox) b).On;
+				},
+				
+				OnUpdate = c => {
+					((UiCheckbox) c).On = Settings.Vibrate;
+				}
+			});
+
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				RelativeCenterX = sx,

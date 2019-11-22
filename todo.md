@@ -1,6 +1,9 @@
 # publisher build stuff
 
 * fix {
+ + the weapons go crazy when you point directly up or down
+ + add a way to exit the game
+
  + screenshake is trash
  + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
  + maximized bug
@@ -27,6 +30,7 @@
  + make ambience play in transitions? it feels empty
  + boss sounds
  + bk fire sound (when near)
+ + slow down music when you die
 }
 
 * breakable torch
@@ -37,7 +41,6 @@
 
 * twitter {
  + showcase desert area
- + showcase boss
  + showcase granny/dm rooms
 }
 

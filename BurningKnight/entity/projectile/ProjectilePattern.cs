@@ -64,6 +64,8 @@ namespace BurningKnight.entity.projectile {
 					Projectile = p,
 					Id = maxProjectiles
 				});
+				
+				p.ManualRotation = true;
 			}
 
 			maxProjectiles++;

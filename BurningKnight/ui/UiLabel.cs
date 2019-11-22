@@ -16,20 +16,29 @@ namespace BurningKnight.ui {
 
 		protected override void OnHover() {
 			base.OnHover();
-
+			
 			Audio.PlaySfx("moving", 0.5f);
-			Tween.To(1, Tint, x => Tint = x, 0.1f);
+
+			if (Clickable) {
+				Tween.To(1, Tint, x => Tint = x, 0.1f);
+			}
 		}
 
 		protected override void OnUnhover() {
 			base.OnUnhover();
-			Tween.To(DefaultTint, Tint, x => Tint = x, 0.1f);
+
+			if (Clickable) {
+				Tween.To(DefaultTint, Tint, x => Tint = x, 0.1f);
+			}
 		}
 
 		public override void OnClick() {
 			base.OnClick();
 			Tint = 0.5f;
-			Tween.To(1, Tint, x => Tint = x, 0.2f);
+
+			if (Clickable) {
+				Tween.To(1, Tint, x => Tint = x, 0.2f);
+			}
 		}
 
 		public string Label {

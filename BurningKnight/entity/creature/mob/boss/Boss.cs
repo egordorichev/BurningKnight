@@ -155,7 +155,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
+			if (e is DiedEvent de && de.Who == this) {
 				if (!died) {
 					died = true;
 					HealthBar?.Remove();
@@ -226,7 +226,18 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public class FriendlyState : SmartState<Boss> {
-		
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<HealthComponent>().Unhittable = true;
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+
+				if (!(this is bk.BurningKnight)) {
+					Self.GetComponent<HealthComponent>().Unhittable = false;
+				}
+			}
 		}
 
 		public override bool IsFriendly() {

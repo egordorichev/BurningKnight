@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Rnd.Float(0.9f, 1.5f) + Self.GetJumpDelay();
+				delay = Rnd.Float(0.5f, 1.2f) + Self.GetJumpDelay();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 

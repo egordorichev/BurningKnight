@@ -1,6 +1,8 @@
 using System;
 using BurningKnight.entity.component;
+using Lens.entity.component.logic;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.desert {
@@ -36,6 +38,10 @@ namespace BurningKnight.entity.creature.mob.desert {
 			public override void Update(float dt) {
 				base.Update(dt);
 
+				if (Self.GetComponent<StateComponent>().StateInstance is SummonedState) {
+					return;
+				}
+				
 				if (Self.Target != null && Self.DistanceTo(Self.Target) < DetectionRadius) {
 					Become<RunState>();
 					return;
@@ -90,7 +96,27 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 
+		public class SummonedState : SmartState<Mummy> {
+			public override void Init() {
+				base.Init();
+				
+				Self.TouchDamage = 0;
+				var a = Self.GetComponent<MobAnimationComponent>();
+				a.Scale.X = 3f;
+				a.Scale.Y = 0f;
 
+				Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.5f, Ease.BackOut);
+				Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
+					Become<IdleState>();
+				};
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.TouchDamage = 1;
+			}
+		}
+		
 		public class RunState : SmartState<Mummy> {
 			public override void Update(float dt) {
 				base.Update(dt);

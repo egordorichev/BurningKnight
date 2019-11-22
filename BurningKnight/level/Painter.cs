@@ -248,13 +248,22 @@ namespace BurningKnight.level {
 							Level.Area.Add(spikes);
 						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
-							
+
 							var spikes = new Spikes();
 
 							spikes.X = X * 16;
 							spikes.Y = Y * 16;
 
 							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+						
+							var trap = new FireTrap();
+
+							trap.X = X * 16;
+							trap.Y = Y * 16;
+
+							Level.Area.Add(trap);
 						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
 							

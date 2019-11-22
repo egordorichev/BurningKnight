@@ -17,6 +17,10 @@ namespace BurningKnight.save {
 		}
 
 		public override void Save(Area area, FileWriter writer, bool old) {
+			if (Run.Statistics == null) {
+				return;
+			}
+			
 			var statistics = Run.Statistics;
 
 			statistics.Frozen = true;

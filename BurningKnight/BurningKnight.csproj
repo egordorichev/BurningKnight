@@ -417,6 +417,7 @@
     <Compile Include="entity\creature\mob\boss\BossInfo.cs" />
     <Compile Include="entity\creature\mob\boss\BossRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\OldKing.cs" />
+    <Compile Include="entity\creature\mob\boss\Pharaoh.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
@@ -708,6 +709,7 @@
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\room\controllable\AlwaysOnSpikes.cs" />
+    <Compile Include="entity\room\controllable\FireTrap.cs" />
     <Compile Include="entity\room\controllable\Piston.cs" />
     <Compile Include="entity\room\controllable\platform\MovingPlatform.cs" />
     <Compile Include="entity\room\controllable\platform\Platform.cs" />
@@ -823,6 +825,7 @@
     <Compile Include="level\rooms\boss\BossRoom.cs" />
     <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
+    <Compile Include="level\rooms\boss\FireTrapBossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />
@@ -862,6 +865,7 @@
     <Compile Include="level\rooms\special\VendingRoom.cs" />
     <Compile Include="level\rooms\special\WellRoom.cs" />
     <Compile Include="level\rooms\trap\CageRoom.cs" />
+    <Compile Include="level\rooms\trap\FireTrapRoom.cs" />
     <Compile Include="level\rooms\trap\FollowingSpikeBallRoom.cs" />
     <Compile Include="level\rooms\trap\RollingSpikesRoom.cs" />
     <Compile Include="level\rooms\trap\ShiftingWallsRoom.cs" />

@@ -57,6 +57,11 @@ namespace BurningKnight.entity.item.renderer {
 				var d = MathUtils.Distance(dx, dy);
 				
 				to -= MathUtils.CreateVector(a, d);
+
+				if (!atBack) {
+					owner.GetComponent<AimComponent>().Aim = to;
+				}
+				
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 6f);
 			}
 
