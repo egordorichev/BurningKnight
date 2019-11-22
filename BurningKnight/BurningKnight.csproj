@@ -825,6 +825,7 @@
     <Compile Include="level\rooms\boss\BossRoom.cs" />
     <Compile Include="level\rooms\boss\ChasmBossRoom.cs" />
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
+    <Compile Include="level\rooms\boss\FireTrapBossRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />

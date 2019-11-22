@@ -41,6 +41,10 @@ namespace BurningKnight.ui.editor {
 		public static bool Grid;
 		
 		public static void ReloadBiome() {
+			if (Editor?.Level?.Biome == null) {
+				return;
+			}
+		
 			biomes = new string[BiomeRegistry.Defined.Count];
 			var i = 0;
 			

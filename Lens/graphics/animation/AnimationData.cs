@@ -34,9 +34,13 @@ namespace Lens.graphics.animation {
 			return tag;
 		}
 
-		public TextureRegion GetSlice(string name) {
+		public TextureRegion GetSlice(string name, bool error = true) {
 			if (Slices.TryGetValue(name, out var region)) {
 				return region;
+			}
+
+			if (!error) {
+				return null;
 			}
 			
 			Log.Warning($"Unable to find slice {name}");

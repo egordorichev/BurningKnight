@@ -36,9 +36,16 @@ namespace BurningKnight.entity.room.controllable {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!On || GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count == 0) {
+			if (!On) {
 				ResetTimer();
 				return;
+			} else {
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room.Tagged[Tags.Player].Count == 0 || room.Tagged[Tags.MustBeKilled].Count == 0) {
+					ResetTimer();
+					return;
+				}
 			}
 
 			timer += dt;

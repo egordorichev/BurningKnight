@@ -25,6 +25,7 @@ using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -64,6 +65,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Spectral;
 		public bool Rotates;
 		public bool IgnoreCollisions;
+		public bool ManualRotation;
 
 		private float deathTimer;
 
@@ -104,6 +106,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.BodyComponent.Body.Restitution = 1;
 			projectile.BodyComponent.Body.Friction = 0;
 			projectile.BodyComponent.Body.IsBullet = true;
+
 			projectile.BodyComponent.Body.Rotation = (float) angle;
 
 			if (owner.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>()) {
@@ -181,7 +184,7 @@ namespace BurningKnight.entity.projectile {
 
 			if (Rotates) {
 				BodyComponent.Body.Rotation += dt * 10;
-			} else {
+			} else if (!ManualRotation) {
 				BodyComponent.Body.Rotation = VectorExtension.ToAngle(BodyComponent.Body.LinearVelocity);
 			}
 			
@@ -313,11 +316,13 @@ namespace BurningKnight.entity.projectile {
 						
 						part.Position = Center;
 						Run.Level.Area.Add(part);
-						part.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.2f, 0.2f), l);
+						part.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.4f, 0.4f), l);
 						part.Depth = Layers.WindFx;
 						part.Particle.Scale = 0.7f;
 					}
 				}
+				
+				Camera.Instance.ShakeMax(4);
 				
 				OnDeath?.Invoke(this, timeout);
 			} catch (Exception e) {

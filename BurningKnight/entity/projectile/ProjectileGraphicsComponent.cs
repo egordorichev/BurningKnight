@@ -20,7 +20,7 @@ namespace BurningKnight.entity.projectile {
 				Flash = CommonAse.Particles.GetSlice("flash");
 			}
 
-			Big = Animations.Get(image).GetSlice($"{slice}_big");
+			Big = Animations.Get(image).GetSlice($"{slice}_big", false);
 		}
 
 		public override void Render(bool shadow) {

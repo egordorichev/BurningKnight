@@ -41,7 +41,6 @@
 
 * twitter {
  + showcase desert area
- + showcase boss
  + showcase granny/dm rooms
 }
 

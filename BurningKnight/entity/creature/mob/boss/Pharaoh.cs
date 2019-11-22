@@ -66,6 +66,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		 * summon mummies
 		 * activate flame traps
 		 * summon walls dropping from the sky
+		 * bullet circle
 		 */
 
 		private int counter;

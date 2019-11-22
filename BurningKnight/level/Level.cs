@@ -383,8 +383,14 @@ namespace BurningKnight.level {
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			
-			SetBiome(BiomeRegistry.Defined[stream.ReadString()]);
+
+			var biome = stream.ReadString();
+
+			if (BiomeRegistry.Defined.TryGetValue(biome, out var b)) {
+				SetBiome(b);
+			} else {
+				SetBiome(BiomeRegistry.Defined[Biome.Castle]);
+			}
 
 			Width = stream.ReadInt32();
 			Height = stream.ReadInt32();

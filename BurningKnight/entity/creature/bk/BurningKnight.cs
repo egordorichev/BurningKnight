@@ -348,6 +348,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Init() {
 				base.Init();
 				
+				Camera.Instance.Targets.Clear();
 				Camera.Instance.Follow(Self, 0.3f);
 				
 				Timer.Add(() => {
