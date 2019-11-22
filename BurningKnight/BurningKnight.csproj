@@ -417,6 +417,7 @@
     <Compile Include="entity\creature\mob\boss\BossInfo.cs" />
     <Compile Include="entity\creature\mob\boss\BossRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\OldKing.cs" />
+    <Compile Include="entity\creature\mob\boss\Pharaoh.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
@@ -708,6 +709,7 @@
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\room\controllable\AlwaysOnSpikes.cs" />
+    <Compile Include="entity\room\controllable\FireTrap.cs" />
     <Compile Include="entity\room\controllable\Piston.cs" />
     <Compile Include="entity\room\controllable\platform\MovingPlatform.cs" />
     <Compile Include="entity\room\controllable\platform\Platform.cs" />

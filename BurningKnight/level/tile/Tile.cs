@@ -39,6 +39,9 @@ namespace BurningKnight.level.tile {
 		GrannyWall,
 		GrannyFloor,
 		
+		// Not an actual tile, used just for placement with painter
+		FireTrapTmp,
+		
 		Total
 	}
 }

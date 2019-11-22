@@ -2,12 +2,15 @@ using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VelcroPhysics.Dynamics;
 using VelcroPhysics.Utilities;
 using MathUtils = Lens.util.MathUtils;
 
@@ -32,6 +35,7 @@ namespace BurningKnight.assets.particle.custom {
 		public float G = 1f;
 		public float B = 1f;
 		public float Size = 1;
+		public bool Hurts;
 		
 		public Vector2? Target;
 
@@ -48,7 +52,10 @@ namespace BurningKnight.assets.particle.custom {
 			Growing = true;
 			ScaleTar = Rnd.Float(0.5f, 0.9f) * Size;
 
-			Mod = Rnd.Float(0.7f, 1f);
+			if (Mod < 0.01f) {
+				Mod = Rnd.Float(0.7f, 1f);
+			}
+
 			SinOffset = Rnd.Float(3.2f);
 
 			if (Math.Abs(Offset.X) + Math.Abs(Offset.Y) < 0.1f) {
@@ -56,6 +63,14 @@ namespace BurningKnight.assets.particle.custom {
 			}
 
 			Depth = Layers.TileLights + 1;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+
+			if (Hurts) {
+				AddComponent(new CircleBodyComponent(0, 0, 3, BodyType.Dynamic, true, true));
+			}
 		}
 
 		public override void Update(float dt) {
@@ -117,6 +132,20 @@ namespace BurningKnight.assets.particle.custom {
 					Y -= z.Z;
 				}
 			}
+
+			if (Hurts) {
+				GetComponent<CircleBodyComponent>().Position = Position + Offset;
+			}
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse) {
+				if (cse.Entity is Player p) {
+					p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		public float XChange = 1;
