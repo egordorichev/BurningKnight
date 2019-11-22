@@ -74,9 +74,35 @@ namespace BurningKnight.assets.lighting {
 			if (EnableFog) {
 				InGameState.RenderFog();
 			}
-			
+
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();
+			
+			Engine.GraphicsDevice.SetRenderTarget(surface);
+			
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Clear(Color.Transparent);
+
+			Graphics.Color.A = 150;
+
+			foreach (var p in Run.Level.Area.Tagged[Tags.Projectile]) {
+				var cc = p.GetComponent<ProjectileGraphicsComponent>();
+				Graphics.Render(cc.Sprite, p.Center, cc.Rotation, cc.Sprite.Center, new Vector2(((Projectile) p).Scale * 2));
+			}
+			
+			state.End();
+			
+			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
+				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			
+			
+			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
+				                         Camera.Instance.Position.Y % 1));
+			
+			state.End();
+			Graphics.Color.A = 255;
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
@@ -90,14 +116,6 @@ namespace BurningKnight.assets.lighting {
 			}
 
 			Graphics.Color = ColorUtils.WhiteColor;
-			Graphics.Color.A = 130;
-
-			foreach (var p in Run.Level.Area.Tagged[Tags.Projectile]) {
-				var cc = p.GetComponent<ProjectileGraphicsComponent>();
-				Graphics.Render(cc.Sprite, p.Center, cc.Rotation, cc.Sprite.Center, new Vector2(((Projectile) p).Scale * 2));
-			}
-
-			Graphics.Color.A = 255;
 
 			Run.Level?.RenderTileLights();
 

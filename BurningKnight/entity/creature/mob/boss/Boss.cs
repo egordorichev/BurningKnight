@@ -155,7 +155,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent) {
+			if (e is DiedEvent de && de.Who == this) {
 				if (!died) {
 					died = true;
 					HealthBar?.Remove();
