@@ -19,6 +19,8 @@
  + game sometimes doesnt exit even after window is closed
 }
 
+* change desert gen to be more like archvale and nt, open?
+
 * bk: {
  + better into boss going anim
  + better getting out of boss
