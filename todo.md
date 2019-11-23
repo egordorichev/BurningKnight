@@ -2,9 +2,7 @@
 
 * fix {
  + you can roll out of the idol room
- + if you fly you also need to get spectral tears
  + you can roll between the wall and rocks
- + voodoo doll can kill bk
  + doors can keep be locked?
  + the weapons go crazy when you point directly up or down
  + add a way to exit the game

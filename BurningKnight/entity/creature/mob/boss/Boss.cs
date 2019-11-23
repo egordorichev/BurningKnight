@@ -247,5 +247,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public class DefeatedEvent : Event {
 			public Boss Boss;
 		}
+		
+		public override void Kill(Entity w) {
+			
+		}
 	}
 }
