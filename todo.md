@@ -5,14 +5,12 @@
  + make wall crawler autodie
  + desert bullet slime bullets should fly over rocks when he jumps
  + you can roll out of the idol room
- + duck gun aura
  + if you fly you also need to get spectral tears
  + removing the hat doesnt work? (spamming the e button at least)
  + you can roll between the wall and rocks
  + charmed buff makes enemies attack bk
  + voodoo doll can kill bk
  + doors can keep be locked?
- + bullet slime max 1 per room, same with desert biome
  + you can get stuck in dialog state when dialog ended
  + taking active item from the stand places your weapon on the stand
  + the weapons go crazy when you point directly up or down

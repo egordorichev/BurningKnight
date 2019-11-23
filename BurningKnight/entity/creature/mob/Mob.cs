@@ -196,7 +196,7 @@ namespace BurningKnight.entity.creature.mob {
 			Entity closest = null;
 			
 			foreach (var target in targets) {
-				if (target == this || ((Creature) target).IsFriendly() == friendly) {
+				if (target == this || target is bk.BurningKnight || ((Creature) target).IsFriendly() == friendly) {
 					continue;
 				}
 				
