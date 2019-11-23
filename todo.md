@@ -96,7 +96,6 @@
 * shields
 
 * projectile speed stat
-* seed select with gamepad (use buttons a b x y or make a proper input dialog)
 
 #### Polish
 

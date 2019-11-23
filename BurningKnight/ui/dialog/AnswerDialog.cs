@@ -1,3 +1,4 @@
+using Lens.input;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -58,6 +59,52 @@ namespace BurningKnight.ui.dialog {
 			}
 
 			return '\0';
+		}
+
+		private void AttachLetter(char c) {
+			if (!Focused) {
+				return;
+			}
+			
+			Answer += c;
+
+			if (Answer.Length == 8) {
+				Focused = false;
+			}
+		}
+		
+		public void CheckGamepadInput(GamepadData data) {
+			if (data.WasPressed(Buttons.X)) {
+				AttachLetter('X');
+			}
+			
+			if (data.WasPressed(Buttons.Y)) {
+				AttachLetter('Y');
+			}
+			
+			if (data.WasPressed(Buttons.A)) {
+				AttachLetter('A');
+			}
+			
+			if (data.WasPressed(Buttons.B)) {
+				AttachLetter('B');
+			}
+			
+			if (data.WasPressed(Buttons.DPadUp)) {
+				AttachLetter('U');
+			}
+			
+			if (data.WasPressed(Buttons.DPadDown)) {
+				AttachLetter('D');
+			}
+			
+			if (data.WasPressed(Buttons.DPadLeft)) {
+				AttachLetter('L');
+			}
+			
+			if (data.WasPressed(Buttons.DPadRight)) {
+				AttachLetter('R');
+			}
 		}
 	}
 }

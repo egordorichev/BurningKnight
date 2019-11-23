@@ -106,6 +106,10 @@ namespace BurningKnight.ui.dialog {
 			}
 			
 			if (added) {
+				if (GamepadComponent.Current != null && Current is AnswerDialog aa && aa.Focused) {
+					aa.CheckGamepadInput(GamepadComponent.Current);
+				}
+				
 				return;
 			}
 
