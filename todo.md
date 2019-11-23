@@ -3,7 +3,6 @@
 * fix {
  + crash bug with old level?
  + make wall crawler autodie
- + desert bullet slime bullets should fly over rocks when he jumps
  + you can roll out of the idol room
  + if you fly you also need to get spectral tears
  + removing the hat doesnt work? (spamming the e button at least)
