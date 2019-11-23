@@ -321,8 +321,8 @@ namespace BurningKnight.entity.creature.bk {
 					Self.Become<FlyAwayAttackingState>();
 				}
 
-				if (T >= 0.5f) {
-					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+				if (T >= 1f) {
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 8, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
 					p.Spectral = true;
