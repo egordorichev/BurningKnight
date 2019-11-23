@@ -76,13 +76,6 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (InDialog) {
-				if (Input.WasPressed(Controls.Cancel)) {
-					InDialog = false;
-					dialog?.Close();
-
-					return;
-				}
-
 				var dd = dialog?.Dialog;
 
 				if (dd != null) {

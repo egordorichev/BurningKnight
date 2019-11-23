@@ -166,7 +166,9 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			} else if (e is ShopNpc.SavedEvent) {
 				// I WOULDN'T BOTHER EVEN TALKING TO THEM
-				GetComponent<DialogComponent>().StartAndClose("bk_5", 5);
+				Timer.Add(() => {
+					GetComponent<DialogComponent>().StartAndClose("bk_5", 5);
+				}, 2f);
 			} else if (e is ShopKeeper.EnragedEvent skee) {
 				if (skee.ShopKeeper.GetComponent<RoomComponent>().Room.Explored) {
 					// KILL HIM, EDWARD!

@@ -1,14 +1,11 @@
 # publisher build stuff
 
 * fix {
- + dot or smth in dialog indicating press to continue dialog 
- 
  + you can roll out of the idol room
  + if you fly you also need to get spectral tears
  + you can roll between the wall and rocks
  + voodoo doll can kill bk
  + doors can keep be locked?
- + you can get stuck in dialog state when dialog ended
  + the weapons go crazy when you point directly up or down
  + add a way to exit the game
 
@@ -28,6 +25,7 @@
 }
 
 * room {
+ + special props on top of special rooms, like shop boss and treasure
  + cleared effect
  + clear reward. Spawns in the center, destroying the tiles. 
 }

@@ -216,12 +216,11 @@ namespace BurningKnight.ui.dialog {
 		private void OnStart() {
 			var p = (Player) To;
 
-			if (!p.TryGetComponent<PlayerInputComponent>(out var input)) {
-				return;
+			if (p.TryGetComponent<PlayerInputComponent>(out var input)) {
+				input.InDialog = true;
+				input.Dialog = this;
 			}
 
-			input.InDialog = true;
-			input.Dialog = this;
 						
 			p.GetComponent<StateComponent>().Become<Player.IdleState>();
 				
@@ -231,12 +230,10 @@ namespace BurningKnight.ui.dialog {
 		}
 		
 		private void OnEnd() {
-			if (!Entity.TryGetComponent<PlayerInputComponent>(out var input)) {
-				return;
+			if (To != null && To.TryGetComponent<PlayerInputComponent>(out var input)) {
+				input.InDialog = false;
+				input.Dialog = null;
 			}
-			
-			input.InDialog = false;
-			input.Dialog = null;
 						
 			((InGameState) Engine.Instance.State).CloseBlackBars();
 

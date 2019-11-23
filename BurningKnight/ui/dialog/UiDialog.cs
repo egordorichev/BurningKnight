@@ -78,7 +78,16 @@ namespace BurningKnight.ui.dialog {
 		public override void Render() {
 			if (!Engine.Instance.State.Paused) {
 				base.Render();
-				Str?.Render();
+
+				if (Str != null) {
+					Str.Render();
+
+					if (Str.Finished && !Str.ShouldntRender) {
+						Graphics.Color = Tint;
+						Graphics.Print("<", Font.Small, Position + new Vector2(Width - 8, Height - 8 + (float) Math.Sin(Engine.Time * 4f) * 1.5f * Display.UiScale));
+						Graphics.Color = ColorUtils.WhiteColor;
+					}
+				}
 			}
 		}
 

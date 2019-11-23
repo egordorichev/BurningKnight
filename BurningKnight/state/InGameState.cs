@@ -488,12 +488,14 @@ namespace BurningKnight.state {
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
-      			
-			if (DialogComponent.Talking == null && !Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
-				Paused = true;
-				pausedByMouseOut = true;
-			} else if (Paused && pausedByMouseOut && inside) {
-				Paused = false;
+
+			if (DialogComponent.Talking == null) {
+				if (!Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
+					Paused = true;
+					pausedByMouseOut = true;
+				} else if (Paused && pausedByMouseOut && inside) {
+					Paused = false;
+				}
 			}
 
 			if (Menu && !menuExited) {
@@ -555,15 +557,15 @@ namespace BurningKnight.state {
 								Paused = true;
 								did = true;
 							}
-						}
-						
-						if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
-							if (UiControl.Focused != null) {
-								UiControl.Focused.Cancel();
-							} else if (currentBack != null) {
-								currentBack.Click(currentBack);
-							} else {
-								Paused = false;
+							
+							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
+								if (UiControl.Focused != null) {
+									UiControl.Focused.Cancel();
+								} else if (currentBack != null) {
+									currentBack.Click(currentBack);
+								} else {
+									Paused = false;
+								}
 							}
 						}
 					}
