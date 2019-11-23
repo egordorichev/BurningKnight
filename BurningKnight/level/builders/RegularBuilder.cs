@@ -13,7 +13,7 @@ using Lens.util.math;
 
 namespace BurningKnight.level.builders {
 	public class RegularBuilder : Builder {
-		protected float[] BranchTunnelChances = {2, 2, 1};
+		protected float[] BranchTunnelChances = {1, 0, 0};
 		protected EntranceRoom Entrance;
 		protected ExitRoom Exit;
 		protected BossRoom Boss;
