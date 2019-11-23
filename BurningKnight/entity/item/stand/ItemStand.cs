@@ -141,7 +141,7 @@ namespace BurningKnight.entity.item.stand {
 
 							ht.Set(null, false);
 							SetItem(it, entity, false);
-						} else if (this is PermanentStand) {
+						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Weapon) {
 							var ht = entity.GetComponent<ActiveWeaponComponent>();
 							var it = ht.Item;
 

@@ -12,7 +12,6 @@
  + voodoo doll can kill bk
  + doors can keep be locked?
  + you can get stuck in dialog state when dialog ended
- + taking active item from the stand places your weapon on the stand
  + the weapons go crazy when you point directly up or down
  + add a way to exit the game
 

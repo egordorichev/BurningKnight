@@ -34,7 +34,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected override string GetFxText() {
-			return $"{Locale.Get("continue_run")} (depth {depth})";
+			return Locale.Get("continue_run");
 		}
 	}
 }
