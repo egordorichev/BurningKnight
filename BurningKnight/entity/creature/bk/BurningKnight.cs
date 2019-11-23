@@ -322,7 +322,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 
 				if (T >= 1f) {
-					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 8, true, 0, null, 1);
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f), 8, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
 					p.Spectral = true;

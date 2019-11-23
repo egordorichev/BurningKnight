@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.level.entities.chest;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -12,7 +13,6 @@ using Lens.util.timer;
 namespace BurningKnight.entity.creature.npc {
 	public class Maanex : Npc {
 		private bool interacted;
-		private bool locked;
 		private byte cost;
 		private float t;
 		
@@ -28,7 +28,6 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(new AnimationComponent("maanex"));
 
 			if (Run.Depth == 0) {
-				locked = true;
 				AddComponent(new CloseDialogComponent("maanex_0", "maanex_1", "maanex_2", "maanex_3", "maanex_4"));
 			} else {
 				if (!interacted) {
@@ -66,6 +65,7 @@ namespace BurningKnight.entity.creature.npc {
 			});
 			
 			Subscribe<Chest.OpenedEvent>();
+			Subscribe<RoomChangedEvent>();
 		}
 
 		public override void PostInit() {
@@ -99,6 +99,12 @@ namespace BurningKnight.entity.creature.npc {
 				foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
 					((Chest) chest).CanOpen = false;
 				}
+			} else if (e is RoomChangedEvent rce) {
+				if (!interacted && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
+						((Chest) chest).CanOpen = false;
+					}
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -106,15 +112,6 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
-			if (t > 0.1f && !locked) {
-				locked = true;
-				
-				foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
-					((Chest) chest).CanOpen = false;
-				}
-			}
-
 			t += dt;
 		}
 
