@@ -1,11 +1,14 @@
 # publisher build stuff
 
 * fix {
+ + removing the hat doesnt work? (spamming the e button at least)
+ + disable controls when you are dead/descending
+
+
  + crash bug with old level?
  + make wall crawler autodie
  + you can roll out of the idol room
  + if you fly you also need to get spectral tears
- + removing the hat doesnt work? (spamming the e button at least)
  + you can roll between the wall and rocks
  + charmed buff makes enemies attack bk
  + voodoo doll can kill bk

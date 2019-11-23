@@ -498,6 +498,10 @@ namespace BurningKnight.entity.creature.player {
 				}
 			
 				Log.Error("Did not find a spawn point!");
+			} else if (e is ProjectileCreatedEvent pce) {
+				if (Flying || HasFlight) {
+					pce.Projectile.Spectral = true;
+				}
 			}
 			
 			return base.HandleEvent(e);
