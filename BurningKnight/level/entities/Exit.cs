@@ -22,6 +22,8 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected virtual bool Interact(Entity entity) {
+			entity.RemoveComponent<PlayerInputComponent>();
+			
 			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
 				if (Run.Depth == -2) {
 					GlobalSave.Put("finished_tutorial", true);

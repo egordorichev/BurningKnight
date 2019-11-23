@@ -215,7 +215,10 @@ namespace BurningKnight.ui.dialog {
 
 		private void OnStart() {
 			var p = (Player) To;
-			var input = p.GetComponent<PlayerInputComponent>();
+
+			if (!p.TryGetComponent<PlayerInputComponent>(out var input)) {
+				return;
+			}
 
 			input.InDialog = true;
 			input.Dialog = this;
@@ -228,8 +231,10 @@ namespace BurningKnight.ui.dialog {
 		}
 		
 		private void OnEnd() {
-			var input = To.GetComponent<PlayerInputComponent>();
-
+			if (!Entity.TryGetComponent<PlayerInputComponent>(out var input)) {
+				return;
+			}
+			
 			input.InDialog = false;
 			input.Dialog = null;
 						
