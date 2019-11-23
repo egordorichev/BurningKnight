@@ -430,7 +430,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = count / 15f + Rnd.Float(0f, 1.5f);
+			var weight = count / 19f + Rnd.Float(0f, 1f);
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);
@@ -765,22 +765,26 @@ namespace BurningKnight.level {
 					door.Y -= 8;
 					door.X += 6;
 
-					if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
-						Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
-					}
-					
-					if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
-						Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+					if (type != DoorPlaceholder.Variant.Hidden) {
+						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
+							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+						}
+
+						if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
+							Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+						}
 					}
 				} else {
 					door.Y -= 2;
 
-					if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
-						Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
-					}
-					
-					if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
-						Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+					if (type != DoorPlaceholder.Variant.Hidden) {
+						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
+							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+						}
+
+						if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
+							Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+						}
 					}
 				}
 						
