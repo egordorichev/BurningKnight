@@ -1,13 +1,12 @@
 # publisher build stuff
 
 * fix {
- + check ghost sfx
-
  + you can roll out of the idol room
  + you can roll between the wall and rocks
  + doors can keep be locked?
  + the weapons go crazy when you point directly up or down
  + add a way to exit the game
+ + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + screenshake is trash
  + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
