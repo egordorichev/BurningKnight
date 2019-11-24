@@ -133,5 +133,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override string GetHurtSfx() {
 			return $"mob_ghost_hurt_{Rnd.Int(1, 3)}";
 		}
+
+		protected override string GetDeadSfx() {
+			return $"mob_ghost_death";
+		}
 	}
 }

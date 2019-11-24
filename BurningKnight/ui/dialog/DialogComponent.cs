@@ -106,6 +106,10 @@ namespace BurningKnight.ui.dialog {
 			}
 			
 			if (added) {
+				if (GamepadComponent.Current != null && Current is AnswerDialog aa && aa.Focused) {
+					aa.CheckGamepadInput(GamepadComponent.Current);
+				}
+				
 				return;
 			}
 
@@ -215,10 +219,13 @@ namespace BurningKnight.ui.dialog {
 
 		private void OnStart() {
 			var p = (Player) To;
-			var input = p.GetComponent<PlayerInputComponent>();
 
-			input.InDialog = true;
-			input.Dialog = this;
+			if (p.TryGetComponent<PlayerInputComponent>(out var input)) {
+				input.InDialog = true;
+				input.Dialog = this;
+				Dialog.ShowArrow = true;
+			}
+
 						
 			p.GetComponent<StateComponent>().Become<Player.IdleState>();
 				
@@ -228,10 +235,11 @@ namespace BurningKnight.ui.dialog {
 		}
 		
 		private void OnEnd() {
-			var input = To.GetComponent<PlayerInputComponent>();
-
-			input.InDialog = false;
-			input.Dialog = null;
+			if (To != null && To.TryGetComponent<PlayerInputComponent>(out var input)) {
+				input.InDialog = false;
+				input.Dialog = null;
+				Dialog.ShowArrow = false;
+			}
 						
 			((InGameState) Engine.Instance.State).CloseBlackBars();
 

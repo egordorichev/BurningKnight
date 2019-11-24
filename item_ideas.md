@@ -21,6 +21,8 @@
 
 ### items
 
+* makes your bullets go through walls
+
 * 100% dm deal/granny deal
 * getting one deal opens up the other one
 

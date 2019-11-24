@@ -2,6 +2,8 @@ using System;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.desert;
+using BurningKnight.entity.projectile;
+using BurningKnight.entity.room.controllable;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.math;
@@ -29,9 +31,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		private float lastParticle;
+		private bool turnedOff;
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!turnedOff) {
+				turnedOff = true;
+				
+				foreach (var c in GetComponent<RoomComponent>().Room.Controllable) {
+					if (c is FireTrap) {
+						c.TurnOff();
+					}
+				}
+			}
 
 			lastParticle -= dt;
 
@@ -60,7 +73,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.SelectAttack();
 			Become<IdleState>();
 		}
-		
+
 		/*
 		 * attacks
 		 * summon mummies
@@ -83,7 +96,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					if (v == 1) {
 						Become<SummoningState>();
 					} else {
-						Become<ActivateTrapsState>();
+						Become<BulletCircleState>();
 					}
 				}
 			}
@@ -118,10 +131,56 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public class ActivateTrapsState : SmartState<Pharaoh> {
+			public override void Init() {
+				base.Init();
+				
+				foreach (var c in Self.GetComponent<RoomComponent>().Room.Controllable) {
+					if (c is FireTrap) {
+						c.TurnOn();
+					}
+				}
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				
+				foreach (var c in Self.GetComponent<RoomComponent>().Room.Controllable) {
+					if (c is FireTrap) {
+						c.TurnOff();
+					}
+				}
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 
 				if (T >= 5f) {
+					Become<IdleState>();
+				}
+			}
+		}
+
+		public class BulletCircleState : SmartState<Pharaoh> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 3f) {
+					var am = 24;
+
+					for (var j = 0; j < 2; j++) {
+						var j1 = j;
+
+						Timer.Add(() => {
+							for (var i = 0; i < am; i++) {
+								var a = Math.PI * 2 * ((i + j1 * 0.5f) / am);
+								var projectile = Projectile.Make(Self, "small", a, 5f);
+					
+								projectile.Center = Self.BottomCenter;
+								projectile.AddLight(32f, Projectile.RedLight);
+							}
+						}, j);
+					}
+
 					Become<IdleState>();
 				}
 			}

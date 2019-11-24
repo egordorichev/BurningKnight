@@ -1,14 +1,20 @@
 # publisher build stuff
 
 * fix {
+ + you can roll out of the idol room
+ + you can roll between the wall and rocks
+ + doors can keep be locked?
  + the weapons go crazy when you point directly up or down
  + add a way to exit the game
+ + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + screenshake is trash
  + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
  + maximized bug
  + game sometimes doesnt exit even after window is closed
 }
+
+* change desert gen to be more like archvale and nt, open?
 
 * bk: {
  + better into boss going anim
@@ -18,6 +24,7 @@
 }
 
 * room {
+ + special props on top of special rooms, like shop boss and treasure
  + cleared effect
  + clear reward. Spawns in the center, destroying the tiles. 
 }
@@ -88,7 +95,6 @@
 * shields
 
 * projectile speed stat
-* seed select with gamepad (use buttons a b x y or make a proper input dialog)
 
 #### Polish
 

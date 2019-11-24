@@ -1,3 +1,4 @@
+using BurningKnight.entity.creature.player;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens;
@@ -30,11 +31,13 @@ namespace BurningKnight.level.entities {
 		protected override bool Interact(Entity entity) {
 			Log.Error($"Go to runs last saved depth to {Run.LastSavedDepth}");
 			Run.Depth = Run.LastSavedDepth;
+			entity.RemoveComponent<PlayerInputComponent>();
+			
 			return true;
 		}
 
 		protected override string GetFxText() {
-			return $"{Locale.Get("continue_run")} (depth {depth})";
+			return Locale.Get("continue_run");
 		}
 	}
 }

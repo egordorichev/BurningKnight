@@ -459,9 +459,11 @@ namespace BurningKnight.ui.str {
 		public void Stop() {
 			Paused = true;
 		}
+		
+		public bool ShouldntRender => Engine.Instance.State.Paused || label == null || Tint.A == 0 || glyphs.Count == 0;
 
 		public override void Render() {
-			if (Engine.Instance.State.Paused || label == null || Tint.A == 0 || glyphs.Count == 0) {
+			if (ShouldntRender) {
 				return;
 			}
 

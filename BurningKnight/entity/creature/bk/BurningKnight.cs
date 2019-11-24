@@ -166,7 +166,9 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			} else if (e is ShopNpc.SavedEvent) {
 				// I WOULDN'T BOTHER EVEN TALKING TO THEM
-				GetComponent<DialogComponent>().StartAndClose("bk_5", 5);
+				Timer.Add(() => {
+					GetComponent<DialogComponent>().StartAndClose("bk_5", 5);
+				}, 2f);
 			} else if (e is ShopKeeper.EnragedEvent skee) {
 				if (skee.ShopKeeper.GetComponent<RoomComponent>().Room.Explored) {
 					// KILL HIM, EDWARD!
@@ -321,8 +323,8 @@ namespace BurningKnight.entity.creature.bk {
 					Self.Become<FlyAwayAttackingState>();
 				}
 
-				if (T >= 0.5f) {
-					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.2f, 0.2f), 10, true, 0, null, 1);
+				if (T >= 1f) {
+					var p = Projectile.Make(Self, "big", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f), 8, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;
 					p.Spectral = true;

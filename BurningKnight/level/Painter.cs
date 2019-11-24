@@ -343,20 +343,32 @@ namespace BurningKnight.level {
 
 			var rooms = new List<RoomDef>();
 
-			foreach (var r in Rooms) {
-				if (r is RegularRoom || r is EntranceRoom) {
-					rooms.Add(r);
+			foreach (var rr in Rooms) {
+				if (rr is RegularRoom || rr is EntranceRoom) {
+					rooms.Add(rr);
 				}
 			}
-			
-			foreach (var type in Level.ItemsToSpawn) {
-				var item = Items.CreateAndAdd(type, Level.Area);
 
-				if (item == null) {
-					continue;
+			var rrms = new List<RoomDef>();
+
+			foreach (var rm in rooms) {
+				if (rm is RegularRoom) {
+					rrms.Add(rm);
 				}
-				
-				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
+			}
+
+			if (rrms.Count > 0) {
+				foreach (var type in Level.ItemsToSpawn) {
+					var item = Items.CreateAndAdd(type, Level.Area);
+
+					if (item == null) {
+						continue;
+					}
+					
+					item.Center = (rrms[Rnd.Int(rrms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
+				}
+			} else {
+				Log.Error("Failed to place items");
 			}
 
 			Level.ItemsToSpawn = null;
@@ -430,7 +442,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = count / 15f + Rnd.Float(0f, 1.5f);
+			var weight = count / 19f + Rnd.Float(0f, 1f);
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);
@@ -765,22 +777,26 @@ namespace BurningKnight.level {
 					door.Y -= 8;
 					door.X += 6;
 
-					if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
-						Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
-					}
-					
-					if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
-						Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+					if (type != DoorPlaceholder.Variant.Hidden) {
+						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
+							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+						}
+
+						if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
+							Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+						}
 					}
 				} else {
 					door.Y -= 2;
 
-					if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
-						Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
-					}
-					
-					if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
-						Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+					if (type != DoorPlaceholder.Variant.Hidden) {
+						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
+							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+						}
+
+						if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
+							Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+						}
 					}
 				}
 						

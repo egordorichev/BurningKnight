@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.level.entities;
+using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -225,6 +226,29 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			
 			base.Update(dt);
 			T += dt;
+
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room == null) {
+				return;
+			}
+
+			if (room.Type != RoomType.Regular) {
+				Done = true;
+				return;
+			}
+
+			if (room.Tagged[Tags.Player].Count == 0) {
+				return;
+			}
+
+			foreach (var m in room.Tagged[Tags.MustBeKilled]) {
+				if (!(m is WallWalker)) {
+					return;
+				}
+			}
+
+			Kill(this);
 		}
 	}
 }

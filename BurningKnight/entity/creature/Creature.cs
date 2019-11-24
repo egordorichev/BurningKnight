@@ -54,7 +54,7 @@ namespace BurningKnight.entity.creature {
 			GetComponent<StateComponent>().Become<T>();
 		}
 		
-		public void Kill(Entity w) {
+		public virtual void Kill(Entity w) {
 			GetComponent<HealthComponent>().Kill(w);
 		}
 

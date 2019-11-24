@@ -51,7 +51,7 @@ namespace Desktop.integration.discord {
 			var status = new DiscordRpc.RichPresence();
 
 			if (Run.Level != null) {
-				status.details = $"{Locale.Get(Run.Level.Biome.Id)} {Level.GetDepthString()}";
+				status.details = $"{Level.GetDepthString()}";
 				var p = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 				if (p != null) {

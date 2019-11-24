@@ -8,7 +8,7 @@ namespace BurningKnight.level.rooms.boss {
 			
 		}
 
-		public override void Paint(Level level) {
+		protected override void PaintRoom(Level level) {
 			Painter.Fill(level, this, 1, Tile.FireTrapTmp);
 
 			var w = GetWidth();

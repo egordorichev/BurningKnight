@@ -143,14 +143,6 @@ namespace BurningKnight.entity.projectile {
 			AddComponent(new LightComponent(this, radius * Scale, color));
 		}
 
-		public override void PostInit() {
-			base.PostInit();
-			
-			if (Spectral) {
-				BreaksFromWalls = false;
-			}
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -229,7 +221,7 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return (!(entity is Creature || entity is Level) || Owner is Mob != entity is Mob) && 
-			       (BreaksFromWalls && (entity is ProjectileLevelBody || entity is HalfWall || entity is Prop || (entity is Door d && !d.Open))
+			       (BreaksFromWalls && (entity is ProjectileLevelBody || (!Spectral && entity is HalfWall) || entity is Prop || (entity is Door d && !d.Open))
 			        || entity.HasComponent<HealthComponent>());
 		}
 

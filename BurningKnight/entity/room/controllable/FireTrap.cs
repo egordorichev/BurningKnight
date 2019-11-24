@@ -1,10 +1,16 @@
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
+using BurningKnight.level.entities;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.room.controllable {
 	public class FireTrap : RoomControllable {
@@ -12,6 +18,8 @@ namespace BurningKnight.entity.room.controllable {
 		private float timer;
 		private bool flaming;
 		private float lastParticle;
+		
+		protected List<Entity> Colliding = new List<Entity>();
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -22,6 +30,8 @@ namespace BurningKnight.entity.room.controllable {
 			if (tile == null) {
 				tile = CommonAse.Props.GetSlice("firetrap");
 			}
+			
+			AddComponent(new RectBodyComponent(1, 1, 11, 14, BodyType.Static, true));
 		}
 
 		public override void PostInit() {
@@ -67,7 +77,8 @@ namespace BurningKnight.entity.room.controllable {
 					}
 				} else if (timer >= 1.5f) {
 					lastParticle -= dt;
-					
+					Hurt();
+
 					if (lastParticle <= 0) {
 						lastParticle = 0.15f;
 						
@@ -76,7 +87,6 @@ namespace BurningKnight.entity.room.controllable {
 							XChange = 0.1f,
 							Scale = 0.3f,
 							Vy = 8,
-							Hurts = Rnd.Chance(10),
 							Mod = 4
 						});
 					}
@@ -97,6 +107,28 @@ namespace BurningKnight.entity.room.controllable {
 
 		public override void Render() {
 			Graphics.Render(tile, Position);
+		}
+		
+		protected virtual bool ShouldHurt(Entity e) {
+			return e is Player;
+		}
+		
+		protected void Hurt() {
+			foreach (var c in Colliding) {
+				c.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+			}
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse) {
+				if (ShouldHurt(cse.Entity)) {
+					Colliding.Add(cse.Entity);
+				}
+			} else if (e is CollisionEndedEvent cee) {
+				Colliding.Remove(cee.Entity);
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

@@ -38,6 +38,7 @@ namespace BurningKnight.entity.creature.player {
 					died = true;
 					Done = false;
 					
+					RemoveComponent<PlayerInputComponent>();
 					Achievements.Unlock("bk:rip");
 
 					Audio.FadeOut();
