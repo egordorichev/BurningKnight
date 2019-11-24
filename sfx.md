@@ -42,6 +42,7 @@
 
 # Player
 
+* Sound when you can interact with smth (whilte outline appears)
 * Low hp scream (when you are left with half a heart)
 * Rolling sfx
 * Death

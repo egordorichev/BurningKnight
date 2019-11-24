@@ -343,20 +343,32 @@ namespace BurningKnight.level {
 
 			var rooms = new List<RoomDef>();
 
-			foreach (var r in Rooms) {
-				if (r is RegularRoom || r is EntranceRoom) {
-					rooms.Add(r);
+			foreach (var rr in Rooms) {
+				if (rr is RegularRoom || rr is EntranceRoom) {
+					rooms.Add(rr);
 				}
 			}
-			
-			foreach (var type in Level.ItemsToSpawn) {
-				var item = Items.CreateAndAdd(type, Level.Area);
 
-				if (item == null) {
-					continue;
+			var rrms = new List<RoomDef>();
+
+			foreach (var rm in rooms) {
+				if (rm is RegularRoom) {
+					rrms.Add(rm);
 				}
-				
-				item.Center = (rooms[Rnd.Int(rooms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
+			}
+
+			if (rrms.Count > 0) {
+				foreach (var type in Level.ItemsToSpawn) {
+					var item = Items.CreateAndAdd(type, Level.Area);
+
+					if (item == null) {
+						continue;
+					}
+					
+					item.Center = (rrms[Rnd.Int(rrms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
+				}
+			} else {
+				Log.Error("Failed to place items");
 			}
 
 			Level.ItemsToSpawn = null;

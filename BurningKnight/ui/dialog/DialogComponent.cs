@@ -223,6 +223,7 @@ namespace BurningKnight.ui.dialog {
 			if (p.TryGetComponent<PlayerInputComponent>(out var input)) {
 				input.InDialog = true;
 				input.Dialog = this;
+				Dialog.ShowArrow = true;
 			}
 
 						
@@ -237,6 +238,7 @@ namespace BurningKnight.ui.dialog {
 			if (To != null && To.TryGetComponent<PlayerInputComponent>(out var input)) {
 				input.InDialog = false;
 				input.Dialog = null;
+				Dialog.ShowArrow = false;
 			}
 						
 			((InGameState) Engine.Instance.State).CloseBlackBars();

@@ -70,6 +70,7 @@ namespace BurningKnight.entity.item.util {
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					health.ModifyHealth(-Damage, Owner);
+					Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
 				}
 			}
 			

@@ -15,7 +15,7 @@ namespace BurningKnight.entity.item.use {
 		protected float Angle;
 		
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword", 3);
+			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_attack", 4);
 
 			var arc = new MeleeArc {
 				Owner = entity,

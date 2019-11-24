@@ -1,6 +1,8 @@
 # publisher build stuff
 
 * fix {
+ + check ghost sfx
+
  + you can roll out of the idol room
  + you can roll between the wall and rocks
  + doors can keep be locked?
