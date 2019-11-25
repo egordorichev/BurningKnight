@@ -69,8 +69,9 @@ namespace BurningKnight.entity.item.util {
 						p.Break();
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
-					health.ModifyHealth(-Damage, Owner);
-					Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+					if (health.ModifyHealth(-Damage, Owner)) {
+						Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+					}
 				}
 			}
 			

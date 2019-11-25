@@ -69,7 +69,7 @@ namespace BurningKnight.entity.component {
 					Type = type
 				});
 
-				if (health <= 0.01f && AutoKill) {
+				if (health <= 0.1f && AutoKill) {
 					Kill(setter);
 				}
 

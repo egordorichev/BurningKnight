@@ -15,32 +15,28 @@
 
 ### to rework
 
-* machine gun (sucks)
 * make items that give bullet effects depend on luck
 * convert fire exstinguisher into flame thrower
+* discord rod use half a heart
 
 ### items
 
 * makes your bullets go through walls
-
+* items that give curse
+* item that makes your bullet size change over time (both ways (2 items))
 * 100% dm deal/granny deal
 * getting one deal opens up the other one
-
-* range up, speed up, dmg up but scaling, accuracy up etc, soy milk obv
+* dmg up but scaling, etc, soy milk obv
 * pickaxe implementation
-
 * smth that alters your bullet effect all the time, aka 3 dollar bill
 * items that gives each buff (broken armor is left only i think, and slowness)
-
-* guitar weapon
+* ukulele weapon
 * life drain
-
 * bombs that clear all the bullets on screen
 * charge shot
-* turret
-* powerful but lowrange gun
+* spawns a turret
+* powerful but short range gun
 * prism orbital
-* orbital, that fires to your cursor
 * nuclear throne perks: strong soul, hammer head, etc:
  *+ bloodlast: vampire_bat
  *+ hammer head: pickacke
@@ -48,7 +44,6 @@
 
 * holy mantel
 * item, that makes bullets bounce from each another
-* cutsaw: rolling hurt enemies
 * controlled bullet 
 * speedup orbitals, spawns only if you have an orbital
 * sword with projectiles
@@ -60,6 +55,7 @@
 * item, that opens enemy doors
 * ring of gold
 * star
+* pit immunity
 * zoom
 * when bullet penetrates enemy, it splits into two
 * double shot
@@ -85,10 +81,6 @@
 * animated hats
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
-* discord rod should damage everything it tourches from point where you were to where you tp
-* existing orbitals should be smaller
-* orbital, that deals damage to enemies
-* map, reveals all tiles
 * boomerang (or throwing axe)
 * sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
@@ -97,25 +89,25 @@
 * marshmallow orbital, can be light up
 * battery buddy
 * d1
+* gives infinite range to bullets
 * charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
-* bombs that stick
-* increase bomb explosion radius greatly
+* bombs that stick to enemies
+* increases bomb explosion radius greatly
 * homing bombs
 * wallet buddy (collects money)
 * roll damages enemies
 * teleport to random room
 * teleport to prev room
-* egg: spawns a familiar after a while?
-* egg: needs to be cracked
 * money is power
 * bombs are power
 * keys are power
 * active key, allows to open 1 thing for 2 charge?
 * active item, that detonates all barrels explosive stones and bombs on the floor
-* gun, that gives you fetus effect and epic fetus
+* guns that gives you fetus effect and epic fetus
 * 99 key
-* mama key and bomb, infinite resources for the floor
+* just explosive bullets items
+* mama key and bomb, infinite resources for the floor (consumables, small chance to replace any key or bomb)

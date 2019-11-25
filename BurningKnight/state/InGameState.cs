@@ -101,7 +101,8 @@ namespace BurningKnight.state {
 		private UiButton keyboardBack;
 
 		public static bool Ready;
-
+		public static bool InMenu;
+		
 		public void TransitionToBlack(Vector2 position, Action callback = null) {
 			Camera.Instance.Targets.Clear();
 			var v = Camera.Instance.CameraToScreen(position);
@@ -136,6 +137,7 @@ namespace BurningKnight.state {
 
 		public InGameState(Area area, bool menu) {
 			Menu = menu;
+			InMenu = menu;
 			Input.EnableImGuiFocus = false;
 
 			Area = area;
@@ -147,6 +149,7 @@ namespace BurningKnight.state {
 			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
+				Audio.PlayMusic("Menu", true);
 				Input.Blocked = 1;
 
 				blackBarsSize = BarsSize;
@@ -501,7 +504,11 @@ namespace BurningKnight.state {
 			if (Menu && !menuExited) {
 				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
 					menuExited = true;
+					InMenu = false;
 					Input.Blocked = 0;
+
+					Audio.PlaySfx("ui_start");
+					Audio.PlayMusic("Hub", true);
 
 					CloseBlackBars();
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, CursorPriority);
@@ -1865,7 +1872,8 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Enabled = true;
+			gameOverMenu.Enabled = true;			
+			Audio.PlayMusic("Nostalgia", true);
 			
 			timeLabel.Label = $"{GetRunTime()}";
 			timeLabel.RelativeCenterX = Display.UiWidth / 2f;

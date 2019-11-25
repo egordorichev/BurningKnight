@@ -43,10 +43,13 @@ namespace Lens.assets {
 				}
 			}
 		}
+
+		public static void StartThread() {
+			new Thread(Update).Start();
+		}
 		
 		internal static void Load() {
 			LoadSfx(FileHandle.FromNearRoot("bin/Sfx/"), "", true);
-			new Thread(Update).Start();
 		}
 
 		private static void LoadSfx(string sfx, string path) {
@@ -89,7 +92,7 @@ namespace Lens.assets {
 			sfx?.Play(volume * SfxVolume, pitch, pan);
 		}
 		
-		public static void PlayMusic(string music) {
+		public static void PlayMusic(string music, bool fromStart = false) {
 			if (!Assets.LoadAudio || loading) {
 				return;
 			}
@@ -100,24 +103,23 @@ namespace Lens.assets {
 				return;
 			}
 			
-			Repeat = true;			
 			FadeOut();
-			LoadAndPlayMusic(music);
+			LoadAndPlayMusic(music, fromStart);
 		}
 
 		private static bool loading;
 
-		private static void LoadAndPlayMusic(string music) {
+		private static void LoadAndPlayMusic(string music, bool fromStart = false) {
 			if (musicInstances.ContainsKey(music)) {
-				ThreadLoad(music);
+				ThreadLoad(music, true, fromStart);
 			} else {
 				new Thread(() => {
-					ThreadLoad(music);
+					ThreadLoad(music, true, fromStart);
 				}).Start();
 			}
 		}
 
-		private static void ThreadLoad(string music, bool play = true) {		
+		public static void ThreadLoad(string music, bool play = true, bool fromStart = false) {		
 			loading = true;
 
 			if (!play) {
@@ -137,9 +139,14 @@ namespace Lens.assets {
 
 			currentPlaying.Volume = 0;
 			currentPlaying.Repeat = Repeat;
+			Repeat = true;			
 			currentPlaying.Paused = false;
 
-			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, CrossFadeTime).OnEnd = () => {
+			if (fromStart) {
+				position = 0;
+			}
+
+			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, fromStart ? 0.05f : CrossFadeTime).OnEnd = () => {
 				if (currentPlaying == mo) {
 					Playing.Clear();
 					Playing.Add(currentPlaying);
@@ -187,7 +194,7 @@ namespace Lens.assets {
 
 		private static bool loadedAll;
 		private static List<string> toLoad = new List<string> {
-			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Reckless", "Disk 1"
+			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Gobbeon", "Fatiga", "Reckless", "Disk 1"
 		};
 
 		public static void Preload(string music) {

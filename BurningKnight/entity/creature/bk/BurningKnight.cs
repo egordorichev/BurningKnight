@@ -364,6 +364,8 @@ namespace BurningKnight.entity.creature.bk {
 				var d = Self.DistanceTo(Self.captured);
 				
 				if (d <= 8) {
+					Audio.PlayMusic("Fatiga", true);
+					
 					// PREPARE TO DIE!
 					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
 					Camera.Instance.Unfollow(Self);
