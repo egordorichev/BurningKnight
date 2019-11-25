@@ -71,6 +71,12 @@ namespace BurningKnight.level.entities {
 			
 			Tween.To(1.4f, a.Scale.X, x => a.Scale.X = x, 0.4f);
 			Tween.To(0.7f, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+
+			if (!HasComponent<AudioEmitterComponent>()) {
+				AddComponent(new AudioEmitterComponent());
+			}
+			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("level_tnt");
 		}
 
 		protected override GraphicsComponent CreateGraphicsComponent() {

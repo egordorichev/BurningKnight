@@ -22,6 +22,7 @@ using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -240,7 +241,7 @@ namespace BurningKnight.entity.creature.player {
 					lastFrame = anim.Frame;
 
 					if (lastFrame == 2 || lastFrame == 6) {
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("step");
+						Audio.PlaySfx("step", 1f, Rnd.Float(-0.3f, 0.3f));
 					}
 				}
 			}
@@ -630,6 +631,14 @@ namespace BurningKnight.entity.creature.player {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
 				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
 			}
+		}
+
+		protected override string GetHurtSfx() {
+			return "player_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return null;
 		}
 	}
 }

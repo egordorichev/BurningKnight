@@ -131,7 +131,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			beforeNextBullet -= dt;
 
 			if (beforeNextBullet <= 0) {
-				beforeNextBullet = 2;
+				beforeNextBullet = 3;
 				
 				var a = GetComponent<AnimationComponent>();
 
@@ -148,11 +148,11 @@ namespace BurningKnight.entity.room.controllable.turret {
 							t.OnEnd = () => Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
 						}
 
-						GetComponent<AudioEmitterComponent>().EmitRandomized("fire");
 						var r = GetComponent<RoomComponent>();
 
 						if (r.Room != null && r.Room.Tagged[Tags.Player].Count > 0) {
 							Fire(Angle / 4f * Math.PI);
+						GetComponent<AudioEmitterComponent>().EmitRandomized("level_turret_fire");
 						}
 					};
 				};

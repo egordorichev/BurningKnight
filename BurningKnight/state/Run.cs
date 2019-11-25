@@ -3,6 +3,7 @@ using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.save.statistics;
 using Lens;
+using Lens.assets;
 using Lens.util;
 using Lens.util.math;
 
@@ -91,6 +92,7 @@ namespace BurningKnight.state {
 
 		public static void AddCurse() {
 			Curse++;
+			Audio.PlaySfx("player_cursed");
 		}
 
 		public static void ResetCurse() {

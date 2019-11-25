@@ -106,7 +106,12 @@ namespace BurningKnight.entity.creature.player {
 						}
 						
 						case ItemType.Coin: {
-							a.Emit("coin");
+							if (ev.Item.Id == "bk:emerald") {
+								a.Emit("item_emerald");
+							} else {
+								a.Emit("coin");
+							}
+
 							break;
 						}
 						

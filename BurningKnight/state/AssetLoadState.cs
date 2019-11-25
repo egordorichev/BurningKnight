@@ -52,7 +52,9 @@ namespace BurningKnight.state {
 			var thread = new Thread(() => {
 				Log.Info("Starting asset loading thread");
 				
+				Audio.ThreadLoad("Void");
 				Assets.Load(ref progress);
+				Audio.ThreadLoad("Menu", false);
 				
 				Achievements.Load();
 				Dialogs.Load();

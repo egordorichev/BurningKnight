@@ -1,6 +1,7 @@
 # publisher build stuff
 
 * fix {
+ + vending and other machines ask for money
  + you can roll out of the idol room
  + you can roll between the wall and rocks
  + doors can keep be locked?
@@ -57,13 +58,8 @@
 * spawn chests/pickups in the levels
 
 * duck interaction
-* Implement basic loop
-* Tiny autoaim, but disable it in the settings
-* get discord npc somewhere to spawn
+* Implement basic loop after you defeat the boss
 * Hints on loading screen  
-* make music update run in a separate thread
-* throwing music discs as weapons
-* resprite bk
 * curse getting animation
 
 * curse of unknown (do not know hp)
@@ -72,40 +68,32 @@
 * curse of ??? (items hidden)
 * more prefixes
 
-* items that give curse
-* item that makes your bullet size change over time (both ways (2 items))
-
 * Enemies / rooms drop rewards (bombs, keys, coins)
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 ## general
 
-+ lava:
- * tile lighting: figure it out
- * dont forget little bursts of light for guns and stuff
- * lava should be drawn over the shadows
- * particles for lava like in pd
- * fix lavafall colors
- * fix fire particle changing the render state so much
+* lava: {
+ + tile lighting: figure it out
+ + dont forget little bursts of light for guns and stuff
+ + lava should be drawn over the shadows
+ + particles for lava like in pd
+ + fix lavafall colors
+}
 
 * Low health indicator
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
-* spice up bullets (different textures for different enemies)
 * shields
-
-* projectile speed stat
 
 #### Polish
 
-* juice up guns aka nuclear throne, do the same with melee
 * special door textures for shop and treasure room, maybe even boss room 
 * animate items on player head better, also dont stack em, display count 
 * animate item pickup / appearance
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Add sparks
-* Reflections in the water
 * Splashes on the water
 * Props that react to music beats
 * player should go up (like jumping arc) when he is rolling
@@ -116,7 +104,7 @@
 * blue hearts, at least em
 
 * teleport tile mechanic for some level
-* breakable chests
+* make chests brekable (the ones that you dont have a key to open)
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 
@@ -125,7 +113,6 @@
 * a special reward for completing the level fast
 
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
-* fire trap, could use a simular sprite to pd/spikes, emits fire when you stand on it, some just emit on timer
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation

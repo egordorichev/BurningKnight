@@ -37,6 +37,8 @@ namespace BurningKnight.entity.creature.player {
 				if (!GetComponent<HealthComponent>().Dead && !died) {
 					died = true;
 					Done = false;
+
+					GetComponent<AudioEmitterComponent>().EmitRandomized("player_death");
 					
 					RemoveComponent<PlayerInputComponent>();
 					Achievements.Unlock("bk:rip");
@@ -56,6 +58,7 @@ namespace BurningKnight.entity.creature.player {
 
 						HandleEvent(e);
 						AnimateDeath(ev);
+						
 						Done = true;
 					};
 

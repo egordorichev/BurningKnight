@@ -62,7 +62,9 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			Audio.PlayMusic(Run.Level.GetMusic());
+			if (!InGameState.InMenu) {
+				Audio.PlayMusic(Run.Level.GetMusic(), Run.Depth < 1 || Run.Depth % 2 == 1);
+			}
 			
 			// Audio.PlayMusic("Disk 6", Camera.Instance.Listener, LocalPlayer.Locate(Area).GetComponent<AudioEmitterComponent>().Emitter);
 		}
@@ -80,6 +82,10 @@ namespace BurningKnight.state {
 		}
 
 		public override bool HandleEvent(Event e) {
+			if (InGameState.InMenu) {
+				return false;
+			}
+			
 			if (e is GramophoneBrokenEvent ge) {
 				var local = LocalPlayer.Locate(ge.Gramophone.Area);
 
@@ -113,16 +119,11 @@ namespace BurningKnight.state {
 				
 				switch (re.New.Type) {
 					case RoomType.Boss: {
-						Audio.FadeOut();
-						
-						Timer.Add(() => {
-							// fixme
-							if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
-								Audio.PlayMusic("Fatiga");
-							} else {
-								Audio.PlayMusic("Gobbeon");
-							}
-						}, 1f);
+						if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
+							Audio.PlayMusic("Fatiga");
+						} else {
+							Audio.PlayMusic("Gobbeon");
+						}
 						break;
 					}
 					
@@ -158,7 +159,6 @@ namespace BurningKnight.state {
 				}
 			} else if (e is SecretRoomFoundEvent) {
 				Audio.Stop();
-				
 				Audio.PlaySfx("secret");
 			} else if (e is DiedEvent de) {
 				if (de.Who is Player) {
@@ -167,8 +167,8 @@ namespace BurningKnight.state {
 				}
 			} else if (e is Boss.DefeatedEvent) {
 				Audio.Stop();
-				Audio.PlayMusic("Reckless");
 				Audio.Repeat = false;
+				Audio.PlayMusic("Reckless");
 			}
 
 			return false;

@@ -207,7 +207,7 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("door_close");
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_door_shut");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -233,7 +233,7 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door_open", 5);
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door", 5);
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

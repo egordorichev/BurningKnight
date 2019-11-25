@@ -110,6 +110,12 @@ namespace BurningKnight.level.entities {
 					
 					Area.Add(part);
 				}
+				
+				if (!HasComponent<AudioEmitterComponent>()) {
+					AddComponent(new AudioEmitterComponent());
+				}
+			
+				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_chair_break", 2);
 
 				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
 				Camera.Instance.Shake(2f);

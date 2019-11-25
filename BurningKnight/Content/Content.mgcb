@@ -190,6 +190,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/cage_key_used.wav
 
+#begin Sfx/item/emerald.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/emerald.wav
+
 #begin Sfx/item/gun/fire/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -256,6 +262,36 @@
 /processorParam:Quality=Best
 /build:Sfx/item/sword/hit/3.wav
 
+#begin Sfx/item/ukulele/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/ukulele/1.wav
+
+#begin Sfx/item/ukulele/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/ukulele/2.wav
+
+#begin Sfx/item/ukulele/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/ukulele/3.wav
+
+#begin Sfx/item/ukulele/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/ukulele/4.wav
+
+#begin Sfx/item/ukulele/5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/ukulele/5.wav
+
 #begin Sfx/item_nocash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -273,6 +309,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/key.wav
+
+#begin Sfx/level/chair/break/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/chair/break/1.wav
+
+#begin Sfx/level/chair/break/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/chair/break/2.wav
 
 #begin Sfx/level/door/1.wav
 /importer:WavImporter
@@ -310,6 +358,12 @@
 /processorParam:Quality=Best
 /build:Sfx/level/door/shut.wav
 
+#begin Sfx/level/tnt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/tnt.wav
+
 #begin Sfx/level/turret/fire.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -321,6 +375,48 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bandit/death.wav
+
+#begin Sfx/mob/bk/hurt/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hurt/1.wav
+
+#begin Sfx/mob/bk/hurt/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hurt/2.wav
+
+#begin Sfx/mob/bk/hurt/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hurt/3.wav
+
+#begin Sfx/mob/bk/hurt/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hurt/4.wav
+
+#begin Sfx/mob/bk/hurt/5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hurt/5.wav
+
+#begin Sfx/mob/bk/static.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/static.wav
+
+#begin Sfx/mob/bk/voice.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/voice.wav
 
 #begin Sfx/mob/ghost/death.wav
 /importer:WavImporter
@@ -339,6 +435,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/ghost/hurt_2.wav
+
+#begin Sfx/mob/oldking/attack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/oldking/attack.wav
+
+#begin Sfx/mob/oldking/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/oldking/jump.wav
+
+#begin Sfx/mob/oldking/summon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/oldking/summon.wav
 
 #begin Sfx/mob/slime/jump_1.wav
 /importer:WavImporter
@@ -375,6 +489,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/pickup_item.wav
+
+#begin Sfx/player/cursed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/cursed.wav
+
+#begin Sfx/player/death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/death.wav
 
 #begin Sfx/player/descending.wav
 /importer:WavImporter
@@ -459,6 +585,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/take.wav
+
+#begin Sfx/ui/start.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/ui/start.wav
 
 #begin Sfx/unlock.wav
 /importer:WavImporter

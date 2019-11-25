@@ -83,7 +83,7 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				entity.TryGetComponent<StatsComponent>(out var stats);
-				entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2);
+				entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
 
 				var aim = entity.GetComponent<AimComponent>();
 				var from = aim.Center;

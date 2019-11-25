@@ -48,6 +48,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			GetComponent<BuffsComponent>().AddImmunity<CharmedBuff>();
 			Become<FriendlyState>();
+
+			GetComponent<HealthComponent>().AutoKill = true;
 			
 			AddTag(Tags.Boss);
 		}
@@ -155,20 +157,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is DiedEvent de && de.Who == this) {
-				if (!died) {
-					died = true;
-					HealthBar?.Remove();
+			if (e is DiedEvent de) {
+				if (de.Who == this) {
+					if (!died) {
+						died = true;
+						HealthBar?.Remove();
 
-					Camera.Instance.Targets.Clear();
-					Camera.Instance.Follow(this, 1f);
-					Become<DefeatedState>();
+						Camera.Instance.Targets.Clear();
+						Camera.Instance.Follow(this, 1f);
+						Become<DefeatedState>();
 
-					Audio.Stop();
+						Audio.Stop();
+					}
+
+					Done = false;
+					e.Handled = true;
 				}
-				
-				Done = false;
-				e.Handled = true;
 			}
 
 			return base.HandleEvent(e);

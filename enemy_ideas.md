@@ -39,7 +39,6 @@
 * snipper (nt)
 * enemy, that moves as insane as sk, but not as much
 
-+ burning slime
 + maggot on the floor
 + maggot nest: spawns maggots?
 + scorpion
