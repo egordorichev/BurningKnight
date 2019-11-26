@@ -20,6 +20,8 @@
 
 ### items
 
+* multiplies your orbitals by 2
+* orbitals should make the chance of appearing higher when you pick em up
 * makes your bullets go through walls
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
