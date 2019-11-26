@@ -296,6 +296,10 @@ namespace BurningKnight.entity.projectile {
 			if (IgnoreCollisions || entity == Owner) {
 				return false;
 			}
+
+			if (entity is Tombstone && !(Owner is Player)) {
+				return false;
+			}
 			
 			return !(entity is Level) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfWall || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}

@@ -290,7 +290,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (animation.Paused) {
 					if (Self.Raging) {
-						if (Self.jumpCounter < 3) {
+						if (Self.jumpCounter < 2) {
 							Become<JumpState>();
 							Self.jumpCounter++;
 
