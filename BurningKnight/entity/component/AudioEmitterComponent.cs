@@ -14,17 +14,20 @@ namespace BurningKnight.entity.component {
 		
 		public AudioEmitter Emitter = new AudioEmitter();
 		public float PitchMod;
+		public bool DestroySounds = true;
 		
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
 
 		public override void Destroy() {
 			base.Destroy();
 
-			foreach (var s in Playing.Values) {
-				s.Stop();
-			}
+			if (DestroySounds) {
+				foreach (var s in Playing.Values) {
+					s.Stop();
+				}
 
-			Playing.Clear();
+				Playing.Clear();
+			}
 		}
 
 		private void UpdatePosition() {

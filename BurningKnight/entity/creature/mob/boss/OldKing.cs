@@ -139,6 +139,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 						var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), Rnd.Float(5, 12));
 
+						skull.NearDeath += p => {
+							var c = new AudioEmitterComponent {
+								DestroySounds = false
+							};
+							
+							p.AddComponent(c);
+							c.Emit("mob_oldking_explode");
+						};
+						
 						skull.OnDeath += (p, t) => {
 							if (!t) {
 								return;

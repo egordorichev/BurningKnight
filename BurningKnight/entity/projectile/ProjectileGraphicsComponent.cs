@@ -29,7 +29,7 @@ namespace BurningKnight.entity.projectile {
 			var a = Rotation;
 			
 			var spr = p.FlashTimer > 0 ? Flash : Sprite;
-			var or = spr.Center; // new Vector2(p.Width / 2, p.Height / 2);
+			var or = spr.Center;
 			
 			if (shadow) {
 				Graphics.Render(spr, Entity.Center + new Vector2(0, 6), 
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			var d = p.Dying || (p.IndicateDeath && p.T >= p.Range - 1.8f && p.T % 0.6f >= 0.3f);
+			var d = p.Dying || (p.IndicateDeath && p.NearingDeath);
 			var started = d;
 
 			if (d) {

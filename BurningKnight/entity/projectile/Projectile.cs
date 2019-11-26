@@ -34,6 +34,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+	public delegate void ProjectileNearingDeathCallback(Projectile p);
 	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
 
 	public class Projectile : Entity, CollisionFilterEntity {
@@ -55,6 +56,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileDeathCallback OnDeath;
 		public ProjectileUpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
+		public ProjectileNearingDeathCallback NearDeath;
 		public Projectile Parent;
 		public ProjectileGraphicsEffect Effect;
 		public string Slice;
@@ -68,7 +70,10 @@ namespace BurningKnight.entity.projectile {
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
 
+		public bool NearingDeath => T >= Range - 1.8f && T % 0.6f >= 0.3f;
+
 		private float deathTimer;
+		private bool nearedDeath;
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, int damage = 1, Item item = null) {
 			var projectile = new Projectile();
@@ -149,6 +154,11 @@ namespace BurningKnight.entity.projectile {
 			base.Update(dt);
 
 			T += dt;
+
+			if (!nearedDeath && NearingDeath) {
+				nearedDeath = true;
+				NearDeath?.Invoke(this);
+			}
 
 			if (FlashTimer > 0) {
 				FlashTimer -= dt;

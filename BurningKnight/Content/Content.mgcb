@@ -352,6 +352,12 @@
 /processorParam:Quality=Best
 /build:Sfx/level/door/shut.wav
 
+#begin Sfx/level/spike.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/spike.wav
+
 #begin Sfx/level/tnt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -435,6 +441,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/ghost/hurt_2.wav
+
+#begin Sfx/mob/oldking/explode.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/oldking/explode.wav
 
 #begin Sfx/mob/oldking/jump.wav
 /importer:WavImporter
