@@ -42,6 +42,7 @@ namespace BurningKnight.entity.projectile {
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
+		public ProjectilePattern Pattern;
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
@@ -190,7 +191,7 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			
-			if (BodyComponent.Velocity.Length() < 0.5f) {
+			if (Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
 				Break();
 			}
 		}
@@ -204,6 +205,10 @@ namespace BurningKnight.entity.projectile {
 				if (c.Invoke(entity) == CollisionResult.Disable) {
 					return false;
 				} 
+			}
+
+			if (entity == Owner) {
+				return false;
 			}
 
 			if (entity is Turret && T > 0.2f) {
@@ -288,7 +293,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			if (IgnoreCollisions) {
+			if (IgnoreCollisions || entity == Owner) {
 				return false;
 			}
 			

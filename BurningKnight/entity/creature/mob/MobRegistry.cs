@@ -17,10 +17,10 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)).SetSpawnChance(0.5f),
 				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<WallCrawler>(new SpawnChance(1f, Biome.Castle)).RequiresNearWall(),
+				MobInfo.New<WallCrawler>(new SpawnChance(0.5f, Biome.Castle)).RequiresNearWall(),
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<MotherSlime>(new SpawnChance(1f, Biome.Castle)).MarkSingle(),
+				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),
 				
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),

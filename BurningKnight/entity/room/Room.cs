@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -11,6 +12,7 @@ using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
 using BurningKnight.level;
+using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
@@ -115,21 +117,52 @@ namespace BurningKnight.entity.room {
 				if (!found) {
 					if (!Cleared) {
 						SpawnReward();
-					}
 
-					Cleared = true;
+						Cleared = true;
 					
-					cleared.HandleEvent(new RoomClearedEvent {
-						Room = this
-					});
+						cleared.HandleEvent(new RoomClearedEvent {
+							Room = this
+						});
+					}
 				}
 
 				checkCleared = false;
 			}
 		}
 
-		private void SpawnReward() {
+		private static string[] rewards = {
+			"bk:copper_coin",
+			"bk:key",
+			"bk:bomb",
+			"bk:heart",
+			"bk:pouch"
+		};
+
+		private Entity CreateReward() {
+			if (true || Rnd.Chance(20)) {
+				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
+				Area.Add(chest);
+
+				return chest;
+			}
 			
+			return Items.CreateAndAdd(rewards[Rnd.Int(rewards.Length)], Area);
+		}
+
+		private void SpawnReward() {
+			if (Type != RoomType.Regular) {
+				return;
+			}
+			
+			var level = Run.Level;
+			var where = new Dot(MapX + MapW / 2, MapY + MapH / 2);
+
+			var reward = CreateReward();
+			reward.Center = where * 16 + new Vector2(8, 8);
+			
+			level.Set(where.X, where.Y, Tile.FloorD);
+			level.UpdateTile(where.X, where.Y);
+			level.ReCreateBodyChunk(where.X, where.Y);
 		}
 
 		private bool settedUp;

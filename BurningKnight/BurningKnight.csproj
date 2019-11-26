@@ -763,6 +763,7 @@
     <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
+    <Compile Include="level\entities\chest\ChestRegistry.cs" />
     <Compile Include="level\entities\chest\CursedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />
     <Compile Include="level\entities\chest\GoldChest.cs" />
