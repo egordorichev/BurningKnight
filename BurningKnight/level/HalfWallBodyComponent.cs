@@ -77,8 +77,8 @@ namespace BurningKnight.level {
 							list.Add(new Vector2(xx + 10, yy + (Check(level, x, y - 1) ? 0 : 8)));
 						}
 
-						list.Add(new Vector2(xx + 16, yy + (Check(level, x, y + 1) ? 16 : 24)));
-						list.Add(new Vector2(xx, yy + (Check(level, x, y + 1) ? 16 : 24)));
+						list.Add(new Vector2(xx + 16, yy + (Check(level, x, y + 1) ? 17 : 24)));
+						list.Add(new Vector2(xx, yy + (Check(level, x, y + 1) ? 17 : 24)));
 
 						FixtureFactory.AttachPolygon(new Vertices(list), 1f, body);
 					}

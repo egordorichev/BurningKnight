@@ -10,7 +10,6 @@
   - indicate boss phases on the boss bar
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
-  - vending and other machines ask for money when you have none (otherwise players are confused)
   - doors are hard to notice
  }
 
@@ -19,14 +18,21 @@
  }
 
  + you can roll out of the idol room
- + you can roll between the wall and rocks
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {
+  - check on windows, this might be linux issue?
+ 
   - ui buttons don't seem to auto select always
   - gamepad doesn't seem to function properly without hotplugging it
   - rumble doesn't always work
  }
+}
+
+* room {
+ + special props on top of special rooms, like shop boss and treasure
+ + cleared effect
+ + clear reward. Spawns in the center, destroying the tiles. 
 }
 
 * change desert gen to be more like archvale and nt, open?
@@ -36,12 +42,6 @@
  + better getting out of boss
  + fix how saving works with capturing ths bosses
  + no hit boss battle reward
-}
-
-* room {
- + special props on top of special rooms, like shop boss and treasure
- + cleared effect
- + clear reward. Spawns in the center, destroying the tiles. 
 }
 
 * ui {

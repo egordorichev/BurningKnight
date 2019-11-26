@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util.file;
@@ -67,6 +68,7 @@ namespace BurningKnight.level.entities.machine {
 			AddComponent(new RectBodyComponent(0, 6, 18, 20, BodyType.Static));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new DialogComponent());
 			
 			AddComponent(new InteractableSliceComponent("props", "vending_machine"));
 		}
@@ -87,11 +89,13 @@ namespace BurningKnight.level.entities.machine {
 			var component = entity.GetComponent<ConsumablesComponent>();
 
 			if (component.Coins == 0) {
+				GetComponent<DialogComponent>().StartAndClose("machine_0", 3);
 				AnimationUtil.ActionFailed();
 				return false;
 			}
+			
+			GetComponent<DialogComponent>().Close();
 
-			// todo: animate coin going in
 			component.Coins -= 1;
 			coinsConsumed++;
 
