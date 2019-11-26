@@ -11,7 +11,6 @@
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - vending and other machines ask for money when you have none (otherwise players are confused)
-  - press X in the game menu should accept any key in the pc builds
   - doors are hard to notice
  }
 

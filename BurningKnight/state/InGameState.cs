@@ -515,7 +515,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Menu && !menuExited) {
-				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
+				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true) || Input.Keyboard.State.GetPressedKeys().Length > 0) {
 					menuExited = true;
 					InMenu = false;
 					Input.Blocked = 0;
