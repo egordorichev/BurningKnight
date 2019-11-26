@@ -113,8 +113,11 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		protected class ShowingState : SmartState<Spikes> {
 			public override void Init() {
 				base.Init();
-				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+
+				if (Self.OnScreen) {
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+				}
+
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -159,7 +162,10 @@ namespace BurningKnight.entity.room.controllable.spikes {
 
 					if (!playedSfx) {
 						playedSfx = true;
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+
+						if (Self.OnScreen) {
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+						}
 					}
 				}
 				

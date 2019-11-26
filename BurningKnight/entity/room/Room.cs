@@ -133,6 +133,7 @@ namespace BurningKnight.entity.room {
 		private static string[] rewards = {
 			"bk:copper_coin",
 			"bk:key",
+			"bk:key",
 			"bk:bomb",
 			"bk:heart",
 			"bk:pouch"
@@ -160,6 +161,8 @@ namespace BurningKnight.entity.room {
 			/*
 			 * Need to animate tiles dropping from the sky
 			 * Can reuse this animation later for the boss battle
+			 * And for appearing paths to granny/dm
+			 * And for animating boss room growing bigger
 			 */
 			
 			var reward = CreateReward();

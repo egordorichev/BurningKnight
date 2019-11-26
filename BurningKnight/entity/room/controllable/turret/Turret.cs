@@ -152,7 +152,10 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 						if (r.Room != null && r.Room.Tagged[Tags.Player].Count > 0) {
 							Fire(Angle / 4f * Math.PI);
-						GetComponent<AudioEmitterComponent>().EmitRandomized("level_turret_fire");
+
+							if (OnScreen) {
+								GetComponent<AudioEmitterComponent>().EmitRandomized("level_turret_fire");
+							}
 						}
 					};
 				};

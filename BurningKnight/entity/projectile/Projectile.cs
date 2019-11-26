@@ -70,7 +70,7 @@ namespace BurningKnight.entity.projectile {
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
 
-		public bool NearingDeath => T >= Range - 1.8f && T % 0.6f >= 0.3f;
+		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
 
 		private float deathTimer;
 		private bool nearedDeath;
