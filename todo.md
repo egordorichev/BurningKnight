@@ -11,7 +11,6 @@
 
  + visual {
   - remove entrance ladder from the hub
-  - gold lock doesnt get removed when it's open 
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - vending and other machines ask for money when you have none (otherwise players are confused)
