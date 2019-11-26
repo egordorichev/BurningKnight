@@ -28,10 +28,8 @@ namespace BurningKnight.entity.creature.drop {
 		public override List<string> GetItems() {
 			var list = new List<string>();
 
-			if (Rnd.Float() <= Chance) {
-				for (var i = 0; i < Rnd.Int(Min, Max + 1); i++) {
-					list.Add(Items.Generate(Pool));
-				}
+			for (var i = 0; i < Rnd.Int(Min, Max + 1); i++) {
+				list.Add(Items.Generate(Pool));
 			}
 
 			return list;

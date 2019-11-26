@@ -7,6 +7,7 @@
  }
 
  + visual {
+  - some weirdness is going on with bullet death particles?
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice

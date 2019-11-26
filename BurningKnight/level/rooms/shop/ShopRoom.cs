@@ -127,10 +127,6 @@ namespace BurningKnight.level.rooms.shop {
 
 		public override void SetupDoors(Level level) {
 			var hidden = Rnd.Chance(5);
-
-			if (!hidden) {
-				level.ItemsToSpawn.Add("bk:key");
-			}
 			
 			foreach (var door in Connected.Values) {
 				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Locked;

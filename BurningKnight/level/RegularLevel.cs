@@ -34,8 +34,6 @@ namespace BurningKnight.level {
 			ItemsToSpawn = new List<string>();
 
 			if (Run.Depth > 0) {
-				ItemsToSpawn.Add("bk:bomb");
-
 				if (GlobalSave.IsTrue("saved_npc")) {
 					for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
 						ItemsToSpawn.Add("bk:emerald");

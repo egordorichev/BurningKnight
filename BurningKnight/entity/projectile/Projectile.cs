@@ -313,7 +313,7 @@ namespace BurningKnight.entity.projectile {
 			deathTimer = 0.1f;
 			
 			try {
-				var l = BodyComponent.Velocity.Length();
+				var l = Math.Min(15, BodyComponent.Velocity.Length());
 				
 				if (l > 1f) {
 					var a = VectorExtension.ToAngle(BodyComponent.Velocity);

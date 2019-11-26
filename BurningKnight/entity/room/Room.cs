@@ -139,7 +139,7 @@ namespace BurningKnight.entity.room {
 		};
 
 		private Entity CreateReward() {
-			if (true || Rnd.Chance(20)) {
+			if (Rnd.Chance(20)) {
 				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 				Area.Add(chest);
 
@@ -157,12 +157,16 @@ namespace BurningKnight.entity.room {
 			var level = Run.Level;
 			var where = new Dot(MapX + MapW / 2, MapY + MapH / 2);
 
+			/*
+			 * Need to animate tiles dropping from the sky
+			 * Can reuse this animation later for the boss battle
+			 */
+			
 			var reward = CreateReward();
 			reward.Center = where * 16 + new Vector2(8, 8);
 			
-			level.Set(where.X, where.Y, Tile.FloorD);
-			level.UpdateTile(where.X, where.Y);
-			level.ReCreateBodyChunk(where.X, where.Y);
+			Painter.Fill(level, where.X - 1, where.Y - 1, 3, 3, Tile.FloorD);
+			level.ReTileAndCreateBodyChunks(where.X - 1, where.Y - 1, 3, 3);
 		}
 
 		private bool settedUp;

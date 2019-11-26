@@ -57,10 +57,6 @@ namespace BurningKnight.level.rooms.treasure {
 			foreach (var door in Connected.Values) {
 				door.Type = Run.Depth == 1 ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Locked;
 			}
-			
-			if (Rnd.Chance()) {
-				level.ItemsToSpawn.Add("bk:key");
-			}
 		}
 
 		public override bool ShouldSpawnMobs() {
