@@ -64,17 +64,35 @@
 /processorParam:Quality=Best
 /build:Sfx/bandit2.wav
 
+#begin Sfx/bomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/bomb.wav
+
 #begin Sfx/bomb_placed.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/bomb_placed.wav
 
+#begin Sfx/chest_open.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/chest_open.wav
+
 #begin Sfx/clap.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/clap.wav
+
+#begin Sfx/coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/coin.wav
 
 #begin Sfx/crawler.wav
 /importer:WavImporter

@@ -35,6 +35,7 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new DropsComponent());
 			AddComponent(new ShadowComponent());
 			AddComponent(new RoomComponent());
+			AddComponent(new AudioEmitterComponent());
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = e => CanOpen && !open
@@ -93,6 +94,8 @@ namespace BurningKnight.level.entities.chest {
 			Tween.To(0.2f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
 				UpdateSprite();
 				SpawnDrops();
+
+				GetComponent<AudioEmitterComponent>().EmitRandomized("chest_open");
 				
 				Tween.To(0.6f * Scale, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(1.7f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {

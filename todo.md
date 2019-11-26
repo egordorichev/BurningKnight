@@ -2,6 +2,7 @@
 
 * fix {
  + bugs {
+  - gold chest drops 2 items??
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
  }
