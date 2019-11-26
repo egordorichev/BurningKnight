@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets.achievements;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.state;
@@ -41,7 +42,9 @@ namespace BurningKnight.entity.creature.player {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("player_death");
 					
 					RemoveComponent<PlayerInputComponent>();
+					
 					Achievements.Unlock("bk:rip");
+					Items.Unlock("bk:dagger");
 
 					Audio.FadeOut();
 					

@@ -19,6 +19,7 @@ namespace BurningKnight.ui {
 				Label = "-",
 				Selectable = false,
 				RelativeX = x + a.Width + 10,
+				Type = ButtonType.Slider,
 				RelativeCenterY = y,
 				Click = bt => {
 					c.Value = Math.Max(0, c.Value - 10);
@@ -47,6 +48,7 @@ namespace BurningKnight.ui {
 			var d = pane.Add(new UiButton {
 				Label = "+",
 				Selectable = false,
+				Type = ButtonType.Slider,
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
 				RelativeCenterY = y,
 				Click = bt => {

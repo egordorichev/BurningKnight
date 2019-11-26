@@ -26,12 +26,17 @@ namespace BurningKnight.entity.component {
 			};
 		}
 		
-		public override void Update(float dt) {
-			base.Update(dt);
-
+		public GamepadComponent() {
+			UpdateState();
+		}
+		
+		private void UpdateState() {
+		
 			if (Settings.Gamepad != GamepadId && Settings.Gamepad != null) {
 				for (int i = 0; i < 4; i++) {
-					if (GamePad.GetCapabilities(i).IsConnected && GamePad.GetCapabilities(i).Identifier == Settings.Gamepad) {
+					var c = GamePad.GetCapabilities(i);
+					
+					if (c.IsConnected && c.Identifier == Settings.Gamepad) {
 						Controller = Input.Gamepads[i];
 						GamepadId = Settings.Gamepad;
 						Current = Controller;
@@ -41,22 +46,35 @@ namespace BurningKnight.entity.component {
 					}
 				}
 				
-				Log.Error($"Unknown gamepad ${Settings.Gamepad}");
-				Current = null;
+				// Current = null;
 				Settings.Gamepad = null;
 			} else if (Controller == null) {
 				for (int i = 0; i < 4; i++) {
-					if (Input.Gamepads[i].Attached) {
+					if (GamePad.GetCapabilities(i).IsConnected) {
 						Controller = Input.Gamepads[i];
 						GamepadId = GamePad.GetCapabilities(i).Identifier;
 						Current = Controller;
 						
 						Settings.Gamepad = GamepadId;
 						Log.Info($"Connected {GamePad.GetState(i)}");
-						break;
+						return;
 					}
 				}
+				
+				// Current = null;
+				Settings.Gamepad = null;
 			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			// Current = null;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+            UpdateState();
 		}
 	}
 }

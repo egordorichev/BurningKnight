@@ -154,7 +154,7 @@ namespace BurningKnight.entity.item.stand {
 						inventory.Pickup(i);
 					}
 
-					return this is ShopStand;
+					return this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
 					return false;

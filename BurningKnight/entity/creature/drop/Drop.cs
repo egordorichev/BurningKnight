@@ -44,7 +44,7 @@ namespace BurningKnight.entity.creature.drop {
 			var wh = entity?.BottomCenter ?? where;
 			
 			foreach (var drop in dr) {
-				if (Rnd.Float(1f) > drop.Chance) {
+				if (Rnd.Float() > drop.Chance) {
 					continue;
 				}
 				

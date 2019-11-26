@@ -20,10 +20,6 @@ namespace BurningKnight.entity.door {
 			return palette;
 		}
 
-		protected override bool Disposable() {
-			return true;
-		}
-
 		protected override bool CanInteract(Entity entity) {
 			return entity.TryGetComponent<ConsumablesComponent>(out var component) && component.Keys > 0;
 		}

@@ -27,10 +27,13 @@ namespace BurningKnight.entity.component {
 			Playing.Clear();
 		}
 
+		private void UpdatePosition() {
+			Emitter.Position = new Vector3(Entity.CenterX * PositionScale, 0, Entity.CenterY * PositionScale);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
-			
-			Emitter.Position = new Vector3(Entity.CenterX * PositionScale, 0, Entity.CenterY * PositionScale);
+			UpdatePosition();
 
 			if (Playing.Count == 0) {
 				return;
@@ -85,7 +88,8 @@ namespace BurningKnight.entity.component {
 					Playing[sfx] = instance;
 				}
 			}
-			
+
+			UpdatePosition();
 			instance.Stop();
 			instance.Volume = volume * Settings.SfxVolume;
 

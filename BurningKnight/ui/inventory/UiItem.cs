@@ -94,7 +94,7 @@ namespace BurningKnight.ui.inventory {
 			base.OnHover();
 			
 			Tween.To(1, border, x => border = x, 0.3f);
-			Audio.PlaySfx("moving", 0.5f);
+			Audio.PlaySfx("ui_moving", 0.5f);
 
 			Hovered = this;
 		}

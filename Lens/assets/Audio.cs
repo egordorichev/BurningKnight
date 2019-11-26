@@ -23,7 +23,7 @@ namespace Lens.assets {
 		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 
-		public static bool Repeat;
+		public static bool Repeat = true;
 		public static DynamicSoundEffectInstance SoundEffectInstance;
 
 		public static List<Music> Playing = new List<Music>();
@@ -66,7 +66,7 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
-			if (!Engine.Instance.Focused) {
+			if (!Engine.Instance.Focused || !Assets.LoadAudio) {
 				return;
 			}
 			

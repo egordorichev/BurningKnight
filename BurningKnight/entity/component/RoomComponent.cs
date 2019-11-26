@@ -1,4 +1,5 @@
-﻿using BurningKnight.entity.events;
+﻿using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using ImGuiNET;
@@ -26,10 +27,12 @@ namespace BurningKnight.entity.component {
 		public void FindRoom() {
 			var old = Room;
 			
-			if (old != null && old.Contains(Entity.Center)) {
-				return;
+			if (old != null) {
+				if ((Entity is Mob m && m.Target != null) || old.Contains(Entity.Center)) {
+					return;
+				}
 			}
-			
+
 			foreach (var room in Entity.Area.Tagged[Tags.Room]) {
 				if (room.Contains(Entity.Center)) {
 					Room = (Room) room;

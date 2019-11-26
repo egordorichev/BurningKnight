@@ -257,7 +257,8 @@ namespace BurningKnight.entity.creature.player {
 			
 			public override void Init() {
 				base.Init();
-
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("player_roll", 0.5f);
 				var hp = Self.GetComponent<HealthComponent>();
 
 				wasUnhittable = hp.Unhittable;
@@ -378,8 +379,6 @@ namespace BurningKnight.entity.creature.player {
 						case RoomType.Special:
 						case RoomType.Shop:
 						case RoomType.Treasure: {
-							ExplosionMaker.CheckForCracks(level, c.New, this);
-
 							foreach (var door in c.New.Doors) {
 								if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
 									component.Lock.SetLocked(false, this);
@@ -408,6 +407,10 @@ namespace BurningKnight.entity.creature.player {
 							
 							break;
 						}
+					}
+					
+					if (c.New.Type == RoomType.Secret) {
+						ExplosionMaker.CheckForCracks(level, c.New, this);
 					}
 				}
 				

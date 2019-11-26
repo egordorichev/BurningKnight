@@ -37,7 +37,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		protected bool HasHealthbar = true;
 		protected HealthBar HealthBar;
 
-		private bool died;
+		protected bool Died;
 		private float deathTimer;
 		private float lastExplosion;
 
@@ -59,7 +59,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void Update(float dt) {
 			base.Update(dt);
 			
-			if (died) {
+			if (Died) {
 				if (!cleared) {
 					cleared = true;
 					GetComponent<DialogComponent>().Close();
@@ -159,8 +159,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override bool HandleEvent(Event e) {
 			if (e is DiedEvent de) {
 				if (de.Who == this) {
-					if (!died) {
-						died = true;
+					if (!Died) {
+						Died = true;
 						HealthBar?.Remove();
 
 						Camera.Instance.Targets.Clear();
@@ -207,7 +207,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			for (var i = 0; i < Rnd.Int(2, 5); i++) {
 				rewards.Add("bk:emerald");
 			}
-			
+
 			for (var i = 0; i < Rnd.Int(0, 3); i++) {
 				rewards.Add("bk:heart");
 			}

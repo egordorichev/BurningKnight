@@ -279,6 +279,7 @@ namespace BurningKnight.state {
 				seedLabel.Label = $"Seed: {Run.Seed}";
 			}
 
+			Audio.PlaySfx("ui_goback", 0.5f);
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
@@ -311,7 +312,7 @@ namespace BurningKnight.state {
 
 			base.OnResume();
 
-			if (died) {
+			if (died || InMenu) {
 				return;
 			}
 
@@ -324,6 +325,7 @@ namespace BurningKnight.state {
 			};
 
 			CloseBlackBars();
+
 			pausedByMouseOut = false;
 		}
 
@@ -348,7 +350,11 @@ namespace BurningKnight.state {
 		}
 
 		private void SelectFirst() {
-			if (GamepadComponent.Current == null) {
+			SelectFirst(false);
+		}
+
+		private void SelectFirst(bool force) {
+			if (!force && GamepadComponent.Current == null) {
 				return;
 			}
 		
@@ -413,7 +419,8 @@ namespace BurningKnight.state {
 				var gamepad = GamepadComponent.Current;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
-					SelectFirst();
+					SelectFirst(true);
+					Audio.PlaySfx("ui_moving", 0.5f);
 				} else if (UiButton.Selected > -1) {
 					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
 						UiButton sm = null;
@@ -431,6 +438,7 @@ namespace BurningKnight.state {
 						if (sm != null) {
 							UiButton.SelectedInstance = sm;
 							UiButton.Selected = sm.Id;
+							Audio.PlaySfx("ui_moving", 0.5f);
 						} else {
 							var min = UiButton.Selected;
 							UiButton btn = null;
@@ -447,6 +455,8 @@ namespace BurningKnight.state {
 							if (btn != null) {
 								UiButton.SelectedInstance = btn;
 								UiButton.Selected = btn.Id;
+								
+								Audio.PlaySfx("ui_moving", 0.5f);
 							}
 						}
 					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
@@ -465,6 +475,8 @@ namespace BurningKnight.state {
 						if (sm != null) {
 							UiButton.SelectedInstance = sm;
 							UiButton.Selected = sm.Id;
+							
+							Audio.PlaySfx("ui_moving", 0.5f);
 						} else {
 							var max = -1;
 							UiButton btn = null;
@@ -481,6 +493,8 @@ namespace BurningKnight.state {
 							if (btn != null) {
 								UiButton.SelectedInstance = btn;
 								UiButton.Selected = btn.Id;
+								
+								Audio.PlaySfx("ui_moving", 0.5f);
 							}
 						}
 					}
@@ -502,7 +516,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Menu && !menuExited) {
-				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
+				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true) || Input.Keyboard.State.GetPressedKeys().Length > 0) {
 					menuExited = true;
 					InMenu = false;
 					Input.Blocked = 0;
@@ -566,6 +580,8 @@ namespace BurningKnight.state {
 							}
 							
 							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
+								Audio.PlaySfx("ui_exit", 0.5f);
+								
 								if (UiControl.Focused != null) {
 									UiControl.Focused.Cancel();
 								} else if (currentBack != null) {
@@ -959,6 +975,16 @@ namespace BurningKnight.state {
 							};
 						})
 				});
+			} else if (Run.Depth == 0) {
+				pauseMenu.Add(new UiButton {
+					LocaleLabel = "exit",
+					Type = ButtonType.Exit,
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = BackY,
+					Click = b => {
+						Engine.Instance.Quit();
+					}
+				});
 			}
 
 			if (Run.Depth != 0) {
@@ -1100,6 +1126,7 @@ namespace BurningKnight.state {
 			
 			settingsBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1280,6 +1307,7 @@ namespace BurningKnight.state {
 						gameSettings.Enabled = true;
 
 						Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							confirmationPane.Active = false;
 							pauseMenu.Remove(confirmationPane);
 							confirmationPane = null;	
 							SelectFirst();
@@ -1299,6 +1327,7 @@ namespace BurningKnight.state {
 
 			gameBack = (UiButton) gameSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1464,6 +1493,7 @@ namespace BurningKnight.state {
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1517,6 +1547,7 @@ namespace BurningKnight.state {
 			
 			audioBack = (UiButton) audioSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1650,6 +1681,7 @@ namespace BurningKnight.state {
 			
 			inputBack = (UiButton) inputSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1751,6 +1783,7 @@ namespace BurningKnight.state {
 			
 			keyboardBack = (UiButton) keyboardSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {
@@ -1856,6 +1889,7 @@ namespace BurningKnight.state {
 
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
 				LocaleLabel = "back",
+				Type = ButtonType.Exit,
 				RelativeCenterX = sx,
 				RelativeCenterY = BackY,
 				Click = b => {

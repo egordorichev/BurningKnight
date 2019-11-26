@@ -58,7 +58,7 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(Right, Keys.D, Keys.Right));
 
 			controls.Add(new Control(Active, Keys.Space).Gamepad(Buttons.LeftShoulder));
-			controls.Add(new Control(Use).Mouse(MouseButtons.Left).Gamepad(Buttons.RightTrigger, Buttons.DPadDown));
+			controls.Add(new Control(Use).Mouse(MouseButtons.Left).Gamepad(Buttons.RightTrigger));
 
 			controls.Add(new Control(Bomb, Keys.Q).Gamepad(Buttons.Y));
 			controls.Add(new Control(Interact, Keys.E).Gamepad(Buttons.X));

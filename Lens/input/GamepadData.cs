@@ -54,7 +54,7 @@ namespace Lens.input {
 		}
 
 		public void StopRumble() {
-			// GamePad.SetVibration(PlayerIndex, 0, 0);
+			GamePad.SetVibration(PlayerIndex, 0, 0);
 			rumbleTime = 0;
 		}
 
