@@ -66,7 +66,7 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
-			if (!Engine.Instance.Focused) {
+			if (!Engine.Instance.Focused || !Assets.LoadAudio) {
 				return;
 			}
 			

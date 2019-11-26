@@ -2,9 +2,9 @@
 
 * fix {
  + bugs {
+  - items giving your projectiles effect dont seem to work?
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
-  - enemies can change the room while they still have player targeted
   - secret rooms open up sometimes when entering another room, lol
   - player was able to pick 2 items in the treasure room (might be because they were offscreen?)
  }
