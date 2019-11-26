@@ -34,6 +34,7 @@
  + clear reward. Spawns in the center, destroying the tiles. 
 }
 
++ make bk not float in the center of actions in the rooms
 + charge up animation for old king before he spews out the heads
 
 * change desert gen to be more like archvale and nt, open?
@@ -42,21 +43,17 @@
  + better into boss going anim
  + better getting out of boss
  + fix how saving works with capturing ths bosses
- + no hit boss battle reward
 }
 
 * ui {
  + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
  + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
- + move the shopkeepers in the hub so that they dont cover up the item stands with their dialog
 }
 
 * audio {
  + bk fire sound (when near)
  + slow down music when you die
 }
-
-* breakable torch
 
 + hub {
  + allow to layer in stuff for speical events

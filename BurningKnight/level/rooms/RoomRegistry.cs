@@ -60,6 +60,7 @@ namespace BurningKnight.level.rooms {
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
+				RoomInfo.New<VerticalRegularRoom>(WallRegistry.Instance.Size),
 				
 				// Desert only room designs
 				/*RoomInfo.New<TwoSidesRoom>(3f, Biome.Desert),

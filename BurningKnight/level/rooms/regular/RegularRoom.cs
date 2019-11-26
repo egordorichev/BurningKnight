@@ -27,19 +27,19 @@ namespace BurningKnight.level.rooms.regular {
 		}
 		
 		public override int GetMinWidth() {
-			return 10 + 4;
+			return 10 + 2;
 		}
 
 		public override int GetMinHeight() {
-			return 8 + 4;
+			return 8 + 2;
 		}
 
 		public override int GetMaxWidth() {
-			return 18 + 8;
+			return 18 + 6;
 		}
 
 		public override int GetMaxHeight() {
-			return 12 + 8;
+			return 12 + 2;
 		}
 	}
 }
