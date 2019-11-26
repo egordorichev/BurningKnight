@@ -113,6 +113,10 @@ namespace BurningKnight.entity.room {
 				}
 
 				if (!found) {
+					if (!Cleared) {
+						SpawnReward();
+					}
+
 					Cleared = true;
 					
 					cleared.HandleEvent(new RoomClearedEvent {
@@ -122,6 +126,10 @@ namespace BurningKnight.entity.room {
 
 				checkCleared = false;
 			}
+		}
+
+		private void SpawnReward() {
+			
 		}
 
 		private bool settedUp;

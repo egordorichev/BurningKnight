@@ -184,6 +184,15 @@ namespace BurningKnight.entity.projectile {
 			if (!OnScreen && DieOffscreen) {
 				Break();
 			}
+
+			if (Owner is Player) {
+				Position += BodyComponent.Body.LinearVelocity * (dt);
+			}
+			
+			
+			if (BodyComponent.Velocity.Length() < 0.5f) {
+				Break();
+			}
 		}
 
 		protected bool BreaksFrom(Entity entity) {
