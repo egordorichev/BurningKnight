@@ -19,10 +19,6 @@
   - make the door after the sword a wall type, that you need to break by using your sword on it
  }
 
- + balance {
-  - heart drops are super rare?
- }
-
  + you can roll out of the idol room
  + you can roll between the wall and rocks
  + add a way to exit the game
