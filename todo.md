@@ -2,10 +2,9 @@
 
 * fix {
  + bugs {
-  - items giving your projectiles effect dont seem to work?
+  - items giving your projectiles effect dont seem to work? make them depend on luck too
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
-  - secret rooms open up sometimes when entering another room, lol
   - player was able to pick 2 items in the treasure room (might be because they were offscreen?)
  }
 
