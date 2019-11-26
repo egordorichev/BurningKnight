@@ -557,7 +557,7 @@ namespace BurningKnight.state {
 			console.Update(dt);
 
 			foreach (var p in Area.Tagged[Tags.LocalPlayer]) {
-				var controller = p.GetComponent<GamepadComponent>().Controller;
+				var controller = GamepadComponent.Current;
 				
 				if (painting != null) {
 					if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
@@ -567,21 +567,23 @@ namespace BurningKnight.state {
 				} else {
 					if (doneAnimatingPause) {
 						var did = false;
-						
-						if (DialogComponent.Talking == null && Input.WasPressed(Controls.Pause, controller)) {
-							if (Paused) {
-								if (UiControl.Focused == null && currentBack == null) {
-									Paused = false;
+
+						if (DialogComponent.Talking == null) {
+							if (Input.WasPressed(Controls.Pause, controller)) {
+								if (Paused) {
+									if (UiControl.Focused == null && currentBack == null) {
+										Paused = false;
+										did = true;
+									}
+								} else {
+									Paused = true;
 									did = true;
 								}
-							} else {
-								Paused = true;
-								did = true;
 							}
-							
+
 							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
 								Audio.PlaySfx("ui_exit", 0.5f);
-								
+
 								if (UiControl.Focused != null) {
 									UiControl.Focused.Cancel();
 								} else if (currentBack != null) {

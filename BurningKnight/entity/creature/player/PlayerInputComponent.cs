@@ -168,7 +168,7 @@ namespace BurningKnight.entity.creature.player {
 					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
 
-				if (controller != null) {
+				if (controller != null && controller.Attached) {
 					acceleration += controller.GetLeftStick();
 				}
 
