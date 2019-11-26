@@ -19,9 +19,7 @@
  }
 
  + tutorial {
-  - disable putting items back on stands in tutorial
   - make the door after the sword a wall type, that you need to break by using your sword on it
-  - lock dagger
  }
 
  + balance {
