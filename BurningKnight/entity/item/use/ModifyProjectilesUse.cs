@@ -28,15 +28,20 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (EventCreated && Item.Owner.GetComponent<ActiveWeaponComponent>().Item == Item && e is ProjectileCreatedEvent pce) {
-				ModifyProjectile(pce.Projectile);
+
+			if (e is ProjectileCreatedEvent pce) {
+				var a = pce.Item == null || Item.Owner.GetComponent<ActiveWeaponComponent>().Item == pce.Item;
+				
+				if (EventCreated && a) {
+					ModifyProjectile(pce.Projectile);
+				}
 			}
-			
+
 			return base.HandleEvent(e);
 		}
 
 		public void ModifyProjectile(Projectile projectile) {
-			if (Rnd.Float() > Chance) {
+			if (Rnd.Float() > Chance + Run.Luck * 0.2f) {
 				return;
 			}
 			

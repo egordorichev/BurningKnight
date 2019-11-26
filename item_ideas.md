@@ -15,7 +15,6 @@
 
 ### to rework
 
-* make items that give bullet effects depend on luck
 * convert fire exstinguisher into flame thrower
 * discord rod use half a heart
 

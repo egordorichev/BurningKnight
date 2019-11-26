@@ -2,12 +2,12 @@
 
 * fix {
  + bugs {
-  - items giving your projectiles effect dont seem to work? make them depend on luck too
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
  }
 
  + visual {
+  - indicate boss phases on the boss bar
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - vending and other machines ask for money when you have none (otherwise players are confused)
