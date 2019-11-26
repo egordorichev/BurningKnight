@@ -9,6 +9,8 @@ namespace BurningKnight.entity.item {
 	public class SingleChoiceStand : ItemStand {
 		public override void Init() {
 			base.Init();
+
+			AlwaysActive = true;
 			Subscribe<ItemTakenEvent>();
 		}
 

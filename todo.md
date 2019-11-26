@@ -5,7 +5,6 @@
   - items giving your projectiles effect dont seem to work? make them depend on luck too
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
-  - player was able to pick 2 items in the treasure room (might be because they were offscreen?)
  }
 
  + visual {
