@@ -15,7 +15,12 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob.boss {
 	public class OldKing : Boss {
 		public bool Raging => GetComponent<HealthComponent>().Percent <= 0.25f;
-	
+
+		protected override void AddPhases() {
+			base.AddPhases();
+			HealthBar.AddPhase(0.25f);
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -35,7 +40,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			});
 			
 			AddComponent(new ZAnimationComponent("old_king"));
-			SetMaxHp(80);
+			SetMaxHp(60);
 		}
 
 		private float lastParticle;

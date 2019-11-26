@@ -7,7 +7,6 @@
  }
 
  + visual {
-  - indicate boss phases on the boss bar
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice
@@ -34,6 +33,8 @@
  + cleared effect
  + clear reward. Spawns in the center, destroying the tiles. 
 }
+
++ charge up animation for old king before he spews out the heads
 
 * change desert gen to be more like archvale and nt, open?
 

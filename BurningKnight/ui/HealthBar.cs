@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
@@ -19,6 +20,8 @@ namespace BurningKnight.ui {
 		private TextureRegion frame;
 		private TextureRegion fill;
 		private TextureRegion damage;
+		private TextureRegion phase;
+		private TextureRegion phaseB;
 		
 		private float lastHp;
 		private float sinceLastDamage;
@@ -27,11 +30,16 @@ namespace BurningKnight.ui {
 		private bool charge;
 		
 		private Boss entity;
+		private List<float> phases = new List<float>();
 		
 		public HealthBar(Boss owner) {
 			entity = owner;
 		}
 
+		public void AddPhase(float percent) {
+			phases.Add(percent);
+		}
+		
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -41,6 +49,8 @@ namespace BurningKnight.ui {
 			frame = CommonAse.Ui.GetSlice("hb_frame");
 			fill = CommonAse.Ui.GetSlice("hb");
 			damage = CommonAse.Ui.GetSlice("hb_damage");
+			phase = CommonAse.Ui.GetSlice("hb_phase");
+			phaseB = CommonAse.Ui.GetSlice("hb_b");
 			
 			Width = frame.Width;
 			Height = frame.Height;
@@ -132,9 +142,15 @@ namespace BurningKnight.ui {
 			} else {
 				lastHp = h;
 			}
-			
-			region.Source.Width = (int) Math.Ceiling(lastHp / health.MaxHealth * region.Width);
+
+			var w = region.Width;
+			region.Source.Width = (int) Math.Ceiling(lastHp / health.MaxHealth * w);
 			Graphics.Render(region, Position + barOffset);
+			
+			
+			foreach (var p in phases) {
+				Graphics.Render(health.Health / health.MaxHealth >= p ? phase : phaseB, Position + barOffset + new Vector2(p * (w - 1), 0));
+			}
 		}
 	}
 }

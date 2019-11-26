@@ -143,7 +143,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (!(GetComponent<StateComponent>().StateInstance is FriendlyState) && HasHealthbar && HealthBar == null) {
 				HealthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(HealthBar);
+				AddPhases();
 			}
+		}
+
+		protected virtual void AddPhases() {
+			
 		}
 
 		protected override void OnTargetChange(Entity target) {
