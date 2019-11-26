@@ -200,14 +200,13 @@ namespace BurningKnight.entity.door {
 		}
 
 		public class ClosedState : EntityState {
-			
+		
 		}
 
 		public class ClosingState : EntityState {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_door_shut");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -219,7 +218,8 @@ namespace BurningKnight.entity.door {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {
+				if (Self.GetComponent<AnimationComponent>().Animation.Paused) {				
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door_close", 2);
 					Self.GetComponent<StateComponent>().Become<ClosedState>();
 				}
 			}
@@ -233,7 +233,7 @@ namespace BurningKnight.entity.door {
 			public override void Init() {
 				base.Init();
 				
-				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door", 5);
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_door_open", 5);
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

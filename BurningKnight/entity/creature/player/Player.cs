@@ -257,7 +257,8 @@ namespace BurningKnight.entity.creature.player {
 			
 			public override void Init() {
 				base.Init();
-
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("player_roll", 0.5f);
 				var hp = Self.GetComponent<HealthComponent>();
 
 				wasUnhittable = hp.Unhittable;

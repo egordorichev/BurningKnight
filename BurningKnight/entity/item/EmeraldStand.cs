@@ -29,6 +29,11 @@ namespace BurningKnight.entity.item {
 			emerald = CommonAse.Ui.GetSlice("emerald");
 		}
 
+		public override void AddComponents() {
+			base.AddComponents();
+			AddComponent(new AudioEmitterComponent());
+		}
+
 		public override void Init() {
 			base.Init();
 			var item = PickItem();
@@ -62,6 +67,8 @@ namespace BurningKnight.entity.item {
 					its.Item?.CheckMasked();
 				}
 			}
+			
+			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
 		}
 
 		protected override string GetSprite() {

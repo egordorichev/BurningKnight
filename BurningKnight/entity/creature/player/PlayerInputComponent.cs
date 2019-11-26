@@ -238,5 +238,13 @@ namespace BurningKnight.entity.creature.player {
 				body.Position += ac * (0.5f * dt * (st - 1));
 			}
 		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Entity.TryGetComponent<RectBodyComponent>(out var body) && body.Body != null) {
+				body.Body.LinearVelocity = Vector2.Zero;
+			}
+		}
 	}
 }

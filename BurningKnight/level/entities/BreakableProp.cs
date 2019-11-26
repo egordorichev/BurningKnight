@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
@@ -75,7 +76,7 @@ namespace BurningKnight.level.entities {
 			if (e is HealthModifiedEvent ev) {
 				var h = GetComponent<HealthComponent>();
 				
-				if (h.Health + ev.Amount == 0) {
+				if (Math.Abs(h.Health + ev.Amount) < 0.1f) {
 					from = ev.From;
 				}
 			} else if (e is CollisionStartedEvent c && hurts) {
@@ -115,7 +116,8 @@ namespace BurningKnight.level.entities {
 					AddComponent(new AudioEmitterComponent());
 				}
 			
-				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_chair_break", 2);
+				// Not insert the sfx because the component will be destroyed soon
+				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_chair_break", 2, 1f, false);
 
 				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
 				Camera.Instance.Shake(2f);

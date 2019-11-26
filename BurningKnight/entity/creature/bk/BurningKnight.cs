@@ -368,6 +368,7 @@ namespace BurningKnight.entity.creature.bk {
 					
 					// PREPARE TO DIE!
 					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bk_capture");
 					Camera.Instance.Unfollow(Self);
 					
 					Become<HiddenState>();

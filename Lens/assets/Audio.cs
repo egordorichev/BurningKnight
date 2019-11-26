@@ -23,7 +23,7 @@ namespace Lens.assets {
 		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 
-		public static bool Repeat;
+		public static bool Repeat = true;
 		public static DynamicSoundEffectInstance SoundEffectInstance;
 
 		public static List<Music> Playing = new List<Music>();

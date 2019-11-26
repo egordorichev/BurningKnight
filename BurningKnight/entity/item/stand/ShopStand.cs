@@ -85,8 +85,6 @@ namespace BurningKnight.entity.item.stand {
 			Sells = false;
 
 			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
-			
-			// fixme: shop stand becomes interacted, and you can place your item by pressign e
 			return true;
 		}
 

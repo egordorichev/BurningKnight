@@ -115,14 +115,23 @@ namespace BurningKnight.entity.creature.mob.boss {
 				if ((count + 1) * (Self.Raging ? 0.7f : 1.5f) <= T) {
 					count++;
 
+					if (Self.Target == null || Self.Died) {
+						return;
+					}
+					
 					var a = Self.GetComponent<ZAnimationComponent>();
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_shoot");
 
 					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
 					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
 
 						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
-						
+
+						if (Self.Target == null || Self.Died) {
+							return;
+						}
+
 						var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), Rnd.Float(5, 12));
 
 						skull.OnDeath += (p, t) => {
@@ -168,6 +177,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (Self.GetComponent<ZAnimationComponent>().Animation.Paused) {
 					Become<UpState>();
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_jump");
 				}
 			}
 		}
@@ -224,6 +234,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var a = Self.GetComponent<ZAnimationComponent>();
 				a.SetAutoStop(true);
 
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_land");
+				
 				Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
 					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
@@ -251,7 +264,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				var aa = Self.AngleTo(Self.Target);
 					
-				for (var i = 0; i < (Self.Raging ? 2 : 1) * InnerCount; i++) {
+				for (var i = 0; i < InnerCount; i++) {
 					var s = Rnd.Chance(40);
 					var b = Projectile.Make(Self, "green_small", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1, null, Rnd.Float(0.5f, 1f));
 						

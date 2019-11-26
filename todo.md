@@ -1,18 +1,46 @@
 # publisher build stuff
 
 * fix {
- + vending and other machines ask for money
+ + bugs {
+  - maximized window bug on windows
+  - game sometimes doesn't exit after closing
+  - enemies can change the room while they still have player targeted
+  - secret rooms open up sometimes when entering another room, lol
+  - player was able to pick 2 items in the treasure room (might be because they were offscreen?)
+ }
+
+ + visual {
+  - remove entrance ladder from the hub
+  - gold lock doesnt get removed when it's open 
+  - screenshake is trash
+  - the weapons go crazy when you point directly up or down
+  - vending and other machines ask for money when you have none (otherwise players are confused)
+  - press X in the game menu should accept any key in the pc builds
+  - doors are hard to notice
+ }
+
+ + tutorial {
+  - disable putting items back on stands in tutorial
+  - make the door after the sword a wall type, that you need to break by using your sword on it
+  - lock dagger
+ }
+
+ + balance {
+  - heart drops are super rare?
+ }
+
  + you can roll out of the idol room
  + you can roll between the wall and rocks
- + doors can keep be locked?
- + the weapons go crazy when you point directly up or down
  + add a way to exit the game
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
- + screenshake is trash
- + gamepad seems to only work propely when you connect it after starting the level (led and vibration)
- + maximized bug
- + game sometimes doesnt exit even after window is closed
+ + gamepad {
+  - ui buttons don't seem to auto select always
+  - gamepad doesn't seem to function properly without hotplugging it
+  - gamepad buttons hints don't always showup when you have the gamepad plugged
+  - rumble doesn't always work
+  - back button doesn't seem to work in menus
+ }
 }
 
 * change desert gen to be more like archvale and nt, open?
@@ -32,11 +60,11 @@
 
 * ui {
  + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+ + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
+ + move the shopkeepers in the hub so that they dont cover up the item stands with their dialog
 }
 
 * audio {
- + make ambience play in transitions? it feels empty
- + boss sounds
  + bk fire sound (when near)
  + slow down music when you die
 }
@@ -45,6 +73,7 @@
 
 + hub {
  + allow to layer in stuff for speical events
+ + lock away the rest of the hub on the first time you enter it after tutorial?
 }
 
 * twitter {
