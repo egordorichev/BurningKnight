@@ -312,7 +312,7 @@ namespace BurningKnight.state {
 
 			base.OnResume();
 
-			if (died) {
+			if (died || InMenu) {
 				return;
 			}
 
@@ -325,6 +325,7 @@ namespace BurningKnight.state {
 			};
 
 			CloseBlackBars();
+
 			pausedByMouseOut = false;
 		}
 
@@ -973,6 +974,16 @@ namespace BurningKnight.state {
 								SelectFirst();
 							};
 						})
+				});
+			} else if (Run.Depth == 0) {
+				pauseMenu.Add(new UiButton {
+					LocaleLabel = "exit",
+					Type = ButtonType.Exit,
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = BackY,
+					Click = b => {
+						Engine.Instance.Quit();
+					}
 				});
 			}
 

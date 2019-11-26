@@ -20,7 +20,6 @@
 
  + you can roll out of the idol room
  + you can roll between the wall and rocks
- + add a way to exit the game
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {
