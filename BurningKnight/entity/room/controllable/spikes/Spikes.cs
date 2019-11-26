@@ -43,6 +43,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			AddComponent(new StateComponent());
 			AddComponent(new AnimationComponent("spikes"));
 			AddComponent(new ShadowComponent(RenderShadow));
+			AddComponent(new AudioEmitterComponent());
 			AddComponent(new RectBodyComponent(2, 4, 12, 12, BodyType.Static, true));
 			
 			GetComponent<StateComponent>().Become<HiddenState>();
@@ -112,6 +113,11 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		protected class ShowingState : SmartState<Spikes> {
 			public override void Init() {
 				base.Init();
+
+				if (Self.OnScreen) {
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+				}
+
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -135,6 +141,8 @@ namespace BurningKnight.entity.room.controllable.spikes {
 		}
 		
 		protected class FshowingState : SmartState<Spikes> {
+			private bool playedSfx;
+			
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
@@ -151,6 +159,14 @@ namespace BurningKnight.entity.room.controllable.spikes {
 
 				if (a.Frame > 2) {
 					Self.Hurt();
+
+					if (!playedSfx) {
+						playedSfx = true;
+
+						if (Self.OnScreen) {
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+						}
+					}
 				}
 				
 				if (a.Paused) {

@@ -75,7 +75,9 @@ namespace BurningKnight.entity.door {
 				});
 			}
 			
-			AddComponent(new AudioEmitterComponent());
+			AddComponent(new AudioEmitterComponent {
+				DestroySounds = false
+			});
 							
 			var state = new StateComponent();
 			AddComponent(state);

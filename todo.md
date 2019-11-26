@@ -2,15 +2,15 @@
 
 * fix {
  + bugs {
+  - gold chest drops 2 items??
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
  }
 
  + visual {
-  - indicate boss phases on the boss bar
+  - some weirdness is going on with bullet death particles?
   - screenshake is trash
   - the weapons go crazy when you point directly up or down
-  - vending and other machines ask for money when you have none (otherwise players are confused)
   - doors are hard to notice
  }
 
@@ -19,24 +19,13 @@
  }
 
  + you can roll out of the idol room
- + you can roll between the wall and rocks
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {
-  - ui buttons don't seem to auto select always
+  - check on windows, this might be linux issue?
   - gamepad doesn't seem to function properly without hotplugging it
   - rumble doesn't always work
-  - back button doesn't seem to work in menus
  }
-}
-
-* change desert gen to be more like archvale and nt, open?
-
-* bk: {
- + better into boss going anim
- + better getting out of boss
- + fix how saving works with capturing ths bosses
- + no hit boss battle reward
 }
 
 * room {
@@ -45,18 +34,26 @@
  + clear reward. Spawns in the center, destroying the tiles. 
 }
 
++ make bk not float in the center of actions in the rooms
++ charge up animation for old king before he spews out the heads
+
+* change desert gen to be more like archvale and nt, open?
+
+* bk: {
+ + better into boss going anim
+ + better getting out of boss
+ + fix how saving works with capturing ths bosses
+}
+
 * ui {
  + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
  + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
- + move the shopkeepers in the hub so that they dont cover up the item stands with their dialog
 }
 
 * audio {
  + bk fire sound (when near)
  + slow down music when you die
 }
-
-* breakable torch
 
 + hub {
  + allow to layer in stuff for speical events

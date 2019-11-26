@@ -339,6 +339,10 @@ namespace BurningKnight.assets.items {
 		}
 
 		public static bool ShouldAppear(string id) {
+			if (id == "bk:coin") {
+				return true;
+			}
+			
 			if (!Datas.TryGetValue(id, out var data)) {
 				return false;
 			}

@@ -15,7 +15,12 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob.boss {
 	public class OldKing : Boss {
 		public bool Raging => GetComponent<HealthComponent>().Percent <= 0.25f;
-	
+
+		protected override void AddPhases() {
+			base.AddPhases();
+			HealthBar.AddPhase(0.25f);
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -35,7 +40,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			});
 			
 			AddComponent(new ZAnimationComponent("old_king"));
-			SetMaxHp(80);
+			SetMaxHp(60);
 		}
 
 		private float lastParticle;
@@ -92,7 +97,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					return;
 				}
 
-				if (T >= (Self.Raging ? 3f : 5f)) {
+				if (T >= (Self.Raging ? 3f : 4f)) {
 					if (Rnd.Chance(95)) {
 						Self.lastAttack = (Self.lastAttack + 1) % 2;
 					}
@@ -134,6 +139,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 						var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), Rnd.Float(5, 12));
 
+						skull.NearDeath += p => {
+							var c = new AudioEmitterComponent {
+								DestroySounds = false
+							};
+							
+							p.AddComponent(c);
+							c.Emit("mob_oldking_explode");
+						};
+						
 						skull.OnDeath += (p, t) => {
 							if (!t) {
 								return;
@@ -285,7 +299,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (animation.Paused) {
 					if (Self.Raging) {
-						if (Self.jumpCounter < 3) {
+						if (Self.jumpCounter < 2) {
 							Become<JumpState>();
 							Self.jumpCounter++;
 

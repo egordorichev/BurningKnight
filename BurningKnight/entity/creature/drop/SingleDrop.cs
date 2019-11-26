@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lens.lightJson;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.drop {
@@ -18,8 +19,10 @@ namespace BurningKnight.entity.creature.drop {
 		public override List<string> GetItems() {
 			var items = new List<string>();
 			
-			if (Rnd.Float() <= Chance && assets.items.Items.ShouldAppear(Item)) {
+			if (assets.items.Items.ShouldAppear(Item)) {
 				items.Add(Item);
+			} else {
+				Log.Error($"Blocked {Item}");
 			}
 
 			return items;

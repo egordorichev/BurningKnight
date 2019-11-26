@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -11,6 +12,7 @@ using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
 using BurningKnight.level;
+using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
@@ -113,15 +115,61 @@ namespace BurningKnight.entity.room {
 				}
 
 				if (!found) {
-					Cleared = true;
+					if (!Cleared) {
+						SpawnReward();
+
+						Cleared = true;
 					
-					cleared.HandleEvent(new RoomClearedEvent {
-						Room = this
-					});
+						cleared.HandleEvent(new RoomClearedEvent {
+							Room = this
+						});
+					}
 				}
 
 				checkCleared = false;
 			}
+		}
+
+		private static string[] rewards = {
+			"bk:copper_coin",
+			"bk:key",
+			"bk:key",
+			"bk:bomb",
+			"bk:heart",
+			"bk:pouch"
+		};
+
+		private Entity CreateReward() {
+			if (Rnd.Chance(20)) {
+				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
+				Area.Add(chest);
+
+				return chest;
+			}
+			
+			return Items.CreateAndAdd(rewards[Rnd.Int(rewards.Length)], Area);
+		}
+
+		private void SpawnReward() {
+			if (Type != RoomType.Regular) {
+				return;
+			}
+			
+			var level = Run.Level;
+			var where = new Dot(MapX + MapW / 2, MapY + MapH / 2);
+
+			/*
+			 * Need to animate tiles dropping from the sky
+			 * Can reuse this animation later for the boss battle
+			 * And for appearing paths to granny/dm
+			 * And for animating boss room growing bigger
+			 */
+			
+			var reward = CreateReward();
+			reward.Center = where * 16 + new Vector2(8, 8);
+			
+			Painter.Fill(level, where.X - 1, where.Y - 1, 3, 3, Tile.FloorD);
+			level.ReTileAndCreateBodyChunks(where.X - 1, where.Y - 1, 3, 3);
 		}
 
 		private bool settedUp;

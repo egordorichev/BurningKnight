@@ -763,6 +763,7 @@
     <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
+    <Compile Include="level\entities\chest\ChestRegistry.cs" />
     <Compile Include="level\entities\chest\CursedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />
     <Compile Include="level\entities\chest\GoldChest.cs" />
@@ -843,6 +844,7 @@
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
     <Compile Include="level\rooms\regular\TwoSidesRoom.cs" />
+    <Compile Include="level\rooms\regular\VerticalRegularRoom.cs" />
     <Compile Include="level\rooms\RoomDef.cs" />
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />

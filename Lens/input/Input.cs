@@ -110,7 +110,7 @@ namespace Lens.input {
 				}
 			}
 			
-			if (data != null && button.Buttons != null) {
+			if (data != null && data.Attached && button.Buttons != null) {
 				foreach (var b in button.Buttons) {
 					if (data.Check(b, type)) {
 						return true;

@@ -117,7 +117,7 @@ namespace BurningKnight.level.entities {
 				}
 			
 				// Not insert the sfx because the component will be destroyed soon
-				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_chair_break", 2, 1f, false);
+				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_chair_break", 2, 0.5f, false);
 
 				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
 				Camera.Instance.Shake(2f);

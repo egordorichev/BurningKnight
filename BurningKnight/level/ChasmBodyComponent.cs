@@ -169,14 +169,14 @@ namespace BurningKnight.level {
 						}
 
 						if (Check(level, x + 1, y) || Check(level, x, y + 1)) {
-							list.Add(new Vector2(xx + 16 - (Check(level, x + 1, y) ? 0 : 4), yy + 16));
+							list.Add(new Vector2(xx + 16 - (Check(level, x + 1, y) ? 0 : 4), yy + 17));
 						} else {
 							list.Add(new Vector2(xx + 16 - 4, yy + 12));
 							list.Add(new Vector2(xx + 10 - 4, yy + 16));
 						}
 
 						if (Check(level, x - 1, y) || Check(level, x, y + 1)) {
-							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), yy + 16));
+							list.Add(new Vector2(xx + (Check(level, x - 1, y) ? 0 : 4), yy + 17));
 						} else {
 							list.Add(new Vector2(xx + 4, yy + 12));
 							list.Add(new Vector2(xx + 6 + 4, yy + 16));

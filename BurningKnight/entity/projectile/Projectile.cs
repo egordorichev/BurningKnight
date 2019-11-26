@@ -34,6 +34,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+	public delegate void ProjectileNearingDeathCallback(Projectile p);
 	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
 
 	public class Projectile : Entity, CollisionFilterEntity {
@@ -42,6 +43,7 @@ namespace BurningKnight.entity.projectile {
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 		
+		public ProjectilePattern Pattern;
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
@@ -54,6 +56,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileDeathCallback OnDeath;
 		public ProjectileUpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
+		public ProjectileNearingDeathCallback NearDeath;
 		public Projectile Parent;
 		public ProjectileGraphicsEffect Effect;
 		public string Slice;
@@ -67,7 +70,10 @@ namespace BurningKnight.entity.projectile {
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
 
+		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
+
 		private float deathTimer;
+		private bool nearedDeath;
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, int damage = 1, Item item = null) {
 			var projectile = new Projectile();
@@ -149,6 +155,11 @@ namespace BurningKnight.entity.projectile {
 
 			T += dt;
 
+			if (!nearedDeath && NearingDeath) {
+				nearedDeath = true;
+				NearDeath?.Invoke(this);
+			}
+
 			if (FlashTimer > 0) {
 				FlashTimer -= dt;
 			}
@@ -184,6 +195,15 @@ namespace BurningKnight.entity.projectile {
 			if (!OnScreen && DieOffscreen) {
 				Break();
 			}
+
+			if (Owner is Player) {
+				Position += BodyComponent.Body.LinearVelocity * (dt);
+			}
+			
+			
+			if (Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
+				Break();
+			}
 		}
 
 		protected bool BreaksFrom(Entity entity) {
@@ -195,6 +215,10 @@ namespace BurningKnight.entity.projectile {
 				if (c.Invoke(entity) == CollisionResult.Disable) {
 					return false;
 				} 
+			}
+
+			if (entity == Owner) {
+				return false;
 			}
 
 			if (entity is Turret && T > 0.2f) {
@@ -279,7 +303,11 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			if (IgnoreCollisions) {
+			if (IgnoreCollisions || entity == Owner) {
+				return false;
+			}
+
+			if (entity is Tombstone && !(Owner is Player)) {
 				return false;
 			}
 			
@@ -299,7 +327,7 @@ namespace BurningKnight.entity.projectile {
 			deathTimer = 0.1f;
 			
 			try {
-				var l = BodyComponent.Velocity.Length();
+				var l = Math.Min(15, BodyComponent.Velocity.Length());
 				
 				if (l > 1f) {
 					var a = VectorExtension.ToAngle(BodyComponent.Velocity);
