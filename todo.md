@@ -25,7 +25,6 @@
  + gamepad {
   - ui buttons don't seem to auto select always
   - gamepad doesn't seem to function properly without hotplugging it
-  - gamepad buttons hints don't always showup when you have the gamepad plugged
   - rumble doesn't always work
   - back button doesn't seem to work in menus
  }
