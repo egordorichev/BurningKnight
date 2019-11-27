@@ -157,11 +157,11 @@ namespace BurningKnight.state {
 
 			if (ready && added && t > 3f) {
 				if (removed) {
-					foreach (var c in cards) {
+					/*foreach (var c in cards) {
 						if (!c.Done) {
 							return;
 						}
-					}
+					}*/
 					
 					if (Settings.Fullscreen) {
 						Engine.Instance.SetFullscreen();
@@ -173,9 +173,9 @@ namespace BurningKnight.state {
 				} else {
 					removed = true;
 
-					foreach (var c in cards) {
+					/*foreach (var c in cards) {
 						c.GoAway = true;
-					}
+					}*/
 				}
 			}
 		}
