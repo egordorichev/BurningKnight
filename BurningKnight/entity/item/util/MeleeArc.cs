@@ -53,6 +53,7 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Projectile p) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
+						p.Damage *= 2f;
 
 						var b = p.BodyComponent;
 						var d = Math.Max(200, b.Velocity.Length() * 1.2f);
