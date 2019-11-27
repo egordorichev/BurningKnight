@@ -212,7 +212,10 @@ namespace BurningKnight.entity.creature.player {
 				part.Top = Run.Level.Tileset.WallTopADecor;
 				part.Side = Run.Level.Tileset.WallA[0];
 				part.Sides = Run.Level.Tileset.WallSidesA[2];
-				part.Center = Self.Center;
+				part.Tile = Tile.WallA;
+				
+				part.X = (int) (Self.X / 16) * 16;
+				part.Y = (int) ((Self.Y - 8) / 16) * 16 + 8;
 				
 				Self.Area.Add(part);
 			}
