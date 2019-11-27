@@ -109,7 +109,8 @@ namespace BurningKnight.assets.particle.custom {
 					var level = Run.Level;
 					var x = (int) (CenterX / 16);
 					var y = (int) ((Y + 8) / 16);
-					
+
+					level.Liquid[level.ToIndex(x, y)] = 0;
 					level.Set(x, y, Tile);
 					level.UpdateTile(x, y);
 					level.ReCreateBodyChunk(x, y);

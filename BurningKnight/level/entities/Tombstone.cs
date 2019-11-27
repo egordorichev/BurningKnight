@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -23,6 +24,7 @@ namespace BurningKnight.level.entities {
 			
 			Width = 12;
 			
+			AddComponent(new RoomComponent());
 			AddComponent(new DialogComponent());
 
 			if (!DisableDialog) {
@@ -49,12 +51,19 @@ namespace BurningKnight.level.entities {
 			});
 			
 			AddComponent(new LightComponent(this, 64, new Color(0.7f, 0.6f, 0.3f, 1f)));
+			
+			Subscribe<RoomChangedEvent>();
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is DiedEvent d) {
 				Interact(d.From);
 				return true;
+			} else if (e is RoomChangedEvent rce) {
+				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					// Daddy? What did they do with you?!?!
+					rce.Who.GetComponent<DialogComponent>().StartAndClose("player_0", 3f);
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -71,6 +80,8 @@ namespace BurningKnight.level.entities {
 			Item = null;
 			UpdateSprite();
 			Run.AddCurse();
+
+			GetComponent<DialogComponent>().Close();
 			
 			AnimationUtil.Poof(Center);
 			Camera.Instance.Shake(16);
