@@ -178,6 +178,11 @@ namespace BurningKnight.entity.creature {
 
 			var gore = new Gore();
 			var r = a.Animation.GetFrame("dead", 0);
+
+			if (r == null) {
+				Log.Error($"Failed to find dead frame for {GetType().Name}");
+				return;
+			}
 			
 			Area.Add(gore);
 			

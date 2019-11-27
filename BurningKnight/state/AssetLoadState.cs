@@ -121,7 +121,7 @@ namespace BurningKnight.state {
 				added = true;
 				logoCard.GoAway = true;
 				
-				Timer.Add(() => {
+				/*Timer.Add(() => {
 					Ui.Add(cards[0] = new PhotoCard {
 						Region = new TextureRegion(Textures.FastLoad("Content/egor.png")),
 						Name = "Egor Dorichev",
@@ -152,14 +152,9 @@ namespace BurningKnight.state {
 						Target = new Vector2(400, 135),
 						Angle = -1f
 					});
-				}, 0.3f);
+				}, 0.3f);*/
 			}
 
-			if (Input.WasPressed(Controls.GameStart)) {
-				Engine.Instance.SetState(new AssetLoadState());
-				return;
-			}
-			
 			if (ready && added && t > 3f) {
 				if (removed) {
 					foreach (var c in cards) {
@@ -187,10 +182,9 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			var w = Input.Mouse.UiPosition;
-
-			// Graphics.Print($"{Math.Floor(progress / 16f * 100f)}%", Font.Small, Vector2.Zero);
-			Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
+			// var w = Input.Mouse.UiPosition;
+			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.Zero);
+			// Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
 		}
 	}
 }
