@@ -1,7 +1,6 @@
 # publisher build stuff
 
 + screenshake is trash
-+ fix reroll items on player use not updating ui inventory item display
  + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
 
 * fix {
