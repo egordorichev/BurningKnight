@@ -688,6 +688,12 @@
 /processorParam:Quality=Best
 /build:Sfx/villager6.wav
 
+#begin Sfx/voice.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/voice.wav
+
 #begin Shaders/bk.fx
 /importer:EffectImporter
 /processor:EffectProcessor

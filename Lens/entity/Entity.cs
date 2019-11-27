@@ -363,6 +363,11 @@ namespace Lens.entity {
 			return entity.X >= X && entity.Right <= Right
 			                     && entity.Y >= Y && entity.Bottom <= Bottom;
 		}
+		
+		public virtual bool Contains(Entity entity, float border) {
+			return entity.X >= X - border && entity.Right <= Right + border
+			                     && entity.Y >= Y - border && entity.Bottom <= Bottom + border;
+		}
 
 		public virtual bool Contains(Vector2 point) {
 			return point.X >= X && point.X <= Right

@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.use;
 using BurningKnight.state;
 using Lens;
 using Lens.assets;
@@ -84,6 +85,7 @@ namespace BurningKnight.ui.inventory {
 				Subscribe<ConsumableRemovedEvent>(area);
 				Subscribe<ItemUsedEvent>(area);
 				Subscribe<ItemAddedEvent>(area);
+				Subscribe<RerollItemsOnPlayerUse.RerolledEvent>(area);
 
 				var inventory = Player.GetComponent<InventoryComponent>();
 
@@ -139,6 +141,23 @@ namespace BurningKnight.ui.inventory {
 
 				case ConsumableRemovedEvent rem: {
 					AnimateConsumableChange(rem.Amount, rem.TotalNow, rem.Type);
+					break;
+				}
+
+				case RerollItemsOnPlayerUse.RerolledEvent re: {
+					if (re.Entity == Player) {
+						foreach (var i in items) {
+							i.Done = true;
+						}						
+						
+						items.Clear();
+						var inventory = Player.GetComponent<InventoryComponent>();
+
+						foreach (var item in inventory.Items) {
+							AddArtifact(item);
+						}
+					}
+
 					break;
 				}
 				

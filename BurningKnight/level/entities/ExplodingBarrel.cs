@@ -76,7 +76,7 @@ namespace BurningKnight.level.entities {
 				AddComponent(new AudioEmitterComponent());
 			}
 			
-			GetComponent<AudioEmitterComponent>().EmitRandomized("level_tnt");
+			AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("level_tnt");
 		}
 
 		protected override GraphicsComponent CreateGraphicsComponent() {

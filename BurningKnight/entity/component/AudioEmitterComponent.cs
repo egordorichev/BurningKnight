@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lens.assets;
+using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
 using Lens.util.math;
@@ -36,12 +37,12 @@ namespace BurningKnight.entity.component {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			UpdatePosition();
 
 			if (Playing.Count == 0) {
 				return;
 			}
 
+			UpdatePosition();
 			var keys = Playing.Keys.ToArray();
 			
 			foreach (var k in keys) {
@@ -104,6 +105,27 @@ namespace BurningKnight.entity.component {
 			instance.Play();
 			
 			return instance;
+		}
+
+		public static AudioEmitterComponent Dummy(Area area, Vector2 where) {
+			var entity = new Entity();
+			var component = new AudioEmitterComponent();
+
+			area.Add(entity);
+			entity.AddComponent(component);
+			entity.Center = where;
+
+			return component;
+		}
+
+		private class EmitterDummy : Entity {
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (GetComponent<AudioEmitterComponent>().Playing.Count == 0) {
+					Done = true;
+				}
+			}
 		}
 	}
 }

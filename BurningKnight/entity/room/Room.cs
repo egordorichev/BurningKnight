@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
@@ -20,6 +21,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
+using BurningKnight.util;
 using BurningKnight.util.geometry;
 using ImGuiNET;
 using Lens.entity;
@@ -28,6 +30,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -151,25 +154,42 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Type != RoomType.Regular) {
+			if (Type != RoomType.Regular || Rnd.Chance(75 - Run.Luck * 10)) {
 				return;
 			}
 			
-			var level = Run.Level;
 			var where = new Dot(MapX + MapW / 2, MapY + MapH / 2);
+			
+			for (var x = -1; x < 2; x++) {
+				for (var y = -1; y < 2; y++) {
+					var x1 = x;
+					var y1 = y;
 
-			/*
-			 * Need to animate tiles dropping from the sky
-			 * Can reuse this animation later for the boss battle
-			 * And for appearing paths to granny/dm
-			 * And for animating boss room growing bigger
-			 */
+					Timer.Add(() => {
+						var part = new TileParticle();
+
+						part.Top = Run.Level.Tileset.FloorD[0];
+						part.TopTarget = Run.Level.Tileset.WallTopADecor;
+						part.Side = Run.Level.Tileset.FloorSidesD[0];
+						part.Sides = Run.Level.Tileset.WallSidesA[2];
+						part.Tile = Tile.FloorD;
+
+						part.X = (where.X + x1) * 16;
+						part.Y = (where.Y + y1) * 16 + 8;
+						part.Target.X = (where.X + x1) * 16;
+						part.Target.Y = (where.Y + y1) * 16 + 8;
+						part.TargetZ = -8f;
+
+						Area.Add(part);
+					}, Rnd.Float(1f));
+				}
+			}
 			
-			var reward = CreateReward();
-			reward.Center = where * 16 + new Vector2(8, 8);
-			
-			Painter.Fill(level, where.X - 1, where.Y - 1, 3, 3, Tile.FloorD);
-			level.ReTileAndCreateBodyChunks(where.X - 1, where.Y - 1, 3, 3);
+			Timer.Add(() => {
+				var reward = CreateReward();
+				reward.BottomCenter = where * 16 + new Vector2(8, 24);
+				AnimationUtil.Poof(reward.Center);
+			}, 2f);
 		}
 
 		private bool settedUp;

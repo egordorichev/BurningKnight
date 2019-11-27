@@ -152,6 +152,8 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void InitStats() {
+			HasFlight = false;
+			
 			GetComponent<OrbitGiverComponent>().DestroyAll();
 			GetComponent<FollowerComponent>().DestroyAll();
 

@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.util {
 			});
 
 			GetComponent<AnimationComponent>().OriginY = 12;
+			Camera.Instance.Push(Angle - (float) Math.PI, 4f);
 		}
 
 		public override void Render() {
@@ -53,9 +54,10 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Projectile p) {
 					if (p.CanBeReflected) {
 						p.Owner = this;
+						p.Damage *= 2f;
 
 						var b = p.BodyComponent;
-						var d = Math.Max(200, b.Velocity.Length() * 1.2f);
+						var d = Math.Max(400, b.Velocity.Length() * 1.8f);
 						var a = Owner.AngleTo(p);
 
 						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);

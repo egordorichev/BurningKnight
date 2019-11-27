@@ -8,6 +8,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.math;
@@ -27,11 +28,6 @@ namespace BurningKnight.entity.item {
 		public EmeraldStand() {
 			dontSaveItem = true;
 			emerald = CommonAse.Ui.GetSlice("emerald");
-		}
-
-		public override void AddComponents() {
-			base.AddComponents();
-			AddComponent(new AudioEmitterComponent());
 		}
 
 		public override void Init() {
@@ -67,8 +63,8 @@ namespace BurningKnight.entity.item {
 					its.Item?.CheckMasked();
 				}
 			}
-			
-			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
+
+			Audio.PlaySfx("item_purchase");
 		}
 
 		protected override string GetSprite() {

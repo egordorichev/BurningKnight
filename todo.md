@@ -2,14 +2,12 @@
 
 * fix {
  + bugs {
-  - gold chest drops 2 items??
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
  }
 
  + visual {
   - some weirdness is going on with bullet death particles?
-  - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice
  }
@@ -22,22 +20,16 @@
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {
-  - check on windows, this might be linux issue?
-  - gamepad doesn't seem to function properly without hotplugging it
-  - rumble doesn't always work
+  - rumble doesn't always work? maybe its just not noticable enough
  }
 }
 
 * room {
  + special props on top of special rooms, like shop boss and treasure
  + cleared effect
- + clear reward. Spawns in the center, destroying the tiles. 
 }
 
-+ make bk not float in the center of actions in the rooms
 + charge up animation for old king before he spews out the heads
-
-* change desert gen to be more like archvale and nt, open?
 
 * bk: {
  + better into boss going anim
@@ -47,7 +39,6 @@
 
 * ui {
  + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
- + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
 }
 
 * audio {
@@ -80,8 +71,6 @@
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
-
-* Enemies / rooms drop rewards (bombs, keys, coins)
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 

@@ -21,7 +21,7 @@ namespace Lens.entity.component.logic {
 				Position.X = 0;
 				Position.Y = 0;
 			} else {
-				var a = Math.Min(4, Amount * Amount * 0.05f) * Modifier;
+				var a = Math.Min(4, Amount * Amount * 0.07f) * Modifier;
 
 				Angle = Noise.Generate(Time) * a * 0.01f;
 				Position.X = Noise.Generate(Time * 2f + 32) * a;
@@ -29,13 +29,13 @@ namespace Lens.entity.component.logic {
 			}
 
 			if (Push >= 0.01f) {
-				var force = Math.Min(4, Push * Push * 0.3f) * (Modifier * 0.3f);
+				var force = Push * Push * 1.2f * (Modifier * 0.3f);
 				Position.X += PushDirection.X * force;
 				Position.Y += PushDirection.Y * force;
 			}
 			
 			Amount = Math.Max(0, Amount - dt * 10f);
-			Push = Math.Max(0, Push - dt * 15f);
+			Push = Math.Max(0, Push - dt * 20f);
 		}
 	}
 }

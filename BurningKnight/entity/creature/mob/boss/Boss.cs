@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
@@ -68,6 +69,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 						AnimationUtil.Poof(p.Center);
 						((Projectile) p).Break();
 					}
+
+					try {
+						var a = Area.Tagged[Tags.MustBeKilled].ToArray();
+
+						foreach (var p in a) {
+							if (!(p is Boss)) {
+								AnimationUtil.Poof(p.Center);
+								((Creature) p).Kill(this);
+							}
+						}
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				}
 
 				if (deathTimer >= 3f) {
@@ -80,6 +94,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
+
+						foreach (var r in Area.Tagged[Tags.Room]) {
+							var room = (Room) r;
+								
+							if (room.Type == RoomType.Exit) {
+								doors.AddRange(room.Doors);
+							}
+						}
 
 						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {

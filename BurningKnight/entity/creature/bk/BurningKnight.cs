@@ -118,7 +118,10 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		
 			if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New != null) {
+				var p = rce.Who is Player;
+				var bs = rce.Who is BurningKnight;
+				
+				if ((p || bs) && rce.New != null) {
 					var t = rce.New.Type;
 
 					if (t == RoomType.Boss) {
@@ -130,19 +133,22 @@ namespace BurningKnight.entity.creature.bk {
 								break;
 							}
 						}
-					} else if (t == RoomType.Treasure) {
-						foreach (var item in rce.New.Tagged[Tags.Item]) {
-							if (item is SingleChoiceStand stand && stand.Item != null) {
-								GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
-								break;
+					} else if (p) {
+						if (t == RoomType.Treasure) {
+							foreach (var item in rce.New.Tagged[Tags.Item]) {
+								if (item is SingleChoiceStand stand && stand.Item != null) {
+									GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+
+									break;
+								}
 							}
+						} else if (t == RoomType.Granny) {
+							// GRANNY, CAN YOU JUST DIE, PLEASE??
+							GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
+						} else if (t == RoomType.OldMan) {
+							// MY MASTER, I BROUGHT THE GOBLIN
+							GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 						}
-					} else if (t == RoomType.Granny) {
-						// GRANNY, CAN YOU JUST DIE, PLEASE??
-						GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
-					} else if (t == RoomType.OldMan) {
-						// MY MASTER, I BROUGHT THE GOBLIN
-						GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
@@ -230,9 +236,17 @@ namespace BurningKnight.entity.creature.bk {
 				} else if (d >= 200) {
 					Self.Become<TeleportState>();
 				}
+
+				var room = Self.Target.GetComponent<RoomComponent>().Room;
+
+				if (Self.OnScreen && room != null && room.Type == RoomType.Regular && room.Tagged[Tags.MustBeKilled].Count > 0 && room.Contains(Self, 16f)) {
+					var aa = Self.AngleTo(room);
+					force = 400f * dt;
+					Self.GetComponent<RectBodyComponent>().Velocity -= new Vector2((float) Math.Cos(aa) * force, (float) Math.Sin(aa) * force);
+					return;
+				}
 				
 				var a = Self.AngleTo(Self.Target);
-				
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
 		}
@@ -309,8 +323,16 @@ namespace BurningKnight.entity.creature.bk {
 					Self.Become<AttackState>();
 				}
 
-				var a = Self.AngleTo(Self.Target);
+				var room = Self.Target.GetComponent<RoomComponent>().Room;
 
+				if (Self.OnScreen && room != null && room.Type == RoomType.Regular && room.Tagged[Tags.MustBeKilled].Count > 0 && room.Contains(Self, 16f)) {
+					var aa = Self.AngleTo(room);
+					force = 400f * dt;
+					Self.GetComponent<RectBodyComponent>().Velocity -= new Vector2((float) Math.Cos(aa) * force, (float) Math.Sin(aa) * force);
+					return;
+				}
+				
+				var a = Self.AngleTo(Self.Target);
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
 		}

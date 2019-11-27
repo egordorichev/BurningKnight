@@ -115,7 +115,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 				base.Init();
 
 				if (Self.OnScreen) {
-					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("level_spike");
+					Self.GetComponent<AudioEmitterComponent>().Emit("level_spike");
 				}
 
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);

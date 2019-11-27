@@ -79,14 +79,14 @@ namespace BurningKnight.assets.loot {
 			
 			
 			Define("rock", new AnyDrop(
-				new SingleDrop("bk:pickaxe", 0.01f)
+				// new SingleDrop("bk:pickaxe", 0.01f)
 			));
 			
 			Define("tinted_rock", new AnyDrop(
-				new SimpleDrop(0.3f, 1, 2, "bk:key"),
-				new SimpleDrop(0.3f, 1, 2, "bk:bomb"),
-				new SimpleDrop(0.3f, 1, 2, "bk:troll_bomb"),
-				new SimpleDrop(0.6f, 1, 2, "bk:heart")
+				new SimpleDrop(0.2f, 1, 2, "bk:key"),
+				new SimpleDrop(0.2f, 1, 2, "bk:bomb"),
+				new SimpleDrop(0.2f, 1, 2, "bk:troll_bomb"),
+				new SimpleDrop(0.4f, 1, 2, "bk:heart")
 			));
 		}
 

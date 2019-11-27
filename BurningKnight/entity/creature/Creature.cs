@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new AudioEmitterComponent());
 			
-			AddDrops(new SingleDrop("bk:heart", 0.05f));
+			AddDrops(new SingleDrop("bk:heart", 0.03f));
 		}
 
 		protected void Become<T>() {
@@ -138,7 +138,8 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual void AnimateDeath(DiedEvent d) {
-			GetComponent<AudioEmitterComponent>().EmitRandomized(GetDeadSfx(), 1, false);
+			AudioEmitterComponent.Dummy(Area, Center).EmitRandomized(GetDeadSfx(), 1, false);
+			
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;
 			
@@ -177,6 +178,11 @@ namespace BurningKnight.entity.creature {
 
 			var gore = new Gore();
 			var r = a.Animation.GetFrame("dead", 0);
+
+			if (r == null) {
+				Log.Error($"Failed to find dead frame for {GetType().Name}");
+				return;
+			}
 			
 			Area.Add(gore);
 			

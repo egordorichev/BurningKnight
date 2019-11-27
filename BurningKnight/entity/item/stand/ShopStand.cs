@@ -9,6 +9,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
@@ -25,11 +26,6 @@ namespace BurningKnight.entity.item.stand {
 		protected float PriceX;
 		protected bool OnSale;
 		protected bool HasSale;
-
-		public override void AddComponents() {
-			base.AddComponents();
-			AddComponent(new AudioEmitterComponent());
-		}
 
 		public override void Init() {
 			base.Init();
@@ -84,7 +80,7 @@ namespace BurningKnight.entity.item.stand {
 			
 			Sells = false;
 
-			GetComponent<AudioEmitterComponent>().Emit("item_purchase");
+			Audio.PlaySfx("item_purchase");
 			return true;
 		}
 

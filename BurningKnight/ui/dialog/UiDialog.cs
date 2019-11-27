@@ -50,6 +50,27 @@ namespace BurningKnight.ui.dialog {
 			Str.FinishedTyping += s => {
 				DoneSaying = true;
 			};
+
+			if (!Owner.HasComponent<AudioEmitterComponent>()) {
+				Owner.AddComponent(new AudioEmitterComponent());
+			}
+
+			var id = 0;
+
+			Str.CharTyped = (s, i, c) => {
+				if (!char.IsLetter(c)) {
+					return;
+				}
+
+				if (id++ % 2 == 1) {
+					return;
+				}
+
+				var sf = (int) char.ToLower(c);
+				var v = (sf - 'a') / 26f;
+				
+				Owner.GetComponent<AudioEmitterComponent>().Emit("voice", 1f, 0.5f + v);
+			};
 			
 			Tint.A = 0;
 		}

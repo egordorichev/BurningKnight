@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.entity.component.logic;
 
 namespace BurningKnight.entity.door {
@@ -57,8 +58,8 @@ namespace BurningKnight.entity.door {
 			if (shouldLock && !IsLocked) {
 				SetLocked(true, null);
 				GetComponent<StateComponent>().Become<ClosingState>();
-				
-				GetComponent<AudioEmitterComponent>().EmitRandomized("level_door_shut");
+
+				Audio.PlaySfx("level_door_shut");
 			} else if (!shouldLock && IsLocked) {
 				SetLocked(false, null);
 				GetComponent<StateComponent>().Become<OpeningState>();

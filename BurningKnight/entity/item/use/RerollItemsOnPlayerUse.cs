@@ -20,6 +20,10 @@ namespace BurningKnight.entity.item.use {
 				Reroll(entity.GetComponent<ActiveWeaponComponent>());
 				Reroll(entity.GetComponent<WeaponComponent>());
 			}
+
+			entity.HandleEvent(new RerolledEvent {
+				Entity = entity
+			});
 		}
 
 		private void Reroll(ItemComponent component) {
@@ -38,6 +42,7 @@ namespace BurningKnight.entity.item.use {
 			
 			foreach (var item in component.Items) {
 				Reroller.Reroll(item, ItemPool.Treasure, i => item.Type == i.Type);
+				item.Use(entity);
 			}
 		}
 
@@ -60,6 +65,10 @@ namespace BurningKnight.entity.item.use {
 			if (ImGui.Checkbox("Reroll artifacts?", ref rerollArtifacts)) {
 				root["artifacts"] = rerollArtifacts;
 			}
+		}
+
+		public class RerolledEvent : Event {
+			public Entity Entity;
 		}
 	}
 }

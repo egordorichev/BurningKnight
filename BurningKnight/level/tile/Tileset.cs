@@ -9,6 +9,8 @@ namespace BurningKnight.level.tile {
 		public TextureRegion[] WallB = new TextureRegion[12];
 		public TextureRegion WallTopA;
 		public TextureRegion WallTopB;
+		public TextureRegion WallTopADecor;
+		public TextureRegion WallTopBDecor;
 		public TextureRegion WallMerge;
 		public TextureRegion WallCrackA;
 		public TextureRegion WallCrackB;
@@ -80,6 +82,9 @@ namespace BurningKnight.level.tile {
 					}
 				}
 			}
+
+			WallTopADecor = new TextureRegion(anim.Texture, new Rectangle(128, 0, 16, 16));
+			WallTopBDecor = new TextureRegion(anim.Texture, new Rectangle(144, 0, 16, 16));
 
 			Tiles[(int) Tile.PistonDown] = Tiles[(int) Tile.Piston] = Tiles[(int) Tile.WallA] = new[] {
 				WallTopA = new TextureRegion(anim.Texture, new Rectangle(160, 8, 16, 16))

@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.level.entities.chest {
@@ -12,11 +13,6 @@ namespace BurningKnight.level.entities.chest {
 			if (Sprite == null) {
 				Sprite = "gold_chest";
 			}
-		}
-
-		public override void AddComponents() {
-			base.AddComponents();
-			DefineDrops();
 		}
 
 		protected override void DefineDrops() {
