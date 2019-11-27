@@ -245,24 +245,29 @@ namespace BurningKnight.entity.creature.mob.boss {
 				if (spot == null || to == null) {
 					return;
 				}
-				
+
 				for (var x = -1; x < 2; x++) {
 					for (var y = -1; y < 2; y++) {
-						var part = new TileParticle();
+						var x1 = x;
+						var y1 = y;
 
-						part.FromBottom = true;
-						part.Top = Run.Level.Tileset.FloorA[0];
-						part.TopTarget = Run.Level.Tileset.WallTopADecor;
-						part.Side = Run.Level.Tileset.WallA[0];
-						part.Sides = Run.Level.Tileset.WallSidesA[2];
-						part.Tile = Tile.WallA;
-				
-						part.X = (spot.X + x) * 16;
-						part.Y = (spot.Y + y) * 16 + 8;
-						part.Target.X = (to.X + x) * 16;
-						part.Target.Y = (to.Y + y) * 16 + 8;
-				
-						Self.Area.Add(part);
+						Timer.Add(() => {
+							var part = new TileParticle();
+
+							part.FromBottom = true;
+							part.Top = Run.Level.Tileset.FloorA[0];
+							part.TopTarget = Run.Level.Tileset.WallTopADecor;
+							part.Side = Run.Level.Tileset.WallA[0];
+							part.Sides = Run.Level.Tileset.WallSidesA[2];
+							part.Tile = Tile.WallA;
+
+							part.X = (spot.X + x1) * 16;
+							part.Y = (spot.Y + y1) * 16 + 8;
+							part.Target.X = (to.X + x1) * 16;
+							part.Target.Y = (to.Y + y1) * 16 + 8;
+
+							Self.Area.Add(part);
+						}, Rnd.Float(1f));
 					}
 				}
 			}

@@ -35,7 +35,6 @@
 * room {
  + special props on top of special rooms, like shop boss and treasure
  + cleared effect
- + clear reward. Spawns in the center, destroying the tiles. 
 }
 
 + make bk not float in the center of actions in the rooms
@@ -84,8 +83,6 @@
 * curse of ??? (do not know consumable counts)
 * curse of ??? (items hidden)
 * more prefixes
-
-* Enemies / rooms drop rewards (bombs, keys, coins)
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 

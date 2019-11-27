@@ -99,8 +99,10 @@ namespace BurningKnight.assets.particle.custom {
 					Depth = 0;
 				}
 			}, 0.5f, Ease.QuadIn).OnEnd = () => {
-				Scale.X = 3;
-				Scale.Y = 0.3f;
+				if (TargetZ >= -0.01f) {
+					Scale.X = 3;
+					Scale.Y = 0.3f;
+				}
 
 				Tween.To(1, Scale.X, x => Scale.X = x, 0.5f);
 				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.5f).OnEnd = () => {
@@ -118,8 +120,10 @@ namespace BurningKnight.assets.particle.custom {
 		}
 
 		public void RenderShadow() {
-			var or = Top.Center;
-			Graphics.Render(Top, Position + or + new Vector2(0, 16), 0, or, Scale);
+			if (Z >= 0) {
+				var or = Top.Center;
+				Graphics.Render(Top, Position + or + new Vector2(0, 16), 0, or, Scale);
+			}
 		}
 
 		public override void Render() {
