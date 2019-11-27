@@ -1,8 +1,8 @@
 # publisher build stuff
 
-+ bk shouldnt float in the middile of the action
 + screenshake is trash
 + fix reroll items on player use not updating ui inventory item display
+ + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
 
 * fix {
  + bugs {
@@ -43,7 +43,6 @@
 
 * ui {
  + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
- + player should say "Daddy? What did they do to you?!!" when he sees the tombstone
 }
 
 * audio {

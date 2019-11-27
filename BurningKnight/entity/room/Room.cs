@@ -187,7 +187,7 @@ namespace BurningKnight.entity.room {
 			
 			Timer.Add(() => {
 				var reward = CreateReward();
-				reward.BottomCenter = where * 16 + new Vector2(8, 8);
+				reward.BottomCenter = where * 16 + new Vector2(8, 24);
 				AnimationUtil.Poof(reward.Center);
 			}, 2f);
 		}
