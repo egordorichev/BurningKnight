@@ -1,7 +1,10 @@
 # publisher build stuff
 
 * fix {
+ + bk shouldnt float in the middile of the action
+
  + bugs {
+  - when you start the game and its all black and you press some random button (before the title card) there is  really weird audio glitch and then the game breaks
   - gold chest drops 2 items??
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
