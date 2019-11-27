@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.room.controllable;
+using BurningKnight.level.tile;
+using BurningKnight.state;
+using BurningKnight.util.geometry;
+using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.math;
@@ -41,10 +46,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 4;
 
 			AddAnimation("pharaoh");
-			SetMaxHp(80);
-
-			// FIXME: REMOVE
-			Become<IdleState>();
+			SetMaxHp(120);
 		}
 
 		protected override void AddPhases() {
@@ -105,18 +107,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (T >= (Self.InThirdPhase ? 0.5f : 1f)) {
 					var v = Self.counter;
-					
+
 					if (v == 0) {
 						Become<SimpleSpiralState>();
 					} else if (v == 1) {
 						Become<AdvancedSpiralState>();
 					} else if (v == 2) {
 						Become<SimpleSpiralState>();
-					} else {
+					} else if (v == 3) {
 						Become<BulletHellState>();
+					} else {
+						Become<TileMoveState>();
 					}
 
-					Self.counter = (v + 1) % 4;
+					Self.counter = (v + 1) % 5;
 				}
 			}
 		}
@@ -134,13 +138,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var amount = 2 + (Self.Phase - 1);
 
 					for (var i = 0; i < amount; i++) {
-						if (Rnd.Chance(10)) {
-							continue;
-						}
-						
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
 						var projectile = Projectile.Make(Self, "small", a, 6f, scale: count % 2 == 0 ? 1f : 1.5f);
-						projectile.Center = Self.BottomCenter;
+						
 					}
 
 					count++;
@@ -164,13 +164,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var amount = 8;
 
 					for (var i = 0; i < amount; i++) {
-						if (Rnd.Chance(10)) {
-							continue;
-						}
-						
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 1) * Math.PI * 0.25f) * (i % 2 == 1 ? -1 : 1);
 						var projectile = Projectile.Make(Self, "small", a, 4f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1f);
-						projectile.Center = Self.BottomCenter;
+						
 					}
 				}
 
@@ -192,15 +188,89 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var amount = 4;
 
 					for (var i = 0; i < amount; i++) {
-						if (Rnd.Chance(10)) {
-							continue;
-						}
-						
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
 						var projectile = Projectile.Make(Self, "small", a, 5f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1f);
-						projectile.Center = Self.BottomCenter;
+						
 					}
 				}
+
+				if (T >= 10f) {
+					Become<IdleState>();
+				}
+			}
+		}
+		
+		public class TileMoveState : SmartState<Pharaoh> {
+			private Dot PickDot() {
+				var room = Self.GetComponent<RoomComponent>().Room;
+				var attempt = 0;
+				var toCheck = new List<Entity>();
+
+				toCheck.Add(Self);
+				toCheck.AddRange(room.Tagged[Tags.Player]);
+
+				Dot spot;
+
+				do {
+					spot = new Dot(Rnd.Int(room.MapX + 3, room.MapX + room.MapW - 3),
+						Rnd.Int(room.MapY + 3, room.MapY + room.MapH - 3));
+
+					var vector = spot * 16 + new Vector2(8, 8);
+					var found = false;
+					
+					foreach (var e in toCheck) {
+						if (e.DistanceTo(vector) <= 48f) {
+							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						return spot;
+					}
+
+					if (attempt++ > 30) {
+						Become<IdleState>();
+						return null;
+					}
+				} while (true);
+
+				return spot;
+			}
+			
+			public override void Init() {
+				base.Init();
+				
+				var spot = PickDot();
+				var to = PickDot();
+
+				if (spot == null || to == null) {
+					return;
+				}
+				
+				for (var x = -1; x < 2; x++) {
+					for (var y = -1; y < 2; y++) {
+						var part = new TileParticle();
+
+						part.FromBottom = true;
+						part.Top = Run.Level.Tileset.FloorA[0];
+						part.TopTarget = Run.Level.Tileset.WallTopADecor;
+						part.Side = Run.Level.Tileset.WallA[0];
+						part.Sides = Run.Level.Tileset.WallSidesA[2];
+						part.Tile = Tile.WallA;
+				
+						part.X = (spot.X + x) * 16;
+						part.Y = (spot.Y + y) * 16 + 8;
+						part.Target.X = (to.X + x) * 16;
+						part.Target.Y = (to.Y + y) * 16 + 8;
+				
+						Self.Area.Add(part);
+					}
+				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
 
 				if (T >= 10f) {
 					Become<IdleState>();
@@ -222,7 +292,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
 							var projectile = Projectile.Make(Self, "small", a, 5f + j1 * 2f, scale: j1 == 0 ? 1f : 1.5f);
-							projectile.Center = Self.BottomCenter;
+							
 						}
 					}, j);
 				}

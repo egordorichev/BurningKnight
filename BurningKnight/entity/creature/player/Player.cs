@@ -206,22 +206,6 @@ namespace BurningKnight.entity.creature.player {
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
-
-				var part = new TileParticle();
-
-				part.FromBottom = true;
-				part.Top = Run.Level.Tileset.FloorA[0];
-				part.TopTarget = Run.Level.Tileset.WallTopADecor;
-				part.Side = Run.Level.Tileset.WallA[0];
-				part.Sides = Run.Level.Tileset.WallSidesA[2];
-				part.Tile = Tile.WallA;
-				
-				part.X = (int) (Self.X / 16) * 16;
-				part.Y = (int) ((Self.Y - 8) / 16) * 16 + 8;
-				part.Target.X = (int) (Self.X / 16) * 16 + 32;
-				part.Target.Y = (int) ((Self.Y - 8) / 16) * 16 + 8;
-				
-				Self.Area.Add(part);
 			}
 
 			public override void Update(float dt) {

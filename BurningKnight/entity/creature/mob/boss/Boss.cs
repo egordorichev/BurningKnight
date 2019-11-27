@@ -95,6 +95,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
 
+						foreach (var r in Area.Tagged[Tags.Room]) {
+							var room = (Room) r;
+								
+							if (room.Type == RoomType.Exit) {
+								doors.AddRange(room.Doors);
+							}
+						}
+
 						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {
 								var room = (Room) r;
