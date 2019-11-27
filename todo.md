@@ -1,7 +1,5 @@
 # publisher build stuff
 
-+ screenshake is trash
-
 * fix {
  + bugs {
   - maximized window bug on windows

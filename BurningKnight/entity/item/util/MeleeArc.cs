@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.util {
 			});
 
 			GetComponent<AnimationComponent>().OriginY = 12;
+			Camera.Instance.Push(Angle - (float) Math.PI, 4f);
 		}
 
 		public override void Render() {

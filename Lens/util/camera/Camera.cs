@@ -120,7 +120,6 @@ namespace Lens.util.camera {
 			
 			component.Push = force;
 			component.PushDirection = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle));
-
 		}
 		
 		public override void AddComponents() {
