@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
@@ -67,6 +68,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 					foreach (var p in Area.Tagged[Tags.Projectile]) {
 						AnimationUtil.Poof(p.Center);
 						((Projectile) p).Break();
+					}
+
+					try {
+						var a = Area.Tagged[Tags.MustBeKilled].ToArray();
+
+						foreach (var p in a) {
+							if (!(p is Boss)) {
+								AnimationUtil.Poof(p.Center);
+								((Creature) p).Kill(this);
+							}
+						}
+					} catch (Exception e) {
+						Log.Error(e);
 					}
 				}
 

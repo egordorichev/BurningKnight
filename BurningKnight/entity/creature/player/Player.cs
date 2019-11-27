@@ -467,7 +467,7 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
 			} else if (e is NewLevelStartedEvent) {
-				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
+				/*foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
 					Center = cc.Center;
 					Log.Debug("Teleported to spawn point");
 					return base.HandleEvent(e);
@@ -477,12 +477,12 @@ namespace BurningKnight.entity.creature.player {
 					Center = cc.Center + new Vector2(0, 4);
 					Log.Debug("Teleported to entrance");
 					return base.HandleEvent(e);
-				}
+				}*/
 			
 				foreach (var r in Area.Tagged[Tags.Room]) {
 					var rm = (Room) r;
 
-					if (rm.Type == RoomType.Entrance) {
+					if (rm.Type == RoomType.Boss/*Entrance*/) {
 						Center = r.Center;
 						rm.Discover();
 

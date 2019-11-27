@@ -1,6 +1,7 @@
 # publisher build stuff
 
 * fix {
+ + active trader stands are gone?
  + bk shouldnt float in the middile of the action
 
  + bugs {

@@ -118,7 +118,10 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		
 			if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New != null) {
+				var p = rce.Who is Player;
+				var bs = rce.Who is BurningKnight;
+				
+				if ((p || bs) && rce.New != null) {
 					var t = rce.New.Type;
 
 					if (t == RoomType.Boss) {
@@ -130,19 +133,22 @@ namespace BurningKnight.entity.creature.bk {
 								break;
 							}
 						}
-					} else if (t == RoomType.Treasure) {
-						foreach (var item in rce.New.Tagged[Tags.Item]) {
-							if (item is SingleChoiceStand stand && stand.Item != null) {
-								GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
-								break;
+					} else if (p) {
+						if (t == RoomType.Treasure) {
+							foreach (var item in rce.New.Tagged[Tags.Item]) {
+								if (item is SingleChoiceStand stand && stand.Item != null) {
+									GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+
+									break;
+								}
 							}
+						} else if (t == RoomType.Granny) {
+							// GRANNY, CAN YOU JUST DIE, PLEASE??
+							GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
+						} else if (t == RoomType.OldMan) {
+							// MY MASTER, I BROUGHT THE GOBLIN
+							GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 						}
-					} else if (t == RoomType.Granny) {
-						// GRANNY, CAN YOU JUST DIE, PLEASE??
-						GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
-					} else if (t == RoomType.OldMan) {
-						// MY MASTER, I BROUGHT THE GOBLIN
-						GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
