@@ -206,6 +206,15 @@ namespace BurningKnight.entity.creature.player {
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
+
+				var part = new TileParticle();
+				
+				part.Top = Run.Level.Tileset.WallTopADecor;
+				part.Side = Run.Level.Tileset.WallA[0];
+				part.Sides = Run.Level.Tileset.WallSidesA[2];
+				part.Center = Self.Center;
+				
+				Self.Area.Add(part);
 			}
 
 			public override void Update(float dt) {
@@ -467,7 +476,7 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
 			} else if (e is NewLevelStartedEvent) {
-				/*foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
+				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
 					Center = cc.Center;
 					Log.Debug("Teleported to spawn point");
 					return base.HandleEvent(e);
@@ -477,7 +486,7 @@ namespace BurningKnight.entity.creature.player {
 					Center = cc.Center + new Vector2(0, 4);
 					Log.Debug("Teleported to entrance");
 					return base.HandleEvent(e);
-				}*/
+				}
 			
 				foreach (var r in Area.Tagged[Tags.Room]) {
 					var rm = (Room) r;
