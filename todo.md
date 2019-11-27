@@ -1,18 +1,18 @@
 # publisher build stuff
 
-* fix {
- + bk shouldnt float in the middile of the action
++ bk shouldnt float in the middile of the action
++ gold chest drops 2 items??
++ screenshake is trash
 
+
+* fix {
  + bugs {
-  - when you start the game and its all black and you press some random button (before the title card) there is  really weird audio glitch and then the game breaks
-  - gold chest drops 2 items??
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
  }
 
  + visual {
   - some weirdness is going on with bullet death particles?
-  - screenshake is trash
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice
  }
@@ -25,9 +25,7 @@
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {
-  - check on windows, this might be linux issue?
-  - gamepad doesn't seem to function properly without hotplugging it
-  - rumble doesn't always work
+  - rumble doesn't always work? maybe its just not noticable enough
  }
 }
 
@@ -36,10 +34,7 @@
  + cleared effect
 }
 
-+ make bk not float in the center of actions in the rooms
 + charge up animation for old king before he spews out the heads
-
-* change desert gen to be more like archvale and nt, open?
 
 * bk: {
  + better into boss going anim
