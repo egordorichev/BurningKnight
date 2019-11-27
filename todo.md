@@ -1,9 +1,8 @@
 # publisher build stuff
 
 + bk shouldnt float in the middile of the action
-+ gold chest drops 2 items??
 + screenshake is trash
-
++ fix reroll items on player use not updating ui inventory item display
 
 * fix {
  + bugs {

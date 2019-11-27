@@ -111,6 +111,7 @@ namespace BurningKnight.level.entities.chest {
 
 		protected virtual void SpawnDrops() {
 			if (!Empty) {
+				Empty = true;
 				GetComponent<DropsComponent>().SpawnDrops();
 			}
 		}
