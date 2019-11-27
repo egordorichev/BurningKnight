@@ -113,14 +113,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 					} else if (v == 1) {
 						Become<AdvancedSpiralState>();
 					} else if (v == 2) {
-						Become<SimpleSpiralState>();
+						Become<TileMoveState>();
 					} else if (v == 3) {
 						Become<BulletHellState>();
-					} else {
-						Become<TileMoveState>();
 					}
 
-					Self.counter = (v + 1) % 5;
+					Self.counter = (v + 1) % 4;
 				}
 			}
 		}
