@@ -15,6 +15,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			AddComponent(new RectBodyComponent(4, 2, 8, 14, BodyType.Static));
 			AddComponent(new DialogComponent());
+			GetComponent<DialogComponent>().Dialog.Voice = 2;
 			AddAnimation("dummy");
 			
 			SetMaxHp(1);

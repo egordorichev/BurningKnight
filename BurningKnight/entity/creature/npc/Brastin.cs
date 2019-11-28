@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Brastin : Npc {
@@ -10,6 +11,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			AddComponent(new AnimationComponent("brastin"));
 			AddComponent(new CloseDialogComponent("brastin_0"));
+			GetComponent<DialogComponent>().Dialog.Voice = 3;
 		}
 	}
 }

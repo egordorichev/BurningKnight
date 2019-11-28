@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.creature.npc {
 	public class NullPtr : Npc {
@@ -10,6 +11,8 @@ namespace BurningKnight.entity.creature.npc {
 
 			AddComponent(new AnimationComponent("nullptr"));
 			AddComponent(new CloseDialogComponent("nullptr_0"));
+			
+			GetComponent<DialogComponent>().Dialog.Voice = 18;
 		}
 	}
 }

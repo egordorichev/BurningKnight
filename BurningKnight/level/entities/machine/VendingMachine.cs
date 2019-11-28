@@ -71,6 +71,7 @@ namespace BurningKnight.level.entities.machine {
 			AddComponent(new DialogComponent());
 			
 			AddComponent(new InteractableSliceComponent("props", "vending_machine"));
+			GetComponent<DialogComponent>().Dialog.Voice = 10;
 		}
 
 		protected bool Interact(Entity entity) {

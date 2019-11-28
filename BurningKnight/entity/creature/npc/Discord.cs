@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Discord : Npc {
@@ -12,6 +13,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			// todo: connect discordIntegration CurrentPlayer here
 			AddComponent(new CloseDialogComponent("discord_0"));
+			GetComponent<DialogComponent>().Dialog.Voice = 2;
 		}
 	}
 }

@@ -84,6 +84,8 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<DiedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
 			Subscribe<Boss.DefeatedEvent>();
+			
+			GetComponent<DialogComponent>().Dialog.Voice = 25;
 		}
 
 		protected override void OnTargetChange(Entity target) {

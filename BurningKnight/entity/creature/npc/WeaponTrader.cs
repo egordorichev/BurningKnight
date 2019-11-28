@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
+using BurningKnight.ui.dialog;
 using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
@@ -16,6 +17,7 @@ namespace BurningKnight.entity.creature.npc {
 			var b = new RectBodyComponent(2, 6, Width - 4, Height - 6);
 			AddComponent(b);
 			b.KnockbackModifier = 0;
+			GetComponent<DialogComponent>().Dialog.Voice = 7;
 		}
 
 		protected override string GetDialog() {

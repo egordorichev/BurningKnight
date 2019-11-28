@@ -47,10 +47,6 @@ namespace BurningKnight.ui.dialog {
 			Str.WidthLimit = 172;
 			Str.Visible = false;
 			Str.AlwaysVisible = false;
-			
-			Str.FinishedTyping += s => {
-				DoneSaying = true;
-			};
 
 			if (!Owner.HasComponent<AudioEmitterComponent>()) {
 				Owner.AddComponent(new AudioEmitterComponent());
@@ -58,6 +54,11 @@ namespace BurningKnight.ui.dialog {
 
 			var id = 0;
 
+			Str.FinishedTyping += s => {
+				DoneSaying = true;
+				id = 0;
+			};
+			
 			Str.CharTyped = (s, i, c) => {
 				if (!char.IsLetter(c)) {
 					return;
@@ -69,8 +70,8 @@ namespace BurningKnight.ui.dialog {
 
 				var sf = (int) char.ToLower(c);
 				var v = (sf - 'a') / 26f;
-				
-				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v);
+
+				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v); // (v - 0.5f) * 2f);
 			};
 			
 			Tint.A = 0;
