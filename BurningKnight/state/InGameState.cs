@@ -239,6 +239,7 @@ namespace BurningKnight.state {
 				Run.SavingDepth = Run.Depth;
 			}
 
+			Timer.Clear();
 			Lights.Destroy();
 
 			SaveManager.Backup();

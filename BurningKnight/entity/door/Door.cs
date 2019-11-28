@@ -105,6 +105,12 @@ namespace BurningKnight.entity.door {
 					}
 				}
 			} else if (e is ExplodedEvent ee) {
+				foreach (var r in rooms) {
+					if (r != null && r.Type == RoomType.Boss) {
+						return base.HandleEvent(e);
+					}
+				}
+				
 				BreakFromExplosion();
 			}
 			

@@ -17,10 +17,14 @@ namespace BurningKnight.entity.item.use {
 
 			var room = entity.GetComponent<RoomComponent>().Room;
 
+			if (room == null) {
+				return;
+			}
+
 			for (var i = 0; i < Amount; i++) {
 				if (Randomly) {
 					Lens.util.timer.Timer.Add(() => {
-						if (entity?.Area == null) {
+						if (entity?.Area == null || room == null) {
 							return;
 						}
 							

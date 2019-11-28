@@ -23,6 +23,8 @@ namespace BurningKnight.entity.component {
 		public bool TookDamageInLastRoom;
 		public bool TookDamageOnLevel;
 
+		public int HeartsPayed;
+
 		public float Speed {
 			get => speed;
 			set => speed = MathUtils.Clamp(0.1f, 3f, value);
@@ -69,6 +71,7 @@ namespace BurningKnight.entity.component {
 			
 			ImGui.Checkbox("Took Damage in Room", ref TookDamageInRoom);
 			ImGui.Checkbox("Took Damage on Level", ref TookDamageOnLevel);
+			ImGui.InputInt("Containers payed", ref HeartsPayed);
 		}
 
 		public override void Save(FileWriter stream) {
@@ -78,6 +81,7 @@ namespace BurningKnight.entity.component {
 			stream.WriteBoolean(TookDeal);
 			stream.WriteBoolean(TookDamageInRoom);
 			stream.WriteBoolean(TookDamageOnLevel);
+			stream.WriteInt32(HeartsPayed);
 		}
 
 		public override void Load(FileReader stream) {
@@ -87,6 +91,7 @@ namespace BurningKnight.entity.component {
 			TookDeal = stream.ReadBoolean();
 			TookDamageInRoom = stream.ReadBoolean();
 			TookDamageOnLevel = stream.ReadBoolean();
+			HeartsPayed = stream.ReadInt32();
 		}
 
 		public override bool HandleEvent(Event e) {

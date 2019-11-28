@@ -168,8 +168,8 @@ namespace BurningKnight.entity.component {
 		}
 
 		public HealthComponent() {
-			maxHealth = 2;
-			health = MaxHealth;
+			//maxHealth = 2;
+			//health = MaxHealth;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -221,9 +221,22 @@ namespace BurningKnight.entity.component {
 			return Math.Abs(health - MaxHealth) < 0.01f;
 		}
 
+		private bool applied;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			InvincibilityTimer = Math.Max(0, InvincibilityTimer - dt);
+
+			if (!applied) {
+				applied = true;
+
+				if (Entity.HasComponent<StatsComponent>()) {
+					var amount = GetComponent<StatsComponent>().HeartsPayed * 2;
+
+					maxHealth -= amount;
+					health = Math.Min(maxHealth, health);
+				}
+			}
 		}
 		
 		public override void Save(FileWriter stream) {

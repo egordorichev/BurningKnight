@@ -58,7 +58,8 @@ namespace BurningKnight.entity.creature.npc {
 						((Chest) chest).CanOpen = true;
 					}
 
-					GetComponent<CloseDialogComponent>().Variants = new[] {"maanex_8"};
+					RemoveComponent<CloseDialogComponent>();
+					return Dialogs.Get("maanex_8");
 				}
 
 				return null;
@@ -88,20 +89,20 @@ namespace BurningKnight.entity.creature.npc {
 
 		public override bool HandleEvent(Event e) {
 			if (e is Chest.OpenedEvent coe) {
-				if (coe.Chest.Empty) {
-					GetComponent<DialogComponent>().StartAndClose("maanex_9", 5f);
-				} else {
-					GetComponent<DialogComponent>().StartAndClose("maanex_10", 5f);
-				}
-				
-				GetComponent<CloseDialogComponent>().Variants = new[] {"maanex_7"};
-				
-				foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
-					((Chest) chest).CanOpen = false;
+				if (coe.Chest.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
+					if (coe.Chest.Empty) {
+						GetComponent<DialogComponent>().StartAndClose("maanex_9", 5f);
+					} else {
+						GetComponent<DialogComponent>().StartAndClose("maanex_10", 5f);
+					}
+
+					foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
+						((Chest) chest).CanOpen = false;
+					}
 				}
 			} else if (e is RoomChangedEvent rce) {
 				if (!interacted && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
+					foreach (var chest in rce.New.Tagged[Tags.Chest]) {
 						((Chest) chest).CanOpen = false;
 					}
 				}

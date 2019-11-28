@@ -67,6 +67,14 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override void Paint(Level level) {
+			var t = Tiles.RandomFloor();
+			
+			Painter.Call(level, this, 1, (x, y) => {
+				if (level.Get(x, y).Matches(Tile.SpikeOffTmp, Tile.SensingSpikeTmp)) {
+					level.Set(x, y, t);
+				}
+			});
+			
 			PaintRoom(level);
 
 			var boss = BossRegistry.Generate();

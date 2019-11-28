@@ -8,6 +8,10 @@ namespace Lens.util.timer {
 		public static void Add(Action fn, float Delay) {
 			tasks.Add(new TimerTask(fn, Delay));
 		}
+
+		public static void Clear() {
+			tasks.Clear();
+		}
 		
 		public static void Update(float dt) {
 			for (int i = tasks.Count - 1; i >= 0; i--) {
