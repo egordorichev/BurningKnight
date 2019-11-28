@@ -21,6 +21,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -146,20 +147,19 @@ namespace BurningKnight.entity.creature.player {
 
 			AlwaysActive = true;
 
-			InitStats();
+			InitStats(true);
 			
 			Subscribe<RoomClearedEvent>();
 		}
 
-		public void InitStats() {
+		public void InitStats(bool fromInit = false) {
 			HasFlight = false;
 			
 			GetComponent<OrbitGiverComponent>().DestroyAll();
 			GetComponent<FollowerComponent>().DestroyAll();
 
 			var hp = GetComponent<HealthComponent>();
-			hp.MaxHealth = 6;
-			hp.InitMaxHealth = 6;
+			hp.InitMaxHealth = 6 - (fromInit ? 0 : GetComponent<StatsComponent>().HeartsPayed * 2);
 			hp.MaxHealthCap = 32;
 			hp.InvincibilityTimerMax = 1f;
 

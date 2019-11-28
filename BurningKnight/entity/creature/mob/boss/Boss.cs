@@ -71,10 +71,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 					}
 
 					try {
-						var a = Area.Tagged[Tags.MustBeKilled].ToArray();
+						var a = GetComponent<RoomComponent>().Room.Tagged[Tags.MustBeKilled].ToArray();
 
 						foreach (var p in a) {
-							if (!(p is Boss)) {
+							if (!(p is Boss || p is bk.BurningKnight)) {
 								AnimationUtil.Poof(p.Center);
 								((Creature) p).Kill(this);
 							}
@@ -85,6 +85,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 
 				if (deathTimer >= 3f) {
+					CreateGore(null);
 					HandleEvent(new DefeatedEvent {
 						Boss = this
 					});
@@ -94,14 +95,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
-
-						foreach (var r in Area.Tagged[Tags.Room]) {
-							var room = (Room) r;
-								
-							if (room.Type == RoomType.Exit) {
-								doors.AddRange(room.Doors);
-							}
-						}
 
 						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {

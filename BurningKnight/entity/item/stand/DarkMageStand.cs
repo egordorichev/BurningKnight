@@ -77,7 +77,11 @@ namespace BurningKnight.entity.item.stand {
 			lastPrice = Price * 2;
 			takenItem = Item;
 			
-			entity.GetComponent<StatsComponent>().TookDeal = true;
+			var stats =entity.GetComponent<StatsComponent>();
+			
+			stats.TookDeal = true;
+			stats.HeartsPayed += Price;
+			
 			Achievements.Unlock("bk:deal");
 			
 			return true;

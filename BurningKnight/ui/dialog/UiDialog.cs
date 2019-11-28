@@ -25,6 +25,7 @@ namespace BurningKnight.ui.dialog {
 
 		public Func<bool> OnEnd;
 		public bool JustStarted;
+		public int Voice = 5;
 
 		private string toSay;
 		
@@ -69,7 +70,7 @@ namespace BurningKnight.ui.dialog {
 				var sf = (int) char.ToLower(c);
 				var v = (sf - 'a') / 26f;
 				
-				Owner.GetComponent<AudioEmitterComponent>().Emit("voice", 1f, 0.5f + v);
+				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v);
 			};
 			
 			Tint.A = 0;

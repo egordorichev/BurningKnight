@@ -128,7 +128,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
-			return entity is SolidProp || !(entity is Entrance || entity is Player || entity is MeleeArc || entity is Orbital || entity is Pet || entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
+			return entity is SolidProp || !(entity is Entrance || entity is Exit || entity is Player || entity is MeleeArc || entity is Orbital || entity is Pet || entity is Prop || entity is Spikes || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Item || entity is Projectile || entity is Bomb);
 		}
 
 		public override void Render(bool shadow) {

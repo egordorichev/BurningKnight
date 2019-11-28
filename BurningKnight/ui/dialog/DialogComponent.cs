@@ -178,6 +178,14 @@ namespace BurningKnight.ui.dialog {
 				toSay = "";
 			}
 
+			ImGui.InputInt("Voice", ref Dialog.Voice);
+
+			if (ImGui.Button("Test")) {
+				Start("Quick brown fox jumped over lazy dog");
+			}
+
+			ImGui.SameLine();
+
 			if (ImGui.Button("Close")) {
 				Close();
 			}

@@ -1,32 +1,21 @@
 using System;
-using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
-using BurningKnight.assets.particle;
-using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
-using BurningKnight.entity.projectile.controller;
-using BurningKnight.level;
-using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
-using BurningKnight.level.tile;
 using BurningKnight.state;
-using BurningKnight.ui;
 using BurningKnight.ui.dialog;
-using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
-using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
@@ -94,6 +83,7 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<ShopKeeper.EnragedEvent>();
 			Subscribe<DiedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
+			Subscribe<Boss.DefeatedEvent>();
 		}
 
 		protected override void OnTargetChange(Entity target) {
@@ -111,8 +101,36 @@ namespace BurningKnight.entity.creature.bk {
 
 			base.OnTargetChange(target);
 		}
+		
+		private void FreeSelf() {
+			if (!Hidden) {
+				return;
+			}
+			
+			var graphics = GetComponent<BkGraphicsComponent>();
+			graphics.Alpha = 0;
+
+			Center = captured.Center;
+			GetComponent<HealthComponent>().Unhittable = true;
+				
+			Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+				Timer.Add(() => {
+					Become<ChaseState>();
+					// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
+					GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
+				}, 1f);
+			};
+		}
 
 		public override bool HandleEvent(Event e) {
+			if (e is DefeatedEvent bde) {
+				if (bde.Boss == captured) {
+					FreeSelf();
+				}
+
+				return false;
+			}
+			
 			if (Hidden) {
 				return base.HandleEvent(e);
 			}
@@ -125,14 +143,7 @@ namespace BurningKnight.entity.creature.bk {
 					var t = rce.New.Type;
 
 					if (t == RoomType.Boss) {
-						foreach (var mob in rce.New.Tagged[Tags.MustBeKilled]) {
-							if (mob != this && mob is Boss b) {
-								captured = b;
-								Become<CaptureState>();
-
-								break;
-							}
-						}
+						CheckCapture();
 					} else if (p) {
 						if (t == RoomType.Treasure) {
 							foreach (var item in rce.New.Tagged[Tags.Item]) {
@@ -199,7 +210,7 @@ namespace BurningKnight.entity.creature.bk {
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			
+
 			if (Hidden) {
 				return;
 			}
@@ -214,6 +225,12 @@ namespace BurningKnight.entity.creature.bk {
 
 				particle.Depth = Depth - 1;
 				particle.Center = Center;
+
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room != null && room.Type == RoomType.Boss) {
+					CheckCapture();
+				}
 			}
 		}
 		
@@ -268,6 +285,21 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
+		private void CheckCapture() {
+			var room = Target?.GetComponent<RoomComponent>()?.Room;
+
+			if (room != null) {
+				foreach (var mob in room.Tagged[Tags.Boss]) {
+					if (mob != this && mob is Boss b) {
+						captured = b;
+						Become<CaptureState>();
+
+						break;
+					}
+				}
+			}
+		}
+
 		public class TeleportState : SmartState<BurningKnight> {
 			public override void Init() {
 				base.Init();
@@ -288,6 +320,11 @@ namespace BurningKnight.entity.creature.bk {
 						}
 					};
 				};
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				Self.CheckCapture();
 			}
 		}
 		#endregion
@@ -395,6 +432,9 @@ namespace BurningKnight.entity.creature.bk {
 					
 					Become<HiddenState>();
 					Self.captured.SelectAttack();
+				} else if (d >= 300f && Self.GetComponent<RoomComponent>().Room != Self.captured.GetComponent<RoomComponent>().Room) {
+					Become<TeleportState>();
+					return;
 				}
 				
 				var a = Self.AngleTo(Self.captured);
@@ -428,19 +468,7 @@ namespace BurningKnight.entity.creature.bk {
 
 				if (!teleported && Self.captured.Done) {
 					teleported = true;
-					
-					var graphics = Self.GetComponent<BkGraphicsComponent>();
-					graphics.Alpha = 0;
-
-					Self.Center = Self.captured.Center;
-				
-					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
-						Timer.Add(() => {
-							Self.Become<ChaseState>();
-							// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
-							Self.GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
-						}, 1f);
-					};
+					Self.FreeSelf();
 				}
 			}
 		}

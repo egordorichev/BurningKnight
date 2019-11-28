@@ -508,6 +508,60 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/slime/land_2.wav
 
+#begin Sfx/npc/voice/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/1.wav
+
+#begin Sfx/npc/voice/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/2.wav
+
+#begin Sfx/npc/voice/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/3.wav
+
+#begin Sfx/npc/voice/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/4.wav
+
+#begin Sfx/npc/voice/5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/5.wav
+
+#begin Sfx/npc/voice/6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/6.wav
+
+#begin Sfx/npc/voice/7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/7.wav
+
+#begin Sfx/npc/voice/8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/8.wav
+
+#begin Sfx/npc/voice/9.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/9.wav
+
 #begin Sfx/pickup_item.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

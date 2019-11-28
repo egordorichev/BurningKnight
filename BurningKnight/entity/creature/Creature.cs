@@ -168,6 +168,10 @@ namespace BurningKnight.entity.creature {
 			
 			var a = GetAnyComponent<AnimationComponent>();
 
+			if (this is bk.BurningKnight) {
+				Log.Info("BK IS DED!");
+			}
+			
 			if (a == null) {
 				return;
 			}
@@ -200,12 +204,14 @@ namespace BurningKnight.entity.creature {
 			b.Body.Restitution = 1;
 			b.Body.Friction = 0;
 
-			var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Rnd.AnglePI(), 64);
-			
-			b.Body.LinearVelocity = v;
+			if (d != null) {
+				var v = MathUtils.CreateVector(d.From is Player ? AngleTo(d.From) - Math.PI : Rnd.AnglePI(), 64);
 
-			if (v.X > 0) {
-				gore.GetComponent<ZSliceComponent>().Flipped = true;
+				b.Body.LinearVelocity = v;
+
+				if (v.X > 0) {
+					gore.GetComponent<ZSliceComponent>().Flipped = true;
+				}
 			}
 		}
 

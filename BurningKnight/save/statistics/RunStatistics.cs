@@ -255,8 +255,8 @@ namespace BurningKnight.save.statistics {
 					PitsFallen++;
 				} 
 			} else if (e is MaxHealthModifiedEvent mhme) {
-				if (mhme.Amount > 0 && mhme.Who is Player) {
-					MaxHealth += (ushort) mhme.Amount;
+				if (mhme.Who is Player) {
+					MaxHealth = (ushort) (MaxHealth + mhme.Amount);
 				}
 			}
 			
