@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>/home/egor/Lens/BurningKnight/Content/Sfx/item_nocash.wav</SourceFile>
-  <SourceTime>2019-10-04T10:34:35.971569+03:00</SourceTime>
+  <SourceTime>2019-11-28T18:34:00.5550352+03:00</SourceTime>
   <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Sfx/item_nocash.xnb</DestFile>
-  <DestTime>2019-11-24T07:53:56.1169449+03:00</DestTime>
+  <DestTime>2019-11-28T18:34:25.2943857+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2019-11-20T16:55:24.8246146+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
