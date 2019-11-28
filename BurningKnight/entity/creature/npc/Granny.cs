@@ -27,6 +27,8 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<Dialog.EndedEvent>();
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemTakenEvent>();
+			
+			GetComponent<DialogComponent>().Dialog.Voice = 19;
 		}
 
 		private float delay;

@@ -53,6 +53,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new LightComponent(this, 64, new Color(0.7f, 0.6f, 0.3f, 1f)));
 			
 			Subscribe<RoomChangedEvent>();
+			GetComponent<DialogComponent>().Dialog.Voice = 10;
 		}
 
 		public override bool HandleEvent(Event e) {

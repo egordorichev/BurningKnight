@@ -115,6 +115,7 @@ namespace BurningKnight.entity.creature.npc {
 			AddTag(Tags.ShopKeeper);
 			
 			Become<IdleState>();
+			GetComponent<DialogComponent>().Dialog.Voice = 3;
 		}
 
 		public override void Load(FileReader stream) {

@@ -58,7 +58,10 @@ namespace BurningKnight.entity.creature.npc {
 			
 			GetComponent<StateComponent>().Become<IdleState>();
 
-			GetComponent<DialogComponent>().OnNext += (c) => {
+			var dialog = GetComponent<DialogComponent>();
+			
+			dialog.Dialog.Voice = 1;
+			dialog.OnNext += (c) => {
 				if (c.Current == null && !Run.IgnoreSeed) {
 					GetComponent<StateComponent>().Become<HideState>();
 				}

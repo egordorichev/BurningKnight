@@ -36,6 +36,7 @@ namespace BurningKnight.entity.creature.npc {
 			}
 
 			AlwaysActive = true;
+			GetComponent<DialogComponent>().Dialog.Voice = 28;
 		}
 
 		private bool set = true;

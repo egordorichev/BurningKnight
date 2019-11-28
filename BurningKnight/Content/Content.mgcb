@@ -514,11 +514,131 @@
 /processorParam:Quality=Best
 /build:Sfx/npc/voice/1.wav
 
+#begin Sfx/npc/voice/10.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/10.wav
+
+#begin Sfx/npc/voice/11.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/11.wav
+
+#begin Sfx/npc/voice/12.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/12.wav
+
+#begin Sfx/npc/voice/13.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/13.wav
+
+#begin Sfx/npc/voice/14.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/14.wav
+
+#begin Sfx/npc/voice/15.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/15.wav
+
+#begin Sfx/npc/voice/16.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/16.wav
+
+#begin Sfx/npc/voice/17.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/17.wav
+
+#begin Sfx/npc/voice/18.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/18.wav
+
+#begin Sfx/npc/voice/19.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/19.wav
+
 #begin Sfx/npc/voice/2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/npc/voice/2.wav
+
+#begin Sfx/npc/voice/20.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/20.wav
+
+#begin Sfx/npc/voice/21.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/21.wav
+
+#begin Sfx/npc/voice/22.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/22.wav
+
+#begin Sfx/npc/voice/23.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/23.wav
+
+#begin Sfx/npc/voice/24.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/24.wav
+
+#begin Sfx/npc/voice/25.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/25.wav
+
+#begin Sfx/npc/voice/26.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/26.wav
+
+#begin Sfx/npc/voice/27.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/27.wav
+
+#begin Sfx/npc/voice/28.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/28.wav
+
+#begin Sfx/npc/voice/29.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/29.wav
 
 #begin Sfx/npc/voice/3.wav
 /importer:WavImporter

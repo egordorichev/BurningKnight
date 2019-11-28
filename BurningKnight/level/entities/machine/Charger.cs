@@ -69,6 +69,7 @@ namespace BurningKnight.level.entities.machine {
 			});
 			
 			drops.Add(new PoolDrop(ItemPool.Charger, 0.5f, 1, 2));
+			GetComponent<DialogComponent>().Dialog.Voice = 10;
 		}
 
 		public override void Save(FileWriter stream) {
