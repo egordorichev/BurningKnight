@@ -83,6 +83,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 						Depth = Depth + 1
 					});
 
+					if (Died) {
+						return;
+					}
+
 					var p = Phase;
 
 					if (lastPhase != p) {
