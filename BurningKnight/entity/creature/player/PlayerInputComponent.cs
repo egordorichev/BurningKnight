@@ -244,7 +244,10 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Entity.TryGetComponent<RectBodyComponent>(out var body) && body.Body != null) {
 				body.Body.LinearVelocity = Vector2.Zero;
+				body.Acceleration = Vector2.Zero;
 			}
+
+			Entity.GetComponent<StateComponent>().Become<Player.IdleState>();
 		}
 	}
 }

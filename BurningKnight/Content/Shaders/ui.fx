@@ -34,7 +34,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		}
 	}
 
-	return tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y)) * (bottom > 0.5 ? float4(0.0, 0.0, 0.0, 0.5) : float4(0.7, 0.7, 0.7, 1.0));
+	return tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y)) * (bottom > 0.5 ? float4(0.0, 0.0, 0.0, 0.5) : float4(1.0, 1.0, 1.0, 1.0));
 }
 
 technique SpriteDrawing {

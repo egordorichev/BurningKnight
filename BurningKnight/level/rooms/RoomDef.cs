@@ -354,7 +354,7 @@ namespace BurningKnight.level.rooms {
 			return true;
 		}
 
-		protected bool Quad() {
+		protected virtual bool Quad() {
 			return false;
 		}
 

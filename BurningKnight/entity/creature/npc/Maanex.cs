@@ -69,22 +69,14 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 		}
 
-		public override void PostInit() {
-			base.PostInit();
+		private string GetDialog(Entity e) {
+			var hat = e.GetComponent<HatComponent>().Item;
 
-			if (Run.Depth != 0) {
-				AddComponent(new CloseDialogComponent($"maanex_{(interacted ? 7 : 5)}"));
+			if (hat != null && hat.Id == "bk:maanex_head") {
+				return "maanex_12";
 			}
 
-			GetComponent<CloseDialogComponent>().DecideVariant = (e) => {
-				var hat = e.GetComponent<HatComponent>().Item;
-
-				if (hat != null && hat.Id == "bk:maanex_head") {
-					return "maanex_12";
-				}
-
-				return null;
-			};
+			return$"maanex_{(interacted ? 7 : 5)}";
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -101,9 +93,13 @@ namespace BurningKnight.entity.creature.npc {
 					}
 				}
 			} else if (e is RoomChangedEvent rce) {
-				if (!interacted && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					foreach (var chest in rce.New.Tagged[Tags.Chest]) {
-						((Chest) chest).CanOpen = false;
+				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
+					GetComponent<DialogComponent>().StartAndClose(GetDialog(rce.Who), 4f);
+
+					if (!interacted) {
+						foreach (var chest in rce.New.Tagged[Tags.Chest]) {
+							((Chest) chest).CanOpen = false;
+						}
 					}
 				}
 			}

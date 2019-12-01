@@ -77,6 +77,8 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<HoleTreasureRoom>(1f),
 				RoomInfo.New<PlatformTreasureRoom>(1f),
 				RoomInfo.New<PadTreasureRoom>(1f),
+				RoomInfo.New<TwoDiagonalTreasureRoom>(1f),
+				RoomInfo.New<AcrossTreasureRoom>(1f),
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
@@ -98,7 +100,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WellRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
-				RoomInfo.New<ChestMinigameRoom>(1f),
+				RoomInfo.New<ChestMinigameRoom>(1f + 100f),
 				RoomInfo.New<VendingRoom>(1f),
 				
 				// Boss
