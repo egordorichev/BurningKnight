@@ -42,9 +42,6 @@ namespace BurningKnight.entity.creature.player {
 		public static string StartingWeapon;
 		public static string StartingItem;
 
-		public Vector2 Scale;
-		public Item PickedItem;
-
 		private bool dead;
 
 		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
@@ -57,12 +54,14 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
 
 			if (add || item.Type == ItemType.Active || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
+				GetComponent<InventoryComponent>().Busy = true;
+				
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
 					item.Area?.Remove(item);
 					item.Done = false;
-					PickedItem = null;
 					
 					action?.Invoke();
+					GetComponent<InventoryComponent>().Busy = false;
 
 					if (item.Type != ItemType.Active && item.Type != ItemType.Weapon && item.Type != ItemType.Hat) {
 						GetComponent<InventoryComponent>().Add(item);
@@ -71,26 +70,6 @@ namespace BurningKnight.entity.creature.player {
 				
 				return;
 			}
-			
-			Tween.To(1, 0, x => {
-				Scale.X = x;
-				Scale.Y = x;
-			}, 0.2f);
-
-			PickedItem = item;
-			
-			Timer.Add(() => {
-				Tween.To(0, 1, x => {
-					Scale.X = x;
-					Scale.Y = x;
-				}, 0.2f, Ease.BackIn).OnEnd = () => {
-					item.Area?.Remove(item);
-					item.Done = false;
-					PickedItem = null;
-
-					action?.Invoke();
-				};
-			}, 1f);
 		}
 		
 		public override void AddComponents() {
@@ -126,7 +105,7 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<SensorBodyComponent>().Body.SleepingAllowed = false;
 			
 			AddComponent(new InteractorComponent {
-				CanInteractCallback = e => !died && PickedItem == null
+				CanInteractCallback = e => !died
 			});
 
 			// Other mechanics

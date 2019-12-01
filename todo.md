@@ -7,7 +7,7 @@
  }
 
  + visual {
-  - some weirdness is going on with bullet death particles?
+  - some weirdness is going on with bullet death particles? (with potatoo)
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice
  }
@@ -16,7 +16,6 @@
   - make the door after the sword a wall type, that you need to break by using your sword on it
  }
 
- + you can roll out of the idol room
  + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
 
  + gamepad {

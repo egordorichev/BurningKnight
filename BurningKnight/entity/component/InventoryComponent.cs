@@ -10,6 +10,7 @@ using Lens.util.file;
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
 		public List<Item> Items = new List<Item>();
+		public bool Busy;
 
 		public void Pickup(Item item, bool animate = true) {
 			if (item == null) {
