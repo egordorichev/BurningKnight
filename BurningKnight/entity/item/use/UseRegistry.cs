@@ -106,6 +106,7 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveFlightUse>();
 			Register<SpawnDropUse>(SpawnDropUse.RenderDebug);
 			Register<ModifyStatsUse>(ModifyStatsUse.RenderDebug);
+			Register<MakeProjectilesBoomerangUse>();
 		}
 	}
 }

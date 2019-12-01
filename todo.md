@@ -28,11 +28,7 @@
  + cleared effect
 }
 
-+ charge up animation for old king before he spews out the heads
-
 * bk: {
- + better into boss going anim
- + better getting out of boss
  + fix how saving works with capturing ths bosses
 }
 
@@ -42,7 +38,6 @@
 
 * audio {
  + bk fire sound (when near)
- + slow down music when you die
 }
 
 + hub {
@@ -56,7 +51,6 @@
 }
 
 ##
-
 
 * spawn chests/pickups in the levels
 
@@ -123,7 +117,6 @@
 ### Rooms
 
 * falling floor room
-* minigame rooms from rogue legacy
 * crawled space
 * Room, where you press lever/button to open/close chasm
 * Challenge room
@@ -132,6 +125,7 @@
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
 * new secret room designs
+* altar from spelunky?
 
 * secret level ith tons of shopkeepers, aka dark market from spelunky
 

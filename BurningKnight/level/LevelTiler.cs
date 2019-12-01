@@ -134,6 +134,10 @@ namespace BurningKnight.level {
 				return ll == Tile.Grass || ll == Tile.HighGrass || tt.IsWall();
 			}
 
+			if (t == Tile.Dirt) {
+				return ll == Tile.Grass || ll == Tile.HighGrass || ll == Tile.Dirt;
+			}
+
 			if (t.Matches(TileFlags.LiquidLayer)) {
 				return tt.IsSimpleWall() || (t.Matches(Tile.Lava, Tile.Water, Tile.Venom) && tt == Tile.Chasm) || ll == t;
 			}
