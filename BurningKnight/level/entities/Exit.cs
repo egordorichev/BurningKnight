@@ -31,9 +31,7 @@ namespace BurningKnight.level.entities {
 
 				entity.GetComponent<HealthComponent>().Unhittable = true;
 
-				if (Run.Depth == -2) {
-					Run.Depth = 0;
-				} else if (To == 1) {
+				if (Run.Depth == -2 || To == 1) {
 					Run.StartNew();
 				} else {
 					Run.Depth = To;

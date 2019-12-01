@@ -480,6 +480,8 @@ namespace BurningKnight.entity.room {
 			var Right = MapX + MapW - 1;
 			var Bottom = MapY + MapH - 1;
 
+			Painter.Clip = new Rect(MapX, MapY, MapX + MapW - 1, MapY + MapH - 1);
+
 			foreach (var Door in Doors) {
 				var dx = (int) Math.Floor(Door.CenterX / 16f);
 				var dy = (int) Math.Floor(Door.CenterY / 16f);
@@ -567,6 +569,8 @@ namespace BurningKnight.entity.room {
 			} else {
 				Painter.Rect(Level, minLeft, minTop, maxRight - minLeft + 1, maxBottom - minTop + 1, Rnd.Chance() ? Floor : Tiles.RandomFloor());
 			}
+			
+			Painter.Clip = null;
 		}
 	}
 }
