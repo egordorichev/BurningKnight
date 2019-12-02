@@ -1013,8 +1013,6 @@ namespace BurningKnight.level {
 								}
 							}
 							
-							Graphics.Render(ar[CalcWallIndex(x, y)], pos);
-
 							var ind = -1;
 
 							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB,
@@ -1029,6 +1027,8 @@ namespace BurningKnight.level {
 
 							if (ind != -1) {
 								Graphics.Render(arr[ind], pos);
+							} else {
+								Graphics.Render(ar[CalcWallIndex(x, y)], pos);
 							}
 						}
 					} else if (tl == Tile.Chasm) {
@@ -1216,6 +1216,30 @@ namespace BurningKnight.level {
 							}
 						}
 					}
+				}
+				
+				var lght = DrawLight ? Light[ToIndex(x, y)] : 1;
+
+				if (lght > LightMin) {
+					Graphics.Color.A = (byte) (lght * 255);
+										
+					if (!BitHelper.IsBitSet(v, 0)) {
+						Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
+					}
+
+					if (!BitHelper.IsBitSet(v, 1)) {
+						Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
+					}
+
+					if (!BitHelper.IsBitSet(v, 2)) {
+						Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
+					}
+
+					if (!BitHelper.IsBitSet(v, 3)) {
+						Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
+					}
+
+					Graphics.Color.A = 255;
 				}
 			}
 		}
