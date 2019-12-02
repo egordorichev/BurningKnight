@@ -141,7 +141,8 @@ namespace BurningKnight.ui.dialog {
 
 		public void Start(string id, Entity to = null) {
 			var dialog = Dialogs.Get(id);
-
+			tillClose = -1;
+			
 			if (dialog == null) {
 				Setup(new Dialog(id), to);
 				return;

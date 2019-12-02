@@ -254,7 +254,7 @@ namespace BurningKnight.entity.creature.bk {
 					Self.Become<FlyAwayState>();
 				} else if (d <= 72f) {
 					return;
-				} else if (d >= 200) {
+				} else if (d >= 300) {
 					Self.Become<TeleportState>();
 				}
 
@@ -452,7 +452,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					Become<HiddenState>();
 					Self.captured.SelectAttack();
-				} else if (d >= 300f &&
+				} else if (d >= 400f &&
 				           Self.GetComponent<RoomComponent>().Room != Self.captured.GetComponent<RoomComponent>().Room) {
 					Become<TeleportState>();
 

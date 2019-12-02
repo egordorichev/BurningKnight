@@ -128,6 +128,10 @@ namespace Lens.assets {
 				return;
 			}
 
+			if (!fromStart) {
+				FadeOut();
+			}
+			
 			currentPlayingMusic = music;
 
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
@@ -148,7 +152,10 @@ namespace Lens.assets {
 
 			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, fromStart ? 0.05f : CrossFadeTime).OnEnd = () => {
 				if (currentPlaying == mo) {
-					Playing.Clear();
+					if (!fromStart) {
+						Playing.Clear();
+					}
+
 					Playing.Add(currentPlaying);
 				}
 			};

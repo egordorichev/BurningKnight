@@ -116,7 +116,7 @@ namespace BurningKnight.state {
 
 			t += dt;
 
-			if (t > 3f && !added) {
+			if (t > 3f && !added && ready) {
 				t = 0;
 				added = true;
 				logoCard.GoAway = true;
@@ -182,9 +182,11 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			// var w = Input.Mouse.UiPosition;
-			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.Zero);
-			// Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
+			//var w = Input.Mouse.UiPosition;
+			Graphics.Color.A = 100;
+			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.One);
+			Graphics.Color.A = 255;
+			//Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
 		}
 	}
 }

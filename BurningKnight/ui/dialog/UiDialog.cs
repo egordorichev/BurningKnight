@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.ui.str;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
@@ -71,7 +72,8 @@ namespace BurningKnight.ui.dialog {
 				var sf = (int) char.ToLower(c);
 				var v = (sf - 'a') / 26f;
 
-				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v); // (v - 0.5f) * 2f);
+				Audio.PlaySfx($"npc_voice_{Voice}", 1f, 0.5f + v * 0.5f);
+				// Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v); // (v - 0.5f) * 2f);
 			};
 			
 			Tint.A = 0;
