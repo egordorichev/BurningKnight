@@ -41,6 +41,7 @@
 }
 
 * audio {
+ + fix npc voices, they are not loud enough
  + bk fire sound (when near)
  + custom 3d
 }

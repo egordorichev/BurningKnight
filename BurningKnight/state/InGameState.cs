@@ -159,9 +159,8 @@ namespace BurningKnight.state {
 				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
 
 				Timer.Add(() => {
-					Audio.PlayMusic("Menu", true);
 					Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
-
+					Audio.PlayMusic("Menu", true);
 				}, 1f);
 			} else {
 				offset = Display.UiHeight;

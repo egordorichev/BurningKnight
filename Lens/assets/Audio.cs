@@ -93,7 +93,7 @@ namespace Lens.assets {
 		}
 		
 		public static void PlayMusic(string music, bool fromStart = false) {
-			if (!Assets.LoadAudio || loading) {
+			if (!Assets.LoadAudio) {
 				return;
 			}
 
@@ -102,8 +102,11 @@ namespace Lens.assets {
 				currentPlaying.Volume = musicVolume;
 				return;
 			}
-			
-			FadeOut();
+
+			if (!fromStart) {
+				FadeOut();
+			}
+
 			LoadAndPlayMusic(music, fromStart);
 		}
 
@@ -127,11 +130,8 @@ namespace Lens.assets {
 				loading = false;
 				return;
 			}
-
-			if (!fromStart) {
-				FadeOut();
-			}
 			
+			Log.Info($"Playing music {music} repeat = {Repeat}");
 			currentPlayingMusic = music;
 
 			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
@@ -152,10 +152,7 @@ namespace Lens.assets {
 
 			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, fromStart ? 0.05f : CrossFadeTime).OnEnd = () => {
 				if (currentPlaying == mo) {
-					if (!fromStart) {
-						Playing.Clear();
-					}
-
+					Playing.Clear();
 					Playing.Add(currentPlaying);
 				}
 			};
