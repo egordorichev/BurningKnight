@@ -22,7 +22,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Treasure = new ItemPool("treasure");
 		public static readonly ItemPool Secret = new ItemPool("secret");
 		public static readonly ItemPool Hat = new ItemPool("hat");
-		public static readonly ItemPool Crate = new ItemPool("crate");
+		public static readonly ItemPool Unused = new ItemPool("unused");
 		public static readonly ItemPool StartingWeapon = new ItemPool("starting_weapon");
 		public static readonly ItemPool Shop = new ItemPool("shop");
 		public static readonly ItemPool Boss = new ItemPool("boss");

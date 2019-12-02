@@ -33,7 +33,9 @@ namespace BurningKnight.state {
 		private float t;
 		private bool added;
 		private bool removed;
+		private bool checkFullscreen;
 
+		
 		public override void Init() {
 			base.Init();
 
@@ -85,6 +87,9 @@ namespace BurningKnight.state {
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Global);
+
+				checkFullscreen = true;
+				
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Game);
@@ -115,6 +120,16 @@ namespace BurningKnight.state {
 			base.Update(dt);
 
 			t += dt;
+
+			if (checkFullscreen) {
+				checkFullscreen = false;
+				
+				if (Settings.Fullscreen) {
+					Engine.Instance.SetFullscreen();
+				} else {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				}
+			}
 
 			if (t > 3f && !added && ready) {
 				t = 0;
@@ -157,18 +172,15 @@ namespace BurningKnight.state {
 
 			if (ready && added && t > 3f) {
 				if (removed) {
+					if (!logoCard.Done) {
+						return;
+					}
+					
 					/*foreach (var c in cards) {
 						if (!c.Done) {
 							return;
 						}
 					}*/
-					
-					if (Settings.Fullscreen) {
-						Engine.Instance.SetFullscreen();
-					} else {
-						Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
-					}
-
 					Engine.Instance.SetState(new InGameState(gameArea, true));
 				} else {
 					removed = true;

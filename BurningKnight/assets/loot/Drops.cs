@@ -70,7 +70,7 @@ namespace BurningKnight.assets.loot {
 				new EmptyDrop(0.5f)
 			));
 			
-			Define("pouch", new AnyDrop(
+			Define("pouch", new OneOfDrop(
 				new SimpleDrop(0.7f, 1, 2, "bk:key"),
 				new SimpleDrop(0.5f, 1, 2, "bk:bomb"),
 				new SimpleDrop(0.5f, 1, 2, "bk:troll_bomb"),
@@ -82,7 +82,7 @@ namespace BurningKnight.assets.loot {
 				// new SingleDrop("bk:pickaxe", 0.01f)
 			));
 			
-			Define("tinted_rock", new AnyDrop(
+			Define("tinted_rock", new OneOfDrop(
 				new SimpleDrop(0.2f, 1, 2, "bk:key"),
 				new SimpleDrop(0.2f, 1, 2, "bk:bomb"),
 				new SimpleDrop(0.2f, 1, 2, "bk:troll_bomb"),

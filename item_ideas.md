@@ -15,6 +15,7 @@
 
 ### to rework
 
+* disk gun is kinda broken
 * convert fire exstinguisher into flame thrower
 * discord rod use half a heart
 
