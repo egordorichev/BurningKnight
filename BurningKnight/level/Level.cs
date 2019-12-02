@@ -625,6 +625,22 @@ namespace BurningKnight.level {
 								Vector2.One, SpriteEffects.FlipVertically);
 						}
 					}
+
+					if (tl.IsWall() || tl == Tile.PistonDown) {
+						var v = Variants[index];
+
+						if (!BitHelper.IsBitSet(v, 1)) {
+							Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 + 9));
+						}
+
+						if (!BitHelper.IsBitSet(v, 2)) {
+							Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 + 16 + 8));
+						}
+
+						if (!BitHelper.IsBitSet(v, 3)) {
+							Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 + 9));
+						}
+					}
 					
 					var l = Liquid[index];
 					var lt = (Tile) l;
@@ -1221,8 +1237,6 @@ namespace BurningKnight.level {
 				var lght = DrawLight ? Light[ToIndex(x, y)] : 1;
 
 				if (lght > LightMin) {
-					Graphics.Color.A = (byte) (lght * 255);
-										
 					if (!BitHelper.IsBitSet(v, 0)) {
 						Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
 					}
@@ -1238,8 +1252,6 @@ namespace BurningKnight.level {
 					if (!BitHelper.IsBitSet(v, 3)) {
 						Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
 					}
-
-					Graphics.Color.A = 255;
 				}
 			}
 		}

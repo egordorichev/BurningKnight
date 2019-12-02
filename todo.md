@@ -1,6 +1,8 @@
 # publisher build stuff
 
 * fix {
+ + make some sounds 1d
+
  + bugs {
   - maximized window bug on windows
   - game sometimes doesn't exit after closing
@@ -38,6 +40,7 @@
 
 * audio {
  + bk fire sound (when near)
+ + custom 3d
 }
 
 + hub {
