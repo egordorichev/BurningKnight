@@ -89,7 +89,6 @@ namespace BurningKnight.state {
 				SaveManager.Load(gameArea, SaveType.Global);
 
 				checkFullscreen = true;
-				
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Game);
@@ -131,8 +130,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (t > 3f && !added && ready) {
-				t = 0;
+			if (!added && ready) {
 				added = true;
 				logoCard.GoAway = true;
 				
@@ -170,25 +168,10 @@ namespace BurningKnight.state {
 				}, 0.3f);*/
 			}
 
-			if (ready && added && t > 3f) {
-				if (removed) {
-					if (!logoCard.Done) {
-						return;
-					}
-					
-					/*foreach (var c in cards) {
-						if (!c.Done) {
-							return;
-						}
-					}*/
-					Engine.Instance.SetState(new InGameState(gameArea, true));
-				} else {
-					removed = true;
-
-					/*foreach (var c in cards) {
-						c.GoAway = true;
-					}*/
-				}
+			if (ready && added && logoCard.Done && !removed) {
+				removed = true;
+				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
+				Engine.Instance.SetState(new InGameState(gameArea, true));
 			}
 		}
 

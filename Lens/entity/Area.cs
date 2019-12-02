@@ -26,6 +26,8 @@ namespace Lens.entity {
 		}
 
 		public void AutoRemove() {
+			Log.Info("Auto removing area");
+			
 			foreach (var e in entities.Entities) {
 				if (e.Done) {
 					entities.ToRemove.Add(e);
@@ -41,11 +43,6 @@ namespace Lens.entity {
 			entities.AutoRemove();
 		}
 
-		public void CleanNew() {
-			entities.ToAdd.Clear();
-			entities.ToRemove.Clear();
-		}
-		
 		public void Destroy() {
 			foreach (var entity in entities.Entities) {
 				entity.Destroy();

@@ -46,8 +46,8 @@ namespace BurningKnight.state {
 			if (GoAway) {
 				GoAway = false;
 
-				Tween.To(Start.X, Position.X, x => X = x, 0.6f, Ease.QuadIn).OnEnd = () => Done = true;
-				Tween.To(Start.Y, Position.Y, x => Y = x, 0.6f, Ease.QuadIn);
+				Tween.To(Start.X, Position.X, x => X = x, 0.8f, Ease.QuadIn).OnEnd = () => Done = true;
+				Tween.To(Start.Y, Position.Y, x => Y = x, 0.8f, Ease.QuadIn);
 			} else if (!doneLerping) {
 				var dx = Target.X - Position.X;
 				var dy = Target.Y - Position.Y;
@@ -64,7 +64,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			var w = Width * Scale;
+			/*var w = Width * Scale;
 			var h = Height * Scale;
 
 			hovered = new Rectangle((int) (X - w / 2f), (int) (Y - h / 2f), (int) w, (int) h).Contains(Input.Mouse.UiPosition);
@@ -75,7 +75,7 @@ namespace BurningKnight.state {
 				if (Input.Mouse.WasPressedLeftButton) {
 					Web.Open(Url);
 				}
-			}
+			}*/
 		}
 
 		public override void Render() {

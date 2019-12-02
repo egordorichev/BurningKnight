@@ -121,6 +121,7 @@ namespace BurningKnight.state {
 					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
 				}
 
+				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
 				Engine.Instance.SetState(new InGameState(gameArea, false));
 			}
 		}

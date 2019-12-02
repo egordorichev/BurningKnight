@@ -25,7 +25,7 @@ namespace BurningKnight.assets {
 			Bk = Effects.Get("bk");
 
 			Engine.Instance.StateRenderer.GameEffect = Screen;
-			Engine.Instance.StateRenderer.UiEffect = Ui;
+			// Engine.Instance.StateRenderer.UiEffect = Ui;
 		}
 
 		public static void Begin(Effect effect) {

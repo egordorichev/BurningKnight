@@ -149,7 +149,6 @@ namespace BurningKnight.state {
 			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
-				Audio.PlayMusic("Menu", true);
 				Input.Blocked = 1;
 
 				blackBarsSize = BarsSize;
@@ -157,9 +156,13 @@ namespace BurningKnight.state {
 				blur = 1;
 
 				offset = Display.UiHeight;
-
-				Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
 				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
+
+				Timer.Add(() => {
+					Audio.PlayMusic("Menu", true);
+					Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
+
+				}, 1f);
 			} else {
 				offset = Display.UiHeight;
 			}
@@ -834,7 +837,7 @@ namespace BurningKnight.state {
 			
 			base.RenderUi();
 
-			if (Menu && offset < Display.UiHeight) {
+			if (Menu && offset <= Display.UiHeight) {
 				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, Display.UiHeight + 1));
 				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, (Display.UiHeight + 1) / 90f));
 				
