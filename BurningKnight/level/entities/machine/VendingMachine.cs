@@ -122,7 +122,7 @@ namespace BurningKnight.level.entities.machine {
 
 			spawnedCount++;
 
-			if (Rnd.Float(100) < spawnedCount * 30 - Run.Luck * 2) {
+			if (spawnedCount > 1 && Rnd.Float(100) < spawnedCount * 30 - Run.Luck * 2) {
 				Break();
 				return true;
 			}
@@ -144,7 +144,8 @@ namespace BurningKnight.level.entities.machine {
 				AnimationUtil.Poof(Center);
 				AnimationUtil.Explosion(Center);
 				broken = true;
-					
+				GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
+
 				GetComponent<DropsComponent>().SpawnDrops();
 			}
 		}
