@@ -11,6 +11,7 @@ namespace BurningKnight.entity.door {
 	public class Lock : Entity {
 		private bool locked;
 
+		public Entity Owner;
 		public bool IsLocked => locked;
 
 		public void SetLocked(bool value, Entity entity) {
@@ -25,7 +26,11 @@ namespace BurningKnight.entity.door {
 					Lock = this,
 					Who = entity
 				});
-				
+
+				if (Owner is Door) {
+					Owner.GetComponent<StateComponent>().Become<Door.OpeningState>();
+				}
+
 				GetComponent<StateComponent>().Become<OpeningState>();
 				GetComponent<AudioEmitterComponent>().EmitRandomized("unlock");
 			} else {

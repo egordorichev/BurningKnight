@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 namespace BurningKnight.entity.component {
 	public class AudioEmitterComponent : Component {
 		public static AudioListener Listener;
-		public static float PositionScale = 0.001f;
+		public static float PositionScale = 0.000001f;
 		public AudioEmitter Emitter = new AudioEmitter();
 		public float PitchMod;
 		public bool DestroySounds = false;
@@ -94,7 +94,7 @@ namespace BurningKnight.entity.component {
 
 			UpdatePosition();
 			instance.Stop();
-			instance.Volume = volume * Settings.SfxVolume;
+			instance.Volume = volume * Settings.SfxVolume * 0.8f;
 			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
 			instance.Play();
 			

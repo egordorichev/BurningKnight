@@ -44,7 +44,9 @@ namespace BurningKnight.ui.imgui {
 				return;
 			}
 
-			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
+			var v = AudioEmitterComponent.PositionScale * 100;
+			ImGui.InputFloat("Position scale", ref v);
+			AudioEmitterComponent.PositionScale = v / 100;
 
 			ImGui.End();
 		}
