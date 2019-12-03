@@ -140,7 +140,7 @@ namespace BurningKnight.entity.item.use {
 					}
 				}
 
-				var p = new ParticleEntity(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
+				var p = new ShellParticle(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
 					Region = CommonAse.Particles.GetSlice("shell")
 				}));
 
@@ -160,6 +160,23 @@ namespace BurningKnight.entity.item.use {
 
 				p.AddShadow();
 			};
+		}
+
+		private class ShellParticle : ParticleEntity {
+			private bool played;
+			
+			public ShellParticle(Particle particle) : base(particle) {
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (!played && Particle.Z <= 0) {
+					played = true;
+					AddComponent(new AudioEmitterComponent());
+					GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("projectile_shell", 3);
+				}
+			}
 		}
 
 		public static void RenderDebug(JsonValue root) {

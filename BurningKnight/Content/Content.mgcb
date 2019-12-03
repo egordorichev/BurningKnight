@@ -280,12 +280,6 @@
 /processorParam:Quality=Best
 /build:Sfx/item/ukulele/5.wav
 
-#begin Sfx/key.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/key.wav
-
 #begin Sfx/level/chair/break/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -784,12 +778,6 @@
 /processorParam:Quality=Best
 /build:Sfx/npc/voice/9.wav
 
-#begin Sfx/pickup_item.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/pickup_item.wav
-
 #begin Sfx/player/cursed.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -820,17 +808,41 @@
 /processorParam:Quality=Best
 /build:Sfx/player/roll.wav
 
+#begin Sfx/projectile/shell/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/shell/1.wav
+
+#begin Sfx/projectile/shell/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/shell/2.wav
+
+#begin Sfx/projectile/shell/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/shell/3.wav
+
+#begin Sfx/projectile/wall/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/wall/1.wav
+
+#begin Sfx/projectile/wall/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/wall/2.wav
+
 #begin Sfx/quck.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/quck.wav
-
-#begin Sfx/roll.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/roll.wav
 
 #begin Sfx/sand.wav
 /importer:WavImporter
@@ -969,12 +981,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/villager6.wav
-
-#begin Sfx/voice.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/voice.wav
 
 #begin Shaders/bk.fx
 /importer:EffectImporter
