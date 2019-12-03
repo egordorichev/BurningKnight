@@ -55,7 +55,7 @@ namespace BurningKnight.level {
 						t = Tile.WallA;
 					
 						level.Variants[index] = 0;
-						level.Tiles[index] = (byte) t;
+						level.Tiles[index] = tile = (byte) t;
 						
 						break;
 					}

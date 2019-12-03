@@ -1,7 +1,6 @@
 # publisher build stuff
 
 * fix {
- + incorrect wall tiling when you replace a transition tile 
  + unlock the door, then you can go through it without its open animation
 
  + make some sounds 1d
