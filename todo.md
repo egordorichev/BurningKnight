@@ -1,6 +1,7 @@
 # publisher build stuff
 
 * fix {
+ + turning of ui effects doesnt work
  + incorrect wall tiling when you replace a transition tile 
  + unlock the door, then you can go through it without its open animation
 
