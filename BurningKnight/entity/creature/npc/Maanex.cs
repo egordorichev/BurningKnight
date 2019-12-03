@@ -6,6 +6,7 @@ using BurningKnight.level.entities.chest;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
@@ -58,7 +59,6 @@ namespace BurningKnight.entity.creature.npc {
 						((Chest) chest).CanOpen = true;
 					}
 
-					RemoveComponent<CloseDialogComponent>();
 					return Dialogs.Get("maanex_8");
 				}
 
@@ -93,13 +93,19 @@ namespace BurningKnight.entity.creature.npc {
 					}
 				}
 			} else if (e is RoomChangedEvent rce) {
-				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					GetComponent<DialogComponent>().StartAndClose(GetDialog(rce.Who), 4f);
+				if (rce.Who is Player) {
+					var r = GetComponent<RoomComponent>().Room;
+					
+					if (rce.New == r) {
+						GetComponent<DialogComponent>().Start(GetDialog(rce.Who));
 
-					if (!interacted) {
-						foreach (var chest in rce.New.Tagged[Tags.Chest]) {
-							((Chest) chest).CanOpen = false;
+						if (!interacted) {
+							foreach (var chest in rce.New.Tagged[Tags.Chest]) {
+								((Chest) chest).CanOpen = false;
+							}
 						}
+					} else if (rce.Old == r) {
+						GetComponent<DialogComponent>().Close();
 					}
 				}
 			}

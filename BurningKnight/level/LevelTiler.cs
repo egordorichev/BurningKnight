@@ -1,5 +1,6 @@
 using BurningKnight.level.tile;
 using BurningKnight.util;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.level {
@@ -43,6 +44,23 @@ namespace BurningKnight.level {
 			byte mask = 0;
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
+			
+			
+			if (t == Tile.Transition) {
+				foreach (var d in MathUtils.AllDirections) {
+					var xx = x + (int) d.X;
+					var yy = y + (int) d.Y;
+
+					if (level.IsInside(xx, yy) && !level.Get(xx, yy).IsWall()) {
+						t = Tile.WallA;
+					
+						level.Variants[index] = 0;
+						level.Tiles[index] = tile = (byte) t;
+						
+						break;
+					}
+				}
+			}
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.EvilFloor, Tile.GrannyFloor)) {
 				if (level.Variants[index] != 0 && level.Variants[index] < 11) {
@@ -132,6 +150,10 @@ namespace BurningKnight.level {
 			
 			if (t == Tile.Grass || t == Tile.HighGrass) {
 				return ll == Tile.Grass || ll == Tile.HighGrass || tt.IsWall();
+			}
+
+			if (t == Tile.Dirt) {
+				return tt.IsSimpleWall() || tt == Tile.Chasm || ll == Tile.Grass || ll == Tile.HighGrass || ll == Tile.Dirt;
 			}
 
 			if (t.Matches(TileFlags.LiquidLayer)) {

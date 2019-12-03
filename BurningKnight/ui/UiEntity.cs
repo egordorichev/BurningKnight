@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.assets.input;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.input;
 using Lens.util.tween;
@@ -88,6 +89,12 @@ namespace BurningKnight.ui {
 		
 		public override void Render() {
 			
+		}
+
+		public void PlaySfx(string sfx) {
+			if (Settings.UiSfx) {
+				Audio.PlaySfx(sfx, 0.5f);
+			}
 		}
 		
 		protected virtual void OnHover() {

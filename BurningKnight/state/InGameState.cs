@@ -149,7 +149,6 @@ namespace BurningKnight.state {
 			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
-				Audio.PlayMusic("Menu", true);
 				Input.Blocked = 1;
 
 				blackBarsSize = BarsSize;
@@ -157,9 +156,12 @@ namespace BurningKnight.state {
 				blur = 1;
 
 				offset = Display.UiHeight;
-
-				Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
 				Mouse.SetPosition((int) BK.Instance.GetScreenWidth() / 2, (int) BK.Instance.GetScreenHeight() / 2);
+
+				Timer.Add(() => {
+					Tween.To(0, offset, x => offset = x, 2f, Ease.BackOut);
+					Audio.PlayMusic("Menu", true);
+				}, 1f);
 			} else {
 				offset = Display.UiHeight;
 			}
@@ -280,7 +282,10 @@ namespace BurningKnight.state {
 				seedLabel.Label = $"Seed: {Run.Seed}";
 			}
 
-			Audio.PlaySfx("ui_goback", 0.5f);
+			if (Settings.UiSfx) {
+				Audio.PlaySfx("ui_goback", 0.5f);
+			}
+
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (painting == null) {
@@ -421,7 +426,10 @@ namespace BurningKnight.state {
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
 					SelectFirst(true);
-					Audio.PlaySfx("ui_moving", 0.5f);
+
+					if (Settings.UiSfx) {
+						Audio.PlaySfx("ui_moving", 0.5f);
+					}
 				} else if (UiButton.Selected > -1) {
 					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
 						UiButton sm = null;
@@ -439,7 +447,10 @@ namespace BurningKnight.state {
 						if (sm != null) {
 							UiButton.SelectedInstance = sm;
 							UiButton.Selected = sm.Id;
-							Audio.PlaySfx("ui_moving", 0.5f);
+
+							if (Settings.UiSfx) {
+								Audio.PlaySfx("ui_moving", 0.5f);
+							}
 						} else {
 							var min = UiButton.Selected;
 							UiButton btn = null;
@@ -456,8 +467,10 @@ namespace BurningKnight.state {
 							if (btn != null) {
 								UiButton.SelectedInstance = btn;
 								UiButton.Selected = btn.Id;
-								
-								Audio.PlaySfx("ui_moving", 0.5f);
+
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving", 0.5f);
+								}
 							}
 						}
 					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
@@ -476,8 +489,10 @@ namespace BurningKnight.state {
 						if (sm != null) {
 							UiButton.SelectedInstance = sm;
 							UiButton.Selected = sm.Id;
-							
-							Audio.PlaySfx("ui_moving", 0.5f);
+
+							if (Settings.UiSfx) {
+								Audio.PlaySfx("ui_moving", 0.5f);
+							}
 						} else {
 							var max = -1;
 							UiButton btn = null;
@@ -494,8 +509,10 @@ namespace BurningKnight.state {
 							if (btn != null) {
 								UiButton.SelectedInstance = btn;
 								UiButton.Selected = btn.Id;
-								
-								Audio.PlaySfx("ui_moving", 0.5f);
+
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving", 0.5f);
+								}
 							}
 						}
 					}
@@ -583,7 +600,9 @@ namespace BurningKnight.state {
 							}
 
 							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
-								Audio.PlaySfx("ui_exit", 0.5f);
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_exit", 0.5f);
+								}
 
 								if (UiControl.Focused != null) {
 									UiControl.Focused.Cancel();
@@ -834,7 +853,7 @@ namespace BurningKnight.state {
 			
 			base.RenderUi();
 
-			if (Menu && offset < Display.UiHeight) {
+			if (Menu && offset <= Display.UiHeight) {
 				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, Display.UiHeight + 1));
 				Graphics.Render(gardient, new Vector2(0, offset), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, (Display.UiHeight + 1) / 90f));
 				

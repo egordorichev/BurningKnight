@@ -85,6 +85,7 @@ namespace BurningKnight.entity.orbital {
 
 					if (timer >= 2f) {
 						timer = 0;
+						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
 
 						var a = orbital.AngleTo(o.GetComponent<AimComponent>().RealAim);
 						var projectile = Projectile.Make(o, "default", a, 10f);

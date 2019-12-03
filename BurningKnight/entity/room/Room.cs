@@ -189,7 +189,7 @@ namespace BurningKnight.entity.room {
 				var reward = CreateReward();
 				reward.BottomCenter = where * 16 + new Vector2(8, 24);
 				AnimationUtil.Poof(reward.Center);
-			}, 2f);
+			}, 1.5f);
 		}
 
 		private bool settedUp;

@@ -41,11 +41,6 @@ namespace Lens.entity {
 			entities.AutoRemove();
 		}
 
-		public void CleanNew() {
-			entities.ToAdd.Clear();
-			entities.ToRemove.Clear();
-		}
-		
 		public void Destroy() {
 			foreach (var entity in entities.Entities) {
 				entity.Destroy();

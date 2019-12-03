@@ -48,7 +48,7 @@ namespace BurningKnight.ui {
 				}
 			}
 
-			Audio.PlaySfx("ui_moving", 0.5f);
+			PlaySfx("ui_moving");
 		}
 
 		protected override void OnUnhover() {
@@ -68,17 +68,17 @@ namespace BurningKnight.ui {
 
 			switch (Type) {
 				case ButtonType.Normal: {
-					Audio.PlaySfx("ui_select", 0.5f);
+					PlaySfx("ui_select");
 					break;
 				}
 				
 				case ButtonType.Exit: {
-					Audio.PlaySfx("ui_exit", 0.5f);
+					PlaySfx("ui_exit");
 					break;
 				}
 				
 				case ButtonType.Slider: {
-					Audio.PlaySfx("ui_change_parameter", 0.5f);
+					PlaySfx("ui_change_parameter");
 					break;
 				}
 			}

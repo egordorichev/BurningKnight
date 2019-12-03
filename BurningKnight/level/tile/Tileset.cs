@@ -7,11 +7,12 @@ namespace BurningKnight.level.tile {
 	public class Tileset {
 		public TextureRegion[] WallA = new TextureRegion[12];
 		public TextureRegion[] WallB = new TextureRegion[12];
+		public TextureRegion[] WallAExtensions = new TextureRegion[4];
+		public TextureRegion[] WallBExtensions = new TextureRegion[4];
 		public TextureRegion WallTopA;
 		public TextureRegion WallTopB;
 		public TextureRegion WallTopADecor;
 		public TextureRegion WallTopBDecor;
-		public TextureRegion WallMerge;
 		public TextureRegion WallCrackA;
 		public TextureRegion WallCrackB;
 		public TextureRegion[] WallTopsA = new TextureRegion[36];
@@ -66,6 +67,18 @@ namespace BurningKnight.level.tile {
 					}
 				}
 				
+				if (w == 0) {
+					WallAExtensions[0] = new TextureRegion(anim.Texture, new Rectangle(208, 0, 16, 8));
+					WallAExtensions[1] = new TextureRegion(anim.Texture, new Rectangle(224, 8, 8, 16));
+					WallAExtensions[2] = new TextureRegion(anim.Texture, new Rectangle(208, 24, 16, 8));
+					WallAExtensions[3] = new TextureRegion(anim.Texture, new Rectangle(200, 8, 8, 16));
+				} else {
+					WallAExtensions[0] = new TextureRegion(anim.Texture, new Rectangle(208, 40, 16, 8));
+					WallAExtensions[1] = new TextureRegion(anim.Texture, new Rectangle(224, 48, 8, 16));
+					WallAExtensions[2] = new TextureRegion(anim.Texture, new Rectangle(208, 64, 16, 8));
+					WallAExtensions[3] = new TextureRegion(anim.Texture, new Rectangle(200, 48, 8, 16));
+				}
+				
 				for (int i = 0; i < 12; i++) {
 					if (w == 0) {
 						WallA[i] = new TextureRegion(anim.Texture, new Rectangle(i * 16, 24, 16, 16));
@@ -93,8 +106,6 @@ namespace BurningKnight.level.tile {
 			Tiles[(int) Tile.WallB] = new[] {
 				WallTopB = new TextureRegion(anim.Texture, new Rectangle(160, 48, 16, 16))
 			};
-
-			WallMerge = new TextureRegion(anim.Texture, new Rectangle(176, 112, 16, 16));
 			
 			Tiles[(int) Tile.Crack] = new[] {
 				WallCrackA = new TextureRegion(anim.Texture, new Rectangle(176, 8, 16, 16))

@@ -9,10 +9,12 @@ namespace Lens.assets {
 	public static class Assets {
 #if DEBUG
 		public static bool LoadOriginalFiles = true;
-		public static bool LoadAudio = false;
+		public static bool LoadAudio = true;
+		public static bool Reload = false;
 #else
 		public static bool LoadOriginalFiles = false;
 		public static bool LoadAudio = true;
+		public static bool Reload = false;
 #endif
 
 		public static ContentManager Content;
@@ -29,7 +31,7 @@ namespace Lens.assets {
 		public static void Load(ref int progress) {
 			LoadAssets(ref progress);
 
-			if (false && LoadOriginalFiles) {				
+			if (Reload && LoadOriginalFiles) {				
 				folders = new[] {
 					//"Textures/",
 					"Animations/"

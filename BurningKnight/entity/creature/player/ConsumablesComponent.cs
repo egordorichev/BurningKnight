@@ -10,6 +10,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.input;
 using Lens.util;
@@ -79,7 +80,7 @@ namespace BurningKnight.entity.creature.player {
 				var type = ev.Item.Type;
 				
 				if (type == ItemType.Bomb || type == ItemType.Key || type == ItemType.Coin || type == ItemType.Battery || type == ItemType.Pouch) {
-					var a = Entity.GetComponent<AudioEmitterComponent>();
+					// var a = Entity.GetComponent<AudioEmitterComponent>();
 					
 					switch (type) {
 						case ItemType.Bomb: {
@@ -96,32 +97,32 @@ namespace BurningKnight.entity.creature.player {
 								dialog.StartAndClose("control_0", 5);
 							}
 							
-							a.Emit("bomb");
+							Audio.PlaySfx("bomb");
 							break;
 						}
 						
 						case ItemType.Key: {
-							a.Emit("key");
+							Audio.PlaySfx("key");
 							break;
 						}
 						
 						case ItemType.Coin: {
 							if (ev.Item.Id == "bk:emerald") {
-								a.Emit("item_emerald");
+								Audio.PlaySfx("item_emerald");
 							} else {
-								a.Emit("coin");
+								Audio.PlaySfx("coin");
 							}
 
 							break;
 						}
 						
 						case ItemType.Battery: {
-							a.Emit("battery");
+							Audio.PlaySfx("battery");
 							break;
 						}
 
 						case ItemType.Pouch: {
-							a.Emit("pouch");
+							Audio.PlaySfx("pouch");
 							break;
 						}
 					}

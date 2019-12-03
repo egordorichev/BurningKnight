@@ -286,8 +286,9 @@ namespace BurningKnight.level {
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
 			Variants[i] = 0;
+			LevelTiler.TileUp(this, i);	
 			
-			foreach (var d in PathFinder.Neighbours9) {
+			foreach (var d in PathFinder.Neighbours8) {
 				var index = i + d;
 				
 				if (IsInside(index)) {
@@ -623,6 +624,22 @@ namespace BurningKnight.level {
 						if (!t.IsWall() && t != Tile.Chasm) {
 							Graphics.Render(Tileset.WallA[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
 								Vector2.One, SpriteEffects.FlipVertically);
+						}
+					}
+
+					if (tl.IsWall() || tl == Tile.PistonDown) {
+						var v = Variants[index];
+
+						if (!BitHelper.IsBitSet(v, 1)) {
+							Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 + 9));
+						}
+
+						if (!BitHelper.IsBitSet(v, 2)) {
+							Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 + 16 + 8));
+						}
+
+						if (!BitHelper.IsBitSet(v, 3)) {
+							Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 + 9));
 						}
 					}
 					
@@ -1013,8 +1030,6 @@ namespace BurningKnight.level {
 								}
 							}
 							
-							Graphics.Render(ar[CalcWallIndex(x, y)], pos);
-
 							var ind = -1;
 
 							if (index >= Size - 1 || !((Tile) Tiles[index + 1]).Matches(Tile.Piston, Tile.WallA, Tile.WallB,
@@ -1029,6 +1044,8 @@ namespace BurningKnight.level {
 
 							if (ind != -1) {
 								Graphics.Render(arr[ind], pos);
+							} else {
+								Graphics.Render(ar[CalcWallIndex(x, y)], pos);
 							}
 						}
 					} else if (tl == Tile.Chasm) {
@@ -1216,6 +1233,22 @@ namespace BurningKnight.level {
 							}
 						}
 					}
+				}
+				
+				if (!BitHelper.IsBitSet(v, 0)) {
+					Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
+				}
+
+				if (!BitHelper.IsBitSet(v, 1)) {
+					Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
+				}
+
+				if (!BitHelper.IsBitSet(v, 2)) {
+					Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
+				}
+
+				if (!BitHelper.IsBitSet(v, 3)) {
+					Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
 				}
 			}
 		}
@@ -1513,10 +1546,15 @@ namespace BurningKnight.level {
 		}
 
 		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {
+			UpdateTile(x, y);
+			ReCreateBodyChunk(x, y);
+			
 			for (var yy = y - 1; yy < y + h + 1; yy++) {
 				for (var xx = x - 1; xx < x + w + 1; xx++) {
-					UpdateTile(xx, yy);
-					ReCreateBodyChunk(xx, yy);
+					if (yy != y || xx != x) {
+						UpdateTile(xx, yy);
+						ReCreateBodyChunk(xx, yy);
+					}
 				}
 			}
 		}

@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util.camera;
@@ -37,6 +38,8 @@ namespace BurningKnight.entity.room.input {
 
 		private bool Interact(Entity e) {
 			Toggle();
+			Audio.PlaySfx("level_lever");
+			
 			return false;
 		} 
 

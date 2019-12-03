@@ -60,9 +60,9 @@ namespace BurningKnight.level.entities {
 		protected override Rectangle GetCollider() {
 			var rect = GetComponent<SliceComponent>().Sprite.Source;
 
-			if (Sprite.Contains("pot") || Sprite.Contains("crate")) {
+			/*if (Sprite.Contains("pot") || Sprite.Contains("crate")) {
 				AddComponent(new PoolDropsComponent(ItemPool.Crate, 0.3f, 1, 3));
-			}
+			}*/
 			
 			hurts = Sprite == "cactus";
 
@@ -111,12 +111,14 @@ namespace BurningKnight.level.entities {
 					
 					Area.Add(part);
 				}
+
+				var d = AudioEmitterComponent.Dummy(Area, Center);
 				
-				if (!HasComponent<AudioEmitterComponent>()) {
-					AddComponent(new AudioEmitterComponent());
+				if (Sprite == "cup" || Sprite.StartsWith("pot")) {
+					d.EmitRandomizedPrefixed("level_cup", 2, 0.75f);
+				} else {
+					d.EmitRandomizedPrefixed("level_chair_break", 2, 0.75f);
 				}
-			
-				AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("level_chair_break", 2, 0.5f);
 
 				Particles.BreakSprite(Area, GetComponent<SliceComponent>().Sprite, Position);
 				Camera.Instance.Shake(2f);

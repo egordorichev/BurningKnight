@@ -99,7 +99,7 @@ namespace BurningKnight.level.entities.machine {
 
 			numRolled += (consumeCoin ? 1 : 2);
 
-			if (Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
+			if (numRolled > 1 && Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
 				Break();
 			}
 		}
@@ -134,6 +134,8 @@ namespace BurningKnight.level.entities.machine {
 
 			component.Sprite = CommonAse.Props.GetSlice("reroll_machine_broken");
 			component.Offset.Y += Height - 14;
+			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
 		}
 
 		public override bool HandleEvent(Event e) {

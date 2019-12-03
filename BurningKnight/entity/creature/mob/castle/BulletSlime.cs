@@ -44,7 +44,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 			
 			var am = 8;
-			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
 				var projectile = Projectile.Make(this, "small", a, 5f);

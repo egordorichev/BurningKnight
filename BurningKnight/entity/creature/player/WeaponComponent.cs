@@ -67,7 +67,7 @@ namespace BurningKnight.entity.creature.player {
 					
 					if (ev.Item != null && ev.Old == null && AtBack) {
 						if (GlobalSave.IsTrue("control_swap")) {
-							Entity.GetComponent<ActiveWeaponComponent>().requestSwap = true;
+							Entity.GetComponent<ActiveWeaponComponent>().requestSwap = InGameState.Ready;
 						} else {
 							var dialog = GetComponent<DialogComponent>();
 								

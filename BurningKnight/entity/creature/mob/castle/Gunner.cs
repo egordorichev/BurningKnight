@@ -108,13 +108,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 					var an = angle + Rnd.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
 					var a = Self.GetComponent<MobAnimationComponent>();
 					
-					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("gunner_charge");
-
 					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.1f);
 					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
 
 						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
+						
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 						
 						var projectile = Projectile.Make(Self, "big", an, 7f);
 

@@ -11,12 +11,11 @@ using Microsoft.Xna.Framework.Audio;
 namespace BurningKnight.entity.component {
 	public class AudioEmitterComponent : Component {
 		public static AudioListener Listener;
-		public static float PositionScale = 0.05f;
-		
+		public static float PositionScale = 0.001f;
 		public AudioEmitter Emitter = new AudioEmitter();
 		public float PitchMod;
-		public bool DestroySounds = true;
-		
+		public bool DestroySounds = false;
+
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
 
 		public override void Destroy() {
@@ -96,13 +95,12 @@ namespace BurningKnight.entity.component {
 			UpdatePosition();
 			instance.Stop();
 			instance.Volume = volume * Settings.SfxVolume;
-
+			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
+			instance.Play();
+			
 			if (Listener != null) {
 				instance.Apply3D(Listener, Emitter);
 			}
-			
-			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
-			instance.Play();
 			
 			return instance;
 		}

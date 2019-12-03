@@ -44,14 +44,6 @@ namespace BurningKnight.ui.imgui {
 				return;
 			}
 
-			var m = BurningKnight.Settings.MusicVolume;
-			
-			if (ImGui.DragFloat("Music", ref m, 0.01f, 0, 1f)) {
-				BurningKnight.Settings.MusicVolume = m;
-			}
-
-			ImGui.DragFloat("Sounds", ref Audio.SfxVolume, 0.01f, 0, 1f);
-			ImGui.Checkbox("Ui sounds", ref BurningKnight.Settings.UiSfx);
 			ImGui.InputFloat("Position scale", ref AudioEmitterComponent.PositionScale);
 
 			ImGui.End();

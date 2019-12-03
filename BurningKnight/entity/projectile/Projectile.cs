@@ -21,6 +21,7 @@ using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.graphics;
@@ -241,8 +242,13 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return (!(entity is Creature || entity is Level) || Owner is Mob != entity is Mob) && 
-			       (BreaksFromWalls && (entity is ProjectileLevelBody || (!Spectral && entity is HalfWall) || entity is Prop || (entity is Door d && !d.Open))
-			        || entity.HasComponent<HealthComponent>());
+			       (BreaksFromWalls && IsWall(entity))
+			        || entity.HasComponent<HealthComponent>();
+		}
+
+		private bool IsWall(Entity entity) {
+			return (entity is ProjectileLevelBody || (!Spectral && entity is HalfWall) || entity is Prop ||
+			        (entity is Door d && !d.Open));
 		}
 
 		public bool CanHitOwner;
@@ -281,6 +287,10 @@ namespace BurningKnight.entity.projectile {
 					if (BounceLeft > 0) {
 						BounceLeft -= 1;
 					} else {
+						if (IsWall(ev.Entity)) {
+							AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
+						}
+						
 						AnimateDeath();
 					}
 				}

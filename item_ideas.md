@@ -15,6 +15,7 @@
 
 ### to rework
 
+* disk gun is kinda broken
 * convert fire exstinguisher into flame thrower
 * discord rod use half a heart
 
@@ -82,7 +83,7 @@
 * animated hats
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
-* boomerang (or throwing axe)
+* throwing axe
 * sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies

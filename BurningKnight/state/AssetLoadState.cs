@@ -33,7 +33,9 @@ namespace BurningKnight.state {
 		private float t;
 		private bool added;
 		private bool removed;
+		private bool checkFullscreen;
 
+		
 		public override void Init() {
 			base.Init();
 
@@ -85,6 +87,8 @@ namespace BurningKnight.state {
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Global);
+
+				checkFullscreen = true;
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Game);
@@ -116,8 +120,17 @@ namespace BurningKnight.state {
 
 			t += dt;
 
-			if (t > 3f && !added) {
-				t = 0;
+			if (checkFullscreen) {
+				checkFullscreen = false;
+				
+				if (Settings.Fullscreen) {
+					Engine.Instance.SetFullscreen();
+				} else {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				}
+			}
+
+			if (!added && ready) {
 				added = true;
 				logoCard.GoAway = true;
 				
@@ -155,36 +168,20 @@ namespace BurningKnight.state {
 				}, 0.3f);*/
 			}
 
-			if (ready && added && t > 3f) {
-				if (removed) {
-					/*foreach (var c in cards) {
-						if (!c.Done) {
-							return;
-						}
-					}*/
-					
-					if (Settings.Fullscreen) {
-						Engine.Instance.SetFullscreen();
-					} else {
-						Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
-					}
-
-					Engine.Instance.SetState(new InGameState(gameArea, true));
-				} else {
-					removed = true;
-
-					/*foreach (var c in cards) {
-						c.GoAway = true;
-					}*/
-				}
+			if (ready && added && logoCard.Done && !removed) {
+				removed = true;
+				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
+				Engine.Instance.SetState(new InGameState(gameArea, true));
 			}
 		}
 
 		public override void RenderUi() {
 			base.RenderUi();
-			// var w = Input.Mouse.UiPosition;
-			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.Zero);
-			// Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
+			//var w = Input.Mouse.UiPosition;
+			Graphics.Color.A = 100;
+			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.One);
+			Graphics.Color.A = 255;
+			//Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
 		}
 	}
 }

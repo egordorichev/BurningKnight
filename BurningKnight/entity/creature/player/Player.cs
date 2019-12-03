@@ -221,7 +221,7 @@ namespace BurningKnight.entity.creature.player {
 					lastFrame = anim.Frame;
 
 					if (lastFrame == 2 || lastFrame == 6) {
-						Audio.PlaySfx("step", 1f, Rnd.Float(-0.3f, 0.3f));
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("step");
 					}
 				}
 			}
@@ -337,6 +337,10 @@ namespace BurningKnight.entity.creature.player {
 					return base.HandleEvent(e);
 				}
 				
+				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
+					Audio.PlaySfx("level_door_shut");
+				}
+				
 				c.New.Discover();
 				var level = Run.Level;
 
@@ -413,6 +417,8 @@ namespace BurningKnight.entity.creature.player {
 						Player = this
 					});
 
+					Audio.PlaySfx("player_hurt");
+
 					if (Settings.Blood) {
 						var cl = GetBloodColor();
 
@@ -433,6 +439,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
+				Audio.PlaySfx("level_room_cleared", 0.25f);
 			} else if (e is NewLevelStartedEvent) {
 				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
 					Center = cc.Center;
@@ -604,7 +611,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		protected override string GetHurtSfx() {
-			return "player_hurt";
+			return null;
 		}
 
 		protected override string GetDeadSfx() {
