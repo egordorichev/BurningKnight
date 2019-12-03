@@ -70,9 +70,14 @@ namespace BurningKnight.ui.dialog {
 				}
 
 				var sf = (int) char.ToLower(c);
-				var v = (sf - 'a') / 26f;
+				var k = sf - 'a';
+				var v = k / 26f;
 
-				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, v); // (v - 0.5f) * 2f);
+				if (Owner is entity.creature.bk.BurningKnight) {
+					Audio.PlaySfx($"mob_bk_syllable_{k % 5 + 1}", 1f, v - 0.5f);
+				} else {
+					Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, v - 0.5f); // (v - 0.5f) * 2f);
+				}
 			};
 			
 			Tint.A = 0;

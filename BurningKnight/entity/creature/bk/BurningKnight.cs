@@ -116,6 +116,8 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<HealthComponent>().Unhittable = true;
 
 			Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+				GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_4");
+									
 				Timer.Add(() => {
 					Become<ChaseState>();
 
@@ -172,7 +174,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					if (!(state.StateInstance is HiddenState)) {
 						Timer.Add(() => {
-							Camera.Instance.Shake(10);
+							GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_1");
 							state.Become<AttackState>();
 						}, 3);
 					}

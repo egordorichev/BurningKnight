@@ -193,9 +193,9 @@ namespace BurningKnight.assets.items {
 
 		private static float[] coinChances = {
 			1f,
-			1f / 5f,
 			1f / 10f,
-			1f / 25f
+			1f / 50f,
+			1f / 100f
 		};
 
 		public static Item Create(string id) {

@@ -108,22 +108,28 @@ namespace BurningKnight.assets.particle.custom {
 					Scale.Y = 0.3f;
 				}
 
-				AudioEmitterComponent.Dummy(Area, Center).Emit($"level_rock_{Rnd.Int(1, 3)}");
-				
-				Tween.To(1, Scale.X, x => Scale.X = x, 0.5f);
-				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.5f).OnEnd = () => {
-					var level = Run.Level;
-					var x = (int) (CenterX / 16);
-					var y = (int) ((Y + 8) / 16);
+				AudioEmitterComponent.Dummy(Area, Center).Emit($"level_rock_{Rnd.Int(1, 3)}", 0.5f);
 
-					level.Liquid[level.ToIndex(x, y)] = 0;
-					level.Set(x, y, Tile);
-					level.UpdateTile(x, y);
-					level.ReCreateBodyChunk(x, y);
-
-					Done = true;
-				};
+				if (TargetZ < 0) {
+					Finish();
+				} else {
+					Tween.To(1, Scale.X, x => Scale.X = x, 0.5f);
+					Tween.To(1, Scale.Y, x => Scale.Y = x, 0.5f).OnEnd = () => { Finish(); };
+				}
 			};
+		}
+		
+		private void Finish() {
+			var level = Run.Level;
+			var x = (int) (CenterX / 16);
+			var y = (int) ((Y + 8) / 16);
+
+			level.Liquid[level.ToIndex(x, y)] = 0;
+			level.Set(x, y, Tile);
+			level.UpdateTile(x, y);
+			level.ReCreateBodyChunk(x, y);
+
+			Done = true;
 		}
 
 		public void RenderShadow() {

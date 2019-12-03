@@ -91,7 +91,7 @@ namespace BurningKnight.entity {
 						var ww = new Dot((x + xx) * 16 + 8, (y + yy) * 16 + 8);
 							
 						if (l.IsRock()) {
-							AudioEmitterComponent.Dummy(level.Area, ww).Emit($"level_rock_{Rnd.Int(1, 3)}");
+							AudioEmitterComponent.Dummy(level.Area, ww).Emit($"level_rock_{Rnd.Int(1, 3)}", 0.5f);
 							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, ww);
 							
 							for (var i = 0; i < 3; i++) {

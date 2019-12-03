@@ -286,8 +286,9 @@ namespace BurningKnight.level {
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
 			Variants[i] = 0;
+			LevelTiler.TileUp(this, i);	
 			
-			foreach (var d in PathFinder.Neighbours9) {
+			foreach (var d in PathFinder.Neighbours8) {
 				var index = i + d;
 				
 				if (IsInside(index)) {
@@ -1545,10 +1546,15 @@ namespace BurningKnight.level {
 		}
 
 		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {
+			UpdateTile(x, y);
+			ReCreateBodyChunk(x, y);
+			
 			for (var yy = y - 1; yy < y + h + 1; yy++) {
 				for (var xx = x - 1; xx < x + w + 1; xx++) {
-					UpdateTile(xx, yy);
-					ReCreateBodyChunk(xx, yy);
+					if (yy != y || xx != x) {
+						UpdateTile(xx, yy);
+						ReCreateBodyChunk(xx, yy);
+					}
 				}
 			}
 		}
