@@ -5,8 +5,12 @@ using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct2D1.Effects;
+using VelcroPhysics.Dynamics.Solver;
+using Tile = BurningKnight.level.tile.Tile;
 
 namespace BurningKnight.assets.particle.custom {
 	public class TileParticle : Entity {
@@ -104,6 +108,8 @@ namespace BurningKnight.assets.particle.custom {
 					Scale.Y = 0.3f;
 				}
 
+				AudioEmitterComponent.Dummy(Area, Center).Emit($"level_rock_{Rnd.Int(1, 3)}");
+				
 				Tween.To(1, Scale.X, x => Scale.X = x, 0.5f);
 				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.5f).OnEnd = () => {
 					var level = Run.Level;

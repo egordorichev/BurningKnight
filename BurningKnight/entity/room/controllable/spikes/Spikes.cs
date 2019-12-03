@@ -145,6 +145,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 			
 			public override void Init() {
 				base.Init();
+				Self.GetComponent<AudioEmitterComponent>().Emit("level_spike_peaking");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

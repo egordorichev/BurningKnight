@@ -15,7 +15,7 @@ namespace BurningKnight.entity.component {
 		
 		public AudioEmitter Emitter = new AudioEmitter();
 		public float PitchMod;
-		public bool DestroySounds = true;
+		public bool DestroySounds = false;
 		
 		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
 

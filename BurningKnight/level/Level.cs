@@ -1234,24 +1234,20 @@ namespace BurningKnight.level {
 					}
 				}
 				
-				var lght = DrawLight ? Light[ToIndex(x, y)] : 1;
+				if (!BitHelper.IsBitSet(v, 0)) {
+					Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
+				}
 
-				if (lght > LightMin) {
-					if (!BitHelper.IsBitSet(v, 0)) {
-						Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
-					}
+				if (!BitHelper.IsBitSet(v, 1)) {
+					Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
+				}
 
-					if (!BitHelper.IsBitSet(v, 1)) {
-						Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
-					}
+				if (!BitHelper.IsBitSet(v, 2)) {
+					Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
+				}
 
-					if (!BitHelper.IsBitSet(v, 2)) {
-						Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
-					}
-
-					if (!BitHelper.IsBitSet(v, 3)) {
-						Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
-					}
+				if (!BitHelper.IsBitSet(v, 3)) {
+					Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
 				}
 			}
 		}

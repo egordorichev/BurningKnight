@@ -72,8 +72,7 @@ namespace BurningKnight.ui.dialog {
 				var sf = (int) char.ToLower(c);
 				var v = (sf - 'a') / 26f;
 
-				Audio.PlaySfx($"npc_voice_{Voice}", 1f, 0.5f + v * 0.5f);
-				// Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, 0.5f + v); // (v - 0.5f) * 2f);
+				Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, v); // (v - 0.5f) * 2f);
 			};
 			
 			Tint.A = 0;

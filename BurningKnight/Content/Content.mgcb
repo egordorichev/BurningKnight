@@ -322,6 +322,18 @@
 /processorParam:Quality=Best
 /build:Sfx/level/chair/break/2.wav
 
+#begin Sfx/level/cup/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/cup/1.wav
+
+#begin Sfx/level/cup/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/cup/2.wav
+
 #begin Sfx/level/door/close/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -370,11 +382,35 @@
 /processorParam:Quality=Best
 /build:Sfx/level/door/shut.wav
 
+#begin Sfx/level/rock/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/rock/1.wav
+
+#begin Sfx/level/rock/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/rock/2.wav
+
+#begin Sfx/level/room_cleared.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/room_cleared.wav
+
 #begin Sfx/level/spike.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/spike.wav
+
+#begin Sfx/level/spike_peaking.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/spike_peaking.wav
 
 #begin Sfx/level/tnt.wav
 /importer:WavImporter
@@ -430,17 +466,89 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/hurt/5.wav
 
+#begin Sfx/mob/bk/roar/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/roar/1.wav
+
+#begin Sfx/mob/bk/roar/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/roar/2.wav
+
+#begin Sfx/mob/bk/roar/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/roar/3.wav
+
+#begin Sfx/mob/bk/roar/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/roar/4.wav
+
 #begin Sfx/mob/bk/static.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/static.wav
 
+#begin Sfx/mob/bk/syllable/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/syllable/1.wav
+
+#begin Sfx/mob/bk/syllable/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/syllable/2.wav
+
+#begin Sfx/mob/bk/syllable/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/syllable/3.wav
+
+#begin Sfx/mob/bk/syllable/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/syllable/4.wav
+
+#begin Sfx/mob/bk/syllable/5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/syllable/5.wav
+
 #begin Sfx/mob/bk/voice.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/voice.wav
+
+#begin Sfx/mob/bk/word/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/word/1.wav
+
+#begin Sfx/mob/bk/word/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/word/2.wav
+
+#begin Sfx/mob/bk/word/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/word/3.wav
 
 #begin Sfx/mob/ghost/death.wav
 /importer:WavImporter
@@ -723,6 +831,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/quck.wav
+
+#begin Sfx/roll.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/roll.wav
 
 #begin Sfx/sand.wav
 /importer:WavImporter
