@@ -1,7 +1,6 @@
 # publisher build stuff
 
 * fix {
- + turning of ui effects doesnt work
  + incorrect wall tiling when you replace a transition tile 
  + unlock the door, then you can go through it without its open animation
 
@@ -43,9 +42,7 @@
 }
 
 * audio {
- + fix npc voices, they are not loud enough
  + bk fire sound (when near)
- + custom 3d
 }
 
 + hub {
