@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>/home/egor/Lens/BurningKnight/Content/Sfx/pickup_item.wav</SourceFile>
-  <SourceTime>2019-11-28T18:34:07.722847+03:00</SourceTime>
+  <SourceTime>2019-12-03T15:16:16.350766+03:00</SourceTime>
   <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Sfx/pickup_item.xnb</DestFile>
-  <DestTime>2019-11-28T18:34:30.4742497+03:00</DestTime>
+  <DestTime>2019-12-03T15:18:04.8996925+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2019-11-20T16:55:24.8246146+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

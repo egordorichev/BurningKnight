@@ -44,7 +44,7 @@ namespace BurningKnight.entity {
 						DestroySounds = false
 					});
 					
-					explosion.GetComponent<AudioEmitterComponent>().EmitRandomized("explosion");
+					explosion.GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
 				}
 			}
 			

@@ -29,6 +29,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 					if (Target == null) {
 						return;
 					}
+				
+					GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
 					var a = AngleTo(Target) + Rnd.Float(-0.1f, 0.1f);
 					var projectile = Projectile.Make(this, "small", a, 9f);

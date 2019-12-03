@@ -43,6 +43,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 				return;
 			}
 			
+			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 			var a = GetComponent<ZAnimationComponent>();
 					
 			Tween.To(0.6f, a.Scale.X, x => a.Scale.X = x, 0.2f);

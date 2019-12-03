@@ -2,7 +2,6 @@
 
 * fix {
  + unlock the door, then you can go through it without its open animation
- + make some sounds 1d
 
  + bugs {
   - maximized window bug on windows
