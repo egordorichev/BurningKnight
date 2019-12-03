@@ -16,6 +16,7 @@ namespace BurningKnight.entity.component {
 		public LockComponent(Entity entity, Lock l, Vector2 offset) {
 			Lock = l;
 
+			l.Owner = entity;
 			Lock.AlwaysActive = true;
 			Lock.Move = false;
 
