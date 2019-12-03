@@ -337,6 +337,10 @@ namespace BurningKnight.entity.creature.player {
 					return base.HandleEvent(e);
 				}
 				
+				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
+					Audio.PlaySfx("level_door_shut");
+				}
+				
 				c.New.Discover();
 				var level = Run.Level;
 
@@ -412,6 +416,8 @@ namespace BurningKnight.entity.creature.player {
 					HandleEvent(new PlayerHurtEvent {
 						Player = this
 					});
+
+					Audio.PlaySfx("player_hurt");
 
 					if (Settings.Blood) {
 						var cl = GetBloodColor();
@@ -605,7 +611,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		protected override string GetHurtSfx() {
-			return "player_hurt";
+			return null;
 		}
 
 		protected override string GetDeadSfx() {

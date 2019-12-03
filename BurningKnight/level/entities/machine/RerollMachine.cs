@@ -99,7 +99,7 @@ namespace BurningKnight.level.entities.machine {
 
 			numRolled += (consumeCoin ? 1 : 2);
 
-			if (Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
+			if (numRolled > 1 && Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
 				Break();
 			}
 		}
