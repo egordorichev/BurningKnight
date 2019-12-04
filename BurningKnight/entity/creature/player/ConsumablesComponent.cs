@@ -110,7 +110,7 @@ namespace BurningKnight.entity.creature.player {
 							if (ev.Item.Id == "bk:emerald") {
 								Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
 							} else {
-								Audio.PlaySfx("item_coin", 1f);
+								Audio.PlaySfx("item_coin", 0.8f);
 							}
 
 							break;
