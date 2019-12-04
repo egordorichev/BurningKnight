@@ -37,11 +37,11 @@ namespace BurningKnight.ui {
 			Depth = 10;
 			
 			if (Run.Depth == 0) {
-				var date = DateTime.Now;
-
-				if (date.Month == 12 && date.Day == 25) {
+				if (Events.XMas) {
 					Items.Unlock("bk:xmas_hat");
-				} else if (date.Month == 10 && date.Day == 31) {
+				}
+				
+				if (Events.Halloween) {
 					Items.Unlock("bk:pumpkin_hat");
 				}
 			}
