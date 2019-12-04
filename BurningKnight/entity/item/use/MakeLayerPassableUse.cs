@@ -33,11 +33,11 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				if (walls) {
-					CollisionFilterComponent.Add(entity, (o, en) => en is Level ? CollisionResult.Disable : CollisionResult.Default);
+					CollisionFilterComponent.Add(entity, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
 				}
 				
 				if (stones) {
-					CollisionFilterComponent.Add(entity, (o, en) => en is HalfWall ? CollisionResult.Disable : CollisionResult.Default);
+					CollisionFilterComponent.Add(entity, (o, en) => en is HalfWall || en is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 				}
 			}	
 		}
@@ -50,7 +50,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (walls) {
-						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level ? CollisionResult.Disable : CollisionResult.Default);
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
 					if (mobs) {
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item.use {
 					}
 				
 					if (stones) {
-						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is HalfWall ? CollisionResult.Disable : CollisionResult.Default);
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is HalfWall || en is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 					}
 				}
 			}

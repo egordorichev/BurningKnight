@@ -739,6 +739,7 @@
     <Compile Include="entity\room\input\RoomInput.cs" />
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="level\basement\BasementRoom.cs" />
     <Compile Include="level\basement\BasementLevel.cs" />
     <Compile Include="level\basement\BasementStand.cs" />
@@ -807,6 +808,8 @@
     <Compile Include="level\floors\MazeFloor.cs" />
     <Compile Include="level\floors\PatchFloor.cs" />
     <Compile Include="level\floors\TrippleFloor.cs" />
+    <Compile Include="level\HalfProjectileBodyComponent.cs" />
+    <Compile Include="level\HalfProjectileLevel.cs" />
     <Compile Include="level\HalfWall.cs" />
     <Compile Include="level\HalfWallBodyComponent.cs" />
     <Compile Include="level\hall\HallBuilder.cs" />

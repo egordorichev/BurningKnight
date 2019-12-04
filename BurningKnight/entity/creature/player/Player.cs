@@ -221,7 +221,7 @@ namespace BurningKnight.entity.creature.player {
 					lastFrame = anim.Frame;
 
 					if (lastFrame == 2 || lastFrame == 6) {
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("step");
+						Audio.PlaySfx("step");
 					}
 				}
 			}
