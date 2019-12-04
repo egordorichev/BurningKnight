@@ -95,7 +95,7 @@ namespace BurningKnight.level.entities.chest {
 				UpdateSprite();
 				SpawnDrops();
 
-				GetComponent<AudioEmitterComponent>().EmitRandomized("chest_open");
+				GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
 				
 				Tween.To(0.6f * Scale, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(1.7f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {

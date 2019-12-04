@@ -76,7 +76,7 @@ namespace BurningKnight.ui.dialog {
 				if (Owner is entity.creature.bk.BurningKnight) {
 					Audio.PlaySfx($"mob_bk_syllable_{k % 5 + 1}", 1f, v - 0.5f);
 				} else {
-					Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f, v + 0.5f); // (v - 0.5f) * 2f);
+					Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f - Audio.Db3, v + 0.5f); // (v - 0.5f) * 2f);
 				}
 			};
 			
