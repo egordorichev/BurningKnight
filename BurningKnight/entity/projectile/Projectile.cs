@@ -288,7 +288,11 @@ namespace BurningKnight.entity.projectile {
 						BounceLeft -= 1;
 					} else {
 						if (IsWall(ev.Entity)) {
-							AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
+							if (Owner is Player) {
+								AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
+							} else {
+								AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("projectile_wall_enemy", 0.5f);
+							}
 						}
 						
 						AnimateDeath();

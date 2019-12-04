@@ -862,6 +862,12 @@
 /processorParam:Quality=Best
 /build:Sfx/projectile/wall/2.wav
 
+#begin Sfx/projectile/wall/enemy.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/wall/enemy.wav
+
 #begin Sfx/quck.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
