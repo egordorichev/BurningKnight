@@ -87,6 +87,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 								return;
 							}
 
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+						
 							var angle = Self.Direction.ToAngle();
 							var projectile = Projectile.Make(Self, "small", angle, 5f);
 
