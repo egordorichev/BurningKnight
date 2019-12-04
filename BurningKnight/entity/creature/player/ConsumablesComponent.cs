@@ -97,32 +97,32 @@ namespace BurningKnight.entity.creature.player {
 								dialog.StartAndClose("control_0", 5);
 							}
 							
-							Audio.PlaySfx("bomb");
+							Audio.PlaySfx("item_bomb");
 							break;
 						}
 						
 						case ItemType.Key: {
-							Audio.PlaySfx("key");
+							Audio.PlaySfx("item_key_pickup");
 							break;
 						}
 						
 						case ItemType.Coin: {
 							if (ev.Item.Id == "bk:emerald") {
-								Audio.PlaySfx("item_emerald");
+								Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
 							} else {
-								Audio.PlaySfx("coin");
+								Audio.PlaySfx("item_coin", 1f);
 							}
 
 							break;
 						}
 						
 						case ItemType.Battery: {
-							Audio.PlaySfx("battery");
+							Audio.PlaySfx("item_battery");
 							break;
 						}
 
 						case ItemType.Pouch: {
-							Audio.PlaySfx("pouch");
+							Audio.PlaySfx("item_pouch");
 							break;
 						}
 					}

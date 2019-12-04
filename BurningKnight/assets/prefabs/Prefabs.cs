@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using BurningKnight.save;
@@ -48,35 +49,41 @@ namespace BurningKnight.assets.prefabs {
 			if (handle.Extension != ".lvl") {
 				return;
 			}
-			
-			var prefab = new Prefab();
-			var stream = new FileReader(handle.FullPath);
-			
-			if (stream.ReadInt32() != SaveManager.MagicNumber) {
-				Log.Error("Invalid magic number!");
-				return;
+
+			try {
+				var prefab = new Prefab();
+				var stream = new FileReader(handle.FullPath);
+
+				if (stream.ReadInt32() != SaveManager.MagicNumber) {
+					Log.Error("Invalid magic number!");
+
+					return;
+				}
+
+				var version = stream.ReadInt16();
+
+				if (version > SaveManager.Version) {
+					Log.Error($"Unknown version {version}");
+				} else if (version < SaveManager.Version) {
+					// do something on it
+				}
+
+				if (stream.ReadByte() != (byte) SaveType.Level) {
+					return;
+				}
+
+				saver.Load(new Area {NoInit = true}, stream, false);
+
+				prefab.Level = Run.Level;
+				prefab.Datas = ArrayUtils.Clone(saver.Datas);
+				saver.Datas.Clear();
+
+				loaded[handle.NameWithoutExtension] = prefab;
+				Run.Level = null;
+			} catch (Exception e) {
+				Log.Error($"Failed to load prefab {handle.NameWithoutExtension}");
+				Log.Error(e);
 			}
-
-			var version = stream.ReadInt16();
-
-			if (version > SaveManager.Version) {
-				Log.Error($"Unknown version {version}");
-			} else if (version < SaveManager.Version) {
-				// do something on it
-			}
-
-			if (stream.ReadByte() != (byte) SaveType.Level) {
-				return;
-			}
-			
-			saver.Load(new Area { NoInit = true }, stream, false);
-
-			prefab.Level = Run.Level;
-			prefab.Datas = ArrayUtils.Clone(saver.Datas);
-			saver.Datas.Clear();
-			
-			loaded[handle.NameWithoutExtension] = prefab;
-			Run.Level = null;
 		}
 		
 		private static void OnChanged(object sender, FileSystemEventArgs args) {

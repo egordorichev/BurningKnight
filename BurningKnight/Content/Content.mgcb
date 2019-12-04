@@ -40,23 +40,11 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/small.png
 
-#begin Sfx/active_item.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/active_item.wav
-
 #begin Sfx/airhorn.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/airhorn.wav
-
-#begin Sfx/bomb.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/bomb.wav
 
 #begin Sfx/bomb_placed.wav
 /importer:WavImporter
@@ -64,23 +52,11 @@
 /processorParam:Quality=Best
 /build:Sfx/bomb_placed.wav
 
-#begin Sfx/chest_open.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/chest_open.wav
-
 #begin Sfx/clap.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/clap.wav
-
-#begin Sfx/coin.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/coin.wav
 
 #begin Sfx/crawler.wav
 /importer:WavImporter
@@ -160,11 +136,35 @@
 /processorParam:Quality=Best
 /build:Sfx/hurt2.wav
 
+#begin Sfx/item/active.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/active.wav
+
+#begin Sfx/item/active_charged.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/active_charged.wav
+
+#begin Sfx/item/bomb.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/bomb.wav
+
 #begin Sfx/item/cage_key_used.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/cage_key_used.wav
+
+#begin Sfx/item/coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/coin.wav
 
 #begin Sfx/item/emerald.wav
 /importer:WavImporter
@@ -184,11 +184,23 @@
 /processorParam:Quality=Best
 /build:Sfx/item/gun/fire/2.wav
 
+#begin Sfx/item/heart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/heart.wav
+
 #begin Sfx/item/key.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/key.wav
+
+#begin Sfx/item/key_pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/key_pickup.wav
 
 #begin Sfx/item/nocash.wav
 /importer:WavImporter
@@ -291,6 +303,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/chair/break/2.wav
+
+#begin Sfx/level/chest_open.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/chest_open.wav
 
 #begin Sfx/level/cup/1.wav
 /importer:WavImporter
@@ -405,6 +423,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/turret/fire.wav
+
+#begin Sfx/level/well.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/well.wav
 
 #begin Sfx/mob/bandit/death.wav
 /importer:WavImporter
@@ -837,6 +861,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/projectile/wall/2.wav
+
+#begin Sfx/projectile/wall/enemy.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/wall/enemy.wav
 
 #begin Sfx/quck.wav
 /importer:WavImporter

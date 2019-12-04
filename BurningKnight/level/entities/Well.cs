@@ -65,6 +65,8 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool Interact(Entity e) {
+			Audio.PlaySfx("level_well");
+		
 			switch (type) {
 				case Type.Transmutation: {
 					var active = e.GetComponent<ActiveWeaponComponent>();

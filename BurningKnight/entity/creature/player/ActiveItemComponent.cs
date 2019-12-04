@@ -8,6 +8,7 @@ using BurningKnight.entity.item;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens.assets;
 using Lens.entity;
 using Lens.input;
 
@@ -25,7 +26,12 @@ namespace BurningKnight.entity.creature.player {
 		public override bool HandleEvent(Event e) {
 			if (e is RoomClearedEvent) {
 				if (Item != null && Item.UseTime > 0.02f) {
+					var o = Item.Delay;
 					Item.Delay = Math.Max(Item.Delay - 1, 0f);
+
+					if (Math.Abs(o) >= 0.01f && Math.Abs(Item.Delay) < 0.01f) {
+						Audio.PlaySfx("item_active_charged");
+					}
 				}
 			}
 			
@@ -37,7 +43,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			if (Run.Depth > 0 && GlobalSave.IsFalse("control_active") && GetComponent<DialogComponent>().Dialog?.Str != null) {
 				var dialog = GetComponent<DialogComponent>();
-								
+				
 				dialog.Dialog.Str.ClearIcons();
 				dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Active, false)));
 
@@ -63,7 +69,7 @@ namespace BurningKnight.entity.creature.player {
 						GlobalSave.Put("control_active", true);
 					}
 					
-					Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("active_item");
+					Audio.PlaySfx("item_active");
 
 					if (Item.SingleUse && !CheatWindow.InfiniteActive) {
 						Item.Done = true;

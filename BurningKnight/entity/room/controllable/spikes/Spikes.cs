@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.level.entities;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -115,7 +116,7 @@ namespace BurningKnight.entity.room.controllable.spikes {
 				base.Init();
 
 				if (Self.OnScreen) {
-					Self.GetComponent<AudioEmitterComponent>().Emit("level_spike");
+					Self.GetComponent<AudioEmitterComponent>().Emit("level_spike", 1f - Audio.Db3);
 				}
 
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);

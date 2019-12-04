@@ -17,6 +17,8 @@ namespace Lens.assets {
 		public static float SfxVolume = 1;
 		private const float CrossFadeTime = 0.5f;
 
+		public static float Db3 = 0.1f;
+
 		private static Music currentPlaying;
 		private static string currentPlayingMusic;
 		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();

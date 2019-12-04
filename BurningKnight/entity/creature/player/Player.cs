@@ -417,7 +417,7 @@ namespace BurningKnight.entity.creature.player {
 						Player = this
 					});
 
-					Audio.PlaySfx("player_hurt");
+					Audio.PlaySfx("player_hurt", 1f);
 
 					if (Settings.Blood) {
 						var cl = GetBloodColor();
@@ -439,7 +439,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
-				Audio.PlaySfx("level_room_cleared", 0.25f);
+				Audio.PlaySfx("level_room_cleared", 0.25f + Audio.Db3);
 			} else if (e is NewLevelStartedEvent) {
 				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
 					Center = cc.Center;

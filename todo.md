@@ -1,8 +1,6 @@
 # publisher build stuff
 
 * fix {
- + unlock the door, then you can go through it without its open animation
-
  + bugs {
   - maximized window bug on windows
   - game sometimes doesn't exit after closing

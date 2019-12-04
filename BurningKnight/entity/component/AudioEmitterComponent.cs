@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
@@ -11,19 +13,28 @@ using Microsoft.Xna.Framework.Audio;
 namespace BurningKnight.entity.component {
 	public class AudioEmitterComponent : Component {
 		public static AudioListener Listener;
+		public static Vector2 ListenerPosition;
+		
 		public static float PositionScale = 0.000001f;
+		public static float Distance = 200;
+		
 		public AudioEmitter Emitter = new AudioEmitter();
 		public float PitchMod;
 		public bool DestroySounds = false;
 
-		private Dictionary<string, SoundEffectInstance> Playing = new Dictionary<string, SoundEffectInstance>();
+		private Dictionary<string, Sfx> Playing = new Dictionary<string, Sfx>();
 
+		private class Sfx {
+			public SoundEffectInstance Effect;
+			public float BaseVolume = 1f;
+		}
+		
 		public override void Destroy() {
 			base.Destroy();
 
 			if (DestroySounds) {
 				foreach (var s in Playing.Values) {
-					s.Stop();
+					s.Effect.Stop();
 				}
 
 				Playing.Clear();
@@ -32,6 +43,14 @@ namespace BurningKnight.entity.component {
 
 		private void UpdatePosition() {
 			Emitter.Position = new Vector3(Entity.CenterX * PositionScale, 0, Entity.CenterY * PositionScale);
+
+			if (Listener != null) {
+				var d = (ListenerPosition - Entity.Center).Length();
+
+				foreach (var s in Playing.Values) {
+					s.Effect.Volume = (1 - Math.Min(Distance, d) / Distance) * s.BaseVolume;
+				}
+			}
 		}
 
 		public override void Update(float dt) {
@@ -47,10 +66,10 @@ namespace BurningKnight.entity.component {
 			foreach (var k in keys) {
 				var s = Playing[k];
 
-				if (s.State != SoundState.Playing) {
+				if (s.Effect.State != SoundState.Playing) {
 					Playing.Remove(k);
 				} else if (Listener != null) {
-					s.Apply3D(Listener, Emitter);
+					s.Effect.Apply3D(Listener, Emitter);
 				}
 			}
 		}
@@ -76,7 +95,7 @@ namespace BurningKnight.entity.component {
 				return null;
 			}
 
-			SoundEffectInstance instance;
+			Sfx instance;
 
 			if (!insert || !Playing.TryGetValue(sfx, out instance)) {
 				var sound = Audio.GetSfx(sfx);
@@ -84,8 +103,11 @@ namespace BurningKnight.entity.component {
 				if (sound == null) {
 					return null;
 				}
-				
-				instance = sound.CreateInstance();
+
+				instance = new Sfx {
+					Effect = sound.CreateInstance(),
+					BaseVolume = volume * Settings.SfxVolume * 0.8f
+				};
 
 				if (insert) {
 					Playing[sfx] = instance;
@@ -93,16 +115,15 @@ namespace BurningKnight.entity.component {
 			}
 
 			UpdatePosition();
-			instance.Stop();
-			instance.Volume = volume * Settings.SfxVolume * 0.8f;
-			instance.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
-			instance.Play();
+			instance.Effect.Stop();
+			instance.Effect.Pitch = MathUtils.Clamp(-1f, 1f, pitch);
+			instance.Effect.Play();
 			
 			if (Listener != null) {
-				instance.Apply3D(Listener, Emitter);
+				instance.Effect.Apply3D(Listener, Emitter);
 			}
 			
-			return instance;
+			return instance.Effect;
 		}
 
 		public static AudioEmitterComponent Dummy(Area area, Vector2 where) {
