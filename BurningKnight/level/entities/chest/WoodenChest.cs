@@ -5,7 +5,7 @@ using Lens.util.math;
 namespace BurningKnight.level.entities.chest {
 	public class WoodenChest : Chest {
 		public WoodenChest() {
-			Sprite = "wooden_chest";
+			Sprite = Events.XMas ? "xmas_chest" : "wooden_chest";
 		}
 
 		protected override void DefineDrops() {
