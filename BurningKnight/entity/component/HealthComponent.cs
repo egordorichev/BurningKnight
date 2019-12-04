@@ -12,6 +12,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util;
@@ -179,6 +180,8 @@ namespace BurningKnight.entity.component {
 					Who = Entity
 				});
 
+				Audio.PlaySfx("item_heart");
+				
 				ev.Item.Use(Entity);
 				ev.Item.Done = true;
 

@@ -184,6 +184,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/gun/fire/2.wav
 
+#begin Sfx/item/heart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/heart.wav
+
 #begin Sfx/item/key.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -405,6 +411,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/turret/fire.wav
+
+#begin Sfx/level/well.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/well.wav
 
 #begin Sfx/mob/bandit/death.wav
 /importer:WavImporter
