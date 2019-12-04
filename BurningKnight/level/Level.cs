@@ -74,6 +74,7 @@ namespace BurningKnight.level {
 
 		public Chasm Chasm;
 		public HalfWall HalfWall;
+		public HalfProjectileLevel HalfProjectile;
 		public ProjectileLevelBody ProjectileLevelBody;
 		public RenderTarget2D WallSurface;
 		public RenderTarget2D MessSurface;
@@ -88,6 +89,9 @@ namespace BurningKnight.level {
 			base.Destroy();
 
 			if (Chasm != null) {
+				HalfProjectile.Done = true;
+				Area.Remove(HalfProjectile);
+				
 				HalfWall.Done = true;
 				Area.Remove(HalfWall);
 
@@ -208,6 +212,7 @@ namespace BurningKnight.level {
 			GetComponent<LevelBodyComponent>().ReCreateBodyChunk(x, y);
 			Chasm.GetComponent<ChasmBodyComponent>().ReCreateBodyChunk(x, y);
 			HalfWall.GetComponent<HalfWallBodyComponent>().ReCreateBodyChunk(x, y);
+			HalfProjectile.GetComponent<HalfProjectileBodyComponent>().ReCreateBodyChunk(x, y);
 			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().ReCreateBodyChunk(x, y);		
 		}
 		
@@ -218,6 +223,10 @@ namespace BurningKnight.level {
 			
 			if (Chasm == null) {
 				Area.Add(HalfWall = new HalfWall {
+					Level = this
+				});
+				
+				Area.Add(HalfProjectile = new HalfProjectileLevel {
 					Level = this
 				});
 				
@@ -232,6 +241,7 @@ namespace BurningKnight.level {
 			
 			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();			
 			HalfWall.GetComponent<HalfWallBodyComponent>().CreateBody();
+			HalfProjectile.GetComponent<HalfProjectileBodyComponent>().CreateBody();
 			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().CreateBody();
 			GetComponent<LevelBodyComponent>().CreateBody();
 		}
