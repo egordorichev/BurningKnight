@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
 
-			if (add || item.Type == ItemType.Active || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
+			if (add || item.Type == ItemType.Active || item.Type == ItemType.ConsumableArtifact || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
 				GetComponent<InventoryComponent>().Busy = true;
 				
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 					action?.Invoke();
 					GetComponent<InventoryComponent>().Busy = false;
 
-					if (item.Type != ItemType.Active && item.Type != ItemType.Weapon && item.Type != ItemType.Hat) {
+					if (item.Type != ItemType.ConsumableArtifact && item.Type != ItemType.Active && item.Type != ItemType.Weapon && item.Type != ItemType.Hat) {
 						GetComponent<InventoryComponent>().Add(item);
 					}
 				}));
