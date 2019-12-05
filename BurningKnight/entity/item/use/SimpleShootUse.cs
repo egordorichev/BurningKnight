@@ -118,6 +118,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					projectile.FlashTimer = 0.05f;
+					projectile.Color = bad ? ProjectileColor.Red : ProjectileColor.Yellow;
 
 					if (range > 0.01f) {
 						if (Math.Abs(projectile.Range - (-1)) < 0.1f) {

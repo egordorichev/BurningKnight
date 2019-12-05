@@ -64,8 +64,9 @@ namespace BurningKnight.entity.item.util {
 
 						if (p.TryGetComponent<LightComponent>(out var l)) {
 							l.Light.Color = ReflectedColor;
-							p.Color = ProjectileColor.Yellow;
 						}
+
+						p.Color = ProjectileColor.Yellow;
 						
 						Camera.Instance.ShakeMax(4f);
 					} else if (p.CanBeBroken) {

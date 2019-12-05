@@ -54,7 +54,8 @@ namespace BurningKnight.entity.item.use {
 					return;
 				}
 
-				projectile.Effect = info.Effect;
+				// fixme:
+				// projectile.Effect = info.Effect;
 				
 				projectile.OnHurt += (p, e) => {
 					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
