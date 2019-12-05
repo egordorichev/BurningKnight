@@ -60,6 +60,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileNearingDeathCallback NearDeath;
 		public Projectile Parent;
 		public ProjectileGraphicsEffect Effect;
+		public Color Color = ProjectileColor.Red;
 		public string Slice;
 		public float Scale;
 		public bool BreaksFromWalls = true;

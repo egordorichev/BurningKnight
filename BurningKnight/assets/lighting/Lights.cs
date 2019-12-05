@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BurningKnight.assets.lighting {
 	public static class Lights {
 		public static float Flash;
+		public const byte AuraAlpha = 100;
 		
 		private static TextureRegion region;
 
@@ -84,7 +85,7 @@ namespace BurningKnight.assets.lighting {
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.Transparent);
 
-			Graphics.Color.A = 150;
+			Graphics.Color.A = AuraAlpha;
 
 			foreach (var p in Run.Level.Area.Tagged[Tags.Projectile]) {
 				p.GetComponent<ProjectileGraphicsComponent>().RenderLight();

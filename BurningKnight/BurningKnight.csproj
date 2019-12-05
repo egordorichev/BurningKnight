@@ -704,6 +704,7 @@
     <Compile Include="entity\projectile\pattern\CircleWithCenterProjectilePattern.cs" />
     <Compile Include="entity\projectile\pattern\ExpandingCirclePattern.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
+    <Compile Include="entity\projectile\ProjectileColor.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsEffect.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />

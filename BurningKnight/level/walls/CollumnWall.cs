@@ -19,6 +19,8 @@ namespace BurningKnight.level.walls {
 
 				if (tile == Tile.Lava) {
 					Painter.Fill(level, inside, 1, Tiles.RandomFloor());
+				} else if (tile == Tile.SensingSpikeTmp) {
+					tile = Tile.Chasm;	
 				}
 				
 				Painter.Fill(level, inside, 1, tile);

@@ -14,9 +14,9 @@ namespace BurningKnight.entity.projectile.controller {
 				var b = p.GetAnyComponent<BodyComponent>();
 				var v = b.Velocity;
 
-				b.Velocity -= v * (speed * dt);
+				b.Velocity -= v * (speed * dt * 2);
 
-				if (b.Velocity.Length() < 1f) {
+				if (b.Velocity.Length() < 0.1f) {
 					stopped = true;
 					
 					Timer.Add(p.Break, time);

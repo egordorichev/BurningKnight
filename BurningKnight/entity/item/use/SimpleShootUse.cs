@@ -66,6 +66,11 @@ namespace BurningKnight.entity.item.use {
 			scaleMin = settings["scale"].Number(1);
 			scaleMax = settings["scalem"].Number(1);
 			slice = settings["texture"].AsString;
+
+			if (slice == "default") {
+				slice = "rect";
+			}
+			
 			accuracy = settings["accuracy"].Number(0).ToRadians();
 			count = settings["amount"].Int(1);
 			prefab = settings["prefab"].String("");
