@@ -13,6 +13,11 @@ namespace BurningKnight.entity.projectile.controller {
 				var d = MathUtils.Distance(dx, dy);
 				var s = dt * 250 * speed;
 
+				if (d <= 8f) {
+					p.Break();
+					return;
+				}
+
 				b.Velocity += new Vector2(dx / d * s, dy / d * s);
 				b.Angle = b.Velocity.ToAngle();
 			};

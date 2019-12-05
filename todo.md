@@ -25,7 +25,6 @@
 
 * room {
  + special props on top of special rooms, like shop boss and treasure
- + cleared effect
 }
 
 * bk: {

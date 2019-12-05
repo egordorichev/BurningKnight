@@ -79,7 +79,7 @@ namespace BurningKnight.entity.item.use {
 				if (SpawnBullets) {
 					bomb.OnDeath += b => {
 						for (var i = 0; i < 8; i++) {
-							Projectile.Make(b.Owner, "default", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, b.Scale).Center = b.Center;
+							Projectile.Make(b.Owner, "rect", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, b.Scale).Center = b.Center;
 						}
 					};
 				}

@@ -124,6 +124,45 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
+			Add("crash", p => {
+				p.Controller += HsvProjectileController.Make();
+				p.OnDeath += (pr, t) => {
+					if (pr.T < 0.1f) {
+						return;
+					}
+					
+					for (var i = 0; i < 8; i++) {
+						var p2 = Projectile.Make(pr.Owner, "square", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, 0.8f);
+						p2.Center = pr.Center;
+						p2.Controller += HsvProjectileController.Make(1, pr.T);
+
+						p2.OnDeath += (pr2, t2) => {
+							if (pr2.T < 0.1f) {
+								return;
+							}
+					
+							for (var j = 0; j < 8; j++) {
+								var p3 = Projectile.Make(pr.Owner, "square", (float) j / 8 * (float) Math.PI * 2, 12, true, 0, null, 0.6f);
+								p3.Center = pr2.Center;
+								p3.Controller += HsvProjectileController.Make(1, p2.T);
+								
+								p3.OnDeath += (pr4, t4) => {
+									if (pr4.T < 0.1f) {
+										return;
+									}
+					
+									for (var k = 0; k < 8; k++) {
+										var p5 = Projectile.Make(pr.Owner, "square", (float) k / 8 * (float) Math.PI * 2, 24, true, 0, null, 0.3f);
+										p5.Center = pr4.Center;
+										p5.Controller += HsvProjectileController.Make(1, pr4.T);
+									}
+								};
+							}
+						};
+					}
+				};
+			});
+			
 			Add("duck", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 			});

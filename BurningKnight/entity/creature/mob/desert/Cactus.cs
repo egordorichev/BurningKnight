@@ -39,8 +39,9 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 					for (var i = 0; i < 10; i++) {
 						Timer.Add(() => {
-							var projectile = Projectile.Make(Self, "green_small", Rnd.AnglePI(), Rnd.Float(1, 9));
+							var projectile = Projectile.Make(Self, "small", Rnd.AnglePI(), Rnd.Float(1, 9));
 				
+							projectile.Color = ProjectileColor.Green;
 							projectile.Center = Self.Center;
 							projectile.Spectral = true;
 							projectile.BreaksFromWalls = false;

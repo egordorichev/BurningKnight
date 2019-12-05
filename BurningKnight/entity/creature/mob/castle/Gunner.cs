@@ -116,7 +116,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 						
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 						
-						var projectile = Projectile.Make(Self, "big", an, 7f);
+						var projectile = Projectile.Make(Self, "circle", an, 7f);
 
 						projectile.AddLight(32f, Projectile.RedLight);
 						projectile.Center += MathUtils.CreateVector(angle, 8);
