@@ -32,6 +32,7 @@ namespace BurningKnight.entity.item.use {
 		private int count;
 		private string prefab;
 		private bool light;
+		private bool disableBoost;
 		private float knockback;
 		private bool rect;
 		protected bool wait;
@@ -78,6 +79,7 @@ namespace BurningKnight.entity.item.use {
 			knockback = settings["knockback"].Number(1);
 			rect = settings["rect"].Bool(false);
 			wait = settings["wait"].Bool(false);
+			disableBoost = settings["dsb"].Bool(false);
 
 			SpawnProjectile = (entity, item) => {
 				var bad = entity is Creature c && !c.IsFriendly();
@@ -109,6 +111,7 @@ namespace BurningKnight.entity.item.use {
 
 					var antiAngle = angle - (float) Math.PI;
 					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage, Item);
+					projectile.Boost = !disableBoost;
 
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
@@ -118,7 +121,6 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					projectile.FlashTimer = 0.05f;
-					projectile.Color = bad ? ProjectileColor.Red : ProjectileColor.Yellow;
 
 					if (range > 0.01f) {
 						if (Math.Abs(projectile.Range - (-1)) < 0.1f) {
@@ -194,6 +196,7 @@ namespace BurningKnight.entity.item.use {
 
 				root.InputFloat("Min Speed", "speed", 10);
 				root.InputFloat("Max Speed", "speedm", 10);
+				root.Checkbox("Disable Boost", "dsb", false);
 
 				ImGui.Separator();
 				

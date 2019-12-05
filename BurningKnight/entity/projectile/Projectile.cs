@@ -43,7 +43,8 @@ namespace BurningKnight.entity.projectile {
 		public static Color BlueLight = new Color(0.6f, 0.6f, 1f, 1f);
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
-		
+
+		public bool Boost = true;
 		public ProjectilePattern Pattern;
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
@@ -93,6 +94,12 @@ namespace BurningKnight.entity.projectile {
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
 			projectile.AddComponent(graphics);
+
+			if (graphics.Sprite == null) {
+				Log.Error($"Not found projectile slice {slice}");
+				projectile.Done = true;
+				return projectile;
+			}
 			
 			owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = owner,
@@ -201,7 +208,7 @@ namespace BurningKnight.entity.projectile {
 				Break();
 			}
 
-			if (Owner is Player) {
+			if (Boost && Owner is Player) {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 		}

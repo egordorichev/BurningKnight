@@ -22,8 +22,14 @@ namespace BurningKnight.entity.projectile {
 				Flash = CommonAse.Particles.GetSlice("flash");
 			}
 
-			Aura = Animations.Get(image).GetSlice($"{slice}_aura", false);
-			Light = Animations.Get(image).GetSlice($"{slice}_light", false);
+			var a = Animations.Get(image);
+			
+			Aura = a.GetSlice($"{slice}_aura", false);
+			Light = a.GetSlice($"{slice}_light", false);
+		}
+
+		public override void Init() {
+			base.Init();
 
 			if (Light == null) {
 				((Projectile) Entity).Color = ColorUtils.WhiteColor;
@@ -45,15 +51,29 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			var d = p.Dying || (p.IndicateDeath && p.NearingDeath);
-
+			var started = false;
+			
 			if (!d) {
 				// fixme: p.Effect.GetColor()
 				Graphics.Color = p.Color;
+			} else if (Light == null) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(1f);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				
+				started = true;
 			}
 			
 			Graphics.Render(spr, Entity.Center, a, or, scale);
 			Graphics.Color = ColorUtils.WhiteColor;
 
+			if (started) {
+				Shaders.End();
+			}
+			
 			if (!b && Light != null) {
 				Graphics.Render(Light, Entity.Center, a, or, scale);
 			}
