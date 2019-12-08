@@ -168,8 +168,7 @@ namespace BurningKnight.level {
 			}
 			
 			TombRoom.Insert(rooms);
-			
-			LevelSave.BiomeGenerated.ModifyRooms(rooms);
+			biome.ModifyRooms(rooms);
 			
 			return rooms;
 		}

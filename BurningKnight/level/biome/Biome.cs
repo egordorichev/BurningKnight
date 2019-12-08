@@ -45,6 +45,10 @@ namespace BurningKnight.level.biome {
 			return false;
 		}
 
+		public virtual void Apply() {
+			
+		}
+
 		public virtual void ModifyPainter(Painter painter) {
 			
 		}
@@ -66,6 +70,10 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual bool HasTorches() {
+			return true;
+		}
+
+		public virtual bool HasSpikes() {
 			return true;
 		}
 

@@ -73,10 +73,10 @@ namespace BurningKnight.level.tile {
 					WallAExtensions[2] = new TextureRegion(anim.Texture, new Rectangle(208, 24, 16, 8));
 					WallAExtensions[3] = new TextureRegion(anim.Texture, new Rectangle(200, 8, 8, 16));
 				} else {
-					WallAExtensions[0] = new TextureRegion(anim.Texture, new Rectangle(208, 40, 16, 8));
-					WallAExtensions[1] = new TextureRegion(anim.Texture, new Rectangle(224, 48, 8, 16));
-					WallAExtensions[2] = new TextureRegion(anim.Texture, new Rectangle(208, 64, 16, 8));
-					WallAExtensions[3] = new TextureRegion(anim.Texture, new Rectangle(200, 48, 8, 16));
+					WallBExtensions[0] = new TextureRegion(anim.Texture, new Rectangle(208, 40, 16, 8));
+					WallBExtensions[1] = new TextureRegion(anim.Texture, new Rectangle(224, 48, 8, 16));
+					WallBExtensions[2] = new TextureRegion(anim.Texture, new Rectangle(208, 64, 16, 8));
+					WallBExtensions[3] = new TextureRegion(anim.Texture, new Rectangle(200, 48, 8, 16));
 				}
 				
 				for (int i = 0; i < 12; i++) {

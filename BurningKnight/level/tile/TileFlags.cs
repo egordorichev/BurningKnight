@@ -66,6 +66,10 @@ namespace BurningKnight.level.tile {
 			return false;
 		}
 
+		public static bool IsPassable(this Tile tile) {
+			return Matches(tile, Passable);
+		}
+		
 		public static bool IsWall(this Tile tile) {
 			return IsSimpleWall(tile) || tile == Tile.Piston;
 		}
@@ -77,7 +81,6 @@ namespace BurningKnight.level.tile {
 		public static bool IsSimpleWall(this Tile tile) {
 			return tile == Tile.WallA || tile == Tile.WallB || tile == Tile.Crack || tile == Tile.Planks || tile == Tile.Transition || tile == Tile.GrannyWall || tile == Tile.EvilWall;
 		}
-		
 		
 		public static bool IsHalfWall(this Tile tile) {
 			return tile == Tile.Rock || tile == Tile.TintedRock || tile == Tile.MetalBlock;

@@ -125,6 +125,8 @@ namespace BurningKnight.level {
 					Tileset.Tiles[(int) Tile.EvilWall] = Tileset.Tiles[(int) Tile.WallA];
 					Tileset.Tiles[(int) Tile.GrannyWall] = Tileset.Tiles[(int) Tile.WallA];
 				}
+
+				Biome.Apply();
 			}
 		}
 
@@ -637,19 +639,42 @@ namespace BurningKnight.level {
 						}
 					}
 
-					if (tl.IsWall() || tl == Tile.PistonDown) {
+					if (tl != Tile.Transition && (tl.IsWall() || tl == Tile.PistonDown)) {
 						var v = Variants[index];
+						var ar = Tileset.WallAExtensions;
+						
+						switch (tl) {
+							case Tile.WallB: {
+								ar = Tileset.WallBExtensions;
+								break;
+							}
+							
+							case Tile.Planks: {
+								ar = Tilesets.Biome.PlanksExtensions;
+								break;
+							}
+							
+							case Tile.GrannyWall: {
+								ar = Tilesets.Biome.GrannyExtensions;
+								break;
+							}
+							
+							case Tile.EvilWall: {
+								ar = Tilesets.Biome.EvilExtensions;
+								break;
+							}
+						}
 
 						if (!BitHelper.IsBitSet(v, 1)) {
-							Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 + 9));
+							Graphics.Render(ar[1], new Vector2(x * 16 + 16, y * 16 + 9));
 						}
 
 						if (!BitHelper.IsBitSet(v, 2)) {
-							Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 + 16 + 8));
+							Graphics.Render(ar[2], new Vector2(x * 16, y * 16 + 16 + 8));
 						}
 
 						if (!BitHelper.IsBitSet(v, 3)) {
-							Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 + 9));
+							Graphics.Render(ar[3], new Vector2(x * 16 - 8, y * 16 + 9));
 						}
 					}
 					
@@ -1244,21 +1269,47 @@ namespace BurningKnight.level {
 						}
 					}
 				}
-				
-				if (!BitHelper.IsBitSet(v, 0)) {
-					Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
-				}
 
-				if (!BitHelper.IsBitSet(v, 1)) {
-					Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
-				}
+				if (t != Tile.Transition) {
+					var ar = Tileset.WallAExtensions;
 
-				if (!BitHelper.IsBitSet(v, 2)) {
-					Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
-				}
+					switch (t) {
+						case Tile.WallB: {
+							ar = Tileset.WallBExtensions;
+							break;
+						}
+							
+						case Tile.Planks: {
+							ar = Tilesets.Biome.PlanksExtensions;
+							break;
+						}
+							
+						case Tile.GrannyWall: {
+							ar = Tilesets.Biome.GrannyExtensions;
+							break;
+						}
+							
+						case Tile.EvilWall: {
+							ar = Tilesets.Biome.EvilExtensions;
+							break;
+						}
+					}
+					
+					if (!BitHelper.IsBitSet(v, 0)) {
+						Graphics.Render(ar[0], new Vector2(x * 16, y * 16 - m - 8));
+					}
 
-				if (!BitHelper.IsBitSet(v, 3)) {
-					Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
+					if (!BitHelper.IsBitSet(v, 1)) {
+						Graphics.Render(ar[1], new Vector2(x * 16 + 16, y * 16 - m));
+					}
+
+					if (!BitHelper.IsBitSet(v, 2)) {
+						Graphics.Render(ar[2], new Vector2(x * 16, y * 16 - m + 16));
+					}
+
+					if (!BitHelper.IsBitSet(v, 3)) {
+						Graphics.Render(ar[3], new Vector2(x * 16 - 8, y * 16 - m));
+					}
 				}
 			}
 		}
