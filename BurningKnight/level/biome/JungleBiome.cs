@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.assets.lighting;
+using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
@@ -33,6 +34,10 @@ namespace BurningKnight.level.biome {
 					l.Tiles[i] = (byte) f;
 				}
 			});
+		}
+
+		public override Builder GetBuilder() {
+			return new LineBuilder();
 		}
 
 		public override int GetNumRegularRooms() {

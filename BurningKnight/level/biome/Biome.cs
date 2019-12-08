@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -55,6 +56,20 @@ namespace BurningKnight.level.biome {
 
 		public virtual void ModifyRooms(List<RoomDef> rooms) {
 			
+		}
+
+		public virtual Builder GetBuilder() {
+			var R = Rnd.Float();
+
+			if (R < 0.33f) {
+				return new LineBuilder();
+			}
+
+			if (R < 0.66f) {
+				return new LoopBuilder();
+			}
+			
+			return new CastleBuilder();
 		}
 
 		public virtual Tile GetFilling() {

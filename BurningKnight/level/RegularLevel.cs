@@ -114,6 +114,8 @@ namespace BurningKnight.level {
 				Log.Info("Prepare for the final!");
 			}
 			
+			Log.Info($"Generating a level for {biome.Id} biome");
+			
 			rooms.Add(new EntranceRoom());
 
 			var regular = final ? 0 : biome.GetNumRegularRooms();
@@ -181,18 +183,8 @@ namespace BurningKnight.level {
 			if (IsFinal()) {
 				return new LineBuilder();
 			}
-			
-			var R = Rnd.Float();
 
-			if (R < 0.33f) {
-				return new LineBuilder();
-			}
-
-			if (R < 0.66f) {
-				return new LoopBuilder();
-			}
-			
-			return new CastleBuilder();
+			return LevelSave.BiomeGenerated.GetBuilder();
 		}
 
 		protected int GetNumConnectionRooms() {

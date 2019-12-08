@@ -77,7 +77,7 @@ namespace BurningKnight.level.rooms.regular {
 			Pass((x, y) => {
 				var t = level.Get(x, y);
 				
-				if (t == Tile.FloorA && Rnd.Float() > 0.45f - (float) (Math.Cos(x / 16f) * 0.02f + Math.Cos(y / 16f) * 0.1f)) {
+				if (t == Tile.FloorA && Rnd.Float() > 0.55f - (float) (Math.Cos(x / 16f) * 0.02f + Math.Cos(y / 16f) * 0.1f)) {
 					t = Tile.WallA;
 					Painter.Set(level, x, y, t);
 				}
@@ -157,13 +157,19 @@ namespace BurningKnight.level.rooms.regular {
 
 			fill(w / 2, h / 2);
 
+			if (queue.Count == 0) {
+				Log.Error("Filled center in the jungle room!");
+				Paint(level);
+				return;
+			}
+
 			while (queue.Count > 0) {
 				var d = queue.Dequeue();
 				fill(d.X, d.Y);
 			}
 
-			if (m < w * h / 4f) {
-				Log.Error($"Too lil floor space, regenerating the jungle room ({m / (w * h) * 100f}%)");
+			if (m < w * h / 4) {
+				Log.Error($"Too lil floor space, regenerating the jungle room ({m / (w * h)}%)");
 				Paint(level);
 				return;
 			}

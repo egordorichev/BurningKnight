@@ -122,7 +122,7 @@ namespace BurningKnight.state {
 
 			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = () => {
 				Ready = true;
-				callback();
+				callback?.Invoke();
 			};
 		}
 
