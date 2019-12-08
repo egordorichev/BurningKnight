@@ -179,6 +179,14 @@ namespace BurningKnight.level.rooms.regular {
 					Painter.Set(level, x, y, array[x - Left, y - Top] == 3 ? Tile.FloorA : Tile.WallA);
 				}
 			});
+			
+			var patch = Patch.GenerateWithNoise(w, h, Rnd.Float(10000), 0.25f, 0.1f);
+			
+			Pass((x, y) => {
+				if (level.Get(x, y) == Tile.FloorA && patch[(x - Left) + (y - Top) * w]) {
+					Painter.Set(level, x, y, Tile.FloorB);
+				}
+			});
 		}
 
 		public override int GetMinWidth() {
