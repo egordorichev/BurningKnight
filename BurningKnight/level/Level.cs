@@ -1,3 +1,5 @@
+// #define ART_DEBUG
+
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
@@ -24,8 +26,8 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-
 namespace BurningKnight.level {
+	
 	public abstract class Level : SaveableEntity {
 		public const float LightMin = 0.01f;
 		public const float LightMax = 0.95f;
@@ -1465,21 +1467,37 @@ namespace BurningKnight.level {
 			
 			Graphics.Color.A = 255;
 		}
-
+		
 		private byte CalcWallIndex(int x, int y) {
-			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 12);
+			#if ART_DEBUG
+				return 0;
+			#else
+				return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 12);
+			#endif
 		}
 
 		private byte CalcWallSide(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 4);
+#endif
 		}
 
 		private byte CalcChasmIndex(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 7.417f + y * 2.12f)) % 3);
+#endif
 		}
 		
 		private byte CalcWallTopIndex(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 16.217f + y * 8.12f)) % 3);
+#endif
 		}
 
 		public virtual Tile GetFilling() {
