@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.state;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -10,7 +12,7 @@ namespace BurningKnight.level.biome {
 		public const string Library = "library";
 		public const string Desert = "desert";
 		public const string Ice = "ice";
-		public const string Forest = "forest";
+		public const string Jungle = "jungle";
 		public const string Tech = "tech";
 		
 		public readonly string Music;
@@ -53,6 +55,46 @@ namespace BurningKnight.level.biome {
 
 		public virtual Tile GetFilling() {
 			return Tile.WallA;
+		}
+
+		public virtual bool HasCobwebs() {
+			return true;
+		}
+
+		public virtual bool HasPaintings() {
+			return true;
+		}
+
+		public virtual bool HasTorches() {
+			return true;
+		}
+
+		public virtual bool HasBrekables() {
+			return true;
+		}
+
+		public virtual bool HasTnt() {
+			return true;
+		}
+
+		public virtual bool HasPlants() {
+			return false;
+		}
+		
+		public virtual int GetNumRegularRooms() {
+			return Run.Depth + 2;
+		}
+
+		public virtual int GetNumTrapRooms() {
+			return Rnd.Int(0, 2);
+		}
+
+		public virtual int GetNumSpecialRooms() {
+			return 1;
+		}
+
+		public virtual int GetNumSecretRooms() {
+			return Run.Depth <= 0 ? 0 : 1;
 		}
 	}
 }

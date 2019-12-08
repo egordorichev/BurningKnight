@@ -116,11 +116,11 @@ namespace BurningKnight.level {
 			
 			rooms.Add(new EntranceRoom());
 
-			var regular = final ? 0 : GetNumRegularRooms();
-			var special = final ? 0 : GetNumSpecialRooms();
-			var trap = final ? 0 : GetNumTrapRooms();
+			var regular = final ? 0 : biome.GetNumRegularRooms();
+			var special = final ? 0 : biome.GetNumSpecialRooms();
+			var trap = final ? 0 : biome.GetNumTrapRooms();
 			var connection = final ? 1 : GetNumConnectionRooms();
-			var secret = final ? 0 : GetNumSecretRooms();
+			var secret = final ? 0 : biome.GetNumSecretRooms();
 			
 			Log.Info($"Creating r{regular} sp{special} c{connection} sc{secret} t{trap} rooms");
 
@@ -194,22 +194,6 @@ namespace BurningKnight.level {
 			}
 			
 			return new CastleBuilder();
-		}
-
-		protected virtual int GetNumRegularRooms() {
-			return Run.Depth + 2;
-		}
-
-		protected virtual int GetNumTrapRooms() {
-			return Rnd.Int(0, 2);
-		}
-
-		protected virtual int GetNumSpecialRooms() {
-			return 1;
-		}
-
-		protected virtual int GetNumSecretRooms() {
-			return Run.Depth <= 0 ? 0 : 1;
 		}
 
 		protected int GetNumConnectionRooms() {

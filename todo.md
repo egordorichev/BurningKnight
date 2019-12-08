@@ -1,6 +1,8 @@
 # publisher build stuff
 
 * fix {
+ + projectile effect is not used anymore, color the projectile depending on the buff
+
  + bugs {
   - maximized window bug on windows
   - game sometimes doesn't exit after closing

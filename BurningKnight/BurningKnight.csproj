@@ -751,7 +751,7 @@
     <Compile Include="level\biome\BiomeRegistry.cs" />
     <Compile Include="level\biome\CastleBiome.cs" />
     <Compile Include="level\biome\DesertBiome.cs" />
-    <Compile Include="level\biome\ForestBiome.cs" />
+    <Compile Include="level\biome\JungleBiome.cs" />
     <Compile Include="level\biome\HubBiome.cs" />
     <Compile Include="level\biome\IceBiome.cs" />
     <Compile Include="level\biome\LibraryBiome.cs" />

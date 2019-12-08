@@ -616,33 +616,35 @@ namespace BurningKnight.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				// Explodable barrel
+				// Tnt
 
-				if ((Room is RegularRoom) && Rnd.Chance(20)) {
-					for (var i = 0; i < Rnd.Int(1, 4); i++) {
-						var p = Room.GetRandomDoorFreeCell();
+				if (Level.Biome.HasTnt()) {
+					if ((Room is RegularRoom) && Rnd.Chance(20)) {
+						for (var i = 0; i < Rnd.Int(1, 4); i++) {
+							var p = Room.GetRandomDoorFreeCell();
 
-						if (p != null) {
-							var barrel = new ExplodingBarrel();
-							Level.Area.Add(barrel);
-							barrel.Center = p * 16 + new Vector2(8);
+							if (p != null) {
+								var barrel = new ExplodingBarrel();
+								Level.Area.Add(barrel);
+								barrel.Center = p * 16 + new Vector2(8);
+							}
 						}
 					}
 				}
 
 				// Plants
-				/*if (Random.Chance(90)) {
+				if (Level.Biome.HasPlants()) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
-							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(5))) {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 
-								plant.Center = new Vector2(X * 16 + 8 + Random.Float(-8, 8), Y * 16 + 8 + Random.Float(-8, 8));
+								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
 							}
 						}
 					}
-				}*/
+				}
 
 				// Fireflies
 				if (Rnd.Chance(60)) {
@@ -655,7 +657,7 @@ namespace BurningKnight.level {
 				}
 
 				// Cobweb
-				if (!(Room is BossRoom)) {
+				if (!(Room is BossRoom) && Level.Biome.HasCobwebs()) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
 							if (Level.Get(X, Y).IsSimpleWall()) {
@@ -690,31 +692,38 @@ namespace BurningKnight.level {
 					continue;
 				}
 
-				// Paintings
-				for (int X = Room.Left + 1; X < Room.Right; X++) {
-					var s = Room is SecretRoom;
-					var t = Level.Get(X, Room.Top);
+				// Paintings && Torches
+				var ht = Level.Biome.HasTorches();
+				var hp = Level.Biome.HasPaintings();
+				
+				if (ht || hp) {
+					for (int X = Room.Left + 1; X < Room.Right; X++) {
+						var s = Room is SecretRoom;
+						var t = Level.Get(X, Room.Top);
 
-					if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Rnd.Chance(s ? 50 : 30)) {
-						if (!s && Rnd.Chance()) {
-							var torch = new WallTorch();
-							Level.Area.Add(torch);
-							torch.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
-							torch.CenterY = Room.Top * 16 + 13;
-						} else {
-							var painting = PaintingRegistry.Generate(Level.Biome);
-							Level.Area.Add(painting);
+						if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Rnd.Chance(s ? 50 : 30)) {
+							if (!s && Rnd.Chance()) {
+								if (ht) {
+									var torch = new WallTorch();
+									Level.Area.Add(torch);
+									torch.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
+									torch.CenterY = Room.Top * 16 + 13;
+								}
+							} else if (hp) {
+								var painting = PaintingRegistry.Generate(Level.Biome);
+								Level.Area.Add(painting);
 
-							painting.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
-							painting.Bottom = Room.Top * 16 + 17;
+								painting.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
+								painting.Bottom = Room.Top * 16 + 17;
+							}
 						}
 					}
 				}
 
-				if (Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom || Room is EntranceRoom) {
+				if (!Level.Biome.HasBrekables() || Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom || Room is EntranceRoom) {
 					continue;
 				}
-				
+
 				var types = new List<string>();
 
 				for (var i = 0; i < Rnd.Int(2, 3); i++) {

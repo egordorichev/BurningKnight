@@ -8,12 +8,17 @@ namespace BurningKnight.level.biome {
 		public static Dictionary<string, BiomeInfo> Defined = new Dictionary<string, BiomeInfo>();
 
 		static BiomeRegistry() {
+			var jungle = BiomeInfo.New<JungleBiome>(Biome.Jungle).Add(5, 1f).Add(6, 1f);
+			
+			// Just to make old levels load properly, jungle used to be called forest
+			Defined["forest"] = jungle;
+			
 			BiomeInfo[] infos = {
 				BiomeInfo.New<HubBiome>(Biome.Hub).Add(0, 1f),
 
 				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(1, 1f).Add(2, 1f).Add(-2, 1f).Add(-1, 1f),
 				BiomeInfo.New<DesertBiome>(Biome.Desert).Add(3, 1f).Add(4, 1f),
-				BiomeInfo.New<ForestBiome>(Biome.Forest).Add(5, 1f).Add(6, 1f),
+				jungle,
 				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(7, 1f).Add(8, 1f),
 				BiomeInfo.New<TechBiome>(Biome.Tech).Add(9, 1f).Add(10, 1f),
 				BiomeInfo.New<IceBiome>(Biome.Ice).Add(11, 1f).Add(12, 1f)
