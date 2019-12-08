@@ -237,43 +237,55 @@ namespace BurningKnight.level {
 							m(Level, X, Y);
 						}
 
-						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							
-							var spikes = new SensingSpikes();
+						var rs = !Level.Biome.HasSpikes();
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+						if (rs) {
+							var tl = (Tile) Level.Tiles[I];
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
+							if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
+								Level.Set(I, Tile.FloorA);
+							}
+						} else {
+							if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							var spikes = new Spikes();
+								var spikes = new SensingSpikes();
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-						
-							var trap = new FireTrap();
+								Level.Area.Add(spikes);
+							} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							trap.X = X * 16;
-							trap.Y = Y * 16;
+								var spikes = new Spikes();
 
-							Level.Area.Add(trap);
-						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							
-							var spikes = new AlwaysOnSpikes();
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+								Level.Area.Add(spikes);
+							} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.Plate) {
+								var trap = new FireTrap();
+
+								trap.X = X * 16;
+								trap.Y = Y * 16;
+
+								Level.Area.Add(trap);
+							} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
+
+								var spikes = new AlwaysOnSpikes();
+
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
+
+								Level.Area.Add(spikes);
+							}
+						}
+
+					if (Level.Tiles[I] == (byte) Tile.Plate) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
 							
 							var plate = new PreasurePlate();
