@@ -58,6 +58,10 @@ namespace BurningKnight.level.biome {
 			
 		}
 
+		public virtual bool SpawnAllMobs() {
+			return false;
+		}
+
 		public virtual Builder GetBuilder() {
 			var R = Rnd.Float();
 

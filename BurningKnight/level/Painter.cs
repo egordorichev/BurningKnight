@@ -429,22 +429,28 @@ namespace BurningKnight.level {
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
-			for (int i = 0; i < Rnd.Int(2, 6); i++) {
-				var type = mobs[Rnd.Chances(chances)];
-				var found = false;
-				
-				foreach (var t in types) {
-					if (t == type) {
-						found = true;
-						break;
-					}
-				}
+			if (level.Biome.SpawnAllMobs()) {
+				types.AddRange(mobs);
+				spawnChances.AddRange(chances);
+			} else {
+				for (int i = 0; i < Rnd.Int(2, 6); i++) {
+					var type = mobs[Rnd.Chances(chances)];
+					var found = false;
 
-				if (found) {
-					i--;
-				} else {
-					types.Add(type);
-					spawnChances.Add(type.Chance);
+					foreach (var t in types) {
+						if (t == type) {
+							found = true;
+
+							break;
+						}
+					}
+
+					if (found) {
+						i--;
+					} else {
+						types.Add(type);
+						spawnChances.Add(type.Chance);
+					}
 				}
 			}
 

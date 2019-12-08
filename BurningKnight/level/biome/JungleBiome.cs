@@ -27,7 +27,7 @@ namespace BurningKnight.level.biome {
 			painter.Modifiers.Add((l, x, y) => {
 				var f = Tiles.RandomFloor();
 				
-				if (l.Get(x, y, true) == Tile.Lava || l.Get(x, y) == Tile.Chasm) {
+				if (l.Get(x, y, true) == Tile.Lava || l.Get(x, y).Matches(Tile.Chasm, Tile.SpikeOffTmp, Tile.SpikeOnTmp, Tile.SensingSpikeTmp, Tile.FireTrapTmp)) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;
@@ -53,6 +53,10 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasSpikes() {
+			return true;
+		}
+
+		public override bool SpawnAllMobs() {
 			return true;
 		}
 
