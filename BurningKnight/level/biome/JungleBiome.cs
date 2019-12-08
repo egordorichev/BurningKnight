@@ -23,6 +23,10 @@ namespace BurningKnight.level.biome {
 
 		public override void ModifyPainter(Painter painter) {
 			base.ModifyPainter(painter);
+
+			painter.Water = 0.4f;
+			painter.Grass = 0.4f;
+			painter.Dirt = 0f;
 			
 			painter.Modifiers.Add((l, x, y) => {
 				var f = Tiles.RandomFloor();
@@ -65,6 +69,10 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasTnt() {
+			return false;
+		}
+
+		public override bool HasCobwebs() {
 			return false;
 		}
 
