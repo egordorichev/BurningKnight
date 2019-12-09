@@ -432,6 +432,7 @@
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
     <Compile Include="entity\creature\mob\jungle\BuffedFlower.cs" />
     <Compile Include="entity\creature\mob\jungle\Flower.cs" />
+    <Compile Include="entity\creature\mob\jungle\ManEater.cs" />
     <Compile Include="entity\creature\mob\jungle\Wombat.cs" />
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />

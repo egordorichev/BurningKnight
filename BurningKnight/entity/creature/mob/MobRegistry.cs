@@ -45,6 +45,7 @@ namespace BurningKnight.entity.creature.mob {
 				// FIXME: keep for depth 2 only? 
 				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
 				MobInfo.New<Wombat>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
+				MobInfo.New<ManEater>(new SpawnChance(1f, Biome.Jungle)).MarkSingle().RequiresNearWall(),
 			};
 			
 			All.AddRange(infos);

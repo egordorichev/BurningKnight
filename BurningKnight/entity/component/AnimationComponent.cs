@@ -23,6 +23,8 @@ namespace BurningKnight.entity.component {
 		public float Angle;
 		public float OriginY;
 		public float OriginX;
+		public bool AddOrigin = true;
+		public bool Centered;
 
 		public bool Flash;
 		
@@ -68,7 +70,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Render(bool shadow) {
-			var pos = Entity.Position + Offset;
+			var pos = (Centered ? Entity.Center : Entity.Position) + Offset;
 
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
@@ -185,7 +187,7 @@ namespace BurningKnight.entity.component {
 			var region = Animation.GetCurrentTexture();
 			var or = new Vector2(OriginX, shadow ? region.Height - OriginY : OriginY);
 			
-			Graphics.Render(region, pos + or, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(region, AddOrigin ? pos + or : pos, shadow ^ Flipped ? -Angle : Angle, or, Scale, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 		}
 
 		public override bool HandleEvent(Event e) {

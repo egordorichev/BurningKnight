@@ -15,6 +15,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			Become<IdleState>();
 
 			Flying = true;
+			Height = 12;
+
+			GetComponent<MobAnimationComponent>().ShadowOffset = -2;
 
 			var body = new RectBodyComponent(1, 9, 14, 1);
 			AddComponent(body);
@@ -26,7 +29,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			AddComponent(new SensorBodyComponent(1, 2, 14, 8));
 		}
 
-		#region Flower States
+		#region Wombat States
 		public class IdleState : SmartState<Wombat> {
 			public override void Init() {
 				base.Init();

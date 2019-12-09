@@ -16,6 +16,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		
 		protected override void SetStats() {
 			base.SetStats();
+
+			Width = 18;
+			Height = 21;
 			
 			AddAnimation(GetAnimation());
 			SetMaxHp(10);
