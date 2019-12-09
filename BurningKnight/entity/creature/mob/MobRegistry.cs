@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.desert;
+using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.util.math;
@@ -37,6 +38,12 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
 				MobInfo.New<MegaSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
 				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
+				
+				// Jungle
+				// FIXME: they spam too much. make them shoot only on clear line of sight
+				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
+				// FIXME: keep for depth 2 only? 
+				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
 			};
 			
 			All.AddRange(infos);

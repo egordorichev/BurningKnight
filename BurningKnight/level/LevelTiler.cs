@@ -63,7 +63,7 @@ namespace BurningKnight.level {
 			}
 
 			if (t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.EvilFloor, Tile.GrannyFloor)) {
-				if (level.Variants[index] != 0 && level.Variants[index] < 11) {
+				if (level.Variants[index] != 0 && level.Variants[index] < 16) {
 					return;
 				}
 
