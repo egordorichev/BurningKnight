@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
 using Lens.util;
@@ -11,7 +10,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			base.SetStats();
 			
 			AddAnimation("wombat");
-			SetMaxHp(8);
+			SetMaxHp(6);
 			
 			Become<IdleState>();
 
@@ -56,7 +55,6 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					return;
 				}
 
-				// fixme: velocity angle and not to player xd
 				Self.GetComponent<RectBodyComponent>().Velocity = MathUtils.CreateVector(Self.Target.AngleTo(Self), 10f);
 			}
 
@@ -66,13 +64,12 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				
 				if (sinceLast <= 0) {
 					sinceLast = 0.2f;
-					Projectile.Make(Self, "square", Self.AngleTo(Self.Target), 10, scale: 0.8f);
-
+					Projectile.Make(Self, "square", Self.GetComponent<RectBodyComponent>().Velocity.ToAngle() - Math.PI + Rnd.Float(-0.2f, 0.2f), Rnd.Float(4, 7), scale: Rnd.Float(0.4f, 0.8f));
 				}
 				
 				if (T < 5f) {
 					var body = Self.GetComponent<RectBodyComponent>();
-					body.Velocity += body.Velocity * (dt * 60);
+					body.Velocity += body.Velocity * (dt * 40);
 				} else {
 					Become<IdleState>();
 				}
