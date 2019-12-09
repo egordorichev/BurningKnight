@@ -46,6 +46,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
 				MobInfo.New<Wombat>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
 				MobInfo.New<ManEater>(new SpawnChance(1f, Biome.Jungle)).MarkSingle().RequiresNearWall(),
+				MobInfo.New<ManShooter>(new SpawnChance(1f, Biome.Jungle)).MarkSingle().RequiresNearWall(),
 			};
 			
 			All.AddRange(infos);

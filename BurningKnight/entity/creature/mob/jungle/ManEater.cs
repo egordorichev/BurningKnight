@@ -13,6 +13,10 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		private static TextureRegion stemTexture;
 		
 		private Vector2 joint;
+
+		protected virtual string GetAnimation() {
+			return "maneater";
+		}
 		
 		protected override void SetStats() {
 			base.SetStats();
@@ -24,7 +28,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				stemTexture = anim.GetSlice("stem");
 			}
 			
-			AddAnimation("maneater");
+			AddAnimation(GetAnimation());
 			SetMaxHp(20);
 			
 			Become<IdleState>();
