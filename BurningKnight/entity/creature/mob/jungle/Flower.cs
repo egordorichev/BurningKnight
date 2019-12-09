@@ -80,12 +80,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 10);
 						p.Depth = 1;
+						projectiles.Add(p);
 						
 						if (projectiles.Count == 8) {
 							second = true;
 						}
-						
-						projectiles.Add(p);
 					}
 				}
 			}
