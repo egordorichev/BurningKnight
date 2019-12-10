@@ -79,6 +79,10 @@ namespace BurningKnight.assets.items {
 				data["renderer"] = item.Renderer;
 				data["lock"] = item.Lockable;
 
+				if (item.Type == ItemType.Weapon) {
+					data["weapon"] = (int) item.WeaponType;
+				}
+
 				if (item.Lockable) {
 					data["uprice"] = item.UnlockPrice;
 				}
@@ -138,6 +142,10 @@ namespace BurningKnight.assets.items {
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)
 			};
+
+			if (data.Type == ItemType.Weapon) {
+				data.WeaponType = (WeaponType) item["weapon"].Int(0);
+			}
 
 			if (data.Lockable) {
 				data.UnlockPrice = item["uprice"];

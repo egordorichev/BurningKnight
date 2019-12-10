@@ -5,7 +5,6 @@
 * bees
 * mike wazovski
 * monekeys
-* eating plants
 * bee quieen
 * been hive
 

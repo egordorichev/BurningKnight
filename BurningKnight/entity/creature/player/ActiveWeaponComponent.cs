@@ -7,6 +7,7 @@ using BurningKnight.entity.item;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens.assets;
 using Lens.entity.component.logic;
 using Lens.input;
 
@@ -53,7 +54,6 @@ namespace BurningKnight.entity.creature.player {
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0 && GetComponent<WeaponComponent>().Item != null) {
 				stopped = false;
 				Swap();
-				Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("swap");
 			}
 
 			stopped = Input.Mouse.WheelDelta == 0;
@@ -69,6 +69,10 @@ namespace BurningKnight.entity.creature.player {
 			previous?.PutAway();
 			Item?.TakeOut();
 
+			if (Item != null && InGameState.Ready) {
+				Audio.PlaySfx(Run.Depth == -2 ? Item.Data.WeaponType.GetSwapSfx() : Item.Data.WeaponType.GetPickupSfx());
+			}
+			
 			if (Run.Depth == -2) {
 				var dialog = GetComponent<DialogComponent>();
 								

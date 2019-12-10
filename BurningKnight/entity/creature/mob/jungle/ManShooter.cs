@@ -23,17 +23,13 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				return;
 			}
 			
-			/*
-			 * todo:
-			 * shooting sound to all new the enemies
-			 * shoot tweet to all new enemies
-			 */
-
 			last -= dt;
 
 			if (last <= 0) {
 				last = 2f;
 
+				GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+				
 				var a = GetComponent<MobAnimationComponent>().Angle;
 				var p = Projectile.Make(this, "circle", a, 8f);
 

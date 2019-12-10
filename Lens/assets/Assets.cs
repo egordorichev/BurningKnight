@@ -9,7 +9,7 @@ namespace Lens.assets {
 	public static class Assets {
 #if DEBUG
 		public static bool LoadOriginalFiles = true;
-		public static bool LoadAudio = false;
+		public static bool LoadAudio = true;
 		public static bool Reload = false;
 #else
 		public static bool LoadOriginalFiles = false;

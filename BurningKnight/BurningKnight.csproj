@@ -692,6 +692,8 @@
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
+    <Compile Include="entity\item\WeaponType.cs" />
+    <Compile Include="entity\item\WeaponTypeHelper.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />

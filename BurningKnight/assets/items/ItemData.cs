@@ -19,5 +19,7 @@ namespace BurningKnight.assets.items {
 		public bool Single = true;
 		public bool Lockable;
 		public int UnlockPrice = 1;
+
+		public WeaponType WeaponType;
 	}
 }

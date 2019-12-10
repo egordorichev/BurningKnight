@@ -138,6 +138,7 @@ namespace BurningKnight.state {
 		public InGameState(Area area, bool menu) {
 			Menu = menu;
 			InMenu = menu;
+			Ready = false;
 			Input.EnableImGuiFocus = false;
 
 			Area = area;

@@ -10,6 +10,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.door {
 	public class Lock : Entity {
 		private bool locked;
+		protected bool LockedByDefault = true;
 
 		public Entity Owner;
 		public bool IsLocked => locked;
@@ -87,7 +88,11 @@ namespace BurningKnight.entity.door {
 			var state = new StateComponent();
 			AddComponent(state);
 
-			state.Become<IdleState>();
+			if (LockedByDefault) {
+				state.Become<OpenState>();
+			} else {
+				state.Become<IdleState>();
+			}
 
 			AddTag(Tags.Lock);
 		}

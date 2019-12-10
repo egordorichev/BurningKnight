@@ -79,6 +79,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 							}
 						}
 					} else {
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
 
 						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 10);

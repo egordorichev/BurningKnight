@@ -184,6 +184,18 @@
 /processorParam:Quality=Best
 /build:Sfx/item/gun/fire/2.wav
 
+#begin Sfx/item/gun/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/gun/pickup.wav
+
+#begin Sfx/item/gun/switch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/gun/switch.wav
+
 #begin Sfx/item/heart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -261,6 +273,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/sword/hit/3.wav
+
+#begin Sfx/item/sword/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/sword/pickup.wav
+
+#begin Sfx/item/sword/switch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/sword/switch.wav
 
 #begin Sfx/item/ukulele/1.wav
 /importer:WavImporter
