@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -17,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddAnimation("bandit");
-			SetMaxHp(1);
+			SetMaxHp(Run.Depth);
 			
 			Become<IdleState>();
 
@@ -57,7 +58,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				if (!fired && T >= fireDelay) {
 					fired = true;
 
-					if (Self.Target == null) {
+					if (!Self.CanSeeTarget()) {
 						return;
 					}
 

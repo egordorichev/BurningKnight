@@ -61,6 +61,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			private float angle;
 			private bool fire;
 			private float start;
+			private bool saw;
 			
 			public override void Init() {
 				base.Init();
@@ -105,6 +106,12 @@ namespace BurningKnight.entity.creature.mob.castle {
 				if (lastBullet <= 0) {
 					lastBullet = 0.3f;
 
+					if (!saw && !Self.CanSeeTarget()) {
+						return;
+					}
+
+					saw = true;
+					
 					var an = angle + Rnd.Float(-Accuracy, Accuracy) + Math.Cos(T * 6f + start) * (float) Math.PI * 0.1f;
 					var a = Self.GetComponent<MobAnimationComponent>();
 					
