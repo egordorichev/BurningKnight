@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Target == null) {
+			if (Target == null || !OnScreen) {
 				return;
 			}
 			

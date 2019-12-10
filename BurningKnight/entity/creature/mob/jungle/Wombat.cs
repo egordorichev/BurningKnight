@@ -39,7 +39,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.Target == null) {
+				if (!Self.CanSeeTarget()) {
 					T = 0;
 				} else if (T >= 5f) {
 					Become<FireState>();

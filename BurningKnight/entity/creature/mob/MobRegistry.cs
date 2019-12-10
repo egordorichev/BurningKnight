@@ -40,13 +40,12 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 				
 				// Jungle
-				// FIXME: they spam too much. make them shoot only on clear line of sight
-				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
-				// FIXME: keep for depth 2 only? 
-				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
-				MobInfo.New<Wombat>(new SpawnChance(1f, Biome.Jungle)).MarkSingle(),
-				MobInfo.New<ManEater>(new SpawnChance(1f, Biome.Jungle)).MarkSingle().RequiresNearWall(),
-				MobInfo.New<ManShooter>(new SpawnChance(1f, Biome.Jungle)).MarkSingle().RequiresNearWall(),
+				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)),
+				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)),
+				MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
+				MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
+				
+				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).DisableFirstSpawn(),
 			};
 			
 			All.AddRange(infos);

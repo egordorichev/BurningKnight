@@ -9,9 +9,11 @@ using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
+using BurningKnight.physics;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using BurningKnight.util;
@@ -353,6 +355,31 @@ namespace BurningKnight.entity.creature.mob {
 			}
 			
 			ImGui.Text($"Prefix: {(Prefix == null ? "null" : Prefix.Id)}");
+		}
+		
+		
+		private static bool RayShouldCollide(Entity entity) {
+			return entity is ProjectileLevelBody;
+		}
+
+		protected bool CanSeeTarget() {
+			if (Target == null) {
+				return false;
+			}
+			
+			var min = 1f;
+			var found = false;
+			
+			Physics.World.RayCast((fixture, point, normal, fraction) => {
+				if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
+					min = fraction;
+					found = true;
+				}
+				
+				return min;
+			}, Center, Target.Center);
+
+			return !found;
 		}
 		
 		protected void TurnToTarget() {

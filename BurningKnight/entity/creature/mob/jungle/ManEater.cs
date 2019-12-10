@@ -50,6 +50,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			a.Centered = true;
 			a.OriginX = 6.5f;
 			a.OriginY = 8;
+			a.CustomFlip = true;
 			a.AddOrigin = false;
 			
 			RemoveComponent<ShadowComponent>();
