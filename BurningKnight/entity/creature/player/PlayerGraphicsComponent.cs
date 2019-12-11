@@ -33,7 +33,7 @@ using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerGraphicsComponent : AnimationComponent {
-		private static Color AimLineColor = new Color(1f, 0f, 0f, 1f);
+		public static Color AimLineColor = new Color(1f, 0f, 0f, 1f);
 
 		private Vector2 scale = Vector2.One;
 		private Animation head;

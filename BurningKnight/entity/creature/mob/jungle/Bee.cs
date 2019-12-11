@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			var body = new RectBodyComponent(2, 9, 12, 1);
 			AddComponent(body);
 			
-			body.Body.LinearDamping = 1;
+			body.Body.LinearDamping = 0.5f;
 			body.Body.Restitution = 1;
 			body.Body.Friction = 0;
 			body.KnockbackModifier = 2.5f;
@@ -80,7 +80,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				}
 
 				var a = Self.AngleTo(lastSeen);
-				var force = 200f * dt;
+				var force = 100f * dt;
 
 				Self.GetComponent<RectBodyComponent>().Velocity +=
 					new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
