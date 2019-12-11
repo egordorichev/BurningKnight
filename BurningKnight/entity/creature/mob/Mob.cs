@@ -108,13 +108,19 @@ namespace BurningKnight.entity.creature.mob {
 				}
 
 				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
-					entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this);
+					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this)) {
+						OnHit(entity);
+					}
 				}
 			}
 
 			if (GetComponent<RoomComponent>().Room == null) {
 				Kill(null);
 			}
+		}
+
+		protected virtual void OnHit(Entity e) {
+			
 		}
 
 		public override bool HandleEvent(Event e) {
