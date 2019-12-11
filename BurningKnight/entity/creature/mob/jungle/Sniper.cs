@@ -58,7 +58,8 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			
 			public override void Init() {
 				base.Init();
-				
+
+				Self.AlwaysVisible = true; // So that the line is visible
 				Self.lastAngle = Self.AngleTo(Self.Target);
 				lastSeen = Self.Target.Center;
 			}
@@ -66,19 +67,22 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T < 5f) {
+				if (T < 3f) {
 					if (Self.CanSeeTarget()) {
+						Self.GraphicsComponent.Flipped = Self.Target.CenterX < Self.CenterX;
 						lastSeen = Self.Target.Center;
 					}
 
 					Self.lastAngle = (float) MathUtils.LerpAngle(Self.lastAngle, Self.AngleTo(lastSeen), dt * 2f);
-				} else if (T >= 6f) {
+				} else if (T >= 4f) {
 					Become<IdleState>();
 				}
 			}
 
 			public override void Destroy() {
 				base.Destroy();
+
+				Self.AlwaysVisible = false;
 				
 				if (Self.Target == null) {
 					return;
@@ -102,11 +106,12 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
 						for (var i = 0; i < 3; i++) {
-							var angle = Self.lastAngle + (i - 1) * 0.5f;
-							var projectile = Projectile.Make(Self, "rect", angle, 20f);
+							var angle = Self.lastAngle + (i - 1) * 0.1f;
+							var projectile = Projectile.Make(Self, "rect", angle, 30f);
 
-							projectile.Center += MathUtils.CreateVector(angle, 8f);
 							projectile.Spectral = true;
+							projectile.Boost = true;
+							projectile.Damage = 2;
 						}
 					};
 				};
@@ -117,7 +122,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			base.Render();
 
 			if (GetComponent<StateComponent>().StateInstance is AimState) {
-				Graphics.Batch.DrawLine(Center, new Vector2((int) (Center.X + Math.Cos(lastAngle) * Display.UiWidth), 
+				Graphics.Batch.DrawLine(Center - new Vector2(0, 2), new Vector2((int) (Center.X + Math.Cos(lastAngle) * Display.UiWidth), 
 					(int) (Center.Y + Math.Sin(lastAngle) * Display.UiWidth)), PlayerGraphicsComponent.AimLineColor, 1);
 			}
 		}

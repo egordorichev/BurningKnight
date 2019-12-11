@@ -85,6 +85,7 @@ namespace BurningKnight.entity.projectile {
 				projectile.Color = ProjectileColor.Yellow;
 			}
 
+			projectile.Boost = owner is Player;
 			projectile.Damage = damage;
 			projectile.Scale = scale;
 			projectile.Slice = slice;
@@ -208,7 +209,7 @@ namespace BurningKnight.entity.projectile {
 				Break();
 			}
 
-			if (Boost && Owner is Player) {
+			if (Boost) {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 		}
