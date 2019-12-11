@@ -48,7 +48,14 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						var a = Math.PI * 2 * (((float) i) / am) + Rnd.Float(-1f, 1f);
 						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
 						p.Color = ProjectileColor.Orange;
+						p.BounceLeft = 5;
 						p.Controller += SlowdownProjectileController.Make(0.25f);
+					}
+
+					for (var i = 0; i < Rnd.Int(4, 10); i++) {
+						var bee = new Bee();
+						Self.Area.Add(bee);
+						bee.Center = Self.Center;
 					}
 				};
 			}
