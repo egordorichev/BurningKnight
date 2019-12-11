@@ -133,7 +133,8 @@ namespace BurningKnight.level {
 			}
 			
 			if (t == Tile.WallB) {
-				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.Transition || tt == Tile.GrannyWall || tt == Tile.EvilWall;
+				// || tt == Tile.Transition 
+				return tt == Tile.WallB || tt == Tile.Planks || tt == Tile.Crack || tt == Tile.GrannyWall || tt == Tile.EvilWall;
 			}
 
 			if (t == Tile.Transition) {

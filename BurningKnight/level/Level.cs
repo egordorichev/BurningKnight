@@ -596,7 +596,13 @@ namespace BurningKnight.level {
 								#if DEBUG
 								try {
 #endif
-									Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
+									Graphics.Render(Tileset.Tiles[tile][
+#if ART_DEBUG
+										0
+#else
+										Variants[index]
+#endif
+									], pos);
 #if DEBUG
 								} catch (Exception e) {
 									var variant = Variants[index];

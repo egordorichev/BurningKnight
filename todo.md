@@ -104,7 +104,6 @@
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 
-* jungle rooms should be a tad smaller than the rest of the game?
 * special secret music with 10% chance?
 * a special reward for completing the level fast
 
