@@ -430,6 +430,7 @@
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
+    <Compile Include="entity\creature\mob\jungle\Bee.cs" />
     <Compile Include="entity\creature\mob\jungle\BuffedFlower.cs" />
     <Compile Include="entity\creature\mob\jungle\Flower.cs" />
     <Compile Include="entity\creature\mob\jungle\ManEater.cs" />
