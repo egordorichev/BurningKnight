@@ -40,6 +40,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 				
 				// Jungle
+				MobInfo.New<BeeHive>(new SpawnChance(100f, Biome.Jungle)),
 				MobInfo.New<Bee>(new SpawnChance(100f, Biome.Jungle)),
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)),
 				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)),
