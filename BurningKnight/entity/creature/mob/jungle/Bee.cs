@@ -25,9 +25,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			Flying = true;
 
 			GetComponent<MobAnimationComponent>().ShadowOffset = -2;
-
-			var body = new RectBodyComponent(2, 9, 12, 1);
-			AddComponent(body);
+			AddBody();
+			
+			var body = GetComponent<RectBodyComponent>();
 			
 			body.Body.LinearDamping = 0.5f;
 			body.Body.Restitution = 1;
@@ -35,7 +35,10 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			body.KnockbackModifier = 2.5f;
 			
 			Depth = Layers.FlyingMob;
+		}
 
+		protected virtual void AddBody() {
+			AddComponent(new RectBodyComponent(2, 9, 12, 1));		
 			AddComponent(new SensorBodyComponent(3, 4, 10, 6));
 		}
 

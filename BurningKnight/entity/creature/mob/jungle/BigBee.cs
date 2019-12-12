@@ -1,30 +1,31 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
-using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.entity.creature.mob.jungle {
-	public class Explobee : Bee {
+	public class BigBee : Bee {
 		public override void Init() {
 			base.Init();
-			Speed = 0.5f;
+			Speed = 0.25f;
 		}
 
 		protected override string GetAnimation() {
-			return "explobee";
+			return "bigbee";
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
-			ExplosionMaker.Make(this);
+			for (var i = 0; i < Rnd.Int(2, 5); i++) {
+				var bee = new Bee();
+				Area.Add(bee);
+				bee.Center = Center;
+			}
+			
 			return base.HandleDeath(d);
 		}
 
-		protected override void OnHit(Entity e) {
-			// No slowness debuffs
-		}
-
 		protected override void AddBody() {
-			AddComponent(new RectBodyComponent(2, 9, 12, 1));		
-			AddComponent(new SensorBodyComponent(3, 4, 8, 8));
+			AddComponent(new RectBodyComponent(2, 17, 19, 1));		
+			AddComponent(new SensorBodyComponent(2, 4, 19, 13));
 		}
 	}
 }

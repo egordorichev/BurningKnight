@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					}
 
 					for (var i = 0; i < Rnd.Int(4, 10); i++) {
-						var bee = new Bee();
+						var bee = GenerateBee();
 						Self.Area.Add(bee);
 						bee.Center = Self.Center;
 					}
@@ -61,6 +61,18 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			}
 		}
 		#endregion
+
+		public static Bee GenerateBee() {
+			var r = Rnd.Float();
+
+			if (r < 0.2f) {
+				return new Explobee();
+			} else if (r < 0.3f) {
+				return new BigBee();
+			}
+
+			return new Bee();
+		}
 
 		protected override bool HandleDeath(DiedEvent d) {
 			Become<FallingState>();
