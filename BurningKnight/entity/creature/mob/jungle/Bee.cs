@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.jungle {
 	public class Bee : Mob {
+		protected float Speed = 1f;
+	
 		protected virtual string GetAnimation() {
 			return "bee";
 		}
@@ -80,7 +82,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				}
 
 				var a = Self.AngleTo(lastSeen);
-				var force = 100f * dt;
+				var force = 50f * dt * Self.Speed;
 
 				Self.GetComponent<RectBodyComponent>().Velocity +=
 					new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);

@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.mob {
 				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<WallCrawler>(new SpawnChance(0.5f, Biome.Castle)).RequiresNearWall(),
-				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
+				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Castle, Biome.Desert, Biome.Jungle)),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),
 				
@@ -40,9 +40,10 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 				
 				// Jungle
-				MobInfo.New<Sniper>(new SpawnChance(1000f, Biome.Jungle)),
-				MobInfo.New<BeeHive>(new SpawnChance(100f, Biome.Jungle)),
-				MobInfo.New<Bee>(new SpawnChance(100f, Biome.Jungle)),
+				MobInfo.New<Sniper>(new SpawnChance(1f, Biome.Jungle)),
+				MobInfo.New<BeeHive>(new SpawnChance(0.5f, Biome.Jungle)),
+				MobInfo.New<Bee>(new SpawnChance(0.3f, Biome.Jungle)),
+				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)),
 				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)),
 				MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),

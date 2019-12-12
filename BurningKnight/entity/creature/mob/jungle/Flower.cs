@@ -51,7 +51,15 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		public class FireState : SmartState<Flower> {
 			private List<Projectile> projectiles = new List<Projectile>();
 			private bool second;
-			
+
+			public override void Destroy() {
+				base.Destroy();
+
+				foreach (var p in projectiles) {
+					p.Break();
+				}
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 

@@ -433,6 +433,7 @@
     <Compile Include="entity\creature\mob\jungle\Bee.cs" />
     <Compile Include="entity\creature\mob\jungle\BeeHive.cs" />
     <Compile Include="entity\creature\mob\jungle\BuffedFlower.cs" />
+    <Compile Include="entity\creature\mob\jungle\Explobee.cs" />
     <Compile Include="entity\creature\mob\jungle\Flower.cs" />
     <Compile Include="entity\creature\mob\jungle\ManEater.cs" />
     <Compile Include="entity\creature\mob\jungle\ManShooter.cs" />
