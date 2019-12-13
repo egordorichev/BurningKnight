@@ -691,6 +691,24 @@ namespace BurningKnight.state {
 				return;
 			}
 
+			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
+				if (Input.Keyboard.WasPressed(Keys.D0)) {
+					Run.Depth = 0;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D1)) {
+					Run.Depth = 1;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D2)) {
+					Run.Depth = 3;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D3)) {
+					Run.Depth = 5;
+				}
+			}
+
 			if (Input.WasPressed(Controls.Fps)) {
 				Settings.ShowFps = !Settings.ShowFps;
 			}

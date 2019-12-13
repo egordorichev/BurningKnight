@@ -329,6 +329,7 @@
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\PoolEditor.cs" />
     <Compile Include="debug\SaveCommand.cs" />
+    <Compile Include="debug\SpawnCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\ArmoredBuff.cs" />
