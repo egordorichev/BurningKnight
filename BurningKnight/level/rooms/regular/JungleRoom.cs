@@ -216,7 +216,7 @@ namespace BurningKnight.level.rooms.regular {
 		}
 
 		public override float GetWeightModifier() {
-			return 0.3f;
+			return 0.5f;
 		}
 	}
 }

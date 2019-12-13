@@ -790,6 +790,12 @@
 /processorParam:Quality=Best
 /build:Sfx/npc/voice/3.wav
 
+#begin Sfx/npc/voice/30.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/voice/30.wav
+
 #begin Sfx/npc/voice/4.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
