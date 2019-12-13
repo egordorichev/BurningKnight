@@ -1,6 +1,5 @@
 using System;
 using BurningKnight.ui.editor;
-using Lens;
 using Lens.entity;
 using Lens.util;
 
@@ -18,9 +17,10 @@ namespace BurningKnight.debug {
 			}
 
 			var name = Args[0];
+			var small = name.ToLower();
 
 			foreach (var type in EntityEditor.Types) {
-				if (type.Name == name) {
+				if (type.Name.ToLower() == small) {
 					try {
 						var entity = (Entity) Activator.CreateInstance(type.Type);
 						Console.GameArea.Add(entity);
