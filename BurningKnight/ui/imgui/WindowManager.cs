@@ -5,6 +5,7 @@ using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.room;
+using BurningKnight.level.rooms.regular;
 using BurningKnight.save;
 using BurningKnight.state;
 using ImGuiNET;
@@ -43,7 +44,7 @@ namespace BurningKnight.ui.imgui {
 				ImGui.End();
 				return;
 			}
-
+			
 			var v = AudioEmitterComponent.PositionScale * 100;
 			ImGui.InputFloat("Position scale", ref v);
 			AudioEmitterComponent.PositionScale = v / 100;

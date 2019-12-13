@@ -1,4 +1,23 @@
-# publisher build stuff
+# jungle 
+
+* enemies {
+ + mike
+ + horror 
+ + white eyes
+ + bee hive needs a support, probs a tree
+ + too much overall hp, too many enemies per room
+}
+
+* misc {
+ + actual hive gen on lvl 2
+ + trees?
+}
+
+* fix {
+ + projectile effect is not used anymore, color the projectile depending on the buff
+}
+
+# todo
 
 * fix {
  + bugs {
@@ -102,7 +121,6 @@
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 
-* jungle rooms should be a tad smaller than the rest of the game?
 * special secret music with 10% chance?
 * a special reward for completing the level fast
 

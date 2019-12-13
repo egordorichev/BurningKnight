@@ -50,6 +50,13 @@ namespace BurningKnight.state {
 			"pouch"
 		};
 
+		// Keep in sync with the WeaponType enum!!!
+		public static string[] WeaponTypes = {
+			"melee",
+			"ranged",
+			"magic"
+		};
+
 		private static int toRemove = -1;
 
 		public static void DisplayUse(JsonValue parent, JsonValue root, string useId = null) {
@@ -366,6 +373,14 @@ namespace BurningKnight.state {
 
 			if (ImGui.Combo("Type", ref type, Types, Types.Length)) {
 				Selected.Type = (ItemType) type;
+			}
+
+			if (Selected.Type == ItemType.Weapon) {
+				type = (int) Selected.WeaponType;
+
+				if (ImGui.Combo("Weapon Type", ref type, WeaponTypes, WeaponTypes.Length)) {
+					Selected.WeaponType = (WeaponType) type;
+				}
 			}
 
 			var t = Selected.Type;

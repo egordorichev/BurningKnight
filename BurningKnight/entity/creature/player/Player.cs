@@ -396,13 +396,13 @@ namespace BurningKnight.entity.creature.player {
 					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
 				}
 
-				if (c.Old != null) {
+				/*if (c.Old != null) {
 					Camera.Instance.Unfollow(c.Old);
 				}
 
 				if (c.New != null && c.New.Tagged[Tags.MustBeKilled].Count > 0) {
 					Camera.Instance.Follow(c.New, 0.3f);
-				}
+				}*/
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {

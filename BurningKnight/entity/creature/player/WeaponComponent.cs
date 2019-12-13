@@ -8,6 +8,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.util;
 
@@ -108,6 +109,8 @@ namespace BurningKnight.entity.creature.player {
 				if (!AtBack) {
 					component.Item?.PutAway();
 					Item?.TakeOut();
+					
+					Audio.PlaySfx(Item == null ? "swap" : Item.Data.WeaponType.GetSwapSfx());
 				} else {
 					Log.Error("Swap is called from not active weapon component");
 				}

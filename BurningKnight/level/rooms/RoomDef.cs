@@ -261,22 +261,22 @@ namespace BurningKnight.level.rooms {
 					}
 				}
 
-				if (dot.X + 1 < Right && !Run.Level.Get((int) dot.X + 1, (int) dot.Y).IsWall()) {
+				if (dot.X + 1 < Right && Run.Level.Get((int) dot.X + 1, (int) dot.Y).IsPassable()) {
 					Busy.Add(dot);
 					return new Dot(dot.X + 1, dot.Y);
 				}
 				
-				if (dot.X - 1 > Left && !Run.Level.Get((int) dot.X - 1, (int) dot.Y).IsWall()) {
+				if (dot.X - 1 > Left && Run.Level.Get((int) dot.X - 1, (int) dot.Y).IsPassable()) {
 					Busy.Add(dot);
 					return new Dot(dot.X - 1, dot.Y);
 				}
 				
-				if (dot.Y + 1 < Bottom && !Run.Level.Get((int) dot.X, (int) dot.Y + 1).IsWall()) {
+				if (dot.Y + 1 < Bottom && Run.Level.Get((int) dot.X, (int) dot.Y + 1).IsPassable()) {
 					Busy.Add(dot);
 					return new Dot(dot.X, dot.Y + 1);
 				}
 				
-				if (dot.X - 1 > Top && !Run.Level.Get((int) dot.X, (int) dot.Y - 1).IsWall()) {
+				if (dot.X - 1 > Top && Run.Level.Get((int) dot.X, (int) dot.Y - 1).IsPassable()) {
 					Busy.Add(dot);
 					return new Dot(dot.X, dot.Y - 1);
 				}
@@ -674,6 +674,10 @@ namespace BurningKnight.level.rooms {
 
 		public virtual bool ConvertToEntity() {
 			return true;
+		}
+
+		public virtual float GetWeightModifier() {
+			return 1f;
 		}
 	}
 }

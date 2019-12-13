@@ -34,7 +34,8 @@ namespace BurningKnight.debug {
 		
 		public Console(Area area) {
 			GameArea = area;
-			
+
+			commands.Add(new SpawnCommand());
 			commands.Add(new GiveCommand());
 			commands.Add(new HealCommand());
 			commands.Add(new GodModeCommand());

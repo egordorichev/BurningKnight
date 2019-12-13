@@ -30,9 +30,9 @@ namespace BurningKnight.assets.lighting {
 		private static BlendState messBlend;
 		
 		public static void Init() {
-			var v = Run.Depth == 0 ? 1 : 0.2f;
+			var v = Run.Depth == 0 ? 1 : 0.25f;
 			
-			clearColor = new Color(v, v, v, 1f);
+			ClearColor = new Color(v, v, v, 1f);
 			
 			if (region == null) {
 				region = Textures.Get("light");
@@ -108,7 +108,7 @@ namespace BurningKnight.assets.lighting {
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
 
-			Graphics.Clear(clearColor);
+			Graphics.Clear(ClearColor);
 
 			foreach (var light in lights) {
 				Graphics.Color = light.Color;
@@ -156,7 +156,7 @@ namespace BurningKnight.assets.lighting {
 		private static int surfaceBlendId = 5;
 		public static float RadiusMod = 1;
 		public static bool EnableFog = true;
-		private static Color clearColor;
+		public static Color ClearColor;
 
 		private static BlendState lightBlend = BlendState.Additive;
 		private static int lightBlendId = 0;
@@ -205,10 +205,10 @@ namespace BurningKnight.assets.lighting {
 				lightBlend = BlendIdToBlend(lightBlendId);
 			}
 			
-			var c = new System.Numerics.Vector4(clearColor.R / 255f, clearColor.G / 255f, clearColor.B / 255f, clearColor.A / 255f);
+			var c = new System.Numerics.Vector4(ClearColor.R / 255f, ClearColor.G / 255f, ClearColor.B / 255f, ClearColor.A / 255f);
 
 			if (ImGui.InputFloat4("Color", ref c)) {
-				clearColor = new Color(c.X, c.Y, c.Z, c.W);
+				ClearColor = new Color(c.X, c.Y, c.Z, c.W);
 			}
 			
 			ImGui.End();

@@ -1,3 +1,5 @@
+// #define ART_DEBUG
+
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
@@ -125,6 +127,8 @@ namespace BurningKnight.level {
 					Tileset.Tiles[(int) Tile.EvilWall] = Tileset.Tiles[(int) Tile.WallA];
 					Tileset.Tiles[(int) Tile.GrannyWall] = Tileset.Tiles[(int) Tile.WallA];
 				}
+
+				Biome.Apply();
 			}
 		}
 
@@ -592,7 +596,13 @@ namespace BurningKnight.level {
 								#if DEBUG
 								try {
 #endif
-									Graphics.Render(Tileset.Tiles[tile][Variants[index]], pos);
+									Graphics.Render(Tileset.Tiles[tile][
+#if ART_DEBUG
+										0
+#else
+										Variants[index]
+#endif
+									], pos);
 #if DEBUG
 								} catch (Exception e) {
 									var variant = Variants[index];
@@ -637,19 +647,42 @@ namespace BurningKnight.level {
 						}
 					}
 
-					if (tl.IsWall() || tl == Tile.PistonDown) {
+					if (tl != Tile.Transition && (tl.IsWall() || tl == Tile.PistonDown)) {
 						var v = Variants[index];
+						var ar = Tileset.WallAExtensions;
+						
+						switch (tl) {
+							case Tile.WallB: {
+								ar = Tileset.WallBExtensions;
+								break;
+							}
+							
+							case Tile.Planks: {
+								ar = Tilesets.Biome.PlanksExtensions;
+								break;
+							}
+							
+							case Tile.GrannyWall: {
+								ar = Tilesets.Biome.GrannyExtensions;
+								break;
+							}
+							
+							case Tile.EvilWall: {
+								ar = Tilesets.Biome.EvilExtensions;
+								break;
+							}
+						}
 
 						if (!BitHelper.IsBitSet(v, 1)) {
-							Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 + 9));
+							Graphics.Render(ar[1], new Vector2(x * 16 + 16, y * 16 + 9));
 						}
 
 						if (!BitHelper.IsBitSet(v, 2)) {
-							Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 + 16 + 8));
+							Graphics.Render(ar[2], new Vector2(x * 16, y * 16 + 16 + 8));
 						}
 
 						if (!BitHelper.IsBitSet(v, 3)) {
-							Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 + 9));
+							Graphics.Render(ar[3], new Vector2(x * 16 - 8, y * 16 + 9));
 						}
 					}
 					
@@ -1244,21 +1277,47 @@ namespace BurningKnight.level {
 						}
 					}
 				}
-				
-				if (!BitHelper.IsBitSet(v, 0)) {
-					Graphics.Render(Tileset.WallAExtensions[0], new Vector2(x * 16, y * 16 - m - 8));
-				}
 
-				if (!BitHelper.IsBitSet(v, 1)) {
-					Graphics.Render(Tileset.WallAExtensions[1], new Vector2(x * 16 + 16, y * 16 - m));
-				}
+				if (t != Tile.Transition) {
+					var ar = Tileset.WallAExtensions;
 
-				if (!BitHelper.IsBitSet(v, 2)) {
-					Graphics.Render(Tileset.WallAExtensions[2], new Vector2(x * 16, y * 16 - m + 16));
-				}
+					switch (t) {
+						case Tile.WallB: {
+							ar = Tileset.WallBExtensions;
+							break;
+						}
+							
+						case Tile.Planks: {
+							ar = Tilesets.Biome.PlanksExtensions;
+							break;
+						}
+							
+						case Tile.GrannyWall: {
+							ar = Tilesets.Biome.GrannyExtensions;
+							break;
+						}
+							
+						case Tile.EvilWall: {
+							ar = Tilesets.Biome.EvilExtensions;
+							break;
+						}
+					}
+					
+					if (!BitHelper.IsBitSet(v, 0)) {
+						Graphics.Render(ar[0], new Vector2(x * 16, y * 16 - m - 8));
+					}
 
-				if (!BitHelper.IsBitSet(v, 3)) {
-					Graphics.Render(Tileset.WallAExtensions[3], new Vector2(x * 16 - 8, y * 16 - m));
+					if (!BitHelper.IsBitSet(v, 1)) {
+						Graphics.Render(ar[1], new Vector2(x * 16 + 16, y * 16 - m));
+					}
+
+					if (!BitHelper.IsBitSet(v, 2)) {
+						Graphics.Render(ar[2], new Vector2(x * 16, y * 16 - m + 16));
+					}
+
+					if (!BitHelper.IsBitSet(v, 3)) {
+						Graphics.Render(ar[3], new Vector2(x * 16 - 8, y * 16 - m));
+					}
 				}
 			}
 		}
@@ -1414,21 +1473,37 @@ namespace BurningKnight.level {
 			
 			Graphics.Color.A = 255;
 		}
-
+		
 		private byte CalcWallIndex(int x, int y) {
-			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 12);
+			#if ART_DEBUG
+				return 0;
+			#else
+				return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 12);
+			#endif
 		}
 
 		private byte CalcWallSide(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 3.5f + y * 2.74f)) % 4);
+#endif
 		}
 
 		private byte CalcChasmIndex(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 7.417f + y * 2.12f)) % 3);
+#endif
 		}
 		
 		private byte CalcWallTopIndex(int x, int y) {
+#if ART_DEBUG
+				return 0;
+#else
 			return (byte) (((int) Math.Round(x * 16.217f + y * 8.12f)) % 3);
+#endif
 		}
 
 		public virtual Tile GetFilling() {

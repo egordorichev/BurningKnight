@@ -9,9 +9,9 @@ using Lens.util.math;
 
 namespace BurningKnight.state {
 	public static class Run {
-		public const int ContentEndDepth = 5;
+		public const int ContentEndDepth = 7;
 
-		private static int depth = BK.Version.Dev ? 1 : 0;
+		private static int depth = BK.Version.Dev ? 5 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;

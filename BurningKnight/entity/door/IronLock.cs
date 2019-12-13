@@ -10,6 +10,10 @@ namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
 		protected List<Room> rooms = new List<Room>();
 
+		public IronLock() {
+			LockedByDefault = false;
+		}
+
 		public void CalcRooms() {
 			rooms.Clear();
 			

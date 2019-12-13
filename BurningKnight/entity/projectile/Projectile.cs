@@ -85,6 +85,7 @@ namespace BurningKnight.entity.projectile {
 				projectile.Color = ProjectileColor.Yellow;
 			}
 
+			projectile.Boost = owner is Player;
 			projectile.Damage = damage;
 			projectile.Scale = scale;
 			projectile.Slice = slice;
@@ -208,7 +209,7 @@ namespace BurningKnight.entity.projectile {
 				Break();
 			}
 
-			if (Boost && Owner is Player) {
+			if (Boost) {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 		}
@@ -251,8 +252,12 @@ namespace BurningKnight.entity.projectile {
 			if (CanHitOwner && entity == Owner) {
 				return true;
 			}
+
+			if (entity is Creature && Owner is Mob == entity is Mob) {
+				return false;
+			}
 			
-			return (!(entity is Creature || entity is Level) || Owner is Mob != entity is Mob) && 
+			return (!(entity is Creature || entity is Level)) && 
 			       (BreaksFromWalls && IsWall(entity))
 			        || entity.HasComponent<HealthComponent>();
 		}

@@ -122,7 +122,7 @@ namespace BurningKnight.state {
 
 			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn).OnEnd = () => {
 				Ready = true;
-				callback();
+				callback?.Invoke();
 			};
 		}
 
@@ -138,6 +138,7 @@ namespace BurningKnight.state {
 		public InGameState(Area area, bool menu) {
 			Menu = menu;
 			InMenu = menu;
+			Ready = false;
 			Input.EnableImGuiFocus = false;
 
 			Area = area;
@@ -688,6 +689,24 @@ namespace BurningKnight.state {
 				Run.NextDepth = Run.Depth;
 
 				return;
+			}
+
+			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
+				if (Input.Keyboard.WasPressed(Keys.D0)) {
+					Run.Depth = 0;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D1)) {
+					Run.Depth = 1;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D2)) {
+					Run.Depth = 3;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D3)) {
+					Run.Depth = 5;
+				}
 			}
 
 			if (Input.WasPressed(Controls.Fps)) {

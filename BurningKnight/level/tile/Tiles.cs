@@ -1,3 +1,5 @@
+using BurningKnight.save;
+using BurningKnight.state;
 using Lens.util.math;
 
 namespace BurningKnight.level.tile {
@@ -18,7 +20,7 @@ namespace BurningKnight.level.tile {
 		}
 		
 		public static Tile RandomFloorOrSpike() {
-			return lastFloor = Rnd.Chance(20) ? Tile.SensingSpikeTmp : Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
+			return lastFloor = (LevelSave.BiomeGenerated?.HasSpikes() ?? true) && Rnd.Chance(20) ? Tile.SensingSpikeTmp : Pick(Tile.FloorA, Tile.FloorB, Tile.FloorC);
 		}
 		
 		public static Tile RandomWall() {
@@ -26,7 +28,7 @@ namespace BurningKnight.level.tile {
 		}
 		
 		public static Tile RandomSolid() {
-			return lastWall = Pick(Tile.WallA, Tile.Rock, Tile.MetalBlock, Tile.Planks, Tile.Lava, Tile.Planks, Tile.SensingSpikeTmp);
+			return lastWall = Pick(Tile.WallA, Tile.Rock, Tile.MetalBlock, Tile.Planks, Tile.Lava, Tile.Planks, (LevelSave.BiomeGenerated?.HasSpikes() ?? true) ? Tile.SensingSpikeTmp : Tile.WallA);
 		}
 		
 		public static Tile RandomFillWall() {

@@ -237,43 +237,55 @@ namespace BurningKnight.level {
 							m(Level, X, Y);
 						}
 
-						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							
-							var spikes = new SensingSpikes();
+						var rs = !Level.Biome.HasSpikes();
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+						if (rs) {
+							var tl = (Tile) Level.Tiles[I];
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
+							if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
+								Level.Set(I, Tile.FloorA);
+							}
+						} else {
+							if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							var spikes = new Spikes();
+								var spikes = new SensingSpikes();
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-						
-							var trap = new FireTrap();
+								Level.Area.Add(spikes);
+							} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							trap.X = X * 16;
-							trap.Y = Y * 16;
+								var spikes = new Spikes();
 
-							Level.Area.Add(trap);
-						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							
-							var spikes = new AlwaysOnSpikes();
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
 
-							spikes.X = X * 16;
-							spikes.Y = Y * 16;
+								Level.Area.Add(spikes);
+							} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
 
-							Level.Area.Add(spikes);
-						} else if (Level.Tiles[I] == (byte) Tile.Plate) {
+								var trap = new FireTrap();
+
+								trap.X = X * 16;
+								trap.Y = Y * 16;
+
+								Level.Area.Add(trap);
+							} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
+								Level.Tiles[I] = (byte) Tile.FloorA;
+
+								var spikes = new AlwaysOnSpikes();
+
+								spikes.X = X * 16;
+								spikes.Y = Y * 16;
+
+								Level.Area.Add(spikes);
+							}
+						}
+
+					if (Level.Tiles[I] == (byte) Tile.Plate) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
 							
 							var plate = new PreasurePlate();
@@ -417,22 +429,28 @@ namespace BurningKnight.level {
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
-			for (int i = 0; i < Rnd.Int(2, 6); i++) {
-				var type = mobs[Rnd.Chances(chances)];
-				var found = false;
-				
-				foreach (var t in types) {
-					if (t == type) {
-						found = true;
-						break;
-					}
-				}
+			if (level.Biome.SpawnAllMobs()) {
+				types.AddRange(mobs);
+				spawnChances.AddRange(chances);
+			} else {
+				for (int i = 0; i < Rnd.Int(2, 6); i++) {
+					var type = mobs[Rnd.Chances(chances)];
+					var found = false;
 
-				if (found) {
-					i--;
-				} else {
-					types.Add(type);
-					spawnChances.Add(type.Chance);
+					foreach (var t in types) {
+						if (t == type) {
+							found = true;
+
+							break;
+						}
+					}
+
+					if (found) {
+						i--;
+					} else {
+						types.Add(type);
+						spawnChances.Add(type.Chance);
+					}
 				}
 			}
 
@@ -442,7 +460,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = count / 19f + Rnd.Float(0f, 1f);
+			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier();
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);
@@ -616,33 +634,35 @@ namespace BurningKnight.level {
 
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
-				// Explodable barrel
+				// Tnt
 
-				if ((Room is RegularRoom) && Rnd.Chance(20)) {
-					for (var i = 0; i < Rnd.Int(1, 4); i++) {
-						var p = Room.GetRandomDoorFreeCell();
+				if (Level.Biome.HasTnt()) {
+					if ((Room is RegularRoom) && Rnd.Chance(20)) {
+						for (var i = 0; i < Rnd.Int(1, 4); i++) {
+							var p = Room.GetRandomDoorFreeCell();
 
-						if (p != null) {
-							var barrel = new ExplodingBarrel();
-							Level.Area.Add(barrel);
-							barrel.Center = p * 16 + new Vector2(8);
+							if (p != null) {
+								var barrel = new ExplodingBarrel();
+								Level.Area.Add(barrel);
+								barrel.Center = p * 16 + new Vector2(8);
+							}
 						}
 					}
 				}
 
 				// Plants
-				/*if (Random.Chance(90)) {
+				if (Level.Biome.HasPlants()) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
-							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Random.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Random.Chance(5))) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(5))) {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 
-								plant.Center = new Vector2(X * 16 + 8 + Random.Float(-8, 8), Y * 16 + 8 + Random.Float(-8, 8));
+								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
 							}
 						}
 					}
-				}*/
+				}
 
 				// Fireflies
 				if (Rnd.Chance(60)) {
@@ -655,7 +675,7 @@ namespace BurningKnight.level {
 				}
 
 				// Cobweb
-				if (!(Room is BossRoom)) {
+				if (!(Room is BossRoom) && Level.Biome.HasCobwebs()) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
 							if (Level.Get(X, Y).IsSimpleWall()) {
@@ -690,31 +710,38 @@ namespace BurningKnight.level {
 					continue;
 				}
 
-				// Paintings
-				for (int X = Room.Left + 1; X < Room.Right; X++) {
-					var s = Room is SecretRoom;
-					var t = Level.Get(X, Room.Top);
+				// Paintings && Torches
+				var ht = Level.Biome.HasTorches();
+				var hp = Level.Biome.HasPaintings();
+				
+				if (ht || hp) {
+					for (int X = Room.Left + 1; X < Room.Right; X++) {
+						var s = Room is SecretRoom;
+						var t = Level.Get(X, Room.Top);
 
-					if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Rnd.Chance(s ? 50 : 30)) {
-						if (!s && Rnd.Chance()) {
-							var torch = new WallTorch();
-							Level.Area.Add(torch);
-							torch.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
-							torch.CenterY = Room.Top * 16 + 13;
-						} else {
-							var painting = PaintingRegistry.Generate(Level.Biome);
-							Level.Area.Add(painting);
+						if (t != Tile.Crack && t.IsWall() && !Level.Get(X, Room.Top + 1).IsWall() && Rnd.Chance(s ? 50 : 30)) {
+							if (!s && Rnd.Chance()) {
+								if (ht) {
+									var torch = new WallTorch();
+									Level.Area.Add(torch);
+									torch.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
+									torch.CenterY = Room.Top * 16 + 13;
+								}
+							} else if (hp) {
+								var painting = PaintingRegistry.Generate(Level.Biome);
+								Level.Area.Add(painting);
 
-							painting.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
-							painting.Bottom = Room.Top * 16 + 17;
+								painting.CenterX = X * 16 + 8 + Rnd.Float(-1, 1);
+								painting.Bottom = Room.Top * 16 + 17;
+							}
 						}
 					}
 				}
 
-				if (Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom || Room is EntranceRoom) {
+				if (!Level.Biome.HasBrekables() || Room is SecretRoom || Room is TreasureRoom || Room is ConnectionRoom || Room is EntranceRoom) {
 					continue;
 				}
-				
+
 				var types = new List<string>();
 
 				for (var i = 0; i < Rnd.Int(2, 3); i++) {

@@ -329,6 +329,7 @@
     <Compile Include="debug\PassableCommand.cs" />
     <Compile Include="debug\PoolEditor.cs" />
     <Compile Include="debug\SaveCommand.cs" />
+    <Compile Include="debug\SpawnCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\buff\ArmoredBuff.cs" />
@@ -430,6 +431,16 @@
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
+    <Compile Include="entity\creature\mob\jungle\Bee.cs" />
+    <Compile Include="entity\creature\mob\jungle\BeeHive.cs" />
+    <Compile Include="entity\creature\mob\jungle\BigBee.cs" />
+    <Compile Include="entity\creature\mob\jungle\BuffedFlower.cs" />
+    <Compile Include="entity\creature\mob\jungle\Explobee.cs" />
+    <Compile Include="entity\creature\mob\jungle\Flower.cs" />
+    <Compile Include="entity\creature\mob\jungle\ManEater.cs" />
+    <Compile Include="entity\creature\mob\jungle\ManShooter.cs" />
+    <Compile Include="entity\creature\mob\jungle\Sniper.cs" />
+    <Compile Include="entity\creature\mob\jungle\Wombat.cs" />
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
@@ -687,6 +698,8 @@
     <Compile Include="entity\item\use\UseRegistry.cs" />
     <Compile Include="entity\item\util\MeleeArc.cs" />
     <Compile Include="entity\item\Weapon.cs" />
+    <Compile Include="entity\item\WeaponType.cs" />
+    <Compile Include="entity\item\WeaponTypeHelper.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
@@ -751,7 +764,7 @@
     <Compile Include="level\biome\BiomeRegistry.cs" />
     <Compile Include="level\biome\CastleBiome.cs" />
     <Compile Include="level\biome\DesertBiome.cs" />
-    <Compile Include="level\biome\ForestBiome.cs" />
+    <Compile Include="level\biome\JungleBiome.cs" />
     <Compile Include="level\biome\HubBiome.cs" />
     <Compile Include="level\biome\IceBiome.cs" />
     <Compile Include="level\biome\LibraryBiome.cs" />
@@ -848,6 +861,8 @@
     <Compile Include="level\rooms\granny\GrannyRoom.cs" />
     <Compile Include="level\rooms\oldman\OldManRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
+    <Compile Include="level\rooms\regular\HiveRoom.cs" />
+    <Compile Include="level\rooms\regular\JungleRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />

@@ -29,8 +29,8 @@ namespace BurningKnight.ui.editor {
 		private static Type copy;
 		private static Entity entity;	
 		private static int selected;
-		private static List<TypeInfo> types = new List<TypeInfo>();
 
+		public static List<TypeInfo> Types = new List<TypeInfo>();
 		public static bool SnapToGrid = true;
 		public static bool Center;
 		public static Editor Editor;
@@ -55,13 +55,13 @@ namespace BurningKnight.ui.editor {
 				.GetTypes()
 				.Where(type => pe.IsAssignableFrom(type) && type != pe && !blocked.Contains(type))) {
 
-				types.Add(new TypeInfo {
+				Types.Add(new TypeInfo {
 					Type = t,
 					Name = t.Name
 				});
 			}
 			
-			types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
+			Types.Sort((a, b) => a.GetType().FullName.CompareTo(b.GetType().FullName));
 		}
 
 		private static bool open;
@@ -187,7 +187,7 @@ namespace BurningKnight.ui.editor {
 			ImGui.BeginChild("ScrollingRegionConsole", new System.Numerics.Vector2(0, -h), 
 				false, ImGuiWindowFlags.HorizontalScrollbar);
 		
-			foreach (var t in types) {
+			foreach (var t in Types) {
 				if (filter.PassFilter(t.Name)) {
 					if (ImGui.Selectable(t.Name, selected == i)) {
 						selected = i;

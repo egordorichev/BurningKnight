@@ -32,12 +32,12 @@ namespace BurningKnight.level {
 			return array;
 		}
 
-		public static bool[] GenerateWithNoise(int W, int H, float Seed, float h) {
+		public static bool[] GenerateWithNoise(int W, int H, float Seed, float h, float scale = 1f) {
 			var a = new bool[W * H];
 
 			for (var y = 0; y < H; y++) {
 				for (var x = 0; x < W; x++) {
-					a[x + y * W] = Lens.util.Noise.Generate(x + Seed, y + Seed) > h;
+					a[x + y * W] = Lens.util.Noise.Generate((x + Seed) * scale, (y + Seed) * scale) > h;
 				}
 			}
 			

@@ -19,6 +19,16 @@
 * convert fire exstinguisher into flame thrower
 * discord rod use half a heart
 
+### pets
+
+* ntte inspired {
+ * crystal, works like prysm, but randomly teleports somewhere near the player
+ * some bird, pick ups keys, coins, targets hearts first
+ * someone, has a lighting/laser going from him to you, passive damage
+ * chest, basically third weapon slot 
+ * simple summon, simple damage
+}
+
 ### items
 
 * multiplies your orbitals by 2
