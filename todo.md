@@ -1,8 +1,25 @@
-# publisher build stuff
+# jungle 
+
+* enemies {
+ + mike
+ + horror 
+ + white eyes
+ + bee hive needs a support, probs a tree
+ + too much overall hp, too many enemies per room
+}
+
+* misc {
+ + actual hive gen on lvl 2
+ + trees?
+}
 
 * fix {
  + projectile effect is not used anymore, color the projectile depending on the buff
+}
 
+# todo
+
+* fix {
  + bugs {
   - maximized window bug on windows
   - game sometimes doesn't exit after closing

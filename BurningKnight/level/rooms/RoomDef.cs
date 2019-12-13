@@ -675,5 +675,9 @@ namespace BurningKnight.level.rooms {
 		public virtual bool ConvertToEntity() {
 			return true;
 		}
+
+		public virtual float GetWeightModifier() {
+			return 1f;
+		}
 	}
 }

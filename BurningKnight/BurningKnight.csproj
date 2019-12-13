@@ -860,6 +860,7 @@
     <Compile Include="level\rooms\granny\GrannyRoom.cs" />
     <Compile Include="level\rooms\oldman\OldManRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
+    <Compile Include="level\rooms\regular\HiveRoom.cs" />
     <Compile Include="level\rooms\regular\JungleRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />

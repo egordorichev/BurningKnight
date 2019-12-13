@@ -4,7 +4,9 @@ using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using Lens.graphics;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -18,7 +20,13 @@ namespace BurningKnight.level.biome {
 
 		public override void ModifyRooms(List<RoomDef> rooms) {
 			base.ModifyRooms(rooms);
-			rooms.Add(new JungleRoom());
+			
+			if (Run.Depth % 2 == 0) {
+				rooms.Add(new HiveRoom());
+			} else {
+				rooms.Add(new JungleRoom());
+				rooms.Add(new JungleRoom());
+			}
 		}
 
 		public override void ModifyPainter(Painter painter) {

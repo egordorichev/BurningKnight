@@ -9,12 +9,16 @@ namespace BurningKnight.level.rooms.regular {
 	public class JungleRoom : RegularRoom {
 		public static int DeathCondition = 4;
 		public static int BirthCondition = 4;
-		
+
+		protected Tile Floor = Tile.FloorA;
+		protected Tile Floor2 = Tile.FloorB;
+		protected Tile Wall = Tile.WallA;
+
 		public override void PaintFloor(Level level) {
 			
 		}
 
-		private void Pass(Action<int, int> callback) {
+		protected void Pass(Action<int, int> callback) {
 			for (var y = Top; y < Bottom; y++) {
 				for (var x = Left; x < Right; x++) {
 					callback(x, y);
@@ -40,7 +44,11 @@ namespace BurningKnight.level.rooms.regular {
 			var w = GetWidth();
 			var h = GetHeight();
 			
-			Painter.Fill(level, this, Tile.WallA);
+			var old = Painter.Clip;
+			Painter.Clip = null;
+			Painter.Fill(level, this, Wall);
+			Painter.Clip = old;
+			
 			Painter.FillEllipse(level, this, 3, Tile.FloorA);
 			Painter.FillEllipse(level, this, (int) (Math.Min(w, h) / 2f - 2), Tile.FloorD);
 
@@ -176,33 +184,39 @@ namespace BurningKnight.level.rooms.regular {
 
 			Pass((x, y) => {
 				if (x > Left && x < Right && y > Top && y < Bottom) {
-					Painter.Set(level, x, y, array[x - Left, y - Top] == 3 ? Tile.FloorA : Tile.WallA);
+					Painter.Set(level, x, y, array[x - Left, y - Top] == 3 ? Floor : Wall);
 				}
 			});
 			
 			var patch = Patch.GenerateWithNoise(w, h, Rnd.Float(10000), 0.25f, 0.1f);
-			
-			Pass((x, y) => {
-				if (level.Get(x, y) == Tile.FloorA && patch[(x - Left) + (y - Top) * w]) {
-					Painter.Set(level, x, y, Tile.FloorB);
-				}
-			});
+
+			if (Floor2 != Floor) {
+				Pass((x, y) => {
+					if (level.Get(x, y) == Floor && patch[(x - Left) + (y - Top) * w]) {
+						Painter.Set(level, x, y, Floor2);
+					}
+				});
+			}
 		}
 
 		public override int GetMinWidth() {
-			return (10 + 2) * 3;
+			return (10 + 2) * 2;
 		}
 
 		public override int GetMinHeight() {
-			return (8 + 2) * 3;
+			return (8 + 2) * 2;
 		}
 
 		public override int GetMaxWidth() {
-			return (18 + 6) * 3;
+			return (18 + 6) * 2;
 		}
 
 		public override int GetMaxHeight() {
-			return (12 + 2) * 3;
+			return (12 + 2) * 2;
+		}
+
+		public override float GetWeightModifier() {
+			return 0.3f;
 		}
 	}
 }

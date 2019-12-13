@@ -460,7 +460,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = count / 19f + Rnd.Float(0f, 1f);
+			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier();
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);
