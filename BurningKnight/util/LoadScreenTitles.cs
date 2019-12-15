@@ -76,6 +76,9 @@ namespace BurningKnight.util {
 			"Generating a joke",
 			"Attacking enemies does more damage, than not attacking",
 			"Getting hit hurts",
+			"Yeet",
+			"You get a higher chance to hit the enemy, if you aim",
+			"Money is useful"
 		};
 	}
 }

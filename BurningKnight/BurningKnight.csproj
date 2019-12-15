@@ -1046,6 +1046,7 @@
     <Compile Include="util\AnimationUtil.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />
+    <Compile Include="util\BiomeTitles.cs" />
     <Compile Include="util\Birthday.cs" />
     <Compile Include="util\BitHelper.cs" />
     <Compile Include="util\CollisionHelper.cs" />

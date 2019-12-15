@@ -4,6 +4,7 @@ using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -48,7 +49,7 @@ namespace BurningKnight.state {
 			}
 
 			prefix = Locale.Get(loading || Run.Depth < 1 ? "loading" : "generating");
-			title = LoadScreenTitles.Generate();
+			title = Rnd.Chance() ? LoadScreenTitles.Generate() : BiomeTitles.Generate(BiomeRegistry.GenerateForDepth(Run.Depth).Id);
 			
 			Lights.Init();
 			Physics.Init();

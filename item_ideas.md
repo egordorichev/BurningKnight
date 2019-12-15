@@ -31,6 +31,7 @@
 
 ### items
 
+* bones (throwing weapon, stacks)
 * multiplies your orbitals by 2
 * orbitals should make the chance of appearing higher when you pick em up
 * makes your bullets go through walls
