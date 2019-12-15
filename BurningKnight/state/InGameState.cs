@@ -626,11 +626,31 @@ namespace BurningKnight.state {
 				var dx = stick.X * stick.X;
 				var dy = stick.Y * stick.Y;
 				var d = (float) Math.Sqrt(dx + dy);
+				const float f = 48;
 
 				if (d > 0.25f) {
-					var f = 48;
 					var tar = new Vector2(p.CenterX + stick.X / d * f, p.CenterY + stick.Y / d * f);
 					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 30f;
+				}
+
+				double a = 0;
+				var pressed = false;
+
+				if (controller.DPadLeftCheck) {
+					a = Math.PI;
+					pressed = true;
+				} else if (controller.DPadDownCheck) {
+					a = Math.PI / 2f;
+					pressed = true;
+				} else if (controller.DPadUpCheck) {
+					a = Math.PI * 1.5f;
+					pressed = true;
+				} else if (controller.DPadRightCheck) {
+					pressed = true;
+				}
+
+				if (pressed) {
+					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, f));
 				}
 			}
 

@@ -40,7 +40,10 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				}
 				
-				if (Input.WasPressed(Controls.Use, controller) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
+				if ((Input.WasPressed(Controls.Use, controller) || (controller != null && (
+						controller.DPadDownCheck || controller.DPadLeftCheck || controller.DPadUpCheck || controller.DPadRightCheck                                                  
+				  ))) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
+					
 					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();
 					}
