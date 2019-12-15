@@ -24,7 +24,7 @@ namespace BurningKnight.entity.item.use {
 				Width = W,
 				Height = H,
 				Position = entity.Center,
-				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().Aim) + Angle
+				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().RealAim) + Angle
 			};
 
 			entity.HandleEvent(new MeleeArc.CreatedEvent {

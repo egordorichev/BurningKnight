@@ -232,8 +232,10 @@ namespace BurningKnight.ui.inventory {
 					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
 					MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
 
+					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
 					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
 					Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
+					Graphics.Color = ColorUtils.WhiteColor;
 				}
 			}
 		}

@@ -232,7 +232,7 @@ namespace BurningKnight.entity.creature.player {
 						var tile = Run.Level.Get(i);
 						var liquid = Run.Level.Liquid[i];
 
-						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), 0.5f);
+						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), 0.25f);
 					}
 				}
 			}
