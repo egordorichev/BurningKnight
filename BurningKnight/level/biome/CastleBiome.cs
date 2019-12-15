@@ -1,6 +1,7 @@
 ﻿using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -24,6 +25,14 @@ namespace BurningKnight.level.biome {
 					l.Tiles[i] = r;
 				}
 			});
+		}
+
+		public override string GetStepSound(Tile tile) {
+			if (tile == Tile.FloorB) {
+				return $"player_step_wood_{Rnd.Int(1, 4)}";
+			}
+			
+			return base.GetStepSound(tile);
 		}
 	}
 }

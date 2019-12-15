@@ -220,8 +220,19 @@ namespace BurningKnight.entity.creature.player {
 				if (anim.Frame != lastFrame) {
 					lastFrame = anim.Frame;
 
-					if (lastFrame == 2 || lastFrame == 6) {
-						Audio.PlaySfx("step");
+					if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
+						var x = (int) (Self.CenterX / 16);
+						var y = (int) (Self.Bottom / 16);
+
+						if (!Run.Level.IsInside(x, y)) {
+							return;
+						}
+
+						var i = Run.Level.ToIndex(x, y);
+						var tile = Run.Level.Get(i);
+						var liquid = Run.Level.Liquid[i];
+
+						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), 0.5f);
 					}
 				}
 			}

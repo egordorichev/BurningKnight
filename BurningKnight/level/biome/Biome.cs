@@ -123,5 +123,13 @@ namespace BurningKnight.level.biome {
 		public virtual int GetNumSecretRooms() {
 			return Run.Depth <= 0 ? 0 : 1;
 		}
+
+		public string GetDefaultStepSound(Tile tile) {
+			return "player_step_default_1";
+		}
+
+		public virtual string GetStepSound(Tile tile) {
+			return GetDefaultStepSound(tile);
+		}
 	}
 }

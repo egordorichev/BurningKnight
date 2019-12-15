@@ -219,6 +219,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 		
 		public override void Update(float dt) {
+			if (Done) {
+				return;
+			}
+			
 			if (!locked) {
 				locked = true;
 				LockToWall();
@@ -243,7 +247,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 
 			foreach (var m in room.Tagged[Tags.MustBeKilled]) {
-				if (!(m is WallWalker)) {
+				if (m is Mob && !(m is WallWalker || m is bk.BurningKnight)) {
 					return;
 				}
 			}

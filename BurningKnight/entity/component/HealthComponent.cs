@@ -154,6 +154,7 @@ namespace BurningKnight.entity.component {
 
 		public void Kill(Entity from) {
 			if (dead) {
+				Entity.Done = true;	
 				return;
 			}
 			
