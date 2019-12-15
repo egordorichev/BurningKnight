@@ -1,8 +1,5 @@
 # jungle 
 
-* check backpack boi pools
-* dpad to move cursor to point the cursor
-
 * enemies {
  + mike
  + horror 

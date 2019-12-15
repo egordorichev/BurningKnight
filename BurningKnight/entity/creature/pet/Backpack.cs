@@ -1,10 +1,14 @@
+using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.save;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.pet {
@@ -29,9 +33,26 @@ namespace BurningKnight.entity.creature.pet {
 			AddComponent(new ItemComponent());
 			
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => e == Owner,
+				CanInteract = e => e == Owner && (e.GetComponent<ActiveWeaponComponent>().Item != null || GetComponent<ItemComponent>().Item != null),
 				OnStart = e => AddFx()
 			});
+
+			try {
+				var id = GameSave.GetString("backpack");
+
+				if (id != null) {
+					var item = Items.CreateAndAdd(id, Area);
+					GetComponent<ItemComponent>().Set(item, false);
+					item.GetComponent<OwnerComponent>().Owner = Owner;
+				}
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			GameSave.Put("backpack", GetComponent<ItemComponent>().Item?.Id);
 		}
 
 		private void AddFx() {

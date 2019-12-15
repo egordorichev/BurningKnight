@@ -53,9 +53,13 @@ namespace BurningKnight.entity.component {
 #endif
 			}
 			
-			((Player) Entity).AnimateItemPickup(item, () => {
-				SetupItem(item, prev);
-			}, false);
+			if (Entity is Player p) {
+				p.AnimateItemPickup(item, () => {
+					SetupItem(item, prev);
+				}, false);
+			} else {
+				Item = item;
+			}
 		}
 
 		private void SetupItem(Item item, Item previous) {
