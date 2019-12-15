@@ -33,6 +33,10 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		static PetRegistry() {
+			Define("backpack", o => o.Area.Add(new Backpack {
+				Owner = o
+			}));
+			
 			Define("lil_boo", o => o.Area.Add(new LilBoo {
 				Owner = o
 			}));

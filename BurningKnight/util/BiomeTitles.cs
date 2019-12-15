@@ -31,12 +31,20 @@ namespace BurningKnight.util {
 			Add(Biome.Desert,
 				"Drink water, stay hydrated",
 				"Anakin hates sand",
-				"It's getting hot"
+				"It's getting hot",
+				"Not to be confused with the desert"
 			);
 			
 			Add(Biome.Jungle,
 				"This is wild",
-				"Jungle be like"
+				"Jungle be like",
+				"This place is growing on me",
+				"Like snakes and ladders without ladders"
+			);
+			
+			Add(Biome.Library,
+				"Try to pillage quieter, please!",
+				"Read a book"
 			);
 		}
 	}

@@ -9,7 +9,7 @@
 }
 
 * misc {
- + actual hive gen on lvl 2
+ + better hive gen on lvl 2
  + trees?
 }
 

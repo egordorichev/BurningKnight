@@ -11,6 +11,7 @@ namespace BurningKnight.entity.component {
 		public Entity Follower;
 		public float MaxDistance = 16;
 		public float Pause = -1;
+		public bool Paused;
 
 		public void DestroyAll() {
 			if (Follower != null) {
@@ -56,12 +57,15 @@ namespace BurningKnight.entity.component {
 
 				var sp = dt * 16f;
 				body.Velocity -= body.Velocity * (sp * 0.4f);
+
+				if (Paused) {
+					return;
+				}
 				
 				if (Pause > 0) {
 					Pause -= dt;
 					return;
 				}
-
 
 				var dx = Following.DxTo(Entity);
 				var dy = Following.DyTo(Entity);
@@ -74,7 +78,7 @@ namespace BurningKnight.entity.component {
 					return;
 				}
 
-				if (d < 8) {
+				if (d < 12) {
 					sp *= -1;
 				} else if (d < MaxDistance) {
 					return;

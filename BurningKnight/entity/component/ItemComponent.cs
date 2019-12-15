@@ -158,6 +158,12 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
+		public void Exchange(ItemComponent component) {
+			var tmp = component.Item;
+			component.Item = Item;
+			Item = tmp;
+		}
+		
 		#if DEBUG
 		private string debugItem = "";
 

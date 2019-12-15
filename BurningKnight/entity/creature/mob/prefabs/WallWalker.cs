@@ -242,7 +242,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				return;
 			}
 
-			if (room.Tagged[Tags.Player].Count == 0) {
+			/*if (room.Tagged[Tags.Player].Count == 0) {
 				return;
 			}
 
@@ -252,7 +252,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				}
 			}
 
-			Kill(this);
+			Kill(this);*/
 		}
 	}
 }
