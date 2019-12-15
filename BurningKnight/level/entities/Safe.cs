@@ -36,46 +36,7 @@ namespace BurningKnight.level.entities {
 
 			var drops = new DropsComponent();
 			AddComponent(drops);
-			
-			drops.Add(new SimpleDrop {
-				Items = new [] {
-					"bk:coin"
-				},
-				
-				Chance = 0.8f,
-				Min = 3,
-				Max = 10
-			});
-
-			drops.Add(new SimpleDrop {
-				Items = new[] {
-					"bk:key"
-				},
-
-				Chance = 0.5f,
-				Min = 1,
-				Max = 4
-			});
-			
-			drops.Add(new SimpleDrop {
-				Items = new [] {
-					"bk:bomb"
-				},
-				
-				Chance = 0.3f,
-				Min = 1,
-				Max = 2
-			});
-			
-			drops.Add(new SimpleDrop {
-				Items = new [] {
-					"bk:tnt"
-				},
-				
-				Chance = 0.05f
-			});
-			
-			drops.Add(new PoolDrop(ItemPool.Safe, 1f, 1, 3));
+			drops.Add("safe");
 		}
 
 		public override void PostInit() {

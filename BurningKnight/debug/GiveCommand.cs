@@ -42,7 +42,7 @@ namespace BurningKnight.debug {
 					}
 				}
 
-				if (!Items.Has(id)) {
+				if (id != "bk:coin" && !Items.Has(id)) {
 					Console.Print($"Unknown item {id}");
 					continue;
 				}
