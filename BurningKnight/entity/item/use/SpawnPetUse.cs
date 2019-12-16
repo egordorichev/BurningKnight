@@ -27,6 +27,7 @@ namespace BurningKnight.entity.item.use {
 			}
 			
 			o.Center = entity.Center + Rnd.Offset(24);
+			AnimationUtil.Poof(o.Center);
 		}
 
 		public override void Setup(JsonValue settings) {

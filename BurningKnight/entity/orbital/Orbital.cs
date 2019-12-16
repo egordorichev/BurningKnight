@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.save;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.util.tween;
 
@@ -15,12 +16,23 @@ namespace BurningKnight.entity.orbital {
 		
 		public override void AddComponents() {
 			base.AddComponents();
-			
 			AddComponent(new OrbitalComponent());
 		}
 
+		private bool animated;
+
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (!animated) {
+				animated = true;
+				
+				if (TryGetComponent<ScalableSliceComponent>(out var g)) {
+					AnimationUtil.Poof(Center);
+					g.Animate();
+				}
+			}
+			
 			Controller?.Invoke(dt);
 		}
 

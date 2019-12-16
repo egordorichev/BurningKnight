@@ -50,6 +50,8 @@ namespace BurningKnight.entity.creature.pet {
 			} catch (Exception e) {
 				Log.Error(e);
 			}
+			
+			GetComponent<AnimationComponent>().Animate();
 		}
 
 		public override void Destroy() {

@@ -39,7 +39,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 
-				var g = new SliceComponent("items", "bk:goo") {
+				var g = new ScalableSliceComponent("items", "bk:goo") {
 					ShadowZ = 2
 				};
 
@@ -62,7 +62,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 
-				var g = new SliceComponent("items", "bk:bullet_stone") {
+				var g = new ScalableSliceComponent("items", "bk:bullet_stone") {
 					ShadowZ = 2
 				};
 
@@ -108,7 +108,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 
-				var g = new SliceComponent("items", "bk:sword_orbital") {
+				var g = new ScalableSliceComponent("items", "bk:sword_orbital") {
 					ShadowZ = 2
 				};
 
@@ -133,7 +133,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 				
-				var g = new SliceComponent("items", "bk:broken_stone") {
+				var g = new ScalableSliceComponent("items", "bk:broken_stone") {
 					ShadowZ = 2
 				};
 				
@@ -161,7 +161,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 
-				var g = new SliceComponent("items", "bk:jelly") {
+				var g = new ScalableSliceComponent("items", "bk:jelly") {
 					ShadowZ = 2
 				};
 
@@ -194,7 +194,7 @@ namespace BurningKnight.entity.orbital {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
 
-				var g = new SliceComponent("items", "bk:nano_orb") {
+				var g = new ScalableSliceComponent("items", "bk:nano_orb") {
 					ShadowZ = 2
 				};
 

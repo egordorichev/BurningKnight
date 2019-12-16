@@ -25,9 +25,11 @@
  * crystal, works like prysm, but randomly teleports somewhere near the player
  * some bird, pick ups keys, coins, targets hearts first
  * someone, has a lighting/laser going from him to you, passive damage
- * chest, basically third weapon slot 
+ * backpack, but for active items?
  * simple summon, simple damage
 }
+
+* orbital, that pushes enemies away
 
 ### items
 
