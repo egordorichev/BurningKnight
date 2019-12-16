@@ -51,6 +51,7 @@ namespace BurningKnight.entity.projectile {
 		public Entity Owner;
 		public float Range = -1;
 		public float T;
+		public bool Artificial;
 		public int BounceLeft;
 		public bool IndicateDeath;
 		public bool CanBeReflected = true;

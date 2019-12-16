@@ -28,7 +28,7 @@ namespace BurningKnight.entity.orbital {
 				animated = true;
 				
 				if (TryGetComponent<ScalableSliceComponent>(out var g)) {
-					AnimationUtil.Poof(Center);
+					AnimationUtil.Poof(Center, Depth + 1);
 					g.Animate();
 				}
 			}

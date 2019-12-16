@@ -465,6 +465,7 @@
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\pet\Backpack.cs" />
+    <Compile Include="entity\creature\pet\Crystal.cs" />
     <Compile Include="entity\creature\pet\FollowerPet.cs" />
     <Compile Include="entity\creature\pet\GeneratorPet.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
