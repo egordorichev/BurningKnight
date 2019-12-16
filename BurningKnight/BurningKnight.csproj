@@ -705,6 +705,7 @@
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
+    <Compile Include="entity\orbital\Prism.cs" />
     <Compile Include="entity\pc\Controller.cs" />
     <Compile Include="entity\pc\Pico.cs" />
     <Compile Include="entity\pool\Pool.cs" />

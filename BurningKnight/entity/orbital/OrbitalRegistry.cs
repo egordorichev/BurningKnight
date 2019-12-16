@@ -35,6 +35,14 @@ namespace BurningKnight.entity.orbital {
 		}
 
 		static OrbitalRegistry() {
+
+			Define("prism", o => {
+				var orbital = new Prism();
+				o.Area.Add(orbital);
+				
+				return orbital;
+			});
+		
 			Define("goo", o => {
 				var orbital = new Orbital();
 				o.Area.Add(orbital);
