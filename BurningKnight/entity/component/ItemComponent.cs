@@ -58,7 +58,7 @@ namespace BurningKnight.entity.component {
 					SetupItem(item, prev);
 				}, false);
 			} else {
-				Item = item;
+				SetupItem(item, prev);
 			}
 		}
 

@@ -1,4 +1,5 @@
-﻿using BurningKnight.assets;
+﻿using System;
+using BurningKnight.assets;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.creature.player;
 using BurningKnight.util;
@@ -9,6 +10,7 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
@@ -200,6 +202,16 @@ namespace BurningKnight.entity.component {
 			}
 
 			return base.HandleEvent(e);
+		}
+
+		public void Animate(Action callback) {
+			Tween.To(1.8f, Scale.X, x => Scale.X = x, 0.1f);
+			Tween.To(0.2f, Scale.Y, x => Scale.Y = x, 0.1f).OnEnd = () => {
+				Tween.To(1, Scale.X, x => Scale.X = x, 0.4f);
+				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.4f);
+
+				callback?.Invoke();
+			};
 		}
 	}
 }

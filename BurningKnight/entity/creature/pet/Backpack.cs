@@ -4,6 +4,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.save;
 using Lens;
 using Lens.assets;
@@ -14,6 +15,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.creature.pet {
 	public class Backpack : Pet {
 		private InteractFx fx;
+		private bool open;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -68,7 +70,10 @@ namespace BurningKnight.entity.creature.pet {
 			var w = entity.GetComponent<ActiveWeaponComponent>();
 			GetComponent<ItemComponent>().Exchange(w);
 
-			if (w.Item == null && entity.GetComponent<WeaponComponent>().Item != null) {
+			if (w.Item != null) {
+				Audio.PlaySfx(w.Item.Data.WeaponType.GetSwapSfx());
+				entity.GetComponent<PlayerGraphicsComponent>().AnimateSwap();
+			} else if (entity.GetComponent<WeaponComponent>().Item != null) {
 				w.RequestSwap();
 			}
 			
@@ -78,15 +83,27 @@ namespace BurningKnight.entity.creature.pet {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse) {
-				if (cse.Entity == Owner) {
-					GetComponent<AnimationComponent>().Animation.Tag = "open";
+				if (!open && cse.Entity == Owner) {
+					GetComponent<AnimationComponent>().Animate(() => {
+						GetComponent<AnimationComponent>().Animation.Tag = "open";
+					});
+
 					GetComponent<FollowerComponent>().Paused = true;
 					GetComponent<RectBodyComponent>().Velocity *= 0.5f;
+
+					Audio.PlaySfx("unlock");
+					open = true;
 				}
 			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity == Owner) {
-					GetComponent<AnimationComponent>().Animation.Tag = "idle";
+				if (open && cee.Entity == Owner) {
+					GetComponent<AnimationComponent>().Animate(() => {
+						GetComponent<AnimationComponent>().Animation.Tag = "idle";
+					});
+
 					GetComponent<FollowerComponent>().Paused = false;
+					
+					Audio.PlaySfx("swap");
+					open = false;
 				}
 			}
 			

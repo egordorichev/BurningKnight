@@ -101,13 +101,17 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
+		public void AnimateSwap() {
+			scale.Y = 0.3f;
+			scale.X = 2f;
+				
+			Tween.To(1f, scale.X, x => scale.X = x, 0.2f);
+			Tween.To(1f, scale.Y, x => scale.Y = x, 0.2f);
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is WeaponSwappedEvent) {
-				scale.Y = 0.3f;
-				scale.X = 2f;
-				
-				Tween.To(1f, scale.X, x => scale.X = x, 0.2f);
-				Tween.To(1f, scale.Y, x => scale.Y = x, 0.2f);
+				AnimateSwap();
 			} else if (e is InteractedEvent) {
 				scale.Y = 0.5f;
 				scale.X = 2f;
