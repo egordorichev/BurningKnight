@@ -41,6 +41,10 @@ namespace BurningKnight.entity.item {
 			Tween.To(0, y, x => y = x, 0.2f);
 			
 			UpdatePosition();
+
+			if (item.Cursed) {
+				component.Color = Palette.Default[ItemGraphicsComponent.CursedColorId];
+			}
 		}
 
 		private void UpdatePosition() {

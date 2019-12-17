@@ -13,6 +13,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -39,6 +40,7 @@ namespace BurningKnight.entity.item {
 		public bool Touched;
 		public bool Automatic;
 		public bool SingleUse;
+		public bool Cursed;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -49,6 +51,14 @@ namespace BurningKnight.entity.item {
 		public ItemData Data => Items.Datas[Id];
 
 		private bool updateLight;
+
+		public override void Init() {
+			base.Init();
+			
+			if (Rnd.Chance(Run.Curse * 10 + 0.5f)) {
+				Cursed = true;
+			}
+		}
 
 		public override void Destroy() {
 			base.Destroy();
@@ -250,6 +260,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteBoolean(Touched);
 			stream.WriteFloat(Delay);
 			stream.WriteBoolean(Unknown);
+			stream.WriteBoolean(Cursed);
 		}
 
 		public void ConvertTo(string id) {
@@ -282,6 +293,7 @@ namespace BurningKnight.entity.item {
 			Type = item.Type;
 			Id = id;
 			Used = false;
+			Cursed = Cursed || item.Cursed;
 			
 			if (Renderer != null) {
 				Renderer.Item = this;
@@ -304,13 +316,15 @@ namespace BurningKnight.entity.item {
 
 			LoadedSelf = true;
 			Id = stream.ReadString();
-
+			Cursed = false;
+			
 			ConvertTo(Id);
 
 			Used = stream.ReadBoolean();
 			Touched = stream.ReadBoolean();
 			Delay = stream.ReadFloat();
 			Unknown = stream.ReadBoolean();
+			Cursed = Cursed || stream.ReadBoolean();
 		}
 		
 		public override void Update(float dt) {
@@ -324,6 +338,10 @@ namespace BurningKnight.entity.item {
 				}
 				
 				Delay = Math.Max(0, Delay - s);
+			}
+
+			if (Cursed && Rnd.Chance(5)) {
+				AnimationUtil.Poof(Center, 1);
 			}
 
 			if (HasComponent<OwnerComponent>()) {
@@ -419,6 +437,9 @@ namespace BurningKnight.entity.item {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				ConvertTo(debugItem);
 			}
+
+			ImGui.Checkbox("Cursed", ref Cursed);
+			ImGui.Checkbox("Touched", ref Touched);
 		}
 		#endif
 

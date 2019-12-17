@@ -11,6 +11,7 @@ namespace BurningKnight.entity.component {
 		public float T;
 
 		private float count;
+		private Vector2 center;
 		
 		public void DestroyAll() {
 			foreach (var o in Orbiting) {
@@ -26,6 +27,12 @@ namespace BurningKnight.entity.component {
 			T += dt;
 			count += (Orbiting.Count - count) * dt * 4;
 
+			if (Entity.DistanceTo(center) > 32f) {
+				center = Entity.Center;
+			} else {
+				center += (Entity.Center - center) * (dt * 8);
+			}
+
 			for (var i = Orbiting.Count - 1; i >= 0; i--) {
 				var e = Orbiting[i];
 				var component = e.GetComponent<OrbitalComponent>();
@@ -37,7 +44,7 @@ namespace BurningKnight.entity.component {
 					continue;
 				}
 
-				var target = Entity.Center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+				var target = center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 
 				if (component.Lerp) {
 					e.Center += (target - e.Center) * (dt * 8);

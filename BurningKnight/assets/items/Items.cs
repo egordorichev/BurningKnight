@@ -232,6 +232,7 @@ namespace BurningKnight.assets.items {
 				Animation = data.Animation,
 				Automatic = data.Automatic,
 				SingleUse = data.SingleUse,
+				Cursed = data.Cursed,
 				Uses = ParseUses(data.Uses)
 			};
 			

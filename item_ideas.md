@@ -50,7 +50,6 @@
 * charge shot
 * spawns a turret
 * powerful but short range gun
-* prism orbital
 * nuclear throne perks: strong soul, hammer head, etc:
  *+ bloodlast: vampire_bat
  *+ hammer head: pickacke

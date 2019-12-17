@@ -18,6 +18,7 @@ namespace BurningKnight.assets.items {
 		public int Pools;
 		public bool Single = true;
 		public bool Lockable;
+		public bool Cursed;
 		public int UnlockPrice = 1;
 
 		public WeaponType WeaponType;

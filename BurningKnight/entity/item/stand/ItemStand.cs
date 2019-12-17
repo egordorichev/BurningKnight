@@ -157,6 +157,7 @@ namespace BurningKnight.entity.item.stand {
 					return this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					SetItem(weapon.Drop(), entity);
+					weapon.RequestSwap();
 					return false;
 				}
 			}
@@ -183,8 +184,10 @@ namespace BurningKnight.entity.item.stand {
 			if (!TryGetComponent<InteractableComponent>(out var component)) {
 				return;
 			}
-			
-			var renderOutline = component.OutlineAlpha > 0.05f;
+
+			var cursed = item != null && item.Cursed;
+			var interact = component.OutlineAlpha > 0.05f;
+			var renderOutline = interact || cursed;
 			
 			if (item == null && renderOutline) {
 				var shader = Shaders.Entity;
@@ -222,9 +225,9 @@ namespace BurningKnight.entity.item.stand {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
-				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
+				shader.Parameters["flash"].SetValue(cursed ? 1f : component.OutlineAlpha);
 				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.CursedColor, ColorUtils.White, component.OutlineAlpha));
 
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(region, pos + d, animated ? 0 : angle, region.Center);
@@ -263,21 +266,24 @@ namespace BurningKnight.entity.item.stand {
 			}
 			
 			if (stream.ReadBoolean()) {
-				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
+				var item = new Item();
+
+				Area.Add(item, false);
+				
+				item.Load(stream);
+				item.LoadedSelf = false;
+				item.PostInit();
+
+				SetItem(item, null);
 			}
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
-			if (dontSaveItem) {
-				return;
-			}
-			
-			stream.WriteBoolean(item != null);
-
-			if (item != null) {
-				stream.WriteString(item.Id);
+			if (!dontSaveItem) {
+				stream.WriteBoolean(item != null);
+				item?.Save(stream);
 			}
 		}
 

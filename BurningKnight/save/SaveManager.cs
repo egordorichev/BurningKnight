@@ -15,7 +15,7 @@ namespace BurningKnight.save {
 	public class SaveManager {
 		public const string SaveDir = "burning_knight/";
 		public const int MagicNumber = 894923782;
-		public const short Version = 0;
+		public const short Version = 1;
 
 		public static byte CurrentSlot = 0;
 		public static string SlotDir = $"{SaveDir}slot-{CurrentSlot}/";

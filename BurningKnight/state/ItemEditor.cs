@@ -430,6 +430,7 @@ namespace BurningKnight.state {
 				}
 
 				ImGui.Checkbox("Auto pickup", ref Selected.AutoPickup);
+				ImGui.Checkbox("Cursed", ref Selected.Cursed);
 				ImGui.SameLine();
 			} else {
 				Selected.AutoPickup = true;
@@ -615,8 +616,8 @@ namespace BurningKnight.state {
 						data.Root = JsonValue.Parse(Selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
-						data.SingleUse = data.SingleUse;
-						data.UseTime = data.UseTime;
+						data.SingleUse = Selected.SingleUse;
+						data.UseTime = Selected.UseTime;
 						data.Lockable = Selected.Lockable;
 						data.UnlockPrice = Selected.UnlockPrice;
 						data.Single = Selected.Single;
