@@ -27,9 +27,15 @@ namespace BurningKnight.debug {
 			for (var i = 0; i < Args.Length; i++) {
 				var id = Args[i];
 				var count = 1;
+				var cursed = false;
 
 				if (!id.Contains(":")) {
 					id = $"{Mods.BurningKnight}:{id}";
+				}
+
+				if (id.EndsWith("_")) {
+					id = id.Substring(0, id.Length - 1);
+					cursed = true;
 				}
 
 				if (i < Args.Length - 1) {
@@ -50,7 +56,9 @@ namespace BurningKnight.debug {
 				Log.Info($"Giving {id} x{count}");
 
 				for (var j = 0; j < count; j++) {
-					player?.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(id, Console.GameArea));
+					var item = Items.CreateAndAdd(id, Console.GameArea);
+					item.Cursed = cursed;
+					player?.GetComponent<InventoryComponent>().Pickup(item);
 				}
 			}
 		}

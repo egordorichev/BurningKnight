@@ -69,6 +69,7 @@ namespace BurningKnight.save {
 			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
+			writer.WriteByte((byte) Run.PermanentCurse);
 			writer.WriteString(Run.Seed);
 		}
 
@@ -96,6 +97,8 @@ namespace BurningKnight.save {
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
+
+			Run.PermanentCurse = reader.ReadByte();
 
 			if (Run.LastSavedDepth > 0) {
 				Rnd.Seed = Run.Seed = reader.ReadString();

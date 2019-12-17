@@ -14,7 +14,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			Run.AddCurse();
+			Run.AddCurse(true);
 			return true;
 		}
 	}

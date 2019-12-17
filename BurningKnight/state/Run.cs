@@ -27,6 +27,7 @@ namespace BurningKnight.state {
 		public static bool IgnoreSeed;
 		public static int Luck;
 		public static int Curse { get; private set; }
+		public static int PermanentCurse { get; internal set; }
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		public static string NextSeed;
@@ -92,7 +93,7 @@ namespace BurningKnight.state {
 			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 
-		public static void AddCurse() {
+		public static void AddCurse(bool permanent = false) {
 			Curse++;
 			Audio.PlaySfx("player_cursed");
 
@@ -112,10 +113,14 @@ namespace BurningKnight.state {
 				Level.Area.Add(part);
 				part.Depth = 1;
 			}
+			
+			if (permanent) {
+				PermanentCurse++;
+			}
 		}
 
 		public static void ResetCurse() {
-			Curse = 0;
+			Curse = PermanentCurse;
 		}
 	}
 }

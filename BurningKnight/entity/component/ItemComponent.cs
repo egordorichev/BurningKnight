@@ -74,7 +74,7 @@ namespace BurningKnight.entity.component {
 			Item = item;
 
 			if (Entity is Player && !item.Touched && item.Cursed) {
-				Run.AddCurse();
+				Run.AddCurse(true);
 			}
 
 			item.Done = false;
