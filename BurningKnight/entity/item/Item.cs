@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
@@ -30,8 +31,9 @@ namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
 		public ItemType Type;
 		public string Id;
-		public string Name => Masked ? "???" : Locale.Get(Id);
-		public string Description => Locale.Get($"{Id}_desc");
+		public string IdUnderCurse => Curse.IsEnabled(Curse.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
+		public string Name => Masked ? "???" : Locale.Get(IdUnderCurse);
+		public string Description => Locale.Get($"{IdUnderCurse}_desc");
 		public float UseTime = 0.3f;
 		public float Delay;
 		public string Animation;

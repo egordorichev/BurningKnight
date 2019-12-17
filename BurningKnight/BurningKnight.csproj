@@ -598,6 +598,7 @@
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
+    <Compile Include="entity\item\Curse.cs" />
     <Compile Include="entity\item\EmeraldStand.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
@@ -635,6 +636,7 @@
     <Compile Include="entity\item\use\DuplicateItemsUse.cs" />
     <Compile Include="entity\item\use\DuplicateMobsAndHealUse.cs" />
     <Compile Include="entity\item\use\DuplicateMobsUse.cs" />
+    <Compile Include="entity\item\use\EnableCurseUse.cs" />
     <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />

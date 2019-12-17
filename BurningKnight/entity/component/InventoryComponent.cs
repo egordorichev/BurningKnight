@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
@@ -27,14 +30,27 @@ namespace BurningKnight.entity.component {
 					return false;
 				}
 				
-				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
+				if (Entity is Player p && (item.Type == ItemType.Curse || item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
 					if (item.Type == ItemType.ConsumableArtifact) {
 						p.AnimateItemPickup(item, () => {
 							item.Use(p);
 							item.Done = true;
 						}, false);
 					} else if (animate) {
-						p.AnimateItemPickup(item);
+						p.AnimateItemPickup(item, () => {
+							if (item.Type == ItemType.Curse) {
+								var center = Entity.Center;
+			
+								for (var i = 0; i < 10; i++) {
+									var part = new ParticleEntity(Particles.Curse());
+						
+									part.Position = center + Rnd.Vector(-4, 4);
+									part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+									Entity.Area.Add(part);
+									part.Depth = 1;
+								}
+							}	
+						});
 					} else {
 						Add(item);
 					}
