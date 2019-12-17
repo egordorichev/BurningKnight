@@ -185,7 +185,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void OnInteractionStart(Entity entity) {
-			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+			if (!Cursed && AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (ShouldInteract(entity)) {
 					inventory.Pickup(this);
 					entity.GetComponent<InteractorComponent>().EndInteraction();	

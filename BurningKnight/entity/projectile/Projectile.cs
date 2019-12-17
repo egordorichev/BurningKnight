@@ -78,7 +78,7 @@ namespace BurningKnight.entity.projectile {
 		private float deathTimer;
 		private bool nearedDeath;
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, int damage = 1, Item item = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, float damage = 1, Item item = null) {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
