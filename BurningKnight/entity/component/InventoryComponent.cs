@@ -12,19 +12,21 @@ namespace BurningKnight.entity.component {
 		public List<Item> Items = new List<Item>();
 		public bool Busy;
 
-		public void Pickup(Item item, bool animate = true) {
+		public bool Pickup(Item item, bool animate = true) {
 			if (item == null) {
-				return;
+				return false;
 			}
-		
-			item.Unknown = false;
-			Entity.Area.Remove(item);
-			item.Done = false;
 			
-			if (!Send(new ItemCheckEvent {
+			var e = new ItemCheckEvent {
 				Item = item,
 				Animate = animate
-			})) {
+			};
+			
+			if (!Send(e)) {
+				if (e.Blocked) {
+					return false;
+				}
+				
 				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
 					if (item.Type == ItemType.ConsumableArtifact) {
 						p.AnimateItemPickup(item, () => {
@@ -38,6 +40,12 @@ namespace BurningKnight.entity.component {
 					}
 				}
 			}
+			
+			item.Unknown = false;
+			Entity.Area.Remove(item);
+			item.Done = false;
+
+			return true;
 		}
 
 		public bool Has(string id) {

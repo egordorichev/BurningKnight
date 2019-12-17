@@ -7,6 +7,7 @@ using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
@@ -134,6 +135,7 @@ namespace BurningKnight.entity.item.stand {
 				if (item != null) {
 					if (CanTake(entity)) {
 						var i = item;
+						var remove = false;
 
 						if (this is HatStand) {
 							var ht = entity.GetComponent<HatComponent>();
@@ -149,15 +151,23 @@ namespace BurningKnight.entity.item.stand {
 							SetItem(it, entity, false);
 						} else {
 							SetItem(null, entity, false);
+							remove = true;
 						}
 
-						inventory.Pickup(i);
+						if (!inventory.Pickup(i) && remove) {
+							SetItem(i, null, false);
+						}
 					}
 
 					return this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
-					SetItem(weapon.Drop(), entity);
-					weapon.RequestSwap();
+					if (weapon.Item.Cursed) {
+						AnimationUtil.ActionFailed();
+					} else {
+						SetItem(weapon.Drop(), entity);
+						weapon.RequestSwap();
+					}
+
 					return false;
 				}
 			}

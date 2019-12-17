@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
@@ -140,6 +141,13 @@ namespace BurningKnight.entity.component {
 			}
 			
 			if (e is ItemCheckEvent ev && !ev.Handled && ShouldReplace(ev.Item)) {
+				if (Entity is Player && Item != null && Item.Cursed) {
+					AnimationUtil.ActionFailed();
+					ev.Blocked = true;
+					
+					return false;
+				}
+				
 				Set(ev.Item, ev.Animate);
 				return true;
 			}
