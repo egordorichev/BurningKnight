@@ -55,7 +55,7 @@ namespace BurningKnight.entity.item {
 		public override void Init() {
 			base.Init();
 			
-			if (Rnd.Chance(Run.Curse * 10 + 0.5f)) {
+			if (Run.Depth > 0 && Rnd.Chance(Run.Curse * 10 + 0.5f)) {
 				Cursed = true;
 			}
 		}

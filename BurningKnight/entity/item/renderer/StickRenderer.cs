@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using ImGuiNET;
 using Lens.graphics;
@@ -62,22 +63,40 @@ namespace BurningKnight.entity.item.renderer {
 			);
 
 			var or = Origin + new Vector2(0, currentMove);
+			var fangle = shadow ? -angle : angle;
+			var sc = new Vector2(scale.X, shadow ? -scale.Y : scale.Y);
 
-			Graphics.Render(region, pos, shadow ? -angle : angle, 
-				or, new Vector2(scale.X, shadow ? -scale.Y : scale.Y));
-			
-			if (!atBack && !shadow) {
-				var dx = Nozzle.X - or.X;
-				var dy = Nozzle.Y - or.Y;
-				var a = MathUtils.Angle(dx, dy) + angle;
-				var d = MathUtils.Distance(dx, dy);
+			if (!shadow) {
+				if (!atBack) {
+					var dx = Nozzle.X - or.X;
+					var dy = Nozzle.Y - or.Y;
+					var a = MathUtils.Angle(dx, dy) + angle;
+					var d = MathUtils.Distance(dx, dy);
 
-				var aim = owner.GetComponent<AimComponent>();
-				aim.Center = pos + MathUtils.CreateVector(a, d);
+					var aim = owner.GetComponent<AimComponent>();
+					aim.Center = pos + MathUtils.CreateVector(a, d);
 
-				d = (aim.Aim - pos).Length();
-				aim.RealAim = aim.Center + MathUtils.CreateVector(angle - (horizontal ? 0 : Math.PI / 2), d);
+					d = (aim.Aim - pos).Length();
+					aim.RealAim = aim.Center + MathUtils.CreateVector(angle - (horizontal ? 0 : Math.PI / 2), d);
+				}
 			}
+
+			if (Item.Cursed) {
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(1f);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(ItemGraphicsComponent.CursedColor);
+
+				foreach (var d in MathUtils.Directions) {
+					Graphics.Render(region, pos + d, fangle, or, sc);				
+				}
+				
+				Shaders.End();
+			}
+			
+			Graphics.Render(region, pos, fangle, or, sc);
 		}
 
 		public override void Setup(JsonValue settings) {
