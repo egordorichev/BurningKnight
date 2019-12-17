@@ -2,6 +2,7 @@
 
 * curse {
  + curse tokens {
+  - x2 less hearts spawn
   - (of unknown) all items are unknown, except for the pickups
   - secret curse, that appears only after you get all other curses: curse of death (half a heart only)
  }
