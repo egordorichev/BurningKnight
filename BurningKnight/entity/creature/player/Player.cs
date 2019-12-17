@@ -351,6 +351,10 @@ namespace BurningKnight.entity.creature.player {
 				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
 					Audio.PlaySfx("level_door_shut");
 				}
+
+				if (c.Old != null && Curse.IsEnabled(Curse.OfLost)) {
+					c.Old.Hide();
+				}
 				
 				c.New.Discover();
 				var level = Run.Level;

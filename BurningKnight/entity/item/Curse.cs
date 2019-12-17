@@ -4,6 +4,7 @@ using Lens.util;
 namespace BurningKnight.entity.item {
 	public static class Curse {
 		private static Dictionary<string, bool> enabled = new Dictionary<string, bool>();
+		public static List<string> Defined = new List<string>();
 		
 		public const string OfUnknown = "bk:of_unknown";
 		public const string OfRisk = "bk:of_risk";
@@ -13,6 +14,20 @@ namespace BurningKnight.entity.item {
 		public const string OfKeys = "bk:of_keys";
 		public const string OfEgg = "bk:of_egg";
 
+		public static void Define(string curse) {
+			Defined.Add(curse);
+		}
+
+		static Curse() {
+			Define(OfUnknown);
+			Define(OfRisk);
+			Define(OfCursed);
+			Define(OfBlood);
+			Define(OfLost);
+			Define(OfKeys);
+			Define(OfEgg);
+		}
+
 		public static void Enable(string curse) {
 			if (IsEnabled(curse)) {
 				return;
@@ -20,6 +35,15 @@ namespace BurningKnight.entity.item {
 			
 			enabled[curse] = true;
 			Log.Info($"Curse {curse} was activated!");
+		}
+
+		public static void Disable(string curse) {
+			if (!IsEnabled(curse)) {
+				return;
+			}
+			
+			enabled[curse] = false;
+			Log.Info($"Curse {curse} was deactivated!");
 		}
 
 		public static bool IsEnabled(string curse) {

@@ -5,10 +5,10 @@
   - (of unknown) all items are unknown, except for the pickups
   - (of risk) hidden health 
   - (of cursed) (appears only you already have another curse) all items have a 2/3 chance of becoming cursed (except for the pickups)
-  - (of blood) double enemy amount
-  - (of lost) rooms get forgotten
+  +- (of blood) double enemy amount
+  +- (of lost) rooms get forgotten
   - (of keys) unknown consumables count
-  - (of egg) all item names and descriptions are shuffeled
+  +- (of egg) all item names and descriptions are shuffeled
  }
  
  + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)

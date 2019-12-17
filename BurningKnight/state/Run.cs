@@ -86,6 +86,7 @@ namespace BurningKnight.state {
 			HasRun = false;
 			Luck = 0;
 			Curse = 0;			
+			PermanentCurse = 0;
 			LastSavedDepth = 0;
 		}
 

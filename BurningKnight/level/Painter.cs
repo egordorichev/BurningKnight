@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
@@ -420,36 +421,32 @@ namespace BurningKnight.level {
 				return;
 			}
 			
-			var chances = new float[mobs.Count];
+			var chances = new List<float>();
 
 			for (int i = 0; i < mobs.Count; i++) {
-				chances[i] = room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
+				chances.Add(room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id)));
 			}
 
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
+			var curseOfBlood = Curse.IsEnabled(Curse.OfBlood);
+			
 			if (level.Biome.SpawnAllMobs()) {
 				types.AddRange(mobs);
 				spawnChances.AddRange(chances);
 			} else {
-				for (int i = 0; i < Rnd.Int(2, 6); i++) {
-					var type = mobs[Rnd.Chances(chances)];
-					var found = false;
+				for (int i = 0; i < Rnd.Int(2, 6) * (curseOfBlood ? 2 : 1); i++) {
+					var ind = Rnd.Chances(chances);
+					var type = mobs[ind];
 
-					foreach (var t in types) {
-						if (t == type) {
-							found = true;
+					mobs.RemoveAt(ind);
+					chances.RemoveAt(ind);
+					types.Add(type);
+					spawnChances.Add(type.Chance);
 
-							break;
-						}
-					}
-
-					if (found) {
-						i--;
-					} else {
-						types.Add(type);
-						spawnChances.Add(type.Chance);
+					if (mobs.Count == 0) {
+						break;
 					}
 				}
 			}
@@ -460,7 +457,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier();
+			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier() * (curseOfBlood ? 2 : 1);
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);

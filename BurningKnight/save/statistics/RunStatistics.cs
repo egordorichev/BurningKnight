@@ -324,6 +324,22 @@ namespace BurningKnight.save.statistics {
 			ImGui.Separator();
 			ImGui.Text($"Luck: {Run.Luck}");
 			ImGui.Text($"Curse: {Run.Curse}");
+			
+			if (ImGui.TreeNode("Curses")) {
+				foreach (var curse in Curse.Defined) {
+					var v = Curse.IsEnabled(curse);
+
+					if (ImGui.Checkbox(curse, ref v)) {
+						if (v) {
+							Curse.Enable(curse);
+						} else {
+							Curse.Disable(curse);
+						}
+					}
+				}
+				
+				ImGui.TreePop();
+			}
 		}
 	}
 }
