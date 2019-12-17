@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
 		public ItemType Type;
 		public string Id;
-		public string IdUnderCurse => Curse.IsEnabled(Curse.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
+		public string IdUnderCurse => Type != ItemType.Curse && Curse.IsEnabled(Curse.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
 		public string Name => Masked ? "???" : Locale.Get(IdUnderCurse);
 		public string Description => Locale.Get($"{IdUnderCurse}_desc");
 		public float UseTime = 0.3f;
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item {
 		public override void Init() {
 			base.Init();
 			
-			if (Run.Depth > 0 && Rnd.Chance(Run.Curse * 10 + 0.5f)) {
+			if (Run.Depth > 0 && Rnd.Chance(Curse.IsEnabled(Curse.OfCursed) ? 0.66f : (Run.Curse * 10 + 0.5f))) {
 				Cursed = true;
 			}
 		}

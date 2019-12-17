@@ -21,6 +21,7 @@ namespace BurningKnight.ui.inventory {
 		public TextureRegion ItemSlot;
 		public TextureRegion UseSlot;
 		
+		private TextureRegion question;		
 		private TextureRegion bomb;
 		private TextureRegion key;
 		private TextureRegion coin;
@@ -61,6 +62,7 @@ namespace BurningKnight.ui.inventory {
 			UseSlot = new TextureRegion();
 			UseSlot.Set(ItemSlot);
 			
+			question = anim.GetSlice("question");
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
@@ -165,7 +167,7 @@ namespace BurningKnight.ui.inventory {
 					if (iae.Who == Player) {
 						var item = iae.Item;
 								
-						if (item.Type == ItemType.Artifact) {
+						if (item.Type == ItemType.Artifact || item.Type == ItemType.Curse) {
 							AddArtifact(item);
 						}
 					}
@@ -258,6 +260,11 @@ namespace BurningKnight.ui.inventory {
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
+			if (Curse.IsEnabled(Curse.OfRisk)) {
+				Graphics.Render(question, new Vector2(8, 11));
+				return;
+			}
+			
 			var red = Player.GetComponent<HealthComponent>();
 			var totalRed = red.Health;
 
@@ -293,6 +300,12 @@ namespace BurningKnight.ui.inventory {
 
 		private void RenderConsumables() {
 			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+
+			if (Curse.IsEnabled(Curse.OfKeys)) {
+				Graphics.Render(question, new Vector2(8, bottomY + 1));
+				return;
+			}
+			
 
 			//if (coins > 0) {
 				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
