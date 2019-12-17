@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.component;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -6,8 +7,14 @@ using Lens.lightJson;
 namespace BurningKnight.entity.item.use {	
 	public class ModifyHpUse : ItemUse {
 		public int Amount;
+		public bool SetToMin;
 
 		public override void Use(Entity entity, Item item) {
+			if (SetToMin) {
+				entity.GetComponent<HealthComponent>().InitMaxHealth = 1;
+				return;
+			}
+			
 			var a = Amount;
 
 			if (a > 0 && Curse.IsEnabled(Curse.OfIllness)) {
@@ -24,14 +31,12 @@ namespace BurningKnight.entity.item.use {
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			Amount = settings["amount"].Int(1);
+			SetToMin = settings["to_min"].Bool(false);
 		}
 		
 		public static void RenderDebug(JsonValue root) {
-			var val = root["amount"].Int(1);
-
-			if (ImGui.InputInt("Amount", ref val)) {
-				root["amount"] = val;
-			}
+			root.InputInt("Amount", "amount");
+			root.Checkbox("Set To Min", "to_min", false);
 		}
 	}
 }

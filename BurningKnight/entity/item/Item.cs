@@ -70,6 +70,10 @@ namespace BurningKnight.entity.item {
 		public override void Destroy() {
 			base.Destroy();
 
+			if (Uses == null) {
+				return;
+			}
+
 			foreach (var u in Uses) {
 				u.Destroy();
 			}
