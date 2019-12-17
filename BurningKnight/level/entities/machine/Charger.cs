@@ -47,7 +47,7 @@ namespace BurningKnight.level.entities.machine {
 
 			var drops = new DropsComponent();
 			AddComponent(drops);
-			drops.Add("charger");
+			drops.Add("bk:charger");
 			
 			GetComponent<DialogComponent>().Dialog.Voice = 10;
 		}

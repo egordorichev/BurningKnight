@@ -36,7 +36,7 @@ namespace BurningKnight.level.entities {
 
 			var drops = new DropsComponent();
 			AddComponent(drops);
-			drops.Add("safe");
+			drops.Add("bk:safe");
 		}
 
 		public override void PostInit() {

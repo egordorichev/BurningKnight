@@ -31,7 +31,7 @@ namespace BurningKnight.level.entities.machine {
 
 			var drops = new DropsComponent();
 			AddComponent(drops);
-			drops.Add("vending_machine");
+			drops.Add("bk:vending_machine");
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = (e) => !broken

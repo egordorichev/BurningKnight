@@ -17,43 +17,16 @@ namespace BurningKnight.assets.loot {
 					new SimpleDrop(0.6f, 1, 4, "bk:coin")
 				),
 				
-				new AnyDrop(
-					new SingleDrop("bk:halo", 1f)
-				)
+				new PoolDrop(ItemPool.WoodenChest)
 			));
 			
-			Define("gold_chest", new OneOfDrop(
-				new SingleDrop("bk:halo"),
-				new SingleDrop("bk:wings"),
-				new SingleDrop("bk:potatoo"),
-				new SingleDrop("bk:spike")
-			));
-
-			Define("double_chest", new OneOfDrop(
-				new SingleDrop("bk:halo"),
-				new SingleDrop("bk:wings"),
-				new SingleDrop("bk:potatoo")
-			));
-			
-			Define("triple_chest", new OneOfDrop(
-				new SingleDrop("bk:halo"),
-				new SingleDrop("bk:wings"),
-				new SingleDrop("bk:potatoo")
-			));
-			
-			Define("red_chest", new OneOfDrop(
-				new SingleDrop("bk:broken_heart"),
-				new SimpleDrop(1f, 3, 8, "bk:coin"),
-				
-				new EmptyDrop(0.5f)
-			));
+			Define("gold_chest", new PoolDrop(ItemPool.GoldChest));
+			Define("double_chest", new PoolDrop(ItemPool.DoubleChest));
+			Define("triple_chest", new PoolDrop(ItemPool.TripleChest));
+			Define("red_chest", new PoolDrop(ItemPool.RedChest));
 			
 			Define("stone_chest", new AnyDrop(
-				new OneOfDrop(
-					new SingleDrop("bk:tnt"),
-					new SingleDrop("bk:ninjia_bomb"),
-					new SingleDrop("bk:crying_bomb")
-				),
+				new PoolDrop(ItemPool.StoneChest),
 				
 				new AnyDrop(
 					new SimpleDrop(0.7f, 1, 2, "bk:key"),
@@ -63,13 +36,7 @@ namespace BurningKnight.assets.loot {
 				) { Chance = 0.5f }
 			));
 			
-			Define("cursed_chest", new OneOfDrop(
-				new AnyDrop(
-					new SingleDrop("bk:halo", 1f)
-				),
-				
-				new EmptyDrop(0.5f)
-			));
+			Define("cursed_chest", new PoolDrop(ItemPool.CursedChest));
 			
 			Define("pouch", new OneOfDrop(
 				new SimpleDrop(0.7f, 1, 2, "bk:key"),
@@ -77,7 +44,6 @@ namespace BurningKnight.assets.loot {
 				new SimpleDrop(0.5f, 1, 2, "bk:troll_bomb"),
 				new SimpleDrop(0.6f, 1, 4, "bk:coin")
 			));
-			
 			
 			Define("rock", new AnyDrop(
 				// new SingleDrop("bk:pickaxe", 0.01f)
