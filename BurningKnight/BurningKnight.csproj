@@ -282,6 +282,7 @@
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
+    <Compile Include="assets\particle\controller\CurseController.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />
     <Compile Include="assets\particle\controller\HealthParticleController.cs" />

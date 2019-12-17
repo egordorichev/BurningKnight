@@ -1,4 +1,6 @@
 ﻿using System;
+using BurningKnight.assets.particle;
+using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.save.statistics;
@@ -93,6 +95,23 @@ namespace BurningKnight.state {
 		public static void AddCurse() {
 			Curse++;
 			Audio.PlaySfx("player_cursed");
+
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+			if (player == null) {
+				return;
+			}
+
+			var center = player.Center;
+			
+			for (var i = 0; i < 10; i++) {
+				var part = new ParticleEntity(Particles.Curse());
+						
+				part.Position = center + Rnd.Vector(-4, 4);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+				Level.Area.Add(part);
+				part.Depth = 1;
+			}
 		}
 
 		public static void ResetCurse() {

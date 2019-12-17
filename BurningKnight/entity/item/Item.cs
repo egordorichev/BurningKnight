@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -326,6 +327,8 @@ namespace BurningKnight.entity.item {
 			Unknown = stream.ReadBoolean();
 			Cursed = Cursed || stream.ReadBoolean();
 		}
+
+		private float lastParticle;
 		
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -340,11 +343,28 @@ namespace BurningKnight.entity.item {
 				Delay = Math.Max(0, Delay - s);
 			}
 
-			if (Cursed && Rnd.Chance(5)) {
-				AnimationUtil.Poof(Center, 1);
-			}
 
-			if (HasComponent<OwnerComponent>()) {
+			var hasOwner = HasComponent<OwnerComponent>();
+			
+			if (Cursed) {
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = Rnd.Float(0.05f, 0.3f);
+
+					for (var i = 0; i < Rnd.Int(0, 3); i++) {
+						var part = new ParticleEntity(Particles.Curse());
+
+						part.Position = (hasOwner ? GetComponent<OwnerComponent>().Owner.Center : Center) + Rnd.Vector(-4, 4);
+						part.Particle.Scale = Rnd.Float(0.5f, 1.2f);
+						Area.Add(part);
+						part.Depth = hasOwner ? 1 : -1;
+					}
+				}
+			}
+			
+
+			if (hasOwner) {
 				var o = Owner;
 				
 				foreach (var u in Uses) {
