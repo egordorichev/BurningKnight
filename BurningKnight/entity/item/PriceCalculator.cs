@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item {
 		}
 		
 		public static int Calculate(Item item) {
-			return BasePrice(item.Type);
+			return BasePrice(item.Type) * (Curse.IsEnabled(Curse.OfGreed) ? 2 : 1);
 		}
 	}
 }

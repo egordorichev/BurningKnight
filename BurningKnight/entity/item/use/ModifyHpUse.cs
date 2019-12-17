@@ -3,12 +3,22 @@ using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
 
-namespace BurningKnight.entity.item.use {
+namespace BurningKnight.entity.item.use {	
 	public class ModifyHpUse : ItemUse {
 		public int Amount;
 
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<HealthComponent>().ModifyHealth(Amount, entity);
+			var a = Amount;
+
+			if (a > 0 && Curse.IsEnabled(Curse.OfIllness)) {
+				if (a == 1) {
+					return;
+				}
+				
+				a = (int) (a / 2f);
+			}
+			
+			entity.GetComponent<HealthComponent>().ModifyHealth(a, entity);
 		}
 
 		public override void Setup(JsonValue settings) {

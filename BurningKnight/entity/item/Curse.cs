@@ -13,6 +13,10 @@ namespace BurningKnight.entity.item {
 		public const string OfLost = "bk:of_lost";
 		public const string OfKeys = "bk:of_keys";
 		public const string OfEgg = "bk:of_egg";
+		public const string OfIllness = "bk:of_illness";
+		public const string OfGreed = "bk:of_greed";
+		
+		public const string OfDeath = "bk:of_death";
 
 		public static void Define(string curse) {
 			Defined.Add(curse);
@@ -26,6 +30,9 @@ namespace BurningKnight.entity.item {
 			Define(OfLost);
 			Define(OfKeys);
 			Define(OfEgg);
+			Define(OfIllness);
+			Define(OfGreed);
+			Define(OfDeath);
 		}
 
 		public static void Clear() {
