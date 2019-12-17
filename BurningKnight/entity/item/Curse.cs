@@ -28,6 +28,10 @@ namespace BurningKnight.entity.item {
 			Define(OfEgg);
 		}
 
+		public static void Clear() {
+			enabled.Clear();
+		}
+
 		public static void Enable(string curse) {
 			if (IsEnabled(curse)) {
 				return;

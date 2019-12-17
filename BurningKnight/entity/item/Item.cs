@@ -29,6 +29,8 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
+		public static TextureRegion UnknownRegion;
+		
 		public ItemType Type;
 		public string Id;
 		public string IdUnderCurse => Type != ItemType.Curse && Curse.IsEnabled(Curse.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
@@ -49,7 +51,9 @@ namespace BurningKnight.entity.item {
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		public ItemRenderer Renderer;
 
-		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
+		public bool Hidden => (Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Curse.IsEnabled(Curse.OfUnknown));
+		public TextureRegion Region => (Hidden) ? UnknownRegion : (Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite);
+		
 		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
 		public ItemData Data => Items.Datas[Id];
 

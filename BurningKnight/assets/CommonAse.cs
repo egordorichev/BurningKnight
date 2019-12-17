@@ -1,4 +1,5 @@
-﻿using Lens.assets;
+﻿using BurningKnight.entity.item;
+using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
 
@@ -21,6 +22,7 @@ namespace BurningKnight.assets {
 
 			Missing = Items.GetSlice("missing");
 			Textures.Missing = Missing;
+			Item.UnknownRegion = Items.GetSlice("unknown");
 		}
 	}
 }

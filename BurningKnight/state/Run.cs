@@ -88,6 +88,7 @@ namespace BurningKnight.state {
 			Curse = 0;			
 			PermanentCurse = 0;
 			LastSavedDepth = 0;
+			entity.item.Curse.Clear();
 		}
 
 		public static string FormatTime() {
