@@ -212,7 +212,7 @@ namespace BurningKnight.level.rooms.shop {
 				return false;
 			}*/
 			
-			if (P.X == Left || P.X == Right) {
+			if (P.Y == Top || P.Y == Bottom) {
 				return false;
 			}
 			

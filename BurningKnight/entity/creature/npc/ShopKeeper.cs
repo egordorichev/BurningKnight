@@ -302,7 +302,7 @@ namespace BurningKnight.entity.creature.npc {
 				var b = Self.GetComponent<RectBodyComponent>();
 				b.Velocity += new Vector2(dx / d * s, dy / d * s);
 
-				if (d <= 24) {
+				if (d <= 24 || T >= 4f) {
 					if ((toPlayer && Rnd.Chance(80)) || Rnd.Chance(30)) {
 						if (Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
 							Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{(Rnd.Chance(30) ? 18 : Rnd.Int(12, 15))}", 3);

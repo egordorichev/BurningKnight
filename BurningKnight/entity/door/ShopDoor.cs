@@ -3,16 +3,16 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.door {
 	public class ShopDoor : CustomDoor {
 		protected override void SetSize() {
-			Width = Vertical ? 10 : 24;
-			Height = Vertical ? 22 : 31;
+			Width = Vertical ? 14 : 24;
+			Height = Vertical ? 17 : 31;
 		}
 
 		public override Vector2 GetOffset() {
-			return new Vector2(0, Vertical ? -5 : 0);
+			return new Vector2(0, Vertical ? -6 : 0);
 		}
 
 		protected override Vector2 GetLockOffset() {
-			return Vertical ? new Vector2(0, 0) : new Vector2(0, 9);
+			return Vertical ? new Vector2(0, -2) : new Vector2(0, 9);
 		}
 		
 		protected override Rectangle GetHitbox() {
@@ -25,7 +25,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override string GetBar() {
-			return Vertical ? "vertical_shop_door" : "shop_door";
+			return Vertical ? null : "shop_door";
 		}
 
 		protected override string GetAnimation() {
@@ -33,7 +33,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override string GetPad() {
-			return Vertical ? "vertical_shop_door_pad" : null;
+			return null;
 		}
 	}
 }
