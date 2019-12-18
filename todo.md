@@ -36,6 +36,7 @@
 }
 
 * fix {
+ + weird glitch with the lock?? it kinda rotates or smth
  + projectile effect is not used anymore, color the projectile depending on the buff
  + holding amurs bow in the back still applies the effect
 }

@@ -30,6 +30,10 @@ namespace BurningKnight.entity.door {
 			Area.Add(new RenderTrigger(this, () => RenderFrame(false), Layers.FlyingMob));
 		}
 
+		protected override float GetShadowOffset() {
+			return 0;
+		}
+
 		protected virtual string GetBar() {
 			return null;
 		}

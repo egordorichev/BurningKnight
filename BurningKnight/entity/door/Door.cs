@@ -19,8 +19,6 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
 	public class Door : SaveableEntity, PlaceableEntity {
-		private const float W = 16;
-		private const float H = 6;
 		private const float CloseTimer = 1f;
 		
 		public bool Vertical;
@@ -38,7 +36,7 @@ namespace BurningKnight.entity.door {
 		internal Room[] Rooms;
 
 		public virtual Vector2 GetOffset() {
-			return Vector2.Zero;
+			return new Vector2(0, Vertical ? -7 : -7);
 		}
 		
 		public override void AddComponents() {
@@ -50,16 +48,26 @@ namespace BurningKnight.entity.door {
 			AddComponent(new AudioEmitterComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new ExplodableComponent());
+			// AddComponent(new ExplodableComponent());
 			
 			GetComponent<StateComponent>().Become<ClosedState>();
 		}
 
+		protected virtual float GetShadowOffset() {
+			return 8;
+		}
+
+		protected virtual void SetSize() {
+			Width = Vertical ? 8 : 20;
+			Height = Vertical ? 19 : 11;
+		}
+
 		public override void PostInit() {
 			base.PostInit();
-			
+			SetSize();
+
 			AddComponent(new AnimationComponent(GetAnimation()) {
-				//ShadowOffset = 8
+				ShadowOffset = GetShadowOffset()
 			});
 			
 			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
@@ -108,7 +116,7 @@ namespace BurningKnight.entity.door {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
-			} else if (e is ExplodedEvent ee) {
+			}/* else if (e is ExplodedEvent ee) {
 				foreach (var r in Rooms) {
 					if (r != null && r.Type == RoomType.Boss) {
 						// return base.HandleEvent(e);
@@ -116,7 +124,7 @@ namespace BurningKnight.entity.door {
 				}
 				
 				BreakFromExplosion();
-			}
+			}*/
 			
 			return base.HandleEvent(e);
 		}

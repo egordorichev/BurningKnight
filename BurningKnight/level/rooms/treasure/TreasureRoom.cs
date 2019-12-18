@@ -24,31 +24,6 @@ namespace BurningKnight.level.rooms.treasure {
 			SetupStands(level);
 		}
 
-		public override bool CanConnect(RoomDef R, Dot P) {
-			/*
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 *
-			 * FIXME : remove this method, just for testing added it was
-			 */
-			if (P.Y == Top || P.Y == Bottom) {
-				return false;
-			}
-			
-			return base.CanConnect(R, P);
-		}
-
 		protected void SetupStands(Level level) {
 			if (stands.Count == 0) {
 				return;

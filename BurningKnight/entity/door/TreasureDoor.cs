@@ -2,11 +2,9 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
 	public class TreasureDoor : CustomDoor {
-		public override void PostInit() {
+		protected override void SetSize() {
 			Width = Vertical ? 10 : 24;
 			Height = Vertical ? 22 : 26;
-			
-			base.PostInit();
 		}
 
 		public override Vector2 GetOffset() {
@@ -35,7 +33,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override string GetPad() {
-			return "vertical_treasure_door_pad";
+			return Vertical ? "vertical_treasure_door_pad" : null;
 		}
 	}
 }
