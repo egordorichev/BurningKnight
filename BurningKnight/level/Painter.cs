@@ -791,6 +791,10 @@ namespace BurningKnight.level {
 					case DoorPlaceholder.Variant.Treasure:
 						door = new TreasureDoor();
 						break;
+					
+					case DoorPlaceholder.Variant.Shop:
+						door = new ShopDoor();
+						break;
 				
 					default: 
 						door = new LockableDoor();

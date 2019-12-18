@@ -536,7 +536,6 @@
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\door\LockedDoor.cs" />
     <Compile Include="entity\door\ShopDoor.cs" />
-    <Compile Include="entity\door\ShopLock.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />

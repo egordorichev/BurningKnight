@@ -208,7 +208,11 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.Y == Top) {
+			/*if (P.Y == Top) {
+				return false;
+			}*/
+			
+			if (P.X == Left || P.X == Right) {
 				return false;
 			}
 			
