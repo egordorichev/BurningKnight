@@ -12,6 +12,10 @@ namespace BurningKnight.entity.door {
 		protected override Vector2 GetLockOffset() {
 			return FacingSide ? new Vector2(0, -4) : new Vector2(0, 6);
 		}
+		
+		protected override Rectangle GetHitbox() {
+			return new Rectangle(0, FacingSide ? 0 : 14, (int) Width, FacingSide ? (int) Height : 11);
+		}
 
 		protected override Lock CreateLock() {
 			return new GoldLock();
