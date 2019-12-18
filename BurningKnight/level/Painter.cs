@@ -797,13 +797,15 @@ namespace BurningKnight.level {
 						break;
 				}
 
-				door.FacingSide = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+				door.Vertical = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
 				Level.Area.Add(door);
 
-				door.CenterX = D.X * 16 + 8;
-				door.Bottom = D.Y * 16 + 17.01f; // 0.1f so that it's depth sorted to the front of the wall
+				var offset = door.GetOffset();
 
-				if (door.FacingSide) {
+				door.CenterX = D.X * 16 + 8 + offset.X;
+				door.Bottom = D.Y * 16 + 17.01f + offset.Y; // .1f so that it's depth sorted to the front of the wall
+
+				if (door.Vertical) {
 					if (type != DoorPlaceholder.Variant.Hidden) {
 						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
 							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());

@@ -60,7 +60,7 @@ namespace BurningKnight.level.rooms.special {
 				npc.Center = new Dot(Left + w + (d.X == Left ? 2 : -2), Rnd.Int(Top + 2, Bottom - 3)) * 16 + new Vector2(8);
 
 				var dr = new CageDoor {
-					FacingSide = true
+					Vertical = true
 				};
 				
 				dr.Center = door * 16 + new Vector2(12, 0);

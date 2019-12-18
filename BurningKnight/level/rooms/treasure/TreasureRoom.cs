@@ -42,7 +42,7 @@ namespace BurningKnight.level.rooms.treasure {
 			 *
 			 * FIXME : remove this method, just for testing added it was
 			 */
-			if (P.X == Left || P.X == Right) {
+			if (P.Y == Top || P.Y == Bottom) {
 				return false;
 			}
 			

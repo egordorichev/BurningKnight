@@ -12,11 +12,11 @@ namespace BurningKnight.entity.door {
 		protected bool SkipLock;
 
 		protected virtual Rectangle GetHitbox() {
-			return new Rectangle(0, FacingSide ? 0 : 5, (int) Width, FacingSide ? (int) Height : 6);
+			return new Rectangle(0, Vertical ? 0 : 5, (int) Width, Vertical ? (int) Height : 6);
 		}
 
 		protected virtual Vector2 GetLockOffset() {
-			return FacingSide ? new Vector2(0, -4) : new Vector2(0, 3);
+			return Vertical ? new Vector2(0, -4) : new Vector2(0, 3);
 		}
 		
 		public override void PostInit() {

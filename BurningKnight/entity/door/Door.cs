@@ -23,7 +23,7 @@ namespace BurningKnight.entity.door {
 		private const float H = 6;
 		private const float CloseTimer = 1f;
 		
-		public bool FacingSide;
+		public bool Vertical;
 
 		public bool Open {
 			get {
@@ -36,23 +36,13 @@ namespace BurningKnight.entity.door {
 		private float lastCollisionTimer;
 		private bool lit;
 		internal Room[] Rooms;
+
+		public virtual Vector2 GetOffset() {
+			return Vector2.Zero;
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
-
-			/*var width = FacingSide ? 4 : 16;
-			var height = FacingSide ? 19 + 8 : 11;
-			
-			
-			Width = width;
-			Height = height;*/
-			
-			var animation = new AnimationComponent(GetAnimation()) {
-				//ShadowOffset = 8
-			};
-			
-			AddComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
 
 			Depth = Layers.Door;
 			AlwaysActive = true;
@@ -65,22 +55,32 @@ namespace BurningKnight.entity.door {
 			GetComponent<StateComponent>().Become<ClosedState>();
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+			
+			AddComponent(new AnimationComponent(GetAnimation()) {
+				//ShadowOffset = 8
+			});
+			
+			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
+		}
+
 		protected virtual void RenderShadow() {
 			GraphicsComponent.Render(true);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			FacingSide = stream.ReadBoolean();
+			Vertical = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteBoolean(FacingSide);
+			stream.WriteBoolean(Vertical);
 		}
 
 		protected virtual string GetAnimation() {
-			return FacingSide ? "side_door" : "regular_door";
+			return Vertical ? "side_door" : "regular_door";
 		}
 
 		public override bool HandleEvent(Event e) {

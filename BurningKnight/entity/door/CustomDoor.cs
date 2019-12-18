@@ -6,21 +6,44 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.door {
 	public class CustomDoor : LockableDoor {
 		private TextureRegion bar;
+		private TextureRegion pad;
 
 		public override void PostInit() {
 			base.PostInit();
+			var p = GetPad();
+
+			if (p != null) {
+				pad = CommonAse.Props.GetSlice(p);
+				
+				Area.Add(new RenderTrigger(this, () => {
+					Graphics.Render(pad, Position);
+				}, -1));
+			}
 			
-			bar = CommonAse.Props.GetSlice(GetBar());
+			var b = GetBar();
+
+			if (b == null) {
+				return;
+			}
+			
+			bar = CommonAse.Props.GetSlice(b);
 			Area.Add(new RenderTrigger(this, () => RenderFrame(false), Layers.FlyingMob));
 		}
 
 		protected virtual string GetBar() {
-			return "";
+			return null;
+		}
+
+		protected virtual string GetPad() {
+			return null;
 		}
 
 		protected override void RenderShadow() {
 			base.RenderShadow();
-			RenderFrame(true);
+
+			if (bar != null) {
+				RenderFrame(true);
+			}
 		}
 
 		private void RenderFrame(bool shadow) {

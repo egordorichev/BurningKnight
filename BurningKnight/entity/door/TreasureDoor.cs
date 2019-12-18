@@ -2,19 +2,24 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
 	public class TreasureDoor : CustomDoor {
-		public override void AddComponents() {
-			Width = 24;
-			Height = 26;
+		public override void PostInit() {
+			Width = Vertical ? 10 : 24;
+			Height = Vertical ? 22 : 26;
 			
-			base.AddComponents();
+			base.PostInit();
 		}
-		
+
+		public override Vector2 GetOffset() {
+			return new Vector2(0, Vertical ? -5 : 0);
+		}
+
 		protected override Vector2 GetLockOffset() {
-			return FacingSide ? new Vector2(0, -4) : new Vector2(0, 6);
+			return Vertical ? new Vector2(0, 0) : new Vector2(0, 6);
 		}
 		
 		protected override Rectangle GetHitbox() {
-			return new Rectangle(0, FacingSide ? 0 : 14, (int) Width, FacingSide ? (int) Height : 11);
+			return Vertical ? new Rectangle(0, 0, (int) Width, (int) Height + 3) 
+				: new Rectangle(0, 14, (int) Width, 11);
 		}
 
 		protected override Lock CreateLock() {
@@ -22,11 +27,15 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override string GetBar() {
-			return "treasure_door";
+			return Vertical ? "vertical_treasure_door" : "treasure_door";
 		}
 
 		protected override string GetAnimation() {
-			return "treasure_door";
+			return Vertical ? "vertical_treasure_door" : "treasure_door";
+		}
+
+		protected override string GetPad() {
+			return "vertical_treasure_door_pad";
 		}
 	}
 }
