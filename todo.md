@@ -1,17 +1,25 @@
 # jungle 
 
 * curse {
- + curse tokens {
-  - x2 less hearts spawn
-  - (of unknown) all items are unknown, except for the pickups
-  - secret curse, that appears only after you get all other curses: curse of death (half a heart only)
- }
+  - bk fire constantly, if you have >= 10 curse
+  - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
+  - make bill give you 3 curses instead of 1
+  - more coins should drop the more curse you have
+  - cursed bullets from cursed enemies (visuals)
+  - a way to clean the cursed weapons
+  - curse points should affect granny/dm chance?
+  - item, that gives immunity to curse tokens (removes them and disables their spawn / cursed item spawn) and cleans cursed items
+  - cursed room, entering it gives you 1 curse point
+  - spiked room, entering it hurts you
+  - challenge room
+  
+  - a way to get curses {
+   + shop, you get payed to get a curse
  
- + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
- + statue, you break it and get curse, but you get healed?
- + a way to clean the cursed weapons
- + curse points should affect granny/dm chance?
- + item, that gives immunity to curse tokens and cleans cursed items
+   + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
+   + statue, you break it and get curse, but you get healed?
+  }
+ }
 }
 
 * enemies {
