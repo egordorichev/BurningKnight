@@ -1,7 +1,7 @@
 namespace BurningKnight.entity.door {
 	public class TreasureDoor : CustomDoor {
 		public override void AddComponents() {
-			Width = 22;
+			Width = 24;
 			Height = 26;
 			
 			base.AddComponents();

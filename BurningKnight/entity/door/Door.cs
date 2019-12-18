@@ -40,15 +40,33 @@ namespace BurningKnight.entity.door {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			/*var width = FacingSide ? 4 : 16;
+			var height = FacingSide ? 19 + 8 : 11;
+			
+			
+			Width = width;
+			Height = height;*/
+			
+			var animation = new AnimationComponent(GetAnimation()) {
+				//ShadowOffset = 8
+			};
+			
+			AddComponent(animation);
+			AddComponent(new RectBodyComponent(0, 0, Width + 4, Height + 4, BodyType.Static, true));
+
 			Depth = Layers.Door;
 			AlwaysActive = true;
 			
 			AddComponent(new AudioEmitterComponent());
 			AddComponent(new StateComponent());
-			AddComponent(new ShadowComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ExplodableComponent());
 			
 			GetComponent<StateComponent>().Become<ClosedState>();
+		}
+
+		protected virtual void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public override void Load(FileReader stream) {
@@ -63,23 +81,6 @@ namespace BurningKnight.entity.door {
 
 		protected virtual string GetAnimation() {
 			return FacingSide ? "side_door" : "regular_door";
-		}
-
-		public override void PostInit() {
-			base.PostInit();
-
-			var width = FacingSide ? 4 : 16;
-			var height = FacingSide ? 19 + 8 : 11;
-			
-			var animation = new AnimationComponent(GetAnimation()) {
-				ShadowOffset = 8
-			};
-			
-			AddComponent(animation);
-			AddComponent(new RectBodyComponent(0, 0, width + 4, height + 4, BodyType.Static, true));
-
-			Width = width;
-			Height = height;
 		}
 
 		public override bool HandleEvent(Event e) {

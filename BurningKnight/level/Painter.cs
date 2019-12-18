@@ -801,7 +801,7 @@ namespace BurningKnight.level {
 				Level.Area.Add(door);
 
 				door.CenterX = D.X * 16 + 8;
-				door.Bottom = D.Y * 16 + 16;
+				door.Bottom = D.Y * 16 + 17.01f; // 0.1f so that it's depth sorted to the front of the wall
 
 				if (door.FacingSide) {
 					if (type != DoorPlaceholder.Variant.Hidden) {

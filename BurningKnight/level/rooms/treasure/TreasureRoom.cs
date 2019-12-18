@@ -25,6 +25,23 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
+			/*
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 *
+			 * FIXME : remove this method, just for testing added it was
+			 */
 			if (P.X == Left || P.X == Right) {
 				return false;
 			}
