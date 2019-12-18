@@ -29,6 +29,8 @@ namespace BurningKnight.level {
 			Maze,
 			Enemy,
 			Locked,
+			Treasure,
+			Shop,
 			Boss,
 			Secret,
 			Hidden

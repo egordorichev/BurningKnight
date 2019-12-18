@@ -787,20 +787,23 @@ namespace BurningKnight.level {
 					case DoorPlaceholder.Variant.Boss: 
 						door = new BossDoor();
 						break;
+					
+					case DoorPlaceholder.Variant.Treasure:
+						door = new TreasureDoor();
+						break;
 				
 					default: 
 						door = new LockableDoor();
 						break;
 				}
 
-				door.X = D.X * 16;
-				door.Y = D.Y * 16;
 				door.FacingSide = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+				Level.Area.Add(door);
+
+				door.CenterX = D.X * 16 + 8;
+				door.Bottom = D.Y * 16 + 16;
 
 				if (door.FacingSide) {
-					door.Y -= 8;
-					door.X += 6;
-
 					if (type != DoorPlaceholder.Variant.Hidden) {
 						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
 							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
@@ -811,8 +814,6 @@ namespace BurningKnight.level {
 						}
 					}
 				} else {
-					door.Y -= 2;
-
 					if (type != DoorPlaceholder.Variant.Hidden) {
 						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
 							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
@@ -823,9 +824,7 @@ namespace BurningKnight.level {
 						}
 					}
 				}
-						
-				Level.Area.Add(door);
-
+				
 				Level.Set(D.X, D.Y, Tiles.RandomFloor());
 			} else if (type == DoorPlaceholder.Variant.Hidden) {
 				Level.Set(D.X, D.Y, Tile.WallA);

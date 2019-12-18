@@ -24,6 +24,14 @@ namespace BurningKnight.level.rooms.treasure {
 			SetupStands(level);
 		}
 
+		public override bool CanConnect(RoomDef R, Dot P) {
+			if (P.X == Left || P.X == Right) {
+				return false;
+			}
+			
+			return base.CanConnect(R, P);
+		}
+
 		protected void SetupStands(Level level) {
 			if (stands.Count == 0) {
 				return;
@@ -55,7 +63,7 @@ namespace BurningKnight.level.rooms.treasure {
 
 		public override void SetupDoors(Level level) {
 			foreach (var door in Connected.Values) {
-				door.Type = Run.Depth == 1 ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Locked;
+				door.Type = DoorPlaceholder.Variant.Treasure;
 			}
 		}
 

@@ -125,14 +125,6 @@ namespace BurningKnight.level.rooms.shop {
 			});
 		}
 
-		public override void SetupDoors(Level level) {
-			var hidden = Rnd.Chance(5);
-			
-			foreach (var door in Connected.Values) {
-				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Locked;
-			}
-		}
-
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {
 			var list = new List<Point>();
 
@@ -207,6 +199,12 @@ namespace BurningKnight.level.rooms.shop {
 			}
 
 			return list;
+		}
+
+		public override void SetupDoors(Level level) {
+			foreach (var door in Connected.Values) {
+				door.Type = DoorPlaceholder.Variant.Shop;
+			}
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
