@@ -10,15 +10,24 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.door {
 	public class LockableDoor : Door, CollisionFilterEntity {
 		protected bool SkipLock;
+
+		protected virtual Rectangle GetHitbox() {
+			return new Rectangle(0, FacingSide ? 0 : 5, (int) Width, FacingSide ? (int) Height : 6);
+		}
+
+		protected virtual Vector2 GetLockOffset() {
+			return FacingSide ? new Vector2(0, -4) : new Vector2(0, 3);
+		}
 		
 		public override void PostInit() {
 			base.PostInit();
 
 			if (!SkipLock) {
-				AddComponent(new LockComponent(this, CreateLock(), FacingSide ? new Vector2(0, -4) : new Vector2(0, 3)));
+				AddComponent(new LockComponent(this, CreateLock(), GetLockOffset()));
 			}
 
-			AddComponent(new DoorBodyComponent(0, FacingSide ? 0 : 5, (int) Width, FacingSide ? (int) Height : 6, BodyType.Static, true));
+			var box = GetHitbox();
+			AddComponent(new DoorBodyComponent(box.X, box.Y, box.Width, box.Height, BodyType.Static, true));
 		}
 
 		public override void Update(float dt) {

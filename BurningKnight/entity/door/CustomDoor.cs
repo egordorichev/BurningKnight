@@ -2,7 +2,6 @@ using BurningKnight.assets;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 namespace BurningKnight.entity.door {
 	public class CustomDoor : LockableDoor {

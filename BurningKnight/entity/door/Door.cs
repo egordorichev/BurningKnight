@@ -52,7 +52,7 @@ namespace BurningKnight.entity.door {
 			};
 			
 			AddComponent(animation);
-			AddComponent(new RectBodyComponent(0, 0, Width + 4, Height + 4, BodyType.Static, true));
+			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
 
 			Depth = Layers.Door;
 			AlwaysActive = true;
