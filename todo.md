@@ -13,7 +13,10 @@
   - spiked room, entering it hurts you
   - challenge room
   
+  - spiked room contents
+  
   - a way to get curses {
+   + a door, passing through it makes your weapons cursed (and it has some reward inside?)
    + shop, you get payed to get a curse
  
    + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)

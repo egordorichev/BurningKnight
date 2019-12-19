@@ -626,6 +626,10 @@ namespace BurningKnight.level.rooms {
 				return RoomType.Trap;
 			}
 			
+			if (typeof(ChallengeRoom).IsAssignableFrom(room)) {
+				return RoomType.Challenge;
+			}
+
 			if (typeof(SpikedRoom).IsAssignableFrom(room)) {
 				return RoomType.Spiked;
 			}

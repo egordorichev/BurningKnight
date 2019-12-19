@@ -3,6 +3,7 @@ using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.challenge;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
@@ -164,7 +165,9 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 
+				// for testing
 				rooms.Add(new SpikedRoom());
+				rooms.Add(new ChallengeRoom());
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {
