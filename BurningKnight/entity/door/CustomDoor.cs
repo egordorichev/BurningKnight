@@ -8,6 +8,10 @@ namespace BurningKnight.entity.door {
 		private TextureRegion bar;
 		private TextureRegion pad;
 
+		public CustomDoor() {
+			OpenByDefault = true;
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 			var p = GetPad();

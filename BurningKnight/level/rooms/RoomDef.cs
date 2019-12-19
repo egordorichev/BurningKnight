@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.room;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.boss;
+using BurningKnight.level.rooms.challenge;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.granny;

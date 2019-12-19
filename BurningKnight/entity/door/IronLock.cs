@@ -9,6 +9,7 @@ using Lens.entity.component.logic;
 namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
 		protected List<Room> rooms = new List<Room>();
+		private bool first = true;
 
 		public IronLock() {
 			LockedByDefault = false;
@@ -61,11 +62,23 @@ namespace BurningKnight.entity.door {
 
 			if (shouldLock && !IsLocked) {
 				SetLocked(true, null);
-				GetComponent<StateComponent>().Become<ClosingState>();
+
+				if (first) {
+					GetComponent<StateComponent>().Become<IdleState>();
+				} else {
+					GetComponent<StateComponent>().Become<ClosingState>();
+				}
 			} else if (!shouldLock && IsLocked) {
 				SetLocked(false, null);
-				GetComponent<StateComponent>().Become<OpeningState>();
+
+				if (first) {
+					GetComponent<StateComponent>().Become<OpenState>();
+				} else {
+					GetComponent<StateComponent>().Become<OpeningState>();
+				}
 			}
+
+			first = false;
 		}
 	}
 }

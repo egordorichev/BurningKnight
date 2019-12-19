@@ -8,10 +8,6 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.door {
 	public class SpikedDoor : CustomDoor {
 		private List<Player> Colliding = new List<Player>();
-		
-		public SpikedDoor() {
-			SkipLock = true;
-		}
 
 		public override void PostInit() {
 			base.PostInit();
@@ -33,6 +29,10 @@ namespace BurningKnight.entity.door {
 			
 			return base.HandleEvent(e);
 		}
+		
+		protected override Vector2 GetLockOffset() {
+			return new Vector2(0, 0);
+		}
 
 		protected override void SetSize() {
     	Width = 24;
@@ -44,7 +44,7 @@ namespace BurningKnight.entity.door {
     }
 
     protected override Lock CreateLock() {
-    	return null;
+    	return new IronLock();
     }
 
     protected override string GetBar() {

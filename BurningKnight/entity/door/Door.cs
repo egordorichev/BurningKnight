@@ -22,6 +22,7 @@ namespace BurningKnight.entity.door {
 		private const float CloseTimer = 1f;
 		
 		public bool Vertical;
+		protected bool OpenByDefault;
 
 		public bool Open {
 			get {
@@ -49,8 +50,12 @@ namespace BurningKnight.entity.door {
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
 			// AddComponent(new ExplodableComponent());
-			
-			GetComponent<StateComponent>().Become<ClosedState>();
+
+			if (OpenByDefault) {
+				GetComponent<StateComponent>().Become<OpenState>();
+			} else {
+				GetComponent<StateComponent>().Become<ClosedState>();
+			}
 		}
 
 		protected virtual float GetShadowOffset() {
@@ -112,7 +117,7 @@ namespace BurningKnight.entity.door {
 				if (end.Entity is Player) {
 					Colliding.Remove(end.Entity);
 					
-					if (Colliding.Count == 0) {
+					if (Colliding.Count == 0 && !OpenByDefault) {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
@@ -157,7 +162,7 @@ namespace BurningKnight.entity.door {
 			base.Update(dt);
 			var state = GetComponent<StateComponent>();
 			
-			if (state.StateInstance is OpenState && Colliding.Count == 0) {
+			if (state.StateInstance is OpenState && Colliding.Count == 0 && !OpenByDefault) {
 				lastCollisionTimer -= dt;
 
 				if (lastCollisionTimer <= 0) {

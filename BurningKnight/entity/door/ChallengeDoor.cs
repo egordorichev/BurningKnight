@@ -8,7 +8,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override Vector2 GetLockOffset() {
-			return new Vector2(0, -5);
+			return new Vector2(0, 9);
 		}
 		
 		public override Vector2 GetOffset() {
