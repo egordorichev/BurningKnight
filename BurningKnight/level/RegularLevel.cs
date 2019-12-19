@@ -6,6 +6,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -162,6 +163,8 @@ namespace BurningKnight.level {
 				rooms.Add(new PrebossRoom());	
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+
+				rooms.Add(new SpikedRoom());
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

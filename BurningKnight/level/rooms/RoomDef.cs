@@ -11,6 +11,7 @@ using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
@@ -623,6 +624,10 @@ namespace BurningKnight.level.rooms {
 		public static RoomType DecideType(RoomDef r, Type room) {
 			if (typeof(TrapRoom).IsAssignableFrom(room)) {
 				return RoomType.Trap;
+			}
+			
+			if (typeof(SpikedRoom).IsAssignableFrom(room)) {
+				return RoomType.Spiked;
 			}
 
 			if (typeof(BossRoom).IsAssignableFrom(room)) {

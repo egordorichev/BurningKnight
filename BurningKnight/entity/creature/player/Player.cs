@@ -404,10 +404,10 @@ namespace BurningKnight.entity.creature.player {
 					c.Old.CloseHiddenDoors();
 				}
 
-				// Darken the lighting in old man room
-				if (c.New.Type == RoomType.OldMan) {
+				// Darken the lighting in evil rooms
+				if (c.New.Type == RoomType.OldMan || c.New.Type == RoomType.Spiked) {
 					Tween.To(0.7f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
-				} else if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+				} else if (c.Old != null && (c.Old.Type == RoomType.OldMan || c.Old.Type == RoomType.Spiked)) {
 					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
 				}
 

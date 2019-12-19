@@ -537,6 +537,7 @@
     <Compile Include="entity\door\LockedDoor.cs" />
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
+    <Compile Include="entity\door\SpikedDoor.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\door\VerticalHallDoor.cs" />
@@ -896,6 +897,7 @@
     <Compile Include="level\rooms\special\TombRoom.cs" />
     <Compile Include="level\rooms\special\VendingRoom.cs" />
     <Compile Include="level\rooms\special\WellRoom.cs" />
+    <Compile Include="level\rooms\spiked\SpikedRoom.cs" />
     <Compile Include="level\rooms\trap\CageRoom.cs" />
     <Compile Include="level\rooms\trap\FireTrapRoom.cs" />
     <Compile Include="level\rooms\trap\FollowingSpikeBallRoom.cs" />

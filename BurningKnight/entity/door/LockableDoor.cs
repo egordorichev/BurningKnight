@@ -24,14 +24,17 @@ namespace BurningKnight.entity.door {
 
 			if (!SkipLock) {
 				AddComponent(new LockComponent(this, CreateLock(), GetLockOffset()));
+				var box = GetHitbox();
+				AddComponent(new DoorBodyComponent(box.X, box.Y, box.Width, box.Height, BodyType.Static, true));
 			}
-
-			var box = GetHitbox();
-			AddComponent(new DoorBodyComponent(box.X, box.Y, box.Width, box.Height, BodyType.Static, true));
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (SkipLock) {
+				return;
+			}
 			
 			var state = GetComponent<StateComponent>();
 
@@ -47,7 +50,7 @@ namespace BurningKnight.entity.door {
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteBoolean(!TryGetComponent<LockComponent>(out var l) || l.Lock == null || l.Lock.Done);
+			stream.WriteBoolean(SkipLock || !TryGetComponent<LockComponent>(out var l) || l.Lock == null || l.Lock.Done);
 		}
 
 		protected virtual Lock CreateLock() {
@@ -65,7 +68,7 @@ namespace BurningKnight.entity.door {
 		public override void Render() {
 			base.Render();
 
-			if (TryGetComponent<LockComponent>(out var l)) {
+			if (!SkipLock && TryGetComponent<LockComponent>(out var l)) {
 				l.Lock?.RealRender();
 			}
 		}

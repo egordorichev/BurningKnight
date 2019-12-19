@@ -83,12 +83,23 @@ namespace BurningKnight.level.rooms.shop {
 			level.Area.Add(sk);
 			sk.Center = new Vector2(p.X * 16 + 8, p.Y * 16 + 16);
 
-			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor());
+			// Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor());
 			
 			var points = new List<Point>();
 
 			for (var x = Left + 2; x < Right - 1; x++) {
-				points.Add(new Point(x, Top + 2));
+				var found = false;
+
+				foreach (var c in Connected.Values) {
+					if (c.X == x && c.Y == Top) {
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found) {
+					points.Add(new Point(x, Top + 2));
+				}
 			}
 
 			var props = new List<Entity> {
@@ -208,11 +219,7 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
-			/*if (P.Y == Top) {
-				return false;
-			}*/
-			
-			if (P.Y == Top || P.Y == Bottom) {
+			if (P.X == Left || P.X == Right) {
 				return false;
 			}
 			

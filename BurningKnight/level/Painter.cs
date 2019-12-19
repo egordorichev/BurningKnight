@@ -792,6 +792,10 @@ namespace BurningKnight.level {
 						door = new TreasureDoor();
 						break;
 					
+					case DoorPlaceholder.Variant.Spiked:
+						door = new SpikedDoor();
+						break;
+					
 					case DoorPlaceholder.Variant.Shop:
 						door = new ShopDoor();
 						break;
