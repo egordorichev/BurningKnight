@@ -9,8 +9,8 @@ namespace BurningKnight.entity.door {
 		private TextureRegion pad;
 		
 		/*
+		 * Unknown item ö
 		 * npc door auto unlocks and opens???
-		 * iron lock doesnt display properly on shop door
 		 */
 
 		public CustomDoor() {

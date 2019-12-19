@@ -31,7 +31,7 @@ namespace BurningKnight.entity.door {
 		}
 		
 		protected override Vector2 GetLockOffset() {
-			return new Vector2(0, 0);
+			return new Vector2(0, 3);
 		}
 
 		protected override void SetSize() {
