@@ -17,7 +17,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected virtual Vector2 GetLockOffset() {
-			return Vertical ? new Vector2(0, 1) : new Vector2(0, 3);
+			return Vertical ? new Vector2(0, 1) : new Vector2(0, 2);
 		}
 		
 		public override void PostInit() {

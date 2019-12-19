@@ -7,6 +7,12 @@ namespace BurningKnight.entity.door {
 	public class CustomDoor : LockableDoor {
 		private TextureRegion bar;
 		private TextureRegion pad;
+		
+		/*
+		 * iron lock doesnt display properly on shop door
+		 * teleporting to locked room doesnt unlock it?
+		 * bill is not cursed? doesnt give curse. curse doesnt save after checking it in item editor?
+		 */
 
 		public CustomDoor() {
 			OpenByDefault = true;
