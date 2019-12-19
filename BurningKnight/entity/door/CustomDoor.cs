@@ -8,10 +8,6 @@ namespace BurningKnight.entity.door {
 		private TextureRegion bar;
 		private TextureRegion pad;
 		
-		/*
-		 * iron lock draws weirdly on doors after opening a save (wrong depth or not rendered?)
-		 */
-
 		public CustomDoor() {
 			OpenByDefault = true;
 		}
