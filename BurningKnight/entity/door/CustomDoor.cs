@@ -9,7 +9,6 @@ namespace BurningKnight.entity.door {
 		private TextureRegion pad;
 		
 		/*
-		 * npc door auto unlocks and opens???
 		 * iron lock draws weirdly on doors after opening a save (wrong depth or not rendered?)
 		 */
 
