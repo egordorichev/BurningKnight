@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
@@ -86,6 +87,10 @@ namespace BurningKnight.entity.component {
 
 			item.Use(Entity);
 
+			if (Entity is Player && !item.Touched && item.Cursed) {
+				Run.AddCurse(true);
+			}
+			
 			var e = new ItemAddedEvent {
 				Item = item,
 				Who = Entity

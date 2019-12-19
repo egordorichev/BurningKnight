@@ -9,9 +9,8 @@ namespace BurningKnight.entity.door {
 		private TextureRegion pad;
 		
 		/*
+		 * npc door auto unlocks and opens???
 		 * iron lock doesnt display properly on shop door
-		 * teleporting to locked room doesnt unlock it?
-		 * bill is not cursed? doesnt give curse. curse doesnt save after checking it in item editor?
 		 */
 
 		public CustomDoor() {
