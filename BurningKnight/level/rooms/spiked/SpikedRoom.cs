@@ -11,6 +11,8 @@ namespace BurningKnight.level.rooms.spiked {
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, 1, Tile.EvilWall);
 			Painter.Fill(level, this, 2, Tile.EvilFloor);
+			
+			PaintTunnel(level, Tile.EvilFloor);
 		}
 
 		public override void SetupDoors(Level level) {

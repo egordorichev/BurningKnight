@@ -335,7 +335,9 @@ namespace BurningKnight.entity.item {
 			Touched = stream.ReadBoolean();
 			Delay = stream.ReadFloat();
 			Unknown = stream.ReadBoolean();
-			Cursed = Cursed || stream.ReadBoolean();
+
+			var v = stream.ReadBoolean();
+			Cursed = Cursed || v;
 		}
 
 		private float lastParticle;

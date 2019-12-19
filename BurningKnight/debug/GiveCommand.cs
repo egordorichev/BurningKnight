@@ -57,7 +57,11 @@ namespace BurningKnight.debug {
 
 				for (var j = 0; j < count; j++) {
 					var item = Items.CreateAndAdd(id, Console.GameArea);
-					item.Cursed = cursed;
+
+					if (cursed) {
+						item.Cursed = true;
+					}
+
 					player?.GetComponent<InventoryComponent>().Pickup(item);
 				}
 			}

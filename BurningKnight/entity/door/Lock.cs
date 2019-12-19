@@ -90,8 +90,10 @@ namespace BurningKnight.entity.door {
 
 			if (LockedByDefault) {
 				state.Become<IdleState>();
+				locked = true;
 			} else {
 				state.Become<OpenState>();
+				locked = false;
 			}
 
 			AddTag(Tags.Lock);
