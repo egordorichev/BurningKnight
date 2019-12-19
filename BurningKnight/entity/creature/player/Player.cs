@@ -366,7 +366,7 @@ namespace BurningKnight.entity.creature.player {
 						case RoomType.Shop:
 						case RoomType.Treasure: {
 							foreach (var door in c.New.Doors) {
-								if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
+								if (door.TryGetComponent<LockComponent>(out var component)) {
 									component.Lock.SetLocked(false, this);
 								}
 							}

@@ -12,9 +12,11 @@ using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
@@ -158,6 +160,11 @@ namespace BurningKnight.entity.door {
 			return true;
 		}
 
+		public override void RenderDebug() {
+			var pad = 4;
+			Graphics.Batch.DrawRectangle(new RectangleF((int) (X + pad), (int) Y, (int) (Width - pad * 2), (int) Height), Color.Aqua, 1);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			var state = GetComponent<StateComponent>();
@@ -177,10 +184,11 @@ namespace BurningKnight.entity.door {
 			if (Rooms == null) {
 				Rooms = new Room[2];
 				var i = 0;
-				var pos = Position + new Vector2(2);
+				var pad = 4;
+				var rc = new Rectangle((int) (X + pad), (int) Y, (int) (Width - pad * 2), (int) Height);
 
 				foreach (var room in Area.Tagged[Tags.Room]) {
-					if (room.Contains(pos)) {
+					if (room.Overlaps(rc)) {
 						var r = (Room) room;
 						Rooms[i] = r;
 						

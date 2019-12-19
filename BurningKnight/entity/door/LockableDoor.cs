@@ -56,6 +56,10 @@ namespace BurningKnight.entity.door {
 		}
 
 		private void AddLock(Lock l) {
+			if (HasComponent<LockComponent>()) {
+				RemoveComponent<LockComponent>();
+			}
+			
 			AddComponent(new LockComponent(this, l, GetLockOffset()));
 
 			if (!HasComponent<DoorBodyComponent>()) {

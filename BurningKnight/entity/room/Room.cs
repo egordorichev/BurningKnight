@@ -328,6 +328,8 @@ namespace BurningKnight.entity.room {
 			ImGui.InputInt("Map W", ref MapW);
 			ImGui.InputInt("Map H", ref MapH);
 			
+			ImGui.Text($"Doors: {Doors.Count}");
+			
 			X = MapX * 16 + 4;
 			Y = MapY * 16 - 4;
 			Width = MapW * 16 - 8;
