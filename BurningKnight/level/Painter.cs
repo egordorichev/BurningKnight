@@ -792,6 +792,14 @@ namespace BurningKnight.level {
 						door = new TreasureDoor();
 						break;
 					
+					case DoorPlaceholder.Variant.Scourged:
+						door = new ScourgedDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Payed:
+						door = new PayedDoor();
+						break;
+					
 					case DoorPlaceholder.Variant.Head:
 						door = new HeadDoor();
 						break;

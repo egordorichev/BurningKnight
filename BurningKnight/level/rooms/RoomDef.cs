@@ -10,6 +10,8 @@ using BurningKnight.level.rooms.darkmarket;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.payed;
+using BurningKnight.level.rooms.scourged;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.special;
@@ -630,6 +632,14 @@ namespace BurningKnight.level.rooms {
 			
 			if (typeof(DarkMarketRoom).IsAssignableFrom(room)) {
 				return RoomType.DarkMarket;
+			}
+			
+			if (typeof(PayedRoom).IsAssignableFrom(room)) {
+				return RoomType.Payed;
+			}
+			
+			if (typeof(ScourgedRoom).IsAssignableFrom(room)) {
+				return RoomType.Scourged;
 			}
 			
 			if (typeof(ChallengeRoom).IsAssignableFrom(room)) {
