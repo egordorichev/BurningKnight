@@ -7,17 +7,16 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
 	public class SpikedDoor : CustomDoor {
+		protected override Rectangle GetHitbox() {
+			return new Rectangle(0, 5 + 4, (int) Width, 7);
+		}
+		
 		private List<Player> Colliding = new List<Player>();
 
 		public override void PostInit() {
 			base.PostInit();
 			Subscribe<RoomChangedEvent>();
 		}
-		
-		protected override Rectangle GetHitbox() {
-			return new Rectangle(0, 5 + 4, (int) Width, 7);
-		}
-
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
 				p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
