@@ -6,6 +6,10 @@ namespace BurningKnight.entity.door {
 			OpenByDefault = false;
 			base.AddComponents();
 		}
+		
+		protected override Rectangle GetHitbox() {
+			return new Rectangle(0, 17, (int) Width, 7);
+		}
 
 		protected override void SetSize() {
 			Width = 24;

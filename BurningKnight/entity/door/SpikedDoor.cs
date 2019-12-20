@@ -13,6 +13,10 @@ namespace BurningKnight.entity.door {
 			base.PostInit();
 			Subscribe<RoomChangedEvent>();
 		}
+		
+		protected override Rectangle GetHitbox() {
+			return new Rectangle(0, 5 + 4, (int) Width, 7);
+		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {

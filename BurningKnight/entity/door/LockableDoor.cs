@@ -64,6 +64,11 @@ namespace BurningKnight.entity.door {
 
 			if (!HasComponent<DoorBodyComponent>()) {
 				var box = GetHitbox();
+
+				if (this is CustomDoor && !Vertical) {
+					box.Y += 8;
+				}
+				
 				AddComponent(new DoorBodyComponent(box.X, box.Y, box.Width, box.Height, BodyType.Static, true));
 			}
 		}

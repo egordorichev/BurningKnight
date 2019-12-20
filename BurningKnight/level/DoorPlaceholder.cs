@@ -35,6 +35,7 @@ namespace BurningKnight.level {
 			Spiked,
 			Scourged,
 			Portal,
+			Head,
 			Boss,
 			Secret,
 			Hidden

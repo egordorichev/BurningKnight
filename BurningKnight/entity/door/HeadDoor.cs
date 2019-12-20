@@ -1,18 +1,18 @@
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
-	public class ChallengeDoor : CustomDoor {
+	public class HeadDoor : CustomDoor {
 		protected override void SetSize() {
-			Width = 40;
-			Height = 33;
+			Width = 30;
+			Height = 25;
 		}
 		
 		protected override Rectangle GetHitbox() {
-			return new Rectangle(0, 19, (int) Width, 7);
+			return new Rectangle(0, 5 + 8, (int) Width, 7);
 		}
-
+		
 		protected override Vector2 GetLockOffset() {
-			return new Vector2(0, 9);
+			return new Vector2(0, 7);
 		}
 		
 		public override Vector2 GetOffset() {
@@ -24,11 +24,11 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override string GetBar() {
-			return "challenge_door";
+			return "head_door";
 		}
 
 		protected override string GetAnimation() {
-			return "challenge_door";
+			return "head_door";
 		}
 	}
 }

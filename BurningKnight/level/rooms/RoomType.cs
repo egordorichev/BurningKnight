@@ -10,6 +10,8 @@ namespace BurningKnight.level.rooms {
 		Spiked,
 		Challenge,
 		Scourged,
+		Payed,
+		DarkMarket,
 		Treasure,
 		Entrance,
 		Trap,

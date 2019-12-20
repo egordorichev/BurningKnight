@@ -6,6 +6,7 @@ using BurningKnight.level.floors;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.challenge;
 using BurningKnight.level.rooms.connection;
+using BurningKnight.level.rooms.darkmarket;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
@@ -625,6 +626,10 @@ namespace BurningKnight.level.rooms {
 		public static RoomType DecideType(RoomDef r, Type room) {
 			if (typeof(TrapRoom).IsAssignableFrom(room)) {
 				return RoomType.Trap;
+			}
+			
+			if (typeof(DarkMarketRoom).IsAssignableFrom(room)) {
+				return RoomType.DarkMarket;
 			}
 			
 			if (typeof(ChallengeRoom).IsAssignableFrom(room)) {

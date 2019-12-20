@@ -792,6 +792,10 @@ namespace BurningKnight.level {
 						door = new TreasureDoor();
 						break;
 					
+					case DoorPlaceholder.Variant.Head:
+						door = new HeadDoor();
+						break;
+					
 					case DoorPlaceholder.Variant.Spiked:
 						door = new SpikedDoor();
 						break;
@@ -815,7 +819,7 @@ namespace BurningKnight.level {
 				var offset = door.GetOffset();
 
 				door.CenterX = D.X * 16 + 8 + offset.X;
-				door.Bottom = D.Y * 16 + 17.01f + offset.Y; // .1f so that it's depth sorted to the front of the wall
+				door.Bottom = D.Y * 16 + 17.01f + offset.Y - (door.Vertical ? 0 : 8); // .1f so that it's depth sorted to the front of the wall
 
 				if (door.Vertical) {
 					if (type != DoorPlaceholder.Variant.Hidden) {

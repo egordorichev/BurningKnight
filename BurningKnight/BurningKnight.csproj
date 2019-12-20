@@ -528,6 +528,7 @@
     <Compile Include="entity\door\GoldLock.cs" />
     <Compile Include="entity\door\HallDoor.cs" />
     <Compile Include="entity\door\HallLock.cs" />
+    <Compile Include="entity\door\HeadDoor.cs" />
     <Compile Include="entity\door\IronLock.cs" />
     <Compile Include="entity\door\ItemDoor.cs" />
     <Compile Include="entity\door\ItemLock.cs" />
@@ -864,6 +865,7 @@
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />
+    <Compile Include="level\rooms\darkmarket\DarkMarketRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceRoom.cs" />
     <Compile Include="level\rooms\entrance\EntranceWallPool.cs" />
     <Compile Include="level\rooms\entrance\ExitRoom.cs" />
@@ -1156,6 +1158,10 @@
     <Content Include="Content\Shaders\screen.fx" />
     <Content Include="Content\Shaders\terrain.fx" />
     <Content Include="Content\Shaders\ui.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="level\rooms\payed" />
+    <Folder Include="level\rooms\scourged" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />
