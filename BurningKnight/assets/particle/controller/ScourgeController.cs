@@ -1,5 +1,5 @@
 namespace BurningKnight.assets.particle.controller {
-	public class CurseController : SimpleParticleController {
+	public class ScourgeController : SimpleParticleController {
 		public override bool Update(Particle particle, float dt) {
 			particle.T += dt;
 			particle.Angle += particle.AngleVelocity * dt;

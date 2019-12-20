@@ -59,7 +59,7 @@ namespace BurningKnight.debug {
 					var item = Items.CreateAndAdd(id, Console.GameArea);
 
 					if (cursed) {
-						item.Cursed = true;
+						item.Scourged = true;
 					}
 
 					player?.GetComponent<InventoryComponent>().Pickup(item);

@@ -9,7 +9,7 @@ namespace BurningKnight.level.rooms {
 		Shop,
 		Spiked,
 		Challenge,
-		Cursed,
+		Scourged,
 		Treasure,
 		Entrance,
 		Trap,

@@ -70,7 +70,7 @@ namespace BurningKnight.state {
 				progress++;
 
 				Run.Luck = 0;
-				Run.ResetCurse();
+				Run.ResetScourge();
 				
 				if (Run.Depth > 0) {
 					SaveManager.Load(gameArea, SaveType.Player, Path);

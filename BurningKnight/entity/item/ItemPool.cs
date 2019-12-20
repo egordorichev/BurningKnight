@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Charger = new ItemPool("charger");
 		public static readonly ItemPool WoodenChest = new ItemPool("wooden_chest");
 		public static readonly ItemPool GoldChest = new ItemPool("gold_chest");
-		public static readonly ItemPool CursedChest = new ItemPool("cursed_chest");
+		public static readonly ItemPool ScourgedChest = new ItemPool("scourged_chest");
 		public static readonly ItemPool DoubleChest = new ItemPool("double_chest");
 		public static readonly ItemPool TripleChest = new ItemPool("triple_chest");
 		public static readonly ItemPool RedChest = new ItemPool("red_chest");

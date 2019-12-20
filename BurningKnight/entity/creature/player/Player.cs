@@ -352,7 +352,7 @@ namespace BurningKnight.entity.creature.player {
 					Audio.PlaySfx("level_door_shut");
 				}
 
-				if (c.Old != null && Curse.IsEnabled(Curse.OfLost)) {
+				if (c.Old != null && Scourge.IsEnabled(Scourge.OfLost)) {
 					c.Old.Hide();
 				}
 				

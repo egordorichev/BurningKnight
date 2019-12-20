@@ -2841,7 +2841,7 @@
 			1
 		],
 		"single": true,
-		"cursed": true,
+		"scourged": true,
 		"auto_pickup": false,
 		"auto": false,
 		"single_use": false,
@@ -4288,8 +4288,8 @@
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_egg": {
-		"id": "bk:curse_of_egg",
+	"bk:scourge_of_egg": {
+		"id": "bk:scourge_of_egg",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4306,15 +4306,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_egg"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_egg"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_unknown": {
-		"id": "bk:curse_of_unknown",
+	"bk:scourge_of_unknown": {
+		"id": "bk:scourge_of_unknown",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4331,15 +4331,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_unknown"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_unknown"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_blood": {
-		"id": "bk:curse_of_blood",
+	"bk:scourge_of_blood": {
+		"id": "bk:scourge_of_blood",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4356,15 +4356,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_blood"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_blood"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_risk": {
-		"id": "bk:curse_of_risk",
+	"bk:scourge_of_risk": {
+		"id": "bk:scourge_of_risk",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4381,15 +4381,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_risk"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_risk"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_keys": {
-		"id": "bk:curse_of_keys",
+	"bk:scourge_of_keys": {
+		"id": "bk:scourge_of_keys",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4406,15 +4406,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_keys"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_keys"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_lost": {
-		"id": "bk:curse_of_lost",
+	"bk:scourge_of_lost": {
+		"id": "bk:scourge_of_lost",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4431,15 +4431,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_lost"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_lost"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_cursed": {
-		"id": "bk:curse_of_cursed",
+	"bk:scourge_of_scourged": {
+		"id": "bk:scourge_of_scourged",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4456,15 +4456,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_cursed"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_scourged"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_illness": {
-		"id": "bk:curse_of_illness",
+	"bk:scourge_of_illness": {
+		"id": "bk:scourge_of_illness",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4481,15 +4481,15 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_illness"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_illness"
 			}
 		],
 		"renderer": {},
 		"lock": false
 	},
-	"bk:curse_of_death": {
-		"id": "bk:curse_of_death",
+	"bk:scourge_of_death": {
+		"id": "bk:scourge_of_death",
 		"animation": null,
 		"time": 0,
 		"type": 11,
@@ -4506,8 +4506,8 @@
 		"pool": 0,
 		"uses": [
 			{
-				"id": "bk:EnableCurse",
-				"curse": "bk:of_death"
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_death"
 			},
 			{
 				"id": "bk:ModifyHp",

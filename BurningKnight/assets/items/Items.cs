@@ -72,8 +72,8 @@ namespace BurningKnight.assets.items {
 				data["chance"] = item.Chance.ToJson();
 				data["single"] = item.Single;
 
-				if (item.Cursed) {
-					data["cursed"] = true;
+				if (item.Scourged) {
+					data["scourged"] = true;
 				}
 				
 				data["auto_pickup"] = item.AutoPickup;
@@ -144,7 +144,7 @@ namespace BurningKnight.assets.items {
 				Single = item["single"].Bool(true),
 				Automatic = item["auto"],
 				SingleUse = item["single_use"],
-				Cursed = item["cursed"].Bool(false),
+				Scourged = item["scourged"].Bool(false),
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)
 			};
@@ -238,7 +238,7 @@ namespace BurningKnight.assets.items {
 				Animation = data.Animation,
 				Automatic = data.Automatic,
 				SingleUse = data.SingleUse,
-				Cursed = data.Cursed,
+				Scourged = data.Scourged,
 				Uses = ParseUses(data.Uses)
 			};
 			

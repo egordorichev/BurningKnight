@@ -282,7 +282,7 @@
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
-    <Compile Include="assets\particle\controller\CurseController.cs" />
+    <Compile Include="assets\particle\controller\ScourgeController.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />
     <Compile Include="assets\particle\controller\HealthParticleController.cs" />
@@ -601,7 +601,7 @@
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
-    <Compile Include="entity\item\Curse.cs" />
+    <Compile Include="entity\item\Scourge.cs" />
     <Compile Include="entity\item\EmeraldStand.cs" />
     <Compile Include="entity\item\Item.cs" />
     <Compile Include="entity\item\ItemGraphicsComponent.cs" />
@@ -633,13 +633,13 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
-    <Compile Include="entity\item\use\CurseUse.cs" />
+    <Compile Include="entity\item\use\ScourgeUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />
     <Compile Include="entity\item\use\DuplicateItemsUse.cs" />
     <Compile Include="entity\item\use\DuplicateMobsAndHealUse.cs" />
     <Compile Include="entity\item\use\DuplicateMobsUse.cs" />
-    <Compile Include="entity\item\use\EnableCurseUse.cs" />
+    <Compile Include="entity\item\use\EnableScourgeUse.cs" />
     <Compile Include="entity\item\use\GiveBuffImmunityUse.cs" />
     <Compile Include="entity\item\use\GiveBuffUse.cs" />
     <Compile Include="entity\item\use\DoOnHurtUse.cs" />
@@ -792,7 +792,7 @@
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\ChestRegistry.cs" />
-    <Compile Include="level\entities\chest\CursedChest.cs" />
+    <Compile Include="level\entities\chest\ScourgedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />
     <Compile Include="level\entities\chest\GoldChest.cs" />
     <Compile Include="level\entities\chest\RedChest.cs" />

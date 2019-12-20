@@ -31,7 +31,7 @@ namespace BurningKnight.entity.component {
 					return false;
 				}
 				
-				if (Entity is Player p && (item.Type == ItemType.Curse || item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
+				if (Entity is Player p && (item.Type == ItemType.Scourge || item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
 					if (item.Type == ItemType.ConsumableArtifact) {
 						p.AnimateItemPickup(item, () => {
 							item.Use(p);
@@ -39,11 +39,11 @@ namespace BurningKnight.entity.component {
 						}, false);
 					} else if (animate) {
 						p.AnimateItemPickup(item, () => {
-							if (item.Type == ItemType.Curse) {
+							if (item.Type == ItemType.Scourge) {
 								var center = Entity.Center;
 			
 								for (var i = 0; i < 10; i++) {
-									var part = new ParticleEntity(Particles.Curse());
+									var part = new ParticleEntity(Particles.Scourge());
 						
 									part.Position = center + Rnd.Vector(-4, 4);
 									part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
@@ -87,8 +87,8 @@ namespace BurningKnight.entity.component {
 
 			item.Use(Entity);
 
-			if (Entity is Player && !item.Touched && item.Cursed) {
-				Run.AddCurse(true);
+			if (Entity is Player && !item.Touched && item.Scourged) {
+				Run.AddScourge(true);
 			}
 			
 			var e = new ItemAddedEvent {

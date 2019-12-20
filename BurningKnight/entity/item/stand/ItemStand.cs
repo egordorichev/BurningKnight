@@ -161,7 +161,7 @@ namespace BurningKnight.entity.item.stand {
 
 					return this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
-					if (weapon.Item.Cursed) {
+					if (weapon.Item.Scourged) {
 						AnimationUtil.ActionFailed();
 					} else {
 						SetItem(weapon.Drop(), entity);
@@ -195,7 +195,7 @@ namespace BurningKnight.entity.item.stand {
 				return;
 			}
 
-			var cursed = item != null && item.Cursed;
+			var cursed = item != null && item.Scourged;
 			var interact = component.OutlineAlpha > 0.05f;
 			var renderOutline = interact || cursed;
 			
@@ -237,7 +237,7 @@ namespace BurningKnight.entity.item.stand {
 
 				shader.Parameters["flash"].SetValue(cursed ? 1f : component.OutlineAlpha);
 				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.CursedColor, ColorUtils.White, component.OutlineAlpha));
+				shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.ScourgedColor, ColorUtils.White, component.OutlineAlpha));
 
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(region, pos + d, animated ? 0 : angle, region.Center);

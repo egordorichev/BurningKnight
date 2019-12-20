@@ -48,7 +48,7 @@ namespace BurningKnight.state {
 			"battery",
 			"hat",
 			"pouch",
-			"curse"
+			"scourge"
 		};
 
 		// Keep in sync with the WeaponType enum!!!
@@ -431,7 +431,7 @@ namespace BurningKnight.state {
 				}
 
 				ImGui.Checkbox("Auto pickup", ref Selected.AutoPickup);
-				ImGui.Checkbox("Cursed", ref Selected.Cursed);
+				ImGui.Checkbox("Scourge", ref Selected.Scourged);
 				ImGui.SameLine();
 			} else {
 				Selected.AutoPickup = true;

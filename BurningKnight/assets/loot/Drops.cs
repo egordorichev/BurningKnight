@@ -36,7 +36,7 @@ namespace BurningKnight.assets.loot {
 				) { Chance = 0.5f }
 			));
 			
-			Define("cursed_chest", new PoolDrop(ItemPool.CursedChest));
+			Define("scourged_chest", new PoolDrop(ItemPool.ScourgedChest));
 			
 			Define("pouch", new OneOfDrop(
 				new SimpleDrop(0.7f, 1, 2, "bk:key"),

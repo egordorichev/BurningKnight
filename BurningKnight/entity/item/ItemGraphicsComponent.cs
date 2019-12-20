@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
 		public const float FlashSize = 0.025f;
-		public const int CursedColorId = 48;
+		public const int ScourgedColorId = 48;
 		public static Color MaskedColor = new Color(0f, 0f, 0f, 0.75f);
-		public static Vector4 CursedColor = Palette.Default[CursedColorId].ToVector4();
+		public static Vector4 ScourgedColor = Palette.Default[ScourgedColorId].ToVector4();
 		
 		public float T;
 		
@@ -48,7 +48,7 @@ namespace BurningKnight.entity.item {
 			var position = CalculatePosition(shadow);
 			var angle = (float) Math.Cos(T * 1.8f) * 0.4f;
 			var item = (Item) Entity;
-			var cursed = item.Cursed;
+			var cursed = item.Scourged;
 
 			if (!shadow) {
 				var interact = Entity.TryGetComponent<InteractableComponent>(out var component) &&
@@ -60,7 +60,7 @@ namespace BurningKnight.entity.item {
 
 					shader.Parameters["flash"].SetValue(cursed ? 1f : component.OutlineAlpha);
 					shader.Parameters["flashReplace"].SetValue(1f);
-					shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(CursedColor, ColorUtils.White, component.OutlineAlpha));
+					shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ScourgedColor, ColorUtils.White, component.OutlineAlpha));
 
 					foreach (var d in MathUtils.Directions) {
 						Graphics.Render(Sprite, position + d, angle, origin);

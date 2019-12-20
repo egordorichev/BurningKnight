@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.use {
 			Register<TriggerHurtEventUse>();
 			Register<SetKnockbackModifierUse>(SetKnockbackModifierUse.RenderDebug);
 			Register<RandomActiveUse>();
-			Register<CurseUse>();
+			Register<ScourgeUse>();
 			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
 			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
 			Register<GoThonkUse>();
@@ -107,7 +107,7 @@ namespace BurningKnight.entity.item.use {
 			Register<SpawnDropUse>(SpawnDropUse.RenderDebug);
 			Register<ModifyStatsUse>(ModifyStatsUse.RenderDebug);
 			Register<MakeProjectilesBoomerangUse>();
-			Register<EnableCurseUse>(EnableCurseUse.RenderDebug);
+			Register<EnableScourgeUse>(EnableScourgeUse.RenderDebug);
 		}
 	}
 }

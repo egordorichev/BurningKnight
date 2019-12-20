@@ -26,8 +26,8 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
-		public static int Curse { get; private set; }
-		public static int PermanentCurse { get; internal set; }
+		public static int Scourge { get; private set; }
+		public static int PermanentScourge { get; internal set; }
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		public static string NextSeed;
@@ -85,18 +85,18 @@ namespace BurningKnight.state {
 			Time = 0;
 			HasRun = false;
 			Luck = 0;
-			Curse = 0;			
-			PermanentCurse = 0;
+			Scourge = 0;			
+			PermanentScourge = 0;
 			LastSavedDepth = 0;
-			entity.item.Curse.Clear();
+			entity.item.Scourge.Clear();
 		}
 
 		public static string FormatTime() {
 			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 
-		public static void AddCurse(bool permanent = false) {
-			Curse++;
+		public static void AddScourge(bool permanent = false) {
+			Scourge++;
 			Audio.PlaySfx("player_cursed");
 
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
@@ -108,7 +108,7 @@ namespace BurningKnight.state {
 			var center = player.Center;
 			
 			for (var i = 0; i < 10; i++) {
-				var part = new ParticleEntity(Particles.Curse());
+				var part = new ParticleEntity(Particles.Scourge());
 						
 				part.Position = center + Rnd.Vector(-4, 4);
 				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
@@ -117,12 +117,12 @@ namespace BurningKnight.state {
 			}
 			
 			if (permanent) {
-				PermanentCurse++;
+				PermanentScourge++;
 			}
 		}
 
-		public static void ResetCurse() {
-			Curse = PermanentCurse;
+		public static void ResetScourge() {
+			Scourge = PermanentScourge;
 		}
 	}
 }

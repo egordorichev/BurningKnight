@@ -17,7 +17,7 @@ namespace BurningKnight.entity.item.use {
 			
 			var a = Amount;
 
-			if (a > 0 && Curse.IsEnabled(Curse.OfIllness)) {
+			if (a > 0 && Scourge.IsEnabled(Scourge.OfIllness)) {
 				if (a == 1) {
 					return;
 				}

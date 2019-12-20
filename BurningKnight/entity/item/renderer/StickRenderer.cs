@@ -81,13 +81,13 @@ namespace BurningKnight.entity.item.renderer {
 				}
 			}
 
-			if (Item.Cursed) {
+			if (Item.Scourged) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
 				shader.Parameters["flash"].SetValue(1f);
 				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ItemGraphicsComponent.CursedColor);
+				shader.Parameters["flashColor"].SetValue(ItemGraphicsComponent.ScourgedColor);
 
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(region, pos + d, fangle, or, sc);				

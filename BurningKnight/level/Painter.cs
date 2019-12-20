@@ -430,7 +430,7 @@ namespace BurningKnight.level {
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
-			var curseOfBlood = Curse.IsEnabled(Curse.OfBlood);
+			var curseOfBlood = Scourge.IsEnabled(Scourge.OfBlood);
 			
 			if (level.Biome.SpawnAllMobs()) {
 				types.AddRange(mobs);

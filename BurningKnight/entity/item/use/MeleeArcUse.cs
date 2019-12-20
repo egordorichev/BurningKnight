@@ -20,7 +20,7 @@ namespace BurningKnight.entity.item.use {
 			var arc = new MeleeArc {
 				Owner = entity,
 				LifeTime = LifeTime,
-				Damage = Damage * (item.Cursed ? 1.5f : 1),
+				Damage = Damage * (item.Scourged ? 1.5f : 1),
 				Width = W,
 				Height = H,
 				Position = entity.Center,

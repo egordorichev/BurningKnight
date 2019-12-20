@@ -33,9 +33,9 @@ namespace BurningKnight.entity.item {
 		
 		public ItemType Type;
 		public string Id;
-		public string IdUnderCurse => Type != ItemType.Curse && Curse.IsEnabled(Curse.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
-		public string Name => Masked ? "???" : Locale.Get(IdUnderCurse);
-		public string Description => Locale.Get($"{IdUnderCurse}_desc");
+		public string IdUnderScourge => Type != ItemType.Scourge && Scourge.IsEnabled(Scourge.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
+		public string Name => Masked ? "???" : Locale.Get(IdUnderScourge);
+		public string Description => Locale.Get($"{IdUnderScourge}_desc");
 		public float UseTime = 0.3f;
 		public float Delay;
 		public string Animation;
@@ -45,13 +45,13 @@ namespace BurningKnight.entity.item {
 		public bool Touched;
 		public bool Automatic;
 		public bool SingleUse;
-		public bool Cursed;
+		public bool Scourged;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		public ItemRenderer Renderer;
 
-		public bool Hidden => (Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Curse.IsEnabled(Curse.OfUnknown));
+		public bool Hidden => (Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Scourge.IsEnabled(Scourge.OfUnknown));
 		public TextureRegion Region => (Hidden) ? UnknownRegion : (Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite);
 		
 		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
@@ -62,8 +62,8 @@ namespace BurningKnight.entity.item {
 		public override void Init() {
 			base.Init();
 			
-			if (Run.Depth > 0 && Rnd.Chance(Curse.IsEnabled(Curse.OfCursed) ? 0.66f : (Run.Curse * 10 + 0.5f))) {
-				Cursed = true;
+			if (Run.Depth > 0 && Rnd.Chance(Scourge.IsEnabled(Scourge.OfScourged) ? 0.66f : (Run.Scourge * 10 + 0.5f))) {
+				Scourged = true;
 			}
 		}
 
@@ -195,7 +195,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void OnInteractionStart(Entity entity) {
-			if (!Cursed && AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+			if (!Scourged && AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (ShouldInteract(entity)) {
 					inventory.Pickup(this);
 					entity.GetComponent<InteractorComponent>().EndInteraction();	
@@ -271,7 +271,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteBoolean(Touched);
 			stream.WriteFloat(Delay);
 			stream.WriteBoolean(Unknown);
-			stream.WriteBoolean(Cursed);
+			stream.WriteBoolean(Scourged);
 		}
 
 		public void ConvertTo(string id) {
@@ -304,7 +304,7 @@ namespace BurningKnight.entity.item {
 			Type = item.Type;
 			Id = id;
 			Used = false;
-			Cursed = Cursed || item.Cursed;
+			Scourged = Scourged || item.Scourged;
 			
 			if (Renderer != null) {
 				Renderer.Item = this;
@@ -327,7 +327,7 @@ namespace BurningKnight.entity.item {
 
 			LoadedSelf = true;
 			Id = stream.ReadString();
-			Cursed = false;
+			Scourged = false;
 			
 			ConvertTo(Id);
 
@@ -337,7 +337,7 @@ namespace BurningKnight.entity.item {
 			Unknown = stream.ReadBoolean();
 
 			var v = stream.ReadBoolean();
-			Cursed = Cursed || v;
+			Scourged = Scourged || v;
 		}
 
 		private float lastParticle;
@@ -358,14 +358,14 @@ namespace BurningKnight.entity.item {
 
 			var hasOwner = HasComponent<OwnerComponent>();
 			
-			if (Cursed) {
+			if (Scourged) {
 				lastParticle -= dt;
 
 				if (lastParticle <= 0) {
 					lastParticle = Rnd.Float(0.05f, 0.3f);
 
 					for (var i = 0; i < Rnd.Int(0, 3); i++) {
-						var part = new ParticleEntity(Particles.Curse());
+						var part = new ParticleEntity(Particles.Scourge());
 
 						part.Position = (hasOwner ? GetComponent<OwnerComponent>().Owner.Center : Center) + Rnd.Vector(-4, 4);
 						part.Particle.Scale = Rnd.Float(0.5f, 1.2f);
@@ -470,7 +470,7 @@ namespace BurningKnight.entity.item {
 				ConvertTo(debugItem);
 			}
 
-			ImGui.Checkbox("Cursed", ref Cursed);
+			ImGui.Checkbox("Scourged", ref Scourged);
 			ImGui.Checkbox("Touched", ref Touched);
 		}
 		#endif

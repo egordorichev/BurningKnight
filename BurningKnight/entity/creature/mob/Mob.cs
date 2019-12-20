@@ -321,7 +321,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public void GeneratePrefix() {
-			if (!Rnd.Chance(Run.Curse * 10 + 0.5f)) {
+			if (!Rnd.Chance(Run.Scourge * 10 + 0.5f)) {
 				return;
 			}
 

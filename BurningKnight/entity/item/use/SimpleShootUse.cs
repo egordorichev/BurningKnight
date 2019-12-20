@@ -110,7 +110,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage  * (item.Cursed ? 1.5f : 1f), Item);
+					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage  * (item.Scourged ? 1.5f : 1f), Item);
 					projectile.Boost = !disableBoost;
 
 					Camera.Instance.Push(antiAngle, 4f);

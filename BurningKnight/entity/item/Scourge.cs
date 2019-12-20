@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using Lens.util;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item {
-	public static class Curse {
+	public static class Scourge {
 		private static Dictionary<string, bool> enabled = new Dictionary<string, bool>();
 		public static List<string> Defined = new List<string>();
 		
 		public const string OfUnknown = "bk:of_unknown";
 		public const string OfRisk = "bk:of_risk";
-		public const string OfCursed = "bk:of_cursed";
+		public const string OfScourged = "bk:of_scourged";
 		public const string OfBlood = "bk:of_blood";
 		public const string OfLost = "bk:of_lost";
 		public const string OfKeys = "bk:of_keys";
@@ -22,10 +23,10 @@ namespace BurningKnight.entity.item {
 			Defined.Add(curse);
 		}
 
-		static Curse() {
+		static Scourge() {
 			Define(OfUnknown);
 			Define(OfRisk);
-			Define(OfCursed);
+			Define(OfScourged);
 			Define(OfBlood);
 			Define(OfLost);
 			Define(OfKeys);
@@ -45,7 +46,7 @@ namespace BurningKnight.entity.item {
 			}
 			
 			enabled[curse] = true;
-			Log.Info($"Curse {curse} was activated!");
+			Log.Info($"Scourge {curse} was activated!");
 		}
 
 		public static void Disable(string curse) {
@@ -54,7 +55,7 @@ namespace BurningKnight.entity.item {
 			}
 			
 			enabled[curse] = false;
-			Log.Info($"Curse {curse} was deactivated!");
+			Log.Info($"Scourge {curse} was deactivated!");
 		}
 
 		public static bool IsEnabled(string curse) {
@@ -63,6 +64,48 @@ namespace BurningKnight.entity.item {
 			}
 
 			return enabled[curse];
+		}
+
+		public static bool ShouldAppear(string id) {
+			if (id == OfDeath) {
+				foreach (var s in Defined) {
+					if (s != OfDeath && !IsEnabled(s)) {
+						return false;
+					}
+				}
+			} else if (id == OfScourged) {
+				var found = false;
+				
+				foreach (var s in Defined) {
+					if (IsEnabled(s)) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+
+		public static string Generate() {
+			var list = GenerateList();
+			return list.Count == 0 ? null : list[Rnd.Int(list.Count)];
+		}
+		
+		public static List<string> GenerateList() {
+			var list = new List<string>();
+
+			foreach (var s in Defined) {
+				if (ShouldAppear(s)) {
+					list.Add(s);
+				}
+			}
+
+			return list;
 		}
 	}
 }

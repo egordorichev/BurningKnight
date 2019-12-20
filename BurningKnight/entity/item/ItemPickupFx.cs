@@ -25,7 +25,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			var text = item.Hidden ? "???" : (item.Cursed ? $"{Locale.Get("cursed")} {item.Name}" : item.Name);
+			var text = item.Hidden ? "???" : (item.Scourged ? $"{Locale.Get("scourged")} {item.Name}" : item.Name);
 			var size = Font.Medium.MeasureString(text);
 
 			Width = size.Width;
@@ -42,8 +42,8 @@ namespace BurningKnight.entity.item {
 			
 			UpdatePosition();
 
-			if (item.Cursed) {
-				component.Color = Palette.Default[ItemGraphicsComponent.CursedColorId];
+			if (item.Scourged) {
+				component.Color = Palette.Default[ItemGraphicsComponent.ScourgedColorId];
 			}
 		}
 

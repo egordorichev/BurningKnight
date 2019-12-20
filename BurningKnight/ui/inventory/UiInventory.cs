@@ -167,7 +167,7 @@ namespace BurningKnight.ui.inventory {
 					if (iae.Who == Player) {
 						var item = iae.Item;
 								
-						if (item.Type == ItemType.Artifact || item.Type == ItemType.Curse) {
+						if (item.Type == ItemType.Artifact || item.Type == ItemType.Scourge) {
 							AddArtifact(item);
 						}
 					}
@@ -260,7 +260,7 @@ namespace BurningKnight.ui.inventory {
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
-			if (Curse.IsEnabled(Curse.OfRisk)) {
+			if (Scourge.IsEnabled(Scourge.OfRisk)) {
 				Graphics.Render(question, new Vector2(8, 11));
 				return;
 			}
@@ -301,7 +301,7 @@ namespace BurningKnight.ui.inventory {
 		private void RenderConsumables() {
 			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
-			if (Curse.IsEnabled(Curse.OfKeys)) {
+			if (Scourge.IsEnabled(Scourge.OfKeys)) {
 				Graphics.Render(question, new Vector2(8, bottomY + 1));
 				return;
 			}

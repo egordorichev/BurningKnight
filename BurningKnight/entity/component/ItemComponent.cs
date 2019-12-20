@@ -73,8 +73,8 @@ namespace BurningKnight.entity.component {
 			
 			Item = item;
 
-			if (Entity is Player && !item.Touched && item.Cursed) {
-				Run.AddCurse(true);
+			if (Entity is Player && !item.Touched && item.Scourged) {
+				Run.AddScourge(true);
 			}
 
 			item.Done = false;
@@ -141,7 +141,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			if (e is ItemCheckEvent ev && !ev.Handled && ShouldReplace(ev.Item)) {
-				if (Entity is Player && Item != null && Item.Cursed) {
+				if (Entity is Player && Item != null && Item.Scourged) {
 					AnimationUtil.ActionFailed();
 					ev.Blocked = true;
 					

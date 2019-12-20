@@ -33,7 +33,7 @@ namespace BurningKnight.level {
 			Shop,
 			Challenge,
 			Spiked,
-			Cursed,
+			Scourged,
 			Portal,
 			Boss,
 			Secret,

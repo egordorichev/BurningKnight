@@ -1,6 +1,6 @@
 # jungle 
 
-* curse {
+* scourge {
   - bk fire constantly, if you have >= 10 curse
   
   - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
@@ -73,10 +73,6 @@
  }
 }
 
-* room {
- + special props on top of special rooms, like shop boss and treasure
-}
-
 * bk: {
  + fix how saving works with capturing ths bosses
 }
@@ -125,7 +121,6 @@
 
 #### Polish
 
-* special door textures for shop and treasure room, maybe even boss room 
 * animate items on player head better, also dont stack em, display count 
 * animate item pickup / appearance
 * Broken variant for walls that do not break
