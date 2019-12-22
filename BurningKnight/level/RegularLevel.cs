@@ -89,7 +89,22 @@ namespace BurningKnight.level {
 				Rm.AddRange(Rooms);
 				rooms = Builder.Build(Rm);
 
-				if (rooms == null) {
+				var a = rooms == null;
+				var b = false;
+				
+				if (!a) {
+					foreach (var r in Rm) {
+						if (r.IsEmpty()) {
+							Log.Error("Found an empty room!");
+							b = true;
+							break;
+						}
+					}
+				}
+				
+				if (a || b) {
+					rooms = null;
+				
 					Log.Error("Failed!");
 					Area.Destroy();
 					Area.Add(Run.Level);

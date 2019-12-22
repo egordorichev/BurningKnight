@@ -63,6 +63,12 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual Builder GetBuilder() {
+			if (true) {
+				return new LineBuilder();
+
+				
+			}
+			
 			var R = Rnd.Float();
 
 			if (R < 0.33f) {

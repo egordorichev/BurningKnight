@@ -243,6 +243,7 @@ namespace BurningKnight.level.builders {
 						i++;
 
 						if (i > 36) {
+							Log.Error("Failed.");
 							return -1;
 						}
 

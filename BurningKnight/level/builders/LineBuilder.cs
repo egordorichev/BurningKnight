@@ -60,7 +60,7 @@ namespace BurningKnight.level.builders {
 					for (var J = 0; J < Tunnels; J++) {
 						var T = RoomRegistry.Generate(RoomType.Connection, LevelSave.BiomeGenerated);
 
-						if ((int) PlaceRoom(Init, Curr, T, Direction + Rnd.Float(-PathVariance, PathVariance)) == -1) {
+						if (Math.Abs(PlaceRoom(Init, Curr, T, Direction + Rnd.Float(-PathVariance, PathVariance)) - (-1)) < 0.01f) {
 							return null;
 						}
 
@@ -72,7 +72,7 @@ namespace BurningKnight.level.builders {
 				var R = I == RoomsOnPath ? Exit : MultiConnection[I];
 
 
-				if ((int) PlaceRoom(Init, Curr, R, Direction + Rnd.Float(-PathVariance, PathVariance)) == -1) {
+				if (Math.Abs(PlaceRoom(Init, Curr, R, Direction + Rnd.Float(-PathVariance, PathVariance)) - (-1)) < 0.01f) {
 					return null;
 				}
 				
@@ -148,7 +148,11 @@ namespace BurningKnight.level.builders {
 			RoomsToBranch.AddRange(SingleConnection);
 
 			WeightRooms(Branchable);
-			CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances);
+
+			if (!CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
+				return null;
+			}
+			
 			FindNeighbours(Init);
 
 			foreach (var R in Init) {
