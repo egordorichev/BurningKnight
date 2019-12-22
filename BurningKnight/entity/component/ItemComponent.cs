@@ -177,7 +177,26 @@ namespace BurningKnight.entity.component {
 		public void Exchange(ItemComponent component) {
 			var tmp = component.Item;
 			component.Item = Item;
+
+			if (Item != null) {
+				if (!Item.HasComponent<OwnerComponent>()) {
+					Item.AddComponent(new OwnerComponent(component.Entity));
+				} else {
+					Item.GetComponent<OwnerComponent>().Owner = component.Entity;
+				}
+			}
+
 			Item = tmp;
+
+			if (Item == null) {
+				return;
+			}
+			
+			if (!Item.HasComponent<OwnerComponent>()) {
+				Item.AddComponent(new OwnerComponent(Entity));
+			} else {
+				Item.GetComponent<OwnerComponent>().Owner = Entity;
+			}
 		}
 		
 		#if DEBUG

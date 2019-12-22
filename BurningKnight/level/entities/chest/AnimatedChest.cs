@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using Lens.util.tween;
 
@@ -7,8 +8,8 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new AnimationComponent(GetSprite()));
 		}
 
-		protected override void UpdateSprite() {
-			GetComponent<AnimationComponent>().Animation.Tag = "open";
+		protected override void UpdateSprite(bool open = true) {
+			GetComponent<AnimationComponent>().Animation.Tag = open ? "open" : "idle";
 		}
 		
 		protected override void Animate() {
@@ -24,12 +25,12 @@ namespace BurningKnight.level.entities.chest {
 			};
 		}
 
-		protected override void AnimateOpening() {
+		protected override void Animate(Action callback) {
 			var a = GetComponent<AnimationComponent>();
 					
 			Tween.To(1.8f * Scale, a.Scale.X, x => a.Scale.X = x, 0.2f);
 			Tween.To(0.2f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
-				DoOpening();
+				callback();
 				
 				Tween.To(0.6f * Scale, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(1.7f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
