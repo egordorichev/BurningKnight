@@ -15,6 +15,7 @@ namespace BurningKnight.entity.creature.npc {
 		public static string ActiveTrader = "active_trader";
 		public static string WeaponTrader = "weapon_trader";
 		public static string HatTrader = "hat_trader";
+		public static string Snek = "snek";
 	
 		private float delay;
 		internal bool Hidden;

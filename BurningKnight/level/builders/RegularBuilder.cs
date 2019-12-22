@@ -249,13 +249,13 @@ namespace BurningKnight.level.builders {
 					}
 				}
 
-				if (SubShop.Count > 0) {
+				/*if (SubShop.Count > 0) {
 					for (var i = 0; i < SubShop.Count - 1; i++) {
 						for (var j = i + 1; j < SubShop.Count; j++) {
 							SubShop[i].ConnectTo(SubShop[j]);
 						}
 					}
-				}
+				}*/
 
 				Log.Info("Failed to fail.");
 			}

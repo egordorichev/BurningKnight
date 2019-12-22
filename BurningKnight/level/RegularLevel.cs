@@ -175,7 +175,8 @@ namespace BurningKnight.level {
 				rooms.Add(new DarkMarketRoom());
 				rooms.Add(new PayedRoom());
 				rooms.Add(new ScourgedRoom());*/
-				rooms.Add(new SubShopRoom());
+				// rooms.Add(new SnekShop());
+				rooms.Add(new StorageRoom());
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

@@ -2,6 +2,10 @@ using BurningKnight.level.rooms.special;
 
 namespace BurningKnight.level.rooms.shop.sub {
 	public class SubShopRoom : SpecialRoom {
+		public override void Paint(Level level) {
+			
+		}
+
 		public override bool CanConnect(RoomDef R) {
 			if (!(R is ShopRoom || R is SubShopRoom)) {
 				return false;
