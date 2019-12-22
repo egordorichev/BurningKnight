@@ -9,6 +9,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.payed;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.scourged;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
@@ -169,11 +170,12 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 
 				// for testing
-				rooms.Add(new SpikedRoom());
+				/*rooms.Add(new SpikedRoom());
 				rooms.Add(new ChallengeRoom());
 				rooms.Add(new DarkMarketRoom());
 				rooms.Add(new PayedRoom());
-				rooms.Add(new ScourgedRoom());
+				rooms.Add(new ScourgedRoom());*/
+				rooms.Add(new SubShopRoom());
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

@@ -178,7 +178,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ItemPlacedEvent || e is RoomChangedEvent) {
+			if (e is ItemPlacedEvent || (e is RoomChangedEvent rce && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room)) {
 				Recalculate();
 			}
 			

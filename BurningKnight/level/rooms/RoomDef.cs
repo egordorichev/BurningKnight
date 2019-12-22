@@ -115,7 +115,7 @@ namespace BurningKnight.level.rooms {
 			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
 		}
 
-		public bool CanConnect(Connection Direction) {
+		public virtual bool CanConnect(Connection Direction) {
 			var Cnt = GetLastConnections(Direction);
 
 			return Cnt > 0;

@@ -6,6 +6,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.machine;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -213,17 +214,21 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		public override void SetupDoors(Level level) {
-			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Shop;
+			foreach (var door in Connected) {
+				door.Value.Type = door.Key is SubShopRoom ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
 			}
 		}
-
+		
 		public override bool CanConnect(RoomDef R, Dot P) {
 			if (P.X == Left || P.X == Right) {
 				return false;
 			}
 			
 			return base.CanConnect(R, P);
+		}
+
+		public override bool CanConnect(Connection Direction) {
+			return true;
 		}
 	}
 }
