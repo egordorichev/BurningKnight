@@ -4,8 +4,8 @@ using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
 	public class RedChest : Chest {
-		public RedChest() {
-			Sprite = "red_chest";
+		protected override string GetSprite() {
+			return "red_chest";
 		}
 
 		protected override void DefineDrops() {

@@ -795,8 +795,10 @@
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
+    <Compile Include="level\entities\chest\AnimatedChest.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\ChestRegistry.cs" />
+    <Compile Include="level\entities\chest\ProtoChest.cs" />
     <Compile Include="level\entities\chest\ScourgedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />
     <Compile Include="level\entities\chest\GoldChest.cs" />

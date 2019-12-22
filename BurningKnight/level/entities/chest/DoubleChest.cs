@@ -4,8 +4,11 @@ using BurningKnight.entity.creature.drop;
 namespace BurningKnight.level.entities.chest {
 	public class DoubleChest : GoldChest {
 		public DoubleChest() {
-			Sprite = "double_chest";
 			KeysRequired = 2;
+		}
+
+		protected override string GetSprite() {
+			return "double_chest";
 		}
 
 		protected override void DefineDrops() {

@@ -9,10 +9,8 @@ namespace BurningKnight.level.entities.chest {
 	public class GoldChest : Chest {
 		protected byte KeysRequired = 1;
 		
-		public GoldChest() {
-			if (Sprite == null) {
-				Sprite = "gold_chest";
-			}
+		protected override string GetSprite() {
+			return "gold_chest";
 		}
 
 		protected override void DefineDrops() {

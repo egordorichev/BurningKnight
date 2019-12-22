@@ -6,8 +6,8 @@ using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
 	public class ScourgedChest : Chest, DropModifier {
-		public ScourgedChest() {
-			Sprite = "scourged_chest";
+		protected override string GetSprite() {
+			return "scourged_chest";
 		}
 
 		protected override void DefineDrops() {
