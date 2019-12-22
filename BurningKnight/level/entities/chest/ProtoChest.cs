@@ -15,6 +15,13 @@ using Lens.util.file;
 
 namespace BurningKnight.level.entities.chest {
 	public class ProtoChest : AnimatedChest {
+		/*
+		 * todo:
+		 * display the item, as well as in the backpack
+		 * add a placeholder item, like rusty revolver
+		 * rename regular gun to revolver
+		 */
+		
 		private List<Player> colling = new List<Player>();
 		private InteractFx fx;
 
