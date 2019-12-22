@@ -26,9 +26,17 @@ namespace BurningKnight.level.rooms.shop.sub {
 			} catch (Exception e) {
 				Log.Error(e);
 			}
+			
+			/*
+			 * fixme: if subshop is failed to connect it corrupts the level (is painted in 0;0 wrong place insteand of erroring)
+			 */
 
 			for (var x = Left + 1; x < Right - 1; x++) {
 				for (var y = Top + 1; y < Bottom - 1; y++) {
+					if (Rnd.Chance(30)) {
+						continue;
+					}
+					
 					var prop = new BreakableProp {
 						Sprite = infos[Rnd.Int(infos.Length)]
 					};

@@ -8,6 +8,7 @@ using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.shop;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;

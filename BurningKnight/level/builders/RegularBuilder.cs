@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.boss;
@@ -144,9 +145,9 @@ namespace BurningKnight.level.builders {
 					do {
 						Angle = PlaceRoom(Rooms, Curr, T, RandomBranchAngle(Curr));
 						Tries--;
-					} while (Angle == -1 && Tries > 0);
+					} while (Math.Abs(Angle - (-1)) < 0.01f && Tries > 0);
 
-					if (Angle == -1) {
+					if (Math.Abs(Angle - (-1)) < 0.01f) {
 						foreach (var C in ConnectingRoomsThisBranch) {
 							C.ClearConnections();
 							Rooms.Remove(C);
@@ -177,9 +178,9 @@ namespace BurningKnight.level.builders {
 				do {
 					Angle = PlaceRoom(Rooms, Curr, R, RandomBranchAngle(Curr));
 					Tries--;
-				} while (Angle == -1 && Tries > 0);
+				} while (Math.Abs(Angle - (-1)) < 0.01f && Tries > 0);
 
-				if (Angle == -1) {
+				if (Math.Abs(Angle - (-1)) < 0.01f) {
 					foreach (var T in ConnectingRoomsThisBranch) {
 						T.ClearConnections();
 						Rooms.Remove(T);
