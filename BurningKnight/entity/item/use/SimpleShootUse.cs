@@ -251,8 +251,8 @@ namespace BurningKnight.entity.item.use {
 					ImGui.BulletText("Unknown prefab");
 				}
 
-				var slice = root["texture"].String("");
-				var region = CommonAse.Projectiles.GetSlice(slice);
+				var slice = root["texture"].String("rect");
+				var region = CommonAse.Projectiles.GetSlice(slice, false);
 
 				ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
 					new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),

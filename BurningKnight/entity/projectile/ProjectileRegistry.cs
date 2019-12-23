@@ -77,6 +77,11 @@ namespace BurningKnight.entity.projectile {
 				};
 			});
 			
+			Add("shotgun", p => {
+				p.Controller += SlowdownProjectileController.Make(1);
+				p.BounceLeft += 1;
+			});
+			
 			Add("follower", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => {
 					if (with is Mob) {
@@ -113,7 +118,9 @@ namespace BurningKnight.entity.projectile {
 
 				p.OnDeath += (pr, t) => {
 					for (var i = 0; i < 8; i++) {
-						Projectile.Make(pr.Owner, "default", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, 0.8f).Center = pr.Center;
+						var pr2 = Projectile.Make(pr.Owner, "shot", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, 0.8f);
+						pr2.Center = pr.Center;
+						pr2.Controller += SlowdownProjectileController.Make(1);
 					}
 				};
 
