@@ -445,7 +445,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:gun" || id == "bk:no_hat";
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:revolver" || id == "bk:no_hat";
 		}
 
 		public bool HandleOwnerEvent(Event e) {

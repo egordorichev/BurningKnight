@@ -1,7 +1,7 @@
 {
 	"bk:halo": "Halo",
 	"bk:halo_desc": "Health up",
-	"bk:gun": "Gun",
+	"bk:revolver": "Revolver",
 	"bk:sword": "Wooden Sword",
 	"bk:sword_desc": "Not just a stick",
 	"bk:lamp": "Lamp",
@@ -67,7 +67,7 @@
 	"bk:magic_lamp_desc": "Does it summon someone?",
 	"bk:candle": "Candle",
 	"bk:candle_desc": "It's hot",
-	"bk:gun_desc": "Hands up, @everyone!",
+	"bk:revolver_desc": "Hands up, @everyone!",
 	"bk:shovel": "Blue Shovel",
 	"bk:shovel_desc": "But why is it blue???",
 	"bk:flame_thrower": "Flame Thrower",

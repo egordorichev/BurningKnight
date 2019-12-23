@@ -19,7 +19,6 @@ namespace BurningKnight.level.entities.chest {
 	public class ProtoChest : AnimatedChest {
 		/*
 		 * todo:
-		 * add a placeholder item, like rusty revolver
 		 * rename regular gun to revolver
 		 */
 		
@@ -40,7 +39,7 @@ namespace BurningKnight.level.entities.chest {
 			i.OnStart = e => AddFx();
 			
 			try {
-				var id = GlobalSave.GetString("proto_chest", "bk:gun");
+				var id = GlobalSave.GetString("proto_chest", "bk:revolver");
 
 				if (id != null) {
 					var item = Items.CreateAndAdd(id, Area);
