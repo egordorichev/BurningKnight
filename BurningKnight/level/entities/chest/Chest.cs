@@ -14,6 +14,7 @@ namespace BurningKnight.level.entities.chest {
 	public class Chest : Prop, CollisionFilterEntity {
 		protected bool open;
 		protected internal float Scale = 1;
+		private bool transitioning;
 
 		public bool CanOpen = true;
 		public bool Empty;
@@ -109,13 +110,16 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		public void Open() {
-			if (open) {
+			if (open || transitioning) {
 				return;
 			}
 
 			open = true;
+			transitioning = true;
 			
 			Animate(() => {
+				transitioning = false;
+				
 				UpdateSprite();
 				SpawnDrops();
 				GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
@@ -131,10 +135,13 @@ namespace BurningKnight.level.entities.chest {
 				return;
 			}
 
-			open = false;
+			transitioning = true;
 			
 			Animate(() => {
+				open = false;
+				transitioning = false;
 				UpdateSprite(false);
+
 				// GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
 			});
 		}

@@ -10,25 +10,31 @@ using BurningKnight.save;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.chest {
 	public class ProtoChest : AnimatedChest {
 		/*
 		 * todo:
-		 * display the item, as well as in the backpack
+		 * display the item, in the backpack
 		 * add a placeholder item, like rusty revolver
 		 * rename regular gun to revolver
 		 */
 		
 		private List<Player> colling = new List<Player>();
 		private InteractFx fx;
+		private TextureRegion itemRegion;
 
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new ItemComponent());
+			AddComponent(new ItemComponent {
+				DontSave = true
+			});
+			
 			var i = GetComponent<InteractableComponent>();
 			
 			i.CanInteract = e => e.GetComponent<ActiveWeaponComponent>().Item != null || GetComponent<ItemComponent>().Item != null;
@@ -40,7 +46,7 @@ namespace BurningKnight.level.entities.chest {
 				if (id != null) {
 					var item = Items.CreateAndAdd(id, Area);
 					GetComponent<ItemComponent>().Set(item, false);
-					item.GetComponent<OwnerComponent>().Owner = this;
+					itemRegion = item.Region;
 				}
 			} catch (Exception e) {
 				Log.Error(e);
@@ -92,6 +98,7 @@ namespace BurningKnight.level.entities.chest {
 				w.RequestSwap();
 			}
 			
+			itemRegion = GetComponent<ItemComponent>().Item.Region;
 			AddFx();
 			return false;
 		}
@@ -117,6 +124,14 @@ namespace BurningKnight.level.entities.chest {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public override void Render() {
+			base.Render();
+
+			if (open && itemRegion != null) {
+				Graphics.Render(itemRegion, Position + new Vector2(10, 7), 0, itemRegion.Center, GetComponent<AnimationComponent>().Scale);
+			}
 		}
 	}
 }

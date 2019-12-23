@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.component {
 	public class ItemComponent : SaveableComponent {
 		public Item Item { get; protected set; }
+		public bool DontSave;
 
 		public bool Has(string id) {
 			return Item?.Id == id;
@@ -156,6 +157,11 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override void Save(FileWriter stream) {
+			if (DontSave) {
+				stream.WriteBoolean(false);
+				return;
+			}
+ 			
 			stream.WriteBoolean(Item != null);
 			Item?.Save(stream);
 		}
