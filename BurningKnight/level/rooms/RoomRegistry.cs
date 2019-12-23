@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
@@ -15,6 +16,7 @@ using BurningKnight.level.rooms.special.minigame;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
+using BurningKnight.save;
 using Lens.util;
 using Lens.util.math;
 
@@ -91,7 +93,8 @@ namespace BurningKnight.level.rooms {
 				
 				// Sub shop
 				RoomInfo.New<StorageRoom>(1f),
-				RoomInfo.New<SnekShopRoom>(1f),
+				RoomInfo.New<SnekShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Snek)),
+				RoomInfo.New<VampireShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
 				
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
@@ -102,7 +105,6 @@ namespace BurningKnight.level.rooms {
 				
 				// Special
 				RoomInfo.New<IdolTrapRoom>(1f),
-				RoomInfo.New<WellRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
 				RoomInfo.New<ChestMinigameRoom>(1f),

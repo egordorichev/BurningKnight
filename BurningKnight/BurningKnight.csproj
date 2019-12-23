@@ -830,7 +830,6 @@
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
-    <Compile Include="level\entities\Well.cs" />
     <Compile Include="level\Flag.cs" />
     <Compile Include="level\floors\BathFloor.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
@@ -915,7 +914,6 @@
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
     <Compile Include="level\rooms\special\VendingRoom.cs" />
-    <Compile Include="level\rooms\special\WellRoom.cs" />
     <Compile Include="level\rooms\spiked\SpikedRoom.cs" />
     <Compile Include="level\rooms\trap\CageRoom.cs" />
     <Compile Include="level\rooms\trap\FireTrapRoom.cs" />
