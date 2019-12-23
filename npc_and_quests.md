@@ -1,6 +1,10 @@
 # snek
 
 * Sells poison, snake and teeth related items for coins
+ - Backpack
+ - Poison Flask
+ - Teeth Necklesse
+
 * When you buy his entire stock he goes like 
  + "You must do everything to satisfy the customer, Roger!"
  + "Yes! I will do, what I must."
@@ -19,13 +23,44 @@
 # boxy 
 
 * Sells key and box/crate related stuff for keys, instead of coins
+ - Box of keys (99 keys) 
+ - Lootpick (50% chance to open a lock, active)
+ - Skeleton Key (100% chance to open a lock, active)
+ - Box of pets
+ - Box of orbitals
+ - Pouch of coins
+ - Pouch of keys
+ - Pouch of bombs
+ - Pouch of pouches
+
 * When you buy his entire stock, he unlocks himself with the keys and drops some item or a bunch of consumables
 
 # mad scientist
 * Sells bomb, potion and science related items for bombs, instead of coins
+ - Blank (active item)
+ - Blank (bombs act like blanks)
+ - Fetus gun
+ - Epic fetus gun
+ - TNT
+ - Crying Bombs
+ - Ninjia Bombs
+ - Bomb Pack
+ - Black Belt
+ - Pouch of bombs
+ - Matches
 
 # gobbeta
 * Sells goblin related stuff, as well as necklaces 
+ - Sharp Arrow
+ - Cross
+ - Ice Ring
+ - Fire Ring
+ - Duck Ring
+ - Clover
+ - Amurs Arrow
+ - Mushroom
+ - Map
+ - Scourge immunity item
 
 # nurse
 
