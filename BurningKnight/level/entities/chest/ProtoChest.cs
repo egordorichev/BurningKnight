@@ -17,11 +17,6 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.chest {
 	public class ProtoChest : AnimatedChest {
-		/*
-		 * todo:
-		 * rename regular gun to revolver
-		 */
-		
 		private List<Player> colling = new List<Player>();
 		private InteractFx fx;
 		private TextureRegion itemRegion;
@@ -39,7 +34,7 @@ namespace BurningKnight.level.entities.chest {
 			i.OnStart = e => AddFx();
 			
 			try {
-				var id = GlobalSave.GetString("proto_chest", "bk:revolver");
+				var id = GlobalSave.GetString("proto_chest", "bk:ancient_revolver");
 
 				if (id != null) {
 					var item = Items.CreateAndAdd(id, Area);
