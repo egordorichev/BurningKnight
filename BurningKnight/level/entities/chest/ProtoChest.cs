@@ -19,7 +19,6 @@ namespace BurningKnight.level.entities.chest {
 	public class ProtoChest : AnimatedChest {
 		/*
 		 * todo:
-		 * display the item, in the backpack
 		 * add a placeholder item, like rusty revolver
 		 * rename regular gun to revolver
 		 */
@@ -37,7 +36,7 @@ namespace BurningKnight.level.entities.chest {
 			
 			var i = GetComponent<InteractableComponent>();
 			
-			i.CanInteract = e => e.GetComponent<ActiveWeaponComponent>().Item != null || GetComponent<ItemComponent>().Item != null;
+			i.CanInteract = e => e.GetComponent<ActiveWeaponComponent>().Item != null;
 			i.OnStart = e => AddFx();
 			
 			try {

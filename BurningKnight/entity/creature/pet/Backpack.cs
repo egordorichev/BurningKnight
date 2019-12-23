@@ -9,13 +9,16 @@ using BurningKnight.save;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util;
+using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.pet {
 	public class Backpack : Pet {
 		private InteractFx fx;
 		private bool open;
+		private TextureRegion itemRegion;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -46,6 +49,7 @@ namespace BurningKnight.entity.creature.pet {
 					var item = Items.CreateAndAdd(id, Area);
 					GetComponent<ItemComponent>().Set(item, false);
 					item.GetComponent<OwnerComponent>().Owner = Owner;
+					itemRegion = item.Region;
 				}
 			} catch (Exception e) {
 				Log.Error(e);
@@ -70,13 +74,19 @@ namespace BurningKnight.entity.creature.pet {
 
 		private bool Interact(Entity entity) {
 			var w = entity.GetComponent<ActiveWeaponComponent>();
-			GetComponent<ItemComponent>().Exchange(w);
+			var i = GetComponent<ItemComponent>();
+			i.Exchange(w);
 
 			if (w.Item != null) {
 				Audio.PlaySfx(w.Item.Data.WeaponType.GetSwapSfx());
 				entity.GetComponent<PlayerGraphicsComponent>().AnimateSwap();
 			} else if (entity.GetComponent<WeaponComponent>().Item != null) {
 				w.RequestSwap();
+			}
+
+
+			if (i.Item != null) {
+				itemRegion = i.Item.Region;
 			}
 			
 			AddFx();
@@ -99,17 +109,25 @@ namespace BurningKnight.entity.creature.pet {
 			} else if (e is CollisionEndedEvent cee) {
 				if (open && cee.Entity == Owner) {
 					GetComponent<AnimationComponent>().Animate(() => {
+						open = false;
 						GetComponent<AnimationComponent>().Animation.Tag = "idle";
 					});
 
 					GetComponent<FollowerComponent>().Paused = false;
 					
 					Audio.PlaySfx("swap");
-					open = false;
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		public override void Render() {
+			base.Render();
+
+			if (open && itemRegion != null) {
+				Graphics.Render(itemRegion, Position + new Vector2(6, 7), 0, itemRegion.Center, GetComponent<AnimationComponent>().Scale);
+			}
 		}
 	}
 }
