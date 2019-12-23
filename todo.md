@@ -1,4 +1,7 @@
-# jungle 
+# jungle
+
+* achievement for first cursed weapon 
+* make spiked and cursed rooms locked by default 
 
 * scourge {
   - bk fire constantly, if you have >= 10 curse

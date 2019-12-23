@@ -1,15 +1,5 @@
 ### pools to fill
 
-* red chest
-* cursed chest
-* gold chest
-* wooden chest
-* triple chest
-* double chest
-* forest chest
-* boss pool
-* charger pool       -- battery buddy, item, that makes you charge double per room -> some items for charger item pool
-* safe pool (loot pick for example)
 * granny --- tea cup! and other tea based items
 * dark mage
 
@@ -106,14 +96,11 @@
 * charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
-* d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * bombs that stick to enemies
 * increases bomb explosion radius greatly
 * homing bombs
 * wallet buddy (collects money)
-* roll damages enemies
-* teleport to random room
 * teleport to prev room
 * money is power
 * bombs are power

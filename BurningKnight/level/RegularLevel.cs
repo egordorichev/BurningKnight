@@ -190,8 +190,9 @@ namespace BurningKnight.level {
 				rooms.Add(new DarkMarketRoom());
 				rooms.Add(new PayedRoom());
 				rooms.Add(new ScourgedRoom());*/
-				// rooms.Add(new SnekShop());
-				rooms.Add(new StorageRoom());
+				
+				// rooms.Add(new SnekShopRoom());
+				rooms.Add(new VampireShopRoom());
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

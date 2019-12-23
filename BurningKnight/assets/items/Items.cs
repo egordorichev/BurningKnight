@@ -76,6 +76,7 @@ namespace BurningKnight.assets.items {
 					data["scourged"] = true;
 				}
 				
+				data["quality"] = (int) item.Quality;
 				data["auto_pickup"] = item.AutoPickup;
 				data["auto"] = item.Automatic;
 				data["single_use"] = item.SingleUse;
@@ -136,6 +137,7 @@ namespace BurningKnight.assets.items {
 				Id = id,
 				UseTime = item["time"].Number(0.1f),
 				Type = type,
+				Quality = (ItemQuality) item["quality"].AsInteger,
 				Root = item,
 				Uses = item["uses"],
 				Renderer = item["renderer"],

@@ -4,23 +4,9 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using Lens.entity;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
-	public class Snek : DungeonShopNpc {
-		/*
-		 * todo:
-		 * at least 10 items in item pool
-		 *  - frog
-		 *
-		 * 
-		 * remove his items from other pools
-		 * the slavery pet end
-		 * make sure resupply works only with shop
-		 * his custom dialog
-		 * saving him before he first appears
-		 */
-		
+	public class Boxy : DungeonShopNpc {
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -29,20 +15,21 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			Height = 24;
 			Flips = false;
 			
-			AddComponent(new AnimationComponent("snek"));			
-			AddComponent(new RectBodyComponent(1, 14, 16, 10, BodyType.Static));
+			AddComponent(new AnimationComponent("boxy"));
 		}
 
 		public override string GetId() {
-			return ShopNpc.Snek;
+			return ShopNpc.Boxy;
 		}
 
 		public static void Place(Vector2 where, Area area) {
+			where.Y -= 16;
+			
 			var snek = new Snek();
 			area.Add(snek);
 			snek.BottomCenter = where;
 			
-			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Snek));
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Boxy));
 
 			for (var i = -1; i < 2; i++) {
 				var stand = new ShopStand();

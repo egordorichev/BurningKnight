@@ -16,11 +16,15 @@ namespace BurningKnight.entity.creature.npc {
 		public static string WeaponTrader = "weapon_trader";
 		public static string HatTrader = "hat_trader";
 		public static string Snek = "snek";
+		public static string Boxy = "boxy";
+		public static string Vampire = "vampire";
 	
 		private float delay;
 		internal bool Hidden;
 		private bool saved;
 		private bool hided;
+
+		protected bool Flips = true;
 
 		public override void Init() {
 			base.Init();
@@ -72,10 +76,15 @@ namespace BurningKnight.entity.creature.npc {
 			}
 
 			base.Update(dt);
+
+			if (!Flips) {
+				return;
+			}
+			
 			delay -= dt;
 
 			if (delay <= 0) {
-				delay = Rnd.Float(1, 4);
+				delay = Rnd.Float(1, 10);
 				GraphicsComponent.Flipped = !GraphicsComponent.Flipped;
 			}
 		}

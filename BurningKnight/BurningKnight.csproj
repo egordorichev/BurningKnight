@@ -455,8 +455,10 @@
     <Compile Include="entity\creature\npc\DarkMage.cs" />
     <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
+    <Compile Include="entity\creature\npc\dungeon\Boxy.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonShopNpc.cs" />
     <Compile Include="entity\creature\npc\dungeon\Snek.cs" />
+    <Compile Include="entity\creature\npc\dungeon\Vampire.cs" />
     <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
     <Compile Include="entity\creature\npc\HatTrader.cs" />
@@ -606,6 +608,7 @@
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
+    <Compile Include="entity\item\ItemQuality.cs" />
     <Compile Include="entity\item\Scourge.cs" />
     <Compile Include="entity\item\EmeraldStand.cs" />
     <Compile Include="entity\item\Item.cs" />
@@ -897,9 +900,10 @@
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
-    <Compile Include="level\rooms\shop\sub\SnekShop.cs" />
+    <Compile Include="level\rooms\shop\sub\SnekShopRoom.cs" />
     <Compile Include="level\rooms\shop\sub\StorageRoom.cs" />
     <Compile Include="level\rooms\shop\sub\SubShopRoom.cs" />
+    <Compile Include="level\rooms\shop\sub\VampireShopRoom.cs" />
     <Compile Include="level\rooms\special\ChargerRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />

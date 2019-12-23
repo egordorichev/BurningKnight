@@ -5,6 +5,7 @@ namespace BurningKnight.entity.door {
 		protected override void SetSize() {
 			Width = Vertical ? 10 : 24;
 			Height = Vertical ? 22 : 26;
+			OpenByDefault = !Vertical;
 		}
 
 		public override Vector2 GetOffset() {

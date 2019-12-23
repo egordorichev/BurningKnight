@@ -9,6 +9,7 @@ using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.special.minigame;
 using BurningKnight.level.rooms.trap;
@@ -87,6 +88,10 @@ namespace BurningKnight.level.rooms {
 
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),
+				
+				// Sub shop
+				RoomInfo.New<StorageRoom>(1f),
+				RoomInfo.New<SnekShopRoom>(1f),
 				
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
