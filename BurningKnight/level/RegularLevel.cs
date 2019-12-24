@@ -192,7 +192,9 @@ namespace BurningKnight.level {
 				rooms.Add(new ScourgedRoom());*/
 				
 				// rooms.Add(new SnekShopRoom());
-				rooms.Add(new VampireShopRoom());
+				// rooms.Add(new VampireShopRoom());
+				// todo: might be from 0 to 2
+				rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

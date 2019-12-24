@@ -109,6 +109,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ChargerRoom>(1f),
 				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
+				RoomInfo.New<VampireRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
 				
 				// Boss
 				RoomInfo.New<BossRoom>(1f),
@@ -149,26 +150,24 @@ namespace BurningKnight.level.rooms {
 				Log.Error($"No rooms registered with type {type}");
 				return null;
 			}
-			
-			var length = types.Count;
+
+			var list = new List<RoomInfo>();
 			float sum = 0;
 
-			foreach (var chance in types) {
-				if (biome.IsPresent(chance.Biomes)) {
-					sum += chance.Chance;
+			foreach (var t in types) {
+				if (biome.IsPresent(t.Biomes) && (t.CanAppear == null || t.CanAppear())) {
+					sum += t.Chance;
+					list.Add(t);
 				}
 			}
+			
+			var length = list.Count;
 
 			float value = Rnd.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {
-				var t = types[i];
-				
-				if (!biome.IsPresent(t.Biomes)) {
-					continue;
-				}
-
+				var t = list[i];
 				sum += t.Chance;
 
 				if (value < sum) {

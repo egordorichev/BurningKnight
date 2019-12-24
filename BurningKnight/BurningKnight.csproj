@@ -913,6 +913,7 @@
     <Compile Include="level\rooms\special\SafeRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
+    <Compile Include="level\rooms\special\VampireRoom.cs" />
     <Compile Include="level\rooms\special\VendingRoom.cs" />
     <Compile Include="level\rooms\spiked\SpikedRoom.cs" />
     <Compile Include="level\rooms\trap\CageRoom.cs" />
