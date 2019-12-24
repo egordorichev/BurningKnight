@@ -432,7 +432,7 @@ namespace BurningKnight.entity.creature.player {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
 						hm.Amount = Math.Min(hm.Amount, -2);
-					} else if (!(hm.From is DarkMageStand)) {
+					} else if (hm.Type != DamageType.Custom) {
 						hm.Amount = Math.Max(-1, hm.Amount);
 					}
 				}			

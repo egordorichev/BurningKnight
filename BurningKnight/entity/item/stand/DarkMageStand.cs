@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.stand {
 			if ((e is ItemUsedEvent ite && ite.Who == payer && ite.Item == takenItem) || (e is ItemAddedEvent iae && iae.Who == payer && iae.Item == takenItem)) {
 				var component = payer.GetComponent<HealthComponent>();
 				 
-				component.ModifyHealth(-lastPrice, this);
+				component.ModifyHealth(-lastPrice, this, DamageType.Custom);
 				component.MaxHealth -= lastPrice;		
 				
 				payer = null;
