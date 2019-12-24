@@ -43,11 +43,12 @@ namespace BurningKnight.entity.item {
 			if (Entity.HasComponent<OwnerComponent>()) {
 				return;
 			}
-
-			var origin = Sprite.Center;
+			
+			var item = (Item) Entity;
+			var s = item.Hidden ? Item.UnknownRegion : Sprite;
+			var origin = s.Center;
 			var position = CalculatePosition(shadow);
 			var angle = (float) Math.Cos(T * 1.8f) * 0.4f;
-			var item = (Item) Entity;
 			var cursed = item.Scourged;
 
 			if (!shadow) {
@@ -63,7 +64,7 @@ namespace BurningKnight.entity.item {
 					shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ScourgedColor, ColorUtils.White, component.OutlineAlpha));
 
 					foreach (var d in MathUtils.Directions) {
-						Graphics.Render(Sprite, position + d, angle, origin);
+						Graphics.Render(s, position + d, angle, origin);
 					}
 
 					Shaders.End();
@@ -72,7 +73,7 @@ namespace BurningKnight.entity.item {
 
 			if (item.Masked) {
 				Graphics.Color = MaskedColor;
-				Graphics.Render(Sprite, position, angle, origin);
+				Graphics.Render(s, position, angle, origin);
 				Graphics.Color = ColorUtils.WhiteColor;
 			} else {
 				if (!shadow) {
@@ -83,7 +84,7 @@ namespace BurningKnight.entity.item {
 					shader.Parameters["size"].SetValue(FlashSize);
 				}
 
-				Graphics.Render(Sprite, position, angle, origin);
+				Graphics.Render(s, position, angle, origin);
 
 				if (!shadow) {
 					Shaders.End();

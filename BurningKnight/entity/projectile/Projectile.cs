@@ -19,6 +19,7 @@ using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.assets;
@@ -79,6 +80,10 @@ namespace BurningKnight.entity.projectile {
 		private bool nearedDeath;
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, float damage = 1, Item item = null) {
+			if (slice == "default") {
+				slice = "rect";
+			}
+			
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
@@ -238,7 +243,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {
+			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand || entity is Statue) {
 				return false;
 			}
 

@@ -13,12 +13,6 @@
   - a way to clean the cursed weapons
   - curse points should affect granny/dm chance?
   - item, that gives immunity to curse tokens (removes them and disables their spawn / cursed item spawn) and cleans cursed items
-  - cursed room, entering it curses both of your weapons. if both were cursed already, you get 1 curse point 
-  
-  - challenge room inside
-  - spike room inside
-  
-  - spiked room contents
   
   - a way to get curses {
    + shop, you get payed to get a curse
@@ -29,7 +23,13 @@
  }
 }
 
-* place proto chest somewhere
+* content to place {
+ + statues 
+ + protochest
+ + cursed room content 
+ + challenge room content
+ + spiked room content
+}
 
 * enemies {
  + mike

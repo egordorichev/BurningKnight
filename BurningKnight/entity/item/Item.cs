@@ -169,6 +169,8 @@ namespace BurningKnight.entity.item {
 			if (LoadedSelf) {
 				AddDroppedComponents();
 			}
+			
+			CheckMasked();
 		}
 
 		private bool Interact(Entity entity) {
