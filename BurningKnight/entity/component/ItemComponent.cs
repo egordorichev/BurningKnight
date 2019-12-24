@@ -220,5 +220,11 @@ namespace BurningKnight.entity.component {
 			}
 		}
 		#endif
+
+		public void Cleanse() {
+			if (Item != null && Item.Scourged) {
+				Item.Scourged = false;
+			}
+		}
 	}
 }

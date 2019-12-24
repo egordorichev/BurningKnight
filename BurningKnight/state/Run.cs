@@ -95,6 +95,11 @@ namespace BurningKnight.state {
 			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 
+		public static void RemoveScourge() {
+			PermanentScourge--;
+			Scourge--;
+		}
+
 		public static void AddScourge(bool permanent = false) {
 			Scourge++;
 			Audio.PlaySfx("player_cursed");

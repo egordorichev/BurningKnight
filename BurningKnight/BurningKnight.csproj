@@ -830,6 +830,7 @@
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
     <Compile Include="level\entities\statue\ChestStatue.cs" />
+    <Compile Include="level\entities\statue\Fountain.cs" />
     <Compile Include="level\entities\statue\Statue.cs" />
     <Compile Include="level\entities\statue\StoneStatue.cs" />
     <Compile Include="level\entities\statue\SwordStatue.cs" />
