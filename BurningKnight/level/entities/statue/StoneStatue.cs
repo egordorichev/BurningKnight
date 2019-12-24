@@ -14,7 +14,7 @@ namespace BurningKnight.level.entities.statue {
 		}
 
 		protected override Rectangle GetCollider() {
-			return new Rectangle(0, 18, 20, 15);
+			return new Rectangle(0, 11, 20, 15);
 		}
 
 		protected override bool Interact(Entity e) {

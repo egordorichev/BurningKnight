@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util.file;
 
@@ -12,10 +13,14 @@ namespace BurningKnight.level.entities.statue {
 			base.AddComponents();
 			
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => !Broken
+				CanInteract = CanInteract
 			});
 			
 			AddComponent(new ShadowComponent());
+		}
+
+		protected virtual bool CanInteract(Entity e) {
+			return !Broken;
 		}
 
 		public override void PostInit() {
@@ -53,6 +58,10 @@ namespace BurningKnight.level.entities.statue {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(Broken);
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return base.ShouldCollide(entity) && !(entity is Projectile);
 		}
 	}
 }
