@@ -13,6 +13,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.statue {
 	public class DiceStatue : Statue {
+		// todo: if effect does nothing alter to another effect
+		// todo: add a flying text effect on top of player head to let them know what happened (+2 hp) etc
 		public static Dictionary<string, Action<DiceStatue, Entity>> Effects = new Dictionary<string, Action<DiceStatue, Entity>> {
 			// + Hp up
 			{ "buffed", (s, e) => e.GetComponent<HealthComponent>().MaxHealth += 2 },

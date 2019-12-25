@@ -190,6 +190,13 @@ namespace BurningKnight.entity.creature.player {
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
+
+				var part = new TextParticle();
+				part.BottomCenter = Self.TopCenter - new Vector2(0, 4);
+				Engine.Instance.State.Ui.Add(part);
+				part.HasSign = true;
+				part.Count = 10;
+				part.Text = "Karma";
 			}
 
 			public override void Update(float dt) {
