@@ -486,6 +486,8 @@ namespace BurningKnight.level {
 				} else {
 					mob.BottomCenter = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
 				}
+				
+				mob.GeneratePrefix();
 
 				if (type.Single) {
 					types.RemoveAt(id);

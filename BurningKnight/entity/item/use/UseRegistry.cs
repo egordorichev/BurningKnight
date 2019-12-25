@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.use {
 			Register<TriggerHurtEventUse>();
 			Register<SetKnockbackModifierUse>(SetKnockbackModifierUse.RenderDebug);
 			Register<RandomActiveUse>();
-			Register<ScourgeUse>();
+			Register<ScourgeUse>(ScourgeUse.RenderDebug);
 			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
 			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
 			Register<GoThonkUse>();

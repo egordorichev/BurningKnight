@@ -63,6 +63,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileNearingDeathCallback NearDeath;
 		public Projectile Parent;
 		public Color Color = ProjectileColor.Red;
+		public bool Scourged;
 		public string Slice;
 		public float Scale;
 		public bool BreaksFromWalls = true;
@@ -123,6 +124,12 @@ namespace BurningKnight.entity.projectile {
 			projectile.Height = h;
 			projectile.Center = owner.Center;
 
+			if (owner is Mob m && m.HasPrefix) {
+				projectile.Scourged = true;
+				projectile.Color = ProjectileColor.Black;
+				projectile.AddLight(64, ProjectileColor.Black);
+			}
+
 			if (circle) {
 				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
 			} else {
@@ -166,6 +173,10 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void AddLight(float radius, Color color) {
+			if (HasComponent<LightComponent>()) {
+				return;
+			}
+			
 			AddComponent(new LightComponent(this, radius * Scale, color));
 		}
 

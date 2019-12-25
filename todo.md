@@ -9,7 +9,6 @@
   - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
   - make bill give you 3 curses instead of 1
   - more coins should drop the more curse you have
-  - cursed bullets from cursed enemies (visuals)
   - a way to clean the cursed weapons
   - curse points should affect granny/dm chance?
   - item, that gives immunity to curse tokens (removes them and disables their spawn / cursed item spawn) and cleans cursed items
