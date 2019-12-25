@@ -470,7 +470,7 @@ namespace BurningKnight.assets.items {
 		}
 
 
-		public static Item CreateAndAdd(string id, Area area) {
+		public static Item CreateAndAdd(string id, Area area, bool scourgeFree = true) {
 			var item = Create(id);
 
 			if (item == null) {
@@ -480,6 +480,10 @@ namespace BurningKnight.assets.items {
 			area.Add(item);
 			item.AddDroppedComponents();
 
+			if (scourgeFree) {
+				item.Scourged = false;
+			}
+			
 			return item;
 		}
 

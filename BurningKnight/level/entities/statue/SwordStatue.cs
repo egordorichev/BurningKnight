@@ -24,7 +24,7 @@ namespace BurningKnight.level.entities.statue {
 			
 			// fixme: doesnt work
 			h.SetHealth(1, this, type: DamageType.Custom);
-			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:broken_heart", Area));
+			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:broken_heart", Area, true));
 			
 			Run.AddScourge(true);
 			Break();

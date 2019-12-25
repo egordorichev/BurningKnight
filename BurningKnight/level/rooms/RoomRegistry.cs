@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.level.biome;
+using BurningKnight.level.entities.statue;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
@@ -13,6 +14,7 @@ using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.special.minigame;
+using BurningKnight.level.rooms.special.statue;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
@@ -110,6 +112,14 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
 				RoomInfo.New<VampireRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
+				RoomInfo.New<ChestStatueRoom>(1f),
+				RoomInfo.New<DiceStatueRoom>(1f),
+				RoomInfo.New<ScourgeStatueRoom>(1f),
+				RoomInfo.New<StoneStatueRoom>(1f),
+				RoomInfo.New<SwordStatueRoom>(1f),
+				RoomInfo.New<WarriorStatueRoom>(1f),
+				RoomInfo.New<WellRoom>(1f),
+				RoomInfo.New<ProtoChestRoom>(0.1f),
 				
 				// Boss
 				RoomInfo.New<BossRoom>(1f),

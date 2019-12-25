@@ -307,7 +307,7 @@ namespace BurningKnight.assets.achievements {
 									?.GetComponent<InventoryComponent>()
 									.Pickup(Items.CreateAndAdd(
 										selected.Id, Engine.Instance.State.Area
-									));
+									), true);
 							}
 						}
 					}
