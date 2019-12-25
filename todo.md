@@ -3,7 +3,7 @@
 * achievement for first cursed weapon 
 * make spiked and cursed rooms locked by default 
 
-* scourge {
+* scourge { 
   - bk fire constantly, if you have >= 10 curse
   
   - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
