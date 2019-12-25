@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.statue {
 	public class StoneStatue : Statue {
+		protected override string GetFxText() {
+			return "break";
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 

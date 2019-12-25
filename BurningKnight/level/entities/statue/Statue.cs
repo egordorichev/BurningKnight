@@ -1,19 +1,27 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.projectile;
+using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 
 namespace BurningKnight.level.entities.statue {
 	public class Statue : SolidProp {
 		protected bool Broken;
+
+		protected virtual string GetFxText() {
+			return "touch";
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = CanInteract
+				CanInteract = CanInteract,
+				OnStart = (e) => Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())))
 			});
 			
 			AddComponent(new ShadowComponent());
