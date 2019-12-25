@@ -1,3 +1,4 @@
+using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
@@ -12,12 +13,12 @@ namespace BurningKnight.assets.particle.custom {
 			get => text;
 			
 			set {
-				if (text == value || tweened) {
+				if (tweened) {
 					return;
 				}
 
 				text = value;
-				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(Count > 1 ? $"{Count} " : "")} {text}";
+				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(count > 1 ? $"{count} " : "")} {text}";
 
 				var size = Font.Medium.MeasureString(fullText);
 
@@ -33,8 +34,19 @@ namespace BurningKnight.assets.particle.custom {
 				Tween.To(1, scale.Y, x => scale.Y = x, 0.3f);
 			}
 		}
+
+		private int count;
+
+		public int Count {
+			get => count;
+
+			set {
+				count = value;
+				// To update the text
+				Text = text;
+			}
+		}
 		
-		public int Count;
 		public bool HasSign;
 		public bool Negative;
 
@@ -61,6 +73,8 @@ namespace BurningKnight.assets.particle.custom {
 
 			offset.Y = 8;
 			Tween.To(0, offset.Y, x => offset.Y = x, 0.3f);
+			
+			AddTag(Tags.TextParticle);
 		}
 
 		public override void PostInit() {
@@ -78,8 +92,8 @@ namespace BurningKnight.assets.particle.custom {
 				tweened = true;
 				
 				Tween.To(0, scale.X, x => scale.X = x, 0.15f, Ease.QuadIn);
-				Tween.To(2, scale.Y, x => scale.Y = x, 0.15f, Ease.QuadIn).OnEnd = () => Done = true;
-				Tween.To(-12, offset.Y, x => offset.Y = x, 0.15f, Ease.QuadIn);
+				Tween.To(3, scale.Y, x => scale.Y = x, 0.15f, Ease.QuadIn).OnEnd = () => Done = true;
+				Tween.To(-18, offset.Y, x => offset.Y = x, 0.15f, Ease.QuadIn);
 			}
 
 			Center = Camera.Instance.CameraToUi(gamePosition) + offset;
@@ -87,6 +101,39 @@ namespace BurningKnight.assets.particle.custom {
 
 		public override void Render() {
 			Graphics.Print(fullText, Font.Medium, Center, 0, origin, scale);
+		}
+
+		public static void Add(Entity owner, string text, int count = 0, bool hasSign = false, bool minus = false) {
+			var where = owner.TopCenter - new Vector2(0, 4);
+			var min = 72f;
+			TextParticle prt = null;
+			
+			foreach (var p in Engine.Instance.State.Ui.Tagged[Tags.TextParticle]) {
+				var pr = (TextParticle) p;
+
+				if (pr.text == text && pr.Negative == minus && !pr.tweened) {
+					var d = (pr.gamePosition - where).Length();
+					
+					if(d < min) {
+						min = d;
+						prt = pr; 
+					}
+				} 
+			}
+
+			if (prt != null) {
+				prt.Count += count;
+				return;
+			}
+			
+			var part = new TextParticle();
+			part.BottomCenter = where;
+			Engine.Instance.State.Ui.Add(part);
+			
+			part.HasSign = hasSign;
+			part.Count = count;
+			part.Text = text;
+			part.Negative = minus;
 		}
 	}
 }

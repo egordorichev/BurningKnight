@@ -191,12 +191,7 @@ namespace BurningKnight.entity.creature.player {
 					Player = (Player) Self
 				});
 
-				var part = new TextParticle();
-				part.BottomCenter = Self.TopCenter - new Vector2(0, 4);
-				Engine.Instance.State.Ui.Add(part);
-				part.HasSign = true;
-				part.Count = 10;
-				part.Text = "Karma";
+				TextParticle.Add(Self, "Karma", 10, true);
 			}
 
 			public override void Update(float dt) {
