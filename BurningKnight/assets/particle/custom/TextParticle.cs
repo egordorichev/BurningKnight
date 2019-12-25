@@ -132,8 +132,8 @@ namespace BurningKnight.assets.particle.custom {
 			
 			part.HasSign = hasSign;
 			part.Count = count;
-			part.Text = text;
 			part.Negative = minus;
+			part.Text = text;
 		}
 	}
 }

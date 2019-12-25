@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using BurningKnight.save;
@@ -98,18 +99,27 @@ namespace BurningKnight.state {
 		public static void RemoveScourge() {
 			PermanentScourge--;
 			Scourge--;
-		}
-
-		public static void AddScourge(bool permanent = false) {
-			Scourge++;
-			Audio.PlaySfx("player_cursed");
-
+			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 			if (player == null) {
 				return;
 			}
+			
+			TextParticle.Add(player, Locale.Get("scourge"), 1, true, true);
+		}
 
+		public static void AddScourge(bool permanent = false) {
+			Scourge++;
+			Audio.PlaySfx("player_cursed");
+			
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+			if (player == null) {
+				return;
+			}
+			
+			TextParticle.Add(player, Locale.Get("scourge"), 1, true);
 			var center = player.Center;
 			
 			for (var i = 0; i < 10; i++) {

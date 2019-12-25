@@ -190,8 +190,6 @@ namespace BurningKnight.entity.creature.player {
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
-
-				TextParticle.Add(Self, "Karma", 10, true);
 			}
 
 			public override void Update(float dt) {

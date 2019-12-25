@@ -45,6 +45,7 @@
 }
 
 * fix {
+ + granny and dm rooms dont get a path leading to them or smth?
  + weird glitch with the lock?? it kinda rotates or smth
  + projectile effect is not used anymore, color the projectile depending on the buff
  + holding amurs bow in the back still applies the effect
