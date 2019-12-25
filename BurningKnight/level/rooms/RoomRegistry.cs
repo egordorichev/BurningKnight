@@ -112,13 +112,13 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
 				RoomInfo.New<VampireRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
-				RoomInfo.New<ChestStatueRoom>(1f),
+				RoomInfo.New<ChestStatueRoom>(0.8f),
 				RoomInfo.New<DiceStatueRoom>(1f),
-				RoomInfo.New<ScourgeStatueRoom>(1f),
+				RoomInfo.New<ScourgeStatueRoom>(0.5f),
 				RoomInfo.New<StoneStatueRoom>(1f),
 				RoomInfo.New<SwordStatueRoom>(1f),
 				RoomInfo.New<WarriorStatueRoom>(1f),
-				RoomInfo.New<WellRoom>(1f),
+				RoomInfo.New<WellRoom>(0.3f),
 				RoomInfo.New<ProtoChestRoom>(0.1f),
 				
 				// Boss
