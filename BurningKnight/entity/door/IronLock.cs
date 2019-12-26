@@ -56,6 +56,13 @@ namespace BurningKnight.entity.door {
 						shouldLock = true;
 
 						break;
+					} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
+						foreach (var c in r.Inputs) {
+							if (c.On == c.DefaultState) {
+								shouldLock = true;
+								break;
+							}
+						}
 					}
 				}
 			}

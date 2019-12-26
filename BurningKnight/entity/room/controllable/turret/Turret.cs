@@ -36,7 +36,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new RectBodyComponent(4, 4, 8, 6, BodyType.Static));
+			AddComponent(new RectBodyComponent(3, 4, 10, 10, BodyType.Static));
 
 			var a = new AnimationComponent("turret");
 			AddComponent(a);

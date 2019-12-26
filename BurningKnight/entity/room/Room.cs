@@ -55,6 +55,7 @@ namespace BurningKnight.entity.room {
 
 		private bool checkCleared;
 		private Entity cleared;
+		private float t;
 
 		public void CheckCleared(Entity entity) {
 			if (!Cleared) {
@@ -98,7 +99,9 @@ namespace BurningKnight.entity.room {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!settedUp) {
+			t += dt;
+			
+			if (!settedUp && t >= 0.1f) {
 				settedUp = true;
 				Setup();
 			}
