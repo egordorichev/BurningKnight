@@ -97,7 +97,8 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<TurretTrapRoom>(1f),
 				RoomInfo.New<SpikeMazeRoom>(1f),
 				RoomInfo.New<DangerousPadsRoom>(1f),
-				RoomInfo.New<TurretPassageRoom>(10000f),
+				RoomInfo.New<TurretPassageRoom>(1f),
+				RoomInfo.New<VerticalTurretPassageRoom>(10000f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 
 				// Shop
