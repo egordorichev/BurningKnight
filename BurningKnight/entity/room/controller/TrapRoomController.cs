@@ -1,3 +1,4 @@
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.room.input;
 
 namespace BurningKnight.entity.room.controller {
@@ -28,6 +29,10 @@ namespace BurningKnight.entity.room.controller {
 				} else {
 					c.TurnOff();
 				}
+			}
+
+			if (!on) {
+				Room.CheckCleared(LocalPlayer.Locate(Room.Area));
 			}
 		}
 	}

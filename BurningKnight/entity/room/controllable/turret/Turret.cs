@@ -28,6 +28,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public uint StartingAngle;
 		public bool ReverseDirection;
 		public float TimingOffset;
+		public float Speed = 1f;
 
 		public override void Init() {
 			Y -= 4;
@@ -72,6 +73,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			StartingAngle = stream.ReadByte();
 			ReverseDirection = stream.ReadBoolean();
 			TimingOffset = stream.ReadFloat();
+			Speed = stream.ReadFloat();
 		}
 
 		public override void Save(FileWriter stream) {
@@ -80,6 +82,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			stream.WriteByte((byte) StartingAngle);
 			stream.WriteBoolean(ReverseDirection);
 			stream.WriteFloat(TimingOffset);
+			stream.WriteFloat(Speed);
 		}
 
 		public override void PostInit() {
@@ -134,7 +137,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 				return;
 			}
 
-			beforeNextBullet -= dt;
+			beforeNextBullet -= dt * Speed;
 
 			if (beforeNextBullet <= 0) {
 				beforeNextBullet = 3;
