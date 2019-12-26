@@ -20,12 +20,6 @@ namespace BurningKnight.level.rooms.trap {
 			var h = GetHeight();
 			var gx = (gap + xcollumn);
 			var gy = (gap + ycollumn);
-			var mx = Rnd.Chance(50);
-			var my = !mx && Rnd.Chance(50);
-			var mxd = Rnd.Chance() ? -1 : 1;
-			var myd = Rnd.Chance() ? -1 : 1;
-			var mxs = Rnd.Int(2);
-			var mys = Rnd.Int(2);
 
 			var xcount = (int) Math.Floor((w - (float) xcollumn) / gx);
 			var ycount = (int) Math.Floor((h - (float) ycollumn) / gy);
@@ -36,13 +30,11 @@ namespace BurningKnight.level.rooms.trap {
 			var xo = (int) Math.Floor((w - xw) / 2f);
 			var yo = (int) Math.Floor((h - yw) / 2f);
 			
-			// Painter.Fill(level, new Rect(Left + xo, Top + yo).Resize(xw, yw), Tile.FloorA);
-
 			for (var x = 0; x < xcount; x++) {
 				for (var y = 0; y < ycount; y++) {
 					Painter.Fill(level, new Rect(
-						Left + xo + x * gx + (mx && y % 2 == mxs ? mxd : 0), 
-						Top + yo + y * gy + (my && x % 2 == mys ? myd : 0)
+						Left + xo + x * gx, 
+						Top + yo + y * gy
 					).Resize(xcollumn, ycollumn), Rnd.Chance(5) ? Tiles.RandomFloor() : Tile.SensingSpikeTmp);
 				}
 			}
