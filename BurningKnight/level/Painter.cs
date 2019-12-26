@@ -38,7 +38,7 @@ namespace BurningKnight.level {
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
-		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
+		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
 		
 		public Painter() {
@@ -75,7 +75,7 @@ namespace BurningKnight.level {
 			});
 			
 			// Small chance to replace rock with a tinted rock or with a barrel
-			Modifiers.Add((l, x, y) => {
+			Modifiers.Add((l, rm, x, y) => {
 				var index = l.ToIndex(x, y);
 
 				if (l.Get(index, true) == Tile.Rock) {
@@ -202,7 +202,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				Clip = Room.Shrink(1);
+				Clip = Room.Shrink();
 
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
@@ -235,7 +235,7 @@ namespace BurningKnight.level {
 						var I = Level.ToIndex(X, Y);
 
 						foreach (var m in Modifiers) {
-							m(Level, X, Y);
+							m(Level, Room, X, Y);
 						}
 
 						var rs = !Level.Biome.HasSpikes();

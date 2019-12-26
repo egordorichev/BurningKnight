@@ -112,22 +112,22 @@ namespace BurningKnight.level.rooms {
 			return GetMaxConnections(Direction) - GetCurrentConnections(Direction);
 		}
 
-		public virtual bool CanConnect(RoomDef R, Dot P) {
-			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
+		public virtual bool CanConnect(RoomDef r, Dot p) {
+			return ((int) p.X == Left || (int) p.X == Right) != ((int) p.Y == Top || (int) p.Y == Bottom);
 		}
 
-		public virtual bool CanConnect(Connection Direction) {
-			var Cnt = GetLastConnections(Direction);
+		public virtual bool CanConnect(Connection direction) {
+			var Cnt = GetLastConnections(direction);
 
 			return Cnt > 0;
 		}
 
-		public virtual bool CanConnect(RoomDef R) {
-			var I = Intersect(R);
+		public virtual bool CanConnect(RoomDef r) {
+			var I = Intersect(r);
 			var FoundPoint = false;
 
 			foreach (var P in I.GetPoints()) {
-				if (CanConnect(R, P) && R.CanConnect(R, P)) {
+				if (CanConnect(r, P) && r.CanConnect(r, P)) {
 					FoundPoint = true;
 
 					break;
@@ -139,19 +139,19 @@ namespace BurningKnight.level.rooms {
 			}
 
 			if (I.GetWidth() == 0 && I.Left == Left) {
-				return CanConnect(Connection.Left) && R.CanConnect(Connection.Left);
+				return CanConnect(Connection.Left) && r.CanConnect(Connection.Left);
 			}
 
 			if (I.GetHeight() == 0 && I.Top == Top) {
-				return CanConnect(Connection.Top) && R.CanConnect(Connection.Top);
+				return CanConnect(Connection.Top) && r.CanConnect(Connection.Top);
 			}
 
 			if (I.GetWidth() == 0 && I.Right == Right) {
-				return CanConnect(Connection.Right) && R.CanConnect(Connection.Right);
+				return CanConnect(Connection.Right) && r.CanConnect(Connection.Right);
 			}
 
 			if (I.GetHeight() == 0 && I.Bottom == Bottom) {
-				return CanConnect(Connection.Bottom) && R.CanConnect(Connection.Bottom);
+				return CanConnect(Connection.Bottom) && r.CanConnect(Connection.Bottom);
 			}
 
 			return false;

@@ -29,7 +29,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public bool ReverseDirection;
 
 		public override void Init() {
-			Y -= 8;
+			Y -= 4;
 			base.Init();
 		}
 

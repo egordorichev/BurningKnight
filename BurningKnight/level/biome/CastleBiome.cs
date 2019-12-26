@@ -1,4 +1,5 @@
-﻿using BurningKnight.level.tile;
+﻿using BurningKnight.level.rooms.trap;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.util;
 using Lens.util.math;
@@ -13,7 +14,11 @@ namespace BurningKnight.level.biome {
 		public override void ModifyPainter(Painter painter) {
 			base.ModifyPainter(painter);
 			
-			painter.Modifiers.Add((l, x, y) => {
+			painter.Modifiers.Add((l, rm, x, y) => {
+				if (rm is TrapRoom) {
+					return;
+				}
+				
 				var f = Run.Depth == 1;
 				
 				var r = (byte) (f ? Tiles.RandomFloor() : Tile.Chasm);

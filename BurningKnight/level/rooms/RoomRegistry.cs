@@ -35,13 +35,19 @@ namespace BurningKnight.level.rooms {
 			RoomType.Exit,
 			RoomType.Special,
 			RoomType.Shop,
+			RoomType.Spiked,
+			RoomType.Challenge,
+			RoomType.Scourged,
+			RoomType.Payed,
+			RoomType.DarkMarket,
 			RoomType.Treasure,
 			RoomType.Entrance,
 			RoomType.Trap,
 			RoomType.Granny,
-			RoomType.OldMan
+			RoomType.OldMan,
+			RoomType.SubShop
 		};
-
+		
 		public static RoomType FromIndex(int i) {
 			return TypesByIndex[i];
 		}
@@ -88,6 +94,7 @@ namespace BurningKnight.level.rooms {
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
 				RoomInfo.New<SpikePassageRoom>(1f),
+				RoomInfo.New<TurretTrapRoom>(10000f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 
 				// Shop

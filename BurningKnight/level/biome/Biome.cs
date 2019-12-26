@@ -119,7 +119,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual int GetNumTrapRooms() {
-			return Rnd.Int(0, 2);
+			return 1; // Rnd.Int(0, 2);
 		}
 
 		public virtual int GetNumSpecialRooms() {

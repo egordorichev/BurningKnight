@@ -246,7 +246,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			if (entity is Turret && T > 0.2f) {
+			if (entity is Turret) {
 				return true;
 			}
 

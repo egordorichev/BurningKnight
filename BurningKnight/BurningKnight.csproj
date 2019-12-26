@@ -943,6 +943,7 @@
     <Compile Include="level\rooms\trap\ShiftingWallsRoom.cs" />
     <Compile Include="level\rooms\trap\SpikePassageRoom.cs" />
     <Compile Include="level\rooms\trap\TrapRoom.cs" />
+    <Compile Include="level\rooms\trap\TurretTrapRoom.cs" />
     <Compile Include="level\rooms\treasure\AcrossTreasureRoom.cs" />
     <Compile Include="level\rooms\treasure\HoleTreasureRoom.cs" />
     <Compile Include="level\rooms\treasure\PadTreasureRoom.cs" />

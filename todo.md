@@ -2,6 +2,8 @@
 
 * achievement for first cursed weapon 
 * make spiked and cursed rooms locked by default 
+* enemy egenerate prefix only once you enter the room first time
+* fix trap room might not lead anywhere
 
 * scourge { 
   - bk fire constantly, if you have >= 10 curse
