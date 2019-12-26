@@ -13,11 +13,11 @@ namespace BurningKnight.entity.room.controller {
 		}
 
 		private void CheckState() {
-			var on = true;
+			var on = Room.Inputs.Count == 0;
 
 			foreach (var c in Room.Inputs) {
-				if (c.On != c.DefaultState) {
-					on = false;
+				if (c.On == c.DefaultState) {
+					on = true;
 					break;
 				}
 			}

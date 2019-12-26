@@ -38,7 +38,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 			
 			AddComponent(new RectBodyComponent(3, 4, 10, 10, BodyType.Static));
 
-			var a = new AnimationComponent("turret");
+			var a = new AnimationComponent("turret", "on");
 			AddComponent(a);
 
 			a.Animation.Tag = "single";
@@ -84,13 +84,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public override void TurnOn() {
 			base.TurnOn();
-			beforeNextBullet = 0;
+			beforeNextBullet = 0.2f;
 			
 			var a = GetComponent<AnimationComponent>();
 
 			a.Scale.X = 2f;
 			a.Scale.Y = 0.4f;
-			
+			a.Animation.Layer = "on";
+
 			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
 			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 		}
@@ -102,28 +103,28 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			a.Scale.X = 2f;
 			a.Scale.Y = 0.4f;
-			
+			a.Animation.Layer = "off";
+
 			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
 			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
+			
 			// Always enabled in tutorial
-			if (Run.Depth != -2) {
+			if (Run.Depth != -2 && On) {
 				var room = GetComponent<RoomComponent>().Room;
 
-				if (room != null) {
-					var a = room.Type == RoomType.Regular;
-					var b = room.Tagged[Tags.MustBeKilled].Count == 0;
+				if (room != null && room.Type == RoomType.Regular) {
+					if (room.Tagged[Tags.MustBeKilled].Count == 0) {
 
-					if (a && b) {
+						TurnOff();
 						return;
 					}
 				}
 			}
-
+			
 			if (!On) {
 				return;
 			}

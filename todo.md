@@ -155,11 +155,8 @@
 
 ### Rooms
 
-* falling floor room
 * crawled space
 * Room, where you press lever/button to open/close chasm
-* Challenge room
-* Cursed room
 * trap rooms
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
