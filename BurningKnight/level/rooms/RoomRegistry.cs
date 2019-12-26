@@ -95,7 +95,8 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<TurretTrapRoom>(1f),
-				RoomInfo.New<SpikeMazeRoom>(10000f),
+				RoomInfo.New<SpikeMazeRoom>(1f),
+				RoomInfo.New<DangerousPadsRoom>(10000f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 
 				// Shop

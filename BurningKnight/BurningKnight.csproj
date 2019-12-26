@@ -939,6 +939,7 @@
     <Compile Include="level\rooms\special\VendingRoom.cs" />
     <Compile Include="level\rooms\spiked\SpikedRoom.cs" />
     <Compile Include="level\rooms\trap\CageRoom.cs" />
+    <Compile Include="level\rooms\trap\DangerousPadsRoom.cs" />
     <Compile Include="level\rooms\trap\FireTrapRoom.cs" />
     <Compile Include="level\rooms\trap\FollowingSpikeBallRoom.cs" />
     <Compile Include="level\rooms\trap\RollingSpikesRoom.cs" />
