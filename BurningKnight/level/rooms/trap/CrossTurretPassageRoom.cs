@@ -10,7 +10,7 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.trap {
-	public class VerticalTurretPassageRoom : TrapRoom {
+	public class CrossTurretPassageRoom : TrapRoom {
 		public override void PaintFloor(Level level) {
 			
 		}
@@ -20,6 +20,13 @@ namespace BurningKnight.level.rooms.trap {
 			room.AddController("bk:trap");
 		}
 
+		public override int GetMinWidth() {
+			return 14;
+		}
+
+		public override int GetMaxWidth() {
+			return 22;
+		}
 		public override int GetMinHeight() {
 			return 14;
 		}
@@ -28,38 +35,42 @@ namespace BurningKnight.level.rooms.trap {
 			return 22;
 		}
 
-		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tile.Chasm);
-			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor(), true);
-			Painter.DrawLine(level, new Dot(Left + 1, Bottom - 1), new Dot(Right - 1, Bottom - 1), Tiles.RandomFloor(), true);
+		protected override bool Quad() {
+			return true;
+		}
 
-			var ty = Rnd.Int(Left + 2, Right - 2);
+		private void Line(Level level, Dot a, Dot b) {
+			Painter.DrawLine(level, a, b, Tiles.RandomFloor(), true);
 
 			if (Rnd.Chance()) {
-				ty = Left + GetWidth() / 2;
+				Painter.DrawLine(level, a, b, Tiles.RandomFloor());
+			}
+		}
+
+		public override void Paint(Level level) {
+			Painter.Fill(level, this, 1, Tile.Chasm);
+
+			var tx = Left + GetWidth() / 2;
+			var ty = Top + GetHeight() / 2;
+
+			Line(level, new Dot(tx, Top + 2), new Dot(tx, Bottom - 2));
+			Line(level, new Dot(Left + 2, ty), new Dot(Right - 2, ty));
+
+			var a = Rnd.Chance();
+
+			if (a) {
+				PlaceButton(level, new Dot(Left + 1, ty));
+				PlaceButton(level, new Dot(Right - 1, ty));
 			}
 
-			for (var i = 0; i < 2; i++) {
-				if (Rnd.Chance()) {
-					var tty = Rnd.Int(Left + 2, Right - 2);
-					Painter.DrawLine(level, new Dot(tty, Top + 1), new Dot(tty, Bottom - 1), Tile.FloorD);
-				}
+			if (!a || Rnd.Chance()) {
+				PlaceButton(level, new Dot(tx, Top + 1));
+				PlaceButton(level, new Dot(tx, Bottom - 1));
 			}
 
-			Painter.DrawLine(level, new Dot(ty, Top + 1), new Dot(ty, Bottom - 1), Tiles.RandomFloor(), true);
-
-			if (Connected.Count == 1) {
-				ty = Rnd.Int(Left + 2, Right - 2);
-
-				if (Connected.Values.First().Y == Top) {
-					PlaceButton(level, new Dot(ty, Bottom - 1));
-				} else {
-					PlaceButton(level, new Dot(ty, Top + 1));
-				}
-			}
-			
-			var s = Rnd.Int(2, 4);
-			var xm = Rnd.Int(0, s);
+			var s = 2; // Rnd.Int(2, 4);
+			var cx = Left + GetWidth() / 2;
+			var cy = Top + GetHeight() / 2;
 
 			#region Wave Generator
 			var xsmooth = Rnd.Chance(30);
@@ -81,23 +92,51 @@ namespace BurningKnight.level.rooms.trap {
 				return MathUtils.Mod(t * 3, 3);
 			});
 			#endregion
+
+			var p = 1;
 			
-			for (var x = Top + 3 + xm; x < Bottom - 2; x += s) {
-				Place(level, Left + 1, x, 0, fn(Left + 1, x));
+			for (var x = Left + 3; x < Right - 2; x += s) {
+				if (x >= cx - p && x <= cx + p) {
+					continue;
+				}
+				
+				Place(level, x, Top + 1, 2, fn(x, Top + 1));
 			}
 			
-			for (var x = Top + 3 + xm; x < Bottom - 2; x += s) {
+			for (var x = Left + 3; x < Right - 2; x += s) {
+				if (x >= cx - p && x <= cx + p) {
+					continue;
+				}
+				
+				Place(level, x, Bottom - 1, 6, fn(x, Bottom - 1));
+			}
+			
+			for (var x = Top + 3; x < Bottom - 2; x += s) {
+				if (x >= cy - p && x <= cy + p) {
+					continue;
+				}
+				
+				Place(level, Left + 1, x, 0, fn(x, Left + 1));
+			}
+			
+			for (var x = Top + 3; x < Bottom - 2; x += s) {
+				if (x >= cy - p && x <= cy + p) {
+					continue;
+				}
+				
 				Place(level, Right - 1, x, 4, fn(x, Right - 1));
 			}
 		}
 		
 		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.Y == Bottom || P.Y == Top) {
-				if (P.X == Left + 1 || P.X == Right - 1) {
+			if (P.X == Left || P.X == Right) {
+				if (Math.Abs(P.Y - (Top + GetHeight() / 2)) > 0) {
 					return false;
 				}
-			} else 	if (P.X == Left || P.X == Right) {
-				return false;
+			} else {
+				if (Math.Abs(P.X - (Left + GetWidth() / 2)) > 0) {
+					return false;
+				}
 			}
 
 			return base.CanConnect(R, P);

@@ -83,11 +83,11 @@ namespace BurningKnight.level.rooms.trap {
 			});
 			#endregion
 			
-			for (var x = Left + 3 + xm; x < Right - 3; x += s) {
+			for (var x = Left + 3 + xm; x < Right - 2; x += s) {
 				Place(level, x, Top + 1, 2, fn(x, Top + 1));
 			}
 			
-			for (var x = Left + 3 + xm; x < Right - 3; x += s) {
+			for (var x = Left + 3 + xm; x < Right - 2; x += s) {
 				Place(level, x, Bottom - 1, 6, fn(x, Bottom - 1));
 			}
 		}
