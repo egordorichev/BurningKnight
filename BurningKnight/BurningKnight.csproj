@@ -343,6 +343,7 @@
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\buff\FrozenBuff.cs" />
+    <Compile Include="entity\buff\InvincibleBuff.cs" />
     <Compile Include="entity\buff\PoisonBuff.cs" />
     <Compile Include="entity\buff\ProjectileShaderHelper.cs" />
     <Compile Include="entity\buff\SlowBuff.cs" />
@@ -644,6 +645,7 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
+    <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />
@@ -700,6 +702,7 @@
     <Compile Include="entity\item\use\SaleItemsUse.cs" />
     <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
+    <Compile Include="entity\item\use\SetMusicSpeed.cs" />
     <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />

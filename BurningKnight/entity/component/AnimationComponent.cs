@@ -3,6 +3,7 @@ using BurningKnight.assets;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.creature.player;
 using BurningKnight.util;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -122,6 +123,23 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				if (buffs.Has<InvincibleBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					var t = buffs.Buffs[typeof(InvincibleBuff)].TimeLeft;
+
+					if (t < 2f && t % 0.3f < 0.15f) {
+						return false;
+					}
+					
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.FromHSV(Engine.Time * 180 % 360, 100, 100).ToVector4());
+
+					return true;
+				}
+				
 				if (buffs.Has<FrozenBuff>()) {
 					var shader = Shaders.Entity;
 					Shaders.Begin(shader);

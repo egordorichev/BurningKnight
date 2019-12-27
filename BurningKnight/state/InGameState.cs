@@ -247,6 +247,8 @@ namespace BurningKnight.state {
 			Timer.Clear();
 			Lights.Destroy();
 
+			Tween.To(1f, Audio.Speed, x => Audio.Speed = x, 0.4f);
+			
 			SaveManager.Backup();
 
 			var old = !Engine.Quiting;

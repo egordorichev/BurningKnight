@@ -107,6 +107,8 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyStatsUse>(ModifyStatsUse.RenderDebug);
 			Register<MakeProjectilesBoomerangUse>();
 			Register<EnableScourgeUse>(EnableScourgeUse.RenderDebug);
+			Register<SetMusicSpeed>(SetMusicSpeed.RenderDebug);
+			Register<DoOnTimerUse>(DoOnTimerUse.RenderDebug);
 		}
 	}
 }
