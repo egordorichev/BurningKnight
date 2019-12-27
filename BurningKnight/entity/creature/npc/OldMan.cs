@@ -2,10 +2,13 @@ using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using Lens.entity;
 using Lens.input;
 using Lens.util.math;
 
@@ -33,12 +36,35 @@ namespace BurningKnight.entity.creature.npc {
 						Radius = 64 * 64,
 						RadiusMax = 72 * 72
 				});
+			} else {
+				Subscribe<ItemTakenEvent>();
+				Subscribe<RoomChangedEvent>();
+				inSecret = true;
 			}
 
 			AlwaysActive = true;
 			GetComponent<DialogComponent>().Dialog.Voice = 28;
 		}
 
+		public override bool HandleEvent(Event e) {
+			if (inSecret) {
+				if (e is RoomChangedEvent rce && rce.Who is Player) {
+					if (rce.New == GetComponent<RoomComponent>().Room) {
+						GetComponent<DialogComponent>().Start("old_man_6");
+					} else {
+						GetComponent<DialogComponent>().Close();
+					}
+				} else if (e is ItemTakenEvent ite && ite.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
+					GetComponent<AnimationComponent>().Animate(() => {
+						Done = true;
+					});
+				}
+			}
+
+			return base.HandleEvent(e);
+		}
+
+		private bool inSecret;
 		private bool set = true;
 		private bool cycle;
 		private float t;
