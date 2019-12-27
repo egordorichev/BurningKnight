@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
+using BurningKnight.entity;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
@@ -135,6 +136,26 @@ namespace BurningKnight.level.rooms.shop {
 					level.Set(x, y, tt);
 				}
 			});
+
+			foreach (var pair in Connected) {
+				if (pair.Key is SubShopRoom) {
+					continue;
+				}
+
+				var door = pair.Value;
+				var mat = new SlicedProp("mat_a", Layers.Entrance);
+				level.Area.Add(mat);
+
+				if (door.X == Left) {
+					mat.Center = new Vector2(door.X * 16 - 8, door.Y * 16 + 8);
+				} else if (door.X == Right) {
+					mat.Center = new Vector2(door.X * 16 + 24, door.Y * 16 + 8);
+				} else if (door.Y == Top) {
+					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 - 8);
+				} else {
+					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 + 24);
+				}
+			}
 		}
 
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {
@@ -219,15 +240,7 @@ namespace BurningKnight.level.rooms.shop {
 			}
 		}
 		
-		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.X == Left || P.X == Right) {
-				return false;
-			}
-			
-			return base.CanConnect(R, P);
-		}
-
-		public override bool CanConnect(Connection Direction) {
+		public override bool CanConnect(Connection direction) {
 			return true;
 		}
 	}
