@@ -31,7 +31,6 @@
 # passive
 
 * gives shield each floor
-* soul heart generator
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
 * chance to fire back (/ use your sword)
@@ -40,7 +39,7 @@
 * tripple shot
 * double shot
 * range down, tears up
-* 1 up
+* ankh
 * your projectiles break enemy projectiles (destroying themselfs too)
 * halo: make it heal you too
 * 2 heart containers up 
