@@ -137,18 +137,23 @@ namespace BurningKnight.level.rooms.shop {
 				}
 			});
 
+			var letters = new[] {'a', 'b', 'c'};
+			var spr = $"mat_{letters[Rnd.Int(letters.Length)]}";
+			
 			foreach (var pair in Connected) {
 				if (pair.Key is SubShopRoom) {
 					continue;
 				}
 
 				var door = pair.Value;
-				var mat = new SlicedProp("mat_a", Layers.Entrance);
+				var mat = new SlicedProp(spr, Layers.Entrance);
 				level.Area.Add(mat);
 
 				if (door.X == Left) {
+					PlaceSign(level, new Vector2(door.X * 16 - 8, door.Y * 16 - 5));
 					mat.Center = new Vector2(door.X * 16 - 8, door.Y * 16 + 8);
 				} else if (door.X == Right) {
+					PlaceSign(level, new Vector2(door.X * 16 + 24, door.Y * 16 - 5));
 					mat.Center = new Vector2(door.X * 16 + 24, door.Y * 16 + 8);
 				} else if (door.Y == Top) {
 					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 - 8);
@@ -156,6 +161,12 @@ namespace BurningKnight.level.rooms.shop {
 					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 + 24);
 				}
 			}
+		}
+
+		private void PlaceSign(Level level, Vector2 where) {
+			var sign = new SlicedProp("shop_sign");
+			level.Area.Add(sign);
+			sign.BottomCenter = where;
 		}
 
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {
