@@ -70,14 +70,17 @@ namespace BurningKnight.entity.component {
 					Type = type
 				});
 
-				if (health <= 0.1f && AutoKill) {
-					Kill(setter);
-				}
-
+				TryToKill(setter);
 				return true;
 			}
 
 			return false;
+		}
+
+		private void TryToKill(Entity e) {
+			if (health <= 0.1f && (!Entity.TryGetComponent<HeartsComponent>(out var c) || c.Total == 0) && AutoKill) {
+				Kill(e);
+			}
 		}
 
 		public bool ModifyHealth(float amount, Entity setter, DamageType type = DamageType.Regular) {
@@ -105,6 +108,15 @@ namespace BurningKnight.entity.component {
 
 						if (hearts.Hurt((int) -Math.Round(amount), setter)) {
 							InvincibilityTimer = InvincibilityTimerMax;
+
+							Send(new PostHealthModifiedEvent {
+								Amount = amount,
+								Who = Entity,
+								From = setter,
+								Type = type
+							});
+							
+							TryToKill(setter);
 							return true;
 						}
 						

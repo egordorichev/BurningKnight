@@ -33,8 +33,6 @@ namespace BurningKnight.ui.inventory {
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
 		
-		public static TextureRegion Shield;
-		public static TextureRegion HalfShield;
 		public static TextureRegion ShieldBackground;
 		private TextureRegion changedShieldBackground;
 		private static TextureRegion halfShieldBackground;
@@ -73,9 +71,6 @@ namespace BurningKnight.ui.inventory {
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
-			
-			Shield = anim.GetSlice("shield");
-			HalfShield = anim.GetSlice("half_shield");
 			
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
@@ -297,9 +292,9 @@ namespace BurningKnight.ui.inventory {
 			var shields = hearts.ShieldHalfs;
 
 			var n = r;
-			var jn = n;
+			var jn = maxRed;
 			
-			if (n % 2 == 1) {
+			if (jn % 2 == 1) {
 				jn++;
 			}
 			
@@ -327,11 +322,6 @@ namespace BurningKnight.ui.inventory {
 				var h = j % 2 == 0;
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
 			}
-
-			/*for (var j = jn; j < jn + shields; j++) {
-				var h = j % 2 == 0;
-				Graphics.Render(h ? HalfShield : Shield, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
-			}*/
 		}
 
 		private void RenderConsumables() {

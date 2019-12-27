@@ -128,7 +128,7 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			Graphics.Print($"Loading assets {progress / 18f * 100}%", Font.Medium, new Vector2(10, 10));
+			Graphics.Print($"Loading assets {progress / 18f * 100}%", Font.Small, new Vector2(10, 10));
 			
 			var n = t % 2f;
 			var s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";
