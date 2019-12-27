@@ -325,7 +325,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		private void RenderConsumables() {
-			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
 			if (Scourge.IsEnabled(Scourge.OfKeys)) {
 				Graphics.Render(question, new Vector2(8, bottomY + 1));

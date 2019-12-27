@@ -59,13 +59,13 @@ namespace BurningKnight.level.rooms.trap {
 			var a = Rnd.Chance();
 
 			if (a) {
-				PlaceButton(level, new Dot(Left + 1, ty));
-				PlaceButton(level, new Dot(Right - 1, ty));
+				PlaceButton(level, new Dot(Left + 2, ty));
+				PlaceButton(level, new Dot(Right - 2, ty));
 			}
 
 			if (!a || Rnd.Chance()) {
-				PlaceButton(level, new Dot(tx, Top + 1));
-				PlaceButton(level, new Dot(tx, Bottom - 1));
+				PlaceButton(level, new Dot(tx, Top + 2));
+				PlaceButton(level, new Dot(tx, Bottom - 2));
 			}
 
 			var s = 2; // Rnd.Int(2, 4);

@@ -47,7 +47,8 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new AudioEmitterComponent());
 			
-			AddDrops(new SingleDrop("bk:heart", 0.03f));
+			AddDrops(new SingleDrop("bk:heart", 0.025f));
+			AddDrops(new SingleDrop("bk:shield", 0.01f));
 		}
 
 		protected void Become<T>() {

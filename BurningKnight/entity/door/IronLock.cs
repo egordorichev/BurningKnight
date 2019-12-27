@@ -51,16 +51,18 @@ namespace BurningKnight.entity.door {
 
 			if (!shouldLock) {
 				foreach (var r in rooms) {
-					if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 &&
-					    r.Tagged[Tags.MustBeKilled].Count > 0) {
-						shouldLock = true;
+					if (r.Tagged[Tags.Player].Count > 0) {
+						if (r.Type != RoomType.Connection &&
+						    r.Tagged[Tags.MustBeKilled].Count > 0) {
+							shouldLock = true;
 
-						break;
-					} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
-						foreach (var c in r.Inputs) {
-							if (c.On == c.DefaultState) {
-								shouldLock = true;
-								break;
+							break;
+						} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
+							foreach (var c in r.Inputs) {
+								if (c.On == c.DefaultState) {
+									shouldLock = true;
+									break;
+								}
 							}
 						}
 					}

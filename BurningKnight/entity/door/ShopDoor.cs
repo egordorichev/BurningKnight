@@ -16,7 +16,7 @@ namespace BurningKnight.entity.door {
 		}
 		
 		protected override Rectangle GetHitbox() {
-			return Vertical ? new Rectangle(0, 0, (int) Width, (int) Height + 3) 
+			return Vertical ? new Rectangle(0, 0, (int) Width, (int) Height + 5) 
 				: new Rectangle(0, 14, (int) Width, 16);
 		}
 
