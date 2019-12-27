@@ -41,7 +41,6 @@
 * range down, tears up
 * ankh
 * your projectiles break enemy projectiles (destroying themselfs too)
-* halo: make it heal you too
 * 2 heart containers up 
 * small planet
 * bigger bomb explosion radius
