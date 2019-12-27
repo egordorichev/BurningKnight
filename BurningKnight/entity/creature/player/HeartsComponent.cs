@@ -10,16 +10,14 @@ namespace BurningKnight.entity.creature.player {
 		public const int Cap = 32;
 		public const int PerRow = Cap / 2;
 		
-		private byte ironHalfs;
-		private byte goldenHalfs;
+		private byte shieldHalfs;
 
-		public int IronHalfs => ironHalfs;
-		public int GoldenHalfs => goldenHalfs;
-		public int Total => ironHalfs + goldenHalfs;
+		public int ShieldHalfs => shieldHalfs;
+		public int Total => shieldHalfs;
 
-		public void ModifyIronHearts(int amount, Entity setter) {
+		public void ModifyShields(int amount, Entity setter) {
 			var component = GetComponent<HealthComponent>();
-			amount = (int) (amount < 0 ? Math.Max(IronHalfs, amount) : Math.Min(Cap - component.Health - Total, amount));
+			amount = (int) (amount < 0 ? Math.Max(ShieldHalfs, amount) : Math.Min(Cap - component.Health - Total, amount));
 
 			if (amount != 0 && !Send(new HealthModifiedEvent {
 				Amount = amount,
@@ -27,57 +25,36 @@ namespace BurningKnight.entity.creature.player {
 				Who = Entity,
 				Default = false
 			})) {
-				ironHalfs = (byte) Math.Max(0, ironHalfs + amount);
+				shieldHalfs = (byte) Math.Max(0, shieldHalfs + amount);
 			}
 		}
 		
-		public void ModifyGoldHearts(int amount, Entity setter) {
-			var component = GetComponent<HealthComponent>();
-			amount = (int) (amount < 0 ? Math.Max(GoldenHalfs, amount) : Math.Min(Cap - component.Health - Total, amount));
-
-			if (amount != 0 && !Send(new HealthModifiedEvent {
-				Amount = amount,
-				From = setter,
-				Who = Entity,
-				Default = false
-			})) {
-				goldenHalfs = (byte) Math.Max(0, goldenHalfs + amount);
-			}
-		}
-		
-		public void Hurt(int amount, Entity setter) {
+		public bool Hurt(int amount, Entity setter) {
 			if (!Send(new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
 				Who = Entity,
 				Default = false
 			})) {
-				byte golden = (byte) Math.Min(amount, goldenHalfs);
-				goldenHalfs -= golden;
+				var iron = (byte) Math.Min(amount, shieldHalfs);
+				shieldHalfs -= iron;
 
-				if (amount > golden) {
-					byte iron = (byte) Math.Min(amount - golden, ironHalfs);
-					ironHalfs -= iron;
-					
-					// note: maybe pass the remaining amount of hp to remove to health component?
-				}
+				return true;
 			}
+
+			return false;
 		}
 		
 		public bool CanHaveMore => Total + GetComponent<HealthComponent>().Health < Cap;
 				
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			
-			stream.WriteByte(ironHalfs);
-			stream.WriteByte(goldenHalfs);
+			stream.WriteByte(shieldHalfs);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-
-			ironHalfs = stream.ReadByte();
-			goldenHalfs = stream.ReadByte();
+			shieldHalfs = stream.ReadByte();
 		}
 	}
 }

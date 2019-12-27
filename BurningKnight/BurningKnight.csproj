@@ -684,9 +684,8 @@
     <Compile Include="entity\item\use\MeleeArcUse.cs" />
     <Compile Include="entity\item\use\ModifyActiveChargeUse.cs" />
     <Compile Include="entity\item\use\ModifyGameSaveValueUse.cs" />
-    <Compile Include="entity\item\use\ModifyGoldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyHpUse.cs" />
-    <Compile Include="entity\item\use\ModifyIronHeartsUse.cs" />
+    <Compile Include="entity\item\use\ModifyShieldHeartsUse.cs" />
     <Compile Include="entity\item\use\ModifyMaxHpUse.cs" />
     <Compile Include="entity\item\use\ModifyProjectilesUse.cs" />
     <Compile Include="entity\item\use\ModifyStatUse.cs" />

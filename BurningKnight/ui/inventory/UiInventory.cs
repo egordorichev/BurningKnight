@@ -33,6 +33,13 @@ namespace BurningKnight.ui.inventory {
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
 		
+		public static TextureRegion Shield;
+		public static TextureRegion HalfShield;
+		public static TextureRegion ShieldBackground;
+		private TextureRegion changedShieldBackground;
+		private static TextureRegion halfShieldBackground;
+		private TextureRegion changedHalfShieldBackground;
+		
 		public Player Player;
 
 		private int coins;
@@ -67,12 +74,21 @@ namespace BurningKnight.ui.inventory {
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
 			
+			Shield = anim.GetSlice("shield");
+			HalfShield = anim.GetSlice("half_shield");
+			
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
 			HeartBackground = anim.GetSlice("heart_bg");
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
+			
+			
+			ShieldBackground = anim.GetSlice("shield_bg");
+			changedShieldBackground = anim.GetSlice("shield_hurt");
+			halfShieldBackground = anim.GetSlice("half_shield_bg");
+			changedHalfShieldBackground = anim.GetSlice("half_shield_hurt");
 			
 			if (Player != null) {
 				var component = Player.GetComponent<ConsumablesComponent>();
@@ -266,6 +282,7 @@ namespace BurningKnight.ui.inventory {
 			}
 			
 			var red = Player.GetComponent<HealthComponent>();
+			var hearts = Player.GetComponent<HeartsComponent>();
 			var totalRed = red.Health;
 
 			if (lastRed > totalRed) {
@@ -277,10 +294,16 @@ namespace BurningKnight.ui.inventory {
 			var r = (int) lastRed;
 			var maxRed = red.MaxHealth;
 			var hurt = red.InvincibilityTimer > 0;
+			var shields = hearts.ShieldHalfs;
 
-			int i = 0;
+			var n = r;
+			var jn = n;
 			
-			for (; i < maxRed; i += 2) {
+			if (n % 2 == 1) {
+				jn++;
+			}
+			
+			for (var i = 0; i < maxRed; i += 2) {
 				var region = hurt ? changedHeartBackground : HeartBackground;
 
 				if (i == maxRed - 1) {
@@ -289,13 +312,26 @@ namespace BurningKnight.ui.inventory {
 				
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 			}
+			
+			for (var i = jn; i < maxRed + shields; i += 2) {
+				var region = hurt ? changedShieldBackground : ShieldBackground;
 
-			var n = r;
+				if (i == maxRed + shields - 1) {
+					region = hurt ? changedHalfShieldBackground : halfShieldBackground;
+				}
+				
+				Graphics.Render(region, GetHeartPosition(pad, i, true));
+			}
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
 			}
+
+			/*for (var j = jn; j < jn + shields; j++) {
+				var h = j % 2 == 0;
+				Graphics.Render(h ? HalfShield : Shield, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
+			}*/
 		}
 
 		private void RenderConsumables() {
