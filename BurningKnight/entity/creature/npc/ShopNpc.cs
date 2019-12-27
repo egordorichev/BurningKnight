@@ -18,6 +18,7 @@ namespace BurningKnight.entity.creature.npc {
 		public static string Snek = "snek";
 		public static string Boxy = "boxy";
 		public static string Vampire = "vampire";
+		public static string Roger = "roger";
 	
 		private float delay;
 		internal bool Hidden;
@@ -116,25 +117,29 @@ namespace BurningKnight.entity.creature.npc {
 			
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					if (Run.Depth > 0) {
+					if (Run.Depth > 0 && !saved) {
 						GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
 
 						if ((rce.Who.TryGetComponent<ActiveWeaponComponent>(out var a) && a.Item != null && a.Item.Id == "bk:cage_key") ||
 						    (rce.Who.TryGetComponent<WeaponComponent>(out var w) && w.Item != null && w.Item.Id == "bk:cage_key")) {
 
-							GetComponent<DialogComponent>().StartAndClose( "npc_2", 3);
+							GetComponent<DialogComponent>().StartAndClose("npc_2", 3);
 						} else {
-							GetComponent<DialogComponent>().StartAndClose( "npc_0", 3);
+							GetComponent<DialogComponent>().StartAndClose("npc_0", 3);
 						}
 					}
 				}
 			} else if (e is ItemBoughtEvent ibe) {
 				if (OwnsStand(ibe.Stand) && ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
+					GetComponent<DialogComponent>().StartAndClose(GetDealDialog(), 3);
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+		
+		protected virtual string GetDealDialog() {
+			return $"shopkeeper_{Rnd.Int(9, 12)}";
 		}
 
 		public void Save() {

@@ -14,6 +14,7 @@ using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.special.minigame;
+using BurningKnight.level.rooms.special.shop;
 using BurningKnight.level.rooms.special.statue;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
@@ -67,7 +68,7 @@ namespace BurningKnight.level.rooms {
 				// Secret
 				RoomInfo.New<SecretMachineRoom>(1f),
 				RoomInfo.New<SecretChasmRoom>(1f),
-				RoomInfo.New<SecretItemRoom>(1f + 10000f),
+				RoomInfo.New<SecretItemRoom>(1f),
 				RoomInfo.New<GrannySecretRoom>(0.01f),
 
 				// Regular
@@ -133,6 +134,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WarriorStatueRoom>(1f),
 				RoomInfo.New<WellRoom>(0.3f),
 				RoomInfo.New<ProtoChestRoom>(0.1f),
+				RoomInfo.New<RogerShopRoom>(10000f),
 				
 				// Boss
 				RoomInfo.New<BossRoom>(1f),

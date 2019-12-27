@@ -1,4 +1,77 @@
+# free sprites
+
+* gamepad
+* dewvial
+* chailice
+* cutsaw
+* detonator
+* vampire_bat
+* lemon
+* fire exstinguisher
+* compass
+* thermos
+* meetboy
+* brain
+* pickaxe
+* teabag
+* cup
+* obsidian_boots
+* ankh
+* pact
+* chest
+* the_ring
+* metal_ring
+
+* star
+* lootpick
+* bluewatch
+* bone
+* skull
+
+# passive
+
+* soul heart generator
+* pet, eats hearts gives soul hearts
+* crush rocks by walking on them
+* chance to fire back (/ use your sword)
+* chance to fire in all directions when you fire (/ use your sword)
+* vampire_bat - half a heart heal every 13 kills
+* tripple shot
+* double shot
+* range down, tears up
+* 1 up
+* your projectiles break enemy projectiles (destroying themselfs too)
+* halo: make it heal you too
+* 2 heart containers up 
+* skeleton key, 99 keys
+* small planet
+* bigger bomb explosion radius
+* money power/keys power/bomb power
+* magic glass, allows player to walk over 1-tile chasms
+* homing bombs
+* projectiles change size (up/down) depending on their time
+
+# active
+
+* soul heart generator
+* pickup generator
+* tmp flight
+* fire tears in all directions (your dmg+flat dmg)
+* kamikaze
+* reusable brimstone
+* random active item effect
+
+# weapon 
+
+* shoots when you are full hp
+* shoots always
+* shoots when you are 1 hp
+* bomb gun
+* laser gun
+
 ### pools to fill
+
+* make tnt, skeleton key and the bill unlockable
 
 * granny --- tea cup! and other tea based items
 * dark mage
