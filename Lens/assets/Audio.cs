@@ -29,7 +29,8 @@ namespace Lens.assets {
 		public static DynamicSoundEffectInstance SoundEffectInstance;
 
 		public static List<Music> Playing = new List<Music>();
-		
+		public static float Speed = 1;
+
 		private static void LoadSfx(FileHandle file, string path, bool root = false) {
 			if (file.Exists()) {
 				path = $"{path}{file.Name}{(root ? "" : "/")}";
@@ -235,7 +236,7 @@ namespace Lens.assets {
 		private const int BufferSize = 3000;
 		private const int Channels = 2;
 		private static byte[] byteBuffer = new byte[BufferSize * 2 * Channels];
-		private static uint position;
+		private static float position;
 		private static bool quit;
 
 		private static void Update() {
@@ -247,11 +248,13 @@ namespace Lens.assets {
 				try {
 					while (Playing.Count > 0 && SoundEffectInstance.PendingBufferCount < 3) {
 						for (var i = 0; i < BufferSize; i++) {
+							var ps = (uint) Math.Floor(position);
+							
 							for (var c = 0; c < Channels; c++) {
 								var floatSample = 0f;
 
 								foreach (var p in Playing) {
-									floatSample += p.GetSample(position, c);
+									floatSample += p.GetSample(ps, c);
 								}
 
 								floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
@@ -270,7 +273,7 @@ namespace Lens.assets {
 								}
 							}
 
-							position++;
+							position += Speed;
 						}
 
 						SoundEffectInstance.SubmitBuffer(byteBuffer);

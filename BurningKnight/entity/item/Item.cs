@@ -329,19 +329,27 @@ namespace BurningKnight.entity.item {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
-			LoadedSelf = true;
-			Id = stream.ReadString();
-			Scourged = false;
-			
-			ConvertTo(Id);
+			try {
+				LoadedSelf = true;
+				Id = stream.ReadString();
+				Scourged = false;
 
-			Used = stream.ReadBoolean();
-			Touched = stream.ReadBoolean();
-			Delay = stream.ReadFloat();
-			Unknown = stream.ReadBoolean();
+				if (!Items.Has(Id)) {
+					Id = "bk:revolver";
+				}
+				
+				ConvertTo(Id);
+				
+				Used = stream.ReadBoolean();
+				Touched = stream.ReadBoolean();
+				Delay = stream.ReadFloat();
+				Unknown = stream.ReadBoolean();
 
-			var v = stream.ReadBoolean();
-			Scourged = Scourged || v;
+				var v = stream.ReadBoolean();
+				Scourged = Scourged || v;
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 
 		private float lastParticle;

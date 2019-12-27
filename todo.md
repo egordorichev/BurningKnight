@@ -1,5 +1,8 @@
 # jungle
 
+!! fix doors in tutorial
+!! all items in the hub/tutorial are missing due item format save changes
+
 * achievement for first cursed weapon 
 * make spiked and cursed rooms locked by default 
 * enemy egenerate prefix only once you enter the room first time

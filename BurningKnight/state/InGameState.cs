@@ -171,6 +171,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Audio.Speed = 1f;
+
 			try {
 				Audio.Preload(((Biome) Activator.CreateInstance(BiomeRegistry.GenerateForDepth(Run.Depth + 1).Type)).Music);
 			} catch (Exception e) {
@@ -272,6 +274,8 @@ namespace BurningKnight.state {
 			base.Destroy();
 		}
 
+		private float speedBeforePause;
+
 		protected override void OnPause() {
 			base.OnPause();
 
@@ -301,6 +305,9 @@ namespace BurningKnight.state {
 				};
 			}
 
+			speedBeforePause = Audio.Speed;
+
+			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 0.4f);
 			OpenBlackBars();
 		}
 
@@ -332,6 +339,7 @@ namespace BurningKnight.state {
 			};
 
 			CloseBlackBars();
+			Tween.To(speedBeforePause, Audio.Speed, x => Audio.Speed = x, 0.4f);
 
 			pausedByMouseOut = false;
 		}

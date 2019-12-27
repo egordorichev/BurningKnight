@@ -30,6 +30,10 @@
 
 # passive
 
+* star
+* ankh
+* homing bombs
+
 * gives shield each floor
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
@@ -39,14 +43,12 @@
 * tripple shot
 * double shot
 * range down, tears up
-* ankh
 * your projectiles break enemy projectiles (destroying themselfs too)
 * 2 heart containers up 
 * small planet
 * bigger bomb explosion radius
 * money power/keys power/bomb power
 * magic glass, allows player to walk over 1-tile chasms
-* homing bombs
 * projectiles change size (up/down) depending on their time
 
 # active
