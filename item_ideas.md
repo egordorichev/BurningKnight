@@ -43,7 +43,6 @@
 * your projectiles break enemy projectiles (destroying themselfs too)
 * halo: make it heal you too
 * 2 heart containers up 
-* skeleton key, 99 keys
 * small planet
 * bigger bomb explosion radius
 * money power/keys power/bomb power
