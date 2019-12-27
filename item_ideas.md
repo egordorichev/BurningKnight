@@ -30,6 +30,7 @@
 
 # passive
 
+* gives shield each floor
 * soul heart generator
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
