@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.player {
 			return false;
 		}
 		
-		public bool CanHaveMore => Total + GetComponent<HealthComponent>().Health < Cap;
+		public bool CanHaveMore => Total + GetComponent<HealthComponent>().MaxHealth < Cap;
 				
 		public override void Save(FileWriter stream) {
 			base.Save(stream);

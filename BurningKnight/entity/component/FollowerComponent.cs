@@ -2,6 +2,7 @@ using System;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -82,6 +83,16 @@ namespace BurningKnight.entity.component {
 					sp *= -1;
 				} else if (d < MaxDistance) {
 					return;
+				}
+
+				var s = 3;
+
+				if (Following.TryGetComponent<RectBodyComponent>(out var rb)) {
+					body.Velocity = body.Velocity.Lerp(rb.Velocity, dt * s);
+				} else if (Following.TryGetComponent<CircleBodyComponent>(out var cb)) {
+					body.Velocity = body.Velocity.Lerp(cb.Velocity, dt * s);
+				} else if (Following.TryGetComponent<SensorBodyComponent>(out var sb)) {
+					body.Velocity = body.Velocity.Lerp(sb.Velocity, dt * s);
 				}
 				
 				body.Velocity -= new Vector2(dx * sp, dy * sp);
