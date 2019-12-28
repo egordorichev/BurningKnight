@@ -17,10 +17,10 @@ namespace BurningKnight.level.rooms.treasure {
 				m++;
 			}
 			
-			PlaceStand(level, new Dot(Left + m, Top + m) * 16);
-			PlaceStand(level, new Dot(Right - m, Top + m) * 16);
-			PlaceStand(level, new Dot(Left + m, Bottom - m) * 16);
-			PlaceStand(level, new Dot(Right - m, Bottom - m) * 16);
+			PlaceStand(level, new Dot(Left + m, Top + m));
+			PlaceStand(level, new Dot(Right - m, Top + m));
+			PlaceStand(level, new Dot(Left + m, Bottom - m));
+			PlaceStand(level, new Dot(Right - m, Bottom - m));
 
 			PaintTunnel(level, Rnd.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
 			

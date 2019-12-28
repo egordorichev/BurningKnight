@@ -19,7 +19,7 @@ namespace BurningKnight.entity.door {
 		
 		protected override Rectangle GetHitbox() {
 			return Vertical ? new Rectangle(0, 0, (int) Width, (int) Height + 3) 
-				: new Rectangle(0, 14, (int) Width, 11);
+				: new Rectangle(0, 12, (int) Width, 7);
 		}
 
 		// finish roger (room full of tnt boxes, animation, pool, unique items, etc)

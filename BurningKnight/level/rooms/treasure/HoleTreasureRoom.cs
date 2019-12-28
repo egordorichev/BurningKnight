@@ -12,10 +12,10 @@ namespace BurningKnight.level.rooms.treasure {
 
 			m = Math.Max(2, m - (Rnd.Chance() ? 1 : 2));
 			
-			PlaceStand(level, new Dot(Left + m, Top + m) * 16);
-			PlaceStand(level, new Dot(Right - m, Top + m) * 16);
-			PlaceStand(level, new Dot(Left + m, Bottom - m) * 16);
-			PlaceStand(level, new Dot(Right - m, Bottom - m) * 16);
+			PlaceStand(level, new Dot(Left + m, Top + m));
+			PlaceStand(level, new Dot(Right - m, Top + m));
+			PlaceStand(level, new Dot(Left + m, Bottom - m));
+			PlaceStand(level, new Dot(Right - m, Bottom - m));
 			
 			SetupStands(level);
 		}

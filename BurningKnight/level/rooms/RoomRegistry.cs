@@ -91,7 +91,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<PlatformTreasureRoom>(1f),
 				RoomInfo.New<PadTreasureRoom>(1f),
 				RoomInfo.New<TwoDiagonalTreasureRoom>(1.5f),
-				RoomInfo.New<AcrossTreasureRoom>(1.5f),
+				RoomInfo.New<AcrossTreasureRoom>(1.5f + 1000f),
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),

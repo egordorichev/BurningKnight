@@ -47,7 +47,7 @@ namespace BurningKnight.level.rooms.treasure {
 
 		private void PlacePad(Level level, Rect rect) {
 			var c = new Dot(rect.Left + rect.GetWidth() / 2, rect.Top + rect.GetHeight() / 2);
-			PlaceStand(level, c * 16);
+			PlaceStand(level, c);
 			rects.Add(c);
 			rs.Add(rect);
 		}

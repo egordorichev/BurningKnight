@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.treasure {
 	public class TreasureRoom : SpecialRoom {
 		private List<ItemStand> stands = new List<ItemStand>();
+		private List<Dot> standPositions = new List<Dot>();
 		
 		public override void Paint(Level level) {
 			var c = GetCenter() * 16;
@@ -38,14 +39,39 @@ namespace BurningKnight.level.rooms.treasure {
 					break;
 				}
 			}
+			
+			foreach (var s in standPositions) {
+				if (level.Get(s.X, s.Y).Matches(TileFlags.Danger) || level.Get(s.X, s.Y, true).Matches(TileFlags.Danger)) {
+					Painter.Set(level, s, Tile.FloorD);
+				}
+			}
 		}
 
 		protected void PlaceStand(Level level, Dot where) {
 			var stand = new SingleChoiceStand();
 			level.Area.Add(stand);
-			stand.Center = where + new Vector2(8, 8);
+			stand.Center = where * 16 + new Vector2(8, 8);
 			
 			stands.Add(stand);
+			standPositions.Add(where);
+
+			if (Rnd.Chance(20)) {
+				var t = Tiles.Pick(Tile.SpikeOnTmp, Tile.Rock);
+
+				Painter.Set(level, where + new Dot(-1, 0), t);
+				Painter.Set(level, where + new Dot(1, 0), t);
+				Painter.Set(level, where + new Dot(0, -1), t);
+				Painter.Set(level, where + new Dot(0, 1), t);
+
+				if (t == Tile.Rock) {
+					t = Tile.Rock; // Tiles.Pick(Tile.Chasm, Tile.Rock);
+					
+					Painter.Set(level, where + new Dot(-1, 1), t);
+					Painter.Set(level, where + new Dot(1, 1), t);
+					Painter.Set(level, where + new Dot(1, -1), t);
+					Painter.Set(level, where + new Dot(-1, -1), t);
+				}
+			}
 		}
 
 		public override void PaintFloor(Level level) {

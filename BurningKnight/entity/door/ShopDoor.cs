@@ -5,6 +5,8 @@ namespace BurningKnight.entity.door {
 		protected override void SetSize() {
 			Width = Vertical ? 14 : 24;
 			Height = Vertical ? 17 : 31;
+
+			OpenByDefault = !Vertical;
 		}
 
 		public override Vector2 GetOffset() {
@@ -12,7 +14,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override Vector2 GetLockOffset() {
-			return Vertical ? new Vector2(0, 0) : new Vector2(0, 9);
+			return Vertical ? new Vector2(0, -1) : new Vector2(0, 9);
 		}
 		
 		protected override Rectangle GetHitbox() {

@@ -83,7 +83,7 @@ namespace BurningKnight.level {
 
 					if (r <= 0.05f) {
 						l.Set(index, Tile.TintedRock);
-					} else if (r <= 0.1f) {
+					} else if (r <= 0.1f && !(rm is TreasureRoom)) {
 						l.Set(index, Tile.BarrelTmp);
 					}
 				}
@@ -207,18 +207,20 @@ namespace BurningKnight.level {
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
 
-				foreach (var d in Room.Connected.Values) {
-					if (d.Type != DoorPlaceholder.Variant.Secret) {
-						var a = d.X == Room.Left || d.X == Room.Right;
-						var w = a ? 2 : 1;
-						var h = a ? 1 : 2;
-						var f = Tiles.RandomFloor();
+				if (!(Room is TreasureRoom)) {
+					foreach (var d in Room.Connected.Values) {
+						if (d.Type != DoorPlaceholder.Variant.Secret) {
+							var a = d.X == Room.Left || d.X == Room.Right;
+							var w = a ? 2 : 1;
+							var h = a ? 1 : 2;
+							var f = Tiles.RandomFloor();
 
-						Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
-							if (Level.Get(x, y).Matches(TileFlags.Danger)) {
-								Level.Set(x, y, f);
-							}
-						});
+							Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
+								if (Level.Get(x, y).Matches(TileFlags.Danger)) {
+									Level.Set(x, y, f);
+								}
+							});
+						}
 					}
 				}
 
