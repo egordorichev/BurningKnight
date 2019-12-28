@@ -27,6 +27,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			return $"roger_{Rnd.Int(4)}";
 		}
 
+		protected override bool OwnsStand(ItemStand stand) {
+			return stand is RogerStand;
+		}
+
 		public static void Place(Vector2 where, Area area) {
 			where.Y -= 16;
 			
@@ -37,9 +41,9 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Roger));
 
 			for (var i = -1; i < 2; i++) {
-				var stand = new ShopStand();
+				var stand = new RogerStand();
 				area.Add(stand);
-				stand.Center = where + new Vector2((stand.Width + 4) * i, 4 + stand.Height);
+				stand.Center = where + new Vector2((stand.Width + 8) * i, 4 + stand.Height);
 
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);

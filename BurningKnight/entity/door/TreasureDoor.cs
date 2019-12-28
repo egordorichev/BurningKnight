@@ -23,7 +23,6 @@ namespace BurningKnight.entity.door {
 		}
 
 		// keys and bombs dont drop much lol
-		// fix cant pickup shields at full hp
 		// finish roger (room full of tnt boxes, animation, pool, unique items, etc)
 		protected override Lock CreateLock() {
 			return Run.Depth == 1 ? (Lock) new IronLock() : (Lock) new GoldLock();

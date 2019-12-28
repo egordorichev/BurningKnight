@@ -32,6 +32,10 @@ namespace BurningKnight.entity.item.stand {
 			OnSale = Rnd.Chance(10 + Run.Luck * 2);
 		}
 
+		public virtual ItemPool GetPool() {
+			return ItemPool.Shop;
+		}
+
 		protected override string GetSprite() {
 			return "shop_stand";
 		}

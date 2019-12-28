@@ -59,9 +59,8 @@ namespace BurningKnight.entity.item.stand {
 			}
 				
 			Graphics.Print(PriceString, Font.Small, Position + new Vector2(PriceX, 14));
-			Graphics.Render(heart, Position + new Vector2(PriceX + priceWidth + 2, 17));
-			
 			Graphics.Color = ColorUtils.WhiteColor;
+			Graphics.Render(heart, Position + new Vector2(PriceX + priceWidth + 2, 17));
 		}
 
 		protected override bool TryPay(Entity entity) {
@@ -77,7 +76,7 @@ namespace BurningKnight.entity.item.stand {
 			lastPrice = Price * 2;
 			takenItem = Item;
 			
-			var stats =entity.GetComponent<StatsComponent>();
+			var stats = entity.GetComponent<StatsComponent>();
 			
 			stats.TookDeal = true;
 			stats.HeartsPayed += Price;
