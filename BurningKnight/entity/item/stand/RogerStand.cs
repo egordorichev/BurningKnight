@@ -10,7 +10,11 @@ namespace BurningKnight.entity.item.stand {
 		public override ItemPool GetPool() {
 			return ItemPool.Roger;
 		}
-		
+
+		protected override int CalculatePrice() {
+			return (int) PriceCalculator.GetModifier(Item) * 2;
+		}
+
 		protected override bool TryPay(Entity entity) {
 			if (!entity.TryGetComponent<ConsumablesComponent>(out var component)) {
 				return false;

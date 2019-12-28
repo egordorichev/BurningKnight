@@ -27,9 +27,13 @@ namespace BurningKnight.entity.item {
 				case ItemQuality.Golden: return 2f;
 			}	
 		}
+
+		public static float GetModifier(Item item) {
+			return (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier();
+		}
 		
 		public static int Calculate(Item item) {
-			return (int) Math.Round(BasePrice(item.Type) * (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier());
+			return (int) Math.Round(BasePrice(item.Type) * GetModifier(item));
 		}
 	}
 }
