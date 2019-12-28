@@ -200,15 +200,18 @@ namespace BurningKnight.entity.component {
 				Audio.PlaySfx("item_heart");
 				
 				ev.Item.Use(Entity);
-				ev.Item.Done = true;
 
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
 					? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
 					: ev.Item.Region, (Player) Entity));
 
+				var slice = ev.Item.Id.Contains("shield") ? "shield" : "heart";
+
+				ev.Item.Done = true;
+
 				for (var i = 0; i < 3; i++) {
 					Timer.Add(() => {
-							var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"heart_{Rnd.Int(1, 4)}"))));
+							var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"{slice}_{Rnd.Int(1, 4)}"))));
 							part.Position = Entity.Center;
 
 							if (Entity.TryGetComponent<ZComponent>(out var z)) {
@@ -250,7 +253,7 @@ namespace BurningKnight.entity.component {
 				return false;
 			}
 
-			return h.Total + MaxHealth < HeartsComponent.Cap;
+			return h.CanHaveMore;
 		}
 
 		private bool applied;
