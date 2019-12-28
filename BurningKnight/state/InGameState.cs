@@ -701,6 +701,11 @@ namespace BurningKnight.state {
 		private void UpdateDebug(float dt) {
 			if (Input.Keyboard.WasPressed(Keys.Home)) {
 				ToolsEnabled = !ToolsEnabled;
+				var player = LocalPlayer.Locate(Area);
+
+				if (player != null) {
+					TextParticle.Add(player, "Dev Tools", 1, true, !ToolsEnabled);
+				}
 			}
 			
 			if (!ToolsEnabled) {

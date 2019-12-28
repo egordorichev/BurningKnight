@@ -241,6 +241,18 @@ namespace BurningKnight.entity.component {
 			return Math.Abs(health - MaxHealth) < 0.01f;
 		}
 
+		public bool CanPickup(Item item) {
+			if (item.Id.Contains("heart")) {
+				return !IsFull();
+			}
+
+			if (!Entity.TryGetComponent<HeartsComponent>(out var h)) {
+				return false;
+			}
+
+			return h.Total + MaxHealth < HeartsComponent.Cap;
+		}
+
 		private bool applied;
 
 		public override void Update(float dt) {

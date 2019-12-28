@@ -1,5 +1,7 @@
+using BurningKnight.assets.particle.custom;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -13,6 +15,8 @@ namespace BurningKnight.entity.item.use {
 			for (var i = 0; i < amount; i++) {
 				Run.AddScourge();
 			}
+			
+			TextParticle.Add(entity, Locale.Get("scourge"), amount, true);
 		}
 
 		public override void Setup(JsonValue settings) {

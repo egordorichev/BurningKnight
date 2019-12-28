@@ -1,3 +1,4 @@
+using BurningKnight.state;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
@@ -21,8 +22,12 @@ namespace BurningKnight.entity.door {
 				: new Rectangle(0, 14, (int) Width, 11);
 		}
 
+		// keys and bombs dont drop much lol
+		// scourged items dont appear so anymore (at least on stands?)
+		// fix cant pickup shields at full hp
+		// finish roger (room full of tnt boxes, animation, pool, unique items, etc)
 		protected override Lock CreateLock() {
-			return new GoldLock();
+			return Run.Depth == 1 ? (Lock) new IronLock() : (Lock) new GoldLock();
 		}
 
 		protected override string GetBar() {

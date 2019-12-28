@@ -22,7 +22,6 @@
 * the_ring
 * metal_ring
 
-* star
 * lootpick
 * bluewatch
 * bone
@@ -30,18 +29,32 @@
 
 # passive
 
-* star
 * ankh
 * homing bombs
+* immunity to contact damage
+* half a heart
 
+* super hot mechanic
+* shop teleporter
 * gives shield each floor
+* damage up, accuracy down (eye patch)
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
+* increases money drop chance from room reward
+* increases room reward chance
+* increases chest chance from a rooms reward
+* rolling through bullets fires them back at enemies
+* picking up a heart might heal you for half a heart
+* ring, gives a chance to fully reveal the floor on entering it
 * chance to fire back (/ use your sword)
 * chance to fire in all directions when you fire (/ use your sword)
 * vampire_bat - half a heart heal every 13 kills
 * tripple shot
+* tripple shot but accuracy down
+* lighting between nearby bullets
 * double shot
+* chance to heal when buying an item
+* angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
 * range down, tears up
 * your projectiles break enemy projectiles (destroying themselfs too)
 * 2 heart containers up 
@@ -130,7 +143,6 @@
 * the ring
 * item, that opens enemy doors
 * ring of gold
-* star
 * pit immunity
 * zoom
 * when bullet penetrates enemy, it splits into two
