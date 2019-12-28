@@ -125,14 +125,14 @@ namespace BurningKnight.entity.component {
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
 				if (buffs.Has<InvincibleBuff>()) {
 					var shader = Shaders.Entity;
-					Shaders.Begin(shader);
-
 					var t = buffs.Buffs[typeof(InvincibleBuff)].TimeLeft;
 
 					if (t < 2f && t % 0.3f < 0.15f) {
 						return false;
 					}
-					
+
+					Shaders.Begin(shader);
+
 					shader.Parameters["flash"].SetValue(1f);
 					shader.Parameters["flashReplace"].SetValue(1f);
 					shader.Parameters["flashColor"].SetValue(ColorUtils.FromHSV(Engine.Time * 180 % 360, 100, 100).ToVector4());

@@ -62,7 +62,7 @@ namespace BurningKnight.entity.item {
 		public override void Init() {
 			base.Init();
 			
-			if (Run.Depth > 0 && (Type != ItemType.Scourge && Type != ItemType.Coin && Type != ItemType.Key && Type != ItemType.Bomb) 
+			if (Run.Depth > 0 && (Type != ItemType.Scourge && Type != ItemType.Coin && Type != ItemType.Key && Type != ItemType.Bomb && Type != ItemType.Heart) 
 			  && Rnd.Chance(Scourge.IsEnabled(Scourge.OfScourged) ? 0.66f : (Run.Scourge * 10 + 0.5f))) {
 				
 				Scourged = true;

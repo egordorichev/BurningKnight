@@ -66,31 +66,61 @@ namespace BurningKnight.assets.items {
 				var data = new JsonObject();
 
 				data["id"] = item.Id;
-				data["animation"] = item.Animation;
-				data["time"] = item.UseTime;
-				data["type"] = (int) item.Type;
-				data["chance"] = item.Chance.ToJson();
-				data["single"] = item.Single;
+
+				if (item.Animation != null) {
+					data["animation"] = item.Animation;
+				}
+
+				if (Math.Abs(item.UseTime) > 0.01f) {
+					data["time"] = item.UseTime;
+				}
+
+				if (item.Type != ItemType.Artifact) {
+					data["type"] = (int) item.Type;
+				}
+
+				if (Math.Abs(item.Chance.Any - 1f) > 0.01f) {
+					data["chance"] = item.Chance.ToJson();
+				}
+
+				if (item.Single) {
+					data["single"] = item.Single;
+				}
 
 				if (item.Scourged) {
 					data["scourged"] = true;
 				}
-				
-				data["quality"] = (int) item.Quality;
-				data["auto_pickup"] = item.AutoPickup;
-				data["auto"] = item.Automatic;
-				data["single_use"] = item.SingleUse;
+
+				if (item.Quality != ItemQuality.Wooden) {
+					data["quality"] = (int) item.Quality;
+				}
+
+				if (item.AutoPickup) {
+					data["auto_pickup"] = item.AutoPickup;
+				}
+
+				if (item.Automatic) {
+					data["auto"] = item.Automatic;
+				}
+
+				if (item.SingleUse) {
+					data["single_use"] = item.SingleUse;
+				}
+
 				data["pool"] = item.Pools;
 				data["uses"] = item.Uses;
-				data["renderer"] = item.Renderer;
-				data["lock"] = item.Lockable;
 
-				if (item.Type == ItemType.Weapon) {
-					data["weapon"] = (int) item.WeaponType;
+				if (item.Renderer.IsJsonObject) {
+					data["renderer"] = item.Renderer;
 				}
 
 				if (item.Lockable) {
+					data["lock"] = item.Lockable;
 					data["uprice"] = item.UnlockPrice;
+				}
+
+				if (item.Type == ItemType.Weapon) {
+					data["weapon"] = (int) item.WeaponType;
 				}
 				
 				root[item.Id] = data;
@@ -129,7 +159,7 @@ namespace BurningKnight.assets.items {
 			var a = item["animation"];
 			var animation = a == JsonValue.Null ? null : a.AsString;
 
-			var type = (ItemType) item["type"].AsInteger;
+			var type = (ItemType) item["type"].Int(0);
 			var p = item["auto_pickup"];
 			var pickup = p == JsonValue.Null ? (type == ItemType.Key || type == ItemType.Bomb || type == ItemType.Heart || type == ItemType.Coin) : p.Bool(false);
 			
@@ -140,12 +170,12 @@ namespace BurningKnight.assets.items {
 				Quality = (ItemQuality) item["quality"].AsInteger,
 				Root = item,
 				Uses = item["uses"],
-				Renderer = item["renderer"],
+				Renderer = (item["renderer"].IsJsonObject ? item["renderer"] : JsonValue.Null),
 				Animation = animation,
 				AutoPickup = pickup,
 				Single = item["single"].Bool(true),
-				Automatic = item["auto"],
-				SingleUse = item["single_use"],
+				Automatic = item["auto"].Bool(false),
+				SingleUse = item["single_use"].Bool(false),
 				Scourged = item["scourged"].Bool(false),
 				Chance = Chance.Parse(item["chance"]),
 				Lockable = item["lock"].Bool(false)

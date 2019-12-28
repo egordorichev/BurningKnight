@@ -1,8 +1,10 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
@@ -92,6 +94,8 @@ namespace BurningKnight.entity.item.stand {
 				 
 				component.ModifyHealth(-lastPrice, this, DamageType.Custom);
 				component.MaxHealth -= lastPrice;		
+				
+				TextParticle.Add(payer, Locale.Get("max_hp"), lastPrice, true, true);
 				
 				payer = null;
 				takenItem = null;
