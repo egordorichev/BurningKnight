@@ -47,7 +47,7 @@ namespace BurningKnight.level.rooms.oldman {
 				level.Area.Add(stand);
 				stand.Center = new Vector2(Left + 3.5f + i * 2, Top + 4.5f) * 16;
 				
-				stand.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area), null);
+				stand.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), level.Area, false), null);
 			}
 		}
 

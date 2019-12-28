@@ -304,7 +304,7 @@ namespace BurningKnight.state {
 
 				if (ImGui.Button("Spawn")) {
 					var item = Items.CreateAndAdd(
-						Selected.Id, Engine.Instance.State.Area
+						Selected.Id, Engine.Instance.State.Area, false
 					);
 
 					item.Center = player.Center;
@@ -316,7 +316,7 @@ namespace BurningKnight.state {
 					var stand = new ItemStand();
 					Engine.Instance.State.Area.Add(stand);
 					var item = Items.CreateAndAdd(
-						Selected.Id, Engine.Instance.State.Area
+						Selected.Id, Engine.Instance.State.Area, false
 					);
 
 					stand.Center = player.Center;

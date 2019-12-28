@@ -70,7 +70,7 @@ namespace BurningKnight.level.rooms.shop {
 
 				var id = Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool, null, true);
 				
-				stand.SetItem(Items.CreateAndAdd(id, level.Area), null);
+				stand.SetItem(Items.CreateAndAdd(id, level.Area, false), null);
 
 				if (pool.Count == 0) {
 					break;

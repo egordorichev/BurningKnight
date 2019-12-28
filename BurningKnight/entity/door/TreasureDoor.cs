@@ -23,7 +23,6 @@ namespace BurningKnight.entity.door {
 		}
 
 		// keys and bombs dont drop much lol
-		// scourged items dont appear so anymore (at least on stands?)
 		// fix cant pickup shields at full hp
 		// finish roger (room full of tnt boxes, animation, pool, unique items, etc)
 		protected override Lock CreateLock() {
