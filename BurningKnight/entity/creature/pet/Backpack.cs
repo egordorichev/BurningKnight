@@ -87,8 +87,10 @@ namespace BurningKnight.entity.creature.pet {
 
 			if (i.Item != null) {
 				itemRegion = i.Item.Region;
+			} else {
+				itemRegion = null;
 			}
-			
+
 			AddFx();
 			return false;
 		}

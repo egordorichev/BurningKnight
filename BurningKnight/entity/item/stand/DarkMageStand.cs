@@ -113,5 +113,9 @@ namespace BurningKnight.entity.item.stand {
 			base.Save(stream);
 			stream.WriteByte((byte) price);
 		}
+
+		public override ItemPool GetPool() {
+			return ItemPool.OldMan;
+		}
 	}
 }

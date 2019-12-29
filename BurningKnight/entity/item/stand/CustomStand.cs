@@ -1,6 +1,7 @@
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using Lens.entity;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
@@ -36,7 +37,7 @@ namespace BurningKnight.entity.item.stand {
 			var r = GetComponent<RoomComponent>().Room;
 
 			foreach (var p in r.Tagged[Tags.Player]) {
-				if (p.GetComponent<ConsumablesComponent>().Bombs < Price) {
+				if (!HasEnoughToPay(p)) {
 					Graphics.Color *= 0.6f;
 					break;
 				}					
@@ -45,6 +46,10 @@ namespace BurningKnight.entity.item.stand {
 			Graphics.Print(PriceString, Font.Small, Position + new Vector2(PriceX, 14));
 			Graphics.Color = ColorUtils.WhiteColor;
 			Graphics.Render(icon, Position + new Vector2(PriceX + priceWidth + 2, 17 + iconY));
+		}
+		
+		protected virtual bool HasEnoughToPay(Entity p) {
+			return p.GetComponent<ConsumablesComponent>().Bombs >= Price;
 		}
 	}
 }

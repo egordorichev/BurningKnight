@@ -309,5 +309,9 @@ namespace BurningKnight.entity.item.stand {
 				}
 			}
 		}
+
+		public virtual ItemPool GetPool() {
+			return ItemPool.Treasure;
+		}
 	}
 }

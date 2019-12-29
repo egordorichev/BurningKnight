@@ -462,6 +462,7 @@
     <Compile Include="entity\creature\npc\dungeon\DungeonShopNpc.cs" />
     <Compile Include="entity\creature\npc\dungeon\Roger.cs" />
     <Compile Include="entity\creature\npc\dungeon\Snek.cs" />
+    <Compile Include="entity\creature\npc\dungeon\TrashGoblin.cs" />
     <Compile Include="entity\creature\npc\dungeon\Vampire.cs" />
     <Compile Include="entity\creature\npc\Elon.cs" />
     <Compile Include="entity\creature\npc\Granny.cs" />
@@ -644,6 +645,7 @@
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
+    <Compile Include="entity\item\stand\TrashGoblinStand.cs" />
     <Compile Include="entity\item\stand\WeaponStand.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
@@ -938,6 +940,7 @@
     <Compile Include="level\rooms\special\shop\BoxyShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\NpcShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\RogerShopRoom.cs" />
+    <Compile Include="level\rooms\special\shop\TrashGoblinRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\statue\ChestStatueRoom.cs" />
     <Compile Include="level\rooms\special\statue\DiceStatueRoom.cs" />

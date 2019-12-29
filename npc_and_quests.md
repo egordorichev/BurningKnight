@@ -35,13 +35,6 @@
  - Blank (bombs act like blanks)
  - Fetus gun
  - Epic fetus gun
- - TNT
- - Crying Bombs
- - Ninjia Bombs
- - Bomb Pack
- - Black Belt
- - Pouch of bombs
- - Matches
 
 # gobbeta
 * Sells goblin related stuff, as well as necklaces 

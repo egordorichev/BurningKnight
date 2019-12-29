@@ -5,5 +5,9 @@ namespace BurningKnight.entity.item {
 		protected override string GetSprite() {
 			return "boss_stand";
 		}
+
+		public override ItemPool GetPool() {
+			return ItemPool.Boss;
+		}
 	}
 }
