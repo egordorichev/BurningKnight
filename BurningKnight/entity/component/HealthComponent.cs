@@ -160,7 +160,7 @@ namespace BurningKnight.entity.component {
 
 		public int InitMaxHealth {
 			set {
-				maxHealth = Math.Max(1, value);
+				maxHealth = value;
 				health = maxHealth;
 			}
 		}
@@ -188,10 +188,10 @@ namespace BurningKnight.entity.component {
 				Entity.Done = true;	
 			}
 		}
-
+		
+		// Needed for loading
 		public HealthComponent() {
-			//maxHealth = 2;
-			//health = MaxHealth;
+			
 		}
 
 		public void EmitParticles(bool shield) {

@@ -657,6 +657,7 @@
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
+    <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />

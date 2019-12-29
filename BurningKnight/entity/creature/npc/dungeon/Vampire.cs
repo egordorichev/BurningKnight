@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -18,17 +19,18 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			Height = 30;
 			Flips = false;
 			
-			/*
-			 * animate
-			 * make shop random
-			 * fill up pool
-			 * dialog
-			 */
-			
 			AddComponent(new AnimationComponent("vampire"));
 			AddComponent(new RectBodyComponent(4, 19, 14, 11, BodyType.Static, false));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2));
 			AddComponent(new InteractableComponent(Interact));
+		}
+
+		protected override string GetDealDialog() {
+			return $"vampire_{Rnd.Int(4)}";
+		}
+
+		protected override string GetHiDialog() {
+			return "vampire_3";
 		}
 
 		private bool Interact(Entity entity) {
@@ -36,9 +38,11 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				for (var i = 0; i < 3; i++) {
 					var coin = Items.CreateAndAdd("bk:copper_coin", Area);
 					coin.TopCenter = BottomCenter;
-				}	
+				}
+				
+				GetComponent<DialogComponent>().Start($"vampire_{Rnd.Int(4, 7)}");
 			}
-			
+
 			return false;
 		}
 
@@ -47,7 +51,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 
 		public static void Place(Vector2 where, Area area) {
-			var sells = true || Rnd.Chance(60); // todo: random
+			var sells = Rnd.Chance(60);
 
 			if (sells) {
 				where.Y -= 24;

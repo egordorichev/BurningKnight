@@ -2,6 +2,11 @@
 
 !! items get 2 charge per room??
 
+* custom voices for the new npcs
+* save max hp for player. otherwise shield buddy is broken
+
+!! picking bill says +5 curse when its only 3
+
 * achievement for first cursed weapon 
 * make spiked and cursed rooms locked by default 
 * enemy egenerate prefix only once you enter the room first time

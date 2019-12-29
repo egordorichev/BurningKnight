@@ -527,6 +527,8 @@ namespace BurningKnight.entity.creature.player {
 			Done = false;
 			died = true;
 
+			Log.Debug($"Killed by: {(d.From?.GetType().Name ?? "null")}");
+			
 			return true;
 		}
 
