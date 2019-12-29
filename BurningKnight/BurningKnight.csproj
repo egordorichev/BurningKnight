@@ -333,7 +333,8 @@
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\SpawnCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
-    <Compile Include="entity\Bomb.cs" />
+    <Compile Include="entity\bomb\Bomb.cs" />
+    <Compile Include="entity\bomb\controller\TargetBombController.cs" />
     <Compile Include="entity\buff\ArmoredBuff.cs" />
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
@@ -648,6 +649,8 @@
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
+    <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
+    <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />

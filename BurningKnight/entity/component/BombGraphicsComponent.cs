@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets;
+using BurningKnight.entity.bomb;
 using Lens.entity.component.graphics;
 using Lens.graphics;
 using Microsoft.Xna.Framework;

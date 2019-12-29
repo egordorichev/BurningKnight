@@ -2,6 +2,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;

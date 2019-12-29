@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;

@@ -109,6 +109,8 @@ namespace BurningKnight.entity.item.use {
 			Register<EnableScourgeUse>(EnableScourgeUse.RenderDebug);
 			Register<SetMusicSpeed>(SetMusicSpeed.RenderDebug);
 			Register<DoOnTimerUse>(DoOnTimerUse.RenderDebug);
+			Register<MakeBombsHomeUse>(MakeBombsHomeUse.RenderDebug);
+			Register<MakeBombsExplodeOnTouchUse>();
 		}
 	}
 }

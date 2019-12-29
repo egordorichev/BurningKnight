@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.events;
 using Lens.entity;
 using Microsoft.Xna.Framework;

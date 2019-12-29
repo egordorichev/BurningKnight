@@ -1,17 +1,18 @@
 ﻿using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.physics;
 using Lens.entity;
 using Lens.input;
-using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
-namespace BurningKnight.entity {
+namespace BurningKnight.entity.bomb {
 	public delegate void BombUpdateCallback(Bomb b, float dt);
 	public delegate void BombDeathCallback(Bomb b);
 	
@@ -27,6 +28,7 @@ namespace BurningKnight.entity {
 
 		public float Scale;
 		public float T;
+		public bool ExplodeOnTouch;
 		
 		public Bomb(Entity owner, float time = ExplosionTime, Bomb parent = null) {
 			explosionTime = time + Rnd.Float(-0.1f, 1f);
@@ -103,6 +105,25 @@ namespace BurningKnight.entity {
 			}
 			
 			Controller?.Invoke(this, dt);
+		}
+		
+		public void Explode() {
+			OnDeath?.Invoke(this);
+			Done = true;
+			ExplosionMaker.Make(this, GetComponent<ExplodeComponent>().Radius);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse) {
+				if (cse.Entity is Projectile p) {
+					GetComponent<RectBodyComponent>().KnockbackFrom(p);
+					p.Break();
+				} else if (ExplodeOnTouch && cse.Entity is Creature ca && Owner is Creature cb && ca.IsFriendly() != cb.IsFriendly()) {
+					Explode();
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.assets.loot;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.util.geometry;

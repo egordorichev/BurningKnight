@@ -1,3 +1,4 @@
+using BurningKnight.entity.bomb;
 using Lens.entity.component;
 
 namespace BurningKnight.entity.component {
@@ -12,7 +13,9 @@ namespace BurningKnight.entity.component {
 
 			if (Timer <= 0) {
 				if (Entity is Bomb b) {
-					b.OnDeath?.Invoke(b);
+					b.Explode();
+
+					return;
 				}
 				
 				Entity.Done = true;

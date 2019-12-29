@@ -30,7 +30,6 @@
 # passive
 
 * ankh
-* homing bombs
 * immunity to contact damage
 * half a heart
 
@@ -184,7 +183,6 @@
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * bombs that stick to enemies
 * increases bomb explosion radius greatly
-* homing bombs
 * wallet buddy (collects money)
 * teleport to prev room
 * money is power
