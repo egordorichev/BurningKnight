@@ -3,6 +3,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.entities;
 using BurningKnight.level.entities.chest;
 using BurningKnight.ui.dialog;
 using Lens.entity;
@@ -19,8 +20,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			base.AddComponents();
 			
 			AlwaysActive = true;
-			Width = 11;
-			Height = 21;
+			Height = 26;
 			Flips = false;
 			
 			AddComponent(new AnimationComponent("trash_goblin"));
@@ -55,7 +55,6 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 			freed = true;
 			
-			// fixme: ^^ doesnt seem to work?
 			GetComponent<AnimationComponent>().Animation.Tag = "free";
 			GetComponent<DialogComponent>().StartAndClose("trash_goblin_1", 5);
 
@@ -81,10 +80,11 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		public static void Place(Vector2 where, Area area) {
 			where.Y -= 16;
 			
-			var snek = new TrashGoblin();
-			area.Add(snek);
-			snek.BottomCenter = where;
-			
+			var goblin = new TrashGoblin();
+			area.Add(goblin);
+			goblin.BottomCenter = where;
+			goblin.X += 1;
+
 			var stand = new TrashGoblinStand();
 			area.Add(stand);
 			stand.Center = where + new Vector2(0, 4 + stand.Height);

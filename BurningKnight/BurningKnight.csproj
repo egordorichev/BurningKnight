@@ -841,6 +841,7 @@
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
     <Compile Include="level\entities\Safe.cs" />
+    <Compile Include="level\entities\ShadowedProp.cs" />
     <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />

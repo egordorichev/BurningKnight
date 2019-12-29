@@ -164,7 +164,7 @@ namespace BurningKnight.level.rooms.shop {
 		}
 
 		private void PlaceSign(Level level, Vector2 where) {
-			var sign = new SlicedProp("shop_sign");
+			var sign = new ShadowedProp("shop_sign");
 			level.Area.Add(sign);
 			sign.BottomCenter = where;
 		}

@@ -229,7 +229,7 @@ namespace BurningKnight.entity.item.stand {
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f) - 5.5f);
+			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f - 3) - 5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;

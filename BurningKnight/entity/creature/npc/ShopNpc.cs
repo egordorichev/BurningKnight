@@ -25,7 +25,8 @@ namespace BurningKnight.entity.creature.npc {
 		internal bool Hidden;
 		private bool saved;
 		private bool hided;
-
+		
+		protected bool Remove;
 		protected bool Flips = true;
 
 		public override void Init() {
@@ -68,7 +69,7 @@ namespace BurningKnight.entity.creature.npc {
 				return;
 			}
 
-			if (saved && !OnScreen) {
+			if (saved && Remove && !OnScreen) {
 				Done = true;
 				Hidden = true;
 
