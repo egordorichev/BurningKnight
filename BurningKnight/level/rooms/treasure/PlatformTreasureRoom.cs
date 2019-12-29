@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.treasure {
 	public class PlatformTreasureRoom : TreasureRoom {
 		public override void Paint(Level level) {
-			Painter.Fill(level, this, 1, Tiles.RandomSolid());
+			Painter.Fill(level, this, 1, Rnd.Chance() ? Tile.Chasm : Tiles.RandomSolid());
 
 			var f = Tiles.RandomFloor();
 			var m = Rnd.Int(2, 4);
@@ -17,13 +17,13 @@ namespace BurningKnight.level.rooms.treasure {
 				m++;
 			}
 			
+			PaintTunnel(level, Rnd.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
+
 			PlaceStand(level, new Dot(Left + m, Top + m));
 			PlaceStand(level, new Dot(Right - m, Top + m));
 			PlaceStand(level, new Dot(Left + m, Bottom - m));
 			PlaceStand(level, new Dot(Right - m, Bottom - m));
 
-			PaintTunnel(level, Rnd.Chance(30) ? f : Tiles.RandomFloor(), GetCenterRect());
-			
 			SetupStands(level);
 		}
 

@@ -43,7 +43,9 @@ namespace BurningKnight.level.rooms.treasure {
 			}
 			
 			foreach (var s in standPositions) {
-				if (level.Get(s.X, s.Y).Matches(TileFlags.Danger) || level.Get(s.X, s.Y, true).Matches(TileFlags.Danger)) {
+				if (level.Get(s.X, s.Y).Matches(TileFlags.Danger) || level.Get(s.X, s.Y, true).Matches(TileFlags.Danger)
+				     || level.Get(s.X, s.Y).Matches(TileFlags.Solid) || level.Get(s.X, s.Y, true).Matches(TileFlags.Solid)) {
+					
 					Painter.Set(level, s, Tile.FloorD);
 				}
 			}

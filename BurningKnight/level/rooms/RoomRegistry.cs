@@ -91,14 +91,14 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<PlatformTreasureRoom>(1f),
 				RoomInfo.New<PadTreasureRoom>(1f),
 				RoomInfo.New<TwoDiagonalTreasureRoom>(1.5f),
-				RoomInfo.New<AcrossTreasureRoom>(1.5f + 1000f),
+				RoomInfo.New<AcrossTreasureRoom>(1.5f),
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<TurretTrapRoom>(1f),
 				RoomInfo.New<SpikeMazeRoom>(1f),
-				RoomInfo.New<DangerousPadsRoom>(1f + 1000f),
+				RoomInfo.New<DangerousPadsRoom>(1f),
 				RoomInfo.New<TurretPassageRoom>(1f),
 				RoomInfo.New<VerticalTurretPassageRoom>(1f),
 				RoomInfo.New<CrossTurretPassageRoom>(1f),

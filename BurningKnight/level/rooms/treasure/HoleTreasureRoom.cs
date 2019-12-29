@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.treasure {
 	public class HoleTreasureRoom : TreasureRoom {
 		public override void Paint(Level level) {
-			var m = Rnd.Int(3, 5);
+			var m = Rnd.Int(4, 6);
 			Painter.Fill(level, this, m, Tiles.RandomSolid());
 
-			m = Math.Max(2, m - (Rnd.Chance() ? 1 : 2));
+			m = Math.Max(3, m - (Rnd.Chance() ? 1 : 2));
 			
 			PlaceStand(level, new Dot(Left + m, Top + m));
 			PlaceStand(level, new Dot(Right - m, Top + m));
@@ -19,5 +19,22 @@ namespace BurningKnight.level.rooms.treasure {
 			
 			SetupStands(level);
 		}
+		
+		public override int GetMinWidth() {
+			return 10;
+		}
+
+		public override int GetMaxWidth() {
+			return 14;
+		}
+
+		public override int GetMinHeight() {
+			return 10;
+		}
+
+		public override int GetMaxHeight() {
+			return 14;
+		}
+		
 	}
 }
