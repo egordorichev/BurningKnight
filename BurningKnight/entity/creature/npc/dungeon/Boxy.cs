@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using Lens.entity;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
@@ -42,6 +43,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
 			}
+		}
+		
+		protected override string GetDealDialog() {
+			return $"boxy_{Rnd.Int(4)}";
 		}
 	}
 }

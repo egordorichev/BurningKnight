@@ -263,19 +263,17 @@ namespace BurningKnight.ui.str {
 					case '^': {
 						if (lc == '^') {
 							AddEffect<WaveEffect>(builder);
-							break;
 						}
-
-						continue;
+						
+						break;
 					}
 
 					case '*': {
 						if (lc == '*') {
 							AddEffect<BoldEffect>(builder);
-							break;
 						}
 
-						continue;
+						break;
 					}
 
 					case '_': {
@@ -286,10 +284,9 @@ namespace BurningKnight.ui.str {
 					case '%': {
 						if (lc == '%') {
 							AddEffect<RainbowEffect>(builder);
-							break;
 						}
 
-						continue;
+						break;
 					}
 
 					case '&': {
@@ -304,19 +301,17 @@ namespace BurningKnight.ui.str {
 					case '@': {
 						if (lc == '@') {
 							AddEffect<BlinkEffect>(builder);
-							break;
 						}
 						
-						continue;
+						break;
 					}
 
 					case '#': {
 						if (lc == '#') {
 							AddEffect<ShakeEffect>(builder);
-							break;
 						}
 						
-						continue;
+						break;
 					}
 
 					default: {

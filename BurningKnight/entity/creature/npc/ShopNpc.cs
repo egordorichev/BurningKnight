@@ -34,8 +34,11 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemBoughtEvent>();
 
+			var id = GetId();
+			
+			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire) || GlobalSave.IsFalse(id);
 			AlwaysActive = true;
-			Hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
+			Hidden = Run.Depth == 0 && !saved;
 		}
 
 		public override void AddComponents() {
@@ -111,6 +114,10 @@ namespace BurningKnight.entity.creature.npc {
 			return false;
 		}
 
+		protected virtual string GetHiDialog() {
+			return null;
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (Hidden) {
 				return false;
@@ -127,6 +134,12 @@ namespace BurningKnight.entity.creature.npc {
 							GetComponent<DialogComponent>().StartAndClose("npc_2", 3);
 						} else {
 							GetComponent<DialogComponent>().StartAndClose("npc_0", 3);
+						}
+					} else {
+						var s = GetHiDialog();
+						
+						if (s != null) {
+							GetComponent<DialogComponent>().StartAndClose(s, 3);
 						}
 					}
 				}
