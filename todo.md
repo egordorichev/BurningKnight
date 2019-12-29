@@ -1,7 +1,5 @@
 # jungle
 
-!! fix doors in tutorial
-!! all items in the tutorial are missing due item format save changes
 !! items get 2 charge per room??
 
 * achievement for first cursed weapon 

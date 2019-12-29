@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
+using ImGuiNET;
 
 namespace BurningKnight.entity.room.controllable {
 	public class RoomControllable : SaveableEntity, PlaceableEntity {
@@ -54,6 +55,20 @@ namespace BurningKnight.entity.room.controllable {
 
 		protected void RemoveFromRoom() {
 			GetComponent<RoomComponent>().Room?.Controllable.Remove(this);
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+
+			var on = On;
+
+			if (ImGui.Checkbox("On", ref on)) {
+				if (on) {
+					TurnOn();
+				} else {
+					TurnOff();
+				}
+			}
 		}
 	}
 }

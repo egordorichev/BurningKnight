@@ -38,7 +38,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new RectBodyComponent(3, 4, 10, 10, BodyType.Static));
+			AddComponent(new RectBodyComponent(3, 4, 10, 11, BodyType.Static));
 
 			var a = new AnimationComponent("turret", "on");
 			AddComponent(a);
@@ -74,6 +74,14 @@ namespace BurningKnight.entity.room.controllable.turret {
 			ReverseDirection = stream.ReadBoolean();
 			TimingOffset = stream.ReadFloat();
 			Speed = stream.ReadFloat();
+
+			if (Math.Abs(Speed) < 0.01f) {
+				Speed = 1f;
+			}
+
+			if (Run.Depth == -2) {
+				TimingOffset = 0;
+			}
 		}
 
 		public override void Save(FileWriter stream) {
@@ -92,7 +100,8 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public override void TurnOn() {
 			base.TurnOn();
-			beforeNextBullet = 0.2f + TimingOffset;
+			
+			beforeNextBullet = 0.2f + TimingOffset % 3;
 			
 			var a = GetComponent<AnimationComponent>();
 
@@ -203,6 +212,9 @@ namespace BurningKnight.entity.room.controllable.turret {
 			if (ImGui.InputInt("Starting angle", ref u)) {
 				Angle = StartingAngle = (uint) u % 8;
 			}
+
+			ImGui.InputFloat("Before next", ref beforeNextBullet);
+			ImGui.InputFloat("Speed", ref Speed);
 		}
 		
 		public bool ShouldCollide(Entity entity) {

@@ -18,6 +18,13 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			Height = 30;
 			Flips = false;
 			
+			/*
+			 * animate
+			 * make shop random
+			 * fill up pool
+			 * dialog
+			 */
+			
 			AddComponent(new AnimationComponent("vampire"));
 			AddComponent(new RectBodyComponent(4, 19, 14, 11, BodyType.Static, false));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2));
@@ -43,7 +50,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			var sells = true || Rnd.Chance(60); // todo: random
 
 			if (sells) {
-				where.Y -= 16;
+				where.Y -= 24;
 			}
 
 			var vampire = new Vampire();
