@@ -22,7 +22,6 @@ namespace BurningKnight.entity.door {
 				: new Rectangle(0, 12, (int) Width, 7);
 		}
 
-		// finish roger (room full of tnt boxes, animation, pool, unique items, etc)
 		protected override Lock CreateLock() {
 			return Run.Depth == 1 ? (Lock) new IronLock() : (Lock) new GoldLock();
 		}

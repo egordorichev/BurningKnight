@@ -29,7 +29,8 @@ namespace BurningKnight.level.rooms.treasure {
 				PlaceStand(level, new Dot(Left + 3, Bottom - 3));	
 			}
 
-			if (a) {
+			if (a && !SpawnedBarrier) {
+				DisableBarrier = true;
 				PlaceStand(level, GetTileCenter());	
 			}
 			

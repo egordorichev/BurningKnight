@@ -21,14 +21,14 @@ namespace BurningKnight.level.rooms.trap {
 			var gx = (gap + xcollumn);
 			var gy = (gap + ycollumn);
 
-			var xcount = (int) Math.Floor((w - (float) xcollumn) / gx);
-			var ycount = (int) Math.Floor((h - (float) ycollumn) / gy);
+			var xcount = (int) Math.Ceiling((w - (float) xcollumn) / gx);
+			var ycount = (int) Math.Ceiling((h - (float) ycollumn) / gy);
 
 			var xw = xcount * gx - xcollumn;
 			var yw = ycount * gy - ycollumn;
 
-			var xo = (int) Math.Floor((w - xw) / 2f);
-			var yo = (int) Math.Floor((h - yw) / 2f);
+			var xo = (int) Math.Min(Math.Floor((w - xw) / 2f), 2);
+			var yo = (int) Math.Min(Math.Floor((h - yw) / 2f), 2);
 			
 			for (var x = 0; x < xcount; x++) {
 				for (var y = 0; y < ycount; y++) {

@@ -14,6 +14,8 @@ namespace BurningKnight.level.rooms.treasure {
 	public class TreasureRoom : SpecialRoom {
 		private List<ItemStand> stands = new List<ItemStand>();
 		private List<Dot> standPositions = new List<Dot>();
+		protected bool SpawnedBarrier;
+		protected bool DisableBarrier;
 		
 		public override void Paint(Level level) {
 			var c = GetCenter() * 16;
@@ -55,7 +57,8 @@ namespace BurningKnight.level.rooms.treasure {
 			stands.Add(stand);
 			standPositions.Add(where);
 
-			if (Rnd.Chance(20)) {
+			if (!DisableBarrier && !SpawnedBarrier && Rnd.Chance(20)) {
+				SpawnedBarrier = true;
 				var t = Tiles.Pick(Tile.SpikeOnTmp, Tile.Rock);
 
 				Painter.Set(level, where + new Dot(-1, 0), t);
