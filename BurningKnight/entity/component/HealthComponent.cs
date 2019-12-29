@@ -61,6 +61,10 @@ namespace BurningKnight.entity.component {
 					InvincibilityTimer = mod ? InvincibilityTimerMax : 0.1f;
 				}
 				
+				if (e.Amount > 0) {
+					EmitParticles(false);
+				}
+				
 				health = h;
 
 				Send(new PostHealthModifiedEvent {
@@ -190,6 +194,28 @@ namespace BurningKnight.entity.component {
 			//health = MaxHealth;
 		}
 
+		public void EmitParticles(bool shield) {
+			var slice = shield ? "shield" : "heart";
+
+			for (var i = 0; i < 3; i++) {
+				Timer.Add(() => {
+						var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"{slice}_{Rnd.Int(1, 4)}"))));
+						part.Position = Entity.Center;
+
+						if (Entity.TryGetComponent<ZComponent>(out var z)) {
+							part.Position -= new Vector2(0, z.Z);
+						}
+				
+						Entity.Area.Add(part);
+				
+						part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
+						part.Particle.Angle = 0;
+						part.Particle.Alpha = 0.9f;
+						part.Depth = Layers.InGameUi;
+					}, i * 0.5f);
+			}
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is ItemCheckEvent ev && ev.Item.Type == ItemType.Heart) {
 				Send(new ItemAddedEvent {
@@ -204,29 +230,8 @@ namespace BurningKnight.entity.component {
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
 					? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
 					: ev.Item.Region, (Player) Entity));
-
-				var slice = ev.Item.Id.Contains("shield") ? "shield" : "heart";
-
+				
 				ev.Item.Done = true;
-
-				for (var i = 0; i < 3; i++) {
-					Timer.Add(() => {
-							var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"{slice}_{Rnd.Int(1, 4)}"))));
-							part.Position = Entity.Center;
-
-							if (Entity.TryGetComponent<ZComponent>(out var z)) {
-								part.Position -= new Vector2(0, z.Z);
-							}
-				
-							Entity.Area.Add(part);
-				
-							part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
-							part.Particle.Angle = 0;
-							part.Particle.Alpha = 0.9f;
-							part.Depth = Layers.InGameUi;
-						}, i * 0.5f);
-				}
-
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");

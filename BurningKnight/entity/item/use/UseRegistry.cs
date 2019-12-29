@@ -111,6 +111,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DoOnTimerUse>(DoOnTimerUse.RenderDebug);
 			Register<MakeBombsHomeUse>(MakeBombsHomeUse.RenderDebug);
 			Register<MakeBombsExplodeOnTouchUse>();
+			Register<RegenUse>(RegenUse.RenderDebug);
 		}
 	}
 }

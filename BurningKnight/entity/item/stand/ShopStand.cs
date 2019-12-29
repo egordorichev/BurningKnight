@@ -111,6 +111,11 @@ namespace BurningKnight.entity.item.stand {
 		protected virtual void RenderPrice() {
 			if (HasSale) {
 				Graphics.Color = Palette.Default[35];
+
+				if (Price == 0) {
+					OnSale = false;
+					Recalculate();
+				}
 			}
 				
 			var r = GetComponent<RoomComponent>().Room;

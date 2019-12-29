@@ -25,6 +25,10 @@ namespace BurningKnight.entity.creature.player {
 				Who = Entity,
 				Default = false
 			})) {
+				if (amount > 0) {
+					Entity.GetComponent<HealthComponent>().EmitParticles(true);
+				}
+				
 				shieldHalfs = (byte) Math.Max(0, shieldHalfs + amount);
 			}
 		}

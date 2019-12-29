@@ -581,6 +581,7 @@
     <Compile Include="entity\events\ItemRemovedEvent.cs" />
     <Compile Include="entity\events\ItemTakenEvent.cs" />
     <Compile Include="entity\events\ItemUsedEvent.cs" />
+    <Compile Include="entity\events\KilledEvent.cs" />
     <Compile Include="entity\events\LockClosedEvent.cs" />
     <Compile Include="entity\events\LockOpenedEvent.cs" />
     <Compile Include="entity\events\LostSupportEvent.cs" />
@@ -646,6 +647,7 @@
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
     <Compile Include="entity\item\stand\TrashGoblinStand.cs" />
+    <Compile Include="entity\item\stand\VampireStand.cs" />
     <Compile Include="entity\item\stand\WeaponStand.cs" />
     <Compile Include="entity\item\useCheck\ItemUseCheck.cs" />
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
@@ -654,6 +656,7 @@
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
+    <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
     <Compile Include="entity\item\use\DoOnEnemyCollisionUse.cs" />
     <Compile Include="entity\item\use\DoWithUse.cs" />

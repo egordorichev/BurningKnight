@@ -12,11 +12,6 @@
  + If you buy him, he starts following you around, by flying in his box after you.
    He gets close to enemies and poisens em.
 
-# trash goblin 
-
-* Begs you to take his scourge, he will even pay you. Reward can vary from consumables or an item to a full blown chest.
-* After taking his scourge he becomes green
-
 # vampire
 * Bites you for half a heart and gives you some coins for that
 
