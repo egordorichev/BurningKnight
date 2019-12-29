@@ -635,6 +635,7 @@
     <Compile Include="entity\item\stand\ActiveStand.cs" />
     <Compile Include="entity\item\stand\ArtifactStand.cs" />
     <Compile Include="entity\item\stand\BkStand.cs" />
+    <Compile Include="entity\item\stand\BoxyStand.cs" />
     <Compile Include="entity\item\stand\CustomStand.cs" />
     <Compile Include="entity\item\stand\DarkMageStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
@@ -934,6 +935,7 @@
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
     <Compile Include="level\rooms\special\ProtoChestRoom.cs" />
     <Compile Include="level\rooms\special\SafeRoom.cs" />
+    <Compile Include="level\rooms\special\shop\BoxyShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\NpcShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\RogerShopRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />

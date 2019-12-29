@@ -2,13 +2,13 @@ using BurningKnight.entity.creature.player;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.stand {
-	public class RogerStand : CustomStand {
+	public class BoxyStand : CustomStand {
 		protected override string GetIcon() {
-			return "deal_bomb";
+			return "deal_key";
 		}
 
 		protected override string GetSprite() {
-			return "roger_stand";
+			return "boxy_stand";
 		}
 
 		public override ItemPool GetPool() {
@@ -24,11 +24,11 @@ namespace BurningKnight.entity.item.stand {
 				return false;
 			}
 
-			if (component.Bombs < Price) {
+			if (component.Keys < Price) {
 				return false;
 			}
 
-			component.Bombs -= Price;
+			component.Keys -= Price;
 			return true;
 		}
 	}

@@ -134,7 +134,8 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WarriorStatueRoom>(1f),
 				RoomInfo.New<WellRoom>(0.3f),
 				RoomInfo.New<ProtoChestRoom>(0.1f),
-				RoomInfo.New<RogerShopRoom>(10000f),
+				RoomInfo.New<RogerShopRoom>(1f),
+				RoomInfo.New<BoxyShopRoom>(10000f),
 				
 				// Boss
 				RoomInfo.New<BossRoom>(1f),

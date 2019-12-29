@@ -72,7 +72,7 @@ namespace BurningKnight.save {
 			Put("disk", 10);
 
 			if (BK.Version.Dev) {
-				if (false) {
+				if (true) {
 					Put(ShopNpc.AccessoryTrader, true);
 					Put(ShopNpc.ActiveTrader, true);
 					Put(ShopNpc.HatTrader, true);

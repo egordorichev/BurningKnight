@@ -11,8 +11,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			base.AddComponents();
 			
 			AlwaysActive = true;
-			Width = 18;
-			Height = 24;
+			Width = 15;
 			Flips = false;
 			
 			AddComponent(new AnimationComponent("boxy"));
@@ -22,17 +21,21 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			return ShopNpc.Boxy;
 		}
 
+		protected override bool OwnsStand(ItemStand stand) {
+			return stand is BoxyStand;
+		}
+
 		public static void Place(Vector2 where, Area area) {
 			where.Y -= 16;
 			
-			var snek = new Snek();
+			var snek = new Boxy();
 			area.Add(snek);
 			snek.BottomCenter = where;
 			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Boxy));
 
 			for (var i = -1; i < 2; i++) {
-				var stand = new ShopStand();
+				var stand = new BoxyStand();
 				area.Add(stand);
 				stand.Center = where + new Vector2((stand.Width + 4) * i, 4 + stand.Height);
 

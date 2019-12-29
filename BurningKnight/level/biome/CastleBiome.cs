@@ -1,4 +1,5 @@
 ﻿using BurningKnight.level.rooms.trap;
+using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.util;
@@ -23,7 +24,7 @@ namespace BurningKnight.level.biome {
 				
 				var r = (byte) (f ? Tiles.RandomFloor() : Tile.Chasm);
 				
-				if (l.Get(x, y, true) == Tile.Lava || (f && l.Get(x, y) == Tile.Chasm)) {
+				if (l.Get(x, y, true) == Tile.Lava || (!(rm is TreasureRoom) && f && l.Get(x, y) == Tile.Chasm)) {
 					var i = l.ToIndex(x, y);
 					
 					l.Liquid[i] = 0;

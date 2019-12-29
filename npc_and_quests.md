@@ -23,15 +23,9 @@
 # boxy 
 
 * Sells key and box/crate related stuff for keys, instead of coins
- - Box of keys (99 keys) 
  - Lootpick (50% chance to open a lock, active)
- - Skeleton Key (100% chance to open a lock, active)
- - Box of pets
- - Box of orbitals
- - Pouch of coins
- - Pouch of keys
- - Pouch of bombs
- - Pouch of pouches
+ - some Key (100% chance to open a lock, active)
+ - broken key (100$ chance to open a lock, 1 time use active)
 
 * When you buy his entire stock, he unlocks himself with the keys and drops some item or a bunch of consumables
 
