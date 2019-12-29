@@ -1,6 +1,12 @@
+using BurningKnight.assets.items;
+using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
+using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
+using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.spiked {
 	public class SpikedRoom : SpecialRoom {
@@ -13,6 +19,48 @@ namespace BurningKnight.level.rooms.spiked {
 			Painter.Fill(level, this, 2, Tile.EvilFloor);
 			
 			PaintTunnel(level, Tile.EvilFloor);
+
+			var center = GetCenter() * 16 + new Vector2(8);
+
+			switch (Rnd.Int(4)) {
+				case 0: {
+					for (var i = 0; i < Rnd.Int(1, 3); i++) {
+						Items.CreateAndAdd("bk:heart", level.Area).Center = center;
+					}
+					
+					break;
+				}
+
+				case 1: {
+					for (var i = 0; i < Rnd.Int(1, 4); i++) {
+						Items.CreateAndAdd("bk:shield", level.Area).Center = center;
+					}
+
+					break;
+				}
+
+				case 2: {
+					var stand = new ItemStand();
+					level.Area.Add(stand);
+					stand.BottomCenter = center;
+					stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.SpikedRoom), level.Area), null);
+					
+					break;
+				}
+
+				case 3: {
+					var a = Rnd.Chance();
+					var c = Rnd.Int(1, a ? 3 : 4);
+
+					for (var i = 0; i < c; i++) {
+						var chest = a ? (Chest) new StoneChest() : new RedChest();
+						level.Area.Add(chest);
+						chest.BottomCenter = center - new Vector2((c / 2f - i) * 20, 0);
+					}
+
+					break;
+				}
+			}
 		}
 
 		public override void SetupDoors(Level level) {

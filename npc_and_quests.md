@@ -12,9 +12,6 @@
  + If you buy him, he starts following you around, by flying in his box after you.
    He gets close to enemies and poisens em.
 
-# vampire
-* Bites you for half a heart and gives you some coins for that
-
 # boxy 
 
 * Sells key and box/crate related stuff for keys, instead of coins

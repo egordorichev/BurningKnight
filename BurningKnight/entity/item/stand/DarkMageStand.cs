@@ -16,13 +16,12 @@ namespace BurningKnight.entity.item.stand {
 		private TextureRegion heart;
 		private float priceWidth;
 
-		private int price;
 		private Entity payer;
 		private Item takenItem;
 		private int lastPrice;
 
 		protected override int CalculatePrice() {
-			return price;
+			return (int) PriceCalculator.GetModifier(Item);
 		}
 
 		protected override string GetSprite() {
@@ -33,7 +32,6 @@ namespace BurningKnight.entity.item.stand {
 			base.Init();
 			
 			OnSale = false;
-			price = Rnd.Int(1, 4);
 			heart = CommonAse.Ui.GetSlice("deal_heart");
 			
 			Subscribe<ItemUsedEvent>();
@@ -102,16 +100,6 @@ namespace BurningKnight.entity.item.stand {
 			}
 			
 			return base.HandleEvent(e);
-		}
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			price = stream.ReadByte();
-		}
-
-		public override void Save(FileWriter stream) {
-			base.Save(stream);
-			stream.WriteByte((byte) price);
 		}
 
 		public override ItemPool GetPool() {
