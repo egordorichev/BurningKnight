@@ -11,6 +11,7 @@ using Lens.util;
 using Lens.util.file;
 using Lens.util.timer;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
 	public class TrashGoblin : DungeonShopNpc {
@@ -24,6 +25,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			Flips = false;
 			
 			AddComponent(new AnimationComponent("trash_goblin"));
+			AddComponent(new RectBodyComponent(0, 16, 14, 10, BodyType.Static));
 		}
 
 		public override void Save(FileWriter stream) {
@@ -90,6 +92,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			stand.Center = where + new Vector2(0, 4 + stand.Height);
 
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.TrashGoblin), area, false), null);
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return entity is Creature || base.ShouldCollide(entity);
 		}
 	}
 }

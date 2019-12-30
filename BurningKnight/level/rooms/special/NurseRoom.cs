@@ -2,9 +2,9 @@ using BurningKnight.entity.creature.npc.dungeon;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special {
-	public class DuckRoom : SpecialRoom {
+	public class NurseRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			DungeonDuck.Place(GetCenter() * 16, level.Area);
+			Nurse.Place(GetCenter() * 16, level.Area);
 		}
 
 		public override int GetMinWidth() {
@@ -16,11 +16,11 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public override int GetMinHeight() {
-			return 5;
+			return 6;
 		}
 
 		public override int GetMaxHeight() {
-			return 6;
+			return 7;
 		}
 	}
 }

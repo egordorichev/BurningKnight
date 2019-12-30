@@ -461,6 +461,7 @@
     <Compile Include="entity\creature\npc\dungeon\Boxy.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonDuck.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonShopNpc.cs" />
+    <Compile Include="entity\creature\npc\dungeon\Nurse.cs" />
     <Compile Include="entity\creature\npc\dungeon\Roger.cs" />
     <Compile Include="entity\creature\npc\dungeon\Snek.cs" />
     <Compile Include="entity\creature\npc\dungeon\TrashGoblin.cs" />
@@ -943,6 +944,7 @@
     <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
     <Compile Include="level\rooms\special\NpcKeyRoom.cs" />
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
+    <Compile Include="level\rooms\special\NurseRoom.cs" />
     <Compile Include="level\rooms\special\ProtoChestRoom.cs" />
     <Compile Include="level\rooms\special\SafeRoom.cs" />
     <Compile Include="level\rooms\special\shop\BoxyShopRoom.cs" />

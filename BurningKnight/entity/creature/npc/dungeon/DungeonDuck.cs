@@ -23,6 +23,8 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			AddComponent(new AnimationComponent("duck"));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 
+			GetComponent<DialogComponent>().Dialog.Voice = 4;
+			
 			if (!interacted) {
 				AddComponent(new InteractableComponent((e) => {
 					GetComponent<DialogComponent>().Start("duck_2", e);
