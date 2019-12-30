@@ -58,12 +58,6 @@
 /processorParam:Quality=Best
 /build:Sfx/clap.wav
 
-#begin Sfx/crawler.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/crawler.wav
-
 #begin Sfx/dead1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
