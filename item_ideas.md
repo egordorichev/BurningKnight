@@ -3,7 +3,6 @@
 * gamepad
 * dewvial
 * chailice
-* cutsaw
 * detonator
 * vampire_bat
 * lemon
@@ -87,6 +86,7 @@
 
 * granny --- tea cup! and other tea based items
 * dark mage
+* duck chest
 
 ### to rework
 

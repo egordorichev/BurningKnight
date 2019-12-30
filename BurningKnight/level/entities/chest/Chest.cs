@@ -39,6 +39,7 @@ namespace BurningKnight.level.entities.chest {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AlwaysActive = true;
 			Width = GetWidth() * Scale;
 			Height = GetHeight() * Scale;
 
