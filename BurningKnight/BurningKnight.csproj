@@ -460,6 +460,7 @@
     <Compile Include="entity\creature\npc\Duck.cs" />
     <Compile Include="entity\creature\npc\dungeon\Boxy.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonDuck.cs" />
+    <Compile Include="entity\creature\npc\dungeon\DungeonElon.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonShopNpc.cs" />
     <Compile Include="entity\creature\npc\dungeon\Nurse.cs" />
     <Compile Include="entity\creature\npc\dungeon\Roger.cs" />
@@ -938,13 +939,15 @@
     <Compile Include="level\rooms\shop\sub\VampireShopRoom.cs" />
     <Compile Include="level\rooms\special\ChargerRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
-    <Compile Include="level\rooms\special\DuckRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
     <Compile Include="level\rooms\special\NpcKeyRoom.cs" />
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
-    <Compile Include="level\rooms\special\NurseRoom.cs" />
+    <Compile Include="level\rooms\special\npc\DuckRoom.cs" />
+    <Compile Include="level\rooms\special\npc\ElonRoom.cs" />
+    <Compile Include="level\rooms\special\npc\NurseRoom.cs" />
+    <Compile Include="level\rooms\special\npc\VampireRoom.cs" />
     <Compile Include="level\rooms\special\ProtoChestRoom.cs" />
     <Compile Include="level\rooms\special\SafeRoom.cs" />
     <Compile Include="level\rooms\special\shop\BoxyShopRoom.cs" />
@@ -962,7 +965,6 @@
     <Compile Include="level\rooms\special\statue\WarriorStatueRoom.cs" />
     <Compile Include="level\rooms\special\statue\WellRoom.cs" />
     <Compile Include="level\rooms\special\TombRoom.cs" />
-    <Compile Include="level\rooms\special\VampireRoom.cs" />
     <Compile Include="level\rooms\special\VendingRoom.cs" />
     <Compile Include="level\rooms\spiked\SpikedRoom.cs" />
     <Compile Include="level\rooms\trap\CrossTurretPassageRoom.cs" />

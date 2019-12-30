@@ -53,5 +53,9 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
 			}
 		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return entity is Creature || base.ShouldCollide(entity);
+		}
 	}
 }

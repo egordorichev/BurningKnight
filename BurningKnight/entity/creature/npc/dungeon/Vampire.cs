@@ -75,7 +75,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height);
 
 				var id = Items.GenerateAndRemove(pool, null, true);
-				stand.SetItem(Items.CreateAndAdd(id, area), null);
+				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
 			}
 		}
 

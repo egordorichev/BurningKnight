@@ -18,7 +18,6 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			AlwaysActive = true;
 			Width = 12;
 			Height = 10;
-			Flips = false;
 			
 			AddComponent(new AnimationComponent("duck"));
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));

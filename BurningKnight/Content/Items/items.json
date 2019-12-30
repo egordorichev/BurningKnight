@@ -1,1 +1,3140 @@
-{"bk:sword":{"id":"bk:sword","time":0.5,"type":7,"single":true,"pool":98,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":10,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":3.5},"weapon":0},"bk:heart":{"id":"bk:heart","animation":"item_heart","time":0.100000001490116,"type":5,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:ModifyHp","amount":2}],"renderer":{}},"bk:halo":{"id":"bk:halo","time":0.100000001490116,"single":true,"pool":1048642,"uses":[{"id":"bk:ModifyMaxHp","amount":2,"give_hp":true},{"id":"bk:ModifyHp","amount":1,"to_min":false,"to_max":true}],"renderer":{}},"bk:gold_coin":{"id":"bk:gold_coin","animation":"gold_coin","time":0.100000001490116,"type":2,"chance":0.0366670005023479,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:GiveGold","amount":15}],"renderer":{}},"bk:iron_coin":{"id":"bk:iron_coin","animation":"iron_coin","time":0.100000001490116,"type":2,"chance":0.100000001490116,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:GiveGold","amount":5}],"renderer":{}},"bk:copper_coin":{"id":"bk:copper_coin","animation":"copper_coin","time":0.100000001490116,"type":2,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:GiveGold","amount":1}],"renderer":{}},"bk:platinum_coin":{"id":"bk:platinum_coin","animation":"platinum_coin","time":0.100000001490116,"type":2,"chance":0.00999999977648258,"single":true,"auto_pickup":true,"pool":65,"uses":[{"id":"bk:GiveGold","amount":25}],"renderer":{}},"bk:key":{"id":"bk:key","animation":"key","time":0.100000001490116,"type":4,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:GiveKey","amount":1}],"renderer":{}},"bk:bomb":{"id":"bk:bomb","time":0.100000001490116,"type":3,"single":true,"auto_pickup":true,"pool":1,"uses":[{"id":"bk:GiveBomb","amount":1}],"renderer":{}},"bk:infinite_bomb":{"id":"bk:infinite_bomb","time":1,"type":1,"single":true,"pool":8912966,"uses":[{"id":"bk:SpawnBomb"}],"renderer":{},"lock":true,"uprice":0},"bk:revolver":{"id":"bk:revolver","time":0.300000011920929,"type":7,"single":true,"pool":98,"uses":[{"id":"bk:SimpleShoot","texture":"default","range":12,"speed":15,"damage":1,"amount":1,"speedm":15,"scale":1,"scalem":1,"rect":true,"dsb":false,"accuracy":5}],"renderer":{"id":"bk:Angled","ox":2,"oy":5,"nx":9,"ny":2.5},"weapon":1},"bk:shotgun":{"id":"bk:shotgun","time":1,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","texture":"shot","range":8,"amount":5,"speed":10,"speedm":20,"scale":0.5,"accuracy":70,"damage":1,"scalem":1,"rect":true,"modifiers":[],"dsb":false,"prefab":"bk:shotgun"}],"renderer":{"id":"bk:Angled","ox":3,"oy":8,"nx":13,"ny":3},"lock":true,"uprice":0,"weapon":1},"bk:idol":{"id":"bk:idol","time":0.100000001490116,"type":6,"single":true,"pool":0,"uses":[{"id":"bk:SpawnItems","items":[[6,"bk:coin"]]},{"id":"bk:SpawnMobs","count":10}],"renderer":{}},"bk:the_sword":{"id":"bk:the_sword","time":0.300000011920929,"type":7,"chance":0,"single":true,"auto":true,"pool":0,"uses":[{"id":"bk:MeleeArc","damage":10000,"time":0.25,"w":10,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":5,"oy":16,"stay":true,"invert_back":true,"nx":5},"weapon":0},"bk:potatoo":{"id":"bk:potatoo","time":0.100000001490116,"single":true,"pool":33554498,"uses":[{"id":"bk:MakeProjectilesSplitOnDeath"}],"renderer":{},"lock":true,"uprice":1},"bk:spectacles":{"id":"bk:spectacles","time":0.100000001490116,"single":true,"pool":32838,"uses":[{"id":"bk:DiscoverSecretRooms"}],"renderer":{},"lock":true,"uprice":1},"bk:cross":{"id":"bk:cross","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:ModifyStat"}],"renderer":{}},"bk:slime":{"id":"bk:slime","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:MakeProjectilesBounce"}],"renderer":{}},"bk:missile":{"id":"bk:missile","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:MakeProjectilesHomeIn","speed":1}],"renderer":{}},"bk:rod_of_discord":{"id":"bk:rod_of_discord","time":1,"type":7,"single":true,"pool":8258,"uses":[{"id":"bk:TeleportToCursor"}],"renderer":{"id":"bk:Stick","ox":3.5,"oy":12,"nx":3.5,"ny":0},"lock":true,"uprice":5,"weapon":2},"bk:goo":{"id":"bk:goo","time":0.100000001490116,"single":true,"pool":264258,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:goo"}],"renderer":{}},"bk:jelly":{"id":"bk:jelly","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:jelly"}],"renderer":{}},"bk:broken_stone":{"id":"bk:broken_stone","time":0.100000001490116,"single":true,"pool":786498,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:broken_stone"}],"renderer":{},"lock":true,"uprice":0},"bk:nano_orb":{"id":"bk:nano_orb","time":0.100000001490116,"single":true,"pool":262210,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:nano_orb"}],"renderer":{}},"bk:saturn":{"id":"bk:saturn","time":0.100000001490116,"single":true,"pool":262210,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:planet"}],"renderer":{}},"bk:soap":{"id":"bk:soap","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:MakeProjectilesSlowDown","amount":1.5}],"renderer":{}},"bk:d6":{"id":"bk:d6","time":4,"type":1,"single":true,"pool":70,"uses":[{"id":"bk:RerollItems","types":[2,3,4,5,8],"s_new":false,"ignore":true}],"renderer":{},"lock":true,"uprice":0},"bk:my_heart":{"id":"bk:my_heart","time":0.100000001490116,"single":true,"pool":4268162,"uses":[{"id":"bk:ModifyMaxHp","amount":2}],"renderer":{}},"bk:broken_heart":{"id":"bk:broken_heart","time":0.100000001490116,"single":true,"pool":4259970,"uses":[{"id":"bk:ModifyMaxHp","give_hp":false,"amount":2}],"renderer":{}},"bk:parcel":{"id":"bk:parcel","time":3,"type":1,"single":true,"pool":82,"uses":[{"id":"bk:ModifyHp"}],"renderer":{},"lock":true,"uprice":3},"bk:glass":{"id":"bk:glass","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:MakeProjectilesShatternOnDeath"}],"renderer":{},"lock":true,"uprice":1},"bk:broken_guitar":{"id":"bk:broken_guitar","time":0.100000001490116,"single":true,"pool":32838,"uses":[{"id":"bk:UseOnEvent","use":"bk:SpawnProjectiles","tp":"BurningKnight.entity.events.PlayerRolledEvent","us":{"id":"bk:SpawnProjectiles","texture":"default","amount":6,"speed":3}}],"renderer":{}},"bk:machine_gun":{"id":"bk:machine_gun","time":0.300000011920929,"type":7,"single":true,"auto":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","damage":1,"amount":1,"speed":15,"speedm":15,"dsb":false,"scale":1,"scalem":1,"texture":"rect","rect":true}],"renderer":{"id":"bk:Angled","ox":6,"oy":6,"nx":19,"ny":3.5},"weapon":1},"bk:grenade_launcher":{"id":"bk:grenade_launcher","time":1,"type":7,"single":true,"pool":2,"uses":[{"id":"bk:ShootQueue","texture":"grenade","speed":10,"prefab":"bk:grenade","accuracy":30,"amn":1,"dl":0,"damage":0}],"renderer":{"id":"bk:Stick","h":true,"nx":12,"ny":4.5,"ox":0,"oy":4},"lock":true,"uprice":1,"weapon":1},"bk:missile_launcher":{"id":"bk:missile_launcher","time":0.100000001490116,"type":7,"single":true,"pool":2,"uses":[{"id":"bk:ShootQueue","texture":"missile_normal","speed":4,"prefab":"bk:missile","accuracy":30,"amn":1,"dl":0,"damage":0,"rect":true,"wait":true,"amount":1,"speedm":4,"scale":1,"scalem":1}],"renderer":{"id":"bk:Angled","ox":2,"oy":3,"nx":10,"ny":3},"weapon":1},"bk:burst_gun":{"id":"bk:burst_gun","time":0.400000005960464,"type":7,"single":true,"auto":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","speed":5,"texture":"default","accuracy":50,"scale":0.5,"scalem":0.699999988079071,"damage":1,"amount":1,"speedm":10,"rect":true,"range":96,"dsb":false}],"renderer":{"id":"bk:Angled","ox":2,"oy":6,"nx":13,"ny":4.5},"weapon":1},"bk:flak_cannon":{"id":"bk:flak_cannon","time":1,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","speed":15,"texture":"default","accuracy":30,"scale":1,"scalem":1,"prefab":"bk:flak","wait":true,"speedm":15,"damage":1,"amount":1,"rect":true,"dsb":false}],"renderer":{"id":"bk:Angled","ox":2,"oy":3,"nx":15,"ny":4},"weapon":1},"bk:disk_gun":{"id":"bk:disk_gun","time":0.400000005960464,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","speed":10,"texture":"disk","accuracy":0,"scale":1,"scalem":1,"prefab":"bk:disk","light":false,"damage":4,"amount":1,"speedm":10,"dsb":true}],"renderer":{"id":"bk:Angled","ox":1,"oy":6,"nx":12,"ny":4},"weapon":1},"bk:duck_gun":{"id":"bk:duck_gun","time":1,"type":7,"chance":0.100000001490116,"single":true,"pool":67141698,"uses":[{"id":"bk:SimpleShoot","speed":3,"texture":"square","accuracy":0,"scale":1,"scalem":1,"prefab":"bk:duck","damage":5,"speedm":3,"knockback":3000,"rect":true,"wait":true,"amount":1,"dsb":false}],"renderer":{"id":"bk:Angled","ox":2,"oy":7,"nx":9,"ny":2.5,"invert_back":false},"lock":true,"uprice":4,"weapon":1},"bk:follower":{"id":"bk:follower","time":0.100000001490116,"type":7,"single":true,"pool":2,"uses":[{"id":"bk:SimpleShoot","speed":4,"texture":"missile_normal","accuracy":0,"scale":1,"scalem":1,"prefab":"bk:follower","damage":0,"speedm":4,"knockback":1,"rect":true,"wait":true,"amount":1}],"renderer":{"id":"bk:Angled","ox":2,"oy":7,"nx":14,"ny":3.5},"weapon":1},"bk:portal_gun":{"id":"bk:portal_gun","time":0.200000002980232,"type":7,"single":true,"auto":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","speed":7,"texture":"default","accuracy":0,"scale":1,"scalem":1,"prefab":"bk:portal","damage":1,"speedm":7,"knockback":1,"amount":1,"rect":true}],"renderer":{"id":"bk:Angled","ox":0,"oy":6,"nx":15,"ny":3.5},"weapon":1},"bk:restock":{"id":"bk:restock","time":0.100000001490116,"single":true,"pool":98306,"uses":[{"id":"bk:MakeShopRestock"}],"renderer":{}},"bk:charisma_ring":{"id":"bk:charisma_ring","time":0.100000001490116,"single":true,"pool":33286,"uses":[{"id":"bk:SaleItems"}],"renderer":{}},"bk:battery":{"id":"bk:battery","time":0.100000001490116,"type":8,"single":true,"auto_pickup":true,"pool":65,"uses":[{"id":"bk:ModifyActiveCharge","percent":true,"amount":100}],"renderer":{}},"bk:homemade_dice":{"id":"bk:homemade_dice","time":3,"type":1,"single":true,"pool":70,"uses":[{"id":"bk:RerollAndHide","types":[8,2,3,4,5],"s_new":false}],"renderer":{},"lock":true,"uprice":3},"bk:iron_boots":{"id":"bk:iron_boots","time":0.100000001490116,"single":true,"pool":194,"uses":[{"id":"bk:PreventDamage","sp":true}],"renderer":{}},"bk:glass_gun":{"id":"bk:glass_gun","time":0.300000011920929,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","texture":"default","range":16,"speed":30,"speedm":30,"accuracy":10,"damage":3,"amount":1,"scale":1,"scalem":1,"rect":true},{"id":"bk:UseOnEvent","use":"bk:GiveWeapon","tp":"BurningKnight.entity.events.PlayerHurtEvent","us":{"id":"bk:GiveWeapon","item":"bk:glass_shard"}}],"renderer":{"id":"bk:Angled","ox":3,"oy":6,"nx":15,"ny":3.5},"lock":true,"uprice":1,"weapon":1},"bk:glass_shard":{"id":"bk:glass_shard","time":0.25,"type":7,"chance":0,"single":true,"pool":0,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":16,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":2,"oy":9,"stay":true,"invert_back":true,"nx":3,"ny":0},"weapon":0},"bk:disk_10":{"id":"bk:disk_10","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":10,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_1":{"id":"bk:disk_1","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":10,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_9":{"id":"bk:disk_9","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":10,"h":26,"angle":0}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_2":{"id":"bk:disk_2","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_3":{"id":"bk:disk_3","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_8":{"id":"bk:disk_8","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":6,"ny":0},"weapon":0},"bk:disk_4":{"id":"bk:disk_4","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":6,"ny":0},"weapon":0},"bk:disk_5":{"id":"bk:disk_5","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":6,"ny":0},"weapon":0},"bk:disk_7":{"id":"bk:disk_7","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:disk_6":{"id":"bk:disk_6","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":64,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":7,"ny":0},"weapon":0},"bk:dagger":{"id":"bk:dagger","time":0.300000011920929,"type":7,"single":true,"auto":true,"pool":66,"uses":[{"id":"bk:MeleeArc","h":16,"w":20,"damage":1,"time":0.200000002980232,"angle":0}],"renderer":{"id":"bk:Stick","mv":8,"nx":2.5,"ny":0,"ox":2.5,"oy":12},"lock":true,"uprice":0,"weapon":0},"bk:spear":{"id":"bk:spear","time":0.5,"type":7,"single":true,"auto":true,"pool":66,"uses":[{"id":"bk:MeleeArc","h":12,"w":26,"damage":1,"time":0.200000002980232,"angle":0}],"renderer":{"id":"bk:Stick","mv":8,"ox":3.5,"oy":21,"nx":3.5,"ny":0,"h":false},"weapon":0},"bk:emerald":{"id":"bk:emerald","time":0.100000001490116,"type":2,"single":true,"auto_pickup":true,"pool":256,"uses":[{"id":"bk:GiveEmeralds"}],"renderer":{}},"bk:magnifier":{"id":"bk:magnifier","time":0.100000001490116,"single":true,"pool":198,"uses":[{"id":"bk:ModifyProjectiles","amount":2}],"renderer":{},"lock":true,"uprice":1},"bk:spike":{"id":"bk:spike","time":0.100000001490116,"single":true,"pool":2162882,"uses":[{"id":"bk:ModifyStats","speed":1,"add_speed":false,"damage":1,"add_damage":true,"fire_rate":1,"add_fire_rate":false,"accuracy":1,"add_accuracy":false,"range":1,"add_range":false}],"renderer":{}},"bk:mushroom_hat":{"id":"bk:mushroom_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:stone_hat":{"id":"bk:stone_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:knight_hat":{"id":"bk:knight_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:cowboy_hat":{"id":"bk:cowboy_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:soup_hat":{"id":"bk:soup_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:gold_hat":{"id":"bk:gold_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":5},"bk:viking_hat":{"id":"bk:viking_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":2},"bk:dunce_hat":{"id":"bk:dunce_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:top_hat":{"id":"bk:top_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":2},"bk:ushanka":{"id":"bk:ushanka","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":3},"bk:valkyrie_hat":{"id":"bk:valkyrie_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":2},"bk:skull_hat":{"id":"bk:skull_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:grandma_head":{"id":"bk:grandma_head","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":2},"bk:diamond_helmet":{"id":"bk:diamond_helmet","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":15},"bk:villager_head":{"id":"bk:villager_head","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:fez":{"id":"bk:fez","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:no_hat":{"id":"bk:no_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":0},"bk:null_hat":{"id":"bk:null_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:xmas_hat":{"id":"bk:xmas_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":0},"bk:pumpkin_hat":{"id":"bk:pumpkin_hat","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{}},"bk:cage_key":{"id":"bk:cage_key","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":0,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25}],"renderer":{"id":"bk:MovingAngled","ox":0,"oy":3.5,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":12,"ny":3},"weapon":0},"bk:frog":{"id":"bk:frog","time":2,"type":1,"single":true,"pool":67110978,"uses":[{"id":"bk:Teleport","self":true}],"renderer":{},"lock":true,"uprice":2},"bk:sword_orbital":{"id":"bk:sword_orbital","time":0.100000001490116,"single":true,"pool":262210,"uses":[{"id":"bk:SpawnOrbital","orbital":"bk:sword"}],"renderer":{}},"bk:gift":{"id":"bk:gift","time":0.100000001490116,"type":1,"single":true,"single_use":true,"pool":66,"uses":[{"id":"bk:GiveItem","on_stand":true,"random":true}],"renderer":{}},"bk:spike_ring":{"id":"bk:spike_ring","time":0.100000001490116,"single":true,"pool":2162886,"uses":[{"id":"bk:DoOnEnemyCollision","uses":[{"id":"bk:ModifyHp","amount":-1}]}],"renderer":{}},"bk:fire_ring":{"id":"bk:fire_ring","time":0.100000001490116,"single":true,"pool":198,"uses":[{"id":"bk:DoOnEnemyCollision","uses":[{"id":"bk:GiveBuff","buff":"bk:burning","time":5}]}],"renderer":{}},"bk:ice_ring":{"id":"bk:ice_ring","time":0.100000001490116,"single":true,"pool":198,"uses":[{"id":"bk:DoOnEnemyCollision","uses":[{"id":"bk:GiveBuff","buff":"bk:frozen","time":5}]}],"renderer":{}},"bk:duck_ring":{"id":"bk:duck_ring","time":0.100000001490116,"chance":0.00999999977648258,"single":true,"pool":68157638,"uses":[{"id":"bk:DoOnHurt","uses":[{"id":"bk:Teleport","self":true}]}],"renderer":{}},"bk:snowflake":{"id":"bk:snowflake","time":2,"type":1,"single":true,"pool":66,"uses":[{"id":"bk:DoWith","uses":[{"id":"bk:GiveBuff","buff":"bk:frozen","time":5}],"all":true,"tag":4}],"renderer":{},"lock":true,"uprice":1},"bk:potion_of_liquid_flame":{"id":"bk:potion_of_liquid_flame","time":0.100000001490116,"type":1,"single":true,"single_use":true,"pool":0,"uses":[{"id":"bk:GiveBuff","buff":"bk:burning","time":10}],"renderer":{}},"bk:dull_blade":{"id":"bk:dull_blade","time":0.100000001490116,"type":1,"chance":0.00999999977648258,"single":true,"pool":66,"uses":[{"id":"bk:TriggerHurtEvent"}],"renderer":{}},"bk:sharp_blade":{"id":"bk:sharp_blade","time":0.100000001490116,"type":1,"chance":0.00999999977648258,"single":true,"pool":66,"uses":[{"id":"bk:ModifyHp","amount":-1}],"renderer":{}},"bk:potion_of_frost":{"id":"bk:potion_of_frost","time":0.100000001490116,"type":1,"single":true,"pool":0,"uses":[{"id":"bk:GiveBuff","buff":"bk:frozen","time":10}],"renderer":{}},"bk:obsidian_shield":{"id":"bk:obsidian_shield","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:SetKnockbackModifier"}],"renderer":{}},"bk:bill":{"id":"bk:bill","time":0.100000001490116,"chance":0.5,"single":true,"scourged":true,"pool":8710,"uses":[{"id":"bk:GiveGold","amount":99},{"id":"bk:Scourge","amount":2}],"renderer":{}},"bk:clover":{"id":"bk:clover","time":0.100000001490116,"single":true,"pool":4098,"uses":[{"id":"bk:ModifyLuck","amount":2}],"renderer":{}},"bk:d4":{"id":"bk:d4","time":8,"type":1,"single":true,"pool":70,"uses":[{"id":"bk:RerollItemsOnPlayer"}],"renderer":{}},"bk:maanex_head":{"id":"bk:maanex_head","time":0.100000001490116,"type":9,"single":true,"pool":0,"uses":[],"renderer":{},"lock":true,"uprice":1},"bk:maanex":{"id":"bk:maanex","time":1,"type":1,"single":true,"pool":70,"uses":[{"id":"bk:GoThonk"}],"renderer":{}},"bk:map_greenprints":{"id":"bk:map_greenprints","time":0.100000001490116,"type":1,"single":true,"single_use":true,"pool":4166,"uses":[{"id":"bk:RevealMap"}],"renderer":{}},"bk:map":{"id":"bk:map","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:RevealMap"}],"renderer":{}},"bk:crying_bomb":{"id":"bk:crying_bomb","time":0.100000001490116,"single":true,"pool":8912962,"uses":[{"id":"bk:ModifyBombs","spawn_bullets":true},{"id":"bk:GiveBomb","amount":10}],"renderer":{}},"bk:matches":{"id":"bk:matches","time":0.100000001490116,"single":true,"pool":8388674,"uses":[{"id":"bk:ModifyBombs","spawn_bullets":false,"set_fuse":true,"fuse_time":0.5},{"id":"bk:GiveBomb","amount":5}],"renderer":{}},"bk:bomb_pack":{"id":"bk:bomb_pack","time":0.100000001490116,"single":true,"pool":8913474,"uses":[{"id":"bk:ModifyBombs","spawn_bullets":false,"set_fuse":false,"fuse_time":0.5,"spawn_bombs":true},{"id":"bk:GiveBomb","amount":5}],"renderer":{}},"bk:tnt":{"id":"bk:tnt","time":0.100000001490116,"single":true,"quality":2,"pool":8913474,"uses":[{"id":"bk:GiveBomb","amount":99}],"renderer":{}},"bk:weird_mushroom":{"id":"bk:weird_mushroom","time":0.100000001490116,"type":1,"chance":0.100000001490116,"single":true,"quality":2,"single_use":true,"pool":2097218,"uses":[{"id":"bk:DuplicateItems"},{"id":"bk:DuplicateMobs"}],"renderer":{}},"bk:bomb_shower":{"id":"bk:bomb_shower","time":2,"type":1,"single":true,"pool":8912962,"uses":[{"id":"bk:SpawnBomb","amount":10,"randomly":true}],"renderer":{}},"bk:black_belt":{"id":"bk:black_belt","time":0.100000001490116,"single":true,"pool":8388674,"uses":[{"id":"bk:PreventDamage","bms":true,"cs":false,"sp":false,"lv":false}],"renderer":{}},"bk:ninjia_bomb":{"id":"bk:ninjia_bomb","time":0.100000001490116,"single":true,"pool":8921154,"uses":[{"id":"bk:DoOnHurt","uses":[{"id":"bk:SpawnBomb","randomly":true,"amount":8}]}],"renderer":{}},"bk:laser_pointer":{"id":"bk:laser_pointer","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:GiveLaserAim"}],"renderer":{}},"bk:voodoo_doll":{"id":"bk:voodoo_doll","time":0.100000001490116,"type":1,"single":true,"single_use":true,"pool":35660354,"uses":[{"id":"bk:KillMob","all":true}],"renderer":{}},"bk:amurs_arrow":{"id":"bk:amurs_arrow","time":0.100000001490116,"single":true,"pool":4162,"uses":[{"id":"bk:ModifyProjectiles","buff_time":10,"buff":"bk:charmed","chance":0.300000011920929,"amount":1,"damage":1,"infinite_buff":false}],"renderer":{}},"bk:amurs_bow":{"id":"bk:amurs_bow","time":1,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:SimpleShoot","texture":"arrow","rect":true,"speed":10,"damage":0,"modifiers":[{"id":"bk:GiveBuff","buff":"bk:charmed","time":10}],"amount":1,"speedm":10,"scale":1,"scalem":1,"dsb":false},{"id":"bk:ModifyProjectiles","buff":"bk:charmed","buff_time":10,"chance":1,"amount":1,"damage":1,"infinite_buff":false}],"renderer":{"id":"bk:Stick","ox":2,"oy":8,"nx":9,"ny":8,"h":true},"weapon":1},"bk:poison_flask":{"id":"bk:poison_flask","time":0.100000001490116,"single":true,"pool":2122,"uses":[{"id":"bk:ModifyProjectiles","buff_time":5,"buff":"bk:poison","chance":0.300000011920929,"amount":1,"damage":1,"infinite_buff":false}],"renderer":{}},"bk:snowball":{"id":"bk:snowball","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:ModifyProjectiles","buff_time":5,"buff":"bk:frozen","chance":0.300000011920929,"amount":1,"damage":1,"infinite_buff":false}],"renderer":{}},"bk:peper":{"id":"bk:peper","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:ModifyProjectiles","buff_time":5,"buff":"bk:burning","chance":0.300000011920929,"amount":1,"damage":1,"infinite_buff":false}],"renderer":{}},"bk:sale_coupon":{"id":"bk:sale_coupon","time":0.100000001490116,"type":1,"single":true,"single_use":true,"pool":518,"uses":[{"id":"bk:SaleItems"}],"renderer":{}},"bk:pet_box":{"id":"bk:pet_box","time":0.100000001490116,"type":6,"single":true,"pool":16466,"uses":[{"id":"bk:SpawnPet","random":true,"pet":""}],"renderer":{}},"bk:crate":{"id":"bk:crate","time":0.100000001490116,"type":6,"single":true,"pool":82,"uses":[{"id":"bk:SpawnOrbital","random":true}],"renderer":{}},"bk:strawberry":{"id":"bk:strawberry","time":0.100000001490116,"single":true,"pool":131138,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:strawberry"}],"renderer":{}},"bk:wings":{"id":"bk:wings","time":0.100000001490116,"single":true,"pool":1167426,"uses":[{"id":"bk:GiveFlight"}],"renderer":{}},"bk:coin_pouch":{"id":"bk:coin_pouch","time":0.100000001490116,"single":true,"pool":149586,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:coin_pouch"}],"renderer":{}},"bk:key_pouch":{"id":"bk:key_pouch","time":0.100000001490116,"single":true,"pool":149586,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:key_pouch"}],"renderer":{}},"bk:bomb_pouch":{"id":"bk:bomb_pouch","time":0.100000001490116,"single":true,"pool":9062482,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:bomb_pouch"}],"renderer":{}},"bk:pouch_pouch":{"id":"bk:pouch_pouch","time":0.100000001490116,"chance":0.200000002980232,"single":true,"pool":149586,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:pouch_pouch"}],"renderer":{}},"bk:pouch":{"id":"bk:pouch","time":0.100000001490116,"type":10,"single":true,"auto_pickup":true,"pool":131089,"uses":[{"id":"bk:SpawnDrop","drop":"bk:pouch"}],"renderer":{}},"bk:pickaxe":{"id":"bk:pickaxe","time":0.100000001490116,"chance":0,"single":true,"pool":0,"uses":[],"renderer":{}},"bk:shovel":{"id":"bk:shovel","time":1,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":12,"h":16,"angle":0},{"id":"bk:MeleeArc","damage":1,"w":12,"h":16,"time":0.200000002980232,"angle":-0.25},{"id":"bk:MeleeArc","damage":1,"w":12,"h":16,"time":0.200000002980232,"angle":0.25}],"renderer":{"id":"bk:MovingAngled","ox":3.5,"oy":13,"stay":true,"invert_back":true,"st":0.150000005960464,"nx":3,"ny":0},"weapon":0},"bk:lightsaber":{"id":"bk:lightsaber","time":0.5,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:MeleeArc","damage":2,"time":0.25,"w":12,"h":16,"angle":0},{"id":"bk:MeleeArc","damage":1,"w":12,"h":16,"time":0.200000002980232,"angle":-0.25},{"id":"bk:MeleeArc","damage":1,"w":12,"h":16,"time":0.200000002980232,"angle":0.25},{"id":"bk:MeleeArc","damage":1,"w":12,"h":16,"time":0.200000002980232,"angle":0.5}],"renderer":{"id":"bk:MovingAngled","ox":2,"oy":20,"stay":true,"invert_back":true,"st":0.300000011920929,"max_angle":360,"rt":0.0500000007450581,"nx":2,"ny":0},"weapon":0},"bk:snail":{"id":"bk:snail","time":2,"type":1,"single":true,"pool":66,"uses":[{"id":"bk:DoWith","uses":[{"id":"bk:GiveBuff","buff":"bk:slow","time":10}],"all":true,"tag":4}],"renderer":{},"lock":true,"uprice":1},"bk:mushroom":{"id":"bk:mushroom","time":0.100000001490116,"single":true,"pool":2114,"uses":[{"id":"bk:ModifyStats","speed":0.5,"add_speed":true,"damage":1,"add_damage":false,"fire_rate":1,"add_fire_rate":false,"accuracy":1,"add_accuracy":false,"range":1,"add_range":false}],"renderer":{}},"bk:candy":{"id":"bk:candy","time":0.100000001490116,"single":true,"pool":1048642,"uses":[{"id":"bk:ModifyStats","speed":1,"add_speed":false,"damage":1,"add_damage":false,"fire_rate":1.5,"add_fire_rate":false,"accuracy":1,"add_accuracy":false,"range":1,"add_range":false}],"renderer":{}},"bk:glasses":{"id":"bk:glasses","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:ModifyStats","speed":1,"add_speed":false,"damage":1,"add_damage":false,"fire_rate":1,"add_fire_rate":false,"accuracy":2,"add_accuracy":false,"range":1,"add_range":false}],"renderer":{}},"bk:ruler":{"id":"bk:ruler","time":0.100000001490116,"single":true,"pool":194,"uses":[{"id":"bk:ModifyStats","speed":1,"add_speed":false,"damage":1,"add_damage":false,"fire_rate":1,"add_fire_rate":false,"accuracy":1,"add_accuracy":false,"range":1,"add_range":true}],"renderer":{}},"bk:glass_bullet":{"id":"bk:glass_bullet","time":0.100000001490116,"single":true,"pool":66,"uses":[{"id":"bk:MakeLayerPassable","fp":true,"st":true,"fpl":false}],"renderer":{}},"bk:stopwatch":{"id":"bk:stopwatch","time":0.100000001490116,"single":true,"pool":1048642,"uses":[{"id":"bk:DoOnHurt","uses":[{"id":"bk:DoWith","uses":[{"id":"bk:GiveBuff","buff":"bk:slow","time":15}],"same_room":true,"all":true,"tag":4}]}],"renderer":{}},"bk:meat_guy":{"id":"bk:meat_guy","time":0.100000001490116,"single":true,"pool":262338,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:meat_guy"}],"renderer":{}},"bk:bullet_stone":{"id":"bk:bullet_stone","time":0.100000001490116,"single":true,"pool":790594,"uses":[{"id":"bk:SpawnOrbital","random":false,"orbital":"bk:bullet_stone"}],"renderer":{}},"bk:batman":{"id":"bk:batman","time":0.100000001490116,"single":true,"pool":132162,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:batman"}],"renderer":{}},"bk:sharp_arrow":{"id":"bk:sharp_arrow","time":0.100000001490116,"single":true,"pool":4162,"uses":[{"id":"bk:MakeLayerPassable","st":false,"fp":true,"im":true}],"renderer":{}},"bk:boomerang":{"id":"bk:boomerang","time":0.100000001490116,"single":true,"pool":16450,"uses":[{"id":"bk:MakeProjectilesBoomerang"}],"renderer":{}},"bk:backpack":{"id":"bk:backpack","time":0.100000001490116,"single":true,"pool":135754,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:backpack"}],"renderer":{}},"bk:crystal":{"id":"bk:crystal","time":0.100000001490116,"single":true,"pool":163906,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:crystal"}],"renderer":{}},"bk:prism":{"id":"bk:prism","time":0.100000001490116,"single":true,"pool":294978,"uses":[{"id":"bk:SpawnOrbital","random":false,"orbital":"bk:prism"}],"renderer":{}},"bk:scourge_of_egg":{"id":"bk:scourge_of_egg","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_egg"}],"renderer":{}},"bk:scourge_of_unknown":{"id":"bk:scourge_of_unknown","time":0.100000001490116,"type":11,"single":true,"pool":0,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_unknown"}],"renderer":{}},"bk:scourge_of_blood":{"id":"bk:scourge_of_blood","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_blood"}],"renderer":{}},"bk:scourge_of_risk":{"id":"bk:scourge_of_risk","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_risk"}],"renderer":{}},"bk:scourge_of_keys":{"id":"bk:scourge_of_keys","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_keys"}],"renderer":{}},"bk:scourge_of_lost":{"id":"bk:scourge_of_lost","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_lost"}],"renderer":{}},"bk:scourge_of_scourged":{"id":"bk:scourge_of_scourged","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_scourged"}],"renderer":{}},"bk:scourge_of_illness":{"id":"bk:scourge_of_illness","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_illness"}],"renderer":{}},"bk:scourge_of_death":{"id":"bk:scourge_of_death","time":0.100000001490116,"type":11,"single":true,"pool":16777216,"uses":[{"id":"bk:EnableScourge","scourge":"bk:of_death"},{"id":"bk:ModifyHp","amount":1,"to_min":true}],"renderer":{}},"bk:ancient_revolver":{"id":"bk:ancient_revolver","time":0.300000011920929,"type":7,"chance":0,"single":true,"pool":98,"uses":[{"id":"bk:SimpleShoot","texture":"rect","range":12,"speed":15,"damage":1.5,"amount":1,"speedm":15,"scale":1,"scalem":1,"rect":true,"dsb":false,"accuracy":10,"modifiers":[]}],"renderer":{"id":"bk:Angled","ox":2,"oy":3,"nx":6,"ny":2},"weapon":0},"bk:assault_rifle":{"id":"bk:assault_rifle","time":0.5,"type":7,"single":true,"pool":66,"uses":[{"id":"bk:ShootQueue","damage":1,"amount":1,"speed":15,"speedm":15,"dsb":false,"scale":1,"scalem":1,"range":96,"accuracy":10,"rect":true,"texture":"rect"}],"renderer":{"id":"bk:Angled","ox":6,"oy":6,"nx":19,"ny":3.5},"weapon":0},"bk:shield":{"id":"bk:shield","time":0.100000001490116,"type":5,"single":true,"auto_pickup":true,"pool":321,"uses":[{"id":"bk:ModifyShieldHearts","amount":1,"to_min":false}],"renderer":{}},"bk:shield_pouch":{"id":"bk:shield_pouch","time":0.100000001490116,"single":true,"pool":149586,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:shield_pouch"}],"renderer":{}},"bk:shield_buddy":{"id":"bk:shield_buddy","time":0.100000001490116,"single":true,"pool":131138,"uses":[{"id":"bk:SpawnPet","random":false,"pet":"bk:shield_buddy"}],"renderer":{}},"bk:skeleton_key":{"id":"bk:skeleton_key","time":0.100000001490116,"single":true,"quality":2,"pool":20,"uses":[{"id":"bk:GiveKey","amount":99}],"renderer":{}},"bk:jar":{"id":"bk:jar","time":0.100000001490116,"single":true,"quality":1,"pool":1048642,"uses":[{"id":"bk:ModifyMaxHp","amount":4,"give_hp":true}],"renderer":{}},"bk:star":{"id":"bk:star","time":3,"type":1,"single":true,"pool":33554432,"uses":[{"id":"bk:GiveBuff","buff":"bk:invincible","time":10},{"id":"bk:DoOnTimer","time":10,"uses":[{"id":"bk:SetMusicSpeed","speed":1}]},{"id":"bk:SetMusicSpeed","speed":2}],"renderer":{}},"bk:car_bomb":{"id":"bk:car_bomb","time":0.100000001490116,"single":true,"pool":8912896,"uses":[{"id":"bk:MakeBombsHome"}],"renderer":{}},"bk:grenade":{"id":"bk:grenade","time":0.100000001490116,"single":true,"pool":8912898,"uses":[{"id":"bk:MakeBombsExplodeOnTouch"}],"renderer":{}},"bk:vampire_bat":{"id":"bk:vampire_bat","time":0.100000001490116,"single":true,"pool":6291456,"uses":[{"id":"bk:Regen","speed":1,"kills":true,"chests":false,"purchase":false}],"renderer":{}},"bk:mustache":{"id":"bk:mustache","time":0.100000001490116,"single":true,"pool":4194368,"uses":[{"id":"bk:Regen","speed":1,"kills":false,"chests":false,"purchase":true}],"renderer":{}},"bk:bloody_chest":{"id":"bk:bloody_chest","time":0.100000001490116,"single":true,"pool":4263938,"uses":[{"id":"bk:Regen","speed":1,"kills":false,"chests":true,"purchase":false}],"renderer":{}},"bk:bloody_shield":{"id":"bk:bloody_shield","time":0.100000001490116,"single":true,"pool":6356992,"uses":[{"id":"bk:ReplaceHeartsWithShields"},{"id":"bk:ModifyShieldHearts","amount":1,"to_min":false,"to_max":false}],"renderer":{}},"bk:cutsaw":{"id":"bk:cutsaw","time":0.100000001490116,"single":true,"quality":2,"pool":39845952,"uses":[{"id":"bk:DoOnHurt","uses":[{"id":"bk:DoWith","uses":[{"id":"bk:ModifyHp","amount":-3,"to_min":false,"to_max":false}],"same_room":true,"tag":516}]}],"renderer":{}}}
+{
+	"bk:sword": {
+		"id": "bk:sword",
+		"time": 0.5,
+		"type": 7,
+		"single": true,
+		"pool": 98,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 10,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 3.5
+		},
+		"weapon": 0
+	},
+	"bk:heart": {
+		"id": "bk:heart",
+		"animation": "item_heart",
+		"time": 0.100000001490116,
+		"type": 5,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:ModifyHp",
+				"amount": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:halo": {
+		"id": "bk:halo",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 1048642,
+		"uses": [
+			{
+				"id": "bk:ModifyMaxHp",
+				"amount": 2,
+				"give_hp": true
+			},
+			{
+				"id": "bk:ModifyHp",
+				"amount": 1,
+				"to_min": false,
+				"to_max": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:gold_coin": {
+		"id": "bk:gold_coin",
+		"animation": "gold_coin",
+		"time": 0.100000001490116,
+		"type": 2,
+		"chance": 0.0366670005023479,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:GiveGold",
+				"amount": 15
+			}
+		],
+		"renderer": {}
+	},
+	"bk:iron_coin": {
+		"id": "bk:iron_coin",
+		"animation": "iron_coin",
+		"time": 0.100000001490116,
+		"type": 2,
+		"chance": 0.100000001490116,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:GiveGold",
+				"amount": 5
+			}
+		],
+		"renderer": {}
+	},
+	"bk:copper_coin": {
+		"id": "bk:copper_coin",
+		"animation": "copper_coin",
+		"time": 0.100000001490116,
+		"type": 2,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:GiveGold",
+				"amount": 1
+			}
+		],
+		"renderer": {}
+	},
+	"bk:platinum_coin": {
+		"id": "bk:platinum_coin",
+		"animation": "platinum_coin",
+		"time": 0.100000001490116,
+		"type": 2,
+		"chance": 0.00999999977648258,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 65,
+		"uses": [
+			{
+				"id": "bk:GiveGold",
+				"amount": 25
+			}
+		],
+		"renderer": {}
+	},
+	"bk:key": {
+		"id": "bk:key",
+		"animation": "key",
+		"time": 0.100000001490116,
+		"type": 4,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:GiveKey",
+				"amount": 1
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bomb": {
+		"id": "bk:bomb",
+		"time": 0.100000001490116,
+		"type": 3,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 1,
+		"uses": [
+			{
+				"id": "bk:GiveBomb",
+				"amount": 1
+			}
+		],
+		"renderer": {}
+	},
+	"bk:infinite_bomb": {
+		"id": "bk:infinite_bomb",
+		"time": 1,
+		"type": 1,
+		"single": true,
+		"pool": 8912966,
+		"uses": [
+			{
+				"id": "bk:SpawnBomb"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 0
+	},
+	"bk:revolver": {
+		"id": "bk:revolver",
+		"time": 0.300000011920929,
+		"type": 7,
+		"single": true,
+		"pool": 98,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"texture": "default",
+				"range": 12,
+				"speed": 15,
+				"damage": 1,
+				"amount": 1,
+				"speedm": 15,
+				"scale": 1,
+				"scalem": 1,
+				"rect": true,
+				"dsb": false,
+				"accuracy": 5
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 5,
+			"nx": 9,
+			"ny": 2.5
+		},
+		"weapon": 1
+	},
+	"bk:shotgun": {
+		"id": "bk:shotgun",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"texture": "shot",
+				"range": 8,
+				"amount": 5,
+				"speed": 10,
+				"speedm": 20,
+				"scale": 0.5,
+				"accuracy": 70,
+				"damage": 1,
+				"scalem": 1,
+				"rect": true,
+				"modifiers": [],
+				"dsb": false,
+				"prefab": "bk:shotgun"
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 3,
+			"oy": 8,
+			"nx": 13,
+			"ny": 3
+		},
+		"lock": true,
+		"uprice": 0,
+		"weapon": 1
+	},
+	"bk:idol": {
+		"id": "bk:idol",
+		"time": 0.100000001490116,
+		"type": 6,
+		"single": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:SpawnItems",
+				"items": [
+					[
+						6,
+						"bk:coin"
+					]
+				]
+			},
+			{
+				"id": "bk:SpawnMobs",
+				"count": 10
+			}
+		],
+		"renderer": {}
+	},
+	"bk:the_sword": {
+		"id": "bk:the_sword",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"auto": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 10000,
+				"time": 0.25,
+				"w": 10,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 5,
+			"oy": 16,
+			"stay": true,
+			"invert_back": true,
+			"nx": 5
+		},
+		"weapon": 0
+	},
+	"bk:potatoo": {
+		"id": "bk:potatoo",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 33554498,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesSplitOnDeath"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:spectacles": {
+		"id": "bk:spectacles",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 32838,
+		"uses": [
+			{
+				"id": "bk:DiscoverSecretRooms"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:cross": {
+		"id": "bk:cross",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ModifyStat"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:slime": {
+		"id": "bk:slime",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesBounce"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:missile": {
+		"id": "bk:missile",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesHomeIn",
+				"speed": 1
+			}
+		],
+		"renderer": {}
+	},
+	"bk:rod_of_discord": {
+		"id": "bk:rod_of_discord",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 8258,
+		"uses": [
+			{
+				"id": "bk:TeleportToCursor"
+			}
+		],
+		"renderer": {
+			"id": "bk:Stick",
+			"ox": 3.5,
+			"oy": 12,
+			"nx": 3.5,
+			"ny": 0
+		},
+		"lock": true,
+		"uprice": 5,
+		"weapon": 2
+	},
+	"bk:goo": {
+		"id": "bk:goo",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 264258,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:goo"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:jelly": {
+		"id": "bk:jelly",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:jelly"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:broken_stone": {
+		"id": "bk:broken_stone",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 786498,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:broken_stone"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 0
+	},
+	"bk:nano_orb": {
+		"id": "bk:nano_orb",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 262210,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:nano_orb"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:saturn": {
+		"id": "bk:saturn",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 262210,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:planet"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:soap": {
+		"id": "bk:soap",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesSlowDown",
+				"amount": 1.5
+			}
+		],
+		"renderer": {}
+	},
+	"bk:d6": {
+		"id": "bk:d6",
+		"time": 4,
+		"type": 1,
+		"single": true,
+		"pool": 70,
+		"uses": [
+			{
+				"id": "bk:RerollItems",
+				"types": [
+					2,
+					3,
+					4,
+					5,
+					8
+				],
+				"s_new": false,
+				"ignore": true
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 0
+	},
+	"bk:my_heart": {
+		"id": "bk:my_heart",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4268162,
+		"uses": [
+			{
+				"id": "bk:ModifyMaxHp",
+				"amount": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:broken_heart": {
+		"id": "bk:broken_heart",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4259970,
+		"uses": [
+			{
+				"id": "bk:ModifyMaxHp",
+				"give_hp": false,
+				"amount": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:parcel": {
+		"id": "bk:parcel",
+		"time": 3,
+		"type": 1,
+		"single": true,
+		"pool": 82,
+		"uses": [
+			{
+				"id": "bk:ModifyHp"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 3
+	},
+	"bk:glass": {
+		"id": "bk:glass",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesShatternOnDeath"
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:broken_guitar": {
+		"id": "bk:broken_guitar",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 32838,
+		"uses": [
+			{
+				"id": "bk:UseOnEvent",
+				"use": "bk:SpawnProjectiles",
+				"tp": "BurningKnight.entity.events.PlayerRolledEvent",
+				"us": {
+					"id": "bk:SpawnProjectiles",
+					"texture": "default",
+					"amount": 6,
+					"speed": 3
+				}
+			}
+		],
+		"renderer": {}
+	},
+	"bk:machine_gun": {
+		"id": "bk:machine_gun",
+		"time": 0.300000011920929,
+		"type": 7,
+		"single": true,
+		"auto": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"damage": 1,
+				"amount": 1,
+				"speed": 15,
+				"speedm": 15,
+				"dsb": false,
+				"scale": 1,
+				"scalem": 1,
+				"texture": "rect",
+				"rect": true
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 6,
+			"oy": 6,
+			"nx": 19,
+			"ny": 3.5
+		},
+		"weapon": 1
+	},
+	"bk:grenade_launcher": {
+		"id": "bk:grenade_launcher",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 2,
+		"uses": [
+			{
+				"id": "bk:ShootQueue",
+				"texture": "grenade",
+				"speed": 10,
+				"prefab": "bk:grenade",
+				"accuracy": 30,
+				"amn": 1,
+				"dl": 0,
+				"damage": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:Stick",
+			"h": true,
+			"nx": 12,
+			"ny": 4.5,
+			"ox": 0,
+			"oy": 4
+		},
+		"lock": true,
+		"uprice": 1,
+		"weapon": 1
+	},
+	"bk:missile_launcher": {
+		"id": "bk:missile_launcher",
+		"time": 0.100000001490116,
+		"type": 7,
+		"single": true,
+		"pool": 2,
+		"uses": [
+			{
+				"id": "bk:ShootQueue",
+				"texture": "missile_normal",
+				"speed": 4,
+				"prefab": "bk:missile",
+				"accuracy": 30,
+				"amn": 1,
+				"dl": 0,
+				"damage": 0,
+				"rect": true,
+				"wait": true,
+				"amount": 1,
+				"speedm": 4,
+				"scale": 1,
+				"scalem": 1
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 3,
+			"nx": 10,
+			"ny": 3
+		},
+		"weapon": 1
+	},
+	"bk:burst_gun": {
+		"id": "bk:burst_gun",
+		"time": 0.400000005960464,
+		"type": 7,
+		"single": true,
+		"auto": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 5,
+				"texture": "default",
+				"accuracy": 50,
+				"scale": 0.5,
+				"scalem": 0.699999988079071,
+				"damage": 1,
+				"amount": 1,
+				"speedm": 10,
+				"rect": true,
+				"range": 96,
+				"dsb": false
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 6,
+			"nx": 13,
+			"ny": 4.5
+		},
+		"weapon": 1
+	},
+	"bk:flak_cannon": {
+		"id": "bk:flak_cannon",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 15,
+				"texture": "default",
+				"accuracy": 30,
+				"scale": 1,
+				"scalem": 1,
+				"prefab": "bk:flak",
+				"wait": true,
+				"speedm": 15,
+				"damage": 1,
+				"amount": 1,
+				"rect": true,
+				"dsb": false
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 3,
+			"nx": 15,
+			"ny": 4
+		},
+		"weapon": 1
+	},
+	"bk:disk_gun": {
+		"id": "bk:disk_gun",
+		"time": 0.400000005960464,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 10,
+				"texture": "disk",
+				"accuracy": 0,
+				"scale": 1,
+				"scalem": 1,
+				"prefab": "bk:disk",
+				"light": false,
+				"damage": 4,
+				"amount": 1,
+				"speedm": 10,
+				"dsb": true
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 1,
+			"oy": 6,
+			"nx": 12,
+			"ny": 4
+		},
+		"weapon": 1
+	},
+	"bk:duck_gun": {
+		"id": "bk:duck_gun",
+		"time": 1,
+		"type": 7,
+		"chance": 0.100000001490116,
+		"single": true,
+		"pool": 67141698,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 3,
+				"texture": "square",
+				"accuracy": 0,
+				"scale": 1,
+				"scalem": 1,
+				"prefab": "bk:duck",
+				"damage": 5,
+				"speedm": 3,
+				"knockback": 3000,
+				"rect": true,
+				"wait": true,
+				"amount": 1,
+				"dsb": false
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 7,
+			"nx": 9,
+			"ny": 2.5,
+			"invert_back": false
+		},
+		"lock": true,
+		"uprice": 4,
+		"weapon": 1
+	},
+	"bk:follower": {
+		"id": "bk:follower",
+		"time": 0.100000001490116,
+		"type": 7,
+		"single": true,
+		"pool": 2,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 4,
+				"texture": "missile_normal",
+				"accuracy": 0,
+				"scale": 1,
+				"scalem": 1,
+				"prefab": "bk:follower",
+				"damage": 0,
+				"speedm": 4,
+				"knockback": 1,
+				"rect": true,
+				"wait": true,
+				"amount": 1
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 7,
+			"nx": 14,
+			"ny": 3.5
+		},
+		"weapon": 1
+	},
+	"bk:portal_gun": {
+		"id": "bk:portal_gun",
+		"time": 0.200000002980232,
+		"type": 7,
+		"single": true,
+		"auto": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"speed": 7,
+				"texture": "default",
+				"accuracy": 0,
+				"scale": 1,
+				"scalem": 1,
+				"prefab": "bk:portal",
+				"damage": 1,
+				"speedm": 7,
+				"knockback": 1,
+				"amount": 1,
+				"rect": true
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 0,
+			"oy": 6,
+			"nx": 15,
+			"ny": 3.5
+		},
+		"weapon": 1
+	},
+	"bk:restock": {
+		"id": "bk:restock",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 98306,
+		"uses": [
+			{
+				"id": "bk:MakeShopRestock"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:charisma_ring": {
+		"id": "bk:charisma_ring",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 33286,
+		"uses": [
+			{
+				"id": "bk:SaleItems"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:battery": {
+		"id": "bk:battery",
+		"time": 0.100000001490116,
+		"type": 8,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 65,
+		"uses": [
+			{
+				"id": "bk:ModifyActiveCharge",
+				"percent": true,
+				"amount": 100
+			}
+		],
+		"renderer": {}
+	},
+	"bk:homemade_dice": {
+		"id": "bk:homemade_dice",
+		"time": 3,
+		"type": 1,
+		"single": true,
+		"pool": 70,
+		"uses": [
+			{
+				"id": "bk:RerollAndHide",
+				"types": [
+					8,
+					2,
+					3,
+					4,
+					5
+				],
+				"s_new": false
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 3
+	},
+	"bk:iron_boots": {
+		"id": "bk:iron_boots",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 194,
+		"uses": [
+			{
+				"id": "bk:PreventDamage",
+				"sp": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:glass_gun": {
+		"id": "bk:glass_gun",
+		"time": 0.300000011920929,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"texture": "default",
+				"range": 16,
+				"speed": 30,
+				"speedm": 30,
+				"accuracy": 10,
+				"damage": 3,
+				"amount": 1,
+				"scale": 1,
+				"scalem": 1,
+				"rect": true
+			},
+			{
+				"id": "bk:UseOnEvent",
+				"use": "bk:GiveWeapon",
+				"tp": "BurningKnight.entity.events.PlayerHurtEvent",
+				"us": {
+					"id": "bk:GiveWeapon",
+					"item": "bk:glass_shard"
+				}
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 3,
+			"oy": 6,
+			"nx": 15,
+			"ny": 3.5
+		},
+		"lock": true,
+		"uprice": 1,
+		"weapon": 1
+	},
+	"bk:glass_shard": {
+		"id": "bk:glass_shard",
+		"time": 0.25,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 16,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 2,
+			"oy": 9,
+			"stay": true,
+			"invert_back": true,
+			"nx": 3,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_10": {
+		"id": "bk:disk_10",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 10,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_1": {
+		"id": "bk:disk_1",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 10,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_9": {
+		"id": "bk:disk_9",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 10,
+				"h": 26,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_2": {
+		"id": "bk:disk_2",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_3": {
+		"id": "bk:disk_3",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_8": {
+		"id": "bk:disk_8",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 6,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_4": {
+		"id": "bk:disk_4",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 6,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_5": {
+		"id": "bk:disk_5",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 6,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_7": {
+		"id": "bk:disk_7",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:disk_6": {
+		"id": "bk:disk_6",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 64,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 7,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:dagger": {
+		"id": "bk:dagger",
+		"time": 0.300000011920929,
+		"type": 7,
+		"single": true,
+		"auto": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"h": 16,
+				"w": 20,
+				"damage": 1,
+				"time": 0.200000002980232,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:Stick",
+			"mv": 8,
+			"nx": 2.5,
+			"ny": 0,
+			"ox": 2.5,
+			"oy": 12
+		},
+		"lock": true,
+		"uprice": 0,
+		"weapon": 0
+	},
+	"bk:spear": {
+		"id": "bk:spear",
+		"time": 0.5,
+		"type": 7,
+		"single": true,
+		"auto": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"h": 12,
+				"w": 26,
+				"damage": 1,
+				"time": 0.200000002980232,
+				"angle": 0
+			}
+		],
+		"renderer": {
+			"id": "bk:Stick",
+			"mv": 8,
+			"ox": 3.5,
+			"oy": 21,
+			"nx": 3.5,
+			"ny": 0,
+			"h": false
+		},
+		"weapon": 0
+	},
+	"bk:emerald": {
+		"id": "bk:emerald",
+		"time": 0.100000001490116,
+		"type": 2,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 256,
+		"uses": [
+			{
+				"id": "bk:GiveEmeralds"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:magnifier": {
+		"id": "bk:magnifier",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 198,
+		"uses": [
+			{
+				"id": "bk:ModifyProjectiles",
+				"amount": 2
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:spike": {
+		"id": "bk:spike",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 2162882,
+		"uses": [
+			{
+				"id": "bk:ModifyStats",
+				"speed": 1,
+				"add_speed": false,
+				"damage": 1,
+				"add_damage": true,
+				"fire_rate": 1,
+				"add_fire_rate": false,
+				"accuracy": 1,
+				"add_accuracy": false,
+				"range": 1,
+				"add_range": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:mushroom_hat": {
+		"id": "bk:mushroom_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:stone_hat": {
+		"id": "bk:stone_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:knight_hat": {
+		"id": "bk:knight_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:cowboy_hat": {
+		"id": "bk:cowboy_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:soup_hat": {
+		"id": "bk:soup_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:gold_hat": {
+		"id": "bk:gold_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 5
+	},
+	"bk:viking_hat": {
+		"id": "bk:viking_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 2
+	},
+	"bk:dunce_hat": {
+		"id": "bk:dunce_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:top_hat": {
+		"id": "bk:top_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 2
+	},
+	"bk:ushanka": {
+		"id": "bk:ushanka",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 3
+	},
+	"bk:valkyrie_hat": {
+		"id": "bk:valkyrie_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 2
+	},
+	"bk:skull_hat": {
+		"id": "bk:skull_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:grandma_head": {
+		"id": "bk:grandma_head",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 2
+	},
+	"bk:diamond_helmet": {
+		"id": "bk:diamond_helmet",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 15
+	},
+	"bk:villager_head": {
+		"id": "bk:villager_head",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:fez": {
+		"id": "bk:fez",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:no_hat": {
+		"id": "bk:no_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 0
+	},
+	"bk:null_hat": {
+		"id": "bk:null_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:xmas_hat": {
+		"id": "bk:xmas_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 0
+	},
+	"bk:pumpkin_hat": {
+		"id": "bk:pumpkin_hat",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {}
+	},
+	"bk:cage_key": {
+		"id": "bk:cage_key",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 0,
+			"oy": 3.5,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 12,
+			"ny": 3
+		},
+		"weapon": 0
+	},
+	"bk:frog": {
+		"id": "bk:frog",
+		"time": 2,
+		"type": 1,
+		"single": true,
+		"pool": 67110978,
+		"uses": [
+			{
+				"id": "bk:Teleport",
+				"self": true
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 2
+	},
+	"bk:sword_orbital": {
+		"id": "bk:sword_orbital",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 262210,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"orbital": "bk:sword"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:gift": {
+		"id": "bk:gift",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"single_use": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:GiveItem",
+				"on_stand": true,
+				"random": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:spike_ring": {
+		"id": "bk:spike_ring",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 2162886,
+		"uses": [
+			{
+				"id": "bk:DoOnEnemyCollision",
+				"uses": [
+					{
+						"id": "bk:ModifyHp",
+						"amount": -1
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:fire_ring": {
+		"id": "bk:fire_ring",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 198,
+		"uses": [
+			{
+				"id": "bk:DoOnEnemyCollision",
+				"uses": [
+					{
+						"id": "bk:GiveBuff",
+						"buff": "bk:burning",
+						"time": 5
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:ice_ring": {
+		"id": "bk:ice_ring",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 198,
+		"uses": [
+			{
+				"id": "bk:DoOnEnemyCollision",
+				"uses": [
+					{
+						"id": "bk:GiveBuff",
+						"buff": "bk:frozen",
+						"time": 5
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:duck_ring": {
+		"id": "bk:duck_ring",
+		"time": 0.100000001490116,
+		"chance": 0.00999999977648258,
+		"single": true,
+		"pool": 68157638,
+		"uses": [
+			{
+				"id": "bk:DoOnHurt",
+				"uses": [
+					{
+						"id": "bk:Teleport",
+						"self": true
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:snowflake": {
+		"id": "bk:snowflake",
+		"time": 2,
+		"type": 1,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:DoWith",
+				"uses": [
+					{
+						"id": "bk:GiveBuff",
+						"buff": "bk:frozen",
+						"time": 5
+					}
+				],
+				"all": true,
+				"tag": 4
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:potion_of_liquid_flame": {
+		"id": "bk:potion_of_liquid_flame",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"single_use": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:GiveBuff",
+				"buff": "bk:burning",
+				"time": 10
+			}
+		],
+		"renderer": {}
+	},
+	"bk:dull_blade": {
+		"id": "bk:dull_blade",
+		"time": 0.100000001490116,
+		"type": 1,
+		"chance": 1,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:TriggerHurtEvent"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:sharp_blade": {
+		"id": "bk:sharp_blade",
+		"time": 0.100000001490116,
+		"type": 1,
+		"chance": 0.5,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ModifyHp",
+				"amount": -1
+			}
+		],
+		"renderer": {}
+	},
+	"bk:potion_of_frost": {
+		"id": "bk:potion_of_frost",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:GiveBuff",
+				"buff": "bk:frozen",
+				"time": 10
+			}
+		],
+		"renderer": {}
+	},
+	"bk:obsidian_shield": {
+		"id": "bk:obsidian_shield",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SetKnockbackModifier"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bill": {
+		"id": "bk:bill",
+		"time": 0.100000001490116,
+		"chance": 0.5,
+		"single": true,
+		"scourged": true,
+		"pool": 8710,
+		"uses": [
+			{
+				"id": "bk:GiveGold",
+				"amount": 99
+			},
+			{
+				"id": "bk:Scourge",
+				"amount": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:clover": {
+		"id": "bk:clover",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4098,
+		"uses": [
+			{
+				"id": "bk:ModifyLuck",
+				"amount": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:d4": {
+		"id": "bk:d4",
+		"time": 8,
+		"type": 1,
+		"single": true,
+		"pool": 70,
+		"uses": [
+			{
+				"id": "bk:RerollItemsOnPlayer"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:maanex_head": {
+		"id": "bk:maanex_head",
+		"time": 0.100000001490116,
+		"type": 9,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:maanex": {
+		"id": "bk:maanex",
+		"time": 1,
+		"type": 1,
+		"single": true,
+		"pool": 70,
+		"uses": [
+			{
+				"id": "bk:GoThonk"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:map_greenprints": {
+		"id": "bk:map_greenprints",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"single_use": true,
+		"pool": 4166,
+		"uses": [
+			{
+				"id": "bk:RevealMap"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:map": {
+		"id": "bk:map",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:RevealMap"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:crying_bomb": {
+		"id": "bk:crying_bomb",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8912962,
+		"uses": [
+			{
+				"id": "bk:ModifyBombs",
+				"spawn_bullets": true
+			},
+			{
+				"id": "bk:GiveBomb",
+				"amount": 10
+			}
+		],
+		"renderer": {}
+	},
+	"bk:matches": {
+		"id": "bk:matches",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8388674,
+		"uses": [
+			{
+				"id": "bk:ModifyBombs",
+				"spawn_bullets": false,
+				"set_fuse": true,
+				"fuse_time": 0.5
+			},
+			{
+				"id": "bk:GiveBomb",
+				"amount": 5
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bomb_pack": {
+		"id": "bk:bomb_pack",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8913474,
+		"uses": [
+			{
+				"id": "bk:ModifyBombs",
+				"spawn_bullets": false,
+				"set_fuse": false,
+				"fuse_time": 0.5,
+				"spawn_bombs": true
+			},
+			{
+				"id": "bk:GiveBomb",
+				"amount": 5
+			}
+		],
+		"renderer": {}
+	},
+	"bk:tnt": {
+		"id": "bk:tnt",
+		"time": 0.100000001490116,
+		"single": true,
+		"quality": 2,
+		"pool": 8913474,
+		"uses": [
+			{
+				"id": "bk:GiveBomb",
+				"amount": 99
+			}
+		],
+		"renderer": {}
+	},
+	"bk:weird_mushroom": {
+		"id": "bk:weird_mushroom",
+		"time": 0.100000001490116,
+		"type": 1,
+		"chance": 0.100000001490116,
+		"single": true,
+		"quality": 2,
+		"single_use": true,
+		"pool": 2097218,
+		"uses": [
+			{
+				"id": "bk:DuplicateItems"
+			},
+			{
+				"id": "bk:DuplicateMobs"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bomb_shower": {
+		"id": "bk:bomb_shower",
+		"time": 2,
+		"type": 1,
+		"single": true,
+		"pool": 8912962,
+		"uses": [
+			{
+				"id": "bk:SpawnBomb",
+				"amount": 10,
+				"randomly": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:black_belt": {
+		"id": "bk:black_belt",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8388674,
+		"uses": [
+			{
+				"id": "bk:PreventDamage",
+				"bms": true,
+				"cs": false,
+				"sp": false,
+				"lv": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:ninjia_bomb": {
+		"id": "bk:ninjia_bomb",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8921154,
+		"uses": [
+			{
+				"id": "bk:DoOnHurt",
+				"uses": [
+					{
+						"id": "bk:SpawnBomb",
+						"randomly": true,
+						"amount": 8
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:laser_pointer": {
+		"id": "bk:laser_pointer",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:GiveLaserAim"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:voodoo_doll": {
+		"id": "bk:voodoo_doll",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"single_use": true,
+		"pool": 35660354,
+		"uses": [
+			{
+				"id": "bk:KillMob",
+				"all": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:amurs_arrow": {
+		"id": "bk:amurs_arrow",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4162,
+		"uses": [
+			{
+				"id": "bk:ModifyProjectiles",
+				"buff_time": 10,
+				"buff": "bk:charmed",
+				"chance": 0.300000011920929,
+				"amount": 1,
+				"damage": 1,
+				"infinite_buff": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:amurs_bow": {
+		"id": "bk:amurs_bow",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"texture": "arrow",
+				"rect": true,
+				"speed": 10,
+				"damage": 0,
+				"modifiers": [
+					{
+						"id": "bk:GiveBuff",
+						"buff": "bk:charmed",
+						"time": 10
+					}
+				],
+				"amount": 1,
+				"speedm": 10,
+				"scale": 1,
+				"scalem": 1,
+				"dsb": false
+			},
+			{
+				"id": "bk:ModifyProjectiles",
+				"buff": "bk:charmed",
+				"buff_time": 10,
+				"chance": 1,
+				"amount": 1,
+				"damage": 1,
+				"infinite_buff": false
+			}
+		],
+		"renderer": {
+			"id": "bk:Stick",
+			"ox": 2,
+			"oy": 8,
+			"nx": 9,
+			"ny": 8,
+			"h": true
+		},
+		"weapon": 1
+	},
+	"bk:poison_flask": {
+		"id": "bk:poison_flask",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 2122,
+		"uses": [
+			{
+				"id": "bk:ModifyProjectiles",
+				"buff_time": 5,
+				"buff": "bk:poison",
+				"chance": 0.300000011920929,
+				"amount": 1,
+				"damage": 1,
+				"infinite_buff": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:snowball": {
+		"id": "bk:snowball",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ModifyProjectiles",
+				"buff_time": 5,
+				"buff": "bk:frozen",
+				"chance": 0.300000011920929,
+				"amount": 1,
+				"damage": 1,
+				"infinite_buff": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:peper": {
+		"id": "bk:peper",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ModifyProjectiles",
+				"buff_time": 5,
+				"buff": "bk:burning",
+				"chance": 0.300000011920929,
+				"amount": 1,
+				"damage": 1,
+				"infinite_buff": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:sale_coupon": {
+		"id": "bk:sale_coupon",
+		"time": 0.100000001490116,
+		"type": 1,
+		"single": true,
+		"single_use": true,
+		"pool": 518,
+		"uses": [
+			{
+				"id": "bk:SaleItems"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:pet_box": {
+		"id": "bk:pet_box",
+		"time": 0.100000001490116,
+		"type": 6,
+		"single": true,
+		"pool": 16466,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": true,
+				"pet": ""
+			}
+		],
+		"renderer": {}
+	},
+	"bk:crate": {
+		"id": "bk:crate",
+		"time": 0.100000001490116,
+		"type": 6,
+		"single": true,
+		"pool": 82,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"random": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:strawberry": {
+		"id": "bk:strawberry",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 131138,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:strawberry"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:wings": {
+		"id": "bk:wings",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 1167426,
+		"uses": [
+			{
+				"id": "bk:GiveFlight"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:coin_pouch": {
+		"id": "bk:coin_pouch",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 149586,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:coin_pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:key_pouch": {
+		"id": "bk:key_pouch",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 149586,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:key_pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bomb_pouch": {
+		"id": "bk:bomb_pouch",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 9062482,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:bomb_pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:pouch_pouch": {
+		"id": "bk:pouch_pouch",
+		"time": 0.100000001490116,
+		"chance": 0.200000002980232,
+		"single": true,
+		"pool": 149586,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:pouch_pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:pouch": {
+		"id": "bk:pouch",
+		"time": 0.100000001490116,
+		"type": 10,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 131089,
+		"uses": [
+			{
+				"id": "bk:SpawnDrop",
+				"drop": "bk:pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:pickaxe": {
+		"id": "bk:pickaxe",
+		"time": 0.100000001490116,
+		"chance": 0,
+		"single": true,
+		"pool": 0,
+		"uses": [],
+		"renderer": {}
+	},
+	"bk:shovel": {
+		"id": "bk:shovel",
+		"time": 1,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 12,
+				"h": 16,
+				"angle": 0
+			},
+			{
+				"id": "bk:MeleeArc",
+				"damage": 1,
+				"w": 12,
+				"h": 16,
+				"time": 0.200000002980232,
+				"angle": -0.25
+			},
+			{
+				"id": "bk:MeleeArc",
+				"damage": 1,
+				"w": 12,
+				"h": 16,
+				"time": 0.200000002980232,
+				"angle": 0.25
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 3.5,
+			"oy": 13,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.150000005960464,
+			"nx": 3,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:lightsaber": {
+		"id": "bk:lightsaber",
+		"time": 0.5,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MeleeArc",
+				"damage": 2,
+				"time": 0.25,
+				"w": 12,
+				"h": 16,
+				"angle": 0
+			},
+			{
+				"id": "bk:MeleeArc",
+				"damage": 1,
+				"w": 12,
+				"h": 16,
+				"time": 0.200000002980232,
+				"angle": -0.25
+			},
+			{
+				"id": "bk:MeleeArc",
+				"damage": 1,
+				"w": 12,
+				"h": 16,
+				"time": 0.200000002980232,
+				"angle": 0.25
+			},
+			{
+				"id": "bk:MeleeArc",
+				"damage": 1,
+				"w": 12,
+				"h": 16,
+				"time": 0.200000002980232,
+				"angle": 0.5
+			}
+		],
+		"renderer": {
+			"id": "bk:MovingAngled",
+			"ox": 2,
+			"oy": 20,
+			"stay": true,
+			"invert_back": true,
+			"st": 0.300000011920929,
+			"max_angle": 360,
+			"rt": 0.0500000007450581,
+			"nx": 2,
+			"ny": 0
+		},
+		"weapon": 0
+	},
+	"bk:snail": {
+		"id": "bk:snail",
+		"time": 2,
+		"type": 1,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:DoWith",
+				"uses": [
+					{
+						"id": "bk:GiveBuff",
+						"buff": "bk:slow",
+						"time": 10
+					}
+				],
+				"all": true,
+				"tag": 4
+			}
+		],
+		"renderer": {},
+		"lock": true,
+		"uprice": 1
+	},
+	"bk:mushroom": {
+		"id": "bk:mushroom",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 2114,
+		"uses": [
+			{
+				"id": "bk:ModifyStats",
+				"speed": 0.5,
+				"add_speed": true,
+				"damage": 1,
+				"add_damage": false,
+				"fire_rate": 1,
+				"add_fire_rate": false,
+				"accuracy": 1,
+				"add_accuracy": false,
+				"range": 1,
+				"add_range": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:candy": {
+		"id": "bk:candy",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 1048642,
+		"uses": [
+			{
+				"id": "bk:ModifyStats",
+				"speed": 1,
+				"add_speed": false,
+				"damage": 1,
+				"add_damage": false,
+				"fire_rate": 1.5,
+				"add_fire_rate": false,
+				"accuracy": 1,
+				"add_accuracy": false,
+				"range": 1,
+				"add_range": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:glasses": {
+		"id": "bk:glasses",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ModifyStats",
+				"speed": 1,
+				"add_speed": false,
+				"damage": 1,
+				"add_damage": false,
+				"fire_rate": 1,
+				"add_fire_rate": false,
+				"accuracy": 2,
+				"add_accuracy": false,
+				"range": 1,
+				"add_range": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:ruler": {
+		"id": "bk:ruler",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 194,
+		"uses": [
+			{
+				"id": "bk:ModifyStats",
+				"speed": 1,
+				"add_speed": false,
+				"damage": 1,
+				"add_damage": false,
+				"fire_rate": 1,
+				"add_fire_rate": false,
+				"accuracy": 1,
+				"add_accuracy": false,
+				"range": 1,
+				"add_range": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:glass_bullet": {
+		"id": "bk:glass_bullet",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:MakeLayerPassable",
+				"fp": true,
+				"st": true,
+				"fpl": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:stopwatch": {
+		"id": "bk:stopwatch",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 1048642,
+		"uses": [
+			{
+				"id": "bk:DoOnHurt",
+				"uses": [
+					{
+						"id": "bk:DoWith",
+						"uses": [
+							{
+								"id": "bk:GiveBuff",
+								"buff": "bk:slow",
+								"time": 15
+							}
+						],
+						"same_room": true,
+						"all": true,
+						"tag": 4
+					}
+				]
+			}
+		],
+		"renderer": {}
+	},
+	"bk:meat_guy": {
+		"id": "bk:meat_guy",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 262338,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:meat_guy"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bullet_stone": {
+		"id": "bk:bullet_stone",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 790594,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"random": false,
+				"orbital": "bk:bullet_stone"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:batman": {
+		"id": "bk:batman",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 132162,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:batman"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:sharp_arrow": {
+		"id": "bk:sharp_arrow",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4162,
+		"uses": [
+			{
+				"id": "bk:MakeLayerPassable",
+				"st": false,
+				"fp": true,
+				"im": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:boomerang": {
+		"id": "bk:boomerang",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 16450,
+		"uses": [
+			{
+				"id": "bk:MakeProjectilesBoomerang"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:backpack": {
+		"id": "bk:backpack",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 135754,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:backpack"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:crystal": {
+		"id": "bk:crystal",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 163906,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:crystal"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:prism": {
+		"id": "bk:prism",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 294978,
+		"uses": [
+			{
+				"id": "bk:SpawnOrbital",
+				"random": false,
+				"orbital": "bk:prism"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_egg": {
+		"id": "bk:scourge_of_egg",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_egg"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_unknown": {
+		"id": "bk:scourge_of_unknown",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 0,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_unknown"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_blood": {
+		"id": "bk:scourge_of_blood",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_blood"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_risk": {
+		"id": "bk:scourge_of_risk",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_risk"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_keys": {
+		"id": "bk:scourge_of_keys",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_keys"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_lost": {
+		"id": "bk:scourge_of_lost",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_lost"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_scourged": {
+		"id": "bk:scourge_of_scourged",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_scourged"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_illness": {
+		"id": "bk:scourge_of_illness",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_illness"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:scourge_of_death": {
+		"id": "bk:scourge_of_death",
+		"time": 0.100000001490116,
+		"type": 11,
+		"single": true,
+		"pool": 16777216,
+		"uses": [
+			{
+				"id": "bk:EnableScourge",
+				"scourge": "bk:of_death"
+			},
+			{
+				"id": "bk:ModifyHp",
+				"amount": 1,
+				"to_min": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:ancient_revolver": {
+		"id": "bk:ancient_revolver",
+		"time": 0.300000011920929,
+		"type": 7,
+		"chance": 0,
+		"single": true,
+		"pool": 98,
+		"uses": [
+			{
+				"id": "bk:SimpleShoot",
+				"texture": "rect",
+				"range": 12,
+				"speed": 15,
+				"damage": 1.5,
+				"amount": 1,
+				"speedm": 15,
+				"scale": 1,
+				"scalem": 1,
+				"rect": true,
+				"dsb": false,
+				"accuracy": 10,
+				"modifiers": []
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 2,
+			"oy": 3,
+			"nx": 6,
+			"ny": 2
+		},
+		"weapon": 0
+	},
+	"bk:assault_rifle": {
+		"id": "bk:assault_rifle",
+		"time": 0.5,
+		"type": 7,
+		"single": true,
+		"pool": 66,
+		"uses": [
+			{
+				"id": "bk:ShootQueue",
+				"damage": 1,
+				"amount": 1,
+				"speed": 15,
+				"speedm": 15,
+				"dsb": false,
+				"scale": 1,
+				"scalem": 1,
+				"range": 96,
+				"accuracy": 10,
+				"rect": true,
+				"texture": "rect"
+			}
+		],
+		"renderer": {
+			"id": "bk:Angled",
+			"ox": 6,
+			"oy": 6,
+			"nx": 19,
+			"ny": 3.5
+		},
+		"weapon": 0
+	},
+	"bk:shield": {
+		"id": "bk:shield",
+		"time": 0.100000001490116,
+		"type": 5,
+		"single": true,
+		"auto_pickup": true,
+		"pool": 321,
+		"uses": [
+			{
+				"id": "bk:ModifyShieldHearts",
+				"amount": 1,
+				"to_min": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:shield_pouch": {
+		"id": "bk:shield_pouch",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 149586,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:shield_pouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:shield_buddy": {
+		"id": "bk:shield_buddy",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 131138,
+		"uses": [
+			{
+				"id": "bk:SpawnPet",
+				"random": false,
+				"pet": "bk:shield_buddy"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:skeleton_key": {
+		"id": "bk:skeleton_key",
+		"time": 0.100000001490116,
+		"single": true,
+		"quality": 2,
+		"pool": 20,
+		"uses": [
+			{
+				"id": "bk:GiveKey",
+				"amount": 99
+			}
+		],
+		"renderer": {}
+	},
+	"bk:jar": {
+		"id": "bk:jar",
+		"time": 0.100000001490116,
+		"single": true,
+		"quality": 1,
+		"pool": 1048642,
+		"uses": [
+			{
+				"id": "bk:ModifyMaxHp",
+				"amount": 4,
+				"give_hp": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:star": {
+		"id": "bk:star",
+		"time": 3,
+		"type": 1,
+		"single": true,
+		"pool": 33554432,
+		"uses": [
+			{
+				"id": "bk:GiveBuff",
+				"buff": "bk:invincible",
+				"time": 10
+			},
+			{
+				"id": "bk:DoOnTimer",
+				"time": 10,
+				"uses": [
+					{
+						"id": "bk:SetMusicSpeed",
+						"speed": 1
+					}
+				]
+			},
+			{
+				"id": "bk:SetMusicSpeed",
+				"speed": 2
+			}
+		],
+		"renderer": {}
+	},
+	"bk:car_bomb": {
+		"id": "bk:car_bomb",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8912896,
+		"uses": [
+			{
+				"id": "bk:MakeBombsHome"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:grenade": {
+		"id": "bk:grenade",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 8912898,
+		"uses": [
+			{
+				"id": "bk:MakeBombsExplodeOnTouch"
+			}
+		],
+		"renderer": {}
+	},
+	"bk:vampire_bat": {
+		"id": "bk:vampire_bat",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 6291456,
+		"uses": [
+			{
+				"id": "bk:Regen",
+				"speed": 1,
+				"kills": true,
+				"chests": false,
+				"purchase": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:mustache": {
+		"id": "bk:mustache",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4194368,
+		"uses": [
+			{
+				"id": "bk:Regen",
+				"speed": 1,
+				"kills": false,
+				"chests": false,
+				"purchase": true
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bloody_chest": {
+		"id": "bk:bloody_chest",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 4263938,
+		"uses": [
+			{
+				"id": "bk:Regen",
+				"speed": 1,
+				"kills": false,
+				"chests": true,
+				"purchase": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:bloody_shield": {
+		"id": "bk:bloody_shield",
+		"time": 0.100000001490116,
+		"single": true,
+		"pool": 6356992,
+		"uses": [
+			{
+				"id": "bk:ReplaceHeartsWithShields"
+			},
+			{
+				"id": "bk:ModifyShieldHearts",
+				"amount": 1,
+				"to_min": false,
+				"to_max": false
+			}
+		],
+		"renderer": {}
+	},
+	"bk:cutsaw": {
+		"id": "bk:cutsaw",
+		"time": 0.100000001490116,
+		"single": true,
+		"quality": 2,
+		"pool": 39845952,
+		"uses": [
+			{
+				"id": "bk:DoOnHurt",
+				"uses": [
+					{
+						"id": "bk:DoWith",
+						"uses": [
+							{
+								"id": "bk:ModifyHp",
+								"amount": -3,
+								"to_min": false,
+								"to_max": false
+							}
+						],
+						"same_room": true,
+						"tag": 516
+					}
+				]
+			}
+		],
+		"renderer": {}
+	}
+}

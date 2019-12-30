@@ -98,9 +98,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 		#endregion
 
 		public override bool HandleEvent(Event e) {
-			if (e is ExplodedEvent) {
-				GetComponent<HealthComponent>().ModifyHealth(2, null);
-				return true;
+			if (e is ExplodedEvent ee) {
+				if (ee.Who is Mob) {
+					GetComponent<HealthComponent>().ModifyHealth(2, null);
+					return true;
+				}
 			} else if (e is MobTargetChange ev) {
 				if (ev.New == null) {
 					Become<IdleState>();

@@ -5,6 +5,8 @@
 * custom voices for the new npcs
 * save max hp for player. otherwise shield buddy is broken
 
+* animate nurse
+
 !! picking bill says +5 curse when its only 3
 
 * achievement for first cursed weapon 
