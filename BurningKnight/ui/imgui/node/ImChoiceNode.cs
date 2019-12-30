@@ -103,18 +103,21 @@ namespace BurningKnight.ui.imgui.node {
 		}
 
 		public Dialog Convert() {
-			string[] variants = null;
+			List<string[]> variants = null;
 			
 			if (Outputs.Count > 0) {
-				variants = new string[Outputs.Count];
-				var i = 0;
+				variants = new List<string[]>();
 				
 				foreach (var o in Outputs) {
 					if (o.ConnectedTo.Count > 0) {
-						variants[i] = o.ConnectedTo[0].Parent.LocaleId;
-					}
+						var list = new string[o.ConnectedTo.Count];
 
-					i++;
+						for (var j = 0; j < o.ConnectedTo.Count; j++) {
+							list[j] = o.ConnectedTo[j].Parent.LocaleId;
+						}
+
+						variants.Add(list);
+					}
 				}
 			}
 			

@@ -20,6 +20,7 @@ namespace BurningKnight.entity.creature.npc {
 		public static string Vampire = "vampire";
 		public static string Roger = "roger";
 		public static string TrashGoblin = "trash_goblin";
+		public static string Duck = "duck";
 	
 		private float delay;
 		internal bool Hidden;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Lens.assets;
 
 namespace BurningKnight.ui.dialog {
@@ -8,8 +9,9 @@ namespace BurningKnight.ui.dialog {
 		
 		public CombineDialog(string id, string ar = null, string br = null, Action<string, int> callback = null) : base(id, new[] {
 			$"{id}_a", $"{id}_b"
-		}, new[] {
-			$"{id}_ar", $"{id}_br"
+		}, new List<string[]> {
+			new[] { $"{id}_ar" }, 
+			new[] { $"{id}_br" }
 		}, callback) {
 			Ar = ar;
 			Br = br;

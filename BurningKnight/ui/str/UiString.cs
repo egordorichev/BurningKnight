@@ -255,6 +255,12 @@ namespace BurningKnight.ui.str {
 				
 				switch (c) {
 					case '[': {
+						if (lc == '\\') {
+							builder.Remove(builder.Length - 1, 1);
+							builder.Append('[');
+							break;
+						}
+						
 						parsingToken = true;
 						token.Clear();
 						break;

@@ -37,7 +37,8 @@ namespace BurningKnight.assets.loot {
 			));
 			
 			Define("scourged_chest", new PoolDrop(ItemPool.ScourgedChest));
-			
+			Define("duck_chest", new PoolDrop(ItemPool.DuckChest));
+
 			Define("pouch", new OneOfDrop(
 				new SimpleDrop(0.7f, 1, 2, "bk:key"),
 				new SimpleDrop(0.5f, 1, 2, "bk:bomb"),

@@ -459,6 +459,7 @@
     <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
     <Compile Include="entity\creature\npc\dungeon\Boxy.cs" />
+    <Compile Include="entity\creature\npc\dungeon\DungeonDuck.cs" />
     <Compile Include="entity\creature\npc\dungeon\DungeonShopNpc.cs" />
     <Compile Include="entity\creature\npc\dungeon\Roger.cs" />
     <Compile Include="entity\creature\npc\dungeon\Snek.cs" />
@@ -820,6 +821,7 @@
     <Compile Include="level\entities\chest\AnimatedChest.cs" />
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\ChestRegistry.cs" />
+    <Compile Include="level\entities\chest\DuckChest.cs" />
     <Compile Include="level\entities\chest\ProtoChest.cs" />
     <Compile Include="level\entities\chest\ScourgedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />
@@ -935,6 +937,7 @@
     <Compile Include="level\rooms\shop\sub\VampireShopRoom.cs" />
     <Compile Include="level\rooms\special\ChargerRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
+    <Compile Include="level\rooms\special\DuckRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
