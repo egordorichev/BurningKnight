@@ -30,6 +30,7 @@ namespace BurningKnight.entity.creature.pet {
 			AddComponent(new SensorBodyComponent(0, 0, region.Width, region.Height));
 			
 			Subscribe<RoomClearedEvent>();
+			GetComponent<ZSliceComponent>().Animate();
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -55,6 +55,7 @@ namespace BurningKnight.entity.room {
 
 		private bool checkCleared;
 		private Entity cleared;
+		private float t;
 
 		public void CheckCleared(Entity entity) {
 			if (!Cleared) {
@@ -98,7 +99,9 @@ namespace BurningKnight.entity.room {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!settedUp) {
+			t += dt;
+			
+			if (!settedUp && t >= 0.1f) {
 				settedUp = true;
 				Setup();
 			}
@@ -134,7 +137,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private static string[] rewards = {
-			"bk:copper_coin",
+			// "bk:copper_coin",
 			"bk:key",
 			"bk:key",
 			"bk:bomb",
@@ -154,7 +157,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Type != RoomType.Regular || Rnd.Chance(75 - Run.Luck * 10)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(70 - Run.Luck * 10)) {
 				return;
 			}
 			
@@ -327,6 +330,8 @@ namespace BurningKnight.entity.room {
 			ImGui.InputInt("Map Y", ref MapY);
 			ImGui.InputInt("Map W", ref MapW);
 			ImGui.InputInt("Map H", ref MapH);
+			
+			ImGui.Text($"Doors: {Doors.Count}");
 			
 			X = MapX * 16 + 4;
 			Y = MapY * 16 - 4;

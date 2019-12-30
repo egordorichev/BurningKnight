@@ -2,11 +2,18 @@ using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
+using Lens.graphics;
+using SharpDX.DirectWrite;
+using Font = BurningKnight.assets.Font;
 
 namespace BurningKnight.entity.room.input {
 	public class RoomInput : SaveableEntity, PlaceableEntity {
+		public bool DefaultState { get; protected set; }
+		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			On = DefaultState;
 			
 			AddComponent(new RoomComponent());
 			AddComponent(new SupportableComponent());
@@ -79,5 +86,10 @@ namespace BurningKnight.entity.room.input {
 		protected void RemoveFromRoom() {
 			GetComponent<RoomComponent>().Room?.Inputs.Remove(this);
 		}
+
+		/*public override void Render() {
+			base.Render();
+			Graphics.Print(On ? "on" : "off", Font.Small, Position);
+		}*/
 	}
 }

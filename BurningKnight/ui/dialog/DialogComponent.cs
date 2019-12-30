@@ -22,6 +22,7 @@ namespace BurningKnight.ui.dialog {
 		public UiDialog Dialog;
 		public Dialog Last;
 		public Dialog Current;
+		public bool AnimateTyping = true;
 
 		public DialogCallback OnNext;
 		public Entity To;
@@ -122,20 +123,23 @@ namespace BurningKnight.ui.dialog {
 				});
 			};
 
-			Dialog.Str.CharTyped += (s, i, c) => {
-				if (!tweening && c != ' ' && Entity.TryGetComponent<AnimationComponent>(out var a)) {
-					tweening = true;
-					
-					Tween.To(1.3f, a.Scale.X, x => a.Scale.X = x, 0.15f);
-					Tween.To(0.75f, a.Scale.Y, x => a.Scale.Y = x, 0.15f).OnEnd = () => {
-						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.1f);
-						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.1f);
+			if (AnimateTyping) {
+				Dialog.Str.CharTyped += (s, i, c) => {
+					if (!tweening && c != ' ' && Entity.TryGetComponent<AnimationComponent>(out var a)) {
+						tweening = true;
 
-						tweening = false;
-					};
-				}
-			};
-			
+						Tween.To(1.3f, a.Scale.X, x => a.Scale.X = x, 0.15f);
+
+						Tween.To(0.75f, a.Scale.Y, x => a.Scale.Y = x, 0.15f).OnEnd = () => {
+							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.1f);
+							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.1f);
+
+							tweening = false;
+						};
+					}
+				};
+			}
+
 			added = true;
 		}
 

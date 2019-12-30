@@ -6,5 +6,6 @@ namespace BurningKnight.assets.particle.controller {
 		public static ParticleController BkDeath = new BkDeathParticleController();
 		public static ParticleController Spark = new SparkParticleController();
 		public static ParticleController Blood = new BloodParticleController();
+		public static ParticleController Scourge = new ScourgeController();
 	}
 }

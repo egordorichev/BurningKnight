@@ -30,34 +30,8 @@ namespace BurningKnight.level.entities.machine {
 			Height = 27;
 
 			var drops = new DropsComponent();
-			
-			drops.Add(new SimpleDrop {
-				Chance = 1f,
-				Items = new[] {
-					"bk:coin"
-				},
-				
-				Min = 2,
-				Max = 7
-			});
-			
-			drops.Add(new SimpleDrop {
-				Chance = 0.3f,
-				Items = new[] {
-					"bk:key"
-				}
-			});
-			
-			drops.Add(new SimpleDrop {
-				Chance = 0.1f,
-				Items = new[] {
-					"bk:heart"
-				},
-				
-				Max = 2
-			});
-			
 			AddComponent(drops);
+			drops.Add("bk:vending_machine");
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = (e) => !broken

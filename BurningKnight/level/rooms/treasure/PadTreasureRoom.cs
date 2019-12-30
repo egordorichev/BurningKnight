@@ -23,7 +23,13 @@ namespace BurningKnight.level.rooms.treasure {
 			PlacePad(level, new Rect(Right - m - w + 1, Bottom - m - h + 1).Resize(w, h));
 			PlacePad(level, new Rect(Left + m, Bottom - m - h + 1).Resize(w, h));
 
-			var missing = Rnd.Chance() ? -1 : Rnd.Int(4);
+			var a = Rnd.Chance();
+
+			if (!a) {
+				DisableBarrier = true;
+			}
+			
+			var missing = a ? -1 : Rnd.Int(4);
 			var rr = Rnd.Chance();
 			var f = Tiles.RandomFloor();
 			
@@ -42,12 +48,15 @@ namespace BurningKnight.level.rooms.treasure {
 				Painter.Fill(level, r, Tile.FloorD);
 			}
 			
+			foreach (var r in rects) {
+				PlaceStand(level, r);
+			}
+			
 			SetupStands(level);
 		}
 
 		private void PlacePad(Level level, Rect rect) {
 			var c = new Dot(rect.Left + rect.GetWidth() / 2, rect.Top + rect.GetHeight() / 2);
-			PlaceStand(level, c * 16);
 			rects.Add(c);
 			rs.Add(rect);
 		}

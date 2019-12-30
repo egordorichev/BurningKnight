@@ -3,6 +3,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.regular;
+using BurningKnight.level.rooms.trap;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.graphics;
@@ -36,7 +37,11 @@ namespace BurningKnight.level.biome {
 			painter.Grass = 0.4f;
 			painter.Dirt = 0f;
 			
-			painter.Modifiers.Add((l, x, y) => {
+			painter.Modifiers.Add((l, rm, x, y) => {
+				if (rm is TrapRoom) {
+					return;
+				}
+				
 				var f = Tiles.RandomFloor();
 				
 				if (l.Get(x, y, true) == Tile.Lava || l.Get(x, y).Matches(Tile.Chasm, Tile.SpikeOffTmp, Tile.SpikeOnTmp, Tile.SensingSpikeTmp, Tile.FireTrapTmp)) {

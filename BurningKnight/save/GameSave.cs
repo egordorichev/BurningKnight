@@ -23,7 +23,7 @@ namespace BurningKnight.save {
 		}
 
 		public static void Put(string Key, object Val) {
-			Values[Key] = Val.ToString();
+			Values[Key] = Val?.ToString();
 		}
 
 		public static void Put(string Key, int Val) {
@@ -69,6 +69,7 @@ namespace BurningKnight.save {
 			writer.WriteSbyte((sbyte) Run.Depth);
 			writer.WriteInt32(Run.KillCount);
 			writer.WriteFloat(Run.Time);
+			writer.WriteByte((byte) Run.PermanentScourge);
 			writer.WriteString(Run.Seed);
 		}
 
@@ -96,6 +97,8 @@ namespace BurningKnight.save {
 			
 			Run.KillCount = reader.ReadInt32();
 			Run.Time = reader.ReadFloat();
+
+			Run.PermanentScourge = reader.ReadByte();
 
 			if (Run.LastSavedDepth > 0) {
 				Rnd.Seed = Run.Seed = reader.ReadString();

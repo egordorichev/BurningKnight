@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			Depth = Layers.Creature + 1;
 		}
         	
-		#region Crawler States
+		#region Maggot States
 		public class IdleState : WallWalker.IdleState {
 			private bool stop;
 			
@@ -119,6 +119,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 					projectile.AddLight(32f, Projectile.RedLight);
 					projectile.Center += MathUtils.CreateVector(angle, 4);
+					projectile.Spectral = true;
 							
 					AnimationUtil.Poof(projectile.Center);
 

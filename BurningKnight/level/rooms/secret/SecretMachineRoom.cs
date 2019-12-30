@@ -12,12 +12,14 @@ namespace BurningKnight.level.rooms.secret {
 			base.Paint(Level);
 
 			Entity prop;
-			var r = Rnd.Int(2);
+			var r = Rnd.Int(3);
 
 			if (r == 0) {
 				prop = new VendingMachine();
-			} else {
-				prop = new RerollMachine();
+			} else if (r == 1) {
+       	prop = new Charger();
+      } else {
+				prop = new Safe();
 			}
 
 			Level.Area.Add(prop);

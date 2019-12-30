@@ -75,7 +75,15 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			if (!b && Light != null) {
+				if (p.Scourged) {
+					Graphics.Color = ProjectileColor.Red;
+				}
+				
 				Graphics.Render(Light, Entity.Center, a, or, scale);
+				
+				if (p.Scourged) {
+					Graphics.Color = ColorUtils.WhiteColor;
+				}
 			}
 		}
 		
@@ -83,8 +91,12 @@ namespace BurningKnight.entity.projectile {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 
+				if (p.Scourged) {
+					return;
+				}
+
 				if (!(p.Dying || (p.IndicateDeath && p.NearingDeath))) {
-					Graphics.Color = p.Color;
+					Graphics.Color = /*p.Scourged ? ProjectileColor.Red : */p.Color;
 				}
 				
 				Graphics.Color.A = Lights.AuraAlpha;

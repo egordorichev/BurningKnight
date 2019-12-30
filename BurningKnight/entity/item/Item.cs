@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
@@ -13,6 +15,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -26,10 +29,13 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity {
+		public static TextureRegion UnknownRegion;
+		
 		public ItemType Type;
 		public string Id;
-		public string Name => Masked ? "???" : Locale.Get(Id);
-		public string Description => Locale.Get($"{Id}_desc");
+		public string IdUnderScourge => Type != ItemType.Scourge && Scourge.IsEnabled(Scourge.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
+		public string Name => Masked ? "???" : Locale.Get(IdUnderScourge);
+		public string Description => Locale.Get($"{IdUnderScourge}_desc");
 		public float UseTime = 0.3f;
 		public float Delay;
 		public string Animation;
@@ -39,19 +45,36 @@ namespace BurningKnight.entity.item {
 		public bool Touched;
 		public bool Automatic;
 		public bool SingleUse;
+		public bool Scourged;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		public ItemRenderer Renderer;
 
-		public TextureRegion Region => Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite;
+		public bool Hidden => (Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Scourge.IsEnabled(Scourge.OfUnknown));
+		public TextureRegion Region => (Hidden) ? UnknownRegion : (Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite);
+		
 		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
 		public ItemData Data => Items.Datas[Id];
 
 		private bool updateLight;
 
+		public override void Init() {
+			base.Init();
+			
+			if (Run.Depth > 0 && (Type != ItemType.Scourge && Type != ItemType.Coin && Type != ItemType.Key && Type != ItemType.Bomb && Type != ItemType.Heart) 
+			  && Rnd.Chance(Scourge.IsEnabled(Scourge.OfScourged) ? 0.66f : (Run.Scourge * 10 + 0.5f))) {
+				
+				Scourged = true;
+			}
+		}
+
 		public override void Destroy() {
 			base.Destroy();
+
+			if (Uses == null) {
+				return;
+			}
 
 			foreach (var u in Uses) {
 				u.Destroy();
@@ -148,6 +171,8 @@ namespace BurningKnight.entity.item {
 			if (LoadedSelf) {
 				AddDroppedComponents();
 			}
+			
+			CheckMasked();
 		}
 
 		private bool Interact(Entity entity) {
@@ -165,7 +190,7 @@ namespace BurningKnight.entity.item {
 		
 		private bool ShouldInteract(Entity entity) {
 			return !(entity is Player c && (
-				         (Type == ItemType.Heart && c.GetComponent<HealthComponent>().IsFull()) ||
+				         (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
 				         (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
 				         (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
 				         (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
@@ -174,7 +199,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void OnInteractionStart(Entity entity) {
-			if (AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
+			if (!Scourged && AutoPickup && entity.TryGetComponent<InventoryComponent>(out var inventory)) {
 				if (ShouldInteract(entity)) {
 					inventory.Pickup(this);
 					entity.GetComponent<InteractorComponent>().EndInteraction();	
@@ -250,6 +275,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteBoolean(Touched);
 			stream.WriteFloat(Delay);
 			stream.WriteBoolean(Unknown);
+			stream.WriteBoolean(Scourged);
 		}
 
 		public void ConvertTo(string id) {
@@ -282,6 +308,7 @@ namespace BurningKnight.entity.item {
 			Type = item.Type;
 			Id = id;
 			Used = false;
+			Scourged = Scourged || item.Scourged;
 			
 			if (Renderer != null) {
 				Renderer.Item = this;
@@ -302,16 +329,30 @@ namespace BurningKnight.entity.item {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 
-			LoadedSelf = true;
-			Id = stream.ReadString();
+			try {
+				LoadedSelf = true;
+				Id = stream.ReadString();
+				Scourged = false;
 
-			ConvertTo(Id);
+				if (!Items.Has(Id)) {
+					Id = "bk:revolver";
+				}
+				
+				ConvertTo(Id);
+				
+				Used = stream.ReadBoolean();
+				Touched = stream.ReadBoolean();
+				Delay = stream.ReadFloat();
+				Unknown = stream.ReadBoolean();
 
-			Used = stream.ReadBoolean();
-			Touched = stream.ReadBoolean();
-			Delay = stream.ReadFloat();
-			Unknown = stream.ReadBoolean();
+				var v = stream.ReadBoolean();
+				Scourged = Scourged || v;
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
+
+		private float lastParticle;
 		
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -326,7 +367,28 @@ namespace BurningKnight.entity.item {
 				Delay = Math.Max(0, Delay - s);
 			}
 
-			if (HasComponent<OwnerComponent>()) {
+
+			var hasOwner = HasComponent<OwnerComponent>();
+			
+			if (Scourged) {
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = Rnd.Float(0.05f, 0.3f);
+
+					for (var i = 0; i < Rnd.Int(0, 3); i++) {
+						var part = new ParticleEntity(Particles.Scourge());
+
+						part.Position = (hasOwner ? GetComponent<OwnerComponent>().Owner.Center : Center) + Rnd.Vector(-4, 4);
+						part.Particle.Scale = Rnd.Float(0.5f, 1.2f);
+						Area.Add(part);
+						part.Depth = hasOwner ? 1 : -1;
+					}
+				}
+			}
+			
+
+			if (hasOwner) {
 				var o = Owner;
 				
 				foreach (var u in Uses) {
@@ -395,7 +457,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:gun" || id == "bk:no_hat";
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:revolver" || id == "bk:no_hat";
 		}
 
 		public bool HandleOwnerEvent(Event e) {
@@ -419,6 +481,9 @@ namespace BurningKnight.entity.item {
 			if (ImGui.InputText("Item", ref debugItem, 128, ImGuiInputTextFlags.EnterReturnsTrue)) {
 				ConvertTo(debugItem);
 			}
+
+			ImGui.Checkbox("Scourged", ref Scourged);
+			ImGui.Checkbox("Touched", ref Touched);
 		}
 		#endif
 

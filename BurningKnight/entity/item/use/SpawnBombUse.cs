@@ -1,4 +1,5 @@
 using BurningKnight.assets.items;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using ImGuiNET;
 using Lens.entity;

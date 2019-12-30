@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.boss;
@@ -6,6 +7,8 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
+using BurningKnight.level.rooms.shop;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens.util;
@@ -19,6 +22,7 @@ namespace BurningKnight.level.builders {
 		protected BossRoom Boss;
 		protected GrannyRoom Granny;
 		protected OldManRoom OldMan;
+		protected List<RoomDef> SubShop = new List<RoomDef>();
 		protected float ExtraConnectionChance = 0.2f;
 		protected List<RoomDef> MultiConnection = new List<RoomDef>();
 		protected float PathLength = 0.5f;
@@ -30,8 +34,12 @@ namespace BurningKnight.level.builders {
 		public void SetupRooms(List<RoomDef> Rooms) {
 			Entrance = null;
 			Exit = null;
+			Boss = null;
+			Granny = null;
+			OldMan = null;
 			MultiConnection.Clear();
 			SingleConnection.Clear();
+			SubShop.Clear();
 
 			foreach (var Room in Rooms) {
 				Room.SetEmpty();
@@ -48,6 +56,8 @@ namespace BurningKnight.level.builders {
 					Entrance = (EntranceRoom) Room;
 				} else if (Room is ExitRoom) {
 					Exit = (ExitRoom) Room;
+				} else if (Room is SubShopRoom) {
+					SubShop.Add(Room);
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) == 1) {
 					SingleConnection.Add(Room);
 				} else if (Room.GetMaxConnections(RoomDef.Connection.All) > 1) {
@@ -135,9 +145,9 @@ namespace BurningKnight.level.builders {
 					do {
 						Angle = PlaceRoom(Rooms, Curr, T, RandomBranchAngle(Curr));
 						Tries--;
-					} while (Angle == -1 && Tries > 0);
+					} while (Math.Abs(Angle - (-1)) < 0.01f && Tries > 0);
 
-					if (Angle == -1) {
+					if (Math.Abs(Angle - (-1)) < 0.01f) {
 						foreach (var C in ConnectingRoomsThisBranch) {
 							C.ClearConnections();
 							Rooms.Remove(C);
@@ -168,9 +178,9 @@ namespace BurningKnight.level.builders {
 				do {
 					Angle = PlaceRoom(Rooms, Curr, R, RandomBranchAngle(Curr));
 					Tries--;
-				} while (Angle == -1 && Tries > 0);
+				} while (Math.Abs(Angle - (-1)) < 0.01f && Tries > 0);
 
-				if (Angle == -1) {
+				if (Math.Abs(Angle - (-1)) < 0.01f) {
 					foreach (var T in ConnectingRoomsThisBranch) {
 						T.ClearConnections();
 						Rooms.Remove(T);
@@ -211,6 +221,48 @@ namespace BurningKnight.level.builders {
 
 		protected float RandomBranchAngle(RoomDef R) {
 			return Rnd.Angle();
+		}
+
+		protected override float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
+			var v = base.PlaceRoom(Collision, Prev, Next, Angle);
+
+			if (v > -1 && Next is ShopRoom) {
+				Log.Info("Placing sub shop rooms");
+				
+				foreach (var r in SubShop) {
+					var a = Rnd.Angle();
+					var i = 0;
+
+					while (true) {
+						var an = PlaceRoom(Collision, Next, r, a % 360);
+
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 36) {
+							Log.Error("Failed.");
+							return -1;
+						}
+
+						a += 10;
+					}
+				}
+
+				/*if (SubShop.Count > 0) {
+					for (var i = 0; i < SubShop.Count - 1; i++) {
+						for (var j = i + 1; j < SubShop.Count; j++) {
+							SubShop[i].ConnectTo(SubShop[j]);
+						}
+					}
+				}*/
+
+				Log.Info("Failed to fail.");
+			}
+
+			return v;
 		}
 	}
 }

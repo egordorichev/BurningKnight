@@ -5,6 +5,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -127,7 +128,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
-			return false;
+			return entity is Level || entity is Chasm || entity is SolidProp || entity is HalfWall || entity is ItemStand;
 		}
 	}
 }

@@ -862,6 +862,30 @@
 /processorParam:Quality=Best
 /build:Sfx/player/roll.wav
 
+#begin Sfx/player/step/default/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/default/1.wav
+
+#begin Sfx/player/step/wood/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/wood/1.wav
+
+#begin Sfx/player/step/wood/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/wood/2.wav
+
+#begin Sfx/player/step/wood/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/wood/3.wav
+
 #begin Sfx/projectile/shell/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -945,12 +969,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/slime_land.wav
-
-#begin Sfx/step.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/step.wav
 
 #begin Sfx/swap.wav
 /importer:WavImporter

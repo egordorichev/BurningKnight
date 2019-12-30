@@ -5,6 +5,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.debug;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
@@ -156,11 +157,15 @@ namespace BurningKnight.entity.creature.player {
 				}
 
 				if (StartingWeapon != null) {
-					GetComponent<ActiveWeaponComponent>().Set(Items.CreateAndAdd(StartingWeapon, Area), false);
+					var i = Items.CreateAndAdd(StartingWeapon, Area);
+					i.Scourged = false;
+					GetComponent<ActiveWeaponComponent>().Set(i, false);
 				}
 				
 				if (StartingItem != null) {
-					GetComponent<ActiveItemComponent>().Set(Items.CreateAndAdd(StartingItem, Area), false);
+					var i = Items.CreateAndAdd(StartingItem, Area);
+					i.Scourged = false;
+					GetComponent<ActiveItemComponent>().Set(i, false);
 				}
 			}
 			
@@ -220,8 +225,19 @@ namespace BurningKnight.entity.creature.player {
 				if (anim.Frame != lastFrame) {
 					lastFrame = anim.Frame;
 
-					if (lastFrame == 2 || lastFrame == 6) {
-						Audio.PlaySfx("step");
+					if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
+						var x = (int) (Self.CenterX / 16);
+						var y = (int) (Self.Bottom / 16);
+
+						if (!Run.Level.IsInside(x, y)) {
+							return;
+						}
+
+						var i = Run.Level.ToIndex(x, y);
+						var tile = Run.Level.Get(i);
+						var liquid = Run.Level.Liquid[i];
+
+						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), 0.25f);
 					}
 				}
 			}
@@ -308,14 +324,13 @@ namespace BurningKnight.entity.creature.player {
 			return HasFlight || base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
 		}
 		
-		/*
 		public override bool HasNoHealth(HealthModifiedEvent e = null) {
-			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == (e == null ? 0 : (e.Default ? 0 : -e.Amount));
+			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == 0;
 		}
 		
 		public override bool HasNoHealth(PostHealthModifiedEvent e = null) {
 			return base.HasNoHealth(e) && GetComponent<HeartsComponent>().Total == 0;
-		}*/
+		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is LostSupportEvent) {
@@ -340,6 +355,10 @@ namespace BurningKnight.entity.creature.player {
 				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
 					Audio.PlaySfx("level_door_shut");
 				}
+
+				if (c.Old != null && Scourge.IsEnabled(Scourge.OfLost)) {
+					c.Old.Hide();
+				}
 				
 				c.New.Discover();
 				var level = Run.Level;
@@ -349,10 +368,16 @@ namespace BurningKnight.entity.creature.player {
 						case RoomType.Secret:
 						case RoomType.Special:
 						case RoomType.Shop:
+						case RoomType.SubShop:
 						case RoomType.Treasure: {
 							foreach (var door in c.New.Doors) {
 								if (door.TryGetComponent<LockComponent>(out var component) && component.Lock is GoldLock) {
-									component.Lock.SetLocked(false, this);
+									if (!(c.New.Type == RoomType.Shop && ((door.Rooms[0] != null && door.Rooms[0].Type == RoomType.SubShop) ||
+									                                    (door.Rooms[1] != null && door.Rooms[1].Type == RoomType.SubShop)))) {
+									
+										component.Lock.SetLocked(false, this);
+									} 
+									
 								}
 							}
 
@@ -389,10 +414,10 @@ namespace BurningKnight.entity.creature.player {
 					c.Old.CloseHiddenDoors();
 				}
 
-				// Darken the lighting in old man room
-				if (c.New.Type == RoomType.OldMan) {
+				// Darken the lighting in evil rooms
+				if (c.New.Type == RoomType.OldMan || c.New.Type == RoomType.Spiked) {
 					Tween.To(0.7f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
-				} else if (c.Old != null && c.Old.Type == RoomType.OldMan) {
+				} else if (c.Old != null && (c.Old.Type == RoomType.OldMan || c.Old.Type == RoomType.Spiked)) {
 					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
 				}
 
@@ -407,7 +432,7 @@ namespace BurningKnight.entity.creature.player {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
 						hm.Amount = Math.Min(hm.Amount, -2);
-					} else if (!(hm.From is DarkMageStand)) {
+					} else if (hm.Type != DamageType.Custom) {
 						hm.Amount = Math.Max(-1, hm.Amount);
 					}
 				}			
@@ -502,6 +527,8 @@ namespace BurningKnight.entity.creature.player {
 			Done = false;
 			died = true;
 
+			Log.Debug($"Killed by: {(d.From?.GetType().Name ?? "null")}");
+			
 			return true;
 		}
 

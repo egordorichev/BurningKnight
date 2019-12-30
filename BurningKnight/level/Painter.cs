@@ -6,6 +6,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
@@ -37,7 +38,7 @@ namespace BurningKnight.level {
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
-		public List<Action<Level, int, int>> Modifiers = new List<Action<Level, int, int>>();
+		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
 		
 		public Painter() {
@@ -74,7 +75,7 @@ namespace BurningKnight.level {
 			});
 			
 			// Small chance to replace rock with a tinted rock or with a barrel
-			Modifiers.Add((l, x, y) => {
+			Modifiers.Add((l, rm, x, y) => {
 				var index = l.ToIndex(x, y);
 
 				if (l.Get(index, true) == Tile.Rock) {
@@ -82,7 +83,7 @@ namespace BurningKnight.level {
 
 					if (r <= 0.05f) {
 						l.Set(index, Tile.TintedRock);
-					} else if (r <= 0.1f) {
+					} else if (r <= 0.1f && !(rm is TreasureRoom)) {
 						l.Set(index, Tile.BarrelTmp);
 					}
 				}
@@ -201,23 +202,25 @@ namespace BurningKnight.level {
 					}
 				}
 
-				Clip = Room.Shrink(1);
+				Clip = Room.Shrink();
 
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
 
-				foreach (var d in Room.Connected.Values) {
-					if (d.Type != DoorPlaceholder.Variant.Secret) {
-						var a = d.X == Room.Left || d.X == Room.Right;
-						var w = a ? 2 : 1;
-						var h = a ? 1 : 2;
-						var f = Tiles.RandomFloor();
+				if (!(Room is TreasureRoom)) {
+					foreach (var d in Room.Connected.Values) {
+						if (d.Type != DoorPlaceholder.Variant.Secret) {
+							var a = d.X == Room.Left || d.X == Room.Right;
+							var w = a ? 2 : 1;
+							var h = a ? 1 : 2;
+							var f = Tiles.RandomFloor();
 
-						Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
-							if (Level.Get(x, y).Matches(TileFlags.Danger)) {
-								Level.Set(x, y, f);
-							}
-						});
+							Call(Level, d.X - w, d.Y - h, w * 2 + 1, h * 2 + 1, (x, y) => {
+								if (Level.Get(x, y).Matches(TileFlags.Danger)) {
+									Level.Set(x, y, f);
+								}
+							});
+						}
 					}
 				}
 
@@ -234,7 +237,7 @@ namespace BurningKnight.level {
 						var I = Level.ToIndex(X, Y);
 
 						foreach (var m in Modifiers) {
-							m(Level, X, Y);
+							m(Level, Room, X, Y);
 						}
 
 						var rs = !Level.Biome.HasSpikes();
@@ -420,36 +423,32 @@ namespace BurningKnight.level {
 				return;
 			}
 			
-			var chances = new float[mobs.Count];
+			var chances = new List<float>();
 
 			for (int i = 0; i < mobs.Count; i++) {
-				chances[i] = room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id));
+				chances.Add(room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id)));
 			}
 
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
 
+			var curseOfBlood = Scourge.IsEnabled(Scourge.OfBlood);
+			
 			if (level.Biome.SpawnAllMobs()) {
 				types.AddRange(mobs);
 				spawnChances.AddRange(chances);
 			} else {
-				for (int i = 0; i < Rnd.Int(2, 6); i++) {
-					var type = mobs[Rnd.Chances(chances)];
-					var found = false;
+				for (int i = 0; i < Rnd.Int(2, 6) * (curseOfBlood ? 2 : 1); i++) {
+					var ind = Rnd.Chances(chances);
+					var type = mobs[ind];
 
-					foreach (var t in types) {
-						if (t == type) {
-							found = true;
+					mobs.RemoveAt(ind);
+					chances.RemoveAt(ind);
+					types.Add(type);
+					spawnChances.Add(type.Chance);
 
-							break;
-						}
-					}
-
-					if (found) {
-						i--;
-					} else {
-						types.Add(type);
-						spawnChances.Add(type.Chance);
+					if (mobs.Count == 0) {
+						break;
 					}
 				}
 			}
@@ -460,7 +459,7 @@ namespace BurningKnight.level {
 			}
 
 			var count = room.Parent.GetPassablePoints(level).Count;
-			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier();
+			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier() * (curseOfBlood ? 2 : 1);
 
 			while (weight > 0) {
 				var id = Rnd.Chances(spawnChances);
@@ -489,6 +488,8 @@ namespace BurningKnight.level {
 				} else {
 					mob.BottomCenter = new Vector2(point.X * 16 + 8 + Rnd.Float(-2, 2), point.Y * 16 + 8 + Rnd.Float(-2, 2));
 				}
+				
+				mob.GeneratePrefix();
 
 				if (type.Single) {
 					types.RemoveAt(id);
@@ -790,20 +791,49 @@ namespace BurningKnight.level {
 					case DoorPlaceholder.Variant.Boss: 
 						door = new BossDoor();
 						break;
+					
+					case DoorPlaceholder.Variant.Treasure:
+						door = new TreasureDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Scourged:
+						door = new ScourgedDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Payed:
+						door = new PayedDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Head:
+						door = new HeadDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Spiked:
+						door = new SpikedDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Challenge:
+						door = new ChallengeDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Shop:
+						door = new ShopDoor();
+						break;
 				
 					default: 
 						door = new LockableDoor();
 						break;
 				}
 
-				door.X = D.X * 16;
-				door.Y = D.Y * 16;
-				door.FacingSide = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+				door.Vertical = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+				Level.Area.Add(door);
 
-				if (door.FacingSide) {
-					door.Y -= 8;
-					door.X += 6;
+				var offset = door.GetOffset();
 
+				door.CenterX = D.X * 16 + 8 + offset.X;
+				door.Bottom = D.Y * 16 + 17.01f + offset.Y - (door is CustomDoor ? (door.Vertical ? 0 : 8) : 0); // .1f so that it's depth sorted to the front of the wall
+
+				if (door.Vertical) {
 					if (type != DoorPlaceholder.Variant.Hidden) {
 						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
 							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
@@ -814,8 +844,6 @@ namespace BurningKnight.level {
 						}
 					}
 				} else {
-					door.Y -= 2;
-
 					if (type != DoorPlaceholder.Variant.Hidden) {
 						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
 							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
@@ -826,9 +854,7 @@ namespace BurningKnight.level {
 						}
 					}
 				}
-						
-				Level.Area.Add(door);
-
+				
 				Level.Set(D.X, D.Y, Tiles.RandomFloor());
 			} else if (type == DoorPlaceholder.Variant.Hidden) {
 				Level.Set(D.X, D.Y, Tile.WallA);

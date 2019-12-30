@@ -188,7 +188,11 @@ namespace BurningKnight.level.builders {
 			RoomsToBranch.AddRange(MultiConnection);
 			RoomsToBranch.AddRange(SingleConnection);
 			WeightRooms(Branchable);
-			CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances);
+
+			if (!CreateBranches(Init, Branchable, RoomsToBranch, BranchTunnelChances)) {
+				return null;
+			}
+			
 			FindNeighbours(Init);
 
 			foreach (var R in Init)

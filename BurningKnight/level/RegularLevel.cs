@@ -3,9 +3,15 @@ using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.challenge;
+using BurningKnight.level.rooms.darkmarket;
 using BurningKnight.level.rooms.entrance;
+using BurningKnight.level.rooms.payed;
 using BurningKnight.level.rooms.preboss;
+using BurningKnight.level.rooms.scourged;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -83,7 +89,22 @@ namespace BurningKnight.level {
 				Rm.AddRange(Rooms);
 				rooms = Builder.Build(Rm);
 
-				if (rooms == null) {
+				var a = rooms == null;
+				var b = false;
+				
+				if (!a) {
+					foreach (var r in Rm) {
+						if (r.IsEmpty()) {
+							Log.Error("Found an empty room!");
+							b = true;
+							break;
+						}
+					}
+				}
+				
+				if (a || b) {
+					rooms = null;
+				
 					Log.Error("Failed!");
 					Area.Destroy();
 					Area.Add(Run.Level);
@@ -162,6 +183,18 @@ namespace BurningKnight.level {
 				rooms.Add(new PrebossRoom());	
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+
+				rooms.Add(new SpikedRoom());
+					
+				// for testing
+				/*;
+				rooms.Add(new ChallengeRoom());
+				rooms.Add(new DarkMarketRoom());
+				rooms.Add(new PayedRoom());
+				rooms.Add(new ScourgedRoom());*/
+				
+				// todo: might be from 0 to 2
+				rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

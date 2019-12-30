@@ -1,3 +1,4 @@
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 
 namespace BurningKnight.debug {
@@ -20,6 +21,7 @@ namespace BurningKnight.debug {
 				var health = player.GetComponent<HealthComponent>();
 				health.Unhittable = !health.Unhittable;
 				
+				TextParticle.Add(player, "God Mode", 1, true, !health.Unhittable);
 				Console.Print(health.Unhittable ? "God mode is on" : "God mode is off");
 			}			
 		}

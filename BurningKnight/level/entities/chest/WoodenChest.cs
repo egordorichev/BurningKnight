@@ -4,8 +4,8 @@ using Lens.util.math;
 
 namespace BurningKnight.level.entities.chest {
 	public class WoodenChest : Chest {
-		public WoodenChest() {
-			Sprite = Events.XMas ? "xmas_chest" : "wooden_chest";
+		protected override string GetSprite() {
+			return Events.XMas ? "xmas_chest" : "wooden_chest";
 		}
 
 		protected override void DefineDrops() {
@@ -13,7 +13,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 		
 		protected override void SpawnDrops() {
-			if (Rnd.Chance(10)) {
+			if (Rnd.Chance(5)) {
 				var chest = Rnd.Chance() ? (Chest) new WoodenChest {
 					Scale = Scale * 0.9f
 				} : (Chest) new GoldChest {

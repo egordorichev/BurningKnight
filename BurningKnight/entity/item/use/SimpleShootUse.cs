@@ -16,6 +16,7 @@ using Lens.lightJson;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 using Num = System.Numerics;
 
@@ -110,7 +111,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage, Item);
+					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage  * (item.Scourged ? 1.5f : 1f), Item);
 					projectile.Boost = !disableBoost;
 
 					Camera.Instance.Push(antiAngle, 4f);
@@ -148,25 +149,27 @@ namespace BurningKnight.entity.item.use {
 					}
 				}
 
-				var p = new ShellParticle(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
-					Region = CommonAse.Particles.GetSlice("shell")
-				}));
+				Timer.Add(() => {
+					var p = new ShellParticle(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
+						Region = CommonAse.Particles.GetSlice("shell")
+					}));
 
-				p.Position = entity.Center;
-				p.Y += Rnd.Float(-4, 10);
+					p.Position = entity.Center;
+					p.Y += Rnd.Float(-4, 10);
 
-				entity.Area.Add(p);
+					entity.Area.Add(p);
 
-				var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
+					var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
 
-				p.Particle.Velocity =
-					new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+					p.Particle.Velocity =
+						new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
 
-				p.Particle.Angle = 0;
-				p.Particle.Zv = Rnd.Float(1.5f, 2.5f);
-				p.Particle.AngleVelocity = f * Rnd.Float(40, 70);
+					p.Particle.Angle = 0;
+					p.Particle.Zv = Rnd.Float(1.5f, 2.5f);
+					p.Particle.AngleVelocity = f * Rnd.Float(40, 70);
 
-				p.AddShadow();
+					p.AddShadow();
+				}, 0.2f);
 			};
 		}
 
@@ -251,8 +254,8 @@ namespace BurningKnight.entity.item.use {
 					ImGui.BulletText("Unknown prefab");
 				}
 
-				var slice = root["texture"].String("");
-				var region = CommonAse.Projectiles.GetSlice(slice);
+				var slice = root["texture"].String("rect");
+				var region = CommonAse.Projectiles.GetSlice(slice, false);
 
 				ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
 					new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),

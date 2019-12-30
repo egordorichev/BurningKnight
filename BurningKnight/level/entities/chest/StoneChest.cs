@@ -5,8 +5,8 @@ using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
 	public class StoneChest : Chest {
-		public StoneChest() {
-			Sprite = "stone_chest";
+		protected override string GetSprite() {
+			return "stone_chest";
 		}
 		
 		public override void AddComponents() {
@@ -17,7 +17,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override void DefineDrops() {
-			GetComponent<DropsComponent>().Add("bk:red_chest");
+			GetComponent<DropsComponent>().Add("bk:stone_chest");
 		}
 
 		public override bool HandleEvent(Event e) {

@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.drop {
 			
 		}
 		
-		public PoolDrop(ItemPool pool, float chance, int min, int max) {
+		public PoolDrop(ItemPool pool, float chance = 1f, int min = 1, int max = 1) {
 			Pool = pool;
 			Chance = chance;
 			Min = min;

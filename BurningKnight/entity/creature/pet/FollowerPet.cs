@@ -22,6 +22,8 @@ namespace BurningKnight.entity.creature.pet {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new ZComponent { Float = true });
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
+			
+			GetComponent<ZSliceComponent>().Animate();
 		}
 	}
 }

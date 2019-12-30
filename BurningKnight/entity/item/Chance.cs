@@ -61,9 +61,9 @@ namespace BurningKnight.entity.item {
 		}
 
 		public JsonValue ToJson() {
-			return new JsonArray {
+			return Any; /*new JsonArray {
 				Any, Melee, Magic, Range
-			};
+			};*/
 		}
 
 		private static bool simplify = true;
@@ -114,11 +114,11 @@ namespace BurningKnight.entity.item {
 			}*/
 			
 			ImGui.InputDouble("Chance", ref Any);
-			ImGui.Separator();
+			/*ImGui.Separator();
 			
 			ImGui.InputDouble("Melee", ref Melee);
 			ImGui.InputDouble("Magic", ref Magic);
-			ImGui.InputDouble("Range", ref Range);
+			ImGui.InputDouble("Range", ref Range);*/
 		}
 	}
 }

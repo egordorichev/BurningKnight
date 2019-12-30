@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Use(Entity entity, Item item) {
 			if (random) {
-				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemPool.Orbital), entity.Area));
+				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemPool.Orbital), entity.Area, true));
 				return;
 			}
 			

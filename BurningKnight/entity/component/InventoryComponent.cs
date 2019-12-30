@@ -1,43 +1,68 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace BurningKnight.entity.component {
 	public class InventoryComponent : SaveableComponent {
 		public List<Item> Items = new List<Item>();
 		public bool Busy;
 
-		public void Pickup(Item item, bool animate = true) {
+		public bool Pickup(Item item, bool animate = true) {
 			if (item == null) {
-				return;
+				return false;
 			}
-		
-			item.Unknown = false;
-			Entity.Area.Remove(item);
-			item.Done = false;
 			
-			if (!Send(new ItemCheckEvent {
+			var e = new ItemCheckEvent {
 				Item = item,
 				Animate = animate
-			})) {
-				if (Entity is Player p && (item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
+			};
+			
+			if (!Send(e)) {
+				if (e.Blocked) {
+					return false;
+				}
+				
+				if (Entity is Player p && (item.Type == ItemType.Scourge || item.Type == ItemType.Artifact || item.Type == ItemType.ConsumableArtifact)) {
 					if (item.Type == ItemType.ConsumableArtifact) {
 						p.AnimateItemPickup(item, () => {
 							item.Use(p);
 							item.Done = true;
 						}, false);
 					} else if (animate) {
-						p.AnimateItemPickup(item);
+						p.AnimateItemPickup(item, () => {
+							if (item.Type == ItemType.Scourge) {
+								var center = Entity.Center;
+			
+								for (var i = 0; i < 10; i++) {
+									var part = new ParticleEntity(Particles.Scourge());
+						
+									part.Position = center + Rnd.Vector(-4, 4);
+									part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+									Entity.Area.Add(part);
+									part.Depth = 1;
+								}
+							}	
+						});
 					} else {
 						Add(item);
 					}
 				}
 			}
+			
+			item.Unknown = false;
+			Entity.Area.Remove(item);
+			item.Done = false;
+
+			return true;
 		}
 
 		public bool Has(string id) {
@@ -62,6 +87,10 @@ namespace BurningKnight.entity.component {
 
 			item.Use(Entity);
 
+			if (Entity is Player && !item.Touched && item.Scourged) {
+				Run.AddScourge(true);
+			}
+			
 			var e = new ItemAddedEvent {
 				Item = item,
 				Who = Entity

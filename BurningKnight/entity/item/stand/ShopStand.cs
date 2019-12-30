@@ -32,6 +32,10 @@ namespace BurningKnight.entity.item.stand {
 			OnSale = Rnd.Chance(10 + Run.Luck * 2);
 		}
 
+		public override ItemPool GetPool() {
+			return ItemPool.Shop;
+		}
+
 		protected override string GetSprite() {
 			return "shop_stand";
 		}
@@ -107,6 +111,12 @@ namespace BurningKnight.entity.item.stand {
 		protected virtual void RenderPrice() {
 			if (HasSale) {
 				Graphics.Color = Palette.Default[35];
+
+				if (Price == 0) {
+					HasSale = false;
+					OnSale = false;
+					Price = 1;
+				}
 			}
 				
 			var r = GetComponent<RoomComponent>().Room;
@@ -178,7 +188,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ItemPlacedEvent || e is RoomChangedEvent) {
+			if (e is ItemPlacedEvent || (e is RoomChangedEvent rce && rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room)) {
 				Recalculate();
 			}
 			

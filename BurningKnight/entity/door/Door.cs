@@ -8,22 +8,24 @@ using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.shop;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
 	public class Door : SaveableEntity, PlaceableEntity {
-		private const float W = 16;
-		private const float H = 6;
 		private const float CloseTimer = 1f;
 		
-		public bool FacingSide;
+		public bool Vertical;
+		protected bool OpenByDefault;
 
 		public bool Open {
 			get {
@@ -35,7 +37,11 @@ namespace BurningKnight.entity.door {
 		protected List<Entity> Colliding = new List<Entity>();
 		private float lastCollisionTimer;
 		private bool lit;
-		internal Room[] rooms;
+		internal Room[] Rooms;
+
+		public virtual Vector2 GetOffset() {
+			return new Vector2(0, Vertical ? -7 : -7);
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -46,37 +52,51 @@ namespace BurningKnight.entity.door {
 			AddComponent(new AudioEmitterComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new ExplodableComponent());
+			// AddComponent(new ExplodableComponent());
+
+			if (OpenByDefault) {
+				GetComponent<StateComponent>().Become<OpenState>();
+			} else {
+				GetComponent<StateComponent>().Become<ClosedState>();
+			}
+		}
+
+		protected virtual float GetShadowOffset() {
+			return 8;
+		}
+
+		protected virtual void SetSize() {
+			Width = Vertical ? 8 : 20;
+			Height = Vertical ? 19 : 11;
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+			SetSize();
+
+			AddComponent(new AnimationComponent(GetAnimation()) {
+				ShadowOffset = GetShadowOffset()
+			});
 			
-			GetComponent<StateComponent>().Become<ClosedState>();
+			AddComponent(new RectBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static, true));
+		}
+
+		protected virtual void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			FacingSide = stream.ReadBoolean();
+			Vertical = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteBoolean(FacingSide);
+			stream.WriteBoolean(Vertical);
 		}
-		
-		public override void PostInit() {
-			base.PostInit();
 
-			var width = FacingSide ? 4 : 16;
-			var height = FacingSide ? 19 + 8 : 11;
-			
-			var animation = new AnimationComponent(FacingSide ? "side_door" : "regular_door") {
-				Offset = new Vector2(-2, FacingSide ? -2 : 0),
-				ShadowOffset = 8
-			};
-			
-			AddComponent(animation);
-			AddComponent(new RectBodyComponent(-2, -2, width + 4, height + 4, BodyType.Static, true));
-
-			Width = width;
-			Height = height;
+		protected virtual string GetAnimation() {
+			return Vertical ? "side_door" : "regular_door";
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -100,19 +120,19 @@ namespace BurningKnight.entity.door {
 				if (end.Entity is Player) {
 					Colliding.Remove(end.Entity);
 					
-					if (Colliding.Count == 0) {
+					if (Colliding.Count == 0 && !OpenByDefault) {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
-			} else if (e is ExplodedEvent ee) {
-				foreach (var r in rooms) {
+			}/* else if (e is ExplodedEvent ee) {
+				foreach (var r in Rooms) {
 					if (r != null && r.Type == RoomType.Boss) {
 						// return base.HandleEvent(e);
 					}
 				}
 				
 				BreakFromExplosion();
-			}
+			}*/
 			
 			return base.HandleEvent(e);
 		}
@@ -141,11 +161,16 @@ namespace BurningKnight.entity.door {
 			return true;
 		}
 
+		public override void RenderDebug() {
+			var pad = 4;
+			Graphics.Batch.DrawRectangle(new RectangleF((int) (X + pad), (int) Y, (int) (Width - pad * 2), (int) Height), Color.Aqua, 1);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			var state = GetComponent<StateComponent>();
 			
-			if (state.StateInstance is OpenState && Colliding.Count == 0) {
+			if (state.StateInstance is OpenState && Colliding.Count == 0 && !OpenByDefault) {
 				lastCollisionTimer -= dt;
 
 				if (lastCollisionTimer <= 0) {
@@ -157,15 +182,16 @@ namespace BurningKnight.entity.door {
 				}
 			}
 
-			if (rooms == null) {
-				rooms = new Room[2];
+			if (Rooms == null) {
+				Rooms = new Room[2];
 				var i = 0;
-				var pos = Position + new Vector2(2);
+				var pad = 4;
+				var rc = new Rectangle((int) (X + pad), (int) Y, (int) (Width - pad * 2), (int) Height);
 
 				foreach (var room in Area.Tagged[Tags.Room]) {
-					if (room.Contains(pos)) {
+					if (room.Overlaps(rc)) {
 						var r = (Room) room;
-						rooms[i] = r;
+						Rooms[i] = r;
 						
 						r.Doors.Add(this);
 						
@@ -178,13 +204,13 @@ namespace BurningKnight.entity.door {
 				}
 			}
 
-			if (rooms != null && !lit) {
+			if (Rooms != null && !lit) {
 				var found = false;
 
 				foreach (var p in Area.Tagged[Tags.Player]) {
 					var r = p.GetComponent<RoomComponent>().Room;
 
-					foreach (var rm in rooms) {
+					foreach (var rm in Rooms) {
 						if (rm == r) {
 							found = true;
 							break;
@@ -193,7 +219,7 @@ namespace BurningKnight.entity.door {
 				}
 
 				if (found) {
-					foreach (var rm in rooms) {
+					foreach (var rm in Rooms) {
 						if (rm != null && (rm.Type == RoomType.OldMan || rm.Type == RoomType.Granny)) {
 							return;
 						}
@@ -255,10 +281,6 @@ namespace BurningKnight.entity.door {
 					Self.GetComponent<StateComponent>().Become<OpenState>();
 				}
 			}
-		}
-
-		private void RenderShadow() {
-			GraphicsComponent.Render(true);
 		}
 	}
 }

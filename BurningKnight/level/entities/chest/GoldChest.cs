@@ -9,10 +9,8 @@ namespace BurningKnight.level.entities.chest {
 	public class GoldChest : Chest {
 		protected byte KeysRequired = 1;
 		
-		public GoldChest() {
-			if (Sprite == null) {
-				Sprite = "gold_chest";
-			}
+		protected override string GetSprite() {
+			return "gold_chest";
 		}
 
 		protected override void DefineDrops() {
@@ -29,7 +27,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override void SpawnDrops() {
-			if (Rnd.Chance(5)) {
+			if (Rnd.Chance(2.5f)) {
 				var chest = Rnd.Chance(60) ? (Chest) new WoodenChest {
 					Scale = Scale * 0.9f
 				} : (Chest) new GoldChest {

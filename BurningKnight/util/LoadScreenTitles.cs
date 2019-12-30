@@ -49,7 +49,6 @@ namespace BurningKnight.util {
 			"That fight tho",
 			"Be careful",
 			"Almost alive",
-			"@egordorichev",
 			"Dog food",
 			"Always wear dry socks",
 			"Its your lucky day",
@@ -74,7 +73,12 @@ namespace BurningKnight.util {
 			"Preparing to explode",
 			"Installing linux",
 			"Erasing data",
-			"Generating a joke"
+			"Generating a joke",
+			"Attacking enemies does more damage, than not attacking",
+			"Getting hit hurts",
+			"Yeet",
+			"You get a higher chance to hit the enemy, if you aim",
+			"Money is useful"
 		};
 	}
 }

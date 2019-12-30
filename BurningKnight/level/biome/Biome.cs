@@ -63,6 +63,12 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual Builder GetBuilder() {
+			if (true) {
+				return new LineBuilder();
+
+				
+			}
+			
 			var R = Rnd.Float();
 
 			if (R < 0.33f) {
@@ -113,7 +119,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual int GetNumTrapRooms() {
-			return Rnd.Int(0, 2);
+			return 1; // Rnd.Int(0, 2);
 		}
 
 		public virtual int GetNumSpecialRooms() {
@@ -122,6 +128,14 @@ namespace BurningKnight.level.biome {
 
 		public virtual int GetNumSecretRooms() {
 			return Run.Depth <= 0 ? 0 : 1;
+		}
+
+		public string GetDefaultStepSound(Tile tile) {
+			return "player_step_default_1";
+		}
+
+		public virtual string GetStepSound(Tile tile) {
+			return GetDefaultStepSound(tile);
 		}
 	}
 }

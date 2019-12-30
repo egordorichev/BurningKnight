@@ -1,8 +1,10 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
@@ -14,13 +16,12 @@ namespace BurningKnight.entity.item.stand {
 		private TextureRegion heart;
 		private float priceWidth;
 
-		private int price;
 		private Entity payer;
 		private Item takenItem;
 		private int lastPrice;
 
 		protected override int CalculatePrice() {
-			return price;
+			return (int) PriceCalculator.GetModifier(Item);
 		}
 
 		protected override string GetSprite() {
@@ -31,7 +32,6 @@ namespace BurningKnight.entity.item.stand {
 			base.Init();
 			
 			OnSale = false;
-			price = Rnd.Int(1, 4);
 			heart = CommonAse.Ui.GetSlice("deal_heart");
 			
 			Subscribe<ItemUsedEvent>();
@@ -59,9 +59,8 @@ namespace BurningKnight.entity.item.stand {
 			}
 				
 			Graphics.Print(PriceString, Font.Small, Position + new Vector2(PriceX, 14));
-			Graphics.Render(heart, Position + new Vector2(PriceX + priceWidth + 2, 17));
-			
 			Graphics.Color = ColorUtils.WhiteColor;
+			Graphics.Render(heart, Position + new Vector2(PriceX + priceWidth + 2, 17));
 		}
 
 		protected override bool TryPay(Entity entity) {
@@ -77,7 +76,7 @@ namespace BurningKnight.entity.item.stand {
 			lastPrice = Price * 2;
 			takenItem = Item;
 			
-			var stats =entity.GetComponent<StatsComponent>();
+			var stats = entity.GetComponent<StatsComponent>();
 			
 			stats.TookDeal = true;
 			stats.HeartsPayed += Price;
@@ -91,8 +90,10 @@ namespace BurningKnight.entity.item.stand {
 			if ((e is ItemUsedEvent ite && ite.Who == payer && ite.Item == takenItem) || (e is ItemAddedEvent iae && iae.Who == payer && iae.Item == takenItem)) {
 				var component = payer.GetComponent<HealthComponent>();
 				 
-				component.ModifyHealth(-lastPrice, this);
+				component.ModifyHealth(-lastPrice, this, DamageType.Custom);
 				component.MaxHealth -= lastPrice;		
+				
+				TextParticle.Add(payer, Locale.Get("max_hp"), lastPrice, true, true);
 				
 				payer = null;
 				takenItem = null;
@@ -101,14 +102,8 @@ namespace BurningKnight.entity.item.stand {
 			return base.HandleEvent(e);
 		}
 
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			price = stream.ReadByte();
-		}
-
-		public override void Save(FileWriter stream) {
-			base.Save(stream);
-			stream.WriteByte((byte) price);
+		public override ItemPool GetPool() {
+			return ItemPool.OldMan;
 		}
 	}
 }

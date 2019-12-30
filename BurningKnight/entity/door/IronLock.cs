@@ -9,6 +9,7 @@ using Lens.entity.component.logic;
 namespace BurningKnight.entity.door {
 	public class IronLock : Lock {
 		protected List<Room> rooms = new List<Room>();
+		private bool first = true;
 
 		public IronLock() {
 			LockedByDefault = false;
@@ -50,22 +51,43 @@ namespace BurningKnight.entity.door {
 
 			if (!shouldLock) {
 				foreach (var r in rooms) {
-					if (r.Type != RoomType.Connection && r.Tagged[Tags.Player].Count > 0 &&
-					    r.Tagged[Tags.MustBeKilled].Count > 0) {
-						shouldLock = true;
+					if (r.Tagged[Tags.Player].Count > 0) {
+						if (r.Type != RoomType.Connection &&
+						    r.Tagged[Tags.MustBeKilled].Count > 0) {
+							shouldLock = true;
 
-						break;
+							break;
+						} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
+							foreach (var c in r.Inputs) {
+								if (c.On == c.DefaultState) {
+									shouldLock = true;
+									break;
+								}
+							}
+						}
 					}
 				}
 			}
 
 			if (shouldLock && !IsLocked) {
 				SetLocked(true, null);
-				GetComponent<StateComponent>().Become<ClosingState>();
+
+				if (first) {
+					GetComponent<StateComponent>().Become<IdleState>();
+				} else {
+					GetComponent<StateComponent>().Become<ClosingState>();
+				}
 			} else if (!shouldLock && IsLocked) {
 				SetLocked(false, null);
-				GetComponent<StateComponent>().Become<OpeningState>();
+
+				if (first) {
+					GetComponent<StateComponent>().Become<OpenState>();
+				} else {
+					GetComponent<StateComponent>().Become<OpeningState>();
+				}
 			}
+
+			first = false;
 		}
 	}
 }

@@ -54,11 +54,11 @@ namespace BurningKnight.level.rooms.boss {
 				var x = (int) P.X;
 				var y = (int) P.Y;
 
-				if ((x == Left || x == Right) && y != Top + GetHeight() / 2) {
+				if ((x == Left || x == Right)) { // && y != Top + GetHeight() / 2) {
 					return false;
 				}
 
-				if ((y == Top || y == Bottom) && x != Left + GetWidth() / 2) {
+				if ((y == Bottom || y == Top) && x != Left + GetWidth() / 2) {
 					return false;
 				}
 			}

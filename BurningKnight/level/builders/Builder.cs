@@ -136,7 +136,7 @@ namespace BurningKnight.level.builders {
 			return Angle;
 		}
 
-		protected static float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
+		protected virtual float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
 			Angle %= 360f;
 
 			if (Angle < 0) {

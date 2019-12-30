@@ -1,3 +1,4 @@
+using BurningKnight.level.rooms.trap;
 using BurningKnight.level.tile;
 using Microsoft.Xna.Framework;
 
@@ -13,7 +14,11 @@ namespace BurningKnight.level.biome {
 			painter.Water = 0;
 			painter.Grass = 0;
 			
-			painter.Modifiers.Add((l, x, y) => {
+			painter.Modifiers.Add((l, rm, x, y) => {
+				if (rm is TrapRoom) {
+					return;
+				}
+				
 				var r = (byte) (Tile.Chasm);
 				
 				if (l.Get(x, y, true) == Tile.Lava) {

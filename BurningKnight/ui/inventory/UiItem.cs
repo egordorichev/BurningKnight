@@ -15,6 +15,7 @@ namespace BurningKnight.ui.inventory {
 		public static UiItem Hovered;
 
 		private string id;
+		public float TextA;
 
 		public string Id {
 			get => id;
@@ -94,6 +95,7 @@ namespace BurningKnight.ui.inventory {
 			base.OnHover();
 			
 			Tween.To(1, border, x => border = x, 0.3f);
+			Tween.To(1, TextA, x => TextA = x, 0.3f);
 
 			if (Settings.UiSfx) {
 				Audio.PlaySfx("ui_moving", 0.5f);
@@ -110,6 +112,7 @@ namespace BurningKnight.ui.inventory {
 			base.OnUnhover();
 			
 			Tween.To(0, border, x => border = x, 0.3f);
+			Tween.To(0, TextA, x => TextA = x, 0.3f);
 
 			if (Hovered == this) {
 				Hovered = null;
@@ -143,7 +146,7 @@ namespace BurningKnight.ui.inventory {
 			if (count < 2) {
 				return;
 			}
-			
+
 			Graphics.Print(countStr, Font.Small, (int) (X + Width - countW), (int) (Y + Height + 6 - countH));
 		}
 	}

@@ -21,6 +21,7 @@ namespace BurningKnight.ui.inventory {
 		public TextureRegion ItemSlot;
 		public TextureRegion UseSlot;
 		
+		private TextureRegion question;		
 		private TextureRegion bomb;
 		private TextureRegion key;
 		private TextureRegion coin;
@@ -31,6 +32,11 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion changedHeartBackground;
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
+		
+		public static TextureRegion ShieldBackground;
+		private TextureRegion changedShieldBackground;
+		private static TextureRegion halfShieldBackground;
+		private TextureRegion changedHalfShieldBackground;
 		
 		public Player Player;
 
@@ -61,6 +67,7 @@ namespace BurningKnight.ui.inventory {
 			UseSlot = new TextureRegion();
 			UseSlot.Set(ItemSlot);
 			
+			question = anim.GetSlice("question");
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
@@ -71,6 +78,12 @@ namespace BurningKnight.ui.inventory {
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
+			
+			
+			ShieldBackground = anim.GetSlice("shield_bg");
+			changedShieldBackground = anim.GetSlice("shield_hurt");
+			halfShieldBackground = anim.GetSlice("half_shield_bg");
+			changedHalfShieldBackground = anim.GetSlice("half_shield_hurt");
 			
 			if (Player != null) {
 				var component = Player.GetComponent<ConsumablesComponent>();
@@ -165,7 +178,7 @@ namespace BurningKnight.ui.inventory {
 					if (iae.Who == Player) {
 						var item = iae.Item;
 								
-						if (item.Type == ItemType.Artifact) {
+						if (item.Type == ItemType.Artifact || item.Type == ItemType.Scourge) {
 							AddArtifact(item);
 						}
 					}
@@ -232,8 +245,10 @@ namespace BurningKnight.ui.inventory {
 					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
 					MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
 
+					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
 					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
 					Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
+					Graphics.Color = ColorUtils.WhiteColor;
 				}
 			}
 		}
@@ -256,7 +271,13 @@ namespace BurningKnight.ui.inventory {
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
+			if (Scourge.IsEnabled(Scourge.OfRisk)) {
+				Graphics.Render(question, new Vector2(8, 11));
+				return;
+			}
+			
 			var red = Player.GetComponent<HealthComponent>();
+			var hearts = Player.GetComponent<HeartsComponent>();
 			var totalRed = red.Health;
 
 			if (lastRed > totalRed) {
@@ -268,10 +289,16 @@ namespace BurningKnight.ui.inventory {
 			var r = (int) lastRed;
 			var maxRed = red.MaxHealth;
 			var hurt = red.InvincibilityTimer > 0;
+			var shields = hearts.ShieldHalfs;
 
-			int i = 0;
+			var n = r;
+			var jn = maxRed;
 			
-			for (; i < maxRed; i += 2) {
+			if (jn % 2 == 1) {
+				jn++;
+			}
+			
+			for (var i = 0; i < maxRed; i += 2) {
 				var region = hurt ? changedHeartBackground : HeartBackground;
 
 				if (i == maxRed - 1) {
@@ -280,8 +307,16 @@ namespace BurningKnight.ui.inventory {
 				
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 			}
+			
+			for (var i = jn; i < maxRed + shields; i += 2) {
+				var region = hurt ? changedShieldBackground : ShieldBackground;
 
-			var n = r;
+				if (i == maxRed + shields - 1) {
+					region = hurt ? changedHalfShieldBackground : halfShieldBackground;
+				}
+				
+				Graphics.Render(region, GetHeartPosition(pad, i, true));
+			}
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
@@ -290,7 +325,13 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		private void RenderConsumables() {
-			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+
+			if (Scourge.IsEnabled(Scourge.OfKeys)) {
+				Graphics.Render(question, new Vector2(8, bottomY + 1));
+				return;
+			}
+			
 
 			//if (coins > 0) {
 				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);

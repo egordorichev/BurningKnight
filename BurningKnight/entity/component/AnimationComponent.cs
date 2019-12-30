@@ -1,7 +1,9 @@
-﻿using BurningKnight.assets;
+﻿using System;
+using BurningKnight.assets;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.creature.player;
 using BurningKnight.util;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.graphics;
@@ -9,6 +11,7 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.animation;
 using Lens.util;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
@@ -120,6 +123,23 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				if (buffs.Has<InvincibleBuff>()) {
+					var shader = Shaders.Entity;
+					var t = buffs.Buffs[typeof(InvincibleBuff)].TimeLeft;
+
+					if (t < 2f && t % 0.3f < 0.15f) {
+						return false;
+					}
+
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(ColorUtils.FromHSV(Engine.Time * 180 % 360, 100, 100).ToVector4());
+
+					return true;
+				}
+				
 				if (buffs.Has<FrozenBuff>()) {
 					var shader = Shaders.Entity;
 					Shaders.Begin(shader);
@@ -200,6 +220,16 @@ namespace BurningKnight.entity.component {
 			}
 
 			return base.HandleEvent(e);
+		}
+
+		public void Animate(Action callback = null) {
+			Tween.To(1.8f, Scale.X, x => Scale.X = x, 0.1f);
+			Tween.To(0.2f, Scale.Y, x => Scale.Y = x, 0.1f).OnEnd = () => {
+				Tween.To(1, Scale.X, x => Scale.X = x, 0.4f);
+				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.4f);
+
+				callback?.Invoke();
+			};
 		}
 	}
 }

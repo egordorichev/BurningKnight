@@ -15,11 +15,23 @@ namespace BurningKnight.entity.creature.npc {
 		public static string ActiveTrader = "active_trader";
 		public static string WeaponTrader = "weapon_trader";
 		public static string HatTrader = "hat_trader";
+		public static string Snek = "snek";
+		public static string Boxy = "boxy";
+		public static string Vampire = "vampire";
+		public static string Roger = "roger";
+		public static string TrashGoblin = "trash_goblin";
+		public static string Duck = "duck";
+		public static string Nurse = "nurse";
+		public static string Elon = "elon";
+		public static string Gobetta = "gobetta";
 	
 		private float delay;
 		internal bool Hidden;
 		private bool saved;
 		private bool hided;
+		
+		protected bool Remove;
+		protected bool Flips = true;
 
 		public override void Init() {
 			base.Init();
@@ -27,8 +39,11 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemBoughtEvent>();
 
+			var id = GetId();
+			
+			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire || id == Gobetta) || GlobalSave.IsFalse(id);
 			AlwaysActive = true;
-			Hidden = Run.Depth == 0 && GlobalSave.IsFalse(GetId());
+			Hidden = Run.Depth == 0 && !saved;
 		}
 
 		public override void AddComponents() {
@@ -58,7 +73,7 @@ namespace BurningKnight.entity.creature.npc {
 				return;
 			}
 
-			if (saved && !OnScreen) {
+			if (saved && Remove && !OnScreen) {
 				Done = true;
 				Hidden = true;
 
@@ -71,10 +86,15 @@ namespace BurningKnight.entity.creature.npc {
 			}
 
 			base.Update(dt);
+
+			if (!Flips) {
+				return;
+			}
+			
 			delay -= dt;
 
 			if (delay <= 0) {
-				delay = Rnd.Float(1, 4);
+				delay = Rnd.Float(1, 10);
 				GraphicsComponent.Flipped = !GraphicsComponent.Flipped;
 			}
 		}
@@ -99,6 +119,10 @@ namespace BurningKnight.entity.creature.npc {
 			return false;
 		}
 
+		protected virtual string GetHiDialog() {
+			return null;
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (Hidden) {
 				return false;
@@ -106,25 +130,35 @@ namespace BurningKnight.entity.creature.npc {
 			
 			if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
-					if (Run.Depth > 0) {
+					if (Run.Depth > 0 && !saved) {
 						GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
 
 						if ((rce.Who.TryGetComponent<ActiveWeaponComponent>(out var a) && a.Item != null && a.Item.Id == "bk:cage_key") ||
 						    (rce.Who.TryGetComponent<WeaponComponent>(out var w) && w.Item != null && w.Item.Id == "bk:cage_key")) {
 
-							GetComponent<DialogComponent>().StartAndClose( "npc_2", 3);
+							GetComponent<DialogComponent>().StartAndClose("npc_2", 3);
 						} else {
-							GetComponent<DialogComponent>().StartAndClose( "npc_0", 3);
+							GetComponent<DialogComponent>().StartAndClose("npc_0", 3);
+						}
+					} else {
+						var s = GetHiDialog();
+						
+						if (s != null) {
+							GetComponent<DialogComponent>().StartAndClose(s, 3);
 						}
 					}
 				}
 			} else if (e is ItemBoughtEvent ibe) {
 				if (OwnsStand(ibe.Stand) && ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
-					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(9, 12)}", 3);
+					GetComponent<DialogComponent>().StartAndClose(GetDealDialog(), 3);
 				}
 			}
 			
 			return base.HandleEvent(e);
+		}
+		
+		protected virtual string GetDealDialog() {
+			return $"shopkeeper_{Rnd.Int(9, 12)}";
 		}
 
 		public void Save() {

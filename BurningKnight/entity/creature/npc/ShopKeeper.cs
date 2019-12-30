@@ -55,8 +55,18 @@ namespace BurningKnight.entity.creature.npc {
 
 				if (!r && raging) {
 					AddTag(Tags.Mob);
-					GetComponent<RoomComponent>().Room.Tagged[Tags.Mob].Add(this); // Hacky solution tbh
-					
+					AddTag(Tags.MustBeKilled);
+
+					try {
+						var rm = GetComponent<RoomComponent>().Room;
+
+						// Hacky solution tbh
+						rm.Tagged[Tags.Mob].Add(this);
+						rm.Tagged[Tags.MustBeKilled].Add(this);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+
 					Become<RunState>();
 					GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(3, 5)}", 1);
 
@@ -302,7 +312,7 @@ namespace BurningKnight.entity.creature.npc {
 				var b = Self.GetComponent<RectBodyComponent>();
 				b.Velocity += new Vector2(dx / d * s, dy / d * s);
 
-				if (d <= 24) {
+				if (d <= 24 || T >= 4f) {
 					if ((toPlayer && Rnd.Chance(80)) || Rnd.Chance(30)) {
 						if (Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Player].Count > 0) {
 							Self.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{(Rnd.Chance(30) ? 18 : Rnd.Int(12, 15))}", 3);

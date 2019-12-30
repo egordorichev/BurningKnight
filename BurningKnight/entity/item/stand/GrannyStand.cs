@@ -28,5 +28,9 @@ namespace BurningKnight.entity.item.stand {
 			Camera.Instance.Shake(10);
 			Achievements.Unlock("bk:grannys_gift");
 		}
+
+		public override ItemPool GetPool() {
+			return ItemPool.Granny;
+		}
 	}
 }

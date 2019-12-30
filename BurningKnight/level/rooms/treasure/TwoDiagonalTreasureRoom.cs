@@ -6,20 +6,6 @@ namespace BurningKnight.level.rooms.treasure {
 	public class TwoDiagonalTreasureRoom : TreasureRoom {
 		public override void Paint(Level level) {
 			if (Rnd.Chance()) {
-				PlaceStand(level, new Dot(Left + 2, Top + 2) * 16);
-				PlaceStand(level, new Dot(Right - 2, Bottom - 2) * 16);	
-			} else {
-				PlaceStand(level, new Dot(Right - 2, Top + 2) * 16);
-				PlaceStand(level, new Dot(Left + 2, Bottom - 2) * 16);	
-			}
-
-			if (Rnd.Chance()) {
-				PlaceStand(level, GetTileCenter() * 16);	
-			} else if (Rnd.Chance()) {
-				Painter.Set(level, GetTileCenter(), Tiles.RandomSolid());
-			}
-
-			if (Rnd.Chance()) {
 				var t = Rnd.Chance(30) ? Tile.FloorD : Tiles.RandomFloor();
 
 				if (Rnd.Chance()) {
@@ -28,24 +14,43 @@ namespace BurningKnight.level.rooms.treasure {
 					Painter.Rect(level, new Rect(Left + 2, Top + 2, Right - 2, Bottom - 2), Rnd.Int(0, 2), t);
 				}
 			}
+
+			var a = Rnd.Chance();
+
+			if (!a && Rnd.Chance()) {
+				Painter.Set(level, GetTileCenter(), Tiles.RandomSolid());
+			}
+			
+			if (Rnd.Chance()) {
+				PlaceStand(level, new Dot(Left + 3, Top + 3));
+				PlaceStand(level, new Dot(Right - 3, Bottom - 3));	
+			} else {
+				PlaceStand(level, new Dot(Right - 3, Top + 3));
+				PlaceStand(level, new Dot(Left + 3, Bottom - 3));	
+			}
+
+			if (a && !SpawnedBarrier) {
+				DisableBarrier = true;
+				PlaceStand(level, GetTileCenter());	
+			}
 			
 			SetupStands(level);
 		}
 		
 		public override int GetMinWidth() {
-			return 7;
+			return 9;
 		}
 
 		public override int GetMinHeight() {
-			return 7;
+			return 9;
 		}
 		
 		public override int GetMaxWidth() {
-			return 10;
+			return 12;
 		}
 
 		public override int GetMaxHeight() {
-			return 10;
+			return 12;
 		}
 
 		protected override bool Quad() {

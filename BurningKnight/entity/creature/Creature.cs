@@ -1,9 +1,11 @@
 using System;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
+using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -47,7 +49,8 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new AudioEmitterComponent());
 			
-			AddDrops(new SingleDrop("bk:heart", 0.03f));
+			AddDrops(new SingleDrop("bk:heart", 0.025f));
+			AddDrops(new SingleDrop("bk:shield", 0.01f));
 		}
 
 		protected void Become<T>() {
@@ -134,6 +137,14 @@ namespace BurningKnight.entity.creature {
 
 		protected virtual bool HandleDeath(DiedEvent d) {
 			AnimateDeath(d);
+			
+			if (d.From is Creature c) {
+				d.From.HandleEvent(new KilledEvent {
+					Who = this,
+					KilledBy = c
+				});
+			}
+			
 			return false;
 		}
 
@@ -240,7 +251,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
-			return !(entity is Creature || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (!ShouldCollideWithDestroyableInAir() && entity is HalfWall))));
+			return !((entity is Creature && !(entity is DungeonShopNpc)) || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (!ShouldCollideWithDestroyableInAir() && entity is HalfWall))));
 		}
 
 		public virtual bool IsFriendly() {

@@ -1,5 +1,8 @@
-﻿using BurningKnight.entity.component;
+﻿using System;
+using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.component;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -14,7 +17,10 @@ namespace BurningKnight.entity.item.use {
 			
 			if (GiveHp && Amount > 0) {
 				component.ModifyHealth(Amount, entity);
+				TextParticle.Add(entity, "HP", Amount, true);
 			}
+			
+			TextParticle.Add(entity, Locale.Get("max_hp"), Math.Abs(Amount), true, Amount < 0);
 		}
 
 		public override void Setup(JsonValue settings) {

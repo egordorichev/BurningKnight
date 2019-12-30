@@ -4,13 +4,19 @@ using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.room;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.boss;
+using BurningKnight.level.rooms.challenge;
 using BurningKnight.level.rooms.connection;
+using BurningKnight.level.rooms.darkmarket;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
+using BurningKnight.level.rooms.payed;
+using BurningKnight.level.rooms.scourged;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
@@ -106,22 +112,22 @@ namespace BurningKnight.level.rooms {
 			return GetMaxConnections(Direction) - GetCurrentConnections(Direction);
 		}
 
-		public virtual bool CanConnect(RoomDef R, Dot P) {
-			return ((int) P.X == Left || (int) P.X == Right) != ((int) P.Y == Top || (int) P.Y == Bottom);
+		public virtual bool CanConnect(RoomDef r, Dot p) {
+			return ((int) p.X == Left || (int) p.X == Right) != ((int) p.Y == Top || (int) p.Y == Bottom);
 		}
 
-		public bool CanConnect(Connection Direction) {
-			var Cnt = GetLastConnections(Direction);
+		public virtual bool CanConnect(Connection direction) {
+			var Cnt = GetLastConnections(direction);
 
 			return Cnt > 0;
 		}
 
-		public virtual bool CanConnect(RoomDef R) {
-			var I = Intersect(R);
+		public virtual bool CanConnect(RoomDef r) {
+			var I = Intersect(r);
 			var FoundPoint = false;
 
 			foreach (var P in I.GetPoints()) {
-				if (CanConnect(R, P) && R.CanConnect(R, P)) {
+				if (CanConnect(r, P) && r.CanConnect(r, P)) {
 					FoundPoint = true;
 
 					break;
@@ -133,19 +139,19 @@ namespace BurningKnight.level.rooms {
 			}
 
 			if (I.GetWidth() == 0 && I.Left == Left) {
-				return CanConnect(Connection.Left) && R.CanConnect(Connection.Left);
+				return CanConnect(Connection.Left) && r.CanConnect(Connection.Left);
 			}
 
 			if (I.GetHeight() == 0 && I.Top == Top) {
-				return CanConnect(Connection.Top) && R.CanConnect(Connection.Top);
+				return CanConnect(Connection.Top) && r.CanConnect(Connection.Top);
 			}
 
 			if (I.GetWidth() == 0 && I.Right == Right) {
-				return CanConnect(Connection.Right) && R.CanConnect(Connection.Right);
+				return CanConnect(Connection.Right) && r.CanConnect(Connection.Right);
 			}
 
 			if (I.GetHeight() == 0 && I.Bottom == Bottom) {
-				return CanConnect(Connection.Bottom) && R.CanConnect(Connection.Bottom);
+				return CanConnect(Connection.Bottom) && r.CanConnect(Connection.Bottom);
 			}
 
 			return false;
@@ -623,6 +629,30 @@ namespace BurningKnight.level.rooms {
 		public static RoomType DecideType(RoomDef r, Type room) {
 			if (typeof(TrapRoom).IsAssignableFrom(room)) {
 				return RoomType.Trap;
+			}
+			
+			if (typeof(SubShopRoom).IsAssignableFrom(room)) {
+				return RoomType.SubShop;
+			}
+			
+			if (typeof(DarkMarketRoom).IsAssignableFrom(room)) {
+				return RoomType.DarkMarket;
+			}
+			
+			if (typeof(PayedRoom).IsAssignableFrom(room)) {
+				return RoomType.Payed;
+			}
+			
+			if (typeof(ScourgedRoom).IsAssignableFrom(room)) {
+				return RoomType.Scourged;
+			}
+			
+			if (typeof(ChallengeRoom).IsAssignableFrom(room)) {
+				return RoomType.Challenge;
+			}
+
+			if (typeof(SpikedRoom).IsAssignableFrom(room)) {
+				return RoomType.Spiked;
 			}
 
 			if (typeof(BossRoom).IsAssignableFrom(room)) {

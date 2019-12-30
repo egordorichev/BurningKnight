@@ -28,7 +28,6 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public override bool HandleEvent(Event e) {
-
 			if (e is ProjectileCreatedEvent pce) {
 				var a = pce.Item == null || Item.Owner.GetComponent<ActiveWeaponComponent>().Item == pce.Item;
 				
@@ -54,8 +53,7 @@ namespace BurningKnight.entity.item.use {
 					return;
 				}
 
-				// fixme:
-				// projectile.Effect = info.Effect;
+				projectile.Color = info.Effect.GetColor();
 				
 				projectile.OnHurt += (p, e) => {
 					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {

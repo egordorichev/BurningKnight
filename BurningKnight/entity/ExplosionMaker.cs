@@ -103,7 +103,7 @@ namespace BurningKnight.entity {
 			
 							Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : level.Tileset.Rock)[Rnd.Int(4)], ww);
 
-							level.Set(index, Tile.Dirt);
+							level.Set(index, Tile.Ember);
 							level.UpdateTile(x + xx, y + yy);
 							level.ReCreateBodyChunk(x + xx, y + yy);
 
@@ -138,7 +138,7 @@ namespace BurningKnight.entity {
 			var index = level.ToIndex(x, y);
 			
 			level.Set(index, Tile.FloorA);
-			level.Set(index, Tile.Dirt);
+			level.Set(index, Tile.Ember);
 			level.UpdateTile(x, y);
 			level.ReCreateBodyChunk(x, y);
 			level.LoadPassable();

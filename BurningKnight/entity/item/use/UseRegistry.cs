@@ -42,8 +42,7 @@ namespace BurningKnight.entity.item.use {
 			Register<SpawnBombUse>(SpawnBombUse.RenderDebug);
 			Register<ConsumeUse>();
 			Register<MeleeArcUse>(MeleeArcUse.RenderDebug);
-			Register<ModifyGoldHeartsUse>(ModifyHpUse.RenderDebug);
-			Register<ModifyIronHeartsUse>(ModifyHpUse.RenderDebug);
+			Register<ModifyShieldHeartsUse>(ModifyHpUse.RenderDebug);
 			Register<ModifyHpUse>(ModifyHpUse.RenderDebug);
 			Register<ModifyMaxHpUse>(ModifyMaxHpUse.RenderDebug);
 			Register<GiveHeartContainersUse>(ModifyHpUse.RenderDebug);
@@ -91,7 +90,7 @@ namespace BurningKnight.entity.item.use {
 			Register<TriggerHurtEventUse>();
 			Register<SetKnockbackModifierUse>(SetKnockbackModifierUse.RenderDebug);
 			Register<RandomActiveUse>();
-			Register<CurseUse>();
+			Register<ScourgeUse>(ScourgeUse.RenderDebug);
 			Register<ModifyLuckUse>(ModifyLuckUse.RenderDebug);
 			Register<RerollItemsOnPlayerUse>(RerollItemsOnPlayerUse.RenderDebug);
 			Register<GoThonkUse>();
@@ -107,6 +106,13 @@ namespace BurningKnight.entity.item.use {
 			Register<SpawnDropUse>(SpawnDropUse.RenderDebug);
 			Register<ModifyStatsUse>(ModifyStatsUse.RenderDebug);
 			Register<MakeProjectilesBoomerangUse>();
+			Register<EnableScourgeUse>(EnableScourgeUse.RenderDebug);
+			Register<SetMusicSpeed>(SetMusicSpeed.RenderDebug);
+			Register<DoOnTimerUse>(DoOnTimerUse.RenderDebug);
+			Register<MakeBombsHomeUse>(MakeBombsHomeUse.RenderDebug);
+			Register<MakeBombsExplodeOnTouchUse>();
+			Register<RegenUse>(RegenUse.RenderDebug);
+			Register<ReplaceHeartsWithShieldsUse>();
 		}
 	}
 }

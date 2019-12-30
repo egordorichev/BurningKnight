@@ -1,1 +1,1 @@
-[{"id":0,"outputs":[],"type":"Text","x":233,"y":144},{"id":1,"outputs":[],"type":"Text","x":224,"y":196}]
+[{"id":4,"outputs":[],"type":"Text input","x":626,"y":153},{"id":2,"outputs":[[[4,0]],[[5,0]]],"type":"Choice","x":338,"y":142,"cc":2},{"id":3,"outputs":[[[2,0]]],"type":"Text output","x":98,"y":114},{"id":5,"outputs":[],"type":"Text input","x":628,"y":207},{"id":7,"outputs":[],"type":"Text","x":470,"y":268}]

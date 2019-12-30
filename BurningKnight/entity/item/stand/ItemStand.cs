@@ -7,6 +7,7 @@ using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
@@ -134,6 +135,7 @@ namespace BurningKnight.entity.item.stand {
 				if (item != null) {
 					if (CanTake(entity)) {
 						var i = item;
+						var remove = false;
 
 						if (this is HatStand) {
 							var ht = entity.GetComponent<HatComponent>();
@@ -149,14 +151,23 @@ namespace BurningKnight.entity.item.stand {
 							SetItem(it, entity, false);
 						} else {
 							SetItem(null, entity, false);
+							remove = true;
 						}
 
-						inventory.Pickup(i);
+						if (!inventory.Pickup(i) && remove) {
+							SetItem(i, null, false);
+						}
 					}
 
 					return this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
-					SetItem(weapon.Drop(), entity);
+					if (weapon.Item.Scourged) {
+						AnimationUtil.ActionFailed();
+					} else {
+						SetItem(weapon.Drop(), entity);
+						weapon.RequestSwap();
+					}
+
 					return false;
 				}
 			}
@@ -183,8 +194,10 @@ namespace BurningKnight.entity.item.stand {
 			if (!TryGetComponent<InteractableComponent>(out var component)) {
 				return;
 			}
-			
-			var renderOutline = component.OutlineAlpha > 0.05f;
+
+			var cursed = item != null && item.Scourged;
+			var interact = component.OutlineAlpha > 0.05f;
+			var renderOutline = interact || cursed;
 			
 			if (item == null && renderOutline) {
 				var shader = Shaders.Entity;
@@ -216,15 +229,15 @@ namespace BurningKnight.entity.item.stand {
 			
 			var region = item.Region;
 			var animated = item.Animation != null;
-			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f) - 5.5f);
+			var pos = item.Center + new Vector2(0, (animated ? 0 : (float) (Math.Sin(t * 3f) * 0.5f + 0.5f) * -5.5f - 3) - 5.5f);
 			
 			if (renderOutline) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
-				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
+				shader.Parameters["flash"].SetValue(cursed ? 1f : component.OutlineAlpha);
 				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.ScourgedColor, ColorUtils.White, component.OutlineAlpha));
 
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(region, pos + d, animated ? 0 : angle, region.Center);
@@ -263,21 +276,24 @@ namespace BurningKnight.entity.item.stand {
 			}
 			
 			if (stream.ReadBoolean()) {
-				SetItem(Items.CreateAndAdd(stream.ReadString(), Area), null);
+				var item = new Item();
+
+				Area.Add(item, false);
+				
+				item.Load(stream);
+				item.LoadedSelf = false;
+				item.PostInit();
+
+				SetItem(item, null);
 			}
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			
-			if (dontSaveItem) {
-				return;
-			}
-			
-			stream.WriteBoolean(item != null);
-
-			if (item != null) {
-				stream.WriteString(item.Id);
+			if (!dontSaveItem) {
+				stream.WriteBoolean(item != null);
+				item?.Save(stream);
 			}
 		}
 
@@ -292,6 +308,10 @@ namespace BurningKnight.entity.item.stand {
 					item.Done = true;
 				}
 			}
+		}
+
+		public virtual ItemPool GetPool() {
+			return ItemPool.Treasure;
 		}
 	}
 }

@@ -1,4 +1,47 @@
-# jungle 
+# jungle
+
+!! items get 2 charge per room??
+
+* custom voices for the new npcs
+* save max hp for player. otherwise shield buddy is broken
+
+* animate nurse
+
+!! picking bill says +5 curse when its only 3
+
+* achievement for first cursed weapon 
+* make spiked and cursed rooms locked by default 
+* enemy egenerate prefix only once you enter the room first time
+* fix trap room might not lead anywhere
+
+* scourge { 
+  - make face door actually teleport you, dissappear after 1 use
+  - make portal door actually teleport you
+  - bk fire constantly, if you have >= 10 curse
+  
+  - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
+  - make bill give you 3 curses instead of 1
+  - more coins should drop the more curse you have
+  - a way to clean the cursed weapons
+  - curse points should affect granny/dm chance?
+  - item, that gives immunity to curse tokens (removes them and disables their spawn / cursed item spawn) and cleans cursed items
+  
+  - a way to get curses {
+   + shop, you get payed to get a curse
+ 
+   + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
+   + statue, you break it and get curse, but you get healed?
+  }
+ }
+}
+
+* content to place {
+ + statues 
+ + protochest
+ + cursed room content 
+ + challenge room content
+ + spiked room content
+}
 
 * enemies {
  + mike
@@ -9,12 +52,14 @@
 }
 
 * misc {
- + actual hive gen on lvl 2
+ + better hive gen on lvl 2
  + trees?
 }
 
 * fix {
- + projectile effect is not used anymore, color the projectile depending on the buff
+ + granny and dm rooms dont get a path leading to them or smth?
+ + weird glitch with the lock?? it kinda rotates or smth
+ + holding amurs bow in the back still applies the effect
 }
 
 # todo
@@ -40,10 +85,6 @@
  + gamepad {
   - rumble doesn't always work? maybe its just not noticable enough
  }
-}
-
-* room {
- + special props on top of special rooms, like shop boss and treasure
 }
 
 * bk: {
@@ -74,13 +115,6 @@
 
 * duck interaction
 * Implement basic loop after you defeat the boss
-* Hints on loading screen  
-* curse getting animation
-
-* curse of unknown (do not know hp)
-* curse of lost (rooms get forgotten)   
-* curse of ??? (do not know consumable counts)
-* curse of ??? (items hidden)
 * more prefixes
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
@@ -101,7 +135,6 @@
 
 #### Polish
 
-* special door textures for shop and treasure room, maybe even boss room 
 * animate items on player head better, also dont stack em, display count 
 * animate item pickup / appearance
 * Broken variant for walls that do not break
@@ -133,11 +166,8 @@
 
 ### Rooms
 
-* falling floor room
 * crawled space
 * Room, where you press lever/button to open/close chasm
-* Challenge room
-* Cursed room
 * trap rooms
 * more secret rooms
 * room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies

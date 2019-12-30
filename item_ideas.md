@@ -1,21 +1,95 @@
+# free sprites
+
+* gamepad
+* dewvial
+* chailice
+* detonator
+* vampire_bat
+* lemon
+* fire exstinguisher
+* compass
+* thermos
+* meetboy
+* brain
+* pickaxe
+* teabag
+* cup
+* obsidian_boots
+* ankh
+* pact
+* chest
+* the_ring
+* metal_ring
+
+* lootpick
+* bluewatch
+* bone
+* skull
+
+# passive
+
+* ankh
+* immunity to contact damage
+* half a heart
+
+* super hot mechanic
+* shop teleporter
+* gives shield each floor
+* damage up, accuracy down (eye patch)
+* pet, eats hearts gives soul hearts
+* crush rocks by walking on them
+* increases money drop chance from room reward
+* increases room reward chance
+* increases chest chance from a rooms reward
+* rolling through bullets fires them back at enemies
+* picking up a heart might heal you for half a heart
+* ring, gives a chance to fully reveal the floor on entering it
+* chance to fire back (/ use your sword)
+* chance to fire in all directions when you fire (/ use your sword)
+* vampire_bat - half a heart heal every 13 kills
+* tripple shot
+* tripple shot but accuracy down
+* lighting between nearby bullets
+* double shot
+* chance to heal when buying an item
+* angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
+* range down, tears up
+* your projectiles break enemy projectiles (destroying themselfs too)
+* 2 heart containers up 
+* small planet
+* bigger bomb explosion radius
+* money power/keys power/bomb power
+* magic glass, allows player to walk over 1-tile chasms
+* projectiles change size (up/down) depending on their time
+
+# active
+
+* soul heart generator
+* pickup generator
+* tmp flight
+* fire tears in all directions (your dmg+flat dmg)
+* kamikaze
+* reusable brimstone
+* random active item effect
+
+# weapon 
+
+* shoots when you are full hp
+* shoots always
+* shoots when you are 1 hp
+* bomb gun
+* laser gun
+
 ### pools to fill
 
-* red chest
-* cursed chest
-* gold chest
-* wooden chest
-* triple chest
-* double chest
-* forest chest
-* boss pool
-* charger pool       -- battery buddy, item, that makes you charge double per room -> some items for charger item pool
-* safe pool (loot pick for example)
+* make tnt, skeleton key and the bill unlockable
+
 * granny --- tea cup! and other tea based items
 * dark mage
+* duck chest
 
 ### to rework
 
-* disk gun is kinda broken
 * convert fire exstinguisher into flame thrower
 * discord rod use half a heart
 
@@ -25,12 +99,15 @@
  * crystal, works like prysm, but randomly teleports somewhere near the player
  * some bird, pick ups keys, coins, targets hearts first
  * someone, has a lighting/laser going from him to you, passive damage
- * chest, basically third weapon slot 
+ * backpack, but for active items?
  * simple summon, simple damage
 }
 
+* orbital, that pushes enemies away
+
 ### items
 
+* bones (throwing weapon, stacks)
 * multiplies your orbitals by 2
 * orbitals should make the chance of appearing higher when you pick em up
 * makes your bullets go through walls
@@ -48,7 +125,6 @@
 * charge shot
 * spawns a turret
 * powerful but short range gun
-* prism orbital
 * nuclear throne perks: strong soul, hammer head, etc:
  *+ bloodlast: vampire_bat
  *+ hammer head: pickacke
@@ -66,7 +142,6 @@
 * the ring
 * item, that opens enemy doors
 * ring of gold
-* star
 * pit immunity
 * zoom
 * when bullet penetrates enemy, it splits into two
@@ -105,14 +180,10 @@
 * charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
-* d24
 * pig: gives you more money the deeper flor you use it on (single use active item)
 * bombs that stick to enemies
 * increases bomb explosion radius greatly
-* homing bombs
 * wallet buddy (collects money)
-* roll damages enemies
-* teleport to random room
 * teleport to prev room
 * money is power
 * bombs are power

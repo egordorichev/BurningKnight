@@ -1,3 +1,5 @@
+using System;
+
 namespace BurningKnight.entity.item {
 	public static class PriceCalculator {
 		public static int BasePrice(ItemType type) {
@@ -17,9 +19,21 @@ namespace BurningKnight.entity.item {
 				default: return 15;
 			}
 		}
+
+		public static float GetPriceModifier(this ItemQuality quality) {
+			switch (quality) {
+				case ItemQuality.Wooden: default: return 1;
+				case ItemQuality.Iron: return 1.333f;
+				case ItemQuality.Golden: return 2f;
+			}	
+		}
+
+		public static float GetModifier(Item item) {
+			return (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier();
+		}
 		
 		public static int Calculate(Item item) {
-			return BasePrice(item.Type);
+			return (int) Math.Round(BasePrice(item.Type) * GetModifier(item));
 		}
 	}
 }

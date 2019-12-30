@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
+using BurningKnight.entity;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.machine;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.state;
@@ -68,7 +70,7 @@ namespace BurningKnight.level.rooms.shop {
 
 				var id = Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool, null, true);
 				
-				stand.SetItem(Items.CreateAndAdd(id, level.Area), null);
+				stand.SetItem(Items.CreateAndAdd(id, level.Area, false), null);
 
 				if (pool.Count == 0) {
 					break;
@@ -83,12 +85,23 @@ namespace BurningKnight.level.rooms.shop {
 			level.Area.Add(sk);
 			sk.Center = new Vector2(p.X * 16 + 8, p.Y * 16 + 16);
 
-			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor());
+			// Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor());
 			
 			var points = new List<Point>();
 
 			for (var x = Left + 2; x < Right - 1; x++) {
-				points.Add(new Point(x, Top + 2));
+				var found = false;
+
+				foreach (var c in Connected.Values) {
+					if (c.X == x && c.Y == Top) {
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found) {
+					points.Add(new Point(x, Top + 2));
+				}
 			}
 
 			var props = new List<Entity> {
@@ -123,14 +136,37 @@ namespace BurningKnight.level.rooms.shop {
 					level.Set(x, y, tt);
 				}
 			});
+
+			var letters = new[] {'a', 'b', 'c'};
+			var spr = $"mat_{letters[Rnd.Int(letters.Length)]}";
+			
+			foreach (var pair in Connected) {
+				if (pair.Key is SubShopRoom) {
+					continue;
+				}
+
+				var door = pair.Value;
+				var mat = new SlicedProp(spr, Layers.Entrance);
+				level.Area.Add(mat);
+
+				if (door.X == Left) {
+					PlaceSign(level, new Vector2(door.X * 16 - 8, door.Y * 16 - 5));
+					mat.Center = new Vector2(door.X * 16 - 8, door.Y * 16 + 8);
+				} else if (door.X == Right) {
+					PlaceSign(level, new Vector2(door.X * 16 + 24, door.Y * 16 - 5));
+					mat.Center = new Vector2(door.X * 16 + 24, door.Y * 16 + 8);
+				} else if (door.Y == Top) {
+					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 - 8);
+				} else {
+					mat.Center = new Vector2(door.X * 16 + 8, door.Y * 16 + 24);
+				}
+			}
 		}
 
-		public override void SetupDoors(Level level) {
-			var hidden = Rnd.Chance(5);
-			
-			foreach (var door in Connected.Values) {
-				door.Type = hidden ? DoorPlaceholder.Variant.Secret : DoorPlaceholder.Variant.Locked;
-			}
+		private void PlaceSign(Level level, Vector2 where) {
+			var sign = new ShadowedProp("shop_sign");
+			level.Area.Add(sign);
+			sign.BottomCenter = where;
 		}
 
 		protected List<Point> ValidateStands(Level level, List<Point> stands) {
@@ -209,12 +245,14 @@ namespace BurningKnight.level.rooms.shop {
 			return list;
 		}
 
-		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.Y == Top) {
-				return false;
+		public override void SetupDoors(Level level) {
+			foreach (var door in Connected) {
+				door.Value.Type = door.Key is SubShopRoom ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
 			}
-			
-			return base.CanConnect(R, P);
+		}
+		
+		public override bool CanConnect(Connection direction) {
+			return true;
 		}
 	}
 }

@@ -3,15 +3,15 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.buff {
 	public static class ProjectileShaderHelper {
-		public static Vector4 GetColor(this ProjectileGraphicsEffect effect) {
+		public static Color GetColor(this ProjectileGraphicsEffect effect) {
 			switch (effect) {
-				case ProjectileGraphicsEffect.Poison: return PoisonBuff.Color;
-				case ProjectileGraphicsEffect.Charming: return CharmedBuff.Color;
-				case ProjectileGraphicsEffect.Freezing: return FrozenBuff.Color;
-				case ProjectileGraphicsEffect.Slowing: return SlowBuff.Color;
-				case ProjectileGraphicsEffect.Burning: return BurningBuff.Color;
+				case ProjectileGraphicsEffect.Poison: return ProjectileColor.Green;
+				case ProjectileGraphicsEffect.Charming: return ProjectileColor.Pink;
+				case ProjectileGraphicsEffect.Freezing: return ProjectileColor.Cyan;
+				case ProjectileGraphicsEffect.Slowing: return ProjectileColor.Brown;
+				case ProjectileGraphicsEffect.Burning: return ProjectileColor.Orange;
 					
-				default: return Vector4.Zero;
+				default: return ProjectileColor.Yellow;
 			}
 		}
 	}

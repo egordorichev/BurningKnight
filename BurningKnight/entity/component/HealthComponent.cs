@@ -61,6 +61,10 @@ namespace BurningKnight.entity.component {
 					InvincibilityTimer = mod ? InvincibilityTimerMax : 0.1f;
 				}
 				
+				if (e.Amount > 0) {
+					EmitParticles(false);
+				}
+				
 				health = h;
 
 				Send(new PostHealthModifiedEvent {
@@ -70,14 +74,17 @@ namespace BurningKnight.entity.component {
 					Type = type
 				});
 
-				if (health <= 0.1f && AutoKill) {
-					Kill(setter);
-				}
-
+				TryToKill(setter);
 				return true;
 			}
 
 			return false;
+		}
+
+		private void TryToKill(Entity e) {
+			if (health <= 0.1f && (!Entity.TryGetComponent<HeartsComponent>(out var c) || c.Total == 0) && AutoKill) {
+				Kill(e);
+			}
 		}
 
 		public bool ModifyHealth(float amount, Entity setter, DamageType type = DamageType.Regular) {
@@ -96,18 +103,31 @@ namespace BurningKnight.entity.component {
 				return false;
 			}
 			
-			/*if (amount < 0) {
+			if (amount < 0) {
 				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {
 						if (Unhittable || InvincibilityTimer > 0) {
 							return false;
 						}
-				
-						hearts.Hurt(-amount, setter);
-						return true;
+
+						if (hearts.Hurt((int) -Math.Round(amount), setter)) {
+							InvincibilityTimer = InvincibilityTimerMax;
+
+							Send(new PostHealthModifiedEvent {
+								Amount = amount,
+								Who = Entity,
+								From = setter,
+								Type = type
+							});
+							
+							TryToKill(setter);
+							return true;
+						}
+						
+						return false;
 					}
 				}
-			}*/
+			}
 			
 			return SetHealth(health + (amount), setter, true, type);
 		}
@@ -140,7 +160,7 @@ namespace BurningKnight.entity.component {
 
 		public int InitMaxHealth {
 			set {
-				maxHealth = Math.Max(1, value);
+				maxHealth = value;
 				health = maxHealth;
 			}
 		}
@@ -154,6 +174,7 @@ namespace BurningKnight.entity.component {
 
 		public void Kill(Entity from) {
 			if (dead) {
+				Entity.Done = true;	
 				return;
 			}
 			
@@ -167,10 +188,32 @@ namespace BurningKnight.entity.component {
 				Entity.Done = true;	
 			}
 		}
-
+		
+		// Needed for loading
 		public HealthComponent() {
-			//maxHealth = 2;
-			//health = MaxHealth;
+			
+		}
+
+		public void EmitParticles(bool shield) {
+			var slice = shield ? "shield" : "heart";
+
+			for (var i = 0; i < 3; i++) {
+				Timer.Add(() => {
+						var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"{slice}_{Rnd.Int(1, 4)}"))));
+						part.Position = Entity.Center;
+
+						if (Entity.TryGetComponent<ZComponent>(out var z)) {
+							part.Position -= new Vector2(0, z.Z);
+						}
+				
+						Entity.Area.Add(part);
+				
+						part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
+						part.Particle.Angle = 0;
+						part.Particle.Alpha = 0.9f;
+						part.Depth = Layers.InGameUi;
+					}, i * 0.5f);
+			}
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -183,30 +226,12 @@ namespace BurningKnight.entity.component {
 				Audio.PlaySfx("item_heart");
 				
 				ev.Item.Use(Entity);
-				ev.Item.Done = true;
 
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(ev.Item.Animation != null
 					? ev.Item.GetComponent<AnimatedItemGraphicsComponent>().Animation.GetFirstCurrent()
 					: ev.Item.Region, (Player) Entity));
-
-				for (var i = 0; i < 3; i++) {
-					Timer.Add(() => {
-							var part = new ParticleEntity(new Particle(Controllers.Float, new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"heart_{Rnd.Int(1, 4)}"))));
-							part.Position = Entity.Center;
-
-							if (Entity.TryGetComponent<ZComponent>(out var z)) {
-								part.Position -= new Vector2(0, z.Z);
-							}
 				
-							Entity.Area.Add(part);
-				
-							part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
-							part.Particle.Angle = 0;
-							part.Particle.Alpha = 0.9f;
-							part.Depth = Layers.InGameUi;
-						}, i * 0.5f);
-				}
-
+				ev.Item.Done = true;
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");
@@ -222,6 +247,18 @@ namespace BurningKnight.entity.component {
 
 		public bool IsFull() {
 			return Math.Abs(health - MaxHealth) < 0.01f;
+		}
+
+		public bool CanPickup(Item item) {
+			if (item.Id.Contains("heart")) {
+				return !IsFull();
+			}
+
+			if (!Entity.TryGetComponent<HeartsComponent>(out var h)) {
+				return false;
+			}
+
+			return h.CanHaveMore;
 		}
 
 		private bool applied;

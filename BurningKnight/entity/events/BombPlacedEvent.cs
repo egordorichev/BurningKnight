@@ -1,3 +1,4 @@
+using BurningKnight.entity.bomb;
 using Lens.entity;
 
 namespace BurningKnight.entity.events {

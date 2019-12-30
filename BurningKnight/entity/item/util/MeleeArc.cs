@@ -1,5 +1,6 @@
 ﻿using System;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
@@ -35,6 +36,8 @@ namespace BurningKnight.entity.item.util {
 				Offset = new Vector2(4, 12),
 				Scale = new Vector2(Width / 8, Height / 24)
 			});
+			
+			AddComponent(new LightComponent(this, 32f, Color.White));
 
 			GetComponent<AnimationComponent>().OriginY = 12;
 			Camera.Instance.Push(Angle - (float) Math.PI, 4f);

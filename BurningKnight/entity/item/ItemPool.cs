@@ -21,8 +21,8 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Consumable = new ItemPool("consumable");
 		public static readonly ItemPool Treasure = new ItemPool("treasure");
 		public static readonly ItemPool Secret = new ItemPool("secret");
-		public static readonly ItemPool Hat = new ItemPool("hat");
-		public static readonly ItemPool Unused = new ItemPool("unused");
+		public static readonly ItemPool Snek = new ItemPool("snek");
+		public static readonly ItemPool Boxy = new ItemPool("boxy");
 		public static readonly ItemPool StartingWeapon = new ItemPool("starting_weapon");
 		public static readonly ItemPool Shop = new ItemPool("shop");
 		public static readonly ItemPool Boss = new ItemPool("boss");
@@ -31,7 +31,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool Charger = new ItemPool("charger");
 		public static readonly ItemPool WoodenChest = new ItemPool("wooden_chest");
 		public static readonly ItemPool GoldChest = new ItemPool("gold_chest");
-		public static readonly ItemPool CursedChest = new ItemPool("cursed_chest");
+		public static readonly ItemPool ScourgedChest = new ItemPool("scourged_chest");
 		public static readonly ItemPool DoubleChest = new ItemPool("double_chest");
 		public static readonly ItemPool TripleChest = new ItemPool("triple_chest");
 		public static readonly ItemPool RedChest = new ItemPool("red_chest");
@@ -40,6 +40,12 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool StoneChest = new ItemPool("stone_chest");
 		public static readonly ItemPool Granny = new ItemPool("granny");
 		public static readonly ItemPool OldMan = new ItemPool("old_man");
+		public static readonly ItemPool Vampire = new ItemPool("vampire");
+		public static readonly ItemPool Roger = new ItemPool("roger");
+		public static readonly ItemPool TrashGoblin = new ItemPool("trash_goblin");
+		public static readonly ItemPool SpikedRoom = new ItemPool("spiked_room");
+		public static readonly ItemPool DuckChest = new ItemPool("duck_chest");
+		public static readonly ItemPool Gobetta = new ItemPool("gobetta");
 
 		private static int count;
 		public static int Count => count;

@@ -33,6 +33,14 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		static PetRegistry() {
+			Define("backpack", o => o.Area.Add(new Backpack {
+				Owner = o
+			}));
+			
+			Define("crystal", o => o.Area.Add(new Crystal {
+				Owner = o
+			}));
+			
 			Define("lil_boo", o => o.Area.Add(new LilBoo {
 				Owner = o
 			}));
@@ -89,6 +97,14 @@ namespace BurningKnight.entity.creature.pet {
 			}));
 
 			Define("pouch_pouch", o => o.Area.Add(new GeneratorPet("bk:pouch_pouch", 4, a => Items.CreateAndAdd("bk:pouch", a)) {
+				Owner = o
+			}));
+
+			Define("shield_pouch", o => o.Area.Add(new GeneratorPet("bk:shield_pouch", 8, a => Items.CreateAndAdd("bk:shield", a)) {
+				Owner = o
+			}));
+
+			Define("shield_buddy", o => o.Area.Add(new ShieldBuddy() {
 				Owner = o
 			}));
 		}

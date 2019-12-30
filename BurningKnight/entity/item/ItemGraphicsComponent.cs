@@ -1,8 +1,6 @@
 ﻿using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
-using BurningKnight.util;
-using Lens.entity.component.graphics;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
@@ -11,7 +9,9 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.item {
 	public class ItemGraphicsComponent : SliceComponent {
 		public const float FlashSize = 0.025f;
+		public const int ScourgedColorId = 48;
 		public static Color MaskedColor = new Color(0f, 0f, 0f, 0.75f);
+		public static Vector4 ScourgedColor = Palette.Default[ScourgedColorId].ToVector4();
 		
 		public float T;
 		
@@ -43,29 +43,37 @@ namespace BurningKnight.entity.item {
 			if (Entity.HasComponent<OwnerComponent>()) {
 				return;
 			}
-
-			var origin = Sprite.Center;
+			
+			var item = (Item) Entity;
+			var s = item.Hidden ? Item.UnknownRegion : Sprite;
+			var origin = s.Center;
 			var position = CalculatePosition(shadow);
 			var angle = (float) Math.Cos(T * 1.8f) * 0.4f;
+			var cursed = item.Scourged;
 
-			if (!shadow && Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
-				var shader = Shaders.Entity;
-				Shaders.Begin(shader);
+			if (!shadow) {
+				var interact = Entity.TryGetComponent<InteractableComponent>(out var component) &&
+				               component.OutlineAlpha > 0.05f;
 
-				shader.Parameters["flash"].SetValue(component.OutlineAlpha);
-				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				if (cursed || interact) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
 
-				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(Sprite, position + d, angle, origin);
+					shader.Parameters["flash"].SetValue(cursed ? 1f : component.OutlineAlpha);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(!cursed ? ColorUtils.White : ColorUtils.Mix(ScourgedColor, ColorUtils.White, component.OutlineAlpha));
+
+					foreach (var d in MathUtils.Directions) {
+						Graphics.Render(s, position + d, angle, origin);
+					}
+
+					Shaders.End();
 				}
-				
-				Shaders.End();
 			}
 
-			if (((Item) Entity).Masked) {
+			if (item.Masked) {
 				Graphics.Color = MaskedColor;
-				Graphics.Render(Sprite, position, angle, origin);
+				Graphics.Render(s, position, angle, origin);
 				Graphics.Color = ColorUtils.WhiteColor;
 			} else {
 				if (!shadow) {
@@ -76,7 +84,7 @@ namespace BurningKnight.entity.item {
 					shader.Parameters["size"].SetValue(FlashSize);
 				}
 
-				Graphics.Render(Sprite, position, angle, origin);
+				Graphics.Render(s, position, angle, origin);
 
 				if (!shadow) {
 					Shaders.End();

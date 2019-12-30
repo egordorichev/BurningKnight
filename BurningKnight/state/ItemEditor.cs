@@ -47,7 +47,8 @@ namespace BurningKnight.state {
 			"weapon",
 			"battery",
 			"hat",
-			"pouch"
+			"pouch",
+			"scourge"
 		};
 
 		// Keep in sync with the WeaponType enum!!!
@@ -55,6 +56,13 @@ namespace BurningKnight.state {
 			"melee",
 			"ranged",
 			"magic"
+		};
+		
+		// Keep in sync with the ItemQuality enum!!!
+		public static string[] Quality = {
+			"wooden",
+			"iron",
+			"golden"
 		};
 
 		private static int toRemove = -1;
@@ -296,7 +304,7 @@ namespace BurningKnight.state {
 
 				if (ImGui.Button("Spawn")) {
 					var item = Items.CreateAndAdd(
-						Selected.Id, Engine.Instance.State.Area
+						Selected.Id, Engine.Instance.State.Area, false
 					);
 
 					item.Center = player.Center;
@@ -308,7 +316,7 @@ namespace BurningKnight.state {
 					var stand = new ItemStand();
 					Engine.Instance.State.Area.Add(stand);
 					var item = Items.CreateAndAdd(
-						Selected.Id, Engine.Instance.State.Area
+						Selected.Id, Engine.Instance.State.Area, false
 					);
 
 					stand.Center = player.Center;
@@ -374,6 +382,12 @@ namespace BurningKnight.state {
 			if (ImGui.Combo("Type", ref type, Types, Types.Length)) {
 				Selected.Type = (ItemType) type;
 			}
+			
+			type = (int) Selected.Quality;
+
+			if (ImGui.Combo("Quality", ref type, Quality, Quality.Length)) {
+				Selected.Quality = (ItemQuality) type;
+			}
 
 			if (Selected.Type == ItemType.Weapon) {
 				type = (int) Selected.WeaponType;
@@ -430,6 +444,7 @@ namespace BurningKnight.state {
 				}
 
 				ImGui.Checkbox("Auto pickup", ref Selected.AutoPickup);
+				ImGui.Checkbox("Scourge", ref Selected.Scourged);
 				ImGui.SameLine();
 			} else {
 				Selected.AutoPickup = true;
@@ -541,6 +556,7 @@ namespace BurningKnight.state {
 		private static int count;
 		private static bool locked = true;
 		private static int pools;
+		private static int quality;
 		private static int sortBy;
 		private static bool single;
 		private static bool invertSpawn;
@@ -550,7 +566,8 @@ namespace BurningKnight.state {
 			"Type",
 			"Lockable",
 			"Pool",
-			"Single spawn"
+			"Single spawn",
+			"Quality"
 		};
 		
 		private static void Sort() {
@@ -610,13 +627,14 @@ namespace BurningKnight.state {
 					
 					if (fromCurrent && Selected != null) {
 						data.Type = Selected.Type;
+						data.Quality = Selected.Quality;
 						data.Animation = Selected.Animation;
 						data.Pools = Selected.Pools;
 						data.Root = JsonValue.Parse(Selected.Root.ToString());
 						data.Renderer = data.Root["renderer"];
 						data.Uses = data.Root["uses"];
-						data.SingleUse = data.SingleUse;
-						data.UseTime = data.UseTime;
+						data.SingleUse = Selected.SingleUse;
+						data.UseTime = Selected.UseTime;
 						data.Lockable = Selected.Lockable;
 						data.UnlockPrice = Selected.UnlockPrice;
 						data.Single = Selected.Single;
@@ -692,6 +710,8 @@ namespace BurningKnight.state {
 					}
 				} else if (sortBy == 4) {
 					ImGui.Checkbox("Single?", ref single);
+				} else if (sortBy == 5) {
+					ImGui.Combo("Quality", ref quality, Quality, Quality.Length);
 				}
 			}
 
@@ -734,6 +754,10 @@ namespace BurningKnight.state {
 							}
 						} else if (sortBy == 4) {
 							if (i.Single != single) {
+								continue;
+							}
+						} else if (sortBy == 5) {
+							if (i.Quality != (ItemQuality) quality) {
 								continue;
 							}
 						}

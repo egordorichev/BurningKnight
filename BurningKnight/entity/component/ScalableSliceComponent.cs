@@ -1,6 +1,8 @@
+using System;
 using BurningKnight.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
@@ -53,6 +55,16 @@ namespace BurningKnight.entity.component {
 			if (stopShader) {
 				Shaders.End();
 			}
+		}
+		
+		public void Animate(Action callback = null) {
+			Tween.To(1.8f, Scale.X, x => Scale.X = x, 0.1f);
+			Tween.To(0.2f, Scale.Y, x => Scale.Y = x, 0.1f).OnEnd = () => {
+				Tween.To(1, Scale.X, x => Scale.X = x, 0.4f);
+				Tween.To(1, Scale.Y, x => Scale.Y = x, 0.4f);
+
+				callback?.Invoke();
+			};
 		}
 	}
 }

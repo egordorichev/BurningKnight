@@ -323,7 +323,23 @@ namespace BurningKnight.save.statistics {
 			
 			ImGui.Separator();
 			ImGui.Text($"Luck: {Run.Luck}");
-			ImGui.Text($"Curse: {Run.Curse}");
+			ImGui.Text($"Scourge: {Run.Scourge}");
+			
+			if (ImGui.TreeNode("Scourges")) {
+				foreach (var curse in Scourge.Defined) {
+					var v = Scourge.IsEnabled(curse);
+
+					if (ImGui.Checkbox(curse, ref v)) {
+						if (v) {
+							Scourge.Enable(curse);
+						} else {
+							Scourge.Disable(curse);
+						}
+					}
+				}
+				
+				ImGui.TreePop();
+			}
 		}
 	}
 }

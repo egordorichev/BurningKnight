@@ -76,11 +76,12 @@ namespace BurningKnight.level.entities {
 			if (i != null) {
 				i.CenterX = CenterX;
 				i.Y = Bottom;
+				i.Scourged = true;
 			}
 			
 			Item = null;
 			UpdateSprite();
-			Run.AddCurse();
+			Run.AddScourge(true);
 
 			GetComponent<DialogComponent>().Close();
 			

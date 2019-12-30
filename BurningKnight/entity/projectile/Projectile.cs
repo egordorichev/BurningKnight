@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
@@ -19,6 +20,7 @@ using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.assets;
@@ -51,6 +53,7 @@ namespace BurningKnight.entity.projectile {
 		public Entity Owner;
 		public float Range = -1;
 		public float T;
+		public bool Artificial;
 		public int BounceLeft;
 		public bool IndicateDeath;
 		public bool CanBeReflected = true;
@@ -61,6 +64,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileNearingDeathCallback NearDeath;
 		public Projectile Parent;
 		public Color Color = ProjectileColor.Red;
+		public bool Scourged;
 		public string Slice;
 		public float Scale;
 		public bool BreaksFromWalls = true;
@@ -77,7 +81,11 @@ namespace BurningKnight.entity.projectile {
 		private float deathTimer;
 		private bool nearedDeath;
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, int damage = 1, Item item = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, float damage = 1, Item item = null) {
+			if (slice == "default") {
+				slice = "rect";
+			}
+			
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
@@ -116,6 +124,12 @@ namespace BurningKnight.entity.projectile {
 			projectile.Width = w;
 			projectile.Height = h;
 			projectile.Center = owner.Center;
+
+			if (owner is Mob m && m.HasPrefix) {
+				projectile.Scourged = true;
+				projectile.Color = ProjectileColor.Black;
+				projectile.AddLight(64, ProjectileColor.Black);
+			}
 
 			if (circle) {
 				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
@@ -160,6 +174,10 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void AddLight(float radius, Color color) {
+			if (HasComponent<LightComponent>()) {
+				return;
+			}
+			
 			AddComponent(new LightComponent(this, radius * Scale, color));
 		}
 
@@ -229,7 +247,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			if (entity is Turret && T > 0.2f) {
+			if (entity is Turret) {
 				return true;
 			}
 
@@ -237,7 +255,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand) {
+			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand || entity is Statue) {
 				return false;
 			}
 

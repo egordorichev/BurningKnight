@@ -20,11 +20,11 @@ namespace BurningKnight.entity.item.use {
 			var arc = new MeleeArc {
 				Owner = entity,
 				LifeTime = LifeTime,
-				Damage = Damage,
+				Damage = Damage * (item.Scourged ? 1.5f : 1),
 				Width = W,
 				Height = H,
 				Position = entity.Center,
-				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().Aim) + Angle
+				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().RealAim) + Angle
 			};
 
 			entity.HandleEvent(new MeleeArc.CreatedEvent {

@@ -3,8 +3,8 @@ using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
 using Lens;
+using Lens.assets;
 using Lens.entity;
-using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -25,7 +25,7 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			var text = item.Name;
+			var text = item.Hidden ? "???" : (item.Scourged ? $"{Locale.Get("scourged")} {item.Name}" : item.Name);
 			var size = Font.Medium.MeasureString(text);
 
 			Width = size.Width;
@@ -41,6 +41,10 @@ namespace BurningKnight.entity.item {
 			Tween.To(0, y, x => y = x, 0.2f);
 			
 			UpdatePosition();
+
+			if (item.Scourged) {
+				component.Color = Palette.Default[ItemGraphicsComponent.ScourgedColorId];
+			}
 		}
 
 		private void UpdatePosition() {

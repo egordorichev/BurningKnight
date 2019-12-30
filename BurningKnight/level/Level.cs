@@ -1592,7 +1592,7 @@ namespace BurningKnight.level {
 			}
 
 			Set(index, Tile.FloorA);							
-			Set(index, Tile.Dirt);
+			Set(index, Tile.Ember);
 
 			UpdateTile(tx, ty);
 			

@@ -1,6 +1,8 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
+using BurningKnight.physics;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
@@ -9,28 +11,39 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.chest {
-	public class Chest : SolidProp {
-		private bool open;
+	public class Chest : Prop, CollisionFilterEntity {
+		protected bool open;
 		protected internal float Scale = 1;
+		private bool transitioning;
 
 		public bool CanOpen = true;
 		public bool Empty;
 		
-		protected override Rectangle GetCollider() {
+		protected virtual Rectangle GetCollider() {
 			return new Rectangle(0, (int) (5 * Scale), (int) (Math.Max(1, 17 * Scale)), (int) (Math.Max(1, 8 * Scale)));
 		}
 		
-		protected override BodyComponent CreateBody() {
+		protected virtual BodyComponent CreateBody() {
 			var collider = GetCollider();
 			return new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height);
+		}
+
+		protected virtual float GetWidth() {
+			return 16;
+		}
+
+		protected virtual float GetHeight() {
+			return 13;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
 
-			Width = 16 * Scale;
-			Height = 13 * Scale;
+			AlwaysActive = true;
+			Width = GetWidth() * Scale;
+			Height = GetHeight() * Scale;
 
+			AddGraphics();
 			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4));
 			AddComponent(new DropsComponent());
 			AddComponent(new ShadowComponent());
@@ -38,7 +51,7 @@ namespace BurningKnight.level.entities.chest {
 			AddComponent(new AudioEmitterComponent());
 			
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => CanOpen && !open
+				CanInteract = e => CanOpen && ShouldOpen()
 			});
 			
 			AddTag(Tags.Chest);
@@ -47,12 +60,21 @@ namespace BurningKnight.level.entities.chest {
 			DefineDrops();
 		}
 
+		protected virtual bool ShouldOpen() {
+			return !open;
+		}
+
+		protected virtual void AddGraphics() {
+			AddComponent(new InteractableSliceComponent("props", GetSprite()));
+		}
+
 		protected virtual void DefineDrops() {
 			
 		}
 
 		public override void PostInit() {
 			base.PostInit();
+			AddComponent(CreateBody());
 
 			if (open) {
 				UpdateSprite();
@@ -64,7 +86,10 @@ namespace BurningKnight.level.entities.chest {
 			body.Mass = 1000000;
 
 			GetComponent<RectBodyComponent>().KnockbackModifier = 0.1f;
-
+			Animate();
+		}
+		
+		protected virtual void Animate() {
 			var a = GetComponent<InteractableSliceComponent>();
 
 			a.Scale.X = 0.6f * Scale;
@@ -77,25 +102,57 @@ namespace BurningKnight.level.entities.chest {
 			};
 		}
 
-		private void UpdateSprite() {
-			GetComponent<InteractableSliceComponent>().Sprite = CommonAse.Props.GetSlice($"{Sprite}_open");
+		protected virtual string GetSprite() {
+			return "chest";
+		}
+
+		protected virtual void UpdateSprite(bool open = true) {
+			GetComponent<InteractableSliceComponent>().Sprite = CommonAse.Props.GetSlice($"{GetSprite()}{(open ? "_open" : "")}");
 		}
 
 		public void Open() {
-			if (open) {
+			if (open || transitioning) {
 				return;
 			}
 
 			open = true;
+			transitioning = true;
 			
+			Animate(() => {
+				transitioning = false;
+				
+				UpdateSprite();
+				SpawnDrops();
+				GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
+			});
+
+			HandleEvent(new OpenedEvent {
+				Chest = this
+			});
+		}
+
+		public void Close() {
+			if (!open) {
+				return;
+			}
+
+			transitioning = true;
+			
+			Animate(() => {
+				open = false;
+				transitioning = false;
+				UpdateSprite(false);
+
+				// GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
+			});
+		}
+
+		protected virtual void Animate(Action callback) {
 			var a = GetComponent<InteractableSliceComponent>();
 					
 			Tween.To(1.8f * Scale, a.Scale.X, x => a.Scale.X = x, 0.2f);
 			Tween.To(0.2f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
-				UpdateSprite();
-				SpawnDrops();
-
-				GetComponent<AudioEmitterComponent>().EmitRandomized("level_chest_open");
+				callback();
 				
 				Tween.To(0.6f * Scale, a.Scale.X, x => a.Scale.X = x, 0.1f);
 				Tween.To(1.7f * Scale, a.Scale.Y, x => a.Scale.Y = x, 0.1f).OnEnd = () => {
@@ -103,12 +160,8 @@ namespace BurningKnight.level.entities.chest {
 					Tween.To(Scale, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 				};
 			};
-
-			HandleEvent(new OpenedEvent {
-				Chest = this
-			});
 		}
-
+		
 		protected virtual void SpawnDrops() {
 			if (!Empty) {
 				Empty = true;
@@ -160,6 +213,10 @@ namespace BurningKnight.level.entities.chest {
 
 		public class OpenedEvent : Event {
 			public Chest Chest;
+		}
+
+		public virtual bool ShouldCollide(Entity entity) {
+			return !(entity is Creature c && c.InAir());
 		}
 	}
 }

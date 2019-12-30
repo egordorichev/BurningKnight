@@ -10,21 +10,24 @@ namespace BurningKnight.level.rooms.treasure {
 
 			var vr = Rnd.Chance();
 			var hr = !vr || Rnd.Chance();
+			var a = Rnd.Chance();
+
+			if (!a && Rnd.Chance()) {
+				Painter.Set(level, GetTileCenter(), Tiles.RandomSolid());
+			}
 
 			if (vr) {
-				PlaceStand(level, new Dot(Left + w, Top + 2) * 16);
-				PlaceStand(level, new Dot(Left + w, Bottom - 2) * 16);
+				PlaceStand(level, new Dot(Left + w, Top + 3));
+				PlaceStand(level, new Dot(Left + w, Bottom - 3));
 			}
 
 			if (hr) {
-				PlaceStand(level, new Dot(Right - 2, Top + h) * 16);
-				PlaceStand(level, new Dot(Left + 2, Top + h) * 16);
+				PlaceStand(level, new Dot(Right - 3, Top + h));
+				PlaceStand(level, new Dot(Left + 3, Top + h));
 			}
 
-			if (Rnd.Chance()) {
-				PlaceStand(level, new Dot(Left + w, Top + h) * 16);	
-			} else if (Rnd.Chance()) {
-				Painter.Set(level, GetTileCenter(), Tiles.RandomSolid());
+			if (a) {
+				PlaceStand(level, new Dot(Left + w, Top + h));	
 			}
 
 			SetupStands(level);
@@ -39,19 +42,19 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 		
 		public override int GetMinWidth() {
-			return 7;
+			return 9;
 		}
 
 		public override int GetMinHeight() {
-			return 7;
+			return 9;
 		}
 		
 		public override int GetMaxWidth() {
-			return 10;
+			return 12;
 		}
 
 		public override int GetMaxHeight() {
-			return 10;
+			return 12;
 		}
 
 		protected override bool Quad() {

@@ -60,7 +60,7 @@ namespace BurningKnight.level.rooms.special {
 				npc.Center = new Dot(Left + w + (d.X == Left ? 2 : -2), Rnd.Int(Top + 2, Bottom - 3)) * 16 + new Vector2(8);
 
 				var dr = new CageDoor {
-					FacingSide = true
+					Vertical = true
 				};
 				
 				dr.Center = door * 16 + new Vector2(12, 0);
@@ -80,7 +80,7 @@ namespace BurningKnight.level.rooms.special {
 				npc.Center = new Dot(Rnd.Int(Left + 2, Right - 2), Top + h + (d.Y == Top ? 2 : -2)) * 16 + new Vector2(8);
 				
 				var dr = new CageDoor();
-				dr.Center = door * 16 + new Vector2(8, 8);
+				dr.Center = door * 16 + new Vector2(7, 8);
 				level.Area.Add(dr);
 
 				var v = (d.Y == Top ? -1 : 1);

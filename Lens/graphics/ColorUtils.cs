@@ -117,5 +117,19 @@ namespace Lens.graphics {
 
 			return color;
 		}
+
+		public static Vector4 ToVector4(this Color color) {
+			return new Vector4(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
+		}
+
+		public static Vector4 Mix(Vector4 a, Vector4 b, float proportion) {
+			if (proportion <= 0.04f) {
+				return a;
+			} else if (proportion >= 0.96f) {
+				return b;
+			}
+			
+			return b * proportion + a * (1f - proportion);
+		}
 	}
 }

@@ -47,28 +47,8 @@ namespace BurningKnight.level.entities.machine {
 
 			var drops = new DropsComponent();
 			AddComponent(drops);
+			drops.Add("bk:charger");
 			
-			drops.Add(new SimpleDrop {
-				Items = new [] {
-					"bk:battery"
-				},
-				
-				Chance = 0.5f,
-				Min = 1,
-				Max = 2
-			});
-			
-			drops.Add(new SimpleDrop {
-				Items = new [] {
-					"bk:coin"
-				},
-				
-				Chance = 0.5f,
-				Min = 1,
-				Max = 3
-			});
-			
-			drops.Add(new PoolDrop(ItemPool.Charger, 0.5f, 1, 2));
 			GetComponent<DialogComponent>().Dialog.Voice = 10;
 		}
 

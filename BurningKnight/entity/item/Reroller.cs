@@ -19,7 +19,7 @@ namespace BurningKnight.entity.item {
 					if (rerollStands) {
 						if (s.Item == null) {
 							if (spawnNewItems) {
-								s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool), area), null);
+								s.SetItem(Items.CreateAndAdd(s is ShopStand std ? Items.Generate(std.GetPool()) : Items.GenerateAndRemove(pool), area), null);
 							}
 
 							continue;

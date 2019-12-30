@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.level.biome;
+using BurningKnight.level.entities.statue;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.rooms.entrance;
@@ -9,11 +11,16 @@ using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop;
+using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.special.minigame;
+using BurningKnight.level.rooms.special.npc;
+using BurningKnight.level.rooms.special.shop;
+using BurningKnight.level.rooms.special.statue;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
+using BurningKnight.save;
 using Lens.util;
 using Lens.util.math;
 
@@ -30,13 +37,19 @@ namespace BurningKnight.level.rooms {
 			RoomType.Exit,
 			RoomType.Special,
 			RoomType.Shop,
+			RoomType.Spiked,
+			RoomType.Challenge,
+			RoomType.Scourged,
+			RoomType.Payed,
+			RoomType.DarkMarket,
 			RoomType.Treasure,
 			RoomType.Entrance,
 			RoomType.Trap,
 			RoomType.Granny,
-			RoomType.OldMan
+			RoomType.OldMan,
+			RoomType.SubShop
 		};
-
+		
 		public static RoomType FromIndex(int i) {
 			return TypesByIndex[i];
 		}
@@ -54,8 +67,9 @@ namespace BurningKnight.level.rooms {
 		static RoomRegistry() {
 			RoomInfo[] infos = {
 				// Secret
-				// RoomInfo.New<SecretMachineRoom>(1f), - pretty bad
+				RoomInfo.New<SecretMachineRoom>(1f),
 				RoomInfo.New<SecretChasmRoom>(1f),
+				RoomInfo.New<SecretItemRoom>(1f),
 				RoomInfo.New<GrannySecretRoom>(0.01f),
 
 				// Regular
@@ -83,10 +97,21 @@ namespace BurningKnight.level.rooms {
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
 				RoomInfo.New<SpikePassageRoom>(1f),
+				RoomInfo.New<TurretTrapRoom>(1f),
+				RoomInfo.New<SpikeMazeRoom>(1f),
+				RoomInfo.New<DangerousPadsRoom>(1f),
+				RoomInfo.New<TurretPassageRoom>(1f),
+				RoomInfo.New<VerticalTurretPassageRoom>(1f),
+				RoomInfo.New<CrossTurretPassageRoom>(1f),
 				RoomInfo.New<FollowingSpikeBallRoom>(1f),
 
 				// Shop
 				RoomInfo.New<ShopRoom>(1f),
+				
+				// Sub shop
+				RoomInfo.New<StorageRoom>(1f),
+				RoomInfo.New<SnekShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Snek)),
+				RoomInfo.New<VampireShopRoom>(1f, () => true || GlobalSave.IsTrue(ShopNpc.Vampire)),
 				
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
@@ -97,11 +122,26 @@ namespace BurningKnight.level.rooms {
 				
 				// Special
 				RoomInfo.New<IdolTrapRoom>(1f),
-				RoomInfo.New<WellRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
 				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
+				RoomInfo.New<VampireRoom>(1f, () => true || GlobalSave.IsTrue(ShopNpc.Vampire)),
+				RoomInfo.New<ChestStatueRoom>(0.8f),
+				RoomInfo.New<DiceStatueRoom>(1f),
+				RoomInfo.New<ScourgeStatueRoom>(0.5f),
+				RoomInfo.New<StoneStatueRoom>(1f),
+				RoomInfo.New<SwordStatueRoom>(1f),
+				RoomInfo.New<WarriorStatueRoom>(1f),
+				RoomInfo.New<WellRoom>(0.3f),
+				RoomInfo.New<ProtoChestRoom>(0.1f),
+				RoomInfo.New<RogerShopRoom>(1f),
+				RoomInfo.New<BoxyShopRoom>(1f),
+				RoomInfo.New<TrashGoblinRoom>(1f),
+				RoomInfo.New<DuckRoom>(1f),
+				RoomInfo.New<NurseRoom>(1f),
+				RoomInfo.New<ElonRoom>(1f),
+				// RoomInfo.New<GobettaShopRoom>(1f + 1000f),
 				
 				// Boss
 				RoomInfo.New<BossRoom>(1f),
@@ -142,26 +182,24 @@ namespace BurningKnight.level.rooms {
 				Log.Error($"No rooms registered with type {type}");
 				return null;
 			}
-			
-			var length = types.Count;
+
+			var list = new List<RoomInfo>();
 			float sum = 0;
 
-			foreach (var chance in types) {
-				if (biome.IsPresent(chance.Biomes)) {
-					sum += chance.Chance;
+			foreach (var t in types) {
+				if (biome.IsPresent(t.Biomes) && (t.CanAppear == null || t.CanAppear())) {
+					sum += t.Chance;
+					list.Add(t);
 				}
 			}
+			
+			var length = list.Count;
 
 			float value = Rnd.Float(sum);
 			sum = 0;
 
 			for (int i = 0; i < length; i++) {
-				var t = types[i];
-				
-				if (!biome.IsPresent(t.Biomes)) {
-					continue;
-				}
-
+				var t = list[i];
 				sum += t.Chance;
 
 				if (value < sum) {

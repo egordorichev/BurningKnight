@@ -1,4 +1,7 @@
 ﻿using System;
+using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.save.statistics;
@@ -11,7 +14,7 @@ namespace BurningKnight.state {
 	public static class Run {
 		public const int ContentEndDepth = 7;
 
-		private static int depth = BK.Version.Dev ? 5 : 0;
+		private static int depth = BK.Version.Dev ? 2 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -24,7 +27,8 @@ namespace BurningKnight.state {
 		public static string Seed;
 		public static bool IgnoreSeed;
 		public static int Luck;
-		public static int Curse { get; private set; }
+		public static int Scourge { get; private set; }
+		public static int PermanentScourge { get; internal set; }
 		public static bool IntoMenu;
 		public static RunStatistics Statistics;
 		public static string NextSeed;
@@ -82,21 +86,58 @@ namespace BurningKnight.state {
 			Time = 0;
 			HasRun = false;
 			Luck = 0;
-			Curse = 0;			
+			Scourge = 0;			
+			PermanentScourge = 0;
 			LastSavedDepth = 0;
+			entity.item.Scourge.Clear();
 		}
 
 		public static string FormatTime() {
 			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 
-		public static void AddCurse() {
-			Curse++;
-			Audio.PlaySfx("player_cursed");
+		public static void RemoveScourge() {
+			PermanentScourge--;
+			Scourge--;
+			
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+			if (player == null) {
+				return;
+			}
+			
+			TextParticle.Add(player, Locale.Get("scourge"), 1, true, true);
 		}
 
-		public static void ResetCurse() {
-			Curse = 0;
+		public static void AddScourge(bool permanent = false) {
+			Scourge++;
+			Audio.PlaySfx("player_cursed");
+			
+			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+			if (player == null) {
+				return;
+			}
+			
+			TextParticle.Add(player, Locale.Get("scourge"), 1, true);
+			var center = player.Center;
+			
+			for (var i = 0; i < 10; i++) {
+				var part = new ParticleEntity(Particles.Scourge());
+						
+				part.Position = center + Rnd.Vector(-4, 4);
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+				Level.Area.Add(part);
+				part.Depth = 1;
+			}
+			
+			if (permanent) {
+				PermanentScourge++;
+			}
+		}
+
+		public static void ResetScourge() {
+			Scourge = PermanentScourge;
 		}
 	}
 }

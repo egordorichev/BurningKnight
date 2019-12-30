@@ -27,18 +27,20 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public uint StartingAngle;
 		public bool ReverseDirection;
+		public float TimingOffset;
+		public float Speed = 1f;
 
 		public override void Init() {
-			Y -= 8;
+			Y -= 4;
 			base.Init();
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			AddComponent(new RectBodyComponent(4, 4, 8, 6, BodyType.Static));
+			AddComponent(new RectBodyComponent(3, 4, 10, 11, BodyType.Static));
 
-			var a = new AnimationComponent("turret");
+			var a = new AnimationComponent("turret", "on");
 			AddComponent(a);
 
 			a.Animation.Tag = "single";
@@ -67,14 +69,28 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
+			
 			StartingAngle = stream.ReadByte();
 			ReverseDirection = stream.ReadBoolean();
+			TimingOffset = stream.ReadFloat();
+			Speed = stream.ReadFloat();
+
+			if (Math.Abs(Speed) < 0.01f) {
+				Speed = 1f;
+			}
+
+			if (Run.Depth == -2) {
+				TimingOffset = 0;
+			}
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
+			
 			stream.WriteByte((byte) StartingAngle);
 			stream.WriteBoolean(ReverseDirection);
+			stream.WriteFloat(TimingOffset);
+			stream.WriteFloat(Speed);
 		}
 
 		public override void PostInit() {
@@ -84,13 +100,15 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 		public override void TurnOn() {
 			base.TurnOn();
-			beforeNextBullet = 0;
+			
+			beforeNextBullet = 0.2f + TimingOffset % 3;
 			
 			var a = GetComponent<AnimationComponent>();
 
 			a.Scale.X = 2f;
 			a.Scale.Y = 0.4f;
-			
+			a.Animation.Layer = "on";
+
 			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
 			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 		}
@@ -102,33 +120,33 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			a.Scale.X = 2f;
 			a.Scale.Y = 0.4f;
-			
+			a.Animation.Layer = "off";
+
 			Tween.To(1f, a.Scale.X, x => a.Scale.X = x, 0.3f);
 			Tween.To(1f, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
+			
 			// Always enabled in tutorial
-			if (Run.Depth != -2) {
+			if (Run.Depth != -2 && On) {
 				var room = GetComponent<RoomComponent>().Room;
 
-				if (room != null) {
-					var a = room.Type == RoomType.Regular;
-					var b = room.Tagged[Tags.MustBeKilled].Count == 0;
+				if (room != null && room.Type == RoomType.Regular) {
+					if (room.Tagged[Tags.MustBeKilled].Count == 0) {
 
-					if (a && b) {
+						TurnOff();
 						return;
 					}
 				}
 			}
-
+			
 			if (!On) {
 				return;
 			}
 
-			beforeNextBullet -= dt;
+			beforeNextBullet -= dt * Speed;
 
 			if (beforeNextBullet <= 0) {
 				beforeNextBullet = 3;
@@ -194,6 +212,9 @@ namespace BurningKnight.entity.room.controllable.turret {
 			if (ImGui.InputInt("Starting angle", ref u)) {
 				Angle = StartingAngle = (uint) u % 8;
 			}
+
+			ImGui.InputFloat("Before next", ref beforeNextBullet);
+			ImGui.InputFloat("Speed", ref Speed);
 		}
 		
 		public bool ShouldCollide(Entity entity) {
