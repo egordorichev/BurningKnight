@@ -23,6 +23,7 @@ namespace BurningKnight.entity.creature.npc {
 		public static string Duck = "duck";
 		public static string Nurse = "nurse";
 		public static string Elon = "elon";
+		public static string Gobetta = "gobetta";
 	
 		private float delay;
 		internal bool Hidden;
@@ -40,7 +41,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			var id = GetId();
 			
-			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire) || GlobalSave.IsFalse(id);
+			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire || id == Gobetta) || GlobalSave.IsFalse(id);
 			AlwaysActive = true;
 			Hidden = Run.Depth == 0 && !saved;
 		}

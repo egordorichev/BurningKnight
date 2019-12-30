@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
@@ -7,38 +8,40 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
-	public class Boxy : DungeonShopNpc {
+	public class Gobetta : DungeonShopNpc {
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			AlwaysActive = true;
 			Width = 15;
-			Flips = false;
+			Height = 13;
 			
-			AddComponent(new AnimationComponent("boxy"));
+			AddComponent(new AnimationComponent("gobetta"));
 		}
 
 		public override string GetId() {
-			return ShopNpc.Boxy;
+			return ShopNpc.Gobetta;
 		}
 
 		protected override bool OwnsStand(ItemStand stand) {
-			return stand is BoxyStand;
+			return stand is GobettaStand;
 		}
 
 		public static void Place(Vector2 where, Area area) {
 			where.Y -= 16;
 			
-			var snek = new Boxy();
-			area.Add(snek);
-			snek.BottomCenter = where;
+			var gobetta = new Gobetta();
+			area.Add(gobetta);
+			gobetta.BottomCenter = where;
 			
-			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Boxy));
-
-			for (var i = -1; i < 2; i++) {
-				var stand = new BoxyStand();
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Gobetta));
+			var c = Rnd.Int(1, 4);
+			var s = (int) Math.Floor(c / 2f) * 18;
+			
+			for (var i = 0; i < c; i++) {
+				var stand = new GobettaStand();
 				area.Add(stand);
-				stand.Center = where + new Vector2((stand.Width + 4) * i, 4 + stand.Height);
+				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height);
 
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
@@ -46,7 +49,11 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 		
 		protected override string GetDealDialog() {
-			return $"boxy_{Rnd.Int(3)}";
+			return $"gobetta_{Rnd.Int(3)}";
+		}
+
+		protected override string GetHiDialog() {
+			return $"gobetta_{Rnd.Int(3, 6)}";
 		}
 	}
 }

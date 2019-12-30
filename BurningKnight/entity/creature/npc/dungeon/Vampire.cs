@@ -26,7 +26,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 
 		protected override string GetDealDialog() {
-			return $"vampire_{Rnd.Int(4)}";
+			return $"vampire_{Rnd.Int(3)}";
 		}
 
 		protected override string GetHiDialog() {

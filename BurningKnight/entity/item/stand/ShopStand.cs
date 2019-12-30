@@ -113,8 +113,9 @@ namespace BurningKnight.entity.item.stand {
 				Graphics.Color = Palette.Default[35];
 
 				if (Price == 0) {
+					HasSale = false;
 					OnSale = false;
-					Recalculate();
+					Price = 1;
 				}
 			}
 				

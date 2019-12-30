@@ -4,6 +4,7 @@ using BurningKnight.util;
 using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util;
 
 namespace BurningKnight.entity.item.use {
 	public class ScourgeUse : ItemUse {
@@ -15,7 +16,8 @@ namespace BurningKnight.entity.item.use {
 			for (var i = 0; i < amount; i++) {
 				Run.AddScourge();
 			}
-			
+
+			Log.Debug(amount);
 			TextParticle.Add(entity, Locale.Get("scourge"), amount, true);
 		}
 

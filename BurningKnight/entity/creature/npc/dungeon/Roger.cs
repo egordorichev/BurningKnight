@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 		
 		protected override string GetDealDialog() {
-			return $"roger_{Rnd.Int(4)}";
+			return $"roger_{Rnd.Int(3)}";
 		}
 
 		protected override bool OwnsStand(ItemStand stand) {
