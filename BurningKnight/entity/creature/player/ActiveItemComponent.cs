@@ -10,6 +10,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.input;
 
 namespace BurningKnight.entity.creature.player {
@@ -59,6 +60,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (Run.Depth > 0 && Item != null && !Item.Done && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
+				if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
+					GetComponent<StateComponent>().Become<Player.IdleState>();
+				}
+				
 				if (Item.Use((Player) Entity)) {
 					if (CheatWindow.InfiniteActive) {
 						Item.Delay = 0;

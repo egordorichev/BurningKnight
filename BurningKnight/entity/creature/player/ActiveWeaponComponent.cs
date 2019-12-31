@@ -43,6 +43,10 @@ namespace BurningKnight.entity.creature.player {
 				if ((Input.WasPressed(Controls.Use, controller) || (controller != null && (
 						controller.DPadDownCheck || controller.DPadLeftCheck || controller.DPadUpCheck || controller.DPadRightCheck                                                  
 				  ))) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
+
+					if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
+						GetComponent<StateComponent>().Become<Player.IdleState>();
+					}
 					
 					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();

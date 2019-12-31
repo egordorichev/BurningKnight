@@ -188,7 +188,7 @@ namespace BurningKnight.entity.creature.player {
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();
-					} else if (!(state.StateInstance is Player.SittingState)) {
+					} else if (!(state.StateInstance is Player.SittingState || state.StateInstance is Player.SleepingState)) {
 						state.Become<Player.IdleState>();
 					}
 

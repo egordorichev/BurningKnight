@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.assets.particle.renderer;
 using BurningKnight.debug;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
@@ -182,16 +185,62 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 2f) {
+				if (T >= 3f) {
 					Become<SittingState>();
 				}
 			}
 		}
 
 		public class SittingState : EntityState {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 5f) {
+					Become<SleepingState>();
+				}
+			}
 		}
-		
+
+		public class SleepingState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (T >= 3f) {
+					T = 0;
+
+					for (var i = 0; i < 3; i++) {
+						Timer.Add(() => {
+								var part = new ParticleEntity(new Particle(Controllers.Float,
+									new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"sleep"))));
+
+								part.Position = Self.Center;
+
+								if (Self.TryGetComponent<ZComponent>(out var z)) {
+									part.Position -= new Vector2(0, z.Z);
+								}
+
+								Self.Area.Add(part);
+
+								part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
+								part.Particle.Angle = 0;
+								part.Particle.Alpha = 0.9f;
+								part.Depth = Layers.InGameUi;
+							}, i * 0.5f);
+					}
+				}
+			}
+		}
+
 		public class DuckState : EntityState {
 			public override void Init() {
 				base.Init();

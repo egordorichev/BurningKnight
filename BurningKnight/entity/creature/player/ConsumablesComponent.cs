@@ -13,6 +13,7 @@ using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.file;
@@ -168,6 +169,10 @@ namespace BurningKnight.entity.creature.player {
 				if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 					Entity.GetComponent<DialogComponent>().Close();
 					GlobalSave.Put("control_bomb", true);
+				}
+				
+				if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
+					GetComponent<StateComponent>().Become<Player.IdleState>();
 				}
 
 				if (bombs > 0) {

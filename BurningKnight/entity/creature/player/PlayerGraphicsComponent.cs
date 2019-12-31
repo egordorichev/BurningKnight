@@ -38,7 +38,6 @@ namespace BurningKnight.entity.creature.player {
 
 		private Vector2 scale = Vector2.One;
 		private Animation head;
-		public Vector2 Scale = Vector2.One;
 
 		private TextureRegion wing;
 		
@@ -52,9 +51,11 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-
 			head.Update(dt);
-			Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
+
+			if (!(GetComponent<StateComponent>().StateInstance is Player.SleepingState)) {
+				Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
+			}
 		}
 
 		protected override void CallRender(Vector2 pos, bool shadow) {
@@ -71,8 +72,9 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			var st = GetComponent<StateComponent>().StateInstance;
 			
-			if (GetComponent<StateComponent>().StateInstance is Player.RollState) {
+			if (st is Player.RollState || st is Player.SleepingState) {
 				return;
 			}
 
@@ -125,7 +127,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static sbyte[] offsets = {
-			13, 12, 11, 11, 11, 12, 12, 12, 11, 11, 11, 10, 10, 11, 11, 10, 10, 11
+			13, 12, 12, 12, 12, 0, 0, 0, 0, 11, 11, 11, 12, 12, 12, 11, 11, 11, 10, 10, 11, 11, 10, 10, 11
 		};
 
 		public void SimpleRender(bool shadow) {
@@ -138,7 +140,8 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Render(bool shadow) {
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
-			var w = !(GetComponent<StateComponent>().StateInstance is Player.RollState);
+			var s = GetComponent<StateComponent>().StateInstance;
+			var w = !(s is Player.RollState || s is Player.SleepingState);
 			var z = GetComponent<ZComponent>();
 
 			// Render wings
