@@ -124,7 +124,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<IdolTrapRoom>(1f),
 				RoomInfo.New<SafeRoom>(1f),
 				RoomInfo.New<ChargerRoom>(1f),
-				RoomInfo.New<ChestMinigameRoom>(1f + 1000f),
+				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
 				RoomInfo.New<VampireRoom>(1f, () => true || GlobalSave.IsTrue(ShopNpc.Vampire)),
 				RoomInfo.New<ChestStatueRoom>(0.8f),

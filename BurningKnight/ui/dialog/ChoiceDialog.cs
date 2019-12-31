@@ -38,8 +38,6 @@ namespace BurningKnight.ui.dialog {
 			return builder.ToString();
 		}
 
-		// minigame is still super broken (like chest opening)
-		
 		public override string DecideNext() {
 			if (Branches.Count == 0) {
 				return null;
