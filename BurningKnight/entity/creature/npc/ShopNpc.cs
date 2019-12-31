@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			var id = GetId();
 			
-			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire || id == Gobetta) || GlobalSave.IsFalse(id);
+			saved = (id == Boxy || id == TrashGoblin || id == Snek || id == Roger || id == Vampire || id == Gobetta) || GlobalSave.IsTrue(id);
 			AlwaysActive = true;
 			Hidden = Run.Depth == 0 && !saved;
 		}

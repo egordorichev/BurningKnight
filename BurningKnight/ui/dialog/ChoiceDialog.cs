@@ -38,9 +38,15 @@ namespace BurningKnight.ui.dialog {
 			return builder.ToString();
 		}
 
+		// minigame is still super broken (like chest opening)
+		
 		public override string DecideNext() {
+			if (Branches.Count == 0) {
+				return null;
+			}
+			
 			var array = Branches[Choice];
-			var option = array[Rnd.Int(array.Length)]; 
+			var option = array.Length == 0 ? null : array[Rnd.Int(array.Length)]; 
 			
 			Callback?.Invoke(option, Choice);
 			

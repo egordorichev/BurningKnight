@@ -281,7 +281,7 @@ namespace BurningKnight.state {
 		protected override void OnPause() {
 			base.OnPause();
 
-			if (died) {
+			if (died || InMenu) {
 				return;
 			}
 

@@ -29,7 +29,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				var a = pce.Item == null || Item.Owner.GetComponent<ActiveWeaponComponent>().Item == pce.Item;
+				var a = Item == pce.Item;
 				
 				if (EventCreated && a) {
 					ModifyProjectile(pce.Projectile);
