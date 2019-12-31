@@ -125,7 +125,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		private static sbyte[] offsets = {
-			13, 11, 11, 11, 12, 12, 12, 11, 11, 11, 10, 10, 11, 11, 10, 10, 11
+			13, 12, 11, 11, 11, 12, 12, 12, 11, 11, 11, 10, 10, 11, 11, 10, 10, 11
 		};
 
 		public void SimpleRender(bool shadow) {

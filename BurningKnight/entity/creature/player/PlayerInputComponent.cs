@@ -31,6 +31,7 @@ namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
 		private const float Speed = 20f;
 		private DialogComponent dialog;
+		private bool wasSitting;
 
 		public static float TimeIdle;
 		public bool InDialog;
@@ -119,10 +120,16 @@ namespace BurningKnight.entity.creature.player {
 			if (duck) {
 				if (Input.WasReleased(Controls.Duck, controller)) {
 					idle = false;
-					state.Become<Player.IdleState>();
+
+					if (wasSitting) {
+						state.Become<Player.SittingState>();
+					} else {
+						state.Become<Player.IdleState>();
+					}
 				}
 			} else if (Input.WasPressed(Controls.Duck, controller)) {
 				idle = false;
+				wasSitting = state.StateInstance is Player.SittingState;
 				state.Become<Player.DuckState>();
 				GlobalSave.Put("control_duck", true);
 			}
@@ -181,7 +188,7 @@ namespace BurningKnight.entity.creature.player {
 				} else {
 					if (acceleration.Length() > 0.1f) {
 						state.Become<Player.RunState>();
-					} else {
+					} else if (!(state.StateInstance is Player.SittingState)) {
 						state.Become<Player.IdleState>();
 					}
 

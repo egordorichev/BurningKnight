@@ -71,7 +71,7 @@ namespace BurningKnight.entity.item.renderer {
 				angle += (SwingAngle + AddedAngle) * (of ? -1 : 1);
 			}
 
-			var pos = new Vector2(owner.CenterX + (of ? -3 : 3), owner.CenterY + offset + (shadow ? owner.Height : 0));
+			var pos = new Vector2(owner.CenterX + (of ? -5 : 5), owner.CenterY + offset + (shadow ? owner.Height : 0));
 			var or = Origin + new Vector2(ox, oy);
 			var sc = new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy);
 			var fangle = (float) angle * (shadow ? -1 : 1);

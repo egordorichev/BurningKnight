@@ -179,6 +179,16 @@ namespace BurningKnight.entity.creature.player {
 		
 		#region Player States
 		public class IdleState : EntityState {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 2f) {
+					Become<SittingState>();
+				}
+			}
+		}
+
+		public class SittingState : EntityState {
 			
 		}
 		

@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item.renderer {
 			}
 
 			var pos = new Vector2(
-				owner.CenterX + (horizontal ? 0 : (region.Width / 2f) * (owner.GraphicsComponent.Flipped ? -1 : 1)),
+				owner.CenterX + (owner.GraphicsComponent.Flipped ? -5 : 5) + (horizontal ? 0 : (region.Width / 2f) * (owner.GraphicsComponent.Flipped ? -1 : 1)),
 				owner.CenterY + offset + (shadow ? owner.Height : 0)
 			);
 
