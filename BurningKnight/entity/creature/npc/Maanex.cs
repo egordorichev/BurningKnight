@@ -114,7 +114,13 @@ namespace BurningKnight.entity.creature.npc {
 			t += dt;
 			
 			if ((!interacted || played) && t >= 0.1f) {
-				foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
+				var r = GetComponent<RoomComponent>().Room;
+
+				if (r == null) {
+					return;
+				}
+				
+				foreach (var chest in r.Tagged[Tags.Chest]) {
 					((Chest) chest).CanOpen = false;
 				}
 			}

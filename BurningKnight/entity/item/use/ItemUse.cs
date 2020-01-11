@@ -5,6 +5,7 @@ using Lens.util.file;
 namespace BurningKnight.entity.item.use {
 	public class ItemUse {
 		public Item Item;
+		public bool SingleUse;
 		
 		public virtual void Use(Entity entity, Item item) {
 			
@@ -31,7 +32,7 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public virtual void Setup(JsonValue settings) {
-			
+			SingleUse = settings["single"].Bool(false);
 		}
 
 		public virtual void Init() {

@@ -97,6 +97,9 @@ namespace BurningKnight.state {
 				var id = root["id"].AsString;
 				
 				if (ImGui.TreeNode(id)) {
+					root.Checkbox("Single Use", "single", false);
+					ImGui.Separator();
+					
 					if (UseRegistry.Renderers.TryGetValue(id, out var renderer)) {
 						renderer(root);
 					} else {

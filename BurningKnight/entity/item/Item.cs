@@ -87,6 +87,10 @@ namespace BurningKnight.entity.item {
 			}
 
 			foreach (var use in Uses) {
+				if (use.SingleUse && Used) {
+					continue;
+				}
+				
 				try {
 					use.Use(entity, this);
 				} catch (Exception e) {

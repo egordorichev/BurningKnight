@@ -113,6 +113,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeBombsExplodeOnTouchUse>();
 			Register<RegenUse>(RegenUse.RenderDebug);
 			Register<ReplaceHeartsWithShieldsUse>();
+			Register<GivePhaseUse>(GivePhaseUse.RenderDebug);
 		}
 	}
 }
