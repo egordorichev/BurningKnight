@@ -598,6 +598,7 @@
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\QuackEvent.cs" />
     <Compile Include="entity\events\RemoveFromPoolUse.cs" />
+    <Compile Include="entity\events\RevivedEvent.cs" />
     <Compile Include="entity\events\RoomChangedEvent.cs" />
     <Compile Include="entity\events\RoomClearedEvent.cs" />
     <Compile Include="entity\events\SaveEndedEvent.cs" />

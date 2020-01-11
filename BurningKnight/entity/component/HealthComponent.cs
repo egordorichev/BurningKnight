@@ -24,6 +24,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.component {
 	public class HealthComponent : SaveableComponent {
 		private float health;
+		public byte Phases;
 
 		public bool RenderInvt;
 		public float Health => health;
@@ -82,7 +83,7 @@ namespace BurningKnight.entity.component {
 		}
 
 		private void TryToKill(Entity e) {
-			if (health <= 0.1f && (!Entity.TryGetComponent<HeartsComponent>(out var c) || c.Total == 0) && AutoKill) {
+			if (health <= 0.1f && (!Entity.TryGetComponent<HeartsComponent>(out var c) || c.Total == 0) && AutoKill) { 
 				Kill(e);
 			}
 		}
@@ -173,6 +174,18 @@ namespace BurningKnight.entity.component {
 		public bool Dead => dead;
 
 		public void Kill(Entity from) {
+			if (Phases > 0) {
+				Phases--;
+				health = maxHealth;
+
+				Send(new RevivedEvent {
+					WhoDamaged = from,
+					Who = Entity
+				});
+
+				return;
+			}
+			
 			if (dead) {
 				Entity.Done = true;	
 				return;
@@ -281,12 +294,16 @@ namespace BurningKnight.entity.component {
 		
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
+			
 			stream.WriteFloat(health);
+			stream.WriteByte(Phases);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
+			
 			health = stream.ReadFloat();
+			Phases = stream.ReadByte();
 		}
 
 		public override void RenderDebug() {
@@ -297,6 +314,13 @@ namespace BurningKnight.entity.component {
 			}
 			
 			ImGui.InputInt("Max health", ref maxHealth);
+
+			var v = (int) Phases;
+
+			if (ImGui.InputInt("Phases", ref v)) {
+				Phases = (byte) v;
+			}
+			
 			ImGui.Checkbox("Unhittable", ref Unhittable);
 
 			if (ImGui.Button("Heal")) {

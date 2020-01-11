@@ -22,7 +22,6 @@
 * When you buy his entire stock, he unlocks himself with the keys and drops some item or a bunch of consumables
 
 # mad scientist
-* Sells bomb, potion and science related items for bombs, instead of coins
  - Blank (active item)
  - Blank (bombs act like blanks)
  - Fetus gun
@@ -40,14 +39,3 @@
  - Mushroom
  - Map
  - Scourge immunity item
-
-# nurse
-
-* Heals you if you pay her
-* After healing you for 3 or more full hearts, she drops some minor reward
-
-# elon
-* Converts your weapon to another random weapon
-
-* (someone???)
-* Asks a stupid question, the right answer is random. So you basically have a 50% chance to get a chest from him.

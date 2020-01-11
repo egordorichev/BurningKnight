@@ -271,12 +271,19 @@ namespace BurningKnight.ui.inventory {
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
+			var red = Player.GetComponent<HealthComponent>();
+			var phases = red.Phases;
+
 			if (Scourge.IsEnabled(Scourge.OfRisk)) {
 				Graphics.Render(question, new Vector2(8, 11));
+
+				if (phases > 0) {
+					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4, 12));
+				}
+				
 				return;
 			}
 			
-			var red = Player.GetComponent<HealthComponent>();
 			var hearts = Player.GetComponent<HeartsComponent>();
 			var totalRed = red.Health;
 
@@ -321,6 +328,10 @@ namespace BurningKnight.ui.inventory {
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
+			}
+			
+			if (phases > 0) {
+				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields)) + new Vector2(4, -2));
 			}
 		}
 

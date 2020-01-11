@@ -192,10 +192,20 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public class SittingState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 5f) {
+				if (T >= 12f) {
 					Become<SleepingState>();
 				}
 			}
