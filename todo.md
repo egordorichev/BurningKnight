@@ -12,7 +12,6 @@
 * achievement for first cursed weapon 
 * make spiked and cursed rooms locked by default 
 * enemy egenerate prefix only once you enter the room first time
-* fix trap room might not lead anywhere
 
 * scourge { 
   - make face door actually teleport you, dissappear after 1 use
@@ -80,8 +79,6 @@
   - make the door after the sword a wall type, that you need to break by using your sword on it
  }
 
- + remove autodeath from wallcrawlers but make sure rooms dont spawn where you cant access walls or they wont spawn in it
-
  + gamepad {
   - rumble doesn't always work? maybe its just not noticable enough
  }
@@ -102,11 +99,6 @@
 + hub {
  + allow to layer in stuff for speical events
  + lock away the rest of the hub on the first time you enter it after tutorial?
-}
-
-* twitter {
- + showcase desert area
- + showcase granny/dm rooms
 }
 
 ##
@@ -161,7 +153,6 @@
 * Random events (rain, blood moon, etc), ways to make them more or less likely
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
-* bee hive room in the jungle (has tons of bees inside, has a special wall (wall b textured as honeycomb), maybe even with a miniboss?)
 * lore through shopkeeper (like in messager)?
 
 ### Rooms
@@ -170,7 +161,6 @@
 * Room, where you press lever/button to open/close chasm
 * trap rooms
 * more secret rooms
-* room, where you have an item blocked by bricks (aka chasms, but you cant roll through em), from isaac. has a small chance to spawn tho (pretty annoying), has no enemies
 * new secret room designs
 * altar from spelunky?
 

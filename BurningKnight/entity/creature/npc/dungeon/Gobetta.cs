@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			gobetta.BottomCenter = where;
 			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Gobetta));
-			var c = Rnd.Int(1, 4);
+			var c = 3;
 			var s = (int) Math.Floor(c / 2f) * 18;
 			
 			for (var i = 0; i < c; i++) {
