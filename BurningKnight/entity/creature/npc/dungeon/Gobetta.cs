@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			for (var i = 0; i < c; i++) {
 				var stand = new GobettaStand();
 				area.Add(stand);
-				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height + (i == 0 ? stand.Height * 0.5f : 0));
+				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height + (i == 1 ? stand.Height * 0.5f : 0));
 
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);

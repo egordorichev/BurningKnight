@@ -871,9 +871,11 @@
     <Compile Include="level\floors\BathFloor.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
     <Compile Include="level\floors\DiagonalFloor.cs" />
+    <Compile Include="level\floors\FancyFloor.cs" />
     <Compile Include="level\floors\FloorPainter.cs" />
     <Compile Include="level\floors\FloorRegistry.cs" />
     <Compile Include="level\floors\GeometryFloor.cs" />
+    <Compile Include="level\floors\HoneycombFloor.cs" />
     <Compile Include="level\floors\LineFloor.cs" />
     <Compile Include="level\floors\MazeFloor.cs" />
     <Compile Include="level\floors\PatchFloor.cs" />
