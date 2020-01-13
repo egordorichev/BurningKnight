@@ -18,6 +18,7 @@ namespace BurningKnight.entity.item.use {
 		public float Scale;
 		public float Damage;
 		public float Chance;
+		public bool ToAny;
 		public bool EventCreated = true;
 		public string BuffToApply;
 		public bool InfiniteBuff;
@@ -31,7 +32,7 @@ namespace BurningKnight.entity.item.use {
 			if (e is ProjectileCreatedEvent pce) {
 				var a = Item == pce.Item;
 				
-				if (EventCreated && a) {
+				if (ToAny || (EventCreated && a)) {
 					ModifyProjectile(pce.Projectile);
 				}
 			}
@@ -77,6 +78,7 @@ namespace BurningKnight.entity.item.use {
 			Chance = settings["chance"].Number(1);
 			Scale = settings["amount"].Number(1);
 			Damage = settings["damage"].Number(1);
+			ToAny = settings["any"].Bool(false);
 			
 			BuffToApply = settings["buff"].String(null);
 
@@ -87,6 +89,8 @@ namespace BurningKnight.entity.item.use {
 		}
 		
 		public static void RenderDebug(JsonValue root) {
+			root.Checkbox("From Any Source", "any", false);
+			
 			root.InputFloat("Chance", "chance");
 			root.InputFloat("Scale Modifier", "amount");
 			root.InputFloat("Damage Modifier", "damage");
