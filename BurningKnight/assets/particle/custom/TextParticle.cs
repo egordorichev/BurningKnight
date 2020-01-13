@@ -35,9 +35,9 @@ namespace BurningKnight.assets.particle.custom {
 			}
 		}
 
-		private int count;
+		private float count;
 
-		public int Count {
+		public float Count {
 			get => count;
 
 			set {
@@ -103,7 +103,7 @@ namespace BurningKnight.assets.particle.custom {
 			Graphics.Print(fullText, Font.Medium, Center, 0, origin, scale);
 		}
 
-		public static void Add(Entity owner, string text, int count = 0, bool hasSign = false, bool minus = false) {
+		public static void Add(Entity owner, string text, float count = 0, bool hasSign = false, bool minus = false) {
 			var where = owner.TopCenter - new Vector2(0, 4);
 			var min = 72f;
 			TextParticle prt = null;
