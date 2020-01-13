@@ -113,7 +113,8 @@ namespace BurningKnight.entity.component {
 			Items.Remove(item);
 
 			var e = new ItemRemovedEvent {
-				Item = item
+				Item = item,
+				Owner = Entity
 			};
 			
 			Send(e);

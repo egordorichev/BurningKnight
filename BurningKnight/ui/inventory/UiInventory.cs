@@ -98,6 +98,7 @@ namespace BurningKnight.ui.inventory {
 				Subscribe<ConsumableRemovedEvent>(area);
 				Subscribe<ItemUsedEvent>(area);
 				Subscribe<ItemAddedEvent>(area);
+				Subscribe<ItemRemovedEvent>(area);
 				Subscribe<RerollItemsOnPlayerUse.RerolledEvent>(area);
 
 				var inventory = Player.GetComponent<InventoryComponent>();
@@ -185,6 +186,14 @@ namespace BurningKnight.ui.inventory {
 					
 					break;
 				}
+
+				case ItemRemovedEvent ire: {
+					if (ire.Owner == Player) {
+						RemoveArtifact(ire.Item);
+					}
+
+					break;
+				}
 			}
 
 			return base.HandleEvent(e);
@@ -217,7 +226,38 @@ namespace BurningKnight.ui.inventory {
 			} else {
 				old.Count++;
 			}
-		}		
+		}
+
+		private void RemoveArtifact(Item item) {
+			UiItem old = null;
+			var j = 0;
+
+			foreach (var i in items) {
+				if (i.Id == item.Id) {
+					old = i;
+					break;
+				}		
+
+				j++;
+			}
+
+			if (old == null) {
+				return;
+			}
+
+			if (old.Count > 1) {
+				old.Count--;
+				return;
+			}
+
+			items.Remove(old);
+			old.Done = true;
+
+			for (var i = j; i < items.Count; i++) {
+				items[i].Right = items[i - 1].X - 8;
+			}
+		}
+		
 		public override void Render() {
 			if (Player == null || Player.Done || (Run.Depth < 1 && Run.Depth != -2)) {
 				Done = true;

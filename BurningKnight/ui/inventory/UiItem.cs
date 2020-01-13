@@ -8,9 +8,6 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
 namespace BurningKnight.ui.inventory {
-	/*
-	 * TODO: support rerolling and removing
-	 */
 	public class UiItem : UiEntity {
 		public static UiItem Hovered;
 

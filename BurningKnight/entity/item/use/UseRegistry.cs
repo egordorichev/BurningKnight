@@ -117,6 +117,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ExplodeUse>();
 			Register<DiscoverSideRoomsUse>();
 			Register<DetonateBombsUse>();
+			Register<GiveScourgeImmunityUse>();
 		}
 	}
 }

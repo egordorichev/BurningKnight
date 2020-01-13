@@ -97,7 +97,11 @@ namespace BurningKnight.state {
 		}
 
 		public static void RemoveScourge() {
-			PermanentScourge--;
+			if (Scourge == 0) {
+				return;
+			}
+			
+			PermanentScourge = Math.Max(0, PermanentScourge - 1);
 			Scourge--;
 			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);

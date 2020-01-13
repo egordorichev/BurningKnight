@@ -666,6 +666,7 @@
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
+    <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
