@@ -1,5 +1,8 @@
+using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.entity.buff {
@@ -12,6 +15,22 @@ namespace BurningKnight.entity.buff {
 
 		public override string GetIcon() {
 			return "rage";
+		}
+
+		public override void Init() {
+			base.Init();
+
+			if (Entity is Player) {
+				TextParticle.Add(Entity, Locale.Get("damage"), 1, true);
+			}
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Entity is Player) {
+				TextParticle.Add(Entity, Locale.Get("damage"), 1, true, true);
+			}
 		}
 
 		public override void HandleEvent(Event e) {

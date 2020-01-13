@@ -662,6 +662,7 @@
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
+    <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />

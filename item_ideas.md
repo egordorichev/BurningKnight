@@ -2,7 +2,6 @@
 
 * gamepad
 * dewvial
-* chailice
 * detonator
 * vampire_bat
 * lemon
@@ -68,7 +67,6 @@
 * pickup generator
 * tmp flight
 * fire tears in all directions (your dmg+flat dmg)
-* kamikaze
 * reusable brimstone
 * random active item effect
 

@@ -1,3 +1,6 @@
+* fix npcs that dont use money using "grab more money and come back"
+* stealing from shops under invis?
+
 # snek
 
 * Sells poison, snake and teeth related items for coins

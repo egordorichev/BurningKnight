@@ -36,7 +36,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				var b = GetComponent<BuffsComponent>();
 				
-				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || b.Has<InvisibleBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				

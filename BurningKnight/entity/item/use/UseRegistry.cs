@@ -114,6 +114,7 @@ namespace BurningKnight.entity.item.use {
 			Register<RegenUse>(RegenUse.RenderDebug);
 			Register<ReplaceHeartsWithShieldsUse>();
 			Register<GivePhaseUse>(GivePhaseUse.RenderDebug);
+			Register<ExplodeUse>();
 		}
 	}
 }

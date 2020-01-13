@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
@@ -54,7 +55,13 @@ namespace BurningKnight.entity.door {
 					if (r.Tagged[Tags.Player].Count > 0) {
 						if (r.Type != RoomType.Connection &&
 						    r.Tagged[Tags.MustBeKilled].Count > 0) {
-							shouldLock = true;
+
+							foreach (var p in r.Tagged[Tags.Player]) {
+								if (!p.GetComponent<BuffsComponent>().Has<InvisibleBuff>()) {
+									shouldLock = true;
+									break;
+								}
+							}
 
 							break;
 						} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
