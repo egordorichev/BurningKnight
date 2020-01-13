@@ -10,6 +10,7 @@ using BurningKnight.level.entities.machine;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
@@ -48,6 +49,16 @@ namespace BurningKnight.level.rooms.shop {
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect(), Rnd.Chance());
 				}
 			}
+
+			if (GameSave.IsTrue("sk_enraged")) {
+				var rp = GetCenter();
+				var rsk = new ShopKeeper();
+
+				level.Area.Add(rsk);
+				rsk.Center = new Vector2(rp.X * 16 + 8, rp.Y * 16 + 16);
+				
+				return;
+			}
 			
 			var stands = ValidateStands(level, GenerateStands());
 
@@ -56,12 +67,13 @@ namespace BurningKnight.level.rooms.shop {
 				Paint(level);
 				return;
 			}
-
+			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Shop));
 			var consumablePool = Items.GeneratePool(Items.GetPool(ItemPool.ShopConsumable));
 
 			var con = Math.Max(1, Math.Ceiling(stands.Count / 4f));
 			var i = 0;
+			
 			
 			foreach (var s in stands) {
 				var stand = new ShopStand();
