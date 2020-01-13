@@ -9,6 +9,7 @@ namespace BurningKnight {
 		public static int BurningKnight = new BitTag("burning_knight");
 		public static int PlayerSave = new BitTag("player_save");
 		public static int LevelSave = new BitTag("level_save");
+		public static int Bomb = new BitTag("bomb");
 		
 		public static int Room = new BitTag("room");
 		public static int Lock = new BitTag("lock");

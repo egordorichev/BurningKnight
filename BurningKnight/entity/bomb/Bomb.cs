@@ -50,7 +50,8 @@ namespace BurningKnight.entity.bomb {
 			AddComponent(new RoomComponent());
 			
 			AddComponent(new LightComponent(this, 32f * Scale, new Color(1f, 0.3f, 0.3f, 1f)));
-			
+			AddTag(Tags.Bomb);
+
 			Width = 10 * Scale;
 			Height = 13 * Scale;
 			AlwaysActive = true;

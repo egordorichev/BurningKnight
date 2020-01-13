@@ -32,15 +32,4 @@
 
 # gobbeta
 * Sells goblin related stuff, as well as necklaces 
- - Sharp Arrow
- - Cross
- - Ice Ring
- - Fire Ring
- - Duck Ring
- - Clover
- - Amurs Arrow
- - Mushroom
- - Map
  - Scourge Ring
- - chalice of blood
- - shadow cloack

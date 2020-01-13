@@ -1,3 +1,5 @@
+* item, that gives a random projectile effect (changes every room or every few seconds)
+
 # free sprites
 
 * gamepad
