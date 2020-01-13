@@ -1,6 +1,7 @@
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.item.use {
 			switch (stat) {
 				case Stat.InvincibilityTime: {
 					entity.GetComponent<HealthComponent>().InvincibilityTimerMax += value;
-					TextParticle.Add(entity, "invincibility_time");
+					TextParticle.Add(entity, Locale.Get("invincibility_time"));
 					
 					break;
 				}
