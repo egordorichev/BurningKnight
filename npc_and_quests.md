@@ -38,4 +38,6 @@
  - Amurs Arrow
  - Mushroom
  - Map
- - Scourge immunity item
+ - Scourge Ring
+ - chalice of blood
+ - shadow cloack

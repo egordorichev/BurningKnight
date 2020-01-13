@@ -5,6 +5,7 @@ using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.assets.particle.renderer;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;

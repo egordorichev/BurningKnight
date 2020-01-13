@@ -123,6 +123,17 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				if (buffs.Has<InvisibleBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(InvisibleBuff.Color);
+
+					return true;
+				}
+				
 				if (buffs.Has<InvincibleBuff>()) {
 					var shader = Shaders.Entity;
 					var t = buffs.Buffs[typeof(InvincibleBuff)].TimeLeft;

@@ -345,8 +345,10 @@
     <Compile Include="entity\buff\CharmedBuff.cs" />
     <Compile Include="entity\buff\FrozenBuff.cs" />
     <Compile Include="entity\buff\InvincibleBuff.cs" />
+    <Compile Include="entity\buff\InvisibleBuff.cs" />
     <Compile Include="entity\buff\PoisonBuff.cs" />
     <Compile Include="entity\buff\ProjectileShaderHelper.cs" />
+    <Compile Include="entity\buff\RageBuff.cs" />
     <Compile Include="entity\buff\SlowBuff.cs" />
     <Compile Include="entity\component\AimComponent.cs" />
     <Compile Include="entity\component\AnimationComponent.cs" />

@@ -89,7 +89,8 @@ namespace BurningKnight.entity.creature.mob {
 			if (Target == null) {
 				FindTarget();
 			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room ||
-			           (Target is Creature c && c.IsFriendly() == IsFriendly())) {
+			           (Target is Creature c && c.IsFriendly() == IsFriendly()) || 
+			           (Target.TryGetComponent<BuffsComponent>(out var b) && b.Has<InvisibleBuff>())) {
 				
 				Target = null;
 				FindTarget();
@@ -98,8 +99,10 @@ namespace BurningKnight.entity.creature.mob {
 			if (TouchDamage == 0) {
 				return;
 			}
+
+			var raging = GetComponent<BuffsComponent>().Has<RageBuff>();
 			
-			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {
+			for (var i = CollidingToHurt.Count - 1; i >= 0; i--) {
 				var entity = CollidingToHurt[i];
 
 				if (entity.Done) {
@@ -108,7 +111,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 
 				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
-					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this)) {
+					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage * (raging ? 2 : 1), this)) {
 						OnHit(entity);
 					}
 				}
@@ -198,7 +201,9 @@ namespace BurningKnight.entity.creature.mob {
 			Entity closest = null;
 			
 			foreach (var target in targets) {
-				if (target == this || target is bk.BurningKnight || ((Creature) target).IsFriendly() == friendly) {
+				if (target == this || target is bk.BurningKnight || ((Creature) target).IsFriendly() == friendly || 
+				    (target.TryGetComponent<BuffsComponent>(out var b) && b.Has<InvisibleBuff>())) {
+					
 					continue;
 				}
 				
