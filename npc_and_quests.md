@@ -31,7 +31,3 @@
  - Blank (bombs act like blanks)
  - Fetus gun
  - Epic fetus gun
-
-# gobbeta
-* Sells goblin related stuff, as well as necklaces 
- - Scourge Ring

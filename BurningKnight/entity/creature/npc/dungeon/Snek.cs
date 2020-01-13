@@ -14,9 +14,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		 *  - frog
 		 *
 		 * 
-		 * remove his items from other pools
 		 * the slavery pet end
-		 * make sure resupply works only with shop
 		 * his custom dialog
 		 * saving him before he first appears
 		 */
@@ -56,6 +54,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 		public override bool ShouldCollide(Entity entity) {
 			return entity is Creature || base.ShouldCollide(entity);
+		}
+
+		protected override bool OwnsStand(ItemStand stand) {
+			return stand is SnekStand;
 		}
 	}
 }

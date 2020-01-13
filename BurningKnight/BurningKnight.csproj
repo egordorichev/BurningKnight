@@ -654,6 +654,7 @@
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
+    <Compile Include="entity\item\stand\SnekStand.cs" />
     <Compile Include="entity\item\stand\TrashGoblinStand.cs" />
     <Compile Include="entity\item\stand\VampireStand.cs" />
     <Compile Include="entity\item\stand\WeaponStand.cs" />
@@ -967,6 +968,7 @@
     <Compile Include="level\rooms\special\shop\GobettaShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\NpcShopRoom.cs" />
     <Compile Include="level\rooms\special\shop\RogerShopRoom.cs" />
+    <Compile Include="level\rooms\special\shop\SnekRoom.cs" />
     <Compile Include="level\rooms\special\shop\TrashGoblinRoom.cs" />
     <Compile Include="level\rooms\special\SpecialRoom.cs" />
     <Compile Include="level\rooms\special\statue\ChestStatueRoom.cs" />
