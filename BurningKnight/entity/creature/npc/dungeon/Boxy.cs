@@ -11,6 +11,7 @@ using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
 	public class Boxy : DungeonShopNpc {
@@ -28,6 +29,8 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			GetComponent<AnimationComponent>().Animation.Tag = "idle";
 
 			GetComponent<DropsComponent>().Add("bk:boxy");
+			
+			AddComponent(new RectBodyComponent(0, 9, 15, 9, BodyType.Static));
 		}
 
 		public override void PostInit() {
@@ -44,7 +47,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			}
 			
 			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
-				if (s is SnekStand st && st != ibe.Stand && st.Item != null) {
+				if (s is BoxyStand st && st != ibe.Stand && st.Item != null) {
 					return;
 				}
 			}
@@ -108,6 +111,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(open);
+		}
+		
+		public override bool ShouldCollide(Entity entity) {
+			return entity is Creature || base.ShouldCollide(entity);
 		}
 	}
 }

@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.state;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.tween;
@@ -26,6 +27,18 @@ namespace BurningKnight.util {
 				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				Run.Level.Area.Add(part);
 				part.Depth = depth;
+			}
+		}
+		
+		public static void PoofFrom(Vector2 where, Vector2 from, int depth = 0) {
+			for (var i = 0; i < 4; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+						
+				part.Position = where;
+				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+				Run.Level.Area.Add(part);
+				part.Depth = depth;
+				part.Particle.Velocity = MathUtils.CreateVector((where - from).ToAngle(), 80);
 			}
 		}
 

@@ -8,12 +8,9 @@
 * Sells key and box/crate related stuff for keys, instead of coins
  - Lootpick (50% chance to open a lock, active)
  - some Key (100% chance to open a lock, active)
+ - chance not to consume a key when using it
  - broken key (100$ chance to open a lock, 1 time use active)
 
-* When you buy his entire stock, he unlocks himself with the keys and drops some item or a bunch of consumables
-
 # mad scientist
- - Blank (active item)
- - Blank (bombs act like blanks)
  - Fetus gun
  - Epic fetus gun

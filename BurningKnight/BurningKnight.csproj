@@ -333,6 +333,7 @@
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\SpawnCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
+    <Compile Include="entity\BlankMaker.cs" />
     <Compile Include="entity\bomb\Bomb.cs" />
     <Compile Include="entity\bomb\controller\TargetBombController.cs" />
     <Compile Include="entity\buff\ArmoredBuff.cs" />
@@ -664,14 +665,17 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
+    <Compile Include="entity\item\use\BlankUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
     <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
+    <Compile Include="entity\item\use\MakeBombsBlankUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
