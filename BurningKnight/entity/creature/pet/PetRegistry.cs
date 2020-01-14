@@ -49,6 +49,10 @@ namespace BurningKnight.entity.creature.pet {
 				Owner = o
 			}));
 
+			Define("snek", o => o.Area.Add(new SnekPet {
+				Owner = o
+			}));
+
 			Define("meat_guy", o => {
 				var timer = 0f;
 				var pet = new FollowerPet("bk:meat_guy") {

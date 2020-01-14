@@ -387,6 +387,7 @@
     <Compile Include="entity\component\ScalableSliceComponent.cs" />
     <Compile Include="entity\component\SensorBodyComponent.cs" />
     <Compile Include="entity\component\ShadowComponent.cs" />
+    <Compile Include="entity\component\SimpleZAnimationComponent.cs" />
     <Compile Include="entity\component\SliceComponent.cs" />
     <Compile Include="entity\component\SparkEmitterComponent.cs" />
     <Compile Include="entity\component\StatsComponent.cs" />
@@ -485,6 +486,7 @@
     <Compile Include="entity\creature\pet\FollowerPet.cs" />
     <Compile Include="entity\creature\pet\GeneratorPet.cs" />
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
+    <Compile Include="entity\creature\pet\SnekPet.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />

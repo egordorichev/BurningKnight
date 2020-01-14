@@ -1,24 +1,18 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using Lens.entity;
+using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.npc.dungeon {
 	public class Snek : DungeonShopNpc {
-		/*
-		 * todo:
-		 * at least 10 items in item pool
-		 *  - frog
-		 *
-		 * 
-		 * the slavery pet end
-		 * his custom dialog
-		 * saving him before he first appears
-		 */
-		
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -29,6 +23,32 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			
 			AddComponent(new AnimationComponent("snek"));			
 			AddComponent(new RectBodyComponent(1, 14, 16, 10, BodyType.Static));
+		}
+
+		protected override void OnItemBought(ItemBoughtEvent ibe) {
+			foreach (var s in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
+				if (s is SnekStand st && st != ibe.Stand && st.Item != null) {
+					return;
+				}
+			}
+
+			var d = GetComponent<DialogComponent>();
+			
+			d.StartAndClose("snek_6", 3);
+
+			Timer.Add(() => {
+				d.StartAndClose("snek_7", 3);
+				
+				Timer.Add(() => {
+					AnimationUtil.Poof(Center);
+					Done = true;
+
+					var stand = new SnekStand();
+					Area.Add(stand);
+					stand.Center = Center;
+					stand.SetItem(Items.CreateAndAdd("bk:snek", Area), this);
+				}, 4f);
+			}, 4f);
 		}
 
 		public override string GetId() {
@@ -43,7 +63,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Snek));
 
 			for (var i = -1; i < 2; i++) {
-				var stand = new ShopStand();
+				var stand = new SnekStand();
 				area.Add(stand);
 				stand.Center = where + new Vector2((stand.Width + 4) * i, 4 + stand.Height);
 
@@ -58,6 +78,14 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 		protected override bool OwnsStand(ItemStand stand) {
 			return stand is SnekStand;
+		}
+		
+		protected override string GetDealDialog() {
+			return $"snek_{Rnd.Int(3)}";
+		}
+
+		protected override string GetHiDialog() {
+			return $"snek_{Rnd.Int(3, 6)}";
 		}
 	}
 }

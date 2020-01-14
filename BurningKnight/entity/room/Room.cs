@@ -401,12 +401,12 @@ namespace BurningKnight.entity.room {
 			}
 		}
 
-		public Entity FindClosest(Vector2 to, int tag, Func<Entity, bool> filter) {
+		public Entity FindClosest(Vector2 to, int tag, Func<Entity, bool> filter = null) {
 			var min = float.MaxValue;
 			Entity en = null;
 			
 			foreach (var e in Tagged[tag]) {
-				if (filter(e)) {
+				if (filter?.Invoke(e) ?? true) {
 					var d = e.DistanceTo(to);
 
 					if (d < min) {

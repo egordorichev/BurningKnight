@@ -124,7 +124,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (Hidden) {
+			if (Hidden || Done) {
 				return false;
 			}
 			
@@ -151,12 +151,17 @@ namespace BurningKnight.entity.creature.npc {
 			} else if (e is ItemBoughtEvent ibe) {
 				if (OwnsStand(ibe.Stand) && ibe.Stand.GetComponent<RoomComponent>().Room == GetComponent<RoomComponent>().Room) {
 					GetComponent<DialogComponent>().StartAndClose(GetDealDialog(), 3);
+					OnItemBought(ibe);
 				}
 			}
 			
 			return base.HandleEvent(e);
 		}
-		
+
+		protected virtual void OnItemBought(ItemBoughtEvent ibe) {
+			
+		}
+
 		protected virtual string GetDealDialog() {
 			return $"shopkeeper_{Rnd.Int(9, 12)}";
 		}

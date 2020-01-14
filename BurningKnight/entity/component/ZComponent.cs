@@ -22,7 +22,7 @@ namespace BurningKnight.entity.component {
 
 			if (Float) {
 				t += dt;
-				Z = 1.5f + (float) Math.Sin(t * 5f) * 1.5f;
+				Z = 2.5f + (float) Math.Sin(t * 5f) * 1.5f;
 				
 				return;
 			}
