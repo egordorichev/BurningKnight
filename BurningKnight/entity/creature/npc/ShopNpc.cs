@@ -184,6 +184,10 @@ namespace BurningKnight.entity.creature.npc {
 			return $"shopkeeper_{Rnd.Int(6, 9)}";
 		}
 
+		public virtual string GetFailDialog() {
+			return $"shopkeeper_{Rnd.Int(15, 18)}";
+		}
+		
 		public virtual string GetId() {
 			return null;
 		}

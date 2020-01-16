@@ -73,7 +73,10 @@ namespace BurningKnight.entity.item.stand {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {
-					if (n is ShopNpc || n is ShopKeeper) {
+					if (n is ShopNpc s) {
+						n.GetComponent<DialogComponent>().StartAndClose(s.GetFailDialog(), 3);
+						break;
+					} else if (n is ShopKeeper) {
 						n.GetComponent<DialogComponent>().StartAndClose($"shopkeeper_{Rnd.Int(15, 18)}", 3);
 						break;
 					}

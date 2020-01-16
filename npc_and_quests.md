@@ -1,6 +1,6 @@
-* fix npcs that dont use money using "grab more money and come back"
 * stealing from shops under invis?
 * dm ang granny road drop from sky
+* npc saving first, only after that they appear
 
 # boxy 
 

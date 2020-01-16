@@ -49,5 +49,9 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
 			}
 		}
+		
+		public override string GetFailDialog() {
+			return $"roger_{Rnd.Int(3, 6)}";
+		}
 	}
 }
