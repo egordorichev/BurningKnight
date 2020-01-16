@@ -1,7 +1,5 @@
 * fix npcs that dont use money using "grab more money and come back"
 * stealing from shops under invis?
-* explosive projectiles
-* item, that gives you explosive projectiles
 
 * 100% granny chance
 * 100% dm chance
