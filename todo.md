@@ -5,34 +5,21 @@
 * custom voices for the new npcs
 * save max hp for player. otherwise shield buddy is broken
 
-* achievement for first cursed weapon 
-
 * scourge { 
-  - make face door actually teleport you, dissappear after 1 use
+  - make face door actually teleport you, dissappear after 1 use, ask that you can enter only with >= 1 curse or 99 coins, a dark market
   - make portal door actually teleport you
   
-  - a door, that you can enter only with >= 1 curse or 99 coins, a dark market
-  - make bill give you 3 curses instead of 1
+  - a door, 
   - more coins should drop the more curse you have
-  - a way to clean the cursed weapons
-  - curse points should affect granny/dm chance?
-  - item, that gives immunity to curse tokens (removes them and disables their spawn / cursed item spawn) and cleans cursed items
-  
-  - a way to get curses {
-   + shop, you get payed to get a curse
- 
-   + room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
-   + statue, you break it and get curse, but you get healed?
-  }
+  - room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
  }
 }
 
 * content to place {
- + statues 
  + protochest
  + cursed room content 
  + challenge room content
- + spiked room content
+ + black market content
 }
 
 * enemies {
@@ -49,9 +36,7 @@
 }
 
 * fix {
- + granny and dm rooms dont get a path leading to them or smth?
  + weird glitch with the lock?? it kinda rotates or smth
- + holding amurs bow in the back still applies the effect
 }
 
 # todo
@@ -63,7 +48,6 @@
  }
 
  + visual {
-  - some weirdness is going on with bullet death particles? (with potatoo)
   - the weapons go crazy when you point directly up or down
   - doors are hard to notice
  }
