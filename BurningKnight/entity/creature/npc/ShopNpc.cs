@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
@@ -11,19 +12,19 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.creature.npc {
 	public class ShopNpc : Npc {
-		public static string AccessoryTrader = "accessory_trader";
-		public static string ActiveTrader = "active_trader";
-		public static string WeaponTrader = "weapon_trader";
-		public static string HatTrader = "hat_trader";
-		public static string Snek = "snek";
-		public static string Boxy = "boxy";
-		public static string Vampire = "vampire";
-		public static string Roger = "roger";
-		public static string TrashGoblin = "trash_goblin";
-		public static string Duck = "duck";
-		public static string Nurse = "nurse";
-		public static string Elon = "elon";
-		public static string Gobetta = "gobetta";
+		public const string AccessoryTrader = "accessory_trader";
+		public const string ActiveTrader = "active_trader";
+		public const string WeaponTrader = "weapon_trader";
+		public const string HatTrader = "hat_trader";
+		public const string Snek = "snek";
+		public const string Boxy = "boxy";
+		public const string Vampire = "vampire";
+		public const string Roger = "roger";
+		public const string TrashGoblin = "trash_goblin";
+		public const string Duck = "duck";
+		public const string Nurse = "nurse";
+		public const string Elon = "elon";
+		public const string Gobetta = "gobetta";
 	
 		private float delay;
 		internal bool Hidden;
@@ -194,6 +195,26 @@ namespace BurningKnight.entity.creature.npc {
 
 		public class SavedEvent : Event {
 			public ShopNpc Npc;
+		}
+		
+		public static ShopNpc FromId(string id) {
+			switch (id) {
+				case HatTrader: return new HatTrader();
+				case WeaponTrader: return new WeaponTrader();
+				case ActiveTrader: return new ActiveTrader();
+				case AccessoryTrader: return new AccessoryTrader();
+				case Snek: return new Snek();
+				case Boxy: return new Boxy();
+				case Vampire: return new Vampire();
+				case Roger: return new Roger();
+				case TrashGoblin: return new TrashGoblin();
+				case Duck: return new DungeonDuck();
+				case Nurse: return new Nurse();
+				case Elon: return new DungeonElon();
+				case Gobetta: return new Gobetta();
+			}
+
+			return new Boxy();
 		}
 	}
 }

@@ -184,17 +184,21 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 
-				rooms.Add(new SpikedRoom());
-					
 				// for testing
 				/*;
+				rooms.Add(new SpikedRoom());
 				rooms.Add(new ChallengeRoom());
 				rooms.Add(new DarkMarketRoom());
 				rooms.Add(new PayedRoom());
 				rooms.Add(new ScourgedRoom());*/
 				
 				// todo: might be from 0 to 2
-				rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+				if (Rnd.Chance()) {
+					var c = Rnd.Int(0, 3);
+					for (var i = 0; i < c; i++) {
+						rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+					}
+				}
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {
