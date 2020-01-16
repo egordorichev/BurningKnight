@@ -799,6 +799,7 @@
     <Compile Include="entity\room\controllable\turret\QuadTurret.cs" />
     <Compile Include="entity\room\controllable\turret\RotatingTurret.cs" />
     <Compile Include="entity\room\controllable\turret\Turret.cs" />
+    <Compile Include="entity\room\controller\ChallengeRoomController.cs" />
     <Compile Include="entity\room\controller\FollowingSpikeBallController.cs" />
     <Compile Include="entity\room\controller\PistonActivatorController.cs" />
     <Compile Include="entity\room\controller\RoomController.cs" />

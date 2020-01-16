@@ -21,8 +21,8 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ExplodedEvent) {
-				Open();
+			if (e is ExplodedEvent ex) {
+				Open(ex.Who);
 				return true;
 			}
 			
