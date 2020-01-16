@@ -16,15 +16,17 @@ namespace BurningKnight.entity.creature.npc {
 		public const string ActiveTrader = "active_trader";
 		public const string WeaponTrader = "weapon_trader";
 		public const string HatTrader = "hat_trader";
+		
 		public const string Snek = "snek";
 		public const string Boxy = "boxy";
-		public const string Vampire = "vampire";
 		public const string Roger = "roger";
+		public const string Gobetta = "gobetta";
+
+		public const string Vampire = "vampire";
 		public const string TrashGoblin = "trash_goblin";
 		public const string Duck = "duck";
 		public const string Nurse = "nurse";
 		public const string Elon = "elon";
-		public const string Gobetta = "gobetta";
 	
 		private float delay;
 		internal bool Hidden;
