@@ -1,9 +1,6 @@
 * fix npcs that dont use money using "grab more money and come back"
 * stealing from shops under invis?
-
-* 100% granny chance
-* 100% dm chance
-* opening granny/dm doors opens both
+* dm ang granny road drop from sky
 
 # boxy 
 

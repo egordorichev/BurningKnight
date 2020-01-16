@@ -4,8 +4,6 @@
 
 * gamepad
 * dewvial
-* detonator
-* vampire_bat
 * lemon
 * fire exstinguisher
 * compass
@@ -16,11 +14,8 @@
 * teabag
 * cup
 * obsidian_boots
-* ankh
 * pact
-* chest
 * the_ring
-* metal_ring
 
 * lootpick
 * bluewatch
@@ -113,8 +108,6 @@
 * makes your bullets go through walls
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
-* 100% dm deal/granny deal
-* getting one deal opens up the other one
 * dmg up but scaling, etc, soy milk obv
 * pickaxe implementation
 * smth that alters your bullet effect all the time, aka 3 dollar bill
@@ -151,7 +144,6 @@
 * Mines
 * pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards
 * your bullets break enemy bullets
-* weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 * hats
  discord hat, obtain by joining the discord (discord rpc fix me)
  night vision hat
@@ -164,8 +156,6 @@
  terminal head
  hat trader hat
  
-* double the items on floor
-* animated hats
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * throwing axe
@@ -174,14 +164,11 @@
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up
-* battery buddy
 * d1
 * gives infinite range to bullets
-* charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * pig: gives you more money the deeper flor you use it on (single use active item)
-* bombs that stick to enemies
 * increases bomb explosion radius greatly
 * wallet buddy (collects money)
 * teleport to prev room
@@ -189,8 +176,5 @@
 * bombs are power
 * keys are power
 * active key, allows to open 1 thing for 2 charge?
-* active item, that detonates all barrels explosive stones and bombs on the floor
 * guns that gives you fetus effect and epic fetus
-* 99 key
-* just explosive bullets items
 * mama key and bomb, infinite resources for the floor (consumables, small chance to replace any key or bomb)

@@ -1,5 +1,6 @@
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
+using BurningKnight.level.entities;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
@@ -14,7 +15,11 @@ namespace BurningKnight.entity.item.use {
 			var bombs = r.Room.Tagged[Tags.Bomb].ToArray();
 
 			foreach (var b in bombs) {
-				((Bomb) b).Explode();
+				if (b is Bomb bm) {
+					bm.Explode();
+				} else if (b is ExplodingBarrel br) {
+					br.Explode();
+				}
 			}
 		}
 	}

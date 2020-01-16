@@ -573,6 +573,7 @@
     <Compile Include="entity\events\CollisionStartedEvent.cs" />
     <Compile Include="entity\events\ConsumableAddedEvent.cs" />
     <Compile Include="entity\events\ConsumableRemovedEvent.cs" />
+    <Compile Include="entity\events\DealChanceCalculateEvent.cs" />
     <Compile Include="entity\events\DiedEvent.cs" />
     <Compile Include="entity\events\DoorClosedEvent.cs" />
     <Compile Include="entity\events\DoorOpenedEvent.cs" />
@@ -665,6 +666,7 @@
     <Compile Include="entity\item\useCheck\ItemUseChecks.cs" />
     <Compile Include="entity\item\use\AddHitboxUse.cs" />
     <Compile Include="entity\item\use\AddTorchUse.cs" />
+    <Compile Include="entity\item\use\AffectDealChanceUse.cs" />
     <Compile Include="entity\item\use\BlankUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />

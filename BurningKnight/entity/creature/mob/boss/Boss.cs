@@ -98,8 +98,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
+						var e = new DealChanceCalculateEvent();
 
-						if (stats.SawDeal && !stats.TookDeal && Rnd.Chance(stats.GrannyChance * 100)) {
+						e.GrannyStartChance = stats.SawDeal && !stats.TookDeal ? stats.GrannyChance : 0;
+						e.GrannyChance = e.GrannyStartChance;
+						e.DmStartChance = stats.DMChance;
+						e.DmChance = e.DmStartChance;
+
+						player.HandleEvent(e);
+
+						var gr = Rnd.Chance(e.GrannyChance * 100);
+						var dm = Rnd.Chance(e.DmChance * 100);
+						
+						if (gr || (dm && e.OpenBoth)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {
 								var room = (Room) r;
 
@@ -112,7 +123,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							}
 						}
 						
-						if (Rnd.Chance(stats.DMChance * 100)) {
+						if (dm || (gr && e.OpenBoth)) {
 							foreach (var r in Area.Tagged[Tags.Room]) {
 								var room = (Room) r;
 
