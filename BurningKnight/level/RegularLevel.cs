@@ -191,8 +191,9 @@ namespace BurningKnight.level {
 				rooms.Add(new DarkMarketRoom());
 				rooms.Add(new PayedRoom());
 				rooms.Add(new ScourgedRoom());*/
-				
-				// todo: might be from 0 to 2
+
+				rooms.Add(new ChallengeRoom());
+
 				if (Rnd.Chance()) {
 					var c = Rnd.Int(0, 3);
 					for (var i = 0; i < c; i++) {
