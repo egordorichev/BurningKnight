@@ -3,14 +3,13 @@
 * explosive projectiles
 * item, that gives you explosive projectiles
 
+* 100% granny chance
+* 100% dm chance
+* opening granny/dm doors opens both
+
 # boxy 
 
-* Sells key and box/crate related stuff for keys, instead of coins
  - Lootpick (50% chance to open a lock, active)
  - some Key (100% chance to open a lock, active)
  - chance not to consume a key when using it
  - broken key (100$ chance to open a lock, 1 time use active)
-
-# mad scientist
- - Fetus gun
- - Epic fetus gun

@@ -214,10 +214,12 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			foreach (var e in ToHurt) {
-				e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
+			if (Math.Abs(Damage) >= 0.01f) {
+				foreach (var e in ToHurt) {
+					e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
+				}
 			}
-			
+
 			Controller?.Invoke(this, dt);
 
 			if (Rotates) {

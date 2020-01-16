@@ -18,7 +18,7 @@ namespace BurningKnight.assets.particle.custom {
 				}
 
 				text = value;
-				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(count > 1 ? $"{count} " : "")} {text}";
+				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(count > 0 ? $"{count} " : "")} {text}";
 
 				var size = Font.Medium.MeasureString(fullText);
 

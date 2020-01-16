@@ -23,6 +23,7 @@ namespace BurningKnight.entity.item.use {
 		public string BuffToApply;
 		public bool InfiniteBuff;
 		public float BuffDuration;
+		public bool Explosive;
 
 		public override void Use(Entity entity, Item item) {
 			
@@ -70,6 +71,14 @@ namespace BurningKnight.entity.item.use {
 					}
 				};
 			}
+
+			if (Explosive) {
+				projectile.Damage = 0;
+				projectile.Color = ProjectileColor.Brown;
+				projectile.OnDeath += (p, t) => {
+					ExplosionMaker.Make(p);
+				};
+			}
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -79,6 +88,7 @@ namespace BurningKnight.entity.item.use {
 			Scale = settings["amount"].Number(1);
 			Damage = settings["damage"].Number(1);
 			ToAny = settings["any"].Bool(false);
+			Explosive = settings["explosive"].Bool(false);
 			
 			BuffToApply = settings["buff"].String(null);
 
@@ -94,7 +104,8 @@ namespace BurningKnight.entity.item.use {
 			root.InputFloat("Chance", "chance");
 			root.InputFloat("Scale Modifier", "amount");
 			root.InputFloat("Damage Modifier", "damage");
-			
+			root.Checkbox("Make Explosive", "explosive", false);
+
 			if (ImGui.TreeNode("Buff")) {
 				if (!BuffRegistry.All.ContainsKey(root.InputText("Buff", "buff", "bk:frozen"))) {
 					ImGui.BulletText("Unknown buff!");
