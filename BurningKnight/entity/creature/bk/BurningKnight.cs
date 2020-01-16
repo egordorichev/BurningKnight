@@ -241,13 +241,42 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
+		private void CheckForScourgeRage() {
+			var s = GetComponent<StateComponent>().StateInstance;
+
+			if (s is ChaseState || s is AttackState || s is HiddenState) {
+				return;
+			}
+			
+			if (Run.Scourge >= 10) {
+				Become<ChaseState>();
+			}
+		}
+
+		private void CheckForScourgeRageFree() {
+			var s = GetComponent<StateComponent>().StateInstance;
+
+			if (s is IdleState || s is FollowState || s is HiddenState) {
+				return;
+			}
+			
+			if (Run.Scourge < 10) {
+				Become<IdleState>();
+			}
+		}
+
 		#region Buring Knight States while calm
 		public class IdleState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+				Self.CheckForScourgeRage();
+			}
 		}
 
 		public class FollowState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+				Self.CheckForScourgeRage();
 
 				var d = Self.DistanceTo(Self.Target);
 				var force = 200f * dt;
@@ -283,6 +312,7 @@ namespace BurningKnight.entity.creature.bk {
 		public class FlyAwayState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+				Self.CheckForScourgeRage();
 
 				var d = Self.DistanceTo(Self.Target);
 				var force = -300f * dt;
@@ -348,6 +378,7 @@ namespace BurningKnight.entity.creature.bk {
 		public class FlyAwayAttackingState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+				Self.CheckForScourgeRageFree();
 
 				var d = Self.DistanceTo(Self.Target);
 				var force = -300f * dt;
@@ -368,6 +399,7 @@ namespace BurningKnight.entity.creature.bk {
 		public class ChaseState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+				Self.CheckForScourgeRageFree();
 
 				var d = Self.DistanceTo(Self.Target);
 				var force = 300f * dt;
@@ -401,6 +433,7 @@ namespace BurningKnight.entity.creature.bk {
 		public class AttackState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+				Self.CheckForScourgeRageFree();
 
 				if (Self.DistanceTo(Self.Target) < 64f) {
 					Self.Become<FlyAwayAttackingState>();

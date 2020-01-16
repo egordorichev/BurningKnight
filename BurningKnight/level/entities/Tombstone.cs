@@ -71,6 +71,10 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool Interact(Entity entity) {
+			if (Item == null) {
+				return true;
+			}
+		
 			var i = Items.CreateAndAdd(Item, entity.Area);
 
 			if (i != null) {
