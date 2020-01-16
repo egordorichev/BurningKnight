@@ -9,6 +9,7 @@ using BurningKnight.level.rooms.special;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended.Collections;
 
 namespace BurningKnight.level.rooms.challenge {
 	public class ChallengeRoom : SpecialRoom {
@@ -73,6 +74,8 @@ namespace BurningKnight.level.rooms.challenge {
 					}
 				}
 
+				chests.Shuffle(Rnd.Generator);
+				
 				var j = 0;
 				var cn = chests.Count;
 				
@@ -88,6 +91,22 @@ namespace BurningKnight.level.rooms.challenge {
 		public override void ModifyRoom(Room room) {
 			base.ModifyRoom(room);
 			room.AddController("bk:challenge");
+		}
+
+		public override int GetMinWidth() {
+			return 13;
+		}
+
+		public override int GetMinHeight() {
+			return 13;
+		}
+
+		public override int GetMaxWidth() {
+			return 21;
+		}
+
+		public override int GetMaxHeight() {
+			return 21;
 		}
 	}
 }
