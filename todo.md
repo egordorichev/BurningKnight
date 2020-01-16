@@ -1,7 +1,5 @@
 # overscope
 
-!! items get 2 charge per room??
-
 * custom voices for the new npcs
 * save max hp for player. otherwise shield buddy is broken
 

@@ -129,8 +129,6 @@ namespace BurningKnight.entity.creature.player {
 			AlwaysActive = true;
 
 			InitStats(true);
-			
-			Subscribe<RoomClearedEvent>();
 		}
 
 		public void InitStats(bool fromInit = false) {
