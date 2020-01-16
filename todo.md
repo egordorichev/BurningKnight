@@ -18,7 +18,6 @@
 * content to place {
  + protochest
  + cursed room content 
- + challenge room content
  + black market content
 }
 

@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			var id = GetId();
 			
-			saved = GlobalSave.IsTrue(id);
+			saved = id == TrashGoblin || GlobalSave.IsTrue(id);
 			AlwaysActive = true;
 			Hidden = Run.Depth == 0 && !saved;
 		}
