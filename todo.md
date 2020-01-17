@@ -18,8 +18,7 @@
 
 * content to place {
  + protochest
- + cursed room content 
- + black market content
+ + cursed room content
 }
 
 * enemies {
@@ -127,6 +126,7 @@
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
+* MIMIIIICS!
 
 ### Rooms
 
@@ -134,10 +134,7 @@
 * Room, where you press lever/button to open/close chasm
 * trap rooms
 * more secret rooms
-* new secret room designs
 * altar from spelunky?
-
-* secret level ith tons of shopkeepers, aka dark market from spelunky
 
 ### things I promissed to do
 
