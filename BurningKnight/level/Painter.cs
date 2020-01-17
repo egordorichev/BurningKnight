@@ -781,7 +781,7 @@ namespace BurningKnight.level {
 			         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
 			if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-				Door door;
+				Door door = null;
 
 				switch (type) {
 					case DoorPlaceholder.Variant.Locked: 
@@ -805,8 +805,8 @@ namespace BurningKnight.level {
 						break;
 					
 					case DoorPlaceholder.Variant.Head:
-						door = new HeadDoor();
-						break;
+						// door = new HeadDoor();
+						return;
 					
 					case DoorPlaceholder.Variant.Spiked:
 						door = new SpikedDoor();

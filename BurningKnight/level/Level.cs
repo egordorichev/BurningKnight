@@ -1361,14 +1361,14 @@ namespace BurningKnight.level {
 
 			Graphics.Batch.End();
 			RenderBlood();
-			/*Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, blend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				((Player) p).RenderOutline();
 			}
 			
-			Graphics.Batch.End();*/
+			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			
 			var c = Camera.Instance;

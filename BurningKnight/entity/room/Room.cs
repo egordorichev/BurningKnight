@@ -234,7 +234,7 @@ namespace BurningKnight.entity.room {
 			});
 		}
 
-		public void Hide() {
+		public void Hide(bool fast = false) {
 			Explored = false;
 			
 			ApplyToEachTile((x, y) => {
@@ -242,7 +242,12 @@ namespace BurningKnight.entity.room {
 
 				if (!Run.Level.Get(i).IsWall() || !Run.Level.Get(i + Run.Level.Width).IsWall()) {
 					Run.Level.Explored[i] = false;
-					Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+
+					if (fast) {
+						Run.Level.Light[i] = 0;
+					} else {
+						Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+					}
 				}
 			});
 		}

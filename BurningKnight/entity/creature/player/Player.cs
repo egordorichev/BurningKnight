@@ -424,16 +424,26 @@ namespace BurningKnight.entity.creature.player {
 					Audio.PlaySfx("level_door_shut");
 				}
 
-				if (c.Old != null && Scourge.IsEnabled(Scourge.OfLost)) {
-					c.Old.Hide();
+				if (c.Old != null) {
+					if (Scourge.IsEnabled(Scourge.OfLost)) {
+						c.Old.Hide();
+					}
+					
+					if (c.Old.Type == RoomType.DarkMarket) {
+						c.Old.Hide(true);
+					}
 				}
 
 				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 
-				pr.EnableClip = true;
-				pr.ClipPosition = new Vector2(c.New.X, c.New.Y);
-				pr.ClipSize = new Vector2(c.New.Width, c.New.Height);
-				
+				if (c.New.Type == RoomType.DarkMarket) {
+					pr.EnableClip = true;
+					pr.ClipPosition = new Vector2(c.New.X, c.New.Y);
+					pr.ClipSize = new Vector2(c.New.Width, c.New.Height);
+				} else {
+					pr.EnableClip = false;
+				}
+
 				c.New.Discover();
 				var level = Run.Level;
 

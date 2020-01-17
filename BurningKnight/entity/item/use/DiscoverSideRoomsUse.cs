@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room;
+using BurningKnight.level.rooms;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
@@ -23,6 +24,10 @@ namespace BurningKnight.entity.item.use {
 							room = d.Rooms[1];
 						} else {
 							room = d.Rooms[0];
+						}
+
+						if (room.Type == RoomType.Secret || room.Type == RoomType.DarkMarket) {
+							continue;
 						}
 
 						if (!discovered.Contains(room)) {

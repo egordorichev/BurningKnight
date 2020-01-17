@@ -106,7 +106,8 @@ namespace Lens.graphics.gamerenderer {
 			var set = false;
 
 			if (EnableClip && Camera.Instance != null) {
-				var pos = Camera.Instance.CameraToScreen(ClipPosition);
+				var pos = Camera.Instance.CameraToScreen(ClipPosition) - new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1) + Camera.Instance.GetComponent<ShakeComponent>().Position;
+				
 				Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) (pos.X * Engine.Instance.Upscale), (int) (pos.Y * Engine.Instance.Upscale), (int) (ClipSize.X * Engine.Instance.Upscale), (int) (ClipSize.Y * Engine.Instance.Upscale));
 			} else {
 				set = true;
