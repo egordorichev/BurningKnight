@@ -35,10 +35,6 @@
  + trees?
 }
 
-* fix {
- + weird glitch with the lock?? it kinda rotates or smth
-}
-
 # todo
 
 * fix {

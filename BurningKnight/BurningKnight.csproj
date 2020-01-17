@@ -861,6 +861,8 @@
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
+    <Compile Include="level\entities\HiddenEntrance.cs" />
+    <Compile Include="level\entities\HiddenExit.cs" />
     <Compile Include="level\entities\machine\Charger.cs" />
     <Compile Include="level\entities\machine\RerollMachine.cs" />
     <Compile Include="level\entities\machine\VendingMachine.cs" />

@@ -249,14 +249,14 @@ namespace BurningKnight.entity.room {
 						Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
 					}
 				}
-			});
+			}, Type == RoomType.DarkMarket ? 1 : 0);
 		}
 		
-		public void ApplyToEachTile(Action<int, int> callback) {
+		public void ApplyToEachTile(Action<int, int> callback, int offset = 0) {
 			var level = Run.Level;
 			
-			for (int y = MapY; y < MapY + MapH - 1; y++) {
-				for (int x = MapX; x < MapX + MapW; x++) {
+			for (int y = MapY + offset; y < MapY + MapH - 1 - offset; y++) {
+				for (int x = MapX + offset; x < MapX + MapW - offset; x++) {
 					if (level.IsInside(x, y)) {
 						callback(x, y);
 					}

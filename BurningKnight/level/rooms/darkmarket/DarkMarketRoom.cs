@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens.util.math;
@@ -11,26 +12,28 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.darkmarket {
 	public class DarkMarketRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			Painter.Rect(level, this, 1, Tile.WallA);
+			
 			var points = new List<Vector2>();
 			var a = false;
 			
 			if (Rnd.Chance()) {
 				a = true;
-				points.Add(new Vector2(Left + 3.5f, Top + 3.5f) * 16);
+				points.Add(new Vector2(Left + 4.5f, Top + 4.5f) * 16);
 			}
 			
 			if (Rnd.Chance()) {
 				a = true;
-				points.Add(new Vector2(Right - 2.5f, Bottom - 3f) * 16);
+				points.Add(new Vector2(Right - 3.5f, Bottom - 4f) * 16);
 			}
 
 			if (Rnd.Chance()) {
 				a = true;
-				points.Add(new Vector2(Right - 2.5f, Top + 3.5f) * 16);
+				points.Add(new Vector2(Right - 3.5f, Top + 4.5f) * 16);
 			}
 
 			if (!a || Rnd.Chance()) {
-				points.Add(new Vector2(Left + 3.5f, Bottom - 3f) * 16);
+				points.Add(new Vector2(Left + 4.5f, Bottom - 4f) * 16);
 			}
 
 			var types = new List<byte> {
@@ -138,19 +141,27 @@ namespace BurningKnight.level.rooms.darkmarket {
 		}
 
 		public override int GetMinWidth() {
-			return 14;
+			return 16;
 		}
 
 		public override int GetMinHeight() {
-			return 12;
+			return 14;
 		}
 
 		public override int GetMaxWidth() {
-			return 15;
+			return 17;
 		}
 
 		public override int GetMaxHeight() {
-			return 13;
+			return 15;
+		}
+		
+		protected override int ValidateWidth(int W) {
+			return W % 2 == 0 ? W : W - 1;
+		}
+		
+		protected override int ValidateHeight(int H) {
+			return H % 2 == 0 ? H : H - 1;
 		}
 	}
 }

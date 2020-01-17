@@ -833,29 +833,31 @@ namespace BurningKnight.level {
 				door.CenterX = D.X * 16 + 8 + offset.X;
 				door.Bottom = D.Y * 16 + 17.01f + offset.Y - (door is CustomDoor ? (door.Vertical ? 0 : 8) : 0); // .1f so that it's depth sorted to the front of the wall
 
-				if (door.Vertical) {
-					if (type != DoorPlaceholder.Variant.Hidden) {
-						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
-							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
-						}
+				if (!(door is HeadDoor)) {
+					if (door.Vertical) {
+						if (type != DoorPlaceholder.Variant.Hidden) {
+							if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
+								Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+							}
 
-						if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
-							Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+							if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
+								Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+							}
+						}
+					} else {
+						if (type != DoorPlaceholder.Variant.Hidden) {
+							if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
+								Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+							}
+
+							if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
+								Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+							}
 						}
 					}
-				} else {
-					if (type != DoorPlaceholder.Variant.Hidden) {
-						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
-							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
-						}
 
-						if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
-							Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
-						}
-					}
+					Level.Set(D.X, D.Y, Tiles.RandomFloor());
 				}
-				
-				Level.Set(D.X, D.Y, Tiles.RandomFloor());
 			} else if (type == DoorPlaceholder.Variant.Hidden) {
 				Level.Set(D.X, D.Y, Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {

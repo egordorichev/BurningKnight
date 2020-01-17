@@ -1,3 +1,13 @@
+using System.Collections.Generic;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
+using BurningKnight.entity.room;
+using BurningKnight.level.rooms;
+using BurningKnight.state;
+using BurningKnight.util;
+using Lens.entity;
+using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
@@ -29,6 +39,31 @@ namespace BurningKnight.entity.door {
 
 		protected override string GetAnimation() {
 			return "head_door";
+		}
+
+		protected List<Player> Colliding = new List<Player>();
+
+		public override void PostInit() {
+			base.PostInit();
+			Subscribe<RoomChangedEvent>();
+		}
+		
+		public override bool HandleEvent(Event e) {
+			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
+				/*if (Run.Scourge == 0 && p.GetComponent<ConsumablesComponent>().Coins < 66) {
+					p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				}*/
+			} else if (e is CollisionStartedEvent cse) {
+				if (cse.Entity is Player p2) {
+					Colliding.Add(p2);
+				}
+			} else if (e is CollisionEndedEvent cee) {
+				if (cee.Entity is Player p2) {
+					Colliding.Remove(p2);
+				}
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }
