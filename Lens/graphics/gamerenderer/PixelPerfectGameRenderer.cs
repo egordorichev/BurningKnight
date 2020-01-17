@@ -1,4 +1,5 @@
 ﻿using Lens.entity.component.logic;
+using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +14,14 @@ namespace Lens.graphics.gamerenderer {
 		private Matrix uiScale = Matrix.Identity;
 
 		private bool inUi;
-		
+
+		public RasterizerState RasterizerState;
+		public bool EnableClip = false;
+		public Vector2 ClipPosition;
+		public Vector2 ClipSize;
+
+		public RasterizerState GetState => EnableClip ? RasterizerState : DefaultRasterizerState;
+
 		public PixelPerfectGameRenderer() {
 			GameTarget = new RenderTarget2D(
 				Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1, false,
@@ -21,6 +29,10 @@ namespace Lens.graphics.gamerenderer {
 			);
 			
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
+			RasterizerState = new RasterizerState();
+
+			// RasterizerState.CullMode = CullMode.None;
+			RasterizerState.ScissorTestEnable = true;
 		}
 
 		public override void Begin() {
@@ -29,7 +41,7 @@ namespace Lens.graphics.gamerenderer {
 				return;
 			}
 			
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 		}
 
 		public override void End() {
@@ -91,9 +103,18 @@ namespace Lens.graphics.gamerenderer {
 			inUi = false;
 
 			Engine.GraphicsDevice.SetRenderTarget(null);
-			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y, (int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
-		
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, one);
+			var set = false;
+
+			if (EnableClip && Camera.Instance != null) {
+				var pos = Camera.Instance.CameraToScreen(ClipPosition);
+				Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) (pos.X * Engine.Instance.Upscale), (int) (pos.Y * Engine.Instance.Upscale), (int) (ClipSize.X * Engine.Instance.Upscale), (int) (ClipSize.Y * Engine.Instance.Upscale));
+			} else {
+				set = true;
+				Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y,
+					(int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
+			}
+
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, GameEffect, one);
 
 			if (Camera.Instance != null) {
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
@@ -110,6 +131,11 @@ namespace Lens.graphics.gamerenderer {
 
 			Graphics.Batch.End();
 
+			if (!set) {
+				Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) Engine.Viewport.X, (int) Engine.Viewport.Y,
+					(int) (Display.Width * Engine.Instance.Upscale), (int) (Display.Height * Engine.Instance.Upscale));
+			}
+			
 			if (UiTarget != null) {
 				Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState, SamplerState, DepthStencilState, ClipRasterizerState, UiEffect, one);
 

@@ -81,8 +81,8 @@ namespace BurningKnight.assets.lighting {
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
 			
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, 
-				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, 
+				state.RasterizerState, null, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.Transparent);
 
 			Graphics.Color.A = AuraAlpha;
@@ -94,8 +94,8 @@ namespace BurningKnight.assets.lighting {
 			state.End();
 			
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
-				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
+				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			
 			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
@@ -105,8 +105,8 @@ namespace BurningKnight.assets.lighting {
 			Graphics.Color.A = 255;
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
-				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Batch.Begin(SpriteSortMode.Deferred, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				state.RasterizerState, null, Camera.Instance?.Matrix);
 
 			Graphics.Clear(ClearColor);
 
@@ -131,8 +131,8 @@ namespace BurningKnight.assets.lighting {
 				c.UpdateMatrices();
 			}
 			
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, surfaceBlend, SamplerState.PointClamp, DepthStencilState.None, 
-				RasterizerState.CullNone, null, Camera.Instance?.Matrix);
+			Graphics.Batch.Begin(SpriteSortMode.Deferred, surfaceBlend, SamplerState.PointClamp, DepthStencilState.None, 
+				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			Graphics.Color = new Color(color.X, color.Y, color.Z, alpha);
 

@@ -31,6 +31,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
@@ -426,6 +427,12 @@ namespace BurningKnight.entity.creature.player {
 				if (c.Old != null && Scourge.IsEnabled(Scourge.OfLost)) {
 					c.Old.Hide();
 				}
+
+				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+
+				pr.EnableClip = true;
+				pr.ClipPosition = new Vector2(c.New.X, c.New.Y);
+				pr.ClipSize = new Vector2(c.New.Width, c.New.Height);
 				
 				c.New.Discover();
 				var level = Run.Level;
