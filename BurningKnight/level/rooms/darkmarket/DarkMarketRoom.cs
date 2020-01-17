@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -13,6 +14,10 @@ namespace BurningKnight.level.rooms.darkmarket {
 	public class DarkMarketRoom : SpecialRoom {
 		public override void Paint(Level level) {
 			Painter.Rect(level, this, 1, Tile.WallA);
+
+			var exit = new HiddenExit();
+			level.Area.Add(exit);
+			exit.BottomCenter = GetCenter() * 16 + new Vector2(8, 8);
 			
 			var points = new List<Vector2>();
 			var a = false;
@@ -130,14 +135,6 @@ namespace BurningKnight.level.rooms.darkmarket {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Head;
 			}
-		}
-
-		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.X == Left || P.X == Right || P.Y == Top) {
-				return false;
-			}
-			
-			return base.CanConnect(R, P);
 		}
 
 		public override int GetMinWidth() {

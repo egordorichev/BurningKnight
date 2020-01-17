@@ -963,6 +963,7 @@
     <Compile Include="level\rooms\shop\sub\SubShopRoom.cs" />
     <Compile Include="level\rooms\shop\sub\VampireShopRoom.cs" />
     <Compile Include="level\rooms\special\ChargerRoom.cs" />
+    <Compile Include="level\rooms\special\DarkMarketEntranceRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />

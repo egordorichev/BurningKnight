@@ -193,6 +193,7 @@ namespace BurningKnight.level {
 				rooms.Add(new ScourgedRoom());*/
 
 				rooms.Add(new DarkMarketRoom());
+				rooms.Add(new DarkMarketEntranceRoom());
 
 				if (Rnd.Chance()) {
 					var c = Rnd.Int(0, 3);
