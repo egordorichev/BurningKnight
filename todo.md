@@ -16,11 +16,6 @@
  }
 }
 
-* content to place {
- + protochest
- + cursed room content
-}
-
 * enemies {
  + mike
  + horror 

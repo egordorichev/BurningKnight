@@ -657,6 +657,7 @@
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
+    <Compile Include="entity\item\stand\ScourgedStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
     <Compile Include="entity\item\stand\SnekStand.cs" />
     <Compile Include="entity\item\stand\TrashGoblinStand.cs" />

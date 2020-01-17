@@ -91,7 +91,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			area.Add(stand);
 			stand.Center = where + new Vector2(0, 4 + stand.Height);
 
-			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.TrashGoblin), area, false), null);
+			stand.SetItem(Items.CreateAndAdd(Scourge.GenerateItemId(), area, false), null);
 		}
 
 		public override bool ShouldCollide(Entity entity) {

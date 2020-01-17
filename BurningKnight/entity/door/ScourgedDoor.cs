@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens.entity;
 using Microsoft.Xna.Framework;
@@ -28,6 +29,10 @@ namespace BurningKnight.entity.door {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
+				if (rce.Old != null && rce.Old.Type == RoomType.Scourged) {
+					return base.HandleEvent(e);
+				}
+				
 				var a = Scourge(p.GetComponent<ActiveWeaponComponent>());	
 				var b = Scourge(p.GetComponent<WeaponComponent>());
 

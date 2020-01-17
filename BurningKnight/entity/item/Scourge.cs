@@ -88,12 +88,22 @@ namespace BurningKnight.entity.item {
 				}
 			}
 			
-			return true;
+			return !IsEnabled(id);
 		}
 
 		public static string Generate() {
 			var list = GenerateList();
 			return list.Count == 0 ? null : list[Rnd.Int(list.Count)];
+		}
+
+		public static string GenerateItemId() {
+			var id = Generate();
+
+			if (id == null) {
+				return null;
+			}
+
+			return $"bk:scourge_{id.Replace("bk:", "")}";
 		}
 		
 		public static List<string> GenerateList() {

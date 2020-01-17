@@ -9,10 +9,6 @@ namespace BurningKnight.entity.item.stand {
 			return "scourge_stand";
 		}
 
-		public override ItemPool GetPool() {
-			return ItemPool.TrashGoblin;
-		}
-
 		protected override void OnTake(Item item, Entity who) {
 			base.OnTake(item, who);
 
