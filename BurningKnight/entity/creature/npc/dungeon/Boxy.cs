@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -65,6 +66,8 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				var a = GetComponent<AnimationComponent>();
 				a.Animation.Tag = "open";
 				a.Animate();
+				
+				Achievements.Unlock("bk:open_up");
 			}, 4f);
 		}
 

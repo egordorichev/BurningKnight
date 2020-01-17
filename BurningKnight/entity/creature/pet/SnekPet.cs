@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
@@ -9,6 +10,8 @@ namespace BurningKnight.entity.creature.pet {
 	public class SnekPet : Pet {
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			Achievements.Unlock("bk:snek");
 
 			Width = 18;
 			Height = 24;

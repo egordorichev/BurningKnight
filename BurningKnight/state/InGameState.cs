@@ -963,9 +963,13 @@ namespace BurningKnight.state {
 				Level = Run.Level,
 				Camera = cam
 			});
-			
-			Achievements.Unlock($"bk:{Run.Level.Biome.Id}");
-			
+
+			var id = Run.Level.Biome.Id;
+
+			if (id != Biome.Castle && id != Biome.Hub) {
+				Achievements.Unlock($"bk:{id}");
+			}
+
 			cursor = new Cursor();
 			Ui.Add(cursor);
 			

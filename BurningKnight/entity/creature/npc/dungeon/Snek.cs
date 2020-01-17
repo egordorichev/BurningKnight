@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
