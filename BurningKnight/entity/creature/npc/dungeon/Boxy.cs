@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 			var d = GetComponent<DialogComponent>();
 			
-			d.StartAndClose("boxy_6", 3);
+			d.StartAndClose("boxy_9", 3);
 
 			Timer.Add(() => {
 				AnimationUtil.Poof(Center);
