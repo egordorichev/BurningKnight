@@ -78,7 +78,7 @@ namespace BurningKnight.entity.room.controller {
 				return false;
 			}
 		
-			if (e is DiedEvent de) {
+			if (e is DiedEvent de && de.Who.GetComponent<RoomComponent>().Room == Room) {
 				foreach (var m in Room.Tagged[Tags.MustBeKilled]) {
 					var mob = (Mob) m;
 

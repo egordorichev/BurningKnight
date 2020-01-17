@@ -183,24 +183,29 @@ namespace BurningKnight.level {
 				rooms.Add(new PrebossRoom());	
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+			}
+			
+			if (Rnd.Chance(95)) {
+				if (Rnd.Chance(50 + Run.Scourge * 5)) {
+					rooms.Add(new ScourgedRoom());
+				} else {
+					if (Rnd.Chance()) {
+						rooms.Add(new ChallengeRoom());
+					} else {
+						rooms.Add(new SpikedRoom());
+					}
+				}
+			}
 
-				// for testing
-				/*;
-				rooms.Add(new SpikedRoom());
-				rooms.Add(new ChallengeRoom());
-
+			if (Rnd.Chance(20)) {
 				rooms.Add(new DarkMarketEntranceRoom());
 				rooms.Add(new DarkMarketRoom());
-
-				rooms.Add(new PayedRoom());*/
+			}
 				
-				rooms.Add(new ScourgedRoom());
-
-				if (Rnd.Chance()) {
-					var c = Rnd.Int(0, 3);
-					for (var i = 0; i < c; i++) {
-						rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
-					}
+			if (Rnd.Chance()) {
+				var c = Rnd.Int(0, 3);
+				for (var i = 0; i < c; i++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
 				}
 			}
 
