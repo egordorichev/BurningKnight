@@ -1,3 +1,4 @@
+using BurningKnight.entity.door;
 using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
@@ -19,7 +20,18 @@ namespace BurningKnight.level.rooms.special {
 			
 			Painter.Fill(level, new Rect(Left + hw - 1, Top + 1).Resize(3, 3), Rnd.Chance(10) ? Tile.FloorD : Tiles.RandomFloor());
 			Painter.DrawLine(level, new Dot(Left + 1, Top + 4), new Dot(Right - 1, Top + 4), Tile.WallA);
-			Painter.Set(level, new Dot(Left + hw, Top + 4), Tiles.RandomFloor());
+
+			var d = new Dot(Left + hw, Top + 4);
+			Painter.Set(level, d, Tiles.RandomFloor());
+
+			var door = new HeadDoor();
+			
+			level.Area.Add(door);
+
+			var offset = door.GetOffset();
+
+			door.CenterX = d.X * 16 + 8 + offset.X;
+			door.Bottom = d.Y * 16 + 17.01f + offset.Y - 8; // .1f so that it's depth sorted to the front of the wall
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {

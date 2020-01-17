@@ -1,17 +1,19 @@
+using System;
 using System.Collections.Generic;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
-using BurningKnight.entity.room;
-using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
-using Lens.util.camera;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.door {
 	public class HeadDoor : CustomDoor {
+		private Trigger trigger;
+		
 		protected override void SetSize() {
 			Width = 30;
 			Height = 25;
@@ -26,7 +28,7 @@ namespace BurningKnight.entity.door {
 		}
 		
 		public override Vector2 GetOffset() {
-			return new Vector2(0, 0);
+			return new Vector2(0, 8);
 		}
 
 		protected override Lock CreateLock() {
@@ -41,29 +43,61 @@ namespace BurningKnight.entity.door {
 			return "head_door";
 		}
 
-		protected List<Player> Colliding = new List<Player>();
-
 		public override void PostInit() {
 			base.PostInit();
-			Subscribe<RoomChangedEvent>();
-		}
-		
-		public override bool HandleEvent(Event e) {
-			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
-				/*if (Run.Scourge == 0 && p.GetComponent<ConsumablesComponent>().Coins < 66) {
-					p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
-				}*/
-			} else if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Player p2) {
-					Colliding.Add(p2);
+
+			Area.Add(trigger = new Trigger {
+				Callback = (e) => {
+					if (e is Player p) {
+						if (p.GetComponent<RectBodyComponent>().Velocity.Y >= 0 || p.Y > trigger.Y + 4) {
+							return;
+						}
+
+						if (Run.Scourge > 0 || p.GetComponent<ConsumablesComponent>().Coins >= 30) {
+							return;
+						}
+
+						p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+
+						AnimationUtil.Poof(p.Center);
+						p.TopCenter = BottomCenter + new Vector2(0, 2);
+						AnimationUtil.Poof(p.Center);
+
+						var b = p.GetComponent<RectBodyComponent>();
+						
+						b.Acceleration = Vector2.Zero;
+						b.Velocity = Vector2.Zero;
+
+						p.GetComponent<BuffsComponent>().Add(new FrozenBuff() {
+							Duration = 1f
+						});
+					}
 				}
-			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity is Player p2) {
-					Colliding.Remove(p2);
-				}
-			}
+			});
 			
-			return base.HandleEvent(e);
+			trigger.TopCenter = TopCenter;
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			trigger.TopCenter = TopCenter;
+		}
+
+		private class Trigger : Entity {
+			public Action<Entity> Callback;
+			
+			public override void AddComponents() {
+				base.AddComponents();
+				AddComponent(new RectBodyComponent(0, 0, 16, 2, BodyType.Static, true));
+			}
+
+			public override bool HandleEvent(Event e) {
+				if (e is CollisionStartedEvent cse) {
+					Callback(cse.Entity);
+				}
+				
+				return base.HandleEvent(e);
+			}
 		}
 	}
 }

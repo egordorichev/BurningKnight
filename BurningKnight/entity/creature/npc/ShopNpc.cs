@@ -21,7 +21,6 @@ namespace BurningKnight.entity.creature.npc {
 		public const string Boxy = "boxy";
 		public const string Roger = "roger";
 		public const string Gobetta = "gobetta";
-
 		public const string Vampire = "vampire";
 		public const string TrashGoblin = "trash_goblin";
 		public const string Duck = "duck";

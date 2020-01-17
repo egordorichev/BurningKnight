@@ -76,6 +76,17 @@ namespace BurningKnight.save {
 				Put(ShopNpc.ActiveTrader, true);
 				Put(ShopNpc.HatTrader, true);
 				Put(ShopNpc.WeaponTrader, true);
+				
+				
+				Put(ShopNpc.Snek, true);
+				Put(ShopNpc.Boxy, true);
+				Put(ShopNpc.Roger, true);
+				Put(ShopNpc.Gobetta, true);
+				Put(ShopNpc.Vampire, true);
+				Put(ShopNpc.TrashGoblin, true);
+				Put(ShopNpc.Duck, true);
+				Put(ShopNpc.Nurse, true);
+				Put(ShopNpc.Elon, true);
 
 				Put("control_use", true);
 				Put("control_swap", true);
