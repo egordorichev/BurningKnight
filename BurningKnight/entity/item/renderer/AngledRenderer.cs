@@ -28,9 +28,9 @@ namespace BurningKnight.entity.item.renderer {
 
 		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			var s = dt * 10f;
-			
-			sx += (1 - sx) * s;
-			sy += (1 - sy) * s;
+
+			sx = 1;//sx += (1 - sx) * s;
+			sy = 1;//sy += (1 - sy) * s;
 			ox += (-ox) * s;
 			oy += (-oy) * s;
 			
@@ -68,7 +68,7 @@ namespace BurningKnight.entity.item.renderer {
 
 			var pos = new Vector2(owner.CenterX + (of ? -5 : 5), owner.CenterY + offset + (shadow ? owner.Height : 0));
 			var or = Origin + new Vector2(ox, oy);
-			var sc = new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy);
+			var sc = new Vector2(flipped ? -sx : sx, (shadow ^ vf) ? -sy : sy);
 			var fangle = (float) angle * (shadow ? -1 : 1);
 
 			if (!shadow && !atBack) {
@@ -104,8 +104,9 @@ namespace BurningKnight.entity.item.renderer {
 				
 				Shaders.End();
 			}
-			
+
 			Graphics.Render(region, pos, fangle, or, sc);
+			Graphics.Print($"{sc.X} {sc.Y}", Font.Small, pos - new Vector2(32));
 		}
 
 		public override void OnUse() {

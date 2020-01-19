@@ -1336,7 +1336,7 @@ namespace BurningKnight.level {
 
 			Engine.GraphicsDevice.SetRenderTarget(WallSurface);
 
-			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.TransparentBlack);
 

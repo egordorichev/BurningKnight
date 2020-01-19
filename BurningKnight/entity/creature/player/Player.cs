@@ -191,7 +191,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 3f) {
+				if (!CheatWindow.NoSleep && T >= 3f) {
 					Become<SittingState>();
 				}
 			}

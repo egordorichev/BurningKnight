@@ -3,7 +3,6 @@
 * fixme player weapon doesnt render when you point up
 
 * custom voices for the new npcs
-* who killed you display on the death screen
 
 * enemies {
  + mike
@@ -63,11 +62,13 @@
 
 * duck interaction
 * Implement basic loop after you defeat the boss
-* more prefixes
+* more mob prefixes
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 ## general
+
+* rewamp death screen
 
 * lava: {
  + tile lighting: figure it out
@@ -79,12 +80,9 @@
 
 * Low health indicator
 * juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
-* shields
 
 #### Polish
 
-* animate items on player head better, also dont stack em, display count 
-* animate item pickup / appearance
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast
 * Add sparks
