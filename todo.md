@@ -4,7 +4,6 @@
 
 * custom voices for the new npcs
 * who killed you display on the death screen
-* save max hp for player. otherwise shield buddy is broken
 
 * enemies {
  + mike

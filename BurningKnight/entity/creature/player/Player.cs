@@ -80,6 +80,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			GetComponent<HealthComponent>().SaveMaxHp = true;
+			
 			Height = 11;
 			
 			// Graphics
@@ -140,7 +142,12 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<FollowerComponent>().DestroyAll();
 
 			var hp = GetComponent<HealthComponent>();
-			hp.InitMaxHealth = 6 - (fromInit ? 0 : GetComponent<StatsComponent>().HeartsPayed * 2);
+
+			if (fromInit) {
+				hp.InitMaxHealth = 6;
+			}
+
+			//  - (fromInit ? 0 : GetComponent<StatsComponent>().HeartsPayed * 2);
 			hp.MaxHealthCap = 32;
 			hp.InvincibilityTimerMax = 1f;
 

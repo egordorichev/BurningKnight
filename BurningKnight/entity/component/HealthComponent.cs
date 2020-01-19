@@ -31,6 +31,7 @@ namespace BurningKnight.entity.component {
 		public float Health => health;
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
+		public bool SaveMaxHp;
 
 		public bool HasNoHealth => health <= 0.01f;
 		public float Percent => Health / MaxHealth;
@@ -298,6 +299,10 @@ namespace BurningKnight.entity.component {
 			
 			stream.WriteFloat(health);
 			stream.WriteByte(Phases);
+
+			if (SaveMaxHp) {
+				stream.WriteByte((byte) maxHealth);
+			}
 		}
 
 		public override void Load(FileReader stream) {
@@ -305,6 +310,10 @@ namespace BurningKnight.entity.component {
 			
 			health = stream.ReadFloat();
 			Phases = stream.ReadByte();
+
+			if (SaveMaxHp) {
+				maxHealth = stream.ReadByte();
+			}
 		}
 
 		public override void RenderDebug() {
