@@ -147,9 +147,12 @@ namespace BurningKnight.save {
 				var version = stream.ReadInt16();
 
 				if (version > Version) {
-					Log.Error($"Unknown version {version}, generating new");
-					Generate(area, saveType);
-					return;
+					if (saveType != SaveType.Global) {
+						Log.Error($"Unknown version {version}, generating new");
+						Generate(area, saveType);
+
+						return;
+					}
 				} else if (version < Version) {
 					// do something on it
 				}

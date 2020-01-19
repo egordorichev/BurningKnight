@@ -30,14 +30,19 @@ namespace BurningKnight.entity.component {
 		public bool Centered;
 
 		public bool Flash;
+		public readonly string Id;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
+			Id = animationName;
+			
 			ReloadAnimation(layer, tag);
 		}
 		
 		public AnimationComponent(string animationName, ColorSet set) {
 			name = animationName;
+			Id = animationName;
+			
 			this.set = set;
 			
 			ReloadAnimation();

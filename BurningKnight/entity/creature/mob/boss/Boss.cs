@@ -242,6 +242,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 				rewards.Add("bk:emerald");
 			}
 
+			for (var i = 0; i < Rnd.Int(4, 10); i++) {
+				rewards.Add("bk:copper_coin");
+			}
+
 			for (var i = 0; i < Rnd.Int(0, 3); i++) {
 				rewards.Add("bk:heart");
 			}

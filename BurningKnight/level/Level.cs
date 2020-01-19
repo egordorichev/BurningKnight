@@ -712,7 +712,7 @@ namespace BurningKnight.level {
 			state.End();
 
 			Engine.GraphicsDevice.SetRenderTarget(MessSurface);
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Matrix.Identity);
 
 			if (!cleared) {
@@ -730,7 +730,7 @@ namespace BurningKnight.level {
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			var region = new TextureRegion();
@@ -1380,7 +1380,7 @@ namespace BurningKnight.level {
 				c.UpdateMatrices();
 			}
 
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None,
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			Graphics.Render(WallSurface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
@@ -1424,7 +1424,7 @@ namespace BurningKnight.level {
 			var camera = Camera.Instance;
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			var region = new TextureRegion();

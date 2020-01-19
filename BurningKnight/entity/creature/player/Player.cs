@@ -610,6 +610,24 @@ namespace BurningKnight.entity.creature.player {
 		protected override bool HandleDeath(DiedEvent d) {
 			Done = false;
 			died = true;
+			var ing = (InGameState) Engine.Instance.State;
+
+			ing.Killer.Animation = null;
+			ing.Killer.Slice = null;
+			
+			if (d.From != null) {
+				var anim = d.From.GetAnyComponent<AnimationComponent>();
+
+				if (anim != null) {
+					ing.Killer.Animation = Animations.Get(anim.Id).CreateAnimation();
+				} else {
+					var slice = d.From.GetAnyComponent<SliceComponent>();
+
+					if (slice != null) {
+						ing.Killer.Slice = slice.Sprite;
+					}
+				}
+			}
 
 			Log.Debug($"Killed by: {(d.From?.GetType().Name ?? "null")}");
 			

@@ -6,16 +6,6 @@
 * who killed you display on the death screen
 * save max hp for player. otherwise shield buddy is broken
 
-* scourge { 
-  - make face door actually teleport you, dissappear after 1 use, ask that you can enter only with >= 1 curse or 99 coins, a dark market
-  - make portal door actually teleport you
-  
-  - payed door implementation
-  - more coins should drop the more curse you have
-  - room, that locks you in, till you choose one curse token (only if you have curse points, chance increases with the more curses you get)
- }
-}
-
 * enemies {
  + mike
  + horror 
@@ -26,7 +16,7 @@
 
 * misc {
  + better hive gen on lvl 2
- + trees?
+ + trees
 }
 
 # todo

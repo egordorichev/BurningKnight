@@ -27,7 +27,7 @@ namespace BurningKnight.entity.item.renderer {
 		private float ox;
 
 		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
-			float s = dt * 10f;
+			var s = dt * 10f;
 			
 			sx += (1 - sx) * s;
 			sy += (1 - sy) * s;
@@ -40,11 +40,10 @@ namespace BurningKnight.entity.item.renderer {
 			var of = owner.GraphicsComponent.Flipped;
 			var flipped = false;
 			
-			
 			var angle = MathUtils.Mod((of ? -Angle : Angle) + (atBack ? ((InvertBack ? -1 : 1) * (of ? -Math.PI / 4 : Math.PI / 4)) : lastAngle), Math.PI * 2);
 			var vf = angle > Math.PI * 0.5f && angle < Math.PI * 1.5f;
 			
-			if (!atBack && !paused) {
+			if (!atBack && !paused && !shadow) {
 				var to = owner.GetComponent<AimComponent>().Aim;
 				var dx = Nozzle.X - Origin.X;
 				var dy = Nozzle.Y - Origin.Y;
@@ -52,17 +51,13 @@ namespace BurningKnight.entity.item.renderer {
 				if (vf) {
 					dy *= -1;
 				}
-				
+
 				var a = MathUtils.Angle(dx, dy) + lastAngle - AddedAngle - SwingAngle;
 				var d = MathUtils.Distance(dx, dy);
-				
 				to -= MathUtils.CreateVector(a, d);
 
-				if (!atBack) {
-					owner.GetComponent<AimComponent>().Aim = to;
-				}
-				
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 6f);
+				owner.GetComponent<AimComponent>().Aim = to;
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 12f);
 			}
 
 			if (atBack) {
@@ -76,25 +71,23 @@ namespace BurningKnight.entity.item.renderer {
 			var sc = new Vector2(flipped ? -sx : sx, shadow ^ vf ? -sy : sy);
 			var fangle = (float) angle * (shadow ? -1 : 1);
 
-			if (!shadow) {
-				if (!atBack) {
-					var dx = Nozzle.X - or.X;
-					var dy = Nozzle.Y - or.Y;
+			if (!shadow && !atBack) {
+				var dx = Nozzle.X - or.X;
+				var dy = Nozzle.Y - or.Y;
 
-					if (vf) {
-						dy *= -1;
-					}
-
-					var a = MathUtils.Angle(dx, dy) + angle;
-					var d = MathUtils.Distance(dx, dy);
-
-					var aim = owner.GetComponent<AimComponent>();
-
-					aim.Center = pos + MathUtils.CreateVector(a, d);
-
-					d = (aim.Aim - pos).Length();
-					aim.RealAim = aim.Center + MathUtils.CreateVector(angle - AddedAngle - SwingAngle, d);
+				if (vf) {
+					dy *= -1;
 				}
+
+				var a = MathUtils.Angle(dx, dy) + angle;
+				var d = MathUtils.Distance(dx, dy);
+
+				var aim = owner.GetComponent<AimComponent>();
+
+				aim.Center = pos + MathUtils.CreateVector(a, d);
+
+				d = (aim.Aim - pos).Length();
+				aim.RealAim = aim.Center + MathUtils.CreateVector(angle - AddedAngle - SwingAngle, d);
 			}
 
 			if (Item.Scourged) {

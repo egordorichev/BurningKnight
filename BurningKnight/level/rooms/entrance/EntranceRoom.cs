@@ -65,11 +65,11 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override int GetMaxWidth() {
-			return 11;
+			return 13;
 		}
 
 		public override int GetMaxHeight() {
-			return 11;
+			return 13;
 		}
 	}
 }

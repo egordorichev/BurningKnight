@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BurningKnight.assets.items;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -8,6 +9,7 @@ using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.entities;
@@ -30,7 +32,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
-	public class Mob : Creature {
+	public class Mob : Creature, DropModifier {
 		public Entity Target;
 		public bool HasPrefix => prefix != null;
 		public Prefix Prefix => prefix;
@@ -426,6 +428,16 @@ namespace BurningKnight.entity.creature.mob {
 				if (d <= 8) {
 					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
 					body.Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+				}
+			}
+		}
+
+		public void ModifyDrops(List<Item> drops) {
+			if (Rnd.Chance(Run.Scourge * 5)) {
+				var c = Rnd.Int(0, 4);
+				
+				for (var i = 0; i < c; i++) {
+					drops.Add(Items.Create("bk:copper_coin"));
 				}
 			}
 		}

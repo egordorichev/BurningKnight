@@ -81,7 +81,7 @@ namespace BurningKnight.assets.lighting {
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
 			
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			Graphics.Clear(Color.Transparent);
 
@@ -94,7 +94,7 @@ namespace BurningKnight.assets.lighting {
 			state.End();
 			
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			
@@ -105,7 +105,7 @@ namespace BurningKnight.assets.lighting {
 			Graphics.Color.A = 255;
 			
 			Engine.GraphicsDevice.SetRenderTarget(surface);
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, lightBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 
 			Graphics.Clear(ClearColor);
@@ -131,7 +131,7 @@ namespace BurningKnight.assets.lighting {
 				c.UpdateMatrices();
 			}
 			
-			Graphics.Batch.Begin(SpriteSortMode.Deferred, surfaceBlend, SamplerState.PointClamp, DepthStencilState.None, 
+			Graphics.Batch.Begin(SpriteSortMode.Immediate, surfaceBlend, SamplerState.PointClamp, DepthStencilState.None, 
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			Graphics.Color = new Color(color.X, color.Y, color.Z, alpha);

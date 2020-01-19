@@ -93,6 +93,7 @@ namespace BurningKnight.state {
 		private TextureRegion black;
 		private TextureRegion emerald;
 
+		public UiAnimation Killer;
 		private Console console;
 		private UiLabel seedLabel;
 		private UiButton currentBack;
@@ -1089,7 +1090,7 @@ namespace BurningKnight.state {
 			
 			space = 20f;
 			start = (Display.UiHeight) / 2f - space;
-			
+
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "death_message",
 				RelativeCenterX = Display.UiWidth / 2f,
@@ -1098,23 +1099,36 @@ namespace BurningKnight.state {
 			});
 			
 			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				Label = "Depth",
+				LocaleLabel = "depth",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = start - space,
 				Clickable = false
 			});
 			
 			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				Label = "Time",
+				LocaleLabel = "time",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = start,
 				Clickable = false
 			});
 			
 			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				Label = "Mobs Killed",
+				LocaleLabel = "kills",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = start + space,
+				Clickable = false
+			});
+			
+			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
+				Label = Locale.Get("killed_by"),
+				RelativeCenterX = Display.UiWidth * 0.75f,
+				RelativeCenterY = start - space,
+				Clickable = false
+			});
+
+			Killer = (UiAnimation) gameOverMenu.Add(new UiAnimation {
+				RelativeCenterX = Display.UiWidth * 0.75f,
+				RelativeCenterY = start,
 				Clickable = false
 			});
 			
