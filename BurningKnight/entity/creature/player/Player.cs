@@ -614,22 +614,46 @@ namespace BurningKnight.entity.creature.player {
 
 			ing.Killer.Animation = null;
 			ing.Killer.Slice = null;
+			ing.Killer.UseSlice = true;
 			
 			if (d.From != null) {
 				var anim = d.From.GetAnyComponent<AnimationComponent>();
 
 				if (anim != null) {
-					ing.Killer.Animation = Animations.Get(anim.Id).CreateAnimation();
+					ing.Killer.Animation = Animations.Get(anim.Id)?.CreateAnimation();
+					
+					if (ing.Killer.Animation != null) {
+						ing.Killer.Animation.Tag = "idle";
+						ing.Killer.UseSlice = false;
+
+						var c = ing.Killer.Animation.GetCurrentTexture();
+						
+						ing.Killer.Width = c.Width;
+						ing.Killer.Height = c.Height;
+					}
 				} else {
 					var slice = d.From.GetAnyComponent<SliceComponent>();
 
 					if (slice != null) {
 						ing.Killer.Slice = slice.Sprite;
+						ing.Killer.Width = ing.Killer.Slice.Width;
+						ing.Killer.Height = ing.Killer.Slice.Height;
 					}
 				}
 			}
 
-			Log.Debug($"Killed by: {(d.From?.GetType().Name ?? "null")}");
+			if (ing.Killer.Slice == null && ing.Killer.Animation == null) {
+				ing.Killer.Slice = CommonAse.Items.GetSlice("unknown");
+				ing.Killer.Width = ing.Killer.Slice.Width;
+				ing.Killer.Height = ing.Killer.Slice.Height;
+			}
+
+
+			ing.Killer.Width *= 2;
+			ing.Killer.Height *= 2;
+			ing.Killer.RelativeCenterX = Display.UiWidth * 0.75f;
+
+			Log.Info($"Killed by: {(d.From?.GetType().Name ?? "null")}");
 			
 			return true;
 		}

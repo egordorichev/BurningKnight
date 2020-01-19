@@ -1,5 +1,7 @@
 using Lens.graphics;
 using Lens.graphics.animation;
+using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.ui {
 	public class UiAnimation : UiEntity {
@@ -28,7 +30,7 @@ namespace BurningKnight.ui {
 			}
 
 			var region = UseSlice ? Slice : Animation.GetCurrentTexture();
-			Graphics.Render(region, Center, 0, region.Center);
+			Graphics.Render(region, Center, 0, region.Center, new Vector2(2));
 		}
 	}
 }

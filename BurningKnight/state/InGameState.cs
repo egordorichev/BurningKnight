@@ -1119,16 +1119,16 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
-			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				Label = Locale.Get("killed_by"),
+			gameOverMenu.Add(new UiLabel {
+				LocaleLabel = "killed_by",
 				RelativeCenterX = Display.UiWidth * 0.75f,
-				RelativeCenterY = start - space,
+				RelativeCenterY = start - space * 2,
 				Clickable = false
 			});
 
 			Killer = (UiAnimation) gameOverMenu.Add(new UiAnimation {
 				RelativeCenterX = Display.UiWidth * 0.75f,
-				RelativeCenterY = start,
+				RelativeY = start,
 				Clickable = false
 			});
 			
@@ -2008,7 +2008,7 @@ namespace BurningKnight.state {
 			timeLabel.Label = $"{GetRunTime()}";
 			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
 			
-			killsLabel.Label = $"{Locale.Get("mobs_killed")} {Run.Statistics.MobsKilled}";
+			killsLabel.Label = $"{Locale.Get("kills")}: {Run.Statistics.MobsKilled}";
 			killsLabel.RelativeCenterX = Display.UiWidth / 2f;
 
 			depthLabel.Label = Level.GetDepthString();
