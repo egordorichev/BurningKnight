@@ -30,8 +30,6 @@ namespace Lens.graphics.gamerenderer {
 			
 			Batcher2D = new Batcher2D(Engine.GraphicsDevice);
 			RasterizerState = new RasterizerState();
-
-			// RasterizerState.CullMode = CullMode.None;
 			RasterizerState.ScissorTestEnable = true;
 		}
 
@@ -41,7 +39,7 @@ namespace Lens.graphics.gamerenderer {
 				return;
 			}
 			
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 		}
 
 		public override void End() {

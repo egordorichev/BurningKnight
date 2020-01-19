@@ -1,7 +1,5 @@
 # overscope
 
-* fixme player weapon doesnt render when you point up
-
 * custom voices for the new npcs
 
 * enemies {

@@ -29,8 +29,8 @@ namespace BurningKnight.entity.item.renderer {
 		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			var s = dt * 10f;
 
-			sx = 1;//sx += (1 - sx) * s;
-			sy = 1;//sy += (1 - sy) * s;
+			sx += (1 - sx) * s;
+			sy += (1 - sy) * s;
 			ox += (-ox) * s;
 			oy += (-oy) * s;
 			
@@ -106,7 +106,6 @@ namespace BurningKnight.entity.item.renderer {
 			}
 
 			Graphics.Render(region, pos, fangle, or, sc);
-			Graphics.Print($"{sc.X} {sc.Y}", Font.Small, pos - new Vector2(32));
 		}
 
 		public override void OnUse() {
