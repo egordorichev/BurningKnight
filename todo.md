@@ -6,7 +6,6 @@
  + mike
  + horror 
  + white eyes
- + bee hive needs a support, probs a tree
  + too much overall hp, too many enemies per room
 }
 

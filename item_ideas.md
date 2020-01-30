@@ -12,10 +12,8 @@
 * brain
 * pickaxe
 * teabag
-* cup
 * obsidian_boots
 * pact
-* the_ring
 
 * lootpick
 * bluewatch
@@ -24,9 +22,7 @@
 
 # passive
 
-* ankh
 * immunity to contact damage
-* half a heart
 
 * super hot mechanic
 * shop teleporter
@@ -79,7 +75,7 @@
 
 * make tnt, skeleton key and the bill unlockable
 
-* granny --- tea cup! and other tea based items
+* granny tea based items
 * dark mage
 * duck chest
 
@@ -91,10 +87,8 @@
 ### pets
 
 * ntte inspired {
- * crystal, works like prysm, but randomly teleports somewhere near the player
  * some bird, pick ups keys, coins, targets hearts first
  * someone, has a lighting/laser going from him to you, passive damage
- * backpack, but for active items?
  * simple summon, simple damage
 }
 
@@ -178,3 +172,14 @@
 * active key, allows to open 1 thing for 2 charge?
 * guns that gives you fetus effect and epic fetus
 * mama key and bomb, infinite resources for the floor (consumables, small chance to replace any key or bomb)
+
+* ring of thorns. +1 hp each 10 kills. -1 hp when picking up item
+* ring of shadows. decreased vision. items, mobs and npcs appear as black shadows. free shop deals?
+* glass jaw. x2 damage. player is instakill
+* +1 dmg, mobs appear as shadows
+* unknown ring: random ring effect
+* ring of pain: deals dmg to all enemies in room when player takes dmg, also deals 1 dmg to player on pickup
+* soldering-iron: hitting frozen enemy insta kills it. gives a small chance for fire bullets
+* ring of becoming: player is instakill, but he gets some bonus
+* heals 1 heart upon descending to next lvl
+* gives 1 free purchase from the shop

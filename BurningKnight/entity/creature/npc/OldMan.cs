@@ -29,7 +29,7 @@ namespace BurningKnight.entity.creature.npc {
 				// AddComponent(new InteractDialogComponent("old_man_1"));
 			} else if (Run.Depth == Run.ContentEndDepth) {
 				GetComponent<DialogComponent>().Start("old_man_4");
-				cycle = true;
+				cycle = !BK.Version.Dev;;
 			} else if (Run.Depth == -2) {
 				set = false;
 				AddComponent(new CloseDialogComponent("control_1") {

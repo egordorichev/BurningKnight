@@ -16,7 +16,9 @@ namespace BurningKnight.level.biome {
 
 		public override void Apply() {
 			base.Apply();
-			Lights.ClearColor = ColorUtils.WhiteColor;
+
+			var v = 0.8f;
+			Lights.ClearColor = new Color(v, v, v, 1f);
 		}
 
 		public override void ModifyRooms(List<RoomDef> rooms) {

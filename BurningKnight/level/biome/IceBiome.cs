@@ -9,6 +9,11 @@ namespace BurningKnight.level.biome {
 
 		public override void ModifyPainter(Painter painter) {
 			base.ModifyPainter(painter);
+
+			painter.Grass = 0;
+			painter.Water = 0.5f;
+			painter.Dirt = 0;
+			painter.Cobweb = 0;
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (l.Get(x, y, true) == Tile.Water) {
