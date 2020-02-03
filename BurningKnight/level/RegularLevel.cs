@@ -9,6 +9,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.payed;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.scourged;
+using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.spiked;
@@ -164,10 +165,6 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
-			for (var I = 0; I < secret; I++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
-			}
-
 			if (!final) {
 				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
@@ -197,9 +194,21 @@ namespace BurningKnight.level {
 				}
 			}
 
-			if (Rnd.Chance(20)) {
+			var addDarkMarket = Rnd.Chance(20);
+			
+			if (addDarkMarket) {
 				rooms.Add(new DarkMarketEntranceRoom());
 				rooms.Add(new DarkMarketRoom());
+			}
+
+			if (!addDarkMarket && Rnd.Chance(5)) {
+				secret--;
+				rooms.Add(new SecretDarkMarketEntranceRoom());
+				rooms.Add(new DarkMarketRoom());
+			}
+
+			for (var I = 0; I < secret; I++) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
 			}
 				
 			if (Rnd.Chance()) {

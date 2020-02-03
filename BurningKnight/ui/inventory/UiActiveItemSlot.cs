@@ -67,6 +67,7 @@ namespace BurningKnight.ui.inventory {
 			
 			if (item != null && item.Id != uiItem.Id) {
 				uiItem.Id = item.Id;
+				uiItem.Scourged = item.Scourged;
 			}
 
 			var v = ActivePosition * (inventory.ItemSlot.Width + 10);

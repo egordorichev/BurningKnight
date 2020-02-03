@@ -956,6 +956,7 @@
     <Compile Include="level\rooms\secret\GrannySecretRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChestRoom.cs" />
+    <Compile Include="level\rooms\secret\SecretDarkMarketEntranceRoom.cs" />
     <Compile Include="level\rooms\secret\SecretItemRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />

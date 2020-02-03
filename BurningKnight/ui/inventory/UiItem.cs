@@ -1,4 +1,6 @@
 using BurningKnight.assets;
+using BurningKnight.assets.items;
+using BurningKnight.entity.item;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
@@ -49,6 +51,7 @@ namespace BurningKnight.ui.inventory {
 
 		private float border;
 		public bool DrawBorder;
+		public bool Scourged;
 
 		public Vector2 IconScale = Vector2.One;
 
@@ -123,13 +126,13 @@ namespace BurningKnight.ui.inventory {
 
 			var b = DrawBorder ? 1 : border;
 			
-			if (b > 0.01f) {
+			if (Scourged || b > 0.01f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
 
-				shader.Parameters["flash"].SetValue(b);
+				shader.Parameters["flash"].SetValue(Scourged ? 1 : b);
 				shader.Parameters["flashReplace"].SetValue(1f);
-				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
+				shader.Parameters["flashColor"].SetValue(!Scourged ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.ScourgedColor, ColorUtils.White, b));
 
 				foreach (var d in MathUtils.Directions) {
 					Graphics.Render(region, Center + d, 0, region.Center, IconScale * scale);
