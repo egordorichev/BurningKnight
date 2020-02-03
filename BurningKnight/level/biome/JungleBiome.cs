@@ -17,7 +17,7 @@ namespace BurningKnight.level.biome {
 		public override void Apply() {
 			base.Apply();
 
-			var v = 0.8f;
+			var v = 0.5f;
 			Lights.ClearColor = new Color(v, v, v, 1f);
 		}
 
@@ -38,6 +38,9 @@ namespace BurningKnight.level.biome {
 			painter.Water = 0.4f;
 			painter.Grass = 0.4f;
 			painter.Dirt = 0f;
+			painter.Cobweb = 0f;
+			painter.Fireflies = 4;
+			painter.FirefliesChance = 100;
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (rm is TrapRoom) {

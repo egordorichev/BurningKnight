@@ -37,6 +37,8 @@ namespace BurningKnight.level {
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
+		public float Fireflies = 1f;
+		public float FirefliesChance = 60f;
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
 		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
@@ -666,8 +668,8 @@ namespace BurningKnight.level {
 				}
 
 				// Fireflies
-				if (Rnd.Chance(60)) {
-					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)); I++) {
+				if (Rnd.Chance(FirefliesChance)) {
+					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)) * Fireflies; I++) {
 						Level.Area.Add(new Firefly {
 							X = (Room.Left + 2) * 16 + Rnd.Float((Room.GetWidth() - 4) * 16),
 							Y = (Room.Top + 2) * 16 + Rnd.Float((Room.GetHeight() - 4) * 16)
