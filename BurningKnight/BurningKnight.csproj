@@ -452,9 +452,13 @@
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\FatPrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\FragilePrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\GoldPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\HealthyPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
     <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
+    <Compile Include="entity\creature\mob\prefix\RegenerativePrefix.cs" />
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />

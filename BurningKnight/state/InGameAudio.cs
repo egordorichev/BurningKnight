@@ -134,6 +134,9 @@ namespace BurningKnight.state {
 							Audio.PlayMusic("piano");
 							break;
 						}
+
+						Audio.PlayMusic(Run.Level.GetMusic());
+						break;
 					}
 					
 					case RoomType.Treasure: {
