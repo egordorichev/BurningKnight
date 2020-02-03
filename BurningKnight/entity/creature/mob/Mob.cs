@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -82,11 +83,30 @@ namespace BurningKnight.entity.creature.mob {
 				GetComponent<StateComponent>().Pause = 0;
 			}
 		}
+		
+		private float lastParticle;
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			prefix?.Update(dt);
+			if (prefix != null) {
+				prefix.Update(dt);
+
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = Rnd.Float(0.05f, 0.3f);
+
+					for (var i = 0; i < Rnd.Int(0, 3); i++) {
+						var part = new ParticleEntity(Particles.Scourge());
+
+						part.Position = Center + Rnd.Vector(-4, 4);
+						part.Particle.Scale = Rnd.Float(0.5f, 1.2f);
+						Area.Add(part);
+						part.Depth = 1;
+					}
+				}
+			}
 
 			if (Target == null) {
 				FindTarget();
