@@ -201,7 +201,7 @@ namespace BurningKnight.level {
 				rooms.Add(new DarkMarketRoom());
 			}
 
-			if (!addDarkMarket && Rnd.Chance(5)) {
+			if (!addDarkMarket && Rnd.Chance(1)) {
 				secret--;
 				rooms.Add(new SecretDarkMarketEntranceRoom());
 				rooms.Add(new DarkMarketRoom());

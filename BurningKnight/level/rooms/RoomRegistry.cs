@@ -72,6 +72,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<SecretItemRoom>(1f),
 				RoomInfo.New<GrannySecretRoom>(0.01f),
 				RoomInfo.New<SecretChestRoom>(1f),
+				RoomInfo.New<SecretScourgeRoom>(1f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
