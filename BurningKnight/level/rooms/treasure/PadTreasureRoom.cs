@@ -9,7 +9,7 @@ namespace BurningKnight.level.rooms.treasure {
 		private List<Dot> rects = new List<Dot>();
 		private List<Rect> rs = new List<Rect>();
 		
-		public override void Paint(Level level) {
+		public override void PaintInside(Level level) {
 			Painter.Fill(level, this, 1, Rnd.Chance() ? Tiles.RandomFloor() : Tile.Chasm);
 
 			var m = Rnd.Int(1, 3);

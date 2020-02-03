@@ -14,6 +14,11 @@ namespace BurningKnight.entity.item.stand {
 			base.OnTake(item, who);
 		
 			var rm = GetComponent<RoomComponent>().Room;
+			
+			if (rm == null) {
+				return;
+			}
+			
 			var it = rm.Tagged[Tags.Item].ToArray(); // Copy it to prevent exceptions while modifying it
 			
 			foreach (var s in it) {

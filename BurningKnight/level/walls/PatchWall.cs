@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
@@ -15,6 +16,7 @@ namespace BurningKnight.level.walls {
 		}
 
 		protected void Setup(Level level, RoomDef room, float fill, int clustering, bool ensurePath) {
+			Run.Level = level;
 			var w = room.GetWidth() - 2;
 			var h = room.GetHeight() - 2;
 			

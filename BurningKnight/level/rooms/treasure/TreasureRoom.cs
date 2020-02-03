@@ -16,15 +16,32 @@ namespace BurningKnight.level.rooms.treasure {
 		private List<Dot> standPositions = new List<Dot>();
 		protected bool SpawnedBarrier;
 		protected bool DisableBarrier;
+
+		private bool scourged;
 		
 		public override void Paint(Level level) {
+			PaintInside(level);
+			scourged = Rnd.Chance(Run.Scourge * 5 + 5);
+
+			SetupStands(level);
+
+			if (scourged) {
+				for (var i = Left + 1; i <= Right - 1; i++) {
+					for (var j = Top + 1; j <= Bottom - 1; j++) {
+						if (level.Get(i, j) == Tile.FloorD) {
+							level.Set(i, j, Tile.EvilFloor);
+						}
+					}
+				}
+			}
+		}
+
+		public virtual void PaintInside(Level level) {
 			var c = GetCenter() * 16;
 			
 			PlaceStand(level, c - new Dot(32, 0));
 			PlaceStand(level, c);
 			PlaceStand(level, c + new Dot(32, 0));
-
-			SetupStands(level);
 		}
 
 		protected void SetupStands(Level level) {
@@ -35,7 +52,13 @@ namespace BurningKnight.level.rooms.treasure {
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure));
 
 			foreach (var s in stands) {
-				s.SetItem(Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area, false), null);
+				var item = Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area, false);
+
+				if (scourged) {
+					item.Scourged = true;
+				}
+				
+				s.SetItem(item, null);
 
 				if (pool.Count == 0) {
 					break;

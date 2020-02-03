@@ -4,7 +4,7 @@ using Lens.util.math;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class TwoDiagonalTreasureRoom : TreasureRoom {
-		public override void Paint(Level level) {
+		public override void PaintInside(Level level) {
 			if (Rnd.Chance()) {
 				var t = Rnd.Chance(30) ? Tile.FloorD : Tiles.RandomFloor();
 

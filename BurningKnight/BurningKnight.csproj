@@ -960,6 +960,7 @@
     <Compile Include="level\rooms\secret\SecretItemRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
+    <Compile Include="level\rooms\secret\SecretScourgeRoom.cs" />
     <Compile Include="level\rooms\shop\ShopRoom.cs" />
     <Compile Include="level\rooms\shop\sub\SnekShopRoom.cs" />
     <Compile Include="level\rooms\shop\sub\StorageRoom.cs" />
