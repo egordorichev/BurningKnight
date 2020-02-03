@@ -1,7 +1,7 @@
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.lightJson;
-using Pico8Emulator;
 
 namespace BurningKnight.entity.item.use {
 	public class EnableScourgeUse : ItemUse {
@@ -10,6 +10,10 @@ namespace BurningKnight.entity.item.use {
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
 			Scourge.Enable(scourge);
+
+			if (Run.Scourge == 0) {
+				Run.AddScourge();
+			}
 		}
 
 		public override void Setup(JsonValue settings) {
