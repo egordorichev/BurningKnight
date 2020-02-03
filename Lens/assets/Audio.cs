@@ -201,7 +201,7 @@ namespace Lens.assets {
 
 		private static bool loadedAll;
 		private static List<string> toLoad = new List<string> {
-			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Gobbeon", "Fatiga", "Reckless", "Disk 1"
+			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Gobbeon", "Fatiga", "Reckless", "Disk 1", "piano"
 		};
 
 		public static void Preload(string music) {

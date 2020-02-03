@@ -12,6 +12,14 @@ namespace BurningKnight.level.biome {
 			
 		}
 
+		public override string GetMusic() {
+			if (Run.AlternateMusic) {
+				return "chip";
+			}
+
+			return base.GetMusic();
+		}
+
 		public override void ModifyPainter(Painter painter) {
 			base.ModifyPainter(painter);
 			

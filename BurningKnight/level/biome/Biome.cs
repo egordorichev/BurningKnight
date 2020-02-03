@@ -32,6 +32,10 @@ namespace BurningKnight.level.biome {
 			return IsPresent(Id, biomes);
 		}
 
+		public virtual string GetMusic() {
+			return Music;
+		}
+
 		public static bool IsPresent(string id, string[] biomes) {
 			if (biomes == null || biomes.Length == 0) {
 				return true;

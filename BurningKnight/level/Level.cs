@@ -1560,7 +1560,7 @@ namespace BurningKnight.level {
 		}
 
 		public virtual string GetMusic() {
-			return Biome.Music;
+			return Biome.GetMusic();
 		}
 
 		public static string GetDepthString() {

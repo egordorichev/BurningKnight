@@ -129,6 +129,13 @@ namespace BurningKnight.state {
 						break;
 					}
 					
+					case RoomType.DarkMarket: {
+						if (Run.AlternateMusic) {
+							Audio.PlayMusic("piano");
+							break;
+						}
+					}
+					
 					case RoomType.Treasure: {
 						Audio.PlayMusic("Ma Precious");
 						break;

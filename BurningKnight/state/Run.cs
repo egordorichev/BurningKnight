@@ -33,6 +33,7 @@ namespace BurningKnight.state {
 		public static RunStatistics Statistics;
 		public static string NextSeed;
 		public static int LastSavedDepth;
+		public static bool AlternateMusic;
 		
 		public static int Depth {
 			get => depth;
@@ -77,6 +78,7 @@ namespace BurningKnight.state {
 
 			GlobalSave.RunId++;
 			Rnd.Seed = Seed;
+			AlternateMusic = Rnd.Chance(0.5f);
 			
 			Log.Debug($"This run's seed is {Seed}");
 		}
