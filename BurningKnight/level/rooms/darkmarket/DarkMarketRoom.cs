@@ -22,22 +22,22 @@ namespace BurningKnight.level.rooms.darkmarket {
 			var points = new List<Vector2>();
 			var a = false;
 			
-			if (Rnd.Chance()) {
+			if (Rnd.Chance(60)) {
 				a = true;
 				points.Add(new Vector2(Left + 4.5f, Top + 4.5f) * 16);
 			}
 			
-			if (Rnd.Chance()) {
+			if (Rnd.Chance(60)) {
 				a = true;
 				points.Add(new Vector2(Right - 3.5f, Bottom - 4f) * 16);
 			}
 
-			if (Rnd.Chance()) {
+			if (Rnd.Chance(60)) {
 				a = true;
 				points.Add(new Vector2(Right - 3.5f, Top + 4.5f) * 16);
 			}
 
-			if (!a || Rnd.Chance()) {
+			if (!a || Rnd.Chance(60)) {
 				points.Add(new Vector2(Left + 4.5f, Bottom - 4f) * 16);
 			}
 

@@ -21,7 +21,7 @@ namespace BurningKnight.level.rooms.treasure {
 		
 		public override void Paint(Level level) {
 			PaintInside(level);
-			scourged = Rnd.Chance(Run.Scourge * 5 + 5);
+			scourged = Rnd.Chance(Run.Scourge * 2 + 2);
 
 			SetupStands(level);
 
