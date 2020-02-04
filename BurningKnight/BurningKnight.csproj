@@ -602,6 +602,7 @@
     <Compile Include="entity\events\LostSupportEvent.cs" />
     <Compile Include="entity\events\MaxHealthModifiedEvent.cs" />
     <Compile Include="entity\events\MobTargetChange.cs" />
+    <Compile Include="entity\events\NewFloorEvent.cs" />
     <Compile Include="entity\events\NewLevelStartedEvent.cs" />
     <Compile Include="entity\events\PlayerHurtEvent.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
@@ -676,6 +677,7 @@
     <Compile Include="entity\item\use\BlankUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
+    <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />

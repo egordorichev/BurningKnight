@@ -224,6 +224,13 @@ namespace BurningKnight.state {
 
 			FireParticle.Hook(Area);
 			Run.StartedNew = false;
+			
+			if (Run.Depth > 0 && GameSave.IsFalse($"reached_{Run.Depth}")) {
+				GameSave.Put($"reached_{Run.Depth}", true);
+				Area.EventListener.Handle(new NewFloorEvent {
+					WasInEL = true
+				});
+			}
 		}
 
 		private const float CursorPriority = 0.5f;

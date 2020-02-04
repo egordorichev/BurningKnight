@@ -133,7 +133,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 
 				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
-					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage * (raging ? 2 : 1), this)) {
+					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage * (raging ? 2 : 1), this, DamageType.Contact)) {
 						OnHit(entity);
 					}
 				}
