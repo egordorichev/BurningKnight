@@ -124,6 +124,7 @@ namespace BurningKnight.entity.item.use {
 			Register<AffectDealChanceUse>(AffectDealChanceUse.RenderDebug);
 			Register<LeaveLegoUse>();
 			Register<DoOnNewFloorUse>(DoUsesUse.RenderDebug);
+			Register<DoUsesIfUse>(DoUsesIfUse.RenderDebug);
 		}
 	}
 }

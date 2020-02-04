@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.use {
 		private float knockback;
 		private bool rect;
 		protected bool wait;
+		private bool toCursor;
 		
 		public bool ProjectileDied = true;
 
@@ -64,10 +65,11 @@ namespace BurningKnight.entity.item.use {
 			damage = settings["damage"].Int(1);
 			speed = settings["speed"].Number(6);
 			speedMax = settings["speedm"].Number(10);
-			range = settings["range"].Number(0);
+			range = settings["range"].Number(0) * 0.7f;
 			scaleMin = settings["scale"].Number(1);
 			scaleMax = settings["scalem"].Number(1);
-			slice = settings["texture"].AsString;
+			slice = settings["texture"].String("rect");
+			toCursor = settings["cursor"].Bool(false);
 
 			if (slice == "default") {
 				slice = "rect";
@@ -94,8 +96,9 @@ namespace BurningKnight.entity.item.use {
 				entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
 
 				var aim = entity.GetComponent<AimComponent>();
-				var from = aim.Center;
-				var a = MathUtils.Angle(aim.RealAim.X - from.X, aim.RealAim.Y - from.Y);
+				var from = toCursor ? entity.Center : aim.Center;
+				var am = toCursor ? Input.Mouse.GamePosition : aim.RealAim;
+				var a = MathUtils.Angle(am.X - from.X, am.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var ac = accuracy;
 
@@ -192,6 +195,7 @@ namespace BurningKnight.entity.item.use {
 
 		public static void RenderDebug(JsonValue root) {
 			if (ImGui.TreeNode("Stats")) {
+				root.Checkbox("To Cursor", "cursor", false);
 				root.InputFloat("Damage", "damage");
 				root.InputInt("Projectile Count", "amount");
 
@@ -255,6 +259,11 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				var slice = root["texture"].String("rect");
+
+				if (slice == "default") {
+					slice = "rect";
+				}
+				
 				var region = CommonAse.Projectiles.GetSlice(slice, false);
 
 				ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),

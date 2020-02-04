@@ -40,11 +40,9 @@
 * tripple shot but accuracy down
 * lighting between nearby bullets
 * double shot
-* chance to heal when buying an item
 * angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
 * range down, tears up
 * your projectiles break enemy projectiles (destroying themselfs too)
-* 2 heart containers up 
 * small planet
 * bigger bomb explosion radius
 * money power/keys power/bomb power
@@ -150,7 +148,6 @@
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * throwing axe
-* sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen

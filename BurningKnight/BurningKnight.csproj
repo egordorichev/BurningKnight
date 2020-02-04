@@ -679,6 +679,7 @@
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
+    <Compile Include="entity\item\use\DoUsesIfUse.cs" />
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
     <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
