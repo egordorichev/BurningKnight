@@ -155,10 +155,11 @@ namespace BurningKnight.entity.creature {
 			Done = true;
 			
 			for (var i = 0; i < 5; i++) {
-				var part = new ParticleEntity(Particles.Dust());
+				var part = new ParticleEntity(Particles.Ash());
 
 				part.Position = Center;
-				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
+				part.Particle.Scale = Rnd.Float(1.5f, 2f);
+				part.Particle.Velocity = new Vector2(Rnd.Float(20, 30) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(40, 66));
 				Run.Level.Area.Add(part);
 				part.Depth = 1;
 			}

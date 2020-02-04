@@ -680,6 +680,7 @@
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
     <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
+    <Compile Include="entity\item\use\LeaveLegoUse.cs" />
     <Compile Include="entity\item\use\MakeBombsBlankUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
@@ -762,6 +763,7 @@
     <Compile Include="entity\item\WeaponType.cs" />
     <Compile Include="entity\item\WeaponTypeHelper.cs" />
     <Compile Include="entity\Layers.cs" />
+    <Compile Include="entity\Lego.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
     <Compile Include="entity\orbital\Prism.cs" />

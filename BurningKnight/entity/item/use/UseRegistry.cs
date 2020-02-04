@@ -122,6 +122,7 @@ namespace BurningKnight.entity.item.use {
 			Register<BlankUse>();
 			Register<MakeProjectilesBlankOnDeathUse>();
 			Register<AffectDealChanceUse>(AffectDealChanceUse.RenderDebug);
+			Register<LeaveLegoUse>();
 		}
 	}
 }

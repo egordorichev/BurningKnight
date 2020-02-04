@@ -42,6 +42,10 @@ namespace BurningKnight.ui {
 					Input.Blocked = 0;
 
 					if (input != "") {
+						if (input == "muffin") {
+							input = "##[cl red]NANI??!?!?";
+						}
+						
 						var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 						if (player != null) {

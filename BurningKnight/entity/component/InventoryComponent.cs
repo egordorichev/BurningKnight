@@ -154,6 +154,12 @@ namespace BurningKnight.entity.component {
 
 				if (item.Done) {
 					Remove(item);
+				} else {
+					var o = item.Owner;
+				
+					foreach (var u in item.Uses) {
+						u.Update(o, item, dt);
+					}
 				}
 			}
 		}

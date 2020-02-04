@@ -30,6 +30,18 @@ namespace BurningKnight.util {
 			}
 		}
 		
+		public static void Ash(Vector2 where, int depth = 0) {
+			for (var i = 0; i < 4; i++) {
+				var part = new ParticleEntity(Particles.Ash());
+						
+				part.Position = where;
+				part.Particle.Scale = Rnd.Float(1f, 2f);
+				part.Particle.Velocity = new Vector2(Rnd.Float(20, 30) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(40, 66));
+				Run.Level.Area.Add(part);
+				part.Depth = depth;
+			}
+		}
+		
 		public static void PoofFrom(Vector2 where, Vector2 from, int depth = 0) {
 			for (var i = 0; i < 4; i++) {
 				var part = new ParticleEntity(Particles.Dust());
