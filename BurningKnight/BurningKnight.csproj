@@ -1154,6 +1154,7 @@
     <Compile Include="ui\UiAnimation.cs" />
     <Compile Include="ui\UiBanner.cs" />
     <Compile Include="ui\UiButton.cs" />
+    <Compile Include="ui\UiChat.cs" />
     <Compile Include="ui\UiCheckbox.cs" />
     <Compile Include="ui\UiChoice.cs" />
     <Compile Include="ui\UiControl.cs" />

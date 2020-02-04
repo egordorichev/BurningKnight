@@ -961,6 +961,8 @@ namespace BurningKnight.state {
 		private UiLabel depthLabel;
 
 		private void SetupUi() {
+			Ui.Add(new UiChat());
+			
 			UiButton.LastId = 0;
 			
 			var cam = new Camera(new FollowingDriver());
