@@ -1,18 +1,7 @@
-# overscope
+# todo
 
-* custom voices for the new npcs
-
-* enemies {
- + mike
- + horror 
- + white eyes
- + too much overall hp, too many enemies per room
-}
-
-* misc {
- + better hive gen on lvl 2
- + trees
-}
++ better hive gen on lvl 2
++ trees
 
 # todo
 
@@ -112,7 +101,6 @@
 * crawled space
 * Room, where you press lever/button to open/close chasm
 * trap rooms
-* more secret rooms
 * altar from spelunky?
 
 ### things I promissed to do
@@ -125,8 +113,6 @@
 
 ### Machine Ideas
 
-* Takes two weapons gives new 
 * Buys weapons from you
 * Health chest, can be mimic 
-* Rework well into different structs
 * machine: gives random stat up

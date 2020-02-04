@@ -4,6 +4,7 @@ using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -94,7 +95,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					});
 
 					var player = LocalPlayer.Locate(Area);
-					var doors = new List<Door>();
+					var doors = new List<DoorTile>();
 					
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
@@ -116,7 +117,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 								if (room.Type == RoomType.Granny) {
 									room.OpenHiddenDoors();
-									doors.AddRange(room.Doors);
+
+									foreach (var d in room.Doors) {
+										doors.Add(new DoorTile {
+											Door = d,
+											Tile = Tile.GrannyFloor
+										});										
+									}
 									
 									break;
 								}
@@ -129,8 +136,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 								if (room.Type == RoomType.OldMan) {
 									room.OpenHiddenDoors();
-									doors.AddRange(room.Doors);
 
+									foreach (var d in room.Doors) {
+										doors.Add(new DoorTile {
+											Door = d,
+											Tile = Tile.EvilFloor
+										});										
+									}
+									
 									break;
 								}
 							}
@@ -138,9 +151,52 @@ namespace BurningKnight.entity.creature.mob.boss {
 					}
 
 					if (doors.Count > 0) {
-						GetComponent<RoomComponent>().Room.PaintTunnel(doors, Tiles.RandomFloor());
-						Run.Level.TileUp();
-						Run.Level.CreateBody();
+						var rm = GetComponent<RoomComponent>().Room;
+						var level = Run.Level;
+						var cx = rm.MapX + rm.MapW / 2f;
+						var cy = rm.MapY + rm.MapH / 2f;
+						var grannyDoors = new List<Door>();
+						var evilDoors = new List<Door>();
+
+						foreach (var d in doors) {
+							if (d.Tile == Tile.GrannyFloor) {
+								grannyDoors.Add(d.Door);
+							} else {
+								evilDoors.Add(d.Door);
+							}
+						}
+						
+						rm.PaintTunnel(grannyDoors, Tile.GrannyFloor);
+						rm.PaintTunnel(evilDoors, Tile.EvilFloor);
+
+						rm.ApplyToEachTile((x, y) => {
+							var t = level.Get(x, y);
+							
+							if (t == Tile.GrannyFloor || t == Tile.EvilFloor) {
+								level.Set(x, y, Tile.FloorA);
+								
+								Timer.Add(() => {
+									var part = new TileParticle();
+
+									part.Top = t == Tile.GrannyFloor ? Tilesets.Biome.GrannyFloor[0] : Tilesets.Biome.EvilFloor[0];
+									part.TopTarget = Run.Level.Tileset.WallTopADecor;
+									part.Side = Run.Level.Tileset.FloorSidesD[0];
+									part.Sides = Run.Level.Tileset.WallSidesA[2];
+									part.Tile = t;
+
+									part.X = x * 16;
+									part.Y = y * 16;
+									part.Target.X = x * 16;
+									part.Target.Y = y * 16;
+									part.TargetZ = -8f;
+
+									Area.Add(part);
+								}, 1f + Rnd.Float(0.2f) + MathUtils.Distance(x - cx, y - cy) / 16f);
+							}
+						});
+						
+						level.TileUp();
+						level.CreateBody();
 					}
 
 					Done = true;
@@ -174,6 +230,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 				Engine.Instance.State.Ui.Add(HealthBar);
 				AddPhases();
 			}
+		}
+
+		private struct DoorTile {
+			public Door Door;
+			public Tile Tile;
 		}
 
 		protected virtual void AddPhases() {

@@ -85,7 +85,7 @@ namespace BurningKnight.entity.bomb {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Mob);
+			return !(entity is Creature);
 		}
 
 		private bool sent;
