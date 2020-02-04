@@ -22,11 +22,8 @@
 
 # passive
 
-* immunity to contact damage
-
 * super hot mechanic
 * shop teleporter
-* gives shield each floor
 * damage up, accuracy down (eye patch)
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
