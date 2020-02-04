@@ -841,6 +841,7 @@
     <Compile Include="level\biome\TechBiome.cs" />
     <Compile Include="level\builders\Builder.cs" />
     <Compile Include="level\builders\CastleBuilder.cs" />
+    <Compile Include="level\builders\InfinityBuilder.cs" />
     <Compile Include="level\builders\LineBuilder.cs" />
     <Compile Include="level\builders\LoopBuilder.cs" />
     <Compile Include="level\builders\RegularBuilder.cs" />

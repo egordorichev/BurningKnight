@@ -60,9 +60,6 @@
 
 # weapon 
 
-* shoots when you are full hp
-* shoots always
-* shoots when you are 1 hp
 * bomb gun
 * laser gun
 

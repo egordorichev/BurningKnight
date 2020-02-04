@@ -6,6 +6,7 @@ using BurningKnight.entity.projectile;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.util.camera;
 using Lens.util.file;
 
 namespace BurningKnight.level.entities.statue {
@@ -50,6 +51,7 @@ namespace BurningKnight.level.entities.statue {
 				return;
 			}
 
+			Camera.Instance.Shake(8);
 			Broken = true;
 			UpdateSprite();
 		}

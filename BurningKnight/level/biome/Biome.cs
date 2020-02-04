@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -67,12 +68,6 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual Builder GetBuilder() {
-			if (true) {
-				return new LineBuilder();
-
-				
-			}
-			
 			var R = Rnd.Float();
 
 			if (R < 0.33f) {
@@ -80,7 +75,9 @@ namespace BurningKnight.level.biome {
 			}
 
 			if (R < 0.66f) {
-				return new LoopBuilder();
+				return new LoopBuilder().SetShape(2,
+					Rnd.Float(0.4f, 0.7f),
+					Rnd.Float(0f, 0.5f));;
 			}
 			
 			return new CastleBuilder();

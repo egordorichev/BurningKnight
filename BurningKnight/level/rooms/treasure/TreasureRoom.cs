@@ -20,10 +20,8 @@ namespace BurningKnight.level.rooms.treasure {
 		private bool scourged;
 		
 		public override void Paint(Level level) {
-			PaintInside(level);
 			scourged = Rnd.Chance(Run.Scourge * 2 + 2);
-
-			SetupStands(level);
+			PaintInside(level);
 
 			if (scourged) {
 				for (var i = Left + 1; i <= Right - 1; i++) {

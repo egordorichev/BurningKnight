@@ -3,6 +3,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
 using BurningKnight.util;
 using Lens.entity;
+using Lens.util.camera;
 using Lens.util.math;
 
 namespace BurningKnight.entity {
@@ -28,9 +29,11 @@ namespace BurningKnight.entity {
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Creature c && !c.IsFriendly()) {
-					c.GetComponent<HealthComponent>().ModifyHealth(-10, this, DamageType.Custom);
-					AnimationUtil.Ash(Center);
-					Done = true;
+					if (c.GetComponent<HealthComponent>().ModifyHealth(-10, this, DamageType.Custom)) {
+						AnimationUtil.Ash(Center);
+						Done = true;
+						Camera.Instance.Shake(5);
+					}
 				}
 			}
 			

@@ -219,7 +219,7 @@ namespace BurningKnight.level.builders {
 			return true;
 		}
 
-		protected float RandomBranchAngle(RoomDef R) {
+		protected virtual float RandomBranchAngle(RoomDef R) {
 			return Rnd.Angle();
 		}
 
