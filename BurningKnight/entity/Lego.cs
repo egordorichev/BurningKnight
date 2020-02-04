@@ -11,16 +11,18 @@ namespace BurningKnight.entity {
 			base.AddComponents();
 
 			AddComponent(new ScalableSliceComponent("particles", $"lego_{Rnd.Int(3)}"));
-
-			var region = GetComponent<ScalableSliceComponent>().Sprite;
+			
+			var s = GetComponent<ScalableSliceComponent>();
+			var region = s.Sprite;
 
 			Width = region.Width;
 			Height = region.Height;
+			s.Origin.Y = Height;
 			
+			s.Animate();
+
 			AddComponent(new ShadowComponent());
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height));
-
-			GetComponent<ScalableSliceComponent>().Animate();
 		}
 
 		public override bool HandleEvent(Event e) {
