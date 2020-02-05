@@ -51,15 +51,17 @@ namespace BurningKnight.entity.creature.mob.boss {
 				lastParticle = 0.1f;
 
 				if (!IsFriendly()) {
+					var s = GraphicsComponent.Flipped ? -1 : 1;
+					
 					Area.Add(new FireParticle {
-						Offset = new Vector2(-2, -11),
+						Offset = new Vector2(6 * s, -4),
 						Owner = this,
 						Size = 0.5f,
 						Depth = Depth + 1
 					});
 
 					Area.Add(new FireParticle {
-						Offset = new Vector2(2, -11),
+						Offset = new Vector2(9 * s, -4),
 						Owner = this,
 						Size = 0.5f,
 						Depth = Depth + 1
@@ -80,6 +82,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 		
 		#region Queen Bee States
+		public override void SelectAttack() {
+			base.SelectAttack();
+			Become<IdleState>();
+		}
+		
 		public class IdleState : SmartState<QueenBee> {
 			
 		}
