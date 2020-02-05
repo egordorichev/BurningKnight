@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.desert;
@@ -344,5 +345,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 		#endregion
+
+		public override void PlaceRewards() {
+			base.PlaceRewards();
+			Achievements.Unlock("bk:mummified");
+		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.projectile;
@@ -319,6 +320,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void SelectAttack() {
 			base.SelectAttack();
 			Become<IdleState>();
+		}
+
+		public override void PlaceRewards() {
+			base.PlaceRewards();
+			Achievements.Unlock("bk:democracy");
 		}
 	}
 }

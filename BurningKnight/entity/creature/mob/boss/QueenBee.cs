@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.jungle;
@@ -188,7 +189,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var dx = x - Self.CenterX;
 				var dy = y - Self.CenterY;
 				
-				var s = (dt * 20);
+				var s = (dt * 10);
 				
 				Self.CenterX += dx * s;
 				Self.CenterY += dy * s;
@@ -254,7 +255,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				base.Update(dt);
 
 				sinceLast += dt;
-				var t = T * 2f;
+				var t = T * (Self.InSecondPhase ? 1.5f : 2f);
 
 				if (sinceLast >= 0.15f) {
 					sinceLast = 0;
@@ -450,27 +451,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 			return base.ShouldCollide(entity) && !(entity is Level);
 		}
 
-		public override void AnimateDeath(DiedEvent d) {
-			base.AnimateDeath(d);
-
-			Timer.Add(() => {
-				var am = 16;
-
-				for (var i = 0; i < am; i++) {
-					var a = Math.PI * 2 * (((float) i) / am) + Rnd.Float(-1f, 1f);
-					var p = Projectile.Make(this, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
-					p.Color = ProjectileColor.Orange;
-					p.BounceLeft = 5;
-					p.Controller += SlowdownProjectileController.Make(0.25f);
-				}
-
-				for (var i = 0; i < Rnd.Int(4, 6); i++) {
-					var bee = BeeHive.GenerateBee();
-					Area.Add(bee);
-					bee.Center = Center + Rnd.Vector(-8, 8);
-					AnimationUtil.Ash(bee.Center);
-				}
-			}, 1f);
+		public override void PlaceRewards() {
+			base.PlaceRewards();
+			Achievements.Unlock("bk:sting_operation");
 		}
 	}
 }

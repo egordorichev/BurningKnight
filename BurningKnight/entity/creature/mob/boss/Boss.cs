@@ -273,7 +273,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			return base.HandleEvent(e);
 		}
 
-		public void PlaceRewards() {
+		public virtual void PlaceRewards() {
 			var exit = new Exit();
 			Area.Add(exit);
 				
