@@ -238,6 +238,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				body.Velocity += new Vector2(0, (py > sy ? 1 : -1) * dt * 360);
 
 				if (Math.Abs(py - sy) < 6 && Math.Abs(x - Self.CenterX) < 16) {
+					Self.GraphicsComponent.Flipped = !Self.GraphicsComponent.Flipped;
 					locked = true;
 					T = 0;
 					body.Velocity = Vector2.Zero;
