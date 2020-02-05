@@ -67,9 +67,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 			if (r < 0.2f) {
 				return new Explobee();
-			} else if (r < 0.3f) {
+			}/* else if (r < 0.3f) {
 				return new BigBee();
-			}
+			}*/
 
 			return new Bee();
 		}
