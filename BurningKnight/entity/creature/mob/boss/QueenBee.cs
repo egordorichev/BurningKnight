@@ -117,7 +117,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (T >= 0.5f) {
 					if (true) {
-						Become<MachineGunState>();
+						Become<CircleState>();
 						return;
 					}
 					
@@ -240,6 +240,43 @@ namespace BurningKnight.entity.creature.mob.boss {
 					locked = true;
 					T = 0;
 					body.Velocity = Vector2.Zero;
+				}
+			}
+		}
+		
+		
+		public class CircleState : SmartState<QueenBee> {
+			private float sinceLast;
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				sinceLast += dt;
+				var t = T * 2f;
+
+				if (sinceLast >= 0.1f) {
+					sinceLast = 0;
+					
+					var p = Projectile.Make(Self, "circle", t + Math.PI + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4f, 10f), scale: Rnd.Float(0.5f, 1f));
+					p.AddLight(64f, ProjectileColor.Red);
+				}
+				
+				var r = Self.GetComponent<RoomComponent>().Room;
+
+				var x = Self.Target.CenterX + (float) Math.Cos(t) * (r.Width * 0.3f);
+				var y = Self.Target.CenterY + (float) Math.Sin(t) * (r.Height * 0.3f);
+				
+				var dx = x - Self.CenterX;
+				var dy = y - Self.CenterY;
+				
+				var s = (dt * 20);
+				
+				Self.CenterX += dx * s;
+				Self.CenterY += dy * s;
+				Self.GraphicsComponent.Flipped = dx < 0;
+
+				if (t >= Math.PI * 6f) {
+					Become<IdleState>();
 				}
 			}
 		}
