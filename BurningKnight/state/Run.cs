@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
@@ -9,6 +10,7 @@ using Lens;
 using Lens.assets;
 using Lens.util;
 using Lens.util.math;
+using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
@@ -118,6 +120,10 @@ namespace BurningKnight.state {
 		public static void AddScourge(bool permanent = false) {
 			Scourge++;
 			Audio.PlaySfx("player_cursed");
+
+			if (Scourge >= 10) {
+				Achievements.Unlock("bk:scourge_king");
+			}
 			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
