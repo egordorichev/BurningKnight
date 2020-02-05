@@ -438,11 +438,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 		#endregion
 
-		public override void Render() {
-			base.Render();
-			Graphics.Print(GetComponent<StateComponent>().State.Name, Font.Small, BottomCenter);
-		}
-
 		public override bool ShouldCollide(Entity entity) {
 			if (entity is Prop) {
 				return false;
