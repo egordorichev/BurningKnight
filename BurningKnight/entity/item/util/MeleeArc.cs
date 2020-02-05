@@ -60,6 +60,8 @@ namespace BurningKnight.entity.item.util {
 							p.Owner = this;
 							p.Damage *= 2f;
 
+							p.Pattern?.Remove(p);
+
 							var b = p.BodyComponent;
 							var d = Math.Max(400, b.Velocity.Length() * 1.8f);
 							var a = Owner.AngleTo(p);

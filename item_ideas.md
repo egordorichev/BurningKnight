@@ -1,4 +1,4 @@
-* item, that gives a random projectile effect (changes every room or every few seconds)
+* biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 
 # free sprites
 

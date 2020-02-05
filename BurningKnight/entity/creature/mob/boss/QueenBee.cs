@@ -3,16 +3,20 @@ using BurningKnight.assets;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.jungle;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.entity.projectile.pattern;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
@@ -112,6 +116,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 				base.Update(dt);
 
 				if (T >= 0.5f) {
+					if (true) {
+						Become<MachineGunState>();
+						return;
+					}
+					
 					if (Self.penetrateCount != 0) {
 						Become<PrepareToPenetrateState>();
 					} else {
@@ -129,11 +138,63 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 		
-		public class SwitchPhaseState : SmartState<QueenBee> {
+		public class MachineGunState : SmartState<QueenBee> {
+			private float sinceLast;
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.5f) {
+				sinceLast += dt;
+
+				if (sinceLast >= 1f) {
+					sinceLast = 0;
+					var a = Self.AngleTo(Self.Target);
+					var second = Self.InThirdPhase;
+
+					for (var i = 0; i < (second ? 1 : 3); i++) {
+						var i1 = i;
+						
+						Timer.Add(() => {
+							if (second) {
+								var pp = new ProjectilePattern(CircleProjectilePattern.Make(9f, i1 % 2 == 0 ? -10 : 10)) {
+									Position = Self.Center
+								};
+
+								for (var j = 0; j < 4; j++) {
+									var b = Projectile.Make(Self, j % 2 == 0 ? "circle" : "small");
+									pp.Add(b);
+									b.Color = j % 2 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
+									b.AddLight(32f, b.Color);
+								}
+
+								pp.Launch(a, 80);
+								Self.Area.Add(pp);
+							} else {
+								var p = Projectile.Make(Self, "circle", a + Rnd.Float(-0.1f, 0.1f), 30f, scale: Rnd.Float(0.8f, 1f));
+								p.AddLight(64f, ProjectileColor.Red);
+							}
+						}, i * 0.15f);
+					}
+				}
+				
+				var t = T + Math.PI * 0.5f;
+				var r = Self.GetComponent<RoomComponent>().Room;
+
+				var x = r.CenterX + (float) Math.Cos(t) * (r.Width * 0.4f);
+				var y = r.CenterY - r.Height * 0.2f + (float) Math.Sin(t * 2) * (r.Height * 0.2f);
+				
+				
+				var dx = x - Self.CenterX;
+				var dy = y - Self.CenterY;
+				
+				var s = (dt * 20);
+				
+				Self.CenterX += dx * s;
+				Self.CenterY += dy * s;
+				Self.GraphicsComponent.Flipped = dx < 0;
+				
+
+				if (t >= Math.PI * 4.5f) {
 					Become<IdleState>();
 				}
 			}
@@ -348,6 +409,29 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 			
 			return base.ShouldCollide(entity) && !(entity is Level);
+		}
+
+		public override void AnimateDeath(DiedEvent d) {
+			base.AnimateDeath(d);
+
+			Timer.Add(() => {
+				var am = 16;
+
+				for (var i = 0; i < am; i++) {
+					var a = Math.PI * 2 * (((float) i) / am) + Rnd.Float(-1f, 1f);
+					var p = Projectile.Make(this, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
+					p.Color = ProjectileColor.Orange;
+					p.BounceLeft = 5;
+					p.Controller += SlowdownProjectileController.Make(0.25f);
+				}
+
+				for (var i = 0; i < Rnd.Int(4, 6); i++) {
+					var bee = BeeHive.GenerateBee();
+					Area.Add(bee);
+					bee.Center = Center + Rnd.Vector(-8, 8);
+					AnimationUtil.Ash(bee.Center);
+				}
+			}, 1f);
 		}
 	}
 }
