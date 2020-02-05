@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.floors;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.util.math;
@@ -20,6 +22,13 @@ namespace BurningKnight.level.rooms.treasure {
 		private bool scourged;
 		
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated.Id == Biome.Jungle && Rnd.Chance(90)) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			scourged = Rnd.Chance(Run.Scourge * 2 + 2);
 			PaintInside(level);
 
