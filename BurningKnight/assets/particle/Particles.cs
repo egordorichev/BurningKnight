@@ -42,7 +42,7 @@ namespace BurningKnight.assets.particle {
 		}
 		
 		public static Particle Ash() {
-			return new Particle(Controllers.Float, ashRenderers[Rnd.Int(3)]);
+			return new Particle(Controllers.Ash, ashRenderers[Rnd.Int(3)]);
 		}
 		
 		public static Particle Scourge() {

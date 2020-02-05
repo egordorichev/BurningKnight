@@ -5,8 +5,8 @@ namespace BurningKnight.assets.particle.controller {
 			particle.Position += particle.Velocity * dt;
 			particle.Velocity -= particle.Velocity * dt * 2;
 			
-			if (particle.T >= 0.3f) {
-				particle.Scale -= dt * 1.5f;
+			if (particle.T >= 1.7f) {
+				particle.Scale -= dt * 3f;
 
 				if (particle.Scale <= 0) {
 					return true;
