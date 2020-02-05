@@ -116,22 +116,23 @@ namespace BurningKnight.entity.creature.mob.boss {
 				base.Update(dt);
 
 				if (T >= 0.5f) {
-					if (true) {
-						Become<CircleState>();
-						return;
-					}
-					
 					if (Self.penetrateCount != 0) {
 						Become<PrepareToPenetrateState>();
 					} else {
-						var a = Self.attack = (Self.attack + 1) % 3;
-
+						var a = Self.attack = (Self.attack + 1) % (Self.InFirstPhase ? 3 : 4);
+						
 						if (a == 1) {
 							Self.penetrateCount++;
 						} else if (a == 2) {
 							Become<ToCenterState>();
-						} else {
-							Become<SpamBeesState>();
+						} else if (a == 3) {
+							Become<MachineGunState>();
+						} else if (a == 0) {
+							if (Self.InSecondPhase || (Self.InThirdPhase && Rnd.Chance())) {
+								Become<CircleState>();
+							} else {
+								Become<SpamBeesState>();
+							}
 						}
 					}
 				}
@@ -254,7 +255,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast += dt;
 				var t = T * 2f;
 
-				if (sinceLast >= 0.1f) {
+				if (sinceLast >= 0.15f) {
 					sinceLast = 0;
 					
 					var p = Projectile.Make(Self, "circle", t + Math.PI + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4f, 10f), scale: Rnd.Float(0.5f, 1f));
@@ -269,7 +270,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var dx = x - Self.CenterX;
 				var dy = y - Self.CenterY;
 				
-				var s = (dt * 20);
+				var s = (dt * 4);
 				
 				Self.CenterX += dx * s;
 				Self.CenterY += dy * s;
