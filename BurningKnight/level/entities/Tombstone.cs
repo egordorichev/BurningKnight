@@ -63,7 +63,7 @@ namespace BurningKnight.level.entities {
 			} else if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
 					// Daddy? What did they do with you?!?!
-					rce.Who.GetComponent<DialogComponent>().StartAndClose("player_0", 3f);
+					// rce.Who.GetComponent<DialogComponent>().StartAndClose("player_0", 3f);
 				}
 			}
 			

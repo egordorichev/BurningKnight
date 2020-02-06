@@ -21,7 +21,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			Height = 21;
 			
 			AddAnimation(GetAnimation());
-			SetMaxHp(10);
+			SetMaxHp(7);
 			
 			Become<IdleState>();
 

@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			base.SetStats();
 			
 			AddAnimation("sniper");
-			SetMaxHp(5);
+			SetMaxHp(4);
 			
 			Become<IdleState>();
 

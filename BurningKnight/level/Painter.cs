@@ -670,12 +670,26 @@ namespace BurningKnight.level {
 				}
 
 				if (!(Room is HiveRoom) && Level.Biome.HasTrees()) {
-					for (var Y = Room.Top + 1; Y <= Room.Bottom - 1; Y++) {
-						for (int X = Room.Left + 1; X <= Room.Right - 1; X++) {
-							if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
-							    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
-							    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable()
-							    && Rnd.Chance(6)) {
+					for (var Y = Room.Top - 1; Y <= Room.Bottom + 1; Y++) {
+						for (var X = Room.Left - 1; X <= Room.Right + 1; X++) {
+							if (Level.Get(X, Y).IsWall() && Level.Get(X, Y - 1).IsWall() &&
+							    Level.Get(X - 1, Y).IsWall() && Level.Get(X + 1, Y).IsWall()
+								
+							    && Rnd.Chance(10)) {
+
+								X += 2;
+								var plant = new Tree {
+									High = true
+								};
+								
+								Level.Area.Add(plant);
+
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+							} else if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
+						    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
+						    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable() &&
+						    Level.Get(X - 1, Y - 2).IsPassable() && Level.Get(X + 1, Y - 2).IsPassable()
+								&& Rnd.Chance(6)) {
 
 								X += 3;
 								var plant = new Tree();
