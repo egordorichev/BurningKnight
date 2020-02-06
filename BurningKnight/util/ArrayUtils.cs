@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BurningKnight.util {
@@ -20,6 +21,14 @@ namespace BurningKnight.util {
 			}
 			
 			return clone;
+		}
+
+		public static void Remove<T>(List<T> array, Func<T, bool> filter) {
+			for (var i = array.Count - 1; i >= 0; i--) {
+				if (filter(array[i])) {
+					array.RemoveAt(i);
+				}
+			}
 		}
 	}
 }

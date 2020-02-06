@@ -23,13 +23,11 @@ namespace BurningKnight.level.biome {
 
 		public override void ModifyRooms(List<RoomDef> rooms) {
 			base.ModifyRooms(rooms);
-			
-			/*if (Run.Depth % 2 == 0) {
-				rooms.Add(new HiveRoom());
-			} else {
+			rooms.Add(new HiveRoom());
+
+			if (Run.Depth % 2 == 0) {
 				rooms.Add(new JungleRoom());
-				rooms.Add(new JungleRoom());
-			}*/
+			}
 		}
 
 		public override void ModifyPainter(Painter painter) {
@@ -62,13 +60,13 @@ namespace BurningKnight.level.biome {
 			return new LineBuilder();
 		}
 
-		/*public override int GetNumRegularRooms() {
-			return 0;
+		public override int GetNumRegularRooms() {
+			return (int) (base.GetNumRegularRooms() * 0.75f);
 		}
 		
 		public override int GetNumTrapRooms() {
 			return 0;
-		}*/
+		}
 
 		public override bool HasTorches() {
 			return false;

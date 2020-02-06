@@ -23,6 +23,8 @@ using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
+using BurningKnight.level.walls;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -182,8 +184,8 @@ namespace BurningKnight.level {
 					Level.Tiles[i] = (byte) tile;
 				}	
 			}
-
-			for (int i = Rooms.Count - 1; i >= 0; i--) {
+			
+			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 
 				PlaceDoors(Room);

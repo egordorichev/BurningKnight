@@ -4,6 +4,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.biome;
 using BurningKnight.level.floors;
+using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -118,6 +119,14 @@ namespace BurningKnight.level.rooms.treasure {
 			foreach (var door in Connected.Values) {
 				door.Type = DoorPlaceholder.Variant.Treasure;
 			}
+		}
+
+		public override bool CanConnect(RoomDef r) {
+			if (LevelSave.BiomeGenerated is JungleBiome && !(r is HiveRoom)) {
+				return false;
+			}
+			
+			return base.CanConnect(r);
 		}
 
 		public override bool ShouldSpawnMobs() {

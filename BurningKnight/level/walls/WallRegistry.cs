@@ -1,4 +1,5 @@
 using BurningKnight.entity.pool;
+using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.util.geometry;
 
@@ -8,6 +9,15 @@ namespace BurningKnight.level.walls {
 
 		public WallRegistry() {
 			SetupRooms();
+		}
+
+		public void ResetForBiome(Biome biome) {
+			Clear();
+			SetupRooms();
+	
+			if (biome is JungleBiome) {
+				Add(new PatchWall(), 3f);
+			}
 		}
 
 		protected virtual void SetupRooms() {
@@ -23,7 +33,7 @@ namespace BurningKnight.level.walls {
 			Add(new TurretWall(), 0.2f);
 			Add(new CorneredTurretWall(), 0.1f);
 
-			// Add(new PatchWall(), 1f);
+			Add(new PatchWall(), 0.1f);
 		}
 
 		public static void Paint(Level level, RoomDef room, WallRegistry registry = null, int i = -1) {
