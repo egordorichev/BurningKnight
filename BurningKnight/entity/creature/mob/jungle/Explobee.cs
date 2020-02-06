@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
-			ExplosionMaker.Make(this);
+			ExplosionMaker.Make(this, 16);
 			return base.HandleDeath(d);
 		}
 
@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 		protected override void AddBody() {
 			AddComponent(new RectBodyComponent(2, 9, 12, 1));		
-			AddComponent(new SensorBodyComponent(3, 4, 8, 8));
+			AddComponent(new SensorBodyComponent(2, 3, 10, 10));
 		}
 	}
 }

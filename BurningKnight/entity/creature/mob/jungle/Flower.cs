@@ -25,7 +25,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			
 			Become<IdleState>();
 
-			var body = new SensorBodyComponent(3, 13, 10, 1);
+			var body = new SensorBodyComponent(1, 1, 16, 19);
 			AddComponent(body);
 			body.KnockbackModifier = 0;
 		}

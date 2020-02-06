@@ -28,12 +28,16 @@ namespace BurningKnight.level.entities.decor {
 			
 			var s = new PlantGraphicsComponent("props", $"tree_{type}");
 			s.RotationModifier = 0.03f;
+			s.Flipped = Rnd.Chance();
+			
 			AddComponent(s);
 
 			Width = s.Sprite.Width;
 			Height = s.Sprite.Height;
-			
-			AddComponent(new SensorBodyComponent(4, 4, Width - 4, Height - 4));
+
+			if (Width > 14) {
+				AddComponent(new SensorBodyComponent(4, 4, Width - 4, Height - 4));
+			}
 		}
 
 		public override void Load(FileReader stream) {

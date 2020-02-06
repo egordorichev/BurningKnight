@@ -44,13 +44,14 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<BeeHive>(new SpawnChance(0.5f, Biome.Jungle)),
 				MobInfo.New<Bee>(new SpawnChance(0.3f, Biome.Jungle)),
 				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
-				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)),
-				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)),
+				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f),
+				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)).SetWeight(2f),
+				
 				// MobInfo.New<BigBee>(new SpawnChance(0.033f, Biome.Jungle)),
 				// MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
 				// MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
 				
-				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).DisableFirstSpawn(),
+				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn(),
 			};
 			
 			All.AddRange(infos);

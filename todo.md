@@ -1,8 +1,8 @@
 # todo
 
-* fix flower hitbox
 * fix unpassable chasm wall
-* 
+* bee hive tree
+* fix rotated screen texture
 
 # todo
 

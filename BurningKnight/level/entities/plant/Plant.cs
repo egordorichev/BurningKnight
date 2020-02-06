@@ -21,8 +21,8 @@ namespace BurningKnight.level.entities.plant {
 			if (GraphicsComponent == null) {
 				var s = variants[variant % variants.Length];
 				var g = new PlantGraphicsComponent($"{Run.Level.Biome.Id}_biome", $"{s}{(variant >= variants.Length ? "s" : "")}");
-
 				AddComponent(g);
+				g.Flipped = Rnd.Chance();
 
 				Width = g.Sprite.Width;
 				Height = g.Sprite.Height;

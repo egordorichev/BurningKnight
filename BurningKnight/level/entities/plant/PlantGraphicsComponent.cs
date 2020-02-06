@@ -4,6 +4,7 @@ using Lens;
 using Lens.graphics;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.level.entities.plant {
 	public class PlantGraphicsComponent : SliceComponent {
@@ -23,7 +24,7 @@ namespace BurningKnight.level.entities.plant {
 				Graphics.Color.A = (byte) (Alpha * 255f);
 			}
 
-			Graphics.Render(Sprite, Entity.Position + origin, shadow ? -a : a, origin, shadow ? MathUtils.InvertY : Vector2.One);
+			Graphics.Render(Sprite, Entity.Position + origin, shadow ? -a : a, origin, shadow ? MathUtils.InvertY : Vector2.One, Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			Graphics.Color.A = 255;
 		}
 	}
