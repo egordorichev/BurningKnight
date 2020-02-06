@@ -13,6 +13,13 @@ namespace BurningKnight.assets.particle {
 			new TexturedParticleRenderer("dust_1"),
 			new TexturedParticleRenderer("dust_2")
 		};
+		
+		private static ParticleRenderer[] ashRenderers = {
+			new TexturedParticleRenderer("d_1"),
+			new TexturedParticleRenderer("d_2"),
+			new TexturedParticleRenderer("d_3"),
+			new TexturedParticleRenderer("d_4")
+		};
 
 		private static ParticleRenderer planksRenderer = new RandomFrameRenderer("planks_particle");
 		
@@ -32,6 +39,10 @@ namespace BurningKnight.assets.particle {
 
 		public static Particle Dust() {
 			return new Particle(Controllers.Simple, dustRenderers[Rnd.Int(3)]);
+		}
+		
+		public static Particle Ash() {
+			return new Particle(Controllers.Ash, ashRenderers[Rnd.Int(3)]);
 		}
 		
 		public static Particle Scourge() {

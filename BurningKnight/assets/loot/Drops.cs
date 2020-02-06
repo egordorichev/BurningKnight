@@ -133,6 +133,27 @@ namespace BurningKnight.assets.loot {
 					}
 				}
 			));
+
+			Define("boxy", new OneOfDrop(
+				new OneOfDrop(
+					new SimpleDrop(0.7f, 1, 1, "bk:coin_pouch"),
+					new SimpleDrop(0.5f, 1, 1, "bk:bloody_chest"),
+					new SimpleDrop(0.5f, 1, 1, "bk:backpack"),
+					new SimpleDrop(0.6f, 1, 1, "bk:star")
+				) {
+					Chance = 0.9f
+				},
+				
+				new SimpleDrop {
+					Items = new [] {
+						"bk:coin"
+					},
+				
+					Chance = 0.8f,
+					Min = 5,
+					Max = 8
+				}
+			));
 		}
 
 		public static Drop Get(string drop) {

@@ -11,7 +11,7 @@ namespace BurningKnight.level.rooms.secret {
 			var stand = new ItemStand();
 			
 			level.Area.Add(stand);
-			stand.Center = c * 16 + new Vector2(8);
+			stand.Center = c * 16 + new Vector2(8, 16);
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Secret), level.Area), null);
 
 			var npc = new OldMan();

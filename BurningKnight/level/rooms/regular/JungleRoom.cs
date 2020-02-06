@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.level.tile;
+using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
 using Lens.util.math;
@@ -73,7 +75,7 @@ namespace BurningKnight.level.rooms.regular {
 				for (var xx = -sz; xx <= sz; xx++) {
 					for (var yy = -sz; yy <= sz; yy++) {
 						if (level.Get(x + xx, y + yy) != Tile.FloorD) {
-							Painter.Set(level, x + xx, y + yy, Rnd.Chance() ? Tile.WallA : Tile.FloorA);
+							Painter.Set(level, x + xx, y + yy, Rnd.Chance(30) ? Tile.WallA : Tile.FloorA);
 						}
 					}
 				}
@@ -163,10 +165,31 @@ namespace BurningKnight.level.rooms.regular {
 				queue.Enqueue(new Dot(x, y + 1));
 			};
 
-			fill(w / 2, h / 2);
+			var painted = false;
+			
+			foreach (var dr in Connected.Values) {
+				var st = new Dot(dr.X, dr.Y);
 
-			if (queue.Count == 0) {
-				Log.Error("Filled center in the jungle room!");
+				if (dr.X == Left) {
+					st = new Dot(dr.X + 1, dr.Y);
+				} else if (dr.X == Right) {
+					st = new Dot(dr.X - 1, dr.Y);
+				} else if (dr.Y == Top) {
+					st = new Dot(dr.X, dr.Y + 1);
+				} else if (dr.Y == Bottom) {
+					st = new Dot(dr.X, dr.Y - 1);
+				}
+
+				fill(st.X - Left, st.Y - Top);
+
+				if (queue.Count != 0) {
+					painted = true;
+					break;
+				}
+			}
+
+			if (!painted) {
+				Log.Error("Did not spot a spot in the jungle room!");
 				Paint(level);
 				return;
 			}
@@ -176,19 +199,67 @@ namespace BurningKnight.level.rooms.regular {
 				fill(d.X, d.Y);
 			}
 
-			if (m < w * h / 4) {
-				Log.Error($"Too lil floor space, regenerating the jungle room ({m / (w * h)}%)");
-				Paint(level);
-				return;
-			}
+			// if (m < w * h / 4) {
+				// Log.Error($"Too lil floor space, regenerating the jungle room ({m}) ({m / (float) (w * h)}%)");
+				// Paint(level);
+				// return;
+			// }
+			
+			PathFinder.SetMapSize(GetWidth() - 2, GetHeight() - 2);
+			var start = 0;
 
+			var ww = GetWidth();
+			var hh = GetHeight();
+			
+			Func<int, int, int> toIndex = (x, y) => (x - Left) + (y - Top) * ww;
+
+			foreach (var d in Connected.Values) {
+				if (d.X == Left) {
+					start = toIndex(d.X + 1, d.Y);
+				} else if (d.X == Right) {
+					start = toIndex(d.X - 1, d.Y);
+				} else if (d.Y == Top) {
+					start = toIndex(d.X, d.Y + 1);
+				} else if (d.Y == Bottom) {
+					start = toIndex(d.X, d.Y - 1);
+				}
+			}
+			
 			Pass((x, y) => {
 				if (x > Left && x < Right && y > Top && y < Bottom) {
 					Painter.Set(level, x, y, array[x - Left, y - Top] == 3 ? Floor : Wall);
 				}
 			});
+
+			var patch = new bool[ww * hh];
+
+			for (var y = 0; y < hh; y++) {
+				for (var x = 0; x < ww; x++) {
+					patch[y * ww + x] = !level.Get(Left + x, Top + y).IsPassable();
+				}
+			}
+
+			PathFinder.SetMapSize(ww, hh);
+			PathFinder.BuildDistanceMap(start, BArray.Not(patch, null));
+			var valid = true;
+
+			for (var i = 0; i < patch.Length; i++) {
+				if (!patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
+					valid = false;
+					break;
+				}
+			}
 			
-			var patch = Patch.GenerateWithNoise(w, h, Rnd.Float(10000), 0.25f, 0.1f);
+			// level.Set(Left + start % ww, Top + start / ww, Tile.Cobweb);
+			PathFinder.SetMapSize(level.Width, level.Height);
+
+			if (!valid) {
+				Log.Error("Failed to build path");
+				Paint(level);
+				return;
+			}
+			 
+			patch = Patch.GenerateWithNoise(w, h, Rnd.Float(10000), 0.25f, 0.1f);
 
 			if (Floor2 != Floor) {
 				Pass((x, y) => {

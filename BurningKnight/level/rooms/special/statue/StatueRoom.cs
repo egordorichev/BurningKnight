@@ -23,5 +23,21 @@ namespace BurningKnight.level.rooms.special.statue {
 		protected override bool Quad() {
 			return true;
 		}
+
+		public override int GetMinWidth() {
+			return 13;
+		}
+
+		public override int GetMinHeight() {
+			return 13;
+		}
+
+		public override int GetMaxWidth() {
+			return 16;
+		}
+
+		public override int GetMaxHeight() {
+			return 16;
+		}
 	}
 }

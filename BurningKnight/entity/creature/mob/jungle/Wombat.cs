@@ -10,7 +10,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			base.SetStats();
 			
 			AddAnimation("wombat");
-			SetMaxHp(6);
+			SetMaxHp(5);
 			
 			Become<IdleState>();
 

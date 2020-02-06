@@ -12,6 +12,10 @@ namespace BurningKnight.entity.item.use {
 
 			foreach (var e in entity.Area.Tagged[Tags.Room]) {
 				var room = (Room) e;
+				
+				if (room.Type == RoomType.DarkMarket) {
+					continue;
+				}
 
 				if (room.Type != RoomType.Secret && room.Type != RoomType.Granny && room.Type != RoomType.OldMan) {
 					for (var y = room.MapY; y < room.MapY + room.MapH; y++) {

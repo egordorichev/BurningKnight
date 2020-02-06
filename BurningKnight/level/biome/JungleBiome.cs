@@ -16,16 +16,16 @@ namespace BurningKnight.level.biome {
 
 		public override void Apply() {
 			base.Apply();
-			Lights.ClearColor = ColorUtils.WhiteColor;
+
+			var v = 0.5f;
+			Lights.ClearColor = new Color(v, v, v, 1f);
 		}
 
 		public override void ModifyRooms(List<RoomDef> rooms) {
 			base.ModifyRooms(rooms);
-			
-			if (Run.Depth % 2 == 0) {
-				rooms.Add(new HiveRoom());
-			} else {
-				rooms.Add(new JungleRoom());
+			rooms.Add(new HiveRoom());
+
+			for (var i = 0; i < (Run.Depth % 2 == 0 ? 2 : 1); i++) {
 				rooms.Add(new JungleRoom());
 			}
 		}
@@ -36,6 +36,9 @@ namespace BurningKnight.level.biome {
 			painter.Water = 0.4f;
 			painter.Grass = 0.4f;
 			painter.Dirt = 0f;
+			painter.Cobweb = 0f;
+			painter.Fireflies = 4;
+			painter.FirefliesChance = 100;
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (rm is TrapRoom) {
@@ -58,7 +61,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override int GetNumRegularRooms() {
-			return 0;
+			return (int) (base.GetNumRegularRooms() * 0.25f);
 		}
 		
 		public override int GetNumTrapRooms() {
@@ -94,6 +97,10 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasPlants() {
+			return true;
+		}
+
+		public override bool HasTrees() {
 			return true;
 		}
 	}

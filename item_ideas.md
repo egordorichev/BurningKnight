@@ -1,10 +1,9 @@
+* biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
+
 # free sprites
 
 * gamepad
 * dewvial
-* chailice
-* detonator
-* vampire_bat
 * lemon
 * fire exstinguisher
 * compass
@@ -13,13 +12,8 @@
 * brain
 * pickaxe
 * teabag
-* cup
 * obsidian_boots
-* ankh
 * pact
-* chest
-* the_ring
-* metal_ring
 
 * lootpick
 * bluewatch
@@ -28,13 +22,8 @@
 
 # passive
 
-* ankh
-* immunity to contact damage
-* half a heart
-
 * super hot mechanic
 * shop teleporter
-* gives shield each floor
 * damage up, accuracy down (eye patch)
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
@@ -51,11 +40,9 @@
 * tripple shot but accuracy down
 * lighting between nearby bullets
 * double shot
-* chance to heal when buying an item
 * angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
 * range down, tears up
 * your projectiles break enemy projectiles (destroying themselfs too)
-* 2 heart containers up 
 * small planet
 * bigger bomb explosion radius
 * money power/keys power/bomb power
@@ -68,15 +55,11 @@
 * pickup generator
 * tmp flight
 * fire tears in all directions (your dmg+flat dmg)
-* kamikaze
 * reusable brimstone
 * random active item effect
 
 # weapon 
 
-* shoots when you are full hp
-* shoots always
-* shoots when you are 1 hp
 * bomb gun
 * laser gun
 
@@ -84,7 +67,7 @@
 
 * make tnt, skeleton key and the bill unlockable
 
-* granny --- tea cup! and other tea based items
+* granny tea based items
 * dark mage
 * duck chest
 
@@ -96,10 +79,8 @@
 ### pets
 
 * ntte inspired {
- * crystal, works like prysm, but randomly teleports somewhere near the player
  * some bird, pick ups keys, coins, targets hearts first
  * someone, has a lighting/laser going from him to you, passive damage
- * backpack, but for active items?
  * simple summon, simple damage
 }
 
@@ -113,8 +94,6 @@
 * makes your bullets go through walls
 * items that give curse
 * item that makes your bullet size change over time (both ways (2 items))
-* 100% dm deal/granny deal
-* getting one deal opens up the other one
 * dmg up but scaling, etc, soy milk obv
 * pickaxe implementation
 * smth that alters your bullet effect all the time, aka 3 dollar bill
@@ -151,7 +130,6 @@
 * Mines
 * pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards
 * your bullets break enemy bullets
-* weapons, that are not super good, but insta kill some enemy (for example, gunner drops gunner wand, it insta kills gunners, if you hit them with it)
 * hats
  discord hat, obtain by joining the discord (discord rpc fix me)
  night vision hat
@@ -164,24 +142,18 @@
  terminal head
  hat trader hat
  
-* double the items on floor
-* animated hats
 * kills random enemy (except boss)
 * tps random enemy to another room (except boss)
 * throwing axe
-* sword that shoots projectiles, when you are full hp
 * item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * marshmallow orbital, can be light up
-* battery buddy
 * d1
 * gives infinite range to bullets
-* charms
 * d2
 * ethernal d6: d6 with less charge needed but has chance to remove the item xd
 * pig: gives you more money the deeper flor you use it on (single use active item)
-* bombs that stick to enemies
 * increases bomb explosion radius greatly
 * wallet buddy (collects money)
 * teleport to prev room
@@ -189,8 +161,16 @@
 * bombs are power
 * keys are power
 * active key, allows to open 1 thing for 2 charge?
-* active item, that detonates all barrels explosive stones and bombs on the floor
 * guns that gives you fetus effect and epic fetus
-* 99 key
-* just explosive bullets items
 * mama key and bomb, infinite resources for the floor (consumables, small chance to replace any key or bomb)
+
+* ring of thorns. +1 hp each 10 kills. -1 hp when picking up item
+* ring of shadows. decreased vision. items, mobs and npcs appear as black shadows. free shop deals?
+* glass jaw. x2 damage. player is instakill
+* +1 dmg, mobs appear as shadows
+* unknown ring: random ring effect
+* ring of pain: deals dmg to all enemies in room when player takes dmg, also deals 1 dmg to player on pickup
+* soldering-iron: hitting frozen enemy insta kills it. gives a small chance for fire bullets
+* ring of becoming: player is instakill, but he gets some bonus
+* heals 1 heart upon descending to next lvl
+* gives 1 free purchase from the shop

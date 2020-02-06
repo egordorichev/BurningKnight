@@ -14,6 +14,8 @@ namespace BurningKnight.physics {
 
 		public static Fixture Fixture;
 
+		private static bool locked;
+
 		public static void Init() {
 			World = new World(Vector2.Zero);
 			Debug = new PhysicsDebugRenderer(World);
@@ -25,6 +27,10 @@ namespace BurningKnight.physics {
 		}
 
 		public static void RemoveBody(Body body) {
+			if (locked) {
+				Log.Error("World was locked");
+			}
+			
 			try {
 				World?.RemoveBody(body);
 			} catch {
@@ -90,7 +96,9 @@ namespace BurningKnight.physics {
 
 		public static void Update(float dt) {
 			try {
+				locked = true;
 				World?.Step(dt);
+				locked = false;
 			} catch (Exception e) {
 				Log.Error(e);
 			}
@@ -103,7 +111,16 @@ namespace BurningKnight.physics {
 		}
 
 		public static void Destroy() {
-			World?.Clear();
+			if (locked) {
+				Log.Error("World was locked");
+			}
+			
+			try {
+				World?.Clear();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+
 			World = null;
 		}
 	}

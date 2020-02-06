@@ -98,6 +98,7 @@ namespace BurningKnight.ui.inventory {
 				Subscribe<ConsumableRemovedEvent>(area);
 				Subscribe<ItemUsedEvent>(area);
 				Subscribe<ItemAddedEvent>(area);
+				Subscribe<ItemRemovedEvent>(area);
 				Subscribe<RerollItemsOnPlayerUse.RerolledEvent>(area);
 
 				var inventory = Player.GetComponent<InventoryComponent>();
@@ -185,6 +186,14 @@ namespace BurningKnight.ui.inventory {
 					
 					break;
 				}
+
+				case ItemRemovedEvent ire: {
+					if (ire.Owner == Player) {
+						RemoveArtifact(ire.Item);
+					}
+
+					break;
+				}
 			}
 
 			return base.HandleEvent(e);
@@ -209,6 +218,7 @@ namespace BurningKnight.ui.inventory {
 								
 				old = new UiItem();
 				old.Id = item.Id;
+				old.Scourged = item.Scourged;
 				Area.Add(old);
 				items.Add(old);
 
@@ -217,7 +227,38 @@ namespace BurningKnight.ui.inventory {
 			} else {
 				old.Count++;
 			}
-		}		
+		}
+
+		private void RemoveArtifact(Item item) {
+			UiItem old = null;
+			var j = 0;
+
+			foreach (var i in items) {
+				if (i.Id == item.Id) {
+					old = i;
+					break;
+				}		
+
+				j++;
+			}
+
+			if (old == null) {
+				return;
+			}
+
+			if (old.Count > 1) {
+				old.Count--;
+				return;
+			}
+
+			items.Remove(old);
+			old.Done = true;
+
+			for (var i = j; i < items.Count; i++) {
+				items[i].Right = items[i - 1].X - 8;
+			}
+		}
+		
 		public override void Render() {
 			if (Player == null || Player.Done || (Run.Depth < 1 && Run.Depth != -2)) {
 				Done = true;
@@ -271,12 +312,19 @@ namespace BurningKnight.ui.inventory {
 		private float lastRed;
 		
 		private void RenderHealthBar(bool pad) {
+			var red = Player.GetComponent<HealthComponent>();
+			var phases = red.Phases;
+
 			if (Scourge.IsEnabled(Scourge.OfRisk)) {
 				Graphics.Render(question, new Vector2(8, 11));
+
+				if (phases > 0) {
+					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4, 12));
+				}
+				
 				return;
 			}
 			
-			var red = Player.GetComponent<HealthComponent>();
 			var hearts = Player.GetComponent<HeartsComponent>();
 			var totalRed = red.Health;
 
@@ -321,6 +369,10 @@ namespace BurningKnight.ui.inventory {
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
+			}
+			
+			if (phases > 0) {
+				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields)) + new Vector2(4, -2));
 			}
 		}
 

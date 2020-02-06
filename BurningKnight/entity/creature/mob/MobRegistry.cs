@@ -37,20 +37,21 @@ namespace BurningKnight.entity.creature.mob {
 				
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
 				MobInfo.New<MegaSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
-				MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
+				// MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 				
 				// Jungle
 				MobInfo.New<Sniper>(new SpawnChance(1f, Biome.Jungle)),
-				MobInfo.New<BeeHive>(new SpawnChance(0.5f, Biome.Jungle)),
+				MobInfo.New<BeeHive>(new SpawnChance(100.5f, Biome.Jungle)).MarkSingle().SetWeight(3f).HatesWall(),
 				MobInfo.New<Bee>(new SpawnChance(0.3f, Biome.Jungle)),
 				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
-				MobInfo.New<BigBee>(new SpawnChance(0.033f, Biome.Jungle)),
-				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)),
-				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)),
-				MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
-				MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
+				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f),
+				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)).SetWeight(2f).MarkSingle(),
 				
-				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).DisableFirstSpawn(),
+				// MobInfo.New<BigBee>(new SpawnChance(0.033f, Biome.Jungle)),
+				// MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
+				// MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
+				
+				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn(),
 			};
 			
 			All.AddRange(infos);

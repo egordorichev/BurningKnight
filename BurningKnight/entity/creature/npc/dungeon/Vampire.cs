@@ -82,5 +82,9 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		public override bool ShouldCollide(Entity entity) {
 			return entity is Creature || base.ShouldCollide(entity);
 		}
+		
+		public override string GetFailDialog() {
+			return $"vampire_{Rnd.Int(7, 10)}";
+		}
 	}
 }

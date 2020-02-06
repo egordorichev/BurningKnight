@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
@@ -9,12 +10,13 @@ using Lens;
 using Lens.assets;
 using Lens.util;
 using Lens.util.math;
+using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
 		public const int ContentEndDepth = 7;
 
-		private static int depth = BK.Version.Dev ? 2 : 0;
+		private static int depth = BK.Version.Dev ? 6 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -33,6 +35,7 @@ namespace BurningKnight.state {
 		public static RunStatistics Statistics;
 		public static string NextSeed;
 		public static int LastSavedDepth;
+		public static bool AlternateMusic;
 		
 		public static int Depth {
 			get => depth;
@@ -77,6 +80,7 @@ namespace BurningKnight.state {
 
 			GlobalSave.RunId++;
 			Rnd.Seed = Seed;
+			AlternateMusic = Rnd.Chance(0.5f);
 			
 			Log.Debug($"This run's seed is {Seed}");
 		}
@@ -97,7 +101,11 @@ namespace BurningKnight.state {
 		}
 
 		public static void RemoveScourge() {
-			PermanentScourge--;
+			if (Scourge == 0) {
+				return;
+			}
+			
+			PermanentScourge = Math.Max(0, PermanentScourge - 1);
 			Scourge--;
 			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
@@ -112,6 +120,10 @@ namespace BurningKnight.state {
 		public static void AddScourge(bool permanent = false) {
 			Scourge++;
 			Audio.PlaySfx("player_cursed");
+
+			if (Scourge >= 10) {
+				Achievements.Unlock("bk:scourge_king");
+			}
 			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 

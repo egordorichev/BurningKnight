@@ -165,7 +165,7 @@ namespace BurningKnight.assets.items {
 			
 			var data = new ItemData {
 				Id = id,
-				UseTime = item["time"].Number(0.1f),
+				UseTime = item["time"].Number(0),
 				Type = type,
 				Quality = (ItemQuality) item["quality"].AsInteger,
 				Root = item,

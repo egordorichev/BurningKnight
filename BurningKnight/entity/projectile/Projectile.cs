@@ -20,6 +20,7 @@ using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
@@ -81,7 +82,10 @@ namespace BurningKnight.entity.projectile {
 		private float deathTimer;
 		private bool nearedDeath;
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, float scale = 1, float damage = 1, Item item = null) {
+		public static Projectile Make(Entity owner, string slice, double angle = 0, 
+			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
+			float scale = 1, float damage = 1, Item item = null) {
+			
 			if (slice == "default") {
 				slice = "rect";
 			}
@@ -211,10 +215,12 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			foreach (var e in ToHurt) {
-				e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
+			if (Math.Abs(Damage) >= 0.01f) {
+				foreach (var e in ToHurt) {
+					e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
+				}
 			}
-			
+
 			Controller?.Invoke(this, dt);
 
 			if (Rotates) {
@@ -275,7 +281,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 			
-			return (!(entity is Creature || entity is Level)) && 
+			return (!(entity is Creature || entity is Level || entity is Tree)) && 
 			       (BreaksFromWalls && IsWall(entity))
 			        || entity.HasComponent<HealthComponent>();
 		}

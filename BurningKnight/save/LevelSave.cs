@@ -9,6 +9,7 @@ using BurningKnight.level.hall;
 using BurningKnight.level.hub;
 using BurningKnight.level.tile;
 using BurningKnight.level.tutorial;
+using BurningKnight.level.walls;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
@@ -63,6 +64,8 @@ namespace BurningKnight.save {
 				Items.GeneratedOnFloor.Clear();
 				var level = CreateLevel();
 				BiomeGenerated = level.Biome;
+				WallRegistry.Instance.ResetForBiome(BiomeGenerated);
+
 				a.Add(level);
 				level.Generate();
 
@@ -87,6 +90,7 @@ namespace BurningKnight.save {
 
 					var level = CreateLevel();
 					BiomeGenerated = level.Biome;
+					WallRegistry.Instance.ResetForBiome(BiomeGenerated);
 
 					level.Width = 32;
 					level.Height = 32;

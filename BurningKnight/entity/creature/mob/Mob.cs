@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BurningKnight.assets.items;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -8,6 +10,7 @@ using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.mob.prefix;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.entities;
@@ -30,7 +33,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob {
-	public class Mob : Creature {
+	public class Mob : Creature, DropModifier {
 		public Entity Target;
 		public bool HasPrefix => prefix != null;
 		public Prefix Prefix => prefix;
@@ -51,7 +54,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			SetStats();
 			
-			AddDrops(new SingleDrop("bk:coin", 0.1f));
+			AddDrops(new SingleDrop("bk:coin", 0.2f));
 			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
 
 			if (!(this is Boss)) {
@@ -80,16 +83,36 @@ namespace BurningKnight.entity.creature.mob {
 				GetComponent<StateComponent>().Pause = 0;
 			}
 		}
+		
+		private float lastParticle;
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			prefix?.Update(dt);
+			if (prefix != null) {
+				prefix.Update(dt);
+
+				lastParticle -= dt;
+
+				if (lastParticle <= 0) {
+					lastParticle = Rnd.Float(0.05f, 0.3f);
+
+					for (var i = 0; i < Rnd.Int(0, 3); i++) {
+						var part = new ParticleEntity(Particles.Scourge());
+
+						part.Position = Center + Rnd.Vector(-4, 4);
+						part.Particle.Scale = Rnd.Float(0.5f, 1.2f);
+						Area.Add(part);
+						part.Depth = 1;
+					}
+				}
+			}
 
 			if (Target == null) {
 				FindTarget();
 			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room ||
-			           (Target is Creature c && c.IsFriendly() == IsFriendly())) {
+			           (Target is Creature c && c.IsFriendly() == IsFriendly()) || 
+			           (Target.TryGetComponent<BuffsComponent>(out var b) && b.Has<InvisibleBuff>())) {
 				
 				Target = null;
 				FindTarget();
@@ -98,8 +121,10 @@ namespace BurningKnight.entity.creature.mob {
 			if (TouchDamage == 0) {
 				return;
 			}
+
+			var raging = GetComponent<BuffsComponent>().Has<RageBuff>();
 			
-			for (int i = CollidingToHurt.Count - 1; i >= 0; i--) {
+			for (var i = CollidingToHurt.Count - 1; i >= 0; i--) {
 				var entity = CollidingToHurt[i];
 
 				if (entity.Done) {
@@ -108,7 +133,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 
 				if ((!(entity is Creature c) || c.IsFriendly() != IsFriendly())) {
-					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage, this)) {
+					if (entity.GetComponent<HealthComponent>().ModifyHealth(-TouchDamage * (raging ? 2 : 1), this, DamageType.Contact)) {
 						OnHit(entity);
 					}
 				}
@@ -198,7 +223,9 @@ namespace BurningKnight.entity.creature.mob {
 			Entity closest = null;
 			
 			foreach (var target in targets) {
-				if (target == this || target is bk.BurningKnight || ((Creature) target).IsFriendly() == friendly) {
+				if (target == this || target is bk.BurningKnight || ((Creature) target).IsFriendly() == friendly || 
+				    (target.TryGetComponent<BuffsComponent>(out var b) && b.Has<InvisibleBuff>())) {
+					
 					continue;
 				}
 				
@@ -421,6 +448,16 @@ namespace BurningKnight.entity.creature.mob {
 				if (d <= 8) {
 					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
 					body.Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+				}
+			}
+		}
+
+		public void ModifyDrops(List<Item> drops) {
+			if (Rnd.Chance(Run.Scourge * 5)) {
+				var c = Rnd.Int(0, 4);
+				
+				for (var i = 0; i < c; i++) {
+					drops.Add(Items.Create("bk:copper_coin"));
 				}
 			}
 		}

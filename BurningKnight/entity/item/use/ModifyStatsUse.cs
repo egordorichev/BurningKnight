@@ -1,5 +1,8 @@
+using System;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -22,37 +25,56 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
-
 			var stats = entity.GetComponent<StatsComponent>();
 
-			if (AddSpeed) {
-				stats.Speed += Speed;
-			} else {
-				stats.Speed *= Speed;
+			if (Math.Abs(Math.Abs(Speed) - (AddSpeed ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("speed"), Math.Abs(Speed), true, Speed < 0);
+				
+				if (AddSpeed) {
+					stats.Speed += Speed;
+				} else {
+					stats.Speed *= Speed;
+				}
 			}
 
-			if (AddDamage) {
-				stats.Damage += Damage;
-			} else {
-				stats.Damage *= Damage;
+			if (Math.Abs(Math.Abs(Damage) - (AddDamage ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("damage"), Math.Abs(Damage), true, Damage < 0);
+
+				if (AddDamage) {
+					stats.Damage += Damage;
+				} else {
+					stats.Damage *= Damage;
+				}
 			}
 
-			if (AddFireRate) {
-				stats.FireRate += FireRate;
-			} else {
-				stats.FireRate *= FireRate;
+			if (Math.Abs(Math.Abs(FireRate) - (AddFireRate ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("fire_rate"), Math.Abs(FireRate), true, FireRate < 0);
+				
+				if (AddFireRate) {
+					stats.FireRate += FireRate;
+				} else {
+					stats.FireRate *= FireRate;
+				}
 			}
 
-			if (AddAccuracy) {
-				stats.Accuracy += Accuracy;
-			} else {
-				stats.Accuracy *= Accuracy;
+			if (Math.Abs(Math.Abs(Accuracy) - (AddAccuracy ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("accuracy"), Math.Abs(Accuracy), true, Accuracy < 0);
+
+				if (AddAccuracy) {
+					stats.Accuracy += Accuracy;
+				} else {
+					stats.Accuracy *= Accuracy;
+				}
 			}
 
-			if (AddRange) {
-				stats.Range += Range;
-			} else {
-				stats.Range *= Range;
+			if (Math.Abs(Math.Abs(Range) - (AddRange ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("range"), Math.Abs(Range), true, Range < 0);
+
+				if (AddRange) {
+					stats.Range += Range;
+				} else {
+					stats.Range *= Range;
+				}
 			}
 		}
 

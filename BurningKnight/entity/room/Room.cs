@@ -234,7 +234,7 @@ namespace BurningKnight.entity.room {
 			});
 		}
 
-		public void Hide() {
+		public void Hide(bool fast = false) {
 			Explored = false;
 			
 			ApplyToEachTile((x, y) => {
@@ -242,16 +242,21 @@ namespace BurningKnight.entity.room {
 
 				if (!Run.Level.Get(i).IsWall() || !Run.Level.Get(i + Run.Level.Width).IsWall()) {
 					Run.Level.Explored[i] = false;
-					Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+
+					if (fast) {
+						Run.Level.Light[i] = 0;
+					} else {
+						Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
+					}
 				}
-			});
+			}, Type == RoomType.DarkMarket ? 1 : 0);
 		}
 		
-		public void ApplyToEachTile(Action<int, int> callback) {
+		public void ApplyToEachTile(Action<int, int> callback, int offset = 0) {
 			var level = Run.Level;
 			
-			for (int y = MapY; y < MapY + MapH - 1; y++) {
-				for (int x = MapX; x < MapX + MapW; x++) {
+			for (int y = MapY + offset; y < MapY + MapH - 1 - offset; y++) {
+				for (int x = MapX + offset; x < MapX + MapW - offset; x++) {
 					if (level.IsInside(x, y)) {
 						callback(x, y);
 					}
@@ -401,12 +406,12 @@ namespace BurningKnight.entity.room {
 			}
 		}
 
-		public Entity FindClosest(Vector2 to, int tag, Func<Entity, bool> filter) {
+		public Entity FindClosest(Vector2 to, int tag, Func<Entity, bool> filter = null) {
 			var min = float.MaxValue;
 			Entity en = null;
 			
 			foreach (var e in Tagged[tag]) {
-				if (filter(e)) {
+				if (filter?.Invoke(e) ?? true) {
 					var d = e.DistanceTo(to);
 
 					if (d < min) {

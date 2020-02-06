@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens.util;
@@ -15,6 +16,7 @@ namespace BurningKnight.level.walls {
 		}
 
 		protected void Setup(Level level, RoomDef room, float fill, int clustering, bool ensurePath) {
+			Run.Level = level;
 			var w = room.GetWidth() - 2;
 			var h = room.GetHeight() - 2;
 			
@@ -123,11 +125,13 @@ namespace BurningKnight.level.walls {
 		public override void Paint(Level level, RoomDef room, Rect inside) {
 			var fill = 0.25f + (room.GetWidth() * room.GetHeight()) / 1024f;
 			var s = Rnd.Chance();
+			bool[] oldPatch = null;
 			
 			if (s) {
 				Setup(level, room, fill, 4, true);
 				CleanDiagonalEdges(room);
 				PaintPatch(level, room, Tiles.RandomSolid());
+				oldPatch = ArrayUtils.Clone(Patch);
 			}
 			
 			SimplePaint(level, room);
@@ -152,12 +156,12 @@ namespace BurningKnight.level.walls {
 				var valid = true;
 
 				for (var i = 0; i < Patch.Length; i++) {
-					if (!Patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
+					if ((!Patch[i] && !oldPatch[i]) && PathFinder.Distance[i] == Int32.MaxValue) {
 						valid = false;
 						break;
 					}
 				}
-
+				
 				PathFinder.SetMapSize(level.Width, level.Height);
 
 				if (!valid) {

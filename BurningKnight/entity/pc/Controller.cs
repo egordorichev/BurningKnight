@@ -13,7 +13,7 @@ namespace BurningKnight.entity.pc {
 
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, false));
 			AddComponent(new SensorBodyComponent(-10, -10, Width + 20, Height + 20, BodyType.Static, true));
-			AddComponent(new InteractableComponent(Interact));
+			// AddComponent(new InteractableComponent(Interact));
 			AddComponent(new InteractableSliceComponent("props", "controller"));
 			AddComponent(new ShadowComponent());
 		}

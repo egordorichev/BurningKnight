@@ -63,7 +63,7 @@ namespace BurningKnight.level.entities {
 			} else if (e is RoomChangedEvent rce) {
 				if (rce.Who is Player && rce.New == GetComponent<RoomComponent>().Room) {
 					// Daddy? What did they do with you?!?!
-					rce.Who.GetComponent<DialogComponent>().StartAndClose("player_0", 3f);
+					// rce.Who.GetComponent<DialogComponent>().StartAndClose("player_0", 3f);
 				}
 			}
 			
@@ -71,6 +71,10 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool Interact(Entity entity) {
+			if (Item == null) {
+				return true;
+			}
+		
 			var i = Items.CreateAndAdd(Item, entity.Area);
 
 			if (i != null) {

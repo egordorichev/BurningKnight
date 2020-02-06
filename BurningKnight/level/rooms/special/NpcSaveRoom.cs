@@ -29,23 +29,37 @@ namespace BurningKnight.level.rooms.special {
 		public override int GetMaxHeight() {
 			return 10;
 		}
+		
+		private static string[] townNpcs = {
+			ShopNpc.HatTrader, ShopNpc.WeaponTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader
+		};
 
 		public override void Paint(Level level) {
 			GameSave.Put("npc_appeared", true);
 			var d = Connected.Values.First();
 			
-			ShopNpc npc;
+			ShopNpc npc = null;
 
-			if (GlobalSave.IsFalse(ShopNpc.HatTrader)) {
-				npc = new HatTrader();
-			} else if (GlobalSave.IsFalse(ShopNpc.WeaponTrader)) {
-				npc = new WeaponTrader();
-			} else if (GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) {
-				npc = new AccessoryTrader();
-			} else {
-				npc = new ActiveTrader();
+			foreach (var s in townNpcs) {
+				if (GlobalSave.IsFalse(s)) {
+					npc = ShopNpc.FromId(s);
+					break;
+				}
 			}
 
+			if (npc == null) {
+				foreach (var s in shopNpcs) {
+					if (GlobalSave.IsFalse(s)) {
+						npc = ShopNpc.FromId(s);
+						break;
+					}
+				}
+			}
+
+			if (npc == null) {
+				return;
+			}
+			
 			level.Area.Add(npc);
 
 			var fl = Tiles.RandomFloorOrSpike();
@@ -90,12 +104,33 @@ namespace BurningKnight.level.rooms.special {
 			}
 		}
 
+		private static string[] shopNpcs = {
+			ShopNpc.Vampire, ShopNpc.Snek, ShopNpc.Boxy, ShopNpc.Boxy, ShopNpc.Duck,
+			ShopNpc.Elon, ShopNpc.Gobetta, ShopNpc.Nurse
+		};
+
 		public static bool ShouldBeAdded() {
-			return GameSave.IsFalse("npc_appeared") && (
-				(Run.Depth == 1 && GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) || 
-				(Run.Depth == 2 && GlobalSave.IsFalse(ShopNpc.ActiveTrader)) || 
-				(Run.Depth == 3 && GlobalSave.IsFalse(ShopNpc.WeaponTrader)) || 
-				(Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader)));
+			if (GameSave.IsTrue("npc_appeared")) {
+				return false;
+			}
+			
+			if ((Run.Depth == 1 && GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) || 
+			    (Run.Depth == 2 && GlobalSave.IsFalse(ShopNpc.ActiveTrader)) || 
+			    (Run.Depth == 3 && GlobalSave.IsFalse(ShopNpc.WeaponTrader)) || 
+			    (Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader))) {
+			
+				return true;
+			}
+
+			if (Run.Depth == 2) {
+				foreach (var s in shopNpcs) {
+					if (GlobalSave.IsFalse(s)) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
 		}
 	}
 }

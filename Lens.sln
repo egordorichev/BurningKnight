@@ -10,10 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelcroPhysics.MonoGame", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{68B0E433-3961-4232-9EB1-393AB85FAF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pico8Emulator", "Pico8Emulator\Pico8Emulator.csproj", "{EC0602B1-5A17-4CDC-BBB7-F2C5401FF899}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGamePico8", "MonoGamePico8\MonoGamePico8.csproj", "{BA524303-7074-4C9E-8650-59E2C1293A56}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,13 +40,5 @@ Global
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Debug|x64.Build.0 = Debug|x64
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|x64.ActiveCfg = Release|x64
 		{68B0E433-3961-4232-9EB1-393AB85FAF7C}.Release|x64.Build.0 = Release|x64
-		{EC0602B1-5A17-4CDC-BBB7-F2C5401FF899}.Debug|x64.ActiveCfg = Debug|x64
-		{EC0602B1-5A17-4CDC-BBB7-F2C5401FF899}.Debug|x64.Build.0 = Debug|x64
-		{EC0602B1-5A17-4CDC-BBB7-F2C5401FF899}.Release|x64.ActiveCfg = Release|x64
-		{EC0602B1-5A17-4CDC-BBB7-F2C5401FF899}.Release|x64.Build.0 = Release|x64
-		{BA524303-7074-4C9E-8650-59E2C1293A56}.Debug|x64.ActiveCfg = Debug|x64
-		{BA524303-7074-4C9E-8650-59E2C1293A56}.Debug|x64.Build.0 = Debug|x64
-		{BA524303-7074-4C9E-8650-59E2C1293A56}.Release|x64.ActiveCfg = Release|x64
-		{BA524303-7074-4C9E-8650-59E2C1293A56}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

@@ -55,25 +55,29 @@ namespace BurningKnight.entity.item.util {
 				if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
 				} else if (ev.Entity is Projectile p) {
-					if (p.CanBeReflected) {
-						p.Owner = this;
-						p.Damage *= 2f;
+					if (p.Owner != Owner) {
+						if (p.CanBeReflected) {
+							p.Owner = this;
+							p.Damage *= 2f;
 
-						var b = p.BodyComponent;
-						var d = Math.Max(400, b.Velocity.Length() * 1.8f);
-						var a = Owner.AngleTo(p);
+							p.Pattern?.Remove(p);
 
-						b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+							var b = p.BodyComponent;
+							var d = Math.Max(400, b.Velocity.Length() * 1.8f);
+							var a = Owner.AngleTo(p);
 
-						if (p.TryGetComponent<LightComponent>(out var l)) {
-							l.Light.Color = ReflectedColor;
+							b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+
+							if (p.TryGetComponent<LightComponent>(out var l)) {
+								l.Light.Color = ReflectedColor;
+							}
+
+							p.Color = ProjectileColor.Yellow;
+
+							Camera.Instance.ShakeMax(4f);
+						} else if (p.CanBeBroken) {
+							p.Break();
 						}
-
-						p.Color = ProjectileColor.Yellow;
-						
-						Camera.Instance.ShakeMax(4f);
-					} else if (p.CanBeBroken) {
-						p.Break();
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					if (health.ModifyHealth(-Damage, Owner)) {

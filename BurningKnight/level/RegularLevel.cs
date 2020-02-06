@@ -9,6 +9,7 @@ using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.payed;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.rooms.scourged;
+using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.spiked;
@@ -164,10 +165,6 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
-			for (var I = 0; I < secret; I++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
-			}
-
 			if (!final) {
 				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
@@ -183,18 +180,42 @@ namespace BurningKnight.level {
 				rooms.Add(new PrebossRoom());	
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+			}
+			
+			if (Rnd.Chance(95)) {
+				if (Rnd.Chance(50 + Run.Scourge * 5)) {
+					rooms.Add(new ScourgedRoom());
+				} else {
+					if (Rnd.Chance()) {
+						rooms.Add(new ChallengeRoom());
+					} else {
+						rooms.Add(new SpikedRoom());
+					}
+				}
+			}
 
-				rooms.Add(new SpikedRoom());
-					
-				// for testing
-				/*;
-				rooms.Add(new ChallengeRoom());
+			var addDarkMarket = Rnd.Chance(20);
+			
+			if (addDarkMarket) {
+				rooms.Add(new DarkMarketEntranceRoom());
 				rooms.Add(new DarkMarketRoom());
-				rooms.Add(new PayedRoom());
-				rooms.Add(new ScourgedRoom());*/
+			}
+
+			if (!addDarkMarket && Rnd.Chance(1)) {
+				secret--;
+				rooms.Add(new SecretDarkMarketEntranceRoom());
+				rooms.Add(new DarkMarketRoom());
+			}
+
+			for (var I = 0; I < secret; I++) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
+			}
 				
-				// todo: might be from 0 to 2
-				rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+			if (Rnd.Chance()) {
+				var c = Rnd.Int(0, 3);
+				for (var i = 0; i < c; i++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+				}
 			}
 
 			if (NpcSaveRoom.ShouldBeAdded()) {

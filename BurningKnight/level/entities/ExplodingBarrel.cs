@@ -29,6 +29,7 @@ namespace BurningKnight.level.entities {
 			h.RenderInvt = true;
 			
 			AddComponent(new ExplodableComponent());
+			AddTag(Tags.Bomb);
 		}
 
 		public override void PostInit() {
@@ -83,7 +84,7 @@ namespace BurningKnight.level.entities {
 			return new ScalableSliceComponent(CommonAse.Props, Sprite);
 		}
 
-		private void Explode() {
+		public void Explode() {
 			if (Done) {
 				return;
 			}

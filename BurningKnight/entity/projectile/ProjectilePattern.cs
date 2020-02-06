@@ -72,6 +72,18 @@ namespace BurningKnight.entity.projectile {
 			maxProjectiles++;
 		}
 
+		public void Remove(Projectile p) {
+			for (var i = 0; i < projectiles.Count; i++) {
+				if (projectiles[i].Projectile == p) {
+					projectiles.RemoveAt(i);
+					p.Pattern = null;
+					p.ManualRotation = false;
+
+					return;
+				}
+			}
+		}
+
 		private class Data {
 			public Projectile Projectile;
 			public int Id;

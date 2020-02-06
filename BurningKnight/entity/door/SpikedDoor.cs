@@ -11,12 +11,13 @@ namespace BurningKnight.entity.door {
 			return new Rectangle(0, 5 + 4, (int) Width, 7);
 		}
 		
-		private List<Player> Colliding = new List<Player>();
+		protected List<Player> Colliding = new List<Player>();
 
 		public override void PostInit() {
 			base.PostInit();
 			Subscribe<RoomChangedEvent>();
 		}
+		
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
 				p.GetComponent<HealthComponent>().ModifyHealth(-1, this);

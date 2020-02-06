@@ -21,11 +21,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			Height = 21;
 			
 			AddAnimation(GetAnimation());
-			SetMaxHp(10);
+			SetMaxHp(7);
 			
 			Become<IdleState>();
 
-			var body = new SensorBodyComponent(3, 13, 10, 1);
+			var body = new SensorBodyComponent(1, 1, 16, 19);
 			AddComponent(body);
 			body.KnockbackModifier = 0;
 		}

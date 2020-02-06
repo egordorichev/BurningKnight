@@ -10,6 +10,7 @@ using BurningKnight.level.entities.machine;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
@@ -20,6 +21,8 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
 		public override void Paint(Level level) {
+			var scourged = Rnd.Chance(Run.Scourge + 1);
+		
 			if (Rnd.Chance(30)) {
 				var t = Tiles.Pick(Tile.FloorC, Tile.FloorD);
 
@@ -48,6 +51,16 @@ namespace BurningKnight.level.rooms.shop {
 					PaintTunnel(level, Tiles.RandomNewFloor(), GetCenterRect(), Rnd.Chance());
 				}
 			}
+
+			if (GameSave.IsTrue("sk_enraged")) {
+				var rp = GetCenter();
+				var rsk = new ShopKeeper();
+
+				level.Area.Add(rsk);
+				rsk.Center = new Vector2(rp.X * 16 + 8, rp.Y * 16 + 16);
+				
+				return;
+			}
 			
 			var stands = ValidateStands(level, GenerateStands());
 
@@ -56,21 +69,40 @@ namespace BurningKnight.level.rooms.shop {
 				Paint(level);
 				return;
 			}
-
+			
+			if (scourged) {
+				var f = Tiles.RandomFloor();
+				
+				for (var m = Left + 1; m <= Right - 1; m++) {
+					for (var j = Top + 1; j <= Bottom - 1; j++) {
+						var t = level.Get(m, j);
+						
+						if (t.IsPassable() && t != f) {
+							level.Set(m, j, Tile.EvilFloor);
+						}
+					}
+				}
+			}
+			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Shop));
 			var consumablePool = Items.GeneratePool(Items.GetPool(ItemPool.ShopConsumable));
 
 			var con = Math.Max(1, Math.Ceiling(stands.Count / 4f));
 			var i = 0;
-			
+
 			foreach (var s in stands) {
 				var stand = new ShopStand();
 				level.Area.Add(stand);
 				stand.Center = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
 
 				var id = Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool, null, true);
+				var item = Items.CreateAndAdd(id, level.Area, false);
+
+				if (scourged) {
+					item.Scourged = true;
+				}
 				
-				stand.SetItem(Items.CreateAndAdd(id, level.Area, false), null);
+				stand.SetItem(item, null);
 
 				if (pool.Count == 0) {
 					break;

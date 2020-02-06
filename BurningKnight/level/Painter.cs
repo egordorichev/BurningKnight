@@ -23,6 +23,8 @@ using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
+using BurningKnight.level.walls;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
@@ -37,6 +39,8 @@ namespace BurningKnight.level {
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
 		public float Water = 0.4f;
+		public float Fireflies = 1f;
+		public float FirefliesChance = 60f;
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
 		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
@@ -180,8 +184,8 @@ namespace BurningKnight.level {
 					Level.Tiles[i] = (byte) tile;
 				}	
 			}
-
-			for (int i = Rooms.Count - 1; i >= 0; i--) {
+			
+			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 
 				PlaceDoors(Room);
@@ -470,8 +474,12 @@ namespace BurningKnight.level {
 				}
 				
 				var type = types[id];
-				
-				var point = type.NearWall ? room.Parent.GetRandomCellNearWall() : room.Parent.GetRandomDoorFreeCell();
+
+				var point = type.NearWall
+					? room.Parent.GetRandomCellNearWall()
+					: (
+						type.AwayFromWall ? room.Parent.GetRandomWallFreeCell() : room.Parent.GetRandomDoorFreeCell()
+					);
 
 				if (point == null) {
 					continue;
@@ -659,15 +667,48 @@ namespace BurningKnight.level {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 
-								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+							}
+						}
+					}
+				}
+
+				if (!(Room is HiveRoom) && Level.Biome.HasTrees()) {
+					for (var Y = Room.Top - 1; Y <= Room.Bottom + 1; Y++) {
+						for (var X = Room.Left - 1; X <= Room.Right + 1; X++) {
+							if (Level.Get(X, Y).IsWall() && Level.Get(X, Y - 1).IsWall() &&
+							    Level.Get(X - 1, Y).IsWall() && Level.Get(X + 1, Y).IsWall()
+							    && !Room.HasDoorsNear(X, Y, 3)
+							    && Rnd.Chance(10)) {
+
+								X += 2;
+								var plant = new Tree {
+									High = true
+								};
+								
+								Level.Area.Add(plant);
+
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+							} else if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
+						    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
+						    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable() &&
+						    Level.Get(X - 1, Y - 2).IsPassable() && Level.Get(X + 1, Y - 2).IsPassable()
+						    && !Room.HasDoorsNear(X, Y, 3)
+								&& Rnd.Chance(6)) {
+
+								X += 3;
+								var plant = new Tree();
+								Level.Area.Add(plant);
+
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
 							}
 						}
 					}
 				}
 
 				// Fireflies
-				if (Rnd.Chance(60)) {
-					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)); I++) {
+				if (Rnd.Chance(FirefliesChance)) {
+					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)) * Fireflies; I++) {
 						Level.Area.Add(new Firefly {
 							X = (Room.Left + 2) * 16 + Rnd.Float((Room.GetWidth() - 4) * 16),
 							Y = (Room.Top + 2) * 16 + Rnd.Float((Room.GetHeight() - 4) * 16)
@@ -781,7 +822,7 @@ namespace BurningKnight.level {
 			         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
 
 			if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
-				Door door;
+				Door door = null;
 
 				switch (type) {
 					case DoorPlaceholder.Variant.Locked: 
@@ -805,8 +846,8 @@ namespace BurningKnight.level {
 						break;
 					
 					case DoorPlaceholder.Variant.Head:
-						door = new HeadDoor();
-						break;
+						// door = new HeadDoor();
+						return;
 					
 					case DoorPlaceholder.Variant.Spiked:
 						door = new SpikedDoor();
@@ -833,29 +874,31 @@ namespace BurningKnight.level {
 				door.CenterX = D.X * 16 + 8 + offset.X;
 				door.Bottom = D.Y * 16 + 17.01f + offset.Y - (door is CustomDoor ? (door.Vertical ? 0 : 8) : 0); // .1f so that it's depth sorted to the front of the wall
 
-				if (door.Vertical) {
-					if (type != DoorPlaceholder.Variant.Hidden) {
-						if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
-							Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
-						}
+				if (!(door is HeadDoor)) {
+					if (door.Vertical) {
+						if (type != DoorPlaceholder.Variant.Hidden) {
+							if (!Level.Get(D.X + 1, D.Y).Matches(TileFlags.Passable)) {
+								Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+							}
 
-						if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
-							Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+							if (!Level.Get(D.X - 1, D.Y).Matches(TileFlags.Passable)) {
+								Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+							}
+						}
+					} else {
+						if (type != DoorPlaceholder.Variant.Hidden) {
+							if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
+								Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+							}
+
+							if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
+								Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+							}
 						}
 					}
-				} else {
-					if (type != DoorPlaceholder.Variant.Hidden) {
-						if (!Level.Get(D.X, D.Y + 1).Matches(TileFlags.Passable)) {
-							Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
-						}
 
-						if (!Level.Get(D.X, D.Y - 1).Matches(TileFlags.Passable)) {
-							Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
-						}
-					}
+					Level.Set(D.X, D.Y, Tiles.RandomFloor());
 				}
-				
-				Level.Set(D.X, D.Y, Tiles.RandomFloor());
 			} else if (type == DoorPlaceholder.Variant.Hidden) {
 				Level.Set(D.X, D.Y, Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {

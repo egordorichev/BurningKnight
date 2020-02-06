@@ -3,20 +3,27 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.level.entities.decor;
+using BurningKnight.util;
+using Lens.util.file;
 using Lens.util.math;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.jungle {
 	public class BeeHive : Mob {
 		private const float ZHeight = 8;
+		private bool loaded;
+		private Tree tree;
 		
 		protected override void SetStats() {
 			base.SetStats();
 
 			Width = 13;
+			Depth = 1;
 			
 			AddAnimation("beehive");
-			SetMaxHp(20);
+			SetMaxHp(10);
 			Become<IdleState>();
 
 			var body = new SensorBodyComponent(2, 3, 9, 11);
@@ -25,10 +32,49 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 			GetComponent<MobAnimationComponent>().ShadowOffset = -ZHeight;
 		}
-		
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			loaded = true;
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			if (!loaded) {
+				tree = new Tree();
+				tree.Id = 5;
+				Area.Add(tree);
+			}
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (tree != null) {
+				tree.Position = Position - new Vector2(15, 16);
+			}
+		}
+
 		#region Bee Hive States
 		public class IdleState : SmartState<BeeHive> {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.Target != null) {
+					if (T >= 10f) {
+						T = 0;
+						
+						var bee = GenerateBee();
+						Self.GetComponent<MobAnimationComponent>().Animate();
+						Self.Area.Add(bee);
+						bee.BottomCenter = Self.BottomCenter;
+						AnimationUtil.Ash(bee.Center);
+					}
+				} else {
+					T = 0;
+				}
+			}
 		}
 
 		public class FallingState : SmartState<BeeHive> {
@@ -67,9 +113,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 			if (r < 0.2f) {
 				return new Explobee();
-			} else if (r < 0.3f) {
+			}/* else if (r < 0.3f) {
 				return new BigBee();
-			}
+			}*/
 
 			return new Bee();
 		}

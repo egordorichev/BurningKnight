@@ -18,7 +18,7 @@ namespace BurningKnight.assets.particle.custom {
 				}
 
 				text = value;
-				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(count > 1 ? $"{count} " : "")} {text}";
+				fullText = $"{(HasSign ? (Negative ? "-" : "+") : "")}{(count > 0 ? $"{count} " : "")} {text}";
 
 				var size = Font.Medium.MeasureString(fullText);
 
@@ -35,9 +35,9 @@ namespace BurningKnight.assets.particle.custom {
 			}
 		}
 
-		private int count;
+		private float count;
 
-		public int Count {
+		public float Count {
 			get => count;
 
 			set {
@@ -49,7 +49,8 @@ namespace BurningKnight.assets.particle.custom {
 		
 		public bool HasSign;
 		public bool Negative;
-
+		public bool Stacks = true;
+		
 		private string fullText;
 		private Vector2 start;
 		private Vector2 origin;
@@ -103,7 +104,7 @@ namespace BurningKnight.assets.particle.custom {
 			Graphics.Print(fullText, Font.Medium, Center, 0, origin, scale);
 		}
 
-		public static void Add(Entity owner, string text, int count = 0, bool hasSign = false, bool minus = false) {
+		public static TextParticle Add(Entity owner, string text, float count = 0, bool hasSign = false, bool minus = false) {
 			var where = owner.TopCenter - new Vector2(0, 4);
 			var min = 72f;
 			TextParticle prt = null;
@@ -111,6 +112,10 @@ namespace BurningKnight.assets.particle.custom {
 			foreach (var p in Engine.Instance.State.Ui.Tagged[Tags.TextParticle]) {
 				var pr = (TextParticle) p;
 
+				if (!pr.Stacks) {
+					continue;
+				}
+				
 				if (pr.text == text && pr.Negative == minus && !pr.tweened) {
 					var d = (pr.gamePosition - where).Length();
 					
@@ -123,7 +128,7 @@ namespace BurningKnight.assets.particle.custom {
 
 			if (prt != null) {
 				prt.Count += count;
-				return;
+				return prt;
 			}
 			
 			var part = new TextParticle();
@@ -134,6 +139,8 @@ namespace BurningKnight.assets.particle.custom {
 			part.Count = count;
 			part.Negative = minus;
 			part.Text = text;
+
+			return part;
 		}
 	}
 }

@@ -39,8 +39,12 @@ namespace BurningKnight.ui.dialog {
 		}
 
 		public override string DecideNext() {
+			if (Branches.Count == 0) {
+				return null;
+			}
+			
 			var array = Branches[Choice];
-			var option = array[Rnd.Int(array.Length)]; 
+			var option = array.Length == 0 ? null : array[Rnd.Int(array.Length)]; 
 			
 			Callback?.Invoke(option, Choice);
 			

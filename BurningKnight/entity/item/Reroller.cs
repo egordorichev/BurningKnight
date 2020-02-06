@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.entity.item {
@@ -19,7 +21,10 @@ namespace BurningKnight.entity.item {
 					if (rerollStands) {
 						if (s.Item == null) {
 							if (spawnNewItems) {
-								s.SetItem(Items.CreateAndAdd(s is ShopStand std ? Items.Generate(std.GetPool()) : Items.GenerateAndRemove(pool), area), null);
+								var id = s is ShopStand std ? Items.Generate(std.GetPool()) : Items.GenerateAndRemove(pool);
+								s.SetItem(Items.CreateAndAdd(id, area), null);
+
+								TextParticle.Add(s, Locale.Get("rerolled")).Stacks = false;
 							}
 
 							continue;
@@ -65,6 +70,8 @@ namespace BurningKnight.entity.item {
 			if (id != null) {
 				item.ConvertTo(id);
 				item.AutoPickup = false;
+				
+				TextParticle.Add(item, Locale.Get("rerolled")).Stacks = false;
 
 				return true;
 			}
@@ -78,6 +85,8 @@ namespace BurningKnight.entity.item {
 			if (id != null) {
 				item.ConvertTo(id);
 				item.AutoPickup = false;
+
+				TextParticle.Add(item, Locale.Get("rerolled")).Stacks = false;
 
 				return true;
 			}

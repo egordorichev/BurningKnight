@@ -113,6 +113,18 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeBombsExplodeOnTouchUse>();
 			Register<RegenUse>(RegenUse.RenderDebug);
 			Register<ReplaceHeartsWithShieldsUse>();
+			Register<GivePhaseUse>(GivePhaseUse.RenderDebug);
+			Register<ExplodeUse>();
+			Register<DiscoverSideRoomsUse>();
+			Register<DetonateBombsUse>();
+			Register<GiveScourgeImmunityUse>();
+			Register<MakeBombsBlankUse>();
+			Register<BlankUse>();
+			Register<MakeProjectilesBlankOnDeathUse>();
+			Register<AffectDealChanceUse>(AffectDealChanceUse.RenderDebug);
+			Register<LeaveLegoUse>();
+			Register<DoOnNewFloorUse>(DoUsesUse.RenderDebug);
+			Register<DoUsesIfUse>(DoUsesIfUse.RenderDebug);
 		}
 	}
 }

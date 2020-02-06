@@ -13,6 +13,7 @@ using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.tween;
@@ -54,6 +55,7 @@ namespace BurningKnight.entity {
 				part.Position = w + new Vector2(Rnd.Int(-4, 4), Rnd.Int(-4, 4));
 				whoHurts.Area.Add(part);
 				part.Depth = 30;
+				part.Particle.Velocity = MathUtils.CreateVector(Rnd.AnglePI(), 80);
 			}
 			
 			Engine.Instance.Split = 1f;

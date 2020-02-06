@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -27,6 +28,14 @@ namespace BurningKnight.entity.creature.player {
 			if (Item != null && Run.Depth < 1) {
 				Item.Done = true;
 				Item = null;
+			}
+		}
+
+		protected override void OnItemSet(Item previous) {
+			base.OnItemSet(previous);
+
+			if (Item != null && Item.Scourged) {
+				Achievements.Unlock("bk:scourged_weapon");
 			}
 		}
 

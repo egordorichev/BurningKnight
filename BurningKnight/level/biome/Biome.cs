@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -32,6 +33,10 @@ namespace BurningKnight.level.biome {
 			return IsPresent(Id, biomes);
 		}
 
+		public virtual string GetMusic() {
+			return Music;
+		}
+
 		public static bool IsPresent(string id, string[] biomes) {
 			if (biomes == null || biomes.Length == 0) {
 				return true;
@@ -63,12 +68,6 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual Builder GetBuilder() {
-			if (true) {
-				return new LineBuilder();
-
-				
-			}
-			
 			var R = Rnd.Float();
 
 			if (R < 0.33f) {
@@ -76,7 +75,9 @@ namespace BurningKnight.level.biome {
 			}
 
 			if (R < 0.66f) {
-				return new LoopBuilder();
+				return new LoopBuilder().SetShape(2,
+					Rnd.Float(0.4f, 0.7f),
+					Rnd.Float(0f, 0.5f));;
 			}
 			
 			return new CastleBuilder();
@@ -113,13 +114,17 @@ namespace BurningKnight.level.biome {
 		public virtual bool HasPlants() {
 			return false;
 		}
+
+		public virtual bool HasTrees() {
+			return false;
+		}
 		
 		public virtual int GetNumRegularRooms() {
 			return Run.Depth + 2;
 		}
 
 		public virtual int GetNumTrapRooms() {
-			return 1; // Rnd.Int(0, 2);
+			return Rnd.Chance(60) ? 1 : 0;
 		}
 
 		public virtual int GetNumSpecialRooms() {

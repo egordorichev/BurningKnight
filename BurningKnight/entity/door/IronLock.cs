@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -52,14 +54,32 @@ namespace BurningKnight.entity.door {
 			if (!shouldLock) {
 				foreach (var r in rooms) {
 					if (r.Tagged[Tags.Player].Count > 0) {
-						if (r.Type != RoomType.Connection &&
-						    r.Tagged[Tags.MustBeKilled].Count > 0) {
-							shouldLock = true;
+						
+						if (r.Type != RoomType.Connection && r.Tagged[Tags.MustBeKilled].Count > 0) {
+							foreach (var p in r.Tagged[Tags.Player]) {
+								if (!p.GetComponent<BuffsComponent>().Has<InvisibleBuff>()) {
+									shouldLock = true;
+									break;
+								}
+							}
 
 							break;
-						} else if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
+						}
+						
+						if (r.Type == RoomType.Trap && r.Inputs.Count > 0) {
 							foreach (var c in r.Inputs) {
 								if (c.On == c.DefaultState) {
+									shouldLock = true;
+									break;
+								}
+							}
+							
+							break;
+						}
+
+						if (r.Type == RoomType.Scourged) {
+							foreach (var i in r.Tagged[Tags.Item]) {
+								if (i is ScourgedStand st && st.Item != null) {
 									shouldLock = true;
 									break;
 								}

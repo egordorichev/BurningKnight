@@ -30,14 +30,19 @@ namespace BurningKnight.entity.component {
 		public bool Centered;
 
 		public bool Flash;
+		public readonly string Id;
 		
 		public AnimationComponent(string animationName, string layer = null, string tag = null) {
 			name = animationName;
+			Id = animationName;
+			
 			ReloadAnimation(layer, tag);
 		}
 		
 		public AnimationComponent(string animationName, ColorSet set) {
 			name = animationName;
+			Id = animationName;
+			
 			this.set = set;
 			
 			ReloadAnimation();
@@ -123,6 +128,17 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (Entity.TryGetComponent<BuffsComponent>(out var buffs)) {
+				if (buffs.Has<InvisibleBuff>()) {
+					var shader = Shaders.Entity;
+					Shaders.Begin(shader);
+
+					shader.Parameters["flash"].SetValue(1f);
+					shader.Parameters["flashReplace"].SetValue(1f);
+					shader.Parameters["flashColor"].SetValue(InvisibleBuff.Color);
+
+					return true;
+				}
+				
 				if (buffs.Has<InvincibleBuff>()) {
 					var shader = Shaders.Entity;
 					var t = buffs.Buffs[typeof(InvincibleBuff)].TimeLeft;

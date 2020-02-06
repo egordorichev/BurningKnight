@@ -39,7 +39,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 		protected virtual void AddBody() {
 			AddComponent(new RectBodyComponent(2, 9, 12, 1));		
-			AddComponent(new SensorBodyComponent(3, 4, 10, 6));
+			AddComponent(new SensorBodyComponent(2, 3, 12, 8));
 		}
 
 		protected override void OnHit(Entity e) {

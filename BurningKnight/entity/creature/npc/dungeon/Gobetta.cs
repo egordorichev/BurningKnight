@@ -35,13 +35,13 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			gobetta.BottomCenter = where;
 			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Gobetta));
-			var c = Rnd.Int(1, 4);
+			var c = 3;
 			var s = (int) Math.Floor(c / 2f) * 18;
 			
 			for (var i = 0; i < c; i++) {
 				var stand = new GobettaStand();
 				area.Add(stand);
-				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height);
+				stand.Center = where + new Vector2((stand.Width + 4) * i - s, 4 + stand.Height + (i == 1 ? stand.Height * 0.5f : 0));
 
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);

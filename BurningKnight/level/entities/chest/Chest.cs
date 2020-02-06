@@ -110,7 +110,7 @@ namespace BurningKnight.level.entities.chest {
 			GetComponent<InteractableSliceComponent>().Sprite = CommonAse.Props.GetSlice($"{GetSprite()}{(open ? "_open" : "")}");
 		}
 
-		public void Open() {
+		public void Open(Entity who) {
 			if (open || transitioning) {
 				return;
 			}
@@ -127,7 +127,8 @@ namespace BurningKnight.level.entities.chest {
 			});
 
 			HandleEvent(new OpenedEvent {
-				Chest = this
+				Chest = this,
+				Who = who
 			});
 		}
 
@@ -175,7 +176,7 @@ namespace BurningKnight.level.entities.chest {
 			}
 
 			if (TryOpen(entity)) {
-				Open();
+				Open(entity);
 				return true;
 			} else {
 				AnimationUtil.ActionFailed();
@@ -213,6 +214,7 @@ namespace BurningKnight.level.entities.chest {
 
 		public class OpenedEvent : Event {
 			public Chest Chest;
+			public Entity Who;
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {

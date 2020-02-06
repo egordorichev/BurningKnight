@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class PlatformTreasureRoom : TreasureRoom {
-		public override void Paint(Level level) {
+		public override void PaintInside(Level level) {
 			Painter.Fill(level, this, 1, Rnd.Chance() ? Tile.Chasm : Tiles.RandomSolid());
 
 			var f = Tiles.RandomFloor();

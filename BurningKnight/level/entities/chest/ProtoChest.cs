@@ -105,7 +105,7 @@ namespace BurningKnight.level.entities.chest {
 			if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player p) {
 					colling.Add(p);
-					Open();
+					Open(p);
 				}
 			} else if (e is CollisionEndedEvent cee) {
 				if (cee.Entity is Player p) {

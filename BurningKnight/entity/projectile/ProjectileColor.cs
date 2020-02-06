@@ -11,10 +11,10 @@ namespace BurningKnight.entity.projectile {
 		public static Color Purple = Palette.Default[54];
 		public static Color Orange = Palette.Default[28];
 		public static Color Pink = Palette.Default[59];
-		public static Color Brown = Palette.Default[20];
+		public static Color Brown = Palette.Default[19];
 		public static Color Black = Color.Black;
 
-		public static Color[] Rainbow = new[] {
+		public static Color[] Rainbow = {
 			Red, Orange, Yellow, Green, Cyan, Blue, Purple
 		};
 	}

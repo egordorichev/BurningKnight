@@ -71,10 +71,13 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<SecretChasmRoom>(1f),
 				RoomInfo.New<SecretItemRoom>(1f),
 				RoomInfo.New<GrannySecretRoom>(0.01f),
+				RoomInfo.New<SecretChestRoom>(1f),
+				RoomInfo.New<SecretScourgeRoom>(1f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),
 				RoomInfo.New<VerticalRegularRoom>(WallRegistry.Instance.Size),
+				RoomInfo.New<ItemTrollRoom>(0.2f),
 				
 				// Desert only room designs
 				/*RoomInfo.New<TwoSidesRoom>(3f, Biome.Desert),
@@ -95,7 +98,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<AcrossTreasureRoom>(1.5f),
 				
 				// Trap
-				RoomInfo.New<RollingSpikesRoom>(1f, Biome.Desert),
+				RoomInfo.New<RollingSpikesRoom>(1f),
 				RoomInfo.New<SpikePassageRoom>(1f),
 				RoomInfo.New<TurretTrapRoom>(1f),
 				RoomInfo.New<SpikeMazeRoom>(1f),
@@ -111,7 +114,7 @@ namespace BurningKnight.level.rooms {
 				// Sub shop
 				RoomInfo.New<StorageRoom>(1f),
 				RoomInfo.New<SnekShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Snek)),
-				RoomInfo.New<VampireShopRoom>(1f, () => true || GlobalSave.IsTrue(ShopNpc.Vampire)),
+				RoomInfo.New<VampireShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
 				
 				// Connection
 				RoomInfo.New<TunnelRoom>(1f),
@@ -126,7 +129,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ChargerRoom>(1f),
 				RoomInfo.New<ChestMinigameRoom>(1f),
 				RoomInfo.New<VendingRoom>(1f),
-				RoomInfo.New<VampireRoom>(1f, () => true || GlobalSave.IsTrue(ShopNpc.Vampire)),
+				
 				RoomInfo.New<ChestStatueRoom>(0.8f),
 				RoomInfo.New<DiceStatueRoom>(1f),
 				RoomInfo.New<ScourgeStatueRoom>(0.5f),
@@ -135,14 +138,17 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<WarriorStatueRoom>(1f),
 				RoomInfo.New<WellRoom>(0.3f),
 				RoomInfo.New<ProtoChestRoom>(0.1f),
-				RoomInfo.New<RogerShopRoom>(1f),
-				RoomInfo.New<BoxyShopRoom>(1f),
-				RoomInfo.New<TrashGoblinRoom>(1f),
-				RoomInfo.New<DuckRoom>(1f),
-				RoomInfo.New<NurseRoom>(1f),
-				RoomInfo.New<ElonRoom>(1f),
-				// RoomInfo.New<GobettaShopRoom>(1f + 1000f),
 				
+				RoomInfo.New<RogerShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Roger)),
+				RoomInfo.New<BoxyShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Boxy)),
+				RoomInfo.New<TrashGoblinRoom>(1f),
+				RoomInfo.New<DuckRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Duck)),
+				RoomInfo.New<NurseRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Nurse)),
+				RoomInfo.New<ElonRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Elon)),
+				RoomInfo.New<GobettaShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Gobetta)),
+				RoomInfo.New<SnekRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Snek)),
+				RoomInfo.New<VampireRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
+
 				// Boss
 				RoomInfo.New<BossRoom>(1f),
 				RoomInfo.New<ChasmBossRoom>(1f),

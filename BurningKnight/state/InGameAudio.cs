@@ -62,7 +62,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (!InGameState.InMenu) {
+			if (!InGameState.InMenu && Run.Level != null) {
 				Audio.PlayMusic(Run.Level.GetMusic(), Run.Depth < 1 || Run.Depth % 2 == 1);
 			}
 			
@@ -126,6 +126,16 @@ namespace BurningKnight.state {
 						} else {
 							Audio.PlayMusic("Gobbeon");
 						}
+						break;
+					}
+					
+					case RoomType.DarkMarket: {
+						if (Run.AlternateMusic) {
+							Audio.PlayMusic("piano");
+							break;
+						}
+
+						Audio.PlayMusic(Run.Level.GetMusic());
 						break;
 					}
 					

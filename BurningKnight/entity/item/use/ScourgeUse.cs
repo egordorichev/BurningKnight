@@ -16,9 +16,6 @@ namespace BurningKnight.entity.item.use {
 			for (var i = 0; i < amount; i++) {
 				Run.AddScourge();
 			}
-
-			Log.Debug(amount);
-			TextParticle.Add(entity, Locale.Get("scourge"), amount, true);
 		}
 
 		public override void Setup(JsonValue settings) {

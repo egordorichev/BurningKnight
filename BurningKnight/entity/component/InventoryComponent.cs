@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -36,6 +37,10 @@ namespace BurningKnight.entity.component {
 						p.AnimateItemPickup(item, () => {
 							item.Use(p);
 							item.Done = true;
+
+							if (item.Type == ItemType.Scourge) {
+								Achievements.Unlock("bk:scourged");
+							}
 						}, false);
 					} else if (animate) {
 						p.AnimateItemPickup(item, () => {
@@ -113,7 +118,8 @@ namespace BurningKnight.entity.component {
 			Items.Remove(item);
 
 			var e = new ItemRemovedEvent {
-				Item = item
+				Item = item,
+				Owner = Entity
 			};
 			
 			Send(e);
@@ -148,6 +154,12 @@ namespace BurningKnight.entity.component {
 
 				if (item.Done) {
 					Remove(item);
+				} else {
+					var o = item.Owner;
+				
+					foreach (var u in item.Uses) {
+						u.Update(o, item, dt);
+					}
 				}
 			}
 		}

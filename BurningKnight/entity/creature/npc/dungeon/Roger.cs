@@ -43,11 +43,15 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			for (var i = -1; i < 2; i++) {
 				var stand = new RogerStand();
 				area.Add(stand);
-				stand.Center = where + new Vector2((stand.Width + 8) * i, 4 + stand.Height);
+				stand.Center = where + new Vector2((stand.Width + 8) * i, 4 + stand.Height - (i == 0 ? stand.Height * 0.5f : 0));
 
 				var id = Items.GenerateAndRemove(pool, null, true);
 				stand.SetItem(Items.CreateAndAdd(id, area, false), null);
 			}
+		}
+		
+		public override string GetFailDialog() {
+			return $"roger_{Rnd.Int(3, 6)}";
 		}
 	}
 }

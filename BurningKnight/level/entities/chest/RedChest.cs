@@ -1,3 +1,4 @@
+using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using Lens.entity;
@@ -17,7 +18,7 @@ namespace BurningKnight.level.entities.chest {
 				return false;
 			}
 
-			h.ModifyHealth(-2, this);
+			h.ModifyHealth(-2, this, DamageType.Custom);
 			return true;
 		}
 	}

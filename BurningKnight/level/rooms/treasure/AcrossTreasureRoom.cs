@@ -4,7 +4,7 @@ using Lens.util.math;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class AcrossTreasureRoom : TreasureRoom {
-		public override void Paint(Level level) {
+		public override void PaintInside(Level level) {
 			var w = (GetWidth() - 1) / 2;
 			var h = (GetHeight() - 1) / 2;
 

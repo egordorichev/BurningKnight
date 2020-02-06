@@ -289,6 +289,21 @@ namespace BurningKnight.level.rooms {
 			} while (true);
 		}
 
+		
+		public bool HasDoorsNear(int x, int y, int r) {
+			foreach (var Door in Connected.Values) {
+				var Dx = (Door.X - x);
+				var Dy = (Door.Y - y);
+				var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
+
+				if (D < r) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+		
 		public Dot GetRandomDoorFreeCell() {
 			Dot dot;
 			var At = 0;
@@ -324,6 +339,51 @@ namespace BurningKnight.level.rooms {
 
 				if (!found) {
 					return dot;
+				}
+			}
+		}
+		
+		public Dot GetRandomWallFreeCell() {
+			Dot dot;
+			var At = 0;
+
+			while (true) {
+				if (At++ > 200) {
+					Log.Error($"To many attempts ({GetType().Name})");
+					return null;
+				}
+
+				dot = GetRandomCell();
+
+				if (Connected.Count == 0) {
+					return dot;
+				}
+
+				if (!Run.Level.IsPassable((int) dot.X, (int) dot.Y)) {
+					continue;
+				}
+
+				var found = false;
+
+				foreach (var Door in Connected.Values) {
+					var Dx = (int) (Door.X - dot.X);
+					var Dy = (int) (Door.Y - dot.Y);
+					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
+
+					if (D < 4) {
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					if (Run.Level.IsPassable(dot.X + 1, dot.Y) && 
+					    Run.Level.IsPassable(dot.X - 1, dot.Y) &&
+					    Run.Level.IsPassable(dot.X, dot.Y + 1) &&
+					    Run.Level.IsPassable(dot.X, dot.Y - 1)) {
+						
+						return dot;
+					}
 				}
 			}
 		}

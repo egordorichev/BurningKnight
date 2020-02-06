@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.assets.particle.renderer;
 using BurningKnight.debug;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
@@ -28,6 +31,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
@@ -76,6 +80,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			GetComponent<HealthComponent>().SaveMaxHp = true;
+			
 			Height = 11;
 			
 			// Graphics
@@ -127,7 +133,7 @@ namespace BurningKnight.entity.creature.player {
 
 			InitStats(true);
 			
-			Subscribe<RoomClearedEvent>();
+			Subscribe<NewFloorEvent>();
 		}
 
 		public void InitStats(bool fromInit = false) {
@@ -138,7 +144,12 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<FollowerComponent>().DestroyAll();
 
 			var hp = GetComponent<HealthComponent>();
-			hp.InitMaxHealth = 6 - (fromInit ? 0 : GetComponent<StatsComponent>().HeartsPayed * 2);
+
+			if (fromInit) {
+				hp.InitMaxHealth = 6;
+			}
+
+			//  - (fromInit ? 0 : GetComponent<StatsComponent>().HeartsPayed * 2);
 			hp.MaxHealthCap = 32;
 			hp.InvincibilityTimerMax = 1f;
 
@@ -179,9 +190,75 @@ namespace BurningKnight.entity.creature.player {
 		
 		#region Player States
 		public class IdleState : EntityState {
-			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (!CheatWindow.NoSleep && T >= 6f) {
+					Become<SittingState>();
+				}
+			}
 		}
-		
+
+		public class SittingState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 24f) {
+					Become<SleepingState>();
+				}
+			}
+		}
+
+		public class SleepingState : EntityState {
+			public override void Init() {
+				base.Init();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+			
+			public override void Destroy() {
+				base.Destroy();
+				Self.GetComponent<PlayerGraphicsComponent>().Animate();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (T >= 3f) {
+					T = 0;
+
+					for (var i = 0; i < 3; i++) {
+						Timer.Add(() => {
+								var part = new ParticleEntity(new Particle(Controllers.Float,
+									new TexturedParticleRenderer(CommonAse.Particles.GetSlice($"sleep"))));
+
+								part.Position = Self.Center;
+
+								if (Self.TryGetComponent<ZComponent>(out var z)) {
+									part.Position -= new Vector2(0, z.Z);
+								}
+
+								Self.Area.Add(part);
+
+								part.Particle.Velocity = new Vector2(Rnd.Float(8, 16) * (Rnd.Chance() ? -1 : 1), -Rnd.Float(30, 56));
+								part.Particle.Angle = 0;
+								part.Particle.Alpha = 0.9f;
+								part.Depth = Layers.InGameUi;
+							}, i * 0.5f);
+					}
+				}
+			}
+		}
+
 		public class DuckState : EntityState {
 			public override void Init() {
 				base.Init();
@@ -356,10 +433,26 @@ namespace BurningKnight.entity.creature.player {
 					Audio.PlaySfx("level_door_shut");
 				}
 
-				if (c.Old != null && Scourge.IsEnabled(Scourge.OfLost)) {
-					c.Old.Hide();
+				if (c.Old != null) {
+					if (Scourge.IsEnabled(Scourge.OfLost)) {
+						c.Old.Hide();
+					}
+					
+					if (c.Old.Type == RoomType.DarkMarket) {
+						c.Old.Hide(true);
+					}
 				}
-				
+
+				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+
+				if (c.New.Type == RoomType.DarkMarket) {
+					pr.EnableClip = true;
+					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
+					pr.ClipSize = new Vector2(c.New.Width - 32, c.New.Height - 32);
+				} else {
+					pr.EnableClip = false;
+				}
+
 				c.New.Discover();
 				var level = Run.Level;
 
@@ -526,8 +619,50 @@ namespace BurningKnight.entity.creature.player {
 		protected override bool HandleDeath(DiedEvent d) {
 			Done = false;
 			died = true;
+			var ing = (InGameState) Engine.Instance.State;
 
-			Log.Debug($"Killed by: {(d.From?.GetType().Name ?? "null")}");
+			ing.Killer.Animation = null;
+			ing.Killer.Slice = null;
+			ing.Killer.UseSlice = true;
+			
+			if (d.From != null) {
+				var anim = d.From.GetAnyComponent<AnimationComponent>();
+
+				if (anim != null) {
+					ing.Killer.Animation = Animations.Get(anim.Id)?.CreateAnimation();
+					
+					if (ing.Killer.Animation != null) {
+						ing.Killer.Animation.Tag = "idle";
+						ing.Killer.UseSlice = false;
+
+						var c = ing.Killer.Animation.GetCurrentTexture();
+						
+						ing.Killer.Width = c.Width;
+						ing.Killer.Height = c.Height;
+					}
+				} else {
+					var slice = d.From.GetAnyComponent<SliceComponent>();
+
+					if (slice != null) {
+						ing.Killer.Slice = slice.Sprite;
+						ing.Killer.Width = ing.Killer.Slice.Width;
+						ing.Killer.Height = ing.Killer.Slice.Height;
+					}
+				}
+			}
+
+			if (ing.Killer.Slice == null && ing.Killer.Animation == null) {
+				ing.Killer.Slice = CommonAse.Items.GetSlice("unknown");
+				ing.Killer.Width = ing.Killer.Slice.Width;
+				ing.Killer.Height = ing.Killer.Slice.Height;
+			}
+
+
+			ing.Killer.Width *= 2;
+			ing.Killer.Height *= 2;
+			ing.Killer.RelativeCenterX = Display.UiWidth * 0.75f;
+
+			Log.Info($"Killed by: {(d.From?.GetType().Name ?? "null")}");
 			
 			return true;
 		}

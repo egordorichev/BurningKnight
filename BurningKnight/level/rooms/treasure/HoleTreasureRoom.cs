@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.treasure {
 	public class HoleTreasureRoom : TreasureRoom {
-		public override void Paint(Level level) {
+		public override void PaintInside(Level level) {
 			var m = Rnd.Int(4, 6);
 			Painter.Fill(level, this, m, Tiles.RandomSolid());
 

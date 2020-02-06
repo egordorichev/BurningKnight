@@ -14,6 +14,7 @@ using Lens.util.timer;
 namespace BurningKnight.entity.creature.npc {
 	public class Maanex : Npc {
 		private bool interacted;
+		private bool played;
 		private byte cost;
 		private float t;
 		
@@ -76,7 +77,7 @@ namespace BurningKnight.entity.creature.npc {
 				return "maanex_12";
 			}
 
-			return$"maanex_{(interacted ? 7 : 5)}";
+			return$"maanex_{(played ? 7 : 5)}";
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -87,7 +88,8 @@ namespace BurningKnight.entity.creature.npc {
 					} else {
 						GetComponent<DialogComponent>().StartAndClose("maanex_10", 5f);
 					}
-
+					
+					played = true;
 					foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
 						((Chest) chest).CanOpen = false;
 					}
@@ -98,12 +100,6 @@ namespace BurningKnight.entity.creature.npc {
 					
 					if (rce.New == r) {
 						GetComponent<DialogComponent>().Start(GetDialog(rce.Who));
-
-						if (!interacted) {
-							foreach (var chest in rce.New.Tagged[Tags.Chest]) {
-								((Chest) chest).CanOpen = false;
-							}
-						}
 					} else if (rce.Old == r) {
 						GetComponent<DialogComponent>().Close();
 					}
@@ -116,6 +112,18 @@ namespace BurningKnight.entity.creature.npc {
 		public override void Update(float dt) {
 			base.Update(dt);
 			t += dt;
+			
+			if ((!interacted || played) && t >= 0.1f) {
+				var r = GetComponent<RoomComponent>().Room;
+
+				if (r == null) {
+					return;
+				}
+				
+				foreach (var chest in r.Tagged[Tags.Chest]) {
+					((Chest) chest).CanOpen = false;
+				}
+			}
 		}
 
 		public bool Interact(Entity e) {
@@ -132,6 +140,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			interacted = stream.ReadBoolean();
 			cost = stream.ReadByte();
+			played = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
@@ -139,6 +148,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			stream.WriteBoolean(interacted);
 			stream.WriteByte(cost);
+			stream.WriteBoolean(played);
 		}
 	}
 }

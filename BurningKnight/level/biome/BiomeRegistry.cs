@@ -19,9 +19,10 @@ namespace BurningKnight.level.biome {
 				BiomeInfo.New<CastleBiome>(Biome.Castle).Add(1, 1f).Add(2, 1f).Add(-2, 1f).Add(-1, 1f),
 				BiomeInfo.New<DesertBiome>(Biome.Desert).Add(3, 1f).Add(4, 1f),
 				jungle,
-				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(7, 1f).Add(8, 1f),
-				BiomeInfo.New<TechBiome>(Biome.Tech).Add(9, 1f).Add(10, 1f),
-				BiomeInfo.New<IceBiome>(Biome.Ice).Add(11, 1f).Add(12, 1f)
+				BiomeInfo.New<IceBiome>(Biome.Ice).Add(7, 1f).Add(8, 1f),
+				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(9, 1f).Add(10, 1f),
+
+				BiomeInfo.New<TechBiome>(Biome.Tech).Add(11, 1f).Add(12, 1f)
 			};
 			
 			foreach (var info in infos) {

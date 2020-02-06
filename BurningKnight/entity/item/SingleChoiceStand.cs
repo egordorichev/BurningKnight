@@ -25,6 +25,10 @@ namespace BurningKnight.entity.item {
 		public override bool HandleEvent(Event e) {
 			if (e is ItemTakenEvent ite && !(ite.Who is SingleChoiceStand || !(ite.Stand is SingleChoiceStand))) {
 				var rm = GetComponent<RoomComponent>().Room;
+
+				if (rm == null) {
+					return false;
+				}
 				
 				if (ite.Stand != this && ite.Stand.GetComponent<RoomComponent>().Room == rm) {
 					var it = rm.Tagged[Tags.Item].ToArray(); // Copy it to prevent exceptions while modifying it
