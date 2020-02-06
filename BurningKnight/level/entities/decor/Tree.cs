@@ -15,7 +15,7 @@ namespace BurningKnight.level.entities.decor {
 
 		public override void Init() {
 			base.Init();
-			type = (byte) Rnd.Int(0, 2);
+			type = (byte) Rnd.Int(0, 5);
 		}
 
 		public override void AddComponents() {

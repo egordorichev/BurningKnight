@@ -663,7 +663,7 @@ namespace BurningKnight.level {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 
-								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
 							}
 						}
 					}
@@ -681,7 +681,7 @@ namespace BurningKnight.level {
 								var plant = new Tree();
 								Level.Area.Add(plant);
 
-								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
 							}
 						}
 					}

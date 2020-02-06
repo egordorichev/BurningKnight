@@ -25,7 +25,7 @@ namespace BurningKnight.level.biome {
 			base.ModifyRooms(rooms);
 			rooms.Add(new HiveRoom());
 
-			if (Run.Depth % 2 == 0) {
+			for (var i = 0; i < (Run.Depth % 2 == 0 ? 2 : 1); i++) {
 				rooms.Add(new JungleRoom());
 			}
 		}
@@ -61,7 +61,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override int GetNumRegularRooms() {
-			return (int) (base.GetNumRegularRooms() * 0.75f);
+			return (int) (base.GetNumRegularRooms() * 0.25f);
 		}
 		
 		public override int GetNumTrapRooms() {
