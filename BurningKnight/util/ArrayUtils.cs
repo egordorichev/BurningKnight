@@ -13,6 +13,16 @@ namespace BurningKnight.util {
 			return clone;
 		}
 		
+		public static bool[] Clone(bool[] array) {
+			var clone = new bool[array.Length];
+
+			for (var i = 0; i < array.Length; i++) {
+				clone[i] = array[i];
+			}
+			
+			return clone;
+		}
+		
 		public static T[] Clone<T>(List<T> array) {
 			var clone = new T[array.Count];
 
