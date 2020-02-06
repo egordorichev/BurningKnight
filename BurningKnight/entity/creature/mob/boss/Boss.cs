@@ -354,5 +354,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void Kill(Entity w) {
 			
 		}
+
+		public virtual string GetScream() {
+			return "bk_3";
+		}
 	}
 }

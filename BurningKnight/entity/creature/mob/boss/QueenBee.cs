@@ -450,5 +450,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.PlaceRewards();
 			Achievements.Unlock("bk:sting_operation");
 		}
+
+		public override string GetScream() {
+			return "queen_bee_scream";
+		}
 	}
 }

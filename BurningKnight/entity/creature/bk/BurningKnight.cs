@@ -481,7 +481,7 @@ namespace BurningKnight.entity.creature.bk {
 					Audio.PlayMusic("Fatiga", true);
 
 					// PREPARE TO DIE!
-					Self.captured.GetComponent<DialogComponent>().StartAndClose("bk_3", 5);
+					Self.captured.GetComponent<DialogComponent>().StartAndClose(Self.captured.GetScream(), 5);
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bk_capture");
 					Camera.Instance.Unfollow(Self);
 

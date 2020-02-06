@@ -350,5 +350,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.PlaceRewards();
 			Achievements.Unlock("bk:mummified");
 		}
+
+		public override string GetScream() {
+			return "pharaoh_scream";
+		}
 	}
 }

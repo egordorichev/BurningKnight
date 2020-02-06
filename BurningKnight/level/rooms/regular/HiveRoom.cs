@@ -22,10 +22,13 @@ namespace BurningKnight.level.rooms.regular {
 			var cy = center.Y;
 			var xm = (float) GetHeight() / GetWidth();
 			var bound = Math.Min(GetWidth(), GetHeight()) / 2f - 3f;
+			var f = Tiles.RandomFloor();
 			
 			for (var x = Left + 1; x < Right - 1; x++) {
 				for (var y = Top + 1; y < Bottom - 1; y++) {
-					if (level.Get(x, y) != Tile.WallA) {
+					var t = level.Get(x, y);
+					
+					if (t != Tile.WallA && t != Tile.FloorD) {
 						continue;
 					}
 					
@@ -34,7 +37,11 @@ namespace BurningKnight.level.rooms.regular {
 					var d = MathUtils.Distance(dx * xm, dy);
 
 					if (d < bound + Rnd.Float(0, 3f)) {
-						level.Set(x, y, Tile.WallB);
+						if (t == Tile.WallA) {
+							level.Set(x, y, Tile.WallB);
+						}
+					} else if (t != Tile.WallA){
+						level.Set(x, y, f);
 					}
 				}
 			}

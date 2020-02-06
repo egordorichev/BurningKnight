@@ -273,7 +273,7 @@ namespace BurningKnight.level {
 			}
 			
 			for (var i = 0; i < Size - Width; i++) {
-				if (Get(i).IsWall() && Get(i + Width).IsWall()) {
+				if (Get(i).Matches(Tile.WallA, Tile.Transition) && Get(i + Width).Matches(Tile.WallA, Tile.Transition)) {
 					Explored[i] = true;
 					Light[i] = 1f;
 				}

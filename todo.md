@@ -1,8 +1,6 @@
 # todo
 
-* fix jungle rooms generating forever
 * bee hive should not spawn near the wall
-* path in the jungle room might actually not connect to all the doors
 
 # todo
 
