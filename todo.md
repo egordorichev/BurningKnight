@@ -1,8 +1,9 @@
 # todo
 
 * fix unpassable chasm wall
-* bee hive tree
+* bee hive should not spawn near the wall
 * fix rotated screen texture
+* path in the jungle room might actually not connect to all the doors
 
 # todo
 

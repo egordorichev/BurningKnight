@@ -674,7 +674,7 @@ namespace BurningKnight.level {
 						for (var X = Room.Left - 1; X <= Room.Right + 1; X++) {
 							if (Level.Get(X, Y).IsWall() && Level.Get(X, Y - 1).IsWall() &&
 							    Level.Get(X - 1, Y).IsWall() && Level.Get(X + 1, Y).IsWall()
-								
+							    && !Room.HasDoorsNear(X, Y, 3)
 							    && Rnd.Chance(10)) {
 
 								X += 2;
@@ -689,6 +689,7 @@ namespace BurningKnight.level {
 						    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
 						    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable() &&
 						    Level.Get(X - 1, Y - 2).IsPassable() && Level.Get(X + 1, Y - 2).IsPassable()
+						    && !Room.HasDoorsNear(X, Y, 3)
 								&& Rnd.Chance(6)) {
 
 								X += 3;
