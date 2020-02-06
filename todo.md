@@ -1,7 +1,8 @@
 # todo
 
-+ better hive gen on lvl 2
-+ trees
+* fix flower hitbox
+* fix unpassable chasm wall
+* 
 
 # todo
 

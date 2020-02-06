@@ -114,6 +114,10 @@ namespace BurningKnight.level.biome {
 		public virtual bool HasPlants() {
 			return false;
 		}
+
+		public virtual bool HasTrees() {
+			return false;
+		}
 		
 		public virtual int GetNumRegularRooms() {
 			return Run.Depth + 2;

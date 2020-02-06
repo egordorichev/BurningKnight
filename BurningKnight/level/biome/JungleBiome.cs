@@ -99,5 +99,9 @@ namespace BurningKnight.level.biome {
 		public override bool HasPlants() {
 			return true;
 		}
+
+		public override bool HasTrees() {
+			return true;
+		}
 	}
 }

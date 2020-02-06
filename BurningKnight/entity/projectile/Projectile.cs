@@ -20,6 +20,7 @@ using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
@@ -280,7 +281,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 			
-			return (!(entity is Creature || entity is Level)) && 
+			return (!(entity is Creature || entity is Level || entity is Tree)) && 
 			       (BreaksFromWalls && IsWall(entity))
 			        || entity.HasComponent<HealthComponent>();
 		}

@@ -669,6 +669,24 @@ namespace BurningKnight.level {
 					}
 				}
 
+				if (!(Room is HiveRoom) && Level.Biome.HasTrees()) {
+					for (var Y = Room.Top + 1; Y <= Room.Bottom - 1; Y++) {
+						for (int X = Room.Left + 1; X <= Room.Right - 1; X++) {
+							if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
+							    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
+							    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable()
+							    && Rnd.Chance(6)) {
+
+								X += 3;
+								var plant = new Tree();
+								Level.Area.Add(plant);
+
+								plant.Center = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+							}
+						}
+					}
+				}
+
 				// Fireflies
 				if (Rnd.Chance(FirefliesChance)) {
 					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)) * Fireflies; I++) {
