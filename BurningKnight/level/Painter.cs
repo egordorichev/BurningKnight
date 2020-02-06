@@ -474,8 +474,12 @@ namespace BurningKnight.level {
 				}
 				
 				var type = types[id];
-				
-				var point = type.NearWall ? room.Parent.GetRandomCellNearWall() : room.Parent.GetRandomDoorFreeCell();
+
+				var point = type.NearWall
+					? room.Parent.GetRandomCellNearWall()
+					: (
+						type.AwayFromWall ? room.Parent.GetRandomWallFreeCell() : room.Parent.GetRandomDoorFreeCell()
+					);
 
 				if (point == null) {
 					continue;

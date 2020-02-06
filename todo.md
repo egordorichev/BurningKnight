@@ -1,9 +1,5 @@
 # todo
 
-* bee hive should not spawn near the wall
-
-# todo
-
 * fix {
  + bugs {
   - maximized window bug on windows

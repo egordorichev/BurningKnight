@@ -7,6 +7,7 @@ namespace BurningKnight.entity.creature.mob {
 		public bool SpawnsOnFirst = true;
 		public bool NearWall;
 		public bool Single;
+		public bool AwayFromWall;
 		public float Weight = 1;
 		public float Chance = 1;
 
@@ -34,6 +35,13 @@ namespace BurningKnight.entity.creature.mob {
 
 		public MobInfo RequiresNearWall() {
 			NearWall = true;
+			AwayFromWall = false;
+			return this;
+		}
+
+		public MobInfo HatesWall() {
+			NearWall = false;
+			AwayFromWall = true;
 			return this;
 		}
 
