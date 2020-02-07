@@ -111,7 +111,7 @@ namespace BurningKnight.level.rooms.scourged {
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {
-			if (P.X == Left || P.X == Right) {
+			if (P.X == Left || P.X == Right || P.X == Left + 1 || P.X == Right - 1) {
 				return false;
 			}
 		

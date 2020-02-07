@@ -6,6 +6,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Lens.util;
 using Microsoft.Xna.Framework;
 
@@ -45,6 +46,14 @@ namespace BurningKnight.level.rooms.granny {
 
 		public override bool CanConnect(RoomDef R) {
 			return R is BossRoom;
+		}
+
+		public override bool CanConnect(RoomDef r, Dot p) {
+			if (p.X == Left + 1 || p.X == Right - 1 || p.Y == Top + 1 || p.Y == Bottom - 1) {
+				return false;
+			}
+			
+			return base.CanConnect(r, p);
 		}
 
 		public override int GetMinHeight() {

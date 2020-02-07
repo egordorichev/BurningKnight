@@ -5,7 +5,6 @@
  + rng bullet explosions are op for bosses
  + no level still can generate (gave up on gen)
  + wall crawlers can be unkillable with gun in a room with rocks/metal tiles
- + spiked room (and possibly others that have thick walls and use paintTunnels()) might generate a diagonal wall path 
  + the weapons go crazy when you point directly up or down
 
  + tutorial {
