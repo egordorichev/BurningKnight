@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.player {
 				if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
 					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Active, true)));
 				}
-								
+				
 				dialog.StartAndClose("control_6", 5);
 			}
 		}
