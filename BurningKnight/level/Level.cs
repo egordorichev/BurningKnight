@@ -110,8 +110,8 @@ namespace BurningKnight.level {
 			}
 
 			if (WallSurface != null) {
-				WallSurface.Dispose();
-				MessSurface.Dispose();
+				WallSurface?.Dispose();
+				MessSurface?.Dispose();
 			}
 
 			manager?.Destroy();

@@ -1,15 +1,7 @@
 # todo
 
 * fix {
- + bugs {
-  - maximized window bug on windows
-  - game sometimes doesn't exit after closing
- }
-
- + visual {
-  - the weapons go crazy when you point directly up or down
-  - doors are hard to notice
- }
+ + the weapons go crazy when you point directly up or down
 
  + tutorial {
   - make the door after the sword a wall type, that you need to break by using your sword on it
@@ -20,17 +12,11 @@
  }
 }
 
-* bk: {
- + fix how saving works with capturing ths bosses
-}
-
-* ui {
- + change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-}
-
-* audio {
- + bk fire sound (when near)
-}
+* bk: fix how saving works with capturing ths bosses
+* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+* bk fire sound (when near)
+* rewamp death screen
+* Low health indicator
 
 + hub {
  + allow to layer in stuff for speical events
@@ -42,14 +28,10 @@
 * spawn chests/pickups in the levels
 
 * duck interaction
-* Implement basic loop after you defeat the boss
-* more mob prefixes
 
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 ## general
-
-* rewamp death screen
 
 * lava: {
  + tile lighting: figure it out
@@ -58,9 +40,6 @@
  + particles for lava like in pd
  + fix lavafall colors
 }
-
-* Low health indicator
-* juice up pistons (entity + tile mix for rendering, we need inbetweens for sure)
 
 #### Polish
 

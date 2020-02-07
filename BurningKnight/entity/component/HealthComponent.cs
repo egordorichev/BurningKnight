@@ -251,7 +251,7 @@ namespace BurningKnight.entity.component {
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");
 				
-				ModifyHealth(Entity is Player ? -2 : -32, b.Who, DamageType.Explosive);
+				ModifyHealth(Entity is Player ? -2 : -b.Damage, b.Who, DamageType.Explosive);
 
 				var component = Entity.GetAnyComponent<BodyComponent>();
 				component?.KnockbackFrom(b.Who, 2);

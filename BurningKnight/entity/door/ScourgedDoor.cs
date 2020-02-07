@@ -5,11 +5,13 @@ using BurningKnight.entity.events;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
 	public class ScourgedDoor : CustomDoor {
 		private List<Player> Colliding = new List<Player>();
+		private bool scourged;
 
 		public override void PostInit() {
 			base.PostInit();
@@ -29,7 +31,7 @@ namespace BurningKnight.entity.door {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
-				if (rce.Old != null && rce.Old.Type == RoomType.Scourged) {
+				if (scourged || (rce.Old != null && rce.Old.Type == RoomType.Scourged)) {
 					return base.HandleEvent(e);
 				}
 				
@@ -39,6 +41,8 @@ namespace BurningKnight.entity.door {
 				if (!a && !b) {
 					Run.AddScourge();
 				}
+
+				scourged = true;
 			} else if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player p2) {
 					Colliding.Add(p2);
@@ -79,6 +83,16 @@ namespace BurningKnight.entity.door {
 
 		protected override string GetAnimation() {
 			return "scourged_door";
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			scourged = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(scourged);
 		}
 	}
 }

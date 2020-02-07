@@ -25,10 +25,11 @@ namespace BurningKnight.level.walls {
 
 			Add(new CollumnWall(), 1f);
 			Add(new CollumsWall(), 1f);
+			Add(new PlatformWall(), 1f);
+
 			Add(new EllipseWalls(), 1f);
 			Add(new TempleWalls(), 1f);
 			Add(new SegmentedWall(), 1f);
-			Add(new PlatformWall(), 1f);
 			Add(new RuinsWall(), 1f);
 			Add(new TurretWall(), 0.2f);
 			Add(new CorneredTurretWall(), 0.1f);
