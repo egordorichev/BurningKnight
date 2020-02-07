@@ -6,7 +6,6 @@
  + move some npc unlocks deeper down
  + no level still can generate (gave up on gen)
  + wall crawlers can be unkillable with gun in a room with rocks/metal tiles
- + scourge door should only give scourge once
  + spiked room (and possibly others that have thick walls and use paintTunnels()) might generate a diagonal wall path 
  + the weapons go crazy when you point directly up or down
 

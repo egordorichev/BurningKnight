@@ -1263,7 +1263,6 @@
     <Content Include="..\todo.md">
       <Link>todo.md</Link>
     </Content>
-    <Content Include="changelog.md" />
     <Content Include="Content\Mods\test\mod.lua" />
     <Content Include="Content\Shaders\bk.fx" />
     <Content Include="Content\Shaders\chasm.fx" />
