@@ -256,7 +256,7 @@ namespace BurningKnight.entity.creature.bk {
 		private void CheckForScourgeRageFree() {
 			var s = GetComponent<StateComponent>().StateInstance;
 
-			if (s is IdleState || s is ChaseState || s is FollowState || s is HiddenState) {
+			if (s is IdleState || s is ChaseState || s is FollowState || s is HiddenState || s is FlyAwayAttackingState || s is AttackState) {
 				return;
 			}
 			
