@@ -279,6 +279,7 @@
     <Compile Include="assets\mod\Mods.cs" />
     <Compile Include="assets\Palette.cs" />
     <Compile Include="assets\particle\AnimatedParticle.cs" />
+    <Compile Include="assets\particle\controller\AnimatedParticleController.cs" />
     <Compile Include="assets\particle\controller\AshController.cs" />
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />

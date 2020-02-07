@@ -7,11 +7,12 @@ namespace BurningKnight.entity.component {
 	public class ExplodableComponent : Component {
 		public Action OnExplosion;
 
-		public void HandleExplosion(Entity entity) {
+		public void HandleExplosion(Entity entity, float damage) {
 			OnExplosion?.Invoke();
 
 			Send(new ExplodedEvent {
-				Who = entity
+				Who = entity,
+				Damage = damage
 			});
 		}
 	}

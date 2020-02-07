@@ -54,12 +54,13 @@ namespace BurningKnight.util {
 			}
 		}
 
-		public static void Explosion(Vector2 where) {
+		public static void Explosion(Vector2 where, float scale = 1) {
 			var explosion = new ParticleEntity(Particles.Animated("explosion", "explosion"));
 			explosion.Position = where;
 			Run.Level.Area.Add(explosion);
 			explosion.Depth = 32;
 			explosion.Particle.Velocity = Vector2.Zero;
+			explosion.Particle.Scale = scale;
 			explosion.AddShadow();
 
 			Lights.Flash = 1f;

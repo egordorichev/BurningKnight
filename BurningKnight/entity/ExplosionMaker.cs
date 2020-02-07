@@ -21,17 +21,18 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
-		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null) {
-			Camera.Instance.Shake(10);
+		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null, float damage = 32, float scale = 1) {
+			Camera.Instance.Shake(10 * scale);
 			var w = where == null ? whoHurts.Center : new Vector2(where.X, where.Y);
 
-			AnimationUtil.Explosion(w);
+			AnimationUtil.Explosion(w, scale);
 
 			for (int i = 0; i < 4; i++) {
 				var explosion = new ParticleEntity(Particles.Animated("explosion", "smoke"));
 				explosion.Position = w;
 				whoHurts.Area.Add(explosion);
 				explosion.Depth = 31;
+				explosion.Particle.Scale = scale;
 				explosion.Particle.AngleVelocity = 0;
 				explosion.AddShadow();
 
@@ -64,7 +65,7 @@ namespace BurningKnight.entity {
 					
 			foreach (var e in whoHurts.Area.GetEntitesInRadius(w, hurtRadius, typeof(ExplodableComponent))) {
 				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);
-				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts);
+				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts, damage);
 			}
 
 			Camera.Instance.TextureZoom -= 0.05f;
@@ -75,8 +76,7 @@ namespace BurningKnight.entity {
 					Center = w
 				});
 			}
-				
-			
+
 			var xx = (int) Math.Floor(w.X / 16f);
 			var yy = (int) Math.Floor(w.Y / 16f);
 			var r = (int) Math.Floor(hurtRadius / 16f);

@@ -1,7 +1,6 @@
 # todo
 
 * fix {
- + rng bullet explosions are op for bosses
  + no level still can generate (gave up on gen)
  + wall crawlers can be unkillable with gun in a room with rocks/metal tiles
  + the weapons go crazy when you point directly up or down
