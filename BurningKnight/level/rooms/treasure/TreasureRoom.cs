@@ -128,6 +128,14 @@ namespace BurningKnight.level.rooms.treasure {
 			
 			return base.CanConnect(r);
 		}
+		
+		public override bool CanConnect(RoomDef r, Dot p) {
+			if (p.X == Left + 1 || p.X == Right - 1 || p.Y == Top + 1 || p.Y == Bottom - 1) {
+				return false;
+			}
+			
+			return base.CanConnect(r, p);
+		}
 
 		public override bool ShouldSpawnMobs() {
 			return false;// Random.Chance(10);

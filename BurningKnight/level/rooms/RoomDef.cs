@@ -282,7 +282,7 @@ namespace BurningKnight.level.rooms {
 					return new Dot(dot.X, dot.Y + 1);
 				}
 				
-				if (dot.X - 1 > Top && Run.Level.Get((int) dot.X, (int) dot.Y - 1).IsPassable()) {
+				if (dot.Y - 1 > Top && Run.Level.Get((int) dot.X, (int) dot.Y - 1).IsPassable()) {
 					Busy.Add(dot);
 					return new Dot(dot.X, dot.Y - 1);
 				}

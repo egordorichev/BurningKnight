@@ -106,9 +106,10 @@ namespace BurningKnight.level {
 				if (a || b) {
 					rooms = null;
 				
-					Log.Error("Failed!");
+					Log.Error($"Failed! {Builder.GetType().Name}");
 					Area.Destroy();
 					Area.Add(Run.Level);
+					Builder = GetBuilder();
 
 					if (Attempt >= 10) {
 						Log.Error("Too many attempts to generate a level! Trying a different room set!");

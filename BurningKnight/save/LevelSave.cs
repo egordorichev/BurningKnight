@@ -119,8 +119,12 @@ namespace BurningKnight.save {
 			var aborted = false;
 			
 			var thread = new Thread(() => {
-				done = GenerationThread(area);
-				finished = true;
+				try {
+					done = GenerationThread(area);
+					finished = true;
+				} catch (ThreadInterruptedException e) {
+					
+				}
 			});
 			
 			Log.Debug("Level gen thread started");
@@ -139,7 +143,7 @@ namespace BurningKnight.save {
 
 				if (i >= 10f) {
 					Log.Debug("Thread took too long, aborting :(");
-					thread.Abort();
+					thread.Interrupt();
 					Physics.Destroy();
 					Physics.Init();
 					Rnd.Seed += "_";
