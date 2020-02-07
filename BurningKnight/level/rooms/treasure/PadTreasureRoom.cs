@@ -12,7 +12,7 @@ namespace BurningKnight.level.rooms.treasure {
 		public override void PaintInside(Level level) {
 			Painter.Fill(level, this, 1, Rnd.Chance() ? Tiles.RandomFloor() : Tile.Chasm);
 
-			var m = Rnd.Int(1, 3);
+			var m = Rnd.Int(2, 3);
 			var rect = Shrink(m);
 			
 			var w = Rnd.Int(3, rect.GetWidth() / 2);
