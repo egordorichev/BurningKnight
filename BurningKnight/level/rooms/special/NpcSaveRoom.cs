@@ -105,7 +105,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		private static string[] shopNpcs = {
-			ShopNpc.Vampire, ShopNpc.Snek, ShopNpc.Boxy, ShopNpc.Boxy, ShopNpc.Duck,
+			ShopNpc.Snek, ShopNpc.Boxy, ShopNpc.Duck, ShopNpc.Vampire,
 			ShopNpc.Elon, ShopNpc.Gobetta, ShopNpc.Nurse
 		};
 
@@ -122,12 +122,13 @@ namespace BurningKnight.level.rooms.special {
 				return true;
 			}
 
-			if (Run.Depth == 2) {
-				foreach (var s in shopNpcs) {
-					if (GlobalSave.IsFalse(s)) {
-						return true;
-					}
+			var i = 0;
+			foreach (var s in shopNpcs) {
+				if (Run.Depth == i / 2 + 1 && GlobalSave.IsFalse(s)) {
+					return true;
 				}
+
+				i++;
 			}
 			
 			return false;
