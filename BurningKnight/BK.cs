@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight {
 	public class BK : Engine {
 		public static bool StandMode = false;
-		public static Version Version = new Version("Overscope update", 33, 0, 1, 9, 4, true, Debug);
+		public static Version Version = new Version("Ice update", 34, 0, 1, 10, 0, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

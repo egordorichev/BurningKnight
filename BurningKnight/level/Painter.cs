@@ -11,6 +11,7 @@ using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.input;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.plant;
@@ -556,7 +557,7 @@ namespace BurningKnight.level {
 
 		private void PaintWater(Level Level, List<RoomDef> Rooms) {
 			var Lake = Patch.Noise(Water);
-			var Ice = false; // Level is IceLevel;
+			var Ice = Level.Biome is IceBiome;
 
 			foreach (var R in Rooms) {
 				var placed = false;

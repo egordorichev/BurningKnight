@@ -179,10 +179,6 @@ namespace BurningKnight.entity.creature {
 			Camera.Instance.ShakeMax(5);
 			
 			var a = GetAnyComponent<AnimationComponent>();
-
-			if (this is bk.BurningKnight) {
-				Log.Info("BK IS DED!");
-			}
 			
 			if (a == null) {
 				return;
