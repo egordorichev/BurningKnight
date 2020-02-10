@@ -52,6 +52,8 @@ namespace BurningKnight.entity.creature.bk {
 			HasHealthbar = false;
 			Depth = Layers.Bk;
 			TouchDamage = 0;
+			
+			SetMaxHp(10000);
 
 			var b = new RectBodyComponent(6, 8, 10, 15, BodyType.Dynamic, true) {
 				KnockbackModifier = 0

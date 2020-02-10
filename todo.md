@@ -1,7 +1,6 @@
 # bugfix
 
 Bk disappears somewhere before jungle boss
-Deal items take hearts each floor?
 Stuck in the entrance room (physics bugged out?)
 
 # todo
