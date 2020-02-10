@@ -195,7 +195,7 @@ namespace BurningKnight.level {
 
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
-					    d.Type != DoorPlaceholder.Variant.Maze && d.Type != DoorPlaceholder.Variant.Tunnel) {
+					    d.Type != DoorPlaceholder.Variant.Maze) {
 
 						if (d.X == Room.Left || d.X == Room.Right) {
 							Set(Level, d.X, d.Y - 1, t);
@@ -819,9 +819,9 @@ namespace BurningKnight.level {
 			var T = Level.Get(D.X, D.Y);
 			var type = D.Type;
 
-			var gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze &&
-			         type != DoorPlaceholder.Variant.Tunnel && type != DoorPlaceholder.Variant.Secret;
-
+			var gt = type != DoorPlaceholder.Variant.Empty && type != DoorPlaceholder.Variant.Maze && type != DoorPlaceholder.Variant.Secret;
+			var vertical = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+			
 			if (gt && !T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD, Tile.Crack)) {
 				Door door = null;
 
@@ -867,7 +867,7 @@ namespace BurningKnight.level {
 						break;
 				}
 
-				door.Vertical = Level.Get(D.X, D.Y + 1).IsWall() && Level.Get(D.X, D.Y - 1).IsWall();
+				door.Vertical = vertical;
 				Level.Area.Add(door);
 
 				var offset = door.GetOffset();
@@ -904,8 +904,24 @@ namespace BurningKnight.level {
 				Level.Set(D.X, D.Y, Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {
 				Level.Set(D.X, D.Y, Tile.Crack);
-			} else if (type == DoorPlaceholder.Variant.Tunnel) {
-				Level.Set(D.X, D.Y, Tiles.RandomFloor());
+				
+				if (vertical) {
+					if (Level.Get(D.X + 1, D.Y).Matches(Tile.WallA, Tile.WallB, Tile.Planks, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
+						Level.Set(D.X + 1, D.Y, Tiles.RandomFloor());
+					}
+
+					if (!Level.Get(D.X - 1, D.Y).Matches(Tile.WallA, Tile.WallB, Tile.Planks, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
+						Level.Set(D.X - 1, D.Y, Tiles.RandomFloor());
+					}
+				} else {
+					if (!Level.Get(D.X, D.Y + 1).Matches(Tile.WallA, Tile.WallB, Tile.Planks, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
+						Level.Set(D.X, D.Y + 1, Tiles.RandomFloor());
+					}
+
+					if (!Level.Get(D.X, D.Y - 1).Matches(Tile.WallA, Tile.WallB, Tile.Planks, Tile.Rock, Tile.TintedRock, Tile.MetalBlock)) {
+						Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
+					}
+				}
 			}
 		}
 

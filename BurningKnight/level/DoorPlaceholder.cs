@@ -24,7 +24,6 @@ namespace BurningKnight.level {
 
 		public enum Variant {
 			Empty,
-			Tunnel,
 			Regular,
 			Maze,
 			Enemy,
