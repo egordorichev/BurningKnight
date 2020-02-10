@@ -1,8 +1,6 @@
 # bugfix
 
-Bk disappears somewhere before jungle boss
 Stuck in the entrance room (physics bugged out?)
-Continue run madness
 
 # todo
 
