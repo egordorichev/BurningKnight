@@ -166,6 +166,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+				if (GetComponent<PlayerInputComponent>().InDialog) {
+					return;
+				}
+			
 				if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 					Entity.GetComponent<DialogComponent>().Close();
 					GlobalSave.Put("control_bomb", true);

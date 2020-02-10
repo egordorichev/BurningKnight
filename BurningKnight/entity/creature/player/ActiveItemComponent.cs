@@ -60,6 +60,10 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (Run.Depth > 0 && Item != null && !Item.Done && Input.WasPressed(Controls.Active, GetComponent<GamepadComponent>().Controller)) {
+				if (GetComponent<PlayerInputComponent>().InDialog) {
+					return;
+				}
+			
 				if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
 					GetComponent<StateComponent>().Become<Player.IdleState>();
 				}

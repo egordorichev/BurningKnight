@@ -1,3 +1,12 @@
+# bugfix
+
+Bk disappears somewhere before jungle boss
+Make console resizeable
+Secret room entrance might be blocked by wall
+Stuck in elon dialog
+Deal items take hearts each floor?
+quark dialog missing
+
 # todo
 
 * fix {
