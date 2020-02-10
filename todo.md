@@ -2,7 +2,7 @@
 
 Bk disappears somewhere before jungle boss
 Deal items take hearts each floor?
-quark dialog missing
+Stuck in the entrance room (physics bugged out?)
 
 # todo
 
