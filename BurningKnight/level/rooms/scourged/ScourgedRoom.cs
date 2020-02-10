@@ -1,10 +1,12 @@
 using BurningKnight.assets.items;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.util.math;
@@ -50,7 +52,7 @@ namespace BurningKnight.level.rooms.scourged {
 				return;
 			}
 			
-			switch (Rnd.Int(6)) {
+			switch (Rnd.Int(GlobalSave.IsTrue(ShopNpc.Gobetta) ? 6 : 5)) {
 				case 0: {
 					for (var i = 0; i < Rnd.Int(1, 3); i++) {
 						Items.CreateAndAdd("bk:heart", level.Area).Center = center;

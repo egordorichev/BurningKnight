@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.bk {
 			HasHealthbar = false;
 			Depth = Layers.Bk;
 			TouchDamage = 0;
-
+			
 			var b = new RectBodyComponent(6, 8, 10, 15, BodyType.Dynamic, true) {
 				KnockbackModifier = 0
 			};
@@ -65,6 +65,8 @@ namespace BurningKnight.entity.creature.bk {
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
+			health.InitMaxHealth = 10000;
+			health.AutoKill = false;
 
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
@@ -83,9 +85,14 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<ShopKeeper.EnragedEvent>();
 			Subscribe<DiedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
-			Subscribe<Boss.DefeatedEvent>();
+			Subscribe<DefeatedEvent>();
 
 			GetComponent<DialogComponent>().Dialog.Voice = 25;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Log.Debug("Bk destroyed");
 		}
 
 		protected override void OnTargetChange(Entity target) {

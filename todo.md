@@ -1,3 +1,7 @@
+# bugfix
+
+Stuck in the entrance room (physics bugged out?)
+
 # todo
 
 * fix {

@@ -276,22 +276,9 @@ namespace BurningKnight.entity.component {
 			return h.CanHaveMore;
 		}
 
-		private bool applied;
-
 		public override void Update(float dt) {
 			base.Update(dt);
 			InvincibilityTimer = Math.Max(0, InvincibilityTimer - dt);
-
-			if (!applied) {
-				applied = true;
-
-				if (Entity.HasComponent<StatsComponent>()) {
-					var amount = GetComponent<StatsComponent>().HeartsPayed * 2;
-
-					maxHealth -= amount;
-					health = Math.Min(maxHealth, health);
-				}
-			}
 		}
 		
 		public override void Save(FileWriter stream) {

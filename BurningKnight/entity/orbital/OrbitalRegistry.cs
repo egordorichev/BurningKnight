@@ -93,6 +93,11 @@ namespace BurningKnight.entity.orbital {
 
 					if (timer >= 2f) {
 						timer = 0;
+						
+						if ((o.GetComponent<RoomComponent>().Room?.Tagged[Tags.MustBeKilled].Count ?? 0) == 0) {
+							return;
+						}
+						
 						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
 
 						var a = orbital.AngleTo(o.GetComponent<AimComponent>().RealAim);

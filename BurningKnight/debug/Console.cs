@@ -18,7 +18,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.debug {
 	public unsafe class Console {
-		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(200, 100);
+		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 200);
 		private static System.Numerics.Vector2 spacer = new System.Numerics.Vector2(4, 1);
 		private static System.Numerics.Vector4 color = new System.Numerics.Vector4(1, 0.4f, 0.4f, 1f);
 		
@@ -77,9 +77,9 @@ namespace BurningKnight.debug {
 				ImGui.SetNextWindowCollapsed(false);
 			}
 
-			ImGui.SetNextWindowSize(size);
-			ImGui.SetNextWindowPos(new System.Numerics.Vector2(10, Engine.Instance.GetScreenHeight() - size.Y - 10));
-			ImGui.Begin("Console", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
+			ImGui.SetNextWindowSize(size, ImGuiCond.Once);
+			ImGui.SetNextWindowPos(new System.Numerics.Vector2(10, Engine.Instance.GetScreenHeight() - size.Y - 10), ImGuiCond.Once);
+			ImGui.Begin("Console", ImGuiWindowFlags.NoTitleBar);
 
 			/* filter.Draw("##console");
 			ImGui.SameLine();

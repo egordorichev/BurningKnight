@@ -396,7 +396,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var bee = BeeHive.GenerateBee();
 						Self.Area.Add(bee);
 						bee.Center = Self.Center;
-						Self.GetComponent<ZAnimationComponent>().Animate();
+						Self.GetComponent<MobAnimationComponent>().Animate();
 					}
 				}
 

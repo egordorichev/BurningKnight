@@ -30,7 +30,7 @@ namespace BurningKnight.entity.creature.npc {
 			if (Run.Depth == -2) {
 				AddComponent(new CloseDialogComponent("control_4"));
 			} else {
-				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 1 : 0)}"));
+				AddComponent(new CloseDialogComponent($"duck_{(quantom ? 20 : 19)}"));
 			}
 			
 			Become<IdleState>();
