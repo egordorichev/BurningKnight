@@ -920,7 +920,7 @@ namespace BurningKnight.state {
 				cursor.Render();
 				return;
 			}
-			
+
 			base.RenderUi();
 
 			if (Menu && offset <= Display.UiHeight) {
