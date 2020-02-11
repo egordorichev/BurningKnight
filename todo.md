@@ -1,8 +1,5 @@
 # bugfix
 
-Can get stuck on continue run if that throws an exception
-rip bk
-
 resolution presets? 1920×1080 
                     1600×900
                     1366×768
