@@ -13,6 +13,7 @@ namespace BurningKnight.util {
 			"Looking cool",
 			"Loading...",
 			"Get em!",
+			"Press / to open chat",
 			"Generating generators",
 			"Submitting an issue",
 			"Terraforming mars",

@@ -1,7 +1,7 @@
 # bugfix
 
 Can get stuck on continue run if that throws an exception
-Stuck in the entrance room (physics bugged out?)
+rip bk
 
 resolution presets? 1920×1080 
                     1600×900

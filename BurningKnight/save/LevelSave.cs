@@ -82,11 +82,11 @@ namespace BurningKnight.save {
 
 				a.Entities.AddNew();
 				a.Destroy();
-				a = new Area();
 				Run.Level = null;
 
 				if (I > 100) {
 					Log.Error("Can't generate a level");
+					a = new Area();
 
 					var level = CreateLevel();
 					BiomeGenerated = level.Biome;
@@ -123,7 +123,8 @@ namespace BurningKnight.save {
 					done = GenerationThread(area);
 					finished = true;
 				} catch (ThreadInterruptedException e) {
-					
+					Physics.Destroy();
+					Physics.Init();
 				}
 			});
 			
@@ -141,11 +142,9 @@ namespace BurningKnight.save {
 
 				i++;
 
-				if (i >= 10f) {
+				if (i >= 15f) {
 					Log.Debug("Thread took too long, aborting :(");
 					thread.Interrupt();
-					Physics.Destroy();
-					Physics.Init();
 					Rnd.Seed += "_";
 					aborted = true;
 

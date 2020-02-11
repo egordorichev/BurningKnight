@@ -74,7 +74,7 @@ namespace BurningKnight.entity.room.controller {
 		}
 
 		public bool HandleEvent(Event e) {
-			if (wave == 3) {
+			if (wave == 4) {
 				return false;
 			}
 		
