@@ -17,7 +17,8 @@ namespace BurningKnight {
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
-				new DevAssetLoadState(),
+				new AssetLoadState(),	
+				// new DevAssetLoadState(),
 			#else
 				new AssetLoadState(),			
 			#endif

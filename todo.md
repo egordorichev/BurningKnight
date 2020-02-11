@@ -3,7 +3,6 @@
 Can get stuck on continue run if that throws an exception
 Stuck in the entrance room (physics bugged out?)
 enemy can get stuck in a wall or smth, room didn't open up
-rexcellent logo loading bar
 
 resolution presets? 1920×1080 
                     1600×900
