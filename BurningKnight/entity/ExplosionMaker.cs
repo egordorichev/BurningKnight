@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
-		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null, float damage = 32, float scale = 1) {
+		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null, float damage = 16, float scale = 1) {
 			Camera.Instance.Shake(10 * scale);
 			var w = where == null ? whoHurts.Center : new Vector2(where.X, where.Y);
 

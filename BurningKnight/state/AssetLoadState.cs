@@ -26,7 +26,9 @@ using Timer = Lens.util.timer.Timer;
 namespace BurningKnight.state {
 	public class AssetLoadState : GameState {
 		private PhotoCard logoCard;
-		private PhotoCard[] cards = new PhotoCard[3];
+
+		private TextureRegion pixel;
+		// private PhotoCard[] cards = new PhotoCard[3];
 		private bool ready;
 		private int progress;
 		private Area gameArea;
@@ -34,11 +36,13 @@ namespace BurningKnight.state {
 		private bool added;
 		private bool removed;
 		private bool checkFullscreen;
+		private float lastV;
 
-		
 		public override void Init() {
 			base.Init();
 
+			pixel = new TextureRegion(Textures.FastLoad("Content/pixel.png"));
+			
 			Ui.Add(logoCard = new PhotoCard {
 				Region = new TextureRegion(Textures.FastLoad("Content/logo.png")),
 				Url = "https://twitter.com/rexcellentgames",
@@ -55,10 +59,14 @@ namespace BurningKnight.state {
 				Log.Info("Starting asset loading thread");
 				
 				Audio.ThreadLoad("Void");
+				progress++;
 				Assets.Load(ref progress);
+				progress++;
 				Audio.ThreadLoad("Menu", false);
+				progress++;
 				
 				Achievements.Load();
+				progress++;
 				Dialogs.Load();
 				progress++;
 				CommonAse.Load();
@@ -130,7 +138,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (!added && ready) {
+			if (!added && ready && lastV >= 0.98f) {
 				added = true;
 				logoCard.GoAway = true;
 				
@@ -177,11 +185,23 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			//var w = Input.Mouse.UiPosition;
-			Graphics.Color.A = 100;
-			Graphics.Print($"{Math.Floor(progress / 17f * 100f)}%", Font.Small, Vector2.One);
-			Graphics.Color.A = 255;
-			//Graphics.Batch.DrawCircle(new CircleF(new Point((int) w.X, (int) w.Y), 4), 12, Color.Red, 4);
+			
+			var v = Math.Min(1, progress / 21f);
+			lastV += (v - lastV) * Engine.Delta;
+
+			var w = Display.UiWidth * 0.5f;
+			var h = 16;
+			var vl = 0.9f;
+			var pos = new Vector2((Display.UiWidth - w) / 2, Display.UiHeight * 0.5f + 96);
+			var a = (float) Math.Max(0, 1f - (135 - logoCard.Y) / 135f);
+			
+			Graphics.Color = new Color(1, 1, 1, a);
+			Graphics.Render(pixel, pos, 0, Vector2.Zero, new Vector2(w, h));
+			Graphics.Color = ColorUtils.BlackColor;
+			Graphics.Render(pixel, pos + new Vector2(1), 0, Vector2.Zero, new Vector2(w - 2, h - 2));
+			Graphics.Color = new Color(vl, vl, vl, a);
+			Graphics.Render(pixel, pos + new Vector2(2), 0, Vector2.Zero, new Vector2(lastV * (w - 4), h - 4));
+			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}
 }

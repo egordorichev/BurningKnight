@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 3;
 
 			AddAnimation("bigbee");
-			SetMaxHp(200);
+			SetMaxHp(220);
 
 			Flying = true;
 			Depth = Layers.FlyingMob;

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.use;
+using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens;
 using Lens.assets;
@@ -25,6 +28,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion bomb;
 		private TextureRegion key;
 		private TextureRegion coin;
+		private TextureRegion pointer;
 
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
@@ -71,7 +75,8 @@ namespace BurningKnight.ui.inventory {
 			bomb = anim.GetSlice("bomb");
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
-			
+			pointer = anim.GetSlice("pointer");
+
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
 			HeartBackground = anim.GetSlice("heart_bg");
@@ -264,10 +269,40 @@ namespace BurningKnight.ui.inventory {
 				Done = true;
 				return;
 			}
-
+			
 			// Seriously tmp solution about hiding the inventory ui, need to tween it all away!!!!
 			if (Player.GetComponent<HealthComponent>().Dead || Engine.Instance.State.Paused) {
 				return;
+			}
+
+			Entity target = null;
+			var r = Player.GetComponent<RoomComponent>().Room;
+			
+			if (r != null && r.Type != RoomType.Connection && r.Tagged[Tags.MustBeKilled].Count == 1 && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
+				target = r.Tagged[Tags.MustBeKilled][0];
+			}
+
+			if (target != null) {
+				var d = Player.DistanceTo(target);
+
+				if (d > 64) {
+					var dd = d * 0.7f;
+					var a = Player.AngleTo(target);
+					var m = (float) Math.Cos(Engine.Time * 4f) * 6f + 6f;
+					var v = (float) Math.Cos(Engine.Time * 5f) * 0.3f + 0.7f;
+
+					var point = Player.Center + new Vector2((float) Math.Cos(a) * dd, (float) Math.Sin(a) * dd);
+					var center = new Vector2(Display.UiWidth, Display.UiHeight) * 0.5f;
+					
+					point = Camera.Instance.CameraToUi(point);
+					point.X = MathUtils.Clamp((float) -Math.Cos(a) * (center.X - 16) + center.X, (float) Math.Cos(a) * (center.X - 16) + center.X, point.X);
+					point.Y = MathUtils.Clamp((float) -Math.Sin(a) * (center.Y - 16) + center.Y,  (float) Math.Sin(a) * (center.Y - 16) + center.Y, point.Y);
+					point -= MathUtils.CreateVector(a, m);
+					
+					Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
+					Graphics.Render(pointer, point, a, pointer.Center);
+					Graphics.Color = ColorUtils.WhiteColor;
+				}
 			}
 
 			var show = Run.Depth > 0;

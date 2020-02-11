@@ -42,10 +42,22 @@ namespace Lens.util {
 		}
 		
 		public static float Clamp(float Min, float Max, float Val) {
+			if (Min > Max) {
+				var tmp = Min;
+				Min = Max;
+				Max = tmp;
+			}
+			
 			return Math.Max(Min, Math.Min(Max, Val));
 		}
 		
 		public static int Clamp(int Min, int Max, int Val) {
+			if (Min > Max) {
+				var tmp = Min;
+				Min = Max;
+				Max = tmp;
+			}
+			
 			return Math.Max(Min, Math.Min(Max, Val));
 		}
 

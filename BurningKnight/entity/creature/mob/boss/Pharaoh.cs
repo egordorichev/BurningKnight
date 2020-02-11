@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 4;
 
 			AddAnimation("pharaoh");
-			SetMaxHp(120);
+			SetMaxHp(180);
 		}
 
 		protected override void AddPhases() {

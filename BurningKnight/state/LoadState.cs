@@ -35,11 +35,14 @@ namespace BurningKnight.state {
 		private int progress;
 		private float timer;
 		private bool loading;
+		private bool nice;
 		
 		public bool Menu;
 		
 		public override void Init() {
 			base.Init();
+
+			nice = Rnd.Chance(5);
 			
 			if (SaveManager.ExistsAndValid(SaveType.Game)
 			    && SaveManager.ExistsAndValid(SaveType.Level)
@@ -118,8 +121,9 @@ namespace BurningKnight.state {
 
 		public override void RenderUi() {
 			base.RenderUi();
-			
-			var s = $"{prefix} {Math.Min(102, Math.Floor(timer * 100f))}%";
+
+			var value = (int) Math.Min(102, Math.Floor(timer * 100f));
+			var s = $"{prefix} {(nice && value == 69 ? "Nice." : $"{value}")}%";
 			
 			prefixX = Font.Medium.MeasureString(s).Width * -0.5f;
 			

@@ -218,6 +218,7 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			Done = false;
 
 			if (Hidden) {
 				return;

@@ -1,6 +1,10 @@
 # bugfix
 
-Stuck in the entrance room (physics bugged out?)
+resolution presets? 1920×1080 
+                    1600×900
+                    1366×768
+                    1280×720 
+                    1024×576
 
 # todo
 

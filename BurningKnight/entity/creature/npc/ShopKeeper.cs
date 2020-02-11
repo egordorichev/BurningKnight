@@ -12,6 +12,7 @@ using BurningKnight.entity.room;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.machine;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
@@ -108,7 +109,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			var h = GetComponent<HealthComponent>();
 
-			h.InitMaxHealth = 15;
+			h.InitMaxHealth = 10 + Run.Depth * 10;
 			h.Unhittable = false;
 
 			var b = new RectBodyComponent(4, 2, 10, 14);
