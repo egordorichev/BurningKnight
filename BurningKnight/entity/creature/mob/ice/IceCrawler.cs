@@ -18,6 +18,10 @@ namespace BurningKnight.entity.creature.mob.ice {
 			AddComponent(new WallAnimationComponent("ice_crawler"));
 			SetMaxHp(4);
 		}
+		
+		protected override Color GetBloodColor() {
+			return Snowball.BloodColor;
+		}
 
 		#region Crawler States
 		public class IdleState : WallWalker.IdleState {

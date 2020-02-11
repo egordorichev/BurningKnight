@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.ice {
 	public class Snowball : Slime {
-		private static readonly Color color = ColorUtils.FromHex("#92a1b9");
+		public static readonly Color BloodColor = ColorUtils.FromHex("#92a1b9");
 		
 		protected override Color GetBloodColor() {
-			return color;
+			return BloodColor;
 		}
 
 		protected override float GetJumpDelay() {
