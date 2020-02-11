@@ -55,6 +55,7 @@ namespace BurningKnight.entity.creature.mob {
 				
 				// Ice
 				MobInfo.New<Snowball>(new SpawnChance(1f, Biome.Ice)).SetWeight(0.5f),
+				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Ice)).RequiresNearWall(),
 			};
 			
 			All.AddRange(infos);
