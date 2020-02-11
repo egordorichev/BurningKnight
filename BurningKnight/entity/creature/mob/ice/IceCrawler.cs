@@ -100,7 +100,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 							projectile.OnHurt += (p, e) => {
 								if (e.TryGetComponent<BuffsComponent>(out var b)) {
 									b.Add(new FrozenBuff() {
-										Duration = 5
+										Duration = 3
 									});
 								}
 							};
