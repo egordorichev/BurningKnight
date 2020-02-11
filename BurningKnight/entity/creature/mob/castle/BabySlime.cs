@@ -2,6 +2,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using Lens.graphics;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected override float GetJumpDelay() {
-			return -0.2f;
+			return Rnd.Float(0.5f, 1.2f) - 0.2f;
 		}
 
 		protected override void SetStats() {

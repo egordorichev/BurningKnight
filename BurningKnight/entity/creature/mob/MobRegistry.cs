@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.desert;
+using BurningKnight.entity.creature.mob.ice;
 using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.level.biome;
 using BurningKnight.state;
@@ -46,12 +47,14 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f),
 				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)).SetWeight(2f).MarkSingle(),
+				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn(),
 				
 				// MobInfo.New<BigBee>(new SpawnChance(0.033f, Biome.Jungle)),
 				// MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
 				// MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
 				
-				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn(),
+				// Ice
+				MobInfo.New<Snowball>(new SpawnChance(1f, Biome.Ice)).SetWeight(0.5f),
 			};
 			
 			All.AddRange(infos);
