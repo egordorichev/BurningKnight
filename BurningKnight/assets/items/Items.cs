@@ -30,7 +30,7 @@ namespace BurningKnight.assets.items {
 			Load(FileHandle.FromRoot("Items/"));
 		}
 
-		private static void Load(FileHandle handle) {
+		public static void Load(FileHandle handle) {
 			if (!handle.Exists()) {
 				Log.Error($"Item data {handle.FullPath} does not exist!");
 				return;

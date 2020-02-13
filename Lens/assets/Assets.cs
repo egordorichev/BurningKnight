@@ -12,11 +12,13 @@ namespace Lens.assets {
 		public static bool LoadMusic = false;
 		public static bool LoadSfx = false;
 		public static bool Reload = false;
+		public static bool LoadMods = true;
 #else
 		public static bool LoadOriginalFiles = false;
 		public static bool LoadMusic = true;
 		public static bool LoadSfx = true;
 		public static bool Reload = false;
+		public static bool LoadMods = true;
 #endif
 
 		public static ContentManager Content;
