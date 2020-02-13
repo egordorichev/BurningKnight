@@ -39,5 +39,9 @@ namespace BurningKnight.level.biome {
 				}
 			});
 		}
+
+		public override bool HasPaintings() {
+			return false;
+		}
 	}
 }

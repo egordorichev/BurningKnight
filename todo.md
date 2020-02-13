@@ -3,7 +3,6 @@
 * duck crashes when resque?
 * gun fire through metal tiles?
 * check weird mushroom
-* sawblade room can have blades on the entrance somehow (probs spawned on chasm)
 * crash/freze if you die in old king fight?
 
 resolution presets? 1920×1080 
