@@ -1,10 +1,5 @@
 # bugfix
 
-* duck crashes when resque?
-* gun fire through metal tiles?
-* check weird mushroom
-* crash/freze if you die in old king fight?
-
 resolution presets? 1920×1080 
                     1600×900
                     1366×768

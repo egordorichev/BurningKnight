@@ -71,7 +71,7 @@ namespace BurningKnight.save {
 			Achievements.LockAll();
 			Put("disk", 10);
 
-			if (BK.Version.Dev) {
+			if (false && BK.Version.Dev) {
 				Put(ShopNpc.AccessoryTrader, true);
 				Put(ShopNpc.ActiveTrader, true);
 				Put(ShopNpc.HatTrader, true);
