@@ -19,6 +19,7 @@ using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
@@ -343,9 +344,9 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 					
-				/*if (ev.Entity is DestroyableLevel lvl) {
+				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
-				}*/
+				}
 			} else if (e is CollisionEndedEvent cee) {
 				if (cee.Entity.HasComponent<HealthComponent>()) {
 					ToHurt.Remove(cee.Entity);
