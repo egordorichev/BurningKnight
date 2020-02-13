@@ -15,6 +15,7 @@ namespace BurningKnight.level.entities.decor {
 		private byte type;
 		private List<Entity> colliding = new List<Entity>();
 		public bool High;
+		public bool AlwaysShow;
 
 		public byte Id {
 			get => type;
@@ -48,7 +49,7 @@ namespace BurningKnight.level.entities.decor {
 			Width = s.Sprite.Width;
 			Height = s.Sprite.Height;
 
-			if (Width > 14) {
+			if (Width > 14 && !AlwaysShow) {
 				AddComponent(new SensorBodyComponent(4, 4, Width - 4, Height - 4));
 			}
 		}

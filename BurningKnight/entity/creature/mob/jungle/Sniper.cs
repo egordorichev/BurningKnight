@@ -59,6 +59,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			public override void Init() {
 				base.Init();
 
+				Self.GetComponent<AudioEmitterComponent>().Emit("mob_sniper_focus");
 				Self.AlwaysVisible = true; // So that the line is visible
 				Self.lastAngle = Self.AngleTo(Self.Target);
 				lastSeen = Self.Target.Center;

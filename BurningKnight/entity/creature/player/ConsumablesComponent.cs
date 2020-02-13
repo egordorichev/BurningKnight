@@ -109,10 +109,21 @@ namespace BurningKnight.entity.creature.player {
 						}
 						
 						case ItemType.Coin: {
-							if (ev.Item.Id == "bk:emerald") {
-								Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
-							} else {
-								Audio.PlaySfx("item_coin", 0.2f);
+							switch (ev.Item.Id) {
+								case "bk:emerald": {
+									Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
+									break;
+								}
+
+								case "bk:iron_coin": {
+									Audio.PlaySfx("item_silver_coin", 0.2f);
+									break;
+								}
+
+								default: {
+									Audio.PlaySfx("item_coin", 0.2f);
+									break;
+								}
 							}
 
 							break;

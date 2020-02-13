@@ -44,8 +44,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			if (!loaded) {
 				tree = new Tree();
 				tree.Id = 5;
+				tree.AlwaysShow = true;
 				Area.Add(tree);
 			}
+			
+			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", looped: true);
 		}
 
 		public override void Update(float dt) {
@@ -80,6 +83,8 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		public class FallingState : SmartState<BeeHive> {
 			public override void Init() {
 				base.Init();
+				
+				Self.GetComponent<AudioEmitterComponent>().Emit("mob_hive_breaking");
 
 				var y = Self.Y;
 				var c = Self.GetComponent<MobAnimationComponent>();
@@ -95,7 +100,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
 						p.Color = ProjectileColor.Orange;
 						p.BounceLeft = 5;
-						p.Controller += SlowdownProjectileController.Make(0.25f);
+						p.Controller += SlowdownProjectileController.Make(0.25f, 1f, 1f);
 					}
 
 					for (var i = 0; i < Rnd.Int(4, 10); i++) {

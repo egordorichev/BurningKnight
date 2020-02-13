@@ -74,23 +74,23 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
-		public SoundEffectInstance EmitRandomizedPrefixed(string sfx, int prefixMax, float volume = 1f, bool insert = true) {
+		public SoundEffectInstance EmitRandomizedPrefixed(string sfx, int prefixMax, float volume = 1f, bool insert = true, bool looped = false) {
 			if (sfx == null) {
 				return null;
 			}
 		
-			return Emit($"{sfx}_{Rnd.Int(1, prefixMax + 1)}", volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert);
+			return Emit($"{sfx}_{Rnd.Int(1, prefixMax + 1)}", volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert, looped);
 		}
 		
-		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true) {
+		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true, bool looped = false) {
 			if (sfx == null) {
 				return null;
 			}
 			
-			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert);
+			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert, looped);
     }
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true) {
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true, bool looped = false) {
 			if (!Assets.LoadAudio || sfx == null) {
 				return null;
 			}
@@ -111,6 +111,10 @@ namespace BurningKnight.entity.component {
 
 				if (insert) {
 					Playing[sfx] = instance;
+				}
+
+				if (looped) {
+					instance.Effect.IsLooped = true;
 				}
 			}
 

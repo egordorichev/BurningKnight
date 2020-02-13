@@ -72,9 +72,17 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					T = 0;
 
 					if (second) {
+						if (Self.ShootAllAtOnce) {
+							Self.GetComponent<AudioEmitterComponent>().Emit("mob_fire");
+						}
+						
 						for (var i = 0; i < (Self.ShootAllAtOnce ? 8 : 1); i++) {
 							var p = projectiles[0];
 							projectiles.RemoveAt(0);
+
+							if (!Self.ShootAllAtOnce) {
+								Self.GetComponent<AudioEmitterComponent>().Emit("mob_fire", pitch: (projectiles.Count / 16f - 0.5f) * 2);
+							}
 
 							if (!p.Done) {
 								p.BodyComponent.Velocity = MathUtils.CreateVector(p.AngleTo(Self.Target), 200f);
@@ -87,11 +95,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 							}
 						}
 					} else {
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
 
 						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 10);
 						p.Depth = 1;
+						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: projectiles.Count / 8f);
 						projectiles.Add(p);
 						
 						if (projectiles.Count == 8) {
