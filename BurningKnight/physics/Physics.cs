@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BurningKnight.entity.component;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -15,27 +16,38 @@ namespace BurningKnight.physics {
 		public static Fixture Fixture;
 
 		private static bool locked;
+		private static List<Body> toRemove = new List<Body>();
 
 		public static void Init() {
 			World = new World(Vector2.Zero);
 			Debug = new PhysicsDebugRenderer(World);
-			
+
 			World.ContactManager.PreSolve += PreSolve;
-			
+
 			World.ContactManager.BeginContact += BeginContact;
 			World.ContactManager.EndContact += EndContact;
 		}
 
+		
+		
+		private static void RemoveBodies() {
+			if (locked || World == null || toRemove.Count == 0) {
+				return;
+			}
+
+			foreach (var b in toRemove) {
+				try {
+					World.RemoveBody(b);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+			}
+
+			toRemove.Clear();
+		}
+
 		public static void RemoveBody(Body body) {
-			if (locked) {
-				Log.Error("World was locked");
-			}
-			
-			try {
-				World?.RemoveBody(body);
-			} catch {
-				
-			}
+			toRemove.Add(body);
 		}
 		
 		public static void PreSolve(Contact contact, ref Manifold oldManifold) {
@@ -95,9 +107,15 @@ namespace BurningKnight.physics {
 		}
 
 		public static void Update(float dt) {
+			if (World == null) {
+				return;
+			}
+			
 			try {
+				RemoveBodies();
+				
 				locked = true;
-				World?.Step(dt);
+				World.Step(dt);
 				locked = false;
 			} catch (Exception e) {
 				Log.Error(e);
@@ -112,10 +130,11 @@ namespace BurningKnight.physics {
 
 		public static void Destroy() {
 			if (locked) {
-				Log.Error("World was locked");
+				Log.Error("World was locked when destroying");
 			}
 			
 			try {
+				RemoveBodies();
 				World?.Clear();
 			} catch (Exception e) {
 				Log.Error(e);

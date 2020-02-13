@@ -100,7 +100,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
 						p.Color = ProjectileColor.Orange;
 						p.BounceLeft = 5;
-						p.Controller += SlowdownProjectileController.Make(0.25f, 1f, 1f);
+						p.Controller += SlowdownProjectileController.Make(0.25f, 0.5f, 1f);
 					}
 
 					for (var i = 0; i < Rnd.Int(4, 10); i++) {

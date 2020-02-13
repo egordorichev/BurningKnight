@@ -1,15 +1,6 @@
 # bugfix
 
-Object reference not set to an instance of an object.
-
-   at VelcroPhysics.Dynamics.World.ProcessRemovedBodies()
-   at VelcroPhysics.Dynamics.World.ProcessChanges()
-   at VelcroPhysics.Dynamics.World.Clear()
-   at BurningKnight.physics.Physics.Destroy()
-   at BurningKnight.state.InGameState.Destroy()
-
 * duck crashes when resque?
-* purchase sound not playing? 
 * idol did not spawn coins or smths?
 -BK can still attack you AS you are going down stairs
 * gun fire through metal tiles?
@@ -18,8 +9,7 @@ Object reference not set to an instance of an object.
 * zoom when talking to npcs?
 * sawblade room can have blades on the entrance somehow (probs spawned on chasm)
 
-* prism crashes/freezes? crystal should too (with glass, physics lag out)
-* crash/freze if you die in old king fight?
+    * crash/freze if you die in old king fight?
 
 resolution presets? 1920×1080 
                     1600×900

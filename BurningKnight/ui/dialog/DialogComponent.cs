@@ -9,6 +9,7 @@ using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -237,11 +238,10 @@ namespace BurningKnight.ui.dialog {
 				input.InDialog = true;
 				input.Dialog = this;
 				Dialog.ShowArrow = true;
+				Tween.To(2, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
 			}
-
 						
 			p.GetComponent<StateComponent>().Become<Player.IdleState>();
-				
 			((InGameState) Engine.Instance.State).OpenBlackBars();
 
 			Talking = this;
@@ -252,6 +252,7 @@ namespace BurningKnight.ui.dialog {
 				input.InDialog = false;
 				input.Dialog = null;
 				Dialog.ShowArrow = false;
+				Tween.To(1, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
 			}
 						
 			((InGameState) Engine.Instance.State).CloseBlackBars();
