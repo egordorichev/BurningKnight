@@ -231,6 +231,8 @@ namespace BurningKnight.ui.dialog {
 			}
 		}
 
+		private bool wasUnhittable;
+
 		private void OnStart() {
 			var p = (Player) To;
 
@@ -238,8 +240,13 @@ namespace BurningKnight.ui.dialog {
 				input.InDialog = true;
 				input.Dialog = this;
 				Dialog.ShowArrow = true;
-				Tween.To(2, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
 			}
+
+			var health = To.GetComponent<HealthComponent>();
+			wasUnhittable = health.Unhittable;
+			health.Unhittable = true;
+			
+			Tween.To(2, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
 						
 			p.GetComponent<StateComponent>().Become<Player.IdleState>();
 			((InGameState) Engine.Instance.State).OpenBlackBars();
@@ -248,13 +255,18 @@ namespace BurningKnight.ui.dialog {
 		}
 		
 		private void OnEnd() {
-			if (To != null && To.TryGetComponent<PlayerInputComponent>(out var input)) {
-				input.InDialog = false;
-				input.Dialog = null;
-				Dialog.ShowArrow = false;
-				Tween.To(1, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
+			if (To != null) {
+				if (To.TryGetComponent<PlayerInputComponent>(out var input)) {
+					input.InDialog = false;
+					input.Dialog = null;
+					Dialog.ShowArrow = false;
+				}
+				
+				To.GetComponent<HealthComponent>().Unhittable = wasUnhittable;
+				wasUnhittable = false;
 			}
-						
+
+			Tween.To(1, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.3f, Ease.QuadInOut);
 			((InGameState) Engine.Instance.State).CloseBlackBars();
 
 			Talking = null;

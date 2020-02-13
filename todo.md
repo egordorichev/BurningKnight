@@ -1,15 +1,10 @@
 # bugfix
 
 * duck crashes when resque?
-* idol did not spawn coins or smths?
--BK can still attack you AS you are going down stairs
 * gun fire through metal tiles?
 * check weird mushroom
-* should be invincible while talking to npcs
-* zoom when talking to npcs?
 * sawblade room can have blades on the entrance somehow (probs spawned on chasm)
-
-    * crash/freze if you die in old king fight?
+* crash/freze if you die in old king fight?
 
 resolution presets? 1920×1080 
                     1600×900

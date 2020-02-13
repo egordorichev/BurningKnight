@@ -32,7 +32,11 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 				Dialogs.RegisterCallback("duck_4", (d, c) => {
 					interacted = true;
-					chest.CanOpen = true;
+					
+					if (chest != null) {
+						chest.CanOpen = true;
+					}
+					
 					RemoveComponent<InteractableComponent>();
 					
 					return null;
