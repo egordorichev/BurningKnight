@@ -36,6 +36,7 @@ namespace BurningKnight.entity.item.use {
 		private bool disableBoost;
 		private float knockback;
 		private bool rect;
+		private string sfx;
 		protected bool wait;
 		private bool toCursor;
 		
@@ -70,6 +71,7 @@ namespace BurningKnight.entity.item.use {
 			scaleMax = settings["scalem"].Number(1);
 			slice = settings["texture"].String("rect");
 			toCursor = settings["cursor"].Bool(false);
+			sfx = settings["sfx"].String("item_gun_fire");
 
 			if (slice == "default") {
 				slice = "rect";
@@ -93,7 +95,12 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				entity.TryGetComponent<StatsComponent>(out var stats);
-				entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
+
+				if (sfx == "item_gun_fire") {
+					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f);
+				} else {
+					entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f);
+				}
 
 				var aim = entity.GetComponent<AimComponent>();
 				var from = toCursor ? entity.Center : aim.Center;
@@ -198,6 +205,7 @@ namespace BurningKnight.entity.item.use {
 				root.Checkbox("To Cursor", "cursor", false);
 				root.InputFloat("Damage", "damage");
 				root.InputInt("Projectile Count", "amount");
+				root.InputText("Sound", "sfx", "item_gun_fire");
 
 				ImGui.Separator();
 

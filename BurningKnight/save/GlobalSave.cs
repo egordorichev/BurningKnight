@@ -77,7 +77,6 @@ namespace BurningKnight.save {
 				Put(ShopNpc.HatTrader, true);
 				Put(ShopNpc.WeaponTrader, true);
 				
-				
 				Put(ShopNpc.Snek, true);
 				Put(ShopNpc.Boxy, true);
 				Put(ShopNpc.Roger, true);

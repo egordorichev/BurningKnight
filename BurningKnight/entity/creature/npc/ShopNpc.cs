@@ -171,10 +171,13 @@ namespace BurningKnight.entity.creature.npc {
 		public void Save() {
 			if (Run.Depth > 0 && !saved) {
 				saved = true;
+				Remove = true;
 				GetComponent<DialogComponent>().StartAndClose("npc_1", 6);
 				
 				GlobalSave.Put(GetId(), true);
 				GlobalSave.Put("saved_npc", true);
+				
+				RemoveComponent<InteractableComponent>();
 
 				HandleEvent(new SavedEvent {
 					Npc = this

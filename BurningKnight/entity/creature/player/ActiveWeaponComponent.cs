@@ -81,7 +81,7 @@ namespace BurningKnight.entity.creature.player {
 			Item?.TakeOut();
 
 			if (Item != null && InGameState.Ready) {
-				Audio.PlaySfx(Run.Depth == -2 ? Item.Data.WeaponType.GetSwapSfx() : Item.Data.WeaponType.GetPickupSfx());
+				Audio.PlaySfx(Run.Depth == 0 ? Item.Data.WeaponType.GetPickupSfx() : Item.Data.WeaponType.GetSwapSfx());
 			}
 			
 			if (Run.Depth == -2) {

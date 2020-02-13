@@ -16,10 +16,16 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class Slime : Mob {
+		private bool first;
+		
 		protected virtual float GetJumpDelay() {
 			return 1;
 		}
-		
+
+		protected virtual float GetJumpAngle() {
+			return Target == null ? Rnd.AnglePI() : AngleTo(Target) + Rnd.Float(-0.1f, 0.1f);
+		}
+
 		protected override void SetStats() {
 			base.SetStats();
 			
@@ -37,7 +43,8 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Init() {
 				base.Init();
 				
-				delay = Rnd.Float(0.5f, 1.2f) + Self.GetJumpDelay();
+				delay = Self.first ? Rnd.Float(1f) : Self.GetJumpDelay();
+				Self.first = false;
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 			}
 
@@ -74,7 +81,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				base.Init();
 
 				Self.OnJump();
-				var a = Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f);
+				var a = Self.GetJumpAngle();
 				var force = Rnd.Float(20f) + Self.JumpForce;
 				
 				Self.GetComponent<RectBodyComponent>().Velocity = new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);

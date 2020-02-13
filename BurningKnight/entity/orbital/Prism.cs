@@ -22,7 +22,7 @@ namespace BurningKnight.entity.orbital {
 		}
 		
 		public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent cse && cse.Entity is Projectile p && !p.Artificial && p.Owner == Owner) {
+			if (e is CollisionStartedEvent cse && cse.Entity is Projectile p && !p.Artificial && p.Owner == Owner && p.Parent == null) {
 				for (var i = 0; i < 7; i++) {
 					var pr = Projectile.Make(Owner, p.Slice, p.BodyComponent.Angle + (i - 3) * 0.1f, p.BodyComponent.Velocity.Length() * 0.1f);
 					

@@ -69,7 +69,7 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(string id, float volume = 1, float pitch = 0, float pan = 0) {
-			if (!Engine.Instance.Focused || !Assets.LoadAudio) {
+			if (!Engine.Instance.Focused || !Assets.LoadSfx) {
 				return;
 			}
 			
@@ -88,7 +88,7 @@ namespace Lens.assets {
 		}
 
 		public static void PlaySfx(SoundEffect sfx, float volume = 1, float pitch = 0, float pan = 0) {
-			if (!Assets.LoadAudio) {
+			if (!Assets.LoadSfx) {
 				return;
 			}
 			
@@ -96,7 +96,7 @@ namespace Lens.assets {
 		}
 		
 		public static void PlayMusic(string music, bool fromStart = false) {
-			if (!Assets.LoadAudio) {
+			if (!Assets.LoadMusic) {
 				return;
 			}
 
@@ -205,7 +205,7 @@ namespace Lens.assets {
 		};
 
 		public static void Preload(string music) {
-			if (!Assets.LoadAudio || toLoad.Contains(music) || musicInstances.ContainsKey(music)) {
+			if (!Assets.LoadMusic || toLoad.Contains(music) || musicInstances.ContainsKey(music)) {
 				return;
 			}
 			
@@ -216,7 +216,7 @@ namespace Lens.assets {
 		}
 		
 		public static void UpdateAudio() {
-			if (!Assets.LoadAudio || currentPlaying == null || loadedAll || loading) {
+			if (!Assets.LoadMusic || currentPlaying == null || loadedAll || loading) {
 				return;
 			}
 

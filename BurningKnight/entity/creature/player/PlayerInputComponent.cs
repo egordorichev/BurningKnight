@@ -133,8 +133,10 @@ namespace BurningKnight.entity.creature.player {
 				state.Become<Player.DuckState>();
 				GlobalSave.Put("control_duck", true);
 			}
-			
-			if (state.StateInstance is Player.RollState r) {
+
+			if (state.StateInstance is Player.PostRollState) {
+				
+			} if (state.StateInstance is Player.RollState r) {
 				// Movement tech :) Direction changing
 				if (Input.WasPressed(Controls.Swap, controller)) {
 					idle = false;

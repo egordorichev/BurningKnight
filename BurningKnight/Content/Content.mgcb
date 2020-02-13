@@ -148,6 +148,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/bomb.wav
 
+#begin Sfx/item/bow/attack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/bow/attack.wav
+
 #begin Sfx/item/cage_key_used.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -225,6 +231,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/purchase.wav
+
+#begin Sfx/item/silver_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/silver_coin.wav
 
 #begin Sfx/item/sword/attack/1.wav
 /importer:WavImporter
@@ -442,6 +454,12 @@
 /processorParam:Quality=Best
 /build:Sfx/level/turret/fire.wav
 
+#begin Sfx/level/turret/rotating.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/turret/rotating.wav
+
 #begin Sfx/level/well.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -459,6 +477,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/capture.wav
+
+#begin Sfx/mob/bk/flame_loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/flame_loop.wav
+
+#begin Sfx/mob/bk/hovering_loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/hovering_loop.wav
 
 #begin Sfx/mob/bk/hurt/1.wav
 /importer:WavImporter
@@ -513,12 +543,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/roar/4.wav
-
-#begin Sfx/mob/bk/static.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/mob/bk/static.wav
 
 #begin Sfx/mob/bk/syllable/1.wav
 /importer:WavImporter
@@ -580,6 +604,12 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/fire.wav
 
+#begin Sfx/mob/flower/charging.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/flower/charging.wav
+
 #begin Sfx/mob/ghost/death.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -597,6 +627,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/ghost/hurt_2.wav
+
+#begin Sfx/mob/hive/breaking.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/hive/breaking.wav
+
+#begin Sfx/mob/hive/static.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/hive/static.wav
 
 #begin Sfx/mob/oldking/explode.wav
 /importer:WavImporter
@@ -645,6 +687,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/slime/land_2.wav
+
+#begin Sfx/mob/sniper/focus.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/sniper/focus.wav
 
 #begin Sfx/npc/voice/1.wav
 /importer:WavImporter
@@ -849,6 +897,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/player/hurt.wav
+
+#begin Sfx/player/low_hp_hurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/low_hp_hurt.wav
 
 #begin Sfx/player/roll.wav
 /importer:WavImporter

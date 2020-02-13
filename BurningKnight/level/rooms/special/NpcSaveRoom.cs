@@ -1,5 +1,6 @@
 using System.Linq;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.door;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -37,9 +38,9 @@ namespace BurningKnight.level.rooms.special {
 		public override void Paint(Level level) {
 			GameSave.Put("npc_appeared", true);
 			var d = Connected.Values.First();
-			
-			ShopNpc npc = null;
 
+			ShopNpc npc = null;
+			
 			foreach (var s in townNpcs) {
 				if (GlobalSave.IsFalse(s)) {
 					npc = ShopNpc.FromId(s);

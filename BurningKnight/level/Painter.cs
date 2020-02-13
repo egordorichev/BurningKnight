@@ -256,6 +256,7 @@ namespace BurningKnight.level {
 						} else {
 							if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
 								Level.Tiles[I] = (byte) Tile.FloorA;
+								Level.Liquid[I] = 0;
 
 								var spikes = new SensingSpikes();
 
@@ -265,6 +266,7 @@ namespace BurningKnight.level {
 								Level.Area.Add(spikes);
 							} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
 								Level.Tiles[I] = (byte) Tile.FloorA;
+								Level.Liquid[I] = 0;
 
 								var spikes = new Spikes();
 
@@ -274,6 +276,7 @@ namespace BurningKnight.level {
 								Level.Area.Add(spikes);
 							} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
 								Level.Tiles[I] = (byte) Tile.FloorA;
+								Level.Liquid[I] = 0;
 
 								var trap = new FireTrap();
 
@@ -283,6 +286,7 @@ namespace BurningKnight.level {
 								Level.Area.Add(trap);
 							} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
 								Level.Tiles[I] = (byte) Tile.FloorA;
+								Level.Liquid[I] = 0;
 
 								var spikes = new AlwaysOnSpikes();
 
@@ -295,6 +299,7 @@ namespace BurningKnight.level {
 
 					if (Level.Tiles[I] == (byte) Tile.Plate) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
 							
 							var plate = new PreasurePlate();
 
@@ -304,6 +309,7 @@ namespace BurningKnight.level {
 							Level.Area.Add(plate);
 						} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
 							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
 							
 							var barrel = new ExplodingBarrel();
 							Level.Area.Add(barrel);

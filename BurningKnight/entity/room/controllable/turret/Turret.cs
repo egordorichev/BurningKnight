@@ -163,7 +163,10 @@ namespace BurningKnight.entity.room.controllable.turret {
 						var t = Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 
 						if (Rotates) {
-							t.OnEnd = () => Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
+							t.OnEnd = () => {
+								GetComponent<AudioEmitterComponent>().EmitRandomized("level_turret_rotating");
+								Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
+							};
 						}
 
 						var r = GetComponent<RoomComponent>();

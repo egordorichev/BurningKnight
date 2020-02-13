@@ -1,11 +1,3 @@
-# bugfix
-
-resolution presets? 1920×1080 
-                    1600×900
-                    1366×768
-                    1280×720 
-                    1024×576
-
 # todo
 
 * fix {
@@ -22,10 +14,14 @@ resolution presets? 1920×1080
 
 * bk: fix how saving works with capturing ths bosses
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* bk fire sound (when near)
 * rewamp death screen
 * Low health indicator
 
+resolution presets? 1920×1080 
+                    1600×900
+                    1366×768
+                    1280×720 
+                    1024×576
 + hub {
  + allow to layer in stuff for speical events
  + lock away the rest of the hub on the first time you enter it after tutorial?

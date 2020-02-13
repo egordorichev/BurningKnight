@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
@@ -40,9 +41,9 @@ namespace BurningKnight.entity.component {
 				}
 			}
 
-			/*if (old != null && !old.Contains(Entity.Center)) {
+			if (old != null && Entity is Mob && !(Entity is Boss) && !old.Contains(Entity.Center)) {
 				old = null;
-			}*/
+			}
 
 			if (old != Room) {
 				old?.Tagged.Remove(Entity);

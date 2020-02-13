@@ -146,7 +146,7 @@ namespace BurningKnight.entity.room {
 		};
 
 		private Entity CreateReward() {
-			if (Rnd.Chance(20)) {
+			if (Rnd.Chance(10)) {
 				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 				Area.Add(chest);
 
@@ -157,7 +157,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(70 - Run.Luck * 10)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(50 - Run.Luck * 10)) {
 				return;
 			}
 			
@@ -383,6 +383,20 @@ namespace BurningKnight.entity.room {
 				&& Run.Level.CheckFor(x, y - 1, TileFlags.Passable)
 				&& Run.Level.CheckFor(x, y + 1, TileFlags.Passable)) {
 					// No wall here :/
+					return false;
+				}
+				
+				return filter == null || filter(x, y);
+			});
+		}
+		
+		public Vector2 GetRandomWallFreeTile(Func<int, int, bool> filter = null) {
+			return GetRandomFreeTile((x, y) => {
+				if (!Run.Level.CheckFor(x - 1, y, TileFlags.Passable)
+				    || !Run.Level.CheckFor(x + 1, y, TileFlags.Passable)
+				    || !Run.Level.CheckFor(x, y - 1, TileFlags.Passable)
+				    || !Run.Level.CheckFor(x, y + 1, TileFlags.Passable)) {
+					// Wall here :/
 					return false;
 				}
 				

@@ -510,7 +510,7 @@ namespace BurningKnight.assets.items {
 			area.Add(item);
 			item.AddDroppedComponents();
 
-			if (scourgeFree && !Datas[id].Scourged) {
+			if (scourgeFree && (!Datas.ContainsKey(id) || !Datas[id].Scourged)) {
 				item.Scourged = false;
 			}
 			

@@ -59,9 +59,12 @@ namespace BurningKnight.entity.room.controller {
 				Timer.Add(() => {
 					var mob = MobRegistry.Generate();
 					entity.Area.Add(mob);
+					var v = MobRegistry.FindFor(mob.GetType());
 
-					if (MobRegistry.FindFor(mob.GetType())?.NearWall ?? false) {
+					if (v?.NearWall ?? false) {
 						mob.Center = Room.GetRandomFreeTileNearWall(filter) * 16;
+					} else if (v?.AwayFromWall ?? false) {
+						mob.Center = Room.GetRandomWallFreeTile(filter) * 16;
 					} else {
 						mob.Center = Room.GetRandomFreeTile(filter) * 16;
 					}

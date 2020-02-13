@@ -442,6 +442,9 @@
     <Compile Include="entity\creature\mob\desert\Mummy.cs" />
     <Compile Include="entity\creature\mob\desert\Spelunker.cs" />
     <Compile Include="entity\creature\mob\desert\Worm.cs" />
+    <Compile Include="entity\creature\mob\ice\IceCrawler.cs" />
+    <Compile Include="entity\creature\mob\ice\Snowball.cs" />
+    <Compile Include="entity\creature\mob\ice\Snowflake.cs" />
     <Compile Include="entity\creature\mob\jungle\Bee.cs" />
     <Compile Include="entity\creature\mob\jungle\BeeHive.cs" />
     <Compile Include="entity\creature\mob\jungle\BigBee.cs" />

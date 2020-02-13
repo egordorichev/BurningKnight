@@ -90,8 +90,17 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<DialogComponent>().Dialog.Voice = 25;
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+			
+			GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.5f, looped: true, tween: true);
+			GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.5f, looped: true, tween: true);
+		}
+
 		public override void Destroy() {
 			base.Destroy();
+			
+			GetComponent<AudioEmitterComponent>().StopAll();
 			Log.Debug("Bk destroyed");
 		}
 

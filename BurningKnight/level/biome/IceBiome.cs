@@ -18,7 +18,7 @@ namespace BurningKnight.level.biome {
 			base.ModifyPainter(painter);
 
 			painter.Grass = 0;
-			painter.Water = 0.5f;
+			painter.Water = 0.45f;
 			painter.Dirt = 0;
 			painter.Cobweb = 0;
 			
@@ -38,6 +38,10 @@ namespace BurningKnight.level.biome {
 					l.Tiles[i] = r;
 				}
 			});
+		}
+
+		public override bool HasPaintings() {
+			return false;
 		}
 	}
 }
