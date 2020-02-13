@@ -48,7 +48,12 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				Area.Add(tree);
 			}
 			
-			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", looped: true);
+			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", 0.5f, looped: true, tween: true);
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			GetComponent<AudioEmitterComponent>().StopAll();
 		}
 
 		public override void Update(float dt) {
@@ -92,6 +97,8 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				Tween.To(0, c.ShadowOffset, x => c.ShadowOffset = x, 0.4f, Ease.QuadIn);
 				Tween.To(y + ZHeight, y, x => Self.Y = x, 0.4f, Ease.QuadIn).OnEnd = () => {
 					Self.AnimateDeath(null);
+
+					Self.GetComponent<AudioEmitterComponent>().StopAll();
 					
 					var am = 16;
 			

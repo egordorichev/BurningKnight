@@ -237,7 +237,7 @@ namespace BurningKnight.entity.projectile {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 			
-	    if (BodyComponent.Velocity.Length() < 0.1f) {
+	    if (Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
 		    Break();
 	    }
 		}

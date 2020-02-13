@@ -38,10 +38,10 @@ namespace BurningKnight.level.rooms.special {
 		public override void Paint(Level level) {
 			GameSave.Put("npc_appeared", true);
 			var d = Connected.Values.First();
-			
-			ShopNpc npc = new DungeonDuck();
 
-			/*foreach (var s in townNpcs) {
+			ShopNpc npc = null;
+			
+			foreach (var s in townNpcs) {
 				if (GlobalSave.IsFalse(s)) {
 					npc = ShopNpc.FromId(s);
 					break;
@@ -55,7 +55,7 @@ namespace BurningKnight.level.rooms.special {
 						break;
 					}
 				}
-			}*/
+			}
 
 			if (npc == null) {
 				return;

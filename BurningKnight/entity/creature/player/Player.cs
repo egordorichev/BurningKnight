@@ -40,6 +40,7 @@ using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct2D1;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
@@ -318,7 +319,19 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 		}
-		
+
+
+		public class PostRollState : EntityState {
+			public override void Update(float dt) {
+				base.Update(dt);
+				
+				if (T >= 0.2f) {
+					Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
+					Become<IdleState>();
+				}
+			}
+		}
+
 		public class RollState : EntityState {
 			private const float RollTime = 0.25f;
 			private const float RollForce = 1600f;
@@ -329,6 +342,13 @@ namespace BurningKnight.entity.creature.player {
 			
 			public override void Init() {
 				base.Init();
+
+				var z = Self.GetComponent<ZComponent>();
+				var start = z.Z;
+
+				Tween.To(start + 8, start, x => z.Z = x, 0.15f, Ease.QuadIn).OnEnd = () => {
+					Tween.To(start, z.Z, x => z.Z = x, 0.15f, Ease.QuadIn);
+				};
 				
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("player_roll", 0.5f);
 				var hp = Self.GetComponent<HealthComponent>();
@@ -356,14 +376,13 @@ namespace BurningKnight.entity.creature.player {
 				base.Destroy();
 				
 				Self.GetComponent<HealthComponent>().Unhittable = wasUnhittable;
-				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
 
 				if (T >= RollTime) {
-					Become<IdleState>();
+					Become<PostRollState>();
 					return;
 				}
 				
