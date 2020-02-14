@@ -164,6 +164,7 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 						if (Rotates) {
 							t.OnEnd = () => {
+								a.Animate();
 								GetComponent<AudioEmitterComponent>().EmitRandomized("level_turret_rotating");
 								Angle = (uint) ((Angle + (ReverseDirection ? -1 : 1)) % 8);
 							};

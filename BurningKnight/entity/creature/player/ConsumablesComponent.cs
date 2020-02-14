@@ -115,6 +115,16 @@ namespace BurningKnight.entity.creature.player {
 									break;
 								}
 
+								case "bk:platinum_coin": {
+									Audio.PlaySfx("item_platinum_coin", 0.2f);
+									break;
+								}
+
+								case "bk:gold_coin": {
+									Audio.PlaySfx("item_gold_coin", 0.2f);
+									break;
+								}
+
 								case "bk:iron_coin": {
 									Audio.PlaySfx("item_silver_coin", 0.2f);
 									break;

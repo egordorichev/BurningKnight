@@ -19,6 +19,7 @@ using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
@@ -49,6 +50,7 @@ namespace BurningKnight.entity.projectile {
 
 		public bool Boost = true;
 		public ProjectilePattern Pattern;
+		public bool PreventDespawn;
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
@@ -237,7 +239,7 @@ namespace BurningKnight.entity.projectile {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 			
-	    if (Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
+	    if (!PreventDespawn && Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
 		    Break();
 	    }
 		}
@@ -343,9 +345,9 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 					
-				/*if (ev.Entity is DestroyableLevel lvl) {
+				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
-				}*/
+				}
 			} else if (e is CollisionEndedEvent cee) {
 				if (cee.Entity.HasComponent<HealthComponent>()) {
 					ToHurt.Remove(cee.Entity);

@@ -1,37 +1,34 @@
-﻿using Lens.util;
+﻿using System;
+using System.Reflection;
+using Lens.util;
 using Lens.util.file;
-using MoonSharp.Interpreter;
 
 namespace BurningKnight.assets.mod {
-	public class Mod {
-		public string Prefix { get; private set; } = "nil";
-		private Script script = new Script();
+	public abstract class Mod {
+		public string Prefix { get; protected set; } = "null";
+
+		public abstract void Init();
+		public abstract void Destroy();
+		public abstract void Update(float dt);
+		public abstract void Render();
 		
-		private bool TryCall(string function) {
-			var fn = script.Globals[function];
-			
-			if (fn == null) {
-				return false;
-			}
+		public static Mod Load(FileHandle file) {
+			var dll = Assembly.LoadFile(file.FullPath);
 
-			script.Call(fn);
-			return true;
-		}
-		
-		public static Mod Load(FileHandle directory) {
-			var modFile = directory.FindFile("mod.lua");
-
-			if (!modFile.Exists()) {
-				Log.Error($"{modFile.FullPath} was not found!");
-				return null;
-			}
-
-			var mod = new Mod();
-
-			mod.script.DoFile(modFile.FullPath);
-			mod.TryCall("init");
+			foreach (var type in dll.ExportedTypes) {
+				if (typeof(Mod).IsAssignableFrom(type)) {
+					try {
+						var mod = (Mod) Activator.CreateInstance(type);
 						
-			return mod;
+						return mod;
+					} catch (Exception e) {
+						Log.Error(e);
+						return null;
+					}
+				}
+			}
+			
+			return null;
 		}
 	}
 }

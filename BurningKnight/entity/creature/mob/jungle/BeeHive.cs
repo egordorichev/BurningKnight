@@ -5,6 +5,7 @@ using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.level.entities.decor;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.util.file;
 using Lens.util.math;
 using Lens.util.tween;
@@ -48,7 +49,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				Area.Add(tree);
 			}
 			
-			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", 0.5f, looped: true, tween: true);
+			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", 0.8f, looped: true, tween: true);
 		}
 
 		public override void Destroy() {
@@ -96,8 +97,9 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				
 				Tween.To(0, c.ShadowOffset, x => c.ShadowOffset = x, 0.4f, Ease.QuadIn);
 				Tween.To(y + ZHeight, y, x => Self.Y = x, 0.4f, Ease.QuadIn).OnEnd = () => {
+					Audio.PlaySfx("mob_hive_release");
+					
 					Self.AnimateDeath(null);
-
 					Self.GetComponent<AudioEmitterComponent>().StopAll();
 					
 					var am = 16;
