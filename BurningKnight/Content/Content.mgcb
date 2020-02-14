@@ -172,6 +172,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/emerald.wav
 
+#begin Sfx/item/gold_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/gold_coin.wav
+
 #begin Sfx/item/gun/fire/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -225,6 +231,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/pickup.wav
+
+#begin Sfx/item/platinum_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/platinum_coin.wav
 
 #begin Sfx/item/purchase.wav
 /importer:WavImporter
@@ -460,6 +472,12 @@
 /processorParam:Quality=Best
 /build:Sfx/level/turret/rotating.wav
 
+#begin Sfx/level/vending_machine.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/vending_machine.wav
+
 #begin Sfx/level/well.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -471,6 +489,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bandit/death.wav
+
+#begin Sfx/mob/bee/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bee/damage.wav
 
 #begin Sfx/mob/bk/capture.wav
 /importer:WavImporter
@@ -633,6 +657,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/hive/breaking.wav
+
+#begin Sfx/mob/hive/release.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/hive/release.wav
 
 #begin Sfx/mob/hive/static.wav
 /importer:WavImporter
