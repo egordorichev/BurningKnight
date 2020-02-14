@@ -12,7 +12,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		protected virtual string GetAnimation() {
 			return "bee";
 		}
-		
+
+		protected override string GetHurtSfx() {
+			return "mob_bee_damage";
+		}
+
 		protected override void SetStats() {
 			base.SetStats();
 

@@ -93,8 +93,8 @@ namespace BurningKnight.entity.creature.bk {
 		public override void PostInit() {
 			base.PostInit();
 			
-			GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.5f, looped: true, tween: true);
-			GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.5f, looped: true, tween: true);
+			GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.3f, looped: true, tween: true);
+			GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.3f, looped: true, tween: true);
 		}
 
 		public override void Destroy() {
@@ -132,7 +132,7 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<HealthComponent>().Unhittable = true;
 
 			Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
-				GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_4");
+				GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_4", 0.8f);
 									
 				Timer.Add(() => {
 					Become<ChaseState>();
@@ -190,7 +190,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					if (!(state.StateInstance is HiddenState)) {
 						Timer.Add(() => {
-							GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_1");
+							GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_1", 0.8f);
 							state.Become<AttackState>();
 						}, 3);
 					}

@@ -1,14 +1,5 @@
 # todo
 
-I would make the BK a bit quiter overall
-and make the beehive and beehive breaking sounds louder
-I can only hear them when I'm like 1 feet away from the source
-the flowers charging up, I can't see the balls of magic around them
-
-I just noticed with the rotating turrent sound, that the sound plays twice per rotation
-the weapon switch sound of the revolver seems to be the sword switching sound
-I think when you die it plays rn the death sound as well as the sound that plays when for the hit that nearly kills you
-
 * fix {
  + the weapons go crazy when you point directly up or down
 

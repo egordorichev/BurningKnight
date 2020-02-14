@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
@@ -56,8 +57,10 @@ namespace BurningKnight.entity.item.util {
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
 				if (ev.Entity is ProjectileLevelBody bd) {
-      		Physics.Fixture.GetAABB(out var hitbox, 0);
-          bd.Break(hitbox.Center.X, hitbox.Center.Y);
+					if (Run.Level.Biome is IceBiome) {
+						Physics.Fixture.GetAABB(out var hitbox, 0);
+						bd.Break(hitbox.Center.X, hitbox.Center.Y);
+					}
 				} else if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
 				} else if (ev.Entity is Projectile p) {

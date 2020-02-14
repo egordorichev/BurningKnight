@@ -8,6 +8,7 @@ using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.math;
@@ -98,6 +99,7 @@ namespace BurningKnight.level.entities.machine {
 			Reroller.Reroll(entity.Area, room, true, false, true, ignoredTypes);
 
 			numRolled += (consumeCoin ? 1 : 2);
+			Audio.PlaySfx("level_vending_machine");
 
 			if (numRolled > 1 && Rnd.Float(100) < numRolled * 15 - Run.Luck * 2) {
 				Break();

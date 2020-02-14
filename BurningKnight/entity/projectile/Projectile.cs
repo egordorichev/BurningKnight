@@ -50,6 +50,7 @@ namespace BurningKnight.entity.projectile {
 
 		public bool Boost = true;
 		public ProjectilePattern Pattern;
+		public bool PreventDespawn;
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
@@ -238,7 +239,7 @@ namespace BurningKnight.entity.projectile {
 				Position += BodyComponent.Body.LinearVelocity * (dt);
 			}
 			
-	    if (Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
+	    if (!PreventDespawn && Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
 		    Break();
 	    }
 		}

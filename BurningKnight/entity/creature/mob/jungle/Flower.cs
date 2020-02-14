@@ -97,6 +97,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					} else {
 						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
 
+						p.PreventDespawn = true;
 						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 10);
 						p.Depth = 1;
 						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: projectiles.Count / 8f);

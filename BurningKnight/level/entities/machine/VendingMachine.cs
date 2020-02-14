@@ -10,6 +10,7 @@ using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.math;
@@ -95,6 +96,8 @@ namespace BurningKnight.level.entities.machine {
 			e.GetAnyComponent<BodyComponent>().Velocity = new Vector2(0, 128);
 
 			spawnedCount++;
+
+			Audio.PlaySfx("level_vending_machine");
 
 			if (spawnedCount > 1 && Rnd.Float(100) < spawnedCount * 30 - Run.Luck * 2) {
 				Break();
