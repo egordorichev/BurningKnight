@@ -244,6 +244,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/purchase.wav
 
+#begin Sfx/item/shield.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/shield.wav
+
 #begin Sfx/item/silver_coin.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -363,6 +369,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/cup/2.wav
+
+#begin Sfx/level/door/bell.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/door/bell.wav
 
 #begin Sfx/level/door/close/1.wav
 /importer:WavImporter
@@ -658,6 +670,18 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/hive/breaking.wav
 
+#begin Sfx/mob/hive/hurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/hive/hurt.wav
+
+#begin Sfx/mob/hive/pop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/hive/pop.wav
+
 #begin Sfx/mob/hive/release.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -723,6 +747,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/sniper/focus.wav
+
+#begin Sfx/mob/spelunker/beep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/spelunker/beep.wav
 
 #begin Sfx/npc/voice/1.wav
 /importer:WavImporter
@@ -963,6 +993,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/player/step/wood/3.wav
+
+#begin Sfx/projectile/reflected/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/reflected/1.wav
+
+#begin Sfx/projectile/reflected/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/projectile/reflected/2.wav
 
 #begin Sfx/projectile/shell/1.wav
 /importer:WavImporter

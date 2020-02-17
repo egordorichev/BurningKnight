@@ -238,7 +238,7 @@ namespace BurningKnight.entity.component {
 					Who = Entity
 				});
 
-				Audio.PlaySfx("item_heart");
+				Audio.PlaySfx(ev.Item.Id == "bk:shield" ? "item_shield" : "item_heart");
 				
 				ev.Item.Use(Entity);
 

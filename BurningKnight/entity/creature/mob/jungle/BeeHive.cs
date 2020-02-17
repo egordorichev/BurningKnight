@@ -79,6 +79,8 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						Self.Area.Add(bee);
 						bee.BottomCenter = Self.BottomCenter;
 						AnimationUtil.Ash(bee.Center);
+						
+						Self.GetComponent<AudioEmitterComponent>().Emit("mob_hive_pop");
 					}
 				} else {
 					T = 0;
@@ -91,6 +93,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				base.Init();
 				
 				Self.GetComponent<AudioEmitterComponent>().Emit("mob_hive_breaking");
+				Self.tree = null;
 
 				var y = Self.Y;
 				var c = Self.GetComponent<MobAnimationComponent>();
@@ -137,6 +140,10 @@ namespace BurningKnight.entity.creature.mob.jungle {
 		protected override bool HandleDeath(DiedEvent d) {
 			Become<FallingState>();
 			return true;
+		}
+
+		protected override string GetHurtSfx() {
+			return "mob_hive_hurt";
 		}
 	}
 }

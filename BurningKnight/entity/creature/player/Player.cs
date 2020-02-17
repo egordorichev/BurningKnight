@@ -471,6 +471,10 @@ namespace BurningKnight.entity.creature.player {
 					pr.EnableClip = false;
 				}
 
+				if (c.New.Type == RoomType.Shop) {
+					Audio.PlaySfx("level_door_bell");
+				}
+				
 				c.New.Discover();
 				var level = Run.Level;
 

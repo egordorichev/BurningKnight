@@ -1,5 +1,7 @@
 # todo
 
+* curved pumkin -> carved pumkin
+
 * fix {
  + the weapons go crazy when you point directly up or down
 

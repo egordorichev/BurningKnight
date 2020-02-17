@@ -96,7 +96,7 @@ namespace BurningKnight.entity.component {
 			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert, looped, tween);
     }
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true, bool looped = false, bool tween = false) {
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 0f, bool insert = true, bool looped = false, bool tween = false) {
 			if (!Assets.LoadSfx || sfx == null) {
 				return null;
 			}
