@@ -16,7 +16,7 @@ namespace BurningKnight.entity.component {
 		public static AudioListener Listener;
 		public static Vector2 ListenerPosition;
 		
-		public static float PositionScale = 0.000001f;
+		public static float PositionScale = 0.0000001f;
 		public static float Distance = 200;
 		
 		public AudioEmitter Emitter = new AudioEmitter();
