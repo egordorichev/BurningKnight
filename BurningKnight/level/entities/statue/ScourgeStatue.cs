@@ -1,6 +1,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
+using Lens.assets;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 
@@ -28,6 +29,7 @@ namespace BurningKnight.level.entities.statue {
 			
 			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemType.Scourge), Area));
 			Break();
+			Audio.PlaySfx("level_scourge_statue");
 			
 			return true;
 		}

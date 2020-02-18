@@ -27,6 +27,7 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.FloorB] = Passable | Burns | FloorLayer;
 			flags[(int) Tile.FloorC] = Passable | FloorLayer;
 			flags[(int) Tile.FloorD] = Passable | FloorLayer;
+			flags[(int) Tile.Path] = Passable | LiquidLayer;
 			flags[(int) Tile.SpikeOffTmp] = FloorLayer | Danger;
 			flags[(int) Tile.SpikeOnTmp] = FloorLayer | Danger;
 			flags[(int) Tile.SensingSpikeTmp] = FloorLayer | Danger;

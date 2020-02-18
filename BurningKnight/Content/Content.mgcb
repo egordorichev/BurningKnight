@@ -340,6 +340,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/ukulele/5.wav
 
+#begin Sfx/item/wand/fire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/wand/fire.wav
+
 #begin Sfx/level/chair/break/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -453,6 +459,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/room_cleared.wav
+
+#begin Sfx/level/scourge_statue.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/scourge_statue.wav
 
 #begin Sfx/level/spike.wav
 /importer:WavImporter

@@ -77,6 +77,7 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.FloorB, 64, 80);
 			DefineTile(Tile.FloorC, 0, 160);
 			DefineTile(Tile.FloorD, 64, 160);
+			DefineTile(Tile.Path, 400, 368, true);
 			DefineTile(Tile.GrannyFloor, 192, 368);
 			DefineTile(Tile.EvilFloor, 48, 384);
 			DefineTile(Tile.Water, 64, 240, true);
