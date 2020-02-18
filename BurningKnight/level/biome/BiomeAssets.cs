@@ -31,6 +31,9 @@ namespace BurningKnight.level.biome {
 		public TextureRegion ObsidianPattern;
 		public TextureRegion[] Obsidian;
 		
+		public TextureRegion PathPattern;
+		public TextureRegion[] Path;
+		
 		public TextureRegion ChasmPattern;
 		public TextureRegion[] ChasmTop = new TextureRegion[3];
 		public TextureRegion[] ChasmBottom = new TextureRegion[3];
@@ -86,6 +89,9 @@ namespace BurningKnight.level.biome {
 
 			Patterns[(int) Tile.Obsidian] = ObsidianPattern = new TextureRegion(anim.Texture, new Rectangle(0, 128, 64, 64));
 			Edges[(int) Tile.Obsidian] = Obsidian = GetEdge(anim, 64, 128);
+			
+			Patterns[(int) Tile.Path] = PathPattern = new TextureRegion(anim.Texture, new Rectangle(400, 368, 64, 64));
+			Edges[(int) Tile.Path] = Path = GetEdge(anim, 464, 368);
 
 			Patterns[(int) Tile.HighGrass] = Patterns[(int) Tile.Grass] =
 				GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));

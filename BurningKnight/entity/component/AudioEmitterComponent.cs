@@ -16,7 +16,7 @@ namespace BurningKnight.entity.component {
 		public static AudioListener Listener;
 		public static Vector2 ListenerPosition;
 		
-		public static float PositionScale = 0.000001f;
+		public static float PositionScale = 0.0000001f;
 		public static float Distance = 200;
 		
 		public AudioEmitter Emitter = new AudioEmitter();
@@ -96,7 +96,7 @@ namespace BurningKnight.entity.component {
 			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert, looped, tween);
     }
 
-		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 1f, bool insert = true, bool looped = false, bool tween = false) {
+		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 0f, bool insert = true, bool looped = false, bool tween = false) {
 			if (!Assets.LoadSfx || sfx == null) {
 				return null;
 			}

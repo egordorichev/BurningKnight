@@ -184,7 +184,7 @@ namespace BurningKnight.level {
 			}
 			
 			if (Rnd.Chance(95)) {
-				if (Rnd.Chance(50 + Run.Scourge * 5)) {
+				if (Rnd.Chance(2 + Run.Scourge * 5)) {
 					rooms.Add(new ScourgedRoom());
 				} else {
 					if (Rnd.Chance()) {

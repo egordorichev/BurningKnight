@@ -121,6 +121,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 		}
 
 		public class ExplodeState : SmartState<Spelunker> {
+			private bool lastFlash;
+			
 			public override void Destroy() {
 				base.Destroy();
 				
@@ -141,8 +143,16 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Self.Done = true;
 					ExplosionMaker.Make(Self, 48f);
 				}
+
+				var flash = T % 0.33 < 0.15f;
+
+				if (flash && !lastFlash) {
+					Self.GetComponent<AudioEmitterComponent>().Emit("mob_spelunker_beep", 1f, T);
+				}
 				
-				Self.GetComponent<MobAnimationComponent>().Flash = T % 0.33 < 0.15f;
+				lastFlash = flash;
+				
+				Self.GetComponent<MobAnimationComponent>().Flash = flash;
 			}
 		}
 		#endregion

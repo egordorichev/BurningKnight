@@ -86,8 +86,10 @@ namespace BurningKnight.entity.creature.player {
 			Height = 11;
 			
 			// Graphics
-			AddComponent(new LightComponent(this, 64, new Color(1f, 0.8f, 0.6f, 1f)));
-			
+			if (Run.Depth != 0) {
+				AddComponent(new LightComponent(this, 64, new Color(1f, 0.8f, 0.6f, 1f)));
+			}
+
 			AddComponent(new PlayerGraphicsComponent {
 				Offset = new Vector2(0, -5)
 			});
@@ -471,6 +473,10 @@ namespace BurningKnight.entity.creature.player {
 					pr.EnableClip = false;
 				}
 
+				if (c.New.Type == RoomType.Shop) {
+					Audio.PlaySfx("level_door_bell");
+				}
+				
 				c.New.Discover();
 				var level = Run.Level;
 

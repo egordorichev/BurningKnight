@@ -84,6 +84,7 @@ namespace BurningKnight.entity.item.util {
 							p.Color = ProjectileColor.Yellow;
 
 							Camera.Instance.ShakeMax(4f);
+							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("projectile_reflected", 2);
 						} else if (p.CanBeBroken) {
 							p.Break();
 						}
