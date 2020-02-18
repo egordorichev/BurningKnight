@@ -20,6 +20,9 @@ namespace BurningKnight.level.tile {
 					Log.Debug($"Reloading {set.Key} tileset");
 					set.Value.Load(set.Key);
 				}
+				
+				Log.Debug("Reloading biome assets");
+				Biome = new BiomeAssets();
 			}
 		}
 
