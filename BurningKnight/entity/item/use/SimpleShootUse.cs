@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.use {
 		private float knockback;
 		private bool rect;
 		private string sfx;
+		private int sfx_number;
 		protected bool wait;
 		private bool toCursor;
 		
@@ -72,6 +73,7 @@ namespace BurningKnight.entity.item.use {
 			slice = settings["texture"].String("rect");
 			toCursor = settings["cursor"].Bool(false);
 			sfx = settings["sfx"].String("item_gun_fire");
+			sfx_number = settings["sfxn"].Int(0);
 
 			if (slice == "default") {
 				slice = "rect";
@@ -99,7 +101,11 @@ namespace BurningKnight.entity.item.use {
 				if (sfx == "item_gun_fire") {
 					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f);
 				} else {
-					entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f);
+					if (sfx_number == 0) {
+						entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f);
+					} else {
+						entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, sfx_number, 0.5f);
+					}
 				}
 
 				var aim = entity.GetComponent<AimComponent>();
@@ -206,6 +212,7 @@ namespace BurningKnight.entity.item.use {
 				root.InputFloat("Damage", "damage");
 				root.InputInt("Projectile Count", "amount");
 				root.InputText("Sound", "sfx", "item_gun_fire");
+				root.InputInt("Sound Prefix Number", "sfxn", 0);
 
 				ImGui.Separator();
 

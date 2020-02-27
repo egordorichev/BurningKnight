@@ -29,6 +29,10 @@ namespace BurningKnight.entity.creature.player {
 				var ready = Item.Delay <= 0.001f;
 
 				if (ready) {
+					if (timeSinceReady <= 0.001f && Item.Type == ItemType.Weapon && Item.Data.WeaponType == WeaponType.Ranged) {
+						Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.5f);
+					}
+					
 					timeSinceReady += dt;
 				} else {
 					timeSinceReady = 0;
@@ -81,7 +85,7 @@ namespace BurningKnight.entity.creature.player {
 			Item?.TakeOut();
 
 			if (Item != null && InGameState.Ready) {
-				Audio.PlaySfx(Run.Depth == 0 ? Item.Data.WeaponType.GetPickupSfx() : Item.Data.WeaponType.GetSwapSfx());
+				Audio.PlaySfx(Item.Data.WeaponType.GetSwapSfx());
 			}
 			
 			if (Run.Depth == -2) {
