@@ -19,14 +19,15 @@ namespace BurningKnight.level.entities.statue {
 	public class DiceStatue : Statue {
 		// todo: if effect does nothing alter to another effect
 		// fixme: hp up/down is not saved
-		public static Dictionary<string, Action<Statue, Entity>> Effects =
-			new Dictionary<string, Action<Statue, Entity>> {
+		public static Dictionary<string, Func<Statue, Entity, bool>> Effects =
+			new Dictionary<string, Func<Statue, Entity, bool>> {
 				// + Hp up
 
 				{
 					"buffed", (s, e) => {
 						e.GetComponent<HealthComponent>().MaxHealth += 2;
 						TextParticle.Add(e, Locale.Get("max_hp"), 2, true);
+						return true;
 					}
 				},
 
@@ -35,6 +36,7 @@ namespace BurningKnight.level.entities.statue {
 					"nerfed", (s, e) => {
 						e.GetComponent<HealthComponent>().MaxHealth -= 2;
 						TextParticle.Add(e, Locale.Get("max_hp"), 2, true, true);
+						return false;
 					}
 				},
 
@@ -44,6 +46,7 @@ namespace BurningKnight.level.entities.statue {
 						var c = Rnd.Int(1, 3);
 						e.GetComponent<HealthComponent>().ModifyHealth(c, s);
 						TextParticle.Add(e, "HP", c, true);
+						return true;
 					}
 				},
 
@@ -53,17 +56,24 @@ namespace BurningKnight.level.entities.statue {
 						var c = Rnd.Int(1, 3);
 						e.GetComponent<HealthComponent>().ModifyHealth(-c, s);
 						TextParticle.Add(e, "HP", c, true, true);
+						return false;
 					}
 				},
 
 				// + Clear Scourge
 				{
-					"cleansed", (s, e) => { Run.RemoveScourge(); }
+					"cleansed", (s, e) => {
+						Run.RemoveScourge();
+						return true;
+					}
 				},
 
 				// - Add Scourge
 				{
-					"scourged", (s, e) => { Run.AddScourge(true); }
+					"scourged", (s, e) => {
+						Run.AddScourge(true);
+						return false;
+					}
 				},
 
 				// + Give coins
@@ -72,6 +82,7 @@ namespace BurningKnight.level.entities.statue {
 						var c = Rnd.Int(10, 21);
 						e.GetComponent<ConsumablesComponent>().Coins += c;
 						TextParticle.Add(e, Locale.Get("coins"), c, true);
+						return true;
 					}
 				},
 
@@ -82,6 +93,7 @@ namespace BurningKnight.level.entities.statue {
 						var cn = (int) Math.Ceiling(c.Coins * Rnd.Float(0.2f, 0.5f));
 						e.GetComponent<ConsumablesComponent>().Coins -= cn;
 						TextParticle.Add(e, Locale.Get("coins"), cn, true, true);
+						return false;
 					}
 				},
 
@@ -95,6 +107,7 @@ namespace BurningKnight.level.entities.statue {
 						} catch (Exception ex) {
 							Log.Error(ex);
 						}
+						return true;
 					}
 				},
 
@@ -113,6 +126,7 @@ namespace BurningKnight.level.entities.statue {
 						} else {
 							c.RequestSwap();
 						}
+						return false;
 					}
 				}
 			};
@@ -125,6 +139,8 @@ namespace BurningKnight.level.entities.statue {
 			Sprite = "dice_statue";
 			Width = 20;
 			Height = 27;
+			
+			AddComponent(new AudioEmitterComponent());
 		}
 
 		protected override Rectangle GetCollider() {
@@ -136,12 +152,25 @@ namespace BurningKnight.level.entities.statue {
 
 			var keys = Effects.Keys;
 			var key = keys.ElementAt(Rnd.Int(keys.Count));
+			var bad = false;
 
 			TextParticle.Add(this, Locale.Get(key));
 
-			Timer.Add(() => { Effects[key](this, e); }, 1f);
+			Timer.Add(() => {
+				bad = Effects[key](this, e);
+
+				if (!Broken) {
+					GetComponent<AudioEmitterComponent>().Emit(bad ? "item_dice_good" : "item_dice_bad");
+				}
+			}, 1f);
 
 			if (TimesUsed >= 3) {
+				GetComponent<AudioEmitterComponent>().Emit("item_dice_break");
+				
+				Timer.Add(() => {
+					GetComponent<AudioEmitterComponent>().Emit(bad ? "item_dice_good" : "item_dice_bad");
+				}, 0.6f);
+				
 				Break();
 			}
 

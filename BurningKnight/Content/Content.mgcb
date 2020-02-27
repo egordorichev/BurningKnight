@@ -166,6 +166,24 @@
 /processorParam:Quality=Best
 /build:Sfx/item/coin.wav
 
+#begin Sfx/item/dice/bad.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/dice/bad.wav
+
+#begin Sfx/item/dice/break.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/dice/break.wav
+
+#begin Sfx/item/dice/good.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/dice/good.wav
+
 #begin Sfx/item/emerald.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -249,6 +267,30 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/shield.wav
+
+#begin Sfx/item/shotgun/fire/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/shotgun/fire/1.wav
+
+#begin Sfx/item/shotgun/fire/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/shotgun/fire/2.wav
+
+#begin Sfx/item/shotgun/reload/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/shotgun/reload/1.wav
+
+#begin Sfx/item/shotgun/reload/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/shotgun/reload/2.wav
 
 #begin Sfx/item/silver_coin.wav
 /importer:WavImporter

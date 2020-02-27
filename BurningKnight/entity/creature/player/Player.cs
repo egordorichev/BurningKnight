@@ -56,8 +56,12 @@ namespace BurningKnight.entity.creature.player {
 				banner.Show(item);
 				Engine.Instance.State.Ui.Add(banner);
 			}
-			
-			GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
+
+			if (item.Type == ItemType.Weapon && Run.Depth == 0) {
+				Audio.PlaySfx(item.Data.WeaponType.GetPickupSfx());
+			} else {
+				GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
+			}
 
 			if (add || item.Type == ItemType.Active || item.Type == ItemType.ConsumableArtifact || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
 				GetComponent<InventoryComponent>().Busy = true;
