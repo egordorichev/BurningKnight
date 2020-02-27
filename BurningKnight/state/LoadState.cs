@@ -15,6 +15,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
+using Lens.graphics.animation;
 using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -38,9 +39,14 @@ namespace BurningKnight.state {
 		private bool nice;
 		
 		public bool Menu;
+
+		private Animation animation;
 		
 		public override void Init() {
 			base.Init();
+
+			animation = Animations.Create("loading");
+			animation.Paused = false;
 
 			nice = Rnd.Chance(5);
 			
@@ -94,13 +100,15 @@ namespace BurningKnight.state {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			animation.Update(dt);
+
 			t += dt;
 			
 			timer += dt / 3;
 			timer = Math.Min(timer, (progress + 1) * 0.345f);
 			
 			if (down) {
-				if (ready && ((Engine.Version.Test || loading) || timer >= 1f)) {
+				if (ready && ((Engine.Version.Dev || loading) || timer >= 1f)) {
 					timer = 1;
 					alpha -= dt * 5;
 				}
@@ -113,7 +121,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Test))) {
+			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Dev))) {
 				Engine.Instance.SetState(new InGameState(gameArea, Menu));
 				Menu = false;
 			}
@@ -131,13 +139,7 @@ namespace BurningKnight.state {
 			Graphics.Print(s, Font.Medium, new Vector2(Display.UiWidth / 2f + prefixX, Display.UiHeight / 2f - 8));
 			Graphics.Print(title, Font.Small, new Vector2(Display.UiWidth / 2f + titleX, Display.UiHeight / 2f + 8));
 
-			var n = t % 2f;
-			
-			s = $"{(n > 0.5f ? "." : "")}{(n > 1f ? "." : "")}{(n > 1.5f ? "." : "")}";
-			
-			var x = Font.Small.MeasureString(s).Width * -0.5f;
-			Graphics.Print(s, Font.Small, new Vector2(Display.UiWidth / 2f + x, Display.UiHeight / 2f + 32));
-
+			animation.Render( new Vector2(Display.UiWidth / 2f - 5.5f, Display.UiHeight / 2f + 24));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 
