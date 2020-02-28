@@ -26,7 +26,7 @@ namespace BurningKnight.entity.item.use {
 							room = d.Rooms[0];
 						}
 
-						if (room.Type == RoomType.Secret || room.Type == RoomType.DarkMarket) {
+						if (room.Type == RoomType.Secret || room.Type == RoomType.DarkMarket || room.Type == RoomType.Hidden) {
 							continue;
 						}
 

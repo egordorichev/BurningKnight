@@ -1244,7 +1244,8 @@ namespace BurningKnight.level {
 								var vl = Tileset.WallMapExtra[lv];
 
 								if (vl != -1) {
-									var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+									var i = ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1);
+									var light = DrawLight ? (i < 0 || i >= Light.Length ? 1 : Light[i]) : 1;
 
 									if (light > LightMin) {
 										Graphics.Color.A = (byte) (light * 255);
@@ -1261,7 +1262,8 @@ namespace BurningKnight.level {
 							var vl = Tileset.WallMap[lv];
 							
 							if (vl != -1) {
-								var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+								var i = ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1);
+								var light = DrawLight ? (i < 0 || i >= Light.Length ? 1 : Light[i]) : 1;
 
 								if (light > LightMin) {
 									Graphics.Color.A = (byte) (light * 255);

@@ -567,6 +567,7 @@
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
     <Compile Include="entity\door\SpikedDoor.cs" />
+    <Compile Include="entity\door\TeleportTrigger.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\door\VerticalHallDoor.cs" />
@@ -851,6 +852,7 @@
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
+    <Compile Include="level\entities\building\Thing.cs" />
     <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\AnimatedChest.cs" />

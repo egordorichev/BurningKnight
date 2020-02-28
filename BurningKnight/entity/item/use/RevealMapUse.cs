@@ -13,7 +13,7 @@ namespace BurningKnight.entity.item.use {
 			foreach (var e in entity.Area.Tagged[Tags.Room]) {
 				var room = (Room) e;
 				
-				if (room.Type == RoomType.DarkMarket) {
+				if (room.Type == RoomType.DarkMarket || room.Type == RoomType.Hidden) {
 					continue;
 				}
 
