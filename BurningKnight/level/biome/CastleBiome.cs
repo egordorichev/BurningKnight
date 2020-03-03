@@ -21,7 +21,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		private static float[] variantChances = {
-			1f,
+			1.5f,
 			0.2f,
 			0.1f,
 			0.1f,
@@ -34,7 +34,7 @@ namespace BurningKnight.level.biome {
 
 		public CastleBiome() : base("Born to do rogueries", Biome.Castle, "castle_biome", new Color(14, 7, 27)) {
 			if (Run.Depth > 0) {
-				variant = Variant.Snow; // (Variant) Rnd.Chances(variantChances);
+				variant = (Variant) Rnd.Chances(variantChances);
 				raining = Rnd.Chance(10);
 			}
 		}
