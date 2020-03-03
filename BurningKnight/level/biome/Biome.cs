@@ -140,6 +140,19 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual string GetStepSound(Tile tile) {
+			switch (tile) {
+				case Tile.Water: return $"player_step_water_{Rnd.Int(1, 4)}";
+				case Tile.Grass: return $"player_step_grass_{Rnd.Int(1, 4)}";
+				case Tile.Sand: case Tile.Dirt: return $"player_step_sand_{Rnd.Int(1, 4)}";
+
+				case Tile.FloorA: 
+				case Tile.FloorB:
+				case Tile.FloorC:
+				case Tile.FloorD: {
+					return $"player_step_stone_{Rnd.Int(1, 4)}";
+				}
+			}
+			
 			return GetDefaultStepSound(tile);
 		}
 	}

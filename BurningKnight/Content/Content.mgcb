@@ -1030,6 +1030,78 @@
 /processorParam:Quality=Best
 /build:Sfx/player/step/default/1.wav
 
+#begin Sfx/player/step/grass/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/grass/1.wav
+
+#begin Sfx/player/step/grass/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/grass/2.wav
+
+#begin Sfx/player/step/grass/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/grass/3.wav
+
+#begin Sfx/player/step/sand/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/sand/1.wav
+
+#begin Sfx/player/step/sand/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/sand/2.wav
+
+#begin Sfx/player/step/sand/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/sand/3.wav
+
+#begin Sfx/player/step/stone/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/stone/1.wav
+
+#begin Sfx/player/step/stone/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/stone/2.wav
+
+#begin Sfx/player/step/stone/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/stone/3.wav
+
+#begin Sfx/player/step/water/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/water/1.wav
+
+#begin Sfx/player/step/water/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/water/2.wav
+
+#begin Sfx/player/step/water/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/water/3.wav
+
 #begin Sfx/player/step/wood/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

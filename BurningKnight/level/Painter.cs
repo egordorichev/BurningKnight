@@ -605,6 +605,7 @@ namespace BurningKnight.level {
 
 		private void PaintDirt(Level Level, List<RoomDef> Rooms) {
 			var Grass = Patch.Noise(Dirt);
+			var tile = Level.Biome is DesertBiome ? Tile.Sand : Tile.Dirt;
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.GetGrassPlaceablePoints()) {
@@ -612,7 +613,7 @@ namespace BurningKnight.level {
 					var T = (Tile) Level.Tiles[I];
 					
 					if (Grass[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {
-						Level.Set(I, Tile.Dirt);
+						Level.Set(I, Tile.Sand);
 					}
 				}
 			}

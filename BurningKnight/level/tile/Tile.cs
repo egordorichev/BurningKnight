@@ -43,6 +43,7 @@ namespace BurningKnight.level.tile {
 		FireTrapTmp,
 		
 		Path,
+		Sand,
 		
 		Total
 	}
