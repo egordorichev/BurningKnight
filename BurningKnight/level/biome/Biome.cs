@@ -4,6 +4,7 @@ using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -154,6 +155,14 @@ namespace BurningKnight.level.biome {
 			}
 			
 			return GetDefaultStepSound(tile);
+		}
+
+		public virtual void Load(FileReader stream) {
+			
+		}
+
+		public virtual void Save(FileWriter stream) {
+			
 		}
 	}
 }

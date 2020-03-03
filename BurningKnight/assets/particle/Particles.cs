@@ -20,6 +20,12 @@ namespace BurningKnight.assets.particle {
 			new TexturedParticleRenderer("d_3"),
 			new TexturedParticleRenderer("d_4")
 		};
+		
+		private static ParticleRenderer[] rainRenderers = {
+			new TexturedParticleRenderer("rain_1"),
+			new TexturedParticleRenderer("rain_2"),
+			new TexturedParticleRenderer("rain_3")
+		};
 
 		private static ParticleRenderer planksRenderer = new RandomFrameRenderer("planks_particle");
 		
@@ -55,6 +61,10 @@ namespace BurningKnight.assets.particle {
 		
 		public static Particle Spark() {
 			return new Particle(Controllers.Spark, SparkRenderer);
+		}
+
+		public static Particle Rain() {
+			return new Particle(Controllers.Rain, rainRenderers[Rnd.Int(3)]);
 		}
 
 		public static ParticleEntity Wrap(Particle particle, Area area, Vector2 where) {

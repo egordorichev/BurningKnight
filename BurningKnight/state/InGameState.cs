@@ -200,6 +200,10 @@ namespace BurningKnight.state {
 				Area.Add(new WindFx());
 			}
 
+			for (int i = 0; i < 40; i++) {
+				Area.Add(new RainParticle());
+			}
+
 			fog = Textures.Get("noise");
 			Area.Add(new InGameAudio());
 
@@ -538,6 +542,10 @@ namespace BurningKnight.state {
 				}
 			}
 
+			if (!Paused) {
+				Weather.Update(dt);
+			}
+			
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);

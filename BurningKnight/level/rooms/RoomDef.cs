@@ -67,7 +67,7 @@ namespace BurningKnight.level.rooms {
 
 		public virtual void PaintFloor(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
-			FloorRegistry.Paint(level, this);
+			FloorRegistry.Paint(level, this, -1, Painter.AllGold);
 		}
 		
 		public virtual void Paint(Level level) {

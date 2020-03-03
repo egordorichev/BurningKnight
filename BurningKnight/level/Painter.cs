@@ -36,6 +36,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level {
 	public class Painter {
+		public static bool AllGold;
+
 		public float Cobweb = 0.2f;
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
@@ -45,8 +47,11 @@ namespace BurningKnight.level {
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
 		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
+		public Tile DirtTile = Tile.Dirt;
 		
 		public Painter() {
+			AllGold = false;
+			
 			// All the rocks, that have not full neighbours will become metal blocks (33% chance)
 			RoomModifiers.Add((l, r) => {
 				if (Rnd.Chance(66)) {
@@ -605,7 +610,7 @@ namespace BurningKnight.level {
 
 		private void PaintDirt(Level Level, List<RoomDef> Rooms) {
 			var Grass = Patch.Noise(Dirt);
-			var tile = Level.Biome is DesertBiome ? Tile.Sand : Tile.Dirt;
+			var tile = Level.Biome is DesertBiome ? Tile.Sand : DirtTile;
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.GetGrassPlaceablePoints()) {
@@ -613,7 +618,7 @@ namespace BurningKnight.level {
 					var T = (Tile) Level.Tiles[I];
 					
 					if (Grass[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {
-						Level.Set(I, Tile.Sand);
+						Level.Set(I, tile);
 					}
 				}
 			}

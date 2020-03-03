@@ -394,7 +394,9 @@ namespace BurningKnight.level {
 				stream.WriteByte(Liquid[i]);
 				stream.WriteByte(Flags[i]);
 				stream.WriteBoolean(Explored[i]);
-			}
+			}	
+			
+			Biome.Save(stream);
 		}
 
 		public override void Load(FileReader stream) {
@@ -407,7 +409,7 @@ namespace BurningKnight.level {
 			} else {
 				SetBiome(BiomeRegistry.Defined[Biome.Castle]);
 			}
-
+			
 			Width = stream.ReadInt32();
 			Height = stream.ReadInt32();
 
@@ -424,6 +426,7 @@ namespace BurningKnight.level {
 			CreateDestroyableBody();
 			TileUp();
 			LoadPassable();
+			Biome.Load(stream);
 		}
 
 		public void MarkForClearing() {
