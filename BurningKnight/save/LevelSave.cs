@@ -84,7 +84,7 @@ namespace BurningKnight.save {
 				a.Destroy();
 				Run.Level = null;
 
-				if (I > 100) {
+				if (I > 1000) {
 					Log.Error("Can't generate a level");
 					a = new Area();
 
@@ -145,7 +145,7 @@ namespace BurningKnight.save {
 				if (i >= 15f) {
 					Log.Debug("Thread took too long, aborting :(");
 					thread.Interrupt();
-					Rnd.Seed += "_";
+					Rnd.Seed = Rnd.GenerateSeed();
 					aborted = true;
 
 					break;

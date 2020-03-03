@@ -13,7 +13,14 @@ namespace BurningKnight.level.biome {
 			
 			painter.Water = 0;
 			painter.Grass = 0;
+			painter.Dirt = 0.45f;
 			
+			painter.Modifiers.Add((l, rm, x, y) => {
+				if (l.Get(x, y, true) == Tile.Dirt) {
+					l.Set(x, y, Tile.Sand);
+				}
+			});
+
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (rm is TrapRoom) {
 					return;

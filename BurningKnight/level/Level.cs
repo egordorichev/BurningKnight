@@ -39,6 +39,7 @@ namespace BurningKnight.level {
 		public Biome Biome;
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
+		public bool Dark;
 
 		public List<string> ItemsToSpawn;
 
@@ -179,6 +180,14 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
 		}
 
+		public void Prepare() {
+			if (Dark) {
+				Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
+			}
+			
+			Biome.Prepare();
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -196,7 +205,6 @@ namespace BurningKnight.level {
 			if (Components == null) {
 				return;
 			}
-
 
 			MarkForBodyUpdate(x, y);
 			
@@ -394,7 +402,10 @@ namespace BurningKnight.level {
 				stream.WriteByte(Liquid[i]);
 				stream.WriteByte(Flags[i]);
 				stream.WriteBoolean(Explored[i]);
-			}
+			}	
+			
+			Biome.Save(stream);
+			stream.WriteBoolean(Dark);
 		}
 
 		public override void Load(FileReader stream) {
@@ -407,7 +418,7 @@ namespace BurningKnight.level {
 			} else {
 				SetBiome(BiomeRegistry.Defined[Biome.Castle]);
 			}
-
+			
 			Width = stream.ReadInt32();
 			Height = stream.ReadInt32();
 
@@ -424,6 +435,8 @@ namespace BurningKnight.level {
 			CreateDestroyableBody();
 			TileUp();
 			LoadPassable();
+			Biome.Load(stream);
+			Dark = stream.ReadBoolean();
 		}
 
 		public void MarkForClearing() {
@@ -1244,7 +1257,8 @@ namespace BurningKnight.level {
 								var vl = Tileset.WallMapExtra[lv];
 
 								if (vl != -1) {
-									var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+									var i = ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1);
+									var light = DrawLight ? (i < 0 || i >= Light.Length ? 1 : Light[i]) : 1;
 
 									if (light > LightMin) {
 										Graphics.Color.A = (byte) (light * 255);
@@ -1261,7 +1275,8 @@ namespace BurningKnight.level {
 							var vl = Tileset.WallMap[lv];
 							
 							if (vl != -1) {
-								var light = DrawLight ? Light[ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1)] : 1;
+								var i = ToIndex(x + (xx == 0 ? -1 : 1), y + yy - 1);
+								var light = DrawLight ? (i < 0 || i >= Light.Length ? 1 : Light[i]) : 1;
 
 								if (light > LightMin) {
 									Graphics.Color.A = (byte) (light * 255);

@@ -213,6 +213,9 @@ namespace BurningKnight.entity.creature.player {
 			
 			public override void Destroy() {
 				base.Destroy();
+				
+				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+				pr.EnableClip = false;
 				Self.GetComponent<PlayerGraphicsComponent>().Animate();
 			}
 			
@@ -319,8 +322,9 @@ namespace BurningKnight.entity.creature.player {
 						var i = Run.Level.ToIndex(x, y);
 						var tile = Run.Level.Get(i);
 						var liquid = Run.Level.Liquid[i];
+						var room = Self.GetComponent<RoomComponent>().Room;
 
-						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), 0.25f);
+						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), room != null && room.Tagged[Tags.MustBeKilled].Count > 0 ? 0.18f : 0.25f);
 					}
 				}
 			}
@@ -457,19 +461,20 @@ namespace BurningKnight.entity.creature.player {
 					Audio.PlaySfx("level_door_shut");
 				}
 
+				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
+
 				if (c.Old != null) {
 					if (Scourge.IsEnabled(Scourge.OfLost)) {
 						c.Old.Hide();
 					}
 					
-					if (c.Old.Type == RoomType.DarkMarket) {
+					if (c.Old.Type == RoomType.DarkMarket || c.Old.Type == RoomType.Hidden) {
+						pr.EnableClip = false;
 						c.Old.Hide(true);
 					}
 				}
 
-				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
-
-				if (c.New.Type == RoomType.DarkMarket) {
+				if (c.New.Type == RoomType.DarkMarket || c.New.Type == RoomType.Hidden) {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
 					pr.ClipSize = new Vector2(c.New.Width - 32, c.New.Height - 32);

@@ -1,5 +1,5 @@
 namespace BurningKnight.level.rooms {
-	// Keep in sync with RoomRegistry::byIndex!!
+	// Keep in sync with RoomRegistry::byIndex and RoomRegistry::names!!
 	public enum RoomType {
 		Regular,
 		Secret,
@@ -18,6 +18,7 @@ namespace BurningKnight.level.rooms {
 		Trap,
 		Granny,
 		OldMan,
-		SubShop
+		SubShop,
+		Hidden
 	}
 }

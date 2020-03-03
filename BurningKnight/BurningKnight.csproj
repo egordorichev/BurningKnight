@@ -280,6 +280,7 @@
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
+    <Compile Include="assets\particle\controller\RainParticleController.cs" />
     <Compile Include="assets\particle\controller\ScourgeController.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
     <Compile Include="assets\particle\controller\FloatParticleController.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="assets\particle\custom\FireEmitter.cs" />
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\custom\ProjectileParticle.cs" />
+    <Compile Include="assets\particle\custom\RainParticle.cs" />
     <Compile Include="assets\particle\custom\TextParticle.cs" />
     <Compile Include="assets\particle\custom\TileParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -567,6 +569,7 @@
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
     <Compile Include="entity\door\SpikedDoor.cs" />
+    <Compile Include="entity\door\TeleportTrigger.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\door\VerticalHallDoor.cs" />
@@ -851,6 +854,7 @@
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
+    <Compile Include="level\entities\building\Thing.cs" />
     <Compile Include="level\entities\building\House.cs" />
     <Compile Include="level\entities\Campfire.cs" />
     <Compile Include="level\entities\chest\AnimatedChest.cs" />
@@ -1049,6 +1053,7 @@
     <Compile Include="level\walls\TurretWall.cs" />
     <Compile Include="level\walls\WallPainter.cs" />
     <Compile Include="level\walls\WallRegistry.cs" />
+    <Compile Include="level\Weather.cs" />
     <Compile Include="physics\CollisionFilterEntity.cs" />
     <Compile Include="physics\CollisionResult.cs" />
     <Compile Include="physics\Physics.cs" />

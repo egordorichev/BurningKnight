@@ -47,7 +47,30 @@ namespace BurningKnight.level.rooms {
 			RoomType.Trap,
 			RoomType.Granny,
 			RoomType.OldMan,
-			RoomType.SubShop
+			RoomType.SubShop,
+			RoomType.Hidden
+		};
+		
+		public static readonly string[] Names = {
+			"Regular",
+			"Secret",
+			"Connection",
+			"Boss",
+			"Exit",
+			"Special",
+			"Shop",
+			"Spiked",
+			"Challenge",
+			"Scourged",
+			"Payed",
+			"DarkMarket",
+			"Treasure",
+			"Entrance",
+			"Trap",
+			"Granny",
+			"OldMan",
+			"SubShop",
+			"Hidden"
 		};
 		
 		public static RoomType FromIndex(int i) {

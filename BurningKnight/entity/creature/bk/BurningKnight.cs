@@ -61,7 +61,6 @@ namespace BurningKnight.entity.creature.bk {
 			b.Body.LinearDamping = 3;
 
 			AddComponent(new BkGraphicsComponent("old_burning_knight"));
-			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.7f, 0.2f, 1f)));
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
@@ -71,7 +70,7 @@ namespace BurningKnight.entity.creature.bk {
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
 
-			AddComponent(new LightComponent(this, 32, new Color(1f, 0.2f, 0.1f, 0.5f)));
+			AddComponent(new LightComponent(this, 64, new Color(1f, 0.2f, 0.1f, 0.5f)));
 
 			var buffs = GetComponent<BuffsComponent>();
 

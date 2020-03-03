@@ -66,6 +66,11 @@ namespace BurningKnight.entity.fx {
 		}
 
 		private void UpdatePosition() {
+			if (entity == null) {
+				Done = true;
+				return;
+			}
+			
 			Center = Camera.Instance.CameraToUi(new Vector2(entity.CenterX + offset, entity.Y - 8 + y));
 
 			if (region == null) {

@@ -16,6 +16,8 @@ namespace BurningKnight.level.tile {
 		static TileFlags() {
 			flags[(int) Tile.Chasm] = Hole | FloorLayer;
 			flags[(int) Tile.Dirt] = Passable | LiquidLayer;
+			flags[(int) Tile.Sand] = Passable | LiquidLayer;
+			flags[(int) Tile.Snow] = Passable | LiquidLayer;
 			flags[(int) Tile.Grass] = Passable | Burns | LiquidLayer;
 			flags[(int) Tile.FloorA] = Passable | FloorLayer;
 			flags[(int) Tile.WallA] = Solid | WallLayer | BreaksView;

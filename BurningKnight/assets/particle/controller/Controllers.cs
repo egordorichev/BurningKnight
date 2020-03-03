@@ -9,5 +9,6 @@ namespace BurningKnight.assets.particle.controller {
 		public static ParticleController Scourge = new ScourgeController();
 		public static ParticleController Ash = new AshController();
 		public static ParticleController Animated = new AnimatedParticleController();
+		public static ParticleController Rain = new RainParticleController();
 	}
 }

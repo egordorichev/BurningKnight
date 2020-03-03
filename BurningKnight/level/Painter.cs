@@ -36,6 +36,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level {
 	public class Painter {
+		public static bool AllGold;
+
 		public float Cobweb = 0.2f;
 		public float Dirt = 0.4f;
 		public float Grass = 0.4f;
@@ -45,8 +47,11 @@ namespace BurningKnight.level {
 		public List<Action<Level, RoomDef>> RoomModifiers = new List<Action<Level, RoomDef>>();
 		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
+		public Tile DirtTile = Tile.Dirt;
 		
 		public Painter() {
+			AllGold = false;
+			
 			// All the rocks, that have not full neighbours will become metal blocks (33% chance)
 			RoomModifiers.Add((l, r) => {
 				if (Rnd.Chance(66)) {
@@ -108,6 +113,8 @@ namespace BurningKnight.level {
 			if (Rooms == null) {
 				return;
 			}
+
+			Level.Dark = Rnd.Chance(5);
 
 			RoomDef current = null;
 
@@ -185,24 +192,23 @@ namespace BurningKnight.level {
 					Level.Tiles[i] = (byte) tile;
 				}	
 			}
+
+			var tr = Level.GetFilling();
 			
 			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
-
 				PlaceDoors(Room);
-
-				var t = Tile.WallA;
-
+				
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
 					    d.Type != DoorPlaceholder.Variant.Maze) {
 
 						if (d.X == Room.Left || d.X == Room.Right) {
-							Set(Level, d.X, d.Y - 1, t);
-							Set(Level, d.X, d.Y + 1, t);
+							Set(Level, d.X, d.Y - 1, tr);
+							Set(Level, d.X, d.Y + 1, tr);
 						} else {
-							Set(Level, d.X - 1, d.Y, t);
-							Set(Level, d.X + 1, d.Y, t);
+							Set(Level, d.X - 1, d.Y, tr);
+							Set(Level, d.X + 1, d.Y, tr);
 						}
 					}
 				}
@@ -605,6 +611,7 @@ namespace BurningKnight.level {
 
 		private void PaintDirt(Level Level, List<RoomDef> Rooms) {
 			var Grass = Patch.Noise(Dirt);
+			var tile = Level.Biome is DesertBiome ? Tile.Sand : DirtTile;
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.GetGrassPlaceablePoints()) {
@@ -612,7 +619,7 @@ namespace BurningKnight.level {
 					var T = (Tile) Level.Tiles[I];
 					
 					if (Grass[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {
-						Level.Set(I, Tile.Dirt);
+						Level.Set(I, tile);
 					}
 				}
 			}

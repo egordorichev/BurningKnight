@@ -4,15 +4,16 @@ using BurningKnight.level.tile;
 
 namespace BurningKnight.level.hall {
 	public class HallRoom : ExitRoom {
+		public const string PrefabName = "new_hub";
 		private Prefab prefab;
 
 		public HallRoom() {
-			prefab = Prefabs.Get("new_hub");
+			prefab = Prefabs.Get(PrefabName);
 		}
 		
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.WallA);
-			Painter.Prefab(level, "new_hub", Left + 1, Top + 1);
+			Painter.Prefab(level, PrefabName, Left + 1, Top + 1);
 		}
 
 		public override void PaintFloor(Level level) {

@@ -45,6 +45,7 @@ namespace BurningKnight.entity.room {
 		public RoomType Type;
 		public bool Explored;
 		public bool Cleared;
+		public string Id;
 		public RoomDef Parent;
 		
 		public List<RoomControllable> Controllable = new List<RoomControllable>();
@@ -249,7 +250,7 @@ namespace BurningKnight.entity.room {
 						Tween.To(0, 1f, xx => Run.Level.Light[i] = xx, 0.5f);
 					}
 				}
-			}, Type == RoomType.DarkMarket ? 1 : 0);
+			}, Type == RoomType.DarkMarket || Type == RoomType.Hidden ? 1 : 0);
 		}
 		
 		public void ApplyToEachTile(Action<int, int> callback, int offset = 0) {
@@ -291,6 +292,8 @@ namespace BurningKnight.entity.room {
 					c.Load(stream);
 				}
 			}
+
+			Id = stream.ReadString();
 		}
 		
 		public override void Save(FileWriter stream) {
@@ -308,6 +311,8 @@ namespace BurningKnight.entity.room {
 				stream.WriteString(c.Id);
 				c.Save(stream);
 			}
+
+			stream.WriteString(Id);
 		}
 		
 		protected int GetRenderLeft(Camera camera, Level level) {
@@ -331,13 +336,30 @@ namespace BurningKnight.entity.room {
 		}
 
 		public override void RenderImDebug() {
+			var v = (int) Type;
+
+			if (ImGui.Combo("Type", ref v, RoomRegistry.Names, RoomRegistry.Names.Length)) {
+				Type = (RoomType) v;
+			}
+
+			if (Id == null) {
+				Id = "";
+			}
+			
+			ImGui.InputText("Id", ref Id, 128);
+			ImGui.Separator();
+
 			ImGui.InputInt("Map X", ref MapX);
 			ImGui.InputInt("Map Y", ref MapY);
 			ImGui.InputInt("Map W", ref MapW);
 			ImGui.InputInt("Map H", ref MapH);
+
+			if (Id == null) {
+				Id = "";
+			}
 			
 			ImGui.Text($"Doors: {Doors.Count}");
-			
+
 			X = MapX * 16 + 4;
 			Y = MapY * 16 - 4;
 			Width = MapW * 16 - 8;

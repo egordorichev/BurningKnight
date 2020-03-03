@@ -196,7 +196,7 @@ namespace BurningKnight.state {
 			
 			SetupUi();
 
-			for (int i = 0; i < 30; i++) {
+			for (var i = 0; i < 30; i++) {
 				Area.Add(new WindFx());
 			}
 
@@ -231,6 +231,8 @@ namespace BurningKnight.state {
 					WasInEL = true
 				});
 			}
+			
+			Run.Level.Prepare();
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -538,6 +540,10 @@ namespace BurningKnight.state {
 				}
 			}
 
+			if (!Paused) {
+				Weather.Update(dt);
+			}
+			
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);
 			
 			Shaders.Screen.Parameters["split"].SetValue(Engine.Instance.Split);
