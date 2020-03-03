@@ -1,8 +1,6 @@
 # todo
 
 remove reload sfx from everything but the shotgun
-implement half hearts
-look into gen bugs again
 
 fakels in the dark level (like a lot more light sources, turrets should emit light)
 you can roll through damage doors without taking damage (1/10 to not take damage)
