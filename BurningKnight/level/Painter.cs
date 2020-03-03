@@ -114,6 +114,8 @@ namespace BurningKnight.level {
 				return;
 			}
 
+			Level.Dark = Rnd.Chance(5);
+
 			RoomDef current = null;
 
 			foreach (var r in Rooms) {
@@ -190,24 +192,23 @@ namespace BurningKnight.level {
 					Level.Tiles[i] = (byte) tile;
 				}	
 			}
+
+			var tr = Level.GetFilling();
 			
 			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
-
 				PlaceDoors(Room);
-
-				var t = Tile.WallA;
-
+				
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
 					    d.Type != DoorPlaceholder.Variant.Maze) {
 
 						if (d.X == Room.Left || d.X == Room.Right) {
-							Set(Level, d.X, d.Y - 1, t);
-							Set(Level, d.X, d.Y + 1, t);
+							Set(Level, d.X, d.Y - 1, tr);
+							Set(Level, d.X, d.Y + 1, tr);
 						} else {
-							Set(Level, d.X - 1, d.Y, t);
-							Set(Level, d.X + 1, d.Y, t);
+							Set(Level, d.X - 1, d.Y, tr);
+							Set(Level, d.X + 1, d.Y, tr);
 						}
 					}
 				}

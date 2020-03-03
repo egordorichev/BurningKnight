@@ -164,5 +164,9 @@ namespace BurningKnight.level.biome {
 		public virtual void Save(FileWriter stream) {
 			
 		}
+
+		public virtual void Prepare() {
+			
+		}
 	}
 }

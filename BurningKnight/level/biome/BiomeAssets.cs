@@ -37,6 +37,9 @@ namespace BurningKnight.level.biome {
 		public TextureRegion SandPattern;
 		public TextureRegion[] Sand;
 		
+		public TextureRegion SnowPattern;
+		public TextureRegion[] Snow;
+		
 		public TextureRegion ChasmPattern;
 		public TextureRegion[] ChasmTop = new TextureRegion[3];
 		public TextureRegion[] ChasmBottom = new TextureRegion[3];
@@ -98,6 +101,9 @@ namespace BurningKnight.level.biome {
 
 			Patterns[(int) Tile.Sand] = PathPattern = new TextureRegion(anim.Texture, new Rectangle(400, 304, 64, 64));
 			Edges[(int) Tile.Sand] = Path = GetEdge(anim, 464, 304);
+
+			Patterns[(int) Tile.Snow] = PathPattern = new TextureRegion(anim.Texture, new Rectangle(400, 240, 64, 64));
+			Edges[(int) Tile.Snow] = Path = GetEdge(anim, 464, 240);
 
 			Patterns[(int) Tile.HighGrass] = Patterns[(int) Tile.Grass] =
 				GrassPattern = new TextureRegion(anim.Texture, new Rectangle(128, 0, 64, 64));

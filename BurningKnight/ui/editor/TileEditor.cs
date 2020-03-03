@@ -87,6 +87,7 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.Obsidian, 64, 176, true);
 			DefineTile(Tile.Dirt, 64, 48, true);
 			DefineTile(Tile.Sand, 464, 352, true);
+			DefineTile(Tile.Snow, 464, 288, true);
 			DefineTile(Tile.Grass, 192, 48, true);
 			DefineTile(Tile.HighGrass, 336, 0, true);
 			DefineTile(Tile.Cobweb, 192, 240, true);
