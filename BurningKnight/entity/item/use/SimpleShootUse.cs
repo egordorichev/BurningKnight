@@ -40,6 +40,7 @@ namespace BurningKnight.entity.item.use {
 		private int sfx_number;
 		protected bool wait;
 		private bool toCursor;
+		public bool ReloadSfx;
 		
 		public bool ProjectileDied = true;
 
@@ -74,6 +75,7 @@ namespace BurningKnight.entity.item.use {
 			toCursor = settings["cursor"].Bool(false);
 			sfx = settings["sfx"].String("item_gun_fire");
 			sfx_number = settings["sfxn"].Int(0);
+			ReloadSfx = settings["rsfx"].Bool(false);
 
 			if (slice == "default") {
 				slice = "rect";
@@ -213,6 +215,7 @@ namespace BurningKnight.entity.item.use {
 				root.InputInt("Projectile Count", "amount");
 				root.InputText("Sound", "sfx", "item_gun_fire");
 				root.InputInt("Sound Prefix Number", "sfxn", 0);
+				root.Checkbox("Reload Sound", "rsfx", false);
 
 				ImGui.Separator();
 

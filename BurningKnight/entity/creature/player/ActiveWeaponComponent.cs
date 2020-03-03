@@ -4,6 +4,7 @@ using BurningKnight.assets.input;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
+using BurningKnight.entity.item.use;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -30,7 +31,15 @@ namespace BurningKnight.entity.creature.player {
 
 				if (ready) {
 					if (timeSinceReady <= 0.001f && Item.Type == ItemType.Weapon && Item.Data.WeaponType == WeaponType.Ranged) {
-						Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.5f);
+						foreach (var u in Item.Uses) {
+							if (u is SimpleShootUse s) {
+								if (s.ReloadSfx) {
+									Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.5f);
+								}
+
+								break;
+							}
+						}
 					}
 					
 					timeSinceReady += dt;

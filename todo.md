@@ -1,7 +1,5 @@
 # todo
 
-remove reload sfx from everything but the shotgun
-
 fakels in the dark level (like a lot more light sources, turrets should emit light)
 you can roll through damage doors without taking damage (1/10 to not take damage)
 smoke texture gets super fast
@@ -72,7 +70,6 @@ resolution presets? 1920×1080
 ### Ideas
 
 * disco floor (secret location or just secret room?)
-* blue hearts, at least em
 
 * teleport tile mechanic for some level
 * make chests brekable (the ones that you dont have a key to open)
