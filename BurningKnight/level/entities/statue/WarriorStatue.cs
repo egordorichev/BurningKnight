@@ -41,6 +41,8 @@ namespace BurningKnight.level.entities.statue {
 			}
 
 			c.GetComponent<HealthComponent>().ModifyHealth(6, this);
+			Break();
+			
 			return true;
 		}
 	}

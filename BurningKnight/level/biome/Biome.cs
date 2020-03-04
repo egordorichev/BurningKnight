@@ -145,11 +145,12 @@ namespace BurningKnight.level.biome {
 				case Tile.Water: return $"player_step_water_{Rnd.Int(1, 4)}";
 				case Tile.Grass: return $"player_step_grass_{Rnd.Int(1, 4)}";
 				case Tile.Sand: case Tile.Dirt: return $"player_step_sand_{Rnd.Int(1, 4)}";
+				case Tile.Snow: return $"player_step_snow_{Rnd.Int(1, 4)}";
+				case Tile.FloorD: return $"player_step_gold_{Rnd.Int(1, 4)}";
 
 				case Tile.FloorA: 
 				case Tile.FloorB:
-				case Tile.FloorC:
-				case Tile.FloorD: {
+				case Tile.FloorC: {
 					return $"player_step_stone_{Rnd.Int(1, 4)}";
 				}
 			}
