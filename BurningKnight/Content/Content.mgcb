@@ -1030,6 +1030,24 @@
 /processorParam:Quality=Best
 /build:Sfx/player/step/default/1.wav
 
+#begin Sfx/player/step/gold/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/gold/1.wav
+
+#begin Sfx/player/step/gold/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/gold/2.wav
+
+#begin Sfx/player/step/gold/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/gold/3.wav
+
 #begin Sfx/player/step/grass/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1065,6 +1083,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/player/step/sand/3.wav
+
+#begin Sfx/player/step/snow/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/snow/1.wav
+
+#begin Sfx/player/step/snow/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/snow/2.wav
+
+#begin Sfx/player/step/snow/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/snow/3.wav
 
 #begin Sfx/player/step/stone/1.wav
 /importer:WavImporter
