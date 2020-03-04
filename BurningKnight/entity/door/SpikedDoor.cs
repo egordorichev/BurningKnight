@@ -3,6 +3,8 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using Lens.entity;
+using Lens.entity.component.logic;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.door {
@@ -20,7 +22,18 @@ namespace BurningKnight.entity.door {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who is Player p && Colliding.Contains(p)) {
-				p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
+				var rolling = p.GetComponent<StateComponent>().StateInstance is Player.RollState;
+				var h = p.GetComponent<HealthComponent>();
+				
+				if (rolling && Rnd.Chance(95)) {
+					h.Unhittable = false;
+				}
+				
+				h.ModifyHealth(-1, this);
+				
+				if (rolling) {
+					h.Unhittable = true;
+				}
 			} else if (e is CollisionStartedEvent cse) {
 				if (cse.Entity is Player p2) {
 					Colliding.Add(p2);

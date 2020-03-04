@@ -1,14 +1,13 @@
 # todo
 
 fakels in the dark level (like a lot more light sources, turrets should emit light)
-you can roll through damage doors without taking damage (1/10 to not take damage)
+
 smoke texture gets super fast
 use dodge town as hub name
 some key name locales are missing
 painting_cat missing locale name
 some bg for item description popup
 reference "collecting bullets" in item description
-warrior statue should break
 dunce hat should increase hub prices by 1 
 active shop discount still discounts without the use
 add some dialog to npcs when you save them (interact)
