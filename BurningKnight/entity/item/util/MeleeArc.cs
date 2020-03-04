@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
@@ -25,7 +26,8 @@ namespace BurningKnight.entity.item.util {
 
 		private float t;
 		private Vector2 velocity;
-
+		private List<Entity> hurt = new List<Entity>();
+		
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -90,8 +92,12 @@ namespace BurningKnight.entity.item.util {
 						}
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
-					if (health.ModifyHealth(-Damage, Owner)) {
-						Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+					if (!hurt.Contains(ev.Entity)) {
+						if (health.ModifyHealth(-Damage, Owner)) {
+							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+						}
+						
+						hurt.Add(ev.Entity);
 					}
 				}
 			}

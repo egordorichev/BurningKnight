@@ -83,6 +83,7 @@ namespace BurningKnight.entity.projectile {
 
 		private float deathTimer;
 		private bool nearedDeath;
+		private List<Entity> hurt = new List<Entity>();
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, 
 			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
@@ -217,12 +218,6 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			if (Math.Abs(Damage) >= 0.01f) {
-				foreach (var e in ToHurt) {
-					e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
-				}
-			}
-
 			Controller?.Invoke(this, dt);
 
 			if (Rotates) {
@@ -298,7 +293,6 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool CanHitOwner;
-		private List<Entity> ToHurt = new List<Entity>();
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
@@ -309,23 +303,26 @@ namespace BurningKnight.entity.projectile {
 				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
 					return false;
 				}
-				
+
+				if (hurt.Contains(ev.Entity)) {
+					return false;
+				}
+
 				if ((
-						(CanHitOwner && ev.Entity == Owner && T > 0.3f) 
-						|| (ev.Entity != Owner 
-						    && !(Owner is RoomControllable && ev.Entity is Mob) 
-						    && (
-							    !(Owner is Creature ac) 
-							    || !(ev.Entity is Creature bc) 
-							    || ac.IsFriendly() != bc.IsFriendly() 
-							    || bc is ShopKeeper || ac is Player
-							  )
-						  )
-						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
+					    || (ev.Entity != Owner 
+					        && !(Owner is RoomControllable && ev.Entity is Mob) 
+					        && (
+						        !(Owner is Creature ac) 
+						        || !(ev.Entity is Creature bc) 
+						        || ac.IsFriendly() != bc.IsFriendly() 
+						        || bc is ShopKeeper || ac is Player
+					        )
+					    )
+				    ) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
-					ToHurt.Add(ev.Entity);
-
+					hurt.Add(ev.Entity);
 					OnHurt?.Invoke(this, ev.Entity);
 				}
 				
@@ -347,10 +344,6 @@ namespace BurningKnight.entity.projectile {
 					
 				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
-				}
-			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity.HasComponent<HealthComponent>()) {
-					ToHurt.Remove(cee.Entity);
 				}
 			}
 			
