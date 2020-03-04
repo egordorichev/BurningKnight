@@ -1,5 +1,11 @@
 # todo
 
+change how projectile penetration works. enemies should be hurtable in invst but single projectile deals damage 1 time
+bk burning sfx plays while in loading
+death counter display
+boomerang
+guitar
+
 fakels in the dark level (like a lot more light sources, turrets should emit light)
 
 smoke texture gets super fast
@@ -8,6 +14,8 @@ reference "collecting bullets" in item description
 dunce hat should increase hub prices by 1 
 active shop discount still discounts without the use
 add some dialog to npcs when you save them (interact)
+bk flavors (feelings)
+players dont notice new shopkeepers
 
 * fix {
  + the weapons go crazy when you point directly up or down

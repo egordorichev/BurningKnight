@@ -21,7 +21,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		private static float[] variantChances = {
-			1.5f,
+			5f,
 			0.2f,
 			0.1f,
 			0.1f,

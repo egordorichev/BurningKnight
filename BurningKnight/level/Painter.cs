@@ -114,7 +114,7 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			Level.Dark = Rnd.Chance(5);
+			Level.Dark = Run.Depth > 1 && Rnd.Chance(5);
 
 			RoomDef current = null;
 
