@@ -3,9 +3,6 @@
 fakels in the dark level (like a lot more light sources, turrets should emit light)
 
 smoke texture gets super fast
-use dodge town as hub name
-some key name locales are missing
-painting_cat missing locale name
 some bg for item description popup
 reference "collecting bullets" in item description
 dunce hat should increase hub prices by 1 
