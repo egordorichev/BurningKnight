@@ -5,6 +5,7 @@ using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
 using Lens.input;
@@ -177,6 +178,37 @@ namespace BurningKnight.entity.projectile {
 			Add("portal", p => {
 				p.Center = Input.Mouse.GamePosition;
 				p.GetAnyComponent<BodyComponent>().Velocity *= -1;
+			});
+			
+			Add("axe", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || ((Projectile) entity).BounceLeft == 0 ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.OnDeath = (pr, t) => {
+					pr.Item.Renderer.Hidden = false;
+				};
+
+				p.OnCollision = (projectile, e) => {
+					if (p.BounceLeft == 0) {
+						if (e == projectile.Owner) {
+							p.Break();
+						}
+						
+						return true;
+					}
+
+					if (e is ProjectileLevelBody) {
+						p.GetComponent<RectBodyComponent>().Body.LinearVelocity *= -1;
+						p.BounceLeft = 0;
+						return true;
+					}
+					
+					return false;
+				};
+				
+				p.BounceLeft = 1;
+				p.Item.Renderer.Hidden = true;
+
+				p.GetComponent<RectBodyComponent>().Body.AngularVelocity = 10f;
 			});
 		}
 	}

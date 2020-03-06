@@ -11,7 +11,8 @@ namespace BurningKnight.entity.item.renderer {
 		public Item Item;
 		public Vector2 Origin;
 		public Vector2 Nozzle;
-		
+		public bool Hidden;
+
 		public virtual void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
 			
 		}

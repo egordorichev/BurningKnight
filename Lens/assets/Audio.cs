@@ -266,7 +266,7 @@ namespace Lens.assets {
 								var floatSample = 0f;
 
 								foreach (var p in Playing) {
-									floatSample += p.GetSample(ps, c);
+									floatSample += p.GetSample(ps, c) * SfxVolumeBuffer;
 								}
 
 								floatSample = MathUtils.Clamp(-1f, 1f, floatSample);

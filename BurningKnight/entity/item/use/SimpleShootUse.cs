@@ -131,6 +131,7 @@ namespace BurningKnight.entity.item.use {
 					var antiAngle = angle - (float) Math.PI;
 					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage  * (item.Scourged ? 1.5f : 1f), Item);
 					projectile.Boost = !disableBoost;
+					projectile.Item = item;
 
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
@@ -284,10 +285,12 @@ namespace BurningKnight.entity.item.use {
 				
 				var region = CommonAse.Projectiles.GetSlice(slice, false);
 
-				ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
-					new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
-					new Num.Vector2((region.X + region.Width) / region.Texture.Width,
-						(region.Y + region.Height) / region.Texture.Height));
+				if (region != null) {
+					ImGui.Image(ImGuiHelper.ProjectilesTexture, new Num.Vector2(region.Width * 3, region.Height * 3),
+						new Num.Vector2(region.X / region.Texture.Width, region.Y / region.Texture.Height),
+						new Num.Vector2((region.X + region.Width) / region.Texture.Width,
+							(region.Y + region.Height) / region.Texture.Height));
+				}
 
 				if (ImGui.InputText("Texture", ref slice, 128)) {
 					root["texture"] = slice;

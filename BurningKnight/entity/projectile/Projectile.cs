@@ -41,6 +41,7 @@ namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
 	public delegate void ProjectileNearingDeathCallback(Projectile p);
 	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
+	public delegate bool ProjectileCollisionCallback(Projectile p, Entity e);
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
@@ -54,6 +55,7 @@ namespace BurningKnight.entity.projectile {
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
+		public Item Item;
 		public float Range = -1;
 		public float T;
 		public bool Artificial;
@@ -65,6 +67,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileUpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
 		public ProjectileNearingDeathCallback NearDeath;
+		public ProjectileCollisionCallback OnCollision;
 		public Projectile Parent;
 		public Color Color = ProjectileColor.Red;
 		public bool Scourged;
@@ -78,12 +81,12 @@ namespace BurningKnight.entity.projectile {
 		public bool Rotates;
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
+		public List<Entity> EntitiesHurt = new List<Entity>();
 
 		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
 
 		private float deathTimer;
 		private bool nearedDeath;
-		private List<Entity> hurt = new List<Entity>();
 
 		public static Projectile Make(Entity owner, string slice, double angle = 0, 
 			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
@@ -304,7 +307,11 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if (hurt.Contains(ev.Entity)) {
+				if (EntitiesHurt.Contains(ev.Entity)) {
+					return false;
+				}
+
+				if (OnCollision != null && OnCollision(this, ev.Entity)) {
 					return false;
 				}
 
@@ -322,7 +329,7 @@ namespace BurningKnight.entity.projectile {
 				    ) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
-					hurt.Add(ev.Entity);
+					EntitiesHurt.Add(ev.Entity);
 					OnHurt?.Invoke(this, ev.Entity);
 				}
 				

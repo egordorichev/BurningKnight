@@ -10,7 +10,7 @@ namespace Lens.assets {
 #if DEBUG
 		public const bool LoadOriginalFiles = true;
 		public const bool LoadMusic = false;
-		public const bool LoadSfx = true;
+		public const bool LoadSfx = false;
 		public const bool Reload = false;
 		public const bool LoadMods = false;
 #else
