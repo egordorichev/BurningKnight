@@ -28,7 +28,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			if (last <= 0) {
 				last = 2f;
 
-				GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+				GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 				
 				var a = GetComponent<MobAnimationComponent>().Angle;
 				var p = Projectile.Make(this, "circle", a, 8f);

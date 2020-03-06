@@ -15,6 +15,8 @@ using VelcroPhysics;
 namespace Lens.assets {
 	public class Audio {
 		public static float SfxVolume = 1;
+		public static float SfxVolumeBuffer = 1f;
+		public static float SfxVolumeBufferResetTimer = 0;
 		private const float CrossFadeTime = 0.5f;
 
 		public static float Db3 = 0.1f;
@@ -73,7 +75,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			PlaySfx(GetSfx(id), volume, pitch, pan);
+			PlaySfx(GetSfx(id), volume * (id == "level_explosion" ? 1 : SfxVolumeBuffer), pitch, pan);
 		}
 
 		public static SoundEffect GetSfx(string id) {
@@ -238,6 +240,16 @@ namespace Lens.assets {
 		private static byte[] byteBuffer = new byte[BufferSize * 2 * Channels];
 		private static float position;
 		private static bool quit;
+		
+		public static void Update(float dt) {
+			if (SfxVolumeBufferResetTimer > 0) {
+				SfxVolumeBufferResetTimer -= dt;
+
+				if (SfxVolumeBufferResetTimer <= 0) {
+					Tween.To(1, SfxVolumeBuffer, x => SfxVolumeBuffer = x, 0.3f);
+				}
+			}
+		}
 
 		private static void Update() {
 			while (true) {

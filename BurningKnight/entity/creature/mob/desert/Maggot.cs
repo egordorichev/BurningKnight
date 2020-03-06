@@ -112,7 +112,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 					shot = true;
 
 					var a = Self.GetComponent<WallAnimationComponent>();
-					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 					var angle = Self.Direction.ToAngle();
 					var projectile = Projectile.Make(Self, "small", angle, 5f);

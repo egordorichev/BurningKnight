@@ -1,13 +1,14 @@
 # todo
 
-change how projectile penetration works. enemies should be hurtable in invst but single projectile deals damage 1 time
 bk burning sfx plays while in loading
 death counter display
 boomerang
 guitar
+glass weapons (sword, dagger)
 
 fakels in the dark level (like a lot more light sources, turrets should emit light)
 
+feeling with chasms from pd
 smoke texture gets super fast
 some bg for item description popup
 reference "collecting bullets" in item description

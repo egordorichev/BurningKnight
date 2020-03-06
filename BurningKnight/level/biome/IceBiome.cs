@@ -1,5 +1,6 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.level.tile;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -19,8 +20,10 @@ namespace BurningKnight.level.biome {
 
 			painter.Grass = 0;
 			painter.Water = 0.45f;
-			painter.Dirt = 0;
+			painter.Dirt = 0.45f;
 			painter.Cobweb = 0;
+
+			painter.DirtTile = Tile.Snow;
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (l.Get(x, y, true) == Tile.Water) {
@@ -38,6 +41,22 @@ namespace BurningKnight.level.biome {
 					l.Tiles[i] = r;
 				}
 			});
+			
+			painter.Modifiers.Add((l, rm, x, y) => {
+				if (l.Get(x, y, true) == Tile.Dirt) {
+					l.Set(x, y, Tile.Snow);
+				}
+			});
+		}
+
+		public override string GetStepSound(Tile tile) {
+			if (tile == Tile.FloorA || tile == Tile.FloorC) {
+				return $"player_step_snow_{Rnd.Int(1, 4)}";
+			} else if (tile == Tile.FloorB) {
+				return $"player_step_wood_{Rnd.Int(1, 4)}";
+			}
+			
+			return base.GetStepSound(tile);
 		}
 
 		public override bool HasPaintings() {

@@ -144,6 +144,8 @@ namespace Lens {
 			Delta = dt;
 			Time += dt;
 
+			Audio.Update(dt);
+
 			Split = Math.Max(0, Split - dt);
 			Flash = Math.Max(0, Flash - dt * 120f * (1.1f - FlashModifier));
 			Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
