@@ -29,6 +29,7 @@ namespace BurningKnight.entity.component {
 			public SoundEffectInstance Effect;
 			public float BaseVolume = 1f;
 			public bool KeepAround;
+			public bool ApplyBuffer;
 		}
 		
 		public override void Destroy() {
@@ -54,7 +55,7 @@ namespace BurningKnight.entity.component {
 				var d = (ListenerPosition - Entity.Center).Length();
 
 				foreach (var s in Playing.Values) {
-					s.Effect.Volume = (1 - Math.Min(Distance, d) / Distance) * Settings.SfxVolume * s.BaseVolume;
+					s.Effect.Volume = (1 - Math.Min(Distance, d) / Distance) * Settings.SfxVolume * s.BaseVolume * (s.ApplyBuffer ? Audio.SfxVolumeBuffer : 1);
 				}
 			}
 		}
@@ -103,6 +104,11 @@ namespace BurningKnight.entity.component {
 
 			Sfx instance;
 			var v = volume * 0.8f;
+			var applyBuffer = sfx != "level_explosion";
+
+			if (applyBuffer) {
+				v *= Audio.SfxVolumeBuffer;
+			}
 
 			if (!insert || !Playing.TryGetValue(sfx, out instance)) {
 				var sound = Audio.GetSfx(sfx);
@@ -111,10 +117,10 @@ namespace BurningKnight.entity.component {
 					return null;
 				}
 
-
 				instance = new Sfx {
 					Effect = sound.CreateInstance(),
-					KeepAround = tween
+					KeepAround = tween,
+					ApplyBuffer = applyBuffer
 				};
 
 				if (insert) {

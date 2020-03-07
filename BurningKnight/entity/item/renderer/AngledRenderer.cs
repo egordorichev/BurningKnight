@@ -27,6 +27,10 @@ namespace BurningKnight.entity.item.renderer {
 		private float ox;
 
 		public override void Render(bool atBack, bool paused, float dt, bool shadow, int offset) {
+			if (Hidden) {
+				return;
+			}
+			
 			var s = dt * 10f;
 
 			sx += (1 - sx) * s;

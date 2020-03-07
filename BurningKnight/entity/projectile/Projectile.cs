@@ -41,6 +41,7 @@ namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileDeathCallback(Projectile p, bool t);
 	public delegate void ProjectileNearingDeathCallback(Projectile p);
 	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
+	public delegate bool ProjectileCollisionCallback(Projectile p, Entity e);
 
 	public class Projectile : Entity, CollisionFilterEntity {
 		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
@@ -54,6 +55,7 @@ namespace BurningKnight.entity.projectile {
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
+		public Item Item;
 		public float Range = -1;
 		public float T;
 		public bool Artificial;
@@ -65,6 +67,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectileUpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
 		public ProjectileNearingDeathCallback NearDeath;
+		public ProjectileCollisionCallback OnCollision;
 		public Projectile Parent;
 		public Color Color = ProjectileColor.Red;
 		public bool Scourged;
@@ -78,6 +81,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Rotates;
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
+		public List<Entity> EntitiesHurt = new List<Entity>();
 
 		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
 
@@ -217,12 +221,6 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			if (Math.Abs(Damage) >= 0.01f) {
-				foreach (var e in ToHurt) {
-					e.GetComponent<HealthComponent>().ModifyHealth(-Damage, Owner);
-				}
-			}
-
 			Controller?.Invoke(this, dt);
 
 			if (Rotates) {
@@ -244,7 +242,7 @@ namespace BurningKnight.entity.projectile {
 	    }
 		}
 
-		protected bool BreaksFrom(Entity entity) {
+		public bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
 			}
@@ -298,7 +296,6 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool CanHitOwner;
-		private List<Entity> ToHurt = new List<Entity>();
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
@@ -309,23 +306,30 @@ namespace BurningKnight.entity.projectile {
 				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
 					return false;
 				}
-				
+
+				if (EntitiesHurt.Contains(ev.Entity)) {
+					return false;
+				}
+
+				if (OnCollision != null && OnCollision(this, ev.Entity)) {
+					return false;
+				}
+
 				if ((
-						(CanHitOwner && ev.Entity == Owner && T > 0.3f) 
-						|| (ev.Entity != Owner 
-						    && !(Owner is RoomControllable && ev.Entity is Mob) 
-						    && (
-							    !(Owner is Creature ac) 
-							    || !(ev.Entity is Creature bc) 
-							    || ac.IsFriendly() != bc.IsFriendly() 
-							    || bc is ShopKeeper || ac is Player
-							  )
-						  )
-						) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
+					    || (ev.Entity != Owner 
+					        && !(Owner is RoomControllable && ev.Entity is Mob) 
+					        && (
+						        !(Owner is Creature ac) 
+						        || !(ev.Entity is Creature bc) 
+						        || ac.IsFriendly() != bc.IsFriendly() 
+						        || bc is ShopKeeper || ac is Player
+					        )
+					    )
+				    ) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
-					ToHurt.Add(ev.Entity);
-
+					EntitiesHurt.Add(ev.Entity);
 					OnHurt?.Invoke(this, ev.Entity);
 				}
 				
@@ -347,10 +351,6 @@ namespace BurningKnight.entity.projectile {
 					
 				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
-				}
-			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity.HasComponent<HealthComponent>()) {
-					ToHurt.Remove(cee.Entity);
 				}
 			}
 			

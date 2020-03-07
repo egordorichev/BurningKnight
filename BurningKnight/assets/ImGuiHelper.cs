@@ -20,6 +20,7 @@ namespace BurningKnight.assets {
 		
 		public static void Init() {
 			Renderer = new ImGuiRenderer(Engine.Instance);
+			ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 4f);
 		}
 		
 		public static void BindTextures() {

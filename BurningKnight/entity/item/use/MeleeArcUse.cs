@@ -2,6 +2,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.util;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens.entity;
 using Lens.input;
 using Lens.lightJson;
@@ -13,9 +14,11 @@ namespace BurningKnight.entity.item.use {
 		protected int W;
 		protected int H;
 		protected float Angle;
+		protected string AttackSound = "item_sword_attack";
+		protected string HitSound = "item_sword_hit";
 		
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_attack", 4);
+			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(AttackSound, 4);
 
 			var arc = new MeleeArc {
 				Owner = entity,
@@ -23,13 +26,15 @@ namespace BurningKnight.entity.item.use {
 				Damage = Damage * (item.Scourged ? 1.5f : 1),
 				Width = W,
 				Height = H,
+				Sound = HitSound,
 				Position = entity.Center,
 				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().RealAim) + Angle
 			};
 
 			entity.HandleEvent(new MeleeArc.CreatedEvent {
 				Arc = arc,
-				Owner = entity
+				Owner = entity,
+				By = item
 			});
 			
 			entity.Area.Add(arc);
@@ -43,6 +48,8 @@ namespace BurningKnight.entity.item.use {
 			H = settings["h"].Int(24);
 			LifeTime = settings["time"].Number(0.2f);
 			Angle = settings["angle"].Number(0) * (float) Math.PI * 2;
+			HitSound = settings["hs"].String("item_sword_hit");
+			AttackSound = settings["as"].String("item_sword_attack");
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -52,6 +59,11 @@ namespace BurningKnight.entity.item.use {
 
 			root.InputFloat("Life time", "time", 0.2f);
 			root.InputFloat("Angle", "angle", 0);
+			
+			ImGui.Separator();
+
+			root.InputText("Hit Sound", "hs", "item_sword_hit");
+			root.InputText("Attack Sound", "as", "item_sword_attack");
 		}
 	}
 }

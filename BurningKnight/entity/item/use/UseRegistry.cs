@@ -125,6 +125,7 @@ namespace BurningKnight.entity.item.use {
 			Register<LeaveLegoUse>();
 			Register<DoOnNewFloorUse>(DoUsesUse.RenderDebug);
 			Register<DoUsesIfUse>(DoUsesIfUse.RenderDebug);
+			Register<ModifyArcUse>(ModifyArcUse.RenderDebug);
 		}
 	}
 }

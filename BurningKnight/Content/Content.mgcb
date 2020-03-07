@@ -694,6 +694,18 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/fire.wav
 
+#begin Sfx/mob/fire_static.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/fire_static.wav
+
+#begin Sfx/mob/fire_wall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/fire_wall.wav
+
 #begin Sfx/mob/flower/charging.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

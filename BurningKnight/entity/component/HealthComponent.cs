@@ -32,6 +32,7 @@ namespace BurningKnight.entity.component {
 		public int MaxHealthCap = -1;
 		public bool AutoKill = true;
 		public bool SaveMaxHp;
+		public bool PreventDamageInInvincibility = true;
 
 		public bool HasNoHealth => health <= 0.01f;
 		public float Percent => Health / MaxHealth;
@@ -42,7 +43,7 @@ namespace BurningKnight.entity.component {
 			}
 			
 			if (hp < health) {
-				if (Unhittable || InvincibilityTimer > 0) {
+				if (Unhittable || (PreventDamageInInvincibility && InvincibilityTimer > 0)) {
 					return false;
 				}				
 			}
@@ -92,7 +93,7 @@ namespace BurningKnight.entity.component {
 
 		public bool ModifyHealth(float amount, Entity setter, DamageType type = DamageType.Regular) {
 			if (amount < 0 && Entity is Player && (Run.Depth != -2 && Run.Depth < 1)) {
-				if (Unhittable || InvincibilityTimer > 0 || Health <= 0.01f) {
+				if (Unhittable || (PreventDamageInInvincibility && InvincibilityTimer > 0) || Health <= 0.01f) {
 					return false;
 				}
 
@@ -109,7 +110,7 @@ namespace BurningKnight.entity.component {
 			if (amount < 0) {
 				if (Entity.TryGetComponent<HeartsComponent>(out var hearts)) {
 					if (hearts.Total > 0) {
-						if (Unhittable || InvincibilityTimer > 0) {
+						if (Unhittable || (PreventDamageInInvincibility && InvincibilityTimer > 0)) {
 							return false;
 						}
 

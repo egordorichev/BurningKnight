@@ -1,15 +1,26 @@
 # todo
 
-fakels in the dark level (like a lot more light sources, turrets should emit light)
+* add feelings to other biomes (general feeling registry with chances per biome?)
+items to apply slowness (from projectiles and arc), broken armor
+
+death counter display
+biome-dependant props (cactuses and dead bushes for desert)
 
 smoke texture gets super fast
-some bg for item description popup
+some bg for item description popup (gobbo could react to picking up items with some dialog)
 reference "collecting bullets" in item description
-dunce hat should increase hub prices by 1 
 active shop discount still discounts without the use
 add some dialog to npcs when you save them (interact)
 
+flavors {
+ + blood moon (enemies respawn and the game is red)
+ + bk flavors
+ + fakels in the dark level (like a lot more light sources, turrets should emit light)
+}
+
 * fix {
+ + bk burning sfx plays while in loading
+ + players dont notice new shopkeepers
  + the weapons go crazy when you point directly up or down
 
  + tutorial {
@@ -61,7 +72,6 @@ resolution presets? 1920×1080
 * Add sparks
 * Splashes on the water
 * Props that react to music beats
-* player should go up (like jumping arc) when he is rolling
 
 ### Ideas
 
@@ -72,11 +82,9 @@ resolution presets? 1920×1080
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 
-* special secret music with 10% chance?
 * a special reward for completing the level fast
 
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
-* Random events (rain, blood moon, etc), ways to make them more or less likely
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?

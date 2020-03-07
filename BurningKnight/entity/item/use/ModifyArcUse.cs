@@ -1,9 +1,8 @@
 using System;
-using BurningKnight.assets.items;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item.util;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -13,10 +12,10 @@ using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.math;
+using SharpDX.Direct2D1.Effects;
 
 namespace BurningKnight.entity.item.use {
-	public class ModifyProjectilesUse : ItemUse {
-		public float Scale;
+	public class ModifyArcUse : ItemUse {
 		public float Damage;
 		public float Chance;
 		public bool ToAny;
@@ -24,10 +23,9 @@ namespace BurningKnight.entity.item.use {
 		public string BuffToApply;
 		public bool InfiniteBuff;
 		public float BuffDuration;
-		public bool Explosive;
 		public bool RandomEffect;
 		public float EffectChangeSpeed;
-
+		
 		private float lastEffectTime;
 		private int lastEffect = -1;
 
@@ -40,51 +38,41 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is ProjectileCreatedEvent pce) {
-				var a = Item == pce.Item;
+			if (e is MeleeArc.CreatedEvent pce) {
+				var a = Item == pce.By;
 				
 				if (ToAny || (EventCreated && a)) {
-					ModifyProjectile(pce.Projectile);
+					ModifyProjectile(pce.Arc);
 				}
 			}
 
 			return base.HandleEvent(e);
 		}
 
-		public void ModifyProjectile(Projectile projectile) {
+		public void ModifyProjectile(MeleeArc arc) {
 			if (Rnd.Float() > Chance + Run.Luck * 0.2f) {
 				return;
 			}
 			
-			projectile.Scale *= Scale;
-			projectile.Damage *= Damage;
+			arc.Damage *= Damage;
 
 			if (RandomEffect) {
 				if (lastEffect == -1 || (EffectChangeSpeed > 0 && Engine.Time - lastEffectTime >= EffectChangeSpeed)) {
-					lastEffect = Rnd.Int(effects.Length + 1);
+					lastEffect = Rnd.Int(effects.Length);
 					lastEffectTime = Engine.Time;
 				}
 
-				var e = lastEffect == effects.Length;
-				ApplyBuff(projectile, e ? null : effects[lastEffect], e);
+				ApplyBuff(arc, effects[lastEffect]);
 				
 				return;
 			}
 			
-			if (BuffToApply != null || Explosive) {
-				ApplyBuff(projectile, BuffToApply, Explosive);
+			if (BuffToApply != null) {
+				ApplyBuff(arc, BuffToApply);
 			}
 		}
 
-		private void ApplyBuff(Projectile projectile, string buff, bool explosive) {
-			if (explosive) {
-				projectile.Damage = 0;
-				projectile.Color = ProjectileColor.Brown;
-				projectile.OnDeath += (p, t) => {
-					ExplosionMaker.Make(p, 32, false, damage: 4, scale: 0.5f);
-				};
-			}
-
+		private void ApplyBuff(MeleeArc arc, string buff) {
 			if (buff != null) {
 				if (!BuffRegistry.All.TryGetValue(buff, out var info)) {
 					Log.Error($"Unknown buff {buff}");
@@ -92,9 +80,9 @@ namespace BurningKnight.entity.item.use {
 					return;
 				}
 
-				projectile.Color = info.Effect.GetColor();
+				arc.Color = info.Effect.GetColor();
 
-				projectile.OnHurt += (p, e) => {
+				arc.OnHurt += (p, e) => {
 					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
 						var b = BuffRegistry.Create(buff);
 
@@ -109,15 +97,13 @@ namespace BurningKnight.entity.item.use {
 				};
 			}
 		}
-
+		
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);			
 			
 			Chance = settings["chance"].Number(1);
-			Scale = settings["amount"].Number(1);
 			Damage = settings["damage"].Number(1);
 			ToAny = settings["any"].Bool(false);
-			Explosive = settings["explosive"].Bool(false);
 			
 			BuffToApply = settings["buff"].String(null);
 
@@ -134,12 +120,11 @@ namespace BurningKnight.entity.item.use {
 				EffectChangeSpeed = settings["ecs"].Number(3f);
 			}
 		}
-		
+
 		public static void RenderDebug(JsonValue root) {
 			root.Checkbox("From Any Source", "any", false);
 			
 			root.InputFloat("Chance", "chance");
-			root.InputFloat("Scale Modifier", "amount");
 			root.InputFloat("Damage Modifier", "damage");
 			
 			ImGui.Separator();
@@ -147,8 +132,6 @@ namespace BurningKnight.entity.item.use {
 			if (root.Checkbox("Random Effect", "rne", false)) {
 				root.InputFloat("Effect Change Speed", "ecs", 3f);
 			} else {
-				root.Checkbox("Make Explosive", "explosive", false);
-
 				if (ImGui.TreeNode("Buff")) {
 					if (!BuffRegistry.All.ContainsKey(root.InputText("Buff", "buff", "bk:frozen"))) {
 						ImGui.BulletText("Unknown buff!");

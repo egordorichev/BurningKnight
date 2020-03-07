@@ -15,6 +15,10 @@ namespace BurningKnight.level.entities.statue {
 		}
 
 		protected override bool CanInteract(Entity e) {
+			if (Broken) {
+				return false;
+			}
+			
 			if (base.CanInteract(e)) {
 				return true;
 			}

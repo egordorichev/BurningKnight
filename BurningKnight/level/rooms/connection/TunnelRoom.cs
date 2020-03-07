@@ -4,26 +4,11 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.connection {
 	public class TunnelRoom : ConnectionRoom {
 		public override void Paint(Level level) {
-			var fl = Rnd.Chance() ? Tiles.RandomFloorOrSpike() : Tiles.RandomSolid();
-			var w = GenerateSpot();
-			
-			PaintTunnel(level, fl, w, true);
-
-			if (fl == Tile.Lava) {
-				PaintTunnel(level, Tiles.RandomFloorOrSpike(), w);
+			if (level.GetFilling() == Tile.Chasm || Rnd.Chance()) {
+				Painter.Fill(level, this, 1, Tile.Chasm);
 			}
-
-			if (Rnd.Chance()) {
-				PaintTunnel(level, Tiles.RandomFloorOrSpike(), w, true);
-			}
-
-			if (Rnd.Chance()) {
-				PaintTunnel(level, fl.Matches(Tile.Dirt, Tile.Lava) ? Rnd.Chance() ? 
-					Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike(), GenerateSpot());
-			}
-			
-			PaintTunnel(level, fl.Matches(Tile.Dirt, Tile.Lava) ? Rnd.Chance() ? 
-				Tile.Water : Tile.Dirt : Tiles.RandomFloorOrSpike(), w);
+		
+			PaintTunnel(level, Tiles.RandomFloorOrSpike(),  GenerateSpot());
 		}
 	}
 }

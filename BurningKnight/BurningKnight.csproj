@@ -496,6 +496,7 @@
     <Compile Include="entity\creature\pet\GeneratorPet.cs" />
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
     <Compile Include="entity\creature\pet\SnekPet.cs" />
+    <Compile Include="entity\creature\pet\Strawberry.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
@@ -692,6 +693,7 @@
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
+    <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
@@ -779,6 +781,7 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\BoomerangProjectileController.cs" />
     <Compile Include="entity\projectile\controller\HsvProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\ReturnProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
@@ -942,6 +945,7 @@
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
     <Compile Include="level\rooms\boss\FireTrapBossRoom.cs" />
     <Compile Include="level\rooms\challenge\ChallengeRoom.cs" />
+    <Compile Include="level\rooms\connection\ComplexTunnelRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />
@@ -1043,12 +1047,14 @@
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />
+    <Compile Include="level\walls\CornerWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
     <Compile Include="level\walls\MazeWall.cs" />
     <Compile Include="level\walls\PatchWall.cs" />
     <Compile Include="level\walls\PlatformWall.cs" />
     <Compile Include="level\walls\RuinsWall.cs" />
     <Compile Include="level\walls\SegmentedWall.cs" />
+    <Compile Include="level\walls\SplitWall.cs" />
     <Compile Include="level\walls\TempleWalls.cs" />
     <Compile Include="level\walls\TurretWall.cs" />
     <Compile Include="level\walls\WallPainter.cs" />

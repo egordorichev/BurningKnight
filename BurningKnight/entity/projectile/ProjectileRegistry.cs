@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.paintings;
 using BurningKnight.physics;
 using Lens.input;
 
@@ -177,6 +180,45 @@ namespace BurningKnight.entity.projectile {
 			Add("portal", p => {
 				p.Center = Input.Mouse.GamePosition;
 				p.GetAnyComponent<BodyComponent>().Velocity *= -1;
+			});
+			
+			Add("axe", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
+				
+				p.OnDeath = (pr, t) => {
+					pr.Item.Renderer.Hidden = false;
+				};
+
+				p.OnCollision = (projectile, e) => {
+					if (projectile.BounceLeft == 0) {
+						if (e == projectile.Owner) {
+							projectile.Break();
+						} else if (!(e is Mob)) {
+							return true;
+						}
+					} else if (projectile.BreaksFrom(e)) {
+						if (e is Painting || e is BreakableProp || e is ExplodingBarrel || e.HasComponent<HealthComponent>()) {
+							projectile.BounceLeft++;
+						} else {
+							var b = projectile.GetComponent<RectBodyComponent>().Body;
+							b.LinearVelocity *= -1;
+
+							projectile.BounceLeft = 0;
+							projectile.EntitiesHurt.Clear();
+							projectile.Controller += ReturnProjectileController.Make(projectile.Owner);
+
+							return true;
+						}
+					}
+					
+					return false;
+				};
+				
+				p.BounceLeft = 1;
+				p.DieOffscreen = false;
+				p.Rotates = true;
+
+				p.Item.Renderer.Hidden = true;
 			});
 		}
 	}

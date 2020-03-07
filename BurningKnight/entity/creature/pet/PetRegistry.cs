@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.pet {
 				Owner = o
 			}));
 
-			Define("strawberry", o => o.Area.Add(new FollowerPet("bk:strawberry") {
+			Define("strawberry", o => o.Area.Add(new Strawberry() {
 				Owner = o
 			}));
 

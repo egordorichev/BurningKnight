@@ -17,7 +17,7 @@ namespace BurningKnight.entity.bomb {
 	public delegate void BombDeathCallback(Bomb b);
 	
 	public class Bomb : Entity, CollisionFilterEntity {
-		public const float ExplosionTime = 3f;
+		public const float ExplosionTime = 2f;
 		private readonly float explosionTime; 
 
 		public BombUpdateCallback Controller;

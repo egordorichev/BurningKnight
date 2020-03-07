@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.level.biome;
+using Lens.util;
 using Lens.util.math;
 
 namespace BurningKnight.util {
@@ -16,13 +18,19 @@ namespace BurningKnight.util {
 
 		public static string Generate(string biome) {
 			if (!defined.TryGetValue(biome, out var list)) {
+				Log.Error($"Didn't find title for {biome}");
 				return "Idk man, kinda 404?";
 			}
 
-			return list[Rnd.Int(list.Count)];
+			return list[new Random().Next(list.Count)];
 		}
 
 		static BiomeTitles() {
+			Add(Biome.Hub,
+				"Dodge this",
+				"Shopkeeper knows something"
+			);
+			
 			Add(Biome.Castle,
 				"This place is old",
 				"The knights are gone"
@@ -40,6 +48,14 @@ namespace BurningKnight.util {
 				"Jungle be like",
 				"This place is growing on me",
 				"Like snakes and ladders without ladders"
+			);
+			
+			Add(Biome.Ice,
+				"This place is cool",
+				"Let it snow",
+				"The winter is coming",
+				"Ice Age",
+				"Snow Inc."
 			);
 			
 			Add(Biome.Library,

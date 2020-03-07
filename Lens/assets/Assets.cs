@@ -8,17 +8,17 @@ using Microsoft.Xna.Framework.Content;
 namespace Lens.assets {
 	public static class Assets {
 #if DEBUG
-		public static bool LoadOriginalFiles = true;
-		public static bool LoadMusic = false;
-		public static bool LoadSfx = false;
-		public static bool Reload = false;
-		public static bool LoadMods = false;
+		public const bool LoadOriginalFiles = true;
+		public const bool LoadMusic = false;
+		public const bool LoadSfx = false;
+		public const bool Reload = false;
+		public const bool LoadMods = false;
 #else
-		public static bool LoadOriginalFiles = false;
-		public static bool LoadMusic = true;
-		public static bool LoadSfx = true;
-		public static bool Reload = false;
-		public static bool LoadMods = true;
+		public const bool LoadOriginalFiles = false;
+		public const bool LoadMusic = true;
+		public const bool LoadSfx = true;
+		public const bool Reload = false;
+		public const bool LoadMods = true;
 #endif
 
 		public static ContentManager Content;

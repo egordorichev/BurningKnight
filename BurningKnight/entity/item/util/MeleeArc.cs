@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
@@ -15,6 +16,8 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item.util {
+	public delegate void ArcHurtCallback(MeleeArc p, Entity e);
+
 	public class MeleeArc : Entity {
 		public static Color ReflectedColor = new Color(0.5f, 1f, 0.5f, 1f);
 		
@@ -22,14 +25,19 @@ namespace BurningKnight.entity.item.util {
 		public float Damage;
 		public Entity Owner;
 		public float Angle;
+		public string Sound = "item_sword_hit";
+		public Color Color = ColorUtils.WhiteColor;
+
+		public ArcHurtCallback OnHurt;
 
 		private float t;
 		private Vector2 velocity;
-
+		private List<Entity> hurt = new List<Entity>();
+		
 		public override void AddComponents() {
 			base.AddComponents();
 
-			float force = 40f;
+			const float force = 40f;
 			velocity = new Vector2((float) Math.Cos(Angle) * force, (float) Math.Sin(Angle) * force);
 			
 			AddComponent(new RectBodyComponent(0, -Height / 2f, Width, Height, BodyType.Dynamic, true) {
@@ -51,7 +59,9 @@ namespace BurningKnight.entity.item.util {
 			var component = GetComponent<AnimationComponent>();
 			var region = component.Animation.GetCurrentTexture();
 
+			Graphics.Color = Color;
 			Graphics.Render(region, Position, Angle, component.Offset, component.Scale);
+			Graphics.Color = ColorUtils.WhiteColor;
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -90,8 +100,13 @@ namespace BurningKnight.entity.item.util {
 						}
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
-					if (health.ModifyHealth(-Damage, Owner)) {
-						Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+					if (!hurt.Contains(ev.Entity)) {
+						if (health.ModifyHealth(-Damage, Owner)) {
+							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
+						}
+
+						OnHurt?.Invoke(this, ev.Entity);
+						hurt.Add(ev.Entity);
 					}
 				}
 			}
@@ -113,6 +128,7 @@ namespace BurningKnight.entity.item.util {
 		public class CreatedEvent : Event {
 			public MeleeArc Arc;
 			public Entity Owner;
+			public Item By;
 		}
 	}
 }

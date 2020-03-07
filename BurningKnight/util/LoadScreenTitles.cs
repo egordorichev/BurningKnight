@@ -1,9 +1,10 @@
+using System;
 using Lens.util.math;
 
 namespace BurningKnight.util {
 	public static class LoadScreenTitles {
 		public static string Generate() {
-			return titles[Rnd.Int(titles.Length)];
+			return titles[new Random().Next(titles.Length)];
 		}
 		
 		private static string[] titles = {

@@ -55,7 +55,11 @@ namespace BurningKnight.entity.creature.mob {
 			SetStats();
 			
 			AddDrops(new SingleDrop("bk:coin", 0.2f));
-			GetComponent<HealthComponent>().InvincibilityTimerMax = 0.2f;
+			AddDrops(new SingleDrop("bk:bomb", 0.03f));
+
+			var h = GetComponent<HealthComponent>();
+			h.InvincibilityTimerMax = 0.3f;
+			h.PreventDamageInInvincibility = false;
 
 			if (!(this is Boss)) {
 				GetComponent<StateComponent>().Pause++;

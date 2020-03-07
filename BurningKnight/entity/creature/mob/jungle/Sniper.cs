@@ -104,7 +104,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 							return;
 						}
 								
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 
 						for (var i = 0; i < 3; i++) {
 							var angle = Self.lastAngle + (i - 1) * 0.1f;
