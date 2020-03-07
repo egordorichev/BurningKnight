@@ -1,11 +1,10 @@
 # todo
 
 * add feelings to other biomes (general feeling registry with chances per biome?)
+remove axe shells
 
 death counter display
-guitar
 glass weapons (sword, dagger)
-
 
 smoke texture gets super fast
 some bg for item description popup (gobbo could react to picking up items with some dialog)
