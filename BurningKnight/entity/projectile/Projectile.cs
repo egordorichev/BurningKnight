@@ -242,7 +242,7 @@ namespace BurningKnight.entity.projectile {
 	    }
 		}
 
-		protected bool BreaksFrom(Entity entity) {
+		public bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
 			}

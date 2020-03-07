@@ -779,6 +779,7 @@
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\BoomerangProjectileController.cs" />
     <Compile Include="entity\projectile\controller\HsvProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\ReturnProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
