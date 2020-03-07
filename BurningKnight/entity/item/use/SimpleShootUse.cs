@@ -41,6 +41,7 @@ namespace BurningKnight.entity.item.use {
 		protected bool wait;
 		private bool toCursor;
 		public bool ReloadSfx;
+		private bool shells;
 		
 		public bool ProjectileDied = true;
 
@@ -89,6 +90,7 @@ namespace BurningKnight.entity.item.use {
 			rect = settings["rect"].Bool(false);
 			wait = settings["wait"].Bool(false);
 			disableBoost = settings["dsb"].Bool(false);
+			shells = settings["shells"].Bool(true);
 
 			SpawnProjectile = (entity, item) => {
 				var bad = entity is Creature c && !c.IsFriendly();
@@ -168,27 +170,29 @@ namespace BurningKnight.entity.item.use {
 					}
 				}
 
-				Timer.Add(() => {
-					var p = new ShellParticle(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
-						Region = CommonAse.Particles.GetSlice("shell")
-					}));
+				if (shells) {
+					Timer.Add(() => {
+						var p = new ShellParticle(new Particle(Controllers.Destroy, new TexturedParticleRenderer {
+							Region = CommonAse.Particles.GetSlice("shell")
+						}));
 
-					p.Position = entity.Center;
-					p.Y += Rnd.Float(-4, 10);
+						p.Position = entity.Center;
+						p.Y += Rnd.Float(-4, 10);
 
-					entity.Area.Add(p);
+						entity.Area.Add(p);
 
-					var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
+						var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
 
-					p.Particle.Velocity =
-						new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
+						p.Particle.Velocity =
+							new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;
 
-					p.Particle.Angle = 0;
-					p.Particle.Zv = Rnd.Float(1.5f, 2.5f);
-					p.Particle.AngleVelocity = f * Rnd.Float(40, 70);
+						p.Particle.Angle = 0;
+						p.Particle.Zv = Rnd.Float(1.5f, 2.5f);
+						p.Particle.AngleVelocity = f * Rnd.Float(40, 70);
 
-					p.AddShadow();
-				}, 0.2f);
+						p.AddShadow();
+					}, 0.2f);
+				}
 			};
 		}
 
@@ -217,6 +221,7 @@ namespace BurningKnight.entity.item.use {
 				root.InputText("Sound", "sfx", "item_gun_fire");
 				root.InputInt("Sound Prefix Number", "sfxn", 0);
 				root.Checkbox("Reload Sound", "rsfx", false);
+				root.Checkbox("Drop Shells", "shells", true);
 
 				ImGui.Separator();
 

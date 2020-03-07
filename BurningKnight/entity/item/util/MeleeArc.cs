@@ -23,6 +23,7 @@ namespace BurningKnight.entity.item.util {
 		public float Damage;
 		public Entity Owner;
 		public float Angle;
+		public string Sound = "item_sword_hit";
 
 		private float t;
 		private Vector2 velocity;
@@ -94,7 +95,7 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					if (!hurt.Contains(ev.Entity)) {
 						if (health.ModifyHealth(-Damage, Owner)) {
-							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_sword_hit", 3);
+							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
 						}
 						
 						hurt.Add(ev.Entity);

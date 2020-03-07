@@ -1,10 +1,10 @@
 # todo
 
 * add feelings to other biomes (general feeling registry with chances per biome?)
-remove axe shells
 
+allow to add effects to melee arcs, make bk:chicken set enemies on fire
 death counter display
-glass weapons (sword, dagger)
+biome-dependant props (cactuses and dead bushes for desert)
 
 smoke texture gets super fast
 some bg for item description popup (gobbo could react to picking up items with some dialog)
