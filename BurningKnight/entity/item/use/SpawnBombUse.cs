@@ -50,13 +50,13 @@ namespace BurningKnight.entity.item.use {
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 			
-			Timer = settings["timer"].Number(3);
+			Timer = settings["timer"].Number(2);
 			Amount = settings["amount"].Int(1);
 			Randomly = settings["randomly"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			var val = root["timer"].Number(3);
+			var val = root["timer"].Number(2);
 
 			if (ImGui.InputFloat("Timer", ref val)) {
 				root["timer"] = val;
