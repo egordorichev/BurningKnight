@@ -10,7 +10,10 @@ using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.room;
 using BurningKnight.level.biome;
+using BurningKnight.level.rooms;
+using BurningKnight.level.rooms.connection;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -279,9 +282,28 @@ namespace BurningKnight.level {
 			} else {
 				loadMarked = true;
 			}
+
+			var rooms = Area.Tagged[Tags.Room];
+			var f = GetFilling() == Tile.Chasm;
 			
 			for (var i = 0; i < Size - Width; i++) {
-				if (Get(i).Matches(Tile.WallA, Tile.Transition) && Get(i + Width).Matches(Tile.WallA, Tile.Transition)) {
+				var found = false;
+				
+				foreach (var r in rooms) {
+					var room = (Room) r;
+					
+					if (room.ContainsTile(FromIndexX(i), FromIndexY(i), 1)) {
+						if (!f || room.Type != RoomType.Connection) {
+							found = true;
+						}
+
+						break;
+					}
+					
+					//if (Get(i).Matches(Tile.WallA, Tile.Transition) && Get(i + Width).Matches(Tile.WallA, Tile.Transition)) {
+				}
+
+				if (!found) {
 					Explored[i] = true;
 					Light[i] = 1f;
 				}

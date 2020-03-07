@@ -618,5 +618,9 @@ namespace BurningKnight.entity.room {
 			
 			Painter.Clip = null;
 		}
+
+		public bool ContainsTile(int x, int y, int d = 0) {
+			return x >= MapX + d && x < MapX + MapW - d && y >= MapY + d - 1 && y < MapY + MapH - d;
+		}
 	}
 }

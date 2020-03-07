@@ -194,11 +194,11 @@ namespace BurningKnight.level {
 			}
 
 			var tr = Level.GetFilling();
-			
+
 			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 				PlaceDoors(Room);
-				
+
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
 					    d.Type != DoorPlaceholder.Variant.Maze) {
@@ -211,6 +211,14 @@ namespace BurningKnight.level {
 							Set(Level, d.X + 1, d.Y, tr);
 						}
 					}
+				}
+			}
+
+			for (var i = Rooms.Count - 1; i >= 0; i--) {
+				var Room = Rooms[i];
+			
+				if (!(Room is ConnectionRoom)) {
+					Rect(Level, Room, 0, Tile.WallA);
 				}
 
 				Clip = Room.Shrink();
@@ -721,8 +729,8 @@ namespace BurningKnight.level {
 				}
 
 				// Fireflies
-				if (Rnd.Chance(FirefliesChance)) {
-					for (var I = 0; I < (Rnd.Chance(50) ? 1 : Rnd.Int(3, 6)) * Fireflies; I++) {
+				if (Level.Dark || Rnd.Chance(FirefliesChance)) {
+					for (var I = 0; I < (!Level.Dark && Rnd.Chance() ? 1 : Rnd.Int(3, 6)) * Fireflies; I++) {
 						Level.Area.Add(new Firefly {
 							X = (Room.Left + 2) * 16 + Rnd.Float((Room.GetWidth() - 4) * 16),
 							Y = (Room.Top + 2) * 16 + Rnd.Float((Room.GetHeight() - 4) * 16)
@@ -935,6 +943,8 @@ namespace BurningKnight.level {
 						Level.Set(D.X, D.Y - 1, Tiles.RandomFloor());
 					}
 				}
+			} else if (type == DoorPlaceholder.Variant.Empty) { 
+				Level.Set(D.X, D.Y, Tiles.RandomFloor());
 			}
 		}
 

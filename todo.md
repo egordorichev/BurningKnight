@@ -1,5 +1,7 @@
 # todo
 
+* room with collumnt/chasm around it in the center
+
 bk burning sfx plays while in loading
 death counter display
 guitar
@@ -14,10 +16,14 @@ reference "collecting bullets" in item description
 dunce hat should increase hub prices by 1 
 active shop discount still discounts without the use
 add some dialog to npcs when you save them (interact)
-bk flavors (feelings)
-players dont notice new shopkeepers
+
+flavor ideas {
+ + blood moon (enemies respawn and the game is red)
+ + bk flavors
+}
 
 * fix {
+ + players dont notice new shopkeepers
  + the weapons go crazy when you point directly up or down
 
  + tutorial {
@@ -80,11 +86,9 @@ resolution presets? 1920×1080
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
 
-* special secret music with 10% chance?
 * a special reward for completing the level fast
 
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
-* Random events (rain, blood moon, etc), ways to make them more or less likely
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?

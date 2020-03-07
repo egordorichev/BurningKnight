@@ -943,6 +943,7 @@
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
     <Compile Include="level\rooms\boss\FireTrapBossRoom.cs" />
     <Compile Include="level\rooms\challenge\ChallengeRoom.cs" />
+    <Compile Include="level\rooms\connection\ComplexTunnelRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />

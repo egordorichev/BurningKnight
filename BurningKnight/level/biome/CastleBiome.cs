@@ -17,6 +17,7 @@ namespace BurningKnight.level.biome {
 			Flooded, // todo: enable rain
 			Webbed, // todo: spider enemies, spider cocons
 			Snow,
+			Chasm,
 			Gold
 		}
 
@@ -26,6 +27,7 @@ namespace BurningKnight.level.biome {
 			0.1f,
 			0.1f,
 			0.1f,
+			1f,
 			0.01f
 		};
 
@@ -62,7 +64,15 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override Tile GetFilling() {
-			return variant == Variant.Gold ? Tile.WallB : Tile.WallA;
+			if (variant == Variant.Chasm) {
+				return Tile.Chasm;
+			}
+
+			if (variant == Variant.Gold) {
+				return Tile.WallB;
+			}
+			
+			return Tile.WallA;
 		}
 
 		public override void ModifyPainter(Painter painter) {

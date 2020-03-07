@@ -14,6 +14,7 @@ using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
+using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens.util;
@@ -235,11 +236,19 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual Builder GetBuilder() {
+			Builder builder;
+			
 			if (IsFinal()) {
-				return new LineBuilder();
+				builder = new LineBuilder();
+			} else {
+				builder = LevelSave.BiomeGenerated.GetBuilder();
 			}
 
-			return LevelSave.BiomeGenerated.GetBuilder();
+			if (GetFilling() == Tile.Chasm && builder is RegularBuilder b) {
+				b.SetTunnelLength(new float[] {2, 3, 4}, new float[] {1, 3, 1});
+			}
+			
+			return builder;
 		}
 
 		protected int GetNumConnectionRooms() {

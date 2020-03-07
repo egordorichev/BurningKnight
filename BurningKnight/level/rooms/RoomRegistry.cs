@@ -140,7 +140,8 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<VampireShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
 				
 				// Connection
-				RoomInfo.New<TunnelRoom>(1f),
+				RoomInfo.New<TunnelRoom>(4f),
+				RoomInfo.New<ComplexTunnelRoom>(1f),
 				RoomInfo.New<MazeConnectionRoom>(0.2f),
 				RoomInfo.New<RingConnectionRoom>(1f),
 				RoomInfo.New<IntersectionConnectionRoom>(0.5f),
