@@ -1,8 +1,8 @@
 # todo
 
 * add feelings to other biomes (general feeling registry with chances per biome?)
+items to apply slowness (from projectiles and arc), broken armor
 
-allow to add effects to melee arcs, make bk:chicken set enemies on fire
 death counter display
 biome-dependant props (cactuses and dead bushes for desert)
 
@@ -72,7 +72,6 @@ resolution presets? 1920×1080
 * Add sparks
 * Splashes on the water
 * Props that react to music beats
-* player should go up (like jumping arc) when he is rolling
 
 ### Ideas
 

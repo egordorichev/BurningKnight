@@ -33,7 +33,8 @@ namespace BurningKnight.entity.item.use {
 
 			entity.HandleEvent(new MeleeArc.CreatedEvent {
 				Arc = arc,
-				Owner = entity
+				Owner = entity,
+				By = item
 			});
 			
 			entity.Area.Add(arc);
