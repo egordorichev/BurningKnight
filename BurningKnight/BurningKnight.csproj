@@ -1051,6 +1051,7 @@
     <Compile Include="level\walls\PlatformWall.cs" />
     <Compile Include="level\walls\RuinsWall.cs" />
     <Compile Include="level\walls\SegmentedWall.cs" />
+    <Compile Include="level\walls\SplitWall.cs" />
     <Compile Include="level\walls\TempleWalls.cs" />
     <Compile Include="level\walls\TurretWall.cs" />
     <Compile Include="level\walls\WallPainter.cs" />

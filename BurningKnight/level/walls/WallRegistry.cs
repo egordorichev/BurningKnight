@@ -24,9 +24,9 @@ namespace BurningKnight.level.walls {
 			Add(new WallPainter(), 1f);
 
 			Add(new CollumnWall(), 1f);
+			Add(new SplitWall(), 1f);
 			Add(new CollumsWall(), 1f);
 			Add(new PlatformWall(), 1f);
-
 			Add(new EllipseWalls(), 1f);
 			Add(new TempleWalls(), 1f);
 			Add(new SegmentedWall(), 1f);
