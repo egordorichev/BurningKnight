@@ -1,6 +1,9 @@
 # todo
 
-* room with collumnt/chasm around it in the center
+* wall, that eats one corner
+* wall, that eats a part of one side
+* room split in two/four by chasm
+* add feelings to other biomes (general feeling registry with chances per biome?)
 
 bk burning sfx plays while in loading
 death counter display

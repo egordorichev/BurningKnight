@@ -214,11 +214,13 @@ namespace BurningKnight.level {
 				}
 			}
 
+			var fl = Level.GetFilling() == Tile.WallB ? Tile.WallB : Tile.WallA;
+
 			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 			
 				if (!(Room is ConnectionRoom)) {
-					Rect(Level, Room, 0, Tile.WallA);
+					Rect(Level, Room, 0, fl);
 				}
 
 				Clip = Room.Shrink();
