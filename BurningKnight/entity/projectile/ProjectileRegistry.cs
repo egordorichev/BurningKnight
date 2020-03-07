@@ -184,35 +184,40 @@ namespace BurningKnight.entity.projectile {
 			
 			Add("axe", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
-
-				p.DieOffscreen = false;
-				p.Rotates = true;
-
+				
 				p.OnDeath = (pr, t) => {
 					pr.Item.Renderer.Hidden = false;
 				};
 
 				p.OnCollision = (projectile, e) => {
-					if (p.BounceLeft == 0) {
+					if (projectile.BounceLeft == 0) {
 						if (e == projectile.Owner) {
-							p.Break();
+							projectile.Break();
 						} else if (!(e is Mob)) {
 							return true;
 						}
-					} else if (projectile.BreaksFrom(e) && !(e is Painting || e is BreakableProp || e is ExplodingBarrel || e.HasComponent<HealthComponent>())) {
-						var b = projectile.GetComponent<RectBodyComponent>().Body;
-						b.LinearVelocity *= -1;
-						
-						projectile.BounceLeft = 0;
-						projectile.EntitiesHurt.Clear();
-						projectile.Controller += ReturnProjectileController.Make(projectile.Owner);
-						return true;
+					} else if (projectile.BreaksFrom(e)) {
+						if (e is Painting || e is BreakableProp || e is ExplodingBarrel || e.HasComponent<HealthComponent>()) {
+							projectile.BounceLeft++;
+						} else {
+							var b = projectile.GetComponent<RectBodyComponent>().Body;
+							b.LinearVelocity *= -1;
+
+							projectile.BounceLeft = 0;
+							projectile.EntitiesHurt.Clear();
+							projectile.Controller += ReturnProjectileController.Make(projectile.Owner);
+
+							return true;
+						}
 					}
 					
 					return false;
 				};
 				
 				p.BounceLeft = 1;
+				p.DieOffscreen = false;
+				p.Rotates = true;
+
 				p.Item.Renderer.Hidden = true;
 			});
 		}

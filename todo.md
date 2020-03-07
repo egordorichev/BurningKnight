@@ -2,7 +2,6 @@
 
 bk burning sfx plays while in loading
 death counter display
-boomerang
 guitar
 glass weapons (sword, dagger)
 

@@ -230,7 +230,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (i.Touching[(int) Tile.Cobweb]) {
-				s *= 0.8f;
+				s *= 0.6f;
 			}
 
 			if (i.Touching[(int) Tile.Water] || i.Touching[(int) Tile.Lava]) {
