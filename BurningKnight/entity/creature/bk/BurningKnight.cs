@@ -92,8 +92,10 @@ namespace BurningKnight.entity.creature.bk {
 		public override void PostInit() {
 			base.PostInit();
 			
-			GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.3f, looped: true, tween: true);
-			GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.3f, looped: true, tween: true);
+			Timer.Add(() => {
+				GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.3f, looped: true, tween: true);
+				GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.3f, looped: true, tween: true);
+			}, 2f);
 		}
 
 		public override void Destroy() {

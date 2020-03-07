@@ -3,6 +3,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.save;
@@ -146,18 +147,29 @@ namespace BurningKnight.entity.item {
 		}
 
 		public override void SetItem(Item i, Entity entity, bool remove = true) {
-			if (i != null) {
-				if (GlobalSave.IsTrue(i.Id)) {
-					price = 0;
-				} else {
-					price = i.Data.UnlockPrice;
-					priceString = $"{price}";
-					priceWidth = Font.Small.MeasureString(priceString).Width;
-					priceX = (Width - priceWidth - 2 - emerald.Width) / 2f;
-				}
+			base.SetItem(i, entity, remove);
+			RecalculatePrice();
+		}
+
+		public void RecalculatePrice() {
+			if (Item == null) {
+				return;
 			}
 			
-			base.SetItem(i, entity, remove);
+			if (GlobalSave.IsTrue(Item.Id)) {
+				price = 0;
+			} else {
+				price = Item.Data.UnlockPrice;
+				var player = LocalPlayer.Locate(Area);
+
+				if (player != null && player.GetComponent<HatComponent>().Item?.Id == "bk:dunce_hat") {
+					price++;
+				}
+				
+				priceString = $"{price}";
+				priceWidth = Font.Small.MeasureString(priceString).Width;
+				priceX = (Width - priceWidth - 2 - emerald.Width) / 2f;
+			}
 		}
 	}
 }

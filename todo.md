@@ -1,29 +1,26 @@
 # todo
 
-* wall, that eats a part of one side
 * add feelings to other biomes (general feeling registry with chances per biome?)
 
-bk burning sfx plays while in loading
 death counter display
 guitar
 glass weapons (sword, dagger)
 
-fakels in the dark level (like a lot more light sources, turrets should emit light)
 
-feeling with chasms from pd
 smoke texture gets super fast
-some bg for item description popup
+some bg for item description popup (gobbo could react to picking up items with some dialog)
 reference "collecting bullets" in item description
-dunce hat should increase hub prices by 1 
 active shop discount still discounts without the use
 add some dialog to npcs when you save them (interact)
 
-flavor ideas {
+flavors {
  + blood moon (enemies respawn and the game is red)
  + bk flavors
+ + fakels in the dark level (like a lot more light sources, turrets should emit light)
 }
 
 * fix {
+ + bk burning sfx plays while in loading
  + players dont notice new shopkeepers
  + the weapons go crazy when you point directly up or down
 

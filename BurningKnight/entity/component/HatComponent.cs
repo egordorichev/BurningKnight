@@ -33,5 +33,15 @@ namespace BurningKnight.entity.component {
 				DoNotRender = item.Id == "bk:no_hat";
 			}
 		}
+
+		protected override void OnItemSet(Item previous) {
+			base.OnItemSet(previous);
+			
+			foreach (var i in Entity.Area.Tagged[Tags.Item]) {
+				if (i is EmeraldStand st) {
+					st.RecalculatePrice();
+				}
+			}
+		}
 	}
 }
