@@ -1045,6 +1045,7 @@
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />
+    <Compile Include="level\walls\CornerWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
     <Compile Include="level\walls\MazeWall.cs" />
     <Compile Include="level\walls\PatchWall.cs" />

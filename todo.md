@@ -1,6 +1,5 @@
 # todo
 
-* wall, that eats one corner
 * wall, that eats a part of one side
 * add feelings to other biomes (general feeling registry with chances per biome?)
 
