@@ -1670,6 +1670,8 @@ namespace BurningKnight.level {
 
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.Shake(2);
+			
+			AudioEmitterComponent.Dummy(area, new Vector2(x, y) * 16).EmitRandomizedPrefixed("level_chair_break", 2, 0.75f);
 		}
 
 		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {

@@ -25,6 +25,7 @@ namespace BurningKnight.entity.item.use {
 		public float BuffDuration;
 		public bool RandomEffect;
 		public float EffectChangeSpeed;
+		public bool Mine;
 		
 		private float lastEffectTime;
 		private int lastEffect = -1;
@@ -53,7 +54,8 @@ namespace BurningKnight.entity.item.use {
 			if (Rnd.Float() > Chance + Run.Luck * 0.2f) {
 				return;
 			}
-			
+
+			arc.Mines = Mine;
 			arc.Damage *= Damage;
 
 			if (RandomEffect) {
@@ -104,7 +106,8 @@ namespace BurningKnight.entity.item.use {
 			Chance = settings["chance"].Number(1);
 			Damage = settings["damage"].Number(1);
 			ToAny = settings["any"].Bool(false);
-			
+			Mine = settings["mine"].Bool(false);
+
 			BuffToApply = settings["buff"].String(null);
 
 			if (BuffToApply != null) {
@@ -126,7 +129,8 @@ namespace BurningKnight.entity.item.use {
 			
 			root.InputFloat("Chance", "chance");
 			root.InputFloat("Damage Modifier", "damage");
-			
+			root.Checkbox("Make it mine", "mine", false);
+
 			ImGui.Separator();
 
 			if (root.Checkbox("Random Effect", "rne", false)) {

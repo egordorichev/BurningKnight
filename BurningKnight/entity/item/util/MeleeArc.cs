@@ -27,13 +27,14 @@ namespace BurningKnight.entity.item.util {
 		public float Angle;
 		public string Sound = "item_sword_hit";
 		public Color Color = ColorUtils.WhiteColor;
+		public bool Mines;
 
 		public ArcHurtCallback OnHurt;
 
 		private float t;
 		private Vector2 velocity;
 		private List<Entity> hurt = new List<Entity>();
-		
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -66,7 +67,17 @@ namespace BurningKnight.entity.item.util {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity is ProjectileLevelBody bd) {
+				if (ev.Entity is HalfProjectileLevel bdd) {
+					if (Mines) {
+						Physics.Fixture.GetAABB(out var hitbox, 0);
+						ProjectileLevelBody.Mine(Run.Level, hitbox.Center.X, hitbox.Center.Y);
+					}
+				} else if (ev.Entity is ProjectileLevelBody bd) {
+					if (Mines) {
+						Physics.Fixture.GetAABB(out var hitbox, 0);
+						ProjectileLevelBody.Mine(Run.Level, hitbox.Center.X, hitbox.Center.Y);
+					}
+					
 					if (Run.Level.Biome is IceBiome) {
 						Physics.Fixture.GetAABB(out var hitbox, 0);
 						bd.Break(hitbox.Center.X, hitbox.Center.Y);

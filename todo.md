@@ -1,5 +1,7 @@
 # todo
 
+pickaxe!
+
 * add feelings to other biomes (general feeling registry with chances per biome?) {
  snoww!!!
 }

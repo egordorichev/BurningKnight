@@ -22,6 +22,27 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
 	public static class ExplosionMaker {
+		public static void BreakRock(Level level, Dot ww, int x, int y, Tile l) {
+			AudioEmitterComponent.Dummy(level.Area, ww).Emit($"level_rock_{Rnd.Int(1, 3)}", 0.5f);
+
+			if (l.IsRock()) {
+				Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, ww);
+			}
+
+			for (var i = 0; i < 3; i++) {
+				var part = new ParticleEntity(Particles.Dust());
+
+				part.Position = ww;
+				level.Area.Add(part);
+			}
+
+			Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : (l == Tile.MetalBlock ? level.Tileset.MetalBlock : level.Tileset.Rock))[Rnd.Int(4)], ww);
+
+			level.Set(x, y, Tile.Ember);
+			level.UpdateTile(x, y);
+			level.ReCreateBodyChunk(x, y);
+		}
+
 		public static void Make(Entity whoHurts, float hurtRadius = 32f, bool leave = true, Vec2 where = null, float damage = 16, float scale = 1) {
 			Camera.Instance.Shake(10 * scale);
 			Audio.SfxVolumeBuffer = 0.5f;
@@ -97,22 +118,7 @@ namespace BurningKnight.entity {
 						var ww = new Dot((x + xx) * 16 + 8, (y + yy) * 16 + 8);
 							
 						if (l.IsRock()) {
-							AudioEmitterComponent.Dummy(level.Area, ww).Emit($"level_rock_{Rnd.Int(1, 3)}", 0.5f);
-							Drop.Create(l == Tile.TintedRock ? "bk:tinted_rock" : "bk:rock", null, level.Area, ww);
-							
-							for (var i = 0; i < 3; i++) {
-								var part = new ParticleEntity(Particles.Dust());
-
-								part.Position = w;
-								level.Area.Add(part);
-							}
-			
-							Particles.BreakSprite(level.Area, (l == Tile.TintedRock ? level.Tileset.TintedRock : level.Tileset.Rock)[Rnd.Int(4)], ww);
-
-							level.Set(index, Tile.Ember);
-							level.UpdateTile(x + xx, y + yy);
-							level.ReCreateBodyChunk(x + xx, y + yy);
-
+							BreakRock(level, ww, x + xx, y + yy, l);
 							continue;
 						} 
 						
