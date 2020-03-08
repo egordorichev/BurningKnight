@@ -280,6 +280,7 @@
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
+    <Compile Include="assets\particle\controller\LavaController.cs" />
     <Compile Include="assets\particle\controller\RainParticleController.cs" />
     <Compile Include="assets\particle\controller\ScourgeController.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />

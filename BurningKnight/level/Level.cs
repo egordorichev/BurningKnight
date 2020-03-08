@@ -901,7 +901,14 @@ namespace BurningKnight.level {
 							Graphics.Render(region, pos);
 
 							if (t == Tile.Water || t == Tile.Lava) {
-								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(10)) {
+								if (t == Tile.Lava && Rnd.Chance(0.5f)) {
+									var p = Particles.Wrap(Particles.Lava(), Area, pos + Rnd.Vector(0, 16));
+									p.Particle.Velocity = MathUtils.CreateVector(Rnd.Float(-10, 10), -Rnd.Float(30, 45));
+									p.Particle.Scale = Rnd.Float(0.3f, 0.5f);
+									p.Particle.T = 0;
+								}
+								
+								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(6)) {
 									Area.Add(new WaterfallFx {
 										Position = pos + new Vector2(Rnd.Float(16), 16),
 										Lava = t == Tile.Lava

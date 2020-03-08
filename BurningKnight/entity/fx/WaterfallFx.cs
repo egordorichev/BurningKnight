@@ -33,7 +33,7 @@ namespace BurningKnight.entity.fx {
 			grow = true;
 			vy = Rnd.Float(4, 8);
 
-			Depth = Layers.UnderFloor;
+			Depth = 4;
 		}
 
 		public override void Update(float dt) {
@@ -55,22 +55,22 @@ namespace BurningKnight.entity.fx {
 			angle += angleSpeed * dt;
 
 			if (Lava) {
-				if (color.R > 150) {
+				if (color.R > 200) {
 					color.R -= (byte) (dt * 140f);
-					color.B -= (byte) (dt * 360f);
-					color.G -= (byte) (dt * 240f);
+					color.B -= (byte) (dt * 400f);
+					color.G -= (byte) (dt * 360f);
 				}	
 			} else {
 				if (color.B > 150) {
-					color.R -= (byte) (dt * 360f);
+					color.R -= (byte) (dt * 400f);
 					color.B -= (byte) (dt * 240f);
-					color.G -= (byte) (dt * 240f);
+					color.G -= (byte) (dt * 300f);
 				}
 			}
 
 			color.A = (byte) Math.Max(0, color.A - dt * 55f);
 			
-			scale.Y -= dt * 0.25f;
+			scale.Y -= dt * 0.3f;
 			scale.X = scale.Y;
 
 			if (color.A == 0 || scale.X <= 0) {
