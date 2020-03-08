@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -18,8 +19,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class ManaComponent : SaveableComponent {
-		private byte manaMax;
-		private byte mana;
+		private byte manaMax = 6;
+		private byte mana = 6;
 
 		public int ManaMax {
 			get => manaMax;
@@ -91,6 +92,25 @@ namespace BurningKnight.entity.component {
 			}
 			
 			return base.HandleEvent(e);
+		}
+		
+		
+		public override void RenderDebug() {
+			var v = (int) mana;
+
+			if (ImGui.InputInt("Mana", ref v)) {
+				mana = (byte) v;
+			}
+
+			v = manaMax;
+
+			if (ImGui.InputInt("Max Mana", ref v)) {
+				manaMax = (byte) v;
+			}
+
+			if (ImGui.Button("Reset")) {
+				ModifyMana(manaMax - mana);
+			}
 		}
 	}
 }

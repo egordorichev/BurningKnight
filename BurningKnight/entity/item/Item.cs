@@ -219,7 +219,7 @@ namespace BurningKnight.entity.item {
 			
 			AddComponent(body);
 
-			body.Body.LinearDamping = 4;
+			body.Body.LinearDamping = Type == ItemType.Mana ? 1 : 4;
 			body.Body.Friction = 0;
 			body.Body.Mass = 0.1f;
 			
@@ -371,7 +371,6 @@ namespace BurningKnight.entity.item {
 				Delay = Math.Max(0, Delay - s);
 			}
 
-
 			var hasOwner = HasComponent<OwnerComponent>();
 			
 			if (Scourged) {
@@ -407,13 +406,15 @@ namespace BurningKnight.entity.item {
 						RemoveComponent<LightComponent>();
 					}
 				} else if (room.Type != RoomType.Secret) {
-					if (Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
+					if (Type == ItemType.Mana || Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
 						Color color;
 
 						if (Type == ItemType.Coin || Type == ItemType.Key) {
 							color = new Color(1f, 1f, 0.5f, 1f);
 						} else if (Type == ItemType.Heart) {
 							color = new Color(1f, 0.2f, 0.2f, 1f);
+						} else if (Type == ItemType.Mana) {
+							color = new Color(0.2f, 1f, 0.2f, 1f);
 						} else {
 							color = new Color(1f, 1f, 1f, 1f);
 						}
@@ -422,9 +423,50 @@ namespace BurningKnight.entity.item {
 					}
 				}
 			}
+
+			if (Type == ItemType.Mana) {
+				var p = LocalPlayer.Locate(Area);
+
+				if (p == null) {
+					return;
+				}
+
+				var room = GetComponent<RoomComponent>().Room;
+				var limitRange = room != null && room.Tagged[Tags.MustBeKilled].Count > 0;
+				var d = DistanceTo(p);
+
+				if (d < 4) {
+					return;
+				}
+				
+				if (limitRange && d > 64) {
+					return;
+				}
+
+				var b = GetComponent<RectBodyComponent>().Body;
+				var dx = DxTo(p);
+				var dy = DyTo(p);
+				var s = dt * 4;
+
+				b.LinearVelocity -= new Vector2(dx / d * s, dy / d * s);
+
+				var a = b.LinearVelocity.ToAngle(); 
+				d = Math.Min(b.LinearVelocity.Length() + dt * 300, 1000);
+				a = (float) MathUtils.LerpAngle(a, AngleTo(p), dt * 10);
+				
+				b.LinearVelocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
+			}
 		}
 
 		public bool ShouldCollide(Entity entity) {
+			if (Type == ItemType.Mana) {
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (room != null && room.Tagged[Tags.MustBeKilled].Count == 0) {
+					return false;
+				}
+			}
+			
 			return !(entity is Creature) || !ShouldInteract(entity);
 		}
 

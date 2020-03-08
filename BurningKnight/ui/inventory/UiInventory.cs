@@ -33,6 +33,12 @@ namespace BurningKnight.ui.inventory {
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
 		public static TextureRegion HeartBackground;
+		
+		public static TextureRegion Mana;
+		public static TextureRegion HalfMana;
+		public static TextureRegion ManaBackground;
+		public static TextureRegion ChangedManaBackground;
+
 		private TextureRegion changedHeartBackground;
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
@@ -84,6 +90,10 @@ namespace BurningKnight.ui.inventory {
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
 			
+			Mana = anim.GetSlice("mana");
+			HalfMana = anim.GetSlice("half_mana");
+			ManaBackground = anim.GetSlice("mana_bg");
+			ChangedManaBackground = anim.GetSlice("mana_hurt_bg");
 			
 			ShieldBackground = anim.GetSlice("shield_bg");
 			changedShieldBackground = anim.GetSlice("shield_hurt");
@@ -306,11 +316,16 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			var show = Run.Depth > 0;
+			var hasMana = true;
 			
 			RenderHealthBar(show);
 
+			if (show && hasMana) {
+				RenderMana();
+			}
+
 			if ((show || Run.Depth == -2) && Player != null) {
-				RenderConsumables();
+				RenderConsumables(hasMana);
 			}
 
 			if (show && Player != null) {
@@ -410,16 +425,67 @@ namespace BurningKnight.ui.inventory {
 				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields)) + new Vector2(4, -2));
 			}
 		}
+		
+		private float lastMana;
+		private float changedTime;
 
-		private void RenderConsumables() {
-			var bottomY = 8 + 9 + 8 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+		private Vector2 GetStarPosition(bool pad, int i, bool bg = false) {
+			var d = 0;
+			var it = Player.GetComponent<ActiveItemComponent>().Item;
+
+			if (pad && it != null && Math.Abs(it.UseTime) > 0.01f) {
+				d = 4;
+			}
+			
+			return new Vector2(
+				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1)) : 6) + 4 + (int) (i % HeartsComponent.PerRow * 11f) - 2,
+				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + 10
+				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12 - 1) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f - 1) - 0.9f) * 10f)
+			);
+		}
+		
+		private void RenderMana() {
+			var manaComponent = Player.GetComponent<ManaComponent>();
+			
+			var totalMana = manaComponent.Mana;
+			
+			if (changedTime > 0) {
+				changedTime -= Engine.Delta;
+			}
+
+			if (lastMana > totalMana) {
+				lastMana = totalMana;
+				changedTime = 0.5f;
+			} else if (lastMana < totalMana) { 
+				lastMana = Math.Min(totalMana, lastMana + Engine.Delta * 30);
+				changedTime = 0.5f;
+			}
+
+
+			var r = (int) lastMana;
+			var maxMana = manaComponent.ManaMax;
+			var hurt = changedTime > 0;
+
+			var n = r;
+			var jn = maxMana;
+			
+			for (var i = 0; i < maxMana / 2; i++) {
+				Graphics.Render(hurt ? ChangedManaBackground : ManaBackground, GetStarPosition(false, i, true) + (hurt ? new Vector2(-1) : Vector2.Zero));
+			}
+
+			for (var j = 0; j < n; j += 2) {
+				Graphics.Render(j == r - 1 ? HalfMana : Mana, GetStarPosition(false, j / 2));
+			}
+		}
+
+		private void RenderConsumables(bool hasMana) {
+			var bottomY = 8 + 9 + 8 + (hasMana ? 10 : 0) + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
 			if (Scourge.IsEnabled(Scourge.OfKeys)) {
 				Graphics.Render(question, new Vector2(8, bottomY + 1));
 				return;
 			}
 			
-
 			//if (coins > 0) {
 				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
 				Graphics.Print($"{coins}", Font.Small, new Vector2(18, bottomY - 1));

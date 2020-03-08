@@ -17,7 +17,7 @@ namespace BurningKnight.entity.component {
 
 		static GamepadComponent() {
 			Camera.OnShake += () => {
-				if (Current == null || !Settings.Vibrate) {
+				if (Current == null || !Settings.Vibrate || Settings.Gamepad == null) {
 					return;
 				}
 

@@ -32,7 +32,7 @@ namespace BurningKnight.entity.item {
 					return;
 				}
 				
-				Animation.Render(Entity.Position + new Vector2(0, ItemGraphicsComponent.CalculateMove(T * 1.2f)));
+				Animation.Render(Entity.Position/* + new Vector2(0, ItemGraphicsComponent.CalculateMove(T * 1.2f))*/);
 			}
 		}
 	}
