@@ -24,7 +24,7 @@ namespace BurningKnight.assets.particle.custom {
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
-			Depth = Layers.FlyingMob;
+			Depth = Layers.WindFx;
 			
 			Reset();
 		}

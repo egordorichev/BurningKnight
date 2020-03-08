@@ -138,6 +138,10 @@ namespace BurningKnight.level.biome {
 					Run.Level.Area.Add(new RainParticle());
 				}
 			}
+			
+			for (var i = 0; i < 120; i++) {
+				Run.Level.Area.Add(new SnowParticle());
+			}
 		}
 	}
 }

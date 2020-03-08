@@ -78,6 +78,12 @@ namespace BurningKnight.level.walls {
 						Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2, inside.Bottom - 2), f);
 					}
 				}
+
+				var fr = Tiles.RandomFloor();
+				Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2, inside.Bottom - 1), fr);
+				Painter.Set(level, new Dot(inside.Left + inside.GetWidth() / 2, inside.Top), fr);
+				Painter.Set(level, new Dot(inside.Left, inside.Top + inside.GetHeight() / 2), fr);
+				Painter.Set(level, new Dot(inside.Right - 1, inside.Top + inside.GetHeight() / 2), fr);
 			}
 
 			if (Rnd.Chance(30)) {
