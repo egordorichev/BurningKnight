@@ -47,7 +47,7 @@ namespace BurningKnight.assets.loot {
 			));
 			
 			Define("rock", new AnyDrop(
-				// new SingleDrop("bk:pickaxe", 0.01f)
+				new SingleDrop("bk:pickaxe", 0.005f)
 			));
 			
 			Define("tinted_rock", new OneOfDrop(

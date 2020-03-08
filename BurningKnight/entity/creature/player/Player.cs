@@ -107,6 +107,7 @@ namespace BurningKnight.entity.creature.player {
 			AddComponent(new HatComponent());
 			
 			// Stats
+			AddComponent(new ManaComponent());
 			AddComponent(new HeartsComponent());
 			AddComponent(new StatsComponent());
 

@@ -280,6 +280,7 @@
     <Compile Include="assets\particle\controller\BkDeathParticleController.cs" />
     <Compile Include="assets\particle\controller\BloodParticleController.cs" />
     <Compile Include="assets\particle\controller\Controllers.cs" />
+    <Compile Include="assets\particle\controller\LavaController.cs" />
     <Compile Include="assets\particle\controller\RainParticleController.cs" />
     <Compile Include="assets\particle\controller\ScourgeController.cs" />
     <Compile Include="assets\particle\controller\DestroyParticleController.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="assets\particle\custom\FireParticle.cs" />
     <Compile Include="assets\particle\custom\ProjectileParticle.cs" />
     <Compile Include="assets\particle\custom\RainParticle.cs" />
+    <Compile Include="assets\particle\custom\SnowParticle.cs" />
     <Compile Include="assets\particle\custom\TextParticle.cs" />
     <Compile Include="assets\particle\custom\TileParticle.cs" />
     <Compile Include="assets\particle\Particle.cs" />
@@ -375,6 +377,7 @@
     <Compile Include="entity\component\InventoryComponent.cs" />
     <Compile Include="entity\component\ItemComponent.cs" />
     <Compile Include="entity\component\LockComponent.cs" />
+    <Compile Include="entity\component\ManaComponent.cs" />
     <Compile Include="entity\component\MobAnimationComponent.cs" />
     <Compile Include="entity\component\NoCornerBodyComponent.cs" />
     <Compile Include="entity\component\ExtraAnimationComponent.cs" />
@@ -665,6 +668,7 @@
     <Compile Include="entity\item\stand\GobettaStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
+    <Compile Include="entity\item\stand\HealthStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
@@ -694,6 +698,7 @@
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
+    <Compile Include="entity\item\use\ModifyManaUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
@@ -990,6 +995,7 @@
     <Compile Include="level\rooms\special\ChargerRoom.cs" />
     <Compile Include="level\rooms\special\DarkMarketEntranceRoom.cs" />
     <Compile Include="level\rooms\special\DesertWellRoom.cs" />
+    <Compile Include="level\rooms\special\HeartRoom.cs" />
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
@@ -1044,6 +1050,17 @@
     <Compile Include="level\tutorial\TutorialLevel.cs" />
     <Compile Include="level\tutorial\TutorialRoom.cs" />
     <Compile Include="level\tutorial\TutorialStand.cs" />
+    <Compile Include="level\variant\ChasmLevelVariant.cs" />
+    <Compile Include="level\variant\FloodedLevelVariant.cs" />
+    <Compile Include="level\variant\ForestLevelVariant.cs" />
+    <Compile Include="level\variant\GoldLevelVariant.cs" />
+    <Compile Include="level\variant\LevelVariant.cs" />
+    <Compile Include="level\variant\RegularLevelVariant.cs" />
+    <Compile Include="level\variant\SandLevelVariant.cs" />
+    <Compile Include="level\variant\SnowLevelVariant.cs" />
+    <Compile Include="level\variant\VariantInfo.cs" />
+    <Compile Include="level\variant\VariantRegistry.cs" />
+    <Compile Include="level\variant\WebbedLevelVariant.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.level.variant;
 using BurningKnight.state;
 using Lens.util.file;
 using Lens.util.math;
@@ -57,7 +58,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual void ModifyPainter(Painter painter) {
-			
+			Run.Level.Variant.ModifyPainter(painter);
 		}
 
 		public virtual void ModifyRooms(List<RoomDef> rooms) {
@@ -85,7 +86,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual Tile GetFilling() {
-			return Tile.WallA;
+			return Run.Level.Variant.Id == LevelVariant.Chasm ? Tile.Chasm : Tile.WallA;
 		}
 
 		public virtual bool HasCobwebs() {
@@ -113,11 +114,11 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual bool HasPlants() {
-			return false;
+			return Run.Level.Variant.Id == LevelVariant.Forest;
 		}
 
 		public virtual bool HasTrees() {
-			return false;
+			return Run.Level.Variant.Id == LevelVariant.Forest;
 		}
 		
 		public virtual int GetNumRegularRooms() {
@@ -156,18 +157,6 @@ namespace BurningKnight.level.biome {
 			}
 			
 			return GetDefaultStepSound(tile);
-		}
-
-		public virtual void Load(FileReader stream) {
-			
-		}
-
-		public virtual void Save(FileWriter stream) {
-			
-		}
-
-		public virtual void Prepare() {
-			
 		}
 	}
 }

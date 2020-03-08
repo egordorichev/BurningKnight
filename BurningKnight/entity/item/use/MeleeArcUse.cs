@@ -16,6 +16,7 @@ namespace BurningKnight.entity.item.use {
 		protected float Angle;
 		protected string AttackSound = "item_sword_attack";
 		protected string HitSound = "item_sword_hit";
+		protected float Knockback;
 		
 		public override void Use(Entity entity, Item item) {
 			entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(AttackSound, 4);
@@ -28,6 +29,7 @@ namespace BurningKnight.entity.item.use {
 				Height = H,
 				Sound = HitSound,
 				Position = entity.Center,
+				Knockback = Knockback,
 				Angle = entity.AngleTo(entity.GetComponent<AimComponent>().RealAim) + Angle
 			};
 
@@ -50,6 +52,7 @@ namespace BurningKnight.entity.item.use {
 			Angle = settings["angle"].Number(0) * (float) Math.PI * 2;
 			HitSound = settings["hs"].String("item_sword_hit");
 			AttackSound = settings["as"].String("item_sword_attack");
+			Knockback = settings["knockback"].Number(0f);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -59,7 +62,8 @@ namespace BurningKnight.entity.item.use {
 
 			root.InputFloat("Life time", "time", 0.2f);
 			root.InputFloat("Angle", "angle", 0);
-			
+			root.InputFloat("Knockback", "knockback", 0);
+
 			ImGui.Separator();
 
 			root.InputText("Hit Sound", "hs", "item_sword_hit");

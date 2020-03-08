@@ -135,8 +135,8 @@ namespace BurningKnight.entity.component {
 			}
 
 			var velocity = Body.LinearVelocity;
-			velocity.X += Acceleration.X + Knockback.X;
-			velocity.Y += Acceleration.Y + Knockback.Y;
+			velocity.X += Acceleration.X + Knockback.X * dt * 60;
+			velocity.Y += Acceleration.Y + Knockback.Y * dt * 60;
 
 			Knockback.X -= Knockback.X * dt * 10f;
 			Knockback.Y -= Knockback.Y * dt * 10f;

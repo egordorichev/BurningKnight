@@ -34,13 +34,18 @@ namespace BurningKnight.assets.particle {
 		public static ParticleRenderer BloodRenderer = new TexturedParticleRenderer("blood");
 		public static ParticleRenderer ScourgeRenderer = new TexturedParticleRenderer("curse");
 		public static ParticleRenderer AnimatedRenderer = new AnimatedParticleRenderer();
-		
+		public static ParticleRenderer LavaRenderer = new TexturedParticleRenderer("lava");
+
 		public static Particle Textured(string slice) {
 			return new Particle(Controllers.Simple, new TexturedParticleRenderer(slice));
 		}
 		
 		public static AnimatedParticle Animated(string animation, string tag = null) {
 			return new AnimatedParticle(Controllers.Animated, AnimatedRenderer, animation, tag);
+		}
+
+		public static Particle Lava() {
+			return new Particle(Controllers.Lava, LavaRenderer);
 		}
 
 		public static Particle Dust() {

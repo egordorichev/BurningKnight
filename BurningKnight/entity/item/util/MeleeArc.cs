@@ -27,13 +27,15 @@ namespace BurningKnight.entity.item.util {
 		public float Angle;
 		public string Sound = "item_sword_hit";
 		public Color Color = ColorUtils.WhiteColor;
+		public bool Mines;
+		public float Knockback;
 
 		public ArcHurtCallback OnHurt;
 
 		private float t;
 		private Vector2 velocity;
 		private List<Entity> hurt = new List<Entity>();
-		
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -66,13 +68,23 @@ namespace BurningKnight.entity.item.util {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent ev) {
-				if (ev.Entity is ProjectileLevelBody bd) {
+				if (ev.Entity is HalfProjectileLevel bdd) {
+					if (Mines) {
+						Physics.Fixture.GetAABB(out var hitbox, 0);
+						ProjectileLevelBody.Mine(Run.Level, hitbox.Center.X, hitbox.Center.Y);
+					}
+				} else if (ev.Entity is ProjectileLevelBody bd) {
+					if (Mines) {
+						Physics.Fixture.GetAABB(out var hitbox, 0);
+						ProjectileLevelBody.Mine(Run.Level, hitbox.Center.X, hitbox.Center.Y);
+					}
+					
 					if (Run.Level.Biome is IceBiome) {
 						Physics.Fixture.GetAABB(out var hitbox, 0);
 						bd.Break(hitbox.Center.X, hitbox.Center.Y);
 					}
 				} else if (ev.Entity is Bomb) {
-					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
+					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);
 				} else if (ev.Entity is Projectile p) {
 					if (p.Owner != Owner) {
 						if (p.CanBeReflected) {
@@ -101,6 +113,10 @@ namespace BurningKnight.entity.item.util {
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					if (!hurt.Contains(ev.Entity)) {
+						if (Knockback > 0) {
+							ev.Entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(Owner, Knockback);
+						}
+
 						if (health.ModifyHealth(-Damage, Owner)) {
 							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
 						}

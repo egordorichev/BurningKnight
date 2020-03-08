@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.debug;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
@@ -15,6 +16,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.level.tile;
+using BurningKnight.level.variant;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -43,6 +45,8 @@ namespace BurningKnight.level {
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
 		public bool Dark;
+		public bool Rains;
+		public bool Snows;
 
 		public List<string> ItemsToSpawn;
 
@@ -85,6 +89,8 @@ namespace BurningKnight.level {
 		public ProjectileLevelBody ProjectileLevelBody;
 		public RenderTarget2D WallSurface;
 		public RenderTarget2D MessSurface;
+
+		public LevelVariant Variant;
 
 		public Level(BiomeInfo biome) {
 			SetBiome(biome);
@@ -184,11 +190,23 @@ namespace BurningKnight.level {
 		}
 
 		public void Prepare() {
+			Variant?.PostInit(this);
+
 			if (Dark) {
 				Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
 			}
-			
-			Biome.Prepare();
+
+			if (Rains) {
+				for (var i = 0; i < 40; i++) {
+					Run.Level.Area.Add(new RainParticle());
+				}
+			}
+
+			if (Snows) {
+				for (var i = 0; i < 120; i++) {
+					Run.Level.Area.Add(new SnowParticle());
+				}
+			}
 		}
 
 		public override void AddComponents() {
@@ -426,8 +444,11 @@ namespace BurningKnight.level {
 				stream.WriteBoolean(Explored[i]);
 			}	
 			
-			Biome.Save(stream);
 			stream.WriteBoolean(Dark);
+			stream.WriteBoolean(Snows);
+			stream.WriteBoolean(Rains);
+			
+			stream.WriteString(Variant.Id);
 		}
 
 		public override void Load(FileReader stream) {
@@ -446,7 +467,7 @@ namespace BurningKnight.level {
 
 			Setup();
 
-			for (int i = 0; i < Size; i++) {
+			for (var i = 0; i < Size; i++) {
 				Tiles[i] = stream.ReadByte();
 				Liquid[i] = stream.ReadByte();
 				Flags[i] = stream.ReadByte();
@@ -456,9 +477,13 @@ namespace BurningKnight.level {
 			CreateBody();
 			CreateDestroyableBody();
 			TileUp();
-			LoadPassable();
-			Biome.Load(stream);
+			
 			Dark = stream.ReadBoolean();
+			Snows = stream.ReadBoolean();
+			Rains = stream.ReadBoolean();
+
+			Variant = VariantRegistry.Create(stream.ReadString());
+			LoadPassable();
 		}
 
 		public void MarkForClearing() {
@@ -874,7 +899,7 @@ namespace BurningKnight.level {
 							flow.SetValue(1f);
 							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
 						} else if (tt == Tile.Lava) {
-							flow.SetValue(0.5f);
+							flow.SetValue(0.25f);
 							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
 						} else {
 							region.Source.Y += y % 4 * 16;
@@ -901,7 +926,14 @@ namespace BurningKnight.level {
 							Graphics.Render(region, pos);
 
 							if (t == Tile.Water || t == Tile.Lava) {
-								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(10)) {
+								if (t == Tile.Lava && Rnd.Chance(0.5f)) {
+									var p = Particles.Wrap(Particles.Lava(), Area, pos + Rnd.Vector(0, 16));
+									p.Particle.Velocity = MathUtils.CreateVector(Rnd.Float(-10, 10), -Rnd.Float(30, 45));
+									p.Particle.Scale = Rnd.Float(0.3f, 0.5f);
+									p.Particle.T = 0;
+								}
+								
+								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(6)) {
 									Area.Add(new WaterfallFx {
 										Position = pos + new Vector2(Rnd.Float(16), 16),
 										Lava = t == Tile.Lava
@@ -1670,6 +1702,8 @@ namespace BurningKnight.level {
 
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.Shake(2);
+			
+			AudioEmitterComponent.Dummy(area, new Vector2(x, y) * 16).EmitRandomizedPrefixed("level_chair_break", 2, 0.75f);
 		}
 
 		public void ReTileAndCreateBodyChunks(int x, int y, int w, int h) {

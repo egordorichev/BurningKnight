@@ -28,7 +28,8 @@ namespace BurningKnight.util {
 		}
 		
 		public static string InputText(this JsonValue value, string name, string id, string d = "", uint length = 64) {
-			var val = value[id].String(d);
+			var val = value[id].String(d) ?? "";
+
 			ImGui.InputText(name, ref val, length); 
 			value[id] = val;
 

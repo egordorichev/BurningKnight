@@ -20,21 +20,6 @@ namespace BurningKnight.level.biome {
 					l.Set(x, y, Tile.Sand);
 				}
 			});
-
-			painter.Modifiers.Add((l, rm, x, y) => {
-				if (rm is TrapRoom) {
-					return;
-				}
-				
-				var r = (byte) (Tile.Chasm);
-				
-				if (l.Get(x, y, true) == Tile.Lava) {
-					var i = l.ToIndex(x, y);
-					
-					l.Liquid[i] = 0;
-					l.Tiles[i] = r;
-				}
-			});
 		}
 		
 		/*public override void ModifyRooms(List<RoomDef> rooms) {

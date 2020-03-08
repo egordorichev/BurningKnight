@@ -48,7 +48,8 @@ namespace BurningKnight.state {
 			"battery",
 			"hat",
 			"pouch",
-			"scourge"
+			"scourge",
+			"mana"
 		};
 
 		// Keep in sync with the WeaponType enum!!!
@@ -285,8 +286,8 @@ namespace BurningKnight.state {
 			}
 
 			var name = Locale.Get(Selected.Id);
-			var region = CommonAse.Items.GetSlice(Selected.Id);
 			var animated = Selected.Animation != null;
+			var region = animated ? null : CommonAse.Items.GetSlice(Selected.Id);
 
 			if (!animated && region != null) {
 				DrawItem(region);
@@ -618,6 +619,16 @@ namespace BurningKnight.state {
 			if (ImGui.Button("Save") || (Input.Keyboard.IsDown(Keys.LeftControl, true) && Input.Keyboard.WasPressed(Keys.S))) {
 				Log.Info("Saving items");
 				Items.Save();
+			}
+			
+			ImGui.SameLine();
+
+			if (ImGui.Button("Spawn All (super laggy!)")) {
+				var player = LocalPlayer.Locate(Engine.Instance.State.Area);
+
+				foreach (var id in Items.Datas.Keys) {
+					Items.CreateAndAdd(id, Engine.Instance.State.Area, false).Center = player.Center;
+				}
 			}
 
 			if (ImGui.BeginPopupModal("New item")) {

@@ -22,6 +22,12 @@ using Num = System.Numerics;
 
 namespace BurningKnight.entity.item.use {
 	public class SimpleShootUse : ShootUse {
+		private static string[] manaDropNames = {
+			"Where it lands",
+			"Where it starts",
+			"Where it starts, after death"
+		};
+		
 		private int damage;
 		private float speed;
 		private float speedMax;
@@ -38,10 +44,13 @@ namespace BurningKnight.entity.item.use {
 		private bool rect;
 		private string sfx;
 		private int sfx_number;
+		private int manaUsage;
 		protected bool wait;
 		private bool toCursor;
+		private string color;
 		public bool ReloadSfx;
 		private bool shells;
+		private int manaDrop;
 		
 		public bool ProjectileDied = true;
 
@@ -53,6 +62,18 @@ namespace BurningKnight.entity.item.use {
 			}
 			
 			base.Use(entity, item);
+		}
+
+		private void PlaceMana(Area area, Vector2 where) {
+			for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
+				Items.CreateAndAdd("bk:mana", area).Center = where;
+			}
+
+			if (manaUsage % 2 == 1) {
+				Items.CreateAndAdd("bk:half_mana", area).Center = where;
+			}
+			
+			AnimationUtil.Poof(where);
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -77,6 +98,12 @@ namespace BurningKnight.entity.item.use {
 			sfx = settings["sfx"].String("item_gun_fire");
 			sfx_number = settings["sfxn"].Int(0);
 			ReloadSfx = settings["rsfx"].Bool(false);
+			manaUsage = settings["mana"].Int(0);
+			color = settings["color"].String("");
+
+			if (manaUsage > 0) {
+				manaDrop = settings["mdr"].Int(0);
+			}
 
 			if (slice == "default") {
 				slice = "rect";
@@ -93,6 +120,17 @@ namespace BurningKnight.entity.item.use {
 			shells = settings["shells"].Bool(true);
 
 			SpawnProjectile = (entity, item) => {
+				if (manaUsage > 0) {
+					var mana = entity.GetComponent<ManaComponent>();
+
+					if (mana.Mana < manaUsage) {
+						AnimationUtil.ActionFailed();
+						return;
+					}
+					
+					mana.ModifyMana(-manaUsage);
+				}
+				
 				var bad = entity is Creature c && !c.IsFriendly();
 				var sl = slice;
 				
@@ -138,8 +176,14 @@ namespace BurningKnight.entity.item.use {
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
 
+					var clr = bad ? Projectile.RedLight : ProjectileColor.Yellow;
+					
+					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out clr)) {
+						projectile.Color = clr;
+					}
+					
 					if (light) {
-						projectile.AddLight(32f, bad ? Projectile.RedLight : Projectile.YellowLight);
+						projectile.AddLight(32f, clr);
 					}
 
 					projectile.FlashTimer = 0.05f;
@@ -161,12 +205,28 @@ namespace BurningKnight.entity.item.use {
 							}
 						}
 					}
-
+					
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;
+					}
+
+					if (manaUsage > 0) {
+						if (manaDrop == 0) {
+							projectile.OnDeath += (prj, t) => {
+								PlaceMana(entity.Area, prj.Center);
+							};	
+						} else if (manaDrop == 1) {
+							PlaceMana(entity.Area, entity.Center);
+						} else {
+							var where = entity.Center;
+							
+							projectile.OnDeath += (prj, t) => {
+								PlaceMana(entity.Area, where);
+							};	
+						}
 					}
 				}
 
@@ -214,6 +274,14 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
+			if (root.InputInt("Mana Usage", "mana", 0) > 0) {
+				var b = root["mdr"].Int(0);
+
+				if (ImGui.Combo("Place Mana", ref b, manaDropNames, manaDropNames.Length)) {
+					root["mdr"] = b;
+				}
+			}
+
 			if (ImGui.TreeNode("Stats")) {
 				root.Checkbox("To Cursor", "cursor", false);
 				root.InputFloat("Damage", "damage");
@@ -222,6 +290,12 @@ namespace BurningKnight.entity.item.use {
 				root.InputInt("Sound Prefix Number", "sfxn", 0);
 				root.Checkbox("Reload Sound", "rsfx", false);
 				root.Checkbox("Drop Shells", "shells", true);
+				
+				var c = root.InputText("Color", "color");
+
+				if (!string.IsNullOrEmpty(c) && !ProjectileColor.Colors.ContainsKey(c)) {
+					ImGui.BulletText("Unknown color");
+				}
 
 				ImGui.Separator();
 

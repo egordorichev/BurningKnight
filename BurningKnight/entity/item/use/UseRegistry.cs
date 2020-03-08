@@ -44,6 +44,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MeleeArcUse>(MeleeArcUse.RenderDebug);
 			Register<ModifyShieldHeartsUse>(ModifyHpUse.RenderDebug);
 			Register<ModifyHpUse>(ModifyHpUse.RenderDebug);
+			Register<ModifyManaUse>(ModifyManaUse.RenderDebug);
 			Register<ModifyMaxHpUse>(ModifyMaxHpUse.RenderDebug);
 			Register<GiveHeartContainersUse>(ModifyHpUse.RenderDebug);
 			Register<SimpleShootUse>(SimpleShootUse.RenderDebug);

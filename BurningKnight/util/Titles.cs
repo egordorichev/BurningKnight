@@ -32,6 +32,8 @@ namespace BurningKnight.util {
 			"'Friendly' fire",
 			"Get ready to burn",
 			"Do you need some heat?",
+			"sqrt(-1) love you!",
+			"Han shot first",
 			"BBQ is ready!",
 			"Hot sales!",
 			"AAAAAA",

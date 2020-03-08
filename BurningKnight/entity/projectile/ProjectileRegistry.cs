@@ -9,8 +9,12 @@ using BurningKnight.entity.projectile.controller;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
+using BurningKnight.level.tile;
 using BurningKnight.physics;
+using BurningKnight.state;
 using Lens.input;
+using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.projectile {
 	public static class ProjectileRegistry {
@@ -219,6 +223,68 @@ namespace BurningKnight.entity.projectile {
 				p.Rotates = true;
 
 				p.Item.Renderer.Hidden = true;
+			});
+			
+			Add("lava_wand", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.Rotates = true;
+				p.OnDeath += (pr, t) => {
+					var x = (int) Math.Round(pr.CenterX / 16f);
+					var y = (int) Math.Round(pr.CenterY / 16f);
+					const int r = 3;
+
+					for (var xx = -r; xx <= r; xx++) {
+						for (var yy = -r; yy <= r; yy++) {
+							var zx = xx + x;
+							var zy = yy + y;
+							
+							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
+								Run.Level.Set(zx, zy, Tile.Lava);
+
+								Timer.Add(() => {
+									Run.Level.Set(zx, zy, Tile.Ember);
+									Run.Level.UpdateTile(zx, zy);
+								}, Rnd.Float(5f, 15f));
+							}
+						}
+					}
+					
+					Run.Level.TileUp();
+				};
+			});
+
+			Add("discord_rod", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.Rotates = true;
+				p.OnDeath += (pr, t) => {
+					pr.Owner.Center = pr.Center;
+				};
+			});
+			
+			Add("web_wand", p => {
+				// CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.Rotates = true;
+				p.OnDeath += (pr, t) => {
+					var x = (int) Math.Round(pr.CenterX / 16f);
+					var y = (int) Math.Round(pr.CenterY / 16f);
+					const int r = 3;
+
+					for (var xx = -r; xx <= r; xx++) {
+						for (var yy = -r; yy <= r; yy++) {
+							var zx = xx + x;
+							var zy = yy + y;
+							
+							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
+								Run.Level.Set(zx, zy, Tile.Cobweb);
+							}
+						}
+					}
+					
+					Run.Level.TileUp();
+				};
 			});
 		}
 	}
