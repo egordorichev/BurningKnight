@@ -316,8 +316,8 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			var show = Run.Depth > 0;
-			var hasMana = true;
-			
+			var hasMana = Player.GetComponent<WeaponComponent>().Item?.Data?.WeaponType == WeaponType.Magic || Player.GetComponent<ActiveWeaponComponent>().Item?.Data?.WeaponType == WeaponType.Magic;
+
 			RenderHealthBar(show);
 
 			if (show && hasMana) {
@@ -334,7 +334,7 @@ namespace BurningKnight.ui.inventory {
 
 					var x = MathUtils.Clamp(item.OnTop ? 40 : 4, Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
 					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
-					MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
+						MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
 
 					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
 					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));

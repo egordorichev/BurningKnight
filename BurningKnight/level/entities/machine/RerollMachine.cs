@@ -22,7 +22,7 @@ namespace BurningKnight.level.entities.machine {
 		private bool broken;
 
 		private static ItemType[] ignoredTypes = {
-			ItemType.Heart, ItemType.Coin, ItemType.Battery, ItemType.Key, ItemType.Bomb
+			ItemType.Mana, ItemType.Heart, ItemType.Coin, ItemType.Battery, ItemType.Key, ItemType.Bomb
 		};
 		
 		public override void AddComponents() {

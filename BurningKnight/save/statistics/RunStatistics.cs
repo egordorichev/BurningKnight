@@ -213,7 +213,7 @@ namespace BurningKnight.save.statistics {
 				if (!iae.Item.Touched && !Items.Contains(iae.Item.Id)) {
 					var t = iae.Item.Type;
 
-					if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Key && t != ItemType.Bomb) {
+					if (t != ItemType.Coin && t != ItemType.Heart && t != ItemType.Mana && t != ItemType.Key && t != ItemType.Bomb && t != ItemType.Battery) {
 						Items.Add(iae.Item.Id);
 					}
 				}

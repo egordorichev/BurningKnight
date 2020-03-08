@@ -38,8 +38,10 @@ namespace BurningKnight.entity.item.use {
 		private bool rect;
 		private string sfx;
 		private int sfx_number;
+		private int manaUsage;
 		protected bool wait;
 		private bool toCursor;
+		private string color;
 		public bool ReloadSfx;
 		private bool shells;
 		
@@ -77,6 +79,8 @@ namespace BurningKnight.entity.item.use {
 			sfx = settings["sfx"].String("item_gun_fire");
 			sfx_number = settings["sfxn"].Int(0);
 			ReloadSfx = settings["rsfx"].Bool(false);
+			manaUsage = settings["mana"].Int(0);
+			color = settings["color"].String("");
 
 			if (slice == "default") {
 				slice = "rect";
@@ -93,6 +97,17 @@ namespace BurningKnight.entity.item.use {
 			shells = settings["shells"].Bool(true);
 
 			SpawnProjectile = (entity, item) => {
+				if (manaUsage > 0) {
+					var mana = entity.GetComponent<ManaComponent>();
+
+					if (mana.Mana < manaUsage) {
+						AnimationUtil.ActionFailed();
+						return;
+					}
+					
+					mana.ModifyMana(-manaUsage);
+				}
+				
 				var bad = entity is Creature c && !c.IsFriendly();
 				var sl = slice;
 				
@@ -138,8 +153,14 @@ namespace BurningKnight.entity.item.use {
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
 
+					var clr = bad ? Projectile.RedLight : ProjectileColor.Yellow;
+					
+					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out clr)) {
+						projectile.Color = clr;
+					}
+					
 					if (light) {
-						projectile.AddLight(32f, bad ? Projectile.RedLight : Projectile.YellowLight);
+						projectile.AddLight(32f, clr);
 					}
 
 					projectile.FlashTimer = 0.05f;
@@ -161,12 +182,24 @@ namespace BurningKnight.entity.item.use {
 							}
 						}
 					}
-
+					
 					pr?.Invoke(projectile);
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
 						projectile.OnDeath += (prj, t) => ProjectileDied = true;
+					}
+
+					if (manaUsage > 0) {
+						projectile.OnDeath += (prj, t) => {
+							for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
+								Items.CreateAndAdd("bk:mana", entity.Area).Center = prj.Center;
+							}
+
+							if (manaUsage % 2 == 1) {
+								Items.CreateAndAdd("bk:half_mana", entity.Area).Center = prj.Center;
+							}
+						};
 					}
 				}
 
@@ -214,6 +247,8 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
+			root.InputInt("Mana Usage", "mana", 0);
+			
 			if (ImGui.TreeNode("Stats")) {
 				root.Checkbox("To Cursor", "cursor", false);
 				root.InputFloat("Damage", "damage");
@@ -222,6 +257,12 @@ namespace BurningKnight.entity.item.use {
 				root.InputInt("Sound Prefix Number", "sfxn", 0);
 				root.Checkbox("Reload Sound", "rsfx", false);
 				root.Checkbox("Drop Shells", "shells", true);
+				
+				var c = root.InputText("Color", "color");
+
+				if (!string.IsNullOrEmpty(c) && !ProjectileColor.Colors.ContainsKey(c)) {
+					ImGui.BulletText("Unknown color");
+				}
 
 				ImGui.Separator();
 

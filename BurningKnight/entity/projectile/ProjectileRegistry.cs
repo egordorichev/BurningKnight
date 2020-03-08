@@ -220,6 +220,12 @@ namespace BurningKnight.entity.projectile {
 
 				p.Item.Renderer.Hidden = true;
 			});
+			
+			Add("lava_wand", p => {
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.Rotates = true;
+			});
 		}
 	}
 }

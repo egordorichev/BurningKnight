@@ -874,7 +874,7 @@ namespace BurningKnight.level {
 							flow.SetValue(1f);
 							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
 						} else if (tt == Tile.Lava) {
-							flow.SetValue(0.5f);
+							flow.SetValue(0.25f);
 							sy.SetValue(y % 4 * 16f / Tilesets.Biome.WaterPattern.Texture.Height);
 						} else {
 							region.Source.Y += y % 4 * 16;

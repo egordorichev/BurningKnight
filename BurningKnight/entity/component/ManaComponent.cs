@@ -33,11 +33,11 @@ namespace BurningKnight.entity.component {
 		public int Mana => mana;
 
 		public void ModifyMana(int amount) {
-			mana = (byte) MathUtils.Clamp(2, manaMax, mana + amount);
+			mana = (byte) MathUtils.Clamp(0, manaMax, mana + amount);
 		}
 
 		public void SetMana(int amount) {
-			mana = (byte) MathUtils.Clamp(2, manaMax, amount);
+			mana = (byte) MathUtils.Clamp(0, manaMax, amount);
 		}
 
 		public override void Load(FileReader stream) {
@@ -111,6 +111,14 @@ namespace BurningKnight.entity.component {
 			if (ImGui.Button("Reset")) {
 				ModifyMana(manaMax - mana);
 			}
+		}
+
+		public bool IsFull() {
+			return mana == manaMax;
+		}
+		
+		public bool CanPickup(Item item) {
+			return !IsFull();
 		}
 	}
 }

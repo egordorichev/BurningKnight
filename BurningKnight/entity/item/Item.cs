@@ -51,7 +51,7 @@ namespace BurningKnight.entity.item {
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
 		public ItemRenderer Renderer;
 
-		public bool Hidden => (Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Scourge.IsEnabled(Scourge.OfUnknown));
+		public bool Hidden => (Type != ItemType.Mana && Type != ItemType.Coin && Type != ItemType.Heart && Type != ItemType.Key && Type != ItemType.Bomb && (!TryGetComponent<OwnerComponent>(out var o) || !(o.Owner is Player)) && Scourge.IsEnabled(Scourge.OfUnknown));
 		public TextureRegion Region => (Hidden) ? UnknownRegion : (Animation != null ? GetComponent<AnimatedItemGraphicsComponent>().Animation.GetCurrentTexture() : GetComponent<ItemGraphicsComponent>().Sprite);
 		
 		public Entity Owner => TryGetComponent<OwnerComponent>(out var o) ? o.Owner : null;
@@ -193,12 +193,12 @@ namespace BurningKnight.entity.item {
 		}
 		
 		private bool ShouldInteract(Entity entity) {
-			return !(entity is Player c && (
-				         (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
-				         (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
-				         (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
-				         (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
-				         (Type == ItemType.Key && c.GetComponent<ConsumablesComponent>().Keys == 99)
+			return !(entity is Player c && ((Type == ItemType.Mana && !c.GetComponent<ManaComponent>().CanPickup(this)) ||
+			                                (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
+			                                (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
+			                                (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
+			                                (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
+			                                (Type == ItemType.Key && c.GetComponent<ConsumablesComponent>().Keys == 99)
 			         ));
 		}
 
@@ -428,6 +428,10 @@ namespace BurningKnight.entity.item {
 				var p = LocalPlayer.Locate(Area);
 
 				if (p == null) {
+					return;
+				}
+
+				if (p.GetComponent<ManaComponent>().IsFull()) {
 					return;
 				}
 
