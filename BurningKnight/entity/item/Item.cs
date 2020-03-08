@@ -11,6 +11,7 @@ using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.item.useCheck;
+using BurningKnight.level;
 using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.save;
@@ -58,6 +59,7 @@ namespace BurningKnight.entity.item {
 		public ItemData Data => Items.Datas[Id];
 
 		private bool updateLight;
+		private float t;
 
 		public override void Init() {
 			base.Init();
@@ -193,7 +195,7 @@ namespace BurningKnight.entity.item {
 		}
 		
 		private bool ShouldInteract(Entity entity) {
-			return !(entity is Player c && ((Type == ItemType.Mana && !c.GetComponent<ManaComponent>().CanPickup(this)) ||
+			return !(entity is Player c && ((Type == ItemType.Mana && (!c.GetComponent<ManaComponent>().CanPickup(this) || t < 1f)) ||
 			                                (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
 			                                (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
 			                                (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins == 99) ||
@@ -216,6 +218,8 @@ namespace BurningKnight.entity.item {
 		public virtual void AddDroppedComponents() {
 			var slice = Region;
 			var body = new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height);
+
+			t = 0;
 			
 			AddComponent(body);
 
@@ -361,6 +365,8 @@ namespace BurningKnight.entity.item {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			t += dt;
+
 			if (Type != ItemType.Active || UseTime < 0) {
 				var s = dt;
 				
@@ -424,14 +430,14 @@ namespace BurningKnight.entity.item {
 				}
 			}
 
-			if (Type == ItemType.Mana) {
+			if (Type == ItemType.Mana && t >= 0.1f) {
 				var p = LocalPlayer.Locate(Area);
 
 				if (p == null) {
 					return;
 				}
 
-				if (p.GetComponent<ManaComponent>().IsFull()) {
+				if (p.GetComponent<ManaComponent>().IsFull() || t < 1f) {
 					return;
 				}
 
@@ -464,6 +470,10 @@ namespace BurningKnight.entity.item {
 
 		public bool ShouldCollide(Entity entity) {
 			if (Type == ItemType.Mana) {
+				if (entity is ProjectileLevelBody || entity is HalfProjectileLevel) {
+					return false;
+				}
+				
 				var room = GetComponent<RoomComponent>().Room;
 
 				if (room != null && room.Tagged[Tags.MustBeKilled].Count == 0) {

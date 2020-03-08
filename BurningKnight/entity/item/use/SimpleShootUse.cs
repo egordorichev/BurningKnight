@@ -22,6 +22,12 @@ using Num = System.Numerics;
 
 namespace BurningKnight.entity.item.use {
 	public class SimpleShootUse : ShootUse {
+		private static string[] manaDropNames = {
+			"Where it lands",
+			"Where it starts",
+			"Where it starts, after death"
+		};
+		
 		private int damage;
 		private float speed;
 		private float speedMax;
@@ -44,6 +50,7 @@ namespace BurningKnight.entity.item.use {
 		private string color;
 		public bool ReloadSfx;
 		private bool shells;
+		private int manaDrop;
 		
 		public bool ProjectileDied = true;
 
@@ -55,6 +62,18 @@ namespace BurningKnight.entity.item.use {
 			}
 			
 			base.Use(entity, item);
+		}
+
+		private void PlaceMana(Area area, Vector2 where) {
+			for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
+				Items.CreateAndAdd("bk:mana", area).Center = where;
+			}
+
+			if (manaUsage % 2 == 1) {
+				Items.CreateAndAdd("bk:half_mana", area).Center = where;
+			}
+			
+			AnimationUtil.Poof(where);
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -81,6 +100,10 @@ namespace BurningKnight.entity.item.use {
 			ReloadSfx = settings["rsfx"].Bool(false);
 			manaUsage = settings["mana"].Int(0);
 			color = settings["color"].String("");
+
+			if (manaUsage > 0) {
+				manaDrop = settings["mdr"].Int(0);
+			}
 
 			if (slice == "default") {
 				slice = "rect";
@@ -191,15 +214,19 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (manaUsage > 0) {
-						projectile.OnDeath += (prj, t) => {
-							for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
-								Items.CreateAndAdd("bk:mana", entity.Area).Center = prj.Center;
-							}
-
-							if (manaUsage % 2 == 1) {
-								Items.CreateAndAdd("bk:half_mana", entity.Area).Center = prj.Center;
-							}
-						};
+						if (manaDrop == 0) {
+							projectile.OnDeath += (prj, t) => {
+								PlaceMana(entity.Area, prj.Center);
+							};	
+						} else if (manaDrop == 1) {
+							PlaceMana(entity.Area, entity.Center);
+						} else {
+							var where = entity.Center;
+							
+							projectile.OnDeath += (prj, t) => {
+								PlaceMana(entity.Area, where);
+							};	
+						}
 					}
 				}
 
@@ -247,8 +274,14 @@ namespace BurningKnight.entity.item.use {
 		}
 
 		public static void RenderDebug(JsonValue root) {
-			root.InputInt("Mana Usage", "mana", 0);
-			
+			if (root.InputInt("Mana Usage", "mana", 0) > 0) {
+				var b = root["mdr"].Int(0);
+
+				if (ImGui.Combo("Place Mana", ref b, manaDropNames, manaDropNames.Length)) {
+					root["mdr"] = b;
+				}
+			}
+
 			if (ImGui.TreeNode("Stats")) {
 				root.Checkbox("To Cursor", "cursor", false);
 				root.InputFloat("Damage", "damage");

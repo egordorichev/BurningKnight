@@ -4,13 +4,8 @@ items to apply slowness (from projectiles and arc), broken armor
 
 death counter display
 biome-dependant props (cactuses and dead bushes for desert)
-turn off gamepad shake when gamepad is disabled
 
-smoke texture gets super fast
-some bg for item description popup (gobbo could react to picking up items with some dialog)
-reference "collecting bullets" in item description
 active shop discount still discounts without the use
-add some dialog to npcs when you save them (interact)
 
 flavors {
  + blood moon (enemies respawn and the game is red)
