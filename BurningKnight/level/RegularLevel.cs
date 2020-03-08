@@ -15,6 +15,7 @@ using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.tile;
+using BurningKnight.level.variant;
 using BurningKnight.save;
 using BurningKnight.state;
 using Lens.util;
@@ -40,6 +41,7 @@ namespace BurningKnight.level {
 		public void Generate() {
 			rooms = null;
 			ItemsToSpawn = new List<string>();
+			Variant = VariantRegistry.Generate(LevelSave.BiomeGenerated.Id);
 
 			if (Run.Depth > 0) {
 				if (GlobalSave.IsTrue("saved_npc")) {

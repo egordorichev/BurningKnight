@@ -1,9 +1,5 @@
 # todo
 
-* add feelings to other biomes (general feeling registry with chances per biome?) {
- snoww!!!
-}
-
 items to apply slowness (from projectiles and arc), broken armor
 
 death counter display

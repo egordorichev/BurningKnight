@@ -1050,6 +1050,17 @@
     <Compile Include="level\tutorial\TutorialLevel.cs" />
     <Compile Include="level\tutorial\TutorialRoom.cs" />
     <Compile Include="level\tutorial\TutorialStand.cs" />
+    <Compile Include="level\variant\ChasmLevelVariant.cs" />
+    <Compile Include="level\variant\FloodedLevelVariant.cs" />
+    <Compile Include="level\variant\ForestLevelVariant.cs" />
+    <Compile Include="level\variant\GoldLevelVariant.cs" />
+    <Compile Include="level\variant\LevelVariant.cs" />
+    <Compile Include="level\variant\RegularLevelVariant.cs" />
+    <Compile Include="level\variant\SandLevelVariant.cs" />
+    <Compile Include="level\variant\SnowLevelVariant.cs" />
+    <Compile Include="level\variant\VariantInfo.cs" />
+    <Compile Include="level\variant\VariantRegistry.cs" />
+    <Compile Include="level\variant\WebbedLevelVariant.cs" />
     <Compile Include="level\walls\CollumnWall.cs" />
     <Compile Include="level\walls\CollumsWall.cs" />
     <Compile Include="level\walls\CorneredTurretWall.cs" />

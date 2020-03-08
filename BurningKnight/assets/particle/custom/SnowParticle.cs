@@ -33,6 +33,8 @@ namespace BurningKnight.assets.particle.custom {
 			Depth = Layers.WindFx;
 			
 			Reset();
+			delay = 0;
+			Y = Camera.Instance.Y + Rnd.Float(Display.Height + 20);
 		}
 
 		private void Reset() {
@@ -41,7 +43,7 @@ namespace BurningKnight.assets.particle.custom {
 			X = Rnd.Float(Camera.Instance.X - 150, Camera.Instance.Right + 150);
 			Y = Camera.Instance.Y - Rnd.Float(50, 60);
 			size = new Vector2(Rnd.Float(0.05f, 0.3f));
-			target = Camera.Instance.Y + Rnd.Float(Display.Width + 100);
+			target = Camera.Instance.Y + Rnd.Float(Display.Height + 20);
 			speed = Rnd.Float(1f, 1.5f);
 			delay = Rnd.Float(0, 5f);
 			t = Rnd.Float(3);

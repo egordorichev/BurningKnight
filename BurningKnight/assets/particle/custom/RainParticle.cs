@@ -25,8 +25,9 @@ namespace BurningKnight.assets.particle.custom {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			Depth = Layers.WindFx;
-			
+
 			Reset();
+			Y = Camera.Instance.Y + Rnd.Float(Display.Height + 100);
 		}
 
 		private void Reset() {
@@ -34,7 +35,7 @@ namespace BurningKnight.assets.particle.custom {
 			X = Rnd.Float(Camera.Instance.X - 150, Camera.Instance.Right + 150);
 			Y = Camera.Instance.Y - Rnd.Float(50, 60);
 			size = Rnd.Float(20, 50);
-			target = Camera.Instance.Y + Rnd.Float(Display.Width + 100);
+			target = Camera.Instance.Y + Rnd.Float(Display.Height + 100);
 			speed = Rnd.Float(1f, 1.5f);
 			poofed = false;
 		}
