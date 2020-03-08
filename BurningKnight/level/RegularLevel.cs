@@ -174,7 +174,7 @@ namespace BurningKnight.level {
 					rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 				}
 			}
-			
+
 			if (first) {
 				rooms.Add(new ExitRoom());				
 			} else {

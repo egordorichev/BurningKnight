@@ -1,10 +1,14 @@
 # todo
 
-* add feelings to other biomes (general feeling registry with chances per biome?)
+* add feelings to other biomes (general feeling registry with chances per biome?) {
+ snoww!!!
+}
+
 items to apply slowness (from projectiles and arc), broken armor
 
 death counter display
 biome-dependant props (cactuses and dead bushes for desert)
+turn off gamepad shake when gamepad is disabled
 
 smoke texture gets super fast
 some bg for item description popup (gobbo could react to picking up items with some dialog)

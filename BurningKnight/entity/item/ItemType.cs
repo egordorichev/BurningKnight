@@ -13,6 +13,7 @@ namespace BurningKnight.entity.item {
 		Battery,
 		Hat,
 		Pouch,
-		Scourge
+		Scourge,
+		Mana
 	}
 }
