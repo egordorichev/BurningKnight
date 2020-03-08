@@ -28,6 +28,7 @@ namespace BurningKnight.entity.item.util {
 		public string Sound = "item_sword_hit";
 		public Color Color = ColorUtils.WhiteColor;
 		public bool Mines;
+		public float Knockback;
 
 		public ArcHurtCallback OnHurt;
 
@@ -83,7 +84,7 @@ namespace BurningKnight.entity.item.util {
 						bd.Break(hitbox.Center.X, hitbox.Center.Y);
 					}
 				} else if (ev.Entity is Bomb) {
-					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner);
+					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);
 				} else if (ev.Entity is Projectile p) {
 					if (p.Owner != Owner) {
 						if (p.CanBeReflected) {
@@ -112,6 +113,10 @@ namespace BurningKnight.entity.item.util {
 					}
 				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 					if (!hurt.Contains(ev.Entity)) {
+						if (Knockback > 0) {
+							ev.Entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(Owner, Knockback);
+						}
+
 						if (health.ModifyHealth(-Damage, Owner)) {
 							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
 						}

@@ -262,6 +262,30 @@ namespace BurningKnight.entity.projectile {
 					pr.Owner.Center = pr.Center;
 				};
 			});
+			
+			Add("web_wand", p => {
+				// CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
+
+				p.Rotates = true;
+				p.OnDeath += (pr, t) => {
+					var x = (int) Math.Round(pr.CenterX / 16f);
+					var y = (int) Math.Round(pr.CenterY / 16f);
+					const int r = 3;
+
+					for (var xx = -r; xx <= r; xx++) {
+						for (var yy = -r; yy <= r; yy++) {
+							var zx = xx + x;
+							var zy = yy + y;
+							
+							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
+								Run.Level.Set(zx, zy, Tile.Cobweb);
+							}
+						}
+					}
+					
+					Run.Level.TileUp();
+				};
+			});
 		}
 	}
 }

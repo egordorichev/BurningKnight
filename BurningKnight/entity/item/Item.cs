@@ -470,13 +470,13 @@ namespace BurningKnight.entity.item {
 
 		public bool ShouldCollide(Entity entity) {
 			if (Type == ItemType.Mana) {
-				if (entity is ProjectileLevelBody || entity is HalfProjectileLevel) {
+				if (entity is ProjectileLevelBody || entity is HalfProjectileLevel || entity is Chasm) {
 					return false;
 				}
 				
 				var room = GetComponent<RoomComponent>().Room;
 
-				if (room != null && room.Tagged[Tags.MustBeKilled].Count == 0) {
+				if (room == null || room.Tagged[Tags.MustBeKilled].Count == 0) {
 					return false;
 				}
 			}
