@@ -57,8 +57,8 @@ namespace BurningKnight.level.biome {
 			
 		}
 
-		public virtual void ModifyPainter(Painter painter) {
-			Run.Level.Variant.ModifyPainter(painter);
+		public virtual void ModifyPainter(Level level, Painter painter) {
+			level?.Variant?.ModifyPainter(painter);
 		}
 
 		public virtual void ModifyRooms(List<RoomDef> rooms) {

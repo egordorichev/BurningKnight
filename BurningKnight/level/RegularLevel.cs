@@ -39,9 +39,14 @@ namespace BurningKnight.level {
 		}
 
 		public void Generate() {
+			Run.Level = this;
 			rooms = null;
 			ItemsToSpawn = new List<string>();
 			Variant = VariantRegistry.Generate(LevelSave.BiomeGenerated.Id);
+
+			if (Variant == null) {
+				Variant = new RegularLevelVariant();
+			}
 
 			if (Run.Depth > 0) {
 				if (GlobalSave.IsTrue("saved_npc")) {
@@ -69,7 +74,7 @@ namespace BurningKnight.level {
 		protected void Paint() {
 			Log.Info("Painting...");
 			var p = GetPainter();
-			LevelSave.BiomeGenerated.ModifyPainter(p);
+			LevelSave.BiomeGenerated.ModifyPainter(this, p);
 			p.Paint(this, rooms);
 		}
 

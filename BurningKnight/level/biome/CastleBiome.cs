@@ -24,8 +24,8 @@ namespace BurningKnight.level.biome {
 			return base.GetMusic();
 		}
 
-		public override void ModifyPainter(Painter painter) {
-			base.ModifyPainter(painter);
+		public override void ModifyPainter(Level level, Painter painter) {
+			base.ModifyPainter(level, painter);
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
 				if (rm is TrapRoom) {

@@ -7,6 +7,7 @@ using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity.component.logic;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
@@ -95,21 +96,29 @@ namespace BurningKnight.entity.creature.mob.ice {
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 							var angle = Self.Direction.ToAngle();
-							var projectile = Projectile.Make(Self, "small", angle, 5f);
 
-							projectile.AddLight(32f, ProjectileColor.Cyan);
-							projectile.Center += MathUtils.CreateVector(angle, 8);
-							projectile.Spectral = true;
-							projectile.Color = ProjectileColor.Cyan;
-							projectile.OnHurt += (p, e) => {
-								if (e.TryGetComponent<BuffsComponent>(out var b)) {
-									b.Add(new FrozenBuff() {
-										Duration = 3
-									});
+							for (var i = 0; i < 5; i++) {
+								var projectile = Projectile.Make(Self, "small", angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), 5f);
+
+								if (i > 0) {
+									projectile.Scale = Rnd.Float(0.3f, 0.6f);
 								}
-							};
-							
-							AnimationUtil.Poof(projectile.Center);
+
+								projectile.AddLight(32f, ProjectileColor.Cyan);
+								projectile.Center += MathUtils.CreateVector(angle, 8);
+								projectile.Spectral = true;
+								projectile.Color = ProjectileColor.Cyan;
+
+								projectile.OnHurt += (p, e) => {
+									if (e.TryGetComponent<BuffsComponent>(out var b)) {
+										b.Add(new FrozenBuff() {
+											Duration = 3
+										});
+									}
+								};
+
+								AnimationUtil.Poof(projectile.Center);
+							}
 						};
 					};
 				} else if (fired && T > 1f) {

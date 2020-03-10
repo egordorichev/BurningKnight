@@ -8,6 +8,7 @@ using BurningKnight.util;
 using Lens.assets;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
@@ -48,8 +49,10 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				tree.AlwaysShow = true;
 				Area.Add(tree);
 			}
-			
-			GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", 0.8f, looped: true, tween: true);
+
+			Timer.Add(() => { 
+				GetComponent<AudioEmitterComponent>().Emit("mob_hive_static", 0.8f, looped: true, tween: true);
+			}, 5f);
 		}
 
 		public override void Destroy() {

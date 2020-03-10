@@ -52,6 +52,7 @@ namespace BurningKnight {
 		public static bool Autosave;
 		public static string Gamepad;
 		public static bool Vibrate;
+		public static float Sensivity;
 	
 		// Not saved
 		public static bool HideUi;
@@ -82,6 +83,7 @@ namespace BurningKnight {
 			Autosave = true;
 			Gamepad = null;
 			Vibrate = true;
+			Sensivity = 1f;
 			
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -109,6 +111,7 @@ namespace BurningKnight {
 			Autopause = GlobalSave.IsTrue("s_ap");
 			Gamepad = GlobalSave.GetString("s_gp");
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
+			Sensivity = GlobalSave.GetFloat("s_ss", 1);
 
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -116,7 +119,7 @@ namespace BurningKnight {
 		}
 
 		public static void Save() {
-			GlobalSave.Put("s_fullscreen", Fullscreen);
+			GlobalSave.Put("s_fusensivityllscreen", Fullscreen);
 			GlobalSave.Put("s_fps", ShowFps);
 			GlobalSave.Put("s_blood", Blood);
 			GlobalSave.Put("s_uisfx", UiSfx);
@@ -136,6 +139,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_ap", Autopause);
 			GlobalSave.Put("s_gp", Gamepad);
 			GlobalSave.Put("s_vb", Vibrate);
+			GlobalSave.Put("s_ss", Sensivity);
 		}
 
 		public static void Generate() {

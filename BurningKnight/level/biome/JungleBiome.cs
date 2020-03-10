@@ -31,8 +31,8 @@ namespace BurningKnight.level.biome {
 			}
 		}
 
-		public override void ModifyPainter(Painter painter) {
-			base.ModifyPainter(painter);
+		public override void ModifyPainter(Level level, Painter painter) {
+			base.ModifyPainter(level, painter);
 
 			painter.Water = 0.4f;
 			painter.Grass = 0.4f;

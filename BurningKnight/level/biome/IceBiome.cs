@@ -15,8 +15,8 @@ namespace BurningKnight.level.biome {
 			Lights.ClearColor = new Color(0.2f, 0.45f, 1f, 1f);
 		}
 
-		public override void ModifyPainter(Painter painter) {
-			base.ModifyPainter(painter);
+		public override void ModifyPainter(Level level, Painter painter) {
+			base.ModifyPainter(level, painter);
 
 			painter.Grass = 0;
 			painter.Water = 0.45f;

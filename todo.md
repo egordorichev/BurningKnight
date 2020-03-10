@@ -1,46 +1,16 @@
 # todo
 
-items to apply slowness (from projectiles and arc), broken armor
-
-death counter display
-biome-dependant props (cactuses and dead bushes for desert)
-
-active shop discount still discounts without the use
-
-flavors {
- + blood moon (enemies respawn and the game is red)
- + bk flavors
- + fakels in the dark level (like a lot more light sources, turrets should emit light)
-}
+* highlight doors you not went through
+* collumn wall can generate unreachable enemies
 
 * fix {
- + bk burning sfx plays while in loading
- + players dont notice new shopkeepers
- + the weapons go crazy when you point directly up or down
-
- + tutorial {
-  - make the door after the sword a wall type, that you need to break by using your sword on it
- }
-
- + gamepad {
-  - rumble doesn't always work? maybe its just not noticable enough
- }
+ + active shop discount still discounts without the use
+ + old level body did not delete
 }
 
-* bk: fix how saving works with capturing ths bosses
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * rewamp death screen
-* Low health indicator
-
-resolution presets? 1920×1080 
-                    1600×900
-                    1366×768
-                    1280×720 
-                    1024×576
-+ hub {
- + allow to layer in stuff for speical events
- + lock away the rest of the hub on the first time you enter it after tutorial?
-}
+death counter display
 
 ##
 
@@ -61,6 +31,14 @@ resolution presets? 1920×1080
 }
 
 #### Polish
+
+biome-dependant props (cactuses and dead bushes for desert)
+
+flavors {
+ + blood moon (enemies respawn and the game is red)
+ + bk flavors
+ + fakels in the dark level (like a lot more light sources, turrets should emit light)
+}
 
 * Broken variant for walls that do not break
 * Explosion dust in the whole explosion radius, goes from black to white and floats up super fast

@@ -646,7 +646,7 @@ namespace BurningKnight.state {
 				}
 				
 				// todo: separate cursors for everyone
-				var stick = controller.GetRightStick();
+				var stick = controller.GetRightStick(Settings.Sensivity);
 				var dx = stick.X * stick.X;
 				var dy = stick.Y * stick.Y;
 				var d = (float) Math.Sqrt(dx + dy);
@@ -2005,6 +2005,10 @@ namespace BurningKnight.state {
 					((UiCheckbox) c).On = Settings.Vibrate;
 				}
 			});
+			
+			UiSlider.Make(gamepadSettings, sx, sy + space * 3, "sensivity", (int) (Settings.Sensivity * 100)).OnValueChange = s => {
+				Settings.Sensivity = s.Value / 100f;
+			};
 
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
 				LocaleLabel = "back",
