@@ -4,8 +4,8 @@
 * collumn wall can generate unreachable enemies
 
 * fix {
- + active shop discount still discounts without the use
- + old level body did not delete
+   + active shop discount still discounts without the use
+   + old level body did not delete
 }
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
