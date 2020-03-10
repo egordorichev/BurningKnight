@@ -870,6 +870,7 @@
     <Compile Include="level\entities\chest\Chest.cs" />
     <Compile Include="level\entities\chest\ChestRegistry.cs" />
     <Compile Include="level\entities\chest\DuckChest.cs" />
+    <Compile Include="level\entities\chest\GlassChest.cs" />
     <Compile Include="level\entities\chest\ProtoChest.cs" />
     <Compile Include="level\entities\chest\ScourgedChest.cs" />
     <Compile Include="level\entities\chest\DoubleChest.cs" />

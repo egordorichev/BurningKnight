@@ -13,6 +13,7 @@ namespace BurningKnight.level.entities.chest {
 			Instance.Add(typeof(StoneChest), 1f);
 			Instance.Add(typeof(GoldChest), 1f);
 			Instance.Add(typeof(RedChest), 0.5f);
+			Instance.Add(typeof(GlassChest), 0.5f);
 		}
 	}
 }
