@@ -1216,6 +1216,7 @@ namespace BurningKnight.level {
 				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
 				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
 				var ab = a || t == Tile.GrannyWall || t == Tile.EvilWall;
+				var effect = Graphics.ParseEffect(x % 2 == 0, y % 2 == 0);
 
 				if (ab) {
 					var v = WallDecor[index];
@@ -1229,9 +1230,11 @@ namespace BurningKnight.level {
 					region = ab
 						? Tileset.WallTopA
 						: Tileset.WallTopB;
+				} else {
+					effect = SpriteEffects.None;
 				}
 
-				Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
+				Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, effect);
 			}
 			
 			if (t.IsWall() || t == Tile.PistonDown) {

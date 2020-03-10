@@ -588,6 +588,10 @@ namespace BurningKnight.level {
 			var Ice = Level.Biome is IceBiome;
 
 			foreach (var R in Rooms) {
+				if (R is IceConnectionRoom) {
+					continue;
+				}
+				
 				var placed = false;
 				
 				foreach (var P in R.GetWaterPlaceablePoints()) {

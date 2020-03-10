@@ -251,10 +251,14 @@ namespace BurningKnight.level {
 				builder = LevelSave.BiomeGenerated.GetBuilder();
 			}
 
-			if (GetFilling() == Tile.Chasm && builder is RegularBuilder b) {
-				b.SetTunnelLength(new float[] {2, 3, 4}, new float[] {1, 3, 1});
+			if (builder is RegularBuilder b) {
+				if (LevelSave.BiomeGenerated.Id == Biome.Ice) {
+					b.SetTunnelLength(new float[] {4, 6, 4}, new float[] {1, 3, 1});
+				} else if (GetFilling() == Tile.Chasm) {
+					b.SetTunnelLength(new float[] {4, 3, 4}, new float[] {1, 3, 1});
+				}
 			}
-			
+
 			return builder;
 		}
 
