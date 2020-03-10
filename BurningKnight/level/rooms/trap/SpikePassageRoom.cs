@@ -6,6 +6,7 @@ using Lens.util.math;
 namespace BurningKnight.level.rooms.trap {
 	public class SpikePassageRoom : TrapRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			var m = 1;
 
 			if (Rnd.Chance()) {

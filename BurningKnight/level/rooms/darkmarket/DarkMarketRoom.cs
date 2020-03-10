@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
@@ -13,6 +14,13 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.darkmarket {
 	public class DarkMarketRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			Painter.Rect(level, this, 1, Tile.WallA);
 
 			var exit = new HiddenExit();

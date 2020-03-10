@@ -3,10 +3,12 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms.boss;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
 

@@ -226,7 +226,7 @@ namespace BurningKnight.level {
 				var Room = Rooms[i];
 			
 				if (!(Room is ConnectionRoom)) {
-					Rect(Level, Room, 0, fl);
+					Rect(Level, Room, 0, LevelSave.BiomeGenerated is IceBiome ? Tile.WallB : fl);
 				}
 
 				Clip = Room.Shrink();

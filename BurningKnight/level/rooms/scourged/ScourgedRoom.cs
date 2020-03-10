@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
@@ -15,6 +16,13 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.scourged {
 	public class ScourgedRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			var t = Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.WallB, Tile.Planks);
 
 			if (Rnd.Chance()) {

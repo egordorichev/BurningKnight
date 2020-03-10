@@ -11,6 +11,7 @@ namespace BurningKnight.level.rooms.trap {
 		}
 
 		public override void Paint(Level level) {
+			base.Paint(level);
 			var maze = Maze.Generate(this);
 			
 			for (int y = 1; y < maze[0].Length - 1; y++) {
