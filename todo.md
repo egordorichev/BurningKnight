@@ -16,23 +16,11 @@ death counter display
 
 * spawn chests/pickups in the levels
 
-* duck interaction
-
-* dog or some pet, that you can pet, send to can you pet the dog tweet account
-
-## general
-
-* lava: {
- + tile lighting: figure it out
- + dont forget little bursts of light for guns and stuff
- + lava should be drawn over the shadows
- + particles for lava like in pd
- + fix lavafall colors
-}
-
 #### Polish
 
 biome-dependant props (cactuses and dead bushes for desert)
+* duck interaction
+* dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 flavors {
  + blood moon (enemies respawn and the game is red)
@@ -65,7 +53,6 @@ flavors {
 
 ### Rooms
 
-* crawled space
 * Room, where you press lever/button to open/close chasm
 * trap rooms
 * altar from spelunky?
@@ -76,7 +63,6 @@ flavors {
 * daily runs
 * local coop up to 4 players
 * twitch support
-* steam rpc
 
 ### Machine Ideas
 
