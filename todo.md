@@ -1,7 +1,7 @@
 # todo
 
 * highlight doors you not went through
-* collumn wall can generate unreachable enemies
+* column wall can generate unreachable enemies
 
 * fix {
    + active shop discount still discounts without the use
@@ -10,10 +10,7 @@
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * rewamp death screen
-death counter display
-
-##
-
+* death counter display
 * spawn chests/pickups in the levels
 
 #### Polish
