@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.player {
 						foreach (var u in Item.Uses) {
 							if (u is SimpleShootUse s) {
 								if (s.ReloadSfx) {
-									Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.5f);
+									Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.8f);
 								}
 
 								break;

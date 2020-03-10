@@ -184,6 +184,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/dice/good.wav
 
+#begin Sfx/item/discord.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/discord.wav
+
 #begin Sfx/item/emerald.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -819,6 +825,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/spelunker/beep.wav
+
+#begin Sfx/mob/wombat/fly.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/wombat/fly.wav
 
 #begin Sfx/npc/voice/1.wav
 /importer:WavImporter
