@@ -1,4 +1,5 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
+* items to apply slowness (from projectiles and arc), broken armor
 
 # free sprites
 
@@ -10,7 +11,6 @@
 * thermos
 * meetboy
 * brain
-* pickaxe
 * teabag
 * obsidian_boots
 * pact

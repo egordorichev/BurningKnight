@@ -31,7 +31,6 @@ namespace BurningKnight.entity.component {
 		}
 		
 		private void UpdateState() {
-		
 			if (Settings.Gamepad != GamepadId && Settings.Gamepad != null) {
 				for (int i = 0; i < 4; i++) {
 					var c = GamePad.GetCapabilities(i);
@@ -46,7 +45,6 @@ namespace BurningKnight.entity.component {
 					}
 				}
 				
-				// Current = null;
 				Settings.Gamepad = null;
 			} else if (Controller == null) {
 				for (int i = 0; i < 4; i++) {
@@ -61,20 +59,13 @@ namespace BurningKnight.entity.component {
 					}
 				}
 				
-				// Current = null;
 				Settings.Gamepad = null;
 			}
 		}
 
-		public override void Destroy() {
-			base.Destroy();
-			// Current = null;
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
-
-            UpdateState();
+			UpdateState();
 		}
 	}
 }

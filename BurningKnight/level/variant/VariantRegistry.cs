@@ -57,7 +57,7 @@ namespace BurningKnight.level.variant {
 			var index = Rnd.Chances(chances);
 
 			if (index == -1) {
-				return null;
+				return new RegularLevelVariant();
 			}
 
 			return variants[index];

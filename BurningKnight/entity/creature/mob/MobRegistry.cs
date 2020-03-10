@@ -54,6 +54,7 @@ namespace BurningKnight.entity.creature.mob {
 				// MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
 				
 				// Ice
+				MobInfo.New<CupGuy>(new SpawnChance(1f, Biome.Ice)),
 				MobInfo.New<Snowball>(new SpawnChance(1f, Biome.Ice)).SetWeight(0.5f),
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Ice)).RequiresNearWall(),
 				MobInfo.New<Snowflake>(new SpawnChance(0.5f, Biome.Ice)).SetSpawnChance(0.3f)
