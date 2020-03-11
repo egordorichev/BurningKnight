@@ -1,7 +1,9 @@
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 
@@ -21,8 +23,11 @@ namespace BurningKnight.level.entities.statue {
 
 		protected override bool Interact(Entity e) {
 			var h = e.GetComponent<HealthComponent>();
+
+			if (h.Health > 1) {
+				TextParticle.Add(this, "HP", (int) h.Health - 1, true, true);
+			}
 			
-			// fixme: doesnt work
 			h.SetHealth(1, this, type: DamageType.Custom);
 			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:broken_heart", Area, true));
 			

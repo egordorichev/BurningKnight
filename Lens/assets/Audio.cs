@@ -75,7 +75,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			PlaySfx(GetSfx(id), volume * (id == "level_explosion" ? 1 : SfxVolumeBuffer), pitch, pan);
+			PlaySfx(GetSfx(id), volume * (id.StartsWith("level_explosion") ? 1 : SfxVolumeBuffer), pitch, pan);
 		}
 
 		public static SoundEffect GetSfx(string id) {

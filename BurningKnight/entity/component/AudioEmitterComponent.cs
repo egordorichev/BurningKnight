@@ -23,9 +23,9 @@ namespace BurningKnight.entity.component {
 		public float PitchMod;
 		public bool DestroySounds = false;
 
-		private Dictionary<string, Sfx> Playing = new Dictionary<string, Sfx>();
+		public Dictionary<string, Sfx> Playing = new Dictionary<string, Sfx>();
 
-		private class Sfx {
+		public class Sfx {
 			public SoundEffectInstance Effect;
 			public float BaseVolume = 1f;
 			public bool KeepAround;
@@ -104,7 +104,7 @@ namespace BurningKnight.entity.component {
 
 			Sfx instance;
 			var v = volume * 0.8f;
-			var applyBuffer = sfx != "level_explosion";
+			var applyBuffer = !sfx.StartsWith("level_explosion");
 
 			if (applyBuffer) {
 				v *= Audio.SfxVolumeBuffer;

@@ -41,7 +41,7 @@ namespace BurningKnight.ui.inventory {
 				return;
 			}
 			
-			var component = Active ? inventory.Player.GetComponent<WeaponComponent>() : inventory.Player.GetComponent<ActiveWeaponComponent>();
+			var component = Active ? inventory.Player.GetComponent<ActiveWeaponComponent>() : inventory.Player.GetComponent<WeaponComponent>();
 			var item = component.Item;
 			
 			if (item != null && item.Id != uiItem.Id) {

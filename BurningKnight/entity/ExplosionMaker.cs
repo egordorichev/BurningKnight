@@ -71,7 +71,7 @@ namespace BurningKnight.entity {
 						DestroySounds = false
 					});
 					
-					explosion.GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
+					explosion.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_explosion", 3);
 				}
 			}
 			

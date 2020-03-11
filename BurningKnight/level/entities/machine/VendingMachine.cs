@@ -121,7 +121,7 @@ namespace BurningKnight.level.entities.machine {
 				AnimationUtil.Poof(Center);
 				AnimationUtil.Explosion(Center);
 				broken = true;
-				GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
+				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_explosion", 3);
 
 				GetComponent<DropsComponent>().SpawnDrops();
 			}
