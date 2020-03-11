@@ -1,3 +1,7 @@
+using BurningKnight.level.biome;
+using BurningKnight.level.tile;
+using BurningKnight.save;
+
 namespace BurningKnight.level.rooms.trap {
 	public class TrapRoom : RoomDef {
 		public override void Paint(Level level) {

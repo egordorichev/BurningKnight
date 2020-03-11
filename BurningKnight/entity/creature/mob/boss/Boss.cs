@@ -213,7 +213,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						lastExplosion = 0.3f;
 						AnimationUtil.Explosion(Center + new Vector2(Rnd.Float(-16, 16), Rnd.Float(-16, 16)));
 						Camera.Instance.Shake(10);
-						Audio.PlaySfx("level_explosion");
+						Audio.PlaySfx($"level_explosion_{Rnd.Int(1, 4)}");
 					}
 
 					if (deathTimer > 2.5f) {

@@ -14,6 +14,8 @@ namespace BurningKnight.entity.creature {
 		}
 
 		private float vz;
+		private float t;
+		private float a = 1;
 
 		public override void AddComponents() {
 			base.AddComponents();
@@ -22,16 +24,19 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 
 			vz = 1;
+			AlwaysActive = true;
 		}
 
 		public override void Render() {
-			Graphics.Color = ColorUtils.GrayColor;
+			Graphics.Color = new Color(0.5f, 0.5f, 0.5f, a);
 			base.Render();
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 
 		private void RenderShadow() {
+			Graphics.Color.A = (byte) (a * 255f);
 			GraphicsComponent.Render(true);
+			Graphics.Color.A = 255;
 		}
 
 		private bool did;
@@ -39,6 +44,16 @@ namespace BurningKnight.entity.creature {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			t += dt;
+
+			if (t >= 20f) {
+				a -= dt * 0.5f;
+
+				if (a <= 0) {
+					Done = true;
+				}
+			}
 
 			if (!Settings.Blood) {
 				Done = true;

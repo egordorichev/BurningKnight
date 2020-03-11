@@ -4,8 +4,11 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -28,6 +31,13 @@ namespace BurningKnight.level.rooms.challenge {
 		}
 
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			var center = GetCenter() * 16 + new Vector2(8);
 			
 			if (Rnd.Chance(20)) {

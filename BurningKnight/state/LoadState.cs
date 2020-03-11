@@ -87,6 +87,7 @@ namespace BurningKnight.state {
 					SaveManager.Generate(gameArea, SaveType.Player);
 				}
 
+				GC.Collect();
 				progress++;
 				ready = true;
 			});
@@ -108,7 +109,7 @@ namespace BurningKnight.state {
 			timer = Math.Min(timer, (progress + 1) * 0.345f);
 			
 			if (down) {
-				if (ready && ((/*Engine.Version.Dev || */loading) || timer >= 1f)) {
+				if (ready && ((Engine.Version.Dev || loading) || timer >= 1f)) {
 					timer = 1;
 					alpha -= dt * 5;
 				}
@@ -121,7 +122,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (ready && ((down && alpha < 0.05f)/* || (Engine.Version.Dev)*/)) {
+			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Dev))) {
 				Engine.Instance.SetState(new InGameState(gameArea, Menu));
 				Menu = false;
 			}

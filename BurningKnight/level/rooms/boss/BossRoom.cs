@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms.granny;

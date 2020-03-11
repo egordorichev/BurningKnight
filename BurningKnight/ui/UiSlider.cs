@@ -6,7 +6,7 @@ using Lens.util.tween;
 
 namespace BurningKnight.ui {
 	public static class UiSlider {
-		public static UiSliderLabel Make(UiPane pane, float x, float y, string label, int value, int max = 100) {
+		public static UiSliderLabel Make(UiPane pane, float x, float y, string label, int value, int max = 100, int min = 0) {
 			var a = (UiSliderButton) pane.Add(new UiSliderButton {
 				LocaleLabel = label,
 				RelativeX = x,
@@ -22,7 +22,7 @@ namespace BurningKnight.ui {
 				Type = ButtonType.Slider,
 				RelativeCenterY = y,
 				Click = bt => {
-					c.Value = Math.Max(0, c.Value - 10);
+					c.Value = Math.Max(min, c.Value - 10);
 				},
 				Padding = 10,
 				ScaleMod = 3
@@ -36,7 +36,7 @@ namespace BurningKnight.ui {
 					var n = (UiSliderLabel) bt;
 					
 					if (Input.Mouse.CheckRightButton) {
-						n.Value = Math.Max(0, n.Value - 10);
+						n.Value = Math.Max(min, n.Value - 10);
 					} else {
 						n.Value = Math.Min(max, n.Value + 10);
 					}

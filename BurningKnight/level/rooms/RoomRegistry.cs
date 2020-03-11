@@ -209,6 +209,10 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public static RoomDef Generate(RoomType type, Biome biome) {
+			if (biome is IceBiome && type == RoomType.Connection) {
+				return new IceConnectionRoom();
+			}
+			
 			if (!ByType.TryGetValue(type, out var types)) {
 				Log.Error($"No rooms registered with type {type}");
 				return null;

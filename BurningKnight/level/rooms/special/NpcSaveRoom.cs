@@ -2,6 +2,7 @@ using System.Linq;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.door;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -36,6 +37,13 @@ namespace BurningKnight.level.rooms.special {
 		};
 
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			GameSave.Put("npc_appeared", true);
 			var d = Connected.Values.First();
 

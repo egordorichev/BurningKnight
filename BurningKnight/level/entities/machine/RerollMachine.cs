@@ -137,7 +137,7 @@ namespace BurningKnight.level.entities.machine {
 			component.Sprite = CommonAse.Props.GetSlice("reroll_machine_broken");
 			component.Offset.Y += Height - 14;
 			
-			GetComponent<AudioEmitterComponent>().EmitRandomized("level_explosion");
+			GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_explosion", 3);
 		}
 
 		public override bool HandleEvent(Event e) {

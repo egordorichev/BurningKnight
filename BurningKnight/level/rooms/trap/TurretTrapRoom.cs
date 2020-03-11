@@ -21,6 +21,7 @@ namespace BurningKnight.level.rooms.trap {
 		}
 
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Painter.Fill(level, this, 1, Tile.Chasm);
 			Painter.Fill(level, this, 2, Tiles.RandomFloor());
 

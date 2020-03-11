@@ -1,9 +1,11 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -15,6 +17,13 @@ namespace BurningKnight.level.rooms.spiked {
 		}
 
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			Painter.Fill(level, this, 1, Tile.EvilWall);
 			Painter.Fill(level, this, 2, Tile.EvilFloor);
 			

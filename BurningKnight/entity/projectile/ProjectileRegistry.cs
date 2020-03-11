@@ -12,6 +12,7 @@ using BurningKnight.level.paintings;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.input;
 using Lens.util.math;
 using Lens.util.timer;
@@ -260,6 +261,7 @@ namespace BurningKnight.entity.projectile {
 				p.Rotates = true;
 				p.OnDeath += (pr, t) => {
 					pr.Owner.Center = pr.Center;
+					Audio.PlaySfx("item_discord");
 				};
 			});
 			

@@ -57,7 +57,8 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					Become<FireState>();
 					return;
 				}
-
+				
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_wombat_fly");
 				Self.GetComponent<RectBodyComponent>().Velocity = MathUtils.CreateVector(Self.Target.AngleTo(Self), 10f);
 			}
 

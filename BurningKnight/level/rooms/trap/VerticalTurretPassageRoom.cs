@@ -29,6 +29,7 @@ namespace BurningKnight.level.rooms.trap {
 		}
 
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Painter.Fill(level, this, 1, Tile.Chasm);
 			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 1, Top + 1), Tiles.RandomFloor(), true);
 			Painter.DrawLine(level, new Dot(Left + 1, Bottom - 1), new Dot(Right - 1, Bottom - 1), Tiles.RandomFloor(), true);

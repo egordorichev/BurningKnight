@@ -5,6 +5,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.machine;
 using BurningKnight.level.rooms.shop.sub;
@@ -21,6 +22,13 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.shop {
 	public class ShopRoom : LockedRoom {
 		public override void Paint(Level level) {
+			if (LevelSave.BiomeGenerated is IceBiome) {
+				var clip = Painter.Clip;
+				Painter.Clip = null;
+				Painter.Rect(level, this, 0, Tile.WallB);
+				Painter.Clip = clip;
+			}
+			
 			var scourged = Rnd.Chance(Run.Scourge + 1);
 		
 			if (Rnd.Chance(30)) {

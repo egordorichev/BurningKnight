@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.entity.creature.player;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
@@ -40,7 +42,7 @@ namespace BurningKnight.entity.component {
 				var a = i / count * Math.PI * 2 - T * 1.5f;
 
 				if (e.Done) {
-					Orbiting.RemoveAt(i);
+					RemoveOrbiter(e);
 					continue;
 				}
 
@@ -59,6 +61,10 @@ namespace BurningKnight.entity.component {
 				e.AddComponent(new OrbitalComponent());
 			}
 
+			if (Entity is Player && Orbiting.Count == 0) {
+				Entity.GetComponent<AudioEmitterComponent>().Emit("item_orbitals", 1f, looped: true, tween: true);
+			}			
+			
 			e.GetComponent<OrbitalComponent>().Orbiting = Entity;
 			Orbiting.Add(e);
 		}
@@ -66,6 +72,10 @@ namespace BurningKnight.entity.component {
 		public void RemoveOrbiter(Entity e) {
 			Orbiting.Remove(e);
 			e.GetComponent<OrbitalComponent>().Orbiting = null;
+
+			if (Orbiting.Count == 0) {
+				RemoveSound();
+			}
 		}
 
 		public override void Destroy() {
@@ -75,7 +85,26 @@ namespace BurningKnight.entity.component {
 				o.GetComponent<OrbitalComponent>().Orbiting = null;
 			}
 
+			RemoveSound();
 			Orbiting.Clear();
+		}
+
+		private void RemoveSound() {
+			if (Entity is Player) {
+				var c = Entity.GetComponent<AudioEmitterComponent>();
+
+				foreach (var s in c.Playing) {
+					if (s.Key == "item_orbitals") {
+						var e = s.Value;
+						
+						e.Effect.IsLooped = false;
+						e.Effect.Pause();
+
+						Tween.To(0, 1f, x => e.BaseVolume = x, 0.3f);
+						break;
+					}
+				}
+			}
 		}
 	}
 }

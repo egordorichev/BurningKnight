@@ -778,8 +778,11 @@ namespace BurningKnight.level {
 			if (!cleared) {
 				cleared = true;
 				Graphics.Clear(Color.White);
-			}
-			
+				// Uncomment for a wild graphics effect
+			}/* else {
+				Graphics.Clear(new Color(1f, 1f, 1f, 1 / 255f));
+			}*/
+
 			Graphics.Color = ColorUtils.WhiteColor;
 			
 			foreach (var p in Area.Tagged[Tags.Mess]) {
@@ -787,7 +790,7 @@ namespace BurningKnight.level {
 			}
 			
 			Graphics.Color = ColorUtils.WhiteColor;
-			
+
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
@@ -1216,6 +1219,7 @@ namespace BurningKnight.level {
 				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
 				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
 				var ab = a || t == Tile.GrannyWall || t == Tile.EvilWall;
+				var effect = Graphics.ParseEffect(x % 2 == 0, y % 2 == 0);
 
 				if (ab) {
 					var v = WallDecor[index];
@@ -1229,9 +1233,11 @@ namespace BurningKnight.level {
 					region = ab
 						? Tileset.WallTopA
 						: Tileset.WallTopB;
+				} else {
+					effect = SpriteEffects.None;
 				}
 
-				Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, Graphics.ParseEffect(x % 2 == 0, y % 2 == 0));
+				Graphics.Render(region, new Vector2(x * 16, y * 16 - 8), 0, Vector2.Zero, Vector2.One, effect);
 			}
 			
 			if (t.IsWall() || t == Tile.PistonDown) {

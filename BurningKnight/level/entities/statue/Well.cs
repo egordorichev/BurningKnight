@@ -1,5 +1,6 @@
 using System.Linq;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.util;
 using Lens.assets;
@@ -20,6 +21,8 @@ namespace BurningKnight.level.entities.statue {
 			Sprite = "well";
 			Width = 20;
 			Height = 30;
+			
+			AddComponent(new AudioEmitterComponent());
 		}
 
 		protected override Rectangle GetCollider() {
@@ -35,6 +38,8 @@ namespace BurningKnight.level.entities.statue {
 				
 				return true;
 			}
+
+			GetComponent<AudioEmitterComponent>().Emit("level_well_coin");
 
 			c.Coins--;
 			

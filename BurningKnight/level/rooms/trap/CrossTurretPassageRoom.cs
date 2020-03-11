@@ -48,6 +48,7 @@ namespace BurningKnight.level.rooms.trap {
 		}
 
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Painter.Fill(level, this, 1, Tile.Chasm);
 
 			var tx = Left + GetWidth() / 2;

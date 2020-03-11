@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.trap {
 	public class RollingSpikesRoom : TrapRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			var a = 0;
 			
 			foreach (var d in Connected.Values) {

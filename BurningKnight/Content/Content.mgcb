@@ -184,6 +184,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/dice/good.wav
 
+#begin Sfx/item/discord.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/discord.wav
+
 #begin Sfx/item/emerald.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -243,6 +249,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/item/nocash.wav
+
+#begin Sfx/item/orbitals.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/orbitals.wav
 
 #begin Sfx/item/pickup.wav
 /importer:WavImporter
@@ -472,11 +484,23 @@
 /processorParam:Quality=Best
 /build:Sfx/level/door/shut.wav
 
-#begin Sfx/level/explosion.wav
+#begin Sfx/level/explosion/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sfx/level/explosion.wav
+/build:Sfx/level/explosion/1.wav
+
+#begin Sfx/level/explosion/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/explosion/2.wav
+
+#begin Sfx/level/explosion/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/explosion/3.wav
 
 #begin Sfx/level/lever.wav
 /importer:WavImporter
@@ -550,6 +574,12 @@
 /processorParam:Quality=Best
 /build:Sfx/level/well.wav
 
+#begin Sfx/level/well_coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/well_coin.wav
+
 #begin Sfx/mob/bandit/death.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -567,6 +597,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/capture.wav
+
+#begin Sfx/mob/bk/fire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/fire.wav
 
 #begin Sfx/mob/bk/flame_loop.wav
 /importer:WavImporter
@@ -819,6 +855,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/spelunker/beep.wav
+
+#begin Sfx/mob/wombat/fly.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/wombat/fly.wav
 
 #begin Sfx/npc/voice/1.wav
 /importer:WavImporter

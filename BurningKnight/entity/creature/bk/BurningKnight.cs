@@ -455,9 +455,19 @@ namespace BurningKnight.entity.creature.bk {
 
 				if (Self.DistanceTo(Self.Target) < 64f) {
 					Self.Become<FlyAwayAttackingState>();
+					return;
+				}
+
+				var r = Self.Target.GetComponent<RoomComponent>().Room;
+
+				if (r.Type == RoomType.Shop || r.Type == RoomType.SubShop || r.Type == RoomType.OldMan) {
+					Self.Become<FlyAwayAttackingState>();
+					return;
 				}
 
 				if (T >= 1f) {
+					Self.GetComponent<AudioEmitterComponent>().Emit("mob_bk_fire");
+					
 					var p = Projectile.Make(Self, "circle", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f), 8, true, 0, null, 1);
 
 					p.BreaksFromWalls = false;

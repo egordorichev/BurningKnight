@@ -273,7 +273,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Init() {
 				base.Init();
 
-				Audio.PlaySfx("quck");
+				Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
 
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self

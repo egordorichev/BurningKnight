@@ -209,7 +209,7 @@ namespace BurningKnight.save {
 			}
 
 			var backup = new FileHandle(BackupDir);
-
+	
 			if (!backup.Exists()) {
 				try {
 					backup.MakeDirectory();
@@ -258,6 +258,16 @@ namespace BurningKnight.save {
 					File.Copy(file.FullPath, $"{backup.FullPath}{file.Name}", true);
 				} catch (Exception e) {
 				}
+			}
+		}
+
+		public static void DeleteCloudSaves() {
+			if (!EnableCloudSave || !SteamRemoteStorage.IsCloudEnabled) {
+				return;
+			}
+
+			foreach (var f in SteamRemoteStorage.Files) {
+				SteamRemoteStorage.FileDelete(f);
 			}
 		}
 

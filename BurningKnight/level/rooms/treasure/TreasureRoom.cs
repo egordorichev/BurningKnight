@@ -23,7 +23,7 @@ namespace BurningKnight.level.rooms.treasure {
 		private bool scourged;
 		
 		public override void Paint(Level level) {
-			if (LevelSave.BiomeGenerated.Id == Biome.Jungle && Rnd.Chance(90)) {
+			if ((LevelSave.BiomeGenerated is JungleBiome && Rnd.Chance(50))) {
 				var clip = Painter.Clip;
 				Painter.Clip = null;
 				Painter.Rect(level, this, 0, Tile.WallB);

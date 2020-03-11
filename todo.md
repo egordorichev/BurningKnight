@@ -1,38 +1,23 @@
 # todo
 
 * highlight doors you not went through
-* collumn wall can generate unreachable enemies
+* column wall can generate unreachable enemies
 
 * fix {
- + active shop discount still discounts without the use
- + old level body did not delete
+   + active shop discount still discounts without the use
+   + old level body did not delete
 }
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * rewamp death screen
-death counter display
-
-##
-
+* death counter display
 * spawn chests/pickups in the levels
-
-* duck interaction
-
-* dog or some pet, that you can pet, send to can you pet the dog tweet account
-
-## general
-
-* lava: {
- + tile lighting: figure it out
- + dont forget little bursts of light for guns and stuff
- + lava should be drawn over the shadows
- + particles for lava like in pd
- + fix lavafall colors
-}
 
 #### Polish
 
 biome-dependant props (cactuses and dead bushes for desert)
+* duck interaction
+* dog or some pet, that you can pet, send to can you pet the dog tweet account
 
 flavors {
  + blood moon (enemies respawn and the game is red)
@@ -65,7 +50,6 @@ flavors {
 
 ### Rooms
 
-* crawled space
 * Room, where you press lever/button to open/close chasm
 * trap rooms
 * altar from spelunky?
@@ -76,7 +60,6 @@ flavors {
 * daily runs
 * local coop up to 4 players
 * twitch support
-* steam rpc
 
 ### Machine Ideas
 
