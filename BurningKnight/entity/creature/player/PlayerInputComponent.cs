@@ -178,7 +178,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 
 				if (controller != null && controller.Attached) {
-					acceleration += controller.GetLeftStick(Settings.Sensivity);
+					acceleration += controller.GetLeftStick();
 				}
 
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {

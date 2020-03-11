@@ -403,6 +403,8 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private Vector2 stickOffset;
+
 		public override void Update(float dt) {
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
@@ -645,16 +647,37 @@ namespace BurningKnight.state {
 					continue;
 				}
 				
-				// todo: separate cursors for everyone
-				var stick = controller.GetRightStick(Settings.Sensivity);
-				var dx = stick.X * stick.X;
-				var dy = stick.Y * stick.Y;
-				var d = (float) Math.Sqrt(dx + dy);
-				const float f = 48;
+				var stick = controller.GetRightStick();
 
-				if (d > 0.25f) {
-					var tar = new Vector2(p.CenterX + stick.X / d * f, p.CenterY + stick.Y / d * f);
-					Input.Mouse.Position += (Camera.Instance.CameraToScreen(tar) - Input.Mouse.Position) * dt * 30f;
+				var dx = stick.X;
+				var dy = stick.Y;
+				var d = (float) Math.Sqrt(dx * dx + dy * cddy);
+				
+				if (d > 1) {
+					stick /= d;
+				} else {
+					stick *= d;
+				}
+
+				var l = stick.Length();
+				
+				if (l > 0.25f) {
+					var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+					dx = target.X - stickOffset.X;
+					dy = target.Y - stickOffset.Y;
+					
+					d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+					if (d > 1) {
+						dx /= d;
+						dy /= d;
+					} else {
+						dx *= d;
+						dy *= d;
+					}
+					
+					stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
+					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + stickOffset * 48);
 				}
 
 				double a = 0;
@@ -674,7 +697,7 @@ namespace BurningKnight.state {
 				}
 
 				if (pressed) {
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, f));
+					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
 				}
 			}
 
@@ -962,6 +985,36 @@ namespace BurningKnight.state {
 			if (Settings.SpeedrunTimer && Run.Statistics != null) {
 				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
+
+			if (GamepadComponent.Current == null) {
+				return;
+			}
+			
+			var stick = GamepadComponent.Current.GetRightStick();
+			
+			var dx = stick.X * stick.X;
+			var dy = stick.Y * stick.Y;
+			var d = (float) Math.Sqrt(dx + dy);
+
+			if (d > 0) {
+				if (d > 1) {
+					stick /= d;
+				} else {
+					stick *= d;
+				}
+			}
+
+			if (stick.Length() <= 0.25f) {
+				stick = Vector2.Zero;
+			}
+			
+			var pos = new Vector2(64 + 10);
+			
+			Graphics.Batch.DrawCircle(new CircleF(pos, 64), 16, Color.White);
+			Graphics.Batch.DrawCircle(new CircleF(pos, 16), 16, Color.Green);
+			Graphics.Batch.DrawCircle(new CircleF(pos + stick * 64, 4), 16, Color.Red);
+			Graphics.Batch.DrawCircle(new CircleF(pos + GamepadComponent.Current.GetRightStick() * 64, 4), 16, Color.Blue);
+			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));
 		}
 
 		private string GetRunTime() {
@@ -2006,7 +2059,7 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			UiSlider.Make(gamepadSettings, sx, sy + space * 3, "sensivity", (int) (Settings.Sensivity * 100)).OnValueChange = s => {
+			UiSlider.Make(gamepadSettings, sx, sy + space * 3, "sensivity", (int) (Settings.Sensivity * 100), 200, 10).OnValueChange = s => {
 				Settings.Sensivity = s.Value / 100f;
 			};
 

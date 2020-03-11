@@ -107,26 +107,14 @@ namespace Lens.input {
 
 		#region Gamepad sticks
 
-		public Vector2 GetLeftStick(float sensivity) {
+		public Vector2 GetLeftStick() {
 			var ret = CurrentState.ThumbSticks.Left;
 			ret.Y = -ret.Y;
-
-			if (ret.X > 0) {
-				ret.X = (float) Math.Pow(ret.X, sensivity);
-			} else {
-				ret.X = (float) -Math.Pow(-ret.X, sensivity);
-			}
-
-			if (ret.Y > 0) {
-				ret.Y = (float) Math.Pow(ret.Y, sensivity);
-			} else {
-				ret.Y = (float) -Math.Pow(-ret.Y, sensivity);
-			}
 
 			return ret;
 		}
 
-		/*public Vector2 GetLeftStick(float deadzone) {
+		public Vector2 GetLeftStick(float deadzone) {
 			var ret = CurrentState.ThumbSticks.Left;
 
 			if (ret.LengthSquared() < deadzone * deadzone) {
@@ -137,28 +125,16 @@ namespace Lens.input {
 			}
 
 			return ret;
-		}*/
+		}
 
-		public Vector2 GetRightStick(float sensivity) {
+		public Vector2 GetRightStick() {
 			var ret = CurrentState.ThumbSticks.Right;
 			ret.Y = -ret.Y;
-
-			if (ret.X > 0) {
-				ret.X = (float) Math.Pow(ret.X, sensivity);
-			} else {
-				ret.X = (float) -Math.Pow(-ret.X, sensivity);
-			}
-
-			if (ret.Y > 0) {
-				ret.Y = (float) Math.Pow(ret.Y, sensivity);
-			} else {
-				ret.Y = (float) -Math.Pow(-ret.Y, sensivity);
-			}
 
 			return ret;
 		}
 
-		/*public Vector2 GetRightStick(float deadzone) {
+		public Vector2 GetRightStick(float deadzone) {
 			var ret = CurrentState.ThumbSticks.Right;
 
 			if (ret.LengthSquared() < deadzone * deadzone) {
@@ -168,7 +144,7 @@ namespace Lens.input {
 			}
 
 			return ret;
-		}*/
+		}
 
 		#endregion
 
