@@ -261,6 +261,16 @@ namespace BurningKnight.save {
 			}
 		}
 
+		public static void DeleteCloudSaves() {
+			if (!EnableCloudSave || !SteamRemoteStorage.IsCloudEnabled) {
+				return;
+			}
+
+			foreach (var f in SteamRemoteStorage.Files) {
+				SteamRemoteStorage.FileDelete(f);
+			}
+		}
+
 		public static void LoadCloudSaves() {
 			if (!EnableCloudSave || !SteamRemoteStorage.IsCloudEnabled) {
 				return;

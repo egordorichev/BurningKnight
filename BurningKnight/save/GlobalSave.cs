@@ -150,5 +150,10 @@ namespace BurningKnight.save {
 			GlobalSave.Put("control_bomb", false);
 			GlobalSave.Put("control_active", false);
 		}
+
+		public override void Delete() {
+			base.Delete();
+			Values.Clear();
+		}
 	}
 }

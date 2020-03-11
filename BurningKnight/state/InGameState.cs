@@ -1464,6 +1464,7 @@ namespace BurningKnight.state {
 						new Thread(() => {
 							try {
 								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
+								SaveManager.DeleteCloudSaves();
 								
 								Run.StartingNew = true;
 								Run.NextDepth = 0;

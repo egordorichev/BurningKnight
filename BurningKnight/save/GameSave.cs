@@ -129,5 +129,10 @@ namespace BurningKnight.save {
 		public GameSave() : base(SaveType.Game) {
 			
 		}
+
+		public override void Delete() {
+			base.Delete();
+			Values.Clear();
+		}
 	}
 }
