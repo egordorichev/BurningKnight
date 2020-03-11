@@ -60,16 +60,19 @@ namespace BurningKnight.ui.inventory {
 
 		private List<UiItem> items = new List<UiItem>();
 		private UiActiveItemSlot activeSlot;
-		
+		private UiActiveWeaponSlot activeWeaponSlot;
+
 		public UiInventory(Player player) {
 			Player = player;	
 			activeSlot = new UiActiveItemSlot(this);
+			activeWeaponSlot = new UiActiveWeaponSlot(this);
 		}
 
 		public override void Init() {
 			base.Init();
 			
 			Area.Add(activeSlot);
+			Area.Add(activeWeaponSlot);
 
 			var anim = Animations.Get("ui");
 

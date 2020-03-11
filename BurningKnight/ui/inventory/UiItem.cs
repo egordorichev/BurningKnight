@@ -28,12 +28,12 @@ namespace BurningKnight.ui.inventory {
 				
 				Name = Locale.Get(id);
 				Description = Locale.Get($"{id}_desc");
-				region = CommonAse.Items.GetSlice(id);
+				Region = CommonAse.Items.GetSlice(id);
 
 				NameSize = Font.Small.MeasureString(Name);
 				DescriptionSize = Font.Small.MeasureString(Description);
 
-				Width = region.Width;
+				Width = Region.Width;
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace BurningKnight.ui.inventory {
 		public Vector2 DescriptionSize;
 		public bool OnTop;
 
-		private TextureRegion region;
+		public TextureRegion Region;
 		private string countStr;
 		private int count;
 		private int countW;
@@ -135,13 +135,13 @@ namespace BurningKnight.ui.inventory {
 				shader.Parameters["flashColor"].SetValue(!Scourged ? ColorUtils.White : ColorUtils.Mix(ItemGraphicsComponent.ScourgedColor, ColorUtils.White, b));
 
 				foreach (var d in MathUtils.Directions) {
-					Graphics.Render(region, Center + d, 0, region.Center, IconScale * scale);
+					Graphics.Render(Region, Center + d, 0, Region.Center, IconScale * scale);
 				}
 
 				Shaders.End();
 			}
 			
-			Graphics.Render(region, Center, 0, region.Center, IconScale * scale);
+			Graphics.Render(Region, Center, 0, Region.Center, IconScale * scale);
 			
 			if (count < 2) {
 				return;
