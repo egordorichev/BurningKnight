@@ -359,15 +359,15 @@ namespace BurningKnight.state {
 		public override void OnActivated() {
 			base.OnActivated();
 
-			if (Paused && pausedByLostFocus && painting == null) {
+			/*if (Paused && pausedByLostFocus && painting == null) {
 				Paused = false;
-			}
+			}*/
 		}
 
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (DialogComponent.Talking != null || !Settings.Autopause) {
+			if (DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
 				return;
 			}
 

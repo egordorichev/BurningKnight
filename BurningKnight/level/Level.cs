@@ -778,8 +778,11 @@ namespace BurningKnight.level {
 			if (!cleared) {
 				cleared = true;
 				Graphics.Clear(Color.White);
-			}
-			
+				// Uncomment for a wild graphics effect
+			}/* else {
+				Graphics.Clear(new Color(1f, 1f, 1f, 1 / 255f));
+			}*/
+
 			Graphics.Color = ColorUtils.WhiteColor;
 			
 			foreach (var p in Area.Tagged[Tags.Mess]) {
@@ -787,7 +790,7 @@ namespace BurningKnight.level {
 			}
 			
 			Graphics.Color = ColorUtils.WhiteColor;
-			
+
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
 			Graphics.Batch.Begin(SpriteSortMode.Immediate, messBlend, SamplerState.PointClamp, DepthStencilState.None, 
