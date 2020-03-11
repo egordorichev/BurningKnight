@@ -209,7 +209,7 @@ namespace BurningKnight.save {
 			}
 
 			var backup = new FileHandle(BackupDir);
-
+	
 			if (!backup.Exists()) {
 				try {
 					backup.MakeDirectory();

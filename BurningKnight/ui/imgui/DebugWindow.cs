@@ -12,6 +12,7 @@ using Lens.game;
 using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util.camera;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
@@ -29,9 +30,11 @@ namespace BurningKnight.ui.imgui {
 		
 		private static float[] fps = new float[60];
 		private static float[] cpuUsage = new float[60];
+		private static float[] memUsage = new float[60];
 		private static int pos;
 		private static int lastCall;
 		private static float lastFps;
+		private static float lastMem;
 
 		public static void Render() {
 			if (!WindowManager.Debug) {
@@ -72,6 +75,33 @@ namespace BurningKnight.ui.imgui {
 			}
 			
 			if (ImGui.CollapsingHeader("Performance")) {
+				lastMem += Engine.Delta;
+
+				float mem;
+
+				using (var data = Process.GetCurrentProcess()) {
+					mem = data.PrivateMemorySize64 / (1024f * 1024f);
+				}
+
+				ImGui.Text($"Memory: {mem} mb");
+				ImGui.SameLine();
+
+				if (ImGui.Button("GC")) {
+					GC.Collect();
+				}
+
+				if (lastMem > 0.5f) {
+					lastMem = 0;
+
+					for (var i = 1; i < memUsage.Length; i++) {
+						memUsage[i - 1] = memUsage[i];
+					}
+
+					memUsage[memUsage.Length - 1] = mem;
+				}
+				
+				ImGui.PlotHistogram("Memory", ref memUsage[0], memUsage.Length, 0, null, 0, 2048, new System.Numerics.Vector2(300, 100));
+				
 				ImGui.Text($"FPS: {Engine.Instance.Counter.CurrentFramesPerSecond}");
 				lastFps += Engine.Delta;
 

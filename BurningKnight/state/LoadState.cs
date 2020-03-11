@@ -87,6 +87,7 @@ namespace BurningKnight.state {
 					SaveManager.Generate(gameArea, SaveType.Player);
 				}
 
+				GC.Collect();
 				progress++;
 				ready = true;
 			});
