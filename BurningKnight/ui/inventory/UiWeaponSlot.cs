@@ -10,12 +10,14 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui.inventory {
-	public class UiActiveWeaponSlot : UiEntity {
+	public class UiWeaponSlot : UiEntity {
 		private UiInventory inventory;
 		private Vector2 activeScale = new Vector2(1);
 		private UiItem uiItem;
+
+		public bool Active;
 		
-		public UiActiveWeaponSlot(UiInventory inv) {
+		public UiWeaponSlot(UiInventory inv) {
 			inventory = inv;
 		}
 
@@ -39,7 +41,7 @@ namespace BurningKnight.ui.inventory {
 				return;
 			}
 			
-			var component = inventory.Player.GetComponent<ActiveWeaponComponent>();
+			var component = Active ? inventory.Player.GetComponent<WeaponComponent>() : inventory.Player.GetComponent<ActiveWeaponComponent>();
 			var item = component.Item;
 			
 			if (item != null && item.Id != uiItem.Id) {
@@ -50,11 +52,13 @@ namespace BurningKnight.ui.inventory {
 			// Graphics.Render(inventory.ItemSlot, pos, 0, inventory.ItemSlot.Center, activeScale);
 
 			if (uiItem.Region != null) {
-				uiItem.Center = new Vector2(uiItem.Region.Width / 2f + 8, Display.UiHeight - uiItem.Region.Height / 2f - 8);
+				uiItem.Center = new Vector2(uiItem.Region.Width / 2f + (Active ? 8 : 24), Display.UiHeight - uiItem.Region.Height / 2f - 8);
 			}
 		}
 		
 		public void Animate() {
+			var v = Active ? 2 : 1;
+			
 			Tween.To(0.6f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
 					Tween.To(1.5f, activeScale.X, x => activeScale.X = x, 0.1f).OnEnd = () =>
 							Tween.To(1f, activeScale.X, x => activeScale.X = x, 0.2f);
