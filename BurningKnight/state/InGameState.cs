@@ -651,7 +651,7 @@ namespace BurningKnight.state {
 
 				var dx = stick.X;
 				var dy = stick.Y;
-				var d = (float) Math.Sqrt(dx * dx + dy * cddy);
+				var d = (float) Math.Sqrt(dx * dx + dy * dy);
 				
 				if (d > 1) {
 					stick /= d;
@@ -986,7 +986,7 @@ namespace BurningKnight.state {
 				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
 
-			if (GamepadComponent.Current == null) {
+			/*if (GamepadComponent.Current == null) {
 				return;
 			}
 			
@@ -1014,7 +1014,7 @@ namespace BurningKnight.state {
 			Graphics.Batch.DrawCircle(new CircleF(pos, 16), 16, Color.Green);
 			Graphics.Batch.DrawCircle(new CircleF(pos + stick * 64, 4), 16, Color.Red);
 			Graphics.Batch.DrawCircle(new CircleF(pos + GamepadComponent.Current.GetRightStick() * 64, 4), 16, Color.Blue);
-			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));
+			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));*/
 		}
 
 		private string GetRunTime() {
@@ -1761,13 +1761,11 @@ namespace BurningKnight.state {
 				Options = new [] {"none"},
 				
 				Click = c => {
-					var i = ((UiChoice) c).Option;
+					// var i = ((UiChoice) c).Option;
 					var p = LocalPlayer.Locate(Area);
-					var e = i == GamepadData.Identifiers.Length;
+					// var e = i == GamepadData.Identifiers.Length;
 					
-					Settings.Gamepad = e ? null : GamepadData.Identifiers[i];
-					gamepad.Active = gamepad.Visible = !e;
-
+					// Settings.Gamepad = e ? null : GamepadData.Identifiers[i];
 					if (p != null) {
 						var d = p.GetComponent<GamepadComponent>();
 							
@@ -1777,9 +1775,6 @@ namespace BurningKnight.state {
 				},
 				
 				OnUpdate = uc => {
-					if (Settings.Gamepad == null) {
-						gamepad.Visible = gamepad.Active = false;
-					}
 					
 					if (!first && !GamepadData.WasChanged) {
 						return;
@@ -1811,7 +1806,7 @@ namespace BurningKnight.state {
 					uc.Option = cur;
 
 					if (first && cur == con.Count - 1) {
-						gamepad.Visible = gamepad.Active = false;
+						// gamepad.Visible = gamepad.Active = false;
 					}
 					
 					first = false;
@@ -1849,7 +1844,7 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			gamepad.Visible = GamepadComponent.Current != null || Settings.Gamepad != null;
+			// gamepad.Visible = GamepadComponent.Current != null || Settings.Gamepad != null;
 			
 			inputBack = (UiButton) inputSettings.Add(new UiButton {
 				LocaleLabel = "back",
