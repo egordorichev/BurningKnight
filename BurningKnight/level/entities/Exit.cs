@@ -28,9 +28,8 @@ namespace BurningKnight.level.entities {
 			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
 				if (Run.Depth == -2) {
 					GlobalSave.Put("finished_tutorial", true);
-				}
-
-				if (Run.Depth == -2 || To == 1) {
+					Run.Depth = 0;
+				} else if (To == 1) {
 					Run.StartNew();
 				} else {
 					Run.Depth = To;
