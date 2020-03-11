@@ -598,6 +598,12 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/capture.wav
 
+#begin Sfx/mob/bk/fire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/fire.wav
+
 #begin Sfx/mob/bk/flame_loop.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
