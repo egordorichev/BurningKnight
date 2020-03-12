@@ -1181,6 +1181,7 @@
     <Compile Include="ui\str\effect\GlyphEffect.cs" />
     <Compile Include="ui\str\effect\ItalicEffect.cs" />
     <Compile Include="ui\str\effect\RainbowEffect.cs" />
+    <Compile Include="ui\str\effect\RandomEffect.cs" />
     <Compile Include="ui\str\effect\ShakeEffect.cs" />
     <Compile Include="ui\str\effect\WaveEffect.cs" />
     <Compile Include="ui\str\event\DelayEvent.cs" />

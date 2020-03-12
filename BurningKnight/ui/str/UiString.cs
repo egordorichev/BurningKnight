@@ -27,6 +27,7 @@ namespace BurningKnight.ui.str {
 	 * && starts flip
 	 * %% starts rainbow
 	 * ^^ starts wave
+	 * ~~ starts randomizer ~~
 	 *
 	 * [event_name var1 var2] starts an event
 	 *  + [dl time] delays
@@ -268,7 +269,10 @@ namespace BurningKnight.ui.str {
 
 					case '^': {
 						if (lc == '^') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<WaveEffect>(builder);
+						} else {
+							builder.Append(c);
 						}
 						
 						break;
@@ -276,7 +280,10 @@ namespace BurningKnight.ui.str {
 
 					case '*': {
 						if (lc == '*') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<BoldEffect>(builder);
+						} else {
+							builder.Append(c);
 						}
 
 						break;
@@ -289,16 +296,21 @@ namespace BurningKnight.ui.str {
 
 					case '%': {
 						if (lc == '%') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<RainbowEffect>(builder);
+						} else {
+							builder.Append(c);
 						}
-
+						
 						break;
 					}
-
+					
 					case '&': {
 						if (lc == '&') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<FlipEffect>(builder);
-							break;
+						} else {
+							builder.Append(c);
 						}
 
 						continue;
@@ -306,7 +318,10 @@ namespace BurningKnight.ui.str {
 
 					case '@': {
 						if (lc == '@') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<BlinkEffect>(builder);
+						} else {
+							builder.Append(c);
 						}
 						
 						break;
@@ -314,7 +329,21 @@ namespace BurningKnight.ui.str {
 
 					case '#': {
 						if (lc == '#') {
+							builder.Remove(builder.Length - 1, 1);
 							AddEffect<ShakeEffect>(builder);
+						} else {
+							builder.Append(c);
+						}
+						
+						break;
+					}
+
+					case '~': {
+						if (lc == '~') {
+							builder.Remove(builder.Length - 1, 1);
+							AddEffect<RandomEffect>(builder);
+						} else {
+							builder.Append(c);
 						}
 						
 						break;
