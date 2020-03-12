@@ -78,9 +78,12 @@ namespace BurningKnight.util {
 			"Generating a joke",
 			"Attacking enemies does more damage, than not attacking",
 			"Getting hit hurts",
-			"Yeet",
+			"Yeeeeet",
 			"You get a higher chance to hit the enemy, if you aim",
-			"Money is useful"
+			"Money is useful",
+			"Dying is bad",
+			"You can change the cursor in settings",
+			"Fullscreen is dope"
 		};
 	}
 }
