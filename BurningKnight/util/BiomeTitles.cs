@@ -55,7 +55,8 @@ namespace BurningKnight.util {
 				"Let it snow",
 				"The winter is coming",
 				"Ice Age",
-				"Snow Inc."
+				"Snow Inc.",
+				"I saw mamonths"
 			);
 			
 			Add(Biome.Library,

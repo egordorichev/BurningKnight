@@ -98,24 +98,26 @@ namespace BurningKnight.entity.creature.mob.ice {
 							var angle = Self.Direction.ToAngle();
 
 							for (var i = 0; i < 5; i++) {
-								var projectile = Projectile.Make(Self, "small", angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), 5f);
+								var projectile = Projectile.Make(Self, i == 0 ? "circle" : "small", angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), i == 0 ? 5f : Rnd.Float(6, 10f));
 
 								if (i > 0) {
 									projectile.Scale = Rnd.Float(0.3f, 0.6f);
 								}
-
-								projectile.AddLight(32f, ProjectileColor.Cyan);
+								
+								projectile.Color = i == 0 ? ProjectileColor.Cyan : ProjectileColor.Blue;
+								projectile.AddLight(32f, projectile.Color);
 								projectile.Center += MathUtils.CreateVector(angle, 8);
 								projectile.Spectral = true;
-								projectile.Color = ProjectileColor.Cyan;
 
-								projectile.OnHurt += (p, e) => {
-									if (e.TryGetComponent<BuffsComponent>(out var b)) {
-										b.Add(new FrozenBuff() {
-											Duration = 3
-										});
-									}
-								};
+								if (i == 0) {
+									projectile.OnHurt += (p, e) => {
+										if (e.TryGetComponent<BuffsComponent>(out var b)) {
+											b.Add(new FrozenBuff() {
+												Duration = 1
+											});
+										}
+									};
+								}
 
 								AnimationUtil.Poof(projectile.Center);
 							}

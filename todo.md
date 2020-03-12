@@ -1,5 +1,10 @@
 # todo
 
+* item for ice resist
+* campfires in ice levels
+* shooting tiles in ice biome should update transition
+* ice level and library achievements
+
 * highlight doors you not went through
 * column wall can generate unreachable enemies
 
@@ -14,6 +19,8 @@
 * spawn chests/pickups in the levels
 
 #### Polish
+
+achievement icons
 
 biome-dependant props (cactuses and dead bushes for desert)
 * duck interaction

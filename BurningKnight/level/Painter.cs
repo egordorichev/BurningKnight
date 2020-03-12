@@ -198,6 +198,36 @@ namespace BurningKnight.level {
 					Level.Tiles[i] = (byte) tile;
 				}	
 			}
+				
+			if (Level.Biome is IceBiome) {
+				for (var x = 0; x < Level.Width; x++) {
+					for (var y = 0; y < 5; y++) {
+						if (y == 0 || Rnd.Chance((5 - y) * 20)) {
+							Set(Level, x, y, Tile.WallB);
+						}
+					}
+					
+					for (var y = Level.Height - 6; y < Level.Height; y++) {
+						if (y == Level.Height - 1 || Rnd.Chance((y - Level.Height + 5) * 20)) {
+							Set(Level, x, y, Tile.WallB);
+						}
+					}
+				}
+				
+				for (var y = 0; y < Level.Height; y++) {
+					for (var x = 0; x < 5; x++) {
+						if (x == 0 || Rnd.Chance((5 - x) * 20)) {
+							Set(Level, x, y, Tile.WallB);
+						}
+					}
+					
+					for (var x = Level.Width - 6; x < Level.Width; x++) {
+						if (x == Level.Width - 1 || Rnd.Chance((x - Level.Width + 5) * 20)) {
+							Set(Level, x, y, Tile.WallB);
+						}
+					}
+				}
+			}
 
 			var tr = Level.GetFilling();
 
@@ -366,8 +396,8 @@ namespace BurningKnight.level {
 			PaintDoors(Level, Rooms);
 			Decorate(Level, Rooms);
 			
-			for (var y = 0; y < Level.Height; y++) {
-				for (var x = 0; x < Level.Width; x++) {
+			for (var y = 6; y < Level.Height - 5; y++) {
+				for (var x = 6; x < Level.Width - 5; x++) {
 					if (Level.Get(x, y) == Tile.WallA) {
 						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
 						

@@ -349,7 +349,7 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 					
-				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
+				if (Run.Level.Biome is IceBiome && !(Owner is entity.creature.bk.BurningKnight) && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
 				}
 			}
