@@ -13,6 +13,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.ice {
 	public class Dino : Mob {
+		private const float FindTime = 3f;
+		
 		protected override void SetStats() {
 			base.SetStats();
 			
@@ -27,8 +29,6 @@ namespace BurningKnight.entity.creature.mob.ice {
 			body.Body.LinearDamping = 6;
 			
 			AddComponent(new SensorBodyComponent(1, 3, 15, 17));
-
-			moveId = Rnd.Int(3);
 		}
 
 		#region Dino States
@@ -45,12 +45,23 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 				if (T >= delay) {
 					Become<RunState>();
+				} else {
+					if (Self.CanSeeTarget()) {
+						Self.sawTime += dt;
+
+						if (Self.sawTime >= FindTime) {
+							Become<RunState>();
+						}
+					} else {
+						Self.sawTime = 0;
+					}
 				}
 			}
 		}
 
-		private int moveId;
-		
+		private bool fire;
+		private float sawTime;
+
 		public class RunState : SmartState<Dino> {
 			private const float Accuracy = 0.2f;
 			
@@ -58,26 +69,27 @@ namespace BurningKnight.entity.creature.mob.ice {
 			private float timer;
 			private float lastBullet;
 			private float angle;
-			private bool fire;
 			private float start;
 			private bool saw;
 			
 			public override void Init() {
 				base.Init();
 
-				fire = Self.Target != null && Self.moveId % 2 == 0;
-				angle = !fire ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
-				timer = fire ? 0.9f * 5 : Rnd.Float(0.8f, 2f);
+				if (Self.fire = (Self.sawTime >= FindTime)) {
+					Self.sawTime = 0;
+				}
+
+				angle = !Self.fire ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
+				timer = Self.fire ? 0.9f * 5 : Rnd.Float(0.8f, 2f);
 				start = Rnd.Float(0f, 10f);
 				
 				var a = angle + Rnd.Float(-Accuracy, Accuracy);
-				var force = fire ? 30 : 60;
+				var force = Self.fire ? 30 : 60;
 				
 				velocity.X = (float) Math.Cos(a) * force;
 				velocity.Y = (float) Math.Sin(a) * force;
 
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				Self.moveId++;
 			}
 
 			public override void Destroy() {
@@ -96,7 +108,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 				var v = velocity * Math.Min(1, timer - T * 0.4f);
 				Self.GetComponent<RectBodyComponent>().Velocity = v;
 
-				if (!fire) {
+				if (!Self.fire) {
+					if (Self.CanSeeTarget()) {
+						Self.sawTime += dt;
+					} else {
+						Self.sawTime = 0;
+					}
+
 					return;
 				}
 

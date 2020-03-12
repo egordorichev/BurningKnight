@@ -1,6 +1,6 @@
 # todo
 
-* item for ice resist
+* item for freeze resist, dropped by ice walker 
 * campfires in ice levels
 * shooting tiles in ice biome should update transition
 
