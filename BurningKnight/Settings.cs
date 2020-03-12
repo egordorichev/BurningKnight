@@ -2,6 +2,7 @@ using BurningKnight.save;
 using Lens;
 using Lens.assets;
 using Lens.entity.component.logic;
+using Lens.graphics.gamerenderer;
 
 namespace BurningKnight {
 	public class Settings {
@@ -42,6 +43,11 @@ namespace BurningKnight {
 		public static float FreezeFrames;
 		public static float FlashFrames;
 		public static bool ShowFps;
+
+		public static float GameScale {
+			get => PixelPerfectGameRenderer.GameScale;
+			set => PixelPerfectGameRenderer.GameScale = value;
+		}
 
 		// Game
 		public static bool SpeedrunMode;
@@ -84,6 +90,7 @@ namespace BurningKnight {
 			Gamepad = null;
 			Vibrate = true;
 			Sensivity = 1f;
+			GameScale = 1f;
 			
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -112,6 +119,7 @@ namespace BurningKnight {
 			Gamepad = GlobalSave.GetString("s_gp");
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
 			Sensivity = GlobalSave.GetFloat("s_ss", 1);
+			GameScale = GlobalSave.GetFloat("s_gs", 1);
 
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -140,6 +148,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_gp", Gamepad);
 			GlobalSave.Put("s_vb", Vibrate);
 			GlobalSave.Put("s_ss", Sensivity);
+			GlobalSave.Put("s_gs", GameScale);
 		}
 
 		public static void Generate() {

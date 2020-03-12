@@ -8,6 +8,7 @@ using SharpDX.Direct2D1.Effects;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
+		public static float GameScale;
 		public Batcher2D Batcher2D;
 
 		private Matrix one = Matrix.Identity;
@@ -125,7 +126,7 @@ namespace Lens.graphics.gamerenderer {
 					shake.Angle,
 					new Vector2(Camera.Instance.Position.X % 1 + Display.Width / 2f,
 						Camera.Instance.Position.Y % 1 + Display.Height / 2f),
-					new Vector2(scale));
+					new Vector2(scale * GameScale));
 			}
 
 			Graphics.Batch.End();
@@ -157,12 +158,15 @@ namespace Lens.graphics.gamerenderer {
 
 		public override void Resize(int width, int height) {
 			base.Resize(width, height);
-			
-			UiTarget = new RenderTarget2D(
-				Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale), (int) (Display.UiHeight * Engine.Instance.Upscale), false,
-				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
-			);
 
+			if (UiTarget == null) {
+				UiTarget = new RenderTarget2D(
+					Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale),
+					(int) (Display.UiHeight * Engine.Instance.Upscale), false,
+					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
+				);
+			}
+			
 			uiScale = Matrix.Identity * Matrix.CreateScale(Engine.Instance.UiUpscale);
 		}
 
