@@ -16,6 +16,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 		private const float FindTime = 3f;
 		
 		protected override void SetStats() {
+			// todo: make him bounce of walls?
 			base.SetStats();
 			
 			AddAnimation("dino");

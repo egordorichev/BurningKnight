@@ -1,5 +1,9 @@
 # todo
 
+* breaking wall doesnt update the tiles sometimes
+
+// fixme: snowflake doesnt seem to update it's animation???
+
 * item for freeze resist, dropped by ice walker 
 * campfires in ice levels
 * shooting tiles in ice biome should update transition
@@ -16,6 +20,13 @@
 * rewamp death screen
 * death counter display
 * spawn chests/pickups in the levels
+
+### big points that are needed before release (no overscope)
+
+* hub update
+* library
+* credits
+* achivement icons
 
 #### Polish
 

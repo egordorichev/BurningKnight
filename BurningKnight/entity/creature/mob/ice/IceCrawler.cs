@@ -29,7 +29,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				if (T >= 3f) {
+				if (T >= 1.5f) {
 					Become<FireState>();
 				}
 			}
@@ -101,7 +101,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 								var projectile = Projectile.Make(Self, i == 0 ? "circle" : "small", angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), i == 0 ? 5f : Rnd.Float(6, 10f));
 
 								if (i > 0) {
-									projectile.Scale = Rnd.Float(0.3f, 0.6f);
+									projectile.Scale = Rnd.Float(0.5f, 0.7f);
 								}
 								
 								projectile.Color = i == 0 ? ProjectileColor.Cyan : ProjectileColor.Blue;

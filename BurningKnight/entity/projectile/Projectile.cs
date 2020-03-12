@@ -81,6 +81,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Rotates;
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
+		public bool HurtsEveryone;
 		public List<Entity> EntitiesHurt = new List<Entity>();
 
 		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
@@ -253,7 +254,7 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
-			if (entity == Owner) {
+			if (entity == Owner && (!HurtsEveryone || T < 1f)) {
 				return false;
 			}
 
@@ -281,7 +282,7 @@ namespace BurningKnight.entity.projectile {
 				return true;
 			}
 
-			if (entity is Creature && Owner is Mob == entity is Mob) {
+			if (entity is Creature && !HurtsEveryone && Owner is Mob == entity is Mob) {
 				return false;
 			}
 			
@@ -315,7 +316,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if ((
+				if (((HurtsEveryone && (ev.Entity != Owner || T > 1f)) || (
 					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
 					    || (ev.Entity != Owner 
 					        && !(Owner is RoomControllable && ev.Entity is Mob) 
@@ -326,7 +327,7 @@ namespace BurningKnight.entity.projectile {
 						        || bc is ShopKeeper || ac is Player
 					        )
 					    )
-				    ) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
 					EntitiesHurt.Add(ev.Entity);

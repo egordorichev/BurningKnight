@@ -244,6 +244,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/key_pickup.wav
 
+#begin Sfx/item/mana.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/mana.wav
+
 #begin Sfx/item/nocash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
