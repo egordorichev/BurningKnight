@@ -3,7 +3,6 @@
 * item for ice resist
 * campfires in ice levels
 * shooting tiles in ice biome should update transition
-* ice level and library achievements
 
 * highlight doors you not went through
 * column wall can generate unreachable enemies
