@@ -1,8 +1,6 @@
 # todo
 
 * breaking wall doesnt update the tiles sometimes
-* ice immunity item
-* item for freeze resist, dropped by ice walker 
 * presents on the floor as decor
 * campfires in ice levels
 * shooting tiles in ice biome should update transition

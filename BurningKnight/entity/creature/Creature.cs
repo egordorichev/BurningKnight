@@ -110,7 +110,7 @@ namespace BurningKnight.entity.creature {
 			} else if (e is TileCollisionStartEvent tce) {
 				if (tce.Tile == Tile.Lava) {
 					if (GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level)) {
-						GetComponent<BuffsComponent>().Add(BurningBuff.Id);
+						// GetComponent<BuffsComponent>().Add(BurningBuff.Id);
 
 						var set = false;
 						var center = Center;

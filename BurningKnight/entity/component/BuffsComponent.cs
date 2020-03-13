@@ -19,6 +19,7 @@ namespace BurningKnight.entity.component {
 		private List<Type> immune = new List<Type>();
 		
 		public List<BuffParticle> Particles = new List<BuffParticle>();
+		public bool IceImmunity;
 
 		public void AddImmunity<T>() {
 			var type = typeof(T);
