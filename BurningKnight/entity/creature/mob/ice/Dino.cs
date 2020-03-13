@@ -18,6 +18,9 @@ namespace BurningKnight.entity.creature.mob.ice {
 		protected override void SetStats() {
 			// todo: make him bounce of walls?
 			base.SetStats();
+
+			Width = 17;
+			Height = 20;
 			
 			AddAnimation("dino");
 			SetMaxHp(20);
@@ -28,6 +31,8 @@ namespace BurningKnight.entity.creature.mob.ice {
 			AddComponent(body);
 
 			body.Body.LinearDamping = 6;
+			body.Body.Restitution = 1;
+			body.Body.Friction = 0;
 			
 			AddComponent(new SensorBodyComponent(1, 3, 15, 17));
 		}

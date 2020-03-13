@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using Lens.util;
@@ -17,6 +18,9 @@ namespace BurningKnight.entity.creature.mob.ice {
 		protected override void SetStats() {
 			base.SetStats();
 
+			Width = 24;
+			Height = 22;
+
 			t = Rnd.Float(4);
 
 			SetMaxHp(30);
@@ -34,10 +38,6 @@ namespace BurningKnight.entity.creature.mob.ice {
 			Become<IdleState>();
 
 			TouchDamage = 0;
-		}
-
-		public override bool InAir() {
-			return true;
 		}
 
 		private void Fire() {
@@ -60,7 +60,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 					var projectile = Projectile.Make(this, "carrot", an, 8f);
 					
 					projectile.Color = ProjectileColor.Orange;
-					projectile.Center = Center + MathUtils.CreateVector(an, 2f);
+					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
 					projectile.Controller += TargetProjectileController.Make(Target);
 					projectile.HurtsEveryone = true;
 					projectile.Damage = 15;
@@ -92,5 +92,15 @@ namespace BurningKnight.entity.creature.mob.ice {
 			}
 		}
 		#endregion
+
+		protected override void CreateGore(DiedEvent d) {
+			var head = new Snowball();
+			Area.Add(head);
+			head.TopCenter = TopCenter;
+
+			var body = new SnowmanBody();
+			Area.Add(body);
+			body.BottomCenter = BottomCenter;
+		}
 	}
 }

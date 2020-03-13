@@ -17,6 +17,9 @@ namespace BurningKnight.entity.creature.mob.ice {
 	public class CupGuy : Mob {
 		protected override void SetStats() {
 			base.SetStats();
+
+			Width = 14;
+			Height = 15;
 			
 			AddAnimation("cup_guy");
 			SetMaxHp(10);

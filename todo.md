@@ -1,6 +1,7 @@
 # todo
 
 * breaking wall doesnt update the tiles sometimes
+* presents on the floor as decor
 
 // fixme: snowflake doesnt seem to update it's animation???
 
