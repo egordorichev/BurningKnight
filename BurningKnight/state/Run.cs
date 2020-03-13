@@ -14,7 +14,7 @@ using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
-		public static int ContentEndDepth = BK.Version.Dev ? 9 : 7;
+		public static int ContentEndDepth = 9; // BK.Version.Dev ? 9 : 7;
 
 		private static int depth = BK.Version.Dev ? 8 : 0;
 		public static int NextDepth = depth;

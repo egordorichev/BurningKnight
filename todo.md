@@ -1,7 +1,6 @@
 # todo
 
 * breaking wall doesnt update the tiles sometimes
-* item to prevent ice from spawning
 * ice immunity item
 * item for freeze resist, dropped by ice walker 
 * presents on the floor as decor
