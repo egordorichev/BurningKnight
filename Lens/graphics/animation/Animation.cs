@@ -18,6 +18,7 @@ namespace Lens.graphics.animation {
 		public float SpeedModifier = 1f;
 		public bool Paused;
 		public bool AutoStop;
+		public bool Reverse;
 
 		public uint TagSize => (EndFrame - StartFrame + 1);
 
@@ -146,7 +147,7 @@ namespace Lens.graphics.animation {
 				currentFrame = (uint) Rnd.Int(0, (int) (currentTag.EndFrame - currentTag.StartFrame));
 			}
 			
-			var frame = Data.GetFrame(layer, currentTag.Direction.GetFrameId(this));
+			var frame = Data.GetFrame(layer, currentTag.Direction.GetFrameId(this, Reverse));
 
 			if (frame != null) {
 				this.frame = (AnimationFrame) frame;

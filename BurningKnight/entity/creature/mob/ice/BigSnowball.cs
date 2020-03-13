@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -18,7 +19,8 @@ namespace BurningKnight.entity.creature.mob.ice {
 			
 			var body = new RectBodyComponent(3, 19, 14, 1);
 			AddComponent(body);
-			body.Body.LinearDamping = 1;
+			
+			body.Body.LinearDamping = 1f;
 			body.KnockbackModifier = 2f;
 			body.Body.Restitution = 1;
 			body.Body.Friction = 0;
@@ -37,7 +39,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 			public override void Init() {
 				base.Init();
-				delay = Rnd.Float(1f, 2f);
+				delay = Rnd.Float(1f, 5f);
 			}
 
 			public override void Update(float dt) {
@@ -52,48 +54,44 @@ namespace BurningKnight.entity.creature.mob.ice {
 		public class RollState : SmartState<BigSnowball> {
 			private const float Accuracy = 0.2f;
 			
-			private Vector2 velocity;
-			private float timer;
-			private float lastBullet;
 			private float angle;
-			private bool fire;
-			private float start;
-			private bool saw;
 			
 			public override void Init() {
 				base.Init();
 
-				fire = Self.Target != null && Self.moveId % 2 == 0;
-				angle = !fire ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
-				timer = fire ? 0.9f : Rnd.Float(0.8f, 2f);
-				start = Rnd.Float(0f, 10f);
+				angle = Rnd.Chance() || Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
 				
 				var a = angle + Rnd.Float(-Accuracy, Accuracy);
-				var force = fire ? 60 : 120;
+				var force = 200;
+
+				Vector2 velocity;
 				
 				velocity.X = (float) Math.Cos(a) * force;
 				velocity.Y = (float) Math.Sin(a) * force;
 
 				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				Self.moveId++;
+				Self.GetComponent<MobAnimationComponent>().Animation.Reverse = velocity.Y < 0;
 			}
 
 			public override void Destroy() {
 				base.Destroy();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+				Self.GetComponent<MobAnimationComponent>().Animation.Reverse = false;
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (timer <= T) {
-					Become<IdleState>();
+				var v = Self.GetComponent<RectBodyComponent>().Body.LinearVelocity;
 
+				if (v.LengthSquared() < 15f) {
+					Become<IdleState>();
+					Self.GetComponent<RectBodyComponent>().Body.LinearVelocity = Vector2.Zero;
+					
 					return;
 				}
-
-				var v = velocity * Math.Min(1, timer - T * 0.4f);
-				Self.GetComponent<RectBodyComponent>().Velocity = v;
+				
+				Self.GetComponent<MobAnimationComponent>().Animation.Reverse = v.Y < 0;
 			}
 		}
 		#endregion

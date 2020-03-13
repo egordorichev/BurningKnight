@@ -6,10 +6,10 @@
 	}
 
 	static class AnimationDirectionMethods {
-		public static uint GetFrameId(this AnimationDirection direction, Animation animation) {
+		public static uint GetFrameId(this AnimationDirection direction, Animation animation, bool reverse) {
 			switch (direction) {
-				case AnimationDirection.Forward: return animation.StartFrame + animation.Frame;
-				case AnimationDirection.Backwards: return animation.EndFrame - animation.Frame;
+				case AnimationDirection.Forward: return reverse ? animation.EndFrame - animation.Frame : animation.StartFrame + animation.Frame;
+				case AnimationDirection.Backwards: return reverse ? animation.StartFrame + animation.Frame : animation.EndFrame - animation.Frame;
 				
 				default: {
 					uint frame;
