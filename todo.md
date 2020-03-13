@@ -1,13 +1,14 @@
 # todo
 
 * breaking wall doesnt update the tiles sometimes
-* presents on the floor as decor
-
-// fixme: snowflake doesnt seem to update it's animation???
-
+* item to prevent ice from spawning
+* ice immunity item
 * item for freeze resist, dropped by ice walker 
+* presents on the floor as decor
 * campfires in ice levels
 * shooting tiles in ice biome should update transition
+
+###
 
 * highlight doors you not went through
 * column wall can generate unreachable enemies

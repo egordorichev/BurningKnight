@@ -61,6 +61,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Ice)).RequiresNearWall(),
 				MobInfo.New<Snowflake>(new SpawnChance(0.5f, Biome.Ice)).SetSpawnChance(0.5f),
 				MobInfo.New<BigSnowball>(new SpawnChance(1f, Biome.Ice)),
+				MobInfo.New<Sponge>(new SpawnChance(1f, Biome.Ice)).MarkSingle().HatesWall(),
 			};
 			
 			All.AddRange(infos);

@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using Lens.entity;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -17,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 			SetMaxHp(10);
 			
-			var body = new RectBodyComponent(3, 19, 14, 1);
+			var body = new RectBodyComponent(3, 19, 10, 5);
 			AddComponent(body);
 			
 			body.Body.LinearDamping = 1f;
@@ -48,6 +49,12 @@ namespace BurningKnight.entity.creature.mob.ice {
 				if (T >= delay) {
 					Become<RollState>();
 				}
+				
+				var v = Self.GetComponent<RectBodyComponent>().Body.LinearVelocity;
+
+				if (v.LengthSquared() > 15f) {
+					Become<RollState>();
+				}
 			}
 		}
 		
@@ -59,18 +66,20 @@ namespace BurningKnight.entity.creature.mob.ice {
 			public override void Init() {
 				base.Init();
 
-				angle = Rnd.Chance() || Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
-				
-				var a = angle + Rnd.Float(-Accuracy, Accuracy);
-				var force = 200;
+				if (Self.GetComponent<RectBodyComponent>().Body.LinearVelocity.LengthSquared() < 15f) {
+					angle = Rnd.Chance() || Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target);
 
-				Vector2 velocity;
-				
-				velocity.X = (float) Math.Cos(a) * force;
-				velocity.Y = (float) Math.Sin(a) * force;
+					var a = angle + Rnd.Float(-Accuracy, Accuracy);
+					var force = 200;
 
-				Self.GetComponent<RectBodyComponent>().Velocity = velocity;
-				Self.GetComponent<MobAnimationComponent>().Animation.Reverse = velocity.Y < 0;
+					Vector2 velocity;
+
+					velocity.X = (float) Math.Cos(a) * force;
+					velocity.Y = (float) Math.Sin(a) * force;
+
+					Self.GetComponent<RectBodyComponent>().Velocity = velocity;
+					Self.GetComponent<MobAnimationComponent>().Animation.Reverse = velocity.Y < 0;
+				}
 			}
 
 			public override void Destroy() {
@@ -95,5 +104,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 			}
 		}
 		#endregion
+
+		public override bool ShouldCollide(Entity entity) {
+			if (entity is BigSnowball) {
+				return true;
+			}
+			
+			return base.ShouldCollide(entity);
+		}
 	}
 }

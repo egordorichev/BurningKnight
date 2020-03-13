@@ -72,7 +72,7 @@ namespace BurningKnight.entity.projectile {
 		public Color Color = ProjectileColor.Red;
 		public bool Scourged;
 		public string Slice;
-		public float Scale;
+		public float Scale = 1;
 		public bool BreaksFromWalls = true;
 		public float FlashTimer;
 		public bool Dying;
@@ -92,7 +92,7 @@ namespace BurningKnight.entity.projectile {
 		public static Projectile Make(Entity owner, string slice, double angle = 0, 
 			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
 			float scale = 1, float damage = 1, Item item = null) {
-			
+
 			if (slice == "default") {
 				slice = "rect";
 			}
@@ -243,7 +243,7 @@ namespace BurningKnight.entity.projectile {
 	    }
 		}
 
-		public bool BreaksFrom(Entity entity) {
+		public virtual bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
 			}
@@ -358,7 +358,7 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
-		public bool ShouldCollide(Entity entity) {
+		public virtual bool ShouldCollide(Entity entity) {
 			if (IgnoreCollisions || entity == Owner) {
 				return false;
 			}

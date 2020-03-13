@@ -20,14 +20,19 @@ namespace BurningKnight.entity.projectile {
 		private bool goingDown;
 		private float toY;
 		private float shadowSize;
+		private bool exploded;
 		
 		public Missile(Entity owner, Entity tar) {
-			owner.Area.Add(this);
-			
-			Slice = "missile";
-			Owner = owner;
 			target = tar;
+			Owner = owner;
+		}
+
+		public override void AddComponents() {
+			Slice = "missile";
+			base.AddComponents();
+
 			AlwaysVisible = true;
+			AlwaysActive = true;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
 			AddComponent(graphics);
@@ -37,15 +42,15 @@ namespace BurningKnight.entity.projectile {
 
 			Width = w;
 			Height = h;
-			Center = owner.Center;
+			Center = Owner.Center;
 			
 			AddComponent(BodyComponent = new RectBodyComponent(0, 0, w, h));
 			
 			BodyComponent.Body.IsBullet = true;
 			BodyComponent.Body.LinearVelocity = new Vector2(0, -100f);
 
-			owner.HandleEvent(new ProjectileCreatedEvent {
-				Owner = owner,
+			Owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = Owner,
 				Projectile = this
 			});
 
@@ -59,7 +64,7 @@ namespace BurningKnight.entity.projectile {
 				return CollisionResult.Default;
 			});
 		}
-		
+
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent) {
 				return false; // Ignore all collision
@@ -73,7 +78,7 @@ namespace BurningKnight.entity.projectile {
 			Position += BodyComponent.Velocity * dt;
 
 			if (goingDown) {
-				if (Bottom >= toY) {
+				if (Bottom >= toY && !exploded) {
 					AnimateDeath();
 				}
 			} else if (T >= MinUpTime && Bottom < Camera.Instance.Y) {
@@ -89,7 +94,9 @@ namespace BurningKnight.entity.projectile {
 
 		protected override void AnimateDeath(bool timeout = false) {
 			base.AnimateDeath(timeout);
+			
 			ExplosionMaker.Make(this);
+			exploded = true;
 		}
 
 		protected override void RenderShadow() {
@@ -97,6 +104,14 @@ namespace BurningKnight.entity.projectile {
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize, 16, ColorUtils.WhiteColor, 2f);
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize * 0.5f, 16, ColorUtils.WhiteColor, 2f);
 			}
+		}
+
+		public override bool BreaksFrom(Entity entity) {
+			return false;
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return false;
 		}
 	}
 }

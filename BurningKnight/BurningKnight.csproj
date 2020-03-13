@@ -451,6 +451,7 @@
     <Compile Include="entity\creature\mob\ice\Snowflake.cs" />
     <Compile Include="entity\creature\mob\ice\Snowman.cs" />
     <Compile Include="entity\creature\mob\ice\SnowmanBody.cs" />
+    <Compile Include="entity\creature\mob\ice\Sponge.cs" />
     <Compile Include="entity\creature\mob\jungle\Bee.cs" />
     <Compile Include="entity\creature\mob\jungle\BeeHive.cs" />
     <Compile Include="entity\creature\mob\jungle\BigBee.cs" />

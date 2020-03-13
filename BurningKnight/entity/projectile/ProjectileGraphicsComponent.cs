@@ -16,14 +16,14 @@ namespace BurningKnight.entity.projectile {
 		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
 		public TextureRegion Aura;
 		public TextureRegion Light;
-		
+
 		public ProjectileGraphicsComponent(string image, string slice) : base(image, slice) {
 			if (Flash == null) {
 				Flash = CommonAse.Particles.GetSlice("flash");
 			}
 
 			var a = Animations.Get(image);
-			
+
 			Aura = a.GetSlice($"{slice}_aura", false);
 			Light = a.GetSlice($"{slice}_light", false);
 		}
@@ -43,16 +43,17 @@ namespace BurningKnight.entity.projectile {
 			var b = p.FlashTimer > 0;
 			var spr = b ? Flash : Sprite;
 			var or = spr.Center;
-			
+
 			if (shadow) {
-				Graphics.Render(spr, Entity.Center + new Vector2(0, 6), 
+				Graphics.Render(spr, Entity.Center + new Vector2(0, 6),
 					a, or, scale);
+
 				return;
 			}
 
 			var d = p.Dying || (p.IndicateDeath && p.NearingDeath);
 			var started = false;
-			
+
 			if (!d) {
 				// fixme: p.Effect.GetColor()
 				Graphics.Color = p.Color;
@@ -63,30 +64,30 @@ namespace BurningKnight.entity.projectile {
 				shader.Parameters["flash"].SetValue(1f);
 				shader.Parameters["flashReplace"].SetValue(1f);
 				shader.Parameters["flashColor"].SetValue(ColorUtils.White);
-				
+
 				started = true;
 			}
-			
+
 			Graphics.Render(spr, Entity.Center, a, or, scale);
 			Graphics.Color = ColorUtils.WhiteColor;
 
 			if (started) {
 				Shaders.End();
 			}
-			
+
 			if (!b && Light != null) {
 				if (p.Scourged) {
 					Graphics.Color = ProjectileColor.Red;
 				}
-				
+
 				Graphics.Render(Light, Entity.Center, a, or, scale);
-				
+
 				if (p.Scourged) {
 					Graphics.Color = ColorUtils.WhiteColor;
 				}
 			}
 		}
-		
+
 		public void RenderLight() {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
@@ -98,7 +99,7 @@ namespace BurningKnight.entity.projectile {
 				if (!(p.Dying || (p.IndicateDeath && p.NearingDeath))) {
 					Graphics.Color = /*p.Scourged ? ProjectileColor.Red : */p.Color;
 				}
-				
+
 				Graphics.Color.A = Lights.AuraAlpha;
 				Graphics.Render(Aura, Entity.Center, Rotation, Aura.Center, new Vector2(((Projectile) Entity).Scale));
 				Graphics.Color.A = 255;

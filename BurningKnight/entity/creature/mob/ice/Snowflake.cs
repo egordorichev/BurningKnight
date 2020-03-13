@@ -26,7 +26,9 @@ namespace BurningKnight.entity.creature.mob.ice {
 			body.Body.LinearDamping = 0.3f;
 			
 			AddComponent(new ZAnimationComponent("snowflake"));
-			AddComponent(new ZComponent());
+			AddComponent(new ZComponent() {
+				Float = true
+			});
 			
 			AddComponent(new OrbitalComponent {
 				Radius = 32,
