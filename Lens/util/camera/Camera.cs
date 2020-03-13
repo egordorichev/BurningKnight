@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
+using Lens.graphics.gamerenderer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended;
@@ -205,11 +206,11 @@ namespace Lens.util.camera {
 		}
 
 		public Vector2 ScreenToCamera(Vector2 position) {
-			return Vector2.Transform(position, Matrix.Invert(Engine.ScreenMatrix) * inverse);
+			return Vector2.Transform(position, Matrix.Invert(Engine.ScreenMatrix) * scaledInverseMatrix);
 		}
 
 		public Vector2 CameraToScreen(Vector2 position) {
-			return Vector2.Transform(position, matrix);
+			return Vector2.Transform(position, scaledMatrix);
 		}
 		
 		public Vector2 CameraToUi(Vector2 position) {
@@ -238,6 +239,8 @@ namespace Lens.util.camera {
 		public Viewport Viewport;
 
 		private Matrix matrix = Matrix.Identity;
+		private Matrix scaledMatrix = Matrix.Identity;
+		private Matrix scaledInverseMatrix = Matrix.Identity;
 		private Matrix inverse = Matrix.Identity;
 		private Vector2 position;
 		private Vector2 origin;
@@ -305,15 +308,19 @@ namespace Lens.util.camera {
 		}
 
 		public void UpdateMatrices() {
-			matrix = Matrix.Identity *
-				Matrix.CreateTranslation(new Vector3(
-				 -new Vector2((int) Math.Floor(position.X), (int) Math.Floor(position.Y)), 0)) *
-				Matrix.CreateRotationZ(angle) *
-				Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
-				Matrix.CreateTranslation(
-				 new Vector3(new Vector2((int) Math.Floor(origin.X), (int) Math.Floor(origin.Y)), 0));
+			var a = Matrix.Identity *
+			        Matrix.CreateTranslation(new Vector3(
+				        -new Vector2((int) Math.Floor(position.X), (int) Math.Floor(position.Y)), 0)) *
+			        Matrix.CreateRotationZ(angle);
 
+			var b = Matrix.CreateTranslation(
+				new Vector3(new Vector2((int) Math.Floor(origin.X), (int) Math.Floor(origin.Y)), 0));
+			
+			matrix = a * Matrix.CreateScale(new Vector3(zoom, zoom, 1)) * b;
+			scaledMatrix = a * Matrix.CreateScale(new Vector3(zoom * PixelPerfectGameRenderer.GameScale, zoom * PixelPerfectGameRenderer.GameScale, 1)) * b;
+			               
 			inverse = Matrix.Invert(matrix);
+			scaledInverseMatrix = Matrix.Invert(scaledMatrix);
 			changed = false;
 		}
 

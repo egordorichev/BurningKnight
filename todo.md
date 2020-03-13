@@ -1,5 +1,14 @@
 # todo
 
+* breaking wall doesnt update the tiles sometimes
+* ice immunity item
+* item for freeze resist, dropped by ice walker 
+* presents on the floor as decor
+* campfires in ice levels
+* shooting tiles in ice biome should update transition
+
+###
+
 * highlight doors you not went through
 * column wall can generate unreachable enemies
 
@@ -13,7 +22,16 @@
 * death counter display
 * spawn chests/pickups in the levels
 
+### big points that are needed before release (no overscope)
+
+* hub update
+* library
+* credits
+* achivement icons
+
 #### Polish
+
+achievement icons
 
 biome-dependant props (cactuses and dead bushes for desert)
 * duck interaction

@@ -1664,6 +1664,10 @@ namespace BurningKnight.state {
 				Engine.FreezeModifier = Settings.FreezeFrames;
 			};
 			
+			UiSlider.Make(graphicsSettings, sx, sy + space * 5, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
+				Tween.To(s.Value / 100f, Settings.GameScale, x => Settings.GameScale = x, 0.3f);
+			};
+			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",
 				Type = ButtonType.Exit,
@@ -1990,7 +1994,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx - spX,
-				RelativeCenterY = sy - space * 2,
+				RelativeCenterY = sy - space * 3,
 			});
 			
 			gamepadSettings.Add(new UiControl {
@@ -1998,7 +2002,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx + spX,
-				RelativeCenterY = sy - space * 2,
+				RelativeCenterY = sy - space * 3,
 			});
 
 			gamepadSettings.Add(new UiControl {
@@ -2006,7 +2010,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx - spX,
-				RelativeCenterY = sy - space,
+				RelativeCenterY = sy - space * 2,
 			});
 			
 			gamepadSettings.Add(new UiControl {
@@ -2014,7 +2018,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx + spX,
-				RelativeCenterY = sy - space,
+				RelativeCenterY = sy - space * 2,
 			});
 			
 			gamepadSettings.Add(new UiControl {
@@ -2022,7 +2026,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx - spX,
-				RelativeCenterY = sy,
+				RelativeCenterY = sy - space,
 			});
 			
 			gamepadSettings.Add(new UiControl {
@@ -2030,7 +2034,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx + spX,
-				RelativeCenterY = sy,
+				RelativeCenterY = sy - space,
 			});
 			
 			gamepadSettings.Add(new UiControl {
@@ -2038,7 +2042,7 @@ namespace BurningKnight.state {
 				Gamepad = true,
 				GamepadComponent = g,
 				RelativeX = sx,
-				RelativeCenterY = sy + space,
+				RelativeCenterY = sy,
 			});
 			
 			gamepadSettings.Add(new UiCheckbox {

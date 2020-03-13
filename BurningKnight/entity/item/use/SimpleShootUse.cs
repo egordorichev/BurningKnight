@@ -141,7 +141,7 @@ namespace BurningKnight.entity.item.use {
 				entity.TryGetComponent<StatsComponent>(out var stats);
 
 				if (sfx == "item_gun_fire") {
-					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f);
+					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f, sz: 0.2f);
 				} else {
 					if (sfx_number == 0) {
 						entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f);

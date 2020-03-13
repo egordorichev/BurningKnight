@@ -68,6 +68,7 @@ namespace Lens {
 			
 			Graphics = new GraphicsDeviceManager(this);
 			Graphics.GraphicsProfile = GraphicsProfile.HiDef;
+			Graphics.HardwareModeSwitch = false;
 
 			core = Core.Core.SelectCore(Window, Graphics);
 			core.Init(width, height, fullscreen);

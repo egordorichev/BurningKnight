@@ -425,7 +425,13 @@ namespace BurningKnight.entity.creature.bk {
 				if (d < 64f) {
 					Self.Become<FlyAwayAttackingState>();
 				} else if (d <= 128f) {
-					Self.Become<AttackState>();
+					var r = Self.Target.GetComponent<RoomComponent>().Room;
+
+					if (r.Type == RoomType.Shop || r.Type == RoomType.SubShop || r.Type == RoomType.OldMan) {
+
+					} else {
+						Self.Become<AttackState>();
+					}
 				}
 
 				var room = Self.Target.GetComponent<RoomComponent>().Room;
@@ -461,7 +467,7 @@ namespace BurningKnight.entity.creature.bk {
 				var r = Self.Target.GetComponent<RoomComponent>().Room;
 
 				if (r.Type == RoomType.Shop || r.Type == RoomType.SubShop || r.Type == RoomType.OldMan) {
-					Self.Become<FlyAwayAttackingState>();
+					Self.Become<ChaseState>();
 					return;
 				}
 

@@ -15,6 +15,7 @@ namespace BurningKnight.ui.str {
 		public Vector2 Scale = Vector2.One;
 		public SpriteEffects Effects;
 		public List<GlyphEvent> Events = new List<GlyphEvent>();
+		public bool State;
 		
 		public void Reset() {
 			Color = ColorUtils.WhiteColor;

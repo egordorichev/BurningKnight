@@ -18,6 +18,7 @@ namespace BurningKnight.ui {
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
+			Depth = 32;
 			
 			Engine.Instance.Window.TextInput += HandleInput;
 		}

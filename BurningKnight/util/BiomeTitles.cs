@@ -55,12 +55,16 @@ namespace BurningKnight.util {
 				"Let it snow",
 				"The winter is coming",
 				"Ice Age",
-				"Snow Inc."
+				"Snow Inc.",
+				"I saw mammoth"
 			);
 			
 			Add(Biome.Library,
 				"Try to pillage quieter, please!",
-				"Read a book"
+				"Read a book",
+				"Books are expensive",
+				"Book a flight, read a book",
+				"404. Page not found"
 			);
 		}
 	}

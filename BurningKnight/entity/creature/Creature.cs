@@ -177,7 +177,7 @@ namespace BurningKnight.entity.creature {
 			}
 		}
 
-		protected void CreateGore(DiedEvent d) {
+		protected virtual void CreateGore(DiedEvent d) {
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.ShakeMax(5);
 			

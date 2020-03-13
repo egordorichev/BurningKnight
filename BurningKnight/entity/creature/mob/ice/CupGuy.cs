@@ -17,6 +17,9 @@ namespace BurningKnight.entity.creature.mob.ice {
 	public class CupGuy : Mob {
 		protected override void SetStats() {
 			base.SetStats();
+
+			Width = 14;
+			Height = 15;
 			
 			AddAnimation("cup_guy");
 			SetMaxHp(10);
@@ -82,13 +85,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 							var am = Rnd.Int(3, 6);
 
 							for (var i = 0; i < am; i++) {
-								var angle = Rnd.AnglePI();
-								var projectile = Projectile.Make(Self, "small", angle, 8f);
+								var angle = Rnd.Float(-0.1f, 0.1f) + (float) i / am * Math.PI * 2;
+								var projectile = Projectile.Make(Self, "small", angle, Rnd.Float(3, 6));
 
 								projectile.Center += MathUtils.CreateVector(angle, 8f);
 								projectile.AddLight(32f, Projectile.RedLight);
 								projectile.Spectral = true;
-								projectile.Range = 0.5f;
+								projectile.Range = 1f;
 
 								AnimationUtil.Poof(projectile.Center);
 							}

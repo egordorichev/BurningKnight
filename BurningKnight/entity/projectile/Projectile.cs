@@ -72,7 +72,7 @@ namespace BurningKnight.entity.projectile {
 		public Color Color = ProjectileColor.Red;
 		public bool Scourged;
 		public string Slice;
-		public float Scale;
+		public float Scale = 1;
 		public bool BreaksFromWalls = true;
 		public float FlashTimer;
 		public bool Dying;
@@ -81,6 +81,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Rotates;
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
+		public bool HurtsEveryone;
 		public List<Entity> EntitiesHurt = new List<Entity>();
 
 		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
@@ -91,7 +92,7 @@ namespace BurningKnight.entity.projectile {
 		public static Projectile Make(Entity owner, string slice, double angle = 0, 
 			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
 			float scale = 1, float damage = 1, Item item = null) {
-			
+
 			if (slice == "default") {
 				slice = "rect";
 			}
@@ -242,7 +243,7 @@ namespace BurningKnight.entity.projectile {
 	    }
 		}
 
-		public bool BreaksFrom(Entity entity) {
+		public virtual bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
 			}
@@ -253,7 +254,7 @@ namespace BurningKnight.entity.projectile {
 				} 
 			}
 
-			if (entity == Owner) {
+			if (entity == Owner && (!HurtsEveryone || T < 1f)) {
 				return false;
 			}
 
@@ -281,7 +282,7 @@ namespace BurningKnight.entity.projectile {
 				return true;
 			}
 
-			if (entity is Creature && Owner is Mob == entity is Mob) {
+			if (entity is Creature && !HurtsEveryone && Owner is Mob == entity is Mob) {
 				return false;
 			}
 			
@@ -315,7 +316,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if ((
+				if (((HurtsEveryone && (ev.Entity != Owner || T > 1f)) || (
 					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
 					    || (ev.Entity != Owner 
 					        && !(Owner is RoomControllable && ev.Entity is Mob) 
@@ -326,7 +327,7 @@ namespace BurningKnight.entity.projectile {
 						        || bc is ShopKeeper || ac is Player
 					        )
 					    )
-				    ) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
 					EntitiesHurt.Add(ev.Entity);
@@ -349,7 +350,7 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 					
-				if (Run.Level.Biome is IceBiome && ev.Entity is ProjectileLevelBody lvl) {
+				if (Run.Level.Biome is IceBiome && !(Owner is entity.creature.bk.BurningKnight) && ev.Entity is ProjectileLevelBody lvl) {
 					lvl.Break(CenterX, CenterY);
 				}
 			}
@@ -357,7 +358,7 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
-		public bool ShouldCollide(Entity entity) {
+		public virtual bool ShouldCollide(Entity entity) {
 			if (IgnoreCollisions || entity == Owner) {
 				return false;
 			}
