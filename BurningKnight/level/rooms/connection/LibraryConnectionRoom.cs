@@ -1,4 +1,5 @@
 using System.Linq;
+using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.util.geometry;
 
@@ -24,18 +25,25 @@ namespace BurningKnight.level.rooms.connection {
 
 			var dot = new Dot(spot.X, spot.Y);
 			
-			if ((int) dot.X == Left) {
+			if (dot.X == Left) {
 				dot.X += 4;
-			} else if ((int) dot.Y == Top) {
+			} else if (dot.Y == Top) {
 				dot.Y += 4;
-			} else if ((int) dot.X == Right) {
+			} else if (dot.X == Right) {
 				dot.X -= 4;
-			} else if ((int) dot.Y == Bottom) {
+			} else if (dot.Y == Bottom) {
 				dot.Y -= 4;
 			}
 			
 			Painter.Fill(level, dot.X - 2, dot.Y - 2, 5, 5, Tiles.RandomFloor());
 			Painter.Set(level, dot.X, dot.Y, Tile.FloorD);
+
+			var t = new Teleporter {
+				Id = "a"
+			};
+			
+			level.Area.Add(t);
+			t.Position = dot * 16;
 		}
 
 		private bool InvestigateDoor(RoomDef room, DoorPlaceholder cameFrom) {
@@ -89,6 +97,14 @@ namespace BurningKnight.level.rooms.connection {
 			}
 			
 			return base.GetMaxConnections(Side);
+		}
+
+		public override bool CanConnect(RoomDef r, Dot p) {
+			if (p.X == Left + 1 || p.X == Right - 1 || p.Y == Top + 1 || p.Y == Bottom - 1) {
+				return false;
+			}
+			
+			return base.CanConnect(r, p);
 		}
 	}
 }

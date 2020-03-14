@@ -78,7 +78,7 @@ namespace BurningKnight.util {
 			Tween.To(0, entity.GetComponent<PlayerGraphicsComponent>().Scale.X, x => entity.GetComponent<PlayerGraphicsComponent>().Scale.X = x, 0.3f, Ease.QuadIn);
 			Tween.To(4, entity.GetComponent<PlayerGraphicsComponent>().Scale.Y, x => entity.GetComponent<PlayerGraphicsComponent>().Scale.Y = x, 0.3f, Ease.QuadIn);
 			
-			Tween.To(128, z.Z, x => z.Z = x, 0.5f, Ease.QuadIn).OnEnd = callback;
+			Tween.To(128, z.Z, x => z.Z = x, 0.3f, Ease.QuadIn).OnEnd = callback;
 		}
 
 		public static void TeleportIn(Entity entity) {
@@ -96,7 +96,7 @@ namespace BurningKnight.util {
 				Tween.To(1f, scale().Y, x => entity.GetComponent<PlayerGraphicsComponent>().Scale.Y = x, 0.3f);
 			};
 			
-			Tween.To(0, z.Z, x => z.Z = x, 0.3f).OnEnd = () => {
+			Tween.To(0, z.Z, x => z.Z = x, 0.2f).OnEnd = () => {
 				entity.GetComponent<HealthComponent>().Unhittable = false;
 			};
 		}
