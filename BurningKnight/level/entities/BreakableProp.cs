@@ -20,8 +20,7 @@ namespace BurningKnight.level.entities {
 			"pot_c",
 			"pot_d",
 			"pot_e",
-			
-			// "cactus",
+
 			"cup",
 			
 			"chair_a",
@@ -31,15 +30,17 @@ namespace BurningKnight.level.entities {
 			"crate_a",
 			"crate_b"
 		};
+		
+		public static string[] IceInfos = {
+			"cup",
+			
+			"gift_a",
+			"gift_b",
+			"gift_c"
+		};
 
 		private Entity from;
 		private bool hurts;
-		
-		public static BreakableProp Random() {
-			return new BreakableProp {
-				Sprite = Infos[Lens.util.math.Rnd.Int(Infos.Length)]
-			};
-		}
 
 		public override void AddComponents() {
 			base.AddComponents();

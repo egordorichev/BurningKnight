@@ -849,9 +849,10 @@ namespace BurningKnight.level {
 				}
 
 				var types = new List<string>();
+				var infos = Level.Biome is IceBiome ? BreakableProp.IceInfos : BreakableProp.Infos;
 
 				for (var i = 0; i < Rnd.Int(2, 3); i++) {
-					types.Add(BreakableProp.Infos[Rnd.Int(BreakableProp.Infos.Length)]);
+					types.Add(infos[Rnd.Int(infos.Length)]);
 				}
 				
 				for (int i = 0; i < Rnd.IntCentred(2, 7); i++) {

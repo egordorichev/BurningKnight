@@ -62,5 +62,9 @@ namespace BurningKnight.level.biome {
 		public override bool HasPaintings() {
 			return false;
 		}
+
+		public override bool HasBrekables() {
+			return true;
+		}
 	}
 }
