@@ -57,7 +57,7 @@ namespace BurningKnight.level.walls {
 				Painter.Rect(level, room, 1, Tile.Chasm);
 			}
 			
-			room.PaintTunnel(level, Tiles.RandomFloor(), room.GetConnectionSpace(), Rnd.Chance(30));
+			room.PaintTunnel(level, Tiles.RandomFloor(), room.GetCenterRect(), Rnd.Chance(30));
 		}
 	}
 }
