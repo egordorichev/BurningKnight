@@ -1,13 +1,16 @@
 # todo
 
 ice {
- * make some enemies only appear on second depth
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition
    + old level body did not delete
 
  * breaking wall doesnt update the tiles sometimes (or some random leftover bodies in the ice biome)
  * campfires in ice levels
+}
+
+* Library {
+ * unique wall designs with teleporters
 }
 
 * doors appear in random places in the desert??
