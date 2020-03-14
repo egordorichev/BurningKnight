@@ -1,7 +1,5 @@
 # todo
 
-* collumn wall still broken
-
 ice {
  * make some enemies only appear on second depth
  * frozen enemies/troll bomb
