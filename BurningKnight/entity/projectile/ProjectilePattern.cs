@@ -4,10 +4,10 @@ using Lens.entity;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
-	public delegate void ProjectilePatternController(Projectile p, ProjectilePattern pt, int i, float dt);
+	public delegate void ProjectilePatternController(Projectile p, ProjectilePattern.ProjectileData data, ProjectilePattern pt, int i, float dt);
 	
 	public class ProjectilePattern : Entity {
-		private List<Data> projectiles = new List<Data>();
+		public List<ProjectileData> Projectiles = new List<ProjectileData>();
 		private int maxProjectiles;
 		
 		public ProjectilePatternController Controller;
@@ -15,6 +15,7 @@ namespace BurningKnight.entity.projectile {
 
 		public int Count => maxProjectiles;
 		public float T;
+		private bool launched;
 		
 		public ProjectilePattern(ProjectilePatternController c) {
 			Controller = c;
@@ -25,44 +26,51 @@ namespace BurningKnight.entity.projectile {
 
 		public void Launch(float angle, float speed) {
 			Velocity = new Vector2((float) Math.Cos(angle) * speed, (float) Math.Sin(angle) * speed);
+			launched = true;
 		}
 		
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			T += dt;
-			Position += Velocity * dt;
-			
-			if (Controller != null) {
-				foreach (var p in projectiles) {
-					Controller(p.Projectile, this, p.Id, dt);
+			if (launched) {
+				T += dt;
+				Position += Velocity * dt;
+
+				if (Controller != null) {
+					foreach (var p in Projectiles) {
+						Controller(p.Projectile, p, this, p.Id, dt);
+					}
 				}
 			}
 
-			for (var i = projectiles.Count - 1; i >= 0; i--) {
-				if (projectiles[i].Projectile.Done) {
-					projectiles.RemoveAt(i);
+			for (var i = Projectiles.Count - 1; i >= 0; i--) {
+				if (Projectiles[i].Projectile.Done) {
+					Projectiles.RemoveAt(i);
 				}
 			}
 
-			if (projectiles.Count == 0) {
-				Done = true;
+			if (launched) {
+				if (Projectiles.Count == 0) {
+					Done = true;
+				}
 			}
 		}
 
 		public void Kill() {
 			Done = true;
 
-			foreach (var p in projectiles) {
+			foreach (var p in Projectiles) {
 				p.Projectile.Done = true;
 			}
 		}
 
 		public void Add(Projectile p) {
 			if (!p.Done) {
-				projectiles.Add(new Data {
+				Projectiles.Add(new ProjectileData {
 					Projectile = p,
-					Id = maxProjectiles
+					Id = maxProjectiles,
+					Distance = DistanceTo(p),
+					Angle = AngleTo(p)
 				});
 
 				p.Pattern = this;
@@ -73,9 +81,9 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void Remove(Projectile p) {
-			for (var i = 0; i < projectiles.Count; i++) {
-				if (projectiles[i].Projectile == p) {
-					projectiles.RemoveAt(i);
+			for (var i = 0; i < Projectiles.Count; i++) {
+				if (Projectiles[i].Projectile == p) {
+					Projectiles.RemoveAt(i);
 					p.Pattern = null;
 					p.ManualRotation = false;
 
@@ -84,9 +92,11 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		private class Data {
+		public class ProjectileData {
 			public Projectile Projectile;
 			public int Id;
+			public float Angle;
+			public float Distance;
 		}
 	}
 }

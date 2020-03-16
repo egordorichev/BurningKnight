@@ -220,11 +220,12 @@ namespace BurningKnight.entity.creature.player {
 		public void Accelerate(Vector2 acceleration, float dt) {
 			var body = GetComponent<RectBodyComponent>();				
 			var i = GetComponent<TileInteractionComponent>();
-
+			var b = GetComponent<BuffsComponent>();
+					
 			var s = Speed;
 			var sp = 20;
 
-			if (i.Touching[(int) Tile.Ice]) {
+			if (!b.IceImmunity && i.Touching[(int) Tile.Ice]) {
 				sp -= 19;
 				s *= 0.25f;
 			}

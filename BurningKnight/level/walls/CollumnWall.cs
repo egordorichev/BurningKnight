@@ -22,7 +22,7 @@ namespace BurningKnight.level.walls {
 
 			if (Rnd.Chance(80)) {
 				var p = Rnd.Chance(30);
-				var tile = p ? Tiles.RandomFloor() : Tiles.RandomSolid();
+				var tile = p ? Tiles.RandomFloor() : Tiles.RandomWall();
 
 				if (tile == Tile.Lava) {
 					Painter.Fill(level, inside, 1, Tiles.RandomFloor());
@@ -37,7 +37,7 @@ namespace BurningKnight.level.walls {
 					var f = Tiles.RandomFloorOrSpike();
 					var i = Rnd.Chance();
 					var fi = Rnd.Chance() ? f : Tiles.RandomFloorOrSpike();
-					
+
 					Painter.Fill(level, inside, 2, Tiles.RandomFloor());
 
 					if (Rnd.Chance(40)) {

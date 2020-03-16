@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
@@ -18,6 +19,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 			
 			AddComponent(new WallAnimationComponent("ice_crawler"));
 			SetMaxHp(4);
+			AddDrops(new SingleDrop("bk:campfire_in_bottle", 0.01f));
 		}
 		
 		protected override Color GetBloodColor() {

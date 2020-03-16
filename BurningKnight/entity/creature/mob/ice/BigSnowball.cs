@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using Lens.entity;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -17,6 +18,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 			Height = 20;
 
 			SetMaxHp(10);
+			AddDrops(new SingleDrop("bk:ice_skates", 0.01f));
 			
 			var body = new RectBodyComponent(3, 19, 10, 5);
 			AddComponent(body);

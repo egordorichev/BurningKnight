@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.entity.creature.mob.ice;
 using BurningKnight.entity.creature.mob.jungle;
+using BurningKnight.entity.creature.mob.library;
 using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.util.math;
@@ -49,19 +50,19 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).HatesWall(),
 				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn().HatesWall(),
 				
-				// MobInfo.New<BigBee>(new SpawnChance(0.033f, Biome.Jungle)),
-				// MobInfo.New<ManEater>(new SpawnChance(2f, Biome.Jungle)).RequiresNearWall(),
-				// MobInfo.New<ManShooter>(new SpawnChance(0.6f, Biome.Jungle)).RequiresNearWall(),
-				
 				// Ice
 				MobInfo.New<CupGuy>(new SpawnChance(1f, Biome.Ice)),
-				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Ice)).SetWeight(3f),
 				MobInfo.New<Snowman>(new SpawnChance(1f, Biome.Ice)).SetSpawnChance(0.5f).HatesWall(),
 				MobInfo.New<Snowball>(new SpawnChance(1f, Biome.Ice)).SetWeight(0.5f),
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Ice)).RequiresNearWall(),
 				MobInfo.New<Snowflake>(new SpawnChance(0.5f, Biome.Ice)).SetSpawnChance(0.5f),
 				MobInfo.New<BigSnowball>(new SpawnChance(1f, Biome.Ice)),
-				MobInfo.New<Sponge>(new SpawnChance(1f, Biome.Ice)).MarkSingle().HatesWall(),
+				
+				MobInfo.New<Sponge>(new SpawnChance(1f, Biome.Ice)).MarkSingle().HatesWall().DisableFirstSpawn(),
+				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Ice)).SetWeight(3f).DisableFirstSpawn(),
+				
+				// Library
+				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall(),
 			};
 			
 			All.AddRange(infos);

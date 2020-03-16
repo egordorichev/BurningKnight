@@ -1,11 +1,35 @@
 # todo
 
-* breaking wall doesnt update the tiles sometimes
-* ice immunity item
-* item for freeze resist, dropped by ice walker 
-* presents on the floor as decor
-* campfires in ice levels
-* shooting tiles in ice biome should update transition
+ice {
+ * frozen enemies/troll bomb
+ * shooting tiles in ice biome should update transition
+   + old level body did not delete
+
+ * campfires in ice levels
+}
+
+* Library {
+ * unique wall designs with teleporters
+}
+
+* doors appear in random places in the desert??
+* a setting for darker floor
+
+{
+ * hidden door in the ice biome is a breakable?
+ * fix how secret doors look with the wall b
+ * wall crawler can be in a wall?
+ * hide your death if you killed yourself
+ * nerf scourge money drop, limit scourge to 10
+ * elon allows to stack scourge
+}
+
+## achievements
+
+* tutorial done
+* save first npc
+* carry 99 coins
+* unlock an item
 
 ###
 
@@ -14,7 +38,6 @@
 
 * fix {
    + active shop discount still discounts without the use
-   + old level body did not delete
 }
 
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)

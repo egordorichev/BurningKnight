@@ -79,7 +79,7 @@ namespace BurningKnight.level.biome {
 			if (R < 0.66f) {
 				return new LoopBuilder().SetShape(2,
 					Rnd.Float(0.4f, 0.7f),
-					Rnd.Float(0f, 0.5f));;
+					Rnd.Float(0f, 0.5f));
 			}
 			
 			return new CastleBuilder();

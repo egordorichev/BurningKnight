@@ -569,7 +569,7 @@ namespace BurningKnight.level.rooms {
 			return C;
 		}
 
-		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true) {
+		public void PaintTunnel(Level Level, Tile Floor, Rect space = null, bool Bold = false, bool shift = true, bool randomRect = true, RoomDef defTo = null, DoorPlaceholder to = null) {
 			if (Connected.Count == 0) {
 				Log.Error("Invalid connection room");
 
@@ -582,7 +582,13 @@ namespace BurningKnight.level.rooms {
 			var minTop = C.Top;
 			var maxBottom = C.Bottom;
 
-			foreach (var pair in Connected) {
+			var doors = to == null
+				? Connected
+				: new Dictionary<RoomDef, DoorPlaceholder>() {
+					{ defTo, to }
+				};
+
+			foreach (var pair in doors) {
 				if (pair.Key is GrannyRoom || pair.Key is OldManRoom) {
 					continue;
 				}

@@ -462,6 +462,7 @@
     <Compile Include="entity\creature\mob\jungle\ManShooter.cs" />
     <Compile Include="entity\creature\mob\jungle\Sniper.cs" />
     <Compile Include="entity\creature\mob\jungle\Wombat.cs" />
+    <Compile Include="entity\creature\mob\library\Book.cs" />
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
@@ -802,6 +803,7 @@
     <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />
     <Compile Include="entity\projectile\pattern\CircleWithCenterProjectilePattern.cs" />
     <Compile Include="entity\projectile\pattern\ExpandingCirclePattern.cs" />
+    <Compile Include="entity\projectile\pattern\KeepShapePattern.cs" />
     <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\projectile\ProjectileColor.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
@@ -917,6 +919,7 @@
     <Compile Include="level\entities\statue\SwordStatue.cs" />
     <Compile Include="level\entities\statue\WarriorStatue.cs" />
     <Compile Include="level\entities\statue\Well.cs" />
+    <Compile Include="level\entities\Teleporter.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
     <Compile Include="level\Flag.cs" />
     <Compile Include="level\floors\BathFloor.cs" />
@@ -962,6 +965,7 @@
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IceConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\IntersectionConnectionRoom.cs" />
+    <Compile Include="level\rooms\connection\LibraryConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\MazeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\RingConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\TunnelRoom.cs" />

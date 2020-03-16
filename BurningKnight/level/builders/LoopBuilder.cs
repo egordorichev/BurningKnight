@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.connection;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
 using Lens.util.math;
@@ -83,6 +85,15 @@ namespace BurningKnight.level.builders {
 
 			if (Exit != null) {
 				Loop.Insert((Loop.Count + 1) / 2, Exit);
+			}
+
+			if (LevelSave.BiomeGenerated is LibraryBiome) {
+				var c = (Loop.Count + 1);
+				
+				Loop.Insert(c / 4, new LibraryConnectionRoom());
+				Loop.Insert(c / 4 * 3, new LibraryConnectionRoom {
+					BottomHalf = true
+				});
 			}
 
 			RoomDef Prev = Entrance;

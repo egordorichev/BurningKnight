@@ -4,6 +4,7 @@ namespace BurningKnight.entity.item {
 	public enum WeaponType {
 		Melee,
 		Ranged,
-		Magic
+		Magic,
+		None
 	}
 }
