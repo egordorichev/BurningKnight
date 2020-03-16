@@ -965,7 +965,7 @@ namespace BurningKnight.level {
 					Level.Set(D.X, D.Y, Tiles.RandomFloor());
 				}
 			} else if (type == DoorPlaceholder.Variant.Hidden) {
-				Level.Set(D.X, D.Y, Tile.WallA);
+				Level.Set(D.X, D.Y, Level.Biome is IceBiome ? Tile.WallB : Tile.WallA);
 			} else if (type == DoorPlaceholder.Variant.Secret) {
 				Level.Set(D.X, D.Y, Tile.Crack);
 				
