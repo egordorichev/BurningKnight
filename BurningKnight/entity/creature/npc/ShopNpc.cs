@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc.dungeon;
@@ -182,6 +183,8 @@ namespace BurningKnight.entity.creature.npc {
 				HandleEvent(new SavedEvent {
 					Npc = this
 				});
+				
+				Achievements.Unlock("bk:rescue_operation");
 			}
 		}
 		

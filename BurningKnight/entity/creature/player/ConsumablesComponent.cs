@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
@@ -55,6 +56,10 @@ namespace BurningKnight.entity.creature.player {
 
 				if (n != coins && AcceptChange(n - coins, n, ItemType.Coin)) {
 					coins = n;
+
+					if (coins == 99) {
+						Achievements.Unlock("bk:rich");
+					}
 				}
 			}
 			

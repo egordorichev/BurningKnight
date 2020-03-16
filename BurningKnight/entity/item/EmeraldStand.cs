@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
@@ -66,6 +67,12 @@ namespace BurningKnight.entity.item {
 			}
 
 			Audio.PlaySfx("item_purchase");
+
+			if (this is HatStand) {
+				Achievements.Unlock("bk:fancy_hat");
+			} else {
+				Achievements.Unlock("bk:unlock");
+			}
 		}
 
 		protected override string GetSprite() {

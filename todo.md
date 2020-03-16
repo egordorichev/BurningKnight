@@ -22,13 +22,6 @@ ice {
  * hide your death if you killed yourself
 }
 
-## achievements
-
-* tutorial done
-* save first npc
-* carry 99 coins
-* unlock an item
-
 ###
 
 * highlight doors you not went through
