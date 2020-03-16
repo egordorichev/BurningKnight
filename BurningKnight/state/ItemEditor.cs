@@ -56,7 +56,8 @@ namespace BurningKnight.state {
 		public static string[] WeaponTypes = {
 			"melee",
 			"ranged",
-			"magic"
+			"magic",
+			"none"
 		};
 		
 		// Keep in sync with the ItemQuality enum!!!
@@ -564,6 +565,7 @@ namespace BurningKnight.state {
 		private static int sortBy;
 		private static bool single;
 		private static bool invertSpawn;
+		private static WeaponType weaponTypeSort;
 
 		private static string[] sortTypes = {
 			"None",
@@ -571,7 +573,8 @@ namespace BurningKnight.state {
 			"Lockable",
 			"Pool",
 			"Single spawn",
-			"Quality"
+			"Quality",
+			"Weapon Type"
 		};
 		
 		private static void Sort() {
@@ -726,6 +729,12 @@ namespace BurningKnight.state {
 					ImGui.Checkbox("Single?", ref single);
 				} else if (sortBy == 5) {
 					ImGui.Combo("Quality", ref quality, Quality, Quality.Length);
+				} else if (sortBy == 6) {
+					var v = (int) weaponTypeSort;
+
+					if (ImGui.Combo("Weapon Type", ref v, WeaponTypes, WeaponTypes.Length)) {
+						weaponTypeSort = (WeaponType) v;
+					}
 				}
 			}
 
@@ -772,6 +781,10 @@ namespace BurningKnight.state {
 							}
 						} else if (sortBy == 5) {
 							if (i.Quality != (ItemQuality) quality) {
+								continue;
+							}
+						} else if (sortBy == 6) {
+							if (i.Type != ItemType.Weapon || i.WeaponType != weaponTypeSort) {
 								continue;
 							}
 						}
