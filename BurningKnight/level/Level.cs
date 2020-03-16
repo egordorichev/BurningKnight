@@ -804,8 +804,11 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
+			Graphics.Color = new Color(Settings.FloorDarkness, Settings.FloorDarkness, Settings.FloorDarkness, 1f);
+
 			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
 				                        camera.Position.Y % 1));
+			Graphics.Color = ColorUtils.WhiteColor;
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);

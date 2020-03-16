@@ -13,7 +13,6 @@ ice {
 }
 
 * doors appear in random places in the desert??
-* a setting for darker floor
 
 {
  * hidden door in the ice biome is a breakable?

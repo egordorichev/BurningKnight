@@ -1572,8 +1572,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space;
+			var space = 18f;
+			var sy = Display.UiHeight * 0.5f - space * 2;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -1643,8 +1643,6 @@ namespace BurningKnight.state {
 				}
 			});
 
-			sy += space * 0.5f;
-
 			UiSlider.Make(graphicsSettings, sx, sy + space * 2, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
 				Settings.Screenshake = s.Value / 100f;
 				ShakeComponent.Modifier = Settings.Screenshake;
@@ -1666,6 +1664,10 @@ namespace BurningKnight.state {
 			
 			UiSlider.Make(graphicsSettings, sx, sy + space * 5, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.GameScale, x => Settings.GameScale = x, 0.3f);
+			};
+			
+			UiSlider.Make(graphicsSettings, sx, sy + space * 6, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
+				Tween.To(s.Value / 100f, Settings.FloorDarkness, x => Settings.FloorDarkness = x, 0.3f);
 			};
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
