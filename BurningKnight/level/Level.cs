@@ -1054,6 +1054,7 @@ namespace BurningKnight.level {
 									case Tile.FloorD:
 										textureRegion = Tileset.FloorSidesD[ind];
 										break;
+
 									default:
 									case Tile.WallB:
 										textureRegion = Tileset.WallB[ind];
@@ -1123,6 +1124,18 @@ namespace BurningKnight.level {
 									case Tile.Planks: {
 										ar = Tilesets.Biome.Planks;
 										arr = Tilesets.Biome.PlankSides;
+										break;
+									}
+
+									case Tile.Crack: {
+										if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) &&
+										    !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
+											
+											ar = Tileset.WallB;
+											arr = Tileset.WallSidesB;
+										}
+
+
 										break;
 									}
 									
@@ -1277,6 +1290,14 @@ namespace BurningKnight.level {
 								
 								case Tile.WallB: {
 									ar = Tileset.WallTopsB;
+									break;
+								}
+								
+								case Tile.Crack: {
+									if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) && !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
+										ar = Tileset.WallTopsB;
+									}
+
 									break;
 								}
 								
