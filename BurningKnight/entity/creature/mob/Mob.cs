@@ -457,7 +457,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 
 		public void ModifyDrops(List<Item> drops) {
-			if (Rnd.Chance(Run.Scourge * 5)) {
+			if (Rnd.Chance(Run.Scourge)) {
 				var c = Rnd.Int(0, 4);
 				
 				for (var i = 0; i < c; i++) {

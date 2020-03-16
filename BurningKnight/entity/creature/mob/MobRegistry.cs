@@ -65,6 +65,7 @@ namespace BurningKnight.entity.creature.mob {
 				// Library
 				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall().SetWeight(2.5f),
 				MobInfo.New<TeleportingMage>(new SpawnChance(1f, Biome.Library)).HatesWall(),
+				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)),
 			};
 			
 			All.AddRange(infos);

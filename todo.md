@@ -20,8 +20,6 @@ ice {
  * fix how secret doors look with the wall b
  * wall crawler can be in a wall?
  * hide your death if you killed yourself
- * nerf scourge money drop, limit scourge to 10
- * elon allows to stack scourge
 }
 
 ## achievements
