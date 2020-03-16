@@ -463,6 +463,7 @@
     <Compile Include="entity\creature\mob\jungle\Sniper.cs" />
     <Compile Include="entity\creature\mob\jungle\Wombat.cs" />
     <Compile Include="entity\creature\mob\library\Book.cs" />
+    <Compile Include="entity\creature\mob\library\TeleportingMage.cs" />
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
