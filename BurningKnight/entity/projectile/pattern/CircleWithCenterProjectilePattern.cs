@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.projectile.pattern {
 	public static class CircleWithCenterProjectilePattern {
 		public static ProjectilePatternController Make(float radius, float speed) {
-			return (p, pt, i, dt) => {
+			return (p, data, pt, i, dt) => {
 				if (i == 0) {
 					p.Center = pt.Center;
 					return;

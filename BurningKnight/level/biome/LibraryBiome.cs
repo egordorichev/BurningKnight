@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BurningKnight.level.builders;
 using BurningKnight.level.rooms;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -17,6 +18,23 @@ namespace BurningKnight.level.biome {
 			painter.Water = 0;
 			painter.Dirt = 0;
 			painter.Cobweb = 0.3f;
+			
+			painter.Modifiers.Add((l, rm, x, y) => {
+				var r = (byte) (Tiles.RandomFloor());
+				var t = l.Get(x, y, true);
+				
+				if (t == Tile.Lava) {
+					var i = l.ToIndex(x, y);
+					
+					l.Liquid[i] = 0;
+					l.Tiles[i] = r;
+				} else if (t.IsRock() || t == Tile.MetalBlock) {
+					var i = l.ToIndex(x, y);
+
+					l.Liquid[i] = 0;
+					l.Tiles[i] = (byte) Tile.Chasm;
+				}
+			});
 		}
 
 		public override void ModifyRooms(List<RoomDef> rooms) {

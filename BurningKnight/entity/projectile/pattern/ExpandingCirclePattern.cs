@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.projectile.pattern {
 	public static class ExpandingCirclePattern {
 		public static ProjectilePatternController Make(int total, float radius, float speed, float delay, float expansionSpeed, float rotationDelay) {
-			return (p, pt, i, dt) => {
+			return (p, data, pt, i, dt) => {
 				if (pt.T > delay) {
 					radius += Math.Max(0, Math.Min(1, (pt.T - delay) / delay)) * expansionSpeed * dt;
 				}
