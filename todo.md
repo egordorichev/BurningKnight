@@ -12,17 +12,11 @@ ice {
  * unique wall designs with teleporters
 }
 
-* doors appear in random places in the desert??
-
-{
- * fix how secret doors look with the wall b
- * wall crawler can be in a wall?
-}
+* wall crawler can be in a wall?
 
 ###
 
 * highlight doors you not went through
-* column wall can generate unreachable enemies
 
 * fix {
    + active shop discount still discounts without the use

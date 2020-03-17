@@ -1746,6 +1746,25 @@ namespace BurningKnight.level {
 						UpdateTile(xx, yy);
 						ReCreateBodyChunk(xx, yy);
 					}
+
+					/*if (Get(xx, yy) == Tile.WallA) {
+						var a = (yy == 0 || yy == Height - 1 || xx == 0 || xx == Width - 1);
+
+						if (!a) {
+							a = true;
+
+							foreach (var d in MathUtils.AllDirections) {
+								if (!Get(xx + (int) d.X, yy + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
+									a = false;
+									break;
+								}
+							}
+						}
+
+						if (a) {
+							Set(xx, yy, Tile.Transition);
+						}
+					}*/
 				}
 			}
 		}

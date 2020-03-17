@@ -3,9 +3,5 @@ namespace BurningKnight.entity.door {
 		protected override Lock CreateLock() {
 			return new GoldLock();
 		}
-
-		protected override void BreakFromExplosion() {
-			// Immune
-		}
 	}
 }

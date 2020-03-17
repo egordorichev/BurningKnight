@@ -292,9 +292,15 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
 			if (!back) {
-				var ds = DistanceToSquared(point);
+				var ds = DistanceTo(point);
 
 				if (ds <= distance) {
+					return true;
+				}
+			} else {
+				var ds = DistanceTo(point);
+
+				if (ds >= distance) {
 					return true;
 				}
 			}
