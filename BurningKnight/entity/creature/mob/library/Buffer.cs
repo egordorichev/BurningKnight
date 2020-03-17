@@ -56,6 +56,7 @@ namespace BurningKnight.entity.creature.mob.library {
       }
 
       public override void Update(float dt) {
+	      base.Update(dt);
     		if (Self.CanSeeTarget() && Self.DistanceTo(Self.Target) < SafeDistance - 16) {
     			Become<RunState>();
     			return;
@@ -69,7 +70,7 @@ namespace BurningKnight.entity.creature.mob.library {
 	        T = 0;
         }
 
-    		if (T >= 3f) {
+    		if (T >= 1f) {
     			T = 0;
           var list = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob];
 

@@ -24,6 +24,7 @@ using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
@@ -31,6 +32,7 @@ using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature, DropModifier {
@@ -399,8 +401,15 @@ namespace BurningKnight.entity.creature.mob {
 			
 			ImGui.Text($"Prefix: {(Prefix == null ? "null" : Prefix.Id)}");
 		}
-		
-		
+
+		public override void RenderDebug() {
+			base.RenderDebug();
+
+			if (NextPathPoint != null) {
+				Graphics.Batch.DrawLine(CenterX, CenterY, NextPathPoint.X, NextPathPoint.Y, Color.Red);
+			}
+		}
+
 		private static bool RayShouldCollide(Entity entity) {
 			return entity is ProjectileLevelBody;
 		}
