@@ -462,6 +462,37 @@ namespace BurningKnight.entity.creature.mob {
 			}
 		}
 
+		protected void PushOthersFromMe(float dt, Func<Creature, bool> filter = null) {
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room == null) {
+				return;
+			}
+
+			foreach (var m in room.Tagged[Tags.Mob]) {
+				if (m == this) {
+					continue;
+				}
+
+				var mob = (Creature) m;
+
+				if (filter != null && !filter(mob)) {
+					return;
+				}
+
+				var dx = DxTo(mob);
+				var dy = DyTo(mob);
+				var d = MathUtils.Distance(dx, dy);
+				var force = dt * 800;
+
+				if (d <= 8) {
+					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
+
+					mob.GetComponent<BodyComponent>().Velocity -= new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+				}
+			}
+		}
+		
 		public void ModifyDrops(List<Item> drops) {
 			if (Rnd.Chance(Run.Scourge)) {
 				var c = Rnd.Int(0, 4);

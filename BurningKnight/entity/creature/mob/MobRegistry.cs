@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.mob.library;
 using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.util.math;
+using Buffer = BurningKnight.entity.creature.mob.library.Buffer;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
@@ -66,6 +67,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall().SetWeight(2.5f),
 				MobInfo.New<TeleportingMage>(new SpawnChance(1f, Biome.Library)).HatesWall(),
 				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)),
+				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library)).MarkSingle(),
 			};
 			
 			All.AddRange(infos);

@@ -12,12 +12,12 @@ namespace BurningKnight.entity.buff {
 			Add<PoisonBuff>(PoisonBuff.Id, ProjectileGraphicsEffect.Poison);
 			Add<FrozenBuff>(FrozenBuff.Id, ProjectileGraphicsEffect.Freezing);
 			Add<SlowBuff>(SlowBuff.Id, ProjectileGraphicsEffect.Slowing);
-
 			Add<ArmoredBuff>(ArmoredBuff.Id);
 			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
 			Add<InvincibleBuff>(InvincibleBuff.Id);
 			Add<RageBuff>(RageBuff.Id);
 			Add<InvisibleBuff>(InvisibleBuff.Id);
+			Add<BuffedBuff>(BuffedBuff.Id);
 		}
 		
 		public static void Add<T>(string id, ProjectileGraphicsEffect effect = ProjectileGraphicsEffect.Normal) where T : Buff {

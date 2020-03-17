@@ -35,6 +35,8 @@ namespace BurningKnight.entity.creature.mob.library {
 						Become<SummonState>();
 					}
 				}
+				
+				Self.PushOthersFromMe(dt);
 			}
 		}
 
@@ -49,9 +51,7 @@ namespace BurningKnight.entity.creature.mob.library {
 					Become<RunState>();
 					return;
 				}
-
-				Self.PushFromOtherEnemies(dt);
-
+				
 				if (T >= 10f) {
 					T = 0;
 					
