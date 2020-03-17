@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
@@ -83,6 +84,10 @@ namespace BurningKnight.level.paintings {
 			
 			Tween.To(1, 0, x => scale = x, 1.1f, Ease.BackOut);
 			Tween.To(0, uiY, x => uiY = x, 0.8f, Ease.BackOut);
+
+			if (Id == "cat") {
+				Achievements.Unlock("bk:cat_without_a_hat");
+			}
 			
 			return false;
 		}

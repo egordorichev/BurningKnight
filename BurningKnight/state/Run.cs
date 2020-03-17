@@ -124,6 +124,10 @@ namespace BurningKnight.state {
 			if (Scourge >= 10) {
 				Achievements.Unlock("bk:scourge_king");
 			}
+
+			if (Scourge > 10) {
+				Scourge = 10;
+			}
 			
 			var player = LocalPlayer.Locate(Engine.Instance.State.Area);
 
@@ -145,6 +149,10 @@ namespace BurningKnight.state {
 			
 			if (permanent) {
 				PermanentScourge++;
+
+				if (PermanentScourge > 10) {
+					PermanentScourge = 10;
+				}
 			}
 		}
 

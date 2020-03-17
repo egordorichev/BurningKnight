@@ -1,5 +1,7 @@
+using System;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.util {
@@ -74,6 +76,10 @@ namespace BurningKnight.util {
 		public static int GetStepBack(int Cur, int From, bool[] Passable, int Last) {
 			var D = BuildEscapeDistanceMap(Cur, From, 2f, Passable);
 
+			if (Last > -1) {
+				Distance[Last] = Int32.MaxValue;
+			}
+
 			for (var I = 0; I < Size; I++) {
 				Goals[I] = Distance[I] == D;
 			}
@@ -89,7 +95,7 @@ namespace BurningKnight.util {
 				var N = Cur + Dir[I];
 				var ThisD = Distance[N];
 
-				if (N != Last && ThisD < MinD) {
+				if (N != Last && Passable[N] && ThisD < MinD) {
 					MinD = ThisD;
 					Mins = N;
 				}

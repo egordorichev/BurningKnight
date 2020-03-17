@@ -81,7 +81,10 @@ namespace BurningKnight.entity.item.util {
 					
 					if (Run.Level.Biome is IceBiome) {
 						Physics.Fixture.GetAABB(out var hitbox, 0);
-						bd.Break(hitbox.Center.X, hitbox.Center.Y);
+
+						if (bd.Break(hitbox.Center.X, hitbox.Center.Y)) {
+							AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("level_snow_break", 3);
+						}
 					}
 				} else if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);

@@ -329,6 +329,12 @@ namespace Lens.entity {
 			return (float) Math.Sqrt(DistanceToSquared(entity));
 		}
 
+		public float DistanceToFromBottom(Vector2 entity) {
+			var dx = DxTo(entity);
+			var dy = entity.Y - Bottom;
+			return (float) Math.Sqrt(dx * dx + dy * dy);
+		}
+		
 		public float DistanceTo(Entity entity) {
 			return (float) Math.Sqrt(DistanceToSquared(entity));
 		}

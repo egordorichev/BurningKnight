@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
@@ -57,7 +58,13 @@ namespace BurningKnight.level.rooms.treasure {
 				return;
 			}
 
-			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure));
+			Func<ItemData, bool> filter = null;
+
+			if (Rnd.Chance(10)) {
+				filter = (i) => i.Type == ItemType.Weapon;
+			}
+			
+			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure), filter);
 
 			foreach (var s in stands) {
 				var item = Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area, false);

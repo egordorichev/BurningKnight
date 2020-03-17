@@ -24,6 +24,7 @@ using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
@@ -31,6 +32,7 @@ using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.creature.mob {
 	public class Mob : Creature, DropModifier {
@@ -268,15 +270,17 @@ namespace BurningKnight.entity.creature.mob {
 		#region Path finding
 		protected Vec2 NextPathPoint;
 		private int lastStepBack;
+		private int prevStepBack;
 
 		private void BuildPath(Vector2 to, bool back = false) {
 			var level = Run.Level;
-			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(CenterY / 16f));
+			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(Bottom / 16f));
 			var tp = level.ToIndex((int) Math.Floor(to.X / 16f), (int) Math.Floor(to.Y / 16f));
 
-			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, lastStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
+			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, prevStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
 
 			if (back) {
+				prevStepBack = lastStepBack;
 				lastStepBack = p;
 			}
 			
@@ -292,9 +296,15 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
 			if (!back) {
-				var ds = DistanceToSquared(point);
+				var ds = DistanceToFromBottom(point);
 
 				if (ds <= distance) {
+					return true;
+				}
+			} else {
+				var ds = DistanceToFromBottom(point);
+
+				if (ds >= distance) {
 					return true;
 				}
 			}
@@ -308,10 +318,10 @@ namespace BurningKnight.entity.creature.mob {
 			}
 
 			var dx = NextPathPoint.X - CenterX;
-			var dy = NextPathPoint.Y - CenterY;
+			var dy = NextPathPoint.Y - Bottom;
 			var d = (float) Math.Sqrt(dx * dx + dy * dy);
 
-			if (d <= 1f) {
+			if (d <= 2f) {
 				NextPathPoint = null;
 				return false;
 			}
@@ -393,8 +403,16 @@ namespace BurningKnight.entity.creature.mob {
 			
 			ImGui.Text($"Prefix: {(Prefix == null ? "null" : Prefix.Id)}");
 		}
-		
-		
+
+		public override void RenderDebug() {
+			base.RenderDebug();
+
+			if (NextPathPoint != null) {
+				Graphics.Batch.DrawLine(CenterX, Bottom, NextPathPoint.X, NextPathPoint.Y, Color.Red);
+				Graphics.Batch.DrawLine(CenterX, Bottom, Run.Level.FromIndexX(prevStepBack) * 16 + 8, Run.Level.FromIndexY(prevStepBack) * 16 + 8, Color.Blue);
+			}
+		}
+
 		private static bool RayShouldCollide(Entity entity) {
 			return entity is ProjectileLevelBody;
 		}
@@ -456,8 +474,42 @@ namespace BurningKnight.entity.creature.mob {
 			}
 		}
 
+		protected void PushOthersFromMe(float dt, Func<Creature, bool> filter = null) {
+			var room = GetComponent<RoomComponent>().Room;
+
+			if (room == null) {
+				return;
+			}
+
+			foreach (var m in room.Tagged[Tags.Mob]) {
+				if (m == this) {
+					continue;
+				}
+
+				var mob = (Creature) m;
+
+				if (filter != null && !filter(mob)) {
+					return;
+				}
+
+				var dx = DxTo(mob);
+				var dy = DyTo(mob);
+				var d = MathUtils.Distance(dx, dy);
+				var force = dt * 800;
+
+				if (d <= 12) {
+					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
+					var b = mob.GetAnyComponent<BodyComponent>();
+
+					if (b != null) {
+						b.Velocity -= new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+					}
+				}
+			}
+		}
+		
 		public void ModifyDrops(List<Item> drops) {
-			if (Rnd.Chance(Run.Scourge * 5)) {
+			if (Rnd.Chance(Run.Scourge)) {
 				var c = Rnd.Int(0, 4);
 				
 				for (var i = 0; i < c; i++) {

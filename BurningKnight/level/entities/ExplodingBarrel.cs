@@ -1,7 +1,9 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.entity.component.graphics;
 using Lens.util.tween;
@@ -52,9 +54,22 @@ namespace BurningKnight.level.entities {
 			
 			return base.HandleEvent(e);
 		}
+		
+		private bool added;
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!added) {
+				added = true;
+				
+				var x = (int) Math.Floor(CenterX / 16);
+				var y = (int) Math.Floor(CenterY / 16);
+
+				if (Run.Level.IsInside(x, y)) {
+					Run.Level.Passable[Run.Level.ToIndex(x, y)] = false;
+				}
+			}
 
 			if (tillExplode > 0) {
 				tillExplode -= dt;

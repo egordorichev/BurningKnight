@@ -76,7 +76,9 @@ namespace BurningKnight.ui {
 			} else if (e is Achievement.LockedEvent al) {
 				Say($"Achievement [cl red]{Locale.Get("ach_" + al.Achievement.Id)} [cl gray]locked[cl] :(");
 			} else if (e is Item.UnlockedEvent iu) {
-				Say($"[cl red]{Locale.Get(iu.Data.Id)}[cl] was ^^%%unlocked%%^^!");
+				if (iu.Data.Type != ItemType.Hat) {
+					Say($"[cl red]{Locale.Get(iu.Data.Id)}[cl] was ^^%%unlocked%%^^!");
+				}
 			}
 			
 			return base.HandleEvent(e);

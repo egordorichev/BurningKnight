@@ -12,29 +12,9 @@ ice {
  * unique wall designs with teleporters
 }
 
-* doors appear in random places in the desert??
-* a setting for darker floor
-
-{
- * hidden door in the ice biome is a breakable?
- * fix how secret doors look with the wall b
- * wall crawler can be in a wall?
- * hide your death if you killed yourself
- * nerf scourge money drop, limit scourge to 10
- * elon allows to stack scourge
-}
-
-## achievements
-
-* tutorial done
-* save first npc
-* carry 99 coins
-* unlock an item
-
 ###
 
 * highlight doors you not went through
-* column wall can generate unreachable enemies
 
 * fix {
    + active shop discount still discounts without the use

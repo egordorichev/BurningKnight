@@ -49,6 +49,10 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 
 		private bool Interact(Entity e) {
+			if (interacted) {
+				return true;
+			}
+			
 			GetComponent<DialogComponent>().Start("elon_3", e);
 			return true;
 		}

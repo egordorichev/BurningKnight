@@ -7,10 +7,6 @@ namespace BurningKnight.entity.door {
 			return new LevelLock();
 		}
 
-		protected override void BreakFromExplosion() {
-			
-		}
-
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			SkipLock = stream.ReadBoolean();

@@ -663,7 +663,7 @@ namespace BurningKnight.entity.creature.player {
 			ing.Killer.Slice = null;
 			ing.Killer.UseSlice = true;
 			
-			if (d.From != null) {
+			if (d.From != null && d.From != this) {
 				var anim = d.From.GetAnyComponent<AnimationComponent>();
 
 				if (anim != null) {
@@ -694,7 +694,6 @@ namespace BurningKnight.entity.creature.player {
 				ing.Killer.Width = ing.Killer.Slice.Width;
 				ing.Killer.Height = ing.Killer.Slice.Height;
 			}
-
 
 			ing.Killer.Width *= 2;
 			ing.Killer.Height *= 2;

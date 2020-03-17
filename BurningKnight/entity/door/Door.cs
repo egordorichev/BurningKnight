@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
@@ -10,6 +11,7 @@ using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.shop;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.editor;
 using Lens.entity;
 using Lens.entity.component.logic;
@@ -124,37 +126,9 @@ namespace BurningKnight.entity.door {
 						lastCollisionTimer = CloseTimer;
 					}
 				}
-			}/* else if (e is ExplodedEvent ee) {
-				foreach (var r in Rooms) {
-					if (r != null && r.Type == RoomType.Boss) {
-						// return base.HandleEvent(e);
-					}
-				}
-				
-				BreakFromExplosion();
-			}*/
+			}
 			
 			return base.HandleEvent(e);
-		}
-
-		protected virtual void BreakFromExplosion() {
-			Done = true;
-			
-			for (var i = 0; i < 3; i++) {
-				var part = new ParticleEntity(Particles.Dust());
-
-				part.Position = Center;
-				Area.Add(part);
-			}
-			
-			for (var i = 0; i < 3; i++) {
-				var part = new ParticleEntity(Particles.Plank());
-						
-				part.Position = Center;
-				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
-				
-				Area.Add(part);
-			}
 		}
 
 		protected virtual bool CanOpen() {
@@ -166,8 +140,21 @@ namespace BurningKnight.entity.door {
 			Graphics.Batch.DrawRectangle(new RectangleF((int) (X + pad), (int) Y, (int) (Width - pad * 2), (int) Height), Color.Aqua, 1);
 		}
 
+		private bool added;
+
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (!added) {
+				added = true;
+				var x = (int) Math.Floor(CenterX / 16);
+				var y = (int) Math.Floor(Bottom / 16);
+
+				if (Run.Level.IsInside(x, y)) {
+					Run.Level.Passable[Run.Level.ToIndex(x, y)] = false;
+				}
+			}
+			
 			var state = GetComponent<StateComponent>();
 			
 			if (state.StateInstance is OpenState && Colliding.Count == 0 && !OpenByDefault) {

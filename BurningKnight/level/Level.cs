@@ -30,6 +30,7 @@ using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -100,6 +101,8 @@ namespace BurningKnight.level {
 
 		public override void Destroy() {
 			base.Destroy();
+
+			rainSound?.Stop();
 
 			if (Chasm != null) {
 				HalfProjectile.Done = true;
@@ -189,6 +192,8 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
 		}
 
+		private SoundEffectInstance rainSound;
+		
 		public void Prepare() {
 			Variant?.PostInit(this);
 
@@ -199,6 +204,25 @@ namespace BurningKnight.level {
 			if (Rains) {
 				for (var i = 0; i < 40; i++) {
 					Run.Level.Area.Add(new RainParticle());
+				}
+
+				var sound = "level_rain_regular";
+
+				if (Biome is IceBiome) {
+					sound = "level_rain_snow";
+				} else if (Biome is JungleBiome) {
+					sound = "level_rain_jungle";
+				}
+
+				var s = Audio.GetSfx(sound);
+
+				if (s != null) {
+					rainSound = s.CreateInstance();
+
+					if (rainSound != null) {
+						rainSound.Play();
+						rainSound.IsLooped = true;
+					}
 				}
 			}
 
@@ -804,8 +828,11 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
+			Graphics.Color = new Color(Settings.FloorDarkness, Settings.FloorDarkness, Settings.FloorDarkness, 1f);
+
 			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
 				                        camera.Position.Y % 1));
+			Graphics.Color = ColorUtils.WhiteColor;
 			
 			Graphics.Batch.End();
 			Engine.GraphicsDevice.SetRenderTarget(state.GameTarget);
@@ -1051,6 +1078,7 @@ namespace BurningKnight.level {
 									case Tile.FloorD:
 										textureRegion = Tileset.FloorSidesD[ind];
 										break;
+
 									default:
 									case Tile.WallB:
 										textureRegion = Tileset.WallB[ind];
@@ -1120,6 +1148,18 @@ namespace BurningKnight.level {
 									case Tile.Planks: {
 										ar = Tilesets.Biome.Planks;
 										arr = Tilesets.Biome.PlankSides;
+										break;
+									}
+
+									case Tile.Crack: {
+										if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) &&
+										    !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
+											
+											ar = Tileset.WallB;
+											arr = Tileset.WallSidesB;
+										}
+
+
 										break;
 									}
 									
@@ -1274,6 +1314,14 @@ namespace BurningKnight.level {
 								
 								case Tile.WallB: {
 									ar = Tileset.WallTopsB;
+									break;
+								}
+								
+								case Tile.Crack: {
+									if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) && !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
+										ar = Tileset.WallTopsB;
+									}
+
 									break;
 								}
 								
@@ -1722,6 +1770,25 @@ namespace BurningKnight.level {
 						UpdateTile(xx, yy);
 						ReCreateBodyChunk(xx, yy);
 					}
+
+					/*if (Get(xx, yy) == Tile.WallA) {
+						var a = (yy == 0 || yy == Height - 1 || xx == 0 || xx == Width - 1);
+
+						if (!a) {
+							a = true;
+
+							foreach (var d in MathUtils.AllDirections) {
+								if (!Get(xx + (int) d.X, yy + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
+									a = false;
+									break;
+								}
+							}
+						}
+
+						if (a) {
+							Set(xx, yy, Tile.Transition);
+						}
+					}*/
 				}
 			}
 		}

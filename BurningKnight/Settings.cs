@@ -43,6 +43,7 @@ namespace BurningKnight {
 		public static float FreezeFrames;
 		public static float FlashFrames;
 		public static bool ShowFps;
+		public static float FloorDarkness;
 
 		public static float GameScale {
 			get => PixelPerfectGameRenderer.GameScale;
@@ -91,6 +92,7 @@ namespace BurningKnight {
 			Vibrate = true;
 			Sensivity = 1f;
 			GameScale = 1f;
+			FloorDarkness = 1f;
 			
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -120,6 +122,7 @@ namespace BurningKnight {
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
 			Sensivity = GlobalSave.GetFloat("s_ss", 1);
 			GameScale = GlobalSave.GetFloat("s_gs", 1);
+			FloorDarkness = GlobalSave.GetFloat("s_fd", 1);
 
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -149,6 +152,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_vb", Vibrate);
 			GlobalSave.Put("s_ss", Sensivity);
 			GlobalSave.Put("s_gs", GameScale);
+			GlobalSave.Put("s_fd", FloorDarkness);
 		}
 
 		public static void Generate() {

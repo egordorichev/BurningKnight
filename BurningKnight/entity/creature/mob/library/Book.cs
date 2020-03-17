@@ -95,7 +95,7 @@ namespace BurningKnight.entity.creature.mob.library {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.1f && !fired) {
+				if (T >= 0.5f && !fired) {
 					fired = true;
 					
 					if (Self.Target != null) {
@@ -122,6 +122,7 @@ namespace BurningKnight.entity.creature.mob.library {
 							}, data, () => {
 								Timer.Add(() => {
 									p.Launch(a, 20);
+									Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 								}, 0.2f);
 							});
 						}

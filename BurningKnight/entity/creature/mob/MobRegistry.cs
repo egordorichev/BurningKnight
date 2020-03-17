@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.mob.library;
 using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.util.math;
+using Buffer = BurningKnight.entity.creature.mob.library.Buffer;
 
 namespace BurningKnight.entity.creature.mob {
 	public static class MobRegistry {
@@ -48,6 +49,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
 				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)).SetWeight(2f).MarkSingle(),
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).HatesWall(),
+				
 				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn().HatesWall(),
 				
 				// Ice
@@ -62,7 +64,12 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Ice)).SetWeight(3f).DisableFirstSpawn(),
 				
 				// Library
-				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall(),
+				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall().SetWeight(2.5f),
+				MobInfo.New<TeleportingMage>(new SpawnChance(1f, Biome.Library)).HatesWall(),
+				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)).SetSpawnChance(0.5f),
+				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library)).MarkSingle(),
+				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);

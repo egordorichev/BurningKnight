@@ -44,8 +44,7 @@ namespace BurningKnight.level {
 			byte mask = 0;
 			var tile = level.Tiles[index];
 			var t = (Tile) tile;
-			
-			
+
 			if (t == Tile.Transition) {
 				foreach (var d in MathUtils.AllDirections) {
 					var xx = x + (int) d.X;

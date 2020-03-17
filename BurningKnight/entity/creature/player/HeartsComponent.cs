@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -30,6 +31,10 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				shieldHalfs = (byte) Math.Max(0, shieldHalfs + amount);
+
+				if (shieldHalfs > 0) {
+					Achievements.Unlock("bk:shielded");
+				}
 			}
 		}
 		

@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -27,6 +28,7 @@ namespace BurningKnight.level.entities {
 
 			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
 				if (Run.Depth == -2) {
+					Achievements.Unlock("bk:tutorial");
 					GlobalSave.Put("finished_tutorial", true);
 					Run.Depth = 0;
 				} else if (To == 1) {
