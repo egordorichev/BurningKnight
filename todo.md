@@ -12,8 +12,6 @@ ice {
  * unique wall designs with teleporters
 }
 
-* wall crawler can be in a wall?
-
 ###
 
 * highlight doors you not went through

@@ -1082,6 +1082,8 @@
     <Compile Include="level\walls\CorneredTurretWall.cs" />
     <Compile Include="level\walls\CornerWall.cs" />
     <Compile Include="level\walls\EllipseWalls.cs" />
+    <Compile Include="level\walls\library\LibraryWallPainter.cs" />
+    <Compile Include="level\walls\library\TeleportSplitWall.cs" />
     <Compile Include="level\walls\MazeWall.cs" />
     <Compile Include="level\walls\PatchWall.cs" />
     <Compile Include="level\walls\PlatformWall.cs" />

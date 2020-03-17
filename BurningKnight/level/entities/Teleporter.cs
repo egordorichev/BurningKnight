@@ -1,9 +1,11 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.save;
 using BurningKnight.util;
 using Lens.entity;
@@ -17,13 +19,22 @@ namespace BurningKnight.level.entities {
 		public string Id = "a";
 		private bool ignoreCollision;
 
+		public static string[] Ids = {
+			"b", "c", "d", "e", 
+			"f", "i", "g"
+		};
+
 		public override void AddComponents() {
 			base.AddComponents();
 
 			Depth = Layers.Entrance;
 			
 			AddTag(Tags.Teleport);
+			
+			AddComponent(new RoomComponent());
 			AddComponent(new SensorBodyComponent(2, 2, 12, 12, BodyType.Static));
+			
+			AddComponent(new LightComponent(this, 64, ProjectileColor.Purple));
 		}
 
 		public override void PostInit() {
@@ -50,8 +61,16 @@ namespace BurningKnight.level.entities {
 				if (ignoreCollision) {
 					return base.HandleEvent(e);
 				}
+
+				var room = GetComponent<RoomComponent>().Room;
+
+				if (Id != "a" && room == null) {
+					return base.HandleEvent(e);
+				}
+
+				var l = Id == "a" ? Area.Tagged[Tags.Teleport] : room.Tagged[Tags.Teleport];
 				
-				foreach (var t in Area.Tagged[Tags.Teleport]) {
+				foreach (var t in l) {
 					var tr = (Teleporter) t;
 					
 					if (tr != this && tr.Id == Id) {
@@ -59,6 +78,8 @@ namespace BurningKnight.level.entities {
 							tr.ignoreCollision = true;
 							c.BottomCenter = tr.Center;
 							Camera.Instance.Jump();
+							c.GetComponent<HealthComponent>().InvincibilityTimer = 1;
+							
 							AnimationUtil.TeleportIn(c);
 						});
 						

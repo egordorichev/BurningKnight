@@ -1,6 +1,7 @@
 using BurningKnight.entity.pool;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
+using BurningKnight.level.walls.library;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.level.walls {
@@ -17,6 +18,8 @@ namespace BurningKnight.level.walls {
 	
 			if (biome is JungleBiome) {
 				Add(new PatchWall(), 3f);
+			} else if (biome is LibraryBiome) {
+				Add(new TeleportSplitWall(), 10000f);
 			}
 		}
 
