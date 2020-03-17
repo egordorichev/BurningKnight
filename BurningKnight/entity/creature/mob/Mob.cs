@@ -274,7 +274,7 @@ namespace BurningKnight.entity.creature.mob {
 
 		private void BuildPath(Vector2 to, bool back = false) {
 			var level = Run.Level;
-			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(CenterY / 16f));
+			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(Bottom / 16f));
 			var tp = level.ToIndex((int) Math.Floor(to.X / 16f), (int) Math.Floor(to.Y / 16f));
 
 			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, prevStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
@@ -296,13 +296,13 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public bool MoveTo(Vector2 point, float speed, float distance = 8f, bool back = false) {
 			if (!back) {
-				var ds = DistanceTo(point);
+				var ds = DistanceToFromBottom(point);
 
 				if (ds <= distance) {
 					return true;
 				}
 			} else {
-				var ds = DistanceTo(point);
+				var ds = DistanceToFromBottom(point);
 
 				if (ds >= distance) {
 					return true;
@@ -321,7 +321,7 @@ namespace BurningKnight.entity.creature.mob {
 			var dy = NextPathPoint.Y - Bottom;
 			var d = (float) Math.Sqrt(dx * dx + dy * dy);
 
-			if (d <= 1f) {
+			if (d <= 2f) {
 				NextPathPoint = null;
 				return false;
 			}
@@ -408,8 +408,8 @@ namespace BurningKnight.entity.creature.mob {
 			base.RenderDebug();
 
 			if (NextPathPoint != null) {
-				Graphics.Batch.DrawLine(CenterX, CenterY, NextPathPoint.X, NextPathPoint.Y, Color.Red);
-				Graphics.Batch.DrawLine(CenterX, CenterY, Run.Level.FromIndexX(prevStepBack) * 16 + 8, Run.Level.FromIndexY(prevStepBack) * 16 + 8, Color.Blue);
+				Graphics.Batch.DrawLine(CenterX, Bottom, NextPathPoint.X, NextPathPoint.Y, Color.Red);
+				Graphics.Batch.DrawLine(CenterX, Bottom, Run.Level.FromIndexX(prevStepBack) * 16 + 8, Run.Level.FromIndexY(prevStepBack) * 16 + 8, Color.Blue);
 			}
 		}
 

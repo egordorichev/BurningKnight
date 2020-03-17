@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.mob.library {
 				base.Update(dt);
 
 				if (Self.Target != null) {
-					if (!Self.CanSeeTarget() || Self.MoveTo(Self.Target.Center, 80f, SafeDistance, true)) {
+					if (!Self.CanSeeTarget() || Self.MoveTo(Self.Target.Center, 50f, SafeDistance, true)) {
 						Become<SummonState>();
 					}
 				}
