@@ -142,6 +142,12 @@
 /processorParam:Quality=Best
 /build:Sfx/item/active_charged.wav
 
+#begin Sfx/item/bag.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/bag.wav
+
 #begin Sfx/item/bomb.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -514,6 +520,24 @@
 /processorParam:Quality=Best
 /build:Sfx/level/lever.wav
 
+#begin Sfx/level/rain/jungle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/rain/jungle.wav
+
+#begin Sfx/level/rain/regular.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/rain/regular.wav
+
+#begin Sfx/level/rain/snow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/rain/snow.wav
+
 #begin Sfx/level/rock/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -537,6 +561,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/level/scourge_statue.wav
+
+#begin Sfx/level/snow_break/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/snow_break/1.wav
+
+#begin Sfx/level/snow_break/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/snow_break/2.wav
+
+#begin Sfx/level/snow_break/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/snow_break/3.wav
 
 #begin Sfx/level/spike.wav
 /importer:WavImporter
@@ -1125,6 +1167,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/player/step/grass/3.wav
+
+#begin Sfx/player/step/ice/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/ice/1.wav
+
+#begin Sfx/player/step/ice/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/ice/2.wav
+
+#begin Sfx/player/step/ice/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/player/step/ice/3.wav
 
 #begin Sfx/player/step/sand/1.wav
 /importer:WavImporter

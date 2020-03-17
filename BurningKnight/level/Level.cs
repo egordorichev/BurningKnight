@@ -30,6 +30,7 @@ using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -100,6 +101,8 @@ namespace BurningKnight.level {
 
 		public override void Destroy() {
 			base.Destroy();
+
+			rainSound?.Stop();
 
 			if (Chasm != null) {
 				HalfProjectile.Done = true;
@@ -189,6 +192,8 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
 		}
 
+		private SoundEffectInstance rainSound;
+		
 		public void Prepare() {
 			Variant?.PostInit(this);
 
@@ -199,6 +204,25 @@ namespace BurningKnight.level {
 			if (Rains) {
 				for (var i = 0; i < 40; i++) {
 					Run.Level.Area.Add(new RainParticle());
+				}
+
+				var sound = "level_rain_regular";
+
+				if (Biome is IceBiome) {
+					sound = "level_rain_snow";
+				} else if (Biome is JungleBiome) {
+					sound = "level_rain_jungle";
+				}
+
+				var s = Audio.GetSfx(sound);
+
+				if (s != null) {
+					rainSound = s.CreateInstance();
+
+					if (rainSound != null) {
+						rainSound.Play();
+						rainSound.IsLooped = true;
+					}
 				}
 			}
 

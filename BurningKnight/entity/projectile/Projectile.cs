@@ -333,12 +333,21 @@ namespace BurningKnight.entity.projectile {
 					EntitiesHurt.Add(ev.Entity);
 					OnHurt?.Invoke(this, ev.Entity);
 				}
+
+				var mute = false;
+				
+				if (Run.Level.Biome is IceBiome && !(Owner is creature.bk.BurningKnight) && ev.Entity is ProjectileLevelBody lvl) {
+					if (lvl.Break(CenterX, CenterY)) {
+						mute = true;
+						AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("level_snow_break", 3);
+					}
+				}
 				
 				if (BreaksFrom(ev.Entity)) {
 					if (BounceLeft > 0) {
 						BounceLeft -= 1;
 					} else {
-						if (IsWall(ev.Entity)) {
+						if (!mute && IsWall(ev.Entity)) {
 							if (Owner is Player) {
 								AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
 							} else {
@@ -348,10 +357,6 @@ namespace BurningKnight.entity.projectile {
 						
 						AnimateDeath();
 					}
-				}
-					
-				if (Run.Level.Biome is IceBiome && !(Owner is entity.creature.bk.BurningKnight) && ev.Entity is ProjectileLevelBody lvl) {
-					lvl.Break(CenterX, CenterY);
 				}
 			}
 			

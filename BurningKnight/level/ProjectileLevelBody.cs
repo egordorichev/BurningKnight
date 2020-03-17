@@ -24,22 +24,28 @@ namespace BurningKnight.level {
 			return entity is Projectile;
 		}
 
-		public void Break(float x, float y) {
+		public bool Break(float x, float y) {
 			y += 8;
+			var a = Check((int) (x / 16), (int) (y / 16));
 			
-			Check((int) (x / 16), (int) (y / 16));
-			Check((int) (x / 16 - 0.5f), (int) (y / 16));
-			Check((int) (x / 16 + 0.5f), (int) (y / 16));
-			Check((int) (x / 16), (int) (y / 16 - 0.5f));
-			Check((int) (x / 16), (int) (y / 16 + 0.5f));
+			a = Check((int) (x / 16 - 0.5f), (int) (y / 16)) || a;
+			a = Check((int) (x / 16 + 0.5f), (int) (y / 16)) || a;
+			a = Check((int) (x / 16), (int) (y / 16 - 0.5f)) || a;
+			a = Check((int) (x / 16), (int) (y / 16 + 0.5f)) || a;
+
+			return a;
 		}
 
-		private void Check(int x, int y) {
+		private bool Check(int x, int y) {
 			if (Level.Get(x, y) == Tile.WallA) {
 				Level.Set(x, y, Tile.Ice);
 				Level.UpdateTile(x, y);
 				Level.ReCreateBodyChunk(x, y);
+
+				return true;
 			}
+
+			return false;
 		}
 
 		public static void Mine(Level level, float x, float y) {

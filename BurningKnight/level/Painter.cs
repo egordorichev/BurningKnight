@@ -116,7 +116,9 @@ namespace BurningKnight.level {
 
 			Level.Rains = Run.Depth > 0 && Rnd.Chance(15);
 
-			if (Level.Biome.Id == Biome.Castle) {
+			if (Level.Biome.Id == Biome.Ice) {
+				Level.Snows = true;
+			} else if (Level.Biome.Id == Biome.Castle) {
 				Level.Snows = Run.Depth > 0 && Rnd.Chance(10);
 			}
 

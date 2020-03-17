@@ -150,7 +150,7 @@ namespace BurningKnight.entity.creature.player {
 						}
 
 						case ItemType.Pouch: {
-							Audio.PlaySfx("item_pouch");
+							Audio.PlaySfx("item_bag");
 							break;
 						}
 					}
