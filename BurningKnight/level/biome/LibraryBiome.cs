@@ -56,5 +56,13 @@ namespace BurningKnight.level.biome {
 
 			return builder;
 		}
+
+		public override string GetStepSound(Tile tile) {
+			if (tile == Tile.FloorA || tile == Tile.FloorC) {
+				return $"player_step_wood_{Rnd.Int(1, 4)}";
+			}
+			
+			return base.GetStepSound(tile);
+		}
 	}
 }

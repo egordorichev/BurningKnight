@@ -122,6 +122,7 @@ namespace BurningKnight.entity.creature.mob.library {
 							}, data, () => {
 								Timer.Add(() => {
 									p.Launch(a, 20);
+									Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 								}, 0.2f);
 							});
 						}

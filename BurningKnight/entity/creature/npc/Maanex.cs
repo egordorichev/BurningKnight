@@ -24,7 +24,7 @@ namespace BurningKnight.entity.creature.npc {
 			Width = 12;
 			Height = 15;
 
-			var min = Run.Depth * 5;
+			var min = Run.Depth * 2;
 			cost = (byte) Rnd.Int(min, min + 5);
 			
 			AddComponent(new AnimationComponent("maanex"));

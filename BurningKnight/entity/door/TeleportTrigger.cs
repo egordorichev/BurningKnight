@@ -24,6 +24,8 @@ namespace BurningKnight.entity.door {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+
+			AlwaysActive = true;
 			
 			AddTag(Tags.TeleportTrigger);
 			AddComponent(new SensorBodyComponent(0, 0, Width, Height, BodyType.Static));

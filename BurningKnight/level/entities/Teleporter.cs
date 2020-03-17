@@ -28,6 +28,8 @@ namespace BurningKnight.level.entities {
 			base.AddComponents();
 
 			Depth = Layers.Entrance;
+
+			AlwaysActive = true;
 			
 			AddTag(Tags.Teleport);
 			

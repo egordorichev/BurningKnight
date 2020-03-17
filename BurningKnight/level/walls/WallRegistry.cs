@@ -19,7 +19,7 @@ namespace BurningKnight.level.walls {
 			if (biome is JungleBiome) {
 				Add(new PatchWall(), 3f);
 			} else if (biome is LibraryBiome) {
-				Add(new TeleportSplitWall(), 10000f);
+				Add(new TeleportSplitWall(), 5f);
 			}
 		}
 

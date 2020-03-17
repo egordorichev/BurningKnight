@@ -83,6 +83,7 @@ namespace BurningKnight.entity.creature.mob.library {
 							pr.Center = Self.Center + MathUtils.CreateVector(a, 12);
 							
 							p.Add(pr);
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
 							if (i1 == count - 1) {
 								p.Launch(Self.Target == null ? Rnd.AnglePI() : Self.AngleTo(Self.Target), 80);
