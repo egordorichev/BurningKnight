@@ -82,7 +82,7 @@ namespace BurningKnight.state {
 			Log.Info($"Global took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
 				
-			SaveManager.Load(gameArea, SaveType.Game);
+			/*SaveManager.Load(gameArea, SaveType.Game);
 			progress++;
 			Log.Info($"Game took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
@@ -100,7 +100,7 @@ namespace BurningKnight.state {
 				SaveManager.Generate(gameArea, SaveType.Player);
 			}
 			
-			Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");
+			Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");*/
 			// c = DateTime.Now.Millisecond;
 
 			progress++; // Should be 18 here
@@ -122,7 +122,7 @@ namespace BurningKnight.state {
 				}
 
 				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
-				Engine.Instance.SetState(new InGameState(gameArea, false));
+				Engine.Instance.SetState(/*new InGameState(gameArea, false)*/new EditorState());
 			}
 		}
 
