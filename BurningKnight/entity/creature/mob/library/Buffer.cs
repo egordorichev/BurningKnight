@@ -12,6 +12,7 @@ namespace BurningKnight.entity.creature.mob.library {
 
     	Width = 11;
     	Height = 15;
+      TouchDamage = 0;
 
     	SetMaxHp(16);
     	

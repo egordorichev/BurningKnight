@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.mob.library {
 			AddComponent(new SensorBodyComponent(3, 3, 9, 18));
 			AddComponent(new MobAnimationComponent("skeleton"));
 			
-			Become<RunState>();
+			Become<SummonState>();
 		}
 
 		#region Skeleton States
@@ -34,8 +34,10 @@ namespace BurningKnight.entity.creature.mob.library {
 					if (!Self.CanSeeTarget() || Self.MoveTo(Self.Target.Center, 50f, SafeDistance, true)) {
 						Become<SummonState>();
 					}
+				} else {
+					Become<SummonState>();
 				}
-				
+
 				Self.PushOthersFromMe(dt);
 			}
 		}
@@ -47,6 +49,8 @@ namespace BurningKnight.entity.creature.mob.library {
 			}
 
 			public override void Update(float dt) {
+				base.Update(dt);
+				
 				if (Self.CanSeeTarget() && Self.DistanceTo(Self.Target) < SafeDistance - 16) {
 					Become<RunState>();
 					return;
@@ -54,14 +58,16 @@ namespace BurningKnight.entity.creature.mob.library {
 				
 				Self.PushOthersFromMe(dt);
 				
-				if (T >= 10f) {
-					T = 0;
+				if (T >= 5f) {
+					T = -5;
+
+					Self.GetComponent<MobAnimationComponent>().Animate(() => {
+						var summon = new Mummy();
+						Self.Area.Add(summon);
 					
-					var summon = new Mummy();
-					Self.Area.Add(summon);
-					
-					summon.BottomCenter = Self.BottomCenter + new Vector2(0, 2);
-					summon.Target = Self.Target;
+						summon.BottomCenter = Self.BottomCenter + new Vector2(0, 2);
+						summon.Target = Self.Target;	
+					});
 				}
 			}
 		}

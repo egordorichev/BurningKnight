@@ -66,8 +66,10 @@ namespace BurningKnight.entity.creature.mob {
 				// Library
 				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall().SetWeight(2.5f),
 				MobInfo.New<TeleportingMage>(new SpawnChance(1f, Biome.Library)).HatesWall(),
-				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)),
+				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)).SetSpawnChance(0.5f),
 				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library)).MarkSingle(),
+				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)),
 			};
 			
 			All.AddRange(infos);

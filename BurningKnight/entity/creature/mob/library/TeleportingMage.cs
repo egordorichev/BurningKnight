@@ -38,6 +38,7 @@ namespace BurningKnight.entity.creature.mob.library {
 		#region Snowman States
 		public class IdleState : SmartState<TeleportingMage> {
 			private float delay;
+			private bool tweened;
 
 			public override void Init() {
 				base.Init();
@@ -51,6 +52,11 @@ namespace BurningKnight.entity.creature.mob.library {
 					Self.GraphicsComponent.Flipped = Self.Target.CenterX < Self.CenterX;
 				}
 
+				if (!tweened && T >= delay - 0.4f) {
+					tweened = true;
+					Self.GetComponent<MobAnimationComponent>().Animate();
+				}
+				
 				if (T >= delay && Self.CanSeeTarget()) {
 					var p = new ProjectilePattern(KeepShapePattern.Make(Rnd.Chance() ? -4 : 4)) {
 						Position = Self.Center
