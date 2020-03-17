@@ -1,6 +1,5 @@
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.mob.desert;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -29,11 +28,11 @@ namespace BurningKnight.entity.creature.mob.library {
 
     #region Skeleton States
     public class RunState : SmartState<Buffer> {
-    	public override void Update(float dt) {
+	    public override void Update(float dt) {
     		base.Update(dt);
 
     		if (Self.Target != null) {
-    			if (!Self.CanSeeTarget() || Self.MoveTo(Self.Target.Center, 80f, SafeDistance, true)) {
+	        if (!Self.CanSeeTarget() || Self.MoveTo(Self.Target.Center, 80f, SafeDistance, true)) {
     				Become<SummonState>();
     			}
     		}
@@ -70,7 +69,7 @@ namespace BurningKnight.entity.creature.mob.library {
 	        T = 0;
         }
 
-    		if (T >= 1f) {
+    		if (T >= 3f) {
     			T = 0;
           var list = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob];
 

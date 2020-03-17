@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using Microsoft.Xna.Framework;
@@ -73,6 +74,10 @@ namespace BurningKnight.util {
 
 		public static int GetStepBack(int Cur, int From, bool[] Passable, int Last) {
 			var D = BuildEscapeDistanceMap(Cur, From, 2f, Passable);
+
+			if (Last > -1) {
+				Distance[Last] = Int32.MaxValue;
+			}
 
 			for (var I = 0; I < Size; I++) {
 				Goals[I] = Distance[I] == D;

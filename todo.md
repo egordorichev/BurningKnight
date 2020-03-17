@@ -1,9 +1,5 @@
 # todo
 
-buffer / skeleton {
- path finding is pretty buggy tbh (can get stuck in other enemies? can get stuck in tnt. can run from spot to spot)
-}
-
 ice {
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition

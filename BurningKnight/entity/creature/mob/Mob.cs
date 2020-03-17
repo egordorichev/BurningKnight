@@ -270,15 +270,17 @@ namespace BurningKnight.entity.creature.mob {
 		#region Path finding
 		protected Vec2 NextPathPoint;
 		private int lastStepBack;
+		private int prevStepBack;
 
 		private void BuildPath(Vector2 to, bool back = false) {
 			var level = Run.Level;
 			var fp = level.ToIndex((int) Math.Floor(CenterX / 16f), (int) Math.Floor(CenterY / 16f));
 			var tp = level.ToIndex((int) Math.Floor(to.X / 16f), (int) Math.Floor(to.Y / 16f));
 
-			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, lastStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
+			var p = back ? PathFinder.GetStepBack(fp, tp, level.Passable, prevStepBack) : PathFinder.GetStep(fp, tp, level.Passable);
 
 			if (back) {
+				prevStepBack = lastStepBack;
 				lastStepBack = p;
 			}
 			
@@ -407,6 +409,7 @@ namespace BurningKnight.entity.creature.mob {
 
 			if (NextPathPoint != null) {
 				Graphics.Batch.DrawLine(CenterX, CenterY, NextPathPoint.X, NextPathPoint.Y, Color.Red);
+				Graphics.Batch.DrawLine(CenterX, CenterY, Run.Level.FromIndexX(prevStepBack) * 16 + 8, Run.Level.FromIndexY(prevStepBack) * 16 + 8, Color.Blue);
 			}
 		}
 
@@ -494,10 +497,13 @@ namespace BurningKnight.entity.creature.mob {
 				var d = MathUtils.Distance(dx, dy);
 				var force = dt * 800;
 
-				if (d <= 8) {
+				if (d <= 12) {
 					var a = MathUtils.Angle(dx, dy) - (float) Math.PI;
+					var b = mob.GetAnyComponent<BodyComponent>();
 
-					mob.GetComponent<BodyComponent>().Velocity -= new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+					if (b != null) {
+						b.Velocity -= new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+					}
 				}
 			}
 		}
