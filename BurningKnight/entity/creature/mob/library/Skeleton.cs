@@ -52,6 +52,8 @@ namespace BurningKnight.entity.creature.mob.library {
 					return;
 				}
 				
+				Self.PushOthersFromMe(dt);
+				
 				if (T >= 10f) {
 					T = 0;
 					

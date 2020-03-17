@@ -318,7 +318,7 @@ namespace BurningKnight.entity.creature.mob {
 			}
 
 			var dx = NextPathPoint.X - CenterX;
-			var dy = NextPathPoint.Y - CenterY;
+			var dy = NextPathPoint.Y - Bottom;
 			var d = (float) Math.Sqrt(dx * dx + dy * dy);
 
 			if (d <= 1f) {

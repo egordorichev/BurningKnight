@@ -26,7 +26,12 @@ namespace BurningKnight.entity.creature.mob.library {
     	Become<RunState>();
     }
 
-    #region Skeleton States
+    public override void Destroy() {
+	    base.Destroy();
+	    mob?.GetComponent<BuffsComponent>().Remove<BuffedBuff>();
+    }
+
+    #region Buffer States
     public class RunState : SmartState<Buffer> {
 	    public override void Update(float dt) {
     		base.Update(dt);
@@ -41,51 +46,56 @@ namespace BurningKnight.entity.creature.mob.library {
     	}
     }
 
-    public class SummonState : SmartState<Buffer> {
-	    private Mob mob;
-	    
-    	public override void Init() {
-    		base.Init();
-    		Self.GetComponent<MobAnimationComponent>().Animation.Tag = "idle";
-    	}
+    private Mob mob;
 
+    public class SummonState : SmartState<Buffer> {
+	    public override void Init() {
+		    base.Init();
+		    Self.GetComponent<MobAnimationComponent>().Animation.Tag = "idle";
+	    }
+
+	    public override void Update(float dt) {
+		    base.Update(dt);
+
+		    if (T >= 3f) {
+			    var list = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob];
+
+			    if (list.Count == 0) {
+				    return;
+			    }
+
+			    do {
+				    Self.mob = (Mob) list[Rnd.Int(list.Count)];
+			    } while (Self.mob == Self);
+
+			    Self.mob.GetComponent<BuffsComponent>().Add(new BuffedBuff() {
+				    Infinite = true
+			    });
+			    
+			    Become<BuffState>();
+		    }
+	    }
+    }
+
+    public class BuffState : SmartState<Buffer> {
       public override void Destroy() {
 	      base.Destroy();
-	      mob?.GetComponent<BuffsComponent>().Remove<BuffedBuff>();
+	      Self.mob?.GetComponent<BuffsComponent>().Remove<BuffedBuff>();
       }
 
       public override void Update(float dt) {
 	      base.Update(dt);
+	      
     		if (Self.CanSeeTarget() && Self.DistanceTo(Self.Target) < SafeDistance - 16) {
     			Become<RunState>();
     			return;
     		}
 
-        if (mob != null) {
-	        if (mob.Done) {
-		        mob = null;
-	        }
-
-	        T = 0;
+        if (Self.mob != null && Self.mob.Done) {
+	        Self.mob = null;
+	        Become<SummonState>();
         }
-
-    		if (T >= 3f) {
-    			T = 0;
-          var list = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob];
-
-          if (list.Count == 0) {
-	          return;
-          }
-
-          do {
-	          mob = (Mob) list[Rnd.Int(list.Count)];
-          } while (mob == Self);
-
-          mob.GetComponent<BuffsComponent>().Add(new BuffedBuff() {
-						Infinite = true
-          });
-        }
-    	}
+      }
     }
     #endregion
 	}
