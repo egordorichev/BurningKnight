@@ -11,6 +11,7 @@ namespace BurningKnight.level.entities.exit {
 		private byte id;
 		
 		protected override void Descend() {
+			Run.ChallengeId = id;
     	Run.StartNew(1, RunType.Challenge);
     }
 

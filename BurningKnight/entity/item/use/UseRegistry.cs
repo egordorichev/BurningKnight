@@ -127,6 +127,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DoOnNewFloorUse>(DoUsesUse.RenderDebug);
 			Register<DoUsesIfUse>(DoUsesIfUse.RenderDebug);
 			Register<ModifyArcUse>(ModifyArcUse.RenderDebug);
+			Register<BlindFoldUse>();
 		}
 	}
 }

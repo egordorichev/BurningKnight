@@ -32,13 +32,10 @@ ice {
 ### big points that are needed before release (no overscope)
 
 * hub update
-* library
 * credits
 * achivement icons
 
 #### Polish
-
-achievement icons
 
 biome-dependant props (cactuses and dead bushes for desert)
 * duck interaction

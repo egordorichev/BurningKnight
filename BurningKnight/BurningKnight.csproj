@@ -695,6 +695,7 @@
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\AffectDealChanceUse.cs" />
     <Compile Include="entity\item\use\BlankUse.cs" />
+    <Compile Include="entity\item\use\BlindFoldUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />
@@ -870,6 +871,9 @@
     <Compile Include="level\builders\LoopBuilder.cs" />
     <Compile Include="level\builders\RegularBuilder.cs" />
     <Compile Include="level\builders\SingleRoomBuilder.cs" />
+    <Compile Include="level\challenge\BombOnlyChallenge.cs" />
+    <Compile Include="level\challenge\Challenge.cs" />
+    <Compile Include="level\challenge\ChallengeRegistry.cs" />
     <Compile Include="level\Chasm.cs" />
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />

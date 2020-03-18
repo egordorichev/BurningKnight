@@ -1,7 +1,10 @@
+using System;
 using BurningKnight.entity.creature.player;
+using BurningKnight.level.challenge;
 using BurningKnight.save.statistics;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save {
@@ -15,11 +18,22 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
-			area.Add(new LocalPlayer());
+			var player = new LocalPlayer();
+			area.Add(player);
 
 			if (Run.Depth > 0) {
 				area.Add(new RunStatistics());
 				area.Add(new entity.creature.bk.BurningKnight());
+
+				if (Run.Type == RunType.Challenge) {
+					var c = ChallengeRegistry.Get(Run.ChallengeId);
+
+					try {
+						c?.Apply(player);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+				}
 			}
 		}
 

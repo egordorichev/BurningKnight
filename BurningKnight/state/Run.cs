@@ -86,6 +86,8 @@ namespace BurningKnight.state {
 
 			if (Type != RunType.Challenge) {
 				ChallengeId = 0;
+			} else {
+				Log.Info($"Starting challenge {ChallengeId}");
 			}
 
 			if (Type == RunType.Daily) {
@@ -111,9 +113,7 @@ namespace BurningKnight.state {
 			HasRun = false;
 			Luck = 0;
 			Scourge = 0;
-			ChallengeId = 0;
 			PermanentScourge = 0;
-			DailyId = 0;
 			LastSavedDepth = 0;
 			
 			entity.item.Scourge.Clear();

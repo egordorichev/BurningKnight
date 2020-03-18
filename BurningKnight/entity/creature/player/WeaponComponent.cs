@@ -12,9 +12,12 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.util;
+using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {
 	public class WeaponComponent : ItemComponent {
+		public bool Disabled;
+		
 		protected bool AtBack = true;
 		private bool requestSwap;
 
@@ -40,7 +43,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void Render(bool shadow, int offset) {
-			if (Item != null && Item.Renderer != null) {
+			if (!Disabled && Item != null && Item.Renderer != null) {
 				if (!shadow) {
 					var sh = Shaders.Item;
 					Shaders.Begin(sh);
@@ -57,7 +60,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		protected override bool ShouldReplace(Item item) {
-			return (Run.Depth > 0 || !AtBack) && item.Type == ItemType.Weapon;
+			return (Run.Depth > 0 || !AtBack) && item.Type == ItemType.Weapon && !Disabled;
 		}
 
 		public override void Update(float dt) {
@@ -71,7 +74,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ItemAddedEvent ev) {
-				if (ev.Component == this) {
+				if (!Disabled && ev.Component == this) {
 					ev.Old?.Drop();
 					ev.Item?.Pickup();
 					
@@ -124,6 +127,16 @@ namespace BurningKnight.entity.creature.player {
 					Log.Error("Swap is called from not active weapon component");
 				}
 			}
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			Disabled = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(Disabled);
 		}
 	}
 }
