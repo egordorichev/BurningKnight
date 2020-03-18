@@ -2,6 +2,9 @@
 
 * achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
 
+* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+* death counter display (overall game stats)
+
 ice {
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition
@@ -14,14 +17,6 @@ ice {
  * unique wall designs with teleporters
 }
 
-score {
- time
- hits taken
- coins collected
- rooms explored
- kills
-}
-
 ###
 
 * highlight doors you not went through
@@ -30,10 +25,9 @@ score {
    + active shop discount still discounts without the use
 }
 
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* rewamp death screen
-* death counter display
 * spawn chests/pickups in the levels
+
+!! boss rush win condition
 
 ### big points that are needed before release (no overscope)
 

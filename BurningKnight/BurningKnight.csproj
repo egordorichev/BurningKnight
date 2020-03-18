@@ -899,6 +899,7 @@
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\exit\BossRushExit.cs" />
+    <Compile Include="level\entities\exit\ChallengeExit.cs" />
     <Compile Include="level\entities\exit\DailyRunExit.cs" />
     <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />

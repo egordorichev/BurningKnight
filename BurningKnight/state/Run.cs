@@ -40,6 +40,7 @@ namespace BurningKnight.state {
 		public static RunType Type;
 		public static int Score;
 		public static int DailyId;
+		public static byte ChallengeId;
 		
 		public static int Depth {
 			get => depth;
@@ -83,6 +84,10 @@ namespace BurningKnight.state {
 				Seed = Rnd.GenerateSeed();
 			}
 
+			if (Type != RunType.Challenge) {
+				ChallengeId = 0;
+			}
+
 			if (Type == RunType.Daily) {
 				var date = DateTime.UtcNow;
 				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear);
@@ -105,10 +110,12 @@ namespace BurningKnight.state {
 			Time = 0;
 			HasRun = false;
 			Luck = 0;
-			Scourge = 0;			
+			Scourge = 0;
+			ChallengeId = 0;
 			PermanentScourge = 0;
 			DailyId = 0;
 			LastSavedDepth = 0;
+			
 			entity.item.Scourge.Clear();
 		}
 
