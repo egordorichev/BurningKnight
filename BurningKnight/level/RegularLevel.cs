@@ -139,6 +139,7 @@ namespace BurningKnight.level {
 			var rooms = new List<RoomDef>();
 			var biome = LevelSave.BiomeGenerated;
 			var final = IsFinal();
+			var rush = Run.Type == RunType.BossRush;
 			var first = Run.Depth % 2 == 1;
 
 			if (final) {
@@ -149,11 +150,11 @@ namespace BurningKnight.level {
 			
 			rooms.Add(new EntranceRoom());
 
-			var regular = final ? 0 : biome.GetNumRegularRooms();
-			var special = final ? 0 : biome.GetNumSpecialRooms();
-			var trap = final ? 0 : biome.GetNumTrapRooms();
-			var connection = final ? 1 : GetNumConnectionRooms();
-			var secret = final ? 0 : biome.GetNumSecretRooms();
+			var regular = rush || final ? 0 : biome.GetNumRegularRooms();
+			var special = rush || final ? 0 : biome.GetNumSpecialRooms();
+			var trap = rush || final ? 0 : biome.GetNumTrapRooms();
+			var connection = rush || final ? 1 : GetNumConnectionRooms();
+			var secret = rush || final ? 0 : biome.GetNumSecretRooms();
 			
 			Log.Info($"Creating r{regular} sp{special} c{connection} sc{secret} t{trap} rooms");
 
@@ -174,7 +175,7 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
-			if (!final) {
+			if (!rush && !final) {
 				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
 				if (!first) {
@@ -182,7 +183,10 @@ namespace BurningKnight.level {
 				}
 			}
 
-			if (first) {
+			if (rush) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
+				rooms.Add(new PrebossRoom());	
+			} else if (first) {
 				rooms.Add(new ExitRoom());				
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
@@ -190,51 +194,54 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
 				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 			}
-			
-			if (Rnd.Chance(95)) {
-				if (Rnd.Chance(2 + Run.Scourge * 5)) {
-					rooms.Add(new ScourgedRoom());
-				} else {
-					if (Rnd.Chance()) {
-						rooms.Add(new ChallengeRoom());
+
+			if (!rush) {
+				if (Rnd.Chance(95)) {
+					if (Rnd.Chance(2 + Run.Scourge * 5)) {
+						rooms.Add(new ScourgedRoom());
 					} else {
-						rooms.Add(new SpikedRoom());
+						if (Rnd.Chance()) {
+							rooms.Add(new ChallengeRoom());
+						} else {
+							rooms.Add(new SpikedRoom());
+						}
 					}
 				}
-			}
 
-			var addDarkMarket = Rnd.Chance(20);
-			
-			if (addDarkMarket) {
-				rooms.Add(new DarkMarketEntranceRoom());
-				rooms.Add(new DarkMarketRoom());
-			}
+				var addDarkMarket = Rnd.Chance(20);
 
-			if (!addDarkMarket && Rnd.Chance(1)) {
-				secret--;
-				rooms.Add(new SecretDarkMarketEntranceRoom());
-				rooms.Add(new DarkMarketRoom());
-			}
-
-			for (var I = 0; I < secret; I++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
-			}
-				
-			if (Rnd.Chance()) {
-				var c = Rnd.Int(0, 3);
-				for (var i = 0; i < c; i++) {
-					rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+				if (addDarkMarket) {
+					rooms.Add(new DarkMarketEntranceRoom());
+					rooms.Add(new DarkMarketRoom());
 				}
+
+				if (!addDarkMarket && Rnd.Chance(1)) {
+					secret--;
+					rooms.Add(new SecretDarkMarketEntranceRoom());
+					rooms.Add(new DarkMarketRoom());
+				}
+
+				for (var I = 0; I < secret; I++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
+				}
+
+				if (Rnd.Chance()) {
+					var c = Rnd.Int(0, 3);
+
+					for (var i = 0; i < c; i++) {
+						rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+					}
+				}
+
+				if (NpcSaveRoom.ShouldBeAdded()) {
+					rooms.Add(new NpcSaveRoom());
+					rooms.Add(new NpcKeyRoom());
+				}
+
+				TombRoom.Insert(rooms);
+				biome.ModifyRooms(rooms);
 			}
 
-			if (NpcSaveRoom.ShouldBeAdded()) {
-				rooms.Add(new NpcSaveRoom());
-				rooms.Add(new NpcKeyRoom());
-			}
-			
-			TombRoom.Insert(rooms);
-			biome.ModifyRooms(rooms);
-			
 			return rooms;
 		}
 
@@ -245,17 +252,17 @@ namespace BurningKnight.level {
 		protected virtual Builder GetBuilder() {
 			Builder builder;
 			
-			if (IsFinal()) {
+			if (IsFinal() || Run.Type == RunType.BossRush) {
 				builder = new LineBuilder();
 			} else {
 				builder = LevelSave.BiomeGenerated.GetBuilder();
-			}
 
-			if (builder is RegularBuilder b) {
-				if (LevelSave.BiomeGenerated.Id == Biome.Ice) {
-					b.SetTunnelLength(new float[] {4, 6, 4}, new float[] {1, 3, 1});
-				} else if (GetFilling() == Tile.Chasm) {
-					b.SetTunnelLength(new float[] {4, 3, 4}, new float[] {1, 3, 1});
+				if (builder is RegularBuilder b) {
+					if (LevelSave.BiomeGenerated.Id == Biome.Ice) {
+						b.SetTunnelLength(new float[] {4, 6, 4}, new float[] {1, 3, 1});
+					} else if (GetFilling() == Tile.Chasm) {
+						b.SetTunnelLength(new float[] {4, 3, 4}, new float[] {1, 3, 1});
+					}
 				}
 			}
 

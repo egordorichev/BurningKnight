@@ -20,6 +20,71 @@ namespace BurningKnight.level.builders {
 			return this;
 		}
 
+		private bool PlaceBoss(List<RoomDef> Init, RoomDef R) {
+			var a = Direction;
+			var i = 0;
+						
+			while (true) {
+				var an = PlaceRoom(Init, R, Boss, a);
+							
+				if ((int) an != -1) {
+					break;
+				}
+
+				i++;
+
+				if (i > 36) {
+					return false;
+				}
+							
+				a += 10;
+			}
+
+			if (Granny != null) {
+				a = Rnd.Angle();
+				i = 0;
+
+				while (true) {
+					var an = PlaceRoom(Init, Boss, Granny, a);
+
+					if ((int) an != -1) {
+						break;
+					}
+
+					i++;
+
+					if (i > 36) {
+						return false;
+					}
+
+					a += 10;
+				}
+			}
+
+			if (OldMan != null) {
+				a = Rnd.Angle();
+				i = 0;
+
+				while (true) {
+					var an = PlaceRoom(Init, Boss, OldMan, a);
+
+					if ((int) an != -1) {
+						break;
+					}
+
+					i++;
+
+					if (i > 36) {
+						return false;
+					}
+
+					a += 10;
+				}
+			}
+
+			return true;
+		}
+
 		public override List<RoomDef> Build(List<RoomDef> Init) {
 			SetupRooms(Init);
 
@@ -36,6 +101,11 @@ namespace BurningKnight.level.builders {
 
 			if (MultiConnection.Count == 0) {
 				PlaceRoom(Init, Entrance, Exit, Rnd.Angle());
+
+				if (Boss != null && !PlaceBoss(Init, Exit)) {
+					return null;
+				}
+				
 				return Init;
 			}
 
@@ -76,63 +146,8 @@ namespace BurningKnight.level.builders {
 					return null;
 				}
 				
-				if (R == Exit && Boss != null) {
-					var a = Direction;
-					var i = 0;
-						
-					while (true) {
-						var an = PlaceRoom(Init, R, Boss, a);
-							
-						if ((int) an != -1) {
-							break;
-						}
-
-						i++;
-
-						if (i > 36) {
-							return null;
-						}
-							
-						a += 10;
-					}
-					
-					a = Rnd.Angle();
-					i = 0;
-						
-					while (true) {
-						var an = PlaceRoom(Init, Boss, Granny, a);
-							
-						if ((int) an != -1) {
-							break;
-						}
-
-						i++;
-
-						if (i > 36) {
-							return null;
-						}
-							
-						a += 10;
-					}
-					
-					a = Rnd.Angle();
-					i = 0;
-						
-					while (true) {
-						var an = PlaceRoom(Init, Boss, OldMan, a);
-							
-						if ((int) an != -1) {
-							break;
-						}
-
-						i++;
-
-						if (i > 36) {
-							return null;
-						}
-							
-						a += 10;
-					}
+				if (R == Exit && Boss != null && !PlaceBoss(Init, R)) {
+					return null;
 				}
 
 				Branchable.Add(R);

@@ -2073,22 +2073,36 @@ namespace BurningKnight.state {
 			stats.Add(Locale.Get("distance_traveled"), $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}");
 
 			Run.CalculateScore();
-
-			var newHigh = GlobalSave.GetInt("high_score") < Run.Score;
 			Log.Info($"Run score is {Run.Score}");
 
-			if (newHigh) {
-				Log.Info("New highscore!");
-				GlobalSave.Put("high_score", Run.Score);
+			var newHigh = false;
+
+			if (Run.Type == RunType.Challenge) {
+				newHigh = GlobalSave.GetInt("high_score") < Run.Score;
+				
+				if (newHigh) {
+					Log.Info("New highscore!");
+					GlobalSave.Put("high_score", Run.Score);
+				}
 			}
 
 			var board = "high_score";
 
-			if (Run.Type == RunType.Daily) {
-				board = $"daily_{Run.DailyId}";
-			} else if (Run.Type == RunType.Challenge) {
-				// FIXME: TODO
-				throw new Exception("Impolement me");
+			switch (Run.Type) {
+				case RunType.Daily: {
+					board = $"daily_{Run.DailyId}";
+					break;
+				}
+
+				case RunType.BossRush: {
+					board = "boss_rush";
+					break;
+				}
+
+				case RunType.Challenge: default: {
+					// FIXME: TODO
+					throw new Exception("Impolement me");
+				}
 			}
 
 			Run.SubmitScore?.Invoke(Run.Score, board);

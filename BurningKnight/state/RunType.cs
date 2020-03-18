@@ -2,6 +2,7 @@ namespace BurningKnight.state {
 	public enum RunType {
 		Regular,
 		Daily,
-		Challenge
+		Challenge,
+		BossRush
 	}
 }

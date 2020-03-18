@@ -137,6 +137,11 @@ namespace BurningKnight.level.builders {
 		}
 
 		protected virtual float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
+			if (Next == null) {
+				Log.Error("Null next room");
+				return -1;
+			}
+			
 			Angle %= 360f;
 
 			if (Angle < 0) {
