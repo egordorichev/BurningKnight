@@ -21,6 +21,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
+		private const bool LoadEditor = true;
+		
 		private int progress;
 		private bool ready;
 		private Area gameArea;
@@ -81,27 +83,28 @@ namespace BurningKnight.state {
 			progress++;
 			Log.Info($"Global took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
-				
-			/*SaveManager.Load(gameArea, SaveType.Game);
-			progress++;
-			Log.Info($"Game took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
-			c = DateTime.Now.Millisecond;
-				
-			Rnd.Seed = $"{Run.Seed}_{Run.Depth}"; 
-				
-			SaveManager.Load(gameArea, SaveType.Level);
-			progress++;
-			Log.Info($"Level took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
-			c = DateTime.Now.Millisecond;
 
-			if (Run.Depth > 0) {
-				SaveManager.Load(gameArea, SaveType.Player);
-			} else {
-				SaveManager.Generate(gameArea, SaveType.Player);
+			if (!LoadEditor) {
+				SaveManager.Load(gameArea, SaveType.Game);
+				progress++;
+				Log.Info($"Game took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+				c = DateTime.Now.Millisecond;
+
+				Rnd.Seed = $"{Run.Seed}_{Run.Depth}";
+
+				SaveManager.Load(gameArea, SaveType.Level);
+				progress++;
+				Log.Info($"Level took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+				c = DateTime.Now.Millisecond;
+
+				if (Run.Depth > 0) {
+					SaveManager.Load(gameArea, SaveType.Player);
+				} else {
+					SaveManager.Generate(gameArea, SaveType.Player);
+				}
+
+				Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");
 			}
-			
-			Log.Info($"Player took {(DateTime.Now.Millisecond - c) / 1000f}");*/
-			// c = DateTime.Now.Millisecond;
 
 			progress++; // Should be 18 here
 			Log.Info($"Done loading level! ({(DateTime.Now.Millisecond - t) / 1000f} seconds) Going to menu.");
@@ -122,7 +125,7 @@ namespace BurningKnight.state {
 				}
 
 				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
-				Engine.Instance.SetState(/*new InGameState(gameArea, false)*/new EditorState());
+				Engine.Instance.SetState(LoadEditor ? (GameState) new EditorState() : new InGameState(gameArea, false));
 			}
 		}
 

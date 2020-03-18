@@ -16,7 +16,7 @@ namespace BurningKnight.state {
 	public static class Run {
 		public static int ContentEndDepth = 11;
 
-		private static int depth = BK.Version.Dev ? 10 : 0;
+		private static int depth = BK.Version.Dev ? 0 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -36,6 +36,7 @@ namespace BurningKnight.state {
 		public static string NextSeed;
 		public static int LastSavedDepth;
 		public static bool AlternateMusic;
+		public static RunType Type;
 		
 		public static int Depth {
 			get => depth;
@@ -63,10 +64,11 @@ namespace BurningKnight.state {
 			}
 		}
 
-		public static void StartNew(int depth = 1) {
+		public static void StartNew(int depth = 1, RunType type = RunType.Regular) {
 			StartingNew = true;
 			HasRun = false;
 			NextDepth = depth;
+			Type = type;
 
 			if (NextSeed != null) {
 				Seed = NextSeed;
@@ -76,6 +78,14 @@ namespace BurningKnight.state {
 				IgnoreSeed = false;
 			} else {
 				Seed = Rnd.GenerateSeed();
+			}
+
+			if (Type == RunType.Daily) {
+				var date = DateTime.UtcNow;
+				var id = (date.Year - 2020) * 365 + (date.DayOfYear);
+				Seed = Rnd.GenerateSeed(8, id);
+				
+				Log.Debug($"Today is {date.DayOfYear} day of the year {date.Year}, so the daily id is {id}");
 			}
 
 			GlobalSave.RunId++;

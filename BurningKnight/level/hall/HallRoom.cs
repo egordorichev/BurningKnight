@@ -4,7 +4,7 @@ using BurningKnight.level.tile;
 
 namespace BurningKnight.level.hall {
 	public class HallRoom : ExitRoom {
-		public const string PrefabName = "new_hub";
+		public const string PrefabName = "hub";
 		private Prefab prefab;
 
 		public HallRoom() {

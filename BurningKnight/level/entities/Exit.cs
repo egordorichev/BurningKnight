@@ -26,21 +26,22 @@ namespace BurningKnight.level.entities {
 			entity.RemoveComponent<PlayerInputComponent>();
 			entity.GetComponent<HealthComponent>().Unhittable = true;
 
-			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
-				if (Run.Depth == -2) {
-					Achievements.Unlock("bk:tutorial");
-					GlobalSave.Put("finished_tutorial", true);
-					Run.Depth = 0;
-				} else if (To == 1) {
-					Run.StartNew();
-				} else {
-					Run.Depth = To;
-				}
-			});
-			
+			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
 			Audio.PlaySfx("player_descending");			
 
 			return true;
+		}
+		
+		protected virtual void Descend() {
+			if (Run.Depth == -2) {
+				Achievements.Unlock("bk:tutorial");
+				GlobalSave.Put("finished_tutorial", true);
+				Run.Depth = 0;
+			} else if (To == 1) {
+				Run.StartNew();
+			} else {
+				Run.Depth = To;
+			}
 		}
 
 		protected virtual string GetFxText() {

@@ -71,6 +71,7 @@ namespace BurningKnight.save {
 			writer.WriteFloat(Run.Time);
 			writer.WriteByte((byte) Run.PermanentScourge);
 			writer.WriteString(Run.Seed);
+			writer.WriteString(Run.Type.ToString());
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -102,6 +103,12 @@ namespace BurningKnight.save {
 
 			if (Run.LastSavedDepth > 0) {
 				Rnd.Seed = Run.Seed = reader.ReadString();
+			}
+
+			if (Enum.TryParse<RunType>(reader.ReadString(), out var t)) {
+				Run.Type = t;
+			} else {
+				Run.Type = RunType.Regular;
 			}
 		}
 

@@ -898,6 +898,7 @@
     <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
+    <Compile Include="level\entities\exit\DailyRunExit.cs" />
     <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\HiddenEntrance.cs" />
@@ -1134,6 +1135,7 @@
     <Compile Include="state\PicoState.cs" />
     <Compile Include="state\RoomEditorState.cs" />
     <Compile Include="state\Run.cs" />
+    <Compile Include="state\RunType.cs" />
     <Compile Include="state\save\EntityData.cs" />
     <Compile Include="state\save\EntityInspector.cs" />
     <Compile Include="state\save\GameInspector.cs" />
