@@ -234,7 +234,7 @@ namespace BurningKnight.state {
 			
 			Run.Level.Prepare();
 			
-			Timer.Add(AnimateDeathScreen, 1f);
+			// Timer.Add(AnimateDeathScreen, 1f);
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -1196,6 +1196,7 @@ namespace BurningKnight.state {
 			
 			gameOverMenu.Add(new UiLabel {
 				LocaleLabel = "killed_by",
+				Font = Font.Small,
 				RelativeCenterX = Display.UiWidth * 0.75f,
 				RelativeCenterY = start - space * 2,
 				Clickable = false
