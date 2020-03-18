@@ -1221,6 +1221,7 @@
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="ui\UiSlider.cs" />
+    <Compile Include="ui\UiTable.cs" />
     <Compile Include="util\AnimationUtil.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />

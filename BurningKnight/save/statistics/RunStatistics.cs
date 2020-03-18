@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
@@ -274,6 +275,8 @@ namespace BurningKnight.save.statistics {
 			if (!WindowManager.RunInfo) {
 				return;
 			}
+			
+			ImGui.SetWindowPos(Vector2.Zero, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Run Info")) {
 				return;
