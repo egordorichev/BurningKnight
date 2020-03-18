@@ -14,6 +14,7 @@ using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
+		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = 11;
 
 		private static int depth = BK.Version.Dev ? 1 : 0;
@@ -37,6 +38,8 @@ namespace BurningKnight.state {
 		public static int LastSavedDepth;
 		public static bool AlternateMusic;
 		public static RunType Type;
+		public static int Score;
+		public static int DailyId;
 		
 		public static int Depth {
 			get => depth;
@@ -82,10 +85,12 @@ namespace BurningKnight.state {
 
 			if (Type == RunType.Daily) {
 				var date = DateTime.UtcNow;
-				var id = (date.Year - 2020) * 365 + (date.DayOfYear);
-				Seed = Rnd.GenerateSeed(8, id);
-				
-				Log.Debug($"Today is {date.DayOfYear} day of the year {date.Year}, so the daily id is {id}");
+				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear);
+				Log.Debug($"Today is {date.DayOfYear} day of the year {date.Year}, so the daily id is {DailyId}");
+
+				Seed = Rnd.GenerateSeed(8, DailyId);
+			} else {
+				DailyId = 0;
 			}
 
 			GlobalSave.RunId++;
@@ -102,6 +107,7 @@ namespace BurningKnight.state {
 			Luck = 0;
 			Scourge = 0;			
 			PermanentScourge = 0;
+			DailyId = 0;
 			LastSavedDepth = 0;
 			entity.item.Scourge.Clear();
 		}
@@ -168,6 +174,20 @@ namespace BurningKnight.state {
 
 		public static void ResetScourge() {
 			Scourge = PermanentScourge;
+		}
+
+		public static void CalculateScore() {
+			Score = 0;
+
+			Score += Depth * 5000;
+			Score += Statistics.CoinsObtained * 10;
+			Score += Statistics.Items.Count * 100;
+			Score += (int) Statistics.MobsKilled * 10;
+			Score += (int) Statistics.RoomsExplored * 2;
+
+			Score -= (int) Statistics.DamageTaken * 10;
+			Score -= (int) Time;
+			Score -= Statistics.PitsFallen;
 		}
 	}
 }

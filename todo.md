@@ -1,5 +1,7 @@
 # todo
 
+* achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
+
 ice {
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition

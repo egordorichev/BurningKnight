@@ -23,6 +23,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.save.statistics;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using BurningKnight.ui.editor;
@@ -2071,8 +2072,28 @@ namespace BurningKnight.state {
 			stats.Add(Locale.Get("rooms_explored"), $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}");
 			stats.Add(Locale.Get("distance_traveled"), $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}");
 
-			stats.Add(Locale.Get("score"), $"{Locale.Get("new_high_score")} 0");
+			Run.CalculateScore();
+
+			var newHigh = GlobalSave.GetInt("high_score") < Run.Score;
+			Log.Info($"Run score is {Run.Score}");
+
+			if (newHigh) {
+				Log.Info("New highscore!");
+				GlobalSave.Put("high_score", Run.Score);
+			}
+
+			var board = "high_score";
+
+			if (Run.Type == RunType.Daily) {
+				board = $"daily_{Run.DailyId}";
+			} else if (Run.Type == RunType.Challenge) {
+				// FIXME: TODO
+				throw new Exception("Impolement me");
+			}
+
+			Run.SubmitScore?.Invoke(Run.Score, board);
 			
+			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
 			stats.Prepare();
 			
 			stats.RelativeCenterX = Display.UiWidth * 0.5f;

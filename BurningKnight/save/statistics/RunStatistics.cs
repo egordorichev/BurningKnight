@@ -297,6 +297,8 @@ namespace BurningKnight.save.statistics {
 			ImGui.Text($"Won: {Won}");
 			ImGui.Text($"Max Depth: {MaxDepth}");
 			ImGui.Text($"Game Version: {GameVersion}");
+			Run.CalculateScore();
+			ImGui.Text($"Score: {Run.Score}");
 			ImGui.Separator();
 			
 			if (ImGui.TreeNode("Items")) {
