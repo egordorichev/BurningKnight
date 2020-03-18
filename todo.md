@@ -12,6 +12,14 @@ ice {
  * unique wall designs with teleporters
 }
 
+score {
+ time
+ hits taken
+ coins collected
+ rooms explored
+ kills
+}
+
 ###
 
 * highlight doors you not went through

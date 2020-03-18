@@ -233,6 +233,8 @@ namespace BurningKnight.state {
 			}
 			
 			Run.Level.Prepare();
+			
+			// Timer.Add(AnimateDeathScreen, 1f);
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -1022,10 +1024,6 @@ namespace BurningKnight.state {
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
-		private UiLabel killsLabel;
-		private UiLabel timeLabel;
-		private UiLabel depthLabel;
-
 		private void SetupUi() {
 			Ui.Add(new UiChat());
 			
@@ -1174,31 +1172,12 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
-			depthLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				LocaleLabel = "depth",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start - space,
-				Clickable = false
-			});
-			
-			timeLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				LocaleLabel = "time",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start,
-				Clickable = false
-			});
-			
-			killsLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
-				LocaleLabel = "kills",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
-				Clickable = false
-			});
-			
 			gameOverMenu.Add(new UiLabel {
+				Font = Font.Small,
 				LocaleLabel = "killed_by",
 				RelativeCenterX = Display.UiWidth * 0.75f,
-				RelativeCenterY = start - space * 2,
+				RelativeCenterY = start - space,
+				Tints = false,
 				Clickable = false
 			});
 
@@ -1219,19 +1198,6 @@ namespace BurningKnight.state {
 					Run.StartNew(Run.Depth == -2 ? -2 : /*-1*/ 0);
 				}
 			});
-
-			/*if (Run.Depth > 0) {
-				gameOverMenu.Add(new UiButton {
-						LocaleLabel = "back_to_castle",
-						RelativeCenterX = Display.UiWidth / 2f,
-						RelativeCenterY = BackY,
-						Type = ButtonType.Exit,
-						Click = b => {
-							gameOverMenu.Enabled = false;
-							Run.Depth = 0;
-						}
-				});
-			}*/
 
 			gameOverMenu.Setup();
 			gameOverMenu.Enabled = false;
@@ -1465,6 +1431,7 @@ namespace BurningKnight.state {
 							try {
 								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
 								SaveManager.DeleteCloudSaves();
+								Achievements.LoadState();
 								
 								Run.StartingNew = true;
 								Run.NextDepth = 0;
@@ -2084,18 +2051,35 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Enabled = true;			
+			gameOverMenu.Enabled = true;		
+
+			var stats = new UiTable {
+				Width = 128
+			};
+
+			gameOverMenu.Add(stats);
+
+			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}"));
+			stats.Add(Locale.Get("seed"), Run.Seed);
+			stats.Add(Locale.Get("time"), GetRunTime());
+			stats.Add(Locale.Get("depth"), Run.Depth.ToString());
+			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
+			stats.Add(Locale.Get("items_collected"), Run.Statistics.Items.Count.ToString());
+			stats.Add(Locale.Get("damage_taken"), Run.Statistics.DamageTaken.ToString());
+			stats.Add(Locale.Get("kills"), Run.Statistics.MobsKilled.ToString());
+			stats.Add(Locale.Get("scourge"), Run.Scourge.ToString());
+			stats.Add(Locale.Get("rooms_explored"), $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}");
+			stats.Add(Locale.Get("distance_traveled"), $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}");
+
+			stats.Add(Locale.Get("score"), $"{Locale.Get("new_high_score")} 0");
+			
+			stats.Prepare();
+			
+			stats.RelativeCenterX = Display.UiWidth * 0.5f;
+			stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			
 			Audio.PlayMusic("Nostalgia", true);
 			
-			timeLabel.Label = $"{GetRunTime()}";
-			timeLabel.RelativeCenterX = Display.UiWidth / 2f;
-			
-			killsLabel.Label = $"{Locale.Get("kills")}: {Run.Statistics.MobsKilled}";
-			killsLabel.RelativeCenterX = Display.UiWidth / 2f;
-
-			depthLabel.Label = Level.GetDepthString();
-			depthLabel.RelativeCenterX = Display.UiWidth / 2f;
-
 			Tween.To(this, new {blur = 1}, 0.5f);
 			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
 				SelectFirst();

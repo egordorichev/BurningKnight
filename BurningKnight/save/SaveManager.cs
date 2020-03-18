@@ -160,7 +160,7 @@ namespace BurningKnight.save {
 						return;
 					}
 				} else if (version < Version) {
-					if (saveType != SaveType.Global && saveType != SaveType.Game) {
+					if (saveType != SaveType.Global && saveType != SaveType.Game && !(path ?? save.FullPath).StartsWith("Content")) {
 						Log.Error($"Old version {version}, generating new");
 						Generate(area, saveType);
 

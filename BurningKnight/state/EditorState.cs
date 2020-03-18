@@ -30,6 +30,9 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Engine.Instance.StateRenderer.GameEffect = null;
+			Engine.Instance.StateRenderer.UiEffect = null;
+			
 			WindowManager.LevelEditor = true;
 
 			Engine.EditingLevel = true;
@@ -39,6 +42,7 @@ namespace BurningKnight.state {
 			Tilesets.Load();
 
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
+			Console = new Console(Area);
 
 			Editor = new EditorWindow(new Editor {
 				Area = Area,
@@ -46,7 +50,6 @@ namespace BurningKnight.state {
 				Camera = Camera
 			});
 			
-			Console = new Console(Area);
 
 			Level = Editor.Editor.Level;
 			for (var i = 0; i < Level.Explored.Length; i++) {
@@ -71,14 +74,15 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.IsDown(Keys.Space)) {
 				Camera.Position -= Input.Mouse.PositionDelta;
 				
-				// Camera.X = MathUtils.Clamp(Camera.X, -Display.Width / 2f, Level.Width * 16f - Display.Width / 2f);
-				// Camera.Y = MathUtils.Clamp(Camera.Y, -Display.Height / 2f, Level.Height * 16f - Display.Height / 2f);
+				Camera.X = MathUtils.Clamp(Camera.X, -Display.Width / 2f, Level.Width * 16f - Display.Width / 2f);
+				Camera.Y = MathUtils.Clamp(Camera.Y, -Display.Height / 2f, Level.Height * 16f - Display.Height / 2f);
 			}
 		}
 
 		private void PrerenderShadows() {
 			var renderer = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
-			
+
+			renderer.EnableClip = false;
 			renderer.End();
 			renderer.BeginShadows();
 
@@ -95,9 +99,10 @@ namespace BurningKnight.state {
 		public override void Render() {
 			PrerenderShadows();
 			base.Render();
-
+			Physics.Render();
 			Editor.RenderInGame();
 		}
+
 
 		public override void RenderNative() {
 			ImGuiHelper.Begin();

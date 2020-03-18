@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.entity.room;
+using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using ImGuiNET;
@@ -164,6 +167,7 @@ namespace BurningKnight.save.statistics {
 			Subscribe<ConsumableAddedEvent>();
 			Subscribe<LostSupportEvent>();
 			Subscribe<MaxHealthModifiedEvent>();
+			Subscribe<NewLevelStartedEvent>();
 		}
 
 		public override void PostInit() {
@@ -258,6 +262,14 @@ namespace BurningKnight.save.statistics {
 				if (mhme.Who is Player) {
 					MaxHealth = (ushort) (MaxHealth + mhme.Amount);
 				}
+			} else if (e is NewLevelStartedEvent) {
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					if (((Room) r).Type == RoomType.Secret) {
+						SecretRoomsTotal++;
+					}
+
+					RoomsTotal++;
+				}
 			}
 			
 			return false;
@@ -274,6 +286,8 @@ namespace BurningKnight.save.statistics {
 			if (!WindowManager.RunInfo) {
 				return;
 			}
+			
+			ImGui.SetWindowPos(Vector2.Zero, ImGuiCond.Once);
 			
 			if (!ImGui.Begin("Run Info")) {
 				return;

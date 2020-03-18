@@ -70,31 +70,7 @@ namespace BurningKnight.save {
 			
 			Achievements.LockAll();
 			Put("disk", 10);
-
-			if (BK.Version.Dev) {
-				Put(ShopNpc.AccessoryTrader, true);
-				Put(ShopNpc.ActiveTrader, true);
-				Put(ShopNpc.HatTrader, true);
-				Put(ShopNpc.WeaponTrader, true);
-				
-				Put(ShopNpc.Snek, true);
-				Put(ShopNpc.Boxy, true);
-				Put(ShopNpc.Roger, true);
-				Put(ShopNpc.Gobetta, true);
-				Put(ShopNpc.Vampire, true);
-				Put(ShopNpc.TrashGoblin, true);
-				Put(ShopNpc.Duck, true);
-				Put(ShopNpc.Nurse, true);
-				Put(ShopNpc.Elon, true);
-
-				Put("control_use", true);
-				Put("control_swap", true);
-				Put("control_roll", true);
-				Put("control_interact", true);
-				Put("control_duck", true);
-				Put("control_bomb", true);
-				Put("control_active", true);
-			}
+			SetupDev();
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -114,9 +90,37 @@ namespace BurningKnight.save {
 
 			RunId = reader.ReadUInt32();
 			Emeralds = GetInt("emeralds");
-			
+
+			SetupDev();
 			Settings.Load();
 			Achievements.LoadState();
+		}
+
+		private void SetupDev() {
+			if (BK.Version.Dev) {
+				Put(ShopNpc.AccessoryTrader, true);
+				Put(ShopNpc.ActiveTrader, true);
+				Put(ShopNpc.HatTrader, true);
+				Put(ShopNpc.WeaponTrader, true);
+
+				Put(ShopNpc.Snek, true);
+				Put(ShopNpc.Boxy, true);
+				Put(ShopNpc.Roger, true);
+				Put(ShopNpc.Gobetta, true);
+				Put(ShopNpc.Vampire, true);
+				Put(ShopNpc.TrashGoblin, true);
+				Put(ShopNpc.Duck, true);
+				Put(ShopNpc.Nurse, true);
+				Put(ShopNpc.Elon, true);
+
+				Put("control_use", true);
+				Put("control_swap", true);
+				Put("control_roll", true);
+				Put("control_interact", true);
+				Put("control_duck", true);
+				Put("control_bomb", true);
+				Put("control_active", true);
+			}
 		}
 
 		public override void Save(Area area, FileWriter writer, bool old) {

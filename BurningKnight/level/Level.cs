@@ -152,6 +152,7 @@ namespace BurningKnight.level {
 			base.Init();
 			
 			NoLightNoRender = Engine.Instance.State is InGameState;
+			Variant = new RegularLevelVariant();
 			
 			var s = BlendState.AlphaBlend;
 				
@@ -471,6 +472,10 @@ namespace BurningKnight.level {
 			stream.WriteBoolean(Dark);
 			stream.WriteBoolean(Snows);
 			stream.WriteBoolean(Rains);
+
+			if (Variant == null) {
+				Variant = new RegularLevelVariant();
+			}
 			
 			stream.WriteString(Variant.Id);
 		}

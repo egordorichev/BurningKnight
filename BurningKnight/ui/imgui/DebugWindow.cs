@@ -144,6 +144,7 @@ namespace BurningKnight.ui.imgui {
 
 			if (ImGui.CollapsingHeader("Run info")) {
 				ImGui.Text($"Run ID: {GlobalSave.RunId}");
+				ImGui.Text($"Type: {Run.Type}");
 				ImGui.Text($"Seed: {Run.Seed}");
 				ImGui.Text($"Kills: {Run.KillCount}");
 				ImGui.Text($"Time: {Run.FormatTime()}");

@@ -3,6 +3,7 @@ using BurningKnight.assets.achievements;
 using BurningKnight.save;
 using Lens.util;
 using Steamworks;
+using Steamworks.Data;
 using Achievement = Steamworks.Data.Achievement;
 
 namespace Desktop.integration.steam {
@@ -15,6 +16,19 @@ namespace Desktop.integration.steam {
 			try {
 				SteamClient.Init(851150);
 
+				/*var board = SteamUserStats.FindLeaderboardAsync("daily").GetAwaiter().GetResult().Value;
+				var results = board.GetScoresAsync(10).GetAwaiter().GetResult();
+
+				if (results != null) {
+					foreach (var r in results) {
+						Log.Debug($"#{r.GlobalRank} @{r.User.Name} = {r.Score}");
+					}
+				} else {
+					Log.Debug("No results");
+				}
+
+				board.SubmitScoreAsync(1).GetAwaiter().GetResult();*/
+				
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
 

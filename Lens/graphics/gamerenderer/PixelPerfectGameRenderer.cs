@@ -118,7 +118,7 @@ namespace Lens.graphics.gamerenderer {
 
 			if (Camera.Instance != null) {
 				var shake = Camera.Instance.GetComponent<ShakeComponent>();
-				var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom; 
+				var scale = Engine.Instance.Upscale * Camera.Instance.TextureZoom;
 
 				Graphics.Render(GameTarget,
 					new Vector2(Engine.Viewport.X + Display.Width / 2f * Engine.Instance.Upscale + scale * shake.Position.X,
@@ -148,6 +148,7 @@ namespace Lens.graphics.gamerenderer {
 				Graphics.Render(UiTarget, Engine.Viewport);
 				Graphics.Batch.End();
 			}
+			
 
 			Engine.Instance.State?.RenderNative();
 
