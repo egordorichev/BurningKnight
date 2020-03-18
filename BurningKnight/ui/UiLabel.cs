@@ -13,6 +13,7 @@ namespace BurningKnight.ui {
 		protected string label;
 		public BitmapFont Font = assets.Font.Medium;
 		public float Tint = DefaultTint;
+		public bool Tints = true;
 
 		protected override void OnHover() {
 			base.OnHover();
@@ -63,9 +64,11 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			var t = Tint + ((Tint - DefaultTint) * ((float) Math.Cos(Engine.Time * 17) * 0.5f - 0.5f) * 0.5f);
-			
-			Graphics.Color = new Color(t, t, t, 1f);
+			if (Tints) {
+				var t = Tint + ((Tint - DefaultTint) * ((float) Math.Cos(Engine.Time * 17) * 0.5f - 0.5f) * 0.5f);
+				Graphics.Color = new Color(t, t, t, 1f);
+			}
+
 			Graphics.Print(label, Font, Position + origin, angle, origin, new Vector2(scale));
 			Graphics.Color = ColorUtils.WhiteColor;
 		}

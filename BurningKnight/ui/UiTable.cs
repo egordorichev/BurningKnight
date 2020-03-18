@@ -20,8 +20,10 @@ namespace BurningKnight.ui {
 		private TextureRegion texture;
 
 		public void Add(string key, string value) {
+			value = value ?? "";
+			
 			entries.Add(new Entry {
-				Key = key,
+				Key = key ?? "",
 				Value = value,
 				ValueWidth = Font.Small.MeasureString(value).Width
 			});

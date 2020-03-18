@@ -17,7 +17,7 @@ namespace Lens.util {
 		}
 
 		public static void Close() {
-			
+			writer.Close();	
 		}
 		
 		public static void Info(object message) {
@@ -48,7 +48,7 @@ namespace Lens.util {
 			#endif
 
 			writer?.Write($"{type} {text}");
-			writer?.Write(message == null ? "null" : message.ToString());
+			writer?.WriteLine(message == null ? "null" : message.ToString());
 			
 			Console.ForegroundColor = color;
 			Console.Write($"{message} ");
