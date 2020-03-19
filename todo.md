@@ -1,11 +1,5 @@
 # todo
 
-hat stuff {
- interact fx doesnt get updated
- hat displays dont get updated
- picking up a hat from garderobe stand is broken?
-}
-
 add new achievements to steam
 
 * mike saving and boss rush payment

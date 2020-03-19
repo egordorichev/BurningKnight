@@ -11,7 +11,7 @@ namespace BurningKnight.level.biome {
 		public override string GetStepSound(Tile tile) {
 			if (tile == Tile.FloorB) {
 				return $"player_step_wood_{Rnd.Int(1, 4)}";
-			} else if (tile == Tile.FloorC) {
+			} else if (tile == Tile.FloorD) {
 				return $"player_step_grass_{Rnd.Int(1, 4)}";
 			}
 			

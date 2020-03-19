@@ -159,7 +159,7 @@ namespace BurningKnight.entity.item.stand {
 						}
 					}
 
-					return this is ShopStand || Run.Depth == -2;
+					return this is HatStand || this is ShopStand || Run.Depth == -2;
 				} else if (!(this is ShopStand) && entity.TryGetComponent<ActiveWeaponComponent>(out var weapon) && weapon.Item != null) {
 					if (weapon.Item.Scourged) {
 						AnimationUtil.ActionFailed();
