@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.save;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Mike : Npc {

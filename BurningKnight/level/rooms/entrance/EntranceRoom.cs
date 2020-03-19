@@ -38,6 +38,12 @@ namespace BurningKnight.level.rooms.entrance {
 			prop.Center = (where * 16 + new Vector2(8));
 
 			MakeSafe(level);
+
+			if (Builder.ShouldAppear()) {
+				var b = new Builder();
+				b.BottomCenter = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), 10);
+				level.Area.Add(b);
+			}
 		}
 
 		protected void MakeSafe(Level level) {

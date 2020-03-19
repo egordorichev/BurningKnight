@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -27,10 +28,11 @@ namespace BurningKnight.ui.dialog {
 
 		public DialogCallback OnNext;
 		public Entity To;
+		public Action InitCallback;
 
 		private bool added;
 		private float tillClose = -1;
-
+		
 		private void HandleInput(object sender, TextInputEventArgs args) {
 			if (Current is AnswerDialog a) {
 				if (a.Focused) {
@@ -141,7 +143,8 @@ namespace BurningKnight.ui.dialog {
 				};
 			}
 
-			added = true;
+			added = true;			
+			InitCallback?.Invoke();
 		}
 
 		public void Start(string id, Entity to = null) {

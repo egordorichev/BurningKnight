@@ -38,6 +38,8 @@ ice {
 
 !! boss rush win condition
 
+* nps that asks for coins but does nothing
+
 ### big points that are needed before release (no overscope)
 
 * hub update

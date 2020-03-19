@@ -27,7 +27,7 @@ namespace BurningKnight.ui.dialog {
 		public Func<bool> OnEnd;
 		public bool JustStarted;
 		public int Voice = 5;
-
+		
 		private string toSay;
 		
 		public override void Init() {
