@@ -681,6 +681,7 @@
     <Compile Include="entity\item\stand\BoxyStand.cs" />
     <Compile Include="entity\item\stand\CustomStand.cs" />
     <Compile Include="entity\item\stand\DarkMageStand.cs" />
+    <Compile Include="entity\item\stand\GarderobeStand.cs" />
     <Compile Include="entity\item\stand\GobettaStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />

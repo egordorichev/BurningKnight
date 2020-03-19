@@ -1,14 +1,21 @@
 using BurningKnight.assets.items;
 using BurningKnight.save;
+using Lens.entity;
 
 namespace BurningKnight.entity.item.stand {
 	public class HatStand : EmeraldStand {
-		public HatStand() {
-			ShowUnlocked = true;
-		}
-		
 		protected override bool ApproveItem(ItemData item) {
-			return item.Type == ItemType.Hat && GlobalSave.GetString("hat") != item.Id;
+			return item.Type == ItemType.Hat;
+		}
+
+		protected override void OnTake(Item item, Entity who) {
+			base.OnTake(item, who);
+
+			foreach (var i in Area.Tagged[Tags.Item].ToArray()) {
+				if (i is GarderobeStand gs) {
+					gs.UpdateItem();
+				}
+			}
 		}
 	}
 }

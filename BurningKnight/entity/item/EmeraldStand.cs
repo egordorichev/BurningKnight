@@ -67,12 +67,7 @@ namespace BurningKnight.entity.item {
 			}
 
 			Audio.PlaySfx("item_purchase");
-
-			if (this is HatStand) {
-				Achievements.Unlock("bk:fancy_hat");
-			} else {
-				Achievements.Unlock("bk:unlock");
-			}
+			Achievements.Unlock("bk:unlock");
 		}
 
 		protected override string GetSprite() {
@@ -107,7 +102,7 @@ namespace BurningKnight.entity.item {
 
 				AnimationUtil.Poof(Center, 1);
 			}
-			
+
 			return ShowUnlocked;
 		}
 
@@ -121,7 +116,7 @@ namespace BurningKnight.entity.item {
 			var items = new List<ItemData>();
 
 			foreach (var i in Items.Datas.Values) {
-				if (((this is HatStand && i.Id == "bk:no_hat") || (i.Lockable && i.UnlockPrice > 0)) && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
+				if (i.Lockable && i.UnlockPrice > 0 && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
 				    && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
 					
 					items.Add(i);

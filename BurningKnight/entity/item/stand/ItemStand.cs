@@ -23,7 +23,7 @@ namespace BurningKnight.entity.item.stand {
 		private static TextureRegion standShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);
 
-		private Item item;
+		protected Item item;
 		
 		public Item Item => item;
 
@@ -64,6 +64,11 @@ namespace BurningKnight.entity.item.stand {
 				
 			if (item != null) {
 				item.RemoveDroppedComponents();
+
+				if (item.HasComponent<OwnerComponent>()) {
+					item.RemoveComponent<OwnerComponent>();
+				}
+				
 				item.AddComponent(new OwnerComponent(this));
 				item.CenterX = CenterX;
 				item.Bottom = Y + 6;
@@ -137,12 +142,7 @@ namespace BurningKnight.entity.item.stand {
 						var i = item;
 						var remove = false;
 
-						if (this is HatStand) {
-							var ht = entity.GetComponent<HatComponent>();
-							var it = ht.Item;
-
-							ht.Set(null, false);
-							SetItem(it, entity, false);
+						if (this is GarderobeStand) {
 						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Weapon) {
 							var ht = entity.GetComponent<ActiveWeaponComponent>();
 							var it = ht.Item;
