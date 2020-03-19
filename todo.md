@@ -1,12 +1,9 @@
 # todo
 
-* lock {
- * any exit from the dungeon till you play once
- * boss rush till you find an npc, you gotta pay 3 emeralds to attempt the rush, rush should not drop any emeralds
- * shortcuts, find an npc in the dungeon, you pay him resources (they stick between runs), he opens them. He spawns on the first level of the respectful shortcut
-}
-
+* mike saving and boss rush payment
 * line of sight for close dialog
+* underground garderob for the hat keeper
+
 * add tutorial shortcut into the hub
 
 * achievements, like bk:tutorial, can get lost in between loading screens and never actually showup

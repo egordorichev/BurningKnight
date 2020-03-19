@@ -567,6 +567,8 @@
     <Compile Include="entity\door\CageDoor.cs" />
     <Compile Include="entity\door\CageLock.cs" />
     <Compile Include="entity\door\ChallengeDoor.cs" />
+    <Compile Include="entity\door\ConditionDoor.cs" />
+    <Compile Include="entity\door\ConditionLock.cs" />
     <Compile Include="entity\door\CustomDoor.cs" />
     <Compile Include="entity\door\Door.cs" />
     <Compile Include="entity\door\GoldLock.cs" />
@@ -588,6 +590,7 @@
     <Compile Include="entity\door\SpikedDoor.cs" />
     <Compile Include="entity\door\TeleportTrigger.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
+    <Compile Include="entity\door\VerticalConditionDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\door\VerticalHallDoor.cs" />
     <Compile Include="entity\door\VerticalShopDoor.cs" />

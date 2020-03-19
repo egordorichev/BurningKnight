@@ -2052,7 +2052,8 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Enabled = true;		
+			gameOverMenu.Enabled = true;	
+			GlobalSave.Put("played_once", true);
 
 			var stats = new UiTable {
 				Width = 128
@@ -2085,10 +2086,29 @@ namespace BurningKnight.state {
 					GlobalSave.Put("high_score", Run.Score);
 				}
 			}
+			
+			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
+			stats.Prepare();
+			
+			stats.RelativeCenterX = Display.UiWidth * 0.5f;
+			stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			
+			Audio.PlayMusic("Nostalgia", true);
+			
+			Tween.To(this, new {blur = 1}, 0.5f);
+			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+			};
+			
+			OpenBlackBars();
 
 			var board = "high_score";
 
 			switch (Run.Type) {
+				case RunType.Regular: {
+					break;
+				}
+				
 				case RunType.Daily: {
 					board = $"daily_{Run.DailyId}";
 					break;
@@ -2106,21 +2126,6 @@ namespace BurningKnight.state {
 			}
 
 			Run.SubmitScore?.Invoke(Run.Score, board);
-			
-			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
-			stats.Prepare();
-			
-			stats.RelativeCenterX = Display.UiWidth * 0.5f;
-			stats.RelativeCenterY = Display.UiHeight * 0.5f;
-			
-			Audio.PlayMusic("Nostalgia", true);
-			
-			Tween.To(this, new {blur = 1}, 0.5f);
-			Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
-				SelectFirst();
-			};
-			
-			OpenBlackBars();
 		}
 		
 		public void HandleDeath() {
