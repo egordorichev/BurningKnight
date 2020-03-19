@@ -8,6 +8,7 @@ namespace BurningKnight.level.challenge {
 			var inventory = player.GetComponent<InventoryComponent>();
 			var area = player.Area;
 			
+			// Fixme: this is super weak
 			inventory.Add(Items.CreateAndAdd("bk:blindfold", area));
 			inventory.Add(Items.CreateAndAdd("bk:tnt", area));
 		}

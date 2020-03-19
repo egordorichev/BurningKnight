@@ -26,7 +26,7 @@ namespace Lens.assets {
 		}
 
 		private static void LoadAnimation(string name, string fullPath) {
-			AsepriteFile file = new AsepriteFile(fullPath);
+			var file = new AsepriteFile(fullPath);
 			var animation = new AnimationData();
 			
 			for (var i = 0; i < file.Layers.Count; i++) {

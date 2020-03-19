@@ -2,6 +2,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.state;
+using ImGuiNET;
 using Lens.util.file;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -52,6 +53,16 @@ namespace BurningKnight.level.entities.plant {
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteByte(variant);
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			var v = (int) variant;
+
+			if (ImGui.InputInt("Id", ref v)) {
+				variant = (byte) v;
+				RemoveComponent<PlantGraphicsComponent>();
+			}
 		}
 	}
 }

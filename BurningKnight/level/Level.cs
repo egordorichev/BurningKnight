@@ -40,6 +40,7 @@ namespace BurningKnight.level {
 		public const float LightMax = 0.95f;
 		public static bool RenderPassable = false;
 		public static Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
+		public static Color FloorColor = new Color(1f, 1f, 1f, 1f);
 		
 		public Tileset Tileset;
 		public Biome Biome;
@@ -833,7 +834,7 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Color = new Color(Settings.FloorDarkness, Settings.FloorDarkness, Settings.FloorDarkness, 1f);
+			Graphics.Color = FloorColor;
 
 			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
 				                        camera.Position.Y % 1));

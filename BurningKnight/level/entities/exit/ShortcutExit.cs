@@ -1,5 +1,6 @@
 using BurningKnight.assets;
 using BurningKnight.level.biome;
+using BurningKnight.save;
 using BurningKnight.state;
 using ImGuiNET;
 using Lens;
@@ -10,7 +11,19 @@ using Lens.util.file;
 namespace BurningKnight.level.entities.exit {
 	public class ShortcutExit : Exit {
 		private byte id;
-    		
+
+    public override void PostInit() {
+      base.PostInit();
+
+      if (!Engine.EditingLevel && GlobalSave.IsFalse($"shortcut_{id}")) {
+       // Done = true;
+      }
+    }
+
+    protected override string GetSlice() {
+      return id == 0 ? base.GetSlice() : $"shortcut_{id}";
+    }
+
     protected override void Descend() {
       Run.StartNew(id);
     }

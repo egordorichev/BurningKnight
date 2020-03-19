@@ -65,8 +65,17 @@ namespace BurningKnight.level.entities {
 			});
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
-			AddComponent(new InteractableSliceComponent("props", "exit"));
 		}
+
+		public override void PostInit() {
+			base.PostInit();
+			AddComponent(new InteractableSliceComponent("props", GetSlice()));
+		}
+
+		protected virtual string GetSlice() {
+			return "exit";
+		}
+		
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			To = stream.ReadInt16();

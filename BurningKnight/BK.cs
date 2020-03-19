@@ -1,4 +1,7 @@
-﻿using BurningKnight.assets;
+﻿using System;
+using System.Diagnostics;
+using Aseprite;
+using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
@@ -8,7 +11,9 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.util.file;
 using Microsoft.Xna.Framework;
+using Version = Lens.Version;
 
 namespace BurningKnight {
 	public class BK : Engine {
@@ -26,11 +31,55 @@ namespace BurningKnight {
 
 		protected override void Initialize() {
 			base.Initialize();
+			
+			/*AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
+			
+			var dir = FileHandle.FromRoot("Animations");
+			var outDir = new FileHandle("out");
+
+			if (!outDir.Exists()) {
+				outDir.MakeDirectory();
+			}
+
+			var outDirPath = outDir.FullPath;
+
+			foreach (var f in dir.ListFileHandles()) {
+				var fullPath = f.FullPath;
+				var file = new AsepriteFile(fullPath);
+
+				if (file.Slices.Count > 0) {
+					Console.WriteLine($"{f.NameWithoutExtension} (sliced)");
+					RunBash($"aseprite -b {fullPath} --save-as {outDirPath}/{f.NameWithoutExtension}_{{slice}}.png");
+				} else {
+					Console.WriteLine($"{f.NameWithoutExtension} (framed)");
+					RunBash($"aseprite -b {fullPath} --list-tags --save-as {outDirPath}/{f.NameWithoutExtension}_{{tag}}_{{tagframe00}}.png");
+				}
+			}
+
+			Environment.Exit(0);*/
 
 			SaveManager.Init();
 			Controls.Load();
 			Font.Load();
 			ImGuiHelper.Init();
+		}
+
+		private static void RunBash(string args) {
+			var process = new Process {
+				StartInfo = new ProcessStartInfo {
+					FileName = "/bin/bash",
+					Arguments = $"-c \"{args}\"",
+					RedirectStandardOutput = true,
+					UseShellExecute = false,
+					CreateNoWindow = true,
+				}
+			};
+			
+			process.Start();
+			var result = process.StandardOutput.ReadToEnd();
+			process.WaitForExit();
+
+			Console.WriteLine(result);
 		}
 
 		protected override void UnloadContent() {
