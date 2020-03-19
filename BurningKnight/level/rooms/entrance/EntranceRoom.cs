@@ -41,7 +41,7 @@ namespace BurningKnight.level.rooms.entrance {
 
 			if (Builder.ShouldAppear()) {
 				var b = new Builder();
-				b.BottomCenter = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), 10);
+				b.BottomCenter = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), 20);
 				level.Area.Add(b);
 			}
 		}

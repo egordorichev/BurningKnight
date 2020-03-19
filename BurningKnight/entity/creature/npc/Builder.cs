@@ -22,13 +22,12 @@ namespace BurningKnight.entity.creature.npc {
 			Width = 7;
 			Height = 17;
 			
-			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height = Npc.Padding * 2, BodyType.Static));
+			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 
-			cost = Math.Min(99, Run.Depth);
+			cost = Math.Min(99, Run.Depth * 15);
 			paid = GlobalSave.GetInt("builder_paid", 0);
 			
 			AddComponent(new AnimationComponent("builder"));
-			// AddComponent(new CloseDialogComponent("elon_0"));
 			// GetComponent<DialogComponent>().Dialog.Voice = 15;
 
 			var dl = GetComponent<DialogComponent>();
@@ -39,7 +38,7 @@ namespace BurningKnight.entity.creature.npc {
 			};
 			
 			AddComponent(new InteractableComponent(e => {
-				dl.Start("builder_0");
+				dl.Start("builder_0", e);
 				return true;
 			}) {
 				CanInteract = e => !shouldDissappear
@@ -72,7 +71,7 @@ namespace BurningKnight.entity.creature.npc {
 				return Dialogs.Get("builder_4");
 			});
 
-			Dialogs.RegisterCallback("builder_0", (d, c) => {
+			Dialogs.RegisterCallback("builder_3", (d, c) => {
 				shouldDissappear = true;
 				Timer.Add(() => {
 					AnimationUtil.Poof(Center);
@@ -86,6 +85,12 @@ namespace BurningKnight.entity.creature.npc {
 		public override void PostInit() {
 			base.PostInit();
 
+
+			if (GameSave.IsFalse($"shortcut_{Run.Depth}")) {
+				Done = true;
+				return;
+			}
+			
 			if (Run.Depth > 0) {
 				GameSave.Put("seen_builder", true);
 			}

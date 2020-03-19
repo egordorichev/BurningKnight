@@ -14,6 +14,8 @@
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * death counter display (overall game stats)
 
+* give a few items in the daily run, random weapon
+
 ice {
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition

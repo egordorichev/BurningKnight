@@ -6,6 +6,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -22,7 +23,16 @@ namespace BurningKnight.level.entities {
 			Depth = Layers.Entrance;
 		}
 
+		protected virtual bool CanUse() {
+			return true;
+		}
+		
 		protected virtual bool Interact(Entity entity) {
+			if (!CanUse()) {
+				AnimationUtil.ActionFailed();
+				return true;
+			}
+			
 			entity.RemoveComponent<PlayerInputComponent>();
 			entity.GetComponent<HealthComponent>().Unhittable = true;
 
