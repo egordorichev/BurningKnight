@@ -62,7 +62,7 @@ namespace BurningKnight.entity.component {
 			}
 
 			if (Entity is Player && Orbiting.Count == 0) {
-				Entity.GetComponent<AudioEmitterComponent>().Emit("item_orbitals", 1f, looped: true, tween: true);
+				Entity.GetComponent<AudioEmitterComponent>().Emit("item_orbitals", 0.5f, looped: true, tween: true);
 			}			
 			
 			e.GetComponent<OrbitalComponent>().Orbiting = Entity;

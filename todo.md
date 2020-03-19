@@ -1,5 +1,25 @@
 # todo
 
+add enough hats to fit the shop {
+ * cuphead
+ * mustache
+}
+
+add new achievements to steam
+
+* mike saving and boss rush payment
+* line of sight for close dialog
+* underground garderob for the hat keeper
+
+* add tutorial shortcut into the hub
+
+* achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
+
+* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
+* death counter display (overall game stats)
+
+* give a few items in the daily run, random weapon
+
 ice {
  * frozen enemies/troll bomb
  * shooting tiles in ice biome should update transition
@@ -12,14 +32,6 @@ ice {
  * unique wall designs with teleporters
 }
 
-score {
- time
- hits taken
- coins collected
- rooms explored
- kills
-}
-
 ###
 
 * highlight doors you not went through
@@ -28,21 +40,21 @@ score {
    + active shop discount still discounts without the use
 }
 
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* rewamp death screen
-* death counter display
 * spawn chests/pickups in the levels
+
+!! boss rush win condition
+
+* nps that asks for coins but does nothing
 
 ### big points that are needed before release (no overscope)
 
 * hub update
-* library
 * credits
 * achivement icons
+* twitch chat integration
+* localisation
 
 #### Polish
-
-achievement icons
 
 biome-dependant props (cactuses and dead bushes for desert)
 * duck interaction

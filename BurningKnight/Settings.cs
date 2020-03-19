@@ -1,8 +1,10 @@
+using BurningKnight.level;
 using BurningKnight.save;
 using Lens;
 using Lens.assets;
 using Lens.entity.component.logic;
 using Lens.graphics.gamerenderer;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight {
 	public class Settings {
@@ -43,7 +45,17 @@ namespace BurningKnight {
 		public static float FreezeFrames;
 		public static float FlashFrames;
 		public static bool ShowFps;
-		public static float FloorDarkness;
+
+		private static float floorDarkness;
+
+		public static float FloorDarkness {
+			get => floorDarkness;
+
+			set {
+				floorDarkness = value;
+				Level.FloorColor = new Color(floorDarkness, floorDarkness, floorDarkness, 1f);
+			}
+		}
 
 		public static float GameScale {
 			get => PixelPerfectGameRenderer.GameScale;

@@ -481,6 +481,7 @@
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Brastin.cs" />
+    <Compile Include="entity\creature\npc\Builder.cs" />
     <Compile Include="entity\creature\npc\DarkMage.cs" />
     <Compile Include="entity\creature\npc\Discord.cs" />
     <Compile Include="entity\creature\npc\Duck.cs" />
@@ -500,6 +501,7 @@
     <Compile Include="entity\creature\npc\Isaac.cs" />
     <Compile Include="entity\creature\npc\Maanex.cs" />
     <Compile Include="entity\creature\npc\MaPuzzle.cs" />
+    <Compile Include="entity\creature\npc\Mike.cs" />
     <Compile Include="entity\creature\npc\Milt.cs" />
     <Compile Include="entity\creature\npc\NullPtr.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
@@ -565,6 +567,8 @@
     <Compile Include="entity\door\CageDoor.cs" />
     <Compile Include="entity\door\CageLock.cs" />
     <Compile Include="entity\door\ChallengeDoor.cs" />
+    <Compile Include="entity\door\ConditionDoor.cs" />
+    <Compile Include="entity\door\ConditionLock.cs" />
     <Compile Include="entity\door\CustomDoor.cs" />
     <Compile Include="entity\door\Door.cs" />
     <Compile Include="entity\door\GoldLock.cs" />
@@ -586,6 +590,7 @@
     <Compile Include="entity\door\SpikedDoor.cs" />
     <Compile Include="entity\door\TeleportTrigger.cs" />
     <Compile Include="entity\door\TreasureDoor.cs" />
+    <Compile Include="entity\door\VerticalConditionDoor.cs" />
     <Compile Include="entity\door\VerticalDoor.cs" />
     <Compile Include="entity\door\VerticalHallDoor.cs" />
     <Compile Include="entity\door\VerticalShopDoor.cs" />
@@ -676,6 +681,7 @@
     <Compile Include="entity\item\stand\BoxyStand.cs" />
     <Compile Include="entity\item\stand\CustomStand.cs" />
     <Compile Include="entity\item\stand\DarkMageStand.cs" />
+    <Compile Include="entity\item\stand\GarderobeStand.cs" />
     <Compile Include="entity\item\stand\GobettaStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
@@ -695,6 +701,7 @@
     <Compile Include="entity\item\use\AddTorchUse.cs" />
     <Compile Include="entity\item\use\AffectDealChanceUse.cs" />
     <Compile Include="entity\item\use\BlankUse.cs" />
+    <Compile Include="entity\item\use\BlindFoldUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />
@@ -870,6 +877,9 @@
     <Compile Include="level\builders\LoopBuilder.cs" />
     <Compile Include="level\builders\RegularBuilder.cs" />
     <Compile Include="level\builders\SingleRoomBuilder.cs" />
+    <Compile Include="level\challenge\BombOnlyChallenge.cs" />
+    <Compile Include="level\challenge\Challenge.cs" />
+    <Compile Include="level\challenge\ChallengeRegistry.cs" />
     <Compile Include="level\Chasm.cs" />
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
@@ -898,7 +908,10 @@
     <Compile Include="level\entities\decor\WallTorch.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
+    <Compile Include="level\entities\exit\BossRushExit.cs" />
+    <Compile Include="level\entities\exit\ChallengeExit.cs" />
     <Compile Include="level\entities\exit\DailyRunExit.cs" />
+    <Compile Include="level\entities\exit\ShortcutExit.cs" />
     <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\HiddenEntrance.cs" />
@@ -1243,6 +1256,10 @@
     <Compile Include="util\Vec2.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aseprite\Aseprite.csproj">
+      <Project>{13c6f252-0b3c-4a22-a9db-270c76657fab}</Project>
+      <Name>Aseprite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lens\Lens.csproj">
       <Project>{3b26aa2e-0ba2-42dc-ad62-e6c8617f9e4d}</Project>
       <Name>Lens</Name>

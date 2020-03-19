@@ -26,7 +26,7 @@ namespace BurningKnight.entity.creature.player {
 
 			var controller = GetComponent<GamepadComponent>().Controller;
 
-			if (Item != null) {
+			if (!Disabled && Item != null) {
 				var ready = Item.Delay <= 0.001f;
 
 				if (ready) {

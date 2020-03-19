@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.level.entities.plant;
+using ImGuiNET;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.math;
@@ -39,6 +40,18 @@ namespace BurningKnight.level.entities.decor {
 			if (High) {
 				Depth = Layers.Wall + 1;
 			}
+
+			UpdateSprite();
+
+			if (Depth > 0 && Width > 14 && !AlwaysShow) {
+				AddComponent(new SensorBodyComponent(4, 4, Width - 4, Height - 4));
+			}
+		}
+		
+		private void UpdateSprite() {
+			if (GraphicsComponent != null) {
+				RemoveComponent<PlantGraphicsComponent>();
+			}
 			
 			var s = new PlantGraphicsComponent("props", $"tree_{type}");
 			s.RotationModifier = 0.03f;
@@ -48,10 +61,6 @@ namespace BurningKnight.level.entities.decor {
 
 			Width = s.Sprite.Width;
 			Height = s.Sprite.Height;
-
-			if (Width > 14 && !AlwaysShow) {
-				AddComponent(new SensorBodyComponent(4, 4, Width - 4, Height - 4));
-			}
 		}
 
 		public override void Load(FileReader stream) {
@@ -93,6 +102,16 @@ namespace BurningKnight.level.entities.decor {
 			}
 
 			return base.HandleEvent(e);
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			var v = (int) type;
+
+			if (ImGui.InputInt("Id", ref v)) {
+				type = (byte) v;
+				UpdateSprite();
+			}
 		}
 	}
 }

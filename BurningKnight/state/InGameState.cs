@@ -23,6 +23,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.save.statistics;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using BurningKnight.ui.editor;
@@ -2051,7 +2052,8 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDeathScreen() {
-			gameOverMenu.Enabled = true;		
+			gameOverMenu.Enabled = true;	
+			GlobalSave.Put("played_once", true);
 
 			var stats = new UiTable {
 				Width = 128
@@ -2071,8 +2073,21 @@ namespace BurningKnight.state {
 			stats.Add(Locale.Get("rooms_explored"), $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}");
 			stats.Add(Locale.Get("distance_traveled"), $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}");
 
-			stats.Add(Locale.Get("score"), $"{Locale.Get("new_high_score")} 0");
+			Run.CalculateScore();
+			Log.Info($"Run score is {Run.Score}");
+
+			var newHigh = false;
+
+			if (Run.Type == RunType.Challenge) {
+				newHigh = GlobalSave.GetInt("high_score") < Run.Score;
+				
+				if (newHigh) {
+					Log.Info("New highscore!");
+					GlobalSave.Put("high_score", Run.Score);
+				}
+			}
 			
+			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
 			stats.Prepare();
 			
 			stats.RelativeCenterX = Display.UiWidth * 0.5f;
@@ -2086,6 +2101,31 @@ namespace BurningKnight.state {
 			};
 			
 			OpenBlackBars();
+
+			var board = "high_score";
+
+			switch (Run.Type) {
+				case RunType.Regular: {
+					break;
+				}
+				
+				case RunType.Daily: {
+					board = $"daily_{Run.DailyId}";
+					break;
+				}
+
+				case RunType.BossRush: {
+					board = "boss_rush";
+					break;
+				}
+
+				case RunType.Challenge: default: {
+					// FIXME: TODO
+					throw new Exception("Impolement me");
+				}
+			}
+
+			Run.SubmitScore?.Invoke(Run.Score, board);
 		}
 		
 		public void HandleDeath() {

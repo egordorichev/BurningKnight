@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using Lens;
 using Lens.entity;
 using Lens.entity.component;
 using Microsoft.Xna.Framework;
@@ -41,6 +42,10 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			if (Lock.Done) {
+				if (Engine.EditingLevel && Entity is ConditionDoor) {
+					Entity.Done = true;
+				}
+
 				return;
 			}
 			

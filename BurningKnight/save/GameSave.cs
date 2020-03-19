@@ -72,6 +72,7 @@ namespace BurningKnight.save {
 			writer.WriteByte((byte) Run.PermanentScourge);
 			writer.WriteString(Run.Seed);
 			writer.WriteString(Run.Type.ToString());
+			writer.WriteInt32(Run.DailyId);
 		}
 
 		public override string GetPath(string path, bool old = false) {
@@ -110,6 +111,8 @@ namespace BurningKnight.save {
 			} else {
 				Run.Type = RunType.Regular;
 			}
+
+			Run.DailyId = reader.ReadInt32();
 		}
 
 		public static int PeekDepth(FileReader reader) {

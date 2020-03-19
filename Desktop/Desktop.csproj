@@ -251,6 +251,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aseprite\Aseprite.csproj">
+      <Project>{13c6f252-0b3c-4a22-a9db-270c76657fab}</Project>
+      <Name>Aseprite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BurningKnight\BurningKnight.csproj">
       <Project>{d31d0d40-105e-47d5-a5d0-f6e30328bf86}</Project>
       <Name>BurningKnight</Name>

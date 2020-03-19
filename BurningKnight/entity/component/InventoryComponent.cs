@@ -81,6 +81,10 @@ namespace BurningKnight.entity.component {
 		}
 		
 		public void Add(Item item) {
+			if (item == null) {
+				return;
+			}
+			
 			if (item.HasComponent<OwnerComponent>()) {
 				item.RemoveComponent<OwnerComponent>();
 			}

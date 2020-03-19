@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using BurningKnight.assets.achievements;
 using BurningKnight.save;
+using BurningKnight.state;
 using Lens.util;
 using Steamworks;
 using Steamworks.Data;
@@ -33,6 +35,17 @@ namespace Desktop.integration.steam {
 				SaveManager.EnableCloudSave = true;
 
 				Log.Info("Starting from steam! <3");
+
+				Run.SubmitScore += (score, board) => {
+					new Thread(() => { 
+						Log.Info($"Submitting score {score} to board {board}");
+					
+						var br = SteamUserStats.FindOrCreateLeaderboardAsync(board, LeaderboardSort.Descending, LeaderboardDisplay.Numeric).GetAwaiter().GetResult();
+						br?.SubmitScoreAsync(score).GetAwaiter().GetResult();
+
+						Log.Info($"Done submitting the score {score}");
+					}).Start();
+				};
 
 				Achievements.PostLoadCallback += () => {
 					foreach (var achievement in SteamUserStats.Achievements) {

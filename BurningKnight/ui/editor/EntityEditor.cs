@@ -5,6 +5,7 @@ using System.Reflection;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.door;
 using BurningKnight.entity.fx;
 using BurningKnight.level.entities;
 using BurningKnight.state;
@@ -130,7 +131,7 @@ namespace BurningKnight.ui.editor {
 				Entity selected = null;
 					
 				foreach (var e in Editor.Area.Entities.Entities) {
-					if (e.OnScreen && AreaDebug.PassFilter(e) && !(e is Firefly || e is WindFx)) {
+					if (e.OnScreen && AreaDebug.PassFilter(e) && !(e is Firefly || e is WindFx || e is Lock)) {
 						if (e.Contains(mouse)) {
 							selected = e;
 						}

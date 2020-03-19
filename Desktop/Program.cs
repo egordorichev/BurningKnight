@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using Aseprite;
+using Lens.util.file;
 
 namespace Desktop {
 	public class Program {

@@ -37,13 +37,15 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			Graphics.Color.A = 200;
-			
-			for (var i = 0; i < entries.Count; i++) {
-				Graphics.Render(texture, new Vector2(X, Y + i * EntryHeight));
-			}
+			if (texture != null) {
+				Graphics.Color.A = 200;
 
-			Graphics.Color.A = 255;
+				for (var i = 0; i < entries.Count; i++) {
+					Graphics.Render(texture, new Vector2(X, Y + i * EntryHeight));
+				}
+
+				Graphics.Color.A = 255;
+			}
 
 			for (var i = 0; i < entries.Count; i++) {
 				var entry = entries[i];

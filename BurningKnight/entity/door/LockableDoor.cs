@@ -56,6 +56,10 @@ namespace BurningKnight.entity.door {
 		}
 
 		private void AddLock(Lock l) {
+			if (l == null) {
+				return;
+			}
+			
 			if (HasComponent<LockComponent>()) {
 				RemoveComponent<LockComponent>();
 			}

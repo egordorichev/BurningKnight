@@ -29,6 +29,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,6 +41,7 @@ namespace BurningKnight.level {
 		public const float LightMax = 0.95f;
 		public static bool RenderPassable = false;
 		public static Color ShadowColor = new Color(0f, 0f, 0f, 0.5f);
+		public static Color FloorColor = new Color(1f, 1f, 1f, 1f);
 		
 		public Tileset Tileset;
 		public Biome Biome;
@@ -221,8 +223,11 @@ namespace BurningKnight.level {
 					rainSound = s.CreateInstance();
 
 					if (rainSound != null) {
-						rainSound.Play();
+						rainSound.Volume = 0;
 						rainSound.IsLooped = true;
+						rainSound.Play();
+
+						Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
 					}
 				}
 			}
@@ -833,7 +838,7 @@ namespace BurningKnight.level {
 			region.Source.Width = Display.Width + 1;
 			region.Source.Height = Display.Height + 1;
 			
-			Graphics.Color = new Color(Settings.FloorDarkness, Settings.FloorDarkness, Settings.FloorDarkness, 1f);
+			Graphics.Color = FloorColor;
 
 			Graphics.Render(region, camera.TopLeft - new Vector2(camera.Position.X % 1, 
 				                        camera.Position.Y % 1));

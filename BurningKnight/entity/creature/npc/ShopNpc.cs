@@ -17,6 +17,7 @@ namespace BurningKnight.entity.creature.npc {
 		public const string ActiveTrader = "active_trader";
 		public const string WeaponTrader = "weapon_trader";
 		public const string HatTrader = "hat_trader";
+		public const string Mike = "mike";
 		
 		public const string Snek = "snek";
 		public const string Boxy = "boxy";

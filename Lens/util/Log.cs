@@ -17,7 +17,7 @@ namespace Lens.util {
 		}
 
 		public static void Close() {
-			writer.Close();	
+			writer?.Close();	
 		}
 		
 		public static void Info(object message) {
