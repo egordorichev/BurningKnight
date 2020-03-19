@@ -1,5 +1,10 @@
 # todo
 
+add enough hats to fit the shop {
+ * cuphead
+ * mustache
+}
+
 add new achievements to steam
 
 * mike saving and boss rush payment

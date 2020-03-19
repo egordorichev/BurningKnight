@@ -29,6 +29,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -222,8 +223,11 @@ namespace BurningKnight.level {
 					rainSound = s.CreateInstance();
 
 					if (rainSound != null) {
-						rainSound.Play();
+						rainSound.Volume = 0;
 						rainSound.IsLooped = true;
+						rainSound.Play();
+
+						Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
 					}
 				}
 			}
