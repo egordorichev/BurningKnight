@@ -15,15 +15,15 @@ namespace BurningKnight.level.entities.exit {
     private bool broken;
 
     public override void PostInit() {
-      base.PostInit();
-
       if (!Engine.EditingLevel && GlobalSave.IsFalse($"shortcut_{id}")) {
         broken = true;
       }
+      
+      base.PostInit();
     }
 
     protected override string GetSlice() {
-      return id == 0 ? base.GetSlice() : $"shortcut_{id}";
+      return id == 0 ? base.GetSlice() : (broken ? $"shortcut_broken_{id}" : $"shortcut_{id}");
     }
 
     protected override bool CanUse() {

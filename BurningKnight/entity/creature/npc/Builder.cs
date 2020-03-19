@@ -85,8 +85,7 @@ namespace BurningKnight.entity.creature.npc {
 		public override void PostInit() {
 			base.PostInit();
 
-
-			if (GameSave.IsFalse($"shortcut_{Run.Depth}")) {
+			if (GlobalSave.IsTrue($"shortcut_{Run.Depth}")) {
 				Done = true;
 				return;
 			}
@@ -102,7 +101,7 @@ namespace BurningKnight.entity.creature.npc {
 			}
 
 			if (Run.Depth == 3 || Run.Depth == 5 || Run.Depth == 7 || Run.Depth == 9) {
-				return GameSave.IsFalse($"shortcut_{Run.Depth}");
+				return GlobalSave.IsFalse($"shortcut_{Run.Depth}");
 			}
 
 			return false;
