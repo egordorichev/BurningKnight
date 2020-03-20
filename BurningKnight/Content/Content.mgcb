@@ -1432,29 +1432,11 @@
 /processorParam:Quality=Best
 /build:Sfx/secret.wav
 
-#begin Sfx/slime_dead.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/slime_dead.wav
-
 #begin Sfx/slime_hurt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/slime_hurt.wav
-
-#begin Sfx/slime_jump.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/slime_jump.wav
-
-#begin Sfx/slime_land.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sfx/slime_land.wav
 
 #begin Sfx/swap.wav
 /importer:WavImporter
