@@ -572,7 +572,11 @@ namespace BurningKnight.entity.creature.player {
 					var hp = GetComponent<HealthComponent>().Health;
 
 					if (hp > 0) {
-						Audio.PlaySfx(hp < 2 ? "player_low_hp_hurt" : "player_hurt", 1f);
+						if (h.ShieldsTook) {
+							Audio.PlaySfx("player_shield_hurt", 1f);
+						} else {
+							Audio.PlaySfx(hp < 2 ? "player_low_hp_hurt" : "player_hurt", 1f);
+						}
 					}
 
 					if (Settings.Blood) {

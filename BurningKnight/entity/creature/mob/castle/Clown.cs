@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddAnimation("clown");
-			SetMaxHp(2);
+			SetMaxHp(3);
 			
 			Become<IdleState>();
 
@@ -90,6 +90,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 					bomb.Center = Self.Center;
 					bomb.VelocityTo(Self.AngleTo(Self.Target));
 
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("mob_clown_bomb", 2);
+
 					away = true;
 					Init();
 				}
@@ -112,6 +114,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		protected override string GetHurtSfx() {
+			return "mob_clown_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_clown_death";
 		}
 	}
 }

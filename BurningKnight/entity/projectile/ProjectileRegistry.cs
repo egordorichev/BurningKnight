@@ -192,6 +192,7 @@ namespace BurningKnight.entity.projectile {
 				
 				p.OnDeath = (pr, t) => {
 					pr.Item.Renderer.Hidden = false;
+					pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
 				};
 
 				p.OnCollision = (projectile, e) => {
@@ -231,6 +232,8 @@ namespace BurningKnight.entity.projectile {
 
 				p.Rotates = true;
 				p.OnDeath += (pr, t) => {
+					AudioEmitterComponent.Dummy(pr.Area, pr.Center).EmitRandomized("item_magic_lava_appear");
+				
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
 					const int r = 3;

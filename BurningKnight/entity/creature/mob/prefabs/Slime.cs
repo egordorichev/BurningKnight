@@ -171,7 +171,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 
 		protected override string GetDeadSfx() {
-			return "slime_dead";
+			return "mob_slime_dead";
 		}
 
 		protected override string GetHurtSfx() {

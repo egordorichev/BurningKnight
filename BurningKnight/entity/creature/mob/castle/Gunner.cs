@@ -148,5 +148,13 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			return base.HandleEvent(e);
 		}
+
+		protected override string GetDeadSfx() {
+			return "mob_gunner_death";
+		}
+
+		protected override string GetHurtSfx() {
+			return "mob_gunner_hurt";
+		}
 	}
 }
