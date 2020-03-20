@@ -1,5 +1,19 @@
 # todo
 
+{
+ sfx
+ achievements
+ challenges
+ 
+ demo
+}
+
+* sign system
+* a sign saying that you can try your hats on in the garderobe
+
+head room explanation
+desert gen gave up? no loading screen tips sometimes
+
 add enough hats to fit the shop {
  * cuphead
  * mustache
