@@ -33,7 +33,7 @@ namespace BurningKnight.assets.prefabs {
 			if (!handle.Exists()) {
 				return;
 			}
-
+			
 			if (handle.IsDirectory()) {
 				foreach (var file in handle.ListFileHandles()) {
 					Load(file);
@@ -50,6 +50,8 @@ namespace BurningKnight.assets.prefabs {
 				return;
 			}
 
+			Log.Info($"Loading prefab {handle.FullPath}");
+			
 			try {
 				var prefab = new Prefab();
 				var stream = new FileReader(handle.FullPath);

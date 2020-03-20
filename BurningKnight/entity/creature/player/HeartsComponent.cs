@@ -20,34 +20,56 @@ namespace BurningKnight.entity.creature.player {
 			var component = GetComponent<HealthComponent>();
 			amount = (int) (amount < 0 ? Math.Max(ShieldHalfs, amount) : Math.Min(Cap - component.MaxHealth - Total, amount));
 
-			if (amount != 0 && !Send(new HealthModifiedEvent {
+			var e = new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
 				Who = Entity,
-				Default = false
-			})) {
+				Default = false,
+				ShieldsTook = true
+			};
+			
+			if (amount != 0 && !Send(e)) {
 				if (amount > 0) {
 					Entity.GetComponent<HealthComponent>().EmitParticles(true);
 				}
 				
-				shieldHalfs = (byte) Math.Max(0, shieldHalfs + amount);
+				shieldHalfs = (byte) Math.Max(0, shieldHalfs + e.Amount);
 
 				if (shieldHalfs > 0) {
 					Achievements.Unlock("bk:shielded");
 				}
+
+				Send(new PostHealthModifiedEvent {
+					Amount = e.Amount,
+					From = setter,
+					Who = Entity,
+					Default = false,
+					ShieldsTook = true
+				});
 			}
 		}
 		
 		public bool Hurt(int amount, Entity setter) {
-			if (!Send(new HealthModifiedEvent {
+			var e = new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
 				Who = Entity,
-				Default = false
-			})) {
-				var iron = (byte) Math.Min(amount, shieldHalfs);
-				shieldHalfs -= iron;
+				Default = false,
+				ShieldsTook = true
+			};
+			
+			if (!Send(e)) {
+				var iron = (byte) Math.Min(e.Amount, shieldHalfs);
+				shieldHalfs += iron;
 
+				Send(new PostHealthModifiedEvent {
+					Amount = e.Amount,
+					From = setter,
+					Who = Entity,
+					Default = false,
+					ShieldsTook = true
+				});
+				
 				return true;
 			}
 

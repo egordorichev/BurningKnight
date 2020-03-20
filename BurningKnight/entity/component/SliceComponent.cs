@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.assets.items;
 using Lens.assets;
 using Lens.entity.component.graphics;
 using Lens.graphics;
@@ -25,6 +26,7 @@ namespace BurningKnight.entity.component {
 
 		public void Set(string image, string slice) {
 			if (image == null || slice == null) {
+				Sprite = Textures.Missing;
 				return;
 			}
 			

@@ -883,6 +883,7 @@
     <Compile Include="level\Chasm.cs" />
     <Compile Include="level\ChasmBodyComponent.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
+    <Compile Include="level\entities\AchievementStatue.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\building\Thing.cs" />
     <Compile Include="level\entities\building\House.cs" />

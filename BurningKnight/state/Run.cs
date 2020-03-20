@@ -2,6 +2,7 @@
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using BurningKnight.save;
@@ -41,6 +42,7 @@ namespace BurningKnight.state {
 		public static int Score;
 		public static int DailyId;
 		public static byte ChallengeId;
+		public static bool Won;
 		
 		public static int Depth {
 			get => depth;
@@ -113,6 +115,7 @@ namespace BurningKnight.state {
 			HasRun = false;
 			Luck = 0;
 			Scourge = 0;
+			Won = false;
 			PermanentScourge = 0;
 			LastSavedDepth = 0;
 			
@@ -191,10 +194,31 @@ namespace BurningKnight.state {
 			Score += Statistics.Items.Count * 100;
 			Score += (int) Statistics.MobsKilled * 10;
 			Score += (int) Statistics.RoomsExplored * 2;
+			Score += Statistics.BossesDefeated * 1000;
 
+			if (Won) {
+				Score += 5000;
+			}
+			
 			Score -= (int) Statistics.DamageTaken * 10;
 			Score -= (int) Time;
 			Score -= Statistics.PitsFallen;
+		}
+
+		public static void Win() {
+			if (Won) {
+				return;
+			}
+
+			Won = true;
+			Statistics.Won = true;
+
+			foreach (var p in Engine.Instance.State.Area.Tagged[Tags.Player]) {
+				p.RemoveComponent<PlayerInputComponent>();
+				p.GetComponent<HealthComponent>().Unhittable = true;
+			}
+			
+			((InGameState) Engine.Instance.State).AnimateDoneScreen();
 		}
 	}
 }

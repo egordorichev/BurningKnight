@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
@@ -16,10 +17,6 @@ using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.save.statistics {
-	/*
-	 * todo:
-	 * won
-	 */
 	public class RunStatistics : SaveableEntity {
 		private const byte Version = 0;
 		public bool Frozen;
@@ -53,6 +50,8 @@ namespace BurningKnight.save.statistics {
 
 		public uint TilesWalked;
 		public ushort PitsFallen;
+
+		public ushort BossesDefeated;
 
 		private float leftOver;
 		
@@ -104,6 +103,8 @@ namespace BurningKnight.save.statistics {
 
 			TilesWalked = stream.ReadUInt32();
 			PitsFallen = stream.ReadUInt16();
+
+			BossesDefeated = stream.ReadUInt16();
 		}
 
 		public override void Save(FileWriter stream) {
@@ -149,6 +150,7 @@ namespace BurningKnight.save.statistics {
 			
 			stream.WriteUInt32(TilesWalked);
 			stream.WriteUInt16(PitsFallen);
+			stream.WriteUInt16(BossesDefeated);
 		}
 
 		public override void Init() {
@@ -168,6 +170,7 @@ namespace BurningKnight.save.statistics {
 			Subscribe<LostSupportEvent>();
 			Subscribe<MaxHealthModifiedEvent>();
 			Subscribe<NewLevelStartedEvent>();
+			Subscribe<Boss.DefeatedEvent>();
 		}
 
 		public override void PostInit() {
@@ -208,8 +211,9 @@ namespace BurningKnight.save.statistics {
 			}
 			
 			if (e is RoomChangedEvent rce) {
-				if (!rce.WasDiscovered) {
+				if (rce.Who is LocalPlayer && rce.JustDiscovered) {
 					RoomsExplored++;
+					Log.Debug("plus room");
 				}
 			} else if (e is SecretRoomFoundEvent) {
 				SecretRoomsFound++;
@@ -270,6 +274,8 @@ namespace BurningKnight.save.statistics {
 
 					RoomsTotal++;
 				}
+			} else if (e is Boss.DefeatedEvent) {
+				BossesDefeated++;
 			}
 			
 			return false;
@@ -336,11 +342,12 @@ namespace BurningKnight.save.statistics {
 			ImGui.Text($"Date Started: {Day} {Year}");
 			ImGui.Text($"Tiles Walked: {TilesWalked}");
 			ImGui.Text($"Pits Fallen: {PitsFallen}");
+			ImGui.Text($"Bosses Defeated: {BossesDefeated}");
 			
 			ImGui.Separator();
 			ImGui.Text($"Luck: {Run.Luck}");
 			ImGui.Text($"Scourge: {Run.Scourge}");
-			
+
 			if (ImGui.TreeNode("Scourges")) {
 				foreach (var curse in Scourge.Defined) {
 					var v = Scourge.IsEnabled(curse);

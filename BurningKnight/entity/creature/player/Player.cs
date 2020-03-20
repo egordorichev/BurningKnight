@@ -170,7 +170,9 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
-				if (StartingWeapon == null) {
+				if (Run.Type == RunType.Daily) {
+					StartingWeapon = Items.Generate(ItemType.Weapon);
+				} else if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
 
@@ -569,10 +571,14 @@ namespace BurningKnight.entity.creature.player {
 						Player = this
 					});
 
-					var hp = GetComponent<HealthComponent>().Health;
+					var hp = GetComponent<HealthComponent>().Health + GetComponent<HeartsComponent>().ShieldHalfs;
 
 					if (hp > 0) {
-						Audio.PlaySfx(hp < 2 ? "player_low_hp_hurt" : "player_hurt", 1f);
+						if (h.ShieldsTook) {
+							Audio.PlaySfx("player_shield_hurt", 1f);
+						} else {
+							Audio.PlaySfx(hp < 2 ? "player_low_hp_hurt" : "player_hurt", 1f);
+						}
 					}
 
 					if (Settings.Blood) {

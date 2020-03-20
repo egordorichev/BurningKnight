@@ -1,15 +1,25 @@
 # todo
 
-add enough hats to fit the shop {
- * cuphead
- * mustache
+{
+ achievements
+ challenges
+ 
+ {
+  stats fix: 
+   score 0
+ }
+ 
+ demo
 }
-
-add new achievements to steam
 
 * mike saving and boss rush payment
 * line of sight for close dialog
-* underground garderob for the hat keeper
+
+* sign system
+* a sign saying that you can try your hats on in the garderobe
+
+head room explanation
+desert gen gave up? no loading screen tips sometimes
 
 * add tutorial shortcut into the hub
 
@@ -18,7 +28,7 @@ add new achievements to steam
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * death counter display (overall game stats)
 
-* give a few items in the daily run, random weapon
+* credits
 
 ice {
  * frozen enemies/troll bomb
@@ -36,18 +46,13 @@ ice {
 
 * highlight doors you not went through
 
-* fix {
-   + active shop discount still discounts without the use
-}
-
++ active shop discount still discounts without the use
 * spawn chests/pickups in the levels
-
-!! boss rush win condition
-
 * nps that asks for coins but does nothing
 
 ### big points that are needed before release (no overscope)
 
+slimes shouldnt all jump at the same time
 * hub update
 * credits
 * achivement icons

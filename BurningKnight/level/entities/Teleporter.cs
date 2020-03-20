@@ -8,6 +8,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.save;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
@@ -76,11 +77,14 @@ namespace BurningKnight.level.entities {
 					var tr = (Teleporter) t;
 					
 					if (tr != this && tr.Id == Id) {
+						Audio.PlaySfx("level_teleport_send");
+						
 						AnimationUtil.TeleportAway(c, () => {
 							tr.ignoreCollision = true;
 							c.BottomCenter = tr.Center;
 							Camera.Instance.Jump();
 							c.GetComponent<HealthComponent>().InvincibilityTimer = 1;
+							Audio.PlaySfx("level_teleport_arrive");
 							
 							AnimationUtil.TeleportIn(c);
 						});

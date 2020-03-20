@@ -41,14 +41,15 @@ namespace BurningKnight.entity.door {
 			}
 			
 			Audio.PlaySfx("item_cage_key_used");
+			Achievements.IncrementProgress("bk:npc_party");
 
-			if (GlobalSave.IsTrue(ShopNpc.AccessoryTrader) &&
-			    GlobalSave.IsTrue(ShopNpc.ActiveTrader) &&
-			    GlobalSave.IsTrue(ShopNpc.WeaponTrader) &&
-			    GlobalSave.IsTrue(ShopNpc.HatTrader)) {
-
-				Achievements.Unlock("npc_party");
+			foreach (var id in ShopNpc.AllNpc) {
+				if (GlobalSave.IsFalse(id)) {
+					return;
+				}
 			}
+			
+			Achievements.Unlock("npc_party");
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {

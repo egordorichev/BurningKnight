@@ -334,7 +334,7 @@ namespace BurningKnight.ui.inventory {
 			var show = Run.Depth > 0;
 			var hasMana = Player.GetComponent<WeaponComponent>().Item?.Data?.WeaponType == WeaponType.Magic || Player.GetComponent<ActiveWeaponComponent>().Item?.Data?.WeaponType == WeaponType.Magic;
 
-			RenderHealthBar(show);
+			RenderHealthBar(true);
 
 			if (show && hasMana) {
 				RenderMana();

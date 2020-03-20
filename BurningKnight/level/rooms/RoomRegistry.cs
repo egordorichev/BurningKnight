@@ -21,6 +21,7 @@ using BurningKnight.level.rooms.trap;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.walls;
 using BurningKnight.save;
+using BurningKnight.state;
 using Lens.util;
 using Lens.util.math;
 
@@ -209,7 +210,7 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public static RoomDef Generate(RoomType type, Biome biome) {
-			if (biome is IceBiome && type == RoomType.Connection) {
+			if (biome is IceBiome && type == RoomType.Connection && Run.Type != RunType.BossRush) {
 				return new IceConnectionRoom();
 			}
 			

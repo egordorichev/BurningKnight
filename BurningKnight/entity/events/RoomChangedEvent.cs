@@ -8,5 +8,6 @@ namespace BurningKnight.entity.events {
 		public Room Old;
 		public Room New;
 		public bool WasDiscovered;
+		public bool JustDiscovered;
 	}
 }

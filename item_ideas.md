@@ -62,6 +62,7 @@
 
 * bomb gun
 * laser gun
+* toilet paper weapon
 
 ### pools to fill
 

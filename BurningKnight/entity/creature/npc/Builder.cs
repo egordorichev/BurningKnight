@@ -96,7 +96,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public static bool ShouldAppear() {
-			if (GameSave.IsTrue("seen_builder")) {
+			if (Run.Type != RunType.Regular || GameSave.IsTrue("seen_builder")) {
 				return false;
 			}
 

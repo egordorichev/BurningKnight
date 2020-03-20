@@ -56,8 +56,6 @@ namespace BurningKnight.entity.creature.npc {
 					if (rce.New.Type != RoomType.Granny) {
 						Achievements.Unlock("bk:tea_party");
 					}
-
-					Items.Unlock("bk:grandma_head");
 				}
 			} else if (e is Dialog.EndedEvent dee) {
 				if (dee.Dialog.Id == "bk_9") {

@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.save;
 using Lens.entity;
@@ -10,6 +11,8 @@ namespace BurningKnight.entity.item.stand {
 
 		protected override void OnTake(Item item, Entity who) {
 			base.OnTake(item, who);
+
+			Achievements.IncrementProgress("bk:fashion_matters");
 
 			foreach (var i in Area.Tagged[Tags.Item].ToArray()) {
 				if (i is GarderobeStand gs) {
