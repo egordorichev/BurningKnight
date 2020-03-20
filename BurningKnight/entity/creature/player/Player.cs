@@ -170,7 +170,9 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
-				if (StartingWeapon == null) {
+				if (Run.Type == RunType.Daily) {
+					StartingWeapon = Items.Generate(ItemType.Weapon);
+				} else if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
 

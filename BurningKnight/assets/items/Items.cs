@@ -384,7 +384,7 @@ namespace BurningKnight.assets.items {
 		public static List<ItemData> GetPool(ItemPool pool) {
 			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
 		}
-
+		
 		public static bool ShouldAppear(string id) {
 			if (id == "bk:coin") {
 				return true;
@@ -397,8 +397,9 @@ namespace BurningKnight.assets.items {
 			return ShouldAppear(data);
 		}
 
+		
 		public static bool ShouldAppear(ItemData t) {
-			return (!t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
+			return (Run.Type == RunType.Daily || !t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
 			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
 			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";
 		}

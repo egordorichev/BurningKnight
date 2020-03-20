@@ -7,21 +7,20 @@
  {
   stats fix: 
    score 0
-    rooms explored 
+   rooms explored 
  }
  
  demo
 }
+
+* mike saving and boss rush payment
+* line of sight for close dialog
 
 * sign system
 * a sign saying that you can try your hats on in the garderobe
 
 head room explanation
 desert gen gave up? no loading screen tips sometimes
-
-* mike saving and boss rush payment
-* line of sight for close dialog
-* underground garderob for the hat keeper
 
 * add tutorial shortcut into the hub
 
@@ -30,7 +29,7 @@ desert gen gave up? no loading screen tips sometimes
 * change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
 * death counter display (overall game stats)
 
-* give a few items in the daily run, random weapon
+* credits
 
 ice {
  * frozen enemies/troll bomb
