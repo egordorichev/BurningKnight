@@ -20,7 +20,6 @@ namespace BurningKnight.entity.creature.player {
 			var component = GetComponent<HealthComponent>();
 			amount = (int) (amount < 0 ? Math.Max(ShieldHalfs, amount) : Math.Min(Cap - component.MaxHealth - Total, amount));
 
-
 			var e = new HealthModifiedEvent {
 				Amount = amount,
 				From = setter,
@@ -61,7 +60,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			if (!Send(e)) {
 				var iron = (byte) Math.Min(e.Amount, shieldHalfs);
-				shieldHalfs -= iron;
+				shieldHalfs += iron;
 
 				Send(new PostHealthModifiedEvent {
 					Amount = e.Amount,

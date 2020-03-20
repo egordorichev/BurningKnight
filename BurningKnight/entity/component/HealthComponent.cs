@@ -114,16 +114,8 @@ namespace BurningKnight.entity.component {
 							return false;
 						}
 
-						if (hearts.Hurt((int) -Math.Round(amount), setter)) {
+						if (hearts.Hurt((int) Math.Round(amount), setter)) {
 							InvincibilityTimer = InvincibilityTimerMax;
-
-							Send(new PostHealthModifiedEvent {
-								Amount = amount,
-								Who = Entity,
-								From = setter,
-								Type = type
-							});
-							
 							TryToKill(setter);
 							return true;
 						}

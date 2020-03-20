@@ -569,7 +569,7 @@ namespace BurningKnight.entity.creature.player {
 						Player = this
 					});
 
-					var hp = GetComponent<HealthComponent>().Health;
+					var hp = GetComponent<HealthComponent>().Health + GetComponent<HeartsComponent>().ShieldHalfs;
 
 					if (hp > 0) {
 						if (h.ShieldsTook) {
