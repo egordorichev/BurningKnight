@@ -19,8 +19,6 @@
 head room explanation
 desert gen gave up? no loading screen tips sometimes
 
-add enough hats to fit the shop (make santa hat buyable)
-
 * mike saving and boss rush payment
 * line of sight for close dialog
 * underground garderob for the hat keeper
