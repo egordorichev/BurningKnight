@@ -48,6 +48,10 @@ namespace BurningKnight.save {
 						Log.Info($"Giving {id}");
 						inventory.Add(Items.CreateAndAdd(id, area));
 					}
+
+					if (Rnd.Chance(70)) {
+						player.GetComponent<ActiveItemComponent>().Set(Items.CreateAndAdd(Items.Generate(ItemType.Active), area));
+					}
 				}
 			}
 		}
