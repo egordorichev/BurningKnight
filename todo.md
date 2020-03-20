@@ -62,6 +62,7 @@ ice {
 
 ### big points that are needed before release (no overscope)
 
+slimes shouldnt all jump at the same time
 * hub update
 * credits
 * achivement icons
