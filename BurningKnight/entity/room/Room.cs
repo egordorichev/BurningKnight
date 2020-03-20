@@ -24,6 +24,7 @@ using BurningKnight.ui.editor;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using ImGuiNET;
+using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
@@ -105,6 +106,10 @@ namespace BurningKnight.entity.room {
 			if (!settedUp && t >= 0.1f) {
 				settedUp = true;
 				Setup();
+
+				if (!Engine.EditingLevel && Type == RoomType.Hidden) {
+					Hide(true);
+				}
 			}
 
 			foreach (var c in Controllers) {
