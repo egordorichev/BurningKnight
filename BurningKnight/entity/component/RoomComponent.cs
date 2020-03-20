@@ -53,7 +53,8 @@ namespace BurningKnight.entity.component {
 					Who = Entity,
 					Old = old,
 					New = Room,
-					WasDiscovered = Room == null || Room.Explored
+					WasDiscovered = Room == null || Room.Explored,
+					JustDiscovered = Room != null && !Room.Explored
 				});
 			}
 		}

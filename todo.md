@@ -7,7 +7,6 @@
  {
   stats fix: 
    score 0
-   rooms explored 
  }
  
  demo

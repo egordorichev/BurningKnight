@@ -211,8 +211,9 @@ namespace BurningKnight.save.statistics {
 			}
 			
 			if (e is RoomChangedEvent rce) {
-				if (!rce.WasDiscovered) {
+				if (rce.Who is LocalPlayer && rce.JustDiscovered) {
 					RoomsExplored++;
+					Log.Debug("plus room");
 				}
 			} else if (e is SecretRoomFoundEvent) {
 				SecretRoomsFound++;
