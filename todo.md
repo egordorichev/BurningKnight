@@ -1,7 +1,6 @@
 # todo
 
 {
- fix door in the artifact trader house being in the wrong place
  achievements
  challenges
  

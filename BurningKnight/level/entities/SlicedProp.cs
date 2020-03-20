@@ -20,13 +20,17 @@ namespace BurningKnight.level.entities {
 		
 		public override void PostInit() {
 			base.PostInit();
-			AddComponent(CreateGraphicsComponent());
+			InsertGraphics();
 		}
 
 		protected virtual GraphicsComponent CreateGraphicsComponent() {
 			return HasComponent<InteractableComponent>()
 					? new InteractableSliceComponent("props", Sprite)
 					: new SliceComponent("props", Sprite);
+		}
+
+		protected virtual void InsertGraphics() {
+			AddComponent(CreateGraphicsComponent());
 		}
 
 		public override void Save(FileWriter stream) {
