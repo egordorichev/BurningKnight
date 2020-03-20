@@ -50,7 +50,7 @@ namespace BurningKnight.save {
 					}
 
 					if (Rnd.Chance(70)) {
-						player.GetComponent<ActiveItemComponent>().Set(Items.CreateAndAdd(Items.Generate(ItemType.Active), area));
+						player.GetComponent<ActiveItemComponent>().Set(Items.CreateAndAdd(Items.Generate(ItemType.Active), area), false);
 					}
 				}
 			}
