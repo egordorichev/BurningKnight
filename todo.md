@@ -47,14 +47,8 @@ ice {
 
 * highlight doors you not went through
 
-* fix {
-   + active shop discount still discounts without the use
-}
-
++ active shop discount still discounts without the use
 * spawn chests/pickups in the levels
-
-!! boss rush win condition
-
 * nps that asks for coins but does nothing
 
 ### big points that are needed before release (no overscope)

@@ -72,6 +72,7 @@ namespace BurningKnight.state {
 		private UiPane inputSettings;
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
+		private UiLabel killedLabel;
 
 		private bool died;
 		private Cursor cursor;
@@ -235,8 +236,6 @@ namespace BurningKnight.state {
 			}
 			
 			Run.Level.Prepare();
-			
-			// Timer.Add(AnimateDeathScreen, 1f);
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -270,7 +269,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartedNew && !died) {
+			if (!Run.StartedNew && !died && !Run.Won) {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
@@ -295,7 +294,7 @@ namespace BurningKnight.state {
 		protected override void OnPause() {
 			base.OnPause();
 
-			if (died || InMenu) {
+			if (died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -342,7 +341,7 @@ namespace BurningKnight.state {
 
 			base.OnResume();
 
-			if (died || InMenu) {
+			if (died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -443,7 +442,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (Paused || died) {
+			if (Paused || died || Run.Won) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
@@ -580,7 +579,7 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
-				if (!died) {
+				if (!died && !Run.Won) {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
@@ -1167,14 +1166,7 @@ namespace BurningKnight.state {
 			space = 20f;
 			start = (Display.UiHeight) / 2f - space;
 
-			gameOverMenu.Add(new UiLabel {
-				LocaleLabel = "death_message",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = TitleY,
-				Clickable = false
-			});
-			
-			gameOverMenu.Add(new UiLabel {
+			killedLabel = (UiLabel) gameOverMenu.Add(new UiLabel {
 				Font = Font.Small,
 				LocaleLabel = "killed_by",
 				RelativeCenterX = Display.UiWidth * 0.75f,
@@ -2053,9 +2045,29 @@ namespace BurningKnight.state {
 			gamepadSettings.Enabled = false;
 		}
 
-		public void AnimateDeathScreen() {
+		public void AnimateDoneScreen() {
 			gameOverMenu.Enabled = true;	
 			GlobalSave.Put("played_once", true);
+
+			gameOverMenu.Add(new UiLabel {
+				LocaleLabel = Run.Won ? "won_message" : "death_message",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = TitleY,
+				Clickable = false
+			});
+			
+			if (Run.Won) {
+				killedLabel.Done = true;
+				Killer.Done = true;
+				
+				new Thread(() => {
+					SaveManager.Save(Area, SaveType.Statistics);
+					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+					SaveManager.Backup();
+				}).Start();
+			}
+
+			Camera.Instance.Targets.Clear();
 
 			var stats = new UiTable {
 				Width = 128
@@ -2121,9 +2133,9 @@ namespace BurningKnight.state {
 					break;
 				}
 
-				case RunType.Challenge: default: {
-					// FIXME: TODO
-					throw new Exception("Impolement me");
+				case RunType.Challenge: {
+					board = $"challenge_{Run.ChallengeId}";
+					break;
 				}
 			}
 
@@ -2155,7 +2167,7 @@ namespace BurningKnight.state {
 				return false;
 			}
 			
-			if (died) {
+			if (died || Run.Won) {
 				return false;
 			}
 			

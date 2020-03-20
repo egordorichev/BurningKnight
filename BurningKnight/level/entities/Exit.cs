@@ -35,8 +35,13 @@ namespace BurningKnight.level.entities {
 			
 			entity.RemoveComponent<PlayerInputComponent>();
 			entity.GetComponent<HealthComponent>().Unhittable = true;
+			
+			if (Run.Depth == Run.ContentEndDepth - 1 || (Run.Type == RunType.BossRush && Run.Depth == 5)) {
+				Run.Win();
+			} else {
+				((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
+			}
 
-			((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
 			Audio.PlaySfx("player_descending");			
 
 			return true;
