@@ -18,19 +18,6 @@ namespace Desktop.integration.steam {
 			try {
 				SteamClient.Init(851150);
 
-				/*var board = SteamUserStats.FindLeaderboardAsync("daily").GetAwaiter().GetResult().Value;
-				var results = board.GetScoresAsync(10).GetAwaiter().GetResult();
-
-				if (results != null) {
-					foreach (var r in results) {
-						Log.Debug($"#{r.GlobalRank} @{r.User.Name} = {r.Score}");
-					}
-				} else {
-					Log.Debug("No results");
-				}
-
-				board.SubmitScoreAsync(1).GetAwaiter().GetResult();*/
-				
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
 
@@ -67,6 +54,10 @@ namespace Desktop.integration.steam {
 
 				Achievements.LockedCallback += (id) => {
 					new Achievement(id).Clear();
+				};
+
+				Achievements.ProgressSetCallback += (id, progress, max) => {
+					SteamUserStats.IndicateAchievementProgress(id, progress, max);
 				};
 
 				try {

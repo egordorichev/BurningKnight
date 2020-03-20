@@ -45,6 +45,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using Steamworks;
 using Console = BurningKnight.debug.Console;
 using Timer = Lens.util.timer.Timer;
 
@@ -1432,6 +1433,7 @@ namespace BurningKnight.state {
 							try {
 								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
 								SaveManager.DeleteCloudSaves();
+								SteamUserStats.ResetAll(true);
 								Achievements.LoadState();
 								
 								Run.StartingNew = true;

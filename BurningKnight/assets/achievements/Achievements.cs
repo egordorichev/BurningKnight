@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Input;
 namespace BurningKnight.assets.achievements {
 	public delegate void AchievementUnlockedCallback(string id);
 	public delegate void AchievementLockedCallback(string id);
+	public delegate void AchievementProgressSetCallback(string id, int progress, int max);
 	
 	public static class Achievements {
 		public static Dictionary<string, Achievement> Defined = new Dictionary<string, Achievement>();
@@ -27,6 +28,7 @@ namespace BurningKnight.assets.achievements {
 
 		public static AchievementUnlockedCallback UnlockedCallback;
 		public static AchievementLockedCallback LockedCallback;
+		public static AchievementProgressSetCallback ProgressSetCallback;
 		public static Action PostLoadCallback;
 		
 		public static Achievement Get(string id) {
@@ -82,6 +84,36 @@ namespace BurningKnight.assets.achievements {
 			}
 		}
 
+		public static void IncrementProgress(string id) {
+			SetProgress(id, GlobalSave.GetInt($"ach_{id}", 0) + 1);
+		}
+
+		public static void SetProgress(string id, int progress) {
+			var a = Get(id);
+
+			if (a == null) {
+				Log.Error($"Unknown achievement {id}!");
+				return;
+			}
+
+			if (a.Unlocked) {
+				return;
+			}
+
+			if (a.Max == progress) {
+				ReallyUnlock(id, a);
+				return;
+			}
+			
+			GlobalSave.Put($"ach_{a.Id}", progress);
+
+			try {
+				ProgressSetCallback?.Invoke(id, progress, a.Max);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+		}
+
 		public static void Unlock(string id) {
 			var a = Get(id);
 
@@ -94,17 +126,25 @@ namespace BurningKnight.assets.achievements {
 				return;
 			}
 
+			ReallyUnlock(id, a);
+		}
+
+		private static void ReallyUnlock(string id, Achievement a) {
 			a.Unlocked = true;
 			GlobalSave.Put($"ach_{a.Id}", true);
-			
+
 			Log.Info($"Achievement {id} was complete!");
 
 			var e = new Achievement.UnlockedEvent {
 				Achievement = a
 			};
-			
+
 			Engine.Instance?.State?.Area?.EventListener?.Handle(e);
 			Engine.Instance?.State?.Ui?.EventListener?.Handle(e);
+
+			if (a.Unlock != null && a.Unlock.Length > 0) {
+				Items.Unlock(a.Unlock);
+			}
 
 			try {
 				UnlockedCallback?.Invoke(id);
@@ -167,6 +207,9 @@ namespace BurningKnight.assets.achievements {
 			
 			ImGui.Text(selected.Id);
 			ImGui.Separator();
+
+			ImGui.InputText("Unlocks", ref selected.Unlock, 128);
+			ImGui.InputInt("Max progress", ref selected.Max);
 			
 			var u = selected.Unlocked;
 			
@@ -206,12 +249,14 @@ namespace BurningKnight.assets.achievements {
 
 			ImGui.End();
 		}
+
+		private static int count;
 		
 		public static void RenderDebug() {
 			if (!WindowManager.Achievements) {
 				return;
 			}
-
+			
 			if (selected != null) {
 				RenderSelectedInfo();
 			}
@@ -275,6 +320,10 @@ namespace BurningKnight.assets.achievements {
 			
 			ImGui.Separator();
 			filter.Draw("Search");
+			
+			ImGui.SameLine();
+			ImGui.Text($"{count}");
+			count = 0;
 
 			ImGui.Checkbox("Hide unlocked", ref hideUnlocked);
 			ImGui.SameLine();
@@ -298,6 +347,8 @@ namespace BurningKnight.assets.achievements {
 						continue;
 					}
 					
+					count++;
+
 					if (ImGui.Selectable(i.Id, i == selected)) {
 						selected = i;
 
