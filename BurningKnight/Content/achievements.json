@@ -8,7 +8,9 @@
 	"bk:quackers": {},
 	"bk:tea_party": {},
 	"bk:not_a_thief": {},
-	"bk:npc_party": {},
+	"bk:npc_party": {
+		"max" : 14
+	},
 	"bk:scourge_king": {},
 	"bk:deal": {},
 	"bk:grannys_gift": {},
