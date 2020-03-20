@@ -13,12 +13,7 @@
 head room explanation
 desert gen gave up? no loading screen tips sometimes
 
-add enough hats to fit the shop {
- * cuphead
- * mustache
-}
-
-add new achievements to steam
+add enough hats to fit the shop
 
 * mike saving and boss rush payment
 * line of sight for close dialog
