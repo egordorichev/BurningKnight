@@ -667,7 +667,13 @@ namespace BurningKnight.level {
 
 			foreach (var R in Rooms) {
 				foreach (var P in R.GetGrassPlaceablePoints()) {
+					if (!Level.IsInside(P.X, P.Y)) {
+						continue;
+					}
+					
 					var I = Level.ToIndex((int) P.X, (int) P.Y);
+
+					
 					var T = (Tile) Level.Tiles[I];
 					
 					if (Grass[I] && T.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC) && Level.Liquid[I] == 0) {

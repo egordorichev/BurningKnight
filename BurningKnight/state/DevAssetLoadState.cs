@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
-		private const bool LoadEditor = false;
+		private const bool LoadEditor = true;
 		
 		private int progress;
 		private bool ready;

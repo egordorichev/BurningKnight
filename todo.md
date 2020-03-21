@@ -1,12 +1,12 @@
 # todo
 
+* josh like jokes in settings, with "sound effect"
+
 bugs {
  bomb spawnrate low
- master volume doesnt mute everything?
  no items on emerald / garderobe stands???
  
  doors tile high lights sometimes
- 
  put ui string into ui item description
 }
 
