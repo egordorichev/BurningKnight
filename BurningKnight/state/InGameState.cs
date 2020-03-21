@@ -1018,6 +1018,8 @@ namespace BurningKnight.state {
 			Graphics.Batch.DrawCircle(new CircleF(pos + stick * 64, 4), 16, Color.Red);
 			Graphics.Batch.DrawCircle(new CircleF(pos + GamepadComponent.Current.GetRightStick() * 64, 4), 16, Color.Blue);
 			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));*/
+
+			Graphics.Batch.DrawString(Font.Test, "MonoGame Font Test", Vector2.One, Color.White);
 		}
 
 		private string GetRunTime() {

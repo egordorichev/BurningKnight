@@ -33,7 +33,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 		
 		private static string[] townNpcs = {
-			ShopNpc.HatTrader, ShopNpc.WeaponTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader
+			ShopNpc.HatTrader, ShopNpc.WeaponTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader, ShopNpc.Mike
 		};
 
 		public override void Paint(Level level) {
@@ -126,7 +126,8 @@ namespace BurningKnight.level.rooms.special {
 			if ((Run.Depth == 1 && GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) || 
 			    (Run.Depth == 2 && GlobalSave.IsFalse(ShopNpc.ActiveTrader)) || 
 			    (Run.Depth == 3 && GlobalSave.IsFalse(ShopNpc.WeaponTrader)) || 
-			    (Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader))) {
+			    (Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader)) ||
+			    (Run.Depth == 5 && GlobalSave.IsFalse(ShopNpc.Mike))) {
 			
 				return true;
 			}

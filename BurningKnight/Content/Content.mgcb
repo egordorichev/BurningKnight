@@ -16,6 +16,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/fnt.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/fnt.spritefont
+
 #begin Fonts/large.png
 /importer:TextureImporter
 /processor:TextureProcessor

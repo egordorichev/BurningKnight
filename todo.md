@@ -8,6 +8,7 @@ bugs {
  
  doors tile high lights sometimes
  put ui string into ui item description
+ make sure gen is stable (how??)
 }
 
 {

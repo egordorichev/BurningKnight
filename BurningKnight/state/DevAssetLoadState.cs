@@ -18,10 +18,11 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
-		private const bool LoadEditor = true;
+		private const bool LoadEditor = false;
 		
 		private int progress;
 		private bool ready;
