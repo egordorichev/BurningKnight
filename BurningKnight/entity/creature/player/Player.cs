@@ -196,7 +196,20 @@ namespace BurningKnight.entity.creature.player {
 			lastDepth = Run.Depth;
 			HandleEvent(new NewLevelStartedEvent());
 		}
-		
+
+		private bool set;
+		private float t;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			t += dt;
+
+			if (!set && t >= 0.5f) {
+				set = true;
+				GetComponent<RoomComponent>().Room?.Discover();
+			}
+		}
+
 		#region Player States
 		public class IdleState : EntityState {
 			public override void Update(float dt) {

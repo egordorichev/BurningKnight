@@ -1,13 +1,18 @@
 # todo
 
+* josh like jokes in settings, with "sound effect"
+
+bugs {
+ bomb spawnrate low
+ no items on emerald / garderobe stands???
+ 
+ doors tile high lights sometimes
+ put ui string into ui item description
+}
+
 {
  achievements
  challenges
- 
- {
-  stats fix: 
-   score 0
- }
  
  demo
 }

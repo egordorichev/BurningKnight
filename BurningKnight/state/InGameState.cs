@@ -260,7 +260,7 @@ namespace BurningKnight.state {
 			Timer.Clear();
 			Lights.Destroy();
 
-			Tween.To(1f, Audio.Speed, x => Audio.Speed = x, 0.4f);
+			Tween.To(1f, Audio.Speed, x => Audio.Speed = x, 1f);
 			
 			SaveManager.Backup();
 
@@ -322,7 +322,7 @@ namespace BurningKnight.state {
 
 			speedBeforePause = Audio.Speed;
 
-			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 0.4f);
+			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 1f);
 			OpenBlackBars();
 		}
 

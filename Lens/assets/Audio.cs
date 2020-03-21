@@ -14,6 +14,7 @@ using VelcroPhysics;
 
 namespace Lens.assets {
 	public class Audio {
+		public static float MasterVolume = 1;
 		public static float SfxVolume = 1;
 		public static float SfxVolumeBuffer = 1f;
 		public static float SfxVolumeBufferResetTimer = 0;
@@ -75,7 +76,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			PlaySfx(GetSfx(id), volume * (id.StartsWith("level_explosion") ? 1 : SfxVolumeBuffer), pitch, pan);
+			PlaySfx(GetSfx(id), volume * (id.StartsWith("level_explosion") ? MasterVolume : SfxVolumeBuffer), pitch, pan);
 		}
 
 		public static SoundEffect GetSfx(string id) {
@@ -94,7 +95,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			sfx?.Play(volume * SfxVolume, pitch, pan);
+			sfx?.Play(MathUtils.Clamp(0, 1, volume * SfxVolume * MasterVolume), pitch, pan);
 		}
 		
 		public static void PlayMusic(string music, bool fromStart = false) {

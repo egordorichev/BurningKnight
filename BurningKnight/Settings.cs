@@ -9,14 +9,12 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight {
 	public class Settings {
 		// Audio
-		private static float masterVolume;
-		
 		public static float MasterVolume {
-			get => masterVolume;
+			get => Audio.MasterVolume;
 
 			set {
-				masterVolume = value;
-				Audio.UpdateMusicVolume(masterVolume * musicVolume);
+				Audio.MasterVolume = value;
+				Audio.UpdateMusicVolume(Audio.MasterVolume * musicVolume);
 			}
 		}
 		
@@ -26,13 +24,13 @@ namespace BurningKnight {
 
 			set {
 				musicVolume = value;
-				Audio.UpdateMusicVolume(masterVolume * musicVolume);
+				Audio.UpdateMusicVolume(Audio.MasterVolume * musicVolume);
 			}
 		}
 
 		public static float SfxVolume {
 			get => Audio.SfxVolume;
-			set => Audio.SfxVolume = masterVolume * value;
+			set => Audio.SfxVolume = value;
 		}
 		
 		// Graphics
@@ -94,7 +92,7 @@ namespace BurningKnight {
 			FlashFrames = 0.5f;
 			SfxVolume = 0.8f;
 			MusicVolume = 0.2f;
-			masterVolume = 1f;
+			Audio.MasterVolume = 1f;
 			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;
