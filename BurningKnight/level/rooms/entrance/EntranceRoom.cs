@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
 using BurningKnight.level.entities;
@@ -8,6 +9,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -39,10 +41,14 @@ namespace BurningKnight.level.rooms.entrance {
 
 			MakeSafe(level);
 
-			if (Builder.ShouldAppear()) {
-				var b = new Builder();
-				b.BottomCenter = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), 20);
-				level.Area.Add(b);
+			try {
+				if (Builder.ShouldAppear()) {
+					var b = new Builder();
+					b.BottomCenter = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), 20);
+					level.Area.Add(b);
+				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 

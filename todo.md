@@ -1,5 +1,14 @@
 # todo
 
+bugs {
+ bomb spawnrate low
+ master volume doesnt mute everything?
+ 
+ doors tile high lights sometimes
+ 
+ put ui string into ui item description
+}
+
 {
  achievements
  challenges

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -308,7 +309,7 @@ namespace BurningKnight.ui.inventory {
 				target = r.Tagged[Tags.MustBeKilled][0];
 			}
 
-			if (target != null) {
+			if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
 				var d = Player.DistanceTo(target);
 
 				if (d > 64) {

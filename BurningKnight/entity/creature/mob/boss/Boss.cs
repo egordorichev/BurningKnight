@@ -298,13 +298,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
 
 			var rewards = new List<string>();
+			var c = Run.Type == RunType.BossRush ? 2 : Rnd.Int(2, 5);
 
-			for (var i = 0; i < Rnd.Int(2, 5); i++) {
+			for (var i = 0; i < c; i++) {
 				rewards.Add("bk:emerald");
 			}
 
-			for (var i = 0; i < Rnd.Int(4, 10); i++) {
-				rewards.Add("bk:copper_coin");
+			if (Run.Type != RunType.BossRush) {
+				for (var i = 0; i < Rnd.Int(4, 10); i++) {
+					rewards.Add("bk:copper_coin");
+				}
 			}
 
 			for (var i = 0; i < Rnd.Int(0, 3); i++) {

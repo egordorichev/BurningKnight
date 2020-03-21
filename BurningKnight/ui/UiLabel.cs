@@ -11,7 +11,7 @@ namespace BurningKnight.ui {
 		public const float DefaultTint = 0.7f;
 		
 		protected string label;
-		public BitmapFont Font = assets.Font.Medium;
+		public BitmapFont Font = assets.Font.Small;
 		public float Tint = DefaultTint;
 		public bool Tints = true;
 
