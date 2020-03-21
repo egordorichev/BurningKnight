@@ -157,7 +157,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 							for (var i = 0; i < 8; i++) {
 								var bullet = Projectile.Make(Self, "small", 
 									((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
-						
+
+								bullet.CanBeReflected = false;
 								bullet.Center = p.Center;
 							}
 						};
@@ -271,6 +272,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var b = Projectile.Make(Self, "small");
 						pp.Add(b);
 						b.AddLight(32f, Projectile.RedLight);
+						b.CanBeReflected = false;
 					}
 				
 					pp.Launch(an, 40);
@@ -285,6 +287,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						
 					b.Color = ProjectileColor.Green;
 					b.Center = Self.BottomCenter;
+					b.CanBeReflected = false;
 					b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
 				}
 			}

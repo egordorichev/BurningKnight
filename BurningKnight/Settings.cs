@@ -20,7 +20,7 @@ namespace BurningKnight {
 		
 		private static float musicVolume;
 		public static float MusicVolume {
-			get => musicVolume / Audio.MasterVolume;
+			get => musicVolume;
 
 			set {
 				musicVolume = value;
@@ -29,8 +29,8 @@ namespace BurningKnight {
 		}
 
 		public static float SfxVolume {
-			get => Audio.SfxVolume / Audio.MasterVolume;
-			set => Audio.SfxVolume = Audio.MasterVolume * value;
+			get => Audio.SfxVolume;
+			set => Audio.SfxVolume = value;
 		}
 		
 		// Graphics

@@ -55,7 +55,7 @@ namespace BurningKnight.entity.component {
 				var d = (ListenerPosition - Entity.Center).Length();
 
 				foreach (var s in Playing.Values) {
-					s.Effect.Volume = (1 - Math.Min(Distance, d) / Distance) * Settings.SfxVolume * s.BaseVolume * (s.ApplyBuffer ? Audio.SfxVolumeBuffer : 1);
+					s.Effect.Volume = MathUtils.Clamp(0, 1, (1 - Math.Min(Distance, d) / Distance) * Settings.MasterVolume * Settings.SfxVolume * s.BaseVolume * (s.ApplyBuffer ? Audio.SfxVolumeBuffer : 1));
 				}
 			}
 		}
@@ -106,9 +106,9 @@ namespace BurningKnight.entity.component {
 			var v = volume * 0.8f;
 			var applyBuffer = !sfx.StartsWith("level_explosion");
 
-			if (applyBuffer) {
+			/*if (applyBuffer) {
 				v *= Audio.SfxVolumeBuffer;
-			}
+			}*/
 
 			if (!insert || !Playing.TryGetValue(sfx, out instance)) {
 				var sound = Audio.GetSfx(sfx);
@@ -133,7 +133,7 @@ namespace BurningKnight.entity.component {
 			instance.BaseVolume = tween ? 0 : v;
 
 			if (tween) {
-				var t = Tween.To(v, 0, x => instance.BaseVolume = v, 0.5f);
+				var t = Tween.To(v, 0, x => instance.BaseVolume = x, 0.5f);
 
 				t.Delay = 1f;
 				t.OnStart = () => {

@@ -95,7 +95,7 @@ namespace Lens.assets {
 				return;
 			}
 			
-			sfx?.Play(volume * SfxVolume, pitch, pan);
+			sfx?.Play(MathUtils.Clamp(0, 1, volume * SfxVolume * MasterVolume), pitch, pan);
 		}
 		
 		public static void PlayMusic(string music, bool fromStart = false) {

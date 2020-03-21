@@ -24,7 +24,7 @@ namespace BurningKnight.level.rooms.regular {
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Treasure), level.Area), null);
 
 			var c = (int) Math.Floor(s / 2f);
-			var t = Tile.MetalBlock;
+			var t = Rnd.Chance() ? Tile.Rock : Tile.MetalBlock;
 
 			for (var x = center.X - c; x <= center.X + c; x++) {
 				for (var y = center.Y - c; y <= center.Y + c; y++) {

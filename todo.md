@@ -3,6 +3,7 @@
 bugs {
  bomb spawnrate low
  master volume doesnt mute everything?
+ no items on emerald / garderobe stands???
  
  doors tile high lights sometimes
  
@@ -12,11 +13,6 @@ bugs {
 {
  achievements
  challenges
- 
- {
-  stats fix: 
-   score 0
- }
  
  demo
 }
