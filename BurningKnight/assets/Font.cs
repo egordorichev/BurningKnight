@@ -11,7 +11,7 @@ namespace BurningKnight.assets {
 		public static void Load() {
 			Small = LoadFont("Fonts/small_font");
 			Medium = LoadFont("Fonts/large_font");
-			Test = Assets.Content.Load<SpriteFont>("Fonts/fnt");
+			// Test = Assets.Content.Load<SpriteFont>("Fonts/fnt");
 		}
 
 		public static BitmapFont LoadFont(string name) {

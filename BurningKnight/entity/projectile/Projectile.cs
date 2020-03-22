@@ -100,7 +100,9 @@ namespace BurningKnight.entity.projectile {
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
 
-			if (owner is Player) {
+			if (parent != null) {
+				projectile.Color = parent.Color;
+			} else if (owner is Player) {
 				projectile.Color = ProjectileColor.Yellow;
 			}
 

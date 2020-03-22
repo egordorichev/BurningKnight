@@ -2,6 +2,10 @@
 
 * josh like jokes in settings, with "sound effect"
 
+ani bugs {
+ make restock more rare
+}
+
 bugs {
  bomb spawnrate low
  no items on emerald / garderobe stands???
@@ -66,6 +70,8 @@ slimes shouldnt all jump at the same time
 * localisation
 
 #### Polish
+
+* make secret rooms not so obv
 
 biome-dependant props (cactuses and dead bushes for desert)
 * duck interaction
