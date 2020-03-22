@@ -509,8 +509,8 @@ namespace BurningKnight.entity.creature.mob {
 		}
 		
 		public void ModifyDrops(List<Item> drops) {
-			if (Rnd.Chance(Run.Scourge)) {
-				var c = Rnd.Int(0, 4);
+			if (Rnd.Chance(Run.Scourge * 0.5f)) {
+				var c = Rnd.Int(0, 3);
 				
 				for (var i = 0; i < c; i++) {
 					drops.Add(Items.Create("bk:copper_coin"));

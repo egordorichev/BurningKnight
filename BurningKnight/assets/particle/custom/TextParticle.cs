@@ -83,10 +83,21 @@ namespace BurningKnight.assets.particle.custom {
 			
 			start = Center;
 			gamePosition = Center;
+
+			if (fullText == null) {
+				Done = true;
+				
+			}
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Camera.Instance == null) {
+				Done = true;
+				return;
+			}
+			
 			t += dt;
 
 			if (!tweened && t >= 2f) {

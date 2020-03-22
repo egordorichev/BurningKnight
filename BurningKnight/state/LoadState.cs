@@ -93,6 +93,7 @@ namespace BurningKnight.state {
 			});
 
 			thread.Priority = ThreadPriority.Lowest;
+			thread.IsBackground = true;
 			thread.Start();
 
 			titleX = Font.Small.MeasureString(title).Width * -0.5f;

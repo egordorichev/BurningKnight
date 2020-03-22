@@ -14,6 +14,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
 using BurningKnight.level;
@@ -236,6 +237,10 @@ namespace BurningKnight.state {
 			}
 			
 			Run.Level.Prepare();
+
+			if (Run.Depth == 0) {
+				HatStand.CheckHats();
+			}
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -1018,6 +1023,8 @@ namespace BurningKnight.state {
 			Graphics.Batch.DrawCircle(new CircleF(pos + stick * 64, 4), 16, Color.Red);
 			Graphics.Batch.DrawCircle(new CircleF(pos + GamepadComponent.Current.GetRightStick() * 64, 4), 16, Color.Blue);
 			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));*/
+
+			// Graphics.Batch.DrawString(Font.Test, "Test 你 Test", Vector2.One, Color.White);
 		}
 
 		private string GetRunTime() {
@@ -1425,7 +1432,12 @@ namespace BurningKnight.state {
 							try {
 								SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game, SaveType.Global);
 								SaveManager.DeleteCloudSaves();
-								SteamUserStats.ResetAll(true);
+
+								try {
+ 								SteamUserStats.ResetAll(true);
+								} catch (Exception e) {
+									
+								}
 								Achievements.LoadState();
 								
 								Run.StartingNew = true;

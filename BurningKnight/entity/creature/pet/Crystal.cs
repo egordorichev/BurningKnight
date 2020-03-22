@@ -20,7 +20,12 @@ namespace BurningKnight.entity.creature.pet {
 			});
 			
 			AddComponent(new ShadowComponent(RenderShadow));
-			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true));
+
+			var b = new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, true);
+			AddComponent(b);
+
+			b.KnockbackModifier = 0;
+			b.Body.LinearDamping = 100;
 		}
 		
 		private float sinceLastTeleport;

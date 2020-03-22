@@ -94,7 +94,7 @@ namespace BurningKnight.state {
 
 			if (Type == RunType.Daily) {
 				var date = DateTime.UtcNow;
-				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear);
+				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear) - 1;
 				Log.Debug($"Today is {date.DayOfYear} day of the year {date.Year}, so the daily id is {DailyId}");
 
 				Seed = Rnd.GenerateSeed(8, DailyId);
