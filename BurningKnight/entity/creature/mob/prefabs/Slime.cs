@@ -17,7 +17,16 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class Slime : Mob {
 		private bool first;
-		
+		private float delay;
+
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target != null) {
+				delay = Rnd.Float(0, 2f);
+			}
+		}
+
 		protected virtual float GetJumpDelay() {
 			return 1;
 		}
@@ -49,6 +58,11 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 
 			public override void Update(float dt) {
+				if (Self.delay > 0) {
+					Self.delay -= dt;
+					return;
+				}
+				
 				base.Update(dt);
 
 				if (!tweened && T >= delay) {

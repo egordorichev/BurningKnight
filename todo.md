@@ -16,12 +16,9 @@ bugs {
 {
  achievements hall
 
-* line of sight for close dialog
-
 * sign system
 * a sign saying that you can try your hats on in the garderobe
-head room explanation with a sign?
-
+* head room explanation with a sign?
 
  demo
 
@@ -57,7 +54,6 @@ ice {
 
 ### big points that are needed before release (no overscope)
 
-slimes shouldnt all jump at the same time
 * hub update
 * credits
 * achivement icons
@@ -110,7 +106,6 @@ flavors {
 ### things I promissed to do
 
 * secret seeds
-* daily runs
 * local coop up to 4 players
 * twitch support
 
