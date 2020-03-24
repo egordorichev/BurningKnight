@@ -1,7 +1,10 @@
 # todo
 
+* pause game in steam menu
+
 {
  achievements hall
+ achievement progress display in achievement hub, as well as date achieved 
  border around the whole hub with trees
 
  demo

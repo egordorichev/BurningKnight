@@ -144,9 +144,9 @@ namespace BurningKnight.entity.item.use {
 					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f, sz: 0.2f);
 				} else {
 					if (sfx_number == 0) {
-						entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f);
+						entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f, sz: 0.25f);
 					} else {
-						entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, sfx_number, 0.5f);
+						entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, sfx_number, 0.5f, sz: 0.25f);
 					}
 				}
 
