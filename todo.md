@@ -16,9 +16,6 @@ bugs {
 {
  achievements hall
 
-* a sign saying that you can try your hats on in the garderobe
-* head room explanation with a sign?
-
  demo
 
  challanges

@@ -57,5 +57,19 @@ namespace BurningKnight.level.entities {
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
 			AddComponent(new InteractableSliceComponent("props", "dark_market"));
 		}
+
+		private bool set;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (!set) {
+				set = true;
+
+				if (Run.Depth > 0) {
+					GameSave.Put("saw_blackmarket", true);
+				}
+			}
+		}
 	}
 }
