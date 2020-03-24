@@ -1,3 +1,5 @@
+cp Content/Animations/achievements.ase .
+
 rm -rf achievement_sprites
 mkdir achievement_sprites
 aseprite -b achievements.ase --scale 4 --save-as achievement_sprites/{slice}.png
@@ -12,3 +14,4 @@ done
 
 cd ..
 ls -l achievement_sprites
+rm achievements.ase
