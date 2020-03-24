@@ -11,8 +11,6 @@ bugs {
  make sure gen is stable (how??)
 }
 
-!!! fix library teleporter making enemies unhittable (exception or whats going on?)
-
 {
  achievements hall
  lock challenges for demo
