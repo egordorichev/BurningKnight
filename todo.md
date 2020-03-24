@@ -13,8 +13,7 @@ bugs {
 
 {
  achievements hall
- lock challenges for demo
- 
+
 * line of sight for close dialog
 
 * sign system

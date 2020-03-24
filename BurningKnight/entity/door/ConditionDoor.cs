@@ -21,9 +21,14 @@ namespace BurningKnight.entity.door {
 
 		private bool shouldLock;
 		private bool cached;
+		private bool lockInDemo;
 		private int condition;
 
 		private bool DecideState() {
+			if (lockInDemo && BK.Demo) {
+				return false;
+			}
+			
 			switch (condition) {
 				case 0: return GlobalSave.IsTrue("played_once");
 				case 1: return GlobalSave.IsTrue(ShopNpc.HatTrader);
@@ -65,17 +70,22 @@ namespace BurningKnight.entity.door {
 
 		public override void RenderImDebug() {
 			base.RenderImDebug();
+
+			ImGui.Checkbox("Lock in demo", ref lockInDemo);
 			ImGui.Combo("Condition", ref condition, conditions, conditions.Length);
 		}
 
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			condition = stream.ReadByte();
+			lockInDemo = stream.ReadBoolean();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
+			
 			stream.WriteByte((byte) condition);
+			stream.WriteBoolean(lockInDemo);
 		}
 	}
 }

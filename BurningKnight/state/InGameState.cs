@@ -2061,7 +2061,7 @@ namespace BurningKnight.state {
 			GlobalSave.Put("played_once", true);
 
 			gameOverMenu.Add(new UiLabel {
-				LocaleLabel = Run.Won ? "won_message" : "death_message",
+				LocaleLabel = Run.Won ? (BK.Demo ? "you_won_demo" : "won_message") : "death_message",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = TitleY,
 				Clickable = false

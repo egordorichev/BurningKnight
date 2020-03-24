@@ -16,6 +16,12 @@ namespace Lens.util.timer {
 		public static void Update(float dt) {
 			for (int i = tasks.Count - 1; i >= 0; i--) {
 				TimerTask task = tasks[i];
+
+				if (task == null) {
+					tasks.RemoveAt(i);
+					continue;
+				}
+				
 				task.Delay -= dt;
 
 				if (task.Delay <= 0) {
