@@ -4,7 +4,6 @@
 
 bugs {
  some setting values are wrong when you fisrt open settings
- sfx volume doesnt affect rain, bk and obrital looped sound (what other spunds did I loop?)
  bomb spawnrate low
  no items on emerald / garderobe stands???
  
@@ -12,7 +11,7 @@ bugs {
  make sure gen is stable (how??)
 }
 
-fix library teleporter making enemies unhittable (exception or whats going on?)
+!!! fix library teleporter making enemies unhittable (exception or whats going on?)
 
 {
  achievements hall

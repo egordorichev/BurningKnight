@@ -104,6 +104,11 @@ namespace BurningKnight.entity.component {
 
 			Sfx instance;
 			var v = volume * 0.8f;
+
+			if (!insert) {
+				v *= Audio.MasterVolume * Audio.SfxVolume * Audio.SfxVolumeBuffer;
+			}
+			
 			var applyBuffer = !sfx.StartsWith("level_explosion");
 
 			/*if (applyBuffer) {
@@ -160,12 +165,13 @@ namespace BurningKnight.entity.component {
 		}
 
 		public static AudioEmitterComponent Dummy(Area area, Vector2 where) {
-			var entity = new Entity();
+			var entity = new EmitterDummy();
 			var component = new AudioEmitterComponent();
 
 			area.Add(entity);
 			entity.AddComponent(component);
 			entity.Center = where;
+			entity.AlwaysActive = true;
 
 			return component;
 		}
