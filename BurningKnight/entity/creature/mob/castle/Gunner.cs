@@ -121,7 +121,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 						
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire", sz: 0.2f);
 						
 						var projectile = Projectile.Make(Self, "circle", an, 7f);
 

@@ -89,12 +89,12 @@ namespace BurningKnight.entity.component {
 			return Emit($"{sfx}_{Rnd.Int(1, prefixMax + 1)}", volume, PitchMod + Rnd.Float(-sz, sz), insert, looped, tween);
 		}
 		
-		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true, bool looped = false, bool tween = false) {
+		public SoundEffectInstance EmitRandomized(string sfx, float volume = 1f, bool insert = true, bool looped = false, bool tween = false, float sz = 0.4f) {
 			if (sfx == null) {
 				return null;
 			}
 			
-			return Emit(sfx, volume, PitchMod + Rnd.Float(-0.4f, 0.4f), insert, looped, tween);
+			return Emit(sfx, volume, PitchMod + Rnd.Float(-sz, sz), insert, looped, tween);
     }
 
 		public SoundEffectInstance Emit(string sfx, float volume = 1f, float pitch = 0f, bool insert = true, bool looped = false, bool tween = false) {

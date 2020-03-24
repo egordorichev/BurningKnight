@@ -40,6 +40,7 @@ namespace BurningKnight.assets.achievements {
 		
 		public static void Load() {
 			Load(FileHandle.FromRoot("achievements.json"));
+			LoadState();
 			PostLoadCallback?.Invoke();
 		}
 
