@@ -152,7 +152,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual void AnimateDeath(DiedEvent d) {
-			AudioEmitterComponent.Dummy(Area, Center).EmitRandomized(GetDeadSfx(), 1, false);
+			AudioEmitterComponent.Dummy(Area, Center).EmitRandomized(GetDeadSfx());
 			
 			GetComponent<DropsComponent>().SpawnDrops();
 			Done = true;

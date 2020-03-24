@@ -72,7 +72,7 @@ namespace BurningKnight.ui {
 
 		public override bool HandleEvent(Event e) {
 			if (e is Achievement.UnlockedEvent au) {
-				Say($"Achievement [cl red]{Locale.Get("ach_" + au.Achievement.Id)}[cl] ^^%%complete%%^^!");
+				// Say($"Achievement [cl red]{Locale.Get("ach_" + au.Achievement.Id)}[cl] ^^%%complete%%^^!");
 			} else if (e is Achievement.LockedEvent al) {
 				Say($"Achievement [cl red]{Locale.Get("ach_" + al.Achievement.Id)} [cl gray]locked[cl] :(");
 			} else if (e is Item.UnlockedEvent iu) {

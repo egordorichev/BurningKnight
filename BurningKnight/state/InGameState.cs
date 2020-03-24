@@ -62,7 +62,7 @@ namespace BurningKnight.state {
 		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
-
+		
 		private UiPane pauseMenu;
 		private UiPane gameOverMenu;
 
@@ -85,6 +85,7 @@ namespace BurningKnight.state {
 		private EditorWindow editor;
 
 		public bool Menu;
+		public Area TopUi;
 
 		private float vx;
 		private string v;
@@ -176,6 +177,8 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			TopUi = new Area();
+
 			Audio.Speed = 1f;
 
 			try {
@@ -262,6 +265,9 @@ namespace BurningKnight.state {
 				Run.SavingDepth = Run.Depth;
 			}
 
+			
+			TopUi.Destroy();
+			
 			Timer.Clear();
 			Lights.Destroy();
 
@@ -272,7 +278,7 @@ namespace BurningKnight.state {
 			var old = !Engine.Quiting;
 
 			SaveManager.Save(Area, SaveType.Global, old);
-			SaveManager.Save(Area, SaveType.Secret);
+			// SaveManager.Save(Area, SaveType.Secret);
 
 			if (!Run.StartedNew && !died && !Run.Won) {
 				var d = (old ? Run.LastDepth : Run.Depth);
@@ -414,6 +420,24 @@ namespace BurningKnight.state {
 		private Vector2 stickOffset;
 
 		public override void Update(float dt) {
+			if (UiAchievement.Current == null) {
+				if (Achievements.AchievementBuffer.Count > 0) {
+					var id = Achievements.AchievementBuffer[0];
+				
+					var a = new UiAchievement(id);
+					a.Y = Display.UiHeight + 60;
+					TopUi.Add(a);
+					a.Right = Display.UiWidth - 8;
+				} else if (Achievements.ItemBuffer.Count > 0) {
+					var id = Achievements.ItemBuffer[0];
+				
+					var a = new UiAchievement(id, true);
+					a.Y = Display.UiHeight + 60;
+					TopUi.Add(a);
+					a.Right = Display.UiWidth - 8;
+				}
+			}
+			
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {
 				if (!saving) {
 					saveTimer += dt;
@@ -725,6 +749,8 @@ namespace BurningKnight.state {
 				
 				Settings.Fullscreen = Engine.Graphics.IsFullScreen;
 			}
+
+			TopUi.Update(dt);
 		}
 
 		private bool saving;
@@ -940,6 +966,8 @@ namespace BurningKnight.state {
 				}
 			}
 
+			base.RenderUi();
+
 			if (blackBarsSize > 0.01f) {
 				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
@@ -953,12 +981,13 @@ namespace BurningKnight.state {
 
 			painting?.RenderUi();
 
+			TopUi.Render();
+
 			if (Settings.HideUi) {
 				cursor.Render();
 				return;
 			}
 
-			base.RenderUi();
 
 			if (Menu && offset <= Display.UiHeight) {
 				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, Display.UiHeight + 1));
@@ -994,36 +1023,6 @@ namespace BurningKnight.state {
 				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
 
-			/*if (GamepadComponent.Current == null) {
-				return;
-			}
-			
-			var stick = GamepadComponent.Current.GetRightStick();
-			
-			var dx = stick.X * stick.X;
-			var dy = stick.Y * stick.Y;
-			var d = (float) Math.Sqrt(dx + dy);
-
-			if (d > 0) {
-				if (d > 1) {
-					stick /= d;
-				} else {
-					stick *= d;
-				}
-			}
-
-			if (stick.Length() <= 0.25f) {
-				stick = Vector2.Zero;
-			}
-			
-			var pos = new Vector2(64 + 10);
-			
-			Graphics.Batch.DrawCircle(new CircleF(pos, 64), 16, Color.White);
-			Graphics.Batch.DrawCircle(new CircleF(pos, 16), 16, Color.Green);
-			Graphics.Batch.DrawCircle(new CircleF(pos + stick * 64, 4), 16, Color.Red);
-			Graphics.Batch.DrawCircle(new CircleF(pos + GamepadComponent.Current.GetRightStick() * 64, 4), 16, Color.Blue);
-			Graphics.Print(stick.Length().ToString(), Font.Small, new Vector2(3));*/
-
 			// Graphics.Batch.DrawString(Font.Test, "Test 你 Test", Vector2.One, Color.White);
 		}
 
@@ -1033,13 +1032,13 @@ namespace BurningKnight.state {
 		}
 
 		private void SetupUi() {
-			Ui.Add(new UiChat());
+			TopUi.Add(new UiChat());
 			
 			UiButton.LastId = 0;
 			
 			var cam = new Camera(new FollowingDriver());
-			Ui.Add(cam);
-			Ui.Add(new AchievementBanner());
+			TopUi.Add(cam);
+			// Ui.Add(new AchievementBanner());
 			
 			editor = new EditorWindow(new Editor {
 				Area = Area,
@@ -1054,7 +1053,7 @@ namespace BurningKnight.state {
 			}
 
 			cursor = new Cursor();
-			Ui.Add(cursor);
+			TopUi.Add(cursor);
 			
 			Ui.Add(indicator = new SaveIndicator());
 
@@ -1065,9 +1064,8 @@ namespace BurningKnight.state {
 			if (player != null) {
 				Ui.Add(new UiInventory(player));
 			}
-			
 
-			Ui.Add(pauseMenu = new UiPane {
+			TopUi.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight	
 			});
 
@@ -1166,7 +1164,7 @@ namespace BurningKnight.state {
 			
 			pauseMenu.Setup();
 			
-			Ui.Add(gameOverMenu = new UiPane {
+			TopUi.Add(gameOverMenu = new UiPane {
 				Y = -Display.UiHeight
 			});
 			
@@ -1434,11 +1432,13 @@ namespace BurningKnight.state {
 								SaveManager.DeleteCloudSaves();
 
 								try {
- 								SteamUserStats.ResetAll(true);
+ 									SteamUserStats.ResetAll(true);
 								} catch (Exception e) {
 									
 								}
+								
 								Achievements.LoadState();
+								GlobalSave.Emeralds = 0;
 								
 								Run.StartingNew = true;
 								Run.NextDepth = 0;
@@ -2062,7 +2062,7 @@ namespace BurningKnight.state {
 			GlobalSave.Put("played_once", true);
 
 			gameOverMenu.Add(new UiLabel {
-				LocaleLabel = Run.Won ? "won_message" : "death_message",
+				LocaleLabel = Run.Won ? (BK.Demo ? "you_won_demo" : "won_message") : "death_message",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = TitleY,
 				Clickable = false

@@ -25,11 +25,12 @@ namespace BurningKnight.entity.item {
 				case ItemQuality.Wooden: default: return 1;
 				case ItemQuality.Iron: return 1.333f;
 				case ItemQuality.Golden: return 2f;
+				case ItemQuality.Trash: return 0.5f;
 			}	
 		}
 
 		public static float GetModifier(Item item) {
-			return (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier();
+			return Math.Max(1, (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier());
 		}
 		
 		public static int Calculate(Item item) {

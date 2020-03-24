@@ -44,7 +44,6 @@ namespace BurningKnight.util {
 			"Fire trap",
 			"On-fire",
 			"Hot potatoo",
-			"Also try Enter the Gungeon - @ArutyunovPaul",
 			"Also try Nuclear Throne",
 			"undefined",
 			"If only you could talk to the enemies...",

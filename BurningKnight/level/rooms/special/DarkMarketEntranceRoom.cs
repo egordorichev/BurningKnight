@@ -32,6 +32,12 @@ namespace BurningKnight.level.rooms.special {
 
 			door.CenterX = d.X * 16 + 8 + offset.X;
 			door.Bottom = d.Y * 16 + 17.01f + offset.Y - 8; // .1f so that it's depth sorted to the front of the wall
+
+			var sign = new Sign();
+			level.Area.Add(sign);
+			sign.SetMessage("darkmarket_tip");
+			sign.Bottom = d.Y * 16 + 24;
+			sign.CenterX = d.X * 16 - 16;
 		}
 
 		public override bool CanConnect(RoomDef R, Dot P) {

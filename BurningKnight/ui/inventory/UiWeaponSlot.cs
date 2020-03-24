@@ -37,10 +37,6 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override void Render() {
-			if (Engine.Instance.State.Paused) {
-				return;
-			}
-			
 			var component = Active ? inventory.Player.GetComponent<ActiveWeaponComponent>() : inventory.Player.GetComponent<WeaponComponent>();
 
 			if (component.Disabled) {

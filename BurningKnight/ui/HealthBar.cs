@@ -109,7 +109,7 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			if (!entity.Awoken || Engine.Instance.State.Paused) {
+			if (!entity.Awoken) {
 				return;
 			}
 			

@@ -913,6 +913,7 @@
     <Compile Include="level\entities\exit\ChallengeExit.cs" />
     <Compile Include="level\entities\exit\DailyRunExit.cs" />
     <Compile Include="level\entities\exit\ShortcutExit.cs" />
+    <Compile Include="level\entities\exit\TutorialExit.cs" />
     <Compile Include="level\entities\ExplodingBarrel.cs" />
     <Compile Include="level\entities\Gramophone.cs" />
     <Compile Include="level\entities\HiddenEntrance.cs" />
@@ -960,9 +961,6 @@
     <Compile Include="level\hall\HallBuilder.cs" />
     <Compile Include="level\hall\HallLevel.cs" />
     <Compile Include="level\hall\HallRoom.cs" />
-    <Compile Include="level\hub\HubBuilder.cs" />
-    <Compile Include="level\hub\HubLevel.cs" />
-    <Compile Include="level\hub\HubRoom.cs" />
     <Compile Include="level\Level.cs" />
     <Compile Include="level\LevelBodyComponent.cs" />
     <Compile Include="level\LevelTiler.cs" />
@@ -1223,6 +1221,7 @@
     <Compile Include="ui\str\IconRenderer.cs" />
     <Compile Include="ui\str\StrRenderer.cs" />
     <Compile Include="ui\str\UiString.cs" />
+    <Compile Include="ui\UiAchievement.cs" />
     <Compile Include="ui\UiAnimation.cs" />
     <Compile Include="ui\UiBanner.cs" />
     <Compile Include="ui\UiButton.cs" />

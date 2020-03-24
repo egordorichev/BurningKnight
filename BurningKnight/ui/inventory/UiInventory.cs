@@ -11,6 +11,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.use;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.ui.str;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -30,6 +31,9 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion key;
 		private TextureRegion coin;
 		private TextureRegion pointer;
+		
+		private UiString description;
+		private UiItem lastItem;
 
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
@@ -79,6 +83,10 @@ namespace BurningKnight.ui.inventory {
 
 		public override void Init() {
 			base.Init();
+
+			description = new UiString(Font.Small);
+			Area.Add(description);
+			description.DisableRender = true;
 			
 			Area.Add(activeSlot);
 
@@ -292,15 +300,14 @@ namespace BurningKnight.ui.inventory {
 		}
 		
 		public override void Render() {
-			if (Player == null || Player.Done || (Run.Depth < 1 && Run.Depth != -2)) {
+			if (Player == null || Player.Done/* || (Run.Depth < 1 && Run.Depth != -2)*/) {
 				Done = true;
 				return;
 			}
 			
-			// Seriously tmp solution about hiding the inventory ui, need to tween it all away!!!!
-			if (Player.GetComponent<HealthComponent>().Dead || Engine.Instance.State.Paused) {
+			/*if (Player.GetComponent<HealthComponent>().Dead) {
 				return;
-			}
+			}*/
 
 			Entity target = null;
 			var r = Player.GetComponent<RoomComponent>().Room;
@@ -349,14 +356,26 @@ namespace BurningKnight.ui.inventory {
 				if (UiItem.Hovered != null) {
 					var item = UiItem.Hovered;
 
+					if (lastItem != UiItem.Hovered) {
+						lastItem = UiItem.Hovered;
+						description.Label = item.Description;
+						description.FinishTyping();
+					}
+
 					var x = MathUtils.Clamp(item.OnTop ? 40 : 4, Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
 					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
 						MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
 
 					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
 					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
-					Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
+					// Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
+
+					description.X = x;
+					description.Y = y - 2;
 					Graphics.Color = ColorUtils.WhiteColor;
+
+					description.Tint.A = (byte) (item.TextA * 255f);
+					description.RenderString();
 				}
 			}
 		}

@@ -89,6 +89,8 @@ namespace BurningKnight.entity.creature.npc {
 		public class PopState : SmartState<Beet> {
 			public override void Init() {
 				base.Init();
+
+				Self.GetComponent<AudioEmitterComponent>().Emit("npc_beet_show");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 
@@ -109,6 +111,8 @@ namespace BurningKnight.entity.creature.npc {
 		public class HideState : SmartState<Beet> {
 			public override void Init() {
 				base.Init();
+				
+				Self.GetComponent<AudioEmitterComponent>().Emit("npc_beet_hide");
 				Self.GetComponent<AnimationComponent>().SetAutoStop(true);
 			}
 

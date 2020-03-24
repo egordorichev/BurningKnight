@@ -17,14 +17,15 @@ using Version = Lens.Version;
 
 namespace BurningKnight {
 	public class BK : Engine {
-		public static bool StandMode = false;
-		public static Version Version = new Version("Hub update", 39, 0, 1, 11, 5, true, Debug);
+		public const bool StandMode = false;
+		public const bool Demo = false;
+		public static Version Version = new Version("Hub update", 39, 0, 1, 11, 6, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
 				new DevAssetLoadState(),
 			#else
-				new AssetLoadState(),			
+				new AssetLoadState(),
 			#endif
 			 $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
 		}

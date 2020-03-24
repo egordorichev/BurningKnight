@@ -1,42 +1,28 @@
 # todo
 
-* josh like jokes in settings, with "sound effect"
+{
+ achievements hall
+ border around the whole hub with trees
 
-ani bugs {
- make restock more rare
+ demo
+
+ challanges
+ day/night+weather
 }
+
+* josh like jokes in settings, with "sound effect"
 
 bugs {
  bomb spawnrate low
  no items on emerald / garderobe stands???
  
  doors tile high lights sometimes
- put ui string into ui item description
- make sure gen is stable (how??)
 }
 
-{
- achievements
- challenges
- 
- demo
-}
-
-* mike saving and boss rush payment
-* line of sight for close dialog
-
-* sign system
-* a sign saying that you can try your hats on in the garderobe
-
-head room explanation
+show only last 6 or so items, allow to see more in pause menu
 desert gen gave up? no loading screen tips sometimes
 
-* add tutorial shortcut into the hub
-
-* achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
-
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* death counter display (overall game stats)
+* game stats in hub (best 3 runs, total deaths, etc)
 
 * credits
 
@@ -62,7 +48,6 @@ ice {
 
 ### big points that are needed before release (no overscope)
 
-slimes shouldnt all jump at the same time
 * hub update
 * credits
 * achivement icons
@@ -115,7 +100,6 @@ flavors {
 ### things I promissed to do
 
 * secret seeds
-* daily runs
 * local coop up to 4 players
 * twitch support
 

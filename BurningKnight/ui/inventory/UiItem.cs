@@ -120,7 +120,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override void Render() {
-			if (id == null || Engine.Instance.State.Paused) {
+			if (id == null) {
 				return;
 			}
 

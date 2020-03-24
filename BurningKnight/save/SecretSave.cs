@@ -14,7 +14,7 @@ namespace BurningKnight.save {
 			}
 
 			Loaded = true;
-			SaveManager.Load(area, SaveType.Secret);
+			// SaveManager.Load(area, SaveType.Secret);
 		}
 		
 		public override string GetPath(string path, bool old = false) {

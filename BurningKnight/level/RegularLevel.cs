@@ -208,7 +208,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				var addDarkMarket = Rnd.Chance(20);
+				var addDarkMarket = (Run.Depth > 2 && Rnd.Chance(10) && GameSave.IsFalse("saw_blackmarket"));
 
 				if (addDarkMarket) {
 					rooms.Add(new DarkMarketEntranceRoom());

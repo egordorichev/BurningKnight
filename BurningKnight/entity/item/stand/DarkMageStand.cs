@@ -21,7 +21,7 @@ namespace BurningKnight.entity.item.stand {
 		private int lastPrice;
 
 		protected override int CalculatePrice() {
-			return (int) PriceCalculator.GetModifier(Item);
+			return (int) Math.Max(1, PriceCalculator.GetModifier(Item));
 		}
 
 		protected override string GetSprite() {

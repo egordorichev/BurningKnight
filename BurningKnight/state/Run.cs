@@ -16,7 +16,7 @@ using Steamworks.Data;
 namespace BurningKnight.state {
 	public static class Run {
 		public static Action<int, string> SubmitScore;
-		public static int ContentEndDepth = 11;
+		public static int ContentEndDepth = BK.Demo ? 3 : 11;
 
 		private static int depth = BK.Version.Dev ? 0 : 0;
 		public static int NextDepth = depth;
@@ -94,7 +94,7 @@ namespace BurningKnight.state {
 
 			if (Type == RunType.Daily) {
 				var date = DateTime.UtcNow;
-				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear) - 1;
+				DailyId = (date.Year - 2020) * 365 + (date.DayOfYear);
 				Log.Debug($"Today is {date.DayOfYear} day of the year {date.Year}, so the daily id is {DailyId}");
 
 				Seed = Rnd.GenerateSeed(8, DailyId);

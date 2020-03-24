@@ -64,7 +64,8 @@ namespace BurningKnight.state {
 		public static string[] Quality = {
 			"wooden",
 			"iron",
-			"golden"
+			"golden",
+			"trash"
 		};
 
 		private static int toRemove = -1;

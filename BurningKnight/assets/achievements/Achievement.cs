@@ -7,6 +7,8 @@ namespace BurningKnight.assets.achievements {
 		public bool Unlocked { get; internal set; }
 		public int Max;
 		public string Unlock = "";
+		public bool Secret;
+		public string Group; 
 		
 		public Achievement(string id) {
 			Id = id;
@@ -15,6 +17,8 @@ namespace BurningKnight.assets.achievements {
 		public void Load(JsonValue root) {
 			Max = root["max"].Int(0);
 			Unlock = root["unlock"].String("");
+			Secret = root["secret"].Bool(false);
+			Group = root["group"].String("");
 		}
 
 		public void Save(JsonValue root) {
@@ -24,6 +28,14 @@ namespace BurningKnight.assets.achievements {
 
 			if (Unlock.Length > 0) {
 				root["unlock"] = Unlock;
+			}
+
+			if (Secret) {
+				root["secret"] = true;
+			}
+
+			if (Group.Length > 0) {
+				root["group"] = Group;
 			}
 		}
 

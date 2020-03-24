@@ -35,7 +35,7 @@ namespace BurningKnight.level.entities {
 			AddTag(Tags.Teleport);
 			
 			AddComponent(new RoomComponent());
-			AddComponent(new SensorBodyComponent(2, 2, 12, 12, BodyType.Static));
+			AddComponent(new SensorBodyComponent(1, 1, 14, 14, BodyType.Static));
 			
 			AddComponent(new LightComponent(this, 64, ProjectileColor.Purple));
 		}
@@ -60,7 +60,7 @@ namespace BurningKnight.level.entities {
 				if (cee.Entity is Player) {
 					ignoreCollision = false;
 				}
-			} else if (e is CollisionStartedEvent cse && cse.Entity is Creature c) {
+			} else if (e is CollisionStartedEvent cse && cse.Entity is Player c) {
 				if (ignoreCollision) {
 					return base.HandleEvent(e);
 				}

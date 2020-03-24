@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -28,7 +29,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected override int CalculatePrice() {
-			return (int) (PriceCalculator.GetModifier(Item) * 1.5f);
+			return (int) Math.Max(1, PriceCalculator.GetModifier(Item) * 1.5f);
 		}
 
 		protected override bool TryPay(Entity entity) {
