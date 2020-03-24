@@ -491,12 +491,17 @@ namespace BurningKnight.ui.str {
 		}
 		
 		public bool ShouldntRender => Engine.Instance.State.Paused || label == null || Tint.A == 0 || glyphs.Count == 0;
+		public bool DisableRender;
 
 		public override void Render() {
-			if (ShouldntRender) {
+			if (ShouldntRender || DisableRender) {
 				return;
 			}
 
+			RenderString();
+		}
+
+		public void RenderString() {
 			var m = 1;
 			var n = m - 1;
 			var l = (int) Math.Min(progress + n, glyphs.Count);
