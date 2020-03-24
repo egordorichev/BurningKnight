@@ -3,6 +3,9 @@
 * pause game in steam menu
 
 {
+ gen bug is back
+ corrupted level issue is back
+ 
  achievements hall
  achievement progress display in achievement hub, as well as date achieved 
  border around the whole hub with trees

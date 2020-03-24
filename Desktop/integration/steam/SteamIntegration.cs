@@ -3,6 +3,7 @@ using System.Threading;
 using BurningKnight.assets.achievements;
 using BurningKnight.save;
 using BurningKnight.state;
+using Lens;
 using Lens.util;
 using Steamworks;
 using Steamworks.Data;
@@ -65,6 +66,11 @@ namespace Desktop.integration.steam {
 				} catch (Exception e) {
 					Log.Error(e);
 				}
+
+				SteamFriends.OnGameOverlayActivated += () => {
+					Engine.Instance.State.Paused = !Engine.Instance.State.Paused;
+				};
+				
 			} catch (Exception e) {
 				Log.Error(e);
 				Log.Info("No steam no fire :/");
