@@ -1,9 +1,11 @@
 # todo
 
+* add tutorial shortcut into the hub
+* boss rush payment
+
 * josh like jokes in settings, with "sound effect"
 
 bugs {
- some setting values are wrong when you fisrt open settings
  bomb spawnrate low
  no items on emerald / garderobe stands???
  
@@ -20,8 +22,6 @@ bugs {
 * a sign saying that you can try your hats on in the garderobe
 head room explanation with a sign?
 
-* add tutorial shortcut into the hub
-* boss rush payment
 
  demo
 

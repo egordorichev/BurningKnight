@@ -29,7 +29,7 @@ namespace BurningKnight.ui {
 			});
 
 			c = (UiSliderLabel) pane.Add(new UiSliderLabel {
-				Label = $"{max}%",
+				Label = $"{value}%",
 				RelativeX = x + a.Width + b.Width + 20,
 				RelativeCenterY = y,
 				Click = bt => {
