@@ -218,7 +218,10 @@ namespace BurningKnight.assets.achievements {
 			ImGui.Separator();
 
 			ImGui.InputText("Unlocks", ref selected.Unlock, 128);
+			ImGui.InputText("Group", ref selected.Group, 128);
+
 			ImGui.InputInt("Max progress", ref selected.Max);
+			ImGui.Checkbox("Secret", ref selected.Secret);
 			
 			var u = selected.Unlocked;
 			
@@ -379,5 +382,21 @@ namespace BurningKnight.assets.achievements {
 			ImGui.EndChild();
 			ImGui.End();
 		}
+
+		public static bool IsGroupComplete(string group) {
+			var found = false;
+
+			foreach (var a in Defined.Values) {
+				if (a.Group == group) {
+					found = true;
+
+					if (!a.Unlocked) {
+						return false;
+					}
+				}
+			}
+
+			return found;
+		} 
 	}
 }

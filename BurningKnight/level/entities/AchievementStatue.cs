@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
-	public class AchievementStatue : SolidProp {
+	public class AchievementStatue : Prop {
 		private string id = "bk:rip";
 		private bool unlocked;
 		private TextureRegion achievementTexture;
@@ -31,6 +31,8 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
 			AddComponent(new ShadowComponent());
+			AddComponent(new InteractableSliceComponent("props", "achievement_statue"));
+			AddComponent(new RectBodyComponent(0, 13, 24, 19, BodyType.Static));
 
 			Achievements.UnlockedCallback += UpdateState;
 			Achievements.LockedCallback += UpdateState;
@@ -43,25 +45,10 @@ namespace BurningKnight.level.entities {
 			Achievements.LockedCallback -= UpdateState;
 		}
 
-		protected override Rectangle GetCollider() {
-			return new Rectangle(0, 13, 24, 19);
-		}
-
 		public override void PostInit() {
-			Sprite = "achievement_statue";
-			
 			base.PostInit();
+			SetupSprite();
 			UpdateState();
-			SetupSprite();
-		}
-
-		private void UpdateSprite() {
-			if (HasComponent<InteractableComponent>()) {
-				RemoveComponent<InteractableSliceComponent>();
-			}
-			
-			InsertGraphics();
-			SetupSprite();
 		}
 
 		private void SetupSprite() {
@@ -94,7 +81,7 @@ namespace BurningKnight.level.entities {
 			base.RenderImDebug();
 
 			if (ImGui.InputText("Id", ref id, 128)) {
-				UpdateSprite();
+				SetupSprite();
 				UpdateState();
 			}
 		}

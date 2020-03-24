@@ -278,7 +278,7 @@ namespace BurningKnight.state {
 			var old = !Engine.Quiting;
 
 			SaveManager.Save(Area, SaveType.Global, old);
-			SaveManager.Save(Area, SaveType.Secret);
+			// SaveManager.Save(Area, SaveType.Secret);
 
 			if (!Run.StartedNew && !died && !Run.Won) {
 				var d = (old ? Run.LastDepth : Run.Depth);
@@ -1064,7 +1064,6 @@ namespace BurningKnight.state {
 			if (player != null) {
 				Ui.Add(new UiInventory(player));
 			}
-			
 
 			TopUi.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight	

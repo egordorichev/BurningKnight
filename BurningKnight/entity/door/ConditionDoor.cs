@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.save;
 using ImGuiNET;
@@ -16,7 +17,11 @@ namespace BurningKnight.entity.door {
 			"Save Boss Rush Guy",
 			"Completed 10 Challenges",
 			"Completed 20 Challenges",
-			"Completed 30 Challenges"
+			"Completed 30 Challenges",
+			"Achievement Branch A Complete",
+			"Achievement Branch B Complete",
+			"Achievement Branch C Complete",
+			"Achievement Branch D Complete"
 		};
 
 		private bool shouldLock;
@@ -39,6 +44,10 @@ namespace BurningKnight.entity.door {
 				case 6: return GlobalSave.GetInt("challenges_completed") >= 10;
 				case 7: return GlobalSave.GetInt("challenges_completed") >= 20;
 				case 8: return GlobalSave.GetInt("challenges_completed") >= 30;
+				case 9: return Achievements.IsGroupComplete("a");
+				case 10: return Achievements.IsGroupComplete("a");
+				case 11: return Achievements.IsGroupComplete("a");
+				case 12: return Achievements.IsGroupComplete("a");
 			}
 
 			return false;

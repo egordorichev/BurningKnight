@@ -2,10 +2,12 @@
 
 {
  achievements hall
+ border around the whole hub with trees
 
  demo
 
  challanges
+ day/night+weather
 }
 
 * josh like jokes in settings, with "sound effect"
