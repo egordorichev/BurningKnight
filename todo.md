@@ -2,11 +2,11 @@
 
 * josh like jokes in settings, with "sound effect"
 
-ani bugs {
- make restock more rare
-}
+dont give sales in the shop, but increase the prices with the amount of items you have?
 
 bugs {
+ some setting values are wrong when you fisrt open settings
+ sfx volume doesnt affect rain, bk and obrital looped sound (what other spunds did I loop?)
  bomb spawnrate low
  no items on emerald / garderobe stands???
  
@@ -15,23 +15,27 @@ bugs {
  make sure gen is stable (how??)
 }
 
-{
- achievements
- challenges
- 
- demo
-}
+fix library teleporter making enemies unhittable (exception or whats going on?)
 
-* mike saving and boss rush payment
+{
+ achievements hall
+ lock challenges for demo
+ 
 * line of sight for close dialog
 
 * sign system
 * a sign saying that you can try your hats on in the garderobe
-
-head room explanation
-desert gen gave up? no loading screen tips sometimes
+head room explanation with a sign?
 
 * add tutorial shortcut into the hub
+* boss rush payment
+
+ demo
+
+ challanges
+}
+
+desert gen gave up? no loading screen tips sometimes
 
 * achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
 

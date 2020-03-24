@@ -155,6 +155,8 @@ namespace BurningKnight.assets.achievements {
 			} catch (Exception ex) {
 				Log.Error(ex);
 			}
+
+			Audio.PlaySfx("ui_achievement");
 		}
 
 		public static void Lock(string id) {

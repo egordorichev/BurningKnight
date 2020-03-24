@@ -19,7 +19,7 @@
 #begin Fonts/fnt.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
+/processorParam:PremultiplyAlpha=False
 /processorParam:TextureFormat=Compressed
 /build:Fonts/fnt.spritefont
 
@@ -995,6 +995,18 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/wombat/fly.wav
 
+#begin Sfx/npc/beet/hide.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/beet/hide.wav
+
+#begin Sfx/npc/beet/show.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/npc/beet/show.wav
+
 #begin Sfx/npc/voice/1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -1456,6 +1468,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/take.wav
+
+#begin Sfx/ui/achievement.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/ui/achievement.wav
 
 #begin Sfx/ui/change_parameter.wav
 /importer:WavImporter
