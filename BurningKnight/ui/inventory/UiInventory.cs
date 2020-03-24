@@ -297,10 +297,9 @@ namespace BurningKnight.ui.inventory {
 				return;
 			}
 			
-			// Seriously tmp solution about hiding the inventory ui, need to tween it all away!!!!
-			if (Player.GetComponent<HealthComponent>().Dead || Engine.Instance.State.Paused) {
+			/*if (Player.GetComponent<HealthComponent>().Dead) {
 				return;
-			}
+			}*/
 
 			Entity target = null;
 			var r = Player.GetComponent<RoomComponent>().Room;

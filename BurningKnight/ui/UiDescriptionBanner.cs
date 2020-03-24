@@ -61,7 +61,7 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
-			if (title == null || Engine.Instance.State.Paused) {
+			if (title == null) {
 				return;
 			}
 
