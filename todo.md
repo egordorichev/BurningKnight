@@ -1,6 +1,15 @@
 # todo
 
-* pause game in steam menu
+when you pickup glass, fix your broken glass gun/sword
+
+* you can reroll item in the idol room
+* dalies are broken
+* rolling spikes can stop (rework their move logic)
+* golden chests look defected in the challenge room
+* mobs shouldnt drop anything on death from chasm
+* dying with flight causes lag?
+
+mana is behind activei tem slot
 
 {
  gen bug is back
