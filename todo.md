@@ -36,8 +36,6 @@ head room explanation with a sign?
 show only last 6 or so items, allow to see more in pause menu
 desert gen gave up? no loading screen tips sometimes
 
-* achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
-
 * game stats in hub (best 3 runs, total deaths, etc)
 
 * credits

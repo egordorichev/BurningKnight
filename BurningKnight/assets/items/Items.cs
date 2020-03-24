@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.renderer;
@@ -544,6 +545,7 @@ namespace BurningKnight.assets.items {
 			
 			Engine.Instance.State.Ui.EventListener.Handle(e);
 			Engine.Instance.State.Area.EventListener.Handle(e);
+			Achievements.ItemBuffer.Add(id);
 		}
 	}
 }

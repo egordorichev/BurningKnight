@@ -420,13 +420,22 @@ namespace BurningKnight.state {
 		private Vector2 stickOffset;
 
 		public override void Update(float dt) {
-			if (UiAchievement.Current == null && Achievements.AchievementBuffer.Count > 0) {
-				var id = Achievements.AchievementBuffer[0];
+			if (UiAchievement.Current == null) {
+				if (Achievements.AchievementBuffer.Count > 0) {
+					var id = Achievements.AchievementBuffer[0];
 				
-				var a = new UiAchievement(id);
-				a.Y = Display.UiHeight + 2;
-				TopUi.Add(a);
-				a.Right = Display.UiWidth - 8;
+					var a = new UiAchievement(id);
+					a.Y = Display.UiHeight + 60;
+					TopUi.Add(a);
+					a.Right = Display.UiWidth - 8;
+				} else if (Achievements.ItemBuffer.Count > 0) {
+					var id = Achievements.ItemBuffer[0];
+				
+					var a = new UiAchievement(id, true);
+					a.Y = Display.UiHeight + 60;
+					TopUi.Add(a);
+					a.Right = Display.UiWidth - 8;
+				}
 			}
 			
 			if (!Paused && (Settings.Autosave && Run.Depth > 0)) {

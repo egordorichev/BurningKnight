@@ -24,7 +24,8 @@ namespace BurningKnight.assets.achievements {
 	public static class Achievements {
 		public static Dictionary<string, Achievement> Defined = new Dictionary<string, Achievement>();
 		public static List<string> AchievementBuffer = new List<string>();
-		
+		public static List<string> ItemBuffer = new List<string>();
+
 		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
