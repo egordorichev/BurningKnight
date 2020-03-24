@@ -1,7 +1,12 @@
 # todo
 
-* add tutorial shortcut into the hub
-* boss rush payment
+{
+ achievements hall
+
+ demo
+
+ challanges
+}
 
 * josh like jokes in settings, with "sound effect"
 
@@ -10,14 +15,6 @@ bugs {
  no items on emerald / garderobe stands???
  
  doors tile high lights sometimes
-}
-
-{
- achievements hall
-
- demo
-
- challanges
 }
 
 show only last 6 or so items, allow to see more in pause menu

@@ -300,7 +300,7 @@ namespace BurningKnight.ui.inventory {
 		}
 		
 		public override void Render() {
-			if (Player == null || Player.Done || (Run.Depth < 1 && Run.Depth != -2)) {
+			if (Player == null || Player.Done/* || (Run.Depth < 1 && Run.Depth != -2)*/) {
 				Done = true;
 				return;
 			}

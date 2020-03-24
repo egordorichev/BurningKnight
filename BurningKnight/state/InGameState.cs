@@ -1038,7 +1038,7 @@ namespace BurningKnight.state {
 			
 			var cam = new Camera(new FollowingDriver());
 			TopUi.Add(cam);
-			Ui.Add(new AchievementBanner());
+			// Ui.Add(new AchievementBanner());
 			
 			editor = new EditorWindow(new Editor {
 				Area = Area,
@@ -1433,11 +1433,13 @@ namespace BurningKnight.state {
 								SaveManager.DeleteCloudSaves();
 
 								try {
- 								SteamUserStats.ResetAll(true);
+ 									SteamUserStats.ResetAll(true);
 								} catch (Exception e) {
 									
 								}
+								
 								Achievements.LoadState();
+								GlobalSave.Emeralds = 0;
 								
 								Run.StartingNew = true;
 								Run.NextDepth = 0;

@@ -73,10 +73,14 @@ namespace BurningKnight.ui {
 				t.OnStart = () => {
 					Current = null;
 
-					if (isItem) {
-						Achievements.ItemBuffer.RemoveAt(0);
-					} else {
-						Achievements.AchievementBuffer.RemoveAt(0);
+					try {
+						if (isItem) {
+							Achievements.ItemBuffer.RemoveAt(0);
+						} else {
+							Achievements.AchievementBuffer.RemoveAt(0);
+						}
+					} catch (Exception e) {
+						
 					}
 				};
 				
