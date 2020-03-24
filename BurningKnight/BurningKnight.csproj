@@ -1223,6 +1223,7 @@
     <Compile Include="ui\str\IconRenderer.cs" />
     <Compile Include="ui\str\StrRenderer.cs" />
     <Compile Include="ui\str\UiString.cs" />
+    <Compile Include="ui\UiAchievement.cs" />
     <Compile Include="ui\UiAnimation.cs" />
     <Compile Include="ui\UiBanner.cs" />
     <Compile Include="ui\UiButton.cs" />
