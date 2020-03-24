@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.state;
 using Lens.entity;
 
@@ -12,7 +13,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected override int CalculatePrice() {
-			return (int) (base.CalculatePrice() * 0.7f);
+			return (int) Math.Max(1, (base.CalculatePrice() * 0.7f));
 		}
 
 		protected override bool TryPay(Entity entity) {

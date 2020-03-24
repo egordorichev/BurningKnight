@@ -2,8 +2,6 @@
 
 * josh like jokes in settings, with "sound effect"
 
-dont give sales in the shop, but increase the prices with the amount of items you have?
-
 bugs {
  some setting values are wrong when you fisrt open settings
  sfx volume doesnt affect rain, bk and obrital looped sound (what other spunds did I loop?)
@@ -40,8 +38,7 @@ desert gen gave up? no loading screen tips sometimes
 
 * achievements, like bk:tutorial, can get lost in between loading screens and never actually showup
 
-* change how black bars work, all of that ingame ui that is pause stuff should render as a second time ui layer (and stop hiding ui elements if the game is just paused)
-* death counter display (overall game stats)
+* game stats in hub (best 3 runs, total deaths, etc)
 
 * credits
 
