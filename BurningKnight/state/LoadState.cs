@@ -72,9 +72,7 @@ namespace BurningKnight.state {
 				
 				SaveManager.Load(gameArea, SaveType.Game, Path);
 				progress++;
-				
-				Rnd.Seed = $"{Run.Seed}_{Run.Depth}"; 
-				
+
 				SaveManager.Load(gameArea, SaveType.Level, Path);
 				progress++;
 

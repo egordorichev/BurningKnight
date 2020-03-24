@@ -56,12 +56,42 @@ namespace BurningKnight.save {
 		}
 
 		public static Biome BiomeGenerated;
-		
-		private bool GenerationThread(Area area) {
+
+		private void SetupDummy(Area area) {
+			Log.Error("Can't generate a level");
 			var a = new Area();
+
+			var level = CreateLevel();
+			BiomeGenerated = level.Biome;
+			WallRegistry.Instance.ResetForBiome(BiomeGenerated);
+
+			level.Width = 32;
+			level.Height = 32;
+			level.NoLightNoRender = false;
+			level.DrawLight = false;
+					
+			a.Add(level);
+
+			level.Setup();
+			level.Fill(Tile.FloorA);
+			level.TileUp();
+			level.CreateBody();
+
+			foreach (var e in a.Entities.ToAdd) {
+				area.Add(e);
+			}
+
+			area.EventListener.Copy(a.EventListener);
+			area.Entities.AddNew();
+		}
+		
+		private bool GenerationThread(Area area, int c = 0) {
+			var a = new Area();
+			Rnd.Seed = $"{Run.Seed}{Run.Depth}{c}"; 
 		
 			try {
 				Items.GeneratedOnFloor.Clear();
+				
 				var level = CreateLevel();
 				BiomeGenerated = level.Biome;
 				WallRegistry.Instance.ResetForBiome(BiomeGenerated);
@@ -84,26 +114,13 @@ namespace BurningKnight.save {
 				a.Destroy();
 				Run.Level = null;
 
-				if (I > 1000) {
-					Log.Error("Can't generate a level");
-					a = new Area();
+				if (I > 10) {
+					I = 0;
+					return GenerationThread(area, c + 1);
 
-					var level = CreateLevel();
-					BiomeGenerated = level.Biome;
-					WallRegistry.Instance.ResetForBiome(BiomeGenerated);
-
-					level.Width = 32;
-					level.Height = 32;
-					level.NoLightNoRender = false;
-					level.DrawLight = false;
+					/*SetupDummy(area);
 					
-					a.Add(level);
-
-					level.Setup();
-					level.Fill(Tile.FloorA);
-					level.TileUp();
-					
-					return false;
+					return false;*/
 				}
 				
 				return GenerationThread(area);
@@ -145,7 +162,7 @@ namespace BurningKnight.save {
 				if (i >= 15f) {
 					Log.Debug("Thread took too long, aborting :(");
 					thread.Interrupt();
-					Rnd.Seed = Rnd.GenerateSeed();
+					Rnd.Seed = Run.Seed = Rnd.GenerateSeed();
 					aborted = true;
 
 					break;

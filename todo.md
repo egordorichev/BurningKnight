@@ -10,7 +10,6 @@ bugs {
  no items on emerald / garderobe stands???
  
  doors tile high lights sometimes
- make sure gen is stable (how??)
 }
 
 {
