@@ -6,6 +6,7 @@
  achievements hall
  achievement progress display in achievement hub, as well as date achieved 
  border around the whole hub with trees
+ fix that you can place weapons on garderobe stand
 
  demo
 

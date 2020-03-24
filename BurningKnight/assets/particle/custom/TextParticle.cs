@@ -83,11 +83,6 @@ namespace BurningKnight.assets.particle.custom {
 			
 			start = Center;
 			gamePosition = Center;
-
-			if (fullText == null) {
-				Done = true;
-				
-			}
 		}
 
 		public override void Update(float dt) {
@@ -112,7 +107,9 @@ namespace BurningKnight.assets.particle.custom {
 		}
 
 		public override void Render() {
-			Graphics.Print(fullText, Font.Medium, Center, 0, origin, scale);
+			if (fullText != null) {
+				Graphics.Print(fullText, Font.Medium, Center, 0, origin, scale);
+			}
 		}
 
 		public static TextParticle Add(Entity owner, string text, float count = 0, bool hasSign = false, bool minus = false) {

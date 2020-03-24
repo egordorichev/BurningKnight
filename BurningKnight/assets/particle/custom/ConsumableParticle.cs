@@ -52,6 +52,13 @@ namespace BurningKnight.assets.particle.custom {
 
 		public override void PostInit() {
 			base.PostInit();
+
+			if (player == null || Camera.Instance == null) {
+				Done = true;
+
+				return;
+			}
+
 			Center = Camera.Instance.CameraToUi(player.TopCenter) - offset;
 
 			Timer.Add(() => {
