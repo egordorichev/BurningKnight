@@ -28,7 +28,7 @@ namespace BurningKnight.level.builders {
 		private float TargetAngle(float PercentAlong) {
 			PercentAlong += Offset;
 
-			return 360f * (float) (Intensity * CurveEquation(PercentAlong) + (1 - Intensity) * PercentAlong - Offset);
+			return 345f * (float) (Intensity * CurveEquation(PercentAlong) + (1 - Intensity) * PercentAlong - Offset);
 		}
 
 		private double CurveEquation(double X) {
@@ -132,40 +132,44 @@ namespace BurningKnight.level.builders {
 					
 						a = Rnd.Angle();
 						i = 0;
-						
-						while (true) {
-							var an = PlaceRoom(Init, Boss, Granny, a);
-							
-							if ((int) an != -1) {
-								break;
-							}
 
-							i++;
+						if (Granny != null) {
+							while (true) {
+								var an = PlaceRoom(Init, Boss, Granny, a);
 
-							if (i > 36) {
-								return null;
+								if ((int) an != -1) {
+									break;
+								}
+
+								i++;
+
+								if (i > 72) {
+									return null;
+								}
+
+								a += 5;
 							}
-							
-							a += 10;
 						}
-					
+
 						a = Rnd.Angle();
 						i = 0;
-						
-						while (true) {
-							var an = PlaceRoom(Init, Boss, OldMan, a);
-							
-							if ((int) an != -1) {
-								break;
-							}
 
-							i++;
+						if (OldMan != null) {
+							while (true) {
+								var an = PlaceRoom(Init, Boss, OldMan, a);
 
-							if (i > 36) {
-								return null;
+								if ((int) an != -1) {
+									break;
+								}
+
+								i++;
+
+								if (i > 72) {
+									return null;
+								}
+
+								a += 5;
 							}
-							
-							a += 10;
 						}
 					}
 				} else {

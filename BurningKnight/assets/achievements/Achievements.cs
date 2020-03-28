@@ -110,6 +110,12 @@ namespace BurningKnight.assets.achievements {
 			
 			if (max == progress) {
 				ReallyUnlock(id, a);
+				GlobalSave.Put($"ach_{a.Id}", progress);
+
+				return;
+			}
+
+			if (GlobalSave.GetInt($"ach_{a.Id}") >= progress) {
 				return;
 			}
 			
@@ -130,7 +136,8 @@ namespace BurningKnight.assets.achievements {
 				return;
 			}
 
-			if (a.Unlocked) {
+			if (a.Unlocked || GlobalSave.IsTrue($"ach_{a.Id}")) {
+				a.Unlocked = true;
 				return;
 			}
 

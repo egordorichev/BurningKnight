@@ -68,7 +68,7 @@ namespace BurningKnight.entity.door {
 			base.PostInit();
 
 			if (!Vertical) {
-				CenterX = (float) (Math.Round(CenterX / 16) * 16) + 8;
+				// CenterX = (float) (Math.Round(CenterX / 16) * 16) + 8;
 			}
 		}
 		

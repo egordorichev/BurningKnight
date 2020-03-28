@@ -73,7 +73,7 @@ namespace BurningKnight.level.biome {
 			var R = Rnd.Float();
 
 			if (R < 0.33f) {
-				return new LineBuilder();
+				return new LineBuilder().SetPathLength(0.5f, new float[] { 1, 2, 3 });
 			}
 
 			if (R < 0.66f) {

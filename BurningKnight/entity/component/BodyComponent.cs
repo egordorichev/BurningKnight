@@ -172,5 +172,9 @@ namespace BurningKnight.entity.component {
 				}
 			}
 		}
+
+		public virtual void Resize(float x, float y, float w, float h, bool center = false) {
+			
+		}
 	}
 }

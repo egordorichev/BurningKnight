@@ -58,6 +58,10 @@ namespace BurningKnight.state {
 			var thread = new Thread(() => {
 				Log.Info("Starting asset loading thread");
 				
+				SaveManager.Load(gameArea, SaveType.Global);
+				progress++;
+				checkFullscreen = true;
+				
 				Audio.ThreadLoad("Void");
 				progress++;
 				Assets.Load(ref progress);
@@ -65,8 +69,6 @@ namespace BurningKnight.state {
 				Audio.ThreadLoad("Menu", false);
 				progress++;
 				
-				Achievements.Load();
-				progress++;
 				Dialogs.Load();
 				progress++;
 				CommonAse.Load();
@@ -94,9 +96,7 @@ namespace BurningKnight.state {
 				Tilesets.Load();
 				progress++;
 				
-				SaveManager.Load(gameArea, SaveType.Global);
-
-				checkFullscreen = true;
+				Achievements.Load();
 				progress++;
 				
 				SaveManager.Load(gameArea, SaveType.Game);

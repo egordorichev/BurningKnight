@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using BurningKnight.assets.items;
 using BurningKnight.level;
@@ -17,6 +19,9 @@ using Lens.util.math;
 
 namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
+		public static int FailedAttempts;
+		public static List<int> Fails = new List<int>();
+		
 		private static int I;
 
 		public override void Save(Area area, FileWriter writer, bool old) {
@@ -162,7 +167,8 @@ namespace BurningKnight.save {
 					thread.Interrupt();
 					Rnd.Seed = Run.Seed = Rnd.GenerateSeed();
 					aborted = true;
-
+					FailedAttempts++;
+					
 					break;
 				}
 			}
@@ -170,7 +176,12 @@ namespace BurningKnight.save {
 			if (aborted) {
 				Generate(area);
 			} else {
-				Log.Debug($"Generation done, took {i} cycles");
+				if (Run.Depth > 0) {
+					Fails.Add(FailedAttempts);
+				}
+
+				Log.Debug($"Generation done, took {i} cycles, {FailedAttempts} failed attempts (avrg {Fails.Average()})");
+				FailedAttempts = 0;
 			}
 		}
 

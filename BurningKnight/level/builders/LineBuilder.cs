@@ -53,11 +53,11 @@ namespace BurningKnight.level.builders {
 
 					i++;
 
-					if (i > 36) {
+					if (i > 72) {
 						return false;
 					}
 
-					a += 10;
+					a += 5;
 				}
 			}
 
@@ -74,11 +74,11 @@ namespace BurningKnight.level.builders {
 
 					i++;
 
-					if (i > 36) {
+					if (i > 72) {
 						return false;
 					}
 
-					a += 10;
+					a += 5;
 				}
 			}
 

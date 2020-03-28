@@ -49,15 +49,7 @@ namespace BurningKnight.level.rooms.granny {
 		public override bool CanConnect(RoomDef R) {
 			return R is BossRoom;
 		}
-
-		public override bool CanConnect(RoomDef r, Dot p) {
-			if (p.X == Left + 1 || p.X == Right - 1 || p.Y == Top + 1 || p.Y == Bottom - 1) {
-				return false;
-			}
-			
-			return base.CanConnect(r, p);
-		}
-
+		
 		public override int GetMinHeight() {
 			return 8;
 		}

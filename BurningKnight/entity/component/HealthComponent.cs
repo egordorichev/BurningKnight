@@ -114,7 +114,7 @@ namespace BurningKnight.entity.component {
 							return false;
 						}
 
-						if (hearts.Hurt((int) Math.Round(amount), setter)) {
+						if (hearts.Hurt((int) Math.Round(amount), setter, type)) {
 							InvincibilityTimer = InvincibilityTimerMax;
 							TryToKill(setter);
 							return true;

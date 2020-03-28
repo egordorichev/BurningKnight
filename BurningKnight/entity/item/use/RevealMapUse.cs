@@ -1,6 +1,7 @@
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
@@ -9,7 +10,8 @@ namespace BurningKnight.entity.item.use {
 			base.Use(entity, item);
 			
 			var level = Run.Level;
-
+			Audio.PlaySfx("item_map");
+			
 			foreach (var e in entity.Area.Tagged[Tags.Room]) {
 				var room = (Room) e;
 				

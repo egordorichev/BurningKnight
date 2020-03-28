@@ -151,5 +151,9 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override string GetDeadSfx() {
 			return "mob_bandit_death";
 		}
+
+		protected override string GetHurtSfx() {
+			return "mob_bandit_damage";
+		}
 	}
 }

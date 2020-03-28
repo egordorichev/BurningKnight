@@ -95,7 +95,7 @@ namespace BurningKnight.level.walls {
 
 			var w = room.GetWidth() - 2;
 
-			for (var i = 0; i < Patch.Length - w; i++) {
+			for (var i = 0; i < Patch.Length - w - 1; i++) {
 				if (!Patch[i]) {
 					continue;
 				}

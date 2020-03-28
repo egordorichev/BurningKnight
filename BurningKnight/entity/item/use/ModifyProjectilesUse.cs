@@ -1,8 +1,5 @@
-using System;
-using BurningKnight.assets.items;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
-using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
@@ -16,8 +13,13 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyProjectilesUse : ItemUse {
+		public bool SetScale;
 		public float Scale;
+		public bool SetDamage;
 		public float Damage;
+		public bool SetRange;
+		public float Range;
+		
 		public float Chance;
 		public bool ToAny;
 		public bool EventCreated = true;
@@ -55,9 +57,24 @@ namespace BurningKnight.entity.item.use {
 			if (Rnd.Float() > Chance + Run.Luck * 0.2f) {
 				return;
 			}
+
+			if (SetRange) {
+				projectile.Range = Range;
+			} else {
+				projectile.Range *= Range;
+			}
 			
-			projectile.Scale *= Scale;
-			projectile.Damage *= Damage;
+			if (SetDamage) {
+				projectile.Damage = Damage;
+			} else {
+				projectile.Damage *= Damage;
+			}
+
+			if (SetScale) {
+				projectile.Scale = Scale;
+			} else {
+				projectile.Scale *= Scale;
+			}
 
 			if (RandomEffect) {
 				if (lastEffect == -1 || (EffectChangeSpeed > 0 && Engine.Time - lastEffectTime >= EffectChangeSpeed)) {
@@ -116,6 +133,10 @@ namespace BurningKnight.entity.item.use {
 			Chance = settings["chance"].Number(1);
 			Scale = settings["amount"].Number(1);
 			Damage = settings["damage"].Number(1);
+			Range = settings["range"].Number(1);
+			SetScale = settings["samount"].Bool(false);
+			SetDamage = settings["sdamage"].Bool(false);
+			SetRange = settings["srange"].Bool(false);
 			ToAny = settings["any"].Bool(false);
 			Explosive = settings["explosive"].Bool(false);
 			
@@ -139,8 +160,13 @@ namespace BurningKnight.entity.item.use {
 			root.Checkbox("From Any Source", "any", false);
 			
 			root.InputFloat("Chance", "chance");
+
+			root.Checkbox("Set Scale", "samount");
 			root.InputFloat("Scale Modifier", "amount");
+			root.Checkbox("Set Damage", "sdamage");
 			root.InputFloat("Damage Modifier", "damage");
+			root.Checkbox("Set Range", "srange");
+			root.InputFloat("Range Modifier", "range");
 			
 			ImGui.Separator();
 

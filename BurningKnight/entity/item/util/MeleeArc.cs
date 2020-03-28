@@ -114,24 +114,31 @@ namespace BurningKnight.entity.item.util {
 							p.Break();
 						}
 					}
-				} else if (ev.Entity != Owner && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
-					if (!hurt.Contains(ev.Entity)) {
-						if (Knockback > 0) {
-							ev.Entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(Owner, Knockback);
-						}
+				} else if (ev.Entity != Owner) {
+					if (ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+						if (!hurt.Contains(ev.Entity)) {
+							if (Knockback > 0) {
+								ev.Entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(Owner, Knockback);
+							}
 
-						if (health.ModifyHealth(-Damage, Owner)) {
-							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
-						}
+							if (health.ModifyHealth(-Damage, Owner)) {
+								Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
+							}
 
-						OnHurt?.Invoke(this, ev.Entity);
-						hurt.Add(ev.Entity);
+							OnHurt?.Invoke(this, ev.Entity);
+							hurt.Add(ev.Entity);
+						}
+					} else if (ev.Entity is ProjectileLevelBody && !HitWall) {
+						HitWall = true;
+						Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_sword_hit_wall");
 					}
 				}
 			}
 			
 			return base.HandleEvent(e);
 		}
+
+		private bool HitWall;
 
 		public override void Update(float dt) {
 			base.Update(dt);

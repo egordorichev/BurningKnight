@@ -170,9 +170,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
-				if (Run.Type == RunType.Daily) {
-					StartingWeapon = Items.Generate(ItemType.Weapon);
-				} else if (StartingWeapon == null) {
+				if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
 
@@ -180,12 +178,16 @@ namespace BurningKnight.entity.creature.player {
 					var i = Items.CreateAndAdd(StartingWeapon, Area);
 					i.Scourged = false;
 					GetComponent<ActiveWeaponComponent>().Set(i, false);
+					
+					Log.Debug($"Starting weapon: {StartingWeapon}");
 				}
 				
 				if (StartingItem != null) {
 					var i = Items.CreateAndAdd(StartingItem, Area);
 					i.Scourged = false;
 					GetComponent<ActiveItemComponent>().Set(i, false);
+					
+					Log.Debug($"Starting item: {StartingItem}");
 				}
 			}
 			
@@ -574,7 +576,7 @@ namespace BurningKnight.entity.creature.player {
 				if (hm.Amount < 0) {
 					if (hm.From is Mob m && m.HasPrefix) {
 						hm.Amount = Math.Min(hm.Amount, -2);
-					} else if (hm.Type != DamageType.Custom) {
+					} else if (hm.Type != DamageType.Custom && hm.Type != DamageType.Explosive) {
 						hm.Amount = Math.Max(-1, hm.Amount);
 					}
 				}			

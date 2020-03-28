@@ -390,6 +390,10 @@ namespace BurningKnight.assets.items {
 			if (id == "bk:coin") {
 				return true;
 			}
+
+			if (id == "bk:blindfold") {
+				return false;
+			}
 			
 			if (!Datas.TryGetValue(id, out var data)) {
 				return false;

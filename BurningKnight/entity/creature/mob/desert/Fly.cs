@@ -146,5 +146,9 @@ namespace BurningKnight.entity.creature.mob.desert {
 		public override bool ShouldCollide(Entity entity) {
 			return !(entity is Level) && base.ShouldCollide(entity);
 		}
+
+		protected override string GetDeadSfx() {
+			return "mob_fly_death";
+		}
 	}
 }

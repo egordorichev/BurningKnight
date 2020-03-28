@@ -26,6 +26,7 @@ namespace BurningKnight.state {
 		
 		private int progress;
 		private bool ready;
+		private bool checkFullscreen;
 		private Area gameArea;
 		private float t;
 		
@@ -43,6 +44,10 @@ namespace BurningKnight.state {
 		private void Load() {
 			Log.Info("Starting asset loading thread");
 
+			SaveManager.Load(gameArea, SaveType.Global);
+			checkFullscreen = true;
+			progress++;
+			
 			var t = DateTime.Now.Millisecond;
 			var c = DateTime.Now.Millisecond;
 
@@ -50,7 +55,6 @@ namespace BurningKnight.state {
 			Log.Info($"Assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
 
-			Achievements.Load();
 			Dialogs.Load();
 			progress++;
 			CommonAse.Load();
@@ -68,7 +72,6 @@ namespace BurningKnight.state {
 			Mods.Load();
 			progress++; // Should be 13 here
 			Log.Info($"Custom assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
-			c = DateTime.Now.Millisecond;
 				
 			Log.Info("Done loading assets! Loading level now.");
 			
@@ -80,9 +83,7 @@ namespace BurningKnight.state {
 			Tilesets.Load();
 			progress++;
 				
-			SaveManager.Load(gameArea, SaveType.Global);
-			progress++;
-			Log.Info($"Global took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			Achievements.Load();
 			c = DateTime.Now.Millisecond;
 
 			if (!LoadEditor) {
@@ -115,6 +116,16 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (checkFullscreen) {
+				checkFullscreen = false;
+				
+				if (Settings.Fullscreen) {
+					Engine.Instance.SetFullscreen();
+				} else {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				}
+			}
 
 			t += dt;
 			

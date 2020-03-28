@@ -51,39 +51,43 @@ namespace BurningKnight.level.builders {
 				a = Rnd.Angle();
 				i = 0;
 
-				while (true) {
-					var an = PlaceRoom(Init, Boss, Granny, a);
+				if (Granny != null) {
+					while (true) {
+						var an = PlaceRoom(Init, Boss, Granny, a);
 
-					if ((int) an != -1) {
-						break;
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 72) {
+							return null;
+						}
+
+						a += 5;
 					}
-
-					i++;
-
-					if (i > 36) {
-						return null;
-					}
-
-					a += 10;
 				}
 
 				a = Rnd.Angle();
 				i = 0;
 
-				while (true) {
-					var an = PlaceRoom(Init, Boss, OldMan, a);
+				if (OldMan != null) {
+					while (true) {
+						var an = PlaceRoom(Init, Boss, OldMan, a);
 
-					if ((int) an != -1) {
-						break;
+						if ((int) an != -1) {
+							break;
+						}
+
+						i++;
+
+						if (i > 72) {
+							return null;
+						}
+
+						a += 5;
 					}
-
-					i++;
-
-					if (i > 36) {
-						return null;
-					}
-
-					a += 10;
 				}
 			}
 

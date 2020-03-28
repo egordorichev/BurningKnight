@@ -714,7 +714,9 @@
     <Compile Include="entity\item\use\MakeBombsBlankUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectileExpandUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectileShrinkUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
@@ -803,7 +805,9 @@
     <Compile Include="entity\pc\Pico.cs" />
     <Compile Include="entity\pool\Pool.cs" />
     <Compile Include="entity\projectile\controller\BoomerangProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\ExpandProjectileController.cs" />
     <Compile Include="entity\projectile\controller\HsvProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\ShrinkProjectileController.cs" />
     <Compile Include="entity\projectile\controller\ReturnProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SlowdownProjectileController.cs" />
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />

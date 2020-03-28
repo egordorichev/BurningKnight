@@ -136,7 +136,11 @@ namespace BurningKnight.level.builders {
 			return Angle;
 		}
 
+		protected Rect LastSpace;
+		
 		protected virtual float PlaceRoom(List<RoomDef> Collision, RoomDef Prev, RoomDef Next, float Angle) {
+			LastSpace = null;
+			
 			if (Next == null) {
 				Log.Error("Null next room");
 				return -1;
@@ -178,7 +182,7 @@ namespace BurningKnight.level.builders {
 				Start.Y = (int) MathUtils.Clamp(Prev.Top + 1, Prev.Bottom - 1, Start.Y);
 			}
 
-			var Space = FindFreeSpace(Start, Collision, Math.Max(Next.GetMaxWidth(), Next.GetMaxHeight()));
+			var Space = LastSpace = FindFreeSpace(Start, Collision, Math.Max(Next.GetMaxWidth(), Next.GetMaxHeight()));
 
 			if (!Next.SetSizeWithLimit(Space.GetWidth() + 1, Space.GetHeight() + 1)) {
 				return -1;

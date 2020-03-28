@@ -71,7 +71,7 @@ namespace BurningKnight.level.entities.chest {
 			base.PostInit();
 
 			if (!open && item == null) {
-				item = Items.CreateAndAdd(Items.Generate(ItemPool.GlassChest), Area);
+				item = Items.CreateAndAdd(Items.Generate(ItemPool.GoldChest), Area);
 				item.RemoveDroppedComponents();
 			}
 		}
