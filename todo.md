@@ -1,5 +1,9 @@
 # bugs
 
+* tombstone still spawns in daily?
+* disable rerolling scoruges
+* escape from dialog 
+
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
@@ -12,6 +16,7 @@
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
+* ice 2 bug when no wall or floor is rendered
 
 # before demo
 
