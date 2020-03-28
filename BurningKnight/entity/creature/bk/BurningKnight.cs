@@ -273,6 +273,10 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		private void CheckForScourgeRageFree() {
+			if (Target == null) {
+				Become<IdleState>();
+			}
+			
 			var s = GetComponent<StateComponent>().StateInstance;
 
 			if (s is IdleState || s is ChaseState || s is FollowState || s is HiddenState || s is FlyAwayAttackingState || s is AttackState) {
@@ -288,7 +292,10 @@ namespace BurningKnight.entity.creature.bk {
 		public class IdleState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
-				Self.CheckForScourgeRage();
+
+				if (Self.Target != null) {
+					Self.CheckForScourgeRage();
+				}
 			}
 		}
 
