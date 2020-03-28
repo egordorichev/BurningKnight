@@ -2,7 +2,6 @@
 
 when you pickup glass, fix your broken glass gun/sword
 
-* magnifier dosent work
 * shields bug is back
 * really well -> very well
 * steam achievements keep rolling

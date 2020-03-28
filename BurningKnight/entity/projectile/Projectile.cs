@@ -415,5 +415,23 @@ namespace BurningKnight.entity.projectile {
 			
 			BodyComponent.Velocity = Vector2.Zero;
 		}
+
+		public void AdjustScale(float newScale) {
+			Scale = newScale;
+
+			var graphics = GetComponent<ProjectileGraphicsComponent>();
+			
+			var w = graphics.Sprite.Source.Width * Scale;
+			var h = graphics.Sprite.Source.Height * Scale;
+
+			Width = w;
+			Height = h;
+
+			if (HasComponent<CircleBodyComponent>()) {
+				GetComponent<CircleBodyComponent>().Resize(0, 0, w / 2f, w / 2, true);
+			} else {
+				GetComponent<RectBodyComponent>().Resize(0, 0, w, h, true);
+			}
+		}
 	}
 }

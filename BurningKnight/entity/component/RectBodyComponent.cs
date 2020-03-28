@@ -28,5 +28,22 @@ namespace BurningKnight.entity.component {
 				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)
 			}, 1f, Body).IsSensor = sensor;
 		}
+
+		public override void Resize(float x, float y, float w, float h, bool center = false) {
+			var fixture = Body.FixtureList[0];
+			var sensor = fixture.IsSensor;
+			
+			Body.DestroyFixture(fixture);
+
+			if (center) {
+				x -= w / 2;
+				y -= h / 2;
+				Offset = new Vector2(w / 2, h / 2);
+			}
+			
+			FixtureFactory.AttachPolygon(new Vertices(4) {
+				new Vector2(x, y), new Vector2(x + w, y), new Vector2(x + w, y + h), new Vector2(x, y + h)
+			}, 1f, Body).IsSensor = sensor;
+		}
 	}
 }

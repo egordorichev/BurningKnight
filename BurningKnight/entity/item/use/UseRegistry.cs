@@ -128,6 +128,7 @@ namespace BurningKnight.entity.item.use {
 			Register<DoUsesIfUse>(DoUsesIfUse.RenderDebug);
 			Register<ModifyArcUse>(ModifyArcUse.RenderDebug);
 			Register<BlindFoldUse>();
+			Register<MakeProjectileShrinkUse>(MakeProjectileShrinkUse.RenderDebug);
 		}
 	}
 }
