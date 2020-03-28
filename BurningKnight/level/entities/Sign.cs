@@ -1,11 +1,13 @@
 using BurningKnight.entity.component;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens;
 using Lens.util.file;
 
 namespace BurningKnight.level.entities {
 	public class Sign : Prop {
 		public string Region = "sign";
+		public bool DemoOnly;
 		
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
@@ -39,6 +41,10 @@ namespace BurningKnight.level.entities {
 		public override void PostInit() {
 			base.PostInit();
 			UpdateSprite();
+
+			if (!Engine.EditingLevel && DemoOnly && BK.Demo) {
+				Done = true;
+			}
 		}
 
 		private void UpdateSprite() {
@@ -64,6 +70,8 @@ namespace BurningKnight.level.entities {
 			if (ImGui.InputText("Sprite", ref Region, 128)) {
 				UpdateSprite();
 			}
+
+			ImGui.Checkbox("Demo only", ref DemoOnly);
 		}
 	}
 }
