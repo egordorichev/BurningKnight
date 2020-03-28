@@ -26,6 +26,7 @@ namespace BurningKnight.state {
 		
 		private int progress;
 		private bool ready;
+		private bool checkFullscreen;
 		private Area gameArea;
 		private float t;
 		
@@ -44,6 +45,7 @@ namespace BurningKnight.state {
 			Log.Info("Starting asset loading thread");
 
 			SaveManager.Load(gameArea, SaveType.Global);
+			checkFullscreen = true;
 			progress++;
 			
 			var t = DateTime.Now.Millisecond;
@@ -114,6 +116,16 @@ namespace BurningKnight.state {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (checkFullscreen) {
+				checkFullscreen = false;
+				
+				if (Settings.Fullscreen) {
+					Engine.Instance.SetFullscreen();
+				} else {
+					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+				}
+			}
 
 			t += dt;
 			

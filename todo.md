@@ -1,6 +1,5 @@
 # todo
 
-
 * shields bug is back
 * you can reroll item in the idol room
 * rolling spikes can stop (rework their move logic)
@@ -11,8 +10,6 @@
 * gen bug is back
 * corrupted level issue is back
 * mana is behind activei tem slot
-* hub doors get moevd
-* make bottom door of the active trader in hub condition too
 * Bombs should deal full shield damage
 * dying at the same time as boss dies glitches out?
 * teleporter sound can play twice in library
@@ -20,6 +17,7 @@
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
 * jungle music goes out?
+* fashion matters achievement popups in hub for no reason
 
 {
  achievements hall
