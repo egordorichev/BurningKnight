@@ -192,8 +192,8 @@ namespace BurningKnight.level {
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 				rooms.Add(new PrebossRoom());	
-				// rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
-				// rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 			}
 
 			if (!rush) {
@@ -253,10 +253,6 @@ namespace BurningKnight.level {
 		protected virtual Builder GetBuilder() {
 			Builder builder;
 
-			if (true) {
-				return new LoopBuilder();
-			} 
-			
 			if (IsFinal() || Run.Type == RunType.BossRush) {
 				builder = new LineBuilder();
 			} else {

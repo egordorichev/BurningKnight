@@ -28,7 +28,7 @@ namespace BurningKnight.level.builders {
 		private float TargetAngle(float PercentAlong) {
 			PercentAlong += Offset;
 
-			return 355f * (float) (Intensity * CurveEquation(PercentAlong) + (1 - Intensity) * PercentAlong - Offset);
+			return 345f * (float) (Intensity * CurveEquation(PercentAlong) + (1 - Intensity) * PercentAlong - Offset);
 		}
 
 		private double CurveEquation(double X) {
