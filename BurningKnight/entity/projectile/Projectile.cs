@@ -423,10 +423,12 @@ namespace BurningKnight.entity.projectile {
 			
 			var w = graphics.Sprite.Source.Width * Scale;
 			var h = graphics.Sprite.Source.Height * Scale;
-
+			var center = Center;
+			
 			Width = w;
 			Height = h;
-
+			Center = center;
+			
 			if (HasComponent<CircleBodyComponent>()) {
 				GetComponent<CircleBodyComponent>().Resize(0, 0, w / 2f, w / 2, true);
 			} else {

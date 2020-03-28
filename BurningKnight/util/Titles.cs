@@ -6,7 +6,8 @@ namespace BurningKnight.util {
 		private static Birthday[] birthdays = {
 			new Birthday(29, 6), // Egor
 			new Birthday(25, 9), // Mate
-			new Birthday(21, 2) // Bibiki
+			new Birthday(21, 2), // Bibiki
+			new Birthday(14, 6), // Viktor
     };
 		
 		public static string Generate() {

@@ -43,6 +43,9 @@ namespace BurningKnight.state {
 		private void Load() {
 			Log.Info("Starting asset loading thread");
 
+			SaveManager.Load(gameArea, SaveType.Global);
+			progress++;
+			
 			var t = DateTime.Now.Millisecond;
 			var c = DateTime.Now.Millisecond;
 
@@ -50,7 +53,6 @@ namespace BurningKnight.state {
 			Log.Info($"Assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
 			c = DateTime.Now.Millisecond;
 
-			Achievements.Load();
 			Dialogs.Load();
 			progress++;
 			CommonAse.Load();
@@ -68,7 +70,6 @@ namespace BurningKnight.state {
 			Mods.Load();
 			progress++; // Should be 13 here
 			Log.Info($"Custom assets took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
-			c = DateTime.Now.Millisecond;
 				
 			Log.Info("Done loading assets! Loading level now.");
 			
@@ -80,9 +81,7 @@ namespace BurningKnight.state {
 			Tilesets.Load();
 			progress++;
 				
-			SaveManager.Load(gameArea, SaveType.Global);
-			progress++;
-			Log.Info($"Global took {(DateTime.Now.Millisecond - c) / 1000f} seconds");
+			Achievements.Load();
 			c = DateTime.Now.Millisecond;
 
 			if (!LoadEditor) {

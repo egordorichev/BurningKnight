@@ -1,24 +1,27 @@
 # todo
 
-when you pickup glass, fix your broken glass gun/sword
 
 * shields bug is back
-* really well -> very well
-* steam achievements keep rolling
 * you can reroll item in the idol room
-* dalies are broken
 * rolling spikes can stop (rework their move logic)
 * golden chests look defected in the challenge room
 * mobs shouldnt drop anything on death from chasm
 * dying with flight causes lag?
 * loading screen might not show progress
-
-mana is behind activei tem slot
+* gen bug is back
+* corrupted level issue is back
+* mana is behind activei tem slot
+* hub doors get moevd
+* make bottom door of the active trader in hub condition too
+* Bombs should deal full shield damage
+* dying at the same time as boss dies glitches out?
+* teleporter sound can play twice in library
+* rework tree spawns
+* hive can spawn bees into the wall (they move too fast?)
+* bk and orbital sfx glitch out during loading
+* jungle music goes out?
 
 {
- gen bug is back
- corrupted level issue is back
- 
  achievements hall
  achievement progress display in achievement hub, as well as date achieved 
  border around the whole hub with trees
@@ -28,6 +31,7 @@ mana is behind activei tem slot
 
  challanges
  day/night+weather
+ when you pickup glass, fix your broken glass gun/sword
 }
 
 * josh like jokes in settings, with "sound effect"
@@ -54,9 +58,8 @@ ice {
  * campfires in ice levels
 }
 
-* Library {
- * unique wall designs with teleporters
-}
+* double item stand: 1 good 1 bad
+* last enemy on floor drop reward
 
 ###
 

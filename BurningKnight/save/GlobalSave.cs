@@ -93,7 +93,6 @@ namespace BurningKnight.save {
 
 			SetupDev();
 			Settings.Load();
-			Achievements.LoadState();
 		}
 
 		private void SetupDev() {

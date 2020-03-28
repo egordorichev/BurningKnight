@@ -130,7 +130,8 @@ namespace BurningKnight.assets.achievements {
 				return;
 			}
 
-			if (a.Unlocked) {
+			if (a.Unlocked || GlobalSave.IsTrue($"ach_{a.Id}")) {
+				a.Unlocked = true;
 				return;
 			}
 
