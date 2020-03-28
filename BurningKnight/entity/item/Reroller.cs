@@ -33,6 +33,10 @@ namespace BurningKnight.entity.item {
 						item = s.Item;
 					}
 				} else if (e is Item i) {
+					if (i.Id == "bk:idol") {
+						continue;
+					}
+					
 					if (types != null) {
 						var found = false;
 						

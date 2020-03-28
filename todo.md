@@ -1,23 +1,22 @@
 # todo
 
 * shields bug is back
-* you can reroll item in the idol room
+
+* dying with flight causes lag?
+* dying at the same time as boss dies glitches out?
+
 * rolling spikes can stop (rework their move logic)
 * golden chests look defected in the challenge room
 * mobs shouldnt drop anything on death from chasm
-* dying with flight causes lag?
 * loading screen might not show progress
 * gen bug is back
 * corrupted level issue is back
 * mana is behind activei tem slot
-* Bombs should deal full shield damage
-* dying at the same time as boss dies glitches out?
 * teleporter sound can play twice in library
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
 * jungle music goes out?
-* fashion matters achievement popups in hub for no reason
 
 {
  achievements hall

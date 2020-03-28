@@ -49,9 +49,10 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public bool Hurt(int amount, Entity setter) {
+		public bool Hurt(int amount, Entity setter, DamageType type) {
 			var e = new HealthModifiedEvent {
 				Amount = amount,
+				Type = type,
 				From = setter,
 				Who = Entity,
 				Default = false,
@@ -65,6 +66,7 @@ namespace BurningKnight.entity.creature.player {
 				Send(new PostHealthModifiedEvent {
 					Amount = e.Amount,
 					From = setter,
+					Type = type,
 					Who = Entity,
 					Default = false,
 					ShieldsTook = true
