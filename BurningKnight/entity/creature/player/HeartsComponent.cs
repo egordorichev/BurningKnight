@@ -60,7 +60,7 @@ namespace BurningKnight.entity.creature.player {
 			};
 			
 			if (!Send(e)) {
-				var iron = (byte) Math.Min(e.Amount, shieldHalfs);
+				var iron = Math.Min(e.Amount, shieldHalfs);
 				shieldHalfs = (byte) Math.Max(0, shieldHalfs + iron);
 
 				Send(new PostHealthModifiedEvent {
