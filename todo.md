@@ -1,7 +1,6 @@
 # bugs
 
 * rolling spikes can stop (rework their move logic)
-*  mana is rendered behind active item slot
 * pressing russian keys wont detect as english
 
 * mobs shouldnt drop anything on death from chasm
