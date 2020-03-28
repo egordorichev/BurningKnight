@@ -190,5 +190,9 @@ namespace BurningKnight.entity.creature.mob.desert {
 			
 			base.Render();
 		}
+
+		protected override string GetDeadSfx() {
+			return "mob_worm_death";
+		}
 	}
 }

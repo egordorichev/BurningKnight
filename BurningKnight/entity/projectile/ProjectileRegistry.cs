@@ -273,6 +273,8 @@ namespace BurningKnight.entity.projectile {
 
 				p.Rotates = true;
 				p.OnDeath += (pr, t) => {
+					AudioEmitterComponent.Dummy(pr.Area, pr.Center).EmitRandomized("item_magic_web_appear");
+
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
 					const int r = 3;

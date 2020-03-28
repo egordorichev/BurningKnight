@@ -1,4 +1,4 @@
-# todo
+# bugs 14
 
 * rolling spikes can stop (rework their move logic)
 * golden chests look defected in the challenge room
@@ -10,32 +10,27 @@
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
 * jungle music goes out?
+* fix that you can place weapons on garderobe stand
+* bomb spawnrate low
+* doors tile high lights sometimes
+* active shop discount still discounts without the use
+* web doesnt affect mobs
 
-{
- achievements hall
- achievement progress display in achievement hub, as well as date achieved 
- border around the whole hub with trees
- fix that you can place weapons on garderobe stand
+# before demo
 
- demo
+* achievements hall
+* achievement progress display in achievement hub, as well as date achieved 
+* border around the whole hub with trees
+* show only last 6 or so items, allow to see more in pause menu
 
- challanges
- day/night+weather
- when you pickup glass, fix your broken glass gun/sword
-}
+* demo!
 
+# hub
+
+* challanges
+* day/night+weather
+* when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
-
-bugs {
- bomb spawnrate low
- no items on emerald / garderobe stands???
- 
- doors tile high lights sometimes
-}
-
-show only last 6 or so items, allow to see more in pause menu
-desert gen gave up? no loading screen tips sometimes
-
 * game stats in hub (best 3 runs, total deaths, etc)
 
 * credits
@@ -48,16 +43,10 @@ ice {
  * campfires in ice levels
 }
 
-* double item stand: 1 good 1 bad
-* last enemy on floor drop reward
-
 ###
 
 * highlight doors you not went through
-
-+ active shop discount still discounts without the use
 * spawn chests/pickups in the levels
-* nps that asks for coins but does nothing
 
 ### big points that are needed before release (no overscope)
 
@@ -90,34 +79,15 @@ flavors {
 ### Ideas
 
 * disco floor (secret location or just secret room?)
-
-* teleport tile mechanic for some level
+* double item stand: 1 good 1 bad
+* last enemy on floor drop reward
+* nps that asks for coins but does nothing
 * make chests brekable (the ones that you dont have a key to open)
 * Unique saving experience for each NPCs (and save phrases)
 * enemies/rooms/other stuff that doesn't happen/appear every run
-
 * a special reward for completing the level fast
-
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 * Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
 * MIMIIIICS!
-
-### Rooms
-
-* Room, where you press lever/button to open/close chasm
-* trap rooms
-* altar from spelunky?
-
-### things I promissed to do
-
-* secret seeds
-* local coop up to 4 players
-* twitch support
-
-### Machine Ideas
-
-* Buys weapons from you
-* Health chest, can be mimic 
-* machine: gives random stat up

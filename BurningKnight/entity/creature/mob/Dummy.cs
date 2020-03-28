@@ -35,6 +35,7 @@ namespace BurningKnight.entity.creature.mob {
 			if (e is HealthModifiedEvent ev && ev.Amount < 0) {
 				Become<HurtState>();
 				GraphicsComponent.Flipped = ev.From.CenterX > CenterX;
+				GetComponent<AudioEmitterComponent>().EmitRandomized(GetHurtSfx());
 
 				if (Run.Depth < 1 && Rnd.Chance(30)) {
 					var dialog = GetComponent<DialogComponent>();
@@ -75,5 +76,9 @@ namespace BurningKnight.entity.creature.mob {
 			}
 		}
 		#endregion
+
+		protected override string GetHurtSfx() {
+			return "mob_dummy";
+		}
 	}
 }

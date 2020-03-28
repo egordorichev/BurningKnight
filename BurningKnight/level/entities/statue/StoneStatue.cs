@@ -1,5 +1,6 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using Lens.assets;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 
@@ -27,9 +28,13 @@ namespace BurningKnight.level.entities.statue {
 			for (var i = 0; i < 3; i++) {
 				e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:broken_stone", Area));
 			}
-
+			
 			Break();
 			return true;
+		}
+
+		protected override string GetSfx() {
+			return "level_stone_statue_break";
 		}
 	}
 }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob.desert {
 	public class Spelunker : Mob {
 		private const float DetectionRadius = 64f;
+		private bool Exploded;
 		
 		protected override void SetStats() {
 			base.SetStats();
@@ -141,6 +142,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 
 				if (T >= 0.66f) {
 					Self.Done = true;
+					Self.Exploded = true;
+					AudioEmitterComponent.Dummy(Self.Area, Self.Center).EmitRandomized("mob_archeolog_explosion", sz: 0.2f);
 					ExplosionMaker.Make(Self, 48f);
 				}
 
@@ -156,5 +159,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 		#endregion
+
+		protected override string GetDeadSfx() {
+			return Exploded ? null : "mob_archeolog_death";
+		}
+
+		protected override string GetHurtSfx() {
+			return "mob_archeolog_hurt";
+		}
 	}
 }

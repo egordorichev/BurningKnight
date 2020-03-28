@@ -66,6 +66,8 @@ namespace BurningKnight.entity.item {
 					st.Recalculate();
 				}
 			}
+			
+			Audio.PlaySfx("item_reroll");
 		}
 
 		public static bool Reroll(Item item, ItemPool pool, Func<ItemData, bool> filter = null) {

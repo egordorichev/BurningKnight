@@ -254,5 +254,9 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 			Kill(this);*/
 		}
+
+		protected override string GetDeadSfx() {
+			return "mob_hugger_death";
+		}
 	}
 }

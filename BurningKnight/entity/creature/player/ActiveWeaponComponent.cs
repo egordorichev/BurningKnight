@@ -30,15 +30,21 @@ namespace BurningKnight.entity.creature.player {
 				var ready = Item.Delay <= 0.001f;
 
 				if (ready) {
-					if (timeSinceReady <= 0.001f && Item.Type == ItemType.Weapon && Item.Data.WeaponType == WeaponType.Ranged) {
-						foreach (var u in Item.Uses) {
-							if (u is SimpleShootUse s) {
-								if (s.ReloadSfx) {
-									Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.8f);
-								}
+					if (timeSinceReady <= 0.001f && Item.Type == ItemType.Weapon) {
+						var t = Item.Data.WeaponType;
+						
+						if (t == WeaponType.Ranged) {
+							foreach (var u in Item.Uses) {
+								if (u is SimpleShootUse s) {
+									if (s.ReloadSfx) {
+										Entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_shotgun_reload", 2, 0.8f);
+									}
 
-								break;
-							}
+									break;
+								}
+							}	
+						} else if (t == WeaponType.Melee) {
+							Entity.GetComponent<AudioEmitterComponent>().EmitRandomized("item_sword_cooldown", 0.5f);
 						}
 					}
 					

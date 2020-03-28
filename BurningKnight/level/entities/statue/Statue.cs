@@ -24,7 +24,8 @@ namespace BurningKnight.level.entities.statue {
 				CanInteract = CanInteract,
 				OnStart = (e) => Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())))
 			});
-			
+
+			AddComponent(new AudioEmitterComponent());
 			AddComponent(new ShadowComponent());
 		}
 
@@ -54,6 +55,12 @@ namespace BurningKnight.level.entities.statue {
 			Camera.Instance.Shake(8);
 			Broken = true;
 			UpdateSprite();
+
+			GetComponent<AudioEmitterComponent>().Emit(GetSfx());
+		}
+
+		protected virtual string GetSfx() {
+			return "level_statue_break";
 		}
 
 		protected virtual void UpdateSprite() {
