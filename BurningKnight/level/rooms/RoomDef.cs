@@ -166,7 +166,7 @@ namespace BurningKnight.level.rooms {
 			var W = I.GetWidth();
 			var H = I.GetHeight();
 
-			if (W == 0 && H >= 2 || H == 0 && W >= 2) {
+			if ((W == 0 && H >= 2) || (H == 0 && W >= 2)) {
 				Neighbours.Add(Other);
 				Other.Neighbours.Add(this);
 

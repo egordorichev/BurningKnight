@@ -1,10 +1,11 @@
 # todo
 
+* gen bug is back (seems like boss room placement stuff) -> fail rate test
+
 * rolling spikes can stop (rework their move logic)
 * golden chests look defected in the challenge room
 * mobs shouldnt drop anything on death from chasm
 * loading screen might not show progress
-* gen bug is back (seems like boss room placement stuff)
 * corrupted level issue is back
 * mana is behind activei tem slot
 * teleporter sound can play twice in library

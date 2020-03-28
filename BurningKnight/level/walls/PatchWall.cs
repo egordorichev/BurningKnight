@@ -17,8 +17,8 @@ namespace BurningKnight.level.walls {
 
 		protected void Setup(Level level, RoomDef room, float fill, int clustering, bool ensurePath) {
 			Run.Level = level;
-			var w = room.GetWidth() - 2;
-			var h = room.GetHeight() - 2;
+			var w = room.GetWidth();
+			var h = room.GetHeight();
 			
 			if (ensurePath) {
 				PathFinder.SetMapSize(w, h);
@@ -95,7 +95,7 @@ namespace BurningKnight.level.walls {
 
 			var w = room.GetWidth() - 2;
 
-			for (var i = 0; i < Patch.Length - w; i++) {
+			for (var i = 0; i < Patch.Length - w - 1; i++) {
 				if (!Patch[i]) {
 					continue;
 				}

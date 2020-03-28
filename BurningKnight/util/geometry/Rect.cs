@@ -97,7 +97,7 @@ namespace BurningKnight.util.geometry {
 
 			return Result;
 		}
-
+		
 		public Rect Union(Rect Other) {
 			var Result = new Rect();
 			Result.Left = Math.Min(Left, Other.Left);

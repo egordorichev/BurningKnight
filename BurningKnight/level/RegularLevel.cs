@@ -117,6 +117,7 @@ namespace BurningKnight.level {
 					Log.Error($"Failed! {Builder.GetType().Name}");
 					Area.Destroy();
 					Area.Add(Run.Level);
+					LevelSave.FailedAttempts++;
 					Builder = GetBuilder();
 
 					if (Attempt >= 10) {
@@ -175,7 +176,7 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
-			if (!rush && !final) {
+			if (!rush && !final && Run.Type != RunType.Challenge) {
 				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
 				if (!first) {
@@ -191,8 +192,8 @@ namespace BurningKnight.level {
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 				rooms.Add(new PrebossRoom());	
-				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
-				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+				// rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+				// rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
 			}
 
 			if (!rush) {
@@ -251,6 +252,10 @@ namespace BurningKnight.level {
 
 		protected virtual Builder GetBuilder() {
 			Builder builder;
+
+			if (true) {
+				return new LoopBuilder();
+			} 
 			
 			if (IsFinal() || Run.Type == RunType.BossRush) {
 				builder = new LineBuilder();

@@ -23,7 +23,11 @@ namespace BurningKnight.util {
 			}
 
 			foreach (var D in R.Connected.Values) {
-				Maze[D.X - R.Left][D.Y - R.Top] = Empty;
+				try {
+					Maze[D.X - R.Left][D.Y - R.Top] = Empty;
+				} catch (Exception e) {
+					
+				}
 			}
 
 			return Generate(Maze);
