@@ -13,7 +13,6 @@ namespace BurningKnight.entity.item.stand {
 		public GarderobeStand() {
 			dontSaveItem = true;
 		}
-		
 
 		public override void Destroy() {
 			base.Destroy();

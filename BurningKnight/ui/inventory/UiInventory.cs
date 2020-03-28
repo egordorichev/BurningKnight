@@ -474,7 +474,7 @@ namespace BurningKnight.ui.inventory {
 			}
 			
 			return new Vector2(
-				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1)) : 6) + 4 + (int) (i % HeartsComponent.PerRow * 11f) - 2,
+				(bg ? 0 : 1) + (pad ? 4 : 6) + (8 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + 4 + (int) (i % HeartsComponent.PerRow * 11f) - 2,
 				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + 10
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12 - 1) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f - 1) - 0.9f) * 10f)
 			);

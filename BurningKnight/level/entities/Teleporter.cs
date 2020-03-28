@@ -19,6 +19,7 @@ namespace BurningKnight.level.entities {
 	public class Teleporter : SaveableEntity {
 		public string Id = "a";
 		private bool ignoreCollision;
+		private bool played;
 
 		public static string[] Ids = {
 			"b", "c", "d", "e", 
@@ -59,12 +60,14 @@ namespace BurningKnight.level.entities {
 			if (e is CollisionEndedEvent cee) {
 				if (cee.Entity is Player) {
 					ignoreCollision = false;
+					played = false;
 				}
 			} else if (e is CollisionStartedEvent cse && cse.Entity is Player c) {
-				if (ignoreCollision) {
+				if (ignoreCollision || played) {
 					return base.HandleEvent(e);
 				}
 
+				played = true;
 				var room = GetComponent<RoomComponent>().Room;
 
 				if (Id != "a" && room == null) {

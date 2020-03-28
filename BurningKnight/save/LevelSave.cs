@@ -180,7 +180,7 @@ namespace BurningKnight.save {
 					Fails.Add(FailedAttempts);
 				}
 
-				Log.Debug($"Generation done, took {i} cycles, {FailedAttempts} failed attempts (avrg {Fails.Average()})");
+				Log.Debug($"Generation done, took {i} cycles, {FailedAttempts} failed attempts)");
 				FailedAttempts = 0;
 			}
 		}
