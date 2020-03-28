@@ -36,6 +36,8 @@ namespace BurningKnight.ui.imgui {
 		private static float lastFps;
 		private static float lastMem;
 
+		public static bool ItemShader = true;
+
 		public static void Render() {
 			if (!WindowManager.Debug) {
 				return;
@@ -140,6 +142,7 @@ namespace BurningKnight.ui.imgui {
 
 				ImGui.Spacing();
 				ImGui.Checkbox("Enable batcher", ref GameRenderer.EnableBatcher);
+				ImGui.Checkbox("Enable item shader", ref ItemShader);
 			}
 
 			if (ImGui.CollapsingHeader("Run info")) {

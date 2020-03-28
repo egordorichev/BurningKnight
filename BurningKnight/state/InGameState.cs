@@ -2058,6 +2058,32 @@ namespace BurningKnight.state {
 		}
 
 		public void AnimateDoneScreen() {
+			if (Run.Type == RunType.Daily) {
+				Player.StartingItem = null;
+				Player.StartingWeapon = null;
+			}
+
+			if (Run.Won) {
+				if (Run.Type == RunType.BossRush) {
+					Achievements.Unlock("bk:boss_rush");
+				} else if (Run.Type == RunType.Challenge) {
+					GlobalSave.Put($"challenge_{Run.ChallengeId}", true);
+					var count = 0;
+
+					for (var i = 1; i <= 30; i++) {
+						if (GlobalSave.IsTrue($"challenge_{i}")) {
+							count++;
+						}
+					}
+					
+					Achievements.SetProgress("bk:10_challenges", Math.Min(10, count), 10);
+					Achievements.SetProgress("bk:20_challenges", Math.Min(20, count), 20);
+					Achievements.SetProgress("bk:30_challenges", Math.Min(30, count), 30);
+				} else if (Run.Type == RunType.Daily) {
+					Achievements.Unlock("bk:daily");
+				}
+			}
+
 			gameOverMenu.Enabled = true;	
 			GlobalSave.Put("played_once", true);
 

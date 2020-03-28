@@ -33,7 +33,7 @@ namespace BurningKnight.entity.creature.player {
 					Entity.GetComponent<HealthComponent>().EmitParticles(true);
 				}
 				
-				shieldHalfs = (byte) Math.Max(0, shieldHalfs + e.Amount);
+				shieldHalfs = (byte) Math.Max(0, (float) shieldHalfs + e.Amount);
 
 				if (shieldHalfs > 0) {
 					Achievements.Unlock("bk:shielded");

@@ -2,12 +2,17 @@
 
 when you pickup glass, fix your broken glass gun/sword
 
+* magnifier dosent work
+* shields bug is back
+* really well -> very well
+* steam achievements keep rolling
 * you can reroll item in the idol room
 * dalies are broken
 * rolling spikes can stop (rework their move logic)
 * golden chests look defected in the challenge room
 * mobs shouldnt drop anything on death from chasm
 * dying with flight causes lag?
+* loading screen might not show progress
 
 mana is behind activei tem slot
 

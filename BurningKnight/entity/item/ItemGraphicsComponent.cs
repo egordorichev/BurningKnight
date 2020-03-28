@@ -1,6 +1,7 @@
 ﻿using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
+using BurningKnight.ui.imgui;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
@@ -76,7 +77,7 @@ namespace BurningKnight.entity.item {
 				Graphics.Render(s, position, angle, origin);
 				Graphics.Color = ColorUtils.WhiteColor;
 			} else {
-				if (!shadow) {
+				if (!shadow && DebugWindow.ItemShader) {
 					var shader = Shaders.Item;
 				
 					Shaders.Begin(shader);
@@ -86,7 +87,7 @@ namespace BurningKnight.entity.item {
 
 				Graphics.Render(s, position, angle, origin);
 
-				if (!shadow) {
+				if (!shadow && DebugWindow.ItemShader) {
 					Shaders.End();
 				}
 			}

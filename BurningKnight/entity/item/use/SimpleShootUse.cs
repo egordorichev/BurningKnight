@@ -28,7 +28,7 @@ namespace BurningKnight.entity.item.use {
 			"Where it starts, after death"
 		};
 		
-		private int damage;
+		private float damage;
 		private float speed;
 		private float speedMax;
 		private float range;
@@ -87,7 +87,7 @@ namespace BurningKnight.entity.item.use {
 				}
 			}
 			
-			damage = settings["damage"].Int(1);
+			damage = settings["damage"].Number(1);
 			speed = settings["speed"].Number(6);
 			speedMax = settings["speedm"].Number(10);
 			range = settings["range"].Number(0) * 0.7f;

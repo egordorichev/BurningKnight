@@ -42,7 +42,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool OldMan = new ItemPool("old_man");
 		public static readonly ItemPool Vampire = new ItemPool("vampire");
 		public static readonly ItemPool Roger = new ItemPool("roger");
-		public static readonly ItemPool GlassChest = new ItemPool("glass_chest");
+		public static readonly ItemPool Weapon = new ItemPool("weapon");
 		public static readonly ItemPool SpikedRoom = new ItemPool("spiked_room");
 		public static readonly ItemPool DuckChest = new ItemPool("duck_chest");
 		public static readonly ItemPool Gobetta = new ItemPool("gobetta");
