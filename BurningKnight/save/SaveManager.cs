@@ -13,7 +13,7 @@ using Steamworks;
 
 namespace BurningKnight.save {
 	public class SaveManager {
-		public const string SaveDir = "burning_knight/";
+		public const string SaveDir = BK.Demo ? "burning_knight_demo/" : "burning_knight/";
 		public const int MagicNumber = 894923782;
 		public const short Version = 2;
 

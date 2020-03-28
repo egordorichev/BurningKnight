@@ -2,7 +2,6 @@
 
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
-
 * mobs shouldnt drop anything on death from chasm
 * loading screen might not show progress
 * rework tree spawns
