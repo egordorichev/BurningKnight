@@ -1,16 +1,15 @@
-# bugs 14
+# bugs
 
 * rolling spikes can stop (rework their move logic)
-* golden chests look defected in the challenge room
+*  mana is rendered behind active item slot
+* pressing russian keys wont detect as english
+
 * mobs shouldnt drop anything on death from chasm
 * loading screen might not show progress
-* mana is behind activei tem slot
-* teleporter sound can play twice in library
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
-* jungle music goes out?
-* fix that you can place weapons on garderobe stand
+* music goes out?
 * bomb spawnrate low
 * doors tile high lights sometimes
 * active shop discount still discounts without the use

@@ -143,6 +143,7 @@ namespace BurningKnight.entity.item.stand {
 						var remove = false;
 
 						if (this is GarderobeStand) {
+							return false;
 						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Weapon) {
 							var ht = entity.GetComponent<ActiveWeaponComponent>();
 							var it = ht.Item;

@@ -32,6 +32,8 @@ namespace BurningKnight.level.entities {
 			AddComponent(new DialogComponent());
 			AddComponent(new CloseDialogComponent());
 			AddComponent(new ShadowComponent());
+			
+			GetComponent<DialogComponent>().Dialog.Voice = 30;
 		}
 
 		public override void PostInit() {
