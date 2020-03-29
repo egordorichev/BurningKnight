@@ -19,6 +19,11 @@ namespace BurningKnight.assets.particle.custom {
 		private float speed;
 		private bool poofed;
 
+		public bool End;
+		public bool Custom;
+
+		private float delay;
+		
 		public override void Init() {
 			base.Init();
 
@@ -27,10 +32,20 @@ namespace BurningKnight.assets.particle.custom {
 			Depth = Layers.WindFx;
 
 			Reset();
-			Y = Camera.Instance.Y + Rnd.Float(Display.Height + 100);
+
+			if (!Custom) {
+				Y = Camera.Instance.Y + Rnd.Float(Display.Height + 100);
+			} else {
+				delay = Rnd.Float(0, 2f);
+			}
 		}
 
 		private void Reset() {
+			if (End) {
+				Done = true;
+				return;
+			}
+			
 			color = new Color(Rnd.Float(0.3f, 0.5f), Rnd.Float(0.4f, 0.7f), Rnd.Float(0.7f, 0.8f), Rnd.Float(0.5f, 1f));
 			X = Rnd.Float(Camera.Instance.X - 150, Camera.Instance.Right + 150);
 			Y = Camera.Instance.Y - Rnd.Float(50, 60);
@@ -42,6 +57,12 @@ namespace BurningKnight.assets.particle.custom {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (delay > 0) {
+				delay -= dt;
+
+				return;
+			}
 
 			var s = dt * 300f * speed;
 			Position += MathUtils.CreateVector(Weather.RainAngle, s);

@@ -299,7 +299,7 @@ namespace BurningKnight.save.statistics {
 				return;
 			}
 
-			ImGui.Text($"World Time: {Weather.TimeOfDay} ({Weather.Time})");
+			ImGui.Text($"World Time: {Weather.TimeOfDay}");
 			ImGui.Text($"Night: {Weather.IsNight}");
 
 			if (ImGui.Button("Set to day")) {
@@ -310,6 +310,22 @@ namespace BurningKnight.save.statistics {
 			
 			if (ImGui.Button("Set to night")) {
 				Weather.Time = 21f;
+			}
+			
+			ImGui.Text($"Rain Left: {Weather.RainLeft}");
+			ImGui.Text($"Rains: {Weather.Rains}");
+			ImGui.Text($"Snows: {Weather.Snows}");
+
+			if (Weather.Rains && ImGui.Button("End rain")) {
+				Weather.RainLeft = 0;
+			}
+			
+			if (Weather.Snows && ImGui.Button("End snow")) {
+				Weather.RainLeft = 0;
+			}
+
+			if (!Weather.Rains && !Weather.Snows && ImGui.Button("Start rain or snow")) {
+				Weather.RainLeft = 0;
 			}
 
 			Run.Statistics?.RenderWindow();

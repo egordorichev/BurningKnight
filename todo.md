@@ -25,9 +25,7 @@
  + achievement branches rewards
 }
 
-* clock
-* day/night+weather
-
+* clock?
 * daily room decor
 
 * border around the whole hub with trees
