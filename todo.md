@@ -1,7 +1,5 @@
 # bugs
 
-* escape from dialog 
-
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm

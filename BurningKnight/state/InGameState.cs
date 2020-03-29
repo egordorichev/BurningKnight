@@ -52,6 +52,8 @@ using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
+		public static bool SkipPause;
+		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
 		private const float BarsSize = 50;
@@ -713,7 +715,9 @@ namespace BurningKnight.state {
 
 						if (DialogComponent.Talking == null) {
 							if (Input.WasPressed(Controls.Pause, controller)) {
-								if (Paused) {
+								if (SkipPause) {
+									SkipPause = false;
+								} else if (Paused) {
 									if (UiControl.Focused == null && currentBack == null) {
 										Paused = false;
 										did = true;
