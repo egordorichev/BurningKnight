@@ -20,6 +20,17 @@ namespace BurningKnight.level.entities {
 			Sprite = "exploding_barrel";
 		}
 
+		protected override BodyComponent CreateBody() {
+			var collider = GetCollider();
+			var body = new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Dynamic);
+
+			body.Body.LinearDamping = 6f;
+			body.KnockbackModifier = 0.1f;
+			body.Body.Mass = 0.1f;
+			
+			return body;
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
@@ -46,13 +57,16 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent || e is DiedEvent) {
-				if (e is ExplodedEvent ee) {
-					trigger = ee.Who;
+				if (!Done) {
+					if (e is ExplodedEvent ee && ee.Who != this) {
+						trigger = ee.Who;
+					}
+
+					PrepareToExplode();
+					var h = GetComponent<HealthComponent>();
+					h.InvincibilityTimer = h.InvincibilityTimerMax;
 				}
-				
-				PrepareToExplode();
-				var h = GetComponent<HealthComponent>();
-				h.InvincibilityTimer = h.InvincibilityTimerMax;
+
 				return true;
 			} else if (e is HealthModifiedEvent hme) {
 				hme.Amount = -1;
@@ -121,7 +135,7 @@ namespace BurningKnight.level.entities {
 				count++;
 			}
 
-			if (count >= 3) {
+			if (count >= 2) {
 				Achievements.Unlock("bk:boom");
 			}
 		}

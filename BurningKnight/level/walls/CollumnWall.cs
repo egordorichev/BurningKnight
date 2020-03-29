@@ -18,7 +18,7 @@ namespace BurningKnight.level.walls {
 				inside = new Rect(c.X - sz / 2, c.Y - sz / 2).Resize(sz, sz);
 			}
 			
-			Painter.Fill(level, inside, Tiles.Pick(Tile.Chasm, Tile.WallA, Tile.WallB));
+			Painter.Fill(level, inside, Tiles.Pick(Tile.WallA, Tile.WallB, Tile.Planks));
 
 			if (Rnd.Chance(80)) {
 				var p = Rnd.Chance(30);

@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.events;
@@ -87,6 +88,10 @@ namespace BurningKnight.entity {
 			Engine.Instance.Split = 1f;
 			Engine.Instance.Flash = 1f;
 			Engine.Instance.Freeze = 1f;
+
+			if (whoHurts is Bomb b) {
+				whoHurts = b.Owner;
+			}
 					
 			foreach (var e in whoHurts.Area.GetEntitesInRadius(w, hurtRadius, typeof(ExplodableComponent))) {
 				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);

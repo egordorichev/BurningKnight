@@ -109,7 +109,7 @@ namespace BurningKnight.entity.component {
 				TookDamageInRoom = true;
 				TookDamageOnLevel = true;
 			} else if (e is RoomChangedEvent rce) {
-				if (rce.WasDiscovered) {
+				if (rce.JustDiscovered) {
 					TookDamageInLastRoom = TookDamageInRoom;
 					TookDamageInRoom = false;
 					UsedWeaponInRoom = false;
