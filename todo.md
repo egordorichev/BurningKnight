@@ -1,6 +1,5 @@
 # bugs
 
-* tombstone still spawns in daily?
 * disable rerolling scoruges
 * escape from dialog 
 
