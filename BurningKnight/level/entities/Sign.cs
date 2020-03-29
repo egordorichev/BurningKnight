@@ -15,6 +15,7 @@ namespace BurningKnight.level.entities {
 			var d = GetComponent<CloseDialogComponent>(); 
 			stream.WriteString(d.Variants.Length == 0 ? "" : d.Variants[0]);
 			stream.WriteString(Region);
+			stream.WriteBoolean(DemoOnly);
 		}
 
 		public override void Load(FileReader stream) {
@@ -22,6 +23,7 @@ namespace BurningKnight.level.entities {
 			
 			SetMessage(stream.ReadString());
 			Region = stream.ReadString() ?? "sign";
+			DemoOnly = stream.ReadBoolean();
 		}
 
 		public void SetMessage(string m) {
@@ -42,7 +44,7 @@ namespace BurningKnight.level.entities {
 			base.PostInit();
 			UpdateSprite();
 
-			if (!Engine.EditingLevel && DemoOnly && BK.Demo) {
+			if (!Engine.EditingLevel && DemoOnly && !BK.Demo) {
 				Done = true;
 			}
 		}

@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
 using Lens.assets;
+using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
@@ -12,7 +13,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class AchievementStatue : Prop {
 		private string id = "bk:rip";
-		private bool unlocked;
+		private Achievement achievement;
 		private TextureRegion achievementTexture;
 
 		public override void AddComponents() {
@@ -22,11 +23,8 @@ namespace BurningKnight.level.entities {
 			Height = 32;
 			
 			AddComponent(new DialogComponent());
-			AddComponent(new InteractableComponent((e) => {
-				GetComponent<DialogComponent>().StartAndClose($"ach_{id}_desc", 5);
-				return true; 
-			}) {
-				CanInteract = e => unlocked
+			AddComponent(new InteractableComponent(Interact) {
+				CanInteract = e => achievement.Unlocked
 			});
 			
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
@@ -34,15 +32,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableSliceComponent("props", "achievement_statue"));
 			AddComponent(new RectBodyComponent(0, 13, 24, 19, BodyType.Static));
 
-			Achievements.UnlockedCallback += UpdateState;
-			Achievements.LockedCallback += UpdateState;
-		}
-
-		public override void Destroy() {
-			base.Destroy();
-			
-			Achievements.UnlockedCallback -= UpdateState;
-			Achievements.LockedCallback -= UpdateState;
+			AddTag(Tags.Statue);
 		}
 
 		public override void PostInit() {
@@ -50,13 +40,24 @@ namespace BurningKnight.level.entities {
 			SetupSprite();
 			UpdateState();
 		}
+		
+		private bool Interact(Entity e) {
+			foreach (var s in Area.Tagged[Tags.Statue]) {
+				if (s.TryGetComponent<DialogComponent>(out var d)) {
+					d.Close();
+				}
+			}
+		
+			GetComponent<DialogComponent>().StartAndClose(achievement.Unlocked ? $"{Locale.Get($"ach_{id}")}\n{Locale.Get($"ach_{id}_desc")}\n{Locale.Get("completed_on")} {achievement.CompletionDate}" : $"ach_{id}", 5);
+			return true; 
+		}
 
 		private void SetupSprite() {
 			achievementTexture = Animations.Get("achievements").GetSlice(id);
 		}
 
 		private void UpdateState(string i = null) {
-			unlocked = Achievements.Get(id)?.Unlocked ?? false;
+			achievement = Achievements.Get(id);
 		}
 
 		public override void Load(FileReader stream) {
@@ -72,7 +73,7 @@ namespace BurningKnight.level.entities {
 		public override void Render() {
 			base.Render();
 
-			if (unlocked) {
+			if (achievement.Unlocked) {
 				Graphics.Render(achievementTexture, Position + new Vector2(2, 0));
 			}
 		}

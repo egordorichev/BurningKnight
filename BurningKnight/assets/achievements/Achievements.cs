@@ -85,6 +85,7 @@ namespace BurningKnight.assets.achievements {
 		public static void LoadState() {
 			foreach (var a in Defined.Values) {
 				a.Unlocked = GlobalSave.IsTrue($"ach_{a.Id}");
+				a.CompletionDate = GlobalSave.GetString($"ach_{a.Id}_date", "???");
 			}
 		}
 
@@ -146,9 +147,12 @@ namespace BurningKnight.assets.achievements {
 
 		private static void ReallyUnlock(string id, Achievement a) {
 			a.Unlocked = true;
+			a.CompletionDate = DateTime.Now.ToString("dd/MM/yyy");
+			
 			GlobalSave.Put($"ach_{a.Id}", true);
-
-			Log.Info($"Achievement {id} was complete!");
+			GlobalSave.Put($"ach_{a.Id}_date", a.CompletionDate);
+			
+			Log.Info($"Achievement {id} was complete on {a.CompletionDate}!");
 
 			var e = new Achievement.UnlockedEvent {
 				Achievement = a
@@ -157,7 +161,7 @@ namespace BurningKnight.assets.achievements {
 			Engine.Instance?.State?.Area?.EventListener?.Handle(e);
 			Engine.Instance?.State?.Ui?.EventListener?.Handle(e);
 
-			if (a.Unlock != null && a.Unlock.Length > 0) {
+			if (!string.IsNullOrEmpty(a.Unlock)) {
 				Items.Unlock(a.Unlock);
 			}
 

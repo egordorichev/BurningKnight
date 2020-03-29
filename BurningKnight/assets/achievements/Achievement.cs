@@ -8,7 +8,8 @@ namespace BurningKnight.assets.achievements {
 		public int Max;
 		public string Unlock = "";
 		public bool Secret;
-		public string Group; 
+		public string Group;
+		public string CompletionDate = "???";
 		
 		public Achievement(string id) {
 			Id = id;
