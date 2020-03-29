@@ -21,18 +21,19 @@
 
 * achievements hall {
  + finish placing achievements
- + rename achievements
  + achievement branches rewards
+ + hide achievement stand & its body if its secret and not unlocked
+ + make some achievements unlock items
 }
 
-* clock?
-* daily room decor
-
 * border around the whole hub with trees
-* show only last 6 or so items, allow to see more in pause menu
-* this is a secret to everyone
-
 * challanges
+
+#
+
+* show only last 6 or so items, allow to see more in pause menu
+* this is a secret to everyone easter egg in hub?
+
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
 * game stats in hub (best 3 runs, total deaths, etc)

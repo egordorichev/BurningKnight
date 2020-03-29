@@ -386,6 +386,7 @@
     <Compile Include="entity\component\OrbitGiverComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\PoolDropsComponent.cs" />
+    <Compile Include="entity\component\QuackInteractionComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />

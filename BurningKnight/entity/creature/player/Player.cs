@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
@@ -45,6 +46,8 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
+		public static int Quacks;
+		
 		public static string StartingWeapon;
 		public static string StartingItem;
 
@@ -289,6 +292,11 @@ namespace BurningKnight.entity.creature.player {
 		public class DuckState : EntityState {
 			public override void Init() {
 				base.Init();
+				Quacks++;
+
+				if (Quacks >= 100) {
+					Achievements.Unlock("bk:quackers");
+				}
 
 				Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
 
