@@ -21,10 +21,8 @@
 # hub
 
 * achievements hall {
- + finish placing achievements
- + achievement branches rewards
- + hide achievement stand & its body if its secret and not unlocked
  + make some achievements unlock items
+ + achievement branches rewards
 }
 
 * border around the whole hub with trees
