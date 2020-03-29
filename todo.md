@@ -20,7 +20,7 @@
 # hub
 
 * achievements hall
-* achievement progress display in achievement hub, as well as date achieved 
+* achievement progress display in achievement hub
 * border around the whole hub with trees
 * show only last 6 or so items, allow to see more in pause menu
 

@@ -2,6 +2,7 @@ using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.save;
 using Lens.entity;
+using Lens.util;
 
 namespace BurningKnight.entity.item.stand {
 	public class HatStand : EmeraldStand {
@@ -26,7 +27,7 @@ namespace BurningKnight.entity.item.stand {
 			var progress = 0;
 
 			foreach (var i in Items.Datas.Values) {
-				if (i.Type == ItemType.Hat) {
+				if (i.Type == ItemType.Hat && i.Id != "bk:no_hat") {
 					total++;
 
 					if (GlobalSave.IsTrue(i.Id)) {

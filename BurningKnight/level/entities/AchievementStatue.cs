@@ -1,12 +1,17 @@
+using System;
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
@@ -15,16 +20,20 @@ namespace BurningKnight.level.entities {
 		private string id = "bk:rip";
 		private Achievement achievement;
 		private TextureRegion achievementTexture;
+		private TextureRegion lockedAchievementTexture;
+		private float offset;
 
 		public override void AddComponents() {
 			base.AddComponents();
+
+			offset = Rnd.Float(1);
 			
 			Width = 24;
 			Height = 32;
 			
 			AddComponent(new DialogComponent());
 			AddComponent(new InteractableComponent(Interact) {
-				CanInteract = e => achievement.Unlocked
+				// CanInteract = e => achievement.Unlocked
 			});
 			
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
@@ -47,8 +56,22 @@ namespace BurningKnight.level.entities {
 					d.Close();
 				}
 			}
-		
-			GetComponent<DialogComponent>().StartAndClose(achievement.Unlocked ? $"{Locale.Get($"ach_{id}")}\n{Locale.Get($"ach_{id}_desc")}\n{Locale.Get("completed_on")} {achievement.CompletionDate}" : $"ach_{id}", 5);
+
+			string state;
+
+			if (achievement.Unlocked) {
+				state = $"{Locale.Get($"ach_{id}")}\n{Locale.Get($"ach_{id}_desc")}\n{Locale.Get("completed_on")} {achievement.CompletionDate}";
+			} else {
+				state = Locale.Get($"ach_{id}");
+
+				if (achievement.Max > 0) {
+					var p = GlobalSave.GetInt($"ach_{id}", 0);
+
+					state += $"\n{MathUtils.Clamp(0, achievement.Max, p)}/{achievement.Max} {Locale.Get("complete")}";
+				}
+			}
+			
+			GetComponent<DialogComponent>().StartAndClose(state, 5);
 			return true; 
 		}
 
@@ -74,7 +97,7 @@ namespace BurningKnight.level.entities {
 			base.Render();
 
 			if (achievement.Unlocked) {
-				Graphics.Render(achievementTexture, Position + new Vector2(2, 0));
+				Graphics.Render(achievementTexture, Position + new Vector2(2, (float) Math.Cos(Engine.Time * 1.5f + offset) * 2.5f - 2.5f));
 			}
 		}
 
