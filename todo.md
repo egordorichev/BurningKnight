@@ -25,9 +25,8 @@
  + achievement branches rewards
 }
 
-* lighting {
- * fixme: things like wall toch and lamps light gets added to the lights only once its updated (that looks bad)
-}
+* clock
+* day/night+weather
 
 * sign saying when next daily will be, daily room decor
 
@@ -36,7 +35,6 @@
 * this is a secret to everyone
 
 * challanges
-* day/night+weather
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
 * game stats in hub (best 3 runs, total deaths, etc)

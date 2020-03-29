@@ -177,6 +177,12 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			if (Run.Depth == 0 && Weather.IsNight) {
+				wasNight = true;
+				var x = 0.25f;
+				Lights.ClearColor = new Color(x, x, x, 1f);
+			}
+
 			TopUi = new Area();
 
 			Audio.Speed = 1f;
@@ -420,6 +426,7 @@ namespace BurningKnight.state {
 		}
 
 		private Vector2 stickOffset;
+		private bool wasNight = false;
 
 		public override void Update(float dt) {
 			if (UiAchievement.Current == null) {
@@ -578,6 +585,17 @@ namespace BurningKnight.state {
 
 			if (!Paused) {
 				Weather.Update(dt);
+
+				if (Run.Depth == 0) {
+					var night = Weather.IsNight;
+
+					if (night != wasNight) {
+						wasNight = night;
+						var v = night ? 0.25f : 0.9f;
+
+						Tween.To(v, Lights.ClearColor.R / 255f, x => { Lights.ClearColor = new Color(x, x, x, 1f); }, 3f);
+					}
+				}
 			}
 			
 			var inside = Engine.GraphicsDevice.Viewport.Bounds.Contains(Input.Mouse.CurrentState.Position);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.level.biome;
+using BurningKnight.state;
 using Lens.util.math;
 
 namespace BurningKnight.level.variant {
@@ -37,6 +38,10 @@ namespace BurningKnight.level.variant {
 		}
 
 		public static LevelVariant Generate(string biome) {
+			if (Run.Depth == -2) {
+				return new RegularLevelVariant();
+			}
+			
 			var variants = new List<LevelVariant>();
 			var chances = new List<float>();
 

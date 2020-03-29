@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.ui.editor;
 using Lens;
 using Lens.entity;
 using Lens.util.camera;
@@ -13,7 +14,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities {
-	public class BreakableProp : SolidProp {
+	public class BreakableProp : SolidProp, PlaceableEntity {
 		public static string[] Infos = {
 			"pot_a",
 			"pot_b",

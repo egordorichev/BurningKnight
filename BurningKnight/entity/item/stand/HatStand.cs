@@ -23,6 +23,10 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		public static void CheckHats() {
+			if (Achievements.Get("bk:fashion_matters").Unlocked) {
+				return;
+			}
+			
 			var total = 0;
 			var progress = 0;
 

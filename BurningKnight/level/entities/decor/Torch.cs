@@ -4,6 +4,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
@@ -27,6 +28,7 @@ namespace BurningKnight.level.entities.decor {
 			Width = 10;
 			Sprite = "torch";
 			t = Rnd.Float(6);
+			AlwaysActive = Run.Depth < 1;
 		}
 
 		public override void AddComponents() {

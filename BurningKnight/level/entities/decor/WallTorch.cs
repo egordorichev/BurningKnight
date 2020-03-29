@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
+using BurningKnight.state;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -20,6 +21,7 @@ namespace BurningKnight.level.entities.decor {
 			Height = 7;
 			Sprite = "wall_torch";
 			t = Rnd.Float(6);
+			AlwaysActive = Run.Depth < 1;
 		}
 
 		public override void AddComponents() {

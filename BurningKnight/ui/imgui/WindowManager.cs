@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.save;
+using BurningKnight.save.statistics;
 using BurningKnight.state;
 using ImGuiNET;
 using Lens;
@@ -68,7 +69,7 @@ namespace BurningKnight.ui.imgui {
 			LootTableEditor.Render();
 			assets.achievements.Achievements.RenderDebug();
 
-			Run.Statistics?.RenderWindow();
+			RunStatistics.RenderDebug();
 
 			if (Rooms && ImGui.Begin("Rooms", ImGuiWindowFlags.AlwaysAutoResize)) {
 				var p = LocalPlayer.Locate(Area);

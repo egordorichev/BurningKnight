@@ -12,7 +12,8 @@ namespace BurningKnight.level.entities.decor {
 			Width = 8;
 			Height = 12;
 			Sprite = "lamp";
-
+			AlwaysActive = true;
+			
 			t = Rnd.Float(6);
 		}
 
@@ -27,8 +28,8 @@ namespace BurningKnight.level.entities.decor {
 		
 		public override void Update(float dt) {
 			base.Update(dt);
-			t += dt * 0.5f;
-			GetComponent<LightComponent>().Light.Radius = 38f + (float) Math.Cos(t) * 6;
+			t += dt;
+			GetComponent<LightComponent>().Light.Radius = 32f + (float) Math.Cos(t) * 6;
 		}
 	}
 }
