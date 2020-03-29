@@ -906,6 +906,7 @@
     <Compile Include="level\entities\chest\TripleChest.cs" />
     <Compile Include="level\entities\chest\WoodenChest.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
+    <Compile Include="level\entities\DailySign.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />
     <Compile Include="level\entities\decor\Lamp.cs" />

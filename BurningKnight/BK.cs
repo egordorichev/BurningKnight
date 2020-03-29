@@ -19,8 +19,8 @@ using Version = Lens.Version;
 namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
-		public const bool Demo = true; // false;
-		public static Version Version = new Version("Hub update", 40, 0, 1, 11, 11, true, Debug);
+		public const bool Demo = false;
+		public static Version Version = new Version("Hub update", 40, 0, 1, 11, 12, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
@@ -28,7 +28,7 @@ namespace BurningKnight {
 			#else
 				new AssetLoadState(),
 			#endif
-			 $"Burning Knight: {Titles.Generate()}", width, height, fullscreen) {
+			 $"Burning Knight{(Demo ? " Demo" : "")}: {Titles.Generate()}", width, height, fullscreen) {
 		}
 
 		protected override void Initialize() {

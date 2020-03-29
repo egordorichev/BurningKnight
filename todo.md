@@ -28,7 +28,7 @@
 * clock
 * day/night+weather
 
-* sign saying when next daily will be, daily room decor
+* daily room decor
 
 * border around the whole hub with trees
 * show only last 6 or so items, allow to see more in pause menu
