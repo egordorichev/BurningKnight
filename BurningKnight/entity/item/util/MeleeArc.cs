@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Projectile p) {
 					if (p.Owner != Owner) {
 						if (p.CanBeReflected) {
-							p.Owner = this;
+							p.Owner = Owner;
 							p.Damage *= 2f;
 
 							p.Pattern?.Remove(p);

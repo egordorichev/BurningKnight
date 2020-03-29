@@ -500,6 +500,10 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 
+				if (c.New.Type == RoomType.DarkMarket) {
+					Achievements.Unlock("bk:dark_market");
+				}
+				
 				if (c.New.Type == RoomType.DarkMarket || c.New.Type == RoomType.Hidden) {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
