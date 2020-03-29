@@ -17,16 +17,12 @@
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
 
-# before demo
+# hub
 
 * achievements hall
 * achievement progress display in achievement hub, as well as date achieved 
 * border around the whole hub with trees
 * show only last 6 or so items, allow to see more in pause menu
-
-* demo!
-
-# hub
 
 * challanges
 * day/night+weather
