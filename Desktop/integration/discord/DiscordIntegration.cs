@@ -64,7 +64,7 @@ namespace Desktop.integration.discord {
 			}
 
 			status.largeImageKey = "bk";
-			status.largeImageText = "burningknight.net";
+			status.largeImageText = "burningknight.net/s";
 			status.startTimestamp = startTime;
 			
 			DiscordRpc.UpdatePresence(status);

@@ -1,32 +1,40 @@
+using System;
 using BurningKnight.assets.achievements;
+using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
+using Lens;
 using Lens.assets;
+using Lens.entity;
 using Lens.graphics;
+using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
 	public class AchievementStatue : Prop {
 		private string id = "bk:rip";
-		private bool unlocked;
+		private Achievement achievement;
 		private TextureRegion achievementTexture;
+		private TextureRegion lockedAchievementTexture;
+		private float offset;
 
 		public override void AddComponents() {
 			base.AddComponents();
+
+			offset = Rnd.Float(1);
 			
 			Width = 24;
 			Height = 32;
 			
 			AddComponent(new DialogComponent());
-			AddComponent(new InteractableComponent((e) => {
-				GetComponent<DialogComponent>().StartAndClose($"ach_{id}_desc", 5);
-				return true; 
-			}) {
-				CanInteract = e => unlocked
+			AddComponent(new InteractableComponent(Interact) {
+				// CanInteract = e => achievement.Unlocked
 			});
 			
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
@@ -34,15 +42,11 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableSliceComponent("props", "achievement_statue"));
 			AddComponent(new RectBodyComponent(0, 13, 24, 19, BodyType.Static));
 
-			Achievements.UnlockedCallback += UpdateState;
-			Achievements.LockedCallback += UpdateState;
-		}
-
-		public override void Destroy() {
-			base.Destroy();
+			GetComponent<DialogComponent>().Dialog.Voice = 30;
 			
-			Achievements.UnlockedCallback -= UpdateState;
-			Achievements.LockedCallback -= UpdateState;
+			AddTag(Tags.Statue);
+
+			Area.Add(new RenderTrigger(this, RenderTop, Layers.FlyingMob));
 		}
 
 		public override void PostInit() {
@@ -50,13 +54,43 @@ namespace BurningKnight.level.entities {
 			SetupSprite();
 			UpdateState();
 		}
+		
+		private bool Interact(Entity e) {
+			foreach (var s in Area.Tagged[Tags.Statue]) {
+				if (s.TryGetComponent<DialogComponent>(out var d)) {
+					d.Close();
+				}
+			}
+
+			string state;
+
+			if (achievement.Unlocked) {
+				var d = achievement.CompletionDate;
+
+				if (d == "???") {
+					d = "~~???~~";
+				}
+				
+				state = $"[sp 2][cl orange]{Locale.Get($"ach_{id}")}[cl]\n{Locale.Get($"ach_{id}_desc")}\n[cl gray]{Locale.Get("completed_on")} {d}[cl]";
+			} else {
+				state = $"[sp 2][cl orange]{Locale.Get($"ach_{id}")}[cl]";
+
+				if (achievement.Max > 0) {
+					var p = GlobalSave.GetInt($"ach_{id}", 0);
+					state += $"\n[cl gray]{MathUtils.Clamp(0, achievement.Max, p)}/{achievement.Max} {Locale.Get("complete")}[cl]";
+				}
+			}
+			
+			GetComponent<DialogComponent>().Start(state);
+			return true; 
+		}
 
 		private void SetupSprite() {
 			achievementTexture = Animations.Get("achievements").GetSlice(id);
 		}
 
 		private void UpdateState(string i = null) {
-			unlocked = Achievements.Get(id)?.Unlocked ?? false;
+			achievement = Achievements.Get(id);
 		}
 
 		public override void Load(FileReader stream) {
@@ -69,11 +103,9 @@ namespace BurningKnight.level.entities {
 			stream.WriteString(id);
 		}
 
-		public override void Render() {
-			base.Render();
-
-			if (unlocked) {
-				Graphics.Render(achievementTexture, Position + new Vector2(2, 0));
+		public void RenderTop() {
+			if (achievement.Unlocked) {
+				Graphics.Render(achievementTexture, Position + new Vector2(2, (float) Math.Cos(Engine.Time * 1.5f + offset) * 2.5f - 2.5f));
 			}
 		}
 

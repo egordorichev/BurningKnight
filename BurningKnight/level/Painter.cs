@@ -93,7 +93,7 @@ namespace BurningKnight.level {
 
 					if (r <= 0.05f) {
 						l.Set(index, Tile.TintedRock);
-					} else if (r <= 0.1f && !(rm is TreasureRoom)) {
+					} else if (Run.Depth > 0 && r <= 0.1f && !(rm is TreasureRoom)) {
 						l.Set(index, Tile.BarrelTmp);
 					}
 				}

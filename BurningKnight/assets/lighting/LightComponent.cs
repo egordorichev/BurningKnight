@@ -9,11 +9,13 @@ namespace BurningKnight.assets.lighting {
 
 		public LightComponent(Entity entity, float radius, Color color) {
 			Light = Lights.New(entity, radius, color);
+			Light.UpdateCache();
 		}
 
 		public LightComponent(Light light) {
 			Light = light;
 			Lights.Add(light);
+			Light.UpdateCache();
 		}
 
 		public override void Update(float dt) {

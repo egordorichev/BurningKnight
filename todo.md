@@ -1,6 +1,5 @@
 # bugs
 
-* tombstone still spawns in daily?
 * disable rerolling scoruges
 * escape from dialog 
 
@@ -18,19 +17,24 @@
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
 
-# before demo
-
-* achievements hall
-* achievement progress display in achievement hub, as well as date achieved 
-* border around the whole hub with trees
-* show only last 6 or so items, allow to see more in pause menu
-
-* demo!
-
 # hub
 
-* challanges
+* achievements hall {
+ + finish placing achievements
+ + rename achievements
+ + achievement branches rewards
+}
+
+* clock
 * day/night+weather
+
+* sign saying when next daily will be, daily room decor
+
+* border around the whole hub with trees
+* show only last 6 or so items, allow to see more in pause menu
+* this is a secret to everyone
+
+* challanges
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
 * game stats in hub (best 3 runs, total deaths, etc)

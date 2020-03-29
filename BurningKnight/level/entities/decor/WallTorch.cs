@@ -1,6 +1,9 @@
+using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
+using BurningKnight.state;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.decor {
@@ -17,6 +20,8 @@ namespace BurningKnight.level.entities.decor {
 			Width = 5;
 			Height = 7;
 			Sprite = "wall_torch";
+			t = Rnd.Float(6);
+			AlwaysActive = Run.Depth < 1;
 		}
 
 		public override void AddComponents() {
@@ -42,12 +47,18 @@ namespace BurningKnight.level.entities.decor {
 		
 		private float lastFlame;
 
+
+		private float t;
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (!On) {
 				return;
 			}
+			
+			t += dt * 0.5f;
+			GetComponent<LightComponent>().Light.Radius = 38f + (float) Math.Cos(t) * 6;
 			
 			lastFlame += dt;
 

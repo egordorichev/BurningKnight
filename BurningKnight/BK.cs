@@ -7,6 +7,7 @@ using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.mod;
 using BurningKnight.assets.prefabs;
+using BurningKnight.level;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -18,8 +19,8 @@ using Version = Lens.Version;
 namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
-		public const bool Demo = true;
-		public static Version Version = new Version("Hub update", 39, 0, 1, 11, 10, true, Debug);
+		public const bool Demo = true; // false;
+		public static Version Version = new Version("Hub update", 40, 0, 1, 11, 11, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
@@ -63,6 +64,7 @@ namespace BurningKnight {
 			Controls.Load();
 			Font.Load();
 			ImGuiHelper.Init();
+			Weather.Init();
 		}
 
 		private static void RunBash(string args) {

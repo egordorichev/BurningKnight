@@ -2,6 +2,7 @@
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.save;
+using BurningKnight.ui.editor;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.file;
@@ -9,7 +10,7 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.fx {
-	public class Firefly : SaveableEntity {
+	public class Firefly : SaveableEntity, PlaceableEntity {
 		private static TextureRegion region;
 
 		private Vector2 size;

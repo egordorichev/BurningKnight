@@ -44,9 +44,13 @@ namespace BurningKnight.assets.lighting {
 		
 		public void Update(float dt) {
 			if (dirty) {
-				Scale.X = radius / 128f;
-				Scale.Y = Scale.X;
+				UpdateCache();
 			}
+		}
+
+		public void UpdateCache() {
+			Scale.X = radius / 128f;
+			Scale.Y = Scale.X;
 		}
 		
 		public abstract Vector2 GetPosition();

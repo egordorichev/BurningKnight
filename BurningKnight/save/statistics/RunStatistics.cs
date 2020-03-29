@@ -8,6 +8,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.room;
+using BurningKnight.level;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
@@ -287,7 +288,7 @@ namespace BurningKnight.save.statistics {
 			AddTag(Tags.PlayerSave);
 		}
 
-		public void RenderWindow() {
+		public static void RenderDebug() {
 			if (!WindowManager.RunInfo) {
 				return;
 			}
@@ -297,6 +298,27 @@ namespace BurningKnight.save.statistics {
 			if (!ImGui.Begin("Run Info")) {
 				return;
 			}
+
+			ImGui.Text($"World Time: {Weather.TimeOfDay} ({Weather.Time})");
+			ImGui.Text($"Night: {Weather.IsNight}");
+
+			if (ImGui.Button("Set to day")) {
+				Weather.Time = 7f;
+			}
+
+			ImGui.SameLine();
+			
+			if (ImGui.Button("Set to night")) {
+				Weather.Time = 21f;
+			}
+
+			Run.Statistics?.RenderWindow();
+
+			ImGui.End();
+		}
+		
+		public void RenderWindow() {
+			ImGui.Separator();
 			
 			ImGui.Text($"Time: {Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s");
 			ImGui.Text($"Won: {Won}");

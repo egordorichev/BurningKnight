@@ -44,6 +44,7 @@ namespace BurningKnight.ui {
 
 			Width = Math.Max(128, (Math.Max(titleSize.Width, descriptionSize.Width) + 22 + Padding * 3));
 			Height = 20 + Padding * 2;
+			Depth = 32;
 
 			if (item) {
 				Audio.PlaySfx("ui_achievement");
@@ -72,6 +73,7 @@ namespace BurningKnight.ui {
 				t.Delay = 5f;
 				t.OnStart = () => {
 					Current = null;
+					Depth--;
 
 					try {
 						if (isItem) {
