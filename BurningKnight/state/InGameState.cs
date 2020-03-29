@@ -52,6 +52,8 @@ using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
+		public static bool SkipPause;
+		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
 		private const float BarsSize = 50;
@@ -177,12 +179,6 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
-			if (Run.Depth == 0 && Weather.IsNight) {
-				wasNight = true;
-				var x = 0.25f;
-				Lights.ClearColor = new Color(x, x, x, 1f);
-			}
-
 			TopUi = new Area();
 
 			Audio.Speed = 1f;
@@ -232,6 +228,18 @@ namespace BurningKnight.state {
 			}
 
 			Camera.Instance.Jump();
+			
+			if (Run.Depth == 0) {
+				if (Weather.IsNight) {
+					wasNight = true;
+					var x = 0.25f;
+					Lights.ClearColor = new Color(x, x, x, 1f);
+				}
+
+				if (Weather.Rains || Weather.Snows) {
+					SetupParticles();
+				}
+			}
 
 			if (!Menu) {
 				TransitionToOpen();
@@ -426,8 +434,26 @@ namespace BurningKnight.state {
 		}
 
 		private Vector2 stickOffset;
-		private bool wasNight = false;
+		private bool wasNight;
+		private bool wasRaining;
+		private List<Entity> particles = new List<Entity>();
 
+		private void SetupParticles() {
+			if (Weather.Rains) {
+				for (var i = 0; i < 40; i++) {
+					particles.Add(Run.Level.Area.Add(new RainParticle {
+						Custom = true
+					}));
+				}
+			} else if (Weather.Snows) {
+				for (var i = 0; i < 100; i++) {
+					particles.Add(Run.Level.Area.Add(new SnowParticle {
+						Custom = true
+					}));
+				}
+			}
+		}
+		
 		public override void Update(float dt) {
 			if (UiAchievement.Current == null) {
 				if (Achievements.AchievementBuffer.Count > 0) {
@@ -593,7 +619,29 @@ namespace BurningKnight.state {
 						wasNight = night;
 						var v = night ? 0.25f : 0.9f;
 
-						Tween.To(v, Lights.ClearColor.R / 255f, x => { Lights.ClearColor = new Color(x, x, x, 1f); }, 3f);
+						Tween.To(v, Lights.ClearColor.R / 255f, x => { Lights.ClearColor = new Color(x, x, x, 1f); }, 10f);
+					}
+
+					var raining = Weather.Rains || Weather.Snows;
+
+					if (wasRaining != raining) {
+						wasRaining = raining;
+
+						if (raining) {
+							SetupParticles();
+						} else {
+							foreach (var p in particles) {
+								if (p is RainParticle r) {
+									r.End = true;
+								} else if (p is SnowParticle s) {
+									s.End = true;
+								} else {
+									p.Done = true;
+								}
+							}
+
+							particles.Clear();
+						}
 					}
 				}
 			}
@@ -667,7 +715,9 @@ namespace BurningKnight.state {
 
 						if (DialogComponent.Talking == null) {
 							if (Input.WasPressed(Controls.Pause, controller)) {
-								if (Paused) {
+								if (SkipPause) {
+									SkipPause = false;
+								} else if (Paused) {
 									if (UiControl.Focused == null && currentBack == null) {
 										Paused = false;
 										did = true;

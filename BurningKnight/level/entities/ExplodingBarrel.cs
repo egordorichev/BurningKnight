@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -13,9 +14,21 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class ExplodingBarrel : SolidProp {
 		private float tillExplode;
+		private Entity trigger;
 		
 		public ExplodingBarrel() {
 			Sprite = "exploding_barrel";
+		}
+
+		protected override BodyComponent CreateBody() {
+			var collider = GetCollider();
+			var body = new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Dynamic);
+
+			body.Body.LinearDamping = 6f;
+			body.KnockbackModifier = 0.1f;
+			body.Body.Mass = 0.1f;
+			
+			return body;
 		}
 
 		public override void AddComponents() {
@@ -44,9 +57,16 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent || e is DiedEvent) {
-				PrepareToExplode();
-				var h = GetComponent<HealthComponent>();
-				h.InvincibilityTimer = h.InvincibilityTimerMax;
+				if (!Done) {
+					if (e is ExplodedEvent ee && ee.Who != this) {
+						trigger = ee.Who;
+					}
+
+					PrepareToExplode();
+					var h = GetComponent<HealthComponent>();
+					h.InvincibilityTimer = h.InvincibilityTimerMax;
+				}
+
 				return true;
 			} else if (e is HealthModifiedEvent hme) {
 				hme.Amount = -1;
@@ -106,6 +126,18 @@ namespace BurningKnight.level.entities {
 			
 			Done = true;
 			ExplosionMaker.Make(this, 32f);
+
+			var who = trigger;
+			var count = 0;
+
+			while (who != null && who is ExplodingBarrel b) {
+				who = b.trigger;
+				count++;
+			}
+
+			if (count >= 2) {
+				Achievements.Unlock("bk:boom");
+			}
 		}
 
 		protected override Rectangle GetCollider() {

@@ -76,6 +76,7 @@ namespace BurningKnight.entity.creature.player {
 					}
 					
 					Item.Use((Player) Entity);
+					GetComponent<StatsComponent>().UsedWeaponInRoom = true;
 				}
 			} else {
 				timeSinceReady = 0;

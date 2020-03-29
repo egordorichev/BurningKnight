@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.assets.achievements;
+using BurningKnight.entity.creature.player;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component;
@@ -116,6 +118,23 @@ namespace BurningKnight.entity.component {
 			} else {
 				Follower = e;
 				e.GetComponent<FollowerComponent>().Following = Entity;
+			}
+
+			if (Entity is Player) {
+				var depth = 0;
+				var entity = Entity;
+
+				while (entity != null) {
+					entity = entity.GetComponent<FollowerComponent>().Follower;
+
+					if (entity != null) {
+						depth++;
+					}
+				}
+
+				if (depth >= 3) {
+					Achievements.Unlock("bk:family");
+				}
 			}
 		}
 	}

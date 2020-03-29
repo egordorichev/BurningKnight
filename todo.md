@@ -1,8 +1,5 @@
 # bugs
 
-* disable rerolling scoruges
-* escape from dialog 
-
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
@@ -16,25 +13,23 @@
 * active shop discount still discounts without the use
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
+* challanges room plays win sound before you defeat all waves (fires room cleared event)
 
 # hub
 
 * achievements hall {
- + finish placing achievements
- + rename achievements
+ + make some achievements unlock items
  + achievement branches rewards
 }
 
-* clock
-* day/night+weather
-
-* sign saying when next daily will be, daily room decor
-
 * border around the whole hub with trees
-* show only last 6 or so items, allow to see more in pause menu
-* this is a secret to everyone
-
 * challanges
+
+#
+
+* show only last 6 or so items, allow to see more in pause menu
+* this is a secret to everyone easter egg in hub?
+
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
 * game stats in hub (best 3 runs, total deaths, etc)
@@ -93,7 +88,6 @@ flavors {
 * enemies/rooms/other stuff that doesn't happen/appear every run
 * a special reward for completing the level fast
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
-* Hub house: long church like building with a huge door in the end, and statues for achievements. Door opens when you finish all achievements. Might also have 1-2 more doors for some amount of achievements complete. Unlocks a new area, maybe new npcs and items
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
 * MIMIIIICS!

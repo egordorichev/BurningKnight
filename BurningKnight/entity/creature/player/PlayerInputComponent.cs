@@ -111,7 +111,14 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				Accelerate(Vector2.Zero, dt);
-				return;
+
+				if (Input.WasPressed(Controls.Pause)) {
+					dd?.Close();
+					dialog?.OnEnd();
+					InGameState.SkipPause = true;
+				} else {
+					return;
+				}
 			}
 			
 			var state = Entity.GetComponent<StateComponent>();

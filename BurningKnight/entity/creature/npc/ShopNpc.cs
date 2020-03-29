@@ -10,6 +10,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.npc {
 	public class ShopNpc : Npc {
@@ -64,6 +65,18 @@ namespace BurningKnight.entity.creature.npc {
 					Radius = 72 * 72,
 					RadiusMax = 96 * 96
 				});
+				
+				AddComponent(new QuackInteractionComponent(p => {
+					Timer.Add(() => {
+						var d = GetComponent<DialogComponent>();
+
+						if (d.Current != null && d.Current.Id != "quack") {
+							d.StartAndClose("quack", 3);
+						}
+
+						GetComponent<AudioEmitterComponent>().EmitRandomized("quck");
+					}, 0.5f);
+				}));
 			}
 		}
 		

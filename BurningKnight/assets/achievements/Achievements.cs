@@ -100,7 +100,7 @@ namespace BurningKnight.assets.achievements {
 				Log.Error($"Unknown achievement {id}!");
 				return;
 			}
-
+			
 			if (a.Unlocked) {
 				return;
 			}
@@ -111,8 +111,6 @@ namespace BurningKnight.assets.achievements {
 			
 			if (max == progress) {
 				ReallyUnlock(id, a);
-				GlobalSave.Put($"ach_{a.Id}", progress);
-
 				return;
 			}
 

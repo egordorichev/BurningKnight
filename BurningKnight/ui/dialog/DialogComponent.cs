@@ -257,7 +257,7 @@ namespace BurningKnight.ui.dialog {
 			Talking = this;
 		}
 		
-		private void OnEnd() {
+		public void OnEnd() {
 			if (To != null) {
 				if (To.TryGetComponent<PlayerInputComponent>(out var input)) {
 					input.InDialog = false;

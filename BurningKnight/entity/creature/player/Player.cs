@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
@@ -25,6 +26,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -45,6 +47,8 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
+		public static int Quacks;
+		
 		public static string StartingWeapon;
 		public static string StartingItem;
 
@@ -197,6 +201,10 @@ namespace BurningKnight.entity.creature.player {
 
 			lastDepth = Run.Depth;
 			HandleEvent(new NewLevelStartedEvent());
+			
+			if (Run.Depth > 1 && !GetComponent<StatsComponent>().TookDamageOnLevel) {
+				Achievements.Unlock("bk:dodge_overlord");
+			}
 		}
 
 		private bool set;
@@ -289,6 +297,11 @@ namespace BurningKnight.entity.creature.player {
 		public class DuckState : EntityState {
 			public override void Init() {
 				base.Init();
+				Quacks++;
+
+				if (Quacks >= 100) {
+					Achievements.Unlock("bk:quackers");
+				}
 
 				Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
 
@@ -300,8 +313,14 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
-				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
+				if (Self.GetComponent<RectBodyComponent>().Velocity.Length() > 10f) {
+					if (T >= 0.2f) {
+						AnimationUtil.Poof(Self.Center);
+						T = 0;
+					}
+				} else {
+					T = 0;
+				}
 			}
 		}
 		
@@ -492,6 +511,10 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 
+				if (c.New.Type == RoomType.DarkMarket) {
+					Achievements.Unlock("bk:dark_market");
+				}
+				
 				if (c.New.Type == RoomType.DarkMarket || c.New.Type == RoomType.Hidden) {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);

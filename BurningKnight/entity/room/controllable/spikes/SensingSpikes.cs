@@ -1,9 +1,11 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.player;
+using BurningKnight.state;
 
 namespace BurningKnight.entity.room.controllable.spikes {
 	public class SensingSpikes : Spikes {
 		private float timer;
-		
+		private bool wasTriggered;
 		
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -19,6 +21,18 @@ namespace BurningKnight.entity.room.controllable.spikes {
 					if (c is Player) {
 						timer = 1.5f;
 						TurnOnSlowly();
+
+						if (!wasTriggered) {
+							wasTriggered = true;
+
+							if (Run.Statistics != null) {
+								Run.Statistics.SpikesTriggered++;
+
+								if (Run.Statistics.SpikesTriggered >= 100) {
+									Achievements.Unlock("bk:spikes");
+								}
+							}
+						}
 						
 						break;
 					}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.player;
 using Lens.entity;
 using Lens.entity.component;
@@ -67,6 +68,10 @@ namespace BurningKnight.entity.component {
 			
 			e.GetComponent<OrbitalComponent>().Orbiting = Entity;
 			Orbiting.Add(e);
+
+			if (Entity is Player && Orbiting.Count >= 3) {
+				Achievements.Unlock("bk:star");
+			}
 		}
 
 		public void RemoveOrbiter(Entity e) {

@@ -23,6 +23,7 @@ namespace BurningKnight.level.entities {
 		private TextureRegion achievementTexture;
 		private TextureRegion lockedAchievementTexture;
 		private float offset;
+		private bool hidden;
 
 		public override void AddComponents() {
 			base.AddComponents();
@@ -34,11 +35,11 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new DialogComponent());
 			AddComponent(new InteractableComponent(Interact) {
-				// CanInteract = e => achievement.Unlocked
+				CanInteract = e => !hidden
 			});
 			
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2, BodyType.Static));
-			AddComponent(new ShadowComponent());
+			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new InteractableSliceComponent("props", "achievement_statue"));
 			AddComponent(new RectBodyComponent(0, 13, 24, 19, BodyType.Static));
 
@@ -47,6 +48,16 @@ namespace BurningKnight.level.entities {
 			AddTag(Tags.Statue);
 
 			Area.Add(new RenderTrigger(this, RenderTop, Layers.FlyingMob));
+			
+			Achievements.UnlockedCallback += UpdateState;
+			Achievements.LockedCallback += UpdateState;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			
+			Achievements.UnlockedCallback -= UpdateState;
+			Achievements.LockedCallback -= UpdateState;
 		}
 
 		public override void PostInit() {
@@ -91,6 +102,14 @@ namespace BurningKnight.level.entities {
 
 		private void UpdateState(string i = null) {
 			achievement = Achievements.Get(id);
+
+			if (!achievement.Unlocked && achievement.Secret) {
+				hidden = true;
+				GetComponent<RectBodyComponent>().Body.IsSensor = true;
+			} else {
+				hidden = false;
+				GetComponent<RectBodyComponent>().Body.IsSensor = false;
+			}
 		}
 
 		public override void Load(FileReader stream) {
@@ -103,8 +122,24 @@ namespace BurningKnight.level.entities {
 			stream.WriteString(id);
 		}
 
+		public override void Render() {
+			if (hidden) {
+				return;
+			}
+			
+			base.Render();
+		}
+
+		public void RenderShadow() {
+			if (hidden) {
+				return;
+			}
+			
+			GraphicsComponent.Render(true);
+		}
+
 		public void RenderTop() {
-			if (achievement.Unlocked) {
+			if (!hidden && achievement.Unlocked) {
 				Graphics.Render(achievementTexture, Position + new Vector2(2, (float) Math.Cos(Engine.Time * 1.5f + offset) * 2.5f - 2.5f));
 			}
 		}

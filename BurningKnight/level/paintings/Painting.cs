@@ -4,6 +4,7 @@ using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -136,6 +137,16 @@ namespace BurningKnight.level.paintings {
 
 			if (from != null && TryGetComponent<HealthComponent>(out var h) && h.InvincibilityTimer <= 0.45f) {
 				Done = true;
+
+				if (from is Player) {
+					var count = GlobalSave.GetInt("paintings_destroyed", 0) + 1;
+
+					if (count >= 100) {
+						Achievements.Unlock("bk:van_no_gogh");
+					}
+					
+					GlobalSave.Put("paintings_destroyed", count);
+				}
 				
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());

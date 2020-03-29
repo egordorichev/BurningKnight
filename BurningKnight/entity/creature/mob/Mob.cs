@@ -172,7 +172,7 @@ namespace BurningKnight.entity.creature.mob {
 				}
 			} else if (e is DiedEvent de) {
 				var who = de.From;
-
+				
 				if (de.From != null) {
 					if (de.From.TryGetComponent<OwnerComponent>(out var o)) {
 						who = o.Owner;

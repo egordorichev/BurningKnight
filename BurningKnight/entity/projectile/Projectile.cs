@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.bomb;
@@ -55,6 +56,7 @@ namespace BurningKnight.entity.projectile {
 		public BodyComponent BodyComponent;
 		public float Damage = 1;
 		public Entity Owner;
+		public Entity StarterOwner;
 		public Item Item;
 		public float Range = -1;
 		public float T;
@@ -112,6 +114,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.Slice = slice;
 			projectile.Parent = parent;
 			projectile.Owner = owner;
+			projectile.StarterOwner = owner;
 			projectile.BounceLeft = bounce;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
@@ -332,6 +335,11 @@ namespace BurningKnight.entity.projectile {
 				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
 					health.ModifyHealth(-Damage, Owner);
+
+					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead) {
+						Achievements.Unlock("bk:return_to_sender");
+					}
+					
 					EntitiesHurt.Add(ev.Entity);
 					OnHurt?.Invoke(this, ev.Entity);
 				}

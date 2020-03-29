@@ -33,7 +33,7 @@ namespace BurningKnight.entity.item {
 						item = s.Item;
 					}
 				} else if (e is Item i) {
-					if (i.Id == "bk:idol") {
+					if (i.Id == "bk:idol" || i.Type == ItemType.Scourge) {
 						continue;
 					}
 					

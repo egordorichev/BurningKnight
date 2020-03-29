@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
 using BurningKnight.level.rooms;
@@ -22,6 +23,7 @@ namespace BurningKnight.entity.component {
 		public bool TookDamageInRoom;
 		public bool TookDamageInLastRoom;
 		public bool TookDamageOnLevel;
+		public bool UsedWeaponInRoom;
 
 		public int HeartsPayed;
 
@@ -107,9 +109,10 @@ namespace BurningKnight.entity.component {
 				TookDamageInRoom = true;
 				TookDamageOnLevel = true;
 			} else if (e is RoomChangedEvent rce) {
-				if (rce.WasDiscovered) {
+				if (rce.JustDiscovered) {
 					TookDamageInLastRoom = TookDamageInRoom;
 					TookDamageInRoom = false;
+					UsedWeaponInRoom = false;
 				}
 			} else if (e is NewLevelStartedEvent) {
 				TookDamageOnLevel = false;
@@ -131,6 +134,10 @@ namespace BurningKnight.entity.component {
 
 				arc.Damage *= Damage;
 				arc.Width *= Range;
+			} else if (e is RoomClearedEvent) {
+				if (!UsedWeaponInRoom) {
+					Achievements.Unlock("bk:white_flag");
+				}
 			}
 			
 			return base.HandleEvent(e);

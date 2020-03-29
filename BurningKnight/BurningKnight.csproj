@@ -386,6 +386,7 @@
     <Compile Include="entity\component\OrbitGiverComponent.cs" />
     <Compile Include="entity\component\OwnerComponent.cs" />
     <Compile Include="entity\component\PoolDropsComponent.cs" />
+    <Compile Include="entity\component\QuackInteractionComponent.cs" />
     <Compile Include="entity\component\RandomFrameComponent.cs" />
     <Compile Include="entity\component\RectBodyComponent.cs" />
     <Compile Include="entity\component\RoomComponent.cs" />
@@ -906,6 +907,7 @@
     <Compile Include="level\entities\chest\TripleChest.cs" />
     <Compile Include="level\entities\chest\WoodenChest.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
+    <Compile Include="level\entities\DailySign.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />
     <Compile Include="level\entities\decor\Lamp.cs" />

@@ -22,6 +22,9 @@ namespace BurningKnight.assets.particle.custom {
 		private float delay;
 		private float t;
 
+		public bool End;
+		public bool Custom;
+		
 		public override void Init() {
 			base.Init();
 
@@ -34,10 +37,20 @@ namespace BurningKnight.assets.particle.custom {
 			
 			Reset();
 			delay = 0;
-			Y = Camera.Instance.Y + Rnd.Float(Display.Height + 20);
+
+			if (!Custom) {
+				Y = Camera.Instance.Y + Rnd.Float(Display.Height + 20);
+			} else {
+				delay = Rnd.Float(0, 10f);
+			}
 		}
 
 		private void Reset() {
+			if (End) {
+				Done = true;
+				return;
+			}
+			
 			var v = Rnd.Float(0.8f, 1f);
 			color = new Color(v, v, v, Rnd.Float(0.8f, 1f));
 			X = Rnd.Float(Camera.Instance.X - 150, Camera.Instance.Right + 150);
@@ -57,18 +70,19 @@ namespace BurningKnight.assets.particle.custom {
 			if (delay > 0) {
 				delay -= dt;
 
-				if (OnScreen) {
+				if (!Custom && OnScreen) {
 					delay = 0;
 				} else {
 					return;
 				}
 			}
-
+			
 			if (Y >= target) {
 				size.X -= dt * 0.1f;
 				size.Y = size.X;
 
 				if (size.X <= 0) {
+					Custom = false;
 					Reset();
 				}
 				
