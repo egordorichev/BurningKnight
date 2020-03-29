@@ -26,6 +26,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -312,8 +313,14 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
-				Self.GetComponent<RectBodyComponent>().Acceleration = Vector2.Zero;
+				if (Self.GetComponent<RectBodyComponent>().Velocity.Length() > 10f) {
+					if (T >= 0.2f) {
+						AnimationUtil.Poof(Self.Center);
+						T = 0;
+					}
+				} else {
+					T = 0;
+				}
 			}
 		}
 		
