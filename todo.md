@@ -1,6 +1,5 @@
 # bugs
 
-* disable rerolling scoruges
 * escape from dialog 
 
 * rolling spikes can stop (rework their move logic)
