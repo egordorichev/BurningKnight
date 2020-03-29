@@ -908,6 +908,7 @@
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />
+    <Compile Include="level\entities\decor\Lamp.cs" />
     <Compile Include="level\entities\decor\Torch.cs" />
     <Compile Include="level\entities\decor\Tree.cs" />
     <Compile Include="level\entities\decor\WallTorch.cs" />

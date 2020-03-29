@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
@@ -7,6 +8,7 @@ using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities.decor {
@@ -17,12 +19,14 @@ namespace BurningKnight.level.entities.decor {
 		
 		private bool broken;
 		private FireEmitter emitter;
+		private float t;
 		
 		public override void Init() {
 			base.Init();
 
 			Width = 10;
 			Sprite = "torch";
+			t = Rnd.Float(6);
 		}
 
 		public override void AddComponents() {
@@ -93,6 +97,8 @@ namespace BurningKnight.level.entities.decor {
 				return;
 			}
 			
+			t += dt * 0.5f;
+			GetComponent<LightComponent>().Light.Radius = 38f + (float) Math.Cos(t) * 6;
 			lastFlame += dt;
 
 			if (lastFlame > 0.1f) {

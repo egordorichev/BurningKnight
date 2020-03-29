@@ -19,10 +19,21 @@
 
 # hub
 
-* achievements hall
-* achievement progress display in achievement hub
+* achievements hall {
+ + finish placing achievements
+ + rename achievements
+ + achievement branches rewards
+}
+
+* lighting {
+ * fixme: things like wall toch and lamps light gets added to the lights only once its updated (that looks bad)
+}
+
+* sign saying when next daily will be, daily room decor
+
 * border around the whole hub with trees
 * show only last 6 or so items, allow to see more in pause menu
+* this is a secret to everyone
 
 * challanges
 * day/night+weather

@@ -203,8 +203,10 @@ namespace BurningKnight.state {
 			
 			SetupUi();
 
-			for (var i = 0; i < 30; i++) {
-				Area.Add(new WindFx());
+			if (Run.Level?.Biome is CastleBiome) {
+				for (var i = 0; i < 30; i++) {
+					Area.Add(new WindFx());
+				}
 			}
 
 			fog = Textures.Get("noise");

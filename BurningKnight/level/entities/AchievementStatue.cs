@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets.achievements;
+using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.save;
@@ -41,7 +42,11 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableSliceComponent("props", "achievement_statue"));
 			AddComponent(new RectBodyComponent(0, 13, 24, 19, BodyType.Static));
 
+			GetComponent<DialogComponent>().Dialog.Voice = 30;
+			
 			AddTag(Tags.Statue);
+
+			Area.Add(new RenderTrigger(this, RenderTop, Layers.FlyingMob));
 		}
 
 		public override void PostInit() {
@@ -60,18 +65,23 @@ namespace BurningKnight.level.entities {
 			string state;
 
 			if (achievement.Unlocked) {
-				state = $"{Locale.Get($"ach_{id}")}\n{Locale.Get($"ach_{id}_desc")}\n{Locale.Get("completed_on")} {achievement.CompletionDate}";
+				var d = achievement.CompletionDate;
+
+				if (d == "???") {
+					d = "~~???~~";
+				}
+				
+				state = $"[sp 2][cl orange]{Locale.Get($"ach_{id}")}[cl]\n{Locale.Get($"ach_{id}_desc")}\n[cl gray]{Locale.Get("completed_on")} {d}[cl]";
 			} else {
-				state = Locale.Get($"ach_{id}");
+				state = $"[sp 2][cl orange]{Locale.Get($"ach_{id}")}[cl]";
 
 				if (achievement.Max > 0) {
 					var p = GlobalSave.GetInt($"ach_{id}", 0);
-
-					state += $"\n{MathUtils.Clamp(0, achievement.Max, p)}/{achievement.Max} {Locale.Get("complete")}";
+					state += $"\n[cl gray]{MathUtils.Clamp(0, achievement.Max, p)}/{achievement.Max} {Locale.Get("complete")}[cl]";
 				}
 			}
 			
-			GetComponent<DialogComponent>().StartAndClose(state, 5);
+			GetComponent<DialogComponent>().Start(state);
 			return true; 
 		}
 
@@ -93,9 +103,7 @@ namespace BurningKnight.level.entities {
 			stream.WriteString(id);
 		}
 
-		public override void Render() {
-			base.Render();
-
+		public void RenderTop() {
 			if (achievement.Unlocked) {
 				Graphics.Render(achievementTexture, Position + new Vector2(2, (float) Math.Cos(Engine.Time * 1.5f + offset) * 2.5f - 2.5f));
 			}

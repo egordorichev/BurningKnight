@@ -63,7 +63,6 @@ namespace BurningKnight.assets {
 
 		public static Dialog Get(string id) {
 			if (!dialogs.TryGetValue(id, out var dialog)) {
-				Log.Error($"Unknown dialog {id}");
 				return null;
 			}
 
