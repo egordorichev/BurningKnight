@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
@@ -100,7 +101,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 					if (player != null) {
 						var stats = player.GetComponent<StatsComponent>();
 						var e = new DealChanceCalculateEvent();
-
+						
+						if (!stats.TookDamageInRoom) {
+							Achievements.Unlock("bk:dodge_master");
+						}
+						
 						e.GrannyStartChance = stats.SawDeal && !stats.TookDeal ? stats.GrannyChance : 0;
 						e.GrannyChance = e.GrannyStartChance;
 						e.DmStartChance = stats.DMChance;

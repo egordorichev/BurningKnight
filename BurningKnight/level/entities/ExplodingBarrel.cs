@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -13,6 +14,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class ExplodingBarrel : SolidProp {
 		private float tillExplode;
+		private Entity trigger;
 		
 		public ExplodingBarrel() {
 			Sprite = "exploding_barrel";
@@ -44,6 +46,10 @@ namespace BurningKnight.level.entities {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ExplodedEvent || e is DiedEvent) {
+				if (e is ExplodedEvent ee) {
+					trigger = ee.Who;
+				}
+				
 				PrepareToExplode();
 				var h = GetComponent<HealthComponent>();
 				h.InvincibilityTimer = h.InvincibilityTimerMax;
@@ -106,6 +112,18 @@ namespace BurningKnight.level.entities {
 			
 			Done = true;
 			ExplosionMaker.Make(this, 32f);
+
+			var who = trigger;
+			var count = 0;
+
+			while (who != null && who is ExplodingBarrel b) {
+				who = b.trigger;
+				count++;
+			}
+
+			if (count >= 3) {
+				Achievements.Unlock("bk:boom");
+			}
 		}
 
 		protected override Rectangle GetCollider() {

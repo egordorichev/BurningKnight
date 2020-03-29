@@ -16,6 +16,7 @@
 * active shop discount still discounts without the use
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
+* challanges room plays win sound before you defeat all waves (fires room cleared event)
 
 # hub
 
