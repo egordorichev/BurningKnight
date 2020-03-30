@@ -13,7 +13,6 @@
 * web doesnt affect mobs
 
 * ice 2 bug when no wall or floor is rendered
-* wall crawler can be in a wall and stuck there (should kill it if he is in a full tile)
 
 # hub
 
