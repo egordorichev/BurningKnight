@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public bool Hurt(int amount, Entity setter, DamageType type) {
+		public bool Hurt(int amount, Entity setter, DamageType type = DamageType.Regular) {
 			var e = new HealthModifiedEvent {
 				Amount = amount,
 				Type = type,

@@ -1,6 +1,7 @@
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
+using BurningKnight.entity.creature.player;
 using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
@@ -14,11 +15,11 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			if (!entity.TryGetComponent<HealthComponent>(out var h) || h.Health < 3) {
+			if (entity.GetComponent<HealthComponent>().Health + entity.GetComponent<HeartsComponent>().ShieldHalfs < 3) {
 				return false;
 			}
 
-			h.ModifyHealth(-2, this, DamageType.Custom);
+			entity.GetComponent<HealthComponent>().ModifyHealth(-2, this, DamageType.Custom);
 			return true;
 		}
 	}
