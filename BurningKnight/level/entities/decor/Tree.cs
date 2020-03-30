@@ -26,7 +26,7 @@ namespace BurningKnight.level.entities.decor {
 		}
 
 		public Tree() {
-			type = (byte) Rnd.Int(0, 5);
+			type = (byte) Rnd.Int(0, 7);
 		}
 
 		public override void AddComponents() {

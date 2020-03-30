@@ -15,17 +15,17 @@
 
 # hub
 
+* all rooms should give rewards
+* border around the whole hub with trees
 * make reroll machine spawn in item rooms
+* leaderboard display
+* top 3 runs display
 
 * achievements hall {
  + make some achievements unlock items
  + achievement branches rewards
 }
 
-* leaderboard display
-* top 3 runs display
-
-* border around the whole hub with trees
 * challanges
 
 #

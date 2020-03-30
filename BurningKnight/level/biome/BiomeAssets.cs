@@ -48,6 +48,7 @@ namespace BurningKnight.level.biome {
 		public TextureRegion[] ChasmSide = new TextureRegion[3];
 		
 		public TextureRegion EmberPattern;
+		public TextureRegion Collider;
 		
 		public TextureRegion[][] Edges = new TextureRegion[(int) Tile.Total][];
 		public TextureRegion[] Patterns = new TextureRegion[(int) Tile.Total];
@@ -173,8 +174,9 @@ namespace BurningKnight.level.biome {
 				EvilFloor[i] = new TextureRegion(anim.Texture, new Rectangle(i % 4 * 16, 368 + i / 4 * 16, 16, 16));
 				GrannyFloor[i] = new TextureRegion(anim.Texture, new Rectangle(192 + i % 4 * 16, 368 + i / 4 * 16, 16, 16));
 			}
-
+			
 			PlanksTop = new TextureRegion(anim.Texture, new Rectangle(384, 144, 16, 16));
+			Collider = PlanksTop; // new TextureRegion(anim.Texture, new Rectangle(304, 96, 16, 16));
 		}
 
 		private static Vector2[] Positions = {
