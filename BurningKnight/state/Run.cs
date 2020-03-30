@@ -111,7 +111,7 @@ namespace BurningKnight.state {
 
 		public static int CalculateDailyId() {
 			var date = DateTime.UtcNow;
-			return (date.Year - 2020) * 365 + (date.DayOfYear);
+			return (date.Year - 2020) * 365 + (date.DayOfYear) - 81;
 		}
 
 		public static void ResetStats() {

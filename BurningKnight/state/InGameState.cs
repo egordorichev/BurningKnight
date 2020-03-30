@@ -1190,24 +1190,24 @@ namespace BurningKnight.state {
 			});
 
 			if (Run.Depth > 0) {
-				pauseMenu.Add(new UiButton {
+				if (Run.Type != RunType.Daily) {
+					pauseMenu.Add(new UiButton {
 						LocaleLabel = "new_run",
 						RelativeCenterX = Display.UiWidth / 2f,
 						RelativeCenterY = start + space,
 						Type = ButtonType.Exit,
-						Click = b => GoConfirm("start_new_run", () => {
-							Run.StartNew();
-						}, () => {
+						Click = b => GoConfirm("start_new_run", () => { Run.StartNew(); }, () => {
 							currentBack = pauseBack;
 							pauseMenu.Enabled = true;
 
 							Tween.To(0, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
 								pauseMenu.Remove(confirmationPane);
-								confirmationPane = null;	
+								confirmationPane = null;
 								SelectFirst();
 							};
 						})
-				});
+					});
+				}
 			} else if (Run.Depth == 0) {
 				pauseMenu.Add(new UiButton {
 					LocaleLabel = "exit",
@@ -1222,11 +1222,11 @@ namespace BurningKnight.state {
 
 			if (Run.Depth != 0) {
 				pauseMenu.Add(new UiButton {
-						LocaleLabel = "back_to_castle",
-						RelativeCenterX = Display.UiWidth / 2f,
-						RelativeCenterY = start + space * 2,
-						Type = ButtonType.Exit,
-						Click = b => Run.Depth = 0
+					LocaleLabel = "back_to_castle",
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = start + space * 2,
+					Type = ButtonType.Exit,
+					Click = b => Run.Depth = 0
 				});
 			}
 

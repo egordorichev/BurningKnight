@@ -24,7 +24,6 @@
 
 * leaderboard display
 * top 3 runs display
-* remove restart button from daily
 
 * border around the whole hub with trees
 * challanges
