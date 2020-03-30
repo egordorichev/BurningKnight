@@ -7,7 +7,7 @@ namespace BurningKnight.level.entities.chest {
 
 		static ChestRegistry() {
 			Instance.Add(typeof(WoodenChest), 1f);
-			Instance.Add(typeof(ScourgedChest), 0.4f);
+			Instance.Add(typeof(ScourgedChest), 0.9f);
 			Instance.Add(typeof(DoubleChest), 0.1f);
 			Instance.Add(typeof(TripleChest), 0.01f);
 			Instance.Add(typeof(StoneChest), 1f);

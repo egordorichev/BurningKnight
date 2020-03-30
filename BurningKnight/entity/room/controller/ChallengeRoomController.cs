@@ -68,9 +68,15 @@ namespace BurningKnight.entity.room.controller {
 					} else {
 						mob.Center = Room.GetRandomFreeTile(filter) * 16;
 					}
+
+					if (mob.TryGetComponent<ZAnimationComponent>(out var z)) {
+						z.Animate();
+					} else if (mob.TryGetComponent<MobAnimationComponent>(out var m)) {
+						m.Animate();
+					}
 					
 					AnimationUtil.Poof(mob.Center);
-				}, (i + 1) * 0.2f);
+				}, (i) * 0.2f);
 			}
 
 			wave++;
