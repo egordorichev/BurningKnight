@@ -11,7 +11,6 @@
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
-
 * ice 2 bug when no wall or floor is rendered
 
 # hub
@@ -26,7 +25,6 @@
 * leaderboard display
 * top 3 runs display
 * remove restart button from daily
-* allow to try daily only once, show the dailySign only after you've locked current daily
 
 * border around the whole hub with trees
 * challanges
