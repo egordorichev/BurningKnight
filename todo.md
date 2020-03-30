@@ -24,9 +24,7 @@
 * add more hp ups to boss drops pool, remove ice/fire ring from there
 * nerf bill/skeletonkey/tnt pools/spawn chance
 * fix: weapon free achievement should only be given if the room had enemies
-* nerf vending machine
 * reroll machine in item rooms
-* make reroll and vending machine not drop anything on overuse explosion
 
 * in the hub not shop track should be played but the hub one
 

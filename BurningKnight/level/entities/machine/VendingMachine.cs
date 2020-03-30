@@ -75,7 +75,7 @@ namespace BurningKnight.level.entities.machine {
 			component.Coins -= 1;
 			coinsConsumed++;
 
-			if (Rnd.Float(100) > (coinsConsumed + Run.Luck) * 10) {
+			if (Rnd.Float(100) > (coinsConsumed + Run.Luck) * 3) {
 				return false; // Did not pay enough :P
 			}
 
@@ -100,7 +100,7 @@ namespace BurningKnight.level.entities.machine {
 			Audio.PlaySfx("level_vending_machine");
 
 			if (spawnedCount > 1 && Rnd.Float(100) < spawnedCount * 30 - Run.Luck * 2) {
-				Break();
+				Break(false);
 				return true;
 			}
 			
@@ -115,7 +115,7 @@ namespace BurningKnight.level.entities.machine {
 			Tween.To(1, 1.3f, x => GetComponent<InteractableSliceComponent>().Scale.X = x, 0.2f);
 		}
 
-		private void Break() {
+		private void Break(bool spawn = true) {
 			if (!broken) {
 				UpdateSprite();
 				AnimationUtil.Poof(Center);
@@ -123,7 +123,9 @@ namespace BurningKnight.level.entities.machine {
 				broken = true;
 				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("level_explosion", 3);
 
-				GetComponent<DropsComponent>().SpawnDrops();
+				if (spawn) {
+					GetComponent<DropsComponent>().SpawnDrops();
+				}
 			}
 		}
 		
