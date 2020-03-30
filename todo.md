@@ -1,7 +1,5 @@
 # bugs
 
-!! * loading screen can show no text in release
-
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
@@ -19,6 +17,7 @@
 * after using cage key ui weapon display glitches out and both show guns (make it handle weapon removal, cause this probs happens with other statues)
 * fix shields not working with deals
 * dont play achievement sound when you unlock an item
+* wall crawler can be in a wall and stuck there (should kill it if he is in a full tile)
 
 # hub
 
@@ -28,6 +27,8 @@
 * nerf vending machine
 * reroll machine in item rooms
 * make reroll and vending machine not drop anything on overuse explosion
+
+* in the hub not shop track should be played but the hub one
 
 * achievements hall {
  + make some achievements unlock items
