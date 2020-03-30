@@ -11,12 +11,12 @@
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
+
 * ice 2 bug when no wall or floor is rendered
 * challanges room plays win sound before you defeat all waves (fires room cleared event)
 * red chest is not openable with shields
 * after using cage key ui weapon display glitches out and both show guns (make it handle weapon removal, cause this probs happens with other statues)
 * fix shields not working with deals
-* dont play achievement sound when you unlock an item
 * wall crawler can be in a wall and stuck there (should kill it if he is in a full tile)
 
 # hub
@@ -33,9 +33,6 @@
  + achievement branches rewards
  + make stone statue give only 2 stones
 }
-
-
-
 
 * leaderboard display
 * top 3 runs display

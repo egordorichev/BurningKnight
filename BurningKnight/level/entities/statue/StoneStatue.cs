@@ -25,7 +25,7 @@ namespace BurningKnight.level.entities.statue {
 		protected override bool Interact(Entity e) {
 			Items.Unlock("bk:broken_stone");
 
-			for (var i = 0; i < 3; i++) {
+			for (var i = 0; i < 2; i++) {
 				e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:broken_stone", Area));
 			}
 			
