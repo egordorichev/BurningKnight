@@ -13,9 +13,6 @@
 * web doesnt affect mobs
 
 * ice 2 bug when no wall or floor is rendered
-* red chest is not openable with shields
-* after using cage key ui weapon display glitches out and both show guns (make it handle weapon removal, cause this probs happens with other statues)
-* fix shields not working with deals
 * wall crawler can be in a wall and stuck there (should kill it if he is in a full tile)
 
 # hub

@@ -101,7 +101,7 @@ namespace BurningKnight.entity.item.stand {
 				var d = lastPrice - a;
 
 				if (d > 0) {
-					hearts.Hurt((int) d, this);
+					hearts.Hurt(-d, this, DamageType.Custom);
 				}
 
 				TextParticle.Add(payer, Locale.Get("max_hp"), lastPrice, true, true);
