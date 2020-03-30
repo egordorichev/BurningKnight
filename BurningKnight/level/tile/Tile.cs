@@ -45,6 +45,7 @@ namespace BurningKnight.level.tile {
 		Path,
 		Sand,
 		Snow,
+		Collider,
 		
 		Total
 	}

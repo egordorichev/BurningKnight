@@ -2,6 +2,7 @@
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
+using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.util.file;
@@ -49,7 +50,11 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public bool Hurt(int amount, Entity setter, DamageType type) {
+		public bool Hurt(int amount, Entity setter, DamageType type = DamageType.Regular) {
+			if (amount > 0) {
+				amount *= -1;
+			}
+			
 			var e = new HealthModifiedEvent {
 				Amount = amount,
 				Type = type,
@@ -88,6 +93,11 @@ namespace BurningKnight.entity.creature.player {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			shieldHalfs = stream.ReadByte();
+		}
+
+		public override void RenderDebug() {
+			base.RenderDebug();
+			ImGui.Text($"Iron halfs: {shieldHalfs}");
 		}
 	}
 }

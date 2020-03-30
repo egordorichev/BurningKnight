@@ -927,6 +927,18 @@ namespace BurningKnight.level {
 					if (tile > 0) {
 						var tt = (Tile) tile;
 
+						if (tt == Tile.Collider) {
+							#if DEBUG
+							if (Engine.EditingLevel) {
+								enabled.SetValue(false);
+								Graphics.Render(Tilesets.Biome.Collider, new Vector2(x * 16, y * 16));
+								enabled.SetValue(true);
+							}
+							#endif
+							
+							continue;
+						}
+
 						if (tt.IsHalfWall()) {
 							continue;
 						}

@@ -68,6 +68,7 @@ namespace BurningKnight.ui.editor {
 			DefineTile(Tile.WallA, 128, 0);
 			DefineTile(Tile.WallB, 144, 0);
 			DefineTile(Tile.Planks, 352, 144, true);
+			DefineTile(Tile.Collider, 305, 96, true);
 			DefineTile(Tile.GrannyWall, 192, 336, true);
 			DefineTile(Tile.EvilWall, 0, 336, true);
 			DefineTile(Tile.Crack, 128, 48);

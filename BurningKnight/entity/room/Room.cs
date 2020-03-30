@@ -61,8 +61,10 @@ namespace BurningKnight.entity.room {
 
 		public void CheckCleared(Entity entity) {
 			if (!Cleared) {
-				checkCleared = true;
-				cleared = entity;
+				Timer.Add(() => {
+					checkCleared = true;
+					cleared = entity;
+				}, 0.1f);
 			}
 		}
 		

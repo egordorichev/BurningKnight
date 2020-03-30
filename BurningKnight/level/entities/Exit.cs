@@ -76,10 +76,16 @@ namespace BurningKnight.level.entities {
 					if (entity is LocalPlayer && Run.Depth != -2) {
 						Engine.Instance.State.Ui.Add(new InteractFx(this, GetFxText()));
 					}
-				}
+				},
+				
+				CanInteract = CanInteract
 			});
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, true));
+		}
+
+		protected virtual bool CanInteract(Entity e) {
+			return true;
 		}
 
 		public override void PostInit() {

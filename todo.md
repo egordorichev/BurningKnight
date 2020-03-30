@@ -1,7 +1,5 @@
 # bugs
 
-!! * loading screen can show no text in release
-
 * rolling spikes can stop (rework their move logic)
 * pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
@@ -14,38 +12,21 @@
 * active shop discount still discounts without the use
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
-* challanges room plays win sound before you defeat all waves (fires room cleared event)
-* red chest is not openable with shields
-* after using cage key ui weapon display glitches out and both show guns (make it handle weapon removal, cause this probs happens with other statues)
-* fix shields not working with deals
-* dont play achievement sound when you unlock an item
 
 # hub
 
-* add more hp ups to boss drops pool, remove ice/fire ring from there
-* nerf bill/skeletonkey/tnt pools/spawn chance
-* fix: weapon free achievement should only be given if the room had enemies
-* nerf vending machine
-* reroll machine in item rooms
-* make reroll and vending machine not drop anything on overuse explosion
+* all rooms should give rewards
+* border around the whole hub with trees
+* make reroll machine spawn in item rooms
+* leaderboard display
+* top 3 runs display
 
 * achievements hall {
  + make some achievements unlock items
  + achievement branches rewards
- + make stone statue give only 2 stones
 }
 
-
-
-
-* leaderboard display
-* top 3 runs display
-* remove restart button from daily
-* allow to try daily only once, show the dailySign only after you've locked current daily
-
-* border around the whole hub with trees
 * challanges
-* play rain sounds in hub when it rains (dont forget to stop the rain)
 
 #
 

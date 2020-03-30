@@ -44,8 +44,10 @@ namespace BurningKnight.ui.inventory {
 			}
 			
 			var item = component.Item;
-			
-			if (item != null && item.Id != uiItem.Id) {
+
+			if (item == null) {
+				uiItem.Id = null;
+			} else if (item.Id != uiItem.Id) {
 				uiItem.Id = item.Id;
 				uiItem.Scourged = item.Scourged;
 			}

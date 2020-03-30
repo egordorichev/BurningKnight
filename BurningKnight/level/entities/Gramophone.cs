@@ -10,6 +10,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.player;
 using BurningKnight.save;
+using BurningKnight.state;
 using ImGuiNET;
 using Lens.graphics;
 using Lens.util;
@@ -254,7 +255,7 @@ namespace BurningKnight.level.entities {
 			if (disk == 0) {
 				return null;
 			} else if (disk == 10) {
-				return "Shopkeeper";
+				return Run.Depth == 0 ? "Hub" : "Shopkeeper";
 			}
 
 			return $"Disk {disk}";

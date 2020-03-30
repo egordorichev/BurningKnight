@@ -44,7 +44,9 @@ namespace BurningKnight.state {
 		
 		public override void Init() {
 			base.Init();
-
+			
+			Shaders.Ui.Parameters["black"].SetValue(1f);
+				
 			animation = Animations.Create("loading");
 			animation.Paused = false;
 
@@ -95,6 +97,11 @@ namespace BurningKnight.state {
 			thread.Start();
 
 			titleX = Font.Small.MeasureString(title).Width * -0.5f;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			Shaders.Ui.Parameters["black"].SetValue(0f);
 		}
 
 		public override void Update(float dt) {

@@ -46,7 +46,7 @@ namespace BurningKnight.ui {
 			Height = 20 + Padding * 2;
 			Depth = 32;
 
-			if (item) {
+			if (!item) {
 				Audio.PlaySfx("ui_achievement");
 			}
 		}

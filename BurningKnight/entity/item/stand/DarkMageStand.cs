@@ -3,6 +3,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using Lens.assets;
 using Lens.entity;
@@ -52,7 +53,7 @@ namespace BurningKnight.entity.item.stand {
 			var r = GetComponent<RoomComponent>().Room;
 
 			foreach (var p in r.Tagged[Tags.Player]) {
-				if (p.GetComponent<HealthComponent>().MaxHealth < Price * 2) {
+				if (p.GetComponent<HealthComponent>().MaxHealth + p.GetComponent<HeartsComponent>().ShieldHalfs < Price * 2) {
 					Graphics.Color *= 0.6f;
 					break;
 				}					
@@ -68,7 +69,7 @@ namespace BurningKnight.entity.item.stand {
 				return false;
 			}
 
-			if (component.MaxHealth < Price * 2) {
+			if (component.MaxHealth + entity.GetComponent<HeartsComponent>().ShieldHalfs < Price * 2) {
 				return false;
 			}
 
@@ -89,10 +90,20 @@ namespace BurningKnight.entity.item.stand {
 		public override bool HandleEvent(Event e) {
 			if ((e is ItemUsedEvent ite && ite.Who == payer && ite.Item == takenItem) || (e is ItemAddedEvent iae && iae.Who == payer && iae.Item == takenItem)) {
 				var component = payer.GetComponent<HealthComponent>();
-				 
-				component.ModifyHealth(-lastPrice, this, DamageType.Custom);
-				component.MaxHealth -= lastPrice;		
-				
+				var hearts = payer.GetComponent<HeartsComponent>();
+				var a = Math.Min(component.MaxHealth, lastPrice);
+
+				if (a > 0) {
+					component.ModifyHealth(-a, this, DamageType.Custom);
+					component.MaxHealth -= a;
+				}
+
+				var d = lastPrice - a;
+
+				if (d > 0) {
+					hearts.Hurt(-d, this, DamageType.Custom);
+				}
+
 				TextParticle.Add(payer, Locale.Get("max_hp"), lastPrice, true, true);
 				
 				payer = null;

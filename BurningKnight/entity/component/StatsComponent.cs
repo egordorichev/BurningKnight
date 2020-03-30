@@ -134,9 +134,13 @@ namespace BurningKnight.entity.component {
 
 				arc.Damage *= Damage;
 				arc.Width *= Range;
-			} else if (e is RoomClearedEvent) {
-				if (!UsedWeaponInRoom) {
-					Achievements.Unlock("bk:white_flag");
+			} else if (e is RoomClearedEvent rr) {
+				if (!UsedWeaponInRoom && rr.Room != null) {
+					var t = rr.Room.Type;
+
+					if (t == RoomType.Regular || t == RoomType.Challenge || t == RoomType.Boss) {
+						Achievements.Unlock("bk:white_flag");
+					}
 				}
 			}
 			

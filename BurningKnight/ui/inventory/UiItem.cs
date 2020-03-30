@@ -23,6 +23,7 @@ namespace BurningKnight.ui.inventory {
 				id = value;
 
 				if (id == null) {
+					Region = null;
 					return;
 				}
 				

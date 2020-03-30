@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util.timer;
 
 namespace BurningKnight.level.entities.chest {
 	public class ScourgedChest : Chest, DropModifier {
@@ -15,10 +17,12 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			for (var i = 0; i < 3; i++) {
-				Run.AddScourge(true);
+			var item = Items.Generate(ItemType.Scourge);
+
+			if (item != null) {
+				Timer.Add(() => entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(item, entity.Area)), 0.3f);
 			}
-			
+
 			return true;
 		}
 

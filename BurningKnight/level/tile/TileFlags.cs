@@ -23,6 +23,7 @@ namespace BurningKnight.level.tile {
 			flags[(int) Tile.WallA] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.WallB] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Transition] = Solid | WallLayer | BreaksView;
+			flags[(int) Tile.Collider] = Solid | LiquidLayer;
 			flags[(int) Tile.Crack] = Solid | WallLayer | BreaksView;
 			flags[(int) Tile.Water] = Passable | LiquidLayer;
 			flags[(int) Tile.Venom] = LiquidLayer | Danger;
