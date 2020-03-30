@@ -27,7 +27,6 @@
 
 * border around the whole hub with trees
 * challanges
-* play rain sounds in hub when it rains (dont forget to stop the rain)
 
 #
 

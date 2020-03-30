@@ -44,6 +44,7 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using Steamworks;
@@ -281,6 +282,11 @@ namespace BurningKnight.state {
 				Run.SavingDepth = Run.Depth;
 			}
 
+			if (rainSound != null) {
+				var ss = rainSound;
+				rainSound = null;
+				Tween.To(0, ss.Volume, x => ss.Volume = x, 0.5f);
+			}
 			
 			TopUi.Destroy();
 			
@@ -436,10 +442,25 @@ namespace BurningKnight.state {
 		private Vector2 stickOffset;
 		private bool wasNight;
 		private bool wasRaining;
+		private SoundEffectInstance rainSound;
 		private List<Entity> particles = new List<Entity>();
 
 		private void SetupParticles() {
 			if (Weather.Rains) {
+				var s = Audio.GetSfx("level_rain_jungle");
+
+				if (s != null) {
+					rainSound = s.CreateInstance();
+
+					if (rainSound != null) {
+						rainSound.Volume = 0;
+						rainSound.IsLooped = true;
+						rainSound.Play();
+
+						Tween.To(0.5f, 0, x => rainSound.Volume = x, 5f);
+					}
+				}
+				
 				for (var i = 0; i < 40; i++) {
 					particles.Add(Run.Level.Area.Add(new RainParticle {
 						Custom = true
@@ -641,6 +662,12 @@ namespace BurningKnight.state {
 							}
 
 							particles.Clear();
+
+							if (rainSound != null) {
+								var ss = rainSound;
+								Tween.To(0, ss.Volume, x => ss.Volume = x, 3f);
+								rainSound = null;
+							}
 						}
 					}
 				}
