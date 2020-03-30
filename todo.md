@@ -21,17 +21,11 @@
 
 # hub
 
-* add more hp ups to boss drops pool, remove ice/fire ring from there
-* nerf bill/skeletonkey/tnt pools/spawn chance
-* fix: weapon free achievement should only be given if the room had enemies
-* reroll machine in item rooms
-
-* in the hub not shop track should be played but the hub one
+* make reroll machine spawn in item rooms
 
 * achievements hall {
  + make some achievements unlock items
  + achievement branches rewards
- + make stone statue give only 2 stones
 }
 
 * leaderboard display

@@ -9,8 +9,8 @@ namespace Lens.assets {
 	public static class Assets {
 #if DEBUG
 		public const bool LoadOriginalFiles = true;
-		public const bool LoadMusic = true;
-		public const bool LoadSfx = false;
+		public const bool LoadMusic = false;
+		public const bool LoadSfx = true;
 		public const bool Reload = false;
 		public const bool LoadMods = false;
 #else

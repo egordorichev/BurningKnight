@@ -91,6 +91,7 @@ namespace BurningKnight.entity.room.controller {
 				}
 				
 				SpawnWave(de.From);
+				de.BlockClear = true;
 			}
 			
 			if (spawned) {

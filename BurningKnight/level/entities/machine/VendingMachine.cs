@@ -75,7 +75,7 @@ namespace BurningKnight.level.entities.machine {
 			component.Coins -= 1;
 			coinsConsumed++;
 
-			if (Rnd.Float(100) > (coinsConsumed + Run.Luck) * 3) {
+			if (Rnd.Float(100) > (coinsConsumed + Run.Luck - Run.Scourge) * 2) {
 				return false; // Did not pay enough :P
 			}
 

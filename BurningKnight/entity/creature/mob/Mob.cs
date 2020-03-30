@@ -180,8 +180,10 @@ namespace BurningKnight.entity.creature.mob {
 						who = p.Owner;
 					}
 				}
-				
-				GetComponent<RoomComponent>().Room?.CheckCleared(who);
+
+				if (!de.BlockClear) {
+					GetComponent<RoomComponent>().Room?.CheckCleared(who);
+				}
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
 				if (!rotationApplied) {
 					rotationApplied = true;
