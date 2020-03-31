@@ -24,7 +24,6 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Max(min, c.Value - 10);
 				},
-				Padding = 10,
 				ScaleMod = 3
 			});
 
@@ -54,7 +53,6 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Min(max, c.Value + 10);
 				},
-				Padding = 10,
 				ScaleMod = 3
 			});
 
@@ -102,7 +100,12 @@ namespace BurningKnight.ui {
 		public class UiSliderButton : UiButton {
 			public UiButton Minus;
 			public UiButton Plus;
-			
+
+			public override void PostInit() {
+				base.PostInit();
+				Padding = 0;
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 				

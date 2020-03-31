@@ -15,6 +15,11 @@
 
 # hub
 
+!* clipping through doors (shop and hub)
+* bk should say I forgive you on next floor
+!* ui sliders button colliders are overlapping (can press 2 at the same time)
+* add a setting for pixel perfect mode
+
 * all rooms should give rewards
 * border around the whole hub with trees
 * make reroll machine spawn in item rooms
@@ -27,6 +32,8 @@
 }
 
 * challanges
+* shop should start small and grow with donations?
+!!! * add eye of chthulu pet
 
 #
 

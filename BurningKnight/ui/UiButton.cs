@@ -8,6 +8,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.ui {
 	public class UiButton : UiLabel {
@@ -108,7 +109,11 @@ namespace BurningKnight.ui {
 			wasSelected = selected;
 		}
 
-
+		public override void Render() {
+			base.Render();
+			Graphics.Batch.DrawRectangle(new RectangleF((int) (X - Padding), (int) (Y - Padding), (int) (Width + Padding * 2), (int) (Height + Padding * 2)), Color.Red);
+		}
+		
 		public bool IsOnScreen() {
 			return Selectable && X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;
 		}

@@ -1644,7 +1644,7 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 18f;
-			var sy = Display.UiHeight * 0.5f - space * 2;
+			var sy = Display.UiHeight * 0.5f - space * 2.5f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -1740,6 +1740,17 @@ namespace BurningKnight.state {
 			UiSlider.Make(graphicsSettings, sx, sy + space * 6, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.FloorDarkness, x => Settings.FloorDarkness = x, 0.3f);
 			};
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "pixel_perfect",
+				On = Settings.PixelPerfect,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 7,
+				Click = b => {
+					Settings.PixelPerfect = ((UiCheckbox) b).On;
+					Engine.Instance.UpdateView();
+				}
+			});
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",
