@@ -59,7 +59,7 @@ namespace BurningKnight.state {
 				loading = true;
 			}
 
-			prefix = Locale.Get(loading || Run.Depth < 1 ? "loading" : "generating");
+			prefix = Locale.Get(loading || Run.Depth < 1 ? Locale.Get("loading") : Locale.Get("generating"));
 			title = new Random().NextDouble() > 0.3 ? LoadScreenTitles.Generate() : BiomeTitles.Generate(BiomeRegistry.GenerateForDepth(Run.Depth).Id);
 			
 			Lights.Init();

@@ -7,6 +7,8 @@ namespace BurningKnight.ui {
 	public class UiChoice : UiButton {
 		private float cx;
 		private int option;
+
+		public bool Disabled;
 		
 		public int Option {
 			get => option;
@@ -32,17 +34,19 @@ namespace BurningKnight.ui {
 		}
 
 		public override void OnClick() {
-			var o = Option + (Input.Mouse.CheckRightButton ? -1 : 1);
+			if (!Disabled) {
+				var o = Option + (Input.Mouse.CheckRightButton ? -1 : 1);
 
-			if (o < 0) {
-				Option = Options.Length - 1;
-			} else if (o >= Options.Length) {
-				Option = 0;
-			} else {
-				Option = o;
+				if (o < 0) {
+					Option = Options.Length - 1;
+				} else if (o >= Options.Length) {
+					Option = 0;
+				} else {
+					Option = o;
+				}
+
+				base.OnClick();
 			}
-			
-			base.OnClick();
 		}
 
 		public Action<UiChoice> OnUpdate;

@@ -98,7 +98,6 @@
 	"bk:infinite_bomb": "Infinite Bomb",
 	"bk:infinite_bomb_desc": "Reusable bomb",
 	"throw_coin": "Throw a Coin",
-	"loading": "Loading",
 	"bk:the_sword": "The Sword",
 	"bk:the_sword_desc": "DEV ONLY",
 	"bk:potatoo": "Potatoo",
@@ -195,7 +194,6 @@
 	"bk:mimic_totem_desc": "##NO MORE MIMICS##",
 	"bk:mimic_summoner": "Mimic Summoner",
 	"bk:mimic_summoner_desc": "Run, Fool!",
-	"generating": "Generating",
 	"back_to_castle": "Back to Castle",
 	"bk:glass_gun": "Glass Gun",
 	"bk:glass_gun_desc": "##Fragile##",
@@ -978,5 +976,7 @@
 	"display": "Display",
 	"around_you": "Around You",
 	"friends": "Friends",
-	"global": "Global"
+	"global": "Global",
+	"loading": "Loading",
+	"generating": "Generating"
 }

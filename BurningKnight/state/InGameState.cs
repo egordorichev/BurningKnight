@@ -1314,42 +1314,84 @@ namespace BurningKnight.state {
 
 			if (SetupLeaderboard == null) {
 				stats.Add("No leaderboards cause no steam", ":(");
-				
 				stats.Prepare();
 
 				stats.RelativeCenterX = Display.UiWidth * 0.5f;
 				stats.RelativeCenterY = Display.UiHeight * 0.5f;
 			} else {
-				Action<string> d = (type) =>{
-					stats.Clear();
+				var loading = (UiLabel) pauseMenu.Add(new UiLabel {
+					LocaleLabel = "loading",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = Display.UiHeight * 0.5f,
+					Clickable = false,
+					Hide = true
+				});
 				
-					SetupLeaderboard(stats, "high_score", type, 0, () => {
+				UiChoice choice = null;
+				var offset = 0;
+				
+				Action d = () =>{
+					loading.Hide = false;
+					choice.Disabled = true;
+					
+					stats.Clear();
+					offset = Math.Max(0, offset);
+				
+					SetupLeaderboard(stats, "high_score", choice.Options[choice.Option], offset, () => {
 						stats.Prepare();
 
 						stats.RelativeCenterX = Display.UiWidth * 0.5f;
 						stats.RelativeCenterY = Display.UiHeight * 0.5f;
+						
+						loading.Hide = true;
+						choice.Disabled = false;
 					});
 				};
 
-				d("around_you");
-				// todo: + / - page, highlight yourself
+				pauseMenu.Add(new UiButton {
+					Label = "-",
+					XPadding = 4,
+					Selectable = false,
+					RelativeX = Display.UiWidth * 0.5f - 10,
+					RelativeCenterY = BackY - 15,
+					Type = ButtonType.Slider,
+					Click = bt => {
+						offset = Math.Max(0, offset - 10);
+						d();
+					},
+					ScaleMod = 3
+				});
 				
-				pauseMenu.Add(new UiChoice {
+				pauseMenu.Add(new UiButton {
+					Label = "+",
+					XPadding = 4,
+					Selectable = false,
+					RelativeX = Display.UiWidth * 0.5f + 10,
+					RelativeCenterY = BackY - 15,
+					Type = ButtonType.Slider,
+					Click = bt => {
+						offset += 10;
+						d();
+					},
+					ScaleMod = 3
+				});
+				
+				pauseMenu.Add(choice = new UiChoice {
 					Name = "display",
 					Options = new [] {
 						"around_you", "friends", "global"
 					},
 				
 					Option = 0,
-				
 					Click = c => {
-						var ch = (UiChoice) c;
-						d(ch.Options[ch.Option]);
+						offset = 0;
+						d();
 					},
-					
-					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeX = Display.UiWidth * 0.5f,
 					RelativeCenterY = BackY
 				});
+				
+				d();
 			}
 		}
 

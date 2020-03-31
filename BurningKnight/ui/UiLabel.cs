@@ -14,8 +14,13 @@ namespace BurningKnight.ui {
 		public BitmapFont Font = assets.Font.Medium;
 		public float Tint = DefaultTint;
 		public bool Tints = true;
+		public bool Hide;
 
 		protected override void OnHover() {
+			if (Hide) {
+				return;
+			}
+
 			base.OnHover();
 			
 			PlaySfx("ui_moving");
@@ -26,6 +31,10 @@ namespace BurningKnight.ui {
 		}
 
 		protected override void OnUnhover() {
+			if (Hide) {
+				return;
+			}
+
 			base.OnUnhover();
 
 			if (Clickable) {
@@ -34,6 +43,10 @@ namespace BurningKnight.ui {
 		}
 
 		public override void OnClick() {
+			if (Hide) {
+				return;
+			}
+
 			base.OnClick();
 			Tint = 0.5f;
 
@@ -64,6 +77,10 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
+			if (Hide) {
+				return;
+			}
+			
 			if (Tints) {
 				var t = Tint + ((Tint - DefaultTint) * ((float) Math.Cos(Engine.Time * 17) * 0.5f - 0.5f) * 0.5f);
 				Graphics.Color = new Color(t, t, t, 1f);

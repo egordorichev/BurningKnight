@@ -36,35 +36,38 @@ namespace Desktop.integration.steam {
 				};
 
 				InGameState.SetupLeaderboard += (stats, boardId, type, offset, end) => {
-					new Thread(() => {
-						var board = SteamUserStats
-							.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
-							.GetAwaiter().GetResult().Value;
+					try {
+						new Thread(() => {
+							var i = 0;
+							var count = 0;
+							var name = SteamClient.Name;
 
-						LeaderboardEntry[] scores;
+							var board = SteamUserStats
+								.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
+								.GetAwaiter().GetResult().Value;
 
-						if (type == "global") {
-							scores = board.GetScoresAsync(10).GetAwaiter().GetResult();
-						} else if (type == "friends") {
-							scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
-						} else {
-							scores = board.GetScoresAroundUserAsync(-5, 5).GetAwaiter().GetResult();
-						}
+							LeaderboardEntry[] scores;
 
-						var i = 0;
-						var name = SteamClient.Name;
-
-						foreach (var score in scores) {
-							stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
-							i++;
-
-							if (i == 10) {
-								break;
+							if (type == "global") {
+								scores = board.GetScoresAsync(10, Math.Max(1, offset)).GetAwaiter().GetResult();
+							} else if (type == "friends") {
+								scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
+								i = Math.Max(0, offset);
+							} else {
+								scores = board.GetScoresAroundUserAsync(-5 + offset, 5 + offset).GetAwaiter().GetResult();
 							}
-						}
 
-						end();
-					}).Start();
+							for (; i < scores.Length && count < 10; i++) {
+								var score = scores[i];
+								stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+								count++;
+							}
+
+							end();
+						}).Start();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				Achievements.PostLoadCallback += () => {
