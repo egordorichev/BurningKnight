@@ -13,7 +13,7 @@ namespace BurningKnight.level.hall {
 		
 		public override void Paint(Level level) {
 			Painter.Clip = null;
-			Painter.Fill(level, this, Tile.FloorD);
+			Painter.Fill(level, this, Tile.Chasm);
 			Painter.Prefab(level, PrefabName, Left + 1, Top + 1);
 		}
 

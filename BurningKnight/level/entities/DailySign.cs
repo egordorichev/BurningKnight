@@ -29,7 +29,9 @@ namespace BurningKnight.level.entities {
 
 			GetComponent<CloseDialogComponent>().DecideVariant = (e) => {
 				var d = DateTime.UtcNow;
-				var next = new DateTime(d.Year, d.Month, d.Day + 1, 0, 0, 0, DateTimeKind.Utc);
+				var dd = d.AddDays(1);
+				
+				var next = new DateTime(dd.Year, dd.Month, dd.Day, 0, 0, 0, DateTimeKind.Utc);
 
 				Log.Debug(d);
 				Log.Debug(next);

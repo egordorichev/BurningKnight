@@ -13,10 +13,15 @@
 
 # hub
 
-* all rooms should give rewards
-* border around the whole hub with trees
 * make reroll machine spawn in item rooms
-* leaderboard display
+
+* leaderboard display {
+ * top all time 
+ * boss rush
+ * daily
+ * challanges?
+}
+
 * top 3 runs display
 
 * achievements hall {
