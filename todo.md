@@ -17,7 +17,6 @@
 
 !* clipping through doors (shop and hub)
 * bk should say I forgive you on next floor
-* add a setting for pixel perfect mode
 
 * all rooms should give rewards
 * border around the whole hub with trees

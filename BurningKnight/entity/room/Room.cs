@@ -154,7 +154,7 @@ namespace BurningKnight.entity.room {
 		};
 
 		private Entity CreateReward() {
-			if (Rnd.Chance(10)) {
+			if (Rnd.Chance(5)) {
 				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 				Area.Add(chest);
 
@@ -165,7 +165,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(50 - Run.Luck * 10)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(10 - Run.Luck)) {
 				return;
 			}
 			
