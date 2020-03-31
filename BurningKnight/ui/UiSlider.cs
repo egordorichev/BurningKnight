@@ -91,8 +91,8 @@ namespace BurningKnight.ui {
 					this.value = value;
 					Label = $"{value}%";
 
-					scale = 2;
-					Tween.To(1f, scale, x => scale = x, 0.2f);
+					scale = 1.5f;
+					Tween.To(1f, scale, x => scale = x, 0.3f);
 					
 					OnValueChange?.Invoke(this);
 				}

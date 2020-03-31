@@ -41,7 +41,7 @@ namespace BurningKnight.ui {
 
 		protected override void OnHover() {
 			if (Selected != Id) {
-				if (SelectedInstance == null) {
+				if (SelectedInstance == null && Type != ButtonType.Slider) {
 					SelectedInstance = this;
 					Selected = Id;
 				} else {
