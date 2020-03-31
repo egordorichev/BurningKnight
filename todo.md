@@ -13,7 +13,6 @@
 
 # hub
 
-!* clipping through doors (shop and hub)
 * bk should say I forgive you on next floor
 
 * all rooms should give rewards
@@ -44,6 +43,7 @@
 
 ice {
  * frozen enemies/troll bomb
+ * following troll bomb
  * shooting tiles in ice biome should update transition
    + old level body did not delete
 
