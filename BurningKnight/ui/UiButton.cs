@@ -109,11 +109,6 @@ namespace BurningKnight.ui {
 
 			wasSelected = selected;
 		}
-
-		public override void Render() {
-			base.Render();
-			Graphics.Batch.DrawRectangle(new RectangleF((int) (X - XPadding), (int) (Y - YPadding), (int) (Width + XPadding * 2), (int) (Height + YPadding * 2)), Color.Red);
-		}
 		
 		public bool IsOnScreen() {
 			return Selectable && X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;

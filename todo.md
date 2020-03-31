@@ -13,8 +13,6 @@
 
 # hub
 
-* bk should say I forgive you on next floor
-
 * all rooms should give rewards
 * border around the whole hub with trees
 * make reroll machine spawn in item rooms
