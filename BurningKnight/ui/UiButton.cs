@@ -8,6 +8,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.ui {
 	public class UiButton : UiLabel {
@@ -18,7 +19,8 @@ namespace BurningKnight.ui {
 		
 		public Action<UiButton> Click;
 		public ButtonType Type = ButtonType.Normal;
-		public float Padding;
+		public float XPadding;
+		public float YPadding;
 		public int Id;
 		public bool Selectable = true;
 
@@ -34,12 +36,12 @@ namespace BurningKnight.ui {
 		}
 
 		public override bool CheckCollision(Vector2 v) {
-			return new Rectangle((int) (X - Padding), (int) (Y - Padding), (int) (Width + Padding * 2), (int) (Height + Padding * 2)).Contains(v);
+			return new Rectangle((int) (X - XPadding), (int) (Y - YPadding), (int) (Width + XPadding * 2), (int) (Height + YPadding * 2)).Contains(v);
 		}
 
 		protected override void OnHover() {
 			if (Selected != Id) {
-				if (SelectedInstance == null) {
+				if (SelectedInstance == null && Type != ButtonType.Slider) {
 					SelectedInstance = this;
 					Selected = Id;
 				} else {
@@ -107,8 +109,7 @@ namespace BurningKnight.ui {
 
 			wasSelected = selected;
 		}
-
-
+		
 		public bool IsOnScreen() {
 			return Selectable && X >= 0 && Right <= Display.UiWidth && Y >= 0 && Bottom <= Display.UiHeight;
 		}

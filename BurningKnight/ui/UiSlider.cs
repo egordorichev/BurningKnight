@@ -17,6 +17,7 @@ namespace BurningKnight.ui {
 
 			var b = pane.Add(new UiButton {
 				Label = "-",
+				XPadding = 4,
 				Selectable = false,
 				RelativeX = x + a.Width + 10,
 				Type = ButtonType.Slider,
@@ -24,7 +25,6 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Max(min, c.Value - 10);
 				},
-				Padding = 10,
 				ScaleMod = 3
 			});
 
@@ -47,6 +47,7 @@ namespace BurningKnight.ui {
 			
 			var d = pane.Add(new UiButton {
 				Label = "+",
+				XPadding = 4,
 				Selectable = false,
 				Type = ButtonType.Slider,
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
@@ -54,7 +55,6 @@ namespace BurningKnight.ui {
 				Click = bt => {
 					c.Value = Math.Min(max, c.Value + 10);
 				},
-				Padding = 10,
 				ScaleMod = 3
 			});
 
@@ -91,8 +91,8 @@ namespace BurningKnight.ui {
 					this.value = value;
 					Label = $"{value}%";
 
-					scale = 2;
-					Tween.To(1f, scale, x => scale = x, 0.2f);
+					scale = 1.5f;
+					Tween.To(1f, scale, x => scale = x, 0.3f);
 					
 					OnValueChange?.Invoke(this);
 				}

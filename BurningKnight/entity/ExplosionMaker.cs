@@ -89,13 +89,15 @@ namespace BurningKnight.entity {
 			Engine.Instance.Flash = 1f;
 			Engine.Instance.Freeze = 1f;
 
-			if (whoHurts is Bomb b) {
-				whoHurts = b.Owner;
+			var damager = whoHurts;
+
+			if (whoHurts is Bomb b && b.Owner != null) {
+				damager = b.Owner;
 			}
 					
 			foreach (var e in whoHurts.Area.GetEntitesInRadius(w, hurtRadius, typeof(ExplodableComponent))) {
 				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);
-				e.GetComponent<ExplodableComponent>().HandleExplosion(whoHurts, damage);
+				e.GetComponent<ExplodableComponent>().HandleExplosion(damager, damage);
 			}
 
 			Camera.Instance.TextureZoom -= 0.05f;

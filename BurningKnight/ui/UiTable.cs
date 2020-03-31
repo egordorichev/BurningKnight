@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity.projectile;
 using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -14,18 +15,24 @@ namespace BurningKnight.ui {
 			public string Key;
 			public string Value;
 			public float ValueWidth;
+			public bool Highlight;
 		}
 		
 		private List<Entry> entries = new List<Entry>();
 		private TextureRegion texture;
 
-		public void Add(string key, string value) {
+		public void Clear() {
+			entries.Clear();
+		}
+
+		public void Add(string key, string value, bool h = false) {
 			value = value ?? "";
 			
 			entries.Add(new Entry {
 				Key = key ?? "",
 				Value = value,
-				ValueWidth = Font.Small.MeasureString(value).Width
+				ValueWidth = Font.Small.MeasureString(value).Width,
+				Highlight = h
 			});
 		}
 
@@ -51,8 +58,16 @@ namespace BurningKnight.ui {
 				var entry = entries[i];
 				var y = Y + i * EntryHeight + YPadding;
 
+				if (entry.Highlight) {
+					Graphics.Color = ProjectileColor.Cyan;
+				}
+				
 				Graphics.Print(entry.Key, Font.Small, new Vector2(X + XPadding, y));
 				Graphics.Print(entry.Value, Font.Small, new Vector2(Right - entry.ValueWidth - XPadding, y));
+				
+				if (entry.Highlight) {
+					Graphics.Color = ColorUtils.WhiteColor;
+				}
 			}
 		}
 	}

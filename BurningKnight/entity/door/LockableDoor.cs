@@ -13,7 +13,7 @@ namespace BurningKnight.entity.door {
 		protected bool Replaced;
 
 		protected virtual Rectangle GetHitbox() {
-			return new Rectangle(0, Vertical ? 0 : 5, (int) Width, Vertical ? (int) Height + 8 : 7);
+			return new Rectangle(0, Vertical ? 0 : 5, (int) Width, Vertical ? (int) Height + 10 : 7);
 		}
 
 		protected virtual Vector2 GetLockOffset() {

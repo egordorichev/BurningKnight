@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
@@ -148,24 +149,38 @@ namespace BurningKnight.entity.room {
 			// "bk:copper_coin",
 			"bk:key",
 			"bk:key",
+			"bk:key",
 			"bk:bomb",
+			"bk:bomb",
+			"bk:bomb",
+			"bk:troll_bomb",
+			"bk:heart",
 			"bk:heart",
 			"bk:pouch"
 		};
 
 		private Entity CreateReward() {
-			if (Rnd.Chance(10)) {
+			if (Rnd.Chance(5)) {
 				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 				Area.Add(chest);
 
 				return chest;
 			}
+
+			var id = rewards[Rnd.Int(rewards.Length)];
+
+			if (id == "bk:troll_bomb") {
+				var bomb = new Bomb(null);
+				Area.Add(bomb);
+				
+				return bomb;
+			}
 			
-			return Items.CreateAndAdd(rewards[Rnd.Int(rewards.Length)], Area);
+			return Items.CreateAndAdd(id, Area);
 		}
 
 		private void SpawnReward() {
-			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(50 - Run.Luck * 10)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(10 - Run.Luck)) {
 				return;
 			}
 			

@@ -120,6 +120,11 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				}
 			}
+
+			if (Run.Depth > 0 && Run.Type != RunType.Daily && Input.Keyboard.WasPressed(Keys.P)) {
+				Run.StartNew(1, Run.Type);
+				return;
+			}
 			
 			var state = Entity.GetComponent<StateComponent>();
 			var duck = state.StateInstance is Player.DuckState;

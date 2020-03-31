@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.entities {
 	public class Safe : SolidProp {
+		private bool broken;
+		
 		public Safe() {
 			Sprite = "safe";
 		}
@@ -48,6 +50,12 @@ namespace BurningKnight.level.entities {
 		}
 
 		public void Break(bool spawnLoot = true) {
+			if (broken) {
+				return;
+			}
+
+			broken = true;
+			
 			GetComponent<SliceComponent>().Sprite = CommonAse.Props.GetSlice("safe_broken");
 			GetComponent<HealthComponent>().RenderInvt = false;
 
@@ -57,20 +65,34 @@ namespace BurningKnight.level.entities {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is HealthModifiedEvent ev) {
-				if (ev.Type != DamageType.Explosive) {
-					ev.Amount = 0;
+			if (!broken) {
+				if (e is HealthModifiedEvent ev) {
+					if (ev.Type != DamageType.Explosive) {
+						ev.Amount = 0;
+
+						return true;
+					}
+
+					ev.Amount = -1;
+				} else if (e is DiedEvent d) {
+					Break();
+					ExplosionMaker.Make(d.From);
+
 					return true;
 				}
-				
-				ev.Amount = -1;
-			} else if (e is DiedEvent d) {
-				Break();
-				ExplosionMaker.Make(d.From);
-				return true;
 			}
-			
+
 			return base.HandleEvent(e);
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			broken = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(broken);
 		}
 	}
 }

@@ -54,6 +54,7 @@ using Timer = Lens.util.timer.Timer;
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
 		public static bool SkipPause;
+		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -424,7 +425,7 @@ namespace BurningKnight.state {
 			var min = UiButton.LastId;
 			UiButton btn = null;
 
-			foreach (var b in Ui.Tagged[Tags.Button]) {
+			foreach (var b in TopUi.Tagged[Tags.Button]) {
 				var bt = ((UiButton) b);
 
 				if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -546,7 +547,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
-						foreach (var b in Ui.Tagged[Tags.Button]) {
+						foreach (var b in TopUi.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
@@ -566,7 +567,7 @@ namespace BurningKnight.state {
 							var min = UiButton.Selected;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tagged[Tags.Button]) {
+							foreach (var b in TopUi.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -588,7 +589,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = -1;
 						
-						foreach (var b in Ui.Tagged[Tags.Button]) {
+						foreach (var b in TopUi.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
@@ -608,7 +609,7 @@ namespace BurningKnight.state {
 							var max = -1;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tagged[Tags.Button]) {
+							foreach (var b in TopUi.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {
@@ -1166,7 +1167,7 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight	
 			});
 
-			var space = 24f;
+			/*var space = 24f;
 			var start = Display.UiHeight * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
@@ -1291,15 +1292,106 @@ namespace BurningKnight.state {
 
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(Run.Depth == -2 ? -2 : /*-1*/ 0);
+					Run.StartNew(Run.Depth == -2 ? -2 : 0);
 				}
 			});
 
 			gameOverMenu.Setup();
-			gameOverMenu.Enabled = false;
+			gameOverMenu.Enabled = false;*/
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
+			}
+			
+			pauseMenu.Add(new UiLabel {
+				Label = $"{Locale.Get(Run.Type.ToString())} {Locale.Get("leaderboard")}",
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = TitleY
+			});
+
+			var stats = new UiTable { Width = 128 };
+			pauseMenu.Add(stats);
+
+			if (SetupLeaderboard == null) {
+				stats.Add("No leaderboards cause no steam", ":(");
+				stats.Prepare();
+
+				stats.RelativeCenterX = Display.UiWidth * 0.5f;
+				stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			} else {
+				var loading = (UiLabel) pauseMenu.Add(new UiLabel {
+					LocaleLabel = "loading",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = Display.UiHeight * 0.5f,
+					Clickable = false,
+					Hide = true
+				});
+				
+				UiChoice choice = null;
+				var offset = 0;
+				
+				Action d = () =>{
+					loading.Hide = false;
+					choice.Disabled = true;
+					
+					stats.Clear();
+					offset = Math.Max(0, offset);
+				
+					SetupLeaderboard(stats, "high_score", choice.Options[choice.Option], offset, () => {
+						stats.Prepare();
+
+						stats.RelativeCenterX = Display.UiWidth * 0.5f;
+						stats.RelativeCenterY = Display.UiHeight * 0.5f;
+						
+						loading.Hide = true;
+						choice.Disabled = false;
+					});
+				};
+
+				pauseMenu.Add(new UiButton {
+					Label = "-",
+					XPadding = 4,
+					Selectable = false,
+					RelativeX = Display.UiWidth * 0.5f - 10,
+					RelativeCenterY = BackY - 15,
+					Type = ButtonType.Slider,
+					Click = bt => {
+						offset = Math.Max(0, offset - 10);
+						d();
+					},
+					ScaleMod = 3
+				});
+				
+				pauseMenu.Add(new UiButton {
+					Label = "+",
+					XPadding = 4,
+					Selectable = false,
+					RelativeX = Display.UiWidth * 0.5f + 10,
+					RelativeCenterY = BackY - 15,
+					Type = ButtonType.Slider,
+					Click = bt => {
+						offset += 10;
+						d();
+					},
+					ScaleMod = 3
+				});
+				
+				pauseMenu.Add(choice = new UiChoice {
+					Name = "display",
+					Options = new [] {
+						"around_you", "friends", "global"
+					},
+				
+					Option = 0,
+					Click = c => {
+						offset = 0;
+						d();
+					},
+					RelativeX = Display.UiWidth * 0.5f,
+					RelativeCenterY = BackY
+				});
+				
+				d();
 			}
 		}
 
@@ -1644,7 +1736,7 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 18f;
-			var sy = Display.UiHeight * 0.5f - space * 2;
+			var sy = Display.UiHeight * 0.5f - space * 2.5f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -1740,6 +1832,17 @@ namespace BurningKnight.state {
 			UiSlider.Make(graphicsSettings, sx, sy + space * 6, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.FloorDarkness, x => Settings.FloorDarkness = x, 0.3f);
 			};
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "pixel_perfect",
+				On = Settings.PixelPerfect,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 7,
+				Click = b => {
+					Settings.PixelPerfect = ((UiCheckbox) b).On;
+					Engine.Instance.UpdateView();
+				}
+			});
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",

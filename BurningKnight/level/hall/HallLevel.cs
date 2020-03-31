@@ -34,7 +34,7 @@ namespace BurningKnight.level.hall {
 		}
 
 		public override Tile GetFilling() {
-			return Tile.FloorD;
+			return Tile.Chasm;
 		}
 
 		public override string GetMusic() {

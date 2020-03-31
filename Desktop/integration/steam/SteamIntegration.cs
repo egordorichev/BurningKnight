@@ -35,6 +35,41 @@ namespace Desktop.integration.steam {
 					}).Start();
 				};
 
+				InGameState.SetupLeaderboard += (stats, boardId, type, offset, end) => {
+					try {
+						new Thread(() => {
+							var i = 0;
+							var count = 0;
+							var name = SteamClient.Name;
+
+							var board = SteamUserStats
+								.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
+								.GetAwaiter().GetResult().Value;
+
+							LeaderboardEntry[] scores;
+
+							if (type == "global") {
+								scores = board.GetScoresAsync(10, Math.Max(1, offset)).GetAwaiter().GetResult();
+							} else if (type == "friends") {
+								scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
+								i = Math.Max(0, offset);
+							} else {
+								scores = board.GetScoresAroundUserAsync(-5 + offset, 5 + offset).GetAwaiter().GetResult();
+							}
+
+							for (; i < scores.Length && count < 10; i++) {
+								var score = scores[i];
+								stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+								count++;
+							}
+
+							end();
+						}).Start();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+				};
+
 				Achievements.PostLoadCallback += () => {
 					foreach (var achievement in SteamUserStats.Achievements) {
 						if (achievement.State) {

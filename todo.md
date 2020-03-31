@@ -1,13 +1,11 @@
 # bugs
 
 * rolling spikes can stop (rework their move logic)
-* pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
 * music goes out?
-* bomb spawnrate low
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
@@ -15,10 +13,15 @@
 
 # hub
 
-* all rooms should give rewards
-* border around the whole hub with trees
 * make reroll machine spawn in item rooms
-* leaderboard display
+
+* leaderboard display {
+ * top all time 
+ * boss rush
+ * daily
+ * challanges?
+}
+
 * top 3 runs display
 
 * achievements hall {
@@ -27,6 +30,8 @@
 }
 
 * challanges
+* shop should start small and grow with donations?
+!!! * add eye of chthulu pet
 
 #
 
@@ -41,6 +46,7 @@
 
 ice {
  * frozen enemies/troll bomb
+ * following troll bomb
  * shooting tiles in ice biome should update transition
    + old level body did not delete
 

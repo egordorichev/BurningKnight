@@ -183,7 +183,7 @@ namespace BurningKnight.entity.item.stand {
 						min = Math.Min(min, ((ShopKeeper) s).Mood);
 					}
 
-					Price = Math.Max(1, Price - (min - 3));
+					Price = Math.Max(Price, Price - (min - 3));
 				}
 			}
 

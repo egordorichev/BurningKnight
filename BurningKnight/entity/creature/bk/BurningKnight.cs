@@ -18,6 +18,7 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.camera;
+using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
@@ -30,6 +31,7 @@ namespace BurningKnight.entity.creature.bk {
 		private BossPatternSet<BurningKnight> set;
 		private static Color tint = new Color(234, 50, 60, 200);
 		private Boss captured;
+		private bool raging;
 
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
@@ -86,6 +88,7 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<DiedEvent>();
 			Subscribe<SecretRoomFoundEvent>();
 			Subscribe<DefeatedEvent>();
+			Subscribe<NewLevelStartedEvent>();
 
 			GetComponent<DialogComponent>().Dialog.Voice = 25;
 		}
@@ -220,9 +223,29 @@ namespace BurningKnight.entity.creature.bk {
 			} else if (e is SecretRoomFoundEvent) {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
+			} else if (e is NewLevelStartedEvent) {
+				CheckForScourgeRage();
+				var state = GetComponent<StateComponent>().StateInstance;
+				
+				if (raging && !(state is AttackState || state is ChaseState || state is FlyAwayAttackingState)) {
+					raging = false;
+					sayNoRage = true;
+				}
 			}
 
 			return base.HandleEvent(e);
+		}
+		
+		private bool sayNoRage;
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			raging = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(raging);
 		}
 
 		private float lastFadingParticle;
@@ -384,6 +407,11 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						if (Self.sayNoRage) {
+							Self.sayNoRage = false;
+							Self.GetComponent<DialogComponent>().StartAndClose("bk_11", 5);
+						}
+						
 						if (Self.Target != null) {
 							Self.Become<FollowState>();
 						} else {
@@ -402,6 +430,11 @@ namespace BurningKnight.entity.creature.bk {
 
 		#region Burning Knight States while chasing
 		public class FlyAwayAttackingState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				Self.raging = true;
+			}
+
 			public override void Update(float dt) {
 				base.Update(dt);
 				Self.CheckForScourgeRageFree();
@@ -423,6 +456,11 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public class ChaseState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				Self.raging = true;
+			}
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 				Self.CheckForScourgeRageFree();
@@ -463,6 +501,11 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public class AttackState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				Self.raging = true;
+			}
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 				Self.CheckForScourgeRageFree();

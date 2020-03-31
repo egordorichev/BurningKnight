@@ -20,6 +20,7 @@ namespace Lens {
 		public const bool Debug = false;
 #endif
 
+		public static bool PixelPerfect;
 		public static bool EditingLevel;
 		public static Version Version;
 		public static Engine Instance;
@@ -252,9 +253,20 @@ namespace Lens {
 				UiMatrix = Matrix.Identity;
 			} else {
 				Upscale = Math.Min(screenWidth / Display.Width, screenHeight / Display.Height);
-				UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
+
+				if (PixelPerfect) {
+					Upscale = (int) Math.Floor(Upscale);
+				}
+				
 				Viewport.X = (screenWidth - Upscale * Display.Width) / 2;
 				Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;	
+				
+				if (PixelPerfect) {
+					screenWidth = (int) Math.Floor(screenWidth / Display.Width) * Display.Width;
+					screenHeight = (int) Math.Floor(screenHeight / Display.Height) * Display.Height;
+				}
+				
+				UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);
 
 				float viewWidth;
 			
