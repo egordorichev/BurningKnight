@@ -89,7 +89,7 @@ namespace BurningKnight.entity {
 			Engine.Instance.Flash = 1f;
 			Engine.Instance.Freeze = 1f;
 
-			if (whoHurts is Bomb b) {
+			if (whoHurts is Bomb b && b.Owner != null) {
 				whoHurts = b.Owner;
 			}
 					

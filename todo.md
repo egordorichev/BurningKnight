@@ -1,13 +1,11 @@
 # bugs
 
 * rolling spikes can stop (rework their move logic)
-* pressing russian keys wont detect as english
 * mobs shouldnt drop anything on death from chasm
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
 * music goes out?
-* bomb spawnrate low
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
