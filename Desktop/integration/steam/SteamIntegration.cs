@@ -35,16 +35,32 @@ namespace Desktop.integration.steam {
 					}).Start();
 				};
 
-				InGameState.SetupLeaderboard += (stats, boardId, end) => {
+				InGameState.SetupLeaderboard += (stats, boardId, type, offset, end) => {
 					new Thread(() => {
 						var board = SteamUserStats
 							.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
 							.GetAwaiter().GetResult().Value;
 
-						var scores = board.GetScoresAsync(10).GetAwaiter().GetResult();
+						LeaderboardEntry[] scores;
+
+						if (type == "global") {
+							scores = board.GetScoresAsync(10).GetAwaiter().GetResult();
+						} else if (type == "friends") {
+							scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
+						} else {
+							scores = board.GetScoresAroundUserAsync(-5, 5).GetAwaiter().GetResult();
+						}
+
+						var i = 0;
+						var name = SteamClient.Name;
 
 						foreach (var score in scores) {
-							stats.Add(score.User.Name, score.Score.ToString());
+							stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+							i++;
+
+							if (i == 10) {
+								break;
+							}
 						}
 
 						end();

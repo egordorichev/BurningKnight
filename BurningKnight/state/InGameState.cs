@@ -54,7 +54,7 @@ using Timer = Lens.util.timer.Timer;
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
 		public static bool SkipPause;
-		public static Action<UiTable, string, Action> SetupLeaderboard;
+		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -1302,6 +1302,12 @@ namespace BurningKnight.state {
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
 			}
+			
+			pauseMenu.Add(new UiLabel {
+				Label = $"{Locale.Get(Run.Type.ToString())} {Locale.Get("leaderboard")}",
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = TitleY
+			});
 
 			var stats = new UiTable { Width = 128 };
 			pauseMenu.Add(stats);
@@ -1314,11 +1320,35 @@ namespace BurningKnight.state {
 				stats.RelativeCenterX = Display.UiWidth * 0.5f;
 				stats.RelativeCenterY = Display.UiHeight * 0.5f;
 			} else {
-				SetupLeaderboard(stats, "high_score", () => {
-					stats.Prepare();
+				Action<string> d = (type) =>{
+					stats.Clear();
+				
+					SetupLeaderboard(stats, "high_score", type, 0, () => {
+						stats.Prepare();
 
-					stats.RelativeCenterX = Display.UiWidth * 0.5f;
-					stats.RelativeCenterY = Display.UiHeight * 0.5f;
+						stats.RelativeCenterX = Display.UiWidth * 0.5f;
+						stats.RelativeCenterY = Display.UiHeight * 0.5f;
+					});
+				};
+
+				d("around_you");
+				// todo: + / - page, highlight yourself
+				
+				pauseMenu.Add(new UiChoice {
+					Name = "display",
+					Options = new [] {
+						"around_you", "friends", "global"
+					},
+				
+					Option = 0,
+				
+					Click = c => {
+						var ch = (UiChoice) c;
+						d(ch.Options[ch.Option]);
+					},
+					
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = BackY
 				});
 			}
 		}
