@@ -35,6 +35,22 @@ namespace Desktop.integration.steam {
 					}).Start();
 				};
 
+				InGameState.SetupLeaderboard += (stats, boardId, end) => {
+					new Thread(() => {
+						var board = SteamUserStats
+							.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
+							.GetAwaiter().GetResult().Value;
+
+						var scores = board.GetScoresAsync(10).GetAwaiter().GetResult();
+
+						foreach (var score in scores) {
+							stats.Add(score.User.Name, score.Score.ToString());
+						}
+
+						end();
+					}).Start();
+				};
+
 				Achievements.PostLoadCallback += () => {
 					foreach (var achievement in SteamUserStats.Achievements) {
 						if (achievement.State) {

@@ -54,6 +54,7 @@ using Timer = Lens.util.timer.Timer;
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
 		public static bool SkipPause;
+		public static Action<UiTable, string, Action> SetupLeaderboard;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -1166,7 +1167,7 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight	
 			});
 
-			var space = 24f;
+			/*var space = 24f;
 			var start = Display.UiHeight * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
@@ -1291,15 +1292,34 @@ namespace BurningKnight.state {
 
 				Click = b => {
 					gameOverMenu.Enabled = false;
-					Run.StartNew(Run.Depth == -2 ? -2 : /*-1*/ 0);
+					Run.StartNew(Run.Depth == -2 ? -2 : 0);
 				}
 			});
 
 			gameOverMenu.Setup();
-			gameOverMenu.Enabled = false;
+			gameOverMenu.Enabled = false;*/
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
+			}
+
+			var stats = new UiTable { Width = 128 };
+			pauseMenu.Add(stats);
+
+			if (SetupLeaderboard == null) {
+				stats.Add("No leaderboards cause no steam", ":(");
+				
+				stats.Prepare();
+
+				stats.RelativeCenterX = Display.UiWidth * 0.5f;
+				stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			} else {
+				SetupLeaderboard(stats, "high_score", () => {
+					stats.Prepare();
+
+					stats.RelativeCenterX = Display.UiWidth * 0.5f;
+					stats.RelativeCenterY = Display.UiHeight * 0.5f;
+				});
 			}
 		}
 
