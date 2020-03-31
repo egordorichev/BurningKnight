@@ -17,6 +17,7 @@ namespace BurningKnight.ui {
 
 			var b = pane.Add(new UiButton {
 				Label = "-",
+				XPadding = 4,
 				Selectable = false,
 				RelativeX = x + a.Width + 10,
 				Type = ButtonType.Slider,
@@ -46,6 +47,7 @@ namespace BurningKnight.ui {
 			
 			var d = pane.Add(new UiButton {
 				Label = "+",
+				XPadding = 4,
 				Selectable = false,
 				Type = ButtonType.Slider,
 				RelativeX = x + a.Width + b.Width + c.Width + 30,
@@ -100,12 +102,7 @@ namespace BurningKnight.ui {
 		public class UiSliderButton : UiButton {
 			public UiButton Minus;
 			public UiButton Plus;
-
-			public override void PostInit() {
-				base.PostInit();
-				Padding = 0;
-			}
-
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 				

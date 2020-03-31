@@ -262,8 +262,8 @@ namespace Lens {
 				Viewport.Y = (screenHeight - Upscale * Display.Height) / 2;	
 				
 				if (PixelPerfect) {
-					screenWidth = (int) Math.Floor(screenWidth / Upscale) * Upscale;
-					screenHeight = (int) Math.Floor(screenHeight / Upscale) * Upscale;
+					screenWidth = (int) Math.Floor(screenWidth / Display.Width) * Display.Width;
+					screenHeight = (int) Math.Floor(screenHeight / Display.Height) * Display.Height;
 				}
 				
 				UiUpscale = Math.Min(screenWidth / Display.UiWidth, screenHeight / Display.UiHeight);

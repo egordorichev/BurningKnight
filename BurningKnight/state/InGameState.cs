@@ -424,7 +424,7 @@ namespace BurningKnight.state {
 			var min = UiButton.LastId;
 			UiButton btn = null;
 
-			foreach (var b in Ui.Tagged[Tags.Button]) {
+			foreach (var b in TopUi.Tagged[Tags.Button]) {
 				var bt = ((UiButton) b);
 
 				if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -546,7 +546,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
-						foreach (var b in Ui.Tagged[Tags.Button]) {
+						foreach (var b in TopUi.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id > UiButton.Selected && bt.Id < mn) {
@@ -566,7 +566,7 @@ namespace BurningKnight.state {
 							var min = UiButton.Selected;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tagged[Tags.Button]) {
+							foreach (var b in TopUi.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id < min) {
@@ -588,7 +588,7 @@ namespace BurningKnight.state {
 						UiButton sm = null;
 						var mn = -1;
 						
-						foreach (var b in Ui.Tagged[Tags.Button]) {
+						foreach (var b in TopUi.Tagged[Tags.Button]) {
 							var bt = ((UiButton) b);
 
 							if (bt.Active && bt.IsOnScreen() && bt.Id < UiButton.Selected && bt.Id > mn) {
@@ -608,7 +608,7 @@ namespace BurningKnight.state {
 							var max = -1;
 							UiButton btn = null;
 							
-							foreach (var b in Ui.Tagged[Tags.Button]) {
+							foreach (var b in TopUi.Tagged[Tags.Button]) {
 								var bt = ((UiButton) b);
 
 								if (bt.Active && bt.IsOnScreen() && bt.Id > max) {

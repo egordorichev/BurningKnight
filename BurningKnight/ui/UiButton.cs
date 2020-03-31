@@ -19,7 +19,8 @@ namespace BurningKnight.ui {
 		
 		public Action<UiButton> Click;
 		public ButtonType Type = ButtonType.Normal;
-		public float Padding;
+		public float XPadding;
+		public float YPadding;
 		public int Id;
 		public bool Selectable = true;
 
@@ -35,7 +36,7 @@ namespace BurningKnight.ui {
 		}
 
 		public override bool CheckCollision(Vector2 v) {
-			return new Rectangle((int) (X - Padding), (int) (Y - Padding), (int) (Width + Padding * 2), (int) (Height + Padding * 2)).Contains(v);
+			return new Rectangle((int) (X - XPadding), (int) (Y - YPadding), (int) (Width + XPadding * 2), (int) (Height + YPadding * 2)).Contains(v);
 		}
 
 		protected override void OnHover() {
@@ -111,7 +112,7 @@ namespace BurningKnight.ui {
 
 		public override void Render() {
 			base.Render();
-			Graphics.Batch.DrawRectangle(new RectangleF((int) (X - Padding), (int) (Y - Padding), (int) (Width + Padding * 2), (int) (Height + Padding * 2)), Color.Red);
+			Graphics.Batch.DrawRectangle(new RectangleF((int) (X - XPadding), (int) (Y - YPadding), (int) (Width + XPadding * 2), (int) (Height + YPadding * 2)), Color.Red);
 		}
 		
 		public bool IsOnScreen() {
