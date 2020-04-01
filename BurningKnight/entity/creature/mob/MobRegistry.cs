@@ -88,7 +88,11 @@ namespace BurningKnight.entity.creature.mob {
 		public static Mob Generate() {
 			var chances = new float[Current.Count];
 
-			for (int i = 0; i < Current.Count; i++) {
+			for (var i = 0; i < Current.Count; i++) {
+				if (Current[i].Type == typeof(BeeHive)) {
+					continue;
+				}
+				
 				chances[i] = Current[i].GetChanceFor(Run.Level.Biome.Id).Chance;
 			}
 

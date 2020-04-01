@@ -18,8 +18,6 @@
 * challenge room in jungle is so hard with all the hives
 * check if i broke gameover screen?
 
-* make reroll machine spawn in item rooms
-
 * leaderboard display {
  * top all time 
  * boss rush
@@ -33,6 +31,8 @@
  + make some achievements unlock items
  + achievement branches rewards
 }
+
+* make reroll machine spawn in item rooms
 
 * game stats in hub (best 3 runs, total deaths, etc)
 * challanges
