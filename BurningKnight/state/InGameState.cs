@@ -1397,6 +1397,8 @@ namespace BurningKnight.state {
 					RelativeX = Display.UiWidth * 0.5f,
 					RelativeCenterY = BackY
 				});
+
+				leaderMenu.Enabled = false;
 			}
 		}
 
@@ -1481,7 +1483,6 @@ namespace BurningKnight.state {
 			});
 			
 			pauseMenu.Enabled = false;
-			leaderMenu.Enabled = false;
 			
 			AddGameSettings();
 			AddGraphicsSettings();
