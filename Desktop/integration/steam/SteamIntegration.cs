@@ -25,45 +25,60 @@ namespace Desktop.integration.steam {
 				Log.Info("Starting from steam! <3");
 
 				Run.SubmitScore += (score, board) => {
-					new Thread(() => { 
-						Log.Info($"Submitting score {score} to board {board}");
-					
-						var br = SteamUserStats.FindOrCreateLeaderboardAsync(board, LeaderboardSort.Descending, LeaderboardDisplay.Numeric).GetAwaiter().GetResult();
-						br?.SubmitScoreAsync(score).GetAwaiter().GetResult();
+					try {
+						new Thread(() => {
+							try {
+								Log.Info($"Submitting score {score} to board {board}");
 
-						Log.Info($"Done submitting the score {score}");
-					}).Start();
+								var br = SteamUserStats
+									.FindOrCreateLeaderboardAsync(board, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
+									.GetAwaiter().GetResult();
+
+								br?.SubmitScoreAsync(score).GetAwaiter().GetResult();
+
+								Log.Info($"Done submitting the score {score}");
+							} catch (Exception e) {
+								Log.Error(e);
+							}
+						}).Start();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				InGameState.SetupLeaderboard += (stats, boardId, type, offset, end) => {
 					try {
 						new Thread(() => {
-							var i = 0;
-							var count = 0;
-							var name = SteamClient.Name;
+							try {
+								var i = 0;
+								var count = 0;
+								var name = SteamClient.Name;
 
-							var board = SteamUserStats
-								.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
-								.GetAwaiter().GetResult().Value;
+								var board = SteamUserStats
+									.FindOrCreateLeaderboardAsync(boardId, LeaderboardSort.Descending, LeaderboardDisplay.Numeric)
+									.GetAwaiter().GetResult().Value;
 
-							LeaderboardEntry[] scores;
+								LeaderboardEntry[] scores;
 
-							if (type == "global") {
-								scores = board.GetScoresAsync(10, Math.Max(1, offset)).GetAwaiter().GetResult();
-							} else if (type == "friends") {
-								scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
-								i = Math.Max(0, offset);
-							} else {
-								scores = board.GetScoresAroundUserAsync(-5 + offset, 5 + offset).GetAwaiter().GetResult();
+								if (type == "global") {
+									scores = board.GetScoresAsync(10, Math.Max(1, offset)).GetAwaiter().GetResult();
+								} else if (type == "friends") {
+									scores = board.GetScoresFromFriendsAsync().GetAwaiter().GetResult();
+									i = Math.Max(0, offset);
+								} else {
+									scores = board.GetScoresAroundUserAsync(-5 + offset, 5 + offset).GetAwaiter().GetResult();
+								}
+
+								for (; i < scores.Length && count < 10; i++) {
+									var score = scores[i];
+									stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+									count++;
+								}
+
+								end();
+							} catch (Exception e) {
+								Log.Error(e);
 							}
-
-							for (; i < scores.Length && count < 10; i++) {
-								var score = scores[i];
-								stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
-								count++;
-							}
-
-							end();
 						}).Start();
 					} catch (Exception e) {
 						Log.Error(e);
@@ -71,29 +86,45 @@ namespace Desktop.integration.steam {
 				};
 
 				Achievements.PostLoadCallback += () => {
-					foreach (var achievement in SteamUserStats.Achievements) {
-						if (achievement.State) {
-							Achievements.Unlock(achievement.Identifier);
+					try {
+						foreach (var achievement in SteamUserStats.Achievements) {
+							if (achievement.State) {
+								Achievements.Unlock(achievement.Identifier);
+							}
 						}
-					}
 
-					foreach (var achievement in Achievements.Defined) {
-						if (achievement.Value.Unlocked) {
-							new Achievement(achievement.Key).Trigger();
+						foreach (var achievement in Achievements.Defined) {
+							if (achievement.Value.Unlocked) {
+								new Achievement(achievement.Key).Trigger();
+							}
 						}
+					} catch (Exception e) {
+						Log.Error(e);
 					}
 				};
 
 				Achievements.UnlockedCallback += (id) => {
-					new Achievement(id).Trigger();
+					try {
+						new Achievement(id).Trigger();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				Achievements.LockedCallback += (id) => {
-					new Achievement(id).Clear();
+					try {
+						new Achievement(id).Clear();
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				Achievements.ProgressSetCallback += (id, progress, max) => {
-					SteamUserStats.IndicateAchievementProgress(id, progress, max);
+					try {
+						SteamUserStats.IndicateAchievementProgress(id, progress, max);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				};
 
 				try {
@@ -103,7 +134,7 @@ namespace Desktop.integration.steam {
 				}
 
 				SteamFriends.OnGameOverlayActivated += () => {
-					Engine.Instance.State.Paused = !Engine.Instance.State.Paused;
+					Engine.Instance.State.Paused = true;
 				};
 				
 			} catch (Exception e) {

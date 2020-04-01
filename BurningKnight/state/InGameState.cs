@@ -68,6 +68,7 @@ namespace BurningKnight.state {
 		private static TextureRegion fog;
 		
 		private UiPane pauseMenu;
+		private UiPane leaderMenu;
 		private UiPane gameOverMenu;
 
 		private UiPane audioSettings;
@@ -1129,6 +1130,8 @@ namespace BurningKnight.state {
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
+		private Action d;
+
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
 			
@@ -1166,8 +1169,12 @@ namespace BurningKnight.state {
 			TopUi.Add(pauseMenu = new UiPane {
 				Y = -Display.UiHeight	
 			});
+			
+			TopUi.Add(leaderMenu = new UiPane {
+				Y = -Display.UiHeight	
+			});
 
-			/*var space = 24f;
+			var space = 24f;
 			var start = Display.UiHeight * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
@@ -1297,20 +1304,20 @@ namespace BurningKnight.state {
 			});
 
 			gameOverMenu.Setup();
-			gameOverMenu.Enabled = false;*/
+			gameOverMenu.Enabled = false;
 
 			if (Run.Depth > 0 && Run.Level != null && !Menu) {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
 			}
 			
-			pauseMenu.Add(new UiLabel {
+			leaderMenu.Add(new UiLabel {
 				Label = $"{Locale.Get(Run.Type.ToString())} {Locale.Get("leaderboard")}",
 				RelativeCenterX = Display.UiWidth * 0.5f,
 				RelativeCenterY = TitleY
 			});
 
 			var stats = new UiTable { Width = 128 };
-			pauseMenu.Add(stats);
+			leaderMenu.Add(stats);
 
 			if (SetupLeaderboard == null) {
 				stats.Add("No leaderboards cause no steam", ":(");
@@ -1330,7 +1337,7 @@ namespace BurningKnight.state {
 				UiChoice choice = null;
 				var offset = 0;
 				
-				Action d = () =>{
+				d = () =>{
 					loading.Hide = false;
 					choice.Disabled = true;
 					
@@ -1348,7 +1355,7 @@ namespace BurningKnight.state {
 					});
 				};
 
-				pauseMenu.Add(new UiButton {
+				leaderMenu.Add(new UiButton {
 					Label = "-",
 					XPadding = 4,
 					Selectable = false,
@@ -1362,7 +1369,7 @@ namespace BurningKnight.state {
 					ScaleMod = 3
 				});
 				
-				pauseMenu.Add(new UiButton {
+				leaderMenu.Add(new UiButton {
 					Label = "+",
 					XPadding = 4,
 					Selectable = false,
@@ -1376,7 +1383,7 @@ namespace BurningKnight.state {
 					ScaleMod = 3
 				});
 				
-				pauseMenu.Add(choice = new UiChoice {
+				leaderMenu.Add(choice = new UiChoice {
 					Name = "display",
 					Options = new [] {
 						"around_you", "friends", "global"
@@ -1390,8 +1397,8 @@ namespace BurningKnight.state {
 					RelativeX = Display.UiWidth * 0.5f,
 					RelativeCenterY = BackY
 				});
-				
-				d();
+
+				leaderMenu.Enabled = false;
 			}
 		}
 

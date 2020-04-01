@@ -27,7 +27,7 @@ namespace BurningKnight.level.entities {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Run.LastSavedDepth == 0) {
+			if (!Engine.EditingLevel && Run.LastSavedDepth == 0) {
 				Done = true;
 			}
 		}
