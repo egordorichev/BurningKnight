@@ -1339,7 +1339,7 @@ namespace BurningKnight.state {
 			leaderMenu.Add(leaderStats);
 
 			if (SetupLeaderboard == null) {
-				leaderStats.Add("No leaderboards cause no steam", ":(");
+				leaderStats.Add("No steam no leaderboards", ":(");
 				leaderStats.Prepare();
 
 				leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
@@ -1432,10 +1432,10 @@ namespace BurningKnight.state {
 						HideLeaderboard();
 					},
 				});
-
-				leaderMenu.Enabled = false;
-				leaderMenu.Y = Display.UiHeight * 2;
 			}
+
+			leaderMenu.Enabled = false;
+			leaderMenu.Y = Display.UiHeight * 2;
 		}
 
 		private void AddSettings() {

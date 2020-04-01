@@ -1,3 +1,4 @@
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.save;
@@ -64,10 +65,10 @@ namespace BurningKnight.level.entities {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (!ch) {
+			if (!Engine.EditingLevel && !ch) {
 				ch = true;
 				
-				if (board == "daily" && !GlobalSave.IsTrue($"daily_{Run.CalculateDailyId()}")) {
+				if (InGameState.SetupLeaderboard == null || (board == "daily" && !GlobalSave.IsTrue($"daily_{Run.CalculateDailyId()}"))) {
 					Done = true;
 				}
 			}

@@ -14,7 +14,6 @@
 # hub
 
 * reset settings not working
-* leaderboard display: check how it works without steam
 
 * top 3 runs display
 
