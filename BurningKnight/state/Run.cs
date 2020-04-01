@@ -194,6 +194,8 @@ namespace BurningKnight.state {
 		public static void CalculateScore() {
 			Score = 0;
 
+			// todo: health/health max left?
+
 			Score += Depth * 5000;
 			Score += Statistics.CoinsObtained * 10;
 			Score += Statistics.Items.Count * 100;
@@ -205,9 +207,12 @@ namespace BurningKnight.state {
 				Score += 5000;
 			}
 			
-			Score -= (int) Statistics.DamageTaken * 10;
-			Score -= (int) Time;
-			Score -= Statistics.PitsFallen;
+			Score -= (int) Statistics.DamageTaken * 100;
+			Score -= (int) Time * 2;
+			Score -= Statistics.PitsFallen * 1000;
+
+			var multiplier = 1 + Run.Scourge * 0.1f;
+			Score = (int) (Score * multiplier);
 		}
 
 		public static void Win() {

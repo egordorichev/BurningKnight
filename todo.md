@@ -11,15 +11,12 @@
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
 
+* people still get that exit after loading (see itch)
+
 # hub
 
-* add a slider for cursor crosshair distance
+* challenge room in jungle is so hard with all the hives
 * check if i broke gameover screen?
-* people still get that exit after loading
-* remove version from top right corner and move to settings?
-
-* anivire got crazy drops in ice biome, check if thats clover who did that
-* chasm texture broke
 
 * make reroll machine spawn in item rooms
 
@@ -37,20 +34,19 @@
  + achievement branches rewards
 }
 
+* game stats in hub (best 3 runs, total deaths, etc)
 * challanges
-* shop should start small and grow with donations?
 !!! * add eye of chthulu pet
+* 3 save slots (aka parrarel universes)
 
 #
 
+* shop should start small and grow with donations?
 * show only last 6 or so items, allow to see more in pause menu
 * this is a secret to everyone easter egg in hub?
 
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
-* game stats in hub (best 3 runs, total deaths, etc)
-
-* credits
 
 ice {
  * frozen enemies/troll bomb
@@ -68,11 +64,9 @@ ice {
 
 ### big points that are needed before release (no overscope)
 
-* hub update
-* credits
-* achivement icons
-* twitch chat integration
+* add soundtrack package to steam
 * localisation
+* twitch chat integration
 
 #### Polish
 

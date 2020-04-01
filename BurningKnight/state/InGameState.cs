@@ -92,8 +92,6 @@ namespace BurningKnight.state {
 		public bool Menu;
 		public Area TopUi;
 
-		private float vx;
-		private string v;
 		private float offset;
 		private bool menuExited;
 		private float blackBarsSize;
@@ -200,9 +198,6 @@ namespace BurningKnight.state {
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
-
-			v = BK.Version.ToString();
-			vx = -Font.Small.MeasureString(v).Width;
 
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			
@@ -808,7 +803,7 @@ namespace BurningKnight.state {
 					}
 					
 					stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + stickOffset * 48);
+					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + stickOffset * (48 * Settings.CursorRadius));
 				}
 
 				double a = 0;
@@ -1072,12 +1067,6 @@ namespace BurningKnight.state {
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
 			}
 
-			if (!Settings.HideUi) {
-				Graphics.Color = ColorUtils.HalfWhiteColor;
-				Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
-				Graphics.Color = ColorUtils.WhiteColor;
-			}
-
 			painting?.RenderUi();
 
 			TopUi.Render();
@@ -1181,6 +1170,16 @@ namespace BurningKnight.state {
 				Label = Level.GetDepthString(),
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = TitleY,
+				Clickable = false,
+				AngleMod = 0
+			});
+			
+			pauseMenu.Add(new UiLabel {
+				Font = Font.Small,
+				Label = BK.Version.ToString(),
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = TitleY + 12,
+				Clickable = false,
 				AngleMod = 0
 			});
 
@@ -2162,7 +2161,7 @@ namespace BurningKnight.state {
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
 			var spX = 96f;
-			var sy = Display.UiHeight * 0.5f + space * 0.5f;
+			var sy = Display.UiHeight * 0.5f;// + space * 0.5f;
 			
 			gamepadSettings.Add(new UiLabel {
 				LocaleLabel = "gamepad",
@@ -2232,7 +2231,7 @@ namespace BurningKnight.state {
 				Name = "vibration",
 				On = Settings.Vibrate,
 				RelativeX = sx,
-				RelativeCenterY = sy + space * 2,
+				RelativeCenterY = sy + space * 1.5f,
 				Click = b => {
 					Settings.Vibrate = ((UiCheckbox) b).On;
 				},
@@ -2242,8 +2241,12 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			UiSlider.Make(gamepadSettings, sx, sy + space * 3, "sensivity", (int) (Settings.Sensivity * 100), 200, 10).OnValueChange = s => {
+			UiSlider.Make(gamepadSettings, sx, sy + space * 2.5f, "sensivity", (int) (Settings.Sensivity * 100), 200, 10).OnValueChange = s => {
 				Settings.Sensivity = s.Value / 100f;
+			};
+			
+			UiSlider.Make(gamepadSettings, sx, sy + space * 3.5f, "cursor_radius", (int) (Settings.CursorRadius * 100), 300, 10).OnValueChange = s => {
+				Settings.CursorRadius = s.Value / 100f;
 			};
 
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
