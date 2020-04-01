@@ -13,6 +13,10 @@
 
 # hub
 
+* add a slider for cursor crosshair distance
+* check if i broke gameover screen?
+* people still get that exit after loading
+
 * make reroll machine spawn in item rooms
 
 * leaderboard display {
