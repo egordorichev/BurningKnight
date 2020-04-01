@@ -937,6 +937,7 @@
     <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
+    <Compile Include="level\entities\Stand.cs" />
     <Compile Include="level\entities\StatDisplay.cs" />
     <Compile Include="level\entities\statue\ChestStatue.cs" />
     <Compile Include="level\entities\statue\DiceStatue.cs" />

@@ -13,8 +13,6 @@
 
 # hub
 
-* reset settings not working
-
 * top 3 runs display
 
 * achievements hall {
