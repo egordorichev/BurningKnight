@@ -196,7 +196,7 @@ namespace BurningKnight.state {
 
 			// todo: health/health max left?
 
-			Score += Depth * 5000;
+			Score += (Depth - 1) * 5000;
 			Score += Statistics.CoinsObtained * 10;
 			Score += Statistics.Items.Count * 100;
 			Score += (int) Statistics.MobsKilled * 10;

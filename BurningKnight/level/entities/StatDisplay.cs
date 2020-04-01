@@ -21,10 +21,6 @@ namespace BurningKnight.level.entities {
 		public override void PostInit() {
 			Sprite = "stat_display";
 			base.PostInit();
-
-			if (GlobalSave.IsFalse($"daily_{Run.CalculateDailyId()}")) {
-				Done = true;
-			}
 		}
 
 		public override void AddComponents() {
@@ -61,6 +57,20 @@ namespace BurningKnight.level.entities {
 
 			s.ShowLeaderboard(b);
 			return false;
+		}
+
+		private bool ch;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (!ch) {
+				ch = true;
+				
+				if (board == "daily" && !GlobalSave.IsTrue($"daily_{Run.CalculateDailyId()}")) {
+					Done = true;
+				}
+			}
 		}
 
 		public override void Load(FileReader stream) {

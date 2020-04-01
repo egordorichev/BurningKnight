@@ -350,7 +350,6 @@ namespace BurningKnight.state {
 					currentBack = pauseBack;
 
 					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
-						doneAnimatingPause = true;
 						SelectFirst();
 					};
 				}
@@ -360,7 +359,9 @@ namespace BurningKnight.state {
 
 			speedBeforePause = Audio.Speed;
 
-			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 1f);
+			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 1f).OnEnd = () => {
+				doneAnimatingPause = true;
+			};
 			OpenBlackBars();
 		}
 
@@ -390,12 +391,15 @@ namespace BurningKnight.state {
 			if (!InStats) {
 				Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
 					pauseMenu.Enabled = false;
-					doneAnimatingPause = true;
 				};
 			}
 
 			CloseBlackBars();
 			Tween.To(speedBeforePause, Audio.Speed, x => Audio.Speed = x, 0.4f);
+
+			Timer.Add(() => {
+				doneAnimatingPause = true;
+			}, 0.25f);
 
 			pausedByMouseOut = false;
 		}
@@ -2317,10 +2321,12 @@ namespace BurningKnight.state {
 				leaderStats.Clear();
 			}
 
+			choice.Option = 0;
 			leaderMenu.Enabled = true;
 			currentBack = leaderBack;
+			leaderMenu.Y = Display.UiHeight;
 			
-			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f, Ease.QuadIn).OnEnd = () => {
+			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
 				SelectFirst();
 				d(board);
 			};
