@@ -1,10 +1,13 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.npc;
+using BurningKnight.save;
 using BurningKnight.state;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
 	public class StatDisplay : SolidProp {
@@ -18,6 +21,10 @@ namespace BurningKnight.level.entities {
 		public override void PostInit() {
 			Sprite = "stat_display";
 			base.PostInit();
+
+			if (GlobalSave.IsFalse($"daily_{Run.CalculateDailyId()}")) {
+				Done = true;
+			}
 		}
 
 		public override void AddComponents() {
@@ -28,13 +35,16 @@ namespace BurningKnight.level.entities {
 			
 			AddComponent(new InteractableComponent(Interact));
 			AddComponent(new ShadowComponent());
+
+			var r = GetCollider();
+			AddComponent(new SensorBodyComponent(r.X - Npc.Padding, r.Y - Npc.Padding, r.Width + Npc.Padding * 2, r.Height + Npc.Padding * 2, BodyType.Static));
 		}
 
 		private bool Interact(Entity e) {
 			var s = (InGameState) Engine.Instance.State;
 
-			s.Paused = false;
 			s.InStats = true;
+			s.Paused = true;
 			
 			s.ReturnFromLeaderboard = () => {
 				s.Paused = false;
@@ -49,9 +59,7 @@ namespace BurningKnight.level.entities {
 				b = $"challenge_{challengeId}";
 			}
 
-			// fixme: breaks pauses, displays wrong
 			s.ShowLeaderboard(b);
-			
 			return false;
 		}
 

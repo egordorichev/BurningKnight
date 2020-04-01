@@ -979,5 +979,6 @@
 	"global": "Global",
 	"loading": "Loading",
 	"generating": "Generating",
-	"cursor_radius": "Cursor Radius"
+	"cursor_radius": "Cursor Radius",
+	"no_scores_yet" : "No scores yet"
 }

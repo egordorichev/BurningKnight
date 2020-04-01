@@ -5,6 +5,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using Lens;
+using Lens.assets;
 using Lens.util;
 using Steamworks;
 using Steamworks.Data;
@@ -70,12 +71,16 @@ namespace Desktop.integration.steam {
 									scores = board.GetScoresAroundUserAsync(-5 + offset, 5 + offset).GetAwaiter().GetResult();
 								}
 
-								for (; i < scores.Length && count < 10; i++) {
-									var score = scores[i];
-									
-									stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
-									
-									count++;
+								if (scores != null) {
+									for (; i < scores.Length && count < 10; i++) {
+										var score = scores[i];
+
+										stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+
+										count++;
+									}
+								} else {
+									stats.Add(Locale.Get("no_scores_yet"), ":(");
 								}
 
 								end();

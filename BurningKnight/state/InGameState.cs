@@ -332,6 +332,8 @@ namespace BurningKnight.state {
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (!InStats) {
+				currentBack = pauseBack;
+				
 				if (seedLabel != null) {
 					seedLabel.Label = $"Seed: {Run.Seed}";
 				}
@@ -339,7 +341,6 @@ namespace BurningKnight.state {
 				if (Settings.UiSfx) {
 					Audio.PlaySfx("ui_goback", 0.5f);
 				}
-
 
 				if (painting == null) {
 					doneAnimatingPause = false;
@@ -353,6 +354,8 @@ namespace BurningKnight.state {
 						SelectFirst();
 					};
 				}
+			} else {
+				currentBack = leaderBack;
 			}
 
 			speedBeforePause = Audio.Speed;
@@ -1351,8 +1354,10 @@ namespace BurningKnight.state {
 				
 				d = (s) =>{
 					if (s == null) {
-						lastS = s = lastS ?? Run.Type.ToString().ToLower();
+						s = lastS ?? Run.GetLeaderboardId();
 					}
+
+					lastS = s;
 					
 					loading.Hide = false;
 					choice.Disabled = true;
@@ -2315,7 +2320,7 @@ namespace BurningKnight.state {
 			leaderMenu.Enabled = true;
 			currentBack = leaderBack;
 			
-			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f, Ease.QuadIn).OnEnd = () => {
 				SelectFirst();
 				d(board);
 			};
