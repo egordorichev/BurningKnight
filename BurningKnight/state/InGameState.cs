@@ -725,105 +725,107 @@ namespace BurningKnight.state {
 
 			console.Update(dt);
 
-			foreach (var p in Area.Tagged[Tags.LocalPlayer]) {
-				var controller = GamepadComponent.Current;
-				
-				if (painting != null) {
-					if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
-					    Input.WasPressed(Controls.Use, controller)) {
-						painting.Remove();
-					}
-				} else {
-					if (doneAnimatingPause) {
-						var did = false;
+			var controller = GamepadComponent.Current;
+			
+			if (painting != null) {
+				if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
+				    Input.WasPressed(Controls.Use, controller)) {
+					painting.Remove();
+				}
+			} else {
+				if (doneAnimatingPause) {
+					var did = false;
 
-						if (DialogComponent.Talking == null) {
-							if (Input.WasPressed(Controls.Pause, controller)) {
-								if (SkipPause) {
-									SkipPause = false;
-								} else if (Paused) {
-									if (UiControl.Focused == null && currentBack == null) {
-										Paused = false;
-										did = true;
-									}
-								} else {
-									Paused = true;
+					if (DialogComponent.Talking == null) {
+						if (Input.WasPressed(Controls.Pause, controller)) {
+							if (SkipPause) {
+								SkipPause = false;
+							} else if (Paused) {
+								if (UiControl.Focused == null && currentBack == null) {
+									Paused = false;
 									did = true;
 								}
+							} else {
+								Paused = true;
+								did = true;
+							}
+						}
+
+						if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
+							if (Settings.UiSfx) {
+								Audio.PlaySfx("ui_exit", 0.5f);
 							}
 
-							if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
-								if (Settings.UiSfx) {
-									Audio.PlaySfx("ui_exit", 0.5f);
-								}
-
-								if (UiControl.Focused != null) {
-									UiControl.Focused.Cancel();
-								} else if (currentBack != null) {
-									currentBack.Click(currentBack);
-								} else {
-									Paused = false;
-								}
+							if (UiControl.Focused != null) {
+								UiControl.Focused.Cancel();
+							} else if (currentBack != null) {
+								currentBack.Click(currentBack);
+							} else {
+								Paused = false;
 							}
 						}
 					}
 				}
 
-				if (controller == null || Paused) {
-					continue;
-				}
-				
-				var stick = controller.GetRightStick();
-
-				var dx = stick.X;
-				var dy = stick.Y;
-				var d = (float) Math.Sqrt(dx * dx + dy * dy);
-				
-				if (d > 1) {
-					stick /= d;
-				} else {
-					stick *= d;
-				}
-
-				var l = stick.Length();
-				
-				if (l > 0.25f) {
-					var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
-					dx = target.X - stickOffset.X;
-					dy = target.Y - stickOffset.Y;
+				if (controller != null && !Paused && !died && !Run.Won) {
+					var p = LocalPlayer.Locate(Area);
 					
-					d = (float) Math.Sqrt(dx * dx + dy * dy);
+					if (p != null) {
+						var stick = controller.GetRightStick();
 
-					if (d > 1) {
-						dx /= d;
-						dy /= d;
-					} else {
-						dx *= d;
-						dy *= d;
+						var dx = stick.X;
+						var dy = stick.Y;
+						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+						if (d > 1) {
+							stick /= d;
+						} else {
+							stick *= d;
+						}
+
+						var l = stick.Length();
+
+						if (l > 0.25f) {
+							var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+							dx = target.X - stickOffset.X;
+							dy = target.Y - stickOffset.Y;
+
+							d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+							if (d > 1) {
+								dx /= d;
+								dy /= d;
+							} else {
+								dx *= d;
+								dy *= d;
+							}
+
+							stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
+
+							Input.Mouse.Position =
+								Camera.Instance.CameraToScreen(p.Center + stickOffset * (48 * Settings.CursorRadius));
+						}
+
+						double a = 0;
+						var pressed = false;
+
+						if (controller.DPadLeftCheck) {
+							a = Math.PI;
+							pressed = true;
+						} else if (controller.DPadDownCheck) {
+							a = Math.PI / 2f;
+							pressed = true;
+						} else if (controller.DPadUpCheck) {
+							a = Math.PI * 1.5f;
+							pressed = true;
+						} else if (controller.DPadRightCheck) {
+							pressed = true;
+						}
+
+						if (pressed) {
+							Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
+						}
 					}
-					
-					stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + stickOffset * (48 * Settings.CursorRadius));
-				}
-
-				double a = 0;
-				var pressed = false;
-
-				if (controller.DPadLeftCheck) {
-					a = Math.PI;
-					pressed = true;
-				} else if (controller.DPadDownCheck) {
-					a = Math.PI / 2f;
-					pressed = true;
-				} else if (controller.DPadUpCheck) {
-					a = Math.PI * 1.5f;
-					pressed = true;
-				} else if (controller.DPadRightCheck) {
-					pressed = true;
-				}
-
-				if (pressed) {
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
 				}
 			}
 
@@ -1293,7 +1295,7 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
-			gameOverMenu.Add(leaderBack = new UiButton {
+			gameOverMenu.Add(overBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				// RelativeCenterY = start + space * 3,
