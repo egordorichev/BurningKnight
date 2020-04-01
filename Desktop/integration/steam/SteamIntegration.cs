@@ -3,6 +3,7 @@ using System.Threading;
 using BurningKnight.assets.achievements;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui;
 using Lens;
 using Lens.util;
 using Steamworks;
@@ -71,7 +72,11 @@ namespace Desktop.integration.steam {
 
 								for (; i < scores.Length && count < 10; i++) {
 									var score = scores[i];
-									stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+									
+									stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name, count == 0 ? t => {
+										Log.Debug("Click");
+									} : (Action<UiButton>) null);
+									
 									count++;
 								}
 

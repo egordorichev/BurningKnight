@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.projectile;
@@ -24,12 +25,13 @@ namespace BurningKnight.ui {
 			entries.Clear();
 		}
 
-		public void Add(string key, string value, bool h = false) {
+		public void Add(string key, string value, bool h = false, Action<UiButton> a = null) {
 			value = value ?? "";
 
 			var entry = new UiTableEntry() {
 				Label = key ?? "",
-				Value = value
+				Value = value,
+				Click = a
 			};
 
 			if (h) {

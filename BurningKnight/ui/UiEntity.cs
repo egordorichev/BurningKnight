@@ -91,7 +91,7 @@ namespace BurningKnight.ui {
 			
 		}
 
-		public void PlaySfx(string sfx) {
+		public virtual void PlaySfx(string sfx) {
 			if (Settings.UiSfx) {
 				Audio.PlaySfx(sfx, 0.5f);
 			}
