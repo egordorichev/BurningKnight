@@ -16,6 +16,10 @@
 * add a slider for cursor crosshair distance
 * check if i broke gameover screen?
 * people still get that exit after loading
+* remove version from top right corner and move to settings?
+
+* anivire got crazy drops in ice biome, check if thats clover who did that
+* chasm texture broke
 
 * make reroll machine spawn in item rooms
 
