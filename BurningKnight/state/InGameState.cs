@@ -40,6 +40,7 @@ using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.input;
+using Lens.lightJson;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
@@ -47,6 +48,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using Newtonsoft.Json;
 using Steamworks;
 using Console = BurningKnight.debug.Console;
 using Timer = Lens.util.timer.Timer;
@@ -2321,7 +2323,11 @@ namespace BurningKnight.state {
 				leaderStats.Clear();
 			}
 
-			choice.Option = 0;
+			if (choice != null) {
+				choice.Option = 0;
+			}
+			
+
 			leaderMenu.Enabled = true;
 			currentBack = leaderBack;
 			leaderMenu.Y = Display.UiHeight;
@@ -2353,6 +2359,8 @@ namespace BurningKnight.state {
 				Player.StartingWeapon = null;
 			}
 
+			GlobalSave.Put("run_count", GlobalSave.GetInt("run_count") + 1);
+
 			if (Run.Won) {
 				if (Run.Type == RunType.BossRush) {
 					Achievements.Unlock("bk:boss_rush");
@@ -2383,17 +2391,6 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY,
 				Clickable = false
 			});
-			
-			if (Run.Won) {
-				killedLabel.Done = true;
-				Killer.Done = true;
-				
-				new Thread(() => {
-					SaveManager.Save(Area, SaveType.Statistics);
-					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
-					SaveManager.Backup();
-				}).Start();
-			}
 
 			Camera.Instance.Targets.Clear();
 
@@ -2434,7 +2431,7 @@ namespace BurningKnight.state {
 			currentBack = overBack;
 			var newHigh = false;
 
-			if (Run.Type == RunType.Challenge) {
+			if (Run.Type == RunType.Regular) {
 				newHigh = GlobalSave.GetInt("high_score") < Run.Score;
 				
 				if (newHigh) {
@@ -2463,6 +2460,64 @@ namespace BurningKnight.state {
 			
 			stats.RelativeCenterX = Display.UiWidth * 0.5f;
 			stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			
+			if (Run.Type == RunType.Regular) {
+				var place = -1;
+
+				for (var i = 0; i < 3; i++) {
+					var id = $"top_{i}";
+						
+					if (!GlobalSave.Exists(id) || GlobalSave.GetInt(id) < Run.Score) {
+						place = i;
+						break;
+					}
+				}
+
+				if (place != -1) {
+					if (place < 2) {
+						for (var i = 1; i >= place; i--) {
+							var id1 = $"top_{i}";
+							var id2 = $"top_{i + 1}";
+
+							GlobalSave.Put(id2, GlobalSave.GetInt(id1));
+							GlobalSave.Put($"{id2}_data", GlobalSave.GetString($"{id1}_data"));
+						}
+					}
+
+					Log.Info($"New #{place} run!");
+
+					var root = new JsonObject();
+
+					// fixme same seed the same time
+					root["seed"] = Run.Seed;
+					root["time"] = GetRunTime();
+					root["depth"] = Run.Depth;
+					root["won"] = Run.Won;
+					root["coins"] = Run.Statistics.CoinsObtained;
+					root["items"] = Run.Statistics.Items.Count;
+					root["damage"] = Run.Statistics.DamageTaken;
+					root["kills"] = Run.Statistics.MobsKilled;
+					root["rooms"] = Run.Statistics.RoomsExplored;
+					root["scourge"] = Run.Scourge;
+					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0}";
+
+					var id = $"top_{place}";
+
+					GlobalSave.Put(id, Run.Score);
+					GlobalSave.Put($"{id}_data", root.ToString());
+				}
+			}
+			
+			if (Run.Won) {
+				killedLabel.Done = true;
+				Killer.Done = true;
+
+				new Thread(() => {
+					SaveManager.Save(Area, SaveType.Statistics);
+					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+					SaveManager.Backup();
+				}).Start();
+			}
 			
 			Audio.PlayMusic("Nostalgia", true);
 			

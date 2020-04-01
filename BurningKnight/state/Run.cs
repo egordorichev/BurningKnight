@@ -219,7 +219,7 @@ namespace BurningKnight.state {
 			if (Won) {
 				return;
 			}
-
+			
 			Won = true;
 			Statistics.Won = true;
 

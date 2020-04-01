@@ -51,7 +51,9 @@ namespace Lens.assets {
 		}
 
 		public static void StartThread() {
-			new Thread(Update).Start();
+			if (Assets.LoadMusic) {
+				new Thread(Update).Start();
+			}
 		}
 		
 		internal static void Load() {

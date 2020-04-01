@@ -13,6 +13,9 @@
 
 # hub
 
+* same seed all the time on startup lol
+
+* quick restart
 * top 3 runs display
 
 * achievements hall {

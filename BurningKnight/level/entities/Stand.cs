@@ -5,6 +5,7 @@ using BurningKnight.state;
 using ImGuiNET;
 using Lens;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
@@ -40,6 +41,13 @@ namespace BurningKnight.level.entities {
 
 		private bool Interact(Entity e) {
 			var s = (InGameState) Engine.Instance.State;
+			var sid = $"top_{id}";
+
+			if (GlobalSave.Exists(sid)) {
+				Log.Debug(GlobalSave.GetString($"{sid}_data"));
+			} else {
+				Log.Debug("no data yet :(");
+			}
 
 			return false;
 		}
