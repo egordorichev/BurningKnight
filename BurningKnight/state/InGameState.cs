@@ -1160,7 +1160,7 @@ namespace BurningKnight.state {
 			});
 			
 			TopUi.Add(leaderMenu = new UiPane {
-				Y = -Display.UiHeight	
+				// Y = -Display.UiHeight	
 			});
 
 			var space = 24f;
@@ -1315,7 +1315,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 
-			var stats = new UiTable { Width = 128 };
+			var stats = new UiTable();
 			leaderMenu.Add(stats);
 
 			if (SetupLeaderboard == null) {
@@ -1325,7 +1325,7 @@ namespace BurningKnight.state {
 				stats.RelativeCenterX = Display.UiWidth * 0.5f;
 				stats.RelativeCenterY = Display.UiHeight * 0.5f;
 			} else {
-				var loading = (UiLabel) pauseMenu.Add(new UiLabel {
+				var loading = (UiLabel) leaderMenu.Add(new UiLabel {
 					LocaleLabel = "loading",
 					RelativeCenterX = Display.UiWidth * 0.5f,
 					RelativeCenterY = Display.UiHeight * 0.5f,
@@ -1397,7 +1397,8 @@ namespace BurningKnight.state {
 					RelativeCenterY = BackY
 				});
 
-				leaderMenu.Enabled = false;
+				leaderMenu.Enabled = true;
+				leaderMenu.Y = 0;
 			}
 		}
 

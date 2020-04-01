@@ -10,13 +10,9 @@
 * active shop discount still discounts without the use
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
-
 * people still get that exit after loading (see itch)
 
 # hub
-
-* challenge room in jungle is so hard with all the hives
-* check if i broke gameover screen?
 
 * leaderboard display {
  * top all time 

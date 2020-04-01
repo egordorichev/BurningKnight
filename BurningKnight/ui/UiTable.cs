@@ -8,67 +8,60 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.ui {
 	public class UiTable : UiEntity {
 		private const float EntryHeight = 15;
-		private const float XPadding = 3;
-		private const float YPadding = 1;
-
-		private struct Entry {
-			public string Key;
-			public string Value;
-			public float ValueWidth;
-			public bool Highlight;
-		}
 		
-		private List<Entry> entries = new List<Entry>();
-		private TextureRegion texture;
+		private List<UiTableEntry> entries = new List<UiTableEntry>();
+
+		public override void AddComponents() {
+			base.AddComponents();
+			Width = 128;
+		}
 
 		public void Clear() {
+			foreach (var e in entries) {
+				e.Done = true;
+			}
+			
 			entries.Clear();
 		}
 
 		public void Add(string key, string value, bool h = false) {
 			value = value ?? "";
-			
-			entries.Add(new Entry {
-				Key = key ?? "",
-				Value = value,
-				ValueWidth = Font.Small.MeasureString(value).Width,
-				Highlight = h
-			});
+
+			var entry = new UiTableEntry() {
+				Label = key ?? "",
+				Value = value
+			};
+
+			if (h) {
+				entry.Color = ProjectileColor.Cyan;
+			}
+
+			((UiPane) Super).Add(entry);
+			entries.Add(entry);
 		}
 
 		public void Prepare() {
 			Clickable = false;
 			Height = entries.Count * EntryHeight;
+			
+		}
 
-			texture = CommonAse.Ui.GetSlice("table_item");
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			var p = ((UiPane) Super).Position;
+			
+			for (var i = 0; i < entries.Count; i++) {
+				var e = entries[i];
+				
+				e.RelativeX = RelativeX;
+				e.RelativeY = RelativeY + i * EntryHeight;
+				e.Position = p + e.RelativePosition;
+			}
 		}
 
 		public override void Render() {
-			if (texture != null) {
-				Graphics.Color.A = 200;
-
-				for (var i = 0; i < entries.Count; i++) {
-					Graphics.Render(texture, new Vector2(X, Y + i * EntryHeight));
-				}
-
-				Graphics.Color.A = 255;
-			}
-
-			for (var i = 0; i < entries.Count; i++) {
-				var entry = entries[i];
-				var y = Y + i * EntryHeight + YPadding;
-
-				if (entry.Highlight) {
-					Graphics.Color = ProjectileColor.Cyan;
-				}
-				
-				Graphics.Print(entry.Key, Font.Small, new Vector2(X + XPadding, y));
-				Graphics.Print(entry.Value, Font.Small, new Vector2(Right - entry.ValueWidth - XPadding, y));
-				
-				if (entry.Highlight) {
-					Graphics.Color = ColorUtils.WhiteColor;
-				}
-			}
+			
 		}
 	}
 }
