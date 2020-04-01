@@ -4,6 +4,8 @@ using BurningKnight.assets;
 using BurningKnight.entity.projectile;
 using Lens.assets;
 using Lens.graphics;
+using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui {
@@ -19,7 +21,7 @@ namespace BurningKnight.ui {
 
 		public void Clear() {
 			foreach (var e in entries) {
-				e.Done = true;
+				((UiPane) Super).Remove(e);
 			}
 			
 			entries.Clear();
@@ -59,6 +61,13 @@ namespace BurningKnight.ui {
 				e.RelativeX = RelativeX;
 				e.RelativeY = RelativeY + i * EntryHeight;
 				e.Position = p + e.RelativePosition;
+
+				if (e.Hidden) {
+					e.Hidden = false;
+					e.scale = 0;
+
+					Tween.To(1, 0, x => e.scale = x, Rnd.Float(0.3f, 0.5f));
+				}
 			}
 		}
 

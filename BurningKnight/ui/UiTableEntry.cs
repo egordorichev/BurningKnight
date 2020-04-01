@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets;
 using Lens;
+using Lens.assets;
 using Lens.graphics;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -12,33 +13,36 @@ namespace BurningKnight.ui {
 		
 		private TextureRegion texture;
 		private string value;
-		private float valueWidth;
+		private float vw;
 		private Vector2 textOrigin;
 		private Vector2 valueOrigin;
 
 		public Color Color = ColorUtils.WhiteColor;
+		public bool Hidden = true;
+
+		public UiTableEntry() {
+			Font = assets.Font.Small;
+		}
 
 		public string Value {
 			set {
 				this.value = value;
-
-				valueWidth = Font.MeasureString(this.value).Width;
+				vw = Font.MeasureString(this.value).Width;
 			}
 		}
 
-		public override void OnClick() {
-			base.OnClick();
-			Click?.Invoke(this);
+		public string RealLocaleLabel {
+			set {
+				label = Locale.Get(value);
+			}
 		}
-
+		
 		public override void AddComponents() {
 			base.AddComponents();
 
 			texture = CommonAse.Ui.GetSlice("table_item");
 			Width = texture.Width;
 			Height = texture.Height;
-
-			Font = assets.Font.Small;
 		}
 
 		public override void PostInit() {
@@ -51,7 +55,7 @@ namespace BurningKnight.ui {
 			}
 
 			textOrigin = new Vector2(Width / 2f, Height / 2f);
-			valueOrigin = new Vector2(-Width / 2f + valueWidth, Height / 2f);
+			valueOrigin = new Vector2(-Width / 2f + vw, Height / 2f);
 		}
 
 		protected override void OnHover() {
@@ -71,6 +75,10 @@ namespace BurningKnight.ui {
 		}
 
 		public override void Render() {
+			if (Hidden) {
+				return;
+			}
+			
 			var or = texture.Center;
 			var s = new Vector2(scale);
 			
@@ -86,7 +94,7 @@ namespace BurningKnight.ui {
 			}
 
 			Graphics.Print(label, Font, new Vector2(X + XPadding, Y + YPadding) + textOrigin, angle, textOrigin, s);
-			Graphics.Print(value, Font, new Vector2(Right - valueWidth + XPadding, Y + YPadding) + valueOrigin, angle, valueOrigin, s);
+			Graphics.Print(value, Font, new Vector2(Right - vw - XPadding, Y + YPadding) + valueOrigin, angle, valueOrigin, s);
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 	}

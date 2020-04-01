@@ -230,5 +230,25 @@ namespace BurningKnight.state {
 			
 			((InGameState) Engine.Instance.State).AnimateDoneScreen();
 		}
+
+		public static string GetLeaderboardId() {
+			switch (Type) {
+				case RunType.Daily: {
+					return $"daily_{Run.DailyId}";
+				}
+
+				case RunType.BossRush: {
+					return "boss_rush";
+				}
+
+				case RunType.Challenge: {
+					return $"challenge_{Run.ChallengeId}";
+				}
+				
+				default: case RunType.Regular: {
+					return "high_score";
+				}
+			}
+		}
 	}
 }

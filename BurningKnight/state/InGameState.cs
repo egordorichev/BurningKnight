@@ -752,7 +752,7 @@ namespace BurningKnight.state {
 								}
 							}
 
-							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
+							if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
 								if (Settings.UiSfx) {
 									Audio.PlaySfx("ui_exit", 0.5f);
 								}
@@ -1119,7 +1119,10 @@ namespace BurningKnight.state {
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
-		private Action d;
+		private UiLabel loading;
+		private UiChoice choice;
+		private UiTable leaderStats;
+		private Action<string> d;
 
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
@@ -1290,7 +1293,7 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
-			gameOverMenu.Add(new UiButton {
+			gameOverMenu.Add(leaderBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
 				// RelativeCenterY = start + space * 3,
@@ -1315,17 +1318,17 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 
-			var stats = new UiTable();
-			leaderMenu.Add(stats);
+			leaderStats = new UiTable();
+			leaderMenu.Add(leaderStats);
 
 			if (SetupLeaderboard == null) {
-				stats.Add("No leaderboards cause no steam", ":(");
-				stats.Prepare();
+				leaderStats.Add("No leaderboards cause no steam", ":(");
+				leaderStats.Prepare();
 
-				stats.RelativeCenterX = Display.UiWidth * 0.5f;
-				stats.RelativeCenterY = Display.UiHeight * 0.5f;
+				leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
+				leaderStats.RelativeCenterY = Display.UiHeight * 0.5f;
 			} else {
-				var loading = (UiLabel) leaderMenu.Add(new UiLabel {
+				loading = (UiLabel) leaderMenu.Add(new UiLabel {
 					LocaleLabel = "loading",
 					RelativeCenterX = Display.UiWidth * 0.5f,
 					RelativeCenterY = Display.UiHeight * 0.5f,
@@ -1333,21 +1336,20 @@ namespace BurningKnight.state {
 					Hide = true
 				});
 				
-				UiChoice choice = null;
 				var offset = 0;
 				
-				d = () =>{
+				d = (s) =>{
 					loading.Hide = false;
 					choice.Disabled = true;
 					
-					stats.Clear();
+					leaderStats.Clear();
 					offset = Math.Max(0, offset);
 				
-					SetupLeaderboard(stats, "high_score", choice.Options[choice.Option], offset, () => {
-						stats.Prepare();
+					SetupLeaderboard(leaderStats, "high_score", s, offset, () => {
+						leaderStats.Prepare();
 
-						stats.RelativeCenterX = Display.UiWidth * 0.5f;
-						stats.RelativeCenterY = Display.UiHeight * 0.5f;
+						leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
+						leaderStats.RelativeCenterY = Display.UiHeight * 0.5f;
 						
 						loading.Hide = true;
 						choice.Disabled = false;
@@ -1359,11 +1361,11 @@ namespace BurningKnight.state {
 					XPadding = 4,
 					Selectable = false,
 					RelativeX = Display.UiWidth * 0.5f - 10,
-					RelativeCenterY = BackY - 15,
+					RelativeCenterY = BackY - 25,
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset = Math.Max(0, offset - 10);
-						d();
+						d(choice.Options[choice.Option]);
 					},
 					ScaleMod = 3
 				});
@@ -1373,16 +1375,17 @@ namespace BurningKnight.state {
 					XPadding = 4,
 					Selectable = false,
 					RelativeX = Display.UiWidth * 0.5f + 10,
-					RelativeCenterY = BackY - 15,
+					RelativeCenterY = BackY - 25,
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset += 10;
-						d();
+						d(choice.Options[choice.Option]);
 					},
 					ScaleMod = 3
 				});
 				
 				leaderMenu.Add(choice = new UiChoice {
+					Font = Font.Small,
 					Name = "display",
 					Options = new [] {
 						"around_you", "friends", "global"
@@ -1391,14 +1394,23 @@ namespace BurningKnight.state {
 					Option = 0,
 					Click = c => {
 						offset = 0;
-						d();
+						d(choice.Options[choice.Option]);
 					},
 					RelativeX = Display.UiWidth * 0.5f,
-					RelativeCenterY = BackY
+					RelativeCenterY = TitleY + 12
+				});
+				
+				leaderMenu.Add(leaderBack = new UiButton {
+					LocaleLabel = "back",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = BackY,
+					Click = bt => {
+						HideLeaderboard();
+					},
 				});
 
-				leaderMenu.Enabled = true;
-				leaderMenu.Y = 0;
+				leaderMenu.Enabled = false;
+				leaderMenu.Y = Display.UiHeight * 2;
 			}
 		}
 
@@ -1495,6 +1507,8 @@ namespace BurningKnight.state {
 		private UiButton audioBack;
 		private UiButton graphicsBack;
 		private UiButton gameBack;
+		private UiButton overBack;
+		private UiButton leaderBack;
 
 		private void AddGameSettings() {
 			pauseMenu.Add(gameSettings = new UiPane {
@@ -2268,6 +2282,45 @@ namespace BurningKnight.state {
 			gamepadSettings.Enabled = false;
 		}
 
+		private Action returnFromLeaderboard;
+		private bool busy;
+
+		private void ShowLeaderboard(string board) {
+			if (busy) {
+				return;
+			}
+
+			busy = true;
+
+			if (loading != null) {
+				loading.Hide = false;
+				leaderStats.Clear();
+			}
+
+			leaderMenu.Enabled = true;
+			currentBack = leaderBack;
+			
+			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+				d(board);
+			};
+		}
+
+		private void HideLeaderboard() {
+			if (!busy) {
+				return;
+			}
+
+			busy = false;
+			
+			Tween.To(Display.UiHeight * 2, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f).OnEnd = () => {
+				SelectFirst();			
+				leaderMenu.Enabled = false;
+			};
+
+			returnFromLeaderboard?.Invoke();
+		}
+
 		public void AnimateDoneScreen() {
 			if (Run.Type == RunType.Daily) {
 				Player.StartingItem = null;
@@ -2325,7 +2378,20 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(stats);
 
 			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}"));
-			stats.Add(Locale.Get("seed"), Run.Seed);
+			stats.Add(Locale.Get("seed"), Run.Seed, false, bt => {
+				var b = (UiTableEntry) bt;
+				b.RealLocaleLabel = "copied_to_clipboard";
+
+				try {
+					// Needs xclip on linux
+					TextCopy.Clipboard.SetText(Run.Seed);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
+			});
+			
 			stats.Add(Locale.Get("time"), GetRunTime());
 			stats.Add(Locale.Get("depth"), Run.Depth.ToString());
 			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
@@ -2339,6 +2405,7 @@ namespace BurningKnight.state {
 			Run.CalculateScore();
 			Log.Info($"Run score is {Run.Score}");
 
+			currentBack = overBack;
 			var newHigh = false;
 
 			if (Run.Type == RunType.Challenge) {
@@ -2350,7 +2417,22 @@ namespace BurningKnight.state {
 				}
 			}
 			
-			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
+			var board = Run.GetLeaderboardId();
+			
+			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString(), newHigh, b => {
+				ShowLeaderboard(board);
+
+				Tween.To(-Display.UiHeight, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.6f).OnEnd = () => {
+					gameOverMenu.Enabled = false;
+				};
+
+				returnFromLeaderboard = () => {
+					gameOverMenu.Enabled = true;
+					currentBack = overBack;
+					Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+				};
+			});
+			
 			stats.Prepare();
 			
 			stats.RelativeCenterX = Display.UiWidth * 0.5f;
@@ -2364,29 +2446,6 @@ namespace BurningKnight.state {
 			};
 			
 			OpenBlackBars();
-
-			var board = "high_score";
-
-			switch (Run.Type) {
-				case RunType.Regular: {
-					break;
-				}
-				
-				case RunType.Daily: {
-					board = $"daily_{Run.DailyId}";
-					break;
-				}
-
-				case RunType.BossRush: {
-					board = "boss_rush";
-					break;
-				}
-
-				case RunType.Challenge: {
-					board = $"challenge_{Run.ChallengeId}";
-					break;
-				}
-			}
 
 			Run.SubmitScore?.Invoke(Run.Score, board);
 		}
