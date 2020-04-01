@@ -11,8 +11,6 @@ namespace BurningKnight.level.entities {
 		}
 
 		private string GetTime(TimeSpan span) {
-			Log.Debug(span);
-
 			if ((int) span.TotalHours > 1) {
 				return $"{(int) span.TotalHours} {Locale.Get("hours")}";
 			}
@@ -32,9 +30,6 @@ namespace BurningKnight.level.entities {
 				var dd = d.AddDays(1);
 				
 				var next = new DateTime(dd.Year, dd.Month, dd.Day, 0, 0, 0, DateTimeKind.Utc);
-
-				Log.Debug(d);
-				Log.Debug(next);
 
 				return $"[sp 3]{Locale.Get("run_daily")} #{Run.CalculateDailyId()}\n{Locale.Get("next_daily_in")}\n{GetTime(next.Subtract(d))}";
 			};

@@ -320,6 +320,7 @@ namespace BurningKnight.state {
 		}
 
 		private float speedBeforePause;
+		public bool InStats;
 
 		protected override void OnPause() {
 			base.OnPause();
@@ -327,27 +328,31 @@ namespace BurningKnight.state {
 			if (died || InMenu || Run.Won) {
 				return;
 			}
-
-			if (seedLabel != null) {
-				seedLabel.Label = $"Seed: {Run.Seed}";
-			}
-
-			if (Settings.UiSfx) {
-				Audio.PlaySfx("ui_goback", 0.5f);
-			}
-
+			
 			Tween.To(this, new {blur = 1}, 0.25f);
 
-			if (painting == null) {
-				doneAnimatingPause = false;
+			if (!InStats) {
+				if (seedLabel != null) {
+					seedLabel.Label = $"Seed: {Run.Seed}";
+				}
 
-				pauseMenu.X = 0;
-				pauseMenu.Enabled = true;
+				if (Settings.UiSfx) {
+					Audio.PlaySfx("ui_goback", 0.5f);
+				}
 
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
-					doneAnimatingPause = true;
-					SelectFirst();
-				};
+
+				if (painting == null) {
+					doneAnimatingPause = false;
+
+					pauseMenu.X = 0;
+					pauseMenu.Enabled = true;
+					currentBack = pauseBack;
+
+					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
+						doneAnimatingPause = true;
+						SelectFirst();
+					};
+				}
 			}
 
 			speedBeforePause = Audio.Speed;
@@ -378,10 +383,13 @@ namespace BurningKnight.state {
 			doneAnimatingPause = false;
 
 			Tween.To(this, new {blur = 0}, 0.25f);
-			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
-				pauseMenu.Enabled = false;
-				doneAnimatingPause = true;
-			};
+
+			if (!InStats) {
+				Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
+					pauseMenu.Enabled = false;
+					doneAnimatingPause = true;
+				};
+			}
 
 			CloseBlackBars();
 			Tween.To(speedBeforePause, Audio.Speed, x => Audio.Speed = x, 0.4f);
@@ -1339,15 +1347,20 @@ namespace BurningKnight.state {
 				});
 				
 				var offset = 0;
+				string lastS = null;
 				
 				d = (s) =>{
+					if (s == null) {
+						lastS = s = lastS ?? Run.Type.ToString().ToLower();
+					}
+					
 					loading.Hide = false;
 					choice.Disabled = true;
 					
 					leaderStats.Clear();
 					offset = Math.Max(0, offset);
 				
-					SetupLeaderboard(leaderStats, "high_score", s, offset, () => {
+					SetupLeaderboard(leaderStats, s, choice.Options[choice.Option], offset, () => {
 						leaderStats.Prepare();
 
 						leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
@@ -1367,7 +1380,7 @@ namespace BurningKnight.state {
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset = Math.Max(0, offset - 10);
-						d(choice.Options[choice.Option]);
+						d(null);
 					},
 					ScaleMod = 3
 				});
@@ -1381,7 +1394,7 @@ namespace BurningKnight.state {
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset += 10;
-						d(choice.Options[choice.Option]);
+						d(null);
 					},
 					ScaleMod = 3
 				});
@@ -1396,7 +1409,7 @@ namespace BurningKnight.state {
 					Option = 0,
 					Click = c => {
 						offset = 0;
-						d(choice.Options[choice.Option]);
+						d(null);
 					},
 					RelativeX = Display.UiWidth * 0.5f,
 					RelativeCenterY = TitleY + 12
@@ -2284,10 +2297,10 @@ namespace BurningKnight.state {
 			gamepadSettings.Enabled = false;
 		}
 
-		private Action returnFromLeaderboard;
+		public Action ReturnFromLeaderboard;
 		private bool busy;
 
-		private void ShowLeaderboard(string board) {
+		public void ShowLeaderboard(string board) {
 			if (busy) {
 				return;
 			}
@@ -2320,7 +2333,7 @@ namespace BurningKnight.state {
 				leaderMenu.Enabled = false;
 			};
 
-			returnFromLeaderboard?.Invoke();
+			ReturnFromLeaderboard?.Invoke();
 		}
 
 		public void AnimateDoneScreen() {
@@ -2428,7 +2441,7 @@ namespace BurningKnight.state {
 					gameOverMenu.Enabled = false;
 				};
 
-				returnFromLeaderboard = () => {
+				ReturnFromLeaderboard = () => {
 					gameOverMenu.Enabled = true;
 					currentBack = overBack;
 					Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
