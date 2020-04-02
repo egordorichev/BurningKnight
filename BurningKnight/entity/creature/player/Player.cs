@@ -604,7 +604,7 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}			
 			} else if (e is PostHealthModifiedEvent h) {
-				if (h.Amount < 0) {
+				if (h.Amount < 0 && !h.PressedForBomb) {
 					HandleEvent(new PlayerHurtEvent {
 						Player = this
 					});
