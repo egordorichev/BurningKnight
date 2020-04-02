@@ -54,7 +54,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public void ModifyBombs(int amount, Entity setter) {
+		public void ModifyBombs(int amount, Entity setter, bool pr = false) {
 			var component = GetComponent<HealthComponent>();
 			amount = (int) (amount < 0 ? -Math.Min(Bombs, -amount) : Math.Min(Cap - component.MaxHealth - Total, amount));
 
@@ -63,7 +63,8 @@ namespace BurningKnight.entity.creature.player {
 				From = setter,
 				Who = Entity,
 				Default = false,
-				HealthType = HealthType.Bomb
+				HealthType = HealthType.Bomb,
+				PressedForBomb = pr
 			};
 			
 			if (amount != 0 && !Send(e)) {
@@ -78,7 +79,8 @@ namespace BurningKnight.entity.creature.player {
 					From = setter,
 					Who = Entity,
 					Default = false,
-					HealthType = HealthType.Bomb
+					HealthType = HealthType.Bomb,
+					PressedForBomb = pr
 				});
 			}
 		}

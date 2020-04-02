@@ -216,7 +216,7 @@ namespace BurningKnight.entity.creature.player {
 					var h = GetComponent<HeartsComponent>();
 
 					if (h.Bombs > 0) {
-						h.ModifyBombs(-1, Entity);
+						h.ModifyBombs(-1, Entity, true);
 						spawn = true;
 					}
 				}

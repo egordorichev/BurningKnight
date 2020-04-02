@@ -230,10 +230,12 @@ namespace BurningKnight.save.statistics {
 				}
 			} else if (e is PostHealthModifiedEvent hme) {
 				if (hme.Amount < 0) {
-					if (hme.From is Player) {
-						DamageDealt += (uint) -hme.Amount;
-					} else if (hme.Who is Player) {
-						DamageTaken += (uint) -hme.Amount;
+					if (!hme.PressedForBomb) {
+						if (hme.From is Player) {
+							DamageDealt += (uint) -hme.Amount;
+						} else if (hme.Who is Player) {
+							DamageTaken += (uint) -hme.Amount;
+						}
 					}
 				} else if (hme.Amount > 0 && hme.Who is Player) {
 					HeartsCollected += (ushort) hme.Amount;
