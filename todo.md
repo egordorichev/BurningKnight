@@ -23,9 +23,6 @@
 
 # hub
 
-replace getting heart containers with getting new shields
-picking another lamp should clear your items and hp
-
 * achievement branches rewards 
 * 3 save slots (aka parrarel universes)
 
