@@ -13,16 +13,14 @@
 
 * gamepad still shakes even when set to none
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
-
+* check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
 # hub
 
-* look at tinted rocks, make sure they can drop shields
 * boss bug out when you get dead
 * same seed all the time on startup lol
 
 * quick restart
-* top 3 runs display
 
 * make some achievements unlock items, give you some emerelads
 * achievement branches rewards
@@ -30,12 +28,10 @@
 * 3 save slots (aka parrarel universes)
 * challanges
 
-* check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
+#
 
 !!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms
-
-#
 
 * redo remapping screens
 * shop should start small and grow with donations?
