@@ -744,6 +744,10 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 
+			if (d.From == this) {
+				ing.Killer.Slice = CommonAse.Ui.GetSlice("self");
+			}
+
 			if (ing.Killer.Slice == null && ing.Killer.Animation == null) {
 				ing.Killer.Slice = CommonAse.Items.GetSlice("unknown");
 				ing.Killer.Width = ing.Killer.Slice.Width;
