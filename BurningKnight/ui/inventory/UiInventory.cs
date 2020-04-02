@@ -248,6 +248,10 @@ namespace BurningKnight.ui.inventory {
 		}
 		
 		private void AddArtifact(Item item) {
+			if (item.Hide) {
+				return;
+			}
+			
 			UiItem old = null;
 
 			foreach (var i in items) {

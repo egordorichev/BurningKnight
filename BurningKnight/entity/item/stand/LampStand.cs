@@ -36,6 +36,11 @@ namespace BurningKnight.entity.item.stand {
 			}
 		}
 
+		protected override void OnTake(Item item, Entity who) {
+			base.OnTake(item, who);
+			AlreadyOnStand.Remove(item.Id);
+		}
+
 		protected override string GetSprite() {
 			return "lamp_stand";
 		}
