@@ -44,15 +44,13 @@ namespace BurningKnight.entity.item.stand {
 			return item.Type == ItemType.Lamp;
 		}
 
-		protected bool ShowUnlocked;
+		protected bool ShowUnlocked = true;
 
 		private Item PickItem() {
 			var items = new List<ItemData>();
 
 			foreach (var i in Items.Datas.Values) {
-				if (i.Lockable && i.UnlockPrice > 0 && ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) 
-				    && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
-					
+				if (ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
 					items.Add(i);
 				}
 			}

@@ -35,6 +35,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (loaded) {
+				Log.Info("using");
 				Item?.Use(Entity);
 			}
 

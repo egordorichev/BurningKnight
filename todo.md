@@ -18,10 +18,13 @@
 * boss bug out when you get dead
 * same seed all the time on startup lol
 
+* daily run outside of map
+* loading forever is back
+
 # hub
 
-* achievement branches rewards
 
+* achievement branches rewards 
 * 3 save slots (aka parrarel universes)
 
 * challanges {

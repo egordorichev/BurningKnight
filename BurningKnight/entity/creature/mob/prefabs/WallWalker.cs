@@ -157,7 +157,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				var mx = Self.CenterX;
 				var my = Self.CenterY;
 
-				if (Run.Level.Get((int) Math.Round(mx / 16f), (int) Math.Round(my / 16f)).IsWall()) {
+				var x = (int) Math.Round(mx / 16f);
+				var y = (int) Math.Round(my / 16f);
+
+				if (Run.Level.IsInside(x, y) && Run.Level.Get(x, y).IsWall()) {
 					Log.Debug("Killing walker");
 					Self.Done = true;
 					return;

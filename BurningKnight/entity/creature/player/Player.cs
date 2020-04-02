@@ -200,9 +200,7 @@ namespace BurningKnight.entity.creature.player {
 					var i = Items.CreateAndAdd(StartingLamp, Area);
 					i.Scourged = false;
 					GetComponent<LampComponent>().Set(i, false);
-					
 					Log.Debug($"Starting lamp: {StartingLamp}");
-					i.Use(this);
 				}
 			}
 			
