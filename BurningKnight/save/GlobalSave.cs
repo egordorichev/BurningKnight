@@ -52,8 +52,8 @@ namespace BurningKnight.save {
 			return Values.TryGetValue(Key, out var Value) ? Value : Def;
 		}
 		
-		public static string GetJson(string key) {
-			return Values.TryGetValue(key, out var Value) ? JsonValue.Parse(key) : JsonValue.Null;
+		public static JsonValue GetJson(string key) {
+			return Values.TryGetValue(key, out var Value) ? JsonValue.Parse(Value) : JsonValue.Null;
 		}
 
 		public static int GetInt(string Key, int Def = 0) {

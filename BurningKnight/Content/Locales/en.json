@@ -980,5 +980,8 @@
 	"loading": "Loading",
 	"generating": "Generating",
 	"cursor_radius": "Cursor Radius",
-	"no_scores_yet" : "No scores yet"
+	"no_scores_yet" : "No scores yet",
+	"no_score_yet" : "No score yet",
+	"run" : "Run",
+	"top" : "Top"
 }

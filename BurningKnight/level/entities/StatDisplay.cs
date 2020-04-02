@@ -33,8 +33,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new InteractableComponent(Interact));
 			AddComponent(new ShadowComponent());
 
-			var r = GetCollider();
-			AddComponent(new SensorBodyComponent(r.X - Npc.Padding, r.Y - Npc.Padding, r.Width + Npc.Padding * 2, r.Height + Npc.Padding * 2, BodyType.Static));
+			AddComponent(new SensorBodyComponent(-2, -Npc.Padding, Width + 4, Height + Npc.Padding * 2, BodyType.Static));
 		}
 
 		private bool Interact(Entity e) {

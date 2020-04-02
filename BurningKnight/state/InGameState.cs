@@ -71,6 +71,7 @@ namespace BurningKnight.state {
 		
 		private UiPane pauseMenu;
 		private UiPane leaderMenu;
+		private UiPane statsMenu;
 		private UiPane gameOverMenu;
 
 		private UiPane audioSettings;
@@ -81,6 +82,7 @@ namespace BurningKnight.state {
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
 		private UiLabel killedLabel;
+		private UiLabel placeLabel;
 
 		private bool died;
 		private Cursor cursor;
@@ -1141,6 +1143,7 @@ namespace BurningKnight.state {
 		private UiLabel loading;
 		private UiChoice choice;
 		private UiTable leaderStats;
+		private UiTable statsStats;
 		private Action<string> d;
 
 		private void SetupUi() {
@@ -1181,9 +1184,7 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight	
 			});
 			
-			TopUi.Add(leaderMenu = new UiPane {
-				// Y = -Display.UiHeight	
-			});
+			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
 			var start = Display.UiHeight * 0.5f;
@@ -1425,19 +1426,49 @@ namespace BurningKnight.state {
 					RelativeX = Display.UiWidth * 0.5f,
 					RelativeCenterY = TitleY + 12
 				});
+			}
 				
-				leaderMenu.Add(leaderBack = new UiButton {
+			leaderMenu.Add(leaderBack = new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = BackY,
+				Click = bt => {
+					HideLeaderboard();
+				},
+			});
+
+			leaderMenu.Enabled = false;
+			leaderMenu.Y = Display.UiHeight * 2;
+			
+			if (Run.Depth == 0) {
+				TopUi.Add(statsMenu = new UiPane());
+				
+				placeLabel = (UiLabel) statsMenu.Add(new UiLabel {
+					Label = "404",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = TitleY
+				});
+				
+				statsMenu.Add(statsBack = new UiButton {
 					LocaleLabel = "back",
 					RelativeCenterX = Display.UiWidth * 0.5f,
 					RelativeCenterY = BackY,
 					Click = bt => {
-						HideLeaderboard();
+						HideStats();
 					},
 				});
-			}
 
-			leaderMenu.Enabled = false;
-			leaderMenu.Y = Display.UiHeight * 2;
+				statsStats = new UiTable();
+				statsMenu.Add(statsStats);
+
+				statsStats.Prepare();
+
+				statsStats.RelativeCenterX = Display.UiWidth * 0.5f;
+				statsStats.RelativeCenterY = Display.UiHeight * 0.5f;
+				
+				statsMenu.Enabled = false;
+				statsMenu.Y = Display.UiHeight * 2;
+			}
 		}
 
 		private void AddSettings() {
@@ -1535,6 +1566,7 @@ namespace BurningKnight.state {
 		private UiButton gameBack;
 		private UiButton overBack;
 		private UiButton leaderBack;
+		private UiButton statsBack;
 
 		private void AddGameSettings() {
 			pauseMenu.Add(gameSettings = new UiPane {
@@ -2352,6 +2384,92 @@ namespace BurningKnight.state {
 
 			ReturnFromLeaderboard?.Invoke();
 		}
+		
+		public Action ReturnFromStats;
+		private bool sbusy;
+
+		public void ShowStats(int place) {
+			if (sbusy) {
+				return;
+			}
+
+			sbusy = true;
+
+			statsStats.Clear();
+
+			placeLabel.Label = $"{Locale.Get("top")} #{place + 1} {Locale.Get("run")}";
+			placeLabel.RelativeCenterX = Display.UiWidth * 0.5f;
+
+			var id = $"top_{place}";
+			var score = GlobalSave.GetInt(id);
+			var data = GlobalSave.GetJson($"{id}_data");
+			
+			statsStats.Add(Locale.Get("seed"), data["seed"].AsString, false, bt => {
+				var b = (UiTableEntry) bt;
+				b.RealLocaleLabel = "copied_to_clipboard";
+
+				try {
+					// Needs xclip on linux
+					TextCopy.Clipboard.SetText(Run.Seed);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
+			});
+			
+			statsStats.Add(Locale.Get("time"), data["time"].AsString);
+			statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("kills"), data["kills"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("scourge"), data["scourge"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
+			statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
+			
+			statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
+				ShowLeaderboard("high_score");
+
+				Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
+					statsMenu.Enabled = false;
+				};
+
+				ReturnFromLeaderboard = () => {
+					statsMenu.Enabled = true;
+					currentBack = statsBack;
+					Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut);
+				};
+			});
+			
+			statsStats.Prepare();
+
+			statsStats.RelativeCenterX = Display.UiWidth * 0.5f;
+			statsStats.RelativeCenterY = Display.UiHeight * 0.5f;
+
+			statsMenu.Enabled = true;
+			currentBack = statsBack;
+			statsMenu.Y = Display.UiHeight;
+			
+			Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+			};
+		}
+
+		private void HideStats() {
+			if (!sbusy) {
+				return;
+			}
+
+			sbusy = false;
+			
+			Tween.To(Display.UiHeight * 2, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
+				SelectFirst();			
+				statsMenu.Enabled = false;
+			};
+
+			ReturnFromStats?.Invoke();
+		}
 
 		public void AnimateDoneScreen() {
 			if (Run.Type == RunType.Daily) {
@@ -2497,7 +2615,7 @@ namespace BurningKnight.state {
 					root["items"] = Run.Statistics.Items.Count;
 					root["damage"] = Run.Statistics.DamageTaken;
 					root["kills"] = Run.Statistics.MobsKilled;
-					root["rooms"] = Run.Statistics.RoomsExplored;
+					root["rooms"] = $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}";
 					root["scourge"] = Run.Scourge;
 					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0}";
 

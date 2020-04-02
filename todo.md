@@ -11,27 +11,33 @@
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
 
+* gamepad still shakes even when set to none
+* By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
+
+
 # hub
 
+* look at tinted rocks, make sure they can drop shields
+* boss bug out when you get dead
 * same seed all the time on startup lol
 
 * quick restart
 * top 3 runs display
 
-* achievements hall {
- + make some achievements unlock items
- + achievement branches rewards
-}
+* make some achievements unlock items, give you some emerelads
+* achievement branches rewards
 
-* make reroll machine spawn in item rooms
-
-* game stats in hub (best 3 runs, total deaths, etc)
-* challanges
-!!! * add eye of chthulu pet
 * 3 save slots (aka parrarel universes)
+* challanges
+
+* check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
+
+!!! * add eye of chthulu pet
+* make reroll machine spawn in item rooms
 
 #
 
+* redo remapping screens
 * shop should start small and grow with donations?
 * show only last 6 or so items, allow to see more in pause menu
 * this is a secret to everyone easter egg in hub?
