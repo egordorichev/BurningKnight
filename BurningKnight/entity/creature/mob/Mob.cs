@@ -181,6 +181,10 @@ namespace BurningKnight.entity.creature.mob {
 					}
 				}
 
+				if (who is Player && who.GetComponent<LampComponent>().Item?.Id == "bk:explosive_lamp") {
+					AddDrops(new SimpleDrop(1f, 1, 1, "bk:bomb"));
+				}
+
 				if (!de.BlockClear) {
 					GetComponent<RoomComponent>().Room?.CheckCleared(who);
 				}
@@ -518,6 +522,7 @@ namespace BurningKnight.entity.creature.mob {
 					drops.Add(Items.Create("bk:copper_coin"));
 				}
 			}
+			
 		}
 	}
 }

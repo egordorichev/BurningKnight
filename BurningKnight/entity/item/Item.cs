@@ -47,6 +47,7 @@ namespace BurningKnight.entity.item {
 		public bool Automatic;
 		public bool SingleUse;
 		public bool Scourged;
+		public bool Hide;
 		
 		public ItemUse[] Uses;
 		public ItemUseCheck UseCheck = ItemUseChecks.Default;
@@ -284,6 +285,7 @@ namespace BurningKnight.entity.item {
 			stream.WriteFloat(Delay);
 			stream.WriteBoolean(Unknown);
 			stream.WriteBoolean(Scourged);
+			stream.WriteBoolean(Hide);
 		}
 
 		public void ConvertTo(string id) {
@@ -355,6 +357,8 @@ namespace BurningKnight.entity.item {
 
 				var v = stream.ReadBoolean();
 				Scourged = Scourged || v;
+
+				Hide = stream.ReadBoolean();
 			} catch (Exception e) {
 				Log.Error(e);
 			}
@@ -517,7 +521,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static bool Unlocked(string id) {
-			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:lamp" || id == "bk:revolver" || id == "bk:no_hat";
+			return GlobalSave.IsTrue(id) || id == "bk:sword" || id == "bk:no_lamp" || id == "bk:revolver" || id == "bk:no_hat";
 		}
 
 		public bool HandleOwnerEvent(Event e) {

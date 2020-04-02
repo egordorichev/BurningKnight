@@ -255,11 +255,15 @@ namespace BurningKnight.entity.component {
 				return true;
 			} else if (e is ExplodedEvent b && !b.Handled) {
 				Items.Unlock("bk:infinite_bomb");
-				
-				ModifyHealth(Entity is Player ? -2 : -b.Damage, b.Who, DamageType.Explosive);
 
-				var component = Entity.GetAnyComponent<BodyComponent>();
-				component?.KnockbackFrom(b.Who, 2);
+				if (Entity is Player && b.Who == Entity && Entity.GetComponent<LampComponent>().Item?.Id == "bk:explosive_lamp") {
+					
+				} else {
+					ModifyHealth(Entity is Player ? -2 : -b.Damage, b.Who, DamageType.Explosive);
+
+					var component = Entity.GetAnyComponent<BodyComponent>();
+					component?.KnockbackFrom(b.Who, 2);
+				}
 			}
 			
 			return base.HandleEvent(e);

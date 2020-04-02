@@ -18,11 +18,15 @@
 * boss bug out when you get dead
 * same seed all the time on startup lol
 
+* daily run outside of map
+* loading forever is back
+
 # hub
 
-* make some achievements unlock items, give you some emerelads?
-* achievement branches rewards
+replace getting heart containers with getting new shields
+picking another lamp should clear your items and hp
 
+* achievement branches rewards 
 * 3 save slots (aka parrarel universes)
 
 * challanges {

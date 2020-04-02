@@ -53,6 +53,7 @@ namespace BurningKnight.save {
 
 					Player.StartingItem = Rnd.Chance(70) ? Items.Generate(ItemType.Active) : null;
 					Player.StartingWeapon = Items.Generate(ItemPool.Weapon);
+					Player.StartingLamp = Items.Generate(ItemType.Lamp);
 				}
 				
 				area.Add(new RunStatistics());

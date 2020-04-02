@@ -1,6 +1,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -13,7 +14,9 @@ namespace BurningKnight.entity.item.use {
 		public string Item;
 		public bool OnStand;
 		public bool Random;
-
+		public bool Animate;
+		public bool Hide;
+		
 		public override void Use(Entity entity, Item item) {
 			var id = Random ? Items.Generate(i => i.Type == ItemType.Active || i.Type == ItemType.Weapon || i.Type == ItemType.Artifact) : Item;
 			
@@ -41,7 +44,8 @@ namespace BurningKnight.entity.item.use {
 					return;
 				}
 
-				entity.GetComponent<InventoryComponent>().Pickup(i);
+				i.Hide = Hide;
+				entity.GetComponent<InventoryComponent>().Pickup(i, Animate);
 			}
 		}
 
@@ -52,6 +56,8 @@ namespace BurningKnight.entity.item.use {
 			Item = settings["item"].AsString ?? "";
 			OnStand = settings["on_stand"].Bool(false);
 			Random = settings["random"].Bool(false);
+			Animate = settings["animate"].Bool(true);
+			Hide = settings["hide"].Bool(false);
 		}
 		
 		public static void RenderDebug(JsonValue root) {
@@ -87,6 +93,9 @@ namespace BurningKnight.entity.item.use {
 			if (ImGui.InputInt("Amount", ref val)) {
 				root["amount"] = val;
 			}
+
+			root.Checkbox("Animate?", "animate", true);
+			root.Checkbox("Hide?", "hide", false);
 		}
 	}
 }
