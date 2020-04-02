@@ -542,14 +542,18 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+			var gamepad = GamepadComponent.Current;
 
+			if (died && Input.WasPressed(Controls.QuickRestart)) {
+				overQuickBack?.OnClick();
+			}
+			
 			if (Paused || died || Run.Won) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
 
-				var gamepad = GamepadComponent.Current;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
 					SelectFirst(true);
@@ -1313,11 +1317,24 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
+			if (Run.Depth > 0) {
+				gameOverMenu.Add(overQuickBack = new UiButton {
+					Font = Font.Small,
+					LocaleLabel = "quick_restart",
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = BackY - 6,
+
+					Click = b => {
+						gameOverMenu.Enabled = false;
+						Run.StartNew(1);
+					}
+				});
+			}
+
 			gameOverMenu.Add(overBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				// RelativeCenterY = start + space * 3,
-				RelativeCenterY = BackY,
+				RelativeCenterY = BackY + (Run.Depth > 0 ? 12 : 0),
 
 				Click = b => {
 					gameOverMenu.Enabled = false;
@@ -1565,6 +1582,7 @@ namespace BurningKnight.state {
 		private UiButton graphicsBack;
 		private UiButton gameBack;
 		private UiButton overBack;
+		private UiButton overQuickBack;
 		private UiButton leaderBack;
 		private UiButton statsBack;
 
