@@ -514,6 +514,7 @@
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
     <Compile Include="entity\creature\pet\SnekPet.cs" />
     <Compile Include="entity\creature\pet\Strawberry.cs" />
+    <Compile Include="entity\creature\player\LampComponent.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />

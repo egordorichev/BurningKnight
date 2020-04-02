@@ -175,3 +175,5 @@
 * ring of becoming: player is instakill, but he gets some bonus
 * heals 1 heart upon descending to next lvl
 * gives 1 free purchase from the shop
+
+* pet, that is a regular enemy. after killing everyone else he becomes passive. finding a special artifact makes him friendly

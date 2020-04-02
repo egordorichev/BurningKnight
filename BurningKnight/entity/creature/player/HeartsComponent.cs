@@ -5,6 +5,7 @@ using BurningKnight.entity.events;
 using ImGuiNET;
 using Lens.entity;
 using Lens.entity.component;
+using Lens.util;
 using Lens.util.file;
 
 namespace BurningKnight.entity.creature.player {
@@ -18,7 +19,27 @@ namespace BurningKnight.entity.creature.player {
 
 		public int ShieldHalfs => shieldHalfs;
 		public int Bombs => bombs;
-		public int BombsMax => bombsMax;
+		
+		public int BombsMax {
+			get => bombsMax;
+			set {
+				if (bombsMax == value) {
+					return;
+				}
+
+				var old = bombsMax;
+				var nw = value;
+
+				if (!Send(new MaxHealthModifiedEvent {
+					Who = Entity,
+					Amount = nw - old
+				})) {
+					bombsMax = (byte) MathUtils.Clamp(0, 255, nw);
+					bombs = Math.Min(bombs, bombsMax);
+				}
+			}
+		}
+		
 		public int Total => ((int) bombs) * 2 + shieldHalfs;
 
 		public void ModifyShields(int amount, Entity setter) {

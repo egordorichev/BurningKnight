@@ -1,6 +1,8 @@
 ﻿using System;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.assets;
 using Lens.entity;
@@ -9,17 +11,40 @@ using Lens.lightJson;
 namespace BurningKnight.entity.item.use {
 	public class ModifyMaxHpUse : ItemUse {
 		public int Amount;
+		public bool Set;
 		public bool GiveHp;
+		public bool Bomb;
 
 		public override void Use(Entity entity, Item item) {
-			var component = entity.GetComponent<HealthComponent>();
-			component.MaxHealth += Amount;
-			
-			if (GiveHp && Amount > 0) {
-				component.ModifyHealth(Amount, entity);
-				TextParticle.Add(entity, "HP", Amount, true);
+
+			if (Bomb) {
+				var component = entity.GetComponent<HeartsComponent>();
+
+				if (Set) {
+					component.BombsMax = Amount;
+				} else {
+					component.BombsMax += Amount;
+				}
+
+				if (GiveHp && Amount > 0) {
+					component.ModifyBombs(Amount, entity);
+					TextParticle.Add(entity, "HP", Amount, true);
+				}
+			} else {
+				var component = entity.GetComponent<HealthComponent>();
+
+				if (Set) {
+					component.MaxHealth = Amount;
+				} else {
+					component.MaxHealth += Amount;
+				}
+
+				if (GiveHp && Amount > 0) {
+					component.ModifyHealth(Amount, entity);
+					TextParticle.Add(entity, "HP", Amount, true);
+				}
 			}
-			
+
 			TextParticle.Add(entity, Locale.Get("max_hp"), Math.Abs(Amount), true, Amount < 0);
 		}
 
@@ -28,6 +53,8 @@ namespace BurningKnight.entity.item.use {
 			
 			Amount = settings["amount"].Int(1);
 			GiveHp = settings["give_hp"].Bool(true);
+			Set = settings["set"].Bool(false);
+			Bomb = settings["bomb"].Bool(false);
 		}
 		
 		public static void RenderDebug(JsonValue root) {
@@ -42,6 +69,9 @@ namespace BurningKnight.entity.item.use {
 			if (ImGui.Checkbox("Give health", ref giveHp)) {
 				root["give_hp"] = giveHp;
 			}
+
+			root.Checkbox("Set", "set", false);
+			root.Checkbox("Bomb", "bomb", false);
 		}
 	}
 }

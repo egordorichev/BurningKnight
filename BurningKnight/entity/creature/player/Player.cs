@@ -51,6 +51,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public static string StartingWeapon;
 		public static string StartingItem;
+		public static string StartingLamp;
 
 		private bool dead;
 
@@ -67,7 +68,7 @@ namespace BurningKnight.entity.creature.player {
 				GetComponent<AudioEmitterComponent>().EmitRandomized("item_pickup");
 			}
 
-			if (add || item.Type == ItemType.Active || item.Type == ItemType.ConsumableArtifact || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
+			if (add || item.Type == ItemType.Lamp || item.Type == ItemType.Active || item.Type == ItemType.ConsumableArtifact || item.Type == ItemType.Weapon || item.Type == ItemType.Hat) {
 				GetComponent<InventoryComponent>().Busy = true;
 				
 				Engine.Instance.State.Ui.Add(new ConsumableParticle(item.Region, this, item.Type != ItemType.Active, () => {
@@ -77,7 +78,7 @@ namespace BurningKnight.entity.creature.player {
 					action?.Invoke();
 					GetComponent<InventoryComponent>().Busy = false;
 
-					if (item.Type != ItemType.ConsumableArtifact && item.Type != ItemType.Active && item.Type != ItemType.Weapon && item.Type != ItemType.Hat) {
+					if (item.Type != ItemType.ConsumableArtifact && item.Type != ItemType.Active && item.Type != ItemType.Weapon && item.Type != ItemType.Hat && item.Type != ItemType.Lamp) {
 						GetComponent<InventoryComponent>().Add(item);
 					}
 				}));
@@ -103,6 +104,7 @@ namespace BurningKnight.entity.creature.player {
 			});
 			
 			// Inventory
+			AddComponent(new LampComponent());
 			AddComponent(new InventoryComponent());
 			AddComponent(new ActiveItemComponent());
 			AddComponent(new ActiveWeaponComponent());
@@ -192,6 +194,15 @@ namespace BurningKnight.entity.creature.player {
 					GetComponent<ActiveItemComponent>().Set(i, false);
 					
 					Log.Debug($"Starting item: {StartingItem}");
+				}
+				
+				if (StartingLamp != null) {
+					var i = Items.CreateAndAdd(StartingLamp, Area);
+					i.Scourged = false;
+					GetComponent<LampComponent>().Set(i, false);
+					
+					Log.Debug($"Starting lamp: {StartingLamp}");
+					i.Use(this);
 				}
 			}
 			
@@ -850,6 +861,7 @@ namespace BurningKnight.entity.creature.player {
 			if (Run.LastDepth == -1 || Run.LastDepth == 0) {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
 				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
+				StartingLamp = GetComponent<LampComponent>().Item?.Id;
 			}
 		}
 

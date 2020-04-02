@@ -20,7 +20,6 @@
 
 # hub
 
-* make some achievements unlock items, give you some emerelads?
 * achievement branches rewards
 
 * 3 save slots (aka parrarel universes)
@@ -28,6 +27,8 @@
 * challanges {
  no achievements in challanges?
 }
+
+* i can put isaac somewhere cause why not
 
 #
 
