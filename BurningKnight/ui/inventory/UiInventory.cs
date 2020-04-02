@@ -48,6 +48,10 @@ namespace BurningKnight.ui.inventory {
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
 		
+		public static TextureRegion Bomb;
+		public static TextureRegion BombBg;
+		public static TextureRegion ChangedBombBg;
+		
 		public static TextureRegion ShieldBackground;
 		private TextureRegion changedShieldBackground;
 		private static TextureRegion halfShieldBackground;
@@ -114,6 +118,10 @@ namespace BurningKnight.ui.inventory {
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
+			
+			Bomb = anim.GetSlice("bmb");
+			BombBg = anim.GetSlice("bmb_bg");
+			ChangedBombBg = anim.GetSlice("bmb_hurt");
 			
 			Mana = anim.GetSlice("mana");
 			HalfMana = anim.GetSlice("half_mana");
@@ -424,6 +432,10 @@ namespace BurningKnight.ui.inventory {
 			var maxRed = red.MaxHealth;
 			var hurt = red.InvincibilityTimer > 0;
 			var shields = hearts.ShieldHalfs;
+			var bombs = (int) hearts.Bombs;
+			var dbombs = bombs * 2;
+			var mbombs = (int) hearts.BombsMax;
+			var mdbombs = mbombs * 2;
 
 			var n = r;
 			var jn = maxRed;
@@ -442,7 +454,13 @@ namespace BurningKnight.ui.inventory {
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
 			}
 			
-			for (var i = jn; i < maxRed + shields; i += 2) {
+			for (var i = jn; i < maxRed + mdbombs; i += 2) {
+				var region = hurt ? ChangedBombBg : BombBg;
+				
+				Graphics.Render(region, GetHeartPosition(pad, i, true) + new Vector2(0, -1));
+			}
+			
+			for (var i = jn + mdbombs; i < maxRed + shields + mdbombs; i += 2) {
 				var region = hurt ? changedShieldBackground : ShieldBackground;
 
 				if (i == maxRed + shields - 1) {
@@ -457,8 +475,12 @@ namespace BurningKnight.ui.inventory {
 				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
 			}
 			
+			for (var j = jn; j < maxRed + dbombs; j += 2) {
+				Graphics.Render(Bomb, GetHeartPosition(pad, j) + new Vector2(0, -1));
+			}
+			
 			if (phases > 0) {
-				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields)) + new Vector2(4, -2));
+				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields + bombs)) + new Vector2(4, -2));
 			}
 		}
 		
@@ -475,7 +497,7 @@ namespace BurningKnight.ui.inventory {
 			
 			return new Vector2(
 				(bg ? 0 : 1) + (pad ? 4 : 6) + (8 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + 4 + (int) (i % HeartsComponent.PerRow * 11f) - 2,
-				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + 10
+				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().Total > HeartsComponent.PerRow ? 10 : 0) + 10
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12 - 1) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f - 1) - 0.9f) * 10f)
 			);
 		}
@@ -515,7 +537,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		private void RenderConsumables(bool hasMana) {
-			var bottomY = 8 + 9 + 8 + (hasMana ? 10 : 0) + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().ShieldHalfs > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
+			var bottomY = 8 + 9 + 8 + (hasMana ? 10 : 0) + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().Total > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
 			if (Scourge.IsEnabled(Scourge.OfKeys)) {
 				Graphics.Render(question, new Vector2(8, bottomY + 1));

@@ -20,7 +20,7 @@
 
 # hub
 
-* make some achievements unlock items, give you some emerelads
+* make some achievements unlock items, give you some emerelads?
 * achievement branches rewards
 
 * 3 save slots (aka parrarel universes)

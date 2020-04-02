@@ -2436,6 +2436,7 @@ namespace BurningKnight.state {
 				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
 			});
 			
+			statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
 			statsStats.Add(Locale.Get("time"), data["time"].AsString);
 			statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
 			statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());

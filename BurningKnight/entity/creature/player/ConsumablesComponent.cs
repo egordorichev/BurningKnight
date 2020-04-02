@@ -91,19 +91,20 @@ namespace BurningKnight.entity.creature.player {
 					
 					switch (type) {
 						case ItemType.Bomb: {
-							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {	
+						
+							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 								var dialog = GetComponent<DialogComponent>();
-								
+
 								dialog.Dialog.Str.ClearIcons();
 								dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, false)));
 
 								if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
 									dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, true)));
 								}
-								
+
 								dialog.StartAndClose("control_0", 5);
 							}
-							
+
 							Audio.PlaySfx("item_bomb");
 							break;
 						}

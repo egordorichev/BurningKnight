@@ -66,7 +66,7 @@ namespace BurningKnight.entity.component {
 				}
 				
 				if (e.Amount > 0) {
-					EmitParticles(false);
+					EmitParticles(HealthType.Regular);
 				}
 				
 				health = h;
@@ -202,8 +202,20 @@ namespace BurningKnight.entity.component {
 			
 		}
 
-		public void EmitParticles(bool shield) {
-			var slice = shield ? "shield" : "heart";
+		public void EmitParticles(HealthType type) {
+			var slice = "heart";
+
+			switch (type) {
+				case HealthType.Shield: {
+					slice = "shield";
+					break;
+				}
+				
+				case HealthType.Bomb: {
+					slice = "bomb";
+					break;
+				}
+			}
 
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
