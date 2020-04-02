@@ -40,6 +40,7 @@ using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.input;
+using Lens.lightJson;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
@@ -47,6 +48,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using Newtonsoft.Json;
 using Steamworks;
 using Console = BurningKnight.debug.Console;
 using Timer = Lens.util.timer.Timer;
@@ -69,6 +71,7 @@ namespace BurningKnight.state {
 		
 		private UiPane pauseMenu;
 		private UiPane leaderMenu;
+		private UiPane statsMenu;
 		private UiPane gameOverMenu;
 
 		private UiPane audioSettings;
@@ -79,6 +82,7 @@ namespace BurningKnight.state {
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
 		private UiLabel killedLabel;
+		private UiLabel placeLabel;
 
 		private bool died;
 		private Cursor cursor;
@@ -92,8 +96,6 @@ namespace BurningKnight.state {
 		public bool Menu;
 		public Area TopUi;
 
-		private float vx;
-		private string v;
 		private float offset;
 		private bool menuExited;
 		private float blackBarsSize;
@@ -200,9 +202,6 @@ namespace BurningKnight.state {
 			if (Settings.Fullscreen && !Engine.Graphics.IsFullScreen) {
 				Engine.Instance.SetFullscreen();
 			}
-
-			v = BK.Version.ToString();
-			vx = -Font.Small.MeasureString(v).Width;
 
 			Shaders.Ui.Parameters["black"].SetValue(Menu ? 1f : 0f);
 			
@@ -325,6 +324,7 @@ namespace BurningKnight.state {
 		}
 
 		private float speedBeforePause;
+		public bool InStats;
 
 		protected override void OnPause() {
 			base.OnPause();
@@ -332,32 +332,40 @@ namespace BurningKnight.state {
 			if (died || InMenu || Run.Won) {
 				return;
 			}
-
-			if (seedLabel != null) {
-				seedLabel.Label = $"Seed: {Run.Seed}";
-			}
-
-			if (Settings.UiSfx) {
-				Audio.PlaySfx("ui_goback", 0.5f);
-			}
-
+			
 			Tween.To(this, new {blur = 1}, 0.25f);
 
-			if (painting == null) {
-				doneAnimatingPause = false;
+			if (!InStats) {
+				currentBack = pauseBack;
+				
+				if (seedLabel != null) {
+					seedLabel.Label = $"Seed: {Run.Seed}";
+				}
 
-				pauseMenu.X = 0;
-				pauseMenu.Enabled = true;
+				if (Settings.UiSfx) {
+					Audio.PlaySfx("ui_goback", 0.5f);
+				}
 
-				Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
-					doneAnimatingPause = true;
-					SelectFirst();
-				};
+				if (painting == null) {
+					doneAnimatingPause = false;
+
+					pauseMenu.X = 0;
+					pauseMenu.Enabled = true;
+					currentBack = pauseBack;
+
+					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
+						SelectFirst();
+					};
+				}
+			} else {
+				currentBack = leaderBack;
 			}
 
 			speedBeforePause = Audio.Speed;
 
-			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 1f);
+			Tween.To(0.5f, Audio.Speed, x => Audio.Speed = x, 1f).OnEnd = () => {
+				doneAnimatingPause = true;
+			};
 			OpenBlackBars();
 		}
 
@@ -383,13 +391,19 @@ namespace BurningKnight.state {
 			doneAnimatingPause = false;
 
 			Tween.To(this, new {blur = 0}, 0.25f);
-			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
-				pauseMenu.Enabled = false;
-				doneAnimatingPause = true;
-			};
+
+			if (!InStats) {
+				Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, 0.25f).OnEnd = () => {
+					pauseMenu.Enabled = false;
+				};
+			}
 
 			CloseBlackBars();
 			Tween.To(speedBeforePause, Audio.Speed, x => Audio.Speed = x, 0.4f);
+
+			Timer.Add(() => {
+				doneAnimatingPause = true;
+			}, 0.25f);
 
 			pausedByMouseOut = false;
 		}
@@ -528,14 +542,18 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+			var gamepad = GamepadComponent.Current;
 
+			if (died && Input.WasPressed(Controls.QuickRestart)) {
+				overQuickBack?.OnClick();
+			}
+			
 			if (Paused || died || Run.Won) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
 
-				var gamepad = GamepadComponent.Current;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
 					SelectFirst(true);
@@ -730,105 +748,107 @@ namespace BurningKnight.state {
 
 			console.Update(dt);
 
-			foreach (var p in Area.Tagged[Tags.LocalPlayer]) {
-				var controller = GamepadComponent.Current;
-				
-				if (painting != null) {
-					if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
-					    Input.WasPressed(Controls.Use, controller)) {
-						painting.Remove();
-					}
-				} else {
-					if (doneAnimatingPause) {
-						var did = false;
+			var controller = GamepadComponent.Current;
+			
+			if (painting != null) {
+				if (Input.WasPressed(Controls.Pause, controller) || Input.WasPressed(Controls.Interact, controller) ||
+				    Input.WasPressed(Controls.Use, controller)) {
+					painting.Remove();
+				}
+			} else {
+				if (doneAnimatingPause) {
+					var did = false;
 
-						if (DialogComponent.Talking == null) {
-							if (Input.WasPressed(Controls.Pause, controller)) {
-								if (SkipPause) {
-									SkipPause = false;
-								} else if (Paused) {
-									if (UiControl.Focused == null && currentBack == null) {
-										Paused = false;
-										did = true;
-									}
-								} else {
-									Paused = true;
+					if (DialogComponent.Talking == null) {
+						if (Input.WasPressed(Controls.Pause, controller)) {
+							if (SkipPause) {
+								SkipPause = false;
+							} else if (Paused) {
+								if (UiControl.Focused == null && currentBack == null) {
+									Paused = false;
 									did = true;
 								}
+							} else {
+								Paused = true;
+								did = true;
+							}
+						}
+
+						if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
+							if (Settings.UiSfx) {
+								Audio.PlaySfx("ui_exit", 0.5f);
 							}
 
-							if (!did && Paused && Input.WasPressed(Controls.UiBack, controller)) {
-								if (Settings.UiSfx) {
-									Audio.PlaySfx("ui_exit", 0.5f);
-								}
-
-								if (UiControl.Focused != null) {
-									UiControl.Focused.Cancel();
-								} else if (currentBack != null) {
-									currentBack.Click(currentBack);
-								} else {
-									Paused = false;
-								}
+							if (UiControl.Focused != null) {
+								UiControl.Focused.Cancel();
+							} else if (currentBack != null) {
+								currentBack.Click(currentBack);
+							} else {
+								Paused = false;
 							}
 						}
 					}
 				}
 
-				if (controller == null || Paused) {
-					continue;
-				}
-				
-				var stick = controller.GetRightStick();
-
-				var dx = stick.X;
-				var dy = stick.Y;
-				var d = (float) Math.Sqrt(dx * dx + dy * dy);
-				
-				if (d > 1) {
-					stick /= d;
-				} else {
-					stick *= d;
-				}
-
-				var l = stick.Length();
-				
-				if (l > 0.25f) {
-					var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
-					dx = target.X - stickOffset.X;
-					dy = target.Y - stickOffset.Y;
+				if (controller != null && !Paused && !died && !Run.Won) {
+					var p = LocalPlayer.Locate(Area);
 					
-					d = (float) Math.Sqrt(dx * dx + dy * dy);
+					if (p != null) {
+						var stick = controller.GetRightStick();
 
-					if (d > 1) {
-						dx /= d;
-						dy /= d;
-					} else {
-						dx *= d;
-						dy *= d;
+						var dx = stick.X;
+						var dy = stick.Y;
+						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+						if (d > 1) {
+							stick /= d;
+						} else {
+							stick *= d;
+						}
+
+						var l = stick.Length();
+
+						if (l > 0.25f) {
+							var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+							dx = target.X - stickOffset.X;
+							dy = target.Y - stickOffset.Y;
+
+							d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+							if (d > 1) {
+								dx /= d;
+								dy /= d;
+							} else {
+								dx *= d;
+								dy *= d;
+							}
+
+							stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
+
+							Input.Mouse.Position =
+								Camera.Instance.CameraToScreen(p.Center + stickOffset * (48 * Settings.CursorRadius));
+						}
+
+						double a = 0;
+						var pressed = false;
+
+						if (controller.DPadLeftCheck) {
+							a = Math.PI;
+							pressed = true;
+						} else if (controller.DPadDownCheck) {
+							a = Math.PI / 2f;
+							pressed = true;
+						} else if (controller.DPadUpCheck) {
+							a = Math.PI * 1.5f;
+							pressed = true;
+						} else if (controller.DPadRightCheck) {
+							pressed = true;
+						}
+
+						if (pressed) {
+							Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
+						}
 					}
-					
-					stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + stickOffset * 48);
-				}
-
-				double a = 0;
-				var pressed = false;
-
-				if (controller.DPadLeftCheck) {
-					a = Math.PI;
-					pressed = true;
-				} else if (controller.DPadDownCheck) {
-					a = Math.PI / 2f;
-					pressed = true;
-				} else if (controller.DPadUpCheck) {
-					a = Math.PI * 1.5f;
-					pressed = true;
-				} else if (controller.DPadRightCheck) {
-					pressed = true;
-				}
-
-				if (pressed) {
-					Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
 				}
 			}
 
@@ -1072,12 +1092,6 @@ namespace BurningKnight.state {
 				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
 			}
 
-			if (!Settings.HideUi) {
-				Graphics.Color = ColorUtils.HalfWhiteColor;
-				Graphics.Print(v, Font.Small, new Vector2(Display.UiWidth + vx - 1, 0));
-				Graphics.Color = ColorUtils.WhiteColor;
-			}
-
 			painting?.RenderUi();
 
 			TopUi.Render();
@@ -1130,7 +1144,11 @@ namespace BurningKnight.state {
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
-		private Action d;
+		private UiLabel loading;
+		private UiChoice choice;
+		private UiTable leaderStats;
+		private UiTable statsStats;
+		private Action<string> d;
 
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
@@ -1170,9 +1188,7 @@ namespace BurningKnight.state {
 				Y = -Display.UiHeight	
 			});
 			
-			TopUi.Add(leaderMenu = new UiPane {
-				Y = -Display.UiHeight	
-			});
+			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
 			var start = Display.UiHeight * 0.5f;
@@ -1181,6 +1197,16 @@ namespace BurningKnight.state {
 				Label = Level.GetDepthString(),
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = TitleY,
+				Clickable = false,
+				AngleMod = 0
+			});
+			
+			pauseMenu.Add(new UiLabel {
+				Font = Font.Small,
+				Label = BK.Version.ToString(),
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = TitleY + 12,
+				Clickable = false,
 				AngleMod = 0
 			});
 
@@ -1291,11 +1317,24 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 			
-			gameOverMenu.Add(new UiButton {
+			if (Run.Depth > 0) {
+				gameOverMenu.Add(overQuickBack = new UiButton {
+					Font = Font.Small,
+					LocaleLabel = "quick_restart",
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = BackY - 6,
+
+					Click = b => {
+						gameOverMenu.Enabled = false;
+						Run.StartNew(1);
+					}
+				});
+			}
+
+			gameOverMenu.Add(overBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				// RelativeCenterY = start + space * 3,
-				RelativeCenterY = BackY,
+				RelativeCenterY = BackY + (Run.Depth > 0 ? 12 : 0),
 
 				Click = b => {
 					gameOverMenu.Enabled = false;
@@ -1316,17 +1355,17 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY
 			});
 
-			var stats = new UiTable { Width = 128 };
-			leaderMenu.Add(stats);
+			leaderStats = new UiTable();
+			leaderMenu.Add(leaderStats);
 
 			if (SetupLeaderboard == null) {
-				stats.Add("No leaderboards cause no steam", ":(");
-				stats.Prepare();
+				leaderStats.Add("No steam no leaderboards", ":(");
+				leaderStats.Prepare();
 
-				stats.RelativeCenterX = Display.UiWidth * 0.5f;
-				stats.RelativeCenterY = Display.UiHeight * 0.5f;
+				leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
+				leaderStats.RelativeCenterY = Display.UiHeight * 0.5f;
 			} else {
-				var loading = (UiLabel) pauseMenu.Add(new UiLabel {
+				loading = (UiLabel) leaderMenu.Add(new UiLabel {
 					LocaleLabel = "loading",
 					RelativeCenterX = Display.UiWidth * 0.5f,
 					RelativeCenterY = Display.UiHeight * 0.5f,
@@ -1334,21 +1373,27 @@ namespace BurningKnight.state {
 					Hide = true
 				});
 				
-				UiChoice choice = null;
 				var offset = 0;
+				string lastS = null;
 				
-				d = () =>{
+				d = (s) =>{
+					if (s == null) {
+						s = lastS ?? Run.GetLeaderboardId();
+					}
+
+					lastS = s;
+					
 					loading.Hide = false;
 					choice.Disabled = true;
 					
-					stats.Clear();
+					leaderStats.Clear();
 					offset = Math.Max(0, offset);
 				
-					SetupLeaderboard(stats, "high_score", choice.Options[choice.Option], offset, () => {
-						stats.Prepare();
+					SetupLeaderboard(leaderStats, s, choice.Options[choice.Option], offset, () => {
+						leaderStats.Prepare();
 
-						stats.RelativeCenterX = Display.UiWidth * 0.5f;
-						stats.RelativeCenterY = Display.UiHeight * 0.5f;
+						leaderStats.RelativeCenterX = Display.UiWidth * 0.5f;
+						leaderStats.RelativeCenterY = Display.UiHeight * 0.5f;
 						
 						loading.Hide = true;
 						choice.Disabled = false;
@@ -1360,11 +1405,11 @@ namespace BurningKnight.state {
 					XPadding = 4,
 					Selectable = false,
 					RelativeX = Display.UiWidth * 0.5f - 10,
-					RelativeCenterY = BackY - 15,
+					RelativeCenterY = BackY - 25,
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset = Math.Max(0, offset - 10);
-						d();
+						d(null);
 					},
 					ScaleMod = 3
 				});
@@ -1374,16 +1419,17 @@ namespace BurningKnight.state {
 					XPadding = 4,
 					Selectable = false,
 					RelativeX = Display.UiWidth * 0.5f + 10,
-					RelativeCenterY = BackY - 15,
+					RelativeCenterY = BackY - 25,
 					Type = ButtonType.Slider,
 					Click = bt => {
 						offset += 10;
-						d();
+						d(null);
 					},
 					ScaleMod = 3
 				});
 				
 				leaderMenu.Add(choice = new UiChoice {
+					Font = Font.Small,
 					Name = "display",
 					Options = new [] {
 						"around_you", "friends", "global"
@@ -1392,13 +1438,53 @@ namespace BurningKnight.state {
 					Option = 0,
 					Click = c => {
 						offset = 0;
-						d();
+						d(null);
 					},
 					RelativeX = Display.UiWidth * 0.5f,
-					RelativeCenterY = BackY
+					RelativeCenterY = TitleY + 12
+				});
+			}
+				
+			leaderMenu.Add(leaderBack = new UiButton {
+				LocaleLabel = "back",
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = BackY,
+				Click = bt => {
+					HideLeaderboard();
+				},
+			});
+
+			leaderMenu.Enabled = false;
+			leaderMenu.Y = Display.UiHeight * 2;
+			
+			if (Run.Depth == 0) {
+				TopUi.Add(statsMenu = new UiPane());
+				
+				placeLabel = (UiLabel) statsMenu.Add(new UiLabel {
+					Label = "404",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = TitleY
+				});
+				
+				statsMenu.Add(statsBack = new UiButton {
+					LocaleLabel = "back",
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = BackY,
+					Click = bt => {
+						HideStats();
+					},
 				});
 
-				leaderMenu.Enabled = false;
+				statsStats = new UiTable();
+				statsMenu.Add(statsStats);
+
+				statsStats.Prepare();
+
+				statsStats.RelativeCenterX = Display.UiWidth * 0.5f;
+				statsStats.RelativeCenterY = Display.UiHeight * 0.5f;
+				
+				statsMenu.Enabled = false;
+				statsMenu.Y = Display.UiHeight * 2;
 			}
 		}
 
@@ -1495,6 +1581,10 @@ namespace BurningKnight.state {
 		private UiButton audioBack;
 		private UiButton graphicsBack;
 		private UiButton gameBack;
+		private UiButton overBack;
+		private UiButton overQuickBack;
+		private UiButton leaderBack;
+		private UiButton statsBack;
 
 		private void AddGameSettings() {
 			pauseMenu.Add(gameSettings = new UiPane {
@@ -2162,7 +2252,7 @@ namespace BurningKnight.state {
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
 			var spX = 96f;
-			var sy = Display.UiHeight * 0.5f + space * 0.5f;
+			var sy = Display.UiHeight * 0.5f;// + space * 0.5f;
 			
 			gamepadSettings.Add(new UiLabel {
 				LocaleLabel = "gamepad",
@@ -2232,7 +2322,7 @@ namespace BurningKnight.state {
 				Name = "vibration",
 				On = Settings.Vibrate,
 				RelativeX = sx,
-				RelativeCenterY = sy + space * 2,
+				RelativeCenterY = sy + space * 1.5f,
 				Click = b => {
 					Settings.Vibrate = ((UiCheckbox) b).On;
 				},
@@ -2242,8 +2332,12 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			UiSlider.Make(gamepadSettings, sx, sy + space * 3, "sensivity", (int) (Settings.Sensivity * 100), 200, 10).OnValueChange = s => {
+			UiSlider.Make(gamepadSettings, sx, sy + space * 2.5f, "sensivity", (int) (Settings.Sensivity * 100), 200, 10).OnValueChange = s => {
 				Settings.Sensivity = s.Value / 100f;
+			};
+			
+			UiSlider.Make(gamepadSettings, sx, sy + space * 3.5f, "cursor_radius", (int) (Settings.CursorRadius * 100), 300, 10).OnValueChange = s => {
+				Settings.CursorRadius = s.Value / 100f;
 			};
 
 			gamepadBack = (UiButton) gamepadSettings.Add(new UiButton {
@@ -2264,11 +2358,145 @@ namespace BurningKnight.state {
 			gamepadSettings.Enabled = false;
 		}
 
+		public Action ReturnFromLeaderboard;
+		private bool busy;
+
+		public void ShowLeaderboard(string board) {
+			if (busy) {
+				return;
+			}
+
+			busy = true;
+
+			if (loading != null) {
+				loading.Hide = false;
+				leaderStats.Clear();
+			}
+
+			if (choice != null) {
+				choice.Option = 0;
+			}
+			
+
+			leaderMenu.Enabled = true;
+			currentBack = leaderBack;
+			leaderMenu.Y = Display.UiHeight;
+			
+			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+				d(board);
+			};
+		}
+
+		private void HideLeaderboard() {
+			if (!busy) {
+				return;
+			}
+
+			busy = false;
+			
+			Tween.To(Display.UiHeight * 2, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f).OnEnd = () => {
+				SelectFirst();			
+				leaderMenu.Enabled = false;
+			};
+
+			ReturnFromLeaderboard?.Invoke();
+		}
+		
+		public Action ReturnFromStats;
+		private bool sbusy;
+
+		public void ShowStats(int place) {
+			if (sbusy) {
+				return;
+			}
+
+			sbusy = true;
+
+			statsStats.Clear();
+
+			placeLabel.Label = $"{Locale.Get("top")} #{place + 1} {Locale.Get("run")}";
+			placeLabel.RelativeCenterX = Display.UiWidth * 0.5f;
+
+			var id = $"top_{place}";
+			var score = GlobalSave.GetInt(id);
+			var data = GlobalSave.GetJson($"{id}_data");
+			
+			statsStats.Add(Locale.Get("seed"), data["seed"].AsString, false, bt => {
+				var b = (UiTableEntry) bt;
+				b.RealLocaleLabel = "copied_to_clipboard";
+
+				try {
+					// Needs xclip on linux
+					TextCopy.Clipboard.SetText(Run.Seed);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
+			});
+			
+			statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
+			statsStats.Add(Locale.Get("time"), data["time"].AsString);
+			statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("kills"), data["kills"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("scourge"), data["scourge"].AsNumber.ToString());
+			statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
+			statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
+			
+			statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
+				ShowLeaderboard("high_score");
+
+				Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
+					statsMenu.Enabled = false;
+				};
+
+				ReturnFromLeaderboard = () => {
+					statsMenu.Enabled = true;
+					currentBack = statsBack;
+					Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut);
+				};
+			});
+			
+			statsStats.Prepare();
+
+			statsStats.RelativeCenterX = Display.UiWidth * 0.5f;
+			statsStats.RelativeCenterY = Display.UiHeight * 0.5f;
+
+			statsMenu.Enabled = true;
+			currentBack = statsBack;
+			statsMenu.Y = Display.UiHeight;
+			
+			Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
+				SelectFirst();
+			};
+		}
+
+		private void HideStats() {
+			if (!sbusy) {
+				return;
+			}
+
+			sbusy = false;
+			
+			Tween.To(Display.UiHeight * 2, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
+				SelectFirst();			
+				statsMenu.Enabled = false;
+			};
+
+			ReturnFromStats?.Invoke();
+		}
+
 		public void AnimateDoneScreen() {
 			if (Run.Type == RunType.Daily) {
 				Player.StartingItem = null;
 				Player.StartingWeapon = null;
 			}
+
+			GlobalSave.Put("run_count", GlobalSave.GetInt("run_count") + 1);
 
 			if (Run.Won) {
 				if (Run.Type == RunType.BossRush) {
@@ -2300,17 +2528,6 @@ namespace BurningKnight.state {
 				RelativeCenterY = TitleY,
 				Clickable = false
 			});
-			
-			if (Run.Won) {
-				killedLabel.Done = true;
-				Killer.Done = true;
-				
-				new Thread(() => {
-					SaveManager.Save(Area, SaveType.Statistics);
-					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
-					SaveManager.Backup();
-				}).Start();
-			}
 
 			Camera.Instance.Targets.Clear();
 
@@ -2321,7 +2538,20 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(stats);
 
 			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}"));
-			stats.Add(Locale.Get("seed"), Run.Seed);
+			stats.Add(Locale.Get("seed"), Run.Seed, false, bt => {
+				var b = (UiTableEntry) bt;
+				b.RealLocaleLabel = "copied_to_clipboard";
+
+				try {
+					// Needs xclip on linux
+					TextCopy.Clipboard.SetText(Run.Seed);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
+			});
+			
 			stats.Add(Locale.Get("time"), GetRunTime());
 			stats.Add(Locale.Get("depth"), Run.Depth.ToString());
 			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
@@ -2335,9 +2565,10 @@ namespace BurningKnight.state {
 			Run.CalculateScore();
 			Log.Info($"Run score is {Run.Score}");
 
+			currentBack = overBack;
 			var newHigh = false;
 
-			if (Run.Type == RunType.Challenge) {
+			if (Run.Type == RunType.Regular) {
 				newHigh = GlobalSave.GetInt("high_score") < Run.Score;
 				
 				if (newHigh) {
@@ -2346,11 +2577,84 @@ namespace BurningKnight.state {
 				}
 			}
 			
-			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString());
+			var board = Run.GetLeaderboardId();
+			
+			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString(), newHigh, b => {
+				ShowLeaderboard(board);
+
+				Tween.To(-Display.UiHeight, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.6f).OnEnd = () => {
+					gameOverMenu.Enabled = false;
+				};
+
+				ReturnFromLeaderboard = () => {
+					gameOverMenu.Enabled = true;
+					currentBack = overBack;
+					Tween.To(0, gameOverMenu.Y, x => gameOverMenu.Y = x, 1f, Ease.BackOut);
+				};
+			});
+			
 			stats.Prepare();
 			
 			stats.RelativeCenterX = Display.UiWidth * 0.5f;
 			stats.RelativeCenterY = Display.UiHeight * 0.5f;
+			
+			if (Run.Type == RunType.Regular) {
+				var place = -1;
+
+				for (var i = 0; i < 3; i++) {
+					var id = $"top_{i}";
+						
+					if (!GlobalSave.Exists(id) || GlobalSave.GetInt(id) < Run.Score) {
+						place = i;
+						break;
+					}
+				}
+
+				if (place != -1) {
+					if (place < 2) {
+						for (var i = 1; i >= place; i--) {
+							var id1 = $"top_{i}";
+							var id2 = $"top_{i + 1}";
+
+							GlobalSave.Put(id2, GlobalSave.GetInt(id1));
+							GlobalSave.Put($"{id2}_data", GlobalSave.GetString($"{id1}_data"));
+						}
+					}
+
+					Log.Info($"New #{place} run!");
+
+					var root = new JsonObject();
+
+					// fixme same seed the same time
+					root["seed"] = Run.Seed;
+					root["time"] = GetRunTime();
+					root["depth"] = Run.Depth;
+					root["won"] = Run.Won;
+					root["coins"] = Run.Statistics.CoinsObtained;
+					root["items"] = Run.Statistics.Items.Count;
+					root["damage"] = Run.Statistics.DamageTaken;
+					root["kills"] = Run.Statistics.MobsKilled;
+					root["rooms"] = $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}";
+					root["scourge"] = Run.Scourge;
+					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0}";
+
+					var id = $"top_{place}";
+
+					GlobalSave.Put(id, Run.Score);
+					GlobalSave.Put($"{id}_data", root.ToString());
+				}
+			}
+			
+			if (Run.Won) {
+				killedLabel.Done = true;
+				Killer.Done = true;
+
+				new Thread(() => {
+					SaveManager.Save(Area, SaveType.Statistics);
+					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
+					SaveManager.Backup();
+				}).Start();
+			}
 			
 			Audio.PlayMusic("Nostalgia", true);
 			
@@ -2360,29 +2664,6 @@ namespace BurningKnight.state {
 			};
 			
 			OpenBlackBars();
-
-			var board = "high_score";
-
-			switch (Run.Type) {
-				case RunType.Regular: {
-					break;
-				}
-				
-				case RunType.Daily: {
-					board = $"daily_{Run.DailyId}";
-					break;
-				}
-
-				case RunType.BossRush: {
-					board = "boss_rush";
-					break;
-				}
-
-				case RunType.Challenge: {
-					board = $"challenge_{Run.ChallengeId}";
-					break;
-				}
-			}
 
 			Run.SubmitScore?.Invoke(Run.Score, board);
 		}

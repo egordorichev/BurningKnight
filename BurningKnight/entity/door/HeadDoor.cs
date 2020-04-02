@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
@@ -13,6 +14,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.door {
 	public class HeadDoor : CustomDoor {
 		private Trigger trigger;
+		private float last;
 		
 		protected override void SetSize() {
 			Width = 30;
@@ -53,10 +55,21 @@ namespace BurningKnight.entity.door {
 							return;
 						}
 
+            // fixme: played multiple time
 						if (Run.Scourge > 0 || p.GetComponent<ConsumablesComponent>().Coins >= 30) {
+							if (last <= 0) {
+								Audio.PlaySfx("level_door_head_success");
+								last = 0.3f;
+							}
+
 							return;
 						}
 
+						if (last <= 0) {
+							Audio.PlaySfx("level_door_head_fail");
+							last = 0.3f;
+						}
+						
 						p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
 
 						AnimationUtil.Poof(p.Center);
@@ -80,6 +93,11 @@ namespace BurningKnight.entity.door {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (last > 0) {
+				last -= dt;
+			}
+			
 			trigger.TopCenter = TopCenter;
 		}
 

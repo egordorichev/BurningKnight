@@ -65,6 +65,10 @@ namespace BurningKnight.level.entities {
 			var d = GetComponent<CloseDialogComponent>();
 			var m = d.Variants.Length == 0 ? "" : d.Variants[0];
 
+			if (m == null) {
+				m = "";
+			}
+			
 			if (ImGui.InputText("Message", ref m, 128)) {
 				SetMessage(m);
 			}

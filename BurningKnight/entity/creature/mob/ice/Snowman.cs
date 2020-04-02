@@ -102,5 +102,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 			Area.Add(body);
 			body.BottomCenter = BottomCenter;
 		}
+		
+		protected override string GetHurtSfx() {
+			return "mob_snowman_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_snowman_death";
+		}
 	}
 }

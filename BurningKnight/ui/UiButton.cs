@@ -53,6 +53,12 @@ namespace BurningKnight.ui {
 			PlaySfx("ui_moving");
 		}
 
+		public override void PlaySfx(string sfx) {
+			if (Clickable) {
+				base.PlaySfx(sfx);
+			}
+		}
+
 		protected override void OnUnhover() {
 			if (GamepadComponent.Current == null && Selected == Id) {
 				Selected = -1;

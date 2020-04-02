@@ -7,6 +7,7 @@ namespace BurningKnight.entity.events {
 		public Entity Who;
 		public bool Default = true;
 		public DamageType Type = DamageType.Regular;
-		public bool ShieldsTook;
+		public HealthType HealthType;
+		public bool PressedForBomb;
 	}
 }

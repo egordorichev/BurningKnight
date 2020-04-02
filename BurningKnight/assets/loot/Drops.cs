@@ -52,7 +52,8 @@ namespace BurningKnight.assets.loot {
 				new SimpleDrop(0.2f, 1, 2, "bk:key"),
 				new SimpleDrop(0.2f, 1, 2, "bk:bomb"),
 				new SimpleDrop(0.2f, 1, 2, "bk:troll_bomb"),
-				new SimpleDrop(0.4f, 1, 2, "bk:heart")
+				new SimpleDrop(0.4f, 1, 1, "bk:heart"),
+				new SimpleDrop(0.5f, 1, 2, "bk:shield")
 			));
 			
 			Define("safe", new AnyDrop(

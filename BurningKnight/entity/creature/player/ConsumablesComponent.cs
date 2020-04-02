@@ -91,19 +91,20 @@ namespace BurningKnight.entity.creature.player {
 					
 					switch (type) {
 						case ItemType.Bomb: {
-							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {	
+						
+							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 								var dialog = GetComponent<DialogComponent>();
-								
+
 								dialog.Dialog.Str.ClearIcons();
 								dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, false)));
 
 								if (GamepadComponent.Current != null && GamepadComponent.Current.Attached) {
 									dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, true)));
 								}
-								
+
 								dialog.StartAndClose("control_0", 5);
 							}
-							
+
 							Audio.PlaySfx("item_bomb");
 							break;
 						}
@@ -205,13 +206,28 @@ namespace BurningKnight.entity.creature.player {
 					GetComponent<StateComponent>().Become<Player.IdleState>();
 				}
 
+				var spawn = false;
+
 				if (bombs > 0) {
 					Bombs--;
 
+					spawn = true;
+				} else {
+					var h = GetComponent<HeartsComponent>();
+
+					if (h.Bombs > 0) {
+						h.ModifyBombs(-1, Entity, true);
+						spawn = true;
+					}
+				}
+
+				if (spawn) {
 					var bomb = new Bomb(Entity);
 					Entity.Area.Add(bomb);
 					bomb.Center = Entity.Center;
 					bomb.MoveToMouse();
+				} else {
+					AnimationUtil.ActionFailed();
 				}
 			}
 		}

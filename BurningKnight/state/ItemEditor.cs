@@ -49,7 +49,8 @@ namespace BurningKnight.state {
 			"hat",
 			"pouch",
 			"scourge",
-			"mana"
+			"mana",
+			"lamp"
 		};
 
 		// Keep in sync with the WeaponType enum!!!

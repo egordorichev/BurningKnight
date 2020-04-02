@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.npc;
 using Lens.entity;
+using Lens.lightJson;
 using Lens.util.file;
 
 namespace BurningKnight.save {
@@ -43,8 +44,16 @@ namespace BurningKnight.save {
 			Values[Key] = Val ? "1" : "0";
 		}
 
+		public static bool Exists(string key) {
+			return Values.ContainsKey(key);
+		}
+
 		public static string GetString(string Key, string Def = null) {
 			return Values.TryGetValue(Key, out var Value) ? Value : Def;
+		}
+		
+		public static JsonValue GetJson(string key) {
+			return Values.TryGetValue(key, out var Value) ? JsonValue.Parse(Value) : JsonValue.Null;
 		}
 
 		public static int GetInt(string Key, int Def = 0) {

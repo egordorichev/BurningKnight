@@ -18,7 +18,7 @@ namespace BurningKnight.state {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 0 : 0;
+		private static int depth = BK.Version.Dev ? 2 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -194,7 +194,9 @@ namespace BurningKnight.state {
 		public static void CalculateScore() {
 			Score = 0;
 
-			Score += Depth * 5000;
+			// todo: health/health max left?
+
+			Score += (Depth - 1) * 5000;
 			Score += Statistics.CoinsObtained * 10;
 			Score += Statistics.Items.Count * 100;
 			Score += (int) Statistics.MobsKilled * 10;
@@ -205,16 +207,19 @@ namespace BurningKnight.state {
 				Score += 5000;
 			}
 			
-			Score -= (int) Statistics.DamageTaken * 10;
-			Score -= (int) Time;
-			Score -= Statistics.PitsFallen;
+			Score -= (int) Statistics.DamageTaken * 100;
+			Score -= (int) Time * 2;
+			Score -= Statistics.PitsFallen * 1000;
+
+			var multiplier = 1 + Run.Scourge * 0.1f;
+			Score = (int) (Score * multiplier);
 		}
 
 		public static void Win() {
 			if (Won) {
 				return;
 			}
-
+			
 			Won = true;
 			Statistics.Won = true;
 
@@ -224,6 +229,26 @@ namespace BurningKnight.state {
 			}
 			
 			((InGameState) Engine.Instance.State).AnimateDoneScreen();
+		}
+
+		public static string GetLeaderboardId() {
+			switch (Type) {
+				case RunType.Daily: {
+					return $"daily_{Run.DailyId}";
+				}
+
+				case RunType.BossRush: {
+					return "boss_rush";
+				}
+
+				case RunType.Challenge: {
+					return $"challenge_{Run.ChallengeId}";
+				}
+				
+				default: case RunType.Regular: {
+					return "high_score";
+				}
+			}
 		}
 	}
 }

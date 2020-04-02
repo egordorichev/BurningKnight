@@ -16,7 +16,7 @@ namespace BurningKnight.assets.input {
 
 		public static FileHandle BindingsHandle => new FileHandle($"{SaveManager.SaveDir}keybindings_{Version}.json");
 		
-		public const int Version = 0;
+		public const int Version = 1;
 
 		public const string Up = "up";
 		public const string Left = "left";
@@ -48,6 +48,8 @@ namespace BurningKnight.assets.input {
 		public const string UiAccept = "ui_accept";
 		public const string UiSelect = "ui_select";
 		public const string UiBack = "ui_back";
+
+		public const string QuickRestart = "quick_restart";
 
 		static Controls() {
 			controls.Clear();
@@ -82,6 +84,8 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
 			controls.Add(new Control(UiSelect, Keys.Enter, Keys.Space, Keys.X).Gamepad(Buttons.A,  Buttons.X, Buttons.Y));
 			controls.Add(new Control(UiBack, Keys.Escape).Gamepad(Buttons.Back, Buttons.B));
+			
+			controls.Add(new Control(QuickRestart, Keys.R, Keys.P).Gamepad(Buttons.X));
 		}
 
 		public static void Bind() {

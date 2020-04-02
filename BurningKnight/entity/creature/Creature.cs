@@ -68,11 +68,11 @@ namespace BurningKnight.entity.creature {
 			if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
 				if (HasNoHealth(ev)) {
 					Kill(ev.From);
-				} else {
+				} else if (!ev.PressedForBomb) {
 					GetComponent<AudioEmitterComponent>().EmitRandomized(GetHurtSfx());
 				}
 
-				if (ev.From != null && !ev.Handled) {
+				if (ev.From != null && !ev.Handled && !ev.PressedForBomb) {
 					var b = GetAnyComponent<BodyComponent>();
 
 					if (b != null && ev.Amount < 0) {

@@ -49,7 +49,7 @@ namespace BurningKnight.ui {
 		
 		protected bool hovered;
 		protected float angle;
-		protected float scale = 1f;
+		protected internal float scale = 1f;
 		protected Vector2 origin = new Vector2(0);
 
 		public float AngleMod = 1f;
@@ -91,7 +91,7 @@ namespace BurningKnight.ui {
 			
 		}
 
-		public void PlaySfx(string sfx) {
+		public virtual void PlaySfx(string sfx) {
 			if (Settings.UiSfx) {
 				Audio.PlaySfx(sfx, 0.5f);
 			}

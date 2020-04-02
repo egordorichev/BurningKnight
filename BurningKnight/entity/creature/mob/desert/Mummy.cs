@@ -144,5 +144,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 		#endregion
+
+		protected override string GetHurtSfx() {
+			return "mob_mummy_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_mummy_death";
+		}
 	}
 }

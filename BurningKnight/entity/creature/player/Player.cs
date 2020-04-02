@@ -604,15 +604,15 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}			
 			} else if (e is PostHealthModifiedEvent h) {
-				if (h.Amount < 0) {
+				if (h.Amount < 0 && !h.PressedForBomb) {
 					HandleEvent(new PlayerHurtEvent {
 						Player = this
 					});
 
-					var hp = GetComponent<HealthComponent>().Health + GetComponent<HeartsComponent>().ShieldHalfs;
+					var hp = GetComponent<HealthComponent>().Health + GetComponent<HeartsComponent>().Total;
 
 					if (hp > 0) {
-						if (h.ShieldsTook) {
+						if (h.HealthType == HealthType.Shield) {
 							Audio.PlaySfx("player_shield_hurt", 1f);
 						} else {
 							Audio.PlaySfx(hp < 2 ? "player_low_hp_hurt" : "player_hurt", 1f);

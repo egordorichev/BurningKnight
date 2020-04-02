@@ -11,46 +11,36 @@
 * web doesnt affect mobs
 * ice 2 bug when no wall or floor is rendered
 
+* gamepad still shakes even when set to none
+* By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
+* check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
+
+* boss bug out when you get dead
+* same seed all the time on startup lol
+
 # hub
 
-* add a slider for cursor crosshair distance
-* check if i broke gameover screen?
-* people still get that exit after loading
-* remove version from top right corner and move to settings?
+* make some achievements unlock items, give you some emerelads?
+* achievement branches rewards
 
-* anivire got crazy drops in ice biome, check if thats clover who did that
-* chasm texture broke
+* 3 save slots (aka parrarel universes)
 
-* make reroll machine spawn in item rooms
-
-* leaderboard display {
- * top all time 
- * boss rush
- * daily
- * challanges?
+* challanges {
+ no achievements in challanges?
 }
-
-* top 3 runs display
-
-* achievements hall {
- + make some achievements unlock items
- + achievement branches rewards
-}
-
-* challanges
-* shop should start small and grow with donations?
-!!! * add eye of chthulu pet
 
 #
 
+!!! * add eye of chthulu pet
+* make reroll machine spawn in item rooms
+
+* redo remapping screens
+* shop should start small and grow with donations?
 * show only last 6 or so items, allow to see more in pause menu
 * this is a secret to everyone easter egg in hub?
 
 * when you pickup glass, fix your broken glass gun/sword
 * josh like jokes in settings, with "sound effect"
-* game stats in hub (best 3 runs, total deaths, etc)
-
-* credits
 
 ice {
  * frozen enemies/troll bomb
@@ -68,11 +58,9 @@ ice {
 
 ### big points that are needed before release (no overscope)
 
-* hub update
-* credits
-* achivement icons
-* twitch chat integration
+* add soundtrack package to steam
 * localisation
+* twitch chat integration
 
 #### Polish
 

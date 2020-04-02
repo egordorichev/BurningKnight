@@ -654,6 +654,7 @@
     <Compile Include="entity\fx\TileFx.cs" />
     <Compile Include="entity\fx\WaterfallFx.cs" />
     <Compile Include="entity\fx\WindFx.cs" />
+    <Compile Include="entity\HealthType.cs" />
     <Compile Include="entity\item\AnimatedItemGraphicsComponent.cs" />
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
@@ -937,6 +938,8 @@
     <Compile Include="level\entities\Sign.cs" />
     <Compile Include="level\entities\SlicedProp.cs" />
     <Compile Include="level\entities\SolidProp.cs" />
+    <Compile Include="level\entities\Stand.cs" />
+    <Compile Include="level\entities\StatDisplay.cs" />
     <Compile Include="level\entities\statue\ChestStatue.cs" />
     <Compile Include="level\entities\statue\DiceStatue.cs" />
     <Compile Include="level\entities\statue\Fountain.cs" />
@@ -1242,6 +1245,7 @@
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="ui\UiSlider.cs" />
     <Compile Include="ui\UiTable.cs" />
+    <Compile Include="ui\UiTableEntry.cs" />
     <Compile Include="util\AnimationUtil.cs" />
     <Compile Include="util\ArrayUtils.cs" />
     <Compile Include="util\BArray.cs" />

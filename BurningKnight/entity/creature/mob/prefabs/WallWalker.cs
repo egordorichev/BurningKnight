@@ -159,7 +159,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 				if (Run.Level.Get((int) Math.Round(mx / 16f), (int) Math.Round(my / 16f)).IsWall()) {
 					Log.Debug("Killing walker");
-					Self.GetComponent<HealthComponent>().Kill(Self);
+					Self.Done = true;
 					return;
 				}
 				

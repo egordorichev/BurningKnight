@@ -43,7 +43,7 @@ namespace Lens.util.math {
 
 		public static string GenerateSeed(int len = 8, int seed = -1) {
 			var builder = new StringBuilder();
-			var r = seed == -1 ? new Random() : new Random(seed);
+			var r = seed == -1 ? new Random(Guid.NewGuid().GetHashCode()) : new Random(seed);
 
 			for (var i = 0; i < len; i++) {
 				builder.Append(SeedChars[r.Next(SeedChars.Length - 1)]);

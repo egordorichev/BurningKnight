@@ -15,7 +15,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			if (entity.GetComponent<HealthComponent>().Health + entity.GetComponent<HeartsComponent>().ShieldHalfs < 3) {
+			if (entity.GetComponent<HealthComponent>().Health + entity.GetComponent<HeartsComponent>().Total < 3) {
 				return false;
 			}
 

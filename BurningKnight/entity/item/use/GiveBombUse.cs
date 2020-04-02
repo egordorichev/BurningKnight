@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.creature.player;
 using ImGuiNET;
 using Lens.entity;
@@ -8,7 +9,18 @@ namespace BurningKnight.entity.item.use {
 		public int Amount;
 
 		public override void Use(Entity entity, Item item) {
-			entity.GetComponent<ConsumablesComponent>().Bombs += Amount;
+			var h = entity.GetComponent<HeartsComponent>();
+			var a = Amount;
+
+			if (h.Bombs < h.BombsMax) {
+				var t = Math.Min(Amount, h.BombsMax - h.Bombs);
+				h.ModifyBombs(t, null);
+				a -= t;
+			}
+
+			if (a > 0) {
+				entity.GetComponent<ConsumablesComponent>().Bombs += a;
+			}
 		}
 
 		public override void Setup(JsonValue settings) {

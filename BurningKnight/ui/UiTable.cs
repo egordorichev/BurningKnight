@@ -1,74 +1,78 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.projectile;
 using Lens.assets;
 using Lens.graphics;
+using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.ui {
 	public class UiTable : UiEntity {
 		private const float EntryHeight = 15;
-		private const float XPadding = 3;
-		private const float YPadding = 1;
-
-		private struct Entry {
-			public string Key;
-			public string Value;
-			public float ValueWidth;
-			public bool Highlight;
-		}
 		
-		private List<Entry> entries = new List<Entry>();
-		private TextureRegion texture;
+		private List<UiTableEntry> entries = new List<UiTableEntry>();
+
+		public override void AddComponents() {
+			base.AddComponents();
+			Width = 128;
+		}
 
 		public void Clear() {
+			foreach (var e in entries) {
+				((UiPane) Super).Remove(e);
+			}
+			
 			entries.Clear();
 		}
 
-		public void Add(string key, string value, bool h = false) {
+		public void Add(string key, string value, bool h = false, Action<UiButton> a = null) {
 			value = value ?? "";
-			
-			entries.Add(new Entry {
-				Key = key ?? "",
+
+			var entry = new UiTableEntry() {
+				Label = key ?? "",
 				Value = value,
-				ValueWidth = Font.Small.MeasureString(value).Width,
-				Highlight = h
-			});
+				Click = a
+			};
+
+			if (h) {
+				entry.Color = ProjectileColor.Cyan;
+			}
+
+			((UiPane) Super).Add(entry);
+			entries.Add(entry);
 		}
 
 		public void Prepare() {
 			Clickable = false;
 			Height = entries.Count * EntryHeight;
+			
+		}
 
-			texture = CommonAse.Ui.GetSlice("table_item");
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			var p = ((UiPane) Super).Position;
+			
+			for (var i = 0; i < entries.Count; i++) {
+				var e = entries[i];
+				
+				e.RelativeX = RelativeX;
+				e.RelativeY = RelativeY + i * EntryHeight;
+				e.Position = p + e.RelativePosition;
+
+				if (e.Hidden) {
+					e.Hidden = false;
+					e.scale = 0;
+
+					Tween.To(1, 0, x => e.scale = x, Rnd.Float(0.3f, 0.5f));
+				}
+			}
 		}
 
 		public override void Render() {
-			if (texture != null) {
-				Graphics.Color.A = 200;
-
-				for (var i = 0; i < entries.Count; i++) {
-					Graphics.Render(texture, new Vector2(X, Y + i * EntryHeight));
-				}
-
-				Graphics.Color.A = 255;
-			}
-
-			for (var i = 0; i < entries.Count; i++) {
-				var entry = entries[i];
-				var y = Y + i * EntryHeight + YPadding;
-
-				if (entry.Highlight) {
-					Graphics.Color = ProjectileColor.Cyan;
-				}
-				
-				Graphics.Print(entry.Key, Font.Small, new Vector2(X + XPadding, y));
-				Graphics.Print(entry.Value, Font.Small, new Vector2(Right - entry.ValueWidth - XPadding, y));
-				
-				if (entry.Highlight) {
-					Graphics.Color = ColorUtils.WhiteColor;
-				}
-			}
+			
 		}
 	}
 }

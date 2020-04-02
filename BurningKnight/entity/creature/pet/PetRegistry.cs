@@ -69,7 +69,7 @@ namespace BurningKnight.entity.creature.pet {
 							return;
 						}
 						
-						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_gun_fire", 2, 0.5f);
+						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim);
 						var projectile = Projectile.Make(o, "small", a, 10f);

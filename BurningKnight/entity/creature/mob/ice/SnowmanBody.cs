@@ -37,6 +37,8 @@ namespace BurningKnight.entity.creature.mob.ice {
 				ShadowOffset = 3
 			});
 			
+			GetComponent<AudioEmitterComponent>().PitchMod = -0.2f;
+			
 			Become<IdleState>();
 
 			TouchDamage = 0;
@@ -82,5 +84,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 			}
 		}
 		#endregion
+		
+		protected override string GetHurtSfx() {
+			return "mob_snowman_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_snowman_death";
+		}
 	}
 }

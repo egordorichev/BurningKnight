@@ -111,5 +111,13 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			}
 		}
 		#endregion
+		
+		protected override string GetHurtSfx() {
+			return "mob_flower_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_flower_death";
+		}
 	}
 }
