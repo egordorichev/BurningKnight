@@ -16,7 +16,6 @@ namespace BurningKnight.entity.item.use {
 		public bool Bomb;
 
 		public override void Use(Entity entity, Item item) {
-
 			if (Bomb) {
 				var component = entity.GetComponent<HeartsComponent>();
 
@@ -31,6 +30,25 @@ namespace BurningKnight.entity.item.use {
 					TextParticle.Add(entity, "HP", Amount, true);
 				}
 			} else {
+				if (Amount > 0) {
+					if (entity.GetComponent<LampComponent>().Item?.Id == "bk:shielded_lamp") {
+						entity.GetComponent<HeartsComponent>().ModifyShields(Amount, entity);
+
+						return;
+					} else if (entity.GetComponent<LampComponent>().Item?.Id == "bk:explosive_lamp") {
+						var c = entity.GetComponent<HeartsComponent>();
+
+						c.BombsMax += Amount;
+
+						if (GiveHp) {
+							c.ModifyBombs(Amount, entity);
+							TextParticle.Add(entity, "HP", Amount, true);
+						}
+
+						return;	
+					}
+				}
+
 				var component = entity.GetComponent<HealthComponent>();
 
 				if (Set) {

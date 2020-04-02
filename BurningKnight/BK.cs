@@ -19,8 +19,8 @@ using Version = Lens.Version;
 namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
-		public const bool Demo = false;
-		public static Version Version = new Version("Hub update", 40, 0, 1, 11, 15, true, Debug);
+		public const bool Demo = true;
+		public static Version Version = new Version("Hub update", 41, 0, 1, 11, 16, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
