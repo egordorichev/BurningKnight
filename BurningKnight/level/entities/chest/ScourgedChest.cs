@@ -17,7 +17,7 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected override bool TryOpen(Entity entity) {
-			var item = Items.Generate(ItemType.Scourge);
+			var item = Scourge.GenerateItemId();
 
 			if (item != null) {
 				Timer.Add(() => entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(item, entity.Area)), 0.3f);

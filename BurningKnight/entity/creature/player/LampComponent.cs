@@ -10,6 +10,7 @@ namespace BurningKnight.entity.creature.player {
 	public class LampComponent : ItemComponent {
 		private FollowerPet pet;
 		private bool loaded;
+		private bool hadLamp;
 		
 		public override void Set(Item item, bool animate = true) {
 			base.Set(item, (item == null || item.Id != "bk:no_pet") && animate);
@@ -34,9 +35,28 @@ namespace BurningKnight.entity.creature.player {
 				pet = null;
 			}
 
+			if (hadLamp) {
+				Entity.RemoveComponent<HealthComponent>();
+				Entity.RemoveComponent<HeartsComponent>();
+				Entity.RemoveComponent<InventoryComponent>();
+				
+				Entity.AddComponent(new HealthComponent());
+				Entity.AddComponent(new HeartsComponent());
+				Entity.AddComponent(new InventoryComponent());
+				
+				if (Entity.TryGetComponent<WeaponComponent>(out var w)) {
+					w.Disabled = false;
+				}
+			
+				if (Entity.TryGetComponent<ActiveWeaponComponent>(out var aw)) {
+					aw.Disabled = false;
+				}
+			}
+
 			if (loaded) {
 				Log.Info("using");
 				Item?.Use(Entity);
+				hadLamp = true;
 			}
 
 			if (Item == null || Item.Id == "bk:no_pet") {
