@@ -28,8 +28,6 @@
  no achievements in challanges?
 }
 
-* i can put isaac somewhere cause why not
-
 #
 
 !!! * add eye of chthulu pet

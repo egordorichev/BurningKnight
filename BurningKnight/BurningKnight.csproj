@@ -511,6 +511,7 @@
     <Compile Include="entity\creature\pet\Crystal.cs" />
     <Compile Include="entity\creature\pet\FollowerPet.cs" />
     <Compile Include="entity\creature\pet\GeneratorPet.cs" />
+    <Compile Include="entity\creature\pet\LampPet.cs" />
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
     <Compile Include="entity\creature\pet\SnekPet.cs" />
     <Compile Include="entity\creature\pet\Strawberry.cs" />
@@ -690,6 +691,7 @@
     <Compile Include="entity\item\stand\HatStand.cs" />
     <Compile Include="entity\item\stand\HealthStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
+    <Compile Include="entity\item\stand\LampStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ScourgedStand.cs" />
