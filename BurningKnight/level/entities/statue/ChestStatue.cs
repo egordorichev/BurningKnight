@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.level.entities.chest;
+using Lens.assets;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -26,6 +27,9 @@ namespace BurningKnight.level.entities.statue {
 					var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 					Area.Add(chest);
 					chest.TopCenter = BottomCenter + new Vector2(0, 4);
+					
+					
+					Audio.PlaySfx("level_summon_chest");
 				} catch (Exception ex) {
 					Log.Error(ex);
 				}

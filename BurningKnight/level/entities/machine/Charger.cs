@@ -10,6 +10,7 @@ using BurningKnight.entity.item;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.math;
@@ -135,9 +136,10 @@ namespace BurningKnight.level.entities.machine {
 			timesUsed += e == null ? 2 : 1;
 
 			active.Charge(Rnd.Int(1, 3));
+			Audio.PlaySfx("item_charged");
 			
 			if (Rnd.Float(100) < timesUsed * 2 - Run.Luck * 0.5f) {
-				Break();
+				Break(false);
 				ExplosionMaker.Make(p);
 				return true;
 			}

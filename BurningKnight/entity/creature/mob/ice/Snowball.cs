@@ -41,6 +41,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 			ZVelocity = 3;
 
 			GetComponent<RectBodyComponent>().Body.LinearDamping = 1;
+			GetComponent<AudioEmitterComponent>().PitchMod = 0.2f;
 		}
 
 		protected virtual BodyComponent CreateBodyComponent() {
@@ -49,6 +50,14 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 		protected virtual BodyComponent CreateSensorBodyComponent() {
 			return new SensorBodyComponent(1, 2, 11, 10);
+		}
+		
+		protected override string GetHurtSfx() {
+			return "mob_snowman_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_snowman_death";
 		}
 	}
 }
