@@ -206,13 +206,28 @@ namespace BurningKnight.entity.creature.player {
 					GetComponent<StateComponent>().Become<Player.IdleState>();
 				}
 
+				var spawn = false;
+
 				if (bombs > 0) {
 					Bombs--;
 
+					spawn = true;
+				} else {
+					var h = GetComponent<HeartsComponent>();
+
+					if (h.Bombs > 0) {
+						h.ModifyBombs(-1, Entity);
+						spawn = true;
+					}
+				}
+
+				if (spawn) {
 					var bomb = new Bomb(Entity);
 					Entity.Area.Add(bomb);
 					bomb.Center = Entity.Center;
 					bomb.MoveToMouse();
+				} else {
+					AnimationUtil.ActionFailed();
 				}
 			}
 		}

@@ -56,7 +56,7 @@ namespace BurningKnight.entity.creature.player {
 		
 		public void ModifyBombs(int amount, Entity setter) {
 			var component = GetComponent<HealthComponent>();
-			amount = (int) (amount < 0 ? Math.Max(Bombs, amount) : Math.Min(Cap - component.MaxHealth - Total, amount));
+			amount = (int) (amount < 0 ? -Math.Min(Bombs, -amount) : Math.Min(Cap - component.MaxHealth - Total, amount));
 
 			var e = new HealthModifiedEvent {
 				Amount = amount,
