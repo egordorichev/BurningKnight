@@ -1,6 +1,9 @@
 using System;
+using BurningKnight.assets.items;
+using BurningKnight.entity.component;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.item.stand {
 	public class GobettaStand : ShopStand {
@@ -13,12 +16,19 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected override int CalculatePrice() {
-			return (int) Math.Max(1, (base.CalculatePrice() * 0.7f));
+			return (int) Math.Max(1, (base.CalculatePrice() * 0.5f));
 		}
 
 		protected override bool TryPay(Entity entity) {
 			if (base.TryPay(entity)) {
-				Run.AddScourge(true);
+				var scourge = Scourge.GenerateItemId();
+
+				if (scourge != null) {
+					Timer.Add(() => {
+						entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(scourge, entity.Area));
+					}, 2f);
+				}
+			
 				return true;
 			}
 
