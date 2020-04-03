@@ -77,8 +77,12 @@ namespace BurningKnight.assets.achievements {
 		}
 
 		public static void LockAll() {
-			foreach (var a in Defined.Values) {
-				a.Unlocked = false;
+			try {
+				foreach (var a in Defined.Values) {
+					a.Unlocked = false;
+				}
+			} catch (Exception e) {
+				Log.Error(e);			
 			}
 		}
 
