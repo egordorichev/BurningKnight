@@ -22,7 +22,10 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
-			Rnd.Seed = Run.Seed = Rnd.GenerateSeed(8, Run.DailyId);
+			if (Run.Type == RunType.Daily) {
+				Rnd.Seed = Run.Seed = Rnd.GenerateSeed(8, Run.DailyId);
+			}
+
 			Log.Debug($"1 {Rnd.Int(128)}");
 
 			var player = new LocalPlayer();

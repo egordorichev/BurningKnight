@@ -28,7 +28,17 @@ namespace BurningKnight.state {
 		public static Level Level;
 		public static bool StartedNew;
 		public static bool HasRun;
-		public static string Seed;
+		
+		private static string seed;
+
+		public static string Seed {
+			get => seed;
+
+			set {
+				seed = value;
+			}
+		}
+		
 		public static bool IgnoreSeed;
 		public static int Luck;
 		public static int Scourge { get; private set; }
@@ -80,9 +90,12 @@ namespace BurningKnight.state {
 				Seed = NextSeed;
 				NextSeed = null;
 				IgnoreSeed = false;
+				Log.Debug("Using preset seed");
 			} else if (IgnoreSeed) {
 				IgnoreSeed = false;
+				Log.Debug("Ignoring seed");
 			} else {
+				Log.Debug("Generating seed");
 				Seed = Rnd.GenerateSeed();
 			}
 

@@ -16,13 +16,16 @@
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
 * boss bug out when you get dead
-* same seed all the time on startup lol
 
 * daily run outside of map
 * loading forever is back
 
 # hub
 
+* taking lamp from stand should place your old one onto the stand
+* add lamp name to all the statistics and endscreen
+
+* same seed all the time on startup lol
 * achievement branches rewards 
 * 3 save slots (aka parrarel universes)
 
