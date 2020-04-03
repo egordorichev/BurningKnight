@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.player {
 				pet = null;
 			}
 
-			if (hadLamp) {
+			if (hadLamp && previous != null && previous.Id != "bk:no_lamp") {
 				Entity.RemoveComponent<HealthComponent>();
 				Entity.RemoveComponent<HeartsComponent>();
 				Entity.RemoveComponent<InventoryComponent>();
@@ -67,7 +67,6 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (loaded) {
-				Log.Info("using");
 				Item?.Use(Entity);
 				hadLamp = true;
 			}

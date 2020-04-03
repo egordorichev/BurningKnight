@@ -23,8 +23,7 @@
 # hub
 
 * non starting weapons can stuck with you with quick restart
-* rework freaking enemy pawn
-* saving freaks out
+* rework freaking enemy spawn
 
 * achievement branches rewards 
 * 3 save slots (aka parrarel universes)
