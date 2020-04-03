@@ -16,8 +16,13 @@
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
 * loading forever is back
+* corrupted levels
 
 # hub
+
+* scourge statue can give scourge of death lol
+
+* tutorial softlock if you get dead
 
 * achievement branches rewards {
  a: drums/musical instruments?
@@ -26,17 +31,15 @@
  d: l?
 }
 
-* 3 save slots (aka parrarel universes)
-
 * shield class needs a perk, its pretty weak compared to regular
 
-* rework freaking enemy spawn
-
 * challanges {
- no achievements in challanges?
+ bombs only makes no sense now since its a class
 }
 
 #
+
+* rework freaking enemy spawn
 
 !!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms
