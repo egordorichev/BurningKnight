@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -22,12 +23,6 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
-			if (Run.Type == RunType.Daily) {
-				Rnd.Seed = Run.Seed = Rnd.GenerateSeed(8, Run.DailyId);
-			}
-
-			Log.Debug($"1 {Rnd.Int(128)}");
-
 			var player = new LocalPlayer();
 			area.Add(player);
 
@@ -41,17 +36,16 @@ namespace BurningKnight.save {
 						Log.Error(e);
 					}
 				} else if (Run.Type == RunType.Daily) {
-					Log.Debug($"2 {Rnd.Int(128)}");
+					Rnd.Seed = Run.Seed;
 					
 					var count = Rnd.Int(1, 4);
-					var inventory = player.GetComponent<InventoryComponent>();
+
 					var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure), i => i.Type == ItemType.Artifact);
+					Log.Debug($"Pool count: {pool.Count}");
+					Player.DailyItems = new List<string>();
 
 					for (var i = 0; i < count; i++) {
-						var id = Items.GenerateAndRemove(pool);
-						
-						Log.Info($"Giving {id}");
-						inventory.Pickup(Items.CreateAndAdd(id, area), false);
+						Player.DailyItems.Add(Items.GenerateAndRemove(pool));
 					}
 
 					Player.StartingItem = Rnd.Chance(70) ? Items.Generate(ItemType.Active) : null;
@@ -62,8 +56,6 @@ namespace BurningKnight.save {
 				area.Add(new RunStatistics());
 				area.Add(new entity.creature.bk.BurningKnight());
 			}
-			
-			Log.Debug($"3 {Rnd.Int(128)}");
 		}
 
 		public PlayerSave() : base(SaveType.Player) {

@@ -29,15 +29,7 @@ namespace BurningKnight.state {
 		public static bool StartedNew;
 		public static bool HasRun;
 		
-		private static string seed;
-
-		public static string Seed {
-			get => seed;
-
-			set {
-				seed = value;
-			}
-		}
+		public static string Seed;
 		
 		public static bool IgnoreSeed;
 		public static int Luck;
@@ -81,6 +73,11 @@ namespace BurningKnight.state {
 		}
 
 		public static void StartNew(int depth = 1, RunType type = RunType.Regular) {
+			if (Statistics != null) {
+				Statistics.Done = true;
+				Statistics = null;
+			}
+			
 			StartingNew = true;
 			HasRun = false;
 			NextDepth = depth;

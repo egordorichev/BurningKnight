@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.player {
 		private bool hadLamp;
 		
 		public override void Set(Item item, bool animate = true) {
-			base.Set(item, (item == null || item.Id != "bk:no_pet") && animate);
+			base.Set(item, (item == null || item.Id != "bk:no_lamp") && animate);
 		}
 
 		public override void PostInit() {
@@ -21,13 +21,12 @@ namespace BurningKnight.entity.creature.player {
 			loaded = true;
 
 			if (Item == null) {
-				Set(Items.CreateAndAdd("bk:no_pet", Entity.Area), false);
+				Set(Items.CreateAndAdd("bk:no_lamp", Entity.Area), false);
 			}
 		}
 
 		protected override void OnItemSet(Item previous) {
 			base.OnItemSet(previous);
-			Log.Debug(Item?.Id);
 
 			if (pet != null) {
 				pet.GetComponent<FollowerComponent>().Remove();
@@ -59,7 +58,7 @@ namespace BurningKnight.entity.creature.player {
 				hadLamp = true;
 			}
 
-			if (Item == null || Item.Id == "bk:no_pet") {
+			if (Item == null || Item.Id == "bk:no_lamp") {
 				return;
 			}
 			

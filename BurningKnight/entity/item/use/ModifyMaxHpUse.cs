@@ -37,6 +37,7 @@ namespace BurningKnight.entity.item.use {
 						return;
 					} else if (entity.GetComponent<LampComponent>().Item?.Id == "bk:explosive_lamp") {
 						var c = entity.GetComponent<HeartsComponent>();
+						Amount = (int) Math.Ceiling(Amount / 2f);
 
 						c.BombsMax += Amount;
 

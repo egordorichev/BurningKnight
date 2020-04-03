@@ -22,6 +22,8 @@
 
 # hub
 
+* non starting weapons can stuck with you with quick restart
+
 * taking lamp from stand should place your old one onto the stand
 * add lamp name to all the statistics and endscreen
 

@@ -906,7 +906,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {				
+			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew();
 				died = true;
@@ -919,6 +919,11 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
 				if (Input.Keyboard.WasPressed(Keys.D0)) {
 					Run.Depth = 0;
+					
+					if (Run.Statistics != null) {
+						Run.Statistics.Done = true;
+						Run.Statistics = null;
+					}
 				}
 				
 				if (Input.Keyboard.WasPressed(Keys.D1)) {
@@ -1316,8 +1321,10 @@ namespace BurningKnight.state {
 				RelativeY = start,
 				Clickable = false
 			});
+
+			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge);
 			
-			if (Run.Depth > 0) {
+			if (qr) {
 				gameOverMenu.Add(overQuickBack = new UiButton {
 					Font = Font.Small,
 					LocaleLabel = "quick_restart",
@@ -1334,7 +1341,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(overBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = BackY + (Run.Depth > 0 ? 12 : 0),
+				RelativeCenterY = BackY + (qr ? 12 : 0),
 
 				Click = b => {
 					gameOverMenu.Enabled = false;

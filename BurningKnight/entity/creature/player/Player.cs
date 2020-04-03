@@ -52,6 +52,7 @@ namespace BurningKnight.entity.creature.player {
 		public static string StartingWeapon;
 		public static string StartingItem;
 		public static string StartingLamp;
+		public static List<string> DailyItems;
 
 		private bool dead;
 
@@ -176,6 +177,13 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
+				if (StartingLamp != null) {
+					var i = Items.CreateAndAdd(StartingLamp, Area);
+					i.Scourged = false;
+					GetComponent<LampComponent>().Set(i, false);
+					Log.Debug($"Starting lamp: {StartingLamp}");
+				}
+				
 				if (StartingWeapon == null) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
@@ -195,12 +203,18 @@ namespace BurningKnight.entity.creature.player {
 					
 					Log.Debug($"Starting item: {StartingItem}");
 				}
-				
-				if (StartingLamp != null) {
-					var i = Items.CreateAndAdd(StartingLamp, Area);
-					i.Scourged = false;
-					GetComponent<LampComponent>().Set(i, false);
-					Log.Debug($"Starting lamp: {StartingLamp}");
+
+				if (DailyItems != null) {
+					if (Run.Type == RunType.Daily) {
+						var inventory = GetComponent<InventoryComponent>();
+						
+						foreach (var id in DailyItems) {
+							Log.Info($"Giving {id}");
+							inventory.Pickup(Items.CreateAndAdd(id, Area), false);
+						}
+					}
+					
+					DailyItems = null;
 				}
 			}
 			
@@ -218,9 +232,55 @@ namespace BurningKnight.entity.creature.player {
 
 		private bool set;
 		private float t;
+		private bool findASpawn;
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (findASpawn) {
+				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
+					Center = cc.Center;
+					Log.Debug("Teleported to spawn point");
+					findASpawn = false;
+
+					return;
+				}
+
+				foreach (var cc in Area.Tagged[Tags.Entrance]) {
+					Center = cc.Center + new Vector2(0, 4);
+					Log.Debug("Teleported to entrance");
+					findASpawn = false;
+
+					return;
+				}
+
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					var rm = (Room) r;
+
+					if (rm.Type == RoomType.Entrance) {
+						Center = r.Center;
+						rm.Discover();
+						findASpawn = false;
+
+						return;
+					}
+				}
+
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					var rm = (Room) r;
+
+					if (rm.Type == RoomType.Exit) {
+						Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+						rm.Discover();
+						findASpawn = false;
+
+						return;
+					}
+				}
+
+				Log.Error("Did not find a spawn point!");
+			}
+
 			t += dt;
 
 			if (!set && t >= 0.5f) {
@@ -650,41 +710,7 @@ namespace BurningKnight.entity.creature.player {
 				Camera.Instance.Unfollow(rce.Room);
 				Audio.PlaySfx("level_room_cleared", 0.25f + Audio.Db3);
 			} else if (e is NewLevelStartedEvent) {
-				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
-					Center = cc.Center;
-					Log.Debug("Teleported to spawn point");
-					return base.HandleEvent(e);
-				}
-
-				foreach (var cc in Area.Tagged[Tags.Entrance]) {
-					Center = cc.Center + new Vector2(0, 4);
-					Log.Debug("Teleported to entrance");
-					return base.HandleEvent(e);
-				}
-			
-				foreach (var r in Area.Tagged[Tags.Room]) {
-					var rm = (Room) r;
-
-					if (rm.Type == RoomType.Entrance) {
-						Center = r.Center;
-						rm.Discover();
-
-						return base.HandleEvent(e);
-					}
-				}
-			
-				foreach (var r in Area.Tagged[Tags.Room]) {
-					var rm = (Room) r;
-				
-					if (rm.Type == RoomType.Exit) {
-						Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
-						rm.Discover();
-
-						return base.HandleEvent(e);
-					}
-				}
-			
-				Log.Error("Did not find a spawn point!");
+				findASpawn = true;
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {
 					pce.Projectile.Spectral = true;
