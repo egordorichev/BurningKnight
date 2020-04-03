@@ -150,6 +150,12 @@ namespace BurningKnight.entity.item.stand {
 
 							ht.Set(null, false);
 							SetItem(it, entity, false);
+						} else if (this is LampStand && Item != null && Item.Type == ItemType.Lamp) {
+							var ht = entity.GetComponent<LampComponent>();
+							var it = ht.Item;
+
+							ht.Set(null, false);
+							SetItem(it, entity, false);
 						} else {
 							SetItem(null, entity, false);
 							remove = true;

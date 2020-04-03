@@ -46,7 +46,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 		
 		protected virtual bool ApproveItem(ItemData item) {
-			return item.Type == ItemType.Lamp;
+			return item.Type == ItemType.Lamp && item.Id != "bk:no_lamp";
 		}
 
 		protected bool ShowUnlocked = true;

@@ -234,51 +234,57 @@ namespace BurningKnight.entity.creature.player {
 		private float t;
 		private bool findASpawn;
 
+		private bool FindSpawn() {
+			foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
+				Center = cc.Center;
+				Log.Debug("Teleported to spawn point");
+				return true;
+			}
+
+			foreach (var cc in Area.Tagged[Tags.Entrance]) {
+				Center = cc.Center + new Vector2(0, 4);
+				Log.Debug("Teleported to entrance");
+				return true;
+			}
+
+			foreach (var r in Area.Tagged[Tags.Room]) {
+				var rm = (Room) r;
+
+				if (rm.Type == RoomType.Entrance) {
+					Center = r.Center;
+					rm.Discover();
+					return true;
+				}
+			}
+
+			foreach (var r in Area.Tagged[Tags.Room]) {
+				var rm = (Room) r;
+
+				if (rm.Type == RoomType.Exit) {
+					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+					rm.Discover();
+
+					return true;
+				}
+			}
+
+			return false;
+		}
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (findASpawn) {
-				foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
-					Center = cc.Center;
-					Log.Debug("Teleported to spawn point");
+				if (FindSpawn()) {
 					findASpawn = false;
-
-					return;
-				}
-
-				foreach (var cc in Area.Tagged[Tags.Entrance]) {
-					Center = cc.Center + new Vector2(0, 4);
-					Log.Debug("Teleported to entrance");
-					findASpawn = false;
-
-					return;
-				}
-
-				foreach (var r in Area.Tagged[Tags.Room]) {
-					var rm = (Room) r;
-
-					if (rm.Type == RoomType.Entrance) {
-						Center = r.Center;
-						rm.Discover();
-						findASpawn = false;
-
-						return;
+					
+					if (!CheatWindow.AutoGodMode) {
+						GetComponent<HealthComponent>().Unhittable = false;
 					}
+				} else {
+
+					Log.Error("Did not find a spawn point!");
 				}
-
-				foreach (var r in Area.Tagged[Tags.Room]) {
-					var rm = (Room) r;
-
-					if (rm.Type == RoomType.Exit) {
-						Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
-						rm.Discover();
-						findASpawn = false;
-
-						return;
-					}
-				}
-
-				Log.Error("Did not find a spawn point!");
 			}
 
 			t += dt;
@@ -711,6 +717,7 @@ namespace BurningKnight.entity.creature.player {
 				Audio.PlaySfx("level_room_cleared", 0.25f + Audio.Db3);
 			} else if (e is NewLevelStartedEvent) {
 				findASpawn = true;
+				GetComponent<HealthComponent>().Unhittable = true;
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {
 					pce.Projectile.Spectral = true;

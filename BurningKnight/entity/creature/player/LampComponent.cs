@@ -1,4 +1,5 @@
 using BurningKnight.assets.items;
+using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.item;
@@ -40,6 +41,19 @@ namespace BurningKnight.entity.creature.player {
 				Entity.RemoveComponent<InventoryComponent>();
 				
 				Entity.AddComponent(new HealthComponent());
+
+				var hp = Entity.GetComponent<HealthComponent>();
+					
+				hp.InitMaxHealth = 6;
+				hp.SaveMaxHp = true;
+				hp.MaxHealthCap = 32;
+				hp.InvincibilityTimerMax = 1f;
+
+				if (CheatWindow.AutoGodMode) {
+					Log.Info("Entering god mode for the player");
+					hp.Unhittable = true;
+				}
+				
 				Entity.AddComponent(new HeartsComponent());
 				Entity.AddComponent(new InventoryComponent());
 				

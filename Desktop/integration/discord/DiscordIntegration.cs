@@ -37,8 +37,13 @@ namespace Desktop.integration.discord {
 
 			if (lastUpdate >= 3f) {
 				lastUpdate = 0;
-				
-				UpdateStatus();
+
+				try {
+					UpdateStatus();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
 				DiscordRpc.RunCallbacks();
 			}
 		}

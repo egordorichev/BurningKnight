@@ -23,11 +23,9 @@
 # hub
 
 * non starting weapons can stuck with you with quick restart
+* rework freaking enemy pawn
+* saving freaks out
 
-* taking lamp from stand should place your old one onto the stand
-* add lamp name to all the statistics and endscreen
-
-* same seed all the time on startup lol
 * achievement branches rewards 
 * 3 save slots (aka parrarel universes)
 
