@@ -111,9 +111,21 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.SelectAttack();
 			Become<IdleState>();
 		}
+
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target == null) {
+				Become<IdleState>();
+			}
+		}
 		
 		public class IdleState : SmartState<QueenBee> {
 			public override void Update(float dt) {
+				if (Self.Target == null) {
+					return;
+				}
+
 				base.Update(dt);
 
 				if (T >= 0.5f) {
