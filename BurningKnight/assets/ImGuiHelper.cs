@@ -19,13 +19,21 @@ namespace BurningKnight.assets {
 		public static IntPtr ProjectilesTexture;
 		
 		public static void Init() {
-			Renderer = new ImGuiRenderer(Engine.Instance);
-			ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 4f);
+			try {
+				Renderer = new ImGuiRenderer(Engine.Instance);
+				ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 4f);
+			} catch (Exception e) {
+				
+			}
 		}
 		
 		public static void BindTextures() {
-			ItemsTexture = Renderer.BindTexture(CommonAse.Items.Texture);
-			ProjectilesTexture = Renderer.BindTexture(CommonAse.Projectiles.Texture);
+			try {
+				ItemsTexture = Renderer.BindTexture(CommonAse.Items.Texture);
+				ProjectilesTexture = Renderer.BindTexture(CommonAse.Projectiles.Texture);
+			} catch (Exception e) {
+				
+			}
 		}
 
 		private static List<int> toRemove = new List<int>();

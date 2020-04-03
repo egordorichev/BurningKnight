@@ -88,15 +88,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 		
 		#region Old King States
 		private int lastAttack;
-		
+
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target == null) {
+				Become<IdleState>();
+			}
+		}
+
 		public class IdleState : SmartState<OldKing> {
 			public override void Update(float dt) {
-				base.Update(dt);
-
 				if (Self.Target == null) {
-					T = 0;
 					return;
 				}
+
+				base.Update(dt);
 
 				if (T >= (Self.Raging ? 3f : 4f)) {
 					if (Rnd.Chance(95)) {

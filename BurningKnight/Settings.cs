@@ -150,7 +150,7 @@ namespace BurningKnight {
 		}
 
 		public static void Save() {
-			GlobalSave.Put("s_fusensivityllscreen", Fullscreen);
+			GlobalSave.Put("s_fullscreen", Fullscreen);
 			GlobalSave.Put("s_fps", ShowFps);
 			GlobalSave.Put("s_blood", Blood);
 			GlobalSave.Put("s_uisfx", UiSfx);

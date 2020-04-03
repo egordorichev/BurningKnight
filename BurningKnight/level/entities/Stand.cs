@@ -62,7 +62,7 @@ namespace BurningKnight.level.entities {
 			};
 
 			s.ShowStats(id);
-			return false;
+			return true;
 		}
 
 		public override void Load(FileReader stream) {

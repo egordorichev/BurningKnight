@@ -105,11 +105,23 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		private int counter;
 
+
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target == null) {
+				Become<IdleState>();
+			}
+		}
 		#region Pharaoh States
 		public class IdleState : SmartState<Pharaoh> {
 			public override void Update(float dt) {
-				base.Update(dt);
+				if (Self.Target == null) {
+					return;
+				}
 
+				base.Update(dt);
+				
 				if (T >= (Self.InThirdPhase ? 0.5f : 1f)) {
 					var v = Self.counter;
 

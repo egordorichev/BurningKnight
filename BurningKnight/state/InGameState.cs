@@ -733,17 +733,21 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 
-			var found = false;
+			if (Run.Depth > 0) {
+				var found = false;
 
-			foreach (var t in Camera.Instance.Targets) {
-				if (t.Entity is Player) {
-					found = true;
-					break;
+				foreach (var t in Camera.Instance.Targets) {
+					if (t.Entity is Player) {
+						found = true;
+
+						break;
+					}
 				}
-			}
 
-			if (found) {
-				Camera.Instance.Zoom += ((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
+				if (found) {
+					Camera.Instance.Zoom +=
+						((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
+				}
 			}
 
 			console.Update(dt);
@@ -906,7 +910,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {				
+			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew();
 				died = true;
@@ -919,6 +923,11 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.IsDown(Keys.LeftControl)) {
 				if (Input.Keyboard.WasPressed(Keys.D0)) {
 					Run.Depth = 0;
+					
+					if (Run.Statistics != null) {
+						Run.Statistics.Done = true;
+						Run.Statistics = null;
+					}
 				}
 				
 				if (Input.Keyboard.WasPressed(Keys.D1)) {
@@ -1316,8 +1325,10 @@ namespace BurningKnight.state {
 				RelativeY = start,
 				Clickable = false
 			});
+
+			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge);
 			
-			if (Run.Depth > 0) {
+			if (qr) {
 				gameOverMenu.Add(overQuickBack = new UiButton {
 					Font = Font.Small,
 					LocaleLabel = "quick_restart",
@@ -1334,7 +1345,7 @@ namespace BurningKnight.state {
 			gameOverMenu.Add(overBack = new UiButton {
 				LocaleLabel = "restart",
 				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = BackY + (Run.Depth > 0 ? 12 : 0),
+				RelativeCenterY = BackY + (qr ? 12 : 0),
 
 				Click = b => {
 					gameOverMenu.Enabled = false;
@@ -2438,6 +2449,7 @@ namespace BurningKnight.state {
 			
 			statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
 			statsStats.Add(Locale.Get("time"), data["time"].AsString);
+			statsStats.Add(Locale.Get("lamp"), Locale.Get(data["lamp"].AsString));
 			statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
 			statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
 			statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
@@ -2490,13 +2502,28 @@ namespace BurningKnight.state {
 			ReturnFromStats?.Invoke();
 		}
 
-		public void AnimateDoneScreen() {
+		public void AnimateDoneScreen(Player player) {
 			if (Run.Type == RunType.Daily) {
 				Player.StartingItem = null;
 				Player.StartingWeapon = null;
+				Player.StartingLamp = null;
+				Player.DailyItems = null;
 			}
 
 			GlobalSave.Put("run_count", GlobalSave.GetInt("run_count") + 1);
+
+
+			var lamp = "none";
+
+			try {
+				var l = player.GetComponent<LampComponent>().Item;
+
+				if (l != null) {
+					lamp = l.Id;
+				}
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 
 			if (Run.Won) {
 				if (Run.Type == RunType.BossRush) {
@@ -2552,6 +2579,7 @@ namespace BurningKnight.state {
 				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
 			});
 			
+			stats.Add(Locale.Get("lamp"), Locale.Get(lamp));
 			stats.Add(Locale.Get("time"), GetRunTime());
 			stats.Add(Locale.Get("depth"), Run.Depth.ToString());
 			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
@@ -2630,6 +2658,8 @@ namespace BurningKnight.state {
 					root["time"] = GetRunTime();
 					root["depth"] = Run.Depth;
 					root["won"] = Run.Won;
+
+					root["lamp"] = lamp;
 					root["coins"] = Run.Statistics.CoinsObtained;
 					root["items"] = Run.Statistics.Items.Count;
 					root["damage"] = Run.Statistics.DamageTaken;

@@ -1,4 +1,5 @@
 using BurningKnight.assets.items;
+using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.item;
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.creature.player {
 		private bool hadLamp;
 		
 		public override void Set(Item item, bool animate = true) {
-			base.Set(item, (item == null || item.Id != "bk:no_pet") && animate);
+			base.Set(item, (item == null || item.Id != "bk:no_lamp") && animate);
 		}
 
 		public override void PostInit() {
@@ -21,13 +22,12 @@ namespace BurningKnight.entity.creature.player {
 			loaded = true;
 
 			if (Item == null) {
-				Set(Items.CreateAndAdd("bk:no_pet", Entity.Area), false);
+				Set(Items.CreateAndAdd("bk:no_lamp", Entity.Area), false);
 			}
 		}
 
 		protected override void OnItemSet(Item previous) {
 			base.OnItemSet(previous);
-			Log.Debug(Item?.Id);
 
 			if (pet != null) {
 				pet.GetComponent<FollowerComponent>().Remove();
@@ -35,12 +35,25 @@ namespace BurningKnight.entity.creature.player {
 				pet = null;
 			}
 
-			if (hadLamp) {
+			if (hadLamp && previous != null && previous.Id != "bk:no_lamp") {
 				Entity.RemoveComponent<HealthComponent>();
 				Entity.RemoveComponent<HeartsComponent>();
 				Entity.RemoveComponent<InventoryComponent>();
 				
 				Entity.AddComponent(new HealthComponent());
+
+				var hp = Entity.GetComponent<HealthComponent>();
+					
+				hp.InitMaxHealth = 6;
+				hp.SaveMaxHp = true;
+				hp.MaxHealthCap = 32;
+				hp.InvincibilityTimerMax = 1f;
+
+				if (CheatWindow.AutoGodMode) {
+					Log.Info("Entering god mode for the player");
+					hp.Unhittable = true;
+				}
+				
 				Entity.AddComponent(new HeartsComponent());
 				Entity.AddComponent(new InventoryComponent());
 				
@@ -54,12 +67,11 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (loaded) {
-				Log.Info("using");
 				Item?.Use(Entity);
 				hadLamp = true;
 			}
 
-			if (Item == null || Item.Id == "bk:no_pet") {
+			if (Item == null || Item.Id == "bk:no_lamp") {
 				return;
 			}
 			

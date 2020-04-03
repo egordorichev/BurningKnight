@@ -15,16 +15,22 @@
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
-* boss bug out when you get dead
-* same seed all the time on startup lol
-
-* daily run outside of map
 * loading forever is back
 
 # hub
 
-* achievement branches rewards 
+* achievement branches rewards {
+ a: drums/musical instruments?
+ b: l?
+ c: explosive lamp
+ d: l?
+}
+
 * 3 save slots (aka parrarel universes)
+
+* shield class needs a perk, its pretty weak compared to regular
+
+* rework freaking enemy spawn
 
 * challanges {
  no achievements in challanges?

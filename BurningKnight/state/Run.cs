@@ -18,7 +18,7 @@ namespace BurningKnight.state {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 2 : 0;
+		private static int depth = BK.Version.Dev ? 0 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int SavingDepth;
@@ -28,7 +28,9 @@ namespace BurningKnight.state {
 		public static Level Level;
 		public static bool StartedNew;
 		public static bool HasRun;
+		
 		public static string Seed;
+		
 		public static bool IgnoreSeed;
 		public static int Luck;
 		public static int Scourge { get; private set; }
@@ -71,6 +73,11 @@ namespace BurningKnight.state {
 		}
 
 		public static void StartNew(int depth = 1, RunType type = RunType.Regular) {
+			if (Statistics != null) {
+				Statistics.Done = true;
+				Statistics = null;
+			}
+			
 			StartingNew = true;
 			HasRun = false;
 			NextDepth = depth;
@@ -80,9 +87,12 @@ namespace BurningKnight.state {
 				Seed = NextSeed;
 				NextSeed = null;
 				IgnoreSeed = false;
+				Log.Debug("Using preset seed");
 			} else if (IgnoreSeed) {
 				IgnoreSeed = false;
+				Log.Debug("Ignoring seed");
 			} else {
+				Log.Debug("Generating seed");
 				Seed = Rnd.GenerateSeed();
 			}
 
@@ -222,13 +232,16 @@ namespace BurningKnight.state {
 			
 			Won = true;
 			Statistics.Won = true;
+			Player pl = null;
 
 			foreach (var p in Engine.Instance.State.Area.Tagged[Tags.Player]) {
 				p.RemoveComponent<PlayerInputComponent>();
 				p.GetComponent<HealthComponent>().Unhittable = true;
+
+				pl = (Player) p;
 			}
 			
-			((InGameState) Engine.Instance.State).AnimateDoneScreen();
+			((InGameState) Engine.Instance.State).AnimateDoneScreen(pl);
 		}
 
 		public static string GetLeaderboardId() {
