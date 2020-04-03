@@ -184,7 +184,7 @@ namespace BurningKnight.entity.creature.player {
 					Log.Debug($"Starting lamp: {StartingLamp}");
 				}
 				
-				if (StartingWeapon == null) {
+				if (StartingWeapon == null || !ItemPool.StartingWeapon.Contains(Items.Datas[StartingWeapon].Pools)) {
 					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
 
