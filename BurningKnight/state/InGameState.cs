@@ -1347,7 +1347,7 @@ namespace BurningKnight.state {
 			}
 
 			gameOverMenu.Add(overBack = new UiButton {
-				LocaleLabel = "restart",
+				LocaleLabel = "back_to_town",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY + (qr ? 12 : 0),
 

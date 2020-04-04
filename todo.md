@@ -17,8 +17,6 @@
 
 # hub
 
-* still dropping no_lamp
-
 * achievement branches rewards {
  a: drums/musical instruments?
  b: l?
