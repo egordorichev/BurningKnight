@@ -593,7 +593,7 @@ namespace BurningKnight.entity.creature.player {
 				if (c.New.Type == RoomType.DarkMarket || c.New.Type == RoomType.Hidden) {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
-					pr.ClipSize = new Vector2(c.New.Width - 32, c.New.Height - 32);
+					pr.ClipSize = new Vector2(c.New.Width - 16, c.New.Height - 32);
 				} else {
 					pr.EnableClip = false;
 				}
