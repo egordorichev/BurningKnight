@@ -878,7 +878,9 @@ namespace BurningKnight.entity.creature.player {
 			var inventory = GetComponent<InventoryComponent>();
 
 			foreach (var i in inventory.Items) {
-				drops.Add(i);
+				if (i.Id != "bk:no_lamp") {
+					drops.Add(i);
+				}
 			}
 
 			inventory.Items.Clear();

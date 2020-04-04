@@ -20,8 +20,6 @@
 
 # hub
 
-* tutorial softlock if you get dead
-
 * achievement branches rewards {
  a: drums/musical instruments?
  b: l?
