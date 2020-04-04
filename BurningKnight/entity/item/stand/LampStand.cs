@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.events;
 using BurningKnight.save;
@@ -10,6 +12,8 @@ using BurningKnight.util;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.util.math;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item.stand {
 	public class LampStand : ItemStand {
@@ -17,6 +21,13 @@ namespace BurningKnight.entity.item.stand {
 		
 		public LampStand() {
 			dontSaveItem = true;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+			
+			t = Rnd.Float(6);
+			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 		}
 
 		public override void Init() {
@@ -74,6 +85,14 @@ namespace BurningKnight.entity.item.stand {
 
 		protected override bool CanInteract(Entity e) {
 			return Item != null;
+		}
+
+		private float t;
+		
+		public override void Update(float dt) {
+			base.Update(dt);
+			t += dt;
+			GetComponent<LightComponent>().Light.Radius = 32f + (float) Math.Cos(t) * 6;
 		}
 	}
 }

@@ -17,7 +17,6 @@
 
 # hub
 
-* npc saving broken: I saved boxy 3 times
 * still dropping no_lamp
 
 * achievement branches rewards {
