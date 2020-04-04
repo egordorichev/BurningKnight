@@ -23,7 +23,9 @@ namespace BurningKnight.level.rooms.darkmarket {
 			
 			Painter.Rect(level, this, 1, Tile.WallA);
 
-			var exit = new HiddenExit();
+			var exit = new HiddenExit {
+				id = "dm"
+			};
 			level.Area.Add(exit);
 			exit.BottomCenter = GetCenter() * 16 + new Vector2(8, 8);
 			

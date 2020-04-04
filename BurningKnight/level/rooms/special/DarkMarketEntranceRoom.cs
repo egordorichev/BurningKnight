@@ -9,8 +9,10 @@ namespace BurningKnight.level.rooms.special {
 	public class DarkMarketEntranceRoom : SpecialRoom {
 		public override void Paint(Level level) {
 			var hw = (int) ((GetWidth() - 1) / 2f);
-			
-			var entrance = new HiddenEntrance();
+
+			var entrance = new HiddenEntrance {
+				id = "dm"
+			};
 			level.Area.Add(entrance);
 			entrance.Position = new Vector2(Left + hw, Top + 2) * 16;
 

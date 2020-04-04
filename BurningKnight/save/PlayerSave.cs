@@ -55,6 +55,8 @@ namespace BurningKnight.save {
 				
 				area.Add(new RunStatistics());
 				area.Add(new entity.creature.bk.BurningKnight());
+			} else if (Run.Depth == -2) {
+				area.Add(new RunStatistics());
 			}
 		}
 

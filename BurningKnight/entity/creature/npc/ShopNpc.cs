@@ -9,6 +9,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 using Lens.util.timer;
 
@@ -229,6 +230,7 @@ namespace BurningKnight.entity.creature.npc {
 				case WeaponTrader: return new WeaponTrader();
 				case ActiveTrader: return new ActiveTrader();
 				case AccessoryTrader: return new AccessoryTrader();
+				case Mike: return new Mike();
 				case Snek: return new Snek();
 				case Boxy: return new Boxy();
 				case Vampire: return new Vampire();
@@ -240,6 +242,7 @@ namespace BurningKnight.entity.creature.npc {
 				case Gobetta: return new Gobetta();
 			}
 
+			Log.Error($"Unknown npc id {id}!");
 			return new Boxy();
 		}
 	}

@@ -593,7 +593,7 @@ namespace BurningKnight.entity.creature.player {
 				if (c.New.Type == RoomType.DarkMarket || c.New.Type == RoomType.Hidden) {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
-					pr.ClipSize = new Vector2(c.New.Width - 32, c.New.Height - 32);
+					pr.ClipSize = new Vector2(c.New.Width - 16, c.New.Height - 32);
 				} else {
 					pr.EnableClip = false;
 				}
@@ -821,7 +821,7 @@ namespace BurningKnight.entity.creature.player {
 			var pool = new List<string>();
 
 			foreach (var i in GetComponent<InventoryComponent>().Items) {
-				if (i.Type != ItemType.Hat) {
+				if (i.Type != ItemType.Hat && i.Id != "bk:no_lamp") {
 					pool.Add(i.Id);
 				}
 			}
@@ -878,13 +878,15 @@ namespace BurningKnight.entity.creature.player {
 			var inventory = GetComponent<InventoryComponent>();
 
 			foreach (var i in inventory.Items) {
-				drops.Add(i);
+				if (i.Id != "bk:no_lamp") {
+					drops.Add(i);
+				}
 			}
 
 			inventory.Items.Clear();
 
 			foreach (var c in Components.Values) {
-				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat) {
+				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat && i.Item.Id != "bk:no_lamp") {
 					drops.Add(Items.Create(i.Item.Id));
 				}
 			}

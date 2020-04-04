@@ -15,14 +15,7 @@
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
-* loading forever is back
-* corrupted levels
-
 # hub
-
-* scourge statue can give scourge of death lol
-
-* tutorial softlock if you get dead
 
 * achievement branches rewards {
  a: drums/musical instruments?
@@ -38,8 +31,6 @@
 }
 
 #
-
-* rework freaking enemy spawn
 
 !!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms

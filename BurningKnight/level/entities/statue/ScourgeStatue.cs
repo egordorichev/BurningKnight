@@ -27,7 +27,7 @@ namespace BurningKnight.level.entities.statue {
 			var c = e.GetComponent<HealthComponent>();
 			c.ModifyHealth(c.MaxHealth, this);
 			
-			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemType.Scourge), Area));
+			e.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Scourge.Generate(), Area));
 			Break();
 			Audio.PlaySfx("level_scourge_statue");
 			

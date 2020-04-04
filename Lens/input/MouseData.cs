@@ -1,5 +1,6 @@
 ﻿using System;
 using ImGuiNET;
+using Lens.assets;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -21,7 +22,7 @@ namespace Lens.input {
 			PreviousState = CurrentState;
 			CurrentState = Mouse.GetState();
 
-			blockedByGui = Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureMouse;
+			blockedByGui = Assets.ImGuiEnabled && Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureMouse;
 			HadClick = HadClick || WasPressedLeftButton;
 		}
 

@@ -893,7 +893,7 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
-			if (!BK.Demo && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
+			if (!BK.Demo && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
 				ToolsEnabled = !ToolsEnabled;
 				var player = LocalPlayer.Locate(Area);
 
@@ -1149,6 +1149,10 @@ namespace BurningKnight.state {
 		}
 
 		private string GetRunTime() {
+			if (Run.Statistics == null) {
+				return Locale.Get("none");
+			}
+		
 			var t = Run.Statistics.Time;
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
@@ -1343,7 +1347,7 @@ namespace BurningKnight.state {
 			}
 
 			gameOverMenu.Add(overBack = new UiButton {
-				LocaleLabel = "restart",
+				LocaleLabel = "back_to_town",
 				RelativeCenterX = Display.UiWidth / 2f,
 				RelativeCenterY = BackY + (qr ? 12 : 0),
 
@@ -2429,50 +2433,55 @@ namespace BurningKnight.state {
 			placeLabel.Label = $"{Locale.Get("top")} #{place + 1} {Locale.Get("run")}";
 			placeLabel.RelativeCenterX = Display.UiWidth * 0.5f;
 
-			var id = $"top_{place}";
-			var score = GlobalSave.GetInt(id);
-			var data = GlobalSave.GetJson($"{id}_data");
-			
-			statsStats.Add(Locale.Get("seed"), data["seed"].AsString, false, bt => {
-				var b = (UiTableEntry) bt;
-				b.RealLocaleLabel = "copied_to_clipboard";
+			try {
+				var id = $"top_{place}";
+				var score = GlobalSave.GetInt(id);
+				var data = GlobalSave.GetJson($"{id}_data");
 
-				try {
-					// Needs xclip on linux
-					TextCopy.Clipboard.SetText(Run.Seed);
-				} catch (Exception e) {
-					Log.Error(e);
-				}
+				statsStats.Add(Locale.Get("seed"), data["seed"].AsString, false, bt => {
+					var b = (UiTableEntry) bt;
+					b.RealLocaleLabel = "copied_to_clipboard";
 
-				Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
-			});
-			
-			statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
-			statsStats.Add(Locale.Get("time"), data["time"].AsString);
-			statsStats.Add(Locale.Get("lamp"), Locale.Get(data["lamp"].AsString));
-			statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("kills"), data["kills"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("scourge"), data["scourge"].AsNumber.ToString());
-			statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
-			statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
-			
-			statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
-				ShowLeaderboard("high_score");
+					try {
+						// Needs xclip on linux
+						TextCopy.Clipboard.SetText(Run.Seed);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 
-				Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
-					statsMenu.Enabled = false;
-				};
+					Timer.Add(() => b.RealLocaleLabel = "seed", 0.5f);
+				});
 
-				ReturnFromLeaderboard = () => {
-					statsMenu.Enabled = true;
-					currentBack = statsBack;
-					Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut);
-				};
-			});
-			
+				statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
+				statsStats.Add(Locale.Get("time"), data["time"].AsString);
+				statsStats.Add(Locale.Get("lamp"), Locale.Get(data["lamp"].String("none")));
+				statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("kills"), data["kills"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("scourge"), data["scourge"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
+				statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
+
+				statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
+					ShowLeaderboard("high_score");
+
+					Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
+						statsMenu.Enabled = false;
+					};
+
+					ReturnFromLeaderboard = () => {
+						statsMenu.Enabled = true;
+						currentBack = statsBack;
+						Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut);
+					};
+				});
+			} catch (Exception e) {
+				statsStats.Add("Error", e.Message);
+				Log.Error(e);
+			}
+
 			statsStats.Prepare();
 
 			statsStats.RelativeCenterX = Display.UiWidth * 0.5f;
