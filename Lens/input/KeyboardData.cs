@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using Lens.assets;
 using Microsoft.Xna.Framework.Input;
 
 namespace Lens.input {
@@ -16,7 +17,7 @@ namespace Lens.input {
 			PreviousState = State;
 			State = Keyboard.GetState();
 			
-			guiBlocksKeyboard = Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureKeyboard;
+			guiBlocksKeyboard = Assets.ImGuiEnabled && Input.EnableImGuiFocus && ImGui.GetIO().WantCaptureKeyboard;
 		}
 
 		public bool Check(Keys key, Input.CheckType type, bool ignoreGui = false) {

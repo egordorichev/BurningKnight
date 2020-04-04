@@ -4,6 +4,7 @@ using BurningKnight.ui.imgui;
 using BurningKnight.ui.imgui.node;
 using ImGuiNET;
 using Lens;
+using Lens.assets;
 using Lens.input;
 using Lens.lightJson;
 using Lens.util;
@@ -31,6 +32,7 @@ namespace BurningKnight.assets {
 			try {
 				ItemsTexture = Renderer.BindTexture(CommonAse.Items.Texture);
 				ProjectilesTexture = Renderer.BindTexture(CommonAse.Projectiles.Texture);
+				Assets.ImGuiEnabled = true;
 			} catch (Exception e) {
 				
 			}

@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Lens.assets {
 	public static class Assets {
+		public static bool ImGuiEnabled;
+	
 #if DEBUG
 		public const bool LoadOriginalFiles = true;
 		public const bool LoadMusic = false;

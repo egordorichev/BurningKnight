@@ -893,7 +893,7 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
-			if (!BK.Demo && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
+			if (!BK.Demo && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
 				ToolsEnabled = !ToolsEnabled;
 				var player = LocalPlayer.Locate(Area);
 
