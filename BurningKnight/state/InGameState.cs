@@ -1149,6 +1149,10 @@ namespace BurningKnight.state {
 		}
 
 		private string GetRunTime() {
+			if (Run.Statistics == null) {
+				return Locale.Get("none");
+			}
+		
 			var t = Run.Statistics.Time;
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}

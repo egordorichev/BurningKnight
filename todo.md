@@ -20,8 +20,6 @@
 
 # hub
 
-* scourge statue can give scourge of death lol
-
 * tutorial softlock if you get dead
 
 * achievement branches rewards {

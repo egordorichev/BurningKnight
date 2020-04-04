@@ -821,7 +821,7 @@ namespace BurningKnight.entity.creature.player {
 			var pool = new List<string>();
 
 			foreach (var i in GetComponent<InventoryComponent>().Items) {
-				if (i.Type != ItemType.Hat) {
+				if (i.Type != ItemType.Hat && i.Id != "bk:no_lamp") {
 					pool.Add(i.Id);
 				}
 			}
