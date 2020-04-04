@@ -235,7 +235,7 @@ namespace BurningKnight.ui.imgui.node {
 							continue;
 						}
 							
-						var to = ImGuiHelper.Nodes[o[0]];
+						var to = ImNodes.Nodes[o[0]];
 						var from = Outputs[j];
 						var where = to.Inputs[o[1]];
 
@@ -483,7 +483,7 @@ namespace BurningKnight.ui.imgui.node {
 				node.Id = LastId;
 			}
 			
-			ImGuiHelper.Node(node);
+			ImNodes.Nodes[node.Id] = node;
 			return node;
 		}
 	}

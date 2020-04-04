@@ -26,7 +26,6 @@ namespace BurningKnight.assets.achievements {
 		public static List<string> AchievementBuffer = new List<string>();
 		public static List<string> ItemBuffer = new List<string>();
 
-		private static unsafe ImGuiTextFilterPtr filter = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 
 		public static AchievementUnlockedCallback UnlockedCallback;
@@ -345,7 +344,7 @@ namespace BurningKnight.assets.achievements {
 			}
 			
 			ImGui.Separator();
-			filter.Draw("Search");
+			ImGuiHelper.filter2.Draw("Search");
 			
 			ImGui.SameLine();
 			ImGui.Text($"{count}");
@@ -368,7 +367,7 @@ namespace BurningKnight.assets.achievements {
 					forceFocus = false;
 				}
 				
-				if (filter.PassFilter(i.Id)) {
+				if (ImGuiHelper.filter2.PassFilter(i.Id)) {
 					if ((hideLocked && !i.Unlocked) || (hideUnlocked && i.Unlocked)) {
 						continue;
 					}

@@ -73,7 +73,13 @@ namespace BurningKnight.state {
 				progress++;
 				CommonAse.Load();
 				progress++;
-				ImGuiHelper.BindTextures();
+
+				try {
+					ImGuiHelper.BindTextures();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
 				progress++;
 				Shaders.Load();
 				progress++;

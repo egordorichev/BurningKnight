@@ -12,6 +12,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Version = Lens.Version;
@@ -63,7 +64,13 @@ namespace BurningKnight {
 			SaveManager.Init();
 			Controls.Load();
 			Font.Load();
-			ImGuiHelper.Init();
+
+			try {
+				ImGuiHelper.Init();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+			
 			Weather.Init();
 		}
 

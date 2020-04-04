@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.ui.dialog;
+using BurningKnight.ui.imgui;
 using BurningKnight.ui.imgui.node;
 using Lens.assets;
 using Lens.lightJson;
@@ -34,16 +35,17 @@ namespace BurningKnight.assets {
 						}
 						
 						// Connect em
-						foreach (var node in ImGuiHelper.Nodes) {
+						foreach (var node in ImNodes.Nodes) {
 							node.Value.ReadOutputs();
 						}
 						
 						// Parse
-						foreach (var node in ImGuiHelper.Nodes) {
+						foreach (var node in ImNodes.Nodes) {
 							ParseNode(node.Value);
 						}
 						
-						ImGuiHelper.ClearNodes();
+						ImNodes.Nodes.Clear();
+						ImNode.LastId = 0;
 					} catch (Exception e) {
 						Log.Error(e);
 					}

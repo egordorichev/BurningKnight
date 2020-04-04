@@ -151,6 +151,10 @@ namespace BurningKnight.state {
 		}
 
 		public override void RenderNative() {
+			if (!Assets.ImGuiEnabled) {
+				return;
+			}
+			
 			ImGuiHelper.Begin();
 		
 			if (Console.Open) {
