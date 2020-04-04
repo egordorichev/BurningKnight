@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.prefabs;
 using BurningKnight.entity;
@@ -481,8 +482,12 @@ namespace BurningKnight.level {
 		}
 
 		public static void PlaceMobs(Level level, Room room) {
+			var parent = room.Parent;
+			var w = parent.GetWidth() - 2;
+			var h = parent.GetHeight() - 2;
 			var mobs = new List<MobInfo>(MobRegistry.Current);
-			room.Parent.ModifyMobList(mobs);
+			
+			parent.ModifyMobList(mobs);
 
 			if (mobs.Count == 0) {
 				return;
@@ -490,15 +495,14 @@ namespace BurningKnight.level {
 			
 			var chances = new List<float>();
 
-			for (int i = 0; i < mobs.Count; i++) {
-				chances.Add(room.Parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id)));
+			for (var i = 0; i < mobs.Count; i++) {
+				chances.Add(parent.WeightMob(mobs[i], mobs[i].GetChanceFor(level.Biome.Id)));
 			}
 
 			var types = new List<MobInfo>();
 			var spawnChances = new List<float>();
-
 			var curseOfBlood = Scourge.IsEnabled(Scourge.OfBlood);
-			
+
 			if (level.Biome.SpawnAllMobs()) {
 				types.AddRange(mobs);
 				spawnChances.AddRange(chances);
@@ -522,11 +526,90 @@ namespace BurningKnight.level {
 				Log.Warning($"No mobs detected to spawn in {level.Biome.Id} biome");
 				return;
 			}
+			
+			var points = new List<Dot>();
+			var wallFreePoints = new List<Dot>();
+			var wallPoints = new List<Dot>();
+			var size = w * h;
+			var patch = new bool[size];
+
+			Func<int, int, int> toIndex = (x, y) => (x - parent.Left - 1) + (y - parent.Top - 1) * w;
+
+			for (var y = parent.Top + 1; y < parent.Bottom; y++) {
+				for (var x = parent.Left + 1; x < parent.Right; x++) {
+					patch[toIndex(x, y)] = !Run.Level.IsPassable(x, y);
+				}
+			}
+
+			PathFinder.SetMapSize(w, h);
+
+			var door = parent.Connected.Values.First();
+			var start = new Dot(door.X, door.Y);
+
+			if ((int) start.X == parent.Left) {
+				start.X++;
+			} else if ((int) start.Y == parent.Top) {
+				start.Y++;
+			} else if ((int) start.X == parent.Right) {
+				start.X--;
+			} else if ((int) start.Y == parent.Bottom) {
+				start.Y--;
+			}
+			
+			PathFinder.BuildDistanceMap(toIndex(start.X, start.Y), BArray.Not(patch, null));
+			
+			for (var y = parent.Top + 1; y < parent.Bottom; y++) {
+				for (var x = parent.Left + 1; x < parent.Right; x++) {
+					var i = toIndex(x, y);
+
+					if (patch[i] || PathFinder.Distance[i] == Int32.MaxValue) {
+						continue;
+					}
+					
+					var found = false;
+
+					foreach (var dr in parent.Connected.Values) {
+						var dx = (int) (dr.X - x);
+						var dy = (int) (dr.Y - y);
+						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+						if (d < 4) {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						continue;
+					}
+
+					var dt = new Dot(x, y);
+
+					if ((Run.Level.IsPassable(x - 1, y) || Run.Level.IsPassable(x + 1, y)) && (Run.Level.IsPassable(x, y + 1) || Run.Level.IsPassable(x, y - 1))) {
+						points.Add(dt);
+						
+						if (Run.Level.IsPassable(x - 1, y) && Run.Level.IsPassable(x + 1, y) && Run.Level.IsPassable(x, y + 1) && Run.Level.IsPassable(x, y - 1)) {
+							wallFreePoints.Add(dt);
+						}
+					}
+
+					if (Run.Level.Get(x - 1, y).IsWall() || Run.Level.Get(x + 1, y).IsWall() || Run.Level.Get(x, y - 1).IsWall() || Run.Level.Get(x , y + 1).IsWall()) {
+						wallPoints.Add(dt);
+					}
+				}
+			}
+
+			if (points.Count + wallPoints.Count == 0) {
+				Log.Error("Did not find any placeable spots for mobs");
+				return;
+			}
+			
+			PathFinder.SetMapSize(level.Width, level.Height);
 
 			var count = room.Parent.GetPassablePoints(level).Count;
 			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier() * (curseOfBlood ? 2 : 1);
 
-			while (weight > 0) {
+			while (weight > 0 && (points.Count > 0 || wallPoints.Count > 0)) {
 				var id = Rnd.Chances(spawnChances);
 
 				if (id == -1) {
@@ -535,17 +618,37 @@ namespace BurningKnight.level {
 				}
 				
 				var type = types[id];
+				Dot point = null;
 
-				var point = type.NearWall
-					? room.Parent.GetRandomCellNearWall()
-					: (
-						type.AwayFromWall ? room.Parent.GetRandomWallFreeCell() : room.Parent.GetRandomDoorFreeCell()
-					);
+				if (type.NearWall) {
+					if (wallPoints.Count == 0) {
+						continue;
+					}
+
+					var index = Rnd.Int(wallPoints.Count);
+					point = wallPoints[index];
+					wallPoints.RemoveAt(index);
+				} else if (type.AwayFromWall) {
+					if (wallFreePoints.Count == 0) {
+						continue;
+					}
+
+					var index = Rnd.Int(wallFreePoints.Count);
+					point = wallFreePoints[index];
+					wallFreePoints.RemoveAt(index);
+				} else {
+					if (points.Count == 0) {
+						continue;
+					}
+
+					var index = Rnd.Int(points.Count);
+					point = points[index];
+					points.RemoveAt(index);
+				}
 
 				if (point == null) {
 					continue;
 				}
-
 
 				var mob = (Mob) Activator.CreateInstance(type.Type);
 				

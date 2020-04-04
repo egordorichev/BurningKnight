@@ -32,8 +32,6 @@
 
 #
 
-* rework freaking enemy spawn
-
 !!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms
 
