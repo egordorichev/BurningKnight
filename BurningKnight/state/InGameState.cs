@@ -219,7 +219,10 @@ namespace BurningKnight.state {
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
 					Camera.Instance.Follow(p, 1f, true);
-					AreaDebug.ToFocus = p;
+
+					if (Assets.ImGuiEnabled) {
+						AreaDebug.ToFocus = p;
+					}
 				}
 
 				((Player) p).FindSpawnPoint();
@@ -750,7 +753,7 @@ namespace BurningKnight.state {
 				}
 			}
 
-			console.Update(dt);
+			console?.Update(dt);
 
 			var controller = GamepadComponent.Current;
 			
@@ -1077,7 +1080,7 @@ namespace BurningKnight.state {
 			PrerenderShadows();
 			base.Render();
 			Physics.Render();
-			editor.RenderInGame();
+			editor?.RenderInGame();
 		}
 
 		private float emeraldY = -20;
@@ -1171,12 +1174,14 @@ namespace BurningKnight.state {
 			var cam = new Camera(new FollowingDriver());
 			TopUi.Add(cam);
 			// Ui.Add(new AchievementBanner());
-			
-			editor = new EditorWindow(new Editor {
-				Area = Area,
-				Level = Run.Level,
-				Camera = cam
-			});
+
+			if (Assets.ImGuiEnabled) {
+				editor = new EditorWindow(new Editor {
+					Area = Area,
+					Level = Run.Level,
+					Camera = cam
+				});
+			}
 
 			var id = Run.Level.Biome.Id;
 
@@ -1191,7 +1196,9 @@ namespace BurningKnight.state {
 
 			var player = LocalPlayer.Locate(Area);
 
-			console = new Console(Area);
+			if (Assets.ImGuiEnabled) {
+				console = new Console(Area);
+			}
 
 			if (player != null) {
 				Ui.Add(new UiInventory(player));
@@ -2750,8 +2757,8 @@ namespace BurningKnight.state {
 			
 			ImGuiHelper.Begin();
 			
-			console.Render();
-			editor.Render();
+			console?.Render();
+			editor?.Render();
 			
 			WindowManager.Render(Area);
 			ImGuiHelper.End();

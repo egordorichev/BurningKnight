@@ -44,7 +44,7 @@ namespace BurningKnight.ui.imgui {
 			Locale.Save();
 			Log.Info($"Saving {files[current]}");
 			
-			var nodes = ImGuiHelper.Nodes;
+			var nodes = ImNodes.Nodes;
 			var root = new JsonArray();
 
 			foreach (var p in nodes) {

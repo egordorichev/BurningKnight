@@ -15,10 +15,10 @@ using Vector2 = System.Numerics.Vector2;
 namespace BurningKnight.assets {
 	public static class ImGuiHelper {
 		public static ImGuiRenderer Renderer;
-		public static Dictionary<int, ImNode> Nodes = new Dictionary<int, ImNode>();
 		public static IntPtr ItemsTexture;
 		public static IntPtr ProjectilesTexture;
-		
+		public static unsafe ImGuiTextFilterPtr filter2 = new ImGuiTextFilterPtr(ImGuiNative.ImGuiTextFilter_ImGuiTextFilter(null));
+
 		public static void Init() {
 			try {
 				Renderer = new ImGuiRenderer(Engine.Instance);
@@ -62,12 +62,12 @@ namespace BurningKnight.assets {
 		}
 
 		public static void ClearNodes() {
-			Nodes.Clear();
+			ImNodes.Nodes.Clear();
 			ImNode.LastId = 0;
 		}
 
 		public static void Node(ImNode node) {
-			Nodes[node.Id] = node;
+			ImNodes.Nodes[node.Id] = node;
 		}
 
 		public static bool BeforeRender() {
@@ -100,7 +100,7 @@ namespace BurningKnight.assets {
 			}
 
 
-			foreach (var n in Nodes) {
+			foreach (var n in ImNodes.Nodes) {
 				var node = n.Value;
 
 				if (!hideFiltred || filter.PassFilter(node.GetName())) {
@@ -115,14 +115,14 @@ namespace BurningKnight.assets {
 			CurrentActive?.RemoveEmptyConnection();
 
 			if (toRemove.Count > 0) {
-				var c = Nodes.Count - 1;
+				var c = ImNodes.Nodes.Count - 1;
 				
 				foreach (var k in toRemove) {
-					if (Nodes[k].Id == c) {
+					if (ImNodes.Nodes[k].Id == c) {
 						ImNode.LastId--;
 					}
 
-					Nodes.Remove(k);
+					ImNodes.Nodes.Remove(k);
 				}
 				
 				toRemove.Clear();
@@ -185,7 +185,7 @@ namespace BurningKnight.assets {
 			ImNode first = null;
 			var sawFocused = false;
 			
-			foreach (var p in Nodes) {
+			foreach (var p in ImNodes.Nodes) {
 				var node = p.Value;
 				var name = node.GetName();
 

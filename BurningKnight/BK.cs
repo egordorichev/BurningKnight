@@ -12,6 +12,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Version = Lens.Version;
@@ -20,7 +21,7 @@ namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
 		public const bool Demo = true;
-		public static Version Version = new Version("Hub update", 41, 0, 1, 11, 19, true, Debug);
+		public static Version Version = new Version("Hub update", 41, 0, 1, 11, 20, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
@@ -63,7 +64,13 @@ namespace BurningKnight {
 			SaveManager.Init();
 			Controls.Load();
 			Font.Load();
-			ImGuiHelper.Init();
+
+			try {
+				ImGuiHelper.Init();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+			
 			Weather.Init();
 		}
 

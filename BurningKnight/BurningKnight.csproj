@@ -1200,6 +1200,7 @@
     <Compile Include="ui\imgui\DrawVertDeclaration.cs" />
     <Compile Include="ui\imgui\ImConnection.cs" />
     <Compile Include="ui\imgui\ImGuiRenderer.cs" />
+    <Compile Include="ui\imgui\ImNodes.cs" />
     <Compile Include="ui\imgui\LocaleEditor.cs" />
     <Compile Include="ui\imgui\node\ImAnswerNode.cs" />
     <Compile Include="ui\imgui\node\ImChoiceNode.cs" />
