@@ -5,8 +5,11 @@ namespace BurningKnight.level.rooms.secret {
 	public class SecretDarkMarketEntranceRoom : SecretRoom {
 		public override void Paint(Level level) {
 			base.Paint(level);
+
+			var entrance = new HiddenEntrance {
+				id = "dm"
+			};
 			
-			var entrance = new HiddenEntrance();
 			level.Area.Add(entrance);
 			entrance.Position = new Vector2(Left + (int) ((GetWidth() - 1) / 2f), Top + (int) ((GetHeight() - 1) / 2f)) * 16;
 		}

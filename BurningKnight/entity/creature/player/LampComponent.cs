@@ -12,6 +12,7 @@ namespace BurningKnight.entity.creature.player {
 		private FollowerPet pet;
 		private bool loaded;
 		private bool hadLamp;
+		private Item prev;
 		
 		public override void Set(Item item, bool animate = true) {
 			base.Set(item, (item == null || item.Id != "bk:no_lamp") && animate);
@@ -35,7 +36,7 @@ namespace BurningKnight.entity.creature.player {
 				pet = null;
 			}
 
-			if (hadLamp && previous != null && previous.Id != "bk:no_lamp") {
+			if (prev != null && prev.Id != "bk:no_lamp") {
 				Entity.RemoveComponent<HealthComponent>();
 				Entity.RemoveComponent<HeartsComponent>();
 				Entity.RemoveComponent<InventoryComponent>();
@@ -66,6 +67,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 
+			prev = Item;
+			
 			if (loaded) {
 				Item?.Use(Entity);
 				hadLamp = true;
