@@ -79,12 +79,16 @@ namespace BurningKnight.ui.imgui {
 			if (ImGui.CollapsingHeader("Performance")) {
 				lastMem += Engine.Delta;
 
+				
+				ImGui.Text($"Update time: {Engine.UpdateTime} ms");
+				ImGui.Text($"Render time: {Engine.RenderTime} ms");
+				
 				float mem;
 
 				using (var data = Process.GetCurrentProcess()) {
 					mem = data.PrivateMemorySize64 / (1024f * 1024f);
 				}
-
+				
 				ImGui.Text($"Memory: {mem} mb");
 				ImGui.SameLine();
 

@@ -15,10 +15,10 @@
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
-* loading forever is back
-* corrupted levels
-
 # hub
+
+* npc saving broken: I saved boxy 3 times
+* still dropping no_lamp
 
 * achievement branches rewards {
  a: drums/musical instruments?

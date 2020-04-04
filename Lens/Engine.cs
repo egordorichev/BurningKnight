@@ -32,6 +32,8 @@ namespace Lens {
 		public static float Delta;
 		public static GameTime GameTime;
 		public static bool Quiting;
+		public static int UpdateTime;
+		public static int RenderTime;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
@@ -137,6 +139,8 @@ namespace Lens {
 		}
 
 		protected override void Update(GameTime gameTime) {
+			var t = DateTime.Now.Millisecond;
+			
 			base.Update(gameTime);
 			Audio.UpdateAudio();
 
@@ -184,6 +188,7 @@ namespace Lens {
 			}
 			
 			Counter.Update(dt);
+			UpdateTime = DateTime.Now.Millisecond - t;
 		}
 
 		public virtual void RenderUi() {
@@ -204,8 +209,10 @@ namespace Lens {
 		}
 		
 		protected override void Draw(GameTime gameTime) {
+			var t = DateTime.Now.Millisecond;
 			StateRenderer.Render();
 			base.Draw(gameTime);
+			RenderTime = DateTime.Now.Millisecond - t;
 		}
 
 		public void SetWindowed(int width, int height) {

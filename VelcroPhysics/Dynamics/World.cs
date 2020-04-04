@@ -329,10 +329,11 @@ namespace VelcroPhysics.Dynamics
                     body.ContactList = null;
 
                     // Delete the attached fixtures. This destroys broad-phase proxies.
-                    for (int i = 0; i < body.FixtureList.Count; i++)
-                    {
-                        body.FixtureList[i].DestroyProxies(ContactManager.BroadPhase);
-                        body.FixtureList[i].Destroy();
+                    if (body.FixtureList != null) {
+                        for (int i = 0; i < body.FixtureList.Count; i++) {
+                            body.FixtureList[i].DestroyProxies(ContactManager.BroadPhase);
+                            body.FixtureList[i].Destroy();
+                        }
                     }
 
                     body.FixtureList = null;

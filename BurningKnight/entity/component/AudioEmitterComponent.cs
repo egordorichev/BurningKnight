@@ -58,7 +58,7 @@ namespace BurningKnight.entity.component {
 					s.Effect.Volume = MathUtils.Clamp(0, 1, (1 - Math.Min(Distance, d) / Distance) * Settings.MasterVolume * Settings.SfxVolume * s.BaseVolume * (s.ApplyBuffer ? Audio.SfxVolumeBuffer : 1));
 				}
 			}
-		}
+		} // 6y0204mm
 
 		public override void Update(float dt) {
 			base.Update(dt);
