@@ -21,7 +21,7 @@ namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
 		public const bool Demo = true;
-		public static Version Version = new Version("Hub update", 41, 0, 1, 11, 19, true, Debug);
+		public static Version Version = new Version("Hub update", 41, 0, 1, 11, 20, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
