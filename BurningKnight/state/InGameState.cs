@@ -14,6 +14,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
@@ -264,6 +265,10 @@ namespace BurningKnight.state {
 
 			if (Run.Depth == 0) {
 				HatStand.CheckHats();
+			}
+
+			if (Run.Depth < 1) {
+				Scourge.Clear();
 			}
 		}
 
@@ -1303,7 +1308,7 @@ namespace BurningKnight.state {
 
 			if (Run.Depth != 0) {
 				pauseMenu.Add(new UiButton {
-					LocaleLabel = "back_to_castle",
+					LocaleLabel = "back_to_town",
 					RelativeCenterX = Display.UiWidth / 2f,
 					RelativeCenterY = start + space * 2,
 					Type = ButtonType.Exit,

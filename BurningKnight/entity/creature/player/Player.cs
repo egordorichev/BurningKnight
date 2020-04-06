@@ -532,7 +532,11 @@ namespace BurningKnight.entity.creature.player {
 		#endregion
 
 		public override bool ShouldCollide(Entity entity) {
-			return !(entity is Player || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
+			if (HasFlight && entity is HalfWall) {
+				return false;
+			}
+			
+			return !(entity is Player || entity is HalfProjectileLevel || entity is ProjectileLevelBody || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
 		}
 
 		public bool HasFlight;

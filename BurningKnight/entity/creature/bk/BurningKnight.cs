@@ -140,10 +140,16 @@ namespace BurningKnight.entity.creature.bk {
 				GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_4", 0.8f);
 									
 				Timer.Add(() => {
-					Become<ChaseState>();
+					if (captured.Done) {
+						Become<ChaseState>();
 
-					// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
-					GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
+						// YOU CAN'T DEFEAT THE BURNING KNIGHT!!!
+						GetComponent<DialogComponent>().StartAndClose("bk_2", 5);
+					} else {
+						captured = null;
+						Become<FollowState>();
+						CheckForScourgeRage();
+					}
 				}, 1f);
 			};
 		}
@@ -609,7 +615,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (!teleported && Self.captured.Done) {
+				if (!teleported && (Self.captured.Done || Self.captured.GetComponent<StateComponent>().StateInstance is FriendlyState)) {
 					teleported = true;
 					Self.FreeSelf();
 				}
