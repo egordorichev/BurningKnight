@@ -17,8 +17,6 @@
 
 # hub
 
-* put a wall around chasm varianted levels (like in ice)
-
 * achievement branches rewards {
  a: drums/musical instruments?
  b: l?
