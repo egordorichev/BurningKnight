@@ -97,7 +97,7 @@ namespace BurningKnight.entity.item.use {
 			if (explosive) {
 				projectile.Damage = 0;
 				projectile.Color = ProjectileColor.Brown;
-				projectile.OnDeath += (p, t) => {
+				projectile.OnDeath += (p, en, t) => {
 					ExplosionMaker.Make(p, 32, false, damage: 4, scale: 0.5f);
 				};
 			}

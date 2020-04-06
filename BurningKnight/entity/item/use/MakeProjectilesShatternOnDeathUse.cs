@@ -11,7 +11,7 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
-				pce.Projectile.OnDeath += (p, t) => {
+				pce.Projectile.OnDeath += (p, en, t) => {
 					var v = p.GetAnyComponent<BodyComponent>().Velocity;
 					var a = v.ToAngle() - (float) Math.PI;
 					var s = v.Length();

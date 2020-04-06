@@ -52,7 +52,7 @@ namespace BurningKnight.entity.projectile {
 				p.Controller += SlowdownProjectileController.Make(1);
 				p.BreaksFromWalls = false;
 				
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					ExplosionMaker.Make(pr, 32);
 				};
 
@@ -80,7 +80,7 @@ namespace BurningKnight.entity.projectile {
 				p.Controller += TargetProjectileController.Make(null, 0.5f);
 				p.Controller += SmokeProjectileController.Make();
 				
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					ExplosionMaker.Make(pr, 32);
 				};
 			});
@@ -107,7 +107,7 @@ namespace BurningKnight.entity.projectile {
 				p.Controller += TargetProjectileController.MakeCursor();
 				p.Controller += SmokeProjectileController.Make();
 				
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					ExplosionMaker.Make(pr, 32);
 				};
 			});
@@ -124,7 +124,7 @@ namespace BurningKnight.entity.projectile {
 				
 				p.Controller += SlowdownProjectileController.Make(0.5f);
 
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					for (var i = 0; i < 8; i++) {
 						var pr2 = Projectile.Make(pr.Owner, "shot", (float) i / 8 * (float) Math.PI * 2, 8, true, 0, null, 0.8f);
 						pr2.Center = pr.Center;
@@ -141,7 +141,7 @@ namespace BurningKnight.entity.projectile {
 			
 			Add("crash", p => {
 				p.Controller += HsvProjectileController.Make();
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, ee, t) => {
 					if (pr.T < 0.1f) {
 						return;
 					}
@@ -151,7 +151,7 @@ namespace BurningKnight.entity.projectile {
 						p2.Center = pr.Center;
 						p2.Controller += HsvProjectileController.Make(1, pr.T);
 
-						p2.OnDeath += (pr2, t2) => {
+						p2.OnDeath += (pr2, eee, t2) => {
 							if (pr2.T < 0.1f) {
 								return;
 							}
@@ -161,7 +161,7 @@ namespace BurningKnight.entity.projectile {
 								p3.Center = pr2.Center;
 								p3.Controller += HsvProjectileController.Make(1, p2.T);
 								
-								p3.OnDeath += (pr4, t4) => {
+								p3.OnDeath += (pr4, eeee, t4) => {
 									if (pr4.T < 0.1f) {
 										return;
 									}
@@ -190,7 +190,7 @@ namespace BurningKnight.entity.projectile {
 			Add("axe", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
 				
-				p.OnDeath = (pr, t) => {
+				p.OnDeath = (pr, e, t) => {
 					pr.Item.Renderer.Hidden = false;
 					pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
 				};
@@ -231,7 +231,7 @@ namespace BurningKnight.entity.projectile {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.Rotates = true;
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					AudioEmitterComponent.Dummy(pr.Area, pr.Center).EmitRandomized("item_magic_lava_appear");
 				
 					var x = (int) Math.Round(pr.CenterX / 16f);
@@ -262,7 +262,7 @@ namespace BurningKnight.entity.projectile {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.Rotates = true;
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					pr.Owner.Center = pr.Center;
 					Audio.PlaySfx("item_discord");
 				};
@@ -272,7 +272,7 @@ namespace BurningKnight.entity.projectile {
 				// CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is Prop ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.Rotates = true;
-				p.OnDeath += (pr, t) => {
+				p.OnDeath += (pr, e, t) => {
 					AudioEmitterComponent.Dummy(pr.Area, pr.Center).EmitRandomized("item_magic_web_appear");
 
 					var x = (int) Math.Round(pr.CenterX / 16f);

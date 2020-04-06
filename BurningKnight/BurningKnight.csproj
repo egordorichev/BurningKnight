@@ -722,6 +722,7 @@
     <Compile Include="entity\item\use\MakeProjectileExpandUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectileShrinkUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesHurtOnMissUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />

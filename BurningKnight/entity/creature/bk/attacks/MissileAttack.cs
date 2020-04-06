@@ -27,7 +27,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				var m = new Missile(Self, Self.Target);
 				m.AddLight(32f, Projectile.RedLight);
 
-				m.OnDeath += (p, t) => {
+				m.OnDeath += (p, e, t) => {
 					for (var i = 0; i < SmallCount; i++) {
 						var an = (float) (((float) i) / SmallCount * Math.PI * 2);
 						

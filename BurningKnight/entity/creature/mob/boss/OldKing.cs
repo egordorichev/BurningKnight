@@ -156,7 +156,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							c.Emit("mob_oldking_explode");
 						};
 						
-						skull.OnDeath += (p, t) => {
+						skull.OnDeath += (p, e, t) => {
 							if (!t) {
 								return;
 							}

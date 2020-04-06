@@ -1,15 +1,15 @@
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.events;
-using BurningKnight.state;
 using Lens.entity;
-using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
-	public class MakeProjectilesBlankOnDeathUse : ItemUse {
+	public class MakeProjectilesHurtOnMissUse : ItemUse {
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
 				pce.Projectile.OnDeath += (p, en, t) => {
-					if (Rnd.Chance(30 + Run.Luck * 10)) {
-						BlankMaker.Make(p.Center, p.Area, 32f);
+					if (p.Parent == null && (t || !(en is Creature))) {
+						Item.Owner.GetComponent<HealthComponent>().ModifyHealth(-1, Item);
 					}
 				};
 			}
