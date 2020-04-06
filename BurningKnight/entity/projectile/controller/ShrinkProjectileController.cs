@@ -2,24 +2,31 @@ namespace BurningKnight.entity.projectile.controller {
 	public static class ShrinkProjectileController {
 		public static ProjectileUpdateCallback Make(float speed = 1f) {
 			var t = 0f;
+			var z = 0f;
 			var dmg = -1f;
+			var sc = -1f;
 			
 			return (p, dt) => {
+				if (sc < 0) {
+					sc = p.Scale;
+				}
+				
 				t += dt * speed;
+				z += dt;
 				
 				if (dmg < 0) {
 					dmg = p.Damage;
 				}
 
-				if (t >= 0.05f) {
-					var s = p.Scale - t * 4f / p.Scale; // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
-					t -= 0.05f;
+				if (z >= 0.05f) {
+					var s = sc - t * 4f / p.Scale; // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
+					z = 0;
 
 					p.AdjustScale(s);
 					p.Damage = dmg * p.Scale;
 
-					if (p.Width <= 1 || p.Height <= 1f) {
-						// p.Break();
+					if (p.Width <= 0 || p.Height <= 0) {
+						p.Break();
 					}
 				}
 			};
