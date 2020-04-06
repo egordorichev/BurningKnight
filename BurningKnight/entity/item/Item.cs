@@ -180,6 +180,10 @@ namespace BurningKnight.entity.item {
 			}
 			
 			CheckMasked();
+
+			if (Id.Contains("mana")) {
+				AlwaysActive = true;
+			}
 		}
 
 		private bool Interact(Entity entity) {

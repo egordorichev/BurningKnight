@@ -130,6 +130,8 @@ namespace BurningKnight.entity.item.use {
 			Register<BlindFoldUse>();
 			Register<MakeProjectileShrinkUse>(MakeProjectileShrinkUse.RenderDebug);
 			Register<MakeProjectileExpandUse>(MakeProjectileExpandUse.RenderDebug);
+			Register<SuperHotUse>();
+			Register<ModifyManaMaxUse>(ModifyManaMaxUse.RenderDebug);
 		}
 	}
 }

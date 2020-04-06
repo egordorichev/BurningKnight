@@ -723,6 +723,7 @@
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectileShrinkUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
+    <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
@@ -792,6 +793,7 @@
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
     <Compile Include="entity\item\use\SpawnPetUse.cs" />
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
+    <Compile Include="entity\item\use\SuperHotUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
     <Compile Include="entity\item\use\TeleportUse.cs" />
     <Compile Include="entity\item\use\TriggerHurtEventUse.cs" />

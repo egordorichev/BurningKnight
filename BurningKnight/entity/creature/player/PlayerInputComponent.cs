@@ -64,7 +64,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			EnableUpdates = false;
+			EnableUpdates = !((Player) Entity).SuperHot;
 
 			if (GetComponent<BuffsComponent>().Has<FrozenBuff>()) {
 				EnableUpdates = true;

@@ -153,6 +153,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public void InitStats(bool fromInit = false) {
 			HasFlight = false;
+			SuperHot = false;
 
 			GetComponent<AimComponent>().ShowLaserLine = false;
 			GetComponent<OrbitGiverComponent>().DestroyAll();
@@ -540,6 +541,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public bool HasFlight;
+		public bool SuperHot;
 
 		public override bool InAir() {
 			return HasFlight || base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;
