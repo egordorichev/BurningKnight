@@ -132,6 +132,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectileExpandUse>(MakeProjectileExpandUse.RenderDebug);
 			Register<SuperHotUse>();
 			Register<ModifyManaMaxUse>(ModifyManaMaxUse.RenderDebug);
+			Register<ModifyConsumableWeightsUse>(ModifyConsumableWeightsUse.RenderDebug);
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace BurningKnight.entity.creature.player {
 				var n = (byte) MathUtils.Clamp(0, 99, value);
 
 				if (n != bombs && AcceptChange(n - bombs, n, ItemType.Bomb)) {
-					bombs = n;
+					bombs = (byte) ((int) bombs + lastAmount);
 				}
 			}
 			
@@ -43,7 +43,7 @@ namespace BurningKnight.entity.creature.player {
 				var n = (byte) MathUtils.Clamp(0, 99, value);
 
 				if (n != keys && AcceptChange(n - keys, n, ItemType.Key)) {
-					keys = n;
+					keys = (byte) ((int) keys + lastAmount);
 				}
 			}
 			
@@ -55,9 +55,10 @@ namespace BurningKnight.entity.creature.player {
 				var n = (byte) MathUtils.Clamp(0, 99, value);
 
 				if (n != coins && AcceptChange(n - coins, n, ItemType.Coin)) {
-					coins = n;
+					coins = (byte) ((int) coins + lastAmount);
 
-					if (coins == 99) {
+					if (coins >= 99) {
+						coins = 99;
 						Achievements.Unlock("bk:rich");
 					}
 				}
@@ -65,21 +66,35 @@ namespace BurningKnight.entity.creature.player {
 			
 			get => coins;
 		}
+
+		private int lastAmount;
 		
 		private bool AcceptChange(int amount, int totalNow, ItemType type) {
-			if (amount > 0) {
-				return !Send(new ConsumableAddedEvent {
+			var e = amount > 0
+				? (Event) new ConsumableAddedEvent {
 					Amount = amount,
 					TotalNow = totalNow,
 					Type = type
-				});	
-			}
+				}
+				: new ConsumableRemovedEvent {
+					Amount = amount,
+					TotalNow = totalNow,
+					Type = type
+				};
 
-			return !Send(new ConsumableRemovedEvent {
-				Amount = amount,
-				TotalNow = totalNow,
-				Type = type
-			});	
+			lastAmount = amount;
+
+			if (!Send(e)) {
+				if (e is ConsumableAddedEvent c) {
+					lastAmount = c.Amount;
+				} else {
+					lastAmount = ((ConsumableRemovedEvent) e).Amount;
+				}
+	
+				return true;
+			}
+			
+			return false;
 		}
 
 		public override bool HandleEvent(Event e) {
