@@ -3,9 +3,6 @@
 
 # passive
 
-* super hot mechanic
-* shop teleporter
-* damage up, accuracy down (eye patch)
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
 * increases money drop chance from room reward
