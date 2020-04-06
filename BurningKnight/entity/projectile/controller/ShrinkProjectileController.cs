@@ -19,7 +19,7 @@ namespace BurningKnight.entity.projectile.controller {
 					p.Damage = dmg * p.Scale;
 
 					if (p.Width <= 1 || p.Height <= 1f) {
-						p.Break();
+						// p.Break();
 					}
 				}
 			};

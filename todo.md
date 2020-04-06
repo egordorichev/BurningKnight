@@ -17,8 +17,6 @@
 
 # hub
 
-* still collide with stones while flying
-
 * megaphone + weird potion make act like just one
 * put a wall around chasm varianted levels (like in ice)
 

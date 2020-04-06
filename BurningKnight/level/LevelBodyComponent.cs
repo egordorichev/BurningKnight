@@ -138,14 +138,14 @@ namespace BurningKnight.level {
 					var liquid = level.Liquid[index];
 					var side = x == 0 || y == 0 || x == level.Width - 1 || y == level.Height - 1;
 
-					if (side || TileFlags.Matches(tile, TileFlags.Solid) || TileFlags.Matches(liquid, TileFlags.Solid)) {
+					if (side || TileFlags.Matches(tile, TileFlags.Solid)/* || TileFlags.Matches(liquid, TileFlags.Solid)*/) {
 						var sum = 0;
 
 						if (!side) {
 							foreach (var dir in PathFinder.Neighbours8) {
 								var n = dir + index;
 
-								if (level.IsInside(n) && (TileFlags.Matches(level.Tiles[n], TileFlags.Solid) || TileFlags.Matches(level.Liquid[n], TileFlags.Solid))) {
+								if (level.IsInside(n) && TileFlags.Matches(level.Tiles[n], TileFlags.Solid)/* || TileFlags.Matches(level.Liquid[n], TileFlags.Solid))*/) {
 									sum++;
 								}
 							}
@@ -203,7 +203,7 @@ namespace BurningKnight.level {
 		}
 
 		protected virtual bool Check(Level level, int x, int y) {
-			return level.IsInside(x, y) && (level.CheckFor(x, y, TileFlags.Solid) || level.CheckFor(x, y, TileFlags.Solid, true));
+			return level.IsInside(x, y) && (level.Get(x, y).Matches(TileFlags.Solid)/* || level.CheckFor(x, y, TileFlags.Solid, true)*/);
 		}
 	}
 }
