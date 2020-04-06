@@ -19,9 +19,9 @@
 
 * achievement branches rewards {
  a: drums/musical instruments?
- b: l?
+ b: 1 hit rip
  c: explosive lamp
- d: l?
+ d: sniper
 }
 
 * shield class needs a perk, its pretty weak compared to regular

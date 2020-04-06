@@ -75,7 +75,7 @@ namespace Desktop.integration.steam {
 									for (; i < scores.Length && count < 10; i++) {
 										var score = scores[i];
 
-										stats.Add(score.User.Name, score.Score.ToString(), score.User.Name == name);
+										stats.Add($"#{score.GlobalRank} {score.User.Name}", score.Score.ToString(), score.User.Name == name);
 
 										count++;
 									}
