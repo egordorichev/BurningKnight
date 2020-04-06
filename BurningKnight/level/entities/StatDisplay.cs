@@ -56,7 +56,7 @@ namespace BurningKnight.level.entities {
 			}
 
 			s.ShowLeaderboard(b);
-			return false;
+			return true;
 		}
 
 		private bool ch;

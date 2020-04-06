@@ -735,8 +735,10 @@ namespace BurningKnight.state {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
-				Physics.Update(dt);
-				base.Update(dt);
+				var d = PlayerInputComponent.EnableUpdates ? dt : 0;
+
+				Physics.Update(d);
+				base.Update(d);
 			} else {
 				Ui.Update(dt);
 			}

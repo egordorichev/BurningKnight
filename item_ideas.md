@@ -1,25 +1,6 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
-# free sprites
-
-* gamepad
-* dewvial
-* lemon
-* fire exstinguisher
-* compass
-* thermos
-* meetboy
-* brain
-* teabag
-* obsidian_boots
-* pact
-
-* lootpick
-* bluewatch
-* bone
-* skull
-
 # passive
 
 * super hot mechanic
