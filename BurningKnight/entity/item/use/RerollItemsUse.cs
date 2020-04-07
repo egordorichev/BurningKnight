@@ -2,9 +2,11 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item.stand;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class RerollItemsUse : ItemUse {
@@ -12,6 +14,8 @@ namespace BurningKnight.entity.item.use {
 		private bool spawnNewItems;
 		private bool ignore;
 		private ItemType[] types;
+		private float consumeChance;
+		private bool d2;
 		
 		public override void Use(Entity entity, Item self) {
 			var room = entity.GetComponent<RoomComponent>().Room;
@@ -20,11 +24,13 @@ namespace BurningKnight.entity.item.use {
 				return;
 			}
 			
-			Reroller.Reroll(entity.Area, room, rerollStands, spawnNewItems, ignore, types, ProcessItem);
+			Reroller.Reroll(entity.Area, room, rerollStands, spawnNewItems, ignore, types, ProcessItem, d2);
 		}
 
 		protected virtual void ProcessItem(Item item) {
-			
+			if (consumeChance > 0 && Rnd.Chance(consumeChance * 100)) {
+				item.Done = true;
+			}
 		}
 		
 		public override void Setup(JsonValue settings) {
@@ -33,6 +39,8 @@ namespace BurningKnight.entity.item.use {
 			rerollStands = settings["r_stands"].Bool(true);
 			spawnNewItems = settings["s_new"].Bool(true);
 			ignore = settings["ignore"].Bool(true);
+			consumeChance = settings["cc"].Number(0);
+			d2 = settings["d2"].Bool(false);
 
 			var tps = settings["types"];
 
@@ -56,6 +64,9 @@ namespace BurningKnight.entity.item.use {
 			var spawnNew = root["s_new"].Bool(true);
 			var ignore = root["ignore"].Bool(true);
 
+			root.InputFloat("Consume Chance", "cc", 0);
+			root.Checkbox("D2", "d2", false);
+			
 			if (ImGui.Checkbox("Reroll stands", ref rerollStands)) {
 				root["r_stands"] = rerollStands;
 			}

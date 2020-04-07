@@ -10,7 +10,7 @@ using Lens.entity;
 
 namespace BurningKnight.entity.item {
 	public static class Reroller {
-		public static void Reroll(Area area, Room room, bool rerollStands, bool spawnNewItems, bool ignore, ItemType[] types, Action<Item> processItem = null) {
+		public static void Reroll(Area area, Room room, bool rerollStands, bool spawnNewItems, bool ignore, ItemType[] types, Action<Item> processItem = null, bool d2 = false) {
 			var items = room.Tagged[Tags.Item].ToArray();
 			var pool = Items.GeneratePool(Items.GetPool(room.GetPool() ?? ItemPool.Shop));
 			
@@ -58,7 +58,7 @@ namespace BurningKnight.entity.item {
 					continue;
 				}
 
-				if (Reroll(item, pool)) {
+				if (Reroll(item, pool, null, d2)) {
 					processItem?.Invoke(item);
 				}
 
@@ -74,6 +74,7 @@ namespace BurningKnight.entity.item {
 			var id = Items.Generate(pool, i => i.Id != item.Id && Items.ShouldAppear(i) && (filter == null || filter(i)));
 
 			if (id != null) {
+				item.LastId = item.Id;
 				item.ConvertTo(id);
 				item.AutoPickup = false;
 				
@@ -85,10 +86,16 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 
-		public static bool Reroll(Item item, List<ItemData> pool, Func<ItemData, bool> filter = null) {
-			var id = Items.GenerateAndRemove(pool, i => i.Id != item.Id && (filter == null || filter(i)));
+		public static bool Reroll(Item item, List<ItemData> pool, Func<ItemData, bool> filter = null, bool d2 = false) {
+			var id = d2 ? item.LastId : null;
+
+			if (id == null) {
+				id = Items.GenerateAndRemove(pool, i => i.Id != item.Id && (filter == null || filter(i)));
+			}
+			
 
 			if (id != null) {
+				item.LastId = item.Id;
 				item.ConvertTo(id);
 				item.AutoPickup = false;
 

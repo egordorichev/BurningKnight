@@ -92,6 +92,10 @@ namespace BurningKnight.entity.item.stand {
 			
 			if (item != null) {
 				item.Center = Center;
+
+				if (item.Done) {
+					item = null;
+				}
 			}
 		}
 
