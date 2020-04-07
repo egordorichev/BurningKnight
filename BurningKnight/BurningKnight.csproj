@@ -636,6 +636,7 @@
     <Compile Include="entity\events\NewLevelStartedEvent.cs" />
     <Compile Include="entity\events\PlayerHurtEvent.cs" />
     <Compile Include="entity\events\PlayerRolledEvent.cs" />
+    <Compile Include="entity\events\PlayerShootEvent.cs" />
     <Compile Include="entity\events\PostHealthModifiedEvent.cs" />
     <Compile Include="entity\events\ProjectileCreatedEvent.cs" />
     <Compile Include="entity\events\QuackEvent.cs" />
@@ -733,6 +734,7 @@
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
+    <Compile Include="entity\item\use\ModifyShootUse.cs" />
     <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />

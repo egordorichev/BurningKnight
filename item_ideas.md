@@ -6,7 +6,6 @@
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 * teleports randomly and shoots (while rotating around)
-* double shot
 * tripple shot
 * tripple shot but accuracy down
 * angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
