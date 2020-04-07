@@ -50,6 +50,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (walls) {
+						pce.Projectile.Spectral = true;
 						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
