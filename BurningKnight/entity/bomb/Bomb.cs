@@ -111,7 +111,8 @@ namespace BurningKnight.entity.bomb {
 		public void Explode() {
 			OnDeath?.Invoke(this);
 			Done = true;
-			ExplosionMaker.Make(this, GetComponent<ExplodeComponent>().Radius);
+			var r = GetComponent<ExplodeComponent>().Radius;
+			ExplosionMaker.Make(this, r, scale: r / 32f);
 		}
 
 		public override bool HandleEvent(Event e) {
