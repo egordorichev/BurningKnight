@@ -803,6 +803,7 @@
     <Compile Include="entity\item\use\SpeedUpOrbitalsUse.cs" />
     <Compile Include="entity\item\use\SuperHotUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
+    <Compile Include="entity\item\use\TeleportToPrevRoomUse.cs" />
     <Compile Include="entity\item\use\TeleportToShopUse.cs" />
     <Compile Include="entity\item\use\TeleportUse.cs" />
     <Compile Include="entity\item\use\TriggerHurtEventUse.cs" />

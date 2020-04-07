@@ -63,6 +63,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Artificial;
 		public int BounceLeft;
 		public bool IndicateDeath;
+		public bool BreakOther;
 		public bool CanBeReflected = true;
 		public bool CanBeBroken = true;
 		public ProjectileDeathCallback OnDeath;
@@ -251,6 +252,11 @@ namespace BurningKnight.entity.projectile {
 		public virtual bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
+			}
+
+			if (entity is Projectile p && p.BreakOther && p.Owner != Owner) {
+				p.Break(this);
+				return true;
 			}
 			
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
