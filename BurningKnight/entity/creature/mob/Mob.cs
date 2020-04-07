@@ -218,7 +218,7 @@ namespace BurningKnight.entity.creature.mob {
 			List<Entity> targets;
 
 			if (TargetEverywhere) {
-				targets = Area.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
+				targets = Area.Tagged[IsFriendly() ? Tags.Mob : Tags.PlayerTarget];
 			} else {
 				var room = GetComponent<RoomComponent>().Room;
 
@@ -226,7 +226,7 @@ namespace BurningKnight.entity.creature.mob {
 					return;
 				}
 			
-				targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.Player];
+				targets = room.Tagged[IsFriendly() ? Tags.Mob : Tags.PlayerTarget];
 			}
 			
 			var closestDistance = float.MaxValue;

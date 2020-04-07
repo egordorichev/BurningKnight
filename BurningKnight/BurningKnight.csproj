@@ -419,6 +419,7 @@
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
+    <Compile Include="entity\creature\Decoy.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
     <Compile Include="entity\creature\drop\Drop.cs" />
     <Compile Include="entity\creature\drop\DropInfo.cs" />
@@ -727,6 +728,7 @@
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
+    <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />

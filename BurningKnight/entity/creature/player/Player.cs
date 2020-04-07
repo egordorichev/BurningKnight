@@ -141,6 +141,7 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);
+			AddTag(Tags.PlayerTarget);
 			AddTag(Tags.PlayerSave);
 			RemoveTag(Tags.LevelSave);
 

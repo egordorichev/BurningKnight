@@ -1,6 +1,16 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
+* decoy
+* follows you but shoots opposite direction
+* follows you autoshoots close-by enemies
+* rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
+* teleports randomly and shoots (while rotating around)
+* bigger bomb explosion radius
+* double shot
+* tripple shot
+* tripple shot but accuracy down
+
 # passive
 
 * pet, eats hearts gives soul hearts
@@ -13,16 +23,11 @@
 * ring, gives a chance to fully reveal the floor on entering it
 * chance to fire back (/ use your sword)
 * chance to fire in all directions when you fire (/ use your sword)
-* vampire_bat - half a heart heal every 13 kills
-* tripple shot
-* tripple shot but accuracy down
 * lighting between nearby bullets
-* double shot
 * angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
 * range down, tears up
 * your projectiles break enemy projectiles (destroying themselfs too)
 * small planet
-* bigger bomb explosion radius
 * money power/keys power/bomb power
 * magic glass, allows player to walk over 1-tile chasms
 * projectiles change size (up/down) depending on their time
@@ -34,13 +39,11 @@
 * tmp flight
 * fire tears in all directions (your dmg+flat dmg)
 * reusable brimstone
-* random active item effect
 
 # weapon 
 
 * bomb gun
 * laser gun
-* toilet paper weapon
 
 ### pools to fill
 
