@@ -1,15 +1,9 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
-1/8: fixme: сгущенка should affect melee too
+1/8: fixme:
 
 * soldering-iron: hitting frozen enemy insta kills it. gives a small chance for fire bullets
-
-* melee weapon with broken armor effect
-* item, that makes bullets bounce from each another
-* pig: gives you more money the deeper flor you use it on (single use active item)
-* teleport to prev room
-* your projectiles break enemy projectiles (destroying themselfs too)
 
 2/8
 

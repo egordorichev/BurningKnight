@@ -27,7 +27,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override bool HandleEvent(Event e) {
 			if (e is RoomChangedEvent rce && rce.Who == Item.Owner) {
-				previous = rce.New;
+				previous = rce.Old;
 			}
 			
 			return base.HandleEvent(e);

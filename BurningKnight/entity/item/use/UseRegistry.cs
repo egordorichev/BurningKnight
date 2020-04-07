@@ -139,6 +139,7 @@ namespace BurningKnight.entity.item.use {
 			Register<InvokeItemsUse>(InvokeItemsUse.RenderDebug);
 			Register<SpeedUpOrbitalsUse>();
 			Register<TeleportToPrevRoomUse>();
+			Register<BreakPiggyBankUse>();
 		}
 	}
 }
