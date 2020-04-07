@@ -137,6 +137,7 @@ namespace BurningKnight.entity.item.use {
 			Register<TeleportToShopUse>();
 			Register<PlaceDecoyUse>();
 			Register<InvokeItemsUse>(InvokeItemsUse.RenderDebug);
+			Register<SpeedUpOrbitalsUse>();
 		}
 	}
 }

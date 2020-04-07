@@ -12,6 +12,7 @@ namespace BurningKnight.entity.component {
 		public List<Entity> Orbiting = new List<Entity>();
 		public float RadiusMultiplier = 1;
 		public float T;
+		public float Speed = 1;
 
 		private float count;
 		private Vector2 center;
@@ -27,7 +28,7 @@ namespace BurningKnight.entity.component {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			T += dt;
+			T += dt * Speed;
 			count += (Orbiting.Count - count) * dt * 4;
 
 			if (Entity.DistanceTo(center) > 32f) {

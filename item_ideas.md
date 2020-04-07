@@ -3,11 +3,6 @@
 
 #
 
-make pet multiplier/orbital either give you a random one or only appear when you have one+
-orbital speedup
-
-#
-
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 * teleports randomly and shoots (while rotating around)

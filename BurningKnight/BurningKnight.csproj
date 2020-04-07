@@ -800,6 +800,7 @@
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
     <Compile Include="entity\item\use\SpawnPetUse.cs" />
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
+    <Compile Include="entity\item\use\SpeedUpOrbitalsUse.cs" />
     <Compile Include="entity\item\use\SuperHotUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
     <Compile Include="entity\item\use\TeleportToShopUse.cs" />
