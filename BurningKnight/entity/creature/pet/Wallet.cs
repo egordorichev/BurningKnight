@@ -57,7 +57,7 @@ namespace BurningKnight.entity.creature.pet {
 						
 						var item = (Item) i;
 
-						if (item.Type == ItemType.Coin && !item.HasComponent<OwnerComponent>()) {
+						if (item.Type == ItemType.Coin && !item.HasComponent<OwnerComponent>() && !item.Done) {
 							var d = Self.DistanceTo(i);
 
 							if (d < min) {
