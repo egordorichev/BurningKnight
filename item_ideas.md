@@ -125,7 +125,6 @@
 * item, that scales you damage to health (negative and positive one)
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
-* marshmallow orbital, can be light up
 * d1
 * gives infinite range to bullets
 * d2

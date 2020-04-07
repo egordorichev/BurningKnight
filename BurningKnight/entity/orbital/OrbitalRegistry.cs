@@ -111,6 +111,8 @@ namespace BurningKnight.entity.orbital {
 							Projectile = projectile,
 							Owner = o
 						});
+
+						orbital.GetComponent<ScalableSliceComponent>().Animate();
 					}
 				};
 				

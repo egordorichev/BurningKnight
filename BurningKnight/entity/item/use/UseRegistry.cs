@@ -136,6 +136,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectilesHurtOnMissUse>();
 			Register<TeleportToShopUse>();
 			Register<PlaceDecoyUse>();
+			Register<InvokeItemsUse>(InvokeItemsUse.RenderDebug);
 		}
 	}
 }
