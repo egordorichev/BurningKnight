@@ -1,10 +1,6 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
-1/8: fixme:
-
-* soldering-iron: hitting frozen enemy insta kills it. gives a small chance for fire bullets
-
 2/8
 
 * follows you autoshoots close-by enemies

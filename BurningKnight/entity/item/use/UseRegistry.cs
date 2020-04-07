@@ -140,6 +140,7 @@ namespace BurningKnight.entity.item.use {
 			Register<SpeedUpOrbitalsUse>();
 			Register<TeleportToPrevRoomUse>();
 			Register<BreakPiggyBankUse>();
+			Register<MakeProjectilesKillWithBuffUse>(MakeProjectilesKillWithBuffUse.RenderDebug);
 		}
 	}
 }
