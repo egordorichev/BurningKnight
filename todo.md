@@ -17,20 +17,11 @@
 
 # hub
 
-* bosses go out from friendly state too early (onTargetChange)
-* still collide with stones while flying
-* vampire bat is too powerful?
-* exploding hidden door hurts you
-* megaphone + weird potion make act like just one
-
-* put a wall around chasm varianted levels
-* scourges should deactivate upon visiting hub
-
 * achievement branches rewards {
  a: drums/musical instruments?
- b: l?
+ b: 1 hit rip
  c: explosive lamp
- d: l?
+ d: sniper
 }
 
 * shield class needs a perk, its pretty weak compared to regular

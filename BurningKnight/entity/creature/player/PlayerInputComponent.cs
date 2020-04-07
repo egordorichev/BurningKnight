@@ -29,6 +29,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.creature.player {
 	public class PlayerInputComponent : Component {
+		public static bool EnableUpdates;
+		
 		private const float Speed = 20f;
 		private DialogComponent dialog;
 		private bool wasSitting;
@@ -62,8 +64,10 @@ namespace BurningKnight.entity.creature.player {
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			EnableUpdates = !((Player) Entity).SuperHot;
 
 			if (GetComponent<BuffsComponent>().Has<FrozenBuff>()) {
+				EnableUpdates = true;
 				return;
 			}
 			
@@ -77,6 +81,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (InDialog) {
+				EnableUpdates = true;
 				var dd = dialog?.Dialog;
 
 				if (dd != null) {
@@ -147,8 +152,10 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			if (state.StateInstance is Player.PostRollState) {
-				
+				EnableUpdates = true;
 			} if (state.StateInstance is Player.RollState r) {
+				EnableUpdates = true;
+				
 				// Movement tech :) Direction changing
 				if (Input.WasPressed(Controls.Swap, controller)) {
 					idle = false;
@@ -196,11 +203,13 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {
 					Who = (Player) Entity
 				})) {
+					EnableUpdates = true;
 					idle = false;
 					GlobalSave.Put("control_roll", true);
 					state.Become<Player.RollState>();
 				} else {
 					if (acceleration.Length() > 0.1f) {
+						EnableUpdates = true;
 						state.Become<Player.RunState>();
 					} else if (!(state.StateInstance is Player.SittingState || state.StateInstance is Player.SleepingState)) {
 						state.Become<Player.IdleState>();

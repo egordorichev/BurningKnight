@@ -5,6 +5,7 @@ namespace BurningKnight.entity.projectile {
 		Charming,
 		Freezing,
 		Slowing,
-		Burning
+		Burning,
+		BrokenArmor
 	}
 }

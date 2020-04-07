@@ -79,7 +79,7 @@ namespace BurningKnight.entity.projectile {
 
 			if (goingDown) {
 				if (Bottom >= toY && !exploded) {
-					AnimateDeath();
+					AnimateDeath(null);
 				}
 			} else if (T >= MinUpTime && Bottom < Camera.Instance.Y) {
 				goingDown = true;
@@ -92,8 +92,8 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		protected override void AnimateDeath(bool timeout = false) {
-			base.AnimateDeath(timeout);
+		protected override void AnimateDeath(Entity e, bool timeout = false) {
+			base.AnimateDeath(e, timeout);
 			
 			ExplosionMaker.Make(this);
 			exploded = true;

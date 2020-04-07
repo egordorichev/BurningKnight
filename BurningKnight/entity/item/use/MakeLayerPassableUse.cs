@@ -21,6 +21,8 @@ namespace BurningKnight.entity.item.use {
 		private bool walls;
 		private bool mobs;
 		private bool stones;
+		private bool projectiles;
+		private bool breakProjectiles;
 
 		public override void Use(Entity entity, Item item) {
 			if (forPlayer) {
@@ -50,6 +52,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (walls) {
+						pce.Projectile.Spectral = true;
 						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
@@ -59,6 +62,14 @@ namespace BurningKnight.entity.item.use {
 				
 					if (stones) {
 						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is HalfWall || en is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
+					}
+					
+					if (projectiles) {
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Projectile ? CollisionResult.Enable : CollisionResult.Default);
+					}
+
+					if (breakProjectiles) {
+						pce.Projectile.BreakOther = true;
 					}
 				}
 			}
@@ -76,6 +87,8 @@ namespace BurningKnight.entity.item.use {
 			walls = settings["iw"].Bool(false);
 			mobs = settings["im"].Bool(false);
 			stones = settings["st"].Bool(false);
+			projectiles = settings["p"].Bool(false);
+			breakProjectiles = settings["bp"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -90,7 +103,9 @@ namespace BurningKnight.entity.item.use {
 			if (ImGui.Checkbox("For player", ref v)) {
 				root["fpl"] = v;
 			}
-			
+
+			root.Checkbox("Projectiles", "p", false);
+
 			ImGui.Separator();
 			
 			v = root["ic"].Bool(false);
@@ -118,6 +133,7 @@ namespace BurningKnight.entity.item.use {
 			}
 
 			root.Checkbox("Ignore stones", "st", false);
+			root.Checkbox("Break Projectiles", "bp", false);
 		}
 	}
 }

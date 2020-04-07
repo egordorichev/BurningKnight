@@ -6,5 +6,6 @@ namespace BurningKnight.entity.component {
 		public float Radius = 20;
 		public bool Lerp;
 		public Entity Orbiting;
+		public float CurrentAngle;
 	}
 }

@@ -10,6 +10,7 @@ namespace BurningKnight.entity.buff {
 				case ProjectileGraphicsEffect.Freezing: return ProjectileColor.Cyan;
 				case ProjectileGraphicsEffect.Slowing: return ProjectileColor.Brown;
 				case ProjectileGraphicsEffect.Burning: return ProjectileColor.Orange;
+				case ProjectileGraphicsEffect.BrokenArmor: return ProjectileColor.Gray;
 					
 				default: return ProjectileColor.Yellow;
 			}

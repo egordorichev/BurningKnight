@@ -141,6 +141,7 @@ namespace BurningKnight.entity.creature.player {
 			GetComponent<StateComponent>().Become<IdleState>();
 			
 			AddTag(Tags.Player);
+			AddTag(Tags.PlayerTarget);
 			AddTag(Tags.PlayerSave);
 			RemoveTag(Tags.LevelSave);
 
@@ -153,6 +154,7 @@ namespace BurningKnight.entity.creature.player {
 
 		public void InitStats(bool fromInit = false) {
 			HasFlight = false;
+			SuperHot = false;
 
 			GetComponent<AimComponent>().ShowLaserLine = false;
 			GetComponent<OrbitGiverComponent>().DestroyAll();
@@ -532,10 +534,15 @@ namespace BurningKnight.entity.creature.player {
 		#endregion
 
 		public override bool ShouldCollide(Entity entity) {
-			return !(entity is Player || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
+			if (HasFlight && entity is HalfWall) {
+				return false;
+			}
+			
+			return !(entity is Player || entity is HalfProjectileLevel || entity is ProjectileLevelBody || ((entity is ItemStand || entity is Bomb) && InAir())) && base.ShouldCollide(entity);
 		}
 
 		public bool HasFlight;
+		public bool SuperHot;
 
 		public override bool InAir() {
 			return HasFlight || base.InAir() || GetComponent<StateComponent>().StateInstance is RollState;

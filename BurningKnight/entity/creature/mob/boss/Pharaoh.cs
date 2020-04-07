@@ -110,7 +110,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.OnTargetChange(target);
 
 			if (target == null) {
-				Become<IdleState>();
+				Become<FriendlyState>();
 			}
 		}
 		#region Pharaoh States

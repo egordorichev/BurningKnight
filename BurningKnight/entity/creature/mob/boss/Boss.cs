@@ -72,7 +72,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					foreach (var p in Area.Tagged[Tags.Projectile]) {
 						AnimationUtil.Poof(p.Center);
-						((Projectile) p).Break();
+						((Projectile) p).Break(null);
 					}
 
 					try {

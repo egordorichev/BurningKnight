@@ -14,6 +14,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
+using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
@@ -264,6 +265,10 @@ namespace BurningKnight.state {
 
 			if (Run.Depth == 0) {
 				HatStand.CheckHats();
+			}
+
+			if (Run.Depth < 1) {
+				Scourge.Clear();
 			}
 		}
 
@@ -730,8 +735,10 @@ namespace BurningKnight.state {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
-				Physics.Update(dt);
-				base.Update(dt);
+				var d = PlayerInputComponent.EnableUpdates ? dt : 0;
+
+				Physics.Update(d);
+				base.Update(d);
 			} else {
 				Ui.Update(dt);
 			}
@@ -1303,7 +1310,7 @@ namespace BurningKnight.state {
 
 			if (Run.Depth != 0) {
 				pauseMenu.Add(new UiButton {
-					LocaleLabel = "back_to_castle",
+					LocaleLabel = "back_to_town",
 					RelativeCenterX = Display.UiWidth / 2f,
 					RelativeCenterY = start + space * 2,
 					Type = ButtonType.Exit,
@@ -2462,7 +2469,7 @@ namespace BurningKnight.state {
 				statsStats.Add(Locale.Get("won"), Locale.Get(data["won"].AsBoolean ? "yes" : "no"));
 				statsStats.Add(Locale.Get("time"), data["time"].AsString);
 				statsStats.Add(Locale.Get("lamp"), Locale.Get(data["lamp"].String("none")));
-				statsStats.Add(Locale.Get("depth"), data["depth"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("depth"), data["depth"].String("old data"));
 				statsStats.Add(Locale.Get("coins_collected"), data["coins"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
@@ -2597,7 +2604,7 @@ namespace BurningKnight.state {
 			
 			stats.Add(Locale.Get("lamp"), Locale.Get(lamp));
 			stats.Add(Locale.Get("time"), GetRunTime());
-			stats.Add(Locale.Get("depth"), Run.Depth.ToString());
+			stats.Add(Locale.Get("depth"), Level.GetDepthString());
 			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
 			stats.Add(Locale.Get("items_collected"), Run.Statistics.Items.Count.ToString());
 			stats.Add(Locale.Get("damage_taken"), Run.Statistics.DamageTaken.ToString());
@@ -2672,7 +2679,7 @@ namespace BurningKnight.state {
 					// fixme same seed the same time
 					root["seed"] = Run.Seed;
 					root["time"] = GetRunTime();
-					root["depth"] = Run.Depth;
+					root["depth"] = Level.GetDepthString();
 					root["won"] = Run.Won;
 
 					root["lamp"] = lamp;

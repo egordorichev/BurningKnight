@@ -13,7 +13,7 @@ namespace BurningKnight.entity.buff {
 			Add<FrozenBuff>(FrozenBuff.Id, ProjectileGraphicsEffect.Freezing);
 			Add<SlowBuff>(SlowBuff.Id, ProjectileGraphicsEffect.Slowing);
 			Add<ArmoredBuff>(ArmoredBuff.Id);
-			Add<BrokenArmorBuff>(BrokenArmorBuff.Id);
+			Add<BrokenArmorBuff>(BrokenArmorBuff.Id, ProjectileGraphicsEffect.BrokenArmor);
 			Add<InvincibleBuff>(InvincibleBuff.Id);
 			Add<RageBuff>(RageBuff.Id);
 			Add<InvisibleBuff>(InvisibleBuff.Id);

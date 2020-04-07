@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 			
 			var bullet = Projectile.Make(Self, "huge", Self.AngleTo(Self.Target), 7);
 
-			bullet.OnDeath = (pr, t) => {
+			bullet.OnDeath = (pr, e, t) => {
 				p.Kill();
 				ExplosionMaker.Make(pr.Owner, 16, false, new Vec2(pr.Center));
 				

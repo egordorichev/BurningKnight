@@ -34,6 +34,7 @@ namespace BurningKnight.entity.item {
 		
 		public ItemType Type;
 		public string Id;
+		public string LastId;
 		public string IdUnderScourge => Type != ItemType.Scourge && Scourge.IsEnabled(Scourge.OfEgg) ? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id : Id;
 		public string Name => Masked ? "???" : Locale.Get(IdUnderScourge);
 		public string Description => Locale.Get($"{IdUnderScourge}_desc");
@@ -180,6 +181,10 @@ namespace BurningKnight.entity.item {
 			}
 			
 			CheckMasked();
+
+			if (Id.Contains("mana")) {
+				AlwaysActive = true;
+			}
 		}
 
 		private bool Interact(Entity entity) {

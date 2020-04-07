@@ -130,6 +130,17 @@ namespace BurningKnight.entity.item.use {
 			Register<BlindFoldUse>();
 			Register<MakeProjectileShrinkUse>(MakeProjectileShrinkUse.RenderDebug);
 			Register<MakeProjectileExpandUse>(MakeProjectileExpandUse.RenderDebug);
+			Register<SuperHotUse>();
+			Register<ModifyManaMaxUse>(ModifyManaMaxUse.RenderDebug);
+			Register<ModifyConsumableWeightsUse>(ModifyConsumableWeightsUse.RenderDebug);
+			Register<MakeProjectilesHurtOnMissUse>();
+			Register<TeleportToShopUse>();
+			Register<PlaceDecoyUse>();
+			Register<InvokeItemsUse>(InvokeItemsUse.RenderDebug);
+			Register<SpeedUpOrbitalsUse>();
+			Register<TeleportToPrevRoomUse>();
+			Register<BreakPiggyBankUse>();
+			Register<MakeProjectilesKillWithBuffUse>(MakeProjectilesKillWithBuffUse.RenderDebug);
 		}
 	}
 }

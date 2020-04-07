@@ -3,6 +3,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -14,6 +15,7 @@ namespace BurningKnight.entity.item.use {
 		public bool SpawnBombs;
 		public bool SetFuseTime;
 		public float FuseTime;
+		public float RadiusMod;
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
@@ -22,6 +24,7 @@ namespace BurningKnight.entity.item.use {
 			SpawnBombs = settings["spawn_bombs"].Bool(false);
 			SetFuseTime = settings["set_fuse"].Bool(false);
 			FuseTime = settings["fuse_time"].Number(1);
+			RadiusMod = settings["radius"].Number(1);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -37,6 +40,8 @@ namespace BurningKnight.entity.item.use {
 				root["spawn_bombs"] = spawnBombs;
 			}
 			
+			root.InputFloat("Radius Modifier", "radius", 1f);
+
 			var setFuseTime = root["set_fuse"].Bool(false);
 
 			if (ImGui.Checkbox("Set fuse?", ref setFuseTime)) {
@@ -57,9 +62,12 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			if (e is BombPlacedEvent bpe) {
 				var bomb = bpe.Bomb;
+				var c = bomb.GetComponent<ExplodeComponent>();
+
+				c.Radius *= RadiusMod;
 				
 				if (SetFuseTime) {
-					bomb.GetComponent<ExplodeComponent>().Timer = FuseTime + Rnd.Float(-0.1f, 1f);
+					c.Timer = FuseTime + Rnd.Float(-0.1f, 1f);
 				}
 
 				if (SpawnBombs) {

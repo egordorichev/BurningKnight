@@ -39,7 +39,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
 	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
-	public delegate void ProjectileDeathCallback(Projectile p, bool t);
+	public delegate void ProjectileDeathCallback(Projectile p, Entity from, bool t);
 	public delegate void ProjectileNearingDeathCallback(Projectile p);
 	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
 	public delegate bool ProjectileCollisionCallback(Projectile p, Entity e);
@@ -63,6 +63,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Artificial;
 		public int BounceLeft;
 		public bool IndicateDeath;
+		public bool BreakOther;
 		public bool CanBeReflected = true;
 		public bool CanBeBroken = true;
 		public ProjectileDeathCallback OnDeath;
@@ -223,7 +224,7 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen)) {
-				AnimateDeath(true);
+				AnimateDeath(null, true);
 				return;
 			}
 
@@ -236,7 +237,7 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			if (!OnScreen && DieOffscreen) {
-				Break();
+				Break(null);
 			}
 
 			if (Boost) {
@@ -244,13 +245,18 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 	    if (!PreventDespawn && Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
-		    Break();
+		    Break(null);
 	    }
 		}
 
 		public virtual bool BreaksFrom(Entity entity) {
 			if (IgnoreCollisions) {
 				return false;
+			}
+
+			if (entity is Projectile p && p.BreakOther && p.Owner != Owner) {
+				p.Break(this);
+				return true;
 			}
 			
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
@@ -365,7 +371,7 @@ namespace BurningKnight.entity.projectile {
 							}
 						}
 						
-						AnimateDeath();
+						AnimateDeath(ev.Entity);
 					}
 				}
 			}
@@ -385,11 +391,11 @@ namespace BurningKnight.entity.projectile {
 			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
-		public void Break() {
-			AnimateDeath();
+		public void Break(Entity from = null) {
+			AnimateDeath(from);
 		}
 		
-		protected virtual void AnimateDeath(bool timeout = false) {
+		protected virtual void AnimateDeath(Entity from, bool timeout = false) {
 			if (Dying) {
 				return;
 			}
@@ -416,7 +422,7 @@ namespace BurningKnight.entity.projectile {
 				
 				Camera.Instance.ShakeMax(4);
 				
-				OnDeath?.Invoke(this, timeout);
+				OnDeath?.Invoke(this, from, timeout);
 			} catch (Exception e) {
 				Log.Error(e);
 			}

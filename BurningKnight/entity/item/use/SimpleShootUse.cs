@@ -210,12 +210,12 @@ namespace BurningKnight.entity.item.use {
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
-						projectile.OnDeath += (prj, t) => ProjectileDied = true;
+						projectile.OnDeath += (prj, e, t) => ProjectileDied = true;
 					}
 
 					if (manaUsage > 0) {
 						if (manaDrop == 0) {
-							projectile.OnDeath += (prj, t) => {
+							projectile.OnDeath += (prj, e, t) => {
 								PlaceMana(entity.Area, prj.Center);
 							};	
 						} else if (manaDrop == 1) {
@@ -223,7 +223,7 @@ namespace BurningKnight.entity.item.use {
 						} else {
 							var where = entity.Center;
 							
-							projectile.OnDeath += (prj, t) => {
+							projectile.OnDeath += (prj, e, t) => {
 								PlaceMana(entity.Area, where);
 							};	
 						}

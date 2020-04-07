@@ -419,6 +419,7 @@
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
+    <Compile Include="entity\creature\Decoy.cs" />
     <Compile Include="entity\creature\drop\AnyDrop.cs" />
     <Compile Include="entity\creature\drop\Drop.cs" />
     <Compile Include="entity\creature\drop\DropInfo.cs" />
@@ -507,6 +508,7 @@
     <Compile Include="entity\creature\npc\NullPtr.cs" />
     <Compile Include="entity\creature\npc\ShopNpc.cs" />
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
+    <Compile Include="entity\creature\pet\AnimatedFollowerPet.cs" />
     <Compile Include="entity\creature\pet\Backpack.cs" />
     <Compile Include="entity\creature\pet\Crystal.cs" />
     <Compile Include="entity\creature\pet\FollowerPet.cs" />
@@ -515,6 +517,7 @@
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
     <Compile Include="entity\creature\pet\SnekPet.cs" />
     <Compile Include="entity\creature\pet\Strawberry.cs" />
+    <Compile Include="entity\creature\pet\Wallet.cs" />
     <Compile Include="entity\creature\player\LampComponent.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
     <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
@@ -707,6 +710,7 @@
     <Compile Include="entity\item\use\AffectDealChanceUse.cs" />
     <Compile Include="entity\item\use\BlankUse.cs" />
     <Compile Include="entity\item\use\BlindFoldUse.cs" />
+    <Compile Include="entity\item\use\BreakPiggyBankUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />
@@ -715,6 +719,7 @@
     <Compile Include="entity\item\use\ExplodeUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
     <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
+    <Compile Include="entity\item\use\InvokeItemsUse.cs" />
     <Compile Include="entity\item\use\LeaveLegoUse.cs" />
     <Compile Include="entity\item\use\MakeBombsBlankUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
@@ -722,8 +727,13 @@
     <Compile Include="entity\item\use\MakeProjectileExpandUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
     <Compile Include="entity\item\use\MakeProjectileShrinkUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesHurtOnMissUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesKillWithBuffUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
+    <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
+    <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
+    <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />
@@ -792,7 +802,11 @@
     <Compile Include="entity\item\use\SpawnOrbitalUse.cs" />
     <Compile Include="entity\item\use\SpawnPetUse.cs" />
     <Compile Include="entity\item\use\SpawnProjectilesUse.cs" />
+    <Compile Include="entity\item\use\SpeedUpOrbitalsUse.cs" />
+    <Compile Include="entity\item\use\SuperHotUse.cs" />
     <Compile Include="entity\item\use\TeleportToCursorUse.cs" />
+    <Compile Include="entity\item\use\TeleportToPrevRoomUse.cs" />
+    <Compile Include="entity\item\use\TeleportToShopUse.cs" />
     <Compile Include="entity\item\use\TeleportUse.cs" />
     <Compile Include="entity\item\use\TriggerHurtEventUse.cs" />
     <Compile Include="entity\item\use\UseOnEventUse.cs" />
@@ -803,6 +817,8 @@
     <Compile Include="entity\item\WeaponTypeHelper.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\Lego.cs" />
+    <Compile Include="entity\orbital\AnimatedOrbital.cs" />
+    <Compile Include="entity\orbital\Marshmallow.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
     <Compile Include="entity\orbital\Prism.cs" />

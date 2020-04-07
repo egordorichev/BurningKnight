@@ -111,6 +111,8 @@ namespace BurningKnight.entity.orbital {
 							Projectile = projectile,
 							Owner = o
 						});
+
+						orbital.GetComponent<ScalableSliceComponent>().Animate();
 					}
 				};
 				
@@ -263,6 +265,12 @@ namespace BurningKnight.entity.orbital {
 					}
 				};
 				
+				return orbital;
+			});
+		
+			Define("marshmallow", o => {
+				var orbital = new Marshmallow();
+				o.Area.Add(orbital);
 				return orbital;
 			});
 		}

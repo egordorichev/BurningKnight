@@ -18,7 +18,7 @@ namespace BurningKnight.entity.projectile.controller {
 
 				if (b.Velocity.Length() < vmin) {
 					stopped = true;
-					Timer.Add(p.Break, time);
+					Timer.Add(() => { p.Break(); }, time);
 				}
 			};
 		}
