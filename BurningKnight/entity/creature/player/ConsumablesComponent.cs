@@ -26,12 +26,14 @@ namespace BurningKnight.entity.creature.player {
 		private byte keys;
 		private byte coins;
 
+		public byte MaxCoins = 99;
+
 		public int Bombs {
 			set {
 				var n = (byte) MathUtils.Clamp(0, 99, value);
 
 				if (n != bombs && AcceptChange(n - bombs, n, ItemType.Bomb)) {
-					bombs = (byte) ((int) bombs + lastAmount);
+					bombs = (byte) MathUtils.Clamp(0, 99, ((int) bombs + lastAmount));
 				}
 			}
 			
@@ -43,7 +45,7 @@ namespace BurningKnight.entity.creature.player {
 				var n = (byte) MathUtils.Clamp(0, 99, value);
 
 				if (n != keys && AcceptChange(n - keys, n, ItemType.Key)) {
-					keys = (byte) ((int) keys + lastAmount);
+					keys = (byte) MathUtils.Clamp(0, 99, (int) keys + lastAmount);
 				}
 			}
 			
@@ -52,13 +54,12 @@ namespace BurningKnight.entity.creature.player {
 		
 		public int Coins {
 			set {
-				var n = (byte) MathUtils.Clamp(0, 99, value);
+				var n = (byte) MathUtils.Clamp(0, MaxCoins, value);
 
 				if (n != coins && AcceptChange(n - coins, n, ItemType.Coin)) {
-					coins = (byte) ((int) coins + lastAmount);
+					coins = (byte) MathUtils.Clamp(0, MaxCoins, (int) coins + lastAmount);
 
 					if (coins >= 99) {
-						coins = 99;
 						Achievements.Unlock("bk:rich");
 					}
 				}

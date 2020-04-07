@@ -116,6 +116,10 @@ namespace BurningKnight.entity.creature.pet {
 			Define("shield_buddy", o => o.Area.Add(new ShieldBuddy() {
 				Owner = o
 			}));
+
+			Define("wallet", o => o.Area.Add(new Wallet() {
+				Owner = o
+			}));
 		}
 	}
 }
