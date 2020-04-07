@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.pet {
 
 			Define("meat_guy", o => {
 				var timer = 0f;
-				var pet = new FollowerPet("bk:meat_guy") {
+				var pet = new AnimatedFollowerPet("meat_guy") {
 					Owner = o
 				};
 
@@ -82,6 +82,45 @@ namespace BurningKnight.entity.creature.pet {
 							Projectile = projectile,
 							Owner = o
 						});
+					}
+				};
+
+				o.Area.Add(pet);
+				return pet;
+			});
+			
+			Define("skele_buddy", o => {
+				var timer = 0f;
+				var pet = new AnimatedFollowerPet("skele_buddy") {
+					Owner = o
+				};
+
+				pet.Controller += dt => {
+					timer += dt;
+
+					if (timer >= 2f) {
+						timer = 0;
+
+						if ((o.GetComponent<RoomComponent>().Room?.Tagged[Tags.MustBeKilled].Count ?? 0) == 0) {
+							return;
+						}
+						
+						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
+						
+						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim) - Math.PI;
+
+						for (var i = 0; i < 3; i++) {
+							var projectile = Projectile.Make(o, "circle", a + (i - 1) * 0.3f + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4, 6), scale: Rnd.Float(0.6f, 1f));
+
+							projectile.Color = ProjectileColor.Red;
+							projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
+							projectile.AddLight(32f, Projectile.RedLight);
+
+							o.HandleEvent(new ProjectileCreatedEvent {
+								Projectile = projectile,
+								Owner = o
+							});
+						}
 					}
 				};
 
