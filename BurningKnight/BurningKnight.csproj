@@ -812,6 +812,8 @@
     <Compile Include="entity\item\WeaponTypeHelper.cs" />
     <Compile Include="entity\Layers.cs" />
     <Compile Include="entity\Lego.cs" />
+    <Compile Include="entity\orbital\AnimatedOrbital.cs" />
+    <Compile Include="entity\orbital\Marshmallow.cs" />
     <Compile Include="entity\orbital\Orbital.cs" />
     <Compile Include="entity\orbital\OrbitalRegistry.cs" />
     <Compile Include="entity\orbital\Prism.cs" />

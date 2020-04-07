@@ -1,9 +1,6 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
-* сгущенка needs a use (apply slowness)
-* bigger bomb explosion radius
-
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 * teleports randomly and shoots (while rotating around)
@@ -15,8 +12,6 @@
 
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
-* increases money drop chance from room reward
-* increases room reward chance
 * increases chest chance from a rooms reward
 * rolling through bullets fires them back at enemies
 * picking up a heart might heal you for half a heart

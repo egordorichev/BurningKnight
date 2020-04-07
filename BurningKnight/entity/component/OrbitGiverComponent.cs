@@ -47,6 +47,7 @@ namespace BurningKnight.entity.component {
 					continue;
 				}
 
+				component.CurrentAngle = (float) a;
 				var target = center + new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 
 				if (component.Lerp) {

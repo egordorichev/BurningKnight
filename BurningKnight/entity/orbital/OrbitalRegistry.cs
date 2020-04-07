@@ -265,6 +265,12 @@ namespace BurningKnight.entity.orbital {
 				
 				return orbital;
 			});
+		
+			Define("marshmallow", o => {
+				var orbital = new Marshmallow();
+				o.Area.Add(orbital);
+				return orbital;
+			});
 		}
 
 		private static string[] planets = {
