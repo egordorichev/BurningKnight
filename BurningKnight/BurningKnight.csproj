@@ -511,11 +511,15 @@
     <Compile Include="entity\creature\pet\AnimatedFollowerPet.cs" />
     <Compile Include="entity\creature\pet\Backpack.cs" />
     <Compile Include="entity\creature\pet\Crystal.cs" />
+    <Compile Include="entity\creature\pet\DiagonalPet.cs" />
     <Compile Include="entity\creature\pet\FollowerPet.cs" />
     <Compile Include="entity\creature\pet\GeneratorPet.cs" />
     <Compile Include="entity\creature\pet\LampPet.cs" />
+    <Compile Include="entity\creature\pet\RoomBasedPet.cs" />
     <Compile Include="entity\creature\pet\ShieldBuddy.cs" />
+    <Compile Include="entity\creature\pet\Shooty.cs" />
     <Compile Include="entity\creature\pet\SnekPet.cs" />
+    <Compile Include="entity\creature\pet\SpikedCookie.cs" />
     <Compile Include="entity\creature\pet\Strawberry.cs" />
     <Compile Include="entity\creature\pet\Wallet.cs" />
     <Compile Include="entity\creature\player\LampComponent.cs" />

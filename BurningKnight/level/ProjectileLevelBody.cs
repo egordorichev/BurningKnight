@@ -1,4 +1,5 @@
 using BurningKnight.entity;
+using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.projectile;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
@@ -21,7 +22,7 @@ namespace BurningKnight.level {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return entity is Projectile;
+			return entity is Projectile || entity is DiagonalPet;
 		}
 
 		public bool Break(float x, float y) {
