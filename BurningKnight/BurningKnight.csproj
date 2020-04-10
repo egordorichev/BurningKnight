@@ -730,12 +730,15 @@
     <Compile Include="entity\item\use\MakeProjectileShrinkUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesHurtOnMissUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesKillWithBuffUse.cs" />
+    <Compile Include="entity\item\use\MakeProjectilesSplitUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
+    <Compile Include="entity\item\use\ModifyGenUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
     <Compile Include="entity\item\use\ModifyShootUse.cs" />
     <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
+    <Compile Include="entity\item\use\PoofUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />
     <Compile Include="entity\item\use\ScourgeUse.cs" />

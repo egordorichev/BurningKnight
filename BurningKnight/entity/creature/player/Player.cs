@@ -561,9 +561,12 @@ namespace BurningKnight.entity.creature.player {
 				if (GetComponent<HealthComponent>().Unhittable) {
 					return true;
 				}
+
+				if (!GetComponent<BuffsComponent>().PitImmunity) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
+				}
 				
-				GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
-				
+
 				for (var i = 0; i < 4; i++) {
 					var part = new ParticleEntity(Particles.Dust());
 						

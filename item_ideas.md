@@ -3,26 +3,25 @@
 
 2/8
 
+* pandoras box (saves last enemy killed from the last room, spawns it under infinite charm (with more hp))
+
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 * teleports randomly and shoots (while rotating around)
 * angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
-* increases chest chance from a rooms reward
 
 3/8
 
-* bigger levels
 * chance to use your weapon backwards fire back (/ use your sword)
 * chance to fire in all directions when you fire (/ use your sword)
-* pit immunity
-* when bullet penetrates enemy, it splits into two
-* ring of pain: deals dmg to all enemies in room when player takes dmg, also deals 1 dmg to player on pickup
 * picking up a heart might heal you for half a heart more
 * small planet
 
 4/8
 
 * range down, tears up
+* each 4th bullet is x1.5 size
+* each 10th attack its a shotgun like
 
 # passive
 

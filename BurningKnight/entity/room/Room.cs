@@ -160,7 +160,7 @@ namespace BurningKnight.entity.room {
 		};
 
 		private Entity CreateReward() {
-			if (Rnd.Chance(5)) {
+			if (Rnd.Chance(LevelSave.ChestRewardChance)) {
 				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
 				Area.Add(chest);
 

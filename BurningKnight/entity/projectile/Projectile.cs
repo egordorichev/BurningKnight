@@ -50,6 +50,8 @@ namespace BurningKnight.entity.projectile {
 		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
 		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
 
+		public static float MobDestrutionChance;
+
 		public bool Boost = true;
 		public ProjectilePattern Pattern;
 		public bool PreventDespawn;
@@ -102,6 +104,11 @@ namespace BurningKnight.entity.projectile {
 			
 			var projectile = new Projectile();
 			owner.Area.Add(projectile);
+			
+			if (owner is Mob && Rnd.Chance(MobDestrutionChance)) {
+				projectile.Done = true;
+				return projectile;
+			}
 
 			if (parent != null) {
 				projectile.Color = parent.Color;

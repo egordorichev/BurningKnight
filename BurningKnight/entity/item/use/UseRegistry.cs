@@ -142,6 +142,9 @@ namespace BurningKnight.entity.item.use {
 			Register<BreakPiggyBankUse>();
 			Register<MakeProjectilesKillWithBuffUse>(MakeProjectilesKillWithBuffUse.RenderDebug);
 			Register<ModifyShootUse>(ModifyShootUse.RenderDebug);
+			Register<ModifyGenUse>(ModifyGenUse.RenderDebug);
+			Register<MakeProjectilesSplitUse>();
+			Register<PoofUse>();
 		}
 	}
 }

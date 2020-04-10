@@ -1,5 +1,8 @@
 # bugs
 
+* brastin npc!!
+
+* snowflakes should die if they have nothing to orbit
 * rolling spikes can stop (rework their move logic)
 * mobs shouldnt drop anything on death from chasm
 * rework tree spawns
@@ -15,7 +18,11 @@
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
+* weird level tiling, fixed by reloading the level
+
 # hub
+
+* dodge overlord is broken
 
 * achievement branches rewards {
  a: drums/musical instruments?

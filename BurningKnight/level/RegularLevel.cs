@@ -67,7 +67,8 @@ namespace BurningKnight.level {
 			CreateBody();
 			CreateDestroyableBody();
 			LoadPassable();
-			
+
+			LevelSave.ResetGen();
 			Log.Info("Done!");
 		}
 
@@ -151,11 +152,13 @@ namespace BurningKnight.level {
 			
 			rooms.Add(new EntranceRoom());
 
-			var regular = rush || final ? 0 : biome.GetNumRegularRooms();
-			var special = rush || final ? 0 : biome.GetNumSpecialRooms();
+			var cn = LevelSave.XL ? 2 : 1;
+
+			var regular = rush || final ? 0 : biome.GetNumRegularRooms() * cn;
+			var special = rush || final ? 0 : biome.GetNumSpecialRooms() * cn;
 			var trap = rush || final ? 0 : biome.GetNumTrapRooms();
 			var connection = rush || final ? 1 : GetNumConnectionRooms();
-			var secret = rush || final ? 0 : biome.GetNumSecretRooms();
+			var secret = rush || final ? 0 : biome.GetNumSecretRooms() * cn;
 			
 			Log.Info($"Creating r{regular} sp{special} c{connection} sc{secret} t{trap} rooms");
 
@@ -177,6 +180,10 @@ namespace BurningKnight.level {
 			}
 
 			if (!rush && !final && Run.Type != RunType.Challenge) {
+				if (LevelSave.XL) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+				}
+				
 				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
 				if (!first) {
