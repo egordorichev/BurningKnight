@@ -145,6 +145,7 @@ namespace BurningKnight.entity.item.use {
 			Register<ModifyGenUse>(ModifyGenUse.RenderDebug);
 			Register<MakeProjectilesSplitUse>();
 			Register<PoofUse>();
+			Register<MakeProjectileReshootUse>();
 		}
 	}
 }
