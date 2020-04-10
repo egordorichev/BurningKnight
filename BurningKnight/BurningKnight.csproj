@@ -510,6 +510,7 @@
     <Compile Include="entity\creature\npc\WeaponTrader.cs" />
     <Compile Include="entity\creature\pet\AnimatedFollowerPet.cs" />
     <Compile Include="entity\creature\pet\Backpack.cs" />
+    <Compile Include="entity\creature\pet\Bubblo.cs" />
     <Compile Include="entity\creature\pet\Crystal.cs" />
     <Compile Include="entity\creature\pet\DiagonalPet.cs" />
     <Compile Include="entity\creature\pet\FollowerPet.cs" />

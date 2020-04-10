@@ -167,6 +167,10 @@ namespace BurningKnight.entity.creature.pet {
 			Define("shooty", o => o.Area.Add(new Shooty() {
 				Owner = o
 			}));
+			
+			Define("bubblo", o => o.Area.Add(new Bubblo() {
+				Owner = o
+			}));
 		}
 	}
 }
