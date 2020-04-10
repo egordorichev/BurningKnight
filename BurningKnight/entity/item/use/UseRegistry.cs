@@ -146,6 +146,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectilesSplitUse>();
 			Register<PoofUse>();
 			Register<MakeProjectileReshootUse>();
+			Register<PokemonUse>();
 		}
 	}
 }

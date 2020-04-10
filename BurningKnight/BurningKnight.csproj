@@ -743,6 +743,7 @@
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
     <Compile Include="entity\item\use\ModifyShootUse.cs" />
     <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
+    <Compile Include="entity\item\use\PokemonUse.cs" />
     <Compile Include="entity\item\use\PoofUse.cs" />
     <Compile Include="entity\item\use\RegenUse.cs" />
     <Compile Include="entity\item\use\ReplaceHeartsWithShieldsUse.cs" />

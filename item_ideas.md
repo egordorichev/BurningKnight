@@ -1,12 +1,6 @@
 * biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
 * items to apply slowness (from projectiles and arc), broken armor
 
-
-!! put "pet" pool onto shooty 
-
-* pandoras box (saves last enemy killed from the last room, spawns it under infinite charm (with more hp))
-* angry bullet: chance to shoot the projectile to another enemy upon hitting an enemy (change projectile derection)
-
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 
