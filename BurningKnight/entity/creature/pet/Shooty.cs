@@ -40,6 +40,7 @@ namespace BurningKnight.entity.creature.pet {
 						projectile.Color = ProjectileColor.Yellow;
 						projectile.Center = Center + MathUtils.CreateVector(a, 5f);
 						projectile.AddLight(32f, Projectile.YellowLight);
+						projectile.Spectral = true;
 
 						o.HandleEvent(new ProjectileCreatedEvent {
 							Projectile = projectile,
