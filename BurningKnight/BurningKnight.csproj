@@ -469,6 +469,7 @@
     <Compile Include="entity\creature\mob\library\Buffer.cs" />
     <Compile Include="entity\creature\mob\library\Skeleton.cs" />
     <Compile Include="entity\creature\mob\library\TeleportingMage.cs" />
+    <Compile Include="entity\creature\mob\Mimic.cs" />
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />

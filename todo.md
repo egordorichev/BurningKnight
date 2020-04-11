@@ -39,7 +39,6 @@
 
 #
 
-!!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms
 
 * redo remapping screens
