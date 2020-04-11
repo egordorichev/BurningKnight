@@ -24,6 +24,7 @@ namespace BurningKnight.save {
 		public static List<int> Fails = new List<int>();
 		public static bool XL;
 		public static float ChestRewardChance;
+		public static float MimicChance;
 		
 		private static int I;
 
@@ -214,6 +215,7 @@ namespace BurningKnight.save {
 			XL = false;
 			ChestRewardChance = 5;
 			Projectile.MobDestrutionChance = 0;
+			MimicChance = 5;
 		}
 	}
 }

@@ -23,6 +23,10 @@ namespace BurningKnight.entity.component {
 				return;
 			}
 			
+			if (Entity.TryGetComponent<ZComponent>(out var z)) {
+				pos -= new Vector2(0, z.Z);
+			}
+			
 			if (Entity.TryGetComponent<InteractableComponent>(out var component) && component.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);

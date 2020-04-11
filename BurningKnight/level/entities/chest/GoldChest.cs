@@ -8,13 +8,13 @@ using Lens.util.math;
 namespace BurningKnight.level.entities.chest {
 	public class GoldChest : Chest {
 		protected byte KeysRequired = 1;
-		
-		protected override string GetSprite() {
+
+		public override string GetSprite() {
 			return "gold_chest";
 		}
 
-		protected override void DefineDrops() {
-			GetComponent<DropsComponent>().Add("bk:gold_chest");
+		public override string GetPool() {
+			return "bk:gold_chest";
 		}
 
 		protected override bool TryOpen(Entity entity) {

@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.level.entities.chest;
+using Lens.entity;
 using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -7,13 +8,13 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.secret {
 	public class SecretChestRoom : SecretRoom {
 		public override void Paint(Level level) {
-			Chest chest = null;
+			Entity chest = null;
 
 			if (Rnd.Chance(10)) {
 				chest = new ProtoChest();
 			} else {
 				try {
-					chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
+					chest = ChestRegistry.PlaceRandom(Vector2.Zero, level.Area);
 				} catch (Exception e) {
 					Log.Error(e);
 					chest = new WoodenChest();

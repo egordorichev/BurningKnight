@@ -1,5 +1,7 @@
 # bugs
 
+* patch wall can generate unpassable chasm
+
 * brastin npc!!
 
 * snowflakes should die if they have nothing to orbit

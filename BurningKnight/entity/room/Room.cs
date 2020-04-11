@@ -161,10 +161,7 @@ namespace BurningKnight.entity.room {
 
 		private Entity CreateReward() {
 			if (Rnd.Chance(LevelSave.ChestRewardChance)) {
-				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
-				Area.Add(chest);
-
-				return chest;
+				return ChestRegistry.PlaceRandom(Vector2.Zero, Area);
 			}
 
 			var id = rewards[Rnd.Int(rewards.Length)];

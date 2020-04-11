@@ -62,9 +62,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 
 			Timer.Add(() => {
 				try {
-					var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
-					Area.Add(chest);
-					chest.TopCenter = BottomCenter + new Vector2(0, 4);
+					ChestRegistry.PlaceRandom(BottomCenter + new Vector2(0, 12), Area);
 				} catch (Exception ex) {
 					Log.Error(ex);
 				}

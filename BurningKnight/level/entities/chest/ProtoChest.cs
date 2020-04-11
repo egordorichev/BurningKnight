@@ -68,7 +68,7 @@ namespace BurningKnight.level.entities.chest {
 			return 14;
 		}
 
-		protected override string GetSprite() {
+		public override string GetSprite() {
 			return "proto_chest";
 		}
 

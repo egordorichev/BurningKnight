@@ -6,12 +6,12 @@ using Lens.entity;
 
 namespace BurningKnight.level.entities.chest {
 	public class RedChest : Chest {
-		protected override string GetSprite() {
+		public override string GetSprite() {
 			return "red_chest";
 		}
 
-		protected override void DefineDrops() {
-			GetComponent<DropsComponent>().Add("bk:red_chest");
+		public override string GetPool() {
+			return "bk:red_chest";
 		}
 
 		protected override bool TryOpen(Entity entity) {

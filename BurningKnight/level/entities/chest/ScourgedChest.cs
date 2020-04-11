@@ -8,12 +8,12 @@ using Lens.util.timer;
 
 namespace BurningKnight.level.entities.chest {
 	public class ScourgedChest : Chest, DropModifier {
-		protected override string GetSprite() {
+		public override string GetSprite() {
 			return "scourged_chest";
 		}
 
-		protected override void DefineDrops() {
-			GetComponent<DropsComponent>().Add("bk:scourged_chest");
+		public override string GetPool() {
+			return "bk:scourged_chest";
 		}
 
 		protected override bool TryOpen(Entity entity) {

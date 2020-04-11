@@ -69,27 +69,42 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 					tweened = true;
 
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("mob_slime_jump", 2);
-				
-					var anim = Self.GetComponent<ZAnimationComponent>();
-				
-					Tween.To(2f, anim.Scale.X, x => anim.Scale.X = x, 0.2f);
-					Tween.To(0.3f, anim.Scale.Y, x => anim.Scale.Y = x, 0.2f).OnEnd = () => {
-						Tween.To(0.5f, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
-
-						Tween.To(2f, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f).OnEnd = () => {
-							Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.2f);
-							Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.2f);
-						};
-
+					
+					Self.AnimateJump(() => {
 						Become<JumpState>();
-					};
+					});
 				}
 			}
 		}
 
 		protected float JumpForce = 120;
 		protected float ZVelocity = 5;
+		
+		protected virtual void AnimateJump(Action callback) {
+			var anim = GetComponent<ZAnimationComponent>();
+				
+			Tween.To(2f, anim.Scale.X, x => anim.Scale.X = x, 0.2f);
+			Tween.To(0.3f, anim.Scale.Y, x => anim.Scale.Y = x, 0.2f).OnEnd = () => {
+				Tween.To(0.5f, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
 
+				Tween.To(2f, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f).OnEnd = () => {
+					Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.2f);
+					Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.2f);
+				};
+
+				callback();
+			};
+		}
+
+		protected virtual void AnimateLand() {
+			var anim = GetComponent<ZAnimationComponent>();
+
+			anim.Scale.X = 2f;
+			anim.Scale.Y = 0.3f;
+			Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
+			Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f);
+		}
+		
 		public class JumpState : SmartState<Slime> {
 			public override void Init() {
 				base.Init();
@@ -106,20 +121,13 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Destroy() {
 				base.Destroy();
 				
+				Self.AnimateLand();
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
 				Self.OnLand();
-
-				var anim = Self.GetComponent<ZAnimationComponent>();
-
-				anim.Scale.X = 2f;
-				anim.Scale.Y = 0.3f;
 				
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("mob_slime_land", 2);
-				
-				Tween.To(1, anim.Scale.X, x => anim.Scale.X = x, 0.3f);
-				Tween.To(1, anim.Scale.Y, x => anim.Scale.Y = x, 0.3f);
 			}
-
+			
 			public override void Update(float dt) {
 				base.Update(dt);
 
