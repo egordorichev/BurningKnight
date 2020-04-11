@@ -1,5 +1,8 @@
 using System;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.entity.projectile.pattern;
@@ -206,5 +209,17 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 		#endregion
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse) {
+				if (cse.Entity is Player) {
+					cse.Entity.GetComponent<BuffsComponent>().Add(new FrozenBuff {
+						Duration = 3
+					});
+				}
+			}
+			
+			return base.HandleEvent(e);
+		}
 	}
 }
