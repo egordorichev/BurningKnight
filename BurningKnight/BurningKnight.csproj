@@ -716,6 +716,7 @@
     <Compile Include="entity\item\use\AffectDealChanceUse.cs" />
     <Compile Include="entity\item\use\BlankUse.cs" />
     <Compile Include="entity\item\use\BlindFoldUse.cs" />
+    <Compile Include="entity\item\use\BlockDamageUse.cs" />
     <Compile Include="entity\item\use\BreakPiggyBankUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
