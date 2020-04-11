@@ -522,6 +522,7 @@
     <Compile Include="entity\creature\pet\SnekPet.cs" />
     <Compile Include="entity\creature\pet\SpikedCookie.cs" />
     <Compile Include="entity\creature\pet\Strawberry.cs" />
+    <Compile Include="entity\creature\pet\TheEye.cs" />
     <Compile Include="entity\creature\pet\Wallet.cs" />
     <Compile Include="entity\creature\player\LampComponent.cs" />
     <Compile Include="entity\creature\SmartState.cs" />

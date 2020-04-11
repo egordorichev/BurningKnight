@@ -30,12 +30,12 @@ namespace BurningKnight.entity.creature.pet {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Mob) {
+				if (cse.Entity.HasTag(Tags.MustBeKilled)) {
 					Colliding.Add(cse.Entity);
 					cse.Entity.GetComponent<HealthComponent>().ModifyHealth(-3, this);
 				}
 			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity is Mob) {
+				if (cee.Entity.HasTag(Tags.MustBeKilled)) {
 					Colliding.Remove(cee.Entity);
 				}
 			}

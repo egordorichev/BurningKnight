@@ -101,7 +101,7 @@ namespace BurningKnight.entity.creature.pet {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse) {
-				if (!hidden && cse.Entity is Mob) {
+				if (!hidden && cse.Entity.HasTag(Tags.MustBeKilled)) {
 					Colliding.Add(cse.Entity);
 
 					if (cse.Entity.GetComponent<HealthComponent>().ModifyHealth(-3, this)) {
@@ -109,7 +109,7 @@ namespace BurningKnight.entity.creature.pet {
 					}
 				}
 			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity is Mob) {
+				if (cee.Entity.HasTag(Tags.MustBeKilled)) {
 					Colliding.Remove(cee.Entity);
 				}
 			}
