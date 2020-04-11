@@ -121,7 +121,25 @@ namespace BurningKnight.util {
 			"In case of fire break the monitor",
 			"In case of fire backup the saves",
 			"You'd better get burning",
-			"Why are you reading this?"
+			"Why are you reading this?",
+			"Yes",
+			"No",
+			"No U",
+			"Uno",
+			"The ducks in the park are free",
+			"The Trickster",
+			"Sneak 100",
+			"Title 100",
+			"Stonks",
+			"Confused Stonks",
+			"Not Stonks",
+			"Never gonna give you up",
+			"Oh no",
+			"Nobody:",
+			"Do or do not there is no try",
+			"NaN",
+			"[object Object]",
+			"An interesting title"
 		};
 
 		private static string[] birthdayTitles = {
