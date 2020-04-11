@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.player {
 						controller.DPadDownCheck || controller.DPadLeftCheck || controller.DPadUpCheck || controller.DPadRightCheck                                                  
 				  ))) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
 				  
-					if (GetComponent<PlayerInputComponent>().InDialog) {
+					if (!Entity.TryGetComponent<PlayerInputComponent>(out var d) || d.InDialog) {
 						return;
 					}
 

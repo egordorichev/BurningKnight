@@ -139,7 +139,11 @@ namespace BurningKnight.util {
 			"Do or do not there is no try",
 			"NaN",
 			"[object Object]",
-			"An interesting title"
+			"An interesting title",
+			"I'm once again asking for your emotional support",
+			"Outstanding move",
+			"Never gonna let you down",
+			"You know the rules and so do I"
 		};
 
 		private static string[] birthdayTitles = {
