@@ -65,6 +65,7 @@ namespace BurningKnight.entity.creature.pet {
 			}
 		}
 
+		// fixme: this is so broken. (also, what happens when all die?)
 		protected override void OnJump() {
 			base.OnJump();
 
@@ -74,16 +75,13 @@ namespace BurningKnight.entity.creature.pet {
 			
 			var p = parent;
 
-			while (p != null && !p.handled) {
-				p.handled = true;
+			while (p != null) {
+				if (p.parent != null) {
+					Done = true;
+				}
+				
 				p = p.parent;
 			}
-
-			if (p == null) {
-				return;
-			}
-			
-			Done = true;
 		}
 
 		public override bool HandleEvent(Event e) {

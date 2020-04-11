@@ -147,7 +147,7 @@ namespace BurningKnight.entity.item.stand {
 						var remove = false;
 
 						if (this is GarderobeStand) {
-							return false;
+							return true;
 						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Weapon) {
 							var ht = entity.GetComponent<ActiveWeaponComponent>();
 							var it = ht.Item;
@@ -179,11 +179,11 @@ namespace BurningKnight.entity.item.stand {
 						weapon.RequestSwap();
 					}
 
-					return false;
+					return true;
 				}
 			}
 
-			return false;
+			return true;
 		}
 		
 		private void OnInteractionStart(Entity entity) {

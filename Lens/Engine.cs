@@ -70,7 +70,11 @@ namespace Lens {
 			IsFixedTimeStep = false;
 			
 			Graphics = new GraphicsDeviceManager(this);
-			Graphics.GraphicsProfile = GraphicsProfile.HiDef;
+			// Graphics.GraphicsProfile = GraphicsProfile.HiDef;
+			
+			Graphics.PreferMultiSampling = false;
+			Graphics.GraphicsProfile = GraphicsProfile.Reach;
+			
 			Graphics.HardwareModeSwitch = false;
 
 			core = Core.Core.SelectCore(Window, Graphics);
