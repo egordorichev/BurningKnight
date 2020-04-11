@@ -3,6 +3,7 @@
 
 * pickup magnet
 
+* donut
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 

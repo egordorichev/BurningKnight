@@ -55,6 +55,7 @@ namespace BurningKnight.entity.creature.player {
 		public static string StartingItem;
 		public static string StartingLamp;
 		public static List<string> DailyItems;
+		public string ProjectileTexture = "rect";
 
 		private bool dead;
 

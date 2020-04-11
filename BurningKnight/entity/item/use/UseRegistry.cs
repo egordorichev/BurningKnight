@@ -148,6 +148,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeProjectileReshootUse>();
 			Register<PokemonUse>();
 			Register<BlockDamageUse>(BlockDamageUse.RenderDebug);
+			Register<ModifyProjectileTextureUse>(ModifyProjectileTextureUse.RenderDebug);
 		}
 	}
 }

@@ -746,6 +746,7 @@
     <Compile Include="entity\item\use\ModifyGenUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
+    <Compile Include="entity\item\use\ModifyProjectileTextureUse.cs" />
     <Compile Include="entity\item\use\ModifyShootUse.cs" />
     <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
     <Compile Include="entity\item\use\PokemonUse.cs" />
