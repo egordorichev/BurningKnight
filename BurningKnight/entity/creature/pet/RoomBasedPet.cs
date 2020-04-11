@@ -13,6 +13,10 @@ namespace BurningKnight.entity.creature.pet {
 
 			if (t >= 1f) {
 				t = 0;
+
+				if (Done) {
+					return;
+				}
 				
 				var r = GetComponent<RoomComponent>().Room;
 				var rm = Owner.GetComponent<RoomComponent>().Room;

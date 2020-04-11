@@ -17,13 +17,17 @@ namespace BurningKnight.entity.creature.pet {
 		private int hits;
 		private int stage;
 		private List<Entity> Colliding = new List<Entity>();
-		private Bubblo parent;
-		private bool handled;
+		private bool hidden;
 		
 		public override void PostInit() {
 			AddGraphics("globbo", false, widths[stage], widths[stage] + 1);
 			base.PostInit();
-			GetComponent<AnimationComponent>().Animation.Tag = tags[stage];
+
+			var a = GetComponent<AnimationComponent>();
+			a.CustomFlip = true;
+			a.Animation.Tag = tags[stage];
+			
+			GetComponent<ShadowComponent>().Callback = RenderShadow;
 		}
 
 		private float t;
@@ -32,7 +36,7 @@ namespace BurningKnight.entity.creature.pet {
 			base.Update(dt);
 			t += dt;
 
-			if (t >= 0.2f) {
+			if (!hidden && t >= 0.2f) {
 				t = 0;
 				
 				foreach (var c in Colliding) {
@@ -47,17 +51,22 @@ namespace BurningKnight.entity.creature.pet {
 			hits++;
 
 			if (hits >= 2) {
-				stage++;
+				if (stage == 0) {
+					hidden = true;
+				} else {
+					Done = true;
+				}
+				
+				var s = stage + 1;
 
-				if (stage == 3) {
+				if (s == 3) {
 					Done = true;
 					return;
 				}
-
+				
 				for (var i = 0; i < 2; i++) {
 					var b = new Bubblo();
-					b.stage = stage;
-					b.parent = this;
+					b.stage = s;
 					b.Owner = Owner;
 					Area.Add(b);
 					b.Center = Center;
@@ -65,28 +74,34 @@ namespace BurningKnight.entity.creature.pet {
 			}
 		}
 
-		// fixme: this is so broken. (also, what happens when all die?)
 		protected override void OnJump() {
 			base.OnJump();
 
-			if (parent == null) {
+			if (!hidden && stage > 0) {
+				Done = true;
 				return;
 			}
-			
-			var p = parent;
 
-			while (p != null) {
-				if (p.parent != null) {
-					Done = true;
-				}
-				
-				p = p.parent;
+			hidden = false;
+			hits = 0;
+			Done = false;
+		}
+
+		public override void Render() {
+			if (!hidden) {
+				base.Render();
+			}
+		}
+
+		protected override void RenderShadow() {
+			if (!hidden) {
+				GraphicsComponent?.Render(true);
 			}
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Mob) {
+				if (!hidden && cse.Entity is Mob) {
 					Colliding.Add(cse.Entity);
 
 					if (cse.Entity.GetComponent<HealthComponent>().ModifyHealth(-3, this)) {
