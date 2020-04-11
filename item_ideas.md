@@ -4,8 +4,6 @@
 * follows you autoshoots close-by enemies
 * rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
 
-* mimc: 100%/0% chance
-
 3/8
 
 * chance to use your weapon backwards fire back (/ use your sword)

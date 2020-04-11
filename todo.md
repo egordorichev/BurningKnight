@@ -99,9 +99,7 @@ flavors {
 * nps that asks for coins but does nothing
 * make chests brekable (the ones that you dont have a key to open)
 * Unique saving experience for each NPCs (and save phrases)
-* enemies/rooms/other stuff that doesn't happen/appear every run
 * a special reward for completing the level fast
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
-* MIMIIIICS!

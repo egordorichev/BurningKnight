@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob {
 	public class Mimic : Slime {
 		public string Kind;
-		public string Pool == "bk:wooden_chest";
+		public string Pool = "bk:wooden_chest";
 		private bool invoked;
 		
 		protected override void SetStats() {

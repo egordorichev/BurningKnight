@@ -21,7 +21,6 @@ namespace BurningKnight.level.entities {
 		private string id = "bk:rip";
 		private Achievement achievement;
 		private TextureRegion achievementTexture;
-		private TextureRegion lockedAchievementTexture;
 		private float offset;
 		private bool hidden;
 
