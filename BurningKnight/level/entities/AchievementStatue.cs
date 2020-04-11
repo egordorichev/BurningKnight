@@ -103,6 +103,10 @@ namespace BurningKnight.level.entities {
 		private void UpdateState(string i = null) {
 			achievement = Achievements.Get(id);
 
+			if (achievement == null || Engine.EditingLevel) {
+				return;
+			}
+
 			if (!achievement.Unlocked && achievement.Secret) {
 				hidden = true;
 				GetComponent<RectBodyComponent>().Body.IsSensor = true;

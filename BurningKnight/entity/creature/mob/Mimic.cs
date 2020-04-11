@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.mob.prefabs;
@@ -18,7 +19,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.creature.mob {
 	public class Mimic : Slime {
 		public string Kind;
-		public string Pool;
+		public string Pool == "bk:wooden_chest";
 		private bool invoked;
 		
 		protected override void SetStats() {
@@ -52,6 +53,7 @@ namespace BurningKnight.entity.creature.mob {
 				RemoveTag(Tags.MustBeKilled);
 				RemoveTag(Tags.Mob);
 				Become<FriendlyState>();
+				TouchDamage = 0;
 				
 				AddComponent(new InteractableComponent(Interact) {
 					CanInteract = e => !invoked
@@ -178,6 +180,9 @@ namespace BurningKnight.entity.creature.mob {
 				Self.invoked = true;
 				Self.AddTag(Tags.MustBeKilled);
 				Self.AddTag(Tags.Mob);
+				Self.TouchDamage = 1;
+
+				Achievements.Unlock("bk:mimic");
 			}
 		}
 	}
