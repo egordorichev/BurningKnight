@@ -159,6 +159,22 @@ namespace BurningKnight.entity.creature.pet {
 			Define("wallet", o => o.Area.Add(new Wallet() {
 				Owner = o
 			}));
+
+			Define("spiked_cookie", o => o.Area.Add(new SpikedCookie() {
+				Owner = o
+			}));
+
+			Define("shooty", o => o.Area.Add(new Shooty() {
+				Owner = o
+			}));
+			
+			Define("bubblo", o => o.Area.Add(new Bubblo() {
+				Owner = o
+			}));
+			
+			Define("the_eye", o => o.Area.Add(new TheEye() {
+				Owner = o
+			}));
 		}
 	}
 }

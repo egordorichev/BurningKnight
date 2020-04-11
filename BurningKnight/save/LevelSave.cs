@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BurningKnight.assets.items;
+using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.basement;
 using BurningKnight.level.biome;
@@ -21,6 +22,9 @@ namespace BurningKnight.save {
 	public class LevelSave : EntitySaver {
 		public static int FailedAttempts;
 		public static List<int> Fails = new List<int>();
+		public static bool XL;
+		public static float ChestRewardChance;
+		public static float MimicChance;
 		
 		private static int I;
 
@@ -204,7 +208,14 @@ namespace BurningKnight.save {
 		}
 
 		public LevelSave() : base(SaveType.Level) {
-			
+			ResetGen();
+		}
+
+		public static void ResetGen() {
+			XL = false;
+			ChestRewardChance = 5;
+			Projectile.MobDestrutionChance = 0;
+			MimicChance = 5;
 		}
 	}
 }

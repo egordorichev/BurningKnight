@@ -21,7 +21,6 @@ namespace BurningKnight.level.entities {
 		private string id = "bk:rip";
 		private Achievement achievement;
 		private TextureRegion achievementTexture;
-		private TextureRegion lockedAchievementTexture;
 		private float offset;
 		private bool hidden;
 
@@ -102,6 +101,10 @@ namespace BurningKnight.level.entities {
 
 		private void UpdateState(string i = null) {
 			achievement = Achievements.Get(id);
+
+			if (achievement == null || Engine.EditingLevel) {
+				return;
+			}
 
 			if (!achievement.Unlocked && achievement.Secret) {
 				hidden = true;

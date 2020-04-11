@@ -6,6 +6,8 @@ using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -161,10 +163,26 @@ namespace BurningKnight.entity.item.use {
 					ac /= stats.Accuracy;
 				}
 				
-				for (var i = 0; i < count; i++) {
+				var cnt = count;
+				var accurate = false;
+
+				if (entity is Player) {
+					var e = new PlayerShootEvent {
+						Player = (Player) entity
+					};
+
+					entity.HandleEvent(e);
+
+					cnt += e.Times - 1;
+					accurate = e.Accurate;
+				}
+
+				for (var i = 0; i < cnt; i++) {
 					var angle = a;
 					
-					if (count == 1 || i > 0) {
+					if (accurate) {
+						angle += (i - (int) (cnt * 0.5f)) * 0.2f + Rnd.Float(-ac / 2f, ac / 2f);
+					} else if (cnt == 1 || i > 0) {
 						angle += Rnd.Float(-ac / 2f, ac / 2f);
 					}
 

@@ -69,7 +69,11 @@ namespace BurningKnight.level.entities.chest {
 		}
 
 		protected virtual void DefineDrops() {
-			
+			var p = GetPool();
+
+			if (p != null) {
+				GetComponent<DropsComponent>().Add(p);
+			}
 		}
 
 		public override void PostInit() {
@@ -102,8 +106,12 @@ namespace BurningKnight.level.entities.chest {
 			};
 		}
 
-		protected virtual string GetSprite() {
+		public virtual string GetSprite() {
 			return "chest";
+		}
+
+		public virtual string GetPool() {
+			return null;
 		}
 
 		protected virtual void UpdateSprite(bool open = true) {

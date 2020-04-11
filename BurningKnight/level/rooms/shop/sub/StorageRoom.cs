@@ -20,9 +20,7 @@ namespace BurningKnight.level.rooms.shop.sub {
 			var spot = new Dot(Rnd.Int(Left + 2, Right - 2), Rnd.Int(Top + 2, Bottom - 2));
 
 			try {
-				var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
-				level.Area.Add(chest);
-				chest.BottomCenter = spot * 16 + new Vector2(8, 8);
+				ChestRegistry.PlaceRandom(spot * 16 + new Vector2(8, 12), level.Area);
 			} catch (Exception e) {
 				Log.Error(e);
 			}

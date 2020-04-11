@@ -141,6 +141,13 @@ namespace BurningKnight.entity.item.use {
 			Register<TeleportToPrevRoomUse>();
 			Register<BreakPiggyBankUse>();
 			Register<MakeProjectilesKillWithBuffUse>(MakeProjectilesKillWithBuffUse.RenderDebug);
+			Register<ModifyShootUse>(ModifyShootUse.RenderDebug);
+			Register<ModifyGenUse>(ModifyGenUse.RenderDebug);
+			Register<MakeProjectilesSplitUse>();
+			Register<PoofUse>();
+			Register<MakeProjectileReshootUse>();
+			Register<PokemonUse>();
+			Register<BlockDamageUse>(BlockDamageUse.RenderDebug);
 		}
 	}
 }

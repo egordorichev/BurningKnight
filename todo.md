@@ -1,5 +1,10 @@
 # bugs
 
+* patch wall can generate unpassable chasm
+
+* brastin npc!!
+
+* snowflakes should die if they have nothing to orbit
 * rolling spikes can stop (rework their move logic)
 * mobs shouldnt drop anything on death from chasm
 * rework tree spawns
@@ -15,7 +20,11 @@
 * By rolling off the bridge, you can be respawned inside the area with the stairs to the boss rush area before you pay the guard the three emeralds. There is no way to get out without resetting the game,
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
+* weird level tiling, fixed by reloading the level
+
 # hub
+
+* dodge overlord is broken
 
 * achievement branches rewards {
  a: drums/musical instruments?
@@ -32,7 +41,6 @@
 
 #
 
-!!! * add eye of chthulu pet
 * make reroll machine spawn in item rooms
 
 * redo remapping screens
@@ -91,9 +99,7 @@ flavors {
 * nps that asks for coins but does nothing
 * make chests brekable (the ones that you dont have a key to open)
 * Unique saving experience for each NPCs (and save phrases)
-* enemies/rooms/other stuff that doesn't happen/appear every run
 * a special reward for completing the level fast
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
-* MIMIIIICS!

@@ -5,6 +5,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -177,22 +178,21 @@ namespace BurningKnight.entity.creature {
 			}
 		}
 
+		protected virtual TextureRegion GetDeathFrame() {
+			return GetAnyComponent<AnimationComponent>()?.Animation.GetFrame("dead", 0);
+		}
+
 		protected virtual void CreateGore(DiedEvent d) {
 			Engine.Instance.Freeze = 0.5f;
 			Camera.Instance.ShakeMax(5);
 			
-			var a = GetAnyComponent<AnimationComponent>();
-			
-			if (a == null) {
-				return;
-			}
 
 			if (!Settings.Blood) {
 				return;
 			}
 
 			var gore = new Gore();
-			var r = a.Animation.GetFrame("dead", 0);
+			var r = GetDeathFrame();
 
 			if (r == null) {
 				Log.Error($"Failed to find dead frame for {GetType().Name}");
@@ -251,7 +251,7 @@ namespace BurningKnight.entity.creature {
 		}
 
 		public virtual bool ShouldCollide(Entity entity) {
-			return !((entity is Creature && !(entity is DungeonShopNpc)) || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (!ShouldCollideWithDestroyableInAir() && entity is HalfWall))));
+			return !((entity is Creature && !(entity is DungeonShopNpc || entity is Mimic)) || (InAir() && (entity is Chasm || entity is Item || entity is Bomb || (!ShouldCollideWithDestroyableInAir() && entity is HalfWall))));
 		}
 
 		public virtual bool IsFriendly() {

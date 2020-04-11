@@ -7,12 +7,12 @@ namespace BurningKnight.level.entities.chest {
 			KeysRequired = 2;
 		}
 
-		protected override string GetSprite() {
+		public override string GetSprite() {
 			return "double_chest";
 		}
 
-		protected override void DefineDrops() {
-			GetComponent<DropsComponent>().Add("bk:double_chest");
+		public override string GetPool() {
+			return "bk:double_chest";
 		}
 	}
 }

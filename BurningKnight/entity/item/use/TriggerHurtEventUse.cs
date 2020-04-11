@@ -9,6 +9,12 @@ namespace BurningKnight.entity.item.use {
 				Who = entity,
 				From = item
 			});
+			
+			entity.HandleEvent(new PostHealthModifiedEvent {
+				Amount = -1,
+				Who = entity,
+				From = item
+			});
 		}
 	}
 }

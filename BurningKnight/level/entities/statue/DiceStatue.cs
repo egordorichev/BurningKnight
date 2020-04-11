@@ -101,9 +101,7 @@ namespace BurningKnight.level.entities.statue {
 				{
 					"lucky", (s, e) => {
 						try {
-							var chest = (Chest) Activator.CreateInstance(ChestRegistry.Instance.Generate());
-							s.Area.Add(chest);
-							chest.TopCenter = s.BottomCenter + new Vector2(0, 4);
+							ChestRegistry.PlaceRandom(s.BottomCenter + new Vector2(0, 12), s.Area);
 						} catch (Exception ex) {
 							Log.Error(ex);
 						}

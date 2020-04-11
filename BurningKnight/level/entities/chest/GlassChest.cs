@@ -12,8 +12,8 @@ namespace BurningKnight.level.entities.chest {
 	public class GlassChest : Chest {
 		private Item item;
 		private float t;
-		
-		protected override string GetSprite() {
+
+		public override string GetSprite() {
 			return "glass_chest";
 		}
 
