@@ -432,6 +432,7 @@
     <Compile Include="entity\creature\Gore.cs" />
     <Compile Include="entity\creature\mob\boss\BossInfo.cs" />
     <Compile Include="entity\creature\mob\boss\BossRegistry.cs" />
+    <Compile Include="entity\creature\mob\boss\IceQueen.cs" />
     <Compile Include="entity\creature\mob\boss\OldKing.cs" />
     <Compile Include="entity\creature\mob\boss\Pharaoh.cs" />
     <Compile Include="entity\creature\mob\boss\QueenBee.cs" />
@@ -745,6 +746,7 @@
     <Compile Include="entity\item\use\ModifyGenUse.cs" />
     <Compile Include="entity\item\use\ModifyManaMaxUse.cs" />
     <Compile Include="entity\item\use\ModifyManaUse.cs" />
+    <Compile Include="entity\item\use\ModifyProjectileTextureUse.cs" />
     <Compile Include="entity\item\use\ModifyShootUse.cs" />
     <Compile Include="entity\item\use\PlaceDecoyUse.cs" />
     <Compile Include="entity\item\use\PokemonUse.cs" />

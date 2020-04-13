@@ -166,7 +166,7 @@ namespace BurningKnight.entity.item.use {
 				var cnt = count;
 				var accurate = false;
 
-				if (entity is Player) {
+				if (entity is Player pl) {
 					var e = new PlayerShootEvent {
 						Player = (Player) entity
 					};
@@ -175,6 +175,10 @@ namespace BurningKnight.entity.item.use {
 
 					cnt += e.Times - 1;
 					accurate = e.Accurate;
+
+					if (sl == "rect") {
+						sl = pl.ProjectileTexture;
+					}
 				}
 
 				for (var i = 0; i < cnt; i++) {

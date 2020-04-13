@@ -119,11 +119,14 @@ namespace BurningKnight.level {
 
 			if (Level.Biome.Id == Biome.Ice) {
 				Level.Snows = true;
+				Level.Rains = false;
 			} else if (Level.Biome.Id == Biome.Castle) {
 				Level.Snows = Run.Depth > 0 && Rnd.Chance(10);
+			} else if (Level.Biome.Id == Biome.Desert) {
+				Level.Rains = false;
 			}
 
-			Level.Dark = Run.Depth > 1 && Rnd.Chance(5);
+			// Level.Dark = Run.Depth > 1 && Rnd.Chance(5);
 
 			RoomDef current = null;
 

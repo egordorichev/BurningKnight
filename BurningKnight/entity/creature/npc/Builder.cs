@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level.entities.chest;
@@ -73,6 +74,9 @@ namespace BurningKnight.entity.creature.npc {
 
 			Dialogs.RegisterCallback("builder_3", (d, c) => {
 				shouldDissappear = true;
+
+				CheckShortcutUnlocks();
+				
 				Timer.Add(() => {
 					AnimationUtil.Poof(Center);
 					Done = true;
@@ -80,6 +84,24 @@ namespace BurningKnight.entity.creature.npc {
 				
 				return null;
 			});
+		}
+
+		public static void CheckShortcutUnlocks() {
+			if (GlobalSave.IsTrue("shortcut_3")) {
+				Achievements.Unlock("bk:desert_shortcut");
+			}
+			
+			if (GlobalSave.IsTrue("shortcut_5")) {
+				Achievements.Unlock("bk:jungle_shortcut");
+			}
+			
+			if (GlobalSave.IsTrue("shortcut_7")) {
+				Achievements.Unlock("bk:ice_shortcut");
+			}
+			
+			if (GlobalSave.IsTrue("shortcut_9")) {
+				Achievements.Unlock("bk:library_shortcut");
+			}
 		}
 
 		public override void PostInit() {

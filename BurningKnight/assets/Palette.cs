@@ -84,7 +84,8 @@ namespace BurningKnight.assets {
 			Define("purple", Default[56]);
 			Define("pink", Default[59]);
 			Define("lime", Default[34]);
-			Define("dblue", Default[11]);
+			Define("blue", Default[11]);
+			Define("cyan", Default[43]);
 		}
 
 		public static void Define(string s, Color c) {

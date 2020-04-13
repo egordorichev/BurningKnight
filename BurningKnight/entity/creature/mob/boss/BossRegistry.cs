@@ -13,6 +13,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				BossInfo.New<OldKing>(new SpawnChance(1f, Biome.Castle)),
 				BossInfo.New<Pharaoh>(new SpawnChance(1f, Biome.Desert)),
 				BossInfo.New<QueenBee>(new SpawnChance(1f, Biome.Jungle)),
+				BossInfo.New<IceQueen>(new SpawnChance(1f, Biome.Ice)),
 			};
 			
 			All.AddRange(infos);

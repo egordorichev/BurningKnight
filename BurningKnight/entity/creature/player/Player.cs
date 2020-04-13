@@ -47,12 +47,15 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
+		private static Color tint = new Color(50, 234, 60, 200);
+		
 		public static int Quacks;
 		
 		public static string StartingWeapon;
 		public static string StartingItem;
 		public static string StartingLamp;
 		public static List<string> DailyItems;
+		public string ProjectileTexture = "rect";
 
 		private bool dead;
 
