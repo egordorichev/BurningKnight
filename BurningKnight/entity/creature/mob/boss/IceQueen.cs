@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -52,6 +53,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			AddAnimation("ice_queen");
 			SetMaxHp(300);
+		}
+
+		private void Animate() {
+			GetComponent<MobAnimationComponent>().Animate();
 		}
 		
 		public override void SelectAttack() {
@@ -134,10 +139,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 							Become<SpinCircleAttack>();
 							break;
 						}
+
+						case 7: {
+							Become<MoveState>();
+							break;
+						}
 					}
 
-					// todo: more attacks for thirt phase
-					Self.counter = (Self.counter + 1) % (Self.InSecondPhase ? 7 : (Self.InThirdPhase ? 7 : 5));
+					Self.counter = (Self.counter + 1) % (Self.InSecondPhase ? 7 : (Self.InThirdPhase ? 8 : 5));
 				}
 			}
 		}
@@ -160,6 +169,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var projectile = Projectile.Make(Self, (t % 0.5f < 0.25f) ^ (i % 2 ==0) ? "small" : "big", a, 6f + t * 2);
 						projectile.Color = t % 1f < 0.5f ? ProjectileColor.Blue : ProjectileColor.Purple;
 					}
+
+					Self.Animate();
 				}
 
 				if (t >= 3f) {
@@ -219,6 +230,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						if (projectiles.Count == 16) {
 							second = true;
 						}
+						
+						Self.Animate();
 					}
 				}
 			}
@@ -244,6 +257,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 					var a = Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f) + (count == 1 ? 0 : Math.PI);
 					var projectile = Projectile.Make(Self, "square", a, 15f);
+					Self.Animate();
 
 					projectile.Color = ProjectileColor.Red;
 					projectile.AddLight(32f, projectile.Color);
@@ -271,6 +285,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 					};
 
 					projectile.Controller += SlowdownProjectileController.Make();
+					projectile.Range = 5f;
+					projectile.IndicateDeath = true;
+					
 					projectile.OnDeath += (p, e, t) => {
 						
 						for (var i = 0; i < SmallCount; i++) {
@@ -328,6 +345,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 					var a = Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f) + (count == 1 ? 0 : Math.PI);
 					var projectile = Projectile.Make(Self, "big", a, 7f);
+					Self.Animate();
 
 					projectile.Color = ProjectileColor.Blue;
 					projectile.AddLight(32f, projectile.Color);
@@ -360,12 +378,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Init() {
 				base.Init();
 				to = Self.Target.Center;
+				Self.Animate();
 			}
 
 			public override void Destroy() {
 				base.Destroy();
 
 				var aa = Self.AngleTo(Self.Target);
+				Self.Animate();
 
 				for (var j = 0; j < 2; j++) {
 					var projectile = Projectile.Make(Self, "donut", aa + (j % 2 == 0 ? -1 : 1) * 0.3f, 14f, scale: 1.5f);
@@ -407,16 +427,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 		#endregion
 
-		/*public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Player) {
-					cse.Entity.GetComponent<BuffsComponent>().Add(new FrozenBuff {
-						Duration = 3
-					});
-				}
-			}
-			
-			return base.HandleEvent(e);
-		}*/
+		public override void PlaceRewards() {
+			base.PlaceRewards();
+			Achievements.Unlock("bk:ice_boss");
+		}
+
+		public override string GetScream() {
+			return "ice_queen_scream";
+		}
 	}
 }
