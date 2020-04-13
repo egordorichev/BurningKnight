@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -35,14 +36,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 			HealthBar.AddPhase(0.66f);
 		}
 		
-		/*
-		 * should move a lot
-		 * 
-		 * attacks:
-		 *
-		 * + 
-		 */
-
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -103,7 +96,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 1f) {
+				if (T >= (Self.InThirdPhase ? 1f : 3f)) {
 					T = 0;
 
 					switch (Self.counter) {
@@ -117,17 +110,120 @@ namespace BurningKnight.entity.creature.mob.boss {
 							break;
 						}
 
-						case 2: case 3: case 4: {
+						case 3: {
+							if (Self.InThirdPhase) {
+								Become<SpinCircleAttack>();
+							} else {
+								Become<MoveState>();
+							}
+
+							break;
+						}
+
+						case 2: case 4: {
 							Become<MoveState>();
+							break;
+						}
+
+						case 5: {
+							Become<BulletCircleAttack>();
+							break;
+						}
+						
+						case 6: {
+							Become<SpinCircleAttack>();
 							break;
 						}
 					}
 
-					Self.counter = (Self.counter + 1) % 5;
+					// todo: more attacks for thirt phase
+					Self.counter = (Self.counter + 1) % (Self.InSecondPhase ? 7 : (Self.InThirdPhase ? 7 : 5));
 				}
 			}
 		}
 
+		public class SpinCircleAttack : SmartState<IceQueen> {
+			private float t;
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				t += dt;
+
+				if (T >= 0.15f) {
+					T = 0;
+					
+					var amount = 4;
+
+					for (var i = 0; i < amount; i++) {
+						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(t * 0.8f) * Math.PI;
+						var projectile = Projectile.Make(Self, (t % 0.5f < 0.25f) ^ (i % 2 ==0) ? "small" : "big", a, 6f + t * 2);
+						projectile.Color = t % 1f < 0.5f ? ProjectileColor.Blue : ProjectileColor.Purple;
+					}
+				}
+
+				if (t >= 3f) {
+					Become<IdleState>();
+				}
+			}
+		}
+
+		public class BulletCircleAttack : SmartState<IceQueen> {
+			private List<Projectile> projectiles = new List<Projectile>();
+			private bool second;
+
+			public override void Destroy() {
+				base.Destroy();
+
+				foreach (var p in projectiles) {
+					p.Break();
+				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.Target == null) {
+					Become<IdleState>();
+					return;
+				}
+				
+				if (T >= 0.15f) {
+					T = 0;
+
+					if (second) {
+						var p = projectiles[0];
+						projectiles.RemoveAt(0);
+
+						Self.GetComponent<AudioEmitterComponent>().Emit("mob_fire_static", pitch: (projectiles.Count / 16f - 0.5f) * 2);
+
+						if (!p.Done) {
+							p.BodyComponent.Velocity = MathUtils.CreateVector(p.AngleTo(Self.Target), 200f);
+						} else {
+							p.Break();
+						}
+
+						if (projectiles.Count == 0) {
+							Become<IdleState>();
+						}
+					} else {
+						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
+
+						p.PreventDespawn = true;
+						p.Color = projectiles.Count % 2 == 0 ? ProjectileColor.Blue : ProjectileColor.Cyan;
+						p.Center = Self.Center + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 20 + projectiles.Count * 2);
+						p.Depth = 1;
+						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: projectiles.Count / 8f);
+						projectiles.Add(p);
+						
+						if (projectiles.Count == 16) {
+							second = true;
+						}
+					}
+				}
+			}
+		}
+		
 		protected class ExplosiveBulletsState : SmartState<IceQueen> {
 			private const int SmallCount = 4;
 			private const int InnerCount = 8;
@@ -154,6 +250,25 @@ namespace BurningKnight.entity.creature.mob.boss {
 					projectile.Center += MathUtils.CreateVector(a, 8);
 					projectile.CanBeBroken = false;
 					projectile.CanBeReflected = false;
+
+					var tt = 0f;
+
+					projectile.Controller += (p, dtt) => {
+						tt += dtt;
+
+						if (tt >= 0.3f) {
+							tt = 0;
+
+							var s = projectile.BodyComponent.Velocity.Length();
+
+							if (s < 3f) {
+								return;
+							}
+							
+							var z = Projectile.Make(Self, "small", a - Math.PI + Rnd.Float(-0.1f, 0.1f), s, scale: Rnd.Float(0.8f, 1.2f));
+							z.Center = projectile.Center;
+						}
+					};
 
 					projectile.Controller += SlowdownProjectileController.Make();
 					projectile.OnDeath += (p, e, t) => {
@@ -183,7 +298,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							b.Color = ProjectileColor.Cyan;
 							b.Center = p.Center;
 							b.CanBeReflected = false;
-							b.Controller += SlowdownProjectileController.Make();
+							b.Controller += SlowdownProjectileController.Make(Rnd.Float(0.5f, 4f));
 						}
 					};
 					
@@ -253,9 +368,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var aa = Self.AngleTo(Self.Target);
 
 				for (var j = 0; j < 2; j++) {
-					var projectile = Projectile.Make(Self, "carrot", aa + (j % 2 == 0 ? -1 : 1) * 0.3f, 10f);
+					var projectile = Projectile.Make(Self, "donut", aa + (j % 2 == 0 ? -1 : 1) * 0.3f, 14f, scale: 1.5f);
 
-					projectile.Color = ProjectileColor.Orange;
+					projectile.Color = ProjectileColor.Green;
 					projectile.AddLight(32f, projectile.Color);
 					projectile.Center += MathUtils.CreateVector(aa, 8);
 					projectile.CanBeBroken = false;
@@ -268,8 +383,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var c = p.HasComponent<CircleBodyComponent>();
 
 						for (var i = 0; i < Rnd.Int(3, 5); i++) {
-							Projectile.Make(Self, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f), c, -1, p,
-								p.Scale * Rnd.Float(0.4f, 0.8f)).Center = p.Center;
+							Projectile.Make(Self, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 1.5f), c, -1, p,
+								p.Scale * Rnd.Float(0.4f, 1.5f)).Center = p.Center;
 						}
 					};
 				}
