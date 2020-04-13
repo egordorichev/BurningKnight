@@ -1,7 +1,6 @@
 # bugs
 
 * patch wall can generate unpassable chasm
-
 * brastin npc!!
 
 * snowflakes should die if they have nothing to orbit
@@ -10,7 +9,7 @@
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
-* music goes out?
+* music goes out
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
@@ -24,6 +23,11 @@
 
 # hub
 
+* head door can generate with snow in the ice area (breakable)
+* better item display (only last 6, ui for all display)
+* add mouth to mimic, buff hp 
+* exploding safe explodes you?
+* make ice boss room without any chasms
 * dodge overlord is broken
 
 * achievement branches rewards {

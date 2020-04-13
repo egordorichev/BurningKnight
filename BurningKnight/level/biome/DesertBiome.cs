@@ -16,7 +16,7 @@ namespace BurningKnight.level.biome {
 			painter.Dirt = 0.45f;
 			
 			painter.Modifiers.Add((l, rm, x, y) => {
-				if (l.Get(x, y, true) == Tile.Dirt) {
+				if (l.Get(x, y, true).Matches(Tile.Dirt, Tile.Lava)) {
 					l.Set(x, y, Tile.Sand);
 				}
 			});
