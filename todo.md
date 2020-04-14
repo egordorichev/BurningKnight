@@ -28,8 +28,6 @@
 * jungle room generated unpassable
 * players might think they are stuck when they dont know that you can break snow
 
-* pharaoh should change floor sooner
-
 * implement vegan mode, make hearts be replaced with brokolli
 * mistfit poster
 * say something when you end the level
