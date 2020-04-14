@@ -9,7 +9,6 @@
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
 * bk and orbital sfx glitch out during loading
-* music goes out
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
@@ -20,9 +19,37 @@
 * check: where when a scourge hides your health you get the achievment that you didnt loose a live on the floor
 
 * weird level tiling, fixed by reloading the level
+* sword swinging fast bug fix pls
+* error: vallue not found lol
 
 # hub
 
+* jungle exit seems missing
+* put a basic enemy that doesnt hit you but shows you that you can destroy the ice
+* pharaoh should change floor sooner
+* won missing locale
+* orbital sound kinda annoying
+* buff shovel arc size
+* shouldnt play step sounds if flying
+* buff pharaoh hp too
+* wings make you shoot through walls whaat (should do that only with half wall)
+* implement vegan mode, make hearts be replaced with brokolli
+* mistfit poster
+* say something when you end the level
+* full clear gives you a point to exit
+* coin sfx when interacting with vending machine
+* quick restart -> quack restart
+* buff old king hp
+* make rod of discord shoot @
+* axe in small spaces gets broken instantly by the wall
+* bk should get harder in next treasure rooms (more you take the harder it is)
+* resetting game progress enabled speedrun timer and turned of pixel perfect?
+* say how to put bomb only once
+* music stops when you watch the paintings
+* achievement sound too loud
+* esty had rewind button on the next run
+
+* put old man back into the hub (change rope color)
 * head door can generate with snow in the ice area (breakable)
 * better item display (only last 6, ui for all display)
 * add mouth to mimic, buff hp 
