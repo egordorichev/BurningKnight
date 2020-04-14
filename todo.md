@@ -30,9 +30,6 @@
 
 * pharaoh should change floor sooner
 
-* buff pharaoh hp too
-* buff old king hp
-
 * implement vegan mode, make hearts be replaced with brokolli
 * mistfit poster
 * say something when you end the level

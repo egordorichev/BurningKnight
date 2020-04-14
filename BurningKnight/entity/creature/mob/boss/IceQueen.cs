@@ -52,7 +52,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 3;
 
 			AddAnimation("ice_queen");
-			SetMaxHp(300);
+			SetMaxHp(500);
 		}
 
 		private void Animate() {
