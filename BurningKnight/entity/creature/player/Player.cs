@@ -228,11 +228,12 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			lastDepth = Run.Depth;
-			HandleEvent(new NewLevelStartedEvent());
 			
 			if (Run.Depth > 1 && !GetComponent<StatsComponent>().TookDamageOnLevel) {
 				Achievements.Unlock("bk:dodge_overlord");
 			}
+			
+			HandleEvent(new NewLevelStartedEvent());
 		}
 
 		private bool set;
@@ -404,7 +405,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public class RunState : EntityState {
+		public class RunState : SmartState<Player> {
 			private float lastParticle = 0.25f;
 			private uint lastFrame;
 			
@@ -423,25 +424,28 @@ namespace BurningKnight.entity.creature.player {
 					Self.Area.Add(part);
 				}
 
-				var anim = Self.GetComponent<PlayerGraphicsComponent>().Animation;
+				if (!Self.HasFlight) {
+					var anim = Self.GetComponent<PlayerGraphicsComponent>().Animation;
 
-				if (anim.Frame != lastFrame) {
-					lastFrame = anim.Frame;
+					if (anim.Frame != lastFrame) {
+						lastFrame = anim.Frame;
 
-					if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
-						var x = (int) (Self.CenterX / 16);
-						var y = (int) (Self.Bottom / 16);
+						if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
+							var x = (int) (Self.CenterX / 16);
+							var y = (int) (Self.Bottom / 16);
 
-						if (!Run.Level.IsInside(x, y)) {
-							return;
+							if (!Run.Level.IsInside(x, y)) {
+								return;
+							}
+
+							var i = Run.Level.ToIndex(x, y);
+							var tile = Run.Level.Get(i);
+							var liquid = Run.Level.Liquid[i];
+							var room = Self.GetComponent<RoomComponent>().Room;
+
+							Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid),
+								room != null && room.Tagged[Tags.MustBeKilled].Count > 0 ? 0.18f : 0.25f);
 						}
-
-						var i = Run.Level.ToIndex(x, y);
-						var tile = Run.Level.Get(i);
-						var liquid = Run.Level.Liquid[i];
-						var room = Self.GetComponent<RoomComponent>().Room;
-
-						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), room != null && room.Tagged[Tags.MustBeKilled].Count > 0 ? 0.18f : 0.25f);
 					}
 				}
 			}
@@ -908,7 +912,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Destroy() {
 			base.Destroy();
 
-			if (Run.LastDepth == -1 || Run.LastDepth == 0) {
+			if (!GetComponent<HealthComponent>().Dead && (Run.LastDepth == -1 || Run.LastDepth == 0)) {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
 				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
 				StartingLamp = GetComponent<LampComponent>().Item?.Id;

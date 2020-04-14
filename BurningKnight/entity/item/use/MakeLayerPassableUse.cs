@@ -19,6 +19,7 @@ namespace BurningKnight.entity.item.use {
 		private bool chasms;
 		private bool props;
 		private bool walls;
+		private bool halfWalls;
 		private bool mobs;
 		private bool stones;
 		private bool projectiles;
@@ -36,6 +37,10 @@ namespace BurningKnight.entity.item.use {
 
 				if (walls) {
 					CollisionFilterComponent.Add(entity, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
+				}
+
+				if (walls || halfWalls) {
+					CollisionFilterComponent.Add(entity, (o, en) => en is Level || en is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 				}
 				
 				if (stones) {
@@ -58,6 +63,10 @@ namespace BurningKnight.entity.item.use {
 
 					if (mobs) {
 						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Creature ? CollisionResult.Disable : CollisionResult.Default);
+					}
+
+					if (walls || halfWalls) {
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 					}
 				
 					if (stones) {
@@ -85,6 +94,7 @@ namespace BurningKnight.entity.item.use {
 			chasms = settings["ic"].Bool(false);
 			props = settings["ip"].Bool(false);
 			walls = settings["iw"].Bool(false);
+			halfWalls = settings["hw"].Bool(false);
 			mobs = settings["im"].Bool(false);
 			stones = settings["st"].Bool(false);
 			projectiles = settings["p"].Bool(false);
@@ -104,9 +114,10 @@ namespace BurningKnight.entity.item.use {
 				root["fpl"] = v;
 			}
 
-			root.Checkbox("Projectiles", "p", false);
 
 			ImGui.Separator();
+
+			root.Checkbox("Projectiles", "p", false);
 			
 			v = root["ic"].Bool(false);
 
@@ -125,6 +136,8 @@ namespace BurningKnight.entity.item.use {
 			if (ImGui.Checkbox("Ignore walls", ref v)) {
 				root["iw"] = v;
 			}
+			
+			root.Checkbox("Ignore half walls", "hw", false);
 			
 			v = root["im"].Bool(false);
 

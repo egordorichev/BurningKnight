@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 4;
 
 			AddAnimation("pharaoh");
-			SetMaxHp(180);
+			SetMaxHp(230);
 		}
 
 		protected override void AddPhases() {
@@ -126,11 +126,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var v = Self.counter;
 
 					if (v == 0) {
-						Become<SimpleSpiralState>();
-					} else if (v == 1) {
-						Become<AdvancedSpiralState>();
-					} else if (v == 2) {
 						Become<TileMoveState>();
+					} else if (v == 1) {
+						Become<SimpleSpiralState>();
+					} else if (v == 2) {
+						Become<AdvancedSpiralState>();
 					} else if (v == 3) {
 						Become<BulletHellState>();
 					}
@@ -156,6 +156,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
 						var projectile = Projectile.Make(Self, "small", a, 6f, scale: count % 2 == 0 ? 1f : 1.5f);
 						
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
 					}
 
 					count++;
@@ -181,7 +182,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 1) * Math.PI * 0.25f) * (i % 2 == 1 ? -1 : 1);
 						var projectile = Projectile.Make(Self, "small", a, 4f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1f);
-						
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
+
 					}
 				}
 
@@ -312,7 +314,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
 							var projectile = Projectile.Make(Self, "small", a, 5f + j1 * 2f, scale: j1 == 0 ? 1f : 1.5f);
-							
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
+
 						}
 					}, j);
 				}
@@ -345,6 +348,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var i1 = i;
 
 						Timer.Add(() => {
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_summon");
+							
 							var mummy = new Mummy();
 							Self.Area.Add(mummy);
 							mummy.BottomCenter = Self.BottomCenter + MathUtils.CreateVector(i1 / (float) amount * Math.PI * 2, d);

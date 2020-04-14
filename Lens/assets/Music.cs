@@ -14,6 +14,7 @@ namespace Lens.assets {
 		public float Volume = 1;
 
 		public readonly string Id;
+		public int BufferLength => bufferLength;
 
 		public Music(string musicFile) {
 			Id = musicFile;

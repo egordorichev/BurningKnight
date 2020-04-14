@@ -385,6 +385,10 @@ namespace BurningKnight.assets.items {
 		public static List<ItemData> GetPool(ItemPool pool) {
 			return byPool.TryGetValue(pool.Id, out var b) ? b : new List<ItemData>();
 		}
+
+		private static string[] veganProofItems = {
+			"bk:chicken"
+		};
 		
 		public static bool ShouldAppear(string id) {
 			if (id == "bk:coin") {
@@ -396,6 +400,10 @@ namespace BurningKnight.assets.items {
 			}
 			
 			if (!Datas.TryGetValue(id, out var data)) {
+				return false;
+			}
+
+			if (Settings.Vegan && veganProofItems.Contains(id)) {
 				return false;
 			}
 

@@ -118,7 +118,8 @@ namespace BurningKnight.entity.creature.player {
 									dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Bomb, true)));
 								}
 
-								dialog.StartAndClose("control_0", 5);
+								dialog.StartAndClose("control_0", 3);
+								GlobalSave.Put("control_bomb", true);
 							}
 
 							Audio.PlaySfx("item_bomb");
@@ -211,11 +212,6 @@ namespace BurningKnight.entity.creature.player {
 			if (Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
 				if (GetComponent<PlayerInputComponent>().InDialog) {
 					return;
-				}
-			
-				if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
-					Entity.GetComponent<DialogComponent>().Close();
-					GlobalSave.Put("control_bomb", true);
 				}
 				
 				if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {

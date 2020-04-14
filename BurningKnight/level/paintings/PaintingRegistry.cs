@@ -36,6 +36,7 @@ namespace BurningKnight.level.paintings {
 			Add("goose", "Jaxetly");
 			Add("chess", "Nikithn");
 			Add("peach", "unije");
+			Add("agency", "smashy", 0.01f);
 
 			// Add("car", "???");
 			// Add("moika", "???");

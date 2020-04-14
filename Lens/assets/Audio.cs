@@ -288,7 +288,21 @@ namespace Lens.assets {
 								}
 							}
 
+							// 16.777.216
+							// 14.926.000
 							position += Speed;
+
+							if (Playing.Count == 1) {
+								var l = Playing[0].BufferLength;
+
+								if (position >= l) {
+									position -= l;
+								}
+							}
+							
+							if (position < 0) {
+								position = 0;
+							}
 						}
 
 						SoundEffectInstance.SubmitBuffer(byteBuffer);

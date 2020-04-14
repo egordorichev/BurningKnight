@@ -106,7 +106,8 @@ namespace BurningKnight.entity.creature.mob.ice {
 					target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Mob, e => !e.HasComponent<OrbitalComponent>() && !(e is WallWalker || e is Boss));
 
 					if (target == null) {
-						target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Player);
+						Self.Kill(Self);
+						// target = Self.GetComponent<RoomComponent>().Room?.FindClosest(Self.Center, Tags.Player);
 					}
 				}
 

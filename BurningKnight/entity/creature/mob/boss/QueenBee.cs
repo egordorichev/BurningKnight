@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 3;
 
 			AddAnimation("bigbee");
-			SetMaxHp(220);
+			SetMaxHp(280);
 
 			Flying = true;
 			Depth = Layers.FlyingMob;
@@ -187,6 +187,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 								var p = Projectile.Make(Self, "circle", a + Rnd.Float(-0.1f, 0.1f), 30f, scale: Rnd.Float(0.8f, 1f));
 								p.AddLight(64f, ProjectileColor.Red);
 							}
+							
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_shot");
 						}, i * 0.15f);
 					}
 				}
@@ -357,6 +359,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						p.BounceLeft = 5;
 						p.Controller += SlowdownProjectileController.Make(0.25f);
 						p.AddLight(64f, ProjectileColor.Orange);
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_shot");
 					}
 				}
 
@@ -445,6 +448,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					p.AddLight(64f, ProjectileColor.Orange);
 
 					Camera.Instance.Shake(2);
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_swirly_shot");
 				}
 			}
 		}

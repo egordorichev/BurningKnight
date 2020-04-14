@@ -85,7 +85,7 @@ namespace BurningKnight {
 			Setup();
 		}
 
-		private static void Setup() {
+		public static void Setup() {
 			Fullscreen = true;
 			ShowFps = false;
 			Blood = true;
