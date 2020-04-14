@@ -40,7 +40,6 @@
 * music stops when you watch the paintings (it should slowdown)
 * esty had rewind button on the next run
 
-* head door can generate with snow in the ice area (breakable)
 * better item display (only last 6, ui for all display)
 * add mouth to mimic, buff hp 
 * exploding safe explodes you?

@@ -1,6 +1,8 @@
 using BurningKnight.entity.door;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.util.geometry;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -13,6 +15,7 @@ namespace BurningKnight.level.rooms.special {
 			var entrance = new HiddenEntrance {
 				id = "dm"
 			};
+			
 			level.Area.Add(entrance);
 			entrance.Position = new Vector2(Left + hw, Top + 2) * 16;
 
@@ -21,7 +24,7 @@ namespace BurningKnight.level.rooms.special {
 			}
 			
 			Painter.Fill(level, new Rect(Left + hw - 1, Top + 1).Resize(3, 3), Rnd.Chance(10) ? Tile.FloorD : Tiles.RandomFloor());
-			Painter.DrawLine(level, new Dot(Left + 1, Top + 4), new Dot(Right - 1, Top + 4), Tile.WallA);
+			Painter.DrawLine(level, new Dot(Left + 1, Top + 4), new Dot(Right - 1, Top + 4), LevelSave.BiomeGenerated is IceBiome ? Tile.WallB : Tile.WallA);
 
 			var d = new Dot(Left + hw, Top + 4);
 			Painter.Set(level, d, Tiles.RandomFloor());
