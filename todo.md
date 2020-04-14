@@ -42,8 +42,7 @@
 * better item display (only last 6, ui for all display)
 * add mouth to mimic, buff hp 
 * exploding safe explodes you?
-* make ice boss room without any chasms
-* dodge overlord is broken
+* dodge overlord achievement is broken
 
 * achievement branches rewards {
  a: drums/musical instruments?

@@ -177,7 +177,7 @@ namespace BurningKnight.level.rooms {
 
 				// Boss
 				RoomInfo.New<BossRoom>(1f),
-				RoomInfo.New<ChasmBossRoom>(1f),
+				RoomInfo.New<ChasmBossRoom>(1f, Biome.Castle, Biome.Desert),
 				
 				// Granny
 				RoomInfo.New<GrannyRoom>(1f),
