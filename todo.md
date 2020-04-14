@@ -8,7 +8,6 @@
 * mobs shouldnt drop anything on death from chasm
 * rework tree spawns
 * hive can spawn bees into the wall (they move too fast?)
-* bk and orbital sfx glitch out during loading
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
 * web doesnt affect mobs
@@ -28,7 +27,6 @@
 * put a basic enemy that doesnt hit you but shows you that you can destroy the ice
 * pharaoh should change floor sooner
 * won missing locale
-* orbital sound kinda annoying
 * buff shovel arc size
 * shouldnt play step sounds if flying
 * buff pharaoh hp too
