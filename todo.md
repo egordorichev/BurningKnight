@@ -42,9 +42,7 @@
 * axe in small spaces gets broken instantly by the wall
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * resetting game progress enabled speedrun timer and turned of pixel perfect?
-* say how to put bomb only once
 * music stops when you watch the paintings
-* achievement sound too loud
 * esty had rewind button on the next run
 
 * put old man back into the hub (change rope color)
