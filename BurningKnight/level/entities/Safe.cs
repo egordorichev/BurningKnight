@@ -74,10 +74,8 @@ namespace BurningKnight.level.entities {
 					}
 
 					ev.Amount = -1;
-				} else if (e is DiedEvent d) {
+				} else if (e is DiedEvent) {
 					Break();
-					ExplosionMaker.Make(d.From);
-
 					return true;
 				}
 			}
