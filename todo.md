@@ -21,23 +21,25 @@
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 
+???
+* music stops when you watch the paintings (it should slowdown)
+
 # hub
+
+* resetting game progress enabled speedrun timer and turned of pixel perfect?
 
 * jungle room generated unpassable
 * players might think they are stuck when they dont know that you can break snow
 
-* mistfit poster
 * say something when you end the level
 * full clear gives you a point to exit
-* coin sfx when interacting with vending machine
+
 * axe in small spaces gets broken instantly by the wall
 * bk should get harder in next treasure rooms (more you take the harder it is)
-* resetting game progress enabled speedrun timer and turned of pixel perfect?
-* music stops when you watch the paintings (it should slowdown)
-* esty had rewind button on the next run
 
 * better item display (only last 6, ui for all display)
 * add mouth to mimic 
+* mistfit poster
 
 * achievement branches rewards {
  a: drums/musical instruments?

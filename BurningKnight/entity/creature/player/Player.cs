@@ -912,7 +912,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Destroy() {
 			base.Destroy();
 
-			if (Run.LastDepth == -1 || Run.LastDepth == 0) {
+			if (!GetComponent<HealthComponent>().Dead && (Run.LastDepth == -1 || Run.LastDepth == 0)) {
 				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
 				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
 				StartingLamp = GetComponent<LampComponent>().Item?.Id;
