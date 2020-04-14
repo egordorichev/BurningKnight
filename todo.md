@@ -16,10 +16,9 @@
 } 
 
 * players might think they are stuck when they dont know that you can break snow
-* full clear point to exit
+* when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * better item display (only last 6, ui for all display)
-* add mouth to mimic 
 * mistfit poster
 
 * achievement branches rewards {
