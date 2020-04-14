@@ -404,7 +404,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 		
-		public class RunState : EntityState {
+		public class RunState : SmartState<Player> {
 			private float lastParticle = 0.25f;
 			private uint lastFrame;
 			
@@ -423,25 +423,28 @@ namespace BurningKnight.entity.creature.player {
 					Self.Area.Add(part);
 				}
 
-				var anim = Self.GetComponent<PlayerGraphicsComponent>().Animation;
+				if (!Self.HasFlight) {
+					var anim = Self.GetComponent<PlayerGraphicsComponent>().Animation;
 
-				if (anim.Frame != lastFrame) {
-					lastFrame = anim.Frame;
+					if (anim.Frame != lastFrame) {
+						lastFrame = anim.Frame;
 
-					if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
-						var x = (int) (Self.CenterX / 16);
-						var y = (int) (Self.Bottom / 16);
+						if (Run.Level != null && (lastFrame == 2 || lastFrame == 6)) {
+							var x = (int) (Self.CenterX / 16);
+							var y = (int) (Self.Bottom / 16);
 
-						if (!Run.Level.IsInside(x, y)) {
-							return;
+							if (!Run.Level.IsInside(x, y)) {
+								return;
+							}
+
+							var i = Run.Level.ToIndex(x, y);
+							var tile = Run.Level.Get(i);
+							var liquid = Run.Level.Liquid[i];
+							var room = Self.GetComponent<RoomComponent>().Room;
+
+							Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid),
+								room != null && room.Tagged[Tags.MustBeKilled].Count > 0 ? 0.18f : 0.25f);
 						}
-
-						var i = Run.Level.ToIndex(x, y);
-						var tile = Run.Level.Get(i);
-						var liquid = Run.Level.Liquid[i];
-						var room = Self.GetComponent<RoomComponent>().Room;
-
-						Audio.PlaySfx(Run.Level.Biome.GetStepSound(liquid == 0 ? tile : (Tile) liquid), room != null && room.Tagged[Tags.MustBeKilled].Count > 0 ? 0.18f : 0.25f);
 					}
 				}
 			}

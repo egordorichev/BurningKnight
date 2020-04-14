@@ -23,12 +23,13 @@
 
 # hub
 
-* jungle exit seems missing
-* put a basic enemy that doesnt hit you but shows you that you can destroy the ice
-* pharaoh should change floor sooner
-* won missing locale
 * buff shovel arc size
-* shouldnt play step sounds if flying
+
+* jungle room generated unpassable
+* players might think they are stuck when they dont know that you can break snow
+
+* pharaoh should change floor sooner
+
 * buff pharaoh hp too
 * wings make you shoot through walls whaat (should do that only with half wall)
 * implement vegan mode, make hearts be replaced with brokolli
@@ -42,7 +43,7 @@
 * axe in small spaces gets broken instantly by the wall
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * resetting game progress enabled speedrun timer and turned of pixel perfect?
-* music stops when you watch the paintings
+* music stops when you watch the paintings (it should slowdown)
 * esty had rewind button on the next run
 
 * put old man back into the hub (change rope color)
