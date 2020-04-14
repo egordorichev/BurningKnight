@@ -180,11 +180,13 @@ namespace BurningKnight.level {
 			}
 
 			if (!rush && !final && Run.Type != RunType.Challenge) {
-				if (LevelSave.XL) {
+				if (first) {
+					if (LevelSave.XL) {
+						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+					}
+
 					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}
-				
-				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 
 				if (!first) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
