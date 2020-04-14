@@ -23,8 +23,6 @@
 
 # hub
 
-* wings make you shoot through walls whaat (should do that only with half wall)
-
 * jungle room generated unpassable
 * players might think they are stuck when they dont know that you can break snow
 
@@ -40,7 +38,6 @@
 
 * better item display (only last 6, ui for all display)
 * add mouth to mimic 
-* dodge overlord achievement is broken
 
 * achievement branches rewards {
  a: drums/musical instruments?
@@ -51,9 +48,7 @@
 
 * shield class needs a perk, its pretty weak compared to regular
 
-* challanges {
- bombs only makes no sense now since its a class
-}
+* remove challenges
 
 #
 
