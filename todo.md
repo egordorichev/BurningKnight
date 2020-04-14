@@ -40,7 +40,7 @@
 * esty had rewind button on the next run
 
 * better item display (only last 6, ui for all display)
-* add mouth to mimic, buff hp 
+* add mouth to mimic 
 * dodge overlord achievement is broken
 
 * achievement branches rewards {
