@@ -38,15 +38,22 @@ namespace BurningKnight.ui.inventory {
 		public static TextureRegion Heart;
 		public static TextureRegion HalfHeart;
 		public static TextureRegion HeartBackground;
+		private TextureRegion changedHeartBackground;
+		private static TextureRegion halfHeartBackground;
+		private TextureRegion changedHalfHeartBackground;
+		
+		
+		public static TextureRegion veganHeart;
+		public static TextureRegion veganHalfHeart;
+		public static TextureRegion veganHeartBackground;
+		private TextureRegion veganchangedHeartBackground;
+		private static TextureRegion veganhalfHeartBackground;
+		private TextureRegion veganchangedHalfHeartBackground;
 		
 		public static TextureRegion Mana;
 		public static TextureRegion HalfMana;
 		public static TextureRegion ManaBackground;
 		public static TextureRegion ChangedManaBackground;
-
-		private TextureRegion changedHeartBackground;
-		private static TextureRegion halfHeartBackground;
-		private TextureRegion changedHalfHeartBackground;
 		
 		public static TextureRegion Bomb;
 		public static TextureRegion BombBg;
@@ -112,12 +119,21 @@ namespace BurningKnight.ui.inventory {
 			coin = anim.GetSlice("coin");
 			pointer = anim.GetSlice("pointer");
 
+			var vegan = Settings.Vegan;
+
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
 			HeartBackground = anim.GetSlice("heart_bg");
 			changedHeartBackground = anim.GetSlice("heart_hurt_bg");
 			halfHeartBackground = anim.GetSlice("half_heart_bg");
 			changedHalfHeartBackground = anim.GetSlice("half_heart_hurt");
+			
+			veganHeart = anim.GetSlice("vegan");
+			veganHalfHeart = anim.GetSlice("half_vegan");
+			veganHeartBackground = anim.GetSlice("vegan_bg");
+			veganchangedHeartBackground = anim.GetSlice("vegan_hurt_bg");
+			veganhalfHeartBackground = anim.GetSlice("half_vegan_bg");
+			veganchangedHalfHeartBackground = anim.GetSlice("half_vegan_hurt_bg");
 			
 			Bomb = anim.GetSlice("bmb");
 			BombBg = anim.GetSlice("bmb_bg");
@@ -447,12 +463,14 @@ namespace BurningKnight.ui.inventory {
 			if (jn % 2 == 1) {
 				jn++;
 			}
+
+			var vegan = Settings.Vegan;
 			
 			for (var i = 0; i < maxRed; i += 2) {
-				var region = hurt ? changedHeartBackground : HeartBackground;
+				var region = hurt ? (vegan ? veganchangedHeartBackground : changedHeartBackground) : (vegan ? veganHeartBackground : HeartBackground);
 
 				if (i == maxRed - 1) {
-					region = hurt ? changedHalfHeartBackground : halfHeartBackground;
+					region = hurt ? (vegan ? veganchangedHalfHeartBackground : changedHalfHeartBackground) : (vegan ? veganhalfHeartBackground : halfHeartBackground);
 				}
 				
 				Graphics.Render(region, GetHeartPosition(pad, i, true));
@@ -476,7 +494,7 @@ namespace BurningKnight.ui.inventory {
 
 			for (var j = 0; j < n; j++) {
 				var h = j % 2 == 0;
-				Graphics.Render(h ? HalfHeart : Heart, GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
+				Graphics.Render(h ? (vegan ? veganHalfHeart : HalfHeart) : (vegan ? veganHeart : Heart), GetHeartPosition(pad, j) + (h ? Vector2.Zero : new Vector2(-1, 0)));
 			}
 			
 			for (var j = jn; j < maxRed + dbombs; j += 2) {

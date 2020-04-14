@@ -28,7 +28,6 @@
 * jungle room generated unpassable
 * players might think they are stuck when they dont know that you can break snow
 
-* implement vegan mode, make hearts be replaced with brokolli
 * mistfit poster
 * say something when you end the level
 * full clear gives you a point to exit

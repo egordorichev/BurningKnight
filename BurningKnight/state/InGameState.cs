@@ -1759,6 +1759,7 @@ namespace BurningKnight.state {
 								Run.StartingNew = true;
 								Run.NextDepth = 0;
 								Run.IntoMenu = true;
+								Settings.Setup();
 							} catch (Exception e) {
 								Log.Error(e);
 							}

@@ -228,11 +228,12 @@ namespace BurningKnight.entity.creature.player {
 			}
 
 			lastDepth = Run.Depth;
-			HandleEvent(new NewLevelStartedEvent());
 			
 			if (Run.Depth > 1 && !GetComponent<StatsComponent>().TookDamageOnLevel) {
 				Achievements.Unlock("bk:dodge_overlord");
 			}
+			
+			HandleEvent(new NewLevelStartedEvent());
 		}
 
 		private bool set;
