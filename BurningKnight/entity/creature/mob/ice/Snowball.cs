@@ -53,11 +53,11 @@ namespace BurningKnight.entity.creature.mob.ice {
 		}
 		
 		protected override string GetHurtSfx() {
-			return "mob_snowman_hurt";
+			return "mob_snowball_hut";
 		}
 
 		protected override string GetDeadSfx() {
-			return "mob_snowman_death";
+			return "mob_snowball_death";
 		}
 	}
 }

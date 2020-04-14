@@ -76,6 +76,8 @@ namespace BurningKnight.level.entities.machine {
 			coinsConsumed++;
 
 			if (Rnd.Float(100) > (coinsConsumed + Run.Luck - Run.Scourge) * 2) {
+				Audio.PlaySfx("level_vending_machine_coin");
+
 				return false; // Did not pay enough :P
 			}
 

@@ -127,5 +127,13 @@ namespace BurningKnight.entity.creature.mob.library {
 			}
 		}
 		#endregion
+		
+		protected override string GetHurtSfx() {
+			return "mob_wizard_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_wizard_death";
+		}
 	}
 }

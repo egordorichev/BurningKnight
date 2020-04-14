@@ -172,5 +172,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 			
 			return base.HandleEvent(e);
 		}
+		
+		protected override string GetHurtSfx() {
+			return "mob_dino_hurt";
+		}
+
+		protected override string GetDeadSfx() {
+			return "mob_dino_death";
+		}
 	}
 }

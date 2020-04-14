@@ -19,7 +19,7 @@
 
 * weird level tiling, fixed by reloading the level
 * sword swinging fast bug fix pls
-* error: vallue not found lol
+* error: vallue not found lol (top runs)
 
 # hub
 
