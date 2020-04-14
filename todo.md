@@ -33,7 +33,6 @@
 * say something when you end the level
 * full clear gives you a point to exit
 * coin sfx when interacting with vending machine
-* quick restart -> quack restart
 * axe in small spaces gets broken instantly by the wall
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * resetting game progress enabled speedrun timer and turned of pixel perfect?
