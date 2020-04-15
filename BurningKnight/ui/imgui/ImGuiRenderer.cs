@@ -182,8 +182,8 @@ namespace BurningKnight.ui.imgui {
             //};
             ///////////////////////////////////////////
 
-            ImGui.GetIO().Fonts.AddFontDefault();
-            // ImGui.GetIO().Fonts.AddFontFromFileTTF("Content/Fonts/font.ttf", 16.0f, null, ImGui.GetIO().Fonts.GetGlyphRangesCyrillic());
+            // ImGui.GetIO().Fonts.AddFontDefault();
+            ImGui.GetIO().Fonts.AddFontFromFileTTF("Content/Fonts/font.ttf", 16.0f, null, ImGui.GetIO().Fonts.GetGlyphRangesCyrillic());
         }
 
         /// <summary>

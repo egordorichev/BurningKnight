@@ -1278,6 +1278,7 @@
     <Compile Include="ui\UiControl.cs" />
     <Compile Include="ui\UiDescriptionBanner.cs" />
     <Compile Include="ui\UiEntity.cs" />
+    <Compile Include="ui\UiImageButton.cs" />
     <Compile Include="ui\UiLabel.cs" />
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="ui\UiSlider.cs" />

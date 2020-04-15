@@ -82,6 +82,7 @@ namespace BurningKnight.state {
 		private UiPane inputSettings;
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
+		private UiPane languageSettings;
 		private UiLabel killedLabel;
 		private UiLabel placeLabel;
 
@@ -113,6 +114,7 @@ namespace BurningKnight.state {
 		private UiButton inputBack;
 		private UiButton gamepadBack;
 		private UiButton keyboardBack;
+		private UiButton languageBack;
 
 		public static bool Ready;
 		public static bool InMenu;
@@ -1219,7 +1221,7 @@ namespace BurningKnight.state {
 			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
-			var start = Display.UiHeight * 0.5f;
+			var start = Display.UiHeight * 0.5f + space;
 
 			pauseMenu.Add(new UiLabel {
 				Label = Level.GetDepthString(),
@@ -1521,7 +1523,7 @@ namespace BurningKnight.state {
 		private void AddSettings() {
 			var sx = Display.UiWidth * 1.5f;
 			var space = 24f;
-			var sy = Display.UiHeight * 0.5f - space * 0.5f;
+			var sy = Display.UiHeight * 0.5f - space;
 			
 			pauseMenu.Add(new UiLabel {
 				LocaleLabel = "settings",
@@ -1573,6 +1575,17 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "language",
+				RelativeCenterX = sx,
+				RelativeCenterY = sy + space * 3,
+				Click = b => {
+					currentBack = languageBack;
+					languageSettings.Enabled = true;
+					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
+				}
+			});
+			
 			settingsBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "back",
 				Type = ButtonType.Exit,
@@ -1604,6 +1617,7 @@ namespace BurningKnight.state {
 			AddGraphicsSettings();
 			AddAudioSettings();
 			AddInputSettings();
+			AddLanguageSettings();
 		}
 
 		private UiButton pauseBack;
@@ -1681,6 +1695,7 @@ namespace BurningKnight.state {
 						GlobalSave.Put(ShopNpc.ActiveTrader, true);
 						GlobalSave.Put(ShopNpc.HatTrader, true);
 						GlobalSave.Put(ShopNpc.WeaponTrader, true);
+						GlobalSave.Put(ShopNpc.Mike, true);
 						
 						GlobalSave.Put("control_use", true);
 						GlobalSave.Put("control_swap", true);
@@ -2273,6 +2288,59 @@ namespace BurningKnight.state {
 			});
 
 			keyboardSettings.Enabled = false;
+		}
+		
+		private static string[] languages = {
+			"en", "ru"
+		};
+		
+		private void AddLanguageSettings() {
+			pauseMenu.Add(languageSettings = new UiPane {
+				RelativeX = Display.UiWidth * 2
+			});
+
+			languageSettings.Add(new UiLabel {
+				LocaleLabel = "language",
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = TitleY
+			});
+
+			for (var i = 0; i < languages.Length; i++) {
+				var lng = languages[i];
+				
+				languageSettings.Add(new UiImageButton {
+					Id = lng,
+					RelativeCenterX = Display.UiWidth * 0.5f,
+					RelativeCenterY = (Display.UiHeight - languages.Length * 40) * 0.5f + i * 40,
+					Click = (b) => {
+						Settings.Language = lng;
+						Locale.Load(lng);
+						// languageBack.Click(languageBack);
+
+						var d = Run.Depth;
+						Run.RealDepth = -1;
+						Run.Depth = d;
+					}
+				});
+			}
+			
+			languageBack = (UiButton) languageSettings.Add(new UiButton {
+				LocaleLabel = "back",
+				Type = ButtonType.Exit,
+				RelativeCenterX = Display.UiWidth * 0.5f,
+				RelativeCenterY = BackY,
+				Click = b => {
+					pauseMenu.Enabled = true;
+					currentBack = settingsBack;
+					
+					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						languageSettings.Enabled = false;
+					};
+				}
+			});
+
+			languageSettings.Enabled = false;
 		}
 
 		private void AddGamepadSettings() {

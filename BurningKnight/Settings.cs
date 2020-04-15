@@ -76,6 +76,7 @@ namespace BurningKnight {
 		public static bool Vibrate;
 		public static float Sensivity;
 		public static float CursorRadius;
+		public static string Language;
 	
 		// Not saved
 		public static bool HideUi;
@@ -111,6 +112,7 @@ namespace BurningKnight {
 			FloorDarkness = 1f;
 			PixelPerfect = false;
 			CursorRadius = 1f;
+			Language = Locale.PrefferedClientLanguage;
 			
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -143,6 +145,8 @@ namespace BurningKnight {
 			FloorDarkness = GlobalSave.GetFloat("s_fd", 1);
 			PixelPerfect = GlobalSave.IsTrue("s_pp", false);
 			CursorRadius = GlobalSave.GetFloat("s_cr", 1);
+			Language = GlobalSave.GetString("s_ln", Locale.PrefferedClientLanguage);
+			Locale.Load(Language);
 
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
@@ -175,6 +179,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_fd", FloorDarkness);
 			GlobalSave.Put("s_pp", PixelPerfect);
 			GlobalSave.Put("s_cr", CursorRadius);
+			GlobalSave.Put("s_ln", Language);
 		}
 
 		public static void Generate() {

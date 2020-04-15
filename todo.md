@@ -9,6 +9,7 @@
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
+* tiling issue (fine when you relog)
 
 {
  * patch wall can generate unpassable chasm
@@ -20,6 +21,8 @@
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * better item display (only last 6, ui for all display)
 * mistfit poster
+
+* not a thief achievement implementation (and better icon, dont forget to ignore hidden class items)
 
 * achievement branches rewards {
  a: shield lamp
@@ -46,3 +49,4 @@ ice {
 * localisation
 * twitch chat integration
 * cutscenes
+* disks
