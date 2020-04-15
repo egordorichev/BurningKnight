@@ -67,7 +67,7 @@ namespace Lens.assets {
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 			
 			Audio.StartThread();
-			Locale.Load("en");
+			Locale.Load("ru"/*"en"*/);
 			progress++;
 			Effects.Load();
 			progress++;

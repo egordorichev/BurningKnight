@@ -173,6 +173,7 @@ namespace BurningKnight.ui.imgui {
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, spacer);
 
 			var i = 0;
+			string remove = null;
 			
 			foreach (var t in Locale.Map) {
 				if (filter.PassFilter(filterByKey ? t.Key : t.Value)) {
@@ -209,9 +210,19 @@ namespace BurningKnight.ui.imgui {
 							KeyChanged = key != t.Key
 						});
 					}
+
+					ImGui.SameLine();
+
+					if (ImGui.SmallButton("-")) {
+						remove = t.Key;
+					}
 				}
 
 				i++;
+			}
+
+			if (remove != null) {
+				Locale.Map.Remove(remove);
 			}
 			
 			ImGui.PopStyleVar();

@@ -21,6 +21,8 @@
 * better item display (only last 6, ui for all display)
 * mistfit poster
 
+* not a thief achievement implementation (and better icon, dont forget to ignore hidden class items)
+
 * achievement branches rewards {
  a: shield lamp
  b: 1 hit rip
@@ -46,3 +48,4 @@ ice {
 * localisation
 * twitch chat integration
 * cutscenes
+* disks
