@@ -30,7 +30,6 @@ namespace BurningKnight.assets {
 							try {
 								ImNode.Create(name, vl);
 							} catch (Exception e) {
-								Log.Error(e);
 							}
 						}
 						

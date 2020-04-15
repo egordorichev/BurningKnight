@@ -23,8 +23,21 @@ namespace Desktop.integration.steam {
 
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
+				var lang = SteamApps.GameLanguage;
 
-				Log.Info("Starting from steam! <3");
+				Log.Info($"Starting from steam! <3 ({lang})");
+
+				switch (lang) {
+					case "english": {
+						Locale.PrefferedClientLanguage = "en";
+						break;
+					}
+					
+					case "russian": {
+						Locale.PrefferedClientLanguage = "ru";
+						break;
+					}
+				}
 
 				Run.SubmitScore += (score, board) => {
 					try {

@@ -51,6 +51,10 @@ namespace BurningKnight.state {
 			set => NextDepth = value;
 		}
 
+		public static int RealDepth {
+			set { depth = value; }
+		}
+
 		public static void Update() {
 			if (StartingNew || depth != NextDepth) {
 				LastDepth = depth;

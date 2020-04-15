@@ -1025,5 +1025,6 @@
 	"ach_bk:ice_boss": "Let It Go",
 	"ach_bk:ice_boss_desc": "Kill The Ice Queen",
 	"ice_queen_scream": "^^[cl cyan]Ahem",
-	"painting_agency": "Welcome to the agency"
+	"painting_agency": "Welcome to the agency",
+	"language" : "Language"
 }

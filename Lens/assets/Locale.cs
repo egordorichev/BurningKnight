@@ -15,6 +15,7 @@ namespace Lens.assets {
 		private static bool LoadedFallback;
 		
 		public static string Current;
+		public static string PrefferedClientLanguage = "en";
 
 		private static void LoadRaw(string name, string path, bool backup = false) {
 			if (Loaded.TryGetValue(name, out var cached)) {
@@ -54,7 +55,12 @@ namespace Lens.assets {
 			}
 			
 			Current = locale;
-			LoadRaw(locale, $"Locales/{locale}.json");
+
+			if (!Loaded.ContainsKey(locale)) {
+				LoadRaw(locale, $"Locales/{locale}.json");
+			}
+			
+			Map = Loaded[locale];
 
 			if (!LoadedFallback) {
 				if (locale != "en") {
