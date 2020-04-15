@@ -1695,6 +1695,7 @@ namespace BurningKnight.state {
 						GlobalSave.Put(ShopNpc.ActiveTrader, true);
 						GlobalSave.Put(ShopNpc.HatTrader, true);
 						GlobalSave.Put(ShopNpc.WeaponTrader, true);
+						GlobalSave.Put(ShopNpc.Mike, true);
 						
 						GlobalSave.Put("control_use", true);
 						GlobalSave.Put("control_swap", true);

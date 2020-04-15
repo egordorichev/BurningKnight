@@ -9,6 +9,7 @@
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
+* tiling issue (fine when you relog)
 
 {
  * patch wall can generate unpassable chasm

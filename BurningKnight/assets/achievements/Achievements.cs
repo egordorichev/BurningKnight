@@ -112,7 +112,7 @@ namespace BurningKnight.assets.achievements {
 				max = a.Max;
 			}
 			
-			if (max == progress) {
+			if (max >= progress) {
 				ReallyUnlock(id, a);
 				return;
 			}
