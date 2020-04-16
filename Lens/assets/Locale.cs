@@ -50,8 +50,6 @@ namespace Lens.assets {
 		}
 		
 		public static void Load(string locale) {
-			Log.Info($"Loading locale {locale}");
-			
 			if (Current == locale) {
 				return;
 			}

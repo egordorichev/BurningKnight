@@ -1,20 +1,18 @@
 * russian words too big for death screen
 * wings give player ability to fly through walls lol
-* after killing boss win sound plays twice
 * rolling spikes can stop (rework their move logic)
 * hive can spawn bees into the wall (they move too fast?)
 * doors tile high lights sometimes
 * active shop discount still discounts without the use
+
+
+* fashion matters achievement activates on fresh save
 * web doesnt affect mobs
-* gamepad still shakes even when set to none
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
-
-{
- * patch wall can generate unpassable chasm
- * jungle room generated unpassable
-} 
+* patch wall can generate unpassable chasm
+* jungle room generated unpassable
 
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit

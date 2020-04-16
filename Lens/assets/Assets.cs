@@ -11,8 +11,8 @@ namespace Lens.assets {
 	
 #if DEBUG
 		public const bool LoadOriginalFiles = true;
-		public const bool LoadMusic = true;
-		public const bool LoadSfx = true;
+		public const bool LoadMusic = false;
+		public const bool LoadSfx = false;
 		public const bool Reload = false;
 		public const bool LoadMods = false;
 #else
@@ -67,7 +67,11 @@ namespace Lens.assets {
 			AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
 			
 			Audio.StartThread();
-			// Locale.Load(Locale.PrefferedClientLanguage);
+
+			if (Locale.Map == null) {
+				Locale.Load(Locale.PrefferedClientLanguage);
+			}
+
 			progress++;
 			Effects.Load();
 			progress++;
