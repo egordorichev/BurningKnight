@@ -49,18 +49,18 @@ namespace BurningKnight.entity.item.renderer {
 			
 			if (!atBack && !paused && !shadow) {
 				var to = owner.GetComponent<AimComponent>().Aim;
-				var dx = Nozzle.X - Origin.X;
+				/*var dx = Nozzle.X - Origin.X;
 				var dy = Nozzle.Y - Origin.Y;
 
 				if (vf) {
 					dy *= -1;
 				}
 
-				var a = MathUtils.Angle(dx, dy) + lastAngle - AddedAngle - SwingAngle;
+				*var a = MathUtils.Angle(dx, dy) + lastAngle - AddedAngle - SwingAngle;
 				var d = MathUtils.Distance(dx, dy);
 				to -= MathUtils.CreateVector(a, d);
 
-				owner.GetComponent<AimComponent>().Aim = to;
+				owner.GetComponent<AimComponent>().Aim = to;*/
 				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 12f);
 			}
 

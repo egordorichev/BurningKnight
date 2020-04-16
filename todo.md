@@ -1,5 +1,4 @@
 * russian words too big for death screen
-* sword swinging fast bug fix pls
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
 
