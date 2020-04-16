@@ -193,8 +193,6 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
 			manager.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
 			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
-
-			TileUp();
 		}
 
 		private SoundEffectInstance rainSound;
@@ -239,6 +237,8 @@ namespace BurningKnight.level {
 					Run.Level.Area.Add(new SnowParticle());
 				}
 			}
+			
+			TileUp();
 		}
 
 		public override void AddComponents() {
@@ -1701,8 +1701,6 @@ namespace BurningKnight.level {
 			
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
 			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
-
-			TileUp();
 		}
 
 		public virtual string GetMusic() {

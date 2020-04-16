@@ -1,7 +1,6 @@
 * russian words too big for death screen
 * wings give player ability to fly through walls lol
 * after killing boss win sound plays twice
-
 * rolling spikes can stop (rework their move logic)
 * hive can spawn bees into the wall (they move too fast?)
 * doors tile high lights sometimes
@@ -11,7 +10,6 @@
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
-* tiling issue (fine when you relog)
 
 {
  * patch wall can generate unpassable chasm

@@ -2315,6 +2315,7 @@ namespace BurningKnight.state {
 					Click = (b) => {
 						Settings.Language = lng;
 						Locale.Load(lng);
+						Settings.Save();
 						// languageBack.Click(languageBack);
 
 						var d = Run.Depth;
