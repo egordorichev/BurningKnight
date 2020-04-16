@@ -1,4 +1,3 @@
-* russian words too big for death screen
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
 
@@ -21,6 +20,5 @@
 * shooting tiles in ice biome should update transition
 * add soundtrack package to steam
 * localisation
-* twitch chat integration
 * cutscenes
 * disks
