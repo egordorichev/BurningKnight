@@ -1,5 +1,4 @@
 * russian words too big for death screen
-* wings give player ability to fly through walls lol
 * rolling spikes can stop (rework their move logic)
 * hive can spawn bees into the wall (they move too fast?)
 * doors tile high lights sometimes

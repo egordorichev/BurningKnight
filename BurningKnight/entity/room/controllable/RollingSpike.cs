@@ -69,6 +69,13 @@ namespace BurningKnight.entity.room.controllable {
 			}
 
 			var velocity = GetComponent<CircleBodyComponent>().Velocity;
+			var a = velocity.ToAngle();
+
+			if (Math.Abs(a % (Math.PI * 0.5f)) >= 0.1f) {
+				a = (float) (Math.Floor(a / (Math.PI * 0.5f)) * (Math.PI * 0.5f));
+				GetComponent<CircleBodyComponent>().Velocity = MathUtils.CreateVector(a, velocity.Length());
+			}
+			
 			GetComponent<AnimationComponent>().Angle += Math.Sign(Math.Abs(velocity.X) > 0.1f ? velocity.X : velocity.Y) * dt * 10;
 		}
 
