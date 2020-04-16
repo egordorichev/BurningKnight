@@ -94,7 +94,7 @@ namespace BurningKnight.ui.imgui.node {
 			base.Load(root);
 
 			for (var i = 0; i < root["cc"]; i++) {
-				choices.Add(Locale.Map[$"{LocaleId}_{i}"]);
+				choices.Add($"{LocaleId}_{i}");
 				AddOutput();
 			}
 

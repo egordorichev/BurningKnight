@@ -1021,5 +1021,8 @@
 	"ach_bk:ice_boss_desc": "Kill The Ice Queen",
 	"ice_queen_scream": "^^[cl cyan]Ahem",
 	"painting_agency": "Welcome to the agency",
-	"language" : "Language"
+	"language": "Language",
+	"bk:pouch": "Pouch",
+	"bk:alien_glasses": "Alien Glasses",
+	"bk:alien_glasses_desc": "I see more"
 }
