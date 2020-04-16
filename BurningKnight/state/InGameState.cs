@@ -2092,7 +2092,7 @@ namespace BurningKnight.state {
 					// Settings.Gamepad = e ? null : GamepadData.Identifiers[i];
 					if (p != null) {
 						var d = p.GetComponent<GamepadComponent>();
-							
+						d.Controller?.StopRumble();
 						d.Controller = null;
 						d.GamepadId = null;
 					}
