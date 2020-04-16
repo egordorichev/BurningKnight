@@ -1,5 +1,6 @@
 #### Polish
 
+* mistfit poster
 * make secret rooms not so obv
 
 biome-dependant props (cactuses and dead bushes for desert)

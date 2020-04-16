@@ -16,6 +16,7 @@ using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
+using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
@@ -205,10 +206,26 @@ namespace BurningKnight.entity.creature.mob {
 						};
 					}
 				}
-			}
+			} else if (e is TileCollisionStartEvent tce) {
+				if (tce.Tile == Tile.Cobweb) {
+					var body = GetAnyComponent<BodyComponent>();
+					wasSlow = body.Slow;
+					body.Slow = true;
+				}
+			} else if (e is TileCollisionEndEvent tee) {
+				if (tee.Tile == Tile.Cobweb) {
+					var body = GetAnyComponent<BodyComponent>();
+
+					if (!wasSlow && body.Slow && !GetComponent<BuffsComponent>().Has<SlowBuff>()) {
+						body.Slow = false;
+					}
+				}
+			}  
 			
 			return base.HandleEvent(e);
 		}
+
+		private bool wasSlow;
 
 		protected virtual bool CanHurt(Entity entity) {
 			return !(entity is BreakableProp || entity is Painting || entity is Prop);

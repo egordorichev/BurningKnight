@@ -1,6 +1,5 @@
 * russian words too big for death screen
 * fashion matters achievement activates on fresh save
-* web doesnt affect mobs
 * sword swinging fast bug fix pls
 * music stops when you watch the paintings (it should slowdown)
 * patch wall can generate unpassable chasm
@@ -10,9 +9,6 @@
 * when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * better item display (only last 6, ui for all display)
-* mistfit poster
-
-* not a thief achievement implementation (and better icon, dont forget to ignore hidden class items)
 
 * achievement branches rewards {
  a: shield lamp
@@ -21,20 +17,12 @@
  d: sniper
 }
 
-* shield class needs a perk, its pretty weak compared to regular
 * remove challenges
-
-#
 * make reroll machine spawn in item rooms
 * redo remapping screens
 * shop should start small and grow with donations?
-
-ice {
- * frozen enemies/troll bomb
- * shooting tiles in ice biome should update transition
- * campfires in ice levels
-}
-
+* frozen enemies/troll bomb
+* shooting tiles in ice biome should update transition
 * add soundtrack package to steam
 * localisation
 * twitch chat integration

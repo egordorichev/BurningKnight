@@ -2636,6 +2636,19 @@ namespace BurningKnight.state {
 					Achievements.SetProgress("bk:30_challenges", Math.Min(30, count), 30);
 				} else if (Run.Type == RunType.Daily) {
 					Achievements.Unlock("bk:daily");
+				} else if (Run.Type == RunType.Regular) {
+					var found = false;
+					
+					foreach (var item in player.GetComponent<InventoryComponent>().Items) {
+						if (!item.Hidden) {
+							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						Achievements.Unlock("bk:not_a_thief");
+					}
 				}
 			}
 
