@@ -1,5 +1,3 @@
-* hive can spawn bees into the wall (they move too fast?)
-
 * russian words too big for death screen
 * fashion matters achievement activates on fresh save
 * web doesnt affect mobs
