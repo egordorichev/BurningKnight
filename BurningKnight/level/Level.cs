@@ -338,11 +338,13 @@ namespace BurningKnight.level {
 			
 			for (var i = 0; i < Size - Width; i++) {
 				var found = false;
+				var x = FromIndexX(i);
+				var y = FromIndexY(i);
 				
 				foreach (var r in rooms) {
 					var room = (Room) r;
 					
-					if (room.ContainsTile(FromIndexX(i), FromIndexY(i), 1)) {
+					if (room.ContainsTile(x, y, 1)) {
 						if (!f || room.Type != RoomType.Connection) {
 							found = true;
 						}
@@ -351,6 +353,20 @@ namespace BurningKnight.level {
 					}
 					
 					//if (Get(i).Matches(Tile.WallA, Tile.Transition) && Get(i + Width).Matches(Tile.WallA, Tile.Transition)) {
+				}
+
+				if (!found) {
+					foreach (var d in Area.Tagged[Tags.Door]) {
+						if ((int) Math.Floor(d.CenterX / 16) == x) {
+							var yy = (int) Math.Floor(d.CenterY / 16);
+
+							if (yy == y + 1 || yy == y) {
+								found = true;
+							}
+
+							break;
+						}
+					}
 				}
 
 				if (!found) {

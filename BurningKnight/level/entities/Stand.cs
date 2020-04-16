@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.save;
@@ -46,11 +47,18 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool Interact(Entity e) {
-			if (!GlobalSave.Exists($"top_{id}")) {
+			if (!GlobalSave.Exists($"top_{id}") || GlobalSave.GetString($"top_{id}") == null) {
 				GetComponent<DialogComponent>().StartAndClose("no_score_yet", 3);
 				return true;
 			}
-			
+
+			try {
+				GlobalSave.GetJson($"top_{id}");
+			} catch (Exception ex) {
+				GetComponent<DialogComponent>().StartAndClose("no_score_yet", 3);
+				return true;
+			}
+
 			var s = (InGameState) Engine.Instance.State;
 
 			s.InStats = true;
