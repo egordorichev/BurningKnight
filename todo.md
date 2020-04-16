@@ -1,12 +1,9 @@
 * russian words too big for death screen
-* beet root has yes/nah answers that are not translated for some reason
 * seed doesnt display (and still in english)
-* bk:alien_glasses & bk:pouch names missing (descriptiosn too?)
 * wings give player ability to fly through walls lol
 * after killing boss win sound plays twice
 
 * rolling spikes can stop (rework their move logic)
-* mobs shouldnt drop anything on death from chasm
 * hive can spawn bees into the wall (they move too fast?)
 * doors tile high lights sometimes
 * active shop discount still discounts without the use

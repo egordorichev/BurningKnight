@@ -350,7 +350,7 @@ namespace BurningKnight.state {
 				currentBack = pauseBack;
 				
 				if (seedLabel != null) {
-					seedLabel.Label = $"Seed: {Run.Seed}";
+					seedLabel.Label = $"{Locale.Get("seed")}: {Run.Seed}";
 				}
 
 				if (Settings.UiSfx) {
@@ -1221,7 +1221,7 @@ namespace BurningKnight.state {
 			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
-			var start = Display.UiHeight * 0.5f + space;
+			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? 0 : space);
 
 			pauseMenu.Add(new UiLabel {
 				Label = Level.GetDepthString(),
@@ -1258,7 +1258,7 @@ namespace BurningKnight.state {
 							Log.Error(e);
 						}
 
-						Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
+						Timer.Add(() => { b.Label = $"{Locale.Get("seed")}: {Run.Seed}"; }, 0.5f);
 					}
 				});
 			}
