@@ -2,7 +2,6 @@
 * sword swinging fast bug fix pls
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
-* make sure npcs are not all unlocked on floor 1
 
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit
@@ -17,9 +16,8 @@
 }
 
 * remove challenges
-* make reroll machine spawn in item rooms
-* redo remapping screens
-* shop should start small and grow with donations?
+* bk fight
+* dm fight
 * frozen enemies/troll bomb
 * shooting tiles in ice biome should update transition
 * add soundtrack package to steam
