@@ -193,15 +193,11 @@ namespace BurningKnight.entity.door {
 
 			if (Rooms != null && !lit) {
 				var found = false;
-
-				foreach (var p in Area.Tagged[Tags.Player]) {
-					var r = p.GetComponent<RoomComponent>().Room;
-
-					foreach (var rm in Rooms) {
-						if (rm == r) {
-							found = true;
-							break;
-						}
+			
+				foreach (var rm in Rooms) {
+					if (rm.Tagged[Tags.LocalPlayer].Count > 0) {
+						found = true;
+						break;
 					}
 				}
 

@@ -1,7 +1,6 @@
 * russian words too big for death screen
 * hive can spawn bees into the wall (they move too fast?)
 * doors tile high lights sometimes
-* active shop discount still discounts without the use
 
 * fashion matters achievement activates on fresh save
 * web doesnt affect mobs
