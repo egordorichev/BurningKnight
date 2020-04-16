@@ -1,10 +1,9 @@
-* russian words too big for death screen
 * hive can spawn bees into the wall (they move too fast?)
 
+* russian words too big for death screen
 * fashion matters achievement activates on fresh save
 * web doesnt affect mobs
 * sword swinging fast bug fix pls
-* error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable

@@ -2506,7 +2506,7 @@ namespace BurningKnight.state {
 		public Action ReturnFromStats;
 		private bool sbusy;
 
-		public void ShowStats(int place) {
+		public void ShowStats(int place, string id) {
 			if (sbusy) {
 				return;
 			}
@@ -2519,7 +2519,6 @@ namespace BurningKnight.state {
 			placeLabel.RelativeCenterX = Display.UiWidth * 0.5f;
 
 			try {
-				var id = $"top_{place}";
 				var score = GlobalSave.GetInt(id);
 				var data = GlobalSave.GetJson($"{id}_data");
 
