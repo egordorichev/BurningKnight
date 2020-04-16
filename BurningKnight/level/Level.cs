@@ -193,6 +193,8 @@ namespace BurningKnight.level {
 			manager.Add(new RenderTrigger(this, RenderLight, Layers.TileLights));
 			manager.Add(new RenderTrigger(this, RenderShadowSurface, Layers.Shadows));
 			manager.Add(new RenderTrigger(this, RenderRocks, Layers.Rocks));
+
+			TileUp();
 		}
 
 		private SoundEffectInstance rainSound;
@@ -510,7 +512,6 @@ namespace BurningKnight.level {
 			
 			CreateBody();
 			CreateDestroyableBody();
-			TileUp();
 			
 			Dark = stream.ReadBoolean();
 			Snows = stream.ReadBoolean();

@@ -2651,9 +2651,7 @@ namespace BurningKnight.state {
 
 			Camera.Instance.Targets.Clear();
 
-			var stats = new UiTable {
-				Width = 128
-			};
+			var stats = new UiTable();
 
 			gameOverMenu.Add(stats);
 

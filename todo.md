@@ -1,5 +1,4 @@
 * russian words too big for death screen
-* seed doesnt display (and still in english)
 * wings give player ability to fly through walls lol
 * after killing boss win sound plays twice
 
@@ -9,7 +8,6 @@
 * active shop discount still discounts without the use
 * web doesnt affect mobs
 * gamepad still shakes even when set to none
-* weird level tiling, fixed by reloading the level
 * sword swinging fast bug fix pls
 * error: vallue not found lol (top runs)
 * music stops when you watch the paintings (it should slowdown)
