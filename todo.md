@@ -1,9 +1,8 @@
 * russian words too big for death screen
-* fashion matters achievement activates on fresh save
 * sword swinging fast bug fix pls
-* music stops when you watch the paintings (it should slowdown)
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
+* make sure npcs are not all unlocked on floor 1
 
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit
