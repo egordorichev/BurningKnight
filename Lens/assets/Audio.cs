@@ -288,11 +288,9 @@ namespace Lens.assets {
 								}
 							}
 
-							// 16.777.216
-							// 14.926.000
 							position += Speed;
 
-							if (Playing.Count == 1) {
+							if (Playing.Count == 1 && Playing[0].Repeat) {
 								var l = Playing[0].BufferLength;
 
 								if (position >= l) {

@@ -350,7 +350,7 @@ namespace BurningKnight.state {
 				currentBack = pauseBack;
 				
 				if (seedLabel != null) {
-					seedLabel.Label = $"Seed: {Run.Seed}";
+					seedLabel.Label = $"{Locale.Get("seed")}: {Run.Seed}";
 				}
 
 				if (Settings.UiSfx) {
@@ -1221,7 +1221,7 @@ namespace BurningKnight.state {
 			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
-			var start = Display.UiHeight * 0.5f + space;
+			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? 0 : space);
 
 			pauseMenu.Add(new UiLabel {
 				Label = Level.GetDepthString(),
@@ -1258,7 +1258,7 @@ namespace BurningKnight.state {
 							Log.Error(e);
 						}
 
-						Timer.Add(() => { b.Label = $"Seed: {Run.Seed}"; }, 0.5f);
+						Timer.Add(() => { b.Label = $"{Locale.Get("seed")}: {Run.Seed}"; }, 0.5f);
 					}
 				});
 			}
@@ -2092,7 +2092,7 @@ namespace BurningKnight.state {
 					// Settings.Gamepad = e ? null : GamepadData.Identifiers[i];
 					if (p != null) {
 						var d = p.GetComponent<GamepadComponent>();
-							
+						d.Controller?.StopRumble();
 						d.Controller = null;
 						d.GamepadId = null;
 					}
@@ -2291,7 +2291,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru"
+			"en", "ru", "de"
 		};
 		
 		private void AddLanguageSettings() {
@@ -2315,6 +2315,7 @@ namespace BurningKnight.state {
 					Click = (b) => {
 						Settings.Language = lng;
 						Locale.Load(lng);
+						Settings.Save();
 						// languageBack.Click(languageBack);
 
 						var d = Run.Depth;
@@ -2505,7 +2506,7 @@ namespace BurningKnight.state {
 		public Action ReturnFromStats;
 		private bool sbusy;
 
-		public void ShowStats(int place) {
+		public void ShowStats(int place, string id) {
 			if (sbusy) {
 				return;
 			}
@@ -2518,7 +2519,6 @@ namespace BurningKnight.state {
 			placeLabel.RelativeCenterX = Display.UiWidth * 0.5f;
 
 			try {
-				var id = $"top_{place}";
 				var score = GlobalSave.GetInt(id);
 				var data = GlobalSave.GetJson($"{id}_data");
 
@@ -2636,6 +2636,19 @@ namespace BurningKnight.state {
 					Achievements.SetProgress("bk:30_challenges", Math.Min(30, count), 30);
 				} else if (Run.Type == RunType.Daily) {
 					Achievements.Unlock("bk:daily");
+				} else if (Run.Type == RunType.Regular) {
+					var found = false;
+					
+					foreach (var item in player.GetComponent<InventoryComponent>().Items) {
+						if (!item.Hidden) {
+							found = true;
+							break;
+						}
+					}
+
+					if (!found) {
+						Achievements.Unlock("bk:not_a_thief");
+					}
 				}
 			}
 
@@ -2651,9 +2664,7 @@ namespace BurningKnight.state {
 
 			Camera.Instance.Targets.Clear();
 
-			var stats = new UiTable {
-				Width = 128
-			};
+			var stats = new UiTable();
 
 			gameOverMenu.Add(stats);
 

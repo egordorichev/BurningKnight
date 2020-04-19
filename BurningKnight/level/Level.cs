@@ -237,6 +237,8 @@ namespace BurningKnight.level {
 					Run.Level.Area.Add(new SnowParticle());
 				}
 			}
+			
+			TileUp();
 		}
 
 		public override void AddComponents() {
@@ -336,11 +338,13 @@ namespace BurningKnight.level {
 			
 			for (var i = 0; i < Size - Width; i++) {
 				var found = false;
+				var x = FromIndexX(i);
+				var y = FromIndexY(i);
 				
 				foreach (var r in rooms) {
 					var room = (Room) r;
 					
-					if (room.ContainsTile(FromIndexX(i), FromIndexY(i), 1)) {
+					if (room.ContainsTile(x, y, 1)) {
 						if (!f || room.Type != RoomType.Connection) {
 							found = true;
 						}
@@ -349,6 +353,20 @@ namespace BurningKnight.level {
 					}
 					
 					//if (Get(i).Matches(Tile.WallA, Tile.Transition) && Get(i + Width).Matches(Tile.WallA, Tile.Transition)) {
+				}
+
+				if (!found) {
+					foreach (var d in Area.Tagged[Tags.Door]) {
+						if ((int) Math.Floor(d.CenterX / 16) == x) {
+							var yy = (int) Math.Floor(d.CenterY / 16);
+
+							if (yy == y + 1 || yy == y) {
+								found = true;
+							}
+
+							break;
+						}
+					}
 				}
 
 				if (!found) {
@@ -510,7 +528,6 @@ namespace BurningKnight.level {
 			
 			CreateBody();
 			CreateDestroyableBody();
-			TileUp();
 			
 			Dark = stream.ReadBoolean();
 			Snows = stream.ReadBoolean();
@@ -1700,8 +1717,6 @@ namespace BurningKnight.level {
 			
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
 			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
-
-			TileUp();
 		}
 
 		public virtual string GetMusic() {

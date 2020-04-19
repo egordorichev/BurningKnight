@@ -117,7 +117,7 @@ namespace BurningKnight.ui.dialog {
 				return;
 			}
 
-			Engine.Instance.State.Ui.Add(Dialog);
+			((InGameState) Engine.Instance.State).TopUi.Add(Dialog);
 
 			Dialog.Str.FinishedTyping += s => {
 				Entity.HandleEvent(new Dialog.EndedEvent {

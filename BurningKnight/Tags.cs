@@ -36,7 +36,8 @@ namespace BurningKnight {
 		public static int Projectile = new BitTag("projectile");
 		public static int FireParticle = new BitTag("fire_particle");
 		public static int TextParticle = new BitTag("text_particle");
-		
+		public static int Door = new BitTag("door");
+
 		public static string[] AllTags;
 		
 		static Tags() {

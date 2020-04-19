@@ -16,7 +16,7 @@ namespace BurningKnight.ui.dialog {
 		
 		public ChoiceDialog(string id, string[] options, List<string[]> branches, Action<string, int> callback = null) : base(id) {
 			Options = options;
-			Branches = branches;
+			Branches  = branches;
 			Callback = callback;
 		}
 

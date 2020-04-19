@@ -7,6 +7,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util.geometry;
+using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 
@@ -33,7 +34,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 		
 		private static string[] townNpcs = {
-			ShopNpc.HatTrader, ShopNpc.WeaponTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader, ShopNpc.Mike
+			ShopNpc.HatTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader, ShopNpc.WeaponTrader, ShopNpc.Mike
 		};
 
 		public override void Paint(Level level) {
@@ -122,19 +123,59 @@ namespace BurningKnight.level.rooms.special {
 			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared")) {
 				return false;
 			}
-			
-			if ((Run.Depth == 1 && GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) || 
-			    (Run.Depth == 2 && GlobalSave.IsFalse(ShopNpc.ActiveTrader)) || 
-			    (Run.Depth == 3 && GlobalSave.IsFalse(ShopNpc.WeaponTrader)) || 
-			    (Run.Depth == 4 && GlobalSave.IsFalse(ShopNpc.HatTrader)) ||
-			    (Run.Depth == 5 && GlobalSave.IsFalse(ShopNpc.Mike))) {
-			
+
+			string npc = null;
+
+			switch (Run.Depth) {
+				case 1: {
+					if (GlobalSave.IsFalse(ShopNpc.HatTrader)) {
+						npc = ShopNpc.HatTrader;
+					}
+					
+					break;
+				}
+				
+				case 2: {
+					if (GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) {
+						npc = ShopNpc.AccessoryTrader;
+					}
+					
+					break;
+				}
+
+				case 3: {
+					if (GlobalSave.IsFalse(ShopNpc.ActiveTrader)) {
+						npc = ShopNpc.ActiveTrader;
+					}
+					
+					break;
+				}
+				
+				case 4: {
+					if (GlobalSave.IsFalse(ShopNpc.WeaponTrader)) {
+						npc = ShopNpc.WeaponTrader;
+					}
+					
+					break;
+				}
+				
+				case 5: {
+					if (GlobalSave.IsFalse(ShopNpc.Mike)) {
+						npc = ShopNpc.Mike;
+					}
+					
+					break;
+				}
+			}
+
+			if (npc != null) {
+				Log.Error($"Npc to save: {npc}");
 				return true;
 			}
 
 			var i = 0;
 			foreach (var s in shopNpcs) {
-				if (Run.Depth == i / 2 + 1 && GlobalSave.IsFalse(s)) {
+				if (Run.Depth == i / 2 + 2 && GlobalSave.IsFalse(s)) {
 					return true;
 				}
 

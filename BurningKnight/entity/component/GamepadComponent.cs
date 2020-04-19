@@ -29,7 +29,12 @@ namespace BurningKnight.entity.component {
 		public GamepadComponent() {
 			UpdateState();
 		}
-		
+
+		public override void Destroy() {
+			base.Destroy();
+			Controller?.StopRumble();
+		}
+
 		private void UpdateState() {
 			if (Settings.Gamepad != GamepadId && Settings.Gamepad != null) {
 				for (int i = 0; i < 4; i++) {

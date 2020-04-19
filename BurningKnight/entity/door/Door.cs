@@ -61,6 +61,8 @@ namespace BurningKnight.entity.door {
 			} else {
 				GetComponent<StateComponent>().Become<ClosedState>();
 			}
+
+			AddTag(Tags.Door);
 		}
 
 		protected virtual float GetShadowOffset() {
@@ -193,15 +195,11 @@ namespace BurningKnight.entity.door {
 
 			if (Rooms != null && !lit) {
 				var found = false;
-
-				foreach (var p in Area.Tagged[Tags.Player]) {
-					var r = p.GetComponent<RoomComponent>().Room;
-
-					foreach (var rm in Rooms) {
-						if (rm == r) {
-							found = true;
-							break;
-						}
+			
+				foreach (var rm in Rooms) {
+					if (rm != null && rm.Tagged[Tags.LocalPlayer].Count > 0) {
+						found = true;
+						break;
 					}
 				}
 

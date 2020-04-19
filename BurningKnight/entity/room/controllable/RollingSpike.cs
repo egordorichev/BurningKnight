@@ -60,15 +60,19 @@ namespace BurningKnight.entity.room.controllable {
 			base.Update(dt);
 
 			foreach (var p in colliding) {
-				if (p.InAir()) {
-					continue;
-				}
-				
 				p.GetComponent<HealthComponent>().ModifyHealth(-1, this);
 				p.GetAnyComponent<BodyComponent>()?.KnockbackFrom(this, 4);
 			}
 
 			var velocity = GetComponent<CircleBodyComponent>().Velocity;
+			var a = velocity.ToAngle();
+			var l = velocity.Length();
+
+			if (Math.Abs(a % (Math.PI * 0.5f)) >= 0.1f || l < 20) {
+				a = (float) (Math.Floor(a / (Math.PI * 0.5f)) * (Math.PI * 0.5f));
+				GetComponent<CircleBodyComponent>().Velocity = MathUtils.CreateVector(a, Math.Max(l, 32));
+			}
+			
 			GetComponent<AnimationComponent>().Angle += Math.Sign(Math.Abs(velocity.X) > 0.1f ? velocity.X : velocity.Y) * dt * 10;
 		}
 
@@ -89,7 +93,8 @@ namespace BurningKnight.entity.room.controllable {
 		}
 
 		public bool ShouldCollide(Entity entity) {
-			return !(entity is Projectile || entity is RollingSpike || (entity is Creature && !(entity is Player)));
+			// fixme: do not hurt
+			return !(entity is Projectile || entity is RollingSpike || (entity is Creature));
 		}
 	}
 }

@@ -94,7 +94,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 				Self.GetComponent<RectBodyComponent>().Velocity +=
 					new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 
-				Self.PushFromOtherEnemies(dt);
+				Self.PushFromOtherEnemies(dt * 0.2f);
 			}
 		}
 		#endregion

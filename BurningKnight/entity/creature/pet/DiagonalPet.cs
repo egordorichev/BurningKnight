@@ -29,5 +29,18 @@ namespace BurningKnight.entity.creature.pet {
 		public override bool ShouldCollide(Entity entity) {
 			return entity is ProjectileLevelBody || entity is Door;
 		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			
+			var velocity = GetComponent<RectBodyComponent>().Velocity;
+			var a = velocity.ToAngle() - Math.PI * 0.25f;
+			var l = velocity.Length();
+
+			if (Math.Abs(a % (Math.PI * 0.5f)) >= 0.1f || l < 40) {
+				a = (float) (Math.Floor(a / (Math.PI * 0.5f)) * (Math.PI * 0.5f) + Math.PI * 0.25f);
+				GetComponent<RectBodyComponent>().Velocity = MathUtils.CreateVector(a, Math.Max(l, 40));
+			}
+		}
 	}
 }

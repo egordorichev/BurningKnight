@@ -199,13 +199,6 @@ namespace BurningKnight.level.rooms.regular {
 				fill(d.X, d.Y);
 			}
 
-			// if (m < w * h / 4) {
-				// Log.Error($"Too lil floor space, regenerating the jungle room ({m}) ({m / (float) (w * h)}%)");
-				// Paint(level);
-				// return;
-			// }
-			
-			PathFinder.SetMapSize(GetWidth() - 2, GetHeight() - 2);
 			var start = 0;
 
 			var ww = GetWidth();

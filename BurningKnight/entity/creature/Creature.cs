@@ -154,8 +154,11 @@ namespace BurningKnight.entity.creature {
 
 		public virtual void AnimateDeath(DiedEvent d) {
 			AudioEmitterComponent.Dummy(Area, Center).EmitRandomized(GetDeadSfx(), sz: 0.2f);
-			
-			GetComponent<DropsComponent>().SpawnDrops();
+
+			if (!GetComponent<TileInteractionComponent>().HasNoSupport) {
+				GetComponent<DropsComponent>().SpawnDrops();
+			}
+
 			Done = true;
 			
 			for (var i = 0; i < 5; i++) {

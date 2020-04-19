@@ -16,7 +16,7 @@ namespace BurningKnight.ui {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			Width = 128;
+			Width = 128 + 16;
 		}
 
 		public void Clear() {
