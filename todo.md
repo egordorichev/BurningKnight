@@ -2,6 +2,11 @@
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
 * seed doesnt display sometimes with russian locale
+* put some system in place to prevent door lock (and check for it)
+* some times levels use so much cpu (threads in bg???)
+
+* change old man robe to blue
+* fix brain affecting timer
 
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit
