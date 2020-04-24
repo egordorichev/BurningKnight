@@ -1,4 +1,4 @@
-* C2FZY319 jungle I outside of map
+* C2FZY319 jungle I outside of map??
 
 * player can still generate outside of the map
 * patch wall can generate unpassable chasm
