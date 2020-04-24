@@ -25,4 +25,3 @@
 * add soundtrack package to steam
 * localisation
 * cutscenes
-* disks

@@ -63,7 +63,7 @@ namespace BurningKnight.level.entities {
 			AddComponent(new ShadowComponent(RenderWithShadow));
 			AddComponent(new RectBodyComponent(0, 17, 16, 6, BodyType.Static, false));
 			AddComponent(new SensorBodyComponent(-2, -2, Width + 4, Height + 4, BodyType.Static));
-			AddComponent(new InteractableComponent(Interact));
+			//AddComponent(new InteractableComponent(Interact));
 			
 			AddComponent(new HealthComponent {
 				InitMaxHealth = 5
@@ -153,7 +153,7 @@ namespace BurningKnight.level.entities {
 				return;
 			}
 
-			var c = GetComponent<InteractableComponent>();
+			/*var c = GetComponent<InteractableComponent>();
 			
 			if (c.OutlineAlpha > 0.05f) {
 				var shader = Shaders.Entity;
@@ -173,7 +173,7 @@ namespace BurningKnight.level.entities {
 				}
 
 				Shaders.End();
-			}
+			}*/
 
 			var stopShader = false;
 			var h = GetComponent<HealthComponent>();
