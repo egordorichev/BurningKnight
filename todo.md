@@ -3,11 +3,7 @@
 * jungle room generated unpassable
 * seed doesnt display sometimes with russian locale
 * put some system in place to prevent door lock (and check for it)
-* some times levels use so much cpu (threads in bg???)
-
-* change old man robe to blue
-* fix brain affecting timer
-
+* remove boom achievement
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
@@ -23,7 +19,6 @@
 * remove challenges
 * bk fight
 * dm fight
-* frozen enemies/troll bomb
 * shooting tiles in ice biome should update transition
 * add soundtrack package to steam
 * localisation

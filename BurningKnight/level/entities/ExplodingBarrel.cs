@@ -22,11 +22,11 @@ namespace BurningKnight.level.entities {
 
 		protected override BodyComponent CreateBody() {
 			var collider = GetCollider();
-			var body = new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Dynamic);
+			var body = new RectBodyComponent(collider.X, collider.Y, collider.Width, collider.Height, BodyType.Static);
 
-			body.Body.LinearDamping = 6f;
-			body.KnockbackModifier = 0.1f;
-			body.Body.Mass = 0.1f;
+			//body.Body.LinearDamping = 6f;
+			//body.KnockbackModifier = 0.1f;
+			//body.Body.Mass = 0.1f;
 			
 			return body;
 		}
