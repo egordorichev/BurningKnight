@@ -19,7 +19,6 @@
 * remove challenges
 * bk fight
 * dm fight
-* frozen enemies/troll bomb
 * shooting tiles in ice biome should update transition
 * add soundtrack package to steam
 * localisation
