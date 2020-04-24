@@ -1727,8 +1727,14 @@ namespace BurningKnight.level {
 			if (Run.Depth < 1) {
 				return Locale.Get(Run.Level.Biome.Id);
 			}
+
+			var s = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+
+			if (Run.Loop > 0) {
+				s = $"L{Run.Loop} {s}";
+			}
 			
-			return $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+			return s;
 		}
 		
 		/*

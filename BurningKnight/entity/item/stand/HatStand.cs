@@ -40,6 +40,10 @@ namespace BurningKnight.entity.item.stand {
 				}
 			}
 
+			if (progress > 0) {
+				Achievements.Unlock("bk:fancy_hat");
+			}
+
 			Log.Info($"Fashion matters progress: {progress}/{total}");
 			Achievements.SetProgress("bk:fashion_matters", progress, total);
 		}

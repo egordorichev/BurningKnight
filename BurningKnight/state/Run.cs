@@ -21,6 +21,12 @@ namespace BurningKnight.state {
 		private static int depth = BK.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
+		public static int Loop;
+
+		public static int ActualDepth {
+			set => depth = value;
+		}
+		
 		public static int SavingDepth;
 		public static bool StartingNew;
 		public static int KillCount;
@@ -86,7 +92,8 @@ namespace BurningKnight.state {
 			HasRun = false;
 			NextDepth = depth;
 			Type = type;
-
+			Loop = 0;
+			
 			if (NextSeed != null) {
 				Seed = NextSeed;
 				NextSeed = null;

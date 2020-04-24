@@ -37,7 +37,17 @@ namespace BurningKnight.level.entities {
 			entity.GetComponent<HealthComponent>().Unhittable = true;
 			
 			if (Run.Depth == Run.ContentEndDepth - 1 || (Run.Type == RunType.BossRush && Run.Depth == 5)) {
-				Run.Win();
+				if (true) {
+					SaveManager.Delete(SaveType.Level);
+
+					Run.ActualDepth = -1;
+					Run.Depth = 1;
+					Run.Loop++;
+					
+					Achievements.Unlock("bk:loop");
+				} else {
+					Run.Win();
+				}
 			} else {
 				((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
 			}

@@ -58,6 +58,7 @@ namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
 		public static bool SkipPause;
 		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
+		public static bool IgnoreSave;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -97,7 +98,7 @@ namespace BurningKnight.state {
 
 		public bool Menu;
 		public Area TopUi;
-
+		
 		private float offset;
 		private bool menuExited;
 		private float blackBarsSize;
@@ -318,7 +319,14 @@ namespace BurningKnight.state {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
-					SaveManager.Save(Area, SaveType.Level, old);
+					if (Run.Loop > 0 && IgnoreSave) {
+						
+					} else {
+						SaveManager.Save(Area, SaveType.Level, old);
+					}
+
+					IgnoreSave = false;
+
 					SaveManager.Save(Area, SaveType.Player, old);
 					SaveManager.Save(Area, SaveType.Game, old);
 				}
