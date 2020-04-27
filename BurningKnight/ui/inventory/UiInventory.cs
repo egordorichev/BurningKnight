@@ -405,12 +405,14 @@ namespace BurningKnight.ui.inventory {
 			Entity target = null;
 			var r = Player.GetComponent<RoomComponent>().Room;
 			
-			if (r != null && r.Type != RoomType.Connection && r.Tagged[Tags.MustBeKilled].Count == 1 && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
-				target = r.Tagged[Tags.MustBeKilled][0];
-				
-				if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
-					RenderArrow(target.Center);
-				} else if (Exit.Instance != null) { // fixme: only when all regular rooms are clear
+			if (r != null) {
+				if (r.Tagged[Tags.MustBeKilled].Count == 1 && r.Type != RoomType.Connection && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
+					target = r.Tagged[Tags.MustBeKilled][0];
+
+					if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
+						RenderArrow(target.Center);
+					}
+				} else if (Run.Depth > 0 && r.Tagged[Tags.MustBeKilled].Count == 0 && Exit.Instance != null) {
 					RenderArrow(Exit.Instance.Center, true);
 				}
 			}
