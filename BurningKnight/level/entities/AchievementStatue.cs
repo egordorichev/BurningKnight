@@ -74,7 +74,7 @@ namespace BurningKnight.level.entities {
 
 			string state;
 
-			if (achievement.Unlocked) {
+			if (achievement != null && achievement.Unlocked) {
 				var d = achievement.CompletionDate;
 
 				if (d == "???") {
@@ -142,7 +142,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		public void RenderTop() {
-			if (!hidden && achievement.Unlocked) {
+			if (!hidden && achievement != null && achievement.Unlocked) {
 				Graphics.Render(achievementTexture, Position + new Vector2(2, (float) Math.Cos(Engine.Time * 1.5f + offset) * 2.5f - 2.5f));
 			}
 		}

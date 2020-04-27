@@ -292,6 +292,14 @@ namespace BurningKnight.ui.inventory {
 
 				old.Right = x;
 				old.Bottom = Display.UiHeight - 8f;
+
+				if (items.Count > 6) {
+					var w = items[0].Width + 8;
+					
+					foreach (var i in items) {
+						i.X += w;
+					}
+				}
 			} else {
 				old.Count++;
 			}

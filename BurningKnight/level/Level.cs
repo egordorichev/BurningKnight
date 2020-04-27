@@ -399,8 +399,8 @@ namespace BurningKnight.level {
 			Variants[i] = 0;
 			LevelTiler.TileUp(this, i);
 
-			for (var xx = -2; xx <= 2; xx++) {
-				for (var yy = -2; yy <= 2; yy++) {
+			for (var xx = -3; xx <= 2; xx++) {
+				for (var yy = -3; yy <= 2; yy++) {
 					var index = ToIndex(xx + x, yy + y);
 					
 					if (IsInside(index)) {

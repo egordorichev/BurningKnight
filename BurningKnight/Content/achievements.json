@@ -91,18 +91,6 @@
 	"bk:fashion_matters": {
 		"max": 27
 	},
-	"bk:10_challenges": {
-		"max": 10,
-		"group": "d"
-	},
-	"bk:20_challenges": {
-		"max": 20,
-		"group": "d"
-	},
-	"bk:30_challenges": {
-		"max": 30,
-		"group": "d"
-	},
 	"bk:ice_boss": {
 		"group": "d"
 	},
@@ -122,7 +110,6 @@
 	"bk:family": {},
 	"bk:return_to_sender": {},
 	"bk:van_no_gogh": {},
-	"bk:boom": {},
 	"bk:dark_market": {},
 	"bk:spikes": {
 		"unlock": "bk:iron_boots"
