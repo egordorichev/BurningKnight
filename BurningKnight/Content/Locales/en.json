@@ -845,7 +845,7 @@
 	"bk:megaphone": "Megaphone",
 	"bk:megaphone_desc": "Expanding Projectiles",
 	"scourge": "Scourge",
-	"scourge_stats": "Scourges",
+	"scourge_stats": "Scourge",
 	"run_daily": "Daily",
 	"completed_on": "Completed on",
 	"complete": "complete",
@@ -1003,5 +1003,6 @@
 	"language": "Language",
 	"bk:pouch": "Pouch",
 	"bk:alien_glasses": "Alien Glasses",
-	"bk:alien_glasses_desc": "I see more"
+	"bk:alien_glasses_desc": "I see more",
+	"inventory" : "Inventory"
 }

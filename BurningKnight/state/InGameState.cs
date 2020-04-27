@@ -84,6 +84,7 @@ namespace BurningKnight.state {
 		private UiPane gamepadSettings;
 		private UiPane keyboardSettings;
 		private UiPane languageSettings;
+		private UiPane inventory;
 		private UiLabel killedLabel;
 		private UiLabel placeLabel;
 
@@ -374,6 +375,8 @@ namespace BurningKnight.state {
 
 					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, 0.5f, Ease.BackOut).OnEnd = () => {
 						SelectFirst();
+						OnPauseCallback?.Invoke();
+						OnPauseCallback = null;
 					};
 				}
 			} else {
@@ -1183,6 +1186,20 @@ namespace BurningKnight.state {
 		private UiTable leaderStats;
 		private UiTable statsStats;
 		private Action<string> d;
+		private List<UiItem> inventoryItems = new List<UiItem>();
+
+		public void GoToInventory() {
+			currentBack = inventoryBack;
+			inventory.Enabled = true;
+			SetupInventory();
+
+			Tween.To(-Display.UiHeight, pauseMenu.Y, x => pauseMenu.Y = x, PaneTransitionTime).OnEnd = () => {
+				pauseMenu.Enabled = false;
+				SelectFirst();
+			};
+		}
+
+		public Action OnPauseCallback;
 
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
@@ -1229,7 +1246,7 @@ namespace BurningKnight.state {
 			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
-			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? 0 : space);
+			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? 0 : space) - space * 0.5f;
 
 			pauseMenu.Add(new UiLabel {
 				Label = Level.GetDepthString(),
@@ -1287,13 +1304,58 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
+			
+			pauseMenu.Add(new UiButton {
+				LocaleLabel = "inventory",
+				RelativeCenterX = Display.UiWidth / 2f,
+				RelativeCenterY = start + space,
+				Click = b => {
+					GoToInventory();
+				}
+			});
+			
+			pauseMenu.Add(inventory = new UiPane {
+				RelativeY = Display.UiHeight
+			});
 
+			var sx = Display.UiWidth * 0.5f;
+
+			inventory.Add(new UiLabel {
+				LocaleLabel = "inventory",
+				RelativeCenterX = sx,
+				RelativeCenterY = TitleY
+			});
+			
+			inventoryBack = (UiButton) inventory.Add(new UiButton {
+				LocaleLabel = "back",
+				Type = ButtonType.Exit,
+				RelativeCenterX = sx,
+				RelativeCenterY = BackY,
+				Click = b => {
+					currentBack = pauseBack;
+					pauseMenu.Enabled = true;
+					
+					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, PaneTransitionTime).OnEnd = () => {
+						SelectFirst();
+						inventory.Enabled = false;
+
+						foreach (var i in inventoryItems) {
+							i.Done = true;
+						}
+
+						inventoryItems.Clear();
+					};
+				}
+			});
+			
+			inventory.Enabled = false;
+			
 			if (Run.Depth > 0) {
 				if (Run.Type != RunType.Daily) {
 					pauseMenu.Add(new UiButton {
 						LocaleLabel = "new_run",
 						RelativeCenterX = Display.UiWidth / 2f,
-						RelativeCenterY = start + space,
+						RelativeCenterY = start + space * 2,
 						Type = ButtonType.Exit,
 						Click = b => GoConfirm("start_new_run", () => { Run.StartNew(); }, () => {
 							currentBack = pauseBack;
@@ -1323,7 +1385,7 @@ namespace BurningKnight.state {
 				pauseMenu.Add(new UiButton {
 					LocaleLabel = "back_to_town",
 					RelativeCenterX = Display.UiWidth / 2f,
-					RelativeCenterY = start + space * 2,
+					RelativeCenterY = start + space * 3,
 					Type = ButtonType.Exit,
 					Click = b => Run.Depth = 0
 				});
@@ -1528,6 +1590,31 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private void SetupInventory() {
+			var player = LocalPlayer.Locate(Area);
+
+			if (player == null) {
+				return;
+			}
+
+			var iv = player.GetComponent<InventoryComponent>();
+			var offset = Math.Min(iv.Items.Count, 10) * 24 * 0.5f; 
+
+			for (var i = 0; i < iv.Items.Count; i++) {
+				var item = new UiItem();
+				var it = iv.Items[i];
+				
+				item.Id = it.Id;
+				item.Scourged = it.Scourged;
+
+				item.RelativeCenterX = Display.UiWidth * 0.5f - offset + i % 10 * 24;
+				item.RelativeY = 72 + (float) Math.Floor(i / 10f) * 24;
+
+				inventory.Add(item);
+				inventoryItems.Add(item);
+			}
+		}
+
 		private void AddSettings() {
 			var sx = Display.UiWidth * 1.5f;
 			var space = 24f;
@@ -1593,7 +1680,7 @@ namespace BurningKnight.state {
 					Tween.To(-Display.UiWidth * 2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = SelectFirst;
 				}
 			});
-			
+
 			settingsBack = (UiButton) pauseMenu.Add(new UiButton {
 				LocaleLabel = "back",
 				Type = ButtonType.Exit,
@@ -1636,6 +1723,7 @@ namespace BurningKnight.state {
 		private UiButton overBack;
 		private UiButton overQuickBack;
 		private UiButton leaderBack;
+		private UiButton inventoryBack;
 		private UiButton statsBack;
 
 		private void AddGameSettings() {

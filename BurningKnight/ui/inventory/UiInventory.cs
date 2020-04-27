@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
@@ -63,6 +64,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion changedShieldBackground;
 		private static TextureRegion halfShieldBackground;
 		private TextureRegion changedHalfShieldBackground;
+		private UiButton more;
 		
 		public Player Player;
 
@@ -96,7 +98,8 @@ namespace BurningKnight.ui.inventory {
 			base.Init();
 
 			description = new UiString(Font.Small);
-			Area.Add(description);
+			((InGameState) Engine.Instance.State).TopUi.Add(description);
+			((InGameState) Engine.Instance.State).TopUi.Add(new RenderTrigger(RenderTop, 10));
 			description.DisableRender = true;
 			
 			Area.Add(activeSlot);
@@ -165,6 +168,18 @@ namespace BurningKnight.ui.inventory {
 				Subscribe<ItemRemovedEvent>(area);
 				Subscribe<RerollItemsOnPlayerUse.RerolledEvent>(area);
 
+				more = new UiButton();
+				more.Font = Font.Small;
+
+				more.Click = (b) => {
+					var state = (InGameState) Engine.Instance.State;
+					state.OnPauseCallback = state.GoToInventory;
+					state.Paused = true;
+				};
+
+				more.Enabled = false;
+				Area.Add(more);
+				
 				var inventory = Player.GetComponent<InventoryComponent>();
 
 				foreach (var item in inventory.Items) {
@@ -299,6 +314,11 @@ namespace BurningKnight.ui.inventory {
 					foreach (var i in items) {
 						i.X += w;
 					}
+
+					more.Label = $"+{items.Count - 6}";
+					more.Enabled = true;
+					more.Right = old.X - 8;
+					more.Bottom = Display.UiHeight - 5f;
 				}
 			} else {
 				old.Count++;
@@ -387,6 +407,10 @@ namespace BurningKnight.ui.inventory {
 			if ((show || Run.Depth == -2) && Player != null) {
 				RenderConsumables(hasMana);
 			}
+		}
+
+		private void RenderTop() {
+			var show = Run.Depth > 0;
 
 			if (show && Player != null) {
 				if (UiItem.Hovered != null) {
@@ -398,12 +422,16 @@ namespace BurningKnight.ui.inventory {
 						description.FinishTyping();
 					}
 
-					var x = MathUtils.Clamp(item.OnTop ? 40 : 4, Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
-					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
-						MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
+					var x = MathUtils.Clamp(item.OnTop ? 40 : 4,
+						Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
+
+					var y = item.OnTop
+						? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y)
+						: MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y - 7);
 
 					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
-					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
+					Graphics.Print(item.Name, Font.Small, new Vector2(x, y - item.DescriptionSize.Y + 2));
+
 					// Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
 
 					description.X = x;
