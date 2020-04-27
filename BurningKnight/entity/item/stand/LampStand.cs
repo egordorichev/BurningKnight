@@ -21,24 +21,35 @@ namespace BurningKnight.entity.item.stand {
 		public static List<string> AlreadyOnStand = new List<string>();
 		
 		public LampStand() {
+			ShowUnlocked = true;
 			dontSaveItem = true;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
-			
+
 			t = Rnd.Float(6);
 			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 		}
 
-		public override void Init() {
-			base.Init();
+		public override void PostInit() {
+			base.PostInit();
+			Check();
+			Subscribe<Item.UnlockedEvent>();
+		}
+
+		private void Check() {
+			if (Item != null) {
+				return;
+			}
+			
 			var item = PickItem();
 
 			if (item != null) {
 				SetItem(item, null);
+				Hidden = false;
 			} else if (!Engine.EditingLevel) {
-				Done = true;
+				Hidden = true;
 			}
 		}
 
@@ -69,17 +80,16 @@ namespace BurningKnight.entity.item.stand {
 			var items = new List<ItemData>();
 
 			foreach (var i in Items.Datas.Values) {
-				if (ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) && (ShowUnlocked || GlobalSave.IsFalse(i.Id))) {
+				if (ApproveItem(i) && !AlreadyOnStand.Contains(i.Id) && GlobalSave.IsTrue(i.Id)) {
 					items.Add(i);
 				}
 			}
 
 			if (items.Count == 0) {
+				var a = AlreadyOnStand;
 				return null;
 			}
 			
-			items.Sort((a, b) => a.UnlockPrice.CompareTo(b.UnlockPrice));
-
 			var id = items[0].Id;
 			AlreadyOnStand.Add(id);
 
@@ -96,6 +106,14 @@ namespace BurningKnight.entity.item.stand {
 			base.Update(dt);
 			t += dt;
 			GetComponent<LightComponent>().Light.Radius = 32f + (float) Math.Cos(t) * 6;
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is Item.UnlockedEvent) {
+				Check();
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

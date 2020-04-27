@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.physics;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
@@ -18,7 +19,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item.stand {
-	public class ItemStand : Prop {
+	public class ItemStand : Prop, CollisionFilterEntity {
 		private static TextureRegion itemShadow;
 		private static TextureRegion standShadow;
 		private static Vector2 shadowOffset = new Vector2(3, 3);
@@ -26,6 +27,11 @@ namespace BurningKnight.entity.item.stand {
 		protected Item item;
 		
 		public Item Item => item;
+		public bool Hidden;
+
+		public bool ShouldCollide(Entity entity) {
+			return !Hidden;
+		}
 
 		public override void Init() {
 			base.Init();
@@ -122,13 +128,15 @@ namespace BurningKnight.entity.item.stand {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new RoomComponent());
 		}
-
+		
 		protected virtual string GetSprite() {
 			return "slab_a";
 		}
 
 		private void RenderShadow() {
-			Graphics.Render(standShadow, Position + new Vector2(0, Height));
+			if (!Hidden) {
+				Graphics.Render(standShadow, Position + new Vector2(0, Height));
+			}
 		}
 
 		protected virtual bool CanTake(Entity entity) {
@@ -198,11 +206,11 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected virtual bool CanInteract(Entity e) {
-			return Item != null || (Run.Depth != -2 && e.TryGetComponent<ActiveWeaponComponent>(out var w) && w.Item != null);
+			return !Hidden && (Item != null || (Run.Depth != -2 && e.TryGetComponent<ActiveWeaponComponent>(out var w) && w.Item != null));
 		}
 
 		public override void Render() {
-			if (!TryGetComponent<InteractableComponent>(out var component)) {
+			if (Hidden || !TryGetComponent<InteractableComponent>(out var component)) {
 				return;
 			}
 

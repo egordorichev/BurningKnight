@@ -705,6 +705,7 @@
     <Compile Include="entity\item\stand\HealthStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\LampStand.cs" />
+    <Compile Include="entity\item\stand\LampUnlockStand.cs" />
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ScourgedStand.cs" />
