@@ -399,9 +399,9 @@ namespace BurningKnight.level {
 			Variants[i] = 0;
 			LevelTiler.TileUp(this, i);
 
-			for (var xx = -2; xx < 2; xx++) {
-				for (var yy = -2; yy < 2; yy++) {
-					var index = ToIndex(xx, yy);
+			for (var xx = -2; xx <= 2; xx++) {
+				for (var yy = -2; yy <= 2; yy++) {
+					var index = ToIndex(xx + x, yy + y);
 					
 					if (IsInside(index)) {
 						LevelTiler.TileUp(this, index);	
@@ -1758,9 +1758,9 @@ namespace BurningKnight.level {
 			}
 
 			var index = ToIndex(tx, ty);
-			var tile = Tiles[index];
+			var tile = (Tile) Tiles[index];
 
-			if ((Tile) tile != Tile.Planks) {
+			if (tile != Tile.Planks && (!(Biome is IceBiome) || tile != Tile.WallA)) {
 				return;
 			}
 

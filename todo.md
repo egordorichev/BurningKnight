@@ -1,6 +1,4 @@
-* bomb snow
 * shooting tiles in ice biome should update transition
-* exploding planks can leave weird unupdated variants
 
 * C2FZY319 jungle I outside of map??
 * patch wall can generate unpassable chasm
