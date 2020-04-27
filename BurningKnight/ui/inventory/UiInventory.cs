@@ -179,6 +179,8 @@ namespace BurningKnight.ui.inventory {
 
 				more.Enabled = false;
 				Area.Add(more);
+				more.Right = Display.UiWidth - 8;
+				more.Bottom = Display.UiHeight - 5;
 				
 				var inventory = Player.GetComponent<InventoryComponent>();
 
@@ -309,16 +311,26 @@ namespace BurningKnight.ui.inventory {
 				old.Bottom = Display.UiHeight - 8f;
 
 				if (items.Count > 6) {
-					var w = items[0].Width + 8;
-					
-					foreach (var i in items) {
-						i.X += w;
-					}
-
 					more.Label = $"+{items.Count - 6}";
 					more.Enabled = true;
-					more.Right = old.X - 8;
+					more.Right = Display.UiWidth - 8;
 					more.Bottom = Display.UiHeight - 5f;
+
+					for (var i = 0; i < 6; i++) {
+						var it = items[i];
+						it.X = Display.UiWidth + 8;
+					}
+
+					var ps = Display.UiWidth - 8f;
+
+					ps -= more.Width + 8;
+					
+					for (var i = items.Count - 6; i < items.Count; i++) {
+						var it = items[i];
+						it.Right = ps;
+
+						ps -= 8 + it.Width;
+					}
 				}
 			} else {
 				old.Count++;
