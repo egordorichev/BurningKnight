@@ -17,6 +17,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item.util {
 	public delegate void ArcHurtCallback(MeleeArc p, Entity e);
+	public delegate void ArcDeathCallback(MeleeArc p);
 
 	public class MeleeArc : Entity {
 		public static Color ReflectedColor = new Color(0.5f, 1f, 0.5f, 1f);
@@ -31,6 +32,7 @@ namespace BurningKnight.entity.item.util {
 		public float Knockback;
 
 		public ArcHurtCallback OnHurt;
+		public ArcDeathCallback OnDeath;
 
 		private float t;
 		private Vector2 velocity;
@@ -147,6 +149,7 @@ namespace BurningKnight.entity.item.util {
 			Position = Owner.Center + velocity * t;
 
 			if (t >= LifeTime) {
+				OnDeath?.Invoke(this);
 				Done = true;
 			}
 		}

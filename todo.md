@@ -4,11 +4,7 @@
 * players might think they are stuck when they dont know that you can break snow
 * when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
-* achievement branches rewards {
- a: shield lamp
- b: 1 hit rip
- c: explosive lamp
- d: sniper
+* place achievement branches rewards (lamp unlocking)
 * bk fight
 * dm fight
 * add soundtrack package to steam 

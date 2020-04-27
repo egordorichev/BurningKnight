@@ -9,6 +9,7 @@ using BurningKnight.entity.events;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
+using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
@@ -36,6 +37,8 @@ namespace BurningKnight.entity.item.stand {
 
 			if (item != null) {
 				SetItem(item, null);
+			} else if (!Engine.EditingLevel) {
+				Done = true;
 			}
 		}
 

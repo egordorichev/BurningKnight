@@ -38,7 +38,7 @@ namespace BurningKnight.level.walls {
 			Add(new TurretWall(), 0.2f);
 			Add(new CorneredTurretWall(), 0.1f);
 
-			Add(new PatchWall(), 0.1f + 100000f);
+			Add(new PatchWall(), 0.1f/* + 100000f*/);
 		}
 
 		public static void Paint(Level level, RoomDef room, WallRegistry registry = null, int i = -1) {

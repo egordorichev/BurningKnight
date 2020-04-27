@@ -120,7 +120,7 @@ namespace BurningKnight.level.rooms.special {
 		};
 
 		public static bool ShouldBeAdded() {
-			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared")) {
+			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared") || Run.CustomSeed) {
 				return false;
 			}
 

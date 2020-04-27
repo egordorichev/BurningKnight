@@ -1246,7 +1246,7 @@ namespace BurningKnight.state {
 			TopUi.Add(leaderMenu = new UiPane());
 
 			var space = 24f;
-			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? 0 : space) - space * 0.5f;
+			var start = Display.UiHeight * 0.5f + (Run.Depth > 0 ? -space * 0.5f : space);
 
 			pauseMenu.Add(new UiLabel {
 				Label = Level.GetDepthString(),
@@ -1305,52 +1305,54 @@ namespace BurningKnight.state {
 				}
 			});
 			
-			pauseMenu.Add(new UiButton {
-				LocaleLabel = "inventory",
-				RelativeCenterX = Display.UiWidth / 2f,
-				RelativeCenterY = start + space,
-				Click = b => {
-					GoToInventory();
-				}
-			});
-			
-			pauseMenu.Add(inventory = new UiPane {
-				RelativeY = Display.UiHeight
-			});
-
-			var sx = Display.UiWidth * 0.5f;
-
-			inventory.Add(new UiLabel {
-				LocaleLabel = "inventory",
-				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
-			});
-			
-			inventoryBack = (UiButton) inventory.Add(new UiButton {
-				LocaleLabel = "back",
-				Type = ButtonType.Exit,
-				RelativeCenterX = sx,
-				RelativeCenterY = BackY,
-				Click = b => {
-					currentBack = pauseBack;
-					pauseMenu.Enabled = true;
-					
-					Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, PaneTransitionTime).OnEnd = () => {
-						SelectFirst();
-						inventory.Enabled = false;
-
-						foreach (var i in inventoryItems) {
-							i.Done = true;
-						}
-
-						inventoryItems.Clear();
-					};
-				}
-			});
-			
-			inventory.Enabled = false;
-			
 			if (Run.Depth > 0) {
+			
+			
+				pauseMenu.Add(new UiButton {
+					LocaleLabel = "inventory",
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = start + space,
+					Click = b => {
+						GoToInventory();
+					}
+				});
+			
+				pauseMenu.Add(inventory = new UiPane {
+					RelativeY = Display.UiHeight
+				});
+
+				var sx = Display.UiWidth * 0.5f;
+
+				inventory.Add(new UiLabel {
+					LocaleLabel = "inventory",
+					RelativeCenterX = sx,
+					RelativeCenterY = TitleY
+				});
+			
+				inventoryBack = (UiButton) inventory.Add(new UiButton {
+					LocaleLabel = "back",
+					Type = ButtonType.Exit,
+					RelativeCenterX = sx,
+					RelativeCenterY = BackY,
+					Click = b => {
+						currentBack = pauseBack;
+						pauseMenu.Enabled = true;
+					
+						Tween.To(0, pauseMenu.Y, x => pauseMenu.Y = x, PaneTransitionTime).OnEnd = () => {
+							SelectFirst();
+							inventory.Enabled = false;
+
+							foreach (var i in inventoryItems) {
+								i.Done = true;
+							}
+
+							inventoryItems.Clear();
+						};
+					}
+				});
+			
+				inventory.Enabled = false;
+			
 				if (Run.Type != RunType.Daily) {
 					pauseMenu.Add(new UiButton {
 						LocaleLabel = "new_run",
