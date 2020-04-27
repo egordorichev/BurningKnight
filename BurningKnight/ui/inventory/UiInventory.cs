@@ -33,6 +33,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion key;
 		private TextureRegion coin;
 		private TextureRegion pointer;
+		private TextureRegion exitPointer;
 		
 		private UiString description;
 		private UiItem lastItem;
@@ -122,8 +123,7 @@ namespace BurningKnight.ui.inventory {
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
 			pointer = anim.GetSlice("pointer");
-
-			var vegan = Settings.Vegan;
+			exitPointer = anim.GetSlice("exit_pointer");
 
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
@@ -368,8 +368,9 @@ namespace BurningKnight.ui.inventory {
 			}
 		}
 
-		public void RenderArrow(Vector2 target) {
+		public void RenderArrow(Vector2 target, bool arg = false) {
 			var d = Player.DistanceTo(target);
+			var spr = arg ? exitPointer : pointer;
 
 			if (d > 64) {
 				var dd = d * 0.7f;
@@ -386,7 +387,7 @@ namespace BurningKnight.ui.inventory {
 				point -= MathUtils.CreateVector(a, m);
 					
 				Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
-				Graphics.Render(pointer, point, a, pointer.Center);
+				Graphics.Render(spr, point, a, spr.Center);
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 		}
@@ -409,8 +410,8 @@ namespace BurningKnight.ui.inventory {
 				
 				if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
 					RenderArrow(target.Center);
-				} else if (Exit.Instance != null) {
-					RenderArrow(Exit.Instance.Center);
+				} else if (Exit.Instance != null) { // fixme: only when all regular rooms are clear
+					RenderArrow(Exit.Instance.Center, true);
 				}
 			}
 
