@@ -397,13 +397,15 @@ namespace BurningKnight.level {
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
 			Variants[i] = 0;
-			LevelTiler.TileUp(this, i);	
-			
-			foreach (var d in PathFinder.Neighbours8) {
-				var index = i + d;
-				
-				if (IsInside(index)) {
-					LevelTiler.TileUp(this, index);	
+			LevelTiler.TileUp(this, i);
+
+			for (var xx = -2; xx < 2; xx++) {
+				for (var yy = -2; yy < 2; yy++) {
+					var index = ToIndex(xx, yy);
+					
+					if (IsInside(index)) {
+						LevelTiler.TileUp(this, index);	
+					}
 				}
 			}
 		}

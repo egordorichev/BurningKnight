@@ -8,6 +8,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -133,7 +134,7 @@ namespace BurningKnight.entity {
 
 						if (tile == Tile.Crack) {
 							DiscoverCrack(whoHurts, level, x + xx, y + yy);
-						} else if (tile == Tile.Planks) {
+						} else if (tile == Tile.Planks || (level.Biome is IceBiome && tile == Tile.WallA)) {
 							level.Break((x + xx) * 16, (y + yy) * 16);
 						}
 					}

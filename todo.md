@@ -1,6 +1,8 @@
-* C2FZY319 jungle I outside of map??
+* bomb snow
+* shooting tiles in ice biome should update transition
+* exploding planks can leave weird unupdated variants
 
-* player can still generate outside of the map
+* C2FZY319 jungle I outside of map??
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
 * seed doesnt display sometimes with russian locale
@@ -10,18 +12,15 @@
 * when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * better item display (only last 6, ui for all display)
-
 * achievement branches rewards {
  a: shield lamp
  b: 1 hit rip
  c: explosive lamp
  d: sniper
-}
-
 * remove challenges
 * bk fight
 * dm fight
-* shooting tiles in ice biome should update transition
-* add soundtrack package to steam
+* add soundtrack package to steam 
 * localisation
 * cutscenes
+* change how boss rush item reward works, boss shouldn't drop anything but you get access to treasure room

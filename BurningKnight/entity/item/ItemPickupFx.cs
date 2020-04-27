@@ -25,7 +25,14 @@ namespace BurningKnight.entity.item {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			var text = item.Hidden ? "???" : (item.Scourged ? $"{Locale.Get("scourged")} {item.Name}" : item.Name);
+			string text;
+
+			if (Locale.Current == "de") {
+				text = item.Hidden ? "???" : (item.Scourged ? $"{item.Name} ({Locale.Get("scourged")})" : item.Name);
+			} else {
+				text = item.Hidden ? "???" : (item.Scourged ? $"{Locale.Get("scourged")} {item.Name}" : item.Name);
+			}
+
 			var size = Font.Medium.MeasureString(text);
 
 			Width = size.Width;

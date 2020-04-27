@@ -1390,7 +1390,7 @@ namespace BurningKnight.state {
 			}
 			
 			leaderMenu.Add(new UiLabel {
-				Label = $"{Locale.Get(Run.Type.ToString())} {Locale.Get("leaderboard")}",
+				Label = $"{Locale.Get($"run_{Run.Type.ToString().ToLower()}")} {Locale.Get("leaderboard")}",
 				RelativeCenterX = Display.UiWidth * 0.5f,
 				RelativeCenterY = TitleY
 			});
@@ -2552,7 +2552,7 @@ namespace BurningKnight.state {
 				statsStats.Add(Locale.Get("items_collected"), data["items"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("damage_taken"), data["damage"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("kills"), data["kills"].AsNumber.ToString());
-				statsStats.Add(Locale.Get("scourge"), data["scourge"].AsNumber.ToString());
+				statsStats.Add(Locale.Get("scourge_stats"), data["scourge"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
 				statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
 
@@ -2698,7 +2698,7 @@ namespace BurningKnight.state {
 			stats.Add(Locale.Get("items_collected"), Run.Statistics.Items.Count.ToString());
 			stats.Add(Locale.Get("damage_taken"), Run.Statistics.DamageTaken.ToString());
 			stats.Add(Locale.Get("kills"), Run.Statistics.MobsKilled.ToString());
-			stats.Add(Locale.Get("scourge"), Run.Scourge.ToString());
+			stats.Add(Locale.Get("scourge_stats"), Run.Scourge.ToString());
 			stats.Add(Locale.Get("rooms_explored"), $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}");
 			stats.Add(Locale.Get("distance_traveled"), $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}");
 
