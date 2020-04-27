@@ -17,10 +17,20 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class Exit : SaveableEntity, PlaceableEntity {
 		public int To;
+		public static Exit Instance;
 		
 		public override void Init() {
 			base.Init();
 			Depth = Layers.Entrance;
+			Instance = this;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Instance == this) {
+				Instance = null;
+			}
 		}
 
 		protected virtual bool CanUse() {

@@ -10,6 +10,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.use;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.str;
@@ -366,6 +367,29 @@ namespace BurningKnight.ui.inventory {
 				items[i].Right = items[i - 1].X - 8;
 			}
 		}
+
+		public void RenderArrow(Vector2 target) {
+			var d = Player.DistanceTo(target);
+
+			if (d > 64) {
+				var dd = d * 0.7f;
+				var a = Player.AngleTo(target);
+				var m = (float) Math.Cos(Engine.Time * 4f) * 6f + 6f;
+				var v = (float) Math.Cos(Engine.Time * 5f) * 0.3f + 0.7f;
+
+				var point = Player.Center + new Vector2((float) Math.Cos(a) * dd, (float) Math.Sin(a) * dd);
+				var center = new Vector2(Display.UiWidth, Display.UiHeight) * 0.5f;
+					
+				point = Camera.Instance.CameraToUi(point);
+				point.X = MathUtils.Clamp((float) -Math.Cos(a) * (center.X - 16) + center.X, (float) Math.Cos(a) * (center.X - 16) + center.X, point.X);
+				point.Y = MathUtils.Clamp((float) -Math.Sin(a) * (center.Y - 16) + center.Y,  (float) Math.Sin(a) * (center.Y - 16) + center.Y, point.Y);
+				point -= MathUtils.CreateVector(a, m);
+					
+				Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
+				Graphics.Render(pointer, point, a, pointer.Center);
+				Graphics.Color = ColorUtils.WhiteColor;
+			}
+		}
 		
 		public override void Render() {
 			if (Player == null || Player.Done/* || (Run.Depth < 1 && Run.Depth != -2)*/) {
@@ -382,28 +406,11 @@ namespace BurningKnight.ui.inventory {
 			
 			if (r != null && r.Type != RoomType.Connection && r.Tagged[Tags.MustBeKilled].Count == 1 && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
 				target = r.Tagged[Tags.MustBeKilled][0];
-			}
-
-			if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
-				var d = Player.DistanceTo(target);
-
-				if (d > 64) {
-					var dd = d * 0.7f;
-					var a = Player.AngleTo(target);
-					var m = (float) Math.Cos(Engine.Time * 4f) * 6f + 6f;
-					var v = (float) Math.Cos(Engine.Time * 5f) * 0.3f + 0.7f;
-
-					var point = Player.Center + new Vector2((float) Math.Cos(a) * dd, (float) Math.Sin(a) * dd);
-					var center = new Vector2(Display.UiWidth, Display.UiHeight) * 0.5f;
-					
-					point = Camera.Instance.CameraToUi(point);
-					point.X = MathUtils.Clamp((float) -Math.Cos(a) * (center.X - 16) + center.X, (float) Math.Cos(a) * (center.X - 16) + center.X, point.X);
-					point.Y = MathUtils.Clamp((float) -Math.Sin(a) * (center.Y - 16) + center.Y,  (float) Math.Sin(a) * (center.Y - 16) + center.Y, point.Y);
-					point -= MathUtils.CreateVector(a, m);
-					
-					Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
-					Graphics.Render(pointer, point, a, pointer.Center);
-					Graphics.Color = ColorUtils.WhiteColor;
+				
+				if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
+					RenderArrow(target.Center);
+				} else if (Exit.Instance != null) {
+					RenderArrow(Exit.Instance.Center);
 				}
 			}
 

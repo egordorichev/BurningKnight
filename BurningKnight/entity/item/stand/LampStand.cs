@@ -86,7 +86,6 @@ namespace BurningKnight.entity.item.stand {
 			}
 
 			if (items.Count == 0) {
-				var a = AlreadyOnStand;
 				return null;
 			}
 			
