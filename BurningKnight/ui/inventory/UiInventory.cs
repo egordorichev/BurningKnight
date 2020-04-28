@@ -44,8 +44,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion changedHeartBackground;
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
-		
-		
+
 		public static TextureRegion veganHeart;
 		public static TextureRegion veganHalfHeart;
 		public static TextureRegion veganHeartBackground;
@@ -405,7 +404,7 @@ namespace BurningKnight.ui.inventory {
 			Entity target = null;
 			var r = Player.GetComponent<RoomComponent>().Room;
 			
-			if (r != null) {
+			if (!Engine.Instance.State.Paused && r != null) {
 				if (r.Tagged[Tags.MustBeKilled].Count == 1 && r.Type != RoomType.Connection && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
 					target = r.Tagged[Tags.MustBeKilled][0];
 

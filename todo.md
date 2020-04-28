@@ -11,3 +11,4 @@
 * cutscenes
 * change how boss rush item reward works, boss shouldn't drop anything but you get access to treasure room
 * add polish chars to the fonts ą ć ę ł ń ó ś z ź ż
+* remove flash/frzee frames settings

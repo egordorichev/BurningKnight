@@ -1976,8 +1976,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 18f;
-			var sy = Display.UiHeight * 0.5f - space * 2.5f;
+			var space = 20f;
+			var sy = Display.UiHeight * 0.5f - space * 1.5f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -2056,21 +2056,11 @@ namespace BurningKnight.state {
 				}
 			};
 				
-			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "flash_frames", (int) (Settings.FlashFrames * 100)).OnValueChange = s => {
-				Settings.FlashFrames = s.Value / 100f;
-				Engine.FlashModifier = Settings.FlashFrames;
-			};
-			
-			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "freeze_frames", (int) (Settings.FreezeFrames * 100)).OnValueChange = s => {
-				Settings.FreezeFrames = s.Value / 100f;
-				Engine.FreezeModifier = Settings.FreezeFrames;
-			};
-			
-			UiSlider.Make(graphicsSettings, sx, sy + space * 5, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
+			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.GameScale, x => Settings.GameScale = x, 0.3f);
 			};
 			
-			UiSlider.Make(graphicsSettings, sx, sy + space * 6, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
+			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.FloorDarkness, x => Settings.FloorDarkness = x, 0.3f);
 			};
 
@@ -2078,7 +2068,7 @@ namespace BurningKnight.state {
 				Name = "pixel_perfect",
 				On = Settings.PixelPerfect,
 				RelativeX = sx,
-				RelativeCenterY = sy + space * 7,
+				RelativeCenterY = sy + space * 5,
 				Click = b => {
 					Settings.PixelPerfect = ((UiCheckbox) b).On;
 					Engine.Instance.UpdateView();
