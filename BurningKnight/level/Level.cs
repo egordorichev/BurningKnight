@@ -381,7 +381,13 @@ namespace BurningKnight.level {
 		}
 
 		public bool IsPassable(int i) {
-			return Get(i).Matches(TileFlags.Passable) && (Liquid[i] == 0 || Get(i, true).Matches(TileFlags.Passable));
+			var t = Get(i);
+
+			if (Biome is IceBiome && (t == Tile.WallA || t == Tile.Transition)) {
+				return true;
+			}
+			
+			return t.Matches(TileFlags.Passable) && (Liquid[i] == 0 || Get(i, true).Matches(TileFlags.Passable));
 		}
 
 		public void CreatePassable() {
