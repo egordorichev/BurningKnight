@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.entity;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
@@ -9,6 +10,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.use;
+using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.str;
@@ -31,6 +33,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion key;
 		private TextureRegion coin;
 		private TextureRegion pointer;
+		private TextureRegion exitPointer;
 		
 		private UiString description;
 		private UiItem lastItem;
@@ -41,8 +44,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion changedHeartBackground;
 		private static TextureRegion halfHeartBackground;
 		private TextureRegion changedHalfHeartBackground;
-		
-		
+
 		public static TextureRegion veganHeart;
 		public static TextureRegion veganHalfHeart;
 		public static TextureRegion veganHeartBackground;
@@ -63,6 +65,7 @@ namespace BurningKnight.ui.inventory {
 		private TextureRegion changedShieldBackground;
 		private static TextureRegion halfShieldBackground;
 		private TextureRegion changedHalfShieldBackground;
+		private UiButton more;
 		
 		public Player Player;
 
@@ -96,7 +99,8 @@ namespace BurningKnight.ui.inventory {
 			base.Init();
 
 			description = new UiString(Font.Small);
-			Area.Add(description);
+			((InGameState) Engine.Instance.State).TopUi.Add(description);
+			((InGameState) Engine.Instance.State).TopUi.Add(new RenderTrigger(RenderTop, 10));
 			description.DisableRender = true;
 			
 			Area.Add(activeSlot);
@@ -118,8 +122,7 @@ namespace BurningKnight.ui.inventory {
 			key = anim.GetSlice("key");
 			coin = anim.GetSlice("coin");
 			pointer = anim.GetSlice("pointer");
-
-			var vegan = Settings.Vegan;
+			exitPointer = anim.GetSlice("exit_pointer");
 
 			Heart = anim.GetSlice("heart");
 			HalfHeart = anim.GetSlice("half_heart");
@@ -165,6 +168,20 @@ namespace BurningKnight.ui.inventory {
 				Subscribe<ItemRemovedEvent>(area);
 				Subscribe<RerollItemsOnPlayerUse.RerolledEvent>(area);
 
+				more = new UiButton();
+				more.Font = Font.Small;
+
+				more.Click = (b) => {
+					var state = (InGameState) Engine.Instance.State;
+					state.OnPauseCallback = state.GoToInventory;
+					state.Paused = true;
+				};
+
+				more.Enabled = false;
+				Area.Add(more);
+				more.Right = Display.UiWidth - 8;
+				more.Bottom = Display.UiHeight - 5;
+				
 				var inventory = Player.GetComponent<InventoryComponent>();
 
 				foreach (var item in inventory.Items) {
@@ -292,6 +309,29 @@ namespace BurningKnight.ui.inventory {
 
 				old.Right = x;
 				old.Bottom = Display.UiHeight - 8f;
+
+				if (items.Count > 6) {
+					more.Label = $"+{items.Count - 6}";
+					more.Enabled = true;
+					more.Right = Display.UiWidth - 8;
+					more.Bottom = Display.UiHeight - 5f;
+
+					for (var i = 0; i < 6; i++) {
+						var it = items[i];
+						it.X = Display.UiWidth + 8;
+					}
+
+					var ps = Display.UiWidth - 8f;
+
+					ps -= more.Width + 8;
+					
+					for (var i = items.Count - 6; i < items.Count; i++) {
+						var it = items[i];
+						it.Right = ps;
+
+						ps -= 8 + it.Width;
+					}
+				}
 			} else {
 				old.Count++;
 			}
@@ -326,6 +366,30 @@ namespace BurningKnight.ui.inventory {
 				items[i].Right = items[i - 1].X - 8;
 			}
 		}
+
+		public void RenderArrow(Vector2 target, bool arg = false) {
+			var d = Player.DistanceTo(target);
+			var spr = arg ? exitPointer : pointer;
+
+			if (d > 64) {
+				var dd = d * 0.7f;
+				var a = Player.AngleTo(target);
+				var m = (float) Math.Cos(Engine.Time * 4f) * 6f + 6f;
+				var v = (float) Math.Cos(Engine.Time * 5f) * 0.3f + 0.7f;
+
+				var point = Player.Center + new Vector2((float) Math.Cos(a) * dd, (float) Math.Sin(a) * dd);
+				var center = new Vector2(Display.UiWidth, Display.UiHeight) * 0.5f;
+					
+				point = Camera.Instance.CameraToUi(point);
+				point.X = MathUtils.Clamp((float) -Math.Cos(a) * (center.X - 16) + center.X, (float) Math.Cos(a) * (center.X - 16) + center.X, point.X);
+				point.Y = MathUtils.Clamp((float) -Math.Sin(a) * (center.Y - 16) + center.Y,  (float) Math.Sin(a) * (center.Y - 16) + center.Y, point.Y);
+				point -= MathUtils.CreateVector(a, m);
+					
+				Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
+				Graphics.Render(spr, point, a, spr.Center);
+				Graphics.Color = ColorUtils.WhiteColor;
+			}
+		}
 		
 		public override void Render() {
 			if (Player == null || Player.Done/* || (Run.Depth < 1 && Run.Depth != -2)*/) {
@@ -340,30 +404,15 @@ namespace BurningKnight.ui.inventory {
 			Entity target = null;
 			var r = Player.GetComponent<RoomComponent>().Room;
 			
-			if (r != null && r.Type != RoomType.Connection && r.Tagged[Tags.MustBeKilled].Count == 1 && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
-				target = r.Tagged[Tags.MustBeKilled][0];
-			}
+			if (!Engine.Instance.State.Paused && r != null) {
+				if (r.Tagged[Tags.MustBeKilled].Count == 1 && r.Type != RoomType.Connection && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
+					target = r.Tagged[Tags.MustBeKilled][0];
 
-			if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
-				var d = Player.DistanceTo(target);
-
-				if (d > 64) {
-					var dd = d * 0.7f;
-					var a = Player.AngleTo(target);
-					var m = (float) Math.Cos(Engine.Time * 4f) * 6f + 6f;
-					var v = (float) Math.Cos(Engine.Time * 5f) * 0.3f + 0.7f;
-
-					var point = Player.Center + new Vector2((float) Math.Cos(a) * dd, (float) Math.Sin(a) * dd);
-					var center = new Vector2(Display.UiWidth, Display.UiHeight) * 0.5f;
-					
-					point = Camera.Instance.CameraToUi(point);
-					point.X = MathUtils.Clamp((float) -Math.Cos(a) * (center.X - 16) + center.X, (float) Math.Cos(a) * (center.X - 16) + center.X, point.X);
-					point.Y = MathUtils.Clamp((float) -Math.Sin(a) * (center.Y - 16) + center.Y,  (float) Math.Sin(a) * (center.Y - 16) + center.Y, point.Y);
-					point -= MathUtils.CreateVector(a, m);
-					
-					Graphics.Color = new Color(v, v, v, 1f - MathUtils.Clamp(0, 1, (80 - d) / 16f));
-					Graphics.Render(pointer, point, a, pointer.Center);
-					Graphics.Color = ColorUtils.WhiteColor;
+					if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
+						RenderArrow(target.Center);
+					}
+				} else if (Run.Depth > 0 && r.Tagged[Tags.MustBeKilled].Count == 0 && Exit.Instance != null && Player.CheckClear(Engine.Instance.State.Area)) {
+					RenderArrow(Exit.Instance.Center, true);
 				}
 			}
 
@@ -379,6 +428,10 @@ namespace BurningKnight.ui.inventory {
 			if ((show || Run.Depth == -2) && Player != null) {
 				RenderConsumables(hasMana);
 			}
+		}
+
+		private void RenderTop() {
+			var show = Run.Depth > 0;
 
 			if (show && Player != null) {
 				if (UiItem.Hovered != null) {
@@ -390,12 +443,16 @@ namespace BurningKnight.ui.inventory {
 						description.FinishTyping();
 					}
 
-					var x = MathUtils.Clamp(item.OnTop ? 40 : 4, Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
-					var y = item.OnTop ? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y) : 
-						MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y);
+					var x = MathUtils.Clamp(item.OnTop ? 40 : 4,
+						Display.UiWidth - 6 - Math.Max(item.DescriptionSize.X, item.NameSize.X), item.Position.X);
+
+					var y = item.OnTop
+						? MathUtils.Clamp(8 + item.NameSize.Y, Display.UiHeight - 6 - item.DescriptionSize.Y, item.Y)
+						: MathUtils.Clamp(4, Display.UiHeight - 6 - item.DescriptionSize.Y - item.NameSize.Y - 4, item.Y - 7);
 
 					Graphics.Color = new Color(1f, 1f, 1f, item.TextA);
-					Graphics.Print(item.Name, Font.Small,  new Vector2(x, y - item.DescriptionSize.Y + 2));
+					Graphics.Print(item.Name, Font.Small, new Vector2(x, y - item.DescriptionSize.Y + 2));
+
 					// Graphics.Print(item.Description, Font.Small, new Vector2(x, y));
 
 					description.X = x;

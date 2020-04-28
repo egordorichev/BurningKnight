@@ -397,13 +397,15 @@ namespace BurningKnight.level {
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
 			Variants[i] = 0;
-			LevelTiler.TileUp(this, i);	
-			
-			foreach (var d in PathFinder.Neighbours8) {
-				var index = i + d;
-				
-				if (IsInside(index)) {
-					LevelTiler.TileUp(this, index);	
+			LevelTiler.TileUp(this, i);
+
+			for (var xx = -3; xx <= 2; xx++) {
+				for (var yy = -3; yy <= 2; yy++) {
+					var index = ToIndex(xx + x, yy + y);
+					
+					if (IsInside(index)) {
+						LevelTiler.TileUp(this, index);	
+					}
 				}
 			}
 		}
@@ -1727,8 +1729,14 @@ namespace BurningKnight.level {
 			if (Run.Depth < 1) {
 				return Locale.Get(Run.Level.Biome.Id);
 			}
+
+			var s = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+
+			if (Run.Loop > 0) {
+				s = $"L{Run.Loop} {s}";
+			}
 			
-			return $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+			return s;
 		}
 		
 		/*
@@ -1750,9 +1758,9 @@ namespace BurningKnight.level {
 			}
 
 			var index = ToIndex(tx, ty);
-			var tile = Tiles[index];
+			var tile = (Tile) Tiles[index];
 
-			if ((Tile) tile != Tile.Planks) {
+			if (tile != Tile.Planks && (!(Biome is IceBiome) || tile != Tile.WallA)) {
 				return;
 			}
 

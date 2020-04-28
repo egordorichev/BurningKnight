@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)).RequiresNearWall(),
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
-				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert), new LoopChance(1f, Biome.Castle)),
 				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
 				
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),

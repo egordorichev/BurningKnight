@@ -17,10 +17,20 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.level.entities {
 	public class Exit : SaveableEntity, PlaceableEntity {
 		public int To;
+		public static Exit Instance;
 		
 		public override void Init() {
 			base.Init();
 			Depth = Layers.Entrance;
+			Instance = this;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+
+			if (Instance == this) {
+				Instance = null;
+			}
 		}
 
 		protected virtual bool CanUse() {
@@ -37,7 +47,17 @@ namespace BurningKnight.level.entities {
 			entity.GetComponent<HealthComponent>().Unhittable = true;
 			
 			if (Run.Depth == Run.ContentEndDepth - 1 || (Run.Type == RunType.BossRush && Run.Depth == 5)) {
-				Run.Win();
+				if (Run.Type == RunType.Regular) {
+					SaveManager.Delete(SaveType.Level);
+
+					Run.ActualDepth = -1;
+					Run.Depth = 1;
+					Run.Loop++;
+					
+					Achievements.Unlock("bk:loop");
+				} else {
+					Run.Win();
+				}
 			} else {
 				((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
 			}

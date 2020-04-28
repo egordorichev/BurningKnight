@@ -1,4 +1,5 @@
 ﻿using System;
+using BurningKnight.state;
 
 namespace BurningKnight.entity.creature.mob {
 	public class MobInfo {
@@ -57,7 +58,7 @@ namespace BurningKnight.entity.creature.mob {
 		public SpawnChance GetChanceFor(string biome) {
 			foreach (var b in Spawns) {
 				foreach (var a in b.Areas) {
-					if (a == biome) {
+					if (a == biome && (!b.LoopOnly || Run.Loop > 0)) {
 						return b;
 					}
 				}

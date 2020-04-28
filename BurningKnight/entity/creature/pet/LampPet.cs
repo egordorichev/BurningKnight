@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity.component;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
@@ -14,7 +15,18 @@ namespace BurningKnight.entity.creature.pet {
 			base.AddComponents();
 			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.2f, 1f)));
 		}
-		
+
+		protected override void Follow() {
+			if (Sprite == "bk:led") {
+				if (!HasComponent<OrbitalComponent>()) {
+					AddComponent(new OrbitalComponent());
+					Owner.GetComponent<OrbitGiverComponent>().AddOrbiter(this);
+				}
+			} else {
+				base.Follow();
+			}
+		}
+
 		private float lastFlame;
 		private float t;
 		

@@ -295,12 +295,17 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
 			Painter.Fill(Run.Level, x - 1, y - 3, 3, 3, Tiles.RandomFloor());
 
+			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
+
+			if (Run.Type == RunType.BossRush) {
+				return;
+			}
+			
 			var stand = new BossStand();
 			Area.Add(stand);
 			stand.Center = p - new Vector2(0, 32f);
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Boss), Area), null);
 			
-			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
 
 			var rewards = new List<string>();
 			var c = Run.Type == RunType.BossRush ? 2 : Rnd.Int(2, 5);

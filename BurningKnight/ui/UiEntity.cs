@@ -12,6 +12,13 @@ namespace BurningKnight.ui {
 		public UiEntity Super;
 		public bool Clickable = true;
 
+		public bool Enabled {
+			set {
+				Visible = value;
+				Active = value;
+			}
+		}
+
 		#region Relative Position
 		public Vector2 RelativePosition;
 

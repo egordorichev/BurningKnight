@@ -97,8 +97,8 @@ namespace BurningKnight.entity.item {
 			if (!ShowUnlocked) {
 				Item.Done = true;
 				
-				var item = PickItem();
-				SetItem(item, entity, false);
+				/*var item = PickItem();
+				SetItem(item, entity, false);*/
 
 				AnimationUtil.Poof(Center, 1);
 			}

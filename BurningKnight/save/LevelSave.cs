@@ -94,7 +94,7 @@ namespace BurningKnight.save {
 		
 		private bool GenerationThread(Area area, int c = 0) {
 			var a = new Area();
-			Rnd.Seed = $"{Run.Seed}{Run.Depth}{c}"; 
+			Rnd.Seed = $"{Run.Seed}{Run.Depth}{c}{Run.Loop}"; 
 		
 			try {
 				Items.GeneratedOnFloor.Clear();

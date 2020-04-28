@@ -521,6 +521,7 @@ namespace BurningKnight.entity.item {
 			Masked = Unknown || 
 			         (Run.Depth == 0 
 			          && Data.Lockable 
+			          && Type != ItemType.Lamp
 			          && (Data.UnlockPrice == 0 || (TryGetComponent<OwnerComponent>(out var o) && o.Owner is PermanentStand)) 
 			          && !Unlocked(Id));
 		}

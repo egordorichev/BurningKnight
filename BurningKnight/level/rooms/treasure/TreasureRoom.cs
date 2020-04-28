@@ -129,7 +129,7 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override bool CanConnect(RoomDef r) {
-			if (LevelSave.BiomeGenerated is JungleBiome && !(r is HiveRoom)) {
+			if (Run.Type != RunType.BossRush && LevelSave.BiomeGenerated is JungleBiome && !(r is HiveRoom)) {
 				return false;
 			}
 			

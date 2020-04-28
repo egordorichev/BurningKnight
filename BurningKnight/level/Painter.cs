@@ -614,6 +614,10 @@ namespace BurningKnight.level {
 			var count = room.Parent.GetPassablePoints(level).Count;
 			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier() * (curseOfBlood ? 2 : 1);
 
+			if (Run.Loop > 0) {
+				weight *= Run.Loop * 0.75f + 1f;
+			}
+			
 			while (weight > 0 && (points.Count > 0 || wallPoints.Count > 0)) {
 				var id = Rnd.Chances(spawnChances);
 

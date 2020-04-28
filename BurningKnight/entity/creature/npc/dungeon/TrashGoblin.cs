@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
@@ -26,6 +27,14 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			
 			AddComponent(new AnimationComponent("trash_goblin"));
 			AddComponent(new RectBodyComponent(0, 16, 14, 10, BodyType.Static));
+			
+			
+			var dl = GetComponent<DialogComponent>();
+
+			dl.InitCallback = () => {
+				dl.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice("note_0"));
+				dl.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice("note_1"));
+			};
 		}
 
 		public override void Save(FileWriter stream) {

@@ -21,6 +21,13 @@ namespace BurningKnight.state {
 		private static int depth = BK.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
+		public static int Loop;
+		public static bool CustomSeed;
+
+		public static int ActualDepth {
+			set => depth = value;
+		}
+		
 		public static int SavingDepth;
 		public static bool StartingNew;
 		public static int KillCount;
@@ -86,11 +93,14 @@ namespace BurningKnight.state {
 			HasRun = false;
 			NextDepth = depth;
 			Type = type;
-
+			Loop = 0;
+			CustomSeed = false;
+			
 			if (NextSeed != null) {
 				Seed = NextSeed;
 				NextSeed = null;
 				IgnoreSeed = false;
+				CustomSeed = true;
 				Log.Debug("Using preset seed");
 			} else if (IgnoreSeed) {
 				IgnoreSeed = false;
@@ -216,6 +226,7 @@ namespace BurningKnight.state {
 			Score += (int) Statistics.MobsKilled * 10;
 			Score += (int) Statistics.RoomsExplored * 2;
 			Score += Statistics.BossesDefeated * 1000;
+			Score += Run.Loop * 20000;
 
 			if (Won) {
 				Score += 5000;

@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.state;
@@ -27,6 +28,13 @@ namespace BurningKnight.util {
 				part.Particle.Scale = Rnd.Float(0.4f, 0.8f);
 				Run.Level.Area.Add(part);
 				part.Depth = depth;
+			}
+		}
+
+		public static void Confetti(Vector2 where) {
+			for (var i = 0; i < 15; i++) {
+				var p = Run.Level.Area.Add(new ConfettiParticle());
+				p.Center = where;
 			}
 		}
 		

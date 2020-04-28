@@ -8,6 +8,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -113,6 +114,7 @@ namespace BurningKnight.entity {
 			var yy = (int) Math.Floor(w.Y / 16f);
 			var r = (int) Math.Floor(hurtRadius / 16f);
 			var level = Run.Level;
+			var ice = level.Biome is IceBiome;
 				
 			for (int x = -r; x <= r; x++) {
 				for (int y = -r; y <= r; y++) {
@@ -133,7 +135,7 @@ namespace BurningKnight.entity {
 
 						if (tile == Tile.Crack) {
 							DiscoverCrack(whoHurts, level, x + xx, y + yy);
-						} else if (tile == Tile.Planks) {
+						} else if (tile == Tile.Planks || (ice && tile == Tile.WallA)) {
 							level.Break((x + xx) * 16, (y + yy) * 16);
 						}
 					}
