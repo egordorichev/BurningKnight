@@ -290,6 +290,7 @@
     <Compile Include="assets\particle\controller\SimpleParticleController.cs" />
     <Compile Include="assets\particle\controller\SparkParticleController.cs" />
     <Compile Include="assets\particle\custom\BuffParticle.cs" />
+    <Compile Include="assets\particle\custom\ConfettiParticle.cs" />
     <Compile Include="assets\particle\custom\ConsumableParticle.cs" />
     <Compile Include="assets\particle\custom\EpicSpawn.cs" />
     <Compile Include="assets\particle\custom\FadingParticle.cs" />

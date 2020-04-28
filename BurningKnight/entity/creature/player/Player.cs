@@ -380,7 +380,12 @@ namespace BurningKnight.entity.creature.player {
 				base.Init();
 				Quacks++;
 
-				if (Quacks >= 100) {
+				for (var i = 0; i < 10; i++) {
+					var p = Self.Area.Add(new ConfettiParticle());
+					p.Center = Self.Center;
+				}
+
+				if (Quacks >= 150) {
 					Achievements.Unlock("bk:quackers");
 				}
 
