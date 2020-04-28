@@ -64,34 +64,6 @@ namespace BurningKnight.save {
 
 		public static Biome BiomeGenerated;
 
-		private void SetupDummy(Area area) {
-			Log.Error("Can't generate a level");
-			var a = new Area();
-
-			var level = CreateLevel();
-			BiomeGenerated = level.Biome;
-			WallRegistry.Instance.ResetForBiome(BiomeGenerated);
-
-			level.Width = 32;
-			level.Height = 32;
-			level.NoLightNoRender = false;
-			level.DrawLight = false;
-					
-			a.Add(level);
-
-			level.Setup();
-			level.Fill(Tile.FloorA);
-			level.TileUp();
-			level.CreateBody();
-
-			foreach (var e in a.Entities.ToAdd) {
-				area.Add(e);
-			}
-
-			area.EventListener.Copy(a.EventListener);
-			area.Entities.AddNew();
-		}
-		
 		private bool GenerationThread(Area area, int c = 0) {
 			var a = new Area();
 			Rnd.Seed = $"{Run.Seed}{Run.Depth}{c}{Run.Loop}"; 
@@ -104,7 +76,10 @@ namespace BurningKnight.save {
 				WallRegistry.Instance.ResetForBiome(BiomeGenerated);
 
 				a.Add(level);
-				level.Generate();
+
+				if (!level.Generate()) {
+					throw new Exception("Failed to paint");
+				}
 
 				foreach (var e in a.Entities.ToAdd) {
 					area.Add(e);
@@ -124,10 +99,6 @@ namespace BurningKnight.save {
 				if (I > 10) {
 					I = 0;
 					return GenerationThread(area, c + 1);
-
-					/*SetupDummy(area);
-					
-					return false;*/
 				}
 				
 				return GenerationThread(area);

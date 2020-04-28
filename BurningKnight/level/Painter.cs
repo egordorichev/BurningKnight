@@ -110,9 +110,9 @@ namespace BurningKnight.level {
 			}
 		}
 
-		public void Paint(Level Level, List<RoomDef> Rooms) {
+		public bool Paint(Level Level, List<RoomDef> Rooms) {
 			if (Rooms == null) {
-				return;
+				return false;
 			}
 
 			Level.Rains = Run.Depth > 0 && Rnd.Chance(15);
@@ -238,10 +238,18 @@ namespace BurningKnight.level {
 			}
 
 			var tr = Level.GetFilling();
+			RoomDef exit = null;
+			RoomDef entrance = null;
 
 			for (var i = Rooms.Count - 1; i >= 0; i--) {
 				var Room = Rooms[i];
 				PlaceDoors(Room);
+
+				if (Room is EntranceRoom) {
+					entrance = Room;
+				} else if (Room is ExitRoom) {
+					exit = Room;
+				}
 
 				foreach (var d in Room.Connected.Values) {
 					if (d.Type != DoorPlaceholder.Variant.Empty && d.Type != DoorPlaceholder.Variant.Secret &&
@@ -256,6 +264,14 @@ namespace BurningKnight.level {
 						}
 					}
 				}
+			}
+
+			// Not checking lib cuz teleporters
+			var check = Run.Depth > 0 && !(LevelSave.BiomeGenerated is LibraryBiome);
+
+			if (check && (exit == null || entrance == null)) {
+				Log.Error("Exit or entrance not found, aborting");
+				return false;
 			}
 
 			var fl = Level.GetFilling() == Tile.WallB ? Tile.WallB : Tile.WallA;
@@ -427,6 +443,21 @@ namespace BurningKnight.level {
 				}		
 			}
 
+			if (check) {
+				var c = exit.GetCenter();
+				Level.CreatePassable();
+				PathFinder.BuildDistanceMap(Level.ToIndex(c.X, c.Y), Level.Passable);
+				c = entrance.GetCenter();
+
+				// fixme: do the check only on depths below 0, also mark snow as passable
+				if (PathFinder.Distance[Level.ToIndex(c.X, c.Y)] == Int32.MaxValue) {
+					var map = PathFinder.Distance;
+					Log.Error("Generated unpassable level, aborting");
+
+					return false;
+				}
+			}
+
 			var rooms = new List<RoomDef>();
 
 			foreach (var rr in Rooms) {
@@ -484,6 +515,7 @@ namespace BurningKnight.level {
 			}
 			
 			PlaceMobs(Level, rms);
+			return true;
 		}
 
 		public static void PlaceMobs(Level level, Room room) {

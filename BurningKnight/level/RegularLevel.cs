@@ -38,7 +38,7 @@ namespace BurningKnight.level {
 			return 10;
 		}
 
-		public void Generate() {
+		public bool Generate() {
 			Run.Level = this;
 			rooms = null;
 			ItemsToSpawn = new List<string>();
@@ -57,10 +57,13 @@ namespace BurningKnight.level {
 			}
 			
 			Build();
-			Paint();
+
+			if (!Paint()) {
+				return false;
+			}
 
 			if (rooms == null) {
-				return;
+				return false;
 			}
 
 			TileUp();
@@ -70,13 +73,15 @@ namespace BurningKnight.level {
 
 			LevelSave.ResetGen();
 			Log.Info("Done!");
+
+			return true;
 		}
 
-		protected void Paint() {
+		protected bool Paint() {
 			Log.Info("Painting...");
 			var p = GetPainter();
 			LevelSave.BiomeGenerated.ModifyPainter(this, p);
-			p.Paint(this, rooms);
+			return p.Paint(this, rooms);
 		}
 
 		protected void Build() {
