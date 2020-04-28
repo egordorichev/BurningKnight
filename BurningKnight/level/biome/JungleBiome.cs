@@ -24,6 +24,11 @@ namespace BurningKnight.level.biome {
 
 		public override void ModifyRooms(List<RoomDef> rooms) {
 			base.ModifyRooms(rooms);
+
+			if (Run.Type == RunType.BossRush) {
+				return;
+			}
+			
 			rooms.Add(new HiveRoom());
 
 			for (var i = 0; i < (Run.Depth % 2 == 0 ? 2 : 1); i++) {
@@ -55,10 +60,6 @@ namespace BurningKnight.level.biome {
 					l.Tiles[i] = (byte) f;
 				}
 			});
-		}
-
-		public override Builder GetBuilder() {
-			return new LineBuilder();
 		}
 
 		public override int GetNumRegularRooms() {

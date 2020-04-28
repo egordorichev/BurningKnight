@@ -23,7 +23,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		protected override Lock CreateLock() {
-			return Run.Depth == 1 ? (Lock) new IronLock() : (Lock) new GoldLock();
+			return Run.Depth == 1 || Run.Type == RunType.BossRush ? (Lock) new IronLock() : (Lock) new GoldLock();
 		}
 
 		protected override string GetBar() {

@@ -47,7 +47,7 @@ namespace BurningKnight.level.entities {
 			entity.GetComponent<HealthComponent>().Unhittable = true;
 			
 			if (Run.Depth == Run.ContentEndDepth - 1 || (Run.Type == RunType.BossRush && Run.Depth == 5)) {
-				if (true) {
+				if (Run.Type == RunType.Regular) {
 					SaveManager.Delete(SaveType.Level);
 
 					Run.ActualDepth = -1;

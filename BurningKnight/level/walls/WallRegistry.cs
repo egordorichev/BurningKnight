@@ -2,6 +2,7 @@ using BurningKnight.entity.pool;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.level.walls.library;
+using BurningKnight.state;
 using BurningKnight.util.geometry;
 
 namespace BurningKnight.level.walls {
@@ -15,7 +16,11 @@ namespace BurningKnight.level.walls {
 		public void ResetForBiome(Biome biome) {
 			Clear();
 			SetupRooms();
-	
+
+			if (Run.Type == RunType.BossRush) {
+				return;
+			}
+			
 			if (biome is JungleBiome) {
 				Add(new PatchWall(), 3f);
 			} else if (biome is LibraryBiome) {
