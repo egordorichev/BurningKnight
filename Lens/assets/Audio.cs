@@ -130,46 +130,52 @@ namespace Lens.assets {
 			}
 		}
 
-		public static void ThreadLoad(string music, bool play = true, bool fromStart = false) {		
-			loading = true;
+		public static void ThreadLoad(string music, bool play = true, bool fromStart = false) {
+			try {
+				loading = true;
 
-			if (!play) {
-				musicInstances[music] = new Music($"Content/Music/{music}.ogg");
-				loading = false;
-				return;
-			}
-			
-			Log.Info($"Playing music {music} repeat = {Repeat}");
-			currentPlayingMusic = music;
+				if (!play) {
+					musicInstances[music] = new Music($"Content/Music/{music}.ogg");
+					loading = false;
 
-			if (!musicInstances.TryGetValue(music, out currentPlaying)) {
-				currentPlaying = new Music($"Content/Music/{music}.ogg");
-				musicInstances[music] = currentPlaying;
-			}
+					return;
+				}
 
-			var mo = currentPlaying;
+				Log.Info($"Playing music {music} repeat = {Repeat}");
+				currentPlayingMusic = music;
 
-			currentPlaying.Volume = 0;
-			currentPlaying.Repeat = Repeat;
-			Repeat = true;			
-			currentPlaying.Paused = false;
+				if (!musicInstances.TryGetValue(music, out currentPlaying)) {
+					currentPlaying = new Music($"Content/Music/{music}.ogg");
+					musicInstances[music] = currentPlaying;
+				}
 
-			if (fromStart) {
-				position = 0;
-			}
+				var mo = currentPlaying;
 
-			Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, fromStart ? 0.05f : CrossFadeTime).OnEnd = () => {
-				if (currentPlaying == mo) {
-					Playing.Clear();
+				currentPlaying.Volume = 0;
+				currentPlaying.Repeat = Repeat;
+				Repeat = true;
+				currentPlaying.Paused = false;
+
+				if (fromStart) {
+					position = 0;
+				}
+
+				Tween.To(musicVolume, mo.Volume, x => mo.Volume = x, fromStart ? 0.05f : CrossFadeTime).OnEnd = () => {
+					if (currentPlaying == mo) {
+						Playing.Clear();
+						Playing.Add(currentPlaying);
+					}
+				};
+
+				if (!Playing.Contains(currentPlaying)) {
 					Playing.Add(currentPlaying);
 				}
-			};
 
-			if (!Playing.Contains(currentPlaying)) {
-				Playing.Add(currentPlaying);
+				loading = false;
+			} catch (Exception e) {
+				Log.Error(e);
+				loading = false;
 			}
-			
-			loading = false;
 		}
 
 		public static void FadeOut() {
@@ -206,7 +212,7 @@ namespace Lens.assets {
 
 		private static bool loadedAll;
 		private static List<string> toLoad = new List<string> {
-			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Gobbeon", "Fatiga", "Reckless", "Disk 1", "piano"
+			"Hub", "Shopkeeper", "Ma Precious", "Serendipity", "Nostalgia", "Gobbeon", "Fatiga", "Reckless", "piano"
 		};
 
 		public static void Preload(string music) {
@@ -232,10 +238,20 @@ namespace Lens.assets {
 				loadedAll = true;
 			}
 
-			var t = new Thread(() => { ThreadLoad(name, false); });
+			try {
+				var t = new Thread(() => {
+					try {
+						ThreadLoad(name, false);
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+				});
 
-			t.Priority = ThreadPriority.BelowNormal;
-			t.Start();
+				t.Priority = ThreadPriority.BelowNormal;
+				t.Start();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 		
 		private const int BufferSize = 3000;
