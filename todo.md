@@ -2,7 +2,6 @@
 * patch wall can generate unpassable chasm
 * jungle room generated unpassable
 * players might think they are stuck when they dont know that you can break snow
-* when level is full clear point to exit
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * bk fight
 * dm fight

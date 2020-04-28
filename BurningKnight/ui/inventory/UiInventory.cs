@@ -411,7 +411,7 @@ namespace BurningKnight.ui.inventory {
 					if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
 						RenderArrow(target.Center);
 					}
-				} else if (Run.Depth > 0 && r.Tagged[Tags.MustBeKilled].Count == 0 && Exit.Instance != null) {
+				} else if (Run.Depth > 0 && r.Tagged[Tags.MustBeKilled].Count == 0 && Exit.Instance != null && Player.CheckClear(Engine.Instance.State.Area)) {
 					RenderArrow(Exit.Instance.Center, true);
 				}
 			}

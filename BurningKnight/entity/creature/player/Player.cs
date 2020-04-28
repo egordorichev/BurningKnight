@@ -379,12 +379,6 @@ namespace BurningKnight.entity.creature.player {
 			public override void Init() {
 				base.Init();
 				Quacks++;
-
-				for (var i = 0; i < 10; i++) {
-					var p = Self.Area.Add(new ConfettiParticle());
-					p.Center = Self.Center;
-				}
-
 				if (Quacks >= 150) {
 					Achievements.Unlock("bk:quackers");
 				}
@@ -737,6 +731,11 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is RoomClearedEvent rce) {
 				Camera.Instance.Unfollow(rce.Room);
 				Audio.PlaySfx("level_room_cleared", 0.25f + Audio.Db3);
+
+				if (!alerted && CheckClear(Area)) {
+					alerted = true;
+					AnimationUtil.Confetti(Center);
+				}
 			} else if (e is NewLevelStartedEvent) {
 				findASpawn = true;
 				GetComponent<HealthComponent>().Unhittable = true;
@@ -747,6 +746,20 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			return base.HandleEvent(e);
+		}
+
+		private bool alerted;
+		
+		public static bool CheckClear(Area area) {
+			foreach (var r in area.Tagged[Tags.Room]) {
+				var room = (Room) r;
+
+				if ((room.Type == RoomType.Regular || room.Type == RoomType.Boss) && !room.Cleared) {
+					return false;
+				}
+			}
+			
+			return true;
 		}
 
 		public void RenderOutline() {

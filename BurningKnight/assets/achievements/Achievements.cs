@@ -6,6 +6,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.save;
 using BurningKnight.ui.imgui;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -173,6 +174,16 @@ namespace BurningKnight.assets.achievements {
 			}
 
 			AchievementBuffer.Add(id);
+
+			var area = Engine.Instance?.State?.Area;
+			
+			if (area != null) {
+				var player = LocalPlayer.Locate(area);
+
+				if (player != null) {
+					AnimationUtil.Confetti(player.Center);
+				}
+			}
 		}
 
 		public static void Lock(string id) {
