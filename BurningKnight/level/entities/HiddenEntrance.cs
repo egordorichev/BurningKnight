@@ -22,6 +22,7 @@ namespace BurningKnight.level.entities {
 			foreach (var e in Area.Tagged[Tags.HiddenEntrance]) {
 				if (e is HiddenExit h && h.id == id) {
 					var state = (InGameState) Engine.Instance.State;
+					Audio.PlaySfx("player_descending");			
 
 					state.TransitionToBlack(Center, () => {
 						entity.BottomCenter = e.BottomCenter + new Vector2(0, 2);

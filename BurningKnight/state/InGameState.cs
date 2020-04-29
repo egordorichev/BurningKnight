@@ -2379,7 +2379,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru", "de", "pl"
+			"en", "ru", "de", "fr", "pl"
 		};
 		
 		private void AddLanguageSettings() {
@@ -2398,8 +2398,8 @@ namespace BurningKnight.state {
 				
 				languageSettings.Add(new UiImageButton {
 					Id = lng,
-					RelativeCenterX = Display.UiWidth * 0.5f,
-					RelativeCenterY = (Display.UiHeight - languages.Length * 40) * 0.5f + i * 40,
+					RelativeCenterX = Display.UiWidth * 0.5f + 30 * (i % 2 == 0 ? -1 : 1),
+					RelativeCenterY = (Display.UiHeight - languages.Length * 40) * 0.5f + (int) Math.Floor(i / 2f) * 40,
 					Click = (b) => {
 						Settings.Language = lng;
 						Locale.Load(lng);
@@ -2872,7 +2872,7 @@ namespace BurningKnight.state {
 				Killer.Done = true;
 
 				new Thread(() => {
-					SaveManager.Save(Area, SaveType.Statistics);
+					// SaveManager.Save(Area, SaveType.Statistics);
 					SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
 					SaveManager.Backup();
 				}).Start();
@@ -2894,7 +2894,7 @@ namespace BurningKnight.state {
 			died = true;
 				
 			new Thread(() => {
-				SaveManager.Save(Area, SaveType.Statistics);
+				// SaveManager.Save(Area, SaveType.Statistics);
 				SaveManager.Delete(SaveType.Player, SaveType.Level, SaveType.Game);
 				SaveManager.Backup();
 			}).Start();
