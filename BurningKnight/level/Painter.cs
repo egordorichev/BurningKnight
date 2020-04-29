@@ -455,7 +455,7 @@ namespace BurningKnight.level {
 				var i2 = Level.ToIndex(c.X, c.Y);
 				if (PathFinder.Distance[i2] == Int32.MaxValue) {
 					Log.Error("Generated unpassable level, aborting");
-					return false;
+				//	return false;
 				}
 			}
 

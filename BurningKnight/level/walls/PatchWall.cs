@@ -63,10 +63,18 @@ namespace BurningKnight.level.walls {
 							break;
 						}
 					}
-				} while (attempt++ < 100 && !valid);
+					
+					if (!valid && fill > 0.1f) {
+						fill -= 0.01f;
+					}
+				} while (attempt++ < 1000 && !valid);
 
 				if (!valid) {
 					Log.Error("Failed to generate patch");
+
+					for (var i = 0; i < Patch.Length; i++) {
+						Patch[i] = false;
+					}
 				}
 				
 				PathFinder.SetMapSize(level.Width, level.Height);
@@ -152,11 +160,17 @@ namespace BurningKnight.level.walls {
 					}
 				}
 
+				for (var i = 0; i < Patch.Length; i++) {
+					if (oldPatch[i]) {
+						Patch[i] = true;
+					}
+				}
+
 				PathFinder.BuildDistanceMap(start, BArray.Not(Patch, null));
 				var valid = true;
 
 				for (var i = 0; i < Patch.Length; i++) {
-					if ((!Patch[i] && !oldPatch[i]) && PathFinder.Distance[i] == Int32.MaxValue) {
+					if (!Patch[i] && PathFinder.Distance[i] == Int32.MaxValue) {
 						valid = false;
 						break;
 					}
@@ -165,7 +179,7 @@ namespace BurningKnight.level.walls {
 				PathFinder.SetMapSize(level.Width, level.Height);
 
 				if (!valid) {
-					Painter.Fill(level, room, 1, Tile.FloorD);
+					Painter.Fill(level, room, 1, Tiles.RandomFloor());
 					SimplePaint(level, room);
 				}
 			}
