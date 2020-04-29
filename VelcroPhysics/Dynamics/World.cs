@@ -299,8 +299,7 @@ namespace VelcroPhysics.Dynamics
         {
             if (_bodyRemoveList.Count > 0)
             {
-                foreach (Body body in _bodyRemoveList)
-                {
+                foreach (Body body in _bodyRemoveList) {
                     Debug.Assert(BodyList.Count > 0);
 
                     // You tried to remove a body that is not contained in the BodyList.
@@ -308,24 +307,31 @@ namespace VelcroPhysics.Dynamics
                     Debug.Assert(BodyList.Contains(body));
 
                     // Delete the attached joints.
-                    JointEdge je = body.JointList;
-                    while (je != null)
-                    {
-                        JointEdge je0 = je;
-                        je = je.Next;
+                    if (body.JointList != null) {
+                        JointEdge je = body.JointList;
 
-                        RemoveJoint(je0.Joint, false);
+                        while (je != null) {
+                            JointEdge je0 = je;
+                            je = je.Next;
+
+                            RemoveJoint(je0.Joint, false);
+                        }
+
+                        body.JointList = null;
                     }
-                    body.JointList = null;
 
                     // Delete the attached contacts.
                     ContactEdge ce = body.ContactList;
+                    
                     while (ce != null)
                     {
                         ContactEdge ce0 = ce;
                         ce = ce.Next;
+
                         ContactManager.Destroy(ce0.Contact);
                     }
+                    
+                    
                     body.ContactList = null;
 
                     // Delete the attached fixtures. This destroys broad-phase proxies.

@@ -335,6 +335,7 @@
     <Compile Include="debug\PoolEditor.cs" />
     <Compile Include="debug\SaveCommand.cs" />
     <Compile Include="debug\SpawnCommand.cs" />
+    <Compile Include="debug\TileCommand.cs" />
     <Compile Include="debug\ZoomCommand.cs" />
     <Compile Include="entity\BlankMaker.cs" />
     <Compile Include="entity\bomb\Bomb.cs" />

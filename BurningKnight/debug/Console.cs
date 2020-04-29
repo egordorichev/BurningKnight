@@ -50,6 +50,7 @@ namespace BurningKnight.debug {
 			commands.Add(new ExploreCommand());
 			commands.Add(new PassableCommand());
 			commands.Add(new BuffCommand());
+			commands.Add(new TileCommand());
 		}
 
 		public void AddCommand(ConsoleCommand command) {

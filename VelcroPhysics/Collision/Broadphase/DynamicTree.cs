@@ -625,17 +625,13 @@ namespace VelcroPhysics.Collision.Broadphase
                 {
                     index = Balance(index);
 
-                    try {
-                        int child1 = _nodes[index].Child1;
-                        int child2 = _nodes[index].Child2;
+                    int child1 = _nodes[index].Child1;
+                    int child2 = _nodes[index].Child2;
 
-                        _nodes[index].AABB.Combine(ref _nodes[child1].AABB, ref _nodes[child2].AABB);
-                        _nodes[index].Height = 1 + Math.Max(_nodes[child1].Height, _nodes[child2].Height);
+                    _nodes[index].AABB.Combine(ref _nodes[child1].AABB, ref _nodes[child2].AABB);
+                    _nodes[index].Height = 1 + Math.Max(_nodes[child1].Height, _nodes[child2].Height);
 
-                        index = _nodes[index].ParentOrNext;
-                    } catch (Exception e) {
-                        break;
-                    }
+                    index = _nodes[index].ParentOrNext;
                 }
             }
             else

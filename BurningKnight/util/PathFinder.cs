@@ -14,8 +14,7 @@ namespace BurningKnight.util {
 		public static int[] Corner;
 		public static Vector2[] VCircle4 = new[] {new Vector2(0, -1), new Vector2(1, 0), new Vector2(0, 1), new Vector2(-1, 0)};
 		public static Vector2[] VCorner = new[] {new Vector2(1, -1), new Vector2(1, 1), new Vector2(-1, 1), new Vector2(-1, -1)};
-		public static int[] Circle8;
-		private static int[] MaxVal;
+		public static int[] Circle8; 
 		private static bool[] Goals;
 		private static int[] Queue;
 		private static int Size;
@@ -28,12 +27,8 @@ namespace BurningKnight.util {
 			Size = Width * Height;
 			Distance = new int[Size];
 			Goals = new bool[Size];
-			Queue = new int[Size];
-			MaxVal = new int[Size];
-
-			for (var i = 0; i < Size; i++) {
-				MaxVal[i] = int.MaxValue;
-			}
+			Queue = new int[(int) (Size * 2)];
+		
 
 			Dir = new[] {-1, +1, -Width, +Width};
 			DirLR = new[] {-1, -Width, +Width, +1};
@@ -46,10 +41,6 @@ namespace BurningKnight.util {
 		}
 
 		public static int StepCost(int I) {
-			if ((Tile) Run.Level.Liquid[I] == Tile.Cobweb) {
-				return 9;
-			}
-
 			return 0;
 		}
 
@@ -109,8 +100,8 @@ namespace BurningKnight.util {
 				return false;
 			}
 
-			for (var i = 0; i < MaxVal.Length; i++) {
-				Distance[i] = MaxVal[i];
+			for (var i = 0; i < Distance.Length; i++) {
+				Distance[i] = int.MaxValue;
 			}
 
 			var PathFound = false;
@@ -156,8 +147,8 @@ namespace BurningKnight.util {
 				return false;
 			}
 
-			for (var i = 0; i < MaxVal.Length; i++) {
-				Distance[i] = MaxVal[i];
+			for (var i = 0; i < Distance.Length; i++) {
+				Distance[i] = int.MaxValue;
 			}
 
 			var PathFound = false;
@@ -199,8 +190,8 @@ namespace BurningKnight.util {
 		}
 
 		private static int BuildEscapeDistanceMap(int Cur, int From, float Factor, bool[] Passable) {
-			for (var i = 0; i < MaxVal.Length; i++) {
-				Distance[i] = MaxVal[i];
+			for (var i = 0; i < Distance.Length; i++) {
+				Distance[i] = int.MaxValue;
 			}
 
 			var DestDist = int.MaxValue;
@@ -241,8 +232,12 @@ namespace BurningKnight.util {
 		}
 
 		public static void BuildDistanceMap(int To, bool[] Passable) {
-			for (var i = 0; i < MaxVal.Length; i++) {
-				Distance[i] = MaxVal[i];
+			for (var i = 0; i < Distance.Length; i++) {
+				Distance[i] = int.MaxValue;
+			}
+
+			if (Passable.Length != Distance.Length) {
+				Log.Error($"Invalid passable length. Expected {Distance.Length} got {Passable.Length}");
 			}
 
 			var Head = 0;
@@ -250,20 +245,24 @@ namespace BurningKnight.util {
 			Queue[Tail++] = To;
 			Distance[To] = 0;
 
-			while (Head < Tail) {
-				var Step = Queue[Head++];
-				var NextDistance = Distance[Step] + 1;
-				var Start = Step % Width == 0 ? 3 : 0;
-				var End = (Step + 1) % Width == 0 ? 3 : 0;
+			try {
+				while (Head < Tail) {
+					var Step = Queue[Head++];
+					var NextDistance = Distance[Step] + 1;
+					var Start = Step % Width == 0 ? 3 : 0;
+					var End = (Step + 1) % Width == 0 ? 3 : 0;
 
-				for (var I = Start; I < DirLR.Length - End; I++) {
-					var N = Step + DirLR[I];
+					for (var I = Start; I < DirLR.Length - End; I++) {
+						var N = Step + DirLR[I];
 
-					if (N >= 0 && N < Size && Passable[N] && Distance[N] > NextDistance) {
-						Queue[Tail++] = N;
-						Distance[N] = NextDistance + StepCost(N);
+						if (N >= 0 && N < Size && Passable[N] && Distance[N] > NextDistance) {
+							Queue[Tail++] = N;
+							Distance[N] = NextDistance + StepCost(N);
+						}
 					}
 				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 	}

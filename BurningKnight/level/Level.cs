@@ -20,6 +20,7 @@ using BurningKnight.level.variant;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -198,46 +199,50 @@ namespace BurningKnight.level {
 		private SoundEffectInstance rainSound;
 		
 		public void Prepare() {
-			Variant?.PostInit(this);
+			try {
+				Variant?.PostInit(this);
 
-			if (Dark) {
-				Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
-			}
-
-			if (Rains) {
-				for (var i = 0; i < 40; i++) {
-					Run.Level.Area.Add(new RainParticle());
+				if (Dark) {
+					Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
 				}
 
-				var sound = "level_rain_regular";
+				if (Rains) {
+					for (var i = 0; i < 40; i++) {
+						Run.Level.Area.Add(new RainParticle());
+					}
 
-				if (Biome is IceBiome) {
-					sound = "level_rain_snow";
-				} else if (Biome is JungleBiome) {
-					sound = "level_rain_jungle";
-				}
+					var sound = "level_rain_regular";
 
-				var s = Audio.GetSfx(sound);
+					if (Biome is IceBiome) {
+						sound = "level_rain_snow";
+					} else if (Biome is JungleBiome) {
+						sound = "level_rain_jungle";
+					}
 
-				if (s != null) {
-					rainSound = s.CreateInstance();
+					var s = Audio.GetSfx(sound);
 
-					if (rainSound != null) {
-						rainSound.Volume = 0;
-						rainSound.IsLooped = true;
-						rainSound.Play();
+					if (s != null) {
+						rainSound = s.CreateInstance();
 
-						Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
+						if (rainSound != null) {
+							rainSound.Volume = 0;
+							rainSound.IsLooped = true;
+							rainSound.Play();
+
+							Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
+						}
 					}
 				}
+
+				if (Snows) {
+					for (var i = 0; i < 120; i++) {
+						Run.Level.Area.Add(new SnowParticle());
+					}
+				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 
-			if (Snows) {
-				for (var i = 0; i < 120; i++) {
-					Run.Level.Area.Add(new SnowParticle());
-				}
-			}
-			
 			TileUp();
 		}
 
@@ -380,29 +385,35 @@ namespace BurningKnight.level {
 			return IsPassable(ToIndex(x, y));
 		}
 
-		public bool IsPassable(int i) {
+		public bool IsPassable(int i, bool chasm = false) {
 			var t = Get(i);
 
 			if (Biome is IceBiome && (t == Tile.WallA || t == Tile.Transition)) {
+				return true;
+			}
+
+			if (chasm && t == Tile.Chasm) {
 				return true;
 			}
 			
 			return t.Matches(TileFlags.Passable) && (Liquid[i] == 0 || Get(i, true).Matches(TileFlags.Passable));
 		}
 
-		public void CreatePassable() {
+		public void CreatePassable(bool chasm = false) {
 			for (var i = 0; i < Size; i++) {
-				Passable[i] = IsPassable(i);
+				Passable[i] = IsPassable(i, chasm);
 			}
 		}
 
-		public void TileUp() {
-			LevelTiler.TileUp(this);
+		public void TileUp(bool full = false) {
+			cleared = false;
+			Size = width * height;
+			PathFinder.SetMapSize(Width, Height);
+			LevelTiler.TileUp(this, full);
 		}
 		
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
-			Variants[i] = 0;
 			LevelTiler.TileUp(this, i);
 
 			for (var xx = -3; xx <= 2; xx++) {
@@ -410,6 +421,8 @@ namespace BurningKnight.level {
 					var index = ToIndex(xx + x, yy + y);
 					
 					if (IsInside(index)) {
+						Variants[index] = 0;
+						LiquidVariants[index] = 0;
 						LevelTiler.TileUp(this, index);	
 					}
 				}
@@ -1719,12 +1732,19 @@ namespace BurningKnight.level {
 			cleared = false;
 			
 			PathFinder.SetMapSize(Width, Height);
-			
+
+			RefreshSurfaces();
+		}
+
+		public void RefreshSurfaces() {
 			WallSurface.Dispose();
 			MessSurface.Dispose();
-			
+			cleared = false;
+
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
-			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
+
+			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false,
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
 		}
 
 		public virtual string GetMusic() {
@@ -1744,10 +1764,6 @@ namespace BurningKnight.level {
 			
 			return s;
 		}
-		
-		/*
-		 * Destroyable tmp
-		 */
 		 
 		public void Break(float x, float y) {
 			BSet((int) Math.Floor(x / 16), (int) Math.Floor(y / 16));
@@ -1821,27 +1837,19 @@ namespace BurningKnight.level {
 						UpdateTile(xx, yy);
 						ReCreateBodyChunk(xx, yy);
 					}
-
-					/*if (Get(xx, yy) == Tile.WallA) {
-						var a = (yy == 0 || yy == Height - 1 || xx == 0 || xx == Width - 1);
-
-						if (!a) {
-							a = true;
-
-							foreach (var d in MathUtils.AllDirections) {
-								if (!Get(xx + (int) d.X, yy + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
-									a = false;
-									break;
-								}
-							}
-						}
-
-						if (a) {
-							Set(xx, yy, Tile.Transition);
-						}
-					}*/
 				}
 			}
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			ImGui.Text($"Size: {width}x{height} = {Size} (real {width * height})");
+			ImGui.Text($"Variant: {Variant.GetType().Name}");
+			ImGui.Text($"Tiles: {Tiles.Length}");
+			ImGui.Text($"Liquid: {Liquid.Length}");
+			ImGui.Text($"Variants: {Variants.Length}");
+			ImGui.Text($"LiquidVariants: {LiquidVariants.Length}");
+			ImGui.Text($"WallDecor: {WallDecor.Length}");
 		}
 	}
 }

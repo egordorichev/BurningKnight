@@ -445,16 +445,17 @@ namespace BurningKnight.level {
 
 			if (check) {
 				var c = exit.GetCenter();
-				Level.CreatePassable();
-				PathFinder.BuildDistanceMap(Level.ToIndex(c.X, c.Y), Level.Passable);
+				Level.CreatePassable(true);
+				PathFinder.SetMapSize(Level.Width, Level.Height);
+				var i1 = Level.ToIndex(c.X, c.Y);
+				
+				PathFinder.BuildDistanceMap(i1, Level.Passable);
 				c = entrance.GetCenter();
 
-				// fixme: do the check only on depths below 0, also mark snow as passable
-				if (PathFinder.Distance[Level.ToIndex(c.X, c.Y)] == Int32.MaxValue) {
-					var map = PathFinder.Distance;
+				var i2 = Level.ToIndex(c.X, c.Y);
+				if (PathFinder.Distance[i2] == Int32.MaxValue) {
 					Log.Error("Generated unpassable level, aborting");
-
-					return false;
+				//	return false;
 				}
 			}
 
