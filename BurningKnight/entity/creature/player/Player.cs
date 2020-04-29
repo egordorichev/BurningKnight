@@ -222,7 +222,9 @@ namespace BurningKnight.entity.creature.player {
 					DailyItems = null;
 				}
 			}
-			
+
+			findASpawn = true;
+
 			if (lastDepth == Run.Depth) {
 				Log.Info("Old depth is the same as the current one");
 				return;
@@ -740,7 +742,6 @@ namespace BurningKnight.entity.creature.player {
 					AnimationUtil.Confetti(Center);
 				}
 			} else if (e is NewLevelStartedEvent) {
-				findASpawn = true;
 				GetComponent<HealthComponent>().Unhittable = true;
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {

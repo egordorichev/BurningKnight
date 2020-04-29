@@ -308,18 +308,22 @@ namespace VelcroPhysics.Dynamics
                     Debug.Assert(BodyList.Contains(body));
 
                     // Delete the attached joints.
-                    JointEdge je = body.JointList;
-                    while (je != null)
-                    {
-                        JointEdge je0 = je;
-                        je = je.Next;
+                    if (body.JointList != null) {
+                        JointEdge je = body.JointList;
 
-                        RemoveJoint(je0.Joint, false);
+                        while (je != null) {
+                            JointEdge je0 = je;
+                            je = je.Next;
+
+                            RemoveJoint(je0.Joint, false);
+                        }
+
+                        body.JointList = null;
                     }
-                    body.JointList = null;
 
                     // Delete the attached contacts.
                     ContactEdge ce = body.ContactList;
+                    
                     while (ce != null)
                     {
                         ContactEdge ce0 = ce;

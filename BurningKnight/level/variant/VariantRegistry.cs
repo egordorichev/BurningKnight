@@ -13,7 +13,7 @@ namespace BurningKnight.level.variant {
 			Define(new SandLevelVariant(), 0.15f, Biome.Castle, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new FloodedLevelVariant(), 0.15f, Biome.Castle, Biome.Desert, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new SnowLevelVariant(), 0.05f, Biome.Castle);
-			// Define(new ForestLevelVariant(), 0.03f, Biome.Castle);
+			Define(new ForestLevelVariant(), 0.03f, Biome.Castle);
 			Define(new WebbedLevelVariant(), 0.02f, Biome.Castle, Biome.Desert, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new SandLevelVariant(), 0.05f, Biome.Castle, Biome.Desert, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new GoldLevelVariant(), 0.005f, Biome.Castle);

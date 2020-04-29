@@ -36,11 +36,10 @@ namespace Lens.util.math {
 			var i = 0;
 
 			foreach (var c in seed) {
-				value += SeedChars.IndexOf(c) << (i * 6);
+				value += SeedChars.IndexOf(c) << (i * 4);
 				i++;
 			}
 			
-			Log.Error($"Parsed seed {value}");
 			return value;
 		}
 

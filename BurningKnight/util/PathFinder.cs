@@ -28,7 +28,7 @@ namespace BurningKnight.util {
 			Size = Width * Height;
 			Distance = new int[Size];
 			Goals = new bool[Size];
-			Queue = new int[Size];
+			Queue = new int[(int) (Size * 1.5f)];
 			MaxVal = new int[Size];
 
 			for (var i = 0; i < Size; i++) {

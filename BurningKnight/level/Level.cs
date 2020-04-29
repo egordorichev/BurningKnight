@@ -406,6 +406,9 @@ namespace BurningKnight.level {
 		}
 
 		public void TileUp(bool full = false) {
+			cleared = false;
+			Size = width * height;
+			PathFinder.SetMapSize(Width, Height);
 			LevelTiler.TileUp(this, full);
 		}
 		
@@ -1729,12 +1732,19 @@ namespace BurningKnight.level {
 			cleared = false;
 			
 			PathFinder.SetMapSize(Width, Height);
-			
+
+			RefreshSurfaces();
+		}
+
+		public void RefreshSurfaces() {
 			WallSurface.Dispose();
 			MessSurface.Dispose();
-			
+			cleared = false;
+
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
-			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
+
+			MessSurface = new RenderTarget2D(Engine.GraphicsDevice, Width * 16, Height * 16, false,
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
 		}
 
 		public virtual string GetMusic() {
@@ -1754,10 +1764,6 @@ namespace BurningKnight.level {
 			
 			return s;
 		}
-		
-		/*
-		 * Destroyable tmp
-		 */
 		 
 		public void Break(float x, float y) {
 			BSet((int) Math.Floor(x / 16), (int) Math.Floor(y / 16));
@@ -1831,32 +1837,13 @@ namespace BurningKnight.level {
 						UpdateTile(xx, yy);
 						ReCreateBodyChunk(xx, yy);
 					}
-
-					/*if (Get(xx, yy) == Tile.WallA) {
-						var a = (yy == 0 || yy == Height - 1 || xx == 0 || xx == Width - 1);
-
-						if (!a) {
-							a = true;
-
-							foreach (var d in MathUtils.AllDirections) {
-								if (!Get(xx + (int) d.X, yy + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
-									a = false;
-									break;
-								}
-							}
-						}
-
-						if (a) {
-							Set(xx, yy, Tile.Transition);
-						}
-					}*/
 				}
 			}
 		}
 
 		public override void RenderImDebug() {
 			base.RenderImDebug();
-			ImGui.Text($"Size: {Width}x{Height} = {Size} (real {Width * Height})");
+			ImGui.Text($"Size: {width}x{height} = {Size} (real {width * height})");
 			ImGui.Text($"Variant: {Variant.GetType().Name}");
 			ImGui.Text($"Tiles: {Tiles.Length}");
 			ImGui.Text($"Liquid: {Liquid.Length}");
