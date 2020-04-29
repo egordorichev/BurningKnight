@@ -3,4 +3,5 @@
 * bk fight (+ credits)
 * dm fight (+ loop condition)
 * cutscenes
+* purchase sound on emerald stands missing
 * localisation (spanish/french/italian?)

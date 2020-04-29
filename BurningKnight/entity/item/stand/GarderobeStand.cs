@@ -47,6 +47,10 @@ namespace BurningKnight.entity.item.stand {
 			}
 		}
 
+		protected override bool CanInteract(Entity e) {
+			return item != null && base.CanInteract(e);
+		}
+
 		protected override bool CanTake(Entity entity) {
 			if (!base.CanTake(entity)) {
 				return false;

@@ -49,27 +49,6 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		protected override void OnTake(Item item, Entity who) {
-			base.OnTake(item, who);
-			
-			who.HandleEvent(new ItemBoughtEvent {
-				Item = item,
-				Who = who,
-				Stand = this
-			});
-
-			foreach (var i in Area.Tagged[Tags.Item]) {
-				if (i is Item it) {
-					it.CheckMasked();
-				} else if (i is ItemStand its) {
-					its.Item?.CheckMasked();
-				}
-			}
-
-			Audio.PlaySfx("item_purchase");
-			Achievements.Unlock("bk:unlock");
-		}
-
 		protected override string GetSprite() {
 			return "shop_stand";
 		}
@@ -101,6 +80,23 @@ namespace BurningKnight.entity.item {
 				SetItem(item, entity, false);*/
 
 				AnimationUtil.Poof(Center, 1);
+			}
+			
+			Audio.PlaySfx("item_purchase");
+			Achievements.Unlock("bk:unlock");
+			
+			entity.HandleEvent(new ItemBoughtEvent {
+				Item = item,
+				Who = entity,
+				Stand = this
+			});
+
+			foreach (var i in Area.Tagged[Tags.Item]) {
+				if (i is Item it) {
+					it.CheckMasked();
+				} else if (i is ItemStand its) {
+					its.Item?.CheckMasked();
+				}
 			}
 
 			return ShowUnlocked;
