@@ -1,3 +1,5 @@
+A game by Egor Dorichev
+
 Thanks to these people for making this project possible!
 
 Egor Dorichev (egordorichev)
@@ -33,7 +35,10 @@ Trailers & Extensive Playtesting
 Cubey
 Polish Translation
 
-(Nufflee)
+ArKeid0s
+French Translation
+
+Nufflee
 Early Development & Playtesting
 
 Rami Sabbagh (Rami) 
