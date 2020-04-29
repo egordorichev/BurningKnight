@@ -107,6 +107,7 @@ namespace BurningKnight.state {
 				Log.Debug("Ignoring seed");
 			} else {
 				Log.Debug("Generating seed");
+				// fixme
 				Seed = Rnd.GenerateSeed();
 			}
 

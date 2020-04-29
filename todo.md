@@ -1,4 +1,3 @@
-* game can hang in infinite physic deletion thingy, pathfinder.BuildDIstnace map outside of array (FQBJIIJT)
 * players might think they are stuck when t hey dont know that you can break snow
 * bk should get harder in next treasure rooms (more you take the harder it is)
 * bk fight (+ credits)
