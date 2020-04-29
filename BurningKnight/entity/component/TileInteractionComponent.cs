@@ -80,6 +80,10 @@ namespace BurningKnight.entity.component {
 
 		private void InspectTile(int index, int x, int y) {
 			var level = Run.Level;
+
+			if (!level.IsInside(x, y)) {
+				return;
+			}
 			
 			var tile = level.Tiles[index];
 			var liquid = level.Liquid[index];

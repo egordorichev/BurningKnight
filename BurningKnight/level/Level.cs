@@ -198,46 +198,50 @@ namespace BurningKnight.level {
 		private SoundEffectInstance rainSound;
 		
 		public void Prepare() {
-			Variant?.PostInit(this);
+			try {
+				Variant?.PostInit(this);
 
-			if (Dark) {
-				Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
-			}
-
-			if (Rains) {
-				for (var i = 0; i < 40; i++) {
-					Run.Level.Area.Add(new RainParticle());
+				if (Dark) {
+					Lights.ClearColor = new Color(0f, 0f, 0f, 1f);
 				}
 
-				var sound = "level_rain_regular";
+				if (Rains) {
+					for (var i = 0; i < 40; i++) {
+						Run.Level.Area.Add(new RainParticle());
+					}
 
-				if (Biome is IceBiome) {
-					sound = "level_rain_snow";
-				} else if (Biome is JungleBiome) {
-					sound = "level_rain_jungle";
-				}
+					var sound = "level_rain_regular";
 
-				var s = Audio.GetSfx(sound);
+					if (Biome is IceBiome) {
+						sound = "level_rain_snow";
+					} else if (Biome is JungleBiome) {
+						sound = "level_rain_jungle";
+					}
 
-				if (s != null) {
-					rainSound = s.CreateInstance();
+					var s = Audio.GetSfx(sound);
 
-					if (rainSound != null) {
-						rainSound.Volume = 0;
-						rainSound.IsLooped = true;
-						rainSound.Play();
+					if (s != null) {
+						rainSound = s.CreateInstance();
 
-						Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
+						if (rainSound != null) {
+							rainSound.Volume = 0;
+							rainSound.IsLooped = true;
+							rainSound.Play();
+
+							Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
+						}
 					}
 				}
+
+				if (Snows) {
+					for (var i = 0; i < 120; i++) {
+						Run.Level.Area.Add(new SnowParticle());
+					}
+				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 
-			if (Snows) {
-				for (var i = 0; i < 120; i++) {
-					Run.Level.Area.Add(new SnowParticle());
-				}
-			}
-			
 			TileUp();
 		}
 
@@ -380,19 +384,23 @@ namespace BurningKnight.level {
 			return IsPassable(ToIndex(x, y));
 		}
 
-		public bool IsPassable(int i) {
+		public bool IsPassable(int i, bool chasm = false) {
 			var t = Get(i);
 
 			if (Biome is IceBiome && (t == Tile.WallA || t == Tile.Transition)) {
+				return true;
+			}
+
+			if (chasm && t == Tile.Chasm) {
 				return true;
 			}
 			
 			return t.Matches(TileFlags.Passable) && (Liquid[i] == 0 || Get(i, true).Matches(TileFlags.Passable));
 		}
 
-		public void CreatePassable() {
+		public void CreatePassable(bool chasm = false) {
 			for (var i = 0; i < Size; i++) {
-				Passable[i] = IsPassable(i);
+				Passable[i] = IsPassable(i, chasm);
 			}
 		}
 

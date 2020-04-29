@@ -224,6 +224,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			if (lastDepth == Run.Depth) {
+				Log.Info("Old depth is the same as the current one");
 				return;
 			}
 
@@ -259,6 +260,7 @@ namespace BurningKnight.entity.creature.player {
 				if (rm.Type == RoomType.Entrance) {
 					Center = r.Center;
 					rm.Discover();
+					Log.Debug("Teleported to entrance room");
 					return true;
 				}
 			}
@@ -267,6 +269,7 @@ namespace BurningKnight.entity.creature.player {
 				var rm = (Room) r;
 
 				if (rm.Type == RoomType.Exit) {
+					Log.Debug("Teleported to exit room");
 					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
 					rm.Discover();
 
@@ -274,6 +277,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 
+			Log.Error("Failed to teleport!");
 			return false;
 		}
 		
@@ -288,7 +292,6 @@ namespace BurningKnight.entity.creature.player {
 						GetComponent<HealthComponent>().Unhittable = false;
 					}
 				} else {
-
 					Log.Error("Did not find a spawn point!");
 				}
 			}
