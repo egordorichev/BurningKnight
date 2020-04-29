@@ -6,7 +6,7 @@ namespace BurningKnight.debug {
 		}
 		
 		public override void Run(Console Console, string[] Args) {
-			state.Run.Level?.TileUp();
+			state.Run.Level?.TileUp(true);
 		}
 	}
 }

@@ -5,9 +5,19 @@ using Lens.util.math;
 
 namespace BurningKnight.level {
 	public class LevelTiler {
-		public static void TileUp(Level level) {
+		public static void TileUp(Level level, bool full = false) {
 			for (var i = 0; i < level.Variants.Length; i++) {
 				level.Variants[i] = 0;
+				level.LiquidVariants[i] = 0;
+			}
+
+			if (full) {
+				for (var i = 0; i < level.Variants.Length; i++) {
+					level.Light[i] = 0;
+					level.WallDecor[i] = 0;
+				}	
+				
+				level.CreatePassable();
 			}
 			
 			for (int y = 0; y < level.Height; y++) {

@@ -20,6 +20,7 @@ using BurningKnight.level.variant;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -404,13 +405,12 @@ namespace BurningKnight.level {
 			}
 		}
 
-		public void TileUp() {
-			LevelTiler.TileUp(this);
+		public void TileUp(bool full = false) {
+			LevelTiler.TileUp(this, full);
 		}
 		
 		public void UpdateTile(int x, int y) {
 			var i = ToIndex(x, y);
-			Variants[i] = 0;
 			LevelTiler.TileUp(this, i);
 
 			for (var xx = -3; xx <= 2; xx++) {
@@ -418,6 +418,8 @@ namespace BurningKnight.level {
 					var index = ToIndex(xx + x, yy + y);
 					
 					if (IsInside(index)) {
+						Variants[index] = 0;
+						LiquidVariants[index] = 0;
 						LevelTiler.TileUp(this, index);	
 					}
 				}
@@ -1850,6 +1852,17 @@ namespace BurningKnight.level {
 					}*/
 				}
 			}
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+			ImGui.Text($"Size: {Width}x{Height} = {Size} (real {Width * Height})");
+			ImGui.Text($"Variant: {Variant.GetType().Name}");
+			ImGui.Text($"Tiles: {Tiles.Length}");
+			ImGui.Text($"Liquid: {Liquid.Length}");
+			ImGui.Text($"Variants: {Variants.Length}");
+			ImGui.Text($"LiquidVariants: {LiquidVariants.Length}");
+			ImGui.Text($"WallDecor: {WallDecor.Length}");
 		}
 	}
 }

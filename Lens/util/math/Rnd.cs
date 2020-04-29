@@ -16,7 +16,7 @@ namespace Lens.util.math {
 
 			set {
 				seed = value;
-				random = new System.Random(ParseSeed(seed));
+				random = new Random(ParseSeed(seed));
 			}
 		}
 
@@ -32,18 +32,21 @@ namespace Lens.util.math {
 				return 0;
 			}
 			
-			int value = 0;
+			var value = 0;
+			var i = 0;
 
 			foreach (var c in seed) {
-				value += SeedChars.IndexOf(c) * SeedChars.Length;
+				value += SeedChars.IndexOf(c) << (i * 6);
+				i++;
 			}
-
+			
+			Log.Error($"Parsed seed {value}");
 			return value;
 		}
 
 		public static string GenerateSeed(int len = 8, int seed = -1) {
 			var builder = new StringBuilder();
-			var r = seed == -1 ? new Random(Guid.NewGuid().GetHashCode()) : new Random(seed);
+			var r = seed == -1 ? new Random(Environment.TickCount + Guid.NewGuid().GetHashCode()) : new Random(seed);
 
 			for (var i = 0; i < len; i++) {
 				builder.Append(SeedChars[r.Next(SeedChars.Length - 1)]);
