@@ -196,7 +196,7 @@ namespace BurningKnight.entity.creature.bk {
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
-				if (ite.Stand is SingleChoiceStand) {
+				if (ite.Stand is SingleChoiceStand && ite.Who is Player) {
 					GetComponent<DialogComponent>().StartAndClose("bk_1", 5);
 					var state = GetComponent<StateComponent>();
 
@@ -249,11 +249,13 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			raging = stream.ReadBoolean();
+			timesRaged = stream.ReadInt32();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(raging);
+			stream.WriteInt32(timesRaged);
 		}
 
 		private float lastFadingParticle;
@@ -535,6 +537,10 @@ namespace BurningKnight.entity.creature.bk {
 					
 					var p = Projectile.Make(Self, "circle", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f), 8, true, 0, null, 1);
 
+					if (Self.timesRaged > 1) {
+						p.Color = ProjectileColor.Orange;
+					}
+					
 					p.BreaksFromWalls = false;
 					p.Spectral = true;
 					p.Center = Self.Center;

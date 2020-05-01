@@ -43,7 +43,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 			if (Target == null) {
 				return;
 			}
-			
+
+			DoSpit();
+		}
+
+		protected virtual void DoSpit() {
 			var am = 8;
 			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
