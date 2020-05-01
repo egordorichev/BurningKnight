@@ -148,6 +148,7 @@ namespace BurningKnight.level {
 			var final = IsFinal();
 			var rush = Run.Type == RunType.BossRush;
 			var first = Run.Depth % 2 == 1;
+			var loop = Run.Loop > 0;
 
 			if (final) {
 				Log.Info("Prepare for the final!");
@@ -184,7 +185,7 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 			}
 
-			if (!rush && !final && Run.Type != RunType.Challenge) {
+			if (!rush && !final && Run.Type != RunType.Challenge && !loop) {
 				if (first) {
 					if (LevelSave.XL) {
 						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
@@ -196,6 +197,10 @@ namespace BurningKnight.level {
 				if (!first) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 				}
+			}
+
+			if (loop && Run.Depth == 0 && Run.Type != RunType.Challenge) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 			}
 
 			if (rush) {
