@@ -83,8 +83,10 @@ namespace BurningKnight.entity.creature.player {
 			}
 	
 			if ((Input.WasPressed(Controls.Swap, controller) || (Input.Mouse.WheelDelta != 0 && stopped)) && Run.Depth > 0 && GetComponent<WeaponComponent>().Item != null) {
-				stopped = false;
-				Swap();
+				if (!GetComponent<InventoryComponent>().Busy) {
+					stopped = false;
+					Swap();
+				}
 			}
 
 			stopped = Input.Mouse.WheelDelta == 0;
