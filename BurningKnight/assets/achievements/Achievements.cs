@@ -173,7 +173,9 @@ namespace BurningKnight.assets.achievements {
 				Log.Error(ex);
 			}
 
-			AchievementBuffer.Add(id);
+			if (!AchievementBuffer.Contains(id)) {
+				AchievementBuffer.Add(id);
+			}
 
 			var area = Engine.Instance?.State?.Area;
 			
