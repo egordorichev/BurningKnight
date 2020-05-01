@@ -32,6 +32,7 @@ namespace BurningKnight.entity.creature.bk {
 		private static Color tint = new Color(234, 50, 60, 200);
 		private Boss captured;
 		private bool raging;
+		private int timesRaged;
 
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
@@ -201,6 +202,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					if (!(state.StateInstance is HiddenState)) {
 						Timer.Add(() => {
+							timesRaged++;
 							GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_1", 0.8f);
 							state.Become<AttackState>();
 						}, 3);

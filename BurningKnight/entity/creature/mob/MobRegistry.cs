@@ -28,6 +28,7 @@ namespace BurningKnight.entity.creature.mob {
 				
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
+				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				
 				// Desert
@@ -36,24 +37,24 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert), new LoopChance(1f, Biome.Castle)),
-				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert), new LoopChance(1f, Biome.Castle)),
 				
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
 				MobInfo.New<MegaSlime>(new SpawnChance(1f, Biome.Desert)).DisableFirstSpawn().SetWeight(2f).MarkSingle(),
 				// MobInfo.New<Cactus>(new SpawnChance(0f, Biome.Desert)).DisableFirstSpawn(),
 				
 				// Jungle
-				MobInfo.New<Sniper>(new SpawnChance(1f, Biome.Jungle)),
+				MobInfo.New<Sniper>(new SpawnChance(1f, Biome.Jungle), new LoopChance(1f, Biome.Desert)),
 				MobInfo.New<BeeHive>(new SpawnChance(100.5f, Biome.Jungle)).MarkSingle().SetWeight(3f).HatesWall(),
 				MobInfo.New<Bee>(new SpawnChance(0.3f, Biome.Jungle)),
 				MobInfo.New<Explobee>(new SpawnChance(0.15f, Biome.Jungle)),
-				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle)).SetWeight(2f).MarkSingle(),
+				MobInfo.New<Wombat>(new SpawnChance(0.7f, Biome.Jungle), new LoopChance(1f, Biome.Desert)).SetWeight(2f).MarkSingle(),
 				MobInfo.New<Flower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).HatesWall(),
 				
 				MobInfo.New<BuffedFlower>(new SpawnChance(1f, Biome.Jungle)).SetWeight(2f).DisableFirstSpawn().HatesWall(),
 				
 				// Ice
-				MobInfo.New<CupGuy>(new SpawnChance(1f, Biome.Ice)),
+				MobInfo.New<CupGuy>(new SpawnChance(1f, Biome.Ice), new LoopChance(1f, Biome.Jungle)),
 				MobInfo.New<Snowman>(new SpawnChance(1f, Biome.Ice)).SetSpawnChance(0.5f).HatesWall(),
 				MobInfo.New<Snowball>(new SpawnChance(1f, Biome.Ice)).SetWeight(0.5f),
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Ice)).RequiresNearWall(),
@@ -67,9 +68,9 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Book>(new SpawnChance(1f, Biome.Library)).HatesWall().SetWeight(2.5f),
 				MobInfo.New<TeleportingMage>(new SpawnChance(1f, Biome.Library)).HatesWall(),
 				MobInfo.New<Skeleton>(new SpawnChance(1f, Biome.Library)).SetSpawnChance(0.5f),
-				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library)).MarkSingle(),
-				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
-				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library), new LoopChance(1f, Biome.Jungle), new LoopChance(1f, Biome.Ice)).MarkSingle(),
+				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Library)),
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Library)),
 			};
 			
 			All.AddRange(infos);

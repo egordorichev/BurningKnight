@@ -3,4 +3,8 @@
 * bk fight (+ credits)
 * dm fight (+ loop condition)
 * cutscenes
-* localisation (spanish/french/italian?)
+* finish up localisation (spanish/portugisie/belarus/french/italian)
+* viktor's new laptop doesn't like the gaem
+* german flag upsidedown
+* rare blue bullet slime
+* dont allow to swap weapons while picking smth up

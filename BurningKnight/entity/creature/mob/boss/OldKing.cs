@@ -105,7 +105,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				base.Update(dt);
 
-				if (T >= (Self.Raging ? 3f : 4f)) {
+				if (T >= (Self.Raging ? 1f : 2f)) {
 					if (Rnd.Chance(95)) {
 						Self.lastAttack = (Self.lastAttack + 1) % 2;
 					}
