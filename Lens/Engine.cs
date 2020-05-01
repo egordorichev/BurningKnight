@@ -60,7 +60,11 @@ namespace Lens {
 		
 		public string Title {
 			get => Window.Title;
-			set => Window.Title = value;
+			set {
+				if (value != null) {
+					Window.Title = value;
+				}
+			}
 		}
 
 		public Engine(Version version, GameState state, string title, int width, int height, bool fullscreen) {
