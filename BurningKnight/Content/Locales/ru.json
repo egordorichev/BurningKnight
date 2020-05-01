@@ -1022,5 +1022,11 @@
 	"language": "Язык",
 	"bk:pouch": "Мешочек",
 	"bk:alien_glasses": "Инопланетные Очки",
-	"bk:alien_glasses_desc": "Я вижу больше"
+	"bk:alien_glasses_desc": "Я вижу больше",
+	"inventory": "Хлам",
+	"bk:led": "Светодиод",
+	"bk:led_desc": "Точная Лампа",
+	"bk:fragile_lamp": "Хрупкая Лампочка",
+	"bk:fragile_lamp_desc": "1 хит K.O.",
+	"painting_guitar" : "Больше Звука!"
 }

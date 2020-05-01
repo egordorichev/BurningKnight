@@ -9,9 +9,11 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.controller;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -32,6 +34,7 @@ namespace BurningKnight.entity.creature.bk {
 		private static Color tint = new Color(234, 50, 60, 200);
 		private Boss captured;
 		private bool raging;
+		private int timesRaged;
 
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
@@ -195,12 +198,13 @@ namespace BurningKnight.entity.creature.bk {
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
-				if (ite.Stand is SingleChoiceStand) {
+				if (ite.Stand is SingleChoiceStand && ite.Who is Player) {
 					GetComponent<DialogComponent>().StartAndClose("bk_1", 5);
 					var state = GetComponent<StateComponent>();
 
 					if (!(state.StateInstance is HiddenState)) {
 						Timer.Add(() => {
+							timesRaged++;
 							GetComponent<AudioEmitterComponent>().Emit("mob_bk_roar_1", 0.8f);
 							state.Become<AttackState>();
 						}, 3);
@@ -247,11 +251,13 @@ namespace BurningKnight.entity.creature.bk {
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 			raging = stream.ReadBoolean();
+			timesRaged = stream.ReadInt32();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
 			stream.WriteBoolean(raging);
+			stream.WriteInt32(timesRaged);
 		}
 
 		private float lastFadingParticle;
@@ -507,9 +513,12 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public class AttackState : SmartState<BurningKnight> {
+			private int count;
+			
 			public override void Init() {
 				base.Init();
 				Self.raging = true;
+				count = Math.Min(1, Self.timesRaged);
 			}
 			
 			public override void Update(float dt) {
@@ -530,15 +539,35 @@ namespace BurningKnight.entity.creature.bk {
 
 				if (T >= 1f) {
 					Self.GetComponent<AudioEmitterComponent>().Emit("mob_bk_fire");
+
+					var c = 1;
+
+					if (Self.timesRaged > 2 && Self.timesRaged < 5) {
+						c = 3;
+					}
+
+					for (var i = 0; i < c; i++) {
+						var p = Projectile.Make(Self, "circle", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f) + (c == 1 ? 0 : (i - 1) * Math.PI * 0.2f), 8 + Self.timesRaged * 0.3f, true, 0, null, Rnd.Float(1f, 1f + Self.timesRaged * 0.1f));
+
+						p.BreaksFromWalls = false;
+						p.Spectral = true;
+						p.Center = Self.Center;
+						p.Depth = Self.Depth;
+						p.CanBeReflected = false;
+						p.CanBeBroken = false;
+
+						if (Self.timesRaged > 4) {
+							p.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
+							p.Range = 5f + Rnd.Float(1f);
+						}
+					}
 					
-					var p = Projectile.Make(Self, "circle", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f), 8, true, 0, null, 1);
+					count--;
+					T -= 0.25f + (Self.timesRaged - 1) * 0.1f;
 
-					p.BreaksFromWalls = false;
-					p.Spectral = true;
-					p.Center = Self.Center;
-					p.Depth = Self.Depth;
-
-					Become<ChaseState>();
+					if (count <= 0) {
+						Become<ChaseState>();
+					}
 				}
 			}
 		}
@@ -620,6 +649,20 @@ namespace BurningKnight.entity.creature.bk {
 					Self.FreeSelf();
 				}
 			}
+		}
+
+		public override void RenderImDebug() {
+			base.RenderImDebug();
+
+			if (ImGui.Checkbox("Raging", ref raging)) {
+				if (raging) {
+					Become<AttackState>();
+				} else {
+					Become<FollowState>();
+				}
+			}
+			
+				ImGui.InputInt("Times Raged", ref timesRaged);
 		}
 	}
 }
