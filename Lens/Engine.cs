@@ -11,6 +11,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Runtime.InteropServices;
 
 namespace Lens {
 	public class Engine : Game {
@@ -61,8 +62,12 @@ namespace Lens {
 		public string Title {
 			get => Window.Title;
 			set {
-				if (value != null) {
-					Window.Title = value;
+				if (value != null && !RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
+					try {
+						Window.Title = value;
+					} catch (Exception e) {
+						Log.Error(e);
+					}
 				}
 			}
 		}
@@ -142,7 +147,7 @@ namespace Lens {
 			Log.Info(tmpTitle);
 			Log.Info(DateTime.Now.ToString("dd.MM.yyyy h:mm tt"));
 
-			Window.Title = tmpTitle;
+			Title = tmpTitle;
 
 			Input.Init();
 		}
