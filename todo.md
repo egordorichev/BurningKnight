@@ -4,3 +4,4 @@
 * cutscenes
 * finish up localisation (spanish/portugisie/belarus/french/italian)
 * viktor's new laptop doesn't like the gaem
+* make useless setting labels unclickable
