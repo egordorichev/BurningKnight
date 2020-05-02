@@ -2399,7 +2399,7 @@ namespace BurningKnight.state {
 				languageSettings.Add(new UiImageButton {
 					Id = lng,
 					RelativeCenterX = Display.UiWidth * 0.5f + 30 * (i % 2 == 0 ? -1 : 1),
-					RelativeCenterY = (Display.UiHeight - languages.Length * 40) * 0.5f + (int) Math.Floor(i / 2f) * 40,
+					RelativeCenterY = (Display.UiHeight - languages.Length * 20) * 0.5f + (int) Math.Floor(i / 2f) * 40,
 					Click = (b) => {
 						Settings.Language = lng;
 						Locale.Load(lng);
