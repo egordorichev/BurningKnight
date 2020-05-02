@@ -10,6 +10,10 @@ using Lens.entity;
 
 namespace BurningKnight.entity.item {
 	public static class Reroller {
+		private static bool CanReroll(Item i) {
+			return !(i.Id == "bk:idol" || i.Type == ItemType.Scourge);
+		}
+
 		public static void Reroll(Area area, Room room, bool rerollStands, bool spawnNewItems, bool ignore, ItemType[] types, Action<Item> processItem = null, bool d2 = false) {
 			var items = room.Tagged[Tags.Item].ToArray();
 			var pool = Items.GeneratePool(Items.GetPool(room.GetPool() ?? ItemPool.Shop));
@@ -30,10 +34,16 @@ namespace BurningKnight.entity.item {
 							continue;
 						}
 
-						item = s.Item;
+						var i = s.Item;
+						
+						if (!CanReroll(i)) {
+							continue;
+						}
+
+						item = i;
 					}
 				} else if (e is Item i) {
-					if (i.Id == "bk:idol" || i.Type == ItemType.Scourge) {
+					if (!CanReroll(i)) {
 						continue;
 					}
 					
