@@ -2390,7 +2390,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru", "de", "fr", "pl"
+			"en", "ru", "de", "fr", "pl", "by"
 		};
 		
 		private void AddLanguageSettings() {
