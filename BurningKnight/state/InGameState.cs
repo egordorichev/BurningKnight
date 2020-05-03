@@ -1326,7 +1326,8 @@ namespace BurningKnight.state {
 				inventory.Add(new UiLabel {
 					LocaleLabel = "inventory",
 					RelativeCenterX = sx,
-					RelativeCenterY = TitleY
+					RelativeCenterY = TitleY,
+					Clickable = false
 				});
 			
 				inventoryBack = (UiButton) inventory.Add(new UiButton {
@@ -1456,7 +1457,8 @@ namespace BurningKnight.state {
 			leaderMenu.Add(new UiLabel {
 				Label = $"{Locale.Get($"run_{Run.Type.ToString().ToLower()}")} {Locale.Get("leaderboard")}",
 				RelativeCenterX = Display.UiWidth * 0.5f,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			leaderStats = new UiTable();
@@ -1567,7 +1569,8 @@ namespace BurningKnight.state {
 				placeLabel = (UiLabel) statsMenu.Add(new UiLabel {
 					Label = "404",
 					RelativeCenterX = Display.UiWidth * 0.5f,
-					RelativeCenterY = TitleY
+					RelativeCenterY = TitleY,
+					Clickable = false
 				});
 				
 				statsMenu.Add(statsBack = new UiButton {
@@ -1625,7 +1628,8 @@ namespace BurningKnight.state {
 			pauseMenu.Add(new UiLabel {
 				LocaleLabel = "settings",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			pauseMenu.Add(new UiButton {
@@ -1740,7 +1744,8 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			gameSettings.Add(new UiCheckbox {
@@ -1933,7 +1938,8 @@ namespace BurningKnight.state {
 				AngleMod = 0,
 				LocaleLabel = "are_you_sure",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy - space * 1.5f
+				RelativeCenterY = sy - space * 1.5f,
+				Clickable = false
 			});
 
 			confirmationPane.Add(new UiLabel {
@@ -1941,7 +1947,8 @@ namespace BurningKnight.state {
 				AngleMod = 0,
 				LocaleLabel = text,
 				RelativeCenterX = sx,
-				RelativeCenterY = sy - space
+				RelativeCenterY = sy - space,
+				Clickable = false
 			});
 
 			var spx = 32;
@@ -1982,7 +1989,8 @@ namespace BurningKnight.state {
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			graphicsSettings.Add(new UiCheckbox {
@@ -2104,7 +2112,8 @@ namespace BurningKnight.state {
 			audioSettings.Add(new UiLabel {
 				LocaleLabel = "audio",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 			
 			UiSlider.Make(audioSettings, sx, sy - space, "master_volume", (int) (Settings.MasterVolume * 100)).OnValueChange = s => {
@@ -2158,7 +2167,8 @@ namespace BurningKnight.state {
 			inputSettings.Add(new UiLabel {
 				LocaleLabel = "input",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			var first = true;
@@ -2291,7 +2301,8 @@ namespace BurningKnight.state {
 			keyboardSettings.Add(new UiLabel {
 				LocaleLabel = "keyboard",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 			
 			keyboardSettings.Add(new UiControl {
@@ -2379,7 +2390,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru", "de", "fr", "pl"
+			"en", "ru", "de", "fr", "pl", "by"
 		};
 		
 		private void AddLanguageSettings() {
@@ -2390,7 +2401,8 @@ namespace BurningKnight.state {
 			languageSettings.Add(new UiLabel {
 				LocaleLabel = "language",
 				RelativeCenterX = Display.UiWidth * 0.5f,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			for (var i = 0; i < languages.Length; i++) {
@@ -2445,7 +2457,8 @@ namespace BurningKnight.state {
 			gamepadSettings.Add(new UiLabel {
 				LocaleLabel = "gamepad",
 				RelativeCenterX = sx,
-				RelativeCenterY = TitleY
+				RelativeCenterY = TitleY,
+				Clickable = false
 			});
 
 			var g = LocalPlayer.Locate(Area)?.GetComponent<GamepadComponent>();

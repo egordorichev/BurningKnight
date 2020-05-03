@@ -4,4 +4,15 @@
 * cutscenes
 * finish up localisation (spanish/portugisie/belarus/french/italian)
 * viktor's new laptop doesn't like the gaem
-* make useless setting labels unclickable
+* you can still reroll scourges
+* fancy_hat not unlocjing? 
+* diy dice doesnt allow you to pickup
+* fix eye amulet damaging you too much (and from snow and from orbitals)
+* text fx overlap
+* если у тебя проклятая активка, то при покупке любой активки она останется лежать в магазине, деньги снимутся (или ключи)
+* кстати, может ещё у множителей орбиталов и петов сделать их активками одноразовыми, а то ты купил и они сразу же юзнулись
+* npc party unlocks after getting 1 npc??
+* remove freeze frames from bullets
+* scourge count in the end looks weird (anivire got less than he had)
+* looping doesnt give you enough points
+* scourge of egg should work in inventory too
