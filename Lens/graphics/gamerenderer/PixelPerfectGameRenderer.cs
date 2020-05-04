@@ -3,6 +3,7 @@ using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Graphics;
 using SharpDX.Direct2D1.Effects;
 
@@ -78,7 +79,7 @@ namespace Lens.graphics.gamerenderer {
 
 			BeginUi();
 			
-			if (Engine.Instance.Flash > 0 && Engine.FlashModifier > 0.001f) {
+			if (Engine.Instance.Flash > 0 && !Input.Keyboard.IsDown(Keys.F)) {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);
