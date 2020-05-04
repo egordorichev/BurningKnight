@@ -1813,8 +1813,10 @@ namespace BurningKnight.state {
 						
 						new Thread(() => {
 							try {
+								Run.StartingNew = true;
+								Run.NextDepth = 0;
+								Run.IntoMenu = true;
 								Settings.Generate();
-								gameBack.Click(gameBack);
 							} catch (Exception e) {
 								Log.Error(e);
 							}
