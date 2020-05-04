@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
@@ -29,7 +30,7 @@ namespace BurningKnight.entity.creature.npc {
 			cost = (byte) Rnd.Int(min, min + 5);
 			
 			AddComponent(new AnimationComponent("maanex"));
-			GetComponent<DropsComponent>().Add(new SimpleDrop(1f, 1, 1, "bk:maanex_head"));
+			GetComponent<DropsComponent>().Add(new SingleDrop("bk:maanex_head"));
 
 			if (Run.Depth == 0) {
 				AddComponent(new CloseDialogComponent("maanex_0", "maanex_1", "maanex_2", "maanex_3", "maanex_4"));
@@ -116,8 +117,8 @@ namespace BurningKnight.entity.creature.npc {
 					}
 				}
 			} else if (e is DiedEvent) {
+				Items.Unlock("bk:maanex_head");
 				ExplosionMaker.Make(this);
-				GetComponent<DropsComponent>().SpawnDrops();
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
 				GetComponent<DialogComponent>().StartAndClose($"npc_hurt_{Rnd.Int(3)}", 2);
 			}
