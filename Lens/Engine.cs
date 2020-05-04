@@ -168,11 +168,11 @@ namespace Lens {
 
 			Split = Math.Max(0, Split - dt);
 			Flash = Math.Max(0, Flash - dt * 120f * (1.1f - FlashModifier));
-			Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
+			// Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
 
-			if (FreezeModifier <= 0.01f || Freeze < 0.01f) {
+			// if (FreezeModifier <= 0.01f || Freeze < 0.01f) {
 				time += dt;
-			}
+			// }
 
 			MouseData.HadClick = false;
 
