@@ -14,6 +14,4 @@
 * npc party unlocks after getting 1 npc??
 * remove freeze frames from bullets
 * scourge count in the end looks weird (anivire got less than he had)
-* looping doesnt give you enough points
-* scourge of egg should work in inventory too
 * easter egg where pressing a checkbox will replace all the text with "text" or smth

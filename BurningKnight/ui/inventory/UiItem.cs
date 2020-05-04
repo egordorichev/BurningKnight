@@ -1,3 +1,4 @@
+using System.Linq;
 using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.entity.item;
@@ -5,6 +6,7 @@ using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Lens.util;
+using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
@@ -27,8 +29,12 @@ namespace BurningKnight.ui.inventory {
 					return;
 				}
 				
-				Name = Locale.Get(id);
-				Description = Locale.Get($"{id}_desc");
+				var idd = Scourge.IsEnabled(Scourge.OfEgg)
+					? Items.Datas.Values.ElementAt(Rnd.Int(Items.Datas.Count)).Id
+					: Id;
+				
+				Name = Locale.Get(idd);
+				Description = Locale.Get($"{idd}_desc");
 				Region = CommonAse.Items.GetSlice(id);
 
 				NameSize = Font.Small.MeasureString(Name);
