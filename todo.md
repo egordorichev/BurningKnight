@@ -4,5 +4,4 @@
 * cutscenes
 * finish up localisation (spanish/portugisie/belarus/french/italian)
 * viktor's new laptop doesn't like the gaem
-* text fx overlap
 * npc party unlocks after getting 1 npc??

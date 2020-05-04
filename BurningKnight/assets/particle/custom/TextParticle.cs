@@ -111,14 +111,16 @@ namespace BurningKnight.assets.particle.custom {
 					if (part == this) {
 						continue;
 					}
+					
+					var rect = new Rectangle((int) gamePosition.X, (int) gamePosition.Y, (int) Width, (int) Height);
 
-					if (part.Overlaps(this)) {
-						var s = dt * 360;
+					if (rect.Intersects(new Rectangle((int) part.gamePosition.X, (int) part.gamePosition.Y, (int) part.Width, (int) part.Height))) {
+						var s = dt * 300;
 						
-						if (part.Y < Y) {
-							part.Y -= s;
+						if (part.gamePosition.Y <= gamePosition.Y) {
+							part.gamePosition.Y -= s;
 						} else {
-							Y += s;
+							// gamePosition.Y += s;
 						}
 					}
 				}
