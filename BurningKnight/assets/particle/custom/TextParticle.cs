@@ -24,6 +24,7 @@ namespace BurningKnight.assets.particle.custom {
 
 				origin = size / 2;
 				Width = size.Width;
+				Height = size.Height;
 				gamePosition = start;
 
 				scale.X = 0;
@@ -101,6 +102,26 @@ namespace BurningKnight.assets.particle.custom {
 				Tween.To(0, scale.X, x => scale.X = x, 0.15f, Ease.QuadIn);
 				Tween.To(3, scale.Y, x => scale.Y = x, 0.15f, Ease.QuadIn).OnEnd = () => Done = true;
 				Tween.To(-18, offset.Y, x => offset.Y = x, 0.15f, Ease.QuadIn);
+			}
+
+			if (!tweened) {
+				foreach (var p in Area.Tagged[Tags.TextParticle]) {
+					var part = (TextParticle) p;
+
+					if (part == this) {
+						continue;
+					}
+
+					if (part.Overlaps(this)) {
+						var s = dt * 360;
+						
+						if (part.Y < Y) {
+							part.Y -= s;
+						} else {
+							Y += s;
+						}
+					}
+				}
 			}
 
 			Center = Camera.Instance.CameraToUi(gamePosition) + offset;

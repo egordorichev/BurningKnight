@@ -70,6 +70,15 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+			
+			var h = GetComponent<HealthComponent>();
+			h.Unhittable = false;
+			h.InitMaxHealth = 50;
+			h.SetHealth(50, this);
+		}
+
 		private string GetDialog(Entity e) {
 			var hat = e.GetComponent<HatComponent>().Item;
 
@@ -104,6 +113,10 @@ namespace BurningKnight.entity.creature.npc {
 						GetComponent<DialogComponent>().Close();
 					}
 				}
+			} else if (e is DiedEvent) {
+				ExplosionMaker.Make(this);
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
+				GetComponent<DialogComponent>().StartAndClose($"npc_hurt_{Rnd.Int(3)}", 2);
 			}
 			
 			return base.HandleEvent(e);
