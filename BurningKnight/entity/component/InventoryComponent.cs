@@ -37,14 +37,11 @@ namespace BurningKnight.entity.component {
 						p.AnimateItemPickup(item, () => {
 							item.Use(p);
 							item.Done = true;
-
-							if (item.Type == ItemType.Scourge) {
-								Achievements.Unlock("bk:scourged");
-							}
 						}, false);
 					} else if (animate) {
 						p.AnimateItemPickup(item, () => {
 							if (item.Type == ItemType.Scourge) {
+								Achievements.Unlock("bk:scourged");
 								var center = Entity.Center;
 			
 								for (var i = 0; i < 10; i++) {
@@ -59,6 +56,10 @@ namespace BurningKnight.entity.component {
 						});
 					} else {
 						Add(item);
+						
+						if (item.Type == ItemType.Scourge) {
+							Achievements.Unlock("bk:scourged");
+						}
 					}
 				}
 			}
