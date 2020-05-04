@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
@@ -116,9 +117,13 @@ namespace BurningKnight.entity.creature.npc {
 						GetComponent<DialogComponent>().Close();
 					}
 				}
-			} else if (e is DiedEvent) {
+			} else if (e is DiedEvent de) {
 				Items.Unlock("bk:maanex_head");
 				ExplosionMaker.Make(this);
+
+				if (de.From is Player p && p.GetComponent<HatComponent>().Item?.Id == "bk:maanex_head") {
+					Achievements.Unlock("bk:maanex");
+				}
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
 				GetComponent<DialogComponent>().StartAndClose($"npc_hurt_{Rnd.Int(3)}", 2);
 			}
