@@ -7,6 +7,7 @@ namespace BurningKnight.entity.door {
 		
 		public ConditionLock() {
 			LockedByDefault = false;
+			AlwaysActive = true;
 		}
 		
 		protected override bool Disposable() {
