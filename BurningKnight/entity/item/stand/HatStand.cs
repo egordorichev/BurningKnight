@@ -10,9 +10,9 @@ namespace BurningKnight.entity.item.stand {
 			return item.Type == ItemType.Hat;
 		}
 
-		protected override void OnTake(Item item, Entity who) {
-			base.OnTake(item, who);
-
+		protected override void DoStuff() {
+			base.DoStuff();
+			
 			CheckHats();
 
 			foreach (var i in Area.Tagged[Tags.Item].ToArray()) {

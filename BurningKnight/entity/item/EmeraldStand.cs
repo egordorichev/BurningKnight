@@ -99,7 +99,13 @@ namespace BurningKnight.entity.item {
 				}
 			}
 
+			DoStuff();
+
 			return ShowUnlocked;
+		}
+
+		protected virtual void DoStuff() {
+			
 		}
 
 		protected virtual bool ApproveItem(ItemData item) {
