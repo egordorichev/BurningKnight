@@ -1,5 +1,8 @@
 using BurningKnight.assets;
+using BurningKnight.assets.achievements;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.level.entities.chest;
@@ -28,6 +31,7 @@ namespace BurningKnight.entity.creature.npc {
 			cost = (byte) Rnd.Int(min, min + 5);
 			
 			AddComponent(new AnimationComponent("maanex"));
+			GetComponent<DropsComponent>().Add(new SingleDrop("bk:maanex_head"));
 
 			if (Run.Depth == 0) {
 				AddComponent(new CloseDialogComponent("maanex_0", "maanex_1", "maanex_2", "maanex_3", "maanex_4"));
@@ -70,6 +74,15 @@ namespace BurningKnight.entity.creature.npc {
 			Subscribe<RoomChangedEvent>();
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+			
+			var h = GetComponent<HealthComponent>();
+			h.Unhittable = false;
+			h.InitMaxHealth = 50;
+			h.SetHealth(50, this);
+		}
+
 		private string GetDialog(Entity e) {
 			var hat = e.GetComponent<HatComponent>().Item;
 
@@ -104,6 +117,15 @@ namespace BurningKnight.entity.creature.npc {
 						GetComponent<DialogComponent>().Close();
 					}
 				}
+			} else if (e is DiedEvent de) {
+				Items.Unlock("bk:maanex_head");
+				ExplosionMaker.Make(this);
+
+				if (de.From is Player p && p.GetComponent<HatComponent>().Item?.Id == "bk:maanex_head") {
+					Achievements.Unlock("bk:maanex");
+				}
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
+				GetComponent<DialogComponent>().StartAndClose($"npc_hurt_{Rnd.Int(3)}", 2);
 			}
 			
 			return base.HandleEvent(e);

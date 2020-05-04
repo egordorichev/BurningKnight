@@ -93,8 +93,8 @@ namespace BurningKnight.assets.achievements {
 			}
 		}
 
-		public static void IncrementProgress(string id) {
-			SetProgress(id, GlobalSave.GetInt($"ach_{id}", 0) + 1);
+		public static void IncrementProgress(string id, int max = -1) {
+			SetProgress(id, GlobalSave.GetInt($"ach_{id}", 0) + 1, max);
 		}
 
 		public static void SetProgress(string id, int progress, int max = -1) {

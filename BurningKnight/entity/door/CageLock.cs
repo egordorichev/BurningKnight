@@ -41,7 +41,7 @@ namespace BurningKnight.entity.door {
 			}
 			
 			Audio.PlaySfx("item_cage_key_used");
-			Achievements.IncrementProgress("bk:npc_party");
+			Achievements.IncrementProgress("bk:npc_party", 14);
 
 			foreach (var id in ShopNpc.AllNpc) {
 				if (GlobalSave.IsFalse(id)) {

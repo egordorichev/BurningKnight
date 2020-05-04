@@ -53,8 +53,25 @@ namespace BurningKnight.entity.item.stand {
 				return false;
 			}
 
+			if (Item.Type == ItemType.Active) {
+				var item = entity.GetComponent<ActiveItemComponent>().Item;
+
+				if (item != null && item.Scourged) {
+					return false;
+				}
+			} else if (Item.Type == ItemType.Weapon) {
+				var item = entity.GetComponent<ActiveWeaponComponent>().Item;
+
+				if (item != null && item.Scourged) {
+					item = entity.GetComponent<WeaponComponent>().Item;
+
+					if (item != null && item.Scourged) {
+						return false;
+					}
+				}
+			}
+			
 			component.Coins -= Price;
-			// fixme: add it
 			Achievements.Unlock("bk:shopper");
 			
 			return true;

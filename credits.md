@@ -50,6 +50,9 @@ Russian Translation Overview
 Badosz
 Playtesting
 
+Nikithn 
+Belarusian Translation
+
 Failpositive?
 
 And you!
