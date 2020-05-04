@@ -316,9 +316,9 @@ namespace BurningKnight.ui.inventory {
 					more.Right = Display.UiWidth - 8;
 					more.Bottom = Display.UiHeight - 5f;
 
-					for (var i = 0; i < 6; i++) {
+					for (var i = 0; i < items.Count - 6; i++) {
 						var it = items[i];
-						it.X = Display.UiWidth + 8;
+						it.X = Display.UiWidth + 32;
 					}
 
 					var ps = Display.UiWidth - 8f;
