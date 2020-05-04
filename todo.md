@@ -3,5 +3,4 @@
 * dm fight (+ loop condition)
 * cutscenes
 * finish up localisation (spanish/portugisie/belarus/french/italian)
-* viktor's new laptop doesn't like the gaem
-* update steam image https://media.discordapp.net/attachments/562992487015251989/706808820210597898/unknown.png
+* auto settings did not reset?

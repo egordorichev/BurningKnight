@@ -79,7 +79,7 @@ namespace Lens.graphics.gamerenderer {
 
 			BeginUi();
 			
-			if (Engine.Instance.Flash > 0 && !Input.Keyboard.IsDown(Keys.F)) {
+			if (Engine.Instance.Flash > 0) {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);

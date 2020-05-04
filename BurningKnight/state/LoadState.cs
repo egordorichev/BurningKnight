@@ -50,7 +50,7 @@ namespace BurningKnight.state {
 			animation = Animations.Create("loading");
 			animation.Paused = false;
 
-			nice = Rnd.Chance(5);
+			nice = Rnd.Chance(4.2f);
 			
 			if (SaveManager.ExistsAndValid(SaveType.Game)
 			    && SaveManager.ExistsAndValid(SaveType.Level)
