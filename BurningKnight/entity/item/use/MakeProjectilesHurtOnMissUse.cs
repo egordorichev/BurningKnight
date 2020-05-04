@@ -5,6 +5,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
 using BurningKnight.level;
 using BurningKnight.level.biome;
+using BurningKnight.state;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.use {
@@ -18,7 +19,7 @@ namespace BurningKnight.entity.item.use {
 				var hurt = false;
 				
 				pce.Projectile.OnCollision += (p, en) => {
-					if (en is Creature || (en is Level l && l.Biome is IceBiome)) {
+					if (en.HasComponent<HealthComponent>() || (en is ProjectileLevelBody && Run.Level.Biome is IceBiome)) {
 						hurt = true;
 					}
 					
@@ -38,7 +39,7 @@ namespace BurningKnight.entity.item.use {
 				var hurt = false;
 
 				mac.Arc.OnHurt += (m, en) => {
-					if (en is Creature || (en is Level l && l.Biome is IceBiome)) {
+					if (en.HasComponent<HealthComponent>() || (en is ProjectileLevelBody && Run.Level.Biome is IceBiome)) {
 						hurt = true;
 					}
 				};

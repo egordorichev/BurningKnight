@@ -167,7 +167,11 @@ namespace Lens {
 			Audio.Update(dt);
 
 			Split = Math.Max(0, Split - dt);
-			Flash = Math.Max(0, Flash - dt * 120f * (1.1f - FlashModifier));
+
+			if (Flash > 0) {
+				Flash -= dt * 120f;
+			}
+			
 			// Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
 
 			// if (FreezeModifier <= 0.01f || Freeze < 0.01f) {

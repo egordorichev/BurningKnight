@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.npc;
 using BurningKnight.save;
 using ImGuiNET;
 using Lens;
+using Lens.entity;
 using Lens.util.file;
 
 namespace BurningKnight.entity.door {
@@ -45,9 +46,9 @@ namespace BurningKnight.entity.door {
 				case 7: return GlobalSave.GetInt("challenges_completed") >= 20;
 				case 8: return GlobalSave.GetInt("challenges_completed") >= 30;
 				case 9: return Achievements.IsGroupComplete("a");
-				case 10: return Achievements.IsGroupComplete("a");
-				case 11: return Achievements.IsGroupComplete("a");
-				case 12: return Achievements.IsGroupComplete("a");
+				case 10: return Achievements.IsGroupComplete("b");
+				case 11: return Achievements.IsGroupComplete("c");
+				case 12: return Achievements.IsGroupComplete("d");
 			}
 
 			return false;
@@ -67,6 +68,8 @@ namespace BurningKnight.entity.door {
 			Replaced = false;
 			base.PostInit();
 
+			Subscribe<Achievement.UnlockedEvent>();
+			
 			if (!Vertical) {
 				// CenterX = (float) (Math.Round(CenterX / 16) * 16) + 8;
 			}
@@ -95,6 +98,15 @@ namespace BurningKnight.entity.door {
 			
 			stream.WriteByte((byte) condition);
 			stream.WriteBoolean(lockInDemo);
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is Achievement.UnlockedEvent) {
+				cached = false;
+				ShouldLock();
+			}
+			
+			return base.HandleEvent(e);
 		}
 	}
 }

@@ -757,23 +757,6 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 
-			if (Run.Depth > 0) {
-				var found = false;
-
-				foreach (var t in Camera.Instance.Targets) {
-					if (t.Entity is Player) {
-						found = true;
-
-						break;
-					}
-				}
-
-				if (found) {
-					Camera.Instance.Zoom +=
-						((Input.IsDown(Controls.Map, GamepadComponent.Current) ? 0.5f : 1f) - Camera.Instance.Zoom) * dt * 10;
-				}
-			}
-
 			console?.Update(dt);
 
 			var controller = GamepadComponent.Current;
