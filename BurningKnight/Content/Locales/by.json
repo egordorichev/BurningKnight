@@ -1021,5 +1021,11 @@
 	"language": "Мова",
 	"bk:pouch": "Мешочек",
 	"bk:alien_glasses": "Iнапланетныя Акуляры",
-	"bk:alien_glasses_desc" : "Я бачу больш "
+	"bk:alien_glasses_desc" : "Я бачу больш",
+	"inventory": "Iнвентар",
+	"bk:led": "Святлодыёд",
+	"bk:led_desc": "Дакладная Лямпачка",
+	"bk:fragile_lamp": "Крохкая Лямпачка",
+	"bk:fragile_lamp_desc": "Адын удар K.O.",
+	"painting_guitar" : "Больш гучнасцi!"
 }

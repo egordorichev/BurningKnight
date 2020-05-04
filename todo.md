@@ -13,5 +13,4 @@
 * кстати, может ещё у множителей орбиталов и петов сделать их активками одноразовыми, а то ты купил и они сразу же юзнулись
 * npc party unlocks after getting 1 npc??
 * remove freeze frames from bullets
-* scourge count in the end looks weird (anivire got less than he had)
 * easter egg where pressing a checkbox will replace all the text with "text" or smth
