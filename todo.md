@@ -16,5 +16,4 @@
 * scourge count in the end looks weird (anivire got less than he had)
 * looping doesnt give you enough points
 * scourge of egg should work in inventory too
-* belarus ў -> y with ударение
 * easter egg where pressing a checkbox will replace all the text with "text" or smth

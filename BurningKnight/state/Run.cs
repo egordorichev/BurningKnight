@@ -227,7 +227,7 @@ namespace BurningKnight.state {
 			Score += (int) Statistics.MobsKilled * 10;
 			Score += (int) Statistics.RoomsExplored * 2;
 			Score += Statistics.BossesDefeated * 1000;
-			Score += Run.Loop * 20000;
+			Score += Loop * 100000;
 
 			if (Won) {
 				Score += 5000;
