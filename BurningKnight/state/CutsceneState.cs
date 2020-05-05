@@ -1,4 +1,5 @@
 using BurningKnight.assets;
+using BurningKnight.assets.lighting;
 using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.cutscene.controller;
@@ -10,6 +11,7 @@ using Lens.entity;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
+using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -23,7 +25,16 @@ namespace BurningKnight.state {
 		public CutsceneState(Area area) {
 			Area = area;
 		}
-		
+
+		public override void Destroy() {
+			Lights.Destroy();
+			Area.Destroy();
+			Area = null;
+
+			Physics.Destroy();
+			base.Destroy();
+		}
+
 		public override void Init() {
 			base.Init();
 
@@ -33,7 +44,7 @@ namespace BurningKnight.state {
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
 			Console = new Console(Area);
 			
-			Camera.Position = new Vector2(Display.Width / 2f, Display.Height / 2f);
+			Camera.Position = new Vector2(Display.Width / 2f, Display.Height / 2f) + new Vector2(32);
 		}
 		
 		private void PrerenderShadows() {
@@ -68,6 +79,29 @@ namespace BurningKnight.state {
 			Graphics.Batch.Begin();
 			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);
 			Graphics.Batch.End();
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			float speed = dt * 120f;
+				
+			if (Input.Keyboard.IsDown(Keys.NumPad4)) {
+				Camera.Instance.PositionX -= speed;
+			}
+				
+			if (Input.Keyboard.IsDown(Keys.NumPad6)) {
+				Camera.Instance.PositionX += speed;
+			}
+				
+			if (Input.Keyboard.IsDown(Keys.NumPad8)) {
+				Camera.Instance.PositionY -= speed;
+			}
+				
+			if (Input.Keyboard.IsDown(Keys.NumPad2)) {
+				Camera.Instance.PositionY += speed;
+			}
+			
+			Physics.Update(dt);
 		}
 	}
 }

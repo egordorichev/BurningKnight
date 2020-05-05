@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using BurningKnight.ui.editor;
@@ -11,6 +12,7 @@ namespace BurningKnight.entity.cutscene.entity {
 			
 			AddComponent(new DialogComponent());
 			AddComponent(new StateComponent());
+			AddComponent(new ShadowComponent());
 			
 			AddTag(Tags.CutsceneEntity);
 		}

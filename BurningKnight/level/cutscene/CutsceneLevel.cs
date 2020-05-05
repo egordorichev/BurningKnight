@@ -19,6 +19,10 @@ namespace BurningKnight.level.cutscene {
 			};
 		}
 
+		public override int GetPadding() {
+			return 1;
+		}
+
 		protected override Builder GetBuilder() {
 			return new HallBuilder();
 		}
