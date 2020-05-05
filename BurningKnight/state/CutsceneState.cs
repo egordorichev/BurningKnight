@@ -27,9 +27,13 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
+			Shaders.Ui.Parameters["black"].SetValue(1f);
+
 			Area.Add(new GobboCutsceneController());
 			Ui.Add(Camera = new Camera(new FollowingDriver()));
 			Console = new Console(Area);
+			
+			Camera.Position = new Vector2(Display.Width / 2f, Display.Height / 2f);
 		}
 		
 		private void PrerenderShadows() {
