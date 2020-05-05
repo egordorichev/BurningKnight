@@ -21,7 +21,10 @@ namespace BurningKnight.state {
 	public class CutsceneState : GameState {
 		public Console Console;
 		public Camera Camera;
-		
+		private float blackBarsSize = 50;
+		private TextureRegion black;
+		public Area TopUi;
+
 		public CutsceneState(Area area) {
 			Area = area;
 		}
@@ -33,10 +36,12 @@ namespace BurningKnight.state {
 
 			Physics.Destroy();
 			base.Destroy();
+			TopUi.Destroy();
 		}
 
 		public override void Init() {
 			base.Init();
+			TopUi = new Area();
 
 			Shaders.Ui.Parameters["black"].SetValue(1f);
 
@@ -45,6 +50,8 @@ namespace BurningKnight.state {
 			Console = new Console(Area);
 			
 			Camera.Position = new Vector2(Display.Width / 2f, Display.Height / 2f) + new Vector2(32);
+			
+			black = CommonAse.Ui.GetSlice("black");
 		}
 		
 		private void PrerenderShadows() {
@@ -81,6 +88,17 @@ namespace BurningKnight.state {
 			Graphics.Batch.End();
 		}
 
+		public override void RenderUi() {
+			base.RenderUi();
+			
+			if (blackBarsSize > 0.01f) {
+				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
+				Graphics.Render(black, new Vector2(0, Display.UiHeight + 1 - blackBarsSize), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize + 1));
+			}
+			
+			TopUi.Render();
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			float speed = dt * 120f;
@@ -102,6 +120,7 @@ namespace BurningKnight.state {
 			}
 			
 			Physics.Update(dt);
+			TopUi.Update(dt);
 		}
 	}
 }

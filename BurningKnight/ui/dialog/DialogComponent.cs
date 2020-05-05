@@ -119,6 +119,8 @@ namespace BurningKnight.ui.dialog {
 
 			if (Engine.Instance.State is InGameState ss) {
 				ss.TopUi.Add(Dialog);
+			} if (Engine.Instance.State is CutsceneState cs) {
+				cs.TopUi.Add(Dialog);
 			} else {
 				Engine.Instance.State.Ui.Add(Dialog);
 			}
