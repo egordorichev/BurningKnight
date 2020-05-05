@@ -129,7 +129,8 @@ namespace BurningKnight.state {
 			}
 
 			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Dev) || Run.Depth == 0)) {
-				Engine.Instance.SetState(new InGameState(gameArea, Menu));
+				// Engine.Instance.SetState(new InGameState(gameArea, Menu));
+				Engine.Instance.SetState(new CutsceneState(gameArea));
 				Menu = false;
 			}
 		}

@@ -23,6 +23,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace BurningKnight.state {
 	public class DevAssetLoadState : GameState {
 		private const bool LoadEditor = false;
+		private const bool LoadCutscene = true;
 		
 		private int progress;
 		private bool ready;
@@ -137,7 +138,7 @@ namespace BurningKnight.state {
 				}
 
 				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;
-				Engine.Instance.SetState(LoadEditor ? (GameState) new EditorState() : new InGameState(gameArea, false));
+				Engine.Instance.SetState(LoadEditor ? (GameState) new EditorState() : (LoadCutscene ? (GameState) new LoadState() : new InGameState(gameArea, false)));
 			}
 		}
 
