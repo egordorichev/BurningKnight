@@ -23,7 +23,7 @@ namespace Desktop.integration.steam {
 
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
-				var lang = SteamApps.GameLanguage;
+				var lang = SteamApps.GameLanguage.ToLower();
 
 				Log.Info($"Starting from steam! <3 ({lang})");
 
@@ -35,6 +35,26 @@ namespace Desktop.integration.steam {
 					
 					case "russian": {
 						Locale.PrefferedClientLanguage = "ru";
+						break;
+					}
+					
+					case "german": {
+						Locale.PrefferedClientLanguage = "de";
+						break;
+					}
+					
+					case "italian": {
+						Locale.PrefferedClientLanguage = "it";
+						break;
+					}
+					
+					case "polish": {
+						Locale.PrefferedClientLanguage = "pl";
+						break;
+					}
+					
+					case "french": {
+						Locale.PrefferedClientLanguage = "fr";
 						break;
 					}
 				}
