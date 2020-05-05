@@ -900,7 +900,7 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
-			if (!BK.Demo && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
+			if (BK.Version.Dev && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
 				ToolsEnabled = !ToolsEnabled;
 				var player = LocalPlayer.Locate(Area);
 
@@ -1813,8 +1813,10 @@ namespace BurningKnight.state {
 						
 						new Thread(() => {
 							try {
+								var d = Run.Depth;
+								Run.RealDepth = -1;
+								Run.Depth = d;
 								Settings.Generate();
-								gameBack.Click(gameBack);
 							} catch (Exception e) {
 								Log.Error(e);
 							}
@@ -2373,7 +2375,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru", "de", "fr", "pl", "by"
+			"en", "ru", "de", "fr", "pl", "by", "it"
 		};
 		
 		private void AddLanguageSettings() {

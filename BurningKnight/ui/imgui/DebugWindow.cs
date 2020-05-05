@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.ui.imgui {
 	public static class DebugWindow {
 		private static string[] states = {
-			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer", "room_editor"
+			"ingame", "dialog_editor", "level_editor", "pico", "load", "save_explorer", "room_editor", "cutscene"
 		};
 		
 		private static PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
@@ -25,7 +25,7 @@ namespace BurningKnight.ui.imgui {
 		private static Type[] types = {
 			typeof(InGameState), typeof(DialogEditorState),
 			typeof(EditorState), typeof(PicoState), typeof(LoadState),
-			typeof(SaveExplorerState), typeof(RoomEditorState)
+			typeof(SaveExplorerState), typeof(RoomEditorState), typeof(CutsceneState)
 		};
 		
 		private static float[] fps = new float[60];

@@ -38,6 +38,9 @@ Polish Translation
 ArKeid0s
 French Translation
 
+nade_
+Itralian Translation
+
 Nufflee
 Early Development & Playtesting
 
@@ -54,5 +57,8 @@ Nikithn
 Belarusian Translation
 
 Failpositive?
+
+Somepx
+Awesome Fonts
 
 And you!

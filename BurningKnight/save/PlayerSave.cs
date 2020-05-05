@@ -23,6 +23,10 @@ namespace BurningKnight.save {
 		}
 
 		public override void Generate(Area area) {
+			if (Run.Depth < -2) { // Cutscenes
+				return;
+			}
+			
 			var player = new LocalPlayer();
 			area.Add(player);
 

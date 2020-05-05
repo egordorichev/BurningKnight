@@ -103,7 +103,6 @@ namespace BurningKnight.state {
 			Editor.RenderInGame();
 		}
 
-
 		public override void RenderNative() {
 			ImGuiHelper.Begin();
 			Editor.Render();

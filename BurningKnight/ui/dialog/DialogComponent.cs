@@ -29,6 +29,7 @@ namespace BurningKnight.ui.dialog {
 		public DialogCallback OnNext;
 		public Entity To;
 		public Action InitCallback;
+		public Action FinishCallback;
 
 		private bool added;
 		private float tillClose = -1;
@@ -119,6 +120,8 @@ namespace BurningKnight.ui.dialog {
 
 			if (Engine.Instance.State is InGameState ss) {
 				ss.TopUi.Add(Dialog);
+			} if (Engine.Instance.State is CutsceneState cs) {
+				cs.TopUi.Add(Dialog);
 			} else {
 				Engine.Instance.State.Ui.Add(Dialog);
 			}
@@ -151,10 +154,12 @@ namespace BurningKnight.ui.dialog {
 			InitCallback?.Invoke();
 		}
 
-		public void Start(string id, Entity to = null) {
+		public void Start(string id, Entity to = null, Action end = null) {
 			var dialog = Dialogs.Get(id);
 			tillClose = -1;
-			
+
+			FinishCallback = end;
+
 			if (dialog == null) {
 				Setup(new Dialog(id), to);
 				return;

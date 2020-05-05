@@ -579,6 +579,12 @@
     <Compile Include="entity\creature\player\PlayerInputComponent.cs" />
     <Compile Include="entity\creature\player\WeaponComponent.cs" />
     <Compile Include="entity\Cursor.cs" />
+    <Compile Include="entity\cutscene\controller\CutsceneController.cs" />
+    <Compile Include="entity\cutscene\controller\GobboCutsceneController.cs" />
+    <Compile Include="entity\cutscene\entity\BabyGobbo.cs" />
+    <Compile Include="entity\cutscene\entity\CutsceneEntity.cs" />
+    <Compile Include="entity\cutscene\entity\Gobbo.cs" />
+    <Compile Include="entity\cutscene\entity\OldGobbo.cs" />
     <Compile Include="entity\DamageType.cs" />
     <Compile Include="entity\door\BossDoor.cs" />
     <Compile Include="entity\door\BossLock.cs" />
@@ -929,6 +935,8 @@
     <Compile Include="level\challenge\ChallengeRegistry.cs" />
     <Compile Include="level\Chasm.cs" />
     <Compile Include="level\ChasmBodyComponent.cs" />
+    <Compile Include="level\cutscene\CutsceneLevel.cs" />
+    <Compile Include="level\cutscene\CutsceneRoom.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\AchievementStatue.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
@@ -1185,6 +1193,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="state\AreaDebug.cs" />
     <Compile Include="state\AssetLoadState.cs" />
+    <Compile Include="state\CutsceneState.cs" />
     <Compile Include="state\DevAssetLoadState.cs" />
     <Compile Include="state\DialogEditorState.cs" />
     <Compile Include="state\Editor.cs" />

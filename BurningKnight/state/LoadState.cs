@@ -37,6 +37,7 @@ namespace BurningKnight.state {
 		private float timer;
 		private bool loading;
 		private bool nice;
+		public bool IntoCutscene;
 		
 		public bool Menu;
 
@@ -50,7 +51,7 @@ namespace BurningKnight.state {
 			animation = Animations.Create("loading");
 			animation.Paused = false;
 
-			nice = Rnd.Chance(5);
+			nice = Rnd.Chance(4.2f);
 			
 			if (SaveManager.ExistsAndValid(SaveType.Game)
 			    && SaveManager.ExistsAndValid(SaveType.Level)
@@ -129,7 +130,12 @@ namespace BurningKnight.state {
 			}
 
 			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Dev) || Run.Depth == 0)) {
-				Engine.Instance.SetState(new InGameState(gameArea, Menu));
+				if (IntoCutscene) {
+					Engine.Instance.SetState(new CutsceneState(gameArea));
+				} else {
+					Engine.Instance.SetState(new InGameState(gameArea, Menu));
+				}
+				
 				Menu = false;
 			}
 		}

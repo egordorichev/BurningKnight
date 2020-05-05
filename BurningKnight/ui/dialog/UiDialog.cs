@@ -20,6 +20,7 @@ namespace BurningKnight.ui.dialog {
 		private TextureRegion triangle;
 		public UiString Str;
 		public bool ShowArrow;
+		public bool AlwaysShowArrow;
 
 		public bool Saying { get; private set; }
 		public bool DoneSaying { get; private set; }
@@ -60,7 +61,7 @@ namespace BurningKnight.ui.dialog {
 				id = 0;
 			};
 			
-			Str.CharTyped = (s, i, c) => {
+			Str.CharTyped += (s, i, c) => {
 				if (!char.IsLetter(c)) {
 					return;
 				}
@@ -70,11 +71,10 @@ namespace BurningKnight.ui.dialog {
 				}
 
 				var sf = (int) char.ToLower(c);
-				var k = sf - 'a';
-				var v = k / 26f;
+				var v = (sf % 26) / 26f;
 
 				if (Owner is entity.creature.bk.BurningKnight) {
-					Audio.PlaySfx($"mob_bk_syllable_{k % 5 + 1}", 1f, v - 0.5f);
+					Audio.PlaySfx($"mob_bk_syllable_{sf % 5 + 1}", 1f, v - 0.5f);
 				} else {
 					Owner.GetComponent<AudioEmitterComponent>().Emit($"npc_voice_{Voice}", 1f - Audio.Db3, v + 0.5f); // (v - 0.5f) * 2f);
 				}
@@ -112,7 +112,7 @@ namespace BurningKnight.ui.dialog {
 				if (Str != null) {
 					Str.Render();
 
-					if (ShowArrow && Str.Finished && !Str.ShouldntRender) {
+					if ((AlwaysShowArrow || ShowArrow) && Str.Finished && !Str.ShouldntRender) {
 						Graphics.Color = Tint;
 						Graphics.Print("<", Font.Small, Position + new Vector2(Width - 8, Height - 8 + (float) Math.Sin(Engine.Time * 4f) * 1.5f * Display.UiScale));
 						Graphics.Color = ColorUtils.WhiteColor;

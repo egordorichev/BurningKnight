@@ -146,5 +146,15 @@ namespace Lens.entity {
 
 			return en;
 		}
+
+		public T Find<T>(Func<T, bool> filter = null) where T: Entity {
+			foreach (var e in Entities.Entities) {
+				if (e is T t && (filter == null || filter(t))) {
+					return t;
+				}
+			}
+
+			return null;
+		}
 	}
 }

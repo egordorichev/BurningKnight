@@ -7,6 +7,7 @@ using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.basement;
 using BurningKnight.level.biome;
+using BurningKnight.level.cutscene;
 using BurningKnight.level.hall;
 using BurningKnight.level.tile;
 using BurningKnight.level.tutorial;
@@ -47,12 +48,12 @@ namespace BurningKnight.save {
 		}
 
 		private RegularLevel CreateLevel() {
-			if (Run.Depth == -2) {
-				return new TutorialLevel();
+			if (Run.Depth < -2) {
+				return new CutsceneLevel();
 			}
 			
-			if (Run.Depth == -1) {
-				return new BasementLevel();
+			if (Run.Depth == -2) {
+				return new TutorialLevel();
 			}
 			
 			if (Run.Depth == 0) {

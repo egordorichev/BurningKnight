@@ -1,6 +1,8 @@
 using System;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
+using BurningKnight.entity.room.controllable.turret;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.tile;
@@ -26,7 +28,17 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override void Paint(Level level) {
-			WallRegistry.Paint(level, this, EntranceWallPool.Instance);
+			if (IceDemoRoom()) {
+				Painter.Fill(level, this, Tile.WallA);
+				Painter.FillEllipse(level, this, 3, Tiles.RandomFloor());
+				
+				level.Area.Add(new Turret {
+					Position = GetTileCenter() * 16 + new Vector2(32, 0),
+					StartingAngle = 0
+				});
+			} else {
+				WallRegistry.Paint(level, this, EntranceWallPool.Instance);
+			}
 			
 			var prop = new Entrance {
 				To = Run.Depth + 1
@@ -68,16 +80,20 @@ namespace BurningKnight.level.rooms.entrance {
 			}
 		}
 
+		private static bool IceDemoRoom() {
+			return LevelSave.BiomeGenerated is IceBiome && Run.Depth % 2 == 1;
+		}
+
 		public override int GetMinWidth() {
-			return 5;
+			return IceDemoRoom() ? 16 : 5;
 		}
 
 		public override int GetMinHeight() {
-			return 5;
+			return IceDemoRoom() ? 10 : 5;
 		}
 
 		public override int GetMaxWidth() {
-			return 13;
+			return IceDemoRoom() ? 17 : 13;
 		}
 
 		public override int GetMaxHeight() {

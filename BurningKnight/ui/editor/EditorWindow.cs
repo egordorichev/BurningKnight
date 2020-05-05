@@ -146,6 +146,8 @@ namespace BurningKnight.ui.editor {
 				return;
 			}
 			
+			ImGui.SetNextWindowPos(System.Numerics.Vector2.Zero, ImGuiCond.Once);
+			
 			if (!ImGui.Begin("Level Editor", ImGuiWindowFlags.AlwaysAutoResize)) {
 				ImGui.End();
 				return;
