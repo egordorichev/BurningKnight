@@ -737,9 +737,10 @@ namespace BurningKnight.entity.creature.player {
 				Camera.Instance.Unfollow(rce.Room);
 				Audio.PlaySfx("level_room_cleared", 0.25f + Audio.Db3);
 
-				if (!alerted && CheckClear(Area)) {
+				if (Run.Depth > 0 && !alerted && CheckClear(Area)) {
 					alerted = true;
 					AnimationUtil.Confetti(Center);
+					Audio.PlaySfx("level_cleared");
 				}
 			} else if (e is NewLevelStartedEvent) {
 				GetComponent<HealthComponent>().Unhittable = true;

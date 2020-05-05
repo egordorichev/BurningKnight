@@ -1010,9 +1010,9 @@
 	"painting_guitar": "More volume!",
 	"ach_bk:maanex": "Et tu, Brut?",
 	"ach_bk:maanex_desc": "Kill Maanex while wearing his head",
-	"dad_0" : "Yo son, I need to go get [cl red]the Lamp[cl], cya",
-	"dad_1" : "Grow big, don't die",
+	"dad_0" : "Hey son![dl] I need to go and find [cl red]the Lamp[cl]. I leave you to rule.",
+	"dad_1" : "If I don't return, don't search for me. Bye!",
 	"son_0" : "##NOOOOOOO##",
-	"gobbo_0" : "Yo son, I need to go find [cl green]my father[cl], cya",
-	"gobbo_1" : ":shrug:"
+	"gobbo_0" : "Son, [cl green]my father[cl] left me 20 years ago. I need to find him.",
+	"gobbo_1" : "I leave you as the ruler. Bye!"
 }

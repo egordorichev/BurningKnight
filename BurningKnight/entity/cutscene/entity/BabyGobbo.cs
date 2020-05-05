@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.ui.dialog;
 
 namespace BurningKnight.entity.cutscene.entity {
 	public class BabyGobbo : CutsceneEntity {
@@ -9,6 +10,7 @@ namespace BurningKnight.entity.cutscene.entity {
 			Height = 8;
 			
 			AddComponent(new AnimationComponent("baby_gobbo"));
+			GetComponent<DialogComponent>().Dialog.Voice = 7;
 		}
 	}
 }

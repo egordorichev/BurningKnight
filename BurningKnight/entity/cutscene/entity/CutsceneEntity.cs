@@ -10,6 +10,7 @@ namespace BurningKnight.entity.cutscene.entity {
 		public override void AddComponents() {
 			base.AddComponents();
 			
+			AddComponent(new AudioEmitterComponent());
 			AddComponent(new DialogComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent());
