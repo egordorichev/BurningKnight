@@ -20,6 +20,7 @@ namespace BurningKnight.ui.dialog {
 		private TextureRegion triangle;
 		public UiString Str;
 		public bool ShowArrow;
+		public bool AlwaysShowArrow;
 
 		public bool Saying { get; private set; }
 		public bool DoneSaying { get; private set; }
@@ -111,7 +112,7 @@ namespace BurningKnight.ui.dialog {
 				if (Str != null) {
 					Str.Render();
 
-					if (ShowArrow && Str.Finished && !Str.ShouldntRender) {
+					if ((AlwaysShowArrow || ShowArrow) && Str.Finished && !Str.ShouldntRender) {
 						Graphics.Color = Tint;
 						Graphics.Print("<", Font.Small, Position + new Vector2(Width - 8, Height - 8 + (float) Math.Sin(Engine.Time * 4f) * 1.5f * Display.UiScale));
 						Graphics.Color = ColorUtils.WhiteColor;
