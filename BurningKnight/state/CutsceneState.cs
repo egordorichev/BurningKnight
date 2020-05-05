@@ -1,6 +1,6 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
-using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.cutscene.controller;
 using BurningKnight.physics;
@@ -13,17 +13,23 @@ using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.input;
 using Lens.util.camera;
+using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.state {
 	public class CutsceneState : GameState {
-		public Console Console;
 		public Camera Camera;
 		private float blackBarsSize = 50;
 		private TextureRegion black;
 		public Area TopUi;
+
+		private string text;
+		private float textW;
+		private bool saying;
+		private float a;
 
 		public CutsceneState(Area area) {
 			Area = area;
@@ -43,12 +49,17 @@ namespace BurningKnight.state {
 			base.Init();
 			TopUi = new Area();
 
-			Shaders.Ui.Parameters["black"].SetValue(1f);
+			Shaders.Ui.Parameters["black"].SetValue(0f);
+			Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+			Shaders.Ui.Parameters["by"].SetValue(0.333f);
 
-			Area.Add(new GobboCutsceneController());
-			Ui.Add(Camera = new Camera(new FollowingDriver()));
-			Console = new Console(Area);
+			Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn);
+
+			Area.Add(new GobboCutsceneController {
+				State = this
+			});
 			
+			Ui.Add(Camera = new Camera(new FollowingDriver()));
 			Camera.Position = new Vector2(Display.Width / 2f, Display.Height / 2f) + new Vector2(32);
 			
 			black = CommonAse.Ui.GetSlice("black");
@@ -72,20 +83,12 @@ namespace BurningKnight.state {
 		}
 
 		public override void Render() {
+			if (saying) {
+				return;
+			}
+			
 			PrerenderShadows();
 			base.Render();
-			Physics.Render();
-		}
-
-		public override void RenderNative() {
-			ImGuiHelper.Begin();
-			Console.Render();
-			WindowManager.Render(Area);
-			ImGuiHelper.End();			
-			
-			Graphics.Batch.Begin();
-			Graphics.Batch.DrawCircle(new CircleF(Mouse.GetState().Position, 3f), 8, Color.White);
-			Graphics.Batch.End();
 		}
 
 		public override void RenderUi() {
@@ -97,6 +100,12 @@ namespace BurningKnight.state {
 			}
 			
 			TopUi.Render();
+
+			if (saying) {
+				Graphics.Color.A = (byte) (a * 255f);
+				Graphics.Print(text, Font.Medium, new Vector2((Display.UiWidth - textW) * 0.5f, Display.UiHeight * 0.5f - 4));
+				Graphics.Color.A = 255;
+			}
 		}
 
 		public override void Update(float dt) {
@@ -121,6 +130,48 @@ namespace BurningKnight.state {
 			
 			Physics.Update(dt);
 			TopUi.Update(dt);
+			Run.Update();
+		}
+
+		public void Say(string what, Action callback = null) {
+			text = what;
+			textW = Font.Medium.MeasureString(what).Width;
+			
+			Camera.Instance.Targets.Clear();
+			Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+			Shaders.Ui.Parameters["by"].SetValue(0.333f);
+
+			Tween.To(0, 1, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f).OnEnd = () => {
+				Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+				Shaders.Ui.Parameters["by"].SetValue(0.333f);
+
+				a = 0;
+				Tween.To(1, 0, x => a = x, 0.5f);
+
+				saying = true;
+				Shaders.Ui.Parameters["black"].SetValue(1f);
+
+				Tween.To(0, 1, x => a = x, 0.5f).OnEnd = () => {
+					Timer.Add(() => {
+						saying = false;
+						callback?.Invoke();
+						Shaders.Ui.Parameters["black"].SetValue(0f);
+						Tween.To(1, 0, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f, Ease.QuadIn);
+					}, 2f);
+				};
+			};
+		}
+
+		public void Transition(Action callback) {
+			Camera.Instance.Targets.Clear();
+			Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+			Shaders.Ui.Parameters["by"].SetValue(0.333f);
+
+			Tween.To(0, 1, x => Shaders.Ui.Parameters["black"].SetValue(x), 0.7f).OnEnd = () => {
+				Shaders.Ui.Parameters["bx"].SetValue(0.333f);
+				Shaders.Ui.Parameters["by"].SetValue(0.333f);
+				callback();
+			};
 		}
 	}
 }

@@ -1010,7 +1010,9 @@
 	"painting_guitar": "More volume!",
 	"ach_bk:maanex": "Et tu, Brut?",
 	"ach_bk:maanex_desc": "Kill Maanex while wearing his head",
-	"dad_0" : "Yo son, I need to go, cya",
+	"dad_0" : "Yo son, I need to go get [cl red]the Lamp[cl], cya",
+	"dad_1" : "Grow big, don't die",
 	"son_0" : "##NOOOOOOO##",
-	"dad_1" : "Grow big, don't die"
+	"gobbo_0" : "Yo son, I need to go find [cl green]my father[cl], cya",
+	"gobbo_1" : ":shrug:"
 }

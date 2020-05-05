@@ -4,7 +4,7 @@ using Lens.assets;
 namespace BurningKnight.level.entities.exit {
 	public class TutorialExit : Exit {
 		protected override void Descend() {
-			Run.StartNew(-2);
+			Run.GoToTutorial();
 		}
 
 		protected override string GetFxText() {

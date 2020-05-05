@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.input;
@@ -8,6 +9,7 @@ using Lens.input;
 namespace BurningKnight.entity.cutscene.controller {
 	public class CutsceneController : Entity {
 		public DialogComponent Current;
+		public CutsceneState State;
 
 		public override void Init() {
 			base.Init();

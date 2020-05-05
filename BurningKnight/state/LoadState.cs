@@ -37,6 +37,7 @@ namespace BurningKnight.state {
 		private float timer;
 		private bool loading;
 		private bool nice;
+		public bool IntoCutscene;
 		
 		public bool Menu;
 
@@ -129,7 +130,7 @@ namespace BurningKnight.state {
 			}
 
 			if (ready && ((down && alpha < 0.05f) || (Engine.Version.Dev) || Run.Depth == 0)) {
-				if (DevAssetLoadState.LoadCutscene) {
+				if (IntoCutscene) {
 					Engine.Instance.SetState(new CutsceneState(gameArea));
 				} else {
 					Engine.Instance.SetState(new InGameState(gameArea, Menu));
