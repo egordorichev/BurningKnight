@@ -53,6 +53,7 @@ namespace BurningKnight.entity.item.use {
 		public bool ReloadSfx;
 		private bool shells;
 		private int manaDrop;
+		private float angleAdd;
 		
 		public bool ProjectileDied = true;
 
@@ -102,6 +103,7 @@ namespace BurningKnight.entity.item.use {
 			ReloadSfx = settings["rsfx"].Bool(false);
 			manaUsage = settings["mana"].Int(0);
 			color = settings["color"].String("");
+			angleAdd = settings["ang"].Number(0);
 
 			if (manaUsage > 0) {
 				manaDrop = settings["mdr"].Int(0);
@@ -189,6 +191,8 @@ namespace BurningKnight.entity.item.use {
 					} else if (cnt == 1 || i > 0) {
 						angle += Rnd.Float(-ac / 2f, ac / 2f);
 					}
+
+					angle += angleAdd * (float) Math.PI * 2;
 
 					var antiAngle = angle - (float) Math.PI;
 					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage  * (item.Scourged ? 1.5f : 1f), Item);
@@ -344,6 +348,7 @@ namespace BurningKnight.entity.item.use {
 					root["knockback"] = knockback;
 				}
 
+				root.InputFloat("Additional Angle", "ang", 0);
 				var accuracy = (float) root["accuracy"].Number(0);
 
 				if (ImGui.InputFloat("Accuracy", ref accuracy)) {
