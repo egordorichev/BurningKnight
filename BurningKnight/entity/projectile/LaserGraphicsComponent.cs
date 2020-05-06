@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using Lens.assets;
@@ -19,12 +20,14 @@ namespace BurningKnight.entity.projectile {
 			var or = Sprite.Center;
 
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Center + new Vector2(0, 6), a, or, scale);
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, 6), a, or, scale);
 
 				return;
 			}
 
-			Graphics.Render(Sprite, Entity.Center, a, or, scale);
+			Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime) * 255);
+			Graphics.Render(Sprite, Entity.Position, a, or, scale);
+			Graphics.Color.A = 255;
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
 
@@ -40,8 +43,8 @@ namespace BurningKnight.entity.projectile {
 					Graphics.Color = p.Color;
 				}
 
-				Graphics.Color.A = Lights.AuraAlpha;
-				Graphics.Render(aura, Entity.Center, Rotation, aura.Center, new Vector2(Entity.Width / aura.Width, Entity.Height / aura.Height));
+				Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime) * Lights.AuraAlpha);
+				Graphics.Render(aura, Entity.Position, Rotation, aura.Center, new Vector2(Entity.Width / aura.Width, Entity.Height / aura.Height));
 				Graphics.Color.A = 255;
 				Graphics.Color = ColorUtils.WhiteColor;
 			}

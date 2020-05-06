@@ -50,6 +50,11 @@ namespace Lens.assets {
 		}
 		
 		public static void Load(string locale) {
+			if (!LoadedFallback) {
+				LoadRaw("en", "Locales/en.json", true);
+				LoadedFallback = true;
+			} 
+			
 			if (Current == locale) {
 				return;
 			}
@@ -60,17 +65,7 @@ namespace Lens.assets {
 				LoadRaw(locale, $"Locales/{locale}.json");
 			}
 			
-			Map = Loaded[locale];
-
-			if (!LoadedFallback) {
-				if (locale != "en") {
-					LoadRaw("en", "Locales/en.json", true);
-					LoadedFallback = true;
-				} else {
-					LoadedFallback = true;
-					Fallback = Map;
-				}
-			} 			
+			Map = Loaded[locale];			
 		}
 
 		public static void Save() {
