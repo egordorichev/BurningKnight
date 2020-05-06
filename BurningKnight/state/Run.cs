@@ -23,6 +23,7 @@ namespace BurningKnight.state {
 		public static int LastDepth = depth;
 		public static int Loop;
 		public static bool CustomSeed;
+		public static int Id;
 
 		public static int ActualDepth {
 			set => depth = value;
@@ -128,7 +129,10 @@ namespace BurningKnight.state {
 				DailyId = 0;
 			}
 
-			GlobalSave.RunId++;
+			if (depth == 1) {
+				GlobalSave.RunId++;
+			}
+
 			Rnd.Seed = Seed;
 			AlternateMusic = Rnd.Chance(0.5f);
 			
