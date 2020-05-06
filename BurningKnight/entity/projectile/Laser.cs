@@ -14,16 +14,14 @@ namespace BurningKnight.entity.projectile {
 		public override void AddComponents() {
 			base.AddComponents();
 
-			var graphics = new LaserGraphicsComponent("projectiles", "rect");
+			var graphics = new LaserGraphicsComponent("projectiles", "laser");
 			AddComponent(graphics);
+
+			Width = 32;
+			Height = 9;
 			
-			var w = graphics.Sprite.Source.Width;
-			var h = graphics.Sprite.Source.Height;
-
-			Width = w;
-			Height = h;
-
-			BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true);
+			BodyComponent = new RectBodyComponent(0, 0, Width, Height, BodyType.Dynamic, false, true);
+			AddComponent(BodyComponent);
 		}
 
 		public override bool BreaksFrom(Entity entity) {
