@@ -47,7 +47,9 @@ namespace BurningKnight.physics {
 		}
 
 		public static void RemoveBody(Body body) {
-			toRemove.Add(body);
+			if (!toRemove.Contains(body)) {
+				toRemove.Add(body);
+			}
 		}
 		
 		public static void PreSolve(Contact contact, ref Manifold oldManifold) {

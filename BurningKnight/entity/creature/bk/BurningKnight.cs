@@ -77,7 +77,7 @@ namespace BurningKnight.entity.creature.bk {
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
 			health.InitMaxHealth = 500;
-			health.AutoKill = false;
+			// health.AutoKill = false;
 
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
@@ -167,11 +167,8 @@ namespace BurningKnight.entity.creature.bk {
 			if (e is DefeatedEvent bde) {
 				if (bde.Boss == captured) {
 					FreeSelf();
-				} else if (bde.Boss == this) {
-					Achievements.Unlock("bk_no_more");
 				}
-
-				return base.HandleEvent(e);
+				return false;
 			}
 
 			if (Hidden) {
@@ -237,9 +234,14 @@ namespace BurningKnight.entity.creature.bk {
 				if (de.Who is ShopKeeper) {
 					// EDWARD, NOOOOOO!
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
+					return false;
 				}
-				
-				return base.HandleEvent(e);
+
+				if (died) {
+					return false;
+				}
+
+				died = true;
 			} else if (e is SecretRoomFoundEvent) {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
@@ -255,6 +257,8 @@ namespace BurningKnight.entity.creature.bk {
 
 			return base.HandleEvent(e);
 		}
+
+		private bool died;
 		
 		private bool sayNoRage;
 
@@ -274,7 +278,10 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			Done = false;
+
+			if (!Placed) {
+				Done = false;
+			}
 
 			if (Hidden) {
 				return;
@@ -685,8 +692,12 @@ namespace BurningKnight.entity.creature.bk {
 			return CommonAse.Particles.GetSlice("old_gobbo");
 		}
 
+		public override void PlaceRewards() {
+
+		}
+
 		protected override void CreateGore(DiedEvent d) {
-			Center = GetComponent<RoomComponent>().Room.Center;
+			// Center = GetComponent<RoomComponent>().Room.Center;
 			base.CreateGore(d);
 
 			var heinur = new Heinur();
@@ -709,7 +720,7 @@ namespace BurningKnight.entity.creature.bk {
 					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
 						dmDialog.Close();
 						
-						// todo: bk dialog
+						// todo: spawn new bk, his dialog
 					}, 2f));
 				}, 1f));
 			}, 1f));
@@ -721,6 +732,8 @@ namespace BurningKnight.entity.creature.bk {
 			if (InFight) {
 				return;
 			}
+			
+			GetComponent<DialogComponent>().StartAndClose("bk_12", 3);
 
 			InFight = true;
 			HasHealthbar = true;

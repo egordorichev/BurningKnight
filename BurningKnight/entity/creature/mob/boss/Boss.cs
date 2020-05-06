@@ -61,6 +61,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		}
 		
 		private bool cleared;
+		protected bool Placed;
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -79,7 +80,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var a = GetComponent<RoomComponent>().Room.Tagged[Tags.MustBeKilled].ToArray();
 
 						foreach (var p in a) {
-							if (!(p is Boss || p is bk.BurningKnight)) {
+							if (!(p is Boss)) {
 								AnimationUtil.Poof(p.Center);
 								((Creature) p).Kill(this);
 							}
@@ -89,11 +90,17 @@ namespace BurningKnight.entity.creature.mob.boss {
 					}
 				}
 
-				if (deathTimer >= 3f) {
+				if (deathTimer >= 3f && !Placed) {
+					Placed = true;
 					CreateGore(null);
-					HandleEvent(new DefeatedEvent {
-						Boss = this
-					});
+
+					if (this is bk.BurningKnight) {
+						Achievements.Unlock("bk:bk_no_more");
+					} else {
+						HandleEvent(new DefeatedEvent {
+							Boss = this
+						});
+					}
 
 					var player = LocalPlayer.Locate(Area);
 					var doors = new List<DoorTile>();
@@ -351,10 +358,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			public override void Destroy() {
 				base.Destroy();
-
-				if (!(this is bk.BurningKnight)) {
-					Self.GetComponent<HealthComponent>().Unhittable = false;
-				}
+				Self.GetComponent<HealthComponent>().Unhittable = false;
 			}
 		}
 

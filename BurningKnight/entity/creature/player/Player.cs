@@ -340,7 +340,7 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
-		public class SleepingState : EntityState {
+		public class SleepingState : SmartState<Player> {
 			public override void Init() {
 				base.Init();
 				Self.GetComponent<PlayerGraphicsComponent>().Animate();
