@@ -683,17 +683,9 @@ namespace BurningKnight.entity.creature.player {
 				} else if (c.Old != null && (c.Old.Type == RoomType.OldMan || c.Old.Type == RoomType.Spiked)) {
 					Tween.To(1f, Lights.RadiusMod, x => Lights.RadiusMod = x, 0.3f);
 				}
-
-				/*if (c.Old != null) {
-					Camera.Instance.Unfollow(c.Old);
-				}
-
-				if (c.New != null && c.New.Tagged[Tags.MustBeKilled].Count > 0) {
-					Camera.Instance.Follow(c.New, 0.3f);
-				}*/
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0) {
-					if (hm.From is Mob m && m.HasPrefix) {
+					if ((hm.From is Mob m && m.HasPrefix) || (hm.From is creature.bk.BurningKnight k && k.InFight)) {
 						hm.Amount = Math.Min(hm.Amount, -2);
 					} else if (hm.Type != DamageType.Custom && hm.Type != DamageType.Explosive) {
 						hm.Amount = Math.Max(-1, hm.Amount);

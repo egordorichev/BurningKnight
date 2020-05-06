@@ -10,8 +10,10 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
 using Lens;
@@ -171,29 +173,31 @@ namespace BurningKnight.entity.creature.bk {
 			}
 
 			if (e is RoomChangedEvent rce) {
-				var p = rce.Who is Player;
-				var bs = rce.Who is BurningKnight;
+				if (!InFight) {
+					var p = rce.Who is Player;
+					var bs = rce.Who is BurningKnight;
 
-				if ((p || bs) && rce.New != null) {
-					var t = rce.New.Type;
+					if ((p || bs) && rce.New != null) {
+						var t = rce.New.Type;
 
-					if (t == RoomType.Boss) {
-						CheckCapture();
-					} else if (p) {
-						if (t == RoomType.Treasure) {
-							foreach (var item in rce.New.Tagged[Tags.Item]) {
-								if (item is SingleChoiceStand stand && stand.Item != null) {
-									GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+						if (t == RoomType.Boss) {
+							CheckCapture();
+						} else if (p) {
+							if (t == RoomType.Treasure) {
+								foreach (var item in rce.New.Tagged[Tags.Item]) {
+									if (item is SingleChoiceStand stand && stand.Item != null) {
+										GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
 
-									break;
+										break;
+									}
 								}
+							} else if (t == RoomType.Granny) {
+								// GRANNY, CAN YOU JUST DIE, PLEASE??
+								GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
+							} else if (t == RoomType.OldMan) {
+								// MY MASTER, I BROUGHT THE GOBLIN
+								GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 							}
-						} else if (t == RoomType.Granny) {
-							// GRANNY, CAN YOU JUST DIE, PLEASE??
-							GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
-						} else if (t == RoomType.OldMan) {
-							// MY MASTER, I BROUGHT THE GOBLIN
-							GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 						}
 					}
 				}
@@ -394,7 +398,13 @@ namespace BurningKnight.entity.creature.bk {
 		private void CheckCapture() {
 			var room = Target?.GetComponent<RoomComponent>()?.Room;
 
-			if (room != null) {
+			if (room != null && room.Type == RoomType.Boss) {
+				if (Run.Level.Biome is LibraryBiome) {
+					Center = room.Center;
+					BeginFight();
+					return;
+				}
+			
 				foreach (var mob in room.Tagged[Tags.Boss]) {
 					if (mob != this && mob is Boss b) {
 						captured = b;
@@ -662,7 +672,45 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			}
 			
-				ImGui.InputInt("Times Raged", ref timesRaged);
+			ImGui.InputInt("Times Raged", ref timesRaged);
+		}
+
+		public bool InFight;
+		
+		private void BeginFight() {
+			if (InFight) {
+				return;
+			}
+
+			InFight = true;
+			HasHealthbar = true;
+
+			if (HealthBar == null) {
+				HealthBar = new HealthBar(this);
+				Engine.Instance.State.Ui.Add(HealthBar);
+				AddPhases();
+			}
+			
+			AddTag(Tags.Boss);
+			AddTag(Tags.Mob);
+			AddTag(Tags.MustBeKilled);
+
+			Become<FightState>();
+
+			GetComponent<HealthComponent>().Unhittable = false;
+			TouchDamage = 2;
+		}
+
+		protected override void AddPhases() {
+			HealthBar.AddPhase(0.5f);
+		}
+		
+		/*
+		 * The actual boss battle
+		 */
+
+		public class FightState : SmartState<BurningKnight> {
+			
 		}
 	}
 }

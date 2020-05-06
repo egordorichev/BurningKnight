@@ -600,13 +600,13 @@ namespace BurningKnight.level {
 			Passable = new bool[Size];
 			MatrixLeak = new bool[Size];
 
-			if (Run.Depth > 0) {
+			/*if (Run.Depth > 0) {
 				for (var i = 0; i < Size; i++) {
 					if (Rnd.Chance(1)) {
 						MatrixLeak[i] = true;
 					}
 				}
-			}
+			}*/
 
 			PathFinder.SetMapSize(Width, Height);
 			

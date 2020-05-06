@@ -12,7 +12,7 @@ namespace BurningKnight.level.biome {
 			painter.Grass = 0;
 			painter.Water = 0;
 			painter.Dirt = 0;
-			painter.Cobweb = 0.3f;
+			painter.Cobweb = 0;
 		}
 
 		public override bool HasTorches() {
