@@ -584,6 +584,7 @@
     <Compile Include="entity\cutscene\entity\BabyGobbo.cs" />
     <Compile Include="entity\cutscene\entity\CutsceneEntity.cs" />
     <Compile Include="entity\cutscene\entity\Gobbo.cs" />
+    <Compile Include="entity\cutscene\entity\Heinur.cs" />
     <Compile Include="entity\cutscene\entity\OldGobbo.cs" />
     <Compile Include="entity\DamageType.cs" />
     <Compile Include="entity\door\BossDoor.cs" />
