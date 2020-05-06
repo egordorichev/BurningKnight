@@ -2,6 +2,8 @@ using System.Timers;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
+using BurningKnight.level.biome;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.util.math;
@@ -16,8 +18,11 @@ namespace BurningKnight.entity.creature.npc {
 			Height = 17;
 			
 			AddComponent(new AnimationComponent("dark_mage"));
-			AddComponent(new CloseDialogComponent("dm_0"));
-			
+
+			if (!(Run.Level.Biome is LibraryBiome)) {
+				AddComponent(new CloseDialogComponent("dm_0"));
+			}
+
 			Subscribe<Dialog.EndedEvent>();
 			Subscribe<ItemTakenEvent>();
 		}

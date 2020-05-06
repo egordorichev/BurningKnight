@@ -8,6 +8,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.cutscene.entity;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
@@ -682,6 +683,36 @@ namespace BurningKnight.entity.creature.bk {
 
 		protected override TextureRegion GetDeathFrame() {
 			return CommonAse.Particles.GetSlice("old_gobbo");
+		}
+
+		protected override void CreateGore(DiedEvent d) {
+			Center = GetComponent<RoomComponent>().Room.Center;
+			base.CreateGore(d);
+
+			var heinur = new Heinur();
+			Area.Add(heinur);
+			heinur.Center = Center - new Vector2(0, 32);
+
+			var dm = new DarkMage();
+			Area.Add(dm);
+
+			dm.Center = Center + new Vector2(0, 32);
+			var dmDialog = dm.GetComponent<DialogComponent>();
+			var heinurDialog = heinur.GetComponent<DialogComponent>();
+
+			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
+				dmDialog.Close();
+				
+				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
+					heinurDialog.Close();
+					
+					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
+						dmDialog.Close();
+						
+						// todo: bk dialog
+					}, 2f));
+				}, 1f));
+			}, 1f));
 		}
 
 		public bool InFight;

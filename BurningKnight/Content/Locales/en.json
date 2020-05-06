@@ -1015,5 +1015,8 @@
 	"son_0" : "##NOOOOOOO##",
 	"gobbo_0" : "Son, [cl green]my father[cl] left me 20 years ago. I need to find him.",
 	"gobbo_1" : "I leave you as the ruler. Bye!",
-	"dm_5": "A new and ^^better^^ [cl red]puppet[cl]! ##MUHAHAHA##"
+	"dm_5": "A new and ^^better^^ [cl red]puppet[cl]![dl] ##MUHAHAHA##",
+	"dm_6": "Do you hear me, [cl red]Limpor?",
+	"heinur_0" : "##NO[dl], NOT AGAIN!##",
+	"nbk_0" : "##YES, MY MASTER##"
 }
