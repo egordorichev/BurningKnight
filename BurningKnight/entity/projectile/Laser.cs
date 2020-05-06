@@ -1,4 +1,6 @@
+using BurningKnight.entity.component;
 using Lens.entity;
+using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
 	public class Laser : Projectile {
@@ -11,7 +13,17 @@ namespace BurningKnight.entity.projectile {
 
 		public override void AddComponents() {
 			base.AddComponents();
-			AddComponent(new LaserGraphicsComponent("projectiles", "rect"));
+
+			var graphics = new LaserGraphicsComponent("projectiles", "rect");
+			AddComponent(graphics);
+			
+			var w = graphics.Sprite.Source.Width;
+			var h = graphics.Sprite.Source.Height;
+
+			Width = w;
+			Height = h;
+
+			BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true);
 		}
 
 		public override bool BreaksFrom(Entity entity) {

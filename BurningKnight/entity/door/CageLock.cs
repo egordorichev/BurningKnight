@@ -41,15 +41,16 @@ namespace BurningKnight.entity.door {
 			}
 			
 			Audio.PlaySfx("item_cage_key_used");
-			Achievements.IncrementProgress("bk:npc_party", 14);
 
+			var progress = 0;
+			
 			foreach (var id in ShopNpc.AllNpc) {
-				if (GlobalSave.IsFalse(id)) {
-					return;
+				if (GlobalSave.IsTrue(id)) {
+					progress++;
 				}
 			}
 			
-			Achievements.Unlock("npc_party");
+			Achievements.SetProgress("bk:npc_party", progress, 14);
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {
