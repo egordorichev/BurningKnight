@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
@@ -20,6 +22,7 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
@@ -72,7 +75,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
-			health.InitMaxHealth = 10000;
+			health.InitMaxHealth = 500;
 			health.AutoKill = false;
 
 			GetComponent<StateComponent>().Become<IdleState>();
@@ -163,9 +166,11 @@ namespace BurningKnight.entity.creature.bk {
 			if (e is DefeatedEvent bde) {
 				if (bde.Boss == captured) {
 					FreeSelf();
+				} else if (bde.Boss == this) {
+					Achievements.Unlock("bk_no_more");
 				}
 
-				return false;
+				return base.HandleEvent(e);
 			}
 
 			if (Hidden) {
@@ -232,8 +237,8 @@ namespace BurningKnight.entity.creature.bk {
 					// EDWARD, NOOOOOO!
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
 				}
-
-				return false;
+				
+				return base.HandleEvent(e);
 			} else if (e is SecretRoomFoundEvent) {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
@@ -673,6 +678,10 @@ namespace BurningKnight.entity.creature.bk {
 			}
 			
 			ImGui.InputInt("Times Raged", ref timesRaged);
+		}
+
+		protected override TextureRegion GetDeathFrame() {
+			return CommonAse.Particles.GetSlice("old_gobbo");
 		}
 
 		public bool InFight;
