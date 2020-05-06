@@ -69,8 +69,17 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
+		private float lastClear;
+
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			lastClear += dt;
+
+			if (lastClear >= 0.3f) {
+				lastClear = 0;
+				EntitiesHurt.Clear();
+			}
 
 			if (LifeTime > 0) {
 				LifeTime -= dt;
