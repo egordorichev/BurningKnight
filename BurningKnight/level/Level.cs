@@ -151,7 +151,7 @@ namespace BurningKnight.level {
 			}
 
 			if (MatrixTileset == null) {
-				Tilesets.Get("tech");
+				MatrixTileset = Tilesets.Get("tech_biome");
 			}
 		}
 
