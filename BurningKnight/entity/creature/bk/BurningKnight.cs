@@ -243,6 +243,7 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					died = true;
+					return false;
 				} else {
 					return false;
 				}
