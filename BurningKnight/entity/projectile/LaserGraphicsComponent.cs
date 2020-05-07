@@ -27,7 +27,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime) * 255);
+			Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime * 3f) * 255);
 			Graphics.Render(Sprite, Entity.Position, a, centerOrigin, scale);
 			Graphics.Color.A = 255;
 			Graphics.Color = ColorUtils.WhiteColor;
@@ -45,7 +45,7 @@ namespace BurningKnight.entity.projectile {
 					Graphics.Color = p.Color;
 				}
 
-				Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime) * Lights.AuraAlpha);
+				Graphics.Color.A = (byte) (Math.Min(1f, ((Laser) Entity).LifeTime * 3f) * Lights.AuraAlpha);
 				Graphics.Render(aura, Entity.Position, Rotation, origin, new Vector2(Entity.Width / aura.Width, Entity.Height / aura.Height));
 				Graphics.Color.A = 255;
 				Graphics.Color = ColorUtils.WhiteColor;

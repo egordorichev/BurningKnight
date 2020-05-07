@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.door;
 using BurningKnight.level;
 using BurningKnight.physics;
 using Lens;
@@ -42,7 +43,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
-			return entity is ProjectileLevelBody;
+			return entity is ProjectileLevelBody || entity is Door;
 		}
 
 		public void Recalculate() {
