@@ -1,39 +1,13 @@
-using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
-using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.math;
-using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item.use {
 	public class ShootLaserUse : ShootUse {
-		private List<Laser> lasers = new List<Laser>();
-
-		public override void Update(Entity entity, Item item, float dt) {
-			base.Update(entity, item, dt);
-
-			if (lasers.Count > 0) {
-				for (var i = lasers.Count - 1; i >= 0; i--) {
-					var laser = lasers[i];
-					
-					if (laser.Done) {
-						lasers.RemoveAt(i);
-						return;
-					}
-				
-					var aim = entity.GetComponent<AimComponent>();
-					var from = aim.Center;
-					var am = aim.RealAim;
-
-					laser.Position = from;
-				}
-			}
-		}
-
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 
@@ -72,9 +46,8 @@ namespace BurningKnight.entity.item.use {
 
 					laser.Position = from;
 					laser.Color = ProjectileColor.Red;
+					laser.PlayerRotated = true;
 					laser.Recalculate();
-					
-					lasers.Add(laser);
 				}
 			};
 		}

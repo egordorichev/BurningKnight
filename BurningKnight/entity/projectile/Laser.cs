@@ -17,6 +17,7 @@ namespace BurningKnight.entity.projectile {
 		public float AdditionalAngle;
 		public float Range = 15f;
 		public Vector2 End;
+		public bool PlayerRotated;
 		
 		private Laser() {
 			BreaksFromWalls = false;
@@ -27,18 +28,32 @@ namespace BurningKnight.entity.projectile {
 			ManualRotation = true;
 		}
 
-		public static Laser Make(Entity owner, float a, float additional, Item item, float damage = 1, float scale = 1f) {
+		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
 			var laser = new Laser();
-			
+
 			laser.Damage = damage;
 			laser.StarterOwner = owner;
 			laser.Owner = owner;
+
+			if (parent != null) {
+				laser.Color = parent.Color;
+				laser.Parent = parent;
+				laser.Range = parent.Range * 0.5f;
+			}
 
 			owner.Area.Add(laser);
 			
 			var graphics = new LaserGraphicsComponent("projectiles", "laser");
 			laser.AddComponent(graphics);
 			laser.Scale = scale;
+
+			if (parent != null) {
+				laser.Scale *= 0.7f;
+			}
+
+			if (range > 0) {
+				laser.Range = range;
+			}
 
 			owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = owner,
@@ -75,9 +90,21 @@ namespace BurningKnight.entity.projectile {
 
 		public void Recalculate() {
 			var min = 1f;
+
+			Vector2 closest;
 			var aim = Owner.GetComponent<AimComponent>();
-			var from = aim.Center;
-			var closest = from + MathUtils.CreateVector((aim.RealAim - from).ToAngle(), Range * 5);
+
+			if (PlayerRotated) {
+				Position = aim.Center;
+			}
+			
+			var from = Position;
+			
+			if (PlayerRotated) {
+				closest = Position + MathUtils.CreateVector((aim.RealAim - from).ToAngle(), Range * 5);
+			} else {
+				closest = Position + MathUtils.CreateVector(BodyComponent.Body.Rotation, Range * 5);
+			}
 				
 			Physics.World.RayCast((fixture, point, normal, fraction) => {
 				if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
@@ -97,8 +124,11 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			var a = v.ToAngle() - Math.PI + AdditionalAngle;
-			
-			BodyComponent.Body.Rotation = (float) a;
+
+			if (PlayerRotated) {
+				BodyComponent.Body.Rotation = (float) a;
+			}
+
 			End = Position + MathUtils.CreateVector(a, Width);
 		}
 
@@ -118,6 +148,7 @@ namespace BurningKnight.entity.projectile {
 				LifeTime -= dt;
 
 				if (LifeTime <= 0) {
+					Break();
 					Done = true;
 					LifeTime = 0;
 					return;
