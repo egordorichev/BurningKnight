@@ -916,28 +916,30 @@ namespace BurningKnight.entity.creature.bk {
 
 						var skull = Projectile.Make(Self, explode ? "skull" : "skup", Rnd.AnglePI(), explode ? Rnd.Float(5, 12) : 14);
 
-						skull.NearDeath += p => {
-							var c = new AudioEmitterComponent {
-								DestroySounds = false
+						if (explode) {
+							skull.NearDeath += p => {
+								var c = new AudioEmitterComponent {
+									DestroySounds = false
+								};
+								
+								p.AddComponent(c);
+								c.Emit("mob_oldking_explode");
 							};
-							
-							p.AddComponent(c);
-							c.Emit("mob_oldking_explode");
-						};
 						
-						skull.OnDeath += (p, e, t) => {
-							if (!t) {
-								return;
-							}
-					
-							for (var i = 0; i < 16; i++) {
-								var bullet = Projectile.Make(Self, "small", 
-									((float) i) / 8 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+							skull.OnDeath += (p, e, t) => {
+								if (!t) {
+									return;
+								}
+						
+								for (var i = 0; i < 16; i++) {
+									var bullet = Projectile.Make(Self, "small", 
+										((float) i) / 8 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
 
-								bullet.CanBeReflected = false;
-								bullet.Center = p.Center;
-							}
-						};
+									bullet.CanBeReflected = false;
+									bullet.Center = p.Center;
+								}
+							};
+						}
 
 						skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
 						skull.Range = 5f;

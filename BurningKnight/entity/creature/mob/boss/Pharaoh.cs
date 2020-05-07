@@ -14,6 +14,7 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.math;
 using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
@@ -130,14 +131,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 					} else if (v == 1) {
 						Become<SimpleSpiralState>();
 					} else if (v == 2) {
-						Become<TileMoveState>();
+						Become<TeleportState>();
 					} else if (v == 3) {
-						Become<AdvancedSpiralState>();
-					} else if (v == 4) {
 						Become<BulletHellState>();
+					} else if (v == 4) {
+						Become<AdvancedSpiralState>();
+					} else if (v == 5) {
+						Become<TileMoveState>();
 					}
 
-					Self.counter = (v + 1) % 5;
+					Self.counter = (v + 1) % 6;
 				}
 			}
 		}
@@ -377,6 +380,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 				} else if (summoned && T >= 2f) {
 					Become<IdleState>();
 				}
+			}
+		}
+
+		public class TeleportState : SmartState<Pharaoh> {
+			public override void Init() {
+				base.Init();
+
+				Tween.To(0, 255, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
+
+					Self.BottomCenter = tile + new Vector2(8, 8); 
+
+					Tween.To(255, 0, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+						Become<IdleState>();
+					};
+				};
 			}
 		}
 		#endregion
