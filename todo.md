@@ -4,4 +4,5 @@
 * spanish localisation
 * doors still can not open
 * bk became killable again lol
-* work out how lasers behaves with bullet upgrades
+* check if buffs/colors work with lazers
+* Bosses + invisibility = rip boss ai

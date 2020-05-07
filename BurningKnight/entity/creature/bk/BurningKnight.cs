@@ -235,13 +235,15 @@ namespace BurningKnight.entity.creature.bk {
 					// EDWARD, NOOOOOO!
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
 					return false;
-				}
+				} else if (de.Who == this) {
+					if (died) {
+						return false;
+					}
 
-				if (died) {
+					died = true;
+				} else {
 					return false;
 				}
-
-				died = true;
 			} else if (e is SecretRoomFoundEvent) {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
