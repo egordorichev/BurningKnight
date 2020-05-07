@@ -2,7 +2,6 @@
 * dm fight (+ loop condition)
 * cutscenes
 * spanish localisation
-* game can hang if you enter sleep state
 * doors still can not open
 * bk became killable again lol
 * work out how lasers behaves with bullet upgrades
