@@ -15,7 +15,7 @@ namespace BurningKnight.entity.item.use {
 
 					if (p is Laser l) {
 						var a = l.BodyComponent.Body.Rotation;
-						var end = l.End - MathUtils.CreateVector(a, 10);
+						var end = l.End - MathUtils.CreateVector(a, 5);
 						
 						for (var i = 0; i < 2; i++) {
 							var laser = Laser.Make(p.Owner, a + (i == 0 ? -1 : 1) * (float) Math.PI * 0.5f, 0f, null, p.Damage, parent: l);
