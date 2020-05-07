@@ -34,6 +34,7 @@ namespace BurningKnight.entity.projectile {
 			laser.Damage = damage;
 			laser.StarterOwner = owner;
 			laser.Owner = owner;
+			laser.Color = ProjectileColor.Red;
 
 			if (parent != null) {
 				laser.Color = parent.Color;

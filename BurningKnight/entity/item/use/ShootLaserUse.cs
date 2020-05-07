@@ -45,7 +45,6 @@ namespace BurningKnight.entity.item.use {
 					var laser = Laser.Make(entity, a, addition, item, damage: (item.Scourged ? 1.5f : 1f));
 
 					laser.Position = from;
-					laser.Color = ProjectileColor.Red;
 					laser.PlayerRotated = true;
 					laser.Recalculate();
 				}
