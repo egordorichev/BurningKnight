@@ -356,6 +356,12 @@ namespace BurningKnight.entity.creature.bk {
 		public class FollowState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (Self.Target == null) {
+					Become<IdleState>();
+					return;
+				}
+				
 				Self.CheckForScourgeRage();
 
 				var d = Self.DistanceTo(Self.Target);

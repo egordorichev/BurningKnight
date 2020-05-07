@@ -255,7 +255,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		protected override void OnTargetChange(Entity target) {
 			if (target == null) {
-				Awoken = false;
+				// Awoken = false;
+				GetComponent<AnimationComponent>().Animation.Tag = "idle";
 			} else {
 				Awoken = true;
 			}
