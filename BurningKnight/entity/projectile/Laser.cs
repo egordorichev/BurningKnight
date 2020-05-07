@@ -1,6 +1,8 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.door;
+using BurningKnight.entity.events;
+using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
 using Lens;
@@ -12,6 +14,7 @@ namespace BurningKnight.entity.projectile {
 		public float LifeTime = 1.5f;
 		public bool Dynamic = true;
 		public float AdditionalAngle;
+		public float Range = 15f;
 		
 		private Laser() {
 			BreaksFromWalls = false;
@@ -22,7 +25,7 @@ namespace BurningKnight.entity.projectile {
 			ManualRotation = true;
 		}
 
-		public static Laser Make(Entity owner, float a, float additional, float damage = 1, float scale = 1f) {
+		public static Laser Make(Entity owner, float a, float additional, Item item, float damage = 1, float scale = 1f) {
 			var laser = new Laser();
 			
 			laser.Damage = damage;
@@ -33,16 +36,27 @@ namespace BurningKnight.entity.projectile {
 			
 			var graphics = new LaserGraphicsComponent("projectiles", "laser");
 			laser.AddComponent(graphics);
-
 			laser.Scale = scale;
+
+			owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = owner,
+				Item = item,
+				Projectile = laser
+			});
+
 			laser.Width = 32;
-			laser.Height = 9 * scale;
+			laser.Height = 9 * laser.Scale;
 
 			laser.CreateBody();
 			laser.AdditionalAngle = additional;
 			laser.BodyComponent.Body.Rotation = a + additional;
 
 			return laser;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+			AddTag(Tags.Laser);
 		}
 
 		private void CreateBody() {
@@ -61,8 +75,7 @@ namespace BurningKnight.entity.projectile {
 			var min = 1f;
 			var aim = Owner.GetComponent<AimComponent>();
 			var from = aim.Center;
-			var to = aim.RealAim;
-			var closest = from + MathUtils.CreateVector(BodyComponent.Body.Rotation, Display.UiWidth);
+			var closest = from + MathUtils.CreateVector((aim.RealAim - from).ToAngle(), Range * 5);
 				
 			Physics.World.RayCast((fixture, point, normal, fraction) => {
 				if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
@@ -71,11 +84,11 @@ namespace BurningKnight.entity.projectile {
 				}
 				
 				return min;
-			}, from, to);
+			}, from, closest);
 
 			var len = (from - closest).Length();
 
-			if (Math.Abs(len - Width) > 2) {
+			if (Math.Abs(len - Width) > 1) {
 				Width = len;
 				BodyComponent.Resize(0, -Height * 0.5f, Width, Height);
 			}

@@ -70,7 +70,7 @@ namespace BurningKnight.entity.item.use {
 						addition = Rnd.Float(-ac / 2f, ac / 2f);
 					}
 					
-					var laser = Laser.Make(entity, a, addition, damage: (item.Scourged ? 1.5f : 1f));
+					var laser = Laser.Make(entity, a, addition, item, damage: (item.Scourged ? 1.5f : 1f));
 
 					laser.Position = from;
 					laser.Color = ProjectileColor.Red;

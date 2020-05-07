@@ -43,9 +43,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				var a = Item == pce.Item;
-				
-				if (ToAny || (EventCreated && a)) {
+				if (ToAny || (EventCreated && Item == pce.Item)) {
 					ModifyProjectile(pce.Projectile);
 				}
 			}
