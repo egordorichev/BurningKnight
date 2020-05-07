@@ -10,7 +10,7 @@ using VelcroPhysics.Utilities;
 using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.entity.projectile {
-	public class ProjectileGraphicsComponent : SliceComponent {
+	public class ProjectileGraphicsComponent : BasicProjectileGraphicsComponent {
 		public static TextureRegion Flash;
 		public bool IgnoreRotation;
 		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
@@ -88,7 +88,7 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		public void RenderLight() {
+		public override void RenderLight() {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 

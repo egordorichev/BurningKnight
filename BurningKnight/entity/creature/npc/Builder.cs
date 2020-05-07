@@ -56,6 +56,7 @@ namespace BurningKnight.entity.creature.npc {
 
 					paid += amount;
 					component.Coins -= amount;
+					dl.Dialog.Str.SetVariable("need", cost - paid);
 
 					if (paid == cost) {
 						GlobalSave.Put("builder_paid", 0);

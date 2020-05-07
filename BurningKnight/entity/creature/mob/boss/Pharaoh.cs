@@ -14,6 +14,7 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.math;
 using Lens.util.timer;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
@@ -47,7 +48,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 4;
 
 			AddAnimation("pharaoh");
-			SetMaxHp(230);
+			SetMaxHp(400);
 		}
 
 		protected override void AddPhases() {
@@ -122,7 +123,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				base.Update(dt);
 				
-				if (T >= (Self.InThirdPhase ? 0.5f : 1f)) {
+				if (T >= (Self.InThirdPhase ? 0.01f : 0.3f)) {
 					var v = Self.counter;
 
 					if (v == 0) {
@@ -130,12 +131,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 					} else if (v == 1) {
 						Become<SimpleSpiralState>();
 					} else if (v == 2) {
-						Become<AdvancedSpiralState>();
+						Become<TeleportState>();
 					} else if (v == 3) {
 						Become<BulletHellState>();
+					} else if (v == 4) {
+						Become<AdvancedSpiralState>();
+					} else if (v == 5) {
+						Become<TileMoveState>();
 					}
 
-					Self.counter = (v + 1) % 4;
+					Self.counter = (v + 1) % 6;
 				}
 			}
 		}
@@ -155,7 +160,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
 						var projectile = Projectile.Make(Self, "small", a, 6f, scale: count % 2 == 0 ? 1f : 1.5f);
-						
+
+						projectile.Color = count % 4 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
+						projectile.CanBeBroken = false;
+						projectile.CanBeReflected = false;
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
 					}
 
@@ -170,6 +178,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		
 		public class AdvancedSpiralState : SmartState<Pharaoh> {
 			private float sinceLast;
+			private int count;
 		
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -184,8 +193,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var projectile = Projectile.Make(Self, "small", a, 4f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1f);
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
 
+						projectile.CanBeBroken = false;
+						projectile.CanBeReflected = false;
+						projectile.Color = ProjectileColor.Rainbow[count % ProjectileColor.Rainbow.Length];
 					}
+
+					count++;
 				}
+				
 
 				if (T >= 10f) {
 					Become<IdleState>();
@@ -208,6 +223,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
 						var projectile = Projectile.Make(Self, "small", a, 5f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1f);
 						
+						projectile.CanBeBroken = false;
+						projectile.CanBeReflected = false;
+						projectile.Color = ProjectileColor.Rainbow[Rnd.Int(ProjectileColor.Rainbow.Length)];
 					}
 				}
 
@@ -294,7 +312,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 10f) {
+				if (T >= 4f) {
 					Become<IdleState>();
 				}
 			}
@@ -314,6 +332,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
 							var projectile = Projectile.Make(Self, "small", a, 5f + j1 * 2f, scale: j1 == 0 ? 1f : 1.5f);
+
+							projectile.CanBeBroken = false;
+							projectile.CanBeReflected = false;
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
 
 						}
@@ -326,7 +347,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Update(float dt) {
 				base.Update(dt);
 					
-				if (T >= 3f) {
+				if (T >= 2f) {
 					Become<SummoningState>();
 				}
 			}
@@ -356,9 +377,25 @@ namespace BurningKnight.entity.creature.mob.boss {
 							mummy.GetComponent<StateComponent>().Become<Mummy.SummonedState>();
 						}, i * 0.5f);
 					}
-				} else if (summoned && T >= 5f) {
+				} else if (summoned && T >= 2f) {
 					Become<IdleState>();
 				}
+			}
+		}
+
+		public class TeleportState : SmartState<Pharaoh> {
+			public override void Init() {
+				base.Init();
+
+				Tween.To(0, 255, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
+
+					Self.BottomCenter = tile + new Vector2(8, 8); 
+
+					Tween.To(255, 0, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+						Become<IdleState>();
+					};
+				};
 			}
 		}
 		#endregion

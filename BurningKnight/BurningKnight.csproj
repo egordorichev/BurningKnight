@@ -584,6 +584,7 @@
     <Compile Include="entity\cutscene\entity\BabyGobbo.cs" />
     <Compile Include="entity\cutscene\entity\CutsceneEntity.cs" />
     <Compile Include="entity\cutscene\entity\Gobbo.cs" />
+    <Compile Include="entity\cutscene\entity\Heinur.cs" />
     <Compile Include="entity\cutscene\entity\OldGobbo.cs" />
     <Compile Include="entity\DamageType.cs" />
     <Compile Include="entity\door\BossDoor.cs" />
@@ -821,6 +822,7 @@
     <Compile Include="entity\item\use\SetKnockbackModifierUse.cs" />
     <Compile Include="entity\item\use\SetMaxHpUse.cs" />
     <Compile Include="entity\item\use\SetMusicSpeed.cs" />
+    <Compile Include="entity\item\use\ShootLaserUse.cs" />
     <Compile Include="entity\item\use\ShootQueueUse.cs" />
     <Compile Include="entity\item\use\ShootUse.cs" />
     <Compile Include="entity\item\use\SimpleShootUse.cs" />
@@ -853,6 +855,7 @@
     <Compile Include="entity\pc\Controller.cs" />
     <Compile Include="entity\pc\Pico.cs" />
     <Compile Include="entity\pool\Pool.cs" />
+    <Compile Include="entity\projectile\BasicProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\controller\BoomerangProjectileController.cs" />
     <Compile Include="entity\projectile\controller\ExpandProjectileController.cs" />
     <Compile Include="entity\projectile\controller\HsvProjectileController.cs" />
@@ -862,6 +865,8 @@
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TimedProjectileController.cs" />
+    <Compile Include="entity\projectile\Laser.cs" />
+    <Compile Include="entity\projectile\LaserGraphicsComponent.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />
     <Compile Include="entity\projectile\Missile.cs" />
     <Compile Include="entity\projectile\pattern\CircleProjectilePattern.cs" />

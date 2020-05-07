@@ -78,6 +78,10 @@ namespace BurningKnight.level.rooms.boss {
 			
 			PaintRoom(level);
 
+			if (LevelSave.BiomeGenerated is LibraryBiome) {
+				return;
+			}
+			
 			var boss = BossRegistry.Generate();
 
 			if (boss == null) {

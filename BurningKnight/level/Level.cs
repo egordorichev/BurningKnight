@@ -45,6 +45,7 @@ namespace BurningKnight.level {
 		public static Color FloorColor = new Color(1f, 1f, 1f, 1f);
 		
 		public Tileset Tileset;
+		public Tileset MatrixTileset;
 		public Biome Biome;
 		public bool DrawLight = true;
 		public bool NoLightNoRender = true;
@@ -85,6 +86,7 @@ namespace BurningKnight.level {
 		public byte[] WallDecor;
 		public bool[] Explored;
 		public bool[] Passable;
+		public bool[] MatrixLeak;
 		public float[] Light;
 
 		public Chasm Chasm;
@@ -146,6 +148,10 @@ namespace BurningKnight.level {
 				}
 
 				Biome.Apply();
+			}
+
+			if (MatrixTileset == null) {
+				MatrixTileset = Tilesets.Get("tech_biome");
 			}
 		}
 
@@ -592,7 +598,16 @@ namespace BurningKnight.level {
 			}
 			
 			Passable = new bool[Size];
-			
+			MatrixLeak = new bool[Size];
+
+			/*if (Run.Depth > 0) {
+				for (var i = 0; i < Size; i++) {
+					if (Rnd.Chance(1)) {
+						MatrixLeak[i] = true;
+					}
+				}
+			}*/
+
 			PathFinder.SetMapSize(Width, Height);
 			
 			WallSurface = new RenderTarget2D(Engine.GraphicsDevice, Display.Width + 1, Display.Height + 1);
@@ -729,7 +744,7 @@ namespace BurningKnight.level {
 								#if DEBUG
 								try {
 #endif
-									Graphics.Render(Tileset.Tiles[tile][
+									Graphics.Render((MatrixLeak[index] ? MatrixTileset : Tileset).Tiles[tile][
 #if ART_DEBUG
 										0
 #else
@@ -770,23 +785,24 @@ namespace BurningKnight.level {
 				for (int x = GetRenderLeft(camera); x <= toX; x++) {
 					var index = ToIndex(x, y);
 					var tl = (Tile) Tiles[index];
+					var tileset = (MatrixLeak[index] ? MatrixTileset : Tileset);
 
 					if (tl.Matches(TileFlags.WallLayer) && (IsInside(index + width))) {
 						var t = (Tile) Tiles[index + width];
 
 						if (!t.IsWall() && t != Tile.Chasm) {
-							Graphics.Render(Tileset.WallA[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
+							Graphics.Render(tileset.WallA[CalcWallIndex(x, y)], new Vector2(x * 16, y * 16 + 10), 0, Vector2.Zero,
 								Vector2.One, SpriteEffects.FlipVertically);
 						}
 					}
 
 					if (tl != Tile.Transition && (tl.IsWall() || tl == Tile.PistonDown)) {
 						var v = Variants[index];
-						var ar = Tileset.WallAExtensions;
+						var ar = tileset.WallAExtensions;
 						
 						switch (tl) {
 							case Tile.WallB: {
-								ar = Tileset.WallBExtensions;
+								ar = tileset.WallBExtensions;
 								break;
 							}
 							
@@ -823,9 +839,9 @@ namespace BurningKnight.level {
 					var lt = (Tile) l;
 
 					if (lt.IsRock()) {
-						Graphics.Render(Tileset.Tiles[l][LiquidVariants[index]], new Vector2(x * 16, y * 16 + 3));
+						Graphics.Render(tileset.Tiles[l][LiquidVariants[index]], new Vector2(x * 16, y * 16 + 3));
 					} else if (lt == Tile.MetalBlock) {
-						Graphics.Render(Tileset.MetalBlockShadow, new Vector2(x * 16, y * 16 + 6), 0, Vector2.Zero,
+						Graphics.Render(tileset.MetalBlockShadow, new Vector2(x * 16, y * 16 + 6), 0, Vector2.Zero,
 							Vector2.One, SpriteEffects.FlipVertically);
 					}
 				}
@@ -1111,11 +1127,12 @@ namespace BurningKnight.level {
 
 							if (tt != Tile.Chasm) {
 								var ind = CalcWallSide(x, y);
+								var tileset = (MatrixLeak[index] ? MatrixTileset : Tileset);
 								TextureRegion textureRegion;
 								
 								switch (tt) {
 									case Tile.WallA: case Tile.Piston: case Tile.PistonDown:
-										textureRegion = Tileset.WallA[ind];
+										textureRegion = tileset.WallA[ind];
 										break;
 									case Tile.Planks:
 										textureRegion = Tilesets.Biome.Planks[ind];
@@ -1127,21 +1144,21 @@ namespace BurningKnight.level {
 										textureRegion = Tilesets.Biome.GrannyWall[ind];
 										break;
 									case Tile.FloorA:
-										textureRegion = Tileset.FloorSidesA[ind];
+										textureRegion = tileset.FloorSidesA[ind];
 										break;
 									case Tile.FloorB:
-										textureRegion = Tileset.FloorSidesB[ind];
+										textureRegion = tileset.FloorSidesB[ind];
 										break;
 									case Tile.FloorC:
-										textureRegion = Tileset.FloorSidesC[ind];
+										textureRegion = tileset.FloorSidesC[ind];
 										break;
 									case Tile.FloorD:
-										textureRegion = Tileset.FloorSidesD[ind];
+										textureRegion = tileset.FloorSidesD[ind];
 										break;
 
 									default:
 									case Tile.WallB:
-										textureRegion = Tileset.WallB[ind];
+										textureRegion = tileset.WallB[ind];
 										break;
 								}
 
@@ -1200,8 +1217,9 @@ namespace BurningKnight.level {
 								    (IsInside(index + width) && Get(index + width) == Tile.WallA);
 							}
 
-							var ar = Tileset.WallA;
-							var arr = Tileset.WallSidesA;
+							var tileset = (MatrixLeak[index] ? MatrixTileset : Tileset);
+							var ar = tileset.WallA;
+							var arr = tileset.WallSidesA;
 
 							if (!a) {
 								switch (tl) {
@@ -1215,8 +1233,8 @@ namespace BurningKnight.level {
 										if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) &&
 										    !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
 											
-											ar = Tileset.WallB;
-											arr = Tileset.WallSidesB;
+											ar = tileset.WallB;
+											arr = tileset.WallSidesB;
 										}
 
 
@@ -1224,8 +1242,8 @@ namespace BurningKnight.level {
 									}
 									
 									case Tile.WallB: {
-										ar = Tileset.WallB;
-										arr = Tileset.WallSidesB;
+										ar = tileset.WallB;
+										arr = tileset.WallSidesB;
 										break;
 									}
 																		
@@ -1314,9 +1332,10 @@ namespace BurningKnight.level {
 		
 		private void RenderWall(int x, int y, int index, int tile, Tile t, int m) {
 			var a = false;
+			var tileset = (MatrixLeak[index] ? MatrixTileset : Tileset);
 			
 			if (t != Tile.Transition) {
-				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : Tileset.Tiles[tile][0];
+				var region = t == Tile.Planks ? Tilesets.Biome.PlanksTop : tileset.Tiles[tile][0];
 				a = t == Tile.WallA || t == Tile.Piston || t == Tile.PistonDown;
 				var ab = a || t == Tile.GrannyWall || t == Tile.EvilWall;
 				var effect = Graphics.ParseEffect(x % 2 == 0, y % 2 == 0);
@@ -1331,8 +1350,8 @@ namespace BurningKnight.level {
 					ab = (IsInside(index + 1) && Get(index + 1) == Tile.WallA) ||
 					     (IsInside(index + width) && Get(index + width) == Tile.WallA);
 					region = ab
-						? Tileset.WallTopA
-						: Tileset.WallTopB;
+						? tileset.WallTopA
+						: tileset.WallTopB;
 				} else {
 					effect = SpriteEffects.None;
 				}
@@ -1363,23 +1382,23 @@ namespace BurningKnight.level {
 							lv += 8;
 						}
 
-						var ar = Tileset.WallTopsA;
+						var ar = tileset.WallTopsA;
 
 						if (!a) {
 							switch (t) {
 								case Tile.Transition: {
-									ar = Tileset.WallTopsTransition;
+									ar = tileset.WallTopsTransition;
 									break;
 								}
 								
 								case Tile.WallB: {
-									ar = Tileset.WallTopsB;
+									ar = tileset.WallTopsB;
 									break;
 								}
 								
 								case Tile.Crack: {
 									if (!(IsInside(index + 1) && Get(index + 1) == Tile.WallA) && !(IsInside(index + width) && Get(index + width) == Tile.WallA)) {
-										ar = Tileset.WallTopsB;
+										ar = tileset.WallTopsB;
 									}
 
 									break;
@@ -1462,11 +1481,11 @@ namespace BurningKnight.level {
 				}
 
 				if (t != Tile.Transition) {
-					var ar = Tileset.WallAExtensions;
+					var ar = tileset.WallAExtensions;
 
 					switch (t) {
 						case Tile.WallB: {
-							ar = Tileset.WallBExtensions;
+							ar = tileset.WallBExtensions;
 							break;
 						}
 							
@@ -1724,6 +1743,7 @@ namespace BurningKnight.level {
 			ResizeArray(ref Flags, w, h, size, (byte) 0);
 			ResizeArray(ref Explored, w, h, size, false);
 			ResizeArray(ref Passable, w, h, size, false);
+			ResizeArray(ref MatrixLeak, w, h, size, false);
 			ResizeArray(ref Light, w, h, size, 0);
 
 			Width = w;

@@ -53,7 +53,7 @@ namespace BurningKnight.entity.projectile {
 				p.BreaksFromWalls = false;
 				
 				p.OnDeath += (pr, e, t) => {
-					ExplosionMaker.Make(pr, 32);
+					ExplosionMaker.Make(pr, 32, damage: 8);
 				};
 
 				p.Controller += (pr, dt) => {

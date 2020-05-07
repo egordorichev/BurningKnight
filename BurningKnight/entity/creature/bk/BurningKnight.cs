@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using BurningKnight.assets;
+using BurningKnight.assets.achievements;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
@@ -6,18 +9,22 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.cutscene.entity;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
+using BurningKnight.ui;
 using BurningKnight.ui.dialog;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
@@ -70,8 +77,8 @@ namespace BurningKnight.entity.creature.bk {
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
-			health.InitMaxHealth = 10000;
-			health.AutoKill = false;
+			health.InitMaxHealth = 500;
+			// health.AutoKill = false;
 
 			GetComponent<StateComponent>().Become<IdleState>();
 			AddComponent(new OrbitGiverComponent());
@@ -94,6 +101,7 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<NewLevelStartedEvent>();
 
 			GetComponent<DialogComponent>().Dialog.Voice = 25;
+			AddComponent(new AimComponent(AimComponent.AimType.Target));
 		}
 
 		public override void PostInit() {
@@ -162,7 +170,6 @@ namespace BurningKnight.entity.creature.bk {
 				if (bde.Boss == captured) {
 					FreeSelf();
 				}
-
 				return false;
 			}
 
@@ -171,29 +178,31 @@ namespace BurningKnight.entity.creature.bk {
 			}
 
 			if (e is RoomChangedEvent rce) {
-				var p = rce.Who is Player;
-				var bs = rce.Who is BurningKnight;
+				if (!InFight) {
+					var p = rce.Who is Player;
+					var bs = rce.Who is BurningKnight;
 
-				if ((p || bs) && rce.New != null) {
-					var t = rce.New.Type;
+					if ((p || bs) && rce.New != null) {
+						var t = rce.New.Type;
 
-					if (t == RoomType.Boss) {
-						CheckCapture();
-					} else if (p) {
-						if (t == RoomType.Treasure) {
-							foreach (var item in rce.New.Tagged[Tags.Item]) {
-								if (item is SingleChoiceStand stand && stand.Item != null) {
-									GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
+						if (t == RoomType.Boss) {
+							CheckCapture();
+						} else if (p) {
+							if (t == RoomType.Treasure) {
+								foreach (var item in rce.New.Tagged[Tags.Item]) {
+									if (item is SingleChoiceStand stand && stand.Item != null) {
+										GetComponent<DialogComponent>().StartAndClose("bk_0", 5);
 
-									break;
+										break;
+									}
 								}
+							} else if (t == RoomType.Granny) {
+								// GRANNY, CAN YOU JUST DIE, PLEASE??
+								GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
+							} else if (t == RoomType.OldMan) {
+								// MY MASTER, I BROUGHT THE GOBLIN
+								GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 							}
-						} else if (t == RoomType.Granny) {
-							// GRANNY, CAN YOU JUST DIE, PLEASE??
-							GetComponent<DialogComponent>().StartAndClose("bk_9", 3);
-						} else if (t == RoomType.OldMan) {
-							// MY MASTER, I BROUGHT THE GOBLIN
-							GetComponent<DialogComponent>().StartAndClose("bk_10", 5);
 						}
 					}
 				}
@@ -227,9 +236,17 @@ namespace BurningKnight.entity.creature.bk {
 				if (de.Who is ShopKeeper) {
 					// EDWARD, NOOOOOO!
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
-				}
+					return false;
+				} else if (de.Who == this) {
+					if (died) {
+						return false;
+					}
 
-				return false;
+					died = true;
+					return false;
+				} else {
+					return false;
+				}
 			} else if (e is SecretRoomFoundEvent) {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
@@ -245,6 +262,8 @@ namespace BurningKnight.entity.creature.bk {
 
 			return base.HandleEvent(e);
 		}
+
+		private bool died;
 		
 		private bool sayNoRage;
 
@@ -264,10 +283,26 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			Done = false;
+
+			if (!Placed) {
+				Done = false;
+			}
 
 			if (Hidden) {
 				return;
+			}
+
+			if (lasers.Count > 0) {
+				spinV += dt;
+
+				foreach (var l in lasers) {
+					if (l.Done) {
+						lasers.Clear();
+						break;
+					}
+
+					l.Angle += spinV * dt * 0.2f * spinDir;
+				}
 			}
 
 			lastFadingParticle -= dt;
@@ -337,6 +372,12 @@ namespace BurningKnight.entity.creature.bk {
 		public class FollowState : SmartState<BurningKnight> {
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (Self.Target == null) {
+					Become<IdleState>();
+					return;
+				}
+				
 				Self.CheckForScourgeRage();
 
 				var d = Self.DistanceTo(Self.Target);
@@ -394,7 +435,13 @@ namespace BurningKnight.entity.creature.bk {
 		private void CheckCapture() {
 			var room = Target?.GetComponent<RoomComponent>()?.Room;
 
-			if (room != null) {
+			if (room != null && room.Type == RoomType.Boss) {
+				if (Run.Level.Biome is LibraryBiome) {
+					Center = room.Center;
+					BeginFight();
+					return;
+				}
+			
 				foreach (var mob in room.Tagged[Tags.Boss]) {
 					if (mob != this && mob is Boss b) {
 						captured = b;
@@ -662,7 +709,270 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			}
 			
-				ImGui.InputInt("Times Raged", ref timesRaged);
+			ImGui.InputInt("Times Raged", ref timesRaged);
+		}
+
+		protected override TextureRegion GetDeathFrame() {
+			return CommonAse.Particles.GetSlice("old_gobbo");
+		}
+
+		public override void PlaceRewards() {
+
+		}
+
+		protected override void CreateGore(DiedEvent d) {
+			// Center = GetComponent<RoomComponent>().Room.Center;
+			base.CreateGore(d);
+
+			var heinur = new Heinur();
+			Area.Add(heinur);
+			heinur.Center = Center - new Vector2(0, 32);
+
+			var dm = new DarkMage();
+			Area.Add(dm);
+
+			dm.Center = Center + new Vector2(0, 32);
+			var dmDialog = dm.GetComponent<DialogComponent>();
+			var heinurDialog = heinur.GetComponent<DialogComponent>();
+
+			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
+				dmDialog.Close();
+				
+				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
+					heinurDialog.Close();
+					
+					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
+						dmDialog.Close();
+						
+						// todo: spawn new bk, his dialog
+					}, 2f));
+				}, 1f));
+			}, 1f));
+		}
+
+		public bool InFight;
+		
+		private void BeginFight() {
+			if (InFight) {
+				return;
+			}
+			
+			GetComponent<DialogComponent>().StartAndClose("bk_12", 3);
+
+			InFight = true;
+			HasHealthbar = true;
+
+			if (HealthBar == null) {
+				HealthBar = new HealthBar(this);
+				Engine.Instance.State.Ui.Add(HealthBar);
+				AddPhases();
+			}
+			
+			AddTag(Tags.Boss);
+			AddTag(Tags.Mob);
+			AddTag(Tags.MustBeKilled);
+
+			Become<FightState>();
+
+			GetComponent<HealthComponent>().Unhittable = false;
+			TouchDamage = 2;
+		}
+
+		protected override void AddPhases() {
+			HealthBar.AddPhase(0.5f);
+		}
+		
+		/*
+		 * The actual boss battle
+		 */
+
+		private int count;
+
+		public class FightState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 1f) {
+					switch (Self.count) {
+						case 0: {
+							Become<SkullAttack>();
+							break;
+						}
+						
+						case 1: {
+							Become<LaserSwingAttack>();
+							break;
+						}
+
+						case 2: {
+							Become<LaserRotateAttack>();
+							break;
+						}
+					}
+					
+					Self.count = (Self.count + 1) % 3;
+				}
+			}
+		}
+
+		public class LaserSwingAttack : SmartState<BurningKnight> {
+			private Laser laser;
+			private float vy;
+			
+			public override void Init() {
+				base.Init();
+				
+				laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
+				laser.LifeTime = 10f;
+				laser.Position = Self.Center;
+				laser.Angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 1.2f;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (laser.Done) {
+					Become<FightState>();
+					return;
+				}
+				
+				laser.Position = Self.Center;
+
+				var aa = laser.Angle;
+				var a = Self.AngleTo(Self.Target);
+				
+				vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 2;
+
+				laser.Angle += vy * dt;
+			}
+		}
+
+		private List<Laser> lasers = new List<Laser>();
+		private float spinV;
+		private int spinDir;
+
+		private void StartLasers() {
+			lasers.Clear();
+			spinV = 0;
+			spinDir = Rnd.Chance() ? 1 : -1;
+			
+			for (var i = 0; i < 4; i++) {
+				var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
+				laser.LifeTime = 10f;
+				laser.Position = Center;
+				laser.Angle = AngleTo(Target) + (i / 4f + 1 / 8f) * (float) Math.PI * 2f;
+				
+				lasers.Add(laser);
+			}
+		}
+
+		public class LaserRotateAttack : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				Self.StartLasers();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.lasers.Count == 0) {
+					Become<FightState>();
+				}
+			}
+		}
+		
+		
+		public class SkullAttack : SmartState<BurningKnight> {
+			private int count;
+			private bool explode;
+
+			public override void Init() {
+				base.Init();
+				explode = Rnd.Chance();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if ((count + 1) <= T) {
+					count++;
+
+					if (Self.Target == null || Self.Died) {
+						return;
+					}
+					
+					var a = Self.GetComponent<BkGraphicsComponent>();
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_shoot");
+
+					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+
+						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
+						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
+
+						if (Self.Target == null || Self.Died) {
+							return;
+						}
+
+						var skull = Projectile.Make(Self, explode ? "skull" : "skup", Rnd.AnglePI(), explode ? Rnd.Float(5, 12) : 14);
+
+						if (explode) {
+							skull.NearDeath += p => {
+								var c = new AudioEmitterComponent {
+									DestroySounds = false
+								};
+								
+								p.AddComponent(c);
+								c.Emit("mob_oldking_explode");
+							};
+						
+							skull.OnDeath += (p, e, t) => {
+								if (!t) {
+									return;
+								}
+						
+								for (var i = 0; i < 16; i++) {
+									var bullet = Projectile.Make(Self, "small", 
+										((float) i) / 8 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+
+									bullet.CanBeReflected = false;
+									bullet.Center = p.Center;
+								}
+							};
+						}
+
+						skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
+						skull.Range = 5f;
+						skull.IndicateDeath = true;
+						skull.CanBeReflected = false;
+						skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
+						
+						if (count == 4) {
+							Self.Become<FightState>();
+						}
+					};
+				}
+			}
+		}
+
+		public class SwordAttackState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				
+				/*ProjectileTemplate.MakeFast(Self, sprite, Self.Center, a, (pr) => {
+					p.Add(pr);
+					pr.Color = color;
+					pr.AddLight(32, color);
+								
+					pr.CanBeReflected = false;
+					pr.BodyComponent.Angle = a;
+				}, data, () => {
+					Timer.Add(() => {
+						p.Launch(a, 20);
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
+					}, 0.2f);
+				});*/
+			}
 		}
 	}
 }

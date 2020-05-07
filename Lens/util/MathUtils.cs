@@ -100,6 +100,18 @@ namespace Lens.util {
 		}
 
 		public static string ToRoman(int number) {
+			if (number >= 1000) {
+				return "M" + ToRoman(number - 1000);
+			}
+			
+			if (number >= 500) {
+				return "D" + ToRoman(number - 500);
+			}
+			
+			if (number >= 100) {
+				return "C" + ToRoman(number - 100);
+			}
+			
 			if (number >= 50) {
 				return "L" + ToRoman(number - 50);
 			}

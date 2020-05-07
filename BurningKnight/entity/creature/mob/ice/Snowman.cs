@@ -63,7 +63,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
 					projectile.Controller += TargetProjectileController.Make(Target);
 					projectile.HurtsEveryone = true;
-					projectile.Damage = 15;
+					// projectile.Damage = 15;
 					
 					projectile.AddLight(32f, projectile.Color);
 				};

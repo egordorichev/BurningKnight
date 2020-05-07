@@ -437,7 +437,7 @@ namespace BurningKnight.entity.projectile {
 			BodyComponent.Velocity = Vector2.Zero;
 		}
 
-		public void AdjustScale(float newScale) {
+		public virtual void AdjustScale(float newScale) {
 			Scale = newScale;
 
 			var graphics = GetComponent<ProjectileGraphicsComponent>();

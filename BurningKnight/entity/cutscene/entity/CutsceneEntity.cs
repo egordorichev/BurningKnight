@@ -14,8 +14,6 @@ namespace BurningKnight.entity.cutscene.entity {
 			AddComponent(new DialogComponent());
 			AddComponent(new StateComponent());
 			AddComponent(new ShadowComponent());
-			
-			AddTag(Tags.CutsceneEntity);
 		}
 	}
 }

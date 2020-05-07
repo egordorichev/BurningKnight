@@ -120,8 +120,15 @@ namespace BurningKnight.entity.creature.mob {
 			} else if (Target.Done || Target.GetComponent<RoomComponent>().Room != GetComponent<RoomComponent>().Room ||
 			           (Target is Creature c && c.IsFriendly() == IsFriendly()) || 
 			           (Target.TryGetComponent<BuffsComponent>(out var b) && b.Has<InvisibleBuff>())) {
+
+				var old = Target;
+
+				HandleEvent(new MobTargetChange {
+					Mob = this,
+					New = null,
+					Old = old 
+				});
 				
-				Target = null;
 				FindTarget();
 			}
 

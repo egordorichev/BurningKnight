@@ -5,8 +5,10 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
 using BurningKnight.level.rooms;
+using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using Lens.entity;
+using Lens.util;
 using Lens.util.math;
 using Lens.util.timer;
 
@@ -51,6 +53,7 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("hi");
 					
 					// Welcome, gobbo!
+					GetComponent<DialogComponent>().Dialog.Str.SetVariable("id", MathUtils.ToRoman((int) GlobalSave.RunId));
 					GetComponent<DialogComponent>().StartAndClose(room.Type == RoomType.Granny ? "granny_4" : GetDialog(), 3);
 					
 					if (rce.New.Type != RoomType.Granny) {

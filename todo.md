@@ -1,4 +1,6 @@
 * bk fight (+ credits)
 * dm fight (+ loop condition)
 * cutscenes
-* finish up localisation (spanish/italian)
+* spanish localisation
+* doors still can not open
+* make boss rush unlocked only after you beat all bosses
