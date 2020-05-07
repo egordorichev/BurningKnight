@@ -100,6 +100,7 @@ namespace BurningKnight.entity.creature.bk {
 			Subscribe<NewLevelStartedEvent>();
 
 			GetComponent<DialogComponent>().Dialog.Voice = 25;
+			AddComponent(new AimComponent(AimComponent.AimType.Target));
 		}
 
 		public override void PostInit() {
@@ -770,8 +771,55 @@ namespace BurningKnight.entity.creature.bk {
 		 * The actual boss battle
 		 */
 
+		private int count;
+
 		public class FightState : SmartState<BurningKnight> {
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T >= 1f) {
+					switch (Self.count) {
+						case 0: {
+							Become<LaserSwingAttack>();
+							break;
+						}
+					}
+					
+					Self.count = (Self.count + 1) % 1;
+				}
+			}
+		}
+
+		public class LaserSwingAttack : SmartState<BurningKnight> {
+			private Laser laser;
+			private float vy;
 			
+			public override void Init() {
+				base.Init();
+				
+				laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
+				laser.LifeTime = 5f;
+				laser.Position = Self.Center;
+				laser.Angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 0.8f;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (laser.Done) {
+					Become<FightState>();
+					return;
+				}
+				
+				laser.Position = Self.Center;
+
+				var aa = laser.Angle;
+				var a = Self.AngleTo(Self.Target);
+				
+				vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 2;
+
+				laser.Angle += vy * dt;
+			}
 		}
 	}
 }

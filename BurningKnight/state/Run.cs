@@ -18,7 +18,7 @@ namespace BurningKnight.state {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 2 : 0;
+		private static int depth = BK.Version.Dev ? 10 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int Loop;

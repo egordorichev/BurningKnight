@@ -244,6 +244,19 @@ namespace BurningKnight.entity.creature.player {
 		private bool findASpawn;
 
 		private bool FindSpawn() {
+			if (BK.Version.Dev) {
+				foreach (var r in Area.Tagged[Tags.Room]) {
+					var rm = (Room) r;
+
+					if (rm.Type == RoomType.Boss) {
+						Center = r.Center + new Vector2(0, 32);
+						rm.Discover();
+						Log.Debug("Teleported to boss room");
+						return true;
+					}
+				}
+			}
+			
 			foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
 				Center = cc.Center;
 				Log.Debug("Teleported to spawn point");

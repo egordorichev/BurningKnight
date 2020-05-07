@@ -23,7 +23,7 @@ namespace BurningKnight.entity.projectile {
 			
 			aura = a.GetSlice($"{slice}_aura", false);
 			light = a.GetSlice($"{slice}_light", false);
-			end = a.GetSlice("magic", false);
+			end = a.GetSlice("end_aura", false);
 			endAura = a.GetSlice("end", false);
 			endLight = a.GetSlice("end_light", false);
 

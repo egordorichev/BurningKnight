@@ -18,6 +18,11 @@ namespace BurningKnight.entity.projectile {
 		public float Range = 15f;
 		public Vector2 End;
 		public bool PlayerRotated;
+
+		public float Angle {
+			get => BodyComponent.Body.Rotation;
+			set => BodyComponent.Body.Rotation = value;
+		}
 		
 		private Laser() {
 			BreaksFromWalls = false;
