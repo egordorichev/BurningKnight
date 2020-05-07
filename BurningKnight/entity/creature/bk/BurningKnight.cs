@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.lighting;
@@ -288,6 +289,19 @@ namespace BurningKnight.entity.creature.bk {
 
 			if (Hidden) {
 				return;
+			}
+
+			if (lasers.Count > 0) {
+				spinV += dt;
+
+				foreach (var l in lasers) {
+					if (l.Done) {
+						lasers.Clear();
+						break;
+					}
+
+					l.Angle += spinV * dt * 0.2f * spinDir;
+				}
 			}
 
 			lastFadingParticle -= dt;
@@ -780,12 +794,22 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
+							Become<SkullAttack>();
+							break;
+						}
+						
+						case 1: {
 							Become<LaserSwingAttack>();
+							break;
+						}
+
+						case 2: {
+							Become<LaserRotateAttack>();
 							break;
 						}
 					}
 					
-					Self.count = (Self.count + 1) % 1;
+					Self.count = (Self.count + 1) % 3;
 				}
 			}
 		}
@@ -798,9 +822,9 @@ namespace BurningKnight.entity.creature.bk {
 				base.Init();
 				
 				laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
-				laser.LifeTime = 5f;
+				laser.LifeTime = 10f;
 				laser.Position = Self.Center;
-				laser.Angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 0.8f;
+				laser.Angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 1.2f;
 			}
 
 			public override void Update(float dt) {
@@ -819,6 +843,132 @@ namespace BurningKnight.entity.creature.bk {
 				vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 2;
 
 				laser.Angle += vy * dt;
+			}
+		}
+
+		private List<Laser> lasers = new List<Laser>();
+		private float spinV;
+		private int spinDir;
+
+		private void StartLasers() {
+			lasers.Clear();
+			spinV = 0;
+			spinDir = Rnd.Chance() ? 1 : -1;
+			
+			for (var i = 0; i < 4; i++) {
+				var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
+				laser.LifeTime = 10f;
+				laser.Position = Center;
+				laser.Angle = AngleTo(Target) + (i / 4f + 1 / 8f) * (float) Math.PI * 2f;
+				
+				lasers.Add(laser);
+			}
+		}
+
+		public class LaserRotateAttack : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				Self.StartLasers();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (Self.lasers.Count == 0) {
+					Become<FightState>();
+				}
+			}
+		}
+		
+		
+		public class SkullAttack : SmartState<BurningKnight> {
+			private int count;
+			private bool explode;
+
+			public override void Init() {
+				base.Init();
+				explode = Rnd.Chance();
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if ((count + 1) <= T) {
+					count++;
+
+					if (Self.Target == null || Self.Died) {
+						return;
+					}
+					
+					var a = Self.GetComponent<BkGraphicsComponent>();
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_shoot");
+
+					Tween.To(1.8f, a.Scale.X, x => a.Scale.X = x, 0.2f);
+					Tween.To(0.2f, a.Scale.Y, x => a.Scale.Y = x, 0.2f).OnEnd = () => {
+
+						Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.3f);
+						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.3f);
+
+						if (Self.Target == null || Self.Died) {
+							return;
+						}
+
+						var skull = Projectile.Make(Self, explode ? "skull" : "skup", Rnd.AnglePI(), explode ? Rnd.Float(5, 12) : 14);
+
+						skull.NearDeath += p => {
+							var c = new AudioEmitterComponent {
+								DestroySounds = false
+							};
+							
+							p.AddComponent(c);
+							c.Emit("mob_oldking_explode");
+						};
+						
+						skull.OnDeath += (p, e, t) => {
+							if (!t) {
+								return;
+							}
+					
+							for (var i = 0; i < 16; i++) {
+								var bullet = Projectile.Make(Self, "small", 
+									((float) i) / 8 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+
+								bullet.CanBeReflected = false;
+								bullet.Center = p.Center;
+							}
+						};
+
+						skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
+						skull.Range = 5f;
+						skull.IndicateDeath = true;
+						skull.CanBeReflected = false;
+						skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
+						
+						if (count == 4) {
+							Self.Become<FightState>();
+						}
+					};
+				}
+			}
+		}
+
+		public class SwordAttackState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+				
+				/*ProjectileTemplate.MakeFast(Self, sprite, Self.Center, a, (pr) => {
+					p.Add(pr);
+					pr.Color = color;
+					pr.AddLight(32, color);
+								
+					pr.CanBeReflected = false;
+					pr.BodyComponent.Angle = a;
+				}, data, () => {
+					Timer.Add(() => {
+						p.Launch(a, 20);
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
+					}, 0.2f);
+				});*/
 			}
 		}
 	}
