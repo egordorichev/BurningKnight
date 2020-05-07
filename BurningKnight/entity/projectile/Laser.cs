@@ -8,6 +8,7 @@ using BurningKnight.physics;
 using Lens;
 using Lens.entity;
 using Lens.util;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
 	public class Laser : Projectile {
@@ -15,6 +16,7 @@ namespace BurningKnight.entity.projectile {
 		public bool Dynamic = true;
 		public float AdditionalAngle;
 		public float Range = 15f;
+		public Vector2 End;
 		
 		private Laser() {
 			BreaksFromWalls = false;
@@ -68,7 +70,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
-			return entity is ProjectileLevelBody || entity is Door;
+			return entity is ProjectileLevelBody || entity is Level || entity is Door;
 		}
 
 		public void Recalculate() {
@@ -86,12 +88,18 @@ namespace BurningKnight.entity.projectile {
 				return min;
 			}, from, closest);
 
-			var len = (from - closest).Length();
+			var v = (from - closest);
+			var len = v.Length();
 
 			if (Math.Abs(len - Width) > 1) {
 				Width = len;
 				BodyComponent.Resize(0, -Height * 0.5f, Width, Height);
 			}
+
+			var a = v.ToAngle() - Math.PI + AdditionalAngle;
+			
+			BodyComponent.Body.Rotation = (float) a;
+			End = Position + MathUtils.CreateVector(a, Width);
 		}
 
 		private float lastClear;
@@ -101,7 +109,7 @@ namespace BurningKnight.entity.projectile {
 
 			lastClear += dt;
 
-			if (lastClear >= 0.3f) {
+			if (lastClear >= 0.1f) {
 				lastClear = 0;
 				EntitiesHurt.Clear();
 			}

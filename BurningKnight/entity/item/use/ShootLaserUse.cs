@@ -28,9 +28,7 @@ namespace BurningKnight.entity.item.use {
 					var aim = entity.GetComponent<AimComponent>();
 					var from = aim.Center;
 					var am = aim.RealAim;
-					var a = MathUtils.Angle(am.X - from.X, am.Y - from.Y);
 
-					laser.BodyComponent.Body.Rotation = a + laser.AdditionalAngle;
 					laser.Position = from;
 				}
 			}
