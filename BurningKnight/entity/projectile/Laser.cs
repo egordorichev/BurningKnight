@@ -6,14 +6,14 @@ using BurningKnight.physics;
 using Lens;
 using Lens.entity;
 using Lens.util;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
 	public class Laser : Projectile {
 		public float LifeTime = 1.5f;
 		public bool Dynamic = true;
+		public float AdditionalAngle;
 		
-		public Laser() {
+		private Laser() {
 			BreaksFromWalls = false;
 			Spectral = true;
 			CanBeBroken = false;
@@ -22,18 +22,29 @@ namespace BurningKnight.entity.projectile {
 			ManualRotation = true;
 		}
 
-		public override void AddComponents() {
-			base.AddComponents();
+		public static Laser Make(Entity owner, float a, float additional, float damage = 1, float scale = 1f) {
+			var laser = new Laser();
+			
+			laser.Damage = damage;
+			laser.StarterOwner = owner;
+			laser.Owner = owner;
 
+			owner.Area.Add(laser);
+			
 			var graphics = new LaserGraphicsComponent("projectiles", "laser");
-			AddComponent(graphics);
+			laser.AddComponent(graphics);
 
-			Width = 32;
-			Height = 9;
+			laser.Scale = scale;
+			laser.Width = 32;
+			laser.Height = 9 * scale;
 
-			CreateBody();
+			laser.CreateBody();
+			laser.AdditionalAngle = additional;
+			laser.BodyComponent.Body.Rotation = a + additional;
+
+			return laser;
 		}
-		
+
 		private void CreateBody() {
 			AddComponent(BodyComponent = new RectBodyComponent(0, -Height * 0.5f, Width, Height));
 		}
@@ -95,6 +106,12 @@ namespace BurningKnight.entity.projectile {
 			if (Dynamic) {
 				Recalculate();
 			}
+		}
+
+		public override void AdjustScale(float newScale) {
+			Scale = newScale;
+			Height = 9 * Scale;
+			GetComponent<RectBodyComponent>().Resize(0, 0, Width, Height, true);
 		}
 	}
 }
