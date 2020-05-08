@@ -1,4 +1,5 @@
 using System.Linq;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.npc.dungeon;
 using BurningKnight.entity.door;
@@ -37,6 +38,10 @@ namespace BurningKnight.level.rooms.special {
 			ShopNpc.HatTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader, ShopNpc.WeaponTrader, ShopNpc.Mike
 		};
 
+		private static bool DefeatedBosses() {
+			return Achievements.IsComplete("bk:democracy") && Achievements.IsComplete("bk:mummified") && Achievements.IsComplete("bk:ice_boss") && Achievements.IsComplete("bk:bk_no_more") && Achievements.IsComplete("bk:sting_operation");
+		}
+
 		public override void Paint(Level level) {
 			if (LevelSave.BiomeGenerated is IceBiome) {
 				var clip = Painter.Clip;
@@ -51,7 +56,7 @@ namespace BurningKnight.level.rooms.special {
 			ShopNpc npc = null;
 			
 			foreach (var s in townNpcs) {
-				if (GlobalSave.IsFalse(s)) {
+				if (GlobalSave.IsFalse(s) && (s != ShopNpc.Mike || DefeatedBosses())) {
 					npc = ShopNpc.FromId(s);
 					break;
 				}
@@ -160,7 +165,7 @@ namespace BurningKnight.level.rooms.special {
 				}
 				
 				case 5: {
-					if (GlobalSave.IsFalse(ShopNpc.Mike)) {
+					if (GlobalSave.IsFalse(ShopNpc.Mike) && DefeatedBosses()) {
 						npc = ShopNpc.Mike;
 					}
 					

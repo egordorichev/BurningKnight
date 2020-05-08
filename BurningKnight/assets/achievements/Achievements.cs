@@ -409,6 +409,11 @@ namespace BurningKnight.assets.achievements {
 			ImGui.End();
 		}
 
+		public static bool IsComplete(string id) {
+			var ach = Get(id);
+			return ach != null && ach.Unlocked;
+		}
+
 		public static bool IsGroupComplete(string group) {
 			var found = false;
 
