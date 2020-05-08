@@ -752,6 +752,18 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public bool InFight;
+
+		private void AddOrbitals(int count) {
+			for (var i = 0; i < count; i++) {
+				var orbital = new BkOrbital {
+					Id = i
+				};
+				
+				Area.Add(orbital);
+				orbital.Center = Center;
+				GetComponent<OrbitGiverComponent>().AddOrbiter(orbital);
+			}
+		}
 		
 		private void BeginFight() {
 			if (InFight) {
@@ -759,6 +771,7 @@ namespace BurningKnight.entity.creature.bk {
 			}
 			
 			GetComponent<DialogComponent>().StartAndClose("bk_12", 3);
+			AddOrbitals(6);
 
 			InFight = true;
 			HasHealthbar = true;
@@ -824,18 +837,28 @@ namespace BurningKnight.entity.creature.bk {
 		public class LaserSwingAttack : SmartState<BurningKnight> {
 			private Laser laser;
 			private float vy;
+			private float angle;
 			
 			public override void Init() {
 				base.Init();
-				
-				laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
-				laser.LifeTime = 10f;
-				laser.Position = Self.Center;
-				laser.Angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 1.2f;
+
+				angle = Self.AngleTo(Self.Target) - (Rnd.Chance() ? -1 : 1) * 1.2f;
+				Self.WarnLaser(angle);
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (laser == null) {
+					if (T < 1f) {
+						return;
+					}
+					
+					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
+					laser.LifeTime = 10f;
+					laser.Position = Self.Center;
+					laser.Angle = angle;
+				}
 
 				if (laser.Done) {
 					Become<FightState>();
@@ -857,18 +880,35 @@ namespace BurningKnight.entity.creature.bk {
 		private float spinV;
 		private int spinDir;
 
+		private void WarnLaser(float angle) {
+			for (var i = 0; i < 3; i++) {
+				Timer.Add(() => {
+					var projectile = Projectile.Make(this, "circle", angle, 15f);
+
+					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.Center += MathUtils.CreateVector(angle, 8);
+				}, i * 0.3f);
+			}		
+		}
+
 		private void StartLasers() {
 			lasers.Clear();
 			spinV = 0;
 			spinDir = Rnd.Chance() ? 1 : -1;
 			
 			for (var i = 0; i < 4; i++) {
-				var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
-				laser.LifeTime = 10f;
-				laser.Position = Center;
-				laser.Angle = AngleTo(Target) + (i / 4f + 1 / 8f) * (float) Math.PI * 2f;
-				
-				lasers.Add(laser);
+				var angle = AngleTo(Target) + (i / 4f + 1 / 8f) * (float) Math.PI * 2f;
+
+				WarnLaser(angle);
+
+				Timer.Add(() => {
+					var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
+					laser.LifeTime = 10f;
+					laser.Position = Center;
+					laser.Angle = angle;
+
+					lasers.Add(laser);
+				}, 1f);
 			}
 		}
 
@@ -881,12 +921,11 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (Self.lasers.Count == 0) {
+				if (T >= 3f && Self.lasers.Count == 0) {
 					Become<FightState>();
 				}
 			}
 		}
-		
 		
 		public class SkullAttack : SmartState<BurningKnight> {
 			private int count;

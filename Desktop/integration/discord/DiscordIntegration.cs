@@ -14,7 +14,9 @@ namespace Desktop.integration.discord {
 		
 		private float lastUpdate;
 		private long startTime;
-		
+
+		public bool Broken;
+
 		private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 		public static long CurrentTimeMillis() {
@@ -26,13 +28,23 @@ namespace Desktop.integration.discord {
 
 			startTime = CurrentTimeMillis() / 1000;
 
-			DiscordRpc.Initialize("459603244256198657", new DiscordRpc.EventHandlers());
+			try {
+				DiscordRpc.Initialize("459603244256198657", new DiscordRpc.EventHandlers());
+			} catch (Exception e) {
+				Broken = true;
+				Log.Error(e);
+			}
 
 			UpdateStatus();
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
+
+			if (Broken) {
+				return;
+			}
+			
 			lastUpdate += dt;
 
 			if (lastUpdate >= 3f) {
@@ -49,7 +61,7 @@ namespace Desktop.integration.discord {
 		}
 		
 		private void UpdateStatus() {
-			if (Run.Level?.Biome == null) {
+			if (Run.Level?.Biome == null || Broken) {
 				return;
 			}
 			
@@ -77,7 +89,10 @@ namespace Desktop.integration.discord {
 
 		public override void Destroy() {
 			base.Destroy();
-			DiscordRpc.Shutdown();
+
+			if (!Broken) {
+				DiscordRpc.Shutdown();
+			}
 		}
 	}
 }
