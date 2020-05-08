@@ -20,6 +20,7 @@ namespace BurningKnight.entity.creature.bk {
 			base.SetStats();
 
 			SetMaxHp(50);
+			RemoveTag(Tags.LevelSave);
 
 			Width = 12;
 			Height = 13;
@@ -63,9 +64,9 @@ namespace BurningKnight.entity.creature.bk {
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 				
 					var an = AngleTo(Target);
-					var projectile = Projectile.Make(this, "circle", an, 8f, false, 0, null, 0.8f);
+					var projectile = Projectile.Make(this, "big", an, 8f, false, 0, null, 0.8f);
 
-					projectile.Center = Center + MathUtils.CreateVector(an, 2f);
+					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
 					projectile.Color = ProjectileColor.Orange;
 					projectile.AddLight(32f, projectile.Color);
 					projectile.CanBeBroken = false;
@@ -81,7 +82,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Init() {
 				base.Init();
 
-				T = Self.Id * 0.5f;
+				T = Self.Id * 1f;
 				
 				var component = Self.GetComponent<ZComponent>();
 				Tween.To(DefaultZ, component.Z, x => component.Z = x, 0.4f, Ease.BackOut);
@@ -90,7 +91,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 5f) {
+				if (T >= 10f) {
 					T = 0;
 					Self.Fire();
 				}

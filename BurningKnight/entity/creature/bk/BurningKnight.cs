@@ -809,7 +809,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
-							Become<SwordAttackState>();
+							Become<LaserCageAttack>();
 							break;
 						}
 						
@@ -827,9 +827,14 @@ namespace BurningKnight.entity.creature.bk {
 							Become<SkullAttack>();
 							break;
 						}
+						
+						case 4: {
+							Become<SwordAttackState>();
+							break;
+						}
 					}
 					
-					Self.count = (Self.count + 1) % 4;
+					Self.count = (Self.count + 1) % 5;
 				}
 			}
 		}
@@ -880,13 +885,17 @@ namespace BurningKnight.entity.creature.bk {
 		private float spinV;
 		private int spinDir;
 
-		private void WarnLaser(float angle) {
+		private void WarnLaser(float angle, Vector2? offset = null) {
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
 					var projectile = Projectile.Make(this, "circle", angle, 15f);
 
 					projectile.AddLight(32f, Projectile.RedLight);
 					projectile.Center += MathUtils.CreateVector(angle, 8);
+
+					if (offset != null) {
+						projectile.Center += offset.Value;
+					}
 				}, i * 0.3f);
 			}		
 		}
@@ -1041,6 +1050,76 @@ namespace BurningKnight.entity.creature.bk {
 						}, 0.2f);
 					});
 				}, 1f);
+			}
+		}
+
+		public class LaserCageAttack : SmartState<BurningKnight> {
+			private Laser[] lasers = new Laser[8];
+			private Vector2 spot;
+
+			private const float boxHalfSize = 32;
+
+			private static Vector2[] laserOffsets = {
+				new Vector2(-boxHalfSize, 0), 
+				new Vector2(-boxHalfSize, 0), 
+				new Vector2(boxHalfSize, 0),
+				new Vector2(boxHalfSize, 0),
+				new Vector2(0, -boxHalfSize),
+				new Vector2(0, -boxHalfSize),
+				new Vector2(0, boxHalfSize),
+				new Vector2(0, boxHalfSize),
+			};
+
+			private static double[] laserAngles = {
+				Math.PI * 0.5f,
+				Math.PI * 1.5f,
+				Math.PI * 0.5f,
+				Math.PI * 1.5f,
+				Math.PI,
+				0,
+				Math.PI,
+				0
+			};
+
+			public override void Init() {
+				base.Init();
+
+				spot = Self.Center;
+
+				for (var i = 0; i < 8; i++) {
+					Self.WarnLaser((float) laserAngles[i], laserOffsets[i]);
+				}
+
+				Timer.Add(() => {
+					for (var i = 0; i < 8; i++) {
+						var laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
+						laser.LifeTime = 10f;
+						laser.Position = spot + laserOffsets[i];
+						laser.Angle = (float) laserAngles[i];
+						lasers[i] = laser;
+					}
+				}, 1);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T < 1f) {
+					return;
+				}
+				
+				spot = spot.Lerp(Self.Target.Center, dt * 0.5f);
+
+				for (var i = 0; i < 8; i++) {
+					var laser = lasers[i];
+
+					if (laser.Done) {
+						Become<FightState>();
+						return;
+					}
+					
+					laser.Position = spot + laserOffsets[i];
+				}
 			}
 		}
 	}
