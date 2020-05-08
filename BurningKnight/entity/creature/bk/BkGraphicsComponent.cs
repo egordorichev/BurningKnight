@@ -25,6 +25,7 @@ namespace BurningKnight.entity.creature.bk {
 			if (shadow) {
 				FlippedVerticaly = !FlippedVerticaly;
 				pos.Y += Animation.GetCurrentTexture().Height - ShadowOffset * 2 + 4;
+				Graphics.Color.A = (byte) (Alpha * 255);
 			} else {
 				var shader = Shaders.Bk;
 				var region = Animation.GetCurrentTexture();
@@ -42,6 +43,7 @@ namespace BurningKnight.entity.creature.bk {
 			CallRender(pos, shadow);
 
 			if (shadow) {
+				Graphics.Color.A = 255;
 				FlippedVerticaly = !FlippedVerticaly;
 			} else {
 				Shaders.End();

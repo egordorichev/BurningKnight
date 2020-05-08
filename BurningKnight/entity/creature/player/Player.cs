@@ -754,6 +754,10 @@ namespace BurningKnight.entity.creature.player {
 				if (Flying || HasFlight) {
 					pce.Projectile.Spectral = true;
 				}
+			} else if (e is FlagCollisionStartEvent fcse) {
+				if (fcse.Flag == Flag.Burning) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
+				}
 			}
 			
 			return base.HandleEvent(e);

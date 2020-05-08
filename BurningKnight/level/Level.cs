@@ -14,7 +14,6 @@ using BurningKnight.entity.fx;
 using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
-using BurningKnight.level.rooms.connection;
 using BurningKnight.level.tile;
 using BurningKnight.level.variant;
 using BurningKnight.save;
@@ -714,6 +713,7 @@ namespace BurningKnight.level {
 			// Cache the condition
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderTop(camera);
+			var active = Engine.Instance.State.Paused;
 
 			var shader = Shaders.Chasm;
 			Shaders.Begin(shader);
@@ -736,6 +736,17 @@ namespace BurningKnight.level {
 
 					if (tile > 0) {
 						if (t.Matches(TileFlags.FloorLayer)) {
+							if (active && CheckFlag(index, Flag.Burning) && Rnd.Chance(10)) {
+								Area.Add(new FireParticle {
+									Position = new Vector2(x * 16 + Rnd.Float(-2, 18), y * 16 + Rnd.Float(-2, 18)),
+									XChange = 0.1f,
+									Scale = 0.3f,
+									Vy = 8,
+									T = 0.5f,
+									B = 0
+								});
+							}
+							
 							var pos = new Vector2(x * 16, y * 16);
 
 							if (t == Tile.PistonDown) {
@@ -1076,7 +1087,7 @@ namespace BurningKnight.level {
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderBottom(camera);
 			
-			var paused = Engine.Instance.State.Paused;
+			var active = !Engine.Instance.State.Paused;
 			var state = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 			state.End();
 
@@ -1116,7 +1127,7 @@ namespace BurningKnight.level {
 
 						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
 						
-						if (!paused && Rnd.Chance(0.1f)) {
+						if (active && Rnd.Chance(0.1f)) {
 							Area.Add(new ChasmFx {
 								Position = pos + new Vector2(Rnd.Float(16), Rnd.Float(16))
 							});

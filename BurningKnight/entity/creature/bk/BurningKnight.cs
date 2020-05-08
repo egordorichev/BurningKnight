@@ -15,6 +15,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.entity.projectile.pattern;
+using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -308,7 +309,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			lastFadingParticle -= dt;
 
-			if (lastFadingParticle <= 0) {
+			if (lastFadingParticle <= 0 && !(GetComponent<StateComponent>().StateInstance is FlameAttack)) {
 				lastFadingParticle = 0.2f;
 
 				var particle = new FadingParticle(GetComponent<BkGraphicsComponent>().Animation.GetCurrentTexture(), tint);
@@ -809,7 +810,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
-							Become<LaserCageAttack>();
+							Become<FlameAttack>();
 							break;
 						}
 						
@@ -832,9 +833,14 @@ namespace BurningKnight.entity.creature.bk {
 							Become<SwordAttackState>();
 							break;
 						}
+						
+						case 5: {
+							Become<LaserCageAttack>();
+							break;
+						}
 					}
 					
-					Self.count = (Self.count + 1) % 5;
+					Self.count = (Self.count + 1) % 6;
 				}
 			}
 		}
@@ -1114,12 +1120,71 @@ namespace BurningKnight.entity.creature.bk {
 					var laser = lasers[i];
 
 					if (laser.Done) {
+						foreach (var l in lasers) {
+							l.Done = true;
+						}
+						
 						Become<FightState>();
 						return;
 					}
 					
 					laser.Position = spot + laserOffsets[i];
 				}
+			}
+		}
+
+		public class FlameAttack : SmartState<BurningKnight> {
+			private float r;
+			private List<int> last = new List<int>();
+			
+			public override void Init() {
+				base.Init();
+				
+				var graphics = Self.GetComponent<BkGraphicsComponent>();
+				Self.GetComponent<HealthComponent>().Unhittable = true;
+				Tween.To(0, graphics.Alpha, x => graphics.Alpha = x, 0.3f);
+				Self.TouchDamage = 0;
+			}
+
+			public override void Destroy() {
+				base.Destroy();
+				
+				var graphics = Self.GetComponent<BkGraphicsComponent>();
+				Self.GetComponent<HealthComponent>().Unhittable = false;
+				Self.TouchDamage = 2;
+				Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				foreach (var l in last) {
+					Run.Level.SetFlag(l, Flag.Burning, false);
+				}
+
+				if (T >= 10f) {
+					Become<FightState>();
+					return;
+				}
+				
+				last.Clear();
+				r = Math.Min(2, r + dt * 60);
+				
+				var x = (int) Math.Floor(Self.CenterX / 16);
+				var y = (int) Math.Floor(Self.CenterY / 16);
+
+				for (var xx = (int) -r; xx <= r; xx++) {
+					for (var yy = (int) -r; yy <= r; yy++) {
+						var i = Run.Level.ToIndex(x + xx, y + yy);
+						Run.Level.SetFlag(i, Flag.Burning, true);
+						last.Add(i);
+					}
+				}
+				
+				var force = 200f * dt;
+				var a = Self.AngleTo(Self.Target);
+
+				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
 			}
 		}
 	}
