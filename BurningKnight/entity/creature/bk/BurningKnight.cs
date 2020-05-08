@@ -14,6 +14,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
+using BurningKnight.entity.projectile.pattern;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.state;
@@ -795,7 +796,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
-							Become<SkullAttack>();
+							Become<SwordAttackState>();
 							break;
 						}
 						
@@ -808,9 +809,14 @@ namespace BurningKnight.entity.creature.bk {
 							Become<LaserRotateAttack>();
 							break;
 						}
+						
+						case 3: {
+							Become<SkullAttack>();
+							break;
+						}
 					}
 					
-					Self.count = (Self.count + 1) % 3;
+					Self.count = (Self.count + 1) % 4;
 				}
 			}
 		}
@@ -841,9 +847,9 @@ namespace BurningKnight.entity.creature.bk {
 				var aa = laser.Angle;
 				var a = Self.AngleTo(Self.Target);
 				
-				vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 2;
+				vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 4;
 
-				laser.Angle += vy * dt;
+				laser.Angle += vy * dt * 0.5f;
 			}
 		}
 
@@ -916,6 +922,9 @@ namespace BurningKnight.entity.creature.bk {
 
 						var skull = Projectile.Make(Self, explode ? "skull" : "skup", Rnd.AnglePI(), explode ? Rnd.Float(5, 12) : 14);
 
+						skull.CanBeReflected = false;
+						skull.CanBeBroken = false;
+						
 						if (explode) {
 							skull.NearDeath += p => {
 								var c = new AudioEmitterComponent {
@@ -936,6 +945,7 @@ namespace BurningKnight.entity.creature.bk {
 										((float) i) / 8 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
 
 									bullet.CanBeReflected = false;
+									bullet.CanBeBroken = false;
 									bullet.Center = p.Center;
 								}
 							};
@@ -955,23 +965,43 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
+		private static string[] swordData = {
+			" x     ",
+			"xxxxxxx",
+			" x     ",
+		};
+
 		public class SwordAttackState : SmartState<BurningKnight> {
 			public override void Init() {
 				base.Init();
-				
-				/*ProjectileTemplate.MakeFast(Self, sprite, Self.Center, a, (pr) => {
-					p.Add(pr);
-					pr.Color = color;
-					pr.AddLight(32, color);
-								
-					pr.CanBeReflected = false;
-					pr.BodyComponent.Angle = a;
-				}, data, () => {
-					Timer.Add(() => {
-						p.Launch(a, 20);
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
-					}, 0.2f);
-				});*/
+
+				Timer.Add(() => {
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
+
+					var a = Self.AngleTo(Self.Target);
+					
+					var p = new ProjectilePattern(KeepShapePattern.Make(0)) {
+						Position = Self.Center
+					};
+
+					Self.Area.Add(p);
+					
+					ProjectileTemplate.MakeFast(Self, "small", Self.Center, a, (pr) => {
+						pr.CanBeReflected = false;
+						pr.CanBeBroken = false;
+						
+						p.Add(pr);
+						pr.Color = ProjectileColor.Red;
+						pr.AddLight(32, pr.Color);
+					}, swordData, () => {
+						Timer.Add(() => {
+							p.Launch(a, 30);
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
+
+							Become<FightState>();
+						}, 0.2f);
+					});
+				}, 1f);
 			}
 		}
 	}
