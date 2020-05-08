@@ -417,6 +417,7 @@
     <Compile Include="entity\creature\bk\attacks\SpawnSkullOrbitalAttack.cs" />
     <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BkGraphicsComponent.cs" />
+    <Compile Include="entity\creature\bk\BkOrbital.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
     <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />

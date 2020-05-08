@@ -11,6 +11,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.debug;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
@@ -698,7 +699,7 @@ namespace BurningKnight.entity.creature.player {
 				}
 			} else if (e is HealthModifiedEvent hm) {
 				if (hm.Amount < 0) {
-					if ((hm.From is Mob m && m.HasPrefix) || (hm.From is creature.bk.BurningKnight k && k.InFight)) {
+					if ((hm.From is Mob m && m.HasPrefix) || (hm.From is creature.bk.BurningKnight k && k.InFight) || hm.From is BkOrbital) {
 						hm.Amount = Math.Min(hm.Amount, -2);
 					} else if (hm.Type != DamageType.Custom && hm.Type != DamageType.Explosive) {
 						hm.Amount = Math.Max(-1, hm.Amount);
@@ -752,6 +753,10 @@ namespace BurningKnight.entity.creature.player {
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {
 					pce.Projectile.Spectral = true;
+				}
+			} else if (e is FlagCollisionStartEvent fcse) {
+				if (fcse.Flag == Flag.Burning) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
 				}
 			}
 			

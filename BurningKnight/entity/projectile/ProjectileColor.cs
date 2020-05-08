@@ -21,6 +21,10 @@ namespace BurningKnight.entity.projectile {
 			Red, Orange, Yellow, Green, Cyan, Blue, Purple
 		};
 
+		public static Color[] DesertRainbow = {
+			Red, Orange, Yellow
+		};
+
 		public static Dictionary<string, Color> Colors = new Dictionary<string, Color> {
 			{ "yellow", Yellow },
 			{ "red", Red },

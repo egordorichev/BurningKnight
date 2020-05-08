@@ -6,6 +6,11 @@ namespace Lens.util.timer {
 		private static List<TimerTask> tasks = new List<TimerTask>();
 
 		public static void Add(Action fn, float Delay) {
+			if (Delay <= 0) {
+				fn();
+				return;
+			}
+			
 			tasks.Add(new TimerTask(fn, Delay));
 		}
 

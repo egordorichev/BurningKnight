@@ -106,7 +106,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		private int counter;
 
-
 		protected override void OnTargetChange(Entity target) {
 			base.OnTargetChange(target);
 
@@ -135,12 +134,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 					} else if (v == 3) {
 						Become<BulletHellState>();
 					} else if (v == 4) {
-						Become<AdvancedSpiralState>();
+						Become<TeleportState>();
 					} else if (v == 5) {
+						Become<AdvancedSpiralState>();
+					} else if (v == 6) {
 						Become<TileMoveState>();
 					}
 
-					Self.counter = (v + 1) % 6;
+					Self.counter = (v + 1) % 7;
 				}
 			}
 		}
@@ -195,7 +196,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 						projectile.CanBeBroken = false;
 						projectile.CanBeReflected = false;
-						projectile.Color = ProjectileColor.Rainbow[count % ProjectileColor.Rainbow.Length];
+						projectile.Color = ProjectileColor.DesertRainbow[count % ProjectileColor.DesertRainbow.Length];
 					}
 
 					count++;
@@ -225,7 +226,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						
 						projectile.CanBeBroken = false;
 						projectile.CanBeReflected = false;
-						projectile.Color = ProjectileColor.Rainbow[Rnd.Int(ProjectileColor.Rainbow.Length)];
+						projectile.Color = ProjectileColor.DesertRainbow[Rnd.Int(ProjectileColor.DesertRainbow.Length)];
 					}
 				}
 
