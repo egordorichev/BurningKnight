@@ -249,7 +249,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				return;
 			}
 
-			if (room.Type != RoomType.Regular) {
+			if (room.Type != RoomType.Regular && room.Type != RoomType.Boss) {
 				Done = true;
 				return;
 			}

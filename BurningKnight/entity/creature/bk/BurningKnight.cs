@@ -7,6 +7,7 @@ using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.cutscene.entity;
@@ -18,6 +19,7 @@ using BurningKnight.entity.projectile.pattern;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
+using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
@@ -810,7 +812,7 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
-							Become<FlameAttack>();
+							Become<SpawnAttack>();
 							break;
 						}
 						
@@ -838,12 +840,19 @@ namespace BurningKnight.entity.creature.bk {
 							Become<LaserCageAttack>();
 							break;
 						}
+						
+						case 6: {
+							Become<FlameAttack>();
+							break;
+						}
 					}
 					
-					Self.count = (Self.count + 1) % 6;
+					Self.count = (Self.count + 1) % 7;
 				}
 			}
 		}
+		
+		public bool Raging => GetComponent<HealthComponent>().Percent <= 0.5f;
 
 		public class LaserSwingAttack : SmartState<BurningKnight> {
 			private Laser laser;
@@ -898,6 +907,9 @@ namespace BurningKnight.entity.creature.bk {
 
 					projectile.AddLight(32f, Projectile.RedLight);
 					projectile.Center += MathUtils.CreateVector(angle, 8);
+
+					projectile.CanBeBroken = false;
+					projectile.CanBeReflected = false;
 
 					if (offset != null) {
 						projectile.Center += offset.Value;
@@ -1185,6 +1197,55 @@ namespace BurningKnight.entity.creature.bk {
 				var a = Self.AngleTo(Self.Target);
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+		
+		public class SpawnAttack : SmartState<BurningKnight> {
+			private int count;
+			private float delay;
+
+			public override void Init() {
+				base.Init();
+				count = Rnd.Int(4, 10);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				delay -= dt;
+
+				if (delay <= 0) {
+					delay = 0.3f;
+					Self.GetComponent<BkGraphicsComponent>().Animate();
+
+					var angle = Rnd.AnglePI() * 0.5f + count * (float) Math.PI;
+					var projectile = Projectile.Make(Self, "big", angle, 15f);
+
+					projectile.Color = ProjectileColor.Orange;
+					projectile.AddLight(32f, projectile.Color);
+					projectile.Center += MathUtils.CreateVector(angle, 8);
+
+					projectile.CanBeBroken = false;
+					projectile.CanBeReflected = false;
+
+					projectile.OnDeath += (p, en, t) => {
+						var x = (int) Math.Floor(p.CenterX / 16);
+						var y = (int) Math.Floor(p.CenterY / 16);
+						
+						Run.Level.Set(x, y, Tile.Grass);
+						
+						var mob = new WallCrawler();
+						Self.Area.Add(mob);
+						mob.X = x * 16;
+						mob.Y = y * 16 - 8;
+						mob.GeneratePrefix();
+					};
+
+					count--;
+
+					if (count <= 0) {
+						Become<FightState>();
+					}
+				}
 			}
 		}
 	}

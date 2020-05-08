@@ -713,7 +713,7 @@ namespace BurningKnight.level {
 			// Cache the condition
 			var toX = GetRenderRight(camera);
 			var toY = GetRenderTop(camera);
-			var active = Engine.Instance.State.Paused;
+			var active = !Engine.Instance.State.Paused;
 
 			var shader = Shaders.Chasm;
 			Shaders.Begin(shader);

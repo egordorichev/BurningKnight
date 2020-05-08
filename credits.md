@@ -1,6 +1,13 @@
+Thanks to these people for making this project possible!
+
 A game by Egor Dorichev
 
-Thanks to these people for making this project possible!
+Design -
+Programming -
+Art -
+Audio - 
+Translations from -
+Playtesting - 
 
 Egor Dorichev (egordorichev)
 Game Design & Development & Art & Russian Translation
