@@ -437,6 +437,10 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		private void CheckCapture() {
+			if (InFight) {
+				return;
+			}
+			
 			var room = Target?.GetComponent<RoomComponent>()?.Room;
 
 			if (room != null && room.Type == RoomType.Boss) {
@@ -812,12 +816,12 @@ namespace BurningKnight.entity.creature.bk {
 				if (T >= 1f) {
 					switch (Self.count) {
 						case 0: {
-							Become<SpawnAttack>();
+							Become<LaserSwingAttack>();
 							break;
 						}
 						
 						case 1: {
-							Become<LaserSwingAttack>();
+							Become<SpawnAttack>();
 							break;
 						}
 
@@ -827,7 +831,7 @@ namespace BurningKnight.entity.creature.bk {
 						}
 						
 						case 3: {
-							Become<SkullAttack>();
+							Become<FlameAttack>();
 							break;
 						}
 						
@@ -837,17 +841,17 @@ namespace BurningKnight.entity.creature.bk {
 						}
 						
 						case 5: {
-							Become<LaserCageAttack>();
+							Become<SkullAttack>();
 							break;
 						}
 						
 						case 6: {
-							Become<FlameAttack>();
+							Become<LaserCageAttack>();
 							break;
 						}
 					}
 					
-					Self.count = (Self.count + 1) % 7;
+					Self.count = (Self.count + 1) % (Self.Raging ? 7 : 6);
 				}
 			}
 		}
@@ -872,6 +876,10 @@ namespace BurningKnight.entity.creature.bk {
 				if (laser == null) {
 					if (T < 1f) {
 						return;
+					}
+
+					if (Self.Raging) {
+						Self.StartLasers();
 					}
 					
 					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
@@ -903,7 +911,7 @@ namespace BurningKnight.entity.creature.bk {
 		private void WarnLaser(float angle, Vector2? offset = null) {
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
-					var projectile = Projectile.Make(this, "circle", angle, 15f);
+					var projectile = Projectile.Make(this, Raging ? "big" : "circle", angle, Raging ? 15f : 10f);
 
 					projectile.AddLight(32f, Projectile.RedLight);
 					projectile.Center += MathUtils.CreateVector(angle, 8);
@@ -966,7 +974,7 @@ namespace BurningKnight.entity.creature.bk {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if ((count + 1) <= T) {
+				if ((count + 1) * (Self.Raging ? 0.7f : 1f) <= T) {
 					count++;
 
 					if (Self.Target == null || Self.Died) {
@@ -1023,7 +1031,7 @@ namespace BurningKnight.entity.creature.bk {
 						skull.CanBeReflected = false;
 						skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
 						
-						if (count == 4) {
+						if (count == (Self.Raging ? 6 : 4)) {
 							Self.Become<FightState>();
 						}
 					};
@@ -1230,8 +1238,6 @@ namespace BurningKnight.entity.creature.bk {
 					projectile.OnDeath += (p, en, t) => {
 						var x = (int) Math.Floor(p.CenterX / 16);
 						var y = (int) Math.Floor(p.CenterY / 16);
-						
-						Run.Level.Set(x, y, Tile.Grass);
 						
 						var mob = new WallCrawler();
 						Self.Area.Add(mob);
