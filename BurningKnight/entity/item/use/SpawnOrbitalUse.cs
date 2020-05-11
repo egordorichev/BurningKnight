@@ -11,8 +11,19 @@ namespace BurningKnight.entity.item.use {
 	public class SpawnOrbitalUse : ItemUse {
 		private string orbital;
 		private bool random;
+		private bool onlyIfHasNone;
 
 		public override void Use(Entity entity, Item item) {
+			if (onlyIfHasNone) {
+				var inventory = entity.GetComponent<InventoryComponent>();
+
+				foreach (var i in inventory.Items) {
+					if (ItemPool.Orbital.Contains(i.Data.Pools)) {
+						return;
+					}
+				}
+			}
+			
 			if (random) {
 				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemPool.Orbital), entity.Area, true));
 				return;
@@ -33,9 +44,12 @@ namespace BurningKnight.entity.item.use {
 
 			random = settings["random"].Bool(false);
 			orbital = settings["orbital"].String("");
+			onlyIfHasNone = settings["oin"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
+			root.Checkbox("Only if has none", "oin", false);
+			
 			if (root.Checkbox("Random", "random", false)) {
 				return;
 			}

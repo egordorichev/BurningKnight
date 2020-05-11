@@ -96,8 +96,12 @@ namespace Lens.assets {
 			}
 		}
 
-		public static string Get(string key) {
-			return Map.ContainsKey(key) ? Map[key] : (Fallback.ContainsKey(key) ? Fallback[key] : key);
+		public static string Get(string key, bool eng = false) {
+			return !eng && Map.ContainsKey(key) ? Map[key] : GetEnglish(key);
+		}
+		
+		public static string GetEnglish(string key) {
+			return Fallback.ContainsKey(key) ? Fallback[key] : key;
 		}
 
 		public static bool Contains(string key) {
