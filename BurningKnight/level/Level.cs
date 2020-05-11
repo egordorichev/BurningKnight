@@ -1782,12 +1782,12 @@ namespace BurningKnight.level {
 			return Biome.GetMusic();
 		}
 
-		public static string GetDepthString() {
+		public static string GetDepthString(bool eng = false) {
 			if (Run.Depth < 1) {
-				return Locale.Get(Run.Level.Biome.Id);
+				return Locale.Get(Run.Level.Biome.Id, eng);
 			}
 
-			var s = $"{Locale.Get(Run.Level.Biome.Id)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
+			var s = $"{Locale.Get(Run.Level.Biome.Id, eng)} {MathUtils.ToRoman((Run.Depth - 1) % 2 + 1)}";
 
 			if (Run.Loop > 0) {
 				s = $"L{Run.Loop} {s}";

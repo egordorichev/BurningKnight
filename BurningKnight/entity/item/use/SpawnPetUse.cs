@@ -12,8 +12,19 @@ namespace BurningKnight.entity.item.use {
 	public class SpawnPetUse : ItemUse {
 		private string pet;
 		private bool random;
+		private bool onlyIfHasNone;
 
 		public override void Use(Entity entity, Item item) {
+			if (onlyIfHasNone) {
+				var inventory = entity.GetComponent<InventoryComponent>();
+
+				foreach (var i in inventory.Items) {
+					if (ItemPool.Pet.Contains(i.Data.Pools)) {
+						return;
+					}
+				}
+			}
+			
 			if (random) {
 				entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd(Items.Generate(ItemPool.Pet), entity.Area));
 				return;
@@ -35,9 +46,12 @@ namespace BurningKnight.entity.item.use {
 			
 			pet = settings["pet"].String("");
 			random = settings["random"].Bool(false);
+			onlyIfHasNone = settings["oin"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
+			root.Checkbox("Only if has none", "oin", false);
+			
 			if (root.Checkbox("Random", "random", false)) {
 				return;
 			}

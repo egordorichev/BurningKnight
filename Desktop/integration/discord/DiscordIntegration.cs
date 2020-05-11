@@ -68,14 +68,16 @@ namespace Desktop.integration.discord {
 			var status = new DiscordRpc.RichPresence();
 
 			if (Run.Level != null) {
-				status.details = $"{Level.GetDepthString()}";
+				status.details = $"{Level.GetDepthString(true)}";
 				var p = LocalPlayer.Locate(Engine.Instance.State.Area);
 
 				if (p != null) {
 					var h = p.GetComponent<HatComponent>().Item;
 
 					if (h != null && h.Id != "bk:no_hat") {
-						status.state = $"{(h?.Name ?? "No hat :(")}";
+						status.state = $"{Locale.GetEnglish(h.Id)}";
+					} else {
+						status.state = "No hat :(";
 					}
 				}
 			}

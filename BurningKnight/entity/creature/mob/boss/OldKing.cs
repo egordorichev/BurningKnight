@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			});
 			
 			AddComponent(new ZAnimationComponent("old_king"));
-			SetMaxHp(140);
+			SetMaxHp(100);
 		}
 
 		private float lastParticle;
