@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using BurningKnight.entity;
+using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using Lens;
 using Lens.entity;
@@ -97,6 +98,10 @@ namespace BurningKnight.assets.particle.custom {
 		}
 
 		public override void Render() {
+			if (Player.InBuilding) {
+				return;
+			}
+			
 			Graphics.Color = color;
 			Graphics.Render(region, Position, 0, Vector2.Zero, size);
 			Graphics.Color = ColorUtils.WhiteColor;

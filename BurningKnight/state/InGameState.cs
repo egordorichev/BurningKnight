@@ -495,7 +495,7 @@ namespace BurningKnight.state {
 						rainSound.IsLooped = true;
 						rainSound.Play();
 
-						Tween.To(0.5f, 0, x => rainSound.Volume = x, 5f);
+						Tween.To(0.5f * Settings.MusicVolume, 0, x => rainSound.Volume = x, 5f);
 					}
 				}
 				
@@ -756,7 +756,7 @@ namespace BurningKnight.state {
 			} else {
 				Ui.Update(dt);
 			}
-
+			
 			console?.Update(dt);
 
 			var controller = GamepadComponent.Current;
@@ -1988,7 +1988,13 @@ namespace BurningKnight.state {
 				gameSettings.Enabled = false;
 			};
 		}
-		
+
+		public void UpdateRainVolume() {
+			if (rainSound != null) {
+				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
+			}
+		}
+
 		private void AddGraphicsSettings() {
 			pauseMenu.Add(graphicsSettings = new UiPane {
 				RelativeX = Display.UiWidth * 2	
@@ -2134,6 +2140,7 @@ namespace BurningKnight.state {
 			
 			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MusicVolume * 100)).OnValueChange = s => {
 				Settings.MusicVolume = s.Value / 100f;
+				UpdateRainVolume();
 			};
 			
 			UiSlider.Make(audioSettings, sx, sy + space, "sfx", (int) (Settings.SfxVolume * 100)).OnValueChange = s => {
