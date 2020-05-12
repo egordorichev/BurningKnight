@@ -196,99 +196,23 @@ namespace BurningKnight.level.rooms {
 		}
 
 		public Dot GetRandomFreeCell() {
-			Dot dot;
-			var At = 0;
+			var passable = new List<Dot>();
 
-			do {
-				if (At++ > 200) {
-					Log.Error($"To many attempts ({GetType().Name})");
-					return null;
+			for (var x = Left + 1; x < Right; x++) {
+				for (var y = Top + 1; y < Bottom; y++) {
+					if (Run.Level.IsPassable(x, y)) {
+						passable.Add(new Dot(x, y));
+					}
 				}
+			}
 
-				dot = GetRandomCell();
-			} while (!Run.Level.IsPassable((int) dot.X, (int) dot.Y));
+			if (passable.Count == 0) {
+				Log.Error($"Failed to find a free cell ({GetType().Name})");
+				return null;
+			}
 
-			return dot;
+			return passable[Rnd.Int(passable.Count)];
 		}
-		
-		public Dot GetRandomCellNearWall() {
-			Dot dot;
-			var Att = 0;
-
-			do {
-				var At = 0;
-
-				if (At++ > 200) {
-					Log.Error($"To many attempts ({GetType().Name})");
-					return null;
-				}
-
-				while (true) {
-					if (At++ > 200) {
-						Log.Error($"To many attempts ({GetType().Name})");
-						return null;
-					}
-
-					var found = false;
-					dot = GetRandomCellWithWalls();
-
-					foreach (var b in Busy) {
-						if ((int) b.X == (int) dot.X && (int) b.Y == (int) dot.Y) {
-							found = true;
-							break;
-						}
-					}
-
-					if (found) {
-						continue;
-					}
-
-					if (Connected.Count == 0) {
-						return dot;
-					}
-
-					if (!Run.Level.Get((int) dot.X, (int) dot.Y).IsWall()) {
-						continue;
-					}
-
-					foreach (var Door in Connected.Values) {
-						var Dx = (int) (Door.X - dot.X);
-						var Dy = (int) (Door.Y - dot.Y);
-						var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
-
-						if (D < 4) {
-							found = true;
-							break;
-						}
-					}
-
-					if (!found) {
-						break;
-					}
-				}
-
-				if (dot.X + 1 < Right && Run.Level.Get((int) dot.X + 1, (int) dot.Y).IsPassable()) {
-					Busy.Add(dot);
-					return new Dot(dot.X + 1, dot.Y);
-				}
-				
-				if (dot.X - 1 > Left && Run.Level.Get((int) dot.X - 1, (int) dot.Y).IsPassable()) {
-					Busy.Add(dot);
-					return new Dot(dot.X - 1, dot.Y);
-				}
-				
-				if (dot.Y + 1 < Bottom && Run.Level.Get((int) dot.X, (int) dot.Y + 1).IsPassable()) {
-					Busy.Add(dot);
-					return new Dot(dot.X, dot.Y + 1);
-				}
-				
-				if (dot.Y - 1 > Top && Run.Level.Get((int) dot.X, (int) dot.Y - 1).IsPassable()) {
-					Busy.Add(dot);
-					return new Dot(dot.X, dot.Y - 1);
-				}
-			} while (true);
-		}
-
 		
 		public bool HasDoorsNear(int x, int y, int r) {
 			foreach (var Door in Connected.Values) {
@@ -305,93 +229,39 @@ namespace BurningKnight.level.rooms {
 		}
 		
 		public Dot GetRandomDoorFreeCell() {
-			Dot dot;
-			var At = 0;
+			var passable = new List<Dot>();
 
-			while (true) {
-				if (At++ > 200) {
-					Log.Error($"To many attempts ({GetType().Name})");
-					return null;
-				}
+			for (var x = Left + 1; x < Right; x++) {
+				for (var y = Top + 1; y < Bottom; y++) {
+					if (Run.Level.IsPassable(x, y)) {
+						var found = false;
+						
+						foreach (var Door in Connected.Values) {
+							var Dx = (int) (Door.X - x);
+							var Dy = (int) (Door.Y - y);
+							var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
 
-				dot = GetRandomCell();
+							if (D < 4) {
+								found = true;
+								break;
+							}
+						}
 
-				if (Connected.Count == 0) {
-					return dot;
-				}
-
-				if (!Run.Level.IsPassable((int) dot.X, (int) dot.Y)) {
-					continue;
-				}
-
-				var found = false;
-
-				foreach (var Door in Connected.Values) {
-					var Dx = (int) (Door.X - dot.X);
-					var Dy = (int) (Door.Y - dot.Y);
-					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
-
-					if (D < 4) {
-						found = true;
-						break;
+						if (!found) {
+							passable.Add(new Dot(x, y));
+						}
 					}
 				}
-
-				if (!found) {
-					return dot;
-				}
 			}
+
+			if (passable.Count == 0) {
+				Log.Error($"Failed to find a free cell ({GetType().Name})");
+				return null;
+			}
+
+			return passable[Rnd.Int(passable.Count)];
 		}
 		
-		public Dot GetRandomWallFreeCell() {
-			Dot dot;
-			var At = 0;
-
-			while (true) {
-				if (At++ > 200) {
-					Log.Error($"To many attempts ({GetType().Name})");
-					return null;
-				}
-
-				dot = GetRandomCell();
-
-				if (Connected.Count == 0) {
-					return dot;
-				}
-
-				if (!Run.Level.IsPassable((int) dot.X, (int) dot.Y)) {
-					continue;
-				}
-
-				var found = false;
-
-				foreach (var Door in Connected.Values) {
-					var Dx = (int) (Door.X - dot.X);
-					var Dy = (int) (Door.Y - dot.Y);
-					var D = (float) Math.Sqrt(Dx * Dx + Dy * Dy);
-
-					if (D < 4) {
-						found = true;
-						break;
-					}
-				}
-
-				if (!found) {
-					if (Run.Level.IsPassable(dot.X + 1, dot.Y) && 
-					    Run.Level.IsPassable(dot.X - 1, dot.Y) &&
-					    Run.Level.IsPassable(dot.X, dot.Y + 1) &&
-					    Run.Level.IsPassable(dot.X, dot.Y - 1)) {
-						
-						return dot;
-					}
-				}
-			}
-		}
-
-		public RoomDef GetRandomNeighbour() {
-			return Neighbours[Rnd.Int(Neighbours.Count)];
-		}
-
 		public bool SetSize() {
 			return SetSize(GetMinWidth(), GetMaxWidth(), GetMinHeight(), GetMaxHeight());
 		}

@@ -51,6 +51,7 @@ namespace BurningKnight.entity.creature.player {
 		private static Color tint = new Color(50, 234, 60, 200);
 		
 		public static int Quacks;
+		public static bool ToBoss;
 		
 		public static string StartingWeapon;
 		public static string StartingItem;
@@ -245,7 +246,9 @@ namespace BurningKnight.entity.creature.player {
 		private bool findASpawn;
 
 		private bool FindSpawn() {
-			if (BK.Version.Dev) {
+			if (BK.Version.Dev || ToBoss) {
+				ToBoss = false;
+				
 				foreach (var r in Area.Tagged[Tags.Room]) {
 					var rm = (Room) r;
 

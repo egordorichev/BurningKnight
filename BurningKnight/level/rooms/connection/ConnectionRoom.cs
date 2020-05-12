@@ -22,15 +22,21 @@ namespace BurningKnight.level.rooms.connection {
 			return 10;
 		}
 		
-		protected Rect GenerateSpot() {
-			var r = Rnd.Float();
+		protected Rect GenerateSpot(bool noGetConnectionSpace = false) {
+			if (noGetConnectionSpace) {
+				if (Rnd.Chance()) {
+					return GetCenterRect();
+				}
+			} else {
+				var r = Rnd.Float();
 
-			if (r < 0.33f) {
-				return GetConnectionSpace();
-			} else if (r < 0.66f) {
-				return GetCenterRect();
+				if (r < 0.33f) {
+					return GetConnectionSpace();
+				} else if (r < 0.66f) {
+					return GetCenterRect();
+				}
 			}
-			
+
 			return new Rect(new Dot(Rnd.Int(Left + 2, Right - 2), Rnd.Int(Top + 2, Bottom - 2)));
 		}
 

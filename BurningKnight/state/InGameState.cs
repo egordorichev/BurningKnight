@@ -957,6 +957,33 @@ namespace BurningKnight.state {
 					Run.Depth = 9;
 				}
 			}
+			
+			if (Input.Keyboard.IsDown(Keys.LeftAlt)) {
+				if (Input.Keyboard.WasPressed(Keys.D1)) {
+					Run.Depth = 2;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D2)) {
+					Run.Depth = 4;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D3)) {
+					Run.Depth = 6;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D4)) {
+					Run.Depth = 8;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D5)) {
+					Run.Depth = 10;
+					Player.ToBoss = true;
+				}
+			}
 
 			if (Input.WasPressed(Controls.Fps)) {
 				Settings.ShowFps = !Settings.ShowFps;
