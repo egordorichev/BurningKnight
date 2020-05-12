@@ -104,8 +104,9 @@ namespace BurningKnight.save {
 
 			Run.PermanentScourge = reader.ReadByte();
 
+			var seed = reader.ReadString();
 			if (Run.LastSavedDepth > 0) {
-				Rnd.Seed = Run.Seed = reader.ReadString();
+				Rnd.Seed = Run.Seed = seed;
 			}
 
 			if (Enum.TryParse<RunType>(reader.ReadString(), out var t)) {
