@@ -1548,7 +1548,7 @@ namespace BurningKnight.state {
 					Font = Font.Small,
 					Name = "display",
 					Options = new [] {
-						"around_you", "friends", "global"
+						"global", "around_you", "friends"
 					},
 				
 					Option = 0,
@@ -2611,9 +2611,10 @@ namespace BurningKnight.state {
 			Tween.To(Display.UiHeight * 2, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				leaderMenu.Enabled = false;
+				ReturnFromLeaderboard?.Invoke();
 			};
-
-			ReturnFromLeaderboard?.Invoke();
+			
+			Paused = false;
 		}
 		
 		public Action ReturnFromStats;
@@ -2703,9 +2704,10 @@ namespace BurningKnight.state {
 			Tween.To(Display.UiHeight * 2, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				statsMenu.Enabled = false;
+				ReturnFromStats?.Invoke();
 			};
 
-			ReturnFromStats?.Invoke();
+			Paused = false;
 		}
 
 		public void AnimateDoneScreen(Player player) {

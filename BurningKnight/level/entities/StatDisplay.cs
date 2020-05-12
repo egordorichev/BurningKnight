@@ -43,7 +43,6 @@ namespace BurningKnight.level.entities {
 			s.Paused = true;
 			
 			s.ReturnFromLeaderboard = () => {
-				s.Paused = false;
 				s.InStats = false;
 			};
 

@@ -8,6 +8,5 @@
 * dont render rain/snow and lower rain sound inside of buildings
 * put the checkmark on orbital/pet multipliers
 * discord integration area name is confused
-* leaderboards starts with friends
 * double interacting with top stands break it
 * keyboard/gamepad issues with spanish translator
