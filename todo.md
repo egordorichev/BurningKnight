@@ -6,5 +6,4 @@
 * still can be not tp'd to the entrance
 * dont render rain/snow and lower rain sound inside of buildings
 * put the checkmark on orbital/pet multipliers
-* discord integration area name is confused
 * keyboard/gamepad issues with spanish translator

@@ -40,7 +40,9 @@ namespace Lens.assets {
 					cached[entry.Key] = entry.Value.AsString;
 				}
 
-				if (!backup) {
+				if (backup) {
+					Fallback = cached;
+				} else {
 					Loaded[name] = cached;
 					Map = cached;
 				}
