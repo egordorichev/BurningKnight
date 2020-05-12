@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.util;
 using Lens.entity;
@@ -11,7 +13,9 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
+			
 			var inventory = entity.GetComponent<InventoryComponent>();
+			var items = new List<string>();
 
 			foreach (var i in inventory.Items) {
 				var use = any;
@@ -21,11 +25,13 @@ namespace BurningKnight.entity.item.use {
 					use = (pets && ItemPool.Pet.Contains(data.Pools)) || (orbitals && ItemPool.Orbital.Contains(data.Pools));
 				}
 
-				if (!use) {
-					continue;
+				if (use) {
+					items.Add(i.Id);
 				}
+			}
 
-				i.Use(entity);
+			foreach (var i in items) {
+				inventory.Pickup(Items.CreateAndAdd(i, entity.Area), false);
 			}
 		}
 

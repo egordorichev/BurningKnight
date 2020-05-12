@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity;
+using BurningKnight.entity.creature.player;
 using BurningKnight.level;
 using BurningKnight.util;
 using Lens;
@@ -71,16 +72,19 @@ namespace BurningKnight.assets.particle.custom {
 				if (!poofed) {
 					poofed = true;
 					var pos = Position + MathUtils.CreateVector(Weather.RainAngle, size);
-					var c = Rnd.Int(2, 5);
 
-					for (var i = 0; i < c; i++) {
-						var part = new ParticleEntity(Particles.Rain());
-							
-						part.Position = pos;
-						part.Particle.Velocity = new Vector2(Rnd.Float(-40, 40), Rnd.Float(-30, -50));
-						part.Particle.Scale = Rnd.Float(1f, 1.6f);
-						Area.Add(part);
-						part.Depth = 0;
+					if (!Player.InBuilding) {
+						var c = Rnd.Int(2, 5);
+
+						for (var i = 0; i < c; i++) {
+							var part = new ParticleEntity(Particles.Rain());
+
+							part.Position = pos;
+							part.Particle.Velocity = new Vector2(Rnd.Float(-40, 40), Rnd.Float(-30, -50));
+							part.Particle.Scale = Rnd.Float(1f, 1.6f);
+							Area.Add(part);
+							part.Depth = 0;
+						}
 					}
 				}
 				
@@ -98,6 +102,10 @@ namespace BurningKnight.assets.particle.custom {
 		}
 
 		public override void Render() {
+			if (Player.InBuilding) {
+				return;
+			}
+			
 			Graphics.Batch.DrawLine(X, Y, X + (float) Math.Cos(Weather.RainAngle) * size, Y + (float) Math.Sin(Weather.RainAngle) * size, color);
 		}
 	}

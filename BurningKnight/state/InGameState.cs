@@ -495,7 +495,7 @@ namespace BurningKnight.state {
 						rainSound.IsLooped = true;
 						rainSound.Play();
 
-						Tween.To(0.5f, 0, x => rainSound.Volume = x, 5f);
+						Tween.To(0.5f * Settings.MusicVolume, 0, x => rainSound.Volume = x, 5f);
 					}
 				}
 				
@@ -756,7 +756,7 @@ namespace BurningKnight.state {
 			} else {
 				Ui.Update(dt);
 			}
-
+			
 			console?.Update(dt);
 
 			var controller = GamepadComponent.Current;
@@ -955,6 +955,33 @@ namespace BurningKnight.state {
 				
 				if (Input.Keyboard.WasPressed(Keys.D5)) {
 					Run.Depth = 9;
+				}
+			}
+			
+			if (Input.Keyboard.IsDown(Keys.LeftAlt)) {
+				if (Input.Keyboard.WasPressed(Keys.D1)) {
+					Run.Depth = 2;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D2)) {
+					Run.Depth = 4;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D3)) {
+					Run.Depth = 6;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D4)) {
+					Run.Depth = 8;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D5)) {
+					Run.Depth = 10;
+					Player.ToBoss = true;
 				}
 			}
 
@@ -1521,7 +1548,7 @@ namespace BurningKnight.state {
 					Font = Font.Small,
 					Name = "display",
 					Options = new [] {
-						"around_you", "friends", "global"
+						"global", "around_you", "friends"
 					},
 				
 					Option = 0,
@@ -1961,7 +1988,13 @@ namespace BurningKnight.state {
 				gameSettings.Enabled = false;
 			};
 		}
-		
+
+		public void UpdateRainVolume() {
+			if (rainSound != null) {
+				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
+			}
+		}
+
 		private void AddGraphicsSettings() {
 			pauseMenu.Add(graphicsSettings = new UiPane {
 				RelativeX = Display.UiWidth * 2	
@@ -2107,6 +2140,7 @@ namespace BurningKnight.state {
 			
 			UiSlider.Make(audioSettings, sx, sy, "music", (int) (Settings.MusicVolume * 100)).OnValueChange = s => {
 				Settings.MusicVolume = s.Value / 100f;
+				UpdateRainVolume();
 			};
 			
 			UiSlider.Make(audioSettings, sx, sy + space, "sfx", (int) (Settings.SfxVolume * 100)).OnValueChange = s => {
@@ -2584,9 +2618,10 @@ namespace BurningKnight.state {
 			Tween.To(Display.UiHeight * 2, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				leaderMenu.Enabled = false;
+				ReturnFromLeaderboard?.Invoke();
 			};
-
-			ReturnFromLeaderboard?.Invoke();
+			
+			Paused = false;
 		}
 		
 		public Action ReturnFromStats;
@@ -2676,9 +2711,10 @@ namespace BurningKnight.state {
 			Tween.To(Display.UiHeight * 2, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				statsMenu.Enabled = false;
+				ReturnFromStats?.Invoke();
 			};
 
-			ReturnFromStats?.Invoke();
+			Paused = false;
 		}
 
 		public void AnimateDoneScreen(Player player) {

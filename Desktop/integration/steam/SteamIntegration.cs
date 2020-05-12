@@ -108,7 +108,10 @@ namespace Desktop.integration.steam {
 									for (; i < scores.Length && count < 10; i++) {
 										var score = scores[i];
 
-										stats.Add($"#{score.GlobalRank} {score.User.Name}", score.Score.ToString(), score.User.Name == name);
+										var n = score.User.Name;
+										n = n.Substring(0, Math.Min(n.Length, 18));
+
+										stats.Add($"#{score.GlobalRank} {n}", score.Score.ToString(), score.User.Name == name);
 
 										count++;
 									}

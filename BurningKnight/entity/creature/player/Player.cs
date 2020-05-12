@@ -51,6 +51,8 @@ namespace BurningKnight.entity.creature.player {
 		private static Color tint = new Color(50, 234, 60, 200);
 		
 		public static int Quacks;
+		public static bool ToBoss;
+		public static bool InBuilding;
 		
 		public static string StartingWeapon;
 		public static string StartingItem;
@@ -95,6 +97,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			InBuilding = false;
 			GetComponent<HealthComponent>().SaveMaxHp = true;
 			
 			Height = 11;
@@ -245,7 +248,9 @@ namespace BurningKnight.entity.creature.player {
 		private bool findASpawn;
 
 		private bool FindSpawn() {
-			if (BK.Version.Dev) {
+			if (BK.Version.Dev || ToBoss) {
+				ToBoss = false;
+				
 				foreach (var r in Area.Tagged[Tags.Room]) {
 					var rm = (Room) r;
 
@@ -618,6 +623,8 @@ namespace BurningKnight.entity.creature.player {
 					if (c.Old.Type == RoomType.DarkMarket || c.Old.Type == RoomType.Hidden) {
 						pr.EnableClip = false;
 						c.Old.Hide(true);
+						InBuilding = false;
+						((InGameState) Engine.Instance.State).UpdateRainVolume();
 					}
 				}
 
@@ -629,6 +636,8 @@ namespace BurningKnight.entity.creature.player {
 					pr.EnableClip = true;
 					pr.ClipPosition = new Vector2(c.New.X + 16, c.New.Y + 16);
 					pr.ClipSize = new Vector2(c.New.Width - 16, c.New.Height - 32);
+					InBuilding = true;
+					((InGameState) Engine.Instance.State).UpdateRainVolume();
 				} else {
 					pr.EnableClip = false;
 				}
