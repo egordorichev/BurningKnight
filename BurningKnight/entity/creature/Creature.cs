@@ -57,7 +57,7 @@ namespace BurningKnight.entity.creature {
 			AddDrops(new SingleDrop("bk:key", 0.01f));
 		}
 
-		protected void Become<T>() {
+		protected virtual void Become<T>() {
 			GetComponent<StateComponent>().Become<T>();
 		}
 		

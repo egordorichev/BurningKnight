@@ -215,9 +215,12 @@ namespace BurningKnight.level {
 				rooms.Add(new ExitRoom());				
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
-				rooms.Add(new PrebossRoom());	
-				rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
-				rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+				rooms.Add(new PrebossRoom());
+
+				if (Run.Depth < 10) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+					rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+				}
 			}
 
 			if (!rush) {

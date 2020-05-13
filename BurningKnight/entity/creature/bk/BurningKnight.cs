@@ -47,6 +47,8 @@ namespace BurningKnight.entity.creature.bk {
 		private bool raging;
 		private int timesRaged;
 
+
+		public bool Passive;
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
 		public override void AddComponents() {
@@ -174,6 +176,11 @@ namespace BurningKnight.entity.creature.bk {
 				if (bde.Boss == captured) {
 					FreeSelf();
 				}
+
+				if (bde.Boss == this) {
+					return base.HandleEvent(e);
+				}
+
 				return false;
 			}
 
@@ -242,12 +249,8 @@ namespace BurningKnight.entity.creature.bk {
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
 					return false;
 				} else if (de.Who == this) {
-					if (died) {
-						return false;
-					}
-
 					died = true;
-					return false;
+					return base.HandleEvent(e);
 				} else {
 					return false;
 				}
@@ -751,8 +754,28 @@ namespace BurningKnight.entity.creature.bk {
 					
 					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
 						dmDialog.Close();
+
+						var bk = new BurningKnight {
+							Passive = true
+						};
+						Area.Add(bk);
+						bk.Center = Center;
+						heinur.Done = true;
+
+						foreach (var p in Area.Tagged[Tags.Player]) {
+							p.RemoveComponent<PlayerInputComponent>();
+							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
+						}
+
+						Camera.Instance.Targets.Clear();
+						Camera.Instance.Follow(bk, 1f);
+
+						var nbkDialog = bk.GetComponent<DialogComponent>();
 						
-						// todo: spawn new bk, his dialog
+						nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
+							nbkDialog.Close();
+							Run.Win();
+						}, 2f));
 					}, 2f));
 				}, 1f));
 			}, 1f));
@@ -773,7 +796,7 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		
 		private void BeginFight() {
-			if (InFight) {
+			if (InFight || Passive) {
 				return;
 			}
 			
@@ -797,6 +820,12 @@ namespace BurningKnight.entity.creature.bk {
 
 			GetComponent<HealthComponent>().Unhittable = false;
 			TouchDamage = 2;
+		}
+
+		protected override void Become<T>() {
+			if (!Passive || typeof(T) == typeof(IdleState)) {
+				base.Become<T>();
+			}
 		}
 
 		protected override void AddPhases() {
