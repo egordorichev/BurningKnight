@@ -131,6 +131,11 @@ namespace BurningKnight.ui.dialog {
 					Dialog = Last ?? Current,
 					Owner = Entity
 				});
+
+				if (!(Engine.Instance.State is CutsceneState)) {
+					FinishCallback?.Invoke();
+					FinishCallback = null;
+				}
 			};
 
 			if (AnimateTyping) {

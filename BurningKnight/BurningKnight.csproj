@@ -489,6 +489,7 @@
     <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
+    <Compile Include="entity\creature\npc\Bird.cs" />
     <Compile Include="entity\creature\npc\Brastin.cs" />
     <Compile Include="entity\creature\npc\Builder.cs" />
     <Compile Include="entity\creature\npc\DarkMage.cs" />
@@ -1073,6 +1074,7 @@
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
     <Compile Include="level\rooms\scourged\ScourgedRoom.cs" />
+    <Compile Include="level\rooms\secret\BirdSecretRoom.cs" />
     <Compile Include="level\rooms\secret\GrannySecretRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChasmRoom.cs" />
     <Compile Include="level\rooms\secret\SecretChestRoom.cs" />

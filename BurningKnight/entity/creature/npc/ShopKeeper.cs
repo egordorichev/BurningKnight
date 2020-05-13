@@ -101,6 +101,18 @@ namespace BurningKnight.entity.creature.npc {
 		public override void AddComponents() {
 			base.AddComponents();
 			AlwaysActive = true;
+
+			AddComponent(new QuackInteractionComponent(p => {
+				Timer.Add(() => {
+					var d = GetComponent<DialogComponent>();
+
+					if (d.Current != null && d.Current.Id != "quack") {
+						d.StartAndClose("quack", 3);
+					}
+
+					GetComponent<AudioEmitterComponent>().EmitRandomized("quck");
+				}, 0.5f);
+			}));
 			
 			AddComponent(new AimComponent(AimComponent.AimType.AnyPlayer));
 			AddComponent(new AnimationComponent("shopkeeper"));

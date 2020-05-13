@@ -8,12 +8,17 @@ using BurningKnight.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.input;
+using Lens.util.file;
 using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.npc {
 	public class OldMan : Npc {
+		public bool RickRoll;
+		
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -39,6 +44,7 @@ namespace BurningKnight.entity.creature.npc {
 			} else {
 				Subscribe<ItemTakenEvent>();
 				Subscribe<RoomChangedEvent>();
+				
 				inSecret = true;
 			}
 
@@ -46,11 +52,49 @@ namespace BurningKnight.entity.creature.npc {
 			GetComponent<DialogComponent>().Dialog.Voice = 28;
 		}
 
+		private string[] song = {
+			"Never gonna give you up",
+			"Never gonna let you down",
+			"Never gonna run around and desert you",
+			"Never gonna make you cry",
+			"Never gonna say goodbye",
+			"Never gonna tell a lie and hurt you"
+		};
+
+		private int index;
+
+		private void StartSong() {
+			if (index >= song.Length) {
+				GetComponent<DialogComponent>().Close();
+				return;
+			}
+			
+			GetComponent<DialogComponent>().Start(song[index], null, () => {
+				Timer.Add(() => {
+					StartSong();
+				}, 2);
+
+				if (RickRoll) {
+					foreach (var item in GetComponent<RoomComponent>().Room.Tagged[Tags.Item]) {
+						item.Done = true;
+						AnimationUtil.Poof(item.Center);
+					}
+				}
+			});
+
+			index++;
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (inSecret) {
 				if (e is RoomChangedEvent rce && rce.Who is Player) {
 					if (rce.New == GetComponent<RoomComponent>().Room) {
-						GetComponent<DialogComponent>().Start("old_man_6");
+						if (RickRoll) {
+							StartSong();
+							index = 0;
+						} else {
+							GetComponent<DialogComponent>().Start("old_man_6");
+						}
 					} else {
 						GetComponent<DialogComponent>().Close();
 					}
@@ -96,6 +140,16 @@ namespace BurningKnight.entity.creature.npc {
 					dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice(Controls.FindSlice(Controls.Roll, true)));
 				}
 			}
+		}
+
+		public override void Load(FileReader stream) {
+			base.Load(stream);
+			RickRoll = stream.ReadBoolean();
+		}
+
+		public override void Save(FileWriter stream) {
+			base.Save(stream);
+			stream.WriteBoolean(RickRoll);
 		}
 	}
 }
