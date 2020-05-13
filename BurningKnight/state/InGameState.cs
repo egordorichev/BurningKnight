@@ -190,6 +190,7 @@ namespace BurningKnight.state {
 			base.Init();
 
 			TopUi = new Area();
+			Input.Blocked = 0;
 
 			Audio.Speed = 1f;
 
