@@ -134,7 +134,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual int GetNumSecretRooms() {
-			return Run.Depth <= 0 ? 0 : 1;
+			return Run.Depth <= 0 || Rnd.Chance() ? 0 : 1;
 		}
 
 		public string GetDefaultStepSound(Tile tile) {
