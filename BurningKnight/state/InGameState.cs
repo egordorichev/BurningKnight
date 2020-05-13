@@ -2425,8 +2425,16 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 
-			for (var i = 0; i < languages.Length; i++) {
-				var lng = languages[i];
+			var l = new List<string>();
+			
+			l.AddRange(languages);
+
+			if (Achievements.IsComplete("bk:quackers")) {
+				l.Add("qu");
+			}
+
+			for (var i = 0; i < l.Count; i++) {
+				var lng = l[i];
 				
 				languageSettings.Add(new UiImageButton {
 					Id = lng,
