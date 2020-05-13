@@ -190,6 +190,7 @@ namespace BurningKnight.state {
 			base.Init();
 
 			TopUi = new Area();
+			Input.Blocked = 0;
 
 			Audio.Speed = 1f;
 
@@ -2409,7 +2410,7 @@ namespace BurningKnight.state {
 		}
 		
 		private static string[] languages = {
-			"en", "ru", "de", "fr", "pl", "by", "it", "es"
+			"en", "ru", "de", "fr", "pl", "by", "it", "pt"
 		};
 		
 		private void AddLanguageSettings() {

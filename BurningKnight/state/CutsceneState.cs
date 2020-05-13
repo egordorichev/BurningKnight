@@ -43,6 +43,8 @@ namespace BurningKnight.state {
 			Physics.Destroy();
 			base.Destroy();
 			TopUi.Destroy();
+
+			Input.Blocked = 0;
 		}
 
 		public override void Init() {
