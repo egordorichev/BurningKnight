@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.pattern;
 using Lens.entity;
 using Lens.util;
 using Lens.util.math;
@@ -17,9 +18,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 			AddComponent(new BkGraphicsComponent("demon"));
 			AddComponent(new RectBodyComponent(2, 4, 12, 15, BodyType.Dynamic, true));
 			AddComponent(new AimComponent(AimComponent.AimType.Target));
-
-
+			
 			GetComponent<RectBodyComponent>().Body.LinearDamping = 2;
+			GetComponent<HealthComponent>().InitMaxHealth = 600;
+			
 			Depth = Layers.FlyingMob;
 		}
 
@@ -92,12 +94,17 @@ namespace BurningKnight.entity.creature.mob.boss {
 					}
 					
 					case 1: {
+						Become<MissileState>();
+						break;
+					}
+					
+					case 2: {
 						Become<BulletHellState>();
 						break;
 					}
 				}
 
-				Self.counter = (Self.counter + 1) % 2;
+				Self.counter = (Self.counter + 1) % 3;
 			}
 		}
 
@@ -123,6 +130,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var laser = Laser.Make(Self, a, 0, damage: 2, scale: 3, range: 64);
 						laser.LifeTime = 1f;
 						laser.Position = Self.Center;
+						Self.GetComponent<BkGraphicsComponent>().Animate();
 					}, 0.2f);
 
 					count++;
@@ -138,21 +146,86 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = 0.3f; // Self.InFirstPhase ? 0.5f : 0.3f;
-					var amount = 4;
+					sinceLast = 0.5f; // Self.InFirstPhase ? 0.5f : 0.3f;
+					var amount = 8;
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 5f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1f);
+						var projectile = Projectile.Make(Self, "small", a, 8f + (float) Math.Cos(Self.t * 2f) * 3f, scale: 1f);
 						
 						projectile.CanBeBroken = false;
 						projectile.CanBeReflected = false;
 						projectile.Color = ProjectileColor.DesertRainbow[Rnd.Int(ProjectileColor.DesertRainbow.Length)];
 					}
+					
+					Self.GetComponent<BkGraphicsComponent>().Animate();
 				}
 
 				if (T >= 5f) {
 					Become<IdleState>();
+				}
+			}
+		}
+
+		private class MissileState : SmartState<BkHead> {
+			private const int SmallCount = 8;
+			private const int InnerCount = 8;
+			
+			private float delay;
+			private int count;
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				delay -= dt;
+
+				if (delay <= 0) {
+					if (count >= 5f) {
+						Become<IdleState>();
+						return;
+					}
+					
+					delay = 3f;
+					count++;
+
+					Self.GetComponent<BkGraphicsComponent>().Animate();
+
+					var m = new Missile(Self, Self.Target);
+					Self.Area.Add(m);
+					m.AddLight(64f, Projectile.RedLight);
+
+					m.HurtOwner = false;
+					m.OnDeath += (p, e, t) => {
+						for (var i = 0; i < SmallCount; i++) {
+							var an = (float) (((float) i) / SmallCount * Math.PI * 2);
+						
+							var pp = new ProjectilePattern(CircleProjectilePattern.Make(6.5f, 10 * (i % 2 == 0 ? 1 : -1))) {
+								Position = p.Center
+							};
+
+							for (var j = 0; j < 5; j++) {
+								var b = Projectile.Make(Self, "small");
+								pp.Add(b);
+								b.AddLight(32f, Projectile.RedLight);
+								b.CanBeReflected = false;
+								b.CanBeReflected = false;
+								b.CanBeBroken = false;
+							}
+				
+							pp.Launch(an, 40);
+							Self.Area.Add(pp);
+						}
+
+						var aa = Self.AngleTo(Self.Target);
+					
+						for (var i = 0; i < InnerCount; i++) {
+							var b = Projectile.Make(Self, "circle", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 0, null, Rnd.Float(0.5f, 1f));
+						
+							b.Color = ProjectileColor.Orange;
+							b.Center = p.Center;
+							b.CanBeReflected = false;
+							b.CanBeBroken = false;
+						}
+					};
 				}
 			}
 		}
