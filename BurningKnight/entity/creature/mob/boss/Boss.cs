@@ -97,7 +97,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 					CreateGore(null);
 
 					if (this is bk.BurningKnight) {
-						Achievements.Unlock("bk:bk_no_more");
 					} else {
 						HandleEvent(new DefeatedEvent {
 							Boss = this

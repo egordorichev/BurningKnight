@@ -722,62 +722,14 @@ namespace BurningKnight.entity.creature.bk {
 			ImGui.InputInt("Times Raged", ref timesRaged);
 		}
 
-		protected override TextureRegion GetDeathFrame() {
-			return CommonAse.Particles.GetSlice("old_gobbo");
-		}
-
 		public override void PlaceRewards() {
-
+			var head = new BkHead();
+			Area.Add(head);
+			head.Center = Center;
 		}
 
 		protected override void CreateGore(DiedEvent d) {
-			// Center = GetComponent<RoomComponent>().Room.Center;
-			base.CreateGore(d);
-
-			var heinur = new Heinur();
-			Area.Add(heinur);
-			heinur.Center = Center - new Vector2(0, 32);
-
-			var dm = new DarkMage();
-			Area.Add(dm);
-
-			dm.Center = Center + new Vector2(0, 32);
-			var dmDialog = dm.GetComponent<DialogComponent>();
-			var heinurDialog = heinur.GetComponent<DialogComponent>();
-
-			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
-				dmDialog.Close();
-				
-				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
-					heinurDialog.Close();
-					
-					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
-						dmDialog.Close();
-
-						var bk = new BurningKnight {
-							Passive = true
-						};
-						Area.Add(bk);
-						bk.Center = Center;
-						heinur.Done = true;
-
-						foreach (var p in Area.Tagged[Tags.Player]) {
-							p.RemoveComponent<PlayerInputComponent>();
-							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
-						}
-
-						Camera.Instance.Targets.Clear();
-						Camera.Instance.Follow(bk, 1f);
-
-						var nbkDialog = bk.GetComponent<DialogComponent>();
-						
-						nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
-							nbkDialog.Close();
-							Run.Win();
-						}, 2f));
-					}, 2f));
-				}, 1f));
-			}, 1f));
+			
 		}
 
 		public bool InFight;
@@ -795,7 +747,7 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		
 		private void BeginFight() {
-			if (true || InFight || Passive) {
+			if (InFight || Passive) {
 				return;
 			}
 			

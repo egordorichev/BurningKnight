@@ -1024,5 +1024,6 @@
 	"bk:headshot_gun_desc": "Headshot",
 	"bk:laser_cannon": "Laser Cannon",
 	"bk:laser_cannon_desc": "Haha, laser go pew pew",
-	"credits" : "Credits"
+	"credits" : "Credits",
+	"head_0" : "Fool"
 }
