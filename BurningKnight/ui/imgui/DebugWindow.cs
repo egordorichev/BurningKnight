@@ -55,7 +55,7 @@ namespace BurningKnight.ui.imgui {
 			if (Input.Blocked > 0) {
 				ImGui.Text("Input blocked");
 			} else {
-				ImGui.Text("Input blocked");
+				ImGui.Text("Input free");
 			}
 
 			var current = 0;

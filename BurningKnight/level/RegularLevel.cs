@@ -207,7 +207,7 @@ namespace BurningKnight.level {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 				rooms.Add(new PrebossRoom());
 
-				if (Run.Depth > 1) {
+				if (Run.Depth > 1 && Run.Depth < 11) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}

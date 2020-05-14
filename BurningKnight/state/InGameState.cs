@@ -75,6 +75,7 @@ namespace BurningKnight.state {
 		private UiPane leaderMenu;
 		private UiPane statsMenu;
 		private UiPane gameOverMenu;
+		private UiPane credits;
 
 		private UiPane audioSettings;
 		private UiPane graphicsSettings;
@@ -565,6 +566,11 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+
+			if (credits != null && credits.Enabled) {
+				credits.Y -= dt * 60;
+			}
+			
 			var gamepad = GamepadComponent.Current;
 
 			if (died && Input.WasPressed(Controls.QuickRestart)) {
@@ -1606,6 +1612,39 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private void SetupCredits() {
+			if (credits != null) {
+				credits.Y = 0;
+				return;
+			}
+			
+			TopUi.Add(credits = new UiPane {
+				X = -Display.UiWidth * -2
+			});
+
+			var y = 0f;
+
+			foreach (var text in Credits.Text) {
+				foreach (var s in text) {
+					credits.Add(new UiLabel {
+						Font = Font.Small,
+						Label = s,
+						RelativeCenterX = Display.UiWidth * 0.5f,
+						RelativeCenterY = y,
+						Tints = false,
+						Clickable = false
+					});
+
+					y += 12f;
+				}
+
+				y += 24f;
+			}
+
+			credits.Setup();
+			credits.Enabled = false;
+		}
+
 		private void SetupInventory() {
 			var player = LocalPlayer.Locate(Area);
 
@@ -1910,12 +1949,26 @@ namespace BurningKnight.state {
 					});
 				}
 			});
-
-			if (Run.Depth > -2) {
+		
+			gameSettings.Add(new UiButton {
+					LocaleLabel = "credits",
+					RelativeCenterX = sx,
+					RelativeCenterY = sy + space * 5.5f,
+					Click = b => {
+						SetupCredits();
+						credits.Enabled = true;
+						
+						Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							gameSettings.Active = false;
+						};
+					}
+			});
+			
+			if (Run.Depth == 0) {
 				gameSettings.Add(new UiButton {
 						LocaleLabel = "tutorial",
 						RelativeCenterX = sx,
-						RelativeCenterY = sy + space * 5.5f,
+						RelativeCenterY = sy + space * 6.5f,
 						Click = b => { Run.Depth = -2; }
 				});
 			}
