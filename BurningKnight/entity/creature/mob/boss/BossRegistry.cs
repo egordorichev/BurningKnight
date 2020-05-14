@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				BossInfo.New<IceQueen>(new SpawnChance(1f, Biome.Ice)),
 				
 				// TMP
-				// BossInfo.New<BkHead>(new SpawnChance(1f, Biome.Ice)),
+				BossInfo.New<BkHead>(new SpawnChance(1f, Biome.Library)),
 			};
 			
 			All.AddRange(infos);

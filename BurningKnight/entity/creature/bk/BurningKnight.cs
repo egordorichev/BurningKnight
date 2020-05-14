@@ -448,7 +448,6 @@ namespace BurningKnight.entity.creature.bk {
 
 			if (room != null && room.Type == RoomType.Boss) {
 				if (Run.Level.Biome is LibraryBiome) {
-					Center = room.Center;
 					BeginFight();
 					return;
 				}
@@ -796,7 +795,7 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		
 		private void BeginFight() {
-			if (InFight || Passive) {
+			if (true || InFight || Passive) {
 				return;
 			}
 			
@@ -820,6 +819,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			GetComponent<HealthComponent>().Unhittable = false;
 			TouchDamage = 2;
+			Center = Target.GetComponent<RoomComponent>().Room.Center;
 		}
 
 		protected override void Become<T>() {

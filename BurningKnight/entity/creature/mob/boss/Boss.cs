@@ -52,8 +52,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 			var b = GetComponent<BuffsComponent>();
 			b.AddImmunity<CharmedBuff>();
 			b.AddImmunity<FrozenBuff>();
-			
-			Become<FriendlyState>();
+
+			if (!(this is BkHead)) {
+				Become<FriendlyState>();
+			}
 
 			GetComponent<HealthComponent>().AutoKill = true;
 			
