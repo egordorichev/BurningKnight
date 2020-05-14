@@ -1,4 +1,4 @@
-* bk fight (+ credits)
+* bk fight
 * dm fight (+ loop condition)
 * cutscenes
 * doors still can not open

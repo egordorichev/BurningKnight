@@ -514,6 +514,8 @@ namespace BurningKnight.state {
 				}
 			}
 		}
+
+		private bool stopped;
 		
 		public override void Update(float dt) {
 			if (UiAchievement.Current == null) {
@@ -568,7 +570,23 @@ namespace BurningKnight.state {
 			}
 
 			if (credits != null && credits.Enabled) {
-				credits.Y -= dt * 60;
+				if (lastCreditsLabel.Y <= Display.UiHeight * 0.75f) {
+					if (!stopped) {
+						stopped = true;
+						
+						Timer.Add(() => {
+							gameSettings.Enabled = true;
+
+							Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+								credits.Enabled = false;
+								SelectFirst();
+							};
+						}, Input.IsDown(Controls.UiSelect, GamepadComponent.Current) ? 0.1f : 1f);
+					}
+				} else {
+					stopped = false;
+					credits.RelativeY -= dt * 30 * (Input.IsDown(Controls.UiSelect, GamepadComponent.Current) ? 6 : 1);
+				}
 			}
 			
 			var gamepad = GamepadComponent.Current;
@@ -1612,22 +1630,28 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private UiLabel lastCreditsLabel;
+
 		private void SetupCredits() {
 			if (credits != null) {
-				credits.Y = 0;
+				credits.RelativeY = 0;
 				return;
 			}
 			
-			TopUi.Add(credits = new UiPane {
-				X = -Display.UiWidth * -2
+			pauseMenu.Add(credits = new UiPane {
+				RelativeX = Display.UiWidth * 3
 			});
-
-			var y = 0f;
-
-			foreach (var text in Credits.Text) {
+			
+			var y = TitleY + 128;
+			var count = Credits.Text.Count;
+			lastCreditsLabel = null;
+			
+			for (var i = 0; i < count; i++) {
+				var text = Credits.Text[i];
+				
 				foreach (var s in text) {
-					credits.Add(new UiLabel {
-						Font = Font.Small,
+					lastCreditsLabel = (UiLabel) credits.Add(new UiLabel {
+						Font = Font.Medium,
 						Label = s,
 						RelativeCenterX = Display.UiWidth * 0.5f,
 						RelativeCenterY = y,
@@ -1788,8 +1812,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space * 1.5f;
+			var space = 18f;
+			var sy = Display.UiHeight * 0.5f - space * 1.5f - 10;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -1958,8 +1982,8 @@ namespace BurningKnight.state {
 						SetupCredits();
 						credits.Enabled = true;
 						
-						Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
-							gameSettings.Active = false;
+						Tween.To(Display.UiWidth * -3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							gameSettings.Enabled = false;
 						};
 					}
 			});
