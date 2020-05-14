@@ -75,6 +75,7 @@ namespace BurningKnight.state {
 		private UiPane leaderMenu;
 		private UiPane statsMenu;
 		private UiPane gameOverMenu;
+		private UiPane credits;
 
 		private UiPane audioSettings;
 		private UiPane graphicsSettings;
@@ -513,6 +514,8 @@ namespace BurningKnight.state {
 				}
 			}
 		}
+
+		private bool stopped;
 		
 		public override void Update(float dt) {
 			if (UiAchievement.Current == null) {
@@ -565,6 +568,27 @@ namespace BurningKnight.state {
 					indicator.HandleEvent(new SaveEndedEvent());
 				}
 			}
+
+			if (credits != null && credits.Enabled) {
+				if (lastCreditsLabel.Y <= Display.UiHeight * 0.75f) {
+					if (!stopped) {
+						stopped = true;
+						
+						Timer.Add(() => {
+							gameSettings.Enabled = true;
+
+							Tween.To(Display.UiWidth * -2, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+								credits.Enabled = false;
+								SelectFirst();
+							};
+						}, Input.IsDown(Controls.UiSelect, GamepadComponent.Current) ? 0.1f : 1f);
+					}
+				} else {
+					stopped = false;
+					credits.RelativeY -= dt * 30 * (Input.IsDown(Controls.UiSelect, GamepadComponent.Current) ? 6 : 1);
+				}
+			}
+			
 			var gamepad = GamepadComponent.Current;
 
 			if (died && Input.WasPressed(Controls.QuickRestart)) {
@@ -1606,6 +1630,45 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private UiLabel lastCreditsLabel;
+
+		private void SetupCredits() {
+			if (credits != null) {
+				credits.RelativeY = 0;
+				return;
+			}
+			
+			pauseMenu.Add(credits = new UiPane {
+				RelativeX = Display.UiWidth * 3
+			});
+			
+			var y = TitleY + 128;
+			var count = Credits.Text.Count;
+			lastCreditsLabel = null;
+			
+			for (var i = 0; i < count; i++) {
+				var text = Credits.Text[i];
+				
+				foreach (var s in text) {
+					lastCreditsLabel = (UiLabel) credits.Add(new UiLabel {
+						Font = Font.Medium,
+						Label = s,
+						RelativeCenterX = Display.UiWidth * 0.5f,
+						RelativeCenterY = y,
+						Tints = false,
+						Clickable = false
+					});
+
+					y += 12f;
+				}
+
+				y += 24f;
+			}
+
+			credits.Setup();
+			credits.Enabled = false;
+		}
+
 		private void SetupInventory() {
 			var player = LocalPlayer.Locate(Area);
 
@@ -1749,8 +1812,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space * 1.5f;
+			var space = 18f;
+			var sy = Display.UiHeight * 0.5f - space * 1.5f - 10;
 			
 			gameSettings.Add(new UiLabel {
 				LocaleLabel = "game",
@@ -1910,12 +1973,26 @@ namespace BurningKnight.state {
 					});
 				}
 			});
-
-			if (Run.Depth > -2) {
+		
+			gameSettings.Add(new UiButton {
+					LocaleLabel = "credits",
+					RelativeCenterX = sx,
+					RelativeCenterY = sy + space * 5.5f,
+					Click = b => {
+						SetupCredits();
+						credits.Enabled = true;
+						
+						Tween.To(Display.UiWidth * -3, pauseMenu.X, x => pauseMenu.X = x, PaneTransitionTime).OnEnd = () => {
+							gameSettings.Enabled = false;
+						};
+					}
+			});
+			
+			if (Run.Depth == 0) {
 				gameSettings.Add(new UiButton {
 						LocaleLabel = "tutorial",
 						RelativeCenterX = sx,
-						RelativeCenterY = sy + space * 5.5f,
+						RelativeCenterY = sy + space * 6.5f,
 						Click = b => { Run.Depth = -2; }
 				});
 			}
@@ -2425,8 +2502,16 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 
-			for (var i = 0; i < languages.Length; i++) {
-				var lng = languages[i];
+			var l = new List<string>();
+			
+			l.AddRange(languages);
+
+			if (Achievements.IsComplete("bk:quackers")) {
+				l.Add("qu");
+			}
+
+			for (var i = 0; i < l.Count; i++) {
+				var lng = l[i];
 				
 				languageSettings.Add(new UiImageButton {
 					Id = lng,

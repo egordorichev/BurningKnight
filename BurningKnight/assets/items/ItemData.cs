@@ -1,4 +1,5 @@
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using Lens.lightJson;
 
 namespace BurningKnight.assets.items {
@@ -23,5 +24,7 @@ namespace BurningKnight.assets.items {
 		public int UnlockPrice = 1;
 
 		public WeaponType WeaponType;
+
+		public bool Unlocked => !Lockable || GlobalSave.IsTrue(Id);
 	}
 }

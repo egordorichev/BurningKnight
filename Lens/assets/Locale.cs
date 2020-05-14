@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Lens.lightJson;
 using Lens.lightJson.Serialization;
 using Lens.util;
 using Lens.util.file;
+using Lens.util.math;
 
 namespace Lens.assets {
 	public class Locale {
@@ -17,9 +19,27 @@ namespace Lens.assets {
 		public static string Current;
 		public static string PrefferedClientLanguage = "en";
 
+		private static string[] quacks = { "quack", "QUACK", "quaaak", "qk" };
+
 		private static void LoadRaw(string name, string path, bool backup = false) {
 			if (Loaded.TryGetValue(name, out var cached)) {
 				Map = cached;
+				return;
+			}
+
+			if (name == "qu") {
+				cached = new Dictionary<string, string>();
+				Loaded[name] = cached;
+
+				var i = 0;
+
+				foreach (var entry in Fallback) {
+					cached[entry.Key] = Regex.Replace(entry.Value, @"\w+(?<!^\[)\b", (m) => {
+						i++;
+						return char.IsUpper(m.Value[0]) ? "Quack" : quacks[(m.Value[0] + i * 5) % quacks.Length];
+					});
+				}
+				
 				return;
 			}
 			

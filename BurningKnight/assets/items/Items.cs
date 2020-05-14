@@ -545,7 +545,7 @@ namespace BurningKnight.assets.items {
 				return;
 			}
 
-			if (GlobalSave.IsTrue(data.Id)) {
+			if (data.Unlocked) {
 				return;
 			}
 			
@@ -561,6 +561,14 @@ namespace BurningKnight.assets.items {
 			if (!Achievements.ItemBuffer.Contains(id)) {
 				Achievements.ItemBuffer.Add(id);
 			}
+
+			foreach (var item in Datas.Values) {
+				if (!item.Unlocked) {
+					return;
+				}
+			}
+			
+			Achievements.Unlock("bk:collector");
 		}
 	}
 }

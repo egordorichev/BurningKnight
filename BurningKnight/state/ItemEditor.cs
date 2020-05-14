@@ -636,6 +636,16 @@ namespace BurningKnight.state {
 				}
 			}
 
+			ImGui.SameLine();
+
+			if (ImGui.Button("Unlock All")) {
+				foreach (var data in Items.Datas.Values) {
+					if (!data.Unlocked) {
+						Items.Unlock(data.Id);
+					}
+				}
+			}
+
 			if (ImGui.BeginPopupModal("New item")) {
 				ImGui.PushItemWidth(300);
 				ImGui.InputText("Id", ref itemName, 64);

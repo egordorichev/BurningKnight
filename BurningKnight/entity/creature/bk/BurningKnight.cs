@@ -47,6 +47,8 @@ namespace BurningKnight.entity.creature.bk {
 		private bool raging;
 		private int timesRaged;
 
+
+		public bool Passive;
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
 		public override void AddComponents() {
@@ -174,6 +176,11 @@ namespace BurningKnight.entity.creature.bk {
 				if (bde.Boss == captured) {
 					FreeSelf();
 				}
+
+				if (bde.Boss == this) {
+					return base.HandleEvent(e);
+				}
+
 				return false;
 			}
 
@@ -242,12 +249,8 @@ namespace BurningKnight.entity.creature.bk {
 					GetComponent<DialogComponent>().StartAndClose("bk_7", 5);
 					return false;
 				} else if (de.Who == this) {
-					if (died) {
-						return false;
-					}
-
 					died = true;
-					return false;
+					return base.HandleEvent(e);
 				} else {
 					return false;
 				}
@@ -445,7 +448,6 @@ namespace BurningKnight.entity.creature.bk {
 
 			if (room != null && room.Type == RoomType.Boss) {
 				if (Run.Level.Biome is LibraryBiome) {
-					Center = room.Center;
 					BeginFight();
 					return;
 				}
@@ -720,42 +722,14 @@ namespace BurningKnight.entity.creature.bk {
 			ImGui.InputInt("Times Raged", ref timesRaged);
 		}
 
-		protected override TextureRegion GetDeathFrame() {
-			return CommonAse.Particles.GetSlice("old_gobbo");
-		}
-
 		public override void PlaceRewards() {
-
+			var head = new BkHead();
+			Area.Add(head);
+			head.Center = Center;
 		}
 
 		protected override void CreateGore(DiedEvent d) {
-			// Center = GetComponent<RoomComponent>().Room.Center;
-			base.CreateGore(d);
-
-			var heinur = new Heinur();
-			Area.Add(heinur);
-			heinur.Center = Center - new Vector2(0, 32);
-
-			var dm = new DarkMage();
-			Area.Add(dm);
-
-			dm.Center = Center + new Vector2(0, 32);
-			var dmDialog = dm.GetComponent<DialogComponent>();
-			var heinurDialog = heinur.GetComponent<DialogComponent>();
-
-			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
-				dmDialog.Close();
-				
-				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
-					heinurDialog.Close();
-					
-					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
-						dmDialog.Close();
-						
-						// todo: spawn new bk, his dialog
-					}, 2f));
-				}, 1f));
-			}, 1f));
+			
 		}
 
 		public bool InFight;
@@ -773,7 +747,7 @@ namespace BurningKnight.entity.creature.bk {
 		}
 		
 		private void BeginFight() {
-			if (InFight) {
+			if (InFight || Passive) {
 				return;
 			}
 			
@@ -797,6 +771,13 @@ namespace BurningKnight.entity.creature.bk {
 
 			GetComponent<HealthComponent>().Unhittable = false;
 			TouchDamage = 2;
+			Center = Target.GetComponent<RoomComponent>().Room.Center;
+		}
+
+		protected override void Become<T>() {
+			if (!Passive || typeof(T) == typeof(IdleState)) {
+				base.Become<T>();
+			}
 		}
 
 		protected override void AddPhases() {
@@ -882,7 +863,7 @@ namespace BurningKnight.entity.creature.bk {
 						Self.StartLasers();
 					}
 					
-					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
+					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
 					laser.LifeTime = 10f;
 					laser.Position = Self.Center;
 					laser.Angle = angle;
@@ -937,7 +918,7 @@ namespace BurningKnight.entity.creature.bk {
 				WarnLaser(angle);
 
 				Timer.Add(() => {
-					var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
+					var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 64);
 					laser.LifeTime = 10f;
 					laser.Position = Center;
 					laser.Angle = angle;
@@ -1173,35 +1154,44 @@ namespace BurningKnight.entity.creature.bk {
 				Self.GetComponent<HealthComponent>().Unhittable = false;
 				Self.TouchDamage = 2;
 				Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f);
-			}
-
-			public override void Update(float dt) {
-				base.Update(dt);
 
 				foreach (var l in last) {
 					Run.Level.SetFlag(l, Flag.Burning, false);
 				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
 
 				if (T >= 10f) {
 					Become<FightState>();
 					return;
 				}
 				
-				last.Clear();
-				r = Math.Min(2, r + dt * 60);
+				r = Math.Min(1.5f, r + dt * 60);
 				
 				var x = (int) Math.Floor(Self.CenterX / 16);
 				var y = (int) Math.Floor(Self.CenterY / 16);
 
 				for (var xx = (int) -r; xx <= r; xx++) {
 					for (var yy = (int) -r; yy <= r; yy++) {
-						var i = Run.Level.ToIndex(x + xx, y + yy);
-						Run.Level.SetFlag(i, Flag.Burning, true);
-						last.Add(i);
+						if (Math.Sqrt(xx * xx + yy * yy) <= r) {
+							var i = Run.Level.ToIndex(x + xx, y + yy);
+
+							if (!Run.Level.CheckFlag(i, Flag.Burning)) {
+								Run.Level.SetFlag(i, Flag.Burning, true);
+								last.Add(i);
+
+								Timer.Add(() => {
+									last.Remove(i);
+									Run.Level.SetFlag(i, Flag.Burning, false);
+								}, Rnd.Float(1.5f, 2.5f));
+							}
+						}
 					}
 				}
 				
-				var force = 200f * dt;
+				var force = 250f * dt;
 				var a = Self.AngleTo(Self.Target);
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);

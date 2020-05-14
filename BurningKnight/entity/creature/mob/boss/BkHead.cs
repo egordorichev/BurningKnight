@@ -1,0 +1,435 @@
+using System;
+using BurningKnight.assets;
+using BurningKnight.assets.achievements;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.bk;
+using BurningKnight.entity.creature.mob.castle;
+using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.player;
+using BurningKnight.entity.cutscene.entity;
+using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
+using BurningKnight.entity.projectile.pattern;
+using BurningKnight.state;
+using BurningKnight.ui.dialog;
+using Lens.entity;
+using Lens.graphics;
+using Lens.util;
+using Lens.util.camera;
+using Lens.util.math;
+using Lens.util.timer;
+using Lens.util.tween;
+using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
+
+namespace BurningKnight.entity.creature.mob.boss {
+	public class BkHead : Boss {
+		public override void AddComponents() {
+			base.AddComponents();
+			
+			AddComponent(new BkGraphicsComponent("demon"));
+			AddComponent(new RectBodyComponent(2, 4, 12, 15, BodyType.Dynamic, true));
+			AddComponent(new AimComponent(AimComponent.AimType.Target));
+			
+			GetComponent<RectBodyComponent>().Body.LinearDamping = 2;
+			GetComponent<HealthComponent>().InitMaxHealth = 600;
+			
+			Depth = Layers.FlyingMob;
+		}
+
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target != null) {
+				GetComponent<DialogComponent>().StartAndClose("head_0", 2f);
+
+				Timer.Add(() => {
+					Become<IdleState>();
+				}, 1);
+			}
+		}
+
+		public override bool InAir() {
+			return true;
+		}
+
+		public override void SelectAttack() {
+			base.SelectAttack();
+			Become<IdleState>();
+		}
+
+		private float t;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			t += dt;
+			
+			if (Target != null) {
+				var force = 40f * dt;
+				var a = AngleTo(Target);
+
+				GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+			}
+		}
+
+		private int counter;
+
+		private void WarnLaser(float angle, Vector2? offset = null) {
+			var projectile = Projectile.Make(this, "circle", angle, 20f);
+
+			projectile.AddLight(32f, Projectile.RedLight);
+			projectile.Center += MathUtils.CreateVector(angle, 8);
+
+			projectile.CanBeBroken = false;
+			projectile.CanBeReflected = false;
+
+			if (offset != null) {
+				projectile.Center += offset.Value;
+			}
+		}
+
+		#region Demon States
+		private class IdleState : SmartState<BkHead> {
+			public override void Init() {
+				base.Init();
+				Self.TouchDamage = 2;
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T <= 1f) {
+					return;
+				}
+
+				switch (Self.counter) {
+					case 0: {
+						Become<LaserSnipeState>();
+						break;
+					}
+					
+					case 1: {
+						Become<LaserSwingAttack>();
+						break;
+					}
+					
+					case 2: {
+						Become<BulletHellState>();
+						break;
+					}
+					
+					case 3: {
+						Become<SpawnAttack>();
+						break;
+					}
+					
+					case 4: {
+						Become<MissileState>();
+						break;
+					}
+				}
+
+				Self.counter = (Self.counter + 1) % 5;
+			}
+		}
+
+		private class LaserSnipeState : SmartState<BkHead> {
+			private float delay;
+			private int count;
+			
+			public override void Update(float dt) {
+				base.Update(dt);
+				delay -= dt;
+				
+				if (delay <= 0) {
+					if (count >= 3) {
+						Become<IdleState>();
+						return;
+					}
+					
+					delay = 0.5f;
+					var a = Self.AngleTo(Self.Target);
+					Self.WarnLaser(a);
+
+					Timer.Add(() => {
+						var laser = Laser.Make(Self, a, 0, damage: 2, scale: 3, range: 64);
+						laser.LifeTime = 1f;
+						laser.Position = Self.Center;
+						Self.GetComponent<BkGraphicsComponent>().Animate();
+					}, 0.2f);
+
+					count++;
+				}
+			}
+		}
+
+		private class BulletHellState : SmartState<BkHead> {
+			private float sinceLast;
+		
+			public override void Update(float dt) {
+				base.Update(dt);
+				sinceLast -= dt;
+
+				if (sinceLast <= 0) {
+					sinceLast = 0.5f; // Self.InFirstPhase ? 0.5f : 0.3f;
+					var amount = 8;
+
+					for (var i = 0; i < amount; i++) {
+						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
+						var projectile = Projectile.Make(Self, "small", a, 8f + (float) Math.Cos(Self.t * 2f) * 3f, scale: 1f);
+						
+						projectile.CanBeBroken = false;
+						projectile.CanBeReflected = false;
+						projectile.Color = ProjectileColor.DesertRainbow[Rnd.Int(ProjectileColor.DesertRainbow.Length)];
+					}
+					
+					Self.GetComponent<BkGraphicsComponent>().Animate();
+				}
+
+				if (T >= 5f) {
+					Become<IdleState>();
+				}
+			}
+		}
+
+		private class MissileState : SmartState<BkHead> {
+			private const int SmallCount = 8;
+			private const int InnerCount = 8;
+			
+			private float delay;
+			private int count;
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				delay -= dt;
+
+				if (delay <= 0) {
+					if (count >= 5f) {
+						Become<IdleState>();
+						return;
+					}
+					
+					delay = 3f;
+					count++;
+
+					Self.GetComponent<BkGraphicsComponent>().Animate();
+
+					var m = new Missile(Self, Self.Target);
+					Self.Area.Add(m);
+					m.AddLight(64f, Projectile.RedLight);
+
+					m.HurtOwner = false;
+					m.OnDeath += (p, e, t) => {
+						for (var i = 0; i < SmallCount; i++) {
+							var an = (float) (((float) i) / SmallCount * Math.PI * 2);
+						
+							var pp = new ProjectilePattern(CircleProjectilePattern.Make(6.5f, 10 * (i % 2 == 0 ? 1 : -1))) {
+								Position = p.Center
+							};
+
+							for (var j = 0; j < 5; j++) {
+								var b = Projectile.Make(Self, "small");
+								pp.Add(b);
+								b.AddLight(32f, Projectile.RedLight);
+								b.CanBeReflected = false;
+								b.CanBeReflected = false;
+								b.CanBeBroken = false;
+							}
+				
+							pp.Launch(an, 40);
+							Self.Area.Add(pp);
+						}
+
+						var aa = Self.AngleTo(Self.Target);
+					
+						for (var i = 0; i < InnerCount; i++) {
+							var b = Projectile.Make(Self, "circle", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 0, null, Rnd.Float(0.5f, 1f));
+						
+							b.Color = ProjectileColor.Orange;
+							b.Center = p.Center;
+							b.CanBeReflected = false;
+							b.CanBeBroken = false;
+						}
+					};
+				}
+			}
+		}
+		
+		public class SpawnAttack : SmartState<BkHead> {
+			private int count;
+			private float delay;
+
+			public override void Init() {
+				base.Init();
+				count = Rnd.Int(4, 10);
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+				delay -= dt;
+
+				if (delay <= 0) {
+					delay = 0.3f;
+					Self.GetComponent<BkGraphicsComponent>().Animate();
+
+					var angle = Rnd.AnglePI() * 0.5f + count * (float) Math.PI;
+					var projectile = Projectile.Make(Self, "big", angle, 15f);
+
+					projectile.Color = ProjectileColor.Orange;
+					projectile.AddLight(32f, projectile.Color);
+					projectile.Center += MathUtils.CreateVector(angle, 8);
+
+					projectile.CanBeBroken = false;
+					projectile.CanBeReflected = false;
+
+					projectile.OnDeath += (p, en, t) => {
+						var x = (int) Math.Floor(p.CenterX / 16);
+						var y = (int) Math.Floor(p.CenterY / 16);
+						
+						var mob = new Gunner();
+						Self.Area.Add(mob);
+						mob.X = x * 16;
+						mob.Y = y * 16 - 8;
+						mob.GeneratePrefix();
+					};
+
+					count--;
+
+					if (count <= 0) {
+						Become<IdleState>();
+					}
+				}
+			}
+		}
+		
+		public class LaserSwingAttack : SmartState<BkHead> {
+			private class Data {
+				public Laser Laser;
+				public float Vy;
+				public float Angle;
+			}
+
+			private Data[] data = new Data[2];
+			
+			public override void Init() {
+				base.Init();
+				var a = Self.AngleTo(Self.Target);
+
+				for (var i = 0; i < 2; i++) {
+					var angle = a - (i == 0 ? -1 : 1) * 1.2f;
+					Self.WarnLaser(angle);
+
+					data[i] = new Data();
+					data[i].Angle = angle;
+				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (T < 0.4f) {
+					return;
+				}
+				
+				for (var i = 0; i < 2; i++) {
+					var info = data[i];
+					
+					if (info.Laser == null) {
+						info.Laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
+						info.Laser.LifeTime = 10f;
+						info.Laser.Angle = info.Angle;
+
+						Log.Info("made laser");
+					} else if (info.Laser.Done) {
+						Become<IdleState>();
+						return;
+					}
+
+					info.Laser.Position = Self.Center;
+
+					var aa = info.Laser.Angle;
+					var a = Self.AngleTo(Self.Target);
+
+					info.Vy += (float) MathUtils.ShortAngleDistance(aa, a) * dt * 4;
+					info.Laser.Angle += info.Vy * dt * 0.5f;
+				}
+			}
+		}
+		
+		public class TeleportState : SmartState<BkHead> {
+			public override void Init() {
+				base.Init();
+
+				Tween.To(0, 255, x => Self.GetComponent<BkGraphicsComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
+
+					Self.BottomCenter = tile + new Vector2(8, 8); 
+
+					Tween.To(255, 0, x => Self.GetComponent<BkGraphicsComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
+						Become<IdleState>();
+					};
+				};
+			}
+		}
+		#endregion
+
+		public override void PlaceRewards() {
+			Achievements.Unlock("bk:bk_no_more");
+		}
+
+		protected override TextureRegion GetDeathFrame() {
+			return CommonAse.Particles.GetSlice("old_gobbo");
+		}
+
+		protected override void CreateGore(DiedEvent d) {
+			base.CreateGore(d);
+			
+			var heinur = new Heinur();
+			Area.Add(heinur);
+			heinur.Center = Center - new Vector2(0, 32);
+
+			var dm = new DarkMage();
+			Area.Add(dm);
+
+			dm.Center = Center + new Vector2(0, 32);
+			var dmDialog = dm.GetComponent<DialogComponent>();
+			var heinurDialog = heinur.GetComponent<DialogComponent>();
+
+			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
+				dmDialog.Close();
+				
+				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
+					heinurDialog.Close();
+					
+					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
+						dmDialog.Close();
+
+						var bk = new bk.BurningKnight() {
+							Passive = true
+						};
+						
+						Area.Add(bk);
+						bk.Center = Center;
+						heinur.Done = true;
+
+						foreach (var p in Area.Tagged[Tags.Player]) {
+							p.RemoveComponent<PlayerInputComponent>();
+							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
+						}
+
+						Camera.Instance.Targets.Clear();
+						Camera.Instance.Follow(bk, 1f);
+
+						var nbkDialog = bk.GetComponent<DialogComponent>();
+						
+						nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
+							nbkDialog.Close();
+							Run.Win();
+						}, 2f));
+					}, 2f));
+				}, 1f));
+			}, 1f));
+		}
+	}
+}

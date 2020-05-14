@@ -40,6 +40,7 @@ namespace BurningKnight.entity.creature.player {
 		private Animation head;
 
 		private TextureRegion wing;
+		public bool Hidden;
 		
 		public PlayerGraphicsComponent() : base("gobbo", "body") {
 			CustomFlip = true;
@@ -139,6 +140,10 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public override void Render(bool shadow) {
+			if (Hidden) {
+				return;
+			}
+			
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
 			var s = GetComponent<StateComponent>().StateInstance;
 			var w = !(s is Player.RollState || s is Player.SleepingState);

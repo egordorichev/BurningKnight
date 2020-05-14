@@ -18,6 +18,9 @@ Sound Design
 Jose Ramon (Bibiki)
 Sound Design & Composing
 
+Failpositive
+Secret Music
+
 Ian Crail (RetrosaurDev)
 Early Art
 
@@ -46,7 +49,7 @@ ArKeid0s
 French Translation
 
 nade_
-Itralian Translation
+Italian Translation
 
 Nufflee
 Early Development & Playtesting
@@ -54,16 +57,14 @@ Early Development & Playtesting
 Rami Sabbagh (Rami) 
 Playtesting
 
-Pavel Harutiunov
-Russian Translation Overview
-
 Badosz
 Playtesting
 
 Nikithn 
 Belarusian Translation
 
-Failpositive?
+Rick Nya
+Portugese Translation
 
 Somepx
 Awesome Fonts

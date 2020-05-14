@@ -21,6 +21,7 @@ namespace BurningKnight.entity.projectile {
 		private float toY;
 		private float shadowSize;
 		private bool exploded;
+		public bool HurtOwner = true;
 		
 		public Missile(Entity owner, Entity tar) {
 			target = tar;
@@ -95,7 +96,7 @@ namespace BurningKnight.entity.projectile {
 		protected override void AnimateDeath(Entity e, bool timeout = false) {
 			base.AnimateDeath(e, timeout);
 			
-			ExplosionMaker.Make(this);
+			ExplosionMaker.Make(this, damageOwner: HurtOwner);
 			exploded = true;
 		}
 

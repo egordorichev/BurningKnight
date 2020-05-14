@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.secret {
@@ -14,7 +15,10 @@ namespace BurningKnight.level.rooms.secret {
 			stand.Center = c * 16 + new Vector2(8, 16);
 			stand.SetItem(Items.CreateAndAdd(Items.Generate(ItemPool.Secret), level.Area), null);
 
-			var npc = new OldMan();
+			var npc = new OldMan {
+				RickRoll = Rnd.Chance(5)
+			};
+			
 			level.Area.Add(npc);
 			npc.BottomCenter = c * 16 + new Vector2(8, -8);
 		}
