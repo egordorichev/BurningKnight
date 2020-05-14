@@ -911,7 +911,7 @@ namespace BurningKnight.entity.creature.bk {
 						Self.StartLasers();
 					}
 					
-					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 32);
+					laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
 					laser.LifeTime = 10f;
 					laser.Position = Self.Center;
 					laser.Angle = angle;
@@ -966,7 +966,7 @@ namespace BurningKnight.entity.creature.bk {
 				WarnLaser(angle);
 
 				Timer.Add(() => {
-					var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 32);
+					var laser = Laser.Make(this, 0, 0, damage: 2, scale: 3, range: 64);
 					laser.LifeTime = 10f;
 					laser.Position = Center;
 					laser.Angle = angle;
@@ -1202,35 +1202,44 @@ namespace BurningKnight.entity.creature.bk {
 				Self.GetComponent<HealthComponent>().Unhittable = false;
 				Self.TouchDamage = 2;
 				Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f);
-			}
-
-			public override void Update(float dt) {
-				base.Update(dt);
 
 				foreach (var l in last) {
 					Run.Level.SetFlag(l, Flag.Burning, false);
 				}
+			}
+
+			public override void Update(float dt) {
+				base.Update(dt);
 
 				if (T >= 10f) {
 					Become<FightState>();
 					return;
 				}
 				
-				last.Clear();
-				r = Math.Min(2, r + dt * 60);
+				r = Math.Min(1.5f, r + dt * 60);
 				
 				var x = (int) Math.Floor(Self.CenterX / 16);
 				var y = (int) Math.Floor(Self.CenterY / 16);
 
 				for (var xx = (int) -r; xx <= r; xx++) {
 					for (var yy = (int) -r; yy <= r; yy++) {
-						var i = Run.Level.ToIndex(x + xx, y + yy);
-						Run.Level.SetFlag(i, Flag.Burning, true);
-						last.Add(i);
+						if (Math.Sqrt(xx * xx + yy * yy) <= r) {
+							var i = Run.Level.ToIndex(x + xx, y + yy);
+
+							if (!Run.Level.CheckFlag(i, Flag.Burning)) {
+								Run.Level.SetFlag(i, Flag.Burning, true);
+								last.Add(i);
+
+								Timer.Add(() => {
+									last.Remove(i);
+									Run.Level.SetFlag(i, Flag.Burning, false);
+								}, Rnd.Float(1.5f, 2.5f));
+							}
+						}
 					}
 				}
 				
-				var force = 200f * dt;
+				var force = 250f * dt;
 				var a = Self.AngleTo(Self.Target);
 
 				Self.GetComponent<RectBodyComponent>().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
