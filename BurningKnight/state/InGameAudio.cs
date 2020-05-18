@@ -135,7 +135,7 @@ namespace BurningKnight.state {
 							break;
 						}
 
-						Audio.PlayMusic(Run.Level.GetMusic());
+						Audio.PlayMusic("Serendipity");
 						break;
 					}
 					
