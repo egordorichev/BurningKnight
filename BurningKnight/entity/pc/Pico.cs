@@ -1,17 +1,23 @@
 using BurningKnight.assets.input;
 using BurningKnight.entity.component;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.ui.editor;
 using Lens;
 using Lens.graphics;
 using Lens.input;
-using Lens.util;
+using Lens.util.camera;
+using Microsoft.Xna.Framework;
+using MonoGamePico8.backend;
+using Pico8Emulator;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.pc {
 	public class Pico : SaveableEntity, PlaceableEntity {
 		private bool on;
 		private Controller controller;
+		private Emulator emulator;
+		private MonoGameGraphicsBackend backend;
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
@@ -25,7 +31,11 @@ namespace BurningKnight.entity.pc {
 			controller.Y = Bottom + 16;
 			controller.X = X + 16;
 			controller.Pico = this;
+			
+			backend = new MonoGameGraphicsBackend(Engine.GraphicsDevice);
+			emulator = new Emulator(backend, new MonoGameAudioBackend(), new MonoGameInputBackend());
 
+			Area.Add(new RenderTrigger(this, RenderDisplay, Layers.Console));
 		}
 
 		public override void AddComponents() {
@@ -49,7 +59,12 @@ namespace BurningKnight.entity.pc {
 			on = true;
 			Input.Blocked++;
 
-			
+			Camera.Instance.Targets.Clear();
+			Camera.Instance.Follow(this, 1f);
+
+			if (!emulator.CartridgeLoader.Load("Content/Carts/jelpi.p8")) {
+				Log.Error("Failed to load the cart");
+			}
 		}
 
 		public void TurnOff() {
@@ -57,10 +72,13 @@ namespace BurningKnight.entity.pc {
 				return;
 			}
 			
+			Camera.Instance.Targets.Clear();
+			((InGameState) Engine.Instance.State).ResetFollowing();
+			
 			Log.Info("Turning off");
 
 			on = false;
-			Input.Blocked--;
+			Input.Blocked = 0;
 		}
 
 		public override void Update(float dt) {
@@ -75,6 +93,37 @@ namespace BurningKnight.entity.pc {
 
 				return;
 			}
+			
+			deltaUpdate30 += dt;
+
+			while (deltaUpdate30 >= UpdateTime30) {
+				deltaUpdate30 -= UpdateTime30;
+				emulator.Update30();
+			}
+			
+			deltaUpdate60 += dt;
+
+			while (deltaUpdate60 >= UpdateTime60) {
+				deltaUpdate60 -= UpdateTime60;
+				emulator.Update60();
+			}
+		}
+		
+		public void RenderDisplay() {
+			if (!on) {
+				return;
+			}
+			
+			var u = emulator.CartridgeLoader.HighFps ? UpdateTime60 : UpdateTime30;
+			deltaDraw += Engine.Delta;
+
+			while (deltaDraw >= u) {
+				deltaDraw -= u;
+				emulator.Graphics.drawCalls = 0;
+				emulator.Draw();
+			}
+			
+			Graphics.Render(backend.Surface, Position + new Vector2(5, 16));
 		}
 	}
 }

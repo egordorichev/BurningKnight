@@ -14,6 +14,7 @@ using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities.chest;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.granny;
@@ -487,7 +488,7 @@ namespace BurningKnight.entity.room {
 				var y = (int) Math.Floor(door.CenterY / 16);
 				var t = level.Get(x, y);
 
-				if (t == Tile.WallA) {
+				if (t == Tile.WallA || t == Tile.WallB) {
 					var index = level.ToIndex(x, y);
 			
 					level.Set(index, Type == RoomType.OldMan ? Tile.EvilFloor : Tile.GrannyFloor);
@@ -513,7 +514,7 @@ namespace BurningKnight.entity.room {
 				if (level.Get(x, y).Matches(TileFlags.Passable)) {
 					var index = level.ToIndex(x, y);
 			
-					level.Set(index, Tile.WallA);
+					level.Set(index, level.Biome is IceBiome ? Tile.WallB : Tile.WallA);
 					level.UpdateTile(x, y);
 					level.ReCreateBodyChunk(x, y);
 					level.LoadPassable();
