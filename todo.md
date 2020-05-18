@@ -1,15 +1,10 @@
-* bk fight {
- + second phase
- + dm fight condition
-}
-
 * dm fight {
  + loop condtion
  + attatch credits
 }
 
 * cutscenes {
- 
+ + bk who?
 }
 
 * bugs {
