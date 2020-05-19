@@ -1,4 +1,5 @@
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using Lens.entity;
 using VelcroPhysics.Dynamics;
 
@@ -20,6 +21,9 @@ namespace BurningKnight.entity.pc {
 
 		private bool Interact(Entity e) {
 			Pico.TurnOn();
+			Pico.Entity = e;
+			
+			e.RemoveComponent<PlayerInputComponent>();
 			return true;
 		}
 	}

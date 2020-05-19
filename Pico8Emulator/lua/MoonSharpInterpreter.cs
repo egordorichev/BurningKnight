@@ -21,12 +21,13 @@ namespace Pico8Emulator.lua {
 
 		public bool CallIfDefined(string name) {
 			if (IsDefined(name)) {
-				try {
-					script.Call(script.Globals[name]);
-				}
-				catch (Exception e) {
-					HandleError(e, name);
-				}
+				script.Call(script.Globals[name]);
+				//try {
+					
+				//}
+				//catch (Exception e) {
+				//	HandleError(e, name);
+				//}
 
 				return true;
 			}

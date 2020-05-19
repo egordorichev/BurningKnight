@@ -90,16 +90,20 @@ namespace BurningKnight.entity.room {
 		public override void PostInit() {
 			base.PostInit();
 
-			X = MapX * 16 + 4;
-			Y = MapY * 16 - 4;
-			Width = MapW * 16 - 8;
-			Height = MapH * 16 - 8;
+			UpdateSize();
 
 			AlwaysActive = true;
 			
 			if (Type == RoomType.Shop || Type == RoomType.Treasure || Type == RoomType.Boss) {
 				AddComponent(new LightComponent(this, 128f, new Color(1f, 0.9f, 0.5f, 0.8f)));
 			}
+		}
+		
+		public void UpdateSize() {
+			X = MapX * 16 + 4;
+			Y = MapY * 16 - 4;
+			Width = MapW * 16 - 8;
+			Height = MapH * 16 - 8;
 		}
 
 		public override void Update(float dt) {

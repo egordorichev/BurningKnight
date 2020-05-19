@@ -458,7 +458,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 			
 				foreach (var mob in room.Tagged[Tags.Boss]) {
-					if (mob != this && mob is Boss b) {
+					if (mob != this && mob is Boss b && !(b is bk.BurningKnight)) {
 						captured = b;
 						Become<CaptureState>();
 

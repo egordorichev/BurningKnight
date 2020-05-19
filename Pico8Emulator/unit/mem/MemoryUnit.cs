@@ -166,6 +166,7 @@ namespace Pico8Emulator.unit.mem {
 			ram[index + addr] = v;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public byte GetPixel(int x, int y, int offset = RamAddress.Screen) {
 			int index = (y * 128 + x) / 2;
 
@@ -180,10 +181,6 @@ namespace Pico8Emulator.unit.mem {
 		public void WritePixel(int x, int y, byte color, int offset) {
 			int index = (((y << 7) + x) >> 1) + offset;
 
-			if (x < drawState.ClipLeft || y < drawState.ClipTop || x > drawState.ClipRight || y > drawState.ClipBottom) {
-				return;
-			}
-
 			if ((x & 1) == 0) {
 				ram[index] = (byte)((byte)(ram[index] & 0xf0) | (color & 0x0f));
 			}
@@ -194,7 +191,8 @@ namespace Pico8Emulator.unit.mem {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void WritePixel(int x, int y, byte color) {
-			if (x < drawState.ClipLeft || y < drawState.ClipTop || x > drawState.ClipRight || y > drawState.ClipBottom) {
+			if (x < drawState.ClipLeft || y < drawState.ClipTop || x > drawState.ClipRight || y > drawState.ClipBottom)
+			{
 				return;
 			}
 

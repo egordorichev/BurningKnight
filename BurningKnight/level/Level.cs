@@ -292,6 +292,15 @@ namespace BurningKnight.level {
 			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().ReCreateBodyChunk(x, y);		
 		}
 		
+		public void RecreateBody() {
+			GetComponent<LevelBodyComponent>().CreateBody();
+			Chasm.GetComponent<ChasmBodyComponent>().CreateBody();
+			HalfWall.GetComponent<HalfWallBodyComponent>().CreateBody();
+			HalfProjectile.GetComponent<HalfProjectileBodyComponent>().CreateBody();
+			ProjectileLevelBody.GetComponent<ProjectileBodyComponent>().CreateBody();		
+		}
+
+		
 		public void CreateBody() {
 			if (Components == null) {
 				return;

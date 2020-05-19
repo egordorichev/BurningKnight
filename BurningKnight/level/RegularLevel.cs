@@ -158,116 +158,121 @@ namespace BurningKnight.level {
 			
 			rooms.Add(new EntranceRoom());
 
-			var cn = LevelSave.XL ? 2 : 1;
+			if (!final) {
+				var cn = LevelSave.XL ? 2 : 1;
 
-			var regular = rush || final ? 0 : biome.GetNumRegularRooms() * cn;
-			var special = rush || final ? 0 : biome.GetNumSpecialRooms() * cn;
-			var trap = rush || final ? 0 : biome.GetNumTrapRooms();
-			var connection = rush || final ? 1 : GetNumConnectionRooms();
-			var secret = rush || final ? 0 : biome.GetNumSecretRooms() * cn;
-			
-			Log.Info($"Creating r{regular} sp{special} c{connection} sc{secret} t{trap} rooms");
+				var regular = rush || final ? 0 : biome.GetNumRegularRooms() * cn;
+				var special = rush || final ? 0 : biome.GetNumSpecialRooms() * cn;
+				var trap = rush || final ? 0 : biome.GetNumTrapRooms();
+				var connection = rush || final ? 1 : GetNumConnectionRooms();
+				var secret = rush || final ? 0 : biome.GetNumSecretRooms() * cn;
 
-			for (var I = 0; I < regular; I++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Regular, biome));
-			}
+				Log.Info($"Creating r{regular} sp{special} c{connection} sc{secret} t{trap} rooms");
 
-			for (var i = 0; i < trap; i++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Trap, biome));
-			}
+				for (var I = 0; I < regular; I++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Regular, biome));
+				}
 
-			for (var I = 0; I < special; I++) {
-				var room = RoomRegistry.Generate(RoomType.Special, biome);
-				if (room != null) rooms.Add(room);
-			}
-			
-			for (var I = 0; I < connection; I++) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
-			}
+				for (var i = 0; i < trap; i++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Trap, biome));
+				}
 
-			if (!rush && !final && Run.Type != RunType.Challenge && !loop) {
-				if (first) {
-					if (LevelSave.XL) {
+				for (var I = 0; I < special; I++) {
+					var room = RoomRegistry.Generate(RoomType.Special, biome);
+					if (room != null) rooms.Add(room);
+				}
+
+				for (var I = 0; I < connection; I++) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
+				}
+
+				if (!rush && !final && Run.Type != RunType.Challenge && !loop) {
+					if (first) {
+						if (LevelSave.XL) {
+							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+						}
+
 						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 					}
 
+					if (!first) {
+						rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
+					}
+				}
+
+				if (loop && Run.Depth == 0 && Run.Type != RunType.Challenge) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}
 
-				if (!first) {
-					rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
+				if (rush) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
+					rooms.Add(new PrebossRoom());
+
+					if (Run.Depth > 1 && Run.Depth < 11) {
+						rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
+						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+					}
+				} else if (first) {
+					rooms.Add(new ExitRoom());
+				} else {
+					rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
+					rooms.Add(new PrebossRoom());
+
+					if (Run.Depth < 10) {
+						rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
+						rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
+					}
 				}
-			}
 
-			if (loop && Run.Depth == 0 && Run.Type != RunType.Challenge) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
-			}
+				if (!rush) {
+					if (Rnd.Chance(95)) {
+						if (Rnd.Chance(2 + Run.Scourge * 5)) {
+							rooms.Add(new ScourgedRoom());
+						} else {
+							if (Rnd.Chance()) {
+								rooms.Add(new ChallengeRoom());
+							} else {
+								rooms.Add(new SpikedRoom());
+							}
+						}
+					}
 
-			if (rush) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
-				rooms.Add(new PrebossRoom());
+					var addDarkMarket = (Run.Depth > 2 && Rnd.Chance(10) && GameSave.IsFalse("saw_blackmarket"));
 
-				if (Run.Depth > 1 && Run.Depth < 11) {
-					rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
-					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+					if (addDarkMarket) {
+						rooms.Add(new DarkMarketEntranceRoom());
+						rooms.Add(new DarkMarketRoom());
+					}
+
+					if (!addDarkMarket && Rnd.Chance(1)) {
+						secret--;
+						rooms.Add(new SecretDarkMarketEntranceRoom());
+						rooms.Add(new DarkMarketRoom());
+					}
+
+					for (var I = 0; I < secret; I++) {
+						rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
+					}
+
+					if (Rnd.Chance()) {
+						var c = Rnd.Int(0, 3);
+
+						for (var i = 0; i < c; i++) {
+							rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
+						}
+					}
+
+					if (NpcSaveRoom.ShouldBeAdded()) {
+						rooms.Add(new NpcSaveRoom());
+						rooms.Add(new NpcKeyRoom());
+					}
+
+					TombRoom.Insert(rooms);
+					biome.ModifyRooms(rooms);
 				}
-			} else if (first) {
-				rooms.Add(new ExitRoom());				
 			} else {
 				rooms.Add(RoomRegistry.Generate(RoomType.Boss, biome));
 				rooms.Add(new PrebossRoom());
-
-				if (Run.Depth < 10) {
-					rooms.Add(RoomRegistry.Generate(RoomType.Granny, biome));
-					rooms.Add(RoomRegistry.Generate(RoomType.OldMan, biome));
-				}
-			}
-
-			if (!rush) {
-				if (Rnd.Chance(95)) {
-					if (Rnd.Chance(2 + Run.Scourge * 5)) {
-						rooms.Add(new ScourgedRoom());
-					} else {
-						if (Rnd.Chance()) {
-							rooms.Add(new ChallengeRoom());
-						} else {
-							rooms.Add(new SpikedRoom());
-						}
-					}
-				}
-
-				var addDarkMarket = (Run.Depth > 2 && Rnd.Chance(10) && GameSave.IsFalse("saw_blackmarket"));
-
-				if (addDarkMarket) {
-					rooms.Add(new DarkMarketEntranceRoom());
-					rooms.Add(new DarkMarketRoom());
-				}
-
-				if (!addDarkMarket && Rnd.Chance(1)) {
-					secret--;
-					rooms.Add(new SecretDarkMarketEntranceRoom());
-					rooms.Add(new DarkMarketRoom());
-				}
-
-				for (var I = 0; I < secret; I++) {
-					rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
-				}
-
-				if (Rnd.Chance()) {
-					var c = Rnd.Int(0, 3);
-
-					for (var i = 0; i < c; i++) {
-						rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
-					}
-				}
-
-				if (NpcSaveRoom.ShouldBeAdded()) {
-					rooms.Add(new NpcSaveRoom());
-					rooms.Add(new NpcKeyRoom());
-				}
-
-				TombRoom.Insert(rooms);
-				biome.ModifyRooms(rooms);
 			}
 
 			return rooms;

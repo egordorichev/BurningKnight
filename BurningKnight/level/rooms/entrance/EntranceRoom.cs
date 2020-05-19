@@ -73,11 +73,11 @@ namespace BurningKnight.level.rooms.entrance {
 				}
 			});
 			
-			if (Run.Depth == Run.ContentEndDepth) {
+			/*if (Run.Depth == Run.ContentEndDepth) {
 				var om = new OldMan();
 				level.Area.Add(om);
 				om.Center = ((GetRandomDoorFreeCell() ?? GetTileCenter()) * 16 + new Dot(8)).ToVector();
-			}
+			}*/
 		}
 
 		private static bool IceDemoRoom() {

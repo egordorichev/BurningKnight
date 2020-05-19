@@ -5,7 +5,7 @@ using Pico8Emulator.unit.input;
 namespace MonoGamePico8.backend {
 	public class MonoGameInputBackend : InputBackend {
 		private static Keys[] keymap = {
-				Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.X, Keys.Z,
+				Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.Space, Keys.Z,
 				// Second variant
 				Keys.A, Keys.D, Keys.W, Keys.S, Keys.X, Keys.C
 		};

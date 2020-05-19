@@ -18,6 +18,7 @@ namespace Pico8Emulator.unit.cart {
 		private DateTime _startTime;
 
 		public CartridgeUnit(Emulator emulator) : base(emulator) {
+			Directory.CreateDirectory("cartdata");
 		}
 
 		public override void Update() {
@@ -37,9 +38,7 @@ namespace Pico8Emulator.unit.cart {
 				return;
 			}
 
-			if (loaded.interpreter.CallIfDefined("_draw")) {
-				Emulator.Graphics.Flip();
-			}
+			loaded.interpreter.CallIfDefined("_draw");
 		}
 
 		public override void DefineApi(LuaInterpreter script) {

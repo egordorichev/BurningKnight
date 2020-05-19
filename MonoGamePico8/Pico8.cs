@@ -41,7 +41,7 @@ namespace MonoGamePico8 {
 			_graphicsBackend = new MonoGameGraphicsBackend(GraphicsDevice);
 			_emulator = new Emulator(_graphicsBackend, new MonoGameAudioBackend(), new MonoGameInputBackend());
 
-			if (!_emulator.CartridgeLoader.Load("testcarts/nullptr.p8")) {
+			if (!_emulator.CartridgeLoader.Load("testcarts/jelpi.p8")) {
 				Exit();
 			}
 		}
@@ -86,6 +86,8 @@ namespace MonoGamePico8 {
 				_emulator.Graphics.drawCalls = 0;
 				_emulator.Draw();
 			}
+
+			_emulator.Graphics.Flip();
 
 			GraphicsDevice.Clear(Color.Black);
 			

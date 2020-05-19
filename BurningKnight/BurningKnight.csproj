@@ -441,6 +441,10 @@
     <Compile Include="entity\creature\mob\boss\OldKing.cs" />
     <Compile Include="entity\creature\mob\boss\Pharaoh.cs" />
     <Compile Include="entity\creature\mob\boss\QueenBee.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmEnemyRoom.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmMazeRoom.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmRoom.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />

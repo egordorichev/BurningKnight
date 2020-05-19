@@ -419,29 +419,8 @@ namespace BurningKnight.level {
 
 			PaintDoors(Level, Rooms);
 			Decorate(Level, Rooms);
-			
-			for (var y = 6; y < Level.Height - 5; y++) {
-				for (var x = 6; x < Level.Width - 5; x++) {
-					if (Level.Get(x, y) == Tile.WallA) {
-						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
-						
-						if (!a) {
-							a = true;
-							
-							foreach (var d in MathUtils.AllDirections) {
-								if (!Level.Get(x + (int) d.X, y + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
-									a = false;
-									break;
-								}	
-							}
-						}
 
-						if (a) {
-							Level.Set(x, y, Tile.Transition);
-						}
-					}			
-				}		
-			}
+			UpdateTransition(Level);
 
 			if (check) {
 				var c = exit.GetCenter();
@@ -517,6 +496,32 @@ namespace BurningKnight.level {
 			
 			PlaceMobs(Level, rms);
 			return true;
+		}
+
+		public static void UpdateTransition(Level Level) {
+			for (var y = 6; y < Level.Height - 5; y++) {
+				for (var x = 6; x < Level.Width - 5; x++) {
+					if (Level.Get(x, y) == Tile.WallA) {
+						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
+
+						if (!a) {
+							a = true;
+
+							foreach (var d in MathUtils.AllDirections) {
+								if (!Level.Get(x + (int) d.X, y + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
+									a = false;
+
+									break;
+								}
+							}
+						}
+
+						if (a) {
+							Level.Set(x, y, Tile.Transition);
+						}
+					}
+				}
+			}
 		}
 
 		public static void PlaceMobs(Level level, Room room) {

@@ -1014,7 +1014,7 @@ namespace BurningKnight.state {
 				}
 				
 				if (Input.Keyboard.WasPressed(Keys.D6)) {
-					Run.Depth = 12;
+					Run.Depth = 11;
 					Player.ToBoss = true;
 				}
 			}
