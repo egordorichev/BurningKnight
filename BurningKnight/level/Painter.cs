@@ -626,6 +626,18 @@ namespace BurningKnight.level {
 						continue;
 					}
 
+					if (room.Type == RoomType.Boss) {
+						var c = parent.GetCenter();
+						
+						var dx = (int) (c.X - x);
+						var dy = (int) (c.Y - y);
+						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+						if (d < 3) {
+							continue;
+						}
+					}
+
 					var dt = new Dot(x, y);
 
 					if ((Run.Level.IsPassable(x - 1, y) || Run.Level.IsPassable(x + 1, y)) && (Run.Level.IsPassable(x, y + 1) || Run.Level.IsPassable(x, y - 1))) {

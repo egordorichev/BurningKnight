@@ -677,7 +677,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 
 				var a = Self.AngleTo(Self.captured);
-				var force = 300f * dt;
+				var force = 500f * dt;
 
 				if (d <= 64f) {
 					force *= 2;

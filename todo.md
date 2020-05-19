@@ -9,7 +9,6 @@
 
 * bugs {
  + doors still can not open
- + still can be not tp'd to the entrance
  + hang in lib
  + shopkeeper stands gone
  + distance traveled in top stats doesnt say km

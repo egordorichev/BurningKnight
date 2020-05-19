@@ -54,6 +54,10 @@ namespace BurningKnight.util.geometry {
 			return this;
 		}
 
+		public Rect Setup(int x, int y, int w, int h) {
+			return Set(x, y, x + w, y + h);
+		}
+		
 		public Rect Set(Rect Rect) {
 			return Set(Rect.Left, Rect.Top, Rect.Right, Rect.Bottom);
 		}

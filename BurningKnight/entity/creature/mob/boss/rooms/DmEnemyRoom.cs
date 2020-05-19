@@ -2,19 +2,29 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.room;
 using BurningKnight.level;
 using BurningKnight.level.biome;
+using BurningKnight.level.tile;
+using BurningKnight.util.geometry;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss.rooms {
 	public class DmEnemyRoom : DmRoom {
 		public override void PlaceMage(Room room, DM mage) {
-			mage.Center = room.Center;
+			mage.Center = GetTileCenter() * 16 - new Vector2(0, 64);
 		}
 
 		public override void PlacePlayer(Room room, Player player) {
-			player.Center = room.Center + new Vector2(0, 32);
+			player.Center = GetTileCenter() * 16;
 		}
 
 		public override void Paint(Level level, Room room) {
+			var c = GetCenter();
+			
+			Painter.Fill(level, new Rect().Setup(c.X - 2, c.Y - 2, 5, 5), Tile.WallA);
+			Painter.Fill(level, new Rect().Setup(c.X - 1, c.Y - 1, 3, 3), Tiles.RandomFloor());
+
+			Painter.Set(level, new Dot(c.X, c.Y - 2), Tile.FloorD);
+			Painter.Set(level, new Dot(c.X, c.Y), Tile.FloorD); // Tiles.RandomFloor());
+			
 			MobRegistry.SetupForBiome(Biome.Tech);
 			Painter.PlaceMobs(level, room);
 		}
