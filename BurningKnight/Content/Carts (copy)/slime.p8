@@ -53,8 +53,8 @@ end
 
 --
 function next_i(l,i)
- i = i + 1
- if i>#l then i=1 end
+ i+=1
+ if(i>#l)i=1
  return i
 end
 
@@ -92,14 +92,14 @@ function create_button(btn_num)
   end,
 
   button_update=function(b)
-   b.time_since_press = b.time_since_press + one_frame
+   b.time_since_press+=one_frame
 
    if btn(b.button_number) then
     if b.time_held==0 then
      b.time_since_press=0
     end
   
-    b.time_held = b.time_held + one_frame
+    b.time_held+=one_frame
    else
     b.time_held=0
    end
@@ -187,8 +187,8 @@ end
 
 --
 function update_screeneffects()
- cam_shake_x = cam_shake_x * cam_shake_damp+rnd(.1)
- cam_shake_y = cam_shake_y * cam_shake_damp+rnd(.1)
+ cam_shake_x*=cam_shake_damp+rnd(.1)
+ cam_shake_y*=cam_shake_damp+rnd(.1)
  
  if abs(cam_shake_x)<1 and abs(cam_shake_y)<1 then
   cam_shake_x=0
@@ -198,7 +198,7 @@ function update_screeneffects()
  camera(cam_shake_x,cam_shake_y)
  
  if screen_flash_timer>0 then
-  screen_flash_timer = screen_flash_timer - one_frame
+  screen_flash_timer-=one_frame
  end
 end
 
@@ -335,14 +335,14 @@ function collision_checks(x,y,vx,vy,ws,we,hs,he)
     --]]
     
     if not on_floor and not on_ceiling then
-     temp_y = temp_y + i_vy
+     temp_y+=i_vy
     end
   
     if not on_rwall and not on_lwall then
-     temp_x = temp_x + i_vx
+     temp_x+=i_vx
     end    
   
-    vel_mag = vel_mag - 1
+    vel_mag-=1
   else
    keep_looking=false
   end
@@ -427,8 +427,8 @@ function sbs_update()
   local sb=sbs[i]
   
   if sb.timer>0 then
-   sb.timer = sb.timer - one_frame
-   sb.y = sb.y - .5
+   sb.timer-=one_frame
+   sb.y-=.5
   end
  end
 end
@@ -495,15 +495,15 @@ function exps_update()
  for k,ex in pairs(exps) do
   if ex.active then
    if ex.t>0 then
-    ex.t = ex.t - one_frame
+    ex.t-=one_frame
     
     for k,p in pairs(ex.particles) do
-     p.vx = p.vx * .9
-     p.vy = p.vy * .9
-     p.vy = p.vy + .05
-     p.x = p.x + p.vx
-     p.y = p.y + p.vy
-     p.t = p.t - one_frame
+     p.vx*=.9
+     p.vy*=.9
+     p.vy+=.05
+     p.x+=p.vx
+     p.y+=p.vy
+     p.t-=one_frame
     end
 
    else
@@ -601,7 +601,7 @@ function bullets_update()
 
  for k,b in pairs(bullets) do
   if b.active then
-   b.t = b.t - one_frame
+   b.t-=one_frame
    
    if b.t<=0 then
     b.active=false
@@ -609,10 +609,10 @@ function bullets_update()
     
     bullets_check_edge_warps(b.p[1])
     
-    b.p[1].x = b.p[1].x + b.vx
-    b.p[1].y = b.p[1].y + b.vy
+    b.p[1].x+=b.vx
+    b.p[1].y+=b.vy
     
-    b.vy = b.vy + .2
+    b.vy+=.2
     if b.vy>4 then
      b.vy=4
     end
@@ -684,7 +684,7 @@ end
 
 --
 function player_set_anim(anim,loops,flips)
- if player_anim~=anim then
+ if player_anim!=anim then
   player_anim=anim
   player_anim_index=1
  end
@@ -696,7 +696,7 @@ end
 --
 function player_loco_anim(cr)
  if cr.lwall or cr.rwall then
-  if abs(player_vx)>.1 and player_anim~=player_wall_anim then
+  if abs(player_vx)>.1 and player_anim!=player_wall_anim then
    player_set_anim(player_wall_anim,true,player_anim_flip)
    return
   end
@@ -707,7 +707,7 @@ end
 
 --
 function player_anim_advance(cr)
- player_anim_index = player_anim_index + 1
+ player_anim_index+=1
  
  if player_anim_index>#player_anim then
   player_anim_index=1
@@ -717,7 +717,7 @@ function player_anim_advance(cr)
    player_gravity=.5
   end
   
-  if not player_anim_loops then player_loco_anim(cr) end
+  if (not player_anim_loops) player_loco_anim(cr)
  end
 end
 
@@ -727,12 +727,12 @@ function player_update()
  player_touching_death=false
  
  if player_respawning>0 then
-  player_respawning = player_respawning - one_frame
+  player_respawning-=one_frame
  end
  
  if player_died then
   if player_exploding>0 then
-   player_exploding = player_exploding - one_frame
+   player_exploding-=one_frame
    
    if player_exploding<0 then
     player_exploding=0
@@ -753,8 +753,8 @@ function player_update()
   if mag<speed then
    player_x,player_y=player_spawn_x,player_spawn_y
   else
-   player_x = player_x + speed*nvx
-   player_y = player_y + speed*nvy
+   player_x+=speed*nvx
+   player_y+=speed*nvy
   end
   
   return
@@ -768,19 +768,19 @@ function player_update()
  
  player_anim_advance(collision_result)
  
-  player_air_time = player_air_time + one_frame
+  player_air_time+=one_frame
   if player_air_time>max_air_time then
    player_air_time=max_air_time
   end
 
   if not collision_result.floor then
-   player_vy = player_vy + player_gravity
+   player_vy+=player_gravity
   
    if player_vy>player_max_vy then
     player_vy=player_max_vy
    end
    
-   if abs(player_vy)>.1 then player_set_anim(player_arc_anim,true,player_anim_flip) end
+   if (abs(player_vy)>.1)player_set_anim(player_arc_anim,true,player_anim_flip)
   end
 
   if collision_result.floor then
@@ -806,9 +806,9 @@ function player_update()
    end
   else
    if player_air_time>.1 then
-    player_vx = player_vx * .9
+    player_vx*=.9
    else
-    player_vx = player_vx * .5
+    player_vx*=.5
 
     if player_vx<.1 then
      if collision_result.floor and not player_is_in_launch_anim() then
@@ -854,11 +854,11 @@ function player_killed()
  player_touching_death=true
  
  if player_respawning<=0 and not player_died then
-  player_deaths = player_deaths + 1
+  player_deaths+=1
   
   local score_penalty=player_deaths
   sbs_launch(player_x+4,player_y,-10*score_penalty,1)
-  player_score = player_score - score_penalty
+  player_score-=score_penalty
   
   player_died=true
   player_exploding=.3
@@ -961,13 +961,13 @@ function expq_pop()
 end
 
 function expq_update()
- expq_delay = expq_delay - one_frame
+ expq_delay-=one_frame
  
  if expq_delay<=0 then
   local e=expq_pop()
   if e then
    if e.isboss then
-    player_score = player_score + e.type.scorevalue
+    player_score+=e.type.scorevalue
     sbs_launch(e.x,e.y,10*e.type.scorevalue,2)
     for i=0,8 do
      exps_spawn(e.x+e.size-rnd(2*e.size),e.y+e.size-rnd(2*e.size),exps_level_hard)
@@ -975,8 +975,8 @@ function expq_update()
     screenshake(6,.7)
     screenflash(.1,7)
    else
-    player_score_mul = player_score_mul + 1
-    player_score = player_score + player_score_mul
+    player_score_mul+=1
+    player_score+=player_score_mul
     sbs_launch(e.x+4,e.y,10*player_score_mul,.5+.1*player_score_mul)
     exps_spawn(e.x+4,e.y+4,exps_level_hard)
     screenshake(6,.7)
@@ -1008,13 +1008,13 @@ end
 --
 function enemy_shooter_spread(e,speed,count,angle)
  if e.bullet_timer<e.shoot_bullet_time then
-  e.bullet_timer = e.bullet_timer + one_frame
+  e.bullet_timer+=one_frame
    
   if e.bullet_timer>=e.shoot_bullet_time then
    e.bullet_timer=0
     
    if e.x+4>player_x+4 then
-    angle = angle + .5
+    angle+=.5
    end
    
    ebs_shoot_spread(e.x+2,e.y+2,speed,count,angle)
@@ -1025,7 +1025,7 @@ end
 --
 function enemy_shooter_aimed(e)
  if e.bullet_timer<e.shoot_bullet_time then
-  e.bullet_timer = e.bullet_timer + one_frame
+  e.bullet_timer+=one_frame
    
   if e.bullet_timer>=e.shoot_bullet_time then
    e.bullet_timer=0
@@ -1056,7 +1056,7 @@ end
 --
 function enemy_spawner_update(e)
  if e.spawn_timer<e.spawn_enemy_time then
-  e.spawn_timer = e.spawn_timer + one_frame
+  e.spawn_timer+=one_frame
    
   if e.spawn_timer>=e.spawn_enemy_time then
    e.spawn_timer=0
@@ -1136,7 +1136,7 @@ enemy_types[13]=
  end,
  
  update=function(e)
-  e.keep_alert = e.keep_alert - one_frame
+  e.keep_alert-=one_frame
   if e.keep_alert<0 then
    e.keep_alert=0
   end
@@ -1231,7 +1231,7 @@ enemy_types[35]=
  ledge_behavior=function(e)end,
  
  update=function(e)
-  e.timer = e.timer - one_frame
+  e.timer-=one_frame
   
   if e.timer<=0 then
    e.timer=.5+rnd(.5)
@@ -1281,7 +1281,7 @@ enemy_types[41]=
  
  update=function(e)
   
-  e.jump_cooldown = e.jump_cooldown - one_frame
+  e.jump_cooldown-=one_frame
   
   if e.jump_cooldown<=0 then
    if e.slimed_index<=0 then
@@ -1341,7 +1341,7 @@ function make_boss(ia,sa,ss,ms,bc,bw,sv)
  
  take_damage=function(e,dam)
   e.damt=.05
-  e.size = e.size + dam
+  e.size+=dam
   if e.size>e.type.max_s then
    e.size=e.type.max_s
    
@@ -1352,7 +1352,7 @@ function make_boss(ia,sa,ss,ms,bc,bw,sv)
  end,
  
  update=function(e)
-  e.angle = e.angle + .01
+  e.angle+=.01
 
   enemy_shooter_spread(e,.5,e.type.bcount,e.angle)
   enemy_spawner_update(e)
@@ -1436,7 +1436,7 @@ function enemy_spawn(spr,x,y)
   return
  end
  
- enemies_active_count = enemies_active_count + 1
+ enemies_active_count+=1
  
  local e=enemies[enemies_next]
  while e.active do
@@ -1464,9 +1464,9 @@ function enemy_spawn(spr,x,y)
 
  e.gravity=nil
  
- if e.type.init then e.type.init(e) end
+ if(e.type.init)e.type.init(e)
  
- if e.isboss then enemies_boss=e end
+ if(e.isboss)enemies_boss=e
 end
 
 --
@@ -1475,7 +1475,7 @@ function slimed_enemy_check_freeze(eb)
  if eb.slimed_index>1 then
   local ebx,eby=eb.x,eb.y
   for k,e in pairs(enemies) do
-   if e.active and e~=eb then
+   if e.active and e!=eb then
     if not e.isboss then
      local ex,ey=e.x,e.y
    
@@ -1499,7 +1499,7 @@ function enemy_check_collateral(eb)
  local bubble_size=eb.slimed_index*4
  
  for k,e in pairs(enemies) do
-  if e.active and e~=eb then
+  if e.active and e!=eb then
    if e.isboss then
      local mags=mag(e.x-ebx,e.y-eby)
      if mags<bubble_size+e.size then
@@ -1623,11 +1623,11 @@ end
 function enemy_update_nonexploding(e)
  -- slimed movement
  if e.slimed_index>=1 then
-  e.x = e.x + e.vx
-  e.y = e.y + e.vy
+  e.x+=e.vx
+  e.y+=e.vy
    
   if abs(e.vx)>0 then
-   e.vx = e.vx * .8
+   e.vx*=.8
   end
 
   if e.vx>0 then
@@ -1651,7 +1651,7 @@ function enemy_update_nonexploding(e)
    g=.5
   end
       
-  e.vy = e.vy + g
+  e.vy+=g
       
   if e.vy>max_vy then
    e.vy=max_vy
@@ -1668,14 +1668,14 @@ function enemy_update_nonexploding(e)
  e.anim_index=next_i(e.anim,e.anim_index)
    
  if e.invulnerable>0 then
-  e.invulnerable = e.invulnerable - one_frame
+  e.invulnerable-=one_frame
  end
    
  -- slimed cooldown
  if e.slimed_index>=1 then
-  e.last_slimed = e.last_slimed - one_frame
+  e.last_slimed-=one_frame
   if e.last_slimed<=0 then
-   e.slimed_index = e.slimed_index - 1
+   e.slimed_index-=1
    e.last_slimed=2
      
    if e.slimed_index<=0 then
@@ -1705,12 +1705,12 @@ function enemies_update()
    end
    
    if not enemies_exploding and e.exploding>0 then
-    e.exploding = e.exploding - one_frame
+    e.exploding-=one_frame
     if e.exploding<=0 then
      
      enemy_check_collateral(e)
      
-     enemies_active_count = enemies_active_count - 1
+     enemies_active_count-=1
      e.active=false
      
      if enemies_active_count<=0 then
@@ -1725,13 +1725,13 @@ function enemies_update()
       if enemy_player_bullet_collision(b,e) then
        b.active=false
        
-       if e.type.take_damage then e.type.take_damage(e,.1) end
+       if(e.type.take_damage)e.type.take_damage(e,.1)
       
        if e.invulnerable<=0 then
         e.invulnerable=.2
       
         if not e.isboss then
-         e.slimed_index = e.slimed_index + 1
+         e.slimed_index+=1
          e.vx,e.vy=0,0
          e.last_slimed=(e.slimed_index>=enemy_max_slime_level-1) and 6 or 2
         end
@@ -1758,7 +1758,7 @@ function enemies_update()
     enemy_movement(e)
    
     if e.slimed_index<1 then
-     if e.type.update then e.type.update(e) end
+     if(e.type.update)e.type.update(e)
      enemy_check_player(e)
     end
    end
@@ -1801,7 +1801,7 @@ function enemies_draw()
     if e.slimed_index>0 then
      spr(e.type.slimed_anim or e.type.idle_anim[1],e.x,e.y)
       
-     local blink=(e.slimed_index~=1 or e.last_slimed>1 or e.last_slimed%.1>.05)
+     local blink=(e.slimed_index!=1 or e.last_slimed>1 or e.last_slimed%.1>.05)
       
      if blink then
       enemy_draw_bubble(e,0,0)
@@ -1848,7 +1848,7 @@ function ebs_make_bullets(x,y,speed,count,inc_a,start_a)
   eb.active=true
   ebs_next=next_i(ebs,ebs_next)
   
-  ia = ia - inc_a
+  ia-=inc_a
  end 
 end
 
@@ -1870,7 +1870,7 @@ function ebs_update()
   ebs_blink=.05
   ebs_blink_on=not ebs_blink_on
  else
-  ebs_blink = ebs_blink - one_frame
+  ebs_blink-=one_frame
  end
 
  for k,eb in pairs(ebs)do
@@ -1878,8 +1878,8 @@ function ebs_update()
    if eb.y<-8 or eb.x<-8 or eb.y>142 or eb.x>142 then
     eb.active=false
    else
-	   eb.y = eb.y + eb.vely
-    eb.x = eb.x + eb.velx
+	   eb.y+=eb.vely
+    eb.x+=eb.velx
 
     ebs_check_player(eb)
     
@@ -1959,7 +1959,7 @@ function level_goto_next()
  if level_number<32 then
   level_transition=2
   level_show_previous=true
-  level_number = level_number + 1
+  level_number+=1
   next_map_x=level_number%8*16
   next_map_y=flr(level_number/8)*16
   
@@ -1985,7 +1985,7 @@ end
 --
 function level_update()
  if level_transition>0 then
-  level_transition = level_transition - one_frame
+  level_transition-=one_frame
   
   if level_transition<1 and level_transition+one_frame>1 then
    sfx(5)
@@ -2013,7 +2013,7 @@ function level_update()
  end
  
  if level_show_title>0 then
-  level_show_title = level_show_title - one_frame
+  level_show_title-=one_frame
  end
 end
 
@@ -2022,7 +2022,7 @@ function level_draw()
  if level_transition>0 then
   local offsety=-128*sin(.25-level_transition/4)
   map(next_map_x,next_map_y,0,offsety-128,16,16,0x10)
-  if level_show_previous then map(map_x,map_y,0,offsety,16,16,0x10) end
+  if(level_show_previous)map(map_x,map_y,0,offsety,16,16,0x10)
  end
 end
 
@@ -2030,7 +2030,7 @@ end
 function level_title_draw()
  if level_show_title>0 then
   local a,b=map_y/16+1,map_x/16+1
-  if b==8 then b="boss" end
+  if(b==8)b="boss"
   print_outline("floor "..a.."-"..b,64,64,7,1)
  end
 end
@@ -2114,7 +2114,7 @@ function load_rle()
 		local col=hex_to_num(sub(title,i+2,i+3))
 		for j=1,count do
    poke(index,col)
-		 index = index + 1
+		 index+=1
 		end
 	end
 end
@@ -2133,7 +2133,7 @@ end
 fe_view.update=function()
  
  if front_end_fade_in>0 then
-  front_end_fade_in = front_end_fade_in - one_frame
+  front_end_fade_in-=one_frame
  else
   front_end_fade_in=0
   
@@ -2170,7 +2170,7 @@ fe_view.draw=function()
  palt()
  
  if front_end_fade_in<.5 then
-  if t%.4<.3 then print_outline("press \142 to start!",64,92,7,1) end
+  if (t%.4<.3)print_outline("press \142 to start!",64,92,7,1)
  end
 
  print_outline("guerragames 2017",64,120,7,2)
@@ -2197,7 +2197,7 @@ end
 
 --
 game_view.update=function()
- if not game_finished then game_time = game_time + one_frame end
+ if(not game_finished)game_time+=one_frame
  
  player_update()
  bullets_update()
@@ -2234,7 +2234,7 @@ game_view.draw=function()
   level_draw()
   player_draw()
   score_draw()
-  if level_transition>.3 and level_transition%.3<.2 then print_outline("game saved!",64,64,7,8) end
+  if(level_transition>.3 and level_transition%.3<.2)print_outline("game saved!",64,64,7,8)
   return
  end
 
@@ -2263,7 +2263,7 @@ current_view.start()
 
 --
 function _update60()
- t = t + one_frame
+ t+=one_frame
  
  update_screeneffects()
  jump_button:button_update()

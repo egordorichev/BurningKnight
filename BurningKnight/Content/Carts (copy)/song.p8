@@ -187,7 +187,7 @@ function follow_body(head, dropx)
 
   repeat
     if head.x < body.x then
-      head.x = head.x +  (snowman_speed * .5)
+      head.x += (snowman_speed * .5)
       head.x = min(head.x, body.x)
     end
 
@@ -260,11 +260,11 @@ function run_snowman_head()
       break
     end
 
-    head.vx = head.vx *  airxfriction
-    head.vy = head.vy +  gravity
+    head.vx *= airxfriction
+    head.vy += gravity
 
-    head.x = head.x +  head.vx
-    head.y = head.y +  head.vy
+    head.x += head.vx
+    head.y += head.vy
 
     if state == states.wait_for_tuba then
       head.y = tubabox.y - 8
@@ -288,7 +288,7 @@ function run_snowman_body()
 
   while snowman_body.x < 128 do
     if snowman_body.anim:get_index() == 0 then
-      snowman_body.x = snowman_body.x +  snowman_speed
+      snowman_body.x += snowman_speed
     end
 
     if snowman_body.anim:is_done() and (songpos.n + 1) % 4 == 0 then
@@ -333,7 +333,7 @@ function new_ballerina(x, y)
     set_flipx = function(self, flipx)
       if (not not self.flipx) ~= flipx then
         self.flipx = flipx
-        self.x = self.x +  (3 * (self.flipx and 1 or -1))
+        self.x += (3 * (self.flipx and 1 or -1))
       end
     end
   },
@@ -502,7 +502,7 @@ function hop_on_beat(actor, args)
   actor.anim = actor.anims.hop
   if dir == -1 then
     if not actor.flipx then
-      actor.x = actor.x +  3
+      actor.x += 3
     end
     actor.flipx = true
   end
@@ -524,13 +524,13 @@ function hop_on_beat(actor, args)
       actor.vx = .94
     end
 
-    actor.vx = actor.vx *  .89
+    actor.vx *= .89
 
     if i == #actor.anim.indexes then
       actor.vx = 0
     end
 
-    actor.x = actor.x +  (actor.vx * dir)
+    actor.x += (actor.vx * dir)
     if dir == 1 then
       actor.x = min(actor.x, destx)
     else
@@ -559,7 +559,7 @@ function walk_leap(actor, args)
     end,
     function() actor.anim:update(true) end)
   repeat
-    actor.x = actor.x +  (.1 * dir)
+    actor.x += (.1 * dir)
     yield()
   until songpos.n >= 15
   note_unsubscribe(sub)
@@ -567,20 +567,20 @@ function walk_leap(actor, args)
   actor.anim = actor.anims.leap
   actor.anim:reset()
   if actor.flipx then
-    actor.x = actor.x -  8
+    actor.x -= 8
   end
 
   repeat
     local i = actor.anim.i
     if i >= 3 and i <= 5 then
-      actor.x = actor.x +  (.3 * dir)
+      actor.x += (.3 * dir)
     end
     yield()
   until actor.anim:is_done()
 
   actor.anim = actor.anims.default
   if actor.flipx then
-    actor.x = actor.x +  8
+    actor.x += 8
   end
 end
 
@@ -676,14 +676,14 @@ function init_ballet()
   local leftgroup = {b2, b1, fairy1}
   for b in all(leftgroup) do
     add_action(b, {22, 0}, walk_tween, {destx, 0, 14 * 28})
-    destx = destx -  10
+    destx -= 10
   end
 
   local destx = 128
   local rightgroup = {b3, b4, fairy2}
   for b in all(rightgroup) do
     add_action(b, {22, 0}, walk_tween, {destx, 0, 14 * 28})
-    destx = destx +  10
+    destx += 10
   end
 
   for i, b in pairs({fairy1}) do
@@ -709,7 +709,7 @@ function init_ballet()
     add_action(b, {38,  0}, do_anim, 'hop')
     add_action(b, {38,  4}, do_anim, 'hop')
     add_action(b, {38,  8}, walk_tween, {destx + 10, 14 * 8, 14 * 13})
-    destx = destx -  10
+    destx -= 10
   end
 
   local destx = 80
@@ -722,7 +722,7 @@ function init_ballet()
     add_action(b, {38,  0}, do_anim, 'hop')
     add_action(b, {38,  4}, do_anim, 'hop')
     add_action(b, {38,  8}, walk_tween, {destx - 10, 14 * 8, 14 * 13})
-    destx = destx +  10
+    destx += 10
   end
 
   local destx = -10
@@ -732,9 +732,9 @@ function init_ballet()
       actor.anim = actor.anims.pointewalk
       local vx = 0
       while actor.x > destx do
-        vx = vx -  .1
+        vx -= .1
         vx = max(-1, vx)
-        actor.x = actor.x +  vx
+        actor.x += vx
         yield()
       end
     end)
@@ -762,7 +762,7 @@ function spin_after_fairy(actor, args)
     actor.anim.loop = true
     while in_song_range({19, 0}, {19, 23}) do
       if actor.x < 120 then
-        actor.x = actor.x +  0.05
+        actor.x += 0.05
       end
       yield()
     end
@@ -781,7 +781,7 @@ function fairy_solo(actor, args)
   for i = 1, 4 do
     actor.anim = actor.anims.pointewalk
     while stat(21) % 8 ~= 0 do
-      actor.x = actor.x +  (.17 * dir)
+      actor.x += (.17 * dir)
       if dir == -1 then
         actor.x = max(destx, actor.x)
       else
@@ -792,7 +792,7 @@ function fairy_solo(actor, args)
 
     set_anim(actor, 'turn')
     repeat
-      actor.x = actor.x +  (.17 * dir)
+      actor.x += (.17 * dir)
       if dir == -1 then
         actor.x = max(destx, actor.x)
       else
@@ -813,7 +813,7 @@ function run_tubamouse()
   while tubamouse.x < tubamouse.targetx do
     local dist = tubamouse.targetx - tubamouse.x
     local vx = dist * .1
-    tubamouse.x = tubamouse.x +  min(vx, .5)
+    tubamouse.x += min(vx, .5)
     if dist < .5 then
       tubamouse.x = tubamouse.targetx
     end
@@ -821,7 +821,7 @@ function run_tubamouse()
   end
   tubamouse.anim = tubamouse.anims.stand
   wait(fps / 2)
-  tubamouse.y = tubamouse.y -  6
+  tubamouse.y -= 6
   tubamouse.anim = tubamouse.anims.default
   tubamouse.hastuba = true
   tuba.visible = false
@@ -847,15 +847,15 @@ function run_tubamouse()
 
   tubamouse.hastuba = false
   tubamouse.anim = tubamouse.anims.run
-  tubamouse.y = tubamouse.y +  6
+  tubamouse.y += 6
   tubamouse.flipx = true
   tubamouse.vy = 0
   for x = tubamouse.x, -8, -1 do
     tubamouse.x = x
     if tubamouse.x < tubamouse.targetx - 3 then
-      tubamouse.vy = tubamouse.vy +  .1
+      tubamouse.vy += .1
     end
-    tubamouse.y = tubamouse.y +  tubamouse.vy
+    tubamouse.y += tubamouse.vy
     tubamouse.y = min(tubamouse.y, keyboard_y - 10)
     yield()
   end
@@ -867,8 +867,8 @@ function run_tuba()
 
   wait_until({38, 26})
   tuba.rotate = true
-  tuba.x = tuba.x -  7
-  tuba.y = tuba.y +  12
+  tuba.x -= 7
+  tuba.y += 12
 
   local ty = tween.new(
     tuba.y, tuba.y + 11,
@@ -928,9 +928,9 @@ function run_horse()
   snowboarder.x = 128
   snowboarder.y = 21
   while snowboarder.x > -32 do
-    vy = vy +  .09
-    snowboarder.x = snowboarder.x +  vx
-    snowboarder.y = snowboarder.y +  vy
+    vy += .09
+    snowboarder.x += vx
+    snowboarder.y += vy
     if snowboarder.y >= maxy then
       snowboarder.y = maxy
       landed = true
@@ -988,7 +988,7 @@ function move_to_target(actor, axis, target, tickdst, easefunc, callback)
   repeat
     local ticks = songpos.ticks
     if songpos.pat > startpat then
-      ticks = ticks +  (14 * 32)
+      ticks += (14 * 32)
     end
 
     local v = t:update(ticks)
@@ -1044,8 +1044,8 @@ function init_bell_ringers()
 
       local vy = 0
       while ringer.y < ringer.targety do
-        vy = vy +  .04
-        ringer.y = ringer.y +  vy
+        vy += .04
+        ringer.y += vy
         ringer.y = min(ringer.y, ringer.targety)
         yield()
       end
@@ -1063,18 +1063,18 @@ function init_bell_ringers()
         set_anim(ringer, 'run')
         vx = -0.3
         vy = -.85
-        ringer.x = ringer.x -  5
+        ringer.x -= 5
         ringer.flipx = true
       end
       while ringer.y > -16 do
-        vy = vy +  .04
-        ringer.x = ringer.x +  vx
-        ringer.y = ringer.y +  vy
+        vy += .04
+        ringer.x += vx
+        ringer.y += vy
         yield()
       end
 
       ringer.y = inity
-      i = i +  1
+      i += 1
     end
   end
 
@@ -1083,7 +1083,7 @@ function init_bell_ringers()
 
     local belloffsetx = 10 * dir
     if dir == -1 then
-      belloffsetx = belloffsetx +  8
+      belloffsetx += 8
     end
     local belly = pos.targety and pos.targety + 4 or pos.y + 3
     local bell = new_bell(pos.targetx + belloffsetx, belly)
@@ -1148,7 +1148,7 @@ function init_bigringers()
       -- go back offscreen
       m.anim = m.anims.walk
       if m.dir == -1 then
-        m.x = m.x +  8
+        m.x += 8
       end
       local tickdst = (16 * 14) + (dir == -1 and 2 or 0)
       move_to_target(m, 'x', initial.x, tickdst, ease_in_quad)
@@ -1180,7 +1180,7 @@ function init_bigringers()
     br.set_flipx = function(self, flipx)
       if self.flipx ~= flipx then
         self.flipx = flipx
-        self.x = self.x +  (15 * (self.flipx and -1 or 1))
+        self.x += (15 * (self.flipx and -1 or 1))
       end
     end
 
@@ -1188,7 +1188,7 @@ function init_bigringers()
       set_anim(br, 'ring')
       if br.firstring then
         if br.dir == -1 then
-          br.x = br.x -  8
+          br.x -= 8
         end
       else
         br:set_flipx(not br.flipx)
@@ -1238,8 +1238,8 @@ function _update60()
   if stat(24) <= 0 and curtainy >= keyboard_y / 2 then
     if lightstimer:update() then
       lightstimer:reset()
-      lightsn = lightsn +  1
-      lightsn = lightsn %  32
+      lightsn += 1
+      lightsn %= 32
       change_lights(lightsn)
     end
   end
@@ -1272,7 +1272,7 @@ function new_rope()
         vy = 0,
         light = {}
       })
-    x = x +  (x2 - x1) / (count - 1)
+    x += (x2 - x1) / (count - 1)
   end
 
   local light_colors = {8, 10, 11, 12, 14}
@@ -1294,13 +1294,13 @@ function new_rope()
       mod = mod
     }
 
-    ci = ci +  1
+    ci += 1
     if ci > #light_colors then
       ci = 1
     end
 
     if i % 2 == 0 then
-      mod = mod +  4
+      mod += 4
       if mod > 8 then
         mod = 4
       end
@@ -1324,16 +1324,16 @@ function update_rope(rope)
       local dx = (target.x - node.x) * rope_tightness
       local dy = (target.y - node.y) * rope_tightness
 
-      dx = dx -  (node.vx * rope_damping)
-      dy = dy -  (node.vy * rope_damping)
+      dx -= (node.vx * rope_damping)
+      dy -= (node.vy * rope_damping)
 
-      node.vx = node.vx +  dx
-      node.vy = node.vy +  dy
+      node.vx += dx
+      node.vy += dy
 
-      node.vy = node.vy +  rope_gravity
+      node.vy += rope_gravity
 
-      node.x = node.x +  node.vx
-      node.y = node.y +  node.vy
+      node.x += node.vx
+      node.y += node.vy
     end
   end
 end
@@ -1406,15 +1406,15 @@ end
 
 function update_particles()
   for _, p in pairs(particles) do
-    p.ttl = p.ttl -  1
+    p.ttl -= 1
     if p.ttl <= 0 then
       del(particles, p)
     else
-      p.vy = p.vy +  .05
-      p.vx = p.vx *  .99
+      p.vy += .05
+      p.vx *= .99
 
-      p.x = p.x +  p.vx
-      p.y = p.y +  p.vy
+      p.x += p.vx
+      p.y += p.vy
     end
   end
 end
@@ -1480,11 +1480,11 @@ function run_fallingbell()
   local vx, vy, maxy = -.6, 0, top_platform_y - 6
 
   while fallingbell.y < maxy do
-    vy = vy +  .2
+    vy += .2
     vy = min(vy, 2)
 
-    fallingbell.x = fallingbell.x +  vx
-    fallingbell.y = fallingbell.y +  vy
+    fallingbell.x += vx
+    fallingbell.y += vy
     fallingbell.y = min(fallingbell.y, maxy)
 
     yield()
@@ -1514,8 +1514,8 @@ function run_cat()
 
   -- make lights fall
   rope[#rope].fixed = false
-  rope_gravity = rope_gravity *  2
-  rope_tightness = rope_tightness *  1.2
+  rope_gravity *= 2
+  rope_tightness *= 1.2
 
   -- retract quickly
   move_cat_arm(
@@ -1573,9 +1573,9 @@ end
 function move_curtain(vd)
   local vy = 0
   repeat
-    vy = vy +  vd
+    vy += vd
     vy = mid(-1, vy, 1.5)
-    curtainy = curtainy +  vy
+    curtainy += vy
     curtainy = mid(curtain_min_y, curtainy, curtain_max_y)
     yield()
   until curtainy == curtain_min_y or curtainy == curtain_max_y
@@ -1664,12 +1664,12 @@ function draw_curtain()
       offsety = ceil((x + 1) / 8) * 2
 
       local maxy = keyboard_y - 7
-      maxy = maxy +  ((i % 2 == 0) and 1 or 0)
+      maxy += ((i % 2 == 0) and 1 or 0)
 
       for y = ((curtainy + offsety - 127) % 8) - 8, curtainy + offsety, 8 do
         spr(189, x, min(y, maxy))
       end
-      i = i +  1
+      i += 1
     end
   end
 end
@@ -1677,7 +1677,7 @@ end
 function draw_key(note)
   local i = note.pitch - 24
   if in_song_range({17, 30}, {19, 21}) or in_song_range({21, 30}, {23, 1}) then
-    i = i +  12
+    i += 12
   end
   if note.ch == 1 and (in_song_range({19, 23}, {19, 31})
       or in_song_range({38, 26}, {38, 29})) then
@@ -1685,10 +1685,10 @@ function draw_key(note)
     return
   end
   if in_song_range({24, 0}, {26, 0}) then
-     i = i -  12
+     i -= 12
   end
 
-  i = i %  key_count
+  i %= key_count
 
   local key = key_pos_type[i]
   local keytype = key[2]
@@ -1718,11 +1718,11 @@ function draw_actor(actor)
   local s = actor.anim:get_index()
   local offsetx = actor.anim:get_offset()
   if actor.flipx then
-    offsetx = offsetx *  -1
+    offsetx *= -1
   end
   local sw, sh = actor.anim:get_size()
   if actor.flipx and sw ~= actor.anim.w then
-    offsetx = offsetx +  8 * (actor.anim.w - sw)
+    offsetx += 8 * (actor.anim.w - sw)
   end
 
   spr(
@@ -1802,18 +1802,18 @@ function get_note(sfx, n)
   local addr = 0x3200 + (68 * sfx) + (2 * n)
   local byte1 = peek(addr)
   local byte2 = peek(addr + 1)
-  local inst_r = shr(band(byte1, 0xc0), 6)
-  local inst_l = shl(band(byte2, 0x1), 2)
+  local inst_r = shr(band(byte1, 0b11000000), 6)
+  local inst_l = shl(band(byte2, 0b00000001), 2)
 
   return {
     addr = addr,
     byte1 = byte1,
     byte2 = byte2,
-    pitch = band(byte1, 0x3f),
-    volume = shr(band(byte2, 0xe), 1),
-    effect = shr(band(byte2, 0x70), 4),
+    pitch = band(byte1, 0b00111111),
+    volume = shr(band(byte2, 0b00001110), 1),
+    effect = shr(band(byte2, 0b01110000), 4),
     instrument = bor(inst_l, inst_r),
-    issfxinst = band(byte2, 0x80) > 0
+    issfxinst = band(byte2, 0b10000000) > 0
   }
 end
 
@@ -1824,7 +1824,7 @@ function init_snowflake(s)
   s.h = 1
   s.vx = rnd_int(1, 3) / 12
   if rnd_int(0, 1) == 1 then
-    s.vx = s.vx *  -1
+    s.vx *= -1
   end
   s.vy = rnd_int(3, 8) / 10
   s.maxv = rnd_int(2, 9) / 10
@@ -1853,7 +1853,7 @@ function update_snow()
       init_snowflake(s)
     end
 
-    s.vy = s.vy +  .05
+    s.vy += .05
 
     local hit = false
     if s.collidable and not ignorehits then
@@ -1877,23 +1877,23 @@ function update_snow()
     end
 
     if s.landed then
-      s.ttl = s.ttl -  1
+      s.ttl -= 1
     end
 
     if tubaisblowing then
       if overlap(s, tubamouse.blowbox) then
         local dist = max(1, tubamouse.blowbox.y + tubamouse.blowbox.h - s.y)
-        s.vy = s.vy -  (1.2 / dist)
+        s.vy -= (1.2 / dist)
         local xdir = (s.x < tubamouse.blowbox.x + 6 and -1 or 1)
-        s.vx = s.vx +  rnd(2) * (.1 / dist) * xdir
+        s.vx += rnd(2) * (.1 / dist) * xdir
       end
     end
 
     s.vy = mid(-s.maxv, s.vy, s.maxv)
     s.vx = mid(-s.maxv, s.vx, s.maxv)
 
-    s.x = s.x +  s.vx
-    s.y = s.y +  s.vy
+    s.x += s.vx
+    s.y += s.vy
   end
 end
 
@@ -1910,7 +1910,7 @@ end
 
 function update_titles()
   for _, t in pairs(titles) do
-    t.v = t.v +  t.d
+    t.v += t.d
     t.v = mid(0, t.v, 1)
     if t.v == 0 then
       del(titles, t)
@@ -1963,7 +1963,7 @@ function draw_titles()
     fade(t.v)
     for line in all(t.lines) do
       cprint(line, 64, y, 7, 0)
-      y = y +  8
+      y += 8
     end
     pal()
   end
@@ -1994,7 +1994,7 @@ function anim:update(force)
     self.timer:reset()
 
     if self.i < #self.indexes then
-      self.i = self.i +  1
+      self.i += 1
     elseif self.loop then
       self:reset()
     end
@@ -2046,7 +2046,7 @@ end
 
 function timer:update()
   if self.value > 1 then
-    self.value = self.value -  1
+    self.value -= 1
   else
     return true
   end

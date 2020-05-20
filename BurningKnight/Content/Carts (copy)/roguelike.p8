@@ -56,7 +56,7 @@ end
 generate_level(num_rooms)
 camtx,camty,move_cam=pl.tx,pl.ty,false
 update_fog()
-if pl.depth>1 then show_alert("^floor "..pl.depth,nil,60).delay=30 end
+if (pl.depth>1) show_alert("^floor "..pl.depth,nil,60).delay=30
 end
 function make_entities()
 for i=0,127 do
@@ -93,7 +93,7 @@ end
 function player_logic(e)
 if e.hp>0 then
 if e.paralyzed>0 then
-phase = phase + 1
+phase+=1
 move_anim(e,0,0,0)
 else
 if e.confused>0 then
@@ -102,7 +102,7 @@ end
 if next_btn>=0 and next_btn<4 then
 if move_entity(e,dirx[next_btn+1],diry[next_btn+1]) then
 update_fog()
-phase = phase + 1
+phase+=1
 end
 elseif next_btn==5 then
 show_inventory()
@@ -146,7 +146,7 @@ local m=get_entity(e.tx,e.ty,"mob")
 if m then
 change_entity_hp(m,e,-e.atk)
 e.logic=nil
-e.frames[1] = e.frames[1] - 1
+e.frames[1]-=1
 sfx"54"
 end
 end
@@ -206,7 +206,7 @@ move_entity(e,dirx[bdir],diry[bdir])
 e.fc,e.frame=0,0
 end
 local dist=distance(e.tx,e.ty,pl.tx,pl.ty)
-if dist>e.sight then e.logic=wait_logic end
+if (dist>e.sight) e.logic=wait_logic
 end
 function chase_logic(e)
 e.attacked=false
@@ -232,13 +232,13 @@ local dx=ssgn(pl.tx-e.tx)
 local dy=ssgn(pl.ty-e.ty)
 move_anim(e,dx,dy,4)
 if e.id==22 then
-pl.poisoned = pl.poisoned + 3
+pl.poisoned+=3
 elseif e.id==23 and chance"0.5" then
 pl.paralyzed=2
 end
 if e.range>1 then
 if e.id==14 or (e.id==24 and dist>1) then
-pl.confused = pl.confused + 2
+pl.confused+=2
 sfx"55"
 local x,y=e.tx,e.ty
 for i=0,dist,0.125 do
@@ -273,17 +273,17 @@ end
 end
 end
 function wait_logic(e)
-if distance(e.tx,e.ty,pl.tx,pl.ty)>e.sight then return end
+if (distance(e.tx,e.ty,pl.tx,pl.ty)>e.sight) return
 if los(e.tx,e.ty,pl.tx,pl.ty,e.sight) then
 sfx"57"
 add_floater("!",e,10)
 e.gx,e.gy,e.logic=pl.tx,pl.ty,chase_logic
-if e.id==16 then e.logic=flee_logic end
+if (e.id==16) e.logic=flee_logic
 end
 end
 function move_anim(e,dx,dy,dist)
 e.mt,e.odist,e.ox,e.oy,e.dx,e.dy=0,dist,dist*dx,dist*dy,dx,dy
-if dist~=0 then
+if dist!=0 then
 e.fc,e.frame=0,0
 end
 if e.confused>0 then
@@ -325,8 +325,8 @@ local tile=mget(tx,ty)
 if mode=="los" then
 if not fget(tile,1) then
 local e=get_entity(tx,ty)
-if not e then return true end
-if e.block_los then return false end
+if (not e) return true
+if (e.block_los) return false
 return true
 end
 return false
@@ -335,8 +335,8 @@ if not fget(tile,0) then
 local e=get_entity(tx,ty,"mob")
 if not e then
 e=get_entity(tx,ty)
-if not e then return true end
-if e.walkable then return true end
+if (not e) return true
+if (e.walkable) return true
 end
 end
 return false
@@ -357,10 +357,10 @@ return nil
 end
 function interact(mob,tx,ty)
 local e=get_entity(tx,ty,"mob")
-if e then return attack_entity(mob,e) end
+if (e) return attack_entity(mob,e)
 e=get_entity(tx,ty)
-if not e then return false end
-if e.used then return false end
+if (not e) return false
+if (e.used) return false
 if e.id==20 then
 if not tried_anvil then
 tried_anvil=true
@@ -369,7 +369,7 @@ end
 if pl.weapon==nil then
 show_alert("^equip weapon to alter...")
 return false
-elseif pl.weapon.trait~=1 or pl.weapon.status~=1 then
+elseif pl.weapon.trait!=1 or pl.weapon.status!=1 then
 show_alert("^weapon must be untampered...")
 return false
 end
@@ -402,7 +402,7 @@ if not tried_well then
 tried_well=true
 return add_modal(22,28,explode"^a shallow pool...,,^the strangely clear water,has the power to free,a weapon from its curse.,^it only costs a turn")
 end
-if not pl.weapon or pl.weapon.trait~=2 then
+if not pl.weapon or pl.weapon.trait!=2 then
 show_alert("^dip a cursed weapon in the pool...")
 return false
 else
@@ -469,8 +469,8 @@ e.used=true
 end
 if e.used then
 sfx(csnd)
-e.frames[1] = e.frames[1] - 1
-if id==4 or id==18 or id==21 then e.walkable=true end
+e.frames[1]-=1
+if (id==4 or id==18 or id==21) e.walkable=true
 end
 end
 end
@@ -479,7 +479,7 @@ end
 function get_depth_item(selection)
 local pool={}
 for id in all(selection) do
-if i_depth[id]<=pl.depth then add(pool,id) end
+if (i_depth[id]<=pl.depth) add(pool,id)
 end
 return rnd_elem(pool)
 end
@@ -502,7 +502,7 @@ end
 )
 end
 function add_floater(str,e,c,delay)
-if delay then floater_delay = floater_delay + delay end
+if (delay) floater_delay+=delay
 add(floaters,{
 str=str,
 e=e,
@@ -512,7 +512,7 @@ c=c,
 life=25,
 delay=floater_delay
 })
-if not delay then floater_delay = floater_delay + 2 end
+if (not delay) floater_delay+=2
 end
 function level_update()
 if sleep==0 then
@@ -522,21 +522,21 @@ elseif phase==2 then
 if mget(pl.tx,pl.ty)==16 then
 sfx"53"
 fadeout()
-pl.depth = pl.depth + 1
+pl.depth+=1
 return make_new_level()
 elseif pl.win then
 win_game()
 else
 for e in all(entities) do
-if not e.trap and e~=pl and e.hp>0 and e.logic then
+if not e.trap and e!=pl and e.hp>0 and e.logic then
 update_entity_status(e)
 e.logic(e)
 end
 end
 for e in all(entities) do
-if e.trap and e.logic then e.logic(e) end
+if (e.trap and e.logic) e.logic(e)
 end
-phase = phase + 1
+phase+=1
 if pl.confused>0 or pl.paralyzed>0 then
 sleep=20
 end
@@ -545,18 +545,18 @@ end
 if phase==3 then
 local atk,move_on=false,true
 for e in all(entities) do
-if e.mt<1 then move_on=false end
-if e.attacked then atk=true end
+if (e.mt<1) move_on=false
+if (e.attacked) atk=true
 end
-if not atk or move_on then phase = phase + 1 end
+if (not atk or move_on) phase+=1
 end
 else
-sleep = sleep - 1
+sleep-=1
 end
 for e in all(entities) do
 if e.uf(e) then
 if e==pl and phase==1 then
-phase = phase + 1
+phase+=1
 end
 end
 end
@@ -566,35 +566,35 @@ phase=0
 update_entity_status(pl)
 end
 for p in all(particles) do
-if p.uf then p.uf(p) end
-p.life = p.life - 1
-if p.life<=0 then del(particles,p) end
+if (p.uf) p.uf(p)
+p.life-=1
+if (p.life<=0) del(particles,p)
 end
-if floater_delay>0 then floater_delay = floater_delay - 1 end
+if (floater_delay>0) floater_delay-=1
 for f in all(floaters) do
 if f.delay>0 then
-f.delay = f.delay - 1
+f.delay-=1
 else
-f.oy = f.oy - f.dy
-f.dy = f.dy * 0.8
-f.life = f.life - 1
-if f.life<=0 then del(floaters,f) end
+f.oy-=f.dy
+f.dy*=0.8
+f.life-=1
+if (f.life<=0) del(floaters,f)
 end
 end
 end
 function level_draw()
 local dz=2
 if pl.tx<camtx-dz then
-camtx = camtx - 1
+camtx-=1
 move_cam=true
 elseif pl.tx>camtx+dz then
-camtx = camtx + 1
+camtx+=1
 move_cam=true
 elseif pl.ty<camty-dz then
-camty = camty - 1
+camty-=1
 move_cam=true
 elseif pl.ty>camty+dz then
-camty = camty + 1
+camty+=1
 move_cam=true
 end
 if move_cam then
@@ -604,7 +604,7 @@ else
 camera((camtx-8)*8+4,
 (camty-8)*8+4)
 end
-if pl.ox==0 and pl.oy==0 then move_cam=false end
+if (pl.ox==0 and pl.oy==0) move_cam=false
 cls()
 fmap(camtx-8,camty-8)
 for e in all(entities) do
@@ -625,7 +625,7 @@ camera()
 spr(174,1,0,2,2)
 local col,btny=12,6
 if inventory.items==8 then
-btny = btny + sin(time())+1
+btny+=sin(time())+1
 col=8
 end
 if pl.hp>0 and not modal_top then
@@ -635,7 +635,7 @@ end
 end
 last_pal=0
 function set_pal(p)
-if p==last_pal then return end
+if (p==last_pal) return
 if not p then
 pal()
 pal(14,1)
@@ -657,7 +657,7 @@ elseif fv==0 then
 set_pal()
 end
 local tile=mget(x,y)
-if fv~=2 and tile>0 then
+if fv!=2 and tile>0 then
 spr(tile,x*8,y*8)
 end
 end
@@ -669,8 +669,8 @@ end
 function los(x1,y1,x2,y2,sight)
 local frst,sx,sy,dx,dy=true
 local dist=distance(x1,y1,x2,y2)
-if dist>sight then return false end
-if dist==1 then return true end
+if (dist>sight) return false
+if (dist==1) return true
 if x1<x2 then
 sx,dx=1,x2-x1
 else
@@ -690,18 +690,18 @@ end
 end
 frst,e2=false,err+err
 if e2>-dy then
-err = err - dy
-x1 = x1 + sx
+err-=dy
+x1+=sx
 end
 if e2<dx then
-err = err + dx
-y1 = y1 + sy
+err+=dx
+y1+=sy
 end
 end
 return true
 end
 function inbounds(tx,ty)
-if tx<0 or ty<0 or tx>=127 or ty>=31 then return false end
+if (tx<0 or ty<0 or tx>=127 or ty>=31) return false
 return true
 end
 function update_fog()
@@ -711,7 +711,7 @@ for tx=px-r,px+r do
 if inbounds(tx,ty) then
 if fog[tx][ty]==0 then
 local d=distance(px,py,tx,ty)
-if d<r+1 then fog[tx][ty]=1 end
+if (d<r+1) fog[tx][ty]=1
 end
 if los(px,py,tx,ty,pl.sight) then
 fog[tx][ty]=0
@@ -738,13 +738,13 @@ end
 end
 function strchr(str,c)
 for i=1,#str do
-if sub(str,i,i)==c then return i end
+if (sub(str,i,i)==c) return i
 end
 return -1
 end
 function indexof(a,e)
 for i=1,#a do
-if a[i]==e then return i end
+if (a[i]==e) return i
 end
 return -1
 end
@@ -770,12 +770,12 @@ function rnd_elem(a)
 return a[intrnd(#a)+1]
 end
 function explode(s,delim)
-if not delim then delim="," end
+if (not delim) delim=","
 local retval,lastpos={},1
 for i=1,#s do
 if sub(s,i,i)==delim then
 add(retval,sub(s, lastpos, i-1))
-i = i + 1
+i+=1
 lastpos=i
 end
 end
@@ -798,12 +798,12 @@ while i<=#str do
 local char=sub(str,i,i)
 if char=="^" then
 char=sub(str,i,i+1)
-i = i + 1
+i+=1
 else
 char=char.." "
 end
-l = l + _kerning[char]
-i = i + 1
+l+=_kerning[char]
+i+=1
 end
 return l
 end
@@ -812,33 +812,33 @@ local x1,i=x0,1
 while i<=#str do
 local char=sub(str,i,i)
 if char=="\n" then
-y0 = y0 + 7
+y0+=7
 x1=x0
 else
 if char=="^" then
 char=sub(str,i,i+1)
-i = i + 1
+i+=1
 else
 char=char.." "
 end
 local px,k=_glyphs[char],4
 for j=1,2 do
 px=shr(px,1)
-if band(px,0x0.0001)>0 then k = k - j end
+if (band(px,0x0.0001)>0) k-=j
 end
 for y=0,5 do
 for x=0,2 do
 px=shr(px,1)
 if band(px,0x0.0001)>0 then
 pset(x1+x,y0+y,c1)
-if c2 then pset(x1+x,y0+y+1,c2) end
+if (c2) pset(x1+x,y0+y+1,c2)
 end
 end
 end
-x1 = x1 + k
+x1+=k
 _kerning[char]=k
 end
-i = i + 1
+i+=1
 end
 end
 next_btn, state, next_state, change_state ,fade_progress,fade_pal= -1, {}, {}, false,1,explodeval"0,0,1,5,1,1,13,6,4,4,9,3,13,5,4,4"
@@ -848,7 +848,7 @@ end
 function _update()
 if next_btn<0 then
 for i=0,5 do
-if btnp(i) then next_btn=i end
+if (btnp(i)) next_btn=i
 end
 end
 if change_state then
@@ -859,7 +859,7 @@ if update_windows() then
 state.update()
 end
 if fade_progress>0 then
-fade_progress = fade_progress - 0.075
+fade_progress-=0.075
 end
 end
 function update_fade()
@@ -915,7 +915,7 @@ fs=0,
 frame=0,
 frames={m_anim[id]},
 }
-if params then add_params(params,e) end
+if (params) add_params(params,e)
 if e.mob then
 for i=1,3 do
 add(e.frames,m_anim[id]+i)
@@ -928,13 +928,13 @@ function xp_req(lvl)
 local xp=0
 for i=1,lvl do
 local ii=i+1
-xp = xp + ii*ii-4
+xp+=ii*ii-4
 end
 return xp
 end
 function give_xp(e,xp)
-e.xp = e.xp + xp
-floater_delay = floater_delay + 10
+e.xp+=xp
+floater_delay+=10
 add_floater("+"..xp,e,12)
 while e.xp>=xp_req(e.lvl+1) do
 level_up(e)
@@ -942,11 +942,11 @@ end
 end
 function level_up(e)
 sfx"52"
-e.lvl = e.lvl + 1
-e.atk = e.atk + 1
-e.hpmax = e.hpmax + 3
+e.lvl+=1
+e.atk+=1
+e.hpmax+=3
 e.hp=pl.hpmax
-floater_delay = floater_delay + 10
+floater_delay+=10
 add_floater("^level up",e,12,5)
 add_floater("^a^t^k +1",e,12,25)
 add_floater("^max ^h^p &+3",e,12,25)
@@ -974,18 +974,18 @@ end
 if a.weapon then
 local aws=a.weapon.status
 if aws==2 then
-d.poisoned = d.poisoned + 3
-elseif chance"0.5" and aws==3 and d.id~=24 then
-d.confused = d.confused + 5
+d.poisoned+=3
+elseif chance"0.5" and aws==3 and d.id!=24 then
+d.confused+=5
 d.logic=confused_logic
-elseif chance"0.3" and aws==4 and d.id~=24 then
-d.paralyzed = d.paralyzed + 2
+elseif chance"0.3" and aws==4 and d.id!=24 then
+d.paralyzed+=2
 d.logic=paralyzed_logic
 elseif chance"0.3" and aws==5 then
 change_entity_hp(a,a,1)
 end
 if a.weapon.trait==2 then
-a.weapon.atk = a.weapon.atk - 1
+a.weapon.atk-=1
 if a.weapon.atk<=0 then
 local itm=a.weapon
 show_alert(itm.name.." shattered!")
@@ -1001,7 +1001,7 @@ end
 function change_entity_hp(de,se,dmg)
 de.hp=min(de.hp+dmg,de.hpmax)
 de.hit_count,de.hit_by=10,se
-if dmg~=0 then
+if dmg!=0 then
 if dmg>0 then
 add_floater("+"..dmg,de,11,10)
 else
@@ -1018,10 +1018,10 @@ ssgn(de.ty-se.ty)*(0.3+rnd(0.3)),
 5+rnd(5),
 {de.col},
 function(p)
-p.x = p.x + p.dx
-p.dx = p.dx * 0.8
-p.y = p.y + p.dy
-p.dy = p.dy + 0.1
+p.x+=p.dx
+p.dx*=0.8
+p.y+=p.dy
+p.dy+=0.1
 end
 )
 end
@@ -1034,7 +1034,7 @@ end
 return de.hp<=0
 end
 function blink(e)
-if e.hp<=0 then return end
+if (e.hp<=0) return
 for i=0,7 do
 add_rising_particle(e,explodeval"15,15,14,7")
 end
@@ -1044,8 +1044,8 @@ while not moved do
 local dx,dy=intrnd"7"-3,intrnd"7"-3
 local dstx,dsty=e.tx+dx,e.ty+dy
 if is_floor(mget(dstx,dsty)) and is_walkable(dstx,dsty,"move") then
-e.tx = e.tx + dx
-e.ty = e.ty + dy
+e.tx+=dx
+e.ty+=dy
 e.logic,moved=chase_logic,true
 end
 end
@@ -1063,29 +1063,29 @@ uf=uf
 end
 function update_entity_status(e)
 if e.poisoned>0 then
-e.poisoned = e.poisoned - 1
+e.poisoned-=1
 change_entity_hp(e,e,-1)
 e.hit_by={name="poison"}
 end
 if e.paralyzed>0 then
-e.paralyzed = e.paralyzed - 1
+e.paralyzed-=1
 end
 if e.confused>0 then
-e.confused = e.confused - 1
+e.confused-=1
 end
 end
 function update_entity(e)
-if e.mt<=1 then e.mt = e.mt + 0.125 end
+if (e.mt<=1) e.mt+=0.125
 if e==pl then
 if e.mt<=1 then
 e.ox, e.oy = e.dx*e.odist*(1-e.mt), e.dy*e.odist*(1-e.mt)
 end
 else
-e.ox = e.ox * 0.5
-e.oy = e.oy * 0.5
+e.ox*=0.5
+e.oy*=0.5
 end
 if e.hit_count>0 then
-e.hit_count = e.hit_count - 1
+e.hit_count-=1
 else
 if e.hp<=0 then
 delhash(e)
@@ -1112,23 +1112,23 @@ e.ty*8+rnd(6)+e.oy,
 30+rnd(20),
 cols,
 function(p)
-p.y = p.y + p.dy
+p.y+=p.dy
 end
 )
 end
 function update_entity_anim(e)
-e.t = e.t + 1
-e.fc = e.fc + 1
+e.t+=1
+e.fc+=1
 if e.fc > e.fs then
-e.frame = e.frame + 1
+e.frame+=1
 e.fc=0
 if e.frame >= #e.frames then
-e.frame = e.frame - 1
+e.frame-=1
 end
 end
 end
 function draw_entity(e)
-if fog[e.tx][e.ty]==2 then return end
+if (fog[e.tx][e.ty]==2) return
 local x,y=e.tx*8+e.ox,e.ty*8+e.oy
 if fog[e.tx][e.ty]==1 then
 set_pal(dpal)
@@ -1149,8 +1149,8 @@ e.dir==-1)
 end
 if e.hp>0 then
 local indicator=""
-if e.confused>0 then indicator="?" end
-if e.paralyzed>0 then indicator="..." end
+if (e.confused>0) indicator="?"
+if (e.paralyzed>0) indicator="..."
 pr(indicator,x+6-2*#indicator,y-6,10)
 end
 end
@@ -1173,12 +1173,12 @@ w.h,w.w,w.delay=#lines*7+5,41,0
 for l in all(lines) do
 w.w=max(w.w,tlen(l)+7)
 end
-if width then w.w=width end
+if (width) w.w=width
 add(windows,w)
 return w
 end
 function close_modal_top()
-if modal_top.header then modal_top.header.life=1 end
+if (modal_top.header) modal_top.header.life=1
 modal_top.life=1
 del(modal_stack,modal_top)
 modal_top=modal_stack[#modal_stack]
@@ -1187,11 +1187,11 @@ function update_windows()
 if modal_top then
 if modal_top.cursor then
 if next_btn==2 then
-modal_top.cursor = modal_top.cursor - 1
+modal_top.cursor-=1
 s_time=0.25
 sfx"34"
 elseif next_btn==3 then
-modal_top.cursor = modal_top.cursor + 1
+modal_top.cursor+=1
 s_time=0.25
 sfx"34"
 elseif next_btn==5 then
@@ -1205,7 +1205,7 @@ end
 end
 if next_btn==4 then
 sfx"35"
-if modal_top.on_close then modal_top.on_close() end
+if (modal_top.on_close) modal_top.on_close()
 close_modal_top()
 end
 next_btn=-1
@@ -1225,7 +1225,7 @@ rect(wx,wy,wx+ww-1,wy+wh-2,9)
 spr(118,wx,wy)
 local twy=wy+3
 local cx=w.cursor and 4 or 0
-if w.cursor then wx = wx + 8 end
+if (w.cursor) wx+=8
 for i=1,#w.lines do
 local c=7
 if w.cursor==i then
@@ -1236,12 +1236,12 @@ local sx,tw,www=0,tlen(w.lines[i]),ww-4-cx*3
 if tw>www and w.cursor==i and w==modal_top then
 local diff=(www-tw)/2
 sx=diff+round(diff*sin(s_time))
-s_time = s_time + 0.008
+s_time+=0.008
 end
 clip(wx+cx,wy+3,ww-4-cx*3,wh-6)
 pr(w.lines[i],4+wx+sx,twy,c,2)
 clip()
-twy = twy + 7
+twy+=7
 end
 if w.hdr then
 local hdrs=explodeval"151,4,167,5,183,3"
@@ -1256,13 +1256,13 @@ spr(181,74,118,2,1)
 pr(pl.lvl.." ("..pl.xp.."/"..xp_req(pl.lvl+1)..")",86,118,7)
 end
 if w.life and w.delay==0 then
-if w.cursor then w.cursor=999 end
-w.life = w.life - 1
+if (w.cursor) w.cursor=999
+w.life-=1
 if w.life<0 then
 local diff=w.h/4
-w.y = w.y + diff/2
-w.h = w.h - diff
-if w.h<8 then del(windows,w) end
+w.y+=diff/2
+w.h-=diff
+if (w.h<8) del(windows,w)
 end
 else
 if w.btn then
@@ -1270,19 +1270,19 @@ pr("^close (c)",wx+ww-32-cx*2,wy+wh+1,12,5)
 end
 end
 else
-w.delay = w.delay - 1
+w.delay-=1
 end
 end
 end
 function unequip_item(itm,skip_snd)
-if not itm then return true end
+if (not itm) return true
 if (itm.trait==2) then
 sfx"42"
 show_alert(itm.name.." is stuck!",nil,60)
 return false
 end
-if not skip_snd then sfx"39" end
-pl.hpmax = pl.hpmax - itm.hpmax
+if (not skip_snd) sfx"39"
+pl.hpmax-=itm.hpmax
 itm.equipped,pl.weapon=nil,nil
 return true
 end
@@ -1292,8 +1292,8 @@ if not unequip_item(itm) then
 return
 end
 end
-if not skip_snd then sfx"41" end
-inventory.items = inventory.items - 1
+if (not skip_snd) sfx"41"
+inventory.items-=1
 for i=1,8 do
 if inventory[i]==itm then
 inventory[i]=nil
@@ -1318,7 +1318,7 @@ close_modal_top()
 modal_stack[1].lines=get_inventory_text()
 if spend_turn then
 close_modal_top()
-phase = phase + 1
+phase+=1
 move_anim(pl,0,0,0)
 end
 end
@@ -1361,7 +1361,7 @@ for i=1,8 do
 local itm=inventory[i]
 if itm then
 local str=item_name(itm)
-if itm.equipped then str="$ "..str.." " end
+if (itm.equipped) str="$ "..str.." "
 add(lines,str)
 else
 add(lines,"###")
@@ -1371,9 +1371,9 @@ return lines
 end
 function bless_item(itm)
 itm.trait=3
-if itm.heal>0 then itm.heal = itm.heal + 1+flr(itm.heal*rnd(0.5)) end
-if itm.hpmax>0 then itm.hpmax = itm.hpmax + 1+flr(itm.hpmax*rnd(0.5)) end
-if itm.atk>0 then itm.atk = itm.atk + 1+flr(itm.atk*rnd(0.5)) end
+if (itm.heal>0) itm.heal+=1+flr(itm.heal*rnd(0.5))
+if (itm.hpmax>0) itm.hpmax+=1+flr(itm.hpmax*rnd(0.5))
+if (itm.atk>0) itm.atk+=1+flr(itm.atk*rnd(0.5))
 end
 function curse_item(itm)
 itm.trait=2
@@ -1385,7 +1385,7 @@ itm.status,itm.atk=intrnd(4)+2,flr(itm.atk*0.7)
 end
 item_count=0
 function make_item(id,trait)
-item_count = item_count + 1
+item_count+=1
 local itm={
 ic=item_count,
 name=i_name[id],
@@ -1417,11 +1417,11 @@ return itm
 end
 function use_item(e,itm)
 if itm.type==0 then
-floater_delay = floater_delay + 20
+floater_delay+=20
 sleep=30
-if itm.hpmax~=0 then
+if itm.hpmax!=0 then
 add_floater("&+"..itm.hpmax,e,11)
-e.hpmax = e.hpmax + itm.hpmax
+e.hpmax+=itm.hpmax
 end
 sfx(42+itm.trait)
 if itm.trait==2 then
@@ -1430,13 +1430,13 @@ local r=rnd()
 if r<0.2 then
 itm.heal=5
 elseif r<0.4 then
-e.poisoned = e.poisoned + 3
+e.poisoned+=3
 show_alert("^b^l^e^h! ^poisonous!").delay=20
 elseif r<0.6 then
-e.confused = e.confused + 4
+e.confused+=4
 show_alert("^feeling dizzy...").delay=20
 elseif r<0.8 then
-e.paralyzed = e.paralyzed + 3
+e.paralyzed+=3
 show_alert("^g^l^u^p! ^can't move!").delay=20
 else
 show_alert("^ouf... ^it's rotten!").delay=20
@@ -1454,16 +1454,16 @@ end
 end
 function get_free_slot()
 for i=1,8 do
-if inventory[i]==nil then return i end
+if (inventory[i]==nil) return i
 end
 return nil
 end
 function give_item(itm,hide_msg)
 local slot=get_free_slot()
 if slot then
-if not hide_msg then show_alert(item_name(itm),5) end
+if (not hide_msg) show_alert(item_name(itm),5)
 inventory[slot]=itm
-inventory.items = inventory.items + 1
+inventory.items+=1
 end
 return slot
 end
@@ -1473,8 +1473,8 @@ t,story=0,"  ^to become immortal, the lich\n king ^raq'zul casts a powerful\n   
 music"0"
 end
 function title_update()
-t = t + 1
-if t>768 then t=0 end
+t+=1
+if (t>768) t=0
 if next_btn>=4 then
 sfx"53"
 fadeout()
@@ -1489,7 +1489,7 @@ spr(139,44,27,5,2)
 clip(0,50,128,33)
 pr(story,16,86-t/7,6,2)
 clip()
-fillp"0x5a5a.8"
+fillp"0b0101101001011010.1"
 rect(0,50,127,82,0)
 fillp()
 pr("(*) ^embark",46,104,12,5)
@@ -1522,7 +1522,7 @@ add(room_pool, pl.depth<8 and "exit" or "boss")
 for i=1,pl.depth/2 do
 add(room_pool,"treasure")
 end
-if pl.depth>=3 then add(room_pool,"shrine") end
+if (pl.depth>=3) add(room_pool,"shrine")
 if (pl.depth>=4) then
 add(room_pool,"smithy")
 add(room_pool,"pool")
@@ -1536,8 +1536,8 @@ for r in all(rooms) do
 if not place_room(r) then
 local dirs=explodeval"1,2,2,2,3,4"
 local rd=rnd_elem(dirs)
-r.x = r.x + dirx[rd]
-r.y = r.y + diry[rd]
+r.x+=dirx[rd]
+r.y+=diry[rd]
 r.dir=rd
 else
 del(rooms,r)
@@ -1586,18 +1586,18 @@ function place_room(r)
 local rx,ry,rw,rh=r.x,r.y,r.w,r.h
 if ry<0 or ry+rh>31 or
 rx<0 or rx+rw>127 then
-r.oob = r.oob + 1
+r.oob+=1
 if r.oob>5 then
 add(room_pool,r.typ)
 del(rooms,r)
-dropped = dropped + 1
+dropped+=1
 end
 return false
 end
 r.oob=0
 for tx=rx+1,rx+rw-2 do
 for ty=ry+1,ry+rh-2 do
-if mget(tx,ty)~=0 then
+if mget(tx,ty)!=0 then
 return false
 end
 end
@@ -1627,7 +1627,7 @@ if chance"0.4" then
 for i=1,rnd(r.w/2) do
 local x,y=get_rnd_pos(r)
 local tle=27+2*intrnd"2"
-if chance"0.1" then tle=11 end
+if (chance"0.1") tle=11
 mset_flr(x,y,tle)
 end
 end
@@ -1683,7 +1683,7 @@ ry+2+intrnd(r.h-7))
 end
 end
 local prev_mobs_placed=mobs_placed
-if r.typ~="entry" then
+if r.typ!="entry" then
 for i=1,mobs_per_room do
 local x,y=get_rnd_pos(r)
 place_mob(x,y)
@@ -1697,7 +1697,7 @@ doors=get_doors(rx,ry+rh-1,rx+rw-1,ry+rh-1)
 door_helper()
 doors=get_doors(rx,ry,rx+rw-1,ry)
 door_helper()
-if dc==0 and r.typ~="entry" then
+if dc==0 and r.typ!="entry" then
 for tx=rx,rx+rw-1 do
 for ty=ry,ry+rh-1 do
 mset(tx,ty,bg[tx][ty])
@@ -1705,13 +1705,13 @@ end
 end
 add(room_pool,r.typ)
 mobs_placed=prev_mobs_placed
-removed = removed + 1
+removed+=1
 return true
 end
 return true
 end
 function door_helper()
-dc = dc + #doors
+dc+=#doors
 place_a_door(doors)
 end
 function rset(id)
@@ -1726,8 +1726,8 @@ np=t_wall
 else
 np=op+63
 end
-if np~=t_wall and chance(pl.depth/10) then
-np = np + 16
+if np!=t_wall and chance(pl.depth/10) then
+np+=16
 end
 if op>0 then
 mset(x+tx,y+ty,np)
@@ -1746,19 +1746,19 @@ if (not id) then
 id=rnd_elem(mobs)
 end
 if mset_flr(x,y,id) then
-mobs_placed = mobs_placed + 1
+mobs_placed+=1
 end
 end
 function get_rnd_pos(r)
 return r.x+1+rnd(r.w-2),r.y+1+rnd(r.h-2)
 end
 function get_floor(offset)
-if chance(0.2) then return t_floor end
+if (chance(0.2)) return t_floor
 return offset+rnd_elem({0,1,2})
 end
 function place_a_door(doors)
 local door=rnd_elem(doors)
-if not door then return end
+if (not door) return
 mset(door.x,door.y,chance(0.7) and door.tile or t_floor)
 del(doors,door)
 end
@@ -1775,13 +1775,13 @@ local t1,t2=mget(x1+sy,y1+sx),mget(x1-sy,y1-sx)
 if is_floor(t1) and is_floor(t2) then
 add(ds,{x=x1,y=y1,tile=(sx==1 and t_door_h or t_door_v)})
 end
-x1 = x1 + sx
-y1 = y1 + sy
+x1+=sx
+y1+=sy
 end
 return ds
 end
 function is_floor(id)
-if id==1 or id==2 or (id>=32 and id<=44) then return true end
+if (id==1 or id==2 or (id>=32 and id<=44)) return true
 return false
 end
 function wall_fix()
@@ -1789,11 +1789,11 @@ for i=0,127 do
 for j=0,31 do
 local t1,t2=mget(i,j),mget(i,j+1)
 if fget(t1,7) then
-if t2==1 then mset(i,j+1,2) end
+if (t2==1) mset(i,j+1,2)
 for ii=32,40,4 do
-if t2>=ii and t2<=ii+2 then mset(i,j+1,ii+3) end
+if (t2>=ii and t2<=ii+2) mset(i,j+1,ii+3)
 end
-if t2==0 then mset(i,j+1,3) end
+if (t2==0) mset(i,j+1,3)
 end
 end
 end
@@ -1804,7 +1804,7 @@ for j=0,31 do
 if mget(i,j) ==st then
 local nt,bm=0,explodeval"2,4,1,8"
 for d=1,4 do
-if fget(mget(i+dirx[d],j+diry[d]),7) then nt = nt + bm[d] end
+if (fget(mget(i+dirx[d],j+diry[d]),7)) nt+=bm[d]
 end
 mset(i,j,nt+st)
 end

@@ -17,7 +17,7 @@ function _init()
   repeat
    _draw()
    flip()
-   t = t + 0.01
+   t+=0.01
   until btnp(4)
   started=true
  end
@@ -67,7 +67,7 @@ enemies={}
 end
 
 function _update()
- t = t + 0.01
+ t+=0.01
 
  camx=lerp(camx,player.x+12*player.vx,0.05)
  camy=lerp(camy,player.y+12*player.vy,0.05)
@@ -82,8 +82,8 @@ function _update()
  end
 
  for txt in all(floatxts) do
-  txt.y = txt.y - txt.t
-  txt.t = txt.t - 0.1
+  txt.y-=txt.t
+  txt.t-=0.1
   if txt.t<0 then
    del(floatxts,txt)
   end
@@ -210,10 +210,10 @@ function update_player(p)
   if btnp(0) then invcur=(invcur-2)%invplaces+1 end
   if btnp(1) then invcur=(invcur)%invplaces+1 end
  else
-  if btn(0) then movx = movx - p.acc p.faceleft=true end
-  if btn(1) then movx = movx + p.acc p.faceleft=false end
-  if btn(2) then movy = movy - p.acc end
-  if btn(3) then movy = movy + p.acc end
+  if btn(0) then movx-=p.acc p.faceleft=true end
+  if btn(1) then movx+=p.acc p.faceleft=false end
+  if btn(2) then movy-=p.acc end
+  if btn(3) then movy+=p.acc end
  end
  
  target=nil
@@ -244,7 +244,7 @@ function update_player(p)
    local used=data[1].use and data[1].use(target,data[1].hp)
 
    if used and data[1].consumable then
-    data[2] = data[2] - 1
+    data[2]-=1
    end
   end
   
@@ -263,15 +263,15 @@ function update_player(p)
   local step,first=anim_step(p)
   if step==1 and first then
    local hit={x=p.x,y=p.y,h=20,w=14}
-   if p.faceleft then hit.x = hit.x - 6 else hit.x = hit.x + 6 end
+   if p.faceleft then hit.x-=6 else hit.x+=6 end
    local list=all_collide_objgroup(hit,"hittable")
    
    for o in all(list) do
     o:hit()
    end
    
-   p.vx = p.vx * 0
-   p.vy = p.vy * 0
+   p.vx*=0
+   p.vy*=0
   end
  end
  
@@ -303,8 +303,8 @@ function update_player(p)
    end
   end
  
-  if m==52 then curlvl = curlvl + 1
-  elseif m==53 then curlvl = curlvl - 1
+  if m==52 then curlvl+=1
+  elseif m==53 then curlvl-=1
   end
   
   local data=levels[curlvl]
@@ -361,10 +361,10 @@ function update_plant(p)
  local til,tt=mget(tilx,tily),0.01
 
  if til>=2 and til<=4 and rnd(4)<3 then
-  tt = tt + 0.04
+  tt+=0.04
  end
  
- p.t = p.t + tt
+ p.t+=tt
  if p.t%(p.td/p.spk)<tt then
   if on_floor(p) and chance(70) then
    mset(tilx,tily,1)
@@ -385,8 +385,8 @@ function update_enemy(en)
  en.faceleft=en.x>player.x
  
  if en.updatetyp=="fireball" then
-  en.x = en.x + en.vx
-  en.y = en.y + en.vy
+  en.x+=en.vx
+  en.y+=en.vy
   if map_col(en) then
    en:hit()
   end
@@ -453,18 +453,18 @@ function update_enemy(en)
  local cole,colp=collide_objgroup(en,"enemies"),collide_objobj(en,player)
  if cole then
   local a=atan2(en.x-cole.x,en.y-cole.y)
-  cole.vx = cole.vx - en.rep*cos(a)
-  cole.vy = cole.vy - en.rep*sin(a)
+  cole.vx-=en.rep*cos(a)
+  cole.vy-=en.rep*sin(a)
  end
  
  if colp and en.dmg and player.inv==0 then
-  player.hp = player.hp - en.dmg
+  player.hp-=en.dmg
   player.inv=0.2
   
   local a=atan2(player.x-en.x,player.y-en.y)
   
-  player.vx = player.vx + 6*cos(a)
-  player.vy = player.vy + 6*sin(a)
+  player.vx+=6*cos(a)
+  player.vy+=6*sin(a)
   
   sfx(31)
   
@@ -482,14 +482,14 @@ end
 
 function update_slime(en)
  if en.z<-0.5 then
-  en.animt = en.animt - 0.01
+  en.animt-=0.01
  else
-  en.vx = en.vx * 0.8
-  en.vy = en.vy * 0.8
+  en.vx*=0.8
+  en.vy*=0.8
  end
  
- en.z = en.z + en.vz
- en.vz = en.vz + 0.5
+ en.z+=en.vz
+ en.vz+=0.5
  
  if en.z>0 then
   en.vz,en.z=0,0
@@ -506,7 +506,7 @@ function update_slime(en)
 end
 
 function update_collect(s)
- s.t = s.t + 0.01
+ s.t+=0.01
 
  local mvx,mvy=0,0
  if s.t>0.15 then
@@ -516,12 +516,12 @@ function update_collect(s)
  
  update_movement(s,mvx,mvy,true,true)
  
- s.z = s.z + s.vz
- s.vz = s.vz - 0.4
+ s.z+=s.vz
+ s.vz-=0.4
  
  if s.z<0 then
   s.z=0
-  s.vz = s.vz * -0.5
+  s.vz*=-0.5
   
   if s.vz<1.2 then
    s.vz=0
@@ -551,15 +551,15 @@ function update_door(d)
 end
 
 function update_particle(s)
- s.t = s.t + 0.01
+ s.t+=0.01
  update_movement(s,0,0)
  
- s.z = s.z + s.vz
- s.vz = s.vz - 0.4
+ s.z+=s.vz
+ s.vz-=0.4
  
  if s.z<0 then
   s.z=0
-  s.vz = s.vz * -0.5
+  s.vz*=-0.5
   
   if s.vz<1.2 then
    s.vz=0
@@ -573,7 +573,7 @@ function update_particle(s)
 end
 
 function update_animt(o)
- o.animt = o.animt + 0.01
+ o.animt+=0.01
 end
 
 function add_money(v)
@@ -589,7 +589,7 @@ function add_item(name,num)
  for i=1,invplaces do
   local data=inventory[i]
   if data[1]==items[name] then
-   data[2] = data[2] + num
+   data[2]+=num
    return true
   end
  end
@@ -608,7 +608,7 @@ end
 function sell_item(s)
  local data=inventory[invcur]
  if data[2]>0 then
-  data[2] = data[2] - 1
+  data[2]-=1
   local p=data[1].price
   add_money(p)
   
@@ -649,8 +649,8 @@ function eat(target,hp)
  local str
  
  if not hp then
-  player.hpmax = player.hpmax + 1
-  player.hp = player.hp + 1
+  player.hpmax+=1
+  player.hp+=1
   create_text(player.x,player.y-6,"+1 hp max",14,2)
   sfx(30)
   return true
@@ -660,7 +660,7 @@ function eat(target,hp)
 
  if mhp() then return false end
  
- player.hp = player.hp + hp
+ player.hp+=hp
  
  str="+"..hp.." hp"
  if mhp() then
@@ -675,9 +675,9 @@ end
 function hit_door(d)
  while collide_objobj(d,player) do
   if d.horiz then
-   player.y = player.y + sgn(player.vy)
+   player.y+=sgn(player.vy)
   else
-   player.x = player.x + sgn(player.vx)
+   player.x+=sgn(player.vx)
   end
  end
 
@@ -724,7 +724,7 @@ function stand_buy(s)
   local data=items[s.item]
   if player.money>=data.price then
    create_collect(s.x,s.y,s.item)
-   player.money = player.money - data.price
+   player.money-=data.price
    
    create_text(player.x,player.y-6,"-"..data.price.."$",14,2)
    
@@ -835,8 +835,8 @@ end
 
 function damage(en,noeffect)
  local a=atan2(player.x-en.x,player.y-en.y)
- en.vx = en.vx - 4*cos(a)
- en.vy = en.vy - 4*sin(a)
+ en.vx-=4*cos(a)
+ en.vy-=4*sin(a)
  en.knock,en.whiteframe=8,true
   
  local dmg,data=1,inventory[invcur]
@@ -851,7 +851,7 @@ function damage(en,noeffect)
   sfx(33)
  end
  
- en.hp = en.hp - dmg
+ en.hp-=dmg
  if en.hp<0 then
   particles(en.x,en.y,6,en.colors)
 
@@ -892,16 +892,16 @@ end
 
 function add_shake(p)
  local a=rnd(1)
- shkx = shkx + p*cos(a)
- shky = shky + p*sin(a)
+ shkx+=p*cos(a)
+ shky+=p*sin(a)
 end
 
 function update_shake()
  if abs(shkx)+abs(shky)<0.5 then
   shkx,shky=0,0
  else
-  shkx = shkx * -0.5-rnd(0.2)
-  shky = shky * -0.5-rnd(0.2)
+  shkx*=-0.5-rnd(0.2)
+  shky*=-0.5-rnd(0.2)
  end
 end
 
@@ -920,9 +920,9 @@ function draw_player(p)
   local n,s,x,y,flp=anim_step(p),72,p.x-3,p.y-8,false
   
   if n==0 then s=-2 end
-  if n==2 then s = s + 2 end
+  if n==2 then s+=2 end
   if p.faceleft then
-   x = x - 10
+   x-=10
    flp=true
   end
   
@@ -1091,10 +1091,10 @@ function draw_room()
    if xm~=0 and ym~=0 then
     poke(a,0)
    else
-    k = k + 1
+    k+=1
     darken(k>1)
     uncover(x+xm,y+ym,k,xm,ym)
-    k = k - 1
+    k-=1
     if k>0 then darken(k>1) else all_colors_to() end
    end
   elseif not fget(m,4) then
@@ -1122,7 +1122,7 @@ function draw_inventory()
  for i=1,invplaces do
   local s
   if i==invcur then
-   x = x + 1
+   x+=1
    s=224
   else
    s=192
@@ -1140,10 +1140,10 @@ function draw_inventory()
   end
   
   if i==invcur then
-   x = x + 1
+   x+=1
   end
   
-  x = x + 14
+  x+=14
  end
  
  local str
@@ -1183,10 +1183,10 @@ function draw_text(str,x,y,al,extra,c1,c2)
  local c1=c1 or 7
  local c2=c2 or 13
 
- if al==1 then x = x - #str*2-1
- elseif al==2 then x = x - #str*4 end
+ if al==1 then x-=#str*2-1
+ elseif al==2 then x-=#str*4 end
  
- y = y - 3
+ y-=3
  
  if extra then
   print(str,x,y+3,0)
@@ -1571,8 +1571,8 @@ function generate_level()
   end
   
   local px,py=x,y
-  x = x + dir[1]
-  y = y + dir[2]
+  x+=dir[1]
+  y+=dir[2]
   
   local c=mget(x,y)
   
@@ -1581,8 +1581,8 @@ function generate_level()
    y=py
    dir=nil
   elseif c==1 then
-   x = x + dir[1]
-   y = y + dir[2]
+   x+=dir[1]
+   y+=dir[2]
   elseif c==0 then
    local b=true
    local n=sgn(dir[1])*sgn(dir[2])
@@ -1594,14 +1594,14 @@ function generate_level()
   
    if b then
     mset(x,y,1)
-    x = x + dir[1]
-    y = y + dir[2]
+    x+=dir[1]
+    y+=dir[2]
 
     local ar,arr,arrr={x,y,x,y},{-1,-1,1,1},parse"0,0,0,0"
     
     repeat
      local n=flrnd(4)+1
-     ar[n] = ar[n] + arr[n]
+     ar[n]+=arr[n]
      
      local b
      for xx=ar[1]-1,ar[3]+1 do
@@ -1611,11 +1611,11 @@ function generate_level()
      end
      
      if b or arrr[n]>5 then
-      ar[n] = ar[n] - arr[n]
+      ar[n]-=arr[n]
       arr[n]=0
      end
      
-     arrr[n] = arrr[n] + 1
+     arrr[n]+=1
      
      if chance(15) then
       arr[n]=0
@@ -1626,7 +1626,7 @@ function generate_level()
     until b
     
     rectfilll(ar[1],ar[2],ar[3],ar[4],3)
-    nrooms = nrooms + 1
+    nrooms+=1
    else
     x=px
     y=py
@@ -1656,7 +1656,7 @@ function generate_level()
    for xx=x-1,x+1 do
    for yy=y-1,y+1 do
     if in_box(xx,yy,1,1,127,31) and maaap[yy*128+xx]>0 then
-     k = k + 1
+     k+=1
     end
    end
    end
@@ -1703,7 +1703,7 @@ function generate_level()
   repeat
    x,y=rnd128(),rnd(32)
   until not tile_flag(x,y,4)
-  i = i + 1
+  i+=1
   if i>499 then return generate_level() end
   
   x,y=untile(x,y)
@@ -1747,7 +1747,7 @@ function generate_level()
     create_stand(x,y,arr[curlvl][k%2+1],true)
    end
    
-   k = k + 1
+   k+=1
   end
  end
 
@@ -1766,7 +1766,7 @@ function generate_level()
 
  local i=0 
  while mget(x1,y1)~=16 or not is_free(x1,y1) or tile_flag(x1,y1+1,0) or dist(x1,y1,sx,sy)<32 do
-  i = i + 1
+  i+=1
   if i>999 then return generate_level() end
 
   x1,y1=flrnd(128),flrnd(32)
@@ -1782,10 +1782,10 @@ function get_room(x,y)
  x,y=tile(x,y)
  local lx,hx,ly,hy=x,x,y,y
  
- while tile_flag(lx,y,6) do lx = lx - 1 end
- while tile_flag(hx,y,6) do hx = hx + 1 end hx = hx + 1
- while tile_flag(x,ly,6) do ly = ly - 1 end
- while tile_flag(x,hy,6) do hy = hy + 1 end hy = hy + 1
+ while tile_flag(lx,y,6) do lx-=1 end
+ while tile_flag(hx,y,6) do hx+=1 end hx+=1
+ while tile_flag(x,ly,6) do ly-=1 end
+ while tile_flag(x,hy,6) do hy+=1 end hy+=1
  
  return lx*8,ly*8,hx*8,hy*8
 end
@@ -1899,11 +1899,11 @@ end
 
 
 function update_movement(s,nx,ny,map_walls,bounce)
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
  
- s.vx = s.vx + nx
- s.vy = s.vy + ny
+ s.vx+=nx
+ s.vy+=ny
  
  s.vx=mid(s.vx,-s.spdcap,s.spdcap)
  s.vy=mid(s.vy,-s.spdcap,s.spdcap)
@@ -1911,31 +1911,31 @@ function update_movement(s,nx,ny,map_walls,bounce)
  if map_walls then
   local ox,oy=s.x,s.y
   
-  s.x = s.x + s.vx
+  s.x+=s.vx
   if map_col(s) then
    s.x=ox
    
    if bounce then
-    s.vx = s.vx * -0.6
+    s.vx*=-0.6
    else
-    s.vx = s.vx * 0.2
+    s.vx*=0.2
    end
   end
   
-  s.y = s.y + s.vy
+  s.y+=s.vy
   if map_col(s) then
    s.y=oy
    
    if bounce then
-    s.vy = s.vy * -0.6
+    s.vy*=-0.6
    else
-    s.vy = s.vy * 0.2
+    s.vy*=0.2
    end
   end
   
  else
-  s.x = s.x + s.vx
-  s.y = s.y + s.vy
+  s.x+=s.vx
+  s.y+=s.vy
  end
 end
 
@@ -2005,7 +2005,7 @@ function draw_objects()
     while(k>1 and dobjs[k-1].y>dobjs[k].y) do
      local s=dobjs[k]
      dobjs[k],dobjs[k-1]=dobjs[k-1],s
-     k = k - 1
+     k-=1
     end
    end
   end
@@ -2121,9 +2121,9 @@ function parse(str,ar)
    local sc,k=c+1,0
    while sub(str,c,c)~='}' or k>1 do
     char=sub(str,c,c)
-    if char=='{' then k = k + 1
-    elseif char=='}' then k = k - 1 end
-    c = c + 1
+    if char=='{' then k+=1
+    elseif char=='}' then k-=1 end
+    c+=1
    end
    local v=parse(sub(str,sc,c-1))
    if field then
@@ -2132,11 +2132,11 @@ function parse(str,ar)
     add(ar,v)
    end
    lc=c+2
-   c = c + 1
+   c+=1
   elseif char=='=' then
    field,lc=sub(str,lc,c-1),c+1
   elseif char==',' or c==#str then
-   if c==#str then c = c + 1 end
+   if c==#str then c+=1 end
    local v,vb=sub(str,lc,c-1),sub(str,lc+1,c-1)
    local fc=sub(v,1,1)
    if nums[fc] then v=v*1
@@ -2154,9 +2154,9 @@ function parse(str,ar)
    
    field,lc=nil,c+1
   elseif char=='\n' then
-   lc = lc + 1
+   lc+=1
   end
-  c = c + 1
+  c+=1
  end
  
  return ar

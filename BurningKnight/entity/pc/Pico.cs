@@ -24,7 +24,7 @@ namespace BurningKnight.entity.pc {
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
-		private string cart = "song";
+		private string cart = "slipways";
 
 		public Entity Entity;
 
@@ -48,7 +48,7 @@ namespace BurningKnight.entity.pc {
 			base.AddComponents();
 
 			Width = 138;
-			Height = 155;
+			Height = 150 + 5;
 			
 			AddComponent(new RectBodyComponent(0, 0, Width, Height, BodyType.Static, false));
 			AddComponent(new SliceComponent("props", "pico"));

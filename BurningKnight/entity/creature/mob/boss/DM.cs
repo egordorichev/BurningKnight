@@ -4,6 +4,7 @@ using BurningKnight.entity.creature.mob.boss.rooms;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
@@ -14,10 +15,21 @@ using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class DM : Boss {
+		private const int Hp = 10;
+
+		protected override void AddPhases() {
+			base.AddPhases();
+			
+			for (var i = 1; i < Hp; i++) {
+				HealthBar.AddPhase(i / (float) Hp);
+			}
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -34,7 +46,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			AddComponent(new ZComponent());
 			AddComponent(new ZAnimationComponent("dark_mage"));
-			SetMaxHp(20);
+			
+			SetMaxHp(Hp);
 
 			Flying = true;
 		}
@@ -49,12 +62,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		public override void SelectAttack() {
 			Become<IdleState>();
+			
+			Timer.Add(() => {
+				ChangeupRoom();
+			}, 1f);
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent hme && hme.Amount < 0) {
 				hme.Amount = Math.Max(-1, hme.Amount);
-
 				ChangeupRoom();
 			}
 			
@@ -75,7 +91,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 
 			foreach (var e in Area.Entities.Entities) {
-				if (e is WallTorch || e is Torch || e is Prop || e is Entrance || (e is Creature && !(e is Player || e is Boss))) {
+				if (e is WallTorch || e is Torch || e is Prop || e is Entrance || (e is Creature && !(e is Player || e is Boss)) || e is Turret || e is SpawnPoint) {
 					e.Done = true;
 				}
 			}
@@ -107,7 +123,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 			rmdef.PlaceMage(rm, this);
 
 			foreach (var p in Area.Tagged[Tags.Player]) {
+				var s = new SpawnPoint();
+				Area.Add(s);
+
 				rmdef.PlacePlayer(rm, (Player) p);
+				s.Center = p.Center;
 			}
 		}
 

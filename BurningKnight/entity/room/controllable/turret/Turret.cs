@@ -52,7 +52,6 @@ namespace BurningKnight.entity.room.controllable.turret {
 			AddComponent(new AudioEmitterComponent());
 
 			AlwaysActive = true;
-
 			if (Run.Depth == -2) {
 				On = false;
 			}
@@ -79,8 +78,9 @@ namespace BurningKnight.entity.room.controllable.turret {
 				Speed = 1f;
 			}
 
-			if (Run.Depth == -2) {
+			if (Run.Depth == -2 || Run.Depth == Run.ContentEndDepth) {
 				TimingOffset = 0;
+				beforeNextBullet = 0;
 			}
 		}
 
@@ -96,6 +96,11 @@ namespace BurningKnight.entity.room.controllable.turret {
 		public override void PostInit() {
 			base.PostInit();
 			Angle = StartingAngle;
+			
+			if (Run.Depth == Run.ContentEndDepth) {
+				Speed = 2.5f;
+				TimingOffset = 0;
+			}
 		}
 
 		public override void TurnOn() {

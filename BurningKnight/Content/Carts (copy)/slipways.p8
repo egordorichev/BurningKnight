@@ -25,13 +25,13 @@ end
 function qp(y1,y2,...)rectfill(0,y1,127,y2 or y1,...)end
 function fc(x1,y1,x2)rect(x1,y1,x2+1,y1+12,0)rectfill(x1+1,y1+1,x2,y1+11,5)spr(70,x1,y1,1,2)spr(71,x2-2,y1,1,2)end
 function jn(t,x,y,c,a)
-if a then x = x - a*4*#t end
+if (a)x-=a*4*#t
 for _,d in pairs(el)do
 print(t,x+d.x,y+d.y,band(d.c,c))end
 end
 function ke(qz,pw)local f={}
 for e in all(qz)do
-if pw(e) then add(f,e) end
+if (pw(e))add(f,e)
 end
 return f
 end
@@ -41,7 +41,7 @@ add(m,ky(e))end
 return m
 end
 function hu(qz,jx)for e in all(qz)do
-if e==jx then return true end
+if (e==jx)return true
 end
 end
 function kn(a,b)local t={}
@@ -57,16 +57,16 @@ function ob(qs,na)local jq,s,n,lr=
 {},1,1,0
 fh(qs,function(c,i)local sc,qh=sub(qs,s,s),i+1
 if c=="(" then
-lr = lr + 1
+lr+=1
 elseif c==")" then
-lr = lr - 1
+lr-=1
 elseif lr==0 then
 if c=="=" then
 n,s=sub(qs,s,i-1),qh
 elseif c=="," and s<i then
-jq[n]=sc=='"'and sub(qs,s+1,i-2)or sub(qs,s+1,s+1)=="("and nr(pu[sc],ob(sub(qs,s+2,i-2)..","))or sc~="f"and band(sub(qs,s,i-1)+0,0xffff.fffe)s=qh
-if type(n)=="number" then n = n + 1 end
-elseif sc~='"'and c==" " or c=="\n" then
+jq[n]=sc=='"'and sub(qs,s+1,i-2)or sub(qs,s+1,s+1)=="("and nr(pu[sc],ob(sub(qs,s+2,i-2)..","))or sc!="f"and band(sub(qs,s,i-1)+0,0xffff.fffe)s=qh
+if (type(n)=="number")n+=1
+elseif sc!='"'and c==" " or c=="\n" then
 s=qh
 end
 end
@@ -79,7 +79,7 @@ return rs
 end
 hp="abcdefghijklmnopqrstuvwxyz0123456789 ().,=-+_/\"'?%\n"function unstash(nk)local s=""repeat
 local i=peek(nk)s=s..sub(hp,i,i)
-nk = nk + 1
+nk+=1
 until i==0
 return s
 end
@@ -136,7 +136,7 @@ function cq()local a=0x5000
 for p=0,15 do
 for c=0,15 do
 poke(a,bor(sget(p,c),c==3 and 0x80))
-a = a + 1
+a+=1
 end
 end
 end
@@ -155,14 +155,14 @@ o(x=0,y=0,c=15),
 mz,jh,pc=
 rh(),lu(),ui()end
 function mc(e)add(hs,e)for p in all(bj)do
-if e[p] then gk(cu,p,e) end
+if (e[p])gk(cu,p,e)
 end
 for t in all(e.pd)do
 gk(by,t,e)end
 return e
 end
 function he(e)del(hs,e)for p in all(bj)do
-if e[p] then del(cu[p],e) end
+if (e[p])del(cu[p],e)
 end
 for t in all(e.pd)do
 del(by[t],e)end
@@ -177,7 +177,7 @@ if fn then
 fn(qi,qi.t)end
 if qi.oo then
 he(qi)end
-qi.t = qi.t + 1
+qi.t+=1
 end
 end
 km=ks:jt([[
@@ -192,7 +192,7 @@ for _,qi in pairs(cu[ow])do
 gk(fl,qi.er,qi)
 end
 for o=1,15 do
-if ow=="kd" and fl[o] then mz:nd(cm[o]) end
+if (ow=="kd" and fl[o])mz:nd(cm[o])
 for _,qi in pairs(fl[o]or {})do
 qi[ow](qi,qi.qk)
 end
@@ -263,7 +263,7 @@ function lc:ov()self.nf=nf(lm(self,"nf"))self.nb=self.nf.w+2
 self.lh=qt(0,-1,self.nb,11)self.hy=self.hy and nf(self.hy)self.jj=self.jj and jj(self.jj)end
 function lc:ox()if self.qd then
 local d=self.qd-self.qk
-self.qk = self.qk + (#d<=1 and d or d*0.4)
+self.qk+=(#d<=1 and d or d*0.4)
 end
 end
 function lc:ev()if self.jj and self.mu then
@@ -283,24 +283,24 @@ bs=kn({{nf={p.fd,c=13}}},bs)end
 qo(p.eo or 62)local qk=p.ho or p.qk
 local bp=qk+v(0,0)pc:cl()pc.kj=og(bs,function(b)b.qk,b.qd,b.er=
 qk,bp,p.ch
-bp = bp + p.fr
+bp+=p.fr
 return lc(b)end)
-if p.fy then pc.kj={} end
+if (p.fy)pc.kj={}
 end
 nf=ks:jt()function nf:ov()local w,s,fs,f,fw=0,0
 self.fs=og(self,function(f)f,fw,fs=self:mr(f)local x=w
-w = w + fw+fs
+w+=fw+fs
 return {fn=f,d=v(x,0)}
 end)self.w=w-fs
 end
 function nf:qa(p,a)
-if a then p = p - v(a*self.w,0) end
+if (a)p-=v(a*self.w,0)
 for f in all(self.fs)do
 f.fn(p+f.d)end
 end
 function nf:mr(f)local w,rl,qj,fn=6,0
 if type(f)=="table" then
-if f.qm then f={f.qm,5} end
+if (f.qm)f={f.qm,5}
 f,w,rl,qj=f[1],f[2],f[3]or rl,f[4]
 end
 if type(f)=="string" then
@@ -315,11 +315,11 @@ pu.ld=nf.qa
 jj=ks:jt()function jj:ov()self.ls=og(self,function(ln)
 return nf(type(ln)=="string" and {ln}or ln)end)end
 function jj:qa(od,a)local h=#self*8+2
-local od = od - h*a
+local od-=h*a
 local dn=od+h
-fillp(0xf0f)qp(od,dn,0x10)fillp()for l in all(self.ls)do
+fillp(0b0000111100001111)qp(od,dn,0x10)fillp()for l in all(self.ls)do
 l:qa(v(64,od+2),0.5)
-od = od + 8
+od+=8
 end
 end
 gg=km:jt([[
@@ -329,11 +329,11 @@ hv=1,
 return true
 end
 function qo(no)
-if no and not h_ then sfx(no,3) end
+if (no and not h_)sfx(no,3)
 end
 function ie(oh,b)
 return function(me)local v=rnd(1-abs(b))+max(b,0)
-b = b + (0.5-v)*oh
+b+=(0.5-v)*oh
 return v
 end
 end
@@ -371,7 +371,7 @@ mset(x,y,rnd()<0.004
 and 122+rnd(5)or bg.pb[flr(vh+rnd(4))])end
 end
 end
-function bg:kd()map(0,0,0,0,32,32)fillp(0xa5a5)for xy=3,262,32 do
+function bg:kd()map(0,0,0,0,32,32)fillp(0b1010010110100101)for xy=3,262,32 do
 rectfill(xy,0,xy,262,1)rectfill(0,xy,262,xy)end
 fillp()rect(0,0,262,262,5)end
 function bg:ldown(mp)
@@ -464,7 +464,7 @@ hq
 self.kh=og(hq.i,ma)self.kg={qm=hq.o,lp=0}
 end
 function kk:kw(sw)add(self.nq,sw)
-if sw:ea(self).fo then self.fo=true end
+if (sw:ea(self).fo)self.fo=true
 self:jz()end
 function kk:jz()self.lo=1.25
 end
@@ -505,11 +505,11 @@ for w in all(self.nq)do
 local mo={t=trade({mj={self},rq={w},qm=qm
 }),lp=lp-#ib,kw=function(self,a)if not hu(ib,a)then
 add(ib,a)
-self.lp = self.lp - 1
+self.lp-=1
 end
 end
 }
-if mo.lp==0 then break end
+if (mo.lp==0)break
 w:ea(self):cj(mo)end
 return ib
 end
@@ -518,7 +518,7 @@ ic({qk=self.qk,mi(self.lk,10,"$")})end
 end
 function kk.eu(is,o,ku,m_,d
 )
-if not o then return end
+if (not o)return
 local l,js,ni=
 {},#is>=3 and 1 or 0,o==r.w and {25,23}or {o}
 local ph=ku*#ni>=3
@@ -540,14 +540,14 @@ return nf(l)end
 function kk:hl()self.nf=kk.eu(self.kh,self.kg.qm,self.kg.lp,#self.ca,0
 )end
 function kk:kd(p)
-if not fj(self) then return end
+if (not fj(self))return
 p=lo(p,self)if self.mb=="ki" and rnd(30)<self.t-30 then
 return
 end
 circfill(p.x,p.y,7,0)ec(self.rl)palt(3,false)palt(0,true)spr(self.qb and self.qb.s or self.s or 43,p.x-4,p.y-4,2,2)ec()if self:fi()then
 circ(p.x,p.y,6,kk.la[self.mh])spr(self.mh+1,p.x-3,p.y-6)end
 lm(self.nf,"qa",p+v(0,7),0.5)if self.gj then
-fillp(0xaaaa.8)circfill(p.x,p.y,sqrt(self.gj.eb)*128,2)fillp()self.gj=nil
+fillp(0b1010101010101010.1)circfill(p.x,p.y,sqrt(self.gj.eb)*128,2)fillp()self.gj=nil
 end
 end
 function bq(self,mp,rp)self.qk,self.p=mp,mp/128
@@ -556,13 +556,13 @@ o_<self.eb and c or
 ke(by.jm,function(sw)
 return be(sw.qu.p,sw.ro.p,self.p,0.0032)end)[1]or
 not ui.gz(rp)and {}
-if self.ez then self.ez.gj=self end
+if (self.ez)self.ez.gj=self
 end
 function dd(self)if self.mb=="kf" then
 local mp,t=jh.qk
 if self.ez then
 t=self.ez.qs
-if not t then spr(31,mp.x-3,mp.y-8) end
+if (not t)spr(31,mp.x-3,mp.y-8)
 elseif self.pj then
 t=self.pj.."$"end
 jn(t or "",mp.x,mp.y-8,8,0.5)end
@@ -576,14 +576,14 @@ qo(57)self.oo=true
 end
 end
 function lq(self,t)
-self.qk.y = self.qk.y + sin(t*0.005)*0.06
+self.qk.y+=sin(t*0.005)*0.06
 end
 ms=km:jt([[
 pd=o("ms"),
 er=14,
 qr=5,
 ]])function ms:ov()
-if kx then kx.oo=true end
+if (kx)kx.oo=true
 kx=self
 end
 function ms:ev()local t=self.t/self.qr-10
@@ -633,7 +633,7 @@ self.mv and 2 or 4
 end
 function jm:ey(ro)if not ro
 or not eg(self)then
-if stat(19)==50 then qo(-1) end
+if (stat(19)==50)qo(-1)
 self.oo=true
 return
 end
@@ -644,7 +644,7 @@ if #(sp-dp)>pn("space folding",0.5,1.08)then
 return {qs="-too far-"}
 end
 for w in all(self.qu.nq)do
-if w:ea(self.qu)==self.ro then return w end
+if (w:ea(self.qu)==self.ro)return w
 end
 local dm=kn(ke(by.oi,function(n)
 return be(sp,dp,n.p,0.0032)end),ke(by.jm,function(sw)
@@ -668,39 +668,39 @@ end
 function jm:kd()if fj(self.qu)or fj(self.ro)then
 local ju=
 self.jo[self.mq]
-if self.mq<20 then self.mq = self.mq + 1 end
+if (self.mq<20)self.mq+=1
 local c,bc,tc=
 (self.ez or self.gj)and 2 or self.mv and 0 or ju,self.mv and ju or 0,self.mv and 5 or 13
 self:kt(-1,2,3,bc)self:kt(0,1,1,c)for _,t in pairs(self.ts)do
-t.qk = t.qk + t.v
-t.l = t.l - 1
-if t.l<=0 then del(self.ts,t) end
+t.qk+=t.v
+t.l-=1
+if (t.l<=0)del(self.ts,t)
 local x,y=t.qk.x,t.qk.y
 rectfill(x,y,x+1,y+1,0)pset(x,y,tc)end
 self:ce(self.qu,self.ro)self:ce(self.ro,self.qu)end
 self.gj=nil
 end
 function jm:ev()
-if self.qu~=self.ro then dd(self) end
+if (self.qu~=self.ro)dd(self)
 end
 function gp(self)self.rr={}
 end
 function ep(self,n)while rnd()<n do
 add(self.rr,self:lx())
-n = n - 1
+n-=1
 end
 end
 function ei(self)
-if self.er<10 and not fj(self) then return end
+if (self.er<10 and not fj(self))return
 local cx,cy,rc,ri,rk,rn,cs=
 self.qk.x,self.qk.y,self.rc,self.ri,self.rk,self.rn,self.jo
 for _,p in pairs(self.rr)do
 local pv=p.v
-p.p = p.p + pv
+p.p+=pv
 p.v.x=rc*pv.x+rk*pv.y
 p.v.y=ri*pv.x+rn*pv.y
-if p.a then p.v = p.v + p.a end
-p.l = p.l - 0.14
+if (p.a)p.v+=p.a
+p.l-=0.14
 if p.l<=1 then
 del(self.rr,p)else
 pset(cx+p.p.x,cy+p.p.y,cs[flr(p.l)])end
@@ -852,7 +852,7 @@ nz.np[i][1]=p
 end
 ee()end
 function nz:kd()bi(kn(nz.hz,nz.np))if self.gv then
-self.gv = self.gv + 0.2
+self.gv+=0.2
 local h=min(self.gv,3.2)^2
 qp(0,h,0)qp(127-h,127)end
 end
@@ -863,7 +863,7 @@ iw[2][1],iw[3]=
 if nv then
 local t=90
 function iw.kq()
-t = t - 1
+t-=1
 return t>0
 end
 end
@@ -927,11 +927,11 @@ eh=v(118,120),
 function iy:hl()if not self.kl and oa(self.km.q_)then
 self.qk,self.kl=
 iy.hi,true
-iy.hi = iy.hi - v(10,0)
+iy.hi-=v(10,0)
 end
 end
 function iy:ldown(mp)
-iy.id = iy.id + 1
+iy.id+=1
 return self.km({id="s"..iy.id
 })end
 function iy:kd(p)if self.kl then
@@ -945,8 +945,8 @@ l=0,v=v(0,-0.34),
 ]])function ic:ov()self.qk=self.qk or
 jh.qk+mz.qk-v(0,5)end
 function ic:ox()
-self.qk = self.qk + self.v
-self.l = self.l + 0.1
+self.qk+=self.v
+self.l+=0.1
 self.oo=self.l>=5
 end
 function ic:kd(p)ec(self.l)jn(self[1],p.x,p.y,self[2],0.5)ec()end
@@ -1079,7 +1079,7 @@ i_=-0.06,nx=6,lw=3,
 ]])function gd:ov()gp(self)ep(self,140)mz.lo=3
 end
 function gd:lx()local re=rnd(1.5)+0.5
-if rnd()<0.6 then re=flr(re/0.5)*0.5 end
+if (rnd()<0.6)re=flr(re/0.5)*0.5
 local p=qn(re,rnd())
 return {p=p,v=p*self.lw,a=p*self.i_,l=rnd(self.nx)+self.nx
 }
@@ -1133,11 +1133,11 @@ qk=v(192,192),
 po=o(v(-1,0),v(1,0),v(0,-1),v(0,1)),
 ]])function rh:ox()local ih=v(0,0)for b=0,3 do
 if btn(b)or btn(b,1)then
-ih = ih + self.po[b+1]*3
+ih+=self.po[b+1]*3
 end
 end
-self.p = self.p + self.v
-self.v = self.v + (ih-self.v)*0.2
+self.p+=self.v
+self.v+=(ih-self.v)*0.2
 self.p.x=mid(-64,320,self.p.x)self.p.y=mid(-64,320,self.p.y)self.qk=lo(self.p,self)end
 function rh:nd(fq)local cp=self.qk*(fq or 1)camera(cp.x,cp.y)end
 gq=hj:jt([[
@@ -1201,15 +1201,15 @@ invented=o(),
 mt=1,yr=3401,
 ]]))end
 function iu:oc(hw)local ka=pn("time compression",12,15)
-self.mt = self.mt + hw
+self.mt+=hw
 self:jv()if self.mt>ka then
-self.mt = self.mt - ka
+self.mt-=ka
 self:hn()end
 end
 function iu:hn()
-self.ok = self.ok + self.fp
-self.ix = self.ix + self.pa[r.k]+1
-self.yr = self.yr + 1
+self.ok+=self.fp
+self.ix+=self.pa[r.k]+1
+self.yr+=1
 self:jv()for e in all(cu.hn)do
 e:hn(self.yr)end
 end
@@ -1217,7 +1217,7 @@ function iu:mk(kc)if self.ok<kc then
 ic({"-no money-",8})
 return
 end
-self.ok = self.ok - kc
+self.ok-=kc
 if kc~=0 then
 ic({mi(-kc,10,"$")})end
 return true
@@ -1228,7 +1228,7 @@ bv(),ck()local ds=0
 for p in all(by.kk)do
 p.lk=flr(cv(p)-
 co(p))
-ds = ds + p.lk
+ds+=p.lk
 end
 self.fp=flr(ds*pn("skill implants",1,1.15))- cz()self.happiness=
 bh()self.gw=
@@ -1243,13 +1243,13 @@ return p
 end
 function bv()local p=ci(0)for pt in all(by.kk)do
 if pt.kh then
-p[pt.kg.qm] = p[pt.kg.qm] + pt.kg.lp
+p[pt.kg.qm]+=pt.kg.lp
 end
 end
 return p
 end
 function ck()local d=ci(1)for l in all(by.rt)do
-d[l.kh[#l.kh].qm] = d[l.kh[#l.kh].qm] - 0.15
+d[l.kh[#l.kh].qm]-=0.15
 end
 return d
 end
@@ -1288,16 +1288,16 @@ end
 return jc
 end
 function dl(pt)
-if pt.mb~="mn" then return 0 end
+if (pt.mb~="mn")return 0
 local ji=1
 for i in all(pt.kh)do
 i.fz=
 #ke(pt.cc,function(im)
 return im.qm==i.qm
 end)
-ji = ji * i.fz
+ji*=i.fz
 end
-if ji==0 then return 1 end
+if (ji==0)return 1
 if pt.pm then
 return min(#ke(pt.kh,function(i)
 return i.fz>0
@@ -1326,11 +1326,11 @@ local total=0
 for e in all(pt.ca)do
 local os=e:to()
 if os.hc then
-total = total + dg.trade*pt.ht*(1+da[pt.mh]+da[os.mh])
+total+=dg.trade*pt.ht*(1+da[pt.mh]+da[os.mh])
 end
 end
 if pt.kg.qm==r.w then
-total = total + pt.kg.lp*dg.trade*1.5
+total+=pt.kg.lp*dg.trade*1.5
 end
 return total
 end
@@ -1339,7 +1339,7 @@ function lg()
 local dq=0
 for pt in all(by.kk)do
 if pt:fi()then
-dq = dq + bz[pt.mh]
+dq+=bz[pt.mh]
 end
 end
 local fk=
@@ -1368,7 +1368,7 @@ gn.pa[r.w]
 )
 for pt in all(by.kk)do
 if pt:fi()then
-h = h + c_[pt.mh]
+h+=c_[pt.mh]
 end
 end
 return h
@@ -1411,7 +1411,7 @@ kk.eu(self.i,self.o,max(self:pa()[1],1),0,1
 return l
 end
 function hq:jj()
-if self.ip then return end
+if (self.ip)return
 local it
 for i in all(self.i)do
 it=(it and it.."," or "")..ij[tostr(i.qm)]
@@ -1424,10 +1424,10 @@ or qf
 end
 function hq:pj()local pj=self.f_
 if self.iq and oa(self.iq)then
-pj = pj * 1.5
+pj*=1.5
 end
 if not self.ip and oa("nanomaterials")then
-pj = pj * 0.85
+pj*=0.85
 end
 return flr(pj)end
 gc,q_={}
@@ -1443,11 +1443,11 @@ du=ob(unstash(9807))lz=ob(unstash(10457))foreach(lz,hb(lz,ob([["n_","lv","qb","p
 ))
 e_=ob([[2,4,7,12,]])
 function iu:jw(t)
-self.ix = self.ix - ga(t)
+self.ix-=ga(t)
 add(self.invented,t.n_)
 if self.es<4
 and #self.invented>=e_[self.es]then
-self.es = self.es + 1
+self.es+=1
 end
 self:jv()
 end

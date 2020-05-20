@@ -16,6 +16,7 @@ namespace BurningKnight.entity.room.controller {
 			Add<PistonActivatorController>("piston_activator");
 			Add<TrapRoomController>("trap");
 			Add<ChallengeRoomController>("challenge");
+			Add<BossRoomController>("boss_room");
 		}
 		
 		public static void Add(string id, Func<RoomController> maker, Mod mod = null) {

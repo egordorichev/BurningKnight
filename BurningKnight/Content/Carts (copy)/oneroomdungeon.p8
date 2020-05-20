@@ -46,7 +46,7 @@ function _init()
   add_shake(8)
   sfx(13)
   while not btnp(5) do
-   t = t + 0.01
+   t+=0.01
    
    draw_titlescreen()
    flip()
@@ -114,8 +114,8 @@ end
 
 t=0
 function _update()
- t = t + 0.01
- roomt = roomt + 0.01
+ t+=0.01
+ roomt+=0.01
  
  update_objects()
  update_camera()
@@ -124,14 +124,14 @@ function _update()
   local col=collide_objgroup(en,"enemies")
   if col then
    local a=atan2(col.x-en.x,col.y-en.y)
-   en.vx = en.vx - 0.5*cos(a)
-   en.vy = en.vy - 0.5*sin(a)
+   en.vx-=0.5*cos(a)
+   en.vy-=0.5*sin(a)
   end
   
   if player and collide_objobj(en,player) then
    local a=atan2(player.x-en.x,player.y-en.y)
-   en.vx = en.vx - 0.5*cos(a)
-   en.vy = en.vy - 0.5*sin(a)
+   en.vx-=0.5*cos(a)
+   en.vy-=0.5*sin(a)
   end
  end
  
@@ -186,7 +186,7 @@ function take_damage(d)
 end
 
 function update_player(p)
- p.animt = p.animt + 0.01
+ p.animt+=0.01
  
  if p.state=="run" and p.animt%0.03<0.01 and animt_to_step(p.animt,"player","run")==2 then
   sfx(17)
@@ -213,19 +213,19 @@ function update_player(p)
   p.ded=true
  end
  
- p.vx = p.vx * p.dec
- p.vy = p.vy * p.dec
+ p.vx*=p.dec
+ p.vy*=p.dec
  
- if btn(0) then p.vx = p.vx - p.acc end
- if btn(1) then p.vx = p.vx + p.acc end
- if btn(2) then p.vy = p.vy - p.acc end
- if btn(3) then p.vy = p.vy + p.acc end
+ if btn(0) then p.vx-=p.acc end
+ if btn(1) then p.vx+=p.acc end
+ if btn(2) then p.vy-=p.acc end
+ if btn(3) then p.vy+=p.acc end
  
  p.vx=sgn(p.vx)*min(abs(p.vx),p.spdcap)
  p.vy=sgn(p.vy)*min(abs(p.vy),p.spdcap)
  
- p.x = p.x + p.vx
- p.y = p.y + p.vy
+ p.x+=p.vx
+ p.y+=p.vy
  
  stay_in_box(p,
   roomx-roomw*4,
@@ -261,11 +261,11 @@ end
 
 function update_slime(s)
 
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
 
  if s.state=="idle" then
-  s.animt = s.animt + 0.01
+  s.animt+=0.01
   
   if s.animt>=0.2 then
    s.state="jump"
@@ -277,7 +277,7 @@ function update_slime(s)
   end
  else
   if animt_to_step(s.animt,"slime","jump")<anim_get_steps("slime","jump")-1 then
-   s.animt = s.animt + 0.01
+   s.animt+=0.01
   elseif not s.attacking then
    s.vz=-s.jump
    s.attacking=true
@@ -286,8 +286,8 @@ function update_slime(s)
    s.vy=s.spdcap*sin(a)
    s.faceleft=(s.vx<0)
   else
-   s.z = s.z + s.vz
-   s.vz = s.vz + 0.5
+   s.z+=s.vz
+   s.vz+=0.5
    
    if s.z>=0 then
     s.z=0
@@ -302,8 +302,8 @@ function update_slime(s)
  --- you stopped here
  end
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
  stay_in_box(s,
   roomx-roomw*4,
@@ -315,7 +315,7 @@ end
 
 
 function update_chomp(s)
- s.animt = s.animt + 0.01
+ s.animt+=0.01
  
  local a
  if player and s.animt%0.1<0.01 then
@@ -325,19 +325,19 @@ function update_chomp(s)
  
  a=atan2(s.aimx-s.x,s.aimy-s.y)
  
- s.vx = s.vx + s.acc*cos(a)
- s.vy = s.vy + s.acc*sin(a)
+ s.vx+=s.acc*cos(a)
+ s.vy+=s.acc*sin(a)
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
  
  if sqr(s.x-s.rx)+sqr(s.y-s.ry)>sqr(s.reach) then
   a=atan2(s.rx-s.x,s.ry-s.y)
-  s.vx = s.vx + 1*cos(a)
-  s.vy = s.vy + 1*sin(a)
+  s.vx+=1*cos(a)
+  s.vy+=1*sin(a)
  end
  
  if player then
@@ -354,7 +354,7 @@ end
 
 
 function update_skele(s)
- s.animt = s.animt + 0.01
+ s.animt+=0.01
  
  local step=animt_to_step(s.animt,"skele")
  if (not s.attacking) and step==0 then
@@ -368,11 +368,11 @@ function update_skele(s)
   s.attacking=false
  end
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
  
  if player then
   s.faceleft=(player.x<s.x)
@@ -386,8 +386,8 @@ function update_skele(s)
 end
 
 function update_arrow(ar)
- ar.x = ar.x + ar.vx
- ar.y = ar.y + ar.vy
+ ar.x+=ar.vx
+ ar.y+=ar.vy
  
  if stay_in_boxb(ar,
      roomx-roomw*4,
@@ -401,7 +401,7 @@ end
 
 
 function update_bat(s)
- s.animt = s.animt + 0.01
+ s.animt+=0.01
  
  local a
  if player then
@@ -410,17 +410,17 @@ function update_bat(s)
   a=rnd(1)
  end
  
- s.vx = s.vx + s.acc*cos(a)
- s.vy = s.vy + s.acc*sin(a)
+ s.vx+=s.acc*cos(a)
+ s.vy+=s.acc*sin(a)
  
  s.vx=sgn(s.vx)*min(abs(s.vx),s.spdcap)
  s.vy=sgn(s.vy)*min(abs(s.vy),s.spdcap)
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
  
  if player then
   s.faceleft=(s.vx<0)
@@ -435,7 +435,7 @@ end
 
 
 function update_thrower(s)
- s.animt = s.animt + 0.01
+ s.animt+=0.01
  
  local step=animt_to_step(s.animt,"thrower")
  if (not s.attacking) and step==anim_get_steps("thrower")-1 then
@@ -448,11 +448,11 @@ function update_thrower(s)
   s.attacking=false
  end
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
- s.vx = s.vx * s.dec
- s.vy = s.vy * s.dec
+ s.vx*=s.dec
+ s.vy*=s.dec
  
  stay_in_box(s,
   roomx-roomw*4,
@@ -462,21 +462,21 @@ function update_thrower(s)
 end
 
 function update_bomb(s)
- s.animt = s.animt + 0.01
+ s.animt+=0.01
  
  if s.animt>0.5 and s.animt%0.04<0.01 then sfx(15) end
  
- s.z = s.z + s.vz
- s.vz = s.vz + 0.5
+ s.z+=s.vz
+ s.vz+=0.5
  if s.z>=-1 then
   s.z=0
   if abs(s.vz)>1 then
-   s.vz = s.vz * -0.5
+   s.vz*=-0.5
   else
    s.vz=0
   end
-  s.vx = s.vx * s.dec
-  s.vy = s.vy * s.dec
+  s.vx*=s.dec
+  s.vy*=s.dec
  end
  
  local step=animt_to_step(s.animt,"bomb")
@@ -491,8 +491,8 @@ function update_bomb(s)
   delete_registered(s)
  end
  
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
  stay_in_box(s,
   roomx-roomw*4,
@@ -503,8 +503,8 @@ end
 
 
 function update_shapeshift(s)
- s.animt = s.animt + 0.01
- s.kt = s.kt - 0.01
+ s.animt+=0.01
+ s.kt-=0.01
  
  if s.name~="shapeshift" then
   s.shape_update(s)
@@ -582,8 +582,8 @@ function update_shapeshift(s)
    s.spdcap=3
   end
  else
-  s.x = s.x + s.vx
-  s.y = s.y + s.vy
+  s.x+=s.vx
+  s.y+=s.vy
   
   stay_in_box(s,
    roomx-roomw*4,
@@ -602,7 +602,7 @@ function update_tile(ti)
  if player and collide_objobj(ti,player) then
   ti.pressed=true
   mset(flr(ti.x/8)%32,flr(ti.y/8)%32,25+flr(rnd(5)))
-  tiletopress = tiletopress - 1
+  tiletopress-=1
   if tiletopress<=0 then
    sfx(6)
   else
@@ -648,13 +648,13 @@ function update_spawntile(ti)
 end
 
 function update_smoke(s)
- s.x = s.x + s.vx
- s.y = s.y + s.vy
+ s.x+=s.vx
+ s.y+=s.vy
  
- s.vx = s.vx * 0.95
+ s.vx*=0.95
  s.vy=0.95*s.vy+0.05*(-1)
  
- s.r = s.r - 0.05
+ s.r-=0.05
  if s.r<0 then
   delete_registered(s)
  end
@@ -666,7 +666,7 @@ function move_room(d)
 
  add_shake(8)
  
- diff = diff + 0.25
+ diff+=0.25
  roomt=0
 
  local dx,dy=0,0
@@ -718,7 +718,7 @@ function move_room(d)
 
   create_tiles(rmx,rmy)
   
-  player.hpmax = player.hpmax + 1
+  player.hpmax+=1
   music(8,500,4)
   
   diff=flr(diff)
@@ -755,15 +755,15 @@ function move_room(d)
  
  local i=0
  while roomx~=nrx or roomy~=nry do
-  i = i + 1
+  i+=1
   
-  roomx = roomx + dx
-  roomy = roomy + dy
-  player.x = player.x + dx
-  player.y = player.y + dy
+  roomx+=dx
+  roomy+=dy
+  player.x+=dx
+  player.y+=dy
   
-  camx = camx + 0.5*dx
-  camy = camy + 0.5*dy
+  camx+=0.5*dx
+  camy+=0.5*dy
   
   enm=false
   for en in group("enemies") do
@@ -809,8 +809,8 @@ function move_room(d)
  
  add_shake(8)
  
- camx = camx - 8*dx
- camy = camy - 8*dy
+ camx-=8*dx
+ camy-=8*dy
 end
 
 function gen_room(rmx,rmy,dif)
@@ -835,9 +835,9 @@ function gen_room(rmx,rmy,dif)
   end
   
   if loopin and rnd(15)<2 then
-   c = c + flr(rnd(3))*8
+   c+=flr(rnd(3))*8
   else
-   c = c + tileanc
+   c+=tileanc
   end
   
   mset((mx+x)%32,(my+y)%32,c)
@@ -859,7 +859,7 @@ function gen_room(rmx,rmy,dif)
 	 mset(x,y,42)
 	end
    else
-    hppickup = hppickup + 1
+    hppickup+=1
 	if hppickup%2<1 then
      if rnd(4)<1 then
 	  mset(x,y,40)
@@ -882,7 +882,7 @@ function gen_room(rmx,rmy,dif)
   
   if mget(x,y)<24 then
    mset(x,y,30)
-   enems = enems - 1
+   enems-=1
   end
  end
  
@@ -894,7 +894,7 @@ function gen_room(rmx,rmy,dif)
   
   if mget(x,y)<24 then
    mset(x,y,24)
-   topress = topress - 1
+   topress-=1
   end
  end
  
@@ -919,8 +919,8 @@ end
 
 function add_shake(p)
  local a=rnd(1)
- shkx = shkx + p*cos(a)
- shky = shky + p*sin(a)
+ shkx+=p*cos(a)
+ shky+=p*sin(a)
 end
 
 function update_shake()
@@ -928,8 +928,8 @@ function update_shake()
   shkx=0
   shky=0
  else
-  shkx = shkx * -0.6-rnd(0.2)
-  shky = shky * -0.6-rnd(0.2)
+  shkx*=-0.6-rnd(0.2)
+  shky*=-0.6-rnd(0.2)
  end
 end
 
@@ -1036,14 +1036,14 @@ function draw_room(x,y)
    if x==0 then
     local oxx=xx
     xx=max(xx,ax)
-    xw = xw - xx-oxx
-    sx = sx + xx-oxx
+    xw-=xx-oxx
+    sx+=xx-oxx
    end
    if y==0 then
     local oyy=yy
     yy=max(yy,ay)
-    yh = yh - yy-oyy
-    sy = sy + yy-oyy
+    yh-=yy-oyy
+    sy+=yy-oyy
    end
    if x==roomw then
     local xx2=min(xx+8,ax+roomw*8)
@@ -1090,7 +1090,7 @@ function draw_explosion(e)
   delete_registered(e)
  end
  
- e.p = e.p + 1
+ e.p+=1
 end
 
 function init_clear_colors()
@@ -1215,8 +1215,8 @@ end
 
 function draw_healthbar(x,y,al)
  local w=48
- if al==1 then x = x - w/2
- elseif al==2 then x = x - w end
+ if al==1 then x-=w/2
+ elseif al==2 then x-=w end
  
  rectfill(x-1,y-1,x+w+1,y+10+2,0)
  rect(x,y,x+w,y+10,7)
@@ -1239,14 +1239,14 @@ end
 
 function draw_progression(x,y,al)
  local w=58
- if al==1 then x = x - w/2
- elseif al==2 then x = x - w end
+ if al==1 then x-=w/2
+ elseif al==2 then x-=w end
  
  --[[
  local foo=function(ox,oy)
    for i=0,diff/9 do
     spr(200,66+ox,3+oy,8,1)
-	oy = oy + 5
+	oy+=5
    end
    
    if player then
@@ -1273,7 +1273,7 @@ function draw_progression(x,y,al)
  local foo=function(ox,oy)
   for i=0,diff/9 do
    spr(200,x+ox,y+oy,8,1)
-   oy = oy + 5
+   oy+=5
   end
   spr(s,x+ox+ceil((diff/9)%1*57)-3,y-2+oy)
  end
@@ -1292,10 +1292,10 @@ end
 function draw_text(str,x,y,al,extra)
  local al=al or 1
 
- if al==1 then x = x - #str*2-1
- elseif al==2 then x = x - #str*4 end
+ if al==1 then x-=#str*2-1
+ elseif al==2 then x-=#str*4 end
  
- y = y - 3
+ y-=3
  
  if extra then
   print(str,x,y+3,0)
@@ -1796,7 +1796,7 @@ function create_tiles(rmx,rmy)
  for y=0,6 do
   local c=mget((mx+x)%32,(my+y)%32)
   if c==24 then
-   tiletopress = tiletopress + 1
+   tiletopress+=1
    create_tile(rmx-roomw*4+x*8+4,rmy-roomw*4+y*8+4)
   elseif c==30 then
    create_spawntile(rmx-roomw*4+x*8+4,rmy-roomw*4+y*8+4)
@@ -2011,7 +2011,7 @@ function draw_objects()
      local s=dobjs[k]
      dobjs[k]=dobjs[k-1]
      dobjs[k-1]=s
-     k = k - 1
+     k-=1
     end
    end
   end
