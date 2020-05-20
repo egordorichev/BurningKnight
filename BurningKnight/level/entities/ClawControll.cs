@@ -28,24 +28,31 @@ namespace BurningKnight.level.entities {
 			return true;
 		}
 
+		private bool grabbing;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (interacting == null) {
+			if (interacting == null || grabbing) {
 				return;
 			}
 
 			var controller = GamepadComponent.Current;
 
 			if (Input.WasPressed(Controls.UiAccept, controller) || Input.WasPressed(Controls.UiSelect, controller)) {
-				interacting.AddComponent(new PlayerInputComponent());
-				interacting = null;
+				grabbing = true;
+
+				claw.Grab(() => {
+					interacting.AddComponent(new PlayerInputComponent());
+					interacting = null;
+					grabbing = false;
+				});
 
 				return;
 			}
 
 			var body = claw.GetComponent<SensorBodyComponent>().Body;
-			var speed = 360 * dt;
+			var speed = 420 * dt;
 
 			if (Input.IsDown(Controls.Left, controller)) {
 				body.LinearVelocity -= new Vector2(speed, 0);
