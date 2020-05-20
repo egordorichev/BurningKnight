@@ -1125,7 +1125,7 @@ namespace BurningKnight.level {
 			shader.Parameters["h"].SetValue(8f / Tileset.WallTopA.Texture.Height);
 			var sy = shader.Parameters["y"];
 			var enabled = shader.Parameters["enabled"];
-			enabled.SetValue(false);
+			enabled.SetValue(true);
 
 			for (int y = GetRenderTop(camera); y < toY; y++) {
 				for (int x = GetRenderLeft(camera); x < toX; x++) {
@@ -1134,8 +1134,6 @@ namespace BurningKnight.level {
 					if ((Tile) Tiles[index] == Tile.Chasm) {
 						var pos = new Vector2(x * 16, y * 16);
 
-						Graphics.Render(Tilesets.Biome.ChasmPattern, pos);
-						
 						if (active && Rnd.Chance(0.1f)) {
 							Area.Add(new ChasmFx {
 								Position = pos + new Vector2(Rnd.Float(16), Rnd.Float(16))
@@ -1147,9 +1145,19 @@ namespace BurningKnight.level {
 
 							if (tt != Tile.Chasm) {
 								var ind = CalcWallSide(x, y);
+								/*var id = -1;
+
+								if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
+									id += 1;
+								}
+					
+								if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
+									id += 2;
+								}*/
+
 								var tileset = (MatrixLeak[index] ? MatrixTileset : Tileset);
 								TextureRegion textureRegion;
-								
+							
 								switch (tt) {
 									case Tile.WallA: case Tile.Piston: case Tile.PistonDown:
 										textureRegion = tileset.WallA[ind];
@@ -1181,33 +1189,16 @@ namespace BurningKnight.level {
 										textureRegion = tileset.WallB[ind];
 										break;
 								}
-
-								enabled.SetValue(true);								
+								
 								sy.SetValue((float) textureRegion.Source.Y / textureRegion.Texture.Height);
 								Graphics.Render(textureRegion, pos);
-								enabled.SetValue(false);
-								
-								var id = -1;
-
-								if (!IsInside(index + 1 - width) || ((Tile) Tiles[index + 1 - width]).Matches(Tile.Chasm)) {
-									id += 1;
-								}
-					
-								if (!IsInside(index - 1 - width) || ((Tile) Tiles[index - 1 - width]).Matches(Tile.Chasm)) {
-									id += 2;
-								}
-
-								if (id != -1) {
-									Graphics.Render(Tilesets.Biome.ChasmSide[id], pos);
-								}								
 							}
 						}
-					
-						enabled.SetValue(false);
 					}
 				}
 			}
 			
+			enabled.SetValue(false);
 			Shaders.End();
 		}
 		
