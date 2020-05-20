@@ -442,6 +442,7 @@
     <Compile Include="entity\creature\mob\boss\Pharaoh.cs" />
     <Compile Include="entity\creature\mob\boss\QueenBee.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmBulletDodgeRoom.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmEndRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmEnemyRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmMazeRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmPadsRoom.cs" />

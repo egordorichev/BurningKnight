@@ -26,7 +26,8 @@ namespace BurningKnight.entity.creature.mob.boss.rooms {
 		}
 		
 		public override void Paint(Level level, Room room) {
-			Painter.Fill(level, this, Tile.Chasm);
+			Painter.Fill(level, this, Tile.WallA);
+			Painter.Fill(level, this, 1, Tile.Chasm);
 
 			var gap = 2;
 			

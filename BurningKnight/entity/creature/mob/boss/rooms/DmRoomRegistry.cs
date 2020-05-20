@@ -8,7 +8,7 @@ namespace BurningKnight.entity.creature.mob.boss.rooms {
 			typeof(DmBulletDodgeRoom),
 			typeof(DmPlatformRoom),
 			typeof(DmPadsRoom),
-			typeof(DmSpikeRoom),
+			typeof(DmSpikeRoom)
 		};
 	}
 }

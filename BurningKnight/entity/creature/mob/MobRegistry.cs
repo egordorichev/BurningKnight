@@ -27,8 +27,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),
 				
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
-				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
-				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(3f),
+				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				
 				// Desert
