@@ -5,8 +5,9 @@ namespace BurningKnight.entity.creature.mob.boss.rooms {
 		public static Type[] Rooms = {
 			/*typeof(DmEnemyRoom),
 			typeof(DmMazeRoom),
-			typeof(DmBulletDodgeRoom),*/
-			typeof(DmPlatformRoom)
+			typeof(DmBulletDodgeRoom),
+			typeof(DmPlatformRoom),*/
+			typeof(DmPadsRoom)
 		};
 	}
 }

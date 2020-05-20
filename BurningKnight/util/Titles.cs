@@ -35,6 +35,7 @@ namespace BurningKnight.util {
 			"Do you need some heat?",
 			"sqrt(-1) love you!",
 			"Han shot first",
+			"Sneak 100",
 			"BBQ is ready!",
 			"Hot sales!",
 			"AAAAAA",
@@ -142,7 +143,8 @@ namespace BurningKnight.util {
 			"I'm once again asking for your emotional support",
 			"Outstanding move",
 			"Never gonna let you down",
-			"You know the rules and so do I"
+			"You know the rules and so do I",
+			"F"
 		};
 
 		private static string[] birthdayTitles = {

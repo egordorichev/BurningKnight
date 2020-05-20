@@ -315,86 +315,13 @@ namespace BurningKnight.level {
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 					for (var X = Room.Left; X <= Room.Right; X++) {
-						var I = Level.ToIndex(X, Y);
-
 						foreach (var m in Modifiers) {
 							m(Level, Room, X, Y);
 						}
-
-						var rs = !Level.Biome.HasSpikes();
-
-						if (rs) {
-							var tl = (Tile) Level.Tiles[I];
-
-							if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
-								Level.Set(I, Tile.FloorA);
-							}
-						} else {
-							if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new SensingSpikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new Spikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var trap = new FireTrap();
-
-								trap.X = X * 16;
-								trap.Y = Y * 16;
-
-								Level.Area.Add(trap);
-							} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new AlwaysOnSpikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							}
-						}
-
-					if (Level.Tiles[I] == (byte) Tile.Plate) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							Level.Liquid[I] = 0;
-							
-							var plate = new PreasurePlate();
-
-							plate.X = X * 16;
-							plate.Y = Y * 16;
-
-							Level.Area.Add(plate);
-						} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							Level.Liquid[I] = 0;
-							
-							var barrel = new ExplodingBarrel();
-							Level.Area.Add(barrel);
-
-							barrel.CenterX = X * 16 + 8;
-							barrel.Bottom = Y * 16 + 16;
-						}
 					}
 				}
+
+				ReplaceTiles(Level, Room);
 			}
 
 			PathFinder.SetMapSize(Level.Width, Level.Height);
@@ -496,6 +423,87 @@ namespace BurningKnight.level {
 			
 			PlaceMobs(Level, rms);
 			return true;
+		}
+
+		public static void ReplaceTiles(Level Level, RoomDef Room) {
+			for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+				for (var X = Room.Left; X <= Room.Right; X++) {
+					var I = Level.ToIndex(X, Y);
+
+					var rs = !Level.Biome.HasSpikes();
+
+					if (rs) {
+						var tl = (Tile) Level.Tiles[I];
+
+						if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
+							Level.Set(I, Tile.FloorA);
+						}
+					} else {
+						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new SensingSpikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new Spikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var trap = new FireTrap();
+
+							trap.X = X * 16;
+							trap.Y = Y * 16;
+
+							Level.Area.Add(trap);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new AlwaysOnSpikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						}
+					}
+
+				if (Level.Tiles[I] == (byte) Tile.Plate) {
+						Level.Tiles[I] = (byte) Tile.FloorA;
+						Level.Liquid[I] = 0;
+						
+						var plate = new PreasurePlate();
+
+						plate.X = X * 16;
+						plate.Y = Y * 16;
+
+						Level.Area.Add(plate);
+					} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
+						Level.Tiles[I] = (byte) Tile.FloorA;
+						Level.Liquid[I] = 0;
+						
+						var barrel = new ExplodingBarrel();
+						Level.Area.Add(barrel);
+
+						barrel.CenterX = X * 16 + 8;
+						barrel.Bottom = Y * 16 + 16;
+					}
+				}
+			}
 		}
 
 		public static void UpdateTransition(Level Level) {

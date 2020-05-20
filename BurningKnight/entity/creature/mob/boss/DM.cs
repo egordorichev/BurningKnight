@@ -1,10 +1,12 @@
 using System;
+using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss.rooms;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.room;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
@@ -73,7 +75,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent hme && hme.Amount < 0) {
 				hme.Amount = Math.Max(-1, hme.Amount);
-				ChangeupRoom();
+
+				if (GetComponent<HealthComponent>().Health > 1) {
+					ChangeupRoom();
+				}
 			}
 			
 			return base.HandleEvent(e);
@@ -94,7 +99,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			foreach (var e in Area.Entities.Entities) {
 				if (e is WallTorch || e is Torch || e is Prop || e is Entrance || (e is Creature && !(e is Player || e is Boss)) 
-				    || e is Turret || e is SpawnPoint || e is Projectile || e is MovingPlatform) {
+				    || e is Turret || e is SpawnPoint || e is Projectile || e is MovingPlatform || e is RoomControllable) {
 					
 					e.Done = true;
 				}
@@ -117,6 +122,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			rmdef.PaintFloor(level);
 			rmdef.Paint(level, rm);
 
+			Painter.ReplaceTiles(level, rmdef);
+			Painter.UpdateTransition(level);
 			level.TileUp();
 			level.RecreateBody();
 
@@ -183,5 +190,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 		#endregion
+
+		public override void PlaceRewards() {
+			Achievements.Unlock("bk:dm_no_more");
+		}
 	}
 }

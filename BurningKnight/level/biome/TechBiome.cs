@@ -29,7 +29,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasSpikes() {
-			return false;
+			return true;
 		}
 
 		public override int GetNumRegularRooms() {
