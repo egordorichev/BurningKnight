@@ -448,6 +448,7 @@
     <Compile Include="entity\creature\mob\boss\rooms\DmPlatformRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmSpikeRoom.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />

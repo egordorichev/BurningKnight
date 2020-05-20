@@ -9,6 +9,7 @@ using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.turret;
+using BurningKnight.entity.room.controller;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
@@ -20,11 +21,11 @@ using BurningKnight.util.geometry;
 using Lens.entity;
 using Lens.util.math;
 using Lens.util.timer;
-using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class DM : Boss {
 		private const int Hp = 10;
+		private Type prev;
 
 		protected override void AddPhases() {
 			base.AddPhases();
@@ -107,7 +108,21 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			var rm = GetComponent<RoomComponent>().Room;
 			var level = Run.Level;
-			var rmdef = (DmRoom) Activator.CreateInstance(DmRoomRegistry.Rooms[Rnd.Int(DmRoomRegistry.Rooms.Length)]);
+			Type type;
+
+			// do {
+				type = DmRoomRegistry.Rooms[Rnd.Int(DmRoomRegistry.Rooms.Length)];
+			// } while (type == prev);
+
+			prev = type;
+
+			for (var i = rm.Controllers.Count - 1; i >= 0; i--) {
+				if (!(rm.Controllers[i] is BossRoomController)) {
+					rm.Controllers.RemoveAt(i);
+				}
+			}
+			
+			var rmdef = (DmRoom) Activator.CreateInstance(type);
 
 			rm.MapW = Math.Min(Rnd.Int(rmdef.GetMinWidth(), rmdef.GetMaxWidth()), level.Width - 2);
 			rm.MapH = Math.Min(Rnd.Int(rmdef.GetMinHeight(), rmdef.GetMaxHeight()), level.Height - 2);
@@ -121,15 +136,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Painter.Fill(level, rmdef, 1, Tile.FloorA);
 			rmdef.PaintFloor(level);
 			rmdef.Paint(level, rm);
-
-			Painter.ReplaceTiles(level, rmdef);
-			Painter.UpdateTransition(level);
-			level.TileUp();
-			level.RecreateBody();
-
-			for (var i = 0; i < level.Size; i++) {
-				level.Light[i] = 1f;
-			}
 			
 			rmdef.PlaceMage(rm, this);
 
@@ -139,6 +145,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				rmdef.PlacePlayer(rm, (Player) p);
 				s.Center = p.Center;
+			}
+
+			Painter.ReplaceTiles(level, rmdef);
+			Painter.UpdateTransition(level);
+			level.TileUp();
+			level.RecreateBody();
+
+			for (var i = 0; i < level.Size; i++) {
+				level.Light[i] = 1f;
 			}
 		}
 
