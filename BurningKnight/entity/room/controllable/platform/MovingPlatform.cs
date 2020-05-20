@@ -51,7 +51,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			var w = tw * 16;
 			var h = th * 16;
-			var b = new RectBodyComponent(0.5f, 0.5f, w - 1, h - 1);
+			var b = new RectBodyComponent(0.5f, 0.5f - 1, w - 1, h - 1 + 1);
 			AddComponent(b);
 			
 			b.Body.Friction = 0;
@@ -113,7 +113,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 		}
 
 		protected class MovingState : SmartState<MovingPlatform> {
-			private const float Speed = 32;
+			private const float Speed = 48;
 			private bool first = true;
 
 			public override void Init() {
@@ -225,7 +225,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 				case PlatformController.UpDown: {
 					step %= 2;
 
-					if (Math.Abs(velocity.X) < 0.1f) {
+					if (Math.Abs(velocity.Y) < 0.1f) {
 						velocity = directions[1];
 					}
 					

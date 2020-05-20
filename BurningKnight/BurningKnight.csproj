@@ -444,6 +444,7 @@
     <Compile Include="entity\creature\mob\boss\rooms\DmBulletDodgeRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmEnemyRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmMazeRoom.cs" />
+    <Compile Include="entity\creature\mob\boss\rooms\DmPlatformRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />

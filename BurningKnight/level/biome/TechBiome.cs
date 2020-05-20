@@ -51,5 +51,13 @@ namespace BurningKnight.level.biome {
 		public override Builder GetBuilder() {
 			return new LoopBuilder();
 		}
+
+		public override bool HasCobwebs() {
+			return false;
+		}
+
+		public override bool HasTnt() {
+			return false;
+		}
 	}
 }
