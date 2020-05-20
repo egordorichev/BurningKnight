@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss.rooms;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.entity.room;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
@@ -91,7 +92,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 
 			foreach (var e in Area.Entities.Entities) {
-				if (e is WallTorch || e is Torch || e is Prop || e is Entrance || (e is Creature && !(e is Player || e is Boss)) || e is Turret || e is SpawnPoint) {
+				if (e is WallTorch || e is Torch || e is Prop || e is Entrance || (e is Creature && !(e is Player || e is Boss)) || e is Turret || e is SpawnPoint || e is Projectile) {
 					e.Done = true;
 				}
 			}

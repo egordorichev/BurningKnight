@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.boss.rooms {
 
 		public override void Paint(Level level, Room room) {
 			var x = (Right - 2) * 16 - 8;
-			var wall = Tiles.Pick(Tile.WallA, Tile.WallB, Tile.EvilWall);
+			var wall = Tiles.Pick(Tile.WallA, Tile.EvilWall);
 			
 			Painter.DrawLine(level, new Dot(Left + 1, Top + 1), new Dot(Right - 7, Top + 1), wall);
 			Painter.DrawLine(level, new Dot(Left + 1, Bottom - 1), new Dot(Right - 7, Bottom - 1), wall);

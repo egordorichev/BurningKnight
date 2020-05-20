@@ -63,10 +63,10 @@ namespace BurningKnight.entity.room.controllable.platform {
 			right.Setup(this, tw * 16 + 4, 0, 8, th * 16);
 			
 			Area.Add(up = new PlatformBorder());
-			up.Setup(this, 0, -14, tw * 16, 8);
+			up.Setup(this, 0, -8, tw * 16, 8);
 			
 			Area.Add(down = new PlatformBorder());
-			down.Setup(this, 0, th * 16 + 2, tw * 16, 8);
+			down.Setup(this, 0, th * 16 - 2, tw * 16, 8);
 		}
 
 		public override void PostInit() {

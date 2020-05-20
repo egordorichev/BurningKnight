@@ -13,7 +13,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 		public override void PostInit() {
 			base.PostInit();
 			
-			Depth = Layers.UnderFloor;
+			Depth = -1;
 			AlwaysActive = true;
 			startingPoint = Position;
 		}
