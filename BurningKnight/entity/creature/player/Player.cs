@@ -332,7 +332,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (!CheatWindow.NoSleep && T >= 6f) {
+				if (!CheatWindow.NoSleep && T >= 6f && Self.HasComponent<PlayerInputComponent>()) {
 					Become<SittingState>();
 				}
 			}
@@ -355,7 +355,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 24f) {
+				if (T >= 24f && Self.HasComponent<PlayerInputComponent>()) {
 					Become<SleepingState>();
 				}
 			}

@@ -25,8 +25,12 @@ namespace Lens.graphics.animation {
 		public uint Frame {
 			get => currentFrame;
 			set {
-				currentFrame = value % TagSize;
-				ReadFrame();
+				var v = value % TagSize;
+
+				if (v != currentFrame) {
+					currentFrame = v;
+					ReadFrame();
+				}
 			}
 		}
 

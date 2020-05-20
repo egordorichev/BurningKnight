@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss.rooms;
@@ -27,8 +29,8 @@ using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class DM : Boss {
-		private const int Hp = 5;
-		private Type prev;
+		private const int Hp = 6;
+		private List<Type> did = new List<Type>();
 
 		protected override void AddPhases() {
 			base.AddPhases();
@@ -125,12 +127,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 					if (GetComponent<HealthComponent>().Health <= 0) {
 						type = typeof(DmEndRoom);
 					} else {
-						do {
-							type = DmRoomRegistry.Rooms[Rnd.Int(DmRoomRegistry.Rooms.Length)];
-						} while (type == prev);
-					}
+						var arr = DmRoomRegistry.Rooms.ToList();
 
-					prev = type;
+						foreach (var t in did) {
+							arr.Remove(t);
+						}
+						
+						type = arr[Rnd.Int(arr.Count)];
+						did.Add(type);
+					}
 
 					for (var i = rm.Controllers.Count - 1; i >= 0; i--) {
 						if (!(rm.Controllers[i] is BossRoomController)) {

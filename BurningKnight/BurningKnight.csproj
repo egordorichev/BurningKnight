@@ -622,6 +622,8 @@
     <Compile Include="entity\door\LockableDoor.cs" />
     <Compile Include="entity\door\LockedDoor.cs" />
     <Compile Include="entity\door\PayedDoor.cs" />
+    <Compile Include="entity\door\RedDoor.cs" />
+    <Compile Include="entity\door\RedLock.cs" />
     <Compile Include="entity\door\ScourgedDoor.cs" />
     <Compile Include="entity\door\ShopDoor.cs" />
     <Compile Include="entity\door\SpecialDoor.cs" />
@@ -958,6 +960,7 @@
     <Compile Include="level\cutscene\CutsceneRoom.cs" />
     <Compile Include="level\DoorPlaceholder.cs" />
     <Compile Include="level\entities\AchievementStatue.cs" />
+    <Compile Include="level\entities\Belt.cs" />
     <Compile Include="level\entities\BreakableProp.cs" />
     <Compile Include="level\entities\building\Thing.cs" />
     <Compile Include="level\entities\building\House.cs" />
@@ -973,8 +976,11 @@
     <Compile Include="level\entities\chest\GoldChest.cs" />
     <Compile Include="level\entities\chest\RedChest.cs" />
     <Compile Include="level\entities\chest\StoneChest.cs" />
+    <Compile Include="level\entities\chest\TreasureChest.cs" />
     <Compile Include="level\entities\chest\TripleChest.cs" />
     <Compile Include="level\entities\chest\WoodenChest.cs" />
+    <Compile Include="level\entities\Claw.cs" />
+    <Compile Include="level\entities\ClawControll.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
     <Compile Include="level\entities\DailySign.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
@@ -983,6 +989,7 @@
     <Compile Include="level\entities\decor\Torch.cs" />
     <Compile Include="level\entities\decor\Tree.cs" />
     <Compile Include="level\entities\decor\WallTorch.cs" />
+    <Compile Include="level\entities\DownBelt.cs" />
     <Compile Include="level\entities\Entrance.cs" />
     <Compile Include="level\entities\Exit.cs" />
     <Compile Include="level\entities\exit\BossRushExit.cs" />
@@ -1001,6 +1008,7 @@
     <Compile Include="level\entities\plant\PlantGraphicsComponent.cs" />
     <Compile Include="level\entities\Portal.cs" />
     <Compile Include="level\entities\Prop.cs" />
+    <Compile Include="level\entities\RightBelt.cs" />
     <Compile Include="level\entities\Safe.cs" />
     <Compile Include="level\entities\ShadowedProp.cs" />
     <Compile Include="level\entities\Sign.cs" />
@@ -1019,6 +1027,7 @@
     <Compile Include="level\entities\statue\Well.cs" />
     <Compile Include="level\entities\Teleporter.cs" />
     <Compile Include="level\entities\Tombstone.cs" />
+    <Compile Include="level\entities\UpBelt.cs" />
     <Compile Include="level\Flag.cs" />
     <Compile Include="level\floors\BathFloor.cs" />
     <Compile Include="level\floors\ChessFloor.cs" />
@@ -1092,6 +1101,7 @@
     <Compile Include="level\rooms\secret\SecretChestRoom.cs" />
     <Compile Include="level\rooms\secret\SecretDarkMarketEntranceRoom.cs" />
     <Compile Include="level\rooms\secret\SecretItemRoom.cs" />
+    <Compile Include="level\rooms\secret\SecretKeyRoom.cs" />
     <Compile Include="level\rooms\secret\SecretMachineRoom.cs" />
     <Compile Include="level\rooms\secret\SecretRoom.cs" />
     <Compile Include="level\rooms\secret\SecretScourgeRoom.cs" />
@@ -1107,6 +1117,7 @@
     <Compile Include="level\rooms\special\IdolTrapRoom.cs" />
     <Compile Include="level\rooms\special\LockedRoom.cs" />
     <Compile Include="level\rooms\special\minigame\ChestMinigameRoom.cs" />
+    <Compile Include="level\rooms\special\minigame\ClawMinigameRoom.cs" />
     <Compile Include="level\rooms\special\NpcKeyRoom.cs" />
     <Compile Include="level\rooms\special\NpcSaveRoom.cs" />
     <Compile Include="level\rooms\special\npc\DuckRoom.cs" />

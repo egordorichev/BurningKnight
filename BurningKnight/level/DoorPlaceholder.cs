@@ -30,6 +30,7 @@ namespace BurningKnight.level {
 			Locked,
 			Treasure,
 			Shop,
+			Red,
 			Challenge,
 			Spiked,
 			Scourged,

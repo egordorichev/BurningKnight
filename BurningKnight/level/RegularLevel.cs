@@ -12,6 +12,7 @@ using BurningKnight.level.rooms.scourged;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
+using BurningKnight.level.rooms.special.minigame;
 using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.tile;
@@ -157,6 +158,12 @@ namespace BurningKnight.level {
 			Log.Info($"Generating a level for {biome.Id} biome");
 			
 			rooms.Add(new EntranceRoom());
+
+			if (Run.Depth == 2) {
+				rooms.Add(new SecretKeyRoom());
+			} else if (Run.Depth == 4) {
+				rooms.Add(new ClawMinigameRoom());
+			}
 
 			if (!final) {
 				var cn = LevelSave.XL ? 2 : 1;

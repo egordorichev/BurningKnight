@@ -1072,6 +1072,10 @@ namespace BurningKnight.level {
 						door = new SpecialDoor();
 						break;
 					
+					case DoorPlaceholder.Variant.Red: 
+						door = new RedDoor();
+						break;
+					
 					case DoorPlaceholder.Variant.Boss: 
 						door = new BossDoor();
 						break;
