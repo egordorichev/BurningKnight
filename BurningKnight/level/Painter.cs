@@ -596,46 +596,54 @@ namespace BurningKnight.level {
 				}
 			}
 
-			PathFinder.SetMapSize(w, h);
+			var hasDoors = parent.Connected.Count > 0;
+			Dot start = null;
+			
+			if (hasDoors) {
+				PathFinder.SetMapSize(w, h);
 
-			var door = parent.Connected.Values.First();
-			var start = new Dot(door.X, door.Y);
+				var door = parent.Connected.Values.First();
+				start = new Dot(door.X, door.Y);
 
-			if ((int) start.X == parent.Left) {
-				start.X++;
-			} else if ((int) start.Y == parent.Top) {
-				start.Y++;
-			} else if ((int) start.X == parent.Right) {
-				start.X--;
-			} else if ((int) start.Y == parent.Bottom) {
-				start.Y--;
+				if ((int) start.X == parent.Left) {
+					start.X++;
+				} else if ((int) start.Y == parent.Top) {
+					start.Y++;
+				} else if ((int) start.X == parent.Right) {
+					start.X--;
+				} else if ((int) start.Y == parent.Bottom) {
+					start.Y--;
+				}
+
+				PathFinder.BuildDistanceMap(toIndex(start.X, start.Y), BArray.Not(patch, null));
 			}
-			
-			PathFinder.BuildDistanceMap(toIndex(start.X, start.Y), BArray.Not(patch, null));
-			
+
 			for (var y = parent.Top + 1; y < parent.Bottom; y++) {
 				for (var x = parent.Left + 1; x < parent.Right; x++) {
-					var i = toIndex(x, y);
+					if (hasDoors) {
+						var i = toIndex(x, y);
 
-					if (patch[i] || PathFinder.Distance[i] == Int32.MaxValue) {
-						continue;
-					}
-					
-					var found = false;
-
-					foreach (var dr in parent.Connected.Values) {
-						var dx = (int) (dr.X - x);
-						var dy = (int) (dr.Y - y);
-						var d = (float) Math.Sqrt(dx * dx + dy * dy);
-
-						if (d < 4) {
-							found = true;
-							break;
+						if (patch[i] || PathFinder.Distance[i] == Int32.MaxValue) {
+							continue;
 						}
-					}
 
-					if (found) {
-						continue;
+						var found = false;
+
+						foreach (var dr in parent.Connected.Values) {
+							var dx = (int) (dr.X - x);
+							var dy = (int) (dr.Y - y);
+							var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+							if (d < 4) {
+								found = true;
+
+								break;
+							}
+						}
+
+						if (found) {
+							continue;
+						}
 					}
 
 					if (room.Type == RoomType.Boss) {

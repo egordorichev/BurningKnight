@@ -41,13 +41,13 @@ namespace BurningKnight.entity.room.controller {
 						var f = 0f;
 
 						if (variant < 2) {
-							f = (x + y) / 3;
+							f = (x + y) / 2;
 						} else if (variant < 4) {
-							f = (x - y) / 3;
+							f = (x - y) / 2;
 						} else if (variant < 6) {
-							f = x / 3;
+							f = x / 2;
 						} else {
-							f = y / 3;
+							f = y / 2;
 						}
 
 						c.SetState(((int) (f + T * 0.5f * (variant % 2 == 0 ? 1 : -1)) % 2) == 0);

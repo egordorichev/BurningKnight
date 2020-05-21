@@ -19,6 +19,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
 using Lens;
@@ -29,7 +30,7 @@ using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class DM : Boss {
-		private const int Hp = 6;
+		private const int Hp = 5;
 		private List<Type> did = new List<Type>();
 
 		protected override void AddPhases() {
@@ -66,11 +67,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 			base.OnTargetChange(target);
 
 			if (target != null) {
+				if (GetComponent<HealthComponent>().Health > 1) {
+					GetComponent<DialogComponent>().StartAndClose("dm_7", 2f);
+				}
+
 				SelectAttack();
 			}
 		}
 
 		public override void SelectAttack() {
+			base.SelectAttack();
 			Become<IdleState>();
 			
 			Timer.Add(() => {
@@ -145,6 +151,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					var rmdef = (DmRoom) Activator.CreateInstance(type);
 
+					rm.Parent = rmdef;
 					rm.MapW = Math.Min(Rnd.Int(rmdef.GetMinWidth(), rmdef.GetMaxWidth()), level.Width - 2);
 					rm.MapH = Math.Min(Rnd.Int(rmdef.GetMinHeight(), rmdef.GetMaxHeight()), level.Height - 2);
 					rm.MapX = (int) Math.Ceiling((level.Width - rm.MapW) / 2f);
@@ -192,7 +199,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public class IdleState : SmartState<DM> {
 			public override void Init() {
 				base.Init();
-				Self.TouchDamage = 2;
+				Self.TouchDamage = 0;
 			}
 
 			public override void Update(float dt) {
@@ -218,7 +225,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Destroy() {
 				base.Destroy();
 				
-				Self.TouchDamage = 2;
+				Self.TouchDamage = 0;
 				Self.GetComponent<HealthComponent>().Unhittable = false;
 				
 				Self.GetComponent<ZAnimationComponent>().Tint.A = 255;

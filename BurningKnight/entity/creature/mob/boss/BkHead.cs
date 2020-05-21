@@ -385,6 +385,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		#endregion
 
 		public override void PlaceRewards() {
+			if (saved) {
+				base.PlaceRewards();
+			}
+			
 			Achievements.Unlock("bk:bk_no_more");
 		}
 
@@ -401,6 +405,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			saved = true;
 			Done = true;
+			PlaceRewards();
 		}
 		
 		protected override void CreateGore(DiedEvent d) {
