@@ -16,3 +16,16 @@
 * Announcement in other discords (indikator, etc)
 * Key giveaways on discord
 * Steam Curators
+
+# Subredit advice
+
+Unity3D
+Unity2D
+(or whatever engine you're using)
+gamedev
+indiedev
+indiegaming
+indiegames
+gaming
+gamedevscreens
+itchio

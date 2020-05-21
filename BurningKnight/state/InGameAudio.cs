@@ -7,6 +7,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using Lens.assets;
@@ -122,7 +123,7 @@ namespace BurningKnight.state {
 				switch (re.New.Type) {
 					case RoomType.Boss: {
 						if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
-							Audio.PlayMusic("Fatiga");
+							Audio.PlayMusic((Run.Level.Biome is LibraryBiome || Run.Level.Biome is LibraryBiome) ? "Last chance" : "Fatiga");
 						} else {
 							Audio.PlayMusic("Gobbeon");
 						}

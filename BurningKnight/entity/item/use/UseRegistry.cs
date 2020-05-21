@@ -150,6 +150,7 @@ namespace BurningKnight.entity.item.use {
 			Register<BlockDamageUse>(BlockDamageUse.RenderDebug);
 			Register<ModifyProjectileTextureUse>(ModifyProjectileTextureUse.RenderDebug);
 			Register<ShootLaserUse>();
+			Register<BucketUse>(BucketUse.RenderDebug);
 		}
 	}
 }
