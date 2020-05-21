@@ -24,7 +24,7 @@ namespace BurningKnight.entity.pc {
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
-		private string cart = "slipways";
+		private string cart = "nullptr";
 
 		public Entity Entity;
 
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.pc {
 			on = true;
 
 			Camera.Instance.Targets.Clear();
-			Camera.Instance.Follow(this, 1f);
+			Camera.Instance.Position = Position;// + new Vector2(5 + 64, 16 + 64);
 
 			LoadCart();
 		}
@@ -101,15 +101,15 @@ namespace BurningKnight.entity.pc {
 				return;
 			}
 			
+			deltaUpdate60 += dt;
 			deltaUpdate30 += dt;
 
+			
 			while (deltaUpdate30 >= UpdateTime30) {
 				deltaUpdate30 -= UpdateTime30;
 				emulator.Update30();
 			}
 			
-			deltaUpdate60 += dt;
-
 			while (deltaUpdate60 >= UpdateTime60) {
 				deltaUpdate60 -= UpdateTime60;
 				emulator.Update60();

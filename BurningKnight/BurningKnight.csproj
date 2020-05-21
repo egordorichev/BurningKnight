@@ -521,6 +521,7 @@
     <Compile Include="entity\creature\npc\HatTrader.cs" />
     <Compile Include="entity\creature\npc\Isaac.cs" />
     <Compile Include="entity\creature\npc\Maanex.cs" />
+    <Compile Include="entity\creature\npc\Maanex2.cs" />
     <Compile Include="entity\creature\npc\MaPuzzle.cs" />
     <Compile Include="entity\creature\npc\Mike.cs" />
     <Compile Include="entity\creature\npc\Milt.cs" />
@@ -699,6 +700,8 @@
     <Compile Include="entity\item\BossStand.cs" />
     <Compile Include="entity\item\Chance.cs" />
     <Compile Include="entity\item\ItemQuality.cs" />
+    <Compile Include="entity\item\RandomItem.cs" />
+    <Compile Include="entity\item\RoundItem.cs" />
     <Compile Include="entity\item\Scourge.cs" />
     <Compile Include="entity\item\EmeraldStand.cs" />
     <Compile Include="entity\item\Item.cs" />
@@ -1082,6 +1085,7 @@
     <Compile Include="level\rooms\oldman\OldManRoom.cs" />
     <Compile Include="level\rooms\payed\PayedRoom.cs" />
     <Compile Include="level\rooms\preboss\PrebossRoom.cs" />
+    <Compile Include="level\rooms\regular\EmptyRoom.cs" />
     <Compile Include="level\rooms\regular\HiveRoom.cs" />
     <Compile Include="level\rooms\regular\ItemTrollRoom.cs" />
     <Compile Include="level\rooms\regular\JungleRoom.cs" />

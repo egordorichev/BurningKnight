@@ -2,7 +2,6 @@ using System;
 using BurningKnight.assets;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
-using Lens;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.timer;
@@ -21,8 +20,9 @@ namespace BurningKnight.level.entities {
 		private TextureRegion leftClaw;
 		private TextureRegion rightClaw;
 		private TextureRegion top;
-		private float angle = OpenAngle;
+		private float angle ;
 		private float z = TopZ;
+		internal Vector2 start;
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -45,7 +45,12 @@ namespace BurningKnight.level.entities {
 				SimpleRender(true);
 			}));
 		}
-		
+
+		public override void PostInit() {
+			base.PostInit();
+			start = Position;
+		}
+
 		public override void Render() {
 			SimpleRender(false);
 		}
@@ -63,20 +68,42 @@ namespace BurningKnight.level.entities {
 		}
 
 		public void Grab(Action a) {
-			Tween.To(0, z, x => z = x, 0.5f, Ease.Linear).OnEnd = () => {
-				var t1 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
+			Tween.To(OpenAngle, angle, x => angle = x, 0.5f, Ease.Linear).OnEnd = () => {
+				var t5 = Tween.To(0, z, x => z = x, 0.8f, Ease.Linear);
 
-				t1.Delay = 0.5f;
-				t1.OnEnd = () => {
-					var t2 = Tween.To(TopZ, z, x => z = x, 0.5f, Ease.Linear);
+				t5.Delay = 0.5f;
+				t5.OnEnd = () => {
+					var t1 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
 
-					t2.Delay = 0.5f;
-					t2.OnEnd = () => {
-						var t3 = Tween.To(OpenAngle, angle, x => angle = x, 0.5f, Ease.Linear);
+					t1.Delay = 0.5f;
+					t1.OnEnd = () => {
+						var t2 = Tween.To(TopZ, z, x => z = x, 0.8f, Ease.Linear);
 
-						t3.Delay = 0.5f;
-						t3.OnEnd = () => {
-							Timer.Add(a, 0.5f);
+						t2.Delay = 0.5f;
+						t2.OnEnd = () => {
+							Tween.To(start.Y, Y, x => Y = x, 1.2f, Ease.Linear);
+							var t6 = Tween.To(start.X, X, x => X = x, 1.2f, Ease.Linear);
+								
+							t6.OnEnd = () => {
+								var t3 = Tween.To(OpenAngle, angle, x => angle = x, 0.5f, Ease.Linear);
+
+								t3.Delay = 0.5f;
+								t3.OnEnd = () => {
+									var t9 = Tween.To(0, z, x => z = x, 0.8f, Ease.Linear);
+
+									t9.Delay = 0.5f;
+									t9.OnEnd = () => {
+										var t7 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
+
+										t7.Delay = 0.5f;
+										t7.OnEnd = () => {
+											Tween.To(TopZ, z, x => z = x, 0.8f, Ease.Linear).OnEnd = () => {
+												Timer.Add(a, 0.5f);
+											};
+										};
+									};
+								};
+							};
 						};
 					};
 				};

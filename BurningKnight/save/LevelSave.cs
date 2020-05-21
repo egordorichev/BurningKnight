@@ -26,7 +26,8 @@ namespace BurningKnight.save {
 		public static bool XL;
 		public static float ChestRewardChance;
 		public static float MimicChance;
-		
+		public static bool GenerateMarket;
+
 		private static int I;
 
 		public override void Save(Area area, FileWriter writer, bool old) {
@@ -188,6 +189,7 @@ namespace BurningKnight.save {
 			ChestRewardChance = 5;
 			Projectile.MobDestrutionChance = 0;
 			MimicChance = 5;
+			GenerateMarket = false;
 		}
 	}
 }

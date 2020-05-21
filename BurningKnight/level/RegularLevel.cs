@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.builders;
@@ -8,11 +9,14 @@ using BurningKnight.level.rooms.darkmarket;
 using BurningKnight.level.rooms.entrance;
 using BurningKnight.level.rooms.payed;
 using BurningKnight.level.rooms.preboss;
+using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.scourged;
 using BurningKnight.level.rooms.secret;
+using BurningKnight.level.rooms.shop;
 using BurningKnight.level.rooms.shop.sub;
 using BurningKnight.level.rooms.special;
 using BurningKnight.level.rooms.special.minigame;
+using BurningKnight.level.rooms.special.shop;
 using BurningKnight.level.rooms.spiked;
 using BurningKnight.level.rooms.trap;
 using BurningKnight.level.tile;
@@ -22,6 +26,7 @@ using BurningKnight.state;
 using Lens.util;
 using Lens.util.math;
 using MonoGame.Extended.Collections;
+using Builder = BurningKnight.level.builders.Builder;
 
 namespace BurningKnight.level {
 	public class RegularLevel : Level {
@@ -150,6 +155,7 @@ namespace BurningKnight.level {
 			var rush = Run.Type == RunType.BossRush;
 			var first = Run.Depth % 2 == 1;
 			var loop = Run.Loop > 0;
+			
 
 			if (final) {
 				Log.Info("Prepare for the final!");
@@ -158,6 +164,38 @@ namespace BurningKnight.level {
 			Log.Info($"Generating a level for {biome.Id} biome");
 			
 			rooms.Add(new EntranceRoom());
+			
+			if (Run.Depth == 5 && LevelSave.GenerateMarket && Run.Loop == 0) {
+				rooms.Add(new ShopRoom());
+				rooms.Add(new ExitRoom());
+
+				if (GlobalSave.IsTrue(ShopNpc.Gobetta) && Rnd.Chance()) {
+					rooms.Add(new GobettaShopRoom());
+				}
+
+				if (Rnd.Chance()) {
+					rooms.Add(new TrashGoblinRoom());
+				}
+
+				if (Rnd.Chance(30)) {
+					rooms.Add(new ChestMinigameRoom());
+				}
+
+				if (Rnd.Chance()) {
+					rooms.Add(new VendingRoom());
+				}
+
+				if (Rnd.Chance()) {
+					rooms.Add(new RogerShopRoom());
+				}
+				
+				if (Rnd.Chance()) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
+				}
+				
+				rooms.Add(new EmptyRoom());
+				return rooms;
+			}
 
 			if (Run.Depth == 2) {
 				rooms.Add(new SecretKeyRoom());

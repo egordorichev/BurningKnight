@@ -82,7 +82,7 @@ namespace BurningKnight.assets.input {
 			controls.Add(new Control(UiLeft, Keys.A, Keys.Left).Gamepad(Buttons.LeftThumbstickLeft, Buttons.RightThumbstickLeft, Buttons.DPadLeft));
 			controls.Add(new Control(UiRight, Keys.D, Keys.Right).Gamepad(Buttons.LeftThumbstickRight, Buttons.RightThumbstickRight, Buttons.DPadRight));
 			controls.Add(new Control(UiAccept).Mouse(MouseButtons.Left, MouseButtons.Right));
-			controls.Add(new Control(UiSelect, Keys.Enter, Keys.Space, Keys.X).Gamepad(Buttons.A,  Buttons.X, Buttons.Y));
+			controls.Add(new Control(UiSelect, Keys.X, Keys.Enter, Keys.Space).Gamepad(Buttons.X, Buttons.A, Buttons.Y));
 			controls.Add(new Control(UiBack, Keys.Escape).Gamepad(Buttons.Back, Buttons.B));
 			
 			controls.Add(new Control(QuickRestart, Keys.R, Keys.P).Gamepad(Buttons.X));

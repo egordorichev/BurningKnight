@@ -128,6 +128,10 @@ namespace BurningKnight.level {
 
 			// Level.Dark = Run.Depth > 1 && Rnd.Chance(5);
 
+			if (Run.Depth == 5 && LevelSave.GenerateMarket && Run.Loop == 0) {
+				Level.Dark = true;
+			}
+			
 			RoomDef current = null;
 
 			foreach (var r in Rooms) {

@@ -59,7 +59,7 @@ namespace Pico8Emulator.unit.graphics {
 			script.AddFunction("sget", (Func<int, int, byte>)Sget);
 		}
 
-		public void Cls(byte? color) {
+		public void Cls(byte? color = null) {
 			var c = 0;
 
 			if (color.HasValue) {
@@ -125,12 +125,50 @@ namespace Pico8Emulator.unit.graphics {
 				if (Font.dictionary.ContainsKey(l)) {
 					byte[,] digit = Font.dictionary[l];
 
+					int width = digit.GetLength(1);
+					int height = digit.GetLength(0);
+
+					int iStart = 0, jStart = 0;
+
 					//
-					// TODO: Clip x and y values.
+					// Clip x and y values to the screen.
 					//
 
-					for (int i = 0; i < digit.GetLength(0); i += 1) {
-						for (int j = 0; j < digit.GetLength(1); j += 1) {
+					if (x + width < Emulator.Memory.drawState.ClipLeft ||
+						x > Emulator.Memory.drawState.ClipRight ||
+						y + height < Emulator.Memory.drawState.ClipTop ||
+						y > Emulator.Memory.drawState.ClipBottom)
+					{
+						x += digit.GetLength(1) + 1;
+						continue;
+					}
+
+					if (x < Emulator.Memory.drawState.ClipLeft)
+					{
+						jStart = Emulator.Memory.drawState.ClipLeft - x.Value;
+					}
+
+					if (x + width > Emulator.Memory.drawState.ClipRight)
+					{
+						width = width - (x.Value + width - 1 - Emulator.Memory.drawState.ClipRight);
+					}
+
+					if (y < Emulator.Memory.drawState.ClipTop)
+					{
+						iStart = Emulator.Memory.drawState.ClipTop - y.Value;
+					}
+
+					if (y + height > Emulator.Memory.drawState.ClipBottom)
+					{
+						height = height - (y.Value + height - 1 - Emulator.Memory.drawState.ClipBottom);
+					}
+
+					//
+					// Write pixels.
+					//
+
+					for (int i = iStart; i < height; i += 1) {
+						for (int j = jStart; j < width; j += 1) {
 							if (digit[i, j] == 1) {
 								int xx = x.Value + j;
 								int yy = y.Value + i;
@@ -265,12 +303,6 @@ namespace Pico8Emulator.unit.graphics {
 				}
 			}
 
-			//for (var i = 0; i < 8 * width; i++) {
-			//	for (var j = 0; j < 8 * height; j++) {
-			//		Spset(x + (flipX ? 8 * width - i : i), y + (flipY ? 8 * height - j : j), Sget(i + sprX, j + sprY));
-			//	}
-			//}
-
 			drawCalls++;
 		}
 
@@ -294,13 +326,56 @@ namespace Pico8Emulator.unit.graphics {
 			float y;
 			float screenY;
 
-			while (x < sx + sw && screenX < dx + dw) {
-				y = sy;
-				screenY = dy;
+			float endScreenX = dx + dw.Value;
+			float endScreenY = dy + dh.Value;
+			float startScreenX = dx;
+			float startScreenY = dy;
+			float startX = sx;
+			float startY = sy;
 
-				while (y < sy + sh && screenY < dy + dh) {
-					Spset((flipX ? dx + dw.Value - ((int)screenX - dx) : (int)screenX),
-						(flipY ? dy + dh.Value - ((int)screenY - dy) : (int)screenY), Sget((int)x, (int)y));
+			if (endScreenX < Emulator.Memory.drawState.ClipLeft ||
+				startScreenX > Emulator.Memory.drawState.ClipRight ||
+				endScreenY < Emulator.Memory.drawState.ClipTop ||
+				startScreenY > Emulator.Memory.drawState.ClipBottom)
+			{
+				return;
+			}
+
+			if (startScreenX < Emulator.Memory.drawState.ClipLeft)
+			{
+				startX += (Emulator.Memory.drawState.ClipLeft - startScreenX) * ratioX;
+				startScreenX = Emulator.Memory.drawState.ClipLeft;
+			}
+
+			if (endScreenX > Emulator.Memory.drawState.ClipRight)
+			{
+				endScreenX = Emulator.Memory.drawState.ClipRight + 1;
+			}
+
+			if (startScreenY < Emulator.Memory.drawState.ClipTop)
+			{
+				startY += (Emulator.Memory.drawState.ClipTop - startScreenY) * ratioY;
+				startScreenY = Emulator.Memory.drawState.ClipTop;
+			}
+
+			if (endScreenY > Emulator.Memory.drawState.ClipBottom)
+			{
+				endScreenY = Emulator.Memory.drawState.ClipBottom + 1;
+			}
+
+			screenX = startScreenX;
+			x = startX;
+			while (x < sx + sw && screenX < endScreenX) {
+				y = startY;
+				screenY = startScreenY;
+
+				while (y < sy + sh && screenY < endScreenY) {
+					Spset(
+						(int)screenX,
+						(int)screenY,
+						Sget(
+							(int)(flipX ? sx + sw - 1 - ((int)x - sx) : x), 
+							(int)(flipY ? sy + sh - 1 - ((int)y - sy) : y)));
 
 					y += ratioY;
 					screenY += 1;

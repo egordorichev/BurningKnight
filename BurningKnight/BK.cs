@@ -23,7 +23,7 @@ namespace BurningKnight {
 		public const bool Demo = false;
 		
 	// fixme: remove the true (test) flag	
-		public static Version Version = new Version("Final Push update", 44, 0, 1, 12, 19, true, Debug);
+		public static Version Version = new Version("Final Push update", 44, 0, 1, 12, 20, true, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

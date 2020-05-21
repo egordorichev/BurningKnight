@@ -2,9 +2,6 @@ using Pico8Emulator.lua;
 using System;
 
 namespace Pico8Emulator.unit.input {
-	/*
-	 * TODO: I removed mask implementation for simplicity, get it back!
-	 */
 	public class InputUnit : Unit {
 		public const int ButtonCount = 6;
 		public const int MaxPlayers = 8;
