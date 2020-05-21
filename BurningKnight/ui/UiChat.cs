@@ -2,6 +2,7 @@ using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.ui.dialog;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.input;
@@ -35,6 +36,7 @@ namespace BurningKnight.ui {
 			
 			if (args.Key == Keys.Back) {
 				if (open && input.Length > 0) {
+					Audio.PlaySfx("ui_moving");
 					input = input.Substring(0, input.Length - 1);
 				}
 			} else if (args.Key == Keys.Enter) {
@@ -67,7 +69,8 @@ namespace BurningKnight.ui {
 						Input.Blocked = 0;
 					}
 				} else if (open && c != '\0' && c != '\t' && c != '\n') {
-					input += c;	
+					input += c;
+					Audio.PlaySfx("ui_moving");
 				}
 			}
 		}

@@ -95,6 +95,10 @@ namespace BurningKnight.entity.creature.bk {
 					T = 0;
 					Self.Fire();
 				}
+
+				if (Self.GetComponent<OrbitalComponent>().Orbiting.Done) {
+					Self.Kill(Self);
+				}
 			}
 		}
 		#endregion

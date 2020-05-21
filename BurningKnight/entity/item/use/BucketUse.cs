@@ -23,7 +23,7 @@ namespace BurningKnight.entity.item.use {
 
 				if (r != null) {
 					foreach (var b in r.Tagged[Tags.Boss]) {
-						if (b is BkHead h) {
+						if (b is BkHead h && h.CanBeSaved) {
 							h.Save();
 							ReplaceItem(entity, "bk:bucket");
 						}

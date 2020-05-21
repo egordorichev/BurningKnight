@@ -66,7 +66,7 @@ namespace BurningKnight.entity.creature.player {
 					i.Done = true;
 
 					Entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:water_bucket", Entity.Area));
-				}, 3f);
+				}, 5f);
 			}
 		}
 

@@ -5,6 +5,7 @@ using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity.component.logic;
+using Lens.graphics;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -16,6 +17,12 @@ namespace BurningKnight.entity.creature.mob.castle {
 			
 			AddComponent(new WallAnimationComponent("crawler"));
 			SetMaxHp(2);
+		}	
+		
+		private static readonly Color color = ColorUtils.FromHex("#ffeb57");
+		
+		protected override Color GetBloodColor() {
+			return color;
 		}
 
 		#region Crawler States
