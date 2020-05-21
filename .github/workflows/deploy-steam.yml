@@ -33,6 +33,8 @@ jobs:
           ../nuget.exe install ../Aseprite/packages.config
           ../nuget.exe install ../BurningKnight/packages.config
           ../nuget.exe install ../Desktop/packages.config
+          ../nuget.exe install ../MonoGamePico8/packages.config
+          ../nuget.exe install ../Pico8Emulator/packages.config
           ls -l
           cd ..
           echo $GITHUB_WORKSPACE
