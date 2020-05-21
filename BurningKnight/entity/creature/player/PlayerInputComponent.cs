@@ -93,6 +93,10 @@ namespace BurningKnight.entity.creature.player {
 							if (Input.WasPressed(Controls.UiUp, controller, true)) {
 								c.Choice -= 1;
 
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving");
+								}
+
 								if (c.Choice < 0) {
 									c.Choice += c.Options.Length;
 								}
@@ -100,6 +104,10 @@ namespace BurningKnight.entity.creature.player {
 
 							if (Input.WasPressed(Controls.UiDown, controller, true)) {
 								c.Choice = (c.Choice + 1) % c.Options.Length;
+								
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving");
+								}
 							}
 						}
 					}

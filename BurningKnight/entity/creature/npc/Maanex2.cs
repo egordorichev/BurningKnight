@@ -29,7 +29,9 @@ namespace BurningKnight.entity.creature.npc {
 			AddComponent(new AnimationComponent("maanex"));
 			GetComponent<DropsComponent>().Add(new SingleDrop("bk:maanex_head"));
 
-			AddComponent(new InteractableComponent(Interact));
+			AddComponent(new InteractableComponent(Interact) {
+				CanInteract = e => !clawControll.Payed
+			});
 			AddComponent(new SensorBodyComponent(-Padding, -Padding, Width + Padding * 2, Height + Padding * 2));
 			
 			Subscribe<RoomChangedEvent>();
@@ -51,7 +53,7 @@ namespace BurningKnight.entity.creature.npc {
 					clawControll.Payed = true;
 
 					Timer.Add(() => {
-						GetComponent<DialogComponent>().StartAndClose(Locale.Get("m2_3"), 3);
+						GetComponent<DialogComponent>().StartAndClose(Locale.Get("m2_3"), 1);
 					}, 0.2f);
 
 					return null;

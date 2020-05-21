@@ -141,9 +141,14 @@ namespace BurningKnight.level.entities {
 
 										t9.OnEnd = () => {
 											var mega = grabbed.Id == "bk:pass";
+
+											if (grabbed is RandomItem r) {
+												r.Prevent = true;
+											}
 											
 											grabbed.Transparent = false;
 											grabbed = null;
+											
 											var t7 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
 											t7.Delay = 0.5f;
 
