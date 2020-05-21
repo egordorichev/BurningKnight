@@ -43,6 +43,7 @@ namespace BurningKnight.ui {
 				if (open) {
 					open = false;
 					Input.Blocked = 0;
+					Audio.PlaySfx("ui_exit");
 
 					if (input != "") {
 						if (input == "muffin") {
@@ -65,8 +66,10 @@ namespace BurningKnight.ui {
 
 					if (open) {
 						Input.Blocked = 1;
+						Audio.PlaySfx("ui_select");
 					} else {
 						Input.Blocked = 0;
+						Audio.PlaySfx("ui_exit");
 					}
 				} else if (open && c != '\0' && c != '\t' && c != '\n') {
 					input += c;

@@ -186,7 +186,7 @@ namespace BurningKnight.ui.inventory {
 			} else if (e is ItemAddedEvent iae) {
 				if (iae.Who == inventory.Player) {
 					if (iae.Item.Type == ItemType.Active) {
-						if (ActivePosition <= 0f) {
+						if (ActivePosition <= 0f || tweened) {
 							Tween.To(0, -1, x => ActivePosition = x, 0.6f, Ease.BackOut);
 						} else {
 							Animate();
