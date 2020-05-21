@@ -49,7 +49,7 @@ namespace BurningKnight.entity.door {
 		}
 		
 		protected virtual void UpdateState() {
-			var shouldLock = Run.Depth >= Run.ContentEndDepth;
+			var shouldLock = false; // Run.Depth >= Run.ContentEndDepth;
 
 			if (!shouldLock) {
 				foreach (var r in rooms) {

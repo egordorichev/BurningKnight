@@ -56,7 +56,8 @@ namespace BurningKnight.util {
 				"The winter is coming",
 				"Ice Age",
 				"Snow Inc.",
-				"I saw mammoth"
+				"I saw mammoth",
+				"Stop the global warming!"
 			);
 			
 			Add(Biome.Library,
@@ -64,7 +65,18 @@ namespace BurningKnight.util {
 				"Read a book",
 				"Books are expensive",
 				"Book a flight, read a book",
-				"404. Page not found"
+				"404. Page not found",
+				"Peace was never an option"
+			);
+			
+			Add(Biome.Tech,
+				"Inside of the simulation",
+				"Chips & Chops",
+				"Null Pointer Exception",
+				"Processor Inside",
+				"Modern problems require modern solutions",
+				"Hakerman",
+				"Just like in the simulations"
 			);
 		}
 	}

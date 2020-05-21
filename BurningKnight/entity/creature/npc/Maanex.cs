@@ -125,13 +125,13 @@ namespace BurningKnight.entity.creature.npc {
 					Achievements.Unlock("bk:maanex");
 				}
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
-				GetComponent<DialogComponent>().StartAndClose(bruh[Rnd.Int(bruh.Length)], 2);
+				GetComponent<DialogComponent>().StartAndClose(Bruh[Rnd.Int(Bruh.Length)], 2);
 			}
 			
 			return base.HandleEvent(e);
 		}
 
-		private string[] bruh = {
+		public static string[] Bruh = {
 			"bruh", "bruuh", "BRUH"
 		};
 

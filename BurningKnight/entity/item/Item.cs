@@ -16,6 +16,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.ui.editor;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;
@@ -29,7 +30,7 @@ using Microsoft.Xna.Framework;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.item {
-	public class Item : SaveableEntity, CollisionFilterEntity {
+	public class Item : SaveableEntity, CollisionFilterEntity, PlaceableEntity {
 		public static TextureRegion UnknownRegion;
 		
 		public ItemType Type;
@@ -200,7 +201,7 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 		
-		private bool ShouldInteract(Entity entity) {
+		protected virtual bool ShouldInteract(Entity entity) {
 			return !(entity is Player c && ((Type == ItemType.Mana && (!c.GetComponent<ManaComponent>().CanPickup(this) || t < 1f)) ||
 			                                (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
 			                                (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
@@ -220,10 +221,14 @@ namespace BurningKnight.entity.item {
 				Engine.Instance.State.Ui.Add(new ItemPickupFx(this));
 			}			
 		}
+
+		protected virtual BodyComponent CreateBody() {
+			var slice = Region;
+			return new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height);
+		}
 		
 		public virtual void AddDroppedComponents() {
-			var slice = Region;
-			var body = new RectBodyComponent(0, 0, slice.Source.Width, slice.Source.Height);
+			var body = CreateBody();
 
 			t = 0;
 			
@@ -251,7 +256,9 @@ namespace BurningKnight.entity.item {
 		}
 
 		public void RandomizeVelocity(float force) {
-			if (!TryGetComponent<RectBodyComponent>(out var component)) {
+			var component = GetBody();
+			
+			if (component == null) {
 				return;
 			}
 
@@ -261,9 +268,12 @@ namespace BurningKnight.entity.item {
 			component.Velocity += new Vector2((float) Math.Cos(angle) * force, (float) Math.Sin(angle) * force);
 		}
 
+		protected virtual void RemoveBody() {
+			RemoveComponent<RectBodyComponent>();
+		}
+		
 		public virtual void RemoveDroppedComponents() {
 			RemoveComponent<InteractableComponent>();
-			RemoveComponent<RectBodyComponent>();
 			RemoveComponent<ShadowComponent>();
 			RemoveComponent<LightComponent>();
 			
@@ -335,10 +345,14 @@ namespace BurningKnight.entity.item {
 				AddComponent(new ItemGraphicsComponent(Id));
 			}
 			
-			if (HasComponent<RectBodyComponent>()) {
+			if (HasBody()) {
 				RemoveDroppedComponents();
 				AddDroppedComponents();
 			}
+		}
+
+		protected virtual bool HasBody() {
+			return HasComponent<RectBodyComponent>();
 		}
 
 		public override void Load(FileReader stream) {
@@ -352,7 +366,7 @@ namespace BurningKnight.entity.item {
 				if (!Items.Has(Id)) {
 					Id = "bk:revolver";
 				}
-				
+
 				ConvertTo(Id);
 				
 				Used = stream.ReadBoolean();
@@ -462,7 +476,7 @@ namespace BurningKnight.entity.item {
 					return;
 				}
 
-				var b = GetComponent<RectBodyComponent>().Body;
+				var b = GetBody().Body;
 				var dx = DxTo(p);
 				var dy = DyTo(p);
 				var s = dt * 4;
@@ -477,7 +491,11 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public bool ShouldCollide(Entity entity) {
+		protected virtual BodyComponent GetBody() {
+			return TryGetComponent<RectBodyComponent>(out var b) ? b : null;
+		}
+
+		public virtual bool ShouldCollide(Entity entity) {
 			if (Type == ItemType.Mana) {
 				if (entity is ProjectileLevelBody || entity is HalfProjectileLevel || entity is Chasm) {
 					return false;

@@ -27,8 +27,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),
 				
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
-				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
-				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(3f),
+				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
+				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				
 				// Desert
@@ -71,6 +71,13 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Buffer>(new SpawnChance(1f, Biome.Library), new LoopChance(1f, Biome.Jungle), new LoopChance(1f, Biome.Ice)).MarkSingle(),
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Library)),
 				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Library)),
+				
+				// Tech for dm fight
+				MobInfo.New<DesertBulletSlime>(new SpawnChance(1f, Biome.Tech)),
+				MobInfo.New<Book>(new SpawnChance(1f, Biome.Tech)).HatesWall(),
+				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Tech)).RequiresNearWall(),
+				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Tech)),
+				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)),
 			};
 			
 			All.AddRange(infos);

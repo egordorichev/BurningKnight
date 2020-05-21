@@ -128,6 +128,10 @@ namespace BurningKnight.level {
 
 			// Level.Dark = Run.Depth > 1 && Rnd.Chance(5);
 
+			if (Run.Depth == 5 && LevelSave.GenerateMarket && Run.Loop == 0) {
+				Level.Dark = true;
+			}
+			
 			RoomDef current = null;
 
 			foreach (var r in Rooms) {
@@ -315,86 +319,13 @@ namespace BurningKnight.level {
 
 				for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 					for (var X = Room.Left; X <= Room.Right; X++) {
-						var I = Level.ToIndex(X, Y);
-
 						foreach (var m in Modifiers) {
 							m(Level, Room, X, Y);
 						}
-
-						var rs = !Level.Biome.HasSpikes();
-
-						if (rs) {
-							var tl = (Tile) Level.Tiles[I];
-
-							if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
-								Level.Set(I, Tile.FloorA);
-							}
-						} else {
-							if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new SensingSpikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new Spikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var trap = new FireTrap();
-
-								trap.X = X * 16;
-								trap.Y = Y * 16;
-
-								Level.Area.Add(trap);
-							} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
-								Level.Tiles[I] = (byte) Tile.FloorA;
-								Level.Liquid[I] = 0;
-
-								var spikes = new AlwaysOnSpikes();
-
-								spikes.X = X * 16;
-								spikes.Y = Y * 16;
-
-								Level.Area.Add(spikes);
-							}
-						}
-
-					if (Level.Tiles[I] == (byte) Tile.Plate) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							Level.Liquid[I] = 0;
-							
-							var plate = new PreasurePlate();
-
-							plate.X = X * 16;
-							plate.Y = Y * 16;
-
-							Level.Area.Add(plate);
-						} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
-							Level.Tiles[I] = (byte) Tile.FloorA;
-							Level.Liquid[I] = 0;
-							
-							var barrel = new ExplodingBarrel();
-							Level.Area.Add(barrel);
-
-							barrel.CenterX = X * 16 + 8;
-							barrel.Bottom = Y * 16 + 16;
-						}
 					}
 				}
+
+				ReplaceTiles(Level, Room);
 			}
 
 			PathFinder.SetMapSize(Level.Width, Level.Height);
@@ -419,29 +350,8 @@ namespace BurningKnight.level {
 
 			PaintDoors(Level, Rooms);
 			Decorate(Level, Rooms);
-			
-			for (var y = 6; y < Level.Height - 5; y++) {
-				for (var x = 6; x < Level.Width - 5; x++) {
-					if (Level.Get(x, y) == Tile.WallA) {
-						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
-						
-						if (!a) {
-							a = true;
-							
-							foreach (var d in MathUtils.AllDirections) {
-								if (!Level.Get(x + (int) d.X, y + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
-									a = false;
-									break;
-								}	
-							}
-						}
 
-						if (a) {
-							Level.Set(x, y, Tile.Transition);
-						}
-					}			
-				}		
-			}
+			UpdateTransition(Level);
 
 			if (check) {
 				var c = exit.GetCenter();
@@ -519,6 +429,113 @@ namespace BurningKnight.level {
 			return true;
 		}
 
+		public static void ReplaceTiles(Level Level, RoomDef Room) {
+			for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+				for (var X = Room.Left; X <= Room.Right; X++) {
+					var I = Level.ToIndex(X, Y);
+
+					var rs = !Level.Biome.HasSpikes();
+
+					if (rs) {
+						var tl = (Tile) Level.Tiles[I];
+
+						if (tl.Matches(Tile.SensingSpikeTmp, Tile.SpikeOnTmp, Tile.SpikeOffTmp, Tile.FireTrapTmp)) {
+							Level.Set(I, Tile.FloorA);
+						}
+					} else {
+						if (Level.Tiles[I] == (byte) Tile.SensingSpikeTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new SensingSpikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOffTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new Spikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						} else if (Level.Tiles[I] == (byte) Tile.FireTrapTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var trap = new FireTrap();
+
+							trap.X = X * 16;
+							trap.Y = Y * 16;
+
+							Level.Area.Add(trap);
+						} else if (Level.Tiles[I] == (byte) Tile.SpikeOnTmp) {
+							Level.Tiles[I] = (byte) Tile.FloorA;
+							Level.Liquid[I] = 0;
+
+							var spikes = new AlwaysOnSpikes();
+
+							spikes.X = X * 16;
+							spikes.Y = Y * 16;
+
+							Level.Area.Add(spikes);
+						}
+					}
+
+				if (Level.Tiles[I] == (byte) Tile.Plate) {
+						Level.Tiles[I] = (byte) Tile.FloorA;
+						Level.Liquid[I] = 0;
+						
+						var plate = new PreasurePlate();
+
+						plate.X = X * 16;
+						plate.Y = Y * 16;
+
+						Level.Area.Add(plate);
+					} else if (Level.Tiles[I] == (byte) Tile.BarrelTmp) {
+						Level.Tiles[I] = (byte) Tile.FloorA;
+						Level.Liquid[I] = 0;
+						
+						var barrel = new ExplodingBarrel();
+						Level.Area.Add(barrel);
+
+						barrel.CenterX = X * 16 + 8;
+						barrel.Bottom = Y * 16 + 16;
+					}
+				}
+			}
+		}
+
+		public static void UpdateTransition(Level Level) {
+			for (var y = 6; y < Level.Height - 5; y++) {
+				for (var x = 6; x < Level.Width - 5; x++) {
+					if (Level.Get(x, y) == Tile.WallA) {
+						var a = (y == 0 || y == Level.Height - 1 || x == 0 || x == Level.Width - 1);
+
+						if (!a) {
+							a = true;
+
+							foreach (var d in MathUtils.AllDirections) {
+								if (!Level.Get(x + (int) d.X, y + (int) d.Y).Matches(Tile.WallA, Tile.Transition)) {
+									a = false;
+
+									break;
+								}
+							}
+						}
+
+						if (a) {
+							Level.Set(x, y, Tile.Transition);
+						}
+					}
+				}
+			}
+		}
+
 		public static void PlaceMobs(Level level, Room room) {
 			var parent = room.Parent;
 			var w = parent.GetWidth() - 2;
@@ -579,46 +596,66 @@ namespace BurningKnight.level {
 				}
 			}
 
-			PathFinder.SetMapSize(w, h);
+			var hasDoors = parent.Connected.Count > 0;
+			Dot start = null;
+			
+			if (hasDoors) {
+				PathFinder.SetMapSize(w, h);
 
-			var door = parent.Connected.Values.First();
-			var start = new Dot(door.X, door.Y);
+				var door = parent.Connected.Values.First();
+				start = new Dot(door.X, door.Y);
 
-			if ((int) start.X == parent.Left) {
-				start.X++;
-			} else if ((int) start.Y == parent.Top) {
-				start.Y++;
-			} else if ((int) start.X == parent.Right) {
-				start.X--;
-			} else if ((int) start.Y == parent.Bottom) {
-				start.Y--;
+				if ((int) start.X == parent.Left) {
+					start.X++;
+				} else if ((int) start.Y == parent.Top) {
+					start.Y++;
+				} else if ((int) start.X == parent.Right) {
+					start.X--;
+				} else if ((int) start.Y == parent.Bottom) {
+					start.Y--;
+				}
+
+				PathFinder.BuildDistanceMap(toIndex(start.X, start.Y), BArray.Not(patch, null));
 			}
-			
-			PathFinder.BuildDistanceMap(toIndex(start.X, start.Y), BArray.Not(patch, null));
-			
+
 			for (var y = parent.Top + 1; y < parent.Bottom; y++) {
 				for (var x = parent.Left + 1; x < parent.Right; x++) {
-					var i = toIndex(x, y);
+					if (hasDoors) {
+						var i = toIndex(x, y);
 
-					if (patch[i] || PathFinder.Distance[i] == Int32.MaxValue) {
-						continue;
-					}
-					
-					var found = false;
+						if (patch[i] || PathFinder.Distance[i] == Int32.MaxValue) {
+							continue;
+						}
 
-					foreach (var dr in parent.Connected.Values) {
-						var dx = (int) (dr.X - x);
-						var dy = (int) (dr.Y - y);
-						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+						var found = false;
 
-						if (d < 4) {
-							found = true;
-							break;
+						foreach (var dr in parent.Connected.Values) {
+							var dx = (int) (dr.X - x);
+							var dy = (int) (dr.Y - y);
+							var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+							if (d < 4) {
+								found = true;
+
+								break;
+							}
+						}
+
+						if (found) {
+							continue;
 						}
 					}
 
-					if (found) {
-						continue;
+					if (room.Type == RoomType.Boss) {
+						var c = parent.GetCenter();
+						
+						var dx = (int) (c.X - x);
+						var dy = (int) (c.Y - y);
+						var d = (float) Math.Sqrt(dx * dx + dy * dy);
+
+						if (d < 3) {
+							continue;
+						}
 					}
 
 					var dt = new Dot(x, y);
@@ -1045,6 +1082,10 @@ namespace BurningKnight.level {
 				switch (type) {
 					case DoorPlaceholder.Variant.Locked: 
 						door = new SpecialDoor();
+						break;
+					
+					case DoorPlaceholder.Variant.Red: 
+						door = new RedDoor();
 						break;
 					
 					case DoorPlaceholder.Variant.Boss: 

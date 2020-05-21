@@ -93,6 +93,10 @@ namespace BurningKnight.entity.creature.player {
 							if (Input.WasPressed(Controls.UiUp, controller, true)) {
 								c.Choice -= 1;
 
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving");
+								}
+
 								if (c.Choice < 0) {
 									c.Choice += c.Options.Length;
 								}
@@ -100,6 +104,10 @@ namespace BurningKnight.entity.creature.player {
 
 							if (Input.WasPressed(Controls.UiDown, controller, true)) {
 								c.Choice = (c.Choice + 1) % c.Options.Length;
+								
+								if (Settings.UiSfx) {
+									Audio.PlaySfx("ui_moving");
+								}
 							}
 						}
 					}
@@ -108,8 +116,10 @@ namespace BurningKnight.entity.creature.player {
 						if ((!isAnswer && (Input.WasPressed(Controls.Interact, controller, true) || Input.WasPressed(Controls.UiSelect, controller, true))) || (isAnswer && !a.Focused)) {
 							if (dd.DoneSaying) {
 								dd.Finish();
+								Audio.PlaySfx("ui_moving");
 							} else {
 								dd.Str.FinishTyping();
+								Audio.PlaySfx("ui_moving");
 							}
 						}
 					}
@@ -120,6 +130,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Input.WasPressed(Controls.Pause)) {
 					dd?.Close();
 					dialog?.OnEnd();
+					Audio.PlaySfx("ui_moving");
 					InGameState.SkipPause = true;
 				} else {
 					return;
@@ -128,6 +139,7 @@ namespace BurningKnight.entity.creature.player {
 
 			if (Run.Depth > 0 && Run.Type != RunType.Daily && Input.Keyboard.WasPressed(Keys.P)) {
 				Run.StartNew(1, Run.Type);
+				Audio.PlaySfx("ui_moving");
 				return;
 			}
 			

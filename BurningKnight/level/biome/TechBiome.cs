@@ -1,3 +1,4 @@
+using BurningKnight.level.builders;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
@@ -28,7 +29,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasSpikes() {
-			return false;
+			return true;
 		}
 
 		public override int GetNumRegularRooms() {
@@ -45,6 +46,18 @@ namespace BurningKnight.level.biome {
 
 		public override int GetNumTrapRooms() {
 			return 0;
+		}
+
+		public override Builder GetBuilder() {
+			return new LoopBuilder();
+		}
+
+		public override bool HasCobwebs() {
+			return false;
+		}
+
+		public override bool HasTnt() {
+			return false;
 		}
 	}
 }

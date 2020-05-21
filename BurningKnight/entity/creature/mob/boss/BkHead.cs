@@ -24,14 +24,24 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class BkHead : Boss {
+		public bool CanBeSaved => GetComponent<HealthComponent>().Percent <= 0.2f;
+		
+		protected override void AddPhases() {
+			base.AddPhases();
+			HealthBar.AddPhase(0.2f);
+		}
+
 		public override void AddComponents() {
 			base.AddComponents();
 			
 			AddComponent(new BkGraphicsComponent("demon"));
 			AddComponent(new RectBodyComponent(2, 4, 12, 15, BodyType.Dynamic, true));
 			AddComponent(new AimComponent(AimComponent.AimType.Target));
+
+			var b = GetComponent<RectBodyComponent>();
+			b.Body.LinearDamping = 2;
+			b.KnockbackModifier = 0;
 			
-			GetComponent<RectBodyComponent>().Body.LinearDamping = 2;
 			GetComponent<HealthComponent>().InitMaxHealth = 600;
 			
 			Depth = Layers.FlyingMob;
@@ -375,6 +385,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		#endregion
 
 		public override void PlaceRewards() {
+			if (saved) {
+				base.PlaceRewards();
+			}
+			
 			Achievements.Unlock("bk:bk_no_more");
 		}
 
@@ -382,6 +396,18 @@ namespace BurningKnight.entity.creature.mob.boss {
 			return CommonAse.Particles.GetSlice("old_gobbo");
 		}
 
+		private bool saved;
+
+		public void Save() {
+			if (saved) {
+				return;
+			}
+
+			saved = true;
+			Done = true;
+			PlaceRewards();
+		}
+		
 		protected override void CreateGore(DiedEvent d) {
 			base.CreateGore(d);
 			

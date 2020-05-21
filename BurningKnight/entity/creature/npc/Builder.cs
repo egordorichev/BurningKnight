@@ -123,6 +123,10 @@ namespace BurningKnight.entity.creature.npc {
 				return false;
 			}
 
+			if (Run.Depth == 5 && LevelSave.GenerateMarket && Run.Loop == 0) {
+				return false;
+			}
+
 			if (Run.Depth == 3 || Run.Depth == 5 || Run.Depth == 7 || Run.Depth == 9) {
 				return GlobalSave.IsFalse($"shortcut_{Run.Depth}");
 			}

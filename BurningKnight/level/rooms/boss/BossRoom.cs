@@ -2,6 +2,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.room;
 using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
@@ -177,6 +178,11 @@ namespace BurningKnight.level.rooms.boss {
 		
 		protected virtual void PaintRoom(Level level) {
 			
+		}
+
+		public override void ModifyRoom(Room room) {
+			base.ModifyRoom(room);
+			room.AddController("bk:boss_room");
 		}
 	}
 }

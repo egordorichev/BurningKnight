@@ -97,13 +97,14 @@ namespace BurningKnight.level.rooms.shop {
 
 			var con = Math.Max(1, Math.Ceiling(stands.Count / 4f));
 			var i = 0;
+			var g = (Run.Depth == 5 && Run.Loop == 0 && LevelSave.GenerateMarket) ? Rnd.Int(stands.Count) : -1;
 
 			foreach (var s in stands) {
 				var stand = new ShopStand();
 				level.Area.Add(stand);
 				stand.Center = new Vector2(s.X * 16 + 8, s.Y * 16 + 8);
 
-				var id = Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool, null, true);
+				var id = g == i ? "bk:bucket" : Items.GenerateAndRemove(i < con && consumablePool.Count > 0 ? consumablePool : pool, null, true);
 				var item = Items.CreateAndAdd(id, level.Area, false);
 
 				if (scourged) {
@@ -287,7 +288,7 @@ namespace BurningKnight.level.rooms.shop {
 
 		public override void SetupDoors(Level level) {
 			foreach (var door in Connected) {
-				door.Value.Type = door.Key is SubShopRoom ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
+				door.Value.Type = door.Key is SubShopRoom || (Run.Depth == 5 && Run.Loop == 0 && LevelSave.GenerateMarket) ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
 			}
 		}
 		

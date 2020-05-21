@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			b.AddImmunity<CharmedBuff>();
 			b.AddImmunity<FrozenBuff>();
 
-			if (!(this is BkHead)) {
+			if (!(this is BkHead || this is DM)) {
 				Become<FriendlyState>();
 			}
 
@@ -311,7 +311,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
 			var w = p - new Vector2(0, 32f);
 
-			if (Run.Type != RunType.BossRush) {
+			if (Run.Type != RunType.BossRush && !(this is DM || this is BkHead)) {
 				var stand = new BossStand();
 				Area.Add(stand);
 				stand.Center = w;
@@ -321,7 +321,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			var rewards = new List<string>();
 			var c = Run.Type == RunType.BossRush ? 2 : Rnd.Int(2, 5);
 
-			if (Run.Type != RunType.BossRush) {
+			if (Run.Type != RunType.BossRush && !(this is DM || this is BkHead)) {
 				for (var i = 0; i < c; i++) {
 					rewards.Add("bk:emerald");
 				}

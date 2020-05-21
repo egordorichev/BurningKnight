@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.room.controllable;
 using Lens.entity;
@@ -15,21 +16,25 @@ namespace BurningKnight.entity.component {
 
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse && cse.Entity is Support ss) {
-				Supports.Add(ss);
-				ss.Supporting.Add(Entity);
+				if (!Supports.Contains(ss) && (!(Entity is Player) || !(cse.Body is SensorBodyComponent))) {
+					Supports.Add(ss);
+					ss.Supporting.Add(Entity);
 
-				ss.HandleEvent(new Support.StartedSupportingEvent {
-					Support = ss,
-					Entity = Entity
-				});
+					ss.HandleEvent(new Support.StartedSupportingEvent {
+						Support = ss,
+						Entity = Entity
+					});
+				}
 			} else if (e is CollisionEndedEvent cee && cee.Entity is Support se) {
-				Supports.Remove(se);
-				se.Supporting.Remove(Entity);
+				if (Supports.Contains(se)) {
+					Supports.Remove(se);
+					se.Supporting.Remove(Entity);
 
-				se.HandleEvent(new Support.EndedSupportingEvent {
-					Support = se,
-					Entity = Entity
-				});
+					se.HandleEvent(new Support.EndedSupportingEvent {
+						Support = se,
+						Entity = Entity
+					});
+				}
 			}
 			
 			return base.HandleEvent(e);

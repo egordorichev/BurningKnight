@@ -981,6 +981,10 @@ namespace BurningKnight.state {
 				if (Input.Keyboard.WasPressed(Keys.D5)) {
 					Run.Depth = 9;
 				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D6)) {
+					Run.Depth = 11;
+				}
 			}
 			
 			if (Input.Keyboard.IsDown(Keys.LeftAlt)) {
@@ -1006,6 +1010,11 @@ namespace BurningKnight.state {
 				
 				if (Input.Keyboard.WasPressed(Keys.D5)) {
 					Run.Depth = 10;
+					Player.ToBoss = true;
+				}
+				
+				if (Input.Keyboard.WasPressed(Keys.D6)) {
+					Run.Depth = 11;
 					Player.ToBoss = true;
 				}
 			}
@@ -2080,7 +2089,7 @@ namespace BurningKnight.state {
 			
 			var sx = Display.UiWidth * 0.5f;
 			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space * 1.5f;
+			var sy = Display.UiHeight * 0.5f - space * 2f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -2093,7 +2102,7 @@ namespace BurningKnight.state {
 				Name = "fullscreen",
 				On = Engine.Graphics.IsFullScreen,
 				RelativeX = sx,
-				RelativeCenterY = sy - space * 2,
+				RelativeCenterY = sy - space,
 				Click = b => {
 					Settings.Fullscreen = ((UiCheckbox) b).On;
 
@@ -2110,7 +2119,7 @@ namespace BurningKnight.state {
 				}
 			});
 
-			graphicsSettings.Add(new UiCheckbox {
+			/*graphicsSettings.Add(new UiCheckbox {
 				Name = "vsync",
 				On = Settings.Vsync,
 				RelativeX = sx,
@@ -2120,7 +2129,7 @@ namespace BurningKnight.state {
 					Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 					Engine.Graphics.ApplyChanges();
 				}
-			});
+			});*/
 
 			graphicsSettings.Add(new UiCheckbox {
 				Name = "fps",

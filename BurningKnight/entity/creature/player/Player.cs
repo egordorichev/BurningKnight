@@ -246,9 +246,10 @@ namespace BurningKnight.entity.creature.player {
 		private bool set;
 		private float t;
 		private bool findASpawn;
+		public bool Teleported;
 
 		private bool FindSpawn() {
-			if (BK.Version.Dev || ToBoss) {
+			if (/*BK.Version.Dev || */ToBoss) {
 				ToBoss = false;
 				
 				foreach (var r in Area.Tagged[Tags.Room]) {
@@ -307,6 +308,7 @@ namespace BurningKnight.entity.creature.player {
 
 			if (findASpawn) {
 				if (FindSpawn()) {
+					Teleported = true;
 					findASpawn = false;
 					
 					if (!CheatWindow.AutoGodMode) {
@@ -330,7 +332,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (!CheatWindow.NoSleep && T >= 6f) {
+				if (!CheatWindow.NoSleep && T >= 6f && Self.HasComponent<PlayerInputComponent>()) {
 					Become<SittingState>();
 				}
 			}
@@ -353,7 +355,7 @@ namespace BurningKnight.entity.creature.player {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 24f) {
+				if (T >= 24f && Self.HasComponent<PlayerInputComponent>()) {
 					Become<SleepingState>();
 				}
 			}
@@ -612,6 +614,8 @@ namespace BurningKnight.entity.creature.player {
 				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
 					Audio.PlaySfx("level_door_shut");
 				}
+
+				((InGameState) Engine.Instance.State).ResetFollowing();
 
 				var pr = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 

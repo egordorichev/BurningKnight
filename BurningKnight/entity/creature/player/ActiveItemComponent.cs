@@ -1,10 +1,12 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.input;
+using BurningKnight.assets.items;
 using BurningKnight.debug;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
@@ -12,6 +14,7 @@ using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.input;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.player {
 	public class ActiveItemComponent : ItemComponent {
@@ -53,6 +56,17 @@ namespace BurningKnight.entity.creature.player {
 				}
 				
 				dialog.StartAndClose("control_6", 5);
+			}
+
+			if (Item.Id == "bk:snow_bucket" && !(Run.Level.Biome is IceBiome)) {
+				Timer.Add(() => {
+					var i = Item;
+				
+					Drop();
+					i.Done = true;
+
+					Entity.GetComponent<InventoryComponent>().Pickup(Items.CreateAndAdd("bk:water_bucket", Entity.Area));
+				}, 3f);
 			}
 		}
 

@@ -1,6 +1,8 @@
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.tile;
 using BurningKnight.level.walls;
+using BurningKnight.save;
 using BurningKnight.state;
 using Microsoft.Xna.Framework;
 
@@ -48,7 +50,7 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		public override bool CanConnect(RoomDef R) {
-			return base.CanConnect(R) && !(R is EntranceRoom);
+			return base.CanConnect(R) && !(R is EntranceRoom && !(LevelSave.BiomeGenerated is TechBiome));
 		}
 	}
 }

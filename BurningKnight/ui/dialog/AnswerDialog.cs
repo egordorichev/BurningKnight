@@ -1,3 +1,4 @@
+using Lens.assets;
 using Lens.input;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -33,6 +34,7 @@ namespace BurningKnight.ui.dialog {
 			if (args.Key == Keys.Back) {
 				if (Answer.Length > 0) {
 					Answer = Answer.Substring(0, Answer.Length - 1);
+					Audio.PlaySfx("ui_moving");
 				}
 			} else if (args.Key == Keys.Enter) {
 				Focused = false;
@@ -41,6 +43,7 @@ namespace BurningKnight.ui.dialog {
 				
 				if (c != '\0') {
 					Answer += c;	
+					Audio.PlaySfx("ui_moving");
 				}
 			}
 		}

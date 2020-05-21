@@ -47,7 +47,6 @@ namespace BurningKnight.entity.creature.bk {
 		private bool raging;
 		private int timesRaged;
 
-
 		public bool Passive;
 		public bool Hidden => GetComponent<StateComponent>().StateInstance is HiddenState;
 
@@ -447,13 +446,19 @@ namespace BurningKnight.entity.creature.bk {
 			var room = Target?.GetComponent<RoomComponent>()?.Room;
 
 			if (room != null && room.Type == RoomType.Boss) {
+				foreach (var p in room.Tagged[Tags.Player]) {
+					if (!((Player) p).Teleported) {
+						return;
+					}
+				}
+
 				if (Run.Level.Biome is LibraryBiome) {
 					BeginFight();
 					return;
 				}
 			
 				foreach (var mob in room.Tagged[Tags.Boss]) {
-					if (mob != this && mob is Boss b) {
+					if (mob != this && mob is Boss b && !(b is bk.BurningKnight)) {
 						captured = b;
 						Become<CaptureState>();
 
@@ -672,7 +677,7 @@ namespace BurningKnight.entity.creature.bk {
 				}
 
 				var a = Self.AngleTo(Self.captured);
-				var force = 300f * dt;
+				var force = 500f * dt;
 
 				if (d <= 64f) {
 					force *= 2;
@@ -751,6 +756,12 @@ namespace BurningKnight.entity.creature.bk {
 				return;
 			}
 			
+			var r = GetComponent<RoomComponent>().Room;
+
+			if (r == null) {
+				return;
+			}
+			
 			GetComponent<DialogComponent>().StartAndClose("bk_12", 3);
 			AddOrbitals(6);
 
@@ -766,6 +777,12 @@ namespace BurningKnight.entity.creature.bk {
 			AddTag(Tags.Boss);
 			AddTag(Tags.Mob);
 			AddTag(Tags.MustBeKilled);
+
+			var a = r.Tagged[Tags.MustBeKilled];
+
+			if (!a.Contains(this)) {
+				a.Add(this);
+			}
 
 			Become<FightState>();
 
