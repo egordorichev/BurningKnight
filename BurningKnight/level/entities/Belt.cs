@@ -11,7 +11,7 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.level.entities {
 	public class Belt : Support {
-		private const float Speed = 32;
+		private const float Speed = 24;
 
 		private static Vector2[] velocities = {
 			new Vector2(0, -Speed), new Vector2(0, Speed),
@@ -60,7 +60,7 @@ namespace BurningKnight.level.entities {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			GetComponent<AnimationComponent>().Animation.Frame = (uint) (Engine.Time * 32) % 4;
+			GetComponent<AnimationComponent>().Animation.Frame = (uint) (Engine.Time * 24) % 4;
 		}
 
 		public override void Apply(Entity e, float dt) {

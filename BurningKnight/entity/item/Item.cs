@@ -201,7 +201,7 @@ namespace BurningKnight.entity.item {
 			return false;
 		}
 		
-		private bool ShouldInteract(Entity entity) {
+		protected virtual bool ShouldInteract(Entity entity) {
 			return !(entity is Player c && ((Type == ItemType.Mana && (!c.GetComponent<ManaComponent>().CanPickup(this) || t < 1f)) ||
 			                                (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
 			                                (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
@@ -495,7 +495,7 @@ namespace BurningKnight.entity.item {
 			return TryGetComponent<RectBodyComponent>(out var b) ? b : null;
 		}
 
-		public bool ShouldCollide(Entity entity) {
+		public virtual bool ShouldCollide(Entity entity) {
 			if (Type == ItemType.Mana) {
 				if (entity is ProjectileLevelBody || entity is HalfProjectileLevel || entity is Chasm) {
 					return false;

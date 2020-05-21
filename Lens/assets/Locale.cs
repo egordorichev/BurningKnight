@@ -95,7 +95,13 @@ namespace Lens.assets {
 			
 			try {
 				var file = File.CreateText(FileHandle.FromRoot($"Locales/{Current}.json").FullPath);
-				var writer = new JsonWriter(file);
+				var writer = new JsonWriter(file, 
+					#if DEBUG
+						true
+					#else
+						false
+					#endif
+					);
 				var root = new JsonObject();
 
 				foreach (var t in Map) {

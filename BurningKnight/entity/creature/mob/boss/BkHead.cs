@@ -30,8 +30,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 			AddComponent(new BkGraphicsComponent("demon"));
 			AddComponent(new RectBodyComponent(2, 4, 12, 15, BodyType.Dynamic, true));
 			AddComponent(new AimComponent(AimComponent.AimType.Target));
+
+			var b = GetComponent<RectBodyComponent>();
+			b.Body.LinearDamping = 2;
+			b.KnockbackModifier = 0;
 			
-			GetComponent<RectBodyComponent>().Body.LinearDamping = 2;
 			GetComponent<HealthComponent>().InitMaxHealth = 600;
 			
 			Depth = Layers.FlyingMob;
