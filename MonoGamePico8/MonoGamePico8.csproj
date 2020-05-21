@@ -36,6 +36,10 @@
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.0.1708\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MoonSharp.Interpreter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=921e73ce94aa17f8">
+      <HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
