@@ -17,8 +17,10 @@ namespace BurningKnight.entity.item.use {
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
 
-			if (water || snow) {
-				ReplaceItem(entity, "bk:bucket");
+			if (water) {
+				// ReplaceItem(entity, "bk:bucket");
+			} else if (snow) {
+				
 			} else if (Run.Level.Biome is IceBiome) {
 				var x = (int) Math.Floor(entity.CenterX / 16);
 				var y = (int) Math.Floor(entity.CenterY / 16);

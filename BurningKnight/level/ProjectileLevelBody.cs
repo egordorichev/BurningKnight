@@ -1,11 +1,15 @@
+using BurningKnight.assets.particle;
 using BurningKnight.entity;
 using BurningKnight.entity.creature.pet;
+using BurningKnight.entity.fx;
 using BurningKnight.entity.projectile;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.util.geometry;
+using Lens;
 using Lens.entity;
 using Lens.util.camera;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level {
 	public class ProjectileLevelBody : Entity, CollisionFilterEntity {
@@ -42,6 +46,20 @@ namespace BurningKnight.level {
 				Level.Set(x, y, Tile.Ice);
 				Level.UpdateTile(x, y);
 				Level.ReCreateBodyChunk(x, y);
+				
+				Level.Area.Add(new TileFx {
+					X = x * 16,
+					Y = y * 16 - 8
+				});
+			
+				for (var i = 0; i < 3; i++) {
+					var part = new ParticleEntity(Particles.Dust());
+						
+					part.Position = new Vector2(x * 16 + 8, y * 16 + 8);
+					Level.Area.Add(part);
+				}
+		
+				Engine.Instance.Freeze = 0.5f;
 
 				return true;
 			}

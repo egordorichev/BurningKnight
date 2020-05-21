@@ -1817,8 +1817,11 @@ namespace BurningKnight.level {
 				return;
 			}
 
-			Set(index, Tile.FloorA);							
-			Set(index, Tile.Ember);
+			Set(index, Tile.FloorA);
+
+			if (tile == Tile.Planks) {
+				Set(index, Tile.Ember);
+			}
 
 			UpdateTile(tx, ty);
 			
