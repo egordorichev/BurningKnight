@@ -17,7 +17,7 @@ namespace BurningKnight.level.entities {
 		
 		private static Vector2 origin = new Vector2(15f / 2, 1);
 		private static Vector2 rightOrigin = new Vector2(-0.5f, 1);
-		private static Vector2 topOrigin = new Vector2(7 / 2f, 33);
+		private static Vector2 topOrigin = new Vector2(7 / 2f, 31);
 
 		private TextureRegion leftClaw;
 		private TextureRegion rightClaw;

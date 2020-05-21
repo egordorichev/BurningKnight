@@ -15,7 +15,7 @@ namespace BurningKnight.entity.item {
 				return;
 			}
 			
-			Id = GenerateId();
+			ConvertTo(GenerateId());
 		}
 
 		public override void PostInit() {

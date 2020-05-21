@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level.biome;
 using BurningKnight.level.tile;
@@ -18,7 +19,16 @@ namespace BurningKnight.entity.item.use {
 			base.Use(entity, item);
 
 			if (water) {
-				// ReplaceItem(entity, "bk:bucket");
+				var r = entity.GetComponent<RoomComponent>().Room;
+
+				if (r != null) {
+					foreach (var b in r.Tagged[Tags.Boss]) {
+						if (b is BkHead h) {
+							h.Save();
+							ReplaceItem(entity, "bk:bucket");
+						}
+					}
+				}
 			} else if (snow) {
 				
 			} else if (Run.Level.Biome is IceBiome) {
