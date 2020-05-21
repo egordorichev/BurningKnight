@@ -66,5 +66,9 @@ namespace BurningKnight.level.biome {
 		public override bool HasBrekables() {
 			return true;
 		}
+
+		public override bool HasCobwebs() {
+			return false;
+		}
 	}
 }
