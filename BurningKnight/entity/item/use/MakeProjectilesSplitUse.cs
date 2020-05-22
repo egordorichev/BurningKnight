@@ -1,4 +1,3 @@
-using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
@@ -9,6 +8,10 @@ namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesSplitUse : ItemUse {
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
+				if (pce.Projectile.Parent?.Parent != null) {
+					return false;
+				}
+			
 				pce.Projectile.OnHurt += (p, en) => {
 					var v = p.GetAnyComponent<BodyComponent>();
 					var a = v.Velocity.ToAngle();

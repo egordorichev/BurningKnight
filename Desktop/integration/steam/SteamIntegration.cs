@@ -12,7 +12,7 @@ using Steamworks.Data;
 using Achievement = Steamworks.Data.Achievement;
 
 namespace Desktop.integration.steam {
-	public class TnSteamIntegration : Integration {
+	public class SteamIntegration : Integration {
 		public static bool LaunchedFromSteam { get; private set; }
 
 		public override void Init() {
