@@ -592,7 +592,7 @@ namespace BurningKnight.level {
 
 			for (var y = parent.Top + 1; y < parent.Bottom; y++) {
 				for (var x = parent.Left + 1; x < parent.Right; x++) {
-					patch[toIndex(x, y)] = !Run.Level.IsPassable(x, y);
+					patch[toIndex(x, y)] = !Run.Level.IsPassable(x, y, true);
 				}
 			}
 
@@ -755,6 +755,7 @@ namespace BurningKnight.level {
 		
 		private void PlaceMobs(Level level, List<Room> rooms) {
 			MobRegistry.SetupForBiome(level.Biome.Id);
+			// level.CreatePassable(true);
 			
 			foreach (var room in rooms) {
 				if (room.Parent.ShouldSpawnMobs()) {
