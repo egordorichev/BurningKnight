@@ -2990,7 +2990,7 @@ namespace BurningKnight.state {
 					root["kills"] = Run.Statistics.MobsKilled;
 					root["rooms"] = $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}";
 					root["scourge"] = Run.Scourge;
-					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0}";
+					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}";
 
 					var id = $"top_{place}";
 
