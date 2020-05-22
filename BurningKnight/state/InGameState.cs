@@ -169,6 +169,9 @@ namespace BurningKnight.state {
 			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
+				Achievements.PostLoadCallback?.Invoke();
+				Achievements.PostLoadCallback = null;
+			
 				Input.Blocked = 1;
 
 				blackBarsSize = BarsSize;
