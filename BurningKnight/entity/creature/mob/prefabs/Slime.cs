@@ -12,12 +12,19 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util.math;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace BurningKnight.entity.creature.mob.prefabs {
 	public class Slime : Mob {
 		private bool first;
 		private float delay;
+		
+		private static readonly Color color = ColorUtils.FromHex("#5ac54f");
+		
+		protected override Color GetBloodColor() {
+			return color;
+		}
 
 		protected override void OnTargetChange(Entity target) {
 			base.OnTargetChange(target);

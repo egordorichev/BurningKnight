@@ -451,6 +451,7 @@
     <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmSpikeRoom.cs" />
     <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
+    <Compile Include="entity\creature\mob\castle\BigSlime.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
