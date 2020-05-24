@@ -199,6 +199,10 @@ namespace BurningKnight.state {
 			Audio.Speed = 1f;
 
 			try {
+				if (Run.Depth >= 10) {
+					Audio.Preload("Last chance");
+				}
+			
 				Audio.Preload(((Biome) Activator.CreateInstance(BiomeRegistry.GenerateForDepth(Run.Depth + 1).Type)).Music);
 			} catch (Exception e) {
 				Log.Error(e);
