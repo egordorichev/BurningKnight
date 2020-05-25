@@ -144,7 +144,8 @@ namespace BurningKnight.util {
 			"Outstanding move",
 			"Never gonna let you down",
 			"You know the rules and so do I",
-			"F"
+			"F",
+			"Nobody expects the Spanish Inquisition!"
 		};
 
 		private static string[] birthdayTitles = {
