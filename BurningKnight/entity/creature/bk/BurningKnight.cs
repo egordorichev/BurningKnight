@@ -486,6 +486,7 @@ namespace BurningKnight.entity.creature.bk {
 							Start(bkDialog, "bkw_3", Self.Target, () => {
 								Become<FollowState>();
 								bkDialog.OnEnd();
+								GlobalSave.Put("bk_who", true);
 							});	
 						});	
 					});	
