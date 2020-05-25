@@ -1051,5 +1051,6 @@
 	"bkw_1" : "##GET OUT OF HERE##[dl], OR I WILL FORCE YOU!",
 	"bkw_2" : "I'm looking for [cl green]my father",
 	"bkw_3" : "I GAVE YOU _A WARNING_",
-	"spanish_inquisition" : "[cl red]Spanish Inquisition"
+	"spanish_inquisition" : "[cl red]Spanish Inquisition",
+	"lp_0" : "Good job, [cl purple]Ritta[cl][dl], restarting [cl green]the simulation[cl][dl].[dl].[dl]."
 }

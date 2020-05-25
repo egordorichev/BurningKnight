@@ -18,6 +18,7 @@ using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms;
 using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
@@ -247,6 +248,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void PlaceRewards() {
 			base.PlaceRewards();
 			Achievements.Unlock("bk:dm_no_more");
+			Done = false;
+			Died = false;
+			
+			Target.RemoveComponent<PlayerInputComponent>();
+			
+			GetComponent<DialogComponent>().Start("lp_0", Target, () => {
+				Timer.Add(() => {
+					SaveManager.Delete(SaveType.Level);
+
+					Run.ActualDepth = -1;
+					Run.Depth = 1;
+					Run.Loop++;
+
+					Achievements.Unlock("bk:loop");
+				}, 1f);
+			});
 		}
 	}
 }
