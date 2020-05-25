@@ -476,8 +476,32 @@ namespace BurningKnight.entity.creature.bk {
 				var bkDialog = Self.GetComponent<DialogComponent>();
 				var playerDialog = Self.Target.GetComponent<DialogComponent>();
 				
-				bkDialog.Start("RICK ROLL", Self.Target);
-				Camera.Instance.Follow(Self.Target, 1f);
+				Start(bkDialog, "bkw_0", Self.Target, () => {
+					Start(bkDialog, "bkw_1", Self.Target, () => {
+						bkDialog.Close();
+						
+						Start(playerDialog, "bkw_2", Self.Target, () => {
+							playerDialog.Close();
+							
+							Start(bkDialog, "bkw_3", Self.Target, () => {
+								Become<FollowState>();
+								bkDialog.OnEnd();
+							});	
+						});	
+					});	
+				});
+			}
+		
+			private void Start(DialogComponent d, string id, Entity to, Action callback = null) {
+				d.Start(id, to);
+
+				if (callback != null) {
+					d.Dialog.ShowArrow = true;
+					d.Dialog.OnEnd = () => {
+						Timer.Add(callback, 0.1f);
+						return true;
+					};
+				}
 			}
 		}
 
