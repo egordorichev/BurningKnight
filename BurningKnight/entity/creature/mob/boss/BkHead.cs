@@ -59,10 +59,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 		}
 
-		public override bool InAir() {
-			return true;
-		}
-
 		public override void SelectAttack() {
 			base.SelectAttack();
 			Become<IdleState>();
