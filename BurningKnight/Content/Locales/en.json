@@ -1050,5 +1050,6 @@
 	"bkw_0" : "ANOTHER [cl red]INTRUDER[cl]!",
 	"bkw_1" : "##GET OUT OF HERE##[dl], OR I WILL FORCE YOU!",
 	"bkw_2" : "I'm looking for [cl green]my father",
-	"bkw_3" : "I GAVE YOU _A WARNING_"
+	"bkw_3" : "I GAVE YOU _A WARNING_",
+	"spanish_inquisition" : "[cl red]Spanish Inquisition"
 }

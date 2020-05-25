@@ -90,7 +90,11 @@ namespace BurningKnight.entity.creature.npc {
 				return "maanex_12";
 			}
 
-			return$"maanex_{(played ? 7 : 5)}";
+			if (Rnd.Chance(0.01f)) {
+				return "spanish_inquisition";
+			}
+
+			return $"maanex_{(played ? 7 : 5)}";
 		}
 
 		public override bool HandleEvent(Event e) {
