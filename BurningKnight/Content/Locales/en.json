@@ -1046,11 +1046,11 @@
 	"maanex2_0_0": "Take my money!",
 	"maanex2_0_1": "Not this time, tnx.",
 	"maanex2_0": "Okay, gimme [cl yellow][vr cost] coins[cl] and you can give the claw a try!",
-	"dm_7" : "Let's play a game",
-	"bkw_0" : "ANOTHER [cl red]INTRUDER[cl]!",
-	"bkw_1" : "##GET OUT OF HERE##[dl], OR I WILL FORCE YOU!",
-	"bkw_2" : "I'm looking for [cl green]my father",
-	"bkw_3" : "I GAVE YOU _A WARNING_",
-	"spanish_inquisition" : "[cl red]Spanish Inquisition",
-	"lp_0" : "Good job, [cl purple]Ritta[cl][dl], restarting [cl green]the simulation[cl][dl].[dl].[dl]."
+	"dm_7": "Let's play a game",
+	"bkw_0": "ANOTHER [cl red]INTRUDER[cl]!",
+	"bkw_1": "##GET OUT OF HERE##[dl], OR I WILL FORCE YOU!",
+	"bkw_2": "I'm looking for [cl green]my father",
+	"bkw_3": "I GAVE YOU _A WARNING_",
+	"spanish_inquisition": "[cl red]Spanish Inquisition",
+	"lp_0": "Good job, [cl purple]Ritta[cl][dl], restarting [cl green]the simulation[cl][dl].[dl].[dl]."
 }

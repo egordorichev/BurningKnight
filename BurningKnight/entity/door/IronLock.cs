@@ -58,7 +58,7 @@ namespace BurningKnight.entity.door {
 							var found = false;
 							
 							foreach (var m in r.Tagged[Tags.MustBeKilled]) {
-								if (!m.Done && !m.GetComponent<BuffsComponent>().Has<CharmedBuff>()) {
+								if (!m.Done && !m.GetComponent<BuffsComponent>().Has<CharmedBuff>() && m.GetComponent<HealthComponent>().Health > 0.3f) {
 									found = true;
 									break;
 								}
