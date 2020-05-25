@@ -145,7 +145,8 @@ namespace BurningKnight.level.entities {
 											if (grabbed is RandomItem r) {
 												r.Prevent = true;
 											}
-											
+
+											grabbed.Won = true;
 											grabbed.Transparent = false;
 											grabbed = null;
 											
