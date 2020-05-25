@@ -22,15 +22,5 @@ namespace BurningKnight.entity.item {
 			TryToOverrideId();
 			base.PostInit();
 		}
-
-		public override void Load(FileReader stream) {
-			base.Load(stream);
-			Prevent = stream.ReadBoolean();
-		}
-
-		public override void Save(FileWriter stream) {
-			base.Save(stream);
-			stream.WriteBoolean(Prevent);
-		}
 	}
 }

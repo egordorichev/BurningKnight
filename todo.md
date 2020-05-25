@@ -5,4 +5,3 @@
 }
 
 doors still can not open?
-items from the munex miniga,e can break health
