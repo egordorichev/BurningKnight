@@ -96,7 +96,9 @@ namespace BurningKnight.entity.creature.bk {
 					Self.Fire();
 				}
 
-				if (Self.GetComponent<OrbitalComponent>().Orbiting.Done) {
+				var o = Self.GetComponent<OrbitalComponent>().Orbiting;
+
+				if (o == null || o.Done) {
 					Self.Kill(Self);
 				}
 			}

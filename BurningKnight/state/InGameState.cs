@@ -169,6 +169,9 @@ namespace BurningKnight.state {
 			emerald = CommonAse.Items.GetSlice("bk:emerald");
 
 			if (Menu) {
+				Achievements.PostLoadCallback?.Invoke();
+				Achievements.PostLoadCallback = null;
+			
 				Input.Blocked = 1;
 
 				blackBarsSize = BarsSize;
@@ -196,6 +199,10 @@ namespace BurningKnight.state {
 			Audio.Speed = 1f;
 
 			try {
+				if (Run.Depth >= 10) {
+					Audio.Preload("Last chance");
+				}
+			
 				Audio.Preload(((Biome) Activator.CreateInstance(BiomeRegistry.GenerateForDepth(Run.Depth + 1).Type)).Music);
 			} catch (Exception e) {
 				Log.Error(e);
@@ -2987,7 +2994,7 @@ namespace BurningKnight.state {
 					root["kills"] = Run.Statistics.MobsKilled;
 					root["rooms"] = $"{Run.Statistics.RoomsExplored} / {Run.Statistics.RoomsTotal}";
 					root["scourge"] = Run.Scourge;
-					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0}";
+					root["distance"] = $"{(Run.Statistics.TilesWalked / 1024f):0.0} {Locale.Get("km")}";
 
 					var id = $"top_{place}";
 

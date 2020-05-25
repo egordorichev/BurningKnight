@@ -395,8 +395,8 @@ namespace BurningKnight.level {
 			}
 		}
 
-		public bool IsPassable(int x, int y) {
-			return IsPassable(ToIndex(x, y));
+		public bool IsPassable(int x, int y, bool chasm = false) {
+			return IsPassable(ToIndex(x, y), chasm);
 		}
 
 		public bool IsPassable(int i, bool chasm = false) {

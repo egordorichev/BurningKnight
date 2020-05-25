@@ -50,6 +50,10 @@ namespace BurningKnight.entity.creature.mob.library {
 
 			public override void Update(float dt) {
 				base.Update(dt);
+
+				if (Self.Target == null) {
+					return;
+				}
 				
 				if (Self.CanSeeTarget() && Self.DistanceTo(Self.Target) < SafeDistance - 16) {
 					Become<RunState>();

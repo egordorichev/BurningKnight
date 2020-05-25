@@ -127,14 +127,14 @@ namespace BurningKnight.entity.creature.player {
 				
 				Accelerate(Vector2.Zero, dt);
 
-				if (Input.WasPressed(Controls.Pause)) {
+				/*if (Input.WasPressed(Controls.Pause)) {
 					dd?.Close();
 					dialog?.OnEnd();
 					Audio.PlaySfx("ui_moving");
 					InGameState.SkipPause = true;
-				} else {
+				} else {*/
 					return;
-				}
+				//}
 			}
 
 			if (Run.Depth > 0 && Run.Type != RunType.Daily && Input.Keyboard.WasPressed(Keys.P)) {

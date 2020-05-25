@@ -20,6 +20,7 @@ using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
@@ -468,6 +469,43 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
+		public class CutsceneState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+
+				var bkDialog = Self.GetComponent<DialogComponent>();
+				var playerDialog = Self.Target.GetComponent<DialogComponent>();
+				
+				Start(bkDialog, "bkw_0", Self.Target, () => {
+					Start(bkDialog, "bkw_1", Self.Target, () => {
+						bkDialog.Close();
+						
+						Start(playerDialog, "bkw_2", Self.Target, () => {
+							playerDialog.Close();
+							
+							Start(bkDialog, "bkw_3", Self.Target, () => {
+								Become<FollowState>();
+								bkDialog.OnEnd();
+								GlobalSave.Put("bk_who", true);
+							});	
+						});	
+					});	
+				});
+			}
+		
+			private void Start(DialogComponent d, string id, Entity to, Action callback = null) {
+				d.Start(id, to);
+
+				if (callback != null) {
+					d.Dialog.ShowArrow = true;
+					d.Dialog.OnEnd = () => {
+						Timer.Add(callback, 0.1f);
+						return true;
+					};
+				}
+			}
+		}
+
 		public class TeleportState : SmartState<BurningKnight> {
 			public override void Init() {
 				base.Init();
@@ -481,11 +519,16 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						if (Run.Depth == 1 && GlobalSave.IsFalse("bk_who")) {
+							Self.Become<CutsceneState>();
+							return;
+						}
+						
 						if (Self.sayNoRage) {
 							Self.sayNoRage = false;
 							Self.GetComponent<DialogComponent>().StartAndClose("bk_11", 5);
 						}
-						
+
 						if (Self.Target != null) {
 							Self.Become<FollowState>();
 						} else {

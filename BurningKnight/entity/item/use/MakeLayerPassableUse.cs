@@ -81,7 +81,7 @@ namespace BurningKnight.entity.item.use {
 			base.Setup(settings);
 
 			forProjectiles = settings["fp"].Bool(false);
-			forPlayer = settings["fpl"].Bool(true);
+			forPlayer = settings["fpl"].Bool(false);
 			chasms = settings["ic"].Bool(false);
 			props = settings["ip"].Bool(false);
 			walls = settings["iw"].Bool(false);

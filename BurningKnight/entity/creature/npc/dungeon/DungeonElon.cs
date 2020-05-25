@@ -34,6 +34,8 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 					return Dialogs.Get("elon_7");
 				}
 
+				interacted = true;
+				
 				var id = Items.Generate(ItemType.Weapon, dt => dt.Id != c.Item.Id);
 				var i = c.Item;
 			
@@ -42,7 +44,6 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				c.Set(Items.CreateAndAdd(id, Area));
 			
 				Run.AddScourge(true);
-				interacted = true;
 
 				return null;
 			});

@@ -4,6 +4,7 @@ using Lens.entity;
 namespace BurningKnight.entity.item {
 	public class RoundItem : Item {
 		public bool Transparent;
+		public bool Won;
 		
 		protected override BodyComponent GetBody() {
 			return GetComponent<CircleBodyComponent>();
@@ -26,7 +27,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		protected override bool ShouldInteract(Entity entity) {
-			return !Transparent && base.ShouldInteract(entity);
+			return !Transparent && Won && base.ShouldInteract(entity);
 		}
 	}
 }

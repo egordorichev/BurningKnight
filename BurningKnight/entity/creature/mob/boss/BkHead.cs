@@ -12,6 +12,7 @@ using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.pattern;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
@@ -57,10 +58,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 					Become<IdleState>();
 				}, 1);
 			}
-		}
-
-		public override bool InAir() {
-			return true;
 		}
 
 		public override void SelectAttack() {
@@ -387,6 +384,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public override void PlaceRewards() {
 			if (saved) {
 				base.PlaceRewards();
+			} else {
+				ResetCam = false;
 			}
 			
 			Achievements.Unlock("bk:bk_no_more");
@@ -415,45 +414,76 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Area.Add(heinur);
 			heinur.Center = Center - new Vector2(0, 32);
 
+			var g = heinur.GetComponent<BkGraphicsComponent>();
+			
+			g.Scale = Vector2.Zero;
+			
+			Timer.Add(() => {
+				Tween.To(1, 0, x => g.Scale.X = x, 3f);
+				Tween.To(1, 0, x => g.Scale.Y = x, 3f);
+			}, 1f);
+
 			var dm = new DarkMage();
 			Area.Add(dm);
 
 			dm.Center = Center + new Vector2(0, 32);
+			dm.GetComponent<AnimationComponent>().Animate();
+
+			AnimationUtil.Poof(dm.Center);
+			
 			var dmDialog = dm.GetComponent<DialogComponent>();
 			var heinurDialog = heinur.GetComponent<DialogComponent>();
-
+			
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				p.RemoveComponent<PlayerInputComponent>();
+			}
+			
+			Camera.Instance.Targets.Clear();
+			Camera.Instance.Follow(dm, 1f);
+			Camera.Instance.Follow(heinur, 1f);
+			
 			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
 				dmDialog.Close();
 				
 				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
 					heinurDialog.Close();
-					
-					dmDialog.Start("dm_6", null, () => Timer.Add(() => {
-						dmDialog.Close();
+					heinur.Attract = true;
 
+					heinur.Callback = () => {
+						Camera.Instance.Targets.Clear();
+						Camera.Instance.Follow(dm, 1f);
+						
+						foreach (var p in Area.Tagged[Tags.Player]) {
+							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
+						}
+						
 						var bk = new bk.BurningKnight() {
 							Passive = true
 						};
 						
 						Area.Add(bk);
 						bk.Center = Center;
-						heinur.Done = true;
 
-						foreach (var p in Area.Tagged[Tags.Player]) {
-							p.RemoveComponent<PlayerInputComponent>();
-							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
-						}
-
-						Camera.Instance.Targets.Clear();
-						Camera.Instance.Follow(bk, 1f);
-
-						var nbkDialog = bk.GetComponent<DialogComponent>();
+						var gr = bk.GetComponent<BkGraphicsComponent>();
+						gr.Scale = Vector2.Zero;
 						
-						nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
-							nbkDialog.Close();
-							Run.Win();
+						Tween.To(1, 0, x => g.Scale.X = x, 2f);
+						Tween.To(1, 0, x => g.Scale.Y = x, 2f);
+						
+						dmDialog.Start("dm_6", null, () => Timer.Add(() => {
+							dmDialog.Close();
+
+							Camera.Instance.Targets.Clear();
+							Camera.Instance.Follow(bk, 1f);
+
+							var nbkDialog = bk.GetComponent<DialogComponent>();
+						
+							nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
+								nbkDialog.Close();
+								Run.Win();
+							}, 2f));
 						}, 2f));
-					}, 2f));
+					};
 				}, 1f));
 			}, 1f));
 		}

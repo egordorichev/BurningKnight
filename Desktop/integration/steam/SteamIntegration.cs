@@ -31,7 +31,7 @@ namespace Desktop.integration.steam {
 					case "english": {
 						Locale.PrefferedClientLanguage = "en";
 						break;
-					}
+					}	
 					
 					case "russian": {
 						Locale.PrefferedClientLanguage = "ru";
@@ -131,15 +131,15 @@ namespace Desktop.integration.steam {
 
 				Achievements.PostLoadCallback += () => {
 					try {
-						foreach (var achievement in SteamUserStats.Achievements) {
-							if (achievement.State) {
-								Achievements.Unlock(achievement.Identifier);
-							}
-						}
-
 						foreach (var achievement in Achievements.Defined) {
 							if (achievement.Value.Unlocked) {
 								new Achievement(achievement.Key).Trigger();
+							}
+						}
+						
+						foreach (var achievement in SteamUserStats.Achievements) {
+							if (achievement.State) {
+								Achievements.Unlock(achievement.Identifier);
 							}
 						}
 					} catch (Exception e) {

@@ -44,6 +44,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 		private float deathTimer;
 		private float lastExplosion;
 
+		public bool ResetCam = true;
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -214,10 +216,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 					Done = true;
 					PlaceRewards();
-					
-					Timer.Add(() => {
-						((InGameState) Engine.Instance.State).ResetFollowing();
-					}, 0.5f);
+
+					if (ResetCam) {
+						Timer.Add(() => { ((InGameState) Engine.Instance.State).ResetFollowing(); }, 0.5f);
+					}
 				} else {
 					deathTimer += dt;
 					lastExplosion -= dt;

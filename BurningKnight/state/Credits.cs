@@ -75,11 +75,6 @@ namespace BurningKnight.state {
 			});
 
 			Add(new[] {
-				"nade_",
-				"Italian Translation"
-			});
-
-			Add(new[] {
 				"Nikithn",
 				"Belarusian Translation"
 			});
@@ -107,6 +102,11 @@ namespace BurningKnight.state {
 			Add(new[] {
 				"Dean aka DSF100",
 				"Extensive Playtesting & Inspiration"
+			});
+
+			Add(new[] {
+				"Nufflee",
+				"Early Development & Playtesting"
 			});
 
 			Add(new[] {
