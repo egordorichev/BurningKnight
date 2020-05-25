@@ -61,7 +61,7 @@ namespace BurningKnight.entity.item.renderer {
 				to -= MathUtils.CreateVector(a, d);
 
 				owner.GetComponent<AimComponent>().Aim = to;*/
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 12f);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to), dt * 24f);
 			}
 
 			if (atBack) {

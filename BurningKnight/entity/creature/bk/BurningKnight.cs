@@ -20,6 +20,7 @@ using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
@@ -468,6 +469,18 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
+		public class CutsceneState : SmartState<BurningKnight> {
+			public override void Init() {
+				base.Init();
+
+				var bkDialog = Self.GetComponent<DialogComponent>();
+				var playerDialog = Self.Target.GetComponent<DialogComponent>();
+				
+				bkDialog.Start("RICK ROLL", Self.Target);
+				Camera.Instance.Follow(Self.Target, 1f);
+			}
+		}
+
 		public class TeleportState : SmartState<BurningKnight> {
 			public override void Init() {
 				base.Init();
@@ -481,11 +494,16 @@ namespace BurningKnight.entity.creature.bk {
 					}
 
 					Tween.To(1, graphics.Alpha, x => graphics.Alpha = x, 0.3f).OnEnd = () => {
+						if (Run.Depth == 1 && GlobalSave.IsFalse("bk_who")) {
+							Self.Become<CutsceneState>();
+							return;
+						}
+						
 						if (Self.sayNoRage) {
 							Self.sayNoRage = false;
 							Self.GetComponent<DialogComponent>().StartAndClose("bk_11", 5);
 						}
-						
+
 						if (Self.Target != null) {
 							Self.Become<FollowState>();
 						} else {

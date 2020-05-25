@@ -52,7 +52,7 @@ namespace BurningKnight.entity.item.renderer {
 				var d = MathUtils.Distance(dx, dy);
 
 				to -= MathUtils.CreateVector(a, d);*/
-				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to) + Math.PI * 0.5f, dt * 12f);
+				lastAngle = MathUtils.LerpAngle(lastAngle, owner.AngleTo(to) + Math.PI * 0.5f, dt * 24f);
 			}
 
 			var angle = atBack ? (float) Math.PI * (owner.GraphicsComponent.Flipped ? 0.25f : -0.25f) : (float) lastAngle;
