@@ -158,6 +158,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<VendingRoom>(1f),
 				
 				RoomInfo.New<ChestStatueRoom>(0.8f),
+				RoomInfo.New<FountainRoom>(1f),
 				RoomInfo.New<DiceStatueRoom>(1f),
 				RoomInfo.New<ScourgeStatueRoom>(0.5f),
 				RoomInfo.New<StoneStatueRoom>(1f),
