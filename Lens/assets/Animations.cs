@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Aseprite;
 using Lens.graphics;
@@ -19,7 +20,11 @@ namespace Lens.assets {
 			if (animationDir.Exists()) {
 				foreach (var animation in animationDir.ListFileHandles()) {
 					if (animation.Extension == ".ase") {
-						LoadAnimation(animation.NameWithoutExtension, animation.FullPath);
+						try {
+							LoadAnimation(animation.NameWithoutExtension, animation.FullPath);
+						} catch (Exception e) {
+							Log.Error(e);
+						}
 					}
 				}
 			}

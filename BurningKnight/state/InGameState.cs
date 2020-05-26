@@ -66,8 +66,6 @@ namespace BurningKnight.state {
 		private static float TitleY = BarsSize / 2f;
 		private static float BackY = Display.UiHeight - BarsSize / 2f;
 
-		private bool pausedByMouseOut;
-		private bool pausedByLostFocus;
 		private float blur;
 		private static TextureRegion fog;
 		
@@ -357,11 +355,12 @@ namespace BurningKnight.state {
 
 		protected override void OnPause() {
 			base.OnPause();
-
+			
 			if (died || InMenu || Run.Won) {
 				return;
 			}
-			
+
+			t = 0;
 			Tween.To(this, new {blur = 1}, 0.25f);
 
 			if (!InStats) {
@@ -435,30 +434,20 @@ namespace BurningKnight.state {
 			Timer.Add(() => {
 				doneAnimatingPause = true;
 			}, 0.25f);
-
-			pausedByMouseOut = false;
-		}
-
-		public override void OnActivated() {
-			base.OnActivated();
-
-			/*if (Paused && pausedByLostFocus && painting == null) {
-				Paused = false;
-			}*/
 		}
 
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
+			if (Paused || DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
 				return;
 			}
 
 			Paused = true;
-			pausedByLostFocus = true;
-			pausedByMouseOut = false;
 		}
 
+		private float t;
+		
 		private void SelectFirst() {
 			SelectFirst(false);
 		}
@@ -705,6 +694,7 @@ namespace BurningKnight.state {
 			}
 
 			if (!Paused) {
+				t += dt;
 				Weather.Update(dt);
 
 				if (Run.Depth == 0) {
@@ -753,12 +743,11 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 
 			if (DialogComponent.Talking == null) {
-				if (!Paused && !inside && !Engine.Version.Test && Settings.Autopause) {
+				if (!Paused && t >= 1f && !inside && Settings.Autopause) {
 					Paused = true;
-					pausedByMouseOut = true;
-				} else if (Paused && pausedByMouseOut && inside) {
+				}/* else if (Paused && pausedByMouseOut && inside) {
 					Paused = false;
-				}
+				}*/
 			}
 
 			if (Menu && !menuExited) {
@@ -895,10 +884,10 @@ namespace BurningKnight.state {
 				}
 			}
 
-			if (Engine.Version.Test) {
+			#if DEBUG
 				UpdateDebug(dt);
 				Tilesets.Update();
-			}
+			#endif
 
 			Run.Update();
 			
@@ -932,7 +921,7 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
-			if ((BK.Version.Test || BK.Version.Dev) && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
+			if (BK.Version.Dev && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
 				ToolsEnabled = !ToolsEnabled;
 				var player = LocalPlayer.Locate(Area);
 
@@ -2725,7 +2714,12 @@ namespace BurningKnight.state {
 			
 			Paused = false;
 		}
-		
+
+		public override void OnActivated() {
+			base.OnActivated();
+			t = 0;
+		}
+
 		public Action ReturnFromStats;
 		private bool sbusy;
 

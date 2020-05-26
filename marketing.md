@@ -1,21 +1,29 @@
 # A week before release
 
 * You-Tubers
+
 * Mail press
+ + also make sure to include the key in the press mail right at the top
+ + subject: here's your key to genre game name launching on day x
+* Mail my list
 
 # Release day
 
 * Reddit
 * Twitch-Streamers
-* Twitter (+ Key giveaways)
+* Twitter (tag itch.op)
 * Imgur
 * Mailing List
-* Blog Post on github
+* Blog Post on github (+ copy for the rexcellentgames.com)
 * Community Post on steam
 * Announcement in rexcellent discord
 * Announcement in other discords (indikator, etc)
 * Key giveaways on discord
 * Steam Curators
+
+# A few days later
+
+* Twitter Key giveaways
 
 # Subredit advice
 

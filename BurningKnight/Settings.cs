@@ -103,11 +103,11 @@ namespace BurningKnight {
 			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;
-			Autopause = true;
+			Autopause = false;
 			Autosave = true;
 			Gamepad = null;
 			Vibrate = true;
-			Sensivity = 1f;
+			Sensivity = 1.5f;
 			GameScale = 1f;
 			FloorDarkness = 1f;
 			PixelPerfect = false;
