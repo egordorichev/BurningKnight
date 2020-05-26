@@ -31,7 +31,7 @@ namespace BurningKnight.entity.projectile {
 
 		static ProjectileRegistry() {
 			Add("disk", p => {
-				CollisionFilterComponent.Add(p, (entity, with) => with is Mob ? CollisionResult.Disable : CollisionResult.Default);
+				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.BounceLeft += 10;
 				p.CanHitOwner = true;

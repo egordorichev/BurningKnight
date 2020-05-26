@@ -395,7 +395,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 			
-			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfProjectileLevel)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		public void Break(Entity from = null) {

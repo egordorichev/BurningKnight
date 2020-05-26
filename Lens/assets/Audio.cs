@@ -284,8 +284,8 @@ namespace Lens.assets {
 							for (var c = 0; c < Channels; c++) {
 								var floatSample = 0f;
 
-								foreach (var p in Playing) {
-									floatSample += p.GetSample(ps, c) * SfxVolumeBuffer;
+								for (var z = 0; z < Playing.Count; z++) {
+									floatSample += Playing[z].GetSample(ps, c) * SfxVolumeBuffer;
 								}
 
 								floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
