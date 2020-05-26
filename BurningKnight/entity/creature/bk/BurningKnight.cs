@@ -487,6 +487,8 @@ namespace BurningKnight.entity.creature.bk {
 								Become<FollowState>();
 								bkDialog.OnEnd();
 								GlobalSave.Put("bk_who", true);
+
+								Self.Target.GetComponent<HealthComponent>().Unhittable = false;
 							});	
 						});	
 					});	
