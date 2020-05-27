@@ -121,7 +121,7 @@ namespace BurningKnight.level.rooms.special {
 
 		private static string[] shopNpcs = {
 			ShopNpc.Snek, ShopNpc.Boxy, ShopNpc.Duck, ShopNpc.Vampire,
-			ShopNpc.Elon, ShopNpc.Gobetta, ShopNpc.Nurse
+			ShopNpc.Elon, ShopNpc.Gobetta, ShopNpc.Nurse, ShopNpc.Roger
 		};
 
 		public static bool ShouldBeAdded() {
