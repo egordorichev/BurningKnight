@@ -20,17 +20,13 @@ namespace BurningKnight.level.paintings {
 			Add("egor", "egordorichev", 0.25f);
 			Add("null", "SEGFAULT", 0.5f);
 			Add("lamp", "Brastin");
-			Add("banana", "Minions");
 			Add("badosz", "DSF100", 1f, null, true);
 			Add("tv", "ANIVIRE");
 			Add("company", "ANIVIRE");
-			Add("pico", "zep");
-			Add("liko", "Rami");
 			Add("trasevol", "TRASEVOL_DOG");
 			Add("scream", "???");
 			Add("stars", "???");
 			Add("fog", "???");
-			Add("nufflee", "Nufflee");
 			Add("cat", "Brastin", 0.1f);
 			Add("dungeon", "Johan Peitz", 0.2f);
 			Add("goose", "Jaxetly");
@@ -38,10 +34,48 @@ namespace BurningKnight.level.paintings {
 			Add("guitar", "Nikithn", 0.5f);
 			Add("peach", "unije");
 			Add("agency", "smashy", 0.01f);
-
-			// Add("car", "???");
-			// Add("moika", "???");
-			// Add("sunset", "???");
+			Add("beet_boys", "Gaziter");
+			Add("moonshine", "Gaziter");
+			Add("void", "Gaziter");
+			Add("esty", "???");
+			
+			Add("nat", "MateCziner");
+			Add("totemori", "MateCziner");
+			Add("horatio", "MateCziner");
+			Add("coce", "MateCziner");
+			Add("no_idea", "MateCziner");
+			Add("tinkerer", "MateCziner");
+			Add("totemori_redux", "MateCziner");
+			Add("raj", "MateCziner");
+			Add("plank", "MateCziner");
+			Add("qrilin", "MateCziner");
+			Add("in_loving_memory_of_ali", "MateCziner");
+			Add("happy_accident", "MateCziner");
+			Add("observing_cheese", "MateCziner");
+			Add("kobra_throne", "MateCziner");
+			Add("chicken_enemy_unknown", "MateCziner");
+			Add("mori", "MateCziner");
+			Add("balbo", "MateCziner");
+			Add("know_stuff", "MateCziner");
+			Add("olpi", "MateCziner");
+			Add("one_knight_stand", "MateCziner");
+			Add("ne_furdje_le", "MateCziner");
+			Add("sushi_sushi", "MateCziner");
+			Add("hoop_gang", "MateCziner");
+			Add("riveting_view", "MateCziner");
+			Add("gang", "MateCziner");
+			Add("zweihandler", "MateCziner");
+			Add("whoops", "MateCziner");
+			Add("too_lake", "MateCziner");
+			Add("cauliflower ", "MateCziner");
+			Add("raise_volcano", "MateCziner");
+			Add("mahula", "MateCziner");
+			Add("step_through", "MateCziner");
+			Add("thats_a_moon", "MateCziner");
+			Add("totem", "MateCziner");
+			Add("too_late", "MateCziner");
+			Add("whipped_cream", "MateCziner");
+			Add("tofulamac", "Didu");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {

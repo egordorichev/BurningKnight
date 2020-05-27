@@ -50,7 +50,7 @@ namespace BurningKnight.entity.door {
 				}
 			}
 			
-			Achievements.SetProgress("bk:npc_party", progress, 14);
+			Achievements.SetProgress("bk:npc_party", progress, 13);
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {

@@ -11,6 +11,7 @@ using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.preboss;
 using BurningKnight.level.tile;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util.geometry;
 using Lens;
 using Lens.util;
@@ -35,7 +36,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			return 3;
+			return Run.Depth >= 10 ? 1 : 3;
 		}
 
 		public override int GetMinConnections(Connection Side) {

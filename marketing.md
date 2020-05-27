@@ -1,11 +1,11 @@
-# A week before release
+# today
 
 * You-Tubers
-
 * Mail press
  + also make sure to include the key in the press mail right at the top
  + subject: here's your key to genre game name launching on day x
-* Mail my list
+ 
+* do post on reddit about soon release
 
 # Release day
 
@@ -37,3 +37,12 @@ indiegames
 gaming
 gamedevscreens
 itchio
+
+# subreddits
+
+playmygame/
+indiegames
+Games/
+gaming
+gamedev
+roguelikedev

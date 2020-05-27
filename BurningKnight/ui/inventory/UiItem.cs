@@ -5,10 +5,12 @@ using BurningKnight.entity.item;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
+using Lens.input;
 using Lens.util;
 using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace BurningKnight.ui.inventory {
@@ -155,6 +157,16 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			Graphics.Print(countStr, Font.Small, (int) (X + Width - countW), (int) (Y + Height + 6 - countH));
+		}
+
+		public override void OnClick() {
+			base.OnClick();
+
+			if (Input.Keyboard.IsDown(Keys.LeftControl) || Input.Keyboard.IsDown(Keys.LeftShift) ||
+			    Input.Keyboard.IsDown(Keys.RightControl)) {
+
+				System.Diagnostics.Process.Start($"https://wiki.burningknight.net/?item={Id}");
+			}
 		}
 	}
 }
