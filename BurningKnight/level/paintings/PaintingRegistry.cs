@@ -20,17 +20,13 @@ namespace BurningKnight.level.paintings {
 			Add("egor", "egordorichev", 0.25f);
 			Add("null", "SEGFAULT", 0.5f);
 			Add("lamp", "Brastin");
-			Add("banana", "Minions");
 			Add("badosz", "DSF100", 1f, null, true);
 			Add("tv", "ANIVIRE");
 			Add("company", "ANIVIRE");
-			Add("pico", "zep");
-			Add("liko", "Rami");
 			Add("trasevol", "TRASEVOL_DOG");
 			Add("scream", "???");
 			Add("stars", "???");
 			Add("fog", "???");
-			Add("nufflee", "Nufflee");
 			Add("cat", "Brastin", 0.1f);
 			Add("dungeon", "Johan Peitz", 0.2f);
 			Add("goose", "Jaxetly");
@@ -38,6 +34,9 @@ namespace BurningKnight.level.paintings {
 			Add("guitar", "Nikithn", 0.5f);
 			Add("peach", "unije");
 			Add("agency", "smashy", 0.01f);
+			Add("beet_boys", "Gaziter");
+			Add("moonshine", "Gaziter");
+			Add("void", "Gaziter");
 
 			// Add("car", "???");
 			// Add("moika", "???");
