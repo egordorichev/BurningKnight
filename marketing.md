@@ -5,6 +5,11 @@
  + also make sure to include the key in the press mail right at the top
  + subject: here's your key to genre game name launching on day x
 
+# whenverv
+
+* dog or some pet, that you can pet, send to can you pet the dog tweet account
+* forshadow the ending with tech tiles (more of them in secret rooms)
+
 # Release day
 
 * Reddit
