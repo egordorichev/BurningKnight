@@ -75,6 +75,7 @@ namespace BurningKnight.state {
 		private static bool flipR;
 		private static bool flipAll;
 		private static bool extremeWave;
+		private static bool knig;
 
 		public static void Init() {
 			if (letterB != null) {
@@ -87,6 +88,7 @@ namespace BurningKnight.state {
 			showK = Rnd.Float() < 0.999f;
 			flipR = Rnd.Float() > 0.999f;
 			extremeWave = Rnd.Float() > 0.999f;
+			knig = Rnd.Float() > 0.999f;
 			
 			var anim = Animations.Get("logo");
 
@@ -168,8 +170,12 @@ namespace BurningKnight.state {
 			Render(letterBN3, letterN3, positions[8] + o);
 			Render(letterBI2, letterI2, positions[9] + o);
 			Render(letterBG2, letterG2, positions[10] + o);
-			Render(letterBH, letterH, positions[11] + o);
-			Render(letterBT, letterT, positions[12] + o);
+
+			if (knig) {
+				Render(letterBH, letterH, positions[11] + o);
+				Render(letterBT, letterT, positions[12] + o);
+			}
+
 			Render(bdot, dot, positions[13] + o);
 
 			Render(letterWB, letterB, positions[0] + o);
@@ -187,8 +193,12 @@ namespace BurningKnight.state {
 			Render(letterWN3, letterN3, positions[8] + o);
 			Render(letterWI2, letterI2, positions[9] + o);
 			Render(letterWG2, letterG2, positions[10] + o);
-			Render(letterWH, letterH, positions[11] + o);
-			Render(letterWT, letterT, positions[12] + o);
+
+			if (knig) {
+				Render(letterWH, letterH, positions[11] + o);
+				Render(letterWT, letterT, positions[12] + o);
+			}
+
 			Render(wdot, dot, positions[13] + o);
 			
 			Render(letterB, letterB, positions[0] + o);
@@ -206,8 +216,13 @@ namespace BurningKnight.state {
 			Render(letterN3, letterN3, positions[8] + o);
 			Render(letterI2, letterI2, positions[9] + o);
 			Render(letterG2, letterG2, positions[10] + o);
-			Render(letterH, letterH, positions[11] + o);
-			Render(letterT, letterT, positions[12] + o);
+
+			if (knig) {
+				Render(letterH, letterH, positions[11] + o);
+				Render(letterT, letterT, positions[12] + o);
+			}
+			
+
 			Render(dot, dot, positions[13] + o);
 		}
 	}
