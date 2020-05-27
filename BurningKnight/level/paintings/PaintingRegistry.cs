@@ -45,7 +45,6 @@ namespace BurningKnight.level.paintings {
 			Add("coce", "MateCziner");
 			Add("no_idea", "MateCziner");
 			Add("tinkerer", "MateCziner");
-			Add("tinkerer", "MateCziner");
 			Add("totemori_redux", "MateCziner");
 			Add("raj", "MateCziner");
 			Add("plank", "MateCziner");
