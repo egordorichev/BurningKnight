@@ -67,7 +67,7 @@ namespace BurningKnight.level.paintings {
 			Add("zweihandler", "MateCziner");
 			Add("whoops", "MateCziner");
 			Add("too_lake", "MateCziner");
-			Add("cauliflower ", "MateCziner");
+			Add("cauliflower", "MateCziner");
 			Add("raise_volcano", "MateCziner");
 			Add("mahula", "MateCziner");
 			Add("step_through", "MateCziner");
@@ -75,7 +75,7 @@ namespace BurningKnight.level.paintings {
 			Add("totem", "MateCziner");
 			Add("too_late", "MateCziner");
 			Add("whipped_cream", "MateCziner");
-			Add("tofulamac", "Didu");
+			Add("tofulama", "Didu");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {

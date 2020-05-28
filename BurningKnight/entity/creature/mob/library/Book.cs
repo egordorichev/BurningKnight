@@ -89,13 +89,13 @@ namespace BurningKnight.entity.creature.mob.library {
 
 			public override void Init() {
 				base.Init();
-				delay = Rnd.Float(2f, 5f);
+				delay = Rnd.Float(1f, 2f);
 			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.5f && !fired) {
+				if (T >= 0.2f && !fired) {
 					fired = true;
 					
 					if (Self.Target != null) {
@@ -121,7 +121,7 @@ namespace BurningKnight.entity.creature.mob.library {
 								pr.BodyComponent.Angle = a;
 							}, data, () => {
 								Timer.Add(() => {
-									p.Launch(a, 20);
+									p.Launch(a, Rnd.Float(20, 40));
 									Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 								}, 0.2f);
 							});

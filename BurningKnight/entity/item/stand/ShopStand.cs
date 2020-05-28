@@ -52,7 +52,14 @@ namespace BurningKnight.entity.item.stand {
 			if (component.Coins < Price) {
 				return false;
 			}
+			
+			component.Coins -= Price;
+			Achievements.Unlock("bk:shopper");
+			
+			return true;
+		}
 
+		private bool OkToBuy(Entity entity) {
 			if (Item.Type == ItemType.Active) {
 				var item = entity.GetComponent<ActiveItemComponent>().Item;
 
@@ -70,13 +77,10 @@ namespace BurningKnight.entity.item.stand {
 					}
 				}
 			}
-			
-			component.Coins -= Price;
-			Achievements.Unlock("bk:shopper");
-			
+
 			return true;
 		}
-
+		
 		protected override bool CanTake(Entity entity) {
 			if (!base.CanTake(entity)) {
 				return false;
@@ -85,8 +89,13 @@ namespace BurningKnight.entity.item.stand {
 			if (!Sells || Free) {
 				return true;
 			}
-			
-			if (!TryPay(entity)) {
+
+			if (!OkToBuy(entity)) {
+				AnimationUtil.ActionFailed();
+				entity.GetComponent<DialogComponent>().StartAndClose($"~~{Locale.Get("scourged")}", 2);
+
+				return false;
+			} else if (!TryPay(entity)) {
 				AnimationUtil.ActionFailed();
 
 				foreach (var n in GetComponent<RoomComponent>().Room.Tagged[Tags.Npc]) {

@@ -5,6 +5,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
@@ -408,7 +409,7 @@ namespace BurningKnight.ui.inventory {
 				if (r.Tagged[Tags.MustBeKilled].Count == 1 && r.Type != RoomType.Connection && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
 					target = r.Tagged[Tags.MustBeKilled][0];
 
-					if (target != null && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
+					if (target != null && (!(target is Mob mb) || mb.Target != null) && target is Creature c && c.GetComponent<HealthComponent>().Health >= 1f) {
 						RenderArrow(target.Center);
 					}
 				} else if (Run.Depth > 0 && r.Tagged[Tags.MustBeKilled].Count == 0 && Exit.Instance != null && Player.CheckClear(Engine.Instance.State.Area)) {

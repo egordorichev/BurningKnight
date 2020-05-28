@@ -265,11 +265,19 @@ namespace BurningKnight.entity.projectile {
 				p.Break(this);
 				return true;
 			}
+
+			var r = false;
 			
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
-				if (c.Invoke(entity) == CollisionResult.Disable) {
+				var rs = c.Invoke(entity);
+				
+				if (rs == CollisionResult.Disable) {
 					return false;
-				} 
+				}
+
+				if (rs == CollisionResult.Enable) {
+					r = true;
+				}
 			}
 
 			if (entity == Owner && (!HurtsEveryone || T < 1f)) {
@@ -280,7 +288,7 @@ namespace BurningKnight.entity.projectile {
 				return true;
 			}
 
-			if (entity is creature.bk.BurningKnight) {
+			if (!r && entity is creature.bk.BurningKnight) {
 				return false;
 			}
 

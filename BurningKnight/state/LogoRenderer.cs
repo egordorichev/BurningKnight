@@ -88,7 +88,7 @@ namespace BurningKnight.state {
 			showK = Rnd.Float() < 0.999f;
 			flipR = Rnd.Float() > 0.999f;
 			extremeWave = Rnd.Float() > 0.999f;
-			knig = Rnd.Float() > 0.999f;
+			knig = true;
 			
 			var anim = Animations.Get("logo");
 

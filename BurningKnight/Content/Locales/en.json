@@ -1081,7 +1081,7 @@
 	"painting_zweihandler" : "Zweihandler",
 	"painting_whoops" : "Whoops",
 	"painting_too_lake" : "Too lake",
-	"painting_cauliflower " : "Cauliflower",
+	"painting_cauliflower" : "Cauliflower",
 	"painting_raise_volcano" : "Raise volcano",
 	"painting_mahula" : "Mahula",
 	"painting_step_through" : "Step through",
@@ -1089,5 +1089,9 @@
 	"painting_totem" : "Totem",
 	"painting_too_late" : "Too late",
 	"painting_whipped_cream" : "Whipped cream",
-	"painting_tofulamac" : "Tofulamac"
+	"painting_tofulama" : "Tofulamac",
+	"beet_boys" : "Beet Bois",
+	"moonshine" : "Moonshine",
+	"void" : "The Void",
+	"esty" : "Misfit"
 }
