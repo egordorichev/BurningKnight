@@ -1093,5 +1093,8 @@
 	"beet_boys" : "Beet Bois",
 	"moonshine" : "Moonshine",
 	"void" : "The Void",
-	"esty" : "Misfit"
+	"esty" : "Misfit",
+	"happening_bk:hurt" : "Hurt",
+	"happening_bk:big_hurt" : "Big Hurt",
+	"happening_bk:omega_hurt" : "Omega Hurt"
 }

@@ -21,6 +21,8 @@ namespace Lens {
 		public const bool Debug = false;
 #endif
 
+		public static Action AssetsLoaded;
+		
 		public static bool PixelPerfect;
 		public static bool EditingLevel;
 		public static Version Version;

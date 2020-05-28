@@ -58,6 +58,10 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.0.1708\lib\net45\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
@@ -267,6 +271,11 @@
     <Compile Include="integration\Integration.cs" />
     <Compile Include="integration\rgb\RgbIntegration.cs" />
     <Compile Include="integration\steam\SteamIntegration.cs" />
+    <Compile Include="integration\twitch\HappeningOption.cs" />
+    <Compile Include="integration\twitch\happening\Happening.cs" />
+    <Compile Include="integration\twitch\happening\HappeningRegistry.cs" />
+    <Compile Include="integration\twitch\happening\HurtHappening.cs" />
+    <Compile Include="integration\twitch\TwitchContoller.cs" />
     <Compile Include="integration\twitch\TwitchIntegration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

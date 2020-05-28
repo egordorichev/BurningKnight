@@ -16,6 +16,7 @@ namespace Desktop.integration.twitch {
 		public static string Boots = "rwzxul2y";
 		
 		private TwitchClient client;
+		private TwitchContoller controller;
 		private bool enableDevMessages = true;
 		
 		public override void Init() {
@@ -35,7 +36,14 @@ namespace Desktop.integration.twitch {
 			
 			client.Connect();
 		}
-		
+
+		public override void PostInit() {
+			base.PostInit();
+			
+			controller = new TwitchContoller();
+			controller.Init();
+		}
+
 		private void OnConnected(object sender, OnConnectedArgs e) {
 			Log.Info($"Connected to {e.AutoJoinChannel}");
 		}
@@ -56,20 +64,27 @@ namespace Desktop.integration.twitch {
 				if (dev) {
 					if (message == "sudo msg") {
 						enableDevMessages = !enableDevMessages;
-					} else if (message.StartsWith("sudo ")) {
+						return;
+					} 
+					
+					if (message.StartsWith("sudo ")) {
 						var command = message.Substring(5, message.Length - 5);
 						Log.Debug(command);
 						gamestate.Console.RunCommand(command);
-					} else if (enableDevMessages) {
+						
+						return;
+					}
+				}
+
+				if (controller != null && !controller.HandleMessage(e.ChatMessage) && dev) {
+					if (enableDevMessages) {
 						var a = state.Area.Tagged[Tags.BurningKnight];
 
 						if (a.Count > 0) {
 							var bk = a[0];
-							bk.GetComponent<DialogComponent>().StartAndClose(message, 3);
+							bk.GetComponent<DialogComponent>().StartAndClose(message, 5);
 						}
 					}
-				} else if (int.TryParse(message, out var number)) {
-					Log.Info($"Voted for #{number}");
 				}
 			} catch (Exception ex) {
 				Log.Error(ex);
@@ -79,6 +94,15 @@ namespace Desktop.integration.twitch {
 		public override void Destroy() {
 			client.Disconnect();
 			base.Destroy();
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+			controller?.Update(dt);
+		}
+
+		public void Render() {
+			controller?.Render();
 		}
 	}
 }

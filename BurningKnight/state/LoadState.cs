@@ -90,6 +90,7 @@ namespace BurningKnight.state {
 
 				GC.Collect();
 				progress++;
+				Engine.AssetsLoaded?.Invoke();
 				ready = true;
 			});
 
