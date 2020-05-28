@@ -94,30 +94,6 @@ namespace BurningKnight.ui.inventory {
 
 				uiItem.DrawBorder = Math.Abs(charge - chargeMax) < 0.01f;
 
-				/*if (region != null) {
-					var p = new Vector2(
-						region.Center.X + 4 + (inventory.ItemSlot.Source.Width - region.Source.Width) / 2f + v,
-						region.Center.Y + Display.UiHeight - inventory.ItemSlot.Source.Height - 4 +
-						(inventory.ItemSlot.Source.Height - region.Source.Height) / 2f);
-					
-					if (Math.Abs(charge - chargeMax) < 0.01f) {
-						var shader = Shaders.Entity;
-						Shaders.Begin(shader);
-
-						shader.Parameters["flash"].SetValue(1f);
-						shader.Parameters["flashReplace"].SetValue(1f);
-						shader.Parameters["flashColor"].SetValue(ColorUtils.White);
-
-						foreach (var d in MathUtils.Directions){
-							Graphics.Render(region, p + d, 0, region.Center, itemScale);
-						}
-						
-						Shaders.End();
-					}
-			
-					Graphics.Render(region, p, 0, region.Center, itemScale);
-				}*/
-
 				// Render the use time
 				if (Math.Abs(item.UseTime) <= 0.01f) {
 					return;
