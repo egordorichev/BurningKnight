@@ -1,5 +1,7 @@
 using System;
+using BurningKnight;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.util;
 using TwitchLib.Client;
@@ -11,9 +13,10 @@ using TwitchLib.Communication.Models;
 namespace Desktop.integration.twitch {
 	public class TwitchIntegration : Integration {
 		private const string DevAccount = "egordorichev";
-		
 		public static string Boots = "rwzxul2y";
+		
 		private TwitchClient client;
+		private bool enableDevMessages = true;
 		
 		public override void Init() {
 			base.Init();
@@ -33,11 +36,11 @@ namespace Desktop.integration.twitch {
 			client.Connect();
 		}
 		
-		private static void OnConnected(object sender, OnConnectedArgs e) {
+		private void OnConnected(object sender, OnConnectedArgs e) {
 			Log.Info($"Connected to {e.AutoJoinChannel}");
 		}
 
-		private static void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
+		private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
 			try {
 				var state = Engine.Instance.State;
 
@@ -48,10 +51,23 @@ namespace Desktop.integration.twitch {
 				var message = e.ChatMessage.Message;
 				Log.Debug(message);
 
-				if (e.ChatMessage.Username == DevAccount && message.StartsWith("sudo ")) {
-					var command = message.Substring(5, message.Length - 5);
-					Log.Debug(command);
-					gamestate.Console.RunCommand(command);
+				var dev = e.ChatMessage.Username == DevAccount;
+
+				if (dev) {
+					if (message == "sudo msg") {
+						enableDevMessages = !enableDevMessages;
+					} else if (message.StartsWith("sudo ")) {
+						var command = message.Substring(5, message.Length - 5);
+						Log.Debug(command);
+						gamestate.Console.RunCommand(command);
+					} else if (enableDevMessages) {
+						var a = state.Area.Tagged[Tags.BurningKnight];
+
+						if (a.Count > 0) {
+							var bk = a[0];
+							bk.GetComponent<DialogComponent>().StartAndClose(message, 3);
+						}
+					}
 				} else if (int.TryParse(message, out var number)) {
 					Log.Info($"Voted for #{number}");
 				}
