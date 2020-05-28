@@ -1,10 +1,6 @@
 # today
 
-* You-Tubers
-* Mail press
- + also make sure to include the key in the press mail right at the top
- + subject: here's your key to genre game name launching on day x
- 
+* You-Tubers (randomize usuer!!)
 * do post on reddit about soon release
 
 # Release day

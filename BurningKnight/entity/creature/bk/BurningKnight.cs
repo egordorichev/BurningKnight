@@ -828,6 +828,18 @@ namespace BurningKnight.entity.creature.bk {
 			if (!a.Contains(this)) {
 				a.Add(this);
 			}
+			
+			a = r.Tagged[Tags.Mob];
+
+			if (!a.Contains(this)) {
+				a.Add(this);
+			}
+			
+			a = r.Tagged[Tags.Boss];
+
+			if (!a.Contains(this)) {
+				a.Add(this);
+			}
 
 			Become<FightState>();
 
