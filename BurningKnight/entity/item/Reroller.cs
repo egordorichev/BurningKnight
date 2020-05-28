@@ -11,7 +11,7 @@ using Lens.entity;
 namespace BurningKnight.entity.item {
 	public static class Reroller {
 		private static bool CanReroll(Item i) {
-			return !(i.Id == "bk:idol" || i.Type == ItemType.Scourge || i.Type == ItemType.Bomb || i.Type == ItemType.Key || i.Type == ItemType.Heart || i.Type == ItemType.Coin || i.Type == ItemType.Battery || i.Type == ItemType.Mana);
+			return !(i.Id == "bk:idol" || i.Type == ItemType.Scourge || i.Type == ItemType.Bomb || i.Type == ItemType.Key || i.Type == ItemType.Heart || i.Type == ItemType.Coin || i.Type == ItemType.Battery || i.Type == ItemType.Mana || i is RoundItem);
 		}
 
 		public static void Reroll(Area area, Room room, bool rerollStands, bool spawnNewItems, bool ignore, ItemType[] types, Action<Item> processItem = null, bool d2 = false) {

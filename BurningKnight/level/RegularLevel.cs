@@ -169,27 +169,27 @@ namespace BurningKnight.level {
 				rooms.Add(new ShopRoom());
 				rooms.Add(new ExitRoom());
 
-				if (GlobalSave.IsTrue(ShopNpc.Gobetta) && Rnd.Chance()) {
+				if (GlobalSave.IsTrue(ShopNpc.Gobetta) && Rnd.Chance(10)) {
 					rooms.Add(new GobettaShopRoom());
 				}
 
-				if (Rnd.Chance()) {
+				if (Rnd.Chance(2)) {
 					rooms.Add(new TrashGoblinRoom());
 				}
 
-				if (Rnd.Chance(30)) {
+				if (Rnd.Chance(3)) {
 					rooms.Add(new ChestMinigameRoom());
 				}
 
-				if (Rnd.Chance()) {
+				if (Rnd.Chance(4)) {
 					rooms.Add(new VendingRoom());
 				}
 
-				if (Rnd.Chance()) {
+				if (GlobalSave.IsTrue(ShopNpc.Roger) && Rnd.Chance(10)) {
 					rooms.Add(new RogerShopRoom());
 				}
 				
-				if (Rnd.Chance()) {
+				if (Rnd.Chance(30)) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
 				}
 				

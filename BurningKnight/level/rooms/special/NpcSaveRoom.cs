@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.creature.npc;
@@ -14,6 +15,32 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.rooms.special {
 	public class NpcSaveRoom : SpecialRoom {
+		private class NpcData {
+			public NpcData(byte d, string i) {
+				Depth = d;
+				Id = i;
+			}
+			
+			public byte Depth;
+			public string Id;
+		}
+		
+		private static NpcData[] npcs = {
+			new NpcData(2, ShopNpc.HatTrader),
+			new NpcData(2, ShopNpc.AccessoryTrader),
+			new NpcData(3, ShopNpc.ActiveTrader),
+			new NpcData(3, ShopNpc.WeaponTrader),
+			new NpcData(4, ShopNpc.Snek),
+			new NpcData(4, ShopNpc.Boxy),
+			new NpcData(5, ShopNpc.Duck),
+			new NpcData(6, ShopNpc.Vampire),
+			new NpcData(7, ShopNpc.Elon),
+			new NpcData(8, ShopNpc.Gobetta),
+			new NpcData(9, ShopNpc.Nurse),
+			new NpcData(10, ShopNpc.Roger),
+			new NpcData(10, ShopNpc.Mike)
+		};
+		
 		public override int GetMaxConnections(Connection Side) {
 			return 1;
 		}
@@ -33,13 +60,25 @@ namespace BurningKnight.level.rooms.special {
 		public override int GetMaxHeight() {
 			return 10;
 		}
-		
-		private static string[] townNpcs = {
-			ShopNpc.HatTrader, ShopNpc.AccessoryTrader, ShopNpc.ActiveTrader, ShopNpc.WeaponTrader, ShopNpc.Mike
-		};
 
 		private static bool DefeatedBosses() {
 			return Achievements.IsComplete("bk:democracy") && Achievements.IsComplete("bk:mummified") && Achievements.IsComplete("bk:ice_boss") && Achievements.IsComplete("bk:bk_no_more") && Achievements.IsComplete("bk:sting_operation");
+		}
+
+		private static string GenerateNpc() {
+			var d = Run.Depth;
+
+			foreach (var info in npcs) {
+				if (info.Depth == d && GlobalSave.IsFalse(info.Id)) {
+					if (info.Id == ShopNpc.Mike && !DefeatedBosses()) {
+						continue;
+					}
+					
+					return info.Id;
+				}
+			}
+
+			return null;
 		}
 
 		public override void Paint(Level level) {
@@ -50,31 +89,16 @@ namespace BurningKnight.level.rooms.special {
 				Painter.Clip = clip;
 			}
 			
-			GameSave.Put("npc_appeared", true);
-			var d = Connected.Values.First();
+			var id = GenerateNpc();
 
-			ShopNpc npc = null;
-			
-			foreach (var s in townNpcs) {
-				if (GlobalSave.IsFalse(s) && (s != ShopNpc.Mike || DefeatedBosses())) {
-					npc = ShopNpc.FromId(s);
-					break;
-				}
-			}
-
-			if (npc == null) {
-				foreach (var s in shopNpcs) {
-					if (GlobalSave.IsFalse(s)) {
-						npc = ShopNpc.FromId(s);
-						break;
-					}
-				}
-			}
-
-			if (npc == null) {
+			if (id == null) {
 				return;
 			}
-			
+
+			GameSave.Put("npc_appeared", true);
+
+			var d = Connected.Values.First();
+			var npc = ShopNpc.FromId(id);
 			level.Area.Add(npc);
 
 			var fl = Tiles.RandomFloorOrSpike();
@@ -119,75 +143,12 @@ namespace BurningKnight.level.rooms.special {
 			}
 		}
 
-		private static string[] shopNpcs = {
-			ShopNpc.Snek, ShopNpc.Boxy, ShopNpc.Duck, ShopNpc.Vampire,
-			ShopNpc.Elon, ShopNpc.Gobetta, ShopNpc.Nurse, ShopNpc.Roger
-		};
-
 		public static bool ShouldBeAdded() {
-			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared") || Run.CustomSeed) {
+			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared") || Run.CustomSeed || Rnd.Chance()) {
 				return false;
 			}
 
-			string npc = null;
-
-			switch (Run.Depth) {
-				case 1: {
-					if (GlobalSave.IsFalse(ShopNpc.HatTrader)) {
-						npc = ShopNpc.HatTrader;
-					}
-					
-					break;
-				}
-				
-				case 2: {
-					if (GlobalSave.IsFalse(ShopNpc.AccessoryTrader)) {
-						npc = ShopNpc.AccessoryTrader;
-					}
-					
-					break;
-				}
-
-				case 3: {
-					if (GlobalSave.IsFalse(ShopNpc.ActiveTrader)) {
-						npc = ShopNpc.ActiveTrader;
-					}
-					
-					break;
-				}
-				
-				case 4: {
-					if (GlobalSave.IsFalse(ShopNpc.WeaponTrader)) {
-						npc = ShopNpc.WeaponTrader;
-					}
-					
-					break;
-				}
-				
-				case 5: {
-					if (GlobalSave.IsFalse(ShopNpc.Mike) && DefeatedBosses()) {
-						npc = ShopNpc.Mike;
-					}
-					
-					break;
-				}
-			}
-
-			if (npc != null) {
-				Log.Error($"Npc to save: {npc}");
-				return true;
-			}
-
-			var i = 0;
-			foreach (var s in shopNpcs) {
-				if (Run.Depth == i / 2 + 2 && GlobalSave.IsFalse(s)) {
-					return true;
-				}
-
-				i++;
-			}
-			
-			return false;
+			return GenerateNpc() != null;
 		}
 	}
 }
