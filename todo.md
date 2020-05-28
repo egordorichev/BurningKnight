@@ -1,5 +1,3 @@
-* roger in jungle market can spawn before you unlock him (fix me)
-* double check if roger is unlockable (might be too far down in the dungeon to be unlocked kek)
 * bk lasers stop early (4 rotating ones)
 * missile launcher (and other stuff like homing bullets probs) do not recon bk boss as an enemy
 
