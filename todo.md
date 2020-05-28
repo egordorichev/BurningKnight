@@ -1,10 +1,11 @@
 * bk lasers stop early (4 rotating ones)
 * no music on bk head fight
-* hell ton of audio sfx to implement
+* d2 joppa
 * у дождя опять громкость сломалась
 * диалог у на лупе сломан (maanex) он не даёт возможность использовать кран
 
 * Release 1.0 version pls
+* hell ton of audio sfx to implement
 
 # can wait
 
