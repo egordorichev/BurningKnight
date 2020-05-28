@@ -1,5 +1,4 @@
 * bk lasers stop early (4 rotating ones)
-* missile launcher (and other stuff like homing bullets probs) do not recon bk boss as an enemy
 * no music on bk head fight
 * hell ton of audio sfx to implement
 * у дождя опять громкость сломалась
