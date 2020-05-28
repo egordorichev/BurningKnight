@@ -3,6 +3,7 @@
 * d2 joppa
 * у дождя опять громкость сломалась
 * диалог у на лупе сломан (maanex) он не даёт возможность использовать кран
+* library still hangs? (state change stuff?)
 
 * Release 1.0 version pls
 * hell ton of audio sfx to implement

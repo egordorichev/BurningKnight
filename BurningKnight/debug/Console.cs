@@ -59,6 +59,7 @@ namespace BurningKnight.debug {
 		
 		public void Print(string str) {
 			Lines.Add(str);
+			Log.Debug(str);
 		}
 
 		public void Update(float dt) {

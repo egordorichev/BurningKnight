@@ -1,4 +1,6 @@
 using System;
+using BurningKnight.state;
+using Lens;
 using Lens.util;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -8,6 +10,8 @@ using TwitchLib.Communication.Models;
 
 namespace Desktop.integration.twitch {
 	public class TwitchIntegration : Integration {
+		private const string DevAccount = "egordorichev";
+		
 		public static string Boots = "rwzxul2y";
 		private TwitchClient client;
 		
@@ -34,10 +38,25 @@ namespace Desktop.integration.twitch {
 		}
 
 		private static void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
-			Log.Debug(e.ChatMessage.Message);
+			try {
+				var state = Engine.Instance.State;
 
-			if (int.TryParse(e.ChatMessage.Message, out var number)) {
-				Log.Info($"Voted for #{number}");
+				if (!(state is InGameState gamestate)) {
+					return;
+				}
+
+				var message = e.ChatMessage.Message;
+				Log.Debug(message);
+
+				if (e.ChatMessage.Username == DevAccount && message.StartsWith("sudo ")) {
+					var command = message.Substring(5, message.Length - 5);
+					Log.Debug(command);
+					gamestate.Console.RunCommand(command);
+				} else if (int.TryParse(message, out var number)) {
+					Log.Info($"Voted for #{number}");
+				}
+			} catch (Exception ex) {
+				Log.Error(ex);
 			}
 		}
 

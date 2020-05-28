@@ -109,7 +109,7 @@ namespace BurningKnight.state {
 		private TextureRegion emerald;
 
 		public UiAnimation Killer;
-		private Console console;
+		public Console Console;
 		private UiLabel seedLabel;
 		private UiButton currentBack;
 		private UiButton inputBack;
@@ -778,7 +778,7 @@ namespace BurningKnight.state {
 				Ui.Update(dt);
 			}
 			
-			console?.Update(dt);
+			Console?.Update(dt);
 
 			var controller = GamepadComponent.Current;
 			
@@ -1272,7 +1272,7 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			if (Assets.ImGuiEnabled) {
-				console = new Console(Area);
+				Console = new Console(Area);
 			}
 
 			if (player != null) {
@@ -3063,7 +3063,7 @@ namespace BurningKnight.state {
 			
 			ImGuiHelper.Begin();
 			
-			console?.Render();
+			Console?.Render();
 			editor?.Render();
 			
 			WindowManager.Render(Area);
