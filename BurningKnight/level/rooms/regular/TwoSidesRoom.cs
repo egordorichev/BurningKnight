@@ -11,7 +11,7 @@ namespace BurningKnight.level.rooms.regular {
 		private bool vertical;
 
 		public TwoSidesRoom() {
-			vertical = true; // Rnd.Chance();
+			vertical = Rnd.Chance();
 		}
 
 		public override void Paint(Level level) {

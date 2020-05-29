@@ -1092,6 +1092,7 @@
     <Compile Include="level\rooms\regular\ItemTrollRoom.cs" />
     <Compile Include="level\rooms\regular\JungleRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformChaosRoom.cs" />
+    <Compile Include="level\rooms\regular\PlatformLineRoom.cs" />
     <Compile Include="level\rooms\regular\PlatformRingRoom.cs" />
     <Compile Include="level\rooms\regular\RegularRoom.cs" />
     <Compile Include="level\rooms\regular\TwoSidesRoom.cs" />
