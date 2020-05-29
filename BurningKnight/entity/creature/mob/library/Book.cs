@@ -35,7 +35,7 @@ namespace BurningKnight.entity.creature.mob.library {
 
 			public override void Init() {
 				base.Init();
-				delay = Rnd.Float(3f, 10f);
+				delay = Rnd.Float(1f, 5f);
 			}
 
 			public override void Update(float dt) {
@@ -121,7 +121,7 @@ namespace BurningKnight.entity.creature.mob.library {
 								pr.BodyComponent.Angle = a;
 							}, data, () => {
 								Timer.Add(() => {
-									p.Launch(a, Rnd.Float(20, 40));
+									p.Launch(a, Rnd.Float(30, 80));
 									Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
 								}, 0.2f);
 							});
