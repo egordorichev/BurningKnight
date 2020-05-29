@@ -111,7 +111,8 @@ namespace BurningKnight.state {
 
 			progress++; // Should be 18 here
 			Log.Info($"Done loading level! ({(DateTime.Now.Millisecond - t) / 1000f} seconds) Going to menu.");
-				
+
+			Engine.AssetsLoaded?.Invoke();
 			ready = true;
 		}
 

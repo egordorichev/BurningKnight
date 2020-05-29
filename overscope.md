@@ -3,7 +3,6 @@
 * make secret rooms not so obv
 * shop should start small and grow with donations?
 * make reroll machine spawn in item rooms
-* twitch chat integration
 
 biome-dependant props (cactuses and dead bushes for desert)
 

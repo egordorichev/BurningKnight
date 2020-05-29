@@ -1090,8 +1090,12 @@
 	"painting_too_late" : "Too late",
 	"painting_whipped_cream" : "Whipped cream",
 	"painting_tofulama" : "Tofulamac",
-	"beet_boys" : "Beet Bois",
-	"moonshine" : "Moonshine",
-	"void" : "The Void",
-	"esty" : "Misfit"
+	"painting_beet_boys" : "Beet Bois",
+	"painting_moonshine" : "Moonshine",
+	"painting_void" : "The Void",
+	"painting_esty" : "Misfit",
+	"happening_bk:hurt" : "Hurt",
+	"happening_bk:big_hurt" : "Big Hurt",
+	"happening_bk:omega_hurt" : "Omega Hurt",
+	"painting_peasants" : "Peasants"
 }

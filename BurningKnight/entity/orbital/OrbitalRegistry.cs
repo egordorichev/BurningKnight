@@ -102,7 +102,7 @@ namespace BurningKnight.entity.orbital {
 
 						var a = orbital.AngleTo(o.GetComponent<AimComponent>().RealAim);
 						var projectile = Projectile.Make(o, "small", a, 10f);
-
+						
 						projectile.Color = ProjectileColor.Yellow;
 						projectile.Center = orbital.Center + MathUtils.CreateVector(a, 5f);
 						projectile.AddLight(32f, Projectile.YellowLight);
@@ -111,7 +111,8 @@ namespace BurningKnight.entity.orbital {
 							Projectile = projectile,
 							Owner = o
 						});
-
+						
+						projectile.Owner = orbital;
 						orbital.GetComponent<ScalableSliceComponent>().Animate();
 					}
 				};

@@ -155,7 +155,10 @@ namespace BurningKnight.level {
 			var rush = Run.Type == RunType.BossRush;
 			var first = Run.Depth % 2 == 1;
 			var loop = Run.Loop > 0;
-			
+
+			if (!rush && biome is DesertBiome) {
+				rooms.Add(new DesertWellRoom());
+			}
 
 			if (final) {
 				Log.Info("Prepare for the final!");

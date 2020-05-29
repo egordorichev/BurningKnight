@@ -1,19 +1,19 @@
 namespace BurningKnight.level.rooms.regular {
 	public class VerticalRegularRoom : RegularRoom {
 		public override int GetMinHeight() {
-			return 10 + 2;
+			return SmallerRooms() ? 10 : 12;
 		}
 
 		public override int GetMinWidth() {
-			return 8 + 2;
+			return SmallerRooms() ? 8 : 10;
 		}
 
 		public override int GetMaxHeight() {
-			return 18 + 6;
+			return SmallerRooms() ? 16 : 24;
 		}
 
 		public override int GetMaxWidth() {
-			return 12 + 2;
+			return SmallerRooms() ? 12 : 14;
 		}
 	}
 }

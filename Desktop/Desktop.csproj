@@ -50,8 +50,16 @@
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
@@ -238,6 +246,22 @@
       <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TwitchLib.Client, Version=3.1.5.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\TwitchLib.Client.3.1.5\lib\netstandard2.0\TwitchLib.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Client.Enums, Version=3.1.4.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\TwitchLib.Client.Enums.3.1.4\lib\netstandard2.0\TwitchLib.Client.Enums.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Client.Models, Version=3.1.5.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\TwitchLib.Client.Models.3.1.5\lib\netstandard2.0\TwitchLib.Client.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Communication, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\TwitchLib.Communication.1.0.3\lib\netstandard2.0\TwitchLib.Communication.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesktopApp.cs" />
@@ -247,6 +271,12 @@
     <Compile Include="integration\Integration.cs" />
     <Compile Include="integration\rgb\RgbIntegration.cs" />
     <Compile Include="integration\steam\SteamIntegration.cs" />
+    <Compile Include="integration\twitch\HappeningOption.cs" />
+    <Compile Include="integration\twitch\happening\Happening.cs" />
+    <Compile Include="integration\twitch\happening\HappeningRegistry.cs" />
+    <Compile Include="integration\twitch\happening\HurtHappening.cs" />
+    <Compile Include="integration\twitch\TwitchContoller.cs" />
+    <Compile Include="integration\twitch\TwitchIntegration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

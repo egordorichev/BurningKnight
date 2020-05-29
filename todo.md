@@ -1,9 +1,10 @@
-* bk lasers stop early (4 rotating ones)
-* no music on bk head fight
-* hell ton of audio sfx to implement
-* у дождя опять громкость сломалась
-* диалог у на лупе сломан (maanex) он не даёт возможность использовать кран
+* {
+ after killing bk head (with water bucket), imo there should be smth a bit more epic
+ enemies/laser/bullets stay (at least with water bucket)
+}
 
+* d2 joppa
+* library still hangs? (state change stuff?)
 * Release 1.0 version pls
 
 # can wait

@@ -122,11 +122,18 @@ namespace BurningKnight.state {
 				
 				switch (re.New.Type) {
 					case RoomType.Boss: {
-						if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
-							Audio.PlayMusic((Run.Level.Biome is LibraryBiome || Run.Level.Biome is LibraryBiome) ? "Last chance" : "Fatiga");
+						if (Run.Level.Biome is TechBiome) {
+							Audio.PlayMusic(Run.Level.Biome.GetMusic());
 						} else {
-							Audio.PlayMusic("Gobbeon");
+							if (Area.Tagged[Tags.Boss].Count > 0 && ((Boss) Area.Tagged[Tags.Boss][0]).Awoken) {
+								Audio.PlayMusic((Run.Level.Biome is LibraryBiome || Run.Level.Biome is LibraryBiome)
+									? "Last chance"
+									: "Fatiga");
+							} else {
+								Audio.PlayMusic("Gobbeon");
+							}
 						}
+
 						break;
 					}
 					

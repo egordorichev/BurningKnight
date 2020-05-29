@@ -4,6 +4,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.item;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.timer;
@@ -96,10 +97,12 @@ namespace BurningKnight.level.entities {
 				
 				AnimationUtil.Poof(item.Center);
 				AnimationUtil.Confetti(item.Center);
+				Audio.PlaySfx("level_cleared");
 				
 				return true;
 			}
 			
+			Audio.PlaySfx("item_nocash");
 			return false;
 		}
 
@@ -112,33 +115,59 @@ namespace BurningKnight.level.entities {
 		}
 
 		public void Grab(Action<bool, bool> a) {
+			Audio.PlaySfx("level_claw_open");
+
 			Tween.To(OpenAngle, angle, x => angle = x, 0.5f, Ease.Linear).OnEnd = () => {
 				var t5 = Tween.To(0, z, x => z = x, 0.8f, Ease.Linear);
 
 				t5.Delay = 0.5f;
+				t5.OnStart = () => {
+					Audio.PlaySfx("level_claw_move");
+				};
+				
 				t5.OnEnd = () => {
 					var t1 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
 
 					t1.Delay = 0.5f;
+					t1.OnStart = () => {
+						Audio.PlaySfx("level_claw_close");
+					};
+					
 					t1.OnEnd = () => {
 						var good = CheckGrab();
 						
 						var t2 = Tween.To(TopZ, z, x => z = x, 0.8f, Ease.Linear);
 
 						t2.Delay = 0.5f;
+						t2.OnStart = () => {
+							Audio.PlaySfx("level_claw_move");
+						};
+						
 						t2.OnEnd = () => {
 							Tween.To(start.Y, Y, x => Y = x, 1.2f, Ease.Linear);
 							var t6 = Tween.To(start.X, X, x => X = x, 1.2f, Ease.Linear);
-								
+							
+							t6.OnStart = () => {
+								Audio.PlaySfx("level_claw_start");
+							};
+							
 							t6.OnEnd = () => {
+								Audio.PlaySfx("level_claw_stop");
+								
 								if (good) {
 									var t3 = Tween.To(10, z, x => z = x, 0.8f, Ease.Linear);
 									t3.Delay = 0.5f;
+									t3.OnStart = () => {
+										Audio.PlaySfx("level_claw_move");
+									};
 
 									t3.OnEnd = () => {
 										var t9 = Tween.To(OpenAngle, angle, x => angle = x, 0.5f, Ease.Linear);
 										t9.Delay = 0.5f;
-
+										t9.OnStart = () => {
+											Audio.PlaySfx("level_claw_open");
+										};
+										
 										t9.OnEnd = () => {
 											var mega = grabbed.Id == "bk:pass";
 
@@ -152,8 +181,13 @@ namespace BurningKnight.level.entities {
 											
 											var t7 = Tween.To(0, angle, x => angle = x, 0.5f, Ease.Linear);
 											t7.Delay = 0.5f;
+											t7.OnStart = () => {
+												Audio.PlaySfx("level_claw_close");
+											};
 
 											t7.OnEnd = () => {
+												Audio.PlaySfx("level_claw_move");
+												
 												Tween.To(TopZ, z, x => z = x, 0.8f, Ease.Linear).OnEnd = () => {
 													Timer.Add(() => {
 														a(true, mega);

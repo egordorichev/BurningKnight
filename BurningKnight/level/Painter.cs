@@ -896,6 +896,52 @@ namespace BurningKnight.level {
 			}
 		}
 
+		public static void PlaceTrees(Level Level, RoomDef Room) {
+			for (var Y = Room.Top - 1; Y < Room.Bottom - 1; Y++) {
+				for (var X = Room.Left - 1; X < Room.Right - 1; X++) {
+					if (Level.Get(X, Y).IsWall() && Level.Get(X, Y - 1).IsWall() &&
+					    Level.Get(X - 1, Y).IsWall() && Level.Get(X + 1, Y).IsWall()
+					    && !Room.HasDoorsNear(X, Y, 3)
+					    && Rnd.Chance(10)) {
+
+						X += 2;
+						var plant = new Tree {
+							High = true
+						};
+								
+						Level.Area.Add(plant);
+
+						plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+					} else if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
+					           Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
+					           Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable() &&
+					           Level.Get(X - 1, Y - 2).IsPassable() && Level.Get(X + 1, Y - 2).IsPassable()
+					           && !Room.HasDoorsNear(X, Y, 3)
+					           && Rnd.Chance(6)) {
+
+						X += 3;
+						var plant = new Tree();
+						Level.Area.Add(plant);
+
+						plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+					}
+				}
+			}
+		}
+
+		public static void PlacePlants(Level Level, RoomDef Room) {
+			for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+				for (int X = Room.Left; X <= Room.Right; X++) {
+					if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(5))) {
+						var plant = new Plant();
+						Level.Area.Add(plant);
+
+						plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+					}
+				}
+			}
+		}
+
 		protected void Decorate(Level Level, List<RoomDef> Rooms) {
 			foreach (var Room in Rooms) {
 				// Tnt
@@ -916,49 +962,11 @@ namespace BurningKnight.level {
 
 				// Plants
 				if (Level.Biome.HasPlants()) {
-					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
-						for (int X = Room.Left; X <= Room.Right; X++) {
-							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(5))) {
-								var plant = new Plant();
-								Level.Area.Add(plant);
-
-								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
-							}
-						}
-					}
+					PlacePlants(Level, Room);
 				}
 
 				if (!(Room is HiveRoom) && Level.Biome.HasTrees()) {
-					for (var Y = Room.Top - 1; Y <= Room.Bottom + 1; Y++) {
-						for (var X = Room.Left - 1; X <= Room.Right + 1; X++) {
-							if (Level.Get(X, Y).IsWall() && Level.Get(X, Y - 1).IsWall() &&
-							    Level.Get(X - 1, Y).IsWall() && Level.Get(X + 1, Y).IsWall()
-							    && !Room.HasDoorsNear(X, Y, 3)
-							    && Rnd.Chance(10)) {
-
-								X += 2;
-								var plant = new Tree {
-									High = true
-								};
-								
-								Level.Area.Add(plant);
-
-								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
-							} else if (Level.Get(X, Y).IsPassable() && Level.Get(X, Y - 1).IsPassable() &&
-						    Level.Get(X - 1, Y).IsPassable() && Level.Get(X - 1, Y - 1).IsPassable() &&
-						    Level.Get(X + 1, Y).IsPassable() && Level.Get(X + 1, Y - 1).IsPassable() &&
-						    Level.Get(X - 1, Y - 2).IsPassable() && Level.Get(X + 1, Y - 2).IsPassable()
-						    && !Room.HasDoorsNear(X, Y, 3)
-								&& Rnd.Chance(6)) {
-
-								X += 3;
-								var plant = new Tree();
-								Level.Area.Add(plant);
-
-								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
-							}
-						}
-					}
+					PlaceTrees(Level, Room);
 				}
 
 				// Fireflies

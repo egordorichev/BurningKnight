@@ -234,7 +234,7 @@ namespace BurningKnight.level {
 							rainSound.IsLooped = true;
 							rainSound.Play();
 
-							Tween.To(0.5f, 0, x => rainSound.Volume = x, 1f).Delay = 3f;
+							Tween.To(0.5f, 0, x => rainSound.Volume = x, 0.5f * Settings.MusicVolume).Delay = 3f;
 						}
 					}
 				}
@@ -262,6 +262,12 @@ namespace BurningKnight.level {
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
+		}
+
+		public void UpdateRainVolume() {
+			if (rainSound != null) {
+				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
+			}
 		}
 
 		public void ReCreateBodyChunk(int x, int y) {

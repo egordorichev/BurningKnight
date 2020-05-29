@@ -1,17 +1,10 @@
 using System;
+using BurningKnight.level.rooms.regular;
 using BurningKnight.level.tile;
 using Lens.util.math;
 
 namespace BurningKnight.level.rooms.special {
-	public class DesertWellRoom : SpecialRoom {
-		public override int GetMaxWidth() {
-			return 11;
-		}
-
-		public override int GetMaxHeight() {
-			return 11;
-		}
-
+	public class DesertWellRoom : RegularRoom {
 		public override void Paint(Level level) {
 			Painter.Fill(level, this, Tile.Grass);
 
@@ -36,6 +29,9 @@ namespace BurningKnight.level.rooms.special {
 					}
 				}
 			}
+			
+			Painter.PlacePlants(level, this);
+			Painter.PlaceTrees(level, this);
 		}
 	}
 }

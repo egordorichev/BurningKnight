@@ -41,6 +41,8 @@ namespace BurningKnight.level.entities {
 		private InteractFx ib;
 
 		private bool Interact(Entity e) {
+			Audio.PlaySfx("level_claw_pc");
+			
 			e.RemoveComponent<PlayerInputComponent>();
 			interacting = e;
 			interacting.GetComponent<StateComponent>().Become<Player.SittingState>();
@@ -58,7 +60,8 @@ namespace BurningKnight.level.entities {
 		}
 
 		private bool grabbing;
-
+		private bool wasDown;
+		
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -109,8 +112,21 @@ namespace BurningKnight.level.entities {
 			var body = claw.GetComponent<SensorBodyComponent>().Body;
 			var speed = 420 * dt;
 
+			var wdown = wasDown;
+
 			if (Input.IsDown(Controls.Right, controller) || Input.IsDown(Controls.UiRight, controller)) {
+				wasDown = true;
 				body.LinearVelocity += new Vector2(speed, 0);
+			} else {
+				wasDown = false;
+			}
+
+			if (wdown != wasDown) {
+				if (wasDown) {
+					Audio.PlaySfx("level_claw_start");
+				} else {
+					Audio.PlaySfx("level_claw_stop");
+				}
 			}
 
 			if (claw.X > claw.start.X + 96) {
