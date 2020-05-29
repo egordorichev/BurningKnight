@@ -29,6 +29,9 @@ namespace BurningKnight.level.rooms.special {
 					}
 				}
 			}
+			
+			Painter.PlacePlants(level, this);
+			Painter.PlaceTrees(level, this);
 		}
 	}
 }
