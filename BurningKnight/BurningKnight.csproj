@@ -454,6 +454,7 @@
     <Compile Include="entity\creature\mob\castle\BigSlime.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
+    <Compile Include="entity\creature\mob\castle\Rat.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
     <Compile Include="entity\creature\mob\desert\DesertBulletSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />
