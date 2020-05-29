@@ -38,6 +38,7 @@ namespace BurningKnight.entity.orbital {
 					Owner = Owner
 				});
 				
+				projectile.Owner = this;
 				GetComponent<AnimationComponent>().Animate();
 			}
 		}
