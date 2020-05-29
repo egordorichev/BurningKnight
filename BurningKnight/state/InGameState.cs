@@ -2076,6 +2076,8 @@ namespace BurningKnight.state {
 			if (rainSound != null) {
 				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
 			}
+
+			Run.Level.UpdateRainVolume();
 		}
 
 		private void AddGraphicsSettings() {
