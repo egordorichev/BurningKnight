@@ -106,8 +106,8 @@ namespace BurningKnight.level.rooms {
 				
 				// Desert only room designs
 				RoomInfo.New<TwoSidesRoom>(1f + 100f, Biome.Desert),
-				RoomInfo.New<PlatformChaosRoom>(1f + 100f, Biome.Desert),
-				RoomInfo.New<PlatformRingRoom>(1f + 100f, Biome.Desert),
+				// RoomInfo.New<PlatformChaosRoom>(1f + 100f, Biome.Desert),
+				// RoomInfo.New<PlatformRingRoom>(1f + 100f, Biome.Desert),
 
 				// Entrance
 				RoomInfo.New<EntranceRoom>(1f),

@@ -11,7 +11,7 @@ namespace BurningKnight.level.rooms.regular {
 		private bool vertical;
 
 		public TwoSidesRoom() {
-			vertical = Rnd.Chance();
+			vertical = true; // Rnd.Chance();
 		}
 
 		public override void Paint(Level level) {
@@ -61,31 +61,31 @@ namespace BurningKnight.level.rooms.regular {
 				rect.Top = Top + 1;
 				rect.Bottom = Bottom;
 
-				rect.Left = Left + 3 + Rnd.Int(3);
-				rect.Right = Right - 2 - Rnd.Int(3);
+				rect.Left = Left + 5 + Rnd.Int(3);
+				rect.Right = Right - 4 - Rnd.Int(3);
 			} else {
 				rect.Left = Left + 1;
 				rect.Right = Right;
 				
-				rect.Top = Top + 3 + Rnd.Int(3);
-				rect.Bottom = Bottom - 2 - Rnd.Int(3);
+				rect.Top = Top + 5 + Rnd.Int(3);
+				rect.Bottom = Bottom - 4 - Rnd.Int(3);
 			}
 		}
 		
 		public override int GetMinWidth() {
-			return vertical ? 8 : 13;
+			return vertical ? 8 : 15;
 		}
 
 		public override int GetMinHeight() {
-			return vertical ? 13 : 8;
+			return vertical ? 15 : 8;
 		}
 
 		public override int GetMaxWidth() {
-			return vertical ? 12 : 20;
+			return vertical ? 15 : 23;
 		}
 
 		public override int GetMaxHeight() {
-			return vertical ? 12 : 20;
+			return vertical ? 23 : 12;
 		}
 	}
 }

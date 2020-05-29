@@ -24,6 +24,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			AddComponent(new SensorBodyComponent(3, 3, 7, 13));
 			
 			Become<IdleState>();
+			TouchDamage = 2;
 		}
 		
 		#region Mummy States
