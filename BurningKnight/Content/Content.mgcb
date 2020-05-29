@@ -587,6 +587,42 @@
 /processorParam:Quality=Best
 /build:Sfx/level/chest_open.wav
 
+#begin Sfx/level/claw/close.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/close.wav
+
+#begin Sfx/level/claw/move.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/move.wav
+
+#begin Sfx/level/claw/open.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/open.wav
+
+#begin Sfx/level/claw/pc.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/pc.wav
+
+#begin Sfx/level/claw/start.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/start.wav
+
+#begin Sfx/level/claw/stop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/level/claw/stop.wav
+
 #begin Sfx/level/cleared.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

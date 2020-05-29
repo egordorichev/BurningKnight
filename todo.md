@@ -3,6 +3,8 @@
  enemies/laser/bullets stay (at least with water bucket)
 }
 
+* boss capture plays only on the first boss?
+
 * d2 joppa
 * у дождя опять громкость сломалась
 * диалог у на лупе сломан (maanex) он не даёт возможность использовать кран
