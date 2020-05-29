@@ -198,6 +198,8 @@ namespace BurningKnight.entity.room.controllable.turret {
 
 			projectile.Center += MathUtils.CreateVector(angle, 8f);
 			projectile.AddLight(32f, Projectile.RedLight);
+			projectile.CanBeBroken = false;
+			projectile.CanBeReflected = false;
 
 			AnimationUtil.Poof(projectile.Center);
 		}
