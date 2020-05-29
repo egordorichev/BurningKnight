@@ -42,14 +42,7 @@ namespace BurningKnight.entity.creature.npc {
 						return Dialogs.Get("maanex_11");
 					}
 
-					var room = GetComponent<RoomComponent>().Room;
-
-					if (room == null) {
-						return null;
-					}
-
 					component.Coins -= Cost;
-
 					clawControll.Payed = true;
 
 					Timer.Add(() => {
