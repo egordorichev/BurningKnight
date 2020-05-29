@@ -7,6 +7,7 @@ using BurningKnight.level.biome;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -25,6 +26,7 @@ namespace BurningKnight.entity.item.use {
 					foreach (var b in r.Tagged[Tags.Boss]) {
 						if (b is BkHead h && h.CanBeSaved) {
 							h.Save();
+							Audio.Stop();
 							ReplaceItem(entity, "bk:bucket");
 						}
 					}

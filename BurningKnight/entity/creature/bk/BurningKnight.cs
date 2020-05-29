@@ -115,7 +115,7 @@ namespace BurningKnight.entity.creature.bk {
 			
 			Timer.Add(() => {
 				GetComponent<AudioEmitterComponent>().Emit("mob_bk_hovering_loop", 0.3f, looped: true, tween: true);
-				GetComponent<AudioEmitterComponent>().Emit("mob_bk_flame_loop",  0.3f, looped: true, tween: true);
+				GetComponent<AudioEmitterComponent>().Emit(Run.Depth == 10 ? "mob_bk_fight_loop" : "mob_bk_flame_loop",  0.3f, looped: true, tween: true);
 			}, 2f);
 		}
 
@@ -776,6 +776,7 @@ namespace BurningKnight.entity.creature.bk {
 			var head = new BkHead();
 			Area.Add(head);
 			head.Center = Center;
+			Audio.PlayMusic("Last chance");
 		}
 
 		protected override void CreateGore(DiedEvent d) {
@@ -941,6 +942,7 @@ namespace BurningKnight.entity.creature.bk {
 					laser.LifeTime = 10f;
 					laser.Position = Self.Center;
 					laser.Angle = angle;
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
 				}
 
 				if (laser.Done) {
@@ -985,7 +987,11 @@ namespace BurningKnight.entity.creature.bk {
 			lasers.Clear();
 			spinV = 0;
 			spinDir = Rnd.Chance() ? 1 : -1;
-			
+
+			Timer.Add(() => { 
+				GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
+			}, 1f);
+
 			for (var i = 0; i < 4; i++) {
 				var angle = AngleTo(Target) + (i / 4f + 1 / 8f) * (float) Math.PI * 2f;
 
@@ -1170,8 +1176,10 @@ namespace BurningKnight.entity.creature.bk {
 				for (var i = 0; i < 8; i++) {
 					Self.WarnLaser((float) laserAngles[i], laserOffsets[i]);
 				}
-
+				
 				Timer.Add(() => {
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
+					
 					for (var i = 0; i < 8; i++) {
 						var laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
 						laser.LifeTime = 10f;

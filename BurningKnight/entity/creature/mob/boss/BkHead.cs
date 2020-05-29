@@ -4,6 +4,7 @@ using BurningKnight.assets.achievements;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob.castle;
+using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.cutscene.entity;
@@ -46,6 +47,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			GetComponent<HealthComponent>().InitMaxHealth = 600;
 			
 			Depth = Layers.FlyingMob;
+			Awoken = true;
 		}
 
 		protected override void OnTargetChange(Entity target) {
@@ -160,6 +162,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					Self.WarnLaser(a);
 
 					Timer.Add(() => {
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
 						var laser = Laser.Make(Self, a, 0, damage: 2, scale: 3, range: 64);
 						laser.LifeTime = 1f;
 						laser.Position = Self.Center;
@@ -294,7 +297,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						var x = (int) Math.Floor(p.CenterX / 16);
 						var y = (int) Math.Floor(p.CenterY / 16);
 						
-						var mob = new Gunner();
+						var mob = Rnd.Chance(40) ? (Mob) new DesertBulletSlime() : new Gunner();
 						Self.Area.Add(mob);
 						mob.X = x * 16;
 						mob.Y = y * 16 - 8;
@@ -338,6 +341,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 				if (T < 0.4f) {
 					return;
 				}
+
+				var made = false;
 				
 				for (var i = 0; i < 2; i++) {
 					var info = data[i];
@@ -346,6 +351,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 						info.Laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
 						info.Laser.LifeTime = 10f;
 						info.Laser.Angle = info.Angle;
+
+						if (!made) {
+							made = true;
+							Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
+						}
 
 						Log.Info("made laser");
 					} else if (info.Laser.Done) {
@@ -404,7 +414,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			saved = true;
 			Done = true;
-			PlaceRewards();
+
+			Timer.Add(() => PlaceRewards(), 1f);
 		}
 		
 		protected override void CreateGore(DiedEvent d) {

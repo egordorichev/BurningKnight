@@ -287,6 +287,36 @@
 /processorParam:Quality=Best
 /build:Sfx/item/key_pickup.wav
 
+#begin Sfx/item/laser/1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/laser/1.wav
+
+#begin Sfx/item/laser/2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/laser/2.wav
+
+#begin Sfx/item/laser/3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/laser/3.wav
+
+#begin Sfx/item/laser/4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/laser/4.wav
+
+#begin Sfx/item/laser/player.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/item/laser/player.wav
+
 #begin Sfx/item/magic/lava/lava_appear.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -863,6 +893,12 @@
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/capture.wav
 
+#begin Sfx/mob/bk/fight_loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/fight_loop.wav
+
 #begin Sfx/mob/bk/fire.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -970,6 +1006,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/bk/voice.wav
+
+#begin Sfx/mob/bk/wave.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/bk/wave.wav
 
 #begin Sfx/mob/bk/word/1.wav
 /importer:WavImporter
@@ -1174,6 +1216,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sfx/mob/oldking/shoot.wav
+
+#begin Sfx/mob/pharaoh/adidos.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/pharaoh/adidos.wav
+
+#begin Sfx/mob/pharaoh/appear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sfx/mob/pharaoh/appear.wav
 
 #begin Sfx/mob/pharaoh/shot.wav
 /importer:WavImporter

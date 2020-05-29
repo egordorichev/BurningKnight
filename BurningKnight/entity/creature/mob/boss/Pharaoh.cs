@@ -16,6 +16,7 @@ using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class Pharaoh : Boss {
@@ -388,10 +389,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Init() {
 				base.Init();
 
+				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_adidos");
+
 				Tween.To(0, 255, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
 					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
 
 					Self.BottomCenter = tile + new Vector2(8, 8); 
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_appear");
 
 					Tween.To(255, 0, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
 						Become<IdleState>();
