@@ -82,6 +82,8 @@ namespace BurningKnight.entity.creature.pet {
 							Projectile = projectile,
 							Owner = o
 						});
+
+						projectile.Owner = pet;
 					}
 				};
 
@@ -120,6 +122,8 @@ namespace BurningKnight.entity.creature.pet {
 								Projectile = projectile,
 								Owner = o
 							});
+							
+							projectile.Owner = pet;
 						}
 					}
 				};

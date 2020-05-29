@@ -46,6 +46,8 @@ namespace BurningKnight.entity.creature.pet {
 							Projectile = projectile,
 							Owner = o
 						});
+						
+						projectile.Owner = this;
 					}
 					
 					GetComponent<AnimationComponent>().Animate();
