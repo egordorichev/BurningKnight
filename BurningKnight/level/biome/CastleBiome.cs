@@ -56,5 +56,9 @@ namespace BurningKnight.level.biome {
 			
 			return base.GetStepSound(tile);
 		}
+
+		public override int GetNumRegularRooms() {
+			return (int) (base.GetNumRegularRooms() * 1.7f);
+		}
 	}
 }

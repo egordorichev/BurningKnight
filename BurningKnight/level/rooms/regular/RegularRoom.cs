@@ -1,3 +1,5 @@
+using BurningKnight.state;
+
 namespace BurningKnight.level.rooms.regular {
 	public class RegularRoom : RoomDef {
 		public override void SetupDoors(Level level) {
@@ -25,21 +27,25 @@ namespace BurningKnight.level.rooms.regular {
 		public override bool ShouldSpawnMobs() {
 			return true;
 		}
+
+		protected bool SmallerRooms() {
+			return Run.Depth <= 2;
+		}
 		
 		public override int GetMinWidth() {
-			return 10 + 2;
+			return SmallerRooms() ? 8 : 12;
 		}
 
 		public override int GetMinHeight() {
-			return 8 + 2;
+			return SmallerRooms() ? 8 : 10;
 		}
 
 		public override int GetMaxWidth() {
-			return 18 + 6;
+			return SmallerRooms() ? 16 : 24;
 		}
 
 		public override int GetMaxHeight() {
-			return 12 + 2;
+			return SmallerRooms() ? 12 : 14;
 		}
 	}
 }

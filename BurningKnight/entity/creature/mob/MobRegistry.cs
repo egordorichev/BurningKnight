@@ -81,7 +81,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Book>(new SpawnChance(1f, Biome.Tech)).HatesWall(),
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Tech)).RequiresNearWall(),
 				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Tech)),
-				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Castle)),
+				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Tech)),
 			};
 			
 			All.AddRange(infos);
