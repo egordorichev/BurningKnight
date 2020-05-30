@@ -1,6 +1,8 @@
 # items
 
+* make reviving of player look epic
 * crab claw: small chance for broken armor
+* broken ankh give half phase
 
 # AAAAAAAAAAAAAAAAAAAAAA
 

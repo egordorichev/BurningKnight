@@ -4,10 +4,21 @@
 * (shield potion) soul heart generator
 * (sudoku) kills half enemies in a room (long recharge)
 * (gps ring) ring, gives a chance to fully reveal the floor on entering it
+* gold sword, dagger, revolver & axe
+* (reverse card) rolling through bullets fires them back at enemies
+* donut (fire rate up speed down)
+* (gold minigun) shoots money
+* (what) shoots projectiles that shoot projectiles
+* (smart gun) shoots directly and closest enemy
 
-* donut
-* rolling through bullets fires them back at enemies
-* item, that opens enemy doors
+* pop gun
+
+# reference ideas
+
+* shaverma
+* hotdog with headphones
+* cat's ear (titjoys' ear)
+* pepega
 
 3/8
 
@@ -50,7 +61,6 @@
 * brain (slow down enemy bullets near you)
 * bones (throwing weapon, stacks)
 * dmg up but scaling, etc, soy milk obv
-* ukulele weapon
 * life drain
 * charge shot
 * spawns a turret

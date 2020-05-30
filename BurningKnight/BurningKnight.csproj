@@ -887,6 +887,7 @@
     <Compile Include="entity\projectile\controller\SmokeProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TargetProjectileController.cs" />
     <Compile Include="entity\projectile\controller\TimedProjectileController.cs" />
+    <Compile Include="entity\projectile\controller\WhatController.cs" />
     <Compile Include="entity\projectile\Laser.cs" />
     <Compile Include="entity\projectile\LaserGraphicsComponent.cs" />
     <Compile Include="entity\projectile\LetterTemplateData.cs" />

@@ -1099,5 +1099,16 @@
 	"happening_bk:omega_hurt": "Omega Hurt",
 	"painting_peasants": "Peasants",
 	"bk:broken_bucket": "Broken Bucket",
-	"bk:broken_bucket_desc": "Protecc"
+	"bk:broken_bucket_desc": "Protecc",
+	"bk:ankh": "Ankh",
+	"bk:ankh_desc": "Ethernal Life",
+	"bk:broken_ankh": "Broken Ankh",
+	"bk:broken_ankh_desc": "Ethernal Life?",
+	"bk:what": "What",
+	"bk:what_desc": "Seriusly, WHAT?",
+	"bk:gold_minigun": "Gold Minigun",
+	"bk:gold_minigun_desc": "Haha budget go brrr",
+	"bk:gold_dagger": "Gold Dagger",
+	"bk:gold_dagger_desc": "Old but gold",
+	"bk:gold_revolver": "Gold Revolver"
 }
