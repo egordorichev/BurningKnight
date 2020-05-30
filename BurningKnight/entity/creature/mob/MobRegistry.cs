@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.mob {
 				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<Rat>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Crab>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Crab>(new SpawnChance(1f, Biome.Castle, Biome.Desert)),
 				MobInfo.New<WallCrawler>(new SpawnChance(0.5f + 3f, Biome.Castle)).RequiresNearWall(),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),

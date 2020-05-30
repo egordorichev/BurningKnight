@@ -282,6 +282,10 @@ namespace BurningKnight.state {
 			if (Run.Depth < 1) {
 				Scourge.Clear();
 			}
+
+			if (Run.Depth == 1 && Area.Tagged[Tags.BurningKnight].Count == 0) {
+				Area.Add(new entity.creature.bk.BurningKnight());
+			}
 		}
 
 		private const float CursorPriority = 0.5f;
