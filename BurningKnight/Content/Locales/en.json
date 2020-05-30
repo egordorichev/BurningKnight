@@ -1126,5 +1126,13 @@
 	"bk:gold_sword": "Golden Sword",
 	"bk:gold_sword_desc": "When you don't have anything to spend money on",
 	"bk:donut": "Donut",
-	"bk:donut_desc": "Do not hesitate"
+	"bk:donut_desc": "Do not hesitate",
+	"bk:sudoku": "Sudoku",
+	"bk:sudoku_desc": "sudo git commit -m \"sudoku\"",
+	"bk:gps_ring": "GPS Ring",
+	"bk:gps_ring_desc": "A chance to reveal the map",
+	"bk:shield_potion": "Shield Potion",
+	"bk:shield_potion_desc": "Shield juice big sip",
+	"bk:trash_generator": "Trash Generator",
+	"bk:trash_generator_desc": "Yes."
 }

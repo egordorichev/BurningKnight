@@ -1,5 +1,10 @@
 # items
 
+* remove spikes from bossrush
+* r button resets to regular run from any other run time
+* remove secret rooms from bossrush
+* no quack restart in boss rush
+
 * make reviving of player look epic
 * crab claw: small chance for broken armor
 * broken ankh give half phase
