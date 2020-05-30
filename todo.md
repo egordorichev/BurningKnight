@@ -11,6 +11,7 @@
 * check if bk fight happens in boss rush
 * disable gamepad vibration if keyboard input is detected but no gamepad
 * gamepad vibration turns back on after entering new level
+* builer can ask for -coins????
 
 # AAAAAAAAAAAAAAAAAAAAAA
 
@@ -28,6 +29,7 @@
 
 # can wait
 
+* check if collector achievement works, weapon free, steam achievement sync doesnt work?
 * emerald golem (anivire, if you take his emeralds you get scourge and golem dies)
 * more magic stuff pls
 * dog or some pet, that you can pet, send to can you pet the dog tweet account

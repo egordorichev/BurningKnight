@@ -280,6 +280,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						pp.Add(b);
 						b.AddLight(32f, Projectile.RedLight);
 						b.CanBeReflected = false;
+						b.CanBeBroken = false;
 					}
 				
 					pp.Launch(an, 40);
@@ -295,6 +296,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					b.Color = ProjectileColor.Green;
 					b.Center = Self.BottomCenter;
 					b.CanBeReflected = false;
+					b.CanBeBroken = false;
 					b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
 				}
 			}
