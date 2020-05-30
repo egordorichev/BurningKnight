@@ -12,7 +12,7 @@ namespace BurningKnight.entity.creature.mob.library {
 
 			Width = 14;
 
-			SetMaxHp(20);
+			SetMaxHp(25);
 			
 			var body = new RectBodyComponent(0, 15, 14, 1);
 			AddComponent(body);
