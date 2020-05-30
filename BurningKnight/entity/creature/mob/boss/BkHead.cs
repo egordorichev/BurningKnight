@@ -302,6 +302,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						mob.X = x * 16;
 						mob.Y = y * 16 - 8;
 						mob.GeneratePrefix();
+						AnimationUtil.Poof(mob.Center, 1);
 					};
 
 					count--;

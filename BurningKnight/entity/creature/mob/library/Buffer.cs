@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.mob.library {
     	Height = 15;
       TouchDamage = 0;
 
-    	SetMaxHp(16);
+    	SetMaxHp(32);
     	
     	var body = new RectBodyComponent(3, 14, 6, 1);
     	AddComponent(body);

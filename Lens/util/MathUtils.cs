@@ -32,7 +32,8 @@ namespace Lens.util {
 			new Vector2(1, 0),
 			new Vector2(0, -1)
 		};
-		
+
+
 		public static float Mod(float a, float b) {
 			return (float) (a - b * Math.Floor(a / b));
 		}

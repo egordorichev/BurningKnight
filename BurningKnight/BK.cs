@@ -22,7 +22,7 @@ namespace BurningKnight {
 		public const bool StandMode = false;
 		public const bool Demo = false;
 		
-		public static Version Version = new Version("Final Push update", 45, 0, 1, 12, 25, Debug);
+		public static Version Version = new Version("Final Push update", 46, 0, 1, 12, 26, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

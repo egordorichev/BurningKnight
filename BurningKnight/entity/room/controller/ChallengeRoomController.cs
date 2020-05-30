@@ -75,7 +75,7 @@ namespace BurningKnight.entity.room.controller {
 						m.Animate();
 					}
 					
-					AnimationUtil.Poof(mob.Center);
+					AnimationUtil.Poof(mob.Center, 1);
 				}, (i) * 0.2f);
 			}
 

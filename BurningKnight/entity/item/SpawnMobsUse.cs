@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.item.use;
 using BurningKnight.state;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -33,6 +34,8 @@ namespace BurningKnight.entity.item {
 				} else {
 					mob.Center = r.Room.GetRandomFreeTile(filter) * 16;
 				}
+
+				AnimationUtil.Poof(mob.Center, 1);
 			}
 		}
 

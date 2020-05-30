@@ -1,11 +1,12 @@
-* biome locked items? (spawn only in certaint biome, for example honeycomb only in jungle)
-* items to apply slowness (from projectiles and arc), broken armor
-
 * pickup magnet
+* (reverse card) rolling through bullets fires them back at enemies
 
-* donut
-* follows you autoshoots close-by enemies
-* rocket: pereodicaly detaches from following and shoots at a random enemy. gravitates to enemies
+# reference ideas
+
+* shaverma
+* hotdog with headphones
+* cat's ear (titjoys' ear)
+* pepega
 
 3/8
 
@@ -24,23 +25,13 @@
 
 * pet, eats hearts gives soul hearts
 * crush rocks by walking on them
-* rolling through bullets fires them back at enemies
-* ring, gives a chance to fully reveal the floor on entering it
 * lighting between nearby bullets
 * money power/keys power/bomb power
-* magic glass, allows player to walk over 1-tile chasms
 
 # active
 
-* soul heart generator
-* pickup generator
-* tmp flight
-* fire tears in all directions (your dmg+flat dmg)
-* reusable brimstone
-
 # weapon 
 
-* laser gun
 * convert fire exstinguisher into flame thrower
 
 ### pets
@@ -58,7 +49,6 @@
 * brain (slow down enemy bullets near you)
 * bones (throwing weapon, stacks)
 * dmg up but scaling, etc, soy milk obv
-* ukulele weapon
 * life drain
 * charge shot
 * spawns a turret
@@ -68,7 +58,6 @@
 * controlled bullet 
 * shield weapon (hurting/not hurting variants)
 * the ring
-* item, that opens enemy doors
 * ring of gold
 * zoom
 * pet, shows the enemies, that he wants you to kill, if you follow his instructions, he rewards
@@ -88,12 +77,7 @@
 * ball on chain, melee weapon (or passive item?), drags behind you, you spin it around with movement to hurt enemies
 * item that makes your bullets warp through screen
 * gives infinite range to bullets
-* d2
-* money is power
-* bombs are power
-* keys are power
 * active key, allows to open 1 thing for 2 charge?
-* guns that gives you fetus effect and epic fetus
 * mama key and bomb, infinite resources for the floor (consumables, small chance to replace any key or bomb)
 
 * ring of thorns. +1 hp each 10 kills. -1 hp when picking up item
@@ -104,6 +88,5 @@
 * unknown ring: random ring effect
 * ring of becoming: player is instakill, but he gets some bonus
 * heals 1 heart upon descending to next lvl
-* gives 1 free purchase from the shop
 
 * pet, that is a regular enemy. after killing everyone else he becomes passive. finding a special artifact makes him friendly

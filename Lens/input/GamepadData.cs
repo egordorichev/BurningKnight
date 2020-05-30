@@ -24,6 +24,22 @@ namespace Lens.input {
 
 		public bool Idle;
 
+		public bool AnythingIsDown() {
+			var d = CurrentState.Buttons;
+
+			if (d.A == ButtonState.Pressed || d.B == ButtonState.Pressed || d.X == ButtonState.Pressed || d.Y == ButtonState.Pressed) {
+				return true;
+			}
+			
+			var p = CurrentState.DPad;
+
+			if (p.Left == ButtonState.Pressed || p.Right == ButtonState.Pressed || p.Up == ButtonState.Pressed || p.Down == ButtonState.Pressed) {
+				return true;
+			}
+
+			return false;
+		}
+		
 		public void Update(float dt) {
 			PreviousState = CurrentState;
 			CurrentState = GamePad.GetState(PlayerIndex);
@@ -38,7 +54,7 @@ namespace Lens.input {
 				if (rumbleTime <= 0 || rumbleStrength < 0) {
 					GamePad.SetVibration(PlayerIndex, 0, 0);
 				} else {
-					GamePad.SetVibration(PlayerIndex, rumbleStrength, 0);
+					GamePad.SetVibration(PlayerIndex, rumbleStrength, rumbleStrength);
 				}
 			}
 

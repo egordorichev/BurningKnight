@@ -24,6 +24,7 @@ using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -95,6 +96,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			buffs.AddImmunity<FrozenBuff>();
 			buffs.AddImmunity<BurningBuff>();
+			buffs.AddImmunity<BleedingBuff>();
 
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemTakenEvent>();
@@ -1316,6 +1318,7 @@ namespace BurningKnight.entity.creature.bk {
 						mob.X = x * 16;
 						mob.Y = y * 16 - 8;
 						mob.GeneratePrefix();
+						AnimationUtil.Poof(mob.Center, 1);
 					};
 
 					count--;

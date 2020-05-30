@@ -11,7 +11,7 @@ namespace BurningKnight.entity.creature.mob.prefix {
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent hme) {
 				if (hme.Amount < 0) {
-					AnimationUtil.Poof(Mob.Center);
+					AnimationUtil.Poof(Mob.Center, 1);
 					var room = Mob.GetComponent<RoomComponent>().Room;
 
 					if (room == null) {
@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.mob.prefix {
 					}
 
 					Mob.Center = room.GetRandomFreeTile() * 16 + new Vector2(8, 8);
-					AnimationUtil.Poof(Mob.Center);
+					AnimationUtil.Poof(Mob.Center, 1);
 				}
 			}
 			

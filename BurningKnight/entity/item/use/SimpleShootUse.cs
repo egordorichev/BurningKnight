@@ -49,6 +49,7 @@ namespace BurningKnight.entity.item.use {
 		private int manaUsage;
 		protected bool wait;
 		private bool toCursor;
+		private bool toEnemy;
 		private string color;
 		public bool ReloadSfx;
 		private bool shells;
@@ -98,6 +99,7 @@ namespace BurningKnight.entity.item.use {
 			scaleMax = settings["scalem"].Number(1);
 			slice = settings["texture"].String("rect");
 			toCursor = settings["cursor"].Bool(false);
+			toEnemy = settings["tomb"].Bool(false);
 			sfx = settings["sfx"].String("item_gun_fire");
 			sfx_number = settings["sfxn"].Int(0);
 			ReloadSfx = settings["rsfx"].Bool(false);
@@ -157,6 +159,15 @@ namespace BurningKnight.entity.item.use {
 				var aim = entity.GetComponent<AimComponent>();
 				var from = toCursor ? entity.Center : aim.Center;
 				var am = toCursor ? Input.Mouse.GamePosition : aim.RealAim;
+
+				if (toEnemy) {
+					var target = entity.Area.FindClosest(from, Tags.MustBeKilled, e => true);
+
+					if (target != null) {
+						am = target.Center;
+					}
+				}
+				
 				var a = MathUtils.Angle(am.X - from.X, am.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var ac = accuracy;
@@ -310,6 +321,7 @@ namespace BurningKnight.entity.item.use {
 
 			if (ImGui.TreeNode("Stats")) {
 				root.Checkbox("To Cursor", "cursor", false);
+				root.Checkbox("To Cloest Target", "tomb", false);
 				root.InputFloat("Damage", "damage");
 				root.InputInt("Projectile Count", "amount");
 				root.InputText("Sound", "sfx", "item_gun_fire");

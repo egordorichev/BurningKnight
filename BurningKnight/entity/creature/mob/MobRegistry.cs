@@ -21,8 +21,8 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Dummy>(new SpawnChance(0.1f, Biome.Castle)).SetSpawnChance(0.5f),
 				// Castle
 				MobInfo.New<Ghost>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Rat>(new SpawnChance(1f, Biome.Castle)),
-				MobInfo.New<Crab>(new SpawnChance(1f, Biome.Castle)),
+				MobInfo.New<Rat>(new SpawnChance(0.5f, Biome.Castle)),
+				MobInfo.New<Crab>(new SpawnChance(0.7f, Biome.Castle)),
 				MobInfo.New<WallCrawler>(new SpawnChance(0.5f + 3f, Biome.Castle)).RequiresNearWall(),
 				MobInfo.New<SimpleSlime>(new SpawnChance(1f, Biome.Castle)),
 				MobInfo.New<MotherSlime>(new SpawnChance(0.5f, Biome.Castle)).MarkSingle(),
@@ -41,6 +41,7 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)).RequiresNearWall(),
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Crab>(new SpawnChance(0.5f, Biome.Desert)),
 				MobInfo.New<Spelunker>(new SpawnChance(1f, Biome.Desert), new LoopChance(1f, Biome.Castle)),
 				MobInfo.New<Fly>(new SpawnChance(1f, Biome.Desert), new LoopChance(1f, Biome.Castle)),
 				

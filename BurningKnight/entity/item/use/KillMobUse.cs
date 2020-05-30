@@ -1,6 +1,7 @@
 using System.Linq;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -9,6 +10,7 @@ using Lens.util.math;
 namespace BurningKnight.entity.item.use {
 	public class KillMobUse : ItemUse {
 		private bool all;
+		private bool half;
 		private int count;
 
 		public override void Use(Entity entity, Item item) {
@@ -25,6 +27,16 @@ namespace BurningKnight.entity.item.use {
 			if (all) {
 				foreach (var m in mobs) {
 					((Mob) m).Kill(entity);
+				}
+
+				return;
+			}
+
+			if (half) {
+				var c = mobs.Count / 2;
+				
+				for (var g = 0; g < c; g++) {
+					((Mob) mobs[g]).Kill(entity);
 				}
 
 				return;
@@ -47,6 +59,7 @@ namespace BurningKnight.entity.item.use {
 			base.Setup(settings);
 			
 			all = settings["all"].Bool(false);
+			half = settings["half"].Bool(false);
 			count = settings["count"].Int(1);
 		}
 
@@ -57,7 +70,7 @@ namespace BurningKnight.entity.item.use {
 				root["all"] = all;
 			}
 
-			if (all) {
+			if (all || root.Checkbox("Half", "half", false)) {
 				return;
 			}
 

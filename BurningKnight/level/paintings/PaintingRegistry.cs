@@ -77,6 +77,7 @@ namespace BurningKnight.level.paintings {
 			Add("whipped_cream", "MateCziner");
 			Add("tofulama", "Didu");
 			Add("peasants", "Diego Rivera");
+			Add("code", "egordorichev");
 		}
 		
 		public static void Add(string id, string author, float chance = 1f, string[] biomes = null, bool animated = false) {

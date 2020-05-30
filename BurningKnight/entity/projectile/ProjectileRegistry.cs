@@ -39,6 +39,15 @@ namespace BurningKnight.entity.projectile {
 				p.GetComponent<CircleBodyComponent>().Body.AngularVelocity = 10f;
 			});
 			
+			Add("what", p => {
+				p.Controller += WhatController.Make();
+				p.GetComponent<CircleBodyComponent>().Body.AngularVelocity = 10f;
+			});
+			
+			Add("soap", p => {
+				p.Controller += SlowdownProjectileController.Make(2);
+			});
+
 			Add("grenade", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => {
 					if (with is Mob) {
