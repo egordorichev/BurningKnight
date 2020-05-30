@@ -22,6 +22,7 @@
 
 * reroll is buggy as nothing (it looks like item:changeInto is buggy)
 
+* hp phase overlaps with shields 
 * doors still can be locked (castle, looks like ghosts still)
 * d2 joppa
 * library still hangs? (state change stuff?)
