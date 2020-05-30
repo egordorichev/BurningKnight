@@ -5,6 +5,7 @@ using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.input;
+using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
@@ -190,6 +191,8 @@ namespace BurningKnight.state {
 
 		public override void Init() {
 			base.Init();
+
+			unlockedHat = GlobalSave.IsTrue("bk:fez");
 
 			TopUi = new Area();
 			Input.Blocked = 0;
@@ -516,8 +519,72 @@ namespace BurningKnight.state {
 		}
 
 		private bool stopped;
-		
+
+		private bool unlockedHat;
+		private int comboScore;
+		private string[] combo = {
+			Controls.UiLeft, Controls.UiDown, Controls.UiRight, Controls.UiUp, 
+			Controls.UiDown, Controls.UiRight, Controls.UiDown, Controls.UiLeft
+		};
+
+		private string[] possibleButtons = {
+			Controls.UiDown, Controls.UiRight, Controls.UiLeft, Controls.UiUp
+		};
+
+		private void CheckCombo() {
+			var reset = false;
+			var data = GamepadComponent.Current;
+			
+			if (Input.Keyboard.State.GetPressedKeys().Length > 0) {
+				reset = true;
+			} else if (data != null && data.AnythingIsDown()) {
+				reset = true;
+			}
+
+			if (!reset) {
+				return;
+			}
+
+			var found = false;
+				
+			foreach (var b in possibleButtons) {
+				if (Input.WasPressed(b, data)) {
+					found = true;
+					break;
+				}
+			}
+
+			if (!found) {
+				return;
+			}
+
+			var cr = combo[comboScore];
+
+			if (Input.IsDown(cr, data)) {
+				foreach (var b in possibleButtons) {
+					if (cr != b && Input.IsDown(b, data)) {
+						comboScore = 0;
+						return;
+					}
+				}
+				
+				comboScore++;
+
+				if (comboScore >= 8) {
+					Items.Unlock("bk:fez");
+					Audio.PlaySfx("level_cleared");
+					unlockedHat = true;
+				}
+			} else {
+				comboScore = 0;
+			}
+		}
+
 		public override void Update(float dt) {
+			if (!unlockedHat) {
+				CheckCombo();
+			}
+			
 			if (UiAchievement.Current == null) {
 				if (Achievements.AchievementBuffer.Count > 0) {
 					var id = Achievements.AchievementBuffer[0];

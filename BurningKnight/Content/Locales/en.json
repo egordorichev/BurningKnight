@@ -1113,5 +1113,6 @@
 	"bk:gold_revolver": "Golden Revolver",
 	"bk:gold_revolver_desc": "Cover me in gold",
 	"bk:gold_axe": "Golden Axe",
-	"bk:gold_axe_desc": "Just an axe"
+	"bk:gold_axe_desc": "Just an axe",
+	"painting_code" : "Code"
 }

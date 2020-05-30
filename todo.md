@@ -3,6 +3,9 @@
 * make reviving of player look epic
 * crab claw: small chance for broken armor
 * broken ankh give half phase
+* check if bk fight happens in boss rush
+* disable gamepad vibration if keyboard input is detected but no gamepad
+* gamepad vibration turns back on after entering new level
 
 # AAAAAAAAAAAAAAAAAAAAAA
 
@@ -20,6 +23,7 @@
 
 # can wait
 
+* emerald golem (anivire, if you take his emeralds you get scourge and golem dies)
 * more magic stuff pls
 * dog or some pet, that you can pet, send to can you pet the dog tweet account
 * forshadow the ending with tech tiles (more of them in secret rooms)
