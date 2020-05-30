@@ -200,10 +200,12 @@ namespace BurningKnight.level {
 				return rooms;
 			}
 
-			if (Run.Depth == 2) {
-				rooms.Add(new SecretKeyRoom());
-			} else if (Run.Depth == 4) {
-				rooms.Add(new ClawMinigameRoom());
+			if (!rush) {
+				if (Run.Depth == 2) {
+					rooms.Add(new SecretKeyRoom());
+				} else if (Run.Depth == 4) {
+					rooms.Add(new ClawMinigameRoom());
+				}
 			}
 
 			if (!final) {

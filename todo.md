@@ -1,8 +1,17 @@
+# items
+
+* crab claw: small chance for broken armor
+
+# AAAAAAAAAAAAAAAAAAAAAA
+
 * {
  after killing bk head (with water bucket), imo there should be smth a bit more epic
  enemies/laser/bullets stay (at least with water bucket)
 }
 
+* reroll is buggy as nothing (it looks like item:changeInto is buggy)
+
+* doors still can be locked (castle, looks like ghosts still)
 * d2 joppa
 * library still hangs? (state change stuff?)
 * Release 1.0 version pls
