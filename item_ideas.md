@@ -1,8 +1,3 @@
-* (gps ring) ring, gives a chance to fully reveal the floor on entering it
-* (shield potion) soul heart generator
-* (trash generator) pickup generator
-* (sudoku) kills half enemies in a room (long recharge)
-
 * pickup magnet
 * (reverse card) rolling through bullets fires them back at enemies
 
