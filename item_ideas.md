@@ -1,10 +1,12 @@
+* (trash generator) pickup generator
 * pickup magnet
+* (the button) fire tears in all directions (your dmg+flat dmg)
+* (shield potion) soul heart generator
+* (sudoku) kills half enemies in a room (long recharge)
+* (gps ring) ring, gives a chance to fully reveal the floor on entering it
+
 * donut
-* soul heart generator
-* pickup generator
-* fire tears in all directions (your dmg+flat dmg)
 * rolling through bullets fires them back at enemies
-* ring, gives a chance to fully reveal the floor on entering it
 * item, that opens enemy doors
 
 3/8
