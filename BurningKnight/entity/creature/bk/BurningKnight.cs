@@ -96,6 +96,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			buffs.AddImmunity<FrozenBuff>();
 			buffs.AddImmunity<BurningBuff>();
+			buffs.AddImmunity<BleedingBuff>();
 
 			Subscribe<RoomChangedEvent>();
 			Subscribe<ItemTakenEvent>();

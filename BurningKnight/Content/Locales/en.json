@@ -1114,5 +1114,11 @@
 	"bk:gold_revolver_desc": "Cover me in gold",
 	"bk:gold_axe": "Golden Axe",
 	"bk:gold_axe_desc": "Just an axe",
-	"painting_code" : "Code"
+	"painting_code": "Code",
+	"bk:katana": "Katana",
+	"bk:katana_desc": "Who's [cl orange]the owner[cl]?",
+	"bk:smart_gun": "Smart Gun",
+	"bk:smart_gun_desc": "He knows",
+	"bk:pop_gun": "Pop Gun",
+	"bk:pop_gun_desc": "Really popular"
 }

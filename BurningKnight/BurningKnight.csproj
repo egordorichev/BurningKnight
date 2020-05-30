@@ -341,6 +341,7 @@
     <Compile Include="entity\bomb\Bomb.cs" />
     <Compile Include="entity\bomb\controller\TargetBombController.cs" />
     <Compile Include="entity\buff\ArmoredBuff.cs" />
+    <Compile Include="entity\buff\BleedingBuff.cs" />
     <Compile Include="entity\buff\BrokenArmorBuff.cs" />
     <Compile Include="entity\buff\Buff.cs" />
     <Compile Include="entity\buff\BuffCheckEvent.cs" />
