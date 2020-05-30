@@ -132,7 +132,7 @@ namespace BurningKnight.entity.creature.pet {
 				return pet;
 			});
 
-			Define("coin_pouch", o => o.Area.Add(new GeneratorPet("bk:coin_pouch", 3, a => Items.CreateAndAdd("bk:coin", a)) {
+			Define("coin_pouch", o => o.Area.Add(new GeneratorPet("bk:coin_pouch", 2, a => Items.CreateAndAdd("bk:coin", a)) {
 				Owner = o
 			}));
 
