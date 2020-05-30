@@ -1,15 +1,10 @@
-* (trash generator) pickup generator
-* pickup magnet
-* (the button) fire tears in all directions (your dmg+flat dmg)
-* (shield potion) soul heart generator
-* (sudoku) kills half enemies in a room (long recharge)
 * (gps ring) ring, gives a chance to fully reveal the floor on entering it
-* gold sword, dagger, revolver & axe
-* (reverse card) rolling through bullets fires them back at enemies
-* donut (fire rate up speed down)
-* (smart gun) shoots directly and closest enemy
+* (shield potion) soul heart generator
+* (trash generator) pickup generator
+* (sudoku) kills half enemies in a room (long recharge)
 
-* pop gun
+* pickup magnet
+* (reverse card) rolling through bullets fires them back at enemies
 
 # reference ideas
 

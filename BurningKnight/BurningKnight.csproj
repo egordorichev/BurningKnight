@@ -762,7 +762,9 @@
     <Compile Include="entity\item\use\DoOnTimerUse.cs" />
     <Compile Include="entity\item\use\DoUsesIfUse.cs" />
     <Compile Include="entity\item\use\ExplodeUse.cs" />
+    <Compile Include="entity\item\use\FireInAllDirsUse.cs" />
     <Compile Include="entity\item\use\GivePhaseUse.cs" />
+    <Compile Include="entity\item\use\GiveRandomPickupUse.cs" />
     <Compile Include="entity\item\use\GiveScourgeImmunityUse.cs" />
     <Compile Include="entity\item\use\InvokeItemsUse.cs" />
     <Compile Include="entity\item\use\LeaveLegoUse.cs" />

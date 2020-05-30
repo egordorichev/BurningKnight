@@ -86,8 +86,8 @@ namespace BurningKnight.entity.item {
 			}
 		}
 
-		public bool Use(Entity entity) {
-			if ((Type == ItemType.Weapon || Type == ItemType.Active) && !UseCheck.CanUse(entity, this)) {
+		public bool Use(Entity entity, bool avoidCheck = false) {
+			if (!avoidCheck && (Type == ItemType.Weapon || Type == ItemType.Active) && !UseCheck.CanUse(entity, this)) {
 				return false;
 			}
 

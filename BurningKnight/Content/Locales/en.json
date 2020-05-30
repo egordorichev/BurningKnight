@@ -1120,5 +1120,11 @@
 	"bk:smart_gun": "Smart Gun",
 	"bk:smart_gun_desc": "He knows",
 	"bk:pop_gun": "Pop Gun",
-	"bk:pop_gun_desc": "Really popular"
+	"bk:pop_gun_desc": "Really popular",
+	"bk:the_button": "The Button",
+	"bk:the_button_desc": "8-dir attack",
+	"bk:gold_sword": "Golden Sword",
+	"bk:gold_sword_desc": "When you don't have anything to spend money on",
+	"bk:donut": "Donut",
+	"bk:donut_desc": "Do not hesitate"
 }
