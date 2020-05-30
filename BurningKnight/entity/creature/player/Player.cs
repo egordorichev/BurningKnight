@@ -782,7 +782,7 @@ namespace BurningKnight.entity.creature.player {
 			foreach (var r in area.Tagged[Tags.Room]) {
 				var room = (Room) r;
 
-				if ((room.Type == RoomType.Regular || room.Type == RoomType.Boss) && !room.Cleared) {
+				if ((room.Type == RoomType.Regular) && !room.Cleared) {
 					return false;
 				}
 			}
