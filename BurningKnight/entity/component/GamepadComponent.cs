@@ -21,7 +21,8 @@ namespace BurningKnight.entity.component {
 					return;
 				}
 
-				var a = Math.Min(1, Camera.Instance.GetComponent<ShakeComponent>().Amount / 20f);
+				var a = Math.Max(1, Camera.Instance.GetComponent<ShakeComponent>().Amount / 20f);
+				a = 1f;
 				Current.Rumble(a, a);
 			};
 		}

@@ -2709,6 +2709,10 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space * 1.5f,
 				Click = b => {
 					Settings.Vibrate = ((UiCheckbox) b).On;
+
+					if (!Settings.Vibrate) {
+						GamepadComponent.Current?.StopRumble();
+					}
 				},
 				
 				OnUpdate = c => {

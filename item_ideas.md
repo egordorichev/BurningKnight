@@ -7,8 +7,6 @@
 * gold sword, dagger, revolver & axe
 * (reverse card) rolling through bullets fires them back at enemies
 * donut (fire rate up speed down)
-* (gold minigun) shoots money
-* (what) shoots projectiles that shoot projectiles
 * (smart gun) shoots directly and closest enemy
 
 * pop gun

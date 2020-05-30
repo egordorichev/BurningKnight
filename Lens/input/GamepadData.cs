@@ -54,7 +54,7 @@ namespace Lens.input {
 				if (rumbleTime <= 0 || rumbleStrength < 0) {
 					GamePad.SetVibration(PlayerIndex, 0, 0);
 				} else {
-					GamePad.SetVibration(PlayerIndex, rumbleStrength, 0);
+					GamePad.SetVibration(PlayerIndex, rumbleStrength, rumbleStrength);
 				}
 			}
 
