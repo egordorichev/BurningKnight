@@ -90,7 +90,7 @@ namespace BurningKnight.level.paintings {
 				Achievements.Unlock("bk:cat_without_a_hat");
 			}
 			
-			return false;
+			return true;
 		}
 
 		public void Remove() {

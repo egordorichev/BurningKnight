@@ -45,7 +45,7 @@ namespace BurningKnight.entity.projectile {
 			});
 			
 			Add("soap", p => {
-				p.Controller += SlowdownProjectileController.Make();
+				p.Controller += SlowdownProjectileController.Make(2);
 			});
 
 			Add("grenade", p => {
