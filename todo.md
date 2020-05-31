@@ -7,7 +7,6 @@
 * after killing bk head enemies/laser/bullets stay (at least with water bucket)
 * reroll is buggy as nothing (it looks like item:changeInto is buggy, especially with d2 joppa)
 * check if collector achievement works, weapon free, steam achievement sync doesnt work?
-* update russian translation
 
 # bugs
 
