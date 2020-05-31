@@ -772,6 +772,12 @@ namespace BurningKnight.entity.creature.player {
 				if (fcse.Flag == Flag.Burning) {
 					GetComponent<HealthComponent>().ModifyHealth(-1, Run.Level);
 				}
+			} else if (e is RevivedEvent re) {
+				AnimationUtil.TeleportAway(this, () => {
+					FindSpawn();
+					Camera.Instance.Jump();
+					AnimationUtil.TeleportIn(this);
+				});
 			}
 			
 			return base.HandleEvent(e);

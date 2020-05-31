@@ -1,5 +1,3 @@
-* make reviving of player look epic (probs tps to the entrance)
-* broken ankh respawn with 1 max hp
 * idle anim for emerald golem as well as broken frame (pile of rocks or gone completely)
 * bk doesnt appear propetly after defeating the head, camera goes wild (at least in boss rush)
 * something is super weird going with items, they dissappeared in the boss room, but they still can be picked up?
