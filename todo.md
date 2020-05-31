@@ -1,7 +1,5 @@
 * idle anim for emerald golem as well as broken frame (pile of rocks or gone completely)
 * something is super weird going with items, they dissappeared in the boss room, but they still can be picked up?
-* after killing bk head (with water bucket), imo there should be smth a bit more epic
-* after killing bk head enemies/laser/bullets stay (at least with water bucket)
 * reroll is buggy as nothing (it looks like item:changeInto is buggy, especially with d2 joppa)
 * check if collector achievement works, weapon free, steam achievement sync doesnt work?
 
