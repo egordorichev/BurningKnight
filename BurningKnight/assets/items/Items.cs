@@ -387,7 +387,7 @@ namespace BurningKnight.assets.items {
 		}
 
 		private static string[] veganProofItems = {
-			"bk:chicken"
+			"bk:chicken", "bk:shawarma", "bk:hotdog"
 		};
 		
 		public static bool ShouldAppear(string id) {

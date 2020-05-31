@@ -33,5 +33,13 @@
 		public virtual void RenderDebug() {
 			
 		}
+
+		public virtual void OnTagAdded(int i) {
+			
+		}
+
+		public virtual void OnTagRemoved(int i) {
+			
+		}
 	}
 }

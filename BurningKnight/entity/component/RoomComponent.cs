@@ -67,5 +67,29 @@ namespace BurningKnight.entity.component {
 		public override void RenderDebug() {
 			ImGui.Text(Room == null ? "null" : $"{Room.Type}#{Room.Y}");
 		}
+
+		public override void OnTagRemoved(int i) {
+			base.OnTagRemoved(i);
+
+			if (Room == null) {
+				return;
+			}
+			
+			Room.Tagged[i].Remove(Entity);
+		}
+
+		public override void OnTagAdded(int i) {
+			base.OnTagAdded(i);
+
+			if (Room == null) {
+				return;
+			}
+			
+			var a = Room.Tagged[i];
+
+			if (!a.Contains(Entity)) {
+				a.Add(Entity);
+			}
+		}
 	}
 }

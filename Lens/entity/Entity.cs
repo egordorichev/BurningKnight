@@ -125,12 +125,14 @@ namespace Lens.entity {
 					for (int i = 0; i < BitTag.Total; i++) {
 						int check = 1 << i;
 						bool add = (value & check) != 0;
-						bool has = (Tag & check) != 0;
+						bool has = (tag & check) != 0;
 
 						if (has != add) {
 							if (add) {
+								AddToTag(i);
 								Area.Tagged[i].Add(this);
 							} else {
+								RemoveFromTag(i);
 								Area.Tagged[i].Remove(this);
 							}
 						}
@@ -138,6 +140,26 @@ namespace Lens.entity {
 
 					tag = value;
 				}	
+			}
+		}
+
+		protected virtual void AddToTag(int i) {
+			if (Components == null) {
+				return;
+			}
+			
+			foreach (var c in Components.Values) {
+				c.OnTagAdded(i);
+			}
+		}
+		
+		protected virtual void RemoveFromTag(int i) {
+			if (Components == null) {
+				return;
+			}
+			
+			foreach (var c in Components.Values) {
+				c.OnTagRemoved(i);
 			}
 		}
 

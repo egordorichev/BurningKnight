@@ -278,6 +278,7 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<InteractableComponent>();
 			RemoveComponent<ShadowComponent>();
 			RemoveComponent<LightComponent>();
+			RemoveBody();
 			
 			RemoveTag(Tags.LevelSave);
 			RemoveTag(Tags.Item);

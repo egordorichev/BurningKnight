@@ -57,7 +57,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			SetStats();
 			
-			AddDrops(new SingleDrop("bk:coin", 0.1f));
+			AddDrops(new SingleDrop("bk:coin", 0.12f));
 			AddDrops(new SingleDrop("bk:bomb", 0.03f));
 
 			var h = GetComponent<HealthComponent>();
