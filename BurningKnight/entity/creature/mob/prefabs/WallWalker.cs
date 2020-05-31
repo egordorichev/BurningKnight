@@ -15,6 +15,7 @@ using Lens.entity.component.logic;
 using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 using SharpDX.Direct3D11;
 using VelcroPhysics.Dynamics;
@@ -67,7 +68,11 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 			if (dirs.Count == 0) {
 				Log.Error("No walls to lock to!");
-				Done = true;
+
+				Timer.Add(() => {
+					Done = true;
+				}, 0.1f);
+
 				return;
 			}
 
@@ -162,7 +167,9 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 
 				if (Run.Level.IsInside(x, y) && Run.Level.Get(x, y).IsWall()) {
 					Log.Debug("Killing walker");
-					Self.Done = true;
+					Timer.Add(() => {
+						Self.Done = true;
+					}, 0.1f);
 					return;
 				}
 				
@@ -250,7 +257,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			}
 
 			if (room.Type != RoomType.Regular && room.Type != RoomType.Boss) {
-				Done = true;
+				
+				Timer.Add(() => {
+					Done = true;
+				}, 0.1f);
 				return;
 			}
 

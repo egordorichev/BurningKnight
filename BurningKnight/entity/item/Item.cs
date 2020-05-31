@@ -116,7 +116,7 @@ namespace BurningKnight.entity.item {
 			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
-				((Player) Owner).AnimateItemPickup(this, null, false, false);
+				((Player) entity).AnimateItemPickup(this, null, false, false);
 			}
 
 			return true;

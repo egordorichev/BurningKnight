@@ -409,18 +409,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 		private bool saved;
 
 		public void Save() {
-			if (saved) {
+			if (saved || Died) {
 				return;
 			}
 
 			saved = true;
-			Done = true;
+			GetComponent<HealthComponent>().Kill(this);
 
-			Timer.Add(() => PlaceRewards(), 1f);
+			// Timer.Add(() => PlaceRewards(), 1f);
 		}
 		
 		protected override void CreateGore(DiedEvent d) {
 			base.CreateGore(d);
+
+			if (saved) {
+				return;
+			}
 			
 			var heinur = new Heinur();
 			Area.Add(heinur);
@@ -456,10 +460,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			dmDialog.Start("dm_5", null, () => Timer.Add(() => {
 				dmDialog.Close();
+				Camera.Instance.Targets.Clear();
+				Camera.Instance.Follow(dm, 1f);
+				Camera.Instance.Follow(heinur, 1f);
 				
 				heinurDialog.Start("heinur_0", null, () => Timer.Add(() => {
 					heinurDialog.Close();
 					heinur.Attract = true;
+					Camera.Instance.Targets.Clear();
+					Camera.Instance.Follow(dm, 1f);
+					Camera.Instance.Follow(heinur, 1f);
 
 					heinur.Callback = () => {
 						Camera.Instance.Targets.Clear();
@@ -477,21 +487,23 @@ namespace BurningKnight.entity.creature.mob.boss {
 						bk.Center = Center;
 
 						var gr = bk.GetComponent<BkGraphicsComponent>();
-						gr.Scale = Vector2.Zero;
+						// gr.Scale = Vector2.Zero;
 						
-						Tween.To(1, 0, x => g.Scale.X = x, 2f);
-						Tween.To(1, 0, x => g.Scale.Y = x, 2f);
+						// Tween.To(1, 0, x => g.Scale.X = x, 2f);
+						// Tween.To(1, 0, x => g.Scale.Y = x, 2f);
+						Camera.Instance.Follow(bk, 1f);
 						
 						dmDialog.Start("dm_6", null, () => Timer.Add(() => {
 							dmDialog.Close();
-
 							Camera.Instance.Targets.Clear();
 							Camera.Instance.Follow(bk, 1f);
-
+							
 							var nbkDialog = bk.GetComponent<DialogComponent>();
 						
 							nbkDialog.Start("nbk_0", null, () => Timer.Add(() => {
 								nbkDialog.Close();
+								Camera.Instance.Targets.Clear();
+								Camera.Instance.Follow(bk, 1f);
 								Run.Win();
 							}, 2f));
 						}, 2f));
