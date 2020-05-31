@@ -28,7 +28,6 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 			AddComponent(new AnimationComponent("trash_goblin"));
 			AddComponent(new RectBodyComponent(0, 16, 14, 10, BodyType.Static));
 			
-			
 			var dl = GetComponent<DialogComponent>();
 
 			dl.InitCallback = () => {

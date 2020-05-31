@@ -1137,5 +1137,9 @@
 	"bk:trash_generator_desc": "Yes.",
 	"bk:crabs_claw": "Crab's Claw",
 	"bk:crabs_claw_desc": "Breaks any armor",
-	"eg_0" : "Stonks"
+	"eg_3": "Good time of day, sir",
+	"eg_0_0": "Take ^^[cl lime]the emeralds[cl]^^",
+	"eg_0_1": "Leave them",
+	"eg_0": "Take [cl lime]my emeralds[cl], I beg you!",
+	"eg_1" : "Ima head out"
 }
