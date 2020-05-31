@@ -15,7 +15,6 @@ namespace BurningKnight.entity.item.use {
 
 			var aim = entity.GetComponent<AimComponent>();
 			
-
 			for (var i = 0; i < 8; i++) {
 				var angle = i / 4f * (float) Math.PI;
 				aim.RealAim = aim.Aim = MathUtils.CreateVector(angle, 48) + aim.Center;

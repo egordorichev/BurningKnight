@@ -1149,5 +1149,9 @@
 	"bk:glowing_mushroom": "Glowing Mushroom",
 	"bk:glowing_mushroom_desc": "He be vibing",
 	"bk:tinfoil_hat": "Tinfoil Hat",
-	"bk:tinfoil_hat_desc": "Feels safe"
+	"bk:tinfoil_hat_desc": "Feels safe",
+	"bk:rear_window": "Rear Window",
+	"bk:rear_window_desc": "Watches your back",
+	"bk:refractor": "Refractor",
+	"bk:refractor_desc": "A chance to attack in all directions"
 }

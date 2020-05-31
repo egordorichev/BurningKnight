@@ -757,6 +757,7 @@
     <Compile Include="entity\item\use\BlockDamageUse.cs" />
     <Compile Include="entity\item\use\BreakPiggyBankUse.cs" />
     <Compile Include="entity\item\use\BucketUse.cs" />
+    <Compile Include="entity\item\use\ChanceToUseWeaponUse.cs" />
     <Compile Include="entity\item\use\DetonateBombsUse.cs" />
     <Compile Include="entity\item\use\DiscoverSideRoomsUse.cs" />
     <Compile Include="entity\item\use\DoOnNewFloorUse.cs" />

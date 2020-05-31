@@ -37,7 +37,7 @@ namespace BurningKnight.entity.component {
 
 				if (Entity.HasComponent<LightComponent>()) {
 					Entity.GetComponent<LightComponent>().Light.Color =
-						item.Id == "bk:glowing_mushroom" ? new Color(0.2f, 0.6f, 1f, 1f) : Player.LightColor;
+						item.Id == "bk:glowing_mushroom" ? new Color(0.05f, 0.4f, 1f, 1f) : Player.LightColor;
 				}
 			}
 		}
