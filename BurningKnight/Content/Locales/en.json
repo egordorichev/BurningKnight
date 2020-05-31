@@ -1153,5 +1153,11 @@
 	"bk:rear_window": "Rear Window",
 	"bk:rear_window_desc": "Watches your back",
 	"bk:refractor": "Refractor",
-	"bk:refractor_desc": "A chance to attack in all directions"
+	"bk:refractor_desc": "A chance to attack in all directions",
+	"bk:fork": "Fork",
+	"bk:fork_desc": "It hurts",
+	"bk:rock": "Rock",
+	"bk:rock_desc": "Damage at a cost",
+	"bk:coffee_grinder": "Coffee Grinder",
+	"bk:coffee_grinder_desc": "Small & fast projectiles"
 }

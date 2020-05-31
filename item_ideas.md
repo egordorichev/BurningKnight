@@ -3,9 +3,6 @@
 * cat's ear (titjoys' ear)
 * pepega
 
-* chance to use your weapon backwards fire back (/ use your sword)
-* chance to fire in all directions when you fire (/ use your sword)
-
 * dmg up speed down
 * dmg up (big)
 * fire rate up damage down
