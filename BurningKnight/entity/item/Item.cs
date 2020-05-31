@@ -32,6 +32,7 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.item {
 	public class Item : SaveableEntity, CollisionFilterEntity, PlaceableEntity {
 		public static TextureRegion UnknownRegion;
+		public static bool Attact;
 		
 		public ItemType Type;
 		public string Id;
@@ -418,37 +419,50 @@ namespace BurningKnight.entity.item {
 					}
 				}
 			}
-			
+
 
 			if (hasOwner) {
 				var o = Owner;
-				
+
 				foreach (var u in Uses) {
 					u.Update(o, this, dt);
 				}
-			} else if (updateLight) {
-				updateLight = false;
-				var room = GetComponent<RoomComponent>().Room;
-				
-				if (room == null || HasComponent<LightComponent>()) {
-					if (room == null || room.Type == RoomType.Secret) {
-						RemoveComponent<LightComponent>();
-					}
-				} else if (room.Type != RoomType.Secret) {
-					if (Type == ItemType.Mana || Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery || Type == ItemType.Key) {
-						Color color;
+			} else {
+				if (Attact) {
+					var room = GetComponent<RoomComponent>().Room;
 
-						if (Type == ItemType.Coin || Type == ItemType.Key) {
-							color = new Color(1f, 1f, 0.5f, 1f);
-						} else if (Type == ItemType.Heart) {
-							color = new Color(1f, 0.2f, 0.2f, 1f);
-						} else if (Type == ItemType.Mana) {
-							color = new Color(0.2f, 1f, 0.2f, 1f);
-						} else {
-							color = new Color(1f, 1f, 1f, 1f);
-						}
+					if (room.Tagged[Tags.Player].Count > 0) {
+						var force = 360 * dt;
+						var a = AngleTo(room.Tagged[Tags.Player][0]);
+						GetBody().Velocity += new Vector2((float) Math.Cos(a) * force, (float) Math.Sin(a) * force);
+					}
+				}
 				
-						AddComponent(new LightComponent(this, 32f, color));
+				if (updateLight) {
+					updateLight = false;
+					var room = GetComponent<RoomComponent>().Room;
+
+					if (room == null || HasComponent<LightComponent>()) {
+						if (room == null || room.Type == RoomType.Secret) {
+							RemoveComponent<LightComponent>();
+						}
+					} else if (room.Type != RoomType.Secret) {
+						if (Type == ItemType.Mana || Type == ItemType.Coin || Type == ItemType.Heart || Type == ItemType.Battery ||
+						    Type == ItemType.Key) {
+							Color color;
+
+							if (Type == ItemType.Coin || Type == ItemType.Key) {
+								color = new Color(1f, 1f, 0.5f, 1f);
+							} else if (Type == ItemType.Heart) {
+								color = new Color(1f, 0.2f, 0.2f, 1f);
+							} else if (Type == ItemType.Mana) {
+								color = new Color(0.2f, 1f, 0.2f, 1f);
+							} else {
+								color = new Color(1f, 1f, 1f, 1f);
+							}
+
+							AddComponent(new LightComponent(this, 32f, color));
+						}
 					}
 				}
 			}

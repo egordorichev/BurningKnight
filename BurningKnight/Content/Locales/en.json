@@ -1128,7 +1128,7 @@
 	"bk:donut": "Donut",
 	"bk:donut_desc": "Do not hesitate",
 	"bk:sudoku": "Sudoku",
-	"bk:sudoku_desc": "sudo git commit -m \"sudoku\"",
+	"bk:sudoku_desc": "Half of the room just gone, reduced to atoms",
 	"bk:gps_ring": "GPS Ring",
 	"bk:gps_ring_desc": "A chance to reveal the map",
 	"bk:shield_potion": "Shield Potion",
@@ -1141,5 +1141,9 @@
 	"eg_0_0": "Take ^^[cl lime]the emeralds[cl]^^",
 	"eg_0_1": "Leave them",
 	"eg_0": "Take [cl lime]my emeralds[cl], I beg you!",
-	"eg_1" : "Ima head out"
+	"eg_1": "Ima head out",
+	"bk:reverse_card": "Reverse Card",
+	"bk:reverse_card_desc": "Rolling through projectiles reflects them",
+	"bk:magnet": "Magnet",
+	"bk:magnet_desc": "Attraction & Affection"
 }

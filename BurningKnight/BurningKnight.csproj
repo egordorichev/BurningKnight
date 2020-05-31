@@ -772,6 +772,7 @@
     <Compile Include="entity\item\use\MakeBombsBlankUse.cs" />
     <Compile Include="entity\item\use\MakeBombsExplodeOnTouchUse.cs" />
     <Compile Include="entity\item\use\MakeBombsHomeUse.cs" />
+    <Compile Include="entity\item\use\MakeItemsAttactUse.cs" />
     <Compile Include="entity\item\use\MakeProjectileExpandUse.cs" />
     <Compile Include="entity\item\use\MakeProjectileReshootUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesBlankOnDeathUse.cs" />
@@ -779,6 +780,7 @@
     <Compile Include="entity\item\use\MakeProjectilesHurtOnMissUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesKillWithBuffUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitUse.cs" />
+    <Compile Include="entity\item\use\MakeRollKickProjectilesUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
     <Compile Include="entity\item\use\ModifyGenUse.cs" />

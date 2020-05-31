@@ -1,5 +1,3 @@
-* pickup magnet
-* (reverse card) rolling through bullets fires them back at enemies
 * shaverma
 * hotdog with headphones
 * cat's ear (titjoys' ear)

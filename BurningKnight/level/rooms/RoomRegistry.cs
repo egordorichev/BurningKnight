@@ -98,7 +98,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<SecretChestRoom>(1f),
 				RoomInfo.New<SecretScourgeRoom>(0.3f),
 				RoomInfo.New<BirdSecretRoom>(0.01f),
-				RoomInfo.New<SecretEmeraldGolemRoom>(0.3f + 100000f),
+				RoomInfo.New<SecretEmeraldGolemRoom>(0.3f),
 
 				// Regular
 				RoomInfo.New<RegularRoom>(WallRegistry.Instance.Size),

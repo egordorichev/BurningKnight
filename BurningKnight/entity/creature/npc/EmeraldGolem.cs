@@ -4,14 +4,11 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
-using BurningKnight.entity.item.use;
-using BurningKnight.save;
 using BurningKnight.ui.dialog;
 using Lens.assets;
 using Lens.entity;
 using Lens.util.file;
 using Lens.util.timer;
-using Steamworks;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.npc {
