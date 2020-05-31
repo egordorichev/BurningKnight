@@ -1,6 +1,6 @@
 * something is super weird going with items, they dissappeared in the boss room, but they still can be picked up?
 * reroll is buggy as nothing (it looks like item:changeInto is buggy, especially with d2 joppa)
-* check if collector achievement works, weapon free, steam achievement sync doesnt work?
+* check if collector achievement works, steam achievement sync doesnt work?
 
 # bugs
 

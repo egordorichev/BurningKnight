@@ -171,6 +171,24 @@ namespace Desktop.integration.steam {
 					}
 				};
 
+				InGameState.SyncAchievements += () => {
+					try {
+						foreach (var achievement in Achievements.Defined) {
+							if (achievement.Value.Unlocked) {
+								new Achievement(achievement.Key).Trigger();
+							}
+						}
+
+						foreach (var achievement in SteamUserStats.Achievements) {
+							if (achievement.State) {
+								Achievements.Unlock(achievement.Identifier);
+							}
+						}
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+				};
+
 				try {
 					SaveManager.LoadCloudSaves();
 				} catch (Exception e) {
