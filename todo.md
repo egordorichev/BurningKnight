@@ -1,4 +1,5 @@
 * maanex mob spawns suggestion
+* boxy has wrong dialog when you have not enough keys
 
 # bugs
 * doors still can be locked (castle, looks like ghosts still)
