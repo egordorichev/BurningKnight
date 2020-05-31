@@ -416,7 +416,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			saved = true;
 			GetComponent<HealthComponent>().Kill(this);
 
-			// Timer.Add(() => PlaceRewards(), 1f);
+			Timer.Add(() => PlaceRewards(), 1f);
 		}
 		
 		protected override void CreateGore(DiedEvent d) {
