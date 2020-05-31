@@ -158,7 +158,6 @@ namespace BurningKnight.ui.dialog {
 		}
 
 		public void Finish() {
-			Log.Error($"Invoked at {Engine.Time}");
 			DoneSaying = false;
 
 			if (OnEnd == null || OnEnd.Invoke()) {

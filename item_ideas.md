@@ -2,11 +2,7 @@
 * hotdog with headphones
 * cat's ear (titjoys' ear)
 * pepega
-
-* dmg up speed down
-* dmg up (big)
-* fire rate up damage down
-
+    
 3/8
 
 * picking up a heart might heal you for half a heart more   
