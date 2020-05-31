@@ -1136,5 +1136,6 @@
 	"bk:trash_generator": "Trash Generator",
 	"bk:trash_generator_desc": "Yes.",
 	"bk:crabs_claw": "Crab's Claw",
-	"bk:crabs_claw_desc": "Breaks any armor"
+	"bk:crabs_claw_desc": "Breaks any armor",
+	"eg_0" : "Stonks"
 }
