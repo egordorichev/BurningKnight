@@ -1,6 +1,8 @@
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.state;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 
@@ -10,6 +12,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override void Use(Entity entity, Item item) {
 			Run.Luck += Amount;
+			TextParticle.Add(entity, Locale.Get("luck"), Amount, true, Amount < 0);
 		}
 
 		public override void Setup(JsonValue settings) {

@@ -156,6 +156,7 @@ namespace BurningKnight.entity.item.use {
 			Register<MakeItemsAttactUse>();
 			Register<MakeRollKickProjectilesUse>();
 			Register<ChanceToUseWeaponUse>(ChanceToUseWeaponUse.RenderDebug);
+			Register<ModEachAttackUse>();
 		}
 	}
 }

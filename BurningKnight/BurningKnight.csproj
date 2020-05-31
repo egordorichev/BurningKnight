@@ -782,6 +782,7 @@
     <Compile Include="entity\item\use\MakeProjectilesKillWithBuffUse.cs" />
     <Compile Include="entity\item\use\MakeProjectilesSplitUse.cs" />
     <Compile Include="entity\item\use\MakeRollKickProjectilesUse.cs" />
+    <Compile Include="entity\item\use\ModEachAttackUse.cs" />
     <Compile Include="entity\item\use\ModifyArcUse.cs" />
     <Compile Include="entity\item\use\ModifyConsumableWeightsUse.cs" />
     <Compile Include="entity\item\use\ModifyGenUse.cs" />

@@ -1,8 +1,3 @@
-* shaverma
-* hotdog with headphones
-* cat's ear (titjoys' ear)
-* pepega
-    
 3/8
 
 * picking up a heart might heal you for half a heart more   
@@ -44,7 +39,6 @@
 * life drain
 * charge shot
 * spawns a turret
-* powerful but short range gun
 * nuclear throne perks: strong soul, hammer head impact?
 * holy mantel
 * controlled bullet 

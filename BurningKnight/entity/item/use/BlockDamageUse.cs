@@ -1,5 +1,7 @@
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.events;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
 using Lens.util.math;
@@ -12,6 +14,11 @@ namespace BurningKnight.entity.item.use {
 			if (e is HealthModifiedEvent hme) {
 				if (hme.Amount < 0 && hme.Who == Item.Owner && Rnd.Chance(chance)) {
 					hme.Amount = 0;
+
+					if (Item.Id == "bk:cats_ear") {
+						TextParticle.Add(Item.Owner, "Sick dodge!");
+					}
+					
 					return true;
 				}
 			}

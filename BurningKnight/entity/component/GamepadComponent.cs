@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.items;
 using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.input;
@@ -21,9 +22,14 @@ namespace BurningKnight.entity.component {
 					return;
 				}
 
-				var a = Math.Max(1, Camera.Instance.GetComponent<ShakeComponent>().Amount / 20f);
-				a = 1f;
-				Current.Rumble(a, a);
+				var am = Camera.Instance.GetComponent<ShakeComponent>().Amount;
+
+				if (am < 5) {
+					return;
+				}
+				
+				var a = Math.Max(1, am / 20f);
+				Current.Rumble(a, Math.Max(0.1f, a * 0.5f));
 			};
 		}
 		
@@ -47,6 +53,8 @@ namespace BurningKnight.entity.component {
 						Current = Controller;
 						
 						Log.Info($"Connected {GamePad.GetState(i)}");
+						Items.Unlock("bk:gamepad");
+						
 						break;
 					}
 				}
@@ -61,6 +69,8 @@ namespace BurningKnight.entity.component {
 						
 						Settings.Gamepad = GamepadId;
 						Log.Info($"Connected {GamePad.GetState(i)}");
+						Items.Unlock("bk:gamepad");
+						
 						return;
 					}
 				}
