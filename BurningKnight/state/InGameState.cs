@@ -1531,7 +1531,7 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 
-			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge);
+			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge || Run.Type == RunType.BossRush);
 			
 			if (qr) {
 				gameOverMenu.Add(overQuickBack = new UiButton {
@@ -1541,8 +1541,17 @@ namespace BurningKnight.state {
 					RelativeCenterY = BackY - 6,
 
 					Click = b => {
+						if (Run.Type == RunType.BossRush) {
+							if (GlobalSave.Emeralds < 3) {
+								AnimationUtil.ActionFailed();
+								return;
+							}
+							
+							GlobalSave.Emeralds -= 3;
+						}
+
 						gameOverMenu.Enabled = false;
-						Run.StartNew(1);
+						Run.StartNew(1, Run.Type);
 					}
 				});
 			}

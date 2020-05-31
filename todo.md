@@ -1,7 +1,5 @@
 # items
 
-* r button resets to regular run from any other run time
-* no quack restart in boss rush (non regular runs i guess)
 * make reviving of player look epic (probs tps to the entrance)
 * crab claw: small chance for broken armor
 * broken ankh respawn with 1 max hp
