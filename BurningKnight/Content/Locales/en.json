@@ -1145,5 +1145,9 @@
 	"bk:reverse_card": "Reverse Card",
 	"bk:reverse_card_desc": "Rolling through projectiles reflects them",
 	"bk:magnet": "Magnet",
-	"bk:magnet_desc": "Attraction & Affection"
+	"bk:magnet_desc": "Attraction & Affection",
+	"bk:glowing_mushroom": "Glowing Mushroom",
+	"bk:glowing_mushroom_desc": "He be vibing",
+	"bk:tinfoil_hat": "Tinfoil Hat",
+	"bk:tinfoil_hat_desc": "Feels safe"
 }

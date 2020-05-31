@@ -7,8 +7,6 @@
 * dmg up speed down
 * dmg up (big)
 * range down dmg up
-* glowing hat (glowing mushroom)
-* tinfoil hat
 
 3/8
 
