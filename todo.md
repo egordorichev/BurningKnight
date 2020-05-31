@@ -1,6 +1,5 @@
 # items
 
-* remove spikes from bossrush
 * r button resets to regular run from any other run time
 * no quack restart in boss rush (non regular runs i guess)
 * make reviving of player look epic (probs tps to the entrance)
