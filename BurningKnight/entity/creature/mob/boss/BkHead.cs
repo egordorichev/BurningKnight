@@ -486,11 +486,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						Area.Add(bk);
 						bk.Center = Center;
 
-						var gr = bk.GetComponent<BkGraphicsComponent>();
-						// gr.Scale = Vector2.Zero;
-						
-						// Tween.To(1, 0, x => g.Scale.X = x, 2f);
-						// Tween.To(1, 0, x => g.Scale.Y = x, 2f);
+						bk.GetComponent<BkGraphicsComponent>().Animate();
 						Camera.Instance.Follow(bk, 1f);
 						
 						dmDialog.Start("dm_6", null, () => Timer.Add(() => {
