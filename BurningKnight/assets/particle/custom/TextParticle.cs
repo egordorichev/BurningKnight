@@ -100,7 +100,10 @@ namespace BurningKnight.assets.particle.custom {
 				tweened = true;
 				
 				Tween.To(0, scale.X, x => scale.X = x, 0.15f, Ease.QuadIn);
-				Tween.To(3, scale.Y, x => scale.Y = x, 0.15f, Ease.QuadIn).OnEnd = () => Done = true;
+				Tween.To(3, scale.Y, x => scale.Y = x, 0.15f, Ease.QuadIn).OnEnd = () => {
+					Done = true;
+				};
+
 				Tween.To(-18, offset.Y, x => offset.Y = x, 0.15f, Ease.QuadIn);
 			}
 

@@ -60,6 +60,7 @@ namespace BurningKnight.state {
 		public static bool SkipPause;
 		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		public static bool IgnoreSave;
+		public static Action SyncAchievements;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -289,6 +290,10 @@ namespace BurningKnight.state {
 
 			if (Run.Depth == 1 && Area.Tagged[Tags.BurningKnight].Count == 0) {
 				Area.Add(new entity.creature.bk.BurningKnight());
+			}
+
+			if (Run.Depth == 0) {
+				SyncAchievements?.Invoke();
 			}
 		}
 

@@ -1028,8 +1028,7 @@
 	"bk:led_desc": "Точная Лампа",
 	"bk:fragile_lamp": "Хрупкая Лампочка",
 	"bk:fragile_lamp_desc": "1 хит K.O.",
-	"painting_guitar" : "Больше Звука!",
-
+	"painting_guitar": "Больше Звука!",
 	"ach_bk:maanex": "И ты, Брут?",
 	"ach_bk:maanex_desc": "Убей Маанекса, с его шляпой на голове",
 	"dad_0": "Сын, [dl] я ухожу искать [cl red]Лампу[cl]. Я оставляю тебя править вместо меня.",

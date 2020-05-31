@@ -387,7 +387,7 @@ namespace BurningKnight.assets.items {
 		}
 
 		private static string[] veganProofItems = {
-			"bk:chicken"
+			"bk:chicken", "bk:shawarma", "bk:hotdog"
 		};
 		
 		public static bool ShouldAppear(string id) {
@@ -554,12 +554,16 @@ namespace BurningKnight.assets.items {
 			var e = new Item.UnlockedEvent {
 				Data = data
 			};
-			
-			Engine.Instance.State.Ui.EventListener.Handle(e);
-			Engine.Instance.State.Area.EventListener.Handle(e);
 
-			if (!Achievements.ItemBuffer.Contains(id)) {
-				Achievements.ItemBuffer.Add(id);
+			try {
+				Engine.Instance.State.Ui.EventListener.Handle(e);
+				Engine.Instance.State.Area.EventListener.Handle(e);
+
+				if (!Achievements.ItemBuffer.Contains(id)) {
+					Achievements.ItemBuffer.Add(id);
+				}
+			} catch (Exception er) {
+				Log.Error(er);
 			}
 
 			foreach (var item in Datas.Values) {

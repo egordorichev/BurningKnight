@@ -116,7 +116,7 @@ namespace BurningKnight.entity.item {
 			Renderer?.OnUse();
 
 			if (Type == ItemType.Active) {
-				((Player) Owner).AnimateItemPickup(this, null, false, false);
+				((Player) entity).AnimateItemPickup(this, null, false, false);
 			}
 
 			return true;
@@ -278,6 +278,7 @@ namespace BurningKnight.entity.item {
 			RemoveComponent<InteractableComponent>();
 			RemoveComponent<ShadowComponent>();
 			RemoveComponent<LightComponent>();
+			RemoveBody();
 			
 			RemoveTag(Tags.LevelSave);
 			RemoveTag(Tags.Item);

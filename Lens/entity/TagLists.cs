@@ -21,18 +21,17 @@ namespace Lens.entity {
 
 			for (int i = 0; i < BitTag.Total; i++) {
 				if ((tag & 1 << i) != 0) {
-					Lists[i].Add(entity);
+					var l = Lists[i];
+
+					if (!l.Contains(entity)) {
+						l.Add(entity);
+					}
 				}
 			}
 		}
 
 		public void Remove(Entity entity) {
-			// Most entities don't have any tags, avoid for loop
-			if (entity.Tag == 0) {
-				return;
-			}
-
-			int tag = entity.Tag;
+			var tag = entity.Tag;
 
 			for (int i = 0; i < BitTag.Total; i++) {
 				if ((tag & 1 << i) != 0) {

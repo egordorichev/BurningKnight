@@ -1,13 +1,19 @@
 using BurningKnight.assets;
 using BurningKnight.assets.items;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
+using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Lens.util.timer;
 using VelcroPhysics.Dynamics;
 
@@ -39,19 +45,36 @@ namespace BurningKnight.entity.creature.npc {
 			
 				if (((ChoiceDialog) d).Choice == 0) {
 					Timer.Add(() => {
-						GetComponent<DialogComponent>().StartAndClose(Locale.Get("eg_1"), 1);
+						GetComponent<DialogComponent>().StartAndClose(Locale.Get("eg_1"), 3);
 					}, 0.2f);
 
 					var inv = c.To.GetComponent<InventoryComponent>();
 					var a = c.To.Area;
 			
-					for (var i = 0; i < 20; i++) {
+					for (var i = 0; i < Amount; i++) {
 						inv.Pickup(Items.CreateAndAdd("bk:emerald", a));
 					}
 
 					Timer.Add(() => {
 						inv.Pickup(Items.CreateAndAdd(Scourge.GenerateItemId(), a));
 					}, 1f);
+
+					Timer.Add(() => {
+						GetComponent<AnimationComponent>().Animate(() => {
+							Done = true;
+							Engine.Instance.Flash = 1f;
+							Camera.Instance.Shake(8);
+							
+							for (var i = 0; i < 4; i++) {
+								var part = new ParticleEntity(Particles.Dust());
+						
+								part.Position = Center + Rnd.Vector(-16, 16);
+								part.Particle.Scale = Rnd.Float(1f, 2f);
+								Run.Level.Area.Add(part);
+								part.Depth = 1;
+							}
+						});
+					}, 4f);
 
 					broken = true;
 					return null;

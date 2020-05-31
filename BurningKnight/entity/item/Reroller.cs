@@ -103,7 +103,6 @@ namespace BurningKnight.entity.item {
 				id = Items.GenerateAndRemove(pool, i => i.Id != item.Id && (filter == null || filter(i)));
 			}
 			
-
 			if (id != null) {
 				item.LastId = item.Id;
 				item.ConvertTo(id);

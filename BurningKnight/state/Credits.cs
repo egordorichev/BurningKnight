@@ -70,7 +70,7 @@ namespace BurningKnight.state {
 			});
 
 			Add(new[] {
-				"ArKeid0s & Member",
+				"ArKeid0s & Memeber",
 				"French Translation"
 			});
 

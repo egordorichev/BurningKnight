@@ -1145,7 +1145,7 @@
 	"integrations": "Integrations",
 	"twitch": "Twitch",
 	"streamer_username": "Streamer Username",
-	"bk:shawarma": "Shwarma",
+	"bk:shawarma": "Shawarma",
 	"bk:shawarma_desc": "Sometimes projectiles are bigger",
 	"bk:cats_ear": "Cat's Ear",
 	"bk:cats_ear_desc": "Sick dodge",
@@ -1172,5 +1172,6 @@
 	"painting_beet_boys": "Beet Bois",
 	"painting_moonshine": "Moonshine",
 	"painting_void": "The Void",
-	"painting_peasants": "Peasants"
+	"painting_peasants": "Peasants",
+	"bk:hotdog_desc": "Luck & Health Up"
 }
