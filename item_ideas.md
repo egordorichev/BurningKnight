@@ -1,19 +1,20 @@
 * pickup magnet
 * (reverse card) rolling through bullets fires them back at enemies
-
-# reference ideas
-
 * shaverma
 * hotdog with headphones
 * cat's ear (titjoys' ear)
 * pepega
+* chance to use your weapon backwards fire back (/ use your sword)
+* chance to fire in all directions when you fire (/ use your sword)
+* dmg up speed down
+* dmg up (big)
+* range down dmg up
+* glowing hat (glowing mushroom)
+* tinfoil hat
 
 3/8
 
-* chance to use your weapon backwards fire back (/ use your sword)
-* chance to fire in all directions when you fire (/ use your sword)
-* picking up a heart might heal you for half a heart more
-* small planet
+* picking up a heart might heal you for half a heart more   
 
 4/8
 
@@ -65,11 +66,7 @@
  discord hat, obtain by joining the discord (discord rpc fix me)
  night vision hat
  Diving hat
- A flipped bucket
- glowing hat (glowing mushroom)
- tinfoil hat
  headless
- null texture
  terminal head
  hat trader hat
  

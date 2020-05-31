@@ -560,7 +560,7 @@ namespace BurningKnight.ui.inventory {
 			}
 			
 			if (phases > 0) {
-				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(8, maxRed + shields + bombs)) + new Vector2(4, -2));
+				Graphics.Print($"x{phases}", Font.Small, GetHeartPosition(pad, Math.Min(15, maxRed + shields + bombs)) + new Vector2(4, -2));
 			}
 		}
 		
