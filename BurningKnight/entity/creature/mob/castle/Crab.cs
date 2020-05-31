@@ -1,5 +1,6 @@
 using System;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.level;
@@ -29,6 +30,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.Body.LinearDamping = 10;
 
 			AddComponent(new SensorBodyComponent(3, 2, 12, 12));
+			AddDrops(new SingleDrop("bk:crabs_claw", 0.01f));
 		}
 
 		private bool vertical;

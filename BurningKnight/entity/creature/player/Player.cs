@@ -53,6 +53,7 @@ namespace BurningKnight.entity.creature.player {
 		public static int Quacks;
 		public static bool ToBoss;
 		public static bool InBuilding;
+		public static Color LightColor = new Color(1f, 0.8f, 0.6f, 1f);
 		
 		public static string StartingWeapon;
 		public static string StartingItem;
@@ -104,7 +105,7 @@ namespace BurningKnight.entity.creature.player {
 			
 			// Graphics
 			if (Run.Depth != 0) {
-				AddComponent(new LightComponent(this, 64, new Color(1f, 0.8f, 0.6f, 1f)));
+				AddComponent(new LightComponent(this, 64, LightColor));
 			}
 
 			AddComponent(new PlayerGraphicsComponent {
@@ -782,7 +783,7 @@ namespace BurningKnight.entity.creature.player {
 			foreach (var r in area.Tagged[Tags.Room]) {
 				var room = (Room) r;
 
-				if ((room.Type == RoomType.Regular || room.Type == RoomType.Boss) && !room.Cleared) {
+				if ((room.Type == RoomType.Regular) && !room.Cleared) {
 					return false;
 				}
 			}

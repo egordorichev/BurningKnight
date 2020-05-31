@@ -16,6 +16,7 @@ namespace BurningKnight.entity.component {
 	public class ItemComponent : SaveableComponent {
 		public Item Item { get; protected set; }
 		public bool DontSave;
+		public bool UpdateItem;
 
 		public bool Has(string id) {
 			return Item?.Id == id;
@@ -127,7 +128,10 @@ namespace BurningKnight.entity.component {
 	#endif
 				} else {
 					Item.Center = Entity.Center;
-					Item.Update(dt);
+
+					if (UpdateItem) {
+						Item.Update(dt);
+					}
 				}
 			}
 		}

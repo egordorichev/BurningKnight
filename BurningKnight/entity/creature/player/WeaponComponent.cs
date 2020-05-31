@@ -32,6 +32,8 @@ namespace BurningKnight.entity.creature.player {
 				Item.Done = true;
 				Item = null;
 			}
+
+			UpdateItem = !AtBack;
 		}
 
 		protected override void OnItemSet(Item previous) {

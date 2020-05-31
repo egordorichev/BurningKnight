@@ -153,6 +153,10 @@ namespace BurningKnight.entity.item.use {
 			Register<GiveRandomPickupUse>();
 			Register<BucketUse>(BucketUse.RenderDebug);
 			Register<FireInAllDirsUse>();
+			Register<MakeItemsAttactUse>();
+			Register<MakeRollKickProjectilesUse>();
+			Register<ChanceToUseWeaponUse>(ChanceToUseWeaponUse.RenderDebug);
+			Register<ModEachAttackUse>();
 		}
 	}
 }

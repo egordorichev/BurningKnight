@@ -1,7 +1,10 @@
 using BurningKnight.assets.items;
+using BurningKnight.assets.lighting;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.save;
 using Lens.util.file;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class HatComponent : ItemComponent {
@@ -31,6 +34,11 @@ namespace BurningKnight.entity.component {
 
 			if (item != null) {
 				DoNotRender = item.Id == "bk:no_hat";
+
+				if (Entity.HasComponent<LightComponent>()) {
+					Entity.GetComponent<LightComponent>().Light.Color =
+						item.Id == "bk:glowing_mushroom" ? new Color(0.05f, 0.4f, 1f, 1f) : Player.LightColor;
+				}
 			}
 		}
 

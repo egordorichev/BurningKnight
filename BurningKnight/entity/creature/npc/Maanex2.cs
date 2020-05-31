@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
@@ -38,16 +39,18 @@ namespace BurningKnight.entity.creature.npc {
 			
 			Dialogs.RegisterCallback("maanex2_0", (d, c) => {
 				if (((ChoiceDialog) d).Choice == 0) {
-					if (!c.To.TryGetComponent<ConsumablesComponent>(out var component) || component.Coins < Cost) {
-						return Dialogs.Get("maanex_11");
+					try {
+						if (!c.To.TryGetComponent<ConsumablesComponent>(out var component) || component.Coins < Cost) {
+							return Dialogs.Get("maanex_11");
+						}
+
+						component.Coins -= Cost;
+						clawControll.Payed = true;
+
+						Timer.Add(() => { GetComponent<DialogComponent>().StartAndClose(Locale.Get("m2_3"), 1); }, 0.2f);
+					} catch (Exception e) {
+						GetComponent<DialogComponent>().StartAndClose(e.Message, 10);
 					}
-
-					component.Coins -= Cost;
-					clawControll.Payed = true;
-
-					Timer.Add(() => {
-						GetComponent<DialogComponent>().StartAndClose(Locale.Get("m2_3"), 1);
-					}, 0.2f);
 
 					return null;
 				}

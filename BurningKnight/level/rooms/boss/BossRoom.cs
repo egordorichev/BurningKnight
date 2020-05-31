@@ -36,7 +36,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			return Run.Depth >= 10 ? 1 : 3;
+			return Run.Depth >= 10 || Run.Type == RunType.BossRush ? 1 : 3;
 		}
 
 		public override int GetMinConnections(Connection Side) {

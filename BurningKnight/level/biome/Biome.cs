@@ -102,7 +102,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public virtual bool HasSpikes() {
-			return true;
+			return Run.Type != RunType.BossRush;
 		}
 
 		public virtual bool HasBrekables() {

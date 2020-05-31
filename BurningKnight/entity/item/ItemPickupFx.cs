@@ -27,7 +27,7 @@ namespace BurningKnight.entity.item {
 			
 			string text;
 
-			if (Locale.Current == "de") {
+			if (Locale.Current == "de" || Locale.Current == "it") {
 				text = item.Hidden ? "???" : (item.Scourged ? $"{item.Name} ({Locale.Get("scourged")})" : item.Name);
 			} else {
 				text = item.Hidden ? "???" : (item.Scourged ? $"{Locale.Get("scourged")} {item.Name}" : item.Name);

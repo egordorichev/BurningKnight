@@ -13,7 +13,7 @@ namespace BurningKnight.entity.creature.mob.prefix {
 			Define<FatPrefix>("fat");
 			Define<FragilePrefix>("fragile");
 			Define<GoldPrefix>("gold");
-			Define<RegenerativePrefix>("regenerative");
+			// Define<RegenerativePrefix>("regenerative");
 		}
 
 		public static void Define<T>(string id, Mod mod = null) where T : Prefix {

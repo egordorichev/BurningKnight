@@ -13,7 +13,14 @@ namespace BurningKnight.assets {
 		private static Dictionary<string, Dialog> dialogs = new Dictionary<string, Dialog>();
 
 		public static void RegisterCallback(string id, Func<Dialog, DialogComponent, Dialog> callback) {
-			Get(id)?.Callbacks.Add(callback);
+			var a = Get(id)?.Callbacks;
+
+			if (a == null) {
+				return;
+			}
+
+			a.Clear();
+			a.Add(callback);
 		}
 		
 		public static void Load() {

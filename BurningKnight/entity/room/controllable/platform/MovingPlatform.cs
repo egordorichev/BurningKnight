@@ -51,7 +51,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			var w = tw * 16;
 			var h = th * 16;
-			var b = new RectBodyComponent(0.5f, 0.5f - 1, w - 1, h + 1);
+			var b = new RectBodyComponent(0.5f, 0.5f - 1, w - 1, h + 2);
 			AddComponent(b);
 			
 			b.Body.Friction = 0;
