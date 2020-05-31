@@ -106,7 +106,7 @@ namespace BurningKnight.entity.item {
 
 			Delay = Math.Abs(UseTime);
 
-			Owner.HandleEvent(new ItemUsedEvent {
+			entity.HandleEvent(new ItemUsedEvent {
 				Item = this,
 				Who = entity,
 				Fake = avoidCheck

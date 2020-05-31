@@ -1,8 +1,3 @@
-# today
-
-* You-Tubers (randomize usuer!!)
-* do post on reddit about soon release
-
 # Release day
 
 * Reddit
