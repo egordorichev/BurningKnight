@@ -1,5 +1,6 @@
 using System;
 using BurningKnight;
+using BurningKnight.entity.twitch;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
@@ -13,7 +14,7 @@ using TwitchLib.Communication.Models;
 namespace Desktop.integration.twitch {
 	public class TwitchIntegration : Integration {
 		private const string DevAccount = "egordorichev";
-		public static string Boots = "rwzxul2y";
+		private static string Boots = "rwzxul2y";
 		
 		private TwitchClient client;
 		private TwitchContoller controller;
@@ -21,34 +22,58 @@ namespace Desktop.integration.twitch {
 		
 		public override void Init() {
 			base.Init();
-			
-			var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
-			var customClient = new WebSocketClient(new ClientOptions {
-				MessagesAllowedInPeriod = 750,
-				ThrottlingPeriod = TimeSpan.FromSeconds(30)
-			});
-			
-			client = new TwitchClient(customClient);
-			client.Initialize(credentials, "egordorichev");
 
-			client.OnConnected += OnConnected;
-			client.OnMessageReceived += OnMessageReceived;
+			TwitchBridge.TurnOn = (channel, callback) => {
+				var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
+				var customClient = new WebSocketClient(new ClientOptions {
+					MessagesAllowedInPeriod = 750,
+					ThrottlingPeriod = TimeSpan.FromSeconds(30)
+				});
 			
-			client.Connect();
-		}
+				client = new TwitchClient(customClient);
+				client.Initialize(credentials, channel);
 
-		public override void PostInit() {
-			base.PostInit();
+				client.OnConnected += (o, e) => {
+					TwitchBridge.LastUsername = channel;
+
+					Log.Info($"Connected to {e.AutoJoinChannel}");
+					callback(true);
+					client.SendMessage(channel, "Heyo, pogs");
 			
-			controller = new TwitchContoller();
-			controller.Init();
-		}
+					controller = new TwitchContoller();
+					controller.Init();
 
-		private void OnConnected(object sender, OnConnectedArgs e) {
-			Log.Info($"Connected to {e.AutoJoinChannel}");
+					TwitchBridge.On = true;
+				};
+
+				client.OnError += (sender, args) => {
+					Log.Error(args.Exception.Message);
+				};
+				
+				client.OnConnectionError += (o, e) => {
+					callback(false);
+				};
+				
+				client.OnMessageReceived += OnMessageReceived;
+			
+				client.Connect();
+			};
+
+			TwitchBridge.TurnOff = (callback) => {
+				controller = null;
+				client.Disconnect();
+				client = null;
+
+				TwitchBridge.On = false;
+				callback();
+			};
 		}
 
 		private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
+			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
+				return;
+			}
+			
 			try {
 				var state = Engine.Instance.State;
 
@@ -92,16 +117,25 @@ namespace Desktop.integration.twitch {
 		}
 
 		public override void Destroy() {
-			client.Disconnect();
+			client?.Disconnect();
 			base.Destroy();
 		}
 
 		public override void Update(float dt) {
 			base.Update(dt);
+			
+			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
+				return;
+			}
+			
 			controller?.Update(dt);
 		}
 
 		public void Render() {
+			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
+				return;
+			}
+			
 			controller?.Render();
 		}
 	}

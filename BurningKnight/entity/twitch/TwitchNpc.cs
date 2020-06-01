@@ -22,6 +22,7 @@ namespace BurningKnight.entity.twitch {
 
 				Log.Info($"Twitch username is set the seed to {a}");
 				GlobalSave.Put("twitch_username", a);
+				c.Dialog.Str.SetVariable("username", a);
 
 				return null;
 			});
@@ -30,8 +31,8 @@ namespace BurningKnight.entity.twitch {
 		public override void AddComponents() {
 			base.AddComponents();
 			
-			Width = 8;
-			Height = 9;
+			Width = 10;
+			Height = 11;
 			
 			AddComponent(new AnimationComponent("twitch"));
 			GetComponent<DialogComponent>().Dialog.Voice = 2;

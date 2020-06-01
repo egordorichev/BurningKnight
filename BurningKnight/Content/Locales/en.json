@@ -1177,14 +1177,16 @@
 	"bk:hotdog_desc": "Luck & Health Up",
 	"logged_in_as": "Logged in as",
 	"not_logged_in": "Not logged in",
+	"failed_to_login": "Failed to log in as",
+	"logging_in": "Logging in[dl].[dl].[dl].",
 	"twitch_0": "Pog!",
 	"twitch_1_0": "Yes",
 	"twitch_1_1": "No",
 	"twitch_1": "Do you want to play with Twitch mode on?",
 	"twitch_2": "Tell me your Twitch username!",
-	"twitch_3": "Thanks!",
+	"twitch_3": "Welcome to the chat, [cl purple]@[vr username][cl]!",
 	"twitch_4": "Mkay.",
 	"twitch_5_0": "Yes",
 	"twitch_5_1": "No",
-	"twitch_5": "Your Twitch username is [vr username]. Wanna change it?"
+	"twitch_5": "Your Twitch username is [cl purple]@[vr username][cl]. Wanna change it?"
 }

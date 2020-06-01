@@ -25,7 +25,7 @@ namespace Desktop {
 
 			integrations.Add(new DiscordIntegration());
 			integrations.Add(new SteamIntegration());
-			// integrations.Add(twitchIntegration = new TwitchIntegration());
+			integrations.Add(twitchIntegration = new TwitchIntegration());
 
 			foreach (var i in integrations) {
 				i.Init();
