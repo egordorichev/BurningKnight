@@ -66,7 +66,7 @@ namespace BurningKnight.entity.creature.mob.library {
 		    if (T >= 3f) {
 			    var list = Self.GetComponent<RoomComponent>().Room.Tagged[Tags.Mob];
 
-			    if (list.Count == 0) {
+			    if (list.Count <= 1) {
 				    return;
 			    }
 
