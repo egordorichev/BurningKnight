@@ -511,9 +511,17 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public class TeleportState : SmartState<BurningKnight> {
-			public override void Init() {
-				base.Init();
+			private bool did;
 
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (did) {
+					return;
+				}
+
+				did = true;
+				
 				Self.GetComponent<DialogComponent>().Close();
 				var graphics = Self.GetComponent<BkGraphicsComponent>();
 

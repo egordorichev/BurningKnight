@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
 using BurningKnight.state;
-using BurningKnight.ui;
 using Desktop.integration.twitch.happening;
 using Lens;
 using Lens.graphics;

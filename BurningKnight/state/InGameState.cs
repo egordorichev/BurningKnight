@@ -19,6 +19,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
+using BurningKnight.entity.twitch;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.paintings;
@@ -293,6 +294,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Run.Depth == 0) {
+				TwitchBridge.OnHubEnter?.Invoke();
 				SyncAchievements?.Invoke();
 			}
 		}

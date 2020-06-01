@@ -19,6 +19,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
+using BurningKnight.entity.twitch;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
@@ -187,6 +188,8 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
+				TwitchBridge.OnNewRun?.Invoke();
+				
 				if (StartingLamp != null) {
 					var i = Items.CreateAndAdd(StartingLamp, Area);
 					i.Scourged = false;

@@ -4,6 +4,7 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
+using BurningKnight.entity.twitch;
 using BurningKnight.level.challenge;
 using BurningKnight.save.statistics;
 using BurningKnight.state;

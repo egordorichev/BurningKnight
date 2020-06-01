@@ -25,6 +25,7 @@ namespace Desktop.integration.twitch {
 		private TwitchClient client;
 		private TwitchContoller controller;
 		private bool enableDevMessages = true;
+		private bool spawnAllPets;
 		
 		public override void Init() {
 			base.Init();
@@ -83,19 +84,40 @@ namespace Desktop.integration.twitch {
 				callback();
 			};
 
+			TwitchBridge.OnHubEnter += () => {
+				spawnAllPets = true;
+			};
+
+			TwitchBridge.OnNewRun += () => {
+				if (Run.Type == RunType.Twitch) {
+					spawnAllPets = true;
+				}
+			};
+
 			if (BK.Version.Dev) {
 				TwitchBridge.TurnOn("egordorichev", (ok) => {
 					
 				});
 			}
 		}
+
+		private class Data {
+			public string Nick;
+			public string Color;
+		}
 		
-		private List<TwitchPet> buffer = new List<TwitchPet>();
+		private List<Data> buffer = new List<Data>();
+		private List<Data> totalBuffer = new List<Data>();
 
 		private void OnSub(string who, string color) {
 			Log.Info($"{who} subscribed!");
 			
-			buffer.Add(new TwitchPet {
+			buffer.Add(new Data {
+				Nick = who,
+				Color = color
+			});
+			
+			totalBuffer.Add(new Data {
 				Nick = who,
 				Color = color
 			});
@@ -149,9 +171,18 @@ namespace Desktop.integration.twitch {
 						var pet = state.Area.Find<TwitchPet>(f => f is TwitchPet p && p.Nick == n);
 
 						if (pet != null) {
-							pet.Color = m.Substring(6, m.Length - 6);
+							var cl = m.Substring(6, m.Length - 6);
+							
+							pet.Color = cl;
 							pet.UpdateColor();
 							pet.GetComponent<AnimationComponent>().Animate();
+
+							foreach (var p in totalBuffer) {
+								if (p.Nick == pet.Nick) {
+									p.Color = cl;
+									break;
+								}
+							}
 						}
 						
 						return;
@@ -186,27 +217,39 @@ namespace Desktop.integration.twitch {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Run.Depth < 1 || Run.Type != RunType.Twitch || controller == null) {
-				return;
+			if (Run.Type == RunType.Twitch && Run.Depth > 0) {
+				controller.Update(dt);
 			}
 			
-			controller.Update(dt);
-
 			if (!(Engine.Instance.State is InGameState ingame)) {
 				return;
 			}
 
+			if (spawnAllPets && (Run.Type == RunType.Twitch || Run.Depth == 0)) {
+				SpawnPets(totalBuffer);
+				spawnAllPets = false;
+			}
+			
 			if (buffer.Count > 0) {
-				var player = LocalPlayer.Locate(ingame.Area);
-				
-				foreach (var p in buffer) {
-					ingame.Area.Add(p);
-					
-					p.Center = player.Center + Rnd.Offset(24);
-					AnimationUtil.Poof(p.Center, player.Depth + 1);
-				}
-				
+				SpawnPets(buffer);
 				buffer.Clear();
+			}
+		}
+		
+		private void SpawnPets(List<Data> pets) {
+			var ingame = (InGameState) Engine.Instance.State;
+			var player = LocalPlayer.Locate(ingame.Area);
+				
+			foreach (var d in pets) {
+				var p = new TwitchPet {
+					Nick = d.Nick,
+					Color = d.Color
+				};
+					
+				ingame.Area.Add(p);
+					
+				p.Center = player.Center + Rnd.Offset(24);
+				AnimationUtil.Poof(p.Center, player.Depth + 1);
 			}
 		}
 
