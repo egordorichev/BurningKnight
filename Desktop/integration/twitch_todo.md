@@ -15,17 +15,10 @@ events {
  + lower shop prices
  + clear the room
  + double enemies
- + heal a bit
- + give a shield
- + fully heal
- + bombs spawn all over the room
- + random consumable
  + give coins
  + steal coins
- + items damage you
  + all enemies (besides slimes) on death spawn basic green slime for the rest of the floor?
- + +1 scourge
- + -1 scourge
+ + steal weapon
 }
 
 * Random dude selected as a companion per run
