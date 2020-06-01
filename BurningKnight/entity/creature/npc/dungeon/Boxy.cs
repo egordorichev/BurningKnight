@@ -107,7 +107,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 		}
 		
 		public override string GetFailDialog() {
-			return $"boxy_{Rnd.Int(7, 10)}";
+			return $"boxy_{Rnd.Int(7, 9)}";
 		}
 
 		public override void Load(FileReader stream) {

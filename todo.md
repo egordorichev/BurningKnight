@@ -1,5 +1,4 @@
 * maanex mob spawns suggestion
-* boxy has wrong dialog when you have not enough keys
 
 # bugs
 * library still hangs? (state change stuff? roll??)
