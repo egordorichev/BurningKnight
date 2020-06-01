@@ -13,33 +13,38 @@ using TwitchLib.Client.Models;
 
 namespace Desktop.integration.twitch {
 	public class TwitchContoller {
+		private const int TotalTime = 60;
+		
 		private List<HappeningOption> options = new List<HappeningOption>();
 		private List<string> votersCache = new List<string>();
 		private float timeLeft = 1f;
 		private Player player;
+		private string question;
 		
 		public void Init() {
 			GenerateOptions();
 		}
 
 		private void GenerateOptions() {
+			question = "What shall happen next?";
+			
 			votersCache.Clear();
 			options.Clear();
 			timeLeft = 1f;
 			
-			AddOption("bk:hurt");
-			AddOption("bk:big_hurt");
-			AddOption("bk:omega_hurt");
+			AddOption("bk:hurt", 3);
+			AddOption("bk:big_hurt", 2);
+			AddOption("bk:omega_hurt", 1);
 		}
 
-		private void AddOption(string id) {
+		private void AddOption(string id, int i) {
 			var happening = HappeningRegistry.Get(id);
 
 			if (happening == null) {
 				return;
 			}
 			
-			var option = new HappeningOption(id);
+			var option = new HappeningOption(id, i);
 			options.Add(option);
 
 			float x = Display.UiWidth;
@@ -48,7 +53,7 @@ namespace Desktop.integration.twitch {
 				x -= o.LabelWidth + 8;
 			}
 
-			option.Position = new Vector2(x, 8);
+			option.Position = new Vector2(x, 18);
 		}
 
 		public void Update(float dt) {
@@ -71,7 +76,7 @@ namespace Desktop.integration.twitch {
 				return;
 			}
 			
-			timeLeft -= dt / 60f;
+			timeLeft -= dt / TotalTime;
 
 			if (timeLeft <= 0) {
 				ExecuteOrder66();
@@ -83,12 +88,16 @@ namespace Desktop.integration.twitch {
 			if (!(Engine.Instance.State is InGameState)) {
 				return;
 			}
+
+			var text = $"{question} ({(int) Math.Ceiling(timeLeft * TotalTime)}s)";
+
+			Graphics.Color.A = 200;
+			Graphics.Print(text, Font.Small, new Vector2(Display.UiWidth - Font.Small.MeasureString(text).Width - 8, 8));
+			Graphics.Color.A = 255;
 			
 			foreach (var option in options) {
 				option.Render();
 			}
-
-			Graphics.Print($"{timeLeft * 60}", Font.Medium, new Vector2(8));
 		}
 
 		public bool HandleMessage(ChatMessage chatMessage) {
@@ -104,8 +113,14 @@ namespace Desktop.integration.twitch {
 				}
 				
 				votersCache.Add(chatMessage.Username);
-				options[number - 1].Votes++;
+				options[(options.Count - number)].Votes++;
 
+				float total = votersCache.Count;
+
+				foreach (var o in options) {
+					o.Percent = (int) Math.Floor(o.Votes / total * 100);
+				}
+				
 				Log.Info($"Voted for #{number}");
 				return true;
 			}
