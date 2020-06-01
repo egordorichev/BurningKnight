@@ -1,5 +1,5 @@
 using BurningKnight.assets;
-using Desktop.integration.twitch.happening;
+using BurningKnight.entity.twitch.happening;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;

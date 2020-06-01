@@ -326,6 +326,7 @@
     <Compile Include="debug\ExploreCommand.cs" />
     <Compile Include="debug\GiveCommand.cs" />
     <Compile Include="debug\GodModeCommand.cs" />
+    <Compile Include="debug\HappeningCommand.cs" />
     <Compile Include="debug\HealCommand.cs" />
     <Compile Include="debug\HurtCommand.cs" />
     <Compile Include="debug\LevelCommand.cs" />
@@ -946,6 +947,14 @@
     <Compile Include="entity\room\input\RoomInput.cs" />
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
+    <Compile Include="entity\twitch\happening\BuffHappening.cs" />
+    <Compile Include="entity\twitch\happening\DarknessHappening.cs" />
+    <Compile Include="entity\twitch\happening\Happening.cs" />
+    <Compile Include="entity\twitch\happening\HappeningRegistry.cs" />
+    <Compile Include="entity\twitch\happening\HurtHappening.cs" />
+    <Compile Include="entity\twitch\happening\ItemGiveHappening.cs" />
+    <Compile Include="entity\twitch\happening\RandomItemHappening.cs" />
+    <Compile Include="entity\twitch\happening\RandomTypedItemHappening.cs" />
     <Compile Include="entity\twitch\LoginSign.cs" />
     <Compile Include="entity\twitch\TwitchBridge.cs" />
     <Compile Include="entity\twitch\TwitchExit.cs" />

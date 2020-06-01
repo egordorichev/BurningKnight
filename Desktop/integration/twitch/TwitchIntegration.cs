@@ -4,6 +4,7 @@ using BurningKnight;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
@@ -93,12 +94,19 @@ namespace Desktop.integration.twitch {
 					spawnAllPets = true;
 				}
 			};
+		}
 
-			if (BK.Version.Dev) {
-				TwitchBridge.TurnOn("egordorichev", (ok) => {
-					
-				});
+		public override void PostInit() {
+			base.PostInit();
+			var id = GlobalSave.GetString("twitch_username");
+
+			if (id == null) {
+				return;
 			}
+			
+			TwitchBridge.TurnOn(id, (ok) => {
+					
+			});
 		}
 
 		private class Data {
@@ -218,7 +226,7 @@ namespace Desktop.integration.twitch {
 			base.Update(dt);
 
 			if (Run.Type == RunType.Twitch && Run.Depth > 0) {
-				controller.Update(dt);
+				controller?.Update(dt);
 			}
 			
 			if (!(Engine.Instance.State is InGameState ingame)) {

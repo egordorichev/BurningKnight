@@ -5,6 +5,8 @@
  * what item drops from the boss
 }
 
+* show what you ended up voting for, delay before next vote
+
 events {
  + use d4 on player
  + +1 heart container
@@ -25,7 +27,6 @@ events {
  + teleport to shop/treasure
  + teleport to random room
  + darkness (Level.dark)
- + control swap (buff)
  + slowdown debuff
  + items damage you
  + reset the floor

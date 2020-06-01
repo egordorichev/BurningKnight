@@ -3,7 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 
-namespace Desktop.integration.twitch.happening {
+namespace BurningKnight.entity.twitch.happening {
 	public class RandomTypedItemHappening : Happening {
 		private ItemType pool;
 

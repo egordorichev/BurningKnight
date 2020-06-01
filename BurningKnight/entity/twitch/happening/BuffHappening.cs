@@ -1,7 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 
-namespace Desktop.integration.twitch.happening {
+namespace BurningKnight.entity.twitch.happening {
 	public class BuffHappening : Happening {
 		private string buff;
 		private float duration;
