@@ -2,8 +2,6 @@
 
 # bugs
 * i think pet projectiles can still hurt ya (cuz owner is now set to pet)
-* item pedestals can still have 2 items
-* CLAW BUG AAAAAAAAAAAAAAAAAAAA
 * invis walls?
 
 # can wait
