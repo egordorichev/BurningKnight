@@ -11,6 +11,7 @@ namespace Desktop.integration.twitch {
 
 		public string Id;
 		public string Label;
+		public string Name;
 		public float LabelWidth;
 		public int Votes;
 		public int Percent;
@@ -19,7 +20,11 @@ namespace Desktop.integration.twitch {
 		public HappeningOption(string id, int i) {
 			Happening = HappeningRegistry.Get(id);
 			Id = id;
-			Label = $"#{i} {Locale.Get($"happening_{id}")}";
+
+			var name = Locale.Get($"happening_{id}");
+
+			Name = name.ToLower();
+			Label = $"#{i} {name}";
 			LabelWidth = Font.Small.MeasureString($"{Label} (100%)").Width;
 		}
 

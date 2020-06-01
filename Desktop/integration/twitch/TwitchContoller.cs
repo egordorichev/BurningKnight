@@ -99,9 +99,33 @@ namespace Desktop.integration.twitch {
 				option.Render();
 			}
 		}
+		
+		private void BalanceVotes() {
+			float total = votersCache.Count;
+
+			foreach (var o in options) {
+				o.Percent = (int) Math.Floor(o.Votes / total * 100);
+			}
+		}
 
 		public bool HandleMessage(ChatMessage chatMessage) {
 			var message = chatMessage.Message;
+
+			if (!votersCache.Contains(chatMessage.Username)) {
+				var m = message.ToLower();
+
+				foreach (var o in options) {
+					if (o.Name == m) {
+						votersCache.Add(chatMessage.Username);
+						o.Votes++;
+
+						BalanceVotes();
+						Log.Info($"Voted for {m}");
+
+						return true;
+					}
+				}
+			}
 
 			if (message.StartsWith("#")) {
 				message = message.Substring(1, message.Length - 1);
@@ -115,11 +139,7 @@ namespace Desktop.integration.twitch {
 				votersCache.Add(chatMessage.Username);
 				options[(options.Count - number)].Votes++;
 
-				float total = votersCache.Count;
-
-				foreach (var o in options) {
-					o.Percent = (int) Math.Floor(o.Votes / total * 100);
-				}
+				BalanceVotes();
 				
 				Log.Info($"Voted for #{number}");
 				return true;
