@@ -24,7 +24,7 @@ namespace BurningKnight.entity.pc {
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
-		private string cart = "mapuzzle";
+		private string cart = "ma_puzzle";
 
 		public Entity Entity;
 
