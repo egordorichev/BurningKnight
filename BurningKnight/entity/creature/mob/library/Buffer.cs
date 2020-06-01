@@ -70,8 +70,15 @@ namespace BurningKnight.entity.creature.mob.library {
 				    return;
 			    }
 
+			    var attempt = 0;
+
 			    do {
+				    if (attempt >= 30) {
+					    return;
+				    }
+				    
 				    Self.mob = (Mob) list[Rnd.Int(list.Count)];
+				    attempt++;
 			    } while (Self.mob == Self);
 
 			    Self.mob.GetComponent<BuffsComponent>().Add(new BuffedBuff() {

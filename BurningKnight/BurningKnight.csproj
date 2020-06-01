@@ -945,6 +945,9 @@
     <Compile Include="entity\room\input\RoomInput.cs" />
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
+    <Compile Include="entity\twitch\LoginSign.cs" />
+    <Compile Include="entity\twitch\TwitchExit.cs" />
+    <Compile Include="entity\twitch\TwitchNpc.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="level\basement\BasementRoom.cs" />
     <Compile Include="level\basement\BasementLevel.cs" />

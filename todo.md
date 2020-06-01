@@ -1,7 +1,6 @@
 * maanex mob spawns suggestion
 
 # bugs
-* library still hangs? (state change stuff? roll??)
 * item pedestals can still have 2 items
 * CLAW BUG AAAAAAAAAAAAAAAAAAAA
 

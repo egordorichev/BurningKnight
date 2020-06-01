@@ -1539,7 +1539,7 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 
-			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge || Run.Type == RunType.BossRush);
+			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Twitch || Run.Type == RunType.Challenge || Run.Type == RunType.BossRush);
 			
 			if (qr) {
 				gameOverMenu.Add(overQuickBack = new UiButton {
