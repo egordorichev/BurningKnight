@@ -948,6 +948,7 @@
     <Compile Include="entity\room\Room.cs" />
     <Compile Include="entity\SpawnPoint.cs" />
     <Compile Include="entity\twitch\happening\BkRageHappening.cs" />
+    <Compile Include="entity\twitch\happening\BombHappening.cs" />
     <Compile Include="entity\twitch\happening\BuffHappening.cs" />
     <Compile Include="entity\twitch\happening\DarknessHappening.cs" />
     <Compile Include="entity\twitch\happening\FloorResetHappening.cs" />
@@ -955,6 +956,7 @@
     <Compile Include="entity\twitch\happening\HappeningRegistry.cs" />
     <Compile Include="entity\twitch\happening\HurtHappening.cs" />
     <Compile Include="entity\twitch\happening\ItemGiveHappening.cs" />
+    <Compile Include="entity\twitch\happening\MakeItemsDamageUse.cs" />
     <Compile Include="entity\twitch\happening\RandomItemHappening.cs" />
     <Compile Include="entity\twitch\happening\RandomTypedItemHappening.cs" />
     <Compile Include="entity\twitch\happening\TeleportHappening.cs" />

@@ -22,6 +22,8 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("rage", new BkRageHappening());
 			Add("regular_tp", new TeleportHappening(RoomType.Regular, RoomType.Trap));
 			Add("reset", new FloorResetHappening());
+			Add("sudoku", new BombHappening());
+			Add("items_hurt", new MakeItemsDamageUse());
 
 			// Good
 			Add("give_artifact", new RandomTypedItemHappening(ItemType.Artifact));

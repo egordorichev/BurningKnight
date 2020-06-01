@@ -62,6 +62,8 @@ namespace BurningKnight.entity.creature.player {
 		public static List<string> DailyItems;
 		public string ProjectileTexture = "rect";
 
+		public bool ItemDamage;
+
 		private bool dead;
 
 		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
@@ -781,6 +783,10 @@ namespace BurningKnight.entity.creature.player {
 					Camera.Instance.Jump();
 					AnimationUtil.TeleportIn(this);
 				});
+			} else if (e is CollisionStartedEvent cse) {
+				if (ItemDamage && cse.Entity is Item) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, cse.Entity, DamageType.Custom);
+				}
 			}
 			
 			return base.HandleEvent(e);
