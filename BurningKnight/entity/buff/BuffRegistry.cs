@@ -19,6 +19,7 @@ namespace BurningKnight.entity.buff {
 			Add<InvisibleBuff>(InvisibleBuff.Id);
 			Add<BuffedBuff>(BuffedBuff.Id);
 			Add<BleedingBuff>(BleedingBuff.Id);
+			Add<ConfusedBuff>(ConfusedBuff.Id);
 		}
 		
 		public static void Add<T>(string id, ProjectileGraphicsEffect effect = ProjectileGraphicsEffect.Normal) where T : Buff {

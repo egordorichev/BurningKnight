@@ -31,10 +31,20 @@ namespace Desktop.integration.twitch {
 			votersCache.Clear();
 			options.Clear();
 			timeLeft = 1f;
-			
-			AddOption("bk:hurt", 3);
-			AddOption("bk:big_hurt", 2);
-			AddOption("bk:omega_hurt", 1);
+
+			var pool = new List<string>();
+
+			foreach (var h in HappeningRegistry.Defined) {
+				pool.Add(h.Key);
+			}
+
+			for (var i = 0; i < 3; i++) {
+				var j = Rnd.Int(pool.Count);
+				var happening = pool[j];
+				pool.RemoveAt(j);
+				
+				AddOption(happening, 3 - i);
+			}
 		}
 
 		private void AddOption(string id, int i) {

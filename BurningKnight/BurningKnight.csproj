@@ -350,6 +350,7 @@
     <Compile Include="entity\buff\BuffRegistry.cs" />
     <Compile Include="entity\buff\BurningBuff.cs" />
     <Compile Include="entity\buff\CharmedBuff.cs" />
+    <Compile Include="entity\buff\ConfusedBuff.cs" />
     <Compile Include="entity\buff\FrozenBuff.cs" />
     <Compile Include="entity\buff\InvincibleBuff.cs" />
     <Compile Include="entity\buff\InvisibleBuff.cs" />
