@@ -1,6 +1,6 @@
 using BurningKnight.entity.creature.player;
 
-namespace Desktop.integration.twitch.happening {
+namespace BurningKnight.entity.twitch.happening {
 	public abstract class Happening {
 		public abstract void Happen(Player player);
 	}

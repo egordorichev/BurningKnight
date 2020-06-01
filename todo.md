@@ -1,9 +1,8 @@
 * maanex mob spawns suggestion
 
 # bugs
-* library still hangs? (state change stuff? roll??)
-* item pedestals can still have 2 items
-* CLAW BUG AAAAAAAAAAAAAAAAAAAA
+* i think pet projectiles can still hurt ya (cuz owner is now set to pet)
+* invis walls?
 
 # can wait
  * make d6 hard to get

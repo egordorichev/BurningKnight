@@ -251,7 +251,11 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void Accelerate(Vector2 acceleration, float dt) {
-			var body = GetComponent<RectBodyComponent>();				
+			if (GetComponent<RectBodyComponent>().Confused) {
+				acceleration *= -1;
+			}
+			
+			var body = GetComponent<RectBodyComponent>();	
 			var i = GetComponent<TileInteractionComponent>();
 			var b = GetComponent<BuffsComponent>();
 					

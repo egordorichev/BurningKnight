@@ -41,6 +41,10 @@ namespace BurningKnight.level.entities {
 		private InteractFx ib;
 
 		private bool Interact(Entity e) {
+			if (!Payed) {
+				return false;
+			}
+			
 			Audio.PlaySfx("level_claw_pc");
 			
 			e.RemoveComponent<PlayerInputComponent>();

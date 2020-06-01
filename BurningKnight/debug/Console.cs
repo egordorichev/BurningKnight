@@ -51,6 +51,7 @@ namespace BurningKnight.debug {
 			commands.Add(new PassableCommand());
 			commands.Add(new BuffCommand());
 			commands.Add(new TileCommand());
+			commands.Add(new HappeningCommand());
 		}
 
 		public void AddCommand(ConsoleCommand command) {

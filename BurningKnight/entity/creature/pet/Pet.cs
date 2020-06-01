@@ -7,6 +7,9 @@ namespace BurningKnight.entity.creature.pet {
 		public Entity Owner;
 		public Action<float> Controller;
 
+		protected bool Saveable;
+		private bool findOwner;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			Controller?.Invoke(dt);
@@ -20,7 +23,11 @@ namespace BurningKnight.entity.creature.pet {
 			RemoveComponent<HealthComponent>();			
 			RemoveComponent<TileInteractionComponent>();
 
-			RemoveTag(Tags.LevelSave);
+			if (!Saveable) {
+				RemoveTag(Tags.LevelSave);
+			} else {
+				findOwner = true;
+			}
 		}
 
 		public override void PostInit() {
@@ -29,7 +36,7 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		protected virtual void Follow() {
-			Owner.GetComponent<FollowerComponent>().AddFollower(this);
+			Owner?.GetComponent<FollowerComponent>()?.AddFollower(this);
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace BurningKnight.debug {
 				}
 
 				var player = LocalPlayer.Locate(Console.GameArea);
-				player.GetComponent<BuffsComponent>().Add(id);
+				player.GetComponent<BuffsComponent>().Add(id).TimeLeft = 128;
 			}
 		}
 	}

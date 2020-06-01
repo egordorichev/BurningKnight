@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets.items;
+using BurningKnight.entity.component;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
@@ -13,6 +14,13 @@ namespace BurningKnight.entity.item.use {
 		
 		public override void Use(Entity entity, Item item) {
 			var count = 0;
+
+			var center = entity.Center;
+			var room = entity.GetComponent<RoomComponent>().Room;
+
+			if (room != null) {
+				center = room.Center;
+			}
 			
 			foreach (var i in ToSpawn) {
 				count += i.Count;
@@ -27,7 +35,7 @@ namespace BurningKnight.entity.item.use {
 					var itm = Items.CreateAndAdd(it.Id, entity.Area);
 					var angle = j / count * Math.PI * 2;
 					
-					itm.Center = entity.Center + new Vector2((float) Math.Cos(angle) * Distance, (float) Math.Sin(angle) * Distance);
+					itm.Center = center + new Vector2((float) Math.Cos(angle) * Distance, (float) Math.Sin(angle) * Distance);
 					
 					j++;
 				}

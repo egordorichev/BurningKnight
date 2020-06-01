@@ -303,6 +303,8 @@ namespace BurningKnight.save.statistics {
 			if (!ImGui.Begin("Run Info")) {
 				return;
 			}
+			
+			ImGui.Text($"Run Type: {Run.Type}");
 
 			ImGui.Text($"World Time: {Weather.TimeOfDay}");
 			ImGui.Text($"Night: {Weather.IsNight}");

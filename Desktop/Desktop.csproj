@@ -272,9 +272,6 @@
     <Compile Include="integration\rgb\RgbIntegration.cs" />
     <Compile Include="integration\steam\SteamIntegration.cs" />
     <Compile Include="integration\twitch\HappeningOption.cs" />
-    <Compile Include="integration\twitch\happening\Happening.cs" />
-    <Compile Include="integration\twitch\happening\HappeningRegistry.cs" />
-    <Compile Include="integration\twitch\happening\HurtHappening.cs" />
     <Compile Include="integration\twitch\TwitchContoller.cs" />
     <Compile Include="integration\twitch\TwitchIntegration.cs" />
     <Compile Include="Program.cs" />
@@ -329,6 +326,9 @@
     <EmbeddedResource Include="icon.bmp">
       <LogicalName>Icon.bmp</LogicalName>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="integration\twitch_todo.md" />
   </ItemGroup>
   <!--<Target Name="Rename" AfterTargets="AfterBuild">
     <Move SourceFiles="$(OUTDIR)\Desktop.exe" DestinationFiles="$(OUTDIR)\BurningKnight.exe" />

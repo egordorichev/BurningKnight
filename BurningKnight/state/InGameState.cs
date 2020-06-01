@@ -19,6 +19,7 @@ using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.item.use;
 using BurningKnight.entity.room;
+using BurningKnight.entity.twitch;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.level.paintings;
@@ -293,6 +294,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Run.Depth == 0) {
+				TwitchBridge.OnHubEnter?.Invoke();
 				SyncAchievements?.Invoke();
 			}
 		}
@@ -342,7 +344,7 @@ namespace BurningKnight.state {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
-					if (Run.Loop > 0 && IgnoreSave) {
+					if (IgnoreSave) {
 						
 					} else {
 						SaveManager.Save(Area, SaveType.Level, old);
@@ -1019,7 +1021,7 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-				Run.StartNew();
+				Run.StartNew(1, Run.Type);
 				died = true;
 
 				Run.NextDepth = Run.Depth;
@@ -1539,7 +1541,7 @@ namespace BurningKnight.state {
 				Clickable = false
 			});
 
-			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Challenge || Run.Type == RunType.BossRush);
+			var qr = Run.Depth > 0 && (Run.Type == RunType.Regular || Run.Type == RunType.Twitch || Run.Type == RunType.Challenge || Run.Type == RunType.BossRush);
 			
 			if (qr) {
 				gameOverMenu.Add(overQuickBack = new UiButton {

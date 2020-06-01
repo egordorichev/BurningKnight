@@ -24,7 +24,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public static void Insert(List<RoomDef> rooms) {
-			if (Run.Type == RunType.Regular && !Run.CustomSeed && GlobalSave.GetInt("tomb_depth") == Run.Depth) {
+			if ((Run.Type == RunType.Regular || Run.Type == RunType.Twitch) && !Run.CustomSeed && GlobalSave.GetInt("tomb_depth") == Run.Depth) {
 				Log.Info("Adding tombstone");
 				rooms.Add(new TombRoom());
 			}

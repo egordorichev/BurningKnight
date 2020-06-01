@@ -20,6 +20,7 @@ namespace BurningKnight.entity.component {
 		public Vector2 Offset;
 		public bool Slow;
 		public bool CanCollide = true;
+		public bool Confused;
 		
 		public Vector2 Velocity {
 			get => Slow ? Body.LinearVelocity * 2 : Body.LinearVelocity;

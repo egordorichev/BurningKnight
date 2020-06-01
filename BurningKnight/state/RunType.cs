@@ -3,6 +3,7 @@ namespace BurningKnight.state {
 		Regular,
 		Daily,
 		Challenge,
-		BossRush
+		BossRush,
+		Twitch
 	}
 }

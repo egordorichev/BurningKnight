@@ -1,5 +1,5 @@
 using BurningKnight.assets;
-using Desktop.integration.twitch.happening;
+using BurningKnight.entity.twitch.happening;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
@@ -11,20 +11,25 @@ namespace Desktop.integration.twitch {
 
 		public string Id;
 		public string Label;
+		public string Name;
 		public float LabelWidth;
 		public int Votes;
+		public int Percent;
 		public Happening Happening;
 
-		public HappeningOption(string id) {
+		public HappeningOption(string id, int i) {
 			Happening = HappeningRegistry.Get(id);
 			Id = id;
-			Label = Locale.Get($"happening_{id}");
-			LabelWidth = Font.Small.MeasureString(Label).Width;
+
+			var name = Locale.Get($"happening_{id}");
+
+			Name = name.ToLower();
+			Label = $"#{i} {name}";
+			LabelWidth = Font.Small.MeasureString($"{Label} (100%)").Width;
 		}
 
 		public void Render() {
-			Graphics.Print(Label, Font.Small, Position);
-			Graphics.Print($"{Votes}", Font.Small, Position + new Vector2(0, 10));
+			Graphics.Print($"{Label} ({Percent}%)", Font.Small, Position);
 		}
 	}
 }

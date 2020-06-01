@@ -24,7 +24,7 @@ namespace BurningKnight.entity.pc {
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
-		private string cart = "nullptr";
+		private string cart = "ma_puzzle";
 
 		public Entity Entity;
 
@@ -63,7 +63,7 @@ namespace BurningKnight.entity.pc {
 			on = true;
 
 			Camera.Instance.Targets.Clear();
-			Camera.Instance.Position = Position;// + new Vector2(5 + 64, 16 + 64);
+			Camera.Instance.Position = Position + new Vector2(Display.Width * 0.5f);// + new Vector2(5 + 64, 16 + 64);
 
 			LoadCart();
 		}

@@ -19,6 +19,7 @@ using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
+using BurningKnight.entity.twitch;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
@@ -60,6 +61,8 @@ namespace BurningKnight.entity.creature.player {
 		public static string StartingLamp;
 		public static List<string> DailyItems;
 		public string ProjectileTexture = "rect";
+
+		public bool ItemDamage;
 
 		private bool dead;
 
@@ -187,6 +190,8 @@ namespace BurningKnight.entity.creature.player {
 
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
+				TwitchBridge.OnNewRun?.Invoke();
+				
 				if (StartingLamp != null) {
 					var i = Items.CreateAndAdd(StartingLamp, Area);
 					i.Scourged = false;
@@ -778,6 +783,10 @@ namespace BurningKnight.entity.creature.player {
 					Camera.Instance.Jump();
 					AnimationUtil.TeleportIn(this);
 				});
+			} else if (e is CollisionStartedEvent cse) {
+				if (ItemDamage && cse.Entity is Item) {
+					GetComponent<HealthComponent>().ModifyHealth(-1, cse.Entity, DamageType.Custom);
+				}
 			}
 			
 			return base.HandleEvent(e);

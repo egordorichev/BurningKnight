@@ -339,14 +339,16 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
-		private void CheckForScourgeRage() {
+		public bool ForcedRage;
+
+		public void CheckForScourgeRage() {
 			var s = GetComponent<StateComponent>().StateInstance;
 
 			if (s is ChaseState || s is AttackState || s is HiddenState) {
 				return;
 			}
 			
-			if (Run.Scourge >= 10) {
+			if (ForcedRage || Run.Scourge >= 10) {
 				Become<ChaseState>();
 			}
 		}
@@ -362,7 +364,7 @@ namespace BurningKnight.entity.creature.bk {
 				return;
 			}
 			
-			if (Run.Scourge < 10) {
+			if (!ForcedRage && Run.Scourge < 10) {
 				Become<FollowState>();
 			}
 		}
@@ -511,9 +513,17 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		public class TeleportState : SmartState<BurningKnight> {
-			public override void Init() {
-				base.Init();
+			private bool did;
 
+			public override void Update(float dt) {
+				base.Update(dt);
+
+				if (did) {
+					return;
+				}
+
+				did = true;
+				
 				Self.GetComponent<DialogComponent>().Close();
 				var graphics = Self.GetComponent<BkGraphicsComponent>();
 
