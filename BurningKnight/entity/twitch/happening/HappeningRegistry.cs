@@ -19,6 +19,7 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("darkness", new DarknessHappening());
 			Add("scourge_token", new ItemGiveHappening(() => Scourge.GenerateItemId()));
 			Add("risk", new ItemGiveHappening(() => "bk:scourge_of_risk"));
+			Add("double_trouble", new ItemGiveHappening(() => "bk:scourge_of_blood"));
 			Add("rage", new BkRageHappening());
 			Add("regular_tp", new TeleportHappening(RoomType.Regular, RoomType.Trap));
 			Add("reset", new FloorResetHappening());
@@ -27,6 +28,9 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("scourged", new ScourgeHappening(3));
 			Add("reroll_items", new RerollHappening(false, true));
 			Add("reroll_weapon", new RerollHappening(true, false));
+			Add("nerf", new ModifyMaxHpHappening(-2));
+			Add("rob", new ModifyCoinsHappening(-10));
+			Add("steal", new StealWeaponHappening());
 
 			// Good
 			Add("give_artifact", new RandomTypedItemHappening(ItemType.Artifact));
@@ -41,6 +45,8 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("shielded", new GiveShieldHappening());
 			Add("cleanse", new ScourgeHappening(-3));
 			Add("chest", new ChestHappening());
+			Add("buffed", new ModifyMaxHpHappening(2));
+			Add("gift", new ModifyCoinsHappening(10));
 			
 			// Neutral
 			Add("entrance_tp", new TeleportHappening(RoomType.Entrance));

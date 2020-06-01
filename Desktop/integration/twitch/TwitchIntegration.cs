@@ -9,6 +9,7 @@ using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using Lens;
+using Lens.assets;
 using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -119,6 +120,7 @@ namespace Desktop.integration.twitch {
 
 		private void OnSub(string who, string color) {
 			Log.Info($"{who} subscribed!");
+			Audio.PlaySfx("level_cleared");
 			
 			buffer.Add(new Data {
 				Nick = who,
@@ -258,6 +260,8 @@ namespace Desktop.integration.twitch {
 					
 				p.Center = player.Center + Rnd.Offset(24);
 				AnimationUtil.Poof(p.Center, player.Depth + 1);
+				
+				AnimationUtil.Confetti(p.Center);
 			}
 		}
 

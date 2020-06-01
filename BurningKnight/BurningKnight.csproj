@@ -960,10 +960,13 @@
     <Compile Include="entity\twitch\happening\HurtHappening.cs" />
     <Compile Include="entity\twitch\happening\ItemGiveHappening.cs" />
     <Compile Include="entity\twitch\happening\MakeItemsDamageUse.cs" />
+    <Compile Include="entity\twitch\happening\ModifyCoinsHappening.cs" />
+    <Compile Include="entity\twitch\happening\ModifyMaxHpHappening.cs" />
     <Compile Include="entity\twitch\happening\RandomItemHappening.cs" />
     <Compile Include="entity\twitch\happening\RandomTypedItemHappening.cs" />
     <Compile Include="entity\twitch\happening\RerollHappening.cs" />
     <Compile Include="entity\twitch\happening\ScourgeHappening.cs" />
+    <Compile Include="entity\twitch\happening\StealWeaponHappening.cs" />
     <Compile Include="entity\twitch\happening\TeleportHappening.cs" />
     <Compile Include="entity\twitch\LoginSign.cs" />
     <Compile Include="entity\twitch\TwitchBridge.cs" />
