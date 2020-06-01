@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight.assets;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch.happening;
 using BurningKnight.state;
 using Lens;
+using Lens.assets;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
@@ -26,7 +28,7 @@ namespace Desktop.integration.twitch {
 		}
 
 		private void GenerateOptions() {
-			question = "What shall happen next?";
+			question = Locale.Get("twitch_next");
 			
 			votersCache.Clear();
 			options.Clear();
@@ -186,6 +188,8 @@ namespace Desktop.integration.twitch {
 			} catch (Exception e) {
 				Log.Error(e);
 			}
+
+			TextParticle.Add(player, options[topOptionId].Name);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BurningKnight;
+using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch;
@@ -69,6 +70,10 @@ namespace Desktop.integration.twitch {
 
 				client.OnReSubscriber += (o, e) => {
 					OnSub(e.ReSubscriber.DisplayName, e.ReSubscriber.ColorHex);
+				};
+
+				client.OnGiftedSubscription += (o, e) => {
+					OnSub(e.GiftedSubscription.DisplayName, "#ff00ff");
 				};
 				
 				client.OnMessageReceived += OnMessageReceived;
