@@ -1019,7 +1019,7 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
-				Run.StartNew();
+				Run.StartNew(1, Run.Type);
 				died = true;
 
 				Run.NextDepth = Run.Depth;

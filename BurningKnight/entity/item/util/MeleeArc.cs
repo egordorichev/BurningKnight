@@ -91,7 +91,7 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);
 				} else if (ev.Entity is Projectile p) {
-					if (p.Owner != Owner) {
+					if (p.Owner != Owner && p.StarterOwner != Owner) {
 						if (p.CanBeReflected) {
 							p.Owner = Owner;
 							p.Damage *= 2f;

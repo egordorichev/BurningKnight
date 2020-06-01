@@ -1188,5 +1188,6 @@
 	"twitch_4": "Mkay.",
 	"twitch_5_0": "Yes",
 	"twitch_5_1": "No",
-	"twitch_5": "Your Twitch username is [cl purple]@[vr username][cl]. Wanna change it?"
+	"twitch_5": "Your Twitch username is [cl purple]@[vr username][cl]. Wanna change it?",
+	"run_twitch": "Twitch"
 }

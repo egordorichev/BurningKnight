@@ -949,6 +949,7 @@
     <Compile Include="entity\twitch\TwitchBridge.cs" />
     <Compile Include="entity\twitch\TwitchExit.cs" />
     <Compile Include="entity\twitch\TwitchNpc.cs" />
+    <Compile Include="entity\twitch\TwitchPet.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="level\basement\BasementRoom.cs" />
     <Compile Include="level\basement\BasementLevel.cs" />

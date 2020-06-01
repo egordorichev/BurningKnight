@@ -81,6 +81,10 @@ namespace Desktop.integration.twitch {
 		}
 
 		public void Render() {
+			if (!(Engine.Instance.State is InGameState)) {
+				return;
+			}
+			
 			foreach (var option in options) {
 				option.Render();
 			}
@@ -90,6 +94,10 @@ namespace Desktop.integration.twitch {
 
 		public bool HandleMessage(ChatMessage chatMessage) {
 			var message = chatMessage.Message;
+
+			if (message.StartsWith("#")) {
+				message = message.Substring(1, message.Length - 1);
+			}
 			
 			if (int.TryParse(message, out var number)) {
 				if (number < 1 || number > options.Count || votersCache.Contains(chatMessage.Username)) {

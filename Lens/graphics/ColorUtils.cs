@@ -13,6 +13,14 @@ namespace Lens.graphics {
 		public static Color BlackColor = Color.Black;
 		
 		public static Color FromHex(string hex) {
+			if (!hex.StartsWith("#")) {
+				hex = $"#{hex}";
+			}
+			
+			if (hex.Length != 7) {
+				return Color.White;
+			}
+			
 			Color color = new Color();
 
 			color.R = (byte) int.Parse(hex.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);

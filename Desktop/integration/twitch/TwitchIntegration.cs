@@ -1,10 +1,16 @@
 using System;
+using System.Collections.Generic;
 using BurningKnight;
+using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using Lens;
 using Lens.util;
+using Lens.util.math;
+using Microsoft.Xna.Framework;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -38,7 +44,7 @@ namespace Desktop.integration.twitch {
 
 					Log.Info($"Connected to {e.AutoJoinChannel}");
 					callback(true);
-					client.SendMessage(channel, "Heyo, pogs");
+					client.SendMessage(channel, "The Knight is here, guys");
 			
 					controller = new TwitchContoller();
 					controller.Init();
@@ -53,13 +59,22 @@ namespace Desktop.integration.twitch {
 				client.OnConnectionError += (o, e) => {
 					callback(false);
 				};
+
+				client.OnNewSubscriber += (o, e) => {
+					OnSub(e.Subscriber.DisplayName, e.Subscriber.ColorHex);
+				};
+
+				client.OnReSubscriber += (o, e) => {
+					OnSub(e.ReSubscriber.DisplayName, e.ReSubscriber.ColorHex);
+				};
 				
 				client.OnMessageReceived += OnMessageReceived;
-			
 				client.Connect();
 			};
 
 			TwitchBridge.TurnOff = (callback) => {
+				Log.Info("Turning twitch integration off");
+				
 				controller = null;
 				client.Disconnect();
 				client = null;
@@ -67,10 +82,29 @@ namespace Desktop.integration.twitch {
 				TwitchBridge.On = false;
 				callback();
 			};
+
+			if (BK.Version.Dev) {
+				TwitchBridge.TurnOn("egordorichev", (ok) => {
+					
+				});
+			}
+		}
+		
+		private List<TwitchPet> buffer = new List<TwitchPet>();
+
+		private void OnSub(string who, string color) {
+			Log.Info($"{who} subscribed!");
+			
+			buffer.Add(new TwitchPet {
+				Nick = who,
+				Color = color
+			});
 		}
 
 		private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
-			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
+			var dev = e.ChatMessage.Username == DevAccount;
+
+			if (!dev && (Run.Depth < 1 || Run.Type != RunType.Twitch)) {
 				return;
 			}
 			
@@ -84,18 +118,46 @@ namespace Desktop.integration.twitch {
 				var message = e.ChatMessage.Message;
 				Log.Debug(message);
 
-				var dev = e.ChatMessage.Username == DevAccount;
-
 				if (dev) {
-					if (message == "sudo msg") {
-						enableDevMessages = !enableDevMessages;
-						return;
-					} 
-					
 					if (message.StartsWith("sudo ")) {
 						var command = message.Substring(5, message.Length - 5);
+
+						switch (command) {
+							case "msg": {
+								enableDevMessages = !enableDevMessages;
+								return;
+							}
+							
+							case "sub": {
+								OnSub("egordorichev", e.ChatMessage.ColorHex);
+								return;
+							}
+						}
+						
 						Log.Debug(command);
 						gamestate.Console.RunCommand(command);
+						
+						return;
+					}
+				}
+
+				if (message.StartsWith("!")) {
+					var m = message.Substring(1, message.Length - 1);
+					var n = e.ChatMessage.DisplayName;
+
+					if (m.StartsWith("color ")) {
+						var pet = state.Area.Find<TwitchPet>(f => f is TwitchPet p && p.Nick == n);
+
+						if (pet != null) {
+							pet.Color = m.Substring(6, m.Length - 6);
+							pet.UpdateColor();
+							pet.GetComponent<AnimationComponent>().Animate();
+						}
+						
+						return;
+					} else if (m == "wink") {
+						var pet = state.Area.Find<TwitchPet>(f => f is TwitchPet p && p.Nick == n);
+						pet.GetComponent<AnimationComponent>().Animate();
 						
 						return;
 					}
@@ -123,12 +185,29 @@ namespace Desktop.integration.twitch {
 
 		public override void Update(float dt) {
 			base.Update(dt);
-			
-			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
+
+			if (Run.Depth < 1 || Run.Type != RunType.Twitch || controller == null) {
 				return;
 			}
 			
-			controller?.Update(dt);
+			controller.Update(dt);
+
+			if (!(Engine.Instance.State is InGameState ingame)) {
+				return;
+			}
+
+			if (buffer.Count > 0) {
+				var player = LocalPlayer.Locate(ingame.Area);
+				
+				foreach (var p in buffer) {
+					ingame.Area.Add(p);
+					
+					p.Center = player.Center + Rnd.Offset(24);
+					AnimationUtil.Poof(p.Center, player.Depth + 1);
+				}
+				
+				buffer.Clear();
+			}
 		}
 
 		public void Render() {
