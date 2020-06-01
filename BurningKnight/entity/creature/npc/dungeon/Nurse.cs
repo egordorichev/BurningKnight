@@ -37,7 +37,7 @@ namespace BurningKnight.entity.creature.npc.dungeon {
 				return false;
 			}
 
-			var price = (int) (c.MaxHealth - c.Health);
+			var price = (int) (c.MaxHealth - c.Health) * 4;
 			var consumables = e.GetComponent<ConsumablesComponent>();
 
 			if (consumables.Coins < price) {
