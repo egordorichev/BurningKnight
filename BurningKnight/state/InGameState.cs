@@ -344,7 +344,7 @@ namespace BurningKnight.state {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
-					if (Run.Loop > 0 && IgnoreSave) {
+					if (IgnoreSave) {
 						
 					} else {
 						SaveManager.Save(Area, SaveType.Level, old);

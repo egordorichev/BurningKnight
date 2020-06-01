@@ -24,6 +24,7 @@ namespace BurningKnight.state {
 		public static int Loop;
 		public static bool CustomSeed;
 		public static int Id;
+		public static bool Redo;
 
 		public static int ActualDepth {
 			set => depth = value;
@@ -64,7 +65,7 @@ namespace BurningKnight.state {
 		}
 
 		public static void Update() {
-			if (StartingNew || depth != NextDepth) {
+			if (Redo || StartingNew || depth != NextDepth) {
 				LastDepth = depth;
 				SavingDepth = depth;
 				depth = NextDepth;
@@ -73,7 +74,8 @@ namespace BurningKnight.state {
 				if (StartingNew) {
 					SaveManager.Delete(SaveType.Player, SaveType.Game, SaveType.Level);
 				}
-				
+
+				Redo = false;
 				StartingNew = false;
 
 				Engine.Instance.SetState(new LoadState {

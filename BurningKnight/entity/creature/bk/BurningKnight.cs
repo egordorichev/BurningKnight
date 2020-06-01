@@ -339,14 +339,16 @@ namespace BurningKnight.entity.creature.bk {
 			}
 		}
 
-		private void CheckForScourgeRage() {
+		public bool ForcedRage;
+
+		public void CheckForScourgeRage() {
 			var s = GetComponent<StateComponent>().StateInstance;
 
 			if (s is ChaseState || s is AttackState || s is HiddenState) {
 				return;
 			}
 			
-			if (Run.Scourge >= 10) {
+			if (ForcedRage || Run.Scourge >= 10) {
 				Become<ChaseState>();
 			}
 		}
@@ -362,7 +364,7 @@ namespace BurningKnight.entity.creature.bk {
 				return;
 			}
 			
-			if (Run.Scourge < 10) {
+			if (!ForcedRage && Run.Scourge < 10) {
 				Become<FollowState>();
 			}
 		}

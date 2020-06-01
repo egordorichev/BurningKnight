@@ -22,20 +22,8 @@ events {
  + random consumable
  + give coins
  + steal coins
- + bk rage
- + teleport to entrance
- + teleport to shop/treasure
- + teleport to random room
- + darkness (Level.dark)
- + slowdown debuff
  + items damage you
- + reset the floor
- + break armor on the player (for 30 seconds or so)
- + player invincible (for 30 seconds or so)
  + all enemies (besides slimes) on death spawn basic green slime for the rest of the floor?
- + hide hp
- + hide consumables
- + give random scourge
  + +1 scourge
  + -1 scourge
 }
