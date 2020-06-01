@@ -2,8 +2,9 @@
 * boxy has wrong dialog when you have not enough keys
 
 # bugs
-* doors still can be locked (castle, looks like ghosts still)
-* library still hangs? (state change stuff?)
+* library still hangs? (state change stuff? roll??)
+* item pedestals can still have 2 items
+* CLAW BUG AAAAAAAAAAAAAAAAAAAA
 
 # can wait
  * make d6 hard to get
