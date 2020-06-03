@@ -491,7 +491,7 @@ namespace BurningKnight.ui.inventory {
 				Graphics.Render(question, new Vector2(8, 11));
 
 				if (phases > 0) {
-					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4, 12));
+					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4 + (int) (12 * (activeSlot.ActivePosition + 1)), 12));
 				}
 				
 				return;

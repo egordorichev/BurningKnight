@@ -12,8 +12,6 @@
 * maanex mob spawns suggestion
 * subs keep distance, hide nicks from time to time
 * its hard to understand what option was picked
-* 90% chat vote to revive?
-* rain starts with ignoring audio settings
 * display total vote count
 * remove the bot is here message from chat
 * WHAT WHY DID 10 subs appear wow
@@ -21,12 +19,10 @@
 * random teleport events are bad
 * charger missing sfx when charging?
 * reset scourge effects when player stats reset
-* потесить in russian translation is wrong (replace ПК with computor )
 * ? sprite should be moved by the active item slot
 * cleansed should remove scourge tokens/efffects too
 * fix autoaim items
 * twitch happenings shall not happen in load state (also dont count time in pause/load state)
-* buff laser damage
 
 # bugs
 * i think pet projectiles can still hurt ya (cuz owner is now set to pet)

@@ -167,6 +167,8 @@ namespace BurningKnight.entity.creature.player {
 			HasFlight = false;
 			SuperHot = false;
 
+			Scourge.Clear();
+
 			GetComponent<AimComponent>().ShowLaserLine = false;
 			GetComponent<OrbitGiverComponent>().DestroyAll();
 			GetComponent<FollowerComponent>().DestroyAll();
