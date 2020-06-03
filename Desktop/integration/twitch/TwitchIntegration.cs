@@ -35,7 +35,7 @@ namespace Desktop.integration.twitch {
 
 			TwitchBridge.TurnOn = (channel, callback) => {
 				try {
-	var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
+					var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
 					var customClient = new WebSocketClient(new ClientOptions {
 						MessagesAllowedInPeriod = 750,
 						ThrottlingPeriod = TimeSpan.FromSeconds(30)
@@ -49,7 +49,7 @@ namespace Desktop.integration.twitch {
 
 						Log.Info($"Connected to {e.AutoJoinChannel}");
 						callback(true);
-						client.SendMessage(channel, "The Knight is here, guys");
+						client.SendMessage(channel, "The Knight is here, bois");
 				
 						controller = new TwitchContoller();
 						controller.Init();
@@ -79,6 +79,8 @@ namespace Desktop.integration.twitch {
 					
 					client.OnMessageReceived += OnMessageReceived;
 					client.Connect();
+
+					TwitchBridge.On = true;
 				} catch (Exception e) {
 					TwitchBridge.On = false;
 					Log.Error(e);

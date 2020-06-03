@@ -12,6 +12,7 @@ using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.file;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.twitch {
@@ -20,6 +21,9 @@ namespace BurningKnight.entity.twitch {
 		public string Nick = "egordorichev";
 
 		private float nickW;
+		private float nickTimeLeft = 5;
+		private bool nickOn = true;
+		private float a = 1;
 		
 		public TwitchPet() : base("twitch_pet") {
 			
@@ -38,7 +42,7 @@ namespace BurningKnight.entity.twitch {
 			}
 
 			AddTag(Tags.PlayerSave);
-			Subscribe<ItemUsedEvent>();
+			Subscribe<ItemUsedEvent>(); 
 		}
 
 		public void UpdateColor() {
@@ -46,7 +50,13 @@ namespace BurningKnight.entity.twitch {
 		}
 		
 		private void RenderNick() {
+			if (a <= 0.01f) {
+				return;
+			}
+			
+			Graphics.Color.A = (byte) (a * 255);
 			Graphics.Print(Nick, Font.Small, Camera.Instance.CameraToUi(new Vector2(CenterX, Y - 10)) - new Vector2(nickW * 0.5f, 0));
+			Graphics.Color.A = 255;
 		}
 
 		public override void Load(FileReader stream) {
@@ -72,12 +82,15 @@ namespace BurningKnight.entity.twitch {
 				Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 				var a = AngleTo(Owner.GetComponent<AimComponent>().RealAim);
-				var projectile = Projectile.Make(Owner, "small", a, 8f);
+				var projectile = Projectile.Make(Owner, "small", a, 8f, scale: 0.8f);
+				var an = GetComponent<AnimationComponent>();
 
-				projectile.Color = ProjectileColor.Yellow;
+				projectile.Color = an.Tint;
 				projectile.Center = Center + MathUtils.CreateVector(a, 5f);
-				projectile.AddLight(32f, Projectile.YellowLight);
+				projectile.AddLight(32f, projectile.Color);
 
+				an.Animate();
+				
 				Owner.HandleEvent(new ProjectileCreatedEvent {
 					Projectile = projectile,
 					Owner = Owner
@@ -94,6 +107,20 @@ namespace BurningKnight.entity.twitch {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			nickTimeLeft -= dt;
+
+			if (nickTimeLeft <= 0) {
+				nickOn = !nickOn;
+
+				if (nickOn) {
+					nickTimeLeft = Rnd.Float(3, 6);
+				} else {
+					nickTimeLeft = Rnd.Float(32, 128);
+				}
+			}
+
+			a += ((nickOn ? 1 : 0) - a) * dt * 4;
+			
 			if (!added) {
 				added = true;
 				((InGameState) Engine.Instance.State).Ui.Add(new RenderTrigger(this, RenderNick, 0));
@@ -106,6 +133,19 @@ namespace BurningKnight.entity.twitch {
 
 			if (cooldown > 0) {
 				cooldown -= dt;
+			}
+		}
+
+		protected override void Follow() {
+			base.Follow();
+
+			if (Owner != null) {
+				var f = GetComponent<FollowerComponent>();
+
+				if (f.Follower == Owner) {
+					f.MaxDistance = 48;
+					f.FollowSpeed = 2;
+				}
 			}
 		}
 	}
