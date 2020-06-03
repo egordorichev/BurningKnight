@@ -1,6 +1,5 @@
 * remove treasure rooms/shops from loop
 * mark more items as gold tier (diamond tear perhaps?)
-* battery on boss rush
 * coin lamp: more coin drops & shop every level but no treasure rooms
 * fragile lamp: treasure rooms on each floor
 * shield lamp: start with iron helmet & armor?

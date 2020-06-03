@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.items;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
 using BurningKnight.entity.room.controllable.turret;
@@ -61,6 +62,12 @@ namespace BurningKnight.level.rooms.entrance {
 				}
 			} catch (Exception e) {
 				Log.Error(e);
+			}
+			
+			if (Run.Type == RunType.BossRush && Run.Depth > 1) {
+				var item = Items.CreateAndAdd("bk:battery", level.Area);
+				
+				item.Center = where * 16 + new Vector2(8 + Rnd.Float(-16, 16), Rnd.Float(-16, 16));
 			}
 		}
 
