@@ -87,6 +87,7 @@ namespace BurningKnight.level {
 			Log.Info("Painting...");
 			var p = GetPainter();
 			LevelSave.BiomeGenerated.ModifyPainter(this, p);
+			
 			return p.Paint(this, rooms);
 		}
 
@@ -200,7 +201,7 @@ namespace BurningKnight.level {
 				return rooms;
 			}
 
-			if (!rush) {
+			if (!rush && !loop) {
 				if (Run.Depth == 2) {
 					rooms.Add(new SecretKeyRoom());
 				} else if (Run.Depth == 4) {

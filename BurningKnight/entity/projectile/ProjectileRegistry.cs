@@ -198,7 +198,8 @@ namespace BurningKnight.entity.projectile {
 			
 			Add("axe", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
-				
+
+				p.Range = 5;
 				p.OnDeath = (pr, e, t) => {
 					pr.Item.Renderer.Hidden = false;
 					pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");

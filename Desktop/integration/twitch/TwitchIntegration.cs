@@ -34,50 +34,57 @@ namespace Desktop.integration.twitch {
 			base.Init();
 
 			TwitchBridge.TurnOn = (channel, callback) => {
-				var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
-				var customClient = new WebSocketClient(new ClientOptions {
-					MessagesAllowedInPeriod = 750,
-					ThrottlingPeriod = TimeSpan.FromSeconds(30)
-				});
-			
-				client = new TwitchClient(customClient);
-				client.Initialize(credentials, channel);
+				try {
+					var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
+					var customClient = new WebSocketClient(new ClientOptions {
+						MessagesAllowedInPeriod = 750,
+						ThrottlingPeriod = TimeSpan.FromSeconds(30)
+					});
+				
+					client = new TwitchClient(customClient);
+					client.Initialize(credentials, channel);
 
-				client.OnConnected += (o, e) => {
-					TwitchBridge.LastUsername = channel;
+					client.OnConnected += (o, e) => {
+						TwitchBridge.LastUsername = channel;
 
-					Log.Info($"Connected to {e.AutoJoinChannel}");
-					callback(true);
-					client.SendMessage(channel, "The Knight is here, guys");
-			
-					controller = new TwitchContoller();
-					controller.Init();
+						Log.Info($"Connected to {e.AutoJoinChannel}");
+						callback(true);
+						client.SendMessage(channel, "The Knight is here, bois");
+				
+						controller = new TwitchContoller();
+						controller.Init();
+
+						TwitchBridge.On = true;
+					};
+
+					client.OnError += (sender, args) => {
+						Log.Error(args.Exception.Message);
+					};
+					
+					client.OnConnectionError += (o, e) => {
+						callback(false);
+					};
+
+					client.OnNewSubscriber += (o, e) => {
+						OnSub(e.Subscriber.DisplayName, e.Subscriber.ColorHex);
+					};
+
+					client.OnReSubscriber += (o, e) => {
+						OnSub(e.ReSubscriber.DisplayName, e.ReSubscriber.ColorHex);
+					};
+
+					client.OnGiftedSubscription += (o, e) => {
+						OnSub(e.GiftedSubscription.DisplayName, "#ff00ff");
+					};
+					
+					client.OnMessageReceived += OnMessageReceived;
+					client.Connect();
 
 					TwitchBridge.On = true;
-				};
-
-				client.OnError += (sender, args) => {
-					Log.Error(args.Exception.Message);
-				};
-				
-				client.OnConnectionError += (o, e) => {
-					callback(false);
-				};
-
-				client.OnNewSubscriber += (o, e) => {
-					OnSub(e.Subscriber.DisplayName, e.Subscriber.ColorHex);
-				};
-
-				client.OnReSubscriber += (o, e) => {
-					OnSub(e.ReSubscriber.DisplayName, e.ReSubscriber.ColorHex);
-				};
-
-				client.OnGiftedSubscription += (o, e) => {
-					OnSub(e.GiftedSubscription.DisplayName, "#ff00ff");
-				};
-				
-				client.OnMessageReceived += OnMessageReceived;
-				client.Connect();
+				} catch (Exception e) {
+					TwitchBridge.On = false;
+					Log.Error(e);
+				}
 			};
 
 			TwitchBridge.TurnOff = (callback) => {
@@ -122,8 +129,15 @@ namespace Desktop.integration.twitch {
 		
 		private List<Data> buffer = new List<Data>();
 		private List<Data> totalBuffer = new List<Data>();
+		private List<string> messageIds = new List<string>();
 
 		private void OnSub(string who, string color) {
+			foreach (var d in totalBuffer) {
+				if (d.Nick == who) {
+					return;
+				}
+			}
+			
 			Log.Info($"{who} subscribed!");
 			Audio.PlaySfx("level_cleared");
 			
@@ -144,6 +158,13 @@ namespace Desktop.integration.twitch {
 			if (!dev && (Run.Depth < 1 || Run.Type != RunType.Twitch)) {
 				return;
 			}
+			
+
+			if (messageIds.Contains(e.ChatMessage.Id)) {
+				return;
+			}
+
+			messageIds.Add(e.ChatMessage.Id);
 			
 			try {
 				var state = Engine.Instance.State;
@@ -225,29 +246,47 @@ namespace Desktop.integration.twitch {
 		}
 
 		public override void Destroy() {
-			client?.Disconnect();
+			try {
+				client?.Disconnect();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+			
 			base.Destroy();
 		}
+
+		private float t;
 
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Run.Type == RunType.Twitch && Run.Depth > 0) {
-				controller?.Update(dt);
-			}
-			
-			if (!(Engine.Instance.State is InGameState ingame)) {
-				return;
+			t += dt;
+
+			if (t >= 10f) {
+				t = 0;
+				messageIds.Clear();
 			}
 
-			if (spawnAllPets && (Run.Type == RunType.Twitch || Run.Depth == 0)) {
-				SpawnPets(totalBuffer);
-				spawnAllPets = false;
-			}
-			
-			if (buffer.Count > 0) {
-				SpawnPets(buffer);
-				buffer.Clear();
+			try {
+				if (Run.Type == RunType.Twitch && Run.Depth > 0) {
+					controller.Update(dt);
+				}
+				
+				if (!(Engine.Instance.State is InGameState ingame)) {
+					return;
+				}
+
+				if (spawnAllPets && (Run.Type == RunType.Twitch || Run.Depth == 0)) {
+					SpawnPets(totalBuffer);
+					spawnAllPets = false;
+				}
+				
+				if (buffer.Count > 0) {
+					SpawnPets(buffer);
+					buffer.Clear();
+				}
+			} catch (Exception e) {
+				Log.Error(e);
 			}
 		}
 		
@@ -274,8 +313,12 @@ namespace Desktop.integration.twitch {
 			if (Run.Depth < 1 || Run.Type != RunType.Twitch) {
 				return;
 			}
-			
-			controller?.Render();
+
+			try {
+				controller?.Render();
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 	}
 }

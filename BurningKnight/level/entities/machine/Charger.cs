@@ -133,10 +133,10 @@ namespace BurningKnight.level.entities.machine {
 				component.Coins -= 1;
 			}
 
-			timesUsed += e == null ? 2 : 1;
+			timesUsed += e == null ? 4 : 1;
 
 			active.Charge(Rnd.Int(1, 3));
-			Audio.PlaySfx("item_charged");
+			Audio.PlaySfx("item_charge");
 			
 			if (Rnd.Float(100) < timesUsed * 2 - Run.Luck * 0.5f) {
 				Break(false);

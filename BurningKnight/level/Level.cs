@@ -234,7 +234,7 @@ namespace BurningKnight.level {
 							rainSound.IsLooped = true;
 							rainSound.Play();
 
-							Tween.To(0.5f, 0, x => rainSound.Volume = x, 0.5f * Settings.MusicVolume).Delay = 3f;
+							Tween.To(0.5f * Settings.MusicVolume, 0, x => rainSound.Volume = x, 0.5f).Delay = 3f;
 						}
 					}
 				}

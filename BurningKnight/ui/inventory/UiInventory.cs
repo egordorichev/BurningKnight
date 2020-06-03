@@ -488,10 +488,10 @@ namespace BurningKnight.ui.inventory {
 			var phases = red.Phases;
 
 			if (Scourge.IsEnabled(Scourge.OfRisk)) {
-				Graphics.Render(question, new Vector2(8, 11));
+				Graphics.Render(question, new Vector2(8 + (int) ((4 + ItemSlot.Source.Width) * (activeSlot.ActivePosition + 1)), 11));
 
 				if (phases > 0) {
-					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4, 12));
+					Graphics.Print($"x{phases}", Font.Small, new Vector2(8 + question.Width + 4 + (int) ((4 + ItemSlot.Source.Width) * (activeSlot.ActivePosition + 1)), 12));
 				}
 				
 				return;

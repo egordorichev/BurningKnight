@@ -159,7 +159,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 			public override void Update(float dt) {
 				base.Update(dt);
 				
-				var mx = Self.CenterX;
+				/*var mx = Self.CenterX;
 				var my = Self.CenterY;
 
 				var x = (int) Math.Round(mx / 16f);
@@ -171,10 +171,10 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 						Self.Done = true;
 					}, 0.1f);
 					return;
-				}
+				}*/
 				
-				mx = Self.X + (this.mx) * 16;
-				my = Self.CenterY + (this.my) * 16;
+				var mx = Self.X + (this.mx) * 16;
+				var my = Self.CenterY + (this.my) * 16;
 
 				if (!Run.Level.Get((int) Math.Round(mx / 16f), (int) Math.Round(my / 16f)).IsWall()) {
 					Self.GetComponent<HealthComponent>().Kill(Self);

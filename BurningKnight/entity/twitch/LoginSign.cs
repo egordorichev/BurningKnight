@@ -13,7 +13,7 @@ namespace BurningKnight.entity.twitch {
 			base.AddComponents();
 
 			GetComponent<CloseDialogComponent>().DecideVariant = (e) => {
-				var id = GlobalSave.GetString("twitch_username");
+				var id = TwitchBridge.TwitchUsername;
 
 				if (id == null) {
 					return Locale.Get("not_logged_in");

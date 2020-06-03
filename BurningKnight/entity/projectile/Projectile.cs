@@ -10,11 +10,13 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.npc;
+using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.orbital;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
@@ -306,6 +308,10 @@ namespace BurningKnight.entity.projectile {
 
 			if (CanHitOwner && entity == Owner) {
 				return true;
+			}
+
+			if ((Owner is Pet tp && tp.Owner == entity) || (Owner is Orbital or && or.Owner == entity)) {
+				return false;
 			}
 
 			if (entity is Creature && !HurtsEveryone && Owner is Mob == entity is Mob) {

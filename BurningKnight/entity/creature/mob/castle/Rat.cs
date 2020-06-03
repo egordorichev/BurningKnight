@@ -20,7 +20,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			Height = 15;
 			
 			AddAnimation("rat");
-			SetMaxHp(4);
+			SetMaxHp(2);
 			
 			Become<IdleState>();
 

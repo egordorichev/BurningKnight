@@ -15,6 +15,7 @@ namespace BurningKnight.entity.component {
 		public float MaxDistance = 16;
 		public float Pause = -1;
 		public bool Paused;
+		public float FollowSpeed = 3;
 
 		public void DestroyAll() {
 			if (Follower != null) {
@@ -90,14 +91,12 @@ namespace BurningKnight.entity.component {
 					return;
 				}
 
-				var s = 3;
-
 				if (Following.TryGetComponent<RectBodyComponent>(out var rb)) {
-					body.Velocity = body.Velocity.Lerp(rb.Velocity, dt * s);
+					body.Velocity = body.Velocity.Lerp(rb.Velocity, dt * FollowSpeed);
 				} else if (Following.TryGetComponent<CircleBodyComponent>(out var cb)) {
-					body.Velocity = body.Velocity.Lerp(cb.Velocity, dt * s);
+					body.Velocity = body.Velocity.Lerp(cb.Velocity, dt * FollowSpeed);
 				} else if (Following.TryGetComponent<SensorBodyComponent>(out var sb)) {
-					body.Velocity = body.Velocity.Lerp(sb.Velocity, dt * s);
+					body.Velocity = body.Velocity.Lerp(sb.Velocity, dt * FollowSpeed);
 				}
 				
 				body.Velocity -= new Vector2(dx * sp, dy * sp);

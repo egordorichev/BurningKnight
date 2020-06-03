@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.save;
 
 namespace BurningKnight.entity.twitch {
 	public static class TwitchBridge {
@@ -9,5 +10,7 @@ namespace BurningKnight.entity.twitch {
 		
 		public static Action OnHubEnter;
 		public static Action OnNewRun;
+
+		public static string TwitchUsername => GlobalSave.GetString("twitch_username").Replace("_", "\\_");
 	}
 }
