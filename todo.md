@@ -1,4 +1,3 @@
-* remove treasure rooms/shops from loop
 * mark more items as gold tier (diamond tear perhaps?)
 * coin lamp: more coin drops & shop every level but no treasure rooms
 * fragile lamp: treasure rooms on each floor
