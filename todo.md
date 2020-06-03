@@ -21,7 +21,6 @@
 * ghost bullets break from doors lol
 * random teleport events are bad
 * charger missing sfx when charging?
-* move timer to 30
 * reset scourge effects when player stats reset
 * потесить in russian translation is wrong (replace ПК with computor )
 * ? sprite should be moved by the active item slot
