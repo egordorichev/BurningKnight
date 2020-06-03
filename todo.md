@@ -1,4 +1,35 @@
+* remove treasure rooms/shops from loop
+* mark more items as gold tier (diamond tear perhaps?)
+* battery on boss rush
+* coin lamp: more coin drops & shop every level but no treasure rooms
+* fragile lamp: treasure rooms on each floor
+* shield lamp: start with iron helmet & armor?
+* melee lamp
+* game did not let continue run after restarting the game
+* _ -> \\_ in twitch usernames
+* somehow still can not kill the process in the end (and start a new one wew)
+
 * maanex mob spawns suggestion
+* subs keep distance, hide nicks from time to time
+* its hard to understand what option was picked
+* 90% chat vote to revive?
+* rain starts with ignoring audio settings
+* display tota l vote count
+* lower rat hp
+* remove the bot is here message from chat
+* russian translation missing stuff for omega hurt (those 3 options)
+* WHAT WHY DID 10 subs appear wow
+* ghost bullets break from doors lol
+* random teleport events are bad
+* charger missing sfx when charging?
+* move timer to 30
+* reset scourge effects when player stats reset
+* потесить in russian translation is wrong (replace ПК with computor )
+* ? sprite should be moved by the active item slot
+* cleansed should remove scourge tokens/efffects too
+* fix autoaim items
+* twitch happenings shall not happen in load state (also dont count time in pause/load state)
+* buff laser damage
 
 # bugs
 * i think pet projectiles can still hurt ya (cuz owner is now set to pet)

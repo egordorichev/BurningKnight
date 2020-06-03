@@ -77,7 +77,11 @@ namespace BurningKnight.entity.creature.mob {
 			AddComponent(new MobAnimationComponent(name, layer));
 		}
 		
-		protected void SetMaxHp(int hp) {
+		protected virtual void SetMaxHp(int hp) {
+			if (Run.Loop > 0) {
+				hp *= (this is Boss ? 4 : 1) * (Run.Loop + 1);
+			}
+		
 			var health = GetComponent<HealthComponent>();
 			health.InitMaxHealth = hp;
 		}
