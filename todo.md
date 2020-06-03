@@ -14,7 +14,7 @@
 * its hard to understand what option was picked
 * 90% chat vote to revive?
 * rain starts with ignoring audio settings
-* display tota l vote count
+* display total vote count
 * lower rat hp
 * remove the bot is here message from chat
 * russian translation missing stuff for omega hurt (those 3 options)

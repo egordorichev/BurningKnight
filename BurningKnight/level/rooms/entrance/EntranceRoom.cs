@@ -81,7 +81,7 @@ namespace BurningKnight.level.rooms.entrance {
 		}
 
 		private static bool IceDemoRoom() {
-			return LevelSave.BiomeGenerated is IceBiome && Run.Depth % 2 == 1;
+			return Run.Type == RunType.Regular && LevelSave.BiomeGenerated is IceBiome && Run.Depth % 2 == 1;
 		}
 
 		public override int GetMinWidth() {
