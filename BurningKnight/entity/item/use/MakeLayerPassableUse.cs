@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
@@ -53,7 +54,7 @@ namespace BurningKnight.entity.item.use {
 
 					if (walls) {
 						pce.Projectile.Spectral = true;
-						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is ProjectileLevelBody ? CollisionResult.Disable : CollisionResult.Default);
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Level || en is ProjectileLevelBody || en is Door ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
 					if (mobs) {
