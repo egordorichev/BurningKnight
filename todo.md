@@ -6,7 +6,6 @@
 * melee lamp
 * game did not let continue run after restarting the game
 * somehow still can not kill the process in the end (and start a new one wew)
-* scourge of greed actives hudden consumables and not higher prices?
 
 * maanex mob spawns suggestion
 * subs keep distance, hide nicks from time to time
@@ -14,11 +13,9 @@
 * display total vote count
 * remove the bot is here message from chat
 * WHAT WHY DID 10 subs appear wow
-* ghost bullets break from doors lol
 * random teleport events are bad
 * charger missing sfx when charging?
 * reset scourge effects when player stats reset
-* ? sprite should be moved by the active item slot
 * cleansed should remove scourge tokens/efffects too
 * fix autoaim items
 * twitch happenings shall not happen in load state (also dont count time in pause/load state)
