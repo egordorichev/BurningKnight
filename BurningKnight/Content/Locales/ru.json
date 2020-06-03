@@ -1220,5 +1220,6 @@
 	"happening_bk:gift": "Подарок",
 	"happening_bk:entrance_tp": "Опять 25",
 	"happening_bk:exit_tp": "Пора валить",
-	"twitch_next": "Что будет дальше?"
+	"twitch_next": "Что будет дальше?",
+	"total_votes" : "голосов"
 }

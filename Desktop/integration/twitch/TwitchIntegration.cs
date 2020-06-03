@@ -127,8 +127,15 @@ namespace Desktop.integration.twitch {
 		
 		private List<Data> buffer = new List<Data>();
 		private List<Data> totalBuffer = new List<Data>();
+		private List<string> messageIds = new List<string>();
 
 		private void OnSub(string who, string color) {
+			foreach (var d in totalBuffer) {
+				if (d.Nick == who) {
+					return;
+				}
+			}
+			
 			Log.Info($"{who} subscribed!");
 			Audio.PlaySfx("level_cleared");
 			
@@ -149,6 +156,13 @@ namespace Desktop.integration.twitch {
 			if (!dev && (Run.Depth < 1 || Run.Type != RunType.Twitch)) {
 				return;
 			}
+			
+
+			if (messageIds.Contains(e.ChatMessage.Id)) {
+				return;
+			}
+
+			messageIds.Add(e.ChatMessage.Id);
 			
 			try {
 				var state = Engine.Instance.State;
@@ -239,12 +253,21 @@ namespace Desktop.integration.twitch {
 			base.Destroy();
 		}
 
+		private float t;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			t += dt;
+
+			if (t >= 10f) {
+				t = 0;
+				messageIds.Clear();
+			}
+
 			try {
 				if (Run.Type == RunType.Twitch && Run.Depth > 0) {
-					controller?.Update(dt);
+					controller.Update(dt);
 				}
 				
 				if (!(Engine.Instance.State is InGameState ingame)) {

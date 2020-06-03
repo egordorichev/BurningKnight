@@ -22,6 +22,7 @@ namespace Desktop.integration.twitch {
 		private float timeLeft = 1f;
 		private Player player;
 		private string question;
+		private string totalVotes;
 		
 		public void Init() {
 			GenerateOptions();
@@ -29,6 +30,7 @@ namespace Desktop.integration.twitch {
 
 		private void GenerateOptions() {
 			question = Locale.Get("twitch_next");
+			totalVotes = Locale.Get("total_votes");
 			
 			votersCache.Clear();
 			options.Clear();
@@ -71,7 +73,7 @@ namespace Desktop.integration.twitch {
 		public void Update(float dt) {
 			var state = Engine.Instance.State;
 
-			if (!(state is InGameState)) {
+			if (!(state is InGameState) || state.Paused) {
 				return;
 			}
 
@@ -110,6 +112,11 @@ namespace Desktop.integration.twitch {
 			foreach (var option in options) {
 				option.Render();
 			}
+			
+			Graphics.Color.A = 170;
+			var t = $"{votersCache.Count} {totalVotes}";
+			Graphics.Print(t, Font.Small, new Vector2(Display.UiWidth - Font.Small.MeasureString(t).Width - 8, 28));
+			Graphics.Color.A = 255;
 		}
 		
 		private void BalanceVotes() {

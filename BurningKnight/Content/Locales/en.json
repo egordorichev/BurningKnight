@@ -1225,5 +1225,6 @@
 	"happening_bk:gift" : "Gifted",
 	"happening_bk:entrance_tp" : "Here we start again",
 	"happening_bk:exit_tp" : "Get out",
-	"twitch_next" : "What shall happen next?"
+	"twitch_next" : "What shall happen next?",
+	"total_votes" : "Total votes"
 }

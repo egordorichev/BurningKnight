@@ -9,12 +9,9 @@
 * subs keep distance, hide nicks from time to time
 * its hard to understand what option was picked
 * display total vote count
-* remove the bot is here message from chat
-* WHAT WHY DID 10 subs appear wow
 * reset scourge effects when player stats reset
 * cleansed should remove scourge tokens/efffects too
 * fix autoaim items
-* twitch happenings shall not happen in load state (also dont count time in pause/load state)
 
 # bugs
 * i think pet projectiles can still hurt ya (cuz owner is now set to pet)
