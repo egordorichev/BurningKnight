@@ -290,7 +290,13 @@ namespace BurningKnight.ui.str {
 					}
 
 					case '_': {
-						AddEffect<ItalicEffect>(builder);
+						if (lc == '\\') {
+							builder.Remove(builder.Length - 1, 1);
+							builder.Append(c);
+						} else {
+							AddEffect<ItalicEffect>(builder);
+						}
+
 						break;
 					}
 

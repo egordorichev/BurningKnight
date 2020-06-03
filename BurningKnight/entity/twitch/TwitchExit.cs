@@ -18,12 +18,12 @@ namespace BurningKnight.entity.twitch {
 		private void TurnOn(Entity entity) {
 			if (!TwitchBridge.On) {
 				entity.RemoveComponent<PlayerInputComponent>();
-				var id = GlobalSave.GetString("twitch_username");
+				var id = TwitchBridge.TwitchUsername;
 				
 				sign.GetComponent<DialogComponent>().Start("logging_in");
 				
 				new Thread(() => {
-					TwitchBridge.TurnOn(id, (ok) => {
+					TwitchBridge.TurnOn(GlobalSave.GetString("twitch_username"), (ok) => {
 						if (ok) {
 							base.Interact(entity);
 						} else {

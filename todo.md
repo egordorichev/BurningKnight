@@ -6,8 +6,8 @@
 * shield lamp: start with iron helmet & armor?
 * melee lamp
 * game did not let continue run after restarting the game
-* _ -> \\_ in twitch usernames
 * somehow still can not kill the process in the end (and start a new one wew)
+* scourge of greed actives hudden consumables and not higher prices?
 
 * maanex mob spawns suggestion
 * subs keep distance, hide nicks from time to time
@@ -16,7 +16,6 @@
 * rain starts with ignoring audio settings
 * display total vote count
 * remove the bot is here message from chat
-* russian translation missing stuff for omega hurt (those 3 options)
 * WHAT WHY DID 10 subs appear wow
 * ghost bullets break from doors lol
 * random teleport events are bad
