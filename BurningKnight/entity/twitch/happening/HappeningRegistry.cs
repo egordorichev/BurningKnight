@@ -38,7 +38,7 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("give_random_item", new RandomItemHappening(ItemPool.Treasure));
 			Add("give_random_consumable", new RandomItemHappening(ItemPool.Consumable));
 			Add("invincible", new BuffHappening(InvincibleBuff.Id, 30));
-			Add("treasure_tp", new TeleportHappening(RoomType.Treasure, RoomType.Shop));
+			// Add("treasure_tp", new TeleportHappening(RoomType.Treasure, RoomType.Shop));
 			Add("small_heal", new HealHappening(1));
 			Add("heal", new HealHappening(2));
 			Add("omega_heal", new HealHappening(36));
@@ -49,8 +49,8 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("gift", new ModifyCoinsHappening(10));
 			
 			// Neutral
-			Add("entrance_tp", new TeleportHappening(RoomType.Entrance));
-			Add("exit_tp", new TeleportHappening(RoomType.Exit, RoomType.Boss));
+			// Add("entrance_tp", new TeleportHappening(RoomType.Entrance));
+			// Add("exit_tp", new TeleportHappening(RoomType.Exit, RoomType.Boss));
 		}
 
 		public static void Add(string id, Happening happening, Mod mod = null) {

@@ -1,4 +1,3 @@
-* mark more items as gold tier (diamond tear perhaps?)
 * coin lamp: more coin drops & shop every level but no treasure rooms
 * fragile lamp: treasure rooms on each floor
 * shield lamp: start with iron helmet & armor?
@@ -12,8 +11,6 @@
 * display total vote count
 * remove the bot is here message from chat
 * WHAT WHY DID 10 subs appear wow
-* random teleport events are bad
-* charger missing sfx when charging?
 * reset scourge effects when player stats reset
 * cleansed should remove scourge tokens/efffects too
 * fix autoaim items
