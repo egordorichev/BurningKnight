@@ -27,7 +27,7 @@ namespace Lens.util.file {
 		}
 
 		protected virtual void ReadData(string path) {
-			var file = File.Open(path, FileMode.Open);
+			var file = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			var stream = new BinaryReader(file);
 
 			read = new byte[file.Length];

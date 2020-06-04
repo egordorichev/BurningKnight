@@ -6,13 +6,13 @@ using ImGuiNET;
 
 namespace Lens.util {
 	public static class Log {
-		public static bool WriteToFile = !Engine.Debug;
+		public static bool WriteToFile = true;//!Engine.Debug;
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 		private static StreamWriter writer;
 
 		public static void Open() {
 			if (WriteToFile) {
-				writer = new StreamWriter("burning_log.txt");
+				writer = new StreamWriter(new FileStream("burning_log.txt", FileMode.Append, FileAccess.Write, FileShare.ReadWrite));
 			}
 		}
 

@@ -2,7 +2,6 @@
 * camera still follows gobbo somewhere (just reset his velocity pls)
 
 * game did not let continue run after restarting the game
-* somehow still can not kill the process in the end (and start a new one wew)
 * its hard to understand what twitch option was picked
 * fix autoaim items
 

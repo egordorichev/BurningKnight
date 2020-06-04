@@ -1,7 +1,5 @@
 using System;
 using System.Diagnostics;
-using Aseprite;
-using Lens.util.file;
 
 namespace Desktop {
 	public class Program {
@@ -32,11 +30,9 @@ namespace Desktop {
 				}
 			}
 
-			/*using (var game = new DesktopApp()) {
+			using (var game = new DesktopApp()) {
 				game.Run();
-			}*/
-
-			Console.ReadLine();
+			}
 		}
 	}
 }
