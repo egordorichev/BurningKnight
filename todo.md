@@ -1,6 +1,3 @@
-* REMOVE SECOND TREASURE ROOM FROM THE LIB OOO
-* you have to press x 2 times in the menu?
-
 * coin lamp: more coin drops & shop every level but no treasure rooms
 * fragile lamp: treasure rooms on each floor
 * shield lamp: start with iron helmet & armor?
