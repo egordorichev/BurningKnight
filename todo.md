@@ -1,6 +1,6 @@
-* achievement for beating game with lamp
 * pico 8 yes no?
 * emerald gun
+* camera still follows gobbo somewhere (just reset his velocity pls)
 
 * game did not let continue run after restarting the game
 * somehow still can not kill the process in the end (and start a new one wew)

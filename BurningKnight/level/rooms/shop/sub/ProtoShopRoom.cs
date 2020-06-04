@@ -19,5 +19,13 @@ namespace BurningKnight.level.rooms.shop.sub {
 		protected override bool Quad() {
 			return true;
 		}
+
+		public override int GetMinWidth() {
+			return 5;
+		}
+
+		public override int GetMinHeight() {
+			return 5;
+		}
 	}
 }

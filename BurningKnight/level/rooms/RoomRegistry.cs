@@ -139,7 +139,7 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<ShopRoom>(1f),
 				
 				// Sub shop
-				RoomInfo.New<ProtoShopRoom>(1f + 1000000f),
+				RoomInfo.New<ProtoShopRoom>(1f),
 				RoomInfo.New<StorageRoom>(1f),
 				RoomInfo.New<SnekShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Snek)),
 				RoomInfo.New<VampireShopRoom>(1f, () => GlobalSave.IsTrue(ShopNpc.Vampire)),
