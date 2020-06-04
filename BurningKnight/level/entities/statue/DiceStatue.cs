@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level.entities.chest;
+using BurningKnight.save;
 using BurningKnight.state;
 using Lens.assets;
 using Lens.entity;
@@ -120,7 +121,7 @@ namespace BurningKnight.level.entities.statue {
 						item.Done = true;
 
 						if (e.GetComponent<WeaponComponent>().Item == null) {
-							c.Set(Items.CreateAndAdd("bk:ancient_revolver", s.Area));
+							c.Set(Items.CreateAndAdd(LevelSave.MeleeOnly ? "bk:ancient_sword" : "bk:ancient_revolver", s.Area));
 						} else {
 							c.RequestSwap();
 						}

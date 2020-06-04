@@ -1229,5 +1229,9 @@
 	"bk:gold_lamp": "Gold Lamp",
 	"bk:gold_lamp_desc": "Money money money",
 	"bk:sharp_lamp": "Sharp Lamp",
-	"bk:sharp_lamp_desc": "For melee lowers"
+	"bk:sharp_lamp_desc": "For melee lowers",
+	"bk:ancient_sword": "Ancient Sword",
+	"bk:ancient_sword_desc": "Really old stick",
+	"ach_bk:unstoppable": "Unstoppable",
+	"ach_bk:unstoppable_desc": "Beat the game with any lamp"
 }

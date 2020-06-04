@@ -1,7 +1,4 @@
 * achievement for beating game with lamp
-* remove granny secret achievement
-* melee lamp should not allow to take ranged weapons
-* replace ancient gun with ancient sword with melee lamp
 * pico 8 yes no?
 * emerald gun
 

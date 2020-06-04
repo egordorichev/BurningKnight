@@ -1,6 +1,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.save;
 using Lens.entity;
 using Microsoft.Xna.Framework;
 
@@ -24,7 +25,7 @@ namespace BurningKnight.level.entities.statue {
 			}
 
 			var i = e.GetComponent<ActiveWeaponComponent>().Item;
-			return i != null && i.Id != "bk:ancient_revolver";
+			return i != null && i.Id != "bk:ancient_revolver" && i.Id != "bk:ancient_sword";
 		}
 
 		protected override Rectangle GetCollider() {
@@ -39,7 +40,7 @@ namespace BurningKnight.level.entities.statue {
 			item.Done = true;
 
 			if (e.GetComponent<WeaponComponent>().Item == null) {
-				c.Set(Items.CreateAndAdd("bk:ancient_revolver", Area));				
+				c.Set(Items.CreateAndAdd(LevelSave.MeleeOnly ? "bk:ancient_sword" : "bk:ancient_revolver", Area));				
 			} else {
 				c.RequestSwap();
 			}

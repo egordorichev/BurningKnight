@@ -1,6 +1,7 @@
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
+using BurningKnight.save;
 
 namespace BurningKnight.entity.twitch.happening {
 	public class StealWeaponHappening : Happening {
@@ -13,7 +14,7 @@ namespace BurningKnight.entity.twitch.happening {
 			item.Done = true;
 
 			if (e.GetComponent<WeaponComponent>().Item == null) {
-				c.Set(Items.CreateAndAdd("bk:ancient_revolver", e.Area));
+				c.Set(Items.CreateAndAdd(LevelSave.MeleeOnly ? "bk:ancient_sword" : "bk:ancient_revolver", e.Area));
 			} else {
 				c.RequestSwap();
 			}
