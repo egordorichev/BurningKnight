@@ -1,5 +1,4 @@
 * pico 8 yes no?
-* camera still follows gobbo somewhere (just reset his velocity pls)
 
 * game did not let continue run after restarting the game
 * its hard to understand what twitch option was picked
