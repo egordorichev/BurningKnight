@@ -16,14 +16,11 @@
 	"bk:quackers": {
 		"secret": true
 	},
-	"bk:tea_party": {
-		"secret": true
-	},
 	"bk:not_a_thief": {
 		"secret": true
 	},
 	"bk:npc_party": {
-		"max": 14,
+		"max": 13,
 		"group": "c"
 	},
 	"bk:scourge_king": {
