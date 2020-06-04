@@ -18,6 +18,7 @@ using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.imgui;
 using BurningKnight.util;
@@ -57,7 +58,7 @@ namespace BurningKnight.entity.creature.mob {
 			
 			SetStats();
 			
-			AddDrops(new SingleDrop("bk:coin", 0.12f));
+			AddDrops(new SingleDrop("bk:coin", LevelSave.GenerateShops ? 0.2f : 0.12f));
 			AddDrops(new SingleDrop("bk:bomb", 0.03f));
 
 			var h = GetComponent<HealthComponent>();

@@ -1,6 +1,10 @@
-* coin lamp: more coin drops & shop every level but no treasure rooms
-* fragile lamp: treasure rooms on each floor
-* melee lamp
+* achievement for beating game with lamp
+* remove granny secret achievement
+* melee lamp should not allow to take ranged weapons
+* replace ancient gun with ancient sword with melee lamp
+* pico 8 yes no?
+* emerald gun
+
 * game did not let continue run after restarting the game
 * somehow still can not kill the process in the end (and start a new one wew)
 * its hard to understand what twitch option was picked

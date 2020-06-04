@@ -29,6 +29,7 @@ namespace BurningKnight.save {
 		public static bool GenerateMarket;
 		public static bool GenerateShops;
 		public static bool GenerateTreasure;
+		public static bool MeleeOnly;
 
 		private static int I;
 
@@ -194,6 +195,7 @@ namespace BurningKnight.save {
 			GenerateMarket = false;
 			GenerateTreasure = false;
 			GenerateShops = false;
+			MeleeOnly = false;
 		}
 	}
 }

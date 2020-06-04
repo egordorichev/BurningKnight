@@ -13,6 +13,7 @@ namespace BurningKnight.entity.item.use {
 		private bool genMarket;
 		private bool shops;
 		private bool treasure;
+		private bool melee;
 
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
@@ -27,6 +28,7 @@ namespace BurningKnight.entity.item.use {
 			LevelSave.GenerateMarket = genMarket;
 			LevelSave.GenerateShops = shops;
 			LevelSave.GenerateTreasure = treasure;
+			LevelSave.MeleeOnly = melee;
 		}
 
 		public override void Setup(JsonValue settings) {
@@ -38,6 +40,7 @@ namespace BurningKnight.entity.item.use {
 			genMarket = settings["gm"].Bool(false);
 			shops = settings["sp"].Bool(false);
 			treasure = settings["tr"].Bool(false);
+			melee = settings["ml"].Bool(false);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -45,6 +48,7 @@ namespace BurningKnight.entity.item.use {
 			root.Checkbox("Generate Market", "gm", false);
 			root.Checkbox("Only Shops", "sp", false);
 			root.Checkbox("Only Treasure", "tr", false);
+			root.Checkbox("Only Generate Melee", "ml", false);
 			root.InputFloat("Chest Reward Chance Modifier", "crc", 0);
 			root.InputFloat("Mob Not Shoot Chance Modifier", "md", 0);
 			root.InputFloat("Mimic Chance Modifier", "mimic", 0);
