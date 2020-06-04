@@ -1,6 +1,5 @@
 * coin lamp: more coin drops & shop every level but no treasure rooms
 * fragile lamp: treasure rooms on each floor
-* shield lamp: start with iron helmet & armor?
 * melee lamp
 * game did not let continue run after restarting the game
 * somehow still can not kill the process in the end (and start a new one wew)
