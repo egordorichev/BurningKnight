@@ -238,7 +238,7 @@ namespace BurningKnight.level {
 				}
 
 				if (!rush && !final && Run.Type != RunType.Challenge && !loop) {
-					if (first) {
+					if (!LevelSave.GenerateShops && first) {
 						if (LevelSave.XL) {
 							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 						}
@@ -246,12 +246,12 @@ namespace BurningKnight.level {
 						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 					}
 
-					if (!first) {
+					if (!LevelSave.GenerateTreasure && (!first || LevelSave.GenerateShops)) {
 						rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 					}
 				}
 
-				if (loop && Run.Depth == 0 && Run.Type != RunType.Challenge) {
+				if (!LevelSave.GenerateShops && loop && Run.Depth == 1 && Run.Type != RunType.Challenge) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}
 
@@ -260,8 +260,13 @@ namespace BurningKnight.level {
 					rooms.Add(new PrebossRoom());
 
 					if (Run.Depth > 1 && Run.Depth < 11) {
-						rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
-						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+						if (!LevelSave.GenerateShops) {
+							rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
+							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+						} else {
+							rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
+							rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
+						}	
 					}
 				} else if (first) {
 					rooms.Add(new ExitRoom());

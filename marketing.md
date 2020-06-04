@@ -1,12 +1,13 @@
 # Release day
 
 * Reddit
+* Blog Post on github (+ copy for the rexcellentgames.com)
+* Community Post on steam
+
 * Twitch-Streamers
 * Twitter (tag itch.op)
 * Imgur
 * Mailing List
-* Blog Post on github (+ copy for the rexcellentgames.com)
-* Community Post on steam
 * Announcement in rexcellent discord
 * Announcement in other discords (indikator, etc)
 * Key giveaways on discord
