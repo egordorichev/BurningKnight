@@ -412,6 +412,10 @@ namespace BurningKnight.assets.items {
 
 		
 		public static bool ShouldAppear(ItemData t) {
+			if (LevelSave.MeleeOnly && t.Type == ItemType.Weapon && t.WeaponType != WeaponType.Melee) {
+				return false;
+			}
+			
 			return (Run.Type == RunType.Daily || !t.Lockable || GlobalSave.IsTrue(t.Id)) && (!t.Single || Run.Statistics == null ||
 			                                                    (!Run.Statistics.Items.Contains(t.Id) &&
 			                                                     !Run.Statistics.Banned.Contains(t.Id))) && t.Id != "bk:the_sword";

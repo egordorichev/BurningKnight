@@ -2,6 +2,8 @@ using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
+using BurningKnight.entity.events;
+using Lens.entity;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
 
@@ -13,7 +15,16 @@ namespace BurningKnight.entity.creature.pet {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+			
 			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.2f, 1f)));
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse && Sprite == "bk:sharp_lamp" && cse.Entity is Creature c && !c.IsFriendly()) {
+				c.GetComponent<HealthComponent>().ModifyHealth(-2, this);
+			}
+			
+			return base.HandleEvent(e);
 		}
 
 		protected override void Follow() {

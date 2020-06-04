@@ -1,11 +1,17 @@
-* coin lamp: more coin drops & shop every level but no treasure rooms
-* fragile lamp: treasure rooms on each floor
-* shield lamp: start with iron helmet & armor?
-* melee lamp
+* pico 8 yes no?
+* emerald gun
+* camera still follows gobbo somewhere (just reset his velocity pls)
+
 * game did not let continue run after restarting the game
 * somehow still can not kill the process in the end (and start a new one wew)
-* its hard to understand what option was picked
+* its hard to understand what twitch option was picked
 * fix autoaim items
+
+twitch events {
+ you place bombs every 3 seconds
+ order 66
+ you constantly SLIIIIIIIIIIIIIIIIIIIIIIIIDE
+}
 
 * maanex mob spawns suggestion
 

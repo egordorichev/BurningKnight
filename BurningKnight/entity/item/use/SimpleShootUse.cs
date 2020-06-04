@@ -3,15 +3,18 @@ using BurningKnight.assets;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle;
 using BurningKnight.assets.particle.controller;
+using BurningKnight.assets.particle.custom;
 using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.input;
 using Lens.lightJson;
@@ -55,6 +58,7 @@ namespace BurningKnight.entity.item.use {
 		private bool shells;
 		private int manaDrop;
 		private float angleAdd;
+		private bool emeralds;
 		
 		public bool ProjectileDied = true;
 
@@ -124,6 +128,7 @@ namespace BurningKnight.entity.item.use {
 			wait = settings["wait"].Bool(false);
 			disableBoost = settings["dsb"].Bool(false);
 			shells = settings["shells"].Bool(true);
+			emeralds = settings["emeralds"].Bool(false);
 
 			SpawnProjectile = (entity, item) => {
 				if (manaUsage > 0) {
@@ -135,6 +140,16 @@ namespace BurningKnight.entity.item.use {
 					}
 					
 					mana.ModifyMana(-manaUsage);
+				}
+
+				if (emeralds) {
+					if (GlobalSave.Emeralds == 0) {
+						AnimationUtil.ActionFailed();
+						TextParticle.Add(entity, Locale.Get("no_emeralds"));
+						return;
+					}
+
+					GlobalSave.Emeralds--;
 				}
 				
 				var bad = entity is Creature c && !c.IsFriendly();
@@ -328,7 +343,8 @@ namespace BurningKnight.entity.item.use {
 				root.InputInt("Sound Prefix Number", "sfxn", 0);
 				root.Checkbox("Reload Sound", "rsfx", false);
 				root.Checkbox("Drop Shells", "shells", true);
-				
+				root.Checkbox("Uses Emeralds", "emeralds", false);
+
 				var c = root.InputText("Color", "color");
 
 				if (!string.IsNullOrEmpty(c) && !ProjectileColor.Colors.ContainsKey(c)) {

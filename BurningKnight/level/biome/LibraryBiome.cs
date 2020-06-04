@@ -36,15 +36,7 @@ namespace BurningKnight.level.biome {
 				}
 			});
 		}
-
-		public override void ModifyRooms(List<RoomDef> rooms) {
-			base.ModifyRooms(rooms);
-
-			if (Run.Depth % 2 == 0) {
-				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, this));
-			}
-		}
-
+		
 		public override int GetNumRegularRooms() {
 			return base.GetNumRegularRooms() * 2;
 		}

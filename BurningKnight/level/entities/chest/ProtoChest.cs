@@ -34,7 +34,7 @@ namespace BurningKnight.level.entities.chest {
 			i.OnStart = e => AddFx();
 			
 			try {
-				var id = GlobalSave.GetString("proto_chest", "bk:ancient_revolver");
+				var id = GlobalSave.GetString("proto_chest", LevelSave.MeleeOnly ? "bk:ancient_sword" : "bk:ancient_revolver");
 
 				if (id != null) {
 					var item = Items.CreateAndAdd(id, Area);

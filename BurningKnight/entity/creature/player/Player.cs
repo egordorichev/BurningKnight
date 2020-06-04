@@ -208,8 +208,16 @@ namespace BurningKnight.entity.creature.player {
 				if (StartingWeapon != null) {
 					var i = Items.CreateAndAdd(StartingWeapon, Area);
 					i.Scourged = false;
-					GetComponent<ActiveWeaponComponent>().Set(i, false);
+
+					var l = GetComponent<LampComponent>().Item;
+
+					if (l != null && l.Id == "bk:sharp_lamp" && i.Data.WeaponType != WeaponType.Melee) {
+						StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
+						i.Done = true;
+						i = Items.CreateAndAdd(StartingWeapon, Area);
+					}
 					
+					GetComponent<ActiveWeaponComponent>().Set(i, false);
 					Log.Debug($"Starting weapon: {StartingWeapon}");
 				}
 				

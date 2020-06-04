@@ -2960,6 +2960,10 @@ namespace BurningKnight.state {
 						}
 					}
 
+					if (player.GetComponent<LampComponent>().Item?.Id != "bk:no_lamp") {
+						Achievements.Unlock("bk:unstoppable");
+					}
+
 					if (!found) {
 						Achievements.Unlock("bk:not_a_thief");
 					}
