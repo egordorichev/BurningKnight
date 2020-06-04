@@ -1,5 +1,4 @@
 * pico 8 yes no?
-* emerald gun
 * camera still follows gobbo somewhere (just reset his velocity pls)
 
 * game did not let continue run after restarting the game

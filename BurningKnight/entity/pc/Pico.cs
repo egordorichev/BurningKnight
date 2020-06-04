@@ -63,7 +63,7 @@ namespace BurningKnight.entity.pc {
 			on = true;
 
 			Camera.Instance.Targets.Clear();
-			Camera.Instance.Position = Position + new Vector2(Display.Width * 0.5f);// + new Vector2(5 + 64, 16 + 64);
+			Camera.Instance.Position = Position + new Vector2(Display.Width * 0.25f, 0);// + new Vector2(5 + 64, 16 + 64);
 
 			LoadCart();
 		}
