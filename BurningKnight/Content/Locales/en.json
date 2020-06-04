@@ -1233,5 +1233,8 @@
 	"bk:ancient_sword": "Ancient Sword",
 	"bk:ancient_sword_desc": "Really old stick",
 	"ach_bk:unstoppable": "Unstoppable",
-	"ach_bk:unstoppable_desc": "Beat the game with any lamp"
+	"ach_bk:unstoppable_desc": "Beat the game with any lamp",
+	"no_emeralds": "No Emeralds",
+	"bk:emerald_gun": "Emerald Gun",
+	"bk:emerald_gun_desc": "Most expensive gun on the market"
 }
