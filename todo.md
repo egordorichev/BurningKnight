@@ -10,7 +10,7 @@
 
 twitch events {
  you place bombs every 3 seconds
- order 66
+ order 66к 
  you constantly SLIIIIIIIIIIIIIIIIIIIIIIIIDE
  
  + better announcement

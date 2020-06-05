@@ -1232,5 +1232,9 @@
 	"ach_bk:unstoppable_desc": "Пройди игру с любой лампой",
 	"no_emeralds": "Нет Изумрудов",
 	"bk:emerald_gun": "Изумрудный Пистоль",
-	"bk:emerald_gun_desc": "Самое дорогое оружие в стране"
+	"bk:emerald_gun_desc": "Самое дорогое оружие в стране",
+	"minimap" : "Миникарта",
+	"quality" : "Качество",
+	"normal" : "Нормальное",
+	"potato" : "Картошка"
 }
