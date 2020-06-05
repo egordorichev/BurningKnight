@@ -95,7 +95,7 @@ namespace BurningKnight {
 			Blood = true;
 			UiSfx = true;
 			Vsync = true;
-			Screenshake = 1f;
+			Screenshake = 0.7f;
 			SpeedrunMode = false;
 			SpeedrunTimer = false;
 			FreezeFrames = 0.5f;
