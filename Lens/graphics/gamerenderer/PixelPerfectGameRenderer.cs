@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Graphics;
 using SharpDX.Direct2D1.Effects;
+using VelcroPhysics;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
@@ -79,7 +80,7 @@ namespace Lens.graphics.gamerenderer {
 
 			BeginUi();
 			
-			if (Engine.Instance.Flash > 0) {
+			if (Engine.Flashes && Engine.Instance.Flash > 0) {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);

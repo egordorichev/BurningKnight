@@ -3,7 +3,6 @@
 * rekvi didnt have locks rendering
 * rekvi fps issues
 * moving platforms can get stuck (room where they move around center)
-* bring flash remove back
 * reference to rekvi
 
 * game did not let continue run after restarting the game

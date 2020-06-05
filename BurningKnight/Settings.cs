@@ -44,6 +44,7 @@ namespace BurningKnight {
 		public static float FreezeFrames;
 		public static float FlashFrames;
 		public static bool ShowFps;
+		public static bool Flashes;
 
 		public static bool PixelPerfect {
 			get => Engine.PixelPerfect;
@@ -114,11 +115,13 @@ namespace BurningKnight {
 			PixelPerfect = false;
 			CursorRadius = 1f;
 			Minimap = true;
+			Flashes = true;
 			Language = Locale.PrefferedClientLanguage;
 			
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
 			Engine.FlashModifier = FlashFrames;
+			Engine.Flashes = Flashes;
 		}
 		
 		public static void Load() {
@@ -143,6 +146,7 @@ namespace BurningKnight {
 			Gamepad = GlobalSave.GetString("s_gp");
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
 			Minimap = GlobalSave.IsTrue("s_mm", true);
+			Flashes = GlobalSave.IsTrue("s_fl", true);
 			Sensivity = GlobalSave.GetFloat("s_ss", 1);
 			GameScale = GlobalSave.GetFloat("s_gs", 1);
 			FloorDarkness = GlobalSave.GetFloat("s_fd", 1);
@@ -154,6 +158,7 @@ namespace BurningKnight {
 			ShakeComponent.Modifier = Screenshake;
 			Engine.FreezeModifier = FreezeFrames;
 			Engine.FlashModifier = FlashFrames;
+			Engine.Flashes = Flashes;
 		}
 
 		public static void Save() {
@@ -184,6 +189,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_cr", CursorRadius);
 			GlobalSave.Put("s_ln", Language);
 			GlobalSave.Put("s_mm", Minimap);
+			GlobalSave.Put("s_fl", Flashes);
 		}
 
 		public static void Generate() {

@@ -2190,7 +2190,7 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 20f;
+			var space = 18f;
 			var sy = Display.UiHeight * 0.5f - space * 2f;
 			
 			graphicsSettings.Add(new UiLabel {
@@ -2287,6 +2287,28 @@ namespace BurningKnight.state {
 				Click = b => {
 					Settings.PixelPerfect = ((UiCheckbox) b).On;
 					Engine.Instance.UpdateView();
+				}
+			});
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "vsync",
+				On = Settings.Vsync,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 6,
+				Click = b => {
+					Settings.Vsync = ((UiCheckbox) b).On;
+					Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
+					Engine.Graphics.ApplyChanges();
+				}
+			});
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "flashes",
+				On = Settings.Flashes,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 7,
+				Click = b => {
+					Engine.Flashes = Settings.Flashes = ((UiCheckbox) b).On;
 				}
 			});
 			

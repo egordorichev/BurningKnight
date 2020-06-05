@@ -170,6 +170,7 @@
 	"fullscreen": "Fullscreen",
 	"vsync": "V-Sync",
 	"fps": "FPS Counter",
+	"flashes": "Flashes",
 	"speedrun_timer": "Speedrun Timer",
 	"screenshake": "Screen Shake",
 	"reset_progress": "Reset Progress",

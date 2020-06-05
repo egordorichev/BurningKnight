@@ -37,6 +37,7 @@ namespace Lens {
 		public static bool Quiting;
 		public static int UpdateTime;
 		public static int RenderTime;
+		public static bool Flashes = true;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
