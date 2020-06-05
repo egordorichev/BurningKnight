@@ -1221,5 +1221,16 @@
 	"happening_bk:entrance_tp": "Опять 25",
 	"happening_bk:exit_tp": "Пора валить",
 	"twitch_next": "Что будет дальше?",
-	"total_votes": "голоса"
+	"total_votes": "голоса",
+	"bk:gold_lamp": "Золотая Лампа",
+	"bk:gold_lamp_desc": "Время - деньги, а денег что? Мало.",
+	"bk:sharp_lamp": "Острая Лампа",
+	"bk:sharp_lamp_desc": "Для любителей Melee",
+	"bk:ancient_sword": "Древний Меч",
+	"bk:ancient_sword_desc": "Супер старая палка",
+	"ach_bk:unstoppable": "Неостоновимый",
+	"ach_bk:unstoppable_desc": "Пройди игру с любой лампой",
+	"no_emeralds": "Нет Изумрудов",
+	"bk:emerald_gun": "Изумрудный Пистоль",
+	"bk:emerald_gun_desc": "Самое дорогое оружие в стране"
 }

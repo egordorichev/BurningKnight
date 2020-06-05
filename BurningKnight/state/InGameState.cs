@@ -1352,6 +1352,10 @@ namespace BurningKnight.state {
 
 			var player = LocalPlayer.Locate(Area);
 
+			if (Run.Depth > 0) {
+				TopUi.Add(new UiMap(player));
+			}	
+			
 			if (Assets.ImGuiEnabled) {
 				Console = new Console(Area);
 			}

@@ -1177,5 +1177,16 @@
 	"painting_beet_boys": "Rübenkumpel",
 	"painting_moonshine": "Mondschein",
 	"painting_void": "Die Leere",
-	"painting_peasants": "Der einfache Mann"
+	"painting_peasants": "Der einfache Mann",
+	"bk:gold_lamp": "Gold Lampe",
+	"bk:gold_lamp_desc": "GELD GELD GELD",
+	"bk:sharp_lamp": "Scharfe Lampe",
+	"bk:sharp_lamp_desc": "Für Nahkampf-Enthusiasten",
+	"bk:ancient_sword": "Uraltes Schwert",
+	"bk:ancient_sword_desc": "Das war schon zu Zeiten meines Opas alt!",
+	"ach_bk:unstoppable": "Unaufhaltbar",
+	"ach_bk:unstoppable_desc": "Spiele das Spiel mit einer Lampe durch!",
+	"no_emeralds": "Keine Smaragde",
+	"bk:emerald_gun": "Smaragdpistole",
+	"bk:emerald_gun_desc": "Die teuerste Pistole auf dem Mark!"
 }

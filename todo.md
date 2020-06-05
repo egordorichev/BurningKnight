@@ -17,8 +17,9 @@ twitch events {
  + delay between alerts
 }
 
+* low graphics settings
+
 * map
-* should I allow pharaoh to shoot through walls?
 * maanex mob spawns suggestion
 * single weapon but more hp lamp?
 

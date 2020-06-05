@@ -1374,6 +1374,7 @@
     <Compile Include="ui\UiEntity.cs" />
     <Compile Include="ui\UiImageButton.cs" />
     <Compile Include="ui\UiLabel.cs" />
+    <Compile Include="ui\UiMap.cs" />
     <Compile Include="ui\UiPane.cs" />
     <Compile Include="ui\UiSlider.cs" />
     <Compile Include="ui\UiTable.cs" />
