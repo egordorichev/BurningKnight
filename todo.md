@@ -1,6 +1,5 @@
 * rekvi didnt have locks rendering
 * rekvi fps issues
-* moving platforms can get stuck (room where they move around center)
 
 * better twitch announcement
 * maanex mob spawns suggestion

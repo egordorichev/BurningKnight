@@ -11,7 +11,7 @@ namespace BurningKnight.level.rooms.regular {
 			Painter.Rect(level, this, 3, Tile.Chasm);
 			Painter.Rect(level, this, 4, Tile.Chasm);
 
-			var c = Rnd.Int(1, 5);
+			var c = Rnd.Int(1, 3);
 			var d = Rnd.Chance() ? PlatformController.ClockWise : PlatformController.CounterClockWise;
 			
 			for (var i = 0; i < c; i++) {
