@@ -1992,10 +1992,20 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			gameSettings.Add(new UiCheckbox {
+				Name = "minimap",
+				On = Settings.Minimap,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 3,
+				Click = b => {
+					Settings.Minimap = ((UiCheckbox) b).On;
+				}
+			});
+			
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_settings",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 3.5f,
+				RelativeCenterY = sy + space * 4.5f,
 				Click = b => {
 					GoConfirm("reset_settings_dis", () => {
 						currentBack = settingsBack;
@@ -2029,7 +2039,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_progress",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 4.5f,
+				RelativeCenterY = sy + space * 5.5f,
 				Click = b => {
 					GoConfirm("reset_progress_dis", () => {
 						currentBack = settingsBack;
@@ -2076,7 +2086,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 					LocaleLabel = "credits",
 					RelativeCenterX = sx,
-					RelativeCenterY = sy + space * 5.5f,
+					RelativeCenterY = sy + space * 6.5f,
 					Click = b => {
 						SetupCredits();
 						credits.Enabled = true;
@@ -2091,7 +2101,7 @@ namespace BurningKnight.state {
 				gameSettings.Add(new UiButton {
 						LocaleLabel = "tutorial",
 						RelativeCenterX = sx,
-						RelativeCenterY = sy + space * 6.5f,
+						RelativeCenterY = sy + space * 7.5f,
 						Click = b => { Run.Depth = -2; }
 				});
 			}

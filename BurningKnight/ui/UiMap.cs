@@ -50,11 +50,14 @@ namespace BurningKnight.ui {
 			playerIcon = CommonAse.Ui.GetSlice("gps");
 			frame = CommonAse.Ui.GetSlice("map_frame");
 
-			AlwaysActive = true;
 			AlwaysVisible = true;
 		}
 
 		public override void Render() {
+			if (!Settings.Minimap || Engine.Instance.State.Paused) {
+				return;
+			}
+			
 			var fx = player.CenterX / 16;
 			var fy = player.CenterY / 16;
 			var x = (int) Math.Floor(fx);
@@ -147,7 +150,7 @@ namespace BurningKnight.ui {
 							}
 						}
 						
-						Graphics.Render(icon, new Vector2(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx) * 2, Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy) * 2), 0, icon.Center);
+						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx) * 2), (int) Math.Floor(Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy) * 2)), 0, icon.Center);
 					}
 				}
 			}

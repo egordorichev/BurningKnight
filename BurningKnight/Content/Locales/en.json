@@ -1236,5 +1236,6 @@
 	"ach_bk:unstoppable_desc": "Beat the game with any lamp",
 	"no_emeralds": "No Emeralds",
 	"bk:emerald_gun": "Emerald Gun",
-	"bk:emerald_gun_desc": "Most expensive gun on the market"
+	"bk:emerald_gun_desc": "Most expensive gun on the market",
+	"minimap" : "Minimap"
 }

@@ -1,7 +1,8 @@
 * treasure room still spawns with gold lamp
 
 * rekvi didnt have locks rendering
-* moving platforms can get stuck
+* rekvi fps issues
+* moving platforms can get stuck (room where they move around center)
 * bring flash remove back
 * reference to rekvi
 
@@ -18,8 +19,6 @@ twitch events {
 }
 
 * low graphics settings
-
-* map
 * maanex mob spawns suggestion
 * single weapon but more hp lamp?
 

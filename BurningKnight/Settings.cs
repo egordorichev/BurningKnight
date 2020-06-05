@@ -38,6 +38,7 @@ namespace BurningKnight {
 		public static bool Vsync;
 		public static bool Blood;
 		public static bool UiSfx;
+		public static bool Minimap;
 		public static int Cursor;
 		public static bool RotateCursor;
 		public static float FreezeFrames;
@@ -112,6 +113,7 @@ namespace BurningKnight {
 			FloorDarkness = 1f;
 			PixelPerfect = false;
 			CursorRadius = 1f;
+			Minimap = true;
 			Language = Locale.PrefferedClientLanguage;
 			
 			ShakeComponent.Modifier = Screenshake;
@@ -140,6 +142,7 @@ namespace BurningKnight {
 			Autopause = GlobalSave.IsTrue("s_ap");
 			Gamepad = GlobalSave.GetString("s_gp");
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
+			Minimap = GlobalSave.IsTrue("s_mm", true);
 			Sensivity = GlobalSave.GetFloat("s_ss", 1);
 			GameScale = GlobalSave.GetFloat("s_gs", 1);
 			FloorDarkness = GlobalSave.GetFloat("s_fd", 1);
@@ -180,6 +183,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_pp", PixelPerfect);
 			GlobalSave.Put("s_cr", CursorRadius);
 			GlobalSave.Put("s_ln", Language);
+			GlobalSave.Put("s_mm", Minimap);
 		}
 
 		public static void Generate() {
