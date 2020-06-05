@@ -34,6 +34,12 @@ namespace Desktop.integration.twitch {
 			base.Init();
 
 			TwitchBridge.TurnOn = (channel, callback) => {
+				if (TwitchBridge.On) {
+					return;
+				}
+
+				TwitchBridge.On = true;
+				
 				try {
 					var credentials = new ConnectionCredentials("BurningKnightBot", $"{Pus}{DesktopApp.In}{Boots}");
 					var customClient = new WebSocketClient(new ClientOptions {
@@ -275,7 +281,7 @@ namespace Desktop.integration.twitch {
 			}
 
 			try {
-				if (Run.Type == RunType.Twitch && Run.Depth > 0) {
+				if (controller != null && Run.Type == RunType.Twitch && Run.Depth > 0) {
 					controller.Update(dt);
 				}
 				

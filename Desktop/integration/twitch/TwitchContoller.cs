@@ -5,11 +5,13 @@ using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch.happening;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Lens.util;
 using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 using TwitchLib.Client.Models;
 
@@ -95,7 +97,6 @@ namespace Desktop.integration.twitch {
 			if (happeningRn != null) {
 				voteDelay -= dt;
 				happeningRn.Happening.Update(dt);
-
 				
 				if (voteDelay <= 0) {
 					try {
@@ -109,21 +110,30 @@ namespace Desktop.integration.twitch {
 					happeningRn = null;
 					GenerateOptions();
 				}
-			}
+			} else {
+				timeLeft -= dt / TotalTime;
 
-			timeLeft -= dt / TotalTime;
-
-			if (timeLeft <= 0) {
-				ExecuteOrder66();
+				if (timeLeft <= 0) {
+					ExecuteOrder66();
+				}
 			}
 		}
 
 		public void Render() {
-			if (!(Engine.Instance.State is InGameState) || happeningRn != null) {
+			if (!(Engine.Instance.State is InGameState)) {
 				return;
 			}
 
-			var text = $"{question} ({(int) Math.Ceiling(timeLeft * TotalTime)}s)";
+			if (happeningRn != null || busy) {
+				if (happeningRn != null) {
+					var tt = $"{lastName} ({(int) Math.Ceiling(voteDelay)}s)";
+					Graphics.Print(tt, Font.Small, new Vector2(Display.UiWidth - Font.Small.MeasureString(tt).Width - 8, 8));
+				}
+				
+				return;
+			}
+
+			var text = $"{question}{(busy ? "" : $" ({(int) Math.Ceiling(timeLeft * TotalTime)}s)")}";
 
 			Graphics.Color.A = 200;
 			Graphics.Print(text, Font.Small, new Vector2(Display.UiWidth - Font.Small.MeasureString(text).Width - 8, 8));
@@ -148,7 +158,7 @@ namespace Desktop.integration.twitch {
 		}
 
 		public bool HandleMessage(ChatMessage chatMessage) {
-			if (happeningRn != null) {
+			if (happeningRn != null || busy) {
 				return false;
 			}
 			
@@ -192,8 +202,11 @@ namespace Desktop.integration.twitch {
 		}
 
 		private Player last;
-
+		private bool busy;
+		private string lastName;
+		
 		private void ExecuteOrder66() {
+			busy = true;
 			var options = new List<HappeningOption>();
 			
 			HappeningOption opt = null;
@@ -219,20 +232,27 @@ namespace Desktop.integration.twitch {
 				Log.Error("The jedi have escaped");
 				return;
 			}
-			
-			Log.Debug($"Option #{opt.Num} has won!");
-			
-			try {
-				opt.Happening.Happen(player);
-			} catch (Exception e) {
-				Log.Error(e);
-			}
 
-			TextParticle.Add(player, opt.Name);
+			var name = Locale.Get($"happening_{opt.Id}");
+			lastName = name;
+			Log.Debug($"Option #{opt.Num} ({name}) has won!");
+			
+			player.GetComponent<DialogComponent>().StartAndClose($"[cl purple]{name}[cl]", 3);
+			
 
 			last = player;
 			happeningRn = opt;
 			voteDelay = opt.Happening.GetVoteDelay();
+
+			Timer.Add(() => {
+				try {
+					opt.Happening.Happen(player);
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				busy = false;
+			}, 4);
 		}
 	}
 }

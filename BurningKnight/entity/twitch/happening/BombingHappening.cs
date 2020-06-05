@@ -6,7 +6,7 @@ namespace BurningKnight.entity.twitch.happening {
 		private Player on;
 		
 		public override void Happen(Player player) {
-			
+			on = player;
 		}
 
 		private float delay;
@@ -22,7 +22,7 @@ namespace BurningKnight.entity.twitch.happening {
 			delay -= dt;
 
 			if (delay <= 0) {
-				delay = 3;
+				delay = 1.5f;
 				var bomb = new Bomb(on, 2);
 				on.Area.Add(bomb);
 				bomb.Center = on.Center;

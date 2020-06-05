@@ -33,17 +33,11 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("slide", new SlideHappening());
 
 			// Good
-			Add("give_artifact", new RandomTypedItemHappening(ItemType.Artifact));
-			Add("give_weapon", new RandomTypedItemHappening(ItemType.Weapon));
-			Add("give_random_item", new RandomItemHappening(ItemPool.Treasure));
 			Add("give_random_consumable", new RandomItemHappening(ItemPool.Consumable));
 			Add("invincible", new BuffHappening(InvincibleBuff.Id, 30));
-			// Add("treasure_tp", new TeleportHappening(RoomType.Treasure, RoomType.Shop));
 			Add("heal", new HealHappening(2));
-			Add("shielded", new GiveShieldHappening());
 			Add("cleanse", new ScourgeHappening(-3));
 			Add("chest", new ChestHappening());
-			Add("buffed", new ModifyMaxHpHappening(2));
 			Add("gift", new ModifyCoinsHappening(10));
 			
 			// Neutral
