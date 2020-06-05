@@ -26,7 +26,8 @@ namespace BurningKnight.entity.creature.pet {
 			Width = 12;
 			
 			AddComponent(new FollowerComponent {
-				MaxDistance = 32
+				MaxDistance = 96,
+				FollowSpeed = 2
 			});
 			
 			AddComponent(new AnimationComponent("backpack") {
@@ -75,7 +76,14 @@ namespace BurningKnight.entity.creature.pet {
 		private bool Interact(Entity entity) {
 			var w = entity.GetComponent<ActiveWeaponComponent>();
 			var i = GetComponent<ItemComponent>();
-			i.Exchange(w);
+			var w2 = entity.GetComponent<WeaponComponent>();
+
+			if (i.Item != null && w2.Item == null) {
+				i.Exchange(w2);
+				w.RequestSwap();
+			} else {
+				i.Exchange(w);
+			}
 
 			if (w.Item != null) {
 				Audio.PlaySfx(w.Item.Data.WeaponType.GetSwapSfx());

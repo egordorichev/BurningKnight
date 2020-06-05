@@ -251,7 +251,7 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (LevelSave.GenerateTreasure && !first) {
+				if (!LevelSave.GenerateShops && LevelSave.GenerateTreasure && !first) {
 					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}
 

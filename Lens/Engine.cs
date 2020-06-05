@@ -171,7 +171,7 @@ namespace Lens {
 			Split = Math.Max(0, Split - dt);
 
 			if (Flash > 0) {
-				Flash -= dt * 120f;
+				Flash -= dt * 240f;
 			}
 			
 			// Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));

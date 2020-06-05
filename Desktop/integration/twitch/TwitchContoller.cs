@@ -15,7 +15,7 @@ using TwitchLib.Client.Models;
 
 namespace Desktop.integration.twitch {
 	public class TwitchContoller {
-		private const int TotalTime = 30;
+		private const int TotalTime = 45;
 		
 		private List<HappeningOption> options = new List<HappeningOption>();
 		private List<string> votersCache = new List<string>();
