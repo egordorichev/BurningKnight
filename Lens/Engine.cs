@@ -37,6 +37,7 @@ namespace Lens {
 		public static bool Quiting;
 		public static int UpdateTime;
 		public static int RenderTime;
+		public static bool Flashes = true;
 		
 		public FrameCounter Counter;
 		public GameRenderer StateRenderer;
@@ -171,7 +172,7 @@ namespace Lens {
 			Split = Math.Max(0, Split - dt);
 
 			if (Flash > 0) {
-				Flash -= dt * 120f;
+				Flash -= dt * 240f;
 			}
 			
 			// Freeze = Math.Max(0, Math.Min(1, Freeze) - dt * 60f * (1.1f - FreezeModifier));
@@ -263,8 +264,8 @@ namespace Lens {
 		}
 		
 		public void UpdateView() {
-			float screenWidth = GetScreenWidth();
-			float screenHeight = GetScreenHeight();
+			var screenWidth = GetScreenWidth();
+			var screenHeight = GetScreenHeight();
 
 			Graphics.PreferredBackBufferWidth = (int) screenWidth;
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;

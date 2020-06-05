@@ -29,7 +29,17 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			AddComponent(body);
 			body.KnockbackModifier = 0;
 		}
-		
+
+		public override void Destroy() {
+			base.Destroy();
+			
+			foreach (var p in projectiles) {
+				p.Break();
+			}
+
+			projectiles.Clear();
+		}
+
 		#region Flower States
 		public class IdleState : SmartState<Flower> {
 			public override void Init() {
@@ -42,23 +52,16 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 				if (!Self.CanSeeTarget()) {
 					T = 0;
-				} else if (T >= 3f) {
+				} else if (T >= 1.5f) {
 					Become<FireState>();
 				}
 			}
 		}
 
+		private List<Projectile> projectiles = new List<Projectile>();
+
 		public class FireState : SmartState<Flower> {
-			private List<Projectile> projectiles = new List<Projectile>();
 			private bool second;
-
-			public override void Destroy() {
-				base.Destroy();
-
-				foreach (var p in projectiles) {
-					p.Break();
-				}
-			}
 
 			public override void Update(float dt) {
 				base.Update(dt);
@@ -68,7 +71,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					return;
 				}
 				
-				if (T >= 0.25f) {
+				if (T >= 0.2f) {
 					T = 0;
 
 					if (second) {
@@ -77,11 +80,11 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						}
 						
 						for (var i = 0; i < (Self.ShootAllAtOnce ? 8 : 1); i++) {
-							var p = projectiles[0];
-							projectiles.RemoveAt(0);
+							var p = Self.projectiles[0];
+							Self.projectiles.RemoveAt(0);
 
 							if (!Self.ShootAllAtOnce) {
-								Self.GetComponent<AudioEmitterComponent>().Emit("mob_fire_static", pitch: (projectiles.Count / 16f - 0.5f) * 2);
+								Self.GetComponent<AudioEmitterComponent>().Emit("mob_fire_static", pitch: (Self.projectiles.Count / 16f - 0.5f) * 2);
 							}
 
 							if (!p.Done) {
@@ -90,20 +93,20 @@ namespace BurningKnight.entity.creature.mob.jungle {
 								p.Break();
 							}
 
-							if (projectiles.Count == 0) {
+							if (Self.projectiles.Count == 0) {
 								Become<IdleState>();
 							}
 						}
 					} else {
-						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
+						var p = Projectile.Make(Self, Self.projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
 
 						p.PreventDespawn = true;
-						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 10);
+						p.Center = Self.Position + new Vector2(9) + MathUtils.CreateVector(Self.projectiles.Count / 4f * Math.PI, 10);
 						p.Depth = 1;
-						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: projectiles.Count / 8f);
-						projectiles.Add(p);
+						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: Self.projectiles.Count / 8f);
+						Self.projectiles.Add(p);
 						
-						if (projectiles.Count == 8) {
+						if (Self.projectiles.Count == 8) {
 							second = true;
 						}
 					}

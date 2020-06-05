@@ -41,7 +41,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 
 				if (!Self.CanSeeTarget()) {
 					T = 0;
-				} else if (T >= 3f) {
+				} else if (T >= 1.5f) {
 					Become<FireState>();
 				}
 			}

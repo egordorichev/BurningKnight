@@ -29,7 +29,7 @@ namespace BurningKnight.entity.component {
 			var old = Room;
 			
 			if (old != null) {
-				if (/*(Entity is Mob m && m.Target != null) || */old.Contains(Entity.Center)) {
+				if ((Entity is Boss b && b.Target != null) || old.Contains(Entity.Center)) {
 					return;
 				}
 			}

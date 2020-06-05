@@ -127,9 +127,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var v = Self.counter;
 
 					if (v == 0) {
-						Become<TileMoveState>();
-					} else if (v == 1) {
 						Become<SimpleSpiralState>();
+					} else if (v == 1) {
+						if (Self.InThirdPhase) {
+							Become<BulletHellState>();
+						} else {
+							Become<TileMoveState>();
+						}
 					} else if (v == 2) {
 						Become<TeleportState>();
 					} else if (v == 3) {
@@ -139,7 +143,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 					} else if (v == 5) {
 						Become<AdvancedSpiralState>();
 					} else if (v == 6) {
-						Become<TileMoveState>();
+						if (Self.InThirdPhase) {
+							Become<TeleportState>();
+						} else {
+							Become<TileMoveState>();
+						}
 					}
 
 					Self.counter = (v + 1) % 7;
@@ -156,12 +164,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = 0.3f;
+					sinceLast = 0.2f;
 					var amount = 2 + (Self.Phase - 1);
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
-						var projectile = Projectile.Make(Self, "small", a, 6f, scale: count % 2 == 0 ? 1f : 1.5f);
+						var projectile = Projectile.Make(Self, "small", a, 8f, scale: count % 2 == 0 ? 1.5f : 2f);
 
 						projectile.Color = count % 4 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
 						projectile.CanBeBroken = false;
@@ -172,7 +180,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					count++;
 				}
 
-				if (T >= 10f) {
+				if (T >= 8f) {
 					Become<IdleState>();
 				}
 			}
@@ -187,12 +195,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = Self.InFirstPhase ? 0.9f : 0.6f;
+					sinceLast = Self.InFirstPhase ? 0.6f : 0.4f;
 					var amount = 8;
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 1) * Math.PI * 0.25f) * (i % 2 == 1 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 4f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1f);
+						var projectile = Projectile.Make(Self, "small", a, 6f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1.5f);
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
 
 						projectile.CanBeBroken = false;
@@ -218,12 +226,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = Self.InFirstPhase ? 0.5f : 0.3f;
+					sinceLast = Self.InFirstPhase ? 0.4f : 0.2f;
 					var amount = 4;
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 5f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1f);
+						var projectile = Projectile.Make(Self, "small", a, 7f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1.5f);
 						
 						projectile.CanBeBroken = false;
 						projectile.CanBeReflected = false;
@@ -285,8 +293,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 					return;
 				}
 
-				for (var x = -1; x < 2; x++) {
-					for (var y = -1; y < 2; y++) {
+				var sx = Rnd.Int(1, 4);
+				var sy = Rnd.Int(1, 4);
+
+				for (var x = sx > 2 ? -1 : 0; x < sx; x++) {
+					for (var y = sy > 2 ? -1 : 0; y < sy; y++) {
 						var x1 = x;
 						var y1 = y;
 
@@ -333,7 +344,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
-							var projectile = Projectile.Make(Self, "small", a, 5f + j1 * 2f, scale: j1 == 0 ? 1f : 1.5f);
+							var projectile = Projectile.Make(Self, "small", a, 7f + j1 * 2f, scale: j1 == 0 ? 1f : 2f);
 
 							projectile.CanBeBroken = false;
 							projectile.CanBeReflected = false;
@@ -392,7 +403,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_adidos");
 
 				Tween.To(0, 255, x => Self.GetComponent<MobAnimationComponent>().Tint.A = (byte) x, 0.5f).OnEnd = () => {
-					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomFreeTile() * 16;
+					var tile = Self.GetComponent<RoomComponent>().Room.GetRandomWallFreeTile() * 16;
 
 					Self.BottomCenter = tile + new Vector2(8, 8); 
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_appear");

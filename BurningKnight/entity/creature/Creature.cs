@@ -50,8 +50,8 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new AudioEmitterComponent());
 			
-			AddDrops(new SingleDrop("bk:heart", 0.02f));
-			AddDrops(new SingleDrop("bk:half_heart", 0.005f));
+			AddDrops(new SingleDrop("bk:heart", 0.0015f));
+			AddDrops(new SingleDrop("bk:half_heart", 0.003f));
 			AddDrops(new SingleDrop("bk:shield", 0.01f));
 			AddDrops(new SingleDrop("bk:bomb", 0.01f));
 			AddDrops(new SingleDrop("bk:key", 0.01f));
@@ -79,7 +79,7 @@ namespace BurningKnight.entity.creature {
 					if (b != null && ev.Amount < 0) {
 						b.KnockbackFrom(ev.From);
 
-						if (Settings.Blood) {
+						if (Settings.Blood && !Settings.LowQuality) {
 							for (var i = 0; i < 8; i++) {
 								var p = Particles.Wrap(new Particle(Controllers.Blood, Particles.BloodRenderer), Area,
 									Center + Rnd.Vector(-4, 4));

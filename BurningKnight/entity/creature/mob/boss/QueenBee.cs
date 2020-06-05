@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 3;
 
 			AddAnimation("bigbee");
-			SetMaxHp(280);
+			SetMaxHp(340);
 
 			Flying = true;
 			Depth = Layers.FlyingMob;
@@ -128,7 +128,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				base.Update(dt);
 
-				if (T >= 0.5f) {
+				if (T >= 0.2f) {
 					if (Self.penetrateCount != 0) {
 						Become<PrepareToPenetrateState>();
 					} else {
@@ -160,7 +160,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				sinceLast += dt;
 
-				if (sinceLast >= 1f) {
+				if (sinceLast >= 0.5f) {
 					sinceLast = 0;
 					var a = Self.AngleTo(Self.Target);
 					var second = Self.InThirdPhase;
@@ -185,7 +185,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 								Self.Area.Add(pp);
 							} else {
 								var p = Projectile.Make(Self, "circle", a + Rnd.Float(-0.1f, 0.1f), 30f, scale: Rnd.Float(0.8f, 1f));
-								p.AddLight(64f, ProjectileColor.Red);
+								p.Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange;
+								p.AddLight(64f, p.Color);
 							}
 							
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_shot");
@@ -237,7 +238,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				base.Update(dt);
 				
 				if (locked) {
-					if (T >= 0.5f) {
+					if (T >= 0.3f) {
 						Become<PenetrateState>();
 					}
 
@@ -354,7 +355,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						lastBullet = 0.2f;
 						
 						var a = (sign < 0 ? Math.PI : 0) + Rnd.Float(-1f, 1f);
-						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
+						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.6f, 2f));
 						p.Color = ProjectileColor.Orange;
 						p.BounceLeft = 5;
 						p.Controller += SlowdownProjectileController.Make(0.25f);
@@ -404,7 +405,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				if (count < 5) {
 					sinceLast += dt;
 
-					if (sinceLast >= 3.5f - Self.Phase * 0.5f) {
+					if (sinceLast >= 1f - Self.Phase * 0.25f) {
 						sinceLast = 0;
 						count++;
 
@@ -413,9 +414,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 						bee.Center = Self.Center;
 						Self.GetComponent<MobAnimationComponent>().Animate();
 					}
+
+					T = 0;
 				}
 
-				if (T >= 20) {
+				if (T >= 1) {
 					Become<IdleState>();
 				}
 			}
@@ -432,20 +435,20 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 0.2f) {
+				if (T >= 0.1f) {
 					count++;
 					T = 0;
 
-					if (count == 16) {
+					if (count == 32) {
 						Become<IdleState>();
 						return;
 					}
 						
 					var a = (count * 3 / 8f * Math.PI) + Rnd.Float(-0.5f, 0.5f);
-					var p = Projectile.Make(Self, "circle", a, 30f, scale: Rnd.Float(0.4f, 1f));
+					var p = Projectile.Make(Self, "circle", a, 30f, scale: Rnd.Float(1f, 2f));
 					
-					p.Color = ProjectileColor.Orange;
-					p.AddLight(64f, ProjectileColor.Orange);
+					p.Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange;
+					p.AddLight(64f, p.Color);
 
 					Camera.Instance.Shake(2);
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_swirly_shot");

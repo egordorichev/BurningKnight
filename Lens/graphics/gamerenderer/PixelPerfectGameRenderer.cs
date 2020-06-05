@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Graphics;
 using SharpDX.Direct2D1.Effects;
+using VelcroPhysics;
 
 namespace Lens.graphics.gamerenderer {
 	public class PixelPerfectGameRenderer : GameRenderer {
@@ -50,7 +51,7 @@ namespace Lens.graphics.gamerenderer {
 		
 		public void BeginShadows() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 			Graphics.Clear(Color.Transparent);
 		}
 
@@ -69,7 +70,7 @@ namespace Lens.graphics.gamerenderer {
 
 		private void BeginUi() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, uiScale);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, uiScale);
 		}
 
 		private void RenderUi() {
@@ -79,7 +80,7 @@ namespace Lens.graphics.gamerenderer {
 
 			BeginUi();
 			
-			if (Engine.Instance.Flash > 0) {
+			if (Engine.Flashes && Engine.Instance.Flash > 0) {
 				Graphics.Clear(Engine.Instance.FlashColor);
 			} else {
 				Graphics.Clear(Color.Transparent);

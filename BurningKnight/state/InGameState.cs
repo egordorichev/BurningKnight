@@ -499,6 +499,10 @@ namespace BurningKnight.state {
 		private List<Entity> particles = new List<Entity>();
 
 		private void SetupParticles() {
+			if (Settings.LowQuality) {
+				return;
+			}
+		
 			if (Weather.Rains) {
 				var s = Audio.GetSfx("level_rain_jungle");
 
@@ -1352,6 +1356,10 @@ namespace BurningKnight.state {
 
 			var player = LocalPlayer.Locate(Area);
 
+			if (Run.Depth > 0) {
+				TopUi.Add(new UiMap(player));
+			}	
+			
 			if (Assets.ImGuiEnabled) {
 				Console = new Console(Area);
 			}
@@ -1988,10 +1996,20 @@ namespace BurningKnight.state {
 				}
 			});
 			
+			gameSettings.Add(new UiCheckbox {
+				Name = "minimap",
+				On = Settings.Minimap,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 3,
+				Click = b => {
+					Settings.Minimap = ((UiCheckbox) b).On;
+				}
+			});
+			
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_settings",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 3.5f,
+				RelativeCenterY = sy + space * 4.5f,
 				Click = b => {
 					GoConfirm("reset_settings_dis", () => {
 						currentBack = settingsBack;
@@ -2025,7 +2043,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 				LocaleLabel = "reset_progress",
 				RelativeCenterX = sx,
-				RelativeCenterY = sy + space * 4.5f,
+				RelativeCenterY = sy + space * 5.5f,
 				Click = b => {
 					GoConfirm("reset_progress_dis", () => {
 						currentBack = settingsBack;
@@ -2072,7 +2090,7 @@ namespace BurningKnight.state {
 			gameSettings.Add(new UiButton {
 					LocaleLabel = "credits",
 					RelativeCenterX = sx,
-					RelativeCenterY = sy + space * 5.5f,
+					RelativeCenterY = sy + space * 6.5f,
 					Click = b => {
 						SetupCredits();
 						credits.Enabled = true;
@@ -2087,7 +2105,7 @@ namespace BurningKnight.state {
 				gameSettings.Add(new UiButton {
 						LocaleLabel = "tutorial",
 						RelativeCenterX = sx,
-						RelativeCenterY = sy + space * 6.5f,
+						RelativeCenterY = sy + space * 7.5f,
 						Click = b => { Run.Depth = -2; }
 				});
 			}
@@ -2176,8 +2194,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 20f;
-			var sy = Display.UiHeight * 0.5f - space * 2f;
+			var space = 16f;
+			var sy = Display.UiHeight * 0.5f - space * 3f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -2247,8 +2265,23 @@ namespace BurningKnight.state {
 					Settings.Cursor = ((UiChoice) c).Option;
 				}
 			});
+			
+			graphicsSettings.Add(new UiChoice {
+				Name = "quality",
+				Options = new [] {
+					"normal", "potato"
+				},
+				
+				Option = Settings.LowQuality ? 1 : 0,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 2,
+				
+				Click = c => {
+					Settings.LowQuality = ((UiChoice) c).Option == 1;
+				}
+			});
 
-			UiSlider.Make(graphicsSettings, sx, sy + space * 2, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
+			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "screenshake", (int) (Settings.Screenshake * 100), 1000).OnValueChange = s => {
 				Settings.Screenshake = s.Value / 100f;
 				ShakeComponent.Modifier = Settings.Screenshake;
 
@@ -2257,11 +2290,11 @@ namespace BurningKnight.state {
 				}
 			};
 				
-			UiSlider.Make(graphicsSettings, sx, sy + space * 3, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
+			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "scale", (int) (Settings.GameScale * 100), 200, 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.GameScale, x => Settings.GameScale = x, 0.3f);
 			};
 			
-			UiSlider.Make(graphicsSettings, sx, sy + space * 4, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
+			UiSlider.Make(graphicsSettings, sx, sy + space * 5, "floor_brightness", (int) (Settings.FloorDarkness * 100), 100).OnValueChange = s => {
 				Tween.To(s.Value / 100f, Settings.FloorDarkness, x => Settings.FloorDarkness = x, 0.3f);
 			};
 
@@ -2269,10 +2302,32 @@ namespace BurningKnight.state {
 				Name = "pixel_perfect",
 				On = Settings.PixelPerfect,
 				RelativeX = sx,
-				RelativeCenterY = sy + space * 5,
+				RelativeCenterY = sy + space * 6,
 				Click = b => {
 					Settings.PixelPerfect = ((UiCheckbox) b).On;
 					Engine.Instance.UpdateView();
+				}
+			});
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "vsync",
+				On = Settings.Vsync,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 7,
+				Click = b => {
+					Settings.Vsync = ((UiCheckbox) b).On;
+					Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
+					Engine.Graphics.ApplyChanges();
+				}
+			});
+
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "flashes",
+				On = Settings.Flashes,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 8,
+				Click = b => {
+					Engine.Flashes = Settings.Flashes = ((UiCheckbox) b).On;
 				}
 			});
 			

@@ -10,8 +10,6 @@ namespace BurningKnight.entity.twitch.happening {
 		
 		static HappeningRegistry() {
 			// Bad
-			Add("hurt", new HurtHappening());
-			Add("big_hurt", new HurtHappening(2));
 			Add("omega_hurt", new HurtHappening(3));
 			Add("confused", new BuffHappening(ConfusedBuff.Id, 30));
 			Add("snail", new BuffHappening(SlowBuff.Id, 30));
@@ -39,9 +37,7 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("give_random_consumable", new RandomItemHappening(ItemPool.Consumable));
 			Add("invincible", new BuffHappening(InvincibleBuff.Id, 30));
 			// Add("treasure_tp", new TeleportHappening(RoomType.Treasure, RoomType.Shop));
-			Add("small_heal", new HealHappening(1));
 			Add("heal", new HealHappening(2));
-			Add("omega_heal", new HealHappening(36));
 			Add("shielded", new GiveShieldHappening());
 			Add("cleanse", new ScourgeHappening(-3));
 			Add("chest", new ChestHappening());

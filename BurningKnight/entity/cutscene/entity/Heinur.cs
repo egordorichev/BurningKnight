@@ -44,6 +44,9 @@ namespace BurningKnight.entity.cutscene.entity {
 
 					Camera.Instance.Shake(20);
 					Engine.Instance.Flash = 2;
+					
+					GetComponent<SensorBodyComponent>().Velocity = Vector2.Zero;
+					p.GetComponent<SensorBodyComponent>().Velocity = Vector2.Zero;
 
 					return; 
 				}

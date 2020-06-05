@@ -39,6 +39,7 @@ namespace BurningKnight.util {
 			"BBQ is ready!",
 			"Hot sales!",
 			"AAAAAA",
+			"June 5th 2020",
 			"It burns burns burns",
 			"Not for children under -1",
 			"Unhandled fire",
@@ -145,7 +146,8 @@ namespace BurningKnight.util {
 			"Never gonna let you down",
 			"You know the rules and so do I",
 			"F",
-			"Nobody expects the Spanish Inquisition!"
+			"Nobody expects the Spanish Inquisition!",
+			DateTime.Now.ToString()
 		};
 
 		private static string[] birthdayTitles = {

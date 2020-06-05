@@ -137,7 +137,7 @@ namespace BurningKnight.entity.door {
 		}
 
 		public void RealRender() {
-			if (!Done && !(GetComponent<StateComponent>().StateInstance is OpenState)) {
+			if (/*!Done && */!(GetComponent<StateComponent>().StateInstance is OpenState)) {
 				base.Render();
 			}
 		}
@@ -176,6 +176,7 @@ namespace BurningKnight.entity.door {
 					if (((Lock) Self).Disposable()) {
 						Self.Done = true;
 					} else {
+						Self.Done = false;
 						Become<OpenState>();
 					}
 				}

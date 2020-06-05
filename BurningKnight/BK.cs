@@ -22,8 +22,8 @@ namespace BurningKnight {
 		public const bool StandMode = false;
 		public const bool Demo = false;
 		
-		// DO NOT FORGET V1.0 FOR THE FINAL RELEASE STEAM BUILD
-		public static Version Version = new Version("Final Push update", 46, 0, 1, 12, 32, Debug);
+		// Name removed cuz release bois
+		public static Version Version = new Version("", 47, 1, 0, 0, 0, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

@@ -45,7 +45,7 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T >= 5f && Self.CanSeeTarget()) {
+				if (T >= 3f && Self.CanSeeTarget()) {
 					Become<AimState>();
 				}
 			}
@@ -68,14 +68,14 @@ namespace BurningKnight.entity.creature.mob.jungle {
 			public override void Update(float dt) {
 				base.Update(dt);
 
-				if (T < 2f) {
+				if (T < 1f) {
 					if (Self.CanSeeTarget()) {
 						Self.GraphicsComponent.Flipped = Self.Target.CenterX < Self.CenterX;
 						lastSeen = Self.Target.Center;
 					}
 
 					Self.lastAngle = (float) MathUtils.LerpAngle(Self.lastAngle, Self.AngleTo(lastSeen), dt * 2f);
-				} else if (T >= 3f) {
+				} else if (T >= 1.5f) {
 					Become<IdleState>();
 				}
 			}

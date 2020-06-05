@@ -9,6 +9,7 @@ namespace Desktop.integration.twitch {
 	public class HappeningOption {
 		public Vector2 Position;
 
+		public int Num;
 		public string Id;
 		public string Label;
 		public string Name;
@@ -23,6 +24,7 @@ namespace Desktop.integration.twitch {
 
 			var name = Locale.Get($"happening_{id}");
 
+			Num = i;
 			Name = name.ToLower();
 			Label = $"#{i} {name}";
 			LabelWidth = Font.Small.MeasureString($"{Label} (100%)").Width;
