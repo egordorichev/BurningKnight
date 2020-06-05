@@ -66,14 +66,12 @@ namespace BurningKnight.ui {
 			var r = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 
 			r.End();
-			
-			var clipE = r.EnableClip;
-			var clipP = r.ClipPosition;
-			var clipS = r.ClipSize;
+
+			var rc = Engine.GraphicsDevice.ScissorRectangle;
+			var en = r.EnableClip;
 
 			r.EnableClip = true;
-			r.ClipPosition = Position;
-			r.ClipSize = size;
+			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) (X * Engine.Instance.UiUpscale), (int) (Y * Engine.Instance.UiUpscale), (int) (W * Engine.Instance.UiUpscale), (int) (H * Engine.Instance.UiUpscale));
 
 			r.Begin();
 			
@@ -136,10 +134,9 @@ namespace BurningKnight.ui {
 
 			r.End();
 			
-			r.EnableClip = clipE;
-			r.ClipPosition = clipP;
-			r.ClipSize = clipS;
-
+			Engine.GraphicsDevice.ScissorRectangle = rc;
+			r.EnableClip = en;
+			
 			r.Begin();
 		}
 	}

@@ -50,7 +50,7 @@ namespace Lens.graphics.gamerenderer {
 		
 		public void BeginShadows() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, Camera.Instance?.Matrix ?? one);
 			Graphics.Clear(Color.Transparent);
 		}
 
@@ -69,7 +69,7 @@ namespace Lens.graphics.gamerenderer {
 
 		private void BeginUi() {
 			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, DefaultRasterizerState, SurfaceEffect, uiScale);
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, uiScale);
 		}
 
 		private void RenderUi() {
