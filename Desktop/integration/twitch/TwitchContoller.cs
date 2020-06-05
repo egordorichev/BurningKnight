@@ -173,8 +173,8 @@ namespace Desktop.integration.twitch {
 			HappeningOption opt = null;
 			var mostVotes = 0;
 
-			foreach (var h in options) {
-				if (h.Votes > mostVotes) {
+			foreach (var h in this.options) {
+				if (opt == null || h.Votes > mostVotes) {
 					opt = h;
 					mostVotes = h.Votes;
 					options.Clear();

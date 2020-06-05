@@ -1,13 +1,10 @@
 * treasure room still spawns with gold lamp
 
-* wrong twitch vote gets picked kek
-
 * rekvi didnt have locks rendering
 * moving platforms can get stuck
 * bring flash remove back
 * reference to rekvi
 
-* remove accesss to pico8
 * game did not let continue run after restarting the game
 * fix autoaim items
 
