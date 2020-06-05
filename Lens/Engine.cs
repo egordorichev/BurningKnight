@@ -263,8 +263,8 @@ namespace Lens {
 		}
 		
 		public void UpdateView() {
-			float screenWidth = GetScreenWidth();
-			float screenHeight = GetScreenHeight();
+			var screenWidth = GetScreenWidth();
+			var screenHeight = GetScreenHeight();
 
 			Graphics.PreferredBackBufferWidth = (int) screenWidth;
 			Graphics.PreferredBackBufferHeight = (int) screenHeight;

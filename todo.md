@@ -4,12 +4,10 @@
 * pharaoh can move too close to the wall
 * pharaoh should shoot fasters
 * pharaoh shouldnt move tiles on last phase
-* when flower dies it should destroy its bullets
 * queen bee attacks slow
 * bee can get stuck in a different room (granny dm)
 * wrong twitch vote gets picked kek
 * increase follow distance on backpack
-* spawn less hp from room drops/mobs
 * give enemy spawns in challange room sfx and missile vfx that shows where they will spawn
 * backpack pet should take your second weapon if you have only 1 in hands
 * bring flash remove back
