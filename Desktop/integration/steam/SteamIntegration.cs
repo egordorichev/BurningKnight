@@ -23,10 +23,17 @@ namespace Desktop.integration.steam {
 
 				LaunchedFromSteam = true;
 				SaveManager.EnableCloudSave = true;
+				
 				var lang = SteamApps.GameLanguage.ToLower();
+				var ui = SteamUtils.SteamUILanguage;
 
-				Log.Info($"Starting from steam! <3 ({lang})");
+				Log.Info($"Starting from steam! <3 ({lang}, ui: {ui})");
 
+				if (lang == "english" && ui != lang) {
+					lang = ui;
+					Log.Info("Preffering ui language over default");
+				}
+				
 				switch (lang) {
 					case "english": {
 						Locale.PrefferedClientLanguage = "en";

@@ -1,5 +1,3 @@
-* russian doesnt turn on by default
-* якрость пола kek
 * wings shouldnt spawn in treasure rooms
 * rekvi didnt have locks rendering
 * moving platforms can get stuck
