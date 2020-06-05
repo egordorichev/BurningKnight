@@ -13,6 +13,12 @@ namespace BurningKnight.entity.projectile.controller {
 				var b = p.GetAnyComponent<BodyComponent>();
 				var d = b.Velocity.Length();
 				var a = b.Velocity.ToAngle();
+
+				var from = p.Center;
+
+				if (p.Owner.TryGetComponent<AimComponent>(out var aim)) {
+					from = aim.RealAim;
+				}
 				
 				if (target == null) {
 					var md = 320000f;
@@ -22,7 +28,7 @@ namespace BurningKnight.entity.projectile.controller {
 							continue;
 						}
 						
-						var dd = m.DistanceTo(p);
+						var dd = m.DistanceTo(from);
 
 						if (dd < md) {
 							md = dd;
@@ -68,13 +74,18 @@ namespace BurningKnight.entity.projectile.controller {
 				Entity target = null;
 				
 				var md = 320000f;
+				var from = p.Center;
 
+				if (p.Owner.TryGetComponent<AimComponent>(out var aim)) {
+					from = aim.RealAim;
+				}
+				
 				foreach (var m in (p.Owner.TryGetComponent<RoomComponent>(out var c) ? c.Room.Tagged[Tags.Mob] : p.Area.Tagged[Tags.Mob])) {
 					if (m.Done || m.GetComponent<HealthComponent>().Unhittable) {
 						continue;
 					}
 					
-					var dd = m.DistanceTo(p);
+					var dd = m.DistanceTo(from);
 
 					if (dd < md) {
 						md = dd;
