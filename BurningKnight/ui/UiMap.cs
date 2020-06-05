@@ -19,7 +19,9 @@ namespace BurningKnight.ui {
 		private const int W = 64;
 		private const int H = 64;
 
-		private static Vector2 scale = new Vector2(2);
+		private static Vector2 scale = new Vector2(2f);
+		private static Vector2 bigScale = new Vector2(4f);
+
 		private static Vector2 centerOffset = new Vector2(W / 2, H / 2);
 		private static Vector2 size = new Vector2(W, H);
 		private Player player;
@@ -29,15 +31,16 @@ namespace BurningKnight.ui {
 		private TextureRegion exitIcon;
 		private TextureRegion treasureIcon;
 		private TextureRegion playerIcon;
-		
+		private TextureRegion frame;
+
 		public UiMap(Player pl) {
 			player = pl;
 
 			Width = W;
 			Height = H;
 
-			X = Display.UiWidth - W - 8;
-			Y = 8;
+			X = Display.UiWidth - W - 11;
+			Y = 11;
 
 			slice = CommonAse.Particles.GetSlice("fire");
 
@@ -45,6 +48,7 @@ namespace BurningKnight.ui {
 			exitIcon = CommonAse.Ui.GetSlice("exit");
 			treasureIcon = CommonAse.Ui.GetSlice("treasure");
 			playerIcon = CommonAse.Ui.GetSlice("gps");
+			frame = CommonAse.Ui.GetSlice("map_frame");
 
 			AlwaysActive = true;
 			AlwaysVisible = true;
@@ -74,8 +78,9 @@ namespace BurningKnight.ui {
 			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) (X * Engine.Instance.UiUpscale), (int) (Y * Engine.Instance.UiUpscale), (int) (W * Engine.Instance.UiUpscale), (int) (H * Engine.Instance.UiUpscale));
 
 			r.Begin();
-			
-			Graphics.Color.A = 100;
+
+			Graphics.Color = ColorUtils.BlackColor;
+			Graphics.Color.A = 150;
 			Graphics.Render(slice, new Vector2(X, Y), 0, Vector2.Zero, new Vector2(W, H));
 			Graphics.Color.A = 255;
 			
@@ -86,16 +91,35 @@ namespace BurningKnight.ui {
 					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
-							
-							if (level.Explored[i] && !level.Get(i).IsWall()) {
-								if (xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-									Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2), (int) Math.Floor(Y + H / 2 + (yy - fy) * 2)), 0, Vector2.Zero, scale);
-								}
+
+							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
+								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2) - 1, (int) Math.Floor(Y + H / 2 + (yy - fy) * 2) - 1), 0, Vector2.Zero, bigScale);
 							}
 						}
 					}
 				}
 			}
+			
+			Graphics.Color = ColorUtils.WhiteColor;
+
+			foreach (var rm in level.Area.Tagged[Tags.Room]) {
+				var room = (Room) rm;
+
+				if (rect.Intersects(room.Rect)) {
+					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
+						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
+							var i = level.ToIndex(xx, yy);
+
+							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
+								Graphics.Color.A = (byte) ((xx + yy) % 2 == 0 ? 230 : 240);
+								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2), (int) Math.Floor(Y + H / 2 + (yy - fy) * 2)), 0, Vector2.Zero, scale);
+							}
+						}
+					}
+				}
+			}
+			
+			Graphics.Color.A = 255;
 
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
@@ -138,6 +162,8 @@ namespace BurningKnight.ui {
 			r.EnableClip = en;
 			
 			r.Begin();
+
+			Graphics.Render(frame, Position - new Vector2(3));
 		}
 	}
 }
