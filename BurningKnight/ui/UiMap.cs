@@ -21,6 +21,8 @@ namespace BurningKnight.ui {
 
 		private static Vector2 scale = new Vector2(2f);
 		private static Vector2 bigScale = new Vector2(4f);
+		private static Color colorA = new Color(101, 115, 146);
+		private static Color colorB = new Color(66, 76, 110);
 
 		private static Vector2 centerOffset = new Vector2(W / 2, H / 2);
 		private static Vector2 size = new Vector2(W, H);
@@ -114,7 +116,7 @@ namespace BurningKnight.ui {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-								Graphics.Color.A = (byte) ((xx + yy) % 2 == 0 ? 230 : 240);
+								Graphics.Color = ((xx + yy) % 2 == 0 ? colorA : colorB);
 								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2), (int) Math.Floor(Y + H / 2 + (yy - fy) * 2)), 0, Vector2.Zero, scale);
 							}
 						}
@@ -122,7 +124,7 @@ namespace BurningKnight.ui {
 				}
 			}
 			
-			Graphics.Color.A = 255;
+			Graphics.Color = ColorUtils.WhiteColor;
 
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
@@ -155,9 +157,7 @@ namespace BurningKnight.ui {
 				}
 			}
 
-			Graphics.Color = ProjectileColor.Green;
-			Graphics.Render(playerIcon, new Vector2(X + W / 2f, Y + H / 2f), 0, playerIcon.Center);
-			Graphics.Color = ColorUtils.WhiteColor;
+			//Graphics.Render(playerIcon, new Vector2(X + W / 2f, Y + H / 2f), 0, playerIcon.Center);
 
 			r.End();
 			
