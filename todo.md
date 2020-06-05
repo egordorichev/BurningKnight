@@ -1,15 +1,11 @@
-* rekvi didnt have locks rendering
-* moving platforms can get stuck
-
-* pharaoh can move too close to the wall
-* pharaoh should shoot faster
-* pharaoh shouldnt move tiles on last phase
+* treasure room still spawns with gold lamp
 
 * wrong twitch vote gets picked kek
-* give enemy spawns in challange room sfx and missile vfx that shows where they will spawn
+
+* rekvi didnt have locks rendering
+* moving platforms can get stuck
 * bring flash remove back
 * reference to rekvi
-* treasure room still spawns with gold lamp
 
 * remove accesss to pico8
 * game did not let continue run after restarting the game
@@ -25,7 +21,9 @@ twitch events {
 }
 
 * map
+* should I allow pharaoh to shoot through walls?
 * maanex mob spawns suggestion
+* single weapon but more hp lamp?
 
 # bugs
 * invis walls?

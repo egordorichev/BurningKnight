@@ -127,13 +127,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 					var v = Self.counter;
 
 					if (v == 0) {
+						Become<SimpleSpiralState>();
+					} else if (v == 1) {
 						if (Self.InThirdPhase) {
 							Become<BulletHellState>();
 						} else {
 							Become<TileMoveState>();
 						}
-					} else if (v == 1) {
-						Become<SimpleSpiralState>();
 					} else if (v == 2) {
 						Become<TeleportState>();
 					} else if (v == 3) {
@@ -164,12 +164,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = 0.3f;
+					sinceLast = 0.2f;
 					var amount = 2 + (Self.Phase - 1);
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
-						var projectile = Projectile.Make(Self, "small", a, 8f, scale: count % 2 == 0 ? 1f : 1.5f);
+						var projectile = Projectile.Make(Self, "small", a, 8f, scale: count % 2 == 0 ? 1.5f : 2f);
 
 						projectile.Color = count % 4 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
 						projectile.CanBeBroken = false;
@@ -180,7 +180,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					count++;
 				}
 
-				if (T >= 10f) {
+				if (T >= 8f) {
 					Become<IdleState>();
 				}
 			}
@@ -195,12 +195,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = Self.InFirstPhase ? 0.9f : 0.6f;
+					sinceLast = Self.InFirstPhase ? 0.6f : 0.4f;
 					var amount = 8;
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 1) * Math.PI * 0.25f) * (i % 2 == 1 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 6f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1f);
+						var projectile = Projectile.Make(Self, "small", a, 6f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1.5f);
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
 
 						projectile.CanBeBroken = false;
@@ -226,12 +226,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				sinceLast -= dt;
 
 				if (sinceLast <= 0) {
-					sinceLast = Self.InFirstPhase ? 0.5f : 0.3f;
+					sinceLast = Self.InFirstPhase ? 0.4f : 0.2f;
 					var amount = 4;
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 7f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1f);
+						var projectile = Projectile.Make(Self, "small", a, 7f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1.5f);
 						
 						projectile.CanBeBroken = false;
 						projectile.CanBeReflected = false;
@@ -344,7 +344,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
-							var projectile = Projectile.Make(Self, "small", a, 7f + j1 * 2f, scale: j1 == 0 ? 1f : 1.5f);
+							var projectile = Projectile.Make(Self, "small", a, 7f + j1 * 2f, scale: j1 == 0 ? 1f : 2f);
 
 							projectile.CanBeBroken = false;
 							projectile.CanBeReflected = false;

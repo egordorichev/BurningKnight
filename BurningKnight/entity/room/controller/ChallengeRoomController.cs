@@ -1,11 +1,14 @@
 using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
 using BurningKnight.level.entities.chest;
 using BurningKnight.state;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
@@ -74,8 +77,20 @@ namespace BurningKnight.entity.room.controller {
 					} else if (mob.TryGetComponent<MobAnimationComponent>(out var m)) {
 						m.Animate();
 					}
+
+					var where = mob.Center;
 					
-					AnimationUtil.Poof(mob.Center, 1);
+					for (var j = 0; j < 8; j++) {
+						var part = new ParticleEntity(Particles.Dust());
+						
+						part.Position = where + Rnd.Vector(-8, 8);
+						part.Particle.Scale = Rnd.Float(1f, 1.3f);
+						part.Particle.Velocity = MathUtils.CreateVector(Rnd.AnglePI(), 40);
+						Run.Level.Area.Add(part);
+						part.Depth = 1;
+					}
+					
+					Audio.PlaySfx("scroll");
 				}, (i) * 0.2f);
 			}
 

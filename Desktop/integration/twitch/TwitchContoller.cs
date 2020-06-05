@@ -151,7 +151,7 @@ namespace Desktop.integration.twitch {
 			}
 			
 			if (int.TryParse(message, out var number)) {
-				if (number < 1 || number > options.Count || votersCache.Contains(chatMessage.Username)) {
+				if (number < 1 || number > options.Count || (chatMessage.Username != TwitchIntegration.DevAccount && votersCache.Contains(chatMessage.Username))) {
 					return false;
 				}
 				
@@ -168,35 +168,41 @@ namespace Desktop.integration.twitch {
 		}
 
 		private void ExecuteOrder66() {
-			Happening topHappening = null;
+			var options = new List<HappeningOption>();
+			
+			HappeningOption opt = null;
 			var mostVotes = 0;
-			var optionId = 0;
-			var topOptionId = 0;
 
 			foreach (var h in options) {
-				if (h.Votes >= mostVotes && (topHappening == null || Rnd.Chance())) {
-					topHappening = h.Happening;
-					topOptionId = optionId;
+				if (h.Votes > mostVotes) {
+					opt = h;
 					mostVotes = h.Votes;
+					options.Clear();
+					options.Add(h);
+				} else if (h.Votes == mostVotes) {
+					options.Add(h);
 				}
-
-				optionId++;
 			}
 
-			if (topHappening == null) {
+			if (options.Count > 1) {
+				Log.Info($"Picking from the same vote candidates of size {options.Count}");
+				opt = options[Rnd.Int(options.Count)];
+			}
+
+			if (opt == null) {
 				Log.Error("The jedi have escaped");
 				return;
 			}
 			
-			Log.Debug($"Option #{topOptionId + 1} has won!");
+			Log.Debug($"Option #{opt.Num} has won!");
 			
 			try {
-				topHappening.Happen(player);
+				opt.Happening.Happen(player);
 			} catch (Exception e) {
 				Log.Error(e);
 			}
 
-			TextParticle.Add(player, options[topOptionId].Name);
+			TextParticle.Add(player, opt.Name);
 		}
 	}
 }

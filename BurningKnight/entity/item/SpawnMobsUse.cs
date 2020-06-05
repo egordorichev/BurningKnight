@@ -1,12 +1,17 @@
 using System;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.item.use;
 using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.lightJson;
+using Lens.util;
+using Lens.util.math;
+using Lens.util.timer;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.item {
@@ -26,16 +31,30 @@ namespace BurningKnight.entity.item {
 			MobRegistry.SetupForBiome(Run.Level.Biome.Id);
 			
 			for (var i = 0; i < Count; i++) {
-				var mob = MobRegistry.Generate();
-				entity.Area.Add(mob);
+				Timer.Add(() => {
+					var mob = MobRegistry.Generate();
+					entity.Area.Add(mob);
 
-				if (MobRegistry.FindFor(mob.GetType())?.NearWall ?? false) {
-					mob.Center = r.Room.GetRandomFreeTileNearWall(filter) * 16;
-				} else {
-					mob.Center = r.Room.GetRandomFreeTile(filter) * 16;
-				}
+					if (MobRegistry.FindFor(mob.GetType())?.NearWall ?? false) {
+						mob.Center = r.Room.GetRandomFreeTileNearWall(filter) * 16;
+					} else {
+						mob.Center = r.Room.GetRandomFreeTile(filter) * 16;
+					}
 
-				AnimationUtil.Poof(mob.Center, 1);
+					var where = mob.Center;
+					
+					for (var j = 0; j < 8; j++) {
+						var part = new ParticleEntity(Particles.Dust());
+						
+						part.Position = where + Rnd.Vector(-8, 8);
+						part.Particle.Scale = Rnd.Float(1f, 1.3f);
+						part.Particle.Velocity = MathUtils.CreateVector(Rnd.AnglePI(), 40);
+						Run.Level.Area.Add(part);
+						part.Depth = 1;
+					}
+					
+					Audio.PlaySfx("scroll");
+				}, (i - 1) * 0.2f);
 			}
 		}
 

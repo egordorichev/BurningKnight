@@ -22,7 +22,7 @@ using TwitchLib.Communication.Models;
 
 namespace Desktop.integration.twitch {
 	public class TwitchIntegration : Integration {
-		private const string DevAccount = "egordorichev";
+		public const string DevAccount = "egordorichev";
 		private static string Boots = "rwzxul2y";
 		
 		private TwitchClient client;
@@ -132,8 +132,15 @@ namespace Desktop.integration.twitch {
 		private List<string> messageIds = new List<string>();
 
 		private void OnSub(string who, string color) {
-			foreach (var d in totalBuffer) {
-				if (d.Nick == who) {
+			// Just to be safe from threading tbh
+			for (var i = 0; i < buffer.Count; i++) {
+				if (buffer[i].Nick == who) {
+					return;
+				}
+			}
+			
+			for (var i = 0; i < totalBuffer.Count; i++) {
+				if (totalBuffer[i].Nick == who) {
 					return;
 				}
 			}
