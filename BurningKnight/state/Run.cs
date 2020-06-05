@@ -160,7 +160,7 @@ namespace BurningKnight.state {
 		}
 
 		public static string FormatTime() {
-			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s";
+			return $"{Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f % 60f)}m {Math.Floor(Time % 60f)}s";
 		}
 
 		public static void RemoveScourge() {

@@ -292,6 +292,16 @@ namespace BurningKnight.level {
 				Room.PaintFloor(Level);
 				Room.Paint(Level);
 
+				if (Room is SecretRoom) {
+					for (var Y = Room.Top + 1; Y < Room.Bottom; Y++) {
+						for (var X = Room.Left + 1; X < Room.Right; X++) {
+							if (Rnd.Chance(Run.Depth * 5)) {
+								Level.MatrixLeak[Level.ToIndex(X, Y)] = true;
+							}
+						}
+					}
+				}
+
 				if (!(Room is TreasureRoom)) {
 					foreach (var d in Room.Connected.Values) {
 						if (d.Type != DoorPlaceholder.Variant.Secret) {

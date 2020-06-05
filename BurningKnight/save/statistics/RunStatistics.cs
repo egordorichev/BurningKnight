@@ -343,7 +343,7 @@ namespace BurningKnight.save.statistics {
 		public void RenderWindow() {
 			ImGui.Separator();
 			
-			ImGui.Text($"Time: {Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f)}m {Math.Floor(Time % 60f)}s");
+			ImGui.Text($"Time: {Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f % 60f)}m {Math.Floor(Time % 60f)}s");
 			ImGui.Text($"Won: {Won}");
 			ImGui.Text($"Loop: {Run.Loop}");
 			ImGui.Text($"Max Depth: {MaxDepth}");

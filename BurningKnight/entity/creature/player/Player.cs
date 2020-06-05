@@ -63,6 +63,7 @@ namespace BurningKnight.entity.creature.player {
 		public string ProjectileTexture = "rect";
 
 		public bool ItemDamage;
+		public bool Sliding;
 
 		private bool dead;
 

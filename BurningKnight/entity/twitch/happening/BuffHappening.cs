@@ -12,7 +12,15 @@ namespace BurningKnight.entity.twitch.happening {
 		}
 		
 		public override void Happen(Player player) {
-			player.GetComponent<BuffsComponent>().Add(buff).TimeLeft = duration;
+			if (!player.TryGetComponent<BuffsComponent>(out var bfz)) {
+				return;
+			}
+			
+			var bf = bfz.Add(buff);
+
+			if (bf != null) {
+				bf.TimeLeft = duration;
+			}
 		}
 	}
 }
