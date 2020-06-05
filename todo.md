@@ -3,18 +3,18 @@
 * rekvi didnt have locks rendering
 * rekvi fps issues
 * moving platforms can get stuck (room where they move around center)
-* reference to rekvi
 
 twitch events {
  you place bombs every 3 seconds
- order 66к 
+ order 66
  you constantly SLIIIIIIIIIIIIIIIIIIIIIIIIDE
  
  + better announcement
  + delay between alerts
 }
 
-* low graphics settings
+* minimap doesnt show doors on top/bottom
+
 * maanex mob spawns suggestion
 
 # bugs
