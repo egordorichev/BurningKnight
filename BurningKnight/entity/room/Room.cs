@@ -50,6 +50,7 @@ namespace BurningKnight.entity.room {
 		public bool Cleared;
 		public string Id;
 		public RoomDef Parent;
+		public Rect Rect;
 		
 		public List<RoomControllable> Controllable = new List<RoomControllable>();
 		public List<RoomInput> Inputs = new List<RoomInput>();
@@ -104,6 +105,8 @@ namespace BurningKnight.entity.room {
 			Y = MapY * 16 - 4;
 			Width = MapW * 16 - 8;
 			Height = MapH * 16 - 8;
+
+			Rect = new Rect().Setup(MapX, MapY, MapW, MapH);
 		}
 
 		public override void Update(float dt) {
